@@ -16,7 +16,6 @@
 //  Created by Petter Sjölund on 2022-01-08.
 //
 
-#include <ctype.h>
 #include <stdarg.h>
 #include <stdlib.h>
 #include <string.h>
@@ -26,6 +25,8 @@
 #include "irmak.h"
 #include "sagadraw.h"
 #include "scott.h"
+#include "detect_game.h"
+#include "scott_meta.h"
 #include "scott_actions.h"
 #include "scott_display.h"
 #include "taylordraw.h"
@@ -33,13 +34,17 @@
 
 // Glk windows for the split-screen battle display:
 // Two graphics windows for animated dice, plus a text grid for the player's stats.
-winid_t LeftDiceWin, RightDiceWin, BattleRight;
-glui32 background_colour;
+static winid_t LeftDiceWin, RightDiceWin, BattleRight;
+static glui32 background_colour;
 
-extern const char *battle_messages[33];
+#define NUM_BATTLE_MESSAGES 33
+#define ENEMY_TABLE_SIZE 126
+
+// Combat messages
+static const char *battle_messages[NUM_BATTLE_MESSAGES];
 // Enemy lookup table: 4-byte entries (item index, strike, stamina, boatflag),
 // terminated by 0xFF. Loaded from game data in LoadExtraSeasOfBloodData().
-extern uint8_t enemy_table[126];
+static uint8_t enemy_table[ENEMY_TABLE_SIZE];
 uint8_t *blood_image_data;
 
 // Battle outcome constants
@@ -47,15 +52,15 @@ uint8_t *blood_image_data;
 #define LOSS 1
 #define DRAW 2
 #define FLEE 3
-#define ERROR 99
+#define BATTLE_ERROR 99
 
 // Dice rendering parameters, computed from the available window size
-glui32 dice_pixel_size, dice_x_offset, dice_y_offset;
+static glui32 dice_pixel_size, dice_x_offset, dice_y_offset;
 
 static int get_enemy_stats(int *strike, int *stamina, int *boatflag);
 static void battle_loop(int strike, int stamina, int boatflag);
 static void swap_stamina_and_crew_strength(void);
-void blood_battle(void);
+static void blood_battle(void);
 
 // Displays the player's character sheet, mirroring the Fighting Fantasy
 // adventure sheet format. Player skill and crew strike are fixed at 9.
@@ -111,7 +116,7 @@ void BloodAction(int p)
     }
 }
 
-#pragma mark Image drawing
+// MARK: Image drawing
 
 // Flag to track whether object images still need to be drawn on top of
 // the room image. Set to 1 before drawing the room, cleared after objects
@@ -139,7 +144,7 @@ void DrawObjectImages(uint8_t x, uint8_t y)
 
 /* Remove ugly bright tiles behind sarcophagus
  (only visible with ZX Spectrum palette) */
-void PatchCryptImage(void) {
+static void PatchCryptImage(void) {
     imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] & ~BRIGHT_FLAG;
     imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] & ~BRIGHT_FLAG;
     imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] & ~BRIGHT_FLAG;
@@ -167,7 +172,7 @@ void SeasOfBloodRoomImage(void)
         DrawIrmakPictureFromBuffer();
 }
 
-#pragma mark Battles
+// MARK: Battles
 
 // Printf-style helper that outputs formatted text to a specific Glk window.
 // Used throughout the battle system to write to different panes.
@@ -337,7 +342,7 @@ static void setup_battle_screen(int boatflag)
 // Main battle entry point. Looks up the enemy at the current location,
 // sets up the battle UI, runs the combat loop, then tears down the
 // battle windows and restores the normal game display.
-void blood_battle(void)
+static void blood_battle(void)
 {
     int enemy, strike, stamina, boatflag;
     enemy = get_enemy_stats(&strike, &stamina, &boatflag);
@@ -658,7 +663,7 @@ int roll_dice(int strike, int stamina, int boatflag)
             RearrangeBattleDisplay(strike, stamina, boatflag);
         }
     }
-    return ERROR;
+    return BATTLE_ERROR;
 }
 
 // Waits for the player to press ENTER during combat, while still handling
@@ -686,8 +691,6 @@ void BattleHitEnter(int strike, int stamina, int boatflag)
     return;
 }
 
-//#define AUTOWIN
-
 // Main combat loop. Repeats dice rounds until one side's stamina reaches 0,
 // or the player flees. Each loss deals 2 stamina damage.
 // BitFlag 6 is the "battle lost" flag used by the game engine.
@@ -697,6 +700,8 @@ void BattleHitEnter(int strike, int stamina, int boatflag)
 //   [11-15]= draw messages,         [27-31] = boat: draw
 static void battle_loop(int strike, int stamina, int boatflag)
 {
+    /* AUTOWIN is defined by the headless and scene test builds
+       (Makefile.headless, saga/test/Makefile), which cannot throw dice. */
 #ifdef AUTOWIN
     glk_put_string("YOU HAVE WON!");
     ClearBitFlag(6);
@@ -770,64 +775,11 @@ static void swap_stamina_and_crew_strength(void)
     Counters[3] = temp;
 }
 
-// Loads game-specific data that isn't part of the standard Scott Adams
-// format: enemy stats, battle messages, object image data, and system
-// messages. Data offsets differ between the C64 and ZX Spectrum versions.
-void LoadExtraSeasOfBloodData(int c64)
+// Map platform-specific system messages to the engine's canonical
+// message keys. The C64 and Spectrum versions store these in different
+// orders, so each needs its own mapping.
+static void MapBloodSysMessages(int c64)
 {
-#pragma mark Enemy table
-
-    // Enemy table: 4 bytes per entry (item index, strike, stamina, boatflag),
-    // terminated by 0xFF.
-    int offset = file_baseline_offset + ((c64 == 1) ? 0x3fee: 0x47b7);
-
-    uint8_t *ptr = SeekToPos(offset);
-
-    int ct;
-
-    for (ct = 0; ct < 124; ct++) {
-        enemy_table[ct] = *(ptr++);
-        if (enemy_table[ct] == 0xff)
-            break;
-    }
-
-#pragma mark Battle messages
-
-    // 32 compressed text strings for combat flavour text, organized in
-    // groups of 5 for player-hit, enemy-hit, and draw outcomes (personal
-    // and ship variants). See battle_loop() for indexing.
-    offset = file_baseline_offset + ((c64 == 1) ? 0x82f6 : 0x71da);
-
-    ptr = SeekToPos(offset);
-
-    for (int i = 0; i < 32; i++) {
-        battle_messages[i] = DecompressText(ptr, i);
-    }
-
-#pragma mark Extra image data
-
-    // Object sprite image data (2010 bytes) used by the TaylorDraw engine
-    // to render item images overlaid on room backgrounds.
-    offset = file_baseline_offset + ((c64 == 1) ? 0x5299: 0x3b10);
-
-    int data_length = 2010;
-
-    blood_image_data = MemAlloc(data_length);
-
-    ptr = SeekToPos(offset);
-
-    memcpy(blood_image_data, ptr, data_length);
-
-    // Initialize the TaylorDraw engine with the image data.
-    // The callback DrawObjectImages is invoked during room rendering.
-    InitTaylor(blood_image_data,
-                   blood_image_data + 2010, NULL, 1, 0, DrawObjectImages);
-
-#pragma mark System messages
-
-    // Map platform-specific system messages to the engine's canonical
-    // message keys. The C64 and Spectrum versions store these in different
-    // orders, so each needs its own mapping.
     if (c64 == 1) {
         SysMessageType messagekey[] = {
             NORTH,
@@ -876,12 +828,15 @@ void LoadExtraSeasOfBloodData(int c64)
         Items[125].Text = "A loose plank";
         Items[125].AutoGet = "PLAN";
     }
+}
 
-    // Bug fix: dropping the helmet destroys it (action code 89xx = destroy
-    // item). If you wear then drop it, it works correctly (action code
-    // 80xx = move to current room). This appears to be an original bug,
-    // so we patch the action table to use "move to room" instead.
-    // Action indices differ between the Spectrum and C64 versions.
+// Bug fix: dropping the helmet destroys it (action code 89xx = destroy
+// item). If you wear then drop it, it works correctly (action code
+// 80xx = move to current room). This appears to be an original bug,
+// so we patch the action table to use "move to room" instead.
+// Action indices differ between the Spectrum and C64 versions.
+static void PatchDropHelmet(void)
+{
     if (Actions[154].Opcode[0] == 8910) {
         /* Spectrum */
         debug_print("Patching DROP HELMET!\n");
@@ -891,4 +846,63 @@ void LoadExtraSeasOfBloodData(int c64)
         debug_print("Patching DROP HELMET!\n");
         Actions[156].Opcode[0] = 8010;
     }
+}
+
+// Loads game-specific data that isn't part of the standard Scott Adams
+// format: enemy stats, battle messages, object image data, and system
+// messages. Data offsets differ between the C64 and ZX Spectrum versions.
+void LoadExtraSeasOfBloodData(int c64)
+{
+// MARK: Enemy table
+
+    // Enemy table: 4 bytes per entry (item index, strike, stamina, boatflag),
+    // terminated by 0xFF.
+    int offset = file_baseline_offset + ((c64 == 1) ? 0x3fee: 0x47b7);
+
+    uint8_t *ptr = SeekToPos(offset);
+
+    int ct;
+
+    for (ct = 0; ct < 124; ct++) {
+        enemy_table[ct] = *(ptr++);
+        if (enemy_table[ct] == 0xff)
+            break;
+    }
+
+// MARK: Battle messages
+
+    // 32 compressed text strings for combat flavour text, organized in
+    // groups of 5 for player-hit, enemy-hit, and draw outcomes (personal
+    // and ship variants). See battle_loop() for indexing.
+    offset = file_baseline_offset + ((c64 == 1) ? 0x82f6 : 0x71da);
+
+    ptr = SeekToPos(offset);
+
+    for (int i = 0; i < 32; i++) {
+        battle_messages[i] = DecompressText(ptr, i);
+    }
+
+// MARK: Extra image data
+
+    // Object sprite image data (2010 bytes) used by the TaylorDraw engine
+    // to render item images overlaid on room backgrounds.
+    offset = file_baseline_offset + ((c64 == 1) ? 0x5299: 0x3b10);
+
+    int data_length = 2010;
+
+    blood_image_data = MemAlloc(data_length);
+
+    ptr = SeekToPos(offset);
+
+    memcpy(blood_image_data, ptr, data_length);
+
+    // Initialize the TaylorDraw engine with the image data.
+    // The callback DrawObjectImages is invoked during room rendering.
+    InitTaylor(blood_image_data,
+                   blood_image_data + data_length, NULL, 1, 0, DrawObjectImages);
+
+// MARK: System messages
+
+    MapBloodSysMessages(c64);
+    PatchDropHelmet();
 }

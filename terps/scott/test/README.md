@@ -46,6 +46,15 @@
 - `make -f Makefile.headless companioncheck` — the two-disk sets of those
   images with one disk missing and under other file names: which names let a
   disk find the other one. Also in `test/formats/README.md`.
+- `make -f Makefile.headless savecheck` — `SAVE GAME` and `RESTORE GAME` to a
+  file (`test/save/run_save_tests.py`), played on `test/regression.dat`, so
+  it needs no game images. A state is read back by saving it: two states are
+  the same when their save files are. Covers round trips, restoring a file
+  that differs in every field, the older file layout without the automatic
+  inventory field, and damaged files (cut short, too long, garbage, values
+  out of range), which must be turned down with the game left as it was.
+  `run_save_tests.py NAME...` runs single cases; `-v` also lists the ones
+  that pass.
 
 ## DETERMINISM is mandatory
 

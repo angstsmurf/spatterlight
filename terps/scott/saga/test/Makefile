@@ -10,10 +10,12 @@
 CC      ?= cc
 SCOTT   := ../..
 TERPS   := $(SCOTT)/..
-CFLAGS  := -std=c11 -g -O0 -w -DSPATTERLIGHT \
+BASE_CFLAGS := -std=c11 -g -O0 -w
+CFLAGS  := $(BASE_CFLAGS) -DSPATTERLIGHT \
            -I$(SCOTT) -I$(SCOTT)/saga -I$(SCOTT)/ai_uk \
            -I$(TERPS)/common_utils -I$(TERPS)/common_sagadraw \
-           -I$(TERPS)/readwoz -I$(TERPS)/aiukgraphics -I$(TERPS)/../glkimp
+           -I$(TERPS)/readwoz -I$(TERPS)/aiukgraphics -I$(TERPS)/c64diskimage \
+           -I$(TERPS)/../glkimp
 
 SRCS := filltest.c headless_glk_stubs.c \
         $(SCOTT)/saga/apple2_vector_draw.c \
@@ -25,6 +27,26 @@ SRCS := filltest.c headless_glk_stubs.c \
         $(TERPS)/common_utils/memory_allocation.c \
         $(TERPS)/common_utils/common_file_utils.c \
         $(TERPS)/common_utils/companion_search.c
+
+# ---- Objects -----------------------------------------------------------------
+# Every source is compiled to build/<flavour>/<basename>.o by a pattern rule
+# with -MMD, so a changed header rebuilds what includes it (the unity-included
+# renderers too) and `make -j` works. The flavours differ in flags only:
+#   test      CFLAGS: the small renderer harnesses, against the glkimp headers
+#   obj       EXTRACT_CFLAGS: the whole loader, against cheapglk
+#   c64obj    obj + the real C64 decrunch pipeline
+#   sceneobj  c64obj + the fake Glk window layer of scenetest
+# $(call objs,FLAVOUR,SOURCES) names the objects of a source list.
+vpath %.c $(SCOTT) $(SCOTT)/ai_uk $(SCOTT)/saga $(SCOTT)/ti994a \
+          $(TERPS)/common_utils $(TERPS)/common_sagadraw $(TERPS)/aiukgraphics \
+          $(TERPS)/readwoz $(TERPS)/c64diskimage $(TERPS)/decompressz80 \
+          $(TERPS)/common_zxscreen
+objs = $(patsubst %.c,build/$(1)/%.o,$(notdir $(2)))
+DEPFLAGS := -MMD -MP
+
+build/test/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(CFLAGS) $(DEPFLAGS) -c $< -o $@
 
 FIXTURES := $(TERPS)/../SpatterlightTests/Supporting Files/
 
@@ -43,17 +65,8 @@ define run_goldens
 fail=0; $(call each_golden,$(2),$(3)) $(call goldens_verdict,$(1),$(4))
 endef
 
-# $(call compile_each,SOURCES,OBJDIR,FLAGS): compile every C source to
-# OBJDIR/<its path with / and . turned into _>.o, leaving the object list in the
-# shell variable objs (for a link command in the same recipe line).
-compile_each = objs=""; for f in $(1); do \
-  o="$(2)/$$(echo $$f | tr '/.' '__').o"; \
-  $(CC) $(3) -c "$$f" -o "$$o" || exit 1; \
-  objs="$$objs $$o"; done;
-
-build/filltest: $(SRCS) filltest.c
-	@mkdir -p build
-	$(CC) $(CFLAGS) -o $@ $(SRCS)
+build/filltest: $(call objs,test,$(SRCS))
+	$(CC) -o $@ $^
 
 test: build/filltest
 	./build/filltest "$(FIXTURES)"
@@ -74,9 +87,8 @@ DOS_SRCS := dostest.c \
             $(SCOTT)/../common_utils/read_le16.c
 DOS_GOLDENS := $(wildcard groundtruth_dos/*/*.cga)
 
-build/dostest: $(DOS_SRCS)
-	@mkdir -p build
-	$(CC) $(CFLAGS) -o $@ $(DOS_SRCS)
+build/dostest: $(call objs,test,$(DOS_SRCS))
+	$(CC) -o $@ $^
 
 dostest: build/dostest
 	@$(call run_goldens,DOS,$(DOS_GOLDENS),{ \
@@ -86,9 +98,8 @@ dostest: build/dostest
 
 # Extractor for C64 SAGA disks that ship separate R### image files (not the
 # packed/decrunch games). Built on demand; not part of the default test run.
-build/c64extract: c64extract.c $(TERPS)/c64diskimage/c64diskimage.c
-	@mkdir -p build
-	$(CC) $(CFLAGS) -I$(TERPS)/c64diskimage -o $@ c64extract.c $(TERPS)/c64diskimage/c64diskimage.c
+build/c64extract: $(call objs,test,c64extract.c c64diskimage.c)
+	$(CC) -o $@ $^
 
 # ---- Apple II (PC/hi-res) SAGA bitmap renderer -------------------------------
 # common_sagadraw/apple2draw.c:DrawApple2ImageFromData decodes a blob into
@@ -103,9 +114,8 @@ A2_SRCS := apple2test.c headless_glk_stubs.c \
            $(SCOTT)/../common_utils/read_le16.c
 A2_GOLDENS := $(wildcard groundtruth_apple2/*/*.page)
 
-build/apple2test: $(A2_SRCS)
-	@mkdir -p build
-	$(CC) $(CFLAGS) -include stddef.h -o $@ $(A2_SRCS)
+build/apple2test: $(call objs,test,$(A2_SRCS))
+	$(CC) -o $@ $^
 
 apple2test: build/apple2test
 	@$(call run_goldens,Apple II,$(A2_GOLDENS),{ \
@@ -122,18 +132,11 @@ CG := $(TERPS)/cheapglk
 CGOBJ := $(CG)/cgblorb.o $(CG)/cgdate.o $(CG)/cgfref.o $(CG)/cggestal.o $(CG)/cgmisc.o \
          $(CG)/cgschan.o $(CG)/cgstream.o $(CG)/cgstyle.o $(CG)/cgunicod.o $(CG)/cgwindow.o \
          $(CG)/gi_blorb.o $(CG)/gi_debug.o $(CG)/gi_dispa.o
+# The interpreter sources are wildcards, as in Makefile.headless, less
+# c64decrunch.c, which needs unp64 and is added by the C64 dumpers below.
 EXTRACT_SRCS := extract_images.c extract_stubs.c \
-  $(SCOTT)/detect_game.c $(SCOTT)/scott.c $(SCOTT)/parser.c $(SCOTT)/restore_state.c \
-  $(SCOTT)/scott_actions.c $(SCOTT)/scott_display.c $(SCOTT)/scott_game_info.c \
-  $(SCOTT)/scott_meta.c $(SCOTT)/title_image.c \
-  $(SCOTT)/ai_uk/decompress_text.c $(SCOTT)/ai_uk/game_specific.c $(SCOTT)/ai_uk/gremlins.c \
-  $(SCOTT)/ai_uk/hulk.c $(SCOTT)/ai_uk/line_drawing.c $(SCOTT)/ai_uk/ringbuffer.c \
-  $(SCOTT)/ai_uk/robin_of_sherwood.c $(SCOTT)/ai_uk/sagadraw.c $(SCOTT)/ai_uk/seas_of_blood.c \
-  $(SCOTT)/saga/apple2_vector_draw.c $(SCOTT)/saga/apple2detect.c $(SCOTT)/saga/atari8detect.c \
-  $(SCOTT)/saga/atari_8bit_vector_draw.c $(SCOTT)/saga/c64_small.c $(SCOTT)/saga/c64a8scott.c \
-  $(SCOTT)/saga/saga.c $(SCOTT)/saga/sagagraphics.c $(SCOTT)/saga/vector_common.c \
-  $(SCOTT)/ti994a/load_ti99_4a.c $(SCOTT)/ti994a/rtpi_graphics.c $(SCOTT)/ti994a/ti99_4a_terp.c \
-  $(SCOTT)/ti994a/unzip_in_mem.c \
+  $(filter-out $(SCOTT)/ai_uk/c64decrunch.c,$(wildcard $(SCOTT)/*.c \
+    $(SCOTT)/ai_uk/*.c $(SCOTT)/saga/*.c $(SCOTT)/ti994a/*.c)) \
   $(TERPS)/common_sagadraw/apple2draw.c $(TERPS)/common_sagadraw/c64a8draw.c \
   $(TERPS)/common_sagadraw/pcdraw.c $(TERPS)/common_sagadraw/gm_artifact.c \
   $(TERPS)/common_sagadraw/gm_vector.c \
@@ -145,21 +148,21 @@ EXTRACT_SRCS := extract_images.c extract_stubs.c \
 EXTRACT_INC := -I$(SCOTT) -I$(SCOTT)/ai_uk -I$(SCOTT)/saga -I$(SCOTT)/ti994a \
   -I$(TERPS)/common_utils -I$(TERPS)/common_sagadraw -I$(TERPS)/aiukgraphics \
   -I$(TERPS)/readwoz -I$(TERPS)/c64diskimage -I$(TERPS)/decompressz80 -I$(TERPS)/common_zxscreen -I$(TERPS)/../glkimp -I$(CG)
-EXTRACT_CFLAGS := -std=c11 -g -O0 -w -DSPATTERLIGHT -include stddef.h $(EXTRACT_INC)
-# extract_stubs.c pulls in the glkimp stand-ins shared with the headless builds.
-STUBS_DEPS := extract_stubs.c $(TERPS)/common_imagetest/glkimp_stubs.c
+EXTRACT_CFLAGS := $(BASE_CFLAGS) -DSPATTERLIGHT $(EXTRACT_INC)
 
-build/extract_images: $(EXTRACT_SRCS) $(STUBS_DEPS)
-	@mkdir -p build
-	$(CC) $(EXTRACT_CFLAGS) $(EXTRACT_SRCS) $(CGOBJ) -lz -o $@
+build/obj/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(EXTRACT_CFLAGS) $(DEPFLAGS) -c $< -o $@
+
+build/extract_images: $(call objs,obj,$(EXTRACT_SRCS))
+	$(CC) $^ $(CGOBJ) -lz -o $@
 
 # ZX Spectrum Irmak-graphics state dumper (same loader object set as
 # extract_images, swapping in zxextract.c). Dumps tiles.bin + meta.txt +
 # pic<NNN>.dat for a ZX .z80/.tzx game, on demand (`make build/zxextract`).
 ZXEXTRACT_SRCS := $(filter-out extract_images.c,$(EXTRACT_SRCS)) zxextract.c
-build/zxextract: $(ZXEXTRACT_SRCS) $(STUBS_DEPS)
-	@mkdir -p build
-	$(CC) $(EXTRACT_CFLAGS) $(ZXEXTRACT_SRCS) $(CGOBJ) -lz -o $@
+build/zxextract: $(call objs,obj,$(ZXEXTRACT_SRCS))
+	$(CC) $^ $(CGOBJ) -lz -o $@
 
 # ---- TI-99/4A RTPI bitmap renderer -------------------------------------------
 # ti994a/rtpi_graphics.c decodes a GROM image bytecode stream into the native
@@ -174,9 +177,8 @@ TI_SRCS := titest.c extract_stubs.c \
 # blob); font.bin sits in the same per-game dir. <name> is ti994a_u<usage>_i<index>.
 TI_GOLDENS := $(wildcard groundtruth_ti99/*/*.pgrid)
 
-build/titest: $(TI_SRCS) $(STUBS_DEPS)
-	@mkdir -p build
-	$(CC) $(EXTRACT_CFLAGS) $(TI_SRCS) $(CGOBJ) -lz -o $@
+build/titest: $(call objs,obj,$(TI_SRCS))
+	$(CC) $^ $(CGOBJ) -lz -o $@
 
 titest: build/titest
 	@$(call no_goldens,TI-99,$(TI_GOLDENS)) \
@@ -201,6 +203,13 @@ titest: build/titest
 # (ai_uk/c64decrunch.c + the C++ unp64 depacker) instead of the DetectC64 stub.
 UNP64 := $(TERPS)/unp64
 UNP64_SRCS := $(wildcard $(UNP64)/*.cpp) $(wildcard $(UNP64)/scanners/*.cpp)
+UNP64_OBJS := $(patsubst %.cpp,build/unp64/%.o,$(notdir $(UNP64_SRCS)))
+UNP64_HDRS := $(wildcard $(UNP64)/*.h) $(wildcard $(UNP64)/*.hpp)
+UNP64_CXX = @mkdir -p build/unp64; c++ -std=c++14 -g -O0 -w -I$(UNP64) -c $< -o $@
+build/unp64/%.o: $(UNP64)/%.cpp $(UNP64_HDRS)
+	$(UNP64_CXX)
+build/unp64/%.o: $(UNP64)/scanners/%.cpp $(UNP64_HDRS)
+	$(UNP64_CXX)
 # extract_images_c64: swap the DetectC64 stub for the real decrunch pipeline.
 # extract_stubs.c is shared with the other dumpers; -DSAGA_REAL_C64_DECRUNCH
 # drops its DetectC64 stub so the real one (c64decrunch.c) links instead.
@@ -209,17 +218,17 @@ C64X_CSRCS := $(SCOTT)/ai_uk/c64decrunch.c \
   $(EXTRACT_SRCS)
 C64_GOLDENS := $(wildcard groundtruth_c64/*/*.c64)
 
-build/extract_images_c64: $(C64X_CSRCS) $(UNP64_SRCS) $(STUBS_DEPS)
-	@mkdir -p build/unp64 build/c64obj
-	@echo "compiling unp64 (C++)..."; for f in $(UNP64_SRCS); do \
-	  c++ -std=c++14 -g -O0 -w -I$(UNP64) -c "$$f" -o "build/unp64/$$(basename $$f .cpp).o" || exit 1; done
-	@echo "compiling C64 loader (C)..."; \
-	$(call compile_each,$(C64X_CSRCS),build/c64obj,$(EXTRACT_CFLAGS) -DSAGA_REAL_C64_DECRUNCH -I$(UNP64)) \
-	c++ -g -O0 $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
+C64_CFLAGS := $(EXTRACT_CFLAGS) -DSAGA_REAL_C64_DECRUNCH -I$(UNP64)
 
-build/c64test: c64test.c $(SCOTT)/saga/c64_small.c
-	@mkdir -p build
-	$(CC) $(EXTRACT_CFLAGS) c64test.c -lz -o $@
+build/c64obj/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(C64_CFLAGS) $(DEPFLAGS) -c $< -o $@
+
+build/extract_images_c64: $(call objs,c64obj,$(C64X_CSRCS)) $(UNP64_OBJS)
+	c++ -g -O0 $^ $(CGOBJ) -lz -o $@
+
+build/c64test: build/obj/c64test.o
+	$(CC) $^ -lz -o $@
 
 c64test: build/c64test
 	@$(call no_goldens,C64,$(C64_GOLDENS)) \
@@ -243,9 +252,8 @@ c64test: build/c64test
 C64A8_SRCS := c64a8test.c $(TERPS)/common_utils/read_le16.c
 C64A8_GOLDENS := $(wildcard groundtruth_c64a8/*/*.c64)
 
-build/c64a8test: $(C64A8_SRCS)
-	@mkdir -p build
-	$(CC) $(CFLAGS) -include stddef.h -o $@ $(C64A8_SRCS)
+build/c64a8test: $(call objs,test,$(C64A8_SRCS))
+	$(CC) -o $@ $^
 
 c64a8test: build/c64a8test
 	@$(call no_goldens,C64/A8,$(C64A8_GOLDENS)) \
@@ -268,9 +276,8 @@ c64a8test: build/c64a8test
 ZX_SRCS := zxtest.c $(TERPS)/aiukgraphics/palette.c
 ZX_GOLDENS := $(wildcard groundtruth_zx/*/*.zx groundtruth_zx/*/*.scr)
 
-build/zxtest: $(ZX_SRCS) $(TERPS)/aiukgraphics/irmak.c
-	@mkdir -p build
-	$(CC) $(CFLAGS) -include stddef.h -o $@ $(ZX_SRCS)
+build/zxtest: $(call objs,test,$(ZX_SRCS))
+	$(CC) -o $@ $^
 
 # Howarth / Mysterious Adventures vector renderer (ai_uk/line_drawing.c). Same
 # golden-dir scheme; goldens use the .zxvec extension to keep them on their own
@@ -279,9 +286,8 @@ ZXVEC_SRCS := zxvectortest.c headless_glk_stubs.c $(TERPS)/aiukgraphics/palette.
               $(SCOTT)/ai_uk/ringbuffer.c $(TERPS)/common_utils/memory_allocation.c
 ZXVEC_GOLDENS := $(wildcard groundtruth_zx/*/*.zxvec)
 
-build/zxvectortest: $(ZXVEC_SRCS)
-	@mkdir -p build
-	$(CC) $(CFLAGS) -include stddef.h -o $@ $(ZXVEC_SRCS)
+build/zxvectortest: $(call objs,test,$(ZXVEC_SRCS))
+	$(CC) -o $@ $^
 
 # One golden of a ZX harness: $(call zx_golden,HARNESS)
 zx_golden = { dir="$$(dirname $$g)"; \
@@ -308,7 +314,7 @@ zxtest: build/zxtest build/zxvectortest
 # MAME, c64_capture.py for VICE; see the header of scenetest.c for the script
 # format, groundtruth_scene/README.md for the capture recipe).
 #
-# Same loader object set as extract_images_c64 (whose unp64 objects are reused),
+# Same loader object set as extract_images_c64 (sharing its unp64 objects),
 # plus the Taylor picture renderer and the real random number generator. The
 # interpreter sources are built with -include scene_glk.h, which redirects their
 # Glk window/event calls to the fake window layer (common_imagetest/
@@ -320,15 +326,23 @@ SCENES := $(wildcard groundtruth_scene/*/*.scene)
 # The fake Glk window layer, shared with the Plus/TaylorMade image probes.
 IMAGETEST := $(TERPS)/common_imagetest
 
-build/scenetest: scenetest.c scene_glk.h $(SCENE_CSRCS) build/extract_images_c64 \
-                 $(IMAGETEST)/fake_glk_window.c $(IMAGETEST)/fake_glk_window.h
-	@mkdir -p build/sceneobj
-	@echo "compiling scene harness..."; \
-	$(call compile_each,$(SCENE_CSRCS),build/sceneobj,$(EXTRACT_CFLAGS) -DSAGA_REAL_C64_DECRUNCH \
-	  -DSAGA_SCENE_HARNESS -DAUTOWIN -include scene_glk.h -I$(TERPS)/taylor -I$(UNP64)) \
-	$(CC) -std=c11 -g -O0 -w -DSPATTERLIGHT $(EXTRACT_INC) -I$(IMAGETEST) -c scenetest.c -o build/sceneobj/scenetest.o || exit 1; \
-	$(CC) -std=c11 -g -O0 -w -I$(CG) -c $(IMAGETEST)/fake_glk_window.c -o build/sceneobj/fake_glk_window.o || exit 1; \
-	c++ -g -O0 build/sceneobj/scenetest.o build/sceneobj/fake_glk_window.o $$objs build/unp64/*.o $(CGOBJ) -lz -o $@
+SCENE_CFLAGS := $(C64_CFLAGS) -DSAGA_SCENE_HARNESS -DAUTOWIN -include scene_glk.h \
+  -I$(TERPS)/taylor
+
+# The harness itself and the fake window layer see the real Glk calls.
+build/sceneobj/scenetest.o: scenetest.c
+	@mkdir -p $(@D)
+	$(CC) $(EXTRACT_CFLAGS) -I$(IMAGETEST) $(DEPFLAGS) -c $< -o $@
+build/sceneobj/fake_glk_window.o: $(IMAGETEST)/fake_glk_window.c
+	@mkdir -p $(@D)
+	$(CC) $(BASE_CFLAGS) -I$(CG) $(DEPFLAGS) -c $< -o $@
+build/sceneobj/%.o: %.c
+	@mkdir -p $(@D)
+	$(CC) $(SCENE_CFLAGS) $(DEPFLAGS) -c $< -o $@
+
+build/scenetest: build/sceneobj/scenetest.o build/sceneobj/fake_glk_window.o \
+                 $(call objs,sceneobj,$(SCENE_CSRCS)) $(UNP64_OBJS)
+	c++ -g -O0 $^ $(CGOBJ) -lz -o $@
 
 scenetest: build/scenetest
 	@$(call no_goldens,Scenes,$(SCENES)) \
@@ -342,5 +356,7 @@ all-tests: test dostest apple2test titest c64test c64a8test zxtest scenetest
 
 clean:
 	rm -rf build
+
+-include $(wildcard build/*/*.d)
 
 .PHONY: test groundtruth dostest apple2test titest c64test c64a8test zxtest scenetest all-tests clean

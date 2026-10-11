@@ -36,7 +36,7 @@
 # the spec, every .dat it references (spec `!directives` are skipped) and the
 # golden into <outdir>.
 
-import sys, os, struct, subprocess, shutil
+import sys, os, struct, subprocess, shutil, tempfile
 
 from PIL import Image
 
@@ -46,10 +46,12 @@ def load_png(path):
     im = Image.open(path).convert('RGB')
     return im.load(), im.size[0], im.size[1]
 
-def render_grid(binpath, spec, out):
-    subprocess.run([binpath, 'grid', spec, out], check=True, stdout=subprocess.DEVNULL)
-    with open(out, 'rb') as f:
-        data = f.read()
+def render_grid(binpath, spec):
+    with tempfile.TemporaryDirectory() as tmp:
+        out = os.path.join(tmp, 'cmp.grid')
+        subprocess.run([binpath, 'grid', spec, out], check=True, stdout=subprocess.DEVNULL)
+        with open(out, 'rb') as f:
+            data = f.read()
     assert data[:5] == b'C64R1', "bad grid magic"
     w, h = struct.unpack_from('<ii', data, 5)
     vals = struct.unpack_from('<%dI' % (w * h), data, 13)
@@ -149,9 +151,7 @@ def write_golden(path, golden, w, h):
         for row in golden:
             f.write(bytes(idx.get(v, 0xff) for v in row))
 
-# Per-alignment scratch file for the render grid (kept as the old scripts had
-# them, so a flat and an edge run can go side by side).
-GRID_TMP = {'flat': '/tmp/_c64_cmp.grid', 'edge': '/tmp/_c64a8_cmp.grid'}
+ALIGNMENTS = ('flat', 'edge')
 
 def main(argv=None, align='flat'):
     args = list(sys.argv[1:] if argv is None else argv)
@@ -161,7 +161,7 @@ def main(argv=None, align='flat'):
         else:
             args.pop(0)
             align = args.pop(0)
-    if align not in GRID_TMP:
+    if align not in ALIGNMENTS:
         sys.exit(f"unknown --align {align} (flat or edge)")
     mode = args[0]
     png, spec, binpath = args[1], args[2], args[3]
@@ -173,7 +173,7 @@ def main(argv=None, align='flat'):
         rest = rest[:-2]
 
     px, pw, ph = load_png(png)
-    g, w, h = render_grid(binpath, spec, GRID_TMP[align])
+    g, w, h = render_grid(binpath, spec)
     cols = renderer_colours(g, w, h)
     if align == 'flat' and not explicit:
         m, t, ox, oy = best_offset_flat(px, pw, ph, cols, g, w, h)

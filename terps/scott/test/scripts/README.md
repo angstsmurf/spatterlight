@@ -115,7 +115,7 @@ regression test needs, but it covers less of the game.
 | `bunyon-voodoo-castle` | won, both | |
 | `circus-c64`, `-zx` | won, all 5 | the solution of Jacob Gunness (solutionarchive.com) as written. The seal of the C64 release is a sea-lion on ZX, so one command differs |
 | `claymorgue` | won on 17 of 18 | one Atari image ends in the star room |
-| `escape-from-pulsar-7` | won, all 6 | C64 and ZX. The solution of Jacob Gunness as written; the C64 release has no watch to drop |
+| `escape-from-pulsar-7`, `-c64` | won, all 7 | the solution of Jacob Gunness as written. The C64 release has no watch to drop; its script looks around instead, which takes a turn and so keeps the dust in the air vent (one chance in ten a turn) from choking the player |
 | `feasibility-experiment` | won on C64 | the ZX images end mid-game |
 | `golden-baton` | won on C64 | dead on ZX (the Gorgon) |
 | `gremlins` | won on 6 of 8 | English only; the "alternate" ZX release stops one command short |

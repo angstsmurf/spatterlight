@@ -173,7 +173,6 @@ Obvious exits: North, East.
 I can also see: A statue - A coin - A rope - A book - A gem - 
 <------------------------------------------------------------------------------>
 Tell me what to do ? take all except xyzzy
-
 A coin....O.K. 
 A rope....O.K. 
 A book....O.K. 

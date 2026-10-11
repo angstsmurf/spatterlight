@@ -41,7 +41,6 @@ GLK_ATTRIBUTE_NORETURN void Fatal(const char *x) {
 char *LineBreakText(const char *source, int columns, int *rows, int *length) {
     (void)source; (void)columns; if (rows) *rows = 0; if (length) *length = 0; return NULL;
 }
-int xstrncasecmp(const char *a, const char *b, size_t n) { return strncasecmp(a, b, n); }
 
 // The scene harness (scenetest.c) plays the game for real, so it builds this
 // file with -DSAGA_SCENE_HARNESS and links its own window lookup, the real

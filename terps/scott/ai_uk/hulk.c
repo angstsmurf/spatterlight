@@ -12,7 +12,7 @@
 #include "scott.h"
 #include "scott_display.h"
 
-void HulkShowImageOnExamineUS(int noun)
+static void HulkShowImageOnExamineUS(int noun)
 {
     if (!Graphics)
         return;

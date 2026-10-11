@@ -11,13 +11,13 @@
 #include "scott_defines.h"
 
 void ClearBitFlag(int bit);
-void ClearScreen(void);
 int ConditionHolds(int condition, int arg);
 int CountCarried(void);
 void Delay(float seconds);
 void GameOver(void);
 void GoTo(int loc);
 void GoToStoredLoc(void);
+int ItemExists(int item);
 void MoveItemAToLocOfItemB(int itemA, int itemB);
 ExplicitResultType PerformActions(int vb, int no);
 void OutputNumber(int a);
@@ -28,7 +28,9 @@ int PrintScore(void);
 void PutItemAInRoomB(int itemA, int roomB);
 int RandomPercent(int n);
 void SetBitFlag(int bit);
+int TestBitFlag(int bit);
 void SetDark(void);
+void SetItemLocation(int item, int loc);
 void SetLight(void);
 void SwapCounters(int index);
 void SwapItemLocations(int itemA, int itemB);

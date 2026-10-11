@@ -5,8 +5,6 @@
 //  Created by Petter Sjölund on 2022-01-30.
 //
 
-#include <ctype.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -14,6 +12,7 @@
 
 #include "saga.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_game_info.h"
 
 #include "c64decrunch.h"
@@ -434,7 +433,7 @@ static size_t CopyData(size_t dest, size_t source, uint8_t **data, size_t datasi
 /* Scan a D64 disk image for S.A.G.A.-format picture files and load them
    into the USImages linked list. Picture filenames encode the image index
    and usage type (room, room+object, inventory object) in fixed positions. */
-void LoadC64USImages(uint8_t *data, size_t length)
+static void LoadC64USImages(uint8_t *data, size_t length)
 {
     int numfiles;
 
@@ -496,7 +495,7 @@ void LoadC64USImages(uint8_t *data, size_t length)
 /* Sorcerer of Claymorgue Castle US ships as a two-disk set (side A + B).
    If we loaded side A, look for side B by replacing "s1" with "s2" in the
    filename and re-running C64 detection on the companion disk. */
-GameIDType LookForSoCCompanion(const char *filename, uint8_t **sf, size_t *extent)
+static GameIDType LookForSoCCompanion(const char *filename, uint8_t **sf, size_t *extent)
 {
     if (filename == NULL)
         return UNKNOWN_GAME;
@@ -523,10 +522,11 @@ GameIDType LookForSoCCompanion(const char *filename, uint8_t **sf, size_t *exten
     return UNKNOWN_GAME;
 }
 
+#ifdef SCOTT_HEADLESS
 /* Debug helper: write raw data to a file. */
-size_t writeToFile(const char *name, uint8_t *data, size_t size)
+static size_t writeToFile(const char *name, uint8_t *data, size_t size)
 {
-    FILE *fptr = fopen(name, "w");
+    FILE *fptr = fopen(name, "wb");
 
     if (fptr == NULL) {
         Fatal("File open error!");
@@ -537,6 +537,84 @@ size_t writeToFile(const char *name, uint8_t *data, size_t size)
 
     fclose(fptr);
     return result;
+}
+#endif
+
+/* D64 disk image: extract the largest file (the game program),
+   optionally append a companion file (e.g. picture data).
+   Returns 0 on failure. */
+static int ExtractD64Game(uint8_t **sf, size_t *extent, const c64rec *rec)
+{
+    int newlength;
+    uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
+    uint8_t *appendix = NULL;
+    size_t appendixlen = 0;
+
+    if (largest_file == NULL)
+        return 0;
+
+    if (rec->appendfile != NULL) {
+        appendix = di_get_file_named(*sf, *extent, &appendixlen,
+            rec->appendfile);
+        /* The companion file begins with a two-byte load address,
+           which is skipped. If the file is missing or too short,
+           carry on with the main file alone. */
+        if (appendix == NULL || appendixlen < 2) {
+            fprintf(stderr, "SCOTT: DetectC64() Appending file failed!\n");
+            free(appendix);
+            appendix = NULL;
+            appendixlen = 0;
+        } else {
+            appendixlen -= 2;
+        }
+    }
+
+    /* The companion file is placed relative to the end of the main
+       file. A negative parameter means that the two overlap. */
+    long appendpos = (long)newlength + rec->parameter;
+    size_t buflen = newlength + appendixlen;
+    if (appendix != NULL && appendpos > newlength)
+        buflen = appendpos + appendixlen;
+    if (buflen == 0 || buflen > MAX_LENGTH || (appendix != NULL && appendpos < 0)) {
+        free(largest_file);
+        free(appendix);
+        return 0;
+    }
+
+    /* Zero-filled, as the overlap leaves the end of the buffer unwritten */
+    uint8_t *megabuf = MemCalloc(buflen);
+    memcpy(megabuf, largest_file, newlength);
+    if (appendix != NULL)
+        memcpy(megabuf + appendpos, appendix + 2, appendixlen);
+    free(largest_file);
+    free(appendix);
+
+    free(*sf);
+    *sf = megabuf;
+    *extent = buflen;
+    return 1;
+}
+
+/* T64 tape image: parse the directory header to find and extract
+   the first file record (2-byte load address + program data) */
+static void ExtractT64File(uint8_t **sf, size_t *extent)
+{
+    uint8_t *file_records = *sf + 64;
+    int number_of_records = READ_LE_UINT16(*sf + 36);
+    int offset = READ_LE_UINT16(file_records + 8);
+    int start_addr = READ_LE_UINT16(file_records + 2);
+    int end_addr = READ_LE_UINT16(file_records + 4);
+    int size;
+    if (number_of_records == 1)
+        size = *extent - offset;
+    else
+        size = end_addr - start_addr;
+    uint8_t *first_file = MemAlloc(size + 2);
+    memcpy(first_file + 2, *sf + offset, size);
+    memcpy(first_file, file_records + 2, 2);
+    free(*sf);
+    *sf = first_file;
+    *extent = size + 2;
 }
 
 /* Identify and load a C64 game from raw file data.
@@ -567,76 +645,11 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
             } else if (c64_registry[i].id == CLAYMORGUE_US && chksum == 0xa957) {
                 return LookForSoCCompanion(filename, sf, extent);
             }
-            /* D64 disk image: extract the largest file (the game program),
-               optionally append a companion file (e.g. picture data) */
             if (c64_registry[i].type == TYPE_D64) {
-                int newlength;
-                uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
-                uint8_t *appendix = NULL;
-                size_t appendixlen = 0;
-
-                if (largest_file == NULL)
+                if (!ExtractD64Game(sf, extent, &c64_registry[i]))
                     return UNKNOWN_GAME;
-
-                if (c64_registry[i].appendfile != NULL) {
-                    appendix = di_get_file_named(*sf, *extent, &appendixlen,
-                        c64_registry[i].appendfile);
-                    /* The companion file begins with a two-byte load address,
-                       which is skipped. If the file is missing or too short,
-                       carry on with the main file alone. */
-                    if (appendix == NULL || appendixlen < 2) {
-                        fprintf(stderr, "SCOTT: DetectC64() Appending file failed!\n");
-                        free(appendix);
-                        appendix = NULL;
-                        appendixlen = 0;
-                    } else {
-                        appendixlen -= 2;
-                    }
-                }
-
-                /* The companion file is placed relative to the end of the main
-                   file. A negative parameter means that the two overlap. */
-                long appendpos = (long)newlength + c64_registry[i].parameter;
-                size_t buflen = newlength + appendixlen;
-                if (appendix != NULL && appendpos > newlength)
-                    buflen = appendpos + appendixlen;
-                if (buflen == 0 || buflen > MAX_LENGTH || (appendix != NULL && appendpos < 0)) {
-                    free(largest_file);
-                    free(appendix);
-                    return UNKNOWN_GAME;
-                }
-
-                /* Zero-filled, as the overlap leaves the end of the buffer unwritten */
-                uint8_t *megabuf = MemCalloc(buflen);
-                memcpy(megabuf, largest_file, newlength);
-                if (appendix != NULL)
-                    memcpy(megabuf + appendpos, appendix + 2, appendixlen);
-                free(largest_file);
-                free(appendix);
-
-                free(*sf);
-                *sf = megabuf;
-                *extent = buflen;
-
-            /* T64 tape image: parse the directory header to find and extract
-               the first file record (2-byte load address + program data) */
             } else if (c64_registry[i].type == TYPE_T64 || c64_registry[i].type == TYPE_T64_US) {
-                uint8_t *file_records = *sf + 64;
-                int number_of_records = READ_LE_UINT16(*sf + 36);
-                int offset = READ_LE_UINT16(file_records + 8);
-                int start_addr = READ_LE_UINT16(file_records + 2);
-                int end_addr = READ_LE_UINT16(file_records + 4);
-                int size;
-                if (number_of_records == 1)
-                    size = *extent - offset;
-                else
-                    size = end_addr - start_addr;
-                uint8_t *first_file = MemAlloc(size + 2);
-                memcpy(first_file + 2, *sf + offset, size);
-                memcpy(first_file, file_records + 2, 2);
-                free(*sf);
-                *sf = first_file;
-                *extent = size + 2;
+                ExtractT64File(sf, extent);
 
                 if (c64_registry[i].type == TYPE_T64_US) {
                     ProcessC64(sf, extent, c64_registry[i]);
@@ -707,10 +720,12 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
     C64DecompressIterations(sf, &length, record.decompress_iterations,
         record.switches, record.parameter);
 
+#ifdef SCOTT_HEADLESS
     /* Debug: dump the decompressed image for offline analysis */
     const char *dumppath = getenv("C64_DUMP_US_IMAGE");
     if (dumppath != NULL)
         writeToFile(dumppath, *sf, length);
+#endif
 
     *extent = length;
 

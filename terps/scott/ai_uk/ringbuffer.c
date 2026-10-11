@@ -24,6 +24,15 @@ static size_t circular_buf_size(cbuf_handle_t me)
     return me->max + me->head - me->tail;
 }
 
+static void circular_buf_reset(cbuf_handle_t me)
+{
+    assert(me);
+
+    me->head = 0;
+    me->tail = 0;
+    me->full = false;
+}
+
 // Return a pointer to a struct instance
 cbuf_handle_t circular_buf_init(uint8_t *buffer, size_t size)
 {
@@ -42,26 +51,10 @@ cbuf_handle_t circular_buf_init(uint8_t *buffer, size_t size)
     return cbuf;
 }
 
-void circular_buf_reset(cbuf_handle_t me)
-{
-    assert(me);
-
-    me->head = 0;
-    me->tail = 0;
-    me->full = false;
-}
-
 void circular_buf_free(cbuf_handle_t me)
 {
     assert(me);
     free(me);
-}
-
-bool circular_buf_full(cbuf_handle_t me)
-{
-    assert(me);
-
-    return me->full;
 }
 
 bool circular_buf_empty(cbuf_handle_t me)

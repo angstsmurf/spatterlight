@@ -22,6 +22,13 @@
 
 #include "apple2detect.h"
 
+/* Size of the Apple II double hi-res pictures as we draw them. */
+#define A2_IMAGE_WIDTH 560
+#define A2_IMAGE_HEIGHT 320
+
+/* Offset of the game database in the DOS 3.3 data file. */
+#define A2_DATABASE_OFFSET 0x135
+
 static const pairrec a2companionlist[][2] = {
     { { "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side A.dsk", 79 }, { "Scott Adams Graphic Adventure 1 - Adventureland v2.0-416 (4am crack) side B - boot.dsk", 86 } },
 
@@ -696,11 +703,79 @@ static void SetA2InventoryImage(uint8_t *data, size_t datasize)
 {
     if (!USImages)
         USImages = NewImage();
-    USImages->index = 98;
+    USImages->index = INVENTORY_IMAGE;
     USImages->systype = SYS_APPLE2;
     USImages->datasize = datasize;
     USImages->imagedata = data;
     USImages->usage = IMG_ROOM;
+}
+
+/* The database is not at the same place in every DOS file */
+static GameIDType LoadApple2Database(uint8_t *database, size_t length)
+{
+    static const size_t offsets[] = { 0, 0x3d00, 0x3803 };
+    GameIDType result = UNKNOWN_GAME;
+
+    for (size_t i = 0; i < sizeof offsets / sizeof offsets[0] && result == UNKNOWN_GAME; i++) {
+        if (i == 0 || length > offsets[i])
+            result = LoadBinaryDatabase(database + offsets[i], length - offsets[i], *Game, 0);
+    }
+    return result;
+}
+
+// The Apple 2 Saga vector graphics games (i.e. Adventureland, Pirate
+// Adventure, Mission Impossible/Secret Mission and Strange Odyssey,
+// sometimes contain a database of a different game version on the data
+// disk (or A side.) This may cause problems, at least in Pirate Adventure,
+// where the alternative version won't display the ship building
+// or the navigation animations. Thus, we reload the correct database
+// from the other disk.
+static void ReloadDatabaseFromCompanion(uint8_t *companionfile, size_t companionsize, int isnib)
+{
+    uint8_t *invimg = NULL, *m2 = NULL, *m3 = NULL;
+    size_t invimgsiz, m3len = 0;
+
+    FreeDiskImage();
+    InitA2DiskImage(companionfile, companionsize, isnib);
+    uint8_t *temp = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len);
+    if (temp) {
+        int finalresult = LoadBinaryDatabase(temp + A2_DATABASE_OFFSET, companionsize - A2_DATABASE_OFFSET, *Game, 0);
+        if (!finalresult) {
+            Fatal("Bad database");
+        }
+        free(temp);
+    }
+}
+
+/* The database is loaded: set up the system and find the pictures.
+   Takes ownership of companionfile. */
+static void SetUpApple2Images(uint8_t *datafile, uint8_t *companionfile,
+    size_t companionsize, int isnib, uint8_t *sf, size_t extent)
+{
+    CurrentSys = SYS_APPLE2;
+
+    ImageWidth = A2_IMAGE_WIDTH;
+    ImageHeight = A2_IMAGE_HEIGHT;
+
+    if (CurrentGame == CLAYMORGUE_US_126) {
+        size_t invsize = 0x4f8;
+        uint8_t *inv = MemAlloc(invsize);
+        memcpy(inv, datafile + 0x7e84, invsize);
+        SetA2InventoryImage(inv, invsize);
+    }
+    if (companionfile != NULL) {
+        if (ExtractImagesFromApple2CompanionFile(companionfile, companionsize, sf, extent, isnib) == WRONG_DATABASE)
+            ReloadDatabaseFromCompanion(companionfile, companionsize, isnib);
+        free(companionfile);
+    } else if (CurrentGame == SECRET_MISSION_US) {
+        // There are one-disk versions of Secret Mission,
+        // so look for image files on the main disk as well
+        ExtractImagesFromApple2CompanionFile(sf, extent, sf, extent, isnib);
+    } else if (USImages != NULL) {
+        free(USImages->imagedata);
+        free(USImages);
+        USImages = NULL;
+    }
 }
 
 GameIDType DetectApple2(uint8_t **sf, size_t *extent)
@@ -750,92 +825,40 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
         free(m3);
     }
 
-    uint8_t *database = NULL;
-    size_t newlength = 0;
-
-    if (datafile) {
-        size_t data_start = 0x135;
-
-        // Header actually starts at offset 0x16d (0x135 + 0x38).
-        // We add 50 bytes before the head to match the C64 files.
-
-        if (*extent > MAX_LENGTH || *extent < data_start)
-            return 0;
-
-        newlength = *extent - data_start;
-        database = MemAlloc(newlength);
-        memcpy(database, datafile + data_start, newlength);
-    } else {
+    if (!datafile) {
+        free(companionfile);
         debug_print("Failed loading database\n");
         return UNKNOWN_GAME;
     }
 
-    if (database) {
-        GameIDType result = LoadBinaryDatabase(database, newlength, *Game, 0);
-        if (result == UNKNOWN_GAME && newlength > 0x3d00) {
-            result = LoadBinaryDatabase(database + 0x3d00, newlength - 0x3d00, *Game, 0);
-        }
+    // Header actually starts at offset 0x16d (0x135 + 0x38).
+    // We add 50 bytes before the head to match the C64 files.
+    size_t data_start = A2_DATABASE_OFFSET;
 
-        if (result == UNKNOWN_GAME && newlength > 0x3803) {
-            result = LoadBinaryDatabase(database + 0x3803, newlength - 0x3803, *Game, 0);
-        }
-
-        if (result != UNKNOWN_GAME) {
-            CurrentSys = SYS_APPLE2;
-
-            ImageWidth = 560;
-            ImageHeight = 320;
-
-            if (CurrentGame == CLAYMORGUE_US_126) {
-                size_t invsize = 0x4f8;
-                uint8_t *inv = MemAlloc(invsize);
-                memcpy(inv, datafile + 0x7e84, invsize);
-                SetA2InventoryImage(inv, invsize);
-            }
-            if (companionfile != NULL) {
-                ExtractResult result = ExtractImagesFromApple2CompanionFile(companionfile, companionsize, *sf, *extent, isnib);
-                if (result == WRONG_DATABASE) {
-                    // The Apple 2 Saga vector graphics games (i.e. Adventureland, Pirate
-                    // Adventure, Mission Impossible/Secret Mission and Strange Odyssey,
-                    // sometimes contain a database of a different game version on the data
-                    // disk (or A side.) This may cause problems, at least in Pirate Adventure,
-                    // where the alternative version won't display the ship building
-                    // or the navigation animations. Thus, we reload the correct database
-                    // from the other disk.
-                    FreeDiskImage();
-                    InitA2DiskImage(companionfile, companionsize, isnib);
-                    uint8_t *temp = ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len);
-                    if (temp) {
-                        int finalresult = LoadBinaryDatabase(temp + 0x135, companionsize - 0x135, *Game, 0);
-                        if (!finalresult) {
-                            Fatal("Bad database");
-                        }
-                    }
-
-                }
-                free(companionfile);
-            } else if (CurrentGame == SECRET_MISSION_US) {
-                // There are one-disk versions of Secret Mission,
-                // so look for image files on the main disk as well
-                ExtractImagesFromApple2CompanionFile(*sf, *extent, *sf, *extent, isnib);
-            } else if (USImages != NULL) {
-                free(USImages->imagedata);
-                free(USImages);
-                USImages = NULL;
-            }
-        } else
-            debug_print("Failed loading database\n");
+    if (*extent > MAX_LENGTH || *extent < data_start) {
         free(datafile);
-        free(database);
-        return result;
-    } else {
-        free(datafile);
-        debug_print("Failed loading database\n");
+        free(companionfile);
         return UNKNOWN_GAME;
     }
+
+    size_t newlength = *extent - data_start;
+    uint8_t *database = MemAlloc(newlength);
+    memcpy(database, datafile + data_start, newlength);
+
+    GameIDType result = LoadApple2Database(database, newlength);
+
+    if (result != UNKNOWN_GAME) {
+        SetUpApple2Images(datafile, companionfile, companionsize, isnib, *sf, *extent);
+    } else {
+        free(companionfile);
+        debug_print("Failed loading database\n");
+    }
+    free(datafile);
+    free(database);
+    return result;
 }
 
-uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
+static uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
 {
     uint8_t *result = ReadFileIfExists(filename, filesize);
     if (result && *filesize > 4 && result[0] == 'W' && result[1] == 'O' && result[2] == 'Z') {
@@ -1061,8 +1084,8 @@ static ExtractResult ExtractImagesFromApple2CompanionFile(uint8_t *data, size_t 
             }
         }
         if (number_of_images_found > 0) {
-            ImageWidth = 560;
-            ImageHeight = 320;
+            ImageWidth = A2_IMAGE_WIDTH;
+            ImageHeight = A2_IMAGE_HEIGHT;
         }
     } else {
         // Now loop round for each image

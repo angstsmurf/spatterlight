@@ -6,7 +6,6 @@
 //
 
 #include <ctype.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -362,7 +361,7 @@ static const imglist listVoodoo[] = {
     { 0, 0, 0, }
 };
 
-#pragma mark Adventureland
+// MARK: Adventureland
 
 static const imglist listAdventureland[] = {
     { IMG_ROOM, 0,  0x059c }, // (0) Too dark to see?
@@ -861,21 +860,13 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     /* Read the inventory image from the boot disk */
     if (otherdisk && othersize > 0x988e + 0x5fd && CurrentGame != ADVENTURELAND_US) {
         image->usage = IMG_ROOM;
-        image->index = 98;
+        image->index = INVENTORY_IMAGE;
         image->datasize = 0x5fd;
         image->imagedata = MemAlloc(image->datasize);
         image->systype = SYS_ATARI8;
         memcpy(image->imagedata, otherdisk + 0x988e, image->datasize);
     } else if (image->imagedata == NULL) {
-        /* Free the last image, it is empty */
-        if (image != USImages) {
-            image->previous->next = NULL;
-            free(image);
-            image = NULL;
-        } else {
-            free(USImages);
-            USImages = NULL;
-        }
+        FreeTrailingEmptyImage(image);
     }
 
     /* If no images are found, free USImages struct */
@@ -888,7 +879,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
 // has an error at offset 0xfac1, but the correct data is available
 // at another offset on the disk image, so we copy it to the right
 // place.
-void PatchMissionImpossible(uint8_t *data, size_t size) {
+static void PatchMissionImpossible(uint8_t *data, size_t size) {
     if (size > 0xfaf1 && memcmp(data + 0x7d3, "briefing", 8) == 0) {
         uint8_t source[0x30];
         memcpy(source, data + 0xfac1, 0x30);
@@ -942,8 +933,10 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
             ExtractImagesFromAtariCompanionFile(companionfile, companionsize, *sf, *extent);
             free(companionfile);
         }
-    } else
+    } else {
+        free(companionfile);
         debug_print("Failed loading database\n");
+    }
 
     return result;
 }

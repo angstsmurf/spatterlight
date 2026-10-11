@@ -16,14 +16,13 @@
 
 #include "parser.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_actions.h"
 #include "scott_display.h"
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
 #endif
-
-extern SavedState *InitialState;
 
 /* Prompt for a file and open a (Unicode, if unicode is set) stream on it.
    Returns NULL if the player cancels the prompt, or if the file can't be
@@ -59,65 +58,69 @@ void SaveGame(void)
     if (file == NULL)
         return;
 
+    SavedState *s = SaveCurrentState();
+
     for (ct = 0; ct < NUM_COUNTERS; ct++) {
-        snprintf(buf, sizeof buf, "%d %d\n", Counters[ct], RoomSaved[ct]);
+        snprintf(buf, sizeof buf, "%d %d\n", s->Counters[ct], s->RoomSaved[ct]);
         glk_put_string_stream(file, buf);
     }
-    snprintf(buf, sizeof buf, "%ld %d %hd %d %d %hd %d\n", BitFlags,
-        (BitFlags & (1 << DARKBIT)) ? 1 : 0, MyLoc, CurrentCounter,
-        SavedRoom, GameHeader.LightTime, AutoInventory);
+    snprintf(buf, sizeof buf, "%lld %d %hd %d %d %hd %d\n",
+        (long long)s->BitFlags, (int)((s->BitFlags >> DARKBIT) & 1),
+        (short)s->CurrentLoc, s->CurrentCounter,
+        s->SavedRoom, (short)s->LightTime, s->AutoInventory);
     glk_put_string_stream(file, buf);
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-        snprintf(buf, sizeof buf, "%hd\n", (short)Items[ct].Location);
+        snprintf(buf, sizeof buf, "%hd\n", (short)s->ItemLocations[ct]);
         glk_put_string_stream(file, buf);
     }
 
+    FreeSavedState(s);
     glk_stream_close(file, NULL);
     Output(sys[SAVED]);
 }
 
-/* Read a saved game from an open stream straight into the live game
-   state, validating every value against the current database limits.
-   Returns 0 as soon as anything is missing or out of range, in which
-   case the game state is left partially overwritten. */
-static int ReadSavedGame(strid_t file)
+/* Read a saved game from an open stream into the snapshot s,
+   validating every value against the current database limits.
+   Returns 0 as soon as anything is missing or out of range. */
+static int ReadSavedGame(strid_t file, SavedState *s)
 {
     char buf[128];
     int ct;
     short lo;
-    short DarkFlag;
-
-    int PreviousAutoInventory = AutoInventory;
+    short DarkFlag, Loc, LightTime;
 
     for (ct = 0; ct < NUM_COUNTERS; ct++) {
         if (glk_get_line_stream(file, buf, sizeof buf) == 0
-            || sscanf(buf, "%d %d", &Counters[ct], &RoomSaved[ct]) != 2
-            || RoomSaved[ct] < 0 || RoomSaved[ct] > GameHeader.NumRooms)
+            || sscanf(buf, "%d %d", &s->Counters[ct], &s->RoomSaved[ct]) != 2
+            || s->RoomSaved[ct] < 0 || s->RoomSaved[ct] > GameHeader.NumRooms)
             return 0;
     }
 
     if (glk_get_line_stream(file, buf, sizeof buf) == 0)
         return 0;
-    int result = sscanf(buf, "%ld %hd %hd %d %d %hd %d\n", &BitFlags, &DarkFlag,
-        &MyLoc, &CurrentCounter, &SavedRoom, &GameHeader.LightTime,
-        &AutoInventory);
-    /* Older saves have no AutoInventory field */
-    if (result == 6)
-        AutoInventory = PreviousAutoInventory;
-    if ((result != 7 && result != 6) || MyLoc > GameHeader.NumRooms || MyLoc < 1
-        || SavedRoom < 0 || SavedRoom > GameHeader.NumRooms)
+    long long SavedBitFlags = 0;
+    /* Older saves have no AutoInventory field, which then keeps the
+       current value that s was created with */
+    int result = sscanf(buf, "%lld %hd %hd %d %d %hd %d\n", &SavedBitFlags,
+        &DarkFlag, &Loc, &s->CurrentCounter, &s->SavedRoom, &LightTime,
+        &s->AutoInventory);
+    if ((result != 7 && result != 6) || Loc > GameHeader.NumRooms || Loc < 1
+        || s->SavedRoom < 0 || s->SavedRoom > GameHeader.NumRooms)
         return 0;
+    s->BitFlags = (uint64_t)SavedBitFlags;
+    s->CurrentLoc = Loc;
+    s->LightTime = LightTime;
 
     /* Backward compatibility */
     if (DarkFlag)
-        SetBitFlag(DARKBIT);
+        s->BitFlags |= (uint64_t)1 << DARKBIT;
 
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         if (glk_get_line_stream(file, buf, sizeof buf) == 0
             || sscanf(buf, "%hd\n", &lo) != 1
             || lo < 0 || (lo > GameHeader.NumRooms && lo != CARRIED))
             return 0;
-        Items[ct].Location = (unsigned char)lo;
+        s->ItemLocations[ct] = (unsigned char)lo;
     }
 
     /* There should be nothing left in the file */
@@ -127,8 +130,8 @@ static int ReadSavedGame(strid_t file)
 }
 
 /* Load a saved game state from a file via Glk file prompts.
-   Validates all loaded values against the current database limits
-   and rolls back to a snapshot if any value is out of range. */
+   The file is read into a snapshot, which only replaces the live
+   state if every value in it is within the current database limits. */
 void LoadGame(void)
 {
     strid_t file = OpenPromptedStream(fileusage_TextMode | fileusage_SavedGame,
@@ -138,20 +141,26 @@ void LoadGame(void)
 
     SavedState *state = SaveCurrentState();
 
-    int success = ReadSavedGame(file);
+    int success = ReadSavedGame(file, state);
     glk_stream_close(file, NULL);
 
-    if (!success) {
-        RecoverFromBadRestore(state);
-        return;
-    }
-
+    if (!success)
+        Output(sys[BAD_DATA]);
+    else
+        RestoreState(state);
     FreeSavedState(state);
+
+    /* The turn is not over, whether the restore worked or not */
+    if (StopTime == 0)
+        StopTime = 1;
+    should_draw_image = 1;
+    if (!success)
+        return;
 
     SaveUndo();
     JustStarted = 0;
     StopTime = 1;
-    should_look_in_transcript = should_draw_image =  1;
+    should_look_in_transcript = 1;
 }
 
 void RestartGame(void)

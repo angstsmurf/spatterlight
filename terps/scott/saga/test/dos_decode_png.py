@@ -12,7 +12,7 @@
 #   dos_decode_png.py match  <shot.png> <dostest> <pakdir>   find best-matching .PAK
 #   dos_decode_png.py cmp    <shot.png> <dostest> <pak>      compare one .PAK
 
-import sys, os, struct, subprocess
+import sys, os, struct, subprocess, tempfile
 from PIL import Image
 
 CGA = {(0,0,0):0, (0,170,170):1, (170,0,170):2, (170,170,170):3}
@@ -51,10 +51,11 @@ def load_dostest_grid(path):
     return g, w, h
 
 def render_pak(dostest, pak):
-    out = '/tmp/_dos_cmp.grid'
-    subprocess.run([dostest, 'grid', pak, out], check=True,
-                   stdout=subprocess.DEVNULL)
-    return load_dostest_grid(out)
+    with tempfile.TemporaryDirectory() as tmp:
+        out = os.path.join(tmp, 'cmp.grid')
+        subprocess.run([dostest, 'grid', pak, out], check=True,
+                       stdout=subprocess.DEVNULL)
+        return load_dostest_grid(out)
 
 def compare(cga, cg):
     # Compare only where the C renderer drew (its bbox of set pixels).

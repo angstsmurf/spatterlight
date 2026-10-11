@@ -123,8 +123,6 @@ int IsSagaImage(const char *name)
     return 0;
 }
 
-extern char *DirPath;
-
 uint8_t *FindImageFile(const char *shortname, size_t *datasize)
 {
     *datasize = 0;

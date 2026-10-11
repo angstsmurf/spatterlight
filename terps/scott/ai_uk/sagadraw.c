@@ -17,22 +17,18 @@
 //
 
 
-#include <math.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 
 #include "glk.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "detect_game.h"
 #include "seas_of_blood.h"
 #include "irmak.h"
 
 #include "sagadraw.h"
 
 static uint8_t *EndOfGraphicsData;
-
-int32_t errorcount = 0;
 
 /* Binary patch for a single image in a specific game version.
    Each entry replaces number_of_bytes bytes at the given offset
@@ -132,6 +128,149 @@ static void PatchOutBrokenClaymorgueImages(int first, int last, int unbroken)
     }
 }
 
+/* Version 0 (Hulk) stores image offsets in four separate tables
+   for rooms, items, close-ups, and special images, at hardcoded
+   addresses that differ between the C64 and Spectrum releases.
+   image_offset adjusts the raw 16-bit pointers read from
+   those tables to file-relative positions. */
+typedef struct {
+    size_t coordinates;
+    size_t item_image_offsets;
+    size_t closeup_image_offsets;
+    size_t special_image_offsets;
+    size_t image_offset;
+} HulkImageTables;
+
+static const HulkImageTables hulk_tables_c64 = { 0x22cd, 0x2731, 0x2761, 0x2781, -0x7ff };
+static const HulkImageTables hulk_tables_zx = { 0x26db, 0x2798, 0x27bc, 0x276e, 0x441b };
+
+/* Build the image offset table. Version 0 (Hulk) scatters its
+   offsets across four tables: rooms (0–10), items (11–27),
+   close-ups (28–33), and specials (34+). Later versions store
+   all offsets in a single contiguous LE16 table at pos. */
+static void ReadImageOffsets(uint16_t *image_offsets, int numgraphics,
+    uint8_t *pos, const HulkImageTables *hulk)
+{
+    for (int i = 0; i < numgraphics; i++) {
+        if (hulk != NULL) {
+            uint16_t address;
+
+            if (i < 11) {
+                address = Game->start_of_image_data + (i * 2);
+            } else if (i < 28) {
+                address = hulk->item_image_offsets + (i - 10) * 2;
+            } else if (i < 34) {
+                address = hulk->closeup_image_offsets + (i - 28) * 2;
+            } else {
+                address = hulk->special_image_offsets + (i - 34) * 2;
+            }
+
+            address += file_baseline_offset;
+            address = READ_LE_UINT16(entire_file + address);
+
+            image_offsets[i] = address + hulk->image_offset;
+        } else {
+            image_offsets[i] = READ_LE_UINT16_AND_ADVANCE(&pos);
+        }
+    }
+}
+
+/* Read an image header. The data stream starts with width and
+   height (in tiles), followed by x/y screen offsets in version 1+.
+   Version 0 (Hulk) stores item image coordinates in a separate
+   table and has no offsets for room or special images. */
+static void ReadImageHeader(Image *img, uint8_t **posptr, int picture_number,
+    const HulkImageTables *hulk)
+{
+    uint8_t *pos = *posptr;
+
+    img->width = *pos++;
+    if (img->width > IRMAK_IMGWIDTH)
+        img->width = IRMAK_IMGWIDTH;
+
+    img->height = *pos++;
+    if (img->height > IRMAK_IMGHEIGHT)
+        img->height = IRMAK_IMGHEIGHT;
+
+    if (hulk == NULL) {
+        img->xoff = *pos++;
+        if (img->xoff > IRMAK_IMGWIDTH)
+            img->xoff = 4;
+        img->yoff = *pos++;
+        if (img->yoff > IRMAK_IMGHEIGHT)
+            img->yoff = 0;
+    } else {
+        /* Hulk item images (11–27) have per-image coordinates;
+           all others are drawn at the origin. */
+        if (picture_number > 9 && picture_number < 28) {
+            img->xoff = entire_file[hulk->coordinates + picture_number - 10 + file_baseline_offset];
+            img->yoff = entire_file[hulk->coordinates + 18 + picture_number - 10 + file_baseline_offset];
+        } else {
+            img->xoff = img->yoff = 0;
+        }
+    }
+
+    *posptr = pos;
+}
+
+static void SetFullScreenHeader(Image *img)
+{
+    img->height = IRMAK_IMGHEIGHT;
+    img->width = IRMAK_IMGWIDTH;
+    img->xoff = 4;
+    img->yoff = 0;
+}
+
+/* Detect the corrupt Claymorgue release by checking whether a
+   specific image in the broken range has zero dimensions.
+   If so, disable the entire corrupt range and salvage the
+   few images that can be reconstructed (16/28 for C64, 14
+   for Spectrum) by giving them valid full-screen headers.
+   Called for every picture in order; *broken remembers the finding. */
+static void SalvageClaymorgueImage(Image *img, uint8_t **pos, int picture_number,
+    int *broken)
+{
+    int empty = (img->height == 0 && img->width == 0);
+
+    if (CurrentGame == CLAYMORGUE_C64) {
+        if (empty && picture_number == 13) {
+            PatchOutBrokenClaymorgueImages(12, 27, 16);
+            *broken = 1;
+        }
+
+        if (*broken && (picture_number == 16 || picture_number == 28)) {
+            SetFullScreenHeader(img);
+            if (picture_number == 28)
+                *pos = entire_file + 0x2005;
+        }
+    } else if (CurrentGame == CLAYMORGUE) {
+        if (empty && picture_number == 9) {
+            PatchOutBrokenClaymorgueImages(9, 35, 14);
+            *broken = 1;
+        }
+
+        if (*broken && picture_number == 14)
+            SetFullScreenHeader(img);
+    }
+}
+
+/* Read the 256-entry tile font (each tile is 8 bytes: one byte
+   per row of 8 pixels, MSB = leftmost pixel). */
+static void ReadTiles(uint8_t *pos)
+{
+    for (int i = 0; i < 256; i++) {
+        for (int y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
+            tiles[i][y] = *pos++;
+        }
+    }
+}
+
+static void EnterTextOnlyMode(const char *why)
+{
+    fprintf(stderr, "SagaSetup: %s. Entering text-only mode.\n", why);
+    Game->number_of_pictures = 0;
+}
+
 /* Main graphics initialisation entry point. Reads the tile font
    (256 8x8-pixel tile definitions), the per-image offset table,
    and each image's header (width, height, screen position).
@@ -142,12 +281,10 @@ static void PatchOutBrokenClaymorgueImages(int first, int last, int unbroken)
    (used when graphics data has been relocated). */
 void SagaGraphicsSetup(size_t imgoffset)
 {
-	if (images != NULL)
+    if (images != NULL)
         return;
 
     EndOfGraphicsData = entire_file + file_length;
-
-    int32_t i, y;
 
     uint16_t image_offsets[Game->number_of_pictures];
 
@@ -156,8 +293,7 @@ void SagaGraphicsSetup(size_t imgoffset)
     }
 
     if (palchosen == NO_PALETTE) {
-        fprintf(stderr, "SagaSetup: invalid palette. Entering text-only mode.\n");
-        Game->number_of_pictures = 0;
+        EnterTextOnlyMode("invalid palette");
         return;
     }
 
@@ -184,155 +320,45 @@ void SagaGraphicsSetup(size_t imgoffset)
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
     if (pos == NULL) {
-        fprintf(stderr, "SagaSetup: tile data is outside the file. Entering text-only mode.\n");
-        Game->number_of_pictures = 0;
+        EnterTextOnlyMode("tile data is outside the file");
         return;
     }
 
-    /* Read the 256-entry tile font (each tile is 8 bytes: one byte
-       per row of 8 pixels, MSB = leftmost pixel). */
-    for (i = 0; i < 256; i++) {
-        for (y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
-            tiles[i][y] = *pos++;
-        }
-    }
+    ReadTiles(pos);
 
     pos = SeekToPos(offset_table_start);
     if (version > 0 && (pos == NULL || EndOfGraphicsData - pos < numgraphics * 2)) {
-        fprintf(stderr, "SagaSetup: image offset table is outside the file. Entering text-only mode.\n");
-        Game->number_of_pictures = 0;
+        EnterTextOnlyMode("image offset table is outside the file");
         return;
     }
 
     images = (Image *)MemAlloc(sizeof(Image) * numgraphics);
     Image *img = images;
 
-    int broken_claymorgue_pictures_c64 = 0;
-    int broken_claymorgue_pictures_zx = 0;
+    const HulkImageTables *hulk = NULL;
 
-    /* Version 0 (Hulk) stores image offsets in four separate tables
-       for rooms, items, close-ups, and special images, at hardcoded
-       addresses that differ between the C64 and Spectrum releases.
-       hulk_image_offset adjusts the raw 16-bit pointers read from
-       those tables to file-relative positions. */
-    size_t hulk_coordinates = 0;
-    size_t hulk_item_image_offsets = 0;
-    size_t hulk_closeup_image_offsets = 0;
-    size_t hulk_special_image_offsets = 0;
-    size_t hulk_image_offset = 0;
-
-    if (Game->picture_format_version == 0) {
+    if (version == 0) {
         if (CurrentGame == HULK_C64) {
-            hulk_coordinates = 0x22cd;
-            hulk_item_image_offsets = 0x2731;
-            hulk_closeup_image_offsets = 0x2761;
-            hulk_special_image_offsets = 0x2781;
-            hulk_image_offset = -0x7ff;
+            hulk = &hulk_tables_c64;
         } else if (CurrentGame == HULK) {
-            hulk_coordinates = 0x26db;
-            hulk_item_image_offsets = 0x2798;
-            hulk_closeup_image_offsets = 0x27bc;
-            hulk_special_image_offsets = 0x276e;
-            hulk_image_offset = 0x441b;
+            hulk = &hulk_tables_zx;
         } else {
-            fprintf(stderr, "SagaSetup: Unknown game with version 0 graphics. Entering text-only mode.\n");
-            Game->number_of_pictures = 0;
+            EnterTextOnlyMode("Unknown game with version 0 graphics");
             return;
         }
     }
 
-    /* Build the image offset table. Version 0 (Hulk) scatters its
-       offsets across four tables: rooms (0–10), items (11–27),
-       close-ups (28–33), and specials (34+). Later versions store
-       all offsets in a single contiguous LE16 table. */
-    for (i = 0; i < numgraphics; i++) {
-        if (Game->picture_format_version == 0) {
-            uint16_t address;
+    ReadImageOffsets(image_offsets, numgraphics, pos, hulk);
 
-            if (i < 11) {
-                address = Game->start_of_image_data + (i * 2);
-            } else if (i < 28) {
-                address = hulk_item_image_offsets + (i - 10) * 2;
-            } else if (i < 34) {
-                address = hulk_closeup_image_offsets + (i - 28) * 2;
-            } else {
-                address = hulk_special_image_offsets + (i - 34) * 2;
-            }
+    int broken_claymorgue_pictures = 0;
 
-            address += file_baseline_offset;
-            address = READ_LE_UINT16(entire_file + address);
-
-            image_offsets[i] = address + hulk_image_offset;
-        } else {
-            image_offsets[i] = READ_LE_UINT16_AND_ADVANCE(&pos);
-        }
-    }
-
-    /* Read each image header. The data stream starts with width and
-       height (in tiles), followed by x/y screen offsets in version 1+.
-       Version 0 (Hulk) stores item image coordinates in a separate
-       table and has no offsets for room or special images. */
     for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
         pos = SeekToPos(image_offsets[picture_number] + data_offset);
-        if (pos == 0)
+        if (pos == NULL)
             return;
 
-        img->width = *pos++;
-        if (img->width > IRMAK_IMGWIDTH)
-            img->width = IRMAK_IMGWIDTH;
-
-        img->height = *pos++;
-        if (img->height > IRMAK_IMGHEIGHT)
-            img->height = IRMAK_IMGHEIGHT;
-
-        if (version > 0) {
-            img->xoff = *pos++;
-            if (img->xoff > IRMAK_IMGWIDTH)
-                img->xoff = 4;
-            img->yoff = *pos++;
-            if (img->yoff > IRMAK_IMGHEIGHT)
-                img->yoff = 0;
-        } else {
-            /* Hulk item images (11–27) have per-image coordinates;
-               all others are drawn at the origin. */
-            if (picture_number > 9 && picture_number < 28) {
-                img->xoff = entire_file[hulk_coordinates + picture_number - 10 + file_baseline_offset];
-                img->yoff = entire_file[hulk_coordinates + 18 + picture_number - 10 + file_baseline_offset];
-            } else {
-                img->xoff = img->yoff = 0;
-            }
-        }
-
-        /* Detect the corrupt Claymorgue release by checking whether a
-           specific image in the broken range has zero dimensions.
-           If so, disable the entire corrupt range and salvage the
-           few images that can be reconstructed (16/28 for C64, 14
-           for Spectrum) by giving them valid full-screen headers. */
-        if (CurrentGame == CLAYMORGUE_C64 && img->height == 0 && img->width == 0 && picture_number == 13) {
-            PatchOutBrokenClaymorgueImages(12, 27, 16);
-            broken_claymorgue_pictures_c64 = 1;
-        }
-
-        if (broken_claymorgue_pictures_c64 && (picture_number == 16 || picture_number == 28)) {
-            img->height = IRMAK_IMGHEIGHT;
-            img->width = IRMAK_IMGWIDTH;
-            img->xoff = 4;
-            img->yoff = 0;
-            if (picture_number == 28)
-                pos = entire_file + 0x2005;
-        }
-
-        if (CurrentGame == CLAYMORGUE && img->height == 0 && img->width == 0 && picture_number == 9) {
-            PatchOutBrokenClaymorgueImages(9, 35, 14);
-            broken_claymorgue_pictures_zx = 1;
-        }
-
-        if (broken_claymorgue_pictures_zx && (picture_number == 14)) {
-            img->height = IRMAK_IMGHEIGHT;
-            img->width = IRMAK_IMGWIDTH;
-            img->xoff = 4;
-            img->yoff = 0;
-        }
+        ReadImageHeader(img, &pos, picture_number, hulk);
+        SalvageClaymorgueImage(img, &pos, picture_number, &broken_claymorgue_pictures);
 
         /* Point imagedata at the start of this image's tile/attribute
            stream. datasize is a conservative upper bound (to end of

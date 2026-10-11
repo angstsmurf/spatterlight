@@ -15,7 +15,7 @@
 typedef struct SavedState {
     int Counters[NUM_COUNTERS];
     int RoomSaved[NUM_COUNTERS];
-    long BitFlags;
+    uint64_t BitFlags;
     int CurrentLoc;
     int CurrentCounter;
     int SavedRoom;
@@ -26,6 +26,8 @@ typedef struct SavedState {
     struct SavedState *nextState;
 } SavedState;
 
+extern SavedState *InitialState;
+
 void SaveUndo(void);
 void RestoreUndo(void);
 void RamSave(void);
@@ -33,6 +35,5 @@ void RamRestore(void);
 SavedState *SaveCurrentState(void);
 void RestoreState(SavedState *state);
 void FreeSavedState(SavedState *state);
-void RecoverFromBadRestore(SavedState *state);
 
 #endif /* restore_state_h */

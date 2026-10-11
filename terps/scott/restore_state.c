@@ -55,13 +55,6 @@ void FreeSavedState(SavedState *state)
     free(state);
 }
 
-void RecoverFromBadRestore(SavedState *state)
-{
-    Output(sys[BAD_DATA]);
-    RestoreState(state);
-    FreeSavedState(state);
-}
-
 void RestoreState(SavedState *state)
 {
     for (int ct = 0; ct < NUM_COUNTERS; ct++) {

@@ -14,6 +14,7 @@
 #include "saga.h"
 #include "sagadraw.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_actions.h"
 #include "scott_display.h"
 
@@ -61,8 +62,7 @@ void SecretAction(int p)
     switch (p) {
     case 1: /* Bomb explodes */
         if (split_screen) {
-            glk_window_close(Top, NULL);
-            Top = NULL;
+            CloseTopWindow();
             MyLoc = 1;
             Rooms[1].Image = 25; /* BOOM */
             DrawImage(25);
@@ -180,11 +180,11 @@ static void CopyWordList(const char **dest, const char **src, int count)
 void SetParserWordLists(const char **directions, const char **skip_list,
     const char **delimiters, const char **extra_commands, const char **extra_nouns)
 {
-    CopyWordList(Directions, directions, NUMBER_OF_DIRECTIONS);
-    CopyWordList(SkipList, skip_list, NUMBER_OF_SKIPPABLE_WORDS);
-    CopyWordList(DelimiterList, delimiters, NUMBER_OF_DELIMITERS);
-    CopyWordList(ExtraCommands, extra_commands, NUMBER_OF_EXTRA_COMMANDS);
-    CopyWordList(ExtraNouns, extra_nouns, NUMBER_OF_EXTRA_NOUNS);
+    CopyWordList(Directions, directions, NUM_DIRECTIONS);
+    CopyWordList(SkipList, skip_list, NUM_SKIPPABLE_WORDS);
+    CopyWordList(DelimiterList, delimiters, NUM_DELIMITERS);
+    CopyWordList(ExtraCommands, extra_commands, NUM_EXTRA_COMMANDS);
+    CopyWordList(ExtraNouns, extra_nouns, NUM_EXTRA_NOUNS);
 }
 
 /* The system message order shared by the C64 ports of Adventureland,
@@ -613,7 +613,7 @@ void VoodooShowImageOnExamineUS(int noun)
     case 7: // Bloody knife
         if (IsPresent(0))
             image = 7;
-
+        break;
     default:
         break;
     }

@@ -14,7 +14,6 @@
 // and may not work properly for other purposes.
 
 
-#include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -41,13 +40,10 @@
 /* Size of a local file header (fixed-size portion): 30 bytes */
 #define SIZEZIPLOCALHEADER (0x1e)
 
-/* Default case sensitivity for filename matching (0 = use OS default) */
-#define CASESENSITIVITY (0)
 /* Default case sensitivity value: 2 = case-insensitive (like Windows) */
 #define CASESENSITIVITYDEFAULTVALUE 2
 
 #define UNZ_MAXFILENAMEINZIP (256)
-#define WRITEBUFFERSIZE (8192)
 /* Size of the internal read buffer for decompression */
 #define UNZ_BUFSIZE (16384)
 
@@ -79,8 +75,6 @@ typedef struct unz_file_info64_s
     uLong disk_num_start;       /* disk number start               2 bytes */
     uLong internal_fa;          /* internal file attributes        2 bytes */
     uLong external_fa;          /* external file attributes        4 bytes */
-
-    //    tm_unz tmu_date;
 } unz_file_info64;
 
 

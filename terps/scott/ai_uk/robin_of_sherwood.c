@@ -6,13 +6,14 @@
 //
 
 #include <ctype.h>
-#include <string.h>
 
 #include "decompress_text.h"
 #include "sagagraphics.h"
 #include "game_specific.h"
 #include "irmak.h"
 #include "scott.h"
+#include "detect_game.h"
+#include "scott_meta.h"
 #include "scott_display.h"
 
 extern Image *images;
@@ -23,6 +24,9 @@ extern Image *images;
 static uint8_t *forest_images = NULL;
 
 #define WATERFALL_ANIMATION_RATE 15
+/* Rooms 11-73 are the procedurally assembled forest; they have no stored
+   images. */
+#define NUM_FOREST_ROOMS 63
 
 static void animate_lightning(int stage);
 
@@ -173,7 +177,7 @@ static void animate_waterfall(int first_col, int cols, int first_line,
    call swaps blue/yellow palette entries (platform-dependent colours)
    and redraws image 77, creating a strobe effect. Stage 3 holds a long
    pause (700 ms) for dramatic effect; stage 11 ends the sequence. */
-void animate_lightning(int stage)
+static void animate_lightning(int stage)
 {
     if (palchosen == C64B) {
         SwitchPalettes(6, 7);
@@ -266,22 +270,17 @@ void UpdateRobinOfSherwoodAnimations(void)
     }
 }
 
-/* Load extra data that Robin of Sherwood stores outside the standard
-   Scott Adams database: per-room image indices, compressed room
-   descriptions, system message mappings, and the forest sub-image
-   table. All offsets are platform-dependent (C64 vs Spectrum). */
-void LoadExtraSherwoodData(int c64)
+/* Room image indices: one byte per room. Forest rooms (11–73) are
+   skipped because they use the procedural draw_sherwood() instead of
+   a single image. */
+static int LoadSherwoodRoomImages(int c64)
 {
-    /* --- Room image indices --- */
-    /* One byte per room. Forest rooms (11–73) are skipped because they
-       use the procedural draw_sherwood() instead of a single image. */
-
     int offset = file_baseline_offset + ((c64 == 1) ? 0x1ffd : 0x3d99);
 
     uint8_t *ptr= SeekToPos(offset);
 
     if (ptr == NULL)
-        return;
+        return 0;
 
     int ct;
     Room *rp = Rooms;
@@ -291,26 +290,29 @@ void LoadExtraSherwoodData(int c64)
         rp++;
         if (ct == 10) {
             /* Skip the 63 forest rooms (11–73) — no stored images */
-            for (int i = 0; i < 63; i++) {
+            for (int i = 0; i < NUM_FOREST_ROOMS; i++) {
                 rp++;
                 ct++;
             }
         }
     }
+    return 1;
+}
 
-    /* --- Room descriptions (5-bit compressed text) --- */
-    /* Forest rooms all share the same hardcoded description. The first
-       letter of each decompressed description is lowercased because
-       the engine prepends "You are ". */
+/* Room descriptions (5-bit compressed text). Forest rooms all share
+   the same hardcoded description. The first letter of each
+   decompressed description is lowercased because the engine prepends
+   "You are ". */
+static int LoadSherwoodRoomDescs(int c64)
+{
+    int ct = 0;
+    Room *rp = Rooms;
 
-    ct = 0;
-    rp = Rooms;
+    int offset = file_baseline_offset + ((c64 == 1) ? 0x402e : 0x5b7e);
 
-    offset = file_baseline_offset + ((c64 == 1) ? 0x402e : 0x5b7e);
-
-    ptr = SeekToPos(offset);
+    uint8_t *ptr = SeekToPos(offset);
     if (ptr == NULL)
-        return;
+        return 0;
 
     do {
         rp->Text = DecompressText(ptr, ct);
@@ -327,11 +329,13 @@ void LoadExtraSherwoodData(int c64)
         }
         rp++;
     } while (ct < 33);
+    return 1;
+}
 
-    /* --- System message mapping --- */
-    /* C64 and Spectrum versions store system messages in different orders;
-       map each platform's message array to the canonical SysMessageType keys */
-
+/* C64 and Spectrum versions store system messages in different orders;
+   map each platform's message array to the canonical SysMessageType keys */
+static void MapSherwoodSysMessages(int c64)
+{
     if (c64 == 1) {
         SysMessageType messagekey[] = {
             NORTH,
@@ -366,10 +370,14 @@ void LoadExtraSherwoodData(int c64)
 
         MapSysMessages(messagekey, 28, 0);
 
+        /* Deliberately replaces the HIT_ENTER mapped by the key list above */
         sys[HIT_ENTER] = system_messages[30];
         sys[WHAT] = system_messages[13];
 
     } else {
+        /* Several keys appear twice (OK, YOU_SEE, WHAT_NOW, HIT_ENTER, ...):
+           the Spectrum version has variant texts for them, and the last
+           mapping wins. */
         SysMessageType messagekey[] = {
             BAD_DATA,
             OK,
@@ -402,14 +410,16 @@ void LoadExtraSherwoodData(int c64)
     }
     sys[EXITS_DELIMITER] = " ";
     sys[MESSAGE_DELIMITER] = ". ";
+}
 
-    /* --- Forest sub-image table --- */
-    /* 555 bytes of packed sub-image indices describing the composition
-       of each forest room (rooms 11–73). See draw_sherwood(). */
+/* Forest sub-image table: 555 bytes of packed sub-image indices
+   describing the composition of each forest room (rooms 11–73).
+   See draw_sherwood(). */
+static void LoadForestImages(int c64)
+{
+    int offset = file_baseline_offset + ((c64 == 1) ? 0x2300 : 0x3b6e);
 
-    offset = file_baseline_offset + ((c64 == 1) ? 0x2300 : 0x3b6e);
-
-    ptr = SeekToPos(offset);
+    uint8_t *ptr = SeekToPos(offset);
     if (ptr == NULL)
         return;
 
@@ -418,5 +428,16 @@ void LoadExtraSherwoodData(int c64)
 
     for (int i = 0; i < cells; i++)
         forest_images[i] = *(ptr++);
+}
 
+/* Load extra data that Robin of Sherwood stores outside the standard
+   Scott Adams database: per-room image indices, compressed room
+   descriptions, system message mappings, and the forest sub-image
+   table. All offsets are platform-dependent (C64 vs Spectrum). */
+void LoadExtraSherwoodData(int c64)
+{
+    if (!LoadSherwoodRoomImages(c64) || !LoadSherwoodRoomDescs(c64))
+        return;
+    MapSherwoodSysMessages(c64);
+    LoadForestImages(c64);
 }

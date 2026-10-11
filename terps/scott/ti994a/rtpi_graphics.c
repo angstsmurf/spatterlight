@@ -25,7 +25,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <time.h>
 
 #include "scott.h"
 #include "irmak.h"
@@ -39,16 +38,16 @@
 /* VDP screen buffer: 32 columns × 12 rows × 8 bytes per tile = 0xC00 bytes.
    vdp_pixels holds 1-bpp tile pattern data; vdp_colors holds per-row
    colour attributes (upper nibble = fg, lower nibble = bg). */
-#define RTPI_IMAGE_SIZE 32 * 12 * 8
+#define RTPI_IMAGE_SIZE (32 * 12 * 8)
 
 static uint8_t vdp_pixels[RTPI_IMAGE_SIZE];
 static uint8_t vdp_colors[RTPI_IMAGE_SIZE];
 
-#define NUMBER_OF_GROM_BANKS        5
+#define NUM_GROM_BANKS        5
 #define GROM_BANK_SIZE              0x2000
 
 /* Total GROM data size (5 × 0x2000 byte banks). */
-#define GROM_SIZE NUMBER_OF_GROM_BANKS * GROM_BANK_SIZE
+#define GROM_SIZE (NUM_GROM_BANKS * GROM_BANK_SIZE)
 
 /* Size of the per-bank header that prefixes each GROM bank, and the
    usable data region that follows it within each bank. */
@@ -56,12 +55,11 @@ static uint8_t vdp_colors[RTPI_IMAGE_SIZE];
 #define GROM_BANK_DATA_SIZE (GROM_BANK_SIZE - GROM_HEADER_SIZE)
 
 /* Usable GROM data size with headers cut out (5 × 0x17fe = 0x77f6). */
-#define GROM_FLAT_SIZE NUMBER_OF_GROM_BANKS * GROM_BANK_DATA_SIZE
+#define GROM_FLAT_SIZE (NUM_GROM_BANKS * GROM_BANK_DATA_SIZE)
 
-#define NUMBER_OF_RTPI_ROOM_IMAGES 24 + 9
-#define NUMBER_OF_RTPI_ITEM_IMAGES 7
-#define NUMBER_OF_RTPI_IMAGES NUMBER_OF_RTPI_ROOM_IMAGES + NUMBER_OF_RTPI_ITEM_IMAGES
-#define NUMBER_OF_RTPI_TILES 52
+#define NUM_RTPI_ROOM_IMAGES (24 + 9)
+#define NUM_RTPI_ITEM_IMAGES 7
+#define NUM_RTPI_TILES 52
 #define RTPI_TITLE_TEXT_LENGTH 0x1e2
 
 /* MAME zip layout splits the GROM across five 0x2000-byte bank files
@@ -70,10 +68,10 @@ static uint8_t vdp_colors[RTPI_IMAGE_SIZE];
 #define RTPI_GROM_FILENAME_BUF_SIZE 14
 
 /* The 52-entry tile font, loaded from the CPU ROM (c.bin). */
-static uint8_t rtpi_tile_font[NUMBER_OF_RTPI_TILES][8];
+static uint8_t rtpi_tile_font[NUM_RTPI_TILES][8];
 
 /* Debug names for the 8 draw opcodes. */
-const static char *draw_opcode_names[8] = {
+static const char *draw_opcode_names[8] = {
     "op0_copy_tiles",
     "op1_repeat_tile",
     "op2_move_cursor",
@@ -166,7 +164,7 @@ static int DecodeRTPIColors(uint8_t *ptr, USImage *image) {
    with rotation 1 produces a solid black (all-bits-set) tile rather
    than a rotated blank. */
 static int get_tile_and_rotate(uint8_t *tile, int tile_index, int rotation) {
-    if (tile_index >= NUMBER_OF_RTPI_TILES) {
+    if (tile_index >= NUM_RTPI_TILES) {
         debug_print("get_tile_and_rotate: illegal tile %d\n", tile_index);
         return 0;
     }
@@ -227,7 +225,196 @@ static uint8_t *blit_tile(uint8_t *dst, uint8_t *tile) {
      bits 0–8:   screen position index for VDP-read ops
 
    The stream ends when opcode 7 with repeat==0 is encountered, which
-   signals the transition to the colour attribute section. */
+   signals the transition to the colour attribute section.
+
+   Each opcode has a handler below, working on the decoder state. */
+typedef struct {
+    uint8_t *gptr; /* read position in the bytecode */
+    uint8_t *gend;
+    uint8_t *dst; /* write position in vdp_pixels */
+    uint16_t tile_index;
+    uint16_t screen_index;
+    int rotation;
+    int repeats;
+    uint8_t tile[8];
+    uint8_t worktile[8];
+} RTPIDecoder;
+
+/* Opcode 0. Copy tiles: read from VDP, compose, blit, repeat.
+ * For each repeat, reads a tile from VDP into the buffer,
+ * blits the buffer to VDP at R4, clears the buffer, and reads
+ * the next tile index from GROM for the next iteration.
+ */
+static void RTPICopyTiles(RTPIDecoder *d) {
+    for (int i = 0; i < d->repeats; i++) {
+        if (!copy_tile_from_vdp(d->tile, d->screen_index))
+            break;
+        d->dst = blit_tile(d->dst, d->tile);
+        if (i < d->repeats - 1) {
+            if (d->gptr >= d->gend)
+                break;
+            d->screen_index = *d->gptr++;
+        }
+    }
+}
+
+/* Opcode 1. Repeat tile: draw tile with rotation, blit repeatedly.
+ * Processes a single tile with full rotation/composition,
+ * then blits the result to VDP (repeats) times. Each blit writes the
+ * same composed tile to consecutive VDP positions.
+ */
+static void RTPIRepeatTile(RTPIDecoder *d) {
+    if (!get_tile_and_rotate(d->tile, d->tile_index, d->rotation))
+        return;
+
+    for (int i = 0; i < d->repeats; i++) {
+        d->dst = blit_tile(d->dst, d->tile);
+    }
+    memset(d->tile, 0, 8);
+}
+
+/* Opcode 3. Copy one tile: read tile from VDP and blit with repeats.
+ * Reads one tile from VDP into the buffer, then blits
+ * it to VDP (repeat) times.
+ */
+static void RTPICopyOneTile(RTPIDecoder *d) {
+    if (!copy_tile_from_vdp(d->tile, d->screen_index))
+        return;
+    for (int i = 0; i < d->repeats; i++) {
+        d->dst = blit_tile(d->dst, d->tile);
+    }
+    memset(d->tile, 0, 8);
+}
+
+/* Opcode 4. Process tile with rotation, blit, clear, repeat.
+ * Decode and blit tiles. For each iteration, reads a tile
+ * index from GROM, processes it with rotation, blits to VDP,
+ * clears the buffer, and repeats for (repeats) iterations.
+ */
+static void RTPIDecodeTiles(RTPIDecoder *d) {
+    for (int i = 0; i < d->repeats; i++) {
+        if (!get_tile_and_rotate(d->tile, d->tile_index, d->rotation))
+            continue;
+        d->dst = blit_tile(d->dst, d->tile);
+        if (i < d->repeats - 1) {
+            if (!get_next_byte(&d->gptr, d->gend, &d->tile_index, &d->rotation))
+                break;
+        }
+    }
+    memset(d->tile, 0, 8);
+}
+
+/* Opcode 5. Copy tile run from VDP.
+ * Reads a tile from VDP, blits it, increments the tile
+ * index, clears the buffer, and repeats. This draws a
+ * sequential run of tiles (tile N, N+1, N+2, ...).
+ */
+static void RTPICopyTileRun(RTPIDecoder *d) {
+    for (int i = 0; i < d->repeats; i++) {
+        if (!copy_tile_from_vdp(d->tile, d->screen_index))
+            break;
+        d->dst = blit_tile(d->dst, d->tile);
+        d->screen_index++;
+    }
+    memset(d->tile, 0, 8);
+}
+
+/* Opcode 6. Sub-opcodes.
+ * One of 16 sub-opcodes depending on
+ * the value of `repeats`. Only the ones actually
+ * used by the game are implemented here.
+ */
+static void RTPISubOpcode(RTPIDecoder *d) {
+    if (d->repeats > 0 && d->repeats < 13) {
+        if (!get_tile_and_rotate(d->worktile, d->tile_index, d->rotation))
+            return;
+    }
+
+    switch(d->repeats) {
+        case 0: //  0. Write 8 raw bytes to screen memory directly from GROM
+            if (d->gptr + 8 > d->gend || d->dst + 8 > vdp_pixels + RTPI_IMAGE_SIZE)
+                break;
+            for (int i = 0; i < 8; i++) {
+                *d->dst++ = *d->gptr++;
+            }
+            break;
+        case 1: //  1-4. OR tile_index with next (repeats) tiles, then blit and clear
+        case 2:
+        case 3:
+        case 4:
+            for (int i = 0; i < d->repeats; i++) {
+                for (int j = 0; j < 8; j++)
+                    d->tile[j] |= d->worktile[j];
+                if (i < d->repeats - 1) {
+                    if (!get_next_byte(&d->gptr, d->gend, &d->tile_index, &d->rotation))
+                        break;
+                    if (!get_tile_and_rotate(d->worktile, d->tile_index, d->rotation))
+                        break;
+                }
+            }
+            d->dst = blit_tile(d->dst, d->tile);
+            memset(d->tile, 0, 8);
+            break;
+        case 6: //  6. Clear, AND tile_index with next tile, blit and clear
+            if (!get_next_byte(&d->gptr, d->gend, &d->tile_index, &d->rotation))
+                break;
+            if (!get_tile_and_rotate(d->tile, d->tile_index, d->rotation))
+                break;
+            for (int i = 0; i < 8; i++)
+                d->tile[i] &= d->worktile[i];
+            d->dst = blit_tile(d->dst, d->tile);
+            memset(d->tile, 0, 8);
+            break;
+        case 9: //  9. AND tile with tile_index
+            for (int i = 0; i < 8; i++) {
+                d->tile[i] &= d->worktile[i];
+            }
+            break;
+        case 10: // 10. OR tile with tile_index
+            for (int i = 0; i < 8; i++) {
+                d->tile[i] |= d->worktile[i];
+            }
+            break;
+        case 11: // 11. XOR tile with tile_index
+            for (int i = 0; i < 8; i++) {
+                d->tile[i] ^= d->worktile[i];
+            }
+            break;
+        case 13: // 13. Copy screen tile at screen_index to tile
+            copy_tile_from_vdp(d->tile, d->screen_index);
+            break;
+        case 15: // 15. Blit tile and copy tile_index to tile
+            d->dst = blit_tile(d->dst, d->tile);
+            if (!get_tile_and_rotate(d->tile, d->tile_index, 0))
+                memset(d->tile, 0, 8);
+            break;
+        default:
+            fprintf(stderr, "DrawRTPIImageWithOptionalFuzz: Unimplemented sub-opcode (%d)\n", d->repeats);
+            break;
+    }
+}
+
+/* Opcode 7. Combine tile pairs.
+ * OR two tiles and blit them.
+ * Repeat (repeats / 2) times.
+ */
+static void RTPICombineTilePairs(RTPIDecoder *d) {
+    for (int i = 0; i < d->repeats; i++) {
+        if (!get_tile_and_rotate(d->worktile, d->tile_index, d->rotation))
+            break;
+        for (int j = 0; j < 8; j++)
+            d->tile[j] |= d->worktile[j];
+        if (i % 2 == 1) {
+            d->dst = blit_tile(d->dst, d->tile);
+            memset(d->tile, 0, 8);
+        }
+        if (i < d->repeats - 1) {
+            if (!get_next_byte(&d->gptr, d->gend, &d->tile_index, &d->rotation))
+                break;
+        }
+    }
+}
+
 static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
 
     if (image == NULL || image->imagedata == NULL || image->datasize < 2) {
@@ -243,24 +430,16 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
         ClearVDP();
     }
 
-    uint8_t *dst = vdp_pixels;
-    uint8_t *vdp_end = vdp_pixels + RTPI_IMAGE_SIZE;
+    RTPIDecoder decoder = { 0 };
+    RTPIDecoder *d = &decoder;
+    d->dst = vdp_pixels;
 
     /* Fuzzy mode: skip 2 bytes to misalign the bytecode stream,
        producing a garbled image (simulates myopia). */
-    uint8_t *gptr = image->imagedata + (fuzzy ? 2 : 0);
-    uint8_t *gend = image->imagedata + image->datasize;
+    d->gptr = image->imagedata + (fuzzy ? 2 : 0);
+    d->gend = image->imagedata + image->datasize;
 
-    int rotation = 0;
-    int repeats = 0;
-    int op = 0;
-
-    uint16_t draw_ops_word = 0;
-    uint16_t tile_index, screen_index;
-    uint8_t tile[8] = {0,0,0,0,0,0,0,0};
-    uint8_t worktile[8] = {0,0,0,0,0,0,0,0};
-
-    while (gptr + 2 <= gend) {
+    while (d->gptr + 2 <= d->gend) {
         /*   - Bits 0-5: tile index. There are only 52 tile patterns.
          *   - Bits 6-7: rotation mode (0=none, 1=rot-90, 2=rot-180, 3=rot-270)
          *   - Some opcodes (such as 0) instead use bits 0-8 as the index to an
@@ -268,218 +447,61 @@ static int DrawRTPIImageWithOptionalFuzz(USImage *image, int fuzzy) {
          *   - Bits 9-12: repeat count / subop index
          *   - Bits 13-15: opcode
          */
-        draw_ops_word = READ_BE_UINT16(gptr);
-        gptr += 2;
-        tile_index = draw_ops_word & 0x3f;
-        screen_index = draw_ops_word & 0x1ff;
-        rotation = (draw_ops_word & 0xc0) >> 6;
-        repeats = (draw_ops_word & 0x1e00) >> 9;
-        op = (draw_ops_word & 0xe000) >> 13;
+        uint16_t draw_ops_word = READ_BE_UINT16(d->gptr);
+        d->gptr += 2;
+        d->tile_index = draw_ops_word & 0x3f;
+        d->screen_index = draw_ops_word & 0x1ff;
+        d->rotation = (draw_ops_word & 0xc0) >> 6;
+        d->repeats = (draw_ops_word & 0x1e00) >> 9;
+        int op = (draw_ops_word & 0xe000) >> 13;
 
-        if (repeats == 0) {
+        if (d->repeats == 0) {
             if (op == 7) {
                 debug_print("DrawRTPIImageWithOptionalFuzz: repeats is 0 and opcode is 7: Jump to DecodeRTPIColors.\n");
-                return DecodeRTPIColors(gptr - 1, image);
+                return DecodeRTPIColors(d->gptr - 1, image);
             }
 
             if (op != 2) {
-                gptr--;
-                memset(tile, 0, 8);
+                d->gptr--;
+                memset(d->tile, 0, 8);
                 if (op != 6)
                     continue;
             }
         }
 
-        debug_print("DrawRTPIImage: tile index: %d rot:%d rep:%d op:%d\n", tile_index, rotation, repeats, op);
+        debug_print("DrawRTPIImage: tile index: %d rot:%d rep:%d op:%d\n", d->tile_index, d->rotation, d->repeats, op);
 
-        if (op > 7) {
-            debug_print("DrawRTPIImage: Illegal draw op: %d\n", op);
-        } else {
-            debug_print("DrawRTPIImage: draw op: %s\n", draw_opcode_names[op]);
-        }
+        debug_print("DrawRTPIImage: draw op: %s\n", draw_opcode_names[op]);
 
         switch (op) {
             case 0:
-                /* --- 0. Copy tiles: read from VDP, compose, blit, repeat ---
-                 * For each repeat, reads a tile from VDP into the buffer,
-                 * blits the buffer to VDP at R4, clears the buffer, and reads
-                 * the next tile index from GROM for the next iteration.
-                 */
-                for (int i = 0; i < repeats; i++) {
-                    if (!copy_tile_from_vdp(tile, screen_index))
-                        break;
-                    dst = blit_tile(dst, tile);
-                    if (i < repeats - 1) {
-                        if (gptr >= gend)
-                            break;
-                        screen_index = *gptr++;
-                    }
-                }
+                RTPICopyTiles(d);
                 break;
             case 1:
-                /* --- 1. Repeat tile. Draw tile with rotation, blit repeatedly ---
-                 * Processes a single tile with full rotation/composition,
-                 * then blits the result to VDP (repeats) times. Each blit writes the
-                 * same composed tile to consecutive VDP positions.
-                 */
-                if (!get_tile_and_rotate(tile, tile_index, rotation))
-                    break;
-
-                for (int i = 0; i < repeats; i++) {
-                    dst = blit_tile(dst, tile);
-                }
-                memset(tile, 0, 8);
+                RTPIRepeatTile(d);
                 break;
             case 2:
-                /* --- 2. Move write address to tile position ---
-                 * Move cursor. Sets the VDP write address to
-                 * the pattern table location for tile (tile_index * 8),
-                 * then clears the buffer. This positions the write pointer
-                 * without actually writing any tile data.
+                /* Move the write address to a tile position, without
+                 * writing any tile data.
                  */
-                if (screen_index * 8 < RTPI_IMAGE_SIZE)
-                    dst = vdp_pixels + screen_index * 8;
+                if (d->screen_index * 8 < RTPI_IMAGE_SIZE)
+                    d->dst = vdp_pixels + d->screen_index * 8;
                 break;
             case 3:
-                /* --- 3. Copy one tile. Read tile from VDP and blit with repeats ---
-                 * Reads one tile from VDP into the buffer, then blits
-                 * it to VDP (repeat) times.
-                 */
-                if (!copy_tile_from_vdp(tile, screen_index))
-                    break;
-                for (int i = 0; i < repeats; i++) {
-                    dst = blit_tile(dst, tile);
-                }
-                memset(tile, 0, 8);
+                RTPICopyOneTile(d);
                 break;
             case 4:
-                /* --- 4. Process tile with rotation, blit, clear, repeat ---
-                 * Decode and blit tiles. For each iteration, reads a tile
-                 * index from GROM, processes it with rotation, blits to VDP,
-                 * clears the buffer, and repeats for (repeats) iterations.
-                 */
-                for (int i = 0; i < repeats; i++) {
-                    if (!get_tile_and_rotate(tile, tile_index, rotation))
-                        continue;
-                    dst = blit_tile(dst, tile);
-                    if (i < repeats - 1) {
-                        if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
-                            break;
-                    }
-                }
-                memset(tile, 0, 8);
+                RTPIDecodeTiles(d);
                 break;
             case 5:
-                /* --- 5. Copy tile run from VDP ---
-                 * Reads a tile from VDP, blits it, increments the tile
-                 * index, clears the buffer, and repeats. This draws a
-                 * sequential run of tiles (tile N, N+1, N+2, ...).
-                 */
-                for (int i = 0; i < repeats; i++) {
-                    if (!copy_tile_from_vdp(tile, screen_index))
-                        break;
-                    dst = blit_tile(dst, tile);
-                    screen_index++;
-                }
-                memset(tile, 0, 8);
+                RTPICopyTileRun(d);
                 break;
             case 6:
-                /* --- 6. Sub-opcodes ---
-                 * One of 16 sub-opcodes depending on
-                 * the value of `repeats`. Only the ones actually
-                 * used by the game are implemented here.
-                 */
-
-                if (repeats > 0 && repeats < 13) {
-                    if (!get_tile_and_rotate(worktile, tile_index, rotation))
-                        break;
-                }
-
-                switch(repeats) {
-                    case 0: //  0. Write 8 raw bytes to screen memory directly from GROM
-                        if (gptr + 8 > gend || dst + 8 > vdp_end)
-                            break;
-                        for (int i = 0; i < 8; i++) {
-                            *dst++ = *gptr++;
-                        }
-                        break;
-                    case 1: //  1-4. OR tile_index with next (repeats) tiles, then blit and clear
-                    case 2:
-                    case 3:
-                    case 4:
-                        for (int i = 0; i < repeats; i++) {
-                            for (int j = 0; j < 8; j++)
-                                tile[j] |= worktile[j];
-                            if (i < repeats - 1) {
-                                if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
-                                    break;
-                                if (!get_tile_and_rotate(worktile, tile_index, rotation))
-                                    break;
-                            }
-                        }
-                        dst = blit_tile(dst, tile);
-                        memset(tile, 0, 8);
-                        break;
-                    case 6: //  6. Clear, AND tile_index with next tile, blit and clear
-                        if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
-                            break;
-                        if (!get_tile_and_rotate(tile, tile_index, rotation))
-                            break;
-                        for (int i = 0; i < 8; i++)
-                            tile[i] &= worktile[i];
-                        dst = blit_tile(dst, tile);
-                        memset(tile, 0, 8);
-                        break;
-                    case 9: //  9. AND tile with tile_index
-                        for (int i = 0; i < 8; i++) {
-                            tile[i] &= worktile[i];
-                        }
-                        break;
-                    case 10: // 10. OR tile with tile_index
-                        for (int i = 0; i < 8; i++) {
-                            tile[i] |= worktile[i];
-                        }
-                        break;
-                    case 11: // 11. XOR tile with tile_index
-                        for (int i = 0; i < 8; i++) {
-                            tile[i] ^= worktile[i];
-                        }
-                        break;
-                    case 13: // 13. Copy screen tile at screen_index to tile
-                        copy_tile_from_vdp(tile, screen_index);
-                        break;
-                    case 15: // 15. Blit tile and copy tile_index to tile
-                        dst = blit_tile(dst, tile);
-                        if (!get_tile_and_rotate(tile, tile_index, 0))
-                            memset(tile, 0, 8);
-                        break;
-                    default:
-                        fprintf(stderr, "DrawRTPIImageWithOptionalFuzz: Unimplemented sub-opcode (%d)\n", repeats);
-                        break;
-                }
+                RTPISubOpcode(d);
                 break;
             case 7:
-                /* --- 7. Combine tile pairs ---
-                 * OR two tiles and blit them.
-                 * Repeat (repeats / 2) times.
-                 */
-                for (int i = 0; i < repeats; i++) {
-                    if (!get_tile_and_rotate(worktile, tile_index, rotation))
-                        break;
-                    for (int j = 0; j < 8; j++)
-                        tile[j] |= worktile[j];
-                    if (i % 2 == 1) {
-                        dst = blit_tile(dst, tile);
-                        memset(tile, 0, 8);
-                    }
-                    if (i < repeats - 1) {
-                        if (!get_next_byte(&gptr, gend, &tile_index, &rotation))
-                            break;
-                    }
-                }
+                RTPICombineTilePairs(d);
                 break;
-            default:
-                fprintf(stderr, "DrawRTPIImageWithOptionalFuzz: Illegal opcode %d!\n", op);
         }
     }
     return 0;
@@ -681,11 +703,11 @@ static USImage *finalize_img_make_new(USImage *image, uint16_t offset, uint16_t 
    overlay images. Image sizes are generally computed from the gap
    between consecutive offsets, with hardcoded overrides for images
    whose data is not contiguous (17, 22, 26). */
-static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2], uint8_t *grom) {
+static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_offsets[NUM_RTPI_ITEM_IMAGES][2], uint8_t *grom) {
     USImages = NewImage();
     USImage *image = USImages;
 
-    for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
+    for (int i = 0; i < NUM_RTPI_ROOM_IMAGES; i++) {
 
         if (room_image_offsets[i] == 0)
             continue;
@@ -726,9 +748,9 @@ static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_o
                is >= ours and use the gap as the size. If we run out of
                room entries, fall back to the first item image offset. */
             int j = i + 1;
-            while (j < NUMBER_OF_RTPI_ROOM_IMAGES && room_image_offsets[j] < offset)
+            while (j < NUM_RTPI_ROOM_IMAGES && room_image_offsets[j] < offset)
                 j++;
-            size_t next = (j < NUMBER_OF_RTPI_ROOM_IMAGES) ? room_image_offsets[j]
+            size_t next = (j < NUM_RTPI_ROOM_IMAGES) ? room_image_offsets[j]
                                                            : item_image_offsets[0][1];
             size = next - offset;
         }
@@ -740,11 +762,11 @@ static void LoadRTPIGraphics(uint16_t *room_image_offsets, uint16_t item_image_o
        [0] = index of room image the item overlays, [1] = GROM offset of image data.
        Size is computed from the gap to the next item image, except for the
        last one which has a hardcoded size (LAST_IMAGE_SIZE). */
-    for (int i = 0; i < NUMBER_OF_RTPI_ITEM_IMAGES; i++) {
+    for (int i = 0; i < NUM_RTPI_ITEM_IMAGES; i++) {
         size_t offset = item_image_offsets[i][1];
 
         size_t size;
-        if (i < NUMBER_OF_RTPI_ITEM_IMAGES - 1) {
+        if (i < NUM_RTPI_ITEM_IMAGES - 1) {
             size = item_image_offsets[i + 1][1] - offset;
         } else {
             size = LAST_IMAGE_SIZE;
@@ -1032,7 +1054,7 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info)
     uint8_t *ptr;
     uint8_t *endptr = data + length;
 
-#pragma mark dictionary
+// MARK: dictionary
 
     ptr = data + info.start_of_dictionary;
     if (ptr >= endptr)
@@ -1040,7 +1062,7 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info)
 
     ReadRTPIDictionary(&info, ptr, endptr);
 
-#pragma mark rooms
+// MARK: rooms
 
     ptr = data + info.start_of_room_descriptions;
     if (ptr >= endptr)
@@ -1048,14 +1070,14 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info)
 
     ptr = ParseRooms(ptr, endptr, GameHeader.NumRooms);
 
-#pragma mark messages
+// MARK: messages
 
     if (ptr >= endptr)
         return FreeGameResources();
 
     ptr = ParseMessages(ptr, endptr, GameHeader.NumMessages);
 
-#pragma mark items
+// MARK: items
 
     if (ptr >= endptr)
         return FreeGameResources();
@@ -1063,7 +1085,7 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info)
 
     ptr = ParseItems(ptr, endptr, GameHeader.NumItems, 1);
 
-#pragma mark actions
+// MARK: actions
 
     ptr += 0x90;
 
@@ -1079,7 +1101,7 @@ static GameIDType LoadRTPI(uint8_t *data, size_t length, GameInfo info)
     if (ptr >= endptr)
         return FreeGameResources();
 
-#pragma mark room connections
+// MARK: room connections
 
     ParseRoomConnections(ptr, endptr, GameHeader.NumRooms, 1);
 
@@ -1102,9 +1124,9 @@ static inline uint16_t adjust_grom_offset(uint16_t offset) {
 static uint8_t *CutOutGromHeaders(uint8_t *grom) {
     uint8_t *result = MemAlloc(GROM_FLAT_SIZE);
 
-    for (size_t i = 0; i < NUMBER_OF_GROM_BANKS; i++) {
+    for (size_t i = 0; i < NUM_GROM_BANKS; i++) {
         /* Bank order 1, 2, 3, 4, 0. */
-        size_t src_bank = (i + 1) % NUMBER_OF_GROM_BANKS;
+        size_t src_bank = (i + 1) % NUM_GROM_BANKS;
         memcpy(result + i * GROM_BANK_DATA_SIZE, grom + src_bank * GROM_BANK_SIZE, GROM_BANK_DATA_SIZE);
     }
 
@@ -1188,7 +1210,7 @@ static const GameInfo rtpi_info = {
     0, // start_of_system_messages
     0, // start of directions
 
-    0, // start_of_characters
+    0, // start_of_tiles
     0, // start_of_image_data
     0, // image_address_offset
     0, // number_of_pictures
@@ -1229,13 +1251,13 @@ static uint8_t *load_rtpi_zip_payload(uint8_t *data, size_t datalength) {
     /* Extract room and item image offset tables from the CPU ROM.
        Room offsets are 33 big-endian 16-bit GROM addresses at 0x12.
        Item offsets are 7 (room_index, GROM_address) pairs at 0x54. */
-    uint16_t room_image_offsets[NUMBER_OF_RTPI_ROOM_IMAGES];
-    uint16_t item_image_offsets[NUMBER_OF_RTPI_ITEM_IMAGES][2];
+    uint16_t room_image_offsets[NUM_RTPI_ROOM_IMAGES];
+    uint16_t item_image_offsets[NUM_RTPI_ITEM_IMAGES][2];
 
-    for (int i = 0; i < NUMBER_OF_RTPI_ROOM_IMAGES; i++) {
+    for (int i = 0; i < NUM_RTPI_ROOM_IMAGES; i++) {
         room_image_offsets[i] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ROOM_IMAGES_OFFSET + i * 2));
     }
-    for (int i = 0; i < NUMBER_OF_RTPI_ITEM_IMAGES; i++) {
+    for (int i = 0; i < NUM_RTPI_ITEM_IMAGES; i++) {
         item_image_offsets[i][0] = READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE);
         item_image_offsets[i][1] = adjust_grom_offset(READ_BE_UINT16(cpu_rom + ITEM_IMAGES_OFFSET + i * ITEM_IMAGE_ENTRY_SIZE + 2));
     }
@@ -1246,7 +1268,7 @@ static uint8_t *load_rtpi_zip_payload(uint8_t *data, size_t datalength) {
     replace_nuls_with_newlines((char *)title_screen, RTPI_TITLE_TEXT_LENGTH);
 
     /* Extract the 52-tile font (8 bytes per tile). */
-    memcpy(rtpi_tile_font, cpu_rom + CPU_ROM_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8);
+    memcpy(rtpi_tile_font, cpu_rom + CPU_ROM_TILE_FONT_OFFSET, NUM_RTPI_TILES * 8);
 
     free(cpu_rom);
 
@@ -1255,12 +1277,12 @@ static uint8_t *load_rtpi_zip_payload(uint8_t *data, size_t datalength) {
     uint8_t *grom_data = extract_file_from_zip_data(data, datalength, "g.bin", &grom_length);
 
     /* If g.bin is not present, this may be the MAME zip format which
-       splits the GROM across NUMBER_OF_GROM_BANKS bank files (g3–g7). */
+       splits the GROM across NUM_GROM_BANKS bank files (g3–g7). */
     if (!grom_data) {
         grom_data = MemCalloc(GROM_SIZE);
         char filename[RTPI_GROM_FILENAME_BUF_SIZE];
         size_t bank_length;
-        for (int i = 0; i < NUMBER_OF_GROM_BANKS; i++) {
+        for (int i = 0; i < NUM_GROM_BANKS; i++) {
             snprintf(filename, RTPI_GROM_FILENAME_BUF_SIZE, "phm3189g%d.bin", FIRST_GROM_BANK_NUMBER + i);
             uint8_t *bank = extract_file_from_zip_data(data, datalength, filename, &bank_length);
             if (!bank) {
@@ -1294,8 +1316,8 @@ static uint8_t *load_rtpi_disk_payload(uint8_t *data, size_t datalength) {
     replace_nuls_with_newlines(title_screen, RTPI_TITLE_TEXT_LENGTH);
 
     /* Extract the 52-tile font (8 bytes per tile). */
-    uint8_t *flat_tiles = unTaggedCode(data + DSK_TILE_FONT_OFFSET, NUMBER_OF_RTPI_TILES * 8, datalength);
-    memcpy(rtpi_tile_font, flat_tiles, NUMBER_OF_RTPI_TILES * 8);
+    uint8_t *flat_tiles = unTaggedCode(data + DSK_TILE_FONT_OFFSET, NUM_RTPI_TILES * 8, datalength);
+    memcpy(rtpi_tile_font, flat_tiles, NUM_RTPI_TILES * 8);
 
     LoadRTPIGraphicsFromDSK(data, datalength);
     return grom_data;

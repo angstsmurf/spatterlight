@@ -14,9 +14,9 @@
 #include "vector_common.h"
 #include "vector_oplist.h"
 
-#define OPCODE_MOVE_TO  0xc0
-#define OPCODE_FILL     0xc1
-#define OPCODE_END      0xff
+#define HOWARTH_OP_MOVE_TO  0xc0
+#define HOWARTH_OP_FILL     0xc1
+#define HOWARTH_OP_END      0xff
 
 #define DRAW_HEIGHT_OFFSET 191
 
@@ -244,24 +244,24 @@ void DrawHowarthVectorPicture(int image)
     uint8_t *p = LineImages[image].data;
     uint8_t opcode = 0;
 
-    while ((size_t)(p - LineImages[image].data) < LineImages[image].size && opcode != OPCODE_END) {
+    while ((size_t)(p - LineImages[image].data) < LineImages[image].size && opcode != HOWARTH_OP_END) {
         if (p > entire_file + file_length) {
             fprintf(stderr, "Out of range! Opcode: %x. Image: %d. LineImages[%d].size: %zu\n", opcode, image, image, LineImages[image].size);
             break;
         }
         opcode = *(p++);
         switch (opcode) {
-            case OPCODE_MOVE_TO:
+            case HOWARTH_OP_MOVE_TO:
                 y = ConvertY(*(p++));
                 x = *(p++);
                 break;
-            case OPCODE_FILL:
+            case HOWARTH_OP_FILL:
                 arg1 = *(p++);
                 arg2 = *(p++);
                 arg3 = *(p++);
                 diamond_fill(arg3, ConvertY(arg2), arg1);
                 break;
-            case OPCODE_END:
+            case HOWARTH_OP_END:
                 break;
             default: // draw line
                 arg1 = *(p++);

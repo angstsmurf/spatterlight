@@ -174,7 +174,7 @@ static USImage *copyToImage(USImage *copy, USImage *original, int index) {
    - Rug (#30) -> map/plans (#26)
    This creates the duplicate image entries so each object has its own
    entry in the USImages list, pointing at the shared sprite data. */
-static USImage *add_dupliceate_image_entries(USImage *image) {
+static USImage *add_duplicate_image_entries(USImage *image) {
     USImage *image2 = USImages;
     USImage *bottle = NULL;
     USImage *torch = NULL;
@@ -206,39 +206,12 @@ static USImage *add_dupliceate_image_entries(USImage *image) {
     return image;
 }
 
-/* Load an all-in-one C64 file that bundles the game database and image
-   data together. Splits the file at imgoffset: the portion after the
-   cutoff becomes the game database (returned via *sf / *extent), while
-   the image data before and after the cutoff is extracted into USImages
-   using the game-specific registry table. */
-GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
+/* The image table of an all-in-one game, or NULL if it has no pictures. */
+static const imglist *AllInOneImageList(int cutoff)
 {
-    int cutoff = c64_registry.imgoffset;
-    if (cutoff == 0 || cutoff >= *extent) {
-        return UNKNOWN_GAME;
-    }
-
-    uint8_t *data = *sf;
-
-    /* Extract the game database portion (everything after the image data) */
-    size_t smallsize = *extent - cutoff;
-    uint8_t *shorter = MemAlloc(smallsize);
-    memcpy(shorter, data + cutoff, smallsize);
-
-    GameIDType result = LoadBinaryDatabase(shorter, smallsize, *Game, 0);
-    if (result == UNKNOWN_GAME) {
-        free(shorter);
-        return UNKNOWN_GAME;
-    }
-
-    int outpic;
-
-    const imglist *list = NULL;
-
     switch (CurrentGame) {
         case PIRATE_US:
-            list = listPirate;
-            break;
+            return listPirate;
         case VOODOO_CASTLE_US:
             /* listVoodoo is calibrated for the canonical crack's memory layout
                (object/room images in 0..0x6c30, database at imgoffset 0x6c30).
@@ -247,45 +220,36 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
                so gate the table to the layout it matches and load the rest
                text-only. */
             if (cutoff == 0x6c30)
-                list = listVoodoo;
-            break;
+                return listVoodoo;
+            return NULL;
         default:
             /* COUNT_US and any other all-in-one game without an image table:
-               the database parsed fine above, so ship it playable as text.
+               the database parsed fine, so ship it playable as text.
                (The c64.com Count crack contains no image data at all.) */
-            break;
+            return NULL;
     }
+}
 
-    if (list == NULL) {
-        /* Text-only: hand back just the database portion. */
-        free(*sf);
-        *sf = shorter;
-        *extent = smallsize;
-        CurrentSys = SYS_C64;
-        return CurrentGame;
-    }
-
+/* Walk the registry and extract each image into the USImages linked list.
+   Image size is determined by the gap between consecutive offsets. */
+static void ExtractAllInOneImages(const imglist *list, const uint8_t *data, size_t extent)
+{
     USImages = NewImage();
     USImage *image = USImages;
 
-    /* Color 0 is always black */
-    SetColor(0, 0);
-
-    /* Walk the registry and extract each image into the USImages linked list.
-       Image size is determined by the gap between consecutive offsets. */
-    for (outpic = 0; list[outpic].offset != 0; outpic++) {
+    for (int outpic = 0; list[outpic].offset != 0; outpic++) {
         size_t offset = list[outpic].offset;
         size_t nextoffset = list[outpic + 1].offset;
 
         size_t size;
         if (nextoffset < offset) {
             /* Last entry or wrap-around: image extends to end of file */
-            size = *extent - offset;
+            size = extent - offset;
         } else {
             size = nextoffset - offset;
         }
 
-        if (size > *extent) {
+        if (size > extent) {
             break;
         }
         image->systype = SYS_C64_TINY;
@@ -301,36 +265,22 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
         image = image->next;
     }
     if (image->imagedata == NULL) {
-        /* Trim the trailing empty node from the linked list */
-        if (image != USImages) {
-            if (CurrentGame == PIRATE_US) {
-                /* Add entries for objects that share sprites with other objects */
-                image = add_dupliceate_image_entries(image);
-            }
-            image->previous->next = NULL;
-            free(image);
-            image = NULL;
-        } else {
-            free(USImages);
-            USImages = NULL;
+        if (image != USImages && CurrentGame == PIRATE_US) {
+            /* Add entries for objects that share sprites with other objects */
+            image = add_duplicate_image_entries(image);
         }
+        FreeTrailingEmptyImage(image);
     }
 
     /* Safety check: discard the list if it ended up empty */
-    if (USImages != NULL && USImages->next == NULL && USImages->imagedata == NULL) {
-        free(USImages);
-        USImages = NULL;
-    }
+    FreeUSImagesIfEmpty();
+}
 
-    ImageWidth = 320;
-    if (CurrentGame == VOODOO_CASTLE_US)
-        ImageHeight = 80;
-    else
-        ImageHeight = 78;
-
-    /* Prepend a hard-coded all-black "darkness" ROOM image at index 0.
-       The RLE body fills the rect with palette-index-0 pixels
-       (which is black after the initial SetColor(0, 0) above). */
+/* Prepend a hard-coded all-black "darkness" ROOM image at index 0.
+   The RLE body fills the rect with palette-index-0 pixels
+   (which is black after SetColor(0, 0)). */
+static void PrependDarknessImage(void)
+{
     USImage *background = NewImage();
     background->systype = SYS_C64_TINY;
     background->usage = IMG_ROOM;
@@ -352,6 +302,50 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
     if (USImages != NULL)
         USImages->previous = background;
     USImages = background;
+}
+
+/* Load an all-in-one C64 file that bundles the game database and image
+   data together. Splits the file at imgoffset: the portion after the
+   cutoff becomes the game database (returned via *sf / *extent), while
+   the image data before and after the cutoff is extracted into USImages
+   using the game-specific registry table. */
+GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
+{
+    int cutoff = c64_registry.imgoffset;
+    if (cutoff == 0 || cutoff >= *extent) {
+        return UNKNOWN_GAME;
+    }
+
+    /* Extract the game database portion (everything after the image data) */
+    size_t smallsize = *extent - cutoff;
+    uint8_t *shorter = MemAlloc(smallsize);
+    memcpy(shorter, *sf + cutoff, smallsize);
+
+    GameIDType result = LoadBinaryDatabase(shorter, smallsize, *Game, 0);
+    if (result == UNKNOWN_GAME) {
+        free(shorter);
+        return UNKNOWN_GAME;
+    }
+
+    const imglist *list = AllInOneImageList(cutoff);
+
+    if (list == NULL) {
+        /* Text-only */
+        CurrentSys = SYS_C64;
+    } else {
+        /* Color 0 is always black */
+        SetColor(0, 0);
+
+        ExtractAllInOneImages(list, *sf, *extent);
+
+        ImageWidth = 320;
+        if (CurrentGame == VOODOO_CASTLE_US)
+            ImageHeight = 80;
+        else
+            ImageHeight = 78;
+
+        PrependDarknessImage();
+    }
 
     /* Replace the original all-in-one buffer with just the database portion */
     free(*sf);

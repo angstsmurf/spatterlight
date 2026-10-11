@@ -9,6 +9,7 @@
 
 #include "parser.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_actions.h"
 
 #include "bsd.h"
@@ -39,8 +40,6 @@
 #define SHERWOOD_REST_VERB 56
 #define GERMAN_FALLEN_NOUN 123
 
-extern struct Command *CurrentCommand;
-
 /* Tokenized player input: parallel arrays of Unicode and ASCII word strings */
 glui32 **UnicodeWords = NULL;
 char **CharWords = NULL;
@@ -54,25 +53,25 @@ static glui32 *FirstErrorMessage = NULL; /* Deferred error message (shown after 
    abbreviations. Index 1-6 = full names (N/S/E/W/U/D), 7-12 = abbreviations,
    13 = alternate west ('w' in Spanish is used for 'oeste', and in Italian
    for 'ovest'). */
-const char *EnglishDirections[NUMBER_OF_DIRECTIONS] = {
+const char *EnglishDirections[NUM_DIRECTIONS] = {
     NULL, "north", "south", "east", "west", "up", "down",
     "n", "s", "e", "w", "u", "d", " "
 };
-const char *SpanishDirections[NUMBER_OF_DIRECTIONS] = {
+const char *SpanishDirections[NUM_DIRECTIONS] = {
     NULL, "norte", "sur", "este", "oeste", "arriba", "abajo",
     "n", "s", "e", "o", "u", "d", "w"
 };
-const char *GermanDirections[NUMBER_OF_DIRECTIONS] = {
+const char *GermanDirections[NUM_DIRECTIONS] = {
     NULL, "norden", "sueden", "osten", "westen", "oben", "unten",
     "n", "s", "o", "w", "u", "d", " "
 };
 /* The tape has the letters NSEOSG: S is both sud and su there */
-const char *ItalianDirections[NUMBER_OF_DIRECTIONS] = {
+const char *ItalianDirections[NUM_DIRECTIONS] = {
     NULL, "nord", "sud", "est", "ovest", "su", "giu",
     "n", "s", "e", "o", "u", "g", "w"
 };
 
-const char *Directions[NUMBER_OF_DIRECTIONS];
+const char *Directions[NUM_DIRECTIONS];
 
 /* Meta-command words recognized by the parser but not in the game's
    dictionary. Includes save/restore, undo, transcript, RAM save/load,
@@ -107,7 +106,7 @@ const char *Directions[NUMBER_OF_DIRECTIONS];
     "quicksave",              \
     "#qsave"
 
-const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+const char *ExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "except",
     "but",
@@ -115,7 +114,7 @@ const char *ExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "", "", "", "", ""
 };
 
-const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+const char *GermanExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "ausser",
     "bis",
@@ -127,7 +126,7 @@ const char *GermanExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "neustarten"
 };
 
-const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+const char *SpanishExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "excepto",
     "menos",
@@ -139,7 +138,7 @@ const char *SpanishExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
     "reinicia"
 };
 
-const char *ItalianExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
+const char *ItalianExtraCommands[NUM_EXTRA_COMMANDS] = {
     COMMON_EXTRA_COMMANDS,
     "eccetto",
     "tranne",
@@ -156,7 +155,7 @@ const char *ItalianExtraCommands[NUMBER_OF_EXTRA_COMMANDS] = {
 /* Maps each ExtraCommands[] entry to its canonical command enum.
    Multiple strings can map to the same command (e.g. "restore", "load",
    "#restore" all map to RESTORE). */
-extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
+static const extra_command ExtraCommandsKey[NUM_EXTRA_COMMANDS] = {
     NO_COMMAND, RESTART, RESTART, SAVE, SAVE, RESTORE, RESTORE,
     RESTORE, SCRIPT, SCRIPT, SCRIPT, SCRIPT, UNDO, UNDO, UNDO, UNDO,
     RAM, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMLOAD, RAMSAVE,
@@ -166,7 +165,7 @@ extra_command ExtraCommandsKey[NUMBER_OF_EXTRA_COMMANDS] = {
 
 /* Extra noun words for meta-commands: "SAVE GAME", "TRANSCRIPT ON/OFF",
    "TAKE ALL", "DROP IT", etc. */
-const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+const char *EnglishExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL,
     "game",
     "story",
@@ -185,74 +184,74 @@ const char *EnglishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
     " ",
 };
 
-const char *GermanExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+const char *GermanExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL, "spiel", "story", "on", "off", "wiederherstellen",
     "laden", "speichern", "move", "verschieben", "runde",
     "alle", "alles", "es", "einschalten", "ausschalten"
 };
 
-const char *SpanishExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+const char *SpanishExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL, "juego", "story", "on", "off", "cargar",
     "reanuda", "conserva", "move", "command", "jugada",
     "toda", "todo", "eso", "activar", "desactivar"
 };
 
-const char *ItalianExtraNouns[NUMBER_OF_EXTRA_NOUNS] = {
+const char *ItalianExtraNouns[NUM_EXTRA_NOUNS] = {
     NULL, "gioco", "storia", "on", "off", "carica",
     "ripristina", "salva", "mossa", "comando", "turno",
     "tutto", "tutti", "esso", "attiva", "disattiva"
 };
 
-const char *ExtraNouns[NUMBER_OF_EXTRA_NOUNS];
+const char *ExtraNouns[NUM_EXTRA_NOUNS];
 
-const extra_command ExtraNounsKey[NUMBER_OF_EXTRA_NOUNS] = {
+const extra_command ExtraNounsKey[NUM_EXTRA_NOUNS] = {
     NO_COMMAND, GAME, GAME, ON, OFF, RAMLOAD,
     RAMLOAD, RAMSAVE, COMMAND, COMMAND, COMMAND,
     ALL, ALL, IT, ON, OFF
 };
 
-#define NUMBER_OF_ABBREVIATIONS 6
+#define NUM_ABBREVIATIONS 6
 
 /* Single-letter command abbreviations and their expansions */
-const char *Abbreviations[NUMBER_OF_ABBREVIATIONS] = { NULL, "i", "l",
+static const char *Abbreviations[NUM_ABBREVIATIONS] = { NULL, "i", "l",
     "x", "z", "q" };
 
-const char *AbbreviationsKey[NUMBER_OF_ABBREVIATIONS] = {
+static const char *const AbbreviationsKey[NUM_ABBREVIATIONS] = {
     NULL, "inventory", "look", "examine", "wait", "quit"
 };
 
 /* Filler words silently ignored by the parser (articles, prepositions, adverbs) */
-const char *EnglishSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+const char *EnglishSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "at", "to", "in", "into", "the",
     "a", "an", "my", "quickly", "carefully", "quietly",
     "slowly", "violently", "fast", "hard", "now", "room"
 };
 
-const char *GermanSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+const char *GermanSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "nach", "die", "der", "das", "im", "mein", "meine", "an",
     "auf", "den", "lassen", "lass", "fallen", "in", "ins", "zur", "zum"
 };
 
 /* Not "i", which is the inventory */
-const char *ItalianSkipList[NUMBER_OF_SKIPPABLE_WORDS] = {
+const char *ItalianSkipList[NUM_SKIPPABLE_WORDS] = {
     NULL, "il", "lo", "la", "gli", "le", "un", "uno", "una", "a",
     "al", "alla", "in", "nel", "nella", "verso", "mio", "mia"
 };
 
-const char *SkipList[NUMBER_OF_SKIPPABLE_WORDS];
+const char *SkipList[NUM_SKIPPABLE_WORDS];
 
 /* Words that separate multiple commands in a single input line */
-const char *EnglishDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "and",
+const char *EnglishDelimiterList[NUM_DELIMITERS] = { NULL, ",", "and",
     "then", " " };
 
-const char *GermanDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "und",
+const char *GermanDelimiterList[NUM_DELIMITERS] = { NULL, ",", "und",
     "dann", "and" };
 
 /* Not "e", which is east */
-const char *ItalianDelimiterList[NUMBER_OF_DELIMITERS] = { NULL, ",", "poi",
+const char *ItalianDelimiterList[NUM_DELIMITERS] = { NULL, ",", "poi",
     "quindi", " " };
 
-const char *DelimiterList[NUMBER_OF_DELIMITERS];
+const char *DelimiterList[NUM_DELIMITERS];
 
 /* Free all tokenized input strings and the deferred error message */
 static void FreeStrings(void)
@@ -309,7 +308,7 @@ static void CreateErrorMessage(const char *fchar, glui32 *second, const char *tc
     free(third);
 }
 
-/* Single-byte mapping for bytes >= 0x80. Default: map byte to same codepoint (Latin‑1). Overrides below. */
+/* Single-byte mapping for bytes >= 0x80. Default: map byte to same codepoint (Latin-1). Overrides below. */
 static glui32 MapLatin1(unsigned char b)
 {
     return (glui32)b;
@@ -357,7 +356,7 @@ static const CharMapping ti994a_mapping[] = {
 };
 
 /* Map C64 PETSCII codes to Unicode for Spanish Gremlins */
-static glui32 Map_Spanish(unsigned char b)
+static glui32 MapSpanish(unsigned char b)
 {
     return MapWithTable(b, spanish_mapping, sizeof(spanish_mapping) / sizeof(spanish_mapping[0]));
 }
@@ -384,7 +383,7 @@ typedef glui32(*map_fn)(unsigned char);
 static map_fn SelectMapper(void)
 {
     if (Game && IsSpanish())
-        return Map_Spanish;
+        return MapSpanish;
     if (Game && CurrentGame == TI994A)
         return MapTI994A;
     /* default: Latin-1 */
@@ -493,12 +492,8 @@ glui32 *ToUnicode(const char *string)
         glui32 mapped = mapper(b);
 
         /* Normalize any carriage returns to line feeds */
-        if (mapped == '\r' || mapped == '\n') {
-            lastwasnewline = 1;
+        if (mapped == '\r')
             mapped = '\n';
-        } else {
-            lastwasnewline = 0;
-        }
 
         /* Special handling: We want the copyright symbol */
         /* to be followed by a space in TI-99/4A games.   */
@@ -681,7 +676,7 @@ static int AddWordSpan(WordSpans *spans, int start, int length)
    Produces parallel UnicodeWords[] and CharWords[] arrays.
    Special-cases "y.m.c.a." (Gremlins) and "Dr."/"Mr." titles
    to keep them as single tokens despite the embedded periods. */
-void SplitIntoWords(glui32 *string, int length)
+static void SplitIntoWords(glui32 *string, int length)
 {
     if (length < 1)
         return;
@@ -748,7 +743,7 @@ void SplitIntoWords(glui32 *string, int length)
 
 /* Prompt the player and read a line of input via Glk.
    Loops until at least one word is recognized. */
-void LineInput(void)
+static void LineInput(void)
 {
     event_t ev;
     glui32 unibuf[INPUT_BUFFER_SIZE];
@@ -826,25 +821,25 @@ static int GetListAndLength(ListId id, const char ***plist)
             return GameHeader.NumWords + 1;
         case L_DIRECTIONS:
             *plist = Directions;
-            return NUMBER_OF_DIRECTIONS;
+            return NUM_DIRECTIONS;
         case L_ABBREVS:
             *plist = Abbreviations;
-            return NUMBER_OF_ABBREVIATIONS;
+            return NUM_ABBREVIATIONS;
         case L_SKIP:
             *plist = SkipList;
-            return NUMBER_OF_SKIPPABLE_WORDS;
+            return NUM_SKIPPABLE_WORDS;
         case L_NOUNS:
             *plist = (const char **)Nouns;
             return GameHeader.NumWords + 1;
         case L_EXTRACMD:
             *plist = ExtraCommands;
-            return NUMBER_OF_EXTRA_COMMANDS;
+            return NUM_EXTRA_COMMANDS;
         case L_EXTRANOUN:
             *plist = ExtraNouns;
-            return NUMBER_OF_EXTRA_NOUNS;
+            return NUM_EXTRA_NOUNS;
         case L_DELIM:
             *plist = DelimiterList;
-            return NUMBER_OF_DELIMITERS;
+            return NUM_DELIMITERS;
         default:
             *plist = NULL;
             return 0;
@@ -910,7 +905,7 @@ static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_si
                 return idx;
 
             case L_ABBREVS: {
-                if (idx > 0 && idx < NUMBER_OF_ABBREVIATIONS && AbbreviationsKey[idx]) {
+                if (idx > 0 && idx < NUM_ABBREVIATIONS && AbbreviationsKey[idx]) {
                     idx =
                     WhichWord(AbbreviationsKey[idx], (const char **)Verbs,
                               GameHeader.WordLength, GameHeader.NumWords + 1);
@@ -927,12 +922,12 @@ static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_si
                 return 0;
 
             case L_EXTRACMD:
-                if (idx > 0 && idx < NUMBER_OF_EXTRA_COMMANDS && ExtraCommandsKey[idx])
+                if (idx > 0 && idx < NUM_EXTRA_COMMANDS && ExtraCommandsKey[idx])
                     return ExtraCommandsKey[idx] + GameHeader.NumWords;
                 break;
 
             case L_EXTRANOUN:
-                if (idx > 0 && idx < NUMBER_OF_EXTRA_NOUNS && ExtraNounsKey[idx])
+                if (idx > 0 && idx < NUM_EXTRA_NOUNS && ExtraNounsKey[idx])
                     return ExtraNounsKey[idx] + GameHeader.NumWords;
                 break;
         }
@@ -957,7 +952,7 @@ static Command *CommandFromStrings(int index, Command *previous);
 static int IsExceptWord(int i)
 {
     int except = WhichWord(CharWords[i], ExtraCommands, strlen(CharWords[i]),
-        NUMBER_OF_EXTRA_COMMANDS);
+        NUM_EXTRA_COMMANDS);
     return (ExtraCommandsKey[except] == EXCEPT);
 }
 
@@ -1010,6 +1005,25 @@ static void DontKnowHowTo(int wordindex)
         sys[SOMETHING]);
 }
 
+/* A direction word at `i - 1` becomes GO + direction number. */
+static Command *DirectionCommand(int direction, int i, Command *previous)
+{
+    if (direction == 0)
+        return NULL;
+    /* German has the verb last: "nach unten gehen" */
+    if (i < WordsInInput && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
+        const char **verblist = NULL;
+        int go = FindVerb(CharWords[i], &verblist);
+        if (verblist == (const char **)Verbs) {
+            while (go > 1 && Verbs[go][0] == '*')
+                go--;
+            if (go == GO)
+                i++;
+        }
+    }
+    return CreateCommandStruct(GO, direction, 0, i, SkipTrailingWords(i, 0), previous);
+}
+
 /* Parse tokenized words starting at `index` into a Command node.
    Tries to identify a verb, then a noun, handling special cases:
    - Directions become GO + direction_number
@@ -1033,23 +1047,8 @@ static Command *CommandFromStrings(int index, Command *previous)
 
     int verbindex = i - 1;
 
-    if (list == Directions) {
-        /* It is a direction */
-        if (verb == 0)
-            return NULL;
-        /* German has the verb last: "nach unten gehen" */
-        if (i < WordsInInput && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
-            const char **verblist = NULL;
-            int go = FindVerb(CharWords[i], &verblist);
-            if (verblist == (const char **)Verbs) {
-                while (go > 1 && Verbs[go][0] == '*')
-                    go--;
-                if (go == GO)
-                    i++;
-            }
-        }
-        return CreateCommandStruct(GO, verb, 0, i, SkipTrailingWords(i, 0), previous);
-    }
+    if (list == Directions)
+        return DirectionCommand(verb, i, previous);
 
     int found_noun_at_verb_position = 0;
     int lastverb = 0;
@@ -1289,9 +1288,9 @@ int GetInput(int *vb, int *no)
     /* instead of being understood as REST, a synonym of WAIT.     */
     if (Game->type == SHERWOOD_VARIANT && CurrentCommand->verb == SHERWOOD_REST_VERB) {
         char *verbword = CharWords[CurrentCommand->verbwordindex];
-        if (xstrncasecmp(verbword, "restore", 7) == 0)
+        if (xstrncasecmp(verbword, "restore", strlen("restore")) == 0)
             CurrentCommand->verb = GameHeader.NumWords + RESTORE;
-        else if (xstrncasecmp(verbword, "restart", 7) == 0)
+        else if (xstrncasecmp(verbword, "restart", strlen("restart")) == 0)
             CurrentCommand->verb = GameHeader.NumWords + RESTART;
     }
 
@@ -1334,7 +1333,7 @@ int FindExtraNoun(int wordindex)
 {
     const char *NounWord = CharWords[wordindex];
     return ExtraNounsKey[WhichWord(NounWord, ExtraNouns, strlen(NounWord),
-        NUMBER_OF_EXTRA_NOUNS)];
+        NUM_EXTRA_NOUNS)];
 }
 
 /* Re-check a command that the action table didn't recognize, looking for
@@ -1345,7 +1344,7 @@ int RecheckForExtraCommand(void)
     const char *VerbWord = CharWords[CurrentCommand->verbwordindex];
 
     int ExtraVerb = WhichWord(VerbWord, ExtraCommands, GameHeader.WordLength,
-        NUMBER_OF_EXTRA_COMMANDS);
+        NUM_EXTRA_COMMANDS);
     if (!ExtraVerb) {
         return 0;
     }

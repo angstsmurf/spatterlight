@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "scott.h"
+#include "scott_meta.h"
 
 #include "common_file_utils.h"
 #include "decompress_text.h"
@@ -33,14 +34,21 @@
 
 #include "parser.h"
 
-extern const char *sysdict_zx[MAX_SYSMESS];
-extern int header[];
-
 /* Base address of the ZX Spectrum's writable RAM. ROM occupies
    0x0000-0x3FFF; RAM starts at 0x4000, which is where loaded programs
    live. Used to translate Z80 addresses stored in saved .z80 snapshots
    to offsets into our in-memory file buffer. */
 #define ZX_RAM_BASE 0x4000
+
+/* Number of 16-bit words in a game file header */
+#define HEADER_WORDS 15
+
+/* Number of system message strings stored in the game file */
+#define NUM_OLD_STYLE_SYSMESS 40
+#define NUM_HOWARTH_SYSMESS 45
+
+/* The raw header words of the game file being loaded */
+int header[24];
 
 /* Byte signatures used to locate the dictionary in a game file.
    Each entry pairs a dictionary format with a short sequence of bytes
@@ -111,12 +119,12 @@ DictionaryType GetId(const uint8_t *data, size_t dataLen, size_t *offset)
     return NOT_A_GAME;
 }
 
-/* Read 15 little-endian 16-bit values from ptr into the global header[].
+/* Read HEADER_WORDS little-endian 16-bit values from ptr into the global header[].
    Returns a pointer to the last byte read (ptr + 29). */
 uint8_t *ReadHeader(uint8_t *ptr)
 {
     int i, value;
-    for (i = 0; i < 15; i++) {
+    for (i = 0; i < HEADER_WORDS; i++) {
         value = READ_LE_UINT16(ptr);
         header[i] = value;
         ptr += 2;
@@ -389,7 +397,7 @@ static void LoadVectorData(const GameInfo *info, uint8_t *ptr)
 {
     size_t offset;
 
-    if (info->number_of_pictures <= 0 || info->picture_format_version != 99)
+    if (info->number_of_pictures <= 0 || info->picture_format_version != HOWARTH_FORMAT)
         return;
 
     if (info->start_of_image_data == FOLLOWS)
@@ -822,33 +830,33 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
     if (!LoadGameHeader(info, dict_start, &ptr, &offset))
         return UNKNOWN_GAME;
 
-#pragma mark actions
+// MARK: actions
 
     SEEK_OR_FAIL(info->start_of_actions);
 
     ReadActions(&ptr, GameHeader.NumActions, 0);
 
-#pragma mark room connections
+// MARK: room connections
 
     SEEK_OR_FAIL(info->start_of_room_connections);
 
     if (!ReadRoomExits(&ptr, GameHeader.NumRooms, entire_file + file_length))
         return UNKNOWN_GAME;
 
-#pragma mark item locations
+// MARK: item locations
 
     SEEK_OR_FAIL(info->start_of_item_locations);
 
     if (!ReadItemLocations(&ptr, GameHeader.NumItems, entire_file + file_length))
         return UNKNOWN_GAME;
 
-#pragma mark dictionary
+// MARK: dictionary
 
     SEEK_OR_FAIL(info->start_of_dictionary);
 
     ptr = ReadDictionary(info, ptr);
 
-#pragma mark rooms
+// MARK: rooms
 
     if (info->start_of_room_descriptions != 0) {
         SEEK_OR_FAIL(info->start_of_room_descriptions);
@@ -856,27 +864,27 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
         if (info->start_of_room_descriptions == FOLLOWS)
             ptr++;
 
-        if (!ReadBinaryRoomDescs(&ptr, GameHeader.NumRooms, info->number_of_pictures > 0, info->picture_format_version == 99))
+        if (!ReadBinaryRoomDescs(&ptr, GameHeader.NumRooms, info->number_of_pictures > 0, info->picture_format_version == HOWARTH_FORMAT))
             return UNKNOWN_GAME;
     }
 
-#pragma mark messages
+// MARK: messages
 
     SEEK_OR_FAIL(info->start_of_messages);
 
     ReadBinaryMessages(&ptr);
 
-#pragma mark items
+// MARK: items
 
     SEEK_OR_FAIL(info->start_of_item_descriptions);
 
     ReadBinaryItemDescs(&ptr, GameHeader.NumItems);
 
-#pragma mark line images
+// MARK: line images
 
     LoadVectorData(info, ptr);
 
-#pragma mark System messages
+// MARK: System messages
 
     SEEK_OR_FAIL(info->start_of_system_messages);
 
@@ -889,17 +897,17 @@ static GameIDType TryLoadingOld(const GameInfo *info, int dict_start)
     if (count == quote_index + 1) {
         if (strcmp(system_messages[quote_index], "\"") == 0)
             ptr += 2;
-        ReadTerminatedStrings(&ptr, system_messages + count, 40 - count, "\x83\xc9");
+        ReadTerminatedStrings(&ptr, system_messages + count, NUM_OLD_STYLE_SYSMESS - count, "\x83\xc9");
     }
 
     SEEK_OR_FAIL(info->start_of_directions);
 
-    ReadTerminatedStrings(&ptr, sys, 6, "");
+    ReadTerminatedStrings(&ptr, sys, NUM_EXITS, "");
 
     return info->gameID;
 }
 
-/* Load a Adventure International UK / Brian Howarth game database given its
+/* Load an Adventure International UK / Brian Howarth game database given its
    GameInfo descriptor and dictionary offset.
    Dispatches to the SAGA binary loader for UK Hulk, to TryLoadingOld for
    old-style formats, or handles the later binary format directly.
@@ -939,7 +947,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     int compressed = (info->dictionary == FOUR_LETTER_COMPRESSED);
 
-#pragma mark room images
+// MARK: room images
 
     if (info->start_of_room_image_list != 0) {
         SEEK_OR_FAIL(info->start_of_room_image_list);
@@ -949,7 +957,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
             debug_print("Room %d image: %d\n", ct, Rooms[ct].Image);
         }
     }
-#pragma mark Item flags
+// MARK: Item flags
 
     if (info->start_of_item_flags != 0) {
         SEEK_OR_FAIL(info->start_of_item_flags);
@@ -958,7 +966,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
             Items[ct].Flag = *(ptr++);
     }
 
-#pragma mark item images
+// MARK: item images
 
     if (info->start_of_item_image_list != 0) {
         SEEK_OR_FAIL(info->start_of_item_image_list);
@@ -969,21 +977,33 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
                 ptr - entire_file - file_baseline_offset);
     }
 
-#pragma mark actions
+// MARK: actions
 
     SEEK_OR_FAIL(info->start_of_actions);
+
+    /* An uncompressed table ends where the dictionary begins. The header of
+       Escape from Pulsar 7 C64 counts five lines more than there is room
+       for (195, with 191 lines in the table), so the count is cut down to
+       what fits. */
+    if (info->actions_style == UNCOMPRESSED && info->start_of_actions != FOLLOWS
+        && info->start_of_dictionary != FOLLOWS
+        && info->start_of_dictionary > info->start_of_actions) {
+        int lines = (info->start_of_dictionary - info->start_of_actions) / 16;
+        if (lines > 0 && GameHeader.NumActions > lines - 1)
+            GameHeader.NumActions = lines - 1;
+    }
 
     ReadActions(&ptr, GameHeader.NumActions, info->actions_style == COMPRESSED);
     debug_print("Offset after reading actions: %lx\n",
             ptr - entire_file - file_baseline_offset);
 
-#pragma mark dictionary
+// MARK: dictionary
 
     SEEK_OR_FAIL(info->start_of_dictionary);
 
     ptr = ReadDictionary(info, ptr);
 
-#pragma mark rooms
+// MARK: rooms
 
     if (info->start_of_room_descriptions != 0) {
         SEEK_OR_FAIL(info->start_of_room_descriptions);
@@ -992,38 +1012,38 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
             return UNKNOWN_GAME;
     }
 
-#pragma mark room connections
+// MARK: room connections
 
     SEEK_OR_FAIL(info->start_of_room_connections);
 
     if (!ReadRoomExits(&ptr, GameHeader.NumRooms, entire_file + file_length))
         return UNKNOWN_GAME;
 
-#pragma mark messages
+// MARK: messages
 
     SEEK_OR_FAIL(info->start_of_messages);
 
     if (!ReadMessages(&ptr, compressed))
         return UNKNOWN_GAME;
 
-#pragma mark items
+// MARK: items
 
     SEEK_OR_FAIL(info->start_of_item_descriptions);
 
     ReadItemDescs(&ptr, compressed);
 
-#pragma mark item locations
+// MARK: item locations
 
     SEEK_OR_FAIL(info->start_of_item_locations);
 
     if (!ReadItemLocations(&ptr, GameHeader.NumItems, entire_file + file_length))
         return UNKNOWN_GAME;
 
-#pragma mark vector images
+// MARK: vector images
 
     LoadVectorData(info, ptr);
 
-#pragma mark System messages
+// MARK: System messages
 
     if (SeekIfNeeded(info->start_of_system_messages, &offset, &ptr) == 0)
         return info->gameID;
@@ -1036,7 +1056,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
     ptr = SeekToPos(offset);
     if (ptr == NULL)
         return UNKNOWN_GAME;
-    ReadTerminatedStrings(&ptr, system_messages, 45, NULL);
+    ReadTerminatedStrings(&ptr, system_messages, NUM_HOWARTH_SYSMESS, NULL);
 
     debug_print("Offset after reading system messages: %lx\n",
             ptr - entire_file);
@@ -1053,7 +1073,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
         return info->gameID;
     }
 
-    ReadTerminatedStrings(&ptr, sys, 6, "");
+    ReadTerminatedStrings(&ptr, sys, NUM_EXITS, "");
 
     return info->gameID;
 }
@@ -1389,6 +1409,7 @@ static void SetUpGameSpecifics(GameIDType detectedGame)
             SecretMission64Sysmess();
             break;
         }
+        // fallthrough
     case ADVENTURELAND:
         MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
         MapSysRange(OK, YOU_HAVENT_GOT_IT, 6);

@@ -28,6 +28,7 @@
 #include "scott.h"
 #include "apple2draw.h"
 #include "apple2_vector_draw.h"
+#include "apple2detect.h"
 #include "ciderpress.h"
 #include "common_file_utils.h"
 #include "vector_common.h"
@@ -40,21 +41,19 @@
 #define RIGHT_EXPAND_MASK 0x40
 #define APPLE2_WHITE 0xff
 
-extern uint8_t *screenmem;
-
 // The ROM dispatcher (DRAW_OPCODE @ $8E30) selects on `byte & 0xe0`: a 3-bit
 // opcode in the top bits, with the low nibble as the parameter and bit 4
 // ignored. So only the even values below ever occur; doImageOp folds bit 4 out
 // before switching. (The odd values are not real opcodes.)
 enum Opcode {
-    OPCODE_END = 0,
-    OPCODE_SET_PEN_COLOR = 2,
-    OPCODE_SET_SHAPE = 4,
-    OPCODE_SET_FILL_COLOR = 6,
-    OPCODE_MOVE_TO = 8,
-    OPCODE_DRAW_LINE = 10,
-    OPCODE_DRAW_SHAPE = 12,
-    OPCODE_PAINT = 14
+    A2_OP_END = 0,
+    A2_OP_SET_PEN_COLOR = 2,
+    A2_OP_SET_SHAPE = 4,
+    A2_OP_SET_FILL_COLOR = 6,
+    A2_OP_MOVE_TO = 8,
+    A2_OP_DRAW_LINE = 10,
+    A2_OP_DRAW_SHAPE = 12,
+    A2_OP_PAINT = 14
 };
 
 typedef enum {
@@ -114,7 +113,7 @@ static uint8_t color_pattern_subindices[216];
 
 static uint8_t brush_bitmaps[256];
 
-#define NUMBER_OF_PATTERNS (sizeof(pattern_data) / 4)
+#define NUM_PATTERNS (sizeof(pattern_data) / 4)
 
 /* Returns the pattern sub-index for the even (half 0) or odd (half 1) rows of
    color pattern `color`. The color comes straight from the image data and the
@@ -124,7 +123,7 @@ static uint8_t pattern_subindex(uint8_t color, int half) {
     if (index >= sizeof(color_pattern_subindices))
         return 0;
     uint8_t subindex = color_pattern_subindices[index];
-    return subindex < NUMBER_OF_PATTERNS ? subindex : 0;
+    return subindex < NUM_PATTERNS ? subindex : 0;
 }
 
 void SetBrushBitmaps(const uint8_t *data) {
@@ -160,7 +159,7 @@ static inline bool is_valid_screen_offset(uint16_t offset) {
     return offset <= MAX_SCREEN_ADDR;
 }
 
-#pragma mark SLOW DRAW
+// MARK: SLOW DRAW
 
 static void write_to_screenmem(uint16_t offset, uint8_t value, bool fill) {
     if (!is_valid_screen_offset(offset))
@@ -185,7 +184,7 @@ static void scott_gm_write(uint16_t offset, uint8_t value, void *user) {
     write_to_screenmem(offset, value, false);
 }
 
-#pragma mark FLOOD FILL
+// MARK: FLOOD FILL
 
 /* Read the screen byte at the given column on the current scanline row.
    Sets ctx->screen_offset and ctx->existing_byte.
@@ -484,15 +483,15 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
     }
 }
 
-#pragma mark Main draw routine
+// MARK: Main draw routine
 
 // Number of argument bytes that follow each (even) opcode
 static const uint8_t opcode_arguments[16] = {
-    [OPCODE_SET_FILL_COLOR] = 1,
-    [OPCODE_MOVE_TO] = 2,
-    [OPCODE_DRAW_LINE] = 2,
-    [OPCODE_DRAW_SHAPE] = 2,
-    [OPCODE_PAINT] = 2,
+    [A2_OP_SET_FILL_COLOR] = 1,
+    [A2_OP_MOVE_TO] = 2,
+    [A2_OP_DRAW_LINE] = 2,
+    [A2_OP_DRAW_SHAPE] = 2,
+    [A2_OP_PAINT] = 2,
 };
 
 static bool doImageOp(uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) {
@@ -516,42 +515,40 @@ static bool doImageOp(uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) 
         return true;
     }
 
-//    fprintf(stderr, "doImageOp: opcode %d. param %d\n", opcode, param);
-
     // After folding bit 4 out above, `opcode` is always even, so only these
     // eight cases are reachable — exactly the ROM dispatcher's branches.
     switch (opcode) {
-        case OPCODE_END: // 0
+        case A2_OP_END: // 0
             *outptr = ptr;
             return true;
 
-        case OPCODE_SET_PEN_COLOR: // 2
+        case A2_OP_SET_PEN_COLOR: // 2
             gm_set_color(param, &ctx->gv);
             break;
 
-        case OPCODE_SET_SHAPE: // 4
+        case A2_OP_SET_SHAPE: // 4
             ctx->BRUSH = (Brush)param;
             break;
 
-        case OPCODE_SET_FILL_COLOR: // 6
+        case A2_OP_SET_FILL_COLOR: // 6
             a = *ptr++;
             ctx->FILL_COLOR = a;
             break;
 
-        case OPCODE_MOVE_TO: // 8
+        case A2_OP_MOVE_TO: // 8
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
             gm_set_draw_position(a, b, &ctx->gv);
             break;
 
-        case OPCODE_DRAW_LINE: // 10
+        case A2_OP_DRAW_LINE: // 10
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
 
             gm_draw_line(a, b, &ctx->gv);
             break;
 
-        case OPCODE_DRAW_SHAPE: // 12
+        case A2_OP_DRAW_SHAPE: // 12
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
             gm_draw_brush(a, b, ctx->BRUSH,
@@ -560,7 +557,7 @@ static bool doImageOp(uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) 
                           &ctx->gv);
             break;
 
-        case OPCODE_PAINT: // 14
+        case A2_OP_PAINT: // 14
             a = *ptr++ + (param & 1 ? 256 : 0);
             b = *ptr++;
             apple2_flood_fill(a, b, ctx->FILL_COLOR);

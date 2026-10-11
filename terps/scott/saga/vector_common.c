@@ -17,6 +17,11 @@
 #include "vector_common.h"
 #include "vector_oplist.h"
 
+/* Timer intervals (ms) for slow drawing. Two US pictures are slower. */
+#define US_VECTOR_DELAY 10
+#define SLOW_VECTOR_DELAY 30
+#define HOWARTH_VECTOR_DELAY 20
+
 VectorStateType VectorState = NO_VECTOR_IMAGE;
 
 void DrawSomeVectorPixels(int from_start) {
@@ -43,10 +48,10 @@ int TimerDelay(void) {
     if (CurrentSys == SYS_APPLE2 || CurrentSys == SYS_ATARI8) {
         if ((CurrentGame == PIRATE_US && vector_image_shown == 80) ||
             (CurrentGame == SECRET_MISSION_US && vector_image_shown == 88))
-            return 30;
-        return 10;
+            return SLOW_VECTOR_DELAY;
+        return US_VECTOR_DELAY;
     }  else {
-        return 20;
+        return HOWARTH_VECTOR_DELAY;
     }
 }
 

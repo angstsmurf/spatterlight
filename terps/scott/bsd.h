@@ -1,5 +1,5 @@
-#ifndef SCOTT_BSD_H
-#define SCOTT_BSD_H
+#ifndef bsd_h
+#define bsd_h
 
 #include <stddef.h>
 

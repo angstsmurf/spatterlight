@@ -5,7 +5,6 @@
 //  Created by Petter Sjölund on 2022-09-29.
 //
 
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -21,6 +20,8 @@
 #include "rtpi_graphics.h"
 #include "sagagraphics.h"
 #include "scott.h"
+#include "scott_meta.h"
+#include "scott_actions.h"
 
 #include "saga.h"
 
@@ -105,7 +106,7 @@ int LoadDOSImages(void)
    (used as a synonym marker). A zero byte at the start of a word is skipped
    (padding). A character with the high bit set (> 127) signals end of
    dictionary. */
-uint8_t *ReadUSDictionary(uint8_t *ptr)
+static uint8_t *ReadUSDictionary(uint8_t *ptr)
 {
     char dictword[32];
     char c = 0;
@@ -149,7 +150,7 @@ uint8_t *ReadUSDictionary(uint8_t *ptr)
 
 /* Draw an Apple II format image. Clears the screen buffer first for room
    images to avoid compositing artifacts from the previous scene. */
-int DrawApple2Image(USImage *image)
+static int DrawApple2Image(USImage *image)
 {
     if (image->usage == IMG_ROOM)
         ClearApple2ScreenMem();
@@ -159,7 +160,7 @@ int DrawApple2Image(USImage *image)
 }
 
 /* Draw a DOS/PC (CGA) format image. */
-int DrawDOSImage(USImage *image) {
+static int DrawDOSImage(USImage *image) {
     if (image->imagedata == NULL) {
         fprintf(stderr, "DrawDOSImage: ptr == NULL\n");
         return 0;
@@ -172,7 +173,7 @@ int DrawDOSImage(USImage *image) {
 
 /* Dispatch image drawing to the appropriate platform-specific renderer
    based on the image's system type (DOS, C64, Apple II, Atari 8-bit, TI-99/4A). */
-int DrawUSImage(USImage *image)
+static int DrawUSImage(USImage *image)
 {
     last_image_index = image->index;
     switch (image->systype) {
@@ -200,7 +201,7 @@ int DrawUSImage(USImage *image)
 
 /* Draw images for all items the player is currently carrying.
    Iterates the image list in forward order (low index to high). */
-void DrawInventoryImages(void)
+static void DrawInventoryImages(void)
 {
     USImage *image = USImages;
     if (image != NULL) {
@@ -215,7 +216,7 @@ void DrawInventoryImages(void)
     }
 }
 
-void DrawRoomObjectImages(void)
+static void DrawRoomObjectImages(void)
 {
     /* We must draw the object images like this, from highest index
        to lowest, to match the original and not get too many
@@ -254,11 +255,11 @@ int DrawFuzzyRoom(int room)
 {
     /* If at sea at night, and floodlights are off or battery is out, don't draw fuzzy image
        (because it really is dark) */
-    if (Items[32].Location == DESTROYED && ((BitFlags & (1 << 29)) == 0 || CurrentCounter <= 0))
+    if (Items[32].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0))
         return 0;
     /* Also don't draw fuzzy image if bitflag 2 is set, which means we are
        wearing corrective lenses */
-    if ((BitFlags & (1 << 2)) == 0)
+    if (!TestBitFlag(2))
         return 0;
 
     USImage *image = USImages;
@@ -291,6 +292,101 @@ void DrawUSRoomObject(int item)
     }
 }
 
+/* The room image to show for the current location. The US disk releases
+   (except Apple II) of The Incredible Hulk reuse images for several
+   locations. */
+static int USRoomImage(void)
+{
+    static const struct {
+        uint8_t loc;
+        uint8_t image;
+    } hulk_aliases[] = {
+        { 5, 3 }, { 6, 3 },     // Tunnel going outside
+        { 7, 4 }, { 8, 4 },     // Field
+        { 10, 9 }, { 11, 9 },   // Hole
+        { 13, 2 }, { 14, 2 },   // Dome
+        { 17, 16 }, { 18, 16 }, // warp
+    };
+
+    if (CurrentGame == HULK_US && USImages && USImages->systype != SYS_APPLE2) {
+        for (size_t i = 0; i < sizeof hulk_aliases / sizeof hulk_aliases[0]; i++)
+            if (hulk_aliases[i].loc == MyLoc)
+                return hulk_aliases[i].image;
+    }
+    return MyLoc;
+}
+
+/* Game-specific composite image overlays.
+   Some objects are drawn as extra layers on top of the room image,
+   but only when they are present in specific rooms. These couldn't
+   be handled by the generic DrawRoomObjectImages() because they
+   use pseudo-item indices or conditional room checks. */
+static void DrawGameSpecificOverlays(void)
+{
+    switch (CurrentGame) {
+        case HULK_US:
+            if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc) // Bio Gem
+                DrawUSRoomObject(70);
+            if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc) // Wax
+                DrawUSRoomObject(72);
+            if (Items[14].Location == MyLoc || Items[15].Location == MyLoc) // Large pit
+                DrawUSRoomObject(13);
+            break;
+        case COUNT_US:
+            if (Items[17].Location == MyLoc && MyLoc == 8) // Only draw mirror in bathroom
+                DrawUSRoomObject(80);
+            if (Items[35].Location == MyLoc && MyLoc == 18) // Only draw other end of sheet in pit
+                DrawUSRoomObject(81);
+            if (Items[5].Location == MyLoc && MyLoc == 9) // Only draw coat-of-arms at gate
+                DrawUSRoomObject(82);
+            break;
+        case VOODOO_CASTLE_US:
+            if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney
+                DrawUSRoomObject(80);
+            break;
+        case RETURN_TO_PIRATES_ISLE:
+            /* Dock scene uses layered compositing: underside of dock,
+               then beam overlays, and nighttime sea/boat variants. */
+            if (MyLoc == 22) {
+                DrawUSRoomObject(27); // Draw underside of dock when under the dock
+                DrawUSRoom(31);       // Draw low beam (on top of underside of dock)
+            } else if (MyLoc == 11) { // If swimming in sea
+                if (erkyrath_random() % 2 == 1) {
+                    /* If a random chance of 1 in 2 succeeds, randomly draw one of two fish images
+                       (but not if it would end up on top of the boat or dock) */
+                    int fish = 33 + erkyrath_random() % 2;
+                    if (!(fish == 34 && Items[28].Location == MyLoc) &&
+                        !(fish == 33 && Items[26].Location == MyLoc)) {
+                        DrawUSRoom(fish);
+                    }
+                }
+                if (Items[32].Location == DESTROYED) {
+                    DrawUSRoom(29);       // Draw sea at night
+                    if (Items[28].Location == MyLoc) {
+                        DrawUSRoom(32);   // Boat to the west at night
+                    }
+                } else if (Items[27].Location == MyLoc) {
+                    /* Draw high beam if item 27: Underside of Dock is present */
+                    DrawUSRoom(30);
+                }
+            } else if (MyLoc == 12) { // Diving under sea
+                /* If a random chance of 1 in 2 succeeds, randomly draw one of three fish images */
+                if (erkyrath_random() % 2 == 1) {
+                    DrawUSRoom(35 + erkyrath_random() % 3);
+                }
+            }
+
+            /* If it is night and we are out of battery, just make the image black by clearing the VDP */
+            if (Items[32].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0)) {
+                ClearVDP();
+            }
+
+            break;
+        default:
+            break;
+    }
+}
+
 /* Main drawing routine for US SAGA games. Redraws the graphics window
    with the current room image and any visible object overlays.
 
@@ -309,111 +405,14 @@ void LookUS(void)
 
     glk_window_clear(Top);
 
-    int room = MyLoc;
-
-    /* The US disk releases (except Apple II) of The Incredible Hulk
-       reuse images for several locations. Map aliases here. */
-    if (CurrentGame == HULK_US && USImages && USImages->systype != SYS_APPLE2)
-        switch (MyLoc) {
-        case 5: // Tunnel going outside
-        case 6:
-            room = 3;
-            break;
-        case 7: // Field
-        case 8:
-            room = 4;
-            break;
-        case 10: // Hole
-        case 11:
-            room = 9;
-            break;
-        case 13: // Dome
-        case 14:
-            room = 2;
-            break;
-        case 17: // warp
-        case 18:
-            room = 16;
-            break;
-        default:
-            break;
-        }
-
     if (should_draw_image) {
         glk_window_clear(Graphics);
-        if (!DrawUSRoom(room)) {
+        if (!DrawUSRoom(USRoomImage())) {
             return;
         }
 
         DrawRoomObjectImages();
-
-        /* Game-specific composite image overlays.
-           Some objects are drawn as extra layers on top of the room image,
-           but only when they are present in specific rooms. These couldn't
-           be handled by the generic DrawRoomObjectImages() because they
-           use pseudo-item indices or conditional room checks. */
-        switch (CurrentGame) {
-            case HULK_US:
-                if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc) // Bio Gem
-                    DrawUSRoomObject(70);
-                if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc) // Wax
-                    DrawUSRoomObject(72);
-                if (Items[14].Location == MyLoc || Items[15].Location == MyLoc) // Large pit
-                    DrawUSRoomObject(13);
-                break;
-            case COUNT_US:
-                if (Items[17].Location == MyLoc && MyLoc == 8) // Only draw mirror in bathroom
-                    DrawUSRoomObject(80);
-                if (Items[35].Location == MyLoc && MyLoc == 18) // Only draw other end of sheet in pit
-                    DrawUSRoomObject(81);
-                if (Items[5].Location == MyLoc && MyLoc == 9) // Only draw coat-of-arms at gate
-                    DrawUSRoomObject(82);
-                break;
-            case VOODOO_CASTLE_US:
-                if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney
-                    DrawUSRoomObject(80);
-                break;
-            case RETURN_TO_PIRATES_ISLE:
-                /* Dock scene uses layered compositing: underside of dock,
-                   then beam overlays, and nighttime sea/boat variants. */
-                if (MyLoc == 22) {
-                    DrawUSRoomObject(27); // Draw underside of dock when under the dock
-                    DrawUSRoom(31);       // Draw low beam (on top of underside of dock)
-                } else if (MyLoc == 11) { // If swimming in sea
-                    if (erkyrath_random() % 2 == 1) {
-                        /* If a random chance of 1 in 2 succeeds, randomly draw one of two fish images
-                           (but not if it would end up on top of the boat or dock) */
-                        int fish = 33 + erkyrath_random() % 2;
-                        if (!(fish == 34 && Items[28].Location == MyLoc) &&
-                            !(fish == 33 && Items[26].Location == MyLoc)) {
-                            DrawUSRoom(fish);
-                        }
-                    }
-                    if (Items[32].Location == DESTROYED) {
-                        DrawUSRoom(29);       // Draw sea at night
-                        if (Items[28].Location == MyLoc) {
-                            DrawUSRoom(32);   // Boat to the west at night
-                        }
-                    } else if (Items[27].Location == MyLoc) {
-                        /* Draw high beam if item 27: Underside of Dock is present */
-                        DrawUSRoom(30);
-                    }
-                } else if (MyLoc == 12) { // Diving under sea
-                    /* If a random chance of 1 in 2 succeeds, randomly draw one of three fish images */
-                    if (erkyrath_random() % 2 == 1) {
-                        DrawUSRoom(35 + erkyrath_random() % 3);
-                    }
-                }
-
-                /* If it is night and we are out of battery, just make the image black by clearing the VDP */
-                if (Items[32].Location == DESTROYED && ((BitFlags & (1 << 29)) == 0 || CurrentCounter <= 0)) {
-                    ClearVDP();
-                }
-
-                break;
-            default:
-                break;
-        }
+        DrawGameSpecificOverlays();
         DrawImageOrVector();
     }
     should_draw_image = 0;
@@ -427,7 +426,7 @@ void InventoryUS(void)
     if (!Graphics || !HasGraphics())
         return;
     glk_window_clear(Graphics);
-    if (!DrawUSRoom(98)) {
+    if (!DrawUSRoom(INVENTORY_IMAGE)) {
         should_draw_image = 1;
         LookUS();
         return;
@@ -487,7 +486,7 @@ uint8_t *Skip(uint8_t *ptr, int count, uint8_t *eof)
    When dict_start == 0, this is a standard US-format binary database.
    The first 0x38 bytes contain version and adventure number fields, which are
    used to identify the specific game title. */
-uint8_t *LoadHeader(uint8_t *ptr, size_t length, GameInfo info, int dict_start) {
+static uint8_t *LoadHeader(uint8_t *ptr, size_t length, GameInfo info, int dict_start) {
     Header hdr;
 
     size_t offset;
@@ -574,7 +573,7 @@ uint8_t *LoadHeader(uint8_t *ptr, size_t length, GameInfo info, int dict_start) 
 /* Locate and parse the dictionary. The dictionary always starts with
    the word "ANY" (the universal noun), so we scan forward until we
    find that marker, then hand off to ReadUSDictionary. */
-uint8_t *ParseDictionary(uint8_t *ptr, uint8_t *endptr) {
+static uint8_t *ParseDictionary(uint8_t *ptr, uint8_t *endptr) {
     while (!(*ptr == 'A' && *(ptr + 1) == 'N' && *(ptr + 2) == 'Y') && ptr < endptr)
         ptr++;
 
@@ -733,8 +732,8 @@ uint8_t *ParseRoomConnections(uint8_t *ptr, uint8_t *endptr, int number_of_rooms
 /* Additional parsing for the UK release of Questprobe featuring The Hulk.
    The UK version stores room-to-image and item-to-image mapping tables
    at known offsets that the standard US parser doesn't handle. */
-GameIDType HulkUKSpecificParsing(uint8_t *ptr, uint8_t *endptr, GameInfo info) {
-#pragma mark room images
+static GameIDType HulkUKSpecificParsing(uint8_t *ptr, uint8_t *endptr, GameInfo info) {
+// MARK: room images
     size_t offset;
 
     if (SeekIfNeeded(info.start_of_room_image_list, &offset, &ptr) == 0) {
@@ -749,7 +748,7 @@ GameIDType HulkUKSpecificParsing(uint8_t *ptr, uint8_t *endptr, GameInfo info) {
         rp++;
     }
 
-#pragma mark item images
+// MARK: item images
 
     if (SeekIfNeeded(info.start_of_item_image_list, &offset, &ptr) == 0) {
         FreeDatabase();
@@ -772,6 +771,16 @@ GameIDType HulkUKSpecificParsing(uint8_t *ptr, uint8_t *endptr, GameInfo info) {
         if (index != 0xff)
             Items[index].Image = image++;
     } while (index != 0xff && ptr < endptr);
+
+    /* The C64 release has 15 bytes of stray text (a disk command, "N0:B"
+       + eight characters + "SU") lying over the third condition word of
+       action lines 184 to 191, which costs line 185 its second parameter.
+       Put back the values that the Spectrum release has there. */
+    if (info.gameID == HULK_C64 && GameHeader.NumActions >= 191) {
+        for (int i = 184; i <= 191; i++)
+            Actions[i].Condition[2] = 0;
+        Actions[185].Condition[2] = 21 * 20; /* parameter 21 */
+    }
 
     return info.gameID;
 }
@@ -859,7 +868,7 @@ GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int d
    This handles the case where game files may live in different directories
    (different path prefixes) but share the same base name. Compares only
    as many characters as the shorter base name has. Returns 1 if they match. */
-int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2)
+static int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2)
 {
     /* Strip file extensions by scanning backward for '.' */
     while (length1 > 0 && str1[length1] != '.') {
@@ -883,7 +892,7 @@ int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t 
 // Give the companion file name the file extension of the game file.
 // This makes the companion file logic work even if the player has renamed the files to, say, end with ".saga"
 // (well, as long as both files have been renamed in the same way.)
-char *AddGameFileExtension(const char *companion_name, size_t *namelength,
+static char *AddGameFileExtension(const char *companion_name, size_t *namelength,
                            const char *game_path, size_t gamepathlen) {
     if (!companion_name || !namelength || !game_path) {
         fprintf(stderr, "AddGameFileExtension: NULL parameter\n");
@@ -925,7 +934,7 @@ static size_t get_filename_length(const char *filename, size_t length_field)
    data file and its companion graphics file). If we match either filename in a
    pair, we return a copy of the other one (the "companion"), with the game
    file's extension applied to it. Returns NULL if no match is found. */
-char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t game_filename_len, size_t *out_companion_len)
+static char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t game_filename_len, size_t *out_companion_len)
 {
     for (int i = 0; list[i][0].filename != NULL; i++) {
         for (int j = 0; j < 2; j++) {
@@ -956,6 +965,19 @@ void SwapWithCompanionFile(uint8_t **sf, size_t *extent, uint8_t **companion, si
     *companionsize = *extent;
     *sf = temp;
     *extent = tempsize;
+}
+
+/* Unlink and free the empty node that the image loaders leave at the end
+   of the USImages list. */
+void FreeTrailingEmptyImage(USImage *image)
+{
+    if (image != USImages) {
+        image->previous->next = NULL;
+        free(image);
+    } else {
+        free(USImages);
+        USImages = NULL;
+    }
 }
 
 void FreeUSImagesIfEmpty(void)

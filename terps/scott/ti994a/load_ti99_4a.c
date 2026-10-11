@@ -5,11 +5,11 @@
 //  Created by Petter Sjölund on 2022-02-12.
 //
 
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "load_ti99_4a.h"
+#include "rtpi_graphics.h"
 #include "scott.h"
 
 #include "detect_game.h"
@@ -49,8 +49,8 @@ typedef struct {
 
 // clang-format on
 
-int max_messages;
-int max_item_descr;
+static int max_messages;
+static int max_item_descr;
 
 /* Copies of the implicit and explicit action bytecode, extracted from
    the game file so they survive after entire_file is freed. */
@@ -80,42 +80,18 @@ static uint16_t GetWord(uint8_t *mem)
     return READ_BE_UINT16(mem);
 }
 
-/* Derive the number of messages from the pointer table: the first
-   entry points past the table itself, so dividing the span by 2
-   (each entry is a 16-bit pointer) gives the count. */
-static void GetMaxTI99Messages(DATAHEADER dh)
+/* Derive the number of entries in a pointer table (given as the raw
+   big-endian header field): the first entry points past the table
+   itself, so dividing the span by 2 (each entry is a 16-bit pointer)
+   gives the count. */
+static int CountTI99TableEntries(const void *header_field)
 {
-    uint8_t *table_start = (uint8_t *)entire_file + FixAddress(READ_BE_UINT16(&dh.p_message));
-    uint16_t first_entry = FixAddress(GetWord(table_start));
-    max_messages = (first_entry - FixAddress(READ_BE_UINT16(&dh.p_message))) / 2;
+    uint16_t table = FixAddress(READ_BE_UINT16(header_field));
+    uint16_t first_entry = FixAddress(GetWord((uint8_t *)entire_file + table));
+    return (first_entry - table) / 2;
 }
-
-/* Same technique as GetMaxTI99Messages, applied to the object
-   description pointer table. */
-static void GetMaxTI99Items(DATAHEADER dh)
-{
-    uint8_t *table_start = (uint8_t *)entire_file + FixAddress(READ_BE_UINT16(&dh.p_obj_descr));
-    uint16_t first_entry = FixAddress(GetWord(table_start));
-    max_item_descr = (first_entry - FixAddress(READ_BE_UINT16(&dh.p_obj_descr))) / 2;
-}
-
-//static void PrintTI99HeaderInfo(struct DATAHEADER header)
-//{
-//    debug_print("Number of items =\t%d\n", header.num_objects);
-//    debug_print("Number of verbs =\t%d\n", header.num_verbs);
-//    debug_print("Number of nouns =\t%d\n", header.num_nouns);
-//    debug_print("Deadroom =\t%d\n", header.red_room);
-//    debug_print("Max carried items =\t%d\n", header.max_items_carried);
-//    debug_print("Player start location: %d\n", header.begin_locn);
-//    debug_print("Word length =\t%d\n", header.cmd_length);
-//    debug_print("Treasure room: %d\n", header.treasure_locn);
-//    debug_print("Lightsource time left: %d\n", FixWord(header.light_turns));
-//    debug_print("Unknown: %d\n", header.strange);
-//}
 
 static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud);
-
-GameIDType DetectRTPI(uint8_t *ptr, size_t length);
 
 /* Check whether the file matches a known Return to Pirate's Isle
    disk image format (several container variants exist). */
@@ -159,24 +135,34 @@ GameIDType DetectTI994A(void)
     DATAHEADER dh;
     memcpy(&dh, entire_file + header_offset, sizeof(DATAHEADER));
 
-    GetMaxTI99Messages(dh);
-    GetMaxTI99Items(dh);
+    max_messages = CountTI99TableEntries(&dh.p_message);
+    max_item_descr = CountTI99TableEntries(&dh.p_obj_descr);
 
     /* Validate that every pointer in the header falls within the file. */
-    if (file_length < FixAddress(READ_BE_UINT16(&dh.p_obj_table))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_orig_items))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_obj_link))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_obj_descr))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_message))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_room_exit))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_room_descr))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_noun_table))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_verb_table))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_explicit))
-        || file_length < FixAddress(READ_BE_UINT16(&dh.p_implicit)))
-        return UNKNOWN_GAME;
+    const uint16_t pointers[] = {
+        dh.p_obj_table, dh.p_orig_items, dh.p_obj_link, dh.p_obj_descr,
+        dh.p_message, dh.p_room_exit, dh.p_room_descr, dh.p_noun_table,
+        dh.p_verb_table, dh.p_explicit, dh.p_implicit
+    };
+    for (size_t i = 0; i < sizeof pointers / sizeof pointers[0]; i++) {
+        if (file_length < FixAddress(READ_BE_UINT16(&pointers[i])))
+            return UNKNOWN_GAME;
+    }
 
     return TryLoadingTI994A(&dh, Options & DEBUGGING);
+}
+
+/* Point data_ptr at a section of raw bytes, given the header field (a
+   big-endian GROM address) that locates it.  SeekIfNeeded returns
+   data_ptr with file_baseline_offset baked in; subtract it so that the
+   pointer indexes directly into entire_file.  Returns 0 on failure. */
+static int SeekToRawData(uint16_t header_field, size_t *seek_offset,
+    uint8_t **data_ptr)
+{
+    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&header_field)), seek_offset, data_ptr) == 0)
+        return 0;
+    *data_ptr -= file_baseline_offset;
+    return 1;
 }
 
 /* Construct a C string from a string table. */
@@ -395,152 +381,55 @@ static uint8_t *LoadTitleScreen(void)
     return result;
 }
 
-/* Parse all game data sections from the file into the global game
-   state (Rooms, Items, Messages, Verbs, Nouns, actions).  Sections
-   are located via the DATAHEADER pointers; SeekIfNeeded positions
-   the read pointer (with baseline offset compensation) for each.
-   Returns TI994A on success or UNKNOWN_GAME on failure. */
-static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
+/* Room, message and item texts: compressed strings, each reconstructed
+   by GetTI994AString from its pointer table. */
+static void LoadTI99Texts(const DATAHEADER *dh, int loud)
 {
-    Room *room;
-    Item *item;
-
-    uint8_t *endptr = entire_file + file_length;
-
-    /* Unpack the binary header.  The header uses big-endian layout
-       matching the TI-99/4A's native byte order.  Treasures are counted
-       from the item texts below, and the actions are TI-99/4A bytecode
-       rather than Action entries, so both counts start at 0. */
-    Header hdr = { 0 };
-    hdr.NumItems = dh->num_objects;
-    hdr.NumWords = MAX(dh->num_verbs, dh->num_nouns);
-    hdr.NumRooms = dh->red_room;
-    hdr.MaxCarry = dh->max_items_carried;
-    hdr.PlayerRoom = dh->begin_locn;
-    hdr.TreasureRoom = dh->treasure_locn;
-    hdr.WordLength = dh->cmd_length;
-    hdr.LightTime = READ_BE_UINT16(&dh->light_turns);
-    hdr.NumMessages = max_messages; /* derived earlier by GetMaxTI99Messages */
-
-    /* Populate the global GameHeader and allocate (zero-filled) arrays
-       for all game data sections. */
-    SetGameHeader(&hdr);
-    AllocateGameData();
-
-    int num_items = GameHeader.NumItems;
-    int num_words = GameHeader.NumWords;
-    int num_rooms = GameHeader.NumRooms;
-    int num_messages = GameHeader.NumMessages;
-    int num_treasures = 0;
-
-    uint8_t *data_ptr = entire_file;
-
-    size_t seek_offset;
-
-    /* --- Room descriptions ---
-       Each room's text is a compressed string reconstructed by
-       GetTI994AString from the room description pointer table. */
-#if defined(__clang__)
-#pragma mark rooms
-#endif
-
-    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh->p_room_descr)), &seek_offset, &data_ptr) == 0)
-        return UNKNOWN_GAME;
-
-    int idx = 0;
-    room = Rooms;
-
-    while (idx < num_rooms + 1) {
+    for (int idx = 0; idx <= GameHeader.NumRooms; idx++) {
+        Room *room = &Rooms[idx];
         room->Text = GetTI994AString(dh->p_room_descr, idx);
         if (room->Text == NULL)
             room->Text = ".";
         if (loud)
             debug_print("Room %d: %s\n", idx, room->Text);
         room->Image = 255;
-        idx++;
-        room++;
     }
 
-    /* --- Messages ---
-       System/story messages, also compressed strings. */
-#if defined(__clang__)
-#pragma mark messages
-#endif
-    idx = 0;
-    while (idx < num_messages + 1) {
+    for (int idx = 0; idx <= GameHeader.NumMessages; idx++) {
         Messages[idx] = GetTI994AString(dh->p_message, idx);
         if (Messages[idx] == NULL)
             Messages[idx] = ".";
         if (loud)
             debug_print("Message %d: %s\n", idx, Messages[idx]);
-        idx++;
     }
 
-    /* --- Item descriptions ---
-       Items whose text begins with '*' are treasures. They are counted
+    /* Items whose text begins with '*' are treasures. They are counted
        here only for a header that gives no number: the ruby of Pyramid
        of Doom is starred too, and has to be destroyed, not stored. */
-#if defined(__clang__)
-#pragma mark items
-#endif
-    idx = 0;
-    item = Items;
-    while (idx < num_items + 1) {
+    int num_treasures = 0;
+    for (int idx = 0; idx <= GameHeader.NumItems; idx++) {
+        Item *item = &Items[idx];
         item->Text = GetTI994AString(dh->p_obj_descr, idx);
         if (item->Text == NULL) {
             item->Text = ".";
             item->AutoGet = NULL;
         }
-        if (item->Text && item->Text[0] == '*')
+        if (item->Text[0] == '*')
             num_treasures++;
         if (loud)
             debug_print("Item %d: %s\n", idx, item->Text);
-        idx++;
-        item++;
     }
 
     GameHeader.Treasures = dh->num_treasures ? dh->num_treasures : num_treasures;
     if (loud)
         debug_print("Number of treasures %d\n", GameHeader.Treasures);
+}
 
-    /* --- Room exits ---
-       Six bytes per room (N, S, E, W, Up, Down), each giving the
-       destination room number (0 = no exit).  This section is raw
-       bytes, not pointer-table compressed strings, so we read
-       sequentially via data_ptr. */
-#if defined(__clang__)
-#pragma mark room connections
-#endif
-    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh->p_room_exit)), &seek_offset, &data_ptr) == 0)
-        return UNKNOWN_GAME;
-    /* SeekIfNeeded returns data_ptr with file_baseline_offset baked in;
-       subtract it so we can index directly into entire_file. */
-    data_ptr -= file_baseline_offset;
-
-    if (!ReadRoomExits(&data_ptr, num_rooms, endptr))
-        return UNKNOWN_GAME;
-
-    /* --- Initial item locations ---
-       One byte per item: the room number where the item starts.
-       Also saved as InitialLoc so the engine can detect whether
-       an item has been moved (opcode 200/201). */
-#if defined(__clang__)
-#pragma mark item locations
-#endif
-    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh->p_orig_items)), &seek_offset, &data_ptr) == 0)
-        return UNKNOWN_GAME;
-    data_ptr -= file_baseline_offset;
-
-    if (!ReadItemLocations(&data_ptr, num_items, endptr))
-        return UNKNOWN_GAME;
-
-    /* --- Verb and noun dictionaries ---
-       Loaded from separate pointer tables.  The verb and noun counts
-       may differ, so the shorter array is padded with "." entries to
-       keep both arrays the same length for uniform indexing. */
-#if defined(__clang__)
-#pragma mark dictionary
-#endif
+/* Verb and noun dictionaries, loaded from separate pointer tables.  The
+   verb and noun counts may differ, so the shorter array is padded with
+   "." entries to keep both arrays the same length for uniform indexing. */
+static void LoadTI99Dictionary(const DATAHEADER *dh, int loud)
+{
     LoadTI994ADict(dh->p_verb_table, dh->num_verbs + 1, Verbs);
     LoadTI994ADict(dh->p_noun_table, dh->num_nouns + 1, Nouns);
 
@@ -556,41 +445,96 @@ static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
         for (int i = 0; i <= GameHeader.NumWords; i++)
             debug_print("Noun %d: %s\n", i, Nouns[i]);
     }
+}
 
-    /* --- Noun-to-object links (AutoGet) ---
-       Each item has a one-byte noun index that lets the parser
-       automatically resolve "GET <noun>" to the correct item.
-       A zero or out-of-range index means the item has no AutoGet. */
-#if defined(__clang__)
-#pragma mark autoget
-#endif
-    idx = 0;
-    item = Items;
-
-    if (num_items >= 1024)
-        Fatal("Bad number of items");
-    int noun_links[1024];
-
-    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh->p_obj_link)), &seek_offset, &data_ptr) == 0)
-        return UNKNOWN_GAME;
-    data_ptr -= file_baseline_offset;
-
-    while (idx < num_items + 1) {
-        if (data_ptr >= endptr)
-            return UNKNOWN_GAME;
-        noun_links[idx] = *(data_ptr++);
-        if (noun_links[idx] && noun_links[idx] <= num_words) {
-            item->AutoGet = (char *)Nouns[noun_links[idx]];
+/* Noun-to-object links (AutoGet): each item has a one-byte noun index
+   that lets the parser automatically resolve "GET <noun>" to the correct
+   item.  A zero or out-of-range index means the item has no AutoGet.
+   Returns 0 if the table runs past the end of the file. */
+static int ReadNounLinks(uint8_t **data_ptr, const uint8_t *endptr)
+{
+    for (int idx = 0; idx <= GameHeader.NumItems; idx++) {
+        if (*data_ptr >= endptr)
+            return 0;
+        int noun = *((*data_ptr)++);
+        Item *item = &Items[idx];
+        if (noun && noun <= GameHeader.NumWords) {
+            item->AutoGet = (char *)Nouns[noun];
             /* Colossal Cave item 3 ("bird") has no noun link in the data.
                A hack like this is probably overkill for such a broken game. */
-            if (idx == 3 && strncmp("bird", Items[idx].Text, 4) == 0)
+            if (idx == 3 && strncmp("bird", item->Text, 4) == 0)
                 item->AutoGet = "BIRD";
         } else {
             item->AutoGet = NULL;
         }
-        idx++;
-        item++;
     }
+    return 1;
+}
+
+/* Parse all game data sections from the file into the global game
+   state (Rooms, Items, Messages, Verbs, Nouns, actions).  Sections
+   are located via the DATAHEADER pointers; SeekIfNeeded positions
+   the read pointer (with baseline offset compensation) for each.
+   Returns TI994A on success or UNKNOWN_GAME on failure. */
+static GameIDType TryLoadingTI994A(const DATAHEADER *dh, int loud)
+{
+    uint8_t *endptr = entire_file + file_length;
+
+    /* Unpack the binary header.  The header uses big-endian layout
+       matching the TI-99/4A's native byte order.  Treasures are counted
+       from the item texts below, and the actions are TI-99/4A bytecode
+       rather than Action entries, so both counts start at 0. */
+    Header hdr = { 0 };
+    hdr.NumItems = dh->num_objects;
+    hdr.NumWords = MAX(dh->num_verbs, dh->num_nouns);
+    hdr.NumRooms = dh->red_room;
+    hdr.MaxCarry = dh->max_items_carried;
+    hdr.PlayerRoom = dh->begin_locn;
+    hdr.TreasureRoom = dh->treasure_locn;
+    hdr.WordLength = dh->cmd_length;
+    hdr.LightTime = READ_BE_UINT16(&dh->light_turns);
+    hdr.NumMessages = max_messages; /* derived earlier by CountTI99TableEntries */
+
+    /* Populate the global GameHeader and allocate (zero-filled) arrays
+       for all game data sections. */
+    SetGameHeader(&hdr);
+    AllocateGameData();
+
+    uint8_t *data_ptr = entire_file;
+    size_t seek_offset;
+
+    if (SeekIfNeeded(FixAddress(READ_BE_UINT16(&dh->p_room_descr)), &seek_offset, &data_ptr) == 0)
+        return UNKNOWN_GAME;
+
+    LoadTI99Texts(dh, loud);
+
+    /* The remaining tables are raw bytes, not pointer-table compressed
+       strings, so they are read sequentially via data_ptr.
+
+       Room exits: six bytes per room (N, S, E, W, Up, Down), each giving
+       the destination room number (0 = no exit). */
+    if (!SeekToRawData(dh->p_room_exit, &seek_offset, &data_ptr))
+        return UNKNOWN_GAME;
+
+    if (!ReadRoomExits(&data_ptr, GameHeader.NumRooms, endptr))
+        return UNKNOWN_GAME;
+
+    /* Initial item locations: one byte per item, the room number where
+       the item starts.  Also saved as InitialLoc so the engine can detect
+       whether an item has been moved (opcode 200/201). */
+    if (!SeekToRawData(dh->p_orig_items, &seek_offset, &data_ptr))
+        return UNKNOWN_GAME;
+
+    if (!ReadItemLocations(&data_ptr, GameHeader.NumItems, endptr))
+        return UNKNOWN_GAME;
+
+    LoadTI99Dictionary(dh, loud);
+
+    if (!SeekToRawData(dh->p_obj_link, &seek_offset, &data_ptr))
+        return UNKNOWN_GAME;
+
+    if (!ReadNounLinks(&data_ptr, endptr))
+        return UNKNOWN_GAME;
 
     /* --- Action bytecode ---
        Copy implicit (auto-run per turn) and explicit (player-triggered)

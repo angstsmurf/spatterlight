@@ -13,6 +13,8 @@
 #include "palette.h"
 #include "minmax.h"
 #include "common_defines.h"
+#include "scott_opcodes.h"
+#include "scott_sysmess.h"
 
 /* Sentinel used in the parsed-command stream to mean "the next action
    line continues this one" (i.e. multi-line action with a CONTINUE op). */
@@ -27,171 +29,11 @@
 /* Sentinel noun value meaning "the player typed ALL" (TAKE/DROP ALL). */
 #define LASTALL 128
 
-/* Condition codes (0-19) — used in action table condition fields */
-#define COND_PARAMETER       0
-#define COND_CARRIED         1
-#define COND_IN_ROOM         2
-#define COND_PRESENT         3
-#define COND_AT_LOC          4
-#define COND_NOT_IN_ROOM     5
-#define COND_NOT_CARRIED     6
-#define COND_NOT_AT_LOC      7
-#define COND_FLAG_SET        8
-#define COND_FLAG_CLEAR      9
-#define COND_CARRYING_ANY   10
-#define COND_CARRYING_NONE  11
-#define COND_NOT_PRESENT    12
-#define COND_IN_PLAY        13
-#define COND_NOT_IN_PLAY    14
-#define COND_COUNTER_LE     15
-#define COND_COUNTER_GT     16
-#define COND_NOT_MOVED      17
-#define COND_MOVED          18
-#define COND_COUNTER_EQ     19
-
-/* Opcode message ranges: codes 1-51 print that message directly,
-   codes 102+ print message (code - EXTENDED_MSG_OFFSET) */
-#define FIRST_MESSAGE        1
-#define LAST_DIRECT_MESSAGE 51
-#define EXTENDED_MSG_BASE  102
-#define EXTENDED_MSG_OFFSET 50
-
-/* Action opcodes (52-90) — game state operations.
-   Equivalent to corresponding TI99OP_ definitions in ti99_4a_terp.c. */
-#define OP_GET_ITEM         52
-#define OP_DROP_ITEM        53
-#define OP_GOTO_ROOM        54
-#define OP_DESTROY_ITEM     55
-#define OP_SET_DARK         56
-#define OP_SET_LIGHT        57
-#define OP_SET_FLAG         58
-#define OP_DESTROY_ITEM_2   59
-#define OP_CLEAR_FLAG       60
-#define OP_DIE              61
-#define OP_MOVE_ITEM        62
-#define OP_GAME_OVER        63
-#define OP_LOOK             64
-#define OP_PRINT_SCORE      65
-#define OP_LIST_INVENTORY   66
-#define OP_SET_FLAG_0       67
-#define OP_CLEAR_FLAG_0     68
-#define OP_REFILL_LIGHT     69
-#define OP_CLEAR_SCREEN     70
-#define OP_SAVE             71
-#define OP_SWAP_ITEMS       72
-#define OP_CONTINUE         73
-#define OP_FORCE_CARRY      74
-#define OP_MOVE_TO_LOC_OF   75
-#define OP_LOOK_2           76
-#define OP_DEC_COUNTER      77
-#define OP_PRINT_COUNTER    78
-#define OP_SET_COUNTER      79
-#define OP_GOTO_STORED      80
-#define OP_SWAP_COUNTER     81
-#define OP_ADD_COUNTER      82
-#define OP_SUB_COUNTER      83
-#define OP_PRINT_NOUN       84
-#define OP_PRINTLN_NOUN     85
-#define OP_NEWLINE          86
-#define OP_SWAP_ROOM        87
-#define OP_DELAY            88
-#define OP_GAME_SPECIFIC    89
-#define OP_DRAW_IMAGE       90
-
-/* EXAMINE verb dictionary slots, per game. Each title shipped EXAMINE
-   in a different position in its verb list, so we look it up by ID. */
-#define HULK_EXAMINE_VERB    39
-#define COUNT_EXAMINE_VERB    8
-#define VOODOO_EXAMINE_VERB  42
-#define ADVLAND_EXAMINE_VERB 29
-#define PIRATE_EXAMINE_VERB  27
-#define MISSION_EXAMINE_VERB 40
-#define STRANGE_EXAMINE_VERB 37
-
 /* US-variant game-specific image */
 #define US_CLOSEUP_IMAGE 80
 
 /* "Return to Pirate's Isle" winning-screen image index. */
 #define RTPI_WIN_IMAGE 26
-
-/* --- TI-99/4A bytecode opcode definitions ---
-   Conditions (183–201): each takes one parameter byte.
-   Most are equivalent to the COND_XXX conditions in
-   scott_actions.c (but with different numbers). */
-#define TI99CND_CARRIED        183
-#define TI99CND_IN_ROOM        184
-#define TI99CND_PRESENT        185
-#define TI99CND_NOT_IN_ROOM    186
-#define TI99CND_NOT_CARRIED    187
-#define TI99CND_NOT_PRESENT    188
-#define TI99CND_IN_PLAY        189
-#define TI99CND_NOT_IN_PLAY    190
-#define TI99CND_AT_LOC         191
-#define TI99CND_NOT_AT_LOC     192
-#define TI99CND_FLAG_SET       193
-#define TI99CND_FLAG_CLEAR     194
-#define TI99CND_CARRYING_ANY   195
-#define TI99CND_CARRYING_NONE  196
-#define TI99CND_COUNTER_LE     197
-#define TI99CND_COUNTER_GT     198
-#define TI99CND_COUNTER_EQ     199
-#define TI99CND_NOT_MOVED      200
-#define TI99CND_MOVED          201
-
-/* Commands (212–254). */
-/* equivalent to the OP_XXX opcodes in
-scott_actions.c (but with different numbers). */
-#define TI99OP_CLEAR_SCREEN     212
-#define TI99OP_DRAW             213
-#define TI99OP_AUTO_INV_ON      214
-#define TI99OP_AUTO_INV_OFF     215
-#define TI99OP_SUCCESS_OFF      216
-#define TI99OP_SUCCESS_ON       217
-#define TI99OP_TRY              218
-#define TI99OP_GET_ITEM         219
-#define TI99OP_DRTI99OP_ITEM    220
-#define TI99OP_GOTO_ROOM        221
-#define TI99OP_DESTROY_ITEM     222
-#define TI99OP_SET_DARK         223
-#define TI99OP_SET_LIGHT        224
-#define TI99OP_SET_FLAG         225
-#define TI99OP_CLEAR_FLAG       226
-#define TI99OP_SET_FLAG_0       227
-#define TI99OP_CLEAR_FLAG_0     228
-#define TI99OP_DIE              229
-#define TI99OP_MOVE_ITEM        230
-#define TI99OP_GAME_OVER        231
-#define TI99OP_PRINT_SCORE      232
-#define TI99OP_LIST_INVENTORY   233
-#define TI99OP_REFILL_LIGHT     234
-#define TI99OP_SAVE             235
-#define TI99OP_SWAP_ITEMS       236
-#define TI99OP_FORCE_CARRY      237
-#define TI99OP_MOVE_TO_LOC_OF   238
-#define TI99OP_CLEAR            239
-#define TI99OP_LOOK             240
-#define TI99OP_LOOK_2           241
-#define TI99OP_INC_COUNTER      242
-#define TI99OP_DEC_COUNTER      243
-#define TI99OP_PRINT_COUNTER    244
-#define TI99OP_SET_COUNTER      245
-#define TI99OP_ADD_COUNTER      246
-#define TI99OP_SUB_COUNTER      247
-#define TI99OP_GOTO_STORED      248
-#define TI99OP_SWAP_ROOM        249
-#define TI99OP_SWAP_COUNTER     250
-#define TI99OP_PRINT_NOUN       251
-#define TI99OP_PRINTLN_NOUN     252
-#define TI99OP_NEWLINE          253
-#define TI99OP_DELAY            254
-#define TI99OP_SUCCESS          255
-
-/* Bytecode bytes 1-182 are "print message N" (modulo the range split
-   handled by EXTENDED_MSG_*); 183+ are conditions or commands. */
-#define MAX_MESSAGE_OPCODE  182
-
-/* Maximum nesting depth for TRY blocks before we give up. */
-#define MAX_TRY_DEPTH        32
 
 /* All supported games and ports. Each title has separate IDs for its
    different releases (US edition, C64, localized translations, etc.)
@@ -320,86 +162,6 @@ typedef enum {
     IMG_INV_AND_ROOM_OBJ
 } USImageType;
 
-/* Indices into the system-message table (compass words, parser
-   responses, save/restore prompts, transcript controls). Order is
-   fixed because the loader fills the table positionally. */
-typedef enum {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    UP,
-    DOWN,
-    PLAY_AGAIN,
-    IVE_STORED,
-    TREASURES,
-    ON_A_SCALE_THAT_RATES,
-    DROPPED,
-    TAKEN,
-    OK,
-    YOUVE_SOLVED_IT,
-    I_DONT_UNDERSTAND,
-    YOU_CANT_DO_THAT_YET,
-    HUH,
-    DIRECTION,
-    YOU_HAVENT_GOT_IT,
-    YOU_HAVE_IT,
-    YOU_DONT_SEE_IT,
-    THATS_BEYOND_MY_POWER,
-    DANGEROUS_TO_MOVE_IN_DARK,
-    YOU_FELL_AND_BROKE_YOUR_NECK,
-    YOU_CANT_GO_THAT_WAY,
-    I_DONT_KNOW_HOW_TO,
-    SOMETHING,
-    I_DONT_KNOW_WHAT_A,
-    IS,
-    TOO_DARK_TO_SEE,
-    YOU_ARE,
-    YOU_SEE,
-    EXITS,
-    INVENTORY,
-    NOTHING,
-    WHAT_NOW,
-    HIT_ENTER,
-    LIGHT_HAS_RUN_OUT,
-    LIGHT_RUNS_OUT_IN,
-    TURNS,
-    YOURE_CARRYING_TOO_MUCH,
-    IM_DEAD,
-    RESUME_A_SAVED_GAME,
-    NONE,
-    NOTHING_HERE_TO_TAKE,
-    YOU_HAVE_NOTHING,
-    LIGHT_GROWING_DIM,
-    EXITS_DELIMITER,
-    MESSAGE_DELIMITER,
-    ITEM_DELIMITER,
-    WHAT,
-    YES,
-    NO,
-    ANSWER_YES_OR_NO,
-    ARE_YOU_SURE,
-    MOVE_UNDONE,
-    CANT_UNDO_ON_FIRST_TURN,
-    NO_UNDO_STATES,
-    SAVED,
-    CANT_USE_ALL,
-    TRANSCRIPT_OFF,
-    TRANSCRIPT_ON,
-    NO_TRANSCRIPT,
-    TRANSCRIPT_ALREADY,
-    FAILED_TRANSCRIPT,
-    TRANSCRIPT_START,
-    TRANSCRIPT_END,
-    BAD_DATA,
-    STATE_SAVED,
-    STATE_RESTORED,
-    NO_SAVED_STATE,
-    LAST_SYSTEM_MESSAGE
-} SysMessageType;
-
-#define MAX_SYSMESS LAST_SYSTEM_MESSAGE
-
 /* Dictionary encoding used by the game. Word length and compression
    vary across versions; the loader picks the right reader from this. */
 typedef enum {
@@ -456,7 +218,6 @@ typedef enum {
 /* Encoding of the action table inside the game image. Hulk has a
    custom format; other games are either packed (COMPRESSED) or not. */
 typedef enum {
-    UNKNOWN_ACTIONS_TYPE,
     COMPRESSED,
     UNCOMPRESSED,
     HULK_ACTIONS

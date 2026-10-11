@@ -12,8 +12,6 @@
 
 void HulkShowImageOnExamine(int noun);
 void HulkLook(void);
-void InventoryUS(void);
 void DrawHulkImage(int p);
-int LoadDOSImages(void);
 
 #endif /* hulk_h */

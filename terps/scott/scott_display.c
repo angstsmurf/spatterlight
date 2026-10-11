@@ -20,7 +20,6 @@
 #include "vector_common.h"
 #include "rtpi_graphics.h"
 
-#include "apple2draw.h"
 #include "game_specific.h"
 #include "gremlins.h"
 #include "hulk.h"
@@ -29,6 +28,14 @@
 
 #include "parser.h"
 #include "saga.h"
+
+/* DrawBlack() blanks the top half of a ZX Spectrum screen (256x192). */
+#define ZX_PICTURE_WIDTH 256
+#define ZX_PICTURE_HEIGHT 96
+
+/* Initial share (percent) of the main window given to the graphics window
+   before it is fitted to the picture. */
+#define GRAPHICS_WIN_PERCENT 60
 #include "scott.h"
 #include "scott_actions.h"
 #include "scott_display.h"
@@ -145,10 +152,7 @@ static void FlushRoomDescription(char *buf)
         pause_next_room_description = 0;
     }
 
-    if (buf != NULL) {
-        free(buf);
-        buf = NULL;
-    }
+    free(buf);
 }
 
 /* Render inventory in the graphics window for US-variant games */
@@ -162,13 +166,28 @@ void UpdateUSInventory(void)
 
 int ItIsDark(void)
 {
-    return ((BitFlags & (1 << DARKBIT)) && !IsPresent(LIGHT_SOURCE));
+    return (TestBitFlag(DARKBIT) && !IsPresent(LIGHT_SOURCE));
 }
 
 void DrawBlack(void)
 {
-    glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * (glui32)pixel_size,
-        12 * 8 * (glui32)pixel_size);
+    glk_window_fill_rect(Graphics, 0, x_offset, 0, ZX_PICTURE_WIDTH * (glui32)pixel_size,
+        ZX_PICTURE_HEIGHT * (glui32)pixel_size);
+}
+
+/* Open the main text window and set its styles. */
+void OpenBottomWindow(void)
+{
+    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Proportional, 0);
+    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Indentation, 20);
+    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_ParaIndentation,
+        20);
+    glk_stylehint_set(wintype_TextBuffer, style_Preformatted, stylehint_Justification, stylehint_just_Centered);
+
+    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
+    if (Bottom == NULL)
+        glk_exit();
+    glk_set_window(Bottom);
 }
 
 /* Open or find the status text-grid window above the main window */
@@ -189,6 +208,14 @@ void OpenTopWindow(void)
             Top = Bottom;
         }
     }
+}
+
+/* Close the status window, for a full-height picture sequence.
+   OpenTopWindow() brings it back. */
+void CloseTopWindow(void)
+{
+    glk_window_close(Top, NULL);
+    Top = NULL;
 }
 
 /* Compute the largest integer pixel multiplier that fits the game's
@@ -240,7 +267,7 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Top, &TopWidth, &TopHeight);
         glk_window_close(Top, NULL);
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
-            60, wintype_Graphics, GLK_GRAPHICS_ROCK);
+            GRAPHICS_WIN_PERCENT, wintype_Graphics, GLK_GRAPHICS_ROCK);
         FitPictureToGraphicsWindow(&graphheight, &optimal_height);
 
         if (graphheight > optimal_height) {
@@ -264,7 +291,7 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Top, &TopWidth, &TopHeight);
     } else {
         if (!Graphics)
-            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
+            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, GRAPHICS_WIN_PERCENT,
                 wintype_Graphics, GLK_GRAPHICS_ROCK);
         FitPictureToGraphicsWindow(&graphheight, &optimal_height);
         winid_t parent = glk_window_get_parent(Graphics);
@@ -323,7 +350,7 @@ void DrawRoomItemImages(void)
    darkness (black screen or fuzzy image), US-variant layout, and
    game-specific overrides (Seas of Blood, Robin of Sherwood, Hulk,
    Gremlins, Savage Island). Also draws visible item overlays. */
-void DrawRoomImage(void)
+static void DrawRoomImage(void)
 {
     if (CurrentGame == ADVENTURELAND || CurrentGame == ADVENTURELAND_C64) {
         AdventurelandDarkness();
@@ -610,6 +637,13 @@ void ListInventory(int upper)
     }
 }
 
+/* Ask for the room description and picture to be redrawn before the
+   next prompt. */
+void RequestRedraw(void)
+{
+    should_look_in_transcript = should_draw_image = 1;
+}
+
 /* Perform a Look with a brief pause, used during multi-command
    sequences so the player can see intermediate room descriptions. */
 void LookWithPause(void)
@@ -619,7 +653,7 @@ void LookWithPause(void)
     char fc = Rooms[MyLoc].Text[0];
     if (fc == 0 || fc == '.' || fc == ' ')
         return;
-    should_look_in_transcript = should_draw_image = 1;
+    RequestRedraw();
     pause_next_room_description = 1;
     Look();
 }

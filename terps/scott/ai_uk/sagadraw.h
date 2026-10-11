@@ -8,11 +8,11 @@
 #ifndef sagadraw_h
 #define sagadraw_h
 
+#include <stddef.h>
+
 #include "glk.h"
 #include "scott_defines.h"
 
 void SagaGraphicsSetup(size_t imgoffset);
-void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
-    int32_t color);
 
 #endif /* sagadraw_h */

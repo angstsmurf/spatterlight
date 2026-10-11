@@ -89,6 +89,8 @@ void *MemAlloc(size_t s) { return malloc(s); }
 void *MemCalloc(size_t s) { return calloc(1, s); }
 void *MemRealloc(void *p, size_t n) { return realloc(p, n); }
 USImage *NewImage(void) { return NULL; }
+void FreeTrailingEmptyImage(USImage *image) { (void)image; }
+void FreeUSImagesIfEmpty(void) {}
 GameIDType LoadBinaryDatabase(uint8_t *d, size_t l, GameInfo info, int ds) {
     (void)d; (void)l; (void)info; (void)ds; return UNKNOWN_GAME;
 }

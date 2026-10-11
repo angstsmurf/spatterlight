@@ -11,6 +11,7 @@
 #include "parser.h"
 #include "sagadraw.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_display.h"
 
 #define GREMLINS_ANIMATION_RATE 670

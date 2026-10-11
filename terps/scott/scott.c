@@ -54,14 +54,15 @@
 
 #include "game_specific.h"
 #include "gremlins.h"
-#include "hulk.h"
 #include "robin_of_sherwood.h"
 #include "randomness.h"
 
 #include "bsd.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_actions.h"
 #include "scott_display.h"
+#include "scott_game_info.h"
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
@@ -70,9 +71,16 @@
 /* Defines only used in this file */
 #define READSTRING_BUFFER_SIZE 1024
 
+/* Size of system_messages[], the raw message strings read from the game
+   file. Not to be confused with MAX_SYSMESS (scott_sysmess.h), the size
+   of sys[], which is indexed by SysMessageType. */
 #define NUM_SYSTEM_MESSAGES 60
-#define NUM_BATTLE_MESSAGES 33
-#define ENEMY_TABLE_SIZE 126
+
+/* Status window size in characters */
+#define TRS80_STATUS_WIDTH 64
+#define TRS80_STATUS_HEIGHT 11
+#define DEFAULT_STATUS_WIDTH 80
+#define DEFAULT_STATUS_HEIGHT 10
 
 #define LAMP_WARNING_THRESHOLD 25
 #define LAMP_WARNING_INTERVAL 5
@@ -101,7 +109,7 @@ int SavedRoom;
 int RoomSaved[NUM_COUNTERS] =
     { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 }; /* Range unknown */
 
-long BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
+uint64_t BitFlags = 0; /* Might be >32 flags - I haven't seen >32 yet */
 
 int AutoInventory = 0; /* Auto-display inventory in room descriptions */
 int Options; /* Option flags set */
@@ -117,14 +125,9 @@ Command *CurrentCommand = NULL; /* Current node in the parsed command chain */
 GameInfo *Game; /* Metadata for the detected game (from the game database) */
 MachineType CurrentSys = SYS_UNKNOWN; /* Detected platform (DOS, C64, Spectrum, etc.) */
 
-extern const char *sysdict[MAX_SYSMESS];
-extern const char *sysdict_i_am[MAX_SYSMESS];
-
 const char *sys[MAX_SYSMESS]; /* Active system messages (localized prompts, exits, etc.) */
 const char *system_messages[NUM_SYSTEM_MESSAGES];
 
-const char *battle_messages[NUM_BATTLE_MESSAGES]; /* Seas of Blood combat messages */
-uint8_t enemy_table[ENEMY_TABLE_SIZE]; /* Seas of Blood enemy stat table */
 
 uint8_t *entire_file; /* Raw game file loaded into memory */
 size_t file_length;
@@ -137,8 +140,6 @@ int showing_closeup = 0;
 int last_image_index = -1;
 int lastwasnewline = 0;
 int should_draw_image = 0;
-
-extern SavedState *InitialState;
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
@@ -170,10 +171,16 @@ void vDisplay(winid_t w, const char *fmt, va_list ap)
     char msg[DISPLAY_BUFFER_SIZE];
     vsnprintf(msg, sizeof msg, fmt, ap);
 
-    int oldlastwasnewline = lastwasnewline;
-    PutUnicodeString(glk_window_get_stream(w), msg);
-    if (w != Bottom)
-        lastwasnewline = oldlastwasnewline;
+    glui32 *unistring = ToUnicode(msg);
+    size_t length = 0;
+    while (unistring[length] != 0)
+        length++;
+    glk_put_string_stream_uni(glk_window_get_stream(w), unistring);
+    /* Only text in the main window counts: "take all" asks whether that
+       window is at the start of a line. */
+    if (w == Bottom && length > 0)
+        lastwasnewline = (unistring[length - 1] == '\n');
+    free(unistring);
 }
 
 void Display(winid_t w, const char *fmt, ...)
@@ -319,16 +326,10 @@ GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
 const char *MapSynonym(int noun)
 {
     int n = 1;
-    const char *tp;
-    static char lastword[16]; /* Last non synonym */
+    const char *lastword = ""; /* Last non synonym */
     while (n <= GameHeader.NumWords) {
-        tp = Nouns[n];
-        if (*tp == '*')
-            tp++;
-        else {
-            strncpy(lastword, tp, sizeof(lastword) - 1);
-            lastword[sizeof(lastword) - 1] = '\0';
-        }
+        if (*Nouns[n] != '*')
+            lastword = Nouns[n];
         if (n == noun)
             return (lastword);
         n++;
@@ -400,8 +401,6 @@ static char *ReadString(FILE *f)
     return MemStrndup(tmp, ct);
 }
 
-int header[24];
-
 /* Free a database string, unless it is unset (a database that failed to
    load halfway will have NULL strings in its arrays) or the shared "."
    placeholder. */
@@ -450,20 +449,9 @@ void FreeDatabase(void)
     Messages = NULL;
 }
 
-/* Load a ScottFree plaintext database from a FILE stream.
-
-   Reads the header, actions, word pairs (verb/noun dictionary), rooms
-   with exits, messages, items with locations, then the version/adventure
-   number trailer. Returns SCOTTFREE on success, HULK_US if the DOS Hulk
-   images are found, or UNKNOWN_GAME on parse failure.
-
-   The file format is the standard Scott Adams plain-text format as
-   used by the original IBM PC releases, the ScottKit toolkit,
-   and compatible tools. */
-GameIDType LoadDatabase(FILE *f, int loud)
+/* Read and range-check the header. Returns 0 if it is not a usable one. */
+static int LoadHeader(FILE *f, int loud)
 {
-    /* Load the header */
-
     if (fscanf(f, "%*d %hd %hd %hd %hd %hd %hd %hd %hd %hd %hd %hd",
             &GameHeader.NumItems, &GameHeader.NumActions,
             &GameHeader.NumWords, &GameHeader.NumRooms,
@@ -474,7 +462,7 @@ GameIDType LoadDatabase(FILE *f, int loud)
         < 10) {
         if (loud)
             debug_print("Invalid database(bad header)\n");
-        return UNKNOWN_GAME;
+        return 0;
     }
     /* The counts size the game arrays, and the player is placed in
        PlayerRoom without further checks */
@@ -485,16 +473,13 @@ GameIDType LoadDatabase(FILE *f, int loud)
         || GameHeader.PlayerRoom > GameHeader.NumRooms) {
         if (loud)
             debug_print("Invalid database(header values out of range)\n");
-        return UNKNOWN_GAME;
+        return 0;
     }
-    LightRefill = GameHeader.LightTime;
-    AllocateGameData();
+    return 1;
+}
 
-    if (loud)
-        PrintHeaderInfo(NULL, &GameHeader);
-
-    /* Load the actions */
-
+static int LoadActions(FILE *f, int loud)
+{
     if (loud)
         debug_print("Reading %d actions.\n", GameHeader.NumActions);
     for (int ct = 0; ct <= GameHeader.NumActions; ct++) {
@@ -509,8 +494,7 @@ GameIDType LoadDatabase(FILE *f, int loud)
                 &Actions[ct].Opcode[1])
             != 8) {
             debug_print("Bad action line (%d)\n", ct);
-            FreeDatabase();
-            return UNKNOWN_GAME;
+            return 0;
         }
 
         if (loud) {
@@ -523,8 +507,12 @@ GameIDType LoadDatabase(FILE *f, int loud)
             debug_print("Action %d Opcode [1]]: %d (%d/%d)\n", ct, Actions[ct].Opcode[1], Actions[ct].Opcode[1] % VOCAB_MULTIPLIER, Actions[ct].Opcode[1] / VOCAB_MULTIPLIER);
         }
     }
+    return 1;
+}
 
-    /* Load the verb/noun dictionary (word pairs) */
+/* Load the verb/noun dictionary (word pairs) */
+static void LoadWords(FILE *f, int loud)
+{
     if (loud)
         debug_print("Reading %d word pairs.\n", GameHeader.NumWords);
     for (int ct = 0; ct <= GameHeader.NumWords; ct++) {
@@ -533,7 +521,11 @@ GameIDType LoadDatabase(FILE *f, int loud)
         Nouns[ct] = ReadString(f);
         debug_print("Nouns %d:%s.\n", ct, Nouns[ct]);
     }
-    /* Load rooms: 6 exit directions followed by a description string */
+}
+
+/* Load rooms: 6 exit directions followed by a description string */
+static int LoadRooms(FILE *f, int loud)
+{
     if (loud)
         debug_print("Reading %d rooms.\n", GameHeader.NumRooms);
     for (int ct = 0; ct <= GameHeader.NumRooms; ct++) {
@@ -543,8 +535,7 @@ GameIDType LoadDatabase(FILE *f, int loud)
                 &exits[3], &exits[4], &exits[5])
             != NUM_EXITS) {
             debug_print("Bad room line (%d)\n", ct);
-            FreeDatabase();
-            return UNKNOWN_GAME;
+            return 0;
         }
         for (int i = 0; i < NUM_EXITS; i++)
             Rooms[ct].Exits[i] = exits[i];
@@ -558,8 +549,12 @@ GameIDType LoadDatabase(FILE *f, int loud)
         }
         Rooms[ct].Image = NO_IMAGE;
     }
+    return 1;
+}
 
-    /* Load messages (printed by action ops 1-51 and 102+) */
+/* Load messages (printed by action ops 1-51 and 102+) */
+static void LoadMessages(FILE *f, int loud)
+{
     if (loud)
         debug_print("Reading %d messages.\n", GameHeader.NumMessages);
     for (int ct = 0; ct <= GameHeader.NumMessages; ct++) {
@@ -567,7 +562,11 @@ GameIDType LoadDatabase(FILE *f, int loud)
         if (loud)
             debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
-    /* Load items: description string (with optional /AutoGet/ word) and location */
+}
+
+/* Load items: description string (with optional /AutoGet/ word) and location */
+static int LoadItems(FILE *f, int loud)
+{
     if (loud)
         debug_print("Reading %d items.\n", GameHeader.NumItems);
     for (int ct = 0; ct <= GameHeader.NumItems; ct++) {
@@ -578,34 +577,76 @@ GameIDType LoadDatabase(FILE *f, int loud)
         int location;
         if (fscanf(f, "%d", &location) != 1) {
             debug_print("Bad item line (%d)\n", ct);
-            FreeDatabase();
-            return UNKNOWN_GAME;
+            return 0;
         }
         Items[ct].Location = (unsigned char)location;
         if (loud)
             debug_print("Location of item %d: %d\n", ct, Items[ct].Location);
         Items[ct].InitialLoc = Items[ct].Location;
     }
-    /* Discard action comment strings (one per action, used only by
-       the original authoring tools for documentation) */
-    for (int ct = 0; ct <= GameHeader.NumActions; ct++)
-        free(ReadString(f));
-    /* Read the version and adventure number trailer */
+    return 1;
+}
+
+/* Read the version and adventure number trailer */
+static int LoadTrailer(FILE *f, int loud)
+{
     int val;
     if (fscanf(f, "%d", &val) != 1) {
         debug_print("Cannot read version\n");
-        FreeDatabase();
-        return UNKNOWN_GAME;
+        return 0;
     }
     if (loud)
         debug_print("Version %d.%02d of Adventure ", val / 100, val % 100);
     if (fscanf(f, "%d", &val) != 1) {
         debug_print("Cannot read adventure number\n");
-        FreeDatabase();
-        return UNKNOWN_GAME;
+        return 0;
     }
     if (loud)
         debug_print("%d.\nLoad Complete.\n\n", val);
+    return 1;
+}
+
+/* Load a ScottFree plaintext database from a FILE stream.
+
+   Reads the header, actions, word pairs (verb/noun dictionary), rooms
+   with exits, messages, items with locations, then the version/adventure
+   number trailer. Returns SCOTTFREE on success, HULK_US if the DOS Hulk
+   images are found, or UNKNOWN_GAME on parse failure.
+
+   The file format is the standard Scott Adams plain-text format as
+   used by the original IBM PC releases, the ScottKit toolkit,
+   and compatible tools. */
+GameIDType LoadDatabase(FILE *f, int loud)
+{
+    if (!LoadHeader(f, loud))
+        return UNKNOWN_GAME;
+    LightRefill = GameHeader.LightTime;
+    AllocateGameData();
+
+    if (loud)
+        PrintHeaderInfo(NULL, &GameHeader);
+
+    int ok = LoadActions(f, loud);
+    if (ok) {
+        LoadWords(f, loud);
+        ok = LoadRooms(f, loud);
+    }
+    if (ok) {
+        LoadMessages(f, loud);
+        ok = LoadItems(f, loud);
+    }
+    if (ok) {
+        /* Discard action comment strings (one per action, used only by
+           the original authoring tools for documentation) */
+        for (int ct = 0; ct <= GameHeader.NumActions; ct++)
+            free(ReadString(f));
+        ok = LoadTrailer(f, loud);
+    }
+    if (!ok) {
+        FreeDatabase();
+        return UNKNOWN_GAME;
+    }
+
     /* Extra value in at least Hulk */
     int extra = 0;
     if (fscanf(f, "%d", &extra) != 1) {
@@ -626,7 +667,7 @@ GameIDType LoadDatabase(FILE *f, int loud)
 void Output(const char *a) { Display(Bottom, "%s", a); }
 
 
-int RunTests(const char *supportpath) {
+static int RunTests(const char *supportpath) {
     return RunVectorTests(supportpath);
 }
 
@@ -648,6 +689,9 @@ glkunix_argumentlist_t glkunix_arguments[] = {
         "-p        Use for prehistoric databases which don't use bit 16" },
     { "-w", glkunix_arg_NoValue, "-w        Disable upper window" },
     { "-n", glkunix_arg_NoValue, "-n        No delays" },
+    { "-f", glkunix_arg_NoValue, "-f        Flicker the room description like some original games" },
+    { "-z", glkunix_arg_ValueFollows,
+        "-z path   Run the vector image tests with this support path, then exit" },
     { "", glkunix_arg_ValueFollows, "filename    file to load" },
 
     { NULL, glkunix_arg_End, NULL }
@@ -725,51 +769,74 @@ int glkunix_startup_code(glkunix_startup_t *data)
         }
 #endif
 
-        if (game_file) {
-            const char *n;
-            int dirlen = 0;
-            if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
-                dirlen = (int)(n - game_file + 1);
-            }
-            if (dirlen) {
-                DirPath = MemAlloc(dirlen + 1);
-                memcpy(DirPath, game_file, dirlen);
-                DirPath[dirlen] = 0;
-            }
+        const char *n;
+        int dirlen = 0;
+        if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
+            dirlen = (int)(n - game_file + 1);
+        }
+        if (dirlen) {
+            DirPath = MemAlloc(dirlen + 1);
+            memcpy(DirPath, game_file, dirlen);
+            DirPath[dirlen] = 0;
         }
     }
 
     return 1;
 }
 
-/* Main entry point: detect the game, configure display style, show the
-   title screen, then run the main game loop (implicit actions → Look →
-   get input → explicit actions → lamp timer). */
-void glk_main(void)
+/* Decrement the lamp timer each turn. Brian Howarth games use -1
+   for infinite light. Warn when below 25 turns; extinguish at 0. */
+static void TickLampTimer(void)
 {
-    int vb, no;
+    if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !StopTime) {
+        GameHeader.LightTime--;
+        if (GameHeader.LightTime < 1) {
+            SetBitFlag(LIGHTOUTBIT);
+            if (IsPresent(LIGHT_SOURCE)) {
+                Output(sys[LIGHT_HAS_RUN_OUT]);
+            }
+            if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS))
+                Items[LIGHT_SOURCE].Location = DESTROYED;
+        } else if (GameHeader.LightTime < LAMP_WARNING_THRESHOLD) {
+            if (IsPresent(LIGHT_SOURCE)) {
+                if ((Options & SCOTTLIGHT) || (Game->subtype & MYSTERIOUS)) {
+                    Display(Bottom, "%s %d %s\n", sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
+                } else {
+                    if (GameHeader.LightTime % LAMP_WARNING_INTERVAL == 0)
+                        Output(sys[LIGHT_GROWING_DIM]);
+                }
+            }
+        }
+    }
+}
 
-    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Proportional, 0);
-    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_Indentation, 20);
-    glk_stylehint_set(wintype_TextBuffer, style_User1, stylehint_ParaIndentation,
-        20);
-    glk_stylehint_set(wintype_TextBuffer, style_Preformatted, stylehint_Justification, stylehint_just_Centered);
-
-    Bottom = glk_window_open(0, 0, 0, wintype_TextBuffer, GLK_BUFFER_ROCK);
-    if (Bottom == NULL)
-        glk_exit();
-    glk_set_window(Bottom);
-
-    if (game_file == NULL)
-        Fatal("No game provided");
-
-    /* Select "You are" vs "I am" system message set */
-    const char **dictpointer;
-
-    if (Options & YOUARE)
-        dictpointer = sysdict;
+/* The system messages of the US releases with graphics. */
+static void ApplyUSSysmess(void)
+{
+    sys[MESSAGE_DELIMITER] = " ";
+    sys[ITEM_DELIMITER] = ". ";
+    sys[EXITS_DELIMITER] = " ";
+    sys[YOU_ARE] = "I am in a ";
+    sys[YOU_SEE] = ". Visible: ";
+    sys[INVENTORY] = "I've got: ";
+    sys[NOTHING] = "Nothing at all. ";
+    sys[EXITS] = "Some exits: ";
+    if (CurrentSys == SYS_MSDOS)
+        sys[WHAT_NOW] = "Command me? ";
     else
-        dictpointer = sysdict_i_am;
+        sys[WHAT_NOW] = "What shall I do? ";
+    sys[NORTH] = "NORTH";
+    sys[EAST] = "EAST";
+    sys[SOUTH] = "SOUTH";
+    sys[WEST] = "WEST";
+    sys[UP] = "UP";
+    sys[DOWN] = "DOWN";
+}
+
+/* Select the "You are" or the "I am" system message set */
+static void SelectSystemMessages(void)
+{
+    const char **dictpointer = (Options & YOUARE) ? sysdict : sysdict_i_am;
 
     for (int i = 0; i < MAX_SYSMESS; i++) {
         if (dictpointer[i] != NULL)
@@ -777,21 +844,21 @@ void glk_main(void)
         else
             sys[i] = sysdict[i];
     }
+}
 
-    /* Detect the game format and load its database */
+/* Detect the game format, load its database, show the title screen
+   and set up the display style and windows the game wants. */
+static void SetUpGame(void)
+{
     GameIDType game_type = DetectGame(game_file);
 
     if (game_type == UNKNOWN_GAME)
         Fatal("Unsupported game!");
 
-    if (game_type != SCOTTFREE && game_type != TI994A) {
+    if (game_type != SCOTTFREE && game_type != TI994A)
         Options |= SPECTRUM_STYLE;
-        split_screen = 1;
-    } else {
-        if (game_type != TI994A)
-            Options |= TRS80_STYLE;
-        split_screen = 1;
-    }
+    else if (game_type != TI994A)
+        Options |= TRS80_STYLE;
 
     if (ZXLoadingScreen != NULL && Game->type != US_VARIANT)
         DrawZXTitleImage();
@@ -804,11 +871,11 @@ void glk_main(void)
     }
 
     if (Options & TRS80_STYLE) {
-        TopWidth = 64;
-        TopHeight = 11;
+        TopWidth = TRS80_STATUS_WIDTH;
+        TopHeight = TRS80_STATUS_HEIGHT;
     } else {
-        TopWidth = 80;
-        TopHeight = 10;
+        TopWidth = DEFAULT_STATUS_WIDTH;
+        TopHeight = DEFAULT_STATUS_HEIGHT;
     }
 
     if (game_type == TI994A) {
@@ -828,24 +895,7 @@ one letter.\n\nDo you want to restore previously saved game?\n",
         if (HasGraphics()) {
             DrawTitleImageScott();
             OpenGraphicsWindow();
-            sys[MESSAGE_DELIMITER] = " ";
-            sys[ITEM_DELIMITER] = ". ";
-            sys[EXITS_DELIMITER] = " ";
-            sys[YOU_ARE] = "I am in a ";
-            sys[YOU_SEE] = ". Visible: ";
-            sys[INVENTORY] = "I've got: ";
-            sys[NOTHING] = "Nothing at all. ";
-            sys[EXITS] = "Some exits: ";
-            if (CurrentSys == SYS_MSDOS)
-                sys[WHAT_NOW] = "Command me? ";
-            else
-                sys[WHAT_NOW] = "What shall I do? ";
-            sys[NORTH] = "NORTH";
-            sys[EAST] = "EAST";
-            sys[SOUTH] = "SOUTH";
-            sys[WEST] = "WEST";
-            sys[UP] = "UP";
-            sys[DOWN] = "DOWN";
+            ApplyUSSysmess();
 
             if (CurrentGame == RETURN_TO_PIRATES_ISLE)
                 UpdateRTPISystemMessages();
@@ -865,6 +915,70 @@ Release 1.14, (c) 1993,1994,1995 Swansea University Computer Society.\n\
 Distributed under the GNU software license\n\n");
 
     OpenTopWindow();
+}
+
+/* One round of the game loop: implicit actions → Look → get input →
+   explicit actions → lamp timer. */
+static void PlayTurn(void)
+{
+    int vb, no;
+
+    if (should_restart)
+        RestartGame();
+
+    /* Run implicit (automatic) actions — these have vocab 0 and
+       fire based on random chance or game state, not player input */
+    if (!StopTime)
+        PerformActions(0, 0);
+    /* Refresh the room description (skip during TAKE ALL / DROP ALL) */
+    if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
+        print_look_to_transcript = should_look_in_transcript;
+        Look();
+        print_look_to_transcript = should_look_in_transcript = 0;
+        if (!StopTime && !should_restart)
+            SaveUndo();
+    }
+
+    if (should_restart)
+        return;
+
+    if (GetInput(&vb, &no) == 1)
+        return;
+
+    /* Run explicit (player-triggered) actions */
+    switch (PerformActions(vb, no)) {
+    case ER_RAN_ALL_LINES_NO_MATCH:
+        if (!RecheckForExtraCommand()) {
+            Output(sys[I_DONT_UNDERSTAND]);
+            FreeCommands();
+        }
+        break;
+    case ER_RAN_ALL_LINES:
+        Output(sys[YOU_CANT_DO_THAT_YET]);
+        // Failed actions should interrupt chains of commands
+        // but not TAKE ALL and DROP ALL
+        if (CurrentCommand == NULL || !CurrentCommand->allflag)
+            FreeCommands();
+        break;
+    default:
+        JustStarted = 0;
+    }
+
+    TickLampTimer();
+    if (StopTime)
+        StopTime--;
+}
+
+/* Main entry point: set the game up, then run the game loop. */
+void glk_main(void)
+{
+    OpenBottomWindow();
+
+    if (game_file == NULL)
+        Fatal("No game provided");
+
+    SelectSystemMessages();
+    SetUpGame();
 
 #ifdef SPATTERLIGHT
     UpdateSettings();
@@ -878,71 +992,6 @@ Distributed under the GNU software license\n\n");
 
     while (1) {
         glk_tick();
-
-        if (should_restart)
-            RestartGame();
-
-        /* Run implicit (automatic) actions — these have vocab 0 and
-           fire based on random chance or game state, not player input */
-        if (!StopTime)
-            PerformActions(0, 0);
-        /* Refresh the room description (skip during TAKE ALL / DROP ALL) */
-        if (!(CurrentCommand && CurrentCommand->allflag && !(CurrentCommand->allflag & LASTALL))) {
-            print_look_to_transcript = should_look_in_transcript;
-            Look();
-            print_look_to_transcript = should_look_in_transcript = 0;
-            if (!StopTime && !should_restart)
-                SaveUndo();
-        }
-
-        if (should_restart)
-            continue;
-
-        if (GetInput(&vb, &no) == 1)
-            continue;
-
-        /* Run explicit (player-triggered) actions */
-        switch (PerformActions(vb, no)) {
-        case ER_RAN_ALL_LINES_NO_MATCH:
-            if (!RecheckForExtraCommand()) {
-                Output(sys[I_DONT_UNDERSTAND]);
-                FreeCommands();
-            }
-            break;
-        case ER_RAN_ALL_LINES:
-            Output(sys[YOU_CANT_DO_THAT_YET]);
-            // Failed actions should interrupt chains of commands
-            // but not TAKE ALL and DROP ALL
-            if (CurrentCommand == NULL || !CurrentCommand->allflag)
-                FreeCommands();
-            break;
-        default:
-            JustStarted = 0;
-        }
-
-        /* Decrement the lamp timer each turn. Brian Howarth games use -1
-           for infinite light. Warn when below 25 turns; extinguish at 0. */
-        if (Items[LIGHT_SOURCE].Location != DESTROYED && GameHeader.LightTime != -1 && !StopTime) {
-            GameHeader.LightTime--;
-            if (GameHeader.LightTime < 1) {
-                SetBitFlag(LIGHTOUTBIT);
-                if (IsPresent(LIGHT_SOURCE)) {
-                    Output(sys[LIGHT_HAS_RUN_OUT]);
-                }
-                if ((Options & PREHISTORIC_LAMP) || (Game->subtype & MYSTERIOUS))
-                    Items[LIGHT_SOURCE].Location = DESTROYED;
-            } else if (GameHeader.LightTime < LAMP_WARNING_THRESHOLD) {
-                if (IsPresent(LIGHT_SOURCE)) {
-                    if ((Options & SCOTTLIGHT) || (Game->subtype & MYSTERIOUS)) {
-                        Display(Bottom, "%s %d %s\n", sys[LIGHT_RUNS_OUT_IN], GameHeader.LightTime, sys[TURNS]);
-                    } else {
-                        if (GameHeader.LightTime % LAMP_WARNING_INTERVAL == 0)
-                            Output(sys[LIGHT_GROWING_DIM]);
-                    }
-                }
-            }
-        }
-        if (StopTime)
-            StopTime--;
+        PlayTurn();
     }
 }

@@ -20,6 +20,8 @@
 #define A8_IMAGE_SIZE 0xf00
 #define A8_SCREEN_COLUMNS 40
 #define A8_SCREEN_WIDTH 160
+/* Width in output pixels: every Atari pixel is drawn two wide. */
+#define A8_OUTPUT_WIDTH (A8_SCREEN_WIDTH * 2)
 #define A8_SCREEN_HEIGHT 95
 
 typedef struct {
@@ -102,7 +104,7 @@ typedef struct {
     uint8_t value90;
     uint8_t valueA0;
     bool fill_bg;
-    // Slow-draw timer ticks to pause for an OPCODE_DELAY op (see
+    // Slow-draw timer ticks to pause for an A8_OP_DELAY op (see
     // atari8_delay_ticks()). Worst case is a few thousand ticks, so a uint16_t
     // holds it with room to spare and keeps the struct compact.
     uint16_t delay;
@@ -595,7 +597,7 @@ static void DrawAtari8bitImageFromScreenmem(void) {
     glsi32 y = 0;
     for (int i = 0; i < A8_IMAGE_SIZE; i++) {
         DrawByteAt(&x, &y, i);
-        if (x >= 320) {
+        if (x >= A8_OUTPUT_WIDTH) {
             x = 0;
             y++;
         }
@@ -603,17 +605,17 @@ static void DrawAtari8bitImageFromScreenmem(void) {
 }
 
 typedef enum  {
-    OPCODE_END = 0,
-    OPCODE_SET_BACKGROUND_OR_MODE = 1,
-    OPCODE_DELAY = 2,
-    OPCODE_SET_COLOR = 3,
-    OPCODE_MOVE_TO = 4,
-    OPCODE_DRAW_LINE = 5,
-    OPCODE_ERASE_FILL = 6,
-    OPCODE_FLOOD_FILL = 7,
+    A8_OP_END = 0,
+    A8_OP_SET_BACKGROUND_OR_MODE = 1,
+    A8_OP_DELAY = 2,
+    A8_OP_SET_COLOR = 3,
+    A8_OP_MOVE_TO = 4,
+    A8_OP_DRAW_LINE = 5,
+    A8_OP_ERASE_FILL = 6,
+    A8_OP_FLOOD_FILL = 7,
 } Opcode;
 
-/* OPCODE_DELAY (2) faithful timing.
+/* A8_OP_DELAY (2) faithful timing.
  *
  * On the Atari the delay opcode is a triple-nested 6502 busy-wait in MAIN_DRAW
  * ($86DB): DEC arg_a / DEC arg_b / DEC arg0 act as the inner / middle / outer
@@ -684,18 +686,18 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
     ctx->erase_enabled = false;
 
     switch (opcode) {
-        case OPCODE_ERASE_FILL:
+        case A8_OP_ERASE_FILL:
             if (ctx->lines_only_mode) return false;
             ctx->erase_enabled = true;
             ctx->fill_edge_color = color_pair(ctx->color_idx, 0) << 2 |
             color_pair(ctx->color_idx, 1);
             // fallthrough
-        case OPCODE_FLOOD_FILL:
+        case A8_OP_FLOOD_FILL:
             if (ctx->lines_only_mode) return false;
             create_patterns(arg_0, arg_a, arg_b, ctx);
             flood_fill(ctx);
             break;
-        case OPCODE_SET_BACKGROUND_OR_MODE:
+        case A8_OP_SET_BACKGROUND_OR_MODE:
             /* If opcode_arg == 0 do an immediate background fill with pattern 0
              (unless in lines-only mode) */
             if (arg_0 == 0) {
@@ -736,16 +738,16 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
 static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_t arg_a, uint8_t arg_b) {
     bool start_over = false;
     switch (opcode) {
-        case OPCODE_MOVE_TO:
+        case A8_OP_MOVE_TO:
             ctx->start_x = arg_a;
             ctx->start_y = arg_b;
             break;
-        case OPCODE_SET_COLOR:
+        case A8_OP_SET_COLOR:
             ctx->color_idx = arg0;
             ctx->color_a_index = arg_a;
             ctx->color_b_index = arg_b;
             break;
-        case OPCODE_DELAY:
+        case A8_OP_DELAY:
             if (ctx->lines_only_mode == false) {
                 uint16_t ticks = atari8_delay_ticks(arg0, arg_a, arg_b);
                 debug_print("Delay arg0=%d arg_a=%d arg_b=%d -> %d ticks\n",
@@ -753,7 +755,7 @@ static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_
                 write_to_screenmem(0, 0, 0, 0, ticks);
             }
             break;
-        case OPCODE_DRAW_LINE:
+        case A8_OP_DRAW_LINE:
             ctx->target_x = arg_a;
             ctx->target_y = arg_b;
             handle_draw_line(ctx);
@@ -765,7 +767,7 @@ static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_
     return start_over;
 }
 
-void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
+static void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
     if (towrite->fill_bg == true) {
         SetA8PixelColor(towrite->value90 & 0x3, towrite->valueA0 & 0x3);
         RectFill(0, 0, ImageWidth, ImageHeight, 1);
@@ -776,7 +778,7 @@ void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
     }
 }
 
-int delay_active = 0;
+static int delay_active = 0;
 
 void DrawSomeAtari8VectorBytes(int from_start)
 {
@@ -846,7 +848,7 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
 
     while (offset + 2 < ctx.datasize) {
         Opcode opcode = ctx.imagedata[offset] >> 5;
-        if (opcode == OPCODE_END) break;
+        if (opcode == A8_OP_END) break;
 
         uint8_t arg_0 = ctx.imagedata[offset] & 0x1f;
         uint8_t arg_a = ctx.imagedata[offset + 1];

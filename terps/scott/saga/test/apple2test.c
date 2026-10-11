@@ -23,8 +23,6 @@
 #include "glk.h"
 #include "apple2draw.h"   // A2_SCREEN_MEM_SIZE, DrawApple2ImageFromData, screenmem
 
-extern uint8_t *screenmem;
-extern uint8_t *descrambletable;
 
 // --- stubs for the Glk plotting / artifact-colour path (never reached here;
 //     DrawApple2ImageFromData only writes screenmem) -----------------------------

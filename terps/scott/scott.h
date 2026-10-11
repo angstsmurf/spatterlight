@@ -24,6 +24,8 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include "glk.h"
+
 #include "debugprint.h"
 #include "memory_allocation.h"
 #include "read_le16.h"
@@ -83,13 +85,13 @@ typedef struct {
 
 typedef struct {
     unsigned short Vocab;
-    unsigned short Condition[5];
+    unsigned short Condition[NUM_CONDITIONS];
     unsigned short Opcode[2];
 } Action;
 
 typedef struct {
     char *Text;
-    uint8_t Exits[6];
+    uint8_t Exits[NUM_EXITS];
     uint8_t Image;
 } Room;
 
@@ -126,8 +128,6 @@ typedef struct {
 
 /* Anything used by the other source files goes here */
 
-#include "glk.h"
-
 #define MyLoc (GameHeader.PlayerRoom)
 
 #define CurrentGame (Game->gameID)
@@ -144,13 +144,9 @@ void vDisplay(winid_t w, const char *fmt, va_list ap)
 #endif
     ;
 void PutUnicodeString(strid_t stream, const char *string);
-void HitEnter(void);
 GameIDType LoadDatabase(FILE *f, int loud);
 void Updates(event_t ev);
-int PerformExtraCommand(int extra_stop_time);
 const char *MapSynonym(int noun);
-uint8_t *SeekToPos(int offset);
-void SaveGame(void);
 void UpdateSettings(void);
 void FreeDatabase(void);
 
@@ -169,7 +165,7 @@ extern uint8_t *entire_file;
 extern size_t file_length;
 extern int file_baseline_offset;
 extern int split_screen;
-extern long BitFlags;
+extern uint64_t BitFlags;
 extern int LightRefill;
 extern int Counters[];
 extern int AnimationFlag;
@@ -179,6 +175,9 @@ extern int CurrentCounter;
 extern int RoomSaved[];
 extern int Options;
 extern int StopTime;
+/* StopTime value that keeps the implicit actions from running on the next
+   turn (e.g. after SCORE or INVENTORY). */
+#define SKIP_IMPLICIT_TURNS 2
 extern int should_look_in_transcript;
 extern int ImageWidth;
 extern int ImageHeight;
@@ -186,6 +185,7 @@ extern const char *game_file;
 extern int showing_inventory;
 extern MachineType CurrentSys;
 extern int lastwasnewline;
+extern char *DirPath;
 extern int showing_closeup;
 extern int last_image_index;
 extern int gli_slowdraw;
@@ -199,10 +199,6 @@ extern int should_restart;
 
 GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void);
 int MatchUpItem(int noun, int loc);
-int YesOrNo(void);
-int SelectGameFromMenu(const char *intro, const char **titles, int count);
-void RestartGame(void);
-void LoadGame(void);
 
 /* Is the item carried or in the current room? */
 static inline int IsPresent(int item)

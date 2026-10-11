@@ -19,6 +19,7 @@ int FindCode(const uint8_t *data, size_t datasize, const char *pattern, int patt
 uint8_t *ReadHeader(uint8_t *ptr);
 int ParseHeader(int *h, HeaderType type, Header *out);
 void PrintHeaderInfo(int *h, const Header *hdr);
+uint8_t *SeekToPos(int offset);
 
 void ParseItemSlashAutoGet(int index);
 void SetGameHeader(const Header *h);

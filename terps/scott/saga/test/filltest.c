@@ -24,17 +24,13 @@
 #include "glk.h"
 #include "sagagraphics.h"
 #include "scott_defines.h"
+#include "apple2_vector_draw.h"
+#include "apple2detect.h"
+#include "atari_8bit_vector_draw.h"
+#include "vector_common.h"
 
 // Defined in the linked modules.
-int TestApple2ImageWithName(const char *name, const char *supportpath);
-int TestAtari8ImageWithName(const char *name, const char *supportpath);
-int DrawApple2VectorImage(USImage *img);
-uint8_t *DrawAtari8BitVectorImage(USImage *img);
-const uint8_t *GetAtari8Screenmem90(void);
-const uint8_t *GetAtari8ScreenmemA0(void);
-uint8_t *ReadTestDataFromFile(const char *filename, const char *supportpath, size_t *size);
 void InitDskImage(uint8_t *data, size_t datasize);
-int LoadDrawingDataFromDisk(uint8_t *data, size_t datasize);
 void FreeDiskImage(void);
 
 // ---- stubs --------------------------------------------------------------------

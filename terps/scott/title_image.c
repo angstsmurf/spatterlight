@@ -16,6 +16,7 @@
 #include "vector_common.h"
 #include "zx_title.h"
 #include "scott.h"
+#include "scott_meta.h"
 #include "scott_display.h"
 
 #ifdef SPATTERLIGHT
@@ -92,7 +93,7 @@ static void DrawUSTitle(void)
     DrawImageOrVector();
 }
 
-static void wait_for_key_on_title_screen(void) {
+static void WaitForKeyOnTitleScreen(void) {
 
     if (Graphics != NULL) {
         glk_request_char_event(Graphics);
@@ -193,52 +194,41 @@ void DrawZXTitleImage(void)
 }
 
 #define RTPI_TITLE_LINES 24
+#define RTPI_TITLE_COLS 40
+#define BLANK_LINE_MARK 99
 
-static const char **GetRTPILines(const char *text) {
-    char *lines[RTPI_TITLE_LINES];
-    size_t linelenghts[RTPI_TITLE_LINES];
-    uint8_t line[128];
+/* Split the title text into RTPI_TITLE_LINES newline-terminated lines,
+   leading spaces stripped. Returns 0 (and leaves nothing allocated) if
+   the text has fewer lines than that. */
+static int GetRTPILines(const char *text, char *lines[RTPI_TITLE_LINES]) {
     int lineidx = 0;
     int pos = 0;
-    int linepos = 0;
     while (lineidx < RTPI_TITLE_LINES && text[pos] != '\0') {
         // Skip leading spaces
         while (text[pos] == ' ') {
             pos++;
         }
+        int start = pos;
         while (text[pos] != '\n' && text[pos] != '\r' && text[pos] != '\0') {
-            line[linepos++] = text[pos++];
+            pos++;
         }
-        pos++;
-        lines[lineidx] = MemAlloc(linepos + 2);
-        memcpy(lines[lineidx], line, linepos);
-        lines[lineidx][linepos] = '\n';
-        lines[lineidx][linepos + 1] = '\0';
-        linelenghts[lineidx] = linepos + 2;
+        int linelen = pos - start;
+        if (text[pos] != '\0')
+            pos++;
+        lines[lineidx] = MemAlloc(linelen + 2);
+        memcpy(lines[lineidx], text + start, linelen);
+        lines[lineidx][linelen] = '\n';
+        lines[lineidx][linelen + 1] = '\0';
         lineidx++;
-        linepos = 0;
     }
 
     if (lineidx < RTPI_TITLE_LINES) {
         for (int j = 0; j < lineidx; j++) {
-            free (lines[j]);
+            free(lines[j]);
         }
-        return NULL;
+        return 0;
     }
-
-    const char **outlines = MemAlloc(RTPI_TITLE_LINES * sizeof(char *));
-
-    static const uint8_t order[RTPI_TITLE_LINES] =
-    { 1, 2, 4, 3, 5, 8, 9, 11, 12, 14, 0, 99, 13, 15, 17, 19, 0, 99, 18, 20, 21, 23, 22, 0 };
-
-    for (int j = 0; j < RTPI_TITLE_LINES; j++) {
-        if (order[j] == 99) {
-            outlines[j] = NULL;
-        } else {
-            outlines[j] = lines[order[j]];
-        }
-    }
-    return outlines;
+    return 1;
 }
 
 /*
@@ -270,7 +260,7 @@ static const char **GetRTPILines(const char *text) {
 
 */
 
-static void initRTPITitle(void) {
+static void InitRTPITitle(void) {
     if (!title_screen)
         return;
     Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
@@ -284,21 +274,31 @@ static void initRTPITitle(void) {
 }
 
 static void RTPITitle(void) {
+    /* The order the title lines are shown in; BLANK_LINE_MARK is a
+       "wait for a key, then clear the window" page break. */
+    static const uint8_t order[RTPI_TITLE_LINES] =
+    { 1, 2, 4, 3, 5, 8, 9, 11, 12, 14, 0, BLANK_LINE_MARK, 13, 15, 17, 19, 0,
+      BLANK_LINE_MARK, 18, 20, 21, 23, 22, 0 };
+
     glk_stream_set_current(glk_window_get_stream(Bottom));
-    const char **lines = GetRTPILines(title_screen);
-    free((void *)title_screen);
-    if (!lines)
+    char *lines[RTPI_TITLE_LINES];
+    int ok = GetRTPILines(title_screen, lines);
+    free(title_screen);
+    title_screen = NULL;
+    if (!ok)
         return;
     glk_set_style(style_User2);
     for (int i = 0; i < RTPI_TITLE_LINES; i++) {
-        if (lines[i] == NULL) {
-            wait_for_key_on_title_screen();
+        if (order[i] == BLANK_LINE_MARK) {
+            WaitForKeyOnTitleScreen();
             glk_window_clear(Bottom);
         } else {
-            Output(lines[i]);
+            Output(lines[order[i]]);
         }
     }
     glk_set_style(style_Normal);
+    for (int i = 0; i < RTPI_TITLE_LINES; i++)
+        free(lines[i]);
 }
 
 void DrawTitleImageScott(void)
@@ -312,7 +312,7 @@ void DrawTitleImageScott(void)
     glui32 background_color = -1;
     OpenTitleWindows(&background_color);
 
-    initRTPITitle();
+    InitRTPITitle();
 
     if (background_color != -1) {
         glk_window_set_background_color(Graphics, background_color);
@@ -328,7 +328,7 @@ void DrawTitleImageScott(void)
             RTPITitle();
         }
 
-        wait_for_key_on_title_screen();
+        WaitForKeyOnTitleScreen();
     }
 
     CloseTitleWindows();
@@ -346,7 +346,8 @@ void PrintTitleScreenBuffer(void)
     glk_set_style(style_User1);
     glk_window_clear(Graphics);
     Output(title_screen);
-    free((void *)title_screen);
+    free(title_screen);
+    title_screen = NULL;
     glk_set_style(style_Normal);
     HitEnter();
     glk_window_clear(Graphics);
@@ -369,22 +370,21 @@ void PrintTitleScreenGrid(void)
 
     // If the screen size is too small to fit the entire text,
     // just flush the text to the buffer window and be done with it.
-    if (width < 40 || height < rows + 2) {
+    if (width < RTPI_TITLE_COLS || height < rows + 2) {
         glk_window_close(titlewin, NULL);
         PrintTitleScreenBuffer();
         return;
     }
-    int offset = (width - 40) / 2;
+    int offset = (width - RTPI_TITLE_COLS) / 2;
     int pos = 0;
-    char row[40];
-    row[39] = 0;
     for (int i = 1; i <= rows; i++) {
         glk_window_move_cursor(titlewin, offset, i);
         while (title_screen[pos] != '\n' && pos < title_length)
             Display(titlewin, "%c", title_screen[pos++]);
         pos++;
     }
-    free((void *)title_screen);
+    free(title_screen);
+    title_screen = NULL;
     HitEnter();
     glk_window_close(titlewin, NULL);
 }

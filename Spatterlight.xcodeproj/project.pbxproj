@@ -3414,6 +3414,7 @@
 		C326B13C26C18280006C398F /* The Sound of One Hand Clapping command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "The Sound of One Hand Clapping command script.txt"; sourceTree = "<group>"; };
 		C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of The Sound of One Hand Clapping.txt"; sourceTree = "<group>"; };
 		C32705B82FB12CD4008E9E20 /* scott_actions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_actions.h; sourceTree = "<group>"; };
+		C32705B92FB12CD4008E9E20 /* scott_meta.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_meta.h; sourceTree = "<group>"; };
 		C32B47292F1700CA002AD28F /* atari_8bit_vector_draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atari_8bit_vector_draw.h; sourceTree = "<group>"; };
 		C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = atari_8bit_vector_draw.c; sourceTree = "<group>"; };
 		C32DBFA426714EFE00AB5704 /* MyFilePromiseProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyFilePromiseProvider.h; sourceTree = "<group>"; };
@@ -3759,6 +3760,8 @@
 		C3C72B6D278CB0F900E095A6 /* detect_game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detect_game.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detect_game.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detect_game.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B71278CC21200E095A6 /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; usesTabs = 0; };
+		C3C72B72278CC21200E095A6 /* scott_opcodes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_opcodes.h; sourceTree = "<group>"; };
+		C3C72B73278CC21200E095A6 /* scott_sysmess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_sysmess.h; sourceTree = "<group>"; };
 		C3CA11ECC0DE000000000001 /* gm_vector.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gm_vector.c; sourceTree = "<group>"; };
 		C3CA11ECC0DE000000000002 /* gm_vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gm_vector.h; sourceTree = "<group>"; };
 		C3CA11ECC0DE000000000005 /* gm_artifact.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gm_artifact.c; sourceTree = "<group>"; };
@@ -6467,11 +6470,14 @@
 				C318F76D2741AA5B006D626A /* scott.h */,
 				C318F76A2741AA5B006D626A /* scott.c */,
 				C3C72B71278CC21200E095A6 /* scott_defines.h */,
+				C3C72B72278CC21200E095A6 /* scott_opcodes.h */,
+				C3C72B73278CC21200E095A6 /* scott_sysmess.h */,
 				C32705B82FB12CD4008E9E20 /* scott_actions.h */,
 				C30CAD012FAFD58800A90820 /* scott_actions.c */,
 				C37B7BBA2FB60FEF000472AF /* scott_display.h */,
 				C30CAD042FAFD61200A90820 /* scott_display.c */,
 				C30CAD062FAFD61400A90820 /* scott_meta.c */,
+				C32705B92FB12CD4008E9E20 /* scott_meta.h */,
 				C3BCB7D528E8EBBB00D590ED /* title_image.h */,
 				C3BCB7D628E8EBBB00D590ED /* title_image.c */,
 				C3C0EE5F278B96CF0044A615 /* scott_game_info.h */,

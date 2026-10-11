@@ -8,11 +8,16 @@
 #ifndef saga_h
 #define saga_h
 
+#include "sagagraphics.h"
 #include "scott_defines.h"
 
+/* The inventory picture is stored as room image 98. */
+#define INVENTORY_IMAGE 98
+
+int LoadDOSImages(void);
+void InventoryUS(void);
 int DrawUSRoom(int room);
 int DrawFuzzyRoom(int room);
-void DrawRoomObjectImages(void);
 void DrawUSRoomObject(int item);
 void LookUS(void);
 
@@ -21,11 +26,7 @@ typedef struct {
     uint32_t stringlength;
 } pairrec;
 
-int CompareFilenames(const char *str1, size_t length1, const char *str2, size_t length2);
-
 GameIDType FreeGameResources(void);
-
-char *LookForCompanionFilenameInDatabase(const pairrec list[][2], size_t stringlen, size_t *stringlength2);
 
 char *LookInDatabase(const pairrec list[][2], const char *game_path, size_t pathlen);
 
@@ -34,6 +35,7 @@ char *LookInDatabase(const pairrec list[][2], const char *game_path, size_t path
 void SwapWithCompanionFile(uint8_t **sf, size_t *extent, uint8_t **companion, size_t *companionsize);
 
 /* Frees USImages if it holds nothing but a single empty image */
+void FreeTrailingEmptyImage(USImage *image);
 void FreeUSImagesIfEmpty(void);
 
 GameIDType LoadBinaryDatabase(uint8_t *data, size_t length, GameInfo info, int dict_start);
