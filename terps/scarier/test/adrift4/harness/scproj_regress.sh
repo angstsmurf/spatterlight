@@ -95,9 +95,12 @@ fi
 if [ -n "${SCPROJ_BIN:-}" ]; then
   BIN="$SCPROJ_BIN"
 else
-  ( cd "$SCARE" && clang++ -std=c++11 -O2 -w -I. core/sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
+  # The shared RNG is plain C: compiled apart from the C++ sources.
+  ( cd "$SCARE" && clang -O2 -w -c ../common_utils/randomness.c -o "$BIN.rand.o" \
+      && clang++ -std=c++11 -O2 -w -I. core/sc*.cpp library/*.cpp runner/*.cpp mapdraw.cpp \
       headless/sxstubs.cpp \
-      "$HERE/scproj_test.cpp" "$HERE/seed.cpp" -lz -o "$BIN" )
+      "$HERE/scproj_test.cpp" "$HERE/seed.cpp" "$BIN.rand.o" -lz -o "$BIN" \
+      && rm -f "$BIN.rand.o" )
 fi
 
 run_all() {

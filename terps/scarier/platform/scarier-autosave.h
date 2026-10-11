@@ -131,7 +131,9 @@ struct ScarierGlkFrontendState {
     int rng_usenative = -1;
     uint32_t rng_state[4] = { 0, 0, 0, 0 };
     /* The engine's Runner-compatible generator (SCR_RNG=xoshiro, scutils.cpp
-     * scr_runner_rand), which keeps its own words outside erkyrath_random:
+     * scr_runner_rand).  It draws from erkyrath_random too, so these words
+     * repeat rng_state when it is active; they are kept so that autosaves
+     * from before the two were merged still restore:
      * 1 = it was active, with its words and draw count; 0 = it was not;
      * -1 = not recorded. */
     int rng_runner = -1;

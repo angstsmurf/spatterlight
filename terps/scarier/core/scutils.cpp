@@ -38,20 +38,14 @@
 #include "sctaffil.h"
 #include "sclocale.h"
 
-#ifdef SPATTERLIGHT
-
-
 /*
- * In the Spatterlight build all randomness draws from the shared
- * erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
- * the Scott, TaylorMade, Plus and Comprehend ports.  randomness.h declares
- * these as C functions and has no C++ linkage guards; this is a C++ translation
- * unit, so include it with C linkage to match the C-compiled randomness.o.
+ * The shared erkyrath_random() (terps/common_utils/randomness.c, vendored in
+ * common_utils/ for out-of-tree builds): the seedable xoshiro128** that the
+ * ADRIFT 5 engine and the Scott, TaylorMade, Plus and Comprehend ports draw
+ * from.  The Runner-compatible generator below is that one, in every build;
+ * the Spatterlight build routes the other two handlers through it as well.
  */
-extern "C" {
-#include "randomness.h"
-}
-#endif
+#include "common_utils/randomness.h"
 
 
 /*
@@ -420,13 +414,11 @@ scr_congruential_rand (scr_uint new_seed)
 
 
 /*
- * runner_seed()
- * runner_word()
  * scr_runner_rand()
  *
- * Runner-compatible generator: the same xoshiro128** with SplitMix32 seeding
- * as erkyrath_random() (common_utils/randomness.c) and as the vbrng.dll hook
- * that feeds the Wine ADRIFT Runners of the Wine Runner harness.  A Runner
+ * Runner-compatible generator: erkyrath_random()'s xoshiro128** with
+ * SplitMix32 seeding, which is also what the vbrng.dll hook feeds the Wine
+ * ADRIFT Runners of the Wine Runner harness.  A Runner
  * under that hook sees `Rnd` = (w >> 8) / 2^24 -- VB's 24-bit Single -- and
  * rolls `Int(Rnd * n) + lo`.  Presenting the same word here as the 31-bit
  * value (w >> 8) << 7 makes scr_randomint()'s multiply-shift compute exactly
@@ -436,48 +428,24 @@ scr_congruential_rand (scr_uint new_seed)
  * scr_set_portable_random); SCR_TRACE_RAND=1 prints every draw to stderr in
  * the VBRNG_TRACE format, `RND #n = f (w=xxxxxxxx)`, so the two streams can be
  * aligned draw for draw.
+ *
+ * The generator's words are erkyrath_random()'s own; the draw count, the
+ * trace switch and the default seed are kept here.  A seed is its low 32
+ * bits, and seed 0 means "pick one" to set_erkyrath_random(), so a seed
+ * whose low word is zero is given as 1.
  */
-static uint32_t runner_table[4];
 static unsigned int runner_draws = 0;
 static scr_bool runner_trace = FALSE;
 static scr_bool runner_seeded = FALSE;
 
 static void
-runner_seed (uint32_t seed)
+runner_seed (scr_uint seed)
 {
-  int ix;
+  const uint32_t word = (uint32_t) seed;
 
-  for (ix = 0; ix < 4; ix++)
-    {
-      uint32_t s;
-
-      seed += 0x9E3779B9u;
-      s = seed;
-      s ^= s >> 15;
-      s *= 0x85EBCA6Bu;
-      s ^= s >> 13;
-      s *= 0xC2B2AE35u;
-      s ^= s >> 16;
-      runner_table[ix] = s;
-    }
-}
-
-static uint32_t
-runner_word (void)
-{
-  const uint32_t t1x5 = runner_table[1] * 5;
-  const uint32_t result = ((t1x5 << 7) | (t1x5 >> (32 - 7))) * 9;
-  const uint32_t t1s9 = runner_table[1] << 9;
-  uint32_t t3;
-
-  runner_table[2] ^= runner_table[0];
-  runner_table[3] ^= runner_table[1];
-  runner_table[1] ^= runner_table[2];
-  runner_table[0] ^= runner_table[3];
-  runner_table[2] ^= t1s9;
-  t3 = runner_table[3];
-  runner_table[3] = (t3 << 11) | (t3 >> (32 - 11));
-  return result;
+  set_erkyrath_random (word ? word : 1);
+  runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
+  runner_seeded = TRUE;
 }
 
 static scr_int
@@ -487,20 +455,14 @@ scr_runner_rand (scr_uint new_seed)
 
   if (new_seed > 0)
     {
-      runner_seed ((uint32_t) new_seed);
+      runner_seed (new_seed);
       runner_draws = 0;
-      runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
-      runner_seeded = TRUE;
       return 0;
     }
   if (!runner_seeded)
-    {
-      runner_seed (1234);
-      runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
-      runner_seeded = TRUE;
-    }
+    runner_seed (1234);
 
-  w = runner_word ();
+  w = erkyrath_random ();
   runner_draws++;
   if (runner_trace)
     fprintf (stderr, "RND #%u = %.7f (w=%08x)\n",
@@ -563,23 +525,27 @@ scr_is_runner_random (void)
  * scr_set_runner_random_state()
  *
  * The Runner-compatible generator's exact position, for the Spatterlight
- * autosave: its words live here, not in the shared erkyrath_random() state
- * the autosave already carries, so a session that plays under SCR_RNG=xoshiro
- * would otherwise restart its stream from the seed at every relaunch.  The
- * getter returns FALSE (and stores nothing) unless that generator is the
- * active one; the setter selects it and places it, seeded, at `words`.
+ * autosave, so that a session played under SCR_RNG=xoshiro does not restart
+ * its stream from the seed at every relaunch.  The words are the shared
+ * erkyrath_random() state; the draw count is only kept here.  The getter
+ * returns FALSE (and stores nothing) unless that generator is the active
+ * one; the setter selects it and places it, seeded, at `words`.
  */
 scr_bool
 scr_get_runner_random_state (scr_uint words[4], scr_uint *draws)
 {
-  int ix;
+  int ix, native = 0, count = 0;
+  uint32_t *table = nullptr;
 
   if (!scr_is_runner_random ())
     return FALSE;
   if (!runner_seeded)
     scr_runner_rand (1234);
+  erkyrath_random_get_detstate (&native, &table, &count);
+  if (!table || count != 4)
+    return FALSE;
   for (ix = 0; ix < 4; ix++)
-    words[ix] = runner_table[ix];
+    words[ix] = table[ix];
   if (draws)
     *draws = runner_draws;
   return TRUE;
@@ -588,11 +554,13 @@ scr_get_runner_random_state (scr_uint words[4], scr_uint *draws)
 void
 scr_set_runner_random_state (const scr_uint words[4], scr_uint draws)
 {
+  uint32_t table[4];
   int ix;
 
   scr_set_runner_random ();
   for (ix = 0; ix < 4; ix++)
-    runner_table[ix] = (uint32_t) words[ix];
+    table[ix] = (uint32_t) words[ix];
+  erkyrath_random_set_detstate (0, table, 4);
   runner_draws = draws;
   runner_trace = (getenv ("SCR_TRACE_RAND") != nullptr);
   runner_seeded = TRUE;

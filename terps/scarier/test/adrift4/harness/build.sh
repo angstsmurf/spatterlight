@@ -8,7 +8,8 @@
 #  - Builds the plain ANSI port (os_ansi.cpp) — reads commands from stdin,
 #    prints to stdout. No Glk, links the system zlib (-lz).
 #  - Links seed.cpp for deterministic RNG (see seed.cpp).
-#  - Does NOT define SPATTERLIGHT (that pulls in glk.h via randomness.h).
+#  - Does NOT define SPATTERLIGHT.  The shared RNG (randomness.c) is plain
+#    C: compiled apart from the C++ sources and linked in.
 #  - The SCARE engine sources were merged into terps/scarier and renamed
 #    sc*.c -> sc*.cpp, so we glob sc*.cpp and link with clang++ (linking C++
 #    objects with plain `clang` fails on missing std:: symbols).
@@ -33,9 +34,11 @@ cd "$SCARE"
 # dependency, so linking it here is free -- the ANSI port simply never asks for a
 # map.  The command library and the runner live in library/ and runner/, the
 # dump instrumentation in tools/.
+clang -O2 -w -c ../common_utils/randomness.c -o "$HERE/randomness.o"
 clang++ -O2 -w -I. -DSCARIER_DUMP_TOOLS \
   core/sc*.cpp library/*.cpp runner/*.cpp tools/*.cpp mapdraw.cpp platform/os_ansi.cpp \
-  "$HERE/seed.cpp" \
+  "$HERE/seed.cpp" "$HERE/randomness.o" \
   -lz -o "$OUT"
+rm -f "$HERE/randomness.o"
 
 echo "built: $OUT"

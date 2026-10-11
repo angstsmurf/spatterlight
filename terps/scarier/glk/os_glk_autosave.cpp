@@ -505,7 +505,8 @@ gsc_stash_rng (ScarierGlkFrontendState *st)
     for (ch = 0; ch < 4; ch++)
       st->rng_state[ch] = (count == 4 && words) ? words[ch] : 0;
   }
-  /* The Runner-compatible generator keeps its words apart from those. */
+  /* The Runner-compatible generator: the same words when it is active, plus
+     its draw count. */
   {
     scr_uint words[4] = { 0, 0, 0, 0 }, draws = 0;
 

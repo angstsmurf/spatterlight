@@ -31,9 +31,10 @@ SAN_FLAGS := -fsanitize=address,undefined -fno-omit-frame-pointer \
 SAN_ENV   := ASAN_OPTIONS=detect_leaks=0 UBSAN_OPTIONS=print_stacktrace=1
 SAN_RAND_OBJ := test/adrift5/harness/a5_randomness_san.o
 
-# Shared, seedable cross-platform RNG (erkyrath_random), used by the v5 engine
-# so deterministic walkthroughs reproduce.  Compiled as C; it pulls in glk.h
-# (for glui32) from cheapglk but otherwise has no Glk dependency at seed 1234.
+# Shared, seedable cross-platform RNG (erkyrath_random): what the v5 engine
+# draws from, so deterministic walkthroughs reproduce, and what the v4
+# engine's Runner-compatible generator (SCR_RNG=xoshiro) is.  Plain C with no
+# Glk dependency; every binary that links either engine links it.
 COMMON  := ../common_utils
 
 # The ADRIFT 5 engine sources live in their own subdirectory.
@@ -71,7 +72,7 @@ OBJDIR  := build/headless
 DUMP_CXXFLAGS := -O2 -w -I. -DSCARIER_DUMP_TOOLS
 objs     = $(patsubst %.cpp,$(OBJDIR)/plain/%.o,$(1))
 dumpobjs = $(patsubst %.cpp,$(OBJDIR)/dump/%.o,$(1))
-ENG_OBJ  := $(call objs,$(SRC))
+ENG_OBJ  := $(call objs,$(SRC)) $(A5_RAND_OBJ)
 STUB_OBJ := $(call objs,$(STUBS))
 
 $(OBJDIR)/plain/%.o: %.cpp
@@ -414,19 +415,19 @@ $(OBJDIR)/san/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	$(CXX) $(CXXFLAGS) $(SAN_FLAGS) -MMD -MP -c $< -o $@
 
-$(BIN)_san: $(call sanobjs,$(SRC) $(STUBS) $(HARNESS))
+$(BIN)_san: $(call sanobjs,$(SRC) $(STUBS) $(HARNESS)) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
-$(PREC_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(PREC_HARNESS))
+$(PREC_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(PREC_HARNESS)) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
-$(BADP_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(BADP_HARNESS))
+$(BADP_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(BADP_HARNESS)) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
-$(CORRUPT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(CORRUPT_HARNESS))
+$(CORRUPT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(CORRUPT_HARNESS)) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
-$(QUIT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(QUIT_HARNESS))
+$(QUIT_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(QUIT_HARNESS)) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
-$(EXPR_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(EXPR_HARNESS))
+$(EXPR_BIN)_san: $(call sanobjs,$(SRC) $(OS_STUBS) $(EXPR_HARNESS)) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
-$(CAP_BIN)_san: $(call sanobjs,$(SRC) platform/os_ansi.cpp test/adrift4/harness/seed.cpp)
+$(CAP_BIN)_san: $(call sanobjs,$(SRC) platform/os_ansi.cpp test/adrift4/harness/seed.cpp) $(SAN_RAND_OBJ)
 	$(SAN_LINK)
 $(A5PARSE_BIN)_san: $(call sanobjs,$(A5DIR)/a5parse.cpp $(A5PARSE_HARNESS))
 	$(SAN_LINK)
@@ -478,7 +479,7 @@ sanitize: $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_TAF) $(WHERE_TAF)
 
 # RNG object built with sanitizers, for the a5 run-pipeline sanitize builds.
 $(SAN_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
-	$(CC) -O2 -w -I../cheapglk $(SAN_FLAGS) -c -o $@ $(COMMON)/randomness.c
+	$(CC) -O2 -w $(SAN_FLAGS) -c -o $@ $(COMMON)/randomness.c
 
 $(BIN): $(ENG_OBJ) $(STUB_OBJ) $(call objs,$(HARNESS))
 	$(CXX) $^ $(LDLIBS) -o $@
@@ -526,10 +527,9 @@ a5run: $(A5RUN_BIN)
 $(A5RUN_BIN): $(A5_RUN_OBJ) $(call objs,$(A5RUN_HARNESS)) $(A5_RAND_OBJ)
 	$(CXX) $^ $(LDLIBS) -o $@
 
-# The shared erkyrath RNG, compiled as C with cheapglk on the include path
-# (only for glui32 via glk.h).
+# The shared erkyrath RNG, compiled as C.
 $(A5_RAND_OBJ): $(COMMON)/randomness.c $(COMMON)/randomness.h
-	$(CC) -O2 -w -I../cheapglk -c -o $@ $(COMMON)/randomness.c
+	$(CC) -O2 -w -c -o $@ $(COMMON)/randomness.c
 
 # Render the ADRIFT 5 map headlessly to a PPM (no Glk).  Run it by hand:
 #   make -f Makefile.headless a5map
@@ -679,7 +679,8 @@ $(CAP_BIN): $(ENG_OBJ) $(call objs,platform/os_ansi.cpp test/adrift4/harness/see
 # run_v4_walkthroughs.sh rebuilds `scare` via build.sh only when it is missing
 # or older than a source, and scproj_regress.sh skips its compile when handed
 # SCPROJ_BIN.
-$(SCARE_BIN): $(call dumpobjs,$(SRC) platform/os_ansi.cpp test/adrift4/harness/seed.cpp)
+$(SCARE_BIN): $(call dumpobjs,$(SRC) platform/os_ansi.cpp test/adrift4/harness/seed.cpp) \
+              $(A5_RAND_OBJ)
 	$(CXX) $^ $(LDLIBS) -o $@
 
 $(SCPROJ_BIN): $(ENG_OBJ) $(STUB_OBJ) \

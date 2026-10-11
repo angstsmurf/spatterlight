@@ -33,15 +33,9 @@
 
 #include "a5rand.h"
 
-/* The shared generator, defined in terps/common_utils/randomness.c.  Declared
-   here (rather than including randomness.h) so the v5 engine does not pull in
-   glk.h at this layer; glui32 is uint32_t. */
-extern "C" {
-  void   set_erkyrath_random (uint32_t seed);
-  uint32_t erkyrath_random   (void);
-  void erkyrath_random_get_detstate (int *usenative, uint32_t **arr, int *count);
-  void erkyrath_random_set_detstate (int usenative, uint32_t *arr, int count);
-}
+/* The shared generator, terps/common_utils/randomness.c (vendored here in
+   common_utils/ for out-of-tree builds). */
+#include "common_utils/randomness.h"
 
 static int a5rand_seeded = 0;
 

@@ -115,9 +115,10 @@ OBJECTS	= $(filter-out $(COREDIR)/scmap.o,				\
 # scmap_forget_game(), so every build links them.
 MAPOBJECTS = mapdraw.o $(COREDIR)/scmap.o
 
-# The shared, seedable cross-platform RNG (erkyrath xoshiro128**) the v5 engine
-# draws from, so seeded walkthroughs reproduce across platforms.  Plain C, and
-# it pulls glui32 in from glk.h, so it is built only for the Glk port.
+# The shared, seedable cross-platform RNG (erkyrath xoshiro128**): the v5
+# engine draws from it, so seeded walkthroughs reproduce across platforms, and
+# the v4 engine's Runner-compatible generator is the same one.  Plain C, with
+# no Glk dependency, so the ANSI build links it too.
 COMMON	= ../common_utils
 RANDOBJ	= a5_randomness.o
 
@@ -130,9 +131,9 @@ A5OBJECTS = $(patsubst %.cpp,%.o,$(wildcard $(addsuffix /*.cpp,$(A5SRCDIRS))))
 # Default make target is the basic ANSI interpreter.
 all:	scarier
 
-scarier: $(OBJECTS) $(MAPOBJECTS) platform/os_ansi.o
-	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) $(MAPOBJECTS) platform/os_ansi.o	\
-		$(LDLIBS)
+scarier: $(OBJECTS) $(MAPOBJECTS) $(RANDOBJ) platform/os_ansi.o
+	$(CXX) $(LDFLAGS) -o scarier $(OBJECTS) $(MAPOBJECTS) $(RANDOBJ)	\
+		platform/os_ansi.o $(LDLIBS)
 
 # Option to build the Glk port of Scarier.  The Glk front end lives in glk/:
 # os_glk.cpp (module state, startup, event loop, linkage) plus the parts split
@@ -147,7 +148,7 @@ glkscarier: $(OBJECTS) $(A5OBJECTS) $(MAPOBJECTS) $(RANDOBJ) $(GLKOBJECTS)
 		$(MAPOBJECTS) $(RANDOBJ) $(GLKOBJECTS) $(LDLIBS) $(GLKLIBS)
 
 $(RANDOBJ): $(COMMON)/randomness.c
-	$(CC) $(CFLAGS) $(DEPFLAGS) -I$(GLKPATH) -c -o $@ $(COMMON)/randomness.c
+	$(CC) $(CFLAGS) $(DEPFLAGS) -c -o $@ $(COMMON)/randomness.c
 
 $(GLKOBJECTS): %.o: %.cpp
 	$(CXX) $(GLKARCH) $(CXXFLAGS) $(DEPFLAGS) -Wno-write-strings	\

@@ -27,6 +27,7 @@
 /* In the Spatterlight (Glk) build all game randomness draws from the shared
    erkyrath_random() (terps/common_utils/randomness.c), the same RNG used by
    the Scott, TaylorMade, Plus and Comprehend ports. */
+#include "glk.h"
 #include "randomness.h"
 extern glui32 gli_determinism;
 #endif
@@ -790,7 +791,7 @@ int get_random(int a, int b)
 {
   if (b <= a) return a;
   if (!random_seeded) seed_random();
-  return a + (int)(erkyrath_random() % (glui32)(b - a + 1));
+  return a + (int)(erkyrath_random() % (uint32_t)(b - a + 1));
 }
 
 #elif defined(AGT_HEADLESS) /* headless harness: mirror the Glk erkyrath path */
@@ -814,7 +815,7 @@ int get_random(int a, int b)
 {
   if (b <= a) return a;
   if (!random_seeded) seed_random();
-  return a + (int)(erkyrath_random() % (glui32)(b - a + 1));
+  return a + (int)(erkyrath_random() % (uint32_t)(b - a + 1));
 }
 
 #else /* non-Glk builds keep the self-contained reproducible generator */

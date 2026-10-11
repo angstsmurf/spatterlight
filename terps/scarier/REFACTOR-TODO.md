@@ -331,6 +331,35 @@ New files go into the Xcode project by hand; the next free id in the
 - **E `<cstdio>` / `<cstring>` sweep**: 47 of the `.cpp` files still
   include the C-style headers.  Pure noise; only if something else is
   touched.
+- **Section 4's table** (RNG, map, save, text, input existing once per
+  engine): surveyed; only the RNG core was worth sharing, and is.
+  - *RNG*: the one real duplicate, and the one thing shared after the
+    survey.  `core/scutils.cpp` had its own SplitMix32-seeded
+    xoshiro128** for the Runner-compatible generator; it now calls
+    `erkyrath_random()` in `common_utils/randomness.c`, as
+    `adrift5/a5rand.cpp` does.  `randomness.[ch]` lost their `glk.h`
+    include (`glui32` -> `uint32_t`) so the plain `scarier` target can
+    link them.  The layers above are not the same and stay apart: 4.x
+    presents `(w >> 8) << 7` to a multiply-shift to reproduce VB's
+    `Int(Rnd * n)`, ADRIFT 5 takes `w % span` as .NET's `Next` does,
+    and each keeps its own draw count and trace format.
+  - *Map*: `core/scmap.cpp` computes a layout (the Runner's algorithm);
+    `adrift5/a5map.cpp` reads the map the author stored in the game.
+    They meet at `map_t`, and `mapdraw.cpp` and `glk/os_glk_map.cpp`
+    are already single.
+  - *Save*: `core/scserial.cpp` writes the Runner's line-per-field
+    `.tas` layout, `a5run_save.cpp` the ADRIFT 5 Runner's XML.  Both
+    are fixed by the file formats.  Their zlib use differs too:
+    streamed through the caller's read/write callbacks in 4.x, whole
+    buffers with an expansion ceiling in `a5_inflate()` / `a5_deflate()`.
+  - *Text*: 4.x expands `%markers%` and hands tags to the front end one
+    `os_print_tag()` call at a time; ADRIFT 5 evaluates functions and
+    expressions into one string of marks that `gsc_a5_display()` walks.
+    The Glk side under both (colour, fonts, symbol fonts, status line,
+    prompt, echo) is the same `gsc_*` code already.
+  - *Input*: `scparser*.cpp` matches author patterns;
+    `a5run_words.cpp` is pronoun and synonym substitution and the
+    NotUnderstood ladder of the ADRIFT 5 Runner.  No common table.
 
 ## Left on purpose
 
@@ -360,9 +389,6 @@ These are candidates, not tasks; each wants its own decision.
 - **`uip.options` passed by value** into `uip_match()` instead of set
   through the `uip_set_*()` pairs: the runner's call sites are the
   obstacle.
-- **Section 4's table** (RNG, map, save, text, input existing once per
-  engine): candidates for sharing, each needing a decision on whether
-  the semantics are the same.
 - **Startup linkage** (`glkunix_startup_code`, `WinMain`,
   `winglk_startup_code`, ~280 lines at the end of `os_glk.cpp`) could
   follow the open-by-path helper into `glk/os_glk_platform.cpp` if

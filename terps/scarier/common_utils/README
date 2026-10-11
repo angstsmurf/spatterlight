@@ -8,9 +8,12 @@ a copy in here, or the copied folder will not build.
 
   randomness.c
   randomness.h   Verbatim copies of terps/common_utils/randomness.[ch], the
-                 shared seedable erkyrath RNG.  The Spatterlight app and
-                 Makefile.headless both build the originals, NOT these; these
-                 exist only for out-of-tree builds.  Keep them byte-identical:
+                 shared seedable erkyrath RNG, which both engines draw
+                 from.  The engine includes THIS randomness.h in every build
+                 ("common_utils/randomness.h", no include path needed), but
+                 the Spatterlight app and the Makefiles compile the original
+                 randomness.c; the copy of that is compiled only by
+                 out-of-tree builds.  Keep them byte-identical:
                  `make -f Makefile.headless vendorcheck`, part of the default
                  `test` target, fails if they drift.
 

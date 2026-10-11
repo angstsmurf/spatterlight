@@ -245,7 +245,7 @@ void question_implementation::set_game (const string &s)
   {
     const char *envseed = getenv ("QUESTION_SEED");
     if (envseed)
-      set_erkyrath_random ((glui32) atoi (envseed));
+      set_erkyrath_random ((uint32_t) atoi (envseed));
 #ifdef SPATTERLIGHT
     else if (gli_determinism)
       set_erkyrath_random (1234);
