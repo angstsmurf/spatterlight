@@ -115,7 +115,7 @@ a5_deobfuscate (uint8_t *data, uint32_t offset, uint32_t length)
 uint8_t *
 a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
 {
-  z_stream stream;
+  z_stream stream = {};
   uint8_t *out;
   size_t cap;
   int status;
@@ -128,7 +128,6 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
      inflate a bogus avail_out. */
   const size_t A5_INFLATE_MAX = (size_t) 256 * 1024 * 1024;
 
-  memset (&stream, 0, sizeof stream);
   if (inflateInit (&stream) != Z_OK)
     return nullptr;
 
@@ -208,12 +207,11 @@ a5_inflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
 uint8_t *
 a5_deflate (const uint8_t *data, uint32_t length, uint32_t *out_size)
 {
-  z_stream stream;
+  z_stream stream = {};
   uint8_t *out;
   uint32_t cap;
   int status;
 
-  memset (&stream, 0, sizeof stream);
   /* Default windowBits (15) => a plain zlib stream (0x78 header), matching
      .NET's ZLibStream; CompressionLevel.Optimal maps to Z_BEST_COMPRESSION. */
   if (deflateInit (&stream, Z_BEST_COMPRESSION) != Z_OK)

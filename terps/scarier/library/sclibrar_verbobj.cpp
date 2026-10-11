@@ -174,11 +174,11 @@ lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
  * it is (44B578) and its parent the container.  Nothing else is tested.
  */
 scr_bool
-lib_resolve_admit_parent (scr_gameref_t game, scr_int object, scr_int pass)
+lib_resolve_admit_parent (scr_gameref_t game, scr_int object,
+                          scr_int /* pass */)
 {
   const scr_int parent = disambig.resolve_parent_400;
 
-  (void) pass;
   if (parent < 0 || gs_object_parent (game, object) != parent)
     return FALSE;
   switch (gs_object_position (game, object))

@@ -320,9 +320,12 @@ and the eight printfilter cache globals (now `scr_pf_state_t`).
       `sc_garglk.h` shim). Use the `scr_` wrappers everywhere (they are locale
       independent, which matters for the cp1251 games) or replace both with a
       single `scr_iequals (a, b)`.
-- [ ] 40 `memset (` and 25 `(void) x;` unused-parameter casts: replace the
+- [x] 40 `memset (` and 25 `(void) x;` unused-parameter casts: replace the
       second with unnamed parameters or `[[maybe_unused]]` once `-std=c++17`
       is acceptable; zero-init structs with `= {}` for the first.
+      → the six struct `memset`s are `= {}` and 21 always-unused
+      parameters are unnamed; the array, buffer and poison `memset`s and
+      the five `#if`-dependent casts stay.  See "memset and (void) casts".
 - [ ] ~34 lines > 100 columns and 12 function-like macros — convert the macros
       to `static inline` where they take no token-pasting.
 
@@ -423,9 +426,9 @@ Per the project's own verification recipe:
    open bullet, the Win32 half of `gsc_a5_open_game_path`, is in
    `glk/os_glk_platform.cpp` (see "Win32 open-by-path"); the table
    rows above it are candidates, not tasks.
-7. What is left are the two open 6a bullets under Modernisation:
-   `memset` / `(void) x` and the long lines / function-like macros.
-   Each is a judgement pass rather than a mechanical move.  The
+7. What is left is the one open 6a bullet under Modernisation: the
+   long lines / function-like macros.  `memset` / `(void) x` is DONE,
+   see "memset and (void) casts".  The
    cp1251/cp1252 ctype overlap (Locale and ctype layers) is DONE, see
    "Locale and ctype check"; the assert / `scr_error` classification
    (Error handling) is DONE, see "Error handling classification".
@@ -2156,4 +2159,55 @@ them):
   clean; `xcodebuild -target scarier` BUILD SUCCEEDED.  No file added,
   so the Xcode project is untouched.
 - Next in the suggested order: 7, the two open 6a bullets (see
+  "Suggested order").
+
+## memset and (void) casts (2026-10-11, master dd87c0bf2)
+
+- **`memset`, 39 calls read** -- six zeroed a whole struct and are
+  value-initialisations now: `*L = {}` (`sm_layout_build`, scmap.cpp),
+  `game->npcs[index_].battle = {}` and `game->playerbattle = {}`
+  (scgamest.cpp), `loc_locale_tables = {}` (sclocale.cpp), and the two
+  `z_stream stream = {}` at their declarations (a5deobf.cpp).  All six
+  types are plain aggregates; none is compared with `memcmp` or written
+  out raw, so the padding `= {}` need not clear does not matter.  The
+  other 33 stay, because `= {}` does not say what they do: five are the
+  `0xaa` poison before a free (scvars, scdebug, scmemos, sctaffil,
+  scparser_pattern), and the rest clear an array member or a buffer of
+  run-time length (`sizeof (memento->memo)`, the debugger's watch
+  arrays, the runner's line buffers, the tails `scr_malloc` /
+  `scr_realloc` and `prop_` growth zero, the Glk input and Unicode
+  buffers, ADRIFT 5's seen flags), which a C array cannot be assigned
+  to do.
+- **`(void) x`, 28 lines read** -- 21 were parameters the function never
+  uses under any build, kept only because a table, a callback type or
+  the `os_*` interface fixes the signature; they are unnamed, with the
+  name in a comment (`scr_int /* target */`), which is C++11 and needs
+  no `[[maybe_unused]]`: `taf_populate_raw`, `lib_resolve_admit_parent`,
+  `lib_move_to_room` / `_player`, `lib_disambiguate_npc_pick`,
+  `gsc_a5_resolve_media`, `gsc_map_rect`, the two `os_play_sound` /
+  `os_show_graphic` stubs in glk/ and `os_show_graphic` in os_ansi.cpp,
+  `exec_scope_flush`, the a5restr.cpp lambda, and the two archive hooks
+  in scarier-autosave.mm.  The declarations in headers keep the names.
+  Two were not unused parameters at all: `(void) argument` in
+  os_ansi.cpp's `os_print_tag` was stale (the `SCR_MARK_WAIT` arm
+  prints it) and is gone, and `(void) claimed` in
+  `lib_run_rebuilt_line_400` silenced a local that was only assigned,
+  so the local is gone.
+- **Left: five casts under `#if`** -- `autorestore` (os_glk_a5.cpp),
+  `resumed` (os_glk_a5_display.cpp), `filepath` (os_glk_resources.cpp),
+  `win` and `fg` (os_glk_output.cpp) are used on the SPATTERLIGHT or
+  GARGLK side of a conditional and cast on the other.  Unnaming them is
+  not possible, and `[[maybe_unused]]` is C++17 while Makefile.headless
+  builds `-std=c++11`; the cast in the `#else` arm is the C++11 way to
+  say it and sits where the reason is visible.
+- Verification: `-Wall -Wextra -Wshadow` syntax check of the twelve
+  changed .cpp files shows no unused or initialiser warning; full
+  headless `test` output identical to the run at 5d591cf70 (0 diff
+  lines, compile and "Nothing to be done" lines stripped); `make -j8
+  scarier glkscarier` warning-free; `sanitize` clean; `xcodebuild
+  -target scarier` BUILD SUCCEEDED (the only build of the .mm);
+  `test/adrift4/harness/run_autosave_tests.py --build` all passed.
+  No new line over 80 columns outside scarier-autosave.mm, which has
+  its own style.  No file added, so the Xcode project is untouched.
+- Next in the suggested order: 7, the last open 6a bullet (see
   "Suggested order").

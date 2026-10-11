@@ -1249,7 +1249,7 @@ sm_layout_build (scr_gameref_t game, const map_view_t *view, int n,
 {
   int i, start, x, y;
 
-  memset (L, 0, sizeof *L);
+  *L = {};
   L->n = n;
   L->rooms = (sm_room_t *) calloc (n + 1, sizeof (sm_room_t));
   if (L->rooms == nullptr)

@@ -536,9 +536,8 @@ gsc_map_chrome_click (int px, int py)
 
 /* One block of a colour, for rgbsurf_send_rects. */
 static void
-gsc_map_rect (void *ctx, unsigned int rgb, int x, int y, int w, int h)
+gsc_map_rect (void * /* ctx */, unsigned int rgb, int x, int y, int w, int h)
 {
-  (void) ctx;
   glk_window_fill_rect (gsc_map_window, rgb, x, y, (glui32) w, (glui32) h);
 }
 

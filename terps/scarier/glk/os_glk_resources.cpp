@@ -135,16 +135,12 @@ os_stop_sound (void)
  * os_play_sound()
  * os_stop_sound()
  *
- * Stub functions.  The unused variables defeat gcc warnings.
+ * Stub functions.
  */
 void
-os_play_sound (const scr_char *filepath,
-               scr_int offset, scr_int length, scr_bool is_looping)
+os_play_sound (const scr_char * /* filepath */, scr_int /* offset */,
+               scr_int /* length */, scr_bool /* is_looping */)
 {
-  (void) filepath;
-  (void) offset;
-  (void) length;
-  (void) is_looping;
 }
 
 void
@@ -432,13 +428,11 @@ os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
  * os_show_graphic()
  *
  * Without Gargoyle's file resources there is no way to show a game graphic,
- * so this is a stub function, with unused variables to defeat gcc warnings.
+ * so this is a stub function.
  */
 void
-os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
+os_show_graphic (const scr_char * /* filepath */, scr_int /* offset */,
+                 scr_int /* length */)
 {
-  (void) filepath;
-  (void) offset;
-  (void) length;
 }
 #endif

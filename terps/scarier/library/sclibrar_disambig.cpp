@@ -233,7 +233,7 @@ lib_keep_top_scored (std::vector<scr_bool> &references, scr_int total,
 
 scr_int
 lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
-                           scr_bool *is_ambiguous, scr_int pick)
+                           scr_bool *is_ambiguous, scr_int /* pick */)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_var_setref_t vars = gs_get_vars (game);
@@ -313,9 +313,8 @@ lib_disambiguate_npc_pick (scr_gameref_t game, const scr_char *verb,
    * characters() arm takes the first or the last character named, per
    * NPC_PICK_FIRST/NPC_PICK_LAST above -- so `hit guard` with two guards
    * here hit whichever the index order gave.  The callers still name the
-   * Runner's pick, as a record of it.
+   * Runner's pick, as a record of it; the parameter is unnamed.
    */
-  (void) pick;
 
   /* 4.0 asks its own question instead; see lib_npc_400_raise_for_line(). */
   if (lib_is_version_400 (game) && lib_npc_400_raise_for_line (game))

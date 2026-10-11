@@ -2163,9 +2163,8 @@ a5restr_exist_evaluated (const a5_xml_node_t *restrictions, const char *ref_alia
   M = (bracket == nullptr || bracket[0] == '\0') ? n : count_hashes (bracket);
 
   return restr_find (restrictions, M,          /* only the bracket prefix */
-                     [ref_alias] (const a5_xml_node_t *tn, const a5_restr_t *r)
+                     [ref_alias] (const a5_xml_node_t *, const a5_restr_t *r)
                      {
-                       (void) tn;
                        return strcmp (r->key1, ref_alias) == 0
                               && streq (r->op, "Exist");
                      }) != nullptr;

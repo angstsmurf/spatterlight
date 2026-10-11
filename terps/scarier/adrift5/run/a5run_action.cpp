@@ -1244,9 +1244,8 @@ a5run_flush_display_defers_from (a5_run_t *run, sb_t *out, size_t from)
    whose reference items all match a pass's is dropped and the survivors are
    Display'd after the pass responses. */
 void
-exec_scope_flush (a5_run_t *run, exec_resp_scope *sc, sb_t *out)
+exec_scope_flush (a5_run_t * /* run */, exec_resp_scope *sc, sb_t *out)
 {
-  (void) run;
   for (auto &f : sc->fails)
     {
       bool cancelled;

@@ -1830,8 +1830,7 @@ gs_populate_npcs (scr_gameref_t game, scr_prop_setref_t bundle)
       game->npcs[index_].stamina = 0;
       game->npcs[index_].staminacounter = 0;
       game->npcs[index_].attackcounter = 0;
-      memset (&game->npcs[index_].battle, 0,
-              sizeof (game->npcs[index_].battle));
+      game->npcs[index_].battle = {};
 
       vt_key[1].integer = index_;
 
@@ -1906,7 +1905,7 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
   game->playerstamina = 0;
   game->playerstaminacounter = 0;
   game->playerwield = -1;
-  memset (&game->playerbattle, 0, sizeof (game->playerbattle));
+  game->playerbattle = {};
 }
 
 

@@ -79,9 +79,8 @@ void scarier_autosave_discard(void)
 
 static ScarierGlkFrontendState frontend_state;
 
-static void scarier_library_archive(TempLibrary *library, NSCoder *encoder)
+static void scarier_library_archive(TempLibrary * /* library */, NSCoder *encoder)
 {
-    (void)library;
     const ScarierGlkFrontendState *st = &frontend_state;
     [encoder encodeInt32:st->mainwintag forKey:@"scarier_mainwintag"];
     [encoder encodeInt32:st->statuswintag forKey:@"scarier_statuswintag"];
@@ -120,9 +119,8 @@ static void scarier_library_archive(TempLibrary *library, NSCoder *encoder)
                   forKey:@"scarier_rng_runner_draws"];
 }
 
-static void scarier_library_unarchive(TempLibrary *library, NSCoder *decoder)
+static void scarier_library_unarchive(TempLibrary * /* library */, NSCoder *decoder)
 {
-    (void)library;
     ScarierGlkFrontendState *st = &frontend_state;
     st->mainwintag = [decoder decodeInt32ForKey:@"scarier_mainwintag"];
     st->statuswintag = [decoder decodeInt32ForKey:@"scarier_statuswintag"];

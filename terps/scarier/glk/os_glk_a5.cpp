@@ -1013,10 +1013,10 @@ gsc_a5_stop_all_sounds (void)
  * full path, which exists only on the author's machine.
  */
 static int
-gsc_a5_resolve_media (void *ctx, const char *src, int is_image, int mapped)
+gsc_a5_resolve_media (void * /* ctx */, const char *src, int is_image,
+                      int mapped)
 {
   glui32 id;
-  (void) ctx;
 
   if (mapped > 0 && gsc_a5_have_blorb)
     return mapped;

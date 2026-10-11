@@ -161,7 +161,6 @@ os_print_tag (scr_int tag, const scr_char *argument)
 {
   scr_int index_;
 
-  (void) argument;
   switch (tag)
     {
     case SCR_TAG_CLS:
@@ -313,11 +312,9 @@ os_stop_sound (void)
 }
 
 void
-os_show_graphic (const scr_char *filepath, scr_int offset, scr_int length)
+os_show_graphic (const scr_char * /* filepath */, scr_int /* offset */,
+                 scr_int /* length */)
 {
-  (void) filepath;
-  (void) offset;
-  (void) length;
 }
 
 

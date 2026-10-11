@@ -333,7 +333,6 @@ static scr_bool
 lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
 {
   std::string lowered (command);
-  scr_bool claimed;
 
   for (auto &c : lowered)
     c = scr_tolower (c);
@@ -395,10 +394,9 @@ lib_run_rebuilt_line_400 (scr_gameref_t game, const scr_char *command)
 
   lib_rebuilt_raw_dispatch = FALSE;
   uip_set_binary_input (TRUE);
-  claimed = run_game_task_commands (game, command);
+  run_game_task_commands (game, command);
   uip_set_binary_input (FALSE);
   lib_rebuilt_raw_dispatch = TRUE;
-  (void) claimed;
   return TRUE;
 }
 

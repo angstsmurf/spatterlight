@@ -28,16 +28,15 @@
 #include "sclibrar_internal.h"
 
 static void
-lib_move_to_room (scr_gameref_t game, scr_int object, scr_int target)
+lib_move_to_room (scr_gameref_t game, scr_int object, scr_int /* target */)
 {
-  (void) target;
   gs_object_to_room (game, object, gs_playerroom (game));
 }
 
 static void
-lib_move_to_player (scr_gameref_t game, scr_int object, scr_int target)
+lib_move_to_player (scr_gameref_t game, scr_int object,
+                    scr_int /* target */)
 {
-  (void) target;
   gs_object_player_get (game, object);
 }
 

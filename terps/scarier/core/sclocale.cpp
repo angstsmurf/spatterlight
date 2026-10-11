@@ -169,7 +169,7 @@ static void
 loc_synchronize_tables (const scr_locale_t *locale)
 {
   /* Clear all tables and the locale pointer. */
-  memset (&loc_locale_tables, 0, sizeof (loc_locale_tables));
+  loc_locale_tables = {};
 
   /* Set ranges and attach the new locale. */
   loc_setranges_bool (locale->isspace_ranges, loc_locale_tables.isspace);

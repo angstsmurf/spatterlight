@@ -887,10 +887,8 @@ taf_populate_from_callback (scr_tafref_t taf,
  */
 static scr_tafref_t
 taf_populate_raw (scr_tafref_t taf, scr_read_callbackref_t callback,
-                  void *opaque, scr_bool is_gamefile)
+                  void *opaque, scr_bool /* is_gamefile */)
 {
-  (void) is_gamefile;
-
   taf->version = TAF_VERSION_400;
   if (!taf_read_raw (taf, callback, opaque))
     {
