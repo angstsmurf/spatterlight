@@ -948,7 +948,7 @@ static int ReadA2VectorImageFiles(uint8_t *data, size_t datasize, USImage *image
     size_t number_of_images_found = 0;
     A2FileRec *rec = GetAllApple2DOSFiles(data, datasize, &number_of_files);
 
-    for (int i = 0; i < number_of_files; i++) {
+    for (size_t i = 0; i < number_of_files; i++) {
         A2FileRec *thisrec = &rec[i];
         char *shortname = thisrec->filename;
         if (!IsSagaImage(shortname)) {

@@ -36,7 +36,7 @@ static int C64A8AdjustScott(int width, int height, int *x_origin) {
             ImageWidth = 308;
         }
 
-        int width_in_pixels = ImageWidth * pixel_size;
+        glui32 width_in_pixels = ImageWidth * pixel_size;
         while (width_in_pixels > curwidth && pixel_size > 1) {
             pixel_size--;
             width_in_pixels = ImageWidth * pixel_size;
@@ -44,7 +44,7 @@ static int C64A8AdjustScott(int width, int height, int *x_origin) {
 
         x_offset = (curwidth - width_in_pixels) / 2;
 
-        int optimal_height = ImageHeight * pixel_size;
+        glui32 optimal_height = ImageHeight * pixel_size;
 
         if (curheight != optimal_height) {
             winid_t parent = glk_window_get_parent(Graphics);

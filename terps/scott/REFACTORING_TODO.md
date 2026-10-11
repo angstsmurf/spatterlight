@@ -146,10 +146,9 @@ is used, so `TestBitFlag`'s shift is safe.
   console, which is where a damaged image or an unhandled opcode gets
   noticed. The load failures of c64decrunch.c return `UNKNOWN_GAME`, so
   the player is told through the normal unknown-game path.
-- **Casting away the 20 sign-compare notes** (`int` or `long` against
-  `glui32` / `size_t`, in detect_game.c, scott_display.c, title_image.c,
-  apple2detect.c, c64a8scott.c, c64_small.c, scott_actions.c,
-  game_specific.c). All compare against values known to be non-negative;
-  a cast per site is noise. Likewise the 6 missing-field-initializers:
-  `{ NULL }` terminators and table rows that rely on the trailing fields
-  being zeroed. Only worth it for a `-Wextra`-clean build.
+- **The 6 missing-field-initializers of a `-Wextra` build**: `{ NULL }`
+  terminators and table rows that rely on the trailing fields being
+  zeroed. Spelling the zeros out is noise. (The 20 sign-compare notes that
+  were declined with them are fixed: mostly by giving the variable the
+  type of what it is compared against or by comparing pointers, with a
+  cast at the five sites where neither fits.)

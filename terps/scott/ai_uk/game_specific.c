@@ -163,7 +163,7 @@ void MapSysMessages(const SysMessageType *keys, size_t n, int src_offset)
    system_messages[] starting at index src. */
 void MapSysRange(SysMessageType first, SysMessageType last, int src)
 {
-    for (int i = first; i <= last; i++)
+    for (int i = first; i <= (int)last; i++)
         sys[i] = system_messages[src - first + i];
 }
 

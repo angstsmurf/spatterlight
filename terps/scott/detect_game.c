@@ -250,7 +250,7 @@ static uint8_t *ReadDictionary(const GameInfo *info, uint8_t *ptr)
    Returns NULL if the offset is out of range. */
 uint8_t *SeekToPos(int offset)
 {
-    if (offset < 0 || offset > file_length || entire_file == NULL)
+    if (offset < 0 || (size_t)offset > file_length || entire_file == NULL)
         return NULL;
     return entire_file + offset;
 }
@@ -421,7 +421,7 @@ static void LoadVectorData(const GameInfo *info, uint8_t *ptr)
         }
         do {
             byte = *(ptr++);
-            if (ptr - entire_file >= file_length) {
+            if (ptr >= entire_file + file_length) {
                 debug_print("Error! Image data for image %d cut off!\n", ct);
                 if (GameHeader.NumRooms - ct > 1)
                     Display(Bottom, "[This copy has %d broken or missing pictures. These have been patched out.]\n\n", GameHeader.NumRooms - ct);
@@ -779,9 +779,9 @@ static size_t FindC64SystemMessages(size_t offset)
 {
     while (offset > 0) {
         uint8_t *ptr = SeekToPos(offset);
-        while (ptr - entire_file < file_length && (*ptr == 0 || *ptr == '\r'))
+        while (ptr < entire_file + file_length && (*ptr == 0 || *ptr == '\r'))
             ptr++;
-        if (ptr - entire_file + 5 <= file_length && memcmp(ptr, "NORTH", 5) == 0)
+        if (entire_file + file_length - ptr >= 5 && memcmp(ptr, "NORTH", 5) == 0)
             break;
         offset--;
     }
@@ -1045,9 +1045,9 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
 
     SEEK_OR_FAIL(info->start_of_directions);
 
-    while (ptr - entire_file < file_length && !isalpha(*ptr))
+    while (ptr < entire_file + file_length && !isalpha(*ptr))
         ptr++;
-    if (ptr - entire_file >= file_length) {
+    if (ptr >= entire_file + file_length) {
         debug_print("Read out of bounds!\n");
         return info->gameID;
     }

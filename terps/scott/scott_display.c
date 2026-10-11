@@ -102,7 +102,7 @@ static void FlushRoomDescription(char *buf)
         glui32 bottomheight;
         glk_window_get_size(Bottom, NULL, &bottomheight);
         winid_t o2 = glk_window_get_parent(Top);
-        if (!(bottomheight < 3 && TopHeight < rows)) {
+        if (!(bottomheight < 3 && TopHeight < (glui32)rows)) {
             glk_window_get_size(Top, &TopWidth, &TopHeight);
             glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
                 Top);
@@ -112,7 +112,7 @@ static void FlushRoomDescription(char *buf)
 
         int line = 0;
         int index = 0;
-        int i;
+        glui32 i;
         char string[DISPLAY_BUFFER_SIZE];
         if (TopWidth > DISPLAY_BUFFER_SIZE - 1)
             TopWidth = DISPLAY_BUFFER_SIZE - 1;
@@ -135,7 +135,7 @@ static void FlushRoomDescription(char *buf)
         if (line < rows - 1) {
             glk_window_get_size(Top, &TopWidth, &TopHeight);
             glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
-                MIN(rows - 1, TopHeight - 1), Top);
+                MIN((glui32)(rows - 1), TopHeight - 1), Top);
         }
 
         free(text_with_breaks);
@@ -222,8 +222,7 @@ void CloseTopWindow(void)
    native image dimensions within the available graphics area. */
 glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight)
 {
-    int multiplier = 1;
-    multiplier = graphheight / ImageHeight;
+    glui32 multiplier = graphheight / ImageHeight;
     if (ImageWidth * multiplier > graphwidth)
         multiplier = graphwidth / ImageWidth;
 

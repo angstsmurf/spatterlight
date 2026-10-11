@@ -309,12 +309,13 @@ void DrawTitleImageScott(void)
     if (!gli_enable_graphics)
         return;
 #endif
-    glui32 background_color = -1;
+    const glui32 no_color = (glui32)-1;
+    glui32 background_color = no_color;
     OpenTitleWindows(&background_color);
 
     InitRTPITitle();
 
-    if (background_color != -1) {
+    if (background_color != no_color) {
         glk_window_set_background_color(Graphics, background_color);
         glk_window_clear(Graphics);
     }
@@ -356,7 +357,7 @@ void PrintTitleScreenBuffer(void)
 void PrintTitleScreenGrid(void)
 {
     int title_length = strlen(title_screen);
-    int rows = 0;
+    glui32 rows = 0;
 
     // Count rows
     for (int i = 0; i < title_length; i++)
@@ -377,7 +378,7 @@ void PrintTitleScreenGrid(void)
     }
     int offset = (width - RTPI_TITLE_COLS) / 2;
     int pos = 0;
-    for (int i = 1; i <= rows; i++) {
+    for (glui32 i = 1; i <= rows; i++) {
         glk_window_move_cursor(titlewin, offset, i);
         while (title_screen[pos] != '\n' && pos < title_length)
             Display(titlewin, "%c", title_screen[pos++]);

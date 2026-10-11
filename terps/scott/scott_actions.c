@@ -302,7 +302,7 @@ static void ClearScreen(void)
 
 int RandomPercent(int n)
 {
-    return erkyrath_random() % 100 < n;
+    return (int)(erkyrath_random() % 100) < n;
 }
 
 void OutputNumber(int a) { Display(Bottom, "%d", a); }

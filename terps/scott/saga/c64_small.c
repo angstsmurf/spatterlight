@@ -205,7 +205,7 @@ static USImage *add_duplicate_image_entries(USImage *image) {
 }
 
 /* The image table of an all-in-one game, or NULL if it has no pictures. */
-static const imglist *AllInOneImageList(int cutoff)
+static const imglist *AllInOneImageList(size_t cutoff)
 {
     switch (CurrentGame) {
         case PIRATE_US:
@@ -307,7 +307,7 @@ static void PrependDarknessImage(void)
    using the game-specific registry table. */
 GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
 {
-    int cutoff = c64_registry.imgoffset;
+    size_t cutoff = c64_registry.imgoffset;
     if (cutoff == 0 || cutoff >= *extent) {
         return UNKNOWN_GAME;
     }
