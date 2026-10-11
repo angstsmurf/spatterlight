@@ -931,6 +931,126 @@ uip_drop_shorter_matches (scr_var_setref_t vars, scr_bool is_character,
 
 
 /*
+ * The sweeps uip_match_entity() makes over the cached candidates: what the
+ * match is looking at, and what has matched so far.
+ */
+namespace {
+
+struct uip_entity_sweep_t
+{
+  scr_ptnoderef_t node;
+  scr_bool is_character;
+  scr_gameref_t game;
+  scr_var_setref_t vars;
+  const std::vector<scr_uip_entity_t> &cache;
+  std::vector<scr_bool> &references;
+  scr_char input_lead;
+  scr_int input_end;
+  scr_bool strict_scoped;
+  std::vector<scr_int> matched_extent;
+  scr_bool strict_first_bound;
+  scr_int max_extent;
+
+  void run (scr_int scope, scr_int pass);
+  void drop_unknown ();
+};
+
+} /* namespace */
+
+/* One sweep: reference every admitted entity a name or alias of which
+   matches, and note the extents. */
+void
+uip_entity_sweep_t::run (scr_int scope, scr_int pass)
+{
+  const scr_int entity_count = cache.size ();
+  scr_int index;
+
+  for (index = 0; index < entity_count; index++)
+    {
+      const scr_uip_entity_t &entity = cache[index];
+      scr_int alias_count, alias;
+
+      if (!uip_entity_admitted (game, is_character, index,
+                                scope, strict_scoped, pass))
+        continue;
+
+      /*
+       * Compare the entity's name, then each of its aliases, both
+       * prefixed and not.  Alias -1 stands for the name itself.
+       */
+      alias_count = entity.aliases.size ();
+      for (alias = -1; alias < alias_count; alias++)
+        {
+          const scr_int extent =
+              uip_candidate_extent (alias < 0 ? entity.name
+                                              : entity.aliases[alias],
+                                    alias, is_character, pass,
+                                    input_lead, input_end);
+
+          if (extent > 0 && uip_match_remainder (node, extent))
+            {
+              if (uip.trace)
+                scr_trace ("UIParser: matched (pass %ld, extent %ld)\n",
+                           (long) pass, (long) extent);
+
+              /* Increase the maximum match extent if required. */
+              max_extent = (extent > max_extent) ? extent : max_extent;
+              if (extent > matched_extent[index])
+                matched_extent[index] = extent;
+
+              uip_record_entity_match (game, vars, is_character,
+                                       index, references,
+                                       strict_scoped,
+                                       strict_first_bound);
+            }
+        }
+    }
+}
+
+/*
+ * A name matched in place is no match when nothing it names has
+ * ever been seen and none of it is here: run400's resolver
+ * (463640) scores present, seen objects only, so the line is left
+ * to whatever else it contains.  Scene of the Crime (4.00) has "a
+ * small card" in hand and "a tiny card" (alias "tiny card") not yet
+ * in play: `x tiny card` describes the small card (run400x, Delron
+ * walkthrough replay 2026-10-09), where the in-place match answered
+ * "I see no such thing.".  A name seen elsewhere keeps the line
+ * (not measured), and below 4.0 is not measured.
+ */
+void
+uip_entity_sweep_t::drop_unknown ()
+{
+  const scr_int entity_count = cache.size ();
+  scr_int index;
+  const scr_int room = gs_playerroom (game);
+  scr_bool is_known = FALSE;
+
+  for (index = 0; index < entity_count && !is_known; index++)
+    {
+      is_known = matched_extent[index] > 0
+                 && (gs_object_seen (game, index)
+                     || obj_indirectly_in_room (game, index,
+                                                room)
+                     || obj_indirectly_held_by_player (game,
+                                                       index));
+    }
+  if (!is_known)
+    {
+      for (index = 0; index < entity_count; index++)
+        {
+          if (matched_extent[index] > 0)
+            {
+              references[index] = FALSE;
+              matched_extent[index] = 0;
+            }
+        }
+      max_extent = 0;
+    }
+}
+
+
+/*
  * uip_match_entity()
  * uip_match_character()
  * uip_match_object()
@@ -948,7 +1068,6 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   const scr_gameref_t game = uip_get_game ();
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_int version = prop_get_taf_version (gs_get_bundle (game));
-  scr_int entity_count, index, max_extent;
   scr_char input_lead;
 
   if (uip.trace)
@@ -1096,109 +1215,37 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
   const scr_bool strict_scoped = uip.options.strict_reference && !is_character
                                  && version >= TAF_VERSION_400;
 
-  entity_count = cache.size ();
-  std::vector<scr_int> matched_extent (entity_count, 0);
-  scr_bool strict_first_bound = FALSE;
-  max_extent = 0;
-  for (scr_int scope = 0; scope < (strict_scoped ? 2 : 1) && max_extent == 0;
-       scope++)
+  uip_entity_sweep_t sweep = {
+    node, is_character, game, vars, cache, references, input_lead, input_end,
+    strict_scoped, std::vector<scr_int> (cache.size (), 0), FALSE, 0
+  };
+
+  for (scr_int scope = 0;
+       scope < (strict_scoped ? 2 : 1) && sweep.max_extent == 0; scope++)
     {
-      for (scr_int pass = 0; pass < 2 && max_extent == 0; pass++)
+      for (scr_int pass = 0; pass < 2 && sweep.max_extent == 0; pass++)
         {
           if (pass > 0 && !contain)
             break;
 
-          for (index = 0; index < entity_count; index++)
-            {
-              const scr_uip_entity_t &entity = cache[index];
-              scr_int alias_count, alias;
+          sweep.run (scope, pass);
 
-              if (!uip_entity_admitted (game, is_character, index,
-                                        scope, strict_scoped, pass))
-                continue;
-
-              /*
-               * Compare the entity's name, then each of its aliases, both
-               * prefixed and not.  Alias -1 stands for the name itself.
-               */
-              alias_count = entity.aliases.size ();
-              for (alias = -1; alias < alias_count; alias++)
-                {
-                  const scr_int extent =
-                      uip_candidate_extent (alias < 0 ? entity.name
-                                                      : entity.aliases[alias],
-                                            alias, is_character, pass,
-                                            input_lead, input_end);
-
-                  if (extent > 0 && uip_match_remainder (node, extent))
-                    {
-                      if (uip.trace)
-                        scr_trace ("UIParser: matched (pass %ld, extent %ld)\n",
-                                   (long) pass, (long) extent);
-
-                      /* Increase the maximum match extent if required. */
-                      max_extent = (extent > max_extent) ? extent : max_extent;
-                      if (extent > matched_extent[index])
-                        matched_extent[index] = extent;
-
-                      uip_record_entity_match (game, vars, is_character,
-                                               index, references,
-                                               strict_scoped,
-                                               strict_first_bound);
-                    }
-                }
-            }
-
-          /*
-           * A name matched in place is no match when nothing it names has
-           * ever been seen and none of it is here: run400's resolver
-           * (463640) scores present, seen objects only, so the line is left
-           * to whatever else it contains.  Scene of the Crime (4.00) has "a
-           * small card" in hand and "a tiny card" (alias "tiny card") not yet
-           * in play: `x tiny card` describes the small card (run400x, Delron
-           * walkthrough replay 2026-10-09), where the in-place match answered
-           * "I see no such thing.".  A name seen elsewhere keeps the line
-           * (not measured), and below 4.0 is not measured.
-           */
-          if (pass == 0 && contain && max_extent > 0 && !is_character
+          /* 4.0: a name matched in place that nothing seen or present
+             bears is no match; see drop_unknown(). */
+          if (pass == 0 && contain && sweep.max_extent > 0 && !is_character
               && version >= TAF_VERSION_400)
-            {
-              const scr_int room = gs_playerroom (game);
-              scr_bool is_known = FALSE;
-
-              for (index = 0; index < entity_count && !is_known; index++)
-                {
-                  is_known = matched_extent[index] > 0
-                             && (gs_object_seen (game, index)
-                                 || obj_indirectly_in_room (game, index,
-                                                            room)
-                                 || obj_indirectly_held_by_player (game,
-                                                                   index));
-                }
-              if (!is_known)
-                {
-                  for (index = 0; index < entity_count; index++)
-                    {
-                      if (matched_extent[index] > 0)
-                        {
-                          references[index] = FALSE;
-                          matched_extent[index] = 0;
-                        }
-                    }
-                  max_extent = 0;
-                }
-            }
+            sweep.drop_unknown ();
         }
     }
 
-  if (max_extent > 0 && !uip.options.strict_reference)
-    uip_drop_shorter_matches (vars, is_character, references, matched_extent,
-                              max_extent);
+  if (sweep.max_extent > 0 && !uip.options.strict_reference)
+    uip_drop_shorter_matches (vars, is_character, references,
+                              sweep.matched_extent, sweep.max_extent);
 
   /* On match, advance position and return successfully. */
-  if (max_extent > 0)
+  if (sweep.max_extent > 0)
     {
-      uip.match.posn = max_extent;
+      uip.match.posn = sweep.max_extent;
       return TRUE;
     }
 

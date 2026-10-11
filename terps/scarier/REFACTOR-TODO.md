@@ -116,7 +116,7 @@ Splitting them is mostly mechanical but each needs its own equivalence run.
 | ~~289~~ | ~~`lib_take_multiple_common`~~ | DONE: seven stages + driver, see "lib_take_multiple_common split" |
 | ~~274~~ | ~~`npc_tick_npc_walk`~~ | DONE: `npc_walk_tick_t` + six members, see "npc_tick_npc_walk split" |
 | ~~267~~ | ~~`task_run_task_unrestricted`~~ | DONE: five parts + driver, see "task_run_task_unrestricted split" |
-| 260 | `uip_match_entity` | `scparser_entity.cpp` |
+| ~~260~~ | ~~`uip_match_entity`~~ | DONE: `uip_entity_sweep_t` + two members, see "uip_match_entity split" |
 
 Ideas that recur: `eval_function`, `oo_prop`, `debug_help`, `gsc_a5_display`
 are giant `if/else` or `switch` on a string/enum → table of
@@ -353,7 +353,8 @@ Per the project's own verification recipe:
    (parser, printfilter, expr, restr, ser, tasks, mapdraw, disambig).
 3. Small mechanical: DONE or declined (see "Small mechanical items").
 4. 1.4 main split and 2.3: DONE (see "Main split" and "2.3" below).  3 is
-   open at `uip_match_entity` only; `task_run_task_unrestricted`,
+   DONE, every row of the table: `uip_match_entity`,
+   `task_run_task_unrestricted`,
    `npc_tick_npc_walk`, `gsc_a5_display`,
    `debug_help`, `view_location_impl`, `lib_take_multiple_common`, `run_task`, `pass_character`,
    `lib_cmd_verb_object`, `uip_replace_pronouns`, `run_main_loop`,
@@ -1194,3 +1195,24 @@ them):
   committed).  One line over 80 columns in the file, before and after.
 - Next, and last, in the table: `uip_match_entity`
   (scparser_entity.cpp).
+
+## 3: uip_match_entity split (2026-10-11)
+
+- **`uip_match_entity`** (260 l., 150 of them the three measurement
+  comments) in `scparser_entity.cpp` had already shed its helpers
+  (`uip_entity_admitted`, `uip_candidate_extent`,
+  `uip_record_entity_match`, `uip_drop_shorter_matches`); what was left
+  to take out was the body of the scope x pass loop.  That is now
+  `uip_entity_sweep_t`: the match's fixed inputs plus `matched_extent`,
+  `strict_first_bound` and `max_extent`, with `run (scope, pass)` (the
+  entity x alias sweep) and `drop_unknown ()` (4.0's "nothing seen or
+  present bears that name" retraction, with its comment).  The driver
+  keeps the setup, the containment and scope comments, and a 15-line
+  double loop.  Bodies are code motion; the driver's tail reads
+  `sweep.max_extent` / `sweep.matched_extent` where it read the locals.
+- Verification: headless `quick`; full `test` output identical;
+  `make -j8 scarier glkscarier` warning-free; corpus `recompare`
+  byte-identical to the snapshot (manifest rewrite reverted, not
+  committed).  No line over 80 columns.
+- **Section 3's table is finished.**  What section 3 still lists is the
+  prose under it, nothing with a row.
