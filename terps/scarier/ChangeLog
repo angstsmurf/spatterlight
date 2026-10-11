@@ -1,4 +1,4 @@
-2026-10-10  Petter Sjölund <ignalina@me.com>
+2026-10-11  Petter Sjölund <ignalina@me.com>
 
 	* Unreleased; changes since Spatterlight 1.5.4.
 
@@ -61,9 +61,21 @@
 	longer reaches the first room.  Walk steps land on the exact tick, a
 	stopped walk still stamps the walker, events recheck a run task's
 	restrictions, and the turn an event starts is itself a tick.
+	* A Cyrillic or accented capital in a battle line spelling the
+	player's name, or in a refused command, is now folded through the
+	game's code page like the rest of the line, instead of being left
+	alone and failing to match.
+	* A game or saved game that names an object, character, room, task
+	or event that does not exist, in a place the loader does not already
+	repair, now stops the game cleanly instead of aborting the
+	interpreter.
 	* Performance: the ALR table is indexed instead of scanned per line,
-	undo snapshots are no longer compressed, and the map's unchanging data
-	is read once per game rather than at every prompt.
+	undo snapshots are no longer compressed, the map's unchanging data is
+	read once per game rather than at every prompt, the map is flushed as
+	merged rectangles rather than one-row spans, and an ADRIFT 5 game no
+	longer takes a full state snapshot every turn when autosave is off.
+	The one-second pause before a finished game restarts honours the
+	delays preference.
 	* ADRIFT 5: identical <# #> tags in one block of text all show the
 	first one's value, as the Runner's replace-all does; music turned off
 	at an opening question stays off; a finished sound can be replayed.
@@ -73,8 +85,16 @@
 	sclibrar.cpp into topic fragments, os_glk into glk/, sctafpar.cpp into
 	parser, fixups and patches, scrun_dispatch.cpp into tables, dispatch,
 	input and census, and the a5run and a5text families into subfolders
-	under adrift5/. scparser, scprintf, sctasks, mapdraw and scdebug
-	tidied.
+	under adrift5/.  A second pass, recorded in REFACTOR-TODO.md, moved
+	the ADRIFT 4 engine into core/ with one prototype header per module
+	in place of scprotos.h, the console and autosave files into
+	platform/, the dump and trace tools into tools/ and the test stubs
+	into headless/; split scparser, scprintf, sctasks, the disambiguation,
+	take and put libraries by topic and some forty long functions into
+	stages; gathered each module's file-scope state into one struct;
+	opens the game file by path in one place; and lets the Makefile find
+	its sources by wildcard.  Every step verified against the headless
+	suite's recorded output.
 	* Test tree: test/adrift4 and test/adrift5, with sha256 manifests and
 	fetch_games.sh for the corpora.  The ADRIFT 4 walkthrough suite grew to
 	675 rows, backed by a library of transcripts recorded from the original

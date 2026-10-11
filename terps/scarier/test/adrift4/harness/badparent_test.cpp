@@ -35,6 +35,9 @@
  * The player's and the guard's alternate descriptions also name task 99, which
  * does not exist; examining them used to assert in gs_task_done().
  *
+ * An out of range index that nothing repaired must still not abort the host:
+ * the accessors in scgamest.cpp raise it as an scr_fatal(), which throws.
+ *
  * Pass the .taf path as argv[1].  Exits 0 on success, 1 on any mismatch.
  */
 #include <stdio.h>
@@ -73,6 +76,22 @@ find_object (scr_gameref_t game, const char *name)
   return -1;
 }
 
+/* TRUE if the accessor call throws scr_fatal_error naming its bad index. */
+template <typename F>
+static int
+throws_out_of_range (F accessor)
+{
+  try
+    {
+      accessor ();
+    }
+  catch (const scr_fatal_error &error)
+    {
+      return error.message.find ("out of range") != std::string::npos;
+    }
+  return 0;
+}
+
 /* --- minimal Scarier OS port; probe the object state at the first prompt ---
    The do-nothing stubs live in harness_os_stubs.cpp; os_read_line is ours. */
 
@@ -96,6 +115,11 @@ os_read_line (scr_char *buffer, scr_int length)
               gs_object_position (game, coin) == OBJ_HIDDEN, 1);
       expect ("ring (real NPC) is NOT hidden",
               gs_object_position (game, ring) == OBJ_HIDDEN, 0);
+      expect ("task 99 is a fatal error, not an abort",
+              throws_out_of_range ([&] () { gs_task_done (game, 99); }), 1);
+      expect ("object -1 is a fatal error, not an abort",
+              throws_out_of_range ([&] ()
+                                   { gs_object_position (game, -1); }), 1);
     }
 
   /* Then examine the player and the guard, whose alternate descriptions name

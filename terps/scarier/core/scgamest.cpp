@@ -54,18 +54,30 @@ static const scr_uint GAME_MAGIC = 0x35aed26e;
 /*
  * gs_game_ok()
  * gs_in_range()
+ * gs_index_fatal()
  * GS_CHECK()
+ * GS_CHECK_INDEX()
  * GS_CHECK_EVENT(), GS_CHECK_ROOM(), GS_CHECK_TASK(), GS_CHECK_OBJECT(),
  * GS_CHECK_NPC()
  *
  * The accessor guards.  Every accessor in this file opens with one of them:
  * GS_CHECK (gs) for the game alone, GS_CHECK_<KIND> (gs, index) for an entity
- * index as well.  They are assert()s, so an NDEBUG build compiles them away;
- * the normal builds keep asserts, which is why the validity test here is the
- * file-local inline gs_game_ok() rather than a call to the exported
- * gs_is_game_valid() (that call was 5% of self time in the 2026-10-04
- * profile, see REFACTOR-TODO.md).  gs_is_game_valid() is the same test for
- * the other modules.
+ * index as well.  The two halves are different kinds of check.
+ *
+ * The game half is an invariant: no game file can make a caller pass a
+ * pointer that is not a game, so it is an assert().  The normal builds keep
+ * asserts, which is why the validity test here is the file-local inline
+ * gs_game_ok() rather than a call to the exported gs_is_game_valid() (that
+ * call was 5% of self time in the 2026-10-04 profile, see REFACTOR-TODO.md).
+ * gs_is_game_valid() is the same test for the other modules.
+ *
+ * The index half is not an invariant.  Entity indexes reach these accessors
+ * from the game file and from saved games (an object's parent, a task named
+ * by an alternate description, a walk's character), and published games have
+ * out of range ones; gs_create() repairs the cases met so far, see
+ * test/adrift4/harness/badparent_test.cpp.  One that gets this far is bad
+ * game data, so it is an scr_fatal(), which the entry points in scinterf.cpp
+ * catch and turn into a clean failure, and not an abort() of the host.
  */
 static inline scr_bool
 gs_game_ok (const struct scr_game_s *game)
@@ -79,17 +91,43 @@ gs_in_range (scr_int value, scr_int limit)
   return value >= 0 && value < limit;
 }
 
+#if defined(__GNUC__)
+__attribute__ ((__noinline__, __cold__))
+#endif
+static void
+gs_index_fatal (const scr_char *function,
+                const scr_char *kind, scr_int value, scr_int limit)
+{
+  scr_fatal ("%s: %s %ld out of range, game has %ld\n",
+             function, kind, value, limit);
+}
+
 #define GS_CHECK(gs) assert (gs_game_ok (gs))
+#define GS_CHECK_INDEX(gs, kind, value, limit) \
+  do \
+    { \
+      GS_CHECK (gs); \
+      if (!gs_in_range ((value), (limit))) \
+        gs_index_fatal (__func__, (kind), (value), (limit)); \
+    } \
+  while (0)
 #define GS_CHECK_EVENT(gs, event) \
-  assert (gs_game_ok (gs) && gs_in_range ((event), (gs)->event_count))
+  GS_CHECK_INDEX (gs, "event", event, (gs)->event_count)
 #define GS_CHECK_ROOM(gs, room) \
-  assert (gs_game_ok (gs) && gs_in_range ((room), (gs)->room_count))
+  GS_CHECK_INDEX (gs, "room", room, (gs)->room_count)
 #define GS_CHECK_TASK(gs, task) \
-  assert (gs_game_ok (gs) && gs_in_range ((task), (gs)->task_count))
+  GS_CHECK_INDEX (gs, "task", task, (gs)->task_count)
 #define GS_CHECK_OBJECT(gs, object) \
-  assert (gs_game_ok (gs) && gs_in_range ((object), (gs)->object_count))
+  GS_CHECK_INDEX (gs, "object", object, (gs)->object_count)
 #define GS_CHECK_NPC(gs, npc) \
-  assert (gs_game_ok (gs) && gs_in_range ((npc), (gs)->npc_count))
+  GS_CHECK_INDEX (gs, "npc", npc, (gs)->npc_count)
+#define GS_CHECK_WALK(gs, npc, walk) \
+  do \
+    { \
+      GS_CHECK_NPC (gs, npc); \
+      GS_CHECK_INDEX (gs, "walk", walk, (gs)->npcs[npc].walkstep_count); \
+    } \
+  while (0)
 
 
 /*
@@ -1294,24 +1332,21 @@ void
 gs_set_npc_walkstep (scr_gameref_t gs,
                      scr_int npc, scr_int walk, scr_int walkstep)
 {
-  GS_CHECK_NPC (gs, npc);
-  assert (gs_in_range (walk, gs->npcs[npc].walkstep_count));
+  GS_CHECK_WALK (gs, npc, walk);
   gs->npcs[npc].walksteps[walk] = walkstep;
 }
 
 scr_int
 gs_npc_walkstep (scr_gameref_t gs, scr_int npc, scr_int walk)
 {
-  GS_CHECK_NPC (gs, npc);
-  assert (gs_in_range (walk, gs->npcs[npc].walkstep_count));
+  GS_CHECK_WALK (gs, npc, walk);
   return gs->npcs[npc].walksteps[walk];
 }
 
 void
 gs_decrement_npc_walkstep (scr_gameref_t gs, scr_int npc, scr_int walk)
 {
-  GS_CHECK_NPC (gs, npc);
-  assert (gs_in_range (walk, gs->npcs[npc].walkstep_count));
+  GS_CHECK_WALK (gs, npc, walk);
   gs->npcs[npc].walksteps[walk]--;
 }
 

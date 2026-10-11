@@ -295,8 +295,12 @@ and the eight printfilter cache globals (now `scr_pf_state_t`).
 - 438 `assert()` and 299 `scr_error/scr_fatal` uses, mixed. Assertions guard
   both programmer errors and (in `scgamest.cpp`) "corrupt game file" cases that
   can legitimately happen on bad input.
-- [ ] Classify: *invariant* → `assert`; *bad game data* → `scr_error` + clean
+- [x] Classify: *invariant* → `assert`; *bad game data* → `scr_error` + clean
       abort path; *unsupported feature* → one `scr_unsupported (…)`.
+      → classified; the one misfiled group was the index half of the
+      `scgamest.cpp` accessor guards, now `scr_fatal`.  `scr_unsupported`
+      declined: nothing reports an unsupported feature.  See "Error
+      handling classification".
 - [x] `extern` declarations in `.cpp` files: `os_glk_a5.cpp` includes
       `glkstart.h` for `glkunix_stream_open_pathname` (ee3c2a185; since
       17638c398 the include and the call live in `os_glk_platform.cpp`);
@@ -419,11 +423,12 @@ Per the project's own verification recipe:
    open bullet, the Win32 half of `gsc_a5_open_game_path`, is in
    `glk/os_glk_platform.cpp` (see "Win32 open-by-path"); the table
    rows above it are candidates, not tasks.
-7. What is left are the three open 6a bullets: assert / `scr_error`
-   classification (Error handling), `memset` / `(void) x` and the long
-   lines / function-like macros (Modernisation).  Each is a judgement
-   pass rather than a mechanical move.  The cp1251/cp1252 ctype overlap
-   (Locale and ctype layers) is DONE, see "Locale and ctype check".
+7. What is left are the two open 6a bullets under Modernisation:
+   `memset` / `(void) x` and the long lines / function-like macros.
+   Each is a judgement pass rather than a mechanical move.  The
+   cp1251/cp1252 ctype overlap (Locale and ctype layers) is DONE, see
+   "Locale and ctype check"; the assert / `scr_error` classification
+   (Error handling) is DONE, see "Error handling classification".
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -2039,9 +2044,17 @@ them):
 - **Left as they are**: `runner/scrun_match.cpp` `run_val` uses libc
   `isdigit()`, which the C standard pins to `0`..`9` in every locale;
   `platform/os_ansi.cpp` `toupper()` on a Y/N answer; `scbattle.cpp`
-  `alias[0] >= 'a' && <= 'z'` (the "the " prefix rule; whether the
-  Runner's own test is ASCII or an LCase compare was not checked, so
-  widen it only with the decompile in hand);
+  `alias[0] >= 'a' && <= 'z'` (the "the " prefix rule in
+  `battle_npc_name`): checked against the decompile 2026-10-11, the
+  Runner has no such test at all.  All five battle name sites (run400
+  dohit 45E1CE, chardohit 464F20; run390 dohit 43882A, chardohit
+  4423B4 / 442483) splice `Prefix & " " & Alias(0)` / `Alias(0)` /
+  `Name` raw, with no LCase, no Asc and no article literal, so the
+  range test is wholly Scarier's own deviation.  It stays ASCII on
+  purpose: the rule inserts the English "the", and an alias whose
+  initial is a cp1251 or accented cp1252 lowercase letter belongs to a
+  Russian or French game, where that article would be wrong.
+  Recorded in `~/Adrift_decompile` 4646caf;
   `tools/scrun_census.cpp` is tooling; everything in `adrift5/` is
   ASCII-on-UTF-8 by design (see the `strcasecmp` note under "Small
   mechanical items").
@@ -2068,4 +2081,79 @@ them):
   added or renamed, so the Xcode project is untouched.  No changed
   line over 80 columns.
 - Next in the suggested order: 7, the three open 6a bullets (see
+  "Suggested order").
+
+## Error handling classification (2026-10-11, master 5d591cf70)
+
+- **The convention the tree already had**, written down: `assert` is
+  for what no game file can cause (a null argument, a handle whose magic
+  is wrong, a format string of the wrong type, a re-entrancy flag);
+  `scr_fatal` throws `scr_fatal_error`, which the entry points in
+  `scinterf.cpp` catch (`if_guarded`) and turn into a clean failure, so
+  it is the "clean abort path" the bullet asked for and is right for
+  bad game data and for a `default:` arm alike; `scr_error` reports and
+  carries on.  Census outside `adrift5/` and `tools/`, which use
+  neither: 330 `assert` (core 215, library 18, runner 40, glk 46,
+  platform 2, headless 9), 109 accessor guards in `scgamest.cpp`, 160
+  `scr_fatal`, 135 `scr_error`.
+- **The asserts, read** -- 142 are a handle check alone
+  (`pf_is_valid (filter)` 48, `var_is_valid` 26, `gs_is_game_valid` 25,
+  `memo_is_valid` 18 ...) and 118 a non-null argument; both are
+  invariants.  The other 70 were read one by one and are invariants
+  too.  The ones that look data-driven are not: `scexpr.cpp`'s
+  `argument_count > 0` and the `is_collectible` pops are guaranteed by
+  the typed parser above them (a `max (` always parses one numeric
+  expression before it counts; a mistyped operand is a parse error
+  through the `jmp_buf`, never a mistyped pop); `sctafpar.cpp`'s
+  `alr == alr_count` follows from the lengths lying between `shortest`
+  and `longest`; `sctaffil.cpp`'s `slab_count > 0` is on the branch
+  that only runs after a slab exists; `scrun_match.cpp`'s
+  `argument[argument_length - 1] == ')'` is tested on the raw pattern
+  four lines up and squeezing spaces cannot move a final `)`.  The
+  library's `unused == -1`, `lib_is_version_400 (game)` and
+  `mode >= 0 && mode <= 3` are calling conventions.
+- **The one misfiled group: entity indexes** -- the 64
+  `GS_CHECK_EVENT / ROOM / TASK / OBJECT / NPC` guards and the three
+  walkstep ones asserted that an index was in range.  That is not an
+  invariant: indexes come from the game file and from saved games, and
+  published games have bad ones (The Timmy Reid Adventure, Blood
+  Relatives: an object held by a character that does not exist, an
+  alternate description naming a missing task; `badparent_test.cpp`).
+  `gs_create()` repairs the cases met so far, so the game plays on,
+  and that stays the right fix for each new one; but the next unmet
+  one aborted the interpreter process.  Now the index half is
+  `GS_CHECK_INDEX`, which calls a cold, non-inlined
+  `gs_index_fatal()` -> `scr_fatal ("gs_task_done: task 99 out of
+  range, game has 0")`, naming the accessor, the kind, the index and
+  the count (more than the assert printed), and the walkstep trio is
+  `GS_CHECK_WALK`.  The game half, `GS_CHECK (gs)`, 42 plain uses and
+  inside every indexed one, is still an `assert`.  The test in the hot
+  path is the same compare and branch as before.  No accessor's
+  behaviour changes for an index that is in range.
+- **Declined: `scr_unsupported`.**  No message in the 4.x engine
+  reports an unsupported feature (grep for unsupported / not
+  implemented / not supported finds no `scr_error` or `scr_fatal`);
+  the version gates refuse a file at load through the ordinary parse
+  failure.  A function with no caller would be a guess at a need.
+- **Declined: turning `scr_fatal` `default:` arms into asserts.**
+  About forty `scr_fatal` calls are "bad token", "invalid type", "no
+  handler for": programmer errors by the bullet's definition.  They
+  stay: a throw the host boundary catches is the gentler failure, and
+  moving them to `assert` would trade a clean stop for an abort to
+  satisfy a taxonomy.
+- **Not taken**: showing the fatal message in the game window.
+  `if_report_fatal()` writes it to stderr and the entry point returns
+  its failure value, so in Spatterlight the game stops without saying
+  why.  That is a front-end change (glk/, and the a5 side has its own
+  path) and applies to every `scr_fatal`, not to this bullet.
+- Test: `badparent_test.cpp` asks for task 99 and object -1 and
+  expects an `scr_fatal_error` whose message says "out of range".
+- Verification: `-Wall -Wextra -Wshadow` syntax check of scgamest.cpp
+  silent; full headless `test` output identical to the baseline taken
+  at f24765894 apart from the two new PASS lines and the two messages
+  they provoke on stderr (compile and "Nothing to be done" lines
+  stripped); `make -j8 scarier glkscarier` warning-free; `sanitize`
+  clean; `xcodebuild -target scarier` BUILD SUCCEEDED.  No file added,
+  so the Xcode project is untouched.
+- Next in the suggested order: 7, the two open 6a bullets (see
   "Suggested order").
