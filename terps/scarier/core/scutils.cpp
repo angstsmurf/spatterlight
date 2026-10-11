@@ -719,7 +719,6 @@ scr_randomint_exclusive (scr_int low, scr_int high)
 
 
 /* Miscellaneous general ascii constants. */
-static const scr_char NUL = '\0';
 static const scr_char SPACE = ' ';
 
 

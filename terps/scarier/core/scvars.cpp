@@ -58,7 +58,6 @@
 
 /* Assorted definitions and constants. */
 static const scr_uint VARS_MAGIC = 0xabcc7a71;
-static const scr_char NUL = '\0';
 
 /* Variables trace flag. */
 static scr_bool var_trace = FALSE;

@@ -336,9 +336,14 @@ and the eight printfilter cache globals (now `scr_pf_state_t`).
       and `loc_char_template` have identical bodies, differing only in the
       element type → one template function).  → `loc_table_lookup<T>`,
       2d53d5857.
-- [ ] Check overlap with `os_glk_locale.cpp` and with `scprintf_input.cpp`
+- [x] Check overlap with `os_glk_locale.cpp` and with `scprintf_input.cpp`
       character handling; there should be exactly one cp1251/cp1252
-      definition of "is alpha / to upper".
+      definition of "is alpha / to upper".  → there is: `sclocale.cpp`.
+      `os_glk_locale.cpp` is codepage-to-Unicode transliteration, not
+      ctype; `scprintf_input.cpp` already went through `scr_*`.  What
+      the check did find were four folds that bypassed the locale and
+      eighteen copies of `NUL` / `WHITESPACE` (46e668b71, c84f47c6e;
+      see "Locale and ctype check").
 
 ### File-size splits (risk: low, mostly moving code)
 Five non-library files exceeded ~3000 lines and mixed several concerns:
@@ -414,11 +419,11 @@ Per the project's own verification recipe:
    open bullet, the Win32 half of `gsc_a5_open_game_path`, is in
    `glk/os_glk_platform.cpp` (see "Win32 open-by-path"); the table
    rows above it are candidates, not tasks.
-7. What is left are the four open 6a bullets: assert / `scr_error`
+7. What is left are the three open 6a bullets: assert / `scr_error`
    classification (Error handling), `memset` / `(void) x` and the long
-   lines / function-like macros (Modernisation), and the cp1251/cp1252
-   ctype overlap (Locale and ctype layers).  Each is a judgement pass
-   rather than a mechanical move; the locale one is the smallest.
+   lines / function-like macros (Modernisation).  Each is a judgement
+   pass rather than a mechanical move.  The cp1251/cp1252 ctype overlap
+   (Locale and ctype layers) is DONE, see "Locale and ctype check".
 
 ## Outcome (2026-10-10, master 31b77eaac..18e8b35d5)
 
@@ -1996,4 +2001,71 @@ them):
   output identical to the baseline captured at 94eb02743 (0 diff
   lines, compile lines and the `Nothing to be done` message stripped).
 - Next in the suggested order: 7, the four open 6a bullets (see
+  "Suggested order").
+
+## Locale and ctype check (2026-10-11, master 46e668b71, c84f47c6e)
+
+- **The check** -- the 4.x engine has one definition of the cp1251 /
+  cp1252 character classes: `core/sclocale.cpp` (`scr_isspace`,
+  `scr_isdigit`, `scr_isalpha`, `scr_toupper`, `scr_tolower`, two
+  range-built 256-entry table sets picked by locale).
+  `glk/os_glk_locale.cpp` has no ctype at all: its four tables map a
+  codepage byte to Unicode and to an ASCII substitute for output, and
+  `gsc_unicode_to_locale` does the reverse for input; its only
+  predicate is the printable range `' '..'~'` for the Glk gestalt
+  check.  The two files share the locale *names* (Latin1 / Cyrillic,
+  the Glk side synchronised from the core's after game creation), which
+  is the right split: the core knows no Unicode.  `scprintf_input.cpp`
+  already folded through `scr_tolower` and tested `scr_isspace`.  No
+  `setlocale` anywhere in the tree, so libc's ctype runs in the "C"
+  locale on every host, which is what made the stragglers below
+  silently ASCII-only rather than wrong in two different ways.
+- **Four folds bypassed the locale** (46e668b71).  `run_battle_answer`
+  (runner/scrun_respell.cpp) and the refuse arm (library/
+  sclibrar_refuse.cpp) re-lower-cased a `std::string` with libc
+  `tolower()`, which leaves every byte above 0x7f alone, while the
+  typed line they were matching against is folded through the locale
+  table (run_player_input); `lib_print_room_name_lower` and `pf_lcase`
+  had their own correct `scr_tolower` loops.  All four go through
+  `scr_lowercase()`, which gained a `std::string &` overload beside the
+  `scr_char *` one (scutils.h; the comment there says it is VB's
+  LCase).  `lib_conjugate_third_person` (sclibrar_print.cpp) scanned
+  the verb after `%player%` with `islower()`; that word is the
+  library's own English, so the test is the ASCII range, spelled out,
+  and no longer depends on the process locale.  The suite could not
+  tell the difference (no corpus game puts a cp1251 capital through
+  those two arms), so this is a latent-divergence fix, not a golden
+  change.
+- **Left as they are**: `runner/scrun_match.cpp` `run_val` uses libc
+  `isdigit()`, which the C standard pins to `0`..`9` in every locale;
+  `platform/os_ansi.cpp` `toupper()` on a Y/N answer; `scbattle.cpp`
+  `alias[0] >= 'a' && <= 'z'` (the "the " prefix rule; whether the
+  Runner's own test is ASCII or an LCase compare was not checked, so
+  widen it only with the decompile in hand);
+  `tools/scrun_census.cpp` is tooling; everything in `adrift5/` is
+  ASCII-on-UTF-8 by design (see the `strcasecmp` note under "Small
+  mechanical items").
+- **Eighteen copies of two constants** (c84f47c6e).  `static const
+  scr_char NUL = '\0'` was defined in thirteen files and the whitespace
+  string `"\t\n\v\f\r "` in five (`WHITESPACE` in scparser_internal.h,
+  scprintf_internal.h, scrunner.h; a local in `sxr_isspace`;
+  `GSC_WHITESPACE` in glk/os_glk_status.cpp).  Both live once in
+  `core/sctypes.h`, next to TRUE/FALSE.  The header comment records the
+  one real overlap the check turned up and did **not** unify:
+  `WHITESPACE` (what `strspn`/`strcspn` and the trims use, 55 sites)
+  and `scr_isspace()` differ on 0xa0, the non-breaking space, which
+  only the locale predicate counts.  That is SCARE heritage and
+  Runner-facing (a trim that ate NBSP would change text), so it stays
+  as two sets with the difference written down.  headless/sxutils.cpp
+  now includes `core/sctypes.h` (it had the constants only through its
+  own copies).  `NEWLINE` / `CARRIAGE_RETURN` (scinterf.cpp,
+  sctaffil.cpp) are two copies each and were left: not ctype.
+- Verification, each commit: headless `quick`; full `test` output
+  identical to the baseline captured at 6a407c281 (0 diff lines with
+  the compile and "Nothing to be done" lines stripped); `make -j8
+  scarier glkscarier` warning-free; `run_autosave_tests.py --build`
+  (Xcode Debug scarier target) all passed after the second.  No file
+  added or renamed, so the Xcode project is untouched.  No changed
+  line over 80 columns.
+- Next in the suggested order: 7, the three open 6a bullets (see
   "Suggested order").

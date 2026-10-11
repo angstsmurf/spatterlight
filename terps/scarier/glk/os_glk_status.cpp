@@ -35,10 +35,6 @@ enum { GSC_STATUS_BUFFER_LENGTH = 74 };
 /* Scratch space gsc_status_line_text() formats or trims a status line into. */
 enum { GSC_STATUS_TEXT_LENGTH = 256 };
 
-/* Whitespace characters, used to detect empty status elements. */
-static const scr_char *const GSC_WHITESPACE = "\t\n\v\f\r ";
-
-
 /*
  * gsc_is_string_usable()
  *
@@ -55,7 +51,7 @@ gsc_is_string_usable (const scr_char *string)
 
       for (index_ = 0; string[index_] != '\0'; index_++)
         {
-          if (!strchr (GSC_WHITESPACE, string[index_]))
+          if (!strchr (WHITESPACE, string[index_]))
             return TRUE;
         }
     }
@@ -171,7 +167,7 @@ gsc_status_line_text (char *buffer, size_t length)
     }
 
   for (trimmed = strlen (status);
-       trimmed > 0 && strchr (GSC_WHITESPACE, status[trimmed - 1]);
+       trimmed > 0 && strchr (WHITESPACE, status[trimmed - 1]);
        trimmed--)
     ;
 

@@ -50,7 +50,6 @@
 enum { MAX_NESTING_DEPTH = 256 };
 
 /* Assorted definitions and constants. */
-static const scr_char NUL = '\0';
 static const scr_char PERCENT = '%';
 static const scr_char SINGLE_QUOTE = '\'';
 static const scr_char DOUBLE_QUOTE = '"';

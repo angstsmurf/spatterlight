@@ -79,11 +79,9 @@
 
 
 /* Assorted definitions and constants. */
-static const scr_char NUL = '\0';
 static const scr_char MINUS = '-';
 static const scr_char PLUS = '+';
 static const scr_char PERCENT = '%';
-static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 
 
 /*

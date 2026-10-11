@@ -49,7 +49,6 @@
 #include "core/scgamest.h"
 
 /* Assorted definitions and constants. */
-static const scr_char NUL = '\0';
 static const scr_char COMMA = ',';
 enum
 { SECS_PER_MINUTE = 60,

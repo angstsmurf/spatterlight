@@ -50,6 +50,15 @@
 #endif
 
 /*
+ * The string terminator and the whitespace set, one definition for every
+ * module.  WHITESPACE is what strspn()/strcspn() and the trims work with;
+ * scr_isspace() (sclocale.cpp) is the locale's own predicate and also
+ * counts 0xa0, the non-breaking space, so the two are not interchangeable.
+ */
+static const scr_char NUL = '\0';
+static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
+
+/*
  * Fast non-local jumps.
  *
  * The expression evaluator, command parser, and restriction evaluator each arm

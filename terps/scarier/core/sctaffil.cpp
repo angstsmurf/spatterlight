@@ -51,7 +51,6 @@ enum
 };
 static const scr_char NEWLINE = '\n';
 static const scr_char CARRIAGE_RETURN = '\r';
-static const scr_char NUL = '\0';
 
 
 /* Version 4.0, 3.9, 3.8, and 3.7 TAF file signatures. */

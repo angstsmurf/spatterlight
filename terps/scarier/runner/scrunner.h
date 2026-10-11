@@ -38,10 +38,8 @@
 
 /* Assorted definitions and constants. */
 enum { LINE_BUFFER_SIZE = 256 };
-static const scr_char NUL = '\0';
 static const scr_char SPECIAL_PATTERN = '#';
 static const scr_char WILDCARD_PATTERN = '*';
-static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 
 
 /* State shared across the runner files, each defined in the file named. */

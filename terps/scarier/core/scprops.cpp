@@ -40,7 +40,6 @@ enum
   MAX_INTEGER_KEY = 65535,
   NODE_POOL_CAPACITY = 512
 };
-static const scr_char NUL = '\0';
 
 
 /* Properties trace flag. */

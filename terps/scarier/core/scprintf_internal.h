@@ -71,7 +71,6 @@
 enum
 { ITERATION_LIMIT = 32
 };
-static const scr_char NUL = '\0';
 static const scr_char LESSTHAN = '<';
 static const scr_char GREATERTHAN = '>';
 static const scr_char PERCENT = '%';
@@ -83,7 +82,6 @@ enum
   PERCENT_LENGTH = 9
 };
 static const scr_char *const ESCAPES = "<>%&+";
-static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
 
 
 /*

@@ -35,10 +35,6 @@
 #include "scgamest.h"
 
 
-/* Assorted definitions and constants. */
-static const scr_char NUL = '\0';
-
-
 /*
  * res_has_sound()
  * res_has_graphics()

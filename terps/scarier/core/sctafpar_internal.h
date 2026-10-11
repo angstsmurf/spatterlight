@@ -37,9 +37,6 @@
 #include "scprops.h"
 #include "sctafpar.h"
 
-/* String terminator, for the three files alike. */
-static const scr_char NUL = '\0';
-
 /*
  * sctafpar.cpp: the properties bundle being written and the trace flag,
  * both set before parsing, and the key-stack helpers that read and write

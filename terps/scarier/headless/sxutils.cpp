@@ -25,6 +25,7 @@
 #include <string.h>
 
 #include "core/scarier.h"
+#include "core/sctypes.h"
 #include "sxprotos.h"
 
 
@@ -177,10 +178,6 @@ sxr_fopen (const scr_char *name, const scr_char *extension,
 }
 
 
-/* Miscellaneous general ascii constants. */
-static const scr_char NUL = '\0';
-
-
 /*
  * sxr_isspace()
  * sxr_isprint()
@@ -190,8 +187,6 @@ static const scr_char NUL = '\0';
 static scr_bool
 sxr_isspace (scr_char character)
 {
-  static const scr_char *const WHITESPACE = "\t\n\v\f\r ";
-
   return character != NUL && strchr (WHITESPACE, character) != nullptr;
 }
 
