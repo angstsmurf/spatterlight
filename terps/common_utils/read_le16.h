@@ -10,10 +10,30 @@
 
 #include <stdint.h>
 
-uint16_t READ_LE_UINT16(const void *ptr);
-uint16_t READ_LE_UINT16_AND_ADVANCE(uint8_t **ptr);
-uint16_t READ_BE_UINT16_AND_ADVANCE(uint8_t **ptr);
-uint16_t READ_BE_UINT16(const void *ptr);
+/* Defined here as static inline so that every caller can inline them, and
+   so that no compiler has to decide which file owns the one external copy
+   (MSVC and clang-cl emit none for a plain inline definition). */
+
+static inline uint16_t READ_LE_UINT16(const void *ptr) {
+    const uint8_t *b = (const uint8_t *)ptr;
+    return (uint16_t)((b[1] << 8) | b[0]);
+}
+
+static inline uint16_t READ_BE_UINT16(const void *ptr) {
+    const uint8_t *b = (const uint8_t *)ptr;
+    return (uint16_t)((b[0] << 8) | b[1]);
+}
+
+static inline uint16_t READ_LE_UINT16_AND_ADVANCE(uint8_t **ptr) {
+    uint8_t *b = *ptr;
+    (*ptr) += 2;
+    return (uint16_t)((b[1] << 8) | b[0]);
+}
+
+static inline uint16_t READ_BE_UINT16_AND_ADVANCE(uint8_t **ptr) {
+    uint8_t *b = *ptr;
+    (*ptr) += 2;
+    return (uint16_t)(b[1] | (b[0] << 8));
+}
 
 #endif
-

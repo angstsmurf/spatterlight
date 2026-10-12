@@ -71,7 +71,7 @@ CXX_SRCS := \
 C_SRCS := glkstart.c
 
 OBJS := $(addprefix $(OBJDIR)/,$(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) \
-        ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o randomness.o)
+        ciderpress.o woz2nib.o gm_vector.o gm_artifact.o randomness.o)
 
 CHEAPGLK_LIB := $(CHEAPGLK_DIR)/libcheapglk.a
 
@@ -93,8 +93,6 @@ $(OBJDIR)/%.o: %.c | $(OBJDIR)
 $(OBJDIR)/ciderpress.o: $(READWOZ_DIR)/ciderpress.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OBJDIR)/woz2nib.o: $(READWOZ_DIR)/woz2nib.c | $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
-$(OBJDIR)/read_le16.o: $(COMMON_DIR)/read_le16.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 $(OBJDIR)/randomness.o: $(COMMON_DIR)/randomness.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@

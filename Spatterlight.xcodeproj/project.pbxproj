@@ -762,10 +762,6 @@
 		C354AA6F274D05D800C8D01D /* Unholy Grail command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */; };
 		C354C6DD275791C000EBB449 /* t23run.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DC275791C000EBB449 /* t23run.cpp */; };
 		C354C6DF275791ED00EBB449 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DE275791ED00EBB449 /* t2indlg.c */; };
-		C3590C712EF1494100F02FE7 /* read_le16.c in Sources */ = {isa = PBXBuildFile; fileRef = C3590C702EF1494100F02FE7 /* read_le16.c */; };
-		C3590C722EF1494100F02FE7 /* read_le16.c in Sources */ = {isa = PBXBuildFile; fileRef = C3590C702EF1494100F02FE7 /* read_le16.c */; };
-		C3590C732EF1494100F02FE7 /* read_le16.c in Sources */ = {isa = PBXBuildFile; fileRef = C3590C702EF1494100F02FE7 /* read_le16.c */; };
-		C3590D112EF34E7800F02FE7 /* read_le16.c in Sources */ = {isa = PBXBuildFile; fileRef = C3590C702EF1494100F02FE7 /* read_le16.c */; };
 		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
@@ -3486,7 +3482,6 @@
 		C354AA6C274D05D800C8D01D /* Unholy Grail command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Unholy Grail command script.txt"; sourceTree = "<group>"; };
 		C354C6DC275791C000EBB449 /* t23run.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = t23run.cpp; path = glk/t23run.cpp; sourceTree = "<group>"; };
 		C354C6DE275791ED00EBB449 /* t2indlg.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = t2indlg.c; path = glk/t2indlg.c; sourceTree = "<group>"; };
-		C3590C702EF1494100F02FE7 /* read_le16.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = read_le16.c; sourceTree = "<group>"; };
 		C359499C2D2C39EB008F6551 /* InfocomV6MenuHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InfocomV6MenuHandler.h; sourceTree = "<group>"; };
 		C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InfocomV6MenuHandler.m; sourceTree = "<group>"; };
 		C35978C325DA14A6004B1448 /* iFictionPreviewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iFictionPreviewController.h; sourceTree = "<group>"; };
@@ -6752,7 +6747,6 @@
 				C319199D2EF69BF70062991C /* memory_allocation.c */,
 				C31919952EF69AD80062991C /* minmax.h */,
 				C36797E82EF0D9FD008A6A0D /* read_le16.h */,
-				C3590C702EF1494100F02FE7 /* read_le16.c */,
 				C31919B12EF6B97E0062991C /* common_file_utils.h */,
 				C31919B22EF6B97E0062991C /* common_file_utils.c */,
 				C3C0A5E100000000000000A2 /* companion_search.h */,
@@ -9461,7 +9455,6 @@
 				C35032F02F37EF0900BD32A6 /* randomness.c in Sources */,
 				C30C7AD928CA2C0300D293BE /* atari8detect.c in Sources */,
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
-				C3590C712EF1494100F02FE7 /* read_le16.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */,
 				C30CAD052FAFD61200A90820 /* scott_display.c in Sources */,
@@ -9555,7 +9548,6 @@
 				C3D6AA40286B098B000FA5DE /* extracommands.c in Sources */,
 				C30E9626289929AC00590271 /* stdetect.c in Sources */,
 				C3E1938128628E8400E3B013 /* restorestate.c in Sources */,
-				C3590C732EF1494100F02FE7 /* read_le16.c in Sources */,
 				C36797E62EF0B884008A6A0D /* sagadraw_glue.c in Sources */,
 				C3A3EA0D284BAE8400C8A693 /* parseinput.c in Sources */,
 				C37EC5A12847AA3C0084B841 /* plusmain.c in Sources */,
@@ -9610,7 +9602,6 @@
 				C3FACE0100000000DEAD0001 /* loading_screen.c in Sources */,
 				C3FACE0200000000DEAD0001 /* zx_title.c in Sources */,
 				C3FACE0100000000DEAD0005 /* alkatraz_screen.c in Sources */,
-				C3590C722EF1494100F02FE7 /* read_le16.c in Sources */,
 				C3CED4472810190E0040252F /* decrypttotloader.c in Sources */,
 				C3D571B827D8F652008FB786 /* ui.c in Sources */,
 				C3BD2E8B2874888E0019F676 /* c64decrunch.c in Sources */,
@@ -9622,7 +9613,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3590D112EF34E7800F02FE7 /* read_le16.c in Sources */,
 				C3ED631D2C6E0FCC000F90A8 /* ciderpress.c in Sources */,
 				C3ED631F2C6E0FCC000F90A8 /* woz2nib.c in Sources */,
 			);

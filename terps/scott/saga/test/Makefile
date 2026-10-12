@@ -83,8 +83,7 @@ groundtruth: build/filltest
 # screenshot of that room (see dos_decode_png.py + groundtruth_dos/README.md).
 # Goldens line up at a constant +24px (pcdraw's Spatterlight window margin).
 DOS_SRCS := dostest.c \
-            $(SCOTT)/../common_sagadraw/pcdraw.c \
-            $(SCOTT)/../common_utils/read_le16.c
+            $(SCOTT)/../common_sagadraw/pcdraw.c
 DOS_GOLDENS := $(wildcard groundtruth_dos/*/*.cga)
 
 build/dostest: $(call objs,test,$(DOS_SRCS))
@@ -110,8 +109,7 @@ A2_SRCS := apple2test.c headless_glk_stubs.c \
            $(SCOTT)/../common_sagadraw/apple2draw.c \
            $(SCOTT)/../common_sagadraw/gm_artifact.c \
            $(SCOTT)/../common_sagadraw/gm_vector.c \
-           $(SCOTT)/../common_utils/memory_allocation.c \
-           $(SCOTT)/../common_utils/read_le16.c
+           $(SCOTT)/../common_utils/memory_allocation.c
 A2_GOLDENS := $(wildcard groundtruth_apple2/*/*.page)
 
 build/apple2test: $(call objs,test,$(A2_SRCS))
@@ -141,7 +139,7 @@ EXTRACT_SRCS := extract_images.c extract_stubs.c \
   $(TERPS)/common_sagadraw/pcdraw.c $(TERPS)/common_sagadraw/gm_artifact.c \
   $(TERPS)/common_sagadraw/gm_vector.c \
   $(TERPS)/common_utils/memory_allocation.c $(TERPS)/common_utils/common_file_utils.c \
-  $(TERPS)/common_utils/read_le16.c $(TERPS)/common_utils/companion_search.c \
+  $(TERPS)/common_utils/companion_search.c \
   $(TERPS)/aiukgraphics/irmak.c $(TERPS)/aiukgraphics/aiukpalette.c \
   $(TERPS)/readwoz/ciderpress.c $(TERPS)/readwoz/woz2nib.c \
   $(TERPS)/decompressz80/decompressz80.c $(TERPS)/common_zxscreen/zx_title.c
@@ -249,7 +247,7 @@ c64test: build/c64test
 # The Atari 8-bit half of the renderer (is_c64=0) is covered by the same target
 # via the `!atari8` spec directive (golden hulk_atari8/room01_chair); its blobs
 # come off a companion disk side, dumped with build/extract_images.
-C64A8_SRCS := c64a8test.c $(TERPS)/common_utils/read_le16.c
+C64A8_SRCS := c64a8test.c
 C64A8_GOLDENS := $(wildcard groundtruth_c64a8/*/*.c64)
 
 build/c64a8test: $(call objs,test,$(C64A8_SRCS))

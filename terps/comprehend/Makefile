@@ -52,11 +52,10 @@ CXX_SRCS := \
 C_SRCS := glkstart.c
 
 # Shared Apple II disk-image readers (DOS 3.3 / ProDOS + WOZ).
-READWOZ_SRCS := $(READWOZ_DIR)/ciderpress.c $(READWOZ_DIR)/woz2nib.c \
-                $(COMMON_DIR)/read_le16.c
+READWOZ_SRCS := $(READWOZ_DIR)/ciderpress.c $(READWOZ_DIR)/woz2nib.c
 
 OBJS := $(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) \
-        ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+        ciderpress.o woz2nib.o gm_vector.o gm_artifact.o
 
 comprehend: $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
@@ -70,8 +69,6 @@ comprehend: $(OBJS)
 ciderpress.o: $(READWOZ_DIR)/ciderpress.c
 	$(CC) $(CFLAGS) -c $< -o $@
 woz2nib.o: $(READWOZ_DIR)/woz2nib.c
-	$(CC) $(CFLAGS) -c $< -o $@
-read_le16.o: $(COMMON_DIR)/read_le16.c
 	$(CC) $(CFLAGS) -c $< -o $@
 gm_vector.o: $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_vector.h
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -171,9 +168,9 @@ check: test
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
 # See test/talisman/README.md.
-test/pixtest: $(GM_SHARED_H) test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+test/pixtest: $(GM_SHARED_H) test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o gm_vector.o gm_artifact.o
 	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) -o $@ \
-	    test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+	    test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o gm_vector.o gm_artifact.o
 
 # Developer tool: render one DOS Talisman (CGA) picture and write it as a PPM,
 # to eyeball against a DOSBox capture. Self-contained: graphics_magician_cga.cpp has no
@@ -203,9 +200,9 @@ test/gmpcjr/pcjrtest: $(GM_SHARED_H) test/gmpcjr/pcjrtest.cpp graphics_magician_
 #   ./test/dhgrtrace <sideA.woz> <bootB.woz> overlay RA 0 OE 0 /tmp/door
 #   ./test/dhgrtrace <sideA.woz> <bootB.woz> disasm OE 0
 #   ./test/dhgrtrace <sideA.woz> <bootB.woz> dumprle OE 0
-test/dhgrtrace: $(GM_SHARED_H) test/dhgrtrace.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+test/dhgrtrace: $(GM_SHARED_H) test/dhgrtrace.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o gm_vector.o gm_artifact.o
 	$(CXX) -std=c++17 -O0 -g -w -I. -I$(SAGADRAW_DIR) -o $@ test/dhgrtrace.cpp \
-	    graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+	    graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o gm_vector.o gm_artifact.o
 
 # Developer tool: re-render every committed DOS Talisman fixture and report, per
 # scene, the rendered->golden colour-transition histogram, per-row diff bands, a
@@ -219,16 +216,16 @@ test/diff_gmcga: $(GM_SHARED_H) test/diff_gmcga.cpp graphics_magician_cga.cpp gr
 # Self-contained: replicates the graphics_magician opcode walker, so it only
 # needs the disk-image readers. Handles both the 1985 16-image collection format
 # and the older single-picture-per-file DOS 3.3 releases (via OP5_SINGLE).
-test/op5scan: test/op5scan.c ciderpress.o woz2nib.o read_le16.o
+test/op5scan: test/op5scan.c ciderpress.o woz2nib.o
 	$(CC) -O2 -w -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
-	    test/op5scan.c ciderpress.o woz2nib.o read_le16.o
+	    test/op5scan.c ciderpress.o woz2nib.o
 
 # Developer tool: list/extract files from a Comprehend Apple II .woz/.dsk disk,
 # used to pull the G-files and capture the DHGR fixtures in test/cm_dhgr/fixtures/.
 #   ./test/cmextract disk.woz --list
 #   ./test/cmextract disk.woz T5 out.bin
-test/cmextract: test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o
+test/cmextract: test/cmextract.cpp ciderpress.o woz2nib.o
 	$(CXX) -std=c++14 -O0 -g -w -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
-	    test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o
+	    test/cmextract.cpp ciderpress.o woz2nib.o
 
 .PHONY: clean test check
