@@ -17,6 +17,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <ctype.h>
 
 #include "debugprint.h"
@@ -1524,7 +1525,7 @@ static DIError ReadBlockSwapped(long block, void* buf, SectorOrder imageOrder,
             debug_print(" DI NOTE: ReadBlockSwapped on non-sector (%d/%d)",
                  imageOrder, fsOrder);
         }
-        dierr = CopyBytesOut(buf, (off_t) block * kBlkSize, kBlkSize);
+        dierr = CopyBytesOut(buf, (size_t)block * kBlkSize, kBlkSize);
     } else {
         dierr = kDIErrInternal;
     }
@@ -2732,7 +2733,8 @@ A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_fil
     while (file) {
         Open(file);
         if (file->fLengthInSectors) {
-            size_t namelen = strnlen((char *)file->fFileName, kFileNameBufLen) + 1;
+            const char *nameend = memchr(file->fFileName, 0, kFileNameBufLen);
+            size_t namelen = (nameend ? (size_t)(nameend - (const char *)file->fFileName) : kFileNameBufLen) + 1;
             if (namelen) {
                 filecount++;
                 if (filecount > 1) {
@@ -2861,7 +2863,7 @@ A2FileRec *GetAllProDOSFiles(uint8_t *data, size_t len, size_t *number_of_files)
             recs = MemRealloc(recs, sizeof(A2FileRec) * (filecount + 1));
             recs[filecount].index = filecount;
             recs[filecount].filename = MemAlloc(strlen(name) + 1);
-            strlcpy(recs[filecount].filename, name, strlen(name) + 1);
+            memcpy(recs[filecount].filename, name, strlen(name) + 1);
             recs[filecount].data = buf;
             recs[filecount].datasize = actual;
             filecount++;

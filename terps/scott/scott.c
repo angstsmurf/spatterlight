@@ -66,6 +66,11 @@
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
+#else
+/* Only Spatterlight has settings for these: pictures are always on, and
+   vector pictures are drawn in one go. */
+#define gli_enable_graphics 1
+int gli_slowdraw = 0;
 #endif
 
 /* Defines only used in this file */
@@ -679,9 +684,11 @@ GameIDType LoadDatabase(FILE *f)
 void Output(const char *a) { Display(Bottom, "%s", a); }
 
 
+#ifdef SPATTERLIGHT
 static int RunTests(const char *supportpath) {
     return RunVectorTests(supportpath);
 }
+#endif
 
 glkunix_argumentlist_t glkunix_arguments[] = {
     { "-y", glkunix_arg_NoValue,
@@ -751,6 +758,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
             case 'f':
                 Options |= FLICKER_ON;
                 break;
+#ifdef SPATTERLIGHT
             case 'z':
                 // Run the test suite RunTests() with the support file path as parameter,
                 // call win_testresult() with the return value as parameter,
@@ -758,6 +766,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
                 fprintf(stderr, "Running tests\n");
                 win_testresult(RunTests(argv[2]));
                 glk_exit();
+#endif
             }
             argv++;
             argc--;
