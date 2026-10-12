@@ -16,29 +16,13 @@
 
 #include "c64detect.h"
 
-/* Read the named file from the disk image into a new buffer and set *size
-   to its length. Returns NULL, leaving *size alone, if it can't be opened. */
-static uint8_t *ReadFileFromD64(DiskImage *d64, const char *name, size_t *size)
-{
-    unsigned char rawname[100];
-    di_rawname_from_name(rawname, name);
-    ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-    if (c64file == NULL)
-        return NULL;
-    /* di_read_file() frees c64file */
-    uint8_t *file = di_read_file(c64file, size);
-    if (file == NULL)
-        Fatal("Out of memory");
-    return file;
-}
-
 static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newlength)
 {
     uint8_t *file = NULL;
     *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, (int)length);
+    DiskImage *d64 = di_create_from_data(data, length);
     if (d64) {
-        file = ReadFileFromD64(d64, "DATA", newlength);
+        file = di_read_file_named(d64, "DATA", newlength);
         int numfiles;
         char **filenames = di_get_all_file_names(d64, &numfiles);
 
@@ -59,7 +43,7 @@ static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newleng
                readable. Leave it out: a picture without data cannot be drawn. */
             int loaded = 0;
             for (int i = 0; i < imgindex; i++) {
-                Images[loaded].Data = ReadFileFromD64(d64, imagefiles[i], &Images[loaded].Size);
+                Images[loaded].Data = di_read_file_named(d64, imagefiles[i], &Images[loaded].Size);
                 if (Images[loaded].Data == NULL) {
                     free(imagefiles[i]);
                     continue;
@@ -67,8 +51,7 @@ static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newleng
                 Images[loaded++].Filename = imagefiles[i];
             }
         }
-        /* The disk image struct owns nothing: it points into data */
-        free(d64);
+        di_free(d64);
     }
     return file;
 }

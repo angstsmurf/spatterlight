@@ -8,7 +8,7 @@ XS/S/M/L. Risk: none/low/medium/high.
 are the review as it was written, kept for the reasoning; their line numbers
 and counts describe the tree before the work.
 
-Callers of `unp64()` (C ABI): `terps/c64diskimage/c64unpack.h`,
+Callers of `unp64()` (C ABI): `terps/unp64/c64unpack.h`,
 `terps/scott/ai_uk/c64decrunch.c`, `terps/taylor/c64decrunch.c`,
 `terps/unquill/unquill.c` (which re-declares the prototype itself instead of
 including `unp64_interface.h`). Both headless Makefiles

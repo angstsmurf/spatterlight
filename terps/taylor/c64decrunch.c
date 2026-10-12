@@ -102,26 +102,6 @@ static const c64rec c64_registry[] = {
 
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 
-/* Extract the largest file from a D64 disk image into a new buffer.
-   Returns the file data (caller must free) and sets *newlength,
-   or returns NULL if the disk image couldn't be parsed. */
-static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, (int)length);
-    if (d64) {
-        RawDirEntry *largest = di_find_largest_file_entry(d64);
-        if (largest) {
-            ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
-            if (c64file)
-                file = di_read_file(c64file, newlength);
-        }
-        free(d64);
-    }
-    return file;
-}
-
 /* Extract a file from a T64 tape image by record number (1-based).
    Reads the directory entry at offset 32 + 32*filenum to find the data
    offset and size, then returns a buffer with the 2-byte C64 load address
@@ -150,23 +130,6 @@ static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf,
     memcpy(file, file_records + 2, 2);
     memcpy(file + 2, *sf + offset, size);
     *extent = size + 2;
-    return file;
-}
-
-/* Extract a file from a D64 image starting at a specific track/sector.
-   Used for Temple of Terror variants that store files at known disk
-   locations rather than in the directory. */
-static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, int track, int sector)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, (int)length);
-    if (d64) {
-        ImageFile *c64file = di_create_file_from_ts(d64, track, sector);
-        if (c64file)
-            file = di_read_file(c64file, newlength);
-        free(d64);
-    }
     return file;
 }
 
@@ -204,14 +167,14 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
     uint8_t *file2 = NULL;
     switch (rec.layout) {
     case TWO_FILES_BY_TS: {
-        uint8_t *tempfile1 = get_file_at_ts(*sf, *extent, &size1, 17, 1);
+        uint8_t *tempfile1 = di_get_file_at_ts(*sf, *extent, &size1, 17, 1);
         if (tempfile1 != NULL && size1 > TRIANON_LOADER_SIZE) {
             size1 -= TRIANON_LOADER_SIZE;
             file1 = MemAlloc(size1);
             memcpy(file1, tempfile1 + TRIANON_LOADER_SIZE, size1);
         }
         free(tempfile1);
-        uint8_t *tempfile2 = get_file_at_ts(*sf, *extent, &size2, 20, 16);
+        uint8_t *tempfile2 = di_get_file_at_ts(*sf, *extent, &size2, 20, 16);
         if (tempfile2 != NULL) {
             file2 = MemCalloc(size2 + TRIANON_MISSING_HEADER);
             memcpy(file2 + TRIANON_MISSING_HEADER, tempfile2, size2);
@@ -324,7 +287,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                 return terror_menu(sf, extent, i);
             if (record.type == TYPE_D64) {
                 size_t newlength;
-                uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
+                uint8_t *largest_file = di_get_largest_file(*sf, *extent, &newlength);
 
                 if (largest_file) {
                     free(*sf);

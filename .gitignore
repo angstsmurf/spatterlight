@@ -244,6 +244,8 @@ terps/scott/scott_cond_audit
 # Apple II disk reader snapshot probe
 terps/readwoz/test/ciderpress_probe
 terps/readwoz/test/ciderpress_probe.dSYM/
+terps/c64diskimage/test/c64diskimage_probe
+terps/c64diskimage/test/c64diskimage_probe.dSYM/
 
 # Plus and TaylorMade picture test build artifacts and (copyrighted) games
 terps/plus/headless_obj/

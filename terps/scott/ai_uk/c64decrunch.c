@@ -194,48 +194,6 @@ static const c64rec c64_registry[] = {
 
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 
-/* Extract the largest file from a D64 disk image into a newly allocated buffer.
-   Returns the file data (caller must free) and sets *newlength, or returns
-   NULL if the disk image couldn't be parsed. */
-static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, length);
-    if (d64) {
-        RawDirEntry *largest = di_find_largest_file_entry(d64);
-        if (largest) {
-            ImageFile *c64file = di_open(d64, largest->rawname, largest->type, "rb");
-            if (c64file) {
-                size_t filelength;
-                file = di_read_file(c64file, &filelength);
-                *newlength = (int)filelength;
-            }
-        }
-        free(d64);
-    }
-    return file;
-}
-
-/* Extract the file that starts at a given track and sector of a D64 disk
-   image, for a program that the directory of the disk does not list. */
-static uint8_t *get_file_at_ts(uint8_t *data, int length, int *newlength, int track, int sector)
-{
-    uint8_t *file = NULL;
-    *newlength = 0;
-    DiskImage *d64 = di_create_from_data(data, length);
-    if (d64) {
-        ImageFile *c64file = di_create_file_from_ts(d64, track, sector);
-        if (c64file) {
-            size_t filelength;
-            file = di_read_file(c64file, &filelength);
-            *newlength = (int)filelength;
-        }
-        free(d64);
-    }
-    return file;
-}
-
 /* Savage Island stores picture data in separate files on the D64 image.
    These buffers hold the extracted picture files so they can be appended
    to the main game data after decompression. */
@@ -430,12 +388,10 @@ static void LoadC64USImages(uint8_t *data, size_t length)
     DiskImage *d64 = di_create_from_data(data, length);
     if (d64) {
         char **filenames = di_get_all_file_names(d64, &numfiles);
-        unsigned char rawname[1024];
         if (filenames) {
+            /* Keep the names of the pictures, at the front of the array */
             int imgindex = 0;
-            if (numfiles > 1024)
-                numfiles = 1024;
-            char *imagefiles[1024];
+            char **imagefiles = filenames;
             for (int i = 0; i < numfiles; i++) {
                 if (IsSagaImage(filenames[i])) {
                     imagefiles[imgindex++] = filenames[i];
@@ -443,17 +399,16 @@ static void LoadC64USImages(uint8_t *data, size_t length)
                     free(filenames[i]);
                 }
             }
-            free(filenames);
 
             if (imgindex) {
                 USImages = NewImage();
                 USImage *image = USImages;
                 for (int i = 0; i < imgindex; i++) {
                     const char *shortname = imagefiles[i];
-                    di_rawname_from_name(rawname, shortname);
-                    ImageFile *c64file = di_open(d64, rawname, 0xc2, "rb");
-                    if (c64file) {
-                        image->imagedata = di_read_file(c64file, &image->datasize);
+                    /* The index and usage are read from positions 3 to 6 */
+                    if (strlen(shortname) >= 6)
+                        image->imagedata = di_read_file_named(d64, shortname, &image->datasize);
+                    if (image->imagedata) {
                         image->systype = SYS_C64;
                         /* Parse 3-digit image index from filename positions 3–5 */
                         image->index = shortname[5] - '0' + (shortname[4] - '0') * 10 + (shortname[3] - '0') * 100;
@@ -476,8 +431,9 @@ static void LoadC64USImages(uint8_t *data, size_t length)
                     USImages = NULL;
                 }
             }
+            free(filenames);
         }
-        free(d64);
+        di_free(d64);
     }
 }
 
@@ -534,15 +490,15 @@ static size_t writeToFile(const char *name, uint8_t *data, size_t size)
    Returns 0 on failure. */
 static int ExtractD64Game(uint8_t **sf, size_t *extent, const c64rec *rec)
 {
-    int newlength;
+    size_t newlength;
     uint8_t *largest_file;
     /* The Slam compilation lists a copy of Claymorgue that ends 2.8 KB
        short, C1/SLAM. A complete, packed one is still on the disk, at
        track 22, sector 4, with no directory entry. */
     if (rec->chk == 0xf8c2)
-        largest_file = get_file_at_ts(*sf, *extent, &newlength, 22, 4);
+        largest_file = di_get_file_at_ts(*sf, *extent, &newlength, 22, 4);
     else
-        largest_file = get_largest_file(*sf, *extent, &newlength);
+        largest_file = di_get_largest_file(*sf, *extent, &newlength);
     uint8_t *appendix = NULL;
     size_t appendixlen = 0;
 

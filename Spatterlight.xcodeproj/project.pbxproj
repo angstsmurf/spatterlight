@@ -7109,7 +7109,6 @@
 			isa = PBXGroup;
 			children = (
 				C3F06B98288D42DD00AC7FDE /* c64diskimage.h */,
-				C3C0A5E100000000000000A6 /* c64unpack.h */,
 				C3F06B99288D42DD00AC7FDE /* c64diskimage.c */,
 			);
 			path = c64diskimage;
@@ -7125,6 +7124,7 @@
 				C3EEEF3F296C9C050094DE93 /* exo_util.h */,
 				C3EEEF40296C9C050094DE93 /* exo_util.cpp */,
 				C3F09D3B28888F890035DAC2 /* unp64_interface.h */,
+				C3C0A5E100000000000000A6 /* c64unpack.h */,
 				C3F09D3D28888F890035DAC2 /* scanners */,
 			);
 			path = unp64;

@@ -43,7 +43,7 @@ int main(int argc, char **argv) {
     uint8_t *disk = read_file(d64path, &disksize);
     if (!disk) { fprintf(stderr, "cannot read %s\n", d64path); return 1; }
 
-    DiskImage *d64 = di_create_from_data(disk, (int)disksize);
+    DiskImage *d64 = di_create_from_data(disk, disksize);
     if (!d64) { fprintf(stderr, "not a valid d64: %s\n", d64path); return 1; }
 
     int numfiles = 0;
@@ -52,30 +52,26 @@ int main(int argc, char **argv) {
 
     int extracted = 0;
     for (int i = 0; i < numfiles; i++) {
-        if (names[i] && is_saga_image(names[i])) {
-            unsigned char rawname[1024];
-            di_rawname_from_name(rawname, names[i]);
-            ImageFile *cf = di_open(d64, rawname, 0xc2, "rb");
-            if (cf) {
-                unsigned char buf[0xffff];
-                int n = di_read(cf, buf, 0xffff);
-                free(cf);
-                if (n > 0) {
-                    char outpath[1100];
-                    snprintf(outpath, sizeof outpath, "%s/%s.dat", outdir, names[i]);
-                    FILE *o = fopen(outpath, "wb");
-                    if (o) {
-                        fwrite(buf, 1, (size_t)n, o);
-                        fclose(o);
-                        printf("  %-8s %5d bytes\n", names[i], n);
-                        extracted++;
-                    }
+        if (is_saga_image(names[i])) {
+            size_t n = 0;
+            uint8_t *file = di_read_file_named(d64, names[i], &n);
+            if (file && n > 0) {
+                char outpath[1100];
+                snprintf(outpath, sizeof outpath, "%s/%s.dat", outdir, names[i]);
+                FILE *o = fopen(outpath, "wb");
+                if (o) {
+                    fwrite(file, 1, n, o);
+                    fclose(o);
+                    printf("  %-8s %5zu bytes\n", names[i], n);
+                    extracted++;
                 }
             }
+            free(file);
         }
         free(names[i]);
     }
     free(names);
+    di_free(d64);
     printf("extracted %d image blob(s) to %s\n", extracted, outdir);
     return extracted ? 0 : 1;
 }
