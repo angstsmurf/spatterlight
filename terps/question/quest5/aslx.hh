@@ -56,8 +56,13 @@ namespace aslx {
 // ("3.5"), and a host library calling setlocale(LC_ALL, "") must not change
 // how they parse (a comma-decimal locale would truncate every double).
 inline double c_strtod(const char *s, char **end = nullptr) {
+#ifdef _WIN32
+    static _locale_t c_loc = _create_locale(LC_ALL, "C");
+    return _strtod_l(s, end, c_loc);
+#else
     static locale_t c_loc = newlocale(LC_ALL_MASK, "C", (locale_t)0);
     return strtod_l(s, end, c_loc);
+#endif
 }
 
 // The writing side: printf's "%.<precision>g" with the decimal point pinned to
@@ -518,6 +523,13 @@ bool inflate_raw(const uint8_t *src, size_t srclen, size_t rawlen,
 
 // Read a whole file into `out`; false if it cannot be opened.
 bool slurp_file(const std::string &path, std::string &out);
+
+#ifdef ASLX_EMBEDDED_CORE
+// A host that can't ship aslx-core as loose files compiles the libraries in
+// and supplies this (Gargoyle generates it with embed_core.cmake). `name` is
+// a bare filename, Core and Languages alike; false if there is no such file.
+bool embedded_core_file(const std::string &name, std::string &out);
+#endif
 
 // Human-readable dump of the element tree, for the loader debug mode / tests.
 std::string dump(const World &world);

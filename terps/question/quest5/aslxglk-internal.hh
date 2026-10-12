@@ -40,6 +40,7 @@
 #include "aslxglk-form.hh"
 #include "aslxglk-map.hh"
 
+#include <algorithm>
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>

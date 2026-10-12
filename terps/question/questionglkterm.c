@@ -24,6 +24,12 @@
 const char *storyfilename = NULL;
 int use_inputwindow = 0;
 
+#ifndef SPATTERLIGHT
+/* The "real-time delays" preference belongs to Spatterlight's Glk library.
+ * Any other host has no such switch: timers and pauses run in real time. */
+int gli_sa_delays = 1;
+#endif
+
 glkunix_argumentlist_t glkunix_arguments[] = {
     { "-w", glkunix_arg_NoValue,    "-w:       Use a separate input window."},
     { "", glkunix_arg_ValueFollows, "filename: The game file to load."},

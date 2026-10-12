@@ -780,7 +780,8 @@ struct Loader {
 
     // Read a library file by the search order in QuestViva's
     // WorldModel.GetLibraryStream(): game-adjacent, then Core/, then
-    // Core/Languages/. Returns true and fills `buf` on the first hit.
+    // Core/Languages/, and last the copy of Core compiled into the binary,
+    // if the host built one in. Returns true and fills `buf` on the first hit.
     bool read_library(const std::string &ref, std::string &buf) {
         std::string dirs[] = {game_dir, core_dir,
                               core_dir.empty() ? std::string()
@@ -789,6 +790,9 @@ struct Loader {
             if (d.empty()) continue;
             if (slurp_file(d + "/" + ref, buf)) return true;
         }
+#ifdef ASLX_EMBEDDED_CORE
+        if (embedded_core_file(ref, buf)) return true;
+#endif
         return false;
     }
 
