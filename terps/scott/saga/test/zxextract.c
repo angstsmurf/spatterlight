@@ -23,15 +23,10 @@
 #include "scott.h"
 #include "detect_game.h"
 #include "irmak.h"
-#include "palette.h"
+#include "aiukpalette.h"
 #include "line_drawing.h"
 
 extern const char *game_file;
-extern Image *images;
-extern int number_of_images;
-extern int image_version;
-extern uint8_t tiles[256][8];
-extern palette_type palchosen;
 extern line_image *LineImages;
 
 int main(int argc, char **argv) {

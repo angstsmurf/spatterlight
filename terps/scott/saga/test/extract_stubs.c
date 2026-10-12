@@ -12,6 +12,7 @@
 
 #include "glk.h"
 #include "detect_game.h"
+#include "taylordraw.h"
 
 // --- C64 detection (pulls in the C++ unp64 depacker) — not needed here --------
 // The C64-blob dumper (extract_images_c64) links the real DetectC64 + decrunch
@@ -52,9 +53,6 @@ glui32 erkyrath_random(void) { return 0; }
 void set_erkyrath_random(glui32 seed) { (void)seed; }
 
 // --- Taylor renderer (separate interpreter; never called from the scott path) --
-typedef void (*draw_obj_fn)(uint8_t, uint8_t);
-void InitTaylor(uint8_t *data, uint8_t *end, uint8_t *objloc, int older, int rebel, draw_obj_fn obj_draw) {
-    (void)data; (void)end; (void)objloc; (void)older; (void)rebel; (void)obj_draw;
-}
+void InitTaylor(const taylor_draw_config *config) { (void)config; }
 int DrawTaylor(int loc, int current_location) { (void)loc; (void)current_location; return 0; }
 #endif

@@ -142,7 +142,7 @@ EXTRACT_SRCS := extract_images.c extract_stubs.c \
   $(TERPS)/common_sagadraw/gm_vector.c \
   $(TERPS)/common_utils/memory_allocation.c $(TERPS)/common_utils/common_file_utils.c \
   $(TERPS)/common_utils/read_le16.c $(TERPS)/common_utils/companion_search.c \
-  $(TERPS)/aiukgraphics/irmak.c $(TERPS)/aiukgraphics/palette.c \
+  $(TERPS)/aiukgraphics/irmak.c $(TERPS)/aiukgraphics/aiukpalette.c \
   $(TERPS)/readwoz/ciderpress.c $(TERPS)/readwoz/woz2nib.c \
   $(TERPS)/decompressz80/decompressz80.c $(TERPS)/common_zxscreen/zx_title.c
 EXTRACT_INC := -I$(SCOTT) -I$(SCOTT)/ai_uk -I$(SCOTT)/saga -I$(SCOTT)/ti994a \
@@ -269,11 +269,11 @@ c64a8test: build/c64a8test
 # they live in the aiukgraphics subsystem — so the loader state (256-tile font,
 # per-picture data + geometry) is dumped by build/zxextract (real DetectGame ->
 # SagaGraphicsSetup) into a golden dir. zxtest.c unity-includes irmak.c, supplies
-# the PutPixel/RectFill sinks, links palette.c for Remap/pal, and byte-compares
+# the PutPixel/RectFill sinks, links aiukpalette.c for Remap/pal, and byte-compares
 # the rendered grid to a golden decoded from a real ZX screenshot (same
 # C64R1/C64C2 pipeline + decoder as the C64/Atari tests), or to a SCREEN$ dump
 # (.scr) written by zx_capture.lua.
-ZX_SRCS := zxtest.c $(TERPS)/aiukgraphics/palette.c
+ZX_SRCS := zxtest.c $(TERPS)/aiukgraphics/aiukpalette.c
 ZX_GOLDENS := $(wildcard groundtruth_zx/*/*.zx groundtruth_zx/*/*.scr)
 
 build/zxtest: $(call objs,test,$(ZX_SRCS))
@@ -282,7 +282,7 @@ build/zxtest: $(call objs,test,$(ZX_SRCS))
 # Howarth / Mysterious Adventures vector renderer (ai_uk/line_drawing.c). Same
 # golden-dir scheme; goldens use the .zxvec extension to keep them on their own
 # harness. zxextract dumps the LineImages[] vector stream.
-ZXVEC_SRCS := zxvectortest.c headless_glk_stubs.c $(TERPS)/aiukgraphics/palette.c \
+ZXVEC_SRCS := zxvectortest.c headless_glk_stubs.c $(TERPS)/aiukgraphics/aiukpalette.c \
               $(SCOTT)/ai_uk/ringbuffer.c $(TERPS)/common_utils/memory_allocation.c
 ZXVEC_GOLDENS := $(wildcard groundtruth_zx/*/*.zxvec)
 

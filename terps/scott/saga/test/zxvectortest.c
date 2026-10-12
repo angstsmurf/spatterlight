@@ -11,7 +11,7 @@
 // line_drawing.c is unity-included to reach DrawHowarthVectorPicture + its
 // file-statics; we supply the PutPixel/RectFill sinks + the loader globals it
 // touches (entire_file/file_length/Game/VectorState/gli_slowdraw) and link
-// palette.c + ringbuffer.c.
+// aiukpalette.c + ringbuffer.c.
 //
 // A golden dir holds: pic<NNN>.dat (vector stream) and render.txt
 // ("palette N", "picfile ...", "bg N").
@@ -25,7 +25,7 @@
 
 #include "glk.h"
 #include "scott.h"
-#include "palette.h"
+#include "aiukpalette.h"
 #include "line_drawing.h"
 #include "vector_common.h"
 

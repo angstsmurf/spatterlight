@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-#include "palette.h"
+#include "aiukpalette.h"
 #include "minmax.h"
 #include "common_defines.h"
 #include "scott_opcodes.h"

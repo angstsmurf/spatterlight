@@ -15,7 +15,7 @@
 #include <string.h>
 
 #include "glk.h"
-#include "palette.h"
+#include "aiukpalette.h"
 #include "taylor.h"
 #include "taylordraw.h"
 #include "utility.h"
@@ -26,8 +26,6 @@
 
 glui32 pixel_size;
 glui32 x_offset;
-
-int last_image_index;
 
 static uint8_t *EndOfGraphicsData;
 
@@ -58,10 +56,10 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
 void PatchAndDrawQP3Cannon(void)
 {
     DrawPictureNumber(46, 1);
-    imagebuffer[IRMAK_IMGWIDTH * 8 + 25][8] &= 191;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 25][8] &= 191;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 26][8] &= 191;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 27][8] &= 191;
+    imagebuffer[IRMAK_IMGWIDTH * 8 + 25][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
+    imagebuffer[IRMAK_IMGWIDTH * 9 + 25][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
+    imagebuffer[IRMAK_IMGWIDTH * 9 + 26][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
+    imagebuffer[IRMAK_IMGWIDTH * 9 + 27][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
     DrawIrmakPictureFromBuffer();
 }
 
@@ -406,8 +404,14 @@ void InitGraphics(void)
         /* Questprobe 3 has no Taylor image data,
            (it uses the older type of graphics)
            so we only set this for the other games. */
-        InitTaylor(&FileImage[Game->start_of_image_instructions + FileBaselineOffset],
-                       EndOfGraphicsData - 5, ObjectLoc, Version != HEMAN_TYPE, BaseGame == REBEL_PLANET, NULL);
+        taylor_draw_config config = {
+            .data = &FileImage[Game->start_of_image_instructions + FileBaselineOffset],
+            .end = EndOfGraphicsData - 5,
+            .objloc = ObjectLoc,
+            .flags = (Version != HEMAN_TYPE ? TAYLOR_OLDER : 0)
+                | (BaseGame == REBEL_PLANET ? TAYLOR_REBEL_PLANET : 0),
+        };
+        InitTaylor(&config);
     }
 
     InitIrmak(Game->number_of_pictures, 4);

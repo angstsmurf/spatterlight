@@ -14,7 +14,7 @@
 #include "glkimp.h"
 #include "decompressz80.h"      /* ExtractTapePayloads, SCREEN$ geometry/decode */
 #include "zx_title.h"           /* shared ZXTitle renderer */
-#include "palette.h"            /* pal[], palchosen, ZXOPT, DefinePalette */
+#include "aiukpalette.h"            /* pal[], palchosen, ZXOPT, DefinePalette */
 #include "taylor.h"
 #include "ui.h"                 /* Bottom, Top, Graphics, Open*Window */
 #include "utility.h"            /* MemAlloc, FindGlkWindowWithRock, rocks */

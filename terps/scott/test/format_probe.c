@@ -41,8 +41,6 @@
 #include "load_ti99_4a.h"
 #include "sagagraphics.h"
 
-extern int number_of_images;
-extern int image_version;
 extern uint8_t *descrambletable;
 
 static int verbose = 0;

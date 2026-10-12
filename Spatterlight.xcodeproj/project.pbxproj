@@ -700,7 +700,7 @@
 		C31AF2F427165168007B7120 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DD223262CA008C9CB7 /* CoreData.framework */; };
 		C31AF2FA271652A0007B7120 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */; };
 		C31DB983276E961F00547C9C /* sagadraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C31DB982276E961F00547C9C /* sagadraw.c */; };
-		C31F05282EED8793002A6EC0 /* palette.c in Sources */ = {isa = PBXBuildFile; fileRef = C31F05272EED8793002A6EC0 /* palette.c */; };
+		C31F05282EED8793002A6EC0 /* aiukpalette.c in Sources */ = {isa = PBXBuildFile; fileRef = C31F05272EED8793002A6EC0 /* aiukpalette.c */; };
 		C321419A26CEBAA000B49504 /* Transcript of CZECH.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */; };
 		C321419C26CEC55B00B49504 /* Transcript of Praxix.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */; };
 		C321419F26CECD9000B49504 /* Transcript of TerpEtude.rtf in Resources */ = {isa = PBXBuildFile; fileRef = C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */; };
@@ -729,7 +729,7 @@
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
 		C33BC7132EEEFA500086C18C /* taylordraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30AC87C2EE9318800E1EE85 /* taylordraw.c */; };
 		C33BC7142EEEFA500086C18C /* irmak.c in Sources */ = {isa = PBXBuildFile; fileRef = C359A2D42EE5AF670079F9EA /* irmak.c */; };
-		C33BC7152EEEFA500086C18C /* palette.c in Sources */ = {isa = PBXBuildFile; fileRef = C31F05272EED8793002A6EC0 /* palette.c */; };
+		C33BC7152EEEFA500086C18C /* aiukpalette.c in Sources */ = {isa = PBXBuildFile; fileRef = C31F05272EED8793002A6EC0 /* aiukpalette.c */; };
 		C33BC7172EEEFAED0086C18C /* libaiukgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C33BC70E2EEEF9650086C18C /* libaiukgraphics.a */; };
 		C33BC71A2EEEFB530086C18C /* libaiukgraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C33BC70E2EEEF9650086C18C /* libaiukgraphics.a */; };
 		C33EAB382982F6550098CFD4 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
@@ -3420,8 +3420,8 @@
 		C31AF2F9271652A0007B7120 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		C31DB980276E961F00547C9C /* sagadraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sagadraw.h; sourceTree = "<group>"; usesTabs = 0; };
 		C31DB982276E961F00547C9C /* sagadraw.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.c; path = sagadraw.c; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
-		C31F05262EED8793002A6EC0 /* palette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = palette.h; sourceTree = "<group>"; };
-		C31F05272EED8793002A6EC0 /* palette.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = palette.c; sourceTree = "<group>"; };
+		C31F05262EED8793002A6EC0 /* aiukpalette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aiukpalette.h; sourceTree = "<group>"; };
+		C31F05272EED8793002A6EC0 /* aiukpalette.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = aiukpalette.c; sourceTree = "<group>"; };
 		C321419926CEBAA000B49504 /* Transcript of CZECH.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of CZECH.rtf"; sourceTree = "<group>"; };
 		C321419B26CEC55B00B49504 /* Transcript of Praxix.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of Praxix.rtf"; sourceTree = "<group>"; };
 		C321419D26CECD9000B49504 /* Transcript of TerpEtude.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude.rtf"; sourceTree = "<group>"; };
@@ -6657,8 +6657,8 @@
 				C30AC87C2EE9318800E1EE85 /* taylordraw.c */,
 				C359A2D32EE5AF670079F9EA /* irmak.h */,
 				C359A2D42EE5AF670079F9EA /* irmak.c */,
-				C31F05262EED8793002A6EC0 /* palette.h */,
-				C31F05272EED8793002A6EC0 /* palette.c */,
+				C31F05262EED8793002A6EC0 /* aiukpalette.h */,
+				C31F05272EED8793002A6EC0 /* aiukpalette.c */,
 			);
 			path = aiukgraphics;
 			sourceTree = "<group>";
@@ -9458,7 +9458,7 @@
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */,
 				C30CAD052FAFD61200A90820 /* scott_display.c in Sources */,
-				C31F05282EED8793002A6EC0 /* palette.c in Sources */,
+				C31F05282EED8793002A6EC0 /* aiukpalette.c in Sources */,
 				C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */,
 				C318F76F2741AA5B006D626A /* scott.c in Sources */,
 				C30CAD072FAFD61400A90820 /* scott_meta.c in Sources */,
@@ -9509,7 +9509,7 @@
 			files = (
 				C33BC7132EEEFA500086C18C /* taylordraw.c in Sources */,
 				C33BC7142EEEFA500086C18C /* irmak.c in Sources */,
-				C33BC7152EEEFA500086C18C /* palette.c in Sources */,
+				C33BC7152EEEFA500086C18C /* aiukpalette.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

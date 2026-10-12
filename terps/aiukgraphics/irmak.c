@@ -21,7 +21,7 @@
 //    1. PerformTileTransformations — decode the tile stream, apply
 //       rotations/flips/overlays, and write the result into layout[][].
 //    2. DecodeAttributes — decode the RLE-compressed colour stream
-//       into ink/paper arrays (or directly into imagebuffer).
+//       into attributes[], one Spectrum-style attribute per cell.
 //    3. DrawDecodedImage — rasterise the layout+attributes either
 //       to the screen directly, or into imagebuffer for later compositing.
 //
@@ -31,13 +31,10 @@
 //  DrawIrmakPictureFromBuffer() renders the whole frame.
 //
 
-#include <stdio.h>
 #include <string.h>
 
 #include "glk.h"
-#include "debugprint.h"
-#include "memory_allocation.h"
-#include "palette.h"
+#include "aiukpalette.h"
 
 #include "irmak.h"
 
@@ -54,6 +51,7 @@
 #define COMMAND_BIT      0x80
 #define FLIP_BIT         0x40
 #define ROTATE_BITS      0x30
+#define ROTATE_SHIFT     4
 #define OVERLAY_BITS     0x0C
 #define OVERLAY_MASK     0xF3
 #define REPEAT_BIT       0x02
@@ -64,20 +62,33 @@
 #define MODE_AND         0x08
 #define MODE_OR          0x04
 
-/* Rotation modes (values of ROTATE_BITS) */
-#define MODE_ROT90       0x10
-#define MODE_ROT180      0x20
-#define MODE_ROT270      0x30
-
 /* Colour attribute masks for version 0–2 format.
    Version 3+ masks (INK_MASK, PAPER_MASK, BRIGHT_FLAG) are in irmak.h. */
 #define OLD_PAPER_MASK   0x07
 #define OLD_INK_MASK     0x70
 #define V2_BRIGHT_FLAG   0x08
 
+/* One picture on its way through the three decoding stages. */
+typedef struct {
+    const uint8_t *dataptr; /* next unread byte of the image data */
+    const uint8_t *dataend;
+    int xsize;
+    int ysize;
+    int xoff;
+    int yoff;
+    int imagesize; /* xsize * ysize, clamped to IRMAK_IMGSIZE */
+} IrmakImgContext;
+
 Image *images = NULL;
 int number_of_images;
 int image_version;
+
+/* The last colour byte read by DecodeAttributes(). Kept from one picture
+   to the next, as in the original: colour data that starts with a repeat
+   (see the overlong run in PerformTileTransformations()) repeats the last
+   colour of the picture drawn before. So this is deliberately not reset
+   by InitIrmak() or between pictures. */
+static uint8_t last_colour = 0;
 
 /* Called from SagaGraphicsSetup() after the game data has been parsed. */
 void InitIrmak(int numimg, int imgver) {
@@ -92,11 +103,15 @@ uint8_t tiles[256][8];
    1-bpp pixel data built up by Transform() during decoding. */
 uint8_t layout[IRMAK_IMGSIZE][8];
 
+/* The colour attributes of the cells of layout[], decoded in stage 2. */
+static uint8_t attributes[IRMAK_IMGSIZE];
+
 /* Compositing buffer for multi-part images. Bytes 0–7 hold tile pixel
-   data (same format as layout), byte 8 holds the colour attribute.
-   Multiple sub-images are drawn into this buffer, then the whole
-   frame is rendered at once by DrawIrmakPictureFromBuffer(). */
-uint8_t imagebuffer[IRMAK_IMGSIZE][9];
+   data (same format as layout), byte 8 (IRMAK_CELL_ATTR) holds the
+   colour attribute. Multiple sub-images are drawn into this buffer,
+   then the whole frame is rendered at once by
+   DrawIrmakPictureFromBuffer(). */
+uint8_t imagebuffer[IRMAK_IMGSIZE][IRMAK_CELL_BYTES];
 
 /* Forward declarations of necessary external functions */
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
@@ -108,74 +123,62 @@ int isNthBitSet(unsigned const char c, int n)
     return (c >> n) & 1;
 }
 
+/* The tile transformations are built from three primitives: mirroring
+   left to right (Flip), mirroring top to bottom (ReverseRows) and
+   mirroring in the main diagonal (Transpose). */
+
+static uint8_t ReverseBits(uint8_t b)
+{
+    b = (uint8_t)((b & 0xf0) >> 4 | (b & 0x0f) << 4);
+    b = (uint8_t)((b & 0xcc) >> 2 | (b & 0x33) << 2);
+    b = (uint8_t)((b & 0xaa) >> 1 | (b & 0x55) << 1);
+    return b;
+}
+
 /* Flip a tile horizontally, i.e. mirror it */
 void Flip(uint8_t *tile)
 {
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if (isNthBitSet(tile[i], j))
-                work2[i] += 1 << (7 - j);
-    memcpy(tile, work2, 8);
+    for (int i = 0; i < 8; i++)
+        tile[i] = ReverseBits(tile[i]);
 }
 
-/* Rotate a tile 90 degrees clockwise. */
-void Rot90(uint8_t *tile)
+static void ReverseRows(uint8_t *tile)
 {
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if (isNthBitSet(tile[j], i))
-                work2[7 - i] += 1 << j;
-
-    memcpy(tile, work2, 8);
+    for (int i = 0; i < 4; i++) {
+        uint8_t row = tile[i];
+        tile[i] = tile[7 - i];
+        tile[7 - i] = row;
+    }
 }
 
-/* Rotate a tile 180 degrees. */
-void Rot180(uint8_t *tile)
+/* Swap rows and columns, with bit n of a row as column n
+   (so it is the diagonal from top right to bottom left that stays). */
+static void Transpose(uint8_t *tile)
 {
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
+    uint8_t work[8] = { 0 };
 
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if (isNthBitSet(tile[i], j))
-                work2[7 - i] += 1 << (7 - j);
-
-    memcpy(tile, work2, 8);
+    for (int row = 0; row < 8; row++)
+        for (int col = 0; col < 8; col++)
+            work[row] |= (uint8_t)(((tile[col] >> row) & 1) << col);
+    memcpy(tile, work, 8);
 }
 
-/* Rotate a tile 270 degrees clockwise (= 90 degrees counter-clockwise). */
-void Rot270(uint8_t *tile)
-{
-    int32_t i, j;
-    uint8_t work2[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
-
-    for (i = 0; i < 8; i++)
-        for (j = 0; j < 8; j++)
-            if (isNthBitSet(tile[j], i))
-                work2[i] += 1 << (7 - j);
-
-    memcpy(tile, work2, 8);
-}
-
-/* Apply one of four rotation modes (0=none, 1=90°, 2=180°, 3=270°)
-   to an 8-byte tile. */
+/* Apply one of four rotation modes (0=none, 1=90°, 2=180°, 3=270°,
+   clockwise) to an 8-byte tile. */
 void RotateTile(uint8_t *tile, int rotation)
 {
     switch (rotation) {
     case 1:
-        Rot90(tile);
+        Transpose(tile);
+        ReverseRows(tile);
         break;
     case 2:
-        Rot180(tile);
+        Flip(tile);
+        ReverseRows(tile);
         break;
     case 3:
-        Rot270(tile);
+        Transpose(tile);
+        Flip(tile);
         break;
     default:
         break;
@@ -198,8 +201,7 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
 
     memcpy(work, tiles[tile], 8);
 
-    /* MODE_ROT90, MODE_ROT180 and MODE_ROT270 are 1, 2 and 3 shifted up 4 bits */
-    RotateTile(work, (mode & ROTATE_BITS) >> 4);
+    RotateTile(work, (mode & ROTATE_BITS) >> ROTATE_SHIFT);
 
     if (mode & FLIP_BIT) {
         Flip(work);
@@ -220,37 +222,91 @@ static void Transform(uint8_t tile, uint8_t mode, int offset)
     }
 }
 
-/* Fill a tile-sized (8x8) rectangle with a background colour.
-   x and y are in tile coordinates. */
-void FillBackground(int32_t x, int32_t y, int32_t color)
+/* Transform() a tile into 'count' consecutive cells of layout[]. */
+static void TransformRun(uint8_t tile, uint8_t mode, int offset, int count)
 {
-    RectFill(x * 8, y * 8, 8, 8, color);
+    for (int i = 0; i < count; i++)
+        Transform(tile, mode, offset + i);
 }
 
-/* Render a single tile cell from layout[] to the screen.
-   Fills the cell with the background colour, then draws foreground
-   pixels for each set bit. x/y are tile coordinates. */
-void PlotTile(int32_t tile, int32_t x, int32_t y, int32_t fg,
-              int32_t bg)
+/* Render one 8x8 cell: fill it with the paper colour, then plot the
+   set bits of the eight pixel rows in the ink colour. col/line are
+   tile coordinates.
+
+   With solid_rows, a row of eight set pixels is drawn as one rectangle.
+   Only for hosts where that comes to the same thing: ScottFree clips
+   PutPixel() to its margins but not RectFill(). */
+static void DrawCell(int col, int line, const uint8_t *rows, int ink,
+                     int paper, int solid_rows)
 {
-    if (fg > IRMAK_MAX_COLOUR)
-        fg = 0;
-    if (bg > IRMAK_MAX_COLOUR)
-        bg = 0;
-    int32_t i, j;
-    FillBackground(x, y, bg);
-    for (i = 0; i < 8; i++) {
-        for (j = 0; j < 8; j++)
-            if (isNthBitSet(layout[tile][i], (7 - j)))
-                PutPixel(x * 8 + j, y * 8 + i, fg);
+    RectFill(col * 8, line * 8, 8, 8, paper);
+    for (int i = 0; i < 8; i++) {
+        uint8_t row = rows[i];
+        if (row == 0)
+            continue;
+        if (row == 0xff && solid_rows) {
+            RectFill(col * 8, line * 8 + i, 8, 1, ink);
+            continue;
+        }
+        for (int j = 0; j < 8; j++) {
+            if (row & (0x80 >> j))
+                PutPixel(col * 8 + j, line * 8 + i, ink);
+        }
     }
 }
 
-/* Bounds check: returns true if the data pointer has reached or
-   passed the end of the available data. */
-static inline int DataExhausted(const uint8_t *dataptr, const uint8_t *origptr, size_t datasize)
+/* Read the next byte of the image data into *out.
+   Returns 0 when the data has run out. */
+static int NextByte(IrmakImgContext *ctx, uint8_t *out)
 {
-    return (size_t)(dataptr - origptr) >= datasize;
+    if (ctx->dataptr >= ctx->dataend)
+        return 0;
+    *out = *ctx->dataptr++;
+    return 1;
+}
+
+/* The overlay chain of a command byte with OVERLAY_BITS set: one or
+   more additional tiles which are composited (OR/AND/XOR) onto the
+   'count' cells the command just drew at 'offset'. Every link is
+   combined in the mode given by the OVERLAY_BITS of the command byte
+   *before* it, and the chain continues as long as each successive
+   command byte also has OVERLAY_BITS set. A byte below COMMAND_BIT
+   ends the chain as a tile index without transformation.
+
+   *tile is the tile carried from one command to the next in
+   PerformTileTransformations(); the final plain tile index of a chain
+   does not change it. Returns 0 if the data runs out. */
+static int OverlayChain(IrmakImgContext *ctx, uint8_t command, uint8_t *tile,
+                        int offset, int count)
+{
+    uint8_t previous = command;
+
+    for (;;) {
+        uint8_t data;
+        if (!NextByte(ctx, &data))
+            return 0;
+
+        if ((data & COMMAND_BIT) == 0) {
+            if (image_version >= 3 && (previous & ADD_128_BIT))
+                data += 128;
+            TransformRun(data, previous & OVERLAY_BITS, offset, count);
+            return 1;
+        }
+
+        if (!NextByte(ctx, tile))
+            return 0;
+        /* Unlike in the command proper, the bit is not ignored
+           for a tile that is in the upper half already. */
+        if (data & ADD_128_BIT)
+            *tile += 128;
+
+        TransformRun(*tile, (data & OVERLAY_MASK) | (previous & OVERLAY_BITS),
+                     offset, count);
+
+        if ((data & OVERLAY_BITS) == 0)
+            return 1;
+        previous = data;
+    }
 }
 
 /* Stage 1: Decode the tile data stream and populate layout[][].
@@ -263,11 +319,10 @@ static inline int DataExhausted(const uint8_t *dataptr, const uint8_t *origptr, 
    Commands:    [command_byte] [count?] [tile] [overlay_chain...]
 
    The result is a fully decoded layout[][] ready for colouring
-   in Stage 2 (DecodeAttributes). */
-static void PerformTileTransformations(IrmakImgContext *ctx)
+   in Stage 2 (DecodeAttributes).
+   Returns 1 on success, 0 on data exhaustion. */
+static int PerformTileTransformations(IrmakImgContext *ctx)
 {
-    uint8_t *dataptr = ctx->dataptr;
-    uint8_t *origptr = ctx->origptr;
     int offset = 0;
     int imagesize = ctx->imagesize;
 
@@ -276,13 +331,9 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
     uint8_t tile = 0;
 
     while (offset < imagesize) {
-        if (DataExhausted(dataptr, origptr, ctx->datasize)) {
-            fprintf(stderr, "PerformTileTransformations: tile data out of range\n");
-            return;
-        }
-
-        uint8_t data = *dataptr++;
-        int count = 1;
+        uint8_t data;
+        if (!NextByte(ctx, &data))
+            return 0;
 
         if ((data & COMMAND_BIT) == 0) {
             /* Solo tile: the byte is the tile index directly.
@@ -295,214 +346,128 @@ static void PerformTileTransformations(IrmakImgContext *ctx)
             tile = data;
             Transform(tile, 0, offset);
             offset++;
-            if (offset > imagesize) break;
-        } else {
-            /* Command byte: may specify a repeated run and/or
-               overlay tiles composited on top. */
-            if (data & REPEAT_BIT) {
-                if (DataExhausted(dataptr, origptr, ctx->datasize)) {
-                    fprintf(stderr, "PerformTileTransformations: count byte out of range\n");
-                    return;
-                }
-                count = (int)(*dataptr++) + 1;
-            }
-
-            if (DataExhausted(dataptr, origptr, ctx->datasize)) {
-                fprintf(stderr, "PerformTileTransformations: tile byte out of range\n");
-                return;
-            }
-
-            /* Get tile and plot it (count) times */
-            tile = *dataptr++;
-
-            if ((data & ADD_128_BIT) && tile < 128)
-                tile += 128;
-
-            /* A run may be longer than what is left of the image (a piece
-               in Rebel Planet's room 34 is). The original draws on and
-               reads the run's overlay chain all the same, which decides
-               where the colour data starts. So only the plotting is cut
-               short. */
-            int plotted = count;
-            if (offset + plotted > imagesize)
-                plotted = imagesize - offset;
-
-            for (int i = 0; i < plotted; i++)
-                Transform(tile, data & OVERLAY_MASK, offset + i); /* Ignore overlay bits */
-
-            /* Overlay chain: when OVERLAY_BITS are set, one or more
-               additional tiles follow and are composited (OR/AND/XOR)
-               onto the same cell(s). The chain continues as long as
-               each successive command byte also has OVERLAY_BITS set.
-               A tile index below COMMAND_BIT ends the chain as a
-               direct (unmodified) overlay. */
-            if ((data & OVERLAY_BITS) != 0) {
-                uint8_t mask_mode = (data & OVERLAY_BITS);
-                if (DataExhausted(dataptr, origptr, ctx->datasize)) {
-                    fprintf(stderr, "PerformTileTransformations: overlay stream out of range\n");
-                    return;
-                }
-                uint8_t data2 = *dataptr++;
-                uint8_t previous = data;
-                while (1) {
-                    if (data2 < COMMAND_BIT) {
-                        /* Direct overlay: tile index without transformation */
-                        if (image_version >= 3 && (previous & ADD_128_BIT))
-                            data2 += 128;
-                        for (int i = 0; i < plotted; ++i)
-                            Transform(data2, previous & OVERLAY_BITS, offset + i);
-                        break;
-                    }
-
-                    if (DataExhausted(dataptr, origptr, ctx->datasize)) {
-                        fprintf(stderr, "PerformTileTransformations: overlay tile out of range\n");
-                        return;
-                    }
-                    tile = *dataptr++;
-                    if (data2 & ADD_128_BIT)
-                        tile += 128;
-
-                    for (int i = 0; i < plotted; i++)
-                        /* Use mask mode of previous command byte */
-                        Transform(tile, (data2 & OVERLAY_MASK) | mask_mode, offset + i);
-
-                    if ((data2 & OVERLAY_BITS) == 0)
-                        break;
-
-                    mask_mode = data2 & OVERLAY_BITS;
-                    previous = data2;
-                    if (DataExhausted(dataptr, origptr, ctx->datasize)) {
-                        fprintf(stderr, "PerformTileTransformations: overlay chain ends prematurely\n");
-                        return;
-                    }
-                    data2 = *dataptr++;
-                }
-            }
-            offset += count;
+            continue;
         }
+
+        /* Command byte: may specify a repeated run and/or
+           overlay tiles composited on top. */
+        int count = 1;
+        if (data & REPEAT_BIT) {
+            uint8_t repeats;
+            if (!NextByte(ctx, &repeats))
+                return 0;
+            count = repeats + 1;
+        }
+
+        /* Get tile and plot it (count) times */
+        if (!NextByte(ctx, &tile))
+            return 0;
+
+        if ((data & ADD_128_BIT) && tile < 128)
+            tile += 128;
+
+        /* A run may be longer than what is left of the image (a piece
+           in Rebel Planet's room 34 is). The original draws on and
+           reads the run's overlay chain all the same, which decides
+           where the colour data starts. So only the plotting is cut
+           short. */
+        int plotted = count;
+        if (offset + plotted > imagesize)
+            plotted = imagesize - offset;
+
+        /* The overlay bits only say how the tiles that follow are combined */
+        TransformRun(tile, data & OVERLAY_MASK, offset, plotted);
+
+        if ((data & OVERLAY_BITS) != 0 && !OverlayChain(ctx, data, &tile, offset, plotted))
+            return 0;
+
+        offset += count;
     }
-    ctx->dataptr = dataptr;
+    return 1;
 }
 
-/* Stage 2: Decode the RLE-compressed colour attribute stream.
-   Each tile cell gets an ink (foreground) and paper (background) colour.
+/* Read one run of the RLE-compressed colour attribute stream: the
+   colour goes into last_colour and the length of the run is returned,
+   or -1 if the data has run out.
 
    The encoding is version-dependent:
      - Version 0–2: a non-command byte is a literal colour; a command
        byte specifies a repeat count and the colour byte follows.
      - Version 3+: a command byte repeats the *previous* colour (no
-       explicit colour byte follows), saving one byte per run.
-
-   In buffer mode, attributes are written to imagebuffer[][8].
-   In direct mode, they are unpacked into the ink[] and paper[] arrays.
-   Returns 1 on success, 0 on data exhaustion. */
-static int DecodeAttributes(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
+       explicit colour byte follows), saving one byte per run. So a
+       run here can have a length of 0. */
+static int ReadColourRun(IrmakImgContext *ctx)
 {
-    uint8_t *dataptr = ctx->dataptr;
-    uint8_t *origptr = ctx->origptr;
-    size_t datasize = ctx->datasize;
-    int xsize = ctx->xsize;
-    int ysize = ctx->ysize;
-    int xoff = ctx->xoff;
-    int yoff = ctx->yoff;
+    uint8_t data;
+    if (!NextByte(ctx, &data))
+        return -1;
 
-    int y = 0;
+    if ((data & COMMAND_BIT) == 0) {
+        last_colour = data;
+        return 1;
+    }
+
+    int count = data - COMMAND_BIT;
+    if (image_version < 3) {
+        count++;
+        if (!NextByte(ctx, &last_colour))
+            return -1;
+    }
+    return count;
+}
+
+/* The colour attribute of a version 0–2 picture in the version 3+
+   format (see irmak.h). Ink and paper share one brightness in both. */
+static uint8_t ConvertOldAttribute(uint8_t colour)
+{
+    uint8_t attribute = (uint8_t)(((colour & OLD_INK_MASK) >> 4) |
+                                  ((colour & OLD_PAPER_MASK) << 3));
+    /* Version 0 and 1 always use bright colours */
+    if ((colour & V2_BRIGHT_FLAG) || image_version < 2)
+        attribute |= BRIGHT_FLAG;
+    return attribute;
+}
+
+/* Stage 2: decode the colour attributes of the picture into
+   attributes[], one for every cell of layout[], in the version 3+
+   format whatever the version of the picture.
+   Returns 1 on success, 0 on data exhaustion. */
+static int DecodeAttributes(IrmakImgContext *ctx)
+{
     int x = 0;
-    /* Kept from one picture to the next, as in the original: colour data
-       that starts with a repeat (see the overlong run above) repeats the
-       last colour of the picture drawn before. */
-    static uint8_t colour = 0;
-    int warned = 0;
+    int y = 0;
 
-    while (y < ysize) {
-        if (DataExhausted(dataptr, origptr, datasize)) {
-            fprintf(stderr, "DecodeAttributes: data offset %zu out of range! Image size %zu. Bailing!\n",
-                    (size_t)(dataptr - origptr), datasize);
+    while (y < ctx->ysize) {
+        int count = ReadColourRun(ctx);
+        if (count < 0)
             return 0;
-        }
-        uint8_t data = *dataptr++;
-        int count;
-        if (data & COMMAND_BIT) {
-            count = data - COMMAND_BIT + 1;
-            if (image_version >= 3) {
-                /* in version 3 and above, repeat the *previous* colour byte */
-                count--;
-            } else {
-                /* in version 2 and below, repeat the *following* colour byte */
-                if (DataExhausted(dataptr, origptr, datasize)) {
-                    fprintf(stderr, "DecodeAttributes: missing colour byte\n");
-                    return 0;
-                }
-                colour = *dataptr++;
-            }
-        } else {
-            count = 1;
-            colour = data;
-        }
 
-        while (count > 0) {
-            count--;
-            if (ctx->draw_to_buffer) {
-                /* write colours into imagebuffer */
-                unsigned bufpos = (yoff + y) * IRMAK_IMGWIDTH + xoff + x;
-                if (bufpos < IRMAK_IMGSIZE) {
-                    imagebuffer[bufpos][8] = colour;
-                } else {
-                    /* out of buffer: ignore but warn once */
-                    if (!warned) {
-                        fprintf(stderr, "DecodeAttributes: attribute write out of range! bufpos:%d\n", bufpos);
-                        warned = 1;
-                    }
-                }
-            } else { /* Not drawing to buffer */
-                if (x >= xsize) {
-                    fprintf(stderr, "DecodeAttributes: x position out of range\n");
-                    return 0;
-                }
-                /* write colours into ink/paper arrays */
-                int idx = y * xsize + x;
-                if (idx >= ctx->imagesize)
-                    break;
-                if (image_version > 2) {
-                    ink[idx] = colour & INK_MASK;
-                    paper[idx] = (colour & PAPER_MASK) >> 3;
-                    if (colour & BRIGHT_FLAG) {
-                        paper[idx] += 8;
-                        ink[idx] += 8;
-                    }
-                } else {
-                    paper[idx] = colour & OLD_PAPER_MASK;
-                    ink[idx] = ((colour & OLD_INK_MASK) >> 4);
-                    /* Version 0 and 1 always use bright colours */
-                    if ((colour & V2_BRIGHT_FLAG) || image_version < 2) {
-                        paper[idx] += 8;
-                        ink[idx] += 8;
-                    }
-                }
-            }
+        for (; count > 0; count--) {
+            /* Past the clamped size (see DrawIrmakPictureFromContext())
+               the rest of the colour data is read and thrown away. */
+            int idx = y * ctx->xsize + x;
+            if (idx < ctx->imagesize)
+                attributes[idx] = (image_version > 2) ? last_colour
+                    : ConvertOldAttribute(last_colour);
 
             x++;
-            if (x == xsize) {
+            if (x == ctx->xsize) {
                 x = 0;
                 y++;
-                if (y >= ysize) break;
+                if (y >= ctx->ysize)
+                    break;
             }
         }
     }
-
-    ctx->dataptr = dataptr;
     return 1;
 }
 
-/* Stage 3: Compose the final image from layout[][] and colour data.
-   In buffer mode, copies layout rows into imagebuffer (attributes
-   were already written in Stage 2). In direct mode, renders each
-   tile to the screen immediately using ink/paper colours. */
-static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
+/* Stage 3: Put the decoded picture, layout[] and attributes[], where
+   it goes. In buffer mode its cells are copied into imagebuffer[]; in
+   direct mode they are rendered to the screen immediately, leaving
+   imagebuffer[] alone. */
+static void DrawDecodedImage(IrmakImgContext *ctx, int draw_to_buffer)
 {
-    int xsize = ctx->xsize;
-    int ysize = ctx->ysize;
-    int yoff = ctx->yoff;
     int xoff = ctx->xoff;
     /* Version 1–2 images are offset 4 tiles to the right in the data
        but should be drawn starting from column 0. */
@@ -511,27 +476,29 @@ static void DrawDecodedImage(IrmakImgContext *ctx, uint8_t *ink, uint8_t *paper)
 
     int offset = 0;
 
-    for (int y = 0; y < ysize; y++) {
-        for (int x = 0; x < xsize; x++) {
-            if (ctx->draw_to_buffer) {
+    for (int y = 0; y < ctx->ysize; y++) {
+        for (int x = 0; x < ctx->xsize; x++) {
+            if (offset >= ctx->imagesize)
+                return;
+
+            uint8_t attribute = attributes[offset];
+
+            if (draw_to_buffer) {
                 /* We only replace the data in imagebuffer
                    which the image covers. Any other data written
                    by previous draw operations is left intact. */
-                unsigned bufpos = (y + yoff) * IRMAK_IMGWIDTH + x + xoff;
+                unsigned bufpos = (y + ctx->yoff) * IRMAK_IMGWIDTH + x + xoff;
                 if (bufpos < IRMAK_IMGSIZE) {
-                    for (int i = 0; i < 8; ++i)
-                        imagebuffer[bufpos][i] = layout[offset][i];
+                    memcpy(imagebuffer[bufpos], layout[offset], 8);
+                    imagebuffer[bufpos][IRMAK_CELL_ATTR] = attribute;
                 }
             } else {
-                int idx = y * xsize + x;
-                int fg = Remap(ink[idx]);
-                int bg = Remap(paper[idx]);
-                PlotTile(offset, x + xoff, y + yoff, fg, bg);
+                DrawCell(x + xoff, y + ctx->yoff, layout[offset],
+                         Remap(AttributeInk(attribute)),
+                         Remap(AttributePaper(attribute)), 0);
             }
 
             offset++;
-            if (offset > ctx->imagesize)
-                return;
         }
     }
 }
@@ -545,70 +512,36 @@ void ClearGraphMem(void)
 
 /* Decode and render a single image from its data stream. Runs all
    three stages in sequence: tile transforms → attribute decode →
-   final compositing/rendering. In direct mode, ink[] and paper[]
-   carry colours between stages 2 and 3; in buffer mode they are
-   unused (attributes go straight into imagebuffer[][8]). */
-void DrawIrmakPictureFromContext(IrmakImgContext ctx)
+   final compositing/rendering. If the data runs out in stage 1 or 2,
+   nothing is drawn and imagebuffer[] is left as it was.
+   Returns 1 if the picture was drawn. */
+static int DrawIrmakPictureFromContext(IrmakImgContext *ctx, int draw_to_buffer)
 {
-    if (!ctx.dataptr) return;
-
-    ctx.imagesize = ctx.xsize * ctx.ysize;
-    /* Clamp to the capacity of layout[]/ink[]/paper[] so that the
+    ctx->imagesize = ctx->xsize * ctx->ysize;
+    /* Clamp to the capacity of layout[]/attributes[] so that the
        per-cell bounds checks (all against imagesize) also protect the
        real buffers against oversized or corrupt image dimensions. */
-    if (ctx.imagesize > IRMAK_IMGSIZE)
-        ctx.imagesize = IRMAK_IMGSIZE;
-    ctx.origptr = ctx.dataptr;
+    if (ctx->imagesize > IRMAK_IMGSIZE)
+        ctx->imagesize = IRMAK_IMGSIZE;
 
-    PerformTileTransformations(&ctx);
+    if (!PerformTileTransformations(ctx) || !DecodeAttributes(ctx))
+        return 0;
 
-    uint8_t ink[IRMAK_IMGSIZE];
-    uint8_t paper[IRMAK_IMGSIZE];
-    if (DecodeAttributes(&ctx, ink, paper)) {
-        DrawDecodedImage(&ctx, ink, paper);
-    }
+    DrawDecodedImage(ctx, draw_to_buffer);
+    return 1;
 }
 
 /* Render the entire compositing buffer to the screen. Called after
-   all sub-images have been drawn into imagebuffer[][] via buffer mode.
-   Extracts ink/paper colours from the attribute byte (index [8]) and
-   renders each cell's 1-bpp pixel data (indices [0]–[7]).
-
-   Uses fast paths for fully blank (0x00) and fully set (0xFF) rows
-   to avoid per-pixel overhead. */
+   all sub-images have been drawn into imagebuffer[][] via buffer mode. */
 void DrawIrmakPictureFromBuffer(void)
 {
     for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
         for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
-            int index = col + line * IRMAK_IMGWIDTH;
+            const uint8_t *cell = imagebuffer[col + line * IRMAK_IMGWIDTH];
+            uint8_t attribute = cell[IRMAK_CELL_ATTR];
 
-            uint8_t colour = imagebuffer[index][8];
-
-            int paper = (colour & PAPER_MASK) >> 3;
-            if (colour & BRIGHT_FLAG)
-                paper += 8;
-            paper = Remap(paper);
-            int ink = colour & INK_MASK;
-            if (colour & BRIGHT_FLAG)
-                ink += 8;
-            ink = Remap(ink);
-
-            FillBackground(col, line, paper);
-
-            for (int i = 0; i < 8; i++) {
-                if (imagebuffer[index][i] == 0)
-                    continue;
-                if (imagebuffer[index][i] == 255) {
-                    RectFill(col * 8, line * 8 + i, 8, 1, ink);
-                    continue;
-                }
-                for (int j = 0; j < 8; j++) {
-                    if (isNthBitSet(imagebuffer[index][i], (7 - j))) {
-                        int ypos = line * 8 + i;
-                        PutPixel(col * 8 + j, ypos, ink);
-                    }
-                }
-            }
+            DrawCell(col, line, cell, Remap(AttributeInk(attribute)),
+                     Remap(AttributePaper(attribute)), 1);
         }
     }
 }
@@ -616,47 +549,34 @@ void DrawIrmakPictureFromBuffer(void)
 /* Draw a picture at an explicit tile position (x, y). If x or y
    are out of range (>= the image dimensions), the image's own
    stored offset is used as a fallback — this lets callers pass
-   (uint8_t)-1 to mean "use the default position".
+   IRMAK_DEFAULT_POS to mean "use the default position".
    Returns 1 on success, 0 if the image is invalid or missing. */
 int DrawPictureAtPos(int picture_number, uint8_t x, uint8_t y, int draw_to_buffer)
 {
     if (number_of_images == 0)
         return 0;
-    if (picture_number >= number_of_images) {
-        debug_print("Invalid image number %d! Last image:%d\n", picture_number,
-                    number_of_images - 1);
-        return 0;
-    }
-
-    Image img = images[picture_number];
-    if (img.imagedata == NULL)
+    /* The draw instructions past the last real room of a TaylorMade
+       game are garbage, and ask for pictures that do not exist. */
+    if (picture_number < 0 || picture_number >= number_of_images)
         return 0;
 
-    if (x >= IRMAK_IMGWIDTH) {
-        x = img.xoff;
-    }
-    if (y >= IRMAK_IMGHEIGHT) {
-        y = img.yoff;
-    }
+    const Image *img = &images[picture_number];
+    if (img->imagedata == NULL)
+        return 0;
 
     IrmakImgContext ctx;
-    ctx.dataptr = img.imagedata;
-    ctx.xsize = img.width;
-    ctx.ysize = img.height;
-    ctx.xoff = x;
-    ctx.yoff = y;
-    ctx.datasize = img.datasize;
-    ctx.draw_to_buffer = draw_to_buffer;
+    ctx.dataptr = img->imagedata;
+    ctx.dataend = img->imagedata + img->datasize;
+    ctx.xsize = img->width;
+    ctx.ysize = img->height;
+    ctx.xoff = (x >= IRMAK_IMGWIDTH) ? img->xoff : x;
+    ctx.yoff = (y >= IRMAK_IMGHEIGHT) ? img->yoff : y;
 
-    DrawIrmakPictureFromContext(ctx);
-    return 1;
+    return DrawIrmakPictureFromContext(&ctx, draw_to_buffer);
 }
-
-extern int last_image_index;
 
 /* Convenience wrapper: draw a picture at its default position. */
 void DrawPictureNumber(int picture_number, int draw_to_buffer)
 {
-    DrawPictureAtPos(picture_number, -1, -1, draw_to_buffer);
-    last_image_index = picture_number;
+    DrawPictureAtPos(picture_number, IRMAK_DEFAULT_POS, IRMAK_DEFAULT_POS, draw_to_buffer);
 }

@@ -9,7 +9,7 @@
 #define taylor_h
 
 #include <stdlib.h>
-#include "palette.h"
+#include "aiukpalette.h"
 #include "glk.h"
 
 /* Shortcuts for fields of the currently loaded GameInfo record. */

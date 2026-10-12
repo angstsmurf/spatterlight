@@ -57,10 +57,8 @@ static void AnimateStars(void)
             /* The left half is rotated one pixel to the left, */
             /* byte by byte */
             for (int col = 15; col > 5; col--) {
-                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][8];
-                glui32 ink = attribute & INK_MASK;
-                ink += 8 * ((attribute & BRIGHT_FLAG) == BRIGHT_FLAG);
-                ink = Remap(ink);
+                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
+                glui32 ink = Remap(AttributeInk(attribute));
                 for (int bit = 0; bit < 8; bit++) {
                     if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - bit)) {
                         PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
@@ -74,10 +72,8 @@ static void AnimateStars(void)
             carry = 0;
             /* Then the right half */
             for (int col = 16; col < 26; col++) {
-                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][8];
-                glui32 ink = attribute & INK_MASK;
-                ink += 8 * ((attribute & BRIGHT_FLAG) == BRIGHT_FLAG);
-                ink = Remap(ink);
+                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
+                glui32 ink = Remap(AttributeInk(attribute));
                 for (int bit = 0; bit < 8; bit++) {
                     if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - bit)) {
                         PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
@@ -104,7 +100,7 @@ static void AnimateForcefield(void)
     RectFill(104, 16, 48, 39, 0);
 
     /* Use the colour attribute from the top-left cell for the whole field */
-    uint8_t colour = imagebuffer[2 * IRMAK_IMGWIDTH + 13][8];
+    uint8_t colour = imagebuffer[2 * IRMAK_IMGWIDTH + 13][IRMAK_CELL_ATTR];
     glui32 ink = Remap(colour & INK_MASK);
 
     for (int line = 2; line < 7; line++) {
@@ -201,14 +197,10 @@ static void AnimateKaylethClickShelves(int stage)
                 if (ypos > 79)
                     ypos = ypos - 80;
                 /* Look up colour attributes from the destination rows */
-                uint8_t attribute = imagebuffer[col + (ypos / 8) * 32][8];
-                glui32 ink = attribute & 7;
-                ink += 8 * ((attribute & 64) == 64);
-                attribute = imagebuffer[col + ((79 - ypos) / 8) * 32][8];
-                glui32 ink2 = attribute & 7;
-                ink2 += 8 * ((attribute & 64) == 64);
-                ink = Remap(ink);
-                ink2 = Remap(ink2);
+                uint8_t attribute = imagebuffer[col + (ypos / 8) * 32][IRMAK_CELL_ATTR];
+                glui32 ink = Remap(AttributeInk(attribute));
+                attribute = imagebuffer[col + ((79 - ypos) / 8) * 32][IRMAK_CELL_ATTR];
+                glui32 ink2 = Remap(AttributeInk(attribute));
                 for (int j = 0; j < 8; j++) {
                     if (col > 15) {
                         /* Right half: draw from source row, scrolling up */

@@ -17,8 +17,6 @@
 #include "scott_meta.h"
 #include "scott_display.h"
 
-extern Image *images;
-
 /* Sub-image table for the 63 procedurally assembled forest locations
    (rooms 11–73). Each forest room is described by a variable-length
    sequence of image indices; see draw_sherwood(). */
@@ -187,6 +185,7 @@ static void animate_lightning(int stage)
         SwitchPalettes(9, 6);
     }
     DrawPictureNumber(77, 0);
+    last_image_index = 77;
     if (stage == 11) {
         glk_request_timer_events(0);
     } else if (stage == 3) {

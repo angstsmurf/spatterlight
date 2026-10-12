@@ -16,7 +16,7 @@
 // subsystem), so this is the one renderer whose data can't come from
 // extract_images; zxextract dumps the irmak globals instead. irmak.c is
 // unity-included here to reach DrawPictureNumber + its file-statics; we supply
-// the plotting sinks (PutPixel / RectFill) and link palette.c for Remap/pal.
+// the plotting sinks (PutPixel / RectFill) and link aiukpalette.c for Remap/pal.
 //
 // A golden dir holds: tiles.bin, pic<NNN>.dat, and render.txt (one
 // "key value" per line: version, palette, picfile, width, height, xoff, yoff).
@@ -34,12 +34,12 @@
 
 #include "glk.h"
 #include "irmak.h"
-#include "palette.h"
+#include "aiukpalette.h"
 
 #define ZX_W 256
 #define ZX_H 96
 
-// irmak.c plots palette *indices* (already Remap'd, 0..15); pal[] (palette.c)
+// irmak.c plots palette *indices* (already Remap'd, 0..15); pal[] (aiukpalette.c)
 // holds their RGB. Capture the displayed RGB, exactly like c64a8test.
 #define RG_W ZX_W
 #define RG_H ZX_H
@@ -59,9 +59,6 @@ void RectFill(int32_t x, int32_t y, int32_t w, int32_t h, int32_t color) {
             plot((int)x + xx, (int)y + yy, (int)color);
 }
 void SetColor(int32_t index, glui32 color) { if (index >= 0 && index < 16) pal[index] = color & 0xffffff; }
-
-// irmak.c externs we must satisfy.
-int last_image_index = 0;
 
 // Unity-include the renderer to reach DrawPictureNumber + the file-static
 // PerformTileTransformations / DecodeAttributes / DrawDecodedImage etc.

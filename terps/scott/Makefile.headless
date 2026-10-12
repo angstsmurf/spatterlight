@@ -51,7 +51,7 @@ CFLAGS     := -O0 -g -Wall \
 SRCS := $(wildcard *.c) $(wildcard ai_uk/*.c) $(wildcard saga/*.c) \
         $(wildcard ti994a/*.c) \
         $(wildcard $(COMMON_DIR)/*.c) $(wildcard $(SAGADRAW_DIR)/*.c) \
-        $(AIUKGFX_DIR)/irmak.c $(AIUKGFX_DIR)/palette.c \
+        $(AIUKGFX_DIR)/irmak.c $(AIUKGFX_DIR)/aiukpalette.c \
         $(AIUKGFX_DIR)/taylordraw.c $(wildcard $(Z80_DIR)/*.c) \
         $(READWOZ_DIR)/woz2nib.c $(READWOZ_DIR)/ciderpress.c \
         $(C64DISK_DIR)/c64diskimage.c $(ZXSCREEN_DIR)/zx_title.c \

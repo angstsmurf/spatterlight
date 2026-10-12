@@ -326,8 +326,10 @@ void DrawImage(int image)
     }
     if (Game->picture_format_version == HOWARTH_FORMAT)
         DrawHowarthVectorPicture(image);
-    else
+    else {
         DrawPictureNumber(image, (Game->type == SEAS_OF_BLOOD_VARIANT));
+        last_image_index = image;
+    }
 }
 
 /* Draw the overlay images of the items in the current room whose image

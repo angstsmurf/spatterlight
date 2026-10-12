@@ -37,6 +37,8 @@
 // Two graphics windows for animated dice, plus a text grid for the player's stats.
 static winid_t LeftDiceWin, RightDiceWin, BattleRight;
 static glui32 background_colour;
+// RGB colour of the dice, set by setup_battle_screen()
+static glui32 dice_colour;
 
 #define NUM_BATTLE_MESSAGES 33
 #define ENEMY_TABLE_SIZE 126
@@ -146,10 +148,10 @@ static void DrawObjectImages(uint8_t x, uint8_t y)
 /* Remove ugly bright tiles behind sarcophagus
  (only visible with ZX Spectrum palette) */
 static void PatchCryptImage(void) {
-    imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][8] & ~BRIGHT_FLAG;
-    imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][8] & ~BRIGHT_FLAG;
-    imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 9][8] & ~BRIGHT_FLAG;
-    imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] = imagebuffer[8 * IRMAK_IMGWIDTH + 10][8] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 18][IRMAK_CELL_ATTR] = imagebuffer[8 * IRMAK_IMGWIDTH + 18][IRMAK_CELL_ATTR] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 17][IRMAK_CELL_ATTR] = imagebuffer[8 * IRMAK_IMGWIDTH + 17][IRMAK_CELL_ATTR] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 9][IRMAK_CELL_ATTR] = imagebuffer[8 * IRMAK_IMGWIDTH + 9][IRMAK_CELL_ATTR] & ~BRIGHT_FLAG;
+    imagebuffer[8 * IRMAK_IMGWIDTH + 10][IRMAK_CELL_ATTR] = imagebuffer[8 * IRMAK_IMGWIDTH + 10][IRMAK_CELL_ATTR] & ~BRIGHT_FLAG;
 }
 
 // Renders the room image for the current location. The room background is
@@ -899,8 +901,13 @@ void LoadExtraSeasOfBloodData(int c64)
 
     // Initialize the TaylorDraw engine with the image data.
     // The callback DrawObjectImages is invoked during room rendering.
-    InitTaylor(blood_image_data,
-                   blood_image_data + data_length, NULL, 1, 0, DrawObjectImages);
+    taylor_draw_config config = {
+        .data = blood_image_data,
+        .end = blood_image_data + data_length,
+        .flags = TAYLOR_OLDER,
+        .draw_objects = DrawObjectImages,
+    };
+    InitTaylor(&config);
 
 // MARK: System messages
 

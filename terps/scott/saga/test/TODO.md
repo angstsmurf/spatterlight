@@ -34,7 +34,7 @@ interpreter ships, and pictures that look like the originals'. See
         `build/zxextract` runs the real `DetectGame`→`SagaGraphicsSetup` and dumps
         the irmak globals (`tiles.bin` + per-picture `pic<NNN>.dat` + geometry).
         `zxtest.c` unity-includes irmak.c, supplies the PutPixel/RectFill sinks,
-        links palette.c. Golden = real Spectrum `SCREEN$` (0x4000/0x5800) dumped
+        links aiukpalette.c. Golden = real Spectrum `SCREEN$` (0x4000/0x5800) dumped
         from MAME `spectrum -snapshot <game.z80>`, decoded with the ZXOPT palette
         (`/tmp/zx_decode.py`). Used Gremlins' full-screen death scene (no item
         overlays). See groundtruth_zx/README.md.

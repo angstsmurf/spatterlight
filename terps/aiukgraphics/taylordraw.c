@@ -1,6 +1,6 @@
 //
 //  taylordraw.c
-//  Spatterlight
+//  Part of the AI UK graphics library (shared by ScottFree and TaylorMade)
 //
 //  Created by Administrator on 2025-12-10.
 //
@@ -18,191 +18,168 @@
 //  a given (x, y) position via DrawPictureAtPos().
 //
 
-#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#include "taylor.h"
 #include "taylordraw.h"
 
 #include "irmak.h"
 
+/* The instructions. Any other byte is the number of a sub-image to
+   draw, followed by its position (x, y). */
+enum {
+    OP_END = 0xff,
+    OP_MIRROR_LEFT_HALF = 0xfe,
+    OP_REPLACE_COLOUR = 0xfd,   /* (before, after) */
+    OP_SET_ATTRIBUTE = 0xfc,    /* Older: (x, y, attribute, length)
+                                   Newer: (y, x, height, attribute, width) */
+    OP_MAKE_BRIGHT = 0xfb,
+    OP_FLIP_HORIZONTALLY = 0xfa,
+    OP_DRAW_LOCATION = 0xf9,    /* (location), or in Seas of Blood:
+                                   draw the objects, (x, y) */
+    OP_IF_OBJECT = 0xf8,        /* Older: (object, image, x, y)
+                                   Newer: (object) */
+    OP_DRAW_F7 = 0xf7,          /* (image, x, y) */
+    OP_DRAW_F6 = 0xf6,          /* (image, x, y) */
+    OP_DRAW_F5 = 0xf5,          /* (image, x, y) */
+    OP_STOP_IF_OBJECT = 0xf4,   /* (object) */
+    OP_MIRROR_TOP_HALF = 0xf3,
+    OP_MIRROR_AREA_RIGHT = 0xf2, /* (y, x, end row, width) */
+    OP_MIRROR_AREA_DOWN = 0xf1, /* (x, y, last row, width) */
+    /* 0xf0 and 0xef are images */
+    OP_FLIP_AREA_HORIZONTALLY = 0xee, /* (y, x, end row, width) */
+    OP_FLIP_VERTICALLY = 0xed,
+    OP_FLIP_AREA_VERTICALLY = 0xec, /* (x, y, last row, width) */
+    OP_UNIMPLEMENTED_EB = 0xeb,
+    OP_UNIMPLEMENTED_EA = 0xea,
+    OP_REPLACE_INK_AND_PAPER = 0xe9, /* (before, after) */
+    OP_CLEAR = 0xe8,
+};
+
+/* How deep OP_DRAW_LOCATION may nest. The games go two deep (three
+   in the garbage streams past the last real picture). */
+#define MAX_DRAW_DEPTH 8
+
+#define LAST_ROW (IRMAK_IMGHEIGHT - 1)
+
+/* The area instructions take whatever operands the picture data
+   gives them. imagebuffer[] is treated as one long row of cells, as
+   in the original: a column past the right edge is a cell of the
+   next row. Only the end of the buffer is a limit. */
+
+/* True if 'width' cells of row 'line', starting at column x,
+   are all inside imagebuffer[]. */
+static int row_fits(int line, int x, int width)
+{
+    return line * IRMAK_IMGWIDTH + x + width <= IRMAK_IMGSIZE;
+}
+
+static void swap_cells(uint8_t *a, uint8_t *b)
+{
+    uint8_t temp[IRMAK_CELL_BYTES];
+
+    memcpy(temp, a, IRMAK_CELL_BYTES);
+    memcpy(a, b, IRMAK_CELL_BYTES);
+    memcpy(b, temp, IRMAK_CELL_BYTES);
+}
+
+/* Turn the pixels of a cell upside down. */
+static void flip_cell_vertically(uint8_t *cell)
+{
+    for (int pixrow = 0; pixrow < 4; pixrow++) {
+        uint8_t temp = cell[pixrow];
+        cell[pixrow] = cell[7 - pixrow];
+        cell[7 - pixrow] = temp;
+    }
+}
+
 /* Mirror a rectangular area horizontally: copy the left half of
    the region to the right half, flipping each tile. Used to create
    symmetric scenes (e.g. doorways, corridors) from half an image.
-   The area spans columns [x1, x1+width) and rows [y1, y2). */
-static void mirror_area(int x1, int y1, int width, int y2)
+   The area spans columns [x, x+width) and rows [y1, end_row).
+   Stops at the first row that reaches past the end of the buffer. */
+static void mirror_area(int x, int y1, int width, int end_row)
 {
-    for (int line = y1; line < y2; line++) {
-        uint16_t source = line * IRMAK_IMGWIDTH + x1;
-        uint16_t target = source + width - 1;
-        for (int col = 0; col < width / 2; col++) {
-            if (target >= IRMAK_IMGSIZE || source >= IRMAK_IMGSIZE)
-                return;
-            imagebuffer[target][8] = imagebuffer[source][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[target][pixrow] = imagebuffer[source][pixrow];
+    for (int line = y1; line < end_row; line++) {
+        if (!row_fits(line, x, width))
+            return;
+        int source = line * IRMAK_IMGWIDTH + x;
+        int target = source + width - 1;
+        for (; source < target; source++, target--) {
+            memcpy(imagebuffer[target], imagebuffer[source], IRMAK_CELL_BYTES);
             Flip(imagebuffer[target]);
-            source++;
-            target--;
-        }
-    }
-}
-
-/* Mirror the top half of the full image downward: row 0 → row 11,
-   row 1 → row 10, etc. Each tile's pixel rows are also reversed
-   vertically to produce a proper reflection. */
-static void mirror_top_half(void)
-{
-    for (int line = 0; line < IRMAK_IMGHEIGHT / 2; line++) {
-        for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
-            uint16_t target = (11 - line) * IRMAK_IMGWIDTH + col;
-            uint16_t source = line * IRMAK_IMGWIDTH + col;
-            if (target >= IRMAK_IMGSIZE || source >= IRMAK_IMGSIZE)
-                return;
-            imagebuffer[target][8] =
-            imagebuffer[source][8];
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[target][7 - pixrow] =
-                imagebuffer[source][pixrow];
-        }
-    }
-}
-
-/* Flip the entire image left-to-right: column 0 ↔ column 31.
-   Each tile is also flipped internally via Flip() so the pixels
-   within each cell are correctly mirrored. Works via a temporary
-   buffer to avoid overwriting source data. */
-static void flip_image_horizontally(void)
-{
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
-        for (int col = 32; col > 0; col--) {
-            uint16_t target = line * IRMAK_IMGWIDTH + col - 1;
-            uint16_t source = line * IRMAK_IMGWIDTH + (IRMAK_IMGWIDTH - col);
-            if (target >= IRMAK_IMGSIZE || source >= IRMAK_IMGSIZE)
-                return;
-            for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[target][pixrow] = imagebuffer[source][pixrow];
-            Flip(mirror[target]);
-        }
-    }
-
-    memcpy(imagebuffer, mirror, IRMAK_IMGSIZE * 9);
-}
-
-/* Flip the entire image top-to-bottom: row 0 ↔ row 11. Within
-   each tile, pixel rows are reversed (row 0 ↔ row 7) so the
-   internal content is also flipped vertically. */
-static void flip_image_vertically(void)
-{
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
-        for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
-            uint16_t target = (11 - line) * IRMAK_IMGWIDTH + col;
-            uint16_t source = line * IRMAK_IMGWIDTH + col;
-            if (target >= IRMAK_IMGSIZE || source >= IRMAK_IMGSIZE)
-                return;
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                mirror[target][7 - pixrow] =
-                imagebuffer[source][pixrow];
-            mirror[target][8] =
-            imagebuffer[source][8];
-        }
-    }
-    memcpy(imagebuffer, mirror, IRMAK_IMGSIZE * 9);
-}
-
-/* Flip a rectangular sub-region top-to-bottom within the imagebuffer.
-   Rows [y1..y2] in columns [x1, x1+width) are reversed, with pixel
-   rows within each tile also inverted. Uses a scratch buffer to avoid
-   in-place corruption. */
-static void flip_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2)
-{
-    uint8_t mirror[IRMAK_IMGSIZE][9];
-
-    for (int line = 0; line <= y2 && line < IRMAK_IMGHEIGHT - y1; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            uint16_t target = (y2 - line) * IRMAK_IMGWIDTH + col;
-            if (target >= IRMAK_IMGSIZE)
-                return;
-            uint16_t source = (y1 + line) * IRMAK_IMGWIDTH + col;
-            if (source >= IRMAK_IMGSIZE)
-                return;
-            /* The original swaps the rows in pairs, so the middle row
-               of an odd number is left as it is. */
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                mirror[target][source == target ? pixrow : 7 - pixrow] = imagebuffer[source][pixrow];
-            mirror[target][8] = imagebuffer[source][8];
-        }
-    }
-    for (int line = y1; line <= y2; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            uint16_t index = line * IRMAK_IMGWIDTH + col;
-            if (index >= IRMAK_IMGSIZE)
-                return;
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[index][pixrow] =
-                mirror[index][pixrow];
-            imagebuffer[index][8] =
-            mirror[index][8];
         }
     }
 }
 
 /* Mirror a rectangular area vertically: copy the top half downward
    into the bottom half, reversing pixel rows within each tile.
-   Similar to mirror_top_half but confined to a sub-region. */
-static void mirror_area_vertically(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2)
+   The area spans columns [x, x+width) and rows y1 to last_row,
+   inclusive.
+
+   The number of rows copied is taken from last_row alone, which is
+   only half the area if y1 is 0. With another y1 it is more, and rows
+   are copied that have been written to already. This is as it should
+   be: He-Man's room 32 has (16, 5, 6, 6), which copies row 5 to row 6,
+   row 6 to row 5, row 7 to row 4 and row 8 to row 3, and comes out as
+   in the original. */
+static void mirror_area_vertically(int x, int y1, int width, int last_row)
 {
-    for (int line = 0; line <= y2 / 2; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            uint16_t target = (y2 - line) * IRMAK_IMGWIDTH + col;
-            uint16_t source = (y1 + line) * IRMAK_IMGWIDTH + col;
+    for (int line = 0; line <= last_row / 2; line++) {
+        for (int col = x; col < x + width; col++) {
+            int target = (last_row - line) * IRMAK_IMGWIDTH + col;
+            int source = (y1 + line) * IRMAK_IMGWIDTH + col;
             if (target >= IRMAK_IMGSIZE || source >= IRMAK_IMGSIZE)
                 return;
-            imagebuffer[target][8] =
-            imagebuffer[source][8];
+            imagebuffer[target][IRMAK_CELL_ATTR] = imagebuffer[source][IRMAK_CELL_ATTR];
+            /* Not flip_cell_vertically(): target and source
+               may be the same cell */
             for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[target][7 - pixrow] =
-                imagebuffer[source][pixrow];
+                imagebuffer[target][7 - pixrow] = imagebuffer[source][pixrow];
         }
     }
 }
 
 /* Flip a rectangular sub-region left-to-right within the imagebuffer.
-   Columns within [x1, x1+width) for rows [y1, y2) are reversed,
-   with each tile also flipped internally. */
-static void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_t y2)
+   Columns within [x, x+width) for rows [y1, end_row) are reversed,
+   with each tile also flipped internally. The columns are swapped
+   in pairs, as in the original, so the middle column of an odd
+   number is left as it is.
+   Does nothing if the area reaches past the end of the buffer. */
+static void flip_area_horizontally(int x, int y1, int width, int end_row)
 {
-    uint8_t mirror[IRMAK_IMGSIZE][9];
+    if (end_row <= y1 || !row_fits(end_row - 1, x, width))
+        return;
 
-    for (int line = y1; line < y2; line++) {
-        for (int col = 0; col < width; col++) {
-            uint16_t target = line * IRMAK_IMGWIDTH + x1 + col;
-            uint16_t source = line * IRMAK_IMGWIDTH + x1 + width - col - 1;
-            if (target > IRMAK_IMGSIZE || source >= IRMAK_IMGSIZE)
-                return;
-            for (int pixrow = 0; pixrow < 9; pixrow++)
-                mirror[target][pixrow] =
-                imagebuffer[source][pixrow];
-            /* The original swaps the columns in pairs, so the middle
-               column of an odd number is left as it is. */
-            if (source != target)
-                Flip(mirror[target]);
+    for (int line = y1; line < end_row; line++) {
+        int left = line * IRMAK_IMGWIDTH + x;
+        int right = left + width - 1;
+        for (; left < right; left++, right--) {
+            swap_cells(imagebuffer[left], imagebuffer[right]);
+            Flip(imagebuffer[left]);
+            Flip(imagebuffer[right]);
         }
     }
+}
 
-    for (int line = y1; line < y2; line++) {
-        for (int col = x1; col < x1 + width; col++) {
-            uint16_t index = line * IRMAK_IMGWIDTH + col;
-            if (index > IRMAK_IMGSIZE)
-                return;
-            for (int pixrow = 0; pixrow < 8; pixrow++)
-                imagebuffer[index][pixrow] = mirror[index][pixrow];
-            imagebuffer[index][8] = mirror[index][8];
+/* Flip a rectangular sub-region top-to-bottom within the imagebuffer.
+   Rows y1 to last_row (inclusive) in columns [x, x+width) are
+   reversed, with pixel rows within each tile also inverted. The rows
+   are swapped in pairs, as in the original, so the middle row of an
+   odd number is left as it is.
+   Does nothing if the area reaches past the end of the buffer. */
+static void flip_area_vertically(int x, int y1, int width, int last_row)
+{
+    if (!row_fits(last_row, x, width))
+        return;
+
+    for (int top = y1, bottom = last_row; top < bottom; top++, bottom--) {
+        for (int col = x; col < x + width; col++) {
+            uint8_t *upper = imagebuffer[top * IRMAK_IMGWIDTH + col];
+            uint8_t *lower = imagebuffer[bottom * IRMAK_IMGWIDTH + col];
+            swap_cells(upper, lower);
+            flip_cell_vertically(upper);
+            flip_cell_vertically(lower);
         }
     }
 }
@@ -212,13 +189,13 @@ static void flip_area_horizontally(uint8_t x1, uint8_t y1, uint8_t width, uint8_
    where 0xFC takes (x, y, colour, length). */
 static void draw_colour_old(uint8_t x, uint8_t y, uint8_t colour, uint8_t length)
 {
-    uint16_t index = y * IRMAK_IMGWIDTH + x;
+    int index = y * IRMAK_IMGWIDTH + x;
     if (index >= IRMAK_IMGSIZE)
         return;
     if (index + length > IRMAK_IMGSIZE)
         length = IRMAK_IMGSIZE - index;
     for (int i = 0; i < length; i++) {
-        imagebuffer[index + i][8] = colour;
+        imagebuffer[index + i][IRMAK_CELL_ATTR] = colour;
     }
 }
 
@@ -232,7 +209,7 @@ static void draw_colour(uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uin
             int index = (y + h) * IRMAK_IMGWIDTH + x + w;
             if (index >= IRMAK_IMGSIZE)
                 return;
-            imagebuffer[index][8] = colour;
+            imagebuffer[index][IRMAK_CELL_ATTR] = colour;
         }
     }
 }
@@ -242,30 +219,7 @@ static void draw_colour(uint8_t colour, uint8_t x, uint8_t y, uint8_t width, uin
 static void make_light(void)
 {
     for (int i = 0; i < IRMAK_IMGSIZE; i++) {
-        imagebuffer[i][8] = imagebuffer[i][8] | BRIGHT_FLAG;
-    }
-}
-
-/* Replace one colour with another across the whole image.
-   Both ink and paper fields are checked independently: if the ink
-   matches 'before', it becomes 'after', and likewise for paper
-   (shifted into the paper field position). */
-static void replace_colour(uint8_t before, uint8_t after)
-{
-    uint8_t beforeink = before & INK_MASK;
-    uint8_t afterink = after & INK_MASK;
-
-    uint8_t beforepaper = beforeink << 3;
-    uint8_t afterpaper = afterink << 3;
-
-    for (int j = 0; j < IRMAK_IMGSIZE; j++) {
-        if ((imagebuffer[j][8] & INK_MASK) == beforeink) {
-            imagebuffer[j][8] = (imagebuffer[j][8] & ~INK_MASK) | afterink;
-        }
-
-        if ((imagebuffer[j][8] & PAPER_MASK) == beforepaper) {
-            imagebuffer[j][8] = (imagebuffer[j][8] & ~PAPER_MASK) | afterpaper;
-        }
+        imagebuffer[i][IRMAK_CELL_ATTR] |= BRIGHT_FLAG;
     }
 }
 
@@ -274,40 +228,51 @@ static void replace_colour(uint8_t before, uint8_t after)
 static uint8_t ink2paper(uint8_t ink)
 {
     uint8_t paper = (ink & INK_MASK) << 3;
-    paper = paper & PAPER_MASK;
     return (ink & BRIGHT_FLAG) | paper;
 }
 
 /* Replace all occurrences of 'before' with 'after' in the masked
    portion of every cell's attribute byte. The mask selects which
-   bits to compare and replace (e.g. INK_MASK or PAPER_MASK). */
+   bits to compare and replace (e.g. INK_MASK or PAPER_MASK).
+
+   Both values must be in the position of the mask already. 'after'
+   is not masked: bits of it outside the mask are set in the result. */
 static void replace(uint8_t before, uint8_t after, uint8_t mask)
 {
     for (int j = 0; j < IRMAK_IMGSIZE; j++) {
-        uint8_t col = imagebuffer[j][8] & mask;
-        if (col == before) {
-            uint8_t newcol = imagebuffer[j][8] | mask;
-            newcol = newcol ^ mask;
-            imagebuffer[j][8] = newcol | after;
-        }
+        uint8_t *attribute = &imagebuffer[j][IRMAK_CELL_ATTR];
+        if ((*attribute & mask) == before)
+            *attribute = (*attribute & ~mask) | after;
     }
 }
 
-/* Replace a colour in both ink and paper fields simultaneously.
-   'before' and 'after' are specified in ink format; ink2paper()
-   converts them for the paper field replacement. */
-static void replace_paper_and_ink(uint8_t before, uint8_t after)
+/* Replace one colour with another across the whole image, in both
+   the ink and the paper field. Brightness is neither compared nor
+   changed. */
+static void replace_colour(uint8_t before, uint8_t after)
 {
-    uint8_t beforeink = before & (INK_MASK | BRIGHT_FLAG);
-    replace(beforeink, after, INK_MASK | BRIGHT_FLAG);
-    uint8_t beforepaper = ink2paper(before);
-    uint8_t afterpaper = ink2paper(after);
-    replace(beforepaper, afterpaper, PAPER_MASK | BRIGHT_FLAG);
+    uint8_t beforeink = before & INK_MASK;
+    uint8_t afterink = after & INK_MASK;
+
+    replace(beforeink, afterink, INK_MASK);
+    replace(beforeink << 3, afterink << 3, PAPER_MASK);
 }
 
-/* Pointers into the game file's image instruction data. */
-static uint8_t *TaylorImageData;
-static uint8_t *EndOfTaylorDrawData;
+/* Replace a colour in both ink and paper fields, with brightness as
+   a part of the colour. 'before' and 'after' are specified in ink
+   format; ink2paper() converts them for the paper field replacement.
+
+   'after' goes into the ink pass as it is, so any paper or flash
+   bits in it are set in the cells whose ink is replaced. */
+static void replace_paper_and_ink(uint8_t before, uint8_t after)
+{
+    replace(before & (INK_MASK | BRIGHT_FLAG), after, INK_MASK | BRIGHT_FLAG);
+    replace(ink2paper(before), ink2paper(after), PAPER_MASK | BRIGHT_FLAG);
+}
+
+/* The game data and game-specific configuration, as passed
+   to InitTaylor(). */
+static taylor_draw_config config;
 
 /* Precomputed index of stream start pointers. stream_offsets[i]
    points to the first byte of stream i's instruction data (the
@@ -316,34 +281,19 @@ static uint8_t *EndOfTaylorDrawData;
 static uint8_t **stream_offsets;
 static int stream_count;
 
-/* Object location array: ObjectLocInternal[obj] == room means object
-   'obj' is in that room. Used by conditional draw instructions
-   (0xF8, 0xF4) to show/hide object images in the scene. */
-static uint8_t *ObjectLocInternal;
-
-/* Flags for game-specific instruction format differences. */
-static int UseOlderVersion = 0;
-static int IsRebelplanet = 0;
-
-/* Optional callback for Seas of Blood object drawing. When non-NULL,
-   opcode 0xF9 calls this instead of recursing into DrawTaylor(). */
-static draw_obj_fn draw_seas_obj = NULL;
-
 /* Initialise the TaylorMade drawing system with pointers into the
    game data and game-specific configuration flags. Builds the
    stream offset index by scanning for 0xFF terminators. */
-void InitTaylor(uint8_t *data, uint8_t *end, uint8_t *objloc, int older, int rebel, draw_obj_fn obj_draw) {
-    TaylorImageData = data;
-    EndOfTaylorDrawData = end;
-    ObjectLocInternal = objloc;
-    UseOlderVersion = older;
-    IsRebelplanet = rebel;
-    draw_seas_obj = obj_draw;
+void InitTaylor(const taylor_draw_config *cfg) {
+    config = *cfg;
+
+    uint8_t *data = config.data;
+    uint8_t *end = config.end;
 
     /* Count 0xFF-terminated streams to size the index. */
     int count = 0;
     for (uint8_t *p = data; p < end; p++) {
-        if (*p == 0xff)
+        if (*p == OP_END)
             count++;
     }
     /* count is the number of terminators; there are count streams
@@ -360,22 +310,198 @@ void InitTaylor(uint8_t *data, uint8_t *end, uint8_t *objloc, int older, int reb
     stream_offsets[0] = data;
     int idx = 1;
     for (uint8_t *p = data; p < end && idx <= count; p++) {
-        if (*p == 0xff)
+        if (*p == OP_END)
             stream_offsets[idx++] = p + 1;
     }
 }
 
-/* Return the number of bytes remaining after ptr (not counting *ptr). */
-static inline int BytesLeft(const uint8_t *ptr, const uint8_t *end)
+/* Whether an object is in the room. The object location array of the
+   game has the room of every object: objloc[obj] == room means object
+   'obj' is in that room. */
+static int object_is_at(uint8_t obj, int location)
 {
-    return (int)(end - ptr) - 1;
+    return config.objloc != NULL && config.objloc[obj] == location;
+}
+
+/* The number of operand bytes that follow an instruction. */
+static int operand_count(uint8_t op)
+{
+    int older = (config.flags & TAYLOR_OLDER) != 0;
+
+    switch (op) {
+    case OP_END:
+    case OP_MIRROR_LEFT_HALF:
+    case OP_MAKE_BRIGHT:
+    case OP_FLIP_HORIZONTALLY:
+    case OP_MIRROR_TOP_HALF:
+    case OP_FLIP_VERTICALLY:
+    case OP_UNIMPLEMENTED_EB:
+    case OP_UNIMPLEMENTED_EA:
+    case OP_CLEAR:
+        return 0;
+    case OP_STOP_IF_OBJECT:
+        return 1;
+    case OP_REPLACE_COLOUR:
+    case OP_REPLACE_INK_AND_PAPER:
+        return 2;
+    case OP_DRAW_F7:
+    case OP_DRAW_F6:
+    case OP_DRAW_F5:
+        return 3;
+    case OP_MIRROR_AREA_RIGHT:
+    case OP_MIRROR_AREA_DOWN:
+    case OP_FLIP_AREA_HORIZONTALLY:
+    case OP_FLIP_AREA_VERTICALLY:
+        return 4;
+    case OP_SET_ATTRIBUTE:
+        return older ? 4 : 5;
+    case OP_DRAW_LOCATION:
+        return config.draw_objects != NULL ? 2 : 1;
+    case OP_IF_OBJECT:
+        return older ? 4 : 1;
+    default: /* Draw sub-image */
+        return 2;
+    }
+}
+
+/* Execute the draw instruction stream of location 'loc', see
+   DrawTaylor(). 'depth' is the number of streams being executed
+   that led to this one through OP_DRAW_LOCATION. */
+static int draw_stream(int loc, int current_location, int depth)
+{
+    if (loc < 0 || loc >= stream_count || !stream_offsets)
+        return 0;
+
+    const uint8_t *end = config.end;
+    const uint8_t *ptr = stream_offsets[loc];
+
+    /* Execute instructions until 0xFF (end) or data runs out. */
+    while (ptr < end) {
+        uint8_t op = *ptr;
+        const uint8_t *arg = ptr + 1;
+
+        /* Rebel Planet special case: the Zodiac Hotel basement
+           (room 43) uses 0xF7 to draw bottles in a locked alcove.
+           The original interpreter never renders them. We show
+           them only when the alcove is unlocked (detected by the
+           phonic fork, object 131, being out of play in room 252).
+           Safe because no other game/image uses 0xF7. */
+        if (op == OP_DRAW_F7 && (config.flags & TAYLOR_REBEL_PLANET)
+            && current_location == 43 && object_is_at(131, 252))
+            return 1;
+
+        int operands = operand_count(op);
+        if (end - arg < operands)
+            return 0;
+
+        switch (op) {
+        case OP_END:
+            return 1;
+
+        case OP_MIRROR_LEFT_HALF:
+            mirror_area(0, 0, IRMAK_IMGWIDTH, IRMAK_IMGHEIGHT);
+            break;
+
+        case OP_REPLACE_COLOUR:
+            replace_colour(arg[0], arg[1]);
+            break;
+
+        case OP_SET_ATTRIBUTE: /* Older format: a linear run.
+                                  Newer format: a rectangle. */
+            if (config.flags & TAYLOR_OLDER)
+                draw_colour_old(arg[0], arg[1], arg[2], arg[3]);
+            else
+                draw_colour(arg[3], arg[1], arg[0], arg[4], arg[2]);
+            break;
+
+        case OP_MAKE_BRIGHT:
+            make_light();
+            break;
+
+        case OP_FLIP_HORIZONTALLY:
+            flip_area_horizontally(0, 0, IRMAK_IMGWIDTH, IRMAK_IMGHEIGHT);
+            break;
+
+        case OP_DRAW_LOCATION: /* Draw the picture of another location
+                                  as a part of this one, or call the
+                                  Seas of Blood object draw callback. */
+            if (config.draw_objects != NULL)
+                config.draw_objects(arg[0], arg[1]);
+            else if (depth < MAX_DRAW_DEPTH)
+                draw_stream(arg[0], current_location, depth + 1);
+            break;
+
+        case OP_IF_OBJECT: /* Older: draw an image if the object is here.
+                              Newer: stop drawing if the object is NOT here. */
+            if (config.flags & TAYLOR_OLDER) {
+                if (object_is_at(arg[0], current_location))
+                    DrawPictureAtPos(arg[1], arg[2], arg[3], 1);
+            } else if (!object_is_at(arg[0], current_location)) {
+                return 1;
+            }
+            break;
+
+        case OP_STOP_IF_OBJECT: /* Stop drawing if the object IS here */
+            if (object_is_at(arg[0], current_location))
+                return 1;
+            break;
+
+        case OP_MIRROR_TOP_HALF:
+            mirror_area_vertically(0, 0, IRMAK_IMGWIDTH, LAST_ROW);
+            break;
+
+        case OP_MIRROR_AREA_RIGHT:
+            mirror_area(arg[1], arg[0], arg[3], arg[2]);
+            break;
+
+        case OP_MIRROR_AREA_DOWN:
+            mirror_area_vertically(arg[0], arg[1], arg[3], arg[2]);
+            break;
+
+        case OP_FLIP_AREA_HORIZONTALLY:
+            flip_area_horizontally(arg[1], arg[0], arg[3], arg[2]);
+            break;
+
+        case OP_FLIP_VERTICALLY:
+            flip_area_vertically(0, 0, IRMAK_IMGWIDTH, LAST_ROW);
+            break;
+
+        case OP_FLIP_AREA_VERTICALLY:
+            flip_area_vertically(arg[0], arg[1], arg[3], arg[2]);
+            break;
+
+        case OP_UNIMPLEMENTED_EB:
+        case OP_UNIMPLEMENTED_EA:
+            return 0;
+
+        case OP_REPLACE_INK_AND_PAPER:
+            replace_paper_and_ink(arg[0], arg[1]);
+            break;
+
+        case OP_CLEAR: /* Clear the compositing buffer */
+            ClearGraphMem();
+            break;
+
+        case OP_DRAW_F7: /* Vestigial instructions: the original sets the A */
+        case OP_DRAW_F6: /* register to 0x0C, 0x04 or 0x08 and then draws the */
+        case OP_DRAW_F5: /* image, but the draw routine does not use A. */
+            DrawPictureAtPos(arg[0], arg[1], arg[2], 1);
+            break;
+
+        default: /* Draw sub-image: the byte is the image index */
+            DrawPictureAtPos(op, arg[0], arg[1], 1);
+            break;
+        }
+        ptr = arg + operands;
+    }
+    return 0;
 }
 
 /* Execute the draw instruction stream for location 'loc'.
    'current_location' is the player's actual room — usually the same
-   as 'loc', but differs when opcode 0xF9 recurses to draw another
-   location's image as part of the current scene. Object visibility
-   checks (0xF8, 0xF4) always test against current_location.
+   as 'loc', but differs when an animation draws a frame that is the
+   picture of another location. Object visibility checks (0xF8, 0xF4)
+   always test against current_location.
 
    The target stream is found via the precomputed stream_offsets[]
    index built during InitTaylor().
@@ -383,163 +509,5 @@ static inline int BytesLeft(const uint8_t *ptr, const uint8_t *end)
    Returns 1 on success, 0 on error or missing data. */
 int DrawTaylor(int loc, int current_location)
 {
-    if (loc < 0 || loc >= stream_count || !stream_offsets)
-        return 0;
-
-    uint8_t *ptr = stream_offsets[loc];
-    if (ptr >= EndOfTaylorDrawData)
-        return 0;
-
-    /* Execute instructions until 0xFF (end) or data runs out. */
-    while (ptr < EndOfTaylorDrawData) {
-        switch (*ptr) {
-        case 0xff: /* End of picture */
-            return 1;
-
-        case 0xfe: /* Mirror the left half of the image to the right */
-            mirror_area(0, 0, IRMAK_IMGWIDTH, IRMAK_IMGHEIGHT);
-            break;
-
-        case 0xfd: /* Replace colour: args (before, after) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 2) return 0;
-            replace_colour(ptr[1], ptr[2]);
-            ptr += 2;
-            break;
-
-        case 0xfc: /* Draw colour attribute over an area.
-                      Older format: (x, y, colour, length) — linear run.
-                      Newer format: (y, x, height, colour, width) — rectangle. */
-            if (UseOlderVersion) {
-                if (BytesLeft(ptr, EndOfTaylorDrawData) < 4) return 0;
-                draw_colour_old(ptr[1], ptr[2], ptr[3], ptr[4]);
-                ptr += 4;
-            } else {
-                if (BytesLeft(ptr, EndOfTaylorDrawData) < 5) return 0;
-                draw_colour(ptr[4], ptr[2], ptr[1], ptr[5], ptr[3]);
-                ptr += 5;
-            }
-            break;
-
-        case 0xfb: /* Make all colours bright */
-            make_light();
-            break;
-
-        case 0xfa: /* Flip entire image horizontally */
-            flip_image_horizontally();
-            break;
-
-        case 0xf9: /* Draw another image recursively or call Seas of Blood
-                      object draw callback. For Seas of Blood, args are (x, y);
-                      for other games, arg is a location number. */
-            if (draw_seas_obj != NULL) {
-                if (BytesLeft(ptr, EndOfTaylorDrawData) < 2) return 0;
-                draw_seas_obj(ptr[1], ptr[2]);
-                ptr += 2;
-            } else {
-                if (BytesLeft(ptr, EndOfTaylorDrawData) < 1) return 0;
-                DrawTaylor(ptr[1], current_location);
-                ptr++;
-            }
-            break;
-
-        case 0xf8: /* Conditional draw based on object presence.
-                      Older: if object arg1 is here, draw image arg2 at (arg3, arg4).
-                      Newer: stop drawing if object arg1 is NOT here. */
-            if (UseOlderVersion) {
-                if (BytesLeft(ptr, EndOfTaylorDrawData) < 4) return 0;
-                if (ObjectLocInternal[ptr[1]] == current_location) {
-                    DrawPictureAtPos(ptr[2], ptr[3], ptr[4], 1);
-                }
-                ptr += 4;
-            } else {
-                if (BytesLeft(ptr, EndOfTaylorDrawData) < 1) return 0;
-                if (ObjectLocInternal[ptr[1]] != current_location) {
-                    return 1;
-                }
-                ptr++;
-            }
-            break;
-
-        case 0xf4: /* Stop drawing if object arg1 IS present */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 1) return 0;
-            if (ObjectLocInternal[ptr[1]] == current_location)
-                return 1;
-            ptr++;
-            break;
-
-        case 0xf3: /* Mirror top half of image downward */
-            mirror_top_half();
-            break;
-
-        case 0xf2: /* Mirror a sub-area horizontally: args (y1, x, y2, width) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 4) return 0;
-            mirror_area(ptr[2], ptr[1], ptr[4], ptr[3]);
-            ptr += 4;
-            break;
-
-        case 0xf1: /* Mirror a sub-area vertically: args (y1, x, y2, width) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 4) return 0;
-            mirror_area_vertically(ptr[1], ptr[2], ptr[4], ptr[3]);
-            ptr += 4;
-            break;
-
-        case 0xee: /* Flip a sub-area horizontally: args (y1, x, y2, width) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 4) return 0;
-            flip_area_horizontally(ptr[2], ptr[1], ptr[4], ptr[3]);
-            ptr += 4;
-            break;
-
-        case 0xed: /* Flip entire image vertically */
-            flip_image_vertically();
-            break;
-
-        case 0xec: /* Flip a sub-area vertically: args (y1, x, y2, width) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 4) return 0;
-            flip_area_vertically(ptr[1], ptr[2], ptr[4], ptr[3]);
-            ptr += 4;
-            break;
-
-        case 0xeb:
-        case 0xea:
-            fprintf(stderr, "Unimplemented draw instruction 0x%02x!\n", *ptr);
-            return 0;
-
-        case 0xe9: /* Replace both ink and paper for a colour: args (before, after) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 2) return 0;
-            replace_paper_and_ink(ptr[1], ptr[2]);
-            ptr += 2;
-            break;
-
-        case 0xe8: /* Clear the compositing buffer */
-            ClearGraphMem();
-            break;
-
-        case 0xf7: /* Vestigial opcode: sets A register to 0x0C then draws,
-                      but A is unused by the draw routine. Falls through to
-                      the default draw-image handler.
-
-                      Rebel Planet special case: the Zodiac Hotel basement
-                      (room 43) uses 0xF7 to draw bottles in a locked alcove.
-                      The original interpreter never renders them. We show
-                      them only when the alcove is unlocked (detected by the
-                      phonic fork, object 131, being out of play in room 252).
-                      Safe because no other game/image uses 0xF7. */
-            if (IsRebelplanet && current_location == 43 && ObjectLocInternal[131] == 252)
-                return 1;
-            /* Deliberate fallthrough */
-        case 0xf6: /* Vestigial: sets A to 0x04, falls through to draw */
-        case 0xf5: /* Vestigial: sets A to 0x08, falls through to draw */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 3) return 0;
-            ptr++; /* Skip the extra byte, then fall through to default */
-            /* Deliberate fallthrough */
-
-        default: /* Draw sub-image: byte is image index, args (x, y) */
-            if (BytesLeft(ptr, EndOfTaylorDrawData) < 2) return 0;
-            DrawPictureAtPos(ptr[0], ptr[1], ptr[2], 1);
-            ptr += 2;
-            break;
-        }
-        ptr++;
-    }
-    return 0;
+    return draw_stream(loc, current_location, 0);
 }
