@@ -313,6 +313,12 @@ struct Element {
     std::vector<std::pair<std::string, Value>> fields;
     std::unordered_map<std::string, size_t> field_index_;
     std::vector<std::string> inherits;   // <inherit name="..."/> type names
+    // World::field_chain's cache: this element and the types it inherits,
+    // resolved and flattened into lookup order. Stale unless chain_gen_ matches
+    // World::inherit_gen, so anything that edits `inherits` at runtime must call
+    // World::note_inherit_change().
+    mutable std::vector<Element *> chain_;
+    mutable unsigned long long chain_gen_ = 0;
 
     Element *parent = nullptr;
     std::vector<Element *> children;
@@ -405,6 +411,16 @@ struct World {
     unsigned long long containment_gen = 0;
     void note_containment_change() { ++containment_gen; }
     const std::vector<Element *> &children_of(Element *parent);
+
+    // The order an attribute lookup tries elements in: `e`, then the types it
+    // inherits, most recently added first, depth-first. A type reached by two
+    // paths appears twice (a list extension counts once per path); only a
+    // back-edge -- an inheritance cycle -- is dropped. Cached per element until
+    // inherit_gen advances, which register_name/unregister_name do themselves
+    // (a type name resolving differently changes every chain through it).
+    unsigned long long inherit_gen = 1;
+    void note_inherit_change() { ++inherit_gen; }
+    const std::vector<Element *> &field_chain(Element *e) const;
 
     // Cache backing children_of(); not for external use.
     unsigned long long children_index_gen_ = ~0ull;

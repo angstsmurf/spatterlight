@@ -210,6 +210,20 @@ struct CompiledRegex {
     // names[k] is the name of capture group k+1 ("" for an unnamed group).
     std::vector<std::string> names;
     bool valid = false;
+    // The prefilter (derive_prefixes in aslx-runtime.cc): when `anchored`, every
+    // alternative of the pattern starts "^" plus literal text, so a match has to
+    // begin with one of `prefixes` (ASCII, lower-cased).
+    bool anchored = false;
+    std::vector<std::string> prefixes;
+    // False only when `re` cannot match `input`; true means "run the regex".
+    bool may_match(const std::string &input) const;
+    // std::regex_search, skipped when may_match already rules a match out.
+    bool search(const std::string &input) const {
+        return valid && may_match(input) && std::regex_search(input, re);
+    }
+    bool search(const std::string &input, std::smatch &m) const {
+        return valid && may_match(input) && std::regex_search(input, m, re);
+    }
 };
 // The named groups of a match as (name, value) pairs, in first-appearance
 // order, with .NET's coalescing of groups that share a name.

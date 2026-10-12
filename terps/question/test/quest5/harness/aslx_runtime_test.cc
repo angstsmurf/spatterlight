@@ -784,6 +784,38 @@ static void test_regex_primitives() {
               "StringDictionaryItem(Populate(\"^(?<num>[0-9]+)(?<rest>.*)$\","
               " \"42abc\"), \"num\")"), "42");
 
+    // The literal-prefix prefilter in front of the regex (derive_prefixes) must
+    // only ever turn away an input the regex would have rejected anyway.
+    CHECK_STR(evals(in, "IsRegexMatch(\"^looks? at (?<object>.*)$\", \"look at it\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^looks? at (?<object>.*)$\", \"looks at it\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^looks? at (?<object>.*)$\", \"loo at it\")"), "False");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(go )?north$\", \"north\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(go )?north$\", \"go north\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(look at|x|examine) (?<object>.*)$\", \"X lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(look at|x|examine) (?<object>.*)$\", \"examine lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(look at|x|examine) (?<object>.*)$\", \"xlamp\")"), "False");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(look at|x|examine) (?<object>.*)$\", \"take lamp\")"), "False");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(?:take|get) (?<object>.*)$\", \"Get lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(take|get)+ (?<object>.*)$\", \"takeget lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(tak*|get) (?<object>.*)$\", \"ta lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(ta[kc]e|get) (?<object>.*)$\", \"tace lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(?!drop)(?<verb>.*) lamp$\", \"take lamp\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(?!drop)(?<verb>.*) lamp$\", \"drop lamp\")"), "False");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^north$|^n$|^go north$\", \"N\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^north$|^n$|^go north$\", \"go north\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^north$|^n$|^go north$\", \"go south\")"), "False");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^north$|n$\", \"turn\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"north\", \"go north\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^[Tt]ake (?<object>.*)$\", \"take it\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^ab{2}c$\", \"abbc\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^a|b\", \"xb\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^take (?<object>.*)$\", \"TAKE\")"), "False");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^take(?<object>.*)$\", \"TAKE\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^(a|)x$\", \"x\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^((go|walk) to|enter) (?<object>.*)$\", \"walk to bar\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^((go|walk) to|enter) (?<object>.*)$\", \"enter bar\")"), "True");
+    CHECK_STR(evals(in, "IsRegexMatch(\"^((go|walk) to|enter) (?<object>.*)$\", \"run to bar\")"), "False");
+
     // Cache path: same cacheID reuses the compiled regex (3-arg form).
     CHECK_STR(evals(in,
               "IsRegexMatch(\"^go (?<object1>.*)$\", \"go north\", \"go\")"), "True");

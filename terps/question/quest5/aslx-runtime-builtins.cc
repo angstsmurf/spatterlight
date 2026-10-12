@@ -35,6 +35,8 @@
 #include <initializer_list>
 #include <regex>
 #include <set>
+#include <string_view>
+#include <unordered_map>
 #include <unordered_set>
 
 namespace aslx {
@@ -273,10 +275,68 @@ const std::string *find_dyn_template(World &w, const std::string &name) {
     return nullptr;
 }
 
+// The names call_builtin answers to, lower-cased (Quest matches function
+// names case-insensitively). call_builtin tests the enumerator, so a new
+// builtin has to be listed here before its branch will compile.
+#define ASLX_BUILTINS(X) \
+    X(getdirectchildren) X(getallchildobjects) X(getattributenames) \
+    X(contains) X(getattribute) X(getboolean) X(getint) X(getdouble) \
+    X(getstring) X(hasattribute) X(hasstring) X(hasint) X(hasboolean) \
+    X(hasobject) X(hasdouble) X(hasscript) X(hasdelegateimplementation) \
+    X(getobject) X(gettimer) X(rundelegatefunction) X(getuioption) \
+    X(getfileurl) X(getuniqueelementname) X(isgamerunning) X(doesinherit) \
+    X(typeof) X(isdefined) X(eval) X(allobjects) X(allcommands) X(allexits) \
+    X(allturnscripts) X(getexitbylink) X(getexitbyname) X(newdictionary) \
+    X(newstringdictionary) X(newobjectdictionary) X(newscriptdictionary) \
+    X(dictionarycount) X(dictionarycontains) X(dictionaryitem) \
+    X(scriptdictionaryitem) X(stringdictionaryitem) X(objectdictionaryitem) \
+    X(listitem) X(stringlistitem) X(objectlistitem) X(template) \
+    X(dynamictemplate) X(capfirst) X(safexml) X(newlist) X(newstringlist) \
+    X(newobjectlist) X(listcount) X(listcontains) X(listexclude) \
+    X(listcombine) X(objectlistsort) X(objectlistsortdescending) \
+    X(stringlistsort) X(stringlistsortdescending) X(lcase) X(ucase) X(left) \
+    X(right) X(mid) X(instr) X(replace) X(trim) X(ltrim) X(rtrim) \
+    X(instrrev) X(asc) X(chr) X(isint) X(isdouble) X(lengthof) X(startswith) \
+    X(endswith) X(split) X(join) X(cstr) X(tostring) X(isnumeric) \
+    X(isregexmatch) X(getmatchstrength) X(populate) X(cint) X(toint) X(cdbl) \
+    X(todouble) X(abs) X(max) X(min) X(truncate) X(floor) X(ceiling) \
+    X(round) X(clone) X(shallowclone) X(showmenu) X(ask) X(getinput) \
+    X(getfiledata) X(getexternalfiledata) X(setexternalfiledata) \
+    X(currentdateutc) X(getrandomint) X(getrandomdouble)
+
+namespace {
+enum Builtin {
+    B_none,
+#define X(n) B_##n,
+    ASLX_BUILTINS(X)
+#undef X
+};
+
+Builtin builtin_id(const std::string &name) {
+    static const std::unordered_map<std::string_view, Builtin> ids = {
+#define X(n) {#n, B_##n},
+        ASLX_BUILTINS(X)
+#undef X
+    };
+    char lower[32];  // longer than any builtin's name
+    if (name.size() > sizeof lower) return B_none;
+    for (size_t i = 0; i < name.size(); ++i)
+        lower[i] = qstr::lower_char(name[i]);
+    auto it = ids.find(std::string_view(lower, name.size()));
+    return it == ids.end() ? B_none : it->second;
+}
+} // namespace
+
 Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                            bool &handled, Context &ctx) {
+    // Every call in an expression comes here first, and most of them name a
+    // Core or game function, so a name that is no builtin leaves at once.
+    const Builtin fn = builtin_id(name);
+    if (fn == B_none) {
+        handled = false;
+        return vnull();
+    }
     handled = true;
-    const std::string fn = qstr::ascii_lower(name);
     const size_t n = args.size();
     auto arg = [&](size_t i) -> const Value & {
         static const Value nullv;
@@ -334,36 +394,36 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     {
         // The (obj, property) attribute getters / has-checks all start with
         // ThrowIfNull(obj) + ThrowIfNull(property).
-        static const struct { const char *lower, *canon; } kObjProp[] = {
-            {"getattribute", "GetAttribute"}, {"getboolean", "GetBoolean"},
-            {"getint", "GetInt"}, {"getdouble", "GetDouble"},
-            {"getstring", "GetString"}, {"hasattribute", "HasAttribute"},
-            {"hasstring", "HasString"}, {"hasint", "HasInt"},
-            {"hasboolean", "HasBoolean"}, {"hasobject", "HasObject"},
-            {"hasdouble", "HasDouble"}, {"hasscript", "HasScript"},
-            {"hasdelegateimplementation", "HasDelegateImplementation"},
+        static const struct { Builtin id; const char *canon; } kObjProp[] = {
+            {B_getattribute, "GetAttribute"}, {B_getboolean, "GetBoolean"},
+            {B_getint, "GetInt"}, {B_getdouble, "GetDouble"},
+            {B_getstring, "GetString"}, {B_hasattribute, "HasAttribute"},
+            {B_hasstring, "HasString"}, {B_hasint, "HasInt"},
+            {B_hasboolean, "HasBoolean"}, {B_hasobject, "HasObject"},
+            {B_hasdouble, "HasDouble"}, {B_hasscript, "HasScript"},
+            {B_hasdelegateimplementation, "HasDelegateImplementation"},
         };
         for (const auto &m : kObjProp) {
-            if (fn == m.lower && n == 2) {
+            if (fn == m.id && n == 2) {
                 not_null(0, "obj");
                 must_be_object(0, m.canon);
                 not_null(1, "property");
                 break;
             }
         }
-        if ((fn == "getdirectchildren" || fn == "getallchildobjects" ||
-             fn == "getattributenames") && n >= 1)
+        if ((fn == B_getdirectchildren || fn == B_getallchildobjects ||
+             fn == B_getattributenames) && n >= 1)
             not_null(0, "obj");
-        if (fn == "contains" && n == 2) not_null(0, "parent");
-        static const struct { const char *lower, *canon; } kDictItem[] = {
-            {"dictionaryitem", "DictionaryItem"},
-            {"stringdictionaryitem", "StringDictionaryItem"},
-            {"objectdictionaryitem", "ObjectDictionaryItem"},
-            {"scriptdictionaryitem", "ScriptDictionaryItem"},
-            {"dictionarycontains", "DictionaryContains"},
+        if (fn == B_contains && n == 2) not_null(0, "parent");
+        static const struct { Builtin id; const char *canon; } kDictItem[] = {
+            {B_dictionaryitem, "DictionaryItem"},
+            {B_stringdictionaryitem, "StringDictionaryItem"},
+            {B_objectdictionaryitem, "ObjectDictionaryItem"},
+            {B_scriptdictionaryitem, "ScriptDictionaryItem"},
+            {B_dictionarycontains, "DictionaryContains"},
         };
         for (const auto &m : kDictItem) {
-            if (fn == m.lower && n == 2) {
+            if (fn == m.id && n == 2) {
                 not_null(0, "obj");
                 not_null(1, "key");
                 if (!is_dict(arg(0))) wrong_type(m.canon, "dictionary", 0);
@@ -379,53 +439,53 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         const Value *f = field_arg();
         return vbool(f && f->type == t);
     };
-    if (fn == "getattribute" && n == 2) {
+    if (fn == B_getattribute && n == 2) {
         const Value *f = field_arg();
         return f ? *f : vnull();
     }
-    if (fn == "getboolean" && n == 2) {
+    if (fn == B_getboolean && n == 2) {
         const Value *f = field_arg();
         return vbool(f && f->type == Value::Type::Boolean && f->boolean);
     }
-    if (fn == "getint" && n == 2) {
+    if (fn == B_getint && n == 2) {
         const Value *f = field_arg();
         return vint(f ? (long)std::llround(as_double(*f)) : 0);
     }
-    if (fn == "getdouble" && n == 2) {
+    if (fn == B_getdouble && n == 2) {
         const Value *f = field_arg();
         return vdouble(f ? as_double(*f) : 0);
     }
-    if (fn == "getstring" && n == 2) {
+    if (fn == B_getstring && n == 2) {
         const Value *f = field_arg();
         return vstr(f ? to_string(*f) : std::string());
     }
-    if (fn == "hasattribute" && n == 2) return vbool(field_arg() != nullptr);
-    if (fn == "hasstring" && n == 2) return has_field_of(Value::Type::String);
-    if (fn == "hasint" && n == 2) {
+    if (fn == B_hasattribute && n == 2) return vbool(field_arg() != nullptr);
+    if (fn == B_hasstring && n == 2) return has_field_of(Value::Type::String);
+    if (fn == B_hasint && n == 2) {
         const Value *f = field_arg();
         return vbool(f && is_number(*f));
     }
-    if (fn == "hasboolean" && n == 2) return has_field_of(Value::Type::Boolean);
-    if (fn == "hasobject" && n == 2) return has_field_of(Value::Type::ObjectRef);
-    if (fn == "hasdouble" && n == 2) return has_field_of(Value::Type::Double);
+    if (fn == B_hasboolean && n == 2) return has_field_of(Value::Type::Boolean);
+    if (fn == B_hasobject && n == 2) return has_field_of(Value::Type::ObjectRef);
+    if (fn == B_hasdouble && n == 2) return has_field_of(Value::Type::Double);
     // HasScript / HasDelegateImplementation: a field of Script type. We store a
     // delegate-implementation body as Script too, so both map to the same check.
-    if ((fn == "hasscript" || fn == "hasdelegateimplementation") && n == 2)
+    if ((fn == B_hasscript || fn == B_hasdelegateimplementation) && n == 2)
         return has_field_of(Value::Type::Script);
-    if (fn == "getobject" && n == 1) {
+    if (fn == B_getobject && n == 1) {
         // GetObject resolves every ElementType.Object element, not just plain
         // objects -- ProcessTextCommand_Exit and dynamically-created
         // turnscripts ("turnscript = GetObject(name)") rely on this.
         Element *e = world_.find(sarg(0));
         return e && is_object_element(*e) ? vobj(e->name) : vnull();
     }
-    if (fn == "gettimer" && n == 1) {
+    if (fn == B_gettimer && n == 1) {
         Element *e = world_.find(sarg(0));
         return e && e->kind == ElemKind::Timer ? vobj(e->name) : vnull();
     }
     // RunDelegateFunction(obj, "delegatename", params...): the expression form
     // of rundelegate; returns the implementation script's return value.
-    if (fn == "rundelegatefunction" && n >= 2) {
+    if (fn == B_rundelegatefunction && n >= 2) {
         std::vector<Value> params(args.begin() + 2, args.end());
         return interp_run_delegate(*this, obj_of(arg(0)), sarg(1), params);
     }
@@ -433,11 +493,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // every option reads back NULL like the oracle's headless player (an
     // empty string instead flips Core's `value = null` checks -- e.g.
     // UIOptionUseGameFont -- into the branch that calls ToDouble("")).
-    if (fn == "getuioption" && n == 1) return vnull();
+    if (fn == B_getuioption && n == 1) return vnull();
     // GetFileURL: front-end URL for a packaged resource. Headless there is no
     // web root; the filename itself is a serviceable stand-in (it only ever
     // lands inside HTML the presentation milestone will interpret).
-    if (fn == "getfileurl" && n == 1) return vstr(sarg(0));
+    if (fn == B_getfileurl && n == 1) return vstr(sarg(0));
     // GetUniqueElementName (WorldModel.GetUniqueElementName): the name itself
     // if free, else the name minus trailing digits with the first free number
     // appended (timeout -> timeout1, timeout2, ...).
@@ -449,26 +509,26 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (!world_.find(cand)) return cand;
         }
     };
-    if (fn == "getuniqueelementname" && n == 1) {
+    if (fn == B_getuniqueelementname && n == 1) {
         std::string base = sarg(0);
         return vstr(world_.find(base) ? numbered_name(base) : base);
     }
     // IsGameRunning: State != Finished (ExpressionOwner.IsGameRunning). Turn
     // scripts guard on this every turn.
-    if (fn == "isgamerunning" && n == 0) return vbool(!world_.finished);
-    if (fn == "doesinherit" && n == 2)
+    if (fn == B_isgamerunning && n == 0) return vbool(!world_.finished);
+    if (fn == B_doesinherit && n == 2)
         return vbool(does_inherit(world_, obj_of(arg(0)), sarg(1)));
-    if (fn == "typeof" && n == 1) return vstr(type_name(arg(0)));
-    if (fn == "typeof" && n == 2) {
+    if (fn == B_typeof && n == 1) return vstr(type_name(arg(0)));
+    if (fn == B_typeof && n == 2) {
         const Value *f = resolve_field(obj_of(arg(0)), sarg(1));
         return vstr(f ? type_name(*f) : std::string("null"));
     }
-    if (fn == "isdefined" && n == 1)
+    if (fn == B_isdefined && n == 1)
         return vbool(ctx.locals.count(sarg(0)) > 0);
     // Eval(expr[, scope]): evaluate an expression string, optionally with a
     // dictionary supplying local variables (QuestViva ExpressionOwner.Eval). The
     // text processor's {=...} uses this; ParamsForTextProcessor is usually empty.
-    if (fn == "eval" && (n == 1 || n == 2)) {
+    if (fn == B_eval && (n == 1 || n == 2)) {
         Context local;
         if (n == 2)
             for (auto &kv : arg(1).dict())
@@ -497,15 +557,15 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                 return vstr(up->name);
         return vnull();
     };
-    if (fn == "allobjects" && n == 0) return all_of_kind({ElemKind::Object});
+    if (fn == B_allobjects && n == 0) return all_of_kind({ElemKind::Object});
     // Verbs ARE commands (QuestViva loads <verb> as ElementType.Command with
     // IsVerb=true) -- ScopeCommands depends on seeing them here.
-    if (fn == "allcommands" && n == 0)
+    if (fn == B_allcommands && n == 0)
         return all_of_kind({ElemKind::Command, ElemKind::Verb});
-    if (fn == "allexits" && n == 0) return all_of_kind({ElemKind::Exit});
-    if (fn == "allturnscripts" && n == 0)
+    if (fn == B_allexits && n == 0) return all_of_kind({ElemKind::Exit});
+    if (fn == B_allturnscripts && n == 0)
         return all_of_kind({ElemKind::Turnscript});
-    if (fn == "getexitbylink" && n == 2) {
+    if (fn == B_getexitbylink && n == 2) {
         // ExpressionOwner.GetExitByLink: the first element parented in `from`
         // whose `to` field is the target. Hawk the Hunter's NPC movement
         // messages use it every walk tick.
@@ -519,7 +579,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             return f && f->type == Value::Type::ObjectRef && obj_of(*f) == toEl;
         });
     }
-    if (fn == "getexitbyname" && n == 2) {
+    if (fn == B_getexitbyname && n == 2) {
         // ExpressionOwner.GetExitByName: the first element parented in
         // `parent` whose alias equals `name`. Deeper's
         // CheckConnectivity flood-fill asks it for "north"/"south"/"east"/
@@ -541,14 +601,14 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // Served from World's lazily-rebuilt containment index (kind==Object, live,
     // parent read from the own `parent` field, SortIndex order) -- an
     // O(children) lookup rather than the full O(N) world scan this used to be.
-    if (fn == "getdirectchildren" && n == 1) {
+    if (fn == B_getdirectchildren && n == 1) {
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
         if (e)
             for (Element *k : world_.children_of(e)) names.push_back(k->name);
         return vobjlist(names);
     }
-    if (fn == "getallchildobjects" && n == 1) {
+    if (fn == B_getallchildobjects && n == 1) {
         Element *e = obj_of(arg(0));
         std::vector<std::string> names;
         // Recurse through the parent-field tree. A visited set guards against a
@@ -566,7 +626,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         if (e) rec(e);
         return vobjlist(names);
     }
-    if (fn == "contains" && n == 2) {
+    if (fn == B_contains && n == 2) {
         Element *parent = obj_of(arg(0)), *child = obj_of(arg(1));
         bool found = false;
         int guard = 0;
@@ -575,7 +635,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (p == parent) { found = true; break; }
         return vbool(found);
     }
-    if (fn == "getattributenames" && (n == 1 || n == 2)) {
+    if (fn == B_getattributenames && (n == 1 || n == 2)) {
         Element *e = obj_of(arg(0));
         bool inh = (n == 2) && truthy(arg(1));
         std::vector<std::string> names;
@@ -598,13 +658,13 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
 
     // ---- dictionaries -----------------------------------------------------
-    if ((fn == "newdictionary" || fn == "newstringdictionary") && n == 0)
+    if ((fn == B_newdictionary || fn == B_newstringdictionary) && n == 0)
         return new_dict(Value::Type::StringDict);
-    if (fn == "newobjectdictionary" && n == 0)
+    if (fn == B_newobjectdictionary && n == 0)
         return new_dict(Value::Type::ObjectDict);
-    if (fn == "newscriptdictionary" && n == 0)
+    if (fn == B_newscriptdictionary && n == 0)
         return new_dict(Value::Type::ScriptDict);
-    if (fn == "dictionarycount" && n == 1) return vint((long)arg(0).dict().size());
+    if (fn == B_dictionarycount && n == 1) return vint((long)arg(0).dict().size());
     // The entry of dictionary arg(0) under key arg(1), or nullptr.
     auto dict_entry = [&]() -> const Value * {
         std::string key = sarg(1);
@@ -623,12 +683,12 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     auto as_object = [&](const Value &v) {
         return v.type == Value::Type::ObjectRef ? v : vobj(to_string(v));
     };
-    if (fn == "dictionarycontains" && n == 2) return vbool(dict_entry() != nullptr);
-    if ((fn == "dictionaryitem" || fn == "scriptdictionaryitem") && n == 2)
+    if (fn == B_dictionarycontains && n == 2) return vbool(dict_entry() != nullptr);
+    if ((fn == B_dictionaryitem || fn == B_scriptdictionaryitem) && n == 2)
         return dict_item();
-    if (fn == "stringdictionaryitem" && n == 2)
+    if (fn == B_stringdictionaryitem && n == 2)
         return vstr(to_string(dict_item()));
-    if (fn == "objectdictionaryitem" && n == 2) return as_object(dict_item());
+    if (fn == B_objectdictionaryitem && n == 2) return as_object(dict_item());
     // The entry of list arg(0) at index arg(1), or nullptr when out of range
     // (the *ListItem getters answer null there).
     auto list_entry = [&]() -> const Value * {
@@ -636,25 +696,25 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         long i = iarg(1);
         return i < 0 || (size_t)i >= l.size() ? nullptr : &l[i];
     };
-    if (fn == "listitem" && n == 2) {
+    if (fn == B_listitem && n == 2) {
         const Value *e = list_entry();
         return e ? *e : vnull();  // entries are typed
     }
-    if (fn == "stringlistitem" && n == 2) {
+    if (fn == B_stringlistitem && n == 2) {
         const Value *e = list_entry();
         return e ? vstr(to_string(*e)) : vnull();
     }
-    if (fn == "objectlistitem" && n == 2) {
+    if (fn == B_objectlistitem && n == 2) {
         const Value *e = list_entry();
         return e ? as_object(*e) : vnull();
     }
 
     // ---- templates --------------------------------------------------------
-    if (fn == "template" && n == 1) {
+    if (fn == B_template && n == 1) {
         const std::string *t = find_template(world_, sarg(0));
         return vstr(t ? *t : std::string());
     }
-    if (fn == "dynamictemplate" && n >= 1) {
+    if (fn == B_dynamictemplate && n >= 1) {
         const std::string *t = find_dyn_template(world_, sarg(0));
         if (!t) {  // fall back to a static template of the same name
             const std::string *st = find_template(world_, sarg(0));
@@ -673,29 +733,29 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
 
     // ---- misc string ------------------------------------------------------
-    if (fn == "capfirst" && n == 1) {
+    if (fn == B_capfirst && n == 1) {
         return vstr(utf8_case(sarg(0), true, true));
     }
-    if (fn == "safexml" && n == 1) {
+    if (fn == B_safexml && n == 1) {
         return vstr(safe_xml_escape(sarg(0)));
     }
 
     // ---- lists ------------------------------------------------------------
-    if ((fn == "newlist" || fn == "newstringlist") && n == 0) return vstrlist({});
-    if (fn == "newobjectlist" && n == 0) return vobjlist({});
-    if (fn == "listcount" && n == 1) {
+    if ((fn == B_newlist || fn == B_newstringlist) && n == 0) return vstrlist({});
+    if (fn == B_newobjectlist && n == 0) return vobjlist({});
+    if (fn == B_listcount && n == 1) {
         // QuestViva's ListCount takes any ICollection -- dictionaries count
         // too (Hawk's finale checks ListCount(game.score_achievements) > 0 on
         // a dictionary before printing the achievements header).
         if (is_dict(arg(0))) return vint((long)arg(0).dict().size());
         return vint((long)arg(0).list().size());
     }
-    if (fn == "listcontains" && n == 2) {
+    if (fn == B_listcontains && n == 2) {
         for (const Value &e : arg(0).list())
             if (values_equal(e, arg(1))) return vbool(true);
         return vbool(false);
     }
-    if (fn == "listexclude" && n == 2) {
+    if (fn == B_listexclude && n == 2) {
         // QuestList.Exclude filters ALL matching entries into a new list; the
         // second arg may be a single element or a list of elements to exclude.
         Value out = arg(0);
@@ -712,7 +772,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         v.erase(std::remove_if(v.begin(), v.end(), excluded), v.end());
         return out;
     }
-    if (fn == "listcombine" && n == 2) {
+    if (fn == B_listcombine && n == 2) {
         Value out = arg(0);
         out.detach();  // return a new list; do not mutate the input's backing
         for (const Value &e : arg(1).list()) out.list().push_back(e);
@@ -721,7 +781,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // ObjectListSort(list, attr[, attr2...]): stably order an object list by one
     // or more attributes (ExpressionOwner.ObjectListSort -> OrderBy/ThenBy). A
     // missing attribute sorts as empty. Descending reverses the result.
-    if ((fn == "objectlistsort" || fn == "objectlistsortdescending") && n >= 2) {
+    if ((fn == B_objectlistsort || fn == B_objectlistsortdescending) && n >= 2) {
         Value out = arg(0);
         out.detach();
         std::vector<std::string> attrs;
@@ -740,11 +800,11 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                              }
                              return false;
                          });
-        if (fn == "objectlistsortdescending")
+        if (fn == B_objectlistsortdescending)
             std::reverse(out.list().begin(), out.list().end());
         return out;
     }
-    if ((fn == "stringlistsort" || fn == "stringlistsortdescending") && n == 1) {
+    if ((fn == B_stringlistsort || fn == B_stringlistsortdescending) && n == 1) {
         Value out = arg(0);
         out.detach();
         std::stable_sort(out.list().begin(), out.list().end(),
@@ -752,26 +812,26 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                              return dotnet_string_less(to_string(a),
                                                        to_string(b));
                          });
-        if (fn == "stringlistsortdescending")
+        if (fn == B_stringlistsortdescending)
             std::reverse(out.list().begin(), out.list().end());
         return out;
     }
 
     // ---- strings ----------------------------------------------------------
-    if (fn == "lcase" && n == 1) return vstr(utf8_case(sarg(0), false, false));
-    if (fn == "ucase" && n == 1) return vstr(utf8_case(sarg(0), true, false));
-    if (fn == "left" && n == 2) {
+    if (fn == B_lcase && n == 1) return vstr(utf8_case(sarg(0), false, false));
+    if (fn == B_ucase && n == 1) return vstr(utf8_case(sarg(0), true, false));
+    if (fn == B_left && n == 2) {
         std::string s = sarg(0); long k = iarg(1);
         if (k < 0) k = 0;
         return vstr(s.substr(0, std::min((size_t)k, s.size())));
     }
-    if (fn == "right" && n == 2) {
+    if (fn == B_right && n == 2) {
         std::string s = sarg(0); long k = iarg(1);
         if (k < 0) k = 0;
         size_t kk = std::min((size_t)k, s.size());
         return vstr(s.substr(s.size() - kk));
     }
-    if (fn == "mid" && (n == 2 || n == 3)) {
+    if (fn == B_mid && (n == 2 || n == 3)) {
         std::string s = sarg(0);
         long start = iarg(1);  // 1-based
         if (start < 1) start = 1;
@@ -784,7 +844,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         }
         return vstr(s.substr(from));
     }
-    if (fn == "instr" && (n == 2 || n == 3)) {
+    if (fn == B_instr && (n == 2 || n == 3)) {
         long start = 1; std::string s, find;
         if (n == 2) { s = sarg(0); find = sarg(1); }
         else { start = iarg(0); s = sarg(1); find = sarg(2); }
@@ -793,7 +853,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         size_t pos = s.find(find, (size_t)(start - 1));
         return vint(pos == std::string::npos ? 0 : (long)pos + 1);
     }
-    if (fn == "replace" && n == 3) {
+    if (fn == B_replace && n == 3) {
         std::string s = sarg(0), a = sarg(1), b = sarg(2);
         if (!a.empty()) {
             size_t pos = 0;
@@ -806,17 +866,17 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
     // VB Trim/LTrim/RTrim strip only the space and the ideographic space
     // (U+3000); tabs and newlines survive, unlike rt_trim.
-    if ((fn == "trim" || fn == "ltrim" || fn == "rtrim") && n == 1) {
+    if ((fn == B_trim || fn == B_ltrim || fn == B_rtrim) && n == 1) {
         std::string s = sarg(0);
         static const std::string ideo = "\xE3\x80\x80";
         size_t a = 0, b = s.size();
-        if (fn != "rtrim")
+        if (fn != B_rtrim)
             for (;;) {
                 if (a < b && s[a] == ' ') ++a;
                 else if (b - a >= 3 && s.compare(a, 3, ideo) == 0) a += 3;
                 else break;
             }
-        if (fn != "ltrim")
+        if (fn != B_ltrim)
             for (;;) {
                 if (b > a && s[b - 1] == ' ') --b;
                 else if (b - a >= 3 && s.compare(b - 3, 3, ideo) == 0) b -= 3;
@@ -827,7 +887,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // InstrRev([start,] input, search): the last match that ENDS at or before
     // `start` (1-based, -1 = the whole string), case-sensitive, by byte like
     // Instr.
-    if (fn == "instrrev" && (n == 2 || n == 3)) {
+    if (fn == B_instrrev && (n == 2 || n == 3)) {
         long start = -1; std::string s, find;
         if (n == 2) { s = sarg(0); find = sarg(1); }
         else { start = iarg(0); s = sarg(1); find = sarg(2); }
@@ -845,7 +905,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // Asc/Chr: ASCII is exact. QuestViva on .NET Core has no code page 1252
     // and errors on anything else; Question deliberately uses Windows-1252
     // there, as the Windows Quest runner did (unmappable characters -> '?').
-    if (fn == "asc" && n == 1) {
+    if (fn == B_asc && n == 1) {
         std::string s = sarg(0);
         if (s.empty())
             error("Length of argument 'String' must be greater than zero. "
@@ -857,7 +917,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             if (cp1252_high[i] == cp) return vint(0x80 + i);
         return vint('?');
     }
-    if (fn == "chr" && n == 1) {
+    if (fn == B_chr && n == 1) {
         long c = iarg(0);
         if (c < 0 || c > 255) error("Argument 'CharCode' is not a valid value.");
         uint32_t cp = c < 0x80 || c >= 0xA0 ? (uint32_t)c : cp1252_high[c - 0x80];
@@ -867,25 +927,25 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     }
     // ExpressionOwner.IsInt/IsDouble: int.TryParse / double.TryParse (decimal
     // point only, no exponent/thousands) on the string form.
-    if (fn == "isint" && n == 1) {
+    if (fn == B_isint && n == 1) {
         long v;
         return vbool(parse_int32_text(sarg(0), v) == IntParse::Ok);
     }
-    if (fn == "isdouble" && n == 1)
+    if (fn == B_isdouble && n == 1)
         return vbool(is_decimal_text(trim(sarg(0)), false));
-    if (fn == "lengthof" && n == 1) return vint((long)sarg(0).size());
-    if (fn == "startswith" && n == 2) {
+    if (fn == B_lengthof && n == 1) return vint((long)sarg(0).size());
+    if (fn == B_startswith && n == 2) {
         std::string s = sarg(0), p = sarg(1);
         return vbool(s.compare(0, p.size(), p) == 0);
     }
-    if (fn == "endswith" && n == 2) {
+    if (fn == B_endswith && n == 2) {
         std::string s = sarg(0), p = sarg(1);
         return vbool(s.size() >= p.size() &&
                      s.compare(s.size() - p.size(), p.size(), p) == 0);
     }
     // StringFunctions.Split(input) -- the one-argument overload splits on ";"
     // (Deeper: `StringListItem(Split("small;medium;large"), o.count - 1)`).
-    if (fn == "split" && (n == 2 || n == 1)) {
+    if (fn == B_split && (n == 2 || n == 1)) {
         std::string s = sarg(0), delim = n == 2 ? sarg(1) : ";";
         std::vector<std::string> parts;
         if (delim.empty()) { parts.push_back(s); }
@@ -899,7 +959,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         }
         return vstrlist(parts);
     }
-    if (fn == "join" && n == 2) {
+    if (fn == B_join && n == 2) {
         std::string out, delim = sarg(1);
         const Value &l = arg(0);
         for (size_t i = 0; i < l.list().size(); ++i) {
@@ -908,8 +968,8 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         }
         return vstr(out);
     }
-    if ((fn == "cstr" || fn == "tostring") && n == 1) return vstr(sarg(0));
-    if (fn == "isnumeric" && n == 1) {
+    if ((fn == B_cstr || fn == B_tostring) && n == 1) return vstr(sarg(0));
+    if (fn == B_isnumeric && n == 1) {
         std::string s = trim(sarg(0));
         if (s.empty()) return vbool(false);
         char *end = nullptr;
@@ -929,16 +989,16 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // compile) is logged the way Utility.Populate / GetMatchStrength throw it.
     auto regex_match = [&](const CompiledRegex &cr, const std::string &input,
                            std::smatch &m) {
-        if (cr.valid && std::regex_search(input, m, cr.re)) return true;
+        if (cr.search(input, m)) return true;
         world_.errors.push_back("String '" + input +
                                 "' is not a match for Regex '" + sarg(0) + "'");
         return false;
     };
-    if (fn == "isregexmatch" && (n == 2 || n == 3)) {
+    if (fn == B_isregexmatch && (n == 2 || n == 3)) {
         auto cr = regex_arg();
-        return vbool(cr->valid && std::regex_search(sarg(1), cr->re));
+        return vbool(cr->search(sarg(1)));
     }
-    if (fn == "getmatchstrength" && (n == 2 || n == 3)) {
+    if (fn == B_getmatchstrength && (n == 2 || n == 3)) {
         std::string input = sarg(1);
         auto cr = regex_arg();
         std::smatch m;
@@ -946,7 +1006,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
         return vint(regex_match(*cr, input, m) ? len - named_group_len(*cr, m)
                                                : len);
     }
-    if (fn == "populate" && (n == 2 || n == 3)) {
+    if (fn == B_populate && (n == 2 || n == 3)) {
         std::string input = sarg(1);
         auto cr = regex_arg();
         Value out = new_dict(Value::Type::StringDict);
@@ -992,45 +1052,45 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     };
     // CInt/CDbl are the coerce-anything spellings and ToInt/ToDouble the
     // string-parse ones; here both accept either.
-    if ((fn == "cint" || fn == "toint") && n == 1)
+    if ((fn == B_cint || fn == B_toint) && n == 1)
         return vint(arg(0).type == Value::Type::String
                         ? parse_int32(arg(0).str) : round_int32(arg(0)));
-    if ((fn == "cdbl" || fn == "todouble") && n == 1)
+    if ((fn == B_cdbl || fn == B_todouble) && n == 1)
         return vdouble(arg(0).type == Value::Type::String
                            ? parse_double(arg(0).str) : as_double(arg(0)));
-    if (fn == "abs" && n == 1) {
+    if (fn == B_abs && n == 1) {
         if (arg(0).type == Value::Type::Int) return vint(std::labs(arg(0).integer));
         return vdouble(std::fabs(as_double(arg(0))));
     }
-    if (fn == "max" && n == 2)
+    if (fn == B_max && n == 2)
         return as_double(arg(0)) >= as_double(arg(1)) ? arg(0) : arg(1);
-    if (fn == "min" && n == 2)
+    if (fn == B_min && n == 2)
         return as_double(arg(0)) <= as_double(arg(1)) ? arg(0) : arg(1);
     // NcalcExpressionEvaluator resolves any unknown function against
     // System.Math by reflection, so games can call Math statics directly.
     // Math.Truncate/Floor/Ceiling(double) return a double (A Stranger,
     // Unregarded's `Truncate(game.visitcount/3.34)` progress percentage).
-    if ((fn == "truncate" || fn == "floor" || fn == "ceiling") && n == 1) {
+    if ((fn == B_truncate || fn == B_floor || fn == B_ceiling) && n == 1) {
         double d = as_double(arg(0));
-        if (fn == "truncate") d = std::trunc(d);
-        else if (fn == "floor") d = std::floor(d);
+        if (fn == B_truncate) d = std::trunc(d);
+        else if (fn == B_floor) d = std::floor(d);
         else d = std::ceil(d);
         return vdouble(d);
     }
     // Math.Round(double) rounds half to even (Shop Shaper's round(game.x)).
-    if (fn == "round" && n == 1) return vdouble(std::nearbyint(as_double(arg(0))));
+    if (fn == B_round && n == 1) return vdouble(std::nearbyint(as_double(arg(0))));
     // Clone / ShallowClone (ExpressionOwner -> Element.Clone): copy the
     // element under a fresh "<root>N" name (GetUniqueElementName strips
     // trailing digits), copying the inherited-type stack and every own field
     // except `name` -- collections get their own backing (Fields.Clone runs
     // clone-on-set) -- and, for the deep form, recursively cloning children
     // into the copy. The clone lands in the same parent, at the end.
-    if ((fn == "clone" || fn == "shallowclone") && n == 1) {
+    if ((fn == B_clone || fn == B_shallowclone) && n == 1) {
         not_null(0, "obj");
         // Not must_be_object: a reference to an element that no longer exists
         // is refused here as well.
         Element *src = obj_of(arg(0));
-        if (!src) wrong_type(fn == "clone" ? "Clone" : "ShallowClone", "object", 0);
+        if (!src) wrong_type(fn == B_clone ? "Clone" : "ShallowClone", "object", 0);
         // Guard the deep recursion against a runtime parent cycle (a->parent=b,
         // b->parent=a): each element has a single parent, so containment is a
         // tree and a global visited set never prunes a legitimate distinct
@@ -1045,6 +1105,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                                               from->elem_type);
             log_create(e);  // Element.Clone creates via ObjectFactory -- undoable
             e->inherits = from->inherits;  // the clone shares the type stack
+            world_.note_inherit_change();
             for (const auto &kv : from->fields) {
                 if (kv.first == "name") continue;
                 Value v = kv.second;
@@ -1068,13 +1129,13 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
             }
             return e;
         };
-        return vobj(do_clone(src, fn == "clone")->name);
+        return vobj(do_clone(src, fn == B_clone)->name);
     }
 
     // ExpressionOwner.ShowMenu -- the EXPRESSION form, which QuestViva AWAITS:
     // print the caption, get the selection from the synchronous host provider,
     // echo " - <display>", and return the key ("" on cancel).
-    if (fn == "showmenu" && n == 3) {
+    if (fn == B_showmenu && n == 3) {
         MenuData md;
         md.caption = sarg(0);
         md.allow_cancel = truthy(arg(2));
@@ -1117,7 +1178,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // the caption to the synchronous host and return its yes/no. Before v600
     // the caption is not printed (PlayerUI.ShowQuestion renders it); a v600+
     // game draws the question and its Yes/No links inline.
-    if (fn == "ask" && n == 1) {
+    if (fn == B_ask && n == 1) {
         if (!ask_provider)
             error("Ask (expression form) requires a host question provider");
         bool answer = false;
@@ -1134,7 +1195,7 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // refuse it outright with a script error (the async engine could not
     // suspend inside an expression there); 600+ and the legacy <540 games
     // (the corpus users are all ASL 520) get the line.
-    if (fn == "getinput" && n == 0) {
+    if (fn == B_getinput && n == 0) {
         if (world_.asl_version >= 540 && world_.asl_version < 600)
             error("The 'GetInput' function is not supported for games with "
                   "WorldModel version 540\xE2\x80\x93" "580. Use the 'get input' "
@@ -1149,22 +1210,22 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
 
     // QuestViva GetFileData: the resource's text (BOM dropped), null when
     // there is no such resource; a path climbing out with ".." is refused.
-    if (fn == "getfiledata" && n == 1) {
+    if (fn == B_getfiledata && n == 1) {
         std::string file = sarg(0), data;
         if (file.find("..") != std::string::npos) error("Invalid filename");
         if (!resource_provider || !resource_provider(file, data)) return vnull();
         if (data.compare(0, 3, "\xEF\xBB\xBF") == 0) data.erase(0, 3);
         return vstr(data);
     }
-    if (fn == "getexternalfiledata" && n == 1)
+    if (fn == B_getexternalfiledata && n == 1)
         error("GetExternalFileData is not supported");
-    if (fn == "setexternalfiledata" && n == 2)
+    if (fn == B_setexternalfiledata && n == 2)
         error("SetExternalFileData is not supported");
-    if (fn == "currentdateutc" && n == 0) return vint((long)std::time(nullptr));
+    if (fn == B_currentdateutc && n == 0) return vint((long)std::time(nullptr));
 
-    if (fn == "getrandomint" && n == 2)
+    if (fn == B_getrandomint && n == 2)
         return vint(active_rng().between(iarg(0), iarg(1)));
-    if (fn == "getrandomdouble" && n == 0)
+    if (fn == B_getrandomdouble && n == 0)
         return vdouble(active_rng().next_double());
 
     handled = false;

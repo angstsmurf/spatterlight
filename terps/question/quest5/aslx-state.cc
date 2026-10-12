@@ -508,6 +508,7 @@ bool Interp::restore_game(const std::string &data, std::string &err) try {
     }
     world_.next_sort_index = next_sort;
     world_.note_containment_change();  // containment fully rewritten by restore
+    world_.note_inherit_change();      // and so is every type stack
 
     // firsttime flags: compiling the source re-populates the cache slot the
     // save keyed on; a body that no longer parses identically is skipped.

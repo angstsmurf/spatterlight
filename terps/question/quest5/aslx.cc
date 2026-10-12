@@ -242,6 +242,7 @@ void World::register_name(const std::string &name, Element *ep) {
     }
     ep->registered = true;
     note_containment_change();
+    note_inherit_change();
 }
 
 void World::unregister_name(const std::string &name) {
@@ -250,6 +251,31 @@ void World::unregister_name(const std::string &name) {
     it->second->registered = false;
     by_name.erase(it);
     note_containment_change();
+    note_inherit_change();
+}
+
+static void flatten_chain(const World &w, Element *e, std::vector<Element *> &out,
+                          std::vector<const Element *> &path) {
+    // `path` is the active recursion stack, so this is a back-edge check only:
+    // legal diamond inheritance still lists a shared base once per path.
+    if (!e) return;
+    for (const Element *p : path)
+        if (p == e) return;
+    path.push_back(e);
+    out.push_back(e);
+    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
+        flatten_chain(w, w.find(*it), out, path);
+    path.pop_back();
+}
+
+const std::vector<Element *> &World::field_chain(Element *e) const {
+    if (e->chain_gen_ != inherit_gen) {
+        e->chain_.clear();
+        std::vector<const Element *> path;
+        flatten_chain(*this, e, e->chain_, path);
+        e->chain_gen_ = inherit_gen;
+    }
+    return e->chain_;
 }
 
 // Live object-kind children of `parent` (nullptr = roots), SortIndex order.
@@ -1583,6 +1609,7 @@ static bool finish_load(Loader &ld, World &world) {
             inh.insert(inh.begin(), "defaultverb");
     }
     apply_default_types(world);
+    world.note_inherit_change();
     finish_verb_patterns(ld, world);
     // A genuinely broken load surfaces as an XML/parse error or a missing
     // version; unresolved includes and per-field warnings are non-fatal.

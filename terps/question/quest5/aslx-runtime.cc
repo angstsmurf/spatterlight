@@ -26,6 +26,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <ctime>
 #include <regex>
 #include <sstream>
@@ -100,6 +101,146 @@ static std::string rewrite_dotnet_regex(const std::string &pat,
     return out;
 }
 
+// -- prefilter ---------------------------------------------------------------
+// The parser tries a typed command against every command's pattern, and nearly
+// all of those are misses that std::regex takes a long time to report. Almost
+// every pattern is a simplepattern conversion -- "^take (.*)$|^get (.*)$",
+// "^(look at|x) (.*)$" -- so the literal text each alternative opens with is a
+// cheap necessary condition, checked before the regex runs. Anything the
+// analysis below does not recognise leaves the pattern unfiltered; a prefix
+// that is shorter than it could be is always safe.
+
+// A character that stands for itself in an ECMAScript pattern. ASCII only, so
+// the case fold below is the same one std::regex::icase applies.
+static bool regex_plain(char c) {
+    unsigned char u = (unsigned char)c;
+    return u >= 0x20 && u < 0x7f && !std::strchr("\\.[](){}*+?|^$", c);
+}
+
+static bool regex_quantifier(char c) {
+    return c == '*' || c == '+' || c == '?' || c == '{';
+}
+
+static char ascii_fold(char c) {
+    return c >= 'A' && c <= 'Z' ? (char)(c - 'A' + 'a') : c;
+}
+
+// The literal text p[i, end) opens with, folded. `whole` reports whether that
+// was all of it. A quantified character is not required text.
+static std::string literal_run(const std::string &p, size_t i, size_t end,
+                               bool &whole) {
+    std::string lit;
+    while (i < end && regex_plain(p[i])) lit += ascii_fold(p[i++]);
+    if (i < end && regex_quantifier(p[i]) && !lit.empty()) lit.pop_back();
+    whole = i == end;
+    return lit;
+}
+
+// Split p[b, e) at the "|"s outside any group, class or escape. Fails on
+// anything unbalanced and on the class spellings whose end is ambiguous ("[]",
+// "[^]", a nested "["), which callers treat as "no prefilter".
+static bool split_alternatives(const std::string &p, size_t b, size_t e,
+                               std::vector<std::pair<size_t, size_t>> &out) {
+    int depth = 0;
+    size_t start = b;
+    for (size_t i = b; i < e; ++i) {
+        char c = p[i];
+        if (c == '\\') {
+            if (++i >= e) return false;
+        } else if (c == '[') {
+            size_t j = i + 1;
+            if (j < e && p[j] == '^') ++j;
+            if (j >= e || p[j] == ']') return false;
+            for (; j < e && p[j] != ']'; ++j) {
+                if (p[j] == '[') return false;
+                if (p[j] == '\\') ++j;
+            }
+            if (j >= e) return false;
+            i = j;
+        } else if (c == '(') {
+            ++depth;
+        } else if (c == ')') {
+            if (--depth < 0) return false;
+        } else if (c == '|' && depth == 0) {
+            out.emplace_back(start, i);
+            start = i + 1;
+        }
+    }
+    if (depth != 0) return false;
+    out.emplace_back(start, e);
+    return true;
+}
+
+// The closing paren of the group opening at p[open]; p is already known to be
+// balanced with well-formed classes.
+static size_t group_end(const std::string &p, size_t open, size_t e) {
+    int depth = 0;
+    for (size_t i = open; i < e; ++i) {
+        char c = p[i];
+        if (c == '\\') ++i;
+        else if (c == '[') { while (++i < e && p[i] != ']') if (p[i] == '\\') ++i; }
+        else if (c == '(') ++depth;
+        else if (c == ')' && --depth == 0) return i;
+    }
+    return e;
+}
+
+// Fill cr.prefixes from the ECMAScript pattern; cr.anchored stays false unless
+// every alternative yields a non-empty prefix.
+static void derive_prefixes(const std::string &p, CompiledRegex &cr) {
+    std::vector<std::pair<size_t, size_t>> alts;
+    if (!split_alternatives(p, 0, p.size(), alts)) return;
+    std::vector<std::string> prefixes;
+    bool whole;
+    for (const auto &alt : alts) {
+        size_t i = alt.first, t = alt.second;
+        if (i >= t || p[i] != '^') return;  // can match anywhere in the input
+        ++i;
+        if (i < t && p[i] == '(') {
+            // "^(look at|x) ..." -- each branch of a leading group, extended by
+            // the text after the group when the branch is all literal.
+            size_t close = group_end(p, i, t);
+            if (close >= t) return;
+            if (close + 1 < t && regex_quantifier(p[close + 1])) return;
+            size_t in = i + 1;
+            if (in < close && p[in] == '?') {
+                if (in + 1 >= close || p[in + 1] != ':') return;  // lookaround
+                in += 2;
+            }
+            std::vector<std::pair<size_t, size_t>> branches;
+            if (!split_alternatives(p, in, close, branches)) return;
+            bool tail_whole;
+            const std::string tail = literal_run(p, close + 1, t, tail_whole);
+            for (const auto &br : branches) {
+                std::string lit = literal_run(p, br.first, br.second, whole);
+                if (whole) lit += tail;
+                if (lit.empty()) return;
+                prefixes.push_back(std::move(lit));
+            }
+        } else {
+            std::string lit = literal_run(p, i, t, whole);
+            if (lit.empty()) return;
+            prefixes.push_back(std::move(lit));
+        }
+    }
+    cr.prefixes = std::move(prefixes);
+    cr.anchored = true;
+}
+
+bool CompiledRegex::may_match(const std::string &input) const {
+    if (!anchored) return true;
+    // "^" is taken to mean the start of the input; leave a multi-line input to
+    // the regex rather than depend on how the library reads it there.
+    if (input.find_first_of("\r\n") != std::string::npos) return true;
+    for (const std::string &pre : prefixes) {
+        if (input.size() < pre.size()) continue;
+        size_t k = 0;
+        while (k < pre.size() && ascii_fold(input[k]) == pre[k]) ++k;
+        if (k == pre.size()) return true;
+    }
+    return false;
+}
+
 static std::shared_ptr<CompiledRegex> build_regex(const std::string &pattern,
                                                   std::vector<std::string> &errors) {
     auto cr = std::make_shared<CompiledRegex>();
@@ -107,6 +248,7 @@ static std::shared_ptr<CompiledRegex> build_regex(const std::string &pattern,
     try {
         cr->re.assign(rewritten, std::regex::ECMAScript | std::regex::icase);
         cr->valid = true;
+        derive_prefixes(rewritten, *cr);
     } catch (const std::regex_error &e) {
         errors.push_back("Invalid regex '" + pattern + "': " + e.what());
     }
@@ -1994,68 +2136,30 @@ void Interp::log_dict_change(UndoAction::Kind kind, const Value &coll,
 
 // -- expression evaluation --------------------------------------------------
 
-// Walk the field chain (own field, then inherited types most-recent-first,
-// depth-first) collecting the base value -- the first NON-extend field -- and
-// every `listextend` field encountered anywhere in the chain, in traversal
+// Resolving a field walks World::field_chain (own field, then inherited types
+// most-recent-first, depth-first) for the base value -- the first NON-extend
+// field -- and every `listextend` field anywhere in the chain, in traversal
 // order (most-derived first). Mirrors QuestViva Fields.Get: extendable fields
 // live outside normal resolution (m_extendableFields) and merge on read.
-static void collect_field_chain(World &w, Element *e, const std::string &name,
-                                const Value *&base,
-                                std::vector<const Value *> &exts,
-                                std::vector<const Element *> &path) {
-    // `path` holds the elements on the active recursion stack; a repeat means a
-    // runtime inheritance cycle (a bad <inherit> in the file, or a runtime
-    // parent/type edit), which would otherwise recurse until the C++ stack
-    // overflows. Popping on exit keeps this a back-edge check only, so legal
-    // diamond inheritance still visits a shared base once per path -- the
-    // listextend accumulation below must not be deduplicated.
-    //
-    // path is a stack used strictly LIFO (push on entry, pop on exit), and
-    // inheritance chains are short, so a plain vector with a linear back-edge
-    // scan is cheaper than an unordered_set: no per-node hashing and no heap
-    // churn (the set's insert/erase were a profile hotspot on Woo Rebooted).
-    if (!e) return;
-    for (const Element *p : path)
-        if (p == e) return;
-    path.push_back(e);
-    if (const Value *own = e->field(name)) {
-        if (own->list_extend) exts.push_back(own);
-        else if (!base) base = own;
-    }
-    for (auto it = e->inherits.rbegin(); it != e->inherits.rend(); ++it)
-        collect_field_chain(w, w.find(*it), name, base, exts, path);
-    path.pop_back();
-}
-
-// The element whose OWN (non-extend) field `name` resolves to from `e`: the
-// same traversal as collect_field_chain's base-value search.
-static const Element *find_field_owner(World &w, Element *e, const std::string &name,
-                                       std::vector<const Element *> &path) {
-    if (!e) return nullptr;
-    for (const Element *p : path)
-        if (p == e) return nullptr;
-    path.push_back(e);
-    const Element *owner = nullptr;
-    if (const Value *own = e->field(name); own && !own->list_extend)
-        owner = e;
-    for (auto it = e->inherits.rbegin(); !owner && it != e->inherits.rend(); ++it)
-        owner = find_field_owner(w, w.find(*it), name, path);
-    path.pop_back();
-    return owner;
-}
 
 std::string Interp::field_scope(Element *e, const std::string &attr) {
-    std::vector<const Element *> path;
-    const Element *owner = find_field_owner(world_, e, attr, path);
-    return owner ? scope_key(owner->name, attr) : std::string();
+    // The element whose OWN (non-extend) field `attr` resolves to from `e`.
+    if (!e) return std::string();
+    for (const Element *t : world_.field_chain(e))
+        if (const Value *own = t->field(attr); own && !own->list_extend)
+            return scope_key(t->name, attr);
+    return std::string();
 }
 
 const Value *Interp::resolve_field(Element *e, const std::string &name) {
     if (!e) return nullptr;
     const Value *base = nullptr;
     std::vector<const Value *> exts;
-    std::vector<const Element *> path;
-    collect_field_chain(world_, e, name, base, exts, path);
+    for (const Element *t : world_.field_chain(e))
+        if (const Value *own = t->field(name)) {
+            if (own->list_extend) exts.push_back(own);
+            else if (!base) base = own;
+        }
     if (exts.empty()) return base;  // fast path: no listextend in the chain
     // Merge on read (Fields.GetMergedResult): the base list's entries first,
     // then each extension least-derived to most-derived (QuestList.MergeLists
