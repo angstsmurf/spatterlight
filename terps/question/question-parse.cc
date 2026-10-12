@@ -78,6 +78,9 @@ string question_implementation::substitute_synonyms (string s) const
 	       * names an object currently in scope, leave it alone.  (E.g. the
 	       * synonym "pole = flag pole" must not rewrite "pole" once a "pole"
 	       * object is present.) */
+	      /* Cheapest test first: most synonyms are not in the command at all. */
+	      if (s.find (lhs) == string::npos)
+		continue;
 	      if (names_object_in_scope (lhs))
 		continue;
 	      std::string::size_type k = 0;
