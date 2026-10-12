@@ -33,18 +33,22 @@
 // staging address for decrypted data before it is relocated.
 #define SPECTRUM_PRINTER_BUFFER 0x5b00
 
-// The Alkatraz block-copy (ldir/lddr), decryption (DeAlkatraz) and block
-// unshuffle (DeshuffleAlkatraz) primitives are in the decompressz80 library
-// (decompressz80.c/.h), which the scott interpreter shares.
+// The Alkatraz block-copy (ZXLdir/ZXLddr), decryption (DeAlkatraz) and block
+// unshuffle (DeshuffleAlkatraz) primitives are in the decompressz80 library,
+// which the scott interpreter shares.
 
-// The whole Z80 address space, and the part of it that makes up a 48K
+// The part of the Z80 address space (ZX_MEMORY_SIZE) that makes up a 48K
 // .SNA snapshot: a 27-byte header followed by the RAM from 0x4000.
-#define ZX_MEMORY_SIZE 0x10000
 #define SNA_SIZE 0xc01b
 #define SNA_START_IN_MEMORY 0x3fe5
 
-// Size of the buffer that the five Blizzard Pass blocks are gathered in.
-#define BLIZZARD_PASS_IMAGE_SIZE 0x2001f
+// A 128K .SNA file: the header, pages 5, 2 and the one banked in, four bytes
+// (PC, the paging port, TR-DOS) and the five other pages in page order.
+// Without the four bytes, what follows the header is the image that
+// DecompressZ80 makes of a 128K snapshot.
+#define SNA_128K_SIZE 0x2001f
+#define SNA_128K_EXTRA_OFFSET (SNA_SIZE)
+#define SNA_128K_EXTRA_SIZE 4
 
 // Length of a Kayleth Z80 snapshot that was saved while still unpacking.
 #define BROKEN_KAYLETH_Z80_SIZE 0xb4bb
@@ -141,14 +145,16 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
     }
 
     uint8_t loacon = spec->loacon_init;
-    uint8_t *uncompressed = DeAlkatraz(block, NULL, spec->source_offset, SPECTRUM_PRINTER_BUFFER, spec->size, &loacon, spec->add1, spec->add2, 0);
-    if (!uncompressed) {
+    const AlkatrazKey schedule = { spec->add1, spec->add2, 0, 0 };
+    uint8_t *uncompressed = ZXNewMemory();
+    if (!uncompressed || !DeAlkatraz(block, block_length, spec->source_offset, uncompressed, SPECTRUM_PRINTER_BUFFER, spec->size, &loacon, &schedule)) {
+        free(uncompressed);
         free(block);
         fprintf(stderr, "DeAlkatraz failed for block %d\n", spec->block_index);
         return image;
     }
 
-    lddr(uncompressed, spec->lddr_target, spec->lddr_source, spec->lddr_size);
+    ZXLddr(uncompressed, spec->lddr_target, spec->lddr_source, spec->lddr_size);
     DeshuffleAlkatraz(uncompressed, spec->deshuffle_repeats, spec->deshuffle_IX, spec->deshuffle_store);
 
     free(block);
@@ -167,9 +173,9 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
 uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length) {
     uint8_t *mem = MemAlloc(ZX_MEMORY_SIZE);
     memcpy(mem + ZX_RAM_BASE, image, ZX_MEMORY_SIZE - ZX_RAM_BASE);
-    lddr(mem, 0xf906, 0xf8fe, 0x1ed5);
+    ZXLddr(mem, 0xf906, 0xf8fe, 0x1ed5);
     mem[0xda2a] = 0;
-    ldir(mem, 0xda2b, 0xda2a, 7);
+    ZXLdir(mem, 0xda2b, 0xda2a, 7);
     DeshuffleAlkatraz(mem, 0x13, 0x5bde, 0xfdcf);
     free(image);
     *length = ZX_MEMORY_SIZE;
@@ -261,8 +267,16 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         int TAPblocknums[5] = {11, 15, 17, 19, 21};
         int *blocknums = TAPblocknums;
 
+        // A 128K .SNA is given the layout of a decompressed 128K .z80, so
+        // that the pages past the first three are in the same place in both.
+        if (origlen == SNA_128K_SIZE && !is_tzx && !looks_like_tap) {
+            size_t rest = SNA_128K_EXTRA_OFFSET + SNA_128K_EXTRA_SIZE;
+            memmove(image + SNA_128K_EXTRA_OFFSET, image + rest, origlen - rest);
+            *length = origlen - SNA_128K_EXTRA_SIZE;
+        }
+
         // Dispatch by file size to identify which game/format we have
-        switch (*length) {
+        switch (origlen) {
             case 0xa000:  // Temple of Terror, Side B (text-only, TZX)
                 image = DecryptToTSideB(image, length);
                 // DecryptToTSideB draws the loading screen into the display
@@ -316,17 +330,28 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 blocknums = TZXblocknums;
                 // Fallthrough
             case 0x104c4: { // Blizzard Pass (TAP)
-                // Blizzard Pass isn't Alkatraz-encrypted — just concatenate
-                // 5 data blocks into a single buffer at known offsets.
-                out = MemAlloc(BLIZZARD_PASS_IMAGE_SIZE);
-                int BlizzardPassBlockOffsets[5] = {0x1801f, 0x801b, 0x401b, 0x1ee6, 0xbff7};
+                // Blizzard Pass isn't Alkatraz-encrypted — just put its 5
+                // data blocks where they are in the image that DecompressZ80
+                // makes of a 128K snapshot of the game, which has page 0
+                // banked in: pages 5, 2, 0, 1, 3, 4, 6, 7. The first block
+                // is page 6. The others are loaded at 0xC000 (page 0),
+                // 0x8000, 0x5ECB and 0xFFDC.
+                out = MemAlloc(Z80_IMAGE_SIZE_128K);
+                memset(out, 0, Z80_IMAGE_SIZE_128K);
+                const size_t BlizzardPassBlockOffsets[5] = {
+                    6 * ZX_PAGE_SIZE,
+                    0xc000 - ZX_RAM_BASE,
+                    0x8000 - ZX_RAM_BASE,
+                    0x5ecb - ZX_RAM_BASE,
+                    0xffdc - ZX_RAM_BASE
+                };
                 for (int i = 0; i < 5; i++) {
-                    if (!add_block(image, out, BLIZZARD_PASS_IMAGE_SIZE, origlen, blocknums[i], BlizzardPassBlockOffsets[i], isTZX)) {
+                    if (!add_block(image, out, Z80_IMAGE_SIZE_128K, origlen, blocknums[i], BlizzardPassBlockOffsets[i], isTZX)) {
                         free(out);
                         return image;
                     }
                 }
-                *length = BLIZZARD_PASS_IMAGE_SIZE;
+                *length = Z80_IMAGE_SIZE_128K;
                 free(image);
                 return out;
             }

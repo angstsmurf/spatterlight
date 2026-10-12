@@ -11,7 +11,7 @@
  *   clang -Iglkimp -Iterps/decompressz80 -Iterps/unp64 -w -c \
  *       terps/unquill/unquill.c terps/unquill/playgame.c \
  *       terps/unquill/condact.c terps/unquill/tables.c \
- *       terps/unquill/cli_glk.c terps/decompressz80/decompressz80.c
+ *       terps/unquill/cli_glk.c terps/decompressz80/*.c
  *   clang++ -std=c++17 -Iterps/unp64 -w -c \
  *       terps/unp64/unp64.cpp terps/unp64/6502_emu.cpp \
  *       terps/unp64/exo_util.cpp terps/unp64/globals.cpp \

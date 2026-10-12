@@ -41,7 +41,7 @@ SRCS := $(wildcard *.c) test/image_probe.c \
         $(wildcard $(COMMON_DIR)/*.c) \
         $(wildcard $(GRAPHICS_DIR)/*.c) \
         $(ZXSCREEN_DIR)/zx_title.c \
-        $(Z80_DIR)/decompressz80.c \
+        $(wildcard $(Z80_DIR)/*.c) \
         $(C64DISK_DIR)/c64diskimage.c
 UNP64_SRCS := $(wildcard $(UNP64_DIR)/*.cpp) $(wildcard $(UNP64_DIR)/scanners/*.cpp)
 

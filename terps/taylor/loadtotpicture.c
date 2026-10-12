@@ -25,7 +25,8 @@
    The original image loader reads a byte from tape, decrypts it and writes the
    result to a screen address from the draw order; the resulting image is then
    used to decrypt the game data. */
-void LoadAlkatrazPicture(uint8_t *memory, uint8_t *file)
+int LoadAlkatrazPicture(uint8_t *memory, const uint8_t *file, size_t file_length,
+    const AlkatrazKey *schedule)
 {
     /* Expand the loader's window descriptors (count at 0xeea9, descriptors at
        0xeeab) into the screen draw order. */
@@ -36,8 +37,11 @@ void LoadAlkatrazPicture(uint8_t *memory, uint8_t *file)
     /* Read each pixel/attribute byte from tape, decrypt it with the loader's
        rolling-key XOR, and write it to the next address in draw order. */
     uint8_t loacon = 0xf6;
-    DeAlkatraz(file, memory, 0, 0xea7d, 2, &loacon, 0xc1, 0xcb, 1);
+    if (!DeAlkatraz(file, file_length, 0, memory, 0xea7d, 2, &loacon, schedule))
+        return 0;
     size_t fileoffset = 2;
     for (int i = 0; i < count; i++)
-        DeAlkatraz(file, memory, fileoffset++, order[i], 1, &loacon, 0xc1, 0xcb, 1);
+        if (!DeAlkatraz(file, file_length, fileoffset++, memory, order[i], 1, &loacon, schedule))
+            return 0;
+    return 1;
 }

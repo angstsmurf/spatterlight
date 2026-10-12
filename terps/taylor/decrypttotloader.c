@@ -265,7 +265,7 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_sub_or_add(mem, 0xe1b7, 0x0d4a, (int8_t)-0x2e, -1, 1);
     // Zero-fill memory from 0xEF01 to 0xFFFF (LDIR block copy of zeroes)
     mem[0xef02] = 0;
-    ldir(mem, 0xef02, 0xef01, 0x10fd);
+    ZXLdir(mem, 0xef02, 0xef01, 0x10fd);
     loop_with_d(mem, 0x2b, 0xe1d7, 0x0d2a, 1);
     loop_with_xor_hl(mem, 0xe1e7, 0x0d1a);
     loop_with_r_and_de(mem, 0x26, 0xe206, 0x0cfb);
@@ -274,7 +274,7 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_sub_or_add(mem, 0xe246, 0x0cbb, (int8_t)-0x18, -1, 1);
     // Zero-fill ZX Spectrum screen memory and beyond (0x4000–0xE253)
     mem[ZX_RAM_BASE] = 0;
-    ldir(mem, ZX_RAM_BASE + 1, ZX_RAM_BASE, 0xa253);
+    ZXLdir(mem, ZX_RAM_BASE + 1, ZX_RAM_BASE, 0xa253);
     loop_with_d(mem, 5, 0xe266, 0x0c9b, 1);
     loop_with_r_and_de(mem, 0x1c, 0xe285, 0x0c7c);
     loop_with_r(mem, 0x57, 0xe295, 0x0c6c);
@@ -427,21 +427,25 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
         return NULL;
     // Decrypt in two passes, mirroring the byte-for-byte decryption that
     // the original tape loader performed during loading from cassette.
-    // Passing NULL as the target makes DeAlkatraz allocate a fresh 64 KB buffer.
+    // The loader decrypts over its own code, and so changes the two numbers
+    // that it moves its key on with (the operands at 0xe022 and 0xe02f).
+    static const AlkatrazKey loader_key = { 0xde, 0xe8, 0xe022, 0xe02f };
     uint8_t loacon = 0xd3;
-    uint8_t *memory = DeAlkatraz(encrypted_loader, NULL, 0, 0xdf98, 0x0002, &loacon, 0xde, 0xe8, 1);
-    if (memory == NULL) {
+    uint8_t *memory = ZXNewMemory();
+    if (memory == NULL
+        || !DeAlkatraz(encrypted_loader, length, 0, memory, 0xdf98, 0x0002, &loacon, &loader_key)
+        || !DeAlkatraz(encrypted_loader, length, 2, memory, 0xdf9d, 0x0f64, &loacon, &loader_key)) {
+        free(memory);
         free(encrypted_loader);
         return NULL;
     }
-    DeAlkatraz(encrypted_loader, memory, 2, 0xdf9d, 0x0f64, &loacon, 0xde, 0xe8, 1);
     free(encrypted_loader);
 
     // Initialize key bytes and relocate the loader code via LDIR block copy
     memory[0xef00] = 0x9a;
     memory[0xdf9a] = 0x0f;
     memory[0xdf9d] = 0;
-    ldir(memory, 0xdf9e, 0xdf9d, 0x10e);
+    ZXLdir(memory, 0xdf9e, 0xdf9d, 0x10e);
 
     // Stage 2: Run all ~90 decryption passes to produce the loading screen
     // drawing code. Although we don't execute this Z80 code directly (there
@@ -457,17 +461,24 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
         return NULL;
     }
 
-    // Draw the loading screen into the ZX Spectrum display file (0x4000-0x57FF)
-    LoadAlkatrazPicture(memory, block);
+    // The key schedule of the loaded game's blocks. None of them reaches
+    // the loader's operands, so there are no addresses to watch.
+    static const AlkatrazKey game_key = { 0xc1, 0xcb, 0, 0 };
 
-    // Decrypt the remaining data blocks from the tape image into memory.
+    // Draw the loading screen into the ZX Spectrum display file (0x4000-0x57FF),
+    // then decrypt the remaining data blocks from the tape image into memory.
     // These multiple DeAlkatraz passes place the game data across the
     // 64 KB address space at various target addresses.
     loacon = 0x8c;
-    DeAlkatraz(block, memory, 0x1b02, 0xea69, 0x000e, &loacon, 0xc1, 0xcb, 1);
-    DeAlkatraz(block, memory, 0x1b10, 0x6072, 0x6e96, &loacon, 0xc1, 0xcb, 1);
-    DeAlkatraz(block, memory, 0x89a6, 0x5b00, 0x01cc, &loacon, 0xc1, 0xcb, 1);
-    DeAlkatraz(block, memory, 0x8b72, 0xea79, 0x0003, &loacon, 0xc1, 0xcb, 1);
+    if (!LoadAlkatrazPicture(memory, block, length, &game_key)
+        || !DeAlkatraz(block, length, 0x1b02, memory, 0xea69, 0x000e, &loacon, &game_key)
+        || !DeAlkatraz(block, length, 0x1b10, memory, 0x6072, 0x6e96, &loacon, &game_key)
+        || !DeAlkatraz(block, length, 0x89a6, memory, 0x5b00, 0x01cc, &loacon, &game_key)
+        || !DeAlkatraz(block, length, 0x8b72, memory, 0xea79, 0x0003, &loacon, &game_key)) {
+        free(block);
+        free(memory);
+        return NULL;
+    }
 
     // Clear various control bytes used by the loader
     memory[0xeb0d] = 0;
@@ -488,12 +499,12 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
 
     // Clear the drawing code area now that it's no longer needed as a key
     memory[0xea7f] = 0;
-    ldir(memory, 0xea80, 0xea7f, 0x237);
+    ZXLdir(memory, 0xea80, 0xea7f, 0x237);
 
     free(block);
     free(data);
 
-    *original_data_length = 0x10000;
+    *original_data_length = ZX_MEMORY_SIZE;
 
     // Return the 64 KB ZX Spectrum memory snapshot containing the
     // decrypted game data.

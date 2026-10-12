@@ -10,15 +10,12 @@
 
 #include <stdint.h>
 
-/* GetTZXBlock and the Alkatraz primitives (ldir/lddr/DeAlkatraz/
-   DeshuffleAlkatraz) come from the shared decompressz80 library. */
-#include "decompressz80.h"
-
-/* Base address of the ZX Spectrum's writable RAM (and screen memory).
-   ROM occupies 0x0000-0x3FFF; usable RAM starts at 0x4000, which is also
-   where Taylor's games load. Used to translate between Z80 addresses
+/* GetTZXBlock and the Alkatraz primitives (ZXLdir/ZXLddr/DeAlkatraz/
+   DeshuffleAlkatraz) come from the shared decompressz80 library. So does
+   ZX_RAM_BASE (0x4000), where the RAM of the ZX Spectrum begins and where
+   Taylor's games load. It is used to translate between Z80 addresses
    stored in game data and offsets into our loaded FileImage. */
-#define ZX_RAM_BASE 0x4000
+#include "decompressz80.h"
 
 uint8_t *ProcessFile(uint8_t *image, size_t *length);
 

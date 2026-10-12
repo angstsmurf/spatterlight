@@ -15,9 +15,6 @@
 extern int gli_enable_graphics;
 #endif
 
-#define ZX_BITMAP_BASE     0x4000   /* display-file (bitmap) start address */
-#define ZX_ATTR_BASE       0x5800   /* colour-attribute start address      */
-
 /* Reveal timing: ~ZX_REVEAL_TICKS timer steps to paint the whole screen. */
 #define ZX_REVEAL_TICK_MS  30
 #define ZX_REVEAL_TICKS    120

@@ -142,7 +142,7 @@ EXTRACT_SRCS := extract_images.c extract_stubs.c \
   $(TERPS)/common_utils/companion_search.c \
   $(TERPS)/aiukgraphics/irmak.c $(TERPS)/aiukgraphics/aiukpalette.c \
   $(TERPS)/readwoz/ciderpress.c $(TERPS)/readwoz/woz2nib.c \
-  $(TERPS)/decompressz80/decompressz80.c $(TERPS)/common_zxscreen/zx_title.c
+  $(wildcard $(TERPS)/decompressz80/*.c) $(TERPS)/common_zxscreen/zx_title.c
 EXTRACT_INC := -I$(SCOTT) -I$(SCOTT)/ai_uk -I$(SCOTT)/saga -I$(SCOTT)/ti994a \
   -I$(TERPS)/common_utils -I$(TERPS)/common_sagadraw -I$(TERPS)/aiukgraphics \
   -I$(TERPS)/readwoz -I$(TERPS)/c64diskimage -I$(TERPS)/decompressz80 -I$(TERPS)/common_zxscreen -I$(TERPS)/../glkimp -I$(CG)

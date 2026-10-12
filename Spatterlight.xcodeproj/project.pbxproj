@@ -767,7 +767,10 @@
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
-		C36797BF2EF024B7008A6A0D /* decompressz80.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797B12EF0241E008A6A0D /* decompressz80.c */; };
+		C36797BF2EF024B7008A6A0D /* z80snap.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797B12EF0241E008A6A0D /* z80snap.c */; };
+		C3780A022F9D0001008A6A0D /* tapetzx.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A012F9D0001008A6A0D /* tapetzx.c */; };
+		C3780A042F9D0001008A6A0D /* alkatraz.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A032F9D0001008A6A0D /* alkatraz.c */; };
+		C3780A062F9D0001008A6A0D /* zxscreen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A052F9D0001008A6A0D /* zxscreen.c */; };
 		C36797C02EF024C5008A6A0D /* decompressz80.h in Headers */ = {isa = PBXBuildFile; fileRef = C36797B02EF0241E008A6A0D /* decompressz80.h */; };
 		C36797C12EF02557008A6A0D /* libdecompressz80.dylib in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		C36797C22EF02587008A6A0D /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
@@ -3499,7 +3502,11 @@
 		C35F50902F7DD00200816AD0 /* memory_allocation.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = memory_allocation.hpp; sourceTree = "<group>"; };
 		C35F50912F7DD00200816AD0 /* memory_allocation.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = memory_allocation.cpp; sourceTree = "<group>"; };
 		C36797B02EF0241E008A6A0D /* decompressz80.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompressz80.h; sourceTree = "<group>"; };
-		C36797B12EF0241E008A6A0D /* decompressz80.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = decompressz80.c; sourceTree = "<group>"; };
+		C36797B12EF0241E008A6A0D /* z80snap.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = z80snap.c; sourceTree = "<group>"; };
+		C3780A012F9D0001008A6A0D /* tapetzx.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = tapetzx.c; sourceTree = "<group>"; };
+		C3780A032F9D0001008A6A0D /* alkatraz.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = alkatraz.c; sourceTree = "<group>"; };
+		C3780A052F9D0001008A6A0D /* zxscreen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zxscreen.c; sourceTree = "<group>"; };
+		C3780A072F9D0001008A6A0D /* decompressz80_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompressz80_internal.h; sourceTree = "<group>"; };
 		C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libdecompressz80.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36797CA2EF040F7008A6A0D /* libsagagraphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libsagagraphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C36797CE2EF0415B008A6A0D /* apple2draw.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = apple2draw.h; sourceTree = "<group>"; };
@@ -6772,7 +6779,11 @@
 			isa = PBXGroup;
 			children = (
 				C36797B02EF0241E008A6A0D /* decompressz80.h */,
-				C36797B12EF0241E008A6A0D /* decompressz80.c */,
+				C3780A072F9D0001008A6A0D /* decompressz80_internal.h */,
+				C36797B12EF0241E008A6A0D /* z80snap.c */,
+				C3780A012F9D0001008A6A0D /* tapetzx.c */,
+				C3780A032F9D0001008A6A0D /* alkatraz.c */,
+				C3780A052F9D0001008A6A0D /* zxscreen.c */,
 			);
 			path = decompressz80;
 			sourceTree = "<group>";
@@ -9517,7 +9528,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C36797BF2EF024B7008A6A0D /* decompressz80.c in Sources */,
+				C36797BF2EF024B7008A6A0D /* z80snap.c in Sources */,
+				C3780A022F9D0001008A6A0D /* tapetzx.c in Sources */,
+				C3780A042F9D0001008A6A0D /* alkatraz.c in Sources */,
+				C3780A062F9D0001008A6A0D /* zxscreen.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

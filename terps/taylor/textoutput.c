@@ -455,8 +455,9 @@ void PrintObject(unsigned char object_index)
 }
 
 /* Blizzard Pass: the long room descriptions of the text-only mode, and
-   how many rooms have one. */
-#define BLIZZARD_LONG_ROOM_TEXT 0x18000
+   how many rooms have one. They are at the start of RAM page 6, which is the
+   seventh page of the 128K image (pages 5, 2, 0, 1, 3, 4, 6, 7). */
+#define BLIZZARD_LONG_ROOM_TEXT (6 * 0x4000)
 #define BLIZZARD_LONG_ROOMS 102
 
 void PrintRoom(unsigned char room_index)

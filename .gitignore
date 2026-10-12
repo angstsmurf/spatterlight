@@ -247,6 +247,10 @@ terps/readwoz/test/ciderpress_probe.dSYM/
 terps/c64diskimage/test/c64diskimage_probe
 terps/c64diskimage/test/c64diskimage_probe.dSYM/
 
+# ZX Spectrum snapshot and tape reader snapshot probe
+terps/decompressz80/test/z80_probe
+terps/decompressz80/test/z80_probe.dSYM/
+
 # Plus and TaylorMade picture test build artifacts and (copyrighted) games
 terps/plus/headless_obj/
 terps/plus/plus_image_probe
@@ -259,6 +263,9 @@ terps/taylor/headless_text_obj/
 terps/taylor/taylor_hl
 terps/taylor/test/images/games/
 terps/taylor/test/images/mame/
+terps/level9/headless_obj/
+terps/level9/level9_hl
+terps/level9/test/games/
 
 # Scarier build artifacts (Makefile.headless compiles in place; the test
 # harnesses have their own .gitignore files under terps/scarier/test/)

@@ -34,11 +34,10 @@
 
 #include "parser.h"
 
-/* Base address of the ZX Spectrum's writable RAM. ROM occupies
-   0x0000-0x3FFF; RAM starts at 0x4000, which is where loaded programs
-   live. Used to translate Z80 addresses stored in saved .z80 snapshots
-   to offsets into our in-memory file buffer. */
-#define ZX_RAM_BASE 0x4000
+/* ZX_RAM_BASE (0x4000, from decompressz80.h) is where the RAM of the ZX
+   Spectrum begins and where loaded programs live. Used to translate Z80
+   addresses stored in saved .z80 snapshots to offsets into our in-memory
+   file buffer. */
 
 /* Number of 16-bit words in a game file header */
 #define HEADER_WORDS 15
@@ -1220,18 +1219,20 @@ static int DeAlkatrazTape(void)
     uint8_t *block = GetTZXBlock(game->tzx_block, entire_file, &blocklen);
     if (block == NULL)
         return 0;
-    if (tape->source_offset + tape->size > blocklen) {
-        free(block);
+
+    uint8_t loacon = game->loacon;
+    const AlkatrazKey schedule = { game->add1, game->add2, 0, 0 };
+    uint8_t *mem = ZXNewMemory();
+    int ok = mem != NULL && DeAlkatraz(block, blocklen, tape->source_offset,
+        mem, tape->target, tape->size, &loacon, &schedule);
+    free(block);
+    if (!ok) {
+        free(mem);
         return 0;
     }
 
-    uint8_t loacon = game->loacon;
-    uint8_t *mem = DeAlkatraz(block, NULL, tape->source_offset, tape->target,
-        tape->size, &loacon, game->add1, game->add2, 0);
-    free(block);
-
-    uint8_t *image = MemAlloc(0xc000);
-    memcpy(image, mem + ZX_RAM_BASE, 0xc000);
+    uint8_t *image = MemAlloc(ZX_MEMORY_SIZE - ZX_RAM_BASE);
+    memcpy(image, mem + ZX_RAM_BASE, ZX_MEMORY_SIZE - ZX_RAM_BASE);
     free(mem);
 
     free(entire_file);

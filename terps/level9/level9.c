@@ -924,45 +924,51 @@ static int cblk_n;
 static L9BOOL try_join_split(int part_index);
 static L9BOOL try_carve_datafile(int part_index);
 
-/* A 128K snapshot of a split-acode game (e.g. Scapeghost) holds the data image
- * spread across paged banks and the a-code in another bank — no single static
- * page view is a valid game. Rebuild the loader's bank layout (pages 5,2,0,1 =
- * the order the Spectrum 128 paging used) into one flat image and run the
- * split-join on it, exactly as the standalone l9cut does. Returns TRUE (with
- * startfile/FileSize replaced by the joined datafile) on success. */
-static L9BOOL try_z80_split_join(uint8_t *raw_z80, size_t raw_size)
+/* DecompressZ80 makes a 128K snapshot into one image of the eight RAM pages:
+ * 5, 2, the page that was banked in at 0xC000, then the rest in ascending
+ * order. The 128K tapes were mastered in 48K mode, with page 0 at 0xC000, so
+ * a game's data runs on from page 2 into page 0. When the snapshot was saved
+ * with another page banked in (Return to Eden has page 4 there), page 0 is
+ * the fourth page of the image, not the third. This exchanges the two. */
+static void z80_swap_banked_page(void)
 {
-	int is_128k = 0, default_bank = 0;
-	uint8_t *pages = DecompressZ80Pages(raw_z80, raw_size, &is_128k, &default_bank);
-	L9BYTE *flat, *saved_startfile;
-	L9UINT32 saved_filesize;
-	if (!pages) return FALSE;
-	if (!is_128k) { free(pages); return FALSE; }
+	L9BYTE *third = startfile + 2 * ZX_PAGE_SIZE, *fourth = third + ZX_PAGE_SIZE;
+	for (L9UINT32 i = 0; i < ZX_PAGE_SIZE; i++) {
+		L9BYTE byte = third[i];
+		third[i] = fourth[i];
+		fourth[i] = byte;
+	}
+}
 
-	flat = malloc(4 * 0x4000);
-	if (!flat) { free(pages); return FALSE; }
-	memcpy(flat + 0x0000, pages + 5 * 0x4000, 0x4000);
-	memcpy(flat + 0x4000, pages + 2 * 0x4000, 0x4000);
-	memcpy(flat + 0x8000, pages + 0 * 0x4000, 0x4000);
-	memcpy(flat + 0xc000, pages + 1 * 0x4000, 0x4000);
-	free(pages);
+/* A 128K snapshot of a split-acode game (e.g. Scapeghost) holds the data image
+ * in the 48K address space and the a-code at the start of another page, as
+ * the tape has them in two blocks. Run the split-join on the 128K image in
+ * startfile with each page as a block the a-code may begin, exactly as the
+ * standalone l9cut does. Returns TRUE (with startfile/FileSize replaced by
+ * the joined datafile) on success. */
+static L9BOOL try_z80_split_join(void)
+{
+	if (FileSize != Z80_IMAGE_SIZE_128K) return FALSE;
+	cblk_n = Z80_IMAGE_SIZE_128K / ZX_PAGE_SIZE;
+	for (int b = 0; b < cblk_n; b++) {
+		cblk_start[b] = b * ZX_PAGE_SIZE;
+		cblk_len[b] = 0;	/* unknown */
+	}
+	return try_join_split(1);
+}
 
-	cblk_n = 4;
-	cblk_start[0] = 0x0000; cblk_start[1] = 0x4000;
-	cblk_start[2] = 0x8000; cblk_start[3] = 0xc000;
-	cblk_len[0] = cblk_len[1] = cblk_len[2] = cblk_len[3] = 0;	/* unknown */
-
-	saved_startfile = startfile;
-	saved_filesize = FileSize;
-	startfile = flat;
-	FileSize = 4 * 0x4000;
-	if (try_join_split(1))
-		return TRUE;	/* startfile now points at the joined datafile */
-
-	free(flat);
-	startfile = saved_startfile;
-	FileSize = saved_filesize;
-	return FALSE;
+/* Finds the game in the .z80 RAM image in startfile: by the scanners, or as
+ * a split release to join. A 128K image is tried as DecompressZ80 made it and
+ * then with page 0 at 0xC000. Left as it came if nothing is found. */
+static void find_game_in_z80_image(void)
+{
+	L9BOOL is_128k = FileSize == Z80_IMAGE_SIZE_128K;
+	if (probe_l9_scanners() || try_z80_split_join() || !is_128k)
+		return;
+	z80_swap_banked_page();
+	if (probe_l9_scanners() || try_z80_split_join())
+		return;
+	z80_swap_banked_page();
 }
 
 /* ===================================================================
@@ -1057,7 +1063,7 @@ static L9BYTE *l9_build_combined(L9BYTE *dimg, L9UINT32 dlen,
 
 /* Extract the data-block payloads of a .tzx or .tap tape into a flat buffer,
  * recording each payload's offset/length in cblk[] for a-code detection. The
- * generic tape walk lives in decompressz80.c (ExtractTapePayloads), shared with
+ * generic tape walk lives in decompressz80/tapetzx.c (ExtractTapePayloads), shared with
  * the other Spectrum terps; this wrapper just adapts its block table into the
  * file-scope cblk[] used by try_join_split. */
 static L9BYTE *extract_tape(L9BYTE *raw, L9UINT32 rawlen, int is_tzx, L9UINT32 *outlen)
@@ -1774,27 +1780,18 @@ L9BOOL load(char *filename)
 
 	/* Spectrum .z80 snapshots are compressed and have no magic signature, so
 	 * the scanner can't see the embedded a-code. Decompress them to a flat
-	 * 48K or 128K RAM image; Scan() then finds the Level 9 game inside.
-	 * If the default DecompressZ80 layout doesn't yield a scannable game,
-	 * fall back to the split-join path for snapshots whose a-code lives in
-	 * a non-resident bank (e.g. Scapeghost). */
+	 * 48K or 128K RAM image; Scan() then finds the Level 9 game inside, or
+	 * the split-join does for snapshots whose a-code lives in a non-resident
+	 * bank (e.g. Scapeghost). */
 	if (has_extension(filename, ".z80"))
 	{
-		L9UINT32 raw_size = FileSize;
-		uint8_t *raw_z80 = malloc(raw_size);
-		if (raw_z80) {
-			memcpy(raw_z80, startfile, raw_size);
-
-			size_t z80_len = raw_size;
-			uint8_t *decompressed = DecompressZ80(raw_z80, &z80_len);
-			if (decompressed) {
-				free(startfile);
-				startfile = decompressed;
-				FileSize = (L9UINT32)z80_len;
-				if (!probe_l9_scanners())
-					try_z80_split_join(raw_z80, raw_size);
-			}
-			free(raw_z80);
+		size_t z80_len = FileSize;
+		uint8_t *decompressed = DecompressZ80(startfile, &z80_len);
+		if (decompressed) {
+			free(startfile);
+			startfile = decompressed;
+			FileSize = (L9UINT32)z80_len;
+			find_game_in_z80_image();
 		}
 	}
 
