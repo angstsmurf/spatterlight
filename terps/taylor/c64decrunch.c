@@ -115,16 +115,23 @@ static uint8_t *get_largest_file(uint8_t *data, size_t length, size_t *newlength
    prepended. Updates *extent to the extracted file size. */
 static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf, size_t *extent)
 {
+    /* The directory entry itself must lie inside the image */
+    if (filenum < 0 || (size_t)(64 + 32 * filenum) > *extent)
+        return NULL;
     uint8_t *file_records = *sf + 32 + 32 * filenum;
-    int offset = READ_LE_UINT16(file_records + 8);
+    size_t offset = READ_LE_UINT16(file_records + 8);
     int start_addr = READ_LE_UINT16(file_records + 2);
     int end_addr = READ_LE_UINT16(file_records + 4);
+    if (offset >= *extent)
+        return NULL;
     size_t size;
     if (number_of_records == filenum)
         size = *extent - offset;
-    else
+    else if (end_addr > start_addr)
         size = end_addr - start_addr;
-    if (size < 1 || offset + size > *extent)
+    else
+        return NULL;
+    if (size > *extent - offset)
         return NULL;
     uint8_t *file = MemAlloc(size + 2);
     memcpy(file, file_records + 2, 2);
@@ -155,6 +162,21 @@ static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, 
    can also pick a hybrid that combines pictures from the graphics version
    with the expanded text from the text-only version. This function
    extracts both files, prompts for a choice, and decompresses. */
+/* The Trianon disks keep the graphics version behind a loader of this
+   many bytes, and the text-only version without its first 16 bytes. */
+#define TRIANON_LOADER_SIZE 176
+#define TRIANON_MISSING_HEADER 16
+
+/* Where the hybrid splices the pictures of the graphics version into
+   the memory layout of the text-only version: { to, from, length }. */
+#define HYBRID_TILES_TO 0x16ea
+#define HYBRID_TILES_FROM 0x4708
+#define HYBRID_TILES_SIZE 0x1400
+#define HYBRID_IMAGES_TO 0x8888
+#define HYBRID_IMAGES_FROM 0x8048
+#define HYBRID_IMAGES_SIZE 0x4123
+#define HYBRID_EXTRA_SIZE 0x4124
+
 static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     c64rec rec = c64_registry[recindex];
@@ -172,13 +194,19 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
     if (isdisk) {
         if (rec.chk == 0x4661 || rec.chk == 0x7b2d) {
             uint8_t *tempfile1 = get_file_at_ts(*sf, *extent, &size1, 17, 1);
-            size1 -= 176;
-            file1 = MemAlloc(size1);
-            memcpy(file1, tempfile1 + 176, size1);
+            if (tempfile1 != NULL && size1 > TRIANON_LOADER_SIZE) {
+                size1 -= TRIANON_LOADER_SIZE;
+                file1 = MemAlloc(size1);
+                memcpy(file1, tempfile1 + TRIANON_LOADER_SIZE, size1);
+            }
+            free(tempfile1);
             uint8_t *tempfile2 = get_file_at_ts(*sf, *extent, &size2, 20, 16);
-            file2 = MemAlloc(size2 + 16);
-            memcpy(file2 + 16, tempfile2, size2);
-            size2 += 16;
+            if (tempfile2 != NULL) {
+                file2 = MemCalloc(size2 + TRIANON_MISSING_HEADER);
+                memcpy(file2 + TRIANON_MISSING_HEADER, tempfile2, size2);
+                size2 += TRIANON_MISSING_HEADER;
+            }
+            free(tempfile2);
         } else if (rec.chk == 0x7bf2) {
             /* c64.com Triad crack: graphics and text are separate named files */
             file1 = di_get_file_named(*sf, *extent, &size1, "TEMPLE GRA/TRIAD");
@@ -192,10 +220,10 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
         file2 = GetFileFromT64(2, number_of_records, sf, &size2);
     }
     free(*sf);
+    *sf = NULL;
 
     if (file1 == NULL || file2 == NULL) {
-        fprintf(stderr, "TAYLOR: terror_menu() Failed loading file!\n");
-        return UNKNOWN_GAME;
+        Fatal("Could not read the two Temple of Terror files from the image");
     }
     glk_request_char_event(Bottom);
 
@@ -237,21 +265,20 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 
         /* Zeroed: the copies below leave gaps, and the draw instruction
            streams of rooms without a picture run into them. */
-        uint8_t *final = MemCalloc(size2 + 0x4124);
+        if (size1 < HYBRID_IMAGES_FROM + HYBRID_IMAGES_SIZE
+            || size2 + HYBRID_EXTRA_SIZE < HYBRID_IMAGES_TO + HYBRID_IMAGES_SIZE) {
+            Fatal("The Temple of Terror files are too short to combine");
+        }
+        uint8_t *final = MemCalloc(size2 + HYBRID_EXTRA_SIZE);
         memcpy(final, file2, size2);
-        memcpy(final + 0x16ea, file1 + 0x4708, 0x1400);
-        memcpy(final + 0x8888, file1 + 0x8048, 0x4123);
+        memcpy(final + HYBRID_TILES_TO, file1 + HYBRID_TILES_FROM, HYBRID_TILES_SIZE);
+        memcpy(final + HYBRID_IMAGES_TO, file1 + HYBRID_IMAGES_FROM, HYBRID_IMAGES_SIZE);
         free(file1);
         free(file2);
         *sf = final;
-        *extent = size2 + 0x4124;
+        *extent = size2 + HYBRID_EXTRA_SIZE;
 
-        for (int i = 0; games[i].Title != NULL; i++) {
-            if (games[i].gameID == TOT_HYBRID_64) {
-                Game = &games[i];
-                break;
-            }
-        }
+        Game = FindGameByID(TOT_HYBRID_64);
 
         return TOT_HYBRID_64;
     }
@@ -303,6 +330,9 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                 int number_of_records = READ_LE_UINT16(*sf + 36);
                 size_t size = *extent;
                 uint8_t *first_file = GetFileFromT64(1, number_of_records, sf, &size);
+                if (first_file == NULL) {
+                    Fatal("Could not read file from tape image");
+                }
                 free(*sf);
                 *sf = first_file;
                 *extent = size;
@@ -345,12 +375,7 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
     }
 
     /* Look up the full GameInfo entry in the master games[] table */
-    for (int i = 0; games[i].Title != NULL; i++) {
-        if (games[i].gameID == record.id) {
-            Game = &games[i];
-            break;
-        }
-    }
+    Game = FindGameByID(record.id);
 
     if (!Game || Game->Title == NULL) {
         Fatal("Game not found!");

@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 /* GetTZXBlock and the Alkatraz primitives (ldir/lddr/DeAlkatraz/
-   DeshuffleAlkatraz) now live in the shared decompressz80 library. */
+   DeshuffleAlkatraz) come from the shared decompressz80 library. */
 #include "decompressz80.h"
 
 /* Base address of the ZX Spectrum's writable RAM (and screen memory).

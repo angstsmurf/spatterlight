@@ -236,14 +236,22 @@ static void type_script_line(fakeglk_window *win, event_t *ev)
 }
 
 /* Play mode: the key to press once the keys have run out. A lone Y or N next
-   in the script is the answer to a question; anything else stays where it is
-   and the key is Return. */
+   in the script is the answer to a question and an empty line is Return, as
+   they are when the text build reads the script from standard input; any
+   other line stays where it is and the key is Return. With the script used
+   up there is nothing left to answer with, so the run ends. */
 static glui32 script_key(void)
 {
     long pos = ftell(script);
     char *line = next_script_line();
-    if (line && (line[0] == 'Y' || line[0] == 'N') && line[1] == 0)
+    if (!line) {
+        printf("\n[end of script]\n");
+        image_exit();
+    }
+    if ((line[0] == 'Y' || line[0] == 'N') && line[1] == 0)
         return (unsigned char)line[0];
+    if (line[0] == 0)
+        return keycode_Return;
     fseek(script, pos, SEEK_SET);
     return keycode_Return;
 }

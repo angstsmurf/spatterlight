@@ -37,8 +37,7 @@ BASEFLAGS  := -O0 -g -Wall -Wno-unknown-pragmas -Wno-unused-function \
 CFLAGS     := $(BASEFLAGS) -include image_glk.h
 CXXFLAGS   := -O0 -g -std=c++17 -w -I$(UNP64_DIR) $(DEPFLAGS)
 
-# dumper.c is a stand-alone tool with its own main().
-SRCS := $(filter-out dumper.c,$(wildcard *.c)) test/image_probe.c \
+SRCS := $(wildcard *.c) test/image_probe.c \
         $(wildcard $(COMMON_DIR)/*.c) \
         $(wildcard $(GRAPHICS_DIR)/*.c) \
         $(ZXSCREEN_DIR)/zx_title.c \

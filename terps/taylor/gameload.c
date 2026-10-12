@@ -51,8 +51,11 @@ static uint8_t *CompanionFile; /* Second file for Temple of Terror hybrid mode *
    offset if found, or (size_t)-1 if not found. */
 size_t FindCode(const char *code, size_t base, size_t len)
 {
+    if (len > FileImageLen || base > FileImageLen - len)
+        return (size_t)-1;
     unsigned char *p = FileImage + base;
-    while (p < FileImage + FileImageLen - len) {
+    unsigned char *last = FileImage + FileImageLen - len;
+    while (p <= last) {
         if (memcmp(p, code, len) == 0)
             return p - FileImage;
         p++;
@@ -111,12 +114,17 @@ static int LooksLikeTokens(size_t pos)
 static void TokenClassify(size_t pos)
 {
     unsigned char *ptr = FileImage + pos;
+    /* Not EndOfData: this also runs on the Temple of Terror companion file */
+    unsigned char *last = FileImage + FileImageLen - 1;
     int n = 0;
+    if (pos >= FileImageLen)
+        return;
     while (n++ < 256) {
         do {
-            if (*ptr == MSG_END_SPACE || *ptr == MSG_END)
+            /* Game is not set yet while DetectGame() tries the candidates */
+            if (Game && (*ptr == MSG_END_SPACE || *ptr == MSG_END))
                 Version = 0;
-        } while (!(*ptr++ & TOKEN_LAST_BYTE));
+        } while (ptr < last && !(*ptr++ & TOKEN_LAST_BYTE));
     }
 }
 
@@ -163,14 +171,14 @@ static size_t FindTokens(void)
             pos = FindCode("\x58\x58\x58\x58\xFF", 0, 5);
             if (pos == -1) {
                 /* Last resort */
-                addr = FindCode("You are in ", 0, 11) - 1;
-                if (addr == -1) {
+                addr = FindCode("You are in ", 0, 11);
+                if (addr == -1 || addr == 0) {
                     if (Game)
                         return Game->start_of_tokens + FileBaselineOffset;
                     fprintf(stderr, "Unable to find token table.\n");
                     return 0;
                 }
-                return addr;
+                return addr - 1;
             } else
                 return pos + 6;
         }
@@ -246,13 +254,15 @@ int GuessLowObjectEnd(void)
     int obj_index = 0;
 
     while (obj_index < NumObjects()) {
-        while (*obj_text != MSG_END && *obj_text != MSG_END_SPACE) {
+        while (obj_text < EndOfData && *obj_text != MSG_END && *obj_text != MSG_END_SPACE) {
             obj_text++;
         }
+        if (obj_text >= EndOfData)
+            break;
         /* obj_text[-1] is the last token index of the description; find
            that token's last byte to check whether it ends in a comma. */
         unsigned char *last_byte = TokenText(obj_text[-1]);
-        while (!(*last_byte & TOKEN_LAST_BYTE)) {
+        while (last_byte < EndOfData - 1 && !(*last_byte & TOKEN_LAST_BYTE)) {
             last_byte++;
         }
         if ((*last_byte & TOKEN_BYTE_MASK) == ',')
@@ -262,6 +272,14 @@ int GuessLowObjectEnd(void)
     }
     fprintf(stderr, "Unable to guess the last description object.\n");
     return 0;
+}
+
+static char *CopyString(const char *string)
+{
+    size_t length = strlen(string);
+    char *copy = MemAlloc(length + 1);
+    memcpy(copy, string, length + 1);
+    return copy;
 }
 
 int glkunix_startup_code(glkunix_startup_t *data)
@@ -290,10 +308,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
         glk_exit();
     }
 
-    size_t namelen = strlen(argv[1]);
-    Filename = MemAlloc(namelen + 1);
-    strncpy(Filename, argv[1], namelen);
-    Filename[namelen] = '\0';
+    Filename = CopyString(argv[1]);
 
     FileImage = ReadFileIfExists(Filename, &FileImageLen);
     if (FileImage == NULL) {
@@ -317,6 +332,16 @@ int glkunix_startup_code(glkunix_startup_t *data)
 #endif
 
     return 1;
+}
+
+/* Look up a game's entry in the games[] registry, or NULL. */
+GameInfo *FindGameByID(GameIDType id)
+{
+    for (int i = 0; i < NUMGAMES && games[i].Title != NULL; i++) {
+        if (games[i].gameID == id)
+            return &games[i];
+    }
+    return NULL;
 }
 
 /* Identify the game by trying each entry in the games[] table. For each
@@ -363,14 +388,14 @@ static void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long Parke
 void LookForSecondTOTGame(void)
 {
     size_t namelen = strlen(Filename);
-    char *secondfile = MemAlloc(namelen + 1);
-    strncpy(secondfile, Filename, namelen);
-    secondfile[namelen] = '\0';
+    if (namelen == 0)
+        return;
+    char *secondfile = CopyString(Filename);
 
     char *period = strrchr(secondfile, '.');
     if (period == NULL)
         period = &secondfile[namelen - 1];
-    else
+    else if (period > secondfile)
         period--;
 
     if (CurrentGame == TEMPLE_OF_TERROR)
@@ -381,6 +406,7 @@ void LookForSecondTOTGame(void)
     size_t filelength;
 
     CompanionFile = ReadFileIfExists(secondfile, &filelength);
+    free(secondfile);
 
     if (CompanionFile == NULL) {
         return;
@@ -388,7 +414,7 @@ void LookForSecondTOTGame(void)
 
     uint8_t *ParkedFile = FileImage;
     size_t ParkedLength = FileImageLen;
-    size_t ParkedOffset = FileBaselineOffset;
+    long ParkedOffset = FileBaselineOffset;
 
     CompanionFile = ProcessFile(CompanionFile, &filelength);
 
@@ -404,6 +430,11 @@ void LookForSecondTOTGame(void)
 
     GameInfo *AltGame = DetectGame(AltVerbBase);
 
+    if (AltGame == NULL) {
+        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
+        return;
+    }
+
     if ((CurrentGame == TOT_TEXT_ONLY && AltGame->gameID != TEMPLE_OF_TERROR) || (CurrentGame == TEMPLE_OF_TERROR && AltGame->gameID != TOT_TEXT_ONLY)) {
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
         return;
@@ -416,20 +447,14 @@ void LookForSecondTOTGame(void)
         return;
     }
 
-    int index = 0;
-
     if (CurrentGame == TOT_TEXT_ONLY) {
-        while (Game->gameID != TOT_HYBRID) {
-            Game = &games[index++];
-        }
+        Game = FindGameByID(TOT_HYBRID);
         InitGraphics();
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
     } else {
         UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
         InitGraphics();
-        while (Game->gameID != TOT_HYBRID) {
-            Game = &games[index++];
-        }
+        Game = FindGameByID(TOT_HYBRID);
         FileImage = CompanionFile;
         FileImageLen = filelength;
         VerbBase = AltVerbBase;

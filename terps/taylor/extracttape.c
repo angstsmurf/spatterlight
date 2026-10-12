@@ -34,8 +34,20 @@
 #define SPECTRUM_PRINTER_BUFFER 0x5b00
 
 // The Alkatraz block-copy (ldir/lddr), decryption (DeAlkatraz) and block
-// unshuffle (DeshuffleAlkatraz) primitives now live in the shared decompressz80
-// library (decompressz80.c/.h), so the scott interpreter can reuse them too.
+// unshuffle (DeshuffleAlkatraz) primitives are in the decompressz80 library
+// (decompressz80.c/.h), which the scott interpreter shares.
+
+// The whole Z80 address space, and the part of it that makes up a 48K
+// .SNA snapshot: a 27-byte header followed by the RAM from 0x4000.
+#define ZX_MEMORY_SIZE 0x10000
+#define SNA_SIZE 0xc01b
+#define SNA_START_IN_MEMORY 0x3fe5
+
+// Size of the buffer that the five Blizzard Pass blocks are gathered in.
+#define BLIZZARD_PASS_IMAGE_SIZE 0x2001f
+
+// Length of a Kayleth Z80 snapshot that was saved while still unpacking.
+#define BROKEN_KAYLETH_Z80_SIZE 0xb4bb
 
 // Extracts the game-relevant portion from a full 64 KB memory image.
 // Copies 0xC01B bytes starting at offset 0x3FE5 (just below the 0x4000
@@ -47,36 +59,50 @@ static uint8_t *ShrinkToSnaSize(uint8_t *uncompressed, uint8_t *old_image, size_
     if (uncompressed == NULL)
         return NULL;
 
-    uint8_t *sna = MemAlloc(0xc01b);
-    memcpy(sna, uncompressed + 0x3fe5, 0xc01b);
+    uint8_t *sna = MemAlloc(SNA_SIZE);
+    memcpy(sna, uncompressed + SNA_START_IN_MEMORY, SNA_SIZE);
 
     free(uncompressed);
     if (old_image) free(old_image);
-    *length = 0xc01b;
+    *length = SNA_SIZE;
     return sna;
 }
 
 // Extracts a single data block from a tape image (TAP or TZX format) and
 // copies its payload into outbuf at the given offset. For TZX blocks, the
 // first and last bytes (flag byte and checksum) are stripped; TAP blocks
-// are copied as-is. Returns outbuf on success, or NULL if block extraction fails.
-static uint8_t *add_block(uint8_t *image, uint8_t *outbuf, size_t origlen, int blocknum, size_t offset, int is_tzx)
+// are copied as-is. Returns outbuf on success, or NULL if block extraction
+// fails or the block does not fit in the outsize bytes of outbuf.
+static uint8_t *add_block(uint8_t *image, uint8_t *outbuf, size_t outsize, size_t origlen, int blocknum, size_t offset, int is_tzx)
 {
     size_t len = origlen;
     uint8_t *block = NULL;
+    const uint8_t *payload;
 
     if (is_tzx) {
         block = GetTZXBlock(blocknum, image, &len);
         if (!block) return NULL;
-        if (len >= 2)
-            memcpy(outbuf + offset, block + 1, len - 2);
+        payload = block + 1;
+        len = len >= 2 ? len - 2 : 0;
     } else {
         block = GetTAPBlock(blocknum, image, &len);
         if (!block) return NULL;
-        memcpy(outbuf + offset, block, len);
+        payload = block;
     }
+    if (offset > outsize || len > outsize - offset) {
+        free(block);
+        return NULL;
+    }
+    memcpy(outbuf + offset, payload, len);
     free(block);
     return outbuf;
+}
+
+// Keeps a copy of a 6912-byte SCREEN$ to show as the title picture.
+static void CaptureLoadingScreen(const uint8_t *screen)
+{
+    ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
+    memcpy(ZXLoadingScreen, screen, ZX_SCREEN_SIZE);
 }
 
 // Parameters for the common TZX extraction pipeline used by several games.
@@ -106,7 +132,9 @@ typedef struct {
 // parameters. Returns the SNA-sized game data, or the original image on failure.
 static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const ExtractSpec *spec)
 {
-    uint8_t *block = GetTZXBlock(spec->block_index, image, length);
+    /* A local length: *length must survive a failed extraction */
+    size_t block_length = *length;
+    uint8_t *block = GetTZXBlock(spec->block_index, image, &block_length);
     if (!block) {
         fprintf(stderr, "TZX extract: Could not extract block %d\n", spec->block_index);
         return image;
@@ -137,14 +165,14 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
 // needs the remaining LDDR and DeshuffleAlkatraz steps to be completed
 // before the game data is usable.
 uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length) {
-    uint8_t *mem = MemAlloc(0x10000);
-    memcpy(mem + ZX_RAM_BASE, image, 0xc000);
+    uint8_t *mem = MemAlloc(ZX_MEMORY_SIZE);
+    memcpy(mem + ZX_RAM_BASE, image, ZX_MEMORY_SIZE - ZX_RAM_BASE);
     lddr(mem, 0xf906, 0xf8fe, 0x1ed5);
     mem[0xda2a] = 0;
     ldir(mem, 0xda2b, 0xda2a, 7);
     DeshuffleAlkatraz(mem, 0x13, 0x5bde, 0xfdcf);
     free(image);
-    *length = 0x10000;
+    *length = ZX_MEMORY_SIZE;
     return mem;
 }
 
@@ -177,13 +205,12 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         // 0x4000 (the display file): the first 6912 bytes are the screen
         // visible when the snapshot was saved.
         if (ZXLoadingScreen == NULL && *length >= ZX_SCREEN_SIZE) {
-            ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
-            memcpy(ZXLoadingScreen, image, ZX_SCREEN_SIZE);
+            CaptureLoadingScreen(image);
         }
     } else {
         // Not a Z80 snapshot — try TZX/TAP extraction, identified by file size.
         // Each ExtractSpec holds the Alkatraz decryption parameters for one game.
-        const ExtractSpec templeA = {
+        static const ExtractSpec templeA = {
             .block_index = 4,
             .loacon_init = 0x9a,
             .source_offset = 0x1b0c,
@@ -193,11 +220,11 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             .lddr_target = 0xffff,
             .lddr_source = 0xfc85,
             .lddr_size = 0x9f8e,
-            .deshuffle_repeats = 05,
+            .deshuffle_repeats = 5,
             .deshuffle_IX = 0x5b8b,
             .deshuffle_store = 0xfdd6
         };
-        const ExtractSpec kayleth = {
+        static const ExtractSpec kayleth = {
             .block_index = 4,
             .loacon_init = 0xce,
             .source_offset = 0x172e,
@@ -211,7 +238,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             .deshuffle_IX = 0x5bf2,
             .deshuffle_store = 0xfd90
         };
-        const ExtractSpec terraquake = {
+        static const ExtractSpec terraquake = {
             .block_index = 3,
             .loacon_init = 0xe7,
             .source_offset = 0x17eb,
@@ -242,8 +269,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 // file at 0x4000 (and uses it to decrypt the game); capture it
                 // as a title image before the buffer is shrunk.
                 if (image != NULL && ZXLoadingScreen == NULL) {
-                    ZXLoadingScreen = MemAlloc(ZX_SCREEN_SIZE);
-                    memcpy(ZXLoadingScreen, image + ZX_RAM_BASE, ZX_SCREEN_SIZE);
+                    CaptureLoadingScreen(image + ZX_RAM_BASE);
                     // The loader's window descriptors survive in the decrypted
                     // image (count at 0xeea9); regenerate the draw order so the
                     // title reveals in the same sequence the loader used.
@@ -292,15 +318,15 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             case 0x104c4: { // Blizzard Pass (TAP)
                 // Blizzard Pass isn't Alkatraz-encrypted — just concatenate
                 // 5 data blocks into a single buffer at known offsets.
-                out = MemAlloc(0x2001f);
+                out = MemAlloc(BLIZZARD_PASS_IMAGE_SIZE);
                 int BlizzardPassBlockOffsets[5] = {0x1801f, 0x801b, 0x401b, 0x1ee6, 0xbff7};
                 for (int i = 0; i < 5; i++) {
-                    if (!add_block(image, out, origlen, blocknums[i], BlizzardPassBlockOffsets[i], isTZX)) {
+                    if (!add_block(image, out, BLIZZARD_PASS_IMAGE_SIZE, origlen, blocknums[i], BlizzardPassBlockOffsets[i], isTZX)) {
                         free(out);
                         return image;
                     }
                 }
-                *length = 0x2001f;
+                *length = BLIZZARD_PASS_IMAGE_SIZE;
                 free(image);
                 return out;
             }
@@ -311,7 +337,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
 
     // Post-processing: one known Kayleth Z80 snapshot (0xB4BB bytes) was
     // captured mid-decompression and needs its relocation completed.
-    if (origlen == 0xb4bb) {
+    if (origlen == BROKEN_KAYLETH_Z80_SIZE) {
         image = FixBrokenKayleth(image, length);
     }
 

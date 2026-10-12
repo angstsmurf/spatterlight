@@ -44,7 +44,7 @@ void FreeInputWords(void)
    delimited by whitespace; commas, periods, and semicolons also start
    a new word (for command chaining like "GO NORTH,LOOK"). Results are
    stored in the global InputWordStrings array. */
-void SplitIntoWords(const char *string, int length)
+static void SplitIntoWords(const char *string, int length)
 {
     if (length < 1) {
         return;
@@ -101,7 +101,14 @@ void SplitIntoWords(const char *string, int length)
 /* Read a line of input from the player via Glk, displaying a prompt
    appropriate to the game version. Loops until at least one word is
    entered. Handles non-input events (timer, resize) while waiting. */
-void LineInput(void)
+/* Questprobe 3 system messages that make up the prompt, and the room
+   (the opening, with no hero chosen yet) where no name is printed. */
+#define Q3_MSG_PROMPT_TORCH 8
+#define Q3_MSG_PROMPT_THING 9
+#define Q3_MSG_I_WANT_YOU_TO 10
+#define Q3_OPENING_ROOM 6
+
+static void LineInput(void)
 {
     event_t ev;
     char buf[512];
@@ -119,15 +126,14 @@ void LineInput(void)
             /* QP3 prefixes the prompt with the active character's name
                ("THING I want you to" / "HUMAN TORCH I want you to"),
                except in the intro room. */
-            if (MyLoc != 6) {
+            if (MyLoc != Q3_OPENING_ROOM) {
                 if (IsThing == 0)
-                    SysMessage(8);
+                    SysMessage(Q3_MSG_PROMPT_TORCH);
                 else
-                    SysMessage(9);
+                    SysMessage(Q3_MSG_PROMPT_THING);
             }
             OutCaps();
-            /* "I want you to" */
-            SysMessage(10);
+            SysMessage(Q3_MSG_I_WANT_YOU_TO);
         } else
             OutString("> ");
         OutFlush();
@@ -158,9 +164,8 @@ void LineInput(void)
 
         SplitIntoWords(buf, length);
 
-        /* Defensive: the splitter caps at MAX_WORDS so this path is
-           currently unreachable, but if it ever fires, discard the input
-           and reprompt rather than overrunning downstream buffers. */
+        /* The splitter stops at MAX_WORDS words, so a line that fills
+           it was probably cut short: discard it and reprompt. */
         if (WordsInInput >= MAX_WORDS) {
             Display(Bottom, "Too many words!\n");
             FreeInputWords();
@@ -182,11 +187,14 @@ void LineInput(void)
 static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
 static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
 
-/* Sentinel byte that terminates the dictionary in the game file */
-#define DICT_END 126
+/* The dictionary in the game file ends with the entry "XXXX", code 0xff */
+static int IsDictionaryEnd(const unsigned char *entry)
+{
+    return entry + 5 > EndOfData || (memcmp(entry, "XXXX", 4) == 0 && entry[4] == 0xff);
+}
 
 /* Look up a word in the game dictionary. The dictionary is a flat list of
-   5-byte entries (4-char word + 1-byte code), terminated by code DICT_END.
+   5-byte entries (4-char word + 1-byte code), see IsDictionaryEnd().
    Returns the dictionary code, or 0 if not found (after also checking
    single-letter abbreviations and extra commands). */
 int ParseWord(const char *word)
@@ -205,7 +213,7 @@ int ParseWord(const char *word)
     for (int i = 0; i < 4; i++)
         key[i] = (char)toupper((unsigned char)key[i]);
 
-    while (*entry != DICT_END) {
+    while (!IsDictionaryEnd(entry)) {
         if (memcmp(entry, key, 4) == 0)
             return entry[4];
         entry += 5;
@@ -230,19 +238,8 @@ static const char *Delimiters[] = { ",", ".", ";", "AND", "THEN", NULL };
 /* Check if a word is a command delimiter (case-insensitive). */
 static int IsDelimiterWord(const char *word)
 {
-    size_t word_len = strlen(word);
     for (int i = 0; Delimiters[i] != NULL; i++) {
-        const char *delim = Delimiters[i];
-        if (strlen(delim) != word_len)
-            continue;
-        int matched = 1;
-        for (size_t j = 0; j < word_len; j++) {
-            if (toupper((unsigned char)word[j]) != delim[j]) {
-                matched = 0;
-                break;
-            }
-        }
-        if (matched)
+        if (EqualsIgnoringCase(word, Delimiters[i]))
             return 1;
     }
     return 0;

@@ -1,5 +1,5 @@
 //
-//  decryptloader.c
+//  decrypttotloader.c
 //
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //

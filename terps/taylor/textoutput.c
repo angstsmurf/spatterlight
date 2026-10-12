@@ -45,8 +45,8 @@ void WriteToRoomDescriptionStream(const char *fmt, ...)
 /* Emit a single character, applying auto-capitalization if set. */
 static void OutWrite(char c)
 {
-    if (isalpha(c) && Upper) {
-        c = toupper(c);
+    if (isalpha((unsigned char)c) && Upper) {
+        c = toupper((unsigned char)c);
         Upper = 0;
     }
     PrintCharacter(c);
@@ -95,7 +95,7 @@ void OutChar(char c)
            But if this period follows punctuation/whitespace, demote it
            to a space — it's not part of a sentence-ending mark. */
         periods++;
-        if (LastChar == '?' || FirstAfterInput || isspace(LastChar) || LastChar == '.') {
+        if (LastChar == '?' || FirstAfterInput || isspace((unsigned char)LastChar) || LastChar == '.') {
             c = ' ';
             if (LastChar == ' ')
                 LastChar = 0;
@@ -132,10 +132,10 @@ void OutChar(char c)
     /* First character after a player command: eat leading whitespace and
        capitalize the first real character. */
     if (FirstAfterInput) {
-        if (isspace(LastChar)) {
+        if (isspace((unsigned char)LastChar)) {
             LastChar = 0;
             Upper = 1;
-        } else if (!isspace(c)) {
+        } else if (!isspace((unsigned char)c)) {
             FirstAfterInput = 0;
         }
         PendSpace = 0;
@@ -143,7 +143,7 @@ void OutChar(char c)
     /* Flush the one-character lookahead buffer. Suppress it if it was a
        period we just wrote ourselves above (ellipsis flush). */
     if (LastChar) {
-        if (isspace(LastChar))
+        if (isspace((unsigned char)LastChar))
             PendSpace = 0;
         if (LastChar == '.' && JustWrotePeriod) {
             LastChar = 0;
@@ -179,27 +179,47 @@ void OutKillSpace(void)
     PendSpace = 0;
 }
 
-void OutString(char *p)
+void OutString(const char *p)
 {
     while (*p)
         OutChar(*p++);
+}
+
+/* Where each token starts. Finding token n means walking past the n
+   tokens before it, and Rebel Planet has to expand every token of every
+   message it skips, so the walk is done once and kept. The table is
+   rebuilt when the game data it was made from changes (a restart, or
+   the other part of a two-part game). */
+static unsigned char *TokenStart[256];
+static const unsigned char *TokenStartImage, *TokenStartEnd;
+static size_t TokenStartBase;
+
+static void FindTokenStarts(void)
+{
+    unsigned char *p = FileImage + TokenBase;
+    for (int i = 0; i < 256; i++) {
+        TokenStart[i] = p;
+        if (p < EndOfData) {
+            while (p < EndOfData && (*p & TOKEN_LAST_BYTE) == 0)
+                p++;
+            p++;
+        }
+    }
+    TokenStartImage = FileImage;
+    TokenStartEnd = EndOfData;
+    TokenStartBase = TokenBase;
 }
 
 /* Return a pointer to the start of token n in the token table.
    Tokens are variable-length with the high bit marking the last byte. */
 unsigned char *TokenText(unsigned char n)
 {
-    unsigned char *p = FileImage + TokenBase;
     if (Version == QUESTPROBE3_TYPE)
         n -= QP3_TOKEN_BASE;
-
-    while (n > 0 && p < EndOfData) {
-        while ((*p & TOKEN_LAST_BYTE) == 0)
-            p++;
-        n--;
-        p++;
-    }
-    return p;
+    if (TokenStartImage != FileImage || TokenStartEnd != EndOfData
+        || TokenStartBase != TokenBase)
+        FindTokenStarts();
+    return TokenStart[n];
 }
 
 /* Print a character using Questprobe 3's capitalization rules:
@@ -397,7 +417,12 @@ void Message2(unsigned int message_index)
     unsigned char *stream = FileImage + Message2Base;
     PrintText(stream, message_index);
     OutChar(' ');
+    InventoryLower = 0;
 }
+
+/* Questprobe 3 keeps its system messages in the main message table. */
+#define Q3_SYSMESSAGE_BASE 210
+#define Q3_EXITS_MESSAGE 217
 
 /* Print a system message (inventory prompt, error text, etc.).
    QP3 maps system message IDs to offsets in the main message table. */
@@ -405,9 +430,9 @@ void SysMessage(unsigned char message_index)
 {
     if (Version == QUESTPROBE3_TYPE) {
         if (message_index == EXITS)
-            message_index = 217;
+            message_index = Q3_EXITS_MESSAGE;
         else
-            message_index = 210 + message_index;
+            message_index = Q3_SYSMESSAGE_BASE + message_index;
     }
 
     Message(message_index);
@@ -429,13 +454,18 @@ void PrintObject(unsigned char object_index)
     PrintText(stream, object_index);
 }
 
+/* Blizzard Pass: the long room descriptions of the text-only mode, and
+   how many rooms have one. */
+#define BLIZZARD_LONG_ROOM_TEXT 0x18000
+#define BLIZZARD_LONG_ROOMS 102
+
 void PrintRoom(unsigned char room_index)
 {
     unsigned char *stream = FileImage + RoomBase;
     /* Blizzard Pass allows switching between graphics and short room descriptions,
        or text-only and long descriptions. We always use the long ones.*/
-    if (CurrentGame == BLIZZARD_PASS && room_index < 102)
-        stream = FileImage + 0x18000 + FileBaselineOffset;
+    if (CurrentGame == BLIZZARD_PASS && room_index < BLIZZARD_LONG_ROOMS)
+        stream = FileImage + BLIZZARD_LONG_ROOM_TEXT + FileBaselineOffset;
     PrintText(stream, room_index);
 }
 

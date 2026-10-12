@@ -173,7 +173,7 @@ void InitActionDebugging(void)
 
 /* Questprobe 3 uses different opcode numbering for conditions and actions.
    These tables map QP3 opcodes to the standard enum values. */
-static const unsigned char Q3Condition[] = {
+static const unsigned char Q3Condition[128] = {
     CONDITIONERROR,
     AT,
     NOTAT,
@@ -194,21 +194,10 @@ static const unsigned char Q3Condition[] = {
     GT,
     EQ,
     OBJECTAT,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
+    /* The rest are unused: CONDITIONERROR */
 };
 
-static const unsigned char Q3Action[] = {
+static const unsigned char Q3Action[ACTION_OP_MASK + 1] = {
     ACTIONERROR,
     SWITCHINVENTORY, /* Swap inventory and dark flag */
     DIAGNOSE, /* Print Reed Richards' watch status message */
@@ -233,34 +222,27 @@ static const unsigned char Q3Action[] = {
     PUT,
     SWAP,
     IMAGE, /* Draw image on top of room image */
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
+    /* The rest are unused: ACTIONERROR */
 };
+
+/* Questprobe 3 objects, flags and messages that the interpreter itself
+   needs to know about. */
+enum {
+    Q3_OBJ_HOLDING_THING = 1, /* "Holding THING by the hands" */
+    Q3_OBJ_HOLDING_TORCH = 2, /* "Holding HUMAN TORCH by the hands" */
+    Q3_OBJ_THING = 17,
+    Q3_OBJ_TORCH = 18,
+    Q3_OBJ_CANNON = 29,
+    Q3_OBJ_XANDU = 33,
+    Q3_OBJ_WATCH = 37,
+};
+
+#define Q3XanduPresent (Flag[39])
+
+#define Q3_XANDU_ROOM 22
+#define Q3_ROOM_ORDERED_OUT_TO 26
+#define Q3_MSG_ORDERED_OUT 24
+#define Q3_MSG_WATCH 223 /* Three parts: turns, restedness, and the end */
 
 static int Chance(int n)
 {
@@ -319,6 +301,26 @@ void Okay(void)
     PrintedOK = 1;
 }
 
+/* Start a line of a TAKE ALL / DROP ALL listing: the object's name
+   followed by a row of dots. *found tells whether this is the first. */
+static void ListObjectWithDots(int obj, int *found)
+{
+    if (*found)
+        OutChar('\n');
+    *found = 1;
+    PrintObject(obj);
+    OutReplace(0);
+    OutString("......");
+}
+
+/* End a line of the listing with what happened to the object. */
+static void ListOutcome(const char *outcome)
+{
+    OutKillSpace();
+    OutString(outcome);
+    OutFlush();
+}
+
 /* Pick up all objects in the current room starting from object index start. */
 static void TakeAll(int start)
 {
@@ -329,19 +331,12 @@ static void TakeAll(int start)
     int found = 0;
     for (int i = start; i < NumObjects(); i++) {
         if (ObjectLoc[i] == MyLoc) {
-            if (found)
-                OutChar('\n');
-            found = 1;
-            PrintObject(i);
-            OutReplace(0);
-            OutString("......");
+            ListObjectWithDots(i, &found);
             if (CarryItem() == 0) {
                 SysMessage(YOURE_CARRYING_TOO_MUCH);
                 return;
             }
-            OutKillSpace();
-            OutString("Taken");
-            OutFlush();
+            ListOutcome("Taken");
             Put(i, Carried());
         }
     }
@@ -352,25 +347,17 @@ static void TakeAll(int start)
 
 static void DropAll(int loud)
 {
-    int i;
     int found = 0;
-    for (i = 0; i < NumObjects(); i++) {
-        if (ObjectLoc[i] == Carried() && ObjectLoc[i] != Worn()) {
+    for (int i = 0; i < NumObjects(); i++) {
+        if (ObjectLoc[i] == Carried()) {
             if (loud) {
-                if (found)
-                    OutChar('\n');
-                found = 1;
-                PrintObject(i);
-                OutReplace(0);
-                OutString("......");
-                OutKillSpace();
-                OutString("Dropped");
-                OutFlush();
+                ListObjectWithDots(i, &found);
+                ListOutcome("Dropped");
             }
             Put(i, MyLoc);
         }
     }
-    if (loud & !found) {
+    if (loud && !found) {
         OutString("You have nothing to drop. ");
     }
     ItemsCarried = 0;
@@ -382,7 +369,7 @@ static int GetObject(unsigned char obj)
         SysMessage(YOU_HAVE_IT);
         return 0;
     }
-    if (!(Version == QUESTPROBE3_TYPE && Flag[1] == MyLoc && ObjectLoc[obj] == Flag[3])) {
+    if (!(Version == QUESTPROBE3_TYPE && OtherGuyLoc == MyLoc && ObjectLoc[obj] == OtherGuyInv)) {
         if (ObjectLoc[obj] != MyLoc) {
             SysMessage(YOU_DONT_SEE_IT);
             return 0;
@@ -486,9 +473,9 @@ static void Means(unsigned char verb, unsigned char noun)
 
 static void Q3SwitchInvFlags(unsigned char a, unsigned char b)
 {
-    if (Flag[2] == a) {
-        Flag[2] = b;
-        Flag[3] = a;
+    if (CarriedLoc == a) {
+        CarriedLoc = b;
+        OtherGuyInv = a;
     }
 }
 
@@ -500,19 +487,19 @@ static void Q3UpdateFlags(void)
     if (ObjectLoc[7] == LOC_INV_TORCH)
         ObjectLoc[7] = LOC_INV_THING;
     if (IsThing) {
-        if (ObjectLoc[2] == LOC_DESTROYED) {
+        if (ObjectLoc[Q3_OBJ_HOLDING_TORCH] == LOC_DESTROYED) {
             /* If the "holding HUMAN TORCH by the hands" object is destroyed (i.e. not held) */
             /* the "location of the other guy" flag is set to the location of the Human Torch object */
-            OtherGuyLoc = ObjectLoc[18];
+            OtherGuyLoc = ObjectLoc[Q3_OBJ_TORCH];
         } else {
             OtherGuyLoc = MyLoc;
         }
         Q3SwitchInvFlags(LOC_INV_TORCH, LOC_INV_THING);
     } else { /* I'm the HUMAN TORCH */
-        if (ObjectLoc[1] == LOC_DESTROYED) {
+        if (ObjectLoc[Q3_OBJ_HOLDING_THING] == LOC_DESTROYED) {
             /* If the "holding THING by the hands" object is destroyed (i.e. not held) */
             /* The "location of the other guy" flag is set to the location of the Thing object */
-            OtherGuyLoc = ObjectLoc[17];
+            OtherGuyLoc = ObjectLoc[Q3_OBJ_THING];
         } else {
             OtherGuyLoc = MyLoc;
         }
@@ -520,11 +507,11 @@ static void Q3UpdateFlags(void)
     }
 
     /* Reset flag 39 when Xandu is knocked out */
-    if (ObjectLoc[33] != 22)
-        Flag[39] = 0;
+    if (ObjectLoc[Q3_OBJ_XANDU] != Q3_XANDU_ROOM)
+        Q3XanduPresent = 0;
     /* And set it when he is present */
-    else if (Present(33))
-        Flag[39] = 1;
+    else if (Present(Q3_OBJ_XANDU))
+        Q3XanduPresent = 1;
 
     /* Make sure that:
      - The watch isn't carried in the "intro"
@@ -533,9 +520,9 @@ static void Q3UpdateFlags(void)
      */
     if (!Q3SwitchedWatch) {
         if (MyLoc == 6 || MyLoc == 0) {
-            ObjectLoc[37] = LOC_DESTROYED;
+            ObjectLoc[Q3_OBJ_WATCH] = LOC_DESTROYED;
         } else {
-            ObjectLoc[37] = LOC_INV_THING;
+            ObjectLoc[Q3_OBJ_WATCH] = LOC_INV_THING;
             Q3SwitchedWatch = 1;
         }
     }
@@ -596,14 +583,33 @@ static void Q3AdjustActions(unsigned char op, unsigned char *arg1, unsigned char
     }
 }
 
-inline static int TwoConditionParameters(void)
+/* Number of argument bytes that follow a condition opcode, as numbered
+   in the game file. Every condition takes one; from LT on, two. */
+static int ConditionParamCount(unsigned char op)
 {
-    return Version == QUESTPROBE3_TYPE ? 16 : 21;
+    int first_with_two = Version == QUESTPROBE3_TYPE ? 16 : 21;
+    return op >= first_with_two ? 2 : 1;
 }
 
-inline static int TwoActionParameters(void)
+/* Number of argument bytes that follow an action opcode (without its
+   flag bits), as numbered in the game file. Opcodes 0-8 take none, 9 and
+   up take one, and from LET on, two. */
+static int ActionParamCount(unsigned char op)
 {
-    return Version == QUESTPROBE3_TYPE ? 18 : 22;
+    int first_with_two = Version == QUESTPROBE3_TYPE ? 18 : 22;
+    if (op >= first_with_two)
+        return 2;
+    return op > 8 ? 1 : 0;
+}
+
+/* Temple of Terror uses flag 12 for two things, which breaks the final
+   puzzle. Move the puzzle's use of it (told apart by the value compared
+   or added) to the otherwise unused flag 60. */
+static unsigned char ToTPuzzleFlag(unsigned char flag, unsigned char value, unsigned char puzzle_value)
+{
+    if (BaseGame == TEMPLE_OF_TERROR && flag == 12 && value == puzzle_value)
+        return 60;
+    return flag;
 }
 
 /* Evaluate a single condition opcode (already translated to the canonical
@@ -666,11 +672,7 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
     case GT:
         return Flag[arg1] > arg2;
     case EQ:
-        /* Fix final puzzle (Flag 12 conflict) */
-        if (BaseGame == TEMPLE_OF_TERROR) {
-            if (arg1 == 12 && arg2 == 4)
-                arg1 = 60;
-        }
+        arg1 = ToTPuzzleFlag(arg1, arg2, 4);
         return Flag[arg1] == arg2;
     case NE:
         return Flag[arg1] != arg2;
@@ -796,11 +798,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Flag[arg1] = arg2;
         break;
     case ADD:
-        /* Fix final puzzle (Flag 12 conflict) */
-        if (BaseGame == TEMPLE_OF_TERROR) {
-            if (arg1 == 12 && arg2 == 1)
-                arg1 = 60;
-        }
+        arg1 = ToTPuzzleFlag(arg1, arg2, 1);
         tmp = Flag[arg1] + arg2;
         if (tmp > 255)
             tmp = 255;
@@ -878,33 +876,30 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         RestoreUndo(0);
         Redraw = 1;
         break;
-    case DIAGNOSE:
-        Message(223);
+    case DIAGNOSE: {
         char buf[5];
-        char *q = buf;
+        Message(Q3_MSG_WATCH);
         /* TurnsLow = turns % 100, TurnsHigh == turns / 100 */
         snprintf(buf, sizeof buf, "%04d", TurnsLow + TurnsHigh * 100);
-        while (*q)
-            OutChar(*q++);
-        SysMessage(14);
+        OutString(buf);
+        Message(Q3_MSG_WATCH + 1);
         if (IsThing)
             /* THING is always 100 percent rested */
             OutString("100");
         else {
             /* Calculate "restedness" percentage */
             /* Flag[7] == 80 means 100 percent rested */
-            q = buf;
             snprintf(buf, sizeof buf, "%d", (Flag[7] >> 2) + Flag[7]);
-            while (*q)
-                OutChar(*q++);
+            OutString(buf);
         }
-        SysMessage(15);
+        Message(Q3_MSG_WATCH + 2);
         break;
+    }
     case SWITCHINVENTORY: {
         /* Swap "current" and "other character" state: inventory code
-           (Flag[2]) plus the two dark flags (Flag[42], Flag[43]). */
-        uint8_t temp = Flag[2];
-        Flag[2] = OtherGuyInv;
+           (CarriedLoc) plus the two dark flags (Flag[42], Flag[43]). */
+        uint8_t temp = CarriedLoc;
+        CarriedLoc = OtherGuyInv;
         OtherGuyInv = temp;
         temp = Flag[42];
         Flag[42] = Flag[43];
@@ -941,7 +936,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         } else {
             DrawPictureNumber(arg1 - 1, 1);
         }
-        DrawIrmakPictureFromBuffer();
+        DrawBufferedPicture();
         break;
     default:
         fprintf(stderr, "Unknown command %d.\n", op);
@@ -972,8 +967,7 @@ static void ExecuteLineCode(unsigned char *code, int *done)
             fprintf(stderr, "%s %d ", Condition[op], arg1);
         }
 #endif
-        /* Conditions at or above this opcode index take a second argument. */
-        if (op >= TwoConditionParameters()) {
+        if (ConditionParamCount(op) == 2) {
             arg2 = *code++;
 #ifdef DEBUG
             fprintf(stderr, "%d ", arg2);
@@ -1019,8 +1013,8 @@ static void ExecuteLineCode(unsigned char *code, int *done)
             *done = 1;
         op &= ACTION_OP_MASK;
 
-        /* Opcodes 0-8 take no arguments; 9+ take at least one. */
-        if (op > 8) {
+        int params = ActionParamCount(op);
+        if (params >= 1) {
             arg1 = *code++;
 #ifdef DEBUG
             unsigned char debugarg1 = arg1;
@@ -1029,8 +1023,7 @@ static void ExecuteLineCode(unsigned char *code, int *done)
             fprintf(stderr, "%d ", debugarg1);
 #endif
         }
-        /* Actions at or above this opcode index take a second argument. */
-        if (op >= TwoActionParameters()) {
+        if (params == 2) {
             arg2 = *code++;
 #ifdef DEBUG
             unsigned char debugarg2 = arg2;
@@ -1069,20 +1062,10 @@ static void ExecuteLineCode(unsigned char *code, int *done)
    start of the next one. */
 static unsigned char *NextLine(unsigned char *ptr)
 {
-    unsigned char opcode;
-    while (!((opcode = *ptr) & ACTION_BIT)) {
-        ptr += 2;
-        if (opcode >= TwoConditionParameters())
-            ptr++;
-    }
-    while (((opcode = *ptr) & ACTION_BIT)) {
-        opcode &= ACTION_OP_MASK;
-        ptr++;
-        if (opcode > 8)
-            ptr++;
-        if (opcode >= TwoActionParameters())
-            ptr++;
-    }
+    while (!(*ptr & ACTION_BIT))
+        ptr += 1 + ConditionParamCount(*ptr);
+    while (*ptr & ACTION_BIT)
+        ptr += 1 + ActionParamCount(*ptr & ACTION_OP_MASK);
     return ptr;
 }
 
@@ -1095,12 +1078,12 @@ void QP3DrawExtraImages(void)
      on the road (room 34) but it has the wrong background
      colour.
      */
-    if (MyLoc == 34 && ObjectLoc[29] == 34) {
+    if (MyLoc == 34 && ObjectLoc[Q3_OBJ_CANNON] == 34) {
         PatchAndDrawQP3Cannon();
-    } else if (MyLoc == 2 && ObjectLoc[17] == 2 && Flag[26] > 16 && Flag[26] < 20) {
+    } else if (MyLoc == 2 && ObjectLoc[Q3_OBJ_THING] == 2 && TurnsLow > 16 && TurnsLow < 20) {
         /* Draw close-up of Thing as he sinks */
         DrawPictureNumber(53, 1);
-        DrawIrmakPictureFromBuffer();
+        DrawBufferedPicture();
     }
 }
 
@@ -1169,10 +1152,10 @@ void RunCommandTable(void)
             /* We make sure he is ordered out instead. */
             if (Version == QUESTPROBE3_TYPE) {
                 /* In great room, Xandu present */
-                if (Present(33)) {
-                    Flag[39] = 1;
-                    Message(24);
-                    Goto(26);
+                if (Present(Q3_OBJ_XANDU)) {
+                    Q3XanduPresent = 1;
+                    Message(Q3_MSG_ORDERED_OUT);
+                    Goto(Q3_ROOM_ORDERED_OUT_TO);
                     ActionsExecuted = 1;
                     return;
                 }

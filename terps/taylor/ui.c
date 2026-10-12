@@ -1,5 +1,5 @@
 //
-//  restorestate.c
+//  ui.c
 //  Part of TaylorMade, an interpreter for Adventure Soft UK games
 //
 
@@ -34,6 +34,7 @@ static glui32 TopHeight = 1; /* Height of top window */
 
 int Options; /* Option flags */
 int LineEvent = 0;
+int Resizing = 0;
 static int GraphicsOff = 0;
 
 /* printf-style wrapper that writes formatted text to a Glk window. */
@@ -49,28 +50,6 @@ void Display(winid_t w, const char *fmt, ...)
     va_end(ap);
 
     glk_put_string_stream(glk_window_get_stream(w), msg);
-}
-
-/* Block until the user presses Return in the bottom window. Other keys
-   are re-requested so the wait continues. */
-static void HitEnter(void)
-{
-    glk_request_char_event(Bottom);
-
-    event_t ev;
-    int result = 0;
-    do {
-        glk_select(&ev);
-        if (ev.type == evtype_CharInput) {
-            if (ev.val1 == keycode_Return) {
-                result = 1;
-            } else {
-                glk_request_char_event(Bottom);
-            }
-        }
-    } while (result == 0);
-
-    return;
 }
 
 static void WordFlush(winid_t win);
@@ -161,23 +140,31 @@ unsigned char WaitCharacter(void)
    FlushRoomDescription later relays out). */
 static void WordFlush(winid_t win)
 {
-    int i;
-    /* Without a status window Top is Bottom (OpenTopWindow), and everything
-       is plain scrollback. */
-    for (i = 0; i < OutCount; i++) {
-        if (win == Top && Top != Bottom)
-            WriteToRoomDescriptionStream("%c", OutWord[i]);
-        else
-            Display(win, "%c", OutWord[i]);
+    /* A buffered nul prints as nothing. */
+    int len = 0;
+    for (int i = 0; i < OutCount; i++) {
+        if (OutWord[i] != '\0')
+            OutWord[len++] = OutWord[i];
     }
     OutCount = 0;
+    if (len == 0)
+        return;
+    /* Without a status window Top is Bottom (OpenTopWindow), and everything
+       is plain scrollback. */
+    if (win == Top && Top != Bottom) {
+        if (room_description_stream != NULL)
+            glk_put_buffer_stream(room_description_stream, OutWord, len);
+    } else {
+        glk_put_buffer_stream(glk_window_get_stream(win), OutWord, len);
+    }
 }
 
 static char *roomdescbuf = NULL;
 
 /* Size of the memory buffer used to accumulate a single room description
-   before it's wrapped and painted into the top window. */
-#define ROOM_DESC_BUF_SIZE 1000
+   before it's wrapped and painted into the top window. The longest
+   description in the supported games is well under half of this. */
+#define ROOM_DESC_BUF_SIZE 4096
 
 /* Switch the output target to the top (room description) window. Output
    is accumulated into a fixed-size memory stream so it can be reflowed
@@ -190,7 +177,8 @@ void TopWindow(void)
         free(roomdescbuf);
     }
     roomdescbuf = MemCalloc(ROOM_DESC_BUF_SIZE);
-    room_description_stream = glk_stream_open_memory(roomdescbuf, ROOM_DESC_BUF_SIZE, filemode_Write, 0);
+    /* One byte short, so the zeroed buffer always stays terminated. */
+    room_description_stream = glk_stream_open_memory(roomdescbuf, ROOM_DESC_BUF_SIZE - 1, filemode_Write, 0);
 
     CurrentWindow = Top;
     glk_window_clear(Top);
@@ -258,21 +246,20 @@ static void FlushRoomDescription(void)
     int i;
     int empty_lines = 0;
     char string[LINE_BUF_SIZE];
-    if (TopWidth > LINE_BUF_SIZE - 1)
-        TopWidth = LINE_BUF_SIZE - 1;
+    /* Room for a full line plus its newline and terminator. */
+    if (TopWidth > LINE_BUF_SIZE - 2)
+        TopWidth = LINE_BUF_SIZE - 2;
     for (line = 0; line < rows && index < length; line++) {
         for (i = 0; i < TopWidth; i++) {
             string[i] = text_with_breaks[index++];
             if (string[i] == '\n' || string[i] == '\r' || index >= length)
                 break;
         }
-        if (i < TopWidth + 1) {
-            string[i++] = '\n';
-            if (i < 2)
-                empty_lines++;
-            else
-                empty_lines = 0;
-        }
+        string[i++] = '\n';
+        if (i < 2)
+            empty_lines++;
+        else
+            empty_lines = 0;
         string[i] = 0;
         if (strlen(string) == 0)
             break;
@@ -317,6 +304,17 @@ void BottomWindow(void)
    Spatterlight preferences (delays, forced inventory mode, forced
    palette, graphics on/off). Switches the palette and re-defines colors
    if it changed. */
+/* Apply a tri-state preference (0 = auto, 1 = first choice, 2 = second)
+   to a pair of mutually exclusive option bits. */
+static void SetExclusiveOption(int setting, int first, int second)
+{
+    Options &= ~(first | second);
+    if (setting == 1)
+        Options |= first;
+    else if (setting == 2)
+        Options |= second;
+}
+
 static void UpdateSettings(void)
 {
 #ifdef SPATTERLIGHT
@@ -326,33 +324,11 @@ static void UpdateSettings(void)
     else
         Options |= NO_DELAYS;
 
-    /* Tri-state inventory: 0 = auto (game's default), 1 = force on,
-       2 = force off. The two FORCE_* bits are mutually exclusive. */
-    switch (gli_sa_inventory) {
-        case 0:
-            Options &= ~(FORCE_INVENTORY | FORCE_INVENTORY_OFF);
-            break;
-        case 1:
-            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-            break;
-        case 2:
-            Options = (Options | FORCE_INVENTORY_OFF) & ~FORCE_INVENTORY;
-            break;
-    }
+    /* Inventory in the top window: auto (game's default), on, off. */
+    SetExclusiveOption(gli_sa_inventory, FORCE_INVENTORY, FORCE_INVENTORY_OFF);
 
-    /* Tri-state palette: 0 = auto (game's default), 1 = force ZX,
-       2 = force C64. The two FORCE_PALETTE_* bits are mutually exclusive. */
-    switch (gli_sa_palette) {
-        case 0:
-            Options &= ~(FORCE_PALETTE_ZX | FORCE_PALETTE_C64);
-            break;
-        case 1:
-            Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
-            break;
-        case 2:
-            Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
-            break;
-    }
+    /* Palette: auto (game's default), ZX Spectrum, C64. */
+    SetExclusiveOption(gli_sa_palette, FORCE_PALETTE_ZX, FORCE_PALETTE_C64);
 
     /* Re-arm graphics if the user just turned them back on; otherwise
        remember they're off so we don't reopen the window. */
@@ -378,11 +354,10 @@ static void UpdateSettings(void)
         palchosen = Game->palette;
     if (palchosen != previous_pal) {
         DefinePalette();
+        GraphicsWindowChanged();
         Resizing = 0;
     }
 }
-
-int Resizing = 0;
 
 /* Handle Glk events that arrive while we're not waiting for line input:
    window resizes trigger a re-layout, and timer ticks drive the
@@ -421,12 +396,11 @@ void Updates(event_t ev)
    the scaled width/height through the out-parameters. */
 static glui32 OptimalPictureSize(glui32 *width, glui32 *height)
 {
-    int multiplier = 1;
     glui32 graphwidth, graphheight;
     glk_window_get_size(Graphics, &graphwidth, &graphheight);
     /* Start from the height-fit multiplier, then clamp down if that
        would make the image wider than the window. */
-    multiplier = graphheight / IMAGE_HEIGHT_IN_PIXELS;
+    int multiplier = graphheight / IMAGE_HEIGHT_IN_PIXELS;
     if (IMAGE_WIDTH_IN_PIXELS * multiplier > graphwidth)
         multiplier = graphwidth / IMAGE_WIDTH_IN_PIXELS;
 
@@ -449,7 +423,30 @@ void CloseGraphicsWindow(void)
     if (Graphics) {
         glk_window_close(Graphics, NULL);
         Graphics = NULL;
+        GraphicsWindowChanged();
         glk_window_get_size(Top, &TopWidth, &TopHeight);
+    }
+}
+
+/* Share of the bottom window a newly opened graphics window takes, before
+   FitGraphicsWindow trims it to the picture. */
+#define GRAPHICS_WINDOW_PERCENT 60
+
+/* Pick the pixel multiplier for the current graphics window, centre the
+   picture horizontally and set the window height to the picture's. With
+   shrink_only, a window lower than the picture keeps its height. */
+static void FitGraphicsWindow(int shrink_only)
+{
+    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+
+    glk_window_get_size(Graphics, &graphwidth, &graphheight);
+    pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
+    x_offset = ((int)graphwidth - (int)optimal_width) / 2;
+
+    if (!shrink_only || graphheight > optimal_height) {
+        winid_t parent = glk_window_get_parent(Graphics);
+        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+            optimal_height, NULL);
     }
 }
 
@@ -463,8 +460,6 @@ void OpenGraphicsWindow(void)
     if (!gli_enable_graphics)
         return;
 #endif
-    glui32 graphwidth, graphheight, optimal_width, optimal_height;
-
     if (Top == NULL)
         Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Graphics == NULL)
@@ -473,16 +468,8 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Top, &TopWidth, &TopHeight);
         glk_window_close(Top, NULL);
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
-            60, wintype_Graphics, GLK_GRAPHICS_ROCK);
-        glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
-        x_offset = ((int)graphwidth - (int)optimal_width) / 2;
-
-        if (graphheight > optimal_height) {
-            winid_t parent = glk_window_get_parent(Graphics);
-            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                optimal_height, NULL);
-        }
+            GRAPHICS_WINDOW_PERCENT, wintype_Graphics, GLK_GRAPHICS_ROCK);
+        FitGraphicsWindow(1);
 
         /* Set the graphics window background to match
          * the main window background, best as we can,
@@ -493,6 +480,7 @@ void OpenGraphicsWindow(void)
                 &background_color)) {
             glk_window_set_background_color(Graphics, background_color);
             glk_window_clear(Graphics);
+            GraphicsWindowChanged();
         }
 
         Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, TopHeight,
@@ -500,14 +488,9 @@ void OpenGraphicsWindow(void)
         glk_window_get_size(Top, &TopWidth, &TopHeight);
     } else {
         if (!Graphics)
-            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, 60,
-                wintype_Graphics, GLK_GRAPHICS_ROCK);
-        glk_window_get_size(Graphics, &graphwidth, &graphheight);
-        pixel_size = OptimalPictureSize(&optimal_width, &optimal_height);
-        x_offset = (graphwidth - optimal_width) / 2;
-        winid_t parent = glk_window_get_parent(Graphics);
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-            optimal_height, NULL);
+            Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
+                GRAPHICS_WINDOW_PERCENT, wintype_Graphics, GLK_GRAPHICS_ROCK);
+        FitGraphicsWindow(0);
     }
 }
 
@@ -532,6 +515,7 @@ void OpenTopWindow(void)
    the player is in a dark room (no image to show). */
 void DrawBlack(void)
 {
+    GraphicsWindowChanged();
     glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size,
         12 * 8 * pixel_size);
 }
@@ -541,13 +525,13 @@ void DrawBlack(void)
    disabled. Animations restart whenever a new room is drawn. */
 void DrawRoomImage(void)
 {
-    if (MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91) || NoGraphics) {
+    if (IsIntroRoom() || NoGraphics) {
         return;
     }
     ClearGraphMem();
     DrawTaylor(MyLoc, MyLoc);
     StartAnimations();
-    DrawIrmakPictureFromBuffer();
+    DrawBufferedPicture();
 }
 
 /* Open the main scrollback text-buffer window. */

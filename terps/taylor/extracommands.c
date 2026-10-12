@@ -30,83 +30,51 @@ typedef enum {
     ALL,
     IT,
     ON,
-    OFF
+    OFF,
+    OTHER_WORD /* A word of the game's dictionary */
 } extra_command;
 
-const char *ExtraCommands[] = {
-    "restart",
-    "#restart",
-    "save",
-    "#save",
-    "restore",
-    "load",
-    "#restore",
-    "bom",
-    "oops",
-    "undo",
-    "#undo",
-    "ram",
-    "ramload",
-    "qload",
-    "quickload",
-    "ramrestore",
-    "#quickload",
-    "#qload",
-    "quicksave",
-    "qsave",
-    "ramsave",
-    "#quicksave",
-    "#qsave",
-    "game",
-    "story",
-    "move",
-    "command",
-    "turn",
-    "#script",
-    "script",
-    "#transcript",
-    "transcript",
-    "on",
-    "off",
-    NULL
-};
-
-const extra_command ExtraCommandsKey[] = {
-    RESTART,
-    RESTART,
-    SAVE_EXTR,
-    SAVE_EXTR,
-    RESTORE,
-    RESTORE,
-    RESTORE,
-    UNDO,
-    UNDO,
-    UNDO,
-    UNDO,
-    RAM,
-    RAMLOAD_EXTR,
-    RAMLOAD_EXTR,
-    RAMLOAD_EXTR,
-    RAMLOAD_EXTR,
-    RAMLOAD_EXTR,
-    RAMLOAD_EXTR,
-    RAMSAVE_EXTR,
-    RAMSAVE_EXTR,
-    RAMSAVE_EXTR,
-    RAMSAVE_EXTR,
-    RAMSAVE_EXTR,
-    GAME,
-    GAME,
-    COMMAND,
-    COMMAND,
-    COMMAND,
-    SCRIPT,
-    SCRIPT,
-    SCRIPT,
-    SCRIPT,
-    ON,
-    OFF,
-    NO_COMMAND
+/* Words understood by the interpreter itself, on top of the game's
+   dictionary. */
+static const struct {
+    const char *word;
+    extra_command command;
+} ExtraCommands[] = {
+    { "restart", RESTART },
+    { "#restart", RESTART },
+    { "save", SAVE_EXTR },
+    { "#save", SAVE_EXTR },
+    { "restore", RESTORE },
+    { "load", RESTORE },
+    { "#restore", RESTORE },
+    { "bom", UNDO },
+    { "oops", UNDO },
+    { "undo", UNDO },
+    { "#undo", UNDO },
+    { "ram", RAM },
+    { "ramload", RAMLOAD_EXTR },
+    { "qload", RAMLOAD_EXTR },
+    { "quickload", RAMLOAD_EXTR },
+    { "ramrestore", RAMLOAD_EXTR },
+    { "#quickload", RAMLOAD_EXTR },
+    { "#qload", RAMLOAD_EXTR },
+    { "quicksave", RAMSAVE_EXTR },
+    { "qsave", RAMSAVE_EXTR },
+    { "ramsave", RAMSAVE_EXTR },
+    { "#quicksave", RAMSAVE_EXTR },
+    { "#qsave", RAMSAVE_EXTR },
+    { "game", GAME },
+    { "story", GAME },
+    { "move", COMMAND },
+    { "command", COMMAND },
+    { "turn", COMMAND },
+    { "#script", SCRIPT },
+    { "script", SCRIPT },
+    { "#transcript", SCRIPT },
+    { "transcript", SCRIPT },
+    { "on", ON },
+    { "off", OFF },
+    { NULL, NO_COMMAND }
 };
 
 static void TranscriptOn(void)
@@ -131,8 +99,7 @@ static void TranscriptOn(void)
         return;
     }
 
-    char *start_of_transcript = "Start of transcript\n\n";
-    glk_put_string_stream(Transcript, start_of_transcript);
+    glk_put_string_stream(Transcript, "Start of transcript\n\n");
     glk_put_string_stream(glk_window_get_stream(Bottom),
         "Transcript is now on.\n");
     glk_window_set_echo_stream(Bottom, Transcript);
@@ -145,8 +112,7 @@ static void TranscriptOff(void)
         return;
     }
 
-    char *end_of_transcript = "\n\nEnd of transcript\n";
-    glk_put_string_stream(Transcript, end_of_transcript);
+    glk_put_string_stream(Transcript, "\n\nEnd of transcript\n");
 
     glk_stream_close(Transcript, NULL);
     glk_window_set_echo_stream(Bottom, NULL);
@@ -159,22 +125,9 @@ int ParseExtraCommand(const char *word)
 {
     if (word == NULL)
         return NO_COMMAND;
-    size_t word_len = strlen(word);
-    if (word_len == 0)
-        return NO_COMMAND;
-    for (int cmd_index = 0; ExtraCommands[cmd_index] != NULL; cmd_index++) {
-        const char *command = ExtraCommands[cmd_index];
-        if (strlen(command) != word_len)
-            continue;
-        int matched = 1;
-        for (size_t i = 0; i < word_len; i++) {
-            if (tolower((unsigned char)word[i]) != command[i]) {
-                matched = 0;
-                break;
-            }
-        }
-        if (matched)
-            return ExtraCommandsKey[cmd_index];
+    for (int i = 0; ExtraCommands[i].word != NULL; i++) {
+        if (EqualsIgnoringCase(word, ExtraCommands[i].word))
+            return ExtraCommands[i].command;
     }
     return NO_COMMAND;
 }
@@ -194,8 +147,9 @@ int TryExtraCommand(void)
     }
     if (verb_position + 1 < WordsInInput)
         noun = ParseExtraCommand(InputWordStrings[verb_position + 1]);
-    if (noun == NO_COMMAND)
-        noun = Word[1];
+    /* A dictionary word is not an extra command, whatever its code */
+    if (noun == NO_COMMAND && Word[1] != 0)
+        noun = OTHER_WORD;
 
     StopTime = 1;
     PrintedOK = 1;
@@ -250,7 +204,7 @@ int TryExtraCommand(void)
         }
         break;
     case SCRIPT:
-        if (noun == ON || noun == 0) {
+        if (noun == ON || noun == NO_COMMAND) {
             TranscriptOn();
             return 1;
         } else if (noun == OFF) {

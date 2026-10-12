@@ -12,6 +12,7 @@
 
 size_t FindCode(const char *code, size_t base, size_t len);
 GameInfo *DetectGame(size_t LocalVerbBase);
+GameInfo *FindGameByID(GameIDType id);
 void FindTables(void);
 int GuessLowObjectEnd(void);
 void LookForSecondTOTGame(void);

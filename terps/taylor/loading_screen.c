@@ -11,15 +11,19 @@
 #include <string.h>
 
 #include "glk.h"
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 #include "decompressz80.h"      /* ExtractTapePayloads, SCREEN$ geometry/decode */
 #include "zx_title.h"           /* shared ZXTitle renderer */
 #include "aiukpalette.h"            /* pal[], palchosen, ZXOPT, DefinePalette */
 #include "taylor.h"
+#include "graphics.h"           /* GraphicsWindowChanged */
 #include "ui.h"                 /* Bottom, Top, Graphics, Open*Window */
 #include "utility.h"            /* MemAlloc, FindGlkWindowWithRock, rocks */
 
 #include "alkatraz_screen.h"
+#include "extracttape.h"          /* ZX_RAM_BASE */
 #include "loading_screen.h"
 
 uint8_t *ZXLoadingScreen = NULL;
@@ -27,13 +31,15 @@ uint8_t *ZXLoadingScreen = NULL;
 /* For the slow "draw as the loader did" reveal: the screen addresses in the
    exact order the Alkatraz loader wrote them. Empty (length 0) for plain
    loaders/snapshots, which fall back to a linear top-to-bottom reveal. */
-static uint16_t AlkatrazDrawOrder[6912];
+static uint16_t AlkatrazDrawOrder[ZX_SCREEN_SIZE];
 static int AlkatrazDrawOrderLen = 0;
 
-/* Display-file (bitmap) start address; the SCREEN$ geometry and decode, and
-   the scaled/centred drawing itself, all come from the shared ZXTitle
-   renderer (zx_title.h) and decompressz80.h. */
-#define ZX_SCREEN_BASE      0x4000
+/* The SCREEN$ geometry and decode, and the scaled/centred drawing itself,
+   all come from the shared ZXTitle renderer (zx_title.h) and
+   decompressz80.h. */
+
+/* More data blocks than any tape we look at has */
+#define MAX_TAPE_BLOCKS 64
 
 void ZXSetDrawOrder(const uint16_t *order, int count)
 {
@@ -53,7 +59,6 @@ void ZXSetDrawOrder(const uint16_t *order, int count)
    one SCREEN$ in size. */
 uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
 {
-#define MAX_TAPE_BLOCKS 64
     size_t payloads_len = 0;
     size_t block_offset[MAX_TAPE_BLOCKS], block_len[MAX_TAPE_BLOCKS];
     int num_blocks = 0;
@@ -119,9 +124,9 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
     for (int i = 0; i < order_len; i++) {
         uint16_t addr = order[i];
         uint8_t encrypted = block[offset + i];
-        /* addr is a Spectrum screen address (0x4000-0x5AFF); ZX_SCREEN_BASE
+        /* addr is a Spectrum screen address (0x4000-0x5AFF); ZX_RAM_BASE
            maps to the start of our SCREEN$ buffer. */
-        screen[addr - ZX_SCREEN_BASE] =
+        screen[addr - ZX_RAM_BASE] =
             encrypted ^ key ^ 1 ^ ((addr >> 8) & 0xff) ^ (addr & 0xff);
         key += key_step;
     }
@@ -200,6 +205,7 @@ void DrawZXTitleImage(void)
     /* Tear the title down and rebuild the normal window stack. */
     glk_window_close(Graphics, NULL);
     Graphics = NULL;
+    GraphicsWindowChanged();
     Bottom = FindGlkWindowWithRock(GLK_BUFFER_ROCK);
     if (Bottom)
         glk_window_close(Bottom, NULL);

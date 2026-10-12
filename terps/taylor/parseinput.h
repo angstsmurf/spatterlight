@@ -8,8 +8,6 @@
 #ifndef parseinput_h
 #define parseinput_h
 
-int GetInput(void);
-void StopProcessingCommand(void);
 void FreeInputWords(void);
 void Parser(void);
 int ParseWord(const char *word);

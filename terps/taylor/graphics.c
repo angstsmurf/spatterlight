@@ -31,12 +31,58 @@ static uint8_t *EndOfGraphicsData;
 
 #pragma mark Some common functions
 
+/* What the graphics window shows, when that is known: the cells of
+   imagebuffer[] as DrawBufferedPicture() last painted them, and the
+   window and geometry it painted them with. Anything else that draws
+   in the window, clears it or replaces it makes the picture unknown. */
+static struct {
+    int known;
+    int painting; /* DrawBufferedPicture() is the one drawing */
+    winid_t window;
+    glui32 pixel_size;
+    glui32 x_offset;
+    uint8_t cells[IRMAK_IMGSIZE][IRMAK_CELL_BYTES];
+} Shown;
+
+/* To be called by anything that changes what the graphics window shows
+   without going through DrawBufferedPicture(). */
+void GraphicsWindowChanged(void)
+{
+    Shown.known = 0;
+}
+
+/* Whether the window still shows the picture last painted from the
+   buffer. Then there is nothing to clear before painting the next. */
+int BufferedPictureShown(void)
+{
+    return Shown.known && Graphics != NULL && Shown.window == Graphics
+        && Shown.pixel_size == pixel_size && Shown.x_offset == x_offset;
+}
+
+/* Put imagebuffer[] on the screen. Only the cells that differ from the
+   picture already there are painted; most turns leave the picture as it
+   was, and an animation frame changes a few cells of it. */
+void DrawBufferedPicture(void)
+{
+    if (!Graphics)
+        return;
+    Shown.painting = 1;
+    DrawIrmakBufferChanges(BufferedPictureShown() ? Shown.cells : NULL);
+    Shown.painting = 0;
+
+    memcpy(Shown.cells, imagebuffer, sizeof Shown.cells);
+    Shown.window = Graphics;
+    Shown.pixel_size = pixel_size;
+    Shown.x_offset = x_offset;
+    Shown.known = 1;
+}
+
 void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
-    int y_offset = 0;
-
+    if (!Shown.painting)
+        GraphicsWindowChanged();
     glk_window_fill_rect(Graphics, pal[color], x * pixel_size + x_offset,
-        y * pixel_size + y_offset, pixel_size, pixel_size);
+        y * pixel_size, pixel_size, pixel_size);
 }
 
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
@@ -45,6 +91,8 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     if (!Graphics)
         return;
 
+    if (!Shown.painting)
+        GraphicsWindowChanged();
     glk_window_fill_rect(Graphics, pal[color], x * pixel_size + x_offset,
         y * pixel_size, width * pixel_size, height * pixel_size);
 }
@@ -60,7 +108,7 @@ void PatchAndDrawQP3Cannon(void)
     imagebuffer[IRMAK_IMGWIDTH * 9 + 25][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
     imagebuffer[IRMAK_IMGWIDTH * 9 + 26][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
     imagebuffer[IRMAK_IMGWIDTH * 9 + 27][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
-    DrawIrmakPictureFromBuffer();
+    DrawBufferedPicture();
 }
 
 
@@ -117,11 +165,13 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
 {
     img->imagedata = NULL;
 
-    uint16_t offset_addr = (FileImage[base + picture_number] & 0x7f) * 2 + offsets;
-    if (offsets >= FileImageLen)
+    if (base + picture_number >= FileImageLen)
         return;
-    uint16_t image_addr = imgdata + READ_LE_UINT16(FileImage + offset_addr);
-    if (image_addr >= FileImageLen - IMAGE_HEADER_BYTES)
+    size_t offset_addr = (FileImage[base + picture_number] & 0x7f) * 2 + offsets;
+    if (offset_addr + 1 >= FileImageLen)
+        return;
+    size_t image_addr = imgdata + READ_LE_UINT16(FileImage + offset_addr);
+    if (image_addr + IMAGE_HEADER_BYTES >= FileImageLen)
         return;
 
     uint8_t *pos = &FileImage[image_addr];
@@ -141,6 +191,7 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
         img->imagedata = MemCalloc(Q3_WIND_TUNNEL_SIZE);
         img->datasize = Q3_WIND_TUNNEL_SIZE;
         memcpy(img->imagedata, pos, MIN(EndOfGraphicsData - pos, Q3_WIND_TUNNEL_SIZE));
+        /* The patch is filed under 55, the last of the copies */
         int patch = FindImagePatch(QUESTPROBE3, 55, 0);
         Patch(img->imagedata, patch);
     } else if (picture_number == 55 || (picture_number >= 18 && picture_number <= 20)) {
@@ -162,7 +213,15 @@ static void ExtractQ3Images(Image *img)
 {
     size_t base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
     size_t offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
+    if (base == (size_t)-1 || offsets == (size_t)-1) {
+        fprintf(stderr, "Cannot find the Questprobe 3 picture tables.\n");
+        return;
+    }
     size_t imgdata = FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", offsets, 10);
+    if (imgdata == (size_t)-1) {
+        fprintf(stderr, "Cannot find the Questprobe 3 picture data.\n");
+        return;
+    }
 
     for (int picture_number = 0; picture_number < Game->number_of_pictures; picture_number++) {
         ExtractSingleQ3Image(img, picture_number, base, offsets, imgdata);
@@ -170,9 +229,13 @@ static void ExtractQ3Images(Image *img)
     }
 }
 
-static void RepeatOpcode(uint8_t *instructions, uint8_t repeatcount, int *index)
+/* Replace the token just written at *index - 1 with the three-byte
+   "repeat" instruction it stands for, if there is room for it. */
+static void RepeatOpcode(uint8_t *instructions, int capacity, uint8_t repeatcount, int *index)
 {
     int i = *index - 1;
+    if (i + 3 > capacity)
+        return;
     instructions[i++] = 0x82;
     instructions[i++] = repeatcount;
     instructions[i++] = 0;
@@ -185,7 +248,7 @@ static size_t FindTilesStart(void)
     size_t pos = FindCode("\x00\x00\x00\x00\x00\x00\x00\x00\x80\x80\x80\x80\x80\x80\x80\x80\x40\x40\x40\x40\x40\x40\x40\x40", 0, 24);
     if (pos == -1) {
         fprintf(stderr, "Cannot find tile data.\n");
-        return 0;
+        return pos;
     }
     debug_print("Found tiles at pos %zx\n", pos);
     return pos;
@@ -262,29 +325,31 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
    about how repetitions in the tile-based graphics are encoded.
  */
 
-static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int recursion_guard)
+static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **outpos, int recursion_guard)
 {
     int index = 0;
     uint8_t *pos = *outpos;
+    if (capacity < 1)
+        return 0;
     do {
-        if (index >= MAX_INSTRUCTIONS) {
-            index = MAX_INSTRUCTIONS - 1;
+        if (index >= capacity) {
+            index = capacity - 1;
             break;
         }
         instructions[index++] = *pos;
         switch (*pos) {
             case 0xef:
-                RepeatOpcode(instructions, 1, &index);
+                RepeatOpcode(instructions, capacity, 1, &index);
                 break;
             case 0xee:
-                RepeatOpcode(instructions, 2, &index);
+                RepeatOpcode(instructions, capacity, 2, &index);
                 break;
             case 0xeb:
-                RepeatOpcode(instructions, 3, &index);
+                RepeatOpcode(instructions, capacity, 3, &index);
                 break;
             case 0xf3:
                 pos++;
-                RepeatOpcode(instructions, *pos, &index);
+                RepeatOpcode(instructions, capacity, *pos, &index);
                 break;
             case 0xfa:
                 if (recursion_guard)
@@ -294,6 +359,8 @@ static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int re
                 index--;
                 pos++;
                 int numbytes = *pos - 1;
+                if (numbytes < 0)
+                    numbytes = 0;
                 pos++;
                 int copies = *pos;
                 uint8_t *copied_bytes = MemAlloc(numbytes + 1);
@@ -301,13 +368,13 @@ static int DecompressEarlierType(uint8_t *instructions, uint8_t **outpos, int re
                 uint8_t *stored_pointer = copied_bytes;
                 copied_bytes[numbytes] = 0xfe;
                 for (int i = 0; i < copies; i++) {
-                    index += DecompressEarlierType(&instructions[index], &copied_bytes, 1);
-                    if (index >= MAX_INSTRUCTIONS) {
+                    index += DecompressEarlierType(&instructions[index], capacity - index, &copied_bytes, 1);
+                    copied_bytes = stored_pointer;
+                    if (index >= capacity) {
                         break;
                     }
-                    copied_bytes = stored_pointer;
                 }
-                free(copied_bytes);
+                free(stored_pointer);
                 break;
             default:
                 break;
@@ -325,10 +392,14 @@ static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
     if (Version == HEMAN_TYPE) {
         instructions_length = DecompressHemanType(instructions, &pos);
     } else {
-        instructions_length = DecompressEarlierType(instructions, &pos, 0);
+        instructions_length = DecompressEarlierType(instructions, MAX_INSTRUCTIONS, &pos, 0);
     }
+    /* Leave room for the terminator */
+    if (instructions_length >= MAX_INSTRUCTIONS)
+        instructions_length = MAX_INSTRUCTIONS - 1;
     instructions[instructions_length++] = 0xfe;
-    
+
+
     img->imagedata = MemAlloc(instructions_length);
     img->datasize = instructions_length;
     memcpy(img->imagedata, instructions, instructions_length);
@@ -353,7 +424,6 @@ void InitGraphics(void)
 
     if (palchosen == NO_PALETTE) {
         fprintf(stderr, "InitGraphics: invalid palette. Entering text-only mode.\n");
-        Game->number_of_pictures = 0;
         NoGraphics = 1;
         return;
     }
@@ -361,11 +431,17 @@ void InitGraphics(void)
     DefinePalette();
 
     size_t tiles_start = FindTilesStart();
-    if (!tiles_start)
+    if (tiles_start == (size_t)-1)
         tiles_start = Game->start_of_tiles + FileBaselineOffset;
+    size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
+    if (pos == NULL || SeekToPos(image_blocks_start_address) == NULL) {
+        fprintf(stderr, "InitGraphics: no picture data in this file. Entering text-only mode.\n");
+        NoGraphics = 1;
+        return;
+    }
 
     /* Questprobe 3 has 246 tiles. Two of its pictures use tile 255 too, and
        the original then draws the bytes that follow the tiles as speckles.
@@ -381,8 +457,6 @@ void InitGraphics(void)
 
     images = (Image *)MemCalloc(sizeof(Image) * numgraphics);
     Image *img = images;
-    size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
-
     pos = SeekToPos(image_blocks_start_address);
 
     if (Version == QUESTPROBE3_TYPE) {

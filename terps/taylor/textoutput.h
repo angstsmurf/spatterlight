@@ -12,7 +12,7 @@
 
 /* Buffered character output with smart spacing and capitalization. */
 void OutChar(char c);
-void OutString(char *p);
+void OutString(const char *p);
 void OutFlush(void);
 void OutCaps(void);
 void OutReplace(char c);

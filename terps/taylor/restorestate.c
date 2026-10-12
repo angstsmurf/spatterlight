@@ -27,8 +27,8 @@ SavedState *SaveCurrentState(void)
 {
     SavedState *s = (SavedState *)MemAlloc(sizeof(SavedState));
 
-    memcpy(s->Flags, Flag, 128);
-    memcpy(s->ObjectLocations, ObjectLoc, 256);
+    memcpy(s->Flags, Flag, sizeof(s->Flags));
+    memcpy(s->ObjectLocations, ObjectLoc, sizeof(s->ObjectLocations));
 
     s->previousState = NULL;
     s->nextState = NULL;
@@ -45,8 +45,8 @@ void RecoverFromBadRestore(SavedState *state)
 
 void RestoreState(SavedState *state)
 {
-    memcpy(Flag, state->Flags, 128);
-    memcpy(ObjectLoc, state->ObjectLocations, 256);
+    memcpy(Flag, state->Flags, sizeof(state->Flags));
+    memcpy(ObjectLoc, state->ObjectLocations, sizeof(state->ObjectLocations));
 
     StopTime = 1;
 }
@@ -72,7 +72,7 @@ void SaveUndo(void)
     current->previousState = last_undo;
     last_undo = current;
     if (number_of_undos == MAX_UNDOS) {
-        struct SavedState *oldest = oldest_undo;
+        SavedState *oldest = oldest_undo;
         oldest_undo = oldest_undo->nextState;
         oldest_undo->previousState = NULL;
         free(oldest);

@@ -62,6 +62,7 @@ void ClearGraphMem(void);
 void DrawPictureNumber(int picture_number, int draw_to_buffer);
 int DrawPictureAtPos(int picture_number, uint8_t x, uint8_t y, int draw_to_buffer);
 void DrawIrmakPictureFromBuffer(void);
+void DrawIrmakBufferChanges(const uint8_t shown[][IRMAK_CELL_BYTES]);
 
 void Flip(uint8_t *tile);
 void RotateTile(uint8_t *tile, int rotation);

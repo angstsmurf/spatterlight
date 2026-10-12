@@ -15,6 +15,7 @@ void SaveGame(void);
 void Look(void);
 void Inventory(void);
 int YesOrNo(void);
+int IsIntroRoom(void);
 
 /* Queries and updates of the object/flag state. */
 unsigned char Destroyed(void);

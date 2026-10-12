@@ -65,7 +65,7 @@ unsigned char Destroyed(void)
 
 unsigned char Carried(void)
 {
-    return Flag[2];
+    return CarriedLoc;
 }
 
 unsigned char Worn(void)
@@ -137,25 +137,26 @@ int Present(unsigned char obj)
     return 0;
 }
 
+/* Room 0 is the intro/title pseudo-room; Kayleth's room 91 is an
+   analogous non-game screen. Neither has a picture. */
+#define KAYLETH_TITLE_ROOM 91
+
+int IsIntroRoom(void)
+{
+    return MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == KAYLETH_TITLE_ROOM);
+}
+
 /* Reset all game state to initial values and display the starting room. */
 static void NewGame(void)
 {
     Redraw = 1;
-    /* Zero every flag, then copy the seven initial flag values stored in
-       the file header. The remaining 121 flags stay at zero. */
+    /* Zero every flag, then copy the initial flag values stored in the
+       file header: seven of them, of which QP3 keeps only Flag[0..3]. */
     memset(Flag, 0, sizeof(Flag));
-    memcpy(Flag, FileImage + FlagBase, 7);
+    memcpy(Flag, FileImage + FlagBase, Version == QUESTPROBE3_TYPE ? 4 : 7);
     if (Version == QUESTPROBE3_TYPE) {
-        /* QP3 keeps only Flag[0..3] from the file; force the rest to
-           zero (this overrides the file's values for Flag[4..6]) and
-           seed the inventory and dark flags. */
-        for (int i = 0; i < 124; i++) {
-            Flag[4 + i] = 0;
-        }
-        Flag[42] = 0;                /* dark flag for current character */
-        Flag[43] = 0;                /* dark flag for other character */
-        Flag[2] = LOC_INV_THING;     /* Carried() — default is Thing, before randomization */
-        Flag[3] = LOC_INV_TORCH;     /* Worn() slot used for other character's inventory */
+        CarriedLoc = LOC_INV_THING;  /* Carried() — default is Thing, before randomization */
+        OtherGuyInv = LOC_INV_TORCH; /* Worn() slot used for other character's inventory */
     }
     /* Start in room 0 (the intro/title pseudo-room). */
     MyLoc = 0;
@@ -178,7 +179,8 @@ int YesOrNo(void)
 {
     while (1) {
         uint8_t c = WaitCharacter();
-        if (c == 250)
+        /* Don't echo Return (keycode_Return, cut down to a byte). */
+        if (c == (uint8_t)keycode_Return)
             c = 0;
         OutChar(c);
         OutChar('\n');
@@ -190,6 +192,13 @@ int YesOrNo(void)
         OutString("Please answer Y or N.\n");
         OutFlush();
     }
+}
+
+/* Print a one-line notice about a save or restore. */
+static void FileNotice(const char *text)
+{
+    OutString(text);
+    OutFlush();
 }
 
 int LoadGame(void)
@@ -205,18 +214,12 @@ int LoadGame(void)
      * Reject the file reference if we're expecting to read from it, and the
      * referenced file doesn't exist.
      */
-    if (!glk_fileref_does_file_exist(fileref)) {
-        OutString("Unable to open file.\n");
-        glk_fileref_destroy(fileref);
-        OutFlush();
-        return 0;
-    }
-
-    strid_t stream = glk_stream_open_file(fileref, filemode_Read, 0);
+    strid_t stream = NULL;
+    if (glk_fileref_does_file_exist(fileref))
+        stream = glk_stream_open_file(fileref, filemode_Read, 0);
     if (!stream) {
-        OutString("Unable to open file.\n");
         glk_fileref_destroy(fileref);
-        OutFlush();
+        FileNotice("Unable to open file.\n");
         return 0;
     }
 
@@ -282,23 +285,16 @@ void Inventory(void)
 
 void SaveGame(void)
 {
-
     strid_t file;
     frefid_t ref;
 
     ref = glk_fileref_create_by_prompt(fileusage_TextMode | fileusage_SavedGame,
         filemode_Write, 0);
-    if (ref == NULL) {
-        OutString("Save failed.\n");
-        OutFlush();
-        return;
-    }
-
-    file = glk_stream_open_file(ref, filemode_Write, 0);
-    glk_fileref_destroy(ref);
+    file = ref ? glk_stream_open_file(ref, filemode_Write, 0) : NULL;
+    if (ref)
+        glk_fileref_destroy(ref);
     if (file == NULL) {
-        OutString("Save failed.\n");
-        OutFlush();
+        FileNotice("Save failed.\n");
         return;
     }
 
@@ -306,26 +302,39 @@ void SaveGame(void)
     glk_put_buffer_stream(file, (char *)Flag, sizeof(Flag));
     glk_put_buffer_stream(file, (char *)ObjectLoc, sizeof(ObjectLoc));
     glk_stream_close(file, NULL);
-    OutString("Saved.\n");
-    OutFlush();
+    FileNotice("Saved.\n");
+}
+
+/* Exit table framing: each room's block starts with a marker byte, the
+   room number with the high bit set, and the table ends with EXITS_END. */
+#define EXIT_ROOM_MARKER 0x80
+#define EXITS_END 0xff
+
+/* Find the current room's block in the exit table. Returns a pointer to
+   its first (direction, destination) pair, or NULL if the room has no
+   block. The block ends at the next byte with the high bit set. */
+static unsigned char *FindExitBlock(void)
+{
+    unsigned char want = EXIT_ROOM_MARKER | MyLoc;
+    unsigned char *ptr = FileImage + ExitBase;
+    while (*ptr != want) {
+        if (*ptr == EXITS_END || ptr >= EndOfData - 1)
+            return NULL;
+        ptr++;
+    }
+    return ptr + 1;
 }
 
 /* List available exits from the current room by scanning the exit table. */
 static void ListExits(int caps)
 {
-    /* Each room's exit block in the table is preceded by a marker byte:
-       the room number with the high bit set. */
-    unsigned char loc_marker = 0x80 | MyLoc;
-    unsigned char *entry = FileImage + ExitBase;
+    unsigned char *entry = FindExitBlock();
     int printed_any = 0;
 
-    while (*entry != loc_marker)
-        entry++;
-    entry++;
+    if (entry == NULL)
+        return;
 
-    /* Exit entries are (direction, destination) byte pairs; the block ends
-       when we see another marker byte (high bit set). */
-    while (*entry < 0x80) {
+    while (*entry < EXIT_ROOM_MARKER) {
         if (!printed_any) {
             if (CurrentGame == BLIZZARD_PASS && LastChar == ',')
                 LastChar = 0;
@@ -344,14 +353,26 @@ static void ListExits(int caps)
     }
 }
 
+/* QP3 draws room images via the status table (which contains IMAGE
+   actions). Run it once with DrawImages=255 to draw without advancing the
+   turn; stash StopTime so the bypass doesn't suppress next turn's real
+   status pass. */
+static void QP3RedrawImages(void)
+{
+    int tempstop = StopTime;
+    StopTime = 0;
+    DrawImages = 255;
+    RunStatusTable();
+    QP3DrawExtraImages();
+    StopTime = tempstop;
+}
+
 /* Display the current room: description, visible objects (low objects
    inline, high objects after "You see:"), exits, and optional inventory.
    Draws the room image if graphics are enabled. */
 void Look(void)
 {
-    /* Room 0 is the intro/title pseudo-room; Kayleth's room 91 is an
-       analogous non-game screen. */
-    int is_intro_room = (MyLoc == 0 || (BaseGame == KAYLETH && MyLoc == 91));
+    int is_intro_room = IsIntroRoom();
 
     if (is_intro_room || NoGraphics)
         CloseGraphicsWindow();
@@ -393,7 +414,7 @@ void Look(void)
             if (!printed_any) {
                 if (Version == QUESTPROBE3_TYPE) {
                     OutReplace(0);
-                    SysMessage(0);
+                    SysMessage(YOU_SEE);
                 } else if (BaseGame == HEMAN || BaseGame == REBEL_PLANET) {
                     OutChar(' ');
                 }
@@ -403,7 +424,7 @@ void Look(void)
             PrintObject(i);
         }
     }
-    if (printed_any && !isalpha(LastChar))
+    if (printed_any && !isalpha((unsigned char)LastChar))
         OutReplace('.');
 
     /* QP3 has no "You see:" phase — every visible item is a low object.
@@ -459,22 +480,18 @@ void Look(void)
         /* A resize-in-progress: reuse the buffered image rather than
            re-running the room's drawing pipeline. */
         if (Resizing) {
-            DrawIrmakPictureFromBuffer();
+            DrawBufferedPicture();
             return;
         }
         if (Version == QUESTPROBE3_TYPE) {
-            /* QP3 draws room images via the status table (which contains
-               IMAGE actions). Run it once with DrawImages=255 to draw
-               without advancing the turn; stash StopTime so the bypass
-               doesn't suppress next turn's real status pass. */
-            int tempstop = StopTime;
-            StopTime = 0;
-            DrawImages = 255;
-            RunStatusTable();
-            QP3DrawExtraImages();
-            StopTime = tempstop;
+            QP3RedrawImages();
         } else {
-            glk_window_clear(Graphics);
+            /* Painting over the picture of the turn before needs no
+               clear, and only its changed cells are painted. */
+            if (!BufferedPictureShown()) {
+                glk_window_clear(Graphics);
+                GraphicsWindowChanged();
+            }
             DrawRoomImage();
         }
     }
@@ -484,15 +501,10 @@ void Look(void)
    If so, move the player there and return 1. */
 static int AutoExit(unsigned char v)
 {
-    unsigned char *ptr = FileImage + ExitBase;
-    unsigned char want = MyLoc | 0x80;
-    while (*ptr != want) {
-        if (*ptr == 0xfe)
-            return 0;
-        ptr++;
-    }
-    ptr++;
-    while (*ptr < 0x80) {
+    unsigned char *ptr = FindExitBlock();
+    if (ptr == NULL)
+        return 0;
+    while (*ptr < EXIT_ROOM_MARKER) {
         if (*ptr == v) {
             Goto(ptr[1]);
             return 1;
@@ -507,10 +519,12 @@ static int IsDir(unsigned char word)
 {
     if (word == 0)
         return 0;
-    if (Version == QUESTPROBE3_TYPE) {
-        return (word <= 4 || word == 57 || word == 60);
-    } else
-        return (word <= 10);
+    /* Direction words share their codes with the direction system
+       messages. QP3 has the four compass points first and two more
+       direction words further up; the others have all ten in a row. */
+    if (Version == QUESTPROBE3_TYPE)
+        return (word <= WEST || word == 57 || word == 60);
+    return (word <= SOUTHWEST);
 }
 
 /* Process one player command: try extra commands, direction auto-exits,
@@ -561,10 +575,8 @@ static void RunOneInput(void)
         int OriginalVerb = Word[0];
         if (TryExtraCommand() == 0) {
             if (LastVerb) {
-                Word[4] = Word[3];
-                Word[3] = Word[2];
-                Word[2] = Word[1];
-                Word[1] = Word[0];
+                /* Retry with the previous verb in front of the words. */
+                memmove(Word + 1, Word, 4);
                 Word[0] = LastVerb;
                 RunCommandTable();
             }
@@ -613,12 +625,7 @@ static void RunOneInput(void)
         if (Version == QUESTPROBE3_TYPE) {
             DrawImages = 0;
             RunStatusTable();
-            DrawImages = 255;
-            int tempstop = StopTime;
-            StopTime = 0;
-            RunStatusTable();
-            QP3DrawExtraImages();
-            StopTime = tempstop;
+            QP3RedrawImages();
         } else {
             RunStatusTable();
         }

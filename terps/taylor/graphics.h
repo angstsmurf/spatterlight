@@ -17,6 +17,10 @@ void PutPixel(glsi32 x, glsi32 y, int32_t color);
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color);
 
+void DrawBufferedPicture(void);
+int BufferedPictureShown(void);
+void GraphicsWindowChanged(void);
+
 void PatchAndDrawQP3Cannon(void);
 
 extern palette_type palchosen;

@@ -72,6 +72,14 @@ static int LoadRoomState(const char *folder, int room)
     return 1;
 }
 
+/* Empty the canvas for the next picture. That happens behind the
+   interpreter's back, so it has to be told that its last picture is gone. */
+static void ClearCanvas(void)
+{
+    ImageProbeClear();
+    GraphicsWindowChanged();
+}
+
 static void DumpRoomsFromState(const char *folder, int rooms)
 {
     for (int room = 0; room < rooms; room++) {
@@ -79,7 +87,7 @@ static void DumpRoomsFromState(const char *folder, int rooms)
         snprintf(name, sizeof name, "room%d", room);
         if (!LoadRoomState(folder, room))
             continue;
-        ImageProbeClear();
+        ClearCanvas();
         ClearGraphMem();
         if (Version == QUESTPROBE3_TYPE) {
             /* The pictures are drawn by the game's own status table. */
@@ -125,7 +133,7 @@ void ImageProbeDump(void)
         }
         snprintf(detail, sizeof detail, "%4zu %08x", images[i].datasize,
             ImageProbeCRC(images[i].imagedata, images[i].datasize));
-        ImageProbeClear();
+        ClearCanvas();
         ClearGraphMem();
         if (pieces)
             DrawPictureAtPos(i, 0, 0, 1);
@@ -151,7 +159,7 @@ void ImageProbeDump(void)
     for (int room = 0; room < rooms; room++) {
         char name[16];
         snprintf(name, sizeof name, "room%d", room);
-        ImageProbeClear();
+        ClearCanvas();
         ClearGraphMem();
         if (!DrawTaylor(room, room)) {
             ImageProbeNote("%-24s no picture", name);

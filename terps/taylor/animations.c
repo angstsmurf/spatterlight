@@ -40,6 +40,22 @@ static int KaylethAnimationIndex = 0;  /* Room index of the last Kayleth animati
 static int AnimationStage = 0;         /* General-purpose frame counter */
 static int ClickShelfStage = 0;        /* Sub-counter for Kayleth click-shelf jerkiness */
 
+/* Set the Glk timer to the given interval (ms) unless it is already
+   running at that rate. */
+static void SetAnimationRate(int rate)
+{
+    if (AnimationRunning != rate) {
+        glk_request_timer_events(rate);
+        AnimationRunning = rate;
+    }
+}
+
+static void StopAnimations(void)
+{
+    glk_request_timer_events(0);
+    AnimationRunning = 0;
+}
+
 /* Animate the star field in Rebel Planet room 1 (view through a window).
    The left half of the image scrolls left and the right half scrolls right,
    creating a parallax / hyperspace effect. Works by rotating bits in the
@@ -65,7 +81,7 @@ static void AnimateStars(void)
                     }
                 }
                 carry =
-                rotate_left_with_carry(&(imagebuffer[col + line * 32][pixrow]), carry);
+                rotate_left_with_carry(&(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow]), carry);
             }
             imagebuffer[line * IRMAK_IMGWIDTH + 15][pixrow] =
                 imagebuffer[line * IRMAK_IMGWIDTH + 15][pixrow] | carry;
@@ -143,23 +159,20 @@ static void FillCell(int cell, glui32 ink)
    Arcadian head image is toggled on or off. */
 static void AnimateQueenComputer(void)
 {
-    int offset = 3;
+    /* Leftmost column of each pair of indicator cells */
+    static const int indicator_columns[3] = { 3, 10, 27 };
     /* Map AnimationStage (0–15) to a colour index that wraps 0–7 */
     int rotatingink = 7 - (AnimationStage - 7 * (AnimationStage > 7));
     /* Fill indicator cells with rotating bright colours */
     for (int i = 0; i < 3; i++) {
         for (int line = 3; line <= 6; line += 3) {
             for (int cell = 0; cell < 2; cell++) {
-                FillCell(line * IRMAK_IMGWIDTH + offset + cell, 8 + rotatingink);
+                FillCell(line * IRMAK_IMGWIDTH + indicator_columns[i] + cell, 8 + rotatingink);
                 rotatingink--;
                 if (rotatingink < 0)
                     rotatingink = 7;
             }
         }
-        if (offset == 3)
-            offset = 10;
-        else if (offset == 10)
-            offset = 27;
     }
     for (int cell = 0; cell < 3; cell++) {
         FillCell(7 * IRMAK_IMGWIDTH + 18 + cell, 8 + rotatingink--);
@@ -197,19 +210,19 @@ static void AnimateKaylethClickShelves(int stage)
                 if (ypos > 79)
                     ypos = ypos - 80;
                 /* Look up colour attributes from the destination rows */
-                uint8_t attribute = imagebuffer[col + (ypos / 8) * 32][IRMAK_CELL_ATTR];
+                uint8_t attribute = imagebuffer[col + (ypos / 8) * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
                 glui32 ink = Remap(AttributeInk(attribute));
-                attribute = imagebuffer[col + ((79 - ypos) / 8) * 32][IRMAK_CELL_ATTR];
+                attribute = imagebuffer[col + ((79 - ypos) / 8) * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
                 glui32 ink2 = Remap(AttributeInk(attribute));
                 for (int j = 0; j < 8; j++) {
                     if (col > 15) {
                         /* Right half: draw from source row, scrolling up */
-                        if (isNthBitSet(imagebuffer[col + line * 32][i], 7 - j)) {
+                        if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][i], 7 - j)) {
                             PutPixel(col * 8 + j, ypos, ink);
                         }
                     } else {
                         /* Left half: draw from mirrored source row, scrolling down */
-                        if (isNthBitSet(imagebuffer[col + (9 - line) * 32][7 - i], 7 - j)) {
+                        if (isNthBitSet(imagebuffer[col + (9 - line) * IRMAK_IMGWIDTH][7 - i], 7 - j)) {
                             PutPixel(col * 8 + j, 79 - ypos, ink2);
                         }
                     }
@@ -245,6 +258,13 @@ static KaylethAnimation **KaylethAnimations = NULL;
 /* Total number of rooms in Kayleth; NULL entries for rooms without animation */
 #define NUMBER_OF_KAYLETH_ANIMATIONS 92
 
+/* First image of the Azap chamber animation, whose timing is patched */
+#define AZAP_FIRST_IMAGE 118
+
+/* Not a real object (Kayleth has 120): a slot that the picture
+   instructions test to draw the destroyer droid in the current room. */
+#define KAYLETH_DROID_SLOT 122
+
 /* Parse the Kayleth animation data from the game file image into the
    KaylethAnimations table. The data format is a sequence of room entries:
    - 0xFF bytes mark rooms with no animation (one per room).
@@ -256,16 +276,21 @@ static KaylethAnimation **KaylethAnimations = NULL;
 void LoadKaylethAnimationData(void)
 {
     KaylethAnimations = MemAlloc(sizeof(KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
-    KaylethAnimations[0] = NULL;
+    for (int i = 0; i < NUMBER_OF_KAYLETH_ANIMATIONS; i++)
+        KaylethAnimations[i] = NULL;
+    /* No animation data was found in this file: no room is animated */
+    if (AnimationData == 0 || AnimationData >= FileImageLen)
+        return;
     uint8_t *ptr = &FileImage[AnimationData];
+    uint8_t *end = FileImage + FileImageLen;
     int counter = 0;
-    while (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
-        while (*ptr == 0xff) {
-            KaylethAnimations[counter] = NULL;
+    while (counter < NUMBER_OF_KAYLETH_ANIMATIONS && ptr < end) {
+        while (counter < NUMBER_OF_KAYLETH_ANIMATIONS && ptr < end && *ptr == 0xff) {
             counter++;
             ptr++;
         }
-        if (counter < NUMBER_OF_KAYLETH_ANIMATIONS) {
+        /* An entry is a 3-byte header and at least a terminator */
+        if (counter < NUMBER_OF_KAYLETH_ANIMATIONS && end - ptr > 3) {
             KaylethAnimation *anim = MemAlloc(sizeof(KaylethAnimation));
             anim->loop_to = *ptr / 3;
             ptr++;
@@ -274,9 +299,12 @@ void LoadKaylethAnimationData(void)
             ptr += 2; /* Skip the runtime counter byte (always zero in file) */
             /* Count frames by scanning ahead for the 0xFF terminator */
             anim->number_of_frames = 0;
-            for (int i = 0; ptr[i] != 0xff; i += 3) {
+            for (int i = 0; ptr + i < end && ptr[i] != 0xff; i += 3) {
                 anim->number_of_frames++;
             }
+            /* Truncated data: the last frame record is incomplete */
+            if (ptr + anim->number_of_frames * 3 > end)
+                anim->number_of_frames = (int)((end - ptr) / 3);
             anim->frames = MemAlloc(anim->number_of_frames * sizeof(KaylethAnimationFrame));
             for (int i = 0; i < anim->number_of_frames; i++) {
                 anim->frames[i].counter_to_draw_at = *ptr;
@@ -286,11 +314,14 @@ void LoadKaylethAnimationData(void)
             }
 
             /* Patch Azap chamber timing to better match original speed */
-            if (anim->frames[0].image == 118) {
+            if (anim->number_of_frames > 4 && anim->frames[0].image == AZAP_FIRST_IMAGE) {
                 anim->frames[1].counter_to_draw_at = 5;
                 anim->frames[3].counter_to_draw_at = 5;
                 anim->frames[4].counter_to_draw_at = 8;
             }
+
+            if (anim->loop_to >= anim->number_of_frames)
+                anim->loop_to = 0;
 
             KaylethAnimations[counter++] = anim;
 
@@ -299,26 +330,30 @@ void LoadKaylethAnimationData(void)
     }
 
     /* Patch assembly line (room 2) timing to match original speed */
-    KaylethAnimations[2]->frames[0].counter_to_draw_at = 10;
-    KaylethAnimations[2]->frames[1].counter_to_draw_at = 20;
-    KaylethAnimations[2]->frames[2].counter_to_draw_at = 20;
+    KaylethAnimation *belt = KaylethAnimations[2];
+    if (belt != NULL && belt->number_of_frames > 2) {
+        belt->frames[0].counter_to_draw_at = 10;
+        belt->frames[1].counter_to_draw_at = 20;
+        belt->frames[2].counter_to_draw_at = 20;
+    }
 }
 
 /* Advance the Kayleth animation for the current room by one tick.
    Returns 1 if the current room has an animation, 0 otherwise.
    Object 0 is temporarily placed in the room so room-image drawing
    can reference it. If the destroyer droid is pursuing (Flag[10] > 1),
-   object 122 is also temporarily placed here. */
+   the droid slot is also temporarily placed here. */
 static int UpdateKaylethAnimationFrames(void)
 {
-    if (KaylethAnimations[MyLoc] == NULL) {
+    if (KaylethAnimations == NULL || MyLoc >= NUMBER_OF_KAYLETH_ANIMATIONS
+        || KaylethAnimations[MyLoc] == NULL) {
         return 0;
     }
 
     int obj0loc = ObjectLoc[0];
     ObjectLoc[0] = MyLoc;
     if (Flag[10] > 1)
-        ObjectLoc[122] = MyLoc;
+        ObjectLoc[KAYLETH_DROID_SLOT] = MyLoc;
 
     KaylethAnimation *anim = KaylethAnimations[MyLoc];
 
@@ -328,13 +363,14 @@ static int UpdateKaylethAnimationFrames(void)
         anim->current_frame = 0;
     }
 
-    if (ObjectLoc[anim->required_object] == MyLoc) {
+    if (anim->current_frame < anim->number_of_frames
+        && ObjectLoc[anim->required_object] == MyLoc) {
 
         KaylethAnimationFrame *frame = &anim->frames[anim->current_frame];
 
         if (frame->counter >= frame->counter_to_draw_at) {
             DrawTaylor(frame->image, MyLoc);
-            DrawIrmakPictureFromBuffer();
+            DrawBufferedPicture();
             anim->current_frame++;
             frame->counter = 0;
             if (anim->current_frame >= anim->number_of_frames) {
@@ -346,7 +382,7 @@ static int UpdateKaylethAnimationFrames(void)
     }
 
     ObjectLoc[0] = obj0loc;
-    ObjectLoc[122] = DESTROYED;
+    ObjectLoc[KAYLETH_DROID_SLOT] = Destroyed();
     return 1;
 }
 
@@ -389,15 +425,13 @@ void UpdateRebelAnimations(void)
             AnimationStage++;
             if (AnimationStage > 5) {
                 AnimationStage = 5;
-                glk_request_timer_events(0);
-                AnimationRunning = 0;
+                StopAnimations();
             }
         } else {
             AnimationStage--;
             if (AnimationStage < 0) {
                 AnimationStage = 0;
-                glk_request_timer_events(0);
-                AnimationRunning = 0;
+                StopAnimations();
             } else if (AnimationStage == 4) {
                 glk_request_timer_events(50);
             }
@@ -408,7 +442,7 @@ void UpdateRebelAnimations(void)
                and move higher up the screen */
             DrawPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);
         }
-        DrawIrmakPictureFromBuffer();
+        DrawBufferedPicture();
     } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
         /* Killer security robot: alternates between two frames */
         DrawPictureAtPos(138 + AnimationStage, 13, 2, 0);
@@ -422,8 +456,7 @@ void UpdateRebelAnimations(void)
         AnimationStage = (AnimationStage == 0);
     } else {
         /* No animation for this room — stop the timer */
-        glk_request_timer_events(0);
-        AnimationRunning = 0;
+        StopAnimations();
         AnimationStage = 0;
     }
 }
@@ -440,22 +473,13 @@ void StartAnimations(void)
             int rate = STARS_ANIMATION_RATE;
             if (CurrentGame == REBEL_PLANET_64)
                 rate = STARS_ANIMATION_RATE_64;
-            if (AnimationRunning != rate) {
-                glk_request_timer_events(rate);
-                AnimationRunning = rate;
-            }
+            SetAnimationRate(rate);
         } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
             // Force field
-            if (AnimationRunning != FIELD_ANIMATION_RATE) {
-                glk_request_timer_events(FIELD_ANIMATION_RATE);
-                AnimationRunning = FIELD_ANIMATION_RATE;
-            }
+            SetAnimationRate(FIELD_ANIMATION_RATE);
         } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
             // Queen computer
-            if (AnimationRunning != QUEEN_ANIMATION_RATE) {
-                glk_request_timer_events(QUEEN_ANIMATION_RATE);
-                AnimationRunning = QUEEN_ANIMATION_RATE;
-            }
+            SetAnimationRate(QUEEN_ANIMATION_RATE);
         } else if (MyLoc > 28 && MyLoc < 34) {
             // Sycane Serpent in sewers
             glk_request_timer_events(SERPENT_ANIMATION_RATE);
@@ -508,9 +532,6 @@ void StartAnimations(void)
         default:
             break;
         }
-        if (AnimationRunning != speed) {
-            glk_request_timer_events(speed);
-            AnimationRunning = speed;
-        }
+        SetAnimationRate(speed);
     }
 }

@@ -7,7 +7,7 @@
 //  loader's screen-draw is driven by a small list of "window" descriptors
 //  (recovered from the running loader); the generic Alkatraz address-order
 //  generator in alkatraz_screen.c expands them into the draw order, and the
-//  pixel stream in tape block 4 fills it. See DecodeKaylethLoadingScreen().
+//  pixel stream in tape block 4 fills it. See DecodeAlkatrazLoadingScreen().
 //
 
 #ifndef kayleth_loadscreen_data_h

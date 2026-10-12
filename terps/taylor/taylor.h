@@ -30,6 +30,7 @@
    opcodes, so they can't be renumbered. */
 #define MyLoc (Flag[0])
 #define OtherGuyLoc (Flag[1])
+#define CarriedLoc (Flag[2]) /* Location code of carried objects */
 #define OtherGuyInv (Flag[3])
 #define MaxCarried (Flag[4])
 #define ItemsCarried (Flag[5])
