@@ -12,9 +12,10 @@
  *
  * The line / flood-fill / brush primitives are ported byte-faithfully from the
  * real 6502 double-hi-res interpreter (validated pixel-exact against MAME for
- * Talisman's prison cell, RA image 4 -- see the regressions in test/). The colour, sub-table, pattern and brush tables
- * are loaded at runtime from the boot disk's "T5" file (gmDhgrInstallDrawingTables);
- * NOTHING is baked. Per-image colour overrides arrive as op7 commands (see below).
+ * Talisman's prison cell, RA image 4 -- see the regressions in test/).
+ * The colour, sub-table, pattern and brush tables are loaded at runtime from
+ * the boot disk's "T5" file (gmDhgrInstallDrawingTables); NOTHING is baked.
+ * Per-image colour overrides arrive as op7 commands (see below).
  *
  * op7 (0x7x) -- reverse-engineered from the interpreter ($0951): NOT a no-op. It
  * is a per-image SET-PALETTE-SUBINDEX command: `aux[$41B2 + operand1] = operand2`,

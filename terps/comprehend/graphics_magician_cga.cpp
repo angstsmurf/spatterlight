@@ -74,10 +74,10 @@ static uint8_t s_fontGlyphs[96 * 8];  // chars 32-127, 8 bytes each
 // that is what fill_pattern()/pf_pattern_word() do.  (Re-confirmed 2026-06-13:
 // forcing true per-column phasing regresses crypt to ~2824 px at every offset 0-3;
 // the OVR disassembly write-up is TODO_v1_cga_graphics.md in git history.)
-// s_v1PatRaw keeps the native MSB-first byte (used by the word-based flood fill, which works in
-// global byte coords); s_v1PatLsb is the mirrored copy the LSB-first framebuffer
-// stores directly.  The subindex (s_fillSubindex) format is identical to v2
-// (low=even row, high=odd).
+// s_v1PatRaw keeps the native MSB-first byte (used by the word-based flood fill,
+// which works in global byte coords); s_v1PatLsb is the mirrored copy the
+// LSB-first framebuffer stores directly.  The subindex (s_fillSubindex) format
+// is identical to v2 (low=even row, high=odd).
 static uint8_t s_v1PatRaw[30][4];
 static uint8_t s_v1PatLsb[30][4];
 static bool    s_v1 = false;
