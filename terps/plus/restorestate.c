@@ -19,14 +19,6 @@
 
 #define MAX_UNDOS 100
 
-/* JustStarted is only used for the error message "Can't undo on first move" */
-extern int JustStarted;
-
-extern uint8_t Flag[];
-extern uint8_t ObjectLoc[];
-
-extern winid_t Bottom;
-
 int JustRestored = 0;
 int JustRestarted = 0;
 ImgType SavedImgType;
@@ -43,7 +35,7 @@ SavedState *SaveCurrentState(void)
 {
     SavedState *s = (SavedState *)MemAlloc(sizeof(SavedState));
 
-    memcpy(s->Counters, Counters, 64 * sizeof(uint16_t));
+    memcpy(s->Counters, Counters, sizeof s->Counters);
     for (int i = 0; i <= GameHeader.NumItems; i++)
         s->ObjectLocations[i] = Items[i].Location;
 
@@ -58,8 +50,11 @@ SavedState *SaveCurrentState(void)
     return s;
 }
 
-void RecoverFromBadRestore(SavedState *state)
+/* Give up loading a saved game: close the file, tell the player, and go
+   back to the state we were in before we began reading it. */
+static void RecoverFromBadRestore(SavedState *state, strid_t file)
 {
+    glk_stream_close(file, NULL);
     SystemMessage(BAD_DATA);
     RestoreState(state);
     free(state);
@@ -68,7 +63,7 @@ void RecoverFromBadRestore(SavedState *state)
 void RestoreState(SavedState *state)
 {
     StopAnimation();
-    memcpy(Counters, state->Counters, 64 * sizeof(uint16_t));
+    memcpy(Counters, state->Counters, sizeof state->Counters);
 
     for (int i = 0; i <= GameHeader.NumItems; i++)
         Items[i].Location = state->ObjectLocations[i];
@@ -84,8 +79,8 @@ void RestoreState(SavedState *state)
      and we always want to reload them after restoring state.
      */
     if (CurrentGame == SPIDERMAN) {
-        ResetBit(9);
-        ResetBit(10);
+        ResetBit(SPIDERMAN_WEB_LOADED_BIT);
+        ResetBit(SPIDERMAN_SANDMAN_LOADED_BIT);
     }
     if (JustRestarted && CurrentGame != BANZAI)
         Look(0);
@@ -188,7 +183,7 @@ void SaveGame(void)
     if (file == NULL)
         return;
 
-    for (ct = 0; ct < 64; ct++) {
+    for (ct = 0; ct < NUM_COUNTERS; ct++) {
         snprintf(buf, sizeof buf, "%d\n", Counters[ct]);
         glk_put_string_stream(file, buf);
     }
@@ -226,11 +221,11 @@ int LoadGame(void)
 
     int result;
 
-    for (ct = 0; ct < 64; ct++) {
+    for (ct = 0; ct < NUM_COUNTERS; ct++) {
         glk_get_line_stream(file, buf, sizeof buf);
-        result = sscanf(buf, "%" SCNu16, &Counters[ct]);
+        result = sscanf(buf, "%" SCNd16, &Counters[ct]);
         if (result != 1) {
-            RecoverFromBadRestore(state);
+            RecoverFromBadRestore(state, file);
             return 0;
         }
     }
@@ -241,7 +236,7 @@ int LoadGame(void)
     SavedImgType = SavedImgTypeInt;
     debug_print("LoadGame: Result of sscanf: %d\n", result);
     if ((result < 3) || MyLoc > GameHeader.NumRooms || MyLoc < 1) {
-        RecoverFromBadRestore(state);
+        RecoverFromBadRestore(state, file);
         return 0;
     }
 
@@ -251,7 +246,7 @@ int LoadGame(void)
         Items[ct].Location = (unsigned char)lo;
         if (result != 1 || (Items[ct].Location > GameHeader.NumRooms && Items[ct].Location != CARRIED && Items[ct].Location != HIDDEN && Items[ct].Location != HELD_BY_OTHER_GUY)) {
             fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s, is in room %d)\n", ct, Items[ct].Text, Items[ct].Location);
-            RecoverFromBadRestore(state);
+            RecoverFromBadRestore(state, file);
             return 0;
         }
     }
@@ -261,9 +256,12 @@ int LoadGame(void)
     glui32 end = glk_stream_get_position(file);
     if (end != position) {
         fprintf(stderr, "LoadGame: Save game file has unexpected length (%d, expected %d)\n", end, position);
-        RecoverFromBadRestore(state);
+        RecoverFromBadRestore(state, file);
         return 0;
     }
+
+    glk_stream_close(file, NULL);
+    free(state);
 
     JustStarted = 0;
     ClearAnimationBuffer();

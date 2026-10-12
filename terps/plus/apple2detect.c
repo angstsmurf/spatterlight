@@ -20,11 +20,6 @@
 
 #include "apple2detect.h"
 
-typedef struct imglist {
-    char *filename;
-    size_t offset;
-} imglist;
-
 static const imglist a2listFantastic[] = {
     { "R001", 0x1e800 },
     { "R002", 0x1df00 },
@@ -163,7 +158,7 @@ static const imglist a2listSpidey[] = {
     { NULL, 0 }
 };
 
-static const struct imglist a2listBanzai[] = {
+static const imglist a2listBanzai[] = {
     { "R001", 0x1dc00 },
     { "R002", 0x1d600 },
     { "R003", 0x1cd00 },
@@ -233,7 +228,26 @@ static const struct imglist a2listBanzai[] = {
     { NULL, 0, }
 };
 
-uint8_t *new = NULL;
+/* Size of a 35 track, 16 sector .dsk image */
+#define A2_DISK_SIZE (35 * 16 * 256)
+#define A2_SECTOR_SIZE 256
+
+/* The game database begins at this offset of the sector-reversed disk
+   image, and the size of its actions is found at A2_ACTION_SIZE_OFFSET. */
+#define A2_DATABASE_OFFSET 125438
+#define A2_ACTION_SIZE_OFFSET 0x1EA32
+
+/* The range of plausible action sizes: outside it, this is not the disk
+   side with the database on it. */
+#define A2_MIN_ACTION_SIZE 4000
+#define A2_MAX_ACTION_SIZE 7000
+
+/* The image offsets in the database count backwards from here */
+#define A2_IMAGE_BASE (0x23000 - 0x100)
+
+/* The game disk with its sectors in reverse order, kept from detection
+   until LookForApple2Images() has taken the pictures from it. */
+static uint8_t *reversed_disk = NULL;
 
 // If the buffer is an Apple II WOZ disk image, convert it into a standard
 // 143360-byte DOS 3.3 ordered .dsk image (via the shared readwoz library) so
@@ -256,8 +270,20 @@ static uint8_t *ConvertWozToDsk(uint8_t *data, size_t datasize, size_t *outsize)
     if (dsk == NULL)
         return NULL;
 
-    *outsize = 35 * 16 * 256;
+    *outsize = A2_DISK_SIZE;
     return dsk;
+}
+
+// If *data is a WOZ image, replace it with its conversion to a .dsk image.
+static void LoadAsDsk(uint8_t **data, size_t *size)
+{
+    size_t dsksize;
+    uint8_t *dsk = ConvertWozToDsk(*data, *size, &dsksize);
+    if (dsk != NULL) {
+        free(*data);
+        *data = dsk;
+        *size = dsksize;
+    }
 }
 
 // Copy the 256-byte sectors of src into a new buffer of imagesize bytes
@@ -265,78 +291,59 @@ static uint8_t *ConvertWozToDsk(uint8_t *data, size_t datasize, size_t *outsize)
 static uint8_t *ReverseSectors(const uint8_t *src, size_t srcsize, size_t imagesize)
 {
     uint8_t *reversed = MemAlloc(imagesize);
-    size_t offset = imagesize - 256;
-    for (int i = 0; i < srcsize && i < imagesize; i += 256) {
-        memcpy(reversed + offset, src + i, 256);
-        offset -= 256;
+    size_t offset = imagesize - A2_SECTOR_SIZE;
+    for (size_t i = 0; i < srcsize && i < imagesize; i += A2_SECTOR_SIZE) {
+        memcpy(reversed + offset, src + i, A2_SECTOR_SIZE);
+        offset -= A2_SECTOR_SIZE;
     }
     return reversed;
 }
 
+static int IsPlausibleActionSize(int actionsize)
+{
+    return (actionsize >= A2_MIN_ACTION_SIZE && actionsize <= A2_MAX_ACTION_SIZE);
+}
+
 int DetectApple2(uint8_t **sf, size_t *extent)
 {
-    const size_t dsk_image_size = 35 * 16 * 256;
-
     // Accept WOZ images by converting them to a .dsk image up front.
-    size_t wozdsksize;
-    uint8_t *wozdsk = ConvertWozToDsk(*sf, *extent, &wozdsksize);
-    if (wozdsk != NULL) {
-        free(*sf);
-        *sf = wozdsk;
-        *extent = wozdsksize;
-    }
+    LoadAsDsk(sf, extent);
 
-    if (*sf == NULL || *extent > MAX_LENGTH || *extent < dsk_image_size)
+    if (*sf == NULL || *extent > MAX_LENGTH || *extent < A2_DISK_SIZE)
         return 0;
 
-    new = ReverseSectors(*sf, *extent, dsk_image_size);
+    reversed_disk = ReverseSectors(*sf, *extent, A2_DISK_SIZE);
 
-    int actionsize = READ_LE_UINT16(new + 0x1EA32);
+    int actionsize = READ_LE_UINT16(reversed_disk + A2_ACTION_SIZE_OFFSET);
     debug_print("Actionsize: %d\n", actionsize);
-    if (actionsize < 4000 || actionsize > 7000) {
+    if (!IsPlausibleActionSize(actionsize)) {
         size_t companionsize;
         uint8_t *companionfile = GetCompanionFile(game_file, &companionsize);
         // The companion side may itself be a WOZ image; convert it too.
-        if (companionfile != NULL) {
-            size_t companiondsksize;
-            uint8_t *companiondsk = ConvertWozToDsk(companionfile, companionsize,
-                &companiondsksize);
-            if (companiondsk != NULL) {
-                free(companionfile);
-                companionfile = companiondsk;
-                companionsize = companiondsksize;
-            }
+        if (companionfile != NULL)
+            LoadAsDsk(&companionfile, &companionsize);
+        if (companionfile && companionsize >= A2_DISK_SIZE) {
+            free(reversed_disk);
+            reversed_disk = ReverseSectors(companionfile, companionsize, companionsize);
+            actionsize = READ_LE_UINT16(reversed_disk + A2_ACTION_SIZE_OFFSET);
         }
-        if (companionfile && companionsize >= dsk_image_size) {
-            free(new);
-            new = ReverseSectors(companionfile, companionsize, companionsize);
-            actionsize = READ_LE_UINT16(new + 0x1EA32);
-        }
-        if (actionsize < 4000 || actionsize > 7000) {
-            free(new);
+        free(companionfile);
+        if (!IsPlausibleActionSize(actionsize)) {
+            free(reversed_disk);
+            reversed_disk = NULL;
             return 0;
         }
     }
 
-    size_t datasize = dsk_image_size - 125438;
+    size_t datasize = A2_DISK_SIZE - A2_DATABASE_OFFSET;
     uint8_t *gamedata = MemAlloc(datasize);
-    memcpy(gamedata, new + 125438, datasize);
+    memcpy(gamedata, reversed_disk + A2_DATABASE_OFFSET, datasize);
 
-    if (gamedata) {
-        free(*sf);
-        *sf = gamedata;
-        *extent = datasize;
-        CurrentSys = SYS_APPLE2;
-        ImageWidth = 560;
-        ImageHeight = 320;
-        return 1;
-    }
-
-    return 0;
+    AdoptDataFile(sf, extent, gamedata, datasize, SYS_APPLE2);
+    return 1;
 }
 
-// Return the index of the entry in list with the given disk offset, or -1.
-static int FindImageWithOffset(const struct imglist *list, size_t offset)
+static int FindImageWithOffset(const imglist *list, size_t offset)
 {
     for (int ct = 0; list[ct].filename != NULL; ct++) {
         if (list[ct].offset == offset)
@@ -358,16 +365,54 @@ static int IsImageAdded(int count, size_t offset)
 static void CopyImageData(imgrec *rec, size_t offset, size_t size)
 {
     rec->Data = MemAlloc(size);
-    memcpy(rec->Data, new + offset, size);
+    memcpy(rec->Data, reversed_disk + offset, size);
     rec->Size = size;
+}
+
+/* image is the disk offset of the picture of a room or an object, as
+   found in the database. Unless that picture was added already, copy it
+   from the disk to Images[*created]. Returns the number of the picture,
+   or image unchanged if it was not added. The size word of an object
+   picture does not count itself: size_extra is 2 for those. */
+static uint32_t AddImageWithOffset(const imglist *list, uint32_t image, int *created, int capacity, size_t size_extra)
+{
+    if (image == 0 || IsImageAdded(*created, image) || *created >= capacity)
+        return image;
+
+    size_t offset = A2_IMAGE_BASE - image;
+    if (offset + 2 > A2_DISK_SIZE)
+        return image;
+    size_t size = READ_LE_UINT16(reversed_disk + offset) + size_extra;
+    if (offset + size > A2_DISK_SIZE)
+        size = A2_DISK_SIZE - offset;
+
+    int ct = FindImageWithOffset(list, image);
+    if (ct < 0) {
+        debug_print("Error, image with offset %x not found!\n", image);
+        return image;
+    }
+    /* The names are string literals, never written to or freed */
+    Images[*created].Filename = (char *)list[ct].filename;
+    Images[*created].DiskOffset = list[ct].offset;
+
+    CopyImageData(&Images[*created], offset, size);
+    (*created)++;
+    return ImageNumberFromName(list[ct].filename);
+}
+
+/* Change the disk offset of a picture that was added to its number */
+static uint32_t ConvertOffsetToNumber(const imglist *list, uint32_t image)
+{
+    int ct = FindImageWithOffset(list, image);
+    return (ct >= 0) ? ImageNumberFromName(list[ct].filename) : image;
 }
 
 void LookForApple2Images(void)
 {
-    if (new == NULL)
+    if (reversed_disk == NULL)
         return;
 
-    const struct imglist *list = a2listSpidey;
+    const imglist *list = NULL;
 
     switch (CurrentGame) {
     case SPIDERMAN:
@@ -386,81 +431,33 @@ void LookForApple2Images(void)
 
     int count = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
 
-    Images = MemAlloc((count + 1) * sizeof(imgrec));
+    Images = NewImageList(count);
 
     int created = 0;
 
-    for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        if (IsImageAdded(created, Rooms[i].Image) || Rooms[i].Image == 0)
-            continue;
+    /* The first pass adds each picture once; the second is for the rooms
+       and objects that share a picture with an earlier one. */
+    for (int i = 0; i <= GameHeader.NumRooms; i++)
+        Rooms[i].Image = AddImageWithOffset(list, Rooms[i].Image, &created, count, 0);
+    for (int i = 0; i <= GameHeader.NumRooms; i++)
+        Rooms[i].Image = ConvertOffsetToNumber(list, Rooms[i].Image);
 
-        size_t offset = 0x23000 - Rooms[i].Image - 0x100;
-        size_t size = READ_LE_UINT16(new + offset);
+    for (int i = 0; i <= GameHeader.NumObjImg; i++)
+        ObjectImages[i].Image = AddImageWithOffset(list, ObjectImages[i].Image, &created, count, 2);
+    for (int i = 0; i <= GameHeader.NumObjImg; i++)
+        ObjectImages[i].Image = ConvertOffsetToNumber(list, ObjectImages[i].Image);
 
-        int ct = FindImageWithOffset(list, Rooms[i].Image);
-        if (ct < 0) {
-            fprintf(stderr, "Error, room with offset %x not found!\n", Rooms[i].Image);
-            continue;
-        }
-        Images[created].Filename = list[ct].filename;
-        Images[created].DiskOffset = list[ct].offset;
-        Rooms[i].Image = ImageNumberFromName(list[ct].filename);
-
-        CopyImageData(&Images[created], offset, size);
-        created++;
-    }
-
-    /* Rooms that share an image already added above */
-    for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        int ct = FindImageWithOffset(list, Rooms[i].Image);
-        if (ct >= 0)
-            Rooms[i].Image = ImageNumberFromName(list[ct].filename);
-    }
-
-    for (int i = 0; i <= GameHeader.NumObjImg; i++) {
-        if (IsImageAdded(created, ObjectImages[i].Image) || ObjectImages[i].Image == 0)
-            continue;
-        size_t offset = 0x23000 - ObjectImages[i].Image - 0x100;
-        if (offset > 0x23000)
-            continue;
-        size_t size = READ_LE_UINT16(new + offset) + 2;
-        if (offset + size > 0x23000)
-            size = 0x23000 - offset;
-
-        int ct = FindImageWithOffset(list, ObjectImages[i].Image);
-        if (ct < 0) {
-            fprintf(stderr, "Error, image with offset %x not found!\n", ObjectImages[i].Image);
-            continue;
-        }
-        Images[created].Filename = list[ct].filename;
-        ObjectImages[i].Image = ImageNumberFromName(list[ct].filename);
-
-        CopyImageData(&Images[created], offset, size);
-        Images[created].DiskOffset = list[ct].offset;
-        created++;
-        if (created > count) {
-            fprintf(stderr, "LookForApple2Images: Error!\n");
-            created--;
-            break;
-        }
-    }
-
-    /* Object images that share an image already added above */
-    for (int i = 0; i <= GameHeader.NumObjImg; i++) {
-        int ct = FindImageWithOffset(list, ObjectImages[i].Image);
-        if (ct >= 0)
-            ObjectImages[i].Image = ImageNumberFromName(list[ct].filename);
-    }
-
-    for (int ct = 0; list[ct].filename != NULL; ct++) {
+    /* The special pictures are not in the database */
+    for (int ct = 0; list[ct].filename != NULL && created < count; ct++) {
         if (list[ct].filename[0] == 'S') {
-            Images[created].Filename = list[ct].filename;
-            CopyImageData(&Images[created], list[ct].offset, READ_LE_UINT16(new + list[ct].offset));
+            Images[created].Filename = (char *)list[ct].filename;
+            CopyImageData(&Images[created], list[ct].offset, READ_LE_UINT16(reversed_disk + list[ct].offset));
             created++;
         }
     }
 
     Images[created].Filename = NULL;
 
-    free(new);
+    free(reversed_disk);
+    reversed_disk = NULL;
 }

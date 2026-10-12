@@ -1,14 +1,20 @@
 //
-//  sagadrawglue.c
-//  plus
+//  sagadraw_glue.c
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2025-12-15.
+//  Callbacks that the shared SAGA image code (common_sagadraw) uses to
+//  fit the graphics window and the palette to the image being drawn.
+//
+//  Created by Petter Sjölund on 2025-12-15.
 //
 
 #include "common.h"
 #include "graphics.h"
+#include "sagadraw_glue.h"
 
-void AdjustGraphicsWindowHeight(void) {
+/* Make the graphics window as tall as the current image, and centre the
+   image horizontally, if the window is wide enough to show all of it. */
+static void AdjustGraphicsWindowHeight(void) {
     glui32 curheight, curwidth;
     glk_window_get_size(Graphics, &curwidth, &curheight);
     int optimal_height = ImageHeight * pixel_size;

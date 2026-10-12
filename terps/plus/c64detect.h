@@ -9,7 +9,6 @@
 #define c64detect_h
 
 int DetectC64(uint8_t **sf, size_t *extent);
-int issagaimg(const char *name);
 void PatchSpidermanImages(void);
 
 #endif /* c64detect_h */

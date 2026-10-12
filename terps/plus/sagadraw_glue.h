@@ -1,12 +1,14 @@
 //
-//  sagadrawglue.h
-//  plus
+//  sagadraw_glue.h
+//  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
-//  Created by Administrator on 2025-12-15.
+//  Created by Petter Sjölund on 2025-12-15.
 //
 
 #ifndef sagadrawglue_h
 #define sagadrawglue_h
+
+#include <stdint.h>
 
 int C64A8AdjustPlus(int width, int height, int *x_origin);
 void Apple2AdjustPlus(uint8_t width, uint8_t height, uint8_t Y_origin);

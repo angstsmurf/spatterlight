@@ -3879,6 +3879,7 @@
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
 		C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Till Death Makes a Monk-Fish out of Me.txt"; sourceTree = "<group>"; };
 		C3EC5024289C0C820078AB83 /* stdraw.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = stdraw.c; sourceTree = "<group>"; };
+		C3EC5027289C0C820078AB83 /* stdraw.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = stdraw.h; sourceTree = "<group>"; };
 		C3ED35072F464BE200E3A33D /* unzip_in_mem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unzip_in_mem.h; sourceTree = "<group>"; };
 		C3ED35082F464BE200E3A33D /* unzip_in_mem.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = unzip_in_mem.c; sourceTree = "<group>"; };
 		C3ED4171296E895A006EACED /* time_cruncher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = time_cruncher.cpp; sourceTree = "<group>"; };
@@ -6827,6 +6828,7 @@
 				C3A3EA15284BAF0000C8A693 /* graphics.h */,
 				C3A3EA16284BAF0000C8A693 /* graphics.c */,
 				C3EC5024289C0C820078AB83 /* stdraw.c */,
+				C3EC5027289C0C820078AB83 /* stdraw.h */,
 				C36797E42EF0B884008A6A0D /* sagadraw_glue.h */,
 				C36797E52EF0B884008A6A0D /* sagadraw_glue.c */,
 			);

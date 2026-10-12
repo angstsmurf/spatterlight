@@ -5,8 +5,6 @@
 //  Created by Petter Sjölund on 2022-01-30.
 //
 
-#include <ctype.h>
-#include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -20,11 +18,8 @@
 
 #include "atari8detect.h"
 
-typedef struct imglist {
-    char *filename;
-    size_t offset;
-} imglist;
-
+/* Where the pictures are on the picture disk of each game. The offset is
+   that of the size word of the picture, two bytes into its data. */
 static const imglist listFantastic[] = {
     { "R001", 0x0297 },
     { "R002", 0x0a8e },
@@ -159,13 +154,9 @@ static const imglist listSpidey[] = {
     { "S021", 0x15687 },
     { "S022", 0x15b64 },
     { "S023", 0x16179 },
-//  { "S024", 0x16682 },
     { "S026", 0x16179 },
     { NULL, 0 }
 };
-
-//{ "S000", 0, Disk image A at offset 6d97
-//    0x0e94 },
 
 static const imglist listBanzai[] = {
     { "R001", 0x0297 },
@@ -237,58 +228,97 @@ static const imglist listBanzai[] = {
     { NULL, 0 }
 };
 
-static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize)
-{
-    size_t size;
+/* The picture data skips over the 128 bytes at this offset of the
+   picture disk. A picture that begins before the hole continues after it. */
+#define ATARI_HOLE_START 0xb390
+#define ATARI_HOLE_END 0xb410
 
+/* The Spider-Man title picture is not on the picture disk with the others,
+   but on the boot disk */
+#define SPIDERMAN_TITLE_OFFSET 0x6d95
+#define SPIDERMAN_TITLE_SIZE 0x0e96
+
+/* Copy the picture with its size word at offset on the picture disk to img.
+   Returns 0 if it is not all there. */
+static int CopyAtariImage(imgrec *img, const imglist *entry, const uint8_t *data, size_t datasize)
+{
+    size_t offset = entry->offset;
+
+    if (offset < 2 || offset + 2 > datasize) {
+        debug_print("Image %s offset %zx out of bounds. Disk size: %zx\n", entry->filename, offset, datasize);
+        return 0;
+    }
+
+    size_t size = READ_LE_UINT16(data + offset) + 4;
+    if (offset + size >= datasize) {
+        debug_print("Image %s offset %zx out of bounds. Image size: %zx, disk size: %zx\n", entry->filename, offset, size, datasize);
+        size = datasize - offset + 2;
+    }
+
+    /* The names are string literals, never written to or freed */
+    img->Filename = (char *)entry->filename;
+    img->Data = MemAlloc(size);
+    img->Size = size;
+    memcpy(img->Data, data + offset - 2, size);
+
+    if (offset < ATARI_HOLE_START && offset + size > ATARI_HOLE_START) {
+        size_t before_hole = ATARI_HOLE_START - offset + 2;
+        size_t after_hole = size - before_hole;
+        if (ATARI_HOLE_END + after_hole <= datasize)
+            memcpy(img->Data + before_hole, data + ATARI_HOLE_END, after_hole);
+    }
+    return 1;
+}
+
+static void ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize)
+{
     const imglist *list = listSpidey;
-    /* The number of images is 65 in all three Atari 8-bit Saga plus games!? */
-    /* (Not counting the title image on disk A in Spider-Man.) */
-    int count = 65;
     if (CurrentGame == BANZAI)
         list = listBanzai;
     else if (CurrentGame == FANTASTIC4)
         list = listFantastic;
 
-    Images = MemAlloc((count + 2) * sizeof(imgrec));
+    /* The number of images is 65 in all three Atari 8-bit Saga plus games!? */
+    /* (Not counting the title image on disk A in Spider-Man.) */
+    int count = 0;
+    while (list[count].filename != NULL)
+        count++;
 
-    int outpic;
+    /* One more for the Spider-Man title */
+    Images = NewImageList(count + 1);
 
-    // Now loop round for each image
-    for (outpic = 0; outpic < count; outpic++) {
-        size = READ_LE_UINT16(data + list[outpic].offset) + 4;
-
-        if (list[outpic].offset >= datasize) {
-            fprintf(stderr, "Image %d (%s) offset %zx out of bounds. Size: %zx\n", outpic, list[outpic].filename, list[outpic].offset, datasize);
-            continue;
-        }
-        if (list[outpic].offset + size >= datasize) {
-            fprintf(stderr, "Image %d (%s) offset %zx out of bounds. image size: %zx, disk size: %zx\n", outpic, list[outpic].filename, list[outpic].offset, size, datasize);
-            size = datasize - list[outpic].offset + 2;
-        }
-
-        Images[outpic].Filename = list[outpic].filename;
-        Images[outpic].Data = MemAlloc(size);
-        Images[outpic].Size = size;
-        memcpy(Images[outpic].Data, data + list[outpic].offset - 2, size);
-        if (list[outpic].offset < 0xb390 && list[outpic].offset + Images[outpic].Size > 0xb390) {
-            memcpy(Images[outpic].Data + 0xb390 - list[outpic].offset + 2, data + 0xb410, size - 0xb390 + list[outpic].offset - 2);
-        }
+    /* A picture that is not all on the disk is left out, as one without
+       data cannot be drawn */
+    int loaded = 0;
+    for (int i = 0; i < count; i++) {
+        if (CopyAtariImage(&Images[loaded], &list[i], data, datasize))
+            loaded++;
     }
 
-    Images[outpic].Filename = NULL;
-
-    if (CurrentGame == SPIDERMAN && otherdisk) {
-        Images[outpic].Filename = "S000";
-        Images[outpic].Size = 0x0e96;
-        Images[outpic].Data = MemAlloc(Images[outpic].Size);
-        memcpy(Images[outpic].Data, otherdisk + 0x6d95, Images[outpic].Size);
-        Images[outpic + 1].Filename = NULL;
+    if (CurrentGame == SPIDERMAN && otherdisk
+        && othersize >= SPIDERMAN_TITLE_OFFSET + SPIDERMAN_TITLE_SIZE) {
+        Images[loaded].Filename = "S000";
+        Images[loaded].Size = SPIDERMAN_TITLE_SIZE;
+        Images[loaded].Data = MemAlloc(SPIDERMAN_TITLE_SIZE);
+        memcpy(Images[loaded].Data, otherdisk + SPIDERMAN_TITLE_OFFSET, SPIDERMAN_TITLE_SIZE);
+        loaded++;
     }
-    return 1;
+    Images[loaded].Filename = NULL;
 }
 
 static const uint8_t atrheader[6] = { 0x96, 0x02, 0x80, 0x16, 0x80, 0x00 };
+
+/* Try to load the game database at data_start in a disk image. On
+   success, mem is left pointing into the disk image, which therefore
+   must never be freed. */
+static int TryDatabaseIn(uint8_t *file, size_t size, size_t data_start)
+{
+    if (size <= data_start)
+        return 0;
+    mem = file + data_start;
+    memlen = size - data_start;
+    return LoadDatabaseBinary();
+}
 
 int DetectAtari8(uint8_t **sf, size_t *extent)
 {
@@ -309,16 +339,10 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
     size_t companionsize;
     uint8_t *companionfile = GetCompanionFile(game_file, &companionsize);
 
-    ImageWidth = 280;
-    ImageHeight = 160;
-    mem = main_disk + data_start;
-    memlen = main_size - data_start;
-    result = LoadDatabaseBinary();
-    if (!result && companionfile != NULL && companionsize > data_start) {
+    result = TryDatabaseIn(main_disk, main_size, data_start);
+    if (!result && companionfile != NULL) {
         debug_print("Could not find database in this file, trying the companion file\n");
-        mem = companionfile + data_start;
-        memlen = companionsize - data_start;
-        result = LoadDatabaseBinary();
+        result = TryDatabaseIn(companionfile, companionsize, data_start);
         if (result) {
             debug_print("Found database in companion file. Switching files.\n");
             uint8_t *temp = companionfile;
@@ -331,18 +355,21 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
     }
 
     if (result) {
-        CurrentSys = SYS_ATARI8;
+        SetSystem(SYS_ATARI8);
         if (companionfile) {
             ExtractImagesFromAtariCompanionFile(companionfile, companionsize, main_disk, main_size);
             free(companionfile);
         } else {
-            // No picture disk: play without pictures. The drawing code
-            // expects a list, if only an empty one.
-            Images = MemAlloc(sizeof(imgrec));
-            Images[0].Filename = NULL;
+            // No picture disk: play without pictures.
+            Images = NewImageList(0);
         }
-    } else
+    } else {
         debug_print("Failed loading database\n");
+        /* Give the other detectors the file as we found it */
+        mem = main_disk;
+        memlen = main_size;
+        free(companionfile);
+    }
 
     return result;
 }

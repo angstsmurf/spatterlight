@@ -8,6 +8,7 @@
 #include <stdio.h>
 
 #include "definitions.h"
+#include "gameinfo.h"
 
 const GameInfo games[] = {
     {
@@ -50,6 +51,8 @@ const GameInfo games[] = {
         21, // special images
     },
 
+    /* The unfinished X-Men survives as an MS-DOS database (SPL54.DAT)
+       with no pictures: a maze to explore but no way to win. */
     {
         "Questprobe 4: X-Men (Unfinished)",
         "X-MEN ",

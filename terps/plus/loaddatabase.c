@@ -18,10 +18,12 @@
 #include "loaddatabase.h"
 
 Synonym *Substitutions;
-uint8_t *MysteryValues;
+static uint8_t *MysteryValues;
 
 /* Human-readable names for condition opcodes, indexed by opcode number.
-   Used by DumpActions() when printing a debug dump of the action table. */
+   Used by DumpActions() when printing a debug dump of the action table.
+   debug_print() compiles to nothing unless DEBUG is defined. */
+#ifdef DEBUG
 static const char * const ConditionList[] = {
     "<ERROR>",
     "CARRIED",
@@ -57,6 +59,7 @@ static const char * const ConditionList[] = {
     "MODE",
     "OUT OF RANGE",
 };
+#endif
 
 // clang-format off
 
@@ -459,6 +462,19 @@ static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
     return FinishSynonyms(&sb, loud);
 }
 
+/* The end of the binary database being loaded: one past its last byte. Set by
+   LoadDatabaseBinary(). */
+static const uint8_t *DataEnd;
+
+/* Every read from the binary database is announced here first: gives up if
+   there are fewer than n bytes left at ptr. A database cut short would
+   otherwise be read past its end. */
+static void NeedBytes(const uint8_t *ptr, size_t n)
+{
+    if (ptr > DataEnd || (size_t)(DataEnd - ptr) < n)
+        Fatal("Broken database!");
+}
+
 static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
 
 /* Binary-format variant of ReadSubstitutions. Reads substitution entries from
@@ -474,12 +490,16 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
         char *str = NULL;
         size_t length;
         ptr = ReadPlusString(ptr, &str, &length);
-        while (length == 0 && i == 0)
+        while (length == 0 && i == 0) {
+            free(str);
             ptr = ReadPlusString(ptr, &str, &length);
+        }
         if (loud)
             debug_print("Read synonym string %d, \"%s\"\n", i, str);
-        if (str == NULL || str[0] == 0)
+        if (str[0] == 0) {
+            free(str);
             continue;
+        }
         ParseSynonymString(&sb, str, length, loud);
         free(str);
     }
@@ -488,7 +508,7 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
     return FinishSynonyms(&sb, loud);
 }
 
-char **Comments;
+static char **Comments;
 
 /* Reads the comment/annotation section that follows the main game data in
    the plaintext database. These are human-readable descriptions of each action,
@@ -532,12 +552,11 @@ static int NumberOfArguments(int opcode)
    Falls back to printing the raw numeric index if no match is found. */
 void PrintDictWord(int idx, const DictWord *dict)
 {
-    for (int i = 0; dict->Word != NULL; i++) {
+    for (; dict->Word != NULL; dict++) {
         if (dict->Group == idx) {
             debug_print("%s", dict->Word);
             return;
         }
-        dict++;
     }
     debug_print("%d", idx);
 }
@@ -788,6 +807,29 @@ static void SetActionConditions(Action *ap, const uint16_t *conditions, int cond
     ap->Conditions[condargs] = 255;
 }
 
+/* The unfinished X-Men has a typing error in the action that makes the
+   Aquarian follow the player ("aquarian in rooms 24-78"): its first
+   condition reads "2 32 24", is item 32 here, where "21 32 24", is
+   counter 32 (the current room) at least 24, was meant. As written he
+   never follows, and without him the Bio Gem cannot be had, as he is
+   what keeps the Natter energy egg next to it from going off. */
+static void PatchXMenAquarian(void)
+{
+    static const uint16_t typo[] = { 2, 32, 0, 24, 31, 3, 21, 32, 0, 79 };
+    const int len = sizeof typo / sizeof typo[0];
+
+    for (int ct = 0; ct <= GameHeader.NumActions; ct++) {
+        uint16_t *cond = Actions[ct].Conditions;
+        int i = 0;
+        while (i < len && cond[i] != 255 && cond[i] == typo[i])
+            i++;
+        if (i == len) {
+            cond[0] = 21;
+            return;
+        }
+    }
+}
+
 /* Reads a single action entry from the plaintext database.
    The first byte encodes two 4-bit fields: the high nibble is the number of
    extra word parameters, and the low nibble is the command byte count.
@@ -833,6 +875,34 @@ static void ReadAction(FILE *f, Action *ap)
     }
 }
 
+/* The plaintext database header has 18 numbers, in the order of the
+   fields of Header. */
+#define HEADER_FIELDS 18
+
+static Header HeaderFromFields(const int f[HEADER_FIELDS])
+{
+    Header h;
+    h.NumItems = f[0];
+    h.ActionSum = f[1];
+    h.NumNouns = f[2];
+    h.NumVerbs = f[3];
+    h.NumRooms = f[4];
+    h.MaxCarry = f[5];
+    h.PlayerRoom = f[6];
+    h.NumMessages = f[7];
+    h.TreasureRoom = f[8];
+    h.LightTime = f[9];
+    h.NumPreps = f[10];
+    h.NumAdverbs = f[11];
+    h.NumActions = f[12];
+    h.Treasures = f[13];
+    h.NumSubStr = f[14];
+    h.Unknown1 = f[15];
+    h.NumObjImg = f[16];
+    h.Unknown2 = f[17];
+    return h;
+}
+
 /* Prints all parsed header fields for diagnostic purposes. */
 static void PrintHeaderInfo(const Header h)
 {
@@ -853,18 +923,18 @@ static void PrintHeaderInfo(const Header h)
     debug_print("Number of synonym strings =\t%d\n", h.NumSubStr);
     debug_print("Unknown1 =\t%d\n", h.Unknown1);
     debug_print("Number of object images =\t%d\n", h.NumObjImg);
-    debug_print("Unknown3 =\t%d\n", h.Unknown2);
+    debug_print("Unknown2 =\t%d\n", h.Unknown2);
 }
 
 /* Set the counters and flags that mirror header values, and put the
    player in the start room. */
 static void SetCountersFromHeader(void)
 {
-    Counters[43] = GameHeader.NumItems;
+    LastItem = GameHeader.NumItems;
     MyLoc = GameHeader.PlayerRoom;
-    Counters[35] = GameHeader.NumRooms;
-    Counters[34] = GameHeader.TreasureRoom;
-    Counters[42] = GameHeader.MaxCarry;
+    DeadRoom = GameHeader.NumRooms;
+    TreasureRoomCounter = GameHeader.TreasureRoom;
+    CarryLimit = GameHeader.MaxCarry;
     SetBit(GRAPHICSBIT); // Graphics on
 }
 
@@ -931,10 +1001,6 @@ int FindAndAddImageFile(const char *shortname, imgrec *rec)
    the caller can retry with the binary loader. */
 int LoadDatabasePlaintext(FILE *f, int loud)
 {
-    int num_items, action_sum, num_actions, num_verbs, num_nouns, num_rooms;
-    int max_carry, player_room, num_treasures, light_time, num_messages;
-    int treasure_room, num_adverbs, num_preps, num_substr;
-    int unknown1, num_obj_img, unknown2;
     int ct;
 
     Action *ap;
@@ -951,38 +1017,33 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     }
 
     /* Parse the 18 comma-separated header values that follow the title */
+    int raw[HEADER_FIELDS] = { 0 };
     if (fscanf(f, ",%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d,%d\n",
-            &num_items, &action_sum, &num_nouns, &num_verbs, &num_rooms,
-            &max_carry, &player_room, &num_messages, &treasure_room,
-            &light_time, &num_preps, &num_adverbs, &num_actions,
-            &num_treasures, &num_substr, &unknown1, &num_obj_img, &unknown2)
-        < 10) {
+            &raw[0], &raw[1], &raw[2], &raw[3], &raw[4], &raw[5], &raw[6],
+            &raw[7], &raw[8], &raw[9], &raw[10], &raw[11], &raw[12],
+            &raw[13], &raw[14], &raw[15], &raw[16], &raw[17])
+        < HEADER_FIELDS) {
         if (loud)
             debug_print("Invalid database(bad header)\n");
+        free(title);
+        Game = NULL;
         return UNKNOWN_GAME;
     }
-    GameHeader.NumItems = num_items;
+    free(title);
+
+    GameHeader = HeaderFromFields(raw);
+
+    int num_items = GameHeader.NumItems;
+    int num_actions = GameHeader.NumActions;
+    int num_rooms = GameHeader.NumRooms;
+    int num_messages = GameHeader.NumMessages;
+    int num_obj_img = GameHeader.NumObjImg;
+    int unknown2 = GameHeader.Unknown2;
+
     Items = (Item *)MemAlloc(sizeof(Item) * (num_items + 1));
-    GameHeader.NumActions = num_actions;
-    GameHeader.ActionSum = action_sum;
     Actions = (Action *)MemAlloc(sizeof(Action) * (num_actions + 1));
-    GameHeader.NumVerbs = num_verbs;
-    GameHeader.NumNouns = num_nouns;
-    GameHeader.NumRooms = num_rooms;
     Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
-    GameHeader.MaxCarry = max_carry;
-    GameHeader.PlayerRoom = player_room;
-    GameHeader.Treasures = num_treasures;
-    GameHeader.LightTime = light_time;
-    GameHeader.NumMessages = num_messages;
     Messages = MemAlloc(sizeof(char *) * (num_messages + 1));
-    GameHeader.TreasureRoom = treasure_room;
-    GameHeader.NumAdverbs = num_adverbs;
-    GameHeader.NumPreps = num_preps;
-    GameHeader.Unknown1 = unknown1;
-    GameHeader.NumSubStr = num_substr;
-    GameHeader.Unknown2 = unknown2;
-    GameHeader.NumObjImg = num_obj_img;
     ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
     MysteryValues = MemAlloc(unknown2 + 1);
 
@@ -1006,10 +1067,10 @@ int LoadDatabasePlaintext(FILE *f, int loud)
 
     /* Load verb and noun dictionaries */
     if (loud)
-        debug_print("Reading %d verbs.\n", num_verbs);
+        debug_print("Reading %d verbs.\n", GameHeader.NumVerbs);
     Verbs = ReadDictWordsPC(f, GameHeader.NumVerbs + 1, loud);
     if (loud)
-        debug_print("Reading %d nouns.\n", num_nouns);
+        debug_print("Reading %d nouns.\n", GameHeader.NumNouns);
     Nouns = ReadDictWordsPC(f, GameHeader.NumNouns + 1, loud);
 
     /* Load room exit tables: 6 compass directions + Exits[6] (message index
@@ -1023,6 +1084,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
                 &rp->Exits[5], &rp->Exits[6], &rp->Image)
             != 8) {
             debug_print("Bad room line (%d)\n", ct);
+            Game = NULL;
             return UNKNOWN_GAME;
         }
         rp++;
@@ -1052,11 +1114,12 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             debug_print("Item %d: \"%s\"\n", ct, ip->Text);
         if (fscanf(f, ",%d,%d,%d\n", &loc, &dictword, &flag) != 3) {
             debug_print("Bad item line (%d)\n", ct);
+            Game = NULL;
             return UNKNOWN_GAME;
         }
         ip->Location = (uint8_t)loc;
         ip->Dictword = (uint8_t)dictword;
-        ip->Flag = (uint8_t)flag;
+        ip->Flag = (uint16_t)flag;
         if (loud && (ip->Location == CARRIED || ip->Location <= GameHeader.NumRooms))
             debug_print("Location of item %d: %d, \"%s\"\n", ct, ip->Location,
                 ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
@@ -1085,6 +1148,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         if (fscanf(f, "%d,%d,%d\n", &objimg->Room, &objimg->Object, &objimg->Image)
             != 3) {
             debug_print("Bad object image line (%d)\n", ct);
+            Game = NULL;
             return UNKNOWN_GAME;
         }
         if (loud) {
@@ -1104,6 +1168,9 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     /* Load action comments (human-readable annotations) */
     ReadComments(f, loud);
 
+    if (CurrentGame == XMEN)
+        PatchXMenAquarian();
+
     if (loud) {
         debug_print("\nLoad Complete.\n\n");
         DumpActions();
@@ -1115,7 +1182,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
        images ('B'), and special images ('S'), each numbered from 0. */
     int numimages = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
 
-    Images = MemAlloc((numimages + 1) * sizeof(imgrec));
+    Images = NewImageList(numimages);
     debug_print("\nTotal number of images:%d\n", numimages);
 
     int i, recidx = 0, imgidx = 0;
@@ -1148,6 +1215,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
    format). Returns the advanced pointer past the consumed bytes. */
 static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
 {
+    NeedBytes(ptr, 1);
     uint8_t length = *ptr++;
     if (length == 0 || length == 255) {
         *string = MemCalloc(1);
@@ -1155,6 +1223,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
         return ptr;
     }
 
+    NeedBytes(ptr, length);
     char *str = MemAlloc(length + 1);
     for (int i = 0; i < length; i++) {
         str[i] = *ptr++;
@@ -1172,7 +1241,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *len)
    empty strings (except the first) are skipped — the ST format sometimes
    inserts padding zero bytes between messages. Advances *ptr past all
    consumed data. */
-char **LoadMessages(int numstrings, uint8_t **ptr)
+static char **LoadMessages(int numstrings, uint8_t **ptr)
 {
     if (numstrings == 0)
         numstrings = 0xffff;
@@ -1183,8 +1252,10 @@ char **LoadMessages(int numstrings, uint8_t **ptr)
         size_t length;
         *ptr = ReadPlusString(*ptr, &str, &length);
         if (CurrentSys == SYS_ST) {
-            while (str[0] == 0 && i != 0)
+            while (str[0] == 0 && i != 0) {
+                free(str);
                 *ptr = ReadPlusString(*ptr, &str, &length);
+            }
         }
         debug_print("Message %d: \"%s\"\n", i, str);
         target[i] = str;
@@ -1192,61 +1263,52 @@ char **LoadMessages(int numstrings, uint8_t **ptr)
     return target;
 }
 
-/* Extracts the 16-word binary header into named fields. The binary format
-   has no explicit action count or treasure count (na and tr are set to 0);
-   the action count is determined at runtime by parsing until ActionSum bytes
-   are consumed. Some header slots (h[14], h[15]) have unknown purposes. */
-static void ParseHeader(uint16_t *h,
-    int *num_items, int *action_sum, int *num_nouns, int *num_verbs,
-    int *num_rooms, int *max_carry, int *player_room, int *num_messages,
-    int *treasure_room, int *light_time, int *num_preps, int *num_adverbs,
-    int *num_actions, int *num_treasures, int *num_substr,
-    int *unknown1, int *num_obj_img, int *unknown2)
-{
-    *num_items = h[0];
-    *action_sum = h[1];
-    *num_nouns = h[2];
-    *num_verbs = h[3];
-    *num_rooms = h[4];
-    *max_carry = h[5];
-    *player_room = h[6];
-    *num_messages = h[7];
-    *treasure_room = h[8];
-    *light_time = h[9];
-    *num_preps = h[10];
-    *num_adverbs = h[11];
-    *num_actions = 0;
-    *num_treasures = 0;
-    *num_substr = h[12];
-    *unknown1 = h[15];
-    *num_obj_img = h[13];
-    *unknown2 = 0;
-}
+/* The binary header starts at this offset in the raw file image, and is
+   16 words long. */
+#define BINARY_HEADER_OFFSET 0x32
+#define BINARY_HEADER_WORDS 16
 
-/* Reads 16 raw 16-bit header values from the binary database into the global
-   header array. Atari ST uses big-endian byte order; all other platforms use
+/* Reads the 16-bit values of the binary header, and returns them in the
+   order of the 18 fields of the plaintext header. The binary format has no
+   explicit action count, treasure count or count of "mystery values" (they
+   are set to 0); the action count is determined by parsing until ActionSum
+   bytes are consumed. The purpose of words 14 and 15 is unknown.
+   Atari ST uses big-endian byte order; all other platforms use
    little-endian. Returns a pointer to the start of the data following the
    header (backs up 2 bytes because the last header word overlaps with the
    action data that follows). */
-static uint8_t *ReadHeader(uint8_t *ptr)
+static uint8_t *ReadHeader(uint8_t *ptr, int fields[HEADER_FIELDS])
 {
-    int i, value;
-    for (i = 0; i < 16; i++) {
+    uint16_t h[BINARY_HEADER_WORDS];
+    for (int i = 0; i < BINARY_HEADER_WORDS; i++) {
         if (CurrentSys == SYS_ST)
-            value = READ_BE_UINT16_AND_ADVANCE(&ptr);
+            h[i] = READ_BE_UINT16_AND_ADVANCE(&ptr);
         else
-            value = READ_LE_UINT16_AND_ADVANCE(&ptr);
-        header[i] = value;
-        debug_print("Header value %d: %d\n", i, header[i]);
+            h[i] = READ_LE_UINT16_AND_ADVANCE(&ptr);
+        debug_print("Header value %d: %d\n", i, h[i]);
     }
+
+    /* Items, action sum, nouns, verbs, rooms, max carried, start room,
+       messages, treasure room, light time, prepositions and adverbs come
+       in the same order as in the plaintext header */
+    for (int i = 0; i < 12; i++)
+        fields[i] = h[i];
+    fields[12] = 0;     /* Number of actions */
+    fields[13] = 0;     /* Number of treasures */
+    fields[14] = h[12]; /* Number of substitution strings */
+    fields[15] = h[15]; /* Unknown1 */
+    fields[16] = h[13]; /* Number of object images */
+    fields[17] = 0;     /* Unknown2 */
+
     return ptr - 2;
 }
 
 /* Binary-format variant of ReadDictWordsPC. Reads dictionary words from an
    in-memory binary database using length-prefixed strings (via ReadPlusString).
    Same comma-delimited grouping as the plaintext version. Empty strings
-   (padding bytes) are skipped. Advances *pointer past all consumed data. */
-DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
+   (padding bytes) are skipped; ReadPlusString() stops the skipping at the end
+   of the database. Advances *pointer past all consumed data. */
+static DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
 {
     uint8_t *ptr = *pointer;
     DictWord dictionary[MAX_DICT_ENTRIES];
@@ -1258,8 +1320,10 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
         size_t strlength;
         ptr = ReadPlusString(ptr, &str, &strlength);
         /* Skip padding zero bytes that appear in some binary formats */
-        while (str[0] == 0)
+        while (str[0] == 0) {
+            free(str);
             ptr = ReadPlusString(ptr, &str, &strlength);
+        }
         debug_print("Read dictionary string \"%s\"\n", str);
         ParseDictString(str, strlength, group, dictionary, &index);
         free(str);
@@ -1276,6 +1340,7 @@ DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
 static int ReadApple2ImageAddress(int high, uint8_t **ptr)
 {
     int adr = high * 0x100;
+    NeedBytes(*ptr, 1);
     adr += *(*ptr)++ * 0x10;
     adr *= 0x10;
     return adr;
@@ -1284,19 +1349,19 @@ static int ReadApple2ImageAddress(int high, uint8_t **ptr)
 /* Validates that key header fields fall within expected ranges for a
    legitimate Plus game database. Returns 1 if valid, 0 if any field
    is out of range. Used by the binary loader to reject corrupt data. */
-int SanityCheckHeader(void)
+static int SanityCheckHeader(const Header *h)
 {
-    int16_t v = GameHeader.NumItems;
-    if (v < 10 || v > 500)
+    if (h->NumItems < 10 || h->NumItems > 500)
         return 0;
-    v = GameHeader.NumNouns;
-    if (v < 50 || v > 190)
+    if (h->NumNouns < 50 || h->NumNouns > 190)
         return 0;
-    v = GameHeader.NumVerbs;
-    if (v < 30 || v > 190)
+    if (h->NumVerbs < 30 || h->NumVerbs > 190)
         return 0;
-    v = GameHeader.NumRooms;
-    if (v < 10 || v > 100)
+    if (h->NumRooms < 10 || h->NumRooms > 100)
+        return 0;
+    /* The other counts are used as array sizes */
+    if (h->ActionSum < 0 || h->NumMessages < 0 || h->NumPreps < 0 ||
+        h->NumAdverbs < 0 || h->NumSubStr < 0 || h->NumObjImg < 0)
         return 0;
 
     return 1;
@@ -1312,31 +1377,36 @@ int SanityCheckHeader(void)
    Returns 1 on success, 0 on failure. */
 int LoadDatabaseBinary(void)
 {
-    int num_items, num_actions, num_verbs, num_nouns, num_rooms;
-    int max_carry, player_room, num_treasures, num_messages;
-    int treasure_room, num_adverbs, num_preps, num_substr, num_obj_img;
     int ct;
 
     Action *ap;
 
-    /* The binary header starts at offset 0x32 in the raw file image */
-    int offset = 0x32;
-
-    if (memlen <= (size_t)offset)
+    if (memlen < BINARY_HEADER_OFFSET + BINARY_HEADER_WORDS * 2)
         return 0;
 
     int isSTSpiderman = 0, isSTFantastic4 = 0;
 
 #pragma mark header
 
-    uint8_t *ptr = ReadHeader(mem + offset);
-    uint8_t *end = mem + memlen;
+    int raw[HEADER_FIELDS];
+    uint8_t *ptr = ReadHeader(mem + BINARY_HEADER_OFFSET, raw);
+    DataEnd = mem + memlen;
 
-    int action_sum, light_time, unknown1, unknown2;
-    ParseHeader(header, &num_items, &action_sum, &num_nouns, &num_verbs,
-        &num_rooms, &max_carry, &player_room, &num_messages, &treasure_room,
-        &light_time, &num_preps, &num_adverbs, &num_actions, &num_treasures,
-        &num_substr, &unknown1, &num_obj_img, &unknown2);
+    Header h = HeaderFromFields(raw);
+
+    PrintHeaderInfo(h);
+
+    /* Reject the file before anything is changed if this cannot be a
+       Plus database */
+    if (!SanityCheckHeader(&h))
+        return 0;
+
+    GameHeader = h;
+
+    int num_items = h.NumItems;
+    int action_sum = h.ActionSum;
+    int num_rooms = h.NumRooms;
+    int num_obj_img = h.NumObjImg;
 
     /* Identify specific Atari ST games that need special pointer adjustments */
     if (CurrentSys == SYS_ST && action_sum == 5159)
@@ -1344,27 +1414,6 @@ int LoadDatabaseBinary(void)
 
     if (CurrentSys == SYS_ST && action_sum == 6991)
         isSTFantastic4 = 1;
-
-    GameHeader.NumItems = num_items;
-    GameHeader.ActionSum = action_sum;
-    GameHeader.NumVerbs = num_verbs;
-    GameHeader.NumNouns = num_nouns;
-    GameHeader.NumRooms = num_rooms;
-
-    GameHeader.MaxCarry = max_carry;
-    GameHeader.PlayerRoom = player_room;
-    GameHeader.Treasures = num_treasures;
-    GameHeader.NumPreps = num_preps;
-    GameHeader.NumAdverbs = num_adverbs;
-    GameHeader.NumSubStr = num_substr;
-    GameHeader.NumObjImg = num_obj_img;
-    GameHeader.NumMessages = num_messages;
-    GameHeader.TreasureRoom = treasure_room;
-
-    PrintHeaderInfo(GameHeader);
-
-    if (!SanityCheckHeader())
-        return 0;
 
     Items = MemAlloc(sizeof(Item) * (num_items + 1));
     Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
@@ -1386,8 +1435,7 @@ int LoadDatabaseBinary(void)
     uint8_t *origptr = ptr;
 
     while (ptr - origptr <= GameHeader.ActionSum) {
-        if (ptr + 3 > end)
-            Fatal("Broken database!");
+        NeedBytes(ptr, 3);
         /* First byte: high nibble = extra word count, low nibble = command length */
         uint8_t length = *ptr++;
         ap->NumWords = length >> 4;
@@ -1395,8 +1443,7 @@ int LoadDatabaseBinary(void)
         ap->Verb = *ptr++;
         ap->NounOrChance = *ptr++;
 
-        if (ptr + ap->NumWords > end)
-            Fatal("Broken database!");
+        NeedBytes(ptr, ap->NumWords);
         ap->Words = MemAlloc(ap->NumWords);
 
         for (int i = 0; i < ap->NumWords; i++) {
@@ -1407,8 +1454,7 @@ int LoadDatabaseBinary(void)
         uint16_t conditions[MAX_CONDITION_ARGS];
         int condargs = 0;
         for (;;) {
-            if (ptr + 2 > end)
-                Fatal("Broken database!");
+            NeedBytes(ptr, 2);
             uint16_t raw = READ_BE_UINT16_AND_ADVANCE(&ptr);
             if (AddCondition(raw, conditions, &condargs))
                 break;
@@ -1416,8 +1462,7 @@ int LoadDatabaseBinary(void)
         SetActionConditions(ap, conditions, condargs);
 
         int cmdlen = ap->CommandLength + 1;
-        if (ptr + cmdlen > end)
-            Fatal("Broken database!");
+        NeedBytes(ptr, cmdlen);
         ap->Commands = MemAlloc(cmdlen);
         memcpy(ap->Commands, ptr, cmdlen);
         ptr += cmdlen;
@@ -1441,8 +1486,8 @@ int LoadDatabaseBinary(void)
 
 #pragma mark dictionary
 
-    Verbs = ReadDictWords(&ptr, GameHeader.NumVerbs + 1, 1);
-    Nouns = ReadDictWords(&ptr, GameHeader.NumNouns + 1, 1);
+    Verbs = ReadDictWords(&ptr, GameHeader.NumVerbs + 1, DEBUG_PRINT);
+    Nouns = ReadDictWords(&ptr, GameHeader.NumNouns + 1, DEBUG_PRINT);
 
 #pragma mark room connections
 
@@ -1453,6 +1498,8 @@ int LoadDatabaseBinary(void)
        On Apple II, direction 7 encodes a memory address for the image. */
     for (int j = 0; j < 8; j++) {
         for (ct = 0; ct <= num_rooms; ct++) {
+            /* Apple II picture addresses are checked where they are read */
+            NeedBytes(ptr, j > 5 && !(CurrentSys == SYS_APPLE2 && j == 7) ? 2 : 1);
             Rooms[ct].Exits[j] = *ptr++;
 
             if (CurrentSys == SYS_APPLE2 && j == 7) {
@@ -1476,7 +1523,7 @@ int LoadDatabaseBinary(void)
           we can simply advance the pointer a single byte and then read
           all the values as if they were little-endian. */
 
-       /* Unfortunatey we also have to nudge the pointer in other ways
+       /* Unfortunately we also have to nudge the pointer in other ways
           here and there, which can't be explained by endianness.
           It seems that the ST games alternate between 8-bit and 16-bit
           values in an inconsistent way. */
@@ -1513,6 +1560,7 @@ int LoadDatabaseBinary(void)
         ptr++;
     }
 
+    NeedBytes(ptr, num_items + 1);
     for (ct = 0; ct <= num_items; ct++) {
         Items[ct].Location = *ptr++;
         Items[ct].InitialLoc = Items[ct].Location;
@@ -1521,6 +1569,8 @@ int LoadDatabaseBinary(void)
     if (CurrentSys == SYS_ST)
         ptr += 2;
 
+    /* The dictionary words and the flags, two bytes an item each */
+    NeedBytes(ptr, (num_items + 1) * 4);
     for (ct = 0; ct <= num_items; ct++)
         Items[ct].Dictword = READ_LE_UINT16_AND_ADVANCE(&ptr);
 
@@ -1532,12 +1582,12 @@ int LoadDatabaseBinary(void)
     if (CurrentSys == SYS_ST)
         ptr -= 1;
 
-    Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1, 1);
-    Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1, 1);
+    Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1, DEBUG_PRINT);
+    Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1, DEBUG_PRINT);
 
 #pragma mark substitutions
 
-    Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1, 1);
+    Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1, DEBUG_PRINT);
 
     /* In the binary format, the title string comes after the substitutions
        (unlike plaintext where it's at the very beginning) */
@@ -1556,12 +1606,14 @@ int LoadDatabaseBinary(void)
     if (isSTFantastic4)
         ptr++;
 
+    NeedBytes(ptr, num_obj_img + 1);
     for (ct = 0; ct <= num_obj_img; ct++)
         ObjectImages[ct].Room = *ptr++;
 
     if (CurrentSys == SYS_ST && !isSTSpiderman)
         ptr++;
 
+    NeedBytes(ptr, num_obj_img + 1);
     for (ct = 0; ct <= num_obj_img; ct++)
         ObjectImages[ct].Object = *ptr++;
 
@@ -1572,6 +1624,7 @@ int LoadDatabaseBinary(void)
     }
 
     for (ct = 0; ct <= num_obj_img; ct++) {
+        NeedBytes(ptr, 1);
         ObjectImages[ct].Image = *ptr++;
         if (CurrentSys == SYS_APPLE2) {
             ObjectImages[ct].Image = ReadApple2ImageAddress(ObjectImages[ct].Image, &ptr);
@@ -1583,7 +1636,8 @@ int LoadDatabaseBinary(void)
     for (ct = 0; ct <= num_obj_img; ct++)
         debug_print("ObjectImages %d: room:%d object:%d image:%x\n", ct, ObjectImages[ct].Room, ObjectImages[ct].Object, ObjectImages[ct].Image);
 
-    DumpActions();
+    if (DEBUG_PRINT)
+        DumpActions();
 
     return 1;
 }

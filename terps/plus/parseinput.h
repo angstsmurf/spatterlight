@@ -11,6 +11,7 @@
 void FreeInputWords(void);
 int GetInput(void);
 int IsNextParticiple(int partp, int noun2);
+int WithListNoun(void);
 void StopProcessingCommand(void);
 
 #endif /* parseinput_h */

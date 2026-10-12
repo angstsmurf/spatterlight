@@ -16,6 +16,7 @@
 #include "apple2draw.h"
 
 #include "animations.h"
+#include "stdraw.h"
 
 /* Default timer intervals (ms) */
 #define ANIMATION_RATE 200
@@ -233,8 +234,6 @@ void StopAnimation(void)
     StopNext = 0;
 }
 
-void DrawBlack(void);
-
 /* Timer callback: advance the animation by one frame.
    The two-phase approach (set StopNext, then clean up on the next tick)
    ensures the final frame is visible for one timer interval before the
@@ -269,15 +268,14 @@ void UpdateAnimation(void)
             ClearFrames();
         StopAnimation();
 
-        if (CurrentGame == BANZAI && MyLoc == 29 && IsSet(6)) {
+        if (CurrentGame == BANZAI && MyLoc == 29 && IsSet(BANZAI_BLACKOUT_BIT)) {
             DrawBlack();
         } else if (!showing_inventory) {
-            glk_window_clear(Graphics);
+            ClearGraphicsWindow();
             DrawCurrentRoom();
             if (CurrentGame == SPIDERMAN && MyLoc == 5) {
                 DrawItemImage(23);
-                if (CurrentSys == SYS_APPLE2)
-                    DrawApple2ImageFromVideoMemWithFlip(upside_down);
+                ShowApple2Screen();
             }
         }
 
@@ -303,8 +301,8 @@ void UpdateAnimation(void)
         debug_print("UpdateAnimation: Drawing AnimationFrames[%d] (%d)\n", AnimationStage, AnimationFrames[AnimationStage]);
         if (!DrawImageWithName(AnimationFilenames[AnimationFrames[AnimationStage++]]))
             StopNext = 1;
-        else if (CurrentSys == SYS_APPLE2)
-            DrawApple2ImageFromVideoMemWithFlip(upside_down);
+        else
+            ShowApple2Screen();
 
         /* Cannon animation: pause for 2 seconds at the seam between halves */
         if (PostCannonAnimationSeam && AnimationStage == 10) {

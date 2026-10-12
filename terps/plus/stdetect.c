@@ -13,7 +13,6 @@
 
 #include "common.h"
 #include "definitions.h"
-#include "c64detect.h"
 #include "graphics.h"
 #include "read_le16.h"
 
@@ -58,7 +57,7 @@ typedef struct {
 } msdos_dir_entry;
 // clang-format on
 
-fat_boot_sector boot;
+static fat_boot_sector boot;
 
 typedef struct {
     int sectorsize;
@@ -134,9 +133,22 @@ static uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
     return raw_image;
 }
 
-static int ReadFAT12BootSector(uint8_t **sf, size_t *extent)
+/* Size of a FAT directory entry on disk */
+#define DIR_ENTRY_SIZE 32
+
+/* Byte offset of the root directory, after the FATs */
+static size_t RootDirOffset(void)
 {
-    uint8_t *ptr = &(*sf)[11];
+    return (size_t)(boot.reserved + boot.fats * boot.fat_length) * boot.sector_size;
+}
+
+/* Read the BIOS parameter block of the boot sector into boot. Returns 0
+   if it cannot be that of a FAT12 floppy of the given size. */
+static int ReadFAT12BootSector(uint8_t *disk, size_t disksize)
+{
+    if (disksize < 512)
+        return 0;
+    uint8_t *ptr = &disk[11];
     boot.sector_size = READ_LE_UINT16_AND_ADVANCE(&ptr);
     boot.sec_per_clus = *ptr++;
     boot.reserved = READ_LE_UINT16_AND_ADVANCE(&ptr);
@@ -154,6 +166,11 @@ static int ReadFAT12BootSector(uint8_t **sf, size_t *extent)
         boot.vol_label[i] = *ptr++;
     }
     boot.vol_label[11] = 0;
+
+    if (boot.sector_size == 0 || boot.sec_per_clus == 0)
+        return 0;
+    if (RootDirOffset() + (size_t)boot.dir_entries * DIR_ENTRY_SIZE > disksize)
+        return 0;
     return 1;
 }
 
@@ -184,20 +201,23 @@ static msdos_dir_entry *ReadFAT12DirEntry(uint8_t **pointer)
  *
  * For FAT12, two entries are stored in 3 bytes. if the bytes are uv, wx, yz then the entries are xuv and yzw
  */
-static uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
+static uint32_t get_next_cluster12(const uint8_t *sf, size_t disksize, uint32_t cluster)
 {
     uint8_t fat_hi, fat_lo;
     uint32_t new_clust;
 
-    int fat_offset = boot.reserved * boot.sector_size;
+    size_t fat_offset = (size_t)boot.reserved * boot.sector_size;
+    size_t entry = fat_offset + ((cluster / 2) * 3);
+    if (entry + 3 > disksize)
+        return 0;
     // If the cluster number is odd, we're getting the last half of the three bytes.
     if (cluster & 1) {
-        fat_lo = sf[fat_offset + ((cluster / 2) * 3) + 1];
-        fat_hi = sf[fat_offset + ((cluster / 2) * 3) + 2];
+        fat_lo = sf[entry + 1];
+        fat_hi = sf[entry + 2];
         new_clust = (fat_hi << 4) | (fat_lo >> 4);
     } else { // If it's even we're getting the first half.
-        fat_lo = sf[fat_offset + ((cluster / 2) * 3)];
-        fat_hi = sf[fat_offset + ((cluster / 2) * 3) + 1] & 0x0f;
+        fat_lo = sf[entry];
+        fat_hi = sf[entry + 1] & 0x0f;
         new_clust = (fat_hi << 8) | fat_lo;
     }
     // for FAT12, the valid entries are between 0x2 and 0xfef.
@@ -210,33 +230,57 @@ static uint32_t get_next_cluster12(uint8_t *sf, uint32_t cluster)
 /* Byte offset of a cluster in the disk image. Cluster numbering starts
    at 2, at the beginning of the data section after the FATs and the root
    directory. */
-static size_t ClusterOffset(int cluster)
+static size_t ClusterOffset(uint32_t cluster)
 {
-    size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * 32 / boot.sector_size);
-    return (datasection + (cluster - 2) * boot.sec_per_clus) * boot.sector_size;
+    size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * DIR_ENTRY_SIZE / boot.sector_size);
+    return (datasection + (size_t)(cluster - 2) * boot.sec_per_clus) * boot.sector_size;
 }
 
-static uint8_t *GetFile(uint8_t *sf, int cluster, msdos_dir_entry dir)
+/* The most pictures we take from one disk */
+#define MAX_ST_IMAGES 100
+
+/* The deepest we follow subdirectories */
+#define MAX_DIR_DEPTH 8
+
+/* What a walk through the directories of a disk has found so far */
+typedef struct {
+    uint8_t *disk;
+    size_t disksize;
+    imgrec imgs[MAX_ST_IMAGES];
+    int numimgs;
+    uint8_t *database; /* The contents of the file DATABASE, or NULL */
+    size_t databasesize;
+} STScan;
+
+/* Read a file into a new buffer of dir->size bytes, by following its
+   cluster chain. What is not on the disk is left as zeros. */
+static uint8_t *GetFile(const STScan *scan, const msdos_dir_entry *dir)
 {
-    int bytespercluster = boot.sector_size * boot.sec_per_clus;
-    uint8_t *result = MemAlloc(dir.size);
+    size_t bytespercluster = (size_t)boot.sector_size * boot.sec_per_clus;
+    uint8_t *result = MemCalloc(dir->size ? dir->size : 1);
     size_t offset = 0;
-    while (offset < dir.size && cluster) {
-        size_t bytestoread = MIN(bytespercluster, dir.size - offset);
-        if (offset + bytestoread > dir.size) {
-            bytestoread = dir.size - offset;
-        }
-        uint8_t *ptr = sf + ClusterOffset(cluster);
-        memcpy(result + offset, ptr, bytestoread);
+    uint32_t cluster = dir->start;
+    while (offset < dir->size && cluster) {
+        size_t bytestoread = MIN(bytespercluster, dir->size - offset);
+        size_t clusteroffset = ClusterOffset(cluster);
+        if (clusteroffset + bytestoread > scan->disksize)
+            break;
+        memcpy(result + offset, scan->disk + clusteroffset, bytestoread);
         offset += bytestoread;
-        cluster = get_next_cluster12(sf, cluster);
+        cluster = get_next_cluster12(scan->disk, scan->disksize, cluster);
     }
 
     return result;
 }
 
-static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, imgrec *imgs, int *found, uint8_t **database, size_t *databasesize)
+/* Read the directory entry at ptr and take note of it in scan if it is
+   the game database or a picture. A subdirectory is walked through in
+   turn. Returns a pointer to the next entry, or NULL if this was the
+   end of the directory. */
+static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, STScan *scan, int depth)
 {
+    if (ptr < scan->disk || (size_t)(ptr - scan->disk) + DIR_ENTRY_SIZE > scan->disksize)
+        return NULL;
     msdos_dir_entry *dir = ReadFAT12DirEntry(&ptr);
     if (dir->name[0] == 0) {
         free(dir);
@@ -244,35 +288,35 @@ static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, uint8_t **sf, int *imgidx, i
     }
     dir->name[8] = 0;
     if (dir->attr & 0x10 && dir->name[0] != '.') {
-        int cluster = dir->start;
-        uint8_t *subdirentry;
-        int lastfound = 0;
+        uint32_t cluster = dir->start;
+        int lastfound = (depth >= MAX_DIR_DEPTH);
+        size_t entries_per_cluster = (size_t)boot.sector_size * boot.sec_per_clus / DIR_ENTRY_SIZE;
         while (cluster && !lastfound) {
-            subdirentry = *sf + ClusterOffset(cluster);
-            for (int i = 0; i < 32; i++) {
-                subdirentry = ReadDirEntryRecursive(subdirentry, sf, imgidx, imgs, found, database, databasesize);
+            uint8_t *subdirentry = scan->disk + ClusterOffset(cluster);
+            for (size_t i = 0; i < entries_per_cluster; i++) {
+                subdirentry = ReadDirEntryRecursive(subdirentry, scan, depth + 1);
                 if (subdirentry == NULL) {
                     lastfound = 1;
                     break;
                 }
             }
-            cluster = get_next_cluster12(*sf, cluster);
+            cluster = get_next_cluster12(scan->disk, scan->disksize, cluster);
         }
     } else if (strncmp(dir->name, "DATABASE", 8) == 0) {
-        uint8_t *file = GetFile(*sf, dir->start, *dir);
-        *database = MemAlloc(dir->size + 2);
-        memcpy(*database + 2, file, dir->size);
-        *databasesize = dir->size + 2;
-        CurrentSys = SYS_ST;
-        *found = 1;
-    } else if (issagaimg(dir->name) && *imgidx < 100) {
-        imgs += *imgidx;
-        imgs->Data = GetFile(*sf, dir->start, *dir);
-        imgs->Filename = MemAlloc(5);
-        memcpy(imgs->Filename, dir->name, 4);
-        imgs->Filename[4] = 0;
-        imgs->Size = dir->size;
-        (*imgidx)++;
+        uint8_t *file = GetFile(scan, dir);
+        /* The two bytes at the head match the other systems' files */
+        free(scan->database);
+        scan->database = MemCalloc(dir->size + 2);
+        memcpy(scan->database + 2, file, dir->size);
+        scan->databasesize = dir->size + 2;
+        free(file);
+    } else if (issagaimg(dir->name) && scan->numimgs < MAX_ST_IMAGES) {
+        imgrec *img = &scan->imgs[scan->numimgs++];
+        img->Data = GetFile(scan, dir);
+        img->Filename = MemAlloc(IMAGE_NAME_SIZE);
+        memcpy(img->Filename, dir->name, IMAGE_NAME_SIZE - 1);
+        img->Filename[IMAGE_NAME_SIZE - 1] = 0;
+        img->Size = dir->size;
     }
     free(dir);
     return ptr;
@@ -284,42 +328,37 @@ int DetectST(uint8_t **sf, size_t *extent)
         return 0;
 
     if ((*sf)[0] == 0x0e && (*sf)[1] == 0x0f) {
-        uint8_t *new = DecodeMsaImageToRawImage(*sf, extent);
+        uint8_t *raw = DecodeMsaImageToRawImage(*sf, extent);
         free(*sf);
-        *sf = new;
+        *sf = raw;
     }
 
-    ReadFAT12BootSector(sf, extent);
+    if (!ReadFAT12BootSector(*sf, *extent))
+        return 0;
 
-    size_t root_entry_offset = (boot.reserved + boot.fats * boot.fat_length) * boot.sector_size;
+    /* Too big for the stack */
+    STScan *scan = MemCalloc(sizeof(STScan));
+    scan->disk = *sf;
+    scan->disksize = *extent;
 
-    uint8_t *ptr = &(*sf)[root_entry_offset];
-    uint8_t *database = NULL;
-    size_t databasesize = 0;
-    int found = 0;
-
-    imgrec imgs[100];
-    int imgidx = 0;
-
+    uint8_t *ptr = *sf + RootDirOffset();
     for (int i = 0; i < boot.dir_entries; i++) {
-        ptr = ReadDirEntryRecursive(ptr, sf, &imgidx, imgs, &found, &database, &databasesize);
+        ptr = ReadDirEntryRecursive(ptr, scan, 0);
         if (ptr == NULL)
             break;
     }
 
+    int found = (scan->database != NULL);
     if (found) {
-        CurrentSys = SYS_ST;
-        ImageWidth = 319;
-        ImageHeight = 162;
-        free(*sf);
-        *sf = database;
-        *extent = databasesize;
-        if (imgidx) {
-            Images = MemAlloc((imgidx + 1) * sizeof(imgrec));
-            memcpy(Images, imgs, imgidx * sizeof(imgrec));
-            Images[imgidx].Filename = NULL;
+        Images = NewImageList(scan->numimgs);
+        memcpy(Images, scan->imgs, scan->numimgs * sizeof(imgrec));
+        AdoptDataFile(sf, extent, scan->database, scan->databasesize, SYS_ST);
+    } else {
+        for (int i = 0; i < scan->numimgs; i++) {
+            free(scan->imgs[i].Data);
+            free(scan->imgs[i].Filename);
         }
-        return 1;
     }
-    return 0;
+    free(scan);
+    return found;
 }

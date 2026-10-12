@@ -11,6 +11,7 @@
 # Usage:
 #   make -f Makefile.headless imagecheck
 #   make -f Makefile.headless companioncheck
+#   make -f Makefile.headless trunccheck
 #   make -f Makefile.headless scriptcheck
 #   ./plus_image_probe -d /tmp/pictures "/path/to/Spider-Man side A.atr"
 
@@ -29,7 +30,7 @@ CC ?= clang
 COMMON_INC := -I$(PROBE_DIR) -I. -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) \
               -I$(READWOZ_DIR) -I$(C64DISK_DIR)
 DEPFLAGS   := -MMD -MP
-BASEFLAGS  := -O0 -g -Wall -Wno-unknown-pragmas -Wno-unused-function \
+BASEFLAGS  := -O0 -g -Wall -Wno-unknown-pragmas \
               $(COMMON_INC) $(DEPFLAGS) -include stddef.h -DSPATTERLIGHT
 CFLAGS     := $(BASEFLAGS) -include image_glk.h
 
@@ -77,6 +78,12 @@ imagecheck: plus_image_probe
 companioncheck: plus_image_probe
 	@python3 $(PROBE_DIR)/run_companion_tests.py test/images ./plus_image_probe
 
+# The binary database of every game, cut short at a thousand-odd lengths: does
+# the loader refuse each one? See test/run_truncation_tests.py. Skips like
+# imagecheck.
+trunccheck: plus_image_probe
+	@python3 test/run_truncation_tests.py test/images ./plus_image_probe
+
 # The interpreter on plain CheapGlk: commands on stdin, transcript on stdout,
 # no pictures. The same sources as the probe, built without the window
 # renames, with $(PROBE_DIR)/text_main.c in place of the probe and its window
@@ -104,6 +111,6 @@ scriptcheck: plus_hl
 clean:
 	rm -rf $(OBJDIR) $(TEXT_OBJDIR) plus_image_probe plus_hl
 
-.PHONY: clean imagecheck companioncheck scriptcheck
+.PHONY: clean imagecheck companioncheck scriptcheck trunccheck
 
 -include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)

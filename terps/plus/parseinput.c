@@ -15,13 +15,14 @@
 #include "common.h"
 #include "definitions.h"
 #include "extracommands.h"
+#include "loaddatabase.h"
 #include "parseinput.h"
 #include "restorestate.h"
 
-char **InputWordStrings = NULL;  /* Array of uppercased word strings from the player's input */
-int WordsInInput = 0;           /* Number of words in the current input line */
-int WordIndex = 0;              /* Current position in TokenWords during command parsing */
-int InitialIndex = 0;           /* WordIndex at the start of the current command (for multi-command lines) */
+static char **InputWordStrings = NULL;  /* Array of uppercased word strings from the player's input */
+static int WordsInInput = 0;           /* Number of words in the current input line */
+static int WordIndex = 0;              /* Current position in TokenWords during command parsing */
+static int InitialIndex = 0;           /* WordIndex at the start of the current command (for multi-command lines) */
 int ProtagonistString = 0;      /* Message index for the player character's name, used in the prompt */
 
 /* Dictionary arrays loaded from the game data file. Each is a
@@ -55,7 +56,7 @@ void FreeInputWords(void)
 /* Compare two dictionary words character by character, stopping at the
    first '#' in either string. Hash signs separate homonyms in the Plus
    dictionary format, so "KEY#1" and "KEY#2" compare as equal. */
-int CompareUpToHashSign(char *word1, char *word2)
+int CompareUpToHashSign(const char *word1, const char *word2)
 {
     for (int i = 0; word1[i] != '#' && word2[i] != '#'; i++) {
         if (word1[i] != word2[i])
@@ -99,19 +100,22 @@ int YesOrNo(void)
     return (result == 1);
 }
 
+/* The most items we will ask about when disambiguating a noun */
+#define MAX_HASH_MATCHES 10
+
 /* Disambiguate a noun when multiple items present in the current room
    (or carried) share a hash-separated dictionary word. If exactly one
    item matches, return its dictionary index silently. If several match,
    ask the player "do you mean X?" for each until one is confirmed.
    Returns 0 if no match or the player declined all options. */
-static int FindNounWithHash(char *p)
+static int FindNounWithHash(const char *p)
 {
     int num_matches = 0;
-    int matches[10];
+    int matches[MAX_HASH_MATCHES];
 
     for (int i = 0; i <= GameHeader.NumItems; i++) {
         if (Items[i].Dictword && (Items[i].Location == MyLoc || Items[i].Location == CARRIED))
-            if (CompareUpToHashSign(Nouns[GetDictWord(Items[i].Dictword)].Word, p)) {
+            if (num_matches < MAX_HASH_MATCHES && CompareUpToHashSign(Nouns[GetDictWord(Items[i].Dictword)].Word, p)) {
                 matches[num_matches] = i;
                 num_matches++;
             }
@@ -134,7 +138,7 @@ static int FindNounWithHash(char *p)
 
 /* Look up a word in a dictionary array by exact string match.
    Returns the word's group index, or 0 if not found. */
-static int ParseWord(char *p, DictWord *dict)
+static int ParseWord(const char *p, const DictWord *dict)
 {
     for (int i = 0; dict[i].Word != NULL; i++) {
         if (strcmp(dict[i].Word, p) == 0) {
@@ -150,7 +154,7 @@ static int ParseWord(char *p, DictWord *dict)
    characters, or 0 on mismatch. */
 static int MatchingChars(const char *synonym, const char *original)
 {
-    if (synonym[0] == 0 || original[0] == 0 || synonym == NULL || original == NULL)
+    if (synonym == NULL || original == NULL || synonym[0] == 0 || original[0] == 0)
         return 0;
     int i;
     for (i = 0; synonym[i] != 0 && original[i] != 0; i++) {
@@ -158,7 +162,7 @@ static int MatchingChars(const char *synonym, const char *original)
             return 0;
     }
 
-    return ((size_t)i == strlen(synonym) && (original[i] == 0 || original[i] == ' ' || (i > 0 && original[i - 1] == 0)));
+    return (synonym[i] == 0 && (original[i] == 0 || original[i] == ' '));
 }
 
 /* Search for synonym within original, matching only at word boundaries
@@ -169,7 +173,7 @@ static int IsSynonymMatch(const char *synonym, const char *original)
     char c = synonym[0];
     if (c == 0)
         return -1;
-    char *found = strchr(original, c);
+    const char *found = strchr(original, c);
     while (found) {
         if (found == original || *(found - 1) == ' ') {
             if (MatchingChars(synonym, found))
@@ -249,11 +253,18 @@ static char *ReplaceSynonyms(char *buf, int *len)
 
     for (int i = 0; Substitutions[i].SynonymString != NULL; i++) {
         char *syn = Substitutions[i].SynonymString;
+        const char *replacement = Substitutions[i].ReplacementString;
+        /* A replacement that contains its own synonym would match
+           forever. The unfinished X-Men lists a word as a synonym of
+           itself (",BRICK,BRICKED UP,BRICKED,BRICK WALL,=BRICK,"). */
+        int once = (IsSynonymMatch(syn, replacement) >= 0);
         int matchpos = IsSynonymMatch(syn, buf);
         while (matchpos >= 0) {
-            debug_print("Replaced string \"%s\" with \"%s\".\n", syn, Substitutions[i].ReplacementString);
-            buf = ReplaceString(buf, syn, Substitutions[i].ReplacementString, &matchpos);
+            debug_print("Replaced string \"%s\" with \"%s\".\n", syn, replacement);
+            buf = ReplaceString(buf, syn, replacement, &matchpos);
             debug_print("Result: \"%s\"\n", buf);
+            if (once)
+                break;
             matchpos = IsSynonymMatch(syn, buf);
         }
     }
@@ -306,7 +317,9 @@ static char **SplitIntoWords(const char *string, int length)
     return words;
 }
 
-WordToken *TokenWords = NULL;  /* Classified tokens, parallel to InputWordStrings */
+/* Classified tokens, parallel to InputWordStrings. Allocated anew for
+   each input line by TokenizeInputWords(), which frees the old ones. */
+static WordToken *TokenWords = NULL;
 
 /* Heuristic: was the word at position i likely intended as a verb?
    True if it's the first word in the command, or if it follows a lone
@@ -335,6 +348,15 @@ static void WordNotFoundError(int i)
         Display(Bottom, "I don't know what %s means.\n", InputWordStrings[i]);
 }
 
+/* Record what kind of word input word number i is, and its dictionary
+   group. */
+static void SetToken(int i, WordType type, int index)
+{
+    debug_print("Found word of type %d (group %d): %s at %d\n", type, index, InputWordStrings[i], i);
+    TokenWords[i].Index = index;
+    TokenWords[i].Type = type;
+}
+
 /* Classify each word in InputWordStrings into a token type using
    priority-ordered dictionary lookups. The priority at position 0 is:
    verb > adverb > noun > preposition > extra word.
@@ -352,84 +374,67 @@ static int TokenizeInputWords(void)
     int verb_position = -1;
 
     for (int i = 0; i < WordsInInput; i++) {
+        const char *word = InputWordStrings[i];
         int result;
 
+        /* The first word is a verb if it can be */
         if (i == 0) {
-            result = ParseWord(InputWordStrings[i], Verbs);
+            result = ParseWord(word, Verbs);
             if (result > 0) {
-                debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
+                SetToken(i, VERB_TYPE, result);
                 found_verb = 1;
                 verb_position = i;
-                TokenWords[i].Index = result;
-                TokenWords[i].Type = VERB_TYPE;
                 continue;
             }
         }
 
-        result = ParseWord(InputWordStrings[i], Adverbs);
+        result = ParseWord(word, Adverbs);
         if (result > 1) {
-            debug_print("Found adverb %s at %d\n", InputWordStrings[i], i);
-            TokenWords[i].Index = result;
-            TokenWords[i].Type = ADVERB_TYPE;
+            SetToken(i, ADVERB_TYPE, result);
             continue;
         }
 
-        result = ParseWord(InputWordStrings[i], Nouns);
-        if (result > 0 || strcmp(InputWordStrings[i], "ANY") == 0) {
-            debug_print("Found noun %s at %d\n", InputWordStrings[i], i);
-            TokenWords[i].Index = result;
+        result = ParseWord(word, Nouns);
+        if (result <= 0 && strcmp(word, "ANY") != 0)
+            result = FindNounWithHash(word);
+        if (result > 0 || strcmp(word, "ANY") == 0) {
+            SetToken(i, NOUN_TYPE, result);
             LastNoun = result;
-            TokenWords[i].Type = NOUN_TYPE;
             continue;
         }
 
-        result = FindNounWithHash(InputWordStrings[i]);
-        if (result > 0) {
-            debug_print("Found noun %s at %d\n", InputWordStrings[i], i);
-            TokenWords[i].Index = result;
-            LastNoun = result;
-            TokenWords[i].Type = NOUN_TYPE;
-            continue;
-        }
-
-        result = ParseWord(InputWordStrings[i], Prepositions);
+        result = ParseWord(word, Prepositions);
         if (result > 1) {
             if (result == 2 && !found_verb) {
                 Output("-USE- may NOT be the first word of your command! ");
                 WordIndex = 255;
                 return 0;
             }
-            debug_print("Found preposition %s at %d\n", InputWordStrings[i], i);
-            TokenWords[i].Index = result;
-            TokenWords[i].Type = PREPOSITION_TYPE;
+            SetToken(i, PREPOSITION_TYPE, result);
             continue;
         }
 
+        /* Other words are verbs only if they are nothing else */
         if (i > 0) {
-            result = ParseWord(InputWordStrings[i], Verbs);
+            result = ParseWord(word, Verbs);
             if (result > 0) {
-                debug_print("Found verb %s at %d\n", InputWordStrings[i], i);
-                TokenWords[i].Index = result;
-                TokenWords[i].Type = VERB_TYPE;
+                SetToken(i, VERB_TYPE, result);
                 found_verb = 1;
                 verb_position = i;
                 continue;
             }
         }
 
-        result = ParseWord(InputWordStrings[i], ExtraWords);
+        result = ParseWord(word, ExtraWords);
         if (result > 0) {
-            debug_print("Found extra word %s at %d\n", InputWordStrings[i], i);
             if (result == COM_IT) {
-                TokenWords[i].Index = LastNoun;
-                TokenWords[i].Type = NOUN_TYPE;
+                SetToken(i, NOUN_TYPE, LastNoun);
             } else if (result == COM_WHERE) {
                 Output("I'm only your puppet! You must figure things out for yourself! ");
                 WordIndex = 255;
                 return 0;
             } else {
-                TokenWords[i].Index = result;
-                TokenWords[i].Type = OTHER_TYPE;
+                SetToken(i, OTHER_TYPE, result);
             }
             continue;
         }
@@ -454,11 +459,51 @@ static int TokenizeInputWords(void)
     return 1;
 }
 
+/* The "with" list: the nouns that follow the participle WITH (2) or
+   AT (3), as in "HIT ROBOT WITH FIST, ROCK". The second noun is always
+   the first entry. Entries are numbered from 1 and counted by counter 46. */
+#define MAX_WITH_LIST 20
+static int WithList[MAX_WITH_LIST + 1];
+
+static void ClearWithList(void)
+{
+    memset(WithList, 0, sizeof WithList);
+    WithListCount = 0;
+}
+
+/* The noun that ARG_WITH_LIST stands for: the entry of the "with" list
+   that counter 44 points at, or 0 if there is no such entry. */
+int WithListNoun(void)
+{
+    int index = WithListIndex;
+    if (index < 1 || index > MAX_WITH_LIST)
+        return 0;
+    return WithList[index];
+}
+
+/* Called when a participle and a second noun have been found. After WITH
+   or AT, puts the second noun and any nouns directly following it in the
+   "with" list. */
+static void CollectWithList(void)
+{
+    if (CurrentPartp != 2 && CurrentPartp != 3)
+        return;
+    ClearWithList();
+    WithList[++WithListCount] = CurrentNoun2;
+    while (WordIndex < WordsInInput && TokenWords[WordIndex].Type == NOUN_TYPE) {
+        int noun = TokenWords[WordIndex++].Index;
+        if (WithListCount < MAX_WITH_LIST)
+            WithList[++WithListCount] = noun;
+    }
+    debug_print("With list has %d nouns\n", WithListCount);
+}
+
 /* Check whether the next token(s) match a participle+noun2 pattern
    required by the action being tested. Two forms are accepted:
    - A bare noun when partp==2 (implicit preposition): "GIVE KEY JOHN"
    - A preposition followed by a noun: "GIVE KEY TO JOHN"
-   If matched, advances WordIndex and sets CurrentPartp/CurrentNoun2.
+   If matched, advances WordIndex and sets CurrentPartp/CurrentNoun2
+   (and the "with" list).
    partp and noun2 of 0 act as wildcards; partp==1 means "no participle
    expected" and always returns 0. */
 int IsNextParticiple(int partp, int noun2)
@@ -472,11 +517,13 @@ int IsNextParticiple(int partp, int noun2)
     if (TokenWords[WordIndex].Type == NOUN_TYPE && partp == 2 && (noun2 == 0 || TokenWords[WordIndex].Index == noun2)) {
         CurrentPartp = 2;
         CurrentNoun2 = TokenWords[WordIndex++].Index;
+        CollectWithList();
         return 1;
     } else if (TokenWords[WordIndex].Type == PREPOSITION_TYPE && WordIndex < WordsInInput - 1 && (partp == 0 || TokenWords[WordIndex].Index == partp)) {
         if (TokenWords[WordIndex + 1].Type == NOUN_TYPE && (noun2 == 0 || TokenWords[WordIndex + 1].Index == noun2)) {
             CurrentPartp = TokenWords[WordIndex++].Index;
             CurrentNoun2 = TokenWords[WordIndex++].Index;
+            CollectWithList();
             return 1;
         }
     }
@@ -484,7 +531,8 @@ int IsNextParticiple(int partp, int noun2)
 }
 
 /* Debug display names for WordType enum values. */
-const char * const WordTypeStrings[] = {
+#ifdef DEBUG /* Only used by debug_print() */
+static const char * const WordTypeStrings[] = {
     "WORD_NOT_FOUND",
     "OTHER_TYPE",
     "VERB_TYPE",
@@ -492,9 +540,10 @@ const char * const WordTypeStrings[] = {
     "ADVERB_TYPE",
     "PREPOSITION_TYPE"
 };
+#endif
 
 /* Map a token type to its corresponding dictionary array. */
-DictWord *DictWordFromType(WordType type) {
+static DictWord *DictWordFromType(WordType type) {
     switch (type) {
         case VERB_TYPE:
             return Verbs;
@@ -507,7 +556,7 @@ DictWord *DictWordFromType(WordType type) {
         default:
             return NULL;
     }
-};
+}
 
 /* If the token at WordIndex matches the given type, consume it: store
    its dictionary index in *word, advance WordIndex, and return 1.
@@ -535,21 +584,25 @@ static int FindPreposition(int *prep) { return FindWordOfType(PREPOSITION_TYPE, 
 static int FindAdverb(int *adverb) { return FindWordOfType(ADVERB_TYPE, adverb); }
 
 /* Debug: print the remaining input words from start to end. */
-static void GetInputWordStrings(int start, int end) {
-    for (int i = start; i < end; i++) {
-        char str[MAX_WORDLENGTH];
-        snprintf(str, sizeof str, "%s", InputWordStrings[i]);
-        debug_print("Word %d: %s\n", i, str);
-    }
+static void DebugPrintInputWords(int start, int end) {
+    for (int i = start; i < end; i++)
+        debug_print("Word %d: %s\n", i, InputWordStrings[i]);
 }
 
-#define NO_EXTRA_COMMAND_FOUND 2
+/* What CommandFromTokens() returns: the first two are also the results
+   of GetInput(). */
+typedef enum {
+    COMMAND_READY = 0,     /* A command for the action engine was built */
+    NO_COMMAND = 1,        /* Error, no input, or a meta-command that was carried out */
+    NO_EXTRA_COMMAND_FOUND /* Only from HandleExtraCommand(): go on parsing */
+} ParseResult;
 
 /* Try to handle the current token as a meta-command (SAVE, LOAD, SCORE,
    AGAIN, toggles like BRIEF/VERBOSE, etc.). Returns NO_EXTRA_COMMAND_FOUND
-   if the token isn't an extra command, 0 if the player typed AGAIN (so the
-   previous command is re-executed), or 1 for other extra commands. */
-static int HandleExtraCommand(void) {
+   if the token isn't an extra command, COMMAND_READY if the player typed
+   AGAIN (so the previous command is re-executed), or NO_COMMAND for other
+   extra commands. */
+static ParseResult HandleExtraCommand(void) {
     int word;
     if (FindWordOfType(OTHER_TYPE, &word)) {
         int nextword = 0;
@@ -565,10 +618,10 @@ static int HandleExtraCommand(void) {
         ExtraCommandResult result = PerformExtraCommand(word, nextword);
         if (result != RESULT_NOT_UNDERSTOOD) {
             if (result == RESULT_AGAIN)
-                return 0;
+                return COMMAND_READY;
             SetBit(STOPTIMEBIT);
             WordIndex += (result == RESULT_TWO_WORDS);
-            return 1;
+            return NO_COMMAND;
         } else {
             WordIndex = InitialIndex;
         }
@@ -597,9 +650,9 @@ static int CommandFromTokens(int verb, int noun) {
     }
 
     InitialIndex = WordIndex;
-    GetInputWordStrings(WordIndex, WordsInInput);
+    DebugPrintInputWords(WordIndex, WordsInInput);
 
-    int extracommand = HandleExtraCommand();
+    ParseResult extracommand = HandleExtraCommand();
     if (extracommand != NO_EXTRA_COMMAND_FOUND) {
         return extracommand;
     }
@@ -608,6 +661,7 @@ static int CommandFromTokens(int verb, int noun) {
     CurrentPrep = 0;
     CurrentNoun2 = 0;
     CurrentAdverb = 0;
+    ClearWithList();
 
     FindVerb(&verb);
 
@@ -672,6 +726,9 @@ static int CommandFromTokens(int verb, int noun) {
         debug_print("\" (%d)\n", CurrentPartp);
     }
 
+    if (CurrentNoun2 != 0)
+        CollectWithList();
+
     if (CurrentNoun2 != 0) {
         debug_print("Found second noun \"");
         PrintDictWord(CurrentNoun2, Nouns);
@@ -708,7 +765,7 @@ static void LineInput(void)
 
     for (;;) {
         Display(Bottom, "\n\n%s, %s", Messages[ProtagonistString], sys[WHAT_NOW]);
-        glk_request_line_event(Bottom, buf, (glui32)511, 0);
+        glk_request_line_event(Bottom, buf, (glui32)(sizeof buf - 1), 0);
 
         while (1) {
             glk_select(&ev);

@@ -58,12 +58,13 @@ If any file of a folder is missing the whole folder is skipped.
 
 ## Coverage
 
-35 rows, one per distinct result found among the local images of *Buckaroo
-Banzai*, *Spider-Man*, *Fantastic Four* and *Sorcerer of Claymorgue Castle*:
+36 rows, one per distinct result found among the local images of *Buckaroo
+Banzai*, *Spider-Man*, *Fantastic Four* and *Sorcerer of Claymorgue Castle*,
+and one for the database of the unfinished *X-Men*:
 
 | System | Rows | Variants |
 |--------|------|----------|
-| MS-DOS | 4 | all four games, database plus `.PAK` pictures (286 companion rows) |
+| MS-DOS | 5 | all four games, database plus `.PAK` pictures (286 companion rows); *X-Men*, which has no pictures |
 | C64 `.d64` | 5 | one of them under the name `.plus` |
 | Apple II `.dsk`, `.do` | 13 | two-disk sets from either side |
 | Apple II `.woz` | 2 | WOZ2, either side |
@@ -98,6 +99,20 @@ extension), the extra guesses of `companionfile.c` (`[cr CSS]`, the
   `git diff companions.tsv`.
 - Another pair of names worth pinning: add a `names` row with any verdict and
   bless.
+
+## Truncated databases
+
+`make -f Makefile.headless trunccheck` asks what the loader does with a game
+file that ends too early. The probe, run with `PLUS_PROBE_TRUNCATE` set, draws
+nothing: it loads the binary database of the game again from copies cut short,
+each one in a process of its own and each one ending right before a page that
+may not be read, so that reading a single byte too far kills the loader
+(`TruncationTest()` in `../image_probe.c`). It first finds the length of the
+database, the shortest copy that loads, and then tries every length in the
+last 300 bytes and about a thousand of the shorter ones.
+
+A row passes if every cut copy was refused. There are no goldens. The MS-DOS
+games are text files read by another loader and are not tried.
 
 ## Adding or updating
 

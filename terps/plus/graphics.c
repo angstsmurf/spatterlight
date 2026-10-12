@@ -5,6 +5,7 @@
 //  Created by Petter Sjölund on 2022-06-04.
 //
 
+#include <ctype.h>
 #include <string.h>
 
 #include "glk.h"
@@ -21,6 +22,7 @@
 #include "c64a8draw.h"
 #include "pcdraw.h"
 #include "sagadraw_glue.h"
+#include "stdraw.h"
 
 ImgType LastImgType;
 int LastImgIndex;
@@ -34,10 +36,116 @@ glui32 pal[16];
 
 imgrec *Images;
 
-int DrawSTImageFromData(uint8_t *ptr, size_t datasize);
+void SetSystem(SystemType sys)
+{
+    CurrentSys = sys;
+    switch (sys) {
+    case SYS_C64:
+    case SYS_ATARI8:
+        ImageWidth = 280;
+        ImageHeight = 160;
+        break;
+    case SYS_ST:
+        ImageWidth = 319;
+        ImageHeight = 162;
+        break;
+    case SYS_APPLE2:
+        ImageWidth = 560;
+        ImageHeight = 320;
+        break;
+    default:
+        /* MS-DOS pictures carry their own size */
+        break;
+    }
+}
+
+void AdoptDataFile(uint8_t **sf, size_t *extent, uint8_t *data, size_t len, SystemType sys)
+{
+    free(*sf);
+    *sf = data;
+    *extent = len;
+    SetSystem(sys);
+}
+
+imgrec *NewImageList(size_t count)
+{
+    imgrec *list = MemAlloc((count + 1) * sizeof(imgrec));
+    memset(list, 0, (count + 1) * sizeof(imgrec));
+    return list;
+}
+
+int issagaimg(const char *name)
+{
+    if (name == NULL)
+        return 0;
+    size_t len = strlen(name);
+    if (len < 4)
+        return 0;
+    char c = name[0];
+    if (c == 'R' || c == 'B' || c == 'S') {
+        for (int i = 1; i < 4; i++)
+            if (!isdigit((unsigned char)name[i]))
+                return 0;
+        return 1;
+    }
+    return 0;
+}
+
+/* The graphics window that is known to be blank: cleared and not drawn
+   to since. NULL when it is not known. */
+static winid_t blank_window = NULL;
+
+/* What DrawCurrentRoom() last drew, and where. While this is valid the
+   graphics window still shows exactly that, so drawing the same thing
+   again can be skipped. Games ask for a redraw far more often than the
+   picture changes. */
+#define MAX_SCENE_OBJECTS 32
+
+typedef struct {
+    winid_t window;
+    glui32 win_width, win_height;
+    int pixel_size, x_offset, y_offset, right_margin;
+    int room_image;
+    int upside_down;
+    int num_objects;
+    int objects[MAX_SCENE_OBJECTS];
+} Scene;
+
+static Scene shown_scene;
+static int shown_scene_valid = 0;
+/* The values the draw of shown_scene left in these globals */
+static ImgType shown_last_type;
+static int shown_last_index;
+static int shown_image_width, shown_image_height;
+
+/* Tell that something was drawn to the graphics window by other means
+   than the functions in this file. */
+void GraphicsWindowChanged(void)
+{
+    blank_window = NULL;
+    shown_scene_valid = 0;
+}
+
+/* Tell that pixels of the picture on screen were recoloured, which
+   leaves the window showing the same scene, but not blank. */
+void GraphicsWindowRecoloured(void)
+{
+    blank_window = NULL;
+}
+
+/* Clear the graphics window, unless it is known to be blank already. */
+void ClearGraphicsWindow(void)
+{
+    shown_scene_valid = 0;
+    if (Graphics == NULL || blank_window == Graphics)
+        return;
+    glk_window_clear(Graphics);
+    blank_window = Graphics;
+}
 
 void DrawBlack(void)
 {
+    GraphicsWindowChanged();
     glk_window_fill_rect(Graphics, 0, x_offset, y_offset, (glui32)(ImageWidth * pixel_size),
         (glui32)(ImageHeight * pixel_size));
     LastImgType = NO_IMG;
@@ -66,6 +174,60 @@ char *ShortNameFromType(char type, int index)
 int ImageNumberFromName(const char *name)
 {
     return (name[2] - '0') * 10 + name[3] - '0';
+}
+
+/* Pictures are drawn a pixel at a time, mostly left to right in runs
+   of one colour. Each fill_rect is a round trip to the window server,
+   so a run is collected here and sent as a single rectangle. */
+static struct {
+    glui32 color;
+    glsi32 x, y;
+    glui32 width, height;
+} pending_run;
+
+/* Send the run collected so far to the graphics window. Must be called
+   before anything else draws to or clears the window, and when a
+   picture is finished. */
+void FlushPixels(void)
+{
+    if (pending_run.width == 0)
+        return;
+    if (Graphics != NULL) {
+        blank_window = NULL;
+        glk_window_fill_rect(Graphics, pending_run.color, pending_run.x,
+            pending_run.y, pending_run.width, pending_run.height);
+    }
+    pending_run.width = 0;
+}
+
+static void FillRun(glui32 color, glsi32 x, glsi32 y, glui32 width, glui32 height)
+{
+    if (width == 0 || height == 0)
+        return;
+
+    glsi32 right = x + (glsi32)width;
+    glsi32 pending_right = pending_run.x + (glsi32)pending_run.width;
+
+    /* A rectangle of the same colour on the same row that touches or
+       overlaps the collected run covers the same pixels when joined to
+       it. Anything else is drawn after the run, keeping the order. */
+    if (pending_run.width != 0 && color == pending_run.color
+        && y == pending_run.y && height == pending_run.height
+        && x <= pending_right && right >= pending_run.x) {
+        if (x < pending_run.x)
+            pending_run.x = x;
+        if (right > pending_right)
+            pending_right = right;
+        pending_run.width = (glui32)(pending_right - pending_run.x);
+        return;
+    }
+
+    FlushPixels();
+    pending_run.color = color;
+    pending_run.x = x;
+    pending_run.y = y;
+    pending_run.width = width;
+    pending_run.height = height;
 }
 
 /* Used by IBM PC graphics in "striped" mode where every other pixel is skipped
@@ -103,8 +265,7 @@ void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth)
     }
     ypos += y_offset;
 
-    glk_window_fill_rect(Graphics, pal[color], xpos,
-        ypos, pixel_size * pixelwidth, pixel_size);
+    FillRun(pal[color], xpos, ypos, pixel_size * pixelwidth, pixel_size);
 }
 
 void SetColor(int32_t index, glui32 color)
@@ -112,9 +273,29 @@ void SetColor(int32_t index, glui32 color)
     pal[index] = color;
 }
 
-int DrawImageWithName(char *filename)
+/* In Spider-Man, pictures are drawn upside down while the player is in
+   the same room as item 0 (walking on the ceiling). */
+static int IsUpsideDown(void)
+{
+    return (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
+}
+
+/* Apple II pictures are drawn into a copy of the video memory. This
+   shows the result in the graphics window. Does nothing on other
+   systems. */
+void ShowApple2Screen(void)
+{
+    if (CurrentSys == SYS_APPLE2) {
+        GraphicsWindowChanged();
+        DrawApple2ImageFromVideoMemWithFlip(upside_down);
+    }
+}
+
+int DrawImageWithName(const char *filename)
 {
     debug_print("DrawImageWithName %s\n", filename);
+
+    shown_scene_valid = 0;
 
     int i;
     for (i = 0; Images[i].Filename != NULL; i++)
@@ -123,9 +304,13 @@ int DrawImageWithName(char *filename)
 
     if (Images[i].Filename == NULL) {
         if (CurrentSys == SYS_MSDOS) {
-            if (FindAndAddImageFile(filename, &Images[i])) {
-                Images[i + 1].Filename = NULL;
-            } else {
+            /* The image was not on disk when the list was built. Look
+               for it again, growing the list (which may be full) to
+               make room for the new entry and the terminator. */
+            Images = MemRealloc(Images, (i + 2) * sizeof(imgrec));
+            memset(&Images[i], 0, 2 * sizeof(imgrec));
+            if (!FindAndAddImageFile(filename, &Images[i])) {
+                Images[i].Filename = NULL;
                 return 0;
             }
         } else {
@@ -152,14 +337,18 @@ int DrawImageWithName(char *filename)
 
     LastImgIndex = ImageNumberFromName(Images[i].Filename);
 
+    int result;
     if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
-        return DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64);
+        result = DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64);
     } else if (CurrentSys == SYS_ST) {
-        return DrawSTImageFromData(Images[i].Data, Images[i].Size);
+        result = DrawSTImageFromData(Images[i].Data, Images[i].Size);
     } else if (CurrentSys == SYS_APPLE2) {
-        return DrawApple2ImageFromData(Images[i].Data + 2, READ_LE_UINT16(Images[i].Data), 0, Apple2AdjustPlus);
+        result = DrawApple2ImageFromData(Images[i].Data + 2, READ_LE_UINT16(Images[i].Data), 0, Apple2AdjustPlus);
     } else
-        return DrawDOSImageFromData(Images[i].Data);
+        result = DrawDOSImageFromData(Images[i].Data);
+
+    FlushPixels();
+    return result;
 }
 
 int DrawImageWithTypeAndNumber(char type, int index)
@@ -179,7 +368,7 @@ void DrawItemImage(int item)
     if (!ImageNameFromType(buf, 'B', item))
         return;
 
-    upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
+    upside_down = IsUpsideDown();
 
     DrawImageWithName(buf);
 }
@@ -201,11 +390,21 @@ int DrawCloseup(int img)
     int result = DrawImageWithName(buf);
 
     if (result && CurrentSys == SYS_APPLE2) {
-        glk_window_clear(Graphics);
-        DrawApple2ImageFromVideoMem();
+        ClearGraphicsWindow();
+        ShowApple2Screen();
     }
 
     return result;
+}
+
+static int STRoomImageClearsWindow(const char *name)
+{
+    if (!IsSet(GRAPHICSBIT))
+        return 0;
+    for (int i = 0; Images[i].Filename != NULL; i++)
+        if (strcmp(name, Images[i].Filename) == 0)
+            return STImageClearsWindow(Images[i].Data, Images[i].Size);
+    return 0;
 }
 
 int DrawRoomImage(int roomimg)
@@ -217,15 +416,17 @@ int DrawRoomImage(int roomimg)
     if (!ImageNameFromType(buf, 'R', roomimg))
         return 0;
 
-    if (Graphics)
-        glk_window_clear(Graphics);
+    ClearGraphicsWindow();
 
-    if (CurrentSys == SYS_ST && CurrentGame != CLAYMORGUE)
-        DrawImageWithName("S999");
-    else if (CurrentSys == SYS_APPLE2)
+    /* On the Atari ST, small room pictures are drawn on top of the
+       backdrop S999. One that clears the window would only erase it. */
+    if (CurrentSys == SYS_ST && CurrentGame != CLAYMORGUE) {
+        if (!STRoomImageClearsWindow(buf))
+            DrawImageWithName("S999");
+    } else if (CurrentSys == SYS_APPLE2)
         ClearApple2ScreenMem();
 
-    upside_down = (CurrentGame == SPIDERMAN && Items[0].Location == MyLoc);
+    upside_down = IsUpsideDown();
 
     return DrawImageWithName(buf);
 }
@@ -251,7 +452,42 @@ void DrawObjectImages(int room, int location)
         }
 }
 
-extern int AnimationRoom;
+/* Describe the picture of the current room: its image, the item images
+   on top of it, and where in the graphics window they go. Returns 0 if
+   there are more item images than a Scene has room for. */
+static int DescribeScene(Scene *scene)
+{
+    memset(scene, 0, sizeof *scene);
+    scene->window = Graphics;
+    glk_window_get_size(Graphics, &scene->win_width, &scene->win_height);
+    scene->pixel_size = pixel_size;
+    scene->x_offset = x_offset;
+    scene->y_offset = y_offset;
+    scene->right_margin = right_margin;
+    scene->room_image = Rooms[MyLoc].Image;
+    scene->upside_down = IsUpsideDown();
+    for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
+        if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc) {
+            if (scene->num_objects == MAX_SCENE_OBJECTS)
+                return 0;
+            scene->objects[scene->num_objects++] = ObjectImages[ct].Image;
+        }
+    return 1;
+}
+
+static int SameScene(const Scene *a, const Scene *b)
+{
+    if (a->window != b->window || a->win_width != b->win_width
+        || a->win_height != b->win_height || a->pixel_size != b->pixel_size
+        || a->x_offset != b->x_offset || a->y_offset != b->y_offset
+        || a->right_margin != b->right_margin || a->room_image != b->room_image
+        || a->upside_down != b->upside_down || a->num_objects != b->num_objects)
+        return 0;
+    for (int i = 0; i < a->num_objects; i++)
+        if (a->objects[i] != b->objects[i])
+            return 0;
+    return 1;
+}
 
 void DrawCurrentRoom(void)
 {
@@ -286,6 +522,16 @@ void DrawCurrentRoom(void)
     if (Graphics == NULL || AnimationRoom == MyLoc)
         return;
 
+    Scene scene;
+    int describable = DescribeScene(&scene);
+    if (describable && shown_scene_valid && SameScene(&scene, &shown_scene)
+        && ImageWidth == shown_image_width && ImageHeight == shown_image_height) {
+        debug_print("DrawCurrentRoom: picture unchanged, not redrawn\n");
+        LastImgType = shown_last_type;
+        LastImgIndex = shown_last_index;
+        return;
+    }
+
     if (!DrawRoomImage(Rooms[MyLoc].Image)) {
         CloseGraphicsWindow();
         return;
@@ -293,7 +539,15 @@ void DrawCurrentRoom(void)
 
     DrawObjectImages(MyLoc, MyLoc);
 
-    if (CurrentSys == SYS_APPLE2) {
-        DrawApple2ImageFromVideoMemWithFlip(upside_down);
+    ShowApple2Screen();
+
+    /* Drawing may have resized the window, so describe it again */
+    if (describable && Graphics != NULL && DescribeScene(&scene)) {
+        shown_scene = scene;
+        shown_last_type = LastImgType;
+        shown_last_index = LastImgIndex;
+        shown_image_width = ImageWidth;
+        shown_image_height = ImageHeight;
+        shown_scene_valid = 1;
     }
 }
