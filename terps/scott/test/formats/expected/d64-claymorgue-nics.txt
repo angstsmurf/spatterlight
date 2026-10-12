@@ -1,0 +1,13 @@
+game       The Sorcerer of Claymorgue Castle C64
+variant    sys=unknown type=none subtype=9
+header     items=75 actions=265 words=108 rooms=32 maxcarry=10 start=1 treasures=13 wordlen=5 light=3000 messages=79 treasureroom=19
+picture    width=255 height=96
+rooms        33 9bb720f8
+items        76 ed53a248
+verbs       109 5d371be0
+nouns       109 7dbfff50
+messages     80 80b30226
+actions     266 d11ca514
+sysmess      71 41963d57
+irmak        44 1875bdeb version=1
+tiles       256 73382597

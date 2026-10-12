@@ -123,7 +123,7 @@ static const c64rec c64_registry[] = {
     { CLAYMORGUE_C64, 0x2ab00, 0x2e5d, TYPE_D64, 3, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Cracked by ABC, MasterCompressor / Relax -> ECA Compacker -> MegaByte Cruncher v1.x, missing 17 pictures
     { CLAYMORGUE_C64, 0x2ab00, 0x188f, TYPE_D64, 0, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), NICS, not packed, loads at $0801
     { CLAYMORGUE_C64, 0x2ab00, 0x95c1, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Doctor Mabuse, Section8 Packer
-    { CLAYMORGUE_C64, 0x2ab00, 0x5592, TYPE_D64, 0, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Danish Crackers, not packed. 14 bytes of text and picture data differ from the other releases
+    { CLAYMORGUE_C64, 0x2ab00, 0x5592, TYPE_D64, 0, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Danish Crackers, not packed. 14 damaged bytes, see RepairDanishCrackersClaymorgue()
     { CLAYMORGUE_C64, 0x2ab00, 0x10a5, TYPE_D64, 2, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), the Danish Crackers release behind a "773 - 695" menu, menu mover -> MegaByte Cruncher
     { CLAYMORGUE_C64, 0x2ab00, 0xf8c2, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Slam compilation with English Civil War: the Danish Crackers release in a file without a directory entry, Super Compressor
     { CLAYMORGUE_C64, 0x2ab00, 0x6dbd, TYPE_D64, 0, NULL, "CC3", -2, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), The Phantoms / SCS, not packed, in two files loading at $1000 and $8000
@@ -719,12 +719,42 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
    TryLoading, appends any Savage Island picture data, relocates
    graphics blocks via CopyData, and initializes the drawing system. */
 
+/* The Danish Crackers release of Claymorgue has fourteen damaged bytes
+   that every other release has intact: three in the system messages, three
+   in the interpreter, two in the tiles and six in the pictures, three of
+   those in the pool of dirty water. Put back what the other releases have.
+   The offsets are those of the unpacked program, which loads at $0801. */
+static void RepairDanishCrackersClaymorgue(uint8_t *data, size_t length)
+{
+    static const struct {
+        uint16_t offset;
+        uint8_t damaged;
+        uint8_t intact;
+    } repairs[] = {
+        { 0x0871, 0x07, 0x74 }, { 0x0876, 0x01, 0x77 }, { 0x0966, 0x01, 0x6f },
+        { 0x15e7, 0x7a, 0x3d }, { 0x1655, 0x52, 0xa9 }, { 0x18a6, 0x95, 0x92 },
+        { 0x29c1, 0x08, 0x01 }, { 0x29d3, 0x06, 0x01 },
+        { 0x69c1, 0x11, 0x10 }, { 0x69d3, 0x06, 0x20 },
+        { 0x75b1, 0x55, 0x80 },
+        { 0xa93f, 0x35, 0x06 }, { 0xa940, 0xe6, 0x90 }, { 0xa941, 0x33, 0x03 },
+    };
+
+    for (size_t i = 0; i < sizeof repairs / sizeof repairs[0]; i++) {
+        if (repairs[i].offset < length && data[repairs[i].offset] == repairs[i].damaged)
+            data[repairs[i].offset] = repairs[i].intact;
+    }
+}
+
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     size_t length = *extent;
 
     C64DecompressIterations(sf, &length, record.decompress_iterations,
         record.switches, record.parameter);
+
+    if (record.id == CLAYMORGUE_C64
+        && (record.chk == 0x5592 || record.chk == 0x10a5 || record.chk == 0xf8c2))
+        RepairDanishCrackersClaymorgue(*sf, length);
 
 #ifdef SCOTT_HEADLESS
     /* Debug: dump the decompressed image for offline analysis */

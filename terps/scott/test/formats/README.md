@@ -41,8 +41,9 @@ If one disk of a folder is missing the whole folder is skipped.
 
 ## Coverage
 
-288 rows, one per distinct loader result found among about a thousand local
-images:
+299 rows, one per distinct loader result found among about a thousand local
+images, and eleven more C64 releases that each take their own way through the
+loader:
 
 | Container | Rows | Variants |
 |-----------|------|----------|
@@ -50,7 +51,7 @@ images:
 | ZX Spectrum `.sna` | 14 | |
 | ZX Spectrum `.tap` | 19 | with and without loading screen |
 | ZX Spectrum `.tzx` | 32 | incl. the Alkatraz-protected *Scott Adams Scoops*, all four menu choices |
-| C64 `.d64` | 50 | plain and packed UK releases, US releases with pictures, the two-disk Claymorgue, the compilation disks (*Mysterious Adventures* 1 and 2, *Savage Island*, the twelve-game *Adventure Pack*), every menu choice |
+| C64 `.d64` | 61 | plain and packed UK releases, US releases with pictures, the two-disk Claymorgue, the compilation disks (*Mysterious Adventures* 1 and 2, *Savage Island*, the twelve-game *Adventure Pack*), every menu choice, a 40-track image, a program without a directory entry |
 | C64 `.t64` | 26 | UK and US releases |
 | Atari 8-bit `.atr` | 20 | both header variants, two-disk sets from either side, the DOS-less UK 16K *Spider-Man* boot disk |
 | Apple II `.dsk`, `.do` | 28 | two-disk sets from either side, single boot disks, with and without descramble table |
