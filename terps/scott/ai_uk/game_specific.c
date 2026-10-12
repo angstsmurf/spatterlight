@@ -7,6 +7,7 @@
 
 #include <string.h>
 
+#include "aiukpalette.h"
 #include "sagagraphics.h"
 #include "apple2draw.h"
 #include "game_specific.h"
@@ -18,6 +19,24 @@
 #include "scott_actions.h"
 #include "scott_display.h"
 
+/* DefinePalette() gives every palette but these three the C64 colours,
+   in which white is 1 and blue is 6. The others are in Spectrum order:
+   bright white is 15 and bright blue is 9. */
+static int HasC64Colours(void)
+{
+    return palchosen != ZX && palchosen != ZXOPT && palchosen != VGA;
+}
+
+int WhiteColour(void)
+{
+    return HasC64Colours() ? 1 : 15;
+}
+
+int BlueColour(void)
+{
+    return HasC64Colours() ? 6 : 9;
+}
+
 void UpdateSecretAnimations(void)
 {
     if (MyLoc != 13 || AnimationFlag == 0) {
@@ -27,7 +46,7 @@ void UpdateSecretAnimations(void)
     }
     /* Roll down */
     if (AnimationFlag > 0 && AnimationFlag < 48) {
-        RectFill(113, 0, 102, AnimationFlag, white_colour);
+        RectFill(113, 0, 102, AnimationFlag, WhiteColour());
         AnimationFlag++;
     }
     /* Flicker */

@@ -24,12 +24,6 @@
 #include "aiukpalette.h"
 
 
-/* Platform-dependent colour indices used by game-specific drawing code.
-   These are palette indices (into pal[]), not RGB values, and are set
-   by DefinePalette() to match the active platform's colour ordering. */
-int white_colour = 15;
-int blue_colour = 9;
-
 /* The active 16-entry palette: pal[i] holds an 0xRRGGBB value. */
 glui32 pal[16];
 
@@ -85,9 +79,8 @@ static const glui32 c64_rgb[16] = {
 };
 
 /* Populate the 16-entry pal[] array with RGB values for the chosen
-   platform palette, and set the platform-dependent colour indices
-   (white_colour, blue_colour). Anything that is not VGA, ZX or ZXOPT
-   gets the C64 colours, NO_PALETTE included. */
+   platform palette. Anything that is not VGA, ZX or ZXOPT gets the C64
+   colours, NO_PALETTE included. */
 void DefinePalette(void)
 {
     const glui32 *rgb;
@@ -107,14 +100,6 @@ void DefinePalette(void)
         break;
     }
     memcpy(pal, rgb, sizeof(pal));
-
-    if (rgb == c64_rgb) {
-        white_colour = 1;
-        blue_colour = 6;
-    } else {
-        white_colour = 15;
-        blue_colour = 9;
-    }
 }
 
 #define SPECTRUM_ORDER { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 }
@@ -178,16 +163,4 @@ uint8_t Remap(uint8_t color)
     if (color > 15 || (unsigned)palchosen >= PALETTE_COUNT)
         return 0;
     return remap_tables[palchosen][color];
-}
-
-
-/* Swap two palette entries. Only used by the Robin
-   of Sherwood lightning flash animation. */
-void SwitchPalettes(int pal1, int pal2)
-{
-    glui32 temp;
-
-    temp = pal[pal1];
-    pal[pal1] = pal[pal2];
-    pal[pal2] = temp;
 }

@@ -21,6 +21,11 @@ void SetParserWordLists(const char **directions, const char **skip_list,
 #define MAP_SYS_MESSAGES(keys, offset) \
     MapSysMessages((keys), sizeof(keys) / sizeof((keys)[0]), (offset))
 
+/* Indices into pal[] of the white and the blue that the animations of
+   Secret Mission and Robin of Sherwood paint with, in the palette in use */
+int WhiteColour(void);
+int BlueColour(void);
+
 void SecretAction(int p);
 void AdventurelandAction(int p);
 void AdventurelandDarkness(void);

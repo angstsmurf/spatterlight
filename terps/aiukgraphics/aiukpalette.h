@@ -32,15 +32,8 @@ typedef enum {
 
 uint8_t Remap(uint8_t color);
 void DefinePalette(void);
-void SwitchPalettes(int pal1, int pal2);
 
 extern glui32 pal[16];
 extern palette_type palchosen;
-
-// Indices into pal[] of two colours that game-specific animations
-// paint with directly: the Robin of Sherwood waterfall and the
-// Secret Mission screen. Set by DefinePalette().
-extern int white_colour;
-extern int blue_colour;
 
 #endif /* aiukpalette_h */

@@ -172,6 +172,13 @@ static void animate_waterfall(int first_col, int cols, int first_line,
     }
 }
 
+static void swap_palette_entries(int a, int b)
+{
+    glui32 temp = pal[a];
+    pal[a] = pal[b];
+    pal[b] = temp;
+}
+
 /* Draw one frame of the flash animation at the stone circle. Each
    call swaps blue/yellow palette entries (platform-dependent colours)
    and redraws image 77, creating a strobe effect. Stage 3 holds a long
@@ -179,10 +186,10 @@ static void animate_waterfall(int first_col, int cols, int first_line,
 static void animate_lightning(int stage)
 {
     if (palchosen == C64B) {
-        SwitchPalettes(6, 7);
+        swap_palette_entries(6, 7);
     } else {
-        SwitchPalettes(1, 14);
-        SwitchPalettes(9, 6);
+        swap_palette_entries(1, 14);
+        swap_palette_entries(9, 6);
     }
     DrawPictureNumber(77, 0);
     last_image_index = 77;
@@ -261,9 +268,9 @@ void UpdateRobinOfSherwoodAnimations(void)
         AnimationFlag = 0;
     if (MyLoc == 86 || MyLoc == 79 || MyLoc == 84) {
         if (MyLoc == 86) {
-            animate_waterfall(11, 6, 2, AnimationFlag, blue_colour, white_colour);
+            animate_waterfall(11, 6, 2, AnimationFlag, BlueColour(), WhiteColour());
         } else if (MyLoc == 79) {
-            animate_waterfall(31, 1, 3, AnimationFlag, white_colour, blue_colour);
+            animate_waterfall(31, 1, 3, AnimationFlag, WhiteColour(), BlueColour());
         }
     } else {
         glk_request_timer_events(0);
