@@ -556,8 +556,9 @@ uint8_t *woz2nib(uint8_t *woz_data, size_t *data_size)
          * no sync is found, decoding from bit 0 still recovers the track because
          * the latch self-syncs at the first gap it meets. The emitted run is
          * continuous, so any nibbles past one physical revolution simply repeat
-         * the start; ciderpress recovers the true revolution length from that
-         * duplication so a sector whose data field wraps the splice rejoins. */
+         * the start; FindRevolutionLength() in ciderpress.c recovers the true
+         * revolution length from that duplication so a sector whose data field
+         * wraps the splice rejoins. */
         const uint8_t *src = woz_data + trk->data_offset;
         uint8_t *track_out = outfile + output_pos;
         int reg = 0, nibble_count = 0, p = start_bit, guard = 0;
