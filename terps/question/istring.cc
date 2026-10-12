@@ -21,6 +21,7 @@
 #include "general.hh"
 #include <algorithm>
 #include <cstring>
+#include <strings.h>
 #include <iostream>
 
 using namespace std;
