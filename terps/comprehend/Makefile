@@ -55,7 +55,7 @@ C_SRCS := glkstart.c
 READWOZ_SRCS := $(READWOZ_DIR)/ciderpress.c $(READWOZ_DIR)/woz2nib.c
 
 OBJS := $(CXX_SRCS:.cpp=.o) $(C_SRCS:.c=.o) \
-        ciderpress.o woz2nib.o gm_vector.o gm_artifact.o
+        ciderpress.o woz2nib.o gm_vector.o gm_artifact.o randomness.o
 
 comprehend: $(OBJS)
 	$(CXX) $(LDFLAGS) -o $@ $^ $(LDLIBS)
@@ -69,6 +69,8 @@ comprehend: $(OBJS)
 ciderpress.o: $(READWOZ_DIR)/ciderpress.c
 	$(CC) $(CFLAGS) -c $< -o $@
 woz2nib.o: $(READWOZ_DIR)/woz2nib.c
+	$(CC) $(CFLAGS) -c $< -o $@
+randomness.o: $(COMMON_DIR)/randomness.c $(COMMON_DIR)/randomness.h
 	$(CC) $(CFLAGS) -c $< -o $@
 gm_vector.o: $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_vector.h
 	$(CC) $(CFLAGS) -c $< -o $@
