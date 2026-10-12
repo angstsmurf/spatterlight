@@ -398,6 +398,32 @@ void scnIntros(UnpStr *unp) {
 			return;
 		}
 	}
+	/* The "773 - 695" menu, a Hungarian advertisement for the Formel 64 and
+	 * Fastload cartridges. F7 starts the program: the menu moves a routine
+	 * to $033c, which moves the program down to $0801, adding $26 to every
+	 * byte, and jumps to the address it found at $080f. Nothing but that
+	 * key gets there, so the routine is put in place here. */
+	if (unp->_depAdr == 0) {
+		if (u32eq(mem + 0x9fc, 0x83B900A0) &&
+			u32eq(mem + 0xa01, 0xC8033C99) &&
+			u32eq(mem + 0xa07, 0x3C4CF5D0)) {
+			p = READ_LE_UINT16(&mem[0x9ff]);
+			if (u32eq(mem + p + 0x23, 0x69183DB1) &&
+				u32eq(mem + p + 0x28, 0xD0C83991) &&
+				u32eq(mem + p + 0x3e, 0x6CD0158D)) {
+				q = readSplit(mem, p + 0x09, p + 0x0d);
+				unp->_strMem = readSplit(mem, p + 0x01, p + 0x05);
+				unp->_endAdr = unp->_info->_end - q + unp->_strMem;
+				unp->_retAdr = READ_LE_UINT16(&mem[0x80f]);
+				unp->_rtAFrc = 1;
+				memmove(mem + 0x33c, mem + p, mem[0xa06]);
+				unp->_forced = 0x33c;
+				unp->_depAdr = 0x33c;
+				unp->_idFlag = 1;
+				return;
+			}
+		}
+	}
 }
 
 } // End of namespace Unp64

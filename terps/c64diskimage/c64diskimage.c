@@ -493,6 +493,8 @@ DiskImage *di_create_from_data(uint8_t *data, int length)
     case D64ERRSIZE: /* D64 with error info */
         // di->errinfo = &(di->error_);
         // fallthrough
+    case D64_40SIZE: /* 40 track D64, with or without error info. */
+    case D64_40ERRSIZE: /* The extra tracks 36 to 40 are not read. */
     case D64SIZE: /* standard D64 */
         di->type = D64;
         di->bam.track = 18;

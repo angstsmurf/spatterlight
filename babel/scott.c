@@ -143,6 +143,10 @@ static const struct scottrec scott_registry[] = {
     { 0xb80d, 0x12c2, TIME_MACHINE_IFID }, // The Time Machine TAP
     { 0x5032, 0x5635, TIME_MACHINE_IFID }, // The Time Machine C64
    { 0x2ab00, 0xed21, TIME_MACHINE_IFID }, // The Time Machine D64 2
+   { 0x2ab00, 0x6ed7, TIME_MACHINE_IFID }, // The Time Machine D64, Supersoft
+   { 0x2ab00, 0x446e, TIME_MACHINE_IFID }, // The Time Machine D64, Cream Crackers
+   { 0x2ab00, 0x4c9e, TIME_MACHINE_IFID }, // The Time Machine D64, Megabyte
+   { 0x2ab00, 0x37c1, TIME_MACHINE_IFID }, // The Time Machine D64, BASIC loader and TIME2
     { 0x8539, 0xad02, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80
     { 0x8699, 0xbb7b, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt
     { 0x7844, 0xd892, ARROW_OF_DEATH_PART_1_IFID }, // Arrow of Death part 1 z80 alt 2
@@ -371,6 +375,21 @@ static const struct scottrec scott_registry[] = {
    { 0x2ab00, 0x7ece, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt
    { 0x2ab00, 0x0b54, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt 2
    { 0x2ab00, 0xf70c, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64) alt 2
+   { 0x2ab00, 0x2c7a, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Dr. Bakterius & Mr. L, Section8 Packer
+   { 0x2ab00, 0xc349, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), All Stars, Time Cruncher v3.x -> MC-Cracken Compressor
+   { 0x2ab00, 0x7ea6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Trilogic Expert v2.7
+   { 0x2ab00, 0x2e5d, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Cracked by ABC, MasterCompressor / Relax -> ECA Compacker -> MegaByte Cruncher v1.x, missing 17 pictures
+   { 0x2ab00, 0x188f, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), NICS, not packed, loads at $0801
+   { 0x2ab00, 0x95c1, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Doctor Mabuse, Section8 Packer
+   { 0x2ab00, 0x5592, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Danish Crackers, not packed
+   { 0x2ab00, 0x10a5, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Danish Crackers behind a "773 - 695" menu
+   { 0x2ab00, 0xf8c2, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), Slam compilation with English Civil War
+   { 0x2ab00, 0x6dbd, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle C64 (D64), The Phantoms / SCS
+   { 0x2ab00, 0x0975, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64), Section 8
+   { 0x2ab00, 0x3bd6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64), TIF
+   { 0x2ab00, 0x3f2b, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64), e=mc2, disk A
+   { 0x30300, 0x8ef3, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64, 40 tracks), OLICS
+   { 0x2ab00, 0x4224, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64), Florasoft, Section8 Packer
 
    { 0x2adab, 0x1fac, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)
    { 0x2ab00, 0xfbb6, SORCERER_OF_CLAYMORGUE_CASTLE_IFID }, // Sorcerer Of Claymorgue Castle US (D64)

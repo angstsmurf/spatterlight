@@ -52,6 +52,10 @@ static const c64rec c64_registry[] = {
     { FEASIBILITY_C64,  0x2ab00, 0x9c18, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Mysterious Adventures C64 dsk 2 alt
     { TIME_MACHINE_C64, 0x5032,  0x5635, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine C64
     { TIME_MACHINE_C64, 0x2ab00, 0xed21, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine D64
+    { TIME_MACHINE_C64, 0x2ab00, 0x6ed7, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine D64, Supersoft
+    { TIME_MACHINE_C64, 0x2ab00, 0x446e, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine D64, Cream Crackers
+    { TIME_MACHINE_C64, 0x2ab00, 0x4c9e, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine D64, Megabyte
+    { TIME_MACHINE_C64, 0x2ab00, 0x37c1, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // The Time Machine D64, BASIC loader and TIME2
     { ARROW1_C64,       0x5b46,  0x92db, TYPE_T64, 1, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 1 C64
     { ARROW1_C64,       0x2ab00, 0xe71d, TYPE_D64, 0, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 1 C64 D64
     { ARROW1_C64,       0x2ab00, 0x7687, TYPE_D64, 2, NULL, NULL, 0, 0, 0, 0, 0 }, // Arrow of Death part 1 C64 D64 alt
@@ -113,6 +117,21 @@ static const c64rec c64_registry[] = {
     { CLAYMORGUE_US, 0x2ab00, 0xfbb6, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 },
     { CLAYMORGUE_US, 0x2ab00, 0x0b54, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 },
 
+    { CLAYMORGUE_C64, 0x2ab00, 0x2c7a, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Dr. Bakterius & Mr. L, Section8 Packer
+    { CLAYMORGUE_C64, 0x2ab00, 0xc349, TYPE_D64, 2, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), All Stars, Time Cruncher v3.x -> MC-Cracken Compressor
+    { CLAYMORGUE_C64, 0x2ab00, 0x7ea6, TYPE_D64, 1, NULL, NULL, 0, 0, 0, 0, -0x7fe }, // Sorcerer Of Claymorgue Castle C64 (D64), Trilogic Expert v2.7
+    { CLAYMORGUE_C64, 0x2ab00, 0x2e5d, TYPE_D64, 3, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Cracked by ABC, MasterCompressor / Relax -> ECA Compacker -> MegaByte Cruncher v1.x, missing 17 pictures
+    { CLAYMORGUE_C64, 0x2ab00, 0x188f, TYPE_D64, 0, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), NICS, not packed, loads at $0801
+    { CLAYMORGUE_C64, 0x2ab00, 0x95c1, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Doctor Mabuse, Section8 Packer
+    { CLAYMORGUE_C64, 0x2ab00, 0x5592, TYPE_D64, 0, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Danish Crackers, not packed. 14 bytes of text and picture data differ from the other releases
+    { CLAYMORGUE_C64, 0x2ab00, 0x10a5, TYPE_D64, 2, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), the Danish Crackers release behind a "773 - 695" menu, menu mover -> MegaByte Cruncher
+    { CLAYMORGUE_C64, 0x2ab00, 0xf8c2, TYPE_D64, 1, NULL, NULL, 0, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), Slam compilation with English Civil War: the Danish Crackers release in a file without a directory entry, Super Compressor
+    { CLAYMORGUE_C64, 0x2ab00, 0x6dbd, TYPE_D64, 0, NULL, "CC3", -2, 0x855, 0x7352, 0x20, 0 }, // Sorcerer Of Claymorgue Castle C64 (D64), The Phantoms / SCS, not packed, in two files loading at $1000 and $8000
+    { CLAYMORGUE_US, 0x2ab00, 0x0975, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 }, // Sorcerer Of Claymorgue Castle US (D64), Section 8
+    { CLAYMORGUE_US, 0x2ab00, 0x3bd6, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 }, // Sorcerer Of Claymorgue Castle US (D64), TIF. Picture R13006 is damaged
+    { CLAYMORGUE_US, 0x2ab00, 0x3f2b, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 }, // Sorcerer Of Claymorgue Castle US (D64), e=mc2, disk A
+    { CLAYMORGUE_US, 0x30300, 0x8ef3, TYPE_US, 0, NULL, "SAGA.DB", 0, 0, 0, 0, 0 }, // Sorcerer Of Claymorgue Castle US (D64, 40 tracks), OLICS
+    { CLAYMORGUE_US, 0x2ab00, 0x4224, TYPE_US, 1, NULL, "SAGA 13", 0, 0, 0, 0, 0 }, // Sorcerer Of Claymorgue Castle US (D64), Florasoft, Section8 Packer. Interpreter and database in one file
     { HULK_C64,      0x2ab00, 0xcdd8, TYPE_D64, 0, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64)
     { HULK_C64,      0x2ab00, 0x3d57, TYPE_D64, 1, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 1
     { HULK_C64,      0x2ab00, 0x910b, TYPE_D64, 1, NULL, NULL, 0, 0x1806, 0xb801, 0x307, 0 },  // Questprobe 1 - The Hulk C64 (D64) www.c64hq.com crack 2 (TCS-Crunch)
@@ -192,6 +211,25 @@ static uint8_t *get_largest_file(uint8_t *data, int length, int *newlength)
                 file = di_read_file(c64file, &filelength);
                 *newlength = (int)filelength;
             }
+        }
+        free(d64);
+    }
+    return file;
+}
+
+/* Extract the file that starts at a given track and sector of a D64 disk
+   image, for a program that the directory of the disk does not list. */
+static uint8_t *get_file_at_ts(uint8_t *data, int length, int *newlength, int track, int sector)
+{
+    uint8_t *file = NULL;
+    *newlength = 0;
+    DiskImage *d64 = di_create_from_data(data, length);
+    if (d64) {
+        ImageFile *c64file = di_create_file_from_ts(d64, track, sector);
+        if (c64file) {
+            size_t filelength;
+            file = di_read_file(c64file, &filelength);
+            *newlength = (int)filelength;
         }
         free(d64);
     }
@@ -497,7 +535,14 @@ static size_t writeToFile(const char *name, uint8_t *data, size_t size)
 static int ExtractD64Game(uint8_t **sf, size_t *extent, const c64rec *rec)
 {
     int newlength;
-    uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
+    uint8_t *largest_file;
+    /* The Slam compilation lists a copy of Claymorgue that ends 2.8 KB
+       short, C1/SLAM. A complete, packed one is still on the disk, at
+       track 22, sector 4, with no directory entry. */
+    if (rec->chk == 0xf8c2)
+        largest_file = get_file_at_ts(*sf, *extent, &newlength, 22, 4);
+    else
+        largest_file = get_largest_file(*sf, *extent, &newlength);
     uint8_t *appendix = NULL;
     size_t appendixlen = 0;
 
@@ -638,6 +683,16 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 }
 
                 GameIDType result = LoadBinaryDatabase(database_file, newlength, *Game, 0);
+                /* An unpacked program may hold the interpreter in front
+                   of the database, which SAGA.DB loads to $8030. */
+                if (!result && c64_registry[i].decompress_iterations && newlength > 2) {
+                    long dbstart = 0x8030 - READ_LE_UINT16(database_file);
+                    if (dbstart > 0 && (size_t)dbstart < newlength) {
+                        newlength -= dbstart;
+                        memmove(database_file, database_file + dbstart, newlength);
+                        result = LoadBinaryDatabase(database_file, newlength, *Game, 0);
+                    }
+                }
                 if (result) {
                     CurrentSys = SYS_C64;
                     LoadC64USImages(*sf, *extent);
@@ -715,6 +770,10 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
         appendSIfiles(sf, extent);
     }
 
+    /* The copy offsets of the Claymorgue records are those of a program
+       loaded at $0800. Some releases load it elsewhere. */
+    int shift = (CurrentGame == CLAYMORGUE_C64) ? file_baseline_offset : 0;
+
     /* Relocate graphics data to the addresses the drawing engine expects.
        Gremlins preserves a $1000-byte block that would otherwise be lost
        across the CopyData reallocation, and rewrites it at a shifted offset. */
@@ -725,8 +784,8 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
         *extent = newSize;
         memcpy(*sf + 0xc774, overlap, 0x1000);
     } else if (record.copysource != 0) {
-        size_t newSize = CopyData(record.copydest, record.copysource, sf, *extent,
-            record.copysize);
+        size_t newSize = CopyData(record.copydest + shift, record.copysource + shift,
+            sf, *extent, record.copysize);
         if (newSize) {
             *extent = newSize;
         }
@@ -734,7 +793,7 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 
     /* Claymorgue has extra image data that needs copying to a high offset */
     if (CurrentGame == CLAYMORGUE_C64 && record.copysource == 0x855) {
-        size_t newSize = CopyData(0x1531a, 0x2002, sf, *extent, 0x2000);
+        size_t newSize = CopyData(0x1531a + shift, 0x2002 + shift, sf, *extent, 0x2000);
         if (newSize) {
             *extent = newSize;
         }
