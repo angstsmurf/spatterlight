@@ -13,7 +13,7 @@
 
 Every row of SCRIPTDIR/scripts.tsv names a command script in that folder and
 one game from IMAGEDIR/games.manifest.tsv, the manifest of the picture tests
-(run_image_tests.py). The game is started in HL (plus_hl, taylor_hl) with the
+(run_image_tests.py). The game is started in HL (plus_hl, taylor_hl, level9_hl) with the
 keys of its manifest row and then the script on standard input, and the
 SHA-256 and line count of the transcript are compared with the row. The
 transcripts themselves are game text and are not kept; --save writes them

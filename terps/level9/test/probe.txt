@@ -1,0 +1,14 @@
+look
+inventory
+north
+south
+east
+west
+up
+down
+examine me
+get all
+1
+2
+3
+score

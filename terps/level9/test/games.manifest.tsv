@@ -1,0 +1,163 @@
+# Game images for the loader test of the Level 9 interpreter
+# (../../common_imagetest/run_script_tests.py, see README.md). Rows are added
+# by collect.py.
+#
+# id      names the row: the container and the file name
+# dir     folder under games/ the file lives in
+# file    file name
+# sha256  of the file
+# keys    keys typed before the first command line. None so far
+# note    game as the interpreter names it, "unnamed" if it has no name for it
+#
+# id	dir	file	sha256	keys	note
+sna-time	sna-time	TIME.SNA	3fcb9e55f5c1f4b888bfa44738dbcdf8f4e9a1688196beacad12de2d80b5ff2f		Lords of Time (v1)
+sna-eden	sna-eden	EDEN.SNA	4b0f25bd26abb0e00f224bb72307b0bcc6f28d449590256a98502957979d6587		Return to Eden (Spectrum[v2
+sna-emerald	sna-emerald	EMERALD.SNA	27a813396487bcfd27b037439d9980cb6b35457b1ea0999e5bee17091d826933		Emerald Isle (Atari/Commodore 64/Amstrad CPC/Spectrum/MSX)
+sna-erik	sna-erik	ERIK.SNA	bb26c67caaf2cf767a22a2118c358827ff1e23c3cc1892c1abac6fcde1f461f6		Erik the Viking (Spectrum)
+sna-redmoon	sna-redmoon	REDMOON.SNA	7ef3c56a448ed15daad3d63ec95c1b24ea69862981a9093de90b3046322b8fb4		Red Moon (Spectrum)
+sna-time-2	sna-time-2	TIME.SNA	e78fa98dec7c9146270b949703ab00cf5e84393ee69a5ae3e5002c8582e31827		Lords of Time (Spectrum/MSX *fixed*)
+sna-advquest	sna-advquest	ADVQUEST.SNA	78e04b3474bc39adba42253146c272e17131ccab71b80217bc8ad179bd07679e		Adventure Quest /JoD (Spectrum 48)
+sna-colossal	sna-colossal	COLOSSAL.SNA	7aea4c88e2f5e0e5dda86e02b2ae663dd1e6b95ea13659199a7ca93ee7def3c5		Colossal Adventure /JoD (Spectrum 48)
+sna-dungeon	sna-dungeon	DUNGEON.SNA	c51e08a00dc9de30a1ed9bcb2eb1d0bd2dacebeae1ea08c9cf27e3e02dae3c99		Dungeon Adventure /JoD (Spectrum 48)
+sna-eden-2	sna-eden-2	EDEN.SNA	a544301c3e1535ca4ec226400f6e44e448f11303b30668000cb398148c555db9		Return to Eden /SD (Spectrum 48)
+sna-mole1	sna-mole1	MOLE1.SNA	accf23fee51a10eefe7c4c45579ed68db8ce50c9ec0bad0786c0930d42577044		Adrian Mole II, pt. 1 (Spectrum)
+sna-mole2	sna-mole2	MOLE2.SNA	e59bcbf6c6fbf9eba45c39ccfc4d053bff5e7542dc56f1e9614e00756eeee67d		Adrian Mole II, pt. 2 (Spectrum)
+sna-mole3	sna-mole3	MOLE3.SNA	bc5ffd69b12445b8677abd3904e27f0ffbf601eca9905aae0909bbe31488d184		Adrian Mole II, pt. 3 (Spectrum)
+sna-mole4	sna-mole4	MOLE4.SNA	adc20596bc0f7b41e164c7d9b681bff0c45fdb3da682699c408ce3f94da620c8		Adrian Mole II, pt. 4 (Spectrum)
+sna-price	sna-price	PRICE.SNA	73e621bfe0501f1de8816ff05c68f310b073ed98f9942a1f90a8dcd504e418f8		Price of Magik (Spectrum 48[v2
+sna-snowball	sna-snowball	SNOWBALL.SNA	c87f3cfd7ba1522fcb6610745a92a5589dfe33e7001a4938271c966583006a50		Snowball /SD (Spectrum 48)
+sna-worm	sna-worm	WORM.SNA	07940760dbcf33683c48649b976091c9d114d8e99ca65f466ed163d4e9a80b0c		Worm in Paradise /SD (Spectrum 48)
+sna-redmoon-2	sna-redmoon-2	REDMOON.SNA	3caa39603a74d657a1b87e37dfed225aeb483e0c45c3a2ffdf83b26b982f6007		Red Moon /T&M (Spectrum 48)
+sna-time-3	sna-time-3	TIME.SNA	e63b3217fa6f0728a482b683abfdfd42a512abac16073b3c54fbf94b07117448		Lords of Time /T&M (Spectrum 48)
+z80-adquest	z80-adquest	ADQUEST.Z80	4d8dcd74ffcffbc4568456a9c8a959fea409646c79d95b1b3fe100cd8ffe5e9c		Adventure Quest /JoD (Spectrum 48)
+z80-colladv	z80-colladv	COLLADV.Z80	e26f68225cb3425f5d88f8dc93c2bb7b91aa88a8a27e0945542893bc8cc5dbb1		Colossal Adventure /JoD (Spectrum 48)
+z80-dunadv	z80-dunadv	DUNADV.Z80	4272ec301c15dbdd2ca4912fc39f7f462763cc62cb47b636438c94f1e6dfa841		Dungeon Adventure /JoD (Spectrum 48)
+z80-eden	z80-eden	EDEN.Z80	a2026873cba6b2e52917eb5455b591a8691a069cb88303c49a3ce7e81d550217		Return to Eden (Spectrum[v2
+z80-eden128	z80-eden128	EDEN128.Z80	f34e131b1bdf564b1f639ca382c13e6005b78bda4510b970635a6dd9537f363e		Return to Eden /SD (Spectrum 128)
+z80-emerald	z80-emerald	EMERALD.Z80	ad008d9fb0e30cb3809182de6dfdca4de9ffe441361005370b7e5b1429cdd532		Emerald Isle (Atari/Commodore 64/Amstrad CPC/Spectrum/MSX)
+z80-erik	z80-erik	ERIK.Z80	34a1c0817a974f2cae80426176ef28e8b17838ef43120cfef6141de0565f0316		Erik the Viking (Spectrum)
+z80-magik	z80-magik	MAGIK.Z80	c158d9a96301f841e870c34b1570af5cd7cb2545bcaa63b9f5e4973607f2d5ab		Price of Magik (Spectrum 48[v2
+z80-redm128	z80-redm128	REDM128.Z80	6f11513a9881e65bf41a49e81b0198e9c8d3aac15de7252e05379c416c19fd31		unnamed
+z80-redmoon	z80-redmoon	REDMOON.Z80	1179cd6b016f4cd0207869fcaa5148b446e2c83bc50f436bc7d629f3ebaa1b9b		Red Moon (Spectrum)
+z80-snowball	z80-snowball	SNOWBALL.Z80	f13eefaf6e442e7c7f07f437c0c8e53700252bcd104bab33d5ea5e9cf1121d1a		Snowball /SD (Spectrum 48)
+z80-time	z80-time	TIME.Z80	2f0eb88c25c3553bc63c5fd3833e00c4f22505363941e3b38b6ae1ff4baf59fa		Lords of Time (v1)
+z80-time128	z80-time128	TIME128.Z80	3821895f71ea601e1743e2fc3571f823c7d624c3490c5ae0aaedc993255ca860		unnamed
+z80-worm	z80-worm	WORM.Z80	367cffd3b0864078af05efd8d51a05437e7af429432ab2a3c81d5b02872ebb96		Worm in Paradise /SD (Spectrum 48)
+z80-ghost1	z80-ghost1	ghost1.z80	b5769cb85233f1c67326dc3729ec048a1a81bc950ff4752ca925bcafd67d1ab9		unnamed
+dat-l9startfile	dat-l9startfile	l9startfile.dat	31e8ea9fc2591dcafbdaf85f183cc8aaa65a0d10e50fb8fc0f7a4684d4d39b07		Lords of Time (v1)
+sna-mole	sna-mole	mole.sna	f1eec43d3c7d274c3f260e5086c1c496a7d10c175c0af108c8a087fef6e3e3b1		unnamed
+sna-mole3-2	sna-mole3-2	mole3.sna	1ca246f1f4ebbd938a8ded7b08a996a8190fb01719297d0e36fbcaf83e95a0d4		unnamed
+sna-mole4-2	sna-mole4-2	mole4.sna	d0ae6060672d85607a64f940d76c41e780abb64d81155cae7af6787a712a6d5c		unnamed
+z80-adrmole1	z80-adrmole1	ADRMOLE1.Z80	78367353c912189f492d5c8624e0a4169aeb992d6030117c1c01dace4f5a30e9		Adrian Mole I, pt. 1 (Spectrum)
+z80-adrmole2	z80-adrmole2	ADRMOLE2.Z80	8136258874bc2bc4dcc64d76dd0dcc2f0bbab8b90727fddc76a144976114722c		unnamed
+z80-adrmole3	z80-adrmole3	ADRMOLE3.Z80	2c791e566f173e62e3973d541ca5dcd5171c3cba697ee2881b334efd491ea8dd		Adrian Mole I, pt. 3 (Spectrum)
+z80-adrmole4	z80-adrmole4	ADRMOLE4.Z80	139ce4d69fdeafb312fcf5c97e59d72a797c2af1d5dda9aff4ad63b7d7758a2a		Adrian Mole I, pt. 4 (Spectrum)
+z80-adventq2	z80-adventq2	ADVENTQ2.Z80	c767a09af63ab80beb22310d083299dace50209843843495cd52eec123c07b4f		Adventure Quest (Amstrad CPC/Spectrum)
+z80-archers1	z80-archers1	ARCHERS1.Z80	6c843df97a66faadbf193208bb32a10b7a5124b04491c079ce7eeb2818ef4ec8		unnamed
+z80-archers2	z80-archers2	ARCHERS2.Z80	523f561d8c6885a5945462ec50c4bdddbf028ddfa22900e557edb775b0a2014f		unnamed
+z80-archers3	z80-archers3	ARCHERS3.Z80	808495ca40c0435db183372ddf47ca023c62ac9e95ab740c0efc842a3c18779f		The Archers, pt. 3 (Spectrum)
+z80-adventure-quest-1982-level-9-computing	z80-adventure-quest-1982-level-9-computing	Adventure Quest (1982)(Level 9 Computing).z80	d9dd661c6f147ee66e545dc9017cc493187e13910a6caedd642620094c57ef32		Adventure Quest (v1)
+z80-dungeona	z80-dungeona	DUNGEONA.Z80	6cf04f4c03228478c17425ea0bb4831dddd810fc18c695e77f9ed763a278273a		Dungeon Adventure (v1)
+z80-gp-mole1	z80-gp-mole1	GP-MOLE1.Z80	19bf162f4f80d67078d5c1a5f75134f7935775a39fc7a3f3205c19c2317a50b2		Adrian Mole II, pt. 1 (Spectrum)
+z80-gp-mole2	z80-gp-mole2	GP-MOLE2.Z80	4038d8e1e7aa1557ef6a801806f02c97fa50135c2ca6eb6df92e6c9fbadb48fa		Adrian Mole II, pt. 2 (Spectrum)
+z80-gp-mole3	z80-gp-mole3	GP-MOLE3.Z80	a2c9b766b6be924400cfcc8c1c00b3ccd4dbdab2d610255ad2d24a07d0a932ad		Adrian Mole II, pt. 3 (Spectrum)
+z80-gp-mole4	z80-gp-mole4	GP-MOLE4.Z80	9ad6d35451a4eb00901463dd0dc1fb013607323a36958756dd0879032dd68538		Adrian Mole II, pt. 4 (Spectrum)
+dsk-jewels-of-darkness	dsk-jewels-of-darkness	Jewels Of Darkness.dsk	a098489afc94b252473fa4797b504d94d46d5632c4abfe7d6958deb3f2892a40		Colossal Adventure /JoD (Amstrad CPC128[v1
+tap-lordsot2	tap-lordsot2	LORDSOT2.TAP	fecd28220fbd0ceaad89e01f7b0047b73b9838dceb9cc96478528bf9a7039abc		Lords of Time (Spectrum/MSX *fixed*)
+z80-lordtime	z80-lordtime	LORDTIME.Z80	47d498ee7fb5ccd42f4b37969cb66c57952ccac14ad2b0fa2086294b29ee38bc		Lords of Time (v1)
+z80-priceom1	z80-priceom1	PRICEOM1.Z80	f411021bad5d32133534780360cd75f5724e8c0e3701b32e76b656f0ff088a44		Price of Magik (Spectrum 128)
+z80-price-of-magik-the-1986-level-9-computing-128k-a	z80-price-of-magik-the-1986-level-9-computing-128k-a	Price of Magik, The (1986)(Level 9 Computing)(128K)[a].z80	026e3b8db4c96e875c8a8ecab57ae51555d389fc0e8f7e6db12d87c609b984f0		Price of Magik (Spectrum 128)
+z80-redmoon-2	z80-redmoon-2	REDMOON.Z80	4a1b008d24a5ddc42d71bba590ac4c34dbf41ee35a844cb30b7a5fe4c123c5da		Red Moon (Spectrum)
+z80-ret-eden	z80-ret-eden	RET_EDEN.Z80	cbe85af6cccca3b0073b8c2f4619f2e46b286aec4b35c703e037361f28c11fa0		Return to Eden (Spectrum[v1
+tap-red-moon	tap-red-moon	Red Moon.tap	a9ca8ae586341ab4ef52a8fe330eec0a21d6ce41dac3808ac36c58623f35cf55		Red Moon (Spectrum)
+tzx-red-moon	tzx-red-moon	Red Moon.tzx	cb23a5ea295377d2b50bfbcf775bea722e3aa821832e7c0184a56d0866661286		Red Moon (Spectrum)
+z80-scape1	z80-scape1	SCAPE1.Z80	caf2d5894487877fca227af40d4a61fdd94ea45e4090029a49a15556bea00190		unnamed
+z80-scape2	z80-scape2	SCAPE2.Z80	78a6edbaa9db0ef5f4ae1ad22f2822226c5658171e72de5aaf99c9ac4c03e549		unnamed
+z80-scape3	z80-scape3	SCAPE3.Z80	230e45654978230414bbbc7fda400c4d5832118b7910cc84f525b0ded91bc865		unnamed
+z80-secret-diary-of-adrian-mole-the-1985-mosaic-publishing-part-1-of-4-a	z80-secret-diary-of-adrian-mole-the-1985-mosaic-publishing-part-1-of-4-a	Secret_Diary_of_Adrian_Mole_The_1985_Mosaic_Publishing_Part_1_of_4_a.z80	6c1ff2134f0bde659e07d02f07b88d2d0c69847092729538b58afd8c2c795815		unnamed
+dsk-silicon-dreams	dsk-silicon-dreams	Silicon Dreams.dsk	4c85f380b066605a319df0cf434c2cf8149272e5792482120d7925996724d268		Snowball /SD (Amstrad CPC/Spectrum +3)
+z80-silicon-dreams-trilogy-i-snowball-1983-level-9-computing-a	z80-silicon-dreams-trilogy-i-snowball-1983-level-9-computing-a	Silicon_Dreams_Trilogy_I_Snowball_1983_Level_9_Computing_a.z80	08f3997f2b9a4966381553692d20ff30451341287a78b2c095f439a829e33aa0		Snowball (v1)
+tzx-the-price-of-magik-side-1	tzx-the-price-of-magik-side-1	The Price Of Magik - Side 1.tzx	14dd625cad665a26d2dd6a8124a37a7498ac527691a1e4346aded369ff63ef2b		Price of Magik (Spectrum 128)
+tzx-the-saga-of-erik-the-viking	tzx-the-saga-of-erik-the-viking	The Saga Of Erik The Viking.tzx	765aa727a806a4caa8bb8b12b75e3cb4500adcbc7d67ce5ebe064dd5f7a94c1c		Erik the Viking (Spectrum)
+tzx-the-secret-diary-of-adrian-mole-alternative	tzx-the-secret-diary-of-adrian-mole-alternative	The Secret Diary Of Adrian Mole (Alternative).tzx	0703aa9f5a6a477c0632d623c6068decd8866aad1e60fec2bf72bd36f106b014		Adrian Mole I, pt. 1 (Spectrum)
+z80-worminp1	z80-worminp1	WORMINP1.Z80	00488e1a350b9dba13260720b8540348404beef34db745124d0913920b728ec5		Worm in Paradise (Spectrum 128/MSX)
+z80-wormpara	z80-wormpara	WORMPARA.Z80	7988a30dc333354e1cd41d6024a2cb317ac6a45216f90cfe29dcbe30e54332a3		Worm in Paradise (Spectrum 48)
+tap-coloscve	tap-coloscve	COLOSCVE.TAP	7b0b0b16f1b86550c443e74da34e4bb189d200e83a39eed97ef40844229a4073		Colossal Adventure (v1)
+tzx-jewels-of-darkness-1986-rainbird-software	tzx-jewels-of-darkness-1986-rainbird-software	Jewels of Darkness (1986)(Rainbird Software).tzx	9ec9d447156c73cfb56d5d38131440444756827347d75fb86d2d9396b0ca0cd1		Colossal Adventure /JoD (Spectrum 48)
+tzx-jewels-of-darkness-1986-rainbird-software-128k	tzx-jewels-of-darkness-1986-rainbird-software-128k	Jewels of Darkness (1986)(Rainbird Software)[128K].tzx	a79293d10d0a9dba828fe91586cb0849f8bd6764a5982c9a9869c23fc7ec94a0		Colossal Adventure /JoD (Spectrum 128)
+dsk-knight-orc-side-a	dsk-knight-orc-side-a	Knight Orc - Side A.dsk	ee56b716d75e90576b250aea5a85e93659c116de5a73f472488ec283b6f85f7d		unnamed
+dsk-knight-orc-side-b	dsk-knight-orc-side-a	Knight Orc - Side B.dsk	ecd793fe4a3475ff01267fda9489bfcc71980a85c5ccd19d5a7da40502367d66		unnamed
+tzx-knight-orc-part-1-128k	tzx-knight-orc-part-1-128k	Knight Orc - Part 1 - 128k.tzx	1d9188a1fb7f8b6dc79b38d51052e80ff52920492db25019940fc613534802c4		unnamed
+l9-knight-orc-part-1-48k	l9-knight-orc-part-1-48k	Knight Orc - Part 1 - 48k.l9	8735c7c1b83650bf7446ff2d9be16321071c50fad78b1e3ea014741e9f5f3488		Knight Orc, pt. 1 (Spectrum 48)
+tzx-knight-orc-part-1-48k	tzx-knight-orc-part-1-48k	Knight Orc - Part 1 - 48k.tzx	39ce34c917bcfbf318d01102a85a8db8d8c59c6d862dfd41d7a71b9b346b3ce7		Knight Orc, pt. 1 (Spectrum 48)
+tzx-knight-orc-part-2-128k	tzx-knight-orc-part-2-128k	Knight Orc - Part 2 - 128k.tzx	1a8f000bd9012ba9316eb103a8d168df739c6e3e84d36d0602c14ff933ee56e5		unnamed
+tzx-knight-orc-part-2-48k	tzx-knight-orc-part-2-48k	Knight Orc - Part 2 - 48k.tzx	f030f3086e5c125302fcce3a6164a51fcca0a559d0af2fe5270f9294d09dcfa6		Knight Orc, pt. 2 (Spectrum 48)
+tzx-knight-orc-part-3-128k	tzx-knight-orc-part-3-128k	Knight Orc - Part 3 - 128k.tzx	94a3c2931db20a60635e8e37531ba829c7b356b1bf81c8f30655df97f514f9cb		unnamed
+tzx-knight-orc-part-3-48k	tzx-knight-orc-part-3-48k	Knight Orc - Part 3 - 48k.tzx	d7fd8f7c6a058e70d10ac342df78d147f46f626f84f9bccbf46cf05f2a9cb993		Knight Orc, pt. 3 (Spectrum 48)
+dat-gamedat1	dat-lancelot	GAMEDAT1.dat	b6354ac4131ae7398a7df3cb0a4903fae3407244b3894b26c1845b66b7cfa136		Lancelot, pt. 1 (Amiga/PC/ST)
+dat-gamedat2	dat-lancelot	GAMEDAT2.dat	97d72666ac8684a228b1ad69520e66fae9ae4364e1980fb9a2f0c833ffafbacc		Lancelot, pt. 1 (Amiga/PC/ST)
+dat-gamedat3	dat-lancelot	GAMEDAT3.dat	dd2f1eb7b54db91c9a4281888e5988fb2bdc5a2e70906d612bec2b8d7133030d		Lancelot, pt. 3 (Amiga/PC/ST)
+tzx-the-archers-side-1	tzx-the-archers-side-1	The Archers - Side 1.tzx	72ee70fdadb65c10fd9d618d21ef14b5cc55d4b1b30e94dfd3d7c9aa94563375		The Archers, pt. 1 (Spectrum)
+tzx-the-archers-side-2	tzx-the-archers-side-2	The Archers - Side 2.tzx	3a32f7fbad64cf5135aa9da6aa791b8189441fc1dd2d3ac6985befd10f0255c9		The Archers, pt. 3 (Spectrum)
+tzx-gnome-ranger-side-a	tzx-gnome-ranger-side-a	Gnome Ranger - Side A.tzx	80664aea95a072f59034d58db8edf407ff6aa220ed24bb188735391c35bb1307		Gnome Ranger, pt. 1 (Spectrum 48)
+tzx-gnome-ranger-side-b	tzx-gnome-ranger-side-b	Gnome Ranger - Side B.tzx	a0250744009a0a9b491a82c57094c58827cf50cd8338d9dd4359423129280ca1		unnamed
+tzx-the-growing-pains-of-adrian-mole-side-1	tzx-the-growing-pains-of-adrian-mole-side-1	The Growing Pains Of Adrian Mole - Side 1.tzx	dd982700a0bf5c5862852b3efed4990fdce92902b0266bf2ee2c230d857ae358		Adrian Mole II, pt. 1 (Spectrum)
+tzx-the-growing-pains-of-adrian-mole-side-2	tzx-the-growing-pains-of-adrian-mole-side-2	The Growing Pains Of Adrian Mole - Side 2.tzx	8e49929a2864a0d1804c69649fe99856604eb5c2b57e093c64d87731269bbaad		Adrian Mole II, pt. 3 (Spectrum)
+tzx-ingrid-s-back-tape-1-side-1	tzx-ingrid-s-back-tape-1-side-1	Ingrid's Back! Tape 1 - Side 1.tzx	9609d0179b67c6b129c511734b3fe5b409b5b047ca3469c347a1909c61d16537		Ingrid's Back, pt. 1 (Spectrum 48)
+tzx-ingrid-s-back-tape-1-side-2	tzx-ingrid-s-back-tape-1-side-2	Ingrid's Back! Tape 1 - Side 2.tzx	f922a9b0904fa95f572d99bca6796c5e0e65bc29224a34d965da1f88bbe45d09		unnamed
+tzx-ingrid-s-back-tape-2-side-1	tzx-ingrid-s-back-tape-2-side-1	Ingrid's Back! Tape 2 - Side 1.tzx	f750720e9616529d914dca5c0c23fb7b3f900d3d08af7c1e8fbd03b5a322469f		Ingrid's Back, pt. 2 (Spectrum 48)
+tzx-ingrid-s-back-tape-2-side-2	tzx-ingrid-s-back-tape-2-side-2	Ingrid's Back! Tape 2 - Side 2.tzx	21e9c2c40052ac57040e25f79794ca2c6f8e284b17bbc3c94bcb37282b62a6db		unnamed
+tzx-ingrid-s-back-tape-3-side-1	tzx-ingrid-s-back-tape-3-side-1	Ingrid's Back! Tape 3 - Side 1.tzx	9efaa430a67236507937e0d93ee6315f74d0fab1812a2ab5e996e8767ef9d76b		Ingrid's Back, pt. 3 (Spectrum 48)
+tzx-ingrid-s-back-tape-3-side-2	tzx-ingrid-s-back-tape-3-side-2	Ingrid's Back! Tape 3 - Side 2.tzx	227933111ad830f868f63b61c01af6008e84be7a43ff8eecb4166a2e49515bcb		unnamed
+z80-ingrid128	z80-ingrid128	Ingrid128.z80	9412fbf71906e80494b4d623859cd8dafa6d947d08346a6c34cd7aa9bb36e18a		unnamed
+tzx-lancelot-side-a	tzx-lancelot-side-a	Lancelot - Side A.tzx	67208241d39ce40a70102fa5010c3ddeeb4fe1c1d1b7bf762a6adfa3594a4e83		Lancelot, pt. 1 (Spectrum 48)
+tzx-lancelot-side-b	tzx-lancelot-side-b	Lancelot - Side B.tzx	504a7d43412f39dcb1362a8359c734a3a06fb6b2352b6a0eb2a02d45e79ecda4		unnamed
+tzx-the-price-of-magik-side-2	tzx-the-price-of-magik-side-2	The Price Of Magik - Side 2.tzx	778da4e581b33c959a3954deca2d15f830ded563b3637a73835a93de68b1f7a6		Price of Magik (Spectrum 48[v1
+tzx-scapeghost-128k-part-1	tzx-scapeghost-128k-part-1	Scapeghost - 128k - Part 1.tzx	cd5f0fbb06113f36d6f1109b2d7471b3fe2516e6c3dd474168ff00b437f20047		unnamed
+tzx-scapeghost-128k-part-2	tzx-scapeghost-128k-part-2	Scapeghost - 128k - Part 2.tzx	36ac7e6f0fcd56b285589562dfb698840bc455911b80a754a10dce962604b8de		unnamed
+tzx-scapeghost-128k-part-3	tzx-scapeghost-128k-part-3	Scapeghost - 128k - Part 3.tzx	2caf23543b127bad6c14b7f898e90d694cc2cd6c8f45b911d7fbe57be43d805f		unnamed
+tzx-scapeghost-48k-part-1	tzx-scapeghost-48k-part-1	Scapeghost - 48k - Part 1.tzx	07f5384167a194b75c0240ec41ecd6bf41813ddc50ef06c81480d9bc6c08dd11		Scapeghost, pt. 1 (Spectrum 48)
+tzx-scapeghost-48k-part-2	tzx-scapeghost-48k-part-2	Scapeghost - 48k - Part 2.tzx	f9d8bd668ceaf985a7bb0c4b2a576e0f6ce3d813ffee558a6c442e8a1060bcd5		Scapeghost, pt. 2 (Spectrum 48)
+tzx-scapeghost-48k-part-3	tzx-scapeghost-48k-part-3	Scapeghost - 48k - Part 3.tzx	585741edb49c2b4110cce1be6fad7ec0f7ac41e3998f8d8ff05a1eb6197c3c42		Scapeghost, pt. 3 (Spectrum 48)
+dsk-scapeghost-side-a	dsk-scapeghost-side-a	Scapeghost - Side A.dsk	a560e1730721c9c01bd8cf1cad4d1328d91ed5fdd83139cf2fe45d108fa24425		unnamed
+dsk-scapeghost-side-b	dsk-scapeghost-side-a	Scapeghost - Side B.dsk	3e1f53871374b90e4508004957a80ae99096514de21d3cfb9a691cce800301be		unnamed
+tzx-the-secret-diary-of-adrian-mole-side-1	tzx-the-secret-diary-of-adrian-mole-side-1	The Secret Diary Of Adrian Mole - Side 1.tzx	0c4f03d81bb7aab803db7aab7edfdc2916f10a32455573efd624734d73ac943c		Adrian Mole I, pt. 1 (Spectrum)
+tzx-the-secret-diary-of-adrian-mole-side-2	tzx-the-secret-diary-of-adrian-mole-side-2	The Secret Diary Of Adrian Mole - Side 2.tzx	09743f0598b4449c21c791bd4b9476b89f391cb8fc5a5292600639bb45e0b09d		Adrian Mole I, pt. 3 (Spectrum)
+tzx-silicon-dreams-side-a	tzx-silicon-dreams-side-a	Silicon Dreams - Side A.tzx	cd8a7d3e58a41bedb1178885da693b31b7b67377cc983015e69223f13555dcb2		Snowball /SD (Spectrum 48)
+tzx-silicon-dreams-side-b	tzx-silicon-dreams-side-b	Silicon Dreams - Side B.tzx	e7de27fb2b463c5a0169fbff72ddbf6ecf0604e77ba6ce620a29232c7649247b		Snowball /SD (Mac/PC/Spectrum 128)
+tzx-silicon-dreams-side-a-portuguese	tzx-silicon-dreams-side-a-portuguese	Silicon Dreams - Side A {Portuguese}.tzx	1db456e52bed3de183abbe931f9fd50f9feeb3943b0895459e4dbe36359cde2f		Snowball /SD (Spectrum 48)
+tzx-silicon-dreams-side-b-portuguese	tzx-silicon-dreams-side-b-portuguese	Silicon Dreams - Side B {Portuguese}.tzx	9d7136ad6666a6258db6723aa5717e8d728273155e781074778a1a3305baacca		Worm in Paradise (Spectrum 48)
+tzx-time-and-magik-tape-1-side-a	tzx-time-and-magik-tape-1-side-a	Time And Magik Tape 1 - Side A.tzx	71bd5117092fe00037ff441e0ee3f0fac9fd616b4ed2f0dfc1cac6918dae9e32		Lords of Time /T&M (Spectrum 48)
+tzx-time-and-magik-tape-1-side-b	tzx-time-and-magik-tape-1-side-b	Time And Magik Tape 1 - Side B.tzx	6976d067dbe4bb7685842a9b6a34c2f92104731cf016584711365697786fc04a		unnamed
+tzx-time-and-magik-tape-2-side-a	tzx-time-and-magik-tape-2-side-a	Time And Magik Tape 2 - Side A.tzx	962c52771ca0d8b2818fbc6b6a37ee27f3400544603bdabc598bb545a66731a6		Red Moon /T&M (Spectrum 48)
+tzx-time-and-magik-tape-2-side-b	tzx-time-and-magik-tape-2-side-b	Time And Magik Tape 2 - Side B.tzx	8c264025d6d7776104f0f654c18c692a5f2c99e007c921e4ab2df3a46ab6fe76		unnamed
+tzx-time-and-magik-tape-3-side-a	tzx-time-and-magik-tape-3-side-a	Time And Magik Tape 3 - Side A.tzx	969d8aa32974f10d1860c38022c3e74977183019477e7c1668647ff4ec4da67a		Price of Magik /T&M (Spectrum 48)
+tzx-time-and-magik-tape-3-side-b	tzx-time-and-magik-tape-3-side-b	Time And Magik Tape 3 - Side B.tzx	3a3eacf2a22c4c77b1c58a0ba61d2e1a0e9178700c9568adadab827312a4f5e7		unnamed
+z80-prmagik1	z80-prmagik1	PRMAGIK1.Z80	5bf03ae2f41d7b922a143a8c6d94ac1fcabd7133647a7183a22a2db11b45b7a4		Price of Magik (Spectrum 48[v1
+sna-adrmole2	sna-adrmole2	adrmole2.sna	fb1af28bcdd7ec747b2ded47d6c12f8a7d254a31fb77d06728cd56a0f53926bd		unnamed
+dsk-time-and-magik-side-a	dsk-time-and-magik-side-a	Time And Magik - Side A.dsk	3a699123baaef31532167e3cf055997d6513dcfa4d1e85e20f562177e571a507		unnamed
+dsk-time-and-magik-side-b	dsk-time-and-magik-side-a	Time And Magik - Side B.dsk	f45fe001e8189978c670d98a7c7a84b6cbf76cd33d3df5f8df8285af20a745c9		unnamed
+tzx-the-worm-in-paradise-side-1	tzx-the-worm-in-paradise-side-1	The Worm In Paradise - Side 1.tzx	05b022d48696ae1efbf766d8139d1f96d3aa909fc487f7d980e053a389283f0d		Worm in Paradise (Spectrum 48)
+tzx-the-worm-in-paradise-side-2	tzx-the-worm-in-paradise-side-2	The Worm In Paradise - Side 2.tzx	4eddc5efd1b97ae3fae4f915614603542e60cbce68865dff90b7f103dd9526c2		Worm in Paradise (Spectrum 128/MSX)
+dat-colossal	dat-colossal	COLOSSAL.DAT	216dff217628d758768711792e74b09e9503ef308d2bf8cf4439c1130e4adb37		Colossal Adventure /JoD (Amiga/PC)
+dat-dungeon	dat-dungeon	DUNGEON.DAT	8e3673bc70ef972a286f266026ac47cc0e7afd09003371f5d14ee8fc4445f896		Dungeon Adventure /JoD (Amiga/PC/ST)
+l9-q	l9-q	Q.L9	9acb99d5f5fa6054c6fcb99ea48cb23178e7241d2a827436d0ffc691bb263bc7		Adventure Quest /JoD (Amiga/PC)
+l9-adrmole2	l9-adrmole2	adrmole2.l9	5322e9bf4f82de13e3bb47bc3746b05c46f788f94c3edafd366f5d345c36674c		unnamed
+sna-adrmole4	sna-adrmole4	adrmole4.sna	55b44d121ddf67477e0fe2e392f8d1b819578d8c353501f1489fca2335e2b7d5		Adrian Mole I, pt. 4 (Spectrum)
+z80-am23	z80-am23	am23.z80	8d7db472c79a1f3b22e657955aa7875c40232d4b7d55497ece9058f4c7b0fd0c		unnamed
+sna-am32	sna-am32	am32.sna	d6bd09265eb826f12da01bddef1af7e844898dda94ac62c711dc94ccb43b0a0e		unnamed
+dat-archers	dat-archers	archers.dat	dc054905b7c57c7f6a722fc0e972461d5b60a383f9230378bb7384e8ec005b91		The Archers, pt. 1 (Spectrum)
+l9-diary	l9-diary	diary.l9	e24d7393488989b13e428caedff3e07bf0015e69b88477ee2f7062884f4b6cea		unnamed
+l9-gr1	l9-gr1	gr1.l9	e164cd921c9d3230086f7dc20abbc7cabc0c924d3075fc84b117bfbb819f3b9b		Gnome Ranger, pt. 1 (Spectrum 48)
+l9-la	l9-la	la.l9	53284d20e97210d550da852e8ff0961322e6962ace8733d2359e8b05dbb710da		Lancelot, pt. 1 (Spectrum 48)
+l9-lot	l9-lot	lot.l9	171669b844c9a46bd750ccfbce6ea01684f27a5cf1f580fc4fc194dd176ec588		Lords of Time /T&M (Spectrum 48)
+dat-price	dat-price	price.dat	672057cd91127431bf66e1ad9426f2538b77fb61f21e655ff3d576b6e535f79d		Price of Magik (Spectrum 48[v2
+l9-sghost48	l9-sghost48	sghost48.l9	a3e00b3272bbfa1a77c4a5321c2f117bb776ebaffa2a1164a88579abb0c70321		Scapeghost, pt. 1 (Spectrum 48)
+l9-ibt3s2	l9-ibt3s2	ibt3s2.l9	29ecb79584dfe9d24f51227fc5ff0cce886e12058dca2c5cda20dc485f9e8af3		unnamed
+l9-jd2	l9-jd2	jd2.l9	70f768cbcc02a5ee71655376b7a817bab0c3a1f8697ae77fbc42a64c8d06ea6c		Adventure Quest /JoD (Amstrad CPC128/Spectrum +3)
+l9-ko1	l9-ko1	ko1.l9	f861ef801998b1574faa139919a94ae34b97c5b44d1f660913d4a2df920aef40		unnamed
+l9-ko128	l9-ko128	ko128.l9	b9a97a7d1d0a6864c252f26125b964a926e7328633a655ca9033ae82c1dc6451		unnamed
+l9-ko48	l9-ko48	ko48.l9	d592ebd2c2e76290dd097f44a3f724aea4d30258b0c33abd0237a18143f52e6f		Knight Orc, pt. 1 (Spectrum 48)
+l9-sda	l9-sda	sda.l9	3f5c29bfaa1b77cf70140adc8e2269c2be2647f2965335c6d3cdd2cce4f6ef58		Snowball /SD (Spectrum 48)
+l9-sdam	l9-sdam	sdam.l9	1eb08ef7d3c10307b241015c0d297cefef763b54945925e4f5c6f3c9a78c8b19		Adrian Mole I, pt. 1 (Spectrum)
+l9-sgdsk	l9-sgdsk	sgdsk.l9	bbdb4aa29c5c2175312d9b0dc456558e739642be736bcacea7053fade6b5c0ce		unnamed

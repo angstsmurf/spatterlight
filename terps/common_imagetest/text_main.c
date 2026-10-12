@@ -1,11 +1,11 @@
-/* main() and the front-end globals for the headless text builds of the Plus
-   and TaylorMade interpreters (plus_hl, taylor_hl): the interpreter on plain
-   CheapGlk, commands on stdin, transcript on stdout, for the command script
-   tests (test/scripts/README.md).
+/* main() and the front-end globals for the headless text builds of the Plus,
+   TaylorMade and Level 9 interpreters (plus_hl, taylor_hl, level9_hl): the
+   interpreter on plain CheapGlk, commands on stdin, transcript on stdout, for
+   the command script tests (test/scripts/README.md, level9/test/README.md).
 
    CheapGlk's own main() is left out. It hands the game file on only if the
-   interpreter lists a nameless argument in glkunix_arguments, and neither of
-   these does.
+   interpreter lists a nameless argument in glkunix_arguments, and the Plus
+   and TaylorMade ones do not.
 
    CheapGlk refuses the graphics window, so nothing is drawn. The pictures have
    tests of their own (test/images/README.md). */

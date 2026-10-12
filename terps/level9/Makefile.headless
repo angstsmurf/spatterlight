@@ -1,0 +1,64 @@
+# Headless build of the Level 9 interpreter: level9_hl, a stdio build for the
+# loader regression test (test/README.md).
+#
+# The interpreter and its Glk port (Glk/glk.c) are linked against the vendored
+# CheapGlk, with ../common_imagetest/text_main.c as main(): commands on
+# standard input, transcript on standard output. CheapGlk refuses the graphics
+# window, so no picture is drawn.
+#
+# Usage:
+#   make -f Makefile.headless check
+#   printf 'look\n' | ./level9_hl /path/to/snowball.z80
+
+CHEAPGLK_DIR := ../cheapglk
+PROBE_DIR    := ../common_imagetest
+COMMON_DIR   := ../common_utils
+Z80_DIR      := ../decompressz80
+OBJDIR       := headless_obj
+
+CC ?= clang
+
+# The flags of the Spatterlight target, and -I$(CHEAPGLK_DIR) so that glk.h is
+# CheapGlk's.
+INC      := -I. -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) -I$(Z80_DIR)
+DEPFLAGS := -MMD -MP
+CFLAGS   := -O0 -g $(INC) $(DEPFLAGS) -include stddef.h \
+            -DSPATTERLIGHT -DBITMAP_DECODER -DNEED_STRICMP_PROTOTYPE
+
+SRCS := level9.c bitmap.c Glk/glk.c test/headless_stubs.c \
+        $(COMMON_DIR)/randomness.c \
+        $(wildcard $(Z80_DIR)/*.c) \
+        $(PROBE_DIR)/text_main.c
+OBJS := $(patsubst %.c,$(OBJDIR)/%.o,$(notdir $(SRCS)))
+VPATH := .:Glk:test:$(PROBE_DIR):$(COMMON_DIR):$(Z80_DIR)
+
+# CheapGlk without its main.o: text_main.c has the main().
+CHEAPGLK_LIB  := $(CHEAPGLK_DIR)/libcheapglk.a
+CHEAPGLK_OBJS := $(addprefix $(CHEAPGLK_DIR)/,cgblorb.o cgdate.o cgfref.o cggestal.o \
+                 cgmisc.o cgschan.o cgstream.o cgstyle.o cgunicod.o cgwindow.o \
+                 gi_blorb.o gi_debug.o gi_dispa.o)
+
+level9_hl: $(OBJS) $(CHEAPGLK_LIB)
+	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(CHEAPGLK_OBJS)
+
+$(CHEAPGLK_LIB):
+	$(MAKE) -C $(CHEAPGLK_DIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
+
+$(OBJDIR)/%.o: %.c | $(OBJDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Every game image of test/games.manifest.tsv is loaded and played for a few
+# commands, and the transcript is compared with a hash. Rows whose game is not
+# in test/games/ are skipped, so this passes on a bare checkout.
+check: level9_hl
+	@python3 $(PROBE_DIR)/run_script_tests.py test test ./level9_hl
+
+clean:
+	rm -rf $(OBJDIR) level9_hl
+
+.PHONY: clean check
+
+-include $(OBJS:.o=.d)
