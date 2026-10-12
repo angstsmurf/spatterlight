@@ -22,30 +22,15 @@
 #ifndef GLK_COMPREHEND_GAME_TR1_H
 #define GLK_COMPREHEND_GAME_TR1_H
 
-#include "game_opcodes.h"
+#include "game_tr_common.h"
 
 namespace Glk {
 namespace Comprehend {
 
-struct TransylvaniaMonster;
-
-class TransylvaniaGame1 : public ComprehendGameV1 {
-private:
-	static const TransylvaniaMonster WEREWOLF;
-	static const TransylvaniaMonster VAMPIRE;
-	bool _miceReleased;
-
-	bool updateMonster(const TransylvaniaMonster *monsterInfo);
-	bool isMonsterInRoom(const TransylvaniaMonster *monsterInfo);
+class TransylvaniaGame1 : public TransylvaniaCommon<ComprehendGameV1> {
 public:
 	TransylvaniaGame1();
 	~TransylvaniaGame1() override {}
-
-	void beforeGame() override;
-	void beforeTurn() override;
-	void synchronizeSave(Common::Serializer &s) override;
-	int roomIsSpecial(uint room_index, uint *roomDescString) override;
-	void handleSpecialOpcode() override;
 };
 
 } // namespace Comprehend

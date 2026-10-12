@@ -23,12 +23,15 @@ LDLIBS     := -lglkimp -lglkmain
 
 CXX_SRCS := \
     apple2.cpp \
+    gm_backend.cpp game_traits.cpp \
     graphics_magician.cpp \
     graphics_magician_cga.cpp \
     graphics_magician_dhgr.cpp \
     graphics_magician_pcjr.cpp \
-    charset.cpp \
     comprehend.cpp \
+    comprehend_state.cpp \
+    comprehend_io.cpp \
+    comprehend_gfx.cpp \
     comprehend_compat.cpp \
     dictionary.cpp \
     draw_surface.cpp \
@@ -40,6 +43,7 @@ CXX_SRCS := \
     game_oo.cpp \
     game_opcodes.cpp \
     game_tm.cpp \
+    game_tm_load.cpp \
     game_tr1.cpp \
     game_tr2.cpp \
     glk_main.cpp \
@@ -78,31 +82,44 @@ gm_artifact.o: $(SAGADRAW_DIR)/gm_artifact.c $(SAGADRAW_DIR)/gm_artifact.h
 SAGADRAW_SRCS := $(SAGADRAW_DIR)/gm_vector.c $(SAGADRAW_DIR)/gm_artifact.c
 
 clean:
-	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest
+	rm -f $(OBJS) gm_vector.o gm_artifact.o comprehend test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/gmcgav1test test/pixtest test/op5scan test/gmcgatest test/diff_gmcga test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest test/test_dhgr_pics test/test_dhgr_determinism test/test_gmpcjr_pics test/dhgrtrace test/cmextract test/gmpcjr/pcjrtest
+
+# Headers the stand-alone renderer tests depend on beyond the renderer's own
+# .h: the header-only pieces the renderers share, and the test helpers.
+GM_SHARED_H   := gm_span_fill.h cm_panel.h slow_draw_page.h graphics_magician_vector.h
+PIC_FIXTURE_H := test/pic_fixture_test.h
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
 # Self-contained: graphics_magician.cpp has no Glk/disk dependencies, so the test
 # links only it. Fixtures live in test/talisman/.
-test/test_talisman_pics: test/test_talisman_pics.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+test/test_talisman_pics: $(GM_SHARED_H) test/test_talisman_pics.cpp $(PIC_FIXTURE_H) graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/test_talisman_pics.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 # --- Regression anchor: Apple II hi-res -> RGBA artifact renderer ---
 # No byte-exact page corpus covers the colour kernel (gm_artifact), so this
 # checksums the RGBA output of a synthetic page against a captured golden.
-test/rgbacrc: test/rgbacrc.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+test/rgbacrc: $(GM_SHARED_H) test/rgbacrc.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/rgbacrc.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 # --- Regression test: DOS Talisman CGA renderer vs golden DOSBox framebuffers ---
 # Self-contained: graphics_magician_cga.cpp has no Glk/disk dependencies, and the drawing
 # tables / vector streams / goldens are committed in test/gmcga/.
-test/test_gmcga_pics: test/test_gmcga_pics.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+test/test_gmcga_pics: $(GM_SHARED_H) test/test_gmcga_pics.cpp $(PIC_FIXTURE_H) graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmcga_pics.cpp graphics_magician_cga.cpp
 
 # --- Regression test: v1 DOS CGA renderer (Crimson Crown / Transylvania v1) ---
 # Same renderer, v1 table-load path: fill tables from PC_GRAPH.OVR, brushes from
 # NOVEL.EXE. Committed slices + DOSBox goldens in test/gmcgav1/.
-test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+test/test_gmcgav1_pics: $(GM_SHARED_H) test/test_gmcgav1_pics.cpp $(PIC_FIXTURE_H) graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp
+
+# --- Regression test: PCjr / Tandy 16-colour renderer vs committed hashes ---
+# No emulator ground truth exists for this renderer, so this is a change
+# detector: every picture of Transylvania v1 and Crimson Crown, hashed against
+# test/gmpcjr/hashes.txt. Reads the local-only game folders in
+# test/gmpcjr/fixtures/ and skips any that are absent. See test/gmpcjr/README.md.
+test/test_gmpcjr_pics: $(GM_SHARED_H) test/test_gmpcjr_pics.cpp $(PIC_FIXTURE_H) graphics_magician_pcjr.cpp graphics_magician_pcjr.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gmpcjr_pics.cpp graphics_magician_pcjr.cpp
 
 # --- Regression test: Apple II DHGR ("<D>") renderer, op15/0 RLE bitmap ---
 # Renders The Coveted Mirror's throne room and asserts the double hi-res pages
@@ -110,36 +127,51 @@ test/test_gmcgav1_pics: test/test_gmcgav1_pics.cpp graphics_magician_cga.cpp gra
 # has no Glk/disk dependencies; fixtures live local-only in test/cm_dhgr/fixtures/.
 # Links graphics_magician.cpp too: the DHGR hourglass shares its grain-position
 # helper (gmCMHourglassGrainPos) with the standard renderer.
-test/cmdhgrtest: test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+test/cmdhgrtest: $(GM_SHARED_H) test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmdhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 # --- Regression test: Apple II DHGR ("<D>") Talisman TITLE (t0) ---
 # Byte-exact vs MAME over the whole picture; guards the op1/3/5 text glyphs, the
 # op11 DRAW_CIRCLE (its absence let the lamp fill leak into the sky), and the full
 # 512-byte op6 sub-table. Fixtures live local-only in test/title_dhgr/fixtures/.
-test/titledhgrtest: test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+test/titledhgrtest: $(GM_SHARED_H) test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/titledhgrtest.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
 # --- Regression test: The Coveted Mirror hourglass logic (renderer-shared) ---
 # Pure-logic, fixture-free: freezes the per-grain pile geometry (validated
 # pixel-exact vs MAME, see test/cm/README.md) and exercises the per-turn
 # drain arm / fall state machine that both renderers drive.
-test/cmhourglasstest: test/cmhourglasstest.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
+test/cmhourglasstest: $(GM_SHARED_H) test/cmhourglasstest.cpp graphics_magician.cpp graphics_magician.h $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/cmhourglasstest.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
-test: test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest
-	./test/test_talisman_pics
-	./test/test_gmcga_pics
-	./test/test_gmcgav1_pics
-	./test/rgbacrc
-	./test/cmdhgrtest
-	./test/titledhgrtest
-	./test/cmhourglasstest
+# --- Regression tests: Apple II DHGR renderer on Talisman's RA file ---
+# test_dhgr_pics: the prison cell is byte-exact vs MAME and the NTSC blit runs.
+# test_dhgr_determinism: every RA image renders the same whatever was drawn
+# before it. Fixtures live local-only in test/dhgr/fixtures/.
+test/test_dhgr_pics: test/test_dhgr_pics.cpp $(PIC_FIXTURE_H) graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(GM_SHARED_H) $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/test_dhgr_pics.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
+
+test/test_dhgr_determinism: test/test_dhgr_determinism.cpp $(PIC_FIXTURE_H) graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(GM_SHARED_H) $(SAGADRAW_SRCS)
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/test_dhgr_determinism.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
+
+TESTS := test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics \
+         test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest \
+         test/test_dhgr_pics test/test_dhgr_determinism test/test_gmpcjr_pics
+
+test: $(TESTS)
+	@set -e; for t in $(TESTS); do echo "== $$t"; ./$$t; done
+
+# Everything: the renderer fixtures above, a fresh headless interpreter, and the
+# five scripted full-game plays (which skip, with a message, any game whose
+# local-only disk image is absent -- see test/walkthrough/README.md).
+check: test
+	$(MAKE) -f Makefile.headless
+	./test/walkthrough/run_walkthroughs.sh
 
 # Developer tool: extract/render a single Apple II Talisman picture from a disk
 # image and log its hi-res writes. Used to capture new regression fixtures.
 # See test/talisman/README.md.
-test/pixtest: test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+test/pixtest: $(GM_SHARED_H) test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 	$(CXX) -std=c++14 -O0 -g -DGM_TRACE -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) -o $@ \
 	    test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 
@@ -147,21 +179,21 @@ test/pixtest: test/pixtest.cpp graphics_magician.cpp graphics_magician_dhgr.cpp 
 # to eyeball against a DOSBox capture. Self-contained: graphics_magician_cga.cpp has no
 # Glk/disk dependencies, so it links only that.
 #   ./test/gmcgatest NOVEL1.EXE T0 4 title.ppm white
-test/gmcgatest: test/gmcgatest.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/gmcgatest.cpp graphics_magician_cga.cpp
+test/gmcgatest: $(GM_SHARED_H) test/gmcgatest.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -DGM_TRACE -I. -o $@ test/gmcgatest.cpp graphics_magician_cga.cpp
 
 # Developer tool: render one v1 (Crimson Crown / Transylvania v1) picture from a
 # .MS1 file, loading the split v1 tables from PC_GRAPH.OVR + NOVEL.EXE; writes a
 # PPM and optionally pixel-compares against a DOSBox CGA VRAM golden.
 #   ./test/gmcgav1test PC_GRAPH.OVR NOVEL.EXE RA.MS1 0 out.ppm [golden.fb]
-test/gmcgav1test: test/gmcgav1test.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/gmcgav1test.cpp graphics_magician_cga.cpp
+test/gmcgav1test: $(GM_SHARED_H) test/gmcgav1test.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -DGM_TRACE -I. -o $@ test/gmcgav1test.cpp graphics_magician_cga.cpp
 
 # Developer tool: render one PCjr 16-colour picture from a .MS1 file, loading the
 # JR_GRAPH.OVR tables + NOVEL.EXE brushes; writes a 280x160 PPM. Self-contained:
 # graphics_magician_pcjr.cpp has no Glk/disk dependencies.
 #   ./test/gmpcjr/pcjrtest <gamedir> RA.MS1 0 out.ppm   (index -1 = title file)
-test/gmpcjr/pcjrtest: test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp graphics_magician_pcjr.h graphics_magician.h
+test/gmpcjr/pcjrtest: $(GM_SHARED_H) test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp graphics_magician_pcjr.h graphics_magician.h
 	$(CXX) -std=c++17 -O0 -g -Wall -I. -o $@ test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp
 
 # Developer tool: render Coveted Mirror pictures through BOTH the Apple II double
@@ -171,7 +203,7 @@ test/gmpcjr/pcjrtest: test/gmpcjr/pcjrtest.cpp graphics_magician_pcjr.cpp graphi
 #   ./test/dhgrtrace <sideA.woz> <bootB.woz> overlay RA 0 OE 0 /tmp/door
 #   ./test/dhgrtrace <sideA.woz> <bootB.woz> disasm OE 0
 #   ./test/dhgrtrace <sideA.woz> <bootB.woz> dumprle OE 0
-test/dhgrtrace: test/dhgrtrace.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
+test/dhgrtrace: $(GM_SHARED_H) test/dhgrtrace.cpp graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 	$(CXX) -std=c++17 -O0 -g -w -I. -I$(SAGADRAW_DIR) -o $@ test/dhgrtrace.cpp \
 	    graphics_magician.cpp graphics_magician_dhgr.cpp ciderpress.o woz2nib.o read_le16.o gm_vector.o gm_artifact.o
 
@@ -179,8 +211,8 @@ test/dhgrtrace: test/dhgrtrace.cpp graphics_magician.cpp graphics_magician_dhgr.
 # scene, the rendered->golden colour-transition histogram, per-row diff bands, a
 # spatial diff PPM (/tmp/diff_<scene>.ppm), and raw index dumps -- the analysis
 # used to drive the renderer toward pixel-exactness. Self-contained.
-test/diff_gmcga: test/diff_gmcga.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
-	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/diff_gmcga.cpp graphics_magician_cga.cpp
+test/diff_gmcga: $(GM_SHARED_H) test/diff_gmcga.cpp graphics_magician_cga.cpp graphics_magician_cga.h graphics_magician.h
+	$(CXX) -std=c++14 -O0 -g -Wall -DGM_TRACE -I. -o $@ test/diff_gmcga.cpp graphics_magician_cga.cpp
 
 # Developer tool: scan every image in an Apple II Comprehend disk's graphics
 # files and report which ones use a given drawing opcode (op5/TEXT_OUTLINE).
@@ -199,4 +231,4 @@ test/cmextract: test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o
 	$(CXX) -std=c++14 -O0 -g -w -I. -I$(READWOZ_DIR) -I$(COMMON_DIR) -o $@ \
 	    test/cmextract.cpp ciderpress.o woz2nib.o read_le16.o
 
-.PHONY: clean test
+.PHONY: clean test check

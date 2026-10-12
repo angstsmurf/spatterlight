@@ -15,7 +15,7 @@
 #   make -f Makefile.headless
 #   COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g talisman /path/to/G0
 #
-# where cmds.txt is one command per line (see comprehend.cpp readLine()).
+# where cmds.txt is one command per line (see comprehend_io.cpp readLine()).
 
 # CheapGlk lives in terps/cheapglk (shared with the Saga image-dumper harness).
 CHEAPGLK_DIR := ../cheapglk
@@ -42,12 +42,15 @@ CFLAGS     := -O0 -g -Wall -w $(COMMON_INC) $(DEPFLAGS) -DGARGLK -DSPATTERLIGHT 
 
 CXX_SRCS := \
     apple2.cpp \
+    gm_backend.cpp game_traits.cpp \
     graphics_magician.cpp \
     graphics_magician_cga.cpp \
     graphics_magician_dhgr.cpp \
     graphics_magician_pcjr.cpp \
-    charset.cpp \
     comprehend.cpp \
+    comprehend_state.cpp \
+    comprehend_io.cpp \
+    comprehend_gfx.cpp \
     comprehend_compat.cpp \
     dictionary.cpp \
     draw_surface.cpp \
@@ -59,6 +62,7 @@ CXX_SRCS := \
     game_oo.cpp \
     game_opcodes.cpp \
     game_tm.cpp \
+    game_tm_load.cpp \
     game_tr1.cpp \
     game_tr2.cpp \
     glk_main.cpp \

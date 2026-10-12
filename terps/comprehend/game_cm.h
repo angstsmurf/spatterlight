@@ -56,7 +56,7 @@ public:
 	void handleAction(Sentence *sentence) override;
 	void beforeTurn() override;
 	void handleSpecialOpcode() override;
-	bool handle_restart() override;
+	Common::String restartPrompt() override;
 
 	void recordItemPictureDrawn(int itemPic) override;
 	uint8 cmMirrorPieceMask() const override { return _mirrorPieceMask; }

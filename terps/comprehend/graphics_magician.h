@@ -11,6 +11,7 @@
 
 #include <cstdint>
 #include <cstddef>
+#include "cm_panel.h"
 
 namespace Glk {
 namespace Comprehend {
@@ -104,12 +105,6 @@ void gmEndCMPanelRebuild();
 // interpreter's cm_draw_hourglass_grain ($4347) / cm_per_turn_graphics_step.
 void gmDrawCMHourglass(int sand);
 
-// Position of hourglass grain `idx` (0-based; idx 0 is a no-op). Fills the Apple
-// hi-res coordinate (x 0..279, y 0..191) and returns false for grains that stamp
-// nothing. Shared with the double-hi-res renderer, which doubles x onto its
-// 560-wide pages. Ported from cm_draw_hourglass_grain ($4347).
-bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY);
-
 // Per-turn grain-fall animation (The Coveted Mirror). gmDrawCMHourglass() always
 // renders the resting pile at the correct level and, on a single-grain drop,
 // flags that a grain just drained; gmCMHourglassConsumeFallArmed() reports that
@@ -119,11 +114,8 @@ bool gmCMHourglassGrainPos(uint8_t idx, uint16_t *outX, uint8_t *outY);
 // dirty row band and false when the last frame has cleared the grain).
 // gmCMHourglassFallAbort() snaps to the clean resting state; gmCMHourglassReset()
 // forgets the displayed level so the next draw snaps (after restore/undo/restart).
-// Arm the per-turn fall from the current sand level (shared by the standard and
-// DHGR hourglass draw paths). Sets the flag gmCMHourglassConsumeFallArmed() reads.
-void gmCMHourglassArm(int sand);
-void gmCMHourglassReset();
-bool gmCMHourglassConsumeFallArmed();
+// The grain positions and the arming calls are declared in cm_panel.h, which
+// the double hi-res renderer shares.
 void gmCMHourglassFallBegin();
 bool gmCMHourglassFallActive();
 bool gmCMHourglassFallStep(int *y0, int *y1);

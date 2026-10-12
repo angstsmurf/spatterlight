@@ -12,8 +12,7 @@
  *
  * The line / flood-fill / brush primitives are ported byte-faithfully from the
  * real 6502 double-hi-res interpreter (validated pixel-exact against MAME for
- * Talisman's prison cell, RA image 4 -- see talisman-dhgr-wip/TODO_dither_phase.md
- * and the regression in test/). The colour, sub-table, pattern and brush tables
+ * Talisman's prison cell, RA image 4 -- see the regressions in test/). The colour, sub-table, pattern and brush tables
  * are loaded at runtime from the boot disk's "T5" file (gmDhgrInstallDrawingTables);
  * NOTHING is baked. Per-image colour overrides arrive as op7 commands (see below).
  *
@@ -29,6 +28,7 @@
 #include "graphics_magician.h"
 #include "gm_artifact.h"
 #include "slow_draw_page.h"     // shared progressive-reveal helper
+#include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstring>
 
 namespace Glk {
@@ -103,8 +103,8 @@ struct DhgrSlowPolicy {
 	int rowOf(const SlowWriteOp &op) const { return dhgr_row_of(op.offset); }
 	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
 		return (a.page == b.page &&
-		        (int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
-		       b.value == a.value;
+				(int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
+			   b.value == a.value;
 	}
 	void sync() {
 		std::memcpy(s_slowMain, s_main, A2_PAGE_SIZE);
@@ -166,7 +166,7 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 	std::memset(s_fontGlyphs, 0, sizeof(s_fontGlyphs));
 	size_t fontEnd = 0xB2E + sizeof(s_fontGlyphs);
 	std::memcpy(s_fontGlyphs, t5 + 0xB2E,
-	            (fontEnd <= size) ? sizeof(s_fontGlyphs) : (size - 0xB2E));
+				(fontEnd <= size) ? sizeof(s_fontGlyphs) : (size - 0xB2E));
 	s_tablesInstalled = true;
 	return true;
 }
@@ -290,7 +290,7 @@ static void line(uint16_t x2d, uint8_t y2) {
 
 // ---- op12 brush ($105A) -------------------------------------------------------
 static const uint8_t DHGR_DBL[16] = {0x00, 0x03, 0x0c, 0x0f, 0x30, 0x33, 0x3c, 0x3f,
-                                     0xc0, 0xc3, 0xcc, 0xcf, 0xf0, 0xf3, 0xfc, 0xff};
+									 0xc0, 0xc3, 0xcc, 0xcf, 0xf0, 0xf3, 0xfc, 0xff};
 static void brush_blit_col(int row, int col, uint8_t bits) {
 	if (!bits) return;
 	uint16_t base = CALC(row);
@@ -359,9 +359,9 @@ static void draw_circle(uint8_t radius) {
 	if (radius == 0) return;
 	int C = (ZE1 << 8) | ZE0;                  // center x/y = pen position. The real
 	int cy = ZE2;                              // circle saves/restores zero-page
-	                                           // $05..$17 around itself; here neither
-	                                           // C nor cy is mutated, so they double
-	                                           // as the saved position to restore.
+											   // $05..$17 around itself; here neither
+											   // C nor cy is mutated, so they double
+											   // as the saved position to restore.
 	usecolor = (Z1447 != 4 && Z1447 != 7) ? 1 : 0;
 	Z1446 = Z1447 & 1;
 	int r = radius, dvar = r >> 1, i = 0;
@@ -446,21 +446,6 @@ static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
 }
 
 // ---- op14 flood fill ----------------------------------------------------------
-#define COL_BITS 7
-#define QUEUE_SIZE 32
-#define QUEUE_MASK 0x1f
-#define DIR_UP 0
-#define DIR_DOWN 1
-#define DIR_DISABLED 0xff
-struct Span { uint8_t row; int left, right; uint8_t dir; };
-static Span g_queue[QUEUE_SIZE];
-static uint8_t g_head, g_tail;
-static uint8_t g_row;
-static int g_pos, g_edge;
-static uint8_t g_bit, g_edge_bit;
-static uint16_t g_row_addr;
-static uint8_t g_parity;
-static uint8_t g_clip_left, g_clip_right, g_clip_top, g_clip_bottom;
 
 // op15 fill-bounds rectangle, in source byte columns (0..39) and rows (0..0x9f),
 // set by op15/1 (full screen) and op15/2 (4 explicit bounds). op14 PAINT clips
@@ -469,82 +454,11 @@ static uint8_t g_clip_left, g_clip_right, g_clip_top, g_clip_bottom;
 // Coveted Mirror prison tower -- leaks the fill up and over the whole picture.
 static uint8_t g_fillLeft, g_fillRight, g_fillTop, g_fillBottom;
 
-static const uint8_t gmBIT[7]   = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
-static const uint8_t gmLMASK[7] = {0x80, 0x81, 0x83, 0x87, 0x8f, 0x9f, 0xbf};
-static const uint8_t gmRMASK[7] = {0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80};
-
-static inline int col_of(int pos) { return pos / COL_BITS; }
-static inline int bit_of(int pos) { return pos % COL_BITS; }
-static inline int to_pos(int col, int bit) { return col * COL_BITS + bit; }
-// A malformed op15/2 (unclamped fill-bounds bytes) or an op14 PAINT with an
-// out-of-range row can drive g_row_addr + (col >> 1) past A2_PAGE_SIZE. Valid
-// images never exceed 0x1ff7, so these guards only bite in the corrupt regime;
-// they mirror the explicit bounds checks the other dhgr_put callers already do.
-static inline uint8_t fb_read(int col) {
-	uint16_t off = (uint16_t)(g_row_addr + (col >> 1));
-	if (off >= A2_PAGE_SIZE) return 0;
-	return (col & 1 ? s_main : s_aux)[off];
-}
-static inline void fb_write(int col, uint8_t v) {
-	uint16_t off = (uint16_t)(g_row_addr + (col >> 1));
-	if (off >= A2_PAGE_SIZE) return;
-	dhgr_put(col & 1 ? s_main : s_aux, off, v);
-}
-
-static void set_row_address() { g_row_addr = CALC(g_row); g_parity = (uint8_t)((g_row & 1) << 3); }
-static bool pixel_is_set() { return (gmBIT[bit_of(g_pos)] & fb_read(col_of(g_pos))) != 0; }
-static uint8_t right_edge_mask(uint8_t p) {
-	if ((p & 0x7f) == 0x7f) return 0xff;
-	g_edge_bit = 7; uint8_t bit;
-	do { g_edge_bit--; bit = (uint8_t)(p & 0x7f); p = (uint8_t)(p << 1); } while (bit >> 6);
-	return gmRMASK[g_edge_bit];
-}
-static uint8_t left_edge_mask(uint8_t p) {
-	p &= 0x7f;
-	if (p == 0x7f) return 0xff;
-	g_bit = 0xff; uint8_t bit;
-	do { g_bit++; bit = (uint8_t)(p & 1); p = (uint8_t)(p >> 1); } while (bit);
-	return gmLMASK[g_bit];
-}
-static void blend_byte(uint8_t mask, int col) {
-	uint8_t existing = fb_read(col);
-	uint8_t kept = (uint8_t)((mask ^ existing) & 0x7f);
-	uint8_t pattern = (g_parity ? curOdd : curEven)[col & 7];
-	fb_write(col, (uint8_t)((pattern & mask) | kept));
-}
-static void paint_span() {
-	int col = col_of(g_pos);
-	g_bit = bit_of(g_pos);
-	g_edge_bit = 0xff;
-	uint8_t existing = fb_read(col);
-	uint8_t right_mask = right_edge_mask((uint8_t)(existing | gmRMASK[g_bit]));
-	uint8_t left_input = (uint8_t)(gmLMASK[g_bit] | existing);
-	g_bit = 7;
-	uint8_t mask = (uint8_t)(left_edge_mask(left_input) & right_mask);
-	uint8_t left_bit;
-	for (;;) {
-		blend_byte(mask, col);
-		if (g_edge_bit != 0xff) { left_bit = g_edge_bit; break; }
-		if (--col < g_clip_left) { col++; left_bit = 0xff; break; }
-		mask = right_edge_mask(fb_read(col));
-	}
-	uint8_t edge_bit = left_bit + 1;
-	if (edge_bit == 7) { edge_bit = 0; col++; }
-	g_edge = to_pos(col, edge_bit);
-	col = col_of(g_pos);
-	for (;;) {
-		if (g_bit == 7 && col != g_clip_right) {
-			col++;
-			blend_byte(left_edge_mask(fb_read(col)), col);
-			continue;
-		}
-		g_bit--;
-		if (g_bit & 0x80) { g_bit = 6; col--; }
-		g_pos = to_pos(col, g_bit);
-		return;
-	}
-}
-static void enqueue_span(uint8_t row, int left, int right, uint8_t dir) {
+// The span-fill engine is shared with the standard hi-res renderer
+// (gm_span_fill.h); this is the double hi-res page it runs on: 80 columns
+// alternating aux/main bytes, patterned from an 8-byte-wide dither selected by
+// row parity.
+struct DhgrFillPage {
 	// Drop a single-pixel span (left == right): the real CM <D> span fill ($0F50)
 	// rejects it, and without it a flood leaks through the 1-cell gaps that the
 	// doubled DHGR boundaries leave in a drawn outline. This matters whenever the
@@ -554,83 +468,39 @@ static void enqueue_span(uint8_t row, int left, int right, uint8_t dir) {
 	// picture without this guard. It is merely redundant (not wrong) for scenes
 	// like the cupboard door (OE idx0), where the op15/0 RLE bounds persist and
 	// already clip the fill; that scene stays byte-exact with the guard in place.
-	if (left == right) return;
-	uint8_t clip_row = (dir == DIR_UP) ? g_clip_top : g_clip_bottom;
-	if (row == clip_row) return;
-	Span &s = g_queue[g_tail];
-	s.row = row; s.left = left; s.right = right; s.dir = dir;
-	g_tail = (g_tail + 1) & QUEUE_MASK;
-}
-enum WalkAction { WALK_ADVANCE, WALK_DONE };
-static WalkAction paint_run(const Span &parent) {
-	paint_span();
-	enqueue_span(g_row, g_edge, g_pos, parent.dir);
-	int run_right = g_pos;
-	if (g_edge < parent.left - 1)
-		enqueue_span(g_row, g_edge, parent.left - 2, parent.dir ^ 1);
-	if (parent.right + 1 < run_right) {
-		enqueue_span(g_row, parent.right + 2, run_right, parent.dir ^ 1);
-		return WALK_DONE;
+	static const bool kDropSinglePixelSpans = true;
+
+	uint16_t rowAddr;
+	bool oddRow;
+
+	void setRow(uint8_t row) { rowAddr = CALC(row); oddRow = (row & 1) != 0; }
+	// A malformed op15/2 (unclamped fill-bounds bytes) or an op14 PAINT with an
+	// out-of-range row can drive rowAddr + (col >> 1) past A2_PAGE_SIZE. Valid
+	// images never exceed 0x1ff7, so these guards only bite in the corrupt regime;
+	// they mirror the explicit bounds checks the other dhgr_put callers already do.
+	uint8_t read(int col) const {
+		uint16_t off = (uint16_t)(rowAddr + (col >> 1));
+		if (off >= A2_PAGE_SIZE) return 0;
+		return (col & 1 ? s_main : s_aux)[off];
 	}
-	if (parent.right + 1 == run_right) return WALK_DONE;
-	g_pos = run_right;
-	return WALK_ADVANCE;
-}
-static WalkAction handle_run(const Span &parent) {
-	for (uint8_t i = (g_head + 1) & QUEUE_MASK; i != g_tail; i = (i + 1) & QUEUE_MASK) {
-		Span &other = g_queue[i];
-		if (other.row != g_row) continue;
-		if (other.dir == parent.dir) continue;
-		if (g_pos < other.left || g_pos > other.right) continue;
-		if (g_pos != other.left && other.left < parent.left - 1)
-			enqueue_span(g_row, other.left, parent.left - 2, other.dir);
-		if (other.right <= parent.right) {
-			other.dir = DIR_DISABLED;
-			g_pos = other.right;
-			return WALK_ADVANCE;
-		}
-		other.left = parent.right + 1;
-		return WALK_DONE;
+	void write(int col, uint8_t v) {
+		uint16_t off = (uint16_t)(rowAddr + (col >> 1));
+		if (off >= A2_PAGE_SIZE) return;
+		dhgr_put(col & 1 ? s_main : s_aux, off, v);
 	}
-	return paint_run(parent);
-}
-static void process_queue_head() {
-	Span parent = g_queue[g_head];
-	if (parent.dir == DIR_DISABLED) return;
-	g_row = (parent.dir == DIR_UP) ? parent.row - 1 : parent.row + 1;
-	g_pos = parent.left;
-	set_row_address();
-	for (;;) {
-		if (pixel_is_set() && handle_run(parent) == WALK_DONE) return;
-		if (g_pos == parent.right) return;
-		g_pos++;
-	}
-}
-static void run_fill() {
-	set_row_address();
-	if (!pixel_is_set()) return;
-	paint_span();
-	g_head = g_tail = 0;
-	enqueue_span(g_row, g_edge, g_pos, DIR_UP);
-	enqueue_span(g_row, g_edge, g_pos, DIR_DOWN);
-	long guard = 0;
-	while (g_head != g_tail) {
-		if (++guard > 2000000) return;
-		process_queue_head();
-		g_head = (g_head + 1) & QUEUE_MASK;
-	}
-}
+	uint8_t pattern(int col) const { return (oddRow ? curOdd : curEven)[col & 7]; }
+};
+
+static DhgrFillPage s_fillPage;
+static GmSpanFill<DhgrFillPage> s_spanFill(s_fillPage);
+
 static void flood_fill(uint16_t x, uint8_t y) {
 	// Clip to the op15 fill-bounds rectangle. The fill runs in DHGR columns
 	// (0..0x4f); a source byte column B spans DHGR columns 2B and 2B+1, so the
 	// byte-column bounds double (left -> 2*left, right -> 2*right+1). Rows are not
 	// doubled. Matches the standard renderer, which clips PAINT to ctx->fill_*.
-	g_clip_left   = (uint8_t)(2 * g_fillLeft);
-	g_clip_right  = (uint8_t)(2 * g_fillRight + 1);
-	g_clip_top    = g_fillTop;
-	g_clip_bottom = g_fillBottom;
-	g_row = y; g_pos = x;
-	run_fill();
+	s_spanFill.fill(x, y, (uint8_t)(2 * g_fillLeft), (uint8_t)(2 * g_fillRight + 1),
+					g_fillTop, g_fillBottom);
 }
 
 // op15 sub-op 3: fill the clip rectangle with the current fill pattern.
@@ -803,13 +673,9 @@ void gmDhgrDrawCMHourglass(int sand) {
 	bool savedRecord = s_slow.recording();
 	s_slow.setRecording(false);
 	set_fill_color(0x34);
-	for (int idx = 0; idx < sand && idx < 256; idx++) {
-		uint16_t x;
-		uint8_t y;
-		if (!gmCMHourglassGrainPos((uint8_t)idx, &x, &y))
-			continue;
+	cmForEachPileGrain(sand, [](uint16_t x, uint8_t y) {
 		draw_brush((uint16_t)(x << 1), y, 0);
-	}
+	});
 	s_slow.setRecording(savedRecord);
 	// Mirror the panel columns (now including the freshly stamped grains) onto the
 	// slow pages, so they are visible during a reveal too.
@@ -820,18 +686,10 @@ void gmDhgrDrawCMHourglass(int sand) {
 // Double-hi-res counterpart of the standard fall (gmCMHourglassFall* in
 // graphics_magician.cpp). The resting pile is already stamped at the post-drop
 // level by gmDhgrDrawCMHourglass(); these paint the single freed grain travelling
-// down the neck, confined to the band [kDhgrBandTop,kDhgrBandBot] so the pile
-// above is never touched. Geometry matches the standard renderer exactly; the
-// grain x is doubled onto the 560-wide pages (draw_brush(x<<1,...)), the same way
-// gmDhgrDrawCMHourglass stamps the pile.
-static int s_dhgrCmFallFrame = -1;     // active fall frame (0..kDhgrFallFrames); -1 idle
-
-static const int kDhgrNeckTop   = 95;  // first plot y -> screen row ~102 (below waist)
-static const int kDhgrNeckStep  = 4;   // plot-y advance per frame
-static const int kDhgrFallFrames = 6;  // grain positions; one extra clear frame follows
-static const int kDhgrNeckX     = 245; // Apple x of the stream centre (doubled to 490)
-static const int kDhgrBandTop   = 100; // erase band: waist down to the mound top,
-static const int kDhgrBandBot   = 125; // clear of the resting pile (ends at row ~99)
+// down the neck. The frame sequence and geometry are CMGrainFall's (cm_panel.h),
+// shared with the standard renderer; the grain x is doubled onto the 560-wide
+// pages (draw_brush(x<<1,...)), the same way gmDhgrDrawCMHourglass stamps the pile.
+static CMGrainFall s_dhgrCmFall;
 
 // Restore the saved static panel (no grains) for rows [y0,y1] onto both the final
 // and slow pages, wiping the previous frame's falling grain before the next.
@@ -845,46 +703,24 @@ static void cmDhgrOverlayPanelBand(int y0, int y1) {
 	cm_panel_to_pages(y0, y1);
 }
 
-void gmDhgrCMHourglassFallBegin() { s_dhgrCmFallFrame = 0; }
-bool gmDhgrCMHourglassFallActive() { return s_dhgrCmFallFrame >= 0; }
+void gmDhgrCMHourglassFallBegin() { s_dhgrCmFall.begin(); }
+bool gmDhgrCMHourglassFallActive() { return s_dhgrCmFall.active(); }
 
-// Render the current fall frame and advance. Sets *y0/*y1 to the dirty row band.
-// Returns true while more frames remain; the final frame paints no grain (just
-// restores the clean neck) so nothing lingers.
 bool gmDhgrCMHourglassFallStep(int *y0, int *y1) {
-	if (s_dhgrCmFallFrame < 0) {
-		*y0 = *y1 = 0;
-		return false;
-	}
-	cmDhgrOverlayPanelBand(kDhgrBandTop, kDhgrBandBot);
-	if (s_dhgrCmFallFrame < kDhgrFallFrames) {
+	return s_dhgrCmFall.step(y0, y1, cmDhgrOverlayPanelBand, [](uint16_t x, uint8_t y) {
 		bool savedRecord = s_slow.recording();
 		s_slow.setRecording(false);
 		set_fill_color(0x34);                 // white, as the pile grains
-		int gy = kDhgrNeckTop + s_dhgrCmFallFrame * kDhgrNeckStep;
-		if (gy > kDhgrBandBot)
-			gy = kDhgrBandBot;
-		draw_brush((uint16_t)(kDhgrNeckX << 1), (uint8_t)gy, 0);
+		draw_brush((uint16_t)(x << 1), y, 0);
 		s_slow.setRecording(savedRecord);
 		// Mirror the band's panel columns (with the grain) onto the slow pages so a
 		// blit reading either page shows it.
-		cm_panel_final_to_slow(kDhgrBandTop, kDhgrBandBot);
-	}
-	*y0 = kDhgrBandTop;
-	*y1 = kDhgrBandBot;
-
-	s_dhgrCmFallFrame++;
-	bool more = s_dhgrCmFallFrame <= kDhgrFallFrames;
-	if (!more)
-		s_dhgrCmFallFrame = -1;
-	return more;
+		cm_panel_final_to_slow(CMGrainFall::kBandTop, CMGrainFall::kBandBot);
+	});
 }
 
 void gmDhgrCMHourglassFallAbort() {
-	if (s_dhgrCmFallFrame < 0)
-		return;
-	cmDhgrOverlayPanelBand(kDhgrBandTop, kDhgrBandBot);
-	s_dhgrCmFallFrame = -1;
+	s_dhgrCmFall.abort(cmDhgrOverlayPanelBand);
 }
 
 void gmDhgrResetScreen(bool white) {
@@ -922,12 +758,12 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	// (matches the standard renderer's ctx->fill_* defaults).
 	g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
 	g_brush = 5;                      // default shape; reset per image (matches the
-	                                  // std-hires init ctx.BRUSH=5). Without this an
-	                                  // item overlay inherits the room's last op4
-	                                  // SET_SHAPE, drawing its brushes with the wrong
-	                                  // shape so the fills find no seed (e.g. the
-	                                  // OO-Topos prison-cell bottle/food went the
-	                                  // colour of the floor/table beneath them).
+									  // std-hires init ctx.BRUSH=5). Without this an
+									  // item overlay inherits the room's last op4
+									  // SET_SHAPE, drawing its brushes with the wrong
+									  // shape so the fills find no seed (e.g. the
+									  // OO-Topos prison-cell bottle/food went the
+									  // colour of the floor/table beneath them).
 	const uint8_t *p = data, *e = data + size;
 	int guard = 0;
 	while (p < e && guard++ < 100000) {

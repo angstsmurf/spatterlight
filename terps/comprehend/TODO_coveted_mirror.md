@@ -6,25 +6,11 @@ at "TURN THY DISKETTE OVER" `img:load(side A)` via Lua, then space. Debugger
 `statesave`/`stateload <name>` = instant reset to the throne room. Headless harness:
 `COMPREHEND_SCRIPT=cmds.txt ./comprehend_hl -g covetedmirror "<side B.woz>"`.
 
-## Status — DONE & committed
+CM is playable and winnable end to end (`test/walkthrough/` plays it from the throne to
+"Congratulations!!"); the hourglass render is pixel-exact vs
+`test/cm/fixtures/throne_sand60.page`. The write-up of how it got there is in the git log.
 
-CM is **fully playable and winnable** end-to-end; the engine work is all committed on
-`glkcontroller` (commits `6a9d705b`…`557495de`, plus the earlier string/opcode fixes).
-Highlights, with detail in the git log and the `comprehend-coveted-mirror` /
-`comprehend-cm-panel` memories:
-
-- String banks decoded correctly (MA-ML, no 4-byte header, read index from byte 0; the
-  fish/game-over/death bank-leading strings are fixed). `@`-substitution (count + noun
-  gender/article) verified against the live Apple II RAM dump.
-- Throne-room imprisonment, jailer-bribe cadence (hourglass var 0x11, daemon runs once/turn),
-  wandering-NPC spawn engine, special opcodes (THE END / game-over / pickpockets / Voar
-  confiscation), and the two inverted/broken V2 opcodes (0x11, 0x15) all RE'd and implemented.
-- Walkthrough harness (`test/walkthrough/`) green 5/5 (CM, OO-Topos, Crimson, Talisman,
-  Transylvania); CM script plays from the throne to "Congratulations!!".
-- Graphics: title image, right-panel logo (RG img0) + hourglass frame (OG img0), and the
-  per-turn grain fall animation — hourglass render is pixel-exact vs `test/cm/fixtures/throne_sand60.page`.
-
-## Remaining open
+## Open
 
 - [ ] **Full end-to-end transcript replay vs MAME.** Content + `@` rendering are verified;
       what's left is a deep scripted walkthrough diffed line-by-line against MAME to catch any

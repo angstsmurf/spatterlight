@@ -43,7 +43,7 @@ namespace Comprehend {
 // brush-5 signature the CGA loader uses).  Returns true on success and sets
 // gmpcjrHaveDrawingTables().
 bool gmpcjrInstallDrawingTables(const uint8_t *ovr, size_t ovrSize,
-                                const uint8_t *exe, size_t exeSize);
+								const uint8_t *exe, size_t exeSize);
 
 // Load the in-picture op3/op5 font from a CHARSET.GDA image (version word
 // 0x1100, then 96 glyphs of 8 bytes each at offset 4, stored LSB-first).  Same

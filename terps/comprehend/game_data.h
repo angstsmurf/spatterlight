@@ -273,7 +273,7 @@ struct WordIndex {
 struct Word : public WordIndex {
 	char _word[7];
 	uint8 _len;   // cached strlen(_word); set by load()/clear() so the parser's
-	              // hot word_match() need not re-strlen the word every compare.
+				  // hot word_match() need not re-strlen the word every compare.
 
 	Word() : WordIndex() {
 		Word::clear();
@@ -377,7 +377,7 @@ struct GameHeader {
 
 	uint16 addr_actions[7];
 
-	uint16 addr_vm; // FIXME - functions
+	uint16 addr_vm; // start of the functions (bytecode) block
 
 	GameHeader() {
 		clear();
@@ -397,7 +397,18 @@ protected:
 	Common::StringArray _locationGraphicFiles;
 	Common::StringArray _itemGraphicFiles;
 	Common::String _titleGraphicFile;
-	uint _colorTable;
+
+	// The data files come in lettered runs -- string banks MA, MB, ..., room
+	// pictures RA, RB, ..., item pictures OA, OB, ... -- whose length is the
+	// only thing that varies per game, and whose suffix is the only thing that
+	// varies per platform ("" on Apple II, ".MS1" on DOS). Append
+	// prefix + first..last + suffix to one of the three file lists.
+	template <class FileList>
+	static void addLetteredFiles(FileList &files, const char *prefix, char first,
+								 char last, const char *suffix = "") {
+		for (char c = first; c <= last; c++)
+			files.push_back(Common::String::format("%s%c%s", prefix, c, suffix).c_str());
+	}
 
 public:
 	GameHeader _header;

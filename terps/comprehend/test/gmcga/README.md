@@ -179,7 +179,8 @@ so the slow-draw path demonstrably doesn't perturb it.
 finds the interpreter by byte signature, breakpoints `PicOp14Paint` (CS:2630) and
 dumps 16 KB of CGA VRAM *before every fill* to `/tmp/nativetrace/`.
 `dosbox_trace_pushes.py` additionally breakpoints the span push (CS:2da0) for one
-chosen fill and logs every push.  The renderer mirrors both: set
+chosen fill and logs every push.  The renderer mirrors both when built with
+`-DGM_TRACE` (the `test/gmcgatest`, `gmcgav1test` and `diff_gmcga` rules do): set
 `GMCGA_TRACE_DIR=<dir>` to dump the framebuffer before each op14, and
 `GMCGA_TRACE_FILL=<n>` to log fill *n*'s queue pushes to stderr — then diff the
 two traces to find the first divergent operation.  Mount the game folder as

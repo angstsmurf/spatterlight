@@ -72,7 +72,7 @@ static void test_grain_positions() {
 		if (!g.present)
 			continue;
 		CHECK(x == g.x && y == g.y, "grain %d at (%u,%u) expected (%u,%u)",
-		      g.idx, x, y, g.x, g.y);
+			  g.idx, x, y, g.x, g.y);
 	}
 }
 
@@ -254,12 +254,12 @@ static void test_panel_survives_reveal() {
 		int base = row_base(rows[ri]);
 		for (int c = 0; c <= 23; c++)
 			CHECK(slow[base + c] == roomDrawn[base + c],
-			      "room col %d row %d not revealed (slow %02x != %02x)",
-			      c, rows[ri], slow[base + c], roomDrawn[base + c]);
+				  "room col %d row %d not revealed (slow %02x != %02x)",
+				  c, rows[ri], slow[base + c], roomDrawn[base + c]);
 		for (int c = 24; c <= 39; c++)
 			CHECK(slow[base + c] == 0x2A,
-			      "panel col %d row %d clobbered by reveal (slow %02x != panel 2a)",
-			      c, rows[ri], slow[base + c]);
+				  "panel col %d row %d clobbered by reveal (slow %02x != panel 2a)",
+				  c, rows[ri], slow[base + c]);
 	}
 
 	gmSetSlowDraw(false);

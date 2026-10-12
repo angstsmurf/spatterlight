@@ -14,8 +14,8 @@
  *
  * The drawing tables (fill patterns, brush bitmaps, font glyphs) are loaded at
  * runtime from the NOVEL.EXE image: read the file into a buffer and pass it to
- * gmcgaInstallDrawingTables(); check gmcgaHaveDrawingTables() before routing
- * pictures through this renderer.
+ * gmcgaInstallDrawingTables(). A game folder without that file gets the
+ * built-in copy instead, gmcgaInstallBuiltinDrawingTables().
  *
  * Opcode semantics, coordinate space (280×160), and the opcode stream format
  * are identical to the Apple II renderer in graphics_magician.cpp.  The key
@@ -53,7 +53,7 @@ bool gmcgaInstallDrawingTables(const uint8_t *exe, size_t size);
 // true on success; sets gmcgaHaveDrawingTables().  (v1 fill patterns use four
 // explicit column-phase bytes per entry, unlike the v2 period-4 single byte.)
 bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
-                                 const uint8_t *exe, size_t exeSize);
+								 const uint8_t *exe, size_t exeSize);
 
 // Load the in-picture op3/op5 font for the v1 releases from a CHARSET.GDA image
 // already read into memory.  v1 NOVEL.EXE has no embedded picture font (unlike
@@ -64,7 +64,13 @@ bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
 // Returns true on success.
 bool gmcgaSetV1Font(const uint8_t *charsetGda, size_t size);
 
-// True after a successful gmcgaInstall*DrawingTables() call.
+// Install the built-in copy of the drawing tables -- the v1 set (Crimson Crown,
+// Transylvania v1) or the v2 one -- for a game folder that has lost the
+// interpreter files the two loaders above read.  A v1 game still wants
+// gmcgaSetV1Font() afterwards.
+void gmcgaInstallBuiltinDrawingTables(bool v1);
+
+// True after a gmcgaInstall*DrawingTables() call that succeeded.
 bool gmcgaHaveDrawingTables();
 
 // Clear the 280×160 2-bpp framebuffer.  Pass white=true for a room reset

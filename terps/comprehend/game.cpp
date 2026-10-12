@@ -314,12 +314,12 @@ void ComprehendGame::console_println(const char *text) {
 				 * which formats variables[index] as decimal.
 				 */
 				snprintf(bad_word, sizeof(bad_word), "%u",
-				         _variables[_replaceNumberVar]);
+						 _variables[_replaceNumberVar]);
 				word = bad_word;
 			} else if (_currentReplaceWord >= _replaceWords.size()) {
 				snprintf(bad_word, sizeof(bad_word),
-				         "[BAD_REPLACE_WORD(%.2x)]",
-				         _currentReplaceWord);
+						 "[BAD_REPLACE_WORD(%.2x)]",
+						 _currentReplaceWord);
 				word = bad_word;
 			} else {
 				word = _replaceWords[_currentReplaceWord].c_str();
@@ -394,11 +394,11 @@ Common::String ComprehendGame::expandReplacementWords(const Common::String &text
 		const char *word;
 		if (_replaceWordIsNumber) {
 			snprintf(bad_word, sizeof(bad_word), "%u",
-			         _variables[_replaceNumberVar]);
+					 _variables[_replaceNumberVar]);
 			word = bad_word;
 		} else if (_currentReplaceWord >= _replaceWords.size()) {
 			snprintf(bad_word, sizeof(bad_word),
-			         "[BAD_REPLACE_WORD(%.2x)]", _currentReplaceWord);
+					 "[BAD_REPLACE_WORD(%.2x)]", _currentReplaceWord);
 			word = bad_word;
 		} else {
 			word = _replaceWords[_currentReplaceWord].c_str();
@@ -450,10 +450,10 @@ static size_t matchSlotList(const Common::String &s, size_t i) {
 		} else if (c == ',' || c == ' ') {
 			j++;
 		} else if ((c == 'o' || c == 'O') && j + 1 < s.size() &&
-		           (s[j + 1] == 'r' || s[j + 1] == 'R')) {
+				   (s[j + 1] == 'r' || s[j + 1] == 'R')) {
 			j += 2;
 		} else if ((c == 'a' || c == 'A') && j + 2 < s.size() &&
-		           s[j + 1] == 'n' && s[j + 2] == 'd') {
+				   s[j + 1] == 'n' && s[j + 2] == 'd') {
 			j += 3;
 		} else {
 			return 0;                     // stray text: not a slot list
@@ -532,23 +532,31 @@ void ComprehendGame::printUndoAfterDeathHint() {
 	console_println("(Or press U to undo the last move.)");
 }
 
+Common::String ComprehendGame::restartPrompt() {
+	return stringLookup(_gameStrings->game_restart);
+}
+
 bool ComprehendGame::handle_restart() {
-	console_println(stringLookup(_gameStrings->game_restart).c_str());
-	printUndoAfterDeathHint();
 	_ended = false;
 
-	int c = console_get_key();
-	if (undoAfterDeath(c))
-		return true;
-	if (tolower(c) == 'r') {
-		loadGame();
-		g_comprehend->clearUndo();  // can't undo across a restart
-		_updateFlags = UPDATE_ALL;
-		return true;
-	} else {
-		g_comprehend->quitGame();
-		return false;
+	if (!_silentRestart) {
+		// Offer undo before reloading anything: undo restores an in-play
+		// snapshot onto the data currently in memory, which a reload (and, in
+		// Crimson Crown, a change of disk) would clobber.
+		console_println(restartPrompt().c_str());
+		printUndoAfterDeathHint();
+
+		int c = console_get_key();
+		if (undoAfterDeath(c))
+			return true;
+		if (tolower(c) != 'r') {
+			g_comprehend->quitGame();
+			return false;
+		}
 	}
+
+	restartGame();
+	return true;
 }
 
 Item *ComprehendGame::get_item_by_noun(byte noun) {
@@ -558,9 +566,9 @@ Item *ComprehendGame::get_item_by_noun(byte noun) {
 		return nullptr;
 
 	/*
-	 * FIXME - in oo-topos the word 'box' matches more than one object
-	 *         (the box and the snarl-in-a-box). The player is unable
-	 *         to drop the latter because this will match the former.
+	 * Known limitation: the first item with the noun wins. In Oo-Topos the
+	 * word 'box' matches both the box and the snarl-in-a-box, so the latter
+	 * cannot be dropped by name.
 	 */
 	for (i = 0; i < _items.size(); i++)
 		if (_items[i]._word == noun)
@@ -609,7 +617,7 @@ void ComprehendGame::update_graphics() {
 
 	default:
 		if (fullRepaint ||
-		        (_updateFlags & UPDATE_GRAPHICS_ITEMS)) {
+				(_updateFlags & UPDATE_GRAPHICS_ITEMS)) {
 			Common::Array<uint> pics;
 			if (fullRepaint) {
 				room = get_room(_currentRoom);
@@ -632,8 +640,8 @@ void ComprehendGame::update_graphics() {
 				// bed and the hole behind it) must still be drawn. Gating on
 				// 0x80 wrongly hid the bed picture.
 				if (item->_room == _currentRoom &&
-				        item->_graphic != 0 &&
-				        !(item->_flags & ITEMF_NO_PICTURE))
+						item->_graphic != 0 &&
+						!(item->_flags & ITEMF_NO_PICTURE))
 					pics.push_back((uint)(item->_graphic - 1) + ITEMS_OFFSET);
 			}
 			if (fullRepaint)
@@ -731,7 +739,7 @@ void ComprehendGame::move_to(uint8 room) {
 
 	_currentRoom = _currentRoomCopy = room;
 	_updateFlags = (UPDATE_GRAPHICS | UPDATE_ROOM_DESC |
-	                      UPDATE_ITEM_LIST);
+						  UPDATE_ITEM_LIST);
 }
 
 size_t ComprehendGame::num_objects_in_room(int room) {
@@ -776,7 +784,7 @@ void ComprehendGame::move_object(Item *item, int new_room) {
 		 * redraw, not the whole room.
 		 */
 		_updateFlags |= (UPDATE_GRAPHICS_ITEMS |
-		                       UPDATE_ITEM_LIST);
+							   UPDATE_ITEM_LIST);
 	}
 
 	item->_room = new_room;
@@ -814,7 +822,7 @@ void ComprehendGame::eval_instruction(FunctionState *func_state,
 
 		if (func_state->_orCount != 0)
 			g_comprehend->print("Warning: or_count == %d\n",
-			                    func_state->_orCount);
+								func_state->_orCount);
 		func_state->_orCount = 0;
 
 		if (!do_command)
@@ -1055,8 +1063,8 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 		}
 
 		// Check for end of sentence
-		// FIXME: The below is a hacked simplified version of how the
-		// original handles cases like "get item1, item2"
+		// A simplified version of how the original handles lists like
+		// "get item1, item2": each separator just ends the sentence.
 		if (*p == ',' || *p == '\n' || wordStr.equalsIgnoreCase("and")) {
 			// Sentence separator
 			++p;
@@ -1084,7 +1092,7 @@ void ComprehendGame::read_sentence(Sentence *sentence) {
 		sentence->_nr_words++;
 
 		if (sentence->_nr_words >= ARRAY_SIZE(sentence->_words) ||
-		        sentence_end)
+				sentence_end)
 			break;
 	}
 
@@ -1139,9 +1147,26 @@ void ComprehendGame::doBeforeTurn() {
 		update();
 }
 
+// The each-turn daemon (function 0) is NOT run here. Every original
+// interpreter evaluates it exactly once per turn, inside the dispatch, straight
+// after the matched action; that is handleAction() above. None has a daemon pass
+// before the parser: what the originals do ahead of the prompt is only the
+// room/item description and the picture, which is update().
+//
+// Verified in the V2 engine from a live Apple II RAM dump of The Coveted Mirror
+// (main loop cm_main_command_loop $404c, dispatch cm_dispatch_action_and_daemon
+// $4f80), which Oo-Topos shares, and in the DOS Transylvania v2 Novel.exe (main
+// loop FUN_1000_05a0, dispatch FUN_1000_0a90); and in the V1 engine from Crimson
+// Crown's DOS NOVEL.EXE (main loop FUN_1000_0455, dispatch FUN_1000_0e73, whose
+// evaluator FUN_1000_0eb4 has no other caller), which Transylvania v1 shares.
+//
+// This function used to call eval_function(0) as well, so the daemon ran twice
+// a turn. That doubled every per-turn effect: The Coveted Mirror's hourglass
+// drained two grains a turn, and Oo-Topos printed the guard's capture message
+// twice and drew the cell a turn late. (git 845e9d5d, 2da5bb81, dad6272a.)
+//
+// A game overrides this only for its own native per-turn routine.
 void ComprehendGame::beforeTurn() {
-	// Run the each turn functions
-	eval_function(0, nullptr);
 }
 
 void ComprehendGame::read_input() {
@@ -1298,10 +1323,10 @@ turn:
 			else if (scumm_stricmp(arg, "off") == 0 || scumm_stricmp(arg, "standard") == 0)
 				on = false;
 			else
-				on = !g_comprehend->dhgrMode();
-			g_comprehend->setDhgrMode(on);
+				on = !g_comprehend->moreColours();
+			g_comprehend->setMoreColours(on);
 			g_comprehend->print(on ? "Double hi-res graphics on.\n"
-			                       : "Standard hi-res graphics on.\n");
+								   : "Standard hi-res graphics on.\n");
 			_updateFlags = (uint)UPDATE_GRAPHICS;
 			update();
 #endif
@@ -1331,10 +1356,10 @@ turn:
 			else if (scumm_stricmp(arg, "off") == 0 || scumm_stricmp(arg, "cga") == 0)
 				on = false;
 			else
-				on = !g_comprehend->pcjrMode();
-			g_comprehend->setPcjrMode(on);
+				on = !g_comprehend->moreColours();
+			g_comprehend->setMoreColours(on);
 			g_comprehend->print(on ? "PCjr 16-colour graphics on.\n"
-			                       : "CGA graphics on.\n");
+								   : "CGA graphics on.\n");
 			_updateFlags = (uint)UPDATE_GRAPHICS;
 			update();
 #endif
@@ -1343,6 +1368,35 @@ turn:
 			// isn't parsed as a game verb.
 			continue;
 		}
+
+#ifdef COMPREHEND_HEADLESS
+		// #room [n]: headless harness only. Jump straight to room n and redraw,
+		// with no turn taken, so that every room's picture can be dumped and
+		// compared against an emulator showing the same room (see
+		// test/gmpcjr/README.md). It then reports the room, where its exits lead
+		// (in direction order) and its picture numbers; bare "#room" only reports.
+		if (scumm_strnicmp(_inputLine, "#room", 5) == 0 &&
+			(_inputLine[5] == '\0' || _inputLine[5] == ' ')) {
+			int room = atoi(_inputLine + 5);
+			if (room > 0 && room < (int)_rooms.size()) {
+				move_to((uint8)room);
+				update();
+			}
+			Common::String msg = Common::String::format("Room %d of %d; exits",
+				(int)_currentRoom, (int)_rooms.size() - 1);
+			for (int dir = 0; dir < NR_DIRECTIONS; dir++)
+				msg += Common::String::format(" %d", (int)_rooms[_currentRoom]._direction[dir]);
+			// The pictures update_graphics() draws here: the room's, then
+			// those of the objects in it.
+			msg += Common::String::format("; pictures %d", (int)_rooms[_currentRoom]._graphic - 1);
+			for (uint i = 0; i < _items.size(); i++)
+				if (_items[i]._room == _currentRoom && _items[i]._graphic != 0 &&
+					!(_items[i]._flags & ITEMF_NO_PICTURE))
+					msg += Common::String::format(" %d", (int)_items[i]._graphic - 1 + ITEMS_OFFSET);
+			g_comprehend->print("%s.\n", msg.c_str());
+			continue;
+		}
+#endif
 
 		_inputLineIndex = 0;
 		if (strlen(_inputLine) == 0) {
@@ -1405,7 +1459,8 @@ turn:
 		if (!handled)
 			return;
 
-		/* FIXME - handle the 'before you can continue' case */
+		// The original's 'before you can continue' check is not implemented:
+		// the rest of the line always runs.
 		if (_inputLine[_inputLineIndex] == '\0')
 			break;
 	}

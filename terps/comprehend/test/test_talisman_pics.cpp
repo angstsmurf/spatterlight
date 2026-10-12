@@ -17,6 +17,7 @@
  */
 
 #include "../graphics_magician.h"
+#include "pic_fixture_test.h"
 #include <cstdio>
 #include <cstdint>
 #include <cstdlib>
@@ -24,34 +25,6 @@
 #include <string>
 
 using namespace Glk::Comprehend;
-
-#define PICTURE_ROWS 160   // rows 0..159 are the picture; 160..191 are text
-
-static int rowOfOffset(int off) {
-	// Invert the Apple hi-res address: off = base(row) + col, col 0..39.
-	for (int row = 0; row < 192; row++) {
-		int base = (((row / 8) & 7) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
-		if (off >= base && off < base + 40)
-			return row;
-	}
-	return -1;
-}
-
-static std::vector<uint8_t> readFile(const std::string &path) {
-	std::vector<uint8_t> v;
-	FILE *f = fopen(path.c_str(), "rb");
-	if (!f) return v;
-	fseek(f, 0, SEEK_END);
-	long n = ftell(f);
-	fseek(f, 0, SEEK_SET);
-	if (n > 0) {
-		v.resize((size_t)n);
-		if (fread(v.data(), 1, (size_t)n, f) != (size_t)n)
-			v.clear();
-	}
-	fclose(f);
-	return v;
-}
 
 struct Case {
 	const char *name;
@@ -104,7 +77,7 @@ int main(int argc, char **argv) {
 
 		std::vector<uint8_t> img  = readFile(prefix + c.img);
 		std::vector<uint8_t> gold = readFile(prefix + c.page);
-		if (img.empty() || gold.size() != 0x2000) {
+		if (img.empty() || gold.size() != kHiresPageSize) {
 			fprintf(stderr, "FAIL %-22s : missing/short fixture (img=%zu page=%zu)\n",
 				c.name, img.size(), gold.size());
 			failures++;
@@ -117,9 +90,9 @@ int main(int argc, char **argv) {
 		const uint8_t *page = gmPagePtr();
 
 		int diffs = 0, firstOff = -1;
-		for (int off = 0; off < 0x2000; off++) {
-			int row = rowOfOffset(off);
-			if (row < 0 || row >= PICTURE_ROWS) continue;
+		for (int off = 0; off < kHiresPageSize; off++) {
+			int row = hiresRowOfOffset(off);
+			if (row < 0 || row >= kHiresPictureRows) continue;
 			if (page[off] != gold[off]) {
 				if (firstOff < 0) firstOff = off;
 				diffs++;
@@ -130,14 +103,14 @@ int main(int argc, char **argv) {
 			printf("PASS %-22s : byte-exact over picture rows\n", c.name);
 		} else {
 			printf("FAIL %-22s : %d differing byte(s); first at off=%04x (row %d) "
-			       "got=%02x want=%02x\n",
-			       c.name, diffs, firstOff, rowOfOffset(firstOff),
-			       page[firstOff], gold[firstOff]);
+				   "got=%02x want=%02x\n",
+				   c.name, diffs, firstOff, hiresRowOfOffset(firstOff),
+				   page[firstOff], gold[firstOff]);
 			failures++;
 		}
 	}
 
 	printf("\n%d/%d cases passed\n", (int)(sizeof(kCases)/sizeof(kCases[0])) - failures,
-	       (int)(sizeof(kCases)/sizeof(kCases[0])));
+		   (int)(sizeof(kCases)/sizeof(kCases[0])));
 	return failures ? 1 : 0;
 }

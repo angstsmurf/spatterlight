@@ -43,6 +43,7 @@
 #include "gm_vector.h"
 #include "gm_artifact.h"
 #include "slow_draw_page.h"     // shared progressive-reveal helper
+#include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstring>
 
 namespace Glk {
@@ -64,58 +65,58 @@ static uint8_t s_fontGlyphs[128 * 8];           // op3/op5 picture font, 8 bytes
 //   $120A -> s_patternData            (120 bytes)
 //   $1282 -> s_brushBitmaps           (256 bytes)
 bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
-    if (!t2)
-        return false;
+	if (!t2)
+		return false;
 
-    // The three drawing tables are byte-identical across every Graphics Magician
-    // title we support (Talisman, Transylvania, ...) and sit contiguously as
-    //   [ colour subindices : 216 ][ pattern data : 120 ][ brush bitmaps : 256 ]
-    // but at a load-address-dependent offset inside T2 (Talisman puts pattern
-    // data at $120a, Transylvania at $1278). Rather than hard-code per-game
-    // offsets, locate the pattern-data table by its unmistakable signature -- the
-    // Apple hi-res colour patterns black/green-violet/white/orange-blue -- and
-    // derive the neighbours from it. pattern_data[0..3] are zero, so the run that
-    // actually identifies it starts at byte 4.
-    static const uint8_t kPatternSig[] = {
-        0x55,0x2a,0x55,0x2a, 0x2a,0x55,0x2a,0x55, 0x7f,0x7f,0x7f,0x7f,
-        0x80,0x80,0x80,0x80, 0xd5,0xaa,0xd5,0xaa, 0xaa,0xd5,0xaa,0xd5,
-        0xff,0xff,0xff,0xff,
-    };
-    const size_t kSubLen   = sizeof(s_colorPatternSubindices); // 216
-    const size_t kPatLen   = sizeof(s_patternData);            // 120
-    const size_t kBrushLen = sizeof(s_brushBitmaps);           // 256
+	// The three drawing tables are byte-identical across every Graphics Magician
+	// title we support (Talisman, Transylvania, ...) and sit contiguously as
+	//   [ colour subindices : 216 ][ pattern data : 120 ][ brush bitmaps : 256 ]
+	// but at a load-address-dependent offset inside T2 (Talisman puts pattern
+	// data at $120a, Transylvania at $1278). Rather than hard-code per-game
+	// offsets, locate the pattern-data table by its unmistakable signature -- the
+	// Apple hi-res colour patterns black/green-violet/white/orange-blue -- and
+	// derive the neighbours from it. pattern_data[0..3] are zero, so the run that
+	// actually identifies it starts at byte 4.
+	static const uint8_t kPatternSig[] = {
+		0x55,0x2a,0x55,0x2a, 0x2a,0x55,0x2a,0x55, 0x7f,0x7f,0x7f,0x7f,
+		0x80,0x80,0x80,0x80, 0xd5,0xaa,0xd5,0xaa, 0xaa,0xd5,0xaa,0xd5,
+		0xff,0xff,0xff,0xff,
+	};
+	const size_t kSubLen   = sizeof(s_colorPatternSubindices); // 216
+	const size_t kPatLen   = sizeof(s_patternData);            // 120
+	const size_t kBrushLen = sizeof(s_brushBitmaps);           // 256
 
-    size_t sig = SIZE_MAX;
-    if (size >= sizeof(kPatternSig)) {
-        for (size_t i = 0; i + sizeof(kPatternSig) <= size; i++) {
-            if (std::memcmp(t2 + i, kPatternSig, sizeof(kPatternSig)) == 0) {
-                sig = i;
-                break;
-            }
-        }
-    }
-    if (sig == SIZE_MAX || sig < 4)
-        return false;
-    size_t patBase = sig - 4;          // pattern_data[0..3] == 0 precede the sig
-    if (patBase < kSubLen)             // need room for the subindices before it
-        return false;
-    size_t subBase   = patBase - kSubLen;
-    size_t brushBase = patBase + kPatLen;
-    if (brushBase + kBrushLen > size)
-        return false;
+	size_t sig = SIZE_MAX;
+	if (size >= sizeof(kPatternSig)) {
+		for (size_t i = 0; i + sizeof(kPatternSig) <= size; i++) {
+			if (std::memcmp(t2 + i, kPatternSig, sizeof(kPatternSig)) == 0) {
+				sig = i;
+				break;
+			}
+		}
+	}
+	if (sig == SIZE_MAX || sig < 4)
+		return false;
+	size_t patBase = sig - 4;          // pattern_data[0..3] == 0 precede the sig
+	if (patBase < kSubLen)             // need room for the subindices before it
+		return false;
+	size_t subBase   = patBase - kSubLen;
+	size_t brushBase = patBase + kPatLen;
+	if (brushBase + kBrushLen > size)
+		return false;
 
-    std::memcpy(s_colorPatternSubindices, t2 + subBase,   kSubLen);
-    std::memcpy(s_patternData,            t2 + patBase,   kPatLen);
-    std::memcpy(s_brushBitmaps,           t2 + brushBase, kBrushLen);
+	std::memcpy(s_colorPatternSubindices, t2 + subBase,   kSubLen);
+	std::memcpy(s_patternData,            t2 + patBase,   kPatLen);
+	std::memcpy(s_brushBitmaps,           t2 + brushBase, kBrushLen);
 
-    // The op3/op5 picture font shares the brush table's base: glyph(ch) lives at
-    // brushBase + ch*8 (so the brush bitmaps double as the unused control-char
-    // glyphs $00..$1f, and the printable glyphs follow). Copy the whole 128-char
-    // range; leave it zero (blank text) if T2 ends early rather than failing the
-    // critical tables above.
-    if (brushBase + sizeof(s_fontGlyphs) <= size)
-        std::memcpy(s_fontGlyphs, t2 + brushBase, sizeof(s_fontGlyphs));
-    return true;
+	// The op3/op5 picture font shares the brush table's base: glyph(ch) lives at
+	// brushBase + ch*8 (so the brush bitmaps double as the unused control-char
+	// glyphs $00..$1f, and the printable glyphs follow). Copy the whole 128-char
+	// range; leave it zero (blank text) if T2 ends early rather than failing the
+	// critical tables above.
+	if (brushBase + sizeof(s_fontGlyphs) <= size)
+		std::memcpy(s_fontGlyphs, t2 + brushBase, sizeof(s_fontGlyphs));
+	return true;
 }
 
 // ---- Apple hi-res framebuffer -------------------------------------------------
@@ -201,7 +202,7 @@ struct AppleSlowPolicy {
 	int rowOf(const SlowWriteOp &op) const { return row_of_offset(op.offset); }
 	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
 		return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
-		       b.value == a.value;
+			   b.value == a.value;
 	}
 	void sync() { memcpy(s_slowScreen, s_screenmem, A2_SCREEN_MEM_SIZE); }
 };
@@ -258,286 +259,37 @@ typedef struct {
 
 // ---- Flood fill ---------------------------------------------------------------
 //
-// op14 fills the connected region of "set" (white) pixels reachable from a seed,
-// replacing them with the current fill-colour dither pattern and stopping at clear
-// (black) pixels and the clip rectangle.
-//
-// It is a queue-based span fill: painting one horizontal run of pixels spawns
-// child runs on the rows immediately above and below it, which are processed in
-// turn from a 32-entry circular queue. A merge step folds together runs that an
-// opposite-direction span has already claimed so no pixel is painted twice.
-// Painting modifies the very screen bits that later boundary tests read, so the
-// traversal/merge order is part of the algorithm and is preserved here.
-//
-// A pixel position is its horizontal coordinate, column*7 + bit, where `column`
-// selects the hi-res byte (each byte holds 7 visible pixels) and `bit` is 0..6
-// within it. Positions are therefore ordinary integers: comparisons are <, == and
-// stepping one pixel is ++/--. Stepping left of column 0 yields a negative index,
-// which correctly sorts below every on-screen pixel (matching the signed-byte
-// boundary tests of the 6502 original) and is never used to address the screen.
+// op14 PAINT. The span-fill engine is shared with the double hi-res renderer
+// (gm_span_fill.h); this is the standard hi-res page it runs on: one byte per
+// column, patterned from a 4-byte-wide dither selected by row parity.
 
-#define QUEUE_SIZE   32
-#define QUEUE_MASK   0x1f
-#define DIR_UP       0     // child run continues onto the row above
-#define DIR_DOWN     1     // child run continues onto the row below
-#define DIR_DISABLED 0xff  // span was absorbed by a merge; skip it
+struct AppleFillPage {
+	static const bool kDropSinglePixelSpans = false;
 
-struct Span {
-	uint8_t row;
-	int     left, right;   // inclusive pixel-coordinate edges
-	uint8_t dir;
+	uint8_t  patEven, patOdd;   // fill-pattern sub-indices (even/odd row)
+	uint16_t rowAddr;           // hi-res base address of the current row
+	uint8_t  patBase;           // fill-pattern table base for the current row
+
+	// Odd rows draw with the odd fill sub-index, even rows with the even one.
+	void setRow(uint8_t row) {
+		rowAddr = gm_row_address(row);
+		patBase = static_cast<uint8_t>(((row & 1) ? patOdd : patEven) << 2);
+	}
+	uint8_t read(int col) const { return s_screenmem[rowAddr + col]; }
+	void write(int col, uint8_t v) { write_screen(static_cast<uint16_t>(rowAddr + col), v); }
+	uint8_t pattern(int col) const { return s_patternData[(col & 3) | patBase]; }
 };
 
-static Span    g_queue[QUEUE_SIZE];
-static uint8_t g_head, g_tail;          // circular-queue head / tail indices
+static AppleFillPage s_fillPage;
+static GmSpanFill<AppleFillPage> s_spanFill(s_fillPage);
 
-static uint8_t  g_row;                  // current row
-static int      g_pos;                  // current pixel position (column*7 + bit)
-static int      g_edge;                 // left edge produced by paint_span()
-static uint8_t  g_bit, g_edge_bit;      // paint_span / edge-mask scratch
-static uint16_t g_row_addr;             // hi-res base address of row g_row
-static uint8_t  g_pat_base;             // fill-pattern table base for row g_row
-static uint8_t  g_pat_even, g_pat_odd;  // fill-pattern sub-indices (even/odd row)
-static uint8_t  g_clip_left, g_clip_right, g_clip_top, g_clip_bottom;
-
-static const uint8_t gmBIT[7]   = {0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40};
-static const uint8_t gmLMASK[7] = {0x80, 0x81, 0x83, 0x87, 0x8f, 0x9f, 0xbf};
-static const uint8_t gmRMASK[7] = {0xfe, 0xfc, 0xf8, 0xf0, 0xe0, 0xc0, 0x80};
-
-static inline int col_of(int pos) { return pos / COL_BITS; }
-static inline int bit_of(int pos) { return pos % COL_BITS; }
-static inline int to_pos(int col, int bit) { return col * COL_BITS + bit; }
-
-// Compute the base address and pattern base for the current row (g_row); odd
-// rows draw with the odd fill sub-index, even rows with the even one.
-static void set_row_address() {
-	g_row_addr = gm_row_address(g_row);
-	g_pat_base = static_cast<uint8_t>(((g_row & 1) ? g_pat_odd : g_pat_even) << 2);
-}
-
-// Is the pixel at the current position set?
-static bool pixel_is_set() {
-	return (gmBIT[bit_of(g_pos)] & s_screenmem[g_row_addr + col_of(g_pos)]) != 0;
-}
-
-// Locate the right / left edge of a run of set bits within byte `p`, returning
-// the paint mask and storing the boundary bit index (right_edge_mask -> g_edge_bit,
-// left_edge_mask -> g_bit). When all seven bits are set the run continues past
-// this byte (no edge here): return 0xff.
-static uint8_t right_edge_mask(uint8_t p) {
-	if ((p & 0x7f) == 0x7f)
-		return 0xff;
-	g_edge_bit = 7;
-	uint8_t bit;
-	do {
-		g_edge_bit--;
-		bit = static_cast<uint8_t>(p & 0x7f);
-		p = static_cast<uint8_t>(p << 1);
-	} while (bit >> 6);
-	return gmRMASK[g_edge_bit];
-}
-static uint8_t left_edge_mask(uint8_t p) {
-	p &= 0x7f;
-	if (p == 0x7f)
-		return 0xff;
-	g_bit = 0xff;
-	uint8_t bit;
-	do {
-		g_bit++;
-		bit = static_cast<uint8_t>(p & 1);
-		p = static_cast<uint8_t>(p >> 1);
-	} while (bit);
-	return gmLMASK[g_bit];
-}
-
-// Blend `mask` worth of the current fill pattern into screen column `col`,
-// keeping the screen's existing pixels wherever the mask is clear.
-static void blend_byte(uint8_t mask, int col) {
-	uint16_t addr = static_cast<uint16_t>(g_row_addr + col);
-	uint8_t kept = static_cast<uint8_t>((mask ^ s_screenmem[addr]) & 0x7f);
-	uint8_t pattern = s_patternData[(col & 3) | g_pat_base];
-	write_screen(addr, static_cast<uint8_t>((pattern & mask) | kept));
-}
-
-// Paint the maximal run of set pixels through the seed g_pos on row g_row,
-// bounded by clear pixels or the clip edges. Leaves the run's left edge in
-// g_edge and its right edge in g_pos.
-static void paint_span() {
-	int col = col_of(g_pos);
-	g_bit = bit_of(g_pos);
-
-	// Seed byte: intersect the right-edge and left-edge masks so we paint only
-	// the run that actually touches the seed bit.
-	g_edge_bit = 0xff;
-	uint8_t existing = s_screenmem[g_row_addr + col];
-	uint8_t right_mask = right_edge_mask(static_cast<uint8_t>(existing | gmRMASK[g_bit]));
-	uint8_t left_input = static_cast<uint8_t>(gmLMASK[g_bit] | existing);
-	g_bit = 7;
-	uint8_t mask = static_cast<uint8_t>(left_edge_mask(left_input) & right_mask);
-
-	// Walk left across whole columns, painting each, until a right-edge boundary
-	// turns up or we reach the clip edge.
-	uint8_t left_bit;
-	for (;;) {
-		blend_byte(mask, col);
-		if (g_edge_bit != 0xff) { left_bit = g_edge_bit; break; }
-		if (--col < g_clip_left) { col++; left_bit = 0xff; break; }
-		mask = right_edge_mask(s_screenmem[g_row_addr + col]);
-	}
-
-	// The left edge sits one pixel past the boundary bit.
-	uint8_t edge_bit = left_bit + 1;
-	if (edge_bit == 7) { edge_bit = 0; col++; }
-	g_edge = to_pos(col, edge_bit);
-
-	// Walk right from the seed, painting whole columns, until the run ends (the
-	// bit index runs off the left of a column with no continuation) or we reach
-	// the clip edge.
-	col = col_of(g_pos);
-	for (;;) {
-		if (g_bit == 7 && col != g_clip_right) {
-			col++;
-			blend_byte(left_edge_mask(s_screenmem[g_row_addr + col]), col);
-			continue;
-		}
-		g_bit--;
-		if (g_bit & 0x80) { g_bit = 6; col--; }
-		g_pos = to_pos(col, g_bit);
-		return;
-	}
-}
-
-// Append a span (edges, row, direction) to the work queue, unless its row is the
-// clip edge in that direction.
-static void enqueue_span(uint8_t row, int left, int right, uint8_t dir) {
-	uint8_t clip_row = (dir == DIR_UP) ? g_clip_top : g_clip_bottom;
-	if (row == clip_row)
-		return;
-
-	Span &s = g_queue[g_tail];
-	s.row = row;
-	s.left = left;
-	s.right = right;
-	s.dir = dir;
-	g_tail = (g_tail + 1) & QUEUE_MASK;   // never expected to overflow 32 spans
-}
-
-enum WalkAction {
-	WALK_ADVANCE,   // keep walking the parent span for more runs
-	WALK_DONE       // this entry is finished
-};
-
-// Paint the run at the current position and queue its follow-ups: a same-
-// direction continuation covering the whole run, plus opposite-direction spans
-// for any part of the run overhanging the parent span on the left or right.
-static WalkAction paint_run(const Span &parent) {
-	paint_span();
-	enqueue_span(g_row, g_edge, g_pos, parent.dir);
-	int run_right = g_pos;
-
-	// Left overhang: the part of the run reaching left of the parent's left edge
-	// is re-scanned in the opposite vertical direction.
-	if (g_edge < parent.left - 1)
-		enqueue_span(g_row, g_edge, parent.left - 2, parent.dir ^ 1);
-
-	// Right overhang, likewise. If there is one we are finished with this run; if
-	// the run ended inside the parent we keep walking from its right edge.
-	if (parent.right + 1 < run_right) {
-		enqueue_span(g_row, parent.right + 2, run_right, parent.dir ^ 1);
-		return WALK_DONE;
-	}
-	if (parent.right + 1 == run_right)
-		return WALK_DONE;
-
-	g_pos = run_right;
-	return WALK_ADVANCE;
-}
-
-// Handle a set pixel found while walking the parent span. If an opposite-
-// direction span already queued covers this run, merge with it instead of
-// painting twice; otherwise paint the run.
-static WalkAction handle_run(const Span &parent) {
-	for (uint8_t i = (g_head + 1) & QUEUE_MASK; i != g_tail; i = (i + 1) & QUEUE_MASK) {
-		Span &other = g_queue[i];
-		if (other.row != g_row)      continue;
-		if (other.dir == parent.dir) continue;
-		if (g_pos < other.left || g_pos > other.right)
-			continue;                              // run not inside `other`'s extent
-
-		// Extend `other` left to cover the parent run reaching past its left edge.
-		if (g_pos != other.left && other.left < parent.left - 1)
-			enqueue_span(g_row, other.left, parent.left - 2, other.dir);
-
-		if (other.right <= parent.right) {
-			// `other` lies entirely within the parent run: absorb it and keep
-			// walking from its right edge.
-			other.dir = DIR_DISABLED;
-			g_pos = other.right;
-			return WALK_ADVANCE;
-		}
-
-		// `other` extends past the parent run: trim its left edge to just past
-		// the parent's right edge and stop (it will be painted on its own turn).
-		other.left = parent.right + 1;
-		return WALK_DONE;
-	}
-
-	return paint_run(parent);
-}
-
-// Process one queued span: walk the parent span on the adjacent row, painting
-// (or merging) every connected run of set pixels it overlaps.
-static void process_queue_head() {
-	Span parent = g_queue[g_head];
-	if (parent.dir == DIR_DISABLED)    // absorbed by an earlier merge
-		return;
-
-	g_row = (parent.dir == DIR_UP) ? parent.row - 1 : parent.row + 1;
-	g_pos = parent.left;
-	set_row_address();
-
-	for (;;) {
-		if (pixel_is_set() && handle_run(parent) == WALK_DONE)
-			return;
-		if (g_pos == parent.right)
-			return;
-		g_pos++;
-	}
-}
-
-// op14 flood-fill driver: paint the seed run, queue its up/down children, then
-// drain the queue.
-static void run_fill() {
-	set_row_address();
-	if (!pixel_is_set())
-		return;
-	paint_span();
-
-	g_head = g_tail = 0;
-	enqueue_span(g_row, g_edge, g_pos, DIR_UP);
-	enqueue_span(g_row, g_edge, g_pos, DIR_DOWN);
-
-	long guard = 0;
-	while (g_head != g_tail) {
-		if (++guard > 2000000)         // safety net against pathological input
-			return;
-		process_queue_head();
-		g_head = (g_head + 1) & QUEUE_MASK;
-	}
-}
-
-// Public flood-fill entry point: seed point (x,y), even/odd fill patterns and
-// the clip rectangle (left/right columns, top/bottom rows).
+// Flood-fill entry point: seed point (x,y), even/odd fill patterns and the clip
+// rectangle (left/right columns, top/bottom rows).
 static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t pat_odd,
 		uint8_t left, uint8_t right, uint8_t top, uint8_t bottom) {
-	g_pat_even = pat_even;
-	g_pat_odd  = pat_odd;
-	g_clip_left = left;  g_clip_right  = right;
-	g_clip_top  = top;   g_clip_bottom = bottom;
-
-	g_row = y;
-	g_pos = x;   // pixel coordinate == column*7 + bit
-	run_fill();
+	s_fillPage.patEven = pat_even;
+	s_fillPage.patOdd  = pat_odd;
+	s_spanFill.fill(x, y, left, right, top, bottom);   // x == column*7 + bit
 }
 
 // ---- Text glyph drawing (op3 TEXT_CHAR / op5 TEXT_OUTLINE) ---------------------
@@ -568,7 +320,7 @@ static void glyph_blit_half(uint16_t addr, int col, uint8_t mask, bool normal, u
 	}
 }
 static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
-                            uint8_t pat_even, uint8_t pat_odd) {
+							uint8_t pat_even, uint8_t pat_odd) {
 	const uint8_t *glyph = &s_fontGlyphs[(ch & 0x7f) * 8];
 	uint8_t col = (uint8_t)(x / COL_BITS);
 	uint8_t off = (uint8_t)(x % COL_BITS);
@@ -673,7 +425,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 	{
 		// One tag per primitive (op >> 4), matching test/pixtest's opName order.
 		static const char kPrim[16] = {'.','t','p','c','s','o','f','.',
-		                               'm','B','L','C','S','d','F','R'};
+									   'm','B','L','C','S','d','F','R'};
 		g_currentPrim = kPrim[opcode & 0xf];
 	}
 #endif
@@ -915,24 +667,7 @@ static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
 // (bribe refill to 74, catch, save/restore -> snap to the new level).
 static int s_cmDisplayedSand = -1;   // grains currently shown; -1 = not yet drawn
 static bool s_cmFallArmed = false;   // a single-grain drop is waiting to animate
-static int s_cmFallFrame = -1;       // active fall frame (0..kCMFallFrames); -1 idle
-
-// The freed grain falls down the hourglass neck. gm_draw_brush stamps brush 0
-// (a single dot) with its top-left at (x,y) but the lit pixel lands ~7 px down
-// and right, so a grain queued at (kCMNeckX, plotY) shows at screen
-// (kCMNeckX+7, plotY+7). The resting pile's lowest visible grain is screen row
-// ~99; the neck waist is rows ~100-101; the central sand stream (visible black
-// channel with sparse orange/blue dots) runs ~102-123; the static bottom mound
-// begins ~row 124. We drop the freed grain down that stream over a few frames --
-// an embellishment (the original simply deletes the top grain). The erase band
-// must stay BELOW the pile (top >= 100) so re-overlaying the clean panel each
-// frame never wipes the resting pile above the waist.
-static const int kCMNeckTop = 95;    // first plot y -> screen row ~102 (below waist)
-static const int kCMNeckStep = 4;    // plot-y advance per frame (~4 screen rows)
-static const int kCMFallFrames = 6;  // grain positions; one extra clear frame follows
-static const int kCMNeckX = 245;     // queued x -> screen x 252, the stream centre
-static const int kCMBandTop = 100;   // erase band: waist down to the mound top,
-static const int kCMBandBot = 125;   // clear of the pile (which ends at row ~99)
+static CMGrainFall s_cmFall;         // the freed grain's trip down the neck (cm_panel.h)
 
 void gmCaptureCMPanel(int col0, int col1) {
 	memcpy(s_cmPanel, s_screenmem, A2_SCREEN_MEM_SIZE);
@@ -1050,19 +785,14 @@ static void cm_grain_brush_ctx(gm_vector_ctx *gv, uint8_t *patEven, uint8_t *pat
 	*patOdd = s_colorPatternSubindices[0x34 * 2 + 1];
 }
 
-// Stamp the resting pile of `sand` grains onto the current page (the original
-// draws grains 0..sand-1; grain 0 is a no-op).
+// Stamp the resting pile of `sand` grains onto the current page.
 static void cm_stamp_hourglass_pile(int sand) {
 	gm_vector_ctx gv;
 	uint8_t pat_even, pat_odd;
 	cm_grain_brush_ctx(&gv, &pat_even, &pat_odd);
-	for (int idx = 0; idx < sand && idx < 256; idx++) {
-		uint16_t x;
-		uint8_t y;
-		if (!gmCMHourglassGrainPos((uint8_t)idx, &x, &y))
-			continue;
+	cmForEachPileGrain(sand, [&](uint16_t x, uint8_t y) {
 		gm_draw_brush(x, y, 0, pat_even, pat_odd, &gv);
-	}
+	});
 }
 
 // Restore columns [col0,col1] of the saved static panel (logo + hourglass frame
@@ -1116,7 +846,7 @@ void gmDrawCMHourglass(int sand) {
 void gmCMHourglassReset() {
 	s_cmDisplayedSand = -1;
 	s_cmFallArmed = false;
-	s_cmFallFrame = -1;
+	s_cmFall.reset();
 }
 
 // Consume the "a single grain just drained" flag set by gmDrawCMHourglass().
@@ -1130,50 +860,27 @@ bool gmCMHourglassConsumeFallArmed() {
 
 // Begin / advance / abort the falling-grain animation. The resting pile is
 // already at the post-drop level (gmDrawCMHourglass stamped it); these only
-// paint the single freed grain travelling down the neck, confined to the band
-// [kCMBandTop,kCMBandBot] so the pile above is never touched.
+// paint the single freed grain travelling down the neck, confined to the
+// CMGrainFall band so the pile above is never touched.
 void gmCMHourglassFallBegin() {
-	s_cmFallFrame = 0;
+	s_cmFall.begin();
 }
 
 bool gmCMHourglassFallActive() {
-	return s_cmFallFrame >= 0;
+	return s_cmFall.active();
 }
 
-// Render the current fall frame and advance. Sets *y0/*y1 to the dirty row band.
-// Returns true while more frames remain; the final frame paints no grain (just
-// restores the clean neck) so nothing lingers.
 bool gmCMHourglassFallStep(int *y0, int *y1) {
-	if (s_cmFallFrame < 0) {
-		*y0 = *y1 = 0;
-		return false;
-	}
-	cmOverlayPanelBand(kCMBandTop, kCMBandBot);
-	if (s_cmFallFrame < kCMFallFrames) {
+	return s_cmFall.step(y0, y1, cmOverlayPanelBand, [](uint16_t x, uint8_t y) {
 		gm_vector_ctx gv;
 		uint8_t pat_even, pat_odd;
 		cm_grain_brush_ctx(&gv, &pat_even, &pat_odd);
-		int gy = kCMNeckTop + s_cmFallFrame * kCMNeckStep;
-		if (gy > kCMBandBot)
-			gy = kCMBandBot;
-		gm_draw_brush((uint16_t)kCMNeckX, (uint8_t)gy, 0, pat_even, pat_odd, &gv);
-	}
-	*y0 = kCMBandTop;
-	*y1 = kCMBandBot;
-
-	s_cmFallFrame++;
-	bool more = s_cmFallFrame <= kCMFallFrames;
-	if (!more)
-		s_cmFallFrame = -1;
-	return more;
+		gm_draw_brush(x, y, 0, pat_even, pat_odd, &gv);
+	});
 }
 
 void gmCMHourglassFallAbort() {
-	if (s_cmFallFrame < 0)
-		return;
-	// Snap to the clean resting state (no falling grain).
-	cmOverlayPanelBand(kCMBandTop, kCMBandBot);
-	s_cmFallFrame = -1;
+	s_cmFall.abort(cmOverlayPanelBand);
 }
 
 void gmDrawImage(const uint8_t *data, size_t size) {

@@ -27,7 +27,7 @@ namespace Glk {
 namespace Comprehend {
 
 // The banks contain no restart-prompt string (the original halts on THE END);
-// handle_restart() below prints a literal instead, so this entry is unused.
+// restartPrompt() below returns a literal instead, so this entry is unused.
 static const GameStrings CM_STRINGS = {
 	EXTRA_STRING_TABLE(0)
 };
@@ -38,37 +38,12 @@ CovetedMirrorGame::CovetedMirrorGame() : ComprehendGameV2() {
 	// The Apple II release keeps its canned messages in twelve separate string
 	// banks (MA-ML), the same way OO-Topos uses MA-ME. Each holds up to 64
 	// strings, indexed via EXTRA_STRING_TABLE (0x8200 | n).
-	_stringFiles.push_back("MA");
-	_stringFiles.push_back("MB");
-	_stringFiles.push_back("MC");
-	_stringFiles.push_back("MD");
-	_stringFiles.push_back("ME");
-	_stringFiles.push_back("MF");
-	_stringFiles.push_back("MG");
-	_stringFiles.push_back("MH");
-	_stringFiles.push_back("MI");
-	_stringFiles.push_back("MJ");
-	_stringFiles.push_back("MK");
-	_stringFiles.push_back("ML");
+	addLetteredFiles(_stringFiles, "M", 'A', 'L');
 
 	// Disk #1 carries the room (RA-RG) and object (OA-OG) pictures.
-	_locationGraphicFiles.push_back("RA");
-	_locationGraphicFiles.push_back("RB");
-	_locationGraphicFiles.push_back("RC");
-	_locationGraphicFiles.push_back("RD");
-	_locationGraphicFiles.push_back("RE");
-	_locationGraphicFiles.push_back("RF");
-	_locationGraphicFiles.push_back("RG");
+	addLetteredFiles(_locationGraphicFiles, "R", 'A', 'G');
+	addLetteredFiles(_itemGraphicFiles, "O", 'A', 'G');
 
-	_itemGraphicFiles.push_back("OA");
-	_itemGraphicFiles.push_back("OB");
-	_itemGraphicFiles.push_back("OC");
-	_itemGraphicFiles.push_back("OD");
-	_itemGraphicFiles.push_back("OE");
-	_itemGraphicFiles.push_back("OF");
-	_itemGraphicFiles.push_back("OG");
-
-	_colorTable = 1;
 	_gameStrings = &CM_STRINGS;
 
 	// The title is a Graphics Magician vector image in T0 (like OO-Topos).
@@ -128,24 +103,7 @@ void CovetedMirrorGame::handleAction(Sentence *sentence) {
 	ComprehendGameV2::handleAction(sentence);
 }
 
-// The Coveted Mirror's main command loop (RE'd from the live Apple II RAM dump at
-// cm_main_command_loop $404c) runs the each-turn function chain -- function 0,
-// the daemon -- exactly ONCE per turn, inside the dispatch after the matched
-// action (cm_vm_dispatch_thunk $4f80 evaluates the matched function, then
-// function 0). There is no daemon pass before the parser; the pre-prompt work in
-// the original is only the room/item describe (FUN_4dc1) and graphics.
-//
-// The base ComprehendGame::beforeTurn() runs function 0 a second time before the
-// prompt, which doubles every per-turn daemon effect. For most of that chain it
-// is invisible, but the hourglass is decremented inside it (variable 0x11),
-// so the double pass made the sand drain at 2/turn: the jailer caught the player
-// after ~37 turns instead of the authentic ~74 (start value 74, -1/turn). That
-// halved budget is why a faithful walkthrough's bribe cadence didn't fit.
-//
-// Override to suppress the extra pre-prompt daemon pass so function 0 runs once
-// per turn, as the original does. (Scoped to CM: the other games override
-// beforeTurn with their own per-turn logic and their loops aren't RE-verified
-// here.)
+// The each-turn daemon is not run here; see ComprehendGame::beforeTurn().
 //
 // The daemon (run later, in the dispatch) drains one grain of sand per turn, but
 // the room picture -- which is what redraws the hourglass -- only repaints when
@@ -165,22 +123,8 @@ void CovetedMirrorGame::beforeTurn() {
 // imprisonment) the original interpreter just freezes the machine. Keep the
 // terp's restart/quit choice, but supply the prompt as a literal instead of
 // printing a bogus bank string.
-bool CovetedMirrorGame::handle_restart() {
-	console_println("Press 'R' to play again, any other key to quit.");
-	printUndoAfterDeathHint();
-	_ended = false;
-
-	int c = console_get_key();
-	if (undoAfterDeath(c))
-		return true;
-	if (tolower(c) == 'r') {
-		loadGame();
-		g_comprehend->clearUndo();
-		_updateFlags = UPDATE_ALL;
-		return true;
-	}
-	g_comprehend->quitGame();
-	return false;
+Common::String CovetedMirrorGame::restartPrompt() {
+	return "Press 'R' to play again, any other key to quit.";
 }
 
 // Remember a found mirror piece. The bytecode draws each piece's picture once,

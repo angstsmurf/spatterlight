@@ -6,11 +6,11 @@
  * room as gmDhgrResetScreen(white)+gmDhgrDrawImage, so a deterministic renderer
  * MUST produce identical output regardless of what was on screen before.
  *
- * Build:
- *   c++ -std=c++17 -I.. -I../../common_sagadraw test_dhgr_determinism.cpp \
- *       ../graphics_magician_dhgr.cpp ../../common_sagadraw/gm_artifact.c -o test_dhgr_determinism
+ * Build/run:  make -C terps/comprehend test   (fixtures: test/dhgr/fixtures/,
+ * local-only; pass another directory as argv[1])
  */
-#include "graphics_magician_dhgr.h"
+#include "../graphics_magician_dhgr.h"
+#include "pic_fixture_test.h"
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -19,18 +19,15 @@
 
 using namespace Glk::Comprehend;
 
-static std::vector<uint8_t> readFile(const char *path) {
-	FILE *f = fopen(path, "rb");
-	if (!f) { fprintf(stderr, "cannot open %s\n", path); exit(2); }
-	fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-	std::vector<uint8_t> v(n); fread(v.data(), 1, n, f); fclose(f);
-	return v;
-}
-
 int main(int argc, char **argv) {
-	const char *dir = (argc > 1) ? argv[1] : "dhgr/fixtures";
+	const char *dir = (argc > 1) ? argv[1] : "test/dhgr/fixtures";
 	char path[512];
-	auto load = [&](const char *name) { snprintf(path, sizeof path, "%s/%s", dir, name); return readFile(path); };
+	auto load = [&](const char *name) {
+		snprintf(path, sizeof path, "%s/%s", dir, name);
+		std::vector<uint8_t> v = readFile(path);
+		if (v.empty()) { fprintf(stderr, "cannot read %s\n", path); exit(2); }
+		return v;
+	};
 
 	auto t5 = load("T5");
 	if (!gmDhgrInstallDrawingTables(t5.data(), t5.size())) { printf("FAIL: install\n"); return 1; }
@@ -73,7 +70,7 @@ int main(int argc, char **argv) {
 					for (size_t k = 0; k < ref.size(); k++)
 						bits += __builtin_popcount((ref[k] ^ got[k]) & 0x7f);
 					printf("ORDER-DEPENDENT: img %d differs after img %d (%s bg): %d bits\n",
-					       i, j, white ? "white" : "black", bits);
+						   i, j, white ? "white" : "black", bits);
 					bad++;
 					break; // one example per image is enough
 				}

@@ -47,6 +47,9 @@ private:
 	 * and variables, and drop the player onto the ship's deck (room 51).
 	 */
 	void enterPart2();
+#ifdef COMPREHEND_DEBUG
+	void dumpDatabase(const char *path);
+#endif
 private:
 	/**
 	 * Load strings from the executable
@@ -77,7 +80,6 @@ public:
 	void afterPrompt() override;
 	void handleAction(Sentence *sentence) override;
 	void handleSpecialOpcode() override;
-	bool handle_restart() override;
 	void restartGame() override;
 
 private:
@@ -86,6 +88,15 @@ private:
 	 * ("a new adventure"), or restore a saved game.
 	 */
 	void deathMenu();
+
+	// The other special opcodes that do something, one method each
+	// (handleSpecialOpcode() is just the dispatch).
+	void specialSaveRoom();          // 3
+	void specialRestoreRoom();       // 4
+	void specialTextMode();          // 15
+	void specialBoatDeparture();     // 16
+	void specialGraphicsMode();      // 17
+	void specialNpcConversation();   // 20
 };
 
 } // namespace Comprehend

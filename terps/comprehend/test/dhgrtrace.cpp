@@ -185,7 +185,7 @@ int main(int argc, char **argv) {
 #ifdef DHGR_WATCH
 	if (getenv("WATCHOFF"))
 		gmDhgrSetWatch((int)strtol(getenv("WATCHOFF"),0,16),
-		               getenv("WATCHPAGE")?atoi(getenv("WATCHPAGE")):1);
+					   getenv("WATCHPAGE")?atoi(getenv("WATCHPAGE")):1);
 #endif
 	if (!strcmp(cmd,"overlay") && argc>=9) {
 		A2FileRec *room = find(&A, argv[4]); int ridx = atoi(argv[5]);

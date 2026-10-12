@@ -134,7 +134,7 @@ void FileBuffer::showUnmarked() {
 
 		if ((_readBytes[i] || i == (int)_data.size() - 1) && start != -1) {
 			warning("%.4x - %.4x unmarked (%d bytes)\n",
-			        start, i - 1, i - start);
+					start, i - 1, i - start);
 			start = -1;
 		}
 	}

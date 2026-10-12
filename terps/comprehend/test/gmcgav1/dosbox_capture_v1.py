@@ -1,29 +1,46 @@
 #!/usr/bin/env python3
-"""Capture clean CGA VRAM ground truth for the v1 Crimson Crown rooms.
+"""Capture clean CGA VRAM ground truth for a few v1 rooms, by playing the game.
 
 Boots NOVEL1.EXE in DOSBox-X (CGA), walks to a couple of rooms by typed
 commands, and dumps the raw 16 KB CGA VRAM (0xB8000) to <name>.fb -- written
 directly to host disk (no copy/paste round-trip).  Pair with gmcgav1test, which
 de-interleaves the .fb to 320x200 indices and compares the 280x160 window.
+
+Usage: dosbox_capture_v1.py [cc|tr]      (default cc)
+  cc  Crimson Crown: lakeshore, woods, crypt, cave
+  tr  Transylvania v1: the start room, before and after the name prompt
+The game directory can be overridden with V1GAME.
 """
 import sys, os, time
 sys.path.insert(0, "/Users/administrator/dosbox-x-remotedebug/tests/integration")
 
-GAME = "/Users/administrator/Downloads/comprehend games/crimson-crown"
+GAMES_DIR = "/Users/administrator/Downloads/comprehend games"
 OUT  = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fixtures")
 os.makedirs(OUT, exist_ok=True)
 CONF = "/tmp/cc_v1_capture.conf"
 
-# (name, [commands to reach it from the start room], settle seconds)
-ROOMS = [
-    ("lakeshore", [],            4),   # start room (after title)
-    ("woods",     ["go east\r"], 4),
-    ("crypt",     ["go east\rgo north\n"], 4),
-    ("cave",    ["go east\rgo north\ngo west\n"], 4),
-]
+# game key -> (game folder, [(name, [commands to reach it from the start room],
+# settle seconds)])
+GAMES = {
+    "cc": ("crimson-crown", [
+        ("lakeshore", [],            4),   # start room (after title)
+        ("woods",     ["go east\r"], 4),
+        ("crypt",     ["go east\rgo north\n"], 4),
+        ("cave",    ["go east\rgo north\ngo west\n"], 4),
+    ]),
+    "tr": ("transylvania", [
+        ("trans1", [],            4),   # start room (after title)
+        ("trans2",     ["Petter\rSanna\r"], 4),
+    ]),
+}
 
 
 def main():
+    key = sys.argv[1] if len(sys.argv) > 1 else "cc"
+    if key not in GAMES:
+        sys.exit(__doc__)
+    folder, ROOMS = GAMES[key]
+    GAME = os.environ.get("V1GAME", os.path.join(GAMES_DIR, folder))
     from dosbox_debug import DOSBoxInstance
     open(CONF, "w").write(f"""[sdl]
 autolock=false

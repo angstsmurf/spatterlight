@@ -48,14 +48,11 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 		_stringFiles.push_back("MA");
 
 		_locationGraphicFiles.clear();
-		_locationGraphicFiles.push_back("RA");
-		_locationGraphicFiles.push_back("RB");
-		if (diskNum == 1)
-			_locationGraphicFiles.push_back("RC");
+		// Disk one has a third room-picture file.
+		addLetteredFiles(_locationGraphicFiles, "R", 'A', diskNum == 1 ? 'C' : 'B');
 
 		_itemGraphicFiles.clear();
-		_itemGraphicFiles.push_back("OA");
-		_itemGraphicFiles.push_back("OB");
+		addLetteredFiles(_itemGraphicFiles, "O", 'A', 'B');
 
 		// Both disks share the same restart-prompt string index (0x9), so keep
 		// _gameStrings valid on disk two as well -- leaving it null crashed
@@ -212,49 +209,12 @@ void CrimsonCrownGame::beforeTurn() {
 		loadGame();
 		move_to(_currentRoom);
 	}
-
-	// Do NOT run the each-turn daemon (function 0) here. RE-verified against the
-	// V1 DOS interpreter (crimson-crown/NOVEL.EXE): the main loop FUN_1000_0455
-	// displays the room at the top, then parses and dispatches; the dispatch
-	// FUN_1000_0e73 evaluates the matched action and then function 0 -- the daemon
-	// -- exactly ONCE (index set to 0, evaluator FUN_1000_0eb4 called again; that
-	// evaluator has no other caller), with no daemon pass before the parser.
-	// Calling ComprehendGameV1::beforeTurn() (-> ComprehendGame::beforeTurn() ->
-	// eval_function(0)) ran the daemon a second time, doubling every per-turn
-	// function-0 effect. (Same fix as the V2 games; see git 845e9d5d / 2da5bb81 /
-	// dad6272a.)
-}
-
-bool CrimsonCrownGame::handle_restart() {
-	// Offer undo before touching the disk: undo restores an in-play snapshot onto
-	// the data currently in memory, whereas resetting to disk 1 + reloading is
-	// only meaningful for an actual restart and would clobber the state to undo to.
-	console_println(stringLookup(_gameStrings->game_restart).c_str());
-	printUndoAfterDeathHint();
-	_ended = false;
-
-	int c = console_get_key();
-	if (undoAfterDeath(c))
-		return true;
-	if (tolower(c) == 'r') {
-		// The game spans multiple disks; a restart must return to disk 1 first.
-		if (_diskNum != 1)
-			setupDisk(1);
-		loadGame();
-		g_comprehend->clearUndo();  // can't undo across a restart
-		_updateFlags = UPDATE_ALL;
-		return true;
-	}
-	g_comprehend->quitGame();
-	return false;
 }
 
 void CrimsonCrownGame::restartGame() {
 	// The game spans multiple disks; a restart must return to disk 1 first.
-	if (_diskNum != 1) {
+	if (_diskNum != 1)
 		setupDisk(1);
-		loadGame();
-	}
 	ComprehendGame::restartGame();
 }
 

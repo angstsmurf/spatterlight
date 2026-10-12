@@ -23,15 +23,14 @@
 #define GLK_COMPREHEND_PICS_H
 
 #include "draw_surface.h"
+#include "gm_backend.h"
 #include "comprehend_compat.h"
 
 namespace Glk {
 namespace Comprehend {
 
 enum ImageFlag {
-	IMAGEF_REVERSE = 1 << 0,
-	IMAGEF_NO_PAINTING = 1 << 1,
-	IMAGEF_NO_FILL = IMAGEF_REVERSE | IMAGEF_NO_PAINTING
+	IMAGEF_REVERSE = 1 << 0
 };
 
 // Picture numbers are packed into a single int across several bands. The bands
@@ -63,41 +62,11 @@ public:
 	// into the global DrawSurface, ready to be blitted.
 	void renderPicture(int pictureNum) const { drawPicture(pictureNum); }
 private:
-	struct ImageContext {
-		Common::File _file;
-		uint _picIndex;
-		DrawSurface *_drawSurface;
-		Graphics::Font *_font;
-		uint _drawFlags;
-
-		uint16 _x;
-		uint16 _y;
-		uint32 _penColor;
-		uint32 _fillColor;
-		Shape _shape;
-
-		uint16 _textX;
-		uint16 _textY;
-
-		ImageContext(DrawSurface *drawSurface, Graphics::Font *font, uint flags, uint picIndex) :
-			_drawSurface(drawSurface), _font(font), _drawFlags(flags), _picIndex(picIndex),
-			_x(0), _y(0), _penColor(G_COLOR_BLACK), _fillColor(G_COLOR_BLACK),
-			_shape(SHAPE_CIRCLE_LARGE), _textX(0), _textY(0) {
-		}
-
-		uint32 getFillColor() const;
-		void lineFixes();
-	};
-
 	struct ImageFile {
 	private:
 		Common::Array<uint16> _imageOffsets;
 		Common::Path _filename;
 
-	private:
-		bool doImageOp(ImageContext *ctx) const;
-		uint16 imageGetOperand(ImageContext *ctx) const;
-		void doResetOp(ImageContext *ctx, byte param) const;
 	public:
 		ImageFile() {}
 		ImageFile(const Common::String &filename, bool isSingleImage = false);
@@ -106,34 +75,15 @@ private:
 		// is not a vector image, or releases that ship no title file at all).
 		bool isLoaded() const { return !_imageOffsets.empty(); }
 
-		void draw(uint index, ImageContext *ctx) const;
-
-		// Apple II Talisman only: decode image `index`'s vector stream onto the
-		// persistent Apple hi-res page via the standard hi-res renderer
-		// (graphics_magician.cpp), instead of the generic DrawSurface path.
-		void renderApple(uint index) const;
-
-		// Apple II double hi-res ("<D>") mode: decode image `index`'s vector
-		// stream onto the persistent DHGR aux/main pages via the double-hi-res
-		// renderer (graphics_magician_dhgr.cpp). Same vector stream / offset as
-		// renderApple(); only the rasteriser differs.
-		void renderAppleDhgr(uint index) const;
-
-		// DOS Talisman Hercules only: decode image `index`'s vector stream onto
-		// the 2-bpp logical framebuffer managed by graphics_magician_cga.cpp.
-		void renderGmcga(uint index) const;
-
-		// DOS PCjr 16-colour mode: decode image `index`'s vector stream onto the
-		// 4bpp mode-9 framebuffer managed by graphics_magician_pcjr.cpp. Same
-		// vector stream / offset as renderGmcga(); only the rasteriser differs.
-		void renderPcjr(uint index) const;
+		// Decode image `index`'s vector stream onto the persistent page of a
+		// Graphics Magician renderer (see gm_backend.h).
+		void renderGm(uint index, const GmBackend &gm) const;
 	};
 
 private:
 	Common::Array<ImageFile> _rooms;
 	Common::Array<ImageFile> _items;
 	ImageFile _title;
-	Graphics::Font *_font;
 
 private:
 	/**
@@ -145,16 +95,17 @@ private:
 	 * Draw the specified picture
 	 */
 	void drawPicture(int pictureNum) const;
+	void drawPictureGm(int pictureNum, const GmBackend &gm, uint drawFlags,
+					   DrawSurface *ds) const;
 
 public:
 	Pics();
-	~Pics();
 
 	void clear();
 
 	void load(const Common::StringArray &roomFiles,
-	          const Common::StringArray &itemFiles,
-	          const Common::String &titleFile);
+			  const Common::StringArray &itemFiles,
+			  const Common::String &titleFile);
 
 	/**
 	 * Check if a member with the given name is present in the Archive.

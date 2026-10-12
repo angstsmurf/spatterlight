@@ -44,7 +44,6 @@ private:
 	void throneCutscene();
 
 protected:
-	bool handle_restart() override;
 	void restartGame() override;
 public:
 	CrimsonCrownGame();

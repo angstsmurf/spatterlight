@@ -80,6 +80,7 @@ struct Sentence {
 class ComprehendGame : public GameData {
 protected:
 	bool _ended;
+	bool _silentRestart = false;
 	NounState _nounState;
 	Sentence _sentence;
 	char _inputLine[INPUT_LINE_SIZE];
@@ -115,10 +116,15 @@ private:
 protected:
 	void game_save();
 	bool game_restore();
-	void game_restart() {
+	// End play and have the main loop call handle_restart(). A silent restart
+	// reloads at once; otherwise the player is shown restartPrompt() and
+	// chooses between restarting, undoing and quitting.
+	void game_restart(bool silent = false) {
 		_ended = true;
+		_silentRestart = silent;
 	}
-	virtual bool handle_restart();
+	bool handle_restart();
+	virtual Common::String restartPrompt();
 	// Forced restart used by the #restart metacommand: reload from the start
 	// without the in-game RESTART/RESTORE/QUIT prompt.
 	virtual void restartGame();

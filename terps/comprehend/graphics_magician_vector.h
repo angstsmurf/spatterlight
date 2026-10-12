@@ -22,11 +22,20 @@
 #ifndef COMPREHEND_GRAPHICS_MAGICIAN_VECTOR_H
 #define COMPREHEND_GRAPHICS_MAGICIAN_VECTOR_H
 
-#include <cstdint>  // uint16_t
+#include <cstdint>  // uint8_t, uint16_t
 #include <cstdlib>  // abs
 
 namespace Glk {
 namespace Comprehend {
+
+// Reverse the 8 bits of a byte (bit 0 <-> bit 7): converts an LSB-first glyph
+// row (charset.gda) to the MSB-first order both renderers' draw_glyph expects.
+inline uint8_t gmvMirrorByte(uint8_t b) {
+	b = (uint8_t)((b >> 4) | (b << 4));
+	b = (uint8_t)(((b & 0xcc) >> 2) | ((b & 0x33) << 2));
+	b = (uint8_t)(((b & 0xaa) >> 1) | ((b & 0x55) << 1));
+	return b;
+}
 
 // Major-axis Bresenham (PicDrawLineBresenham @0x2c00): the longer axis is
 // stepped every pixel; the error term (minor - major) decides when the minor
@@ -35,28 +44,28 @@ namespace Comprehend {
 // fill it bounds) by one pixel.
 template <typename Plot>
 inline void gmvDrawLine(int x0, int y0, int x1, int y1, Plot plot) {
-    plot(x0, y0);
-    const int dx = abs(x1 - x0), dy = abs(y1 - y0);
-    const int sx = (x0 < x1) ? 1 : -1;
-    const int sy = (y0 < y1) ? 1 : -1;
-    int x = x0, y = y0;
-    if (dx >= dy) {              // x is the major axis
-        int err = dy - dx;
-        for (int i = 0; i < dx; i++) {
-            x += sx;
-            if (err < 0) err += dy;
-            else { y += sy; err += dy - dx; }
-            plot(x, y);
-        }
-    } else {                     // y is the major axis
-        int err = dx - dy;
-        for (int i = 0; i < dy; i++) {
-            y += sy;
-            if (err < 0) err += dx;
-            else { x += sx; err += dx - dy; }
-            plot(x, y);
-        }
-    }
+	plot(x0, y0);
+	const int dx = abs(x1 - x0), dy = abs(y1 - y0);
+	const int sx = (x0 < x1) ? 1 : -1;
+	const int sy = (y0 < y1) ? 1 : -1;
+	int x = x0, y = y0;
+	if (dx >= dy) {              // x is the major axis
+		int err = dy - dx;
+		for (int i = 0; i < dx; i++) {
+			x += sx;
+			if (err < 0) err += dy;
+			else { y += sy; err += dy - dx; }
+			plot(x, y);
+		}
+	} else {                     // y is the major axis
+		int err = dx - dy;
+		for (int i = 0; i < dy; i++) {
+			y += sy;
+			if (err < 0) err += dx;
+			else { x += sx; err += dx - dy; }
+			plot(x, y);
+		}
+	}
 }
 
 // Midpoint circle (PicDrawCircleBresenham @0x2b10).  NOT the Apple renderer's
@@ -66,27 +75,27 @@ inline void gmvDrawLine(int x0, int y0, int x1, int y1, Plot plot) {
 // the diagonal steps one pixel wider than the textbook midpoint circle.
 template <typename Plot>
 inline void gmvDrawCircle(int cx, int cy, int radius, Plot plot) {
-    uint16_t d = (uint16_t)(0 - radius);                 // [0xb1f2] = -r
-    int i = 0;                                           // [0xb1f0]
-    int r = radius;                                      // [0x9d39], mutated
-    for (;;) {
-        plot(cx - i, cy - r);
-        plot(cx + i, cy - r);
-        plot(cx + i, cy + r);
-        plot(cx - i, cy + r);
-        plot(cx + r, cy - i);
-        plot(cx - r, cy - i);
-        plot(cx - r, cy + i);
-        plot(cx + r, cy + i);
-        d = (uint16_t)(d + 2 * i + 1);                   // 2bae
-        i++;
-        if (!(d & 0x80)) {                               // 2bbd: TEST d,0x80
-            d = (uint16_t)(d + 2 - 2 * r);
-            r--;
-        }
-        if (r < i)                                       // 2be0: JL -> done
-            break;
-    }
+	uint16_t d = (uint16_t)(0 - radius);                 // [0xb1f2] = -r
+	int i = 0;                                           // [0xb1f0]
+	int r = radius;                                      // [0x9d39], mutated
+	for (;;) {
+		plot(cx - i, cy - r);
+		plot(cx + i, cy - r);
+		plot(cx + i, cy + r);
+		plot(cx - i, cy + r);
+		plot(cx + r, cy - i);
+		plot(cx - r, cy - i);
+		plot(cx - r, cy + i);
+		plot(cx + r, cy + i);
+		d = (uint16_t)(d + 2 * i + 1);                   // 2bae
+		i++;
+		if (!(d & 0x80)) {                               // 2bbd: TEST d,0x80
+			d = (uint16_t)(d + 2 - 2 * r);
+			r--;
+		}
+		if (r < i)                                       // 2be0: JL -> done
+			break;
+	}
 }
 
 } // namespace Comprehend

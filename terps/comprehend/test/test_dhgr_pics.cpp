@@ -7,11 +7,11 @@
  *
  * Text rows 0xa0..0xbf are a separate text subsystem and intentionally excluded.
  *
- * Build:
- *   c++ -std=c++17 -I.. -I../../common_sagadraw test_dhgr_pics.cpp \
- *       ../graphics_magician_dhgr.cpp ../../common_sagadraw/gm_artifact.c -o test_dhgr_pics
+ * Build/run:  make -C terps/comprehend test   (fixtures: test/dhgr/fixtures/,
+ * local-only; pass another directory as argv[1])
  */
-#include "graphics_magician_dhgr.h"
+#include "../graphics_magician_dhgr.h"
+#include "pic_fixture_test.h"
 #include <cstdint>
 #include <cstdio>
 #include <cstdlib>
@@ -20,20 +20,15 @@
 
 using namespace Glk::Comprehend;
 
-static int CALC(int y) { return (((y / 8) & 7) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10); }
-
-static std::vector<uint8_t> readFile(const char *path) {
-	FILE *f = fopen(path, "rb");
-	if (!f) { fprintf(stderr, "cannot open %s\n", path); exit(2); }
-	fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-	std::vector<uint8_t> v(n); fread(v.data(), 1, n, f); fclose(f);
-	return v;
-}
-
 int main(int argc, char **argv) {
-	const char *dir = (argc > 1) ? argv[1] : "dhgr/fixtures";
+	const char *dir = (argc > 1) ? argv[1] : "test/dhgr/fixtures";
 	char path[512];
-	auto load = [&](const char *name) { snprintf(path, sizeof path, "%s/%s", dir, name); return readFile(path); };
+	auto load = [&](const char *name) {
+		snprintf(path, sizeof path, "%s/%s", dir, name);
+		std::vector<uint8_t> v = readFile(path);
+		if (v.empty()) { fprintf(stderr, "cannot read %s\n", path); exit(2); }
+		return v;
+	};
 
 	auto t5 = load("T5");
 	if (!gmDhgrInstallDrawingTables(t5.data(), t5.size())) { printf("FAIL: install tables\n"); return 1; }
@@ -53,20 +48,10 @@ int main(int argc, char **argv) {
 	const uint8_t *mm = gmDhgrMainPtr(), *ma = gmDhgrAuxPtr();
 
 	auto diff = [&](int lo, int hi) {
-		int d = 0;
-		for (int y = lo; y < hi; y++) {
-			int base = CALC(y);
-			for (int col = 0; col < 80; col++) {
-				int b = base + (col >> 1);
-				uint8_t mine = (col & 1 ? mm : ma)[b];
-				uint8_t gt   = (col & 1 ? gm.data() : ga.data())[b];
-				d += __builtin_popcount((mine ^ gt) & 0x7f);
-			}
-		}
-		return d;
+		return dhgrDiffBits(mm, ma, gm.data(), ga.data(), lo, hi);
 	};
 
-	int pic = diff(0, 160), txt = diff(160, 192);
+	int pic = diff(0, kHiresPictureRows), txt = diff(kHiresPictureRows, kHiresRows);
 	printf("picture rows 0..0x9f: %d differing bits\n", pic);
 	printf("text rows 0xa0..0xbf: %d (excluded)\n", txt);
 

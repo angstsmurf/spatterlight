@@ -60,7 +60,7 @@ static const GameStrings OO_STRINGS = {
 	EXTRA_STRING_TABLE(154)
 };
 
-OOToposGame::OOToposGame() : ComprehendGameV2(), _restartMode(RESTART_IMMEDIATE),
+OOToposGame::OOToposGame() : ComprehendGameV2(),
 		_noFloodfill(UNSET), _stringVal1(0), _stringVal2(0),
 		_printComputerMsg(true), _shipNotWorking(false) {
 	_gameDataFile = "g0";
@@ -69,11 +69,7 @@ OOToposGame::OOToposGame() : ComprehendGameV2(), _restartMode(RESTART_IMMEDIATE)
 		// Apple II release: the extra strings live in separate files
 		// (MA-ME) rather than embedded in novel.exe, and the title is a raw
 		// hi-res screen rather than a Comprehend vector image.
-		_stringFiles.push_back("MA");
-		_stringFiles.push_back("MB");
-		_stringFiles.push_back("MC");
-		_stringFiles.push_back("MD");
-		_stringFiles.push_back("ME");
+		addLetteredFiles(_stringFiles, "M", 'A', 'E');
 	} else {
 		// Extra strings are (annoyingly) stored in the game binary
 		Common::File f;
@@ -84,7 +80,7 @@ OOToposGame::OOToposGame() : ComprehendGameV2(), _restartMode(RESTART_IMMEDIATE)
 		f.close();
 
 		if (md5 == "3fc2072f6996b17d2f21f0a92e53cdcc" ||
-		    md5 == "5732b346183f85fdd51eb5a75d02196e") {
+			md5 == "5732b346183f85fdd51eb5a75d02196e") {
 			// DOS version from if-archive. The second hash is the same release
 			// with the copy-protection cracked: only five bytes in the loader
 			// header differ, so the string segments are byte-identical and use
@@ -106,17 +102,9 @@ OOToposGame::OOToposGame() : ComprehendGameV2(), _restartMode(RESTART_IMMEDIATE)
 		}
 	}
 
-	_locationGraphicFiles.push_back("RA");
-	_locationGraphicFiles.push_back("RB");
-	_locationGraphicFiles.push_back("RC");
-	_locationGraphicFiles.push_back("RD");
-	_locationGraphicFiles.push_back("RE");
-	_itemGraphicFiles.push_back("OA");
-	_itemGraphicFiles.push_back("OB");
-	_itemGraphicFiles.push_back("OC");
-	_itemGraphicFiles.push_back("OD");
+	addLetteredFiles(_locationGraphicFiles, "R", 'A', 'E');
+	addLetteredFiles(_itemGraphicFiles, "O", 'A', 'D');
 
-	_colorTable = 1;
 	_gameStrings = &OO_STRINGS;
 	// Both releases keep the title in T0. On Apple II it is a Graphics Magician
 	// vector image after the disk-protection / loader stub (Pics::ImageFile
@@ -146,7 +134,7 @@ int OOToposGame::roomIsSpecial(uint room_index, uint *roomDescString) {
 
 	// Is the room dark
 	if ((room->_flags & OO_ROOM_FLAG_DARK) &&
-	        !(_flags[OO_FLAG_FLASHLIGHT_ON])) {
+			!(_flags[OO_FLAG_FLASHLIGHT_ON])) {
 		if (roomDescString)
 			*roomDescString = 0xb3;
 		return ROOM_IS_DARK;
@@ -154,7 +142,7 @@ int OOToposGame::roomIsSpecial(uint room_index, uint *roomDescString) {
 
 	// Is the room too bright
 	if (room_index == OO_BRIGHT_ROOM &&
-	        !_flags[OO_FLAG_WEARING_GOGGLES]) {
+			!_flags[OO_FLAG_WEARING_GOGGLES]) {
 		if (roomDescString)
 			*roomDescString = 0x1c;
 		return ROOM_IS_TOO_BRIGHT;
@@ -164,23 +152,8 @@ int OOToposGame::roomIsSpecial(uint room_index, uint *roomDescString) {
 }
 
 void OOToposGame::beforeTurn() {
-	// Do NOT run the each-turn daemon (function 0) here. Oo-Topos shares The
-	// Coveted Mirror's V2 command loop, RE'd from the live Apple II RAM dump
-	// (cm_main_command_loop $404c / cm_dispatch_action_and_daemon $4f80): the
-	// original evaluates function 0 exactly ONCE per turn, inside the dispatch
-	// after the matched action -- there is no daemon pass before the parser. The
-	// pre-prompt work is only the room/item describe plus the graphics setup
-	// below. Calling ComprehendGameV2::beforeTurn() (which chains to
-	// ComprehendGame::beforeTurn() -> eval_function(0)) ran the daemon a second
-	// time before the prompt, right before this turn's update(). That desynced
-	// the redraw from the original: when the guard's daemon drags you back to
-	// the cell (it fires in the post-command dispatch), the cell picture only
-	// appeared a turn late, and the capture message printed twice. Dropping the
-	// extra pass restores the original's once-per-turn cadence -- the dragged-to
-	// room now redraws at the top of the next turn, before the prompt, the way
-	// the original does. (Same fix as CovetedMirrorGame::beforeTurn(); see git
-	// 845e9d5d, which fixed CM's hourglass draining 2/turn from this same cause.)
-
+	// The each-turn daemon is not run here (see ComprehendGame::beforeTurn());
+	// this is only the graphics setup the original does ahead of the prompt.
 	if (_flags[OO_FLAG_TOO_DARK]) {
 		// Show placeholder room if room is too dark
 		_currentRoom = 55;
@@ -230,22 +203,19 @@ void OOToposGame::handleSpecialOpcode() {
 
 	case 2:
 		// Internal restart (no prompt, no keypress)
-		_restartMode = RESTART_IMMEDIATE;
-		game_restart();
+		game_restart(true);
 		break;
 
 	case 3:
 		// Game over: show the "Press 'R' to restart the novel." prompt
 		// and wait for the player's choice
-		_restartMode = RESTART_WITH_MSG;
 		game_restart();
 		break;
 
 	case 4:
 		// The RESTART verb: the original reloads at once, with no prompt
 		// and no keypress (verified against novel.exe in DOSBox)
-		_restartMode = RESTART_WITHOUT_MSG;
-		game_restart();
+		game_restart(true);
 		break;
 
 	case 5:
@@ -288,30 +258,6 @@ void OOToposGame::handleSpecialOpcode() {
 		randomizeGuardLocation();
 		break;
 	}
-}
-
-bool OOToposGame::handle_restart() {
-	_ended = false;
-
-	// Only the game-over path (RESTART_WITH_MSG) prompts and waits for a key.
-	// The RESTART verb (RESTART_WITHOUT_MSG) and internal restarts
-	// (RESTART_IMMEDIATE) reload silently, the way the original does.
-	if (_restartMode == RESTART_WITH_MSG) {
-		console_println(stringLookup(_gameStrings->game_restart).c_str());
-		printUndoAfterDeathHint();
-
-		int c = console_get_key();
-		if (undoAfterDeath(c))
-			return true;
-		if (tolower(c) != 'r') {
-			g_comprehend->quitGame();
-			return false;
-		}
-	}
-
-	loadGame();
-	_updateFlags = UPDATE_ALL;
-	return true;
 }
 
 void OOToposGame::synchronizeSave(Common::Serializer &s) {

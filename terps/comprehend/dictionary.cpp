@@ -62,7 +62,7 @@ Word *dict_find_word_by_index_type(ComprehendGame *game,
 
 	for (i = 0; i < game->_words.size(); i++) {
 		if (game->_words[i]._index == index &&
-		        game->_words[i]._type == type)
+				game->_words[i]._type == type)
 			return &game->_words[i];
 	}
 
@@ -75,7 +75,7 @@ Word *find_dict_word_by_index(ComprehendGame *game,
 
 	for (i = 0; i < game->_words.size(); i++) {
 		if (game->_words[i]._index == index &&
-		        (game->_words[i]._type & type_mask) != 0)
+				(game->_words[i]._type & type_mask) != 0)
 			return &game->_words[i];
 	}
 
@@ -88,8 +88,8 @@ bool dict_match_index_type(ComprehendGame *game, const char *word,
 
 	for (i = 0; i < game->_words.size(); i++)
 		if (game->_words[i]._index == index &&
-		        ((game->_words[i]._type & type_mask) != 0) &&
-		        word_match(&game->_words[i], word))
+				((game->_words[i]._type & type_mask) != 0) &&
+				word_match(&game->_words[i], word))
 			return true;
 
 	return false;

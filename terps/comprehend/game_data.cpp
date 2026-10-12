@@ -176,7 +176,6 @@ void GameData::clearGame() {
 	_replaceNumberVar = 0;
 	_wordFlags = 0;
 	_updateFlags = 0;
-	_colorTable = 0;
 	_itemCount = 0;
 	_totalInventoryWeight = 0;
 
@@ -251,8 +250,9 @@ void GameData::parse_vm(FileBuffer *fb) {
 
 		_functions.push_back(func);
 
-		// WORKAROUND: Parsing functions for Talisman
-		if (_functions.size() == 0x1d8 && g_vm->getGameID() == "talisman")
+		// WORKAROUND: Talisman's function table has no usable terminator
+		uint limit = g_vm->traits().functionTableLimit;
+		if (limit && _functions.size() == limit)
 			break;
 	}
 }
@@ -355,7 +355,7 @@ void GameData::parse_items(FileBuffer *fb) {
 	if (_comprehendVersion == 2) {
 		/* Comprehend version 2 adds long string descriptions */
 		fb->seek(_header.addr_item_strings +
-		         (_items.size() * sizeof(uint16)));
+				 (_items.size() * sizeof(uint16)));
 		file_buf_get_array_le16(fb, 0, _items, _longString, nr_items);
 	}
 
@@ -473,7 +473,7 @@ Common::String GameData::parseString(FileBuffer *fb) {
 				special_next = true;
 			} else {
 				c = decode_string_elem(elem, capital_next,
-				                       special_next);
+									   special_next);
 				special_next = false;
 				capital_next = false;
 				string += c;
@@ -524,10 +524,10 @@ void GameData::parse_replace_words(FileBuffer *fb) {
 	size_t len;
 	bool eof;
 
-	/* FIXME - Rename addr_strings_end */
+	// Despite its name, addr_strings_end is where the replace-word table starts.
 	fb->seek(_header.addr_strings_end);
 
-	if (g_comprehend->getGameID() == "talisman") {
+	if (g_comprehend->traits().stringsOnlyInFiles) {
 		// Talisman keeps its strings in separate files, so this header field
 		// is repurposed to point straight at the replace-word table. The
 		// engine indexes the table from zero (entry 0 is "empty"), but the
@@ -548,7 +548,7 @@ void GameData::parse_replace_words(FileBuffer *fb) {
 		return;
 	}
 
-	/* FIXME - what is this for */
+	// Two bytes of unknown purpose precede the table.
 	fb->skip(2);
 
 	for (;;) {
@@ -644,7 +644,7 @@ void GameData::parse_header(FileBuffer *fb) {
 		parse_header_le16(fb, &header->addr_item_graphics);
 
 		header->nr_items = (header->addr_item_word -
-		                    header->addr_item_flags);
+							header->addr_item_flags);
 
 	} else {
 		parse_header_le16(fb, &header->addr_item_strings);
@@ -654,7 +654,7 @@ void GameData::parse_header(FileBuffer *fb) {
 		parse_header_le16(fb, &header->addr_item_graphics);
 
 		header->nr_items = (header->addr_item_flags -
-		                    header->addr_item_locations);
+							header->addr_item_locations);
 	}
 
 	parse_header_le16(fb, &header->addr_strings);
@@ -679,7 +679,7 @@ void GameData::parse_header(FileBuffer *fb) {
 	_itemCount = fb->readByte();
 
 	_rooms.resize(header->room_direction_table[DIRECTION_SOUTH] -
-	                    header->room_direction_table[DIRECTION_NORTH] + 1);
+						header->room_direction_table[DIRECTION_NORTH] + 1);
 
 	_words.resize((addr_dictionary_end - header->addr_dictionary) / 8);
 }
@@ -706,7 +706,7 @@ void GameData::load_extra_string_file(const StringFile &stringFile) {
 		// first two strings of the *next* bank (the "examine fish" -> "thvg"
 		// bug: the fish is MJ[1], which fell on MI's out-of-range slot 0x00c8).
 		const bool noHeader = Common::DiskImageFS::active() &&
-		                      g_comprehend->getGameID() == "covetedmirror";
+							  g_comprehend->traits().appleStringBanksHeaderless;
 		// For an embedded structured segment the whole layout (header, index and
 		// the string offsets) is shifted to _structOffset within the file; for a
 		// standalone string file this is 0 and nothing changes.
@@ -749,8 +749,6 @@ void GameData::load_extra_string_files() {
 	// The Apple II OO-Topos string files (MA-ME) are one entry "short" at the
 	// front compared to the DOS novel.exe segments the hardcoded _strings2
 	// indices were derived from, so add a leading placeholder to line them up.
-	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "ootopos")
-		_strings2.push_back("");
 
 	// The Apple II Transylvania (v1) string files MA-ME are two entries "short"
 	// at the front relative to the indices its instructions use: without this
@@ -758,11 +756,12 @@ void GameData::load_extra_string_files() {
 	// slots later (the broom flight, "the window is shut", "a bottle of clear
 	// liquid") -- and, more than cosmetically, the off-by-two desynchronises the
 	// kill actions' messages from their effect. Two leading placeholders line
-	// _strings2 back up (cf. the OO-Topos shim above).
-	if (Common::DiskImageFS::active() && g_comprehend->getGameID() == "transylvania") {
-		_strings2.push_back("");
-		_strings2.push_back("");
-	}
+	// _strings2 back up.
+	//
+	// Both counts are GameTraits::appleStringLead.
+	if (Common::DiskImageFS::active())
+		for (uint i = 0; i < g_comprehend->traits().appleStringLead; i++)
+			_strings2.push_back("");
 
 	// The Coveted Mirror used to load two entries early, which we compensated
 	// for with two leading placeholders. That was masking the real cause: its
@@ -775,7 +774,7 @@ void GameData::load_extra_string_files() {
 		// OO-Topos pads two banks so its string indices line up; other v2
 		// games (e.g. the Apple II Transylvania) must not get that padding.
 		if (_comprehendVersion == 2 && (i == 0 || i == 4) &&
-		        g_comprehend->getGameID() == "ootopos")
+				g_comprehend->traits().padsStringBanks)
 			_strings2.push_back("");
 
 		load_extra_string_file(_stringFiles[i]);
@@ -795,7 +794,7 @@ void GameData::loadGameData() {
 	// parse_function. FileBuffer's ctor already reports the failed open.
 	if (fb.size() < 4) {
 		error("No usable game data in '%s' -- is a disk side missing?",
-		      _gameDataFile.c_str());
+			  _gameDataFile.c_str());
 		glk_exit();
 		return;
 	}
@@ -805,7 +804,7 @@ void GameData::loadGameData() {
 	parse_items(&fb);
 	parse_dictionary(&fb);
 	parse_word_map(&fb);
-	if (g_comprehend->getGameID() != "talisman")
+	if (!g_comprehend->traits().stringsOnlyInFiles)
 		parse_string_table(&fb, _header.addr_strings, _header.addr_strings_end, &_strings);
 	load_extra_string_files();
 	parse_vm(&fb);
@@ -837,16 +836,12 @@ void GameData::loadGame() {
 		if (hasAnyGraphicsFile()) {
 			// Set up the picture archive
 			g_comprehend->_pics->load(_locationGraphicFiles,
-			                          _itemGraphicFiles, _titleGraphicFile);
-
-			if (_colorTable)
-				g_comprehend->_drawSurface->setColorTable(_colorTable);
+									  _itemGraphicFiles, _titleGraphicFile);
 		} else {
 			g_comprehend->hideGraphics();
 		}
 	}
 
-	// FIXME: This can be merged, don't need to keep start room around
 	_currentRoom = _startRoom;
 }
 

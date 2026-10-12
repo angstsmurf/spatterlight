@@ -177,6 +177,11 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		func_set_test_result(func_state, item->_room == ROOM_NOWHERE);
 		break;
 
+	case OPCODE_OBJECT_IS_NOT_NOWHERE:
+		item = getItem(instr);
+		func_set_test_result(func_state, item->_room != ROOM_NOWHERE);
+		break;
+
 	case OPCODE_OBJECT_PRESENT:
 		item = getItem(instr);
 		func_set_test_result(func_state, item->_room == _currentRoom);
@@ -569,7 +574,9 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 		break;
 
 	case OPCODE_CURRENT_OBJECT_IN_ROOM: {
-		/* FIXME - use common code for these two ops */
+		// Not the inverse of CURRENT_OBJECT_NOT_IN_ROOM above: this one tests
+		// the operand room (not the current one) and accepts any item sharing
+		// the noun, where the other only looks at the first.
 		bool test = false;
 
 		if (noun) {
@@ -620,11 +627,6 @@ void ComprehendGameV1::execute_opcode(const Instruction *instr, const Sentence *
 	case OPCODE_CURRENT_OBJECT_IS_NOWHERE:
 		item = get_item_by_noun(noun);
 		func_set_test_result(func_state, item && item->_room == ROOM_NOWHERE);
-		break;
-
-	case OPCODE_OBJECT_IS_NOT_NOWHERE:
-		item = getItem(instr);
-		func_set_test_result(func_state, item->_room != ROOM_NOWHERE);
 		break;
 
 	case OPCODE_CURRENT_OBJECT_NOT_PRESENT:
@@ -773,11 +775,9 @@ ComprehendGameV2::ComprehendGameV2() {
 	_opcodeMap[0x8d] = OPCODE_VAR_ADD1;
 	_opcodeMap[0x91] = OPCODE_VAR_SUB1;
 
-#if 0
-	_opcodeMap[0x9e] = OPCODE_INVENTORY_ROOM;
-	_opcodeMap[0xf0] = OPCODE_DROP_CURRENT_OBJECT;
-	_opcodeMap[0xfc] = OPCODE_REMOVE_CURRENT_OBJECT;
-#endif
+	// Not mapped for V2: 0x9e (INVENTORY_ROOM), 0xf0 (DROP_CURRENT_OBJECT) and
+	// 0xfc (REMOVE_CURRENT_OBJECT). ScummVM carried these as a disabled guess;
+	// no V2 game in the corpus emits them, so they stay unknown opcodes.
 }
 
 void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *sentence,
@@ -804,11 +804,6 @@ void ComprehendGameV2::execute_opcode(const Instruction *instr, const Sentence *
 	func_state->_notComparison = (instr->_opcode & 0x40) != 0;
 
 	switch (_opcodeMap[getOpcode(instr)]) {
-	case OPCODE_OBJECT_IS_NOT_NOWHERE:
-		item = getItem(instr);
-		func_set_test_result(func_state, item->_room != ROOM_NOWHERE);
-		break;
-
 	case OPCODE_CLEAR_INVISIBLE:
 		// The item is the operand, not the raw sentence noun. For the
 		// noun-substituted forms ((opcode & 0x30) == 0x30) the dispatcher has

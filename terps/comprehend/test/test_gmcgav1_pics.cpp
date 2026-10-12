@@ -37,6 +37,7 @@
  */
 
 #include "../graphics_magician_cga.h"
+#include "pic_fixture_test.h"
 #include <cstdio>
 #include <cstdint>
 #include <cstring>
@@ -44,133 +45,93 @@
 
 using namespace Glk::Comprehend;
 
-#define PIC_W 280
-#define PIC_H 160
-
-static std::vector<uint8_t> readFile(const char *path) {
-    std::vector<uint8_t> v;
-    FILE *f = fopen(path, "rb");
-    if (!f) { fprintf(stderr, "cannot open %s\n", path); return v; }
-    fseek(f, 0, SEEK_END); long n = ftell(f); fseek(f, 0, SEEK_SET);
-    if (n > 0) { v.resize((size_t)n); if (fread(v.data(), 1, (size_t)n, f) != (size_t)n) v.clear(); }
-    fclose(f);
-    return v;
-}
-
-static std::vector<uint8_t> vramToFb(const std::vector<uint8_t> &vram) {
-    std::vector<uint8_t> fb(320 * 200, 0);
-    if (vram.size() < 0x4000) return fb;
-    for (int y = 0; y < 200; y++) {
-        int base = (y & 1) * 0x2000 + (y >> 1) * 80, o = y * 320;
-        for (int xb = 0; xb < 80; xb++) {
-            uint8_t b = vram[base + xb];
-            fb[o] = (b >> 6) & 3; fb[o+1] = (b >> 4) & 3;
-            fb[o+2] = (b >> 2) & 3; fb[o+3] = b & 3;
-            o += 4;
-        }
-    }
-    return fb;
-}
-
-static uint8_t rgbaToIndex(uint32_t c) {
-    switch (c) {
-    case 0x000000ffu: return 0; case 0x00aaaaffu: return 1;
-    case 0xaa00aaffu: return 2; case 0xaaaaaaffu: return 3;
-    }
-    return 0;
-}
-
 int main() {
-    std::vector<uint8_t> ovr = readFile("test/gmcgav1/fixtures/novel_ovr_tables.bin");
-    std::vector<uint8_t> exe = readFile("test/gmcgav1/fixtures/novel_brushes.bin");
-    if (ovr.empty() || exe.empty()) {
-        fprintf(stderr, "missing v1 table fixtures\n");
-        return 1;
-    }
-    if (!gmcgaInstallV1DrawingTables(ovr.data(), ovr.size(), exe.data(), exe.size())) {
-        fprintf(stderr, "gmcgaInstallV1DrawingTables failed\n");
-        return 1;
-    }
-    // The op3/op5 in-picture font (CHARSET.GDA; CC and Transylvania ship
-    // byte-identical copies).  Needed by the text-cutscene and title fixtures.
-    std::vector<uint8_t> charset = readFile("test/gmcgav1/fixtures/charset.bin");
-    if (charset.empty() || !gmcgaSetV1Font(charset.data(), charset.size())) {
-        fprintf(stderr, "gmcgaSetV1Font failed\n");
-        return 1;
-    }
+	std::vector<uint8_t> ovr = readFile("test/gmcgav1/fixtures/novel_ovr_tables.bin");
+	std::vector<uint8_t> exe = readFile("test/gmcgav1/fixtures/novel_brushes.bin");
+	if (ovr.empty() || exe.empty()) {
+		fprintf(stderr, "missing v1 table fixtures\n");
+		return 1;
+	}
+	if (!gmcgaInstallV1DrawingTables(ovr.data(), ovr.size(), exe.data(), exe.size())) {
+		fprintf(stderr, "gmcgaInstallV1DrawingTables failed\n");
+		return 1;
+	}
+	// The op3/op5 in-picture font (CHARSET.GDA; CC and Transylvania ship
+	// byte-identical copies).  Needed by the text-cutscene and title fixtures.
+	std::vector<uint8_t> charset = readFile("test/gmcgav1/fixtures/charset.bin");
+	if (charset.empty() || !gmcgaSetV1Font(charset.data(), charset.size())) {
+		fprintf(stderr, "gmcgaSetV1Font failed\n");
+		return 1;
+	}
 
-    // `ceil` is the maximum tolerated mismatch -- now 0 for every fixture.  The
-    // crypt (RA pic 3) is the only fixture with two-colour dithers, so it guards
-    // the v1 period-4 fill fix (per-column indexing balloons it to 2827) AND the
-    // brush blitter's painted-byte dither-phase walk: its former 3 residual px at
-    // x=188 were an op12 BRUSH spill byte whose dither phase the native advances
-    // per painted byte (spill helper 0x94c skips inc DI on a blank byte), not per
-    // column -- so the off-grid spill lands on phase 3 (magenta), not phase 0
-    // (cyan).  blit_col now replicates that walk.  See TODO_v1_cga_graphics.
-    static const struct { const char *name, *img, *fb, *base; int ceil; } kCases[] = {
-        { "lakeshore", "test/gmcgav1/fixtures/lakeshore.img", "test/gmcgav1/fixtures/lakeshore.fb", nullptr, 0 },
-        { "woods",     "test/gmcgav1/fixtures/woods.img",     "test/gmcgav1/fixtures/woods.fb",     nullptr, 0 },
-        { "cave",      "test/gmcgav1/fixtures/cave.img",      "test/gmcgav1/fixtures/cave.fb",      nullptr, 0 },
-        { "crypt",     "test/gmcgav1/fixtures/crypt.img",     "test/gmcgav1/fixtures/crypt.fb",     nullptr, 0 },
-        // RB pic 3: an op12 brush stamps the [40 80 40 80] dither over a flood
-        // fill.  Guards the brush/text/rect fill-pattern PHASE fix -- the per-
-        // pixel blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3,
-        // not entry[0]; collapsing to entry[0] left 51 px wrong here.  Pixel-
-        // exact after the fix (see TODO_v1_cga_graphics "MOSTLY FIXED").
-        { "rb_03",     "test/gmcgav1/fixtures/rb_03.img",     "test/gmcgav1/fixtures/rb_03.fb",     nullptr, 0 },
-        // Transylvania v1 start room (RA pic 0).  Its fill/subindex/brush tables
-        // are byte-identical to Crimson Crown's, so the same installed tables
-        // render it -- this guards that the v1 path generalises across both games.
-        { "tr_start",  "test/gmcgav1/fixtures/tr_start.img",  "test/gmcgav1/fixtures/tr_start.fb",  nullptr, 0 },
-        // CC RC pic 5 (the sage cutscene) and TR RC pic 9 (Zin): op3 TEXT_CHAR
-        // pages -- these guard the CHARSET.GDA glyph load (gmcgaSetV1Font) and
-        // draw_glyph, which no other fixture exercises.
-        { "rc_05",     "test/gmcgav1/fixtures/rc_05.img",     "test/gmcgav1/fixtures/rc_05.fb",     nullptr, 0 },
-        { "tr_rc09",   "test/gmcgav1/fixtures/tr_rc09.img",   "test/gmcgav1/fixtures/tr_rc09.fb",   nullptr, 0 },
-        // CC OA pic 1 stamped over its placed room (RA pic 13), no reset in
-        // between -- the object's flood fills seed against the room geometry.
-        // Guards the object-over-room composition the engine does per scene.
-        { "oa_01",     "test/gmcgav1/fixtures/oa_01.img",     "test/gmcgav1/fixtures/oa_01.fb",
-          "test/gmcgav1/fixtures/ra_13.img", 0 },
-        // The title screens (single-image files, stream starts past the 4-byte
-        // 00 63 header).  Both draw op3 text; the native paints nothing outside
-        // the 280x160 window even here (verified against the boot-time VRAM),
-        // so the windowed compare is complete.
-        { "cc_title",  "test/gmcgav1/fixtures/cc_title.img",  "test/gmcgav1/fixtures/cc_title.fb",  nullptr, 0 },
-        { "tr_title",  "test/gmcgav1/fixtures/tr_title.img",  "test/gmcgav1/fixtures/tr_title.fb",  nullptr, 0 },
-    };
+	// `ceil` is the maximum tolerated mismatch -- now 0 for every fixture.  The
+	// crypt (RA pic 3) is the only fixture with two-colour dithers, so it guards
+	// the v1 period-4 fill fix (per-column indexing balloons it to 2827) AND the
+	// brush blitter's painted-byte dither-phase walk: its former 3 residual px at
+	// x=188 were an op12 BRUSH spill byte whose dither phase the native advances
+	// per painted byte (spill helper 0x94c skips inc DI on a blank byte), not per
+	// column -- so the off-grid spill lands on phase 3 (magenta), not phase 0
+	// (cyan).  blit_col now replicates that walk.  See TODO_v1_cga_graphics.
+	static const struct { const char *name, *img, *fb, *base; int ceil; } kCases[] = {
+		{ "lakeshore", "test/gmcgav1/fixtures/lakeshore.img", "test/gmcgav1/fixtures/lakeshore.fb", nullptr, 0 },
+		{ "woods",     "test/gmcgav1/fixtures/woods.img",     "test/gmcgav1/fixtures/woods.fb",     nullptr, 0 },
+		{ "cave",      "test/gmcgav1/fixtures/cave.img",      "test/gmcgav1/fixtures/cave.fb",      nullptr, 0 },
+		{ "crypt",     "test/gmcgav1/fixtures/crypt.img",     "test/gmcgav1/fixtures/crypt.fb",     nullptr, 0 },
+		// RB pic 3: an op12 brush stamps the [40 80 40 80] dither over a flood
+		// fill.  Guards the brush/text/rect fill-pattern PHASE fix -- the per-
+		// pixel blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3,
+		// not entry[0]; collapsing to entry[0] left 51 px wrong here.  Pixel-
+		// exact after the fix (see TODO_v1_cga_graphics "MOSTLY FIXED").
+		{ "rb_03",     "test/gmcgav1/fixtures/rb_03.img",     "test/gmcgav1/fixtures/rb_03.fb",     nullptr, 0 },
+		// Transylvania v1 start room (RA pic 0).  Its fill/subindex/brush tables
+		// are byte-identical to Crimson Crown's, so the same installed tables
+		// render it -- this guards that the v1 path generalises across both games.
+		{ "tr_start",  "test/gmcgav1/fixtures/tr_start.img",  "test/gmcgav1/fixtures/tr_start.fb",  nullptr, 0 },
+		// CC RC pic 5 (the sage cutscene) and TR RC pic 9 (Zin): op3 TEXT_CHAR
+		// pages -- these guard the CHARSET.GDA glyph load (gmcgaSetV1Font) and
+		// draw_glyph, which no other fixture exercises.
+		{ "rc_05",     "test/gmcgav1/fixtures/rc_05.img",     "test/gmcgav1/fixtures/rc_05.fb",     nullptr, 0 },
+		{ "tr_rc09",   "test/gmcgav1/fixtures/tr_rc09.img",   "test/gmcgav1/fixtures/tr_rc09.fb",   nullptr, 0 },
+		// CC OA pic 1 stamped over its placed room (RA pic 13), no reset in
+		// between -- the object's flood fills seed against the room geometry.
+		// Guards the object-over-room composition the engine does per scene.
+		{ "oa_01",     "test/gmcgav1/fixtures/oa_01.img",     "test/gmcgav1/fixtures/oa_01.fb",
+		  "test/gmcgav1/fixtures/ra_13.img", 0 },
+		// The title screens (single-image files, stream starts past the 4-byte
+		// 00 63 header).  Both draw op3 text; the native paints nothing outside
+		// the 280x160 window even here (verified against the boot-time VRAM),
+		// so the windowed compare is complete.
+		{ "cc_title",  "test/gmcgav1/fixtures/cc_title.img",  "test/gmcgav1/fixtures/cc_title.fb",  nullptr, 0 },
+		{ "tr_title",  "test/gmcgav1/fixtures/tr_title.img",  "test/gmcgav1/fixtures/tr_title.fb",  nullptr, 0 },
+	};
 
-    int failures = 0;
-    for (const auto &c : kCases) {
-        std::vector<uint8_t> img = readFile(c.img);
-        std::vector<uint8_t> golden = vramToFb(readFile(c.fb));
-        if (img.empty() || golden.size() != 320 * 200) {
-            printf("%-12s MISSING FIXTURE\n", c.name); failures++; continue;
-        }
-        gmcgaResetScreen(true);          // white cold page (room change)
-        if (c.base) {
-            std::vector<uint8_t> base = readFile(c.base);
-            if (base.empty()) {
-                printf("%-12s MISSING BASE FIXTURE\n", c.name); failures++; continue;
-            }
-            gmcgaDrawImage(base.data(), base.size());
-        }
-        gmcgaDrawImage(img.data(), img.size());
-        std::vector<uint32_t> rgba(PIC_W * PIC_H);
-        gmcgaBlitToSurface(rgba.data(), PIC_W, PIC_H);
+	int failures = 0;
+	for (const auto &c : kCases) {
+		std::vector<uint8_t> img = readFile(c.img);
+		std::vector<uint8_t> golden = cgaVramToFb(readFile(c.fb));
+		if (img.empty() || golden.size() != 320 * 200) {
+			printf("%-12s MISSING FIXTURE\n", c.name); failures++; continue;
+		}
+		gmcgaResetScreen(true);          // white cold page (room change)
+		if (c.base) {
+			std::vector<uint8_t> base = readFile(c.base);
+			if (base.empty()) {
+				printf("%-12s MISSING BASE FIXTURE\n", c.name); failures++; continue;
+			}
+			gmcgaDrawImage(base.data(), base.size());
+		}
+		gmcgaDrawImage(img.data(), img.size());
+		std::vector<uint32_t> rgba(kCgaPicW * kCgaPicH);
+		gmcgaBlitToSurface(rgba.data(), kCgaPicW, kCgaPicH);
 
-        int mism = 0;
-        for (int y = 0; y < PIC_H; y++)
-            for (int x = 0; x < PIC_W; x++)
-                if (rgbaToIndex(rgba[y * PIC_W + x]) != golden[y * 320 + (x + 20)])
-                    mism++;
-        bool ok = mism <= c.ceil;
-        printf("%-12s %d / %d mismatches (ceiling %d)  %s\n",
-               c.name, mism, PIC_W * PIC_H, c.ceil, ok ? "ok" : "FAIL");
-        if (!ok) failures++;
-    }
+		int mism = cgaCountMismatches(rgba, golden);
+		bool ok = mism <= c.ceil;
+		printf("%-12s %d / %d mismatches (ceiling %d)  %s\n",
+			   c.name, mism, kCgaPicW * kCgaPicH, c.ceil, ok ? "ok" : "FAIL");
+		if (!ok) failures++;
+	}
 
-    if (failures) { printf("GMCGA v1 picture regression: %d case(s) FAILED\n", failures); return 1; }
-    printf("GMCGA v1 picture regression: all cases within ceiling\n");
-    return 0;
+	if (failures) { printf("GMCGA v1 picture regression: %d case(s) FAILED\n", failures); return 1; }
+	printf("GMCGA v1 picture regression: all cases within ceiling\n");
+	return 0;
 }

@@ -25,7 +25,6 @@
 #include "graphics_magician_dhgr.h"
 #include "graphics_magician_pcjr.h"
 #include "comprehend_compat.h"
-#include "charset.h"
 #include <vector>
 #include "comprehend.h"
 #include "draw_surface.h"
@@ -38,56 +37,6 @@ namespace Glk {
 namespace Comprehend {
 
 #define IMAGES_PER_FILE 16
-
-// Opcode enum is shared via graphics_magician.h (included above).
-
-enum SpecialOpcode {
-	RESETOP_0 = 0,
-	RESETOP_RESET = 1,
-	RESETOP_OO_TOPOS_UNKNOWN = 3
-};
-
-/*-------------------------------------------------------*/
-
-uint32 Pics::ImageContext::getFillColor() const {
-	uint color = _fillColor;
-
-	// FIXME: Properly display text color in Crimson Crown
-	if (g_vm->getGameID() == "crimsoncrown" && color == 0x000000ff)
-		color = G_COLOR_WHITE;
-
-	return color;
-}
-
-void Pics::ImageContext::lineFixes() {
-	// WORKAROUND: Fix lines on title screens so floodfill works correctly
-	if (g_vm->getGameID() == "transylvania" && _picIndex == 9999) {
-		_drawSurface->drawLine(191, 31, 192, 31, G_COLOR_BLACK); // v
-		_drawSurface->drawLine(196, 50, 197, 50, G_COLOR_BLACK); // a
-		_drawSurface->drawLine(203, 49, 204, 49, G_COLOR_BLACK);
-		_drawSurface->drawLine(197, 53, 202, 53, G_COLOR_BLACK);
-		_drawSurface->drawLine(215, 51, 220, 51, G_COLOR_BLACK); // n
-		_drawSurface->drawLine(221, 51, 222, 51, G_COLOR_BLACK);
-		_drawSurface->drawLine(228, 50, 229, 50, G_COLOR_BLACK);
-		_drawSurface->drawLine(217, 59, 220, 59, G_COLOR_BLACK);
-		_drawSurface->drawLine(212, 49, 212, 50, G_COLOR_BLACK);
-		_drawSurface->drawLine(213, 49, 213, 52, G_COLOR_WHITE);
-		_drawSurface->drawLine(235, 52, 236, 61, G_COLOR_BLACK); // i
-		_drawSurface->drawLine(237, 61, 238, 61, G_COLOR_BLACK);
-	}
-
-	if (g_vm->getGameID() == "crimsoncrown" && _picIndex == 9999 && _x == 67 && _y == 55) {
-		_drawSurface->drawLine(78, 28, 77, 29, G_COLOR_WHITE);
-		_drawSurface->drawLine(71, 43, 69, 47, G_COLOR_WHITE);
-		_drawSurface->drawLine(67, 57, 68, 56, G_COLOR_WHITE);
-		_drawSurface->drawLine(79, 101, 80, 101, G_COLOR_WHITE);
-		_drawSurface->drawLine(183, 101, 184, 100, G_COLOR_WHITE);
-		_drawSurface->drawLine(193, 47, 193, 48, G_COLOR_WHITE);
-		_drawSurface->drawLine(68, 48, 71, 48, G_COLOR_BLACK);
-	}
-}
-
-/*-------------------------------------------------------*/
 
 Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) : _filename(filename) {
 	Common::File f;
@@ -106,14 +55,7 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 			// vector image (offset 0). For the other three the T0 file opens
 			// with a disk copy-protection + loader stub, and the title vector
 			// image starts just past it, at a fixed (game-specific) offset.
-			const Common::String &id = g_comprehend->getGameID();
-			if (id == "transylvania")
-				_imageOffsets[0] = 0xFE;
-			else if (id == "crimsoncrown" || id == "ootopos" ||
-			         id == "covetedmirror")
-				_imageOffsets[0] = 0x100;
-			else
-				_imageOffsets[0] = 0; // talisman
+			_imageOffsets[0] = g_comprehend->traits().appleTitleOffset;
 		} else {
 			// DOS title files. The v1 releases (TRTITLE.MS1 / CCTITLE.MS1)
 			// carry a 4-byte header (00 63 xx xx) before the vector stream.
@@ -145,223 +87,7 @@ Pics::ImageFile::ImageFile(const Common::String &filename, bool isSingleImage) :
 	}
 }
 
-void Pics::ImageFile::draw(uint index, ImageContext *ctx) const {
-	if (!ctx->_file.open(_filename))
-		error("Opening image file");
-
-	ctx->_file.seek(_imageOffsets[index]);
-
-	for (bool done = false; !done;) {
-		done = doImageOp(ctx);
-	}
-}
-
-bool Pics::ImageFile::doImageOp(Pics::ImageContext *ctx) const {
-	uint8 opcode;
-	uint16 a, b;
-
-	opcode = ctx->_file.readByte();
-	debugCN(kDebugGraphics, "  %.4x [%.2x]: ", (int)ctx->_file.pos() - 1, opcode);
-
-	byte param = opcode & 0xf;
-	opcode >>= 4;
-
-	bool talisman = g_vm->getGameID() == "talisman";
-
-	switch (opcode) {
-	case OPCODE_END2: // 7
-		if (talisman) {
-			// Talisman (and the Lands Beyond scenario) repurpose 0x7x: it is
-			// NOT an end-of-image marker (op0 alone terminates) but a 2-operand
-			// opcode that appears in the per-image preamble. Its exact effect is
-			// still being reverse-engineered; for now we consume its operands so
-			// the rest of the vector stream stays aligned and renders.
-			a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-			b = imageGetOperand(ctx);
-			(void)a; (void)b;
-			break;
-		}
-		// fallthrough
-	case OPCODE_END: // 0
-		// End of the rendering
-		debugC(kDebugGraphics, "End of image");
-		return true;
-
-	case OPCODE_SET_TEXT_POS: // 1
-		a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-		b = imageGetOperand(ctx);
-		debugC(kDebugGraphics, "set_text_pos(%d, %d)", a, b);
-
-		ctx->_textX = a;
-		ctx->_textY = b;
-		break;
-
-	case OPCODE_SET_PEN_COLOR: // 2
-		debugC(kDebugGraphics, "set_pen_color(%.2x)", opcode);
-		if (!(ctx->_drawFlags & IMAGEF_NO_FILL))
-			ctx->_penColor = ctx->_drawSurface->getPenColor(param);
-		break;
-
-	case OPCODE_TEXT_CHAR: // 3
-	case OPCODE_TEXT_OUTLINE: // 5
-		// Text outline mode draws a bunch of pixels that sort of looks like the char
-		// TODO: See if the outline mode is ever used
-		if (opcode == OPCODE_TEXT_OUTLINE)
-			warning("TODO: Implement drawing text outlines");
-
-		a = imageGetOperand(ctx);
-		if (a < 0x20 || a >= 0x7f) {
-			warning("Invalid character - %c", a);
-			a = '?';
-		}
-
-		debugC(kDebugGraphics, "draw_char(%c)", a);
-		if (ctx->_font) {
-			ctx->_font->drawChar(ctx->_drawSurface, a, ctx->_textX, ctx->_textY, ctx->getFillColor());
-			ctx->_textX += ctx->_font->getCharWidth(a);
-		}
-		break;
-
-	case OPCODE_SET_SHAPE: // 4
-		debugC(kDebugGraphics, "set_shape_type(%.2x)", param);
-
-		if (param == 8) {
-			// FIXME: This appears to be a _shape type. Only used by OO-Topos
-			warning("TODO: Shape type 8");
-			ctx->_shape = SHAPE_PIXEL;
-		} else {
-			ctx->_shape = (Shape)param;
-		}
-		break;
-
-	case OPCODE_SET_FILL_COLOR: // 6
-		a = imageGetOperand(ctx);
-		debugC(kDebugGraphics, "set_fill_color(%.2x)", a);
-		ctx->_fillColor = ctx->_drawSurface->getFillColor(a);
-		break;
-
-	case OPCODE_MOVE_TO: // 8
-		a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-		b = imageGetOperand(ctx);
-
-		debugC(kDebugGraphics, "move_to(%d, %d)", a, b);
-		ctx->_x = a;
-		ctx->_y = b;
-		break;
-
-	case OPCODE_DRAW_BOX: // 9
-		a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-		b = imageGetOperand(ctx);
-
-		debugC(kDebugGraphics, "draw_box (%d, %d) - (%d, %d)",
-		       ctx->_x, ctx->_y, a, b);
-
-		ctx->_drawSurface->drawBox(ctx->_x, ctx->_y, a, b, ctx->_penColor);
-		break;
-
-	case OPCODE_DRAW_LINE: // 10
-		a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-		b = imageGetOperand(ctx);
-
-		debugC(kDebugGraphics, "draw_line (%d, %d) - (%d, %d)",
-		       ctx->_x, ctx->_y, a, b);
-		ctx->_drawSurface->drawLine(ctx->_x, ctx->_y, a, b, ctx->_penColor);
-
-		ctx->_x = a;
-		ctx->_y = b;
-		break;
-
-	case OPCODE_DRAW_CIRCLE: // 11
-		a = imageGetOperand(ctx);
-		debugC(kDebugGraphics, "draw_circle (%d, %d) diameter=%d",
-		       ctx->_x, ctx->_y, a);
-
-		ctx->_drawSurface->drawCircle(ctx->_x, ctx->_y, a, ctx->_penColor);
-		break;
-
-	case OPCODE_DRAW_SHAPE: // 12
-		a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-		b = imageGetOperand(ctx);
-		debugC(kDebugGraphics, "draw_shape(%d, %d), style=%.2x, fill=%.2x",
-		       a, b, ctx->_shape, ctx->_fillColor);
-
-		if (!(ctx->_drawFlags & IMAGEF_NO_FILL))
-			ctx->_drawSurface->drawShape(a, b, ctx->_shape, ctx->_fillColor);
-		break;
-
-	case OPCODE_DELAY: // 13
-		// The original allowed for rendering to be paused briefly. We don't do
-		// that in ScummVM, and just show the finished rendered image
-		(void)imageGetOperand(ctx);
-		break;
-
-	case OPCODE_PAINT: // 14
-		a = imageGetOperand(ctx) + (param & 1 ? 256 : 0);
-		b = imageGetOperand(ctx);
-		if (opcode & 0x1)
-			a += 255;
-
-		debugC(kDebugGraphics, "paint(%d, %d)", a, b);
-		ctx->lineFixes();
-		if (!(ctx->_drawFlags & IMAGEF_NO_FILL))
-			ctx->_drawSurface->floodFill(a, b, ctx->_fillColor);
-		break;
-
-	case OPCODE_RESET: // 15
-		if (talisman) {
-			// The reset sub-opcode is the low nibble (param), exactly as the
-			// pixel-validated Apple renderer (graphics_magician OPCODE_RESET)
-			// reads it. The operand count MUST match that renderer or the rest
-			// of the vector stream desyncs: only sub-op 2 carries operands (four
-			// bytes of fill bounds); every other sub-op (0/1/3) has none. The
-			// earlier code read one operand for *every* op15, which shifted the
-			// whole stream -- Talisman rooms begin with op15, so they desynced
-			// from the first opcode.
-			if (param == 2) {
-				// Fill bounds (right, left, bottom, top). Consumed to stay in
-				// sync; the DOS draw surface does not yet clip fills to them.
-				imageGetOperand(ctx);
-				imageGetOperand(ctx);
-				imageGetOperand(ctx);
-				imageGetOperand(ctx);
-			}
-			doResetOp(ctx, param);
-		}
-		// FIXME: The reset case was causing room outside cell to be drawn all
-		// white for the earlier (V1) games, so it stays disabled for them.
-		break;
-	}
-
-	//ctx->_drawSurface->dumpToScreen();
-
-	return false;
-}
-
-void Pics::ImageFile::doResetOp(ImageContext *ctx, byte param) const {
-	switch (param) {
-	case RESETOP_0:
-		// In Transylvania this sub-opcode is a do nothing
-		break;
-
-	case RESETOP_RESET:
-		// TODO: Calls same reset that first gets called when rendering starts.
-		// Figure out what the implication of resetting the variables does
-		break;
-
-	case RESETOP_OO_TOPOS_UNKNOWN:
-		// TODO: This is called for some scenes in OO-Topis. Figure out what it does
-		break;
-
-	default:
-		break;
-	}
-}
-
-uint16 Pics::ImageFile::imageGetOperand(ImageContext *ctx) const {
-	return ctx->_file.readByte();
-}
-
-void Pics::ImageFile::renderApple(uint index) const {
+void Pics::ImageFile::renderGm(uint index, const GmBackend &gm) const {
 	Common::File f;
 	if (!f.open(_filename))
 		error("Opening image file");
@@ -378,158 +104,74 @@ void Pics::ImageFile::renderApple(uint index) const {
 	f.seek(start);
 	f.read(buf.data(), (uint32)len);
 
-	gmDrawImage(buf.data(), len);
-}
-
-void Pics::ImageFile::renderAppleDhgr(uint index) const {
-	Common::File f;
-	if (!f.open(_filename))
-		error("Opening image file");
-
-	int64 start = _imageOffsets[index];
-	int64 fsize = f.size();
-	if (start < 0 || start >= fsize)
-		return;
-
-	size_t len = (size_t)(fsize - start);
-	std::vector<byte> buf(len);
-	f.seek(start);
-	f.read(buf.data(), (uint32)len);
-
-	gmDhgrDrawImage(buf.data(), len);
-}
-
-void Pics::ImageFile::renderGmcga(uint index) const {
-	Common::File f;
-	if (!f.open(_filename))
-		error("Opening image file");
-
-	int64 start = _imageOffsets[index];
-	int64 fsize = f.size();
-	if (start < 0 || start >= fsize)
-		return;
-
-	size_t len = (size_t)(fsize - start);
-	std::vector<byte> buf(len);
-	f.seek(start);
-	f.read(buf.data(), (uint32)len);
-
-	gmcgaDrawImage(buf.data(), len);
-}
-
-void Pics::ImageFile::renderPcjr(uint index) const {
-	Common::File f;
-	if (!f.open(_filename))
-		error("Opening image file");
-
-	int64 start = _imageOffsets[index];
-	int64 fsize = f.size();
-	if (start < 0 || start >= fsize)
-		return;
-
-	size_t len = (size_t)(fsize - start);
-	std::vector<byte> buf(len);
-	f.seek(start);
-	f.read(buf.data(), (uint32)len);
-
-	gmpcjrDrawImage(buf.data(), len);
+	gm.drawImage(buf.data(), len);
 }
 
 /*-------------------------------------------------------*/
 
-Pics::Pics() : _font(nullptr) {
-	if (Common::File::exists("charset.gda")) {
-		_font = new CharSet();
-	} else if (!Common::DiskImageFS::active()) {
-		// The DOS release keeps the in-picture font inside novel.exe. The Apple II
-		// release has no novel.exe (and its room images don't draw text), so skip
-		// it rather than erroring out on a file that cannot exist.
-		_font = new TalismanFont();
+// Read a whole file, trying each of the given names; empty if none opens.
+static std::vector<byte> readWholeFile(std::initializer_list<const char *> names) {
+	std::vector<byte> buf;
+	Common::File f;
+	for (const char *name : names) {
+		if (!f.open(name))
+			continue;
+		int64 sz = f.size();
+		if (sz > 0) {
+			buf.resize((size_t)sz);
+			if (f.read(buf.data(), (uint32)sz) != (uint32)sz)
+				buf.clear();
+		}
+		break;
 	}
+	return buf;
+}
 
+Pics::Pics() {
 	// DOS releases: load the CGA drawing tables (fill patterns, brushes, font)
 	// out of the Penguin Graphics Magician interpreter image (NOVEL.EXE). The
 	// loader locates the tables by signature, so it succeeds for every Comprehend
 	// v2 game that shares the CGA interpreter (Talisman, OO-Topos, Transylvania
-	// v2, The Coveted Mirror) and silently no-ops for any rip that lacks the file.
+	// v2, The Coveted Mirror).
 	// The older v1 releases (Crimson Crown, Transylvania v1) split the Graphics
 	// Magician across NOVEL.EXE and PC_GRAPH.OVR: their fill pattern + subindex
 	// tables live in the overlay (not in NOVEL.EXE, where they are BSS built at
 	// overlay load), so the v2 signature scan misses them -- fall back to the v1
 	// loader, which reads the fill tables from PC_GRAPH.OVR and the brushes from
-	// NOVEL.EXE.  Pictures route through graphics_magician_cga whenever the tables
-	// loaded, regardless of which path filled them.
+	// NOVEL.EXE.
+	// A folder that has lost those files (the pictures and game data are all
+	// this interpreter otherwise needs) gets the built-in copy of the tables,
+	// which every release seen so far shares; CHARSET.GDA, which only the v1
+	// games ship, tells which of the two sets it wants. Either way every DOS
+	// picture is drawn by graphics_magician_cga.
 	if (!Common::DiskImageFS::active()) {
-		std::vector<byte> exeBuf;
-		Common::File exe;
-		if (exe.open("novel.exe") || exe.open("NOVEL.EXE")) {
-			int64 sz = exe.size();
-			if (sz > 0) {
-				exeBuf.resize((size_t)sz);
-				if (exe.read(exeBuf.data(), (uint32)sz) != (uint32)sz)
-					exeBuf.clear();
-			}
-		}
-		if (!exeBuf.empty() && !gmcgaInstallDrawingTables(exeBuf.data(), exeBuf.size())) {
+		const std::vector<byte> exeBuf = readWholeFile({ "novel.exe", "NOVEL.EXE", "novel1.exe", "NOVEL1.EXE" });
+		// v1 NOVEL.EXE has no embedded picture font; the op3/op5 glyphs (map
+		// labels) of those games come from CHARSET.GDA.
+		const std::vector<byte> charset = readWholeFile({ "charset.gda", "CHARSET.GDA" });
+
+		if (exeBuf.empty() || !gmcgaInstallDrawingTables(exeBuf.data(), exeBuf.size())) {
 			// v2 tables absent -> try the v1 split layout (needs PC_GRAPH.OVR).
-			Common::File ovr;
-			if (ovr.open("pc_graph.ovr") || ovr.open("PC_GRAPH.OVR")) {
-				int64 osz = ovr.size();
-				if (osz > 0) {
-					std::vector<byte> ovrBuf((size_t)osz);
-					if (ovr.read(ovrBuf.data(), (uint32)osz) == (uint32)osz &&
-						gmcgaInstallV1DrawingTables(ovrBuf.data(), ovrBuf.size(),
-													exeBuf.data(), exeBuf.size())) {
-						// v1 NOVEL.EXE has no embedded picture font; its op3/op5
-						// glyphs (map labels) come from CHARSET.GDA.
-						Common::File cs;
-						if (cs.open("charset.gda") || cs.open("CHARSET.GDA")) {
-							int64 csz = cs.size();
-							if (csz > 0) {
-								std::vector<byte> csBuf((size_t)csz);
-								if (cs.read(csBuf.data(), (uint32)csz) == (uint32)csz)
-									gmcgaSetV1Font(csBuf.data(), csBuf.size());
-							}
-						}
-					}
-				}
-			}
+			const std::vector<byte> ovrBuf = readWholeFile({ "pc_graph.ovr", "PC_GRAPH.OVR" });
+			if (exeBuf.empty() || ovrBuf.empty() ||
+				!gmcgaInstallV1DrawingTables(ovrBuf.data(), ovrBuf.size(),
+											 exeBuf.data(), exeBuf.size()))
+				gmcgaInstallBuiltinDrawingTables(!charset.empty());
+			if (!charset.empty())
+				gmcgaSetV1Font(charset.data(), charset.size());
 		}
 
 		// IBM PCjr / Tandy 16-colour mode (DOS v1 games, opt-in via #pcjr).
 		// The PCjr release ships JR_GRAPH.OVR alongside PC_GRAPH.OVR; its 4bpp
 		// drawing tables (pen colours, fill dithers, subindex) are installed
 		// here from the overlay + NOVEL.EXE brushes, in parallel with the CGA
-		// tables above. The renderer is selected per-picture by _usePcjr.
-		if (!exeBuf.empty()) {
-			Common::File jr;
-			if (jr.open("jr_graph.ovr") || jr.open("JR_GRAPH.OVR")) {
-				int64 jsz = jr.size();
-				if (jsz > 0) {
-					std::vector<byte> jrBuf((size_t)jsz);
-					if (jr.read(jrBuf.data(), (uint32)jsz) == (uint32)jsz &&
-						gmpcjrInstallDrawingTables(jrBuf.data(), jrBuf.size(),
-												   exeBuf.data(), exeBuf.size())) {
-						// As with the CGA v1 path, the in-picture font comes from
-						// CHARSET.GDA (the PCjr NOVEL.EXE has no embedded font).
-						Common::File cs;
-						if (cs.open("charset.gda") || cs.open("CHARSET.GDA")) {
-							int64 csz = cs.size();
-							if (csz > 0) {
-								std::vector<byte> csBuf((size_t)csz);
-								if (cs.read(csBuf.data(), (uint32)csz) == (uint32)csz)
-									gmpcjrSetFont(csBuf.data(), csBuf.size());
-							}
-						}
-					}
-				}
-			}
-		}
+		// tables above. The renderer is selected per-picture by Comprehend::gfxBackend().
+		const std::vector<byte> jrBuf = readWholeFile({ "jr_graph.ovr", "JR_GRAPH.OVR" });
+		if (!exeBuf.empty() && !jrBuf.empty() &&
+			gmpcjrInstallDrawingTables(jrBuf.data(), jrBuf.size(), exeBuf.data(), exeBuf.size()) &&
+			!charset.empty())
+			gmpcjrSetFont(charset.data(), charset.size());
 	}
-}
-
-Pics::~Pics() {
-	delete _font;
 }
 
 void Pics::clear() {
@@ -551,10 +193,10 @@ void Pics::load(const Common::StringArray &roomFiles,
 	// placeholder ImageFile for any missing entry instead of erroring out.
 	for (uint idx = 0; idx < roomFiles.size(); ++idx)
 		_rooms.push_back(Common::File::exists(roomFiles[idx])
-		                 ? ImageFile(roomFiles[idx]) : ImageFile());
+						 ? ImageFile(roomFiles[idx]) : ImageFile());
 	for (uint idx = 0; idx < itemFiles.size(); ++idx)
 		_items.push_back(Common::File::exists(itemFiles[idx])
-		                 ? ImageFile(itemFiles[idx]) : ImageFile());
+						 ? ImageFile(itemFiles[idx]) : ImageFile());
 
 	// Guard the title exactly like the room/item files above: a game may ship
 	// its room art but no separate title image (or no graphics at all), and the
@@ -566,7 +208,7 @@ void Pics::load(const Common::StringArray &roomFiles,
 int Pics::getPictureNumber(const Common::String &filename) const {
 	// Ensure prefix and suffix
 	if (!filename.hasPrefixIgnoreCase("pic") ||
-	    !filename.hasSuffixIgnoreCase(".raw"))
+		!filename.hasSuffixIgnoreCase(".raw"))
 		return -1;
 
 	// Get the number part
@@ -619,7 +261,7 @@ Common::SeekableReadStream *Pics::createReadStreamForMember(const Common::Path &
 
 	// Create a stream with the data for the surface
 	Common::MemoryReadWriteStream *stream =
-	    new Common::MemoryReadWriteStream(Common::YES);
+		new Common::MemoryReadWriteStream(Common::YES);
 	const DrawSurface &ds = *g_comprehend->_drawSurface;
 	stream->writeUint16LE(ds.w);
 	stream->writeUint16LE(ds.h);
@@ -629,256 +271,128 @@ Common::SeekableReadStream *Pics::createReadStreamForMember(const Common::Path &
 	return stream;
 }
 
-void Pics::drawPicture(int pictureNum) const {
-	ImageContext ctx(g_comprehend->_drawSurface, _font, g_comprehend->_drawFlags, pictureNum);
+// Draw one picture through a Graphics Magician renderer. Pictures are decoded
+// onto the renderer's persistent page (so item overlays compose onto the room
+// already drawn there, exactly as the real interpreter does), then the whole
+// page is converted to RGBA and blitted to the draw surface.
+//
+// The four renderers take the same vector streams and image offsets; only the
+// rasteriser differs:
+//  - Apple II standard hi-res: all four disk titles (Talisman, Transylvania,
+//    OO-Topos, Crimson Crown) are validated pixel-exact vs MAME; the dialect
+//    differences are handled by gmSetLegacyFormat().
+//  - Apple II double hi-res ("<D>" mode): the 560-wide aux/main pages,
+//    NTSC-converted. The surface was widened to 560 by setMoreColours().
+//  - DOS CGA: the v2 releases, tables from NOVEL.EXE; and the v1 releases,
+//    tables from the graphics overlay.
+//  - DOS PCjr: the v1 releases (Transylvania v1 / Crimson Crown) in 16 colours,
+//    tables from JR_GRAPH.OVR.
+void Pics::drawPictureGm(int pictureNum, const GmBackend &gm, uint drawFlags,
+						 DrawSurface *ds) const {
+	const bool apple = gm.cm != nullptr;
+	const bool dhgr = gm.id == GFX_APPLE_DHGR;
 
-	// Apple II: route through the faithful standard hi-res renderer. Pictures are
-	// decoded onto a persistent Apple hi-res page (so item overlays compose onto
-	// the room already drawn there, exactly as the real interpreter does), then
-	// the whole page is converted to RGBA and blitted. All four Apple disk titles
-	// (Talisman, Transylvania, OO-Topos, Crimson Crown) are validated pixel-exact
-	// vs MAME; the dialect differences are handled by gmSetLegacyFormat().
-	if (Common::DiskImageFS::active()) {
-		DrawSurface *ds = ctx._drawSurface;
-
-		// Apple II double hi-res ("<D>") mode: same Graphics Magician vector
-		// streams and image offsets, but rasterised onto the 560-wide DHGR
-		// aux/main pages and NTSC-converted. Only engages when the player has
-		// toggled it on AND the boot disk shipped a <D> interpreter (T5 tables
-		// installed); otherwise everything stays on the standard hi-res path.
-		const bool dhgr = g_comprehend->_useDhgr && gmDhgrHaveDrawingTables();
-		auto resetScreen = [dhgr](bool white) {
-			if (dhgr) gmDhgrResetScreen(white); else gmResetScreen(white);
-		};
-		auto render = [dhgr](const ImageFile &img, uint idx) {
-			if (dhgr) img.renderAppleDhgr(idx); else img.renderApple(idx);
-		};
-
-		// The Coveted Mirror keeps a persistent right-hand panel (the game's
-		// logo above an hourglass) in screen columns 24..39, drawn once at boot
-		// while room pictures fill only the left columns. Our room images span
-		// the full width, so we save the panel columns the first time we need
-		// them and re-composite them on top of every in-game picture below.
-		//
-		// The original boot draws the panel as two Graphics Magician images, in
-		// order (confirmed by tracing the real Apple II in MAME): RG image 0 is
-		// the "The Coveted Mirror" logo, then OG image 0 is the hourglass frame
-		// (posts, bars, bowtie glass + the static bottom-bulb mound). The
-		// draining top-bulb sand is NOT part of OG0 -- it is grain-drawn each turn
-		// by gmDrawCMHourglass() on top. Compositing RG0 + OG0 here reproduces the
-		// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
-		// in test/cm/fixtures/throne_sand60.page).
-		// The panel lives on whichever pages are active, so it is built once per
-		// hi-res mode (the standard single page and the double-hi-res aux+main
-		// pages are independent buffers).
-		// The snapshot also folds in the mirror pieces the player has collected
-		// (see CovetedMirrorGame): each is a fixed item picture drawn once into the
-		// black band left of the hourglass, which the original never repaints. We
-		// rebuild the snapshot whenever a piece has just been found (the mask
-		// changed) so gmOverlayCMPanel() keeps painting the assembled pieces on
-		// every picture; the hourglass grains are still stamped fresh on top.
-		static bool s_cmPanelBuiltStd = false, s_cmPanelBuiltDhgr = false;
-		static uint8 s_cmPanelMaskStd = 0, s_cmPanelMaskDhgr = 0;
-		bool isCM = g_comprehend->getGameID() == "covetedmirror";
-		bool panelBuilt = dhgr ? s_cmPanelBuiltDhgr : s_cmPanelBuiltStd;
-		uint8 pieceMask = 0;
-		if (isCM)
-			if (ComprehendGame *game = g_comprehend->getGame())
-				pieceMask = game->cmMirrorPieceMask();
-		uint8 builtMask = dhgr ? s_cmPanelMaskDhgr : s_cmPanelMaskStd;
-		if (isCM && pictureNum != TITLE_IMAGE && !_rooms.empty() && !_items.empty() &&
-		    (!panelBuilt || builtMask != pieceMask)) {
-			if (dhgr) gmDhgrBeginCMPanelRebuild(); else gmBeginCMPanelRebuild();
-			render(_rooms[_rooms.size() - 1], 0); // RG = last location file: logo
-			render(_items[_items.size() - 1], 0); // OG = last item file: hourglass frame
-			for (int i = 0; i < 4; i++) {
-				if (!(pieceMask & (1 << i)))
-					continue;
-				int p = CM_PIECE_PICS[i];
-				if (p / IMAGES_PER_FILE < (int)_items.size())
-					render(_items[p / IMAGES_PER_FILE], p % IMAGES_PER_FILE);
-			}
-			if (dhgr) {
-				gmDhgrEndCMPanelRebuild();
-				s_cmPanelBuiltDhgr = true;
-				s_cmPanelMaskDhgr = pieceMask;
-			} else {
-				gmEndCMPanelRebuild();
-				s_cmPanelBuiltStd = true;
-				s_cmPanelMaskStd = pieceMask;
-			}
+	// The Coveted Mirror keeps a persistent right-hand panel (the game's
+	// logo above an hourglass) in screen columns 24..39, drawn once at boot
+	// while room pictures fill only the left columns. Our room images span
+	// the full width, so we save the panel columns the first time we need
+	// them and re-composite them on top of every in-game picture below.
+	// Apple II only: the DOS release draws no panel.
+	//
+	// The original boot draws the panel as two Graphics Magician images, in
+	// order (confirmed by tracing the real Apple II in MAME): RG image 0 is
+	// the "The Coveted Mirror" logo, then OG image 0 is the hourglass frame
+	// (posts, bars, bowtie glass + the static bottom-bulb mound). The
+	// draining top-bulb sand is NOT part of OG0 -- it is grain-drawn each turn
+	// by drawHourglass() on top. Compositing RG0 + OG0 here reproduces the
+	// static panel pixel-exactly (verified byte-for-byte vs the MAME capture
+	// in test/cm/fixtures/throne_sand60.page).
+	// The panel lives on whichever pages are active, so it is built once per
+	// hi-res mode (the standard single page and the double-hi-res aux+main
+	// pages are independent buffers).
+	// The snapshot also folds in the mirror pieces the player has collected
+	// (see CovetedMirrorGame): each is a fixed item picture drawn once into the
+	// black band left of the hourglass, which the original never repaints. We
+	// rebuild the snapshot whenever a piece has just been found (the mask
+	// changed) so overlayPanel() keeps painting the assembled pieces on
+	// every picture; the hourglass grains are still stamped fresh on top.
+	static bool s_cmPanelBuilt[2] = { false, false };   // [standard, double hi-res]
+	static uint8 s_cmPanelMask[2] = { 0, 0 };
+	const bool isCM = apple && g_comprehend->traits().hasHourglassPanel;
+	uint8 pieceMask = 0;
+	if (isCM)
+		if (ComprehendGame *game = g_comprehend->getGame())
+			pieceMask = game->cmMirrorPieceMask();
+	if (isCM && pictureNum != TITLE_IMAGE && !_rooms.empty() && !_items.empty() &&
+		(!s_cmPanelBuilt[dhgr] || s_cmPanelMask[dhgr] != pieceMask)) {
+		gm.cm->beginPanelRebuild();
+		_rooms[_rooms.size() - 1].renderGm(0, gm); // RG = last location file: logo
+		_items[_items.size() - 1].renderGm(0, gm); // OG = last item file: hourglass frame
+		for (int i = 0; i < 4; i++) {
+			if (!(pieceMask & (1 << i)))
+				continue;
+			int p = CM_PIECE_PICS[i];
+			if (p / IMAGES_PER_FILE < (int)_items.size())
+				_items[p / IMAGES_PER_FILE].renderGm(p % IMAGES_PER_FILE, gm);
 		}
-
-		if (pictureNum == DARK_ROOM) {
-			resetScreen(false);
-		} else if (pictureNum == BRIGHT_ROOM) {
-			resetScreen(true);
-		} else if (pictureNum == TITLE_IMAGE) {
-			// The Apple II title (T0) is a Graphics Magician vector image. The
-			// legacy titles (Talisman/Transylvania/Crimson Crown) are drawn on a
-			// white background like a bright room; OO-Topos starts from black (it
-			// fills its own background with op15, and its lettering blends with
-			// the page, so a white start corrupts it).
-			resetScreen(g_comprehend->getGameID() != "ootopos");
-			if (_title.isLoaded())
-				render(_title, 0);
-		} else if (pictureNum >= ITEMS_OFFSET) {
-			// Item overlay: draw on top of the existing room page.
-			int n = pictureNum - ITEMS_OFFSET;
-			render(_items[n / IMAGES_PER_FILE], n % IMAGES_PER_FILE);
-		} else {
-			// Room picture. Background variants start from a fresh page; the
-			// no-background variant composes onto whatever is already shown.
-			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
-				resetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
-			int n = pictureNum < LOCATIONS_NO_BG_OFFSET
-			            ? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
-			render(_rooms[n / IMAGES_PER_FILE], n % IMAGES_PER_FILE);
-		}
-
-		// Re-apply The Coveted Mirror's persistent panel on top of the room/item
-		// just drawn (the title screen has no panel), then stamp the hourglass
-		// sand pile for the current sand level (VM variable 0x11): the engine
-		// shows that many grains and drains one per turn.
-		if (isCM && pictureNum != TITLE_IMAGE) {
-			int sand = 0;
-			if (ComprehendGame *game = g_comprehend->getGame())
-				sand = game->_variables[0x11];
-			if (dhgr) {
-				gmDhgrOverlayCMPanel();
-				gmDhgrDrawCMHourglass(sand);
-			} else {
-				gmOverlayCMPanel();
-				gmDrawCMHourglass(sand);
-			}
-		}
-
-		// Double hi-res blits the 560-wide page(s). (The surface was widened to
-		// 560 by setDhgrMode(); ds->w matches the DHGR converter's expectation.)
-		// With slow-draw active the host reveals the pages a chunk at a time, so
-		// blit only what is on the visible pages so far; otherwise blit the
-		// finished pages in one shot.
-		if (dhgr) {
-			if (gmDhgrSlowDrawActive())
-				gmDhgrBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-			else
-				gmDhgrBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-			return;
-		}
-
-		// With slow-draw active the page is revealed a chunk at a time by the
-		// host (Comprehend::drawPicture); blit only what is on the visible page
-		// so far. Otherwise blit the finished page.
-		if (gmSlowDrawActive())
-			gmBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-		else
-			gmBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-		return;
-	}
-
-	// DOS v1 PCjr mode (Transylvania v1 / Crimson Crown), opt-in via #pcjr: route
-	// through the 16-colour PCjr renderer when its JR_GRAPH.OVR tables loaded.
-	// Same vector streams, image offsets and 280x160 surface as the CGA path, so
-	// the structure below mirrors it exactly -- only the rasteriser differs.
-	if (g_comprehend->_usePcjr && gmpcjrHaveDrawingTables()) {
-		DrawSurface *ds = ctx._drawSurface;
-
-		if (pictureNum == DARK_ROOM) {
-			gmpcjrResetScreen(false);
-		} else if (pictureNum == BRIGHT_ROOM) {
-			gmpcjrResetScreen(true);
-		} else if (pictureNum == TITLE_IMAGE) {
-			gmpcjrResetScreen(true);
-			if (_title.isLoaded())
-				_title.renderPcjr(0);
-		} else if (pictureNum >= ITEMS_OFFSET) {
-			int n = pictureNum - ITEMS_OFFSET;
-			_items[n / IMAGES_PER_FILE].renderPcjr(n % IMAGES_PER_FILE);
-		} else {
-			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
-				gmpcjrResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
-			int n = pictureNum < LOCATIONS_NO_BG_OFFSET
-			            ? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
-			_rooms[n / IMAGES_PER_FILE].renderPcjr(n % IMAGES_PER_FILE);
-		}
-
-		if (gmpcjrSlowDrawActive())
-			gmpcjrBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-		else
-			gmpcjrBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-		return;
-	}
-
-	// DOS v2 releases (Talisman, OO-Topos, Transylvania v2, The Coveted Mirror):
-	// route through the shared CGA Graphics Magician renderer once its drawing
-	// tables have been loaded from NOVEL.EXE. The disk/Apple path already returned
-	// above, and gmcgaHaveDrawingTables() is only ever true for an eligible DOS
-	// game, so this flag alone identifies the right renderer.
-	if (gmcgaHaveDrawingTables()) {
-		DrawSurface *ds = ctx._drawSurface;
-
-		if (pictureNum == DARK_ROOM) {
-			gmcgaResetScreen(false);
-		} else if (pictureNum == BRIGHT_ROOM) {
-			gmcgaResetScreen(true);
-		} else if (pictureNum == TITLE_IMAGE) {
-			// The v2 title streams open with op15/3, which paints the whole
-			// picture with the startup fill (white), so the reset value is
-			// cosmetic; white matches the native interpreter's text page.
-			gmcgaResetScreen(true);
-			if (_title.isLoaded())
-				_title.renderGmcga(0);
-		} else if (pictureNum >= ITEMS_OFFSET) {
-			int n = pictureNum - ITEMS_OFFSET;
-			_items[n / IMAGES_PER_FILE].renderGmcga(n % IMAGES_PER_FILE);
-		} else {
-			if (pictureNum < LOCATIONS_NO_BG_OFFSET)
-				gmcgaResetScreen(!(ctx._drawFlags & IMAGEF_REVERSE));
-			int n = pictureNum < LOCATIONS_NO_BG_OFFSET
-			            ? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
-			_rooms[n / IMAGES_PER_FILE].renderGmcga(n % IMAGES_PER_FILE);
-		}
-
-		// As with the Apple path: while a reveal is queued, blit only what is on
-		// the visible page so far; the host drives the rest on a timer.
-		if (gmcgaSlowDrawActive())
-			gmcgaBlitSlowToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-		else
-			gmcgaBlitToSurface((uint32 *)ds->getPixels(), ds->w, ds->h);
-		return;
+		gm.cm->endPanelRebuild();
+		s_cmPanelBuilt[dhgr] = true;
+		s_cmPanelMask[dhgr] = pieceMask;
 	}
 
 	if (pictureNum == DARK_ROOM) {
-		ctx._drawSurface->clearScreen(G_COLOR_BLACK);
-
+		gm.resetScreen(false);
 	} else if (pictureNum == BRIGHT_ROOM) {
-		ctx._drawSurface->clearScreen(G_COLOR_WHITE);
-
+		gm.resetScreen(true);
 	} else if (pictureNum == TITLE_IMAGE) {
-		ctx._drawSurface->clearScreen(G_COLOR_WHITE);
-		// Some releases (e.g. Apple II) have no vector title image.
+		// The title is a Graphics Magician vector image drawn on a white
+		// background like a bright room. The exception is the Apple II OO-Topos
+		// title, which starts from black (it fills its own background with op15,
+		// and its lettering blends with the page, so a white start corrupts it).
+		// The DOS v2 title streams open with op15/3, which paints the whole
+		// picture with the startup fill (white), so there the reset value is
+		// cosmetic; white matches the native interpreter's text page.
+		gm.resetScreen(!(apple && g_comprehend->traits().appleTitleOnBlack));
 		if (_title.isLoaded())
-			_title.draw(0, &ctx);
-
+			_title.renderGm(0, gm);
 	} else if (pictureNum >= ITEMS_OFFSET) {
-		pictureNum -= ITEMS_OFFSET;
-		ctx._drawSurface->clear(0);
-		_items[pictureNum / IMAGES_PER_FILE].draw(
-		    pictureNum % IMAGES_PER_FILE, &ctx);
-
+		// Item overlay: draw on top of the existing room page.
+		int n = pictureNum - ITEMS_OFFSET;
+		_items[n / IMAGES_PER_FILE].renderGm(n % IMAGES_PER_FILE, gm);
 	} else {
-		if (pictureNum < LOCATIONS_NO_BG_OFFSET) {
-			ctx._drawSurface->clearScreen((ctx._drawFlags & IMAGEF_REVERSE) ? G_COLOR_BLACK : G_COLOR_WHITE);
-			if (ctx._drawFlags & IMAGEF_REVERSE)
-				ctx._penColor = RGB(255, 255, 255);
-		} else {
-			ctx._drawSurface->clear(0);
-		}
-		if (pictureNum >= LOCATIONS_NO_BG_OFFSET)
-			pictureNum -= LOCATIONS_NO_BG_OFFSET;
-		_rooms[pictureNum / IMAGES_PER_FILE].draw(
-		    pictureNum % IMAGES_PER_FILE, &ctx);
+		// Room picture. Background variants start from a fresh page; the
+		// no-background variant composes onto whatever is already shown.
+		if (pictureNum < LOCATIONS_NO_BG_OFFSET)
+			gm.resetScreen(!(drawFlags & IMAGEF_REVERSE));
+		int n = pictureNum < LOCATIONS_NO_BG_OFFSET
+					? pictureNum : pictureNum - LOCATIONS_NO_BG_OFFSET;
+		_rooms[n / IMAGES_PER_FILE].renderGm(n % IMAGES_PER_FILE, gm);
 	}
+
+	// Re-apply The Coveted Mirror's persistent panel on top of the room/item
+	// just drawn (the title screen has no panel), then stamp the hourglass
+	// sand pile for the current sand level (VM variable 0x11): the engine
+	// shows that many grains and drains one per turn.
+	if (isCM && pictureNum != TITLE_IMAGE) {
+		int sand = 0;
+		if (ComprehendGame *game = g_comprehend->getGame())
+			sand = game->_variables[0x11];
+		gm.cm->overlayPanel();
+		gm.cm->drawHourglass(sand);
+	}
+
+	// With slow-draw active the page is revealed a chunk at a time by the host
+	// (Comprehend::tickSlowDraw), so blit only what is on the visible page so
+	// far. Otherwise blit the finished page.
+	gm.blitVisible((uint32 *)ds->getPixels(), ds->w, ds->h);
+}
+
+void Pics::drawPicture(int pictureNum) const {
+	// Every picture goes through a Graphics Magician renderer; the ScummVM
+	// vector path that used to stand in for missing DOS drawing tables went
+	// when the tables got a built-in copy (see Pics::Pics).
+	drawPictureGm(pictureNum, *gmBackend(g_comprehend->gfxBackend()),
+				  g_comprehend->_drawFlags, g_comprehend->_drawSurface);
 }
 
 } // namespace Comprehend
