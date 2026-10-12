@@ -5,6 +5,12 @@
 
 #include <map>
 
+#ifdef _WIN32
+#include <io.h>
+#else
+#include <dirent.h>
+#endif
+
 extern "C" {
 #include "glk.h"
 }
@@ -19,6 +25,18 @@ extern "C" {
  * come from. */
 #ifdef COMPREHEND_HEADLESS
 extern "C" int gli_comprehend_graphics = 0;
+#endif
+
+/* Gargoyle has none of the Spatterlight user settings the engine consults, so
+ * give them fixed values here: no animated picture reveal, no testing mode,
+ * and no known content-area height (pictures are then scaled by the window
+ * width alone). */
+#if !defined(SPATTERLIGHT) && !defined(COMPREHEND_HEADLESS)
+extern "C" {
+int gli_slowdraw = 0;
+int gli_determinism = 0;
+int gscreenh = 0;
+}
 #endif
 
 namespace Common {
@@ -186,6 +204,57 @@ void clear() {
 
 } // namespace DiskImageFS
 
+std::vector<std::string> listDirectory(const String &dir) {
+	std::vector<std::string> names;
+#ifdef _WIN32
+	std::string pattern = dir;
+	pattern += "\\*";
+	struct _finddata_t ent;
+	intptr_t h = _findfirst(pattern.c_str(), &ent);
+	if (h != -1) {
+		do {
+			std::string name(ent.name);
+			if (name != "." && name != "..")
+				names.push_back(name);
+		} while (_findnext(h, &ent) == 0);
+		_findclose(h);
+	}
+#else
+	if (DIR *d = opendir(dir.c_str())) {
+		while (struct dirent *ent = readdir(d)) {
+			std::string name(ent->d_name);
+			if (name != "." && name != "..")
+				names.push_back(name);
+		}
+		closedir(d);
+	}
+#endif
+	return names;
+}
+
+FILE *openFileNoCase(const String &path, const char *mode) {
+	if (FILE *f = std::fopen(path.c_str(), mode))
+		return f;
+
+	String dir = ".";
+	String base = path;
+	size_t slash = path.find_last_of("/\\");
+	if (slash != std::string::npos) {
+		dir = String(path.c_str(), slash);
+		base = String(path.c_str() + slash + 1);
+	}
+	for (const std::string &name : listDirectory(dir)) {
+		if (name != base && scumm_stricmp(name.c_str(), base.c_str()) == 0) {
+			String full = dir;
+			full += '/';
+			full += name;
+			if (FILE *f = std::fopen(full.c_str(), mode))
+				return f;
+		}
+	}
+	return nullptr;
+}
+
 bool FileStream::open(const String &path, const char *mode) {
 	close();
 	_eos = false;
@@ -199,7 +268,10 @@ bool FileStream::open(const String &path, const char *mode) {
 		return true;
 	}
 
-	_f = std::fopen(path.c_str(), mode);
+	if (mode == nullptr || mode[0] == 'r')
+		_f = openFileNoCase(path, mode ? mode : "rb");
+	else
+		_f = std::fopen(path.c_str(), mode);
 	return _f != nullptr;
 }
 
@@ -274,7 +346,7 @@ uint32 FileStream::write(const void *buf, uint32 size) {
 
 bool FileStream::exists(const String &path) {
 	if (DiskImageFS::has(path)) return true;
-	FILE *f = std::fopen(path.c_str(), "rb");
+	FILE *f = openFileNoCase(path, "rb");
 	if (!f) return false;
 	std::fclose(f);
 	return true;

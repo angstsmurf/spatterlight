@@ -5,7 +5,12 @@
 #include "game_data.h"
 #include <cstdio>
 #include <cstring>
+#ifdef _WIN32
+#include <direct.h>
+#define chdir _chdir
+#else
 #include <unistd.h>
+#endif
 
 extern "C" {
 #include "glk.h"
@@ -54,7 +59,7 @@ void glk_main(void) {
 	// storyfile first. This matches how ScummVM's SearchMan picks up
 	// every file in the game's directory.
 	Common::String path(comprehend_storyfile);
-	size_t slash = path.find_last_of('/');
+	size_t slash = path.find_last_of("/\\");
 	if (slash != std::string::npos)
 		chdir(Common::String(path.c_str(), slash).c_str());
 

@@ -8,8 +8,6 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <dirent.h>
-#include <strings.h>
 
 extern "C" {
 // Relative paths so the build needs no extra header search paths (the
@@ -27,7 +25,7 @@ namespace Comprehend {
 static bool hasExtIgnoreCase(const Common::String &path, const char *ext) {
 	size_t n = std::strlen(ext);
 	if (path.size() < n) return false;
-	return strcasecmp(path.c_str() + path.size() - n, ext) == 0;
+	return scumm_stricmp(path.c_str() + path.size() - n, ext) == 0;
 }
 
 static uint8_t *readWholeFile(const Common::String &path, size_t *outSize) {
@@ -146,20 +144,15 @@ int loadAppleDiskImage(const Common::String &path) {
 		base = Common::String(path.c_str() + slash + 1);
 	}
 
-	DIR *d = opendir(dir.c_str());
-	if (d) {
-		struct dirent *ent;
-		while ((ent = readdir(d)) != nullptr) {
-			Common::String name(ent->d_name);
-			if (name == base || name == "." || name == "..")
-				continue;
-			Common::String full = dir;
-			full += '/';
-			full += name;
-			if (isAppleDiskImage(full))
-				total += loadOneImage(full);
-		}
-		closedir(d);
+	for (const std::string &entry : Common::listDirectory(dir)) {
+		Common::String name(entry);
+		if (name == base)
+			continue;
+		Common::String full = dir;
+		full += '/';
+		full += name;
+		if (isAppleDiskImage(full))
+			total += loadOneImage(full);
 	}
 
 	// The Talisman boot disk's "T2" file (Graphics Magician) carries the
@@ -234,16 +227,11 @@ Common::String guessDosGameId() {
 	// distinguishes, e.g., the v2 Transylvania (g0, 0x8bc3) from the v1 release
 	// (which ships tr.gda and has no g0, so the read fails and we return empty).
 	uint16 magic = 0;
-	const char *names[] = { "g0", "G0", nullptr };
-	for (int i = 0; names[i]; i++) {
-		if (FILE *f = std::fopen(names[i], "rb")) {
-			uint8_t hdr[2];
-			if (std::fread(hdr, 1, 2, f) == 2)
-				magic = (uint16)(hdr[0] | (hdr[1] << 8));
-			std::fclose(f);
-			if (magic)
-				break;
-		}
+	if (FILE *f = Common::openFileNoCase("g0", "rb")) {
+		uint8_t hdr[2];
+		if (std::fread(hdr, 1, 2, f) == 2)
+			magic = (uint16)(hdr[0] | (hdr[1] << 8));
+		std::fclose(f);
 	}
 	return gameIdForMagic(magic);
 }

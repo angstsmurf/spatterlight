@@ -91,7 +91,7 @@ bool FileBuffer::seek(int64 offset, int whence) {
 uint32 FileBuffer::read(void *dataPtr, uint32 dataSize) {
 	int32 bytesRead = CLIP((int32)dataSize, (int32)0, (int32)_data.size() - _pos);
 	if (bytesRead) {
-		Common::fill(&_readBytes[_pos], &_readBytes[_pos] + bytesRead, true);
+		std::fill(_readBytes.begin() + _pos, _readBytes.begin() + _pos + bytesRead, true);
 		Common::copy(&_data[_pos], &_data[_pos] + bytesRead, (byte *)dataPtr);
 		_pos += bytesRead;
 	}

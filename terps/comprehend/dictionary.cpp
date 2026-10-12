@@ -39,7 +39,7 @@ static bool word_match(Word *word, const char *string) {
 
 	/* Dictionary words are stored lower-case; match the player's input
 	 * case-insensitively so e.g. "BOW" and "bow" both parse. */
-	return strncasecmp(word->_word, string, wlen) == 0;
+	return scumm_strnicmp(word->_word, string, wlen) == 0;
 }
 
 Word *dict_find_word_by_string(ComprehendGame *game,

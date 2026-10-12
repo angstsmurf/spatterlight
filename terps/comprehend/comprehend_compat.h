@@ -58,7 +58,11 @@ typedef uint8_t  byte;
 #endif
 
 #define MSVC_PRINTF
+#if defined(__GNUC__) || defined(__clang__)
 #define GCC_PRINTF(a,b) __attribute__((format(printf, a, b)))
+#else
+#define GCC_PRINTF(a,b)
+#endif
 
 void comprehend_error_impl(const char *fmt, ...) GCC_PRINTF(1, 2);
 void comprehend_debug_impl(const char *fmt, ...) GCC_PRINTF(1, 2);
@@ -286,6 +290,17 @@ private:
 	std::vector<byte> _memBuf;
 	size_t _memPos;
 };
+
+// The names of the entries in a directory ("." and ".." excluded). Empty if
+// the directory cannot be read.
+std::vector<std::string> listDirectory(const String &dir);
+
+// fopen() that, when the name as given does not exist, retries with whichever
+// entry of the same directory matches it ignoring case. The engine asks for
+// its data files by fixed lower-case names ("novel.exe", "tr.gda", "g0"), but
+// the DOS releases ship them in upper or mixed case, which only resolves by
+// itself on a case-insensitive filesystem.
+FILE *openFileNoCase(const String &path, const char *mode);
 
 // In-memory virtual filesystem populated by extracting files from an Apple II
 // disk image (apple2.cpp). Keyed by lower-cased basename, so the engine's
