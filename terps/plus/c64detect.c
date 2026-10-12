@@ -74,11 +74,18 @@ static uint8_t *get_files_from_d64(uint8_t *data, size_t length, size_t *newleng
             free(filenames);
 
             Images = MemAlloc((imgindex + 1) * sizeof(imgrec));
+            /* A file of a damaged disk may be listed and still not be
+               readable. Leave it out: a picture without data cannot be drawn. */
+            int loaded = 0;
             for (int i = 0; i < imgindex; i++) {
-                Images[i].Filename = imagefiles[i];
-                Images[i].Data = ReadFileFromD64(d64, imagefiles[i], &Images[i].Size);
+                Images[loaded].Data = ReadFileFromD64(d64, imagefiles[i], &Images[loaded].Size);
+                if (Images[loaded].Data == NULL) {
+                    free(imagefiles[i]);
+                    continue;
+                }
+                Images[loaded++].Filename = imagefiles[i];
             }
-            Images[imgindex].Filename = NULL;
+            Images[loaded].Filename = NULL;
         }
         free(d64);
     }

@@ -90,6 +90,7 @@ static const struct plusrec plus_registry[] = {
     { 0x2ab00, 0x3720, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // BuckarooBanzai.d64 alt
     { 0x2adab, 0x786e, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // BuckarooBanzai.d64 alt 2 s1
     { 0x2adab, 0xfee0, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // BuckarooBanzai.d64 alt 2 s2
+    { 0x2ab00, 0x52df, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Side B of the e=mc2 release of Sorcerer of Claymorgue Castle. Damaged: 19 pictures are missing
 
     { 0x16810, 0x5434, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit
     { 0x16810, 0x19ef, BUCKAROO_BANZAI_ID_STRING, BUCKAROO_BANZAI_IFID }, // Buckaroo Banzai Atari 8-bit side B
