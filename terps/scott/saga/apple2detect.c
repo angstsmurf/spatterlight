@@ -783,7 +783,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
     if (*extent > MAX_LENGTH || *extent < kDiskImageSize)
         return UNKNOWN_GAME;
 
-    if ((*sf)[0] == 'W' && (*sf)[1] == 'O' && (*sf)[2] == 'Z') {
+    if (is_woz_image(*sf, *extent)) {
         uint8_t *result = woz2nib(*sf, extent);
         if (result) {
             free(*sf);
@@ -868,7 +868,7 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 static uint8_t *ReadA2DiskImageFile(const char *filename, size_t *filesize, int *isnib)
 {
     uint8_t *result = ReadFileIfExists(filename, filesize);
-    if (result && *filesize > 4 && result[0] == 'W' && result[1] == 'O' && result[2] == 'Z') {
+    if (result && is_woz_image(result, *filesize)) {
         uint8_t *result2 = woz2nib(result, filesize);
         if (result2) {
             free(result);

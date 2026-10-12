@@ -19,7 +19,7 @@ cc -std=c11 -O1 -g -Wall -I"$here/.." -I"$terps/common_utils" \
 find "$@" -type f \( -iname '*.dsk' -o -iname '*.do' -o -iname '*.po' -o -iname '*.nib' -o -iname '*.woz' \) | LC_ALL=C sort |
 while IFS= read -r image; do
     case "$image" in "$terps"/*) shown=${image#"$terps"/} ;; *) shown=$(basename "$image") ;; esac
-    for op in dos twice saga prodos full range v6; do
+    for op in dos twice saga prodos full range v6 nib; do
         out=$("$probe" "$op" "$image" 2>/dev/null)
         status=$?
         [ -n "$out" ] && printf '%s\n' "$out" | sed "s|^|$shown	|"

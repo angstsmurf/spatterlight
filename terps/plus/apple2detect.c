@@ -256,8 +256,7 @@ static uint8_t *reversed_disk = NULL;
 // if the data is not WOZ or conversion fails.
 static uint8_t *ConvertWozToDsk(uint8_t *data, size_t datasize, size_t *outsize)
 {
-    if (data == NULL || datasize < 4 ||
-        data[0] != 'W' || data[1] != 'O' || data[2] != 'Z')
+    if (data == NULL || !is_woz_image(data, datasize))
         return NULL;
 
     size_t nibsize = datasize;

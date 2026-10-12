@@ -26,7 +26,7 @@ static uint8_t *readFile(const char *path, size_t *sz) {
 	fclose(f); *sz = n; return d;
 }
 static uint8_t *toDsk(uint8_t *data, size_t size, size_t *outSize) {
-	if (size >= 4 && data[0]=='W' && data[1]=='O' && data[2]=='Z') {
+	if (is_woz_image(data, size)) {
 		size_t nibSize = size;
 		uint8_t *nib = woz2nib(data, &nibSize);
 		if (!nib) return nullptr;

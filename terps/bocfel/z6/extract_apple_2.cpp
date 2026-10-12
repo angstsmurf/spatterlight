@@ -90,7 +90,7 @@ static uint8_t *read_infocom_data_from_disk(const char *filename, int *game, int
         return nullptr;
     }
 
-    if (*file_length >= 3 && entire_file[0] == 'W' && entire_file[1] == 'O' && entire_file[2] == 'Z') {
+    if (is_woz_image(entire_file, *file_length)) {
         size_t woz_length = *file_length;
         uint8_t *nib_data = woz2nib(entire_file, &woz_length);
         if (nib_data) {

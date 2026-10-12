@@ -67,6 +67,7 @@ void *LookInDatabase(void) { unreached("LookInDatabase"); return 0; }
 void SwapWithCompanionFile(void) { unreached("SwapWithCompanionFile"); }
 void FreeUSImagesIfEmpty(void) { unreached("FreeUSImagesIfEmpty"); }
 void *woz2nib(void) { unreached("woz2nib"); return 0; }
+int is_woz_image(void) { unreached("is_woz_image"); return 0; }
 void DrawApple2ImageFromVideoMem(void) { unreached("DrawApple2ImageFromVideoMem"); }
 void DrawSingleApple2ImageByte(void) { unreached("DrawSingleApple2ImageByte"); }
 void DrawSomeHowarthVectorPixels(void) { unreached("DrawSomeHowarthVectorPixels"); }

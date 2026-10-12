@@ -12,6 +12,7 @@
  *      range   ReadImageFromNib at a few offsets (nibble images only)
  *      v6      ReadInfocomV6File, called the way bocfel calls it
  *      twice   GetAllApple2DOSFiles twice with no FreeDiskImage in between
+ *      nib     woz2nib itself: the whole image, then each track (.woz only)
  *
  * A .woz is run through woz2nib first. Sizes other than a 35-track .nib or
  * .dsk are passed through as "sector" images, which is what the callers do.
@@ -25,7 +26,8 @@
 #include "ciderpress.h"
 #include "woz2nib.h"
 
-#define NIB_SIZE 232960
+#define NIB_SIZE WOZ_NIB_IMAGE_SIZE
+#define NIB_TRACK WOZ_NIB_TRACK_LEN
 
 static uint64_t Hash(const uint8_t *p, size_t n)
 {
@@ -65,7 +67,7 @@ static void PrintRecs(const char *what, A2FileRec *recs, size_t n)
 int main(int argc, char **argv)
 {
     if (argc != 3) {
-        fprintf(stderr, "usage: %s dos|saga|prodos|full|range|v6|twice <image>\n", argv[0]);
+        fprintf(stderr, "usage: %s dos|saga|prodos|full|range|v6|twice|nib <image>\n", argv[0]);
         return 2;
     }
     const char *op = argv[1];
@@ -86,11 +88,13 @@ int main(int argc, char **argv)
     fclose(f);
 
     int waswoz = 0;
-    if (size >= 3 && memcmp(data, "WOZ", 3) == 0) {
+    if (is_woz_image(data, size)) {
+        size_t wozsize = size;
         uint8_t *nib = woz2nib(data, &size);
         if (nib == NULL) {
-            printf("%s\twoz2nib\tfailed\n", op);
-            return 0;
+            /* A failure has to leave the caller's size alone. */
+            printf("%s\twoz2nib\tfailed%s\n", op, size == wozsize ? "" : ", size changed");
+            return size == wozsize ? 0 : 1;
         }
         free(data);
         data = nib;
@@ -165,6 +169,15 @@ int main(int argc, char **argv)
             char name[32];
             snprintf(name, sizeof name, "game%d.disk%d", game, disk);
             Line(op, name, buf, len);
+        }
+    } else if (strcmp(op, "nib") == 0) {
+        if (waswoz) {
+            Line(op, "image", data, size);
+            for (size_t track = 0; track < size / NIB_TRACK; track++) {
+                char name[32];
+                snprintf(name, sizeof name, "track %02zu", track);
+                Line(op, name, data + track * NIB_TRACK, NIB_TRACK);
+            }
         }
     } else {
         fprintf(stderr, "unknown op %s\n", op);

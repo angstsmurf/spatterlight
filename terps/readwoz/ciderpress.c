@@ -20,20 +20,21 @@
 
 #include "debugprint.h"
 #include "ciderpress.h"
+#include "woz2nib.h"
 
 /*
  * Only one geometry is supported: a 5.25" disk of 35 tracks x 16 sectors x
  * 256 bytes = 143360 bytes, or 280 ProDOS blocks.
  */
 enum {
-    kNumTracks = 35,
+    kNumTracks = WOZ_NIB_TRACKS,
     kNumSectPerTrack = 16,
     kSectorSize = 256,
     kBlkSize = 512,
     kNumBlocks = kNumTracks * kNumSectPerTrack / 2,
     kDiskImageSize = kNumTracks * kNumSectPerTrack * kSectorSize,
 
-    kTrackLenNib525 = 6656,     // bytes per track in a ".nib"
+    kTrackLenNib525 = WOZ_NIB_TRACK_LEN,    // bytes per track in a ".nib"
     kNibImageSize = kNumTracks * kTrackLenNib525,
     kChunkSize62 = 86,          // 6&2 encoding: 86 "twos" bytes per sector
 
@@ -399,8 +400,8 @@ static DIError CopyBytesOut(void *buf, size_t offset, size_t size)
 /*
  * woz2nib decodes the bitstream continuously, so when a physical track holds
  * fewer than kTrackLenNib525 nibbles the buffer's tail simply repeats its head
- * (the decode wrapped into a second revolution; see the "true period" search
- * in woz2nib.c, which arranges for exactly that). Reading the track as a
+ * (the decode wrapped into a second revolution; see woz_decode_track() in
+ * woz2nib.c, which reads the track as a circle for exactly that). Reading the track as a
  * fixed-length ring then mis-joins the wrap, corrupting whichever sector's
  * data field straddles the kTrackLenNib525 boundary -- e.g. the Talisman
  * Empire disk's T3 S15, which backs the bazaar message-board picture (RA #6).

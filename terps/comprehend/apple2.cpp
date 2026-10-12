@@ -20,7 +20,7 @@ namespace Glk {
 namespace Comprehend {
 
 #define DSK_IMAGE_SIZE (35 * 16 * 256)   // 143360
-#define NIB_IMAGE_SIZE (35 * 6656)       // 232960
+#define NIB_IMAGE_SIZE WOZ_NIB_IMAGE_SIZE // 232960
 
 static bool hasExtIgnoreCase(const Common::String &path, const char *ext) {
 	size_t n = std::strlen(ext);
@@ -65,14 +65,14 @@ bool isAppleDiskImage(const Common::String &path) {
 	std::fseek(f, 0, SEEK_END);
 	long sz = std::ftell(f);
 	std::fclose(f);
-	return (got >= 3 && hdr[0] == 'W' && hdr[1] == 'O' && hdr[2] == 'Z') ||
+	return is_woz_image(hdr, got) ||
 		   sz == DSK_IMAGE_SIZE || sz == NIB_IMAGE_SIZE;
 }
 
 // Convert any supported image into a 143360-byte DOS-ordered .dsk buffer.
 // Returns a newly malloc'd buffer (caller frees) and sets *outSize, or null.
 static uint8_t *toDskImage(uint8_t *data, size_t size, size_t *outSize) {
-	if (size >= 4 && data[0] == 'W' && data[1] == 'O' && data[2] == 'Z') {
+	if (is_woz_image(data, size)) {
 		size_t nibSize = size;
 		uint8_t *nib = woz2nib(data, &nibSize);
 		if (!nib) return nullptr;

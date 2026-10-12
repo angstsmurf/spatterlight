@@ -19,6 +19,11 @@ static inline uint16_t READ_LE_UINT16(const void *ptr) {
     return (uint16_t)((b[1] << 8) | b[0]);
 }
 
+static inline uint32_t READ_LE_UINT32(const void *ptr) {
+    const uint8_t *b = (const uint8_t *)ptr;
+    return ((uint32_t)b[3] << 24) | ((uint32_t)b[2] << 16) | ((uint32_t)b[1] << 8) | b[0];
+}
+
 static inline uint16_t READ_BE_UINT16(const void *ptr) {
     const uint8_t *b = (const uint8_t *)ptr;
     return (uint16_t)((b[0] << 8) | b[1]);
