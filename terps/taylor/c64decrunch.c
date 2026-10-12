@@ -25,10 +25,21 @@ typedef enum {
     TYPE_T64  /* tape/datasette image */
 } file_type;
 
+/* How the game is stored in the image. All but ONE_FILE are Temple of
+   Terror images with the graphics and the text-only version side by side;
+   those have two registry entries, graphics version first. */
+typedef enum {
+    ONE_FILE,          /* D64: the largest file; T64: the first record */
+    TWO_FILES_BY_TS,   /* D64: files not in the directory, found by track and sector */
+    TWO_FILES_BY_NAME, /* D64: two named files, each entry naming its own */
+    T64_TWO_RECORDS    /* T64: the first two records */
+} file_layout;
+
 /* A registry entry identifying a known C64 game image.
    Fields: game ID, expected file length, 16-bit additive checksum,
    container type, number of unp64 decompression passes, optional
-   unp64 switch string, and which iteration to apply switches on. */
+   unp64 switch string, which iteration to apply switches on, how the
+   game is stored, and the file name for TWO_FILES_BY_NAME. */
 typedef struct {
     GameIDType id;
     size_t length;
@@ -37,54 +48,56 @@ typedef struct {
     int decompress_iterations;
     const char *switches;
     int parameter;
+    file_layout layout;
+    const char *filename;
 } c64rec;
 
 /* Known C64 TaylorMade game images indexed by file size + checksum.
    Covers Questprobe 3, Rebel Planet, He-Man/Terraquake, Temple of Terror,
    and Kayleth across various crack/pack releases. */
 static const c64rec c64_registry[] = {
-    { QUESTPROBE3_64, 0x69e3, 0x3b96, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
-    { QUESTPROBE3_64, 0x8298, 0xb93e, TYPE_T64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
-    { QUESTPROBE3_64, 0x2ab00, 0x863d, TYPE_D64, 1, NULL, 0 }, // Questprobe 3, PUCrunch
-    { REBEL_PLANET_64, 0xd541, 0x593a, TYPE_T64, 1, NULL, 0 }, // Rebel Planet C64 (T64) 1001 CardCruncher Old Packer
-    { REBEL_PLANET_64, 0x2ab00, 0xa46f, TYPE_D64, 2, "-e0x0fe9", 2 }, // Rebel_Planet_1986_Adventure_International.d64
-    { REBEL_PLANET_64, 0x2ab00, 0x932e, TYPE_D64, 1, NULL, 0 }, // Rebel_Planet_1986_Adventure_International_cr_TFF.d64
+    { QUESTPROBE3_64, 0x69e3, 0x3b96, TYPE_T64, 1, NULL, 0, ONE_FILE, NULL }, // Questprobe 3, PUCrunch
+    { QUESTPROBE3_64, 0x8298, 0xb93e, TYPE_T64, 1, NULL, 0, ONE_FILE, NULL }, // Questprobe 3, PUCrunch
+    { QUESTPROBE3_64, 0x2ab00, 0x863d, TYPE_D64, 1, NULL, 0, ONE_FILE, NULL }, // Questprobe 3, PUCrunch
+    { REBEL_PLANET_64, 0xd541, 0x593a, TYPE_T64, 1, NULL, 0, ONE_FILE, NULL }, // Rebel Planet C64 (T64) 1001 CardCruncher Old Packer
+    { REBEL_PLANET_64, 0x2ab00, 0xa46f, TYPE_D64, 2, "-e0x0fe9", 2, ONE_FILE, NULL }, // Rebel_Planet_1986_Adventure_International.d64
+    { REBEL_PLANET_64, 0x2ab00, 0x932e, TYPE_D64, 1, NULL, 0, ONE_FILE, NULL }, // Rebel_Planet_1986_Adventure_International_cr_TFF.d64
 
-    { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0 }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
-    { HEMAN_64, 0x2ab00, 0x4625, TYPE_D64, 2, NULL, 0 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
-    { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
+    { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0, ONE_FILE, NULL }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
+    { HEMAN_64, 0x2ab00, 0x4625, TYPE_D64, 2, NULL, 0, ONE_FILE, NULL }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
+    { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4, ONE_FILE, NULL }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
     // The first pass also unpacks the crack intro at $c000, which tells the
     // next depacker that its data ends at $b1db. Cut the output there.
-    { HEMAN_64, 0x2ab00, 0xbd68, TYPE_D64, 4, "-t0xb1da", 1 }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack: ECA Compacker -> Super Compressor / Flexible -> two more
+    { HEMAN_64, 0x2ab00, 0xbd68, TYPE_D64, 4, "-t0xb1da", 1, ONE_FILE, NULL }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack: ECA Compacker -> Super Compressor / Flexible -> two more
 
-    { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TOT_TEXT_ONLY_64, 0x10baa, 0x3b37, TYPE_T64, 3, NULL, 0 }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0xf3b4, TYPE_D64, 3, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
-    { TOT_TEXT_ONLY_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7b2d, TYPE_D64, 0, NULL, 0 }, // Temple of Terror - Trianon.d64
-    { TOT_TEXT_ONLY_64, 0x2ab00, 0x7b2d, TYPE_D64, 0, NULL, 0 }, // Temple of Terror - Trianon.d64
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x4661, TYPE_D64, 0, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64
-    { TOT_TEXT_ONLY_64, 0x2ab00, 0x4661, TYPE_D64, 0, NULL, 0 }, // Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x3ee3, TYPE_D64, 6, "-e0xc1ef", 4 }, // Temple_of_Terror_Graphic_Version_1987_U.S._Gold_cr_FLT.d64
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5b97, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple_of_Terror_1987_U.S._Gold_h_FLT.d64
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x55a1, TYPE_D64, 4, "-e0xc1ef", 2 }, // Temple_of_Terror_1987_US_Gold_cr_FLT.d64
+    { TEMPLE_OF_TERROR_64, 0xf716, 0x2b54, TYPE_T64, 4, NULL, 0, T64_TWO_RECORDS, NULL }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TOT_TEXT_ONLY_64, 0xf716, 0x2b54, TYPE_T64, 3, NULL, 0, T64_TWO_RECORDS, NULL }, // Temple of Terror C64 (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, 0, T64_TWO_RECORDS, NULL }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TOT_TEXT_ONLY_64, 0x10baa, 0x3b37, TYPE_T64, 3, NULL, 0, T64_TWO_RECORDS, NULL }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", 2, ONE_FILE, NULL }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0xf3b4, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL }, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0, TWO_FILES_BY_NAME, "TEMPLE O.TERROR2" }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
+    { TOT_TEXT_ONLY_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0, TWO_FILES_BY_NAME, "TEMPLE O.TERROR1" }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7b2d, TYPE_D64, 0, NULL, 0, TWO_FILES_BY_TS, NULL }, // Temple of Terror - Trianon.d64
+    { TOT_TEXT_ONLY_64, 0x2ab00, 0x7b2d, TYPE_D64, 0, NULL, 0, TWO_FILES_BY_TS, NULL }, // Temple of Terror - Trianon.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x4661, TYPE_D64, 0, NULL, 0, TWO_FILES_BY_TS, NULL }, // Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64
+    { TOT_TEXT_ONLY_64, 0x2ab00, 0x4661, TYPE_D64, 0, NULL, 0, TWO_FILES_BY_TS, NULL }, // Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x3ee3, TYPE_D64, 6, "-e0xc1ef", 4, ONE_FILE, NULL }, // Temple_of_Terror_Graphic_Version_1987_U.S._Gold_cr_FLT.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5b97, TYPE_D64, 4, "-e0xc1ef", 2, ONE_FILE, NULL }, // Temple_of_Terror_1987_U.S._Gold_h_FLT.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x55a1, TYPE_D64, 4, "-e0xc1ef", 2, ONE_FILE, NULL }, // Temple_of_Terror_1987_US_Gold_cr_FLT.d64
 
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7bf2, TYPE_D64, 4, NULL, 0 }, // Temple of Terror (c64.com), Triad crack: 1001 CardCruncher New Packer -> ACM -> Triad-01 -> Mr.Z Packer
-    { TOT_TEXT_ONLY_64,    0x2ab00, 0x7bf2, TYPE_D64, 3, NULL, 0 }, // Temple of Terror (c64.com), text-only file: 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7bf2, TYPE_D64, 4, NULL, 0, TWO_FILES_BY_NAME, "TEMPLE GRA/TRIAD" }, // Temple of Terror (c64.com), Triad crack: 1001 CardCruncher New Packer -> ACM -> Triad-01 -> Mr.Z Packer
+    { TOT_TEXT_ONLY_64,    0x2ab00, 0x7bf2, TYPE_D64, 3, NULL, 0, TWO_FILES_BY_NAME, "TEMPLE TEX/TRIAD" }, // Temple of Terror (c64.com), text-only file: 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
 
-    { KAYLETH_64, 0x2ab00, 0xc75f, TYPE_D64, 3, NULL, 0 }, // Kayleth D64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-    { KAYLETH_64, 0xb1f2, 0x7757, TYPE_T64, 3, NULL, 0 }, // Kayleth T64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-    { KAYLETH_64, 0x2ab00, 0x2359, TYPE_D64, 3, NULL, 0 }, // Compilation_Karate_Chop_Kayleth_Kettle_Knotie_in_Cave_19xx_-.d64
-    { KAYLETH_64, 0x2ab00, 0x3a10, TYPE_D64, 4, NULL, 0 }, // Kayleth_1987_U.S._Gold_cr_Newstars.d64
-    { KAYLETH_64, 0x2ab00, 0xc184, TYPE_D64, 3, NULL, 0 }, // Kayleth_1987_U.S._Gold_cr_Triad.d64
-    { KAYLETH_64, 0x2ab00, 0x7a59, TYPE_D64, 4, "-e0x9a0", 2 }, // Kayleth_1987_U.S._Gold_cr_OkKoral.d64
-    { KAYLETH_64, 0x2ab00, 0xbf75, TYPE_D64, 3, NULL, 0 }, // Kayleth_1987_U.S._Gold.d64
+    { KAYLETH_64, 0x2ab00, 0xc75f, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL }, // Kayleth D64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
+    { KAYLETH_64, 0xb1f2, 0x7757, TYPE_T64, 3, NULL, 0, ONE_FILE, NULL }, // Kayleth T64 Super Compressor / Flexible Hack -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
+    { KAYLETH_64, 0x2ab00, 0x2359, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL }, // Compilation_Karate_Chop_Kayleth_Kettle_Knotie_in_Cave_19xx_-.d64
+    { KAYLETH_64, 0x2ab00, 0x3a10, TYPE_D64, 4, NULL, 0, ONE_FILE, NULL }, // Kayleth_1987_U.S._Gold_cr_Newstars.d64
+    { KAYLETH_64, 0x2ab00, 0xc184, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL }, // Kayleth_1987_U.S._Gold_cr_Triad.d64
+    { KAYLETH_64, 0x2ab00, 0x7a59, TYPE_D64, 4, "-e0x9a0", 2, ONE_FILE, NULL }, // Kayleth_1987_U.S._Gold_cr_OkKoral.d64
+    { KAYLETH_64, 0x2ab00, 0xbf75, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL }, // Kayleth_1987_U.S._Gold.d64
 
-    { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, 0 }
+    { UNKNOWN_GAME, 0, 0, UNKNOWN_FILE_TYPE, 0, NULL, 0, ONE_FILE, NULL }
 };
 
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
@@ -180,44 +193,45 @@ static uint8_t *get_file_at_ts(uint8_t *data, size_t length, size_t *newlength, 
 static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     c64rec rec = c64_registry[recindex];
+    c64rec textrec = c64_registry[recindex + 1];
     int isdisk = (rec.type == TYPE_D64);
     OpenBottomWindow();
     Display(Bottom, "This %s image contains one version of Temple of Terror with pictures, and one with without pictures but slightly more text.\n\nPlease select one:\n1. Graphics version\n2. Text-only version\n3. Use pictures from file 1 and text from file 2", isdisk ? "disk" : "datasette");
 
-    int number_of_records = 0;
-    if (!isdisk)
-        number_of_records = READ_LE_UINT16(*sf + 36);
     size_t size1 = *extent;
     size_t size2 = *extent;
     uint8_t *file1 = NULL;
     uint8_t *file2 = NULL;
-    if (isdisk) {
-        if (rec.chk == 0x4661 || rec.chk == 0x7b2d) {
-            uint8_t *tempfile1 = get_file_at_ts(*sf, *extent, &size1, 17, 1);
-            if (tempfile1 != NULL && size1 > TRIANON_LOADER_SIZE) {
-                size1 -= TRIANON_LOADER_SIZE;
-                file1 = MemAlloc(size1);
-                memcpy(file1, tempfile1 + TRIANON_LOADER_SIZE, size1);
-            }
-            free(tempfile1);
-            uint8_t *tempfile2 = get_file_at_ts(*sf, *extent, &size2, 20, 16);
-            if (tempfile2 != NULL) {
-                file2 = MemCalloc(size2 + TRIANON_MISSING_HEADER);
-                memcpy(file2 + TRIANON_MISSING_HEADER, tempfile2, size2);
-                size2 += TRIANON_MISSING_HEADER;
-            }
-            free(tempfile2);
-        } else if (rec.chk == 0x7bf2) {
-            /* c64.com Triad crack: graphics and text are separate named files */
-            file1 = di_get_file_named(*sf, *extent, &size1, "TEMPLE GRA/TRIAD");
-            file2 = di_get_file_named(*sf, *extent, &size2, "TEMPLE TEX/TRIAD");
-        } else {
-            file1 = di_get_file_named(*sf, *extent, &size1, "TEMPLE O.TERROR2");
-            file2 = di_get_file_named(*sf, *extent, &size2, "TEMPLE O.TERROR1");
+    switch (rec.layout) {
+    case TWO_FILES_BY_TS: {
+        uint8_t *tempfile1 = get_file_at_ts(*sf, *extent, &size1, 17, 1);
+        if (tempfile1 != NULL && size1 > TRIANON_LOADER_SIZE) {
+            size1 -= TRIANON_LOADER_SIZE;
+            file1 = MemAlloc(size1);
+            memcpy(file1, tempfile1 + TRIANON_LOADER_SIZE, size1);
         }
-    } else {
+        free(tempfile1);
+        uint8_t *tempfile2 = get_file_at_ts(*sf, *extent, &size2, 20, 16);
+        if (tempfile2 != NULL) {
+            file2 = MemCalloc(size2 + TRIANON_MISSING_HEADER);
+            memcpy(file2 + TRIANON_MISSING_HEADER, tempfile2, size2);
+            size2 += TRIANON_MISSING_HEADER;
+        }
+        free(tempfile2);
+        break;
+    }
+    case TWO_FILES_BY_NAME:
+        file1 = di_get_file_named(*sf, *extent, &size1, rec.filename);
+        file2 = di_get_file_named(*sf, *extent, &size2, textrec.filename);
+        break;
+    case T64_TWO_RECORDS: {
+        int number_of_records = READ_LE_UINT16(*sf + 36);
         file1 = GetFileFromT64(1, number_of_records, sf, &size1);
         file2 = GetFileFromT64(2, number_of_records, sf, &size2);
+        break;
+    }
+    default:
+        break;
     }
     free(*sf);
     *sf = NULL;
@@ -249,7 +263,7 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
         file1 = file2;
         file2 = temp;
         size1 = size2;
-        rec = c64_registry[recindex + 1];
+        rec = textrec;
     }
         // fallthrough
     case 1:
@@ -261,7 +275,7 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
         /* Hybrid: decompress both, then splice the graphics data from
            the graphics version into the text-only version's memory layout */
         ProcessC64(&file1, &size1, rec);
-        ProcessC64(&file2, &size2, c64_registry[recindex + 1]);
+        ProcessC64(&file2, &size2, textrec);
 
         /* Zeroed: the copies below leave gaps, and the draw instruction
            streams of rooms without a picture run into them. */
@@ -305,28 +319,23 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
     for (int i = 0; c64_registry[i].length != 0; i++) {
         c64rec record = c64_registry[i];
         if (*extent == record.length && chksum == record.chk) {
+            /* Temple of Terror images with two game files */
+            if (record.layout != ONE_FILE)
+                return terror_menu(sf, extent, i);
             if (record.type == TYPE_D64) {
-                /* Temple of Terror D64 variants with two game files */
-                if (chksum == 0x577e || chksum == 0x4661 || chksum == 0x7b2d || chksum == 0x7bf2) {
-                    return terror_menu(sf, extent, i);
-                } else {
-                    size_t newlength;
-                    uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
+                size_t newlength;
+                uint8_t *largest_file = get_largest_file(*sf, *extent, &newlength);
 
-                    if (largest_file) {
-                        free(*sf);
-                        *sf = largest_file;
-                        *extent = newlength;
-                    } else {
-                        Fatal("Could not read file from disk image");
-                    }
+                if (largest_file) {
+                    free(*sf);
+                    *sf = largest_file;
+                    *extent = newlength;
+                } else {
+                    Fatal("Could not read file from disk image");
                 }
 
             /* T64 tape image: extract the first file record */
             } else if (c64_registry[i].type == TYPE_T64) {
-                /* Temple of Terror T64 variants with two game files */
-                if (c64_registry[i].chk == 0x2b54 || c64_registry[i].chk == 0x3b37)
-                    return terror_menu(sf, extent, i);
                 int number_of_records = READ_LE_UINT16(*sf + 36);
                 size_t size = *extent;
                 uint8_t *first_file = GetFileFromT64(1, number_of_records, sf, &size);

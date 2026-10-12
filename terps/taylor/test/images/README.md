@@ -74,9 +74,10 @@ whole folder is skipped.
 
 ## Coverage
 
-58 rows, one per distinct result found among about 115 local images of
+65 rows: one per distinct result found among about 115 local images of
 *Rebel Planet*, *Blizzard Pass*, *Temple of Terror*, *Kayleth*, *Masters of
-the Universe* and *Questprobe 3*:
+the Universe* and *Questprobe 3*, and one or two for every C64 *Temple of
+Terror* image the loader knows, whose files are found in four different ways:
 
 | Container | Rows | Variants |
 |-----------|------|----------|
@@ -84,7 +85,7 @@ the Universe* and *Questprobe 3*:
 | ZX Spectrum `.sna` | 6 | |
 | ZX Spectrum `.tap` | 3 | |
 | ZX Spectrum `.tzx` | 10 | incl. the two-sided *Temple of Terror*, either side, combined or not |
-| C64 `.d64` | 8 | incl. *Temple of Terror* graphics and combined versions |
+| C64 `.d64` | 15 | incl. *Temple of Terror* graphics and combined versions |
 | C64 `.t64` | 7 | likewise |
 | `.tay` | 12 | any of the above under Spatterlight's own extension |
 

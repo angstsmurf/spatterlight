@@ -77,10 +77,8 @@ static size_t FindFlags(void)
         if (pos == -1) {
             if (Game)
                 return Game->start_of_flags + FileBaselineOffset;
-            else {
-                fprintf(stderr, "Cannot find initial flag data.\n");
-                glk_exit();
-            }
+            else
+                Fatal("Cannot find initial flag data");
         } else
             return pos + 5;
     }

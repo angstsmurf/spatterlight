@@ -651,6 +651,7 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
              make sure they kill us if we try to pass, by setting flag 28 to zero */
             /* This fixes a bug in the original game, which lets us just walk
                past the guard */
+            /* Word 20 is GO / ENTER / CLIMB / WALK / RUN, word 162 is DOOR */
             if (arg1 == 28 && Flag[63] == 0 && Word[0] == 20 && Word[1] == 162)
                 Flag[28] = 0;
         }
@@ -717,6 +718,9 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         SaveGame();
         break;
     case DROPALL:
+        /* The opcode is also used to empty the inventory silently. List
+           what is dropped only when the player typed DROP ALL: word 20 is
+           DROP, and ALL is word 141 in Rebel Planet, 254 in Kayleth. */
         if ((BaseGame == REBEL_PLANET && (Word[0] != 20 || Word[1] != 141)) ||
             (BaseGame == KAYLETH && (Word[0] != 20 || Word[1] != 254)))
             DropAll(0);

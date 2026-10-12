@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/taylor`) plays each
 command script in this folder through `taylor_hl` on every release of its game
 in `../images/games/` and compares the transcript with a hash in
-`scripts.tsv`. 94 replays, a few seconds.
+`scripts.tsv`. 115 replays, a few seconds.
 
 `taylor_hl` is the interpreter on plain CheapGlk: commands on standard input,
 transcript on standard output, no pictures (those are tested by

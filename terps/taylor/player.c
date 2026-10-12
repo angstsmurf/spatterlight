@@ -678,8 +678,7 @@ void glk_main(void)
        direction word, "NORTH", with code 1 followed by its alias "N"). */
     VerbBase = FindCode("NORT\001N", 0, 6);
     if (VerbBase == -1) {
-        fprintf(stderr, "No verb table!\n");
-        glk_exit();
+        Fatal("This is not a TaylorMade game: no verb table found");
     }
 
     /* Step 3: identify which game we're playing. The verb table's offset
@@ -688,8 +687,7 @@ void glk_main(void)
     if (!Game)
         Game = DetectGame(VerbBase);
     if (Game == NULL) {
-        fprintf(stderr, "Did not recognize game!\n");
-        glk_exit();
+        Fatal("Did not recognize game");
     } else {
         FileBaselineOffset = VerbBase - Game->start_of_dictionary;
     }
