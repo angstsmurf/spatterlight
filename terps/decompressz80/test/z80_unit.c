@@ -704,23 +704,23 @@ static void TestTZX(void)
     CHECK(kinds == 27);
 
     uint8_t *tape = Exact(&b);
-    size_t length = b.length;
-    uint8_t *block = GetTZXBlock(0, tape, &length);
+    /* The data blocks are numbered as if the others were not there, and
+       come whole: flag, data and checksum */
+    size_t length = 0;
+    uint8_t *block = GetTZXBlock(0, tape, b.length, &length);
     CHECK(IsBlock(block, length, 0x00, 19));
     free(block);
     size_t payload_at = 0;
     static size_t offsets[64], lengths[64];
     for (int k = 0; k < kinds; k++) {
-        length = b.length;
-        CHECK(GetTZXBlock(1 + 2 * k, tape, &length) == NULL && length == b.length);
-        block = GetTZXBlock(2 + 2 * k, tape, &length);
+        block = GetTZXBlock(1 + k, tape, b.length, &length);
         CHECK(IsBlock(block, length, 0xff, 100 + (size_t)k));
         free(block);
     }
-    length = b.length;
-    CHECK(GetTZXBlock(1 + 2 * kinds, tape, &length) == NULL && length == b.length);
-    CHECK(GetTZXBlock(-1, tape, &length) == NULL);
-    CHECK(GetTZXBlock(0, tape, NULL) == NULL);
+    length = 12345;
+    CHECK(GetTZXBlock(1 + kinds, tape, b.length, &length) == NULL && length == 12345);
+    CHECK(GetTZXBlock(-1, tape, b.length, &length) == NULL && length == 12345);
+    CHECK(GetTZXBlock(0, tape, b.length, NULL) == NULL);
 
     /* The payloads: the header block is left out, the flag and the checksum
        are taken off the others */
@@ -760,10 +760,8 @@ static void TestTZX(void)
         payloads = ExtractTapePayloads(part, cut, 1, &part_len, NULL, NULL, NULL, 0);
         CHECK(part_len <= payload_at && (payloads != NULL) == (part_len != 0));
         free(payloads);
-        for (int i = 0; i < 60; i += 7) {
-            length = cut;
-            free(GetTZXBlock(i, part, &length));
-        }
+        for (int i = 0; i < 30; i += 3)
+            free(GetTZXBlock(i, part, cut, &length));
         free(part);
     }
     free(tape);
@@ -774,12 +772,10 @@ static void TestTZX(void)
     PutTZXData(&b, 0xff, 10);
     PutByte(&b, 0x29);
     PutTZXData(&b, 0xff, 10);
-    length = b.length;
-    block = GetTZXBlock(0, b.data, &length);
+    block = GetTZXBlock(0, b.data, b.length, &length);
     CHECK(IsBlock(block, length, 0xff, 10));
     free(block);
-    length = b.length;
-    CHECK(GetTZXBlock(2, b.data, &length) == NULL);
+    CHECK(GetTZXBlock(1, b.data, b.length, &length) == NULL);
     payloads = ExtractTapePayloads(b.data, b.length, 1, &out_len, NULL, NULL, &count, 64);
     CHECK(payloads != NULL && out_len == 8 && count == 1);
     free(payloads);
@@ -795,26 +791,27 @@ static void TestTZX(void)
     count = 99;
     CHECK(ExtractTapePayloads(b.data, b.length, 1, &out_len, NULL, NULL, &count, 64) == NULL);
     CHECK(out_len == 0 && count == 0);
-    length = b.length;
-    block = GetTZXBlock(0, b.data, &length);
+    length = 12345;
+    block = GetTZXBlock(0, b.data, b.length, &length);
     CHECK(block != NULL && length == 0);
     free(block);
-    length = b.length;
-    block = GetTZXBlock(2, b.data, &length);
+    block = GetTZXBlock(1, b.data, b.length, &length);
+    CHECK(IsBlock(block, length, 0xff, 1));
+    free(block);
+    block = GetTZXBlock(2, b.data, b.length, &length);
     CHECK(IsBlock(block, length, 0xff, 2));
     free(block);
 
     /* Not a .tzx: no signature, and a .tap */
     b.data[6] = '?';
-    length = b.length;
-    CHECK(GetTZXBlock(0, b.data, &length) == NULL && length == b.length);
+    length = 12345;
+    CHECK(GetTZXBlock(0, b.data, b.length, &length) == NULL && length == 12345);
     CHECK(ExtractTapePayloads(b.data, b.length, 1, &out_len, NULL, NULL, NULL, 0) == NULL);
     CHECK(ExtractTapePayloads(NULL, 100, 1, &out_len, NULL, NULL, NULL, 0) == NULL);
     CHECK(ExtractTapePayloads(b.data, 0, 0, &out_len, NULL, NULL, NULL, 0) == NULL);
-    for (size_t n = 0; n <= 10; n++) {
-        length = n;
-        CHECK(GetTZXBlock(0, (const uint8_t *)"ZXTape!\x1a\x01\x14", &length) == NULL);
-    }
+    for (size_t n = 0; n <= 10; n++)
+        CHECK(GetTZXBlock(0, (const uint8_t *)"ZXTape!\x1a\x01\x14", n, &length) == NULL);
+    CHECK(GetTZXBlock(0, NULL, 100, &length) == NULL);
 
     free(b.data);
 }
@@ -839,30 +836,21 @@ static void TestTAP(void)
     size_t whole = b.length;
 
     uint8_t *tape = Exact(&b);
-    static const size_t sizes[] = { 19, 500, 2 };
-    static const uint8_t flags[] = { 0x00, 0xff, 0x55 };
-    for (int i = 0; i < 3; i++) {
-        size_t length = whole;
-        uint8_t *block = GetTAPBlock(i, tape, &length);
-        /* the flag is gone, the checksum is there but not counted */
-        CHECK(block != NULL && length == sizes[i] - 2);
-        int same = block != NULL;
-        for (size_t j = 1; same && j < sizes[i]; j++)
-            same = block[j - 1] == (uint8_t)(flags[i] + j * 3);
-        CHECK(same);
+    /* Every block counts and comes whole, as from a .tzx */
+    static const size_t sizes[] = { 19, 500, 2, 1, 40 };
+    static const uint8_t flags[] = { 0x00, 0xff, 0x55, 0xff, 0xff };
+    size_t length = 0;
+    uint8_t *block;
+    for (int i = 0; i < 5; i++) {
+        block = GetTAPBlock(i, tape, whole, &length);
+        CHECK(IsBlock(block, length, flags[i], sizes[i]));
         free(block);
     }
-    size_t length = whole;
-    CHECK(GetTAPBlock(3, tape, &length) == NULL && length == whole); /* one byte */
-    uint8_t *block = GetTAPBlock(4, tape, &length);
-    CHECK(block != NULL && length == 38);
-    free(block);
-    length = whole;
-    CHECK(GetTAPBlock(5, tape, &length) == NULL && length == whole);
-    CHECK(GetTAPBlock(-1, tape, &length) == NULL);
-    CHECK(GetTAPBlock(0, tape, NULL) == NULL);
-    length = 100;
-    CHECK(GetTAPBlock(0, NULL, &length) == NULL);
+    length = 12345;
+    CHECK(GetTAPBlock(5, tape, whole, &length) == NULL && length == 12345);
+    CHECK(GetTAPBlock(-1, tape, whole, &length) == NULL && length == 12345);
+    CHECK(GetTAPBlock(0, tape, whole, NULL) == NULL);
+    CHECK(GetTAPBlock(0, NULL, 100, &length) == NULL);
 
     size_t out_len = 0, offsets[8], lengths[8];
     int count = 0;
@@ -880,10 +868,8 @@ static void TestTAP(void)
         payloads = ExtractTapePayloads(part, cut, 0, &part_len, NULL, NULL, NULL, 0);
         CHECK(part_len <= 498 + 38);
         free(payloads);
-        for (int i = 0; i < 6; i++) {
-            length = cut;
-            free(GetTAPBlock(i, part, &length));
-        }
+        for (int i = 0; i < 6; i++)
+            free(GetTAPBlock(i, part, cut, &length));
         free(part);
     }
     free(tape);
@@ -893,13 +879,11 @@ static void TestTAP(void)
     PutTAPBlock(&b, 0xff, 30);
     PutTAPBlock(&b, 0xff, 0);
     PutTAPBlock(&b, 0xff, 30);
-    length = b.length;
-    block = GetTAPBlock(0, b.data, &length);
-    CHECK(block != NULL && length == 28);
+    block = GetTAPBlock(0, b.data, b.length, &length);
+    CHECK(IsBlock(block, length, 0xff, 30));
     free(block);
-    length = b.length;
-    CHECK(GetTAPBlock(1, b.data, &length) == NULL);
-    CHECK(GetTAPBlock(2, b.data, &length) == NULL);
+    CHECK(GetTAPBlock(1, b.data, b.length, &length) == NULL);
+    CHECK(GetTAPBlock(2, b.data, b.length, &length) == NULL);
     payloads = ExtractTapePayloads(b.data, b.length, 0, &out_len, NULL, NULL, &count, 8);
     CHECK(payloads != NULL && out_len == 28 && count == 1);
     free(payloads);
@@ -907,11 +891,10 @@ static void TestTAP(void)
     /* A file of zeroes, and one whose first length is past its end */
     b.length = 0;
     PutFill(&b, 0, 4000);
-    length = b.length;
-    CHECK(GetTAPBlock(0, b.data, &length) == NULL);
+    CHECK(GetTAPBlock(0, b.data, b.length, &length) == NULL);
     CHECK(ExtractTapePayloads(b.data, b.length, 0, &out_len, NULL, NULL, NULL, 0) == NULL);
     memset(b.data, 0xff, b.length);
-    CHECK(GetTAPBlock(0, b.data, &length) == NULL);
+    CHECK(GetTAPBlock(0, b.data, b.length, &length) == NULL);
     CHECK(ExtractTapePayloads(b.data, b.length, 0, &out_len, NULL, NULL, NULL, 0) == NULL);
 
     free(b.data);

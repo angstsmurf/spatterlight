@@ -16,7 +16,7 @@
 #include <stdint.h>
 
 /* Decode parameters for the standard Kayleth TZX (file size 0xcadc). */
-#define KAYLETH_SCREEN_BLOCK    4     /* TZX data block holding the stream    */
+#define KAYLETH_SCREEN_BLOCK    3     /* TZX data block holding the stream    */
 #define KAYLETH_SCREEN_OFFSET   2     /* byte offset of the pixel stream      */
 #define KAYLETH_SCREEN_LOACON   0x3a  /* initial rolling key                  */
 #define KAYLETH_SCREEN_ADD2     0x8f  /* key increment per byte               */

@@ -866,29 +866,24 @@ static L9BOOL try_extract_tzx_blocks(uint8_t *raw_tzx, size_t raw_size)
 
 	L9BYTE *combined = NULL;
 	size_t combined_size = 0;
-	int hits = 0, misses = 0;
+	int hits = 0;
 
 	for (int blockno = 0; blockno < 256; blockno++) {
-		size_t block_len = raw_size;
-		uint8_t *block = GetTZXBlock(blockno, raw_tzx, &block_len);
-		if (!block) {
-			misses++;
-			if (hits > 0 && misses >= 4) break;
-			if (hits == 0 && misses >= 16) break;
-			continue;
-		}
-		misses = 0;
+		size_t block_len = 0;
+		uint8_t *block = GetTZXBlock(blockno, raw_tzx, raw_size, &block_len);
+		if (!block)
+			break;
 		hits++;
 
-		if (block_len > 2) {
-			size_t payload_len = block_len - 2;
+		if (block_len > ZX_TAPE_FRAME_BYTES) {
+			size_t payload_len = block_len - ZX_TAPE_FRAME_BYTES;
 			L9BYTE *grown = realloc(combined, combined_size + payload_len);
 			if (!grown) {
 				free(block);
 				free(combined);
 				return FALSE;
 			}
-			memcpy(grown + combined_size, block + 1, payload_len);
+			memcpy(grown + combined_size, block + ZX_TAPE_FLAG_BYTES, payload_len);
 			combined = grown;
 			combined_size += payload_len;
 		}

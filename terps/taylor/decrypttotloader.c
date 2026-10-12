@@ -420,9 +420,9 @@ void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_addre
 // snapshot, or NULL on failure. The caller is responsible for freeing the result.
 uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
 {
-    size_t length = *original_data_length;
+    size_t length = 0;
     // Stage 1: Extract the raw, encrypted tape loader data from the TZX image
-    uint8_t *encrypted_loader = GetTZXBlock(3, data, &length);
+    uint8_t *encrypted_loader = GetTZXBlock(2, data, *original_data_length, &length);
     if (encrypted_loader == NULL)
         return NULL;
     // Decrypt in two passes, mirroring the byte-for-byte decryption that
@@ -454,8 +454,7 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
     DecryptToTLoader(memory);
 
     // Stage 3: Load, decrypt and unscramble the loading screen image
-    length = *original_data_length;
-    uint8_t *block = GetTZXBlock(4, data, &length);
+    uint8_t *block = GetTZXBlock(3, data, *original_data_length, &length);
     if (block == NULL) {
         free(memory);
         return NULL;

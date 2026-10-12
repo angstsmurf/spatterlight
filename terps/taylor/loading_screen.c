@@ -104,8 +104,8 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
        same scrambled sequence the loader used. */
     ZXSetDrawOrder(order, order_len);
 
-    size_t block_len = length;
-    uint8_t *block = GetTZXBlock(block_index, image, &block_len);
+    size_t block_len = 0;
+    uint8_t *block = GetTZXBlock(block_index, image, length, &block_len);
     if (block == NULL)
         return NULL;
     if (block_len < (size_t)(offset + order_len)) {

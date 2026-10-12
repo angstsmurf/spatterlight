@@ -13,7 +13,7 @@
 #include <stdint.h>
 
 /* Decode parameters for Temple of Terror Side A (TZX, file size 0xccca). */
-#define TEMPLEA_SCREEN_BLOCK    4
+#define TEMPLEA_SCREEN_BLOCK    3
 #define TEMPLEA_SCREEN_OFFSET   2
 #define TEMPLEA_SCREEN_LOACON   0x98
 #define TEMPLEA_SCREEN_ADD2     0xcd

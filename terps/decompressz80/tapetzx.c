@@ -150,57 +150,51 @@ static uint8_t *CopyOf(const uint8_t *data, size_t length)
     return copy;
 }
 
-uint8_t *GetTZXBlock(int blockno, const uint8_t *srcbuf, size_t *length)
+uint8_t *GetTZXBlock(int blockno, const uint8_t *tzx, size_t tzx_length,
+    size_t *block_length)
 {
-    if (length == NULL || !IsTZX(srcbuf, *length))
+    if (block_length == NULL || !IsTZX(tzx, tzx_length))
         return NULL;
 
     TapeBlock block;
     size_t pos = TZX_HEADER_SIZE;
-    for (int i = 0; NextTZXBlock(srcbuf, *length, &pos, &block); i++) {
-        if (i != blockno)
+    int found = 0;
+    while (NextTZXBlock(tzx, tzx_length, &pos, &block)) {
+        if (block.data == NULL || found++ != blockno)
             continue;
-        if (block.data == NULL) {
-            ZX_LOG("TZX block %d is not a data block", blockno);
-            return NULL;
-        }
         uint8_t *copy = CopyOf(block.data, block.length);
         if (copy != NULL)
-            *length = block.length;
+            *block_length = block.length;
         return copy;
     }
 
-    ZX_LOG("no TZX block %d", blockno);
+    ZX_LOG("no TZX data block %d", blockno);
     return NULL;
 }
 
-uint8_t *GetTAPBlock(int wantedindex, const uint8_t *buffer, size_t *length)
+uint8_t *GetTAPBlock(int blockno, const uint8_t *tap, size_t tap_length,
+    size_t *block_length)
 {
-    if (length == NULL)
+    if (block_length == NULL)
         return NULL;
 
     TapeBlock block;
     size_t pos = 0;
-    for (int i = 0; NextTAPBlock(buffer, *length, &pos, &block); i++) {
-        if (i != wantedindex)
+    for (int i = 0; NextTAPBlock(tap, tap_length, &pos, &block); i++) {
+        if (i != blockno)
             continue;
-        /* Without a flag byte and a checksum there is nothing to return */
-        if (block.length < 2)
-            return NULL;
-        uint8_t *copy = CopyOf(block.data + 1, block.length - 1);
+        uint8_t *copy = CopyOf(block.data, block.length);
         if (copy != NULL)
-            *length = block.length - 2;
+            *block_length = block.length;
         return copy;
     }
 
-    ZX_LOG("no TAP block %d", wantedindex);
+    ZX_LOG("no TAP block %d", blockno);
     return NULL;
 }
 
 /* A block that begins with this flag byte is data; 0x00 is for a header */
 #define TAP_DATA_FLAG 0xff
-/* The flag byte before the data and the checksum after it */
-#define TAP_FLAG_CHECKSUM_BYTES 2
 
 uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
     size_t *out_len, size_t *block_offsets, size_t *block_lengths,
@@ -224,11 +218,11 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
 
     while (is_tzx ? NextTZXBlock(raw, raw_len, &pos, &block)
                   : NextTAPBlock(raw, raw_len, &pos, &block)) {
-        if (block.data == NULL || block.length <= TAP_FLAG_CHECKSUM_BYTES
+        if (block.data == NULL || block.length <= ZX_TAPE_FRAME_BYTES
             || block.data[0] != TAP_DATA_FLAG)
             continue;
 
-        size_t payload_len = block.length - TAP_FLAG_CHECKSUM_BYTES;
+        size_t payload_len = block.length - ZX_TAPE_FRAME_BYTES;
         if (block_count < max_blocks) {
             if (block_offsets)
                 block_offsets[block_count] = payloads_len;

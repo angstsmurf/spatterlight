@@ -73,26 +73,33 @@ uint8_t *DecompressZ80Pages(const uint8_t *raw_data, size_t length,
     int *is_128k, int *banked_page);
 
 /* --- .tzx and .tap tapes ---
-   On tape a block is a flag byte (0x00 for a header, 0xFF for data, though a
-   custom loader may use anything), the data, and a checksum byte. The three
-   functions differ in what they do with the flag and the checksum, and in
-   how they count the blocks. */
+   A data block is the bytes that one pilot tone on the tape is followed by.
+   The ROM loader has a flag byte first (0x00 for a header, 0xFF for data) and
+   a checksum byte last. A loader of its own, such as Alkatraz, has neither:
+   every byte of its blocks is data. So GetTZXBlock and GetTAPBlock hand out
+   the whole block, and it is for the caller to know what its first and last
+   bytes are. ExtractTapePayloads is for what the ROM loader would load. */
 
-/* Returns a malloc'd copy of block number blockno of the *length bytes of
-   .tzx at srcbuf, whole: the flag byte, the data and the checksum. *length is
-   set to the length of that. Every block of the file counts from 0 on,
-   whether it holds data or not, so that the numbers are those a TZX tool
-   shows. Returns NULL, leaving *length alone, if the file is not a .tzx, has
-   no such block, or the block is not a standard or turbo speed data block. */
-uint8_t *GetTZXBlock(int blockno, const uint8_t *srcbuf, size_t *length);
+/* The flag byte and the checksum byte of a block that the ROM loads: its
+   data is ZX_TAPE_FRAME_BYTES shorter and begins ZX_TAPE_FLAG_BYTES in. */
+#define ZX_TAPE_FLAG_BYTES 1
+#define ZX_TAPE_FRAME_BYTES 2
 
-/* Returns block number wantedindex, counting from 0, of the *length bytes of
-   .tap at buffer, without its flag byte, and sets *length to the length of
-   the data alone. The malloc'd result has one byte more than that, which is
-   the checksum. Returns NULL, leaving *length alone, if there is no such
-   block. A .tap has no signature: any file is one until a block length runs
-   past its end. */
-uint8_t *GetTAPBlock(int wantedindex, const uint8_t *buffer, size_t *length);
+/* Returns a malloc'd copy of data block number blockno, counting from 0, of
+   the tzx_length bytes of .tzx at tzx, and sets *block_length to its length.
+   Only standard and turbo speed data blocks count, the ROM's headers among
+   them. Text, pauses, group marks and the like do not, so that the number
+   stays the same when a tape image has more or fewer of those, and is that
+   of the same block in a .tap of the tape. Returns NULL, leaving
+   *block_length alone, if the file is not a .tzx or has no such block. */
+uint8_t *GetTZXBlock(int blockno, const uint8_t *tzx, size_t tzx_length,
+    size_t *block_length);
+
+/* The same for the tap_length bytes of .tap at tap, in which every block is
+   a data block. A .tap has no signature: any file is one until a block
+   length runs past its end. */
+uint8_t *GetTAPBlock(int blockno, const uint8_t *tap, size_t tap_length,
+    size_t *block_length);
 
 /* Joins the data of every data block (flag byte 0xFF, standard or turbo
    speed) of a .tzx (is_tzx != 0) or a .tap (is_tzx == 0) into one malloc'd

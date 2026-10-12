@@ -1143,7 +1143,7 @@ static uint8_t *DecompressParsec(uint8_t *start, uint8_t *end, uint8_t *dataptr)
    by every game on a tape, so they live in AlkatrazTape. */
 typedef struct {
     const char *title;
-    int tzx_block;     /* GetTZXBlock index of this game's encrypted block */
+    int tzx_block;     /* number of the data block the game is encrypted in */
     uint8_t loacon;    /* initial rolling key */
     uint8_t add1;      /* key-evolution constants */
     uint8_t add2;
@@ -1167,10 +1167,10 @@ typedef struct {
    the address each game's GameInfo expects (Pirate 0x869A, Voodoo 0x8752,
    Strange Odyssey 0x899A, Buckaroo 0x8C54). */
 static const AlkatrazGame scoops_games[] = {
-    { "Pirate Adventure",  4, 0xad, 0xfd, 0xff },
-    { "Voodoo Castle",     8, 0x1e, 0xfe, 0xbe },
-    { "Strange Odyssey",  12, 0x5a, 0x9c, 0xdc },
-    { "Buckaroo Banzai",  16, 0xdb, 0xb3, 0x21 },
+    { "Pirate Adventure",  3, 0xad, 0xfd, 0xff },
+    { "Voodoo Castle",     7, 0x1e, 0xfe, 0xbe },
+    { "Strange Odyssey",  11, 0x5a, 0x9c, 0xdc },
+    { "Buckaroo Banzai",  15, 0xdb, 0xb3, 0x21 },
 };
 
 static const AlkatrazTape alkatraz_tapes[] = {
@@ -1215,8 +1215,8 @@ static int DeAlkatrazTape(void)
     }
     const AlkatrazGame *game = &tape->games[choice];
 
-    size_t blocklen = file_length;
-    uint8_t *block = GetTZXBlock(game->tzx_block, entire_file, &blocklen);
+    size_t blocklen = 0;
+    uint8_t *block = GetTZXBlock(game->tzx_block, entire_file, file_length, &blocklen);
     if (block == NULL)
         return 0;
 

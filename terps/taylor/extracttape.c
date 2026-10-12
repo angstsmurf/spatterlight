@@ -73,31 +73,22 @@ static uint8_t *ShrinkToSnaSize(uint8_t *uncompressed, uint8_t *old_image, size_
 }
 
 // Extracts a single data block from a tape image (TAP or TZX format) and
-// copies its payload into outbuf at the given offset. For TZX blocks, the
-// first and last bytes (flag byte and checksum) are stripped; TAP blocks
-// are copied as-is. Returns outbuf on success, or NULL if block extraction
-// fails or the block does not fit in the outsize bytes of outbuf.
+// copies its data, without the flag byte before it and the checksum after
+// it, into outbuf at the given offset. Returns outbuf on success, or NULL if
+// block extraction fails or the block does not fit in the outsize bytes of
+// outbuf.
 static uint8_t *add_block(uint8_t *image, uint8_t *outbuf, size_t outsize, size_t origlen, int blocknum, size_t offset, int is_tzx)
 {
-    size_t len = origlen;
-    uint8_t *block = NULL;
-    const uint8_t *payload;
-
-    if (is_tzx) {
-        block = GetTZXBlock(blocknum, image, &len);
-        if (!block) return NULL;
-        payload = block + 1;
-        len = len >= 2 ? len - 2 : 0;
-    } else {
-        block = GetTAPBlock(blocknum, image, &len);
-        if (!block) return NULL;
-        payload = block;
-    }
+    size_t len = 0;
+    uint8_t *block = is_tzx ? GetTZXBlock(blocknum, image, origlen, &len)
+                            : GetTAPBlock(blocknum, image, origlen, &len);
+    if (!block) return NULL;
+    len = len >= ZX_TAPE_FRAME_BYTES ? len - ZX_TAPE_FRAME_BYTES : 0;
     if (offset > outsize || len > outsize - offset) {
         free(block);
         return NULL;
     }
-    memcpy(outbuf + offset, payload, len);
+    memcpy(outbuf + offset, block + ZX_TAPE_FLAG_BYTES, len);
     free(block);
     return outbuf;
 }
@@ -118,7 +109,7 @@ static void CaptureLoadingScreen(const uint8_t *screen)
 //   5. Trim to SNA-sized output
 // This struct captures the game-specific magic numbers for each step.
 typedef struct {
-    int block_index;           // Which TZX block to extract
+    int block_index;           // Which TZX data block to extract
     uint8_t loacon_init;       // Initial rolling key for DeAlkatraz
     size_t source_offset;      // Starting offset within the extracted block
     uint16_t size;             // Number of bytes to decrypt
@@ -136,9 +127,8 @@ typedef struct {
 // parameters. Returns the SNA-sized game data, or the original image on failure.
 static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const ExtractSpec *spec)
 {
-    /* A local length: *length must survive a failed extraction */
-    size_t block_length = *length;
-    uint8_t *block = GetTZXBlock(spec->block_index, image, &block_length);
+    size_t block_length = 0;
+    uint8_t *block = GetTZXBlock(spec->block_index, image, *length, &block_length);
     if (!block) {
         fprintf(stderr, "TZX extract: Could not extract block %d\n", spec->block_index);
         return image;
@@ -217,7 +207,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         // Not a Z80 snapshot — try TZX/TAP extraction, identified by file size.
         // Each ExtractSpec holds the Alkatraz decryption parameters for one game.
         static const ExtractSpec templeA = {
-            .block_index = 4,
+            .block_index = 3,
             .loacon_init = 0x9a,
             .source_offset = 0x1b0c,
             .size = 0x9f64,
@@ -231,7 +221,7 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             .deshuffle_store = 0xfdd6
         };
         static const ExtractSpec kayleth = {
-            .block_index = 4,
+            .block_index = 3,
             .loacon_init = 0xce,
             .source_offset = 0x172e,
             .size = 0xa004,
@@ -259,11 +249,11 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             .deshuffle_store = 0xfc80
         };
 
-        // Block numbers differ between TZX and TAP for Blizzard Pass;
-        // both formats contain the same 5 data blocks at different indices.
+        // The 5 data blocks of Blizzard Pass. The TAP has four blocks more
+        // than the TZX before the first of them.
         uint8_t *out = NULL;
         int isTZX = 0;
-        int TZXblocknums[5] = {8, 12, 14, 16, 18};
+        int TZXblocknums[5] = {7, 11, 13, 15, 17};
         int TAPblocknums[5] = {11, 15, 17, 19, 21};
         int *blocknums = TAPblocknums;
 

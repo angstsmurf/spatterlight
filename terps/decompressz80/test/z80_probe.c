@@ -8,8 +8,8 @@
  *
  * ops: z80       DecompressZ80: length and hash of the flat image
  *      pages     DecompressZ80Pages: is_128k, banked page, hash of each page
- *      tzx       GetTZXBlock for every block index that yields a block
- *      tap       GetTAPBlock for every block index that yields a block
+ *      tzx       GetTZXBlock for every data block
+ *      tap       GetTAPBlock for every block
  *      payloads  ExtractTapePayloads as a .tzx or .tap (by signature), with
  *                the block table
  *
@@ -68,10 +68,10 @@ static void OpPages(uint8_t *data, size_t size)
 static void OpTZX(uint8_t *data, size_t size)
 {
     for (int i = 0; i < MAX_INDEX; i++) {
-        size_t len = size;
-        uint8_t *block = GetTZXBlock(i, data, &len);
+        size_t len = 0;
+        uint8_t *block = GetTZXBlock(i, data, size, &len);
         if (block == NULL)
-            continue;
+            break;
         printf("tzx\t%d\t%zu\t%016llx\n", i, len, (unsigned long long)Hash(block, len));
         free(block);
     }
@@ -80,8 +80,8 @@ static void OpTZX(uint8_t *data, size_t size)
 static void OpTAP(uint8_t *data, size_t size)
 {
     for (int i = 0; i < MAX_INDEX; i++) {
-        size_t len = size;
-        uint8_t *block = GetTAPBlock(i, data, &len);
+        size_t len = 0;
+        uint8_t *block = GetTAPBlock(i, data, size, &len);
         if (block == NULL)
             break;
         printf("tap\t%d\t%zu\t%016llx\n", i, len, (unsigned long long)Hash(block, len));
