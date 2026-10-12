@@ -15,7 +15,7 @@
 #include "common.h"
 #include "definitions.h"
 #include "extracommands.h"
-#include "loaddatabase.h"
+#include "dumpactions.h"
 #include "parseinput.h"
 #include "restorestate.h"
 

@@ -47,6 +47,13 @@ DictWord ExtraWords[] = {
     { NULL, 0 }
 };
 
+/* The system messages are const, and Glk's string calls take a plain
+   char * that they do not write to */
+static void PutString(strid_t stream, const char *s)
+{
+    glk_put_string_stream(stream, (char *)s);
+}
+
 static void TranscriptOn(void)
 {
     frefid_t ref;
@@ -69,9 +76,8 @@ static void TranscriptOn(void)
         return;
     }
 
-    glk_put_string_stream(Transcript, (char *)sys[TRANSCRIPT_START]);
-    glk_put_string_stream(glk_window_get_stream(Bottom),
-        (char *)sys[TRANSCRIPT_ON]);
+    PutString(Transcript, sys[TRANSCRIPT_START]);
+    PutString(glk_window_get_stream(Bottom), sys[TRANSCRIPT_ON]);
 
     glk_window_set_echo_stream(Bottom, Transcript);
 
@@ -85,7 +91,7 @@ static void TranscriptOff(void)
         return;
     }
 
-    glk_put_string_stream(Transcript, (char *)sys[TRANSCRIPT_END]);
+    PutString(Transcript, sys[TRANSCRIPT_END]);
 
     glk_window_set_echo_stream(Bottom, NULL);
 

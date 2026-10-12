@@ -155,6 +155,8 @@ static const imglist listSpidey[] = {
     { "S022", 0x15b64 },
     { "S023", 0x16179 },
     { "S026", 0x16179 },
+    /* The title picture is not on the picture disk with the others */
+    { "S000", 0x6d97, 1 },
     { NULL, 0 }
 };
 
@@ -233,11 +235,6 @@ static const imglist listBanzai[] = {
 #define ATARI_HOLE_START 0xb390
 #define ATARI_HOLE_END 0xb410
 
-/* The Spider-Man title picture is not on the picture disk with the others,
-   but on the boot disk */
-#define SPIDERMAN_TITLE_OFFSET 0x6d95
-#define SPIDERMAN_TITLE_SIZE 0x0e96
-
 /* Copy the picture with its size word at offset on the picture disk to img.
    Returns 0 if it is not all there. */
 static int CopyAtariImage(imgrec *img, const imglist *entry, const uint8_t *data, size_t datasize)
@@ -270,7 +267,7 @@ static int CopyAtariImage(imgrec *img, const imglist *entry, const uint8_t *data
     return 1;
 }
 
-static void ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize)
+static void ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *bootdisk, size_t bootsize)
 {
     const imglist *list = listSpidey;
     if (CurrentGame == BANZAI)
@@ -279,29 +276,21 @@ static void ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, 
         list = listFantastic;
 
     /* The number of images is 65 in all three Atari 8-bit Saga plus games!? */
-    /* (Not counting the title image on disk A in Spider-Man.) */
+    /* (Not counting the title image on the boot disk in Spider-Man.) */
     int count = 0;
     while (list[count].filename != NULL)
         count++;
 
-    /* One more for the Spider-Man title */
-    Images = NewImageList(count + 1);
+    Images = NewImageList(count);
 
     /* A picture that is not all on the disk is left out, as one without
        data cannot be drawn */
     int loaded = 0;
     for (int i = 0; i < count; i++) {
-        if (CopyAtariImage(&Images[loaded], &list[i], data, datasize))
+        const uint8_t *disk = list[i].on_boot_disk ? bootdisk : data;
+        size_t disksize = list[i].on_boot_disk ? bootsize : datasize;
+        if (disk && CopyAtariImage(&Images[loaded], &list[i], disk, disksize))
             loaded++;
-    }
-
-    if (CurrentGame == SPIDERMAN && otherdisk
-        && othersize >= SPIDERMAN_TITLE_OFFSET + SPIDERMAN_TITLE_SIZE) {
-        Images[loaded].Filename = "S000";
-        Images[loaded].Size = SPIDERMAN_TITLE_SIZE;
-        Images[loaded].Data = MemAlloc(SPIDERMAN_TITLE_SIZE);
-        memcpy(Images[loaded].Data, otherdisk + SPIDERMAN_TITLE_OFFSET, SPIDERMAN_TITLE_SIZE);
-        loaded++;
     }
     Images[loaded].Filename = NULL;
 }

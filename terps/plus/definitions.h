@@ -186,6 +186,9 @@ typedef struct {
 typedef struct imglist {
     const char *filename;
     size_t offset;
+    /* Nonzero if the picture is on the disk with the database rather than
+       on the picture disk (Atari 8-bit only) */
+    int on_boot_disk;
 } imglist;
 
 typedef enum {

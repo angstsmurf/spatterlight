@@ -14,7 +14,6 @@
 
 int LoadDatabasePlaintext(FILE *f, int loud);
 int LoadDatabaseBinary(void);
-void PrintDictWord(int idx, const DictWord *dict);
 int FindAndAddImageFile(const char *shortname, imgrec *rec);
 
 #endif /* loaddatabase_h */

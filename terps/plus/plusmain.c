@@ -27,6 +27,7 @@
 #include "gameinfo.h"
 #include "graphics.h"
 #include "layouttext.h"
+#include "dumpactions.h"
 #include "loaddatabase.h"
 #include "parseinput.h"
 #include "randomness.h"
@@ -834,28 +835,35 @@ static void PrintMessage(int index)
     }
 }
 
-/* Print the dictionary word for the current noun (CurrentNoun). */
-static void PrintNoun(void)
-{
-    for (DictWord *dict = Nouns; dict->Word != NULL; dict++) {
-        if (dict->Group == CurrentNoun) {
-            Display(Bottom, "%s%s", lastwasnewline ? "" : " ", dict->Word);
-            lastwasnewline = 0;
-            return;
-        }
-    }
-}
-
 /* Find the index of the first word in a dictionary list that belongs
-   to the given synonym group. Returns 0 if there is none. */
-static int GetAnyDictWord(int group, DictWord *dict)
+   to the given synonym group. Returns -1 if there is none. */
+static int FindDictWord(int group, DictWord *dict)
 {
     for (int i = 0; dict[i].Word != NULL; i++) {
         if (dict[i].Group == group) {
             return i;
         }
     }
-    return 0;
+    return -1;
+}
+
+/* Print the dictionary word for the current noun (CurrentNoun), or
+   nothing if it has none. */
+static void PrintNoun(void)
+{
+    int i = FindDictWord(CurrentNoun, Nouns);
+    if (i < 0)
+        return;
+    Display(Bottom, "%s%s", lastwasnewline ? "" : " ", Nouns[i].Word);
+    lastwasnewline = 0;
+}
+
+/* FindDictWord(), but with the first word of the list for a group that
+   has none. */
+static int GetAnyDictWord(int group, DictWord *dict)
+{
+    int i = FindDictWord(group, dict);
+    return i < 0 ? 0 : i;
 }
 
 /* GetAnyDictWord() for the noun dictionary. */
@@ -865,7 +873,7 @@ int GetDictWord(int group)
 }
 
 /* Handle player death: print the death message, turn on lights, move
-   to the start room (Counter 35), reset the death counter, and redraw. */
+   to the room in counter 35, and redraw. */
 static void PlayerIsDead(void)
 {
     debug_print("Player is dead\n");
@@ -873,7 +881,6 @@ static void PlayerIsDead(void)
     ResetBit(DARKBIT);
     SetBit(DRAWBIT);
     MyLoc = DeadRoom;
-    Counters[17] = Counters[17] & 0x0f;
     Look(0);
 }
 
@@ -929,6 +936,8 @@ static void MoveItemTo(int item, int location)
 
 static void PutItemAInRoomB(int itemA, int roomB)
 {
+    if (!IsValidItem(itemA))
+        return;
     debug_print("Item %d (%s) is put in room %d. MyLoc: %d (%s)\n", itemA, Items[itemA].Text, roomB, MyLoc, Rooms[MyLoc].Text);
     Items[itemA].Location = roomB;
     if (roomB == MyLoc)
@@ -938,10 +947,8 @@ static void PutItemAInRoomB(int itemA, int roomB)
 static void SwapCounters(int index)
 {
     debug_print("Main counter (47) is swapped with counter %d\n", index);
-    if (index > 63) {
-        debug_print("ERROR! parameter out of range. Max 63, got %d\n", index);
-        index = 63;
-    }
+    if (!IsValidCounter(index))
+        return;
     int temp = CurrentCounter;
 
     CurrentCounter = Counters[index];
@@ -951,6 +958,8 @@ static void SwapCounters(int index)
 
 static void SwapItemLocations(int itemA, int itemB)
 {
+    if (!IsValidItem(itemA) || !IsValidItem(itemB))
+        return;
     int temp = Items[itemA].Location;
     Items[itemA].Location = Items[itemB].Location;
     Items[itemB].Location = temp;
@@ -958,6 +967,8 @@ static void SwapItemLocations(int itemA, int itemB)
 
 static void MoveItemAToLocOfItemB(int itemA, int itemB)
 {
+    if (!IsValidItem(itemA) || !IsValidItem(itemB))
+        return;
     Items[itemA].Location = Items[itemB].Location;
 }
 
@@ -1125,6 +1136,9 @@ static int SysCommand(int arg1, int arg2)
         Animate(Counters[arg2]);
         break;
     case 5:
+        /* A deliberate deviation: the original interpreter draws the
+           picture at once. Here it is kept as the background of the
+           animation and drawn when that runs. */
         debug_print("Unpack special picture %d (Set animation background)\n", arg2);
         AnimationBackground = arg2;
         break;
@@ -1349,36 +1363,46 @@ static ActionResultType TestConditions(uint16_t *ptr)
         case 0:
             break;
         case 1:
+            if (!IsValidItem(dv)) {
+                current_result = 0;
+                break;
+            }
             debug_print("Does the player carry %s?\n", Items[dv].Text);
             if (Items[dv].Location != CARRIED) {
                 current_result = 0;
             }
             break;
         case 2:
-            if (dv < 0 || dv > GameHeader.NumItems) {
-                debug_print("Parameter out of range! (%d)\n", dv);
+            if (!IsValidItem(dv)) {
                 current_result = 0;
                 break;
             }
-
             debug_print("Is %s in location?\n", Items[dv].Text);
             if (Items[dv].Location != MyLoc) {
                 current_result = 0;
             }
             break;
         case 3:
+            if (!IsValidItem(dv)) {
+                current_result = 0;
+                break;
+            }
             debug_print("Is %s held or in location?\n", Items[dv].Text);
             if (Items[dv].Location != CARRIED && Items[dv].Location != MyLoc) {
                 current_result = 0;
             }
             break;
         case 4:
-            debug_print("Is location room %d, %s?\n", dv, Rooms[dv].Text);
+            debug_print("Is location room %d?\n", dv);
             if (MyLoc != dv)
                 current_result = 0;
             break;
         case 5:
             dv2 = NextConditionArgument(ptr, &cc);
+            if (!IsValidCounter(dv) || !IsValidRoom(Counters[dv])) {
+                current_result = 0;
+                break;
+            }
             debug_print("Is description of room %d (counter %d) (%d) == Message %d?\n", Counters[dv], dv, Rooms[Counters[dv]].Exits[6], dv2);
             if (Rooms[Counters[dv]].Exits[6] != dv2)
                 current_result = 0;
@@ -1402,12 +1426,20 @@ static ActionResultType TestConditions(uint16_t *ptr)
             }
             break;
         case 13:
+            if (!IsValidItem(dv)) {
+                current_result = 0;
+                break;
+            }
             debug_print("Is %s (%d) in play?\n", Items[dv].Text, dv);
             if (Items[dv].Location == 0) {
                 current_result = 0;
             }
             break;
         case 14:
+            if (!IsValidItem(dv)) {
+                current_result = 0;
+                break;
+            }
             debug_print("Is %s NOT in play?\n", Items[dv].Text);
             if (Items[dv].Location) {
                 current_result = 0;
@@ -1428,13 +1460,16 @@ static ActionResultType TestConditions(uint16_t *ptr)
         case 17:
             dv2 = NextConditionArgument(ptr, &cc);
             debug_print("Is Counter %d == Counter %d?\n", dv, dv2);
-
-            if (Counters[dv] != Counters[dv2]) {
+            if (!IsValidCounter(dv) || !IsValidCounter(dv2) || Counters[dv] != Counters[dv2]) {
                 current_result = 0;
             }
             break;
         case 18:
             dv2 = NextConditionArgument(ptr, &cc);
+            if (!IsValidCounter(dv) || !IsValidCounter(dv2)) {
+                current_result = 0;
+                break;
+            }
             debug_print("Is counter %d (%d) greater than counter %d (%d)?\n", dv, Counters[dv], dv2, Counters[dv2]);
             if (Counters[dv] <= Counters[dv2]) {
                 current_result = 0;
@@ -1448,26 +1483,26 @@ static ActionResultType TestConditions(uint16_t *ptr)
             break;
         case 20:
             dv2 = NextConditionArgument(ptr, &cc);
-            debug_print("Is counter %d (%d) == %d?\n", dv, Counters[dv], dv2);
-            if (Counters[dv] != dv2)
+            debug_print("Is counter %d == %d?\n", dv, dv2);
+            if (!IsValidCounter(dv) || Counters[dv] != dv2)
                 current_result = 0;
             break;
 
         case 21:
             dv2 = NextConditionArgument(ptr, &cc);
-            debug_print("Is counter %d (%d) >= %d?\n", dv, Counters[dv], dv2);
-            if (Counters[dv] < dv2)
+            debug_print("Is counter %d >= %d?\n", dv, dv2);
+            if (!IsValidCounter(dv) || Counters[dv] < dv2)
                 current_result = 0;
             break;
         case 22:
-            debug_print("Is counter %d (%d) == 0?\n", dv, Counters[dv]);
-            if (Counters[dv] != 0)
+            debug_print("Is counter %d == 0?\n", dv);
+            if (!IsValidCounter(dv) || Counters[dv] != 0)
                 current_result = 0;
             break;
         case 23:
             dv2 = NextConditionArgument(ptr, &cc);
-            debug_print("Is item %d (%s) in room (counter %d) %d?\n", dv, Items[dv].Text, dv2, Counters[dv2]);
-            if (Items[dv].Location != Counters[dv2])
+            debug_print("Is item %d in the room of counter %d?\n", dv, dv2);
+            if (!IsValidItem(dv) || !IsValidCounter(dv2) || Items[dv].Location != Counters[dv2])
                 current_result = 0;
             break;
         case 26:
@@ -1493,10 +1528,8 @@ static ActionResultType TestConditions(uint16_t *ptr)
             break;
         case 30:
             dv2 = NextConditionArgument(ptr, &cc);
-            if (dv > GameHeader.NumItems)
-                debug_print("Bug! dv Out of bounds! dv:%d GameHeader.NumItems:%d\n", dv, GameHeader.NumItems);
             debug_print("Is Object flag %d & %d != 0\n", dv, dv2);
-            if ((Items[dv].Flag & dv2) == 0)
+            if (!IsValidItem(dv) || (Items[dv].Flag & dv2) == 0)
                 current_result = 0;
             break;
         case 31: /* logics control flags */
@@ -1733,8 +1766,7 @@ static ActionResultType PerformLine(int ct)
                 cc += 1 + plus_one_arg;
                 break;
             case 54:
-                debug_print("Player location is now room %d (%s).\n", arg1,
-                    Rooms[arg1].Text);
+                debug_print("Player location is now room %d.\n", arg1);
                 MyLoc = commands[cc++];
                 SetBit(DRAWBIT);
                 break;
@@ -1796,16 +1828,20 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 64:
                 debug_print("Counter %d == %d\n", arg2, arg1);
-                Counters[arg2] = arg1;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = arg1;
                 cc += 2 + plus_one_arg;
                 break;
             case 65:
                 debug_print("Multiply: Counter %d = Counter %d (%d) * Counter %d (%d) == %d\n", arg2, arg1, ca1, arg2, ca2, ca1 * ca2);
-                Counters[arg2] = ca1 * ca2;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = ca1 * ca2;
                 cc += 2;
                 break;
             case 66:
                 ListInventory(0);
+                /* Claymorgue also has an inventory screen: the list in
+                   the upper window, under pictures of what is carried */
                 if (CurrentGame == CLAYMORGUE)
                     UpdateClaymorgueInventory();
                 break;
@@ -1888,8 +1924,9 @@ static ActionResultType PerformLine(int ct)
                 PrintNoun();
                 break;
             case 85:
-                debug_print("Print name of item %d (%s)\n", object, Items[object].Text);
-                Display(Bottom, " %s", Items[object].Text);
+                debug_print("Print name of item %d\n", object);
+                if (IsValidItem(object))
+                    Display(Bottom, " %s", Items[object].Text);
                 cc += 1 + plus_one_arg;
                 break;
             case 86:
@@ -1915,7 +1952,7 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 91:
                 debug_print("Divide: Counter %d = Counter %d (%d) / counter %d (%d), Counter %d = Counter %d (%d) / counter %d (%d)\n", arg2, arg2, ca2, arg1, ca1, arg3, arg2, ca2, arg1, ca1);
-                if (ca1) {
+                if (ca1 && IsValidCounter(arg2) && IsValidCounter(arg3)) {
                     Counters[arg3] = ca2 % ca1;
                     Counters[arg2] = ca2 / ca1;
                 }
@@ -1928,8 +1965,8 @@ static ActionResultType PerformLine(int ct)
             case 93:
                 /* The delay unit is a quarter of a second, except in
                    Claymorgue, where it is an eighth. */
-                debug_print("Delay Counter %d (%d) * %d ms\n", arg1, Counters[arg1], CurrentGame == CLAYMORGUE ? 125 : 250);
-                Delay(Counters[arg1] * (CurrentGame == CLAYMORGUE ? 125 : 250));
+                debug_print("Delay Counter %d (%d) * %d ms\n", arg1, ca1, CurrentGame == CLAYMORGUE ? 125 : 250);
+                Delay(ca1 * (CurrentGame == CLAYMORGUE ? 125 : 250));
                 cc++;
                 break;
             case 94:
@@ -1949,69 +1986,82 @@ static ActionResultType PerformLine(int ct)
                 /* Draw room image after jumping off Claymorgue crate */
                 if (arg1 == COUNTER_ROOM && ca2 != MyLoc)
                     SetBit(DRAWBIT);
-                Counters[arg1] = ca2;
-                Counters[arg2] = ca1;
+                if (IsValidCounter(arg1) && IsValidCounter(arg2)) {
+                    Counters[arg1] = ca2;
+                    Counters[arg2] = ca1;
+                }
                 cc += 2;
                 break;
             case 98:
                 debug_print("Counter %d = counter %d\n", arg2, arg1);
-                Counters[arg2] = ca1;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = ca1;
                 cc += 2;
                 break;
             case 99:
                 debug_print("Counter %d is set to %d \n", arg2, arg1);
-                Counters[arg2] = arg1;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = arg1;
                 cc += 2 + plus_one_arg;
                 break;
             case 100:
                 debug_print("Add %d to counter %d\n", arg1, arg2);
-                Counters[arg2] += arg1;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] += arg1;
                 cc += 2 + plus_one_arg;
                 break;
             case 101:
                 debug_print("Decrease counter %d by %d\n", arg2, arg1);
-                Counters[arg2] -= arg1;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] -= arg1;
                 cc += 2 + plus_one_arg;
                 break;
             case 102:
                 debug_print("Print counter %d\n", arg1);
-                OutputNumber(Counters[arg1]);
+                if (IsValidCounter(arg1))
+                    OutputNumber(Counters[arg1]);
                 cc++;
                 break;
             case 103:
                 debug_print("ABS counter %d\n", arg1);
-                if (ca1 < 0)
+                if (IsValidCounter(arg1) && ca1 < 0)
                     Counters[arg1] = -ca1;
                 cc++;
                 break;
             case 104:
                 debug_print("NEG counter %d\n", arg1);
-                Counters[arg1] = -Counters[arg1];
+                if (IsValidCounter(arg1))
+                    Counters[arg1] = -Counters[arg1];
                 cc++;
                 break;
             case 105:
                 debug_print("AND counter %d with counter %d\n", arg2, arg1);
-                Counters[arg2] = ca1 & ca2;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = ca1 & ca2;
                 cc += 2;
                 break;
             case 106:
                 debug_print("OR counter %d with counter %d\n", arg2, arg1);
-                Counters[arg2] = ca1 | ca2;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = ca1 | ca2;
                 cc += 2;
                 break;
             case 107:
                 debug_print("XOR counter %d with counter %d\n", arg2, arg1);
-                Counters[arg2] = ca1 ^ ca2;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] = ca1 ^ ca2;
                 cc += 2;
                 break;
             case 108:
                 debug_print("Put random number (1 to 100) in counter %d\n", arg1);
-                Counters[arg1] = 1 + erkyrath_random() % 100;
+                if (IsValidCounter(arg1))
+                    Counters[arg1] = 1 + erkyrath_random() % 100;
                 cc++;
                 break;
             case 109:
                 debug_print("Clear counter %d\n", arg1);
-                Counters[arg1] = 0;
+                if (IsValidCounter(arg1))
+                    Counters[arg1] = 0;
                 cc++;
                 break;
             case 110:
@@ -2090,8 +2140,9 @@ static ActionResultType PerformLine(int ct)
                 if (arg1 >= 128) {
                     arg1 = commands[cc++] - 76;
                 }
-                debug_print("Set command prompt to string arg %d (%s)\n", arg1, Messages[arg1]);
-                ProtagonistString = arg1;
+                debug_print("Set command prompt to string arg %d\n", arg1);
+                if (arg1 >= 0 && arg1 <= GameHeader.NumMessages)
+                    ProtagonistString = arg1;
                 break;
             case 120:
                 debug_print("counter 48: verb, counter 49: noun, counter 50: preposition, counter 51: adverb, counter 52: participle, counter 53: noun 2\n");
@@ -2112,12 +2163,14 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 122:
                 debug_print("Print object %d with article\n", object);
-                Display(Bottom, "%s%s", IndefiniteArticle(Items[object].Text), Items[object].Text);
+                if (IsValidItem(object))
+                    Display(Bottom, "%s%s", IndefiniteArticle(Items[object].Text), Items[object].Text);
                 cc += 1 + plus_one_arg;
                 break;
             case 123:
                 debug_print("Add counter %d to counter %d.\n", arg1, arg2);
-                Counters[arg2] += ca1;
+                if (IsValidCounter(arg2))
+                    Counters[arg2] += ca1;
                 cc += 2;
                 break;
             case 124:
@@ -2134,12 +2187,14 @@ static ActionResultType PerformLine(int ct)
                 break;
             case 126:
                 debug_print("Counter %d = Counter (Counter %d (%d))\n", arg1, arg2, ca2);
-                Counters[arg1] = Counters[ca2];
+                if (IsValidCounter(arg1) && IsValidCounter(ca2))
+                    Counters[arg1] = Counters[ca2];
                 cc += 2;
                 break;
             case 127:
                 debug_print("Counter (Counter %d (%d)) = Counter %d\n", arg2, ca2, arg1);
-                Counters[ca2] = Counters[arg1];
+                if (IsValidCounter(arg1) && IsValidCounter(ca2))
+                    Counters[ca2] = Counters[arg1];
                 cc += 2;
                 break;
             case 128:
