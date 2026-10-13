@@ -56,6 +56,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 @property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) TableViewController *tableViewController;
 @property (nonatomic, strong) NSManagedObjectContext *testContext;
+@property (nonatomic) BOOL originalCloseAlertSuppression;
 
 // Helper methods
 + (NSURL *)tempDir;
@@ -83,6 +84,13 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
 - (void)setUp {
     [super setUp];
+
+    // Without this, closing a game that is still running puts up the
+    // "abandon the game?" sheet instead: the window stays open after the
+    // test and the interpreter log is never finished.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _originalCloseAlertSuppression = [defaults boolForKey:@"CloseAlertSuppression"];
+    [defaults setBool:YES forKey:@"CloseAlertSuppression"];
 
     // Set up an in-memory Core Data stack for testing
     [self setUpInMemoryCoreDataStack];
@@ -118,6 +126,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     self.coreDataManager = nil;
 
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LogInterpreterOutput"];
+    [[NSUserDefaults standardUserDefaults] setBool:_originalCloseAlertSuppression forKey:@"CloseAlertSuppression"];
 
     [super tearDown];
 }
@@ -633,8 +642,13 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
         GlkController *glkController = self.tableViewController.gameSessions.allValues.firstObject;
 
         if (glkController) {
-            // Restore original determinism setting
             Game *game = glkController.game;
+
+            // Clean up: close the game window. This also finishes the log.
+            [glkController.window performClose:nil];
+
+            // Restore the original settings, now that the game no longer
+            // reads them (closing with autosave back on would write one).
             if (game && game.theme) {
                 game.theme.determinism = originalDeterminismSetting;
                 game.theme.slowDrawing = originalSlowDrawSetting;
@@ -646,8 +660,6 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                 NSLog(@"Restored autosave setting to %@", originalAutosaveSetting ? @"YES" : @"NO");
             }
 
-            // Clean up: close the game window
-            [glkController.window performClose:nil];
             // Compare log against comparison file in test bundle
             NSArray *contentsOfDir = [[NSFileManager defaultManager]
                                       contentsOfDirectoryAtURL:tempDir
@@ -693,7 +705,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
         // Set theme to default
         Theme *theme = [BuiltInThemes createDefaultThemeInContext:self.testContext forceRebuild:NO];
-        Theme *oldtheme = game.theme;
+        oldtheme = game.theme;
         game.theme = theme;
 
         // Enable determinism setting for reproducible test results
@@ -761,17 +773,9 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                     [commandScriptExpectation fulfill];
                     [logsMatchedExpectation fulfill];
                 }
-
-                // Restore original determinism setting
-                if (game.theme) {
-                    game.theme.determinism = originalDeterminismSetting;
-                    NSLog(@"Restored determinism setting to %@", originalDeterminismSetting ? @"YES" : @"NO");
-                    game.theme.slowDrawing = originalSlowDrawSetting;
-                    NSLog(@"Restored slow draw setting to %@", originalSlowDrawSetting ? @"YES" : @"NO");
-                    game.theme.autosave = originalAutosaveSetting;
-                    NSLog(@"Restored autosave setting to %@", originalAutosaveSetting ? @"YES" : @"NO");
-                    game.theme = oldtheme;
-                }
+                // The theme settings are put back when the script completes,
+                // not here: the game is still running, and a slow first
+                // launch may not even have read them yet.
             });
         });
     }];
