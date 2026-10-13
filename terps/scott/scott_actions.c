@@ -87,10 +87,8 @@ void Delay(float seconds)
             glk_select(&ev);
             Updates(ev);
         } while (DrawingVector());
-#ifdef SPATTERLIGHT
         if (gli_slowdraw)
             seconds = 0.5;
-#endif
     }
 
     glk_request_timer_events(1000 * seconds);

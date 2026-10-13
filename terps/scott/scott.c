@@ -68,7 +68,8 @@
 #include "glkimp.h"
 #else
 /* Only Spatterlight has settings for these: pictures are always on, and
-   vector pictures are drawn in one go. */
+   vector pictures and loading screens are drawn in one go unless the -g
+   option is given. */
 #define gli_enable_graphics 1
 int gli_slowdraw = 0;
 #endif
@@ -144,7 +145,9 @@ int showing_inventory = 0;
 int showing_closeup = 0;
 int last_image_index = -1;
 int lastwasnewline = 0;
-int should_draw_image = 0;
+/* Set from the start, so that the first room has its picture even when no
+   arrange event comes first to ask for one. */
+int should_draw_image = 1;
 
 /* JustStarted is only used for the error message "Can't undo on first move" */
 int JustStarted = 1;
@@ -316,9 +319,7 @@ GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
     if (Transcript)
         glk_stream_close(Transcript, NULL);
     if (DrawingVector()) {
-#ifdef SPATTERLIGHT
         gli_slowdraw = 0;
-#endif
         DrawSomeVectorPixels(0);
     }
     glk_exit();
@@ -709,6 +710,11 @@ glkunix_argumentlist_t glkunix_arguments[] = {
     { "-w", glkunix_arg_NoValue, "-w        Disable upper window" },
     { "-n", glkunix_arg_NoValue, "-n        No delays" },
     { "-f", glkunix_arg_NoValue, "-f        Flicker the room description like some original games" },
+#ifndef SPATTERLIGHT
+    { "-g", glkunix_arg_NoValue,
+        "-g        Draw vector pictures and loading screens gradually, "
+        "as the original games do" },
+#endif
     { "-z", glkunix_arg_ValueFollows,
         "-z path   Run the vector image tests with this support path, then exit" },
     { "", glkunix_arg_ValueFollows, "filename    file to load" },
@@ -758,6 +764,11 @@ int glkunix_startup_code(glkunix_startup_t *data)
             case 'f':
                 Options |= FLICKER_ON;
                 break;
+#ifndef SPATTERLIGHT
+            case 'g':
+                gli_slowdraw = 1;
+                break;
+#endif
 #ifdef SPATTERLIGHT
             case 'z':
                 // Run the test suite RunTests() with the support file path as parameter,

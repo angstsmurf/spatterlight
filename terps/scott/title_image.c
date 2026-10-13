@@ -93,15 +93,20 @@ static void DrawUSTitle(void)
     DrawImageOrVector();
 }
 
+/* The window that takes the key press on a title screen. OpenTitleWindows()
+   only opens Bottom when the graphics window can't take key input, so
+   Bottom comes first. */
+static winid_t TitleKeyWindow(void)
+{
+    return Bottom != NULL ? Bottom : Graphics;
+}
+
 static void WaitForKeyOnTitleScreen(void) {
 
-    if (Graphics != NULL) {
-        glk_request_char_event(Graphics);
-    } else if (Bottom != NULL) {
-        glk_request_char_event(Bottom);
-    } else {
+    winid_t keywin = TitleKeyWindow();
+    if (keywin == NULL)
         return;
-    }
+    glk_request_char_event(keywin);
 
     event_t ev;
     do {
@@ -180,7 +185,7 @@ void DrawZXTitleImage(void)
            games use ordinary loaders. The picture sits a third of the way
            down the window. */
         ZXTitle title = { Graphics, pal, 3, 0, 0, 0 };
-        ZXTitleShow(&title, ZXLoadingScreen, Graphics, gli_slowdraw, NULL, 0);
+        ZXTitleShow(&title, ZXLoadingScreen, TitleKeyWindow(), gli_slowdraw, NULL, 0);
     }
 
     CloseTitleWindows();
