@@ -33,11 +33,18 @@
 #define FIELD_ANIMATION_RATE 10
 #define SERPENT_ANIMATION_RATE 100
 #define ROBOT_ANIMATION_RATE 400
+#define SNAPPER_ANIMATION_RATE 400
 #define QUEEN_ANIMATION_RATE 120
 
 int AnimationRunning = 0;              /* Current timer rate, or 0 if idle */
 static int KaylethAnimationIndex = 0;  /* Room index of the last Kayleth animation */
-static int AnimationStage = 0;         /* General-purpose frame counter */
+/* Each animation keeps its own frame counter, so that a restore or undo
+   that jumps from one animated room straight to another cannot start the
+   new animation at the old one's frame. */
+static int QueenStage = 0;             /* Queen computer colour cycle, 0–15 */
+static int SerpentStage = 0;           /* How far the Sycane Serpent has emerged, 0–5 */
+static int TwoFrameStage = 0;          /* Security robot and crag snapper, 0 or 1 */
+static int ShelfScrollStage = 0;       /* Kayleth click-shelf scroll position, 0–80 */
 static int ClickShelfStage = 0;        /* Sub-counter for Kayleth click-shelf jerkiness */
 
 /* Set the Glk timer to the given interval (ms) unless it is already
@@ -161,8 +168,8 @@ static void AnimateQueenComputer(void)
 {
     /* Leftmost column of each pair of indicator cells */
     static const int indicator_columns[3] = { 3, 10, 27 };
-    /* Map AnimationStage (0–15) to a colour index that wraps 0–7 */
-    int rotatingink = 7 - (AnimationStage - 7 * (AnimationStage > 7));
+    /* Map QueenStage (0–15) to a colour index that wraps 0–7 */
+    int rotatingink = 7 - (QueenStage - 7 * (QueenStage > 7));
     /* Fill indicator cells with rotating bright colours */
     for (int i = 0; i < 3; i++) {
         for (int line = 3; line <= 6; line += 3) {
@@ -179,19 +186,19 @@ static void AnimateQueenComputer(void)
         if (rotatingink < 0)
             rotatingink = 7;
     }
-    if (AnimationStage == 0) {
+    if (QueenStage == 0) {
         /* Draw the Arcadian head overlay (image block 18) */
         DrawPictureAtPos(18, 18, 1, 0);
     }
 
-    if (AnimationStage == 7) {
+    if (QueenStage == 7) {
         /* Erase the Arcadian head area, creating a blink effect */
         RectFill(144, 8, 24, 40, 0);
     }
 
-    AnimationStage++;
-    if (AnimationStage > 15)
-        AnimationStage = 0;
+    QueenStage++;
+    if (QueenStage > 15)
+        QueenStage = 0;
 }
 
 /* Animate the click shelves in Kayleth room 3. The shelves scroll
@@ -397,11 +404,11 @@ void UpdateKaylethAnimations(void)
         ClickShelfStage = 0;
     UpdateKaylethAnimationFrames();
     if (MyLoc == 3) {
-        AnimateKaylethClickShelves(AnimationStage);
+        AnimateKaylethClickShelves(ShelfScrollStage);
         if (ClickShelfStage < 7)
-            AnimationStage++;
-        if (AnimationStage > 80)
-            AnimationStage = 0;
+            ShelfScrollStage++;
+        if (ShelfScrollStage > 80)
+            ShelfScrollStage = 0;
     }
 }
 
@@ -417,47 +424,47 @@ void UpdateRebelAnimations(void)
     } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
         AnimateQueenComputer();
     } else if (MyLoc > 28 && MyLoc < 34) {
-        /* Sycane Serpent in sewers (rooms 29–33). AnimationStage tracks
+        /* Sycane Serpent in sewers (rooms 29–33). SerpentStage tracks
            how far the serpent has emerged (0–5). When the serpent object
            is present it grows; when absent it retreats, speeding up as
            it nears full retraction. */
         if (ObjectLoc[92] == MyLoc) {
-            AnimationStage++;
-            if (AnimationStage > 5) {
-                AnimationStage = 5;
+            SerpentStage++;
+            if (SerpentStage > 5) {
+                SerpentStage = 5;
                 StopAnimations();
             }
         } else {
-            AnimationStage--;
-            if (AnimationStage < 0) {
-                AnimationStage = 0;
+            SerpentStage--;
+            if (SerpentStage < 0) {
+                SerpentStage = 0;
                 StopAnimations();
-            } else if (AnimationStage == 4) {
+            } else if (SerpentStage == 4) {
                 glk_request_timer_events(50);
             }
             DrawTaylor(MyLoc, MyLoc);
         }
-        if (AnimationStage) {
+        if (SerpentStage) {
             /* Draw serpent overlay; higher stages use earlier image blocks
                and move higher up the screen */
-            DrawPictureAtPos(62 + AnimationStage, 14, 10 - AnimationStage - (AnimationStage > 2), 1);
+            DrawPictureAtPos(62 + SerpentStage, 14, 10 - SerpentStage - (SerpentStage > 2), 1);
         }
         DrawBufferedPicture();
     } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
         /* Killer security robot: alternates between two frames */
-        DrawPictureAtPos(138 + AnimationStage, 13, 2, 0);
-        AnimationStage = (AnimationStage == 0);
+        DrawPictureAtPos(138 + TwoFrameStage, 13, 2, 0);
+        TwoFrameStage = (TwoFrameStage == 0);
     } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
         /* Crag snapper: alternates between two poses at different positions */
-        if (!AnimationStage)
+        if (!TwoFrameStage)
             DrawPictureAtPos(133, 14, 4, 0);
         else
             DrawPictureAtPos(142, 17, 6, 0);
-        AnimationStage = (AnimationStage == 0);
+        TwoFrameStage = (TwoFrameStage == 0);
     } else {
         /* No animation for this room — stop the timer */
         StopAnimations();
-        AnimationStage = 0;
+        QueenStage = SerpentStage = TwoFrameStage = 0;
     }
 }
 
@@ -469,6 +476,11 @@ void UpdateRebelAnimations(void)
 void StartAnimations(void)
 {
     if (BaseGame == REBEL_PLANET) {
+        /* The serpent's timer stops once it is fully out, so nothing else
+           would reset it: without this it would be seen withdrawing on the
+           next visit to the sewers. */
+        if (MyLoc <= 28 || MyLoc >= 34)
+            SerpentStage = 0;
         if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
             int rate = STARS_ANIMATION_RATE;
             if (CurrentGame == REBEL_PLANET_64)
@@ -489,7 +501,7 @@ void StartAnimations(void)
             glk_request_timer_events(ROBOT_ANIMATION_RATE);
         } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
             // Crag snapper in cave
-            glk_request_timer_events(ROBOT_ANIMATION_RATE);
+            glk_request_timer_events(SNAPPER_ANIMATION_RATE);
         }
     } else if (BaseGame == KAYLETH) {
         int speed = 0;

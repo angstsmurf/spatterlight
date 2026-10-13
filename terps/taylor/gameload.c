@@ -134,33 +134,11 @@ static size_t FindTokens(void)
     size_t addr;
     size_t pos = 0;
 
-    if (Game)
-        switch (CurrentGame) {
-        case TOT_TEXT_ONLY_64:
-        case TOT_HYBRID_64:
-            if ((pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
-                return pos;
-            break;
-        case TEMPLE_OF_TERROR_64:
-            if ((pos = FindCode("\x80\x20\x54\x68\x65\x72\x65\x20\x69\x73", 0, 10)) != -1)
-                return pos;
-            break;
-        case REBEL_PLANET_64:
-            if ((pos = FindCode("\xa7\x2e\xfe\x20\xfe\x2c\xfe\x21\xfe\x3f", 0, 10)) != -1)
-                return pos;
-            break;
-        case QUESTPROBE3_64:
-            if ((pos = FindCode("\x61\xa0\x64\xa0\x65\xa0\x67\xa0\x69\xa0", 0, 10)) != -1)
-                return pos;
-            break;
-        case HEMAN_64:
-        case KAYLETH_64:
-            if ((pos = FindCode("\x80\x59\x6f\x75\x20\x61\x72\x65\x20\x69", 0, 10)) != -1)
-                return pos;
-            break;
-        default:
-            break;
-        }
+    if (Game && Game->token_signature) {
+        pos = FindCode(Game->token_signature, 0, TOKEN_SIGNATURE_LENGTH);
+        if (pos != -1)
+            return pos;
+    }
 
     do {
         pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1, 8);

@@ -367,6 +367,88 @@ static void QP3RedrawImages(void)
     StopTime = tempstop;
 }
 
+/* "Low" objects are part of the room description (e.g. "...a sword
+   lies here."). They're listed inline rather than after "You see:". */
+static void ListLowObjects(void)
+{
+    int printed_any = 0;
+
+    for (int i = 0; i < NumLowObjects; i++) {
+        if (ObjectLoc[i] == MyLoc) {
+            if (!printed_any) {
+                if (Version == QUESTPROBE3_TYPE) {
+                    OutReplace(0);
+                    SysMessage(YOU_SEE);
+                } else if (BaseGame == HEMAN || BaseGame == REBEL_PLANET) {
+                    OutChar(' ');
+                }
+                printed_any = 1;
+            }
+            PendSpace = 1;
+            PrintObject(i);
+        }
+    }
+    if (printed_any && !isalpha((unsigned char)LastChar))
+        OutReplace('.');
+}
+
+/* The objects after the low ones are listed under a "You see:" heading. */
+static void ListHighObjects(void)
+{
+    int printed_any = 0;
+
+    for (int i = NumLowObjects > 0 ? NumLowObjects : 0; i < NumObjects(); i++) {
+        if (ObjectLoc[i] == MyLoc) {
+            if (!printed_any) {
+                /* Only the text-only and hybrid games */
+                if (BaseGame == TEMPLE_OF_TERROR
+                    && CurrentGame != TEMPLE_OF_TERROR
+                    && CurrentGame != TEMPLE_OF_TERROR_64) {
+                    OutChar(' ');
+                }
+                SysMessage(YOU_SEE);
+                if (CurrentGame == BLIZZARD_PASS) {
+                    PendSpace = 0;
+                    OutString(":- ");
+                }
+                if (Version == REBEL_PLANET_TYPE)
+                    OutReplace(0);
+                printed_any = 1;
+            }
+            PrintObject(i);
+        }
+    }
+    if (printed_any)
+        OutReplace('.');
+    else
+        OutChar('.');
+}
+
+/* Draw the picture of the current room, if there is a graphics window. */
+static void DrawRoomPicture(void)
+{
+    if (MyLoc == 0 || NoGraphics || !TAYLOR_GRAPHICS_ENABLED || !Graphics)
+        return;
+
+    /* A resize-in-progress: reuse the buffered image rather than
+       re-running the room's drawing pipeline. */
+    if (Resizing) {
+        DrawBufferedPicture();
+        return;
+    }
+    if (Version == QUESTPROBE3_TYPE) {
+        QP3RedrawImages();
+    } else {
+        /* Painting over the picture of the turn before needs no
+           clear, and only its changed cells are painted. */
+        if (!BufferedPictureShown()) {
+            glk_window_clear(Graphics);
+            GraphicsWindowChanged();
+        }
+        DrawRoomImage();
+    }
+}
+
 /* Display the current room: description, visible objects (low objects
    inline, high objects after "You see:"), exits, and optional inventory.
    Draws the room image if graphics are enabled. */
@@ -378,8 +460,6 @@ void Look(void)
         CloseGraphicsWindow();
     else
         OpenGraphicsWindow();
-    int i;
-    int printed_any = 0;
 
     PendSpace = 0;
     /* Skip the output reset while a line-input event is pending in the
@@ -407,58 +487,13 @@ void Look(void)
         OutString("You are ");
     PrintRoom(MyLoc);
 
-    /* "Low" objects are part of the room description (e.g. "...a sword
-       lies here."). They're listed inline rather than after "You see:". */
-    for (i = 0; i < NumLowObjects; i++) {
-        if (ObjectLoc[i] == MyLoc) {
-            if (!printed_any) {
-                if (Version == QUESTPROBE3_TYPE) {
-                    OutReplace(0);
-                    SysMessage(YOU_SEE);
-                } else if (BaseGame == HEMAN || BaseGame == REBEL_PLANET) {
-                    OutChar(' ');
-                }
-                printed_any = 1;
-            }
-            PendSpace = 1;
-            PrintObject(i);
-        }
-    }
-    if (printed_any && !isalpha((unsigned char)LastChar))
-        OutReplace('.');
+    ListLowObjects();
 
-    /* QP3 has no "You see:" phase — every visible item is a low object.
-       For other versions, continue scanning from the same `i` to list
-       higher-numbered objects under a "You see:" heading. */
+    /* QP3 has no "You see:" phase — every visible item is a low object. */
     if (Version == QUESTPROBE3_TYPE) {
         ListExits(1);
     } else {
-        printed_any = 0;
-        for (; i < NumObjects(); i++) {
-            if (ObjectLoc[i] == MyLoc) {
-                if (!printed_any) {
-                    /* Only the text-only and hybrid games */
-                    if (BaseGame == TEMPLE_OF_TERROR
-                        && CurrentGame != TEMPLE_OF_TERROR
-                        && CurrentGame != TEMPLE_OF_TERROR_64) {
-                        OutChar(' ');
-                    }
-                    SysMessage(YOU_SEE);
-                    if (CurrentGame == BLIZZARD_PASS) {
-                        PendSpace = 0;
-                        OutString(":- ");
-                    }
-                    if (Version == REBEL_PLANET_TYPE)
-                        OutReplace(0);
-                    printed_any = 1;
-                }
-                PrintObject(i);
-            }
-        }
-        if (printed_any)
-            OutReplace('.');
-        else
-            OutChar('.');
+        ListHighObjects();
         ListExits(BaseGame != TEMPLE_OF_TERROR && BaseGame != HEMAN);
     }
 
@@ -476,25 +511,7 @@ void Look(void)
 
     BottomWindow();
 
-    if (MyLoc != 0 && !NoGraphics && TAYLOR_GRAPHICS_ENABLED && Graphics) {
-        /* A resize-in-progress: reuse the buffered image rather than
-           re-running the room's drawing pipeline. */
-        if (Resizing) {
-            DrawBufferedPicture();
-            return;
-        }
-        if (Version == QUESTPROBE3_TYPE) {
-            QP3RedrawImages();
-        } else {
-            /* Painting over the picture of the turn before needs no
-               clear, and only its changed cells are painted. */
-            if (!BufferedPictureShown()) {
-                glk_window_clear(Graphics);
-                GraphicsWindowChanged();
-            }
-            DrawRoomImage();
-        }
-    }
+    DrawRoomPicture();
 }
 
 /* Check if direction word v has a matching exit from the current room.
@@ -656,9 +673,9 @@ static void RestartGame(void)
     Look();
 }
 
-/* Main entry point. Loads and identifies the game file, locates all data
-   tables, initializes graphics, and enters the main input/action loop. */
-void glk_main(void)
+/* Unpack the game file if it is a C64 container, and work out which game
+   it is. Sets Game and FileBaselineOffset; does not return on failure. */
+static void IdentifyGame(void)
 {
     /* Step 1: load the game file. DetectC64 handles both raw image files
        and C64 disk-image containers, decrunching as needed; the file is
@@ -694,6 +711,40 @@ void glk_main(void)
 #ifdef DEBUG
     fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
 #endif
+}
+
+/* Step 5: initialize state and present the opening room. NewGame()
+   resets flags and objects; GuessLowObjectEnd() determines which
+   objects render inline vs. in the "You see:" list; the initial
+   state is snapshotted for the RESTART command. */
+static void StartGame(void)
+{
+    NewGame();
+    NumLowObjects = GuessLowObjectEnd();
+    InitialState = SaveCurrentState();
+
+    /* Run the status table once on entry so any per-turn setup actions
+       (e.g. drawing the first room image) execute before the prompt. */
+    RunStatusTable();
+    if (Redraw) {
+        OutFlush();
+        Look();
+    }
+
+    /* Kayleth begins with a non-interactive "preview" sequence before
+       handing control to the player; load its animation data and arm
+       the flag so that undo is suppressed until MyLoc reaches 1. */
+    if (BaseGame == KAYLETH) {
+        LoadKaylethAnimationData();
+        InKaylethPreview = 1;
+    }
+}
+
+/* Main entry point. Loads and identifies the game file, locates all data
+   tables, initializes graphics, and enters the main input/action loop. */
+void glk_main(void)
+{
+    IdentifyGame();
 
     /* Seed the RNG. In determinism mode (used by automated tests and
        transcript playback) we use a fixed seed; otherwise time-based. */
@@ -734,29 +785,7 @@ void glk_main(void)
     InitActionDebugging();
 #endif
 
-    /* Step 5: initialize state and present the opening room. NewGame()
-       resets flags and objects; GuessLowObjectEnd() determines which
-       objects render inline vs. in the "You see:" list; the initial
-       state is snapshotted for the RESTART command. */
-    NewGame();
-    NumLowObjects = GuessLowObjectEnd();
-    InitialState = SaveCurrentState();
-
-    /* Run the status table once on entry so any per-turn setup actions
-       (e.g. drawing the first room image) execute before the prompt. */
-    RunStatusTable();
-    if (Redraw) {
-        OutFlush();
-        Look();
-    }
-
-    /* Kayleth begins with a non-interactive "preview" sequence before
-       handing control to the player; load its animation data and arm
-       the flag so that undo is suppressed until MyLoc reaches 1. */
-    if (BaseGame == KAYLETH) {
-        LoadKaylethAnimationData();
-        InKaylethPreview = 1;
-    }
+    StartGame();
 
     /* Main turn loop: snapshot undo state, read a command, execute it,
        and repeat forever. Exits are handled by glk_exit() from within

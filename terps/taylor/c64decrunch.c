@@ -39,7 +39,10 @@ typedef enum {
    Fields: game ID, expected file length, 16-bit additive checksum,
    container type, number of unp64 decompression passes, optional
    unp64 switch string, which iteration to apply switches on, how the
-   game is stored, and the file name for TWO_FILES_BY_NAME. */
+   game is stored, and the file name for TWO_FILES_BY_NAME. The last three
+   are for the releases that unpack their picture data to somewhere other
+   than where the game has it: relocate_size bytes are moved from
+   relocate_from to relocate_to in the unpacked file. */
 typedef struct {
     GameIDType id;
     size_t length;
@@ -50,6 +53,9 @@ typedef struct {
     int parameter;
     file_layout layout;
     const char *filename;
+    size_t relocate_to;
+    size_t relocate_from;
+    size_t relocate_size;
 } c64rec;
 
 /* Known C64 TaylorMade game images indexed by file size + checksum.
@@ -60,12 +66,12 @@ static const c64rec c64_registry[] = {
     { QUESTPROBE3_64, 0x8298, 0xb93e, TYPE_T64, 1, NULL, 0, ONE_FILE, NULL }, // Questprobe 3, PUCrunch
     { QUESTPROBE3_64, 0x2ab00, 0x863d, TYPE_D64, 1, NULL, 0, ONE_FILE, NULL }, // Questprobe 3, PUCrunch
     { REBEL_PLANET_64, 0xd541, 0x593a, TYPE_T64, 1, NULL, 0, ONE_FILE, NULL }, // Rebel Planet C64 (T64) 1001 CardCruncher Old Packer
-    { REBEL_PLANET_64, 0x2ab00, 0xa46f, TYPE_D64, 2, "-e0x0fe9", 2, ONE_FILE, NULL }, // Rebel_Planet_1986_Adventure_International.d64
+    { REBEL_PLANET_64, 0x2ab00, 0xa46f, TYPE_D64, 2, "-e0x0fe9", 2, ONE_FILE, NULL, 0x198a, 0x098a, 0x2e79 }, // Rebel_Planet_1986_Adventure_International.d64
     { REBEL_PLANET_64, 0x2ab00, 0x932e, TYPE_D64, 1, NULL, 0, ONE_FILE, NULL }, // Rebel_Planet_1986_Adventure_International_cr_TFF.d64
 
     { HEMAN_64, 0xfa17, 0xfbd2, TYPE_T64, 2, NULL, 0, ONE_FILE, NULL }, // Terraquake C64 (T64) Super Compressor / Flexible -> ECA Compacker
     { HEMAN_64, 0x2ab00, 0x4625, TYPE_D64, 2, NULL, 0, ONE_FILE, NULL }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_TIA.d64
-    { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4, ONE_FILE, NULL }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
+    { HEMAN_64, 0x2ab00, 0x78ba, TYPE_D64, 4, "-e0xc400", 4, ONE_FILE, NULL, 0x4808, 0xc802, 0x1400 }, // Masters_of_the_Universe_Terraquake_1987_Gremlin_Graphics_cr_Popeye.d64
     // The first pass also unpacks the crack intro at $c000, which tells the
     // next depacker that its data ends at $b1db. Cut the output there.
     { HEMAN_64, 0x2ab00, 0xbd68, TYPE_D64, 4, "-t0xb1da", 1, ONE_FILE, NULL }, // He-Man and the Masters of the Universe in Terraquake (c64.com), WCC crack: ECA Compacker -> Super Compressor / Flexible -> two more
@@ -75,7 +81,7 @@ static const c64rec c64_registry[] = {
     { TEMPLE_OF_TERROR_64, 0x10baa, 0x3b37, TYPE_T64, 4, NULL, 0, T64_TWO_RECORDS, NULL }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TOT_TEXT_ONLY_64, 0x10baa, 0x3b37, TYPE_T64, 3, NULL, 0, T64_TWO_RECORDS, NULL }, // Temple of Terror C64 alt (T64) 1001 CardCruncher New Packer -> 1001 CardCruncher ACM -> Triad-01 -> Mr.Z Packer
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x5720, TYPE_D64, 4, "-e0xc1ef", 2, ONE_FILE, NULL }, // Temple of Terror C64 (D64) ECA Compacker -> Super Compressor / Flexible -> Super Compressor / Equal sequences -> Super Compressor / Equal chars
-    { TEMPLE_OF_TERROR_64, 0x2ab00, 0xf3b4, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL }, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64
+    { TEMPLE_OF_TERROR_64, 0x2ab00, 0xf3b4, TYPE_D64, 3, NULL, 0, ONE_FILE, NULL, 0x4808, 0xd802, 0x1400 }, // Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0, TWO_FILES_BY_NAME, "TEMPLE O.TERROR2" }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
     { TOT_TEXT_ONLY_64, 0x2ab00, 0x577e, TYPE_D64, 4, NULL, 0, TWO_FILES_BY_NAME, "TEMPLE O.TERROR1" }, // Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64
     { TEMPLE_OF_TERROR_64, 0x2ab00, 0x7b2d, TYPE_D64, 0, NULL, 0, TWO_FILES_BY_TS, NULL }, // Temple of Terror - Trianon.d64
@@ -320,30 +326,21 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
 /* Decompress the extracted C64 file and look up the game in the master table.
 
    Runs unp64 for the number of iterations specified in the registry entry
-   (applying switches on a specific iteration if configured), then performs
-   checksum-specific memory block relocations for variants that store
-   graphics data at non-standard addresses. Finally, sets the global Game
-   pointer to the matching entry in games[]. */
+   (applying switches on a specific iteration if configured), then moves
+   the picture data into place for the releases the registry says need it.
+   Finally, sets the global Game pointer to the matching entry in games[]. */
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     C64DecompressIterations(sf, extent, record.decompress_iterations,
         record.switches, record.parameter);
 
-    /* Relocate graphics data for specific releases that store image blocks
-       at addresses the engine doesn't expect. memmove handles the
-       overlapping Rebel Planet case correctly. */
-    switch (record.chk) {
-    case 0xa46f: /* Rebel Planet: move block from 0x098a to 0x198a */
-        memmove(*sf + 0x198a, *sf + 0x098a, 0x2e79);
-        break;
-    case 0x78ba: /* He-Man: move image data from 0xc802 to 0x4808 */
-        memmove(*sf + 0x4808, *sf + 0xc802, 0x1400);
-        break;
-    case 0xf3b4: /* Temple of Terror (FBR crack): move image data from 0xd802 to 0x4808 */
-        memmove(*sf + 0x4808, *sf + 0xd802, 0x1400);
-        break;
-    default:
-        break;
+    /* The two ranges overlap in Rebel Planet, hence memmove. */
+    if (record.relocate_size != 0) {
+        if (record.relocate_to + record.relocate_size > *extent
+            || record.relocate_from + record.relocate_size > *extent) {
+            Fatal("The unpacked game file is too short");
+        }
+        memmove(*sf + record.relocate_to, *sf + record.relocate_from, record.relocate_size);
     }
 
     /* Look up the full GameInfo entry in the master games[] table */

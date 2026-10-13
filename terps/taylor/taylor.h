@@ -292,6 +292,9 @@ typedef struct {
 
     int start_of_dictionary;
     int start_of_tokens;
+    /* The first TOKEN_SIGNATURE_LENGTH bytes of the token table, for the
+       games where it is found by looking for them. */
+    const char *token_signature;
     int start_of_room_descriptions;
     int start_of_item_descriptions;
     int start_of_automatics;
@@ -310,10 +313,12 @@ typedef struct {
     int start_of_image_instructions;
     int number_of_pictures;
     palette_type palette;
-    int start_of_intro_text;
 } GameInfo;
 
-/* Registry of all supported games, indexed by GameIDType. */
+#define TOKEN_SIGNATURE_LENGTH 10
+
+/* Registry of all supported games. The rows are not in GameIDType order:
+   use FindGameByID(). */
 extern GameInfo games[NUMGAMES];
 
 #include "actions.h"

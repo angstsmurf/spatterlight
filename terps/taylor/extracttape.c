@@ -156,6 +156,93 @@ static uint8_t *process_tzx_extract(uint8_t *image, size_t *length, const Extrac
     return shrunk;
 }
 
+// The Alkatraz decryption parameters of each game.
+static const ExtractSpec templeA = {
+    .block_index = 3,
+    .loacon_init = 0x9a,
+    .source_offset = 0x1b0c,
+    .size = 0x9f64,
+    .add1 = 0xcf,
+    .add2 = 0xcd,
+    .lddr_target = 0xffff,
+    .lddr_source = 0xfc85,
+    .lddr_size = 0x9f8e,
+    .deshuffle_repeats = 5,
+    .deshuffle_IX = 0x5b8b,
+    .deshuffle_store = 0xfdd6
+};
+static const ExtractSpec kayleth = {
+    .block_index = 3,
+    .loacon_init = 0xce,
+    .source_offset = 0x172e,
+    .size = 0xa004,
+    .add1 = 0xeb,
+    .add2 = 0x8f,
+    .lddr_target = 0xfd93,
+    .lddr_source = 0xfb02,
+    .lddr_size = 0x9e38,
+    .deshuffle_repeats = 0x17,
+    .deshuffle_IX = 0x5bf2,
+    .deshuffle_store = 0xfd90
+};
+static const ExtractSpec terraquake = {
+    .block_index = 3,
+    .loacon_init = 0xe7,
+    .source_offset = 0x17eb,
+    .size = 0x9f64,
+    .add1 = 0x75,
+    .add2 = 0x55,
+    .lddr_target = 0xfc80,
+    .lddr_source = 0xfa32,
+    .lddr_size = 0x9d38,
+    .deshuffle_repeats = 0x03,
+    .deshuffle_IX = 0x5b90,
+    .deshuffle_store = 0xfc80
+};
+
+// The Alkatraz-protected tapes, identified by file size: how to decrypt the
+// game, and how to rebuild the loading screen. The screen is drawn by the
+// Alkatraz loader, not stored as a plain block, so it has its own window
+// descriptors and stream parameters (see the *_loadscreen_data.h files).
+typedef struct {
+    size_t file_size;
+    const ExtractSpec *spec;
+    const uint8_t *screen_descriptors;
+    int screen_windows;
+    int screen_block;
+    int screen_offset;
+    uint8_t screen_loacon;
+    uint8_t screen_add2;
+    uint8_t screen_attrfill;
+} AlkatrazTape;
+
+static const AlkatrazTape alkatraz_tapes[] = {
+    { 0xcadc, &kayleth, kayleth_screen_descriptors, KAYLETH_SCREEN_WINDOWS, // Kayleth (TZX)
+        KAYLETH_SCREEN_BLOCK, KAYLETH_SCREEN_OFFSET, KAYLETH_SCREEN_LOACON,
+        KAYLETH_SCREEN_ADD2, KAYLETH_SCREEN_ATTRFILL },
+    { 0xccca, &templeA, templea_screen_descriptors, TEMPLEA_SCREEN_WINDOWS, // Temple of Terror, Side A (TZX)
+        TEMPLEA_SCREEN_BLOCK, TEMPLEA_SCREEN_OFFSET, TEMPLEA_SCREEN_LOACON,
+        TEMPLEA_SCREEN_ADD2, TEMPLEA_SCREEN_ATTRFILL },
+    { 0xcd15, &terraquake, terraquake_screen_descriptors, TERRAQUAKE_SCREEN_WINDOWS, // Terraquake (TZX, variant 1)
+        TERRAQUAKE_SCREEN_BLOCK, TERRAQUAKE_SCREEN_OFFSET, TERRAQUAKE_SCREEN_LOACON,
+        TERRAQUAKE_SCREEN_ADD2, TERRAQUAKE_SCREEN_ATTRFILL },
+    { 0xcd17, &terraquake, terraquake_screen_descriptors, TERRAQUAKE_SCREEN_WINDOWS, // Terraquake (TZX, variant 2)
+        TERRAQUAKE_SCREEN_BLOCK, TERRAQUAKE_SCREEN_OFFSET, TERRAQUAKE_SCREEN_LOACON,
+        TERRAQUAKE_SCREEN_ADD2, TERRAQUAKE_SCREEN_ATTRFILL },
+};
+
+// Decrypts an Alkatraz tape. The loading screen is rebuilt first, before
+// extraction consumes the raw image.
+static uint8_t *ProcessAlkatrazTape(uint8_t *image, size_t *length, const AlkatrazTape *tape)
+{
+    if (ZXLoadingScreen == NULL)
+        ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, *length,
+            tape->screen_descriptors, tape->screen_windows,
+            tape->screen_block, tape->screen_offset,
+            tape->screen_loacon, tape->screen_add2, tape->screen_attrfill);
+    return process_tzx_extract(image, length, tape->spec);
+}
+
 // Special-case handler for a broken Kayleth Z80 snapshot that was captured
 // mid-decompression. The snapshot contains partially-relocated data that
 // needs the remaining LDDR and DeshuffleAlkatraz steps to be completed
@@ -205,50 +292,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         }
     } else {
         // Not a Z80 snapshot — try TZX/TAP extraction, identified by file size.
-        // Each ExtractSpec holds the Alkatraz decryption parameters for one game.
-        static const ExtractSpec templeA = {
-            .block_index = 3,
-            .loacon_init = 0x9a,
-            .source_offset = 0x1b0c,
-            .size = 0x9f64,
-            .add1 = 0xcf,
-            .add2 = 0xcd,
-            .lddr_target = 0xffff,
-            .lddr_source = 0xfc85,
-            .lddr_size = 0x9f8e,
-            .deshuffle_repeats = 5,
-            .deshuffle_IX = 0x5b8b,
-            .deshuffle_store = 0xfdd6
-        };
-        static const ExtractSpec kayleth = {
-            .block_index = 3,
-            .loacon_init = 0xce,
-            .source_offset = 0x172e,
-            .size = 0xa004,
-            .add1 = 0xeb,
-            .add2 = 0x8f,
-            .lddr_target = 0xfd93,
-            .lddr_source = 0xfb02,
-            .lddr_size = 0x9e38,
-            .deshuffle_repeats = 0x17,
-            .deshuffle_IX = 0x5bf2,
-            .deshuffle_store = 0xfd90
-        };
-        static const ExtractSpec terraquake = {
-            .block_index = 3,
-            .loacon_init = 0xe7,
-            .source_offset = 0x17eb,
-            .size = 0x9f64,
-            .add1 = 0x75,
-            .add2 = 0x55,
-            .lddr_target = 0xfc80,
-            .lddr_source = 0xfa32,
-            .lddr_size = 0x9d38,
-            .deshuffle_repeats = 0x03,
-            .deshuffle_IX = 0x5b90,
-            .deshuffle_store = 0xfc80
-        };
-
         // The 5 data blocks of Blizzard Pass. The TAP has four blocks more
         // than the TZX before the first of them.
         uint8_t *out = NULL;
@@ -284,37 +327,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 }
                 image = ShrinkToSnaSize(image, uncompressed, length);
                 break;
-            case 0xcadc:  // Kayleth (TZX)
-                // The screen is drawn by the Alkatraz loader, not stored as a
-                // plain block, so reconstruct it from the tape before
-                // extraction consumes the raw image.
-                if (ZXLoadingScreen == NULL)
-                    ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, origlen,
-                        kayleth_screen_descriptors, KAYLETH_SCREEN_WINDOWS,
-                        KAYLETH_SCREEN_BLOCK, KAYLETH_SCREEN_OFFSET,
-                        KAYLETH_SCREEN_LOACON, KAYLETH_SCREEN_ADD2,
-                        KAYLETH_SCREEN_ATTRFILL);
-                image = process_tzx_extract(image, length, &kayleth);
-                break;
-            case 0xccca:  // Temple of Terror, Side A (TZX)
-                if (ZXLoadingScreen == NULL)
-                    ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, origlen,
-                        templea_screen_descriptors, TEMPLEA_SCREEN_WINDOWS,
-                        TEMPLEA_SCREEN_BLOCK, TEMPLEA_SCREEN_OFFSET,
-                        TEMPLEA_SCREEN_LOACON, TEMPLEA_SCREEN_ADD2,
-                        TEMPLEA_SCREEN_ATTRFILL);
-                image = process_tzx_extract(image, length, &templeA);
-                break;
-            case 0xcd15:  // Terraquake (TZX, variant 1)
-            case 0xcd17:  // Terraquake (TZX, variant 2)
-                if (ZXLoadingScreen == NULL)
-                    ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, origlen,
-                        terraquake_screen_descriptors, TERRAQUAKE_SCREEN_WINDOWS,
-                        TERRAQUAKE_SCREEN_BLOCK, TERRAQUAKE_SCREEN_OFFSET,
-                        TERRAQUAKE_SCREEN_LOACON, TERRAQUAKE_SCREEN_ADD2,
-                        TERRAQUAKE_SCREEN_ATTRFILL);
-                image = process_tzx_extract(image, length, &terraquake);
-                break;
             case 0x10428: // Blizzard Pass (TZX)
                 isTZX = 1;
                 blocknums = TZXblocknums;
@@ -346,6 +358,12 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 return out;
             }
             default:
+                for (size_t i = 0; i < sizeof alkatraz_tapes / sizeof alkatraz_tapes[0]; i++) {
+                    if (alkatraz_tapes[i].file_size == origlen) {
+                        image = ProcessAlkatrazTape(image, length, &alkatraz_tapes[i]);
+                        break;
+                    }
+                }
                 break;
         }
     }

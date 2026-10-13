@@ -5,13 +5,40 @@ ported it to the Glk api and added support for "Questprobe featuring The
 Human Torch and The Thing", graphics and animations, and a couple of beeps
 in "Rebel Planet".
 
+The Commodore 64 versions of all the games except "Blizzard Pass" are
+supported as well, from .d64 disk images and .t64 tape images.
+
+ZX Spectrum games can be loaded from .sna and .z80 snapshots (48K or 128K)
+and from .tap and .tzx tape images, including the tapes that use the
+Alkatraz protection. The loading screen of a tape is shown as a title
+picture.
+
+"Temple of Terror" comes in three forms: the version with graphics, the
+text-only version with longer descriptions from the other side of the tape,
+and a combined version with the text of the one and the pictures of the
+other. For the Spectrum version, the combined form is offered when the two
+sides are separate files in the same folder, with names that differ only in
+the last character before the extension: "a" for the graphics side and "b"
+for the text-only side (for example "tot-a.tzx" and "tot-b.tzx").
+
+If the picture data of a game cannot be read, the game is played without
+graphics.
+
 The following "extra commands" are added to all games, though some games
 already had some of them:
 
-#RESTART, #RESTORE, #TRANSCRIPT ON, #TRANSCRIPT OFF, #QUICKSAVE, #QUICKLOAD,
-and UNDO.
+#RESTART, #SAVE, #RESTORE, #UNDO, #QUICKSAVE (or #QSAVE), #QUICKLOAD (or
+#QLOAD), #TRANSCRIPT ON and #TRANSCRIPT OFF (or #SCRIPT ON and #SCRIPT OFF).
 
--- Petter Sjölund, May 2023
+They also work without the "#". LOAD means the same as RESTORE, OOPS and BOM
+the same as UNDO, and RAMSAVE, RAMLOAD, RAM SAVE and RAM RESTORE the same as
+QUICKSAVE and QUICKLOAD.
+
+The original README below is kept as Alan Cox wrote it. Where it disagrees
+with this note (graphics, supported games, how to run the interpreter), this
+note is the one that is up to date.
+
+-- Petter Sjölund, May 2023, updated October 2026
 
 
 Original README:

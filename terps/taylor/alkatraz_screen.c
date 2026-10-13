@@ -111,6 +111,63 @@ typedef struct {
     int done;
 } AlkSlot;
 
+/* Set up the draw state of one strip from its 4-byte descriptor. */
+static void alk_load_slot(AlkSlot *slot, const uint8_t *desc)
+{
+    uint16_t addr = (uint16_t)(desc[0] | (desc[1] << 8));
+    int direction = (desc[2] >> DESC_DIR_SHIFT) & DESC_DIR_MASK;
+    int width = desc[2] & DESC_WIDTH_MASK;
+    int height = (desc[3] & DESC_HEIGHT_MASK) * ZX_CHAR_PIXELS;
+    slot->direction = direction;
+    slot->addr = addr;
+    slot->origin_low = addr & LOW_BYTE;          /* origin column   */
+    slot->origin_high = (addr >> 8) & LOW_BYTE;  /* origin row       */
+    slot->done = 0;
+    if (direction == ALK_UP || direction == ALK_DOWN) {
+        /* Vertical window: drawn row by row. Each row is `width`
+           characters wide; there are `height` pixel rows. */
+        slot->vertical = 1;
+        slot->fast_axis_remaining = slot->fast_axis_length = width;
+        slot->slow_axis_remaining = height;
+    } else {
+        /* Horizontal window: drawn column by column. Each column is
+           `height` pixels tall; there are `width` columns. */
+        slot->vertical = 0;
+        slot->fast_axis_remaining = slot->fast_axis_length = height;
+        slot->slow_axis_remaining = width;
+    }
+}
+
+/* Move a strip on to its next cell, and mark it done after its last. */
+static void alk_advance(AlkSlot *strip)
+{
+    if (strip->vertical) {
+        /* Step along the row (a character column at a time). */
+        strip->addr = alk_next_col(strip->addr, strip->direction);
+        if (--strip->fast_axis_remaining != 0)
+            return;
+        /* Row finished: back to the row's start column, drop
+           down/up one pixel row, and count the row off. */
+        strip->addr = (uint16_t)((strip->addr & HIGH_BYTE) | strip->origin_low);
+        strip->addr = alk_next_line(strip->addr, strip->direction);
+        strip->origin_low = strip->addr & LOW_BYTE;
+    } else {
+        /* Step down the column (a pixel row at a time). */
+        strip->addr = alk_next_line(strip->addr, strip->direction);
+        if (--strip->fast_axis_remaining != 0)
+            return;
+        /* Column finished: back to the column's start row,
+           move one character column across, count it off. */
+        strip->addr = (uint16_t)((strip->origin_high << 8) | strip->origin_low);
+        strip->addr = alk_next_col(strip->addr, strip->direction);
+        strip->origin_low = strip->addr & LOW_BYTE;
+        strip->origin_high = (strip->addr >> 8) & LOW_BYTE;
+    }
+    strip->fast_axis_remaining = strip->fast_axis_length;
+    if (--strip->slow_axis_remaining == 0)
+        strip->done = 1;
+}
+
 int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
     uint16_t *out, int maxout)
 {
@@ -130,31 +187,8 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
            bits 0-5 width (chars), [3] bits 5-7 simultaneous-count + bits 0-4
            height (chars, x8 = pixels). Directions: 0=right,1=left,2=up,3=down. */
         AlkSlot slots[ALK_MAX_SIM];
-        for (int i = 0; i < group_count; i++) {
-            const uint8_t *desc = descriptors + (next_win + i) * DESC_BYTES;
-            uint16_t addr = (uint16_t)(desc[0] | (desc[1] << 8));
-            int direction = (desc[2] >> DESC_DIR_SHIFT) & DESC_DIR_MASK;
-            int width = desc[2] & DESC_WIDTH_MASK;
-            int height = (desc[3] & DESC_HEIGHT_MASK) * ZX_CHAR_PIXELS;
-            slots[i].direction = direction;
-            slots[i].addr = addr;
-            slots[i].origin_low = addr & LOW_BYTE;          /* origin column   */
-            slots[i].origin_high = (addr >> 8) & LOW_BYTE;  /* origin row       */
-            slots[i].done = 0;
-            if (direction == ALK_UP || direction == ALK_DOWN) {
-                /* Vertical window: drawn row by row. Each row is `width`
-                   characters wide; there are `height` pixel rows. */
-                slots[i].vertical = 1;
-                slots[i].fast_axis_remaining = slots[i].fast_axis_length = width;
-                slots[i].slow_axis_remaining = height;
-            } else {
-                /* Horizontal window: drawn column by column. Each column is
-                   `height` pixels tall; there are `width` columns. */
-                slots[i].vertical = 0;
-                slots[i].fast_axis_remaining = slots[i].fast_axis_length = height;
-                slots[i].slow_axis_remaining = width;
-            }
-        }
+        for (int i = 0; i < group_count; i++)
+            alk_load_slot(&slots[i], descriptors + (next_win + i) * DESC_BYTES);
         next_win += group_count;
 
         /* Emit the group's cells. Within a group the simultaneous strips are
@@ -176,35 +210,7 @@ int AlkatrazScreenOrder(const uint8_t *descriptors, int nwin,
                 if (nout < maxout)
                     out[nout++] = strip->addr;
 
-                /* Advance to the strip's next cell. */
-                if (strip->vertical) {
-                    /* Step along the row (a character column at a time). */
-                    strip->addr = alk_next_col(strip->addr, strip->direction);
-                    if (--strip->fast_axis_remaining == 0) {
-                        /* Row finished: back to the row's start column, drop
-                           down/up one pixel row, and count the row off. */
-                        strip->fast_axis_remaining = strip->fast_axis_length;
-                        strip->addr = (uint16_t)((strip->addr & HIGH_BYTE) | strip->origin_low);
-                        strip->addr = alk_next_line(strip->addr, strip->direction);
-                        strip->origin_low = strip->addr & LOW_BYTE;
-                        if (--strip->slow_axis_remaining == 0)
-                            strip->done = 1;
-                    }
-                } else {
-                    /* Step down the column (a pixel row at a time). */
-                    strip->addr = alk_next_line(strip->addr, strip->direction);
-                    if (--strip->fast_axis_remaining == 0) {
-                        /* Column finished: back to the column's start row,
-                           move one character column across, count it off. */
-                        strip->fast_axis_remaining = strip->fast_axis_length;
-                        strip->addr = (uint16_t)((strip->origin_high << 8) | strip->origin_low);
-                        strip->addr = alk_next_col(strip->addr, strip->direction);
-                        strip->origin_low = strip->addr & LOW_BYTE;
-                        strip->origin_high = (strip->addr >> 8) & LOW_BYTE;
-                        if (--strip->slow_axis_remaining == 0)
-                            strip->done = 1;
-                    }
-                }
+                alk_advance(strip);
             }
         }
     }

@@ -212,24 +212,26 @@ static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, si
     }
 }
 
-static void ExtractQ3Images(Image *img)
+/* Returns 0 if the picture tables are not in the file. */
+static int ExtractQ3Images(Image *img)
 {
     size_t base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
     size_t offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
     if (base == (size_t)-1 || offsets == (size_t)-1) {
         fprintf(stderr, "Cannot find the Questprobe 3 picture tables.\n");
-        return;
+        return 0;
     }
     size_t imgdata = FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", offsets, 10);
     if (imgdata == (size_t)-1) {
         fprintf(stderr, "Cannot find the Questprobe 3 picture data.\n");
-        return;
+        return 0;
     }
 
     for (int picture_number = 0; picture_number < Game->number_of_pictures; picture_number++) {
         ExtractSingleQ3Image(img, picture_number, base, offsets, imgdata);
         img++;
     }
+    return 1;
 }
 
 /* Replace the token just written at *index - 1 with the three-byte
@@ -409,9 +411,19 @@ static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
     return pos + 1;
 }
 
+/* Carry on without pictures, and say so in the game window: stderr is
+   not seen in the app. */
+static void EnterTextOnlyMode(const char *reason)
+{
+    fprintf(stderr, "InitGraphics: %s. Entering text-only mode.\n", reason);
+    NoGraphics = 1;
+    if (Bottom)
+        Display(Bottom, "[The pictures in this file could not be read. Playing without graphics.]\n\n");
+}
+
 void InitGraphics(void)
 {
-    if (images != NULL)
+    if (images != NULL || NoGraphics)
         return;
 
     if (Game->number_of_pictures == 0) {
@@ -426,8 +438,7 @@ void InitGraphics(void)
     }
 
     if (palchosen == NO_PALETTE) {
-        fprintf(stderr, "InitGraphics: invalid palette. Entering text-only mode.\n");
-        NoGraphics = 1;
+        EnterTextOnlyMode("invalid palette");
         return;
     }
 
@@ -441,8 +452,7 @@ void InitGraphics(void)
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
     if (pos == NULL || SeekToPos(image_blocks_start_address) == NULL) {
-        fprintf(stderr, "InitGraphics: no picture data in this file. Entering text-only mode.\n");
-        NoGraphics = 1;
+        EnterTextOnlyMode("no picture data in this file");
         return;
     }
 
@@ -463,7 +473,12 @@ void InitGraphics(void)
     pos = SeekToPos(image_blocks_start_address);
 
     if (Version == QUESTPROBE3_TYPE) {
-        ExtractQ3Images(images);
+        if (!ExtractQ3Images(images)) {
+            free(images);
+            images = NULL;
+            EnterTextOnlyMode("no Questprobe 3 picture tables in this file");
+            return;
+        }
     } else {
         for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
             uint8_t widthheight = *pos++;
