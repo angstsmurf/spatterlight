@@ -11,9 +11,19 @@ before a change and once after, and compare:
     ... change, rebuild ...
     run_v6_traces.py --out after --compare before
 
+A trace names each picture by a hash of its file, so it tells that a picture
+changed but not how.  The pictures themselves are kept in OUT/pictures, and
+for every case whose trace changed, --compare goes on to draw the screens of
+both runs and compare those (see v6screens.py): "SAME SCREENS" is a change in
+how the pictures are sent that nobody could see, "SHIFTED PIXELS" a picture
+scaled a fraction of a pixel differently, and "SCREENS DIFFER" a change to
+look at.  The last two come with the old and the new screen side by side in
+OUT/montages.
+
 The story files and the graphics files of the other platforms are not in the
 repository; the paths below are where they live on the machine this was
-written on.  A case whose files are missing is skipped.  The only cases that
+written on, and so are the saved games the minigame cases start from
+(SAVES).  A case whose files are missing is skipped.  The only cases that
 need nothing from outside the repository are the "tracked" ones, which run
 the .zblorb files of SpatterlightTests.
 
@@ -28,6 +38,7 @@ the .zblorb files of SpatterlightTests.
 
 import concurrent.futures
 import glob
+import math
 import os
 import re
 import shutil
@@ -37,6 +48,7 @@ import tempfile
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
 sys.path.insert(0, HERE)
+import v6screens  # noqa: E402
 import v6trace  # noqa: E402
 
 HOME = os.path.expanduser("~")
@@ -44,6 +56,9 @@ SUPPORT = os.path.join(REPO, "SpatterlightTests", "Supporting Files")
 AUTOSAVES = os.path.join(HOME, "Library", "Application Support", "Spatterlight",
                          "Bocfel Files", "Autosaves")
 DOWNLOADS = os.path.join(HOME, "Downloads")
+# Saved games (Quetzal) at the doors of the Zork Zero minigames.
+SAVES = ("/Volumes/Extern/Temp downloads/Interactive Fiction experiments/"
+         "glksaves/zork zero saves")
 
 AMIGA, MACBW, APPLE2, VGA, EGA, CGA, BLORB, NONE = range(8)
 FORMATS = {AMIGA: "amiga", MACBW: "macbw", APPLE2: "apple2", VGA: "vga",
@@ -117,6 +132,101 @@ EXTRA = {
     "zork0": {"ui": UI}, "arthur": {"ui": UI}, "shogun": {"ui": UI},
     "journey": {"ui": JOURNEY_UI},
 }
+
+
+def minigames(width):
+    """{name: (saved game, script)} for the four Zork Zero minigames, played
+    with the mouse in a window WIDTH pixels wide showing the Blorb pictures.
+
+    The boxes are where zorkzero.cpp puts them, in the pixels of the 320 pixel
+    wide picture; the window shows that picture stretched to its own width.
+    Each box is clicked on its first and last pixel, and the pixel outside
+    either one is clicked too where a miss shows (it beeps or complains), so
+    a hit test that is off by a pixel changes what the game answers."""
+    scale = width / 320.0
+
+    def at(x, y, dx=0, dy=0):
+        return "mouse:%d,%d,0" % (math.ceil(x * scale) + dx,
+                                  math.ceil(y * scale) + dy)
+
+    def first(box):
+        return at(box[0], box[1])
+
+    def last(box):
+        return at(box[0] + box[2], box[1] + box[3], -1, -1)
+
+    def before(box):
+        return at(box[0], box[1], -1, 0)
+
+    def after(box):
+        return at(box[0] + box[2], box[1] + box[3], 0, -1)
+
+    # Tower of Bozbar: in the saved game all six weights are on the centre
+    # peg, the 1-ugh one on top.  A weight's box is two pixels taller than
+    # the step from one row to the next and the lower row is tried first, so
+    # the part of it that is its own is ten pixels high.
+    def weight(peg, row):
+        return (26 + 89 * peg, 40 + 10 * row, 87, 10)
+
+    def peg(n):
+        return (26 + 89 * n, 40, 87, 90)
+
+    undo, leave = (88, 22, 62, 9), (167, 22, 62, 9)
+    tower = ["restore", "open louvered door",
+             before(weight(1, 0)), first(weight(1, 0)), before(peg(0)),
+             first(weight(1, 0)), first(peg(0)),
+             after(weight(1, 1)), last(weight(1, 1)), after(peg(2)),
+             last(weight(1, 1)), last(peg(2)),
+             before(undo), first(undo), after(undo), last(undo),
+             first(weight(0, 5)), last(peg(2)),
+             before(leave), after(leave), last(leave), ""]
+
+    # Peggleboz: the holes are lettered A to U.
+    holes = [(142, 30), (166, 30), (154, 37), (142, 44), (166, 44), (127, 52),
+             (154, 52), (181, 52), (112, 60), (139, 60), (169, 60), (196, 60),
+             (70, 70), (98, 68), (124, 68), (154, 68), (184, 68), (211, 68),
+             (238, 70), (83, 76), (225, 76)]
+
+    def hole(letter):
+        return holes[ord(letter) - ord("A")] + (12, 14)
+
+    again, moves, out = (17, 20, 62, 9), (17, 32, 62, 9), (17, 44, 62, 9)
+    peggleboz = ["restore", "play peggleboz",
+                 before(moves), first(hole("Q")), last(hole("G")),
+                 last(hole("S")), first(hole("Q")), first(hole("H")),
+                 last(hole("R")), first(moves), "", last(moves), "",
+                 after(again), last(again), first(hole("Q")),
+                 last(hole("G")), first(again),
+                 before(out), after(out), first(out)]
+
+    # Snarfem: four piles, and under them the boxes numbered 1 to 9.
+    def pile(n):
+        return (14 + (n - 1) * 221 // 3, 55, 69, 36)
+
+    def number(n):
+        return (21 + 31 * (n - 1), 121, 27, 11)
+
+    snarfem = ["restore", "s", "", "",
+               before(number(1)), after(number(1)), last(pile(2)),
+               after(number(3)), first(number(3)), "",
+               before(pile(4)), first(pile(4)), after(number(9)),
+               first(number(1)), "",
+               first(pile(1)), last(pile(3)), last(number(1)), ""]
+
+    # Double Fanucci: the plays are in a text grid (window 10; DISCARD is
+    # the second line of the first column), the cards are hit-tested by the
+    # game itself.  A play wants two clicks, so this is also the test that
+    # the grid goes on asking for clicks.
+    discard = ["mouse:3,1,10", "mouse:3,1,10"]
+    fanucci = ["restore", "sit", "", ""] + discard + [at(20, 64)]
+    for x in (112, 165, 218, 271):
+        fanucci += [at(x, 64), ""] + discard
+    fanucci += ["", "mouse:20,2,10", "mouse:70,3,10", "mouse:20,0,10",
+                "mouse:20,0,10"]
+    return {"tower": ("open louvered door.qzl", tower),
+            "peggleboz": ("play peggleboz.glksave", peggleboz),
+            "snarfem": ("snarfem.qzl", snarfem),
+            "fanucci": ("fanucci sit at table.qzl", fanucci)}
 
 
 def stage(work, build):
@@ -256,6 +366,16 @@ def cases():
                                     dict(graphics=APPLE2))])
         add("walk-gfx-toggle", [(interleave(walk, 29, ["gfx:0", "gfx:1"] * 20),
                                  dict(graphics=BLORB))])
+        tall = ["arrange:500x1400", "arrange:1200x1000", "arrange:900x2000",
+                "arrange:700x1100"]
+        for fmt, label in FORMATS.items():
+            if fmt == NONE:
+                continue
+            add("tall-" + label, [(interleave(head, 6, tall),
+                                   dict(graphics=fmt, width=700,
+                                        height=1100))])
+            add("walk-tall-" + label, [(walk, dict(graphics=fmt, width=640,
+                                                   height=1000))])
         # Pictures unseen: the visual puzzles are offered solved or simplified.
         add("walk-nographics", [(walk, dict(graphics=BLORB, graphics_on=0,
                                             affirm="y"))])
@@ -272,14 +392,35 @@ def cases():
             for fmt in (BLORB, VGA, APPLE2, AMIGA, MACBW, CGA):
                 add("%s-%s" % (label, FORMATS[fmt]),
                     [(script, dict(graphics=fmt))])
+            add(label + "-ega", [(script, dict(graphics=EGA))])
+            # The same screens in a window much taller than the pictures,
+            # where the borders have to be extended downwards.
+            for fmt, fmt_label in FORMATS.items():
+                if fmt != NONE:
+                    add("%s-tall-%s" % (label, fmt_label),
+                        [(script, dict(graphics=fmt, width=700,
+                                       height=1100))])
             add(label + "-resize", [(interleave(script, 7, sizes * 3),
                                      dict(graphics=BLORB))])
             add(label + "-switch", [(interleave(script, 9, switches * 2),
                                      dict(graphics=BLORB))])
+    # The Zork Zero minigames by mouse, from saved games.
+    game = GAMES["zork0"]
+    if game["main"] in game["revisions"]:
+        story = os.path.join(game["staged"], game["main"])
+        for width, height in ((800, 600), (1000, 700), (430, 600)):
+            for label, (save, script) in minigames(width).items():
+                save = os.path.join(SAVES, save)
+                if os.path.exists(save):
+                    out.append(("zork0-mouse-%s-%dx%d" % (label, width, height),
+                                "zork0", story,
+                                [(script, dict(graphics=BLORB, width=width,
+                                               height=height,
+                                               savepath=save))]))
     return out
 
 
-def run_case(terp, work, case):
+def run_case(terp, work, pictures, case):
     name, game, story, sessions = case
     signature = "v6trace-" + name
     saves = os.path.join(AUTOSAVES, signature)
@@ -296,7 +437,7 @@ def run_case(terp, work, case):
             errors.append("====== session %d\n" % (index + 1))
         lines, rc, err, left = v6trace.run(terp, story, home, script,
                                            env=env, patient=game != "journey",
-                                           **options)
+                                           pictures=pictures, **options)
         trace += lines
         trace.append("=== exit %s, %d script entries left" % (rc, len(left)))
         # Window tags depend on how many windows the earlier, autosaved
@@ -347,11 +488,12 @@ def main():
         if listing:
             print("\n".join(c[0] for c in todo))
             return 0
-        os.makedirs(out, exist_ok=True)
+        pictures = os.path.join(out, "pictures")
+        os.makedirs(pictures, exist_ok=True)
         changed, missing, unhealthy = [], [], []
         with concurrent.futures.ThreadPoolExecutor(jobs) as pool:
             for name, trace, err in pool.map(
-                    lambda c: run_case(terp, work, c), todo):
+                    lambda c: run_case(terp, work, pictures, c), todo):
                 with open(os.path.join(out, name + ".trace"), "w") as f:
                     f.write(trace)
                 with open(os.path.join(out, name + ".err"), "w") as f:
@@ -382,6 +524,11 @@ def main():
             for line in changed:
                 print("CHANGED  " + line)
             print("%d changed, %d new" % (len(changed), len(missing)))
+            ran = {c[0] for c in todo}
+            names = [n for n in v6screens.changed_cases(compare, out)
+                     if n in ran]
+            if names:
+                v6screens.compare(compare, out, names, jobs=jobs)
             return 1 if changed else 0
         return 0
     finally:

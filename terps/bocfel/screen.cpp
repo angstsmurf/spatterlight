@@ -41,7 +41,7 @@ extern "C" {
 #ifdef SPATTERLIGHT
 #include "spatterlight-autosave.h"
 #include "draw_image.hpp"
-#include "extract_apple_2.h"
+#include "draw_border.hpp"
 #include "find_graphics_files.hpp"
 #include "arthur.hpp"
 #include "journey.hpp"
@@ -4064,28 +4064,15 @@ void window_change()
                 if (graphics_type_changed) {
                     free_images();
                     image_count = 0;
-                    bool found = false;
                     bool was_apple = (graphics_type == kGraphicsTypeApple2);
-                    if (gli_z6_graphics == kGraphicsTypeApple2) {
-                        image_count = extract_apple2_disk_images(found_graphics_files.at(kGraphicsFileWoz).c_str(), &raw_images, &pixversion);
-                        if (image_count > 0) {
-                            found = true;
-                            graphics_type = kGraphicsTypeApple2;
-                            hw_screenwidth = 140;
-                            pixelwidth = 2.0;
-                        }
-                    }
 
-                    if (!found) {
+                    if (gli_z6_graphics != kGraphicsTypeApple2 || !load_apple2_graphics()) {
                         find_and_load_z6_graphics();
                     }
 
                     // If we were using Apple 2 graphics and found no other kind, fall back to Apple 2 graphics again
                     if (graphics_type == kGraphicsTypeNoGraphics && was_apple) {
-                        image_count = extract_apple2_disk_images(found_graphics_files.at(kGraphicsFileWoz).c_str(), &raw_images, &pixversion);
-                        if (image_count != 0) {
-                            graphics_type = kGraphicsTypeApple2;
-                        }
+                        load_apple2_graphics();
                     }
                 }
             }
@@ -7674,7 +7661,7 @@ void init_screen(bool first_run)
             get_image_size(1, &width, nullptr);
             if ((is_spatterlight_arthur && width == 436) || (is_spatterlight_zork0 && width == 480) || (is_spatterlight_journey && width == 166) || (is_spatterlight_shogun && width == 479)) {
                 graphics_type = kGraphicsTypeMacBW;
-                hw_screenwidth = 480;
+                set_hw_screen_geometry(graphics_type);
                 for (int i = 0; i < image_count; i++) {
                     raw_images[i].type = kGraphicsTypeMacBW;
                 }

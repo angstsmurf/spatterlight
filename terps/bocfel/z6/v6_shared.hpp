@@ -16,6 +16,7 @@ extern "C" {
 
 #include <cstddef>
 #include <cstdint>
+#include <vector>
 
 void adjust_definitions_window(void);
 void redraw_hint_screen_on_resize(void);
@@ -52,6 +53,11 @@ void v6_match_status_window_to_graphics_setting(Window *status);
 // Make the next @read_char return at once: used for the "press any key"
 // after a full-screen picture that was left out.
 void v6_skip_next_keypress(void);
+
+// Calls a game routine found by find_entrypoints(), which records them as
+// byte addresses.
+uint16_t call_routine(uint32_t address, std::vector<uint16_t> args = {});
+void v6_describe_fullscreen_image(const char *message);
 extern bool v6_skip_keypress;
 
 void DO_HINTS(void);
@@ -124,10 +130,15 @@ extern InfocomV6MenuType hints_depth;
 #define V6_STATUS_WINDOW windows[1]
 #define V6_GRAPHICS_BG windows[7]
 
-#define STRING_BUFFER_SIZE 15
+constexpr int STRING_BUFFER_SIZE = 15;
+
+// Room for a hint topic or question title and its terminator
+constexpr int kHintTitleMax = 64;
+
+constexpr int kRGBWhite = 0xffffff;
 
 // Flat colours standing in for the EGA hint border's dithered patterns
-#define ROSE_TAUPE 0x836767
-#define HINT_MAUVE 0xd47fd4
+constexpr int ROSE_TAUPE = 0x836767;
+constexpr int HINT_MAUVE = 0xd47fd4;
 
 #endif /* v6_shared_hpp */

@@ -3962,6 +3962,7 @@
 		C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = BlorbFramework.docc; sourceTree = "<group>"; };
 		C3F709152756127B00CAD227 /* DownloadButton.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DownloadButton.xib; sourceTree = "<group>"; };
 		C3F743782FC0530C009DFFB4 /* draw_border.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = draw_border.cpp; sourceTree = "<group>"; };
+		C3F7437A2FC0530D009DFFB4 /* draw_border.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = draw_border.hpp; sourceTree = "<group>"; };
 		C3F9D8832675FCE00076EAFB /* OSCategories.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSCategories.m; sourceTree = "<group>"; };
 		C3F9D8862675FCE00076EAFB /* OSCategories.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OSCategories.h; sourceTree = "<group>"; };
 		C3F9D8892675FCF70076EAFB /* OSImageHashing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OSImageHashing.m; sourceTree = "<group>"; };
@@ -7104,6 +7105,7 @@
 				C3ED63522C6E1192000F90A8 /* draw_image.hpp */,
 				C3ED63582C6E1193000F90A8 /* draw_image.cpp */,
 				C3F743782FC0530C009DFFB4 /* draw_border.cpp */,
+				C3F7437A2FC0530D009DFFB4 /* draw_border.hpp */,
 				C3ED63562C6E1192000F90A8 /* draw_png.h */,
 				C3ED63532C6E1192000F90A8 /* draw_png.cpp */,
 				C384A67A2C6EAF770081FC50 /* decompress_amiga.hpp */,

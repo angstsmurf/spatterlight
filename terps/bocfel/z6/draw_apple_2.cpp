@@ -15,15 +15,9 @@
 
 #include "draw_apple_2.h"
 
-typedef struct  {
-    uint8_t red;
-    uint8_t green;
-    uint8_t blue;
-} rgb_t;
-
 // 16-color Apple II palette, hand-crafted to approximate the output
 // colours of the AppleWin emulator. Indexed 0x0-0xF.
-static const rgb_t apple2_palette[] =
+static const uint8_t apple2_palette[16][3] =
 {
     {0x0,  0x0,  0x0 }, /* 0x0: Black */
     {0xd4, 0x3a, 0x48}, /* 0x1: Dark Red */
@@ -43,48 +37,6 @@ static const rgb_t apple2_palette[] =
     {0xff, 0xff, 0xff}  /* 0xF: White */
 };
 
-// Converts an array of palette-indexed pixels into a 32-bit RGBA pixmap.
-// Each input byte is looked up in the Apple II palette and expanded to
-// 4 bytes (R, G, B, A). Transparent pixels (matching transparent_color
-// when transparency is enabled) are left as zeroed-out RGBA (fully
-// transparent). Takes ownership of and frees the input indexed_pixels array.
-//
-// The pixel count is derived from the image the same way decompress_apple2
-// sized indexed_pixels, so the two can't disagree and walk off the end.
-static uint8_t *deindex(uint8_t *indexed_pixels, ImageStruct *image) {
-    if (indexed_pixels == nullptr || image == nullptr) {
-        free(indexed_pixels);
-        return nullptr;
-    }
-
-    size_t pixel_count = image_buffer_size(image->width, image->height, 1);
-    if (pixel_count == 0) {
-        free(indexed_pixels);
-        return nullptr;
-    }
-
-    uint8_t *rgba_buffer = image_alloc(image->width, image->height, kBytesPerPixel, nullptr);
-    if (rgba_buffer == nullptr) {
-        free(indexed_pixels);
-        return nullptr;
-    }
-
-    for (size_t pixel_index = 0; pixel_index < pixel_count; pixel_index++) {
-        uint8_t color_index = indexed_pixels[pixel_index] & 0x0f;
-        if (image->transparency && image->transparent_color == color_index)
-            continue;
-        rgb_t color = apple2_palette[color_index];
-        size_t write_offset = pixel_index * kBytesPerPixel;
-        rgba_buffer[write_offset + 0] = color.red;
-        rgba_buffer[write_offset + 1] = color.green;
-        rgba_buffer[write_offset + 2] = color.blue;
-        rgba_buffer[write_offset + 3] = 0xff;
-    }
-
-    free(indexed_pixels);
-    return rgba_buffer;
-}
-
 // Decompresses Apple II image data from an ImageStruct.
 // The format is: pairs of (color_index, run_length) bytes encoded as a
 // bitstream starting at offset 3. Each byte pair consists of a color
@@ -95,11 +47,16 @@ static uint8_t *deindex(uint8_t *indexed_pixels, ImageStruct *image) {
 // each pixel is XOR'd with the one directly above it (one scanline
 // width earlier), reconstructing the image from delta-encoded scanlines.
 // (The last part seems to be pure obfuscation.)
+// Only the low four bits of a color value are a palette index.
 static uint8_t *decompress_apple2(ImageStruct *image) {
     if (image == nullptr || image->data == nullptr)
         return nullptr;
 
     static const size_t kHeaderSize = 3;
+    // A byte above kColorMask after a color is a run length, stored with
+    // kRunLengthBias added.
+    static const uint8_t kColorMask = 0x0f;
+    static const uint8_t kRunLengthBias = 0x0e;
 
     if (image->datasize < kHeaderSize)
         return nullptr;
@@ -114,13 +71,13 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
     size_t pixel_offset = 0;
 
     while (pixel_offset < pixel_count && read_ptr < data_end) {
-        uint8_t color_value = *read_ptr++;
+        uint8_t color_value = *read_ptr++ & kColorMask;
 
         uint8_t run_length;
-        if (read_ptr >= data_end || *read_ptr <= 0x0f) {
+        if (read_ptr >= data_end || *read_ptr <= kColorMask) {
             run_length = 1;
         } else {
-            run_length = *read_ptr++ - 0x0e;
+            run_length = *read_ptr++ - kRunLengthBias;
         }
 
         for (uint8_t remaining = run_length; remaining != 0; remaining--) {
@@ -139,5 +96,6 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
 // Public entry point: decompresses an Apple II image and converts the
 // palette-indexed result to a 32-bit RGBA pixmap ready for display.
 uint8_t *draw_apple2(ImageStruct *image) {
-    return deindex(decompress_apple2(image), image);
+    ImageBuf indices(decompress_apple2(image));
+    return expand_indexed(indices.get(), image, apple2_palette);
 }

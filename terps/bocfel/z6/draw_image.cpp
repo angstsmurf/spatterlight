@@ -21,6 +21,7 @@ extern "C" {
 #include <cmath>
 #include <cstdio>
 #include <cstring>
+#include <string>
 #include "v6_image.h"
 #include "draw_png.h"
 #include "draw_apple_2.h"
@@ -81,8 +82,39 @@ static const uint8_t ega_colormap[16][3] =
 // is done in this coordinate space and scaled up to the Glk window by
 // flush_bitmap(). pixelwidth is the aspect-ratio correction factor used
 // for platforms whose pixels weren't square (e.g. CGA 2:1).
-float hw_screenwidth = 320.0;
+int hw_screenwidth = 320;
 float pixelwidth = 1.0;
+
+// Height in rows of a newly made pixmap. Drawing below that grows it.
+static constexpr int kInitialPixmapRows = 200;
+
+void set_hw_screen_geometry(GraphicsType type) {
+    switch (type) {
+        case kGraphicsTypeBlorb:
+        case kGraphicsTypeVGA:
+        case kGraphicsTypeAmiga:
+        case kGraphicsTypeNoGraphics:
+            hw_screenwidth = 320;
+            pixelwidth = 1.0;
+            break;
+        case kGraphicsTypeMacBW:
+            hw_screenwidth = 480;
+            pixelwidth = 1.0;
+            break;
+        case kGraphicsTypeEGA:
+        case kGraphicsTypeCGA:
+            hw_screenwidth = 640;
+            pixelwidth = 0.5;
+            break;
+        case kGraphicsTypeApple2:
+            hw_screenwidth = 140;
+            pixelwidth = 2.0;
+            break;
+    }
+    // What was drawn for a screen of another width means nothing now.
+    if (pixmap.exists() && pixmap.width_px != hw_screenwidth)
+        pixmap.create(hw_screenwidth, kInitialPixmapRows);
+}
 
 // Linear scan of the loaded image table for the entry whose Z-machine
 // picture number matches picnum. Returns nullptr if no such image exists.
@@ -98,13 +130,42 @@ ImageStruct *find_image(int picnum) {
 // per pixel (kBytesPerPixel, from v6_image.h).
 
 // Shared RGBA backing buffer all drawing routines composite into.
-// Lazily allocated by ensure_pixmap(); freed by clear_image_buffer().
+// Lazily made by ensure_pixmap(); discarded by clear_image_buffer().
 // Declared in draw_image.hpp so draw_border.cpp can read/write it too.
-uint8_t *pixmap = nullptr;
+Pixmap pixmap;
 
-// Current size of `pixmap` in bytes (NOT pixels). Grown by drawing routines
-// when an image extends below the currently-allocated area.
-int pixlength = hw_screenwidth * 200 * kBytesPerPixel;
+void Pixmap::create(int width, int height) {
+    data.assign(image_buffer_size(width, height, kBytesPerPixel), 0);
+    width_px = data.empty() ? 0 : width;
+}
+
+void Pixmap::clear() {
+    data.clear();
+    width_px = 0;
+}
+
+bool Pixmap::ensure_rows(int count) {
+    if (!exists())
+        return false;
+    size_t required_size = image_buffer_size(width_px, count, kBytesPerPixel);
+    if (required_size == 0)
+        return false;
+    if (data.size() < required_size)
+        data.resize(required_size, 0);
+    return true;
+}
+
+void Pixmap::clip_to_height(int count) {
+    if (count > 0 && count < rows())
+        data.resize((size_t)count * stride());
+}
+
+void Pixmap::erase_rows(int y, int count) {
+    if (y < 0 || count <= 0 || y >= rows())
+        return;
+    count = std::min(count, rows() - y);
+    memset(row(y), 0, (size_t)count * stride());
+}
 
 // Effective foreground/background for monochrome (Mac B/W, CGA) artwork.
 // Default to pure black/white but may be overwritten with theme colors.
@@ -118,26 +179,26 @@ void ensure_pixmap(winid_t winid) {
         fprintf(stderr, "ensure_pixmap called with a null winid!\n");
         return;
     }
-    if (pixmap == nullptr) {
+    if (!pixmap.exists()) {
         win_sizewin(winid->peer, 0, 0, gscreenw, gscreenh);
         glk_window_set_background_color(winid, user_selected_background);
-        pixmap = (uint8_t *)calloc(1, pixlength);
+        pixmap.create(hw_screenwidth, kInitialPixmapRows);
     }
 }
 
-// Serialize an RGBA buffer to a TIFF file at `name`. Used to hand the
+// Serialize an RGBA buffer to a TIFF file at `path`. Used to hand the
 // pixmap to the Glk image cache via a temp file. Silently no-ops if
 // `size` doesn't fit in the uint32_t TIFF row count; logs to stderr on
 // fopen failure with errno detail.
-static void write_to_tiff(const char *name, uint8_t *data, size_t size, uint32_t width) {
+static void write_to_tiff(const std::string &path, const uint8_t *data, size_t size, uint32_t width) {
     if (size > UINT32_MAX) {
         fprintf(stderr, "write_to_tiff: buffer too large (%zu bytes)\n", size);
         return;
     }
 
-    FILE *fptr = fopen(name, "wb");
+    FILE *fptr = fopen(path.c_str(), "wb");
     if (fptr == nullptr) {
-        fprintf(stderr, "write_to_tiff: fopen(\"%s\") failed: %s\n", name, strerror(errno));
+        fprintf(stderr, "write_to_tiff: fopen(\"%s\") failed: %s\n", path.c_str(), strerror(errno));
         return;
     }
 
@@ -153,9 +214,10 @@ static void write_to_tiff(const char *name, uint8_t *data, size_t size, uint32_t
 // entries therefore begin at slot 2, which is why several code paths below
 // write to &color_table[kReservedPaletteSlots][...].
 //
-// On disk, both image->palette and the module-shared global_palette use the
-// same legacy layout: a 1-byte count at offset 0 followed by interleaved
-// RGB triplets, hence the `&...[1]` skip when copying from either source.
+// For these decoders image->palette and the module-shared global_palette
+// both have the legacy layout (see ImageStruct::palette): a 1-byte count at
+// offset 0 followed by interleaved RGB triplets, hence the `&...[1]` skip
+// when copying from either source.
 static constexpr int kPaletteSize = 16;
 static constexpr int kReservedPaletteSlots = 2;
 static constexpr unsigned kMaxPaletteColors = kPaletteSize - kReservedPaletteSlots;
@@ -179,24 +241,19 @@ void extract_palette(ImageStruct *image) {
 
 // Generate a unique filename ending in ".tiff" by taking a Glk temp file
 // path and appending the extension. The underlying temp file is deleted
-// immediately so only the path string is reused. Caller frees with free().
-// Returns nullptr on failure.
+// immediately so only the path string is reused. Returns an empty string on
+// failure.
 //
 // NOTE: each call must return a *distinct* path. win_purgeimage() only sends
 // the filename to the host over IPC (see connect.c); the host reads the TIFF
 // asynchronously, so reusing one path across images lets a later flush
 // clobber a file the host hasn't read yet, producing broken/garbled images.
-static char *create_temp_tiff_file_name(void) {
+static std::string create_temp_tiff_file_name(void) {
     fileref_t *fileref = glk_fileref_create_temp(fileusage_Data, NULL);
     if (fileref == nullptr)
-        return nullptr;
-    const char *filename = glkunix_fileref_get_filename(fileref);
-    size_t filenamelength = strlen(filename);
-    char *tiffname = (char *)malloc(filenamelength + 6);
-    if (tiffname != nullptr) {
-        memcpy(tiffname, filename, filenamelength + 1);
-        strncat(tiffname, ".tiff", 5);
-    }
+        return "";
+    std::string tiffname = glkunix_fileref_get_filename(fileref);
+    tiffname += ".tiff";
     glk_fileref_delete_file(fileref);
     glk_fileref_destroy(fileref);
     return tiffname;
@@ -216,7 +273,7 @@ void flush_bitmap(winid_t winid) {
     if (winid->type != wintype_Graphics) {
         fprintf(stderr, "ERROR: window is not graphics\n");
     }
-    if (pixmap == nullptr) {
+    if (!pixmap.exists()) {
         glk_window_clear(winid);
         return;
     }
@@ -225,16 +282,14 @@ void flush_bitmap(winid_t winid) {
     if (image_needs_redraw)
         glk_window_clear(winid);
 
-    char *filename = create_temp_tiff_file_name();
-    if (filename == nullptr)
+    std::string filename = create_temp_tiff_file_name();
+    if (filename.empty())
         return;
-    write_to_tiff(filename, pixmap, pixlength, hw_screenwidth);
-    win_purgeimage(kPixmapResourceId, filename, pixlength);
-    free(filename);
+    write_to_tiff(filename, pixmap.data.data(), pixmap.data.size(), pixmap.width_px);
+    win_purgeimage(kPixmapResourceId, filename.c_str(), (int)pixmap.data.size());
     // Stretch the pixmap to the full window width; its height follows from
     // the number of pixmap rows and the pixel aspect ratio.
-    float rows = pixlength / (kBytesPerPixel * hw_screenwidth);
-    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * rows / hw_screenwidth, 0, 0);
+    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixmap.rows() / pixmap.width_px, 0, 0);
     image_needs_redraw = false;
 }
 
@@ -258,51 +313,51 @@ bool get_image_size(int picnum, int *width, int *height) {
     return true;
 }
 
-// Composites a source bitmap onto a destination bitmap at position (x, y).
+// The part draw() and fill() share: place a width x height block at (*x, y).
+// Clamps *x so the block stays inside the pixmap's width and grows the pixmap
+// downward to hold the block's last row. Returns false if there is nothing to
+// draw: the block is wider than the pixmap, lies wholly above it, or the
+// pixmap could not be grown.
+bool Pixmap::prepare_dest(int *x, int y, int width, int height) {
+    if (width > width_px)
+        return false;
+    if (*x < 0)
+        *x = 0;
+    if (*x > width_px - width)
+        *x = width_px - width;
+
+    if (y + height <= 0)
+        return false;
+
+    return ensure_rows(y + height);
+}
+
+// Composites a source bitmap onto the pixmap at position (x, y).
 // If flipped is true, source rows are drawn in reverse order (vertical flip).
 // Source pixels with zero alpha are treated as transparent and skipped.
-// The destination buffer is reallocated (extended downward) if too small.
-void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int src_width,
-                           uint8_t **dst_pixels, int *dst_buffer_size, int dst_width,
-                           int dest_x, int dest_y, bool flipped) {
-    if (src_pixels == nullptr || dst_pixels == nullptr || *dst_pixels == nullptr)
-        return;
-    if (src_width <= 0 || dst_width <= 0)
+// The pixmap is extended downward if too small.
+void Pixmap::draw(const uint8_t *src, int src_size, int src_width, int x, int y, bool flipped) {
+    if (src == nullptr || !exists() || src_width <= 0)
         return;
 
     image_needs_redraw = true;
 
     const int src_stride = src_width * kBytesPerPixel;
-    const int src_height = src_buffer_size / src_stride;
+    const int src_height = src_size / src_stride;
     if (src_height <= 0)
         return;
 
-    // Clamp dest_x to keep the source within the destination width
-    if (dest_x < 0)
-        dest_x = 0;
-    if (src_width > dst_width)
-        return;
-    if (dest_x > dst_width - src_width)
-        dest_x = dst_width - src_width;
-
-    // Nothing to composite if the source lands entirely above the canvas.
-    if (dest_y + src_height <= 0)
+    if (!prepare_dest(&x, y, src_width, src_height))
         return;
 
-    // Extend destination buffer downward if necessary.
-    size_t dst_size = (size_t)*dst_buffer_size;
-    if (!grow_image_buffer(dst_pixels, &dst_size, dst_width, dest_y + src_height, kBytesPerPixel))
-        return;
-    *dst_buffer_size = (int)dst_size;
-
-    for (int row = 0; row < src_height; row++) {
-        const int draw_y = dest_y + row;
+    for (int line = 0; line < src_height; line++) {
+        const int draw_y = y + line;
         if (draw_y < 0)
             continue;
 
-        const int src_row = flipped ? (src_height - 1 - row) : row;
-        const uint8_t *src_line = src_pixels + src_row * src_stride;
-        uint8_t *dst_line = *dst_pixels + (draw_y * dst_width + dest_x) * kBytesPerPixel;
+        const int src_row = flipped ? (src_height - 1 - line) : line;
+        const uint8_t *src_line = src + src_row * src_stride;
+        uint8_t *dst_line = pixel(x, draw_y);
 
         for (int col = 0; col < src_width; col++) {
             const int pixel_offset = col * kBytesPerPixel;
@@ -312,74 +367,45 @@ void draw_bitmap_on_bitmap(const uint8_t *src_pixels, int src_buffer_size, int s
     }
 }
 
-// Fill an opaque rectangle on the global pixmap at (dest_x, dest_y).
-// Clamps dest_x into bounds, grows the pixmap downward if rect_height
-// runs past the current allocation, and refuses requests wider than the
-// hardware screen.
-void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_width, int rect_height) {
-    int screen_width = (int)hw_screenwidth;
-
-    if (pixmap == nullptr || rect_width <= 0 || rect_height <= 0 || rect_width > screen_width)
+// Fill an opaque rectangle at (x, y). Clamps x into bounds, grows the pixmap
+// downward if the rectangle runs past its last row, and refuses requests
+// wider than the pixmap.
+void Pixmap::fill(glui32 color, int x, int y, int width, int height) {
+    if (!exists() || width <= 0 || height <= 0)
+        return;
+    if (!prepare_dest(&x, y, width, height))
         return;
 
-    if (dest_x < 0)
-        dest_x = 0;
-    if (dest_x > screen_width - rect_width)
-        dest_x = screen_width - rect_width;
-
-    // Nothing to fill if the rectangle lands entirely above the canvas.
-    if (dest_y + rect_height <= 0)
-        return;
-
-    // Extend pixmap downward if necessary.
-    size_t pixmap_size = (size_t)pixlength;
-    if (!grow_image_buffer(&pixmap, &pixmap_size, screen_width, dest_y + rect_height, kBytesPerPixel))
-        return;
-    pixlength = (int)pixmap_size;
-
-    uint8_t red   = (color >> 16) & 0xff;
-    uint8_t green = (color >> 8) & 0xff;
-    uint8_t blue  = color & 0xff;
-
-    for (int row = 0; row < rect_height; row++) {
-        int draw_y = dest_y + row;
-        if (draw_y < 0)
-            continue;
-
-        uint8_t *write_ptr = pixmap + (draw_y * screen_width + dest_x) * kBytesPerPixel;
-        if (write_ptr - pixmap + rect_width * kBytesPerPixel > pixlength)
-            break;
-
-        for (int col = 0; col < rect_width; col++) {
-            write_ptr[0] = red;
-            write_ptr[1] = green;
-            write_ptr[2] = blue;
+    for (int line = std::max(0, -y); line < height; line++) {
+        uint8_t *write_ptr = pixel(x, y + line);
+        for (int col = 0; col < width; col++) {
+            rgb_to_bytes(color, write_ptr);
             write_ptr[3] = 0xff;
             write_ptr += kBytesPerPixel;
         }
     }
 }
 
+// Fill an opaque rectangle on the global pixmap at (dest_x, dest_y), in
+// hw_screen pixels.
+void draw_rectangle_on_bitmap(glui32 color, int dest_x, int dest_y, int rect_width, int rect_height) {
+    pixmap.fill(color, dest_x, dest_y, rect_width, rect_height);
+}
+
 // Read back an opaque pixel from the global pixmap as 0xRRGGBB.
 // Returns false if (x, y) is out of bounds or the pixel is transparent,
 // in which case *color is left untouched.
 bool sample_pixmap_pixel(int x, int y, glui32 *color) {
-    int screen_width = (int)hw_screenwidth;
-
-    if (pixmap == nullptr || color == nullptr)
+    if (color == nullptr)
         return false;
-    if (x < 0 || y < 0 || x >= screen_width)
+    if (x < 0 || y < 0 || x >= pixmap.width_px || y >= pixmap.rows())
         return false;
 
-    size_t offset = ((size_t)y * (size_t)screen_width + (size_t)x) * kBytesPerPixel;
-    if (offset + kBytesPerPixel > (size_t)pixlength)
-        return false;
-
-    const uint8_t *pixel = pixmap + offset;
+    const uint8_t *pixel = pixmap.pixel(x, y);
     if (pixel[3] == 0)
         return false;
 
-    *color = ((glui32)pixel[0] << 16) | ((glui32)pixel[1] << 8) | (glui32)pixel[2];
+    *color = bytes_to_rgb(pixel);
     return true;
 }
 
@@ -417,18 +443,16 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
     // Temporarily widen image->width so decompress_vga allocates for the padded stride
     int original_width = image->width;
     image->width = padded_width;
-    uint8_t *decompressed = decompress_vga(image);
+    ImageBuf decompressed(decompress_vga(image));
     image->width = original_width;
 
     if (decompressed == nullptr)
         return nullptr;
 
     size_t rgba_size = 0;
-    uint8_t *rgba_buffer = image_alloc(padded_width, image->height, kBytesPerPixel, &rgba_size);
-    if (rgba_buffer == nullptr) {
-        free(decompressed);
+    ImageBuf rgba_buffer(image_alloc(padded_width, image->height, kBytesPerPixel, &rgba_size));
+    if (rgba_buffer == nullptr)
         return nullptr;
-    }
 
     // Opaque CGA images store 8 pixels per byte
     // (unlike monochrome Mac images which use the same wasteful format as transparent ones)
@@ -439,34 +463,22 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
             if (rgba_offset + 3 >= rgba_size)
                 break;
             uint32_t color = (packed_byte >> (7 - bit) & 1) ? monochrome_white : monochrome_black;
-            rgba_buffer[rgba_offset + 0] = color >> 16;
-            rgba_buffer[rgba_offset + 1] = (color >> 8) & 0xff;
-            rgba_buffer[rgba_offset + 2] = color & 0xff;
+            rgb_to_bytes(color, &rgba_buffer[rgba_offset]);
             rgba_buffer[rgba_offset + 3] = 0xff;
         }
     }
 
-    uint8_t *output = nullptr;
+    if (padded_width == image->width)
+        return rgba_buffer.release();
 
     // Shave off padding bits
-    if (padded_width > image->width) {
-        size_t row_bytes = (size_t)image->width * kBytesPerPixel;
-        size_t output_size = row_bytes * image->height;
-        output = (uint8_t *)malloc(output_size);
-        if (output == nullptr)
-            exit(1);
-        size_t padded_row_bytes = (size_t)padded_width * kBytesPerPixel;
-        uint8_t *write_ptr = output;
-        for (int row = 0; row < image->height; row++) {
-            memcpy(write_ptr, rgba_buffer + padded_row_bytes * row, row_bytes);
-            write_ptr += row_bytes;
-        }
-        free(rgba_buffer);
-    } else {
-        output = rgba_buffer;
-    }
-
-    free(decompressed);
+    uint8_t *output = image_alloc(image->width, image->height, kBytesPerPixel, nullptr);
+    if (output == nullptr)
+        return nullptr;
+    size_t row_bytes = (size_t)image->width * kBytesPerPixel;
+    size_t padded_row_bytes = (size_t)padded_width * kBytesPerPixel;
+    for (int row = 0; row < image->height; row++)
+        memcpy(output + row_bytes * row, &rgba_buffer[padded_row_bytes * row], row_bytes);
     return output;
 }
 
@@ -490,13 +502,8 @@ static void populate_color_table(ImageStruct *image, bool use_previous_palette,
     switch (image->type) {
         case kGraphicsTypeMacBW:
         case kGraphicsTypeCGA:
-            color_table[2][RED]   = monochrome_white >> 16;
-            color_table[2][GREEN] = (monochrome_white >> 8) & 0xff;
-            color_table[2][BLUE]  = monochrome_white & 0xff;
-
-            color_table[3][RED]   = monochrome_black >> 16;
-            color_table[3][GREEN] = (monochrome_black >> 8) & 0xff;
-            color_table[3][BLUE]  = monochrome_black & 0xff;
+            rgb_to_bytes(monochrome_white, color_table[2]);
+            rgb_to_bytes(monochrome_black, color_table[3]);
             break;
         case kGraphicsTypeEGA:
             memcpy(color_table, ega_colormap, kPaletteSize * kBytesPerColor);
@@ -506,6 +513,31 @@ static void populate_color_table(ImageStruct *image, bool use_previous_palette,
                    kMaxPaletteColors * kBytesPerColor);
             break;
     }
+}
+
+uint8_t *expand_indexed(const uint8_t *indices, const ImageStruct *image, const uint8_t palette[16][3]) {
+    if (indices == nullptr)
+        return nullptr;
+
+    // The same product the decoders size `indices` with, so the loop below
+    // can't run off the end of it.
+    size_t pixel_count = image_buffer_size(image->width, image->height, 1);
+    uint8_t *rgba_buffer = image_alloc(image->width, image->height, kBytesPerPixel, nullptr);
+    if (rgba_buffer == nullptr)
+        return nullptr;
+
+    for (size_t pixel_index = 0; pixel_index < pixel_count; pixel_index++) {
+        uint8_t color_index = indices[pixel_index];
+        if (color_index >= kPaletteSize ||
+            (image->transparency && image->transparent_color == color_index)) {
+            // Leave the pixel transparent black, as image_alloc() made it.
+            continue;
+        }
+        uint8_t *pixel = rgba_buffer + pixel_index * kBytesPerPixel;
+        memcpy(pixel, palette[color_index], kBytesPerColor);
+        pixel[3] = 0xff;
+    }
+    return rgba_buffer;
 }
 
 // Decode an indexed image for any of the legacy platforms (Amiga, Mac B/W,
@@ -519,79 +551,52 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous
     uint8_t color_table[kPaletteSize][kBytesPerColor];
     populate_color_table(image, use_previous_palette, color_table);
 
-    uint8_t *decompressed = nullptr;
+    ImageBuf decompressed;
     switch (image->type) {
         case kGraphicsTypeVGA:
         case kGraphicsTypeEGA:
         case kGraphicsTypeCGA:
-            decompressed = decompress_vga(image);
+            decompressed.reset(decompress_vga(image));
             break;
         case kGraphicsTypeAmiga:
         case kGraphicsTypeMacBW:
-            decompressed = decompress_amiga(image);
+            decompressed.reset(decompress_amiga(image));
             break;
         default:
             fprintf(stderr, "draw_amiga_mac_cga_ega_vga: unsupported image type %d\n", image->type);
             return nullptr;
     }
 
-    if (decompressed == nullptr)
-        return nullptr;
-
-    // The same product decompress_vga/decompress_amiga sized `decompressed`
-    // with, so the loop below can't run off the end of it.
-    size_t pixel_count = image_buffer_size(image->width, image->height, 1);
-    uint8_t *rgba_buffer = image_alloc(image->width, image->height, kBytesPerPixel, nullptr);
-    if (rgba_buffer == nullptr) {
-        free(decompressed);
-        return nullptr;
-    }
-
-    for (size_t pixel_index = 0; pixel_index < pixel_count; pixel_index++) {
-        uint8_t color_index = decompressed[pixel_index];
-        size_t write_offset = pixel_index * kBytesPerPixel;
-        if (color_index >= kPaletteSize ||
-            (image->transparency && image->transparent_color == color_index)) {
-            // Leave the pixel transparent black, as image_alloc() made it.
-            continue;
-        }
-        rgba_buffer[write_offset + 0] = color_table[color_index][RED];
-        rgba_buffer[write_offset + 1] = color_table[color_index][GREEN];
-        rgba_buffer[write_offset + 2] = color_table[color_index][BLUE];
-        rgba_buffer[write_offset + 3] = 0xff;
-    }
-
-    free(decompressed);
-    return rgba_buffer;
+    return expand_indexed(decompressed.get(), image, color_table);
 }
 
 // Dispatch image decoding to the right backend based on image->type and,
-// for CGA, whether the image is opaque or transparent. Returns a freshly
-// allocated RGBA buffer (caller frees) or nullptr on unsupported types.
+// for CGA, whether the image is opaque or transparent. Unless
+// use_previous_palette is set, the image's palette (if it has one) also
+// becomes the active global_palette, for this image and the ones after it.
+// Returns a freshly allocated RGBA buffer (caller frees) or nullptr on
+// unsupported types.
 static uint8_t *decompress_image(ImageStruct *image, bool use_previous_palette) {
-    uint8_t *result = nullptr;
+    if (!use_previous_palette)
+        extract_palette(image);
+
     switch (image->type) {
         case kGraphicsTypeApple2:
-            result = draw_apple2(image);
-            break;
+            return draw_apple2(image);
         case kGraphicsTypeBlorb:
-            result = draw_png(image, use_previous_palette);
-            break;
+            return draw_png(image);
         case kGraphicsTypeCGA:
-            if (!image->transparency) {
-                result = draw_opaque_cga(image);
-                break;
-            } // fallthrough
+            if (!image->transparency)
+                return draw_opaque_cga(image);
+            [[fallthrough]];
         case kGraphicsTypeEGA:
         case kGraphicsTypeVGA:
         case kGraphicsTypeMacBW:
         case kGraphicsTypeAmiga:
-            result = draw_amiga_mac_cga_ega_vga(image, use_previous_palette);
-            break;
+            return draw_amiga_mac_cga_ega_vga(image, use_previous_palette);
         default:
-            break;
+            return nullptr;
     }
-    return result;
 }
 
 // Convenience wrapper: look up an image by number and load its palette as
@@ -603,47 +608,31 @@ void extract_palette_from_picnum(int picnum) {
     }
 }
 
-// Workhorse: decode an image and composite it at (x, y) into the caller's
-// destination pixmap. x and y are in display coordinates; they get divided
-// by xscale/yscale to land at the right offset in the hw_screen-space
-// destination. If use_previous_palette is false the image's palette is
-// also loaded as the new global_palette.
-static void draw_to_pixmap_palette_optional(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped, bool use_previous_palette) {
-    if (*pixmap == nullptr) {
-        fprintf(stderr, "draw_to_pixmap_palette_optional called with a nullptr pixmap!\n");
-        return;
-    }
-    uint8_t *result = decompress_image(image, use_previous_palette);
-    if (result != nullptr) {
-        if (!use_previous_palette)
-            extract_palette(image);
-        int result_size = (int)image_buffer_size(image->width, image->height, kBytesPerPixel);
-        draw_bitmap_on_bitmap(result, result_size, image->width, pixmap, pixmapsize, screenwidth, (float)x / xscale, (float)y / yscale, flipped);
-        free(result);
-    }
-}
-
-// draw_to_pixmap_palette_optional with palette replacement enabled.
-static void draw_to_pixmap(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
-    draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, false);
-}
-
-// As draw_to_pixmap, but keeps whatever palette is already loaded. Used
-// when compositing several images that should share a single palette.
-static void draw_to_pixmap_using_current_palette(ImageStruct *image, uint8_t **pixmap, int *pixmapsize, int screenwidth, int x, int y, float xscale, float yscale, bool flipped) {
-    draw_to_pixmap_palette_optional(image, pixmap, pixmapsize, screenwidth, x, y, xscale, yscale, flipped, true);
-}
-
-// Top-level "draw image N at (x, y)" entry point. Resolves the picture
-// number, ensures the global pixmap is allocated for `winid`, and composites
-// into it at the configured screen scaling factors.
-void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
+// Workhorse: decode picture `picnum` and composite it into the global pixmap
+// with its top left corner at (x, y), in hw_screen pixels. Unless
+// keep_palette is set, the image's palette also becomes the new
+// global_palette. Does nothing if there is no such picture or no pixmap yet
+// (see ensure_pixmap()).
+static void draw_picture(int picnum, int x, int y, bool flipped, bool keep_palette) {
     ImageStruct *image = find_image(picnum);
-    if (image == nullptr)
+    if (image == nullptr || !pixmap.exists())
+        return;
+    ImageBuf result(decompress_image(image, keep_palette));
+    if (result == nullptr)
+        return;
+    int result_size = (int)image_buffer_size(image->width, image->height, kBytesPerPixel);
+    pixmap.draw(result.get(), result_size, image->width, x, y, flipped);
+}
+
+// Top-level "draw image N at (x, y)" entry point, with x and y in display
+// coordinates. Ensures the global pixmap is allocated for `winid` and
+// composites the picture into it at the configured screen scaling factors.
+void draw_to_buffer(winid_t winid, int picnum, int x, int y) {
+    if (find_image(picnum) == nullptr)
         return;
 
     ensure_pixmap(winid);
-    draw_to_pixmap(image, &pixmap, &pixlength, hw_screenwidth, x, y, imagescalex, imagescaley, false);
+    draw_picture(picnum, (float)x / imagescalex, (float)y / imagescaley, false, false);
 }
 
 // Re-render image `picnum` (optionally flipped) into a TIFF and register
@@ -655,33 +644,24 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     if (image == nullptr)
         return nullptr;
 
-    uint8_t *result = decompress_image(image, false);
+    ImageBuf result(decompress_image(image, false));
     if (result == nullptr)
         return nullptr;
 
-    extract_palette(image);
     size_t pixmapsize = image_buffer_size(image->width, image->height, kBytesPerPixel);
-    if (pixmapsize == 0) {
-        free(result);
+    if (pixmapsize == 0)
         return nullptr;
-    }
 
-    char *filename = create_temp_tiff_file_name();
-
-    if (filename == nullptr) {
-        free(result);
+    std::string filename = create_temp_tiff_file_name();
+    if (filename.empty())
         return nullptr;
-    }
 
     if (flipped) {
-        flip_bitmap(image, result);
+        flip_bitmap(image, result.get());
     }
 
-    write_to_tiff(filename, result, pixmapsize, image->width);
-    free(result);
-
-    win_purgeimage(picnum, filename, (int)pixmapsize);
-    free(filename);
+    write_to_tiff(filename, result.get(), pixmapsize, image->width);
+    win_purgeimage(picnum, filename.c_str(), (int)pixmapsize);
     return image;
 }
 
@@ -707,34 +687,26 @@ void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y, float s
 // load its palette as the new active palette. Coordinates are in hw_screen
 // pixels.
 void draw_to_pixmap_unscaled(int image, int x, int y) {
-    ImageStruct *img = find_image(image);
-    if (img != nullptr)
-        draw_to_pixmap(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
+    draw_picture(image, x, y, false, false);
 }
 
-// Like draw_to_pixmap_unscaled but keeps the currently active palette.
+// Like draw_to_pixmap_unscaled but keeps the currently active palette. Used
+// when compositing several images that should share a single palette.
 void draw_to_pixmap_unscaled_using_current_palette(int image, int x, int y) {
-    ImageStruct *img = find_image(image);
-    if (img != nullptr)
-        draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, false);
+    draw_picture(image, x, y, false, true);
 }
 
 // Like draw_to_pixmap_unscaled_using_current_palette but vertically flipped.
 // Used for tiled fills where alternating tiles should be mirrored.
 void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int y) {
-    ImageStruct *img = find_image(image);
-    if (img != nullptr)
-        draw_to_pixmap_using_current_palette(img, &pixmap, &pixlength, hw_screenwidth, x, y, 1, 1, true);
+    draw_picture(image, x, y, true, true);
 }
 
-// Discard the global pixmap so the next ensure_pixmap() reallocates a
-// fresh zeroed buffer. Used when switching display modes or starting a
+// Discard the global pixmap so the next ensure_pixmap() makes a fresh
+// transparent one. Used when switching display modes or starting a
 // new fullscreen scene.
 void clear_image_buffer(void) {
-    if (pixmap != nullptr) {
-        free(pixmap);
-        pixmap = nullptr;
-    }
+    pixmap.clear();
 }
 
 // Picture number of the most recently displayed centered slideshow image,

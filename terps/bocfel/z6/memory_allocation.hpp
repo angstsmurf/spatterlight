@@ -11,9 +11,9 @@
 #include "types.h"
 
 // malloc / calloc that exit(1) on failure, so callers need not check.
-// (The overflow-checked image buffer allocators image_alloc() and
-// grow_image_buffer(), also defined in memory_allocation.cpp, are declared
-// in v6_image.h and return nullptr instead.)
+// (The overflow-checked image buffer allocator image_alloc(), also defined
+// in memory_allocation.cpp, is declared in v6_image.h and returns nullptr
+// instead.)
 void *MemAlloc(size_t size);
 void *MemCalloc(size_t size);
 

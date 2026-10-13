@@ -56,27 +56,27 @@ enum StampBits {
 
 // Font 3 character codes used for drawing box-drawing borders in the grid window.
 // These are specific to the Infocom font 3 character set.
-#define THICK_V_LINE 57   // Thick vertical line (column separator between Name and Commands)
-#define THIN_V_LINE 41    // Thin vertical line (column separators elsewhere)
-#define H_LINE 39         // Horizontal line (divider between text area and command area)
+constexpr int THICK_V_LINE = 57; // Thick vertical line (column separator between Name and Commands)
+constexpr int THIN_V_LINE = 41; // Thin vertical line (column separators elsewhere)
+constexpr int H_LINE = 39; // Horizontal line (divider between text area and command area)
 // The pieces of the Amiga screen border
-#define TOP_LEFT_CORNER 47
-#define TOP_RIGHT_CORNER 48
-#define BOTTOM_LINE 38
-#define BOTTOM_LEFT_CORNER 46
-#define BOTTOM_RIGHT_CORNER 49
-#define RIGHT_BORDER_LINE 40
+constexpr int TOP_LEFT_CORNER = 47;
+constexpr int TOP_RIGHT_CORNER = 48;
+constexpr int BOTTOM_LINE = 38;
+constexpr int BOTTOM_LEFT_CORNER = 46;
+constexpr int BOTTOM_RIGHT_CORNER = 49;
+constexpr int RIGHT_BORDER_LINE = 40;
 
 // Screen widths in characters below which the game switches to shorter texts.
 // The game calls these 8-WIDTH and 12-WIDTH, after the length of the
 // descriptions (DESC8, DESC12) that fit.
-#define WIDTH_8 50
-#define WIDTH_12 71
+constexpr int WIDTH_8 = 50;
+constexpr int WIDTH_12 = 71;
 
-#define TITLE_PICTURE 160
+constexpr int TITLE_PICTURE = 160;
 
-#define MAX_MENU_ITEMS 10
-#define MAX_SUBMENU_ITEMS 6
+constexpr int MAX_MENU_ITEMS = 10;
+constexpr int MAX_SUBMENU_ITEMS = 6;
 
 
 // Global lookup tables mapping Z-machine global variable indices, routine
@@ -538,12 +538,17 @@ static void journey_move_cursor(int column, int line) {
     JOURNEY_BG_GRID.x = column;
     JOURNEY_BG_GRID.y = line;
 
+    // The size is not known yet when the game goes on printing right after
+    // an autorestore, before anything has laid out the screen.
+    if (screen_width_in_chars == 0 || screen_height_in_chars == 0)
+        glk_window_get_size(JOURNEY_BG_GRID.id, &screen_width_in_chars, &screen_height_in_chars);
+
     if (column > screen_width_in_chars || line > screen_height_in_chars) {
-        fprintf(stderr, "Error! move_v6_cursor() moving cursor out of bounds\n");
+        fprintf(stderr, "journey_move_cursor: %d,%d is outside the %u by %u screen\n", column, line, screen_width_in_chars, screen_height_in_chars);
         if (column > screen_width_in_chars)
-            column = screen_width_in_chars - 1;
+            column = screen_width_in_chars > 0 ? screen_width_in_chars - 1 : 0;
         if (line > screen_height_in_chars)
-            line = screen_height_in_chars - 1;
+            line = screen_height_in_chars > 0 ? screen_height_in_chars - 1 : 0;
     }
 
     glk_window_move_cursor(JOURNEY_BG_GRID.id, column, line);
@@ -978,9 +983,9 @@ static void journey_erase_command_chars(int line, int column, int num_spaces) {
 }
 
 
-#define LONG_ARROW_WIDTH 3
-#define SHORT_ARROW_WIDTH 2
-#define NO_ARROW_WIDTH 1
+constexpr int LONG_ARROW_WIDTH = 3;
+constexpr int SHORT_ARROW_WIDTH = 2;
+constexpr int NO_ARROW_WIDTH = 1;
 
 static void journey_print_character_commands(bool clear) {
     // Prints the character names and arrows, and their commands in the three rightmost columns.
@@ -992,7 +997,7 @@ static void journey_print_character_commands(bool clear) {
     int line = get_global(jg.COMMAND_START_LINE);
     int partytable, character, position;
     if (get_global(jg.UPDATE_FLAG) == 1 && !clear) {
-        internal_call(pack_routine(jr.FILL_CHARACTER_TBL));
+        call_routine(jr.FILL_CHARACTER_TBL);
     }
 
     if (!clear)
@@ -1077,7 +1082,7 @@ static void journey_print_character_commands(bool clear) {
 
     if (get_global(jg.SMART_DEFAULT_FLAG) == 1) { // SMART-DEFAULT-FLAG
         set_global(jg.SMART_DEFAULT_FLAG, 0);
-        internal_call(pack_routine(jr.SMART_DEFAULT)); //    SMART_DEFAULT();
+        call_routine(jr.SMART_DEFAULT); //    SMART_DEFAULT();
     }
 
     // Delete the Individual Commands menu when the columns to the right are empty
@@ -1121,7 +1126,7 @@ static bool journey_read_text_input(int actor) {
     if (offset == 0)
         return false;
 
-    internal_call(pack_routine(jr.MASSAGE_ELVISH), {offset});
+    call_routine(jr.MASSAGE_ELVISH, {offset});
     set_global(jg.E_TEMP_LEN, offset);
 
     tokenize(get_global(jg.E_INBUF),get_global(jg.E_LEXV), 0, false);
@@ -1129,7 +1134,7 @@ static bool journey_read_text_input(int actor) {
         return false;
     if (actor == jo.PRAXIX || actor == jo.BERGON)
         return true;
-    internal_call(pack_routine(jr.PARSE_ELVISH));
+    call_routine(jr.PARSE_ELVISH);
     return true;
 }
 
@@ -1150,11 +1155,11 @@ static void journey_change_name(void) {
 
     if (offset == 0) {
         set_global(jg.UPDATE_FLAG, 1); // <SETG UPDATE-FLAG T>
-    } else if (internal_call(pack_routine(jr.ILLEGAL_NAME), {offset}) == 1) { // ILLEGAL-NAME
+    } else if (call_routine(jr.ILLEGAL_NAME, {offset}) == 1) { // ILLEGAL-NAME
         glk_put_string(const_cast<char*>("[The name you have chosen is reserved. Please try again.]"));
     } else {
         // Do the change
-        internal_call(pack_routine(jr.REMOVE_TRAVEL_COMMAND));
+        call_routine(jr.REMOVE_TRAVEL_COMMAND);
 
         public_encode_text(table, offset, get_global(jg.TAG_NAME)); //  <ZWSTR ,NAME-TBL .OFF 2 ,TAG-NAME>
 
@@ -1610,9 +1615,9 @@ static void journey_adjust_windows(bool restoring) {
 
         if (!restoring && screenmode != MODE_CREDITS) {
             if (selected_journey_column <= 0) { // call BOLD-PARTY-CURSOR
-                internal_call(pack_routine(jr.BOLD_PARTY_CURSOR), {(uint16_t)selected_journey_line, 0});
+                call_routine(jr.BOLD_PARTY_CURSOR, {(uint16_t)selected_journey_line, 0});
             } else if (journey_current_input == INPUT_PARTY) { // call BOLD-CURSOR
-                internal_call(pack_routine(jr.BOLD_CURSOR), {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column});
+                call_routine(jr.BOLD_CURSOR, {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column});
             } else if (journey_current_input != INPUT_ELVISH) { // call BOLD-OBJECT-CURSOR
                 // Calling BOLD_CURSOR will change selection, so we must stash it here
                 int16_t stashed_selected_journey_column = selected_journey_column;
@@ -1622,11 +1627,11 @@ static void journey_adjust_windows(bool restoring) {
                 for (int i = 0; i < numwords; i++) {
                     JourneyWords *word = &printed_journey_words[i];
                     std::vector<uint16_t> args = {word->pcm, word->pcf, word->str};
-                    internal_call(pack_routine(jr.BOLD_CURSOR), args);
+                    call_routine(jr.BOLD_CURSOR, args);
                 }
                 selected_journey_column = stashed_selected_journey_column;
                 selected_journey_line = stashed_selected_journey_line;
-                internal_call(pack_routine(jr.BOLD_OBJECT_CURSOR), {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
+                call_routine(jr.BOLD_OBJECT_CURSOR, {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column}); // BOLD-OBJECT-CURSOR(PCM, PCF)
             }
         }
     }
@@ -1635,11 +1640,11 @@ static void journey_adjust_windows(bool restoring) {
     // Redraw image(s)
     // (unless we have no graphics)
     if (JOURNEY_GRAPHICS_WIN.id != nullptr && !journey_no_graphics()) {
-        internal_call(pack_routine(jr.GRAPHIC));
+        call_routine(jr.GRAPHIC);
 
         uint16_t HERE = get_global(jg.HERE);
         if (HERE == 216) // Control Room
-            internal_call(pack_routine(jr.COMPLETE_DIAL_GRAPHICS));
+            call_routine(jr.COMPLETE_DIAL_GRAPHICS);
     }
 
     if (journey_current_input == INPUT_NAME || journey_current_input == INPUT_ELVISH) {

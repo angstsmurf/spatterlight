@@ -28,9 +28,12 @@ extern "C" {
 #include "glkimp.h"
 }
 #include <cmath>
+#include <algorithm>
 #include <cstring>
+#include <vector>
 #include "v6_image.h"
 #include "draw_image.hpp"
+#include "draw_border.hpp"
 #include "screen.h"
 #include "zterp.h"
 #include "arthur.hpp"
@@ -42,100 +45,81 @@ extern "C" {
 // All bitmaps here are stored as interleaved RGBA — four bytes per pixel
 // (kBytesPerPixel, from v6_image.h).
 
+// A piece of the pixmap that has been copied out of it. Empty if the copy
+// failed.
+using Strip = std::vector<uint8_t>;
+
 // Copy a horizontal strip (`line_count` rows starting at `start_y`) out of
-// the global pixmap into a freshly allocated buffer. *out_size receives the
-// byte size of the copy, which may be clipped if `start_y + line_count`
-// runs past the pixmap. Returns nullptr if the start row is out of range
-// or on OOM; caller frees with free().
-static uint8_t *copy_lines_from_bitmap(int start_y, int line_count, size_t *out_size) {
-    if (out_size == nullptr)
-        return nullptr;
-    *out_size = 0;
+// the global pixmap. The copy is clipped if `start_y + line_count` runs past
+// the pixmap, and empty if the start row is out of range.
+static Strip copy_lines_from_bitmap(int start_y, int line_count) {
+    if (start_y < 0 || line_count <= 0 || start_y >= pixmap.rows())
+        return {};
 
-    if (start_y < 0 || line_count <= 0 || pixmap == nullptr)
-        return nullptr;
-
-    int row_stride = hw_screenwidth * kBytesPerPixel;
-    size_t start_offset = (size_t)start_y * row_stride;
-    if (start_offset >= (size_t)pixlength)
-        return nullptr;
-
-    size_t available = (size_t)pixlength - start_offset;
-    size_t copy_size = (size_t)line_count * row_stride;
-    if (copy_size > available)
-        copy_size = available;
-
-    uint8_t *line_buffer = (uint8_t *)malloc(copy_size);
-    if (line_buffer == nullptr)
-        return nullptr;
-
-    memcpy(line_buffer, pixmap + start_offset, copy_size);
-    *out_size = copy_size;
-    return line_buffer;
+    line_count = std::min(line_count, pixmap.rows() - start_y);
+    return Strip(pixmap.row(start_y), pixmap.row(start_y + line_count));
 }
 
-// Copy a rectangular region of the global pixmap into a freshly allocated
-// buffer of `width * height * 4` bytes. Rows that would read past the end
-// of the pixmap are zero-filled instead. *size receives the buffer size.
-// Caller frees with free().
-static uint8_t *copy_rect_from_bitmap(int x, int y, int width, int height, size_t *size) {
-    *size = 0;
-    if (pixmap == nullptr || x < 0 || y < 0 || width <= 0 || height <= 0 ||
-        x + width > (int)hw_screenwidth)
-        return nullptr;
-    int src_stride = (int)hw_screenwidth * kBytesPerPixel;
+// Copy a rectangular region of the global pixmap (`width * height * 4`
+// bytes). Rows that would read past the end of the pixmap are left zeroed.
+static Strip copy_rect_from_bitmap(int x, int y, int width, int height) {
+    if (!pixmap.exists() || x < 0 || y < 0 || width <= 0 || height <= 0 ||
+        x + width > pixmap.width_px)
+        return {};
     int row_bytes = width * kBytesPerPixel;
-    size_t result_size = (size_t)height * row_bytes;
-    uint8_t *result = (uint8_t *)malloc(result_size);
-    if (result == nullptr) {
-        return nullptr;
-    }
+    Strip result((size_t)height * row_bytes);
 
-    for (int row = 0; row < height; row++) {
-        int src_offset = (y + row) * src_stride + x * kBytesPerPixel;
-        if (src_offset + row_bytes > pixlength) {
-            memset(result + (size_t)row * row_bytes, 0, (size_t)(height - row) * row_bytes);
-            break;
-        }
-        memcpy(result + (size_t)row * row_bytes, pixmap + src_offset, row_bytes);
-    }
+    for (int row = 0; row < height && y + row < pixmap.rows(); row++)
+        memcpy(result.data() + (size_t)row * row_bytes, pixmap.pixel(x, y + row), row_bytes);
 
-    *size = result_size;
     return result;
 }
 
+// Composite the first `size` bytes of a strip of full-width rows onto the
+// global pixmap with their top at row `y`, upside down if `flip` is set.
+// Draws nothing if the strip is empty.
+static void blit_rows(const Strip &rows, size_t size, int y, bool flip = false) {
+    if (rows.empty())
+        return;
+    pixmap.draw(rows.data(), std::min(size, rows.size()), pixmap.width_px, 0, y, flip);
+}
+
+static void blit_rows(const Strip &rows, int y, bool flip = false) {
+    blit_rows(rows, rows.size(), y, flip);
+}
+
+// Composite a strip `width` pixels wide with its top left corner at `x`, `y`.
+static void blit_rect(const Strip &rect, int width, int x, int y) {
+    if (rect.empty())
+        return;
+    pixmap.draw(rect.data(), rect.size(), width, x, y, false);
+}
+
+// The height of the Glk screen in rows of the pixmap, rounded up: how far
+// down a border has to reach to fill the window.
+static int screen_height_in_pixmap_rows(void) {
+    const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
+    return ceil(gscreenh / factor);
+}
+
 // Zero out `height` rows of the global pixmap starting at row `y`. Clips
-// the erase if it would run past the current allocation. Used to clear
-// stale tiles before redrawing a section.
+// the erase if it would run past the last row. Used to clear stale tiles
+// before redrawing a section.
 static void erase_lines_in_bitmap(int y, int height) {
-    if (pixmap == nullptr || y < 0 || height <= 0)
-        return;
-    int stride = hw_screenwidth * kBytesPerPixel;
-    int startpos = y * stride;
-    if (startpos >= pixlength)
-        return;
-    size_t size = (size_t)height * stride;
-    if (startpos + size > pixlength)
-        size = pixlength - startpos;
-    memset(pixmap + startpos, 0, size);
+    pixmap.erase_rows(y, height);
 }
 
 // Clip the composited pixmap to exactly `desired_height` rows. The tiling
 // routines below extend the pillars down to `desired_height`, but the last
 // tile is always stamped whole, so it overshoots, and some extenders draw a
 // foot just above the bottom without erasing what the overshoot left below it.
-// flush_bitmap() scales the entire `pixlength`-tall pixmap into the Glk window,
-// so those extra rows spill past the bottom of the screen and into the window
-// border -- e.g. the foot of Zork Zero's pillars showing in the bottom-left
-// border on the MAP screen after a resize. Trimming pixlength keeps the
-// flushed image flush with the screen's bottom edge. (The pixmap buffer itself
-// is left allocated; only the logical length used by flush_bitmap shrinks.)
+// flush_bitmap() scales the whole pixmap into the Glk window, so those extra
+// rows spill past the bottom of the screen and into the window border -- e.g.
+// the foot of Zork Zero's pillars showing in the bottom-left border on the MAP
+// screen after a resize. Dropping the rows keeps the flushed image flush with
+// the screen's bottom edge.
 static void clip_pixmap_to_height(int desired_height) {
-    if (desired_height <= 0 || pixmap == nullptr)
-        return;
-    const long target = (long)desired_height * hw_screenwidth * kBytesPerPixel;
-    if (target < pixlength)
-        pixlength = (int)target;
+    pixmap.clip_to_height(desired_height);
 }
 
 // Tile an already-copied strip (`section_to_repeat`, `pillar_height` rows)
@@ -147,9 +131,9 @@ static void clip_pixmap_to_height(int desired_height) {
 // `initial_parity`; otherwise every tile is drawn with `initial_parity`.
 // Returns the y-position immediately past the last tile drawn (i.e. where
 // the next tile would have started), which the caller can use to anchor
-// follow-up work below the tiled region. A null `section_to_repeat` (a failed
+// follow-up work below the tiled region. An empty `section_to_repeat` (a failed
 // copy) draws nothing.
-static int tile_section_down(uint8_t *section_to_repeat, size_t linessize,
+static int tile_section_down(const Strip &section_to_repeat,
                              int pillar_height, int overlap,
                              int start_y, int desired_height,
                              bool initial_parity, bool flip) {
@@ -157,7 +141,7 @@ static int tile_section_down(uint8_t *section_to_repeat, size_t linessize,
     bool parity = initial_parity;
     int ypos;
     for (ypos = start_y; ypos <= desired_height; ypos += stride) {
-        draw_bitmap_on_bitmap(section_to_repeat, linessize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, parity);
+        blit_rows(section_to_repeat, ypos, parity);
         if (flip)
             parity = !parity;
     }
@@ -170,17 +154,10 @@ static int tile_section_down(uint8_t *section_to_repeat, size_t linessize,
 static int tile_strip_down(int top_cut, int pillar_height, int overlap,
                            int start_y, int desired_height,
                            bool initial_parity, bool flip) {
-    size_t linessize;
-    uint8_t *section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height, &linessize);
-    int ypos = tile_section_down(section_to_repeat, linessize, pillar_height, overlap,
-                                 start_y, desired_height, initial_parity, flip);
-    free(section_to_repeat);
-    return ypos;
+    Strip section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height);
+    return tile_section_down(section_to_repeat, pillar_height, overlap,
+                             start_y, desired_height, initial_parity, flip);
 }
-
-// Pack the three RGB bytes at `p` (pointer to an RGBA pixel) into a single
-// 24-bit color value, dropping alpha. Used for fast color comparisons.
-#define GET_RGB(p)    (((uint8_t)*(p) << 16) | ((uint8_t) *(p + 1) << 8) | *(p + 2))
 
 // Draws the foot (shadow) section of the Mac B/W Shogun/Zork Zero hint borders onto
 // the pixmap with transparency: white pixels (monochrome_white with full
@@ -188,31 +165,21 @@ static int tile_strip_down(int top_cut, int pillar_height, int overlap,
 // pattern shows through.
 //
 // This makes the bottom of the pillars look better on light backgrounds.
-static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, uint8_t **largebitmap, int *largebitmapsize, int y) {
+static void draw_hint_menu_feet_mac(const Strip &foot, int y) {
+    const int stride = pixmap.stride();
+    if (stride == 0)
+        return;
+    const int foot_rows = (int)(foot.size() / stride);
 
-    int width = hw_screenwidth;
-    int stride = width * kBytesPerPixel;
-    // Whole rows only
-    int source_end = smallbitmapsize / stride * stride;
-
-    for (int i = 0; i < source_end; i += kBytesPerPixel) {
-        int ypos = y + i / stride;
-
-        if (ypos < 0) {
-            continue;
+    // The pixmap is not grown: rows of the foot below its end are dropped.
+    for (int row = std::max(0, -y); row < foot_rows && y + row < pixmap.rows(); row++) {
+        const uint8_t *source = foot.data() + (size_t)row * stride;
+        uint8_t *dest = pixmap.row(y + row);
+        for (int i = 0; i < stride; i += kBytesPerPixel) {
+            uint32_t source_rgb = bytes_to_rgb(source + i);
+            if (!(source_rgb == monochrome_white && source[i + 3] == 0xff))
+                memcpy(dest + i, source + i, kBytesPerPixel);
         }
-
-        int xpos = (i % stride) / kBytesPerPixel;
-
-        uint8_t *pixptr = *largebitmap + ((ypos * width + xpos) * kBytesPerPixel);
-
-        // Stop if we have reached the end
-        if (pixptr - *largebitmap + 3 > *largebitmapsize)
-            break;
-
-        uint32_t source_rgb = GET_RGB(smallbitmap + i);
-        if (!(source_rgb == monochrome_white && *(smallbitmap + i + 3) == 0xff))
-            memcpy(pixptr, smallbitmap + i, kBytesPerPixel);
     }
 }
 
@@ -254,8 +221,7 @@ void draw_arthur_side_images(winid_t winid) {
     get_image_size(K_PIC_BANNER, nullptr, &image_height);
     float hw_screenheight = image_height + top_margin;
 
-    const int stride = hw_screenwidth * kBytesPerPixel;
-    const int actual_pixmap_height = pixlength / stride;
+    const int actual_pixmap_height = pixmap.rows();
 
     // Erase any stale content below the banner before drawing
     if (hw_screenheight < actual_pixmap_height)
@@ -279,8 +245,7 @@ void draw_arthur_side_images(winid_t winid) {
     if (image_height)
         hw_screenheight = pole_y + image_height;
 
-    const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    const int desired_height = ceil(gscreenh / factor - arthur_pic_top_margin - 1);
+    const int desired_height = screen_height_in_pixmap_rows() - arthur_pic_top_margin - 1;
 
     // Extend the poles downward if the screen is taller than the artwork.
     // We tile a 2-line horizontal strip taken from 90% of the way down,
@@ -332,10 +297,8 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
                               int pillar_height, int overlap, bool flip,
                               bool bw_hint_foot, int desired_height) {
 
-    if (desired_height <= 0) {
-        const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-        desired_height = ceil(gscreenh / factor);
-    }
+    if (desired_height <= 0)
+        desired_height = screen_height_in_pixmap_rows();
 
     if (desired_height < total_height || (bw_hint_foot && desired_height - total_height < kBWHintStepHeight))
         return;
@@ -344,12 +307,10 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     // equals total_height - foot_height, so the strip's source rows sit inside
     // the foot region erased just below. Copying first preserves the live pole
     // texture (otherwise the tiled extension comes out blank).
-    size_t linessize;
-    uint8_t *section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height, &linessize);
+    Strip section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height);
 
     // Copy the foot
-    size_t footsize;
-    uint8_t *foot = copy_lines_from_bitmap(total_height - foot_height, foot_height, &footsize);
+    Strip foot = copy_lines_from_bitmap(total_height - foot_height, foot_height);
 
     // In hint_foot mode, the foot pixels are part of the tiled pillars and
     // tiling starts from total_height - overlap. Otherwise, erase the foot
@@ -367,13 +328,12 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
     if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeEGA)
         initial_parity = true;
 
-    int ypos = tile_section_down(section_to_repeat, linessize, pillar_height, overlap,
+    int ypos = tile_section_down(section_to_repeat, pillar_height, overlap,
                                  start_y, desired_height,
                                  initial_parity, flip);
-    free(section_to_repeat);
 
     // Erase everything in the foot area and below
-    const int bitmap_height = (pixlength / kBytesPerPixel) / hw_screenwidth;
+    const int bitmap_height = pixmap.rows();
     int foot_top = desired_height - foot_height;
     // Arthur's poles are a 2-line dither, and the foot continues it. Keep the
     // foot in phase with the tiles (which start at start_y, not necessarily
@@ -384,13 +344,12 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
 
     // Draw the foot
     if (bw_hint_foot) {
-        draw_hint_menu_feet_mac(foot, footsize, &pixmap, &pixlength, desired_height - foot_height);
+        draw_hint_menu_feet_mac(foot, desired_height - foot_height);
         // Erase any garbage left at the bottom of the pixmap
         erase_lines_in_bitmap(ypos, bitmap_height - ypos);
     } else {
-        draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, foot_top, false);
+        blit_rows(foot, foot_top);
     }
-    free(foot);
 
     clip_pixmap_to_height(desired_height);
 }
@@ -404,25 +363,19 @@ void extend_pillars(int top_cut, int foot_height, int total_height,
 void extend_underground_pillars(int top_cut, int foot_height, int total_height,
                               int pillar_height, int stone_height, int pillar_width) {
 
-    const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor);
+    int desired_height = screen_height_in_pixmap_rows();
 
     if (desired_height < total_height)
         return;
 
     // Copy the pillar section we want to repeat (two stone blocks)
-    size_t linessize;
-    uint8_t *section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height, &linessize);
+    Strip section_to_repeat = copy_lines_from_bitmap(top_cut, pillar_height);
 
-    size_t leftsize;
-    uint8_t *left_section = copy_rect_from_bitmap(0, top_cut, pillar_width, pillar_height, &leftsize);
-
-    size_t rightsize;
-    uint8_t *right_section = copy_rect_from_bitmap(hw_screenwidth - pillar_width, top_cut, pillar_width, pillar_height, &rightsize);
+    Strip left_section = copy_rect_from_bitmap(0, top_cut, pillar_width, pillar_height);
+    Strip right_section = copy_rect_from_bitmap(hw_screenwidth - pillar_width, top_cut, pillar_width, pillar_height);
 
     // Copy the foot
-    size_t footsize;
-    uint8_t *foot = copy_lines_from_bitmap(total_height - foot_height, foot_height, &footsize);
+    Strip foot = copy_lines_from_bitmap(total_height - foot_height, foot_height);
 
     // erase the foot and start from below it.
     erase_lines_in_bitmap(total_height - foot_height, foot_height);
@@ -432,17 +385,13 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
     int ypos;
     bool parity = true;
     for (ypos = start_y; ypos + pillar_height <= desired_height; ypos += pillar_height) {
-        draw_bitmap_on_bitmap(section_to_repeat, linessize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+        blit_rows(section_to_repeat, ypos);
         if (parity) {
-            draw_bitmap_on_bitmap(right_section, rightsize, pillar_width, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
-            draw_bitmap_on_bitmap(left_section, leftsize, pillar_width, &pixmap, &pixlength, hw_screenwidth, hw_screenwidth - pillar_width, ypos, false);
+            blit_rect(right_section, pillar_width, 0, ypos);
+            blit_rect(left_section, pillar_width, hw_screenwidth - pillar_width, ypos);
         }
         parity = !parity;
     }
-
-    free(section_to_repeat);
-    free(left_section);
-    free(right_section);
 
     //  Erase a single "stone" at the bottom to reduce the off-screen part of the foot
     if (ypos + foot_height > desired_height && ypos - stone_height + foot_height > desired_height) {
@@ -451,8 +400,7 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
     }
 
     // Draw the foot
-        draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
-    free(foot);
+    blit_rows(foot, ypos);
 
     clip_pixmap_to_height(desired_height);
 }
@@ -472,25 +420,20 @@ static constexpr int kZ0MacFootHeight = 15;
 // original art.
 void extend_mac_bw_castle_pillars(void) {
 
-    const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor) - 1;
+    int desired_height = screen_height_in_pixmap_rows() - 1;
 
     if (desired_height <= kZ0MacTotalHeight + 5)
         return;
 
     // Copy the pillar sections we want to repeat or move
     int ypos = kZ0MacTopCut;
-    size_t uppersize;
-    uint8_t *upper_section = copy_lines_from_bitmap(ypos, kZ0MacUpperHeight, &uppersize);
+    Strip upper_section = copy_lines_from_bitmap(ypos, kZ0MacUpperHeight);
     ypos += kZ0MacUpperHeight;
-    size_t ringsize;
-    uint8_t *middle_ring = copy_lines_from_bitmap(ypos, kZ0MacRingHeight, &ringsize);
+    Strip middle_ring = copy_lines_from_bitmap(ypos, kZ0MacRingHeight);
     ypos += kZ0MacRingHeight;
-    size_t lowersize;
-    uint8_t *lower_section = copy_lines_from_bitmap(ypos, kZ0MacLowerHeight, &lowersize);
+    Strip lower_section = copy_lines_from_bitmap(ypos, kZ0MacLowerHeight);
     ypos += kZ0MacLowerHeight;
-    size_t footsize;
-    uint8_t *foot = copy_lines_from_bitmap(ypos, kZ0MacFootHeight, &footsize);
+    Strip foot = copy_lines_from_bitmap(ypos, kZ0MacFootHeight);
 
     // erase everything from below the top cut.
     erase_lines_in_bitmap(kZ0MacTopCut, kZ0MacTotalHeight - kZ0MacTopCut);
@@ -498,27 +441,23 @@ void extend_mac_bw_castle_pillars(void) {
 
     // Draw upper and lower tiles while they fit
     while (ypos <= desired_height) {
-        draw_bitmap_on_bitmap(upper_section, uppersize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+        blit_rows(upper_section, ypos);
         ypos += kZ0MacUpperHeight;
         if (ypos > desired_height)
             break;
-        draw_bitmap_on_bitmap(lower_section, lowersize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
+        blit_rows(lower_section, ypos);
         ypos += kZ0MacLowerHeight;
     }
-    free(upper_section);
-    free(lower_section);
 
     // Draw the middle ring
     ypos = (desired_height + kZ0MacFootHeight + kZ0MacFootHeight) / 2;
     erase_lines_in_bitmap(ypos, kZ0MacRingHeight);
-    draw_bitmap_on_bitmap(middle_ring, ringsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
-    free(middle_ring);
+    blit_rows(middle_ring, ypos);
 
     // Draw the foot
     ypos = desired_height - kZ0MacFootHeight;
     erase_lines_in_bitmap(ypos, desired_height - ypos + 2);
-    draw_bitmap_on_bitmap(foot, footsize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, ypos, false);
-    free(foot);
+    blit_rows(foot, ypos);
 
     clip_pixmap_to_height(desired_height);
 }
@@ -529,8 +468,7 @@ void extend_mac_bw_castle_pillars(void) {
 void extend_jungle_pillars(int top_cut, int total_height,
                                 int pillar_height, int overlap) {
 
-    const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor);
+    int desired_height = screen_height_in_pixmap_rows();
 
     if (desired_height <= total_height)
         return;
@@ -550,24 +488,23 @@ void extend_jungle_pillars(int top_cut, int total_height,
 // have been drawn.
 static void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
     if (desired_height > lowest_drawn_pixel) {
-        size_t copysize;
         int height = lowest_drawn_pixel - start_copy_from;
         if (height < 1)
             return;
-        uint8_t *bit_to_repeat = copy_lines_from_bitmap(start_copy_from, height, &copysize);
-        if (bit_to_repeat == nullptr)
+        Strip bit_to_repeat = copy_lines_from_bitmap(start_copy_from, height);
+        if (bit_to_repeat.empty())
             return;
+        size_t copysize = bit_to_repeat.size();
         erase_lines_in_bitmap(lowest_drawn_pixel, desired_height - lowest_drawn_pixel);
 
         while (lowest_drawn_pixel < desired_height) {
             if (lowest_drawn_pixel + height > desired_height) {
                 height = desired_height - lowest_drawn_pixel;
-                copysize = hw_screenwidth * kBytesPerPixel * height;
+                copysize = (size_t)hw_screenwidth * kBytesPerPixel * height;
             }
-            draw_bitmap_on_bitmap(bit_to_repeat, copysize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, lowest_drawn_pixel, false);
+            blit_rows(bit_to_repeat, copysize, lowest_drawn_pixel);
             lowest_drawn_pixel += height;
         }
-        free(bit_to_repeat);
     }
 }
 
@@ -578,17 +515,19 @@ static void common_extend_border(int desired_height, int lowest_drawn_pixel, int
 // The caller will use this to extend the strips further if necessary.
 static int shogun_extend_amiga_mac_border(int border, int border_height) {
     const bool mac = (graphics_type == kGraphicsTypeMacBW);
+    // How many rows the second copy overlaps the first, so that the pattern
+    // carries on across the join.
+    int overlap;
     if (border == P_BORDER) {
-        int y = mac ? border_height : border_height - 2;
-        draw_to_pixmap_unscaled_flipped_using_current_palette(border, 0, y);
-        return mac ? border_height * 2 : border_height * 2 - 2;
+        overlap = mac ? 0 : 2;
+        draw_to_pixmap_unscaled_flipped_using_current_palette(border, 0, border_height - overlap);
+    } else if (border == P_BORDER2) {
+        overlap = mac ? 35 : 22;
+        draw_to_pixmap_unscaled_using_current_palette(border, 0, border_height - overlap);
+    } else {
+        return border_height;
     }
-    if (border == P_BORDER2) {
-        int y = mac ? border_height - 35 : border_height - 22;
-        draw_to_pixmap_unscaled_using_current_palette(border, 0, y);
-        return mac ? border_height * 2 - 35 : border_height * 2 - 22;
-    }
-    return border_height;
+    return border_height * 2 - overlap;
 }
 
 // Shogun's non-hint CGA/EGA/VGA borders have separate left and right border
@@ -600,9 +539,10 @@ static int shogun_extend_amiga_mac_border(int border, int border_height) {
 static int shogun_draw_right_strip(int left_strip, int right_strip, bool must_extend) {
     int width, height;
     get_image_size(right_strip, &width, &height);
-    // Custom overlap offset for CGA graphics
+    // The CGA strips end in kCGAStripOverlap rows that the copy below covers
+    static constexpr int kCGAStripOverlap = 7;
     if (graphics_type == kGraphicsTypeCGA)
-        height -= 7;
+        height -= kCGAStripOverlap;
 
     if (must_extend)
         draw_to_pixmap_unscaled_flipped_using_current_palette(left_strip, hw_screenwidth - width, height);
@@ -617,82 +557,13 @@ static int shogun_draw_right_strip(int left_strip, int right_strip, bool must_ex
     return lowest_drawn_line;
 }
 
-// Common border drawing pipeline shared between Shogun (all borders)
-// and Zork Zero (hint border only).
-// Draws the border image, attempts to draw side pillars, extends vertically
-// for tall screens, draws a covering rectangle at the top, and flushes.
-//
-// Parameters:
-//   border          – main border image number
-//   BL, BR          – left/right pillar image numbers (-1 if none)
-//   border_height   – height of the main border image (from get_image_size)
-//   border_top      – y-offset where pillars begin (non-Amiga/Mac: border_height, else 0)
-//   pillar_top      – y-offset to start copying from when extending
-//   left_margin     – left margin for covering rectangle (0 for hint borders)
-//   bottom_offset   – adjustment subtracted from lowest_drawn_line
-//                     (to make repeated pattern seamless)
-//   kind            – which variant we're drawing (hint / Shogun game / Shogun start menu)
-void draw_border_common(int border, int BL, int BR,
-                        int border_height, int border_top, int pillar_top,
-                        int left_margin, int bottom_offset,
-                        BorderKind kind) {
-
-    const float factor = (float)gscreenw / hw_screenwidth / pixelwidth;
-    int desired_height = ceil(gscreenh / factor);
-
-    int lowest_drawn_line = border_height + border_top;
-    const bool must_extend = (desired_height > lowest_drawn_line);
-    const bool is_hint_border = (kind == BorderKind::Hint);
-    // Amiga and Mac border graphics are a single image with everything,
-    // not separated into top and sides.
-    const bool single_piece_border = (graphics_type == kGraphicsTypeAmiga ||
-                                      graphics_type == kGraphicsTypeMacBW);
-
-    // Step 1: Draw the main border image at the top of the pixmap
-    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
-
-    // Step 2: Draw side pillars if available.
-    // BL won't be found on single-piece-border platforms.
-    if (find_image(BL)) {
-        int width, height;
-        get_image_size(BL, &width, &height);
-        draw_to_pixmap_unscaled(BL, 0, border_top);
-        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
-        lowest_drawn_line = height + border_top;
-    } else {
-        // When called by Zork Zero, is_hint_border is always true.
-        if (is_hint_border) {
-            // Mac B/W hint borders have their own pillar tiling with a
-            // transparent foot shadow; this handles full vertical extension,
-            // so we set desired_height = 0 to skip extend_shogun_border below.
-            if (must_extend && graphics_type == kGraphicsTypeMacBW) {
-                desired_height = (desired_height / kBWHintStepHeight) * kBWHintStepHeight;
-                extend_pillars(kBWHintTopCut, kBWHintFootHeight, kBWHintTotalHeight,
-                                        kBWHintTotalHeight - kBWHintTopCut, kBWHintOverlap,
-                                        false, true, desired_height);
-                desired_height = 0;
-            }
-        } else {
-        // Only Shogun ever takes this path.
-            if (must_extend && single_piece_border) {
-                lowest_drawn_line = shogun_extend_amiga_mac_border(border, border_height);
-            }
-            if (find_image(BR)) {
-                lowest_drawn_line = shogun_draw_right_strip(border, BR, must_extend);
-            }
-        }
-    }
-
-    // Step 3: Fill any remaining vertical gap by tiling a strip of the
-    // already-drawn pixmap downward (from pillar_top to lowest_drawn_line - bottom_offset).
-    if (must_extend) {
-        common_extend_border(desired_height, lowest_drawn_line - bottom_offset, pillar_top);
-    }
-
-    // Step 4: Draw a covering rectangle of status-window color at the top.
-    // The raw border graphics have a decorative top bar that doesn't fit
-    // the header text, so the original interpreters cover it with a solid
-    // color rectangle. Which platforms need it depends on the BorderKind.
+// Draws a rectangle of status-window color over the top of the border.
+// The raw border graphics have a decorative top bar that doesn't fit
+// the header text, so the original interpreters cover it with a solid
+// color rectangle. Which platforms need it depends on the BorderKind.
+// `left_margin` is how far in from the screen edges the rectangle starts,
+// where it does not have to span the whole width.
+static void draw_covering_rectangle(BorderKind kind, int left_margin) {
     bool should_draw_covering_rectangle = false;
     glui32 rectangle_color = user_selected_foreground;
     // Number of lines skipped at the top of the covering rectangle. Only the
@@ -782,5 +653,81 @@ void draw_border_common(int border, int BL, int BR,
                                      hw_screenwidth - left_margin * 2, rect_height);
         }
     }
+}
+
+// Common border drawing pipeline shared between Shogun (all borders)
+// and Zork Zero (hint border only).
+// Draws the border image, attempts to draw side pillars, extends vertically
+// for tall screens, draws a covering rectangle at the top, and flushes.
+//
+// Parameters:
+//   border          – main border image number
+//   BL, BR          – left/right pillar image numbers (-1 if none)
+//   border_height   – height of the main border image (from get_image_size)
+//   border_top      – y-offset where pillars begin (non-Amiga/Mac: border_height, else 0)
+//   pillar_top      – y-offset to start copying from when extending
+//   left_margin     – left margin for covering rectangle (0 for hint borders)
+//   bottom_offset   – adjustment subtracted from lowest_drawn_line
+//                     (to make repeated pattern seamless)
+//   kind            – which variant we're drawing (hint / Shogun game / Shogun start menu)
+void draw_border_common(int border, int BL, int BR,
+                        int border_height, int border_top, int pillar_top,
+                        int left_margin, int bottom_offset,
+                        BorderKind kind) {
+
+    int desired_height = screen_height_in_pixmap_rows();
+
+    int lowest_drawn_line = border_height + border_top;
+    const bool must_extend = (desired_height > lowest_drawn_line);
+    const bool is_hint_border = (kind == BorderKind::Hint);
+    // Amiga and Mac border graphics are a single image with everything,
+    // not separated into top and sides.
+    const bool single_piece_border = (graphics_type == kGraphicsTypeAmiga ||
+                                      graphics_type == kGraphicsTypeMacBW);
+
+    // Step 1: Draw the main border image at the top of the pixmap
+    draw_to_pixmap_unscaled_using_current_palette(border, 0, 0);
+
+    // Step 2: Draw side pillars if available.
+    // BL won't be found on single-piece-border platforms.
+    if (find_image(BL)) {
+        int width, height;
+        get_image_size(BL, &width, &height);
+        draw_to_pixmap_unscaled(BL, 0, border_top);
+        draw_to_pixmap_unscaled(BR, hw_screenwidth - width, border_top);
+        lowest_drawn_line = height + border_top;
+    } else {
+        // When called by Zork Zero, is_hint_border is always true.
+        if (is_hint_border) {
+            // Mac B/W hint borders have their own pillar tiling with a
+            // transparent foot shadow; this handles full vertical extension,
+            // so we set desired_height = 0 to skip extend_shogun_border below.
+            if (must_extend && graphics_type == kGraphicsTypeMacBW) {
+                desired_height = (desired_height / kBWHintStepHeight) * kBWHintStepHeight;
+                extend_pillars(kBWHintTopCut, kBWHintFootHeight, kBWHintTotalHeight,
+                                        kBWHintTotalHeight - kBWHintTopCut, kBWHintOverlap,
+                                        false, true, desired_height);
+                desired_height = 0;
+            }
+        } else {
+        // Only Shogun ever takes this path.
+            if (must_extend && single_piece_border) {
+                lowest_drawn_line = shogun_extend_amiga_mac_border(border, border_height);
+            }
+            if (find_image(BR)) {
+                lowest_drawn_line = shogun_draw_right_strip(border, BR, must_extend);
+            }
+        }
+    }
+
+    // Step 3: Fill any remaining vertical gap by tiling a strip of the
+    // already-drawn pixmap downward (from pillar_top to lowest_drawn_line - bottom_offset).
+    if (must_extend) {
+        common_extend_border(desired_height, lowest_drawn_line - bottom_offset, pillar_top);
+    }
+
+    // Step 4: Cover the top bar of the border
+    draw_covering_rectangle(kind, left_margin);
+
     flush_bitmap(current_graphics_buf_win);
 }

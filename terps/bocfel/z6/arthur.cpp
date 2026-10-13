@@ -33,6 +33,7 @@
 //
 
 #include "draw_image.hpp"
+#include "draw_border.hpp"
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
@@ -52,27 +53,27 @@ ArthurTables at;
 
 // Picture number constants for Arthur's image resources.
 // Full-screen images (displayed during title sequence and special events):
-#define K_PIC_TITLE 1           // Title screen
-#define K_PIC_SWORD 2           // Sword in the stone (base layer)
-#define K_PIC_SWORD_MERLIN 3    // Merlin overlay drawn on top of the sword image
+constexpr int K_PIC_TITLE = 1;  // Title screen
+constexpr int K_PIC_SWORD = 2;  // Sword in the stone (base layer)
+constexpr int K_PIC_SWORD_MERLIN = 3; // Merlin overlay drawn on top of the sword image
 
-#define K_PIC_ENDGAME 84        // Victory image (Arthur holding Excalibur)
-#define K_PIC_ANGRY_DEMON 85    // Demon image (game over scenario)
+constexpr int K_PIC_ENDGAME = 84; // Victory image (Arthur holding Excalibur)
+constexpr int K_PIC_ANGRY_DEMON = 85; // Demon image (game over scenario)
 
 // Banner and layout reference images (K_PIC_BANNER and K_PIC_BANNER_MARGIN
 // are in arthur.hpp):
-#define K_MAP_SCROLL 137        // Map scroll background image
+constexpr int K_MAP_SCROLL = 137; // Map scroll background image
 
 // Room images with special handling:
-#define K_PIC_CHURCHYARD 4      // Standard-width room image (used for sizing reference)
-#define K_PIC_PARADE_AREA 17    // Wide room image (spans full width)
-#define K_PIC_AIR_SCENE 163     // Wide room image (flying scene)
+constexpr int K_PIC_CHURCHYARD = 4; // Standard-width room image (used for sizing reference)
+constexpr int K_PIC_PARADE_AREA = 17; // Wide room image (spans full width)
+constexpr int K_PIC_AIR_SCENE = 163; // Wide room image (flying scene)
 
 // Stamp images (small overlays positioned by offset):
-#define K_PIC_ISLAND_DOOR 158   // Island door stamp
-#define K_PIC_ISLAND_DOOR_OFF 159 // Offset reference for the island door stamp
-#define K_PIC_STONE_2 9         // Stone stamp (has platform-specific offset fix)
-#define K_PIC_BOAR 93           // Charging boar stamp (MCGA/EGA offset rectangle is one pixel short)
+constexpr int K_PIC_ISLAND_DOOR = 158; // Island door stamp
+constexpr int K_PIC_ISLAND_DOOR_OFF = 159; // Offset reference for the island door stamp
+constexpr int K_PIC_STONE_2 = 9; // Stone stamp (has platform-specific offset fix)
+constexpr int K_PIC_BOAR = 93;  // Charging boar stamp (MCGA/EGA offset rectangle is one pixel short)
 
 // Arthur uses several Glk windows for different UI regions.
 #define ARTHUR_ROOM_GRAPHIC_WIN windows[2]  // Upper area: room image, inventory, status, or room desc
@@ -399,21 +400,21 @@ static void arthur_redraw_upper_area(void) {
     switch (screenmode) {
         case MODE_NORMAL:
             clear_image_buffer();
-            internal_call(pack_routine(ar.RT_UPDATE_PICT_WINDOW), {1});
+            call_routine(ar.RT_UPDATE_PICT_WINDOW, {1});
             draw_arthur_side_images(current_graphics_buf_win);
             if (showing_wide_arthur_room_image)
                 arthur_draw_room_image(current_picture);
             flush_bitmap(current_graphics_buf_win);
             break;
         case MODE_INVENTORY:
-            internal_call(pack_routine(ar.RT_UPDATE_INVT_WINDOW), {1});
+            call_routine(ar.RT_UPDATE_INVT_WINDOW, {1});
             break;
         case MODE_STATUS:
-            internal_call(pack_routine(ar.RT_UPDATE_STAT_WINDOW), {1});
+            call_routine(ar.RT_UPDATE_STAT_WINDOW, {1});
             break;
         case MODE_MAP:
             set_global(ag.GL_MAP_GRID_Y, 0);
-            internal_call(pack_routine(ar.RT_UPDATE_MAP_WINDOW), {1});
+            call_routine(ar.RT_UPDATE_MAP_WINDOW, {1});
             flush_bitmap(current_graphics_buf_win);
             break;
         default:
@@ -499,7 +500,7 @@ void arthur_update_on_resize(void) {
     }
 
     set_global(ag.UPDATE, 0);
-    internal_call(pack_routine(ar.UPDATE_STATUS_LINE));
+    call_routine(ar.UPDATE_STATUS_LINE);
 
     if (ARTHUR_ERROR_WINDOW.id != nullptr) {
         v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, screenheight + 1, V6_TEXT_BUFFER_WINDOW.x_size, gscreenh - screenheight);
@@ -705,6 +706,25 @@ void RT_AUTHOR_OFF(void) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
+// What VoiceOver says about a full-screen picture, which the player would
+// otherwise have no way of knowing is there.
+static const char *arthur_fullscreen_image_description(int picnum) {
+    switch (picnum) {
+        case K_PIC_TITLE:
+            return "\n(Showing title image in a golden frame. The words 'Arthur: The Quest for Excalibur' where the 'L' is a glittering sword.)\n";
+        case K_PIC_SWORD:
+            return "\n(Showing a full screen image in a golden frame. A sword of gold, with a jewel-encrusted hilt, stuck in a rock, in front of a crude medieval stone church.)\n";
+        case K_PIC_SWORD_MERLIN:
+            return "\n(Showing a full screen image in a golden frame. Merlin has appeared behind the sword, wearing a cloak. He raises his right hand while stroking his long beard with his left.)\n";
+        case K_PIC_ANGRY_DEMON:
+            return "\n(Showing a full screen image of a screaming demon.)\n";
+        case K_PIC_ENDGAME:
+            return "\n(Showing a full screen image in a golden frame. Arthur is holding up Excalibur, smiling, while the face of Merlin is watching from the sky behind.)\n";
+        default:
+            return "\n(Showing a full screen image.)\n";
+    }
+}
+
 // Central image dispatch: routes a picture to the appropriate drawing
 // method based on its type. Handles four categories:
 //   1. Full-screen images (title, sword/Merlin, endgame, demon): displayed
@@ -738,31 +758,7 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
             float scale = draw_centered_title_image(K_PIC_SWORD);
             draw_centered_image(K_PIC_SWORD_MERLIN, scale, 0, 0);
         }
-        if (gli_voiceover_on) {
-            glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-            const char *message;
-            switch (picnum) {
-                case K_PIC_TITLE:
-                    message = "\n(Showing title image in a golden frame. The words 'Arthur: The Quest for Excalibur' where the 'L' is a glittering sword.)\n";
-                    break;
-                case K_PIC_SWORD:
-                    message = "\n(Showing a full screen image in a golden frame. A sword of gold, with a jewel-encrusted hilt, stuck in a rock, in front of a crude medieval stone church.)\n";
-                    break;
-                case K_PIC_SWORD_MERLIN:
-                    message = "\n(Showing a full screen image in a golden frame. Merlin has appeared behind the sword, wearing a cloak. He raises his right hand while stroking his long beard with his left.)\n";
-                    break;
-                case K_PIC_ANGRY_DEMON:
-                    message = "\n(Showing a full screen image of a screaming demon.)\n";
-                    break;
-                case K_PIC_ENDGAME:
-                    message = "\n(Showing a full screen image in a golden frame. Arthur is holding up Excalibur, smiling, while the face of Merlin is watching from the sky behind.)\n";
-                    break;
-                default:
-                    message = "\n(Showing a full screen image.)\n";
-                    break;
-            }
-            glk_put_string_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), const_cast<char*>(message));
-        }
+        v6_describe_fullscreen_image(arthur_fullscreen_image_description(picnum));
         return true;
     } else if (current_graphics_buf_win == nullptr) {
         current_graphics_buf_win = graphics_bg_glk;

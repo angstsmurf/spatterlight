@@ -23,6 +23,7 @@
 //
 
 #include "draw_image.hpp"
+#include "draw_border.hpp"
 #include "memory.h"
 #include "objects.h"
 #include "options.h"
@@ -71,18 +72,18 @@ ShogunObjects so;
 
 // Picture numbers for the right-side border pillar graphics.
 // The left pillar is part of the main border image; right pillars are separate.
-#define P_BORDER_R 59       // Right pillar for the standard crest border
-#define P_BORDER2_R 60      // Right pillar for the wave border
+constexpr int P_BORDER_R = 59; // Right pillar for the standard crest border
+constexpr int P_BORDER2_R = 60; // Right pillar for the wave border
 
 // Picture numbers for left and right hint-mode border pillars.
-#define P_HINT_BORDER_L 61
-#define P_HINT_BORDER_R 62
+constexpr int P_HINT_BORDER_L = 61;
+constexpr int P_HINT_BORDER_R = 62;
 
-#define P_BORDER_LOC 2      // Picture number used to measure the left border/pillar width
-#define STATUS_LINES 2      // Height of the status bar in text lines
+constexpr int P_BORDER_LOC = 2; // Picture number used to measure the left border/pillar width
+constexpr int STATUS_LINES = 2; // Height of the status bar in text lines
 
 // Buffer size for a menu prompt ("You may choose to:") copied out of the game.
-#define MENU_MESSAGE_MAX 100
+constexpr int MENU_MESSAGE_MAX = 100;
 
 // Height in pixels of the status bar.
 static int shogun_status_height(void) {
@@ -95,19 +96,19 @@ static int shogun_status_height_for_scene(void) {
 }
 
 // Scene constants used for special-case behaviour.
-#define S_ERASMUS 1         // Scene 1: aboard the Erasmus (affects border choice)
-#define S_VOYAGE 6          // Scene 6: the sea voyage
+constexpr int S_ERASMUS = 1; // Scene 1: aboard the Erasmus (affects border choice)
+constexpr int S_VOYAGE = 6; // Scene 6: the sea voyage
 
 // Z-machine object attribute bit numbers used in status line display.
-#define SUPPORTERBIT 0x08   // Object is a supporter (player is "on" it)
-#define ONBIT 0x13          // Object is switched on (wheel is active)
-#define VEHICLEBIT 0x2c     // Object is a vehicle (player is "in" it)
+constexpr int SUPPORTERBIT = 0x08; // Object is a supporter (player is "on" it)
+constexpr int ONBIT = 0x13; // Object is switched on (wheel is active)
+constexpr int VEHICLEBIT = 0x2c; // Object is a vehicle (player is "in" it)
 
-#define SCORE_FACTOR 5      // Multiplier applied to raw score for display
+constexpr int SCORE_FACTOR = 5; // Multiplier applied to raw score for display
 
 // Picture numbers for the maze mini-game.
-#define P_MAZE_BACKGROUND 44  // Background grid image for the maze
-#define P_MAZE_BOX 45         // A single maze tile (used for sizing)
+constexpr int P_MAZE_BACKGROUND = 44; // Background grid image for the maze
+constexpr int P_MAZE_BOX = 45; // A single maze tile (used for sizing)
 
 // Configures the status bar and text buffer window positions based on the
 // current border type. 'P' is a picture number indicating which border is
@@ -238,15 +239,15 @@ static void update_status_line(bool interlude) {
             } else {
                 glk_put_string(const_cast<char*>(", in "));
             }
-            internal_call(pack_routine(sr.TELL_THE), {tmp});
+            call_routine(sr.TELL_THE, {tmp});
         }
 
         if ((here == so.BRIDGE_OF_ERASMUS && internal_test_attr(so.WHEEL, ONBIT)) || (here == so.GALLEY && internal_test_attr(so.GALLEY_WHEEL, ONBIT))) {
             glk_put_string(const_cast<char*>("; course "));
-            internal_call(pack_routine(sr.TELL_DIRECTION), {get_global(sg.SHIP_DIRECTION)});
+            call_routine(sr.TELL_DIRECTION, {get_global(sg.SHIP_DIRECTION)});
 
             glk_put_string(const_cast<char*>("; wheel "));
-            internal_call(pack_routine(sr.TELL_DIRECTION), {get_global(sg.SHIP_COURSE)});
+            call_routine(sr.TELL_DIRECTION, {get_global(sg.SHIP_COURSE)});
         }
 
     } else if (interlude) {
@@ -373,7 +374,7 @@ static uint16_t menu_width(uint16_t MENU) {
     return longest;
 }
 
-#define MAX_QUICKSEARCH 25  // Maximum characters for type-ahead search
+constexpr int MAX_QUICKSEARCH = 25; // Maximum characters for type-ahead search
 
 // Updates the menu background window to show the prompt message and the
 // characters typed so far for quick search.
@@ -923,7 +924,7 @@ void CENTER_PIC_X(void) {
     add_margin_image_to_list(variable(1));
 }
 
-#define P_CREST 31  // Picture number for the Toranaga family crest
+constexpr int P_CREST = 31; // Picture number for the Toranaga family crest
 
 // Z-machine entry point: displays the P_CREST image in a dedicated graphics
 // window above the text buffer. Only used for the final crest image shown
@@ -1140,7 +1141,7 @@ static int maze_mouse_f(void) {
         ? ((dx > 0) ? so.EAST  : so.WEST)
         : ((dy > 0) ? so.SOUTH : so.NORTH);
 
-    internal_call(pack_routine(sr.ADD_TO_INPUT), {DIR});
+    call_routine(sr.ADD_TO_INPUT, {DIR});
     glk_put_char(UNICODE_LINEFEED);
     return 13;
 }
@@ -1154,8 +1155,8 @@ void MAZE_MOUSE_F(void) {
 # pragma mark - Maze Simplification
 
 // Byte values in MAZE_MAP that the simplification cares about.
-#define MAZE_TILE_WALL 0x80
-#define MAZE_TILE_STREET 0
+constexpr int MAZE_TILE_WALL = 0x80;
+constexpr int MAZE_TILE_STREET = 0;
 
 // The maze as the game has it: its size, the address of the MAZE_MAP byte
 // array (one byte per cell, row by row) and the cell the player starts in.
@@ -1233,6 +1234,13 @@ void after_BUILDMAZE(void) {
 
 #pragma mark - Window Layout
 
+// The status window is drawn in the game's colours swapped (except with the
+// Apple II graphics, where it keeps the shared ones).
+static void shogun_set_status_window_colors(void) {
+    V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
+    V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
+}
+
 // Recalculates and applies the positions and sizes of the status and text
 // buffer windows. On Apple II, also adjusts the horizontal banner window.
 // Sets foreground/background colors from Z-machine globals.
@@ -1255,8 +1263,7 @@ static void adjust_shogun_window(void) {
         V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
     } else {
         v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 1, gscreenw - shogun_banner_width_left * 2, status_window_height);
-        V6_STATUS_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
-        V6_STATUS_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
+        shogun_set_status_window_colors();
         V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
 
         V6_TEXT_BUFFER_WINDOW.x_origin = V6_STATUS_WINDOW.x_origin;
@@ -1433,9 +1440,9 @@ void shogun_update_after_restore(void) {
     shogun_erase_screen();
     after_V_COLOR();
     glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-    uint16_t look = internal_call(pack_routine(sr.DESCRIBE_ROOM));
+    uint16_t look = call_routine(sr.DESCRIBE_ROOM);
     if (look) {
-        internal_call(pack_routine(sr.DESCRIBE_OBJECTS));
+        call_routine(sr.DESCRIBE_OBJECTS);
     }
 }
 
@@ -1446,6 +1453,8 @@ void shogun_update_after_restore(void) {
 void shogun_update_after_autorestore(void) {
     update_user_defined_colours();
     v6_set_window_colors_from_globals();
+    if (graphics_type != kGraphicsTypeApple2)
+        shogun_set_status_window_colors();
 
     if (current_graphics_buf_win) {
         glk_window_set_background_color(current_graphics_buf_win, user_selected_background);

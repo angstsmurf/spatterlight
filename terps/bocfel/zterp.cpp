@@ -542,8 +542,7 @@ static void process_story(IO &io, long offset)
             newmemory = extract_apple2_story((const char *)game_file.c_str(), &file_length, &raw_images, &image_count, &pixversion);
 
             graphics_type = kGraphicsTypeApple2;
-            hw_screenwidth = 140;
-            pixelwidth = 2.0;
+            set_hw_screen_geometry(graphics_type);
         }
         if (newmemory) {
             memory.assign(newmemory, newmemory + file_length);

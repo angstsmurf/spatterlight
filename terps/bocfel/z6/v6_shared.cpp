@@ -202,14 +202,32 @@ void v6_set_grid_colors(glui32 style) {
 }
 
 // Per-window colours are not part of the autosave, so after an autorestore
-// they are rebuilt from the (restored) Z-machine colour globals.
+// they are rebuilt from the (restored) Z-machine colour globals, as
+// after_V_COLOR() does on a manual restore: the status window keeps a default
+// background, so that the main window background shows through.
+// update_user_defined_colours() must have been called first.
 void v6_set_window_colors_from_globals(void) {
     uint8_t fg = get_global(fg_global_idx);
     uint8_t bg = get_global(bg_global_idx);
 
     for (auto &window : windows) {
         window.fg_color = Color(Color::Mode::ANSI, fg);
-        window.bg_color = Color(Color::Mode::ANSI, bg);
+        if (&window == &V6_STATUS_WINDOW) {
+            window.bg_color = Color();
+        } else {
+            window.bg_color = Color(Color::Mode::ANSI, bg);
+        }
+
+        // The Glk window backgrounds are not part of the autosave either, so
+        // a text buffer window keeps the theme's default (black under a dark
+        // theme, say) unless it is repainted. Normal output stays readable,
+        // because every glyph carries the game's background as a zcolor, but
+        // echoed input uses the window background, so without this it is
+        // drawn in the game's foreground on the theme background.
+        winid_t glkwin = window.id;
+        if (glkwin != nullptr && glkwin->type == wintype_TextBuffer) {
+            win_setbgnd(glkwin->peer, user_selected_background);
+        }
     }
 }
 
@@ -272,7 +290,7 @@ static void v6_redraw_game_screen(void) {
     if (is_spatterlight_zork0) {
         z0_update_on_resize();
     } else if (is_spatterlight_shogun) {
-        internal_call(pack_routine(sr.V_REFRESH));
+        call_routine(sr.V_REFRESH);
         shogun_update_on_resize();
     }
 }
@@ -285,7 +303,7 @@ static void v6_redraw_game_screen(void) {
 // commands (Save Definitions, Restore Definitions, Exit).
 
 // Maximum width of a function key definition string
-#define DEFINITIONS_WIDTH 30 // FLEN in original source
+constexpr int DEFINITIONS_WIDTH = 30; // FLEN in original source
 
 // Prints a single reverse-video space character, used as a text cursor
 // indicator in the definitions editor.
@@ -305,6 +323,20 @@ uint16_t fnames_table_addr = 0x4b57;
 // Address of the entry for line `line` of the definitions screen.
 static uint16_t fkey_entry(int line) {
     return fkeys_table_addr + 2 + 4 * line;
+}
+
+// The definitions screen as VoiceOver sees it. The front end takes the third
+// win_menuitem() argument of a kV6MenuTypeDefine item as the total number of
+// items in the menu ("item 3 of 18"). Both games have 19 rows: 14 definitions,
+// a blank separator and 4 commands. The separator is not a menu item, so the
+// rows below it are numbered one lower.
+enum {
+    kDefineMenuItemCount = 18,
+    kDefineMenuBlankRow = 14
+};
+
+static int define_menu_item_index(int line) {
+    return line > kDefineMenuBlankRow ? line - 1 : line;
 }
 
 // Returns the width of the widest user-defined command string.
@@ -371,6 +403,13 @@ static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bo
     return 0;
 }
 
+// A DEFINE menu row is either a function key the player can redefine or a
+// fixed command (Save Definitions, Exit and so on). The game marks the
+// commands with a negative first word.
+static bool is_command_entry(uint16_t function_key) {
+    return (int16_t)user_word(function_key) < 0;
+}
+
 // Displays a single line in the definitions menu. There are two types:
 // - Hard-coded commands (negative key code): centered text items like
 //   "Save Definitions" or "Exit" that run a Z-machine routine when selected.
@@ -387,7 +426,7 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
     MenuString menu_string(str, sizeof(str));
     fdef = user_word(function_key + 2);
     y = index + 1;
-    if ((int16_t)user_word(function_key) < 0) { // hard-coded menu item
+    if (is_command_entry(function_key)) {
         if (fdef != 0) {
             DEFINITIONS_WINDOW.x = 1;
             DEFINITIONS_WINDOW.y = y * gcellh;
@@ -397,7 +436,7 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
             print_center_table(y, user_word(fdef));
             if (send_menu) {
                 menu_string.append_zstr(user_word(fdef));
-                win_menuitem(kV6MenuTypeDefine, index - 1, 18, 0, str, menu_string.length());
+                win_menuitem(kV6MenuTypeDefine, define_menu_item_index(index), kDefineMenuItemCount, 0, str, menu_string.length());
             }
         }
     } else {
@@ -433,7 +472,7 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
         // is a screen column (0..260) unrelated to the fill and would make the
         // front-end read uninitialized or past-buffer bytes of str[60].
         if (send_menu)
-            win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, menu_string.length());
+            win_menuitem(kV6MenuTypeDefine, define_menu_item_index(index), kDefineMenuItemCount, 0, str, menu_string.length());
 
         glsi32 x = user_byte(fdef + 1) + 4;
 
@@ -515,7 +554,7 @@ void adjust_definitions_window(void) {
     // Print selected line a second time
     // just to move the cursor into position
     display_soft(fkey, global_define_line, false, false);
-    win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
+    win_menuitem(kV6MenuSelectionChanged, define_menu_item_index(global_define_line), kDefineMenuItemCount, 0, nullptr, 0);
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 }
 
@@ -571,6 +610,13 @@ void V_DEFINE(void) {
                     break;
                 }
                 new_line = clicked_line - 2;
+                // Ignore clicks below the last line and on the blank line
+                // between definitions and commands: neither is an entry
+                // that can be selected, edited or run.
+                if (new_line >= linmax || user_word(fkey_entry(new_line) + 2) == 0) {
+                    new_line = global_define_line;
+                    break;
+                }
 
                 // Deselect the old line and select the clicked one.
                 // This is identical to the code at the end of the input loop,
@@ -587,13 +633,13 @@ void V_DEFINE(void) {
                 // if we double clicked a command (as opposed to a definition)
                 // we fall through and treat it as ZSCII_NEWLINE.
                 // Otherwise we break.
-                if (!(chr == ZSCII_CLICK_DOUBLE && (int16_t)user_word(fkey) < 0)) {
+                if (!(chr == ZSCII_CLICK_DOUBLE && is_command_entry(fkey))) {
                     break;
                 }
                 // fallthrough
             case ZSCII_NEWLINE:
                 // if we are on a static command, run the associated routine
-                if ((int16_t)user_word(fkey) < 0) {
+                if (is_command_entry(fkey)) {
                     if (internal_call(user_word(fdef + 2))) {
                         // Exit menu if the call returns true
                         finished = true;
@@ -643,7 +689,7 @@ void V_DEFINE(void) {
                 if (pressed_fkey) {
                     new_line = (pressed_fkey - fkeys_table_addr) / 4;
                     // skip text editing if we are on a static command line
-                } else if ((int16_t)user_word(fkey) >= 0) {
+                } else if (!is_command_entry(fkey)) {
                     if (chr == ZSCII_BACKSPACE || chr == 127) {
                         length = user_byte(fdef + 1);
                         if (length != 0) {
@@ -707,12 +753,14 @@ void V_DEFINE(void) {
         }
 
         // Deselect the old line
-        // and select the new one
+        // and select the new one.
+        // (No menu item is sent for the redrawn lines: the front end already
+        // has all of them, and would add this one to its list a second time.)
         if (global_define_line != new_line) {
-            display_soft(fkey, global_define_line, true, true);
+            display_soft(fkey, global_define_line, true, false);
             display_soft(fkey_entry(new_line), new_line, false, false);
             global_define_line = new_line;
-            win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
+            win_menuitem(kV6MenuSelectionChanged, define_menu_item_index(global_define_line), kDefineMenuItemCount, 0, nullptr, 0);
             fkey = fkey_entry(global_define_line);
             fdef = user_word(fkey + 2);
         }
@@ -858,19 +906,13 @@ static uint16_t line_to_index(uint16_t line) {
 }
 
 
-// Sets up the window layout for the hints screen. Configures colors
-// based on graphics type and platform, positions the status bar (with
-// navigation instructions) and the menu/hint text area. For topic and
-// question levels, the text buffer is remapped to a text grid for
-// fixed-position menu display. Handles game-specific border drawing.
-static void draw_hints_windows(void) {
-
+// The hint screen's header is drawn in colours that suit the border picture
+// of the graphics format in use, where there is one.
+static void set_hint_window_colours(bool is_macintosh) {
     update_user_defined_colours();
 
     upperwin_foreground = user_selected_foreground;
     upperwin_background = user_selected_background;
-
-    bool is_macintosh = (graphics_type == kGraphicsTypeMacBW || (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga));
 
     if (!is_spatterlight_arthur) {
         switch (graphics_type) {
@@ -894,10 +936,10 @@ static void draw_hints_windows(void) {
         if (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga) {
             upperwin_foreground = 0;
         } else if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeEGA || graphics_type == kGraphicsTypeBlorb) {
-            upperwin_foreground = 0xffffff;
-            if (upperwin_background == 0xffffff) {
+            upperwin_foreground = kRGBWhite;
+            if (upperwin_background == kRGBWhite) {
                 upperwin_foreground = user_selected_background;
-                if (upperwin_foreground == 0xffffff)
+                if (upperwin_foreground == kRGBWhite)
                     upperwin_foreground = 0;
             }
         }
@@ -909,27 +951,16 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_arthur || (upperwin_background != zcolor_Default && upperwin_background != HINT_MAUVE))
         win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
+}
 
-    v6_set_grid_colors(style_Normal);
-
-    if (hints_depth != kV6MenuTypeHint && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
-        v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
-    } else if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
-        v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
-        V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
-        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
-    }
-
-    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
-    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-
-    int width = 1;
-    int status_x = 0;
-
+// Works out where the hint screen's two windows go, from the hint border
+// picture of the game and graphics format. Zork Zero's border is drawn here
+// as well, because its measurements depend on it being the current one.
+static void measure_hint_windows(bool is_macintosh, int &width, int &height, int &status_x) {
     V6_STATUS_WINDOW.x = 0;
     V6_STATUS_WINDOW.y = 0;
 
-    int height = gcellh * 4 + ggridmarginy * 2;
+    height = gcellh * 4 + ggridmarginy * 2;
 
     if (is_spatterlight_zork0) {
         // Global BORDER-ON, false if in text-only mode
@@ -969,6 +1000,37 @@ static void draw_hints_windows(void) {
         //  the status text view to make it fit between the question marks in the image.
         status_x = 23 * imagescalex;
     }
+}
+
+// Sets up the window layout for the hints screen. Configures colors
+// based on graphics type and platform, positions the status bar (with
+// navigation instructions) and the menu/hint text area. For topic and
+// question levels, the text buffer is remapped to a text grid for
+// fixed-position menu display. Handles game-specific border drawing.
+static void draw_hints_windows(void) {
+
+    bool is_macintosh = (graphics_type == kGraphicsTypeMacBW || (options.int_number == INTERP_MACINTOSH && graphics_type == kGraphicsTypeAmiga));
+
+    set_hint_window_colours(is_macintosh);
+
+    v6_set_grid_colors(style_Normal);
+
+    if (hints_depth != kV6MenuTypeHint && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
+        v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
+    } else if (V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextGrid) {
+        v6_delete_win(&V6_TEXT_BUFFER_WINDOW);
+        V6_TEXT_BUFFER_WINDOW.id = stored_bufferwin;
+        v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+    }
+
+    win_refresh(V6_TEXT_BUFFER_WINDOW.id->peer, 0, 0);
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+
+    // The margin left and right of the text, the height of the header,
+    // and how far the status window is inset from the screen edges
+    int width = 1, height, status_x = 0;
+    measure_hint_windows(is_macintosh, width, height, status_x);
+
     v6_define_window(&V6_STATUS_WINDOW, status_x, 1, gscreenw - 2 * status_x, gcellh * 3 + 2 * ggridmarginy);
 
     if (height < V6_STATUS_WINDOW.y_size + 1) {
@@ -1024,7 +1086,7 @@ static void center_line(const char *str, int line, int length, bool reverse) {
     // theme's background is also near-black). Fall back to a plain black or
     // white glyph chosen to contrast with the bar.
     if (fabs(perceived_brightness(title_background) - perceived_brightness(upperwin_foreground)) < 0.2) {
-        title_background = (perceived_brightness(upperwin_foreground) < 0.5) ? 0xffffff : 0;
+        title_background = (perceived_brightness(upperwin_foreground) < 0.5) ? kRGBWhite : 0;
     }
     if (reverse) {
         if (set_upperwin_colors) {
@@ -1097,7 +1159,7 @@ static void hint_title(const char *title, int length) {
 // Arthur-specific: checks if a hint question is relevant to the current
 // game state by calling the game's RT-SEE-QST routine.
 static bool rt_see_qst(uint16_t obj) {
-    return (internal_call(pack_routine(ar.RT_SEE_QST), {obj}) == 1);
+    return (call_routine(ar.RT_SEE_QST, {obj}) == 1);
 }
 
 // Returns the Z-string address of a question's display name within the
@@ -1169,7 +1231,7 @@ static int16_t get_seen_hints(void) {
 // at the appropriate index for the current hint depth level.
 static void print_and_send_menuitem(uint16_t str, int max) {
     char string[4000];
-    int length = print_long_zstr_to_cstr(str, string, 4000);
+    int length = print_long_zstr_to_cstr(str, string, sizeof(string));
     glk_put_string(string);
     int index;
     switch (hints_depth) {
@@ -1286,11 +1348,11 @@ static void store_hints_seen(uint8_t value) {
 static int16_t init_hints(int16_t *hints_base_address) {
 
     int16_t h = user_word(user_word(hints_table_addr + h_chapt_num * 2) + (h_quest_num + 1) * 2);
-    char str[64];
+    char str[kHintTitleMax];
 
     int offset = is_spatterlight_arthur ? 4 : 2;
 
-    int length = print_long_zstr_to_cstr(user_word(h + offset), str, 64);
+    int length = print_long_zstr_to_cstr(user_word(h + offset), str, sizeof(str));
     hint_title(str, length);
 
     int16_t seen = get_seen_hints();
@@ -1417,8 +1479,8 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV
 // title and all questions, with the current selection highlighted.
 // Returns the number of visible questions.
 static int display_questions(void) {
-    char str[30];
-    int length = print_long_zstr_to_cstr(user_word(user_word(hints_table_addr + h_chapt_num * 2) + 2), str, 30);
+    char str[kHintTitleMax];
+    int length = print_long_zstr_to_cstr(user_word(user_word(hints_table_addr + h_chapt_num * 2) + 2), str, sizeof(str));
     hint_title(str, length);
     uint16_t max = user_word(user_word(hints_table_addr + h_chapt_num * 2)) - 1;
     int number_of_entries = hint_put_up_frobs(max, 1);
@@ -1798,8 +1860,8 @@ bool v6_pictures_unseen(void) {
 // window tree and can't be deleted, so it is kept and shrunk to nothing
 // meanwhile.) The windows are found by rock, which also works after an
 // autorestore.
-#define V6_STATUS_ROCK 2 // As opened in init_screen()
-#define V6_OPAQUE_STATUS_ROCK 0x5636534f // 'V6SO'
+constexpr int V6_STATUS_ROCK = 2; // As opened in init_screen()
+constexpr int V6_OPAQUE_STATUS_ROCK = 0x5636534f; // 'V6SO'
 
 static winid_t v6_grid_window_with_rock(glui32 wanted) {
     glui32 rock;
@@ -1826,6 +1888,19 @@ void v6_match_status_window_to_graphics_setting(Window *status) {
 }
 
 bool v6_skip_keypress = false;
+
+uint16_t call_routine(uint32_t address, std::vector<uint16_t> args) {
+    return internal_call(pack_routine(address), std::move(args));
+}
+
+// A full-screen picture hides the text window. With VoiceOver on, replace the
+// text with a description of what is being shown.
+void v6_describe_fullscreen_image(const char *message) {
+    if (!gli_voiceover_on)
+        return;
+    glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
+    glk_put_string_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), const_cast<char *>(message));
+}
 
 void v6_skip_next_keypress(void) {
     v6_skip_keypress = true;

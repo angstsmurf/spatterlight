@@ -56,113 +56,116 @@ enum BorderType {
     HINT_BORDER = 8
 };
 
-#define zorkzero_title_image 1
+constexpr int zorkzero_title_image = 1;
 // Illuminated initials drawn in the margin at the start of the prologue, the
 // main game and the epilogue.
-#define zorkzero_prologue_letter 2
-#define zorkzero_main_letter 3
-#define zorkzero_epilogue_letter 4
+constexpr int zorkzero_prologue_letter = 2;
+constexpr int zorkzero_main_letter = 3;
+constexpr int zorkzero_epilogue_letter = 4;
 
-#define zorkzero_encyclopedia_border 25
+constexpr int zorkzero_encyclopedia_border = 25;
 
-#define zorkzero_tower_of_bozbar_border 41
-#define zorkzero_peggleboz_border 49
-#define zorkzero_snarfem_border 73
-#define zorkzero_double_fanucci_border 99
+constexpr int zorkzero_tower_of_bozbar_border = 41;
+constexpr int zorkzero_peggleboz_border = 49;
+constexpr int zorkzero_snarfem_border = 73;
+constexpr int zorkzero_double_fanucci_border = 99;
 
-#define zorkzero_map_border 163
+constexpr int zorkzero_map_border = 163;
 
-#define zorkzero_encyclopedia_picture_location 378
-#define zorkzero_encyclopedia_text_location 379
-#define zorkzero_encyclopedia_text_size 380
+constexpr int zorkzero_encyclopedia_picture_location = 378;
+constexpr int zorkzero_encyclopedia_text_location = 379;
+constexpr int zorkzero_encyclopedia_text_size = 380;
 
-#define HERE_LOC 382
-#define TEXT_WINDOW_PIC_LOC 387
-#define COMPASS_PIC_LOC 381
+constexpr int HERE_LOC = 382;
+constexpr int TEXT_WINDOW_PIC_LOC = 387;
+constexpr int COMPASS_PIC_LOC = 381;
 
 // The remaining "location" marker pictures whose (scaled) dimensions seed the
 // status/compass position table (SL-LOC-TBL). See z0_refresh_sl_loc_tbl().
-#define REGION_LOC 383      // 0x17f
-#define U_BOX_LOC 482       // 0x1e2 (compass up arrow)
-#define D_BOX_LOC 483       // 0x1e3 (compass down arrow)
-#define ICON_OFFSET 478     // 0x1de
+constexpr int REGION_LOC = 383; // 0x17f
+constexpr int U_BOX_LOC = 482; // 0x1e2 (compass up arrow)
+constexpr int D_BOX_LOC = 483; // 0x1e3 (compass down arrow)
+constexpr int ICON_OFFSET = 478; // 0x1de
 
-#define CASTLE_BORDER_L 0x1f1
-#define CASTLE_BORDER_R 0x1f2
+constexpr int CASTLE_BORDER_L = 0x1f1;
+constexpr int CASTLE_BORDER_R = 0x1f2;
 
-#define UNDERGROUND_BORDER_L 0x1f3
-#define UNDERGROUND_BORDER_R 0x1f4
+constexpr int UNDERGROUND_BORDER_L = 0x1f3;
+constexpr int UNDERGROUND_BORDER_R = 0x1f4;
 
-#define OUTSIDE_BORDER_L 0x1f5
-#define OUTSIDE_BORDER_R 0x1f6
+constexpr int OUTSIDE_BORDER_L = 0x1f5;
+constexpr int OUTSIDE_BORDER_R = 0x1f6;
 
-#define F_SPLIT 422
-#define F_BOTTOM 423
+constexpr int F_SPLIT = 422;
+constexpr int F_BOTTOM = 423;
 
-#define PBOZ_SPLIT 402
-#define PBOZ_BOTTOM 424
+constexpr int PBOZ_SPLIT = 402;
+constexpr int PBOZ_BOTTOM = 424;
 
-#define SN_SPLIT 427
-#define SN_BOTTOM 425
+constexpr int SN_SPLIT = 427;
+constexpr int SN_BOTTOM = 425;
 
-#define N_HIGHLIGHTED    0x09
-#define NE_HIGHLIGHTED   0x0a
-#define E_HIGHLIGHTED    0x0b
-#define SE_HIGHLIGHTED   0x0c
-#define S_HIGHLIGHTED    0x0d
-#define SW_HIGHLIGHTED   0x0e
-#define W_HIGHLIGHTED    0x0f
-#define NW_HIGHLIGHTED   0x10
+constexpr int N_HIGHLIGHTED = 0x09;
+constexpr int NE_HIGHLIGHTED = 0x0a;
+constexpr int E_HIGHLIGHTED = 0x0b;
+constexpr int SE_HIGHLIGHTED = 0x0c;
+constexpr int S_HIGHLIGHTED = 0x0d;
+constexpr int SW_HIGHLIGHTED = 0x0e;
+constexpr int W_HIGHLIGHTED = 0x0f;
+constexpr int NW_HIGHLIGHTED = 0x10;
 
-#define N_UNHIGHLIGHTED  0x11
-#define NE_UNHIGHLIGHTED 0x12
-#define E_UNHIGHLIGHTED  0x13
-#define SE_UNHIGHLIGHTED 0x14
-#define S_UNHIGHLIGHTED  0x15
-#define SW_UNHIGHLIGHTED 0x16
-#define W_UNHIGHLIGHTED  0x17
-#define NW_UNHIGHLIGHTED 0x18
+constexpr int N_UNHIGHLIGHTED = 0x11;
+constexpr int NE_UNHIGHLIGHTED = 0x12;
+constexpr int E_UNHIGHLIGHTED = 0x13;
+constexpr int SE_UNHIGHLIGHTED = 0x14;
+constexpr int S_UNHIGHLIGHTED = 0x15;
+constexpr int SW_UNHIGHLIGHTED = 0x16;
+constexpr int W_UNHIGHLIGHTED = 0x17;
+constexpr int NW_UNHIGHLIGHTED = 0x18;
 
-#define P_NW 0x38
-#define P_WEST 0x39
-#define P_SW 0x3a
-#define P_SOUTH 0x3b
-#define P_SE 0x3c
-#define P_EAST 0x3d
-#define P_NE 0x3e
-#define P_NORTH 0x3f
+// The twelve direction properties, <DIRECTIONS NORTH NE EAST SE SOUTH SW
+// WEST NW UP DOWN IN OUT>, are numbered downwards from 63.
+constexpr int LOW_DIRECTION = 0x34; // P?OUT
+constexpr int P_NW = 0x38;
+constexpr int P_WEST = 0x39;
+constexpr int P_SW = 0x3a;
+constexpr int P_SOUTH = 0x3b;
+constexpr int P_SE = 0x3c;
+constexpr int P_EAST = 0x3d;
+constexpr int P_NE = 0x3e;
+constexpr int P_NORTH = 0x3f;
 
-#define zorkzero_tower_of_bozbar_bottom 426
-#define zorkzero_tower_of_bozbar_split 428
+constexpr int zorkzero_tower_of_bozbar_bottom = 426;
+constexpr int zorkzero_tower_of_bozbar_split = 428;
 
-#define EXIT_BOX 463
-#define SHOW_MOVES_BOX 464
-#define UNDO_BOX 465
-#define RESTART_BOX 466
-#define DIM_SHOW_MOVES_BOX 467
-#define DIM_UNDO_BOX 468
-#define DIM_RESTART_BOX 469
+constexpr int EXIT_BOX = 463;
+constexpr int SHOW_MOVES_BOX = 464;
+constexpr int UNDO_BOX = 465;
+constexpr int RESTART_BOX = 466;
+constexpr int DIM_SHOW_MOVES_BOX = 467;
+constexpr int DIM_UNDO_BOX = 468;
+constexpr int DIM_RESTART_BOX = 469;
 
-#define PBOZ_RESTART_BOX_LOC 472
-#define PBOZ_SHOW_MOVES_BOX_LOC 473
-#define PBOZ_EXIT_BOX_LOC 474
+constexpr int PBOZ_RESTART_BOX_LOC = 472;
+constexpr int PBOZ_SHOW_MOVES_BOX_LOC = 473;
+constexpr int PBOZ_EXIT_BOX_LOC = 474;
 
-#define EXPAND_HOT_SPOT 477
+constexpr int EXPAND_HOT_SPOT = 477;
 
-#define UNHL_PEG 50
-#define HL_PEG 51
+constexpr int UNHL_PEG = 50;
+constexpr int HL_PEG = 51;
 
-#define B_1_WEIGHT 43
+constexpr int B_1_WEIGHT = 43;
 
-#define B_1_L_PIC_LOC 363
-#define B_2_C_PIC_LOC 364
-#define B_3_R_PIC_LOC 365
-#define B_4_PIC_LOC 366
-#define B_5_PIC_LOC 367
-#define B_6_PIC_LOC 368
+constexpr int B_1_L_PIC_LOC = 363;
+constexpr int B_2_C_PIC_LOC = 364;
+constexpr int B_3_R_PIC_LOC = 365;
+constexpr int B_4_PIC_LOC = 366;
+constexpr int B_5_PIC_LOC = 367;
+constexpr int B_6_PIC_LOC = 368;
 
-#define TOWER_UNDO_BOX_LOC 475
-#define TOWER_EXIT_BOX_LOC 476
+constexpr int TOWER_UNDO_BOX_LOC = 475;
+constexpr int TOWER_EXIT_BOX_LOC = 476;
 
 extern winid_t z0_right_status_window;
 
@@ -178,7 +181,7 @@ void z0_stash_state(library_state_data *dat);
 void z0_recover_state(library_state_data *dat);
 void z0_display_hint_border(void);
 
-typedef struct ZorkGlobals {
+struct ZorkGlobals {
     uint8_t HERE;
     uint8_t NEW_COMPASS;
     uint8_t MOVES;
@@ -196,11 +199,11 @@ typedef struct ZorkGlobals {
     uint8_t TOWER_CHANGED;
     uint8_t NARROW;
     uint8_t PEG_MOVE_NUMBER;
-} ZorkGlobals;
+};
 
 extern ZorkGlobals zg;
 
-typedef struct ZorkRoutines {
+struct ZorkRoutines {
     uint32_t V_REFRESH; 
     uint32_t SETUP_SCREEN;
     uint32_t SET_BORDER;
@@ -239,11 +242,11 @@ typedef struct ZorkRoutines {
     // PBOZ-WIN-CHECK. 0 = not found.
     uint32_t PEG_GAME_WIN;
     uint32_t PLAY_SELECTED;
-} ZorkRoutines;
+};
 
 extern ZorkRoutines zr;
 
-typedef struct ZorkTables {
+struct ZorkTables {
     uint16_t K_HINT_ITEMS;
     uint16_t F_PLAY_TABLE;
     uint16_t F_PLAY_TABLE_APPLE;
@@ -266,11 +269,11 @@ typedef struct ZorkTables {
     uint16_t DRAW_CARDS_TABLE;
     uint16_t PICINF_TBL;
     uint16_t SL_LOC_TBL;
-} ZorkTables;
+};
 
 extern ZorkTables zt;
 
-typedef struct ZorkObjects {
+struct ZorkObjects {
     uint16_t PHIL_HALL;
     uint16_t G_U_MOUNTAIN;
     uint16_t G_U_SAVANNAH;
@@ -290,17 +293,18 @@ typedef struct ZorkObjects {
     uint16_t PYRAMID;
     uint16_t PYRAMID_R;
     uint16_t BROOM;
-} ZorkObjects;
+    uint16_t ROOMS; // 0 if the game keeps no compass flags on it
+};
 
 extern ZorkObjects zo;
 
-typedef struct ZorkProperties {
+struct ZorkProperties {
     uint8_t P_REGION;
     uint8_t P_APPLE_DESC;
     uint8_t TOUCHBIT;
     uint8_t TRYTAKEBIT;
     uint8_t P_MAP_LOC;
-} ZorkProperties;
+};
 
 extern ZorkProperties zp;
 

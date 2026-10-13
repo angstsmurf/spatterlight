@@ -48,6 +48,7 @@
 
 #include "entrypoints.hpp"
 #include "draw_image.hpp"
+#include "draw_border.hpp"
 #include "shogun.hpp"
 
 #include "zorkzero.hpp"
@@ -521,6 +522,29 @@ void z0_leave_stale_map_for_line_input(void) {
     }
 }
 
+// Prints the notes about a full-screen picture that were held back until
+// the text window was showing again.
+static void z0_show_pending_notes(void) {
+    if (should_show_rebus_hint_message) {
+        glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+        if (v6_graphics_off())
+            transcribe_and_print_string("\n[The rebus is a picture, and graphics are turned off. To learn what it says, consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
+        else
+            transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
+        should_show_rebus_hint_message = false;
+        shown_rebus_hint_message = true;
+        // Requesting and cancelling a character event makes the front end
+        // show the text now rather than at the next input request
+        glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
+        glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
+    }
+    if (should_show_map_note) {
+        glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+        transcribe_and_print_string("\n[The map is a picture, and graphics are turned off.]\n");
+        should_show_map_note = false;
+    }
+}
+
 // Initializes the status line layout. Splits the screen by the current split
 // picture, sets up border display (if borders are on), positions the status
 // windows, and configures text styles for the status area.
@@ -532,22 +556,7 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         // <CLEAR -1>
         if (V6_TEXT_BUFFER_WINDOW.id != nullptr) {
             glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-            if (should_show_rebus_hint_message) {
-                glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-                if (v6_graphics_off())
-                    transcribe_and_print_string("\n[The rebus is a picture, and graphics are turned off. To learn what it says, consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
-                else
-                    transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
-                should_show_rebus_hint_message = false;
-                shown_rebus_hint_message = true;
-                glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
-                glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
-            }
-            if (should_show_map_note) {
-                glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-                transcribe_and_print_string("\n[The map is a picture, and graphics are turned off.]\n");
-                should_show_map_note = false;
-            }
+            z0_show_pending_notes();
         }
         clear_margin_image_list();
     }
@@ -572,17 +581,24 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
 
         set_current_window(&V6_GRAPHICS_BG); // <SCREEN ,S-FULL>
         if (zg.CURRENT_BORDER != 0) {
-            set_global(zg.CURRENT_BORDER, internal_call(pack_routine(zr.SET_BORDER)));
+            set_global(zg.CURRENT_BORDER, call_routine(zr.SET_BORDER));
             DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
         } else if (zr.SET_BORDER != 0) {
-            DISPLAY_BORDER((BorderType)internal_call(pack_routine(zr.SET_BORDER)));
+            DISPLAY_BORDER((BorderType)call_routine(zr.SET_BORDER));
         }
         // If neither the CURRENT-BORDER global nor a detected SET-BORDER routine
         // is available (the release-tuned patterns don't match the pre-release
         // r296/r66 layouts), skip the border draw rather than calling
         // pack_routine(0) into a garbage routine.
-        for (int i = 1; i < 14; i++) {
-            internal_clear_attr(0x166, i);
+        // The game records which compass directions are currently drawn as
+        // flags on ROOMS, flag 64 - <direction property>. Forget them all,
+        // so that the whole rose is drawn again on the new border. (The
+        // game's own INIT-STATUS-LINE does this from r366 on; r343 has the
+        // flags but not yet the loop, and needs it just the same.)
+        if (zo.ROOMS != 0) {
+            for (int direction = P_NORTH; direction >= LOW_DIRECTION; direction--) {
+                internal_clear_attr(zo.ROOMS, 64 - direction);
+            }
         }
 
     } else {
@@ -727,11 +743,11 @@ static void z0_resize_status_windows(void) {
 #pragma mark - Hint Border Display
 
 // Side pillar images for hint screens
-#define Z0_HINT_BORDER_L 503
-#define Z0_HINT_BORDER_R 504
+constexpr int Z0_HINT_BORDER_L = 503;
+constexpr int Z0_HINT_BORDER_R = 504;
 
 // Height of the Amiga/Mac hint border top section (used for pillar placement)
-#define Z0_HINT_TOP_HEIGHT 33
+constexpr int Z0_HINT_TOP_HEIGHT = 33;
 
 // Draws the hint border. Unlike DISPLAY_BORDER (which handles the
 // 4 in-game border types), this also handles vertical border extension for
@@ -820,7 +836,7 @@ void z0_UPDATE_STATUS_LINE(void) {
         // releases, whose SETUP-SCREEN already refills the table.
         z0_refresh_sl_loc_tbl();
         if (zr.DRAW_NEW_COMP != 0) {
-            internal_call(pack_routine(zr.DRAW_NEW_COMP));
+            call_routine(zr.DRAW_NEW_COMP);
         } else if (zr.DRAW_COMPASS_ROSE != 0 && zt.PICINF_TBL != 0) {
             // Legacy fallback for the early releases (r242/beta) that have
             // DRAW-COMPASS-ROSE + PICINF-TBL but no DRAW-NEW-COMP. Guard on
@@ -847,7 +863,7 @@ void z0_UPDATE_STATUS_LINE(void) {
                 { P_NW,    NW_HIGHLIGHTED, NW_UNHIGHLIGHTED },
             };
             for (const auto &dir : compass_directions) {
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {dir[0], dir[1], dir[2]});
+                call_routine(zr.DRAW_COMPASS_ROSE, {dir[0], dir[1], dir[2]});
             }
         }
         glk_set_window(z0_right_status_window);
@@ -1111,37 +1127,37 @@ static bool autosolve_visual_puzzle(void) {
 #pragma mark - Double Fanucci
 
 // Image location constants for the Double Fanucci card game UI
-#define F_MENU_LOC    384
-#define J_SCORE_LOC   385
-#define F_DISCARD_LOC 419
-#define F_CARD_1_LOC  420
-#define F_CARD_SPACE  421
+constexpr int F_MENU_LOC = 384;
+constexpr int J_SCORE_LOC = 385;
+constexpr int F_DISCARD_LOC = 419;
+constexpr int F_CARD_1_LOC = 420;
+constexpr int F_CARD_SPACE = 421;
 
-#define F_DISCARD_PIC_LOC 369
+constexpr int F_DISCARD_PIC_LOC = 369;
 
 // Attribute offset: attributes DRAW_CARDS_OFFSET+0..+4 on NOT-HERE-OBJECT
 // track which card slots have been drawn
-#define DRAW_CARDS_OFFSET 22
+constexpr int DRAW_CARDS_OFFSET = 22;
 
 // Card face image constants
-#define F_CARD_BACK 100
-#define F_CARD 101
-#define F_INKBLOTS 102
-#define F_RV_INKBLOTS 117
-#define F_RANK_PIC_LOC 374
-#define F_REV_RANK_PIC_LOC 375
-#define F_SUIT_PIC_LOC 376
-#define F_REV_SUIT_PIC_LOC 377
+constexpr int F_CARD_BACK = 100;
+constexpr int F_CARD = 101;
+constexpr int F_INKBLOTS = 102;
+constexpr int F_RV_INKBLOTS = 117;
+constexpr int F_RANK_PIC_LOC = 374;
+constexpr int F_REV_RANK_PIC_LOC = 375;
+constexpr int F_SUIT_PIC_LOC = 376;
+constexpr int F_REV_SUIT_PIC_LOC = 377;
 
 // Rank number images: F_0 + rank for normal, F_RV_0 + rank for reversed
-#define F_0 132
-#define F_RV_0 143
+constexpr int F_0 = 132;
+constexpr int F_RV_0 = 143;
 
 // Special card: Granola (rank 12+)
-#define F_GRANOLA 154
+constexpr int F_GRANOLA = 154;
 
 // Location of card slot 1 (cards 2-4 follow at consecutive pic locs)
-#define F_1_PIC_LOC 370
+constexpr int F_1_PIC_LOC = 370;
 
 // Fanucci window layout (used during initial setup):
 //   Window 1: Jester's Score
@@ -1250,6 +1266,8 @@ static void draw_cards(void) {
 
 // The text grid window used for the Fanucci command/play selection menu
 static winid_t fanucci_command_grid = nullptr;
+// The grid is found again by its rock after an autorestore
+constexpr glui32 FANUCCI_COMMAND_GRID_ROCK = 0x56364647; // 'V6FG'
 // Whether to use narrow (Apple IIe) command labels with 8-char spacing
 static bool fanucci_window_is_narrow = false;
 
@@ -1323,6 +1341,11 @@ static bool pick_play() {
     bool resigned = false;
     while (!finished) {
         flush_image_buffer();
+        // A Glk mouse request is used up by the click it delivers, so it
+        // has to be renewed before every read, or the second click (the
+        // one that selects the highlighted play) never arrives.
+        if (fanucci_command_grid != nullptr)
+            glk_request_mouse_event(fanucci_command_grid);
         uint16_t key = internal_read_char();
 
         if (key == ZSCII_CLICK_SINGLE || key == ZSCII_CLICK_DOUBLE) {
@@ -1357,7 +1380,7 @@ static bool pick_play() {
                 // Fallthrough
             case ZSCII_NEWLINE:
                 finished = true;
-                resigned = (internal_call(pack_routine(zr.PLAY_SELECTED), {ptr}) == 1); // <PLAY-SELECTED PTR>
+                resigned = (call_routine(zr.PLAY_SELECTED, {ptr}) == 1); // <PLAY-SELECTED PTR>
                 if (!resigned) {
                     unbold_move(ptr);
                 }
@@ -1428,12 +1451,12 @@ static bool pick_play() {
 // Z-machine entry point: triggers the jester's play by calling the game's
 // J-PLAY routine.
 void J_PLAY(void) {
-    internal_call(pack_routine(zr.J_PLAY));
+    call_routine(zr.J_PLAY);
 }
 
 // Checks whether the Fanucci game is over (one player's score is high enough).
 static bool score_check(void) {
-    int result = internal_call(pack_routine(zr.SCORE_CHECK));
+    int result = call_routine(zr.SCORE_CHECK);
     return (result == 1);
 }
 
@@ -1558,34 +1581,16 @@ void z0_erase_window(int16_t index) {
 // Tests whether the last mouse click position falls within the rectangle
 // defined by (left, top, width, height) in unscaled image coordinates.
 // Used by all mini-games for mouse hit-testing.
-static bool within(uint16_t left, uint16_t top, uint16_t width, uint16_t height) {
+// A click in a graphics window is recorded in window pixels, and
+// flush_bitmap() stretches the pixmap from the window's top left corner by
+// imagescalex and imagescaley, so dividing by those gives the pixmap position.
+static bool within(int left, int top, int width, int height) {
     uint16_t mouse_click_addr = header.extension_table + 2;
-    int16_t x = word(mouse_click_addr);
-    int16_t y = word(mouse_click_addr + 2);
+    int x = (int16_t)word(mouse_click_addr) / imagescalex;
+    int y = (int16_t)word(mouse_click_addr + 2) / imagescaley;
 
-    x = x / imagescalex - imagescalex;
-    y = y / imagescaley - imagescaley;
-
-    uint16_t right = left + width;
-    uint16_t bottom = top + height;
-
-    return (x >= left - 1 && x < right && y >= top - 1 && y < bottom);
+    return (x >= left && x < left + width && y >= top && y < top + height);
 }
-
-// Hit-tests a mouse click against the 4 hand card slots. Returns the ASCII
-// code '1'-'4' for the clicked card, or ZSCII_CLICK_SINGLE if no card was hit.
-static uint16_t F_MOUSE_CARD_PICK(void) {
-    int x, y, width, height;
-    get_image_size(F_CARD, &width, &height);
-    for (int i = 0; i < 4; i++) {
-        get_image_size(F_1_PIC_LOC + i, &x, &y);
-        if (within(x, y, width, height))
-            return 49 + i;
-    }
-    return ZSCII_CLICK_SINGLE;
-}
-
-
 
 // Redraws the entire Double Fanucci display: border graphics, all cards,
 // score windows (Jester's in window 1, player's in right status window),
@@ -1676,7 +1681,7 @@ static void redraw_fanucci(void) {
 
     // And a separate grid window for the commands
     if (fanucci_command_grid == nullptr)
-        fanucci_command_grid = gli_new_window(wintype_TextGrid, 0);
+        fanucci_command_grid = gli_new_window(wintype_TextGrid, FANUCCI_COMMAND_GRID_ROCK);
 
     win_maketransparent(fanucci_command_grid->peer);
 
@@ -1748,28 +1753,28 @@ void SLIDE_SHOW_END(void) {
 // indicators that hint at the optimal move.
 
 // Base picture numbers for pile display (PILE_OF_0 + count = pile image)
-#define PILE_OF_0 74
+constexpr int PILE_OF_0 = 74;
 
 // Flower images indicating the optimal move:
 // Left flower shows which pile, right flower shows how many to take
-#define L_FLOWERS_0 94
-#define R_FLOWERS_0 84
+constexpr int L_FLOWERS_0 = 94;
+constexpr int R_FLOWERS_0 = 84;
 
 // Image location for pile 1 (piles 2-4 follow at consecutive pic locs)
-#define PILE_1_PIC_LOC 357
-#define L_FLOWERS_PIC_LOC 361
-#define R_FLOWERS_PIC_LOC 362
+constexpr int PILE_1_PIC_LOC = 357;
+constexpr int L_FLOWERS_PIC_LOC = 361;
+constexpr int R_FLOWERS_PIC_LOC = 362;
 
 // Numbered selection box images
-#define BOX_1 445
+constexpr int BOX_1 = 445;
 
 // Location and spacing for the row of numbered boxes
-#define BOX_1_LOC 470
-#define SN_BOX_SPACE 471
+constexpr int BOX_1_LOC = 470;
+constexpr int SN_BOX_SPACE = 471;
 
 // Dimmed vs active number images for the selection boxes
-#define DIMMED_SN_NUMBER 453
-#define SN_NUMBER 444
+constexpr int DIMMED_SN_NUMBER = 453;
+constexpr int SN_NUMBER = 444;
 
 // Draws the row of 9 numbered selection boxes. Boxes are dimmed if:
 // - No pile is selected (pile==0) and the box number exceeds 4 or the
@@ -1976,24 +1981,36 @@ void SNARFEM(void) {
 // to remove them, trying to leave as few pegs as possible. The board has 21
 // peg positions. UI buttons: Restart, Show Moves, and Exit.
 
+// The clickable boxes of Peggleboz and the Tower of Bozbar each have a
+// picture, and a "location" picture whose size is where the box goes.
+static void draw_box(int pic, int location_pic) {
+    int x, y;
+    get_image_size(location_pic, &x, &y);
+    draw_to_pixmap_unscaled(pic, x, y);
+}
+
+// Whether the last mouse click was on the box.
+static bool box_clicked(int pic, int location_pic) {
+    int left, top, width, height;
+    get_image_size(location_pic, &left, &top);
+    get_image_size(pic, &width, &height);
+    return within(left, top, width, height);
+}
+
 // Draws a Peggleboz UI button (Restart, Show Moves, or Exit) at its
 // designated location.
 static void z0_draw_peggleboz_box_image(uint16_t pic) {
-    int width, height;
     switch (pic) {
         case RESTART_BOX:
         case DIM_RESTART_BOX:
-            get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
-            draw_to_pixmap_unscaled(pic, width, height);
+            draw_box(pic, PBOZ_RESTART_BOX_LOC);
             return;
         case SHOW_MOVES_BOX:
         case DIM_SHOW_MOVES_BOX:
-            get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &width, &height);
-            draw_to_pixmap_unscaled(pic, width, height);
+            draw_box(pic, PBOZ_SHOW_MOVES_BOX_LOC);
             return;
         case EXIT_BOX:
-            get_image_size(PBOZ_EXIT_BOX_LOC, &width, &height);
-            draw_to_pixmap_unscaled(pic, width, height);
+            draw_box(pic, PBOZ_EXIT_BOX_LOC);
             return;
         default:
             fprintf(stderr, "Error! Unhandled peggleboz image!\n");
@@ -2023,25 +2040,15 @@ static void draw_peggles(void) {
         store_word(zt.BOARD_TABLE + (i + 1) * 2, width);
     }
 
-    internal_call(pack_routine(zr.DRAW_PEGS)); // <DRAW-PEGS>
+    call_routine(zr.DRAW_PEGS); // <DRAW-PEGS>
 
     // The boxes are there to be clicked on. r242 has no mouse support in
     // Peggleboz (no PBOZ-CLICK) and never draws them.
     if (zr.PBOZ_CLICK != 0) {
-        get_image_size(PBOZ_RESTART_BOX_LOC, &width, &height);
-        if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
-            draw_to_pixmap_unscaled(RESTART_BOX, width, height);
-        } else {
-            draw_to_pixmap_unscaled(DIM_RESTART_BOX, width, height);
-        }
-        get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &width, &height);
-        if (get_global(zg.PEG_MOVE_NUMBER) > 0) {
-            draw_to_pixmap_unscaled(SHOW_MOVES_BOX, width, height);
-        } else {
-            draw_to_pixmap_unscaled(DIM_SHOW_MOVES_BOX, width, height);
-        }
-        get_image_size(PBOZ_EXIT_BOX_LOC, &width, &height);
-        draw_to_pixmap_unscaled(EXIT_BOX, width, height);
+        bool has_moved = get_global(zg.PEG_MOVE_NUMBER) > 0;
+        draw_box(has_moved ? RESTART_BOX : DIM_RESTART_BOX, PBOZ_RESTART_BOX_LOC);
+        draw_box(has_moved ? SHOW_MOVES_BOX : DIM_SHOW_MOVES_BOX, PBOZ_SHOW_MOVES_BOX_LOC);
+        draw_box(EXIT_BOX, PBOZ_EXIT_BOX_LOC);
     }
 
     adjust_text_window_by_split(PBOZ_SPLIT);
@@ -2093,24 +2100,14 @@ void SETUP_PBOZ(void) {
 // (Restart='Z', Show Moves='Y', Exit='X'), then peg positions
 // (returns ASCII 65+ for peg index). Beeps if nothing was hit.
 static uint16_t pboz_click(void) {
-    int left, top, width, height;
-    get_image_size(PBOZ_RESTART_BOX_LOC, &left, &top);
-    get_image_size(RESTART_BOX, &width, &height);
-    if (within(left, top, width, height)) {
+    if (box_clicked(RESTART_BOX, PBOZ_RESTART_BOX_LOC))
         return 'Z';
-    }
-
-    get_image_size(PBOZ_SHOW_MOVES_BOX_LOC, &left, &top);
-    get_image_size(SHOW_MOVES_BOX, &width, &height);
-    if (within(left, top, width, height)) {
+    if (box_clicked(SHOW_MOVES_BOX, PBOZ_SHOW_MOVES_BOX_LOC))
         return 'Y';
-    }
-
-    get_image_size(PBOZ_EXIT_BOX_LOC, &left, &top);
-    get_image_size(EXIT_BOX, &width, &height);
-    if (within(left, top, width, height)) {
+    if (box_clicked(EXIT_BOX, PBOZ_EXIT_BOX_LOC))
         return 'X';
-    }
+
+    int left, top;
 
     int expand_width, expand_height, peg_width, peg_height;
     get_image_size(EXPAND_HOT_SPOT, &expand_width, &expand_height);
@@ -2183,9 +2180,11 @@ void DISPLAY_MOVES(void) {
 // the standard rules (only the top weight can be moved, and a heavier
 // weight cannot be placed on a lighter one).
 
-// Clears a peg table (6 entries), removing all weights from that peg.
+static const int kTowerWeights = 6;
+
+// Clears a peg table, removing all weights from that peg.
 static void clear_peg_table(uint16_t table) {
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < kTowerWeights; i++) {
         store_word(table + i * 2, 0);
     }
 }
@@ -2219,23 +2218,19 @@ static void solve_tower(uint8_t c) {
             return;
     }
 
-    internal_insert(zo.SIX_WEIGHT, peg);
-    internal_insert(zo.FIVE_WEIGHT, peg);
-    internal_insert(zo.FOUR_WEIGHT, peg);
-    internal_insert(zo.THREE_WEIGHT, peg);
-    internal_insert(zo.TWO_WEIGHT, peg);
-    internal_insert(zo.ONE_WEIGHT, peg);
-
     clear_peg_table(zt.LEFT_PEG_TABLE);
     clear_peg_table(zt.CENTER_PEG_TABLE);
     clear_peg_table(zt.RIGHT_PEG_TABLE);
 
-    store_word(table, zo.SIX_WEIGHT);
-    store_word(table + 2, zo.FIVE_WEIGHT);
-    store_word(table + 4, zo.FOUR_WEIGHT);
-    store_word(table + 6, zo.THREE_WEIGHT);
-    store_word(table + 8, zo.TWO_WEIGHT);
-    store_word(table + 10,zo.ONE_WEIGHT);
+    // Heaviest first, so that the lightest ends up on top.
+    const uint16_t weights[kTowerWeights] = {
+        zo.SIX_WEIGHT, zo.FIVE_WEIGHT, zo.FOUR_WEIGHT,
+        zo.THREE_WEIGHT, zo.TWO_WEIGHT, zo.ONE_WEIGHT
+    };
+    for (int i = 0; i < kTowerWeights; i++) {
+        internal_insert(weights[i], peg);
+        store_word(table + i * 2, weights[i]);
+    }
 
     draw_tower_of_bozbar();
 
@@ -2249,7 +2244,7 @@ static void solve_tower(uint8_t c) {
 // auto-solve. Shows the current peg holding the weights and loops until
 // a valid choice (L/C/R) is entered.
 static void ask_which_peg(void) {
-    uint16_t result = internal_call(pack_routine(zr.TOWER_WIN_CHECK));
+    uint16_t result = call_routine(zr.TOWER_WIN_CHECK);
     if (result > 0) {
         transcribe_and_print_string("Currently, the weights are on the ");
         if (result == zo.PYRAMID_L) {
@@ -2314,11 +2309,11 @@ void TOWER_MODE(void) {
 // weight and drawing it at the appropriate x,y position.
 static void draw_peg(uint16_t table, int offset) {
     uint16_t x = user_word(zt.B_X_TBL + offset * 2);
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < kTowerWeights; i++) {
         uint16_t wgt = user_word(table + i * 2);
         if (wgt == 0)
             return;
-        uint16_t pic = internal_call(pack_routine(zr.SET_B_PIC), {wgt}); //  <SET-B-PIC WGT>
+        uint16_t pic = call_routine(zr.SET_B_PIC, {wgt}); //  <SET-B-PIC WGT>
         draw_to_pixmap_unscaled(pic, x, user_word(zt.B_Y_TBL + i * 2));
     }
 }
@@ -2337,27 +2332,20 @@ static void draw_tower_of_bozbar(void) {
         v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     }
 
-    int width, height;
-    get_image_size(B_1_L_PIC_LOC, &width, &height);
-    store_word(zt.B_Y_TBL + 5 * 2, height);
-    store_word(zt.B_X_TBL, width);
-
-    get_image_size(B_2_C_PIC_LOC, &width, &height);
-    store_word(zt.B_Y_TBL + 4 * 2, height);
-    store_word(zt.B_X_TBL + 2, width);
-
-    get_image_size(B_3_R_PIC_LOC, &width, &height);
-    store_word(zt.B_Y_TBL + 3 * 2, height);
-    store_word(zt.B_X_TBL + 2 * 2, width);
-
-    get_image_size(B_4_PIC_LOC, &width, &height);
-    store_word(zt.B_Y_TBL + 2 * 2, height);
-
-    get_image_size(B_5_PIC_LOC, &width, &height);
-    store_word(zt.B_Y_TBL + 2, height);
-
-    get_image_size(B_6_PIC_LOC, &width, &height);
-    store_word(zt.B_Y_TBL,  height);
+    // Six location pictures give the six heights a weight can sit at, from
+    // the bottom of a peg up. The first three also give the x of the left,
+    // centre and right peg.
+    static const int position_pics[kTowerWeights] = {
+        B_1_L_PIC_LOC, B_2_C_PIC_LOC, B_3_R_PIC_LOC,
+        B_4_PIC_LOC, B_5_PIC_LOC, B_6_PIC_LOC
+    };
+    for (int i = 0; i < kTowerWeights; i++) {
+        int width, height;
+        get_image_size(position_pics[i], &width, &height);
+        store_word(zt.B_Y_TBL + (kTowerWeights - 1 - i) * 2, height);
+        if (i < 3)
+            store_word(zt.B_X_TBL + i * 2, width);
+    }
 
     clear_image_buffer();
     ensure_pixmap(current_graphics_buf_win);
@@ -2369,15 +2357,9 @@ static void draw_tower_of_bozbar(void) {
     // The boxes are there to be clicked on. r242 has no mouse support in the
     // tower (no B-MOUSE-PEG-PICK) and never draws them.
     if (zr.B_MOUSE_PEG_PICK != 0) {
-        get_image_size(TOWER_UNDO_BOX_LOC, &width, &height);
-        if (undoing || internal_call(pack_routine(zr.TOWER_WIN_CHECK))) {
-            draw_to_pixmap_unscaled(DIM_UNDO_BOX, width, height);
-        } else {
-            draw_to_pixmap_unscaled(UNDO_BOX, width, height);
-        }
-
-        get_image_size(TOWER_EXIT_BOX_LOC, &width, &height);
-        draw_to_pixmap_unscaled(EXIT_BOX, width, height);
+        bool can_undo = !undoing && !call_routine(zr.TOWER_WIN_CHECK);
+        draw_box(can_undo ? UNDO_BOX : DIM_UNDO_BOX, TOWER_UNDO_BOX_LOC);
+        draw_box(EXIT_BOX, TOWER_EXIT_BOX_LOC);
     }
     flush_image_buffer();
     adjust_text_window_by_split(zorkzero_tower_of_bozbar_split);
@@ -2424,20 +2406,16 @@ void B_MOUSE_PEG_PICK(void) {
 // pegs. Returns the weight number as ASCII ('1'-'6'), a button key, or
 // ZSCII_CLICK_SINGLE if nothing valid was clicked.
 static uint8_t pick_weight(void) {
-    int left, top, width, height, weight_width, weight_height, num;
-    get_image_size(TOWER_UNDO_BOX_LOC, &left, &top);
-    get_image_size(UNDO_BOX, &width, &height);
-    if (within(left, top, width, height))
+    int left, top, weight_width, weight_height, num;
+    if (box_clicked(UNDO_BOX, TOWER_UNDO_BOX_LOC))
         return 'U';
-    get_image_size(TOWER_EXIT_BOX_LOC, &left, &top);
-    get_image_size(EXIT_BOX, &width, &height);
-    if (within(left, top, width, height))
+    if (box_clicked(EXIT_BOX, TOWER_EXIT_BOX_LOC))
         return 'X';
     get_image_size(B_1_WEIGHT, &weight_width, &weight_height);
     weight_height++;
     uint16_t tbl = zt.LEFT_PEG_TABLE;
     for (int cnt_x = 0; cnt_x < 3; cnt_x++) {
-        for (int cnt_y = 0; cnt_y < 6; cnt_y++) {
+        for (int cnt_y = 0; cnt_y < kTowerWeights; cnt_y++) {
             left = user_word(zt.B_X_TBL + cnt_x * 2);
             top = user_word(zt.B_Y_TBL + cnt_y * 2);
             if (within(left, top, weight_width, weight_height)) {
@@ -2511,8 +2489,8 @@ static bool z0_current_room_map_coords(uint16_t *cx, uint16_t *cy) {
     // Get the map location table of current room
     uint16_t TBL = internal_get_prop(get_global(zg.HERE), zp.P_MAP_LOC);
     // Get the coordinates of the map representation of current room
-    *cy = internal_call(pack_routine(zr.MAP_Y), {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
-    *cx = internal_call(pack_routine(zr.MAP_X), {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
+    *cy = call_routine(zr.MAP_Y, {user_word(TBL + 2)}); // <MAP-Y <ZGET .TBL 1>>
+    *cx = call_routine(zr.MAP_X, {user_word(TBL + 4)}); // <MAP-X <ZGET .TBL 2>>
     return true;
 }
 
@@ -2654,8 +2632,8 @@ static void z0_redraw_map(void) {
         return;
 
     uint8_t saved = byte(zr.V_MAP_BLINK_CALL);
-    store_byte(zr.V_MAP_BLINK_CALL, 0xb0); // rtrue: draw the map, then return
-    internal_call(pack_routine(zr.V_MAP), {});
+    store_byte(zr.V_MAP_BLINK_CALL, kOpRtrue); // rtrue: draw the map, then return
+    call_routine(zr.V_MAP);
     store_byte(zr.V_MAP_BLINK_CALL, saved);
 
     flush_image_buffer();
@@ -2664,6 +2642,84 @@ static void z0_redraw_map(void) {
     // the blink loop) lands correctly without the map_entry_imagescale override.
     map_entry_imagescalex = imagescalex;
     map_entry_imagescaley = imagescaley;
+}
+
+// Redraws the map at the new scale, and moves the blinking "you are here"
+// marker of the suspended blink loop to where the current room now is.
+// The glk timer was stopped by the caller.
+static void redraw_map_on_resize(void) {
+    z0_hide_right_status();
+
+    // The releases redraw the map through V-$REFRESH, which is
+    // map-aware (it drives the map via the BLINK-TBL mechanism). The
+    // pre-release revisions (r242/r296/r66, r366 demo) have no BLINK
+    // routine/BLINK-TBL (zg.BLINK_TBL ==
+    // 0) and a V-$REFRESH that only knows how to redraw the *normal*
+    // screen -- calling it here drops out of the map (see z0_redraw_map).
+    // Instead re-invoke the game's own V-MAP to recomposite the map at
+    // the new scale, then re-arm the input timer that the
+    // glk_request_timer_events(0) at the top of this function cancelled
+    // so the still-suspended blink loop resumes.
+    if (zg.BLINK_TBL == 0) {
+        z0_redraw_map();
+
+        // MAP-X/MAP-Y return *scaled* coordinates (picture_data scales by
+        // imagescale), and z0_redraw_map recomposited the map at the live
+        // scale -- so the entry-scale marker coordinates still sitting in
+        // the suspended BLINK-WHILE-AWAITING-INPUT frame we're nested in
+        // are now stale. Recompute them and write them into that frame's
+        // Y/X locals (vars 3/4) so the resumed blink lands on its room.
+        uint16_t CX, CY;
+        if (z0_current_room_map_coords(&CX, &CY))
+            update_blink_coordinates(CX, CY);
+
+        glk_request_timer_events(1);
+        return;
+    }
+
+    // Redraw the map. Skip when the routines weren't located (e.g.
+    // r366, where the V-REFRESH/MAP-X/MAP-Y patterns don't match):
+    // pack_routine(0) underflows to a bogus packed address that
+    // unpacks into string space, so calling it crashes. Likewise skip
+    // when P-MAP-LOC wasn't found (e.g. r66, which locates MAP-X/MAP-Y
+    // but not V-MAP-LOOP): internal_get_prop(HERE, 0) below would abort
+    // with "invalid property: 0". Refreshing is optional here; not
+    // crashing is not.
+    if (zr.V_REFRESH != 0 && zr.MAP_X != 0 && zr.MAP_Y != 0 && zp.P_MAP_LOC != 0) {
+        call_routine(zr.V_REFRESH, {1}); // V-$REFRESH(DONT-CLEAR:true)
+
+        // We are in a loop inside the BLINK routine and need to
+        // update coordinates in the BLINK-TBL (which will be read by
+        // the TYPED? routine) as well as the local Y and X variables
+        // (which are used to redraw/unhighlight the previous
+        // location icon when we move away).
+        uint16_t CX, CY;
+        if (z0_current_room_map_coords(&CX, &CY))
+            update_blink_coordinates(CX, CY);
+    }
+}
+
+// Redraws a full-screen picture at the new size. Returns true if nothing
+// more needs to be done.
+static bool redraw_slideshow_on_resize(void) {
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
+    win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+    glk_window_clear(current_graphics_buf_win);
+    if (is_zorkzero_encyclopedia_image(current_picture)) {
+        draw_encyclopedia();
+        return true;
+    } else if (current_picture == zorkzero_title_image) {
+        glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
+        glk_window_clear(graphics_fg_glk);
+        draw_centered_title_image(current_picture);
+    } else if (is_zorkzero_rebus_image(current_picture)) {
+        clear_image_buffer();
+        ensure_pixmap(current_graphics_buf_win);
+        draw_to_pixmap_unscaled(current_picture, 0, 0);
+        flush_bitmap(current_graphics_buf_win);
+        return true;
+    }
+    return false;
 }
 
 void z0_update_on_resize(void) {
@@ -2681,7 +2737,7 @@ void z0_update_on_resize(void) {
     // SETUP-SCREEN copies image metrics for the header text and compass
     // into the SL-LOC-TBL.
     if (zr.SETUP_SCREEN != 0)
-        internal_call(pack_routine(zr.SETUP_SCREEN));
+        call_routine(zr.SETUP_SCREEN);
 
     // SETUP-SCREEN only refills the compass position table in later releases;
     // do it ourselves so r383/r387 also pick up the new scale (see above).
@@ -2696,58 +2752,9 @@ void z0_update_on_resize(void) {
             redraw_hint_screen_on_resize();
             return;
 
-        case MODE_MAP: {
-            z0_hide_right_status();
-
-            // The releases redraw the map through V-$REFRESH, which is
-            // map-aware (it drives the map via the BLINK-TBL mechanism). The
-            // pre-release revisions (r242/r296/r66, r366 demo) have no BLINK
-            // routine/BLINK-TBL (zg.BLINK_TBL ==
-            // 0) and a V-$REFRESH that only knows how to redraw the *normal*
-            // screen -- calling it here drops out of the map (see z0_redraw_map).
-            // Instead re-invoke the game's own V-MAP to recomposite the map at
-            // the new scale, then re-arm the input timer that the
-            // glk_request_timer_events(0) at the top of this function cancelled
-            // so the still-suspended blink loop resumes.
-            if (zg.BLINK_TBL == 0) {
-                z0_redraw_map();
-
-                // MAP-X/MAP-Y return *scaled* coordinates (picture_data scales by
-                // imagescale), and z0_redraw_map recomposited the map at the live
-                // scale -- so the entry-scale marker coordinates still sitting in
-                // the suspended BLINK-WHILE-AWAITING-INPUT frame we're nested in
-                // are now stale. Recompute them and write them into that frame's
-                // Y/X locals (vars 3/4) so the resumed blink lands on its room.
-                uint16_t CX, CY;
-                if (z0_current_room_map_coords(&CX, &CY))
-                    update_blink_coordinates(CX, CY);
-
-                glk_request_timer_events(1);
-                return;
-            }
-
-            // Redraw the map. Skip when the routines weren't located (e.g.
-            // r366, where the V-REFRESH/MAP-X/MAP-Y patterns don't match):
-            // pack_routine(0) underflows to a bogus packed address that
-            // unpacks into string space, so calling it crashes. Likewise skip
-            // when P-MAP-LOC wasn't found (e.g. r66, which locates MAP-X/MAP-Y
-            // but not V-MAP-LOOP): internal_get_prop(HERE, 0) below would abort
-            // with "invalid property: 0". Refreshing is optional here; not
-            // crashing is not.
-            if (zr.V_REFRESH != 0 && zr.MAP_X != 0 && zr.MAP_Y != 0 && zp.P_MAP_LOC != 0) {
-                internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
-
-                // We are in a loop inside the BLINK routine and need to
-                // update coordinates in the BLINK-TBL (which will be read by
-                // the TYPED? routine) as well as the local Y and X variables
-                // (which are used to redraw/unhighlight the previous
-                // location icon when we move away).
-                uint16_t CX, CY;
-                if (z0_current_room_map_coords(&CX, &CY))
-                    update_blink_coordinates(CX, CY);
-            }
+        case MODE_MAP:
+            redraw_map_on_resize();
             return;
-        }
 
         case MODE_NORMAL:
         case MODE_Z0_GAME:
@@ -2759,7 +2766,7 @@ void z0_update_on_resize(void) {
             // space, and calling it crashes (most visibly on autorestore,
             // which reaches here via after_V_COLOR()).
             if (zr.V_REFRESH != 0)
-                internal_call(pack_routine(zr.V_REFRESH), {1}); // V-$REFRESH(DONT-CLEAR:true)
+                call_routine(zr.V_REFRESH, {1}); // V-$REFRESH(DONT-CLEAR:true)
             if (V6_TEXT_BUFFER_WINDOW.id) {
                 if (graphics_type_changed)
                     v6_refresh_text_buffer_images();
@@ -2768,24 +2775,8 @@ void z0_update_on_resize(void) {
             break;
 
         case MODE_SLIDESHOW:
-            // We are showing a fullscreen image.
-            v6_define_window(&V6_TEXT_BUFFER_WINDOW, 1, 1, gscreenw, gscreenh);
-            win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
-            glk_window_clear(current_graphics_buf_win);
-            if (is_zorkzero_encyclopedia_image(current_picture)) {
-                draw_encyclopedia();
+            if (redraw_slideshow_on_resize())
                 return;
-            } else if (current_picture == zorkzero_title_image) {
-                glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
-                glk_window_clear(graphics_fg_glk);
-                draw_centered_title_image(current_picture);
-            } else if (is_zorkzero_rebus_image(current_picture)) {
-                clear_image_buffer();
-                ensure_pixmap(current_graphics_buf_win);
-                draw_to_pixmap_unscaled(current_picture, 0, 0);
-                flush_bitmap(current_graphics_buf_win);
-                return;
-            }
             break;
 
         default:
@@ -2829,6 +2820,64 @@ void z0_update_after_restore(void) {
     after_V_COLOR();
 }
 
+// The pointer to the Double Fanucci command grid is not part of the autosave,
+// but the window itself is. If we were restored into a game, find it again,
+// or the plays can be neither highlighted nor clicked.
+static void restore_fanucci_command_grid(void) {
+    if (fanucci_command_grid != nullptr || get_global(zg.CURRENT_SPLIT) != F_SPLIT)
+        return;
+
+    glui32 rock;
+    for (winid_t win = glk_window_iterate(nullptr, &rock); win != nullptr; win = glk_window_iterate(win, &rock)) {
+        if (rock == FANUCCI_COMMAND_GRID_ROCK && win->type == wintype_TextGrid) {
+            fanucci_command_grid = win;
+            break;
+        }
+    }
+    if (fanucci_command_grid == nullptr)
+        return;
+
+    // As decided in redraw_fanucci(): the wide grid is 64 characters across
+    glui32 width;
+    glk_window_get_size(fanucci_command_grid, &width, nullptr);
+    fanucci_window_is_narrow = (width < 64 || options.int_number == INTERP_APPLE_IIE);
+    glk_request_mouse_event(fanucci_command_grid);
+}
+
+// The selected peg of a Peggleboz game is not part of the autosave. If we were
+// restored into a game with a peg blinking, work out which one it is from
+// the coordinates the game's BLINK routine is using.
+static void restore_selected_peg(void) {
+    if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
+        || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT || zt.BOARD_TABLE == 0)
+        return;
+
+    uint16_t x, y;
+    if (zg.BLINK_TBL != 0) {
+        y = user_word(get_global(zg.BLINK_TBL) + 3 * 2);
+        x = user_word(get_global(zg.BLINK_TBL) + 4 * 2);
+    } else if (current_frame_nlocals() >= 4 && variable(1) == UNHL_PEG && variable(2) == HL_PEG) {
+        // The revisions without a BLINK-TBL (and global 0 is not a table) keep
+        // the coordinates in the locals of BLINK only: PIC1, PIC2, Y and X.
+        // With a peg selected, that is the routine we were restored into.
+        y = variable(3);
+        x = variable(4);
+    } else {
+        return;
+    }
+    if (x == 0 && y == 0)
+        return;
+
+    for (int i = 2; i < kPegBoardTableSize; i += 2) {
+        if (user_word(zt.BOARD_TABLE + i * 2) == y
+            && user_word(zt.BOARD_TABLE + (i + 1) * 2) == x) {
+            selected_peg_pos = i;
+            update_blink_coordinates(x, y);
+            return;
+        }
+    }
+}
+
 // Called after an automatic restore. Handles two cases:
 //
 // 1. Encyclopedia: the background graphics window (graphics_bg_glk) has the
@@ -2867,11 +2916,8 @@ void z0_update_after_autorestore(void) {
     // restored snapshot still looks right -- but the next status-line redraw
     // (z0_UPDATE_STATUS_LINE -> set_current_window -> set_window_style) would
     // reapply the stale default colours, giving the wrong status-window
-    // colours. Repopulate the window colours from the restored globals,
-    // matching the struct assignment after_V_COLOR() performs on a manual
-    // restore (including the status window's default background), as
-    // arthur_update_after_autorestore()/shogun_update_after_autorestore() do
-    // for their games. We deliberately do not call after_V_COLOR() /
+    // colours. v6_set_window_colors_from_globals() below repopulates them
+    // from the restored globals. We deliberately do not call after_V_COLOR() /
     // z0_update_on_resize() here: those take mode-specific redraw paths that
     // can crash during autorestore (see the screenmode guard in
     // z0_update_after_restore).
@@ -2887,82 +2933,25 @@ void z0_update_after_autorestore(void) {
     if (zg.DEFAULT_BG != 0)
         set_global(zg.DEFAULT_BG, DEFAULT_COLOUR);
 
-    uint8_t fg = get_global(fg_global_idx);
-    uint8_t bg = get_global(bg_global_idx);
-    for (auto &window : windows) {
-        window.fg_color = Color(Color::Mode::ANSI, fg);
-        if (&window == &V6_STATUS_WINDOW) {
-            window.bg_color = Color();
-        } else {
-            window.bg_color = Color(Color::Mode::ANSI, bg);
-        }
+    v6_set_window_colors_from_globals();
 
-        // The Glk window backgrounds are not part of the autosave either, so
-        // the text-buffer window keeps the host theme's default (e.g. black
-        // under Lectrote Dark) unless we repaint it, as after_V_COLOR() does
-        // on a manual restore. Normal output stays readable because each glyph
-        // carries the game's background as a per-glyph zcolor, but echoed input
-        // text uses the window background, so without this it renders in the
-        // game's foreground on the theme background (black on black).
-        winid_t glkwin = window.id;
-        if (glkwin != nullptr && glkwin->type == wintype_TextBuffer) {
-            win_setbgnd(glkwin->peer, user_selected_background);
-        }
-    }
-
-    if ((screenmode != MODE_NORMAL && screenmode != MODE_Z0_GAME)
-        || get_global(zg.CURRENT_SPLIT) != PBOZ_SPLIT || zt.BOARD_TABLE == 0)
-        return;
-
-    uint16_t x, y;
-    if (zg.BLINK_TBL != 0) {
-        y = user_word(get_global(zg.BLINK_TBL) + 3 * 2);
-        x = user_word(get_global(zg.BLINK_TBL) + 4 * 2);
-    } else if (current_frame_nlocals() >= 4 && variable(1) == UNHL_PEG && variable(2) == HL_PEG) {
-        // The revisions without a BLINK-TBL (and global 0 is not a table) keep
-        // the coordinates in the locals of BLINK only: PIC1, PIC2, Y and X.
-        // With a peg selected, that is the routine we were restored into.
-        y = variable(3);
-        x = variable(4);
-    } else {
-        return;
-    }
-    if (x == 0 && y == 0)
-        return;
-
-    for (int i = 2; i < kPegBoardTableSize; i += 2) {
-        if (user_word(zt.BOARD_TABLE + i * 2) == y
-            && user_word(zt.BOARD_TABLE + (i + 1) * 2) == x) {
-            selected_peg_pos = i;
-            update_blink_coordinates(x, y);
-            return;
-        }
-    }
+    restore_selected_peg();
+    restore_fanucci_command_grid();
 }
 
 #pragma mark - Image Display Dispatch
 
-void z0_image_description(int picnum) {
-    if (gli_voiceover_on) {
-        glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
-        const char *message;
-        switch (picnum) {
-            case zorkzero_title_image:
-                message = "\n(Showing Zork Zero full-screen title image. ZORK ZERO written in stone masonry with the subtitle The Revenge of Mageboz on a banner below with a wizard's hat balanced on the edge of the banner.)\n";
-                break;
-            case zorkzero_map_border:
-                message = "\n(Showing a full screen graphical map where the locations are represented as interconnected boxes. There is a compass rose in the style of a sigil stamp at the top. Some of the room boxes have little icons and other decorations.)\n";
-                break;
-            default:
-                if (is_zorkzero_rebus_image(picnum))
-                    message = "\n(Showing a full screen rebus image, just as in the room description.)\n";
-                else
-                    message = "\n(Showing a full screen image.)\n";
-                break;
-        }
-        glk_put_string_stream(glk_window_get_stream(V6_TEXT_BUFFER_WINDOW.id), const_cast<char*>(message));
+static const char *z0_fullscreen_image_description(int picnum) {
+    switch (picnum) {
+        case zorkzero_title_image:
+            return "\n(Showing Zork Zero full-screen title image. ZORK ZERO written in stone masonry with the subtitle The Revenge of Mageboz on a banner below with a wizard's hat balanced on the edge of the banner.)\n";
+        case zorkzero_map_border:
+            return "\n(Showing a full screen graphical map where the locations are represented as interconnected boxes. There is a compass rose in the style of a sigil stamp at the top. Some of the room boxes have little icons and other decorations.)\n";
+        default:
+            if (is_zorkzero_rebus_image(picnum))
+                return "\n(Showing a full screen rebus image, just as in the room description.)\n";
+            return "\n(Showing a full screen image.)\n";
     }
-
 }
 
 // With graphics off, the title screen and the rebus would be a blank screen
@@ -2990,6 +2979,108 @@ static bool z0_skip_fullscreen_picture(int pic) {
         return true;
     }
     return false;
+}
+
+// Draws a picture that takes over the whole screen: the title, the map,
+// the encyclopedia or a rebus.
+static void display_fullscreen_picture(int x, int y) {
+    if (v6_graphics_off() && z0_skip_fullscreen_picture(current_picture))
+        return;
+
+    // First time the player sees a rebus, nudge them toward the
+    // built-in InvisiClues. We print into the text buffer while it
+    // is still the active window (we're still in MODE_NORMAL here),
+    // so the message is waiting in the scrollback once the player
+    // dismisses the fullscreen image.
+    if (gli_voiceover_on && is_zorkzero_rebus_image(current_picture) && !shown_rebus_hint_message) {
+        shown_rebus_hint_message = true;
+        should_show_rebus_hint_message = true;
+        v6_describe_fullscreen_image(z0_fullscreen_image_description(current_picture));
+    }
+
+    z0_hide_right_status();
+    current_graphics_buf_win = graphics_fg_glk;
+    clear_image_buffer();
+    ensure_pixmap(graphics_fg_glk);
+    win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+    glk_request_mouse_event(graphics_fg_glk);
+
+    if (current_picture == zorkzero_map_border) {
+        screenmode = MODE_MAP;
+        // The map takes over the floating foreground graphics window, but
+        // the full-screen background window still holds the normal-mode
+        // room graphic (e.g. the underground pillars). With a non-zero
+        // window border the foreground window is inset, so a frame of those
+        // pillars peeks through -- most visibly while resizing. Blank the
+        // background once here; the map is not drawn into it, so it stays
+        // clear, and the room is redrawn normally when map mode is torn
+        // down. Mirrors the encyclopedia path below.
+        glk_window_clear(graphics_bg_glk);
+        // Remember the scale the map is composited at. The pre-release
+        // revisions (r242/r296/r66, r366 demo) don't recomposite the map on
+        // resize (the GUI rescales the rendered
+        // image), so the live-redrawn you-are-here marker must use this same
+        // scale to stay on its room icon -- see the default path below.
+        map_entry_imagescalex = imagescalex;
+        map_entry_imagescaley = imagescaley;
+        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+        flush_bitmap(current_graphics_buf_win);
+        v6_describe_fullscreen_image(z0_fullscreen_image_description(zorkzero_map_border));
+        return;
+    }
+
+    screenmode = MODE_SLIDESHOW;
+
+    if (current_picture == zorkzero_encyclopedia_border) {
+        // The encyclopedia is drawn into the floating foreground graphics
+        // window (and caption window 3), which sit on top of the
+        // full-screen background graphics window holding the normal-mode
+        // room graphic (e.g. the underground pillars). With a non-zero
+        // window border the floating windows are inset, so a frame of that
+        // background peeks through -- most visibly along the bottom, and
+        // intermittently while resizing. Blank it once here: it is not
+        // redrawn while the encyclopedia is up, so it stays clear across
+        // resizes, and the room is redrawn normally when V_REFRESH tears
+        // the encyclopedia down on exit.
+        glk_window_clear(graphics_bg_glk);
+        Z0_ENCYCLOPEDIA_WINDOW.id = gli_new_window(wintype_TextBuffer, 0);
+        draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
+        image_needs_redraw = true;
+        adjust_encyclopedia_text_window();
+        return;
+    }
+
+    if (current_picture == zorkzero_title_image) {
+        glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
+        glk_window_clear(current_graphics_buf_win);
+        draw_centered_title_image(current_picture);
+        glk_window_set_background_color(graphics_fg_glk, user_selected_background);
+        v6_describe_fullscreen_image(z0_fullscreen_image_description(zorkzero_title_image));
+        return;
+    }
+
+    // Rebus image (the remaining case in this branch).
+    draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
+    flush_bitmap(current_graphics_buf_win);
+}
+
+// Draws a picture in a text buffer window, as a margin image that the text
+// wraps around.
+static void display_inline_picture(Window *win) {
+    if (v6_graphics_off()) {
+        // The illuminated initials stand in for the first letter of the
+        // text that follows; print it instead. (Screen only: the game
+        // adds the letter to the transcript itself.)
+        if (current_picture == zorkzero_prologue_letter || current_picture == zorkzero_epilogue_letter)
+            glk_put_char_stream(glk_window_get_stream(win->id), 'A');
+        else if (current_picture == zorkzero_main_letter)
+            glk_put_char_stream(glk_window_get_stream(win->id), 'Y');
+        return;
+    }
+    pending_flowbreak = true;
+    float inline_scale = v6_inline_image_scale();
+    draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
+    add_margin_image_to_list(current_picture);
 }
 
 // Main image display handler for Zork Zero. Routes each picture to the
@@ -3020,104 +3111,14 @@ bool z0_display_picture(int x, int y, Window *win) {
     // and the first rebus draw of a session each take over the foreground
     // graphics window.
     if (is_zorkzero_fullscreen_picture(current_picture)) {
-        if (v6_graphics_off() && z0_skip_fullscreen_picture(current_picture))
-            return true;
-
-        // First time the player sees a rebus, nudge them toward the
-        // built-in InvisiClues. We print into the text buffer while it
-        // is still the active window (we're still in MODE_NORMAL here),
-        // so the message is waiting in the scrollback once the player
-        // dismisses the fullscreen image.
-        if (gli_voiceover_on && is_zorkzero_rebus_image(current_picture) && !shown_rebus_hint_message) {
-            shown_rebus_hint_message = true;
-            should_show_rebus_hint_message = true;
-            z0_image_description(current_picture);
-        }
-
-        z0_hide_right_status();
-        current_graphics_buf_win = graphics_fg_glk;
-        clear_image_buffer();
-        ensure_pixmap(graphics_fg_glk);
-        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
-        glk_request_mouse_event(graphics_fg_glk);
-
-        if (current_picture == zorkzero_map_border) {
-            screenmode = MODE_MAP;
-            // The map takes over the floating foreground graphics window, but
-            // the full-screen background window still holds the normal-mode
-            // room graphic (e.g. the underground pillars). With a non-zero
-            // window border the foreground window is inset, so a frame of those
-            // pillars peeks through -- most visibly while resizing. Blank the
-            // background once here; the map is not drawn into it, so it stays
-            // clear, and the room is redrawn normally when map mode is torn
-            // down. Mirrors the encyclopedia path below.
-            glk_window_clear(graphics_bg_glk);
-            // Remember the scale the map is composited at. The pre-release
-            // revisions (r242/r296/r66, r366 demo) don't recomposite the map on
-            // resize (the GUI rescales the rendered
-            // image), so the live-redrawn you-are-here marker must use this same
-            // scale to stay on its room icon -- see the default path below.
-            map_entry_imagescalex = imagescalex;
-            map_entry_imagescaley = imagescaley;
-            draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
-            flush_bitmap(current_graphics_buf_win);
-            z0_image_description(zorkzero_map_border);
-            return true;
-        }
-
-        screenmode = MODE_SLIDESHOW;
-
-        if (current_picture == zorkzero_encyclopedia_border) {
-            // The encyclopedia is drawn into the floating foreground graphics
-            // window (and caption window 3), which sit on top of the
-            // full-screen background graphics window holding the normal-mode
-            // room graphic (e.g. the underground pillars). With a non-zero
-            // window border the floating windows are inset, so a frame of that
-            // background peeks through -- most visibly along the bottom, and
-            // intermittently while resizing. Blank it once here: it is not
-            // redrawn while the encyclopedia is up, so it stays clear across
-            // resizes, and the room is redrawn normally when V_REFRESH tears
-            // the encyclopedia down on exit.
-            glk_window_clear(graphics_bg_glk);
-            Z0_ENCYCLOPEDIA_WINDOW.id = gli_new_window(wintype_TextBuffer, 0);
-            draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
-            image_needs_redraw = true;
-            adjust_encyclopedia_text_window();
-            return true;
-        }
-
-        if (current_picture == zorkzero_title_image) {
-            glk_window_set_background_color(graphics_fg_glk, graphics_type == kGraphicsTypeApple2 ? 0x101B9C : 0);
-            glk_window_clear(current_graphics_buf_win);
-            draw_centered_title_image(current_picture);
-            glk_window_set_background_color(graphics_fg_glk, user_selected_background);
-            z0_image_description(zorkzero_title_image);
-            return true;
-        }
-
-        // Rebus image (the remaining case in this branch).
-        draw_to_buffer(current_graphics_buf_win, current_picture, x, y);
-        flush_bitmap(current_graphics_buf_win);
+        display_fullscreen_picture(x, y);
         return true;
     }
 
     // Inline image in a text buffer: drawn as a margin image so text
     // wraps around it.
     if (win->id && win->id->type == wintype_TextBuffer) {
-        if (v6_graphics_off()) {
-            // The illuminated initials stand in for the first letter of the
-            // text that follows; print it instead. (Screen only: the game
-            // adds the letter to the transcript itself.)
-            if (current_picture == zorkzero_prologue_letter || current_picture == zorkzero_epilogue_letter)
-                glk_put_char_stream(glk_window_get_stream(win->id), 'A');
-            else if (current_picture == zorkzero_main_letter)
-                glk_put_char_stream(glk_window_get_stream(win->id), 'Y');
-            return true;
-        }
-        pending_flowbreak = true;
-        float inline_scale = v6_inline_image_scale();
-        draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);
-        add_margin_image_to_list(current_picture);
+        display_inline_picture(win);
         return true;
     }
 

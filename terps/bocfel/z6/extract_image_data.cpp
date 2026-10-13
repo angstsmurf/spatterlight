@@ -37,6 +37,9 @@ static const int kNoColorMapEntrySize = 12;
 static const int kStandardEntrySize = 14;
 static const int kExtendedEntrySize = 16;
 
+// Size in bytes of the header at the start of an Infocom graphics file
+static const size_t kFileHeaderSize = 16;
+
 // Header flags value indicating monochrome Mac graphics
 static const uint8_t kMacBWFlags = 0x0e;
 
@@ -73,7 +76,7 @@ typedef struct InfocomImageFileHeader {
     uint16_t unknown_1;
     uint16_t image_count;// Total number of images described in the directory
     uint16_t unknown_2;
-    uint8_t  directory_entry_size; // Size in bytes of each directory entry (8, 14, or 16)
+    uint8_t  directory_entry_size; // Size in bytes of each directory entry (8, 12, 14, or 16)
     uint8_t  unknown_3;
     uint16_t checksum;
     uint16_t unknown_4;
@@ -129,6 +132,146 @@ static uint32_t read_24_big_endian_bits(uint8_t **ptr)
 // Populated from the data immediately following the image directory.
 uint8_t default_huffman_tree[kHuffmanTreeSize];
 
+// Read the header at `ptr`, which the caller has checked holds at least
+// kFileHeaderSize bytes. PC-format files (VGA/EGA/CGA) store multi-byte
+// fields in the opposite byte order from Amiga/Mac files.
+static InfocomImageFileHeader read_file_header(uint8_t **ptr, bool needs_byte_swap)
+{
+    auto read_word = [&]() {
+        return conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(ptr));
+    };
+
+    InfocomImageFileHeader header;
+    header.disk_part = read_byte_and_advance(ptr);
+    header.flags = read_byte_and_advance(ptr);
+    header.unknown_1 = read_word();
+    header.image_count = read_word();
+    header.unknown_2 = read_word();
+    header.directory_entry_size = read_byte_and_advance(ptr);
+    header.unknown_3 = read_byte_and_advance(ptr);
+    header.checksum = read_word();
+    header.unknown_4 = read_word();
+    header.version = read_word();
+    return header;
+}
+
+// Read one directory entry of `entry_size` bytes. Entry size varies by
+// format version:
+//   8 bytes:  compact format (single-byte width/height/flags)
+//  12 bytes:  no color map; one unused trailing byte
+//  14 bytes:  standard format with color map offset
+//  16 bytes:  extended format with color map and per-image Huffman tree offset
+static ImageDirectoryEntry read_directory_entry(uint8_t **ptr, int entry_size, bool needs_byte_swap)
+{
+    auto read_word = [&]() {
+        return conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(ptr));
+    };
+
+    ImageDirectoryEntry entry = {};
+    entry.id = read_word();
+    if (entry_size == kCompactEntrySize) {
+        // Compact entries store dimensions and flags as single bytes
+        entry.width = read_byte_and_advance(ptr);
+        entry.height = read_byte_and_advance(ptr);
+        entry.flags = read_byte_and_advance(ptr);
+    } else {
+        entry.width = read_word();
+        entry.height = read_word();
+        entry.flags = read_word();
+    }
+
+    entry.pixel_data_offset = read_24_big_endian_bits(ptr);
+
+    if (entry_size == kStandardEntrySize) {
+        entry.color_map_offset = read_24_big_endian_bits(ptr);
+    } else if (entry_size == kExtendedEntrySize) {
+        entry.color_map_offset = read_24_big_endian_bits(ptr);
+        // Huffman tree offset is stored as a word that must be doubled
+        entry.huffman_tree_offset = READ_BE_UINT16_AND_ADVANCE(ptr) * kHuffmanOffsetScale;
+    } else if (entry_size == kNoColorMapEntrySize) {
+        read_byte_and_advance(ptr);  // skip unknown trailing byte
+    }
+    return entry;
+}
+
+// The file format doesn't store explicit data lengths for each image.
+// We compute each image's data size by finding the next image whose pixel data
+// starts at a higher offset. An image with no such successor runs to the end
+// of the file.
+static void set_data_boundaries(ImageDirectoryEntry *directory, int count, size_t datasize)
+{
+    for (int entry_index = 0; entry_index < count; entry_index++) {
+        ImageDirectoryEntry &entry = directory[entry_index];
+        if (entry.pixel_data_offset == 0)
+            continue;
+        entry.next_entry_data_offset = (uint32_t)datasize;
+        for (int next_index = entry_index + 1; next_index < count; next_index++) {
+            if (directory[next_index].pixel_data_offset > entry.pixel_data_offset) {
+                entry.next_entry_data_offset = directory[next_index].pixel_data_offset;
+                break;
+            }
+        }
+    }
+}
+
+// Fill in `image` from its directory entry: metadata, a copy of the raw
+// pixel data, and the optional per-image Huffman tree and color palette.
+// An image with no usable pixel data gets its metadata only.
+static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int entry_size, GraphicsType type, const uint8_t *data, size_t datasize)
+{
+    image->index = entry.id;
+    image->width = entry.width;
+    image->height = entry.height;
+    image->type = type;
+
+    // Skip images with no pixel data or zero dimensions
+    if (entry.pixel_data_offset == 0 || entry.width == 0 || entry.height == 0)
+        return;
+
+    // Guard against underflow when next_entry_data_offset < pixel_data_offset
+    if (entry.next_entry_data_offset <= entry.pixel_data_offset)
+        return;
+
+    uint32_t pixel_data_length = entry.next_entry_data_offset - entry.pixel_data_offset;
+
+    // Validate that pixel data lies within the file bounds (use size_t to avoid 32-bit overflow)
+    if ((size_t)entry.pixel_data_offset + (size_t)pixel_data_length > datasize)
+        return;
+
+    image->datasize = pixel_data_length;
+    image->data = (uint8_t *)MemAlloc(pixel_data_length);
+    memcpy(image->data, data + entry.pixel_data_offset, pixel_data_length);
+
+    // Bit 0 of the flags indicates the image has a transparent color.
+    // The transparent color index is stored in the upper bits of the flags field,
+    // shifted by 4 bits in compact (8-byte) entries or 12 bits in larger entries.
+    if (entry.flags & kTransparencyFlag) {
+        image->transparency = 1;
+        if (entry_size == kCompactEntrySize) {
+            image->transparent_color = entry.flags >> kCompactTransparentColorShift;
+        } else {
+            image->transparent_color = entry.flags >> kExtendedTransparentColorShift;
+        }
+    }
+
+    // Use the per-image Huffman tree if one is specified, otherwise fall back
+    // to the shared default tree read from after the directory.
+    if (entry.huffman_tree_offset != 0 &&
+        (size_t)entry.huffman_tree_offset + kHuffmanTreeSize <= datasize) {
+        image->huffman_tree = (uint8_t *)MemAlloc(kHuffmanTreeSize);
+        memcpy(image->huffman_tree, data + entry.huffman_tree_offset, kHuffmanTreeSize);
+    } else {
+        image->huffman_tree = default_huffman_tree;
+    }
+
+    // Copy the per-image color palette if present (512 bytes = 256 color entries x 2 bytes each)
+    if (entry.color_map_offset != 0 &&
+        (size_t)entry.color_map_offset + kColorPaletteSize <= datasize) {
+        image->palette = (uint8_t *)MemAlloc(kColorPaletteSize);
+        memcpy(image->palette, data + entry.color_map_offset, kColorPaletteSize);
+    }
+}
+
 // Parse an Infocom-format graphics file and extract all images into an ImageStruct array.
 //
 // Parameters:
@@ -145,26 +288,20 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 {
     *image_list = nullptr;
 
-    static const size_t header_size = 16;
-    if (data == nullptr || (size_t)offset + header_size > datasize)
+    if (data == nullptr || (size_t)offset + kFileHeaderSize > datasize)
         return 0;
 
     uint8_t *ptr = data + offset;
     uint8_t *end = data + datasize;
-    InfocomImageFileHeader file_header;
 
-    file_header.disk_part = read_byte_and_advance(&ptr);
+    bool needs_byte_swap = (*type == kGraphicsTypeVGA || *type == kGraphicsTypeEGA || *type == kGraphicsTypeCGA);
+    InfocomImageFileHeader file_header = read_file_header(&ptr, needs_byte_swap);
 
     // Verify this file is for the requested disk; multi-disk games have
     // separate graphics files for each disk.
     if (file_header.disk_part != disk) {
         return 0;
     }
-
-    // PC-format files (VGA/EGA/CGA) use swapped byte order for multi-byte fields
-    bool needs_byte_swap = (*type == kGraphicsTypeVGA || *type == kGraphicsTypeEGA || *type == kGraphicsTypeCGA);
-
-    file_header.flags = read_byte_and_advance(&ptr);
 
     // A file named "pic.data" may contain colour Amiga graphics or monochrome Mac graphics,
     // but the flags always seem to equal 0xe (14) if the graphics are monochrome.
@@ -176,25 +313,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         *type = kGraphicsTypeAmiga;
     }
 
-    // Read remaining header fields, byte-swapping as needed for PC formats
-    file_header.unknown_1 = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-    file_header.image_count = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-    file_header.unknown_2 = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-    file_header.directory_entry_size = read_byte_and_advance(&ptr);
-    file_header.unknown_3 = read_byte_and_advance(&ptr);
-    file_header.checksum = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-    file_header.unknown_4 = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-    file_header.version = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-
     if (file_header.image_count == 0)
         return 0;
 
-    // The per-entry parser below reads a fixed byte count that depends on the
-    // entry size (8 for compact, 12 for no-colour-map, 14 for standard, 16 for
-    // extended). Any other value would make the directory-fits reservation
-    // (which uses directory_entry_size) disagree with the bytes actually
-    // consumed by the loop, allowing a small/odd size to pass the check yet
-    // read past `end`.
+    // read_directory_entry() reads a fixed byte count that depends on the
+    // entry size. Any other value would make the directory-fits check below
+    // disagree with the bytes actually consumed, allowing a small/odd size
+    // to pass the check yet read past `end`.
     if (file_header.directory_entry_size != kCompactEntrySize &&
         file_header.directory_entry_size != kNoColorMapEntrySize &&
         file_header.directory_entry_size != kStandardEntrySize &&
@@ -209,41 +334,8 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
 
     ImageDirectoryEntry *directory = (ImageDirectoryEntry *)MemCalloc((size_t)file_header.image_count * sizeof(ImageDirectoryEntry));
 
-    // Parse the image directory. Entry size varies by format version:
-    //   8 bytes:  compact format (single-byte width/height/flags)
-    //  14 bytes:  standard format with color map offset
-    //  16 bytes:  extended format with color map and per-image Huffman tree offset
-    for (int entry_index = 0; entry_index < file_header.image_count; entry_index++) {
-        directory[entry_index].id = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-        if (file_header.directory_entry_size == kCompactEntrySize) {
-            // Compact entries store dimensions and flags as single bytes
-            directory[entry_index].width = read_byte_and_advance(&ptr);
-            directory[entry_index].height = read_byte_and_advance(&ptr);
-            directory[entry_index].flags = read_byte_and_advance(&ptr);
-        } else {
-            directory[entry_index].width = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-            directory[entry_index].height = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-            directory[entry_index].flags = conditional_byte_swap(needs_byte_swap, READ_BE_UINT16_AND_ADVANCE(&ptr));
-        }
-
-        directory[entry_index].pixel_data_offset = read_24_big_endian_bits(&ptr);
-
-        // Default the end-of-data boundary to end of file; this will be
-        // refined below if a subsequent image's data starts after this one.
-        if (directory[entry_index].pixel_data_offset != 0) {
-            directory[entry_index].next_entry_data_offset = (uint32_t)datasize;
-        }
-        if (file_header.directory_entry_size == kStandardEntrySize) {
-            directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
-        } else if (file_header.directory_entry_size == kExtendedEntrySize) {
-            directory[entry_index].color_map_offset = read_24_big_endian_bits(&ptr);
-            // Huffman tree offset is stored as a word that must be doubled
-            directory[entry_index].huffman_tree_offset = READ_BE_UINT16_AND_ADVANCE(&ptr) * kHuffmanOffsetScale;
-        } else if (file_header.directory_entry_size == kNoColorMapEntrySize) {
-            directory[entry_index].color_map_offset = 0;
-            read_byte_and_advance(&ptr);  // skip unknown trailing byte
-        }
-    }
+    for (int entry_index = 0; entry_index < file_header.image_count; entry_index++)
+        directory[entry_index] = read_directory_entry(&ptr, file_header.directory_entry_size, needs_byte_swap);
 
     // The 256-byte default Huffman tree immediately follows the directory.
     // Images without their own tree use this shared one.
@@ -253,79 +345,12 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         memset(default_huffman_tree, 0, kHuffmanTreeSize);
     }
 
-    // The file format doesn't store explicit data lengths for each image.
-    // We compute each image's data size by finding the next image whose pixel data
-    // starts at a higher offset. The last image uses the end-of-file as its boundary.
-    for (int entry_index = 0; entry_index + 1 < file_header.image_count; entry_index++) {
-        if (directory[entry_index].pixel_data_offset != 0) {
-            for (int next_index = entry_index + 1; next_index < file_header.image_count; next_index++) {
-                if (directory[next_index].pixel_data_offset > directory[entry_index].pixel_data_offset) {
-                    directory[entry_index].next_entry_data_offset = directory[next_index].pixel_data_offset;
-                    break;
-                }
-            }
-        }
-    }
+    set_data_boundaries(directory, file_header.image_count, datasize);
 
-    // Allocate the output ImageStruct array
     *image_list = (ImageStruct *)MemCalloc(file_header.image_count * sizeof(ImageStruct));
 
-    // Populate each ImageStruct with metadata and a copy of the raw pixel data,
-    // along with optional per-image Huffman tree and color palette.
-    for (int entry_index = 0; entry_index < file_header.image_count; entry_index++) {
-        (*image_list)[entry_index].index = directory[entry_index].id;
-        (*image_list)[entry_index].width = directory[entry_index].width;
-        (*image_list)[entry_index].height = directory[entry_index].height;
-        (*image_list)[entry_index].type = *type;
-
-        // Skip images with no pixel data or zero dimensions
-        if (directory[entry_index].pixel_data_offset == 0 || directory[entry_index].width == 0 || directory[entry_index].height == 0)
-            continue;
-
-        // Guard against underflow when next_entry_data_offset < pixel_data_offset
-        if (directory[entry_index].next_entry_data_offset <= directory[entry_index].pixel_data_offset)
-            continue;
-
-        uint32_t pixel_data_length = directory[entry_index].next_entry_data_offset - directory[entry_index].pixel_data_offset;
-
-        // Validate that pixel data lies within the file bounds (use size_t to avoid 32-bit overflow)
-        if ((size_t)directory[entry_index].pixel_data_offset + (size_t)pixel_data_length > datasize)
-            continue;
-
-        (*image_list)[entry_index].datasize = pixel_data_length;
-        (*image_list)[entry_index].data = (uint8_t *)MemAlloc(pixel_data_length);
-
-        memcpy((*image_list)[entry_index].data, data + directory[entry_index].pixel_data_offset, pixel_data_length);
-
-        // Bit 0 of image_flags indicates the image has a transparent color.
-        // The transparent color index is stored in the upper bits of the flags field,
-        // shifted by 4 bits in compact (8-byte) entries or 12 bits in larger entries.
-        if (directory[entry_index].flags & kTransparencyFlag) {
-            (*image_list)[entry_index].transparency = 1;
-            if (file_header.directory_entry_size == kCompactEntrySize) {
-                (*image_list)[entry_index].transparent_color = directory[entry_index].flags >> kCompactTransparentColorShift;
-            } else {
-                (*image_list)[entry_index].transparent_color = directory[entry_index].flags >> kExtendedTransparentColorShift;
-            }
-        }
-
-        // Use the per-image Huffman tree if one is specified, otherwise fall back
-        // to the shared default tree read from after the directory.
-        if (directory[entry_index].huffman_tree_offset != 0 &&
-            (size_t)directory[entry_index].huffman_tree_offset + kHuffmanTreeSize <= datasize) {
-            (*image_list)[entry_index].huffman_tree = (uint8_t *)MemAlloc(kHuffmanTreeSize);
-            memcpy((*image_list)[entry_index].huffman_tree, data + directory[entry_index].huffman_tree_offset, kHuffmanTreeSize);
-        } else {
-            (*image_list)[entry_index].huffman_tree = default_huffman_tree;
-        }
-
-        // Copy the per-image color palette if present (512 bytes = 256 color entries x 2 bytes each)
-        if (directory[entry_index].color_map_offset != 0 &&
-            (size_t)directory[entry_index].color_map_offset + kColorPaletteSize <= datasize) {
-            (*image_list)[entry_index].palette = (uint8_t *)MemAlloc(kColorPaletteSize);
-            memcpy((*image_list)[entry_index].palette, data + directory[entry_index].color_map_offset, kColorPaletteSize);
-        }
-    }
+    for (int entry_index = 0; entry_index < file_header.image_count; entry_index++)
+        load_image(&(*image_list)[entry_index], directory[entry_index], file_header.directory_entry_size, *type, data, datasize);
 
     free(directory);
     *version = file_header.version;

@@ -13,6 +13,7 @@
 #include <sys/stat.h>
 
 #include <algorithm>
+#include <string>
 
 #include "debugprint.h"
 extern "C" {
@@ -42,24 +43,29 @@ static const int kBTDiskCountOffset = 2;
 static const int kBTFirstDiskOffset = 20;
 static const int kBTDisk1GraphicsOffset = 22;
 static const int kBTDiskHeaderSize = 8;
+// Within a disk's section header: block number where its graphics data
+// starts, and how many range entries follow the header.
+static const int kBTGraphicsOffset = 2;
 static const int kBTEntryCountOffset = 4;
 static const int kBTRangeEntrySize = 6;
 
-// The block table is read from the first 512 (or 1024) bytes of disk 1.
-// It describes how logical blocks in the story file map to physical blocks
-// across multiple disk sides, and where graphics data begins on each disk.
-static uint8_t block_table[kBlockTableSize];
+// Everything read from one game's set of disk sides.
+struct AppleDiskSet {
+    // Extracted Infocom file data for each disk side, indexed 0-4 for
+    // sides 1-5.
+    uint8_t *images[kMaxDiskSides];
+    size_t image_lengths[kMaxDiskSides];
+    // How many sides the game spans. Zero until the sides have been loaded.
+    int side_count;
 
-// State for incrementally assembling the story file from disk blocks.
-// remaining_bytes counts down from the total story size as blocks are copied;
-// write_offset tracks the current position in the output buffer.
-static size_t remaining_bytes;
-static size_t total_story_size;
+    // The block table is read from the first 512 (or 1024) bytes of disk 1.
+    // It describes how logical blocks in the story file map to physical blocks
+    // across multiple disk sides, and where graphics data begins on each disk.
+    uint8_t block_table[kBlockTableSize];
+    bool table_is_set;
+};
 
-static uint8_t *assembled_story;
-static size_t write_offset;
-
-static bool table_is_set = false;
+static AppleDiskSet disks;
 
 // Reads an Apple II disk image file and extracts the Infocom V6 data from it.
 // Handles the full pipeline: if the file is in WOZ format, it is first converted
@@ -113,127 +119,166 @@ static uint8_t *read_infocom_data_from_disk(const char *filename, int *game, int
     return extracted_data;
 }
 
-static uint8_t *assemble_story_from_disks(size_t *out_story_size);
-
-// Extracted Infocom file data for each disk side (up to 5 sides).
-// Indexed 0-4, corresponding to disk sides 1-5.
-static uint8_t *disk_images[kMaxDiskSides] = { nullptr, nullptr, nullptr, nullptr, nullptr };
-static size_t disk_image_lengths[kMaxDiskSides] = { 0, 0, 0, 0, 0 };
-
-
-static off_t find_graphics_data_offset(int disk);
+static uint16_t read_block_table_word(int offset) {
+    if (offset < 0 || offset + 1 >= (int)sizeof(disks.block_table))
+        return 0;
+    return READ_BE_UINT16(disks.block_table + offset);
+}
 
 // Reads the block mapping table from the first 512 bytes of disk 1.
 // If the entry count (first word) exceeds 256, the table spans 1024 bytes.
 static bool initialize_block_table(void) {
-    uint8_t *first_disk = disk_images[0];
+    uint8_t *first_disk = disks.images[0];
     if (first_disk == nullptr) {
         fprintf(stderr, "Apple 2 disk data not initialized!\n");
         return false;
     }
-    memset(block_table, 0, kBlockTableSize);
-    if (disk_image_lengths[0] < kBlockTableHalfSize)
+    memset(disks.block_table, 0, kBlockTableSize);
+    if (disks.image_lengths[0] < kBlockTableHalfSize)
         return false;
-    memcpy(block_table, first_disk, kBlockTableHalfSize);
+    memcpy(disks.block_table, first_disk, kBlockTableHalfSize);
 
-    if (READ_BE_UINT16(block_table) > kExtendedTableThreshold && disk_image_lengths[0] >= kBlockTableSize) {
-        memcpy(block_table + kBlockTableHalfSize, first_disk + kBlockTableHalfSize, kBlockTableHalfSize);
+    if (READ_BE_UINT16(disks.block_table) > kExtendedTableThreshold && disks.image_lengths[0] >= kBlockTableSize) {
+        memcpy(disks.block_table + kBlockTableHalfSize, first_disk + kBlockTableHalfSize, kBlockTableHalfSize);
     }
-    table_is_set = true;
+    disks.table_is_set = true;
     return true;
 }
 
 static void free_disk_images(void) {
     for (int i = 0; i < kMaxDiskSides; i++) {
-        if (disk_images[i] != nullptr) {
-            free(disk_images[i]);
-            disk_images[i] = nullptr;
-        }
-        disk_image_lengths[i] = 0;
+        free(disks.images[i]);
+        disks.images[i] = nullptr;
+        disks.image_lengths[i] = 0;
     }
-    table_is_set = false;
+    disks.table_is_set = false;
 }
 
-static int global_numdisks = 0;
+// Find the side number `side` in a file name. Search from the end, so that
+// e.g. the year in "Arthur 1989 side 1.woz" isn't picked, and prefer a
+// lone digit over one that is part of a longer number. Only the last path
+// component is searched. Returns std::string::npos if the digit is not there.
+static size_t find_side_digit_pos(const std::string &path, int side) {
+    size_t separator_pos = path.find_last_of("/\\:");
+    size_t name_start = separator_pos == std::string::npos ? 0 : separator_pos + 1;
+
+    size_t found = std::string::npos;
+    for (size_t i = path.size(); i > name_start; i--) {
+        size_t pos = i - 1;
+        if (path[pos] - '0' != side)
+            continue;
+        bool digit_before = pos > 0 && isdigit((unsigned char)path[pos - 1]);
+        bool digit_after = pos + 1 < path.size() && isdigit((unsigned char)path[pos + 1]);
+        if (!digit_before && !digit_after)
+            return pos;
+        if (found == std::string::npos)
+            found = pos;
+    }
+    return found;
+}
 
 // Loads all disk sides for the game, starting from the given filename.
 // Extracts the first disk, determines how many sides the game spans,
 // then locates and loads the remaining sides by replacing the disk number
 // digit in the filename (e.g. "Shogun - Side 1.woz" → "Shogun - Side 2.woz").
 static int populate_disk_images(const char *filename, size_t *file_length) {
-    if (disk_images[0] != nullptr)
-        return global_numdisks;
-    size_t filenamelen = strlen(filename);
+    if (disks.images[0] != nullptr)
+        return disks.side_count;
     int game_id = -1, disk_index;
 
     uint8_t *extracted_disk = read_infocom_data_from_disk(filename, &game_id, &disk_index, file_length);
     if (extracted_disk == nullptr)
         return 0;
 
-    global_numdisks = kMaxDiskSides - (game_id == 0);
+    // Game 0 (Zork Zero) comes on four sides, the others on five.
+    disks.side_count = (game_id == 0) ? kMaxDiskSides - 1 : kMaxDiskSides;
 
     if (disk_index < 1 || disk_index > kMaxDiskSides) {
         fprintf(stderr, "Invalid disk index %d\n", disk_index);
         free(extracted_disk);
         return 0;
     }
-    disk_images[disk_index - 1] = extracted_disk;
-    disk_image_lengths[disk_index - 1] = *file_length;
+    disks.images[disk_index - 1] = extracted_disk;
+    disks.image_lengths[disk_index - 1] = *file_length;
 
-    size_t separator_pos = 0;
-    for (size_t i = filenamelen; i > 0; i--) {
-        char c = filename[i - 1];
-        if (c == '/' || c == '\\' || c == ':') {
-            separator_pos = i - 1;
-            break;
-        }
-    }
+    std::string alternate_path = filename;
+    size_t disk_number_pos = find_side_digit_pos(alternate_path, disk_index);
+    if (disk_number_pos == std::string::npos)
+        return disks.side_count;
 
-    // Find the side number in the file name. Search from the end, so that
-    // e.g. the year in "Arthur 1989 side 1.woz" isn't picked, and prefer a
-    // lone digit over one that is part of a longer number.
-    int disk_number_pos = -1;
-    for (size_t i = filenamelen; i > separator_pos; i--) {
-        size_t pos = i - 1;
-        if (filename[pos] - '0' != disk_index)
+    for (int i = 0; i < disks.side_count; i++) {
+        if (i == disk_index - 1 || disks.images[i] != nullptr)
             continue;
-        bool digit_before = pos > 0 && isdigit((unsigned char)filename[pos - 1]);
-        bool digit_after = pos + 1 < filenamelen && isdigit((unsigned char)filename[pos + 1]);
-        if (!digit_before && !digit_after) {
-            disk_number_pos = (int)pos;
-            break;
+        alternate_path[disk_number_pos] = '1' + i;
+        int parsed_index;
+        disks.images[i] = read_infocom_data_from_disk(alternate_path.c_str(), nullptr, &parsed_index, file_length);
+        if (disks.images[i] == nullptr) {
+            fprintf(stderr, "Could not extract file from disk %d!\n", i + 1);
+            free_disk_images();
+            return 0;
         }
-        if (disk_number_pos == -1)
-            disk_number_pos = (int)pos;
+        if (parsed_index != i + 1) {
+            fprintf(stderr, "Disk %d contains side %d, expected side %d\n", i + 1, parsed_index, i + 1);
+        }
+        disks.image_lengths[i] = *file_length;
     }
+    return disks.side_count;
+}
 
-    char alternate_path[1024];
-
-    if (filenamelen >= sizeof(alternate_path)) {
-        free_disk_images();
-        return 0;
+// The block table holds one section per disk side: an 8-byte header followed
+// by that side's range entries. Returns the offset in the table of the header
+// for side `disk` (0-based), or -1 if the table has no such side.
+static int disk_table_offset(int disk) {
+    if (disk < 0 || disk >= read_block_table_word(kBTDiskCountOffset))
+        return -1;
+    int table_offset = kBTFirstDiskOffset;
+    for (int i = 0; i < disk; i++) {
+        uint16_t entries = read_block_table_word(table_offset + kBTEntryCountOffset);
+        table_offset += kBTDiskHeaderSize + kBTRangeEntrySize * entries;
     }
-    memcpy(alternate_path, filename, filenamelen + 1);
+    return table_offset;
+}
 
-    if (disk_number_pos >= 0) {
-        for (int i = 0; i < global_numdisks; i++) {
-            if (i != disk_index - 1 && disk_images[i] == nullptr) {
-                alternate_path[disk_number_pos] = '1' + i;
-                int parsed_index;
-                disk_images[i] = read_infocom_data_from_disk(alternate_path, nullptr, &parsed_index, file_length);
-                if (disk_images[i] == nullptr) {
-                    fprintf(stderr, "Could not extract file from disk %d!\n", i + 1);
-                    free_disk_images();
-                    return 0;
-                }
-                if (parsed_index != i + 1) {
-                    fprintf(stderr, "Disk %d contains side %d, expected side %d\n", i + 1, parsed_index, i + 1);
-                }
-                disk_image_lengths[i] = *file_length;
+// Maps a logical block number (sequential position in the story file) to a
+// physical block on a specific disk side. Walks the block table's per-disk
+// range entries, each describing a contiguous range of logical blocks and the
+// corresponding physical block base on that disk. If no range holds the
+// block, *disk is set to the number of disks in the table.
+static void resolve_logical_block(uint16_t logical_block, int *disk, uint16_t *physical_block) {
+    int disk_count = read_block_table_word(kBTDiskCountOffset);
+
+    for (*disk = 0; *disk < disk_count; (*disk)++) {
+        int table_offset = disk_table_offset(*disk);
+        uint16_t entries = read_block_table_word(table_offset + kBTEntryCountOffset);
+        table_offset += kBTDiskHeaderSize;
+
+        while (entries--) {
+            uint16_t range_start = read_block_table_word(table_offset + 0);
+            uint16_t range_end = read_block_table_word(table_offset + 2);
+            uint16_t physical_base = read_block_table_word(table_offset + 4);
+            table_offset += kBTRangeEntrySize;
+
+            if (range_start <= logical_block && logical_block <= range_end) {
+                *physical_block = logical_block + physical_base - range_start;
+                return;
             }
         }
     }
-    return global_numdisks;
+}
+
+// Returns the byte offset where graphics data begins on the given disk side
+// (1-based), or 0 if there is none. For disk 1, this is stored directly in
+// the block table. For other disks, it is in the header of that disk's
+// section of the table.
+static off_t find_graphics_data_offset(int disk) {
+    if (disk == 1) {
+        return read_block_table_word(kBTDisk1GraphicsOffset) * kProDOSBlockSize;
+    }
+
+    int table_offset = disk_table_offset(disk - 1);
+    if (table_offset < 0)
+        return 0;
+    return read_block_table_word(table_offset + kBTGraphicsOffset) * kProDOSBlockSize;
 }
 
 // Extracts graphics images from all disk sides and merges them into a single
@@ -250,7 +295,7 @@ static int collect_images_from_disks(ImageStruct **output_images, int *version, 
         if (offset != 0) {
             // Trying to extract images from disk i + 1
             GraphicsType type = kGraphicsTypeApple2;
-            per_disk_count[i] = extract_images(disk_images[i], disk_image_lengths[i], i + 1, offset, &per_disk_images[i], version, &type);
+            per_disk_count[i] = extract_images(disks.images[i], disks.image_lengths[i], i + 1, offset, &per_disk_images[i], version, &type);
             total_count += per_disk_count[i];
         } else {
             per_disk_count[i] = 0;
@@ -266,19 +311,86 @@ static int collect_images_from_disks(ImageStruct **output_images, int *version, 
     }
     *output_images = (ImageStruct *)MemCalloc(total_count *  sizeof(ImageStruct));
     for (int i = 0; i < numdisks; i++) {
-        if (per_disk_count[i] > 0) {
-            for (int j = 0; j < per_disk_count[i]; j++) {
-                (*output_images)[output_index] = per_disk_images[i][j];
-                (*output_images)[output_index].type = kGraphicsTypeApple2;
-                output_index++;
-            }
+        for (int j = 0; j < per_disk_count[i]; j++) {
+            (*output_images)[output_index] = per_disk_images[i][j];
+            (*output_images)[output_index].type = kGraphicsTypeApple2;
+            output_index++;
         }
-        if (per_disk_images[i] != nullptr)
-            free(per_disk_images[i]);
+        free(per_disk_images[i]);
     }
     return output_index;
 }
 
+// Copies one physical block (512 bytes) from a disk image to `dest`. Clamps
+// the copy to the smaller of: the remaining disk data, `space` (the room left
+// at dest), and the standard 512-byte block size. Returns the bytes copied.
+static size_t transfer_block(int disk, int physical_block, uint8_t *dest, size_t space) {
+    if (disk < 0 || disk >= kMaxDiskSides || disks.images[disk] == nullptr)
+        return 0;
+    if (physical_block < 0)
+        return 0;
+
+    size_t read_offset = (size_t)physical_block * kProDOSBlockSize;
+    if (read_offset >= disks.image_lengths[disk])
+        return 0;
+
+    size_t available_from_disk = disks.image_lengths[disk] - read_offset;
+    size_t bytes_to_copy = std::min({kProDOSBlockSize, available_from_disk, space});
+
+    memcpy(dest, disks.images[disk] + read_offset, bytes_to_copy);
+    return bytes_to_copy;
+}
+
+// Assembles the complete Z-machine story file by reading logical blocks in
+// order, resolving each to a physical block on one of the disk sides, and
+// copying them into a contiguous output buffer. The story size is read from
+// the Z-machine header at offset 26 (file length in 8-byte units).
+static uint8_t *assemble_story_from_disks(size_t *out_story_size) {
+    *out_story_size = 0;
+
+    if (!disks.table_is_set && !initialize_block_table())
+        return nullptr;
+
+    int disk;
+    uint16_t physical_block = 0;
+
+    resolve_logical_block(0, &disk, &physical_block);
+
+    if (disk < 0 || disk >= kMaxDiskSides || disks.images[disk] == nullptr)
+        return nullptr;
+
+    size_t header_offset = (size_t)physical_block * kProDOSBlockSize;
+    if (header_offset + kZHeaderSize > disks.image_lengths[disk])
+        return nullptr;
+
+    const uint8_t *story_header = disks.images[disk] + header_offset;
+    size_t total_story_size = READ_BE_UINT16(story_header + kZHeaderFileLengthOffset) * kV6FileLengthMultiplier;
+
+    if (total_story_size == 0 || total_story_size > kMaxV6StorySize) {
+        fprintf(stderr, "Disk image has bad format. Story size %zx\n", total_story_size);
+        return nullptr;
+    }
+
+    uint8_t *assembled_story = (uint8_t *)MemAlloc(total_story_size);
+    size_t write_offset = 0;
+
+    int num_disks = read_block_table_word(kBTDiskCountOffset);
+
+    for (uint32_t logical_block = 0; write_offset < total_story_size; logical_block++) {
+        if (logical_block > 0xffff)
+            break;
+
+        resolve_logical_block((uint16_t)logical_block, &disk, &physical_block);
+
+        if (disk >= num_disks)
+            break;
+
+        write_offset += transfer_block(disk, physical_block, assembled_story + write_offset, total_story_size - write_offset);
+    }
+
+    *out_story_size = write_offset;
+    return assembled_story;
+}
 
 // Public entry point: extracts the Z-machine story file from Apple II disk
 // images, and optionally extracts graphics images as well.
@@ -316,139 +428,4 @@ int extract_apple2_disk_images(const char *filename, ImageStruct **rawimg, int *
     }
 
     return collect_images_from_disks(rawimg, version, numdisks);
-}
-
-static uint16_t read_block_table_word (int offset) {
-    if (offset < 0 || offset + 1 >= (int)sizeof(block_table))
-        return 0;
-    return READ_BE_UINT16(block_table + offset);
-}
-
-
-// Maps a logical block number (sequential position in the story file) to a
-// physical block on a specific disk side. Walks the block table's per-disk
-// range entries, each describing a contiguous range of logical blocks and the
-// corresponding physical block base on that disk.
-static void resolve_logical_block (uint16_t logical_block, int *disk, uint16_t *physical_block) {
-    int table_offset = kBTFirstDiskOffset;
-    uint16_t range_start = 0;
-    uint16_t range_end = 0;
-
-    for (*disk = 0; *disk < read_block_table_word(kBTDiskCountOffset); (*disk)++) {
-        uint16_t entries = read_block_table_word(table_offset + kBTEntryCountOffset);
-        table_offset += kBTDiskHeaderSize;
-
-        while (entries--) {
-            range_start = read_block_table_word(table_offset + 0);
-            range_end = read_block_table_word(table_offset + 2);
-            uint16_t physical_base = read_block_table_word(table_offset + 4);
-            table_offset += kBTRangeEntrySize;
-
-            if (range_start <= logical_block && logical_block <= range_end) {
-                *physical_block = logical_block + physical_base - range_start;
-                return;
-            }
-        }
-    }
-}
-
-// Returns the byte offset where graphics data begins on the given disk side.
-// For disk 1, this is stored directly in the block table. For other disks,
-// it's found by skipping past each preceding disk's block range entries.
-static off_t find_graphics_data_offset(int disk) {
-    if (disk == 1) {
-        return read_block_table_word(kBTDisk1GraphicsOffset) * kProDOSBlockSize;
-    }
-
-    int table_offset = kBTFirstDiskOffset;
-
-    for (int current_disk = 1; current_disk < read_block_table_word(kBTDiskCountOffset); current_disk++) {
-
-        uint16_t entries = read_block_table_word(table_offset + kBTEntryCountOffset);
-
-        table_offset += kBTDiskHeaderSize + kBTRangeEntrySize * entries;
-
-        if (current_disk + 1 == disk)
-            return read_block_table_word(table_offset + 2) * kProDOSBlockSize;
-    }
-    return 0;
-}
-
-// Copies one physical block (512 bytes) from a disk image into the assembled
-// story buffer. Clamps the copy to the smaller of: the remaining disk data,
-// the remaining story buffer space, and the standard 512-byte block size.
-static void transfer_block(int disk, int physical_block) {
-    if (disk < 0 || disk >= kMaxDiskSides || disk_images[disk] == nullptr)
-        return;
-    if (physical_block < 0 || remaining_bytes == 0)
-        return;
-
-    size_t read_offset = (size_t)physical_block * kProDOSBlockSize;
-    if (read_offset >= disk_image_lengths[disk])
-        return;
-
-    size_t available_from_disk = disk_image_lengths[disk] - read_offset;
-    size_t bytes_to_copy = std::min({kProDOSBlockSize, available_from_disk,
-                                     total_story_size - write_offset, remaining_bytes});
-
-    if (bytes_to_copy == 0)
-        return;
-
-    memcpy(assembled_story + write_offset, disk_images[disk] + read_offset, bytes_to_copy);
-    write_offset += bytes_to_copy;
-    remaining_bytes -= bytes_to_copy;
-}
-
-// Assembles the complete Z-machine story file by reading logical blocks in
-// order, resolving each to a physical block on one of the disk sides, and
-// copying them into a contiguous output buffer. The story size is read from
-// the Z-machine header at offset 26 (file length in 256-byte units).
-static uint8_t *assemble_story_from_disks(size_t *out_story_size) {
-    *out_story_size = 0;
-
-    if (!table_is_set && !initialize_block_table())
-        return nullptr;
-
-    write_offset = 0;
-
-    int disk;
-    uint16_t physical_block = 0;
-
-    resolve_logical_block(0, &disk, &physical_block);
-
-    if (disk < 0 || disk >= kMaxDiskSides || disk_images[disk] == nullptr)
-        return nullptr;
-
-    size_t header_offset = (size_t)physical_block * kProDOSBlockSize;
-    if (header_offset + kZHeaderSize > disk_image_lengths[disk])
-        return nullptr;
-
-    uint8_t story_header[kZHeaderSize];
-    memcpy(story_header, disk_images[disk] + header_offset, kZHeaderSize);
-    remaining_bytes = READ_BE_UINT16(story_header + kZHeaderFileLengthOffset) * kV6FileLengthMultiplier;
-
-    if (remaining_bytes == 0 || remaining_bytes > kMaxV6StorySize) {
-        fprintf(stderr, "Disk image has bad format. Story size %zx\n", remaining_bytes);
-        return nullptr;
-    }
-
-    assembled_story = (uint8_t *)MemAlloc(remaining_bytes);
-    total_story_size = remaining_bytes;
-
-    int num_disks = read_block_table_word(kBTDiskCountOffset);
-
-    for (uint32_t logical_block = 0; remaining_bytes > 0; logical_block++) {
-        if (logical_block > 0xffff)
-            break;
-
-        resolve_logical_block((uint16_t)logical_block, &disk, &physical_block);
-
-        if (disk >= num_disks)
-            break;
-
-        transfer_block(disk, physical_block);
-    }
-
-    *out_story_size = write_offset;
-    return assembled_story;
 }

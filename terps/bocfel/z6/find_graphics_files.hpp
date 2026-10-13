@@ -13,6 +13,7 @@
 
 void free_images(void);
 void find_and_load_z6_graphics(void);
+bool load_apple2_graphics(void);
 
 enum GraphicsFile {
     kGraphicsFileCPic = 0,

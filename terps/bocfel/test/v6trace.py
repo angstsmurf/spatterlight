@@ -23,6 +23,11 @@ pixel anywhere in a composited border shows up as a changed line.
                       ENTRY arguments
       --signature S   autosave signature; the autosave directory is NOT
                       cleaned here (run_v6_traces.py does that)
+      --pictures DIR  keep every picture the interpreter sends in DIR, under
+                      the name the trace has for it (see picture_name), for
+                      v6screens.py to draw
+      --save FILE     the file to name when the game asks for one, so that
+                      "restore" in the script loads FILE and "save" writes it
 
 Script entries, besides the ones glkdrive.py knows (a typed line, key:X,
 tick:N):
@@ -53,6 +58,7 @@ import os
 import struct
 import sys
 import threading
+import zlib
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(HERE)))
@@ -108,19 +114,42 @@ def is_plain(entry):
 
 
 def file_digest(path):
+    """(what the trace says of the file, its contents or None)."""
     try:
         with open(path, "rb") as f:
             data = f.read()
     except OSError as e:
-        return "unreadable(%s)" % e.strerror
-    return "%s/%d" % (hashlib.sha1(data).hexdigest()[:16], len(data))
+        return "unreadable(%s)" % e.strerror, None
+    return "%s/%d" % (hashlib.sha1(data).hexdigest()[:16], len(data)), data
+
+
+def picture_name(digest, offset=0, length=0):
+    """File name, in a --pictures directory, of the picture a trace line
+    calls "file DIGEST"; OFFSET and LENGTH for a LOADIMAGE, which names a
+    piece of a file."""
+    name = digest.replace("/", "-")
+    if length:
+        name += "@%d+%d" % (offset, length)
+    return name + ".z"
+
+
+def keep_picture(directory, name, data):
+    """Store DATA deflated as NAME, unless a run got there first."""
+    path = os.path.join(directory, name)
+    if os.path.exists(path):
+        return
+    scratch = "%s.%d.%d" % (path, os.getpid(), threading.get_ident())
+    with open(scratch, "wb") as f:
+        f.write(zlib.compress(data, 1))
+    os.replace(scratch, path)
 
 
 class Tracer(glkdrive.Driver):
     def __init__(self, terp, story, home, script, width=800, height=600,
                  graphics=6, interp=0, voiceover=0, graphics_on=1, env=None,
-                 patient=True, affirm=None):
+                 patient=True, affirm=None, pictures=None, savepath=None):
         self.trace = []
+        self.pictures = pictures
         self.affirm = affirm
         self.last_print = ""
         self.mouse_peer = None
@@ -138,7 +167,8 @@ class Tracer(glkdrive.Driver):
             # the same option by another road.
             os.environ["BOCFEL_INT_NUMBER"] = str(interp or 6)
             try:
-                super().__init__(terp, story, home, script)
+                super().__init__(terp, story, home, script,
+                                 savepath=savepath)
             finally:
                 os.environ.clear()
                 os.environ.update(saved)
@@ -171,7 +201,18 @@ class Tracer(glkdrive.Driver):
         elif cmd in (glkdrive.PURGEIMG, glkdrive.LOADIMAGE):
             path = payload.decode("utf-8", "replace").rstrip("\0")
             # a2 of PURGEIMG is the pixel buffer size; the name is temporary.
-            rest = "file " + file_digest(path) if path else ""
+            rest = ""
+            if path:
+                digest, data = file_digest(path)
+                rest = "file " + digest
+                if self.pictures and data is not None:
+                    if cmd == glkdrive.LOADIMAGE and a3:
+                        keep_picture(self.pictures,
+                                     picture_name(digest, a2, a3),
+                                     data[a2:a2 + a3])
+                    else:
+                        keep_picture(self.pictures, picture_name(digest),
+                                     data)
             if cmd == glkdrive.PURGEIMG and path:
                 try:
                     os.unlink(path)
@@ -415,6 +456,11 @@ def main():
             kw["patient"] = False
         elif opt == "--affirm":
             kw["affirm"] = argv.pop(0)
+        elif opt == "--pictures":
+            kw["pictures"] = argv.pop(0)
+            os.makedirs(kw["pictures"], exist_ok=True)
+        elif opt == "--save":
+            kw["savepath"] = argv.pop(0)
         elif opt == "--nographics":
             kw["graphics_on"] = 0
         elif opt == "--script":

@@ -23,6 +23,11 @@ uint8_t *decompress_amiga(ImageStruct *image) {
         return nullptr;
 
     static const size_t kHeaderSize = 6;
+    // A Huffman tree byte with kLeafFlag set is a leaf; its other bits are
+    // the value. Values up to kMaxColor are a color index, larger ones a run
+    // length stored with kMaxColor added.
+    static const uint8_t kLeafFlag = 0x80;
+    static const uint8_t kMaxColor = 0x0f;
     if (image->datasize < kHeaderSize)
         return nullptr;
 
@@ -30,7 +35,7 @@ uint8_t *decompress_amiga(ImageStruct *image) {
     uint8_t color_index = 0;
 
     size_t pixel_count = 0;
-    uint8_t *pixel_buffer = image_alloc(image->width, image->height, 1, &pixel_count);
+    ImageBuf pixel_buffer(image_alloc(image->width, image->height, 1, &pixel_count));
     if (pixel_buffer == nullptr)
         return nullptr;
 
@@ -40,14 +45,13 @@ uint8_t *decompress_amiga(ImageStruct *image) {
     for (size_t pixel_index = 0; pixel_index < pixel_count; pixel_index++, remaining_repeats--) {
         if (remaining_repeats == 0) {
             // Walk the Huffman tree bit by bit until reaching a leaf node
-            // (indicated by the high bit being set, i.e. (tree_node & 0x80) != 0).
+            // (indicated by the high bit, kLeafFlag, being set).
             // Each interior node at index N has children at 2*N (left/0-bit)
             // and 2*N+1 (right/1-bit).
             uint8_t tree_node = 0;
-            while ((tree_node & 0x80) == 0) {
+            while ((tree_node & kLeafFlag) == 0) {
                 if (byte_offset >= image->datasize) {
                     fprintf(stderr, "decompress_amiga: Read past end of data (offset %zu, data size: %zu).\n", byte_offset, image->datasize);
-                    free(pixel_buffer);
                     return nullptr;
                 }
 
@@ -67,13 +71,13 @@ uint8_t *decompress_amiga(ImageStruct *image) {
             }
 
             // The leaf value's low 7 bits encode either a run length or a
-            // color index. Values >= 0x10 mean "repeat the current color
-            // (value - 0x0f) times". Values < 0x10 set a new color index
-            // with an implicit repeat count of 1.
-            uint8_t leaf_value = tree_node & 0x7f;
-            if (leaf_value >= 0x10) {
+            // color index. Values above kMaxColor mean "repeat the current
+            // color (value - kMaxColor) times". Other values set a new color
+            // index with an implicit repeat count of 1.
+            uint8_t leaf_value = tree_node & ~kLeafFlag;
+            if (leaf_value > kMaxColor) {
                 // Run length: subtract 0x0f (one less than Magnetic's 0x10.)
-                remaining_repeats = leaf_value - 0xf;
+                remaining_repeats = leaf_value - kMaxColor;
             }  else {
                 color_index = leaf_value;
                 remaining_repeats = 1;
@@ -90,5 +94,5 @@ uint8_t *decompress_amiga(ImageStruct *image) {
         pixel_buffer[pixel_index] ^= pixel_buffer[pixel_index - image->width];
     }
 
-    return pixel_buffer;
+    return pixel_buffer.release();
 }
