@@ -80,8 +80,11 @@ static uint8_t *copy_lines_from_bitmap(int start_y, int line_count, size_t *out_
 // Caller frees with free().
 static uint8_t *copy_rect_from_bitmap(int x, int y, int width, int height, size_t *size) {
     *size = 0;
-    int src_stride = (int)hw_screenwidth * 4;
-    int row_bytes = width * 4;
+    if (pixmap == nullptr || x < 0 || y < 0 || width <= 0 || height <= 0 ||
+        x + width > (int)hw_screenwidth)
+        return nullptr;
+    int src_stride = (int)hw_screenwidth * kBytesPerPixel;
+    int row_bytes = width * kBytesPerPixel;
     size_t result_size = (size_t)height * row_bytes;
     uint8_t *result = (uint8_t *)malloc(result_size);
     if (result == nullptr) {
@@ -105,11 +108,13 @@ static uint8_t *copy_rect_from_bitmap(int x, int y, int width, int height, size_
 // the erase if it would run past the current allocation. Used to clear
 // stale tiles before redrawing a section.
 static void erase_lines_in_bitmap(int y, int height) {
-    int stride = hw_screenwidth * 4;
-    int startpos = y * stride;
-    if (startpos > pixlength)
+    if (pixmap == nullptr || y < 0 || height <= 0)
         return;
-    size_t size = height * stride;
+    int stride = hw_screenwidth * kBytesPerPixel;
+    int startpos = y * stride;
+    if (startpos >= pixlength)
+        return;
+    size_t size = (size_t)height * stride;
     if (startpos + size > pixlength)
         size = pixlength - startpos;
     memset(pixmap + startpos, 0, size);
@@ -133,19 +138,17 @@ static void clip_pixmap_to_height(int desired_height) {
         pixlength = (int)target;
 }
 
-// Tile a strip copied from rows `top_cut..top_cut+pillar_height` of the
-// current pixmap downward, stamping it every `pillar_height - overlap`
-// rows starting at `start_y`, until `desired_height` is reached. If `flip`
-// is true, alternates the vertical flip of each tile starting from
-// `initial_parity`; otherwise every tile is drawn with `initial_parity`.
-// Returns the y-position immediately past the last tile drawn (i.e. where
-// the next tile would have started), which the caller can use to anchor
-// follow-up work below the tiled region.
 // Tile an already-copied strip (`section_to_repeat`, `pillar_height` rows)
 // downward, stamping it every `pillar_height - overlap` rows starting at
 // `start_y` until `desired_height` is reached. Split out from
 // tile_strip_down() so callers that must snapshot the source rows *before*
 // erasing them (see extend_pillars) can copy first, then erase, then tile.
+// If `flip` is true, alternates the vertical flip of each tile starting from
+// `initial_parity`; otherwise every tile is drawn with `initial_parity`.
+// Returns the y-position immediately past the last tile drawn (i.e. where
+// the next tile would have started), which the caller can use to anchor
+// follow-up work below the tiled region. A null `section_to_repeat` (a failed
+// copy) draws nothing.
 static int tile_section_down(uint8_t *section_to_repeat, size_t linessize,
                              int pillar_height, int overlap,
                              int start_y, int desired_height,
@@ -161,6 +164,9 @@ static int tile_section_down(uint8_t *section_to_repeat, size_t linessize,
     return ypos;
 }
 
+// Tile a strip copied from rows `top_cut..top_cut+pillar_height` of the
+// current pixmap downward. See tile_section_down() for the parameters and
+// the return value.
 static int tile_strip_down(int top_cut, int pillar_height, int overlap,
                            int start_y, int desired_height,
                            bool initial_parity, bool flip) {
@@ -184,39 +190,29 @@ static int tile_strip_down(int top_cut, int pillar_height, int overlap,
 // This makes the bottom of the pillars look better on light backgrounds.
 static void draw_hint_menu_feet_mac(uint8_t *smallbitmap, int smallbitmapsize, uint8_t **largebitmap, int *largebitmapsize, int y) {
 
-    int xpos, ypos;
-
     int width = hw_screenwidth;
-    int stride = width * 4;
-    int height = smallbitmapsize / stride;
+    int stride = width * kBytesPerPixel;
+    // Whole rows only
+    int source_end = smallbitmapsize / stride * stride;
 
-    uint8_t *pixptr;
-
-    for (int i = 0; i < smallbitmapsize; i += kBytesPerPixel) {
-        ypos = y + i / stride;
+    for (int i = 0; i < source_end; i += kBytesPerPixel) {
+        int ypos = y + i / stride;
 
         if (ypos < 0) {
             continue;
         }
 
-        xpos = (i % stride) / 4;
+        int xpos = (i % stride) / kBytesPerPixel;
 
-        // Clip at left and right edge
-        if (xpos < 0 || xpos >= width)
-            continue;
-        if (ypos >= height + y || ypos < y)
-            break;
-
-        pixptr = *largebitmap + ((ypos * width + xpos) * kBytesPerPixel);
+        uint8_t *pixptr = *largebitmap + ((ypos * width + xpos) * kBytesPerPixel);
 
         // Stop if we have reached the end
-        if (pixptr - *largebitmap + 3 > *largebitmapsize || i + 3 > smallbitmapsize) {
+        if (pixptr - *largebitmap + 3 > *largebitmapsize)
             break;
-        } else {
-            uint32_t source_rgb = GET_RGB(smallbitmap + i);
-            if (!(source_rgb == monochrome_white && *(smallbitmap + i + 3) == 0xff))
-                memcpy(pixptr, smallbitmap + i, 4);
-        }
+
+        uint32_t source_rgb = GET_RGB(smallbitmap + i);
+        if (!(source_rgb == monochrome_white && *(smallbitmap + i + 3) == 0xff))
+            memcpy(pixptr, smallbitmap + i, kBytesPerPixel);
     }
 }
 
@@ -241,9 +237,7 @@ void draw_arthur_side_images(winid_t winid) {
         left_margin = 5;
     } else if (graphics_type == kGraphicsTypeAmiga) {
         left_margin = 2;
-    } else if (graphics_type == kGraphicsTypeApple2) {
-        left_margin = 0;
-    } else {
+    } else if (graphics_type != kGraphicsTypeApple2) {
         // EGA, CGA, VGA, Blorb
         left_offset = -1;
         if (graphics_type == kGraphicsTypeVGA || graphics_type == kGraphicsTypeBlorb) {
@@ -255,9 +249,9 @@ void draw_arthur_side_images(winid_t winid) {
         }
     }
 
-    // Pic 54 is the top banner image that frames the room image
+    // The top banner image frames the room image
     int image_height;
-    get_image_size(54, nullptr, &image_height);
+    get_image_size(K_PIC_BANNER, nullptr, &image_height);
     float hw_screenheight = image_height + top_margin;
 
     const int stride = hw_screenwidth * kBytesPerPixel;
@@ -266,23 +260,22 @@ void draw_arthur_side_images(winid_t winid) {
     // Erase any stale content below the banner before drawing
     if (hw_screenheight < actual_pixmap_height)
         erase_lines_in_bitmap(hw_screenheight, actual_pixmap_height - hw_screenheight);
-    draw_to_pixmap_unscaled(54, left_margin, top_margin);
+    draw_to_pixmap_unscaled(K_PIC_BANNER, left_margin, top_margin);
 
     if (showing_wide_arthur_room_image) {
         arthur_draw_room_image(current_picture);
     }
 
-    // Pic 100 provides the room image dimensions, which determine
+    // K_PIC_BANNER_MARGIN provides the room image dimensions, which determine
     // where the side poles start vertically (y_margin)
     int x_margin = 0, y_margin = 0;
-    get_image_size(100, &x_margin, &y_margin);
+    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
 
-    // Pics 170/171 are the left/right side pole images
     const int pole_y = y_margin + top_margin - 2;
-    draw_to_pixmap_unscaled(170, left_margin + 1 + left_offset, pole_y);
-    draw_to_pixmap_unscaled(171, hw_screenwidth - x_margin + right_offset, pole_y);
+    draw_to_pixmap_unscaled(K_PIC_LEFT_POLE, left_margin + 1 + left_offset, pole_y);
+    draw_to_pixmap_unscaled(K_PIC_RIGHT_POLE, hw_screenwidth - x_margin + right_offset, pole_y);
 
-    get_image_size(170, nullptr, &image_height);
+    get_image_size(K_PIC_LEFT_POLE, nullptr, &image_height);
     if (image_height)
         hw_screenheight = pole_y + image_height;
 
@@ -313,17 +306,17 @@ void draw_arthur_side_images(winid_t winid) {
 // The hint border image is 298 lines tall. The top 55 lines are the
 // decorative header; below that is the repeatable pillar section,
 // ending with a 4-line foot shadow at the bottom.
-#define kBWHintTopCut 55       // Lines to skip at the top (header area)
-#define kBWHintFootHeight 4    // Height of the foot shadow at the bottom
-#define kBWHintTotalHeight 298 // Total height of the hint border image
-#define kBWHintOverlap 20      // Overlap between adjacent tiles (pixels)
-#define kBWHintStepHeight 20   // Rounding granularity for the truncated
-                               // final tile; also the minimum gap required
-                               // before tiling is attempted
+static constexpr int kBWHintTopCut = 55;       // Lines to skip at the top (header area)
+static constexpr int kBWHintFootHeight = 4;    // Height of the foot shadow at the bottom
+static constexpr int kBWHintTotalHeight = 298; // Total height of the hint border image
+static constexpr int kBWHintOverlap = 20;      // Overlap between adjacent tiles (pixels)
+// Rounding granularity for the truncated final tile; also the minimum gap
+// required before tiling is attempted
+static constexpr int kBWHintStepHeight = 20;
 
 // Height of the rounded corners at the top of the Amiga/Mac colour hint
 // border. The covering rectangle skips this many lines so the curve survives.
-#define kAmigaHintCornerHeight 8
+static constexpr int kAmigaHintCornerHeight = 8;
 
 // Tiles the pillar section of a border image downward to fill the screen.
 // The image (total_height lines) has already been drawn. This function
@@ -464,12 +457,12 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
     clip_pixmap_to_height(desired_height);
 }
 
-#define kZ0MacTopCut 65
-#define kZ0MacTotalHeight 300
-#define kZ0MacUpperHeight 97
-#define kZ0MacRingHeight 13
-#define kZ0MacLowerHeight 110
-#define kZ0MacFootHeight 15
+static constexpr int kZ0MacTopCut = 65;
+static constexpr int kZ0MacTotalHeight = 300;
+static constexpr int kZ0MacUpperHeight = 97;
+static constexpr int kZ0MacRingHeight = 13;
+static constexpr int kZ0MacLowerHeight = 110;
+static constexpr int kZ0MacFootHeight = 15;
 
 // Vertically extend the Zork Zero Mac B/W castle border. The border image
 // is split into upper, ring, lower, and foot sections; this routine tiles
@@ -555,19 +548,21 @@ void extend_jungle_pillars(int top_cut, int total_height,
 // it downward until desired_height is reached, truncating the last copy if
 // needed. Used as the final vertical fill after border images and pillars
 // have been drawn.
-void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
+static void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from) {
     if (desired_height > lowest_drawn_pixel) {
         size_t copysize;
         int height = lowest_drawn_pixel - start_copy_from;
         if (height < 1)
             return;
         uint8_t *bit_to_repeat = copy_lines_from_bitmap(start_copy_from, height, &copysize);
+        if (bit_to_repeat == nullptr)
+            return;
         erase_lines_in_bitmap(lowest_drawn_pixel, desired_height - lowest_drawn_pixel);
 
         while (lowest_drawn_pixel < desired_height) {
             if (lowest_drawn_pixel + height > desired_height) {
                 height = desired_height - lowest_drawn_pixel;
-                copysize = hw_screenwidth * 4 * height;
+                copysize = hw_screenwidth * kBytesPerPixel * height;
             }
             draw_bitmap_on_bitmap(bit_to_repeat, copysize, hw_screenwidth, &pixmap, &pixlength, hw_screenwidth, 0, lowest_drawn_pixel, false);
             lowest_drawn_pixel += height;
@@ -750,10 +745,10 @@ void draw_border_common(int border, int BL, int BR,
                         // two-colour dither, so no single pixel of the artwork
                         // is the colour the eye actually sees: sampling gives
                         // the bright magenta while the field reads as a muted
-                        // mauve. BROWN is the flat stand-in the rest of the EGA
+                        // mauve. HINT_MAUVE is the flat stand-in the rest of the EGA
                         // code already uses for it (it is what v6_set_colours
                         // gives the status window).
-                        rectangle_color = BROWN;
+                        rectangle_color = HINT_MAUVE;
                         should_draw_covering_rectangle = true;
                     } else if (sample_pixmap_pixel(hw_screenwidth / 2, 0, &rectangle_color)) {
                         // Shogun, the other hint-border caller, uses a flat

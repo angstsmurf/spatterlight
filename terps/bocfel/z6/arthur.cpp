@@ -44,8 +44,6 @@
 
 #include "arthur.hpp"
 
-extern float imagescalex, imagescaley;
-
 // Global lookup tables mapping Z-machine global variable indices, routine
 // addresses, and table addresses to symbolic names. Populated at startup.
 ArthurGlobals ag;
@@ -61,9 +59,8 @@ ArthurTables at;
 #define K_PIC_ENDGAME 84        // Victory image (Arthur holding Excalibur)
 #define K_PIC_ANGRY_DEMON 85    // Demon image (game over scenario)
 
-// Banner and layout reference images:
-#define K_PIC_BANNER 54         // Decorative border/banner image
-#define K_PIC_BANNER_MARGIN 100 // Dummy image used to measure banner margins
+// Banner and layout reference images (K_PIC_BANNER and K_PIC_BANNER_MARGIN
+// are in arthur.hpp):
 #define K_MAP_SCROLL 137        // Map scroll background image
 
 // Room images with special handling:
@@ -77,12 +74,21 @@ ArthurTables at;
 #define K_PIC_STONE_2 9         // Stone stamp (has platform-specific offset fix)
 #define K_PIC_BOAR 93           // Charging boar stamp (MCGA/EGA offset rectangle is one pixel short)
 
-
-extern Window *mainwin, *curwin;
-
 // Arthur uses several Glk windows for different UI regions.
 #define ARTHUR_ROOM_GRAPHIC_WIN windows[2]  // Upper area: room image, inventory, status, or room desc
 #define ARTHUR_ERROR_WINDOW windows[3]      // Bottom inverted bar for author/error messages
+// Left and right banners. Only used when erasing banner graphics: the
+// banners themselves are drawn to window 7 (S-FULL, V6_GRAPHICS_BG).
+#define ARTHUR_LEFT_BANNER_WINDOW windows[5]
+#define ARTHUR_RIGHT_BANNER_WINDOW windows[6]
+
+// Room images are drawn this many image pixels below arthur_pic_top_margin.
+// The Mac pictures sit lower in their frame (and one pixel to the right).
+constexpr int kRoomImageYOffset = 7;
+constexpr int kRoomImageYOffsetMacBW = 11;
+
+// The banner overlaps the map scroll by this many image pixels.
+constexpr int kBannerOverlap = 4;
 
 // Whether the current room image is a wide panoramic (parade area / air scene)
 // vs. the standard narrower size. Affects centering and redraw logic.
@@ -169,7 +175,7 @@ void adjust_arthur_top_margin(void) {
     get_image_size(K_PIC_BANNER_MARGIN, nullptr, &borderheight); // Get height of border measuring dummy image
     float y_margin = mapheight * imagescaley;
     arthur_text_top_margin = ceil(y_margin / gcellh) * gcellh;
-    arthur_pic_top_margin = arthur_text_top_margin / imagescaley - borderheight - 4;
+    arthur_pic_top_margin = arthur_text_top_margin / imagescaley - borderheight - kBannerOverlap;
     if (arthur_pic_top_margin < 0)
         arthur_pic_top_margin = 0;
     arthur_x_margin = margin * imagescalex;
@@ -199,10 +205,10 @@ void arthur_draw_room_image(int picnum) {
         y--;
 
     if (graphics_type == kGraphicsTypeMacBW) {
-        y += 11;
+        y += kRoomImageYOffsetMacBW;
         x++;
     } else {
-        y += 7;
+        y += kRoomImageYOffset;
     }
 
     if (is_arthur_stamp_image(picnum)) {
@@ -252,7 +258,7 @@ static void arthur_draw_map_image(int picnum, int x, int y) {
     x += x_margin;
     if (options.int_number == INTERP_MACINTOSH)
         y--;
-    if (graphics_type != kGraphicsTypeApple2 && graphics_type != kGraphicsTypeMacBW){
+    if (graphics_type != kGraphicsTypeApple2 && graphics_type != kGraphicsTypeMacBW) {
         if (picnum >= 138 || graphics_type == kGraphicsTypeCGA) {
             y--;
         }
@@ -271,29 +277,32 @@ enum kArthurWindowType {
     K_WIN_PICT = 5   // Room illustration (default)
 };
 
+// The six display modes: the function key that selects each one, the value
+// the game keeps in GL_WINDOW_TYPE and our screen mode.
+struct ArthurMode {
+    uint8_t key;
+    kArthurWindowType wintype;
+    V6ScreenMode mode;
+};
+
+static constexpr ArthurMode arthur_modes[] = {
+    { ZSCII_F1, K_WIN_PICT, MODE_NORMAL      },
+    { ZSCII_F2, K_WIN_MAP,  MODE_MAP         },
+    { ZSCII_F3, K_WIN_INVT, MODE_INVENTORY   },
+    { ZSCII_F4, K_WIN_STAT, MODE_STATUS      },
+    { ZSCII_F5, K_WIN_DESC, MODE_ROOM_DESC   },
+    { ZSCII_F6, K_WIN_NONE, MODE_NO_GRAPHICS },
+};
+
 // Synchronizes the internal screenmode enum with the Z-machine's
 // GL_WINDOW_TYPE global. Called after restore to ensure consistency.
 void arthur_sync_screenmode(void) {
     kArthurWindowType window_type = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
-    switch (window_type) {
-        case K_WIN_NONE:
-            screenmode = MODE_NO_GRAPHICS;
-            break;
-        case K_WIN_INVT:
-            screenmode = MODE_INVENTORY;
-            break;
-        case K_WIN_DESC:
-            screenmode = MODE_ROOM_DESC;
-            break;
-        case K_WIN_STAT:
-            screenmode = MODE_STATUS;
-            break;
-        case K_WIN_MAP:
-            screenmode = MODE_MAP;
-            break;
-        case K_WIN_PICT:
-            screenmode = MODE_NORMAL;
-            break;
+    for (const ArthurMode &m : arthur_modes) {
+        if (m.wintype == window_type) {
+            screenmode = m.mode;
+            return;
+        }
     }
 }
 
@@ -315,6 +324,117 @@ static void arthur_apply_graphics_setting(void) {
     }
 }
 
+// Sizes the status window and the main text window to fit between the
+// banner pillars, with the text ending at screenheight. In map mode it also
+// records where the map goes. Every mode with a border comes here.
+static void arthur_layout_text_windows(int screenheight) {
+    int x_margin = 0, y_margin = 0;
+    get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
+
+    if (screenmode == MODE_MAP) {
+        ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 0;
+        ARTHUR_ROOM_GRAPHIC_WIN.x_origin = x_margin;
+        ARTHUR_ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
+    }
+
+    x_margin *= imagescalex;
+
+    if (screenmode != MODE_HINTS) {
+        V6_STATUS_WINDOW.y_origin = arthur_text_top_margin;
+        win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
+    }
+
+    int width_in_chars = ((float)(gscreenw - 2 * x_margin) / gcellw);
+    V6_STATUS_WINDOW.x_size = width_in_chars * gcellw;
+    V6_STATUS_WINDOW.x_origin = (gscreenw - V6_STATUS_WINDOW.x_size) / 2;
+    if (graphics_type == kGraphicsTypeApple2) {
+        V6_STATUS_WINDOW.x_origin += imagescalex;
+    }
+
+    mainwin->x_origin = V6_STATUS_WINDOW.x_origin;
+    mainwin->x_size = V6_STATUS_WINDOW.x_size;
+
+    if (screenmode == MODE_HINTS) {
+        V6_STATUS_WINDOW.y_size = 3 * gcellh + 2 * ggridmarginy;
+        mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size + gcellh;
+    } else {
+        V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
+        mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
+    }
+
+    mainwin->y_size = screenheight - mainwin->y_origin - 1;
+
+    v6_sizewin(&V6_STATUS_WINDOW);
+    v6_sizewin(mainwin);
+}
+
+// Gives window 2 the kind of Glk window the mode wants: a text grid for the
+// inventory and status lists, a text buffer for the room description, and
+// none at all for the picture and the map, which are drawn to the
+// background.
+static void arthur_make_upper_window(void) {
+    if (screenmode != MODE_STATUS && screenmode != MODE_INVENTORY && screenmode != MODE_ROOM_DESC) {
+        v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
+        return;
+    }
+
+    ARTHUR_ROOM_GRAPHIC_WIN.x_origin = V6_STATUS_WINDOW.x_origin;
+    ARTHUR_ROOM_GRAPHIC_WIN.x_size = V6_STATUS_WINDOW.x_size;
+    ARTHUR_ROOM_GRAPHIC_WIN.y_size = arthur_text_top_margin - 1;
+    glui32 wintype = (screenmode == MODE_ROOM_DESC) ? wintype_TextBuffer : wintype_TextGrid;
+    if (ARTHUR_ROOM_GRAPHIC_WIN.id == nullptr || ARTHUR_ROOM_GRAPHIC_WIN.id->type != wintype) {
+        if (ARTHUR_ROOM_GRAPHIC_WIN.id != nullptr) {
+            gli_delete_window(ARTHUR_ROOM_GRAPHIC_WIN.id);
+            ARTHUR_ROOM_GRAPHIC_WIN.id = nullptr;
+        }
+        v6_remap_win(&ARTHUR_ROOM_GRAPHIC_WIN, wintype, nullptr);
+    } else {
+        v6_sizewin(&ARTHUR_ROOM_GRAPHIC_WIN);
+    }
+    win_setbgnd(ARTHUR_ROOM_GRAPHIC_WIN.id->peer, user_selected_background);
+}
+
+// Has the game fill in the upper area again for the current mode.
+static void arthur_redraw_upper_area(void) {
+    switch (screenmode) {
+        case MODE_NORMAL:
+            clear_image_buffer();
+            internal_call(pack_routine(ar.RT_UPDATE_PICT_WINDOW), {1});
+            draw_arthur_side_images(current_graphics_buf_win);
+            if (showing_wide_arthur_room_image)
+                arthur_draw_room_image(current_picture);
+            flush_bitmap(current_graphics_buf_win);
+            break;
+        case MODE_INVENTORY:
+            internal_call(pack_routine(ar.RT_UPDATE_INVT_WINDOW), {1});
+            break;
+        case MODE_STATUS:
+            internal_call(pack_routine(ar.RT_UPDATE_STAT_WINDOW), {1});
+            break;
+        case MODE_MAP:
+            set_global(ag.GL_MAP_GRID_Y, 0);
+            internal_call(pack_routine(ar.RT_UPDATE_MAP_WINDOW), {1});
+            flush_bitmap(current_graphics_buf_win);
+            break;
+        default:
+            break;
+    }
+}
+
+// Redraws the full-screen picture that is showing at the new window size.
+static void arthur_resize_slideshow(void) {
+    v6_define_window(mainwin, 1, 1, gscreenw, gscreenh);
+
+    win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+    glk_window_clear(current_graphics_buf_win);
+    if (last_slideshow_pic == K_PIC_SWORD_MERLIN) {
+        float scale = draw_centered_title_image(K_PIC_SWORD);
+        draw_centered_image(K_PIC_SWORD_MERLIN, scale, 0, 0);
+    } else {
+        draw_centered_title_image(last_slideshow_pic);
+    }
+}
+
 // Master resize handler. Rebuilds the entire UI based on the current
 // screen mode. Repositions and resizes all windows, redraws banner
 // borders, room images, map, or text displays as appropriate.
@@ -332,10 +452,8 @@ void arthur_update_on_resize(void) {
     image_needs_redraw = true;
     adjust_arthur_top_margin();
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
-    glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
+    v6_set_grid_colors(style_Normal);
+    v6_set_grid_colors(style_Subheader);
 
     if (ARTHUR_ROOM_GRAPHIC_WIN.id && ARTHUR_ROOM_GRAPHIC_WIN.id->type == wintype_TextGrid)
         v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
@@ -351,125 +469,40 @@ void arthur_update_on_resize(void) {
     if (screenmode == MODE_INITIAL_QUESTION)
         return;
 
-    if (screenmode != MODE_SLIDESHOW) {
-        if (current_graphics_buf_win && screenmode != MODE_NORMAL) {
-            glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
-            glk_window_clear(current_graphics_buf_win);
-        }
-        if (screenmode != MODE_NO_GRAPHICS) {
-            int x_margin = 0, y_margin = 0;
-            get_image_size(K_PIC_BANNER_MARGIN, &x_margin, &y_margin);
+    if (screenmode == MODE_SLIDESHOW) {
+        arthur_resize_slideshow();
+        return;
+    }
 
-            if (screenmode == MODE_MAP) {
-                ARTHUR_ROOM_GRAPHIC_WIN.y_origin = 0;
-                ARTHUR_ROOM_GRAPHIC_WIN.x_origin = x_margin;
-                ARTHUR_ROOM_GRAPHIC_WIN.x_size = hw_screenwidth - 2 * x_margin;
-            }
-
-            x_margin *= imagescalex;
-            y_margin *= imagescaley;
-
-            if (screenmode != MODE_HINTS) {
-                V6_STATUS_WINDOW.y_origin = arthur_text_top_margin;
-                win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-            }
-
-            int width_in_chars = ((float)(gscreenw - 2 * x_margin) / gcellw);
-            V6_STATUS_WINDOW.x_size = width_in_chars * gcellw;
-            V6_STATUS_WINDOW.x_origin = (gscreenw - V6_STATUS_WINDOW.x_size) / 2;
-            if (graphics_type == kGraphicsTypeApple2) {
-                V6_STATUS_WINDOW.x_origin += imagescalex;
-            }
-
-            mainwin->x_origin = V6_STATUS_WINDOW.x_origin;
-            mainwin->x_size = V6_STATUS_WINDOW.x_size;
-
-            if (screenmode == MODE_HINTS) {
-                V6_STATUS_WINDOW.y_size = 3 * gcellh + 2 * ggridmarginy;
-                mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size + gcellh;
-            } else {
-                V6_STATUS_WINDOW.y_size = gcellh + 2 * ggridmarginy;
-                mainwin->y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
-            }
-
-            mainwin->y_size = screenheight - mainwin->y_origin - 1;
-
-            v6_sizewin(&V6_STATUS_WINDOW);
-            v6_sizewin(mainwin);
-
-            if (screenmode == MODE_HINTS) {
-                redraw_hint_screen_on_resize();
-                glk_request_mouse_event(V6_TEXT_BUFFER_WINDOW.id);
-                glk_request_mouse_event(V6_STATUS_WINDOW.id);
-                return;
-            }
-
-            if (screenmode == MODE_STATUS || screenmode == MODE_INVENTORY || screenmode == MODE_ROOM_DESC) {
-                ARTHUR_ROOM_GRAPHIC_WIN.x_origin = V6_STATUS_WINDOW.x_origin;
-                ARTHUR_ROOM_GRAPHIC_WIN.x_size = V6_STATUS_WINDOW.x_size;
-                ARTHUR_ROOM_GRAPHIC_WIN.y_size = arthur_text_top_margin - 1;
-                glui32 wintype;
-                if (screenmode == MODE_ROOM_DESC) {
-                    wintype = wintype_TextBuffer;
-                } else {
-                    wintype = wintype_TextGrid;
-                }
-                if (ARTHUR_ROOM_GRAPHIC_WIN.id == nullptr || ARTHUR_ROOM_GRAPHIC_WIN.id->type != wintype) {
-                    if (ARTHUR_ROOM_GRAPHIC_WIN.id != nullptr) {
-                        gli_delete_window(ARTHUR_ROOM_GRAPHIC_WIN.id);
-                        ARTHUR_ROOM_GRAPHIC_WIN.id = nullptr;
-                    }
-                    v6_remap_win(&ARTHUR_ROOM_GRAPHIC_WIN, wintype, nullptr);
-                } else {
-                    v6_sizewin(&ARTHUR_ROOM_GRAPHIC_WIN);
-                }
-                win_setbgnd(ARTHUR_ROOM_GRAPHIC_WIN.id->peer, user_selected_background);
-            } else {
-                v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-            }
-
-            v6_get_and_sync_upperwin_size();
-
-            if (screenmode == MODE_NORMAL) {
-                clear_image_buffer();
-                internal_call(pack_routine(ar.RT_UPDATE_PICT_WINDOW), {1});
-                draw_arthur_side_images(current_graphics_buf_win);
-                if (showing_wide_arthur_room_image)
-                    arthur_draw_room_image(current_picture);
-                flush_bitmap(current_graphics_buf_win);
-            } else if (screenmode == MODE_INVENTORY) {
-                internal_call(pack_routine(ar.RT_UPDATE_INVT_WINDOW), {1});
-            } else if (screenmode == MODE_STATUS) {
-                internal_call(pack_routine(ar.RT_UPDATE_STAT_WINDOW), {1});
-            } else if (screenmode == MODE_MAP) {
-                set_global(ag.GL_MAP_GRID_Y, 0);
-                internal_call(pack_routine(ar.RT_UPDATE_MAP_WINDOW), {1});
-                flush_bitmap(current_graphics_buf_win);
-            }
-        } else {
-            v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, gcellh + 2 * ggridmarginy);
-            v6_define_window(mainwin, 1, V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size, gscreenw, screenheight - mainwin->y_origin - 1);
-            v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
-        }
-
-        set_global(ag.UPDATE, 0);
-        internal_call(pack_routine(ar.UPDATE_STATUS_LINE));
-
-        if (ARTHUR_ERROR_WINDOW.id != nullptr) {
-            v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, screenheight + 1, V6_TEXT_BUFFER_WINDOW.x_size, gscreenh - screenheight);
-        }
-    } else {
-        // We are showing a fullscreen image
-        v6_define_window(mainwin, 1, 1, gscreenw, gscreenh);
-
-        win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
+    if (current_graphics_buf_win && screenmode != MODE_NORMAL) {
+        glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
         glk_window_clear(current_graphics_buf_win);
-        if (last_slideshow_pic == K_PIC_SWORD_MERLIN) {
-            float scale = draw_centered_title_image(K_PIC_SWORD);
-            draw_centered_image(K_PIC_SWORD_MERLIN, scale, 0, 0);
-        } else {
-            draw_centered_title_image(last_slideshow_pic);
+    }
+
+    if (screenmode == MODE_NO_GRAPHICS) {
+        v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, gcellh + 2 * ggridmarginy);
+        v6_define_window(mainwin, 1, V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size, gscreenw, screenheight - mainwin->y_origin - 1);
+        v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
+    } else {
+        arthur_layout_text_windows(screenheight);
+
+        if (screenmode == MODE_HINTS) {
+            redraw_hint_screen_on_resize();
+            glk_request_mouse_event(V6_TEXT_BUFFER_WINDOW.id);
+            glk_request_mouse_event(V6_STATUS_WINDOW.id);
+            return;
         }
+
+        arthur_make_upper_window();
+        v6_get_and_sync_upperwin_size();
+        arthur_redraw_upper_area();
+    }
+
+    set_global(ag.UPDATE, 0);
+    internal_call(pack_routine(ar.UPDATE_STATUS_LINE));
+
+    if (ARTHUR_ERROR_WINDOW.id != nullptr) {
+        v6_define_window(&ARTHUR_ERROR_WINDOW, V6_TEXT_BUFFER_WINDOW.x_origin, screenheight + 1, V6_TEXT_BUFFER_WINDOW.x_size, gscreenh - screenheight);
     }
 }
 
@@ -526,6 +559,30 @@ void RT_UPDATE_DESC_WINDOW(void) {
     screenmode = MODE_ROOM_DESC;
 }
 
+// Makes the status window current and fills it with reverse-video spaces,
+// so that no stray characters of earlier content are left. Reverse video
+// stays on: the status line the game prints next is in reverse as well.
+static void arthur_fill_status_bar(void) {
+    glk_set_window(V6_STATUS_WINDOW.id);
+    glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
+    glui32 width;
+    glk_window_get_size(V6_STATUS_WINDOW.id, &width, nullptr);
+    garglk_set_reversevideo(1);
+    for (glui32 i = 0; i < width; i++)
+        glk_put_char(' ');
+}
+
+// Resets the globals in which the game remembers what the status line
+// shows, so that its incremental update repaints every field. The form
+// is the one field the two callers reset to different values.
+static void arthur_invalidate_status_line(uint16_t form) {
+    set_global(ag.GL_SL_FORM, form);
+    set_global(ag.GL_SL_VEH, 0);
+    set_global(ag.GL_SL_HERE, 0);
+    set_global(ag.GL_SL_HIDE, 0);
+    set_global(ag.GL_SL_TIME, 0);
+}
+
 // Z-machine entry point: initializes the screen layout on game start.
 // Measures the banner margin image to determine pillar widths, defines
 // the left/right banner erase windows and the full-screen background,
@@ -541,40 +598,26 @@ void arthur_INIT_STATUS_LINE(void) {
     int W = gscreenw - 2 * M;
     int L = M + 1;
 
-    // Windows 5 and 6 are left and right banners, but are only used when erasing
-    // banner graphics. The actual banners are drawn to window 7 (S-FULL).
-    v6_define_window(&windows[5], 1, 1, M, gscreenh);
-    v6_define_window(&windows[6], L + W, 1, M, gscreenh);
-
+    v6_define_window(&ARTHUR_LEFT_BANNER_WINDOW, 1, 1, M, gscreenh);
+    v6_define_window(&ARTHUR_RIGHT_BANNER_WINDOW, L + W, 1, M, gscreenh);
 
     // Window 7 (S-FULL) is the standard V6 fullscreen window
     v6_define_window(&V6_GRAPHICS_BG, 1, 1, gscreenw, gscreenh);
 
-    glk_set_window(V6_STATUS_WINDOW.id);
-    glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
-
-    glui32 width;
-    glk_window_get_size(V6_STATUS_WINDOW.id, &width, nullptr);
-    garglk_set_reversevideo(1);
-    for (int i = 0; i < width; i++)
-        glk_put_char(' ');
+    arthur_fill_status_bar();
     garglk_set_reversevideo(0);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 
     if (ag.GL_TIME_WIDTH != 0)
         set_global(ag.GL_TIME_WIDTH, 0);
-    set_global(ag.GL_SL_HERE, 0);
-    set_global(ag.GL_SL_VEH, 0);
-    set_global(ag.GL_SL_HIDE, 0);
-    set_global(ag.GL_SL_TIME, 0);
-    set_global(ag.GL_SL_FORM, 0);
+    arthur_invalidate_status_line(0);
 }
 
 // Counts the number of lines in a length-prefixed string table. Each entry
 // starts with a 16-bit character count followed by that many bytes of text.
 // The table ends when a zero count is encountered. Used by RT_AUTHOR_OFF
 // to size the error window.
-int count_lines(uint32_t table) {
+static int arthur_count_lines(uint32_t table) {
     int lines = 0;
     for (uint16_t count = user_word(table); count != 0; count = user_word(table)) {
         lines++;
@@ -590,7 +633,6 @@ int count_lines(uint32_t table) {
 // format changed between releases (length-prefixed lines in >41, single
 // block in <=41). Also shrinks the main text buffer to make room.
 void RT_AUTHOR_OFF(void) {
-
     output_stream(-3, 0);
 
     uint32_t addr = at.K_DIROUT_TBL;
@@ -616,7 +658,7 @@ void RT_AUTHOR_OFF(void) {
     int lines;
 
     if (header.release > 41) {
-        lines = count_lines(addr);
+        lines = arthur_count_lines(addr);
     } else {
         int width_in_chars = (V6_TEXT_BUFFER_WINDOW.x_size - 2 * ggridmarginx) / gcellw;
         if (width_in_chars < 1)
@@ -657,8 +699,7 @@ void RT_AUTHOR_OFF(void) {
         }
     }
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    v6_set_grid_colors(style_Normal);
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_ReverseColor);
 
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
@@ -728,7 +769,7 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
     }
 
     // Room images
-    if (is_arthur_room_image(picnum) || is_arthur_stamp_image(picnum)) { // Pictures 106-149 are map images
+    if (is_arthur_room_image(picnum) || is_arthur_stamp_image(picnum)) {
         screenmode = MODE_NORMAL;
         ensure_pixmap(current_graphics_buf_win);
         arthur_draw_room_image(picnum);
@@ -766,8 +807,12 @@ void arthur_erase_window(int16_t index) {
                 clear_image_buffer();
                 glk_window_set_background_color(graphics_bg_glk, user_selected_background);
                 glk_window_clear(graphics_bg_glk);
-                glk_window_set_background_color(graphics_fg_glk, user_selected_background);
-                glk_window_clear(graphics_fg_glk);
+                // With an Apple II interpreter number the game shows no
+                // title pictures, so there may be no foreground window yet.
+                if (graphics_fg_glk != nullptr) {
+                    glk_window_set_background_color(graphics_fg_glk, user_selected_background);
+                    glk_window_clear(graphics_fg_glk);
+                }
                 if (last_slideshow_pic == K_PIC_ANGRY_DEMON) {
                     screenmode = MODE_NORMAL;
                 } else {
@@ -775,7 +820,8 @@ void arthur_erase_window(int16_t index) {
                     win_sizewin(V6_STATUS_WINDOW.id->peer, 0, 0, 0, 0);
                 }
                 current_graphics_buf_win = nullptr;
-                win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
+                if (graphics_fg_glk != nullptr)
+                    win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
                 if (last_slideshow_pic == K_PIC_ENDGAME) {
                     glk_window_clear(graphics_bg_glk);
                     v6_delete_win(&ARTHUR_ROOM_GRAPHIC_WIN);
@@ -843,24 +889,6 @@ void arthur_update_after_autorestore(void) {
     window_change();
 }
 
-// Maps a ZSCII function key code to its corresponding display mode.
-struct HotKeyDict {
-    kArthurWindowType wintype;  // Z-machine window type global value
-    V6ScreenMode mode;          // Internal screen mode enum
-};
-
-// Function key to display mode mapping. F1-F6 cycle through the six
-// available display modes (picture, map, inventory, status, description,
-// no graphics).
-static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
-    { ZSCII_F1, {K_WIN_PICT, MODE_NORMAL}      },
-    { ZSCII_F2, {K_WIN_MAP,  MODE_MAP}         },
-    { ZSCII_F3, {K_WIN_INVT, MODE_INVENTORY}   },
-    { ZSCII_F4, {K_WIN_STAT, MODE_STATUS}      },
-    { ZSCII_F5, {K_WIN_DESC, MODE_ROOM_DESC}   },
-    { ZSCII_F6, {K_WIN_NONE, MODE_NO_GRAPHICS} },
-};
-
 // Z-machine entry point: handles F-key presses to switch display modes.
 // Variable 1 contains the ZSCII key code. If the requested mode differs
 // from the current one, updates the Z-machine global and rebuilds the UI.
@@ -873,26 +901,16 @@ void RT_HOT_KEY(void) {
     if (v6_graphics_off() && (variable(1) == ZSCII_F1 || variable(1) == ZSCII_F2))
         store_variable(1, ZSCII_F6);
 
-    HotKeyDict hotkey = hotkeys[variable(1)];
-
-    kArthurWindowType oldwintype = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
-    kArthurWindowType newwintype = hotkey.wintype;
-
-    if (oldwintype != newwintype) {
-        set_global(ag.GL_WINDOW_TYPE, newwintype);
-        screenmode = hotkey.mode;
-        arthur_update_on_resize();
+    for (const ArthurMode &m : arthur_modes) {
+        if (m.key != variable(1))
+            continue;
+        if (get_global(ag.GL_WINDOW_TYPE) != m.wintype) {
+            set_global(ag.GL_WINDOW_TYPE, m.wintype);
+            screenmode = m.mode;
+            arthur_update_on_resize();
+        }
+        return;
     }
-}
-
-// Handles edge cases when autorestoring into the middle of a read_char call.
-// Returns true if in hints mode, signaling the caller to re-enter the hints
-// input loop.
-bool arthur_autorestore_internal_read_char_hacks(void) {
-    if (screenmode == MODE_HINTS) {
-        return true;
-    }
-    return false;
 }
 
 // Z-machine entry point: forces a full status bar redraw. Fills the entire
@@ -900,17 +918,6 @@ bool arthur_autorestore_internal_read_char_hacks(void) {
 // previous content, then resets all status line tracking globals so the
 // Z-code's incremental update logic will repaint everything.
 void ARTHUR_UPDATE_STATUS_LINE(void) {
-
-    glk_set_window(V6_STATUS_WINDOW.id);
-    glk_window_move_cursor(V6_STATUS_WINDOW.id, 0, 0);
-    glui32 width;
-    glk_window_get_size(V6_STATUS_WINDOW.id, &width, nullptr);
-    garglk_set_reversevideo(1);
-    for (int i = 0; i < width; i++)
-        glk_put_char(' ');
-    set_global(ag.GL_SL_FORM, 99);
-    set_global(ag.GL_SL_VEH, 0);
-    set_global(ag.GL_SL_HERE, 0);
-    set_global(ag.GL_SL_HIDE, 0);
-    set_global(ag.GL_SL_TIME, 0);
+    arthur_fill_status_bar();
+    arthur_invalidate_status_line(99);
 }

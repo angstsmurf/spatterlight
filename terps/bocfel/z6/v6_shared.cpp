@@ -18,10 +18,14 @@
 //   questions -> progressive hints) shared by all three games. Supports
 //   keyboard and mouse navigation, with VoiceOver menu integration.
 // - Credits display and color management after V-COLOR.
+// - Autosave support: stashing and recovering the graphics windows, and
+//   rebuilding the window colours from the game's globals.
+// - MenuString, the bounded string builder behind the VoiceOver menus.
+// - Graphics-off support: the opaque status window and the key press that
+//   is skipped after a picture that was left out.
 // - Visual puzzle skip prompt for accessibility.
 
 #include <cmath>
-#include <sstream>
 
 #include "draw_image.hpp"
 #include "memory.h"
@@ -48,31 +52,30 @@
 // List of image numbers currently displayed as margin (inline) images in
 // text buffer windows. When the graphics type changes, these images need
 // to be recreated at the new resolution.
-int margin_images[100];
+// The list is saved in the autosave, which has room for this many.
+int margin_images[BOCFEL_MAX_MARGIN_IMAGES];
 int number_of_margin_images = 0;
 
-#define MAX_MARGIN_IMAGES 100
-
 // Shifts the margin image list when full, discarding the oldest entry.
-void shift_margin_image_list(void) {
-    fprintf(stderr, "Margin image list full (%d entries); forgetting the oldest margin image (%d)\n", MAX_MARGIN_IMAGES, margin_images[0]);
+static void shift_margin_image_list(void) {
+    fprintf(stderr, "Margin image list full (%d entries); forgetting the oldest margin image (%d)\n", BOCFEL_MAX_MARGIN_IMAGES, margin_images[0]);
     for (int i = 1; i < number_of_margin_images; i++) {
        margin_images[i - 1] = margin_images[i];
     }
-    number_of_margin_images = MAX_MARGIN_IMAGES - 1;
+    number_of_margin_images = BOCFEL_MAX_MARGIN_IMAGES - 1;
 }
 
 // Adds an image to the margin image list if not already present.
-// Shifts the list if full (maximum 100 entries).
+// Shifts the list if full.
 void add_margin_image_to_list(int image) {
-    if (number_of_margin_images >= MAX_MARGIN_IMAGES) {
-        shift_margin_image_list();
-    }
     for (int i = 0; i < number_of_margin_images; i++) {
         if (margin_images[i] == image) {
             // We have already added this image to the list
             return;
         }
+    }
+    if (number_of_margin_images >= BOCFEL_MAX_MARGIN_IMAGES) {
+        shift_margin_image_list();
     }
     margin_images[number_of_margin_images] = image;
     number_of_margin_images++;
@@ -93,34 +96,19 @@ void refresh_margin_images(void) {
 
 #pragma mark - Print Number
 
-// Prints an integer to the current Glk window, one character at a time.
+// Prints an integer to the current Glk window.
 void print_number(int number) {
-    std::ostringstream ss;
-    ss << number;
-    for (const auto &c : ss.str()) {
-        glk_put_char(c);
-    }
+    char str[16];
+    snprintf(str, sizeof str, "%d", number);
+    glk_put_string(str);
 }
 
 // Prints a number right-justified in a 4-character field, padding with
 // leading spaces. Used for score and move count display in status lines.
 void print_right_justified_number(int number) {
-
-    int spaces;
-    if (number > 999 || number < -99) {
-        spaces = 0;
-    } else if (number > 99 || number < -9) {
-        spaces = 1;
-    } else if (number > 9 || number < 0) {
-        spaces = 2;
-    } else {
-        spaces = 3;
-    }
-
-    for (int i = 0; i < spaces; i++)
-        glk_put_char(' ');
-
-    print_number(number);
+    char str[16];
+    snprintf(str, sizeof str, "%4d", number);
+    glk_put_string(str);
 }
 
 #pragma mark - Z-String to C-String Conversion
@@ -208,6 +196,11 @@ void v6_recover_graphics_windows(library_state_data *dat) {
     stored_bufferwin = gli_window_for_tag(dat->stored_lower_tag);
 }
 
+void v6_set_grid_colors(glui32 style) {
+    glk_stylehint_set(wintype_TextGrid, style, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextGrid, style, stylehint_BackColor, user_selected_background);
+}
+
 // Per-window colours are not part of the autosave, so after an autorestore
 // they are rebuilt from the (restored) Z-machine colour globals.
 void v6_set_window_colors_from_globals(void) {
@@ -273,6 +266,17 @@ void transcribe_and_print_string(const char *str) {
     }
 }
 
+// Puts the game's normal screen back after the definitions or hints screen
+// has taken it over. (Arthur does this by itself.)
+static void v6_redraw_game_screen(void) {
+    if (is_spatterlight_zork0) {
+        z0_update_on_resize();
+    } else if (is_spatterlight_shogun) {
+        internal_call(pack_routine(sr.V_REFRESH));
+        shogun_update_on_resize();
+    }
+}
+
 #pragma mark - Definitions Screen (DEFINE Command)
 
 // The Definitions screen lets players assign text macros to function keys.
@@ -282,7 +286,6 @@ void transcribe_and_print_string(const char *str) {
 
 // Maximum width of a function key definition string
 #define DEFINITIONS_WIDTH 30 // FLEN in original source
-#define ARTHUR_LAST_OBJECT 0x137
 
 // Prints a single reverse-video space character, used as a text cursor
 // indicator in the definitions editor.
@@ -298,6 +301,11 @@ static void print_reverse_video_space(void) {
 uint16_t fkeys_table_addr = 0xce2a;
 // Address of the function key names table (maps key codes to display names).
 uint16_t fnames_table_addr = 0x4b57;
+
+// Address of the entry for line `line` of the definitions screen.
+static uint16_t fkey_entry(int line) {
+    return fkeys_table_addr + 2 + 4 * line;
+}
 
 // Returns the width of the widest user-defined command string.
 // Used to center the command text in the definitions window.
@@ -322,7 +330,7 @@ static int soft_commands_width(void) {
 }
 
 // Cached width of the widest command (0 = not yet computed)
-int define_window_width = 0;
+static int define_window_width = 0;
 
 // Prints a Z-string centered on line `y` of the definitions window.
 // First clears the line area to the width of the widest command,
@@ -399,11 +407,7 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
 
         uint16_t key_name_string = scan_table(user_word(function_key), fnames_table_addr, user_word(fnames_table_addr - 2), false);
         if (key_name_string != 0) {
-            if (inverse) {
-                garglk_set_reversevideo(0);
-            } else {
-                garglk_set_reversevideo(1);
-            }
+            garglk_set_reversevideo(!inverse);
             menu_string.append_zstr(user_word(key_name_string + 2));
             glk_put_string(str);
             garglk_set_reversevideo(0);
@@ -469,7 +473,7 @@ static void display_softs(void) {
 }
 
 // Notifies VoiceOver that the current menu line's text has changed.
-void send_edited_menu_line(uint8_t chr) {
+static void send_edited_menu_line(uint8_t chr) {
     win_menuitem(kV6MenuCurrentItemChanged, global_define_line, chr, 0, nullptr, 0);
 }
 
@@ -478,7 +482,7 @@ void send_edited_menu_line(uint8_t chr) {
 // and positions the cursor on the currently selected line.
 void adjust_definitions_window(void) {
 
-    uint16_t fkey = fkeys_table_addr + 2 + 4 * global_define_line;
+    uint16_t fkey = fkey_entry(global_define_line);
 
     int x_size = (DEFINITIONS_WIDTH + 5) * gcellw + 1 + 2 * ggridmarginx;
     if (x_size > gscreenw)
@@ -492,8 +496,7 @@ void adjust_definitions_window(void) {
     int top = (gscreenh - y_size) / 2;
 
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    v6_set_grid_colors(style_Normal);
 
     if (DEFINITIONS_WINDOW.id == nullptr) {
         DEFINITIONS_WINDOW.id = gli_new_window(wintype_TextGrid, 0);
@@ -542,7 +545,7 @@ void V_DEFINE(void) {
     glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 0);
     screenmode = MODE_DEFINE;
 
-    fkey = fkeys_table_addr + 2 + 4 * global_define_line;
+    fkey = fkey_entry(global_define_line);
     fdef = user_word(fkey + 2);
 
     linmax = user_word(fkeys_table_addr) / 2;
@@ -575,7 +578,7 @@ void V_DEFINE(void) {
                 // apply to the right line
                 if (global_define_line != new_line) {
                     display_soft(fkey, global_define_line, true, false);
-                    fkey = fkeys_table_addr + 2 + 4 * new_line;
+                    fkey = fkey_entry(new_line);
                     display_soft(fkey, new_line, false, false);
                     global_define_line = new_line;
                     fdef = user_word(fkey + 2);
@@ -707,10 +710,10 @@ void V_DEFINE(void) {
         // and select the new one
         if (global_define_line != new_line) {
             display_soft(fkey, global_define_line, true, true);
-            display_soft(fkeys_table_addr + 2 + 4 * new_line, new_line, false, false);
+            display_soft(fkey_entry(new_line), new_line, false, false);
             global_define_line = new_line;
             win_menuitem(kV6MenuSelectionChanged, global_define_line < 15 ? global_define_line : global_define_line - 1, 18, 0, nullptr, 0);
-            fkey = fkeys_table_addr + 2 + 4 * global_define_line;
+            fkey = fkey_entry(global_define_line);
             fdef = user_word(fkey + 2);
         }
     };
@@ -721,13 +724,7 @@ void V_DEFINE(void) {
 
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
-    if (is_spatterlight_zork0) {
-        z0_update_on_resize();
-    } else {
-        // Game is Shogun
-        internal_call(pack_routine(sr.V_REFRESH));
-        shogun_update_on_resize();
-    }
+    v6_redraw_game_screen();
 }
 
 #pragma mark - Hints Screen (InvisiClues)
@@ -883,13 +880,14 @@ static void draw_hints_windows(void) {
                 upperwin_background = zcolor_Default;
                 break;
             case kGraphicsTypeEGA:
-                upperwin_background = BROWN;
+                upperwin_background = HINT_MAUVE;
                 break;
             case kGraphicsTypeMacBW:
             case kGraphicsTypeCGA:
             case kGraphicsTypeApple2:
                 upperwin_foreground = user_selected_background;
                 upperwin_background = user_selected_foreground;
+                break;
             case kGraphicsTypeNoGraphics:
                 break;
         }
@@ -909,11 +907,10 @@ static void draw_hints_windows(void) {
         }
     }
 
-    if (is_spatterlight_arthur || (upperwin_background != zcolor_Default && upperwin_background != BROWN))
+    if (is_spatterlight_arthur || (upperwin_background != zcolor_Default && upperwin_background != HINT_MAUVE))
         win_setbgnd(V6_STATUS_WINDOW.id->peer, upperwin_background);
 
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    v6_set_grid_colors(style_Normal);
 
     if (hints_depth != kV6MenuTypeHint && V6_TEXT_BUFFER_WINDOW.id->type == wintype_TextBuffer) {
         v6_remap_win(&V6_TEXT_BUFFER_WINDOW, wintype_TextGrid, &stored_bufferwin);
@@ -1141,20 +1138,32 @@ static uint16_t hint_topic_name(uint16_t chapter) {
     return user_word(topic + 2);
 }
 
+// Address of the byte in the seen-hints table that holds the count for the
+// current question, and which of its nibbles the count is in.
+static uint16_t seen_hints_address(bool *odd) {
+    uint16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
+    *odd = ((h_quest_num & 1) == 1);
+    return cv + (h_quest_num - 1) / 2;
+}
+
+// Name of entry `index` of the menu on screen: a topic or a question.
+static uint16_t hint_item_name(uint16_t index) {
+    if (hints_depth == kV6MenuTypeTopic)
+        return hint_topic_name(index);
+    return hint_question_name(index);
+}
+
 // Returns the number of hints already revealed for the current question.
 // The seen-hints table is a nibble table: the high 4 bits of each byte
 // store the count for odd-numbered questions; the low 4 bits store even.
 static int16_t get_seen_hints(void) {
-    uint16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
-    uint16_t address = cv + (h_quest_num - 1) / 2;
-    int16_t seen = user_byte(address);
-    bool odd = ((h_quest_num & 1) == 1);
+    bool odd;
+    int16_t seen = user_byte(seen_hints_address(&odd));
     if (odd) {
         seen = seen >> 4;
     }
     return seen & 0xf;
 }
-
 
 // Decodes and prints a Z-string, then sends it as a VoiceOver menu item
 // at the appropriate index for the current hint depth level.
@@ -1174,15 +1183,13 @@ static void print_and_send_menuitem(uint16_t str, int max) {
             index = get_seen_hints() - 1;
             break;
         default:
-            fprintf(stderr, "send_menuitem: Illegal menu type!\n");
+            fprintf(stderr, "print_and_send_menuitem: Illegal menu type!\n");
             return;
     }
     if (index >= max)
         index = max - 1;
     win_menuitem(hints_depth, index, max, 0, string, length);
 }
-
-
 
 // Populates the hint menu with topic or question entries. Displays items
 // in a two-column grid layout (wrapping to the right column when the
@@ -1206,11 +1213,7 @@ static int hint_put_up_frobs(uint16_t max, uint16_t start) {
     uint16_t str;
     int number_of_entries = 0;
     for (int i = start; i <= max; i++) {
-        if (hints_depth == kV6MenuTypeTopic) {
-            str = hint_topic_name(i);
-        } else {
-            str = hint_question_name(i);
-        }
+        str = hint_item_name(i);
         if (str == 0)
             continue;
         number_of_entries++;
@@ -1253,12 +1256,7 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
         garglk_set_reversevideo(1);
 
     uint16_t index = line_to_index(pos);
-    uint16_t string_address;
-    if (hints_depth == kV6MenuTypeTopic) {
-        string_address = hint_topic_name(index);
-    } else {
-        string_address = hint_question_name(index);
-    }
+    uint16_t string_address = hint_item_name(index);
     print_handler(unpack_string(string_address), nullptr);
     garglk_set_reversevideo(0);
     return x;
@@ -1267,10 +1265,9 @@ static int hint_new_cursor(uint16_t pos, bool reverse) {
 // Stores the number of hints revealed for the current question in the
 // nibble table. Preserves the other nibble in the same byte.
 static void store_hints_seen(uint8_t value) {
-    uint16_t cv = user_word(seen_hints_table_addr + (h_chapt_num - 1) * 2);
-    uint16_t address = cv + (h_quest_num - 1) / 2;
+    bool odd;
+    uint16_t address = seen_hints_address(&odd);
     uint8_t seen = user_byte(address);
-    bool odd = ((h_quest_num & 1) == 1);
     if (odd) {
         seen = seen & 0x0f;
         value = value << 4;
@@ -1378,6 +1375,7 @@ static bool display_hints(bool only_refresh) {
                     case 'm':
                     case 'M':
                         result = true;
+                        [[fallthrough]];
                     case 'q':
                     case 'Q':
                         done = true;
@@ -1528,6 +1526,7 @@ static bool hint_inner_menu_loop(uint16_t *index, uint16_t num_entries, InfocomV
                     win_beep(1);
                     break;
                 }
+                [[fallthrough]];
             case ZSCII_NEWLINE:
             case UNICODE_LINEFEED:
             case ZSCII_SPACE:
@@ -1611,15 +1610,15 @@ void DO_HINTS(void) {
     V6_TEXT_BUFFER_WINDOW.attribute &= ~WINATTR_TRANSCRIPTING_BIT;
 
     if (is_spatterlight_shogun || is_spatterlight_arthur) {
+        // Window 2 is the topmost window used by Arthur in its status,
+        // inventory, and room description modes, and Shogun's menu window.
         v6_delete_win(&windows[2]);
         if (is_spatterlight_arthur) {
             clear_image_buffer();
             if (current_graphics_buf_win)
                 glk_window_clear(current_graphics_buf_win);
-
-            // Delete the topmost window used by Arthur in its status,
-            // inventory, and room description modes.
         } else {
+            // Shogun's crest window and the text beside its menu
             v6_delete_win(&windows[4]);
             v6_delete_win(&windows[5]);
         }
@@ -1682,14 +1681,8 @@ void DO_HINTS(void) {
     win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
-    
-    if (is_spatterlight_zork0) {
-        z0_update_on_resize();
-    } else
-        if (is_spatterlight_shogun) {
-        internal_call(pack_routine(sr.V_REFRESH));
-        shogun_update_on_resize();
-    }
+
+    v6_redraw_game_screen();
 
     // Allow transcript in main buffer window
     V6_TEXT_BUFFER_WINDOW.attribute |= WINATTR_TRANSCRIPTING_BIT;

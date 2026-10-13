@@ -15,9 +15,11 @@
 extern "C" {
 #include "glkimp.h"
 }
+#include <algorithm>
 #include <cerrno>
 #include <climits>
 #include <cmath>
+#include <cstdio>
 #include <cstring>
 #include "v6_image.h"
 #include "draw_png.h"
@@ -200,8 +202,12 @@ static char *create_temp_tiff_file_name(void) {
     return tiffname;
 }
 
+// Resource id the composited pixmap is registered under in the Glk image
+// cache. Outside the range of picture numbers the games use.
+static constexpr int kPixmapResourceId = 600;
+
 // Commit the accumulated pixmap to the Glk graphics window: write it out
-// as a TIFF, hand it to the image cache under a fixed resource id (600),
+// as a TIFF, hand it to the image cache under kPixmapResourceId,
 // and stretch-blit it to fill the destination. If image_needs_redraw is
 // set, the window is cleared first so previous frames don't show through.
 void flush_bitmap(winid_t winid) {
@@ -223,9 +229,12 @@ void flush_bitmap(winid_t winid) {
     if (filename == nullptr)
         return;
     write_to_tiff(filename, pixmap, pixlength, hw_screenwidth);
-    win_purgeimage(600, filename, pixlength);
+    win_purgeimage(kPixmapResourceId, filename, pixlength);
     free(filename);
-    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixlength / (kBytesPerPixel * hw_screenwidth * hw_screenwidth), 0, 0);
+    // Stretch the pixmap to the full window width; its height follows from
+    // the number of pixmap rows and the pixel aspect ratio.
+    float rows = pixlength / (kBytesPerPixel * hw_screenwidth);
+    win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * rows / hw_screenwidth, 0, 0);
     image_needs_redraw = false;
 }
 
@@ -374,27 +383,14 @@ bool sample_pixmap_pixel(int x, int y, glui32 *color) {
     return true;
 }
 
-// Return a freshly-allocated, vertically-flipped copy of `source` (an
-// image->width × image->height RGBA buffer). Frees the original `source`
-// either way. Returns nullptr on OOM.
-static uint8_t *flip_bitmap(ImageStruct *image, uint8_t *source) {
-    if (source == nullptr || image == nullptr)
-        return nullptr;
-
+// Flip the image->width x image->height RGBA buffer `pixels` vertically,
+// in place.
+static void flip_bitmap(const ImageStruct *image, uint8_t *pixels) {
     size_t row_bytes = (size_t)image->width * kBytesPerPixel;
-    size_t buffer_size = 0;
-    uint8_t *flipped = image_alloc(image->width, image->height, kBytesPerPixel, &buffer_size);
-    if (flipped == nullptr) {
-        free(source);
-        return nullptr;
+    for (int top = 0, bottom = image->height - 1; top < bottom; top++, bottom--) {
+        std::swap_ranges(pixels + top * row_bytes, pixels + (top + 1) * row_bytes,
+                         pixels + bottom * row_bytes);
     }
-
-    for (size_t src_offset = 0; src_offset < buffer_size; src_offset += row_bytes) {
-        memcpy(flipped + src_offset, source + buffer_size - src_offset - row_bytes, row_bytes);
-    }
-
-    free(source);
-    return flipped;
 }
 
 // Decode an opaque CGA image into an RGBA buffer. Opaque CGA stores 8
@@ -556,10 +552,7 @@ static uint8_t *draw_amiga_mac_cga_ega_vga(ImageStruct *image, bool use_previous
         size_t write_offset = pixel_index * kBytesPerPixel;
         if (color_index >= kPaletteSize ||
             (image->transparency && image->transparent_color == color_index)) {
-            rgba_buffer[write_offset + 0] = 0;
-            rgba_buffer[write_offset + 1] = 0;
-            rgba_buffer[write_offset + 2] = 0;
-            rgba_buffer[write_offset + 3] = 0;
+            // Leave the pixel transparent black, as image_alloc() made it.
             continue;
         }
         rgba_buffer[write_offset + 0] = color_table[color_index][RED];
@@ -681,7 +674,7 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     }
 
     if (flipped) {
-        result = flip_bitmap(image, result);
+        flip_bitmap(image, result);
     }
 
     write_to_tiff(filename, result, pixmapsize, image->width);

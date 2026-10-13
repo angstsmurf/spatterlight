@@ -12,6 +12,8 @@
 #include <ctype.h>
 #include <sys/stat.h>
 
+#include <algorithm>
+
 #include "debugprint.h"
 extern "C" {
 #include "ciderpress.h"
@@ -115,8 +117,8 @@ static uint8_t *assemble_story_from_disks(size_t *out_story_size);
 
 // Extracted Infocom file data for each disk side (up to 5 sides).
 // Indexed 0-4, corresponding to disk sides 1-5.
-uint8_t *disk_images[kMaxDiskSides] = { nullptr, nullptr, nullptr, nullptr, nullptr };
-size_t disk_image_lengths[kMaxDiskSides] = { 0, 0, 0, 0, 0 };
+static uint8_t *disk_images[kMaxDiskSides] = { nullptr, nullptr, nullptr, nullptr, nullptr };
+static size_t disk_image_lengths[kMaxDiskSides] = { 0, 0, 0, 0, 0 };
 
 
 static off_t find_graphics_data_offset(int disk);
@@ -386,9 +388,8 @@ static void transfer_block(int disk, int physical_block) {
         return;
 
     size_t available_from_disk = disk_image_lengths[disk] - read_offset;
-    size_t bytes_to_copy = MIN(kProDOSBlockSize, available_from_disk);
-    bytes_to_copy = MIN(bytes_to_copy, total_story_size - write_offset);
-    bytes_to_copy = MIN(bytes_to_copy, remaining_bytes);
+    size_t bytes_to_copy = std::min({kProDOSBlockSize, available_from_disk,
+                                     total_story_size - write_offset, remaining_bytes});
 
     if (bytes_to_copy == 0)
         return;

@@ -31,6 +31,7 @@
 // The status line is split into left (room name + moves) and right
 // (region + score) text grid windows positioned over the border graphics.
 
+#include <algorithm>
 #include <cmath>
 #include <initializer_list>
 
@@ -52,15 +53,16 @@
 #include "zorkzero.hpp"
 
 // Window 1 (S-WINDOW) is used as the left status text grid
-#define z0_left_status_window windows[1].id
+#define z0_left_status_window V6_STATUS_WINDOW.id
 
-#define MAX(a,b) (a > b ? a : b)
+// Window 3 holds the encyclopedia caption text
+#define Z0_ENCYCLOPEDIA_WINDOW windows[3]
 
 // Right status window: displays region name and score, positioned at the
 // right edge of the border. Not part of the standard window array.
 winid_t z0_right_status_window = nullptr;
 // Width of the right status window in characters
-glui32 z0_right_status_width;
+static glui32 z0_right_status_width;
 
 // Set once we've nudged the player toward the built-in InvisiClues on their
 // first rebus encounter, so we don't keep reminding them.
@@ -148,9 +150,9 @@ static bool is_zorkzero_peggleboz_box_image(int pic) {
 // Hides the right status window by clearing it and shrinking it to zero size.
 // Called when entering fullscreen modes (map, mini-games) that don't use
 // the split status bar.
-void z0_hide_right_status(void) {
+static void z0_hide_right_status(void) {
     if (z0_right_status_window == nullptr) {
-        fprintf(stderr, "Error!\n");
+        fprintf(stderr, "z0_hide_right_status: no right status window\n");
         return; // nothing to hide, and dereferencing below would crash
     }
     glk_window_clear(z0_right_status_window);
@@ -200,19 +202,35 @@ void V_MODE(void) {
     }
 }
 
+// Deletes the encyclopedia caption window and restores the normal
+// text-buffer colour hints that adjust_encyclopedia_text_window overrode for
+// it, so later text-buffer windows aren't created with the encyclopedia's
+// colours. (z0_update_colors sets these same values during normal play.)
+static void z0_close_encyclopedia_window(void) {
+    v6_delete_win(&Z0_ENCYCLOPEDIA_WINDOW);
+    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
+    glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+}
+
+// Sets the text colour of the status line grids for printing on top of the
+// border picture: black in the monochrome formats, otherwise the theme's
+// text colour, on a transparent background.
+static void z0_set_bordered_status_colors(void) {
+    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
+
+    if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW) {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, monochrome_black);
+    } else {
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
+    }
+}
+
 // Z-machine entry point: handles screen refresh. Cleans up window 3
 // (encyclopedia caption) when returning from encyclopedia text view.
 void V_REFRESH(void) {
     uint16_t CURRENT_SPLIT = get_global(zg.CURRENT_SPLIT);
     if (CURRENT_SPLIT == TEXT_WINDOW_PIC_LOC) {
-        v6_delete_win(&windows[3]);
-        // Restore the normal text-buffer colour hints that
-        // adjust_encyclopedia_text_window overrode for the encyclopedia, so
-        // later text-buffer windows aren't created with the encyclopedia's
-        // colours. (z0_update_colors sets these same values during normal
-        // play.)
-        glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
-        glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+        z0_close_encyclopedia_window();
     }
 }
 
@@ -295,7 +313,7 @@ void CENTER_3(void) {
 // border width and text area origin. Sets up the text buffer window below
 // the border and the status window spanning the top. When borders are off,
 // the text window uses full screen width.
-void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
+static void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     set_global(zg.CURRENT_SPLIT, id); // <SETG CURRENT-SPLIT .ID>
     v6_match_status_window_to_graphics_setting(&V6_STATUS_WINDOW);
     if (clear_screen) {
@@ -326,7 +344,7 @@ void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
 // Adjusts the text buffer window height to extend from its current y_origin
 // to the bottom of the screen (if id == 0) or to the top of the bottom
 // border strip identified by picture `id`.
-void ADJUST_TEXT_WINDOW(int id) {
+static void ADJUST_TEXT_WINDOW(int id) {
     int height = 0;
     int hw_screenheight = gscreenh;
     if (id != 0) {
@@ -368,8 +386,6 @@ void DISPLAY_BORDER(BorderType border) {
     }
     current_graphics_buf_win = graphics_bg_glk;
     glk_request_mouse_event(current_graphics_buf_win);
-
-//    set_global(zg.NEW_COMPASS, 1);
 
     // Start each border draw from a clean pixmap so leftover pixels from
     // an earlier border or scene don't bleed through.
@@ -465,11 +481,6 @@ void DISPLAY_BORDER(BorderType border) {
     }
 }
 
-// Placeholder for any special handling needed when autorestoring during
-// an internal_read_char call. Currently unused for Zork Zero.
-void z0_autorestore_internal_read_char_hacks(void) {
-}
-
 // Called when line input is requested at the command prompt. The on-screen map
 // is a full-screen modal view driven entirely by @read_char; its blinking
 // marker loop reads a char with mouse events armed on the foreground graphics
@@ -516,9 +527,6 @@ void z0_leave_stale_map_for_line_input(void) {
 // Returns true if the current split is for a mini-game (Fanucci/Peggleboz)
 // which needs special text window adjustment.
 static bool z0_init_status_line(bool DONT_CLEAR) {
-//    set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
-//    set_global(zg.NEW_COMPASS, 1);  // <SETG NEW-COMPASS T>
-
     bool border_on = z0_border_on();
     if (!DONT_CLEAR) {
         // <CLEAR -1>
@@ -560,15 +568,9 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
 
     if (border_on) { // <COND (,BORDER-ON
 
-        glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
+        z0_set_bordered_status_colors();
 
-        if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW) {
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, monochrome_black);
-        } else {
-            glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-        }
-
-        set_current_window(&windows[7]); // <SCREEN ,S-FULL>
+        set_current_window(&V6_GRAPHICS_BG); // <SCREEN ,S-FULL>
         if (zg.CURRENT_BORDER != 0) {
             set_global(zg.CURRENT_BORDER, internal_call(pack_routine(zr.SET_BORDER)));
             DISPLAY_BORDER((BorderType)get_global(zg.CURRENT_BORDER));
@@ -593,8 +595,6 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     win_refresh(z0_right_status_window->peer, 0, 0);
 
-//    set_global(0x9a, 1); //  <SETG FONT-X <LOWCORE (FWRD 1)>>
-
     set_current_window(&V6_TEXT_BUFFER_WINDOW); // <SCREEN ,S-TEXT>
 
     return false;
@@ -605,23 +605,6 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
 void INIT_STATUS_LINE(void) {
     z0_init_status_line(variable(1));
 }
-
-
-//FG_COLOR = 0->45; // Header byte 0x2d is default foreground color
-//BG_COLOR = 0->44; // Header byte 0x2c is default background color
-
-// Header byte 0x1e is interpreter number
-// Header word 8 is flags 2, bit 6 means game wants to use colours
-
-//if (0->30 == IBM && 0-->8 & 64 == 64) {
-//    DEFAULT_FG = BLACK;
-//    DEFAULT_BG = WHITE;
-//    Default_Colors();
-//} else if (0->30 == AMIGA) {
-//    DEFAULT_FG = BLACK;
-//    DEFAULT_BG = LIGHTGREY;
-//    Default_Colors();
-//}
 
 // Prints the current room name in the left status window. Handles special
 // cases: narrow displays (Apple IIe/DOS) use abbreviated property descriptions,
@@ -677,7 +660,6 @@ static void z0_resize_status_windows(void) {
 
     if (z0_left_status_window == nullptr) {
         z0_left_status_window = gli_new_window(wintype_TextGrid, 0);
-        fprintf(stderr, "z0_resize_status_windows: creating a new left status window with peer %d\n", z0_left_status_window->peer);
         if (BORDER_ON)
             win_maketransparent(z0_left_status_window->peer);
     }
@@ -696,9 +678,7 @@ static void z0_resize_status_windows(void) {
 
     if (graphics_type == kGraphicsTypeMacBW) {
         text_area_height = 18;
-    } else if (graphics_type == kGraphicsTypeCGA) {
-        text_area_height = 10;
-    } else if (graphics_type == kGraphicsTypeEGA) {
+    } else if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeEGA) {
         text_area_height = 10;
     }
 
@@ -708,7 +688,6 @@ static void z0_resize_status_windows(void) {
     y = (hereoffy - 1) * imagescaley - ggridmarginy + text_area_y_offset;
 
     if (!BORDER_ON) {
-        fprintf(stderr, "z0_resize_status_windows: border is off\n");
         z0_hide_right_status();
 
         v6_define_window(&V6_STATUS_WINDOW, 1, 1, gscreenw, height);
@@ -719,7 +698,7 @@ static void z0_resize_status_windows(void) {
 
     uint16_t HERE = get_global(zg.HERE);
     int stringlength = count_characters_in_object(HERE);
-    int width_in_chars = MAX(stringlength, 13); // 13 characters to make room for "MOVES:" plus 2 spaces and 10000 moves
+    int width_in_chars = std::max(stringlength, 13); // 13 characters to make room for "MOVES:" plus 2 spaces and 10000 moves
     width = width_in_chars * gcellw + 2 * ggridmarginx;
 
     z0_left_status_window->bbox.x0 = x;
@@ -728,7 +707,7 @@ static void z0_resize_status_windows(void) {
 
     int16_t REGION = internal_get_prop(HERE, zp.P_REGION);
 
-    z0_right_status_width = MAX(count_characters_in_zstring(REGION), 10); // 10 characters to make room for "SCORE:" plus 1000 points
+    z0_right_status_width = std::max(count_characters_in_zstring(REGION), 10); // 10 characters to make room for "SCORE:" plus 1000 points
 
     width = z0_right_status_width * gcellw + 2 * ggridmarginx;
 
@@ -765,14 +744,14 @@ void z0_display_hint_border(void) {
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
 
     int width, height;
-    get_image_size(Z0_HINT_BORDER, &width, &height);
+    get_image_size(HINT_BORDER, &width, &height);
 
     // draw_border_common draws the main border with the current palette
     // (it does not load the image's own palette), so load it here. Shogun
     // does the equivalent in shogun_display_border. Without this the hint
     // border is drawn with a stale palette in the per-image-palette
     // formats (Amiga and Mac color), giving the wrong colors.
-    extract_palette_from_picnum(Z0_HINT_BORDER);
+    extract_palette_from_picnum(HINT_BORDER);
 
     int border_top = 0;
     int pillar_top = 0;
@@ -785,7 +764,7 @@ void z0_display_hint_border(void) {
 
     int bottom_offset = (graphics_type == kGraphicsTypeCGA) ? 10 : 0;
 
-    draw_border_common(Z0_HINT_BORDER, Z0_HINT_BORDER_L, Z0_HINT_BORDER_R,
+    draw_border_common(HINT_BORDER, Z0_HINT_BORDER_L, Z0_HINT_BORDER_R,
                        height, border_top, pillar_top,
                        0,     // left_margin
                        bottom_offset,
@@ -801,9 +780,6 @@ static void z0_refresh_sl_loc_tbl(void);
 // region name and score in the right window.
 void z0_UPDATE_STATUS_LINE(void) {
     bool BORDER_ON = z0_border_on();
-//    bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
-//    if (!COMPASS_CHANGED)
-//        fprintf(stderr, "z0_UPDATE_STATUS_LINE: COMPASS_CHANGED == %d\n", get_global(zg.COMPASS_CHANGED));
     uint16_t HERE = get_global(zg.HERE);
     uint16_t REGION = internal_get_prop(HERE, zp.P_REGION);
 
@@ -832,52 +808,47 @@ void z0_UPDATE_STATUS_LINE(void) {
     print_number(get_global(zg.MOVES));
 
     if (BORDER_ON) {
-            // Keep SL-LOC-TBL's compass metrics in sync with the *current* image
-            // scale before drawing (and therefore before the next click reads the
-            // table for hit-testing). r383/r387 fill these only once in Main and
-            // never re-derive them on a normal turn, so after the intro->game
-            // transition -- or any scale change that didn't go through an arrange
-            // event -- the table is left at a stale scale and the compass rose is
-            // both drawn and hit-tested in the wrong place (the reported r383
-            // west->south / dead-arrow bug). Refreshing here makes draw and
-            // hit-test always agree at the live scale. Harmless on the later
-            // releases, whose SETUP-SCREEN already refills the table.
-            z0_refresh_sl_loc_tbl();
-//        if (COMPASS_CHANGED) {
-            if (zr.DRAW_NEW_COMP != 0) {
-                internal_call(pack_routine(zr.DRAW_NEW_COMP));
-            } else if (zr.DRAW_COMPASS_ROSE != 0 && zt.PICINF_TBL != 0) {
-                // Legacy fallback for the early releases (r242/beta) that have
-                // DRAW-COMPASS-ROSE + PICINF-TBL but no DRAW-NEW-COMP. Guard on
-                // both being detected: on the middle releases (r296/r343/r366)
-                // none of the three is found, and running this unguarded wrote
-                // to PICINF_TBL==0 (corrupting the header at address 0) and
-                // called pack_routine(0) eight times -- which blanked the whole
-                // bordered status line (no pillars, no compass).
-//                set_global(zg.COMPASS_CHANGED, 0);
-                int width, height;
-                get_image_size(COMPASS_PIC_LOC, &width, &height);
+        // Keep SL-LOC-TBL's compass metrics in sync with the *current* image
+        // scale before drawing (and therefore before the next click reads the
+        // table for hit-testing). r383/r387 fill these only once in Main and
+        // never re-derive them on a normal turn, so after the intro->game
+        // transition -- or any scale change that didn't go through an arrange
+        // event -- the table is left at a stale scale and the compass rose is
+        // both drawn and hit-tested in the wrong place (the reported r383
+        // west->south / dead-arrow bug). Refreshing here makes draw and
+        // hit-test always agree at the live scale. Harmless on the later
+        // releases, whose SETUP-SCREEN already refills the table.
+        z0_refresh_sl_loc_tbl();
+        if (zr.DRAW_NEW_COMP != 0) {
+            internal_call(pack_routine(zr.DRAW_NEW_COMP));
+        } else if (zr.DRAW_COMPASS_ROSE != 0 && zt.PICINF_TBL != 0) {
+            // Legacy fallback for the early releases (r242/beta) that have
+            // DRAW-COMPASS-ROSE + PICINF-TBL but no DRAW-NEW-COMP. Guard on
+            // both being detected: on the middle releases (r296/r343/r366)
+            // none of the three is found, and running this unguarded wrote
+            // to PICINF_TBL==0 (corrupting the header at address 0) and
+            // called pack_routine(0) eight times -- which blanked the whole
+            // bordered status line (no pillars, no compass).
+            int width, height;
+            get_image_size(COMPASS_PIC_LOC, &width, &height);
 
-                store_word(zt.PICINF_TBL, (height + 1) * imagescaley);
-                store_word(zt.PICINF_TBL + 2, (width + 1)  * imagescalex);
+            store_word(zt.PICINF_TBL, (height + 1) * imagescaley);
+            store_word(zt.PICINF_TBL + 2, (width + 1)  * imagescalex);
 
-                fprintf(stderr, "COMPASS-PIC-LOC: width:%d height:%d\n", width, height);
-
-                fprintf(stderr, "PICINF-TBL 0:0x%x\n", word(zt.PICINF_TBL));
-                fprintf(stderr, "PICINF-TBL 1:0x%x\n", word(zt.PICINF_TBL + 2));
-
-                fprintf(stderr, "pixelwidth:%f\n", pixelwidth);
-                fprintf(stderr, "imagescalex:%f\n", imagescalex);
-                fprintf(stderr, "imagescaley:%f\n", imagescaley);
-
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_NORTH, N_HIGHLIGHTED, N_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_NE, NE_HIGHLIGHTED, NE_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_EAST, E_HIGHLIGHTED, E_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_SE, SE_HIGHLIGHTED, SE_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_SOUTH, S_HIGHLIGHTED, S_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_SW, SW_HIGHLIGHTED, SW_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_WEST, W_HIGHLIGHTED, W_UNHIGHLIGHTED});
-                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {P_NW, NW_HIGHLIGHTED, NW_UNHIGHLIGHTED});
+            // Direction property, highlighted picture, unhighlighted picture
+            static const uint16_t compass_directions[][3] = {
+                { P_NORTH, N_HIGHLIGHTED,  N_UNHIGHLIGHTED },
+                { P_NE,    NE_HIGHLIGHTED, NE_UNHIGHLIGHTED },
+                { P_EAST,  E_HIGHLIGHTED,  E_UNHIGHLIGHTED },
+                { P_SE,    SE_HIGHLIGHTED, SE_UNHIGHLIGHTED },
+                { P_SOUTH, S_HIGHLIGHTED,  S_UNHIGHLIGHTED },
+                { P_SW,    SW_HIGHLIGHTED, SW_UNHIGHLIGHTED },
+                { P_WEST,  W_HIGHLIGHTED,  W_UNHIGHLIGHTED },
+                { P_NW,    NW_HIGHLIGHTED, NW_UNHIGHLIGHTED },
+            };
+            for (const auto &dir : compass_directions) {
+                internal_call(pack_routine(zr.DRAW_COMPASS_ROSE), {dir[0], dir[1], dir[2]});
+            }
         }
         glk_set_window(z0_right_status_window);
     }
@@ -1097,10 +1068,10 @@ static void adjust_encyclopedia_text_window(void) {
     // normal hints when the screen is dismissed.
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, encycl_fgnd);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encycl_bgnd);
-    v6_define_window(&windows[3], x * imagescalex, y * imagescaley, width * imagescalex,
+    v6_define_window(&Z0_ENCYCLOPEDIA_WINDOW, x * imagescalex, y * imagescaley, width * imagescalex,
                      height * imagescaley);
-    win_setbgnd(windows[3].id->peer, encycl_bgnd);
-    win_refresh(windows[3].id->peer, 0, 0);
+    win_setbgnd(Z0_ENCYCLOPEDIA_WINDOW.id->peer, encycl_bgnd);
+    win_refresh(Z0_ENCYCLOPEDIA_WINDOW.id->peer, 0, 0);
 }
 
 // Draws the encyclopedia display: border frame, illustration at the
@@ -1169,7 +1140,6 @@ static bool autosolve_visual_puzzle(void) {
 // Special card: Granola (rank 12+)
 #define F_GRANOLA 154
 
-#define F_CARD 101
 // Location of card slot 1 (cards 2-4 follow at consecutive pic locs)
 #define F_1_PIC_LOC 370
 
@@ -1211,14 +1181,9 @@ static void fanucci_window(int index, int x, int y, int num_chars) {
 static void update_score(winid_t win, uint16_t global, int offset) {
     glk_set_window(win);
     glk_window_move_cursor(win, offset, 0);
-    uint16_t score = get_global(global);
-    if (score < 10) {
-        glk_put_string(
-                       const_cast<char*>("00"));
-    } else if (score < 100) {
-        glk_put_char('0');
-    }
-    print_number(score);
+    char score[8];
+    snprintf(score, sizeof score, "%03d", get_global(global));
+    glk_put_string(score);
 }
 
 // Refreshes both Jester's and player's score displays.
@@ -1243,7 +1208,7 @@ static void draw_offset_image(int pic, int x, int y, int offpic) {
 // composited from a blank card, rank numbers (normal + reversed), and
 // suit inkblot symbols.
 static void draw_card(int x, int y, int rank, int suit) {
-    int rank_order[] = { -1, 4, 5, 6, 7, 8, 9, 0, 10, 1, 2, 3 };
+    static const int rank_order[] = { -1, 4, 5, 6, 7, 8, 9, 0, 10, 1, 2, 3 };
     if (zt.DRAW_CARDS_TABLE != 0) {
         // r296 keeps the cards in a table of words
         rank = user_word(zt.F_CARD_TABLE + rank * 2);
@@ -1281,7 +1246,7 @@ static void draw_cards(void) {
             internal_set_attr(zo.NOT_HERE_OBJECT, draw_cards_attribute);
         draw_card(x, y, cnt * 2, cnt * 2 + 1);
     }
-};
+}
 
 // The text grid window used for the Fanucci command/play selection menu
 static winid_t fanucci_command_grid = nullptr;
@@ -1310,7 +1275,8 @@ static void fanucci_select_command(int ptr, bool bold) {
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }
 
-// Index of the currently highlighted command in the Fanucci grid (-1 = none)
+// Index of the currently highlighted command in the Fanucci grid (-1 = none;
+// 0, the first command, when a game starts)
 static int last_bold_move = 0;
 
 // Highlights a command and records it as the current selection.
@@ -1563,10 +1529,8 @@ void z0_erase_window(int16_t index) {
         // Encyclopedia caption window (only created for the encyclopedia
         // sample; a no-op for the others). Restore the text-buffer colour
         // hints it overrode, exactly as V_REFRESH does on a normal exit.
-        if (windows[3].id != nullptr) {
-            v6_delete_win(&windows[3]);
-            glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, user_selected_foreground);
-            glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, user_selected_background);
+        if (Z0_ENCYCLOPEDIA_WINDOW.id != nullptr) {
+            z0_close_encyclopedia_window();
         }
         // Hide the fullscreen foreground graphics window the sample took over
         // and switch drawing back to the background window (cf. DISPLAY_BORDER).
@@ -1610,7 +1574,7 @@ static bool within(uint16_t left, uint16_t top, uint16_t width, uint16_t height)
 
 // Hit-tests a mouse click against the 4 hand card slots. Returns the ASCII
 // code '1'-'4' for the clicked card, or ZSCII_CLICK_SINGLE if no card was hit.
-uint16_t F_MOUSE_CARD_PICK(void) {
+static uint16_t F_MOUSE_CARD_PICK(void) {
     int x, y, width, height;
     get_image_size(F_CARD, &width, &height);
     for (int i = 0; i < 4; i++) {
@@ -1648,25 +1612,15 @@ static void redraw_fanucci(void) {
     // is off, and the theme's default in the demo's slide show, where
     // INIT-STATUS-LINE has not run yet. Give them the colour of a bordered
     // status line, as the scores are printed on top of the border picture.
-    glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
-    if (graphics_type == kGraphicsTypeCGA || graphics_type == kGraphicsTypeMacBW) {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, monochrome_black);
-    } else {
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    }
+    z0_set_bordered_status_colors();
 
     fanucci_window(1, x, y, 20);
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
     glk_put_string(const_cast<char*>("Jester's Score:  000"));
 
-//    if (z0_right_status_window == nullptr) {
-////        z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
-//        fprintf(stderr, "Error!\n");
-//    }
-
     // Same vertical position as the Jester's score window
     const grect_t &jester = V6_STATUS_WINDOW.id->bbox;
-    win_sizewin(z0_right_status_window->peer, MAX(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0), jester.y0, gscreenw - x, jester.y1);
+    win_sizewin(z0_right_status_window->peer, std::max(gscreenw - 21 * gcellw - 2 * ggridmarginx, 0.0f), jester.y0, gscreenw - x, jester.y1);
     win_refresh(z0_right_status_window->peer, 0, 0);
     glk_set_window(z0_right_status_window);
     glk_window_clear(z0_right_status_window);
@@ -1676,7 +1630,7 @@ static void redraw_fanucci(void) {
 
     get_image_size(F_DISCARD_LOC, nullptr, &card_num_y);
 
-        card_num_y += 1; // Looks nicer with more vertical space
+    card_num_y += 1; // Looks nicer with more vertical space
 
     get_image_size(F_DISCARD_PIC_LOC, &discard_x, nullptr);
     get_image_size(F_CARD, &discard_width, nullptr);
@@ -2024,7 +1978,7 @@ void SNARFEM(void) {
 
 // Draws a Peggleboz UI button (Restart, Show Moves, or Exit) at its
 // designated location.
-static void z0_draw_peggleboz_box_image(uint16_t pic, uint16_t x, uint16_t y) {
+static void z0_draw_peggleboz_box_image(uint16_t pic) {
     int width, height;
     switch (pic) {
         case RESTART_BOX:
@@ -2113,9 +2067,10 @@ void SETUP_PBOZ(void) {
         v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
     }
 
-    // What does this do, exactly? Attribute 7 is checked in PBOZ-WIN-CHECK:
-    // Game is considered won if the first 21 attributes (1-21) of NOT-HERE-OBJECT are set
-    // except attribute 7, which must not be set
+    // Each of attributes 1-21 of NOT-HERE-OBJECT is a hole on the board, and
+    // a set attribute means that its peg is out of play. The game starts
+    // with a single empty hole, number 7. (PBOZ-WIN-CHECK considers the game
+    // won when this is reversed: every attribute set except 7.)
     // (This does not apply to r242 and r296, which keep the pegs in PEG-TABLE
     // and whose SETUP-PBOZ leaves them alone.)
     if (zo.NOT_HERE_OBJECT != 0)
@@ -2260,7 +2215,7 @@ static void solve_tower(uint8_t c) {
             table = zt.RIGHT_PEG_TABLE;
             break;
         default:
-            fprintf(stderr, "ERROR!\n");
+            fprintf(stderr, "solve_tower: unknown peg '%c'\n", c);
             return;
     }
 
@@ -2468,7 +2423,7 @@ void B_MOUSE_PEG_PICK(void) {
 // Exit button ('X'), then iterates through all weight positions on all 3
 // pegs. Returns the weight number as ASCII ('1'-'6'), a button key, or
 // ZSCII_CLICK_SINGLE if nothing valid was clicked.
-uint8_t pick_weight(void) {
+static uint8_t pick_weight(void) {
     int left, top, width, height, weight_width, weight_height, num;
     get_image_size(TOWER_UNDO_BOX_LOC, &left, &top);
     get_image_size(UNDO_BOX, &width, &height);
@@ -2880,7 +2835,7 @@ void z0_update_after_restore(void) {
 //    normal-mode room graphic restored from the autosave, which shows around
 //    and below the foreground encyclopedia window. The live entry path blanks
 //    it in z0_display_picture, but autorestore doesn't go through there, so
-//    blank it here. A restored caption window (windows[3]) in slideshow mode
+//    blank it here. A restored caption window (Z0_ENCYCLOPEDIA_WINDOW) in slideshow mode
 //    uniquely identifies the encyclopedia (title/rebus never create it).
 //
 // 2. Peggleboz: if we were in Peggleboz with a peg selected, the C++ static
@@ -2890,7 +2845,7 @@ void z0_update_after_restore(void) {
 //    Z-machine state) against the BOARD-TABLE peg positions, then restart the
 //    blink timer.
 void z0_update_after_autorestore(void) {
-    if (screenmode == MODE_SLIDESHOW && windows[3].id != nullptr) {
+    if (screenmode == MODE_SLIDESHOW && Z0_ENCYCLOPEDIA_WINDOW.id != nullptr) {
         glk_window_clear(graphics_bg_glk);
         // Re-run the encyclopedia text-window setup the live entry path
         // performs (z0_display_picture -> adjust_encyclopedia_text_window).
@@ -2985,8 +2940,6 @@ void z0_update_after_autorestore(void) {
     }
 }
 
-extern bool pending_flowbreak;
-
 #pragma mark - Image Display Dispatch
 
 void z0_image_description(int picnum) {
@@ -3059,7 +3012,7 @@ bool z0_display_picture(int x, int y, Window *win) {
     // Peggleboz UI buttons (Restart, Show Moves, Exit) have their own
     // helper.
     if (is_zorkzero_peggleboz_box_image(current_picture)) {
-        z0_draw_peggleboz_box_image(current_picture, x, y);
+        z0_draw_peggleboz_box_image(current_picture);
         return true;
     }
 
@@ -3126,7 +3079,7 @@ bool z0_display_picture(int x, int y, Window *win) {
             // resizes, and the room is redrawn normally when V_REFRESH tears
             // the encyclopedia down on exit.
             glk_window_clear(graphics_bg_glk);
-            windows[3].id = gli_new_window(wintype_TextBuffer, 0);
+            Z0_ENCYCLOPEDIA_WINDOW.id = gli_new_window(wintype_TextBuffer, 0);
             draw_to_pixmap_unscaled(zorkzero_encyclopedia_border, 0, 0);
             image_needs_redraw = true;
             adjust_encyclopedia_text_window();

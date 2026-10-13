@@ -12,6 +12,7 @@
 //  reconstructs the final image from delta-encoded scanlines. This last
 //  step seems to be pure obfuscation.
 
+#include <stdio.h>
 #include <stdlib.h>
 #include "decompress_amiga.hpp"
 

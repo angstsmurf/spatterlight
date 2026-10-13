@@ -21,6 +21,7 @@
 // canvas using a gamma-corrected palette.
 
 extern "C" {
+#include <cstdio>
 #include <zlib.h>
 #include <math.h>
 #include "glkimp.h"
@@ -39,9 +40,6 @@ do {                                         \
 if (DEBUG_PNG)                       \
 fprintf(stderr, fmt, ##__VA_ARGS__); \
 } while (0)
-
-extern float imagescalex;
-extern float imagescaley;
 
 // One PNG chunk as it appears on disk: a 32-bit big-endian length, a
 // 4-byte FourCC type, a pointer into the source buffer for the chunk's

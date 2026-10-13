@@ -8,7 +8,6 @@
 #ifndef writetiff_hpp
 #define writetiff_hpp
 
-#include <stdio.h>
 
 #include "io.h"
 #include "types.h"

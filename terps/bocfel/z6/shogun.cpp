@@ -22,10 +22,6 @@
 //  image scaling vary significantly across these modes.
 //
 
-#include <queue>
-#include <vector>
-#include <algorithm>
-
 #include "draw_image.hpp"
 #include "memory.h"
 #include "objects.h"
@@ -38,18 +34,16 @@
 
 #include "shogun.hpp"
 
-extern float imagescalex, imagescaley;
-
 // Width in pixels of the left border pillar graphic. Used to inset the
 // status bar and text buffer so they don't overlap the decorative frame.
 static int shogun_banner_width_left = 0;
 
 // Menu state: the currently highlighted line (1-based) and the Z-machine
 // address of the active menu table. Preserved across autosave/restore.
-uint16_t current_menu_selection = 0;
-uint16_t current_menu;
+static uint16_t current_menu_selection = 0;
+static uint16_t current_menu;
 // The currently active border style (crests, waves, hint border, or none).
-ShogunBorderType current_border;
+static ShogunBorderType current_border;
 
 // Pixel offset and tile dimensions for the maze mini-game display.
 // The maze is rendered as a grid of small tile images drawn to the
@@ -87,6 +81,19 @@ ShogunObjects so;
 #define P_BORDER_LOC 2      // Picture number used to measure the left border/pillar width
 #define STATUS_LINES 2      // Height of the status bar in text lines
 
+// Buffer size for a menu prompt ("You may choose to:") copied out of the game.
+#define MENU_MESSAGE_MAX 100
+
+// Height in pixels of the status bar.
+static int shogun_status_height(void) {
+    return STATUS_LINES * (gcellh + ggridmarginy);
+}
+
+// The same, but nothing at the start menu (scene 0), which has no status bar.
+static int shogun_status_height_for_scene(void) {
+    return get_global(sg.SCENE) == 0 ? 0 : shogun_status_height();
+}
+
 // Scene constants used for special-case behaviour.
 #define S_ERASMUS 1         // Scene 1: aboard the Erasmus (affects border choice)
 #define S_VOYAGE 6          // Scene 6: the sea voyage
@@ -118,7 +125,7 @@ static void setup_text_and_status(int P) {
     if (P == 0)
         P = P_BORDER_LOC;
 
-    int status_height = get_global(sg.SCENE) == 0 ? 0 : 2 * (gcellh + ggridmarginy);
+    int status_height = shogun_status_height_for_scene();
 
     int SHIGH = status_height;
 
@@ -170,7 +177,7 @@ static int a2_graphical_banner_height = 0;  // Height of Apple II graphical bann
 static void update_status_line(bool interlude) {
     last_was_interlude = interlude;
 
-    int status_height = (gcellh + ggridmarginy) * 2;
+    int status_height = shogun_status_height();
 
     uint16_t scene = get_global(sg.SCENE);
     if (scene == 0) {
@@ -180,7 +187,6 @@ static void update_status_line(bool interlude) {
             V6_TEXT_BUFFER_WINDOW.y_size -= SHOGUN_MENU_BG_WIN.y_size;
         v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
         v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
-        fprintf(stderr, "Scene is zero!\n");
         return;
     }
 
@@ -203,20 +209,16 @@ static void update_status_line(bool interlude) {
     glk_window_clear(V6_STATUS_WINDOW.id);
 
     uint16_t here = get_global(sg.HERE);
-    if (scene != 0) {
-        uint32_t addr = user_word(st.SCENE_NAMES + scene * 2);
-        if (header.release > 278) {
-            print_handler(unpack_string(addr), nullptr); // table SCENE-NAMES
-        } else {
-            uint8_t number_of_characters = byte(addr++);
-            for (uint16_t j = 0; j < number_of_characters; j++) {
-                put_char(user_byte(addr + j));
-            }
+    uint32_t addr = user_word(st.SCENE_NAMES + scene * 2);
+    if (header.release > 278) {
+        print_handler(unpack_string(addr), nullptr); // table SCENE-NAMES
+    } else {
+        uint8_t number_of_characters = byte(addr++);
+        for (uint16_t j = 0; j < number_of_characters; j++) {
+            put_char(user_byte(addr + j));
         }
-        glk_put_char(':');
-    } else if (scene == 0) {
-        fprintf(stderr, "Scene is zero! (%d)\n", scene);
     }
+    glk_put_char(':');
     if (options.int_number != INTERP_MACINTOSH) {
         glk_window_move_cursor(gwin, width / 2 - 3, 0);
         glk_put_string(const_cast<char*>("SHOGUN"));
@@ -258,7 +260,7 @@ static void update_status_line(bool interlude) {
     glk_window_move_cursor(gwin, width - 10, 1);
     glk_put_string(const_cast<char*>("Moves:"));
     print_right_justified_number(get_global(sg.MOVES));
-    set_current_window(&windows[0]);
+    set_current_window(&V6_TEXT_BUFFER_WINDOW);
 
     if (graphics_type == kGraphicsTypeApple2 && current_border == P_BORDER2 && scene != S_ERASMUS) {
         shogun_display_border(P_BORDER);
@@ -378,8 +380,8 @@ static uint16_t menu_width(uint16_t MENU) {
 static void print_quicksearch(char *typed) {
     glk_window_clear(SHOGUN_MENU_BG_WIN.id);
     strid_t stream = glk_window_get_stream(SHOGUN_MENU_BG_WIN.id);
-    char menu_message[100];
-    print_long_zstr_to_cstr(current_menu_message, menu_message, 100);
+    char menu_message[MENU_MESSAGE_MAX];
+    print_long_zstr_to_cstr(current_menu_message, menu_message, sizeof(menu_message));
     glk_put_string_stream(stream, menu_message);
     glk_put_char_stream(stream, '\n');
     glk_put_string_stream(stream, typed);
@@ -426,15 +428,14 @@ static void update_menu(void) {
     uint16_t width = menu_width(current_menu) * gcellw + 2 * ggridmarginx;
     uint16_t height = cnt * gcellh + 2 * ggridmarginy;
     if (screenmode == MODE_SHOGUN_MENU && current_menu == sm.PART_MENU) {
-        windows[0].y_origin = a2_graphical_banner_height;
+        V6_TEXT_BUFFER_WINDOW.y_origin = a2_graphical_banner_height;
     }
-    v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, windows[0].y_origin, gscreenw - shogun_banner_width_left * 2,  gscreenh - windows[0].y_origin - height);
+    v6_define_window(&V6_TEXT_BUFFER_WINDOW, shogun_banner_width_left, V6_TEXT_BUFFER_WINDOW.y_origin, gscreenw - shogun_banner_width_left * 2,  gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin - height);
     int menutop = gscreenh - height;
     if (graphics_type == kGraphicsTypeApple2 && current_menu == sm.PART_MENU) {
         menutop -= a2_graphical_banner_height;
     }
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
-    glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
+    v6_set_grid_colors(style_Normal);
     if (SHOGUN_MENU_BG_WIN.id == nullptr) {
         SHOGUN_MENU_BG_WIN.id = gli_new_window(wintype_TextBuffer, 0);
         v6_delete_win(&SHOGUN_MENU_WINDOW);
@@ -445,8 +446,8 @@ static void update_menu(void) {
     win_refresh(SHOGUN_MENU_BG_WIN.id->peer, 0, 0);
     win_setbgnd(SHOGUN_MENU_BG_WIN.id->peer, user_selected_background);
     glk_window_clear(SHOGUN_MENU_BG_WIN.id);
-    char str[100];
-    print_long_zstr_to_cstr(current_menu_message, str, 100);
+    char str[MENU_MESSAGE_MAX];
+    print_long_zstr_to_cstr(current_menu_message, str, sizeof(str));
     glk_put_string_stream(menubg, str);
 
     if (SHOGUN_MENU_WINDOW.id == nullptr) {
@@ -485,6 +486,13 @@ static int menu_select(uint16_t menu, uint16_t selection) {
     win_menuitem(kV6MenuSelectionChanged, selection - 1, 0, 0, nullptr, 0);
     set_current_window(&V6_TEXT_BUFFER_WINDOW);
 
+    // Moves the highlight to another line.
+    auto move_selection = [&](uint16_t line) {
+        unselect_line(menu, selection);
+        selection = line;
+        select_line(menu, selection);
+    };
+
     while (!finished) {
         glk_request_mouse_event(SHOGUN_MENU_WINDOW.id);
         uint16_t chr = internal_read_char();
@@ -496,13 +504,10 @@ static int menu_select(uint16_t menu, uint16_t selection) {
                 x = word(mouse_click_addr) - 1;
                 y = word(mouse_click_addr + 2);
                 if (x > 0 && y > 0 && x < width && y <= cnt) {
-                    unselect_line(menu,
-                                  selection);
-                    selection = y;
+                    move_selection(y);
                     if (chr == ZSCII_CLICK_DOUBLE) {
                         finished = true;
                     }
-                    select_line(menu, selection);
                 }
                 break;
             case ZSCII_BACKSPACE:
@@ -518,28 +523,14 @@ static int menu_select(uint16_t menu, uint16_t selection) {
             case ZSCII_LEFT:
             case ZSCII_KEY8:
             case ZSCII_KEY4:
-                unselect_line(menu,
-                              selection);
-                if (selection > 1)
-                    selection--;
-                else
-                    selection = cnt;
-                select_line(menu,
-                            selection);
+                move_selection(selection > 1 ? selection - 1 : cnt);
                 break;
             case ZSCII_DOWN:
             case ZSCII_RIGHT:
             case ZSCII_KEY2:
             case ZSCII_KEY6:
             case ZSCII_SPACE:
-                unselect_line(menu,
-                              selection);
-                if (selection < cnt)
-                    selection++;
-                else
-                    selection = 1;
-                select_line(menu,
-                            selection);
+                move_selection(selection < cnt ? selection + 1 : 1);
                 break;
             case ZSCII_NEWLINE:
             case UNICODE_LINEFEED:
@@ -550,11 +541,7 @@ static int menu_select(uint16_t menu, uint16_t selection) {
                     (chr >= 'A' && chr <= 'Z'))) {
                     new_selection = quicksearch(chr, typed_letters, type_pos);
                     if (new_selection != 0) {
-                        unselect_line(menu,
-                                      selection);
-                        selection = new_selection;
-                        select_line(menu,
-                                    selection);
+                        move_selection(new_selection);
                         type_pos++;
                         break;
                     }
@@ -574,8 +561,7 @@ static int menu_select(uint16_t menu, uint16_t selection) {
 // prompt message (MSG), presents the menu (MENU), and loops until the
 // player makes a valid selection. If VoiceOver is active, waits for an
 // extra keypress first. Also handles transcripting of the chosen entry.
-// FCN is the Z-machine callback routine (not used directly here).
-static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_selection) {
+static int get_from_menu(uint16_t MSG, uint16_t MENU, int default_selection) {
     screenmode = MODE_SHOGUN_MENU;
     if (default_selection == 0)
         default_selection = 1;
@@ -595,8 +581,8 @@ static int get_from_menu(uint16_t MSG, uint16_t MENU, uint16_t FCN, int default_
     uint16_t result = 0;
     while (result == 0) {
         glk_window_clear(SHOGUN_MENU_BG_WIN.id);
-        char message[40];
-        int length = print_long_zstr_to_cstr(MSG, message, 40);
+        char message[MENU_MESSAGE_MAX];
+        int length = print_long_zstr_to_cstr(MSG, message, sizeof(message));
         garglk_set_zcolors_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), user_selected_foreground, zcolor_Current);
         glk_put_string_stream(glk_window_get_stream(SHOGUN_MENU_BG_WIN.id), message);
         print_zstring_to_transcript(MSG);
@@ -628,7 +614,7 @@ void GET_FROM_MENU(void) {
             current_menu_selection = variable(4);
         }
     }
-    uint16_t result = get_from_menu(variable(1), variable(2), variable(3), current_menu_selection);
+    uint16_t result = get_from_menu(variable(1), variable(2), current_menu_selection);
 
     // When we return to our hacked Zcode,
     // L02 (var 3) must contain the address to the menu function,  L08 (var 9) must contain the index of selected line, L01 (var 2) must contain address of the menu.
@@ -642,8 +628,8 @@ void GET_FROM_MENU(void) {
 }
 
 // Cleanup after a menu selection: resets text grid style hints and
-// restores the appropriate border. On non-Apple II, downgrades
-// P_BORDER2 (crests) to P_BORDER (waves) since waves are Apple II only.
+// restores the appropriate border. Only Apple II has a separate P_BORDER2
+// (waves; P_BORDER is the crests), so elsewhere P_BORDER2 becomes P_BORDER.
 void after_GET_FROM_MENU(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
     if (sg.CURRENT_BORDER != 0) {
@@ -705,7 +691,7 @@ void after_MAC_II(void) {
 // status bar. At the start menu, banners are drawn at both the top and
 // bottom of the screen. The banner is rendered to the offscreen pixmap
 // and then flushed to the screen.
-void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mode) {
+static void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mode) {
     int border_top = V6_STATUS_WINDOW.y_size / imagescaley + 1;
     int width, height;
 
@@ -728,9 +714,6 @@ void shogun_display_apple_ii_border(ShogunBorderType border, bool start_menu_mod
     draw_to_pixmap_unscaled(border, 0, border_top);
     flush_bitmap(current_graphics_buf_win);
 }
-
-extern int margin_images[100];       // List of inline/margin images in the text buffer
-extern int number_of_margin_images;  // Count of tracked margin images
 
 // True if `b` is a real border picture (P_BORDER, P_BORDER2, P_HINT_BORDER).
 // NO_BORDER is treated as "not specified" and falls through to the lookup
@@ -813,10 +796,9 @@ static void shogun_pillar_images_for(ShogunBorderType border, int16_t *BL, int16
 //   - CGA: separated top + pillar images with special edge handling
 //   - Blorb: modern resources, similar to CGA layout
 // Also handles the hint-mode border which has different pillar images.
-// Draws a status-bar-colored rectangle at the top.
-// (The raw graphics have a top bar that
- // won't fit all the header text, so the original interpreters also cover it
- // with a solid color rectangle.)
+// Draws a status-bar-colored rectangle at the top. (The raw graphics have
+// a top bar that won't fit all the header text, so the original
+// interpreters also cover it with a solid color rectangle.)
 void shogun_display_border(ShogunBorderType border) {
     const bool start_menu_mode = (get_global(sg.SCENE) == 0);
 
@@ -1075,11 +1057,6 @@ static void print_maze(void) {
         draw_to_pixmap_unscaled(P_MAZE_BACKGROUND, maze_offset_x, maze_offset_y);
     }
 
-    //    if (graphics_type == kGraphicsTypeApple2 && maze_width != 19) {
-    //        get_image_size(P_MAZE_BACKGROUND, &width, &height);
-    //        draw_to_pixmap_unscaled(P_MAZE_BACKGROUND, maze_offset_x + width, maze_offset_y);
-    //    }
-
     int maze_height, maze_width;
 
     get_maze_width_and_height(&maze_width, &maze_height);
@@ -1176,91 +1153,51 @@ void MAZE_MOUSE_F(void) {
 
 # pragma mark - Maze Simplification
 
-// Maze tile constants for the simplification algorithm.
-#define P_MAZE_WALL 0x80    // Wall tile byte value in MAZE_MAP
-#define P_MAZE_STREET 0     // Open street tile byte value in MAZE_MAP
+// Byte values in MAZE_MAP that the simplification cares about.
+#define MAZE_TILE_WALL 0x80
+#define MAZE_TILE_STREET 0
 
-// Stores which directions are open from a given maze cell.
-typedef struct MazeExits {
-    uint8_t NORTH;
-    uint8_t EAST;
-    uint8_t SOUTH;
-    uint8_t WEST;
-} MazeExits;
+// The maze as the game has it: its size, the address of the MAZE_MAP byte
+// array (one byte per cell, row by row) and the cell the player starts in.
+struct MazeInfo {
+    int width;
+    int height;
+    int map;
+    int start;
 
-// Checks whether maze cell 'i' is a dead end (has exactly one open
-// neighbor). If so, populates 'me' with the exit directions. Skips
-// the start position, wall cells, and border cells. Used by
-// simplify_maze() to iteratively fill in dead-end paths.
-bool deadend(int index, MazeExits *maze_exits) {
-    int MAZE_WIDTH, MAZE_HEIGHT;
+    MazeInfo() {
+        get_maze_width_and_height(&width, &height);
+        map = get_global(sg.MAZE_MAP);
+        start = get_global(sg.MAZE_XSTART) + get_global(sg.MAZE_YSTART) * width;
+    }
 
-    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
+    int size() const { return width * height; }
+    bool is_street(int index) const { return memory[map + index] == MAZE_TILE_STREET; }
+};
 
-    int MAZE_MAP = get_global(sg.MAZE_MAP);
-    int mazesize = MAZE_WIDTH * MAZE_HEIGHT;
-
-    int start = get_global(sg.MAZE_XSTART) + get_global(sg.MAZE_YSTART) * MAZE_WIDTH;
-
-    int exit_count = 0;
-
-    if (index == start || memory[MAZE_MAP + index] != P_MAZE_STREET || index % MAZE_WIDTH == 0 || (index + 1) % MAZE_WIDTH == 0) { // skip left and right borders
+// Checks whether maze cell 'index' is a dead end (a street cell with exactly
+// one open neighbor). If so, sets 'exit_step' to the index delta of that
+// neighbor. Skips the start position, wall cells, and the left and right
+// border columns. Used by simplify_maze() to iteratively fill in dead-end
+// paths.
+static bool deadend(const MazeInfo &maze, int index, int *exit_step) {
+    if (index == maze.start || !maze.is_street(index) || index % maze.width == 0 || (index + 1) % maze.width == 0) { // skip left and right borders
         return false;
     }
 
-    maze_exits->NORTH = P_MAZE_WALL;
-    maze_exits->EAST = P_MAZE_WALL;
-    maze_exits->SOUTH = P_MAZE_WALL;
-    maze_exits->WEST = P_MAZE_WALL;
+    // North, east, south, west.
+    const int steps[] = { -maze.width, 1, maze.width, -1 };
+    int exit_count = 0;
 
-    if (index > MAZE_WIDTH && memory[MAZE_MAP + (index - MAZE_WIDTH)] == P_MAZE_STREET) {
-        maze_exits->NORTH = P_MAZE_STREET;
-        exit_count++;
-    }
-    if (index < mazesize - 1 && memory[MAZE_MAP + index + 1] == P_MAZE_STREET) {
-        maze_exits->EAST = P_MAZE_STREET;
-        exit_count++;
-    }
-    if (index < mazesize - MAZE_WIDTH && memory[MAZE_MAP + index + MAZE_WIDTH] == P_MAZE_STREET) {
-        maze_exits->SOUTH = P_MAZE_STREET;
-        exit_count++;
-    }
-    if (index > 1 && memory[MAZE_MAP + index - 1] == P_MAZE_STREET) {
-        maze_exits->WEST = P_MAZE_STREET;
-        exit_count++;
+    for (int step : steps) {
+        int neighbor = index + step;
+        if (neighbor >= 0 && neighbor < maze.size() && maze.is_street(neighbor)) {
+            *exit_step = step;
+            exit_count++;
+        }
     }
 
     return (exit_count == 1);
-}
-
-// Debug utility: prints the maze grid to stderr as ASCII art.
-// '0' = open street, 'X' = wall, '?' = unknown tile type.
-void debug_draw_maze(void) {
-    int MAZE_HEIGHT, MAZE_WIDTH;
-    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
-
-    int MAZE_MAP = get_global(sg.MAZE_MAP);
-
-    fprintf(stderr, "sg.MAZE_HEIGHT:%d\n", MAZE_HEIGHT);
-    fprintf(stderr, "sg.MAZE_WIDTH:%d\n", MAZE_WIDTH);
-    fprintf(stderr, "sg.MAZE_MAP:0x%x\n", MAZE_MAP);
-
-    int size = MAZE_WIDTH * MAZE_HEIGHT;
-
-    fprintf(stderr, "MAZE-MAP start address: 0x%x end: 0x%x\n", MAZE_MAP, MAZE_MAP + size);
-    for (int i = 0; i < size; i++) {
-        if (i % MAZE_WIDTH == 0)
-            fprintf(stderr, "\n");
-        uint8_t c = memory[MAZE_MAP + i];
-        if (c == 0)
-            fprintf(stderr, "0");
-        else if (c == 0x80) {
-            fprintf(stderr, "X");
-        } else {
-            fprintf(stderr, "?");
-        }
-    }
-    fprintf(stderr, "\n");
 }
 
 // Simplifies the maze by iteratively filling in dead-end passages with
@@ -1268,129 +1205,18 @@ void debug_draw_maze(void) {
 // two exits, making the maze much easier to navigate without graphics.
 // Each dead end is followed along its single exit until a junction is
 // reached, filling cells with walls as it goes.
-void simplify_maze(void) {
-    MazeExits me = {};
+static void simplify_maze(void) {
+    const MazeInfo maze;
+    int exit_step = 0;
 
-    int MAZE_WIDTH, MAZE_HEIGHT;
-    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
-
-    int MAZE_MAP = get_global(sg.MAZE_MAP);
-
-    int mazesize = MAZE_WIDTH * (MAZE_HEIGHT - 1);
-    for (int i = MAZE_WIDTH + 1; i < mazesize; i++) { // Skip bottom and top borders
+    int last = maze.width * (maze.height - 1);
+    for (int i = maze.width + 1; i < last; i++) { // Skip bottom and top borders
         int pos = i;
-        while (deadend(pos, &me)) {
-            memory[MAZE_MAP + pos] =  P_MAZE_WALL;
-            if (me.EAST == P_MAZE_STREET)
-                pos++;
-            else if (me.WEST == P_MAZE_STREET)
-                pos--;
-            else if (me.NORTH == P_MAZE_STREET)
-                pos -= MAZE_WIDTH;
-            else if (me.SOUTH == P_MAZE_STREET)
-                pos += MAZE_WIDTH;
+        while (deadend(maze, pos, &exit_step)) {
+            memory[maze.map + pos] = MAZE_TILE_WALL;
+            pos += exit_step;
         }
     }
-}
-
-// Solves the maze using breadth-first search and prints step-by-step
-// directions from the start position to the exit. The exit is identified
-// as an open cell on the maze border (top/bottom row or left/right column)
-// that isn't the start position.
-void solve_maze(void) {
-    int MAZE_WIDTH, MAZE_HEIGHT;
-    get_maze_width_and_height(&MAZE_WIDTH, &MAZE_HEIGHT);
-    int MAZE_MAP = get_global(sg.MAZE_MAP);
-    int mazesize = MAZE_WIDTH * MAZE_HEIGHT;
-
-    int start = get_global(sg.MAZE_XSTART) + get_global(sg.MAZE_YSTART) * MAZE_WIDTH;
-
-    // Find exit: an open cell on the border that isn't the start
-    int exit_pos = -1;
-    for (int x = 0; x < MAZE_WIDTH && exit_pos == -1; x++) {
-        if (memory[MAZE_MAP + x] == P_MAZE_STREET && x != start)
-            exit_pos = x;
-        int bottom = (MAZE_HEIGHT - 1) * MAZE_WIDTH + x;
-        if (memory[MAZE_MAP + bottom] == P_MAZE_STREET && bottom != start)
-            exit_pos = bottom;
-    }
-    for (int y = 0; y < MAZE_HEIGHT && exit_pos == -1; y++) {
-        int left = y * MAZE_WIDTH;
-        if (memory[MAZE_MAP + left] == P_MAZE_STREET && left != start)
-            exit_pos = left;
-        int right = y * MAZE_WIDTH + MAZE_WIDTH - 1;
-        if (memory[MAZE_MAP + right] == P_MAZE_STREET && right != start)
-            exit_pos = right;
-    }
-
-    if (exit_pos == -1) {
-        transcribe_and_print_string("Could not find maze exit.\n");
-        return;
-    }
-
-    // BFS from start to exit
-    std::vector<int> parent(mazesize, -1);
-    std::vector<bool> visited(mazesize, false);
-    std::queue<int> bfs;
-
-    visited[start] = true;
-    bfs.push(start);
-
-    while (!bfs.empty()) {
-        int pos = bfs.front();
-        bfs.pop();
-
-        if (pos == exit_pos)
-            break;
-
-        // Cardinal neighbors: north, east, south, west
-        int deltas[] = { -MAZE_WIDTH, 1, MAZE_WIDTH, -1 };
-        for (int d : deltas) {
-            int next = pos + d;
-            if (next < 0 || next >= mazesize || visited[next])
-                continue;
-            if (memory[MAZE_MAP + next] != P_MAZE_STREET)
-                continue;
-            // Prevent wrapping across row boundaries for east/west moves
-            if (d == 1 && pos % MAZE_WIDTH == MAZE_WIDTH - 1)
-                continue;
-            if (d == -1 && pos % MAZE_WIDTH == 0)
-                continue;
-            visited[next] = true;
-            parent[next] = pos;
-            bfs.push(next);
-        }
-    }
-
-    if (!visited[exit_pos]) {
-        transcribe_and_print_string("No path found through the maze.\n");
-        return;
-    }
-
-    // Reconstruct path from exit back to start
-    std::vector<int> path;
-    for (int pos = exit_pos; pos != -1; pos = parent[pos])
-        path.push_back(pos);
-    std::reverse(path.begin(), path.end());
-
-    // Print directions
-    transcribe_and_print_string("\nMaze solution:\n");
-    int lastdiff = 0;
-    for (size_t i = 1; i < path.size(); i++) {
-        int diff = path[i] - path[i - 1];
-        if (lastdiff != diff) {
-            if (diff == -MAZE_WIDTH)
-                transcribe_and_print_string("North\n");
-            else if (diff == 1)
-                transcribe_and_print_string("East\n");
-            else if (diff == MAZE_WIDTH)
-                transcribe_and_print_string("South\n");
-            else if (diff == -1)
-                transcribe_and_print_string("West\n");
-        }
-        lastdiff = diff;
-    }
-    transcribe_and_print_string("\n");
 }
 
 // Flag to suppress re-asking the maze simplification question on autorestore,
@@ -1402,7 +1228,6 @@ bool dont_repeat_question_on_autorestore = false;
 void after_BUILDMAZE(void) {
     if (skip_puzzle_prompt("Would you like me to simplify the city maze, to make it easier to traverse without seeing the graphics? (Y is affirmative): >")) {
         simplify_maze();
-//        solve_maze();
     }
 }
 
@@ -1415,7 +1240,7 @@ static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.x = 0;
     V6_TEXT_BUFFER_WINDOW.y = 0;
 
-    int status_window_height = (get_global(sg.SCENE) == 0) ? 0 : 2 * (gcellh + ggridmarginy);
+    int status_window_height = shogun_status_height_for_scene();
 
     if (graphics_type == kGraphicsTypeApple2) {
         V6_STATUS_WINDOW.y_size = status_window_height;
@@ -1441,7 +1266,7 @@ static void adjust_shogun_window(void) {
     V6_TEXT_BUFFER_WINDOW.fg_color = Color(Color::Mode::ANSI, get_global(fg_global_idx));
     V6_TEXT_BUFFER_WINDOW.bg_color = Color(Color::Mode::ANSI, get_global(bg_global_idx));
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
-    
+
     v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
     glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
 }

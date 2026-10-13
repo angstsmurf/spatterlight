@@ -9,7 +9,6 @@
 #ifndef extract_apple_2_h
 #define extract_apple_2_h
 
-#include <stdio.h>
 #include "v6_image.h"
 
 uint8_t *extract_apple2_story(const char *filename, size_t *file_length, ImageStruct **raw, int *num_images, int *version);

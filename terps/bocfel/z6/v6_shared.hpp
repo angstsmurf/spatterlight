@@ -14,7 +14,8 @@ extern "C" {
 #include "spatterlight-autosave.h"
 }
 
-#include <stdio.h>
+#include <cstddef>
+#include <cstdint>
 
 void adjust_definitions_window(void);
 void redraw_hint_screen_on_resize(void);
@@ -22,7 +23,7 @@ void print_number(int number);
 void print_right_justified_number(int number);
 
 extern int number_of_margin_images;
-extern int margin_images[100];
+extern int margin_images[BOCFEL_MAX_MARGIN_IMAGES];
 
 void add_margin_image_to_list(int image);
 void clear_margin_image_list(void);
@@ -31,6 +32,8 @@ void v6_close_and_reopen_front_graphics_window(void);
 void v6_stash_graphics_windows(library_state_data *dat);
 void v6_recover_graphics_windows(library_state_data *dat);
 void v6_set_window_colors_from_globals(void);
+// Style hints: text grids opened from now on get the user's colours in this style.
+void v6_set_grid_colors(glui32 style);
 float v6_inline_image_scale(void);
 void v6_refresh_text_buffer_images(void);
 void transcribe_and_print_string(const char *str);
@@ -43,11 +46,11 @@ bool v6_graphics_off(void);
 // True for players who can't see the pictures: VoiceOver or graphics off.
 // Gates the picture descriptions and the offers to skip visual puzzles.
 bool v6_pictures_unseen(void);
-// Make the next @read_char return at once: used for the "press any key"
-// after a full-screen picture that was left out.
 // Swaps in an opaque status window while graphics are off, and the
 // transparent one back when they are on. Call before sizing or printing.
 void v6_match_status_window_to_graphics_setting(Window *status);
+// Make the next @read_char return at once: used for the "press any key"
+// after a full-screen picture that was left out.
 void v6_skip_next_keypress(void);
 extern bool v6_skip_keypress;
 
@@ -115,7 +118,6 @@ extern uint16_t fkeys_table_addr;
 extern uint16_t fnames_table_addr;
 extern int global_define_line;
 
-
 extern InfocomV6MenuType hints_depth;
 
 #define V6_TEXT_BUFFER_WINDOW windows[0]
@@ -124,6 +126,8 @@ extern InfocomV6MenuType hints_depth;
 
 #define STRING_BUFFER_SIZE 15
 
+// Flat colours standing in for the EGA hint border's dithered patterns
 #define ROSE_TAUPE 0x836767
-#define BROWN 0xd47fd4
+#define HINT_MAUVE 0xd47fd4
+
 #endif /* v6_shared_hpp */

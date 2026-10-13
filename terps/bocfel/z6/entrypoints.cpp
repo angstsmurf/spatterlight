@@ -1002,46 +1002,6 @@ static std::vector<EntryPoint> entrypoints = {
 
 #pragma mark Zork Zero
 
-//    {
-//        Game::ZorkZero,
-//        "V-DEFINE alt",
-//        { 0x36, 0x04, 0x01, 0x00, 0x34, 0x02, 0x00, 0x00 },
-//        -4,
-//        0,
-//        true,
-//        V_DEFINE
-//    },
-
-//    {
-//        Game::ZorkZero,
-//        "V_REFRESH alt",
-//        { 0xa0, 0x01, 0xd1, 0xa0, 0xa4, 0xc5 },
-//        0,
-//        0,
-//        false,
-//        V_REFRESH
-//    },
-//
-//    {
-//        Game::ZorkZero,
-//        "after SPLIT-BY-PICTURE alt",
-//        { 0x11, 0x6b, 0x01, 0x03, 0x00, 0xb0 },
-//        5,
-//        0,
-//        false,
-//        after_SPLIT_BY_PICTURE
-//    },
-
-//    {
-//        Game::ZorkZero,
-//        "INIT-STATUS-LINE alt",
-//        { 0x0d, 0x02, 0x01, 0x0d, WILDCARD, WILDCARD, 0x0d, WILDCARD, 0x00},
-//        0,
-//        0,
-//        true,
-//        INIT_STATUS_LINE
-//    },
-
     {
         Game::ZorkZero,
         "UPDATE-STATUS-LINE",
@@ -1208,16 +1168,6 @@ static std::vector<EntryPoint> entrypoints = {
         false,
         after_V_CREDITS
     },
-
-//    {
-//        Game::ZorkZero,
-//        "after V-CREDITS",
-//        { 0x82, 0x00, 0xb8, 0x00 },
-//        2,
-//        0,
-//        false,
-//        after_V_CREDITS
-//    },
 
     {
         Game::ZorkZero,
@@ -1986,7 +1936,7 @@ static int32_t find_pattern_in_mem(const std::vector<uint8_t> &pattern, uint32_t
     // back in as startpos, which wraps to a huge unsigned value. Bail out
     // rather than reading out of bounds, and clamp the search window so we
     // never index past the end of story memory.
-    if (startpos >= memory_size || pattern.size() > memory_size) {
+    if (startpos >= memory_size || pattern.empty() || pattern.size() > memory_size) {
         return -1;
     }
     uint32_t window_end = startpos + length_to_search;
@@ -1994,9 +1944,10 @@ static int32_t find_pattern_in_mem(const std::vector<uint8_t> &pattern, uint32_t
         window_end = memory_size;
     }
     int32_t end = static_cast<int32_t>(window_end) - static_cast<int32_t>(pattern.size());
-    for (int32_t i = startpos; i < end; i++) {
+    // <= so that a match ending exactly at the end of the window counts
+    for (int32_t i = startpos; i <= end; i++) {
         bool found = true;
-        for (int j = 0; j < pattern.size(); j++) {
+        for (size_t j = 0; j < pattern.size(); j++) {
             if (pattern[j] != WILDCARD && pattern[j] != memory[i + j]) {
                 found = false;
                 break;
@@ -2220,17 +2171,14 @@ static void find_arthur_globals(void) {
             if (start == -1) {
                 fprintf(stderr, "Error! Could not find color globals!\n");
             } else {
-//                fprintf(stderr, "Global index of fg: 0x%x Global index of bg: 0x%x\n", fg_global_idx, bg_global_idx);
                 start = find_pattern_in_mem({ 0xb8 }, start, 200);
                 if (start != -1) {
                     end_of_color_addr = start;
-//                    fprintf(stderr, "Found return from routine V_COLOR at address 0x%x\n", end_of_color_addr);
                 }
             }
             entrypoint.found_at_address = 0; // V_COLOR
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
-//            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == arthur_INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xb0, WILDCARD, 0x00, 0x71 }, { &ag.GL_WINDOW_TYPE }, entrypoint.found_at_address, 100);
             if (start == -1) {
@@ -2298,28 +2246,19 @@ static void find_arthur_globals(void) {
             start = find_globals_in_pattern({ 0x3f, 0xff, 0xfd, 0x43, WILDCARD, 0x00, 0x45 }, { &ag.GL_AUTHOR_SIZE }, entrypoint.found_at_address, 100);
             if (start == -1) {
                 fprintf(stderr, "ERROR: Could not find ag.GL_AUTHOR_SIZE!!\n");
-            } else {
-//                fprintf(stderr, "ag.GL_AUTHOR_SIZE = 0x%x\n", ag.GL_AUTHOR_SIZE);
             }
             start = find_16_bit_values_in_pattern({ 0xd9, 0x0f, WILDCARD, WILDCARD, WILDCARD, WILDCARD }, { &at.K_DIROUT_TBL, &at.K_DIROUT_TBL, &at.K_DIROUT_TBL }, start, 100);
             if (start == -1) {
                 fprintf(stderr, "ERROR: Could not find at.K_DIROUT_TBL!!\n");
-            } else {
-//                fprintf(stderr, "at.K_DIROUT_TBL = 0x%x\n", at.K_DIROUT_TBL);
             }
         } else if (entrypoint.fn == DO_HINTS && entrypoint.found_at_address != 0) {
             start = find_hints_table(entrypoint.found_at_address);
             if (start != -1) {
                 start = find_16_bit_values_in_pattern({ 0xd4, 0x1f, WILDCARD, WILDCARD, 0x02, 0x09, 0xcf, 0x1f, WILDCARD, WILDCARD, 0x00, 0x00 }, { &at.K_HINT_ITEMS, &at.K_HINT_ITEMS }, start, 300);
                 if (start != -1) {
-//                    fprintf(stderr, "at.K_HINT_ITEMS = 0x%x\n", at.K_HINT_ITEMS);
                     start = find_globals_in_pattern({ 0xf7, 0xab, WILDCARD, 0x09, 0x00, 0x04, 0xc2 }, { &hint_chapter_global_idx }, start, 100);
                     if (start != -1) {
-//                        fprintf(stderr, "hint_chapter_global_idx = 0x%x\n", hint_chapter_global_idx);
-                        start = find_globals_in_pattern({ 0x2d, 0x04, 0x07, 0xda, 0x2f, WILDCARD, WILDCARD, 0x04, 0x0d, WILDCARD, 0x01 }, { &hint_quest_global_idx, &hint_quest_global_idx, &hint_quest_global_idx }, start, 200);
-                        if (start != -1) {
-//                            fprintf(stderr, "hint_quest_global_idx = 0x%x\n", hint_quest_global_idx);
-                        }
+                        find_globals_in_pattern({ 0x2d, 0x04, 0x07, 0xda, 0x2f, WILDCARD, WILDCARD, 0x04, 0x0d, WILDCARD, 0x01 }, { &hint_quest_global_idx, &hint_quest_global_idx, &hint_quest_global_idx }, start, 200);
                     }
                 }
             }
@@ -2574,7 +2513,6 @@ static void find_shogun_globals(void) {
             entrypoint.found_at_address = 0; // V_COLOR
         } else if (entrypoint.fn == after_V_COLOR && end_of_color_addr != 0) {
             entrypoint.found_at_address = end_of_color_addr;
-//            fprintf(stderr, "after_V_COLOR at address 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == MAC_II && entrypoint.found_at_address != 0) {
             start = entrypoint.found_at_address;
             for (int i = start; i < memory_size - 12; i++) {
@@ -2585,7 +2523,6 @@ static void find_shogun_globals(void) {
             }
         } else if (entrypoint.fn == after_MAC_II && mac_ii_return_address != 0) {
             entrypoint.found_at_address = mac_ii_return_address;
-//            fprintf(stderr, "after_MAC_II at: 0x%x\n", entrypoint.found_at_address);
         } else if (entrypoint.fn == GET_FROM_MENU && entrypoint.found_at_address != 0) {
 
             // We rip out most of the original code
@@ -2605,7 +2542,6 @@ static void find_shogun_globals(void) {
                 0xab, 0x07};
             start = entrypoint.found_at_address;
             for (int i = 0; i < patch.size(); i++) {
-//                fprintf(stderr, "Patching 0x%x at address 0x%x (previous value 0x%x)\n", patch[i], start + i, memory[start + i]);
                 memory[start + i] = patch[i];
             }
             menu_return_address =  start + patch.size() - 2;
@@ -2637,10 +2573,10 @@ static void find_shogun_globals(void) {
                     if (start != -1) {
                         memory[start + 2] = 0x0e;
                     } else {
-                        fprintf(stderr, "Error 2!\n");
+                        fprintf(stderr, "V-CREDITS: could not find the closing @set_text_style to patch!\n");
                     }
                 } else {
-                    fprintf(stderr, "Error!\n");
+                    fprintf(stderr, "V-CREDITS: could not find the opening @set_text_style to patch!\n");
                 }
             }
 
@@ -2664,20 +2600,16 @@ static void find_shogun_globals(void) {
                 sg.SCENE = memory[start + 8] - 0x10;
                 st.SCENE_NAMES = (memory[start + 6] << 8) | memory[start + 7];
 
-//                fprintf(stderr, "sg.HERE = 0x%x sg.SCORE = 0x%x sg.MOVES = 0x%x sg.SCENE = 0x%x st.SCENE_NAMES = 0x%x\n", sg.HERE, sg.SCORE, sg.MOVES, sg.SCENE, st.SCENE_NAMES);
-
                 start = find_globals_in_pattern({ 0xc1, 0x97, WILDCARD, 0x01, 0x03, 0xe1 }, { &sg.MACHINE }, start, 300);
 
                 start = find_globals_in_pattern({ 0xaa, 0x1a, 0xa3, WILDCARD, 0x03, 0x4a, 0x03, 0x2c, 0x5b }, { &sg.WINNER }, start, 300);
 
 
                 if (start != -1) {
-//                    fprintf(stderr, "sg.MACHINE = 0x%x sg.WINNER = 0x%x\n", sg.MACHINE, sg.WINNER);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, 0x03, 0xc1, 0x97, 0x1a }, start, 200);
                     if (start != -1)
                         sr.TELL_THE = unpack_routine(word(start + 2));
-//                    fprintf(stderr, "sr.TELL_THE = 0x%x\n", sr.TELL_THE);
 
                     start = find_values_in_pattern({0x41, 0x1a, WILDCARD, 0x48 }, { &so.BRIDGE_OF_ERASMUS }, start, 200);
 
@@ -2687,7 +2619,6 @@ static void find_shogun_globals(void) {
 
                     if (start != -1)
                         so.GALLEY = memory[start - 4];
-//                    fprintf(stderr, "so.BRIDGE_OF_ERASMUS = 0x%x so.GALLEY = 0x%x so.WHEEL == 0x%x so.GALLEY_WHEEL = 0x%x\n", so.BRIDGE_OF_ERASMUS, so.GALLEY, so.WHEEL, so.GALLEY_WHEEL);
 
                     start = find_pattern_in_mem({ 0xda, 0x2f, WILDCARD, WILDCARD, WILDCARD, 0xa0, 0x01, 0x46, 0x61 }, start, 200);
                     // A mid-chain miss leaves start == -1; guard the dereferences
@@ -2697,7 +2628,6 @@ static void find_shogun_globals(void) {
                         sg.SHIP_COURSE = memory[start + 4] - 0x10;
                         sg.SHIP_DIRECTION = memory[start - 8] - 0x10;
                     }
-//                    fprintf(stderr, "sr.TELL_DIRECTION = 0x%x sg.SHIP_COURSE = 0x%x sg.SHIP_DIRECTION = 0x%x\n", sr.TELL_DIRECTION, sg.SHIP_COURSE, sg.SHIP_DIRECTION);
                 } else {
                     fprintf(stderr, "Error! Could not find sr.TELL_THE!\n");
                 }
@@ -2726,14 +2656,12 @@ static void find_shogun_globals(void) {
                     start--;
                 }
                 sm.SCENE_SELECT_F = word(start + 3);
-//                fprintf(stderr, "sm.YOU_MAY_CHOOSE = 0x%x sm.PART_MENU = 0x%x sm.SCENE_SELECT_F = 0x%x\n", sm.YOU_MAY_CHOOSE, sm.PART_MENU, sm.SCENE_SELECT_F);
                 found_scene_select_values = true;
 
                 start = find_globals_in_pattern({ 0x55, 0x01, 0x01, 0x00, 0x76, 0x00, WILDCARD, 0x00, 0x54, 0x00, 0x01, 0x00, 0xb8 }, { &sg.FONT_X }, start, 2000);
                 if (start != -1) {
                     start = find_globals_in_pattern({ 0x55, 0x01, 0x01, 0x00, 0x76, 0x00, WILDCARD, 0x00, 0x54, 0x00, 0x01, 0x00, 0xb8 }, { &sg.FONT_Y }, start, 100);
                     if (start != -1) {
-//                        fprintf(stderr, "FONT_X: 0x%x FONT_Y: 0x%x\n", sg.FONT_X, sg.FONT_Y);
                     } else {
                         fprintf(stderr, "Error! Could not find FONT_X or !\n");
                     }
@@ -2774,7 +2702,6 @@ static void find_shogun_globals(void) {
 
                 start = entrypoint.found_at_address;
                 for (int i = 0; i < patch.size(); i++) {
-//                    fprintf(stderr, "Patching 0x%x at address 0x%x (previous value 0x%x)\n", patch[i], start + i, memory[start + i]);
                     memory[start + i] = patch[i];
                 }
             } else {
@@ -2798,7 +2725,6 @@ static void find_shogun_globals(void) {
             start = find_globals_in_pattern({ 0x76, WILDCARD, 0x06, 0x00 }, { &sg.MAZE_Y }, entrypoint.found_at_address, 300);
             if (start != -1) {
                 start = find_globals_in_pattern({ 0x76, WILDCARD, 0x05, 0x00 }, { &sg.MAZE_X }, start + 1, 300);
-//                fprintf(stderr, "sg.MAZE_X = 0x%x sg.MAZE_Y = 0x%x\n", sg.MAZE_X, sg.MAZE_Y);
 
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x9f }, { &so.EAST }, start + 1, 300);
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x8f }, { &so.NORTH }, start + 1, 300);
@@ -2806,18 +2732,14 @@ static void find_shogun_globals(void) {
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x67 }, { &so.SOUTH }, start + 1, 300);
                 start = find_16_bit_values_in_pattern({ 0x4a, 0xcd, 0x4f, 0x02, WILDCARD, WILDCARD, 0x8c, 0x00, 0x43 }, { &so.WEST }, start + 1, 300);
 
-//                fprintf(stderr, "so.NORTH = 0x%x so.EAST = 0x%x so.SOUTH = 0x%x so.WEST = 0x%x\n", so.NORTH, so.EAST, so.SOUTH, so.WEST);
-
                 uint16_t fnc = 0;
                 start = find_16_bit_values_in_pattern({ 0xf9, 0x27, WILDCARD, WILDCARD, 0x02, 0x0d }, { &fnc }, start + 1, 300);
                 if (start != -1) {
                     sr.ADD_TO_INPUT = unpack_routine(fnc);
-//                    fprintf(stderr, "sr.ADD_TO_INPUT = 0x%x\n", sr.ADD_TO_INPUT);
 
                     start = find_globals_in_pattern({ 0x70, WILDCARD, 0x00, 0x00 }, { &sg.MAZE_MAP }, start, 300);
 
                     if (start != -1) {
-//                        fprintf(stderr, "sg.MAZE_MAP = 0x%x\n", sg.MAZE_MAP);
                     } else {
                         fprintf(stderr, "Could not find sg.MAZE_MAP!\n");
                     }
@@ -2830,20 +2752,16 @@ static void find_shogun_globals(void) {
 
             if (start == -1)
                 fprintf(stderr, "Did not find MAZE_HEIGHT or MAZE_WIDTH!\n");
-//            fprintf(stderr, "sg.MAZE_HEIGHT = 0x%x sg.MAZE_WIDTH = 0x%x\n", sg.MAZE_HEIGHT, sg.MAZE_WIDTH);
         } else if (entrypoint.fn == MAZE_F && entrypoint.found_at_address != 0) {
             start = find_globals_in_pattern({ 0xbb, 0x8c, 0x00, 0x17, 0x2d, 0x02, WILDCARD, 0x2d, 0x03, WILDCARD, 0xb2 }, { &sg.MAZE_XSTART, &sg.MAZE_YSTART }, entrypoint.found_at_address, 400);
             if (start == -1)
                 fprintf(stderr, "Did not find MAZE_XSTART or MAZE_YSTART!\n");
-//            fprintf(stderr, "sg.MAZE_XSTART = 0x%x sg.MAZE_YSTART = 0x%x\n", sg.MAZE_XSTART, sg.MAZE_YSTART);
             entrypoint.found_at_address = 0; // MAZE_F
         } else if (entrypoint.fn == shogun_DISPLAY_BORDER && entrypoint.found_at_address != 0 && !found_border_values) {
             start = find_globals_in_pattern({ 0x2d, 0x01, WILDCARD }, { &sg.CURRENT_BORDER }, entrypoint.found_at_address - 27, 100);
             if (start == -1) {
                 fprintf(stderr, "Could not find sg.CURRENT_BORDER. Setting it to 0.\n");
                 sg.CURRENT_BORDER = 0;
-            } else {
-//                fprintf(stderr, "sg.CURRENT_BORDER = 0x%x\n", sg.CURRENT_BORDER);
             }
             start = entrypoint.found_at_address + 10;
             if (byte(start) == 0xbe)
@@ -2895,10 +2813,6 @@ static uint32_t find_zork0_v_map_head(uint32_t blink_call) {
     return 0;
 }
 
-// Second-pass scanner for Zork Zero. Locates routine addresses for the
-// minigames (Tower of Bozbar, Peggleboz, Snarfem, Double Fanucci) and
-// the map/compass system, plus their backing tables and the BLINK_TBL
-// used by the map cursor.
 // The Double Fanucci replacement (SETUP_FANUCCI / FANUCCI) plays the game
 // through the story's own PLAY-SELECTED, J-PLAY and SCORE-CHECK routines and
 // reads its card and play-name tables. If any of those could not be located
@@ -2911,13 +2825,20 @@ static void unhook_incomplete_fanucci(void) {
     for (auto &entrypoint : entrypoints) {
         if ((entrypoint.fn == FANUCCI || entrypoint.fn == SETUP_FANUCCI) && entrypoint.found_at_address != 0) {
             fprintf(stderr, "Double Fanucci support is incomplete: unhooking %s\n", entrypoint.title.c_str());
-            if (entrypoint.stub_original && entrypoint.offset >= 0 && entrypoint.offset < (int)entrypoint.pattern.size())
+            // The stubbed byte is the one the pattern matched at `offset`,
+            // unless that slot is a wildcard, which matches anything.
+            if (entrypoint.stub_original && entrypoint.offset >= 0 && entrypoint.offset < (int)entrypoint.pattern.size() &&
+                entrypoint.pattern[entrypoint.offset] != WILDCARD)
                 store_byte(entrypoint.found_at_address, entrypoint.pattern[entrypoint.offset]);
             entrypoint.found_at_address = 0;
         }
     }
 }
 
+// Second-pass scanner for Zork Zero. Locates routine addresses for the
+// minigames (Tower of Bozbar, Peggleboz, Snarfem, Double Fanucci) and
+// the map/compass system, plus their backing tables and the BLINK_TBL
+// used by the map cursor.
 static void find_zork0_globals(void) {
     int start = 0;
     for (auto &entrypoint : entrypoints) {
@@ -3270,17 +3191,12 @@ static void find_zork0_globals(void) {
                 entrypoint.found_at_address = 0;
             }
         } else if (entrypoint.fn == INIT_STATUS_LINE && entrypoint.found_at_address != 0) {
-//            start = find_globals_in_pattern({  0x00, 0xcd, 0x4f, WILDCARD, 0xff, 0xff, 0x0d }, { &zg.COMPASS_CHANGED, }, entrypoint.found_at_address, 300);
-//            if (start == -1) {
-//                fprintf(stderr, "Could not find zg.COMPASS_CHANGED!\n");
-//            } else {
-                start = find_globals_in_pattern({ 0xeb, 0x7f, 0x07, 0x88, WILDCARD, WILDCARD, WILDCARD }, { &zg.CURRENT_BORDER, &zg.CURRENT_BORDER, &zg.CURRENT_BORDER }, entrypoint.found_at_address, 300);
-                if (start == -1) {
-                    fprintf(stderr, "Could not find zg.CURRENT_BORDER!\n");
-                } else {
-                    fprintf(stderr, "zg.CURRENT_BORDER = 0x%x\n", zg.CURRENT_BORDER);
-                }
-//            }
+            start = find_globals_in_pattern({ 0xeb, 0x7f, 0x07, 0x88, WILDCARD, WILDCARD, WILDCARD }, { &zg.CURRENT_BORDER, &zg.CURRENT_BORDER, &zg.CURRENT_BORDER }, entrypoint.found_at_address, 300);
+            if (start == -1) {
+                fprintf(stderr, "Could not find zg.CURRENT_BORDER!\n");
+            } else {
+                fprintf(stderr, "zg.CURRENT_BORDER = 0x%x\n", zg.CURRENT_BORDER);
+            }
 
             // CURRENT-SPLIT fallback. The V_REFRESH-anchored patterns above
             // don't match the middle releases (r296/r343/r366), leaving
@@ -3628,6 +3544,48 @@ static uint32_t highest_entrypoint = 0;
 // without this nearly every instruction would cost a hash lookup.
 static std::vector<bool> entrypoint_bits;
 
+#ifdef HEADLESS_V6
+// Regression aid for the headless build: with BOCFEL_EP_DUMP set, print
+// everything find_entrypoints() decided -- the hooked addresses, the raw
+// contents of the per-game aggregates the finders fill in, and a checksum
+// of the (patched) story -- so that a change to the pattern table or the
+// finders can be compared across every story revision.
+template <typename T> static void dump_aggregate(const char *name, const T &aggregate) {
+    const unsigned char *bytes = reinterpret_cast<const unsigned char *>(&aggregate);
+    fprintf(stderr, "EPDUMP %s", name);
+    for (size_t i = 0; i < sizeof aggregate; i++)
+        fprintf(stderr, "%s%02x", i % 4 == 0 ? " " : "", bytes[i]);
+    fprintf(stderr, "\n");
+}
+
+static void dump_entrypoint_state(void) {
+    if (getenv("BOCFEL_EP_DUMP") == nullptr)
+        return;
+    std::vector<const EntryPoint *> found;
+    for (const auto &entrypoint : entrypoints)
+        if (entrypoint.found_at_address != 0)
+            found.push_back(&entrypoint);
+    std::stable_sort(found.begin(), found.end(), [](const EntryPoint *a, const EntryPoint *b) {
+        return a->found_at_address < b->found_at_address;
+    });
+    for (const EntryPoint *entrypoint : found)
+        fprintf(stderr, "EPDUMP entry 0x%05x %s \"%s\"%s\n", entrypoint->found_at_address,
+                entrypoint_map[entrypoint->found_at_address] == entrypoint ? "hooked" : "shadowed",
+                entrypoint->title.c_str(), entrypoint->stub_original ? " stub" : "");
+    dump_aggregate("ag", ag); dump_aggregate("ar", ar); dump_aggregate("at", at);
+    dump_aggregate("jg", jg); dump_aggregate("jr", jr); dump_aggregate("jo", jo); dump_aggregate("ja", ja);
+    dump_aggregate("sg", sg); dump_aggregate("sr", sr); dump_aggregate("st", st); dump_aggregate("sm", sm); dump_aggregate("so", so);
+    dump_aggregate("zg", zg); dump_aggregate("zr", zr); dump_aggregate("zt", zt); dump_aggregate("zo", zo); dump_aggregate("zp", zp);
+    fprintf(stderr, "EPDUMP scalars fg %u bg %u hint_chapter %u hint_quest %u hints_table 0x%x seen_hints 0x%x fkeys 0x%x fnames 0x%x\n",
+            fg_global_idx, bg_global_idx, hint_chapter_global_idx, hint_quest_global_idx,
+            hints_table_addr, seen_hints_table_addr, fkeys_table_addr, fnames_table_addr);
+    uint32_t hash = 2166136261u;
+    for (uint32_t i = 0; i < memory_size; i++)
+        hash = (hash ^ memory[i]) * 16777619u;
+    fprintf(stderr, "EPDUMP memory %08x\n", hash);
+}
+#endif
+
 // One-time entrypoint discovery, called shortly after the story file
 // has been loaded into memory. Walks the master `entrypoints` table in
 // order, locates each row's pattern in dynamic memory, stubs the
@@ -3668,7 +3626,6 @@ void find_entrypoints(void) {
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
-//            fprintf(stderr, "Looking for entrypoint %s (starting at 0x%x)\n", entrypoint.title.c_str(), start);
             if (entrypoint.fn == z0_UPDATE_STATUS_LINE && found_z0_update_status_line) {
                 continue;
             }
@@ -3724,11 +3681,7 @@ void find_entrypoints(void) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, 0xb0);
                     }
-                } else {
-//                    fprintf(stderr, "Did not find it!\n");
                 }
-            } else {
-//                fprintf(stderr, "Did not find it! (No pattern)\n");
             }
         }
     }
@@ -3763,6 +3716,10 @@ void find_entrypoints(void) {
         for (const auto &pair : entrypoint_map)
             entrypoint_bits[pair.first - lowest_entrypoint] = true;
     }
+
+#ifdef HEADLESS_V6
+    dump_entrypoint_state();
+#endif
 }
 
 // Hot-path dispatcher called from the Z-machine interpreter on each
@@ -3779,7 +3736,6 @@ void check_entrypoints(uint32_t pc) {
 
     if (found != entrypoint_map.end()) {
         EntryPoint *entrypoint = found->second;
-//        fprintf(stderr, "Found entrypoint %s at 0x%x\n", entrypoint->title.c_str(), pc);
         (entrypoint->fn)();
     }
 }

@@ -8,7 +8,7 @@
 #ifndef shogun_hpp
 #define shogun_hpp
 
-#include <stdio.h>
+#include <cstdint>
 
 extern "C" {
 #include "glk.h"

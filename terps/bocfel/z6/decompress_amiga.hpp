@@ -8,7 +8,6 @@
 #ifndef decompress_amiga_hpp
 #define decompress_amiga_hpp
 
-#include <stdio.h>
 #include "v6_image.h"
 
 uint8_t *decompress_amiga(ImageStruct *image);

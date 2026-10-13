@@ -10,8 +10,6 @@
 
 #include "types.h"
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-
 enum GraphicsType {
     kGraphicsTypeAmiga,
     kGraphicsTypeMacBW,
@@ -35,8 +33,6 @@ struct ImageStruct {
     uint8_t *palette;
     uint8_t *huffman_tree;
 };
-
-typedef struct ImageStruct ImageStruct;
 
 // Bytes per pixel in every RGBA buffer the decoders and compositors pass around.
 static constexpr int kBytesPerPixel = 4;

@@ -15,9 +15,6 @@
 #ifndef decompress_vga_hpp
 #define decompress_vga_hpp
 
-#include <stdio.h>
-
-#include <stdio.h>
 #include "v6_image.h"
 
 uint8_t *decompress_vga(const ImageStruct *image);

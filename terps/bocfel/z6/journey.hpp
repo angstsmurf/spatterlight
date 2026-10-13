@@ -8,7 +8,7 @@
 #ifndef journey_hpp
 #define journey_hpp
 
-#include <stdio.h>
+#include <cstdint>
 
 extern "C" {
 #include "glk.h"
@@ -16,7 +16,6 @@ extern "C" {
 #include "spatterlight-autosave.h"
 }
 
-void journey_adjust_image(int picnum, uint16_t *x, uint16_t *y, int width, int height, int winwidth, int winheight, float *scale, float pixelwidth);
 int journey_draw_picture(int pic, winid_t journey_window);
 
 void journey_update_on_resize(void);

@@ -66,7 +66,7 @@ void *MemAlloc(size_t size)
 {
     void *t = (void *)malloc(size);
     if (t == nullptr) {
-        fprintf(stderr, "Out of memory");
+        fprintf(stderr, "Out of memory (%zu bytes)\n", size);
         exit(1);
     }
     return (t);
@@ -76,7 +76,7 @@ void *MemCalloc(size_t size)
 {
     void *t = (void *)calloc(1, size);
     if (t == nullptr) {
-        fprintf(stderr, "Out of memory");
+        fprintf(stderr, "Out of memory (%zu bytes)\n", size);
         exit(1);
     }
 

@@ -1,5 +1,5 @@
 //
-//  draw_apple_2.c
+//  draw_apple_2.cpp
 //  Apple 2 Infocom Woz extractor
 //
 //  Created by Administrator on 2023-07-14.
@@ -129,22 +129,8 @@ static uint8_t *decompress_apple2(ImageStruct *image) {
                 pixel_buffer[pixel_offset] ^= pixel_buffer[pixel_offset - image->width];
             }
             pixel_offset++;
-            if (pixel_offset == pixel_count) {
-                // Image fully decoded. Trim the compressed data buffer to
-                // the actual bytes consumed, freeing any trailing excess.
-                size_t consumed_bytes = read_ptr - image->data;
-                if (consumed_bytes < image->datasize) {
-                    void *temp = realloc(image->data, consumed_bytes);
-                    if (temp == nullptr) {
-                        fprintf(stderr, "realloc error\n");
-                        exit(1);
-                    }
-                    image->data = (uint8_t *)temp;
-                    fprintf(stderr, "decompress_apple2: Shaved off %lu bytes. New size: %lu\n", image->datasize - consumed_bytes, consumed_bytes);
-                    image->datasize = consumed_bytes;
-                }
+            if (pixel_offset == pixel_count)
                 return pixel_buffer;
-            }
         }
     }
     return pixel_buffer;

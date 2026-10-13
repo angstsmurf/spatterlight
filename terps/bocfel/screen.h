@@ -206,6 +206,8 @@ struct Window {
 };
 
 extern std::array<Window, 8> windows;
+extern Window *mainwin, *curwin;
+extern bool pending_flowbreak;
 
 extern glui32 current_picture;
 extern glui32 user_selected_foreground;

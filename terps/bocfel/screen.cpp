@@ -5120,8 +5120,6 @@ void zread_char()
             journey_autorestore_internal_read_char_hacks();
         else if (is_spatterlight_shogun)
             shogun_autorestore_internal_read_char_hacks();
-        else if (is_spatterlight_zork0)
-            z0_autorestore_internal_read_char_hacks();
         store(0);
         dont_repeat_question_on_autorestore = false;
         return;
@@ -7769,12 +7767,14 @@ void init_screen(bool first_run)
             screenmode = MODE_INITIAL_QUESTION;
         } else if (is_spatterlight_arthur) {
             // Is this true for all versions?
-            if (options.int_number == INTERP_APPLE_IIE) {
+            // With an Apple II interpreter number the game skips the title
+            // picture, but it still shows full-screen pictures later on, so
+            // the foreground graphics window is needed either way.
+            if (options.int_number == INTERP_APPLE_IIE)
                 screenmode = MODE_INITIAL_QUESTION;
-            } else {
+            else
                 screenmode = MODE_SLIDESHOW;
-                v6_close_and_reopen_front_graphics_window();
-            }
+            v6_close_and_reopen_front_graphics_window();
         } else if (is_spatterlight_shogun) {
             screenmode = MODE_SLIDESHOW;
             v6_close_and_reopen_front_graphics_window();

@@ -13,7 +13,6 @@ extern "C" {
 #include "glkimp.h"
 }
 
-#include <stdio.h>
 #include "v6_image.h"
 
 ImageStruct *find_image(int picnum);
@@ -30,11 +29,9 @@ void draw_to_pixmap_unscaled_using_current_palette(int image, int x, int y);
 void draw_to_pixmap_unscaled_flipped_using_current_palette(int image, int x, int y);
 void ensure_pixmap(winid_t winid);
 void draw_arthur_side_images(winid_t winid);
-void common_extend_border(int desired_height, int lowest_drawn_pixel, int start_copy_from);
-void extend_zork_zero_border(void);
 void extend_pillars(int top_cut, int foot_height, int total_height,
-                              int pillar_height, int overlap, bool flip,
-                              bool hint_foot, int desired_height = 0);
+                    int pillar_height, int overlap, bool flip,
+                    bool bw_hint_foot, int desired_height = 0);
 void extend_underground_pillars(int top_cut, int foot_height, int total_height,
                                 int pillar_height, int stone_height, int pillar_width);
 void extend_jungle_pillars(int top_cut, int total_height,
@@ -51,7 +48,7 @@ enum class BorderKind {
 
 void draw_border_common(int border, int BL, int BR,
                         int border_height, int border_top, int pillar_top,
-                        int left_margin, int cga_lowest_adjust,
+                        int left_margin, int bottom_offset,
                         BorderKind kind);
 void draw_centered_image(int picnum, float scale, int width, int height);
 float draw_centered_title_image(int picnum);

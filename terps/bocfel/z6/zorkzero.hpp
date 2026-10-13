@@ -13,7 +13,7 @@ extern "C" {
 #include "glkimp.h"
 }
 
-#include <stdio.h>
+#include <cstdint>
 #include "screen.h"
 
 void after_SPLIT_BY_PICTURE(void);
@@ -23,7 +23,6 @@ void CENTER_3(void);
 void V_REFRESH(void);
 void z0_erase_window(int16_t index);
 void V_MODE(void);
-void V_DEFINE(void);
 void DEFAULT_COLORS(void);
 void INIT_STATUS_LINE(void);
 void SMALL_DOOR_F(void);
@@ -78,7 +77,7 @@ enum BorderType {
 #define zorkzero_encyclopedia_text_size 380
 
 #define HERE_LOC 382
-#define TEXT_WINDOW_PIC_LOC 0x183
+#define TEXT_WINDOW_PIC_LOC 387
 #define COMPASS_PIC_LOC 381
 
 // The remaining "location" marker pictures whose (scaled) dimensions seed the
@@ -96,9 +95,6 @@ enum BorderType {
 
 #define OUTSIDE_BORDER_L 0x1f5
 #define OUTSIDE_BORDER_R 0x1f6
-
-#define HINT_BORDER_L 0x1f7
-#define HINT_BORDER_R 0x1f8
 
 #define F_SPLIT 422
 #define F_BOTTOM 423
@@ -165,29 +161,17 @@ enum BorderType {
 #define B_5_PIC_LOC 367
 #define B_6_PIC_LOC 368
 
-#define UNDO_BOX 465
-#define RESTART_BOX 466
-#define DIM_SHOW_MOVES_BOX 467
-#define DIM_UNDO_BOX 468
-#define EXIT_BOX 463
-
 #define TOWER_UNDO_BOX_LOC 475
 #define TOWER_EXIT_BOX_LOC 476
 
-#define Z0_HINT_BORDER 8
-
-extern winid_t z0_left_status_window;
 extern winid_t z0_right_status_window;
 
 void z0_update_on_resize(void);
 void z0_update_after_restore(void);
 void z0_update_after_autorestore(void);
 void z0_update_colors(void);
-void refresh_margin_images(void);
-void clear_margin_image_list(void);
 void DISPLAY_BORDER(BorderType border);
 bool z0_display_picture(int x, int y, Window *win);
-void z0_autorestore_internal_read_char_hacks(void);
 void z0_leave_stale_map_for_line_input(void);
 void z0_erase_screen(void);
 void z0_stash_state(library_state_data *dat);
@@ -196,7 +180,6 @@ void z0_display_hint_border(void);
 
 typedef struct ZorkGlobals {
     uint8_t HERE;
-//    uint8_t COMPASS_CHANGED;
     uint8_t NEW_COMPASS;
     uint8_t MOVES;
     uint8_t SCORE;

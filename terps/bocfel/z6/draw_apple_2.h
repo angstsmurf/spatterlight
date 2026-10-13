@@ -8,7 +8,6 @@
 #ifndef draw_apple_2_h
 #define draw_apple_2_h
 
-#include <stdio.h>
 #include "v6_image.h"
 
 uint8_t *draw_apple2(ImageStruct *image);

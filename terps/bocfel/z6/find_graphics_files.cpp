@@ -5,6 +5,7 @@
 //  Created by Administrator on 2023-08-20.
 //
 
+#include <cstdio>
 #include <string>
 
 extern "C" {
@@ -21,11 +22,9 @@ extern "C" {
 #include "extract_image_data.hpp"
 #include "find_graphics_files.hpp"
 
-extern strid_t active_blorb_file_stream;
+#include "spatterlight-autosave.h"
 
-std::array<std::string, 7> found_graphics_files;
-
-// Look for the following files: filename.blb/.blorb, filename.MG1/.EG1/.EG2/.CG1, "pic.data", "cpic.data"
+std::array<std::string, kGraphicsFileCount> found_graphics_files;
 
 static strid_t load_file(const std::string &file)
 {
@@ -34,9 +33,9 @@ static strid_t load_file(const std::string &file)
 
 // Frees all per-image data (pixel data, palette, and Huffman trees) and the
 // raw_images array itself, leaving image_count at 0.
-// Huffman trees require special handling: multiple images can share the same
-// allocated tree, so before freeing one we null out all other references to it.
-// The global default_huffman_tree is a static buffer and must not be freed.
+// An image either owns its Huffman tree (extract_images() allocates one per
+// image that has its own) or points at the global default_huffman_tree,
+// which is a static buffer and must not be freed.
 void free_images(void) {
     for (int i = 0; i < image_count; i++) {
         ImageStruct *img = &raw_images[i];
@@ -48,14 +47,8 @@ void free_images(void) {
             free(img->palette);
             img->palette = nullptr;
         }
-        if (img->huffman_tree && img->huffman_tree != default_huffman_tree) {
-            // Null out any other images sharing this tree to prevent double-free
-            for (int j = 0; j < image_count; j++) {
-                if (j != i && raw_images[j].huffman_tree == img->huffman_tree && raw_images[j].huffman_tree != default_huffman_tree)
-                    raw_images[j].huffman_tree = nullptr;
-            }
+        if (img->huffman_tree && img->huffman_tree != default_huffman_tree)
             free(img->huffman_tree);
-        }
         img->huffman_tree = nullptr;
     }
     free(raw_images);
@@ -70,7 +63,7 @@ void free_images(void) {
 //   - .woz                   (Apple II disk images)
 //   - .blb / .blorb          (Blorb resource archives)
 // Found paths are stored in the global found_graphics_files array.
-void find_graphics_files(const std::string &file_name)
+static void find_graphics_files(const std::string &file_name)
 {
     auto set_map = [](std::string &blorb_file) {
         strid_t file;
@@ -175,7 +168,7 @@ void find_graphics_files(const std::string &file_name)
 
 // Reads an entire Glk stream into a malloc'd buffer and returns it.
 // The caller is responsible for freeing the returned buffer.
-uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
+static uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
     if (file == nullptr || actual_length == nullptr)
         return nullptr;
 
@@ -202,7 +195,7 @@ uint8_t *read_from_file(strid_t file, glui32 *actual_length) {
 //   - Raw formats (VGA/EGA/CGA/Amiga/Mac): reads file into memory and parses
 // For EGA, also loads supplementary images from a companion .EG2 file.
 // Sets hw_screenwidth and pixelwidth based on the detected graphics type.
-void extract_from_file(const std::string &path, GraphicsType type) {
+static void extract_from_file(const std::string &path, GraphicsType type) {
     strid_t file = nullptr;
     if (type == kGraphicsTypeBlorb) {
         file = active_blorb_file_stream;
@@ -289,7 +282,7 @@ void extract_from_file(const std::string &path, GraphicsType type) {
 // Loads graphics using the user's preferred format (gli_z6_graphics). If the
 // preferred format isn't available, falls back to the first available format
 // in found_graphics_files.
-void load_best_graphics(void) {
+static void load_best_graphics(void) {
 
     struct { GraphicsFile slot; GraphicsType type; } fallback_table[] = {
         {kGraphicsFileCPic,  kGraphicsTypeAmiga},
@@ -366,16 +359,17 @@ void find_and_load_z6_graphics(void) {
 
     // Look for a "base" file name which doesn't exactly correspond to the game file name.
     // arthur-r74-s890714.z6 -> arthur.MG1, arthur.EG1, arthur side 1.woz, arthur.blb and so on.
-    if (delimiterpos != std::string::npos) {
-        if (is_spatterlight_journey) {
-            file_name.replace(delimiterpos, dotpos - delimiterpos, "/journey");
-        } else if (is_spatterlight_arthur) {
-            file_name.replace(delimiterpos, dotpos - delimiterpos, "/arthur");
-        } else if (is_spatterlight_shogun) {
-            file_name.replace(delimiterpos, dotpos - delimiterpos, "/shogun");
-        } else if (is_spatterlight_zork0) {
-            file_name.replace(delimiterpos, dotpos - delimiterpos, "/zork0");
-        }
+    const char *base_name = is_spatterlight_journey ? "/journey" :
+                            is_spatterlight_arthur  ? "/arthur" :
+                            is_spatterlight_shogun  ? "/shogun" :
+                            is_spatterlight_zork0   ? "/zork0" : nullptr;
+    if (delimiterpos != std::string::npos && base_name != nullptr) {
+        // Replace the name up to its extension, or all of it if it has none
+        // (a dot before the last slash belongs to a directory).
+        size_t name_length = std::string::npos;
+        if (dotpos != std::string::npos && dotpos > delimiterpos)
+            name_length = dotpos - delimiterpos;
+        file_name.replace(delimiterpos, name_length, base_name);
         if (file_name != game_file) {
             find_graphics_files(file_name);
         }

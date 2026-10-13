@@ -11,6 +11,8 @@
 //  TIFF 6.0 spec layout almost line-for-line.
 //
 
+#include <cstdio>
+
 #include "writetiff.hpp"
 
 // Emit a sequence of bytes from a string of even-length ASCII hex digits.
