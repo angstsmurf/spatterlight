@@ -66,6 +66,7 @@ glui32 z0_right_status_width;
 // first rebus encounter, so we don't keep reminding them.
 static bool shown_rebus_hint_message = false;
 static bool should_show_rebus_hint_message = false;
+static bool should_show_map_note = false;
 
 // Image scale (x and y) in effect when the map was last composited. The
 // pre-release revisions (r242/r296/r66, r366 demo) don't recomposite the map on
@@ -171,6 +172,14 @@ void z0_erase_screen(void) {
 }
 
 #pragma mark - Window Layout
+
+// Whether the decorative border is shown: the game's own BORDER-ON global
+// (toggled by the MODE command), overridden while graphics are switched off
+// in the settings. The global itself is left alone -- it is saved game state,
+// and the border should come back when graphics are switched on again.
+bool z0_border_on(void) {
+    return get_global(zg.BORDER_ON) == 1 && !v6_graphics_off();
+}
 
 // Z-machine entry point: called after SPLIT-BY-PICTURE.
 // In no-graphics mode, ensures the text window spans the full screen width.
@@ -298,9 +307,12 @@ void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     uint16_t x, x_size;
     uint16_t y = (height + 1) * imagescaley;
 
-    if (get_global(zg.BORDER_ON) == 0 && id == TEXT_WINDOW_PIC_LOC) {
+    if (!z0_border_on() && id == TEXT_WINDOW_PIC_LOC) {
         x = 1;
         x_size = gscreenw;
+        // The picture's height is that of the top border; without it
+        // the text starts right below the two status lines.
+        y = 2 * (gcellh + ggridmarginy) + 1;
     } else {
         x = width * imagescalex;
         x_size = gscreenw - x * 2;
@@ -506,18 +518,26 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
 //    set_global(zg.COMPASS_CHANGED, 1);  // <SETG COMPASS-CHANGED T>
 //    set_global(zg.NEW_COMPASS, 1);  // <SETG NEW-COMPASS T>
 
-    bool border_on = get_global(zg.BORDER_ON) == 1;
+    bool border_on = z0_border_on();
     if (!DONT_CLEAR) {
         // <CLEAR -1>
         if (V6_TEXT_BUFFER_WINDOW.id != nullptr) {
             glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
             if (should_show_rebus_hint_message) {
                 glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
-                transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
+                if (v6_graphics_off())
+                    transcribe_and_print_string("\n[The rebus is a picture, and graphics are turned off. To learn what it says, consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
+                else
+                    transcribe_and_print_string("\n[If the rebus images are causing you trouble, don't hesitate to consult the built-in InvisiClues by typing HINT, and then navigating to GREAT HALL AREA, reading the rebus.]\n");
                 should_show_rebus_hint_message = false;
                 shown_rebus_hint_message = true;
                 glk_request_char_event(V6_TEXT_BUFFER_WINDOW.id);
                 glk_cancel_char_event(V6_TEXT_BUFFER_WINDOW.id);
+            }
+            if (should_show_map_note) {
+                glk_set_window(V6_TEXT_BUFFER_WINDOW.id);
+                transcribe_and_print_string("\n[The map is a picture, and graphics are turned off.]\n");
+                should_show_map_note = false;
             }
         }
         clear_margin_image_list();
@@ -564,9 +584,9 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
 
     } else {
         set_current_window(&V6_STATUS_WINDOW); // <SCREEN ,S-WINDOW>
-//        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_ReverseColor, 1);
-        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_background);
-//        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_foreground);
+        // Plain text: with no border behind it, the window shows the
+        // ordinary background.
+        glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
     }
 
     win_refresh(V6_STATUS_WINDOW.id->peer, 0, 0);
@@ -650,7 +670,7 @@ static void draw_new_score(void) {
 // When borders are off, uses a single full-width status bar instead.
 static void z0_resize_status_windows(void) {
 
-    bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
+    bool BORDER_ON = z0_border_on();
 
     if (z0_left_status_window == nullptr) {
         z0_left_status_window = gli_new_window(wintype_TextGrid, 0);
@@ -777,7 +797,7 @@ static void z0_refresh_sl_loc_tbl(void);
 // window, draws the compass rose (when borders are on), and prints
 // region name and score in the right window.
 void z0_UPDATE_STATUS_LINE(void) {
-    bool BORDER_ON = (get_global(zg.BORDER_ON) == 1);
+    bool BORDER_ON = z0_border_on();
 //    bool COMPASS_CHANGED = (get_global(zg.COMPASS_CHANGED) == 1);
 //    if (!COMPASS_CHANGED)
 //        fprintf(stderr, "z0_UPDATE_STATUS_LINE: COMPASS_CHANGED == %d\n", get_global(zg.COMPASS_CHANGED));
@@ -2306,7 +2326,7 @@ static void ask_which_peg(void) {
 void SMALL_DOOR_F(void) {
     if (autosolve_visual_puzzle()) {
         ask_which_peg();
-    } else if (gli_voiceover_on) {
+    } else if (v6_pictures_unseen()) {
         transcribe_and_print_string("[Note that you can get a description of the weights arrangement by pressing the D button during play.]");
     }
 }
@@ -2981,6 +3001,33 @@ void z0_image_description(int picnum) {
 
 }
 
+// With graphics off, the title screen and the rebus would be a blank screen
+// waiting for a key. Leave them out, and let the keypress that would have
+// dismissed them return at once. Returns false for the full-screen pictures
+// that are still set up as usual (the map and the encyclopedia, which have
+// text of their own).
+static bool z0_skip_fullscreen_picture(int pic) {
+    if (pic == zorkzero_title_image) {
+        v6_skip_next_keypress();
+        return true;
+    }
+    if (is_zorkzero_rebus_image(pic)) {
+        // The game clears the screen on its way back from the rebus;
+        // z0_init_status_line() prints the note once that is done.
+        should_show_rebus_hint_message = true;
+        v6_skip_next_keypress();
+        return true;
+    }
+    if (pic == zorkzero_map_border) {
+        // The map is nothing but pictures. Let the game set it up, then
+        // leave it at once, as if a key had been pressed.
+        should_show_map_note = true;
+        v6_skip_next_keypress();
+        return true;
+    }
+    return false;
+}
+
 // Main image display handler for Zork Zero. Routes each picture to the
 // appropriate rendering path based on the image type and current screen mode:
 // - Tower/Peggleboz images: drawn directly to the offscreen pixmap
@@ -3009,6 +3056,9 @@ bool z0_display_picture(int x, int y, Window *win) {
     // and the first rebus draw of a session each take over the foreground
     // graphics window.
     if (is_zorkzero_fullscreen_picture(current_picture)) {
+        if (v6_graphics_off() && z0_skip_fullscreen_picture(current_picture))
+            return true;
+
         // First time the player sees a rebus, nudge them toward the
         // built-in InvisiClues. We print into the text buffer while it
         // is still the active window (we're still in MODE_NORMAL here),
@@ -3090,6 +3140,16 @@ bool z0_display_picture(int x, int y, Window *win) {
     // Inline image in a text buffer: drawn as a margin image so text
     // wraps around it.
     if (win->id && win->id->type == wintype_TextBuffer) {
+        if (v6_graphics_off()) {
+            // The illuminated initials stand in for the first letter of the
+            // text that follows; print it instead. (Screen only: the game
+            // adds the letter to the transcript itself.)
+            if (current_picture == zorkzero_prologue_letter || current_picture == zorkzero_epilogue_letter)
+                glk_put_char_stream(glk_window_get_stream(win->id), 'A');
+            else if (current_picture == zorkzero_main_letter)
+                glk_put_char_stream(glk_window_get_stream(win->id), 'Y');
+            return true;
+        }
         pending_flowbreak = true;
         float inline_scale = v6_inline_image_scale();
         draw_inline_image(win->id, current_picture, imagealign_MarginLeft, current_picture, inline_scale, false);

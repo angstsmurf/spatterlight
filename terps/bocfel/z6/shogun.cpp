@@ -134,7 +134,7 @@ static void setup_text_and_status(int P) {
             v6_define_window(&V6_STATUS_WINDOW, SLEFT * imagescalex, 1, WIDE * imagescalex,  SHIGH);
         } else {
             get_image_size(P_BORDER, &X, &border_height);
-            if (get_global(sg.SCENE) == 0)
+            if (get_global(sg.SCENE) == 0 || v6_graphics_off())
                 border_height = 0;
             // Graphics banner window
             v6_define_window(&SHOGUN_A2_BORDER_WIN, 1, status_height + 1, WIDE * imagescalex, border_height * imagescaley);
@@ -200,6 +200,14 @@ static void update_status_line(bool interlude) {
     garglk_set_zcolors(user_selected_background, user_selected_foreground);
     win_setbgnd(gwin->peer, user_selected_foreground);
     glk_window_clear(V6_STATUS_WINDOW.id);
+
+    // The status window is transparent, and its bar is normally part of
+    // the border picture. Without pictures, paint a plain one behind it.
+    if (v6_graphics_off() && graphics_bg_glk != nullptr) {
+        glk_window_set_background_color(graphics_bg_glk, user_selected_background);
+        glk_window_clear(graphics_bg_glk);
+        glk_window_fill_rect(graphics_bg_glk, user_selected_foreground, 0, 0, gscreenw, V6_STATUS_WINDOW.y_origin + status_height);
+    }
 
     uint16_t here = get_global(sg.HERE);
     if (scene != 0) {
@@ -836,6 +844,13 @@ void shogun_display_border(ShogunBorderType border) {
     ensure_pixmap(current_graphics_buf_win);
     win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
 
+    // With graphics off there is no border, and the text gets its space.
+    if (v6_graphics_off()) {
+        shogun_banner_width_left = 0;
+        a2_graphical_banner_height = 0;
+        return;
+    }
+
     if (graphics_type == kGraphicsTypeApple2) {
         shogun_display_apple_ii_border(border, start_menu_mode);
         return;
@@ -940,6 +955,18 @@ void CENTER_PIC_X(void) {
 // at the end of the game. Creates the crest window if it doesn't exist,
 // sizes it to fit the image, and adjusts the text buffer below it.
 void CENTER_PIC(void) {
+    // No empty box above the text when the crest can't be shown.
+    if (v6_graphics_off()) {
+        if (SHOGUN_CREST_WINDOW.id != nullptr) {
+            v6_delete_win(&SHOGUN_CREST_WINDOW);
+            V6_TEXT_BUFFER_WINDOW.y_origin = V6_STATUS_WINDOW.y_origin + V6_STATUS_WINDOW.y_size;
+            V6_TEXT_BUFFER_WINDOW.y_size = gscreenh - V6_TEXT_BUFFER_WINDOW.y_origin;
+            if (screenmode == MODE_SHOGUN_MENU)
+                V6_TEXT_BUFFER_WINDOW.y_size -= SHOGUN_MENU_WINDOW.y_size;
+            v6_sizewin(&V6_TEXT_BUFFER_WINDOW);
+        }
+        return;
+    }
     if (SHOGUN_CREST_WINDOW.id != nullptr && SHOGUN_CREST_WINDOW.id->type != wintype_Graphics) {
         v6_delete_win(&SHOGUN_CREST_WINDOW);
     }
@@ -1080,6 +1107,9 @@ static void display_maze(bool clear) {
     int height;
     get_image_size(P_MAZE_BACKGROUND, nullptr, &height);
     int maze_height = height * imagescaley;
+    // The maze can't be shown with graphics off, so don't leave room for it.
+    if (v6_graphics_off())
+        maze_height = 0;
 
     long status_height = V6_STATUS_WINDOW.y_size;
     long y = status_height + V6_STATUS_WINDOW.y_origin;
@@ -1427,6 +1457,17 @@ static void adjust_shogun_window(void) {
 // positioned at the bottom of a white background. Creates a foreground
 // graphics window covering the entire screen to display it.
 void shogun_draw_title_image(void) {
+    if (v6_graphics_off()) {
+        // Nothing to show. Don't cover the screen with an empty window.
+        if (graphics_fg_glk != nullptr) {
+            if (current_graphics_buf_win == graphics_fg_glk)
+                current_graphics_buf_win = graphics_bg_glk;
+            v6_delete_glk_win(graphics_fg_glk);
+            graphics_fg_glk = nullptr;
+        }
+        screenmode = MODE_SLIDESHOW;
+        return;
+    }
     if (graphics_fg_glk == nullptr)
         graphics_fg_glk = gli_new_window(wintype_Graphics, 0);
     win_sizewin(graphics_fg_glk->peer, 0, 0, gscreenw, gscreenh);

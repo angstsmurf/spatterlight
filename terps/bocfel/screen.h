@@ -211,6 +211,7 @@ extern glui32 current_picture;
 extern glui32 user_selected_foreground;
 extern glui32 user_selected_background;
 extern bool graphics_type_changed;
+extern bool graphics_setting_changed;
 
 uint8_t internal_read_char(void);
 int count_characters_in_zstring(uint16_t str);

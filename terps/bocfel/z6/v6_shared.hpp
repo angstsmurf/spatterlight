@@ -36,6 +36,18 @@ void v6_refresh_text_buffer_images(void);
 void transcribe_and_print_string(const char *str);
 bool skip_puzzle_prompt(const char *str);
 
+// True when the user has switched graphics off in the settings. The picture
+// data stays loaded -- the games size their windows from it -- but nothing is
+// drawn, so each game falls back on a text-only layout while this holds.
+bool v6_graphics_off(void);
+// True for players who can't see the pictures: VoiceOver or graphics off.
+// Gates the picture descriptions and the offers to skip visual puzzles.
+bool v6_pictures_unseen(void);
+// Make the next @read_char return at once: used for the "press any key"
+// after a full-screen picture that was left out.
+void v6_skip_next_keypress(void);
+extern bool v6_skip_keypress;
+
 void DO_HINTS(void);
 
 void after_V_COLOR(void);

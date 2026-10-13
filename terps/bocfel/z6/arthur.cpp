@@ -297,6 +297,24 @@ void arthur_sync_screenmode(void) {
     }
 }
 
+// With graphics turned off, the picture and map modes have nothing to
+// show, so the game is put in its own text-only mode (the one F6 selects)
+// instead. That changes GL_WINDOW_TYPE, which the game saves, so a game
+// saved with graphics off comes back text-only. Turning graphics on
+// again goes back to the pictures.
+static void arthur_apply_graphics_setting(void) {
+    kArthurWindowType window_type = (kArthurWindowType)get_global(ag.GL_WINDOW_TYPE);
+    if (v6_graphics_off()) {
+        if (window_type == K_WIN_PICT || window_type == K_WIN_MAP)
+            set_global(ag.GL_WINDOW_TYPE, K_WIN_NONE);
+        if (screenmode == MODE_NORMAL || screenmode == MODE_MAP)
+            screenmode = MODE_NO_GRAPHICS;
+    } else if (graphics_setting_changed && window_type == K_WIN_NONE && screenmode == MODE_NO_GRAPHICS) {
+        set_global(ag.GL_WINDOW_TYPE, K_WIN_PICT);
+        screenmode = MODE_NORMAL;
+    }
+}
+
 // Master resize handler. Rebuilds the entire UI based on the current
 // screen mode. Repositions and resizes all windows, redraws banner
 // borders, room images, map, or text displays as appropriate.
@@ -310,6 +328,7 @@ void arthur_sync_screenmode(void) {
 //   Windows 5, 6: Left/right banner erase regions (banners drawn to window 7)
 //   Window 7 (S-FULL): Full-screen background for border/room graphics (V6_GRAPHICS_BG)
 void arthur_update_on_resize(void) {
+    arthur_apply_graphics_setting();
     image_needs_redraw = true;
     adjust_arthur_top_margin();
 
@@ -666,6 +685,10 @@ bool arthur_display_picture(glui32 picnum, glsi32 x, glsi32 y) {
         glk_window_set_background_color(current_graphics_buf_win, user_selected_background);
         win_sizewin(current_graphics_buf_win->peer, 0, 0, gscreenw, gscreenh);
         screenmode = MODE_SLIDESHOW;
+        // Each of these is followed by a wait for a key. With graphics
+        // off there is nothing to look at, so don't wait.
+        if (v6_graphics_off())
+            v6_skip_next_keypress();
         glk_request_mouse_event(current_graphics_buf_win);
         if (picnum != K_PIC_SWORD_MERLIN) {
             glk_window_clear(current_graphics_buf_win);
@@ -845,6 +868,10 @@ static std::unordered_map<uint8_t, HotKeyDict> hotkeys = {
 void RT_HOT_KEY(void) {
     if (screenmode == MODE_HINTS || screenmode == MODE_SLIDESHOW)
         return;
+
+    // No picture or map mode with graphics off: stay in text-only mode.
+    if (v6_graphics_off() && (variable(1) == ZSCII_F1 || variable(1) == ZSCII_F2))
+        store_variable(1, ZSCII_F6);
 
     HotKeyDict hotkey = hotkeys[variable(1)];
 

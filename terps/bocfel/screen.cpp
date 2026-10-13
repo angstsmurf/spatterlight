@@ -128,6 +128,10 @@ GraphicsType graphics_type = kGraphicsTypeBlorb;
 V6ScreenMode screenmode = MODE_NORMAL;
 float imagescalex = 1.0, imagescaley = 1.0;
 int last_z6_preferred_graphics = 0;
+// The "Enable graphics" setting as of the last arrange event, to notice
+// it being switched during play.
+static int last_graphics_enabled = 1;
+bool graphics_setting_changed = false;
 int lastx0 = 0, lasty0 = 0, lastx1 = 0, lasty1 = 0, lastpeer = -1;
 int lastwidth = 0, lastheight = 0, lastbg = -1;
 float lastcellw = 0, lastcellh = 0;
@@ -4086,6 +4090,19 @@ void window_change()
                 }
             }
 
+            graphics_setting_changed = (last_graphics_enabled != gli_enable_graphics);
+            last_graphics_enabled = gli_enable_graphics;
+            if (graphics_setting_changed) {
+                // Whatever is on screen was laid out for the other setting.
+                // Wipe the graphics windows (nothing gets drawn over them once
+                // graphics are off) and have everything redrawn.
+                if (graphics_bg_glk)
+                    glk_window_clear(graphics_bg_glk);
+                if (graphics_fg_glk)
+                    glk_window_clear(graphics_fg_glk);
+                image_needs_redraw = true;
+            }
+
             // if this is Zork Zero, the below is already done in update_z0_colors()
             update_user_defined_colours();
             update_monochrome_colours();
@@ -4113,6 +4130,7 @@ void window_change()
             } else if (is_spatterlight_zork0) {
                 z0_update_on_resize();
             }
+            graphics_setting_changed = false;
         }
 #endif
     } else {
@@ -5106,6 +5124,14 @@ void zread_char()
             z0_autorestore_internal_read_char_hacks();
         store(0);
         dont_repeat_question_on_autorestore = false;
+        return;
+    }
+
+    // A full-screen picture was left out because graphics are off: don't
+    // make the player dismiss a picture that was never shown.
+    if (v6_skip_keypress) {
+        v6_skip_keypress = false;
+        store(ZSCII_SPACE);
         return;
     }
 #endif
@@ -6132,6 +6158,8 @@ void zdraw_picture()
         }
     } else if (is_spatterlight_shogun) {
         if (current_picture == kShogunTitleImage) {
+            if (v6_graphics_off())
+                v6_skip_next_keypress();
             shogun_draw_title_image();
             return;
         }
@@ -7657,6 +7685,7 @@ void init_screen(bool first_run)
 
         if (first_run) {
             last_z6_preferred_graphics = gli_z6_graphics;
+            last_graphics_enabled = gli_enable_graphics;
 
             winid_t rootwin = glk_window_get_root();
             glk_window_close(rootwin, 0);

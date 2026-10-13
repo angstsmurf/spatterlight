@@ -190,6 +190,13 @@ static void journey_draw_stamp_image(winid_t win, int16_t picnum, int16_t where,
     draw_inline_image(win, picnum, stamp_x, stamp_y, journey_image_scale, false);
 }
 
+// True when there are no pictures to show: either no graphics files were
+// found, or graphics are turned off in the settings. Both get the same
+// layout, with the text taking over the picture's part of the screen.
+static bool journey_no_graphics(void) {
+    return graphics_type == kGraphicsTypeNoGraphics || v6_graphics_off();
+}
+
 // Draws the Journey title screen image (picture 160) centered on a
 // full-black background. All three visible windows are resized to fill
 // the screen and painted black so no UI chrome shows through.
@@ -1511,7 +1518,7 @@ static void journey_resize_graphics_and_buffer_windows(void) {
 
     JOURNEY_GRAPHICS_WIN.x_size = (float)(text_window_left - 2) * gcellw - JOURNEY_GRAPHICS_WIN.x_origin + ggridmarginx + (global_font_3_flag ? 0 : 2);
 
-    if (graphics_type == kGraphicsTypeNoGraphics) {
+    if (journey_no_graphics()) {
         JOURNEY_GRAPHICS_WIN.x_size = 0;
         JOURNEY_GRAPHICS_WIN.x_origin -= gcellw;
         text_window_left = 0;
@@ -1527,7 +1534,7 @@ static void journey_resize_graphics_and_buffer_windows(void) {
     uint16_t y_size = (command_start_line - 2) * gcellh - global_font_3_flag;
 
     if (global_border_flag) {
-        x_size -= gcellw * (graphics_type == kGraphicsTypeNoGraphics ? 4 : 1);
+        x_size -= gcellw * (journey_no_graphics() ? 4 : 1);
         y_size -= gcellh;
     }
 
@@ -1627,7 +1634,7 @@ static void journey_adjust_windows(bool restoring) {
 
     // Redraw image(s)
     // (unless we have no graphics)
-    if (JOURNEY_GRAPHICS_WIN.id != nullptr && graphics_type != kGraphicsTypeNoGraphics) {
+    if (JOURNEY_GRAPHICS_WIN.id != nullptr && !journey_no_graphics()) {
         internal_call(pack_routine(jr.GRAPHIC));
 
         uint16_t HERE = get_global(jg.HERE);
@@ -1729,7 +1736,7 @@ void INIT_SCREEN(void) {
         // Show title image and wait for key press
         if (journey_text_buffer == NULL)
             journey_text_buffer = &windows[ja.buffer_window_index];
-        if (graphics_type != kGraphicsTypeNoGraphics) {
+        if (!journey_no_graphics()) {
             win_setbgnd(journey_text_buffer->id->peer, monochrome_black);
             glk_window_clear(journey_text_buffer->id);
             screenmode = MODE_SLIDESHOW;

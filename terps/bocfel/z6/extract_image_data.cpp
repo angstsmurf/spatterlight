@@ -333,6 +333,38 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     return file_header.image_count;
 }
 
+// Read the dimensions of a Blorb picture resource straight out of its data:
+// the IHDR chunk of a PNG, or a Rect placeholder (two big-endian 32-bit
+// values, width then height). Returns false for anything else.
+static bool blorb_picture_size(const giblorb_result_t *resource, glui32 *width, glui32 *height)
+{
+    static const uint8_t kPNGHeader[16] = {0x89, 'P', 'N', 'G', 0x0d, 0x0a, 0x1a, 0x0a, 0, 0, 0, 13, 'I', 'H', 'D', 'R'};
+    const uint8_t *data = (const uint8_t *)resource->data.ptr;
+    if (data == nullptr)
+        return false;
+
+    auto be32 = [](const uint8_t *p) {
+        return ((glui32)p[0] << 24) | ((glui32)p[1] << 16) | ((glui32)p[2] << 8) | (glui32)p[3];
+    };
+
+    glui32 w, h;
+    if (resource->chunktype == giblorb_make_id('R', 'e', 'c', 't') && resource->length >= 8) {
+        w = be32(data);
+        h = be32(data + 4);
+    } else if (resource->length >= sizeof kPNGHeader + 8 && memcmp(data, kPNGHeader, sizeof kPNGHeader) == 0) {
+        w = be32(data + 16);
+        h = be32(data + 20);
+    } else {
+        return false;
+    }
+
+    if (w > (glui32)kMaxImageDimension || h > (glui32)kMaxImageDimension)
+        return false;
+    *width = w;
+    *height = h;
+    return true;
+}
+
 // Extract all picture resources from a Blorb archive into an ImageStruct array.
 //
 // Parameters:
@@ -365,11 +397,15 @@ int extract_images_from_blorb(ImageStruct **image_list)
         if (output_index >= (int)total_image_count)
             break;
         if (giblorb_load_resource(resource_map, giblorb_method_Memory, &blorb_result, giblorb_ID_Pict, resource_id) == giblorb_err_None) {
-            glui32 image_width, image_height;
+            glui32 image_width = 0, image_height = 0;
             // Make the window process purge any cached images
             // (to make switching between graphics formats on-the-fly work)
             win_purgeimage(resource_id, 0, 0);
-            glk_image_get_info(resource_id, &image_width, &image_height);
+            // Read the size from the resource itself where we can. Asking Glk
+            // only works while graphics are enabled, and the games lay out
+            // their windows from these sizes whether or not anything is drawn.
+            if (!blorb_picture_size(&blorb_result, &image_width, &image_height))
+                glk_image_get_info(resource_id, &image_width, &image_height);
             (*image_list)[output_index].index = resource_id;
             (*image_list)[output_index].type = kGraphicsTypeBlorb;
             (*image_list)[output_index].width = image_width;

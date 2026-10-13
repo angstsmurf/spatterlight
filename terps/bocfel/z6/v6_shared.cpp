@@ -936,7 +936,7 @@ static void draw_hints_windows(void) {
 
     if (is_spatterlight_zork0) {
         // Global BORDER-ON, false if in text-only mode
-        bool text_only_mode = (get_global(zg.BORDER_ON) == 0);
+        bool text_only_mode = !z0_border_on();
         if (!text_only_mode) {
             DISPLAY_BORDER(HINT_BORDER);
             get_image_size(TEXT_WINDOW_PIC_LOC, &width, &height);
@@ -1788,15 +1788,31 @@ void after_V_COLOR(void) {
 }
 
 
+#pragma mark - Graphics Off
+
+bool v6_graphics_off(void) {
+    return gli_enable_graphics == 0;
+}
+
+bool v6_pictures_unseen(void) {
+    return gli_voiceover_on || v6_graphics_off();
+}
+
+bool v6_skip_keypress = false;
+
+void v6_skip_next_keypress(void) {
+    v6_skip_keypress = true;
+}
+
 #pragma mark - Skip Puzzles Prompt
 
 // Prompts the user to skip a visual puzzle for accessibility. Only shows
-// the prompt when VoiceOver is active or when autorestoring to a point
+// the prompt when VoiceOver is active, graphics are off, or when autorestoring to a point
 // where the prompt was previously shown. Returns true if the user
 // accepts (types 'Y'), false if they decline ('N') or if the prompt
 // was not shown.
 bool skip_puzzle_prompt(const char *str) {
-    if (gli_voiceover_on || dont_repeat_question_on_autorestore) {
+    if (v6_pictures_unseen() || dont_repeat_question_on_autorestore) {
         set_current_window(&V6_TEXT_BUFFER_WINDOW);
         if (!dont_repeat_question_on_autorestore)
             transcribe_and_print_string(str);

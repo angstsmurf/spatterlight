@@ -30,6 +30,7 @@ void SMALL_DOOR_F(void);
 void J_PLAY(void);
 void TOWER_MODE(void);
 void z0_UPDATE_STATUS_LINE(void);
+bool z0_border_on(void);
 void DRAW_TOWER(void);
 void B_MOUSE_PEG_PICK(void);
 void B_MOUSE_WEIGHT_PICK(void);
@@ -57,6 +58,11 @@ enum BorderType {
 };
 
 #define zorkzero_title_image 1
+// Illuminated initials drawn in the margin at the start of the prologue, the
+// main game and the epilogue.
+#define zorkzero_prologue_letter 2
+#define zorkzero_main_letter 3
+#define zorkzero_epilogue_letter 4
 
 #define zorkzero_encyclopedia_border 25
 
