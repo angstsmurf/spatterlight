@@ -112,10 +112,8 @@ static void WaitForKeyOnTitleScreen(void) {
     do {
         glk_select(&ev);
         if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-            if (!gli_enable_graphics)
+            if (!GraphicsEnabled())
                 break;
-#endif
             int stored_slowdraw = gli_slowdraw;
             gli_slowdraw = 0;
             DrawUSTitle();
@@ -159,10 +157,8 @@ uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
 
 void DrawZXTitleImage(void)
 {
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
+    if (!GraphicsEnabled())
         return;
-#endif
     if (!ZXLoadingScreen)
         return;
 
@@ -310,10 +306,8 @@ void DrawTitleImageScott(void)
 {
     int storedwidth = ImageWidth;
     int storedheight = ImageHeight;
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
+    if (!GraphicsEnabled())
         return;
-#endif
     const glui32 no_color = (glui32)-1;
     glui32 background_color = no_color;
     OpenTitleWindows(&background_color);
@@ -350,13 +344,15 @@ void PrintTitleScreenBuffer(void)
 {
     glk_stream_set_current(glk_window_get_stream(Bottom));
     glk_set_style(style_User1);
-    glk_window_clear(Graphics);
+    if (Graphics)
+        glk_window_clear(Graphics);
     Output(title_screen);
     free(title_screen);
     title_screen = NULL;
     glk_set_style(style_Normal);
     HitEnter();
-    glk_window_clear(Graphics);
+    if (Graphics)
+        glk_window_clear(Graphics);
 }
 
 void PrintTitleScreenGrid(void)

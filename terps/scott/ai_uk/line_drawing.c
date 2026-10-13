@@ -242,14 +242,19 @@ void DrawHowarthVectorPicture(int image)
     int x = 0, y = 0, y2 = 0;
     uint8_t arg1, arg2, arg3;
     uint8_t *p = LineImages[image].data;
+    uint8_t *end = (p != NULL) ? p + LineImages[image].size : NULL;
     uint8_t opcode = 0;
 
-    while ((size_t)(p - LineImages[image].data) < LineImages[image].size && opcode != HOWARTH_OP_END) {
-        if (p > entire_file + file_length) {
-            fprintf(stderr, "Out of range! Opcode: %x. Image: %d. LineImages[%d].size: %zu\n", opcode, image, image, LineImages[image].size);
-            break;
-        }
+    while (p < end && opcode != HOWARTH_OP_END) {
         opcode = *(p++);
+        /* A picture that is cut off at the end of the file may end in the
+           middle of a command: stop rather than read its arguments from
+           beyond the data. */
+        ptrdiff_t args = (opcode == HOWARTH_OP_MOVE_TO) ? 2
+            : (opcode == HOWARTH_OP_FILL) ? 3
+            : (opcode == HOWARTH_OP_END) ? 0 : 1;
+        if (end - p < args)
+            break;
         switch (opcode) {
             case HOWARTH_OP_MOVE_TO:
                 y = ConvertY(*(p++));

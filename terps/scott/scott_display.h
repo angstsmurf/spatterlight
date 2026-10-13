@@ -12,6 +12,7 @@
 #include "glk.h"
 
 void UpdateUSInventory(void);
+void DrawRoomImage(void);
 int ItIsDark(void);
 void DrawBlack(void);
 void OpenBottomWindow(void);
@@ -19,6 +20,7 @@ void OpenTopWindow(void);
 void CloseTopWindow(void);
 glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidth, glui32 *outheight);
 void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height);
+int GraphicsEnabled(void);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
 void DrawImage(int image);

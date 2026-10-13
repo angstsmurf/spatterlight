@@ -18,7 +18,7 @@ static USImage *current_image = NULL;
 
 static int C64A8AdjustScott(int width, int height, int *x_origin) {
     USImage *image = current_image;
-    if (image == NULL)
+    if (image == NULL || Graphics == NULL)
         return width;
 
     glui32 curheight, curwidth;

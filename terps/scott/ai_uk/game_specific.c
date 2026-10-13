@@ -83,12 +83,12 @@ void SecretAction(int p)
         if (split_screen) {
             CloseTopWindow();
             MyLoc = 1;
-            Rooms[1].Image = 25; /* BOOM */
-            DrawImage(25);
-            Delay(2);
-            DrawImage(26);
-            Rooms[1].Image = 26; /* Mushroom cloud */
         }
+        Rooms[1].Image = 25; /* BOOM */
+        DrawImage(25);
+        Delay(2);
+        DrawImage(26);
+        Rooms[1].Image = 26; /* Mushroom cloud */
         break;
     case 2: /* ID picture */
         DrawImage(24);

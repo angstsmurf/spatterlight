@@ -210,8 +210,9 @@ static glui32 optimal_dice_pixel_size(glui32 *width, glui32 *height)
     *width = ideal_width;
     *height = ideal_height;
     int multiplier = 1;
-    glui32 graphwidth, graphheight;
-    glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
+    glui32 graphwidth = 0, graphheight = 0;
+    if (LeftDiceWin)
+        glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
     multiplier = graphheight / ideal_height;
     if ((glui32)(ideal_width * multiplier) > graphwidth)
         multiplier = graphwidth / ideal_width;
@@ -287,9 +288,10 @@ static void redraw_static_text(winid_t win, int boatflag)
 // on both panels, and fills in the stat labels.
 static void redraw_battle_screen(int boatflag)
 {
-    glui32 graphwidth, graphheight, optimal_width, optimal_height;
+    glui32 graphwidth = 0, graphheight = 0, optimal_width, optimal_height;
 
-    glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
+    if (LeftDiceWin)
+        glk_window_get_size(LeftDiceWin, &graphwidth, &graphheight);
 
     dice_pixel_size = optimal_dice_pixel_size(&optimal_width, &optimal_height);
     dice_x_offset = (graphwidth - optimal_width) / 2;
@@ -302,12 +304,30 @@ static void redraw_battle_screen(int boatflag)
     redraw_static_text(BattleRight, boatflag);
 }
 
+static void close_dice_windows(void)
+{
+    if (LeftDiceWin)
+        glk_window_close(LeftDiceWin, NULL);
+    if (RightDiceWin)
+        glk_window_close(RightDiceWin, NULL);
+    LeftDiceWin = RightDiceWin = NULL;
+}
+
 // Creates the split-screen battle layout by subdividing the Top window:
 //   Top (left text grid)   = enemy stats    | BattleRight (right text grid) = player stats
 //   LeftDiceWin (graphics) = enemy dice     | RightDiceWin (graphics)       = player dice
 // Also sets dice colour based on the active palette (C64 blue vs Spectrum red).
 static void setup_battle_screen(int boatflag)
 {
+    /* Without split screen there is no status window to subdivide (Top is
+       the main text window), so open one for the duration of the battle.
+       blood_battle() closes it again. */
+    if (Top == Bottom) {
+        Top = glk_window_open(Bottom, winmethod_Above | winmethod_Fixed, 7,
+            wintype_TextGrid, GLK_STATUS_ROCK);
+        if (Top == NULL)
+            Top = Bottom;
+    }
     winid_t parent = glk_window_get_parent(Top);
     glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed, 7, Top);
 
@@ -325,7 +345,10 @@ static void setup_battle_screen(int boatflag)
      * the top window background, best as we can,
      * and clear the window.
      */
-    if (glk_style_measure(Top, style_Normal, stylehint_BackColor,
+    /* The dice windows are NULL if the Glk library has no graphics
+       windows. The dice are then only shown as text in the panels. */
+    if (LeftDiceWin && RightDiceWin
+        && glk_style_measure(Top, style_Normal, stylehint_BackColor,
             &background_colour)) {
         glk_window_set_background_color(LeftDiceWin, background_colour);
         glk_window_set_background_color(RightDiceWin, background_colour);
@@ -357,9 +380,12 @@ static void blood_battle(void)
     battle_loop(strike, stamina, boatflag);
     if (boatflag)
         swap_stamina_and_crew_strength(); // Restore stamina/crew strength to their original counters
-    glk_window_close(LeftDiceWin, NULL);
-    glk_window_close(RightDiceWin, NULL);
+    close_dice_windows();
     glk_window_close(BattleRight, NULL);
+    if (!split_screen && Top != Bottom) {
+        glk_window_close(Top, NULL);
+        Top = Bottom;
+    }
     CloseGraphicsWindow();
     OpenGraphicsWindow();
     SeasOfBloodRoomImage();
@@ -396,6 +422,8 @@ static int get_enemy_stats(int *strike, int *stamina, int *boatflag)
 static void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t height,
     int32_t color)
 {
+    if (win == NULL)
+        return;
     glk_window_fill_rect(win, color, x * dice_pixel_size + dice_x_offset,
         y * dice_pixel_size + dice_y_offset,
         width * dice_pixel_size, height * dice_pixel_size);
@@ -456,8 +484,10 @@ static void update_dice(int our_turn, int left_dice, int right_dice)
 {
     left_dice--;
     right_dice--;
-    glk_window_clear(LeftDiceWin);
-    glk_window_clear(RightDiceWin);
+    if (LeftDiceWin)
+        glk_window_clear(LeftDiceWin);
+    if (RightDiceWin)
+        glk_window_clear(RightDiceWin);
 
     dice_x_offset = dice_x_offset - dice_pixel_size;
     draw_graphical_dice(LeftDiceWin, left_dice);
@@ -557,8 +587,7 @@ static void RearrangeBattleDisplay(int strike, int stamina, int boatflag)
     glk_cancel_char_event(Top);
     CloseGraphicsWindow();
     glk_window_close(BattleRight, NULL);
-    glk_window_close(LeftDiceWin, NULL);
-    glk_window_close(RightDiceWin, NULL);
+    close_dice_windows();
     SeasOfBloodRoomImage();
     setup_battle_screen(boatflag);
     update_result(0, strike, stamina, boatflag);

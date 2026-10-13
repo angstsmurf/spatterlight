@@ -67,10 +67,8 @@
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
 #else
-/* Only Spatterlight has settings for these: pictures are always on, and
-   vector pictures and loading screens are drawn in one go unless the -g
-   option is given. */
-#define gli_enable_graphics 1
+/* Only Spatterlight has a setting for this: vector pictures and loading
+   screens are drawn in one go unless the -g option is given. */
 int gli_slowdraw = 0;
 #endif
 
@@ -271,19 +269,27 @@ void Updates(event_t ev)
         CloseGraphicsWindow();
         OpenGraphicsWindow();
 
-        if (!gli_enable_graphics)
+        if (!GraphicsEnabled())
             glk_request_timer_events(0);
 
-        if (split_screen && gli_enable_graphics) {
+        /* Without split screen the room description and inventory are in
+           the main window's scrollback: redraw only the picture. */
+        if (GraphicsEnabled()) {
             int saved_slowdraw = gli_slowdraw;
             gli_slowdraw = 0;
             if (showing_inventory == 1) {
-                UpdateUSInventory();
+                if (split_screen)
+                    UpdateUSInventory();
+                else
+                    InventoryUS();
             } else {
                 int lastimg = last_image_index;
                 if (!showing_closeup)
                     should_draw_image = 1;
-                Look();
+                if (split_screen)
+                    Look();
+                else
+                    DrawRoomImage();
                 last_image_index = lastimg;
                 if (showing_closeup) {
                     should_draw_image = 1;

@@ -88,7 +88,8 @@ static int IsForestLocation(void) { return (MyLoc >= 11 && MyLoc <= 73); }
    fixed grid for TREES, or packed left-to-right for BUSHES. */
 static void draw_sherwood(int loc)
 {
-    glk_window_clear(Graphics);
+    if (Graphics)
+        glk_window_clear(Graphics);
     int subimage_index = 0;
 
     /* Skip past preceding rooms' records to reach the one for loc */

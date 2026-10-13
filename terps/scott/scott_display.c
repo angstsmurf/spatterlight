@@ -58,7 +58,9 @@ static int pause_next_room_description = 0;
 static void PrintWindowDelimiter(void)
 {
     glk_window_get_size(Top, &TopWidth, &TopHeight);
-    glk_window_move_cursor(Top, 0, TopHeight - 1);
+    /* Without a status window the line goes into the main text window */
+    if (Top != Bottom)
+        glk_window_move_cursor(Top, 0, TopHeight - 1);
     glk_stream_set_current(glk_window_get_stream(Top));
     if (Options & SPECTRUM_STYLE)
         for (unsigned i = 0; i < TopWidth; i++)
@@ -171,6 +173,8 @@ int ItIsDark(void)
 
 void DrawBlack(void)
 {
+    if (Graphics == NULL)
+        return;
     glk_window_fill_rect(Graphics, 0, x_offset, 0, ZX_PICTURE_WIDTH * (glui32)pixel_size,
         ZX_PICTURE_HEIGHT * (glui32)pixel_size);
 }
@@ -211,10 +215,12 @@ void OpenTopWindow(void)
 }
 
 /* Close the status window, for a full-height picture sequence.
-   OpenTopWindow() brings it back. */
+   OpenTopWindow() brings it back. Without split screen there is no
+   status window, and Top is the main text window. */
 void CloseTopWindow(void)
 {
-    glk_window_close(Top, NULL);
+    if (Top != NULL && Top != Bottom)
+        glk_window_close(Top, NULL);
     Top = NULL;
 }
 
@@ -247,22 +253,33 @@ void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height)
     right_margin = optimal_width + x_offset;
 }
 
-/* Open the graphics window between the status window and the main text
-   window, sized to fit the game's native image resolution at the best
-   integer scale. Re-opens the status window above it if needed. */
-void OpenGraphicsWindow(void)
+/* Whether pictures can be shown at all: the Glk library has graphics
+   windows and, in Spatterlight, the graphics setting is on. Gargoyle
+   answers no here when its "graphics" setting is 0. */
+int GraphicsEnabled(void)
 {
 #ifdef SPATTERLIGHT
     if (!gli_enable_graphics)
-        return;
+        return 0;
 #endif
+    return glk_gestalt(gestalt_Graphics, 0) != 0;
+}
+
+/* Open the graphics window between the status window and the main text
+   window, sized to fit the game's native image resolution at the best
+   integer scale. Re-opens the status window above it if needed. Without
+   split screen (Top == Bottom) there is no status window to re-open. */
+void OpenGraphicsWindow(void)
+{
+    if (!GraphicsEnabled())
+        return;
     glui32 graphheight, optimal_height;
 
     if (Top == NULL)
         Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Graphics == NULL)
         Graphics = FindGlkWindowWithRock(GLK_GRAPHICS_ROCK);
-    if (Graphics == NULL && Top != NULL) {
+    if (Graphics == NULL && Top != NULL && Top != Bottom) {
         glk_window_get_size(Top, &TopWidth, &TopHeight);
         glk_window_close(Top, NULL);
         Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional,
@@ -307,7 +324,8 @@ void CloseGraphicsWindow(void)
     if (Graphics) {
         glk_window_close(Graphics, NULL);
         Graphics = NULL;
-        glk_window_get_size(Top, &TopWidth, &TopHeight);
+        if (Top != NULL)
+            glk_window_get_size(Top, &TopWidth, &TopHeight);
     }
 }
 
@@ -315,10 +333,8 @@ void CloseGraphicsWindow(void)
    Howarth vector graphics (format 99) or bitmap picture number. */
 void DrawImage(int image)
 {
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
+    if (!GraphicsEnabled())
         return;
-#endif
     OpenGraphicsWindow();
     if (Graphics == NULL) {
         debug_print("DrawImage: Graphic window NULL?\n");
@@ -351,7 +367,7 @@ void DrawRoomItemImages(void)
    darkness (black screen or fuzzy image), US-variant layout, and
    game-specific overrides (Seas of Blood, Robin of Sherwood, Hulk,
    Gremlins, Savage Island). Also draws visible item overlays. */
-static void DrawRoomImage(void)
+void DrawRoomImage(void)
 {
     if (CurrentGame == ADVENTURELAND || CurrentGame == ADVENTURELAND_C64) {
         AdventurelandDarkness();

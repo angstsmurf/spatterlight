@@ -402,7 +402,8 @@ void LookUS(void)
     if (!Graphics || !(should_look_in_transcript || should_draw_image))
         return;
 
-    glk_window_clear(Top);
+    if (Top != Bottom)
+        glk_window_clear(Top);
 
     if (should_draw_image) {
         glk_window_clear(Graphics);
