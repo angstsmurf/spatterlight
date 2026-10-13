@@ -157,6 +157,7 @@ int StopTime = 0; /* When > 0, suppresses automatic (implicit) actions and decre
 int should_look_in_transcript = 0;
 
 int split_screen = 1;
+static int forced_style = -1; /* Display style number of the -t option, or -1 */
 winid_t Bottom, Top;
 winid_t Graphics;
 
@@ -701,10 +702,9 @@ glkunix_argumentlist_t glkunix_arguments[] = {
     { "-s", glkunix_arg_NoValue,
         "-s        Generate authentic Scott Adams driver light messages rather "
         "than other driver style ones (Light goes out in n turns..)" },
-    { "-t", glkunix_arg_NoValue,
-        "-t        Generate TRS80 style display (terminal width is 64 characters; "
-        "a line <-----------------> is displayed after the top stuff; objects "
-        "have periods after them instead of hyphens" },
+    { "-t", glkunix_arg_NumberValue,
+        "-t N      Lay out the room description in style N, whatever the game "
+        "file: 0 plain ScottFree, 1 TRS-80, 2 ZX Spectrum, 3 TI-99/4A, 4 IBM PC" },
     { "-p", glkunix_arg_NoValue,
         "-p        Use for prehistoric databases which don't use bit 16" },
     { "-w", glkunix_arg_NoValue, "-w        Disable upper window" },
@@ -714,9 +714,14 @@ glkunix_argumentlist_t glkunix_arguments[] = {
     { "-g", glkunix_arg_NoValue,
         "-g        Draw vector pictures and loading screens gradually, "
         "as the original games do" },
-#endif
+    { "-c", glkunix_arg_NoValue,
+        "-c        Draw pictures in the Commodore 64 palette, whatever the game file" },
+    { "-x", glkunix_arg_NoValue,
+        "-x        Draw pictures in the ZX Spectrum palette, whatever the game file" },
+#else
     { "-z", glkunix_arg_ValueFollows,
         "-z path   Run the vector image tests with this support path, then exit" },
+#endif
     { "", glkunix_arg_ValueFollows, "filename    file to load" },
 
     { NULL, glkunix_arg_End, NULL }
@@ -750,7 +755,18 @@ int glkunix_startup_code(glkunix_startup_t *data)
                 Options |= SCOTTLIGHT;
                 break;
             case 't':
-                Options |= TRS80_STYLE;
+                /* -tN or -t N. A bare -t is the TRS-80 style, as it
+                   always was. */
+                if (isdigit((unsigned char)argv[1][2])) {
+                    forced_style = atoi(argv[1] + 2);
+                } else if (argv[2] && isdigit((unsigned char)argv[2][0])
+                    && argv[2][1] == '\0') {
+                    forced_style = atoi(argv[2]);
+                    argv++;
+                    argc--;
+                } else {
+                    forced_style = 1;
+                }
                 break;
             case 'p':
                 Options |= PREHISTORIC_LAMP;
@@ -767,6 +783,12 @@ int glkunix_startup_code(glkunix_startup_t *data)
 #ifndef SPATTERLIGHT
             case 'g':
                 gli_slowdraw = 1;
+                break;
+            case 'c':
+                Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+                break;
+            case 'x':
+                Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
                 break;
 #endif
 #ifdef SPATTERLIGHT
@@ -865,6 +887,25 @@ static void ApplyUSSysmess(void)
     sys[DOWN] = "DOWN";
 }
 
+/* The -t option: replace the display style the game file asked for.
+   The system messages stay the game's own. */
+static void ApplyForcedStyle(void)
+{
+    static const int styles[] = {
+        0,                         /* 0: plain ScottFree */
+        TRS80_STYLE,               /* 1: TRS-80 */
+        SPECTRUM_STYLE,            /* 2: ZX Spectrum */
+        TI994A_STYLE,              /* 3: TI-99/4A */
+        SPECTRUM_STYLE | PC_STYLE, /* 4: IBM PC */
+    };
+
+    if (forced_style < 0 || forced_style >= (int)(sizeof styles / sizeof styles[0]))
+        return;
+
+    Options &= ~(TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE | PC_STYLE);
+    Options |= styles[forced_style];
+}
+
 /* Select the "You are" or the "I am" system message set */
 static void SelectSystemMessages(void)
 {
@@ -891,6 +932,8 @@ static void SetUpGame(void)
         Options |= SPECTRUM_STYLE;
     else if (game_type != TI994A)
         Options |= TRS80_STYLE;
+
+    ApplyForcedStyle();
 
     if (ZXLoadingScreen != NULL && Game->type != US_VARIANT)
         DrawZXTitleImage();
@@ -932,7 +975,8 @@ one letter.\n\nDo you want to restore previously saved game?\n",
             if (CurrentGame == RETURN_TO_PIRATES_ISLE)
                 UpdateRTPISystemMessages();
 
-            Options |= PC_STYLE;
+            if (forced_style < 0)
+                Options |= PC_STYLE;
         } else {
             CurrentGame = SCOTTFREE;
             Game->type = NO_TYPE;
@@ -1012,8 +1056,10 @@ void glk_main(void)
     SelectSystemMessages();
     SetUpGame();
 
-#ifdef SPATTERLIGHT
+    /* Not only for Spatterlight's preferences: this is also where the
+       palette is first chosen, from the game file or the -c / -x options. */
     UpdateSettings();
+#ifdef SPATTERLIGHT
     if (gli_determinism)
         set_erkyrath_random(DETERMINISTIC_SEED);
     else

@@ -296,6 +296,16 @@ int glkunix_startup_code(glkunix_startup_t *data)
             case 'n':
                 Options |= NO_DELAYS;
                 break;
+#ifndef SPATTERLIGHT
+            /* Spatterlight has preferences for these; elsewhere the
+               palette follows the game file unless one is forced here. */
+            case 'c':
+                Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+                break;
+            case 'x':
+                Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+                break;
+#endif
             }
             argv++;
             argc--;
