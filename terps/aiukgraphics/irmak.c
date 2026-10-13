@@ -115,7 +115,6 @@ uint8_t imagebuffer[IRMAK_IMGSIZE][IRMAK_CELL_BYTES];
 
 /* Forward declarations of necessary external functions */
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
-void PutPixel(glsi32 x, glsi32 y, int32_t color);
 
 /* Test whether bit n (0 = LSB, 7 = MSB) of c is set. */
 int isNthBitSet(unsigned const char c, int n)
@@ -229,20 +228,64 @@ static void TransformRun(uint8_t tile, uint8_t mode, int offset, int count)
         Transform(tile, mode, offset + i);
 }
 
-/* Paint one cell straight to the screen: its paper as a rectangle and
-   its ink a pixel at a time. */
-static void DrawCell(int col, int line, const uint8_t *rows, int ink,
-                     int paper)
+/* Send one run of ink pixels on a scanline, if there is one. */
+static void FlushInkRun(int x, int y, int length, int ink)
 {
-    RectFill(col * 8, line * 8, 8, 8, paper);
-    for (int i = 0; i < 8; i++) {
-        uint8_t row = rows[i];
-        if (row == 0)
+    if (length > 0)
+        RectFill(x, y, length, 1, ink);
+}
+
+/* Paint the cells of one row that are marked in changed[], or all of
+   them when changed is NULL: count cells, the first one at column
+   first_col. rows[] points at the eight pixel rows of each cell. A
+   rectangle per pixel is slow to draw, so the row first gets its paper,
+   one rectangle for every stretch of neighbouring cells of one colour,
+   and then every scanline its runs of ink. Everything goes through
+   RectFill(), not PutPixel(). */
+static void PaintCellRow(int line, int first_col, int count,
+                         const uint8_t *const rows[], const int ink[],
+                         const int paper[], const uint8_t changed[])
+{
+    for (int cell = 0; cell < count;) {
+        if (changed != NULL && !changed[cell]) {
+            cell++;
             continue;
-        for (int j = 0; j < 8; j++) {
-            if (row & (0x80 >> j))
-                PutPixel(col * 8 + j, line * 8 + i, ink);
         }
+        int first = cell;
+        while (cell < count && (changed == NULL || changed[cell])
+               && paper[cell] == paper[first])
+            cell++;
+        RectFill((first_col + first) * 8, line * 8, (cell - first) * 8, 8,
+                 paper[first]);
+    }
+
+    for (int i = 0; i < 8; i++) {
+        int y = line * 8 + i;
+        int run_x = 0, run_length = 0, run_ink = 0;
+        for (int cell = 0; cell < count; cell++) {
+            uint8_t row = rows[cell][i];
+            /* Ink in the paper colour is already there. */
+            if ((changed != NULL && !changed[cell]) || row == 0
+                || ink[cell] == paper[cell]) {
+                FlushInkRun(run_x, y, run_length, run_ink);
+                run_length = 0;
+                continue;
+            }
+            for (int j = 0; j < 8; j++) {
+                if (!(row & (0x80 >> j))) {
+                    FlushInkRun(run_x, y, run_length, run_ink);
+                    run_length = 0;
+                } else if (run_length > 0 && run_ink == ink[cell]) {
+                    run_length++;
+                } else {
+                    FlushInkRun(run_x, y, run_length, run_ink);
+                    run_x = (first_col + cell) * 8 + j;
+                    run_length = 1;
+                    run_ink = ink[cell];
+                }
+            }
+        }
+        FlushInkRun(run_x, y, run_length, run_ink);
     }
 }
 
@@ -455,8 +498,8 @@ static int DecodeAttributes(IrmakImgContext *ctx)
 
 /* Stage 3: Put the decoded picture, layout[] and attributes[], where
    it goes. In buffer mode its cells are copied into imagebuffer[]; in
-   direct mode they are rendered to the screen immediately, leaving
-   imagebuffer[] alone. */
+   direct mode they are rendered to the screen immediately, a row of
+   cells at a time, leaving imagebuffer[] alone. */
 static void DrawDecodedImage(IrmakImgContext *ctx, int draw_to_buffer)
 {
     int xoff = ctx->xoff;
@@ -467,30 +510,39 @@ static void DrawDecodedImage(IrmakImgContext *ctx, int draw_to_buffer)
 
     int offset = 0;
 
-    for (int y = 0; y < ctx->ysize; y++) {
-        for (int x = 0; x < ctx->xsize; x++) {
-            if (offset >= ctx->imagesize)
-                return;
+    for (int y = 0; y < ctx->ysize && offset < ctx->imagesize; y++) {
+        /* The last row is cut short if the picture is larger than
+           layout[]. */
+        int count = ctx->imagesize - offset;
+        if (count > ctx->xsize)
+            count = ctx->xsize;
 
-            uint8_t attribute = attributes[offset];
-
-            if (draw_to_buffer) {
+        if (draw_to_buffer) {
+            for (int x = 0; x < count; x++) {
                 /* We only replace the data in imagebuffer
                    which the image covers. Any other data written
                    by previous draw operations is left intact. */
                 unsigned bufpos = (y + ctx->yoff) * IRMAK_IMGWIDTH + x + xoff;
                 if (bufpos < IRMAK_IMGSIZE) {
-                    memcpy(imagebuffer[bufpos], layout[offset], 8);
-                    imagebuffer[bufpos][IRMAK_CELL_ATTR] = attribute;
+                    memcpy(imagebuffer[bufpos], layout[offset + x], 8);
+                    imagebuffer[bufpos][IRMAK_CELL_ATTR] = attributes[offset + x];
                 }
-            } else {
-                DrawCell(x + xoff, y + ctx->yoff, layout[offset],
-                         Remap(AttributeInk(attribute)),
-                         Remap(AttributePaper(attribute)));
             }
+        } else {
+            /* A picture is at most 255 cells wide (Image.width). */
+            const uint8_t *rows[UINT8_MAX];
+            int ink[UINT8_MAX], paper[UINT8_MAX];
 
-            offset++;
+            for (int x = 0; x < count; x++) {
+                uint8_t attribute = attributes[offset + x];
+                rows[x] = layout[offset + x];
+                ink[x] = Remap(AttributeInk(attribute));
+                paper[x] = Remap(AttributePaper(attribute));
+            }
+            PaintCellRow(y + ctx->yoff, xoff, count, rows, ink, paper, NULL);
         }
+
+        offset += count;
     }
 }
 
@@ -522,76 +574,29 @@ static int DrawIrmakPictureFromContext(IrmakImgContext *ctx, int draw_to_buffer)
     return 1;
 }
 
-/* Send one run of ink pixels on a scanline, if there is one. */
-static void FlushInkRun(int x, int y, int length, int ink)
-{
-    if (length > 0)
-        RectFill(x, y, length, 1, ink);
-}
-
 /* Render the cells of the compositing buffer that differ from shown[],
    a copy of imagebuffer[] as the screen last showed it, or all of them
-   when shown is NULL. A rectangle per pixel is slow to draw, so each
-   row of cells first gets its paper, one rectangle for every stretch of
-   neighbouring cells of one colour, and then every scanline its runs of
-   ink. Everything goes through RectFill(), not PutPixel(). */
+   when shown is NULL. */
 void DrawIrmakBufferChanges(const uint8_t shown[][IRMAK_CELL_BYTES])
 {
     for (int line = 0; line < IRMAK_IMGHEIGHT; line++) {
         const uint8_t (*cells)[IRMAK_CELL_BYTES] = imagebuffer + line * IRMAK_IMGWIDTH;
+        const uint8_t *rows[IRMAK_IMGWIDTH];
         uint8_t changed[IRMAK_IMGWIDTH];
         int ink[IRMAK_IMGWIDTH], paper[IRMAK_IMGWIDTH];
         int any_changed = 0;
 
         for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
             uint8_t attribute = cells[col][IRMAK_CELL_ATTR];
+            rows[col] = cells[col];
             ink[col] = Remap(AttributeInk(attribute));
             paper[col] = Remap(AttributePaper(attribute));
             changed[col] = shown == NULL
                 || memcmp(cells[col], shown[line * IRMAK_IMGWIDTH + col], IRMAK_CELL_BYTES) != 0;
             any_changed |= changed[col];
         }
-        if (!any_changed)
-            continue;
-
-        for (int col = 0; col < IRMAK_IMGWIDTH;) {
-            if (!changed[col]) {
-                col++;
-                continue;
-            }
-            int first = col;
-            while (col < IRMAK_IMGWIDTH && changed[col] && paper[col] == paper[first])
-                col++;
-            RectFill(first * 8, line * 8, (col - first) * 8, 8, paper[first]);
-        }
-
-        for (int i = 0; i < 8; i++) {
-            int y = line * 8 + i;
-            int run_x = 0, run_length = 0, run_ink = 0;
-            for (int col = 0; col < IRMAK_IMGWIDTH; col++) {
-                uint8_t row = cells[col][i];
-                /* Ink in the paper colour is already there. */
-                if (!changed[col] || row == 0 || ink[col] == paper[col]) {
-                    FlushInkRun(run_x, y, run_length, run_ink);
-                    run_length = 0;
-                    continue;
-                }
-                for (int j = 0; j < 8; j++) {
-                    if (!(row & (0x80 >> j))) {
-                        FlushInkRun(run_x, y, run_length, run_ink);
-                        run_length = 0;
-                    } else if (run_length > 0 && run_ink == ink[col]) {
-                        run_length++;
-                    } else {
-                        FlushInkRun(run_x, y, run_length, run_ink);
-                        run_x = col * 8 + j;
-                        run_length = 1;
-                        run_ink = ink[col];
-                    }
-                }
-            }
-            FlushInkRun(run_x, y, run_length, run_ink);
-        }
+        if (any_changed)
+            PaintCellRow(line, 0, IRMAK_IMGWIDTH, rows, ink, paper, changed);
     }
 }
 
