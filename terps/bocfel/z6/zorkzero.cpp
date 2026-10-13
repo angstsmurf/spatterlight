@@ -297,6 +297,7 @@ void CENTER_3(void) {
 // the text window uses full screen width.
 void SPLIT_BY_PICTURE(uint16_t id, bool clear_screen) {
     set_global(zg.CURRENT_SPLIT, id); // <SETG CURRENT-SPLIT .ID>
+    v6_match_status_window_to_graphics_setting(&V6_STATUS_WINDOW);
     if (clear_screen) {
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
         glk_window_clear(V6_STATUS_WINDOW.id);
@@ -672,6 +673,8 @@ static void z0_resize_status_windows(void) {
 
     bool BORDER_ON = z0_border_on();
 
+    v6_match_status_window_to_graphics_setting(&V6_STATUS_WINDOW);
+
     if (z0_left_status_window == nullptr) {
         z0_left_status_window = gli_new_window(wintype_TextGrid, 0);
         fprintf(stderr, "z0_resize_status_windows: creating a new left status window with peer %d\n", z0_left_status_window->peer);
@@ -811,6 +814,14 @@ void z0_UPDATE_STATUS_LINE(void) {
     z0_resize_status_windows();
 
     set_current_window(&V6_STATUS_WINDOW);
+    if (v6_graphics_off()) {
+        // A plain reverse-video bar, as there is no border to print on.
+        garglk_set_reversevideo(0);
+        V6_STATUS_WINDOW.style.reset(STYLE_REVERSE);
+        garglk_set_zcolors(user_selected_background, user_selected_foreground);
+        win_setbgnd(z0_left_status_window->peer, user_selected_foreground);
+        glk_window_clear(z0_left_status_window);
+    }
     glk_window_move_cursor(z0_left_status_window, 0, 0);
 
 

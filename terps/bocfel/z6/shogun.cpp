@@ -190,6 +190,7 @@ static void update_status_line(bool interlude) {
 
     update_user_defined_colours();
 
+    v6_match_status_window_to_graphics_setting(&V6_STATUS_WINDOW);
     winid_t gwin = V6_STATUS_WINDOW.id;
     v6_define_window(&V6_STATUS_WINDOW, shogun_banner_width_left, 0, gscreenw - 2 * shogun_banner_width_left, status_height);
     v6_get_and_sync_upperwin_size();
@@ -200,14 +201,6 @@ static void update_status_line(bool interlude) {
     garglk_set_zcolors(user_selected_background, user_selected_foreground);
     win_setbgnd(gwin->peer, user_selected_foreground);
     glk_window_clear(V6_STATUS_WINDOW.id);
-
-    // The status window is transparent, and its bar is normally part of
-    // the border picture. Without pictures, paint a plain one behind it.
-    if (v6_graphics_off() && graphics_bg_glk != nullptr) {
-        glk_window_set_background_color(graphics_bg_glk, user_selected_background);
-        glk_window_clear(graphics_bg_glk);
-        glk_window_fill_rect(graphics_bg_glk, user_selected_foreground, 0, 0, gscreenw, V6_STATUS_WINDOW.y_origin + status_height);
-    }
 
     uint16_t here = get_global(sg.HERE);
     if (scene != 0) {

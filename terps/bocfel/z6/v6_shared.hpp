@@ -45,6 +45,9 @@ bool v6_graphics_off(void);
 bool v6_pictures_unseen(void);
 // Make the next @read_char return at once: used for the "press any key"
 // after a full-screen picture that was left out.
+// Swaps in an opaque status window while graphics are off, and the
+// transparent one back when they are on. Call before sizing or printing.
+void v6_match_status_window_to_graphics_setting(Window *status);
 void v6_skip_next_keypress(void);
 extern bool v6_skip_keypress;
 

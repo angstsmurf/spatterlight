@@ -1798,6 +1798,40 @@ bool v6_pictures_unseen(void) {
     return gli_voiceover_on || v6_graphics_off();
 }
 
+// In Shogun and Zork Zero the status window is transparent, and the bar
+// behind it is part of the border picture. With graphics off there is no
+// picture, so an opaque window takes its place and supplies the bar itself.
+// (A window can't be made opaque again, and the original belongs to the Glk
+// window tree and can't be deleted, so it is kept and shrunk to nothing
+// meanwhile.) The windows are found by rock, which also works after an
+// autorestore.
+#define V6_STATUS_ROCK 2 // As opened in init_screen()
+#define V6_OPAQUE_STATUS_ROCK 0x5636534f // 'V6SO'
+
+static winid_t v6_grid_window_with_rock(glui32 wanted) {
+    glui32 rock;
+    for (winid_t win = glk_window_iterate(nullptr, &rock); win != nullptr; win = glk_window_iterate(win, &rock)) {
+        if (rock == wanted && win->type == wintype_TextGrid)
+            return win;
+    }
+    return nullptr;
+}
+
+void v6_match_status_window_to_graphics_setting(Window *status) {
+    bool want_opaque = v6_graphics_off();
+    winid_t transparent = v6_grid_window_with_rock(V6_STATUS_ROCK);
+    winid_t opaque = v6_grid_window_with_rock(V6_OPAQUE_STATUS_ROCK);
+    if (want_opaque && opaque == nullptr)
+        opaque = gli_new_window(wintype_TextGrid, V6_OPAQUE_STATUS_ROCK);
+    winid_t wanted = want_opaque ? opaque : transparent;
+    winid_t other = want_opaque ? transparent : opaque;
+    if (wanted == nullptr || status->id == wanted)
+        return;
+    status->id = wanted;
+    if (other != nullptr)
+        win_sizewin(other->peer, 0, 0, 0, 0);
+}
+
 bool v6_skip_keypress = false;
 
 void v6_skip_next_keypress(void) {
