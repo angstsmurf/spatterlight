@@ -14,9 +14,9 @@ alone	dsk-spider-man	PROBE FAILED: image probe: the game exited before its first
 alone	dsk-buckaroo-banzai	PROBE FAILED: image probe: the game exited before its first prompt	complete
 alone	dsk-fantastic-four	PROBE FAILED: image probe: the game exited before its first prompt	complete
 alone	dsk-buckaroo-banzai-3	PROBE FAILED: image probe: the game exited before its first prompt	complete
-alone	atr-buckaroo-banzai	4 of 106 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
+alone	atr-buckaroo-banzai	4 of 105 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
 alone	atr-spider-man	5 of 112 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
-alone	atr-fantastic-four	4 of 105 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
+alone	atr-fantastic-four	4 of 104 lines as in the golden	PROBE FAILED: image probe: the game exited before its first prompt
 alone	do-spider-man	PROBE FAILED: image probe: the game exited before its first prompt	complete
 alone	do-fantastic-four	PROBE FAILED: image probe: the game exited before its first prompt	complete
 alone	atr-buckaroo-banzai-2	PROBE FAILED: image probe: the game exited before its first prompt	4 of 106 lines as in the golden

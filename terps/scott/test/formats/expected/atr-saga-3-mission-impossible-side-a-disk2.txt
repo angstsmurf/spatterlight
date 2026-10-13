@@ -10,3 +10,4 @@ messages     82 a2255f83
 actions     162 2e15f924
 sysmess      71 b649edd3
 usimages     65 f59d4cb2
+closeups      5 692c3083

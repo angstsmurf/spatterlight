@@ -41,6 +41,13 @@ void UpdateSecretAnimations(void);
 
 void ShowCloseup(int image);
 void ShowUSCloseup(int image, int offset);
+void SetCloseupVerb(int verb, int us_pictures);
+void AddCloseup(int item, int noun, int image);
+int HasCloseupTable(void);
+int GetCloseup(int index, int *verb, int *item, int *noun, int *image);
+void ShowCloseupOnExamine(int verb, int noun);
+extern int closeups_without_graphics;
+void AddExtraCloseups(GameIDType game);
 
 void CountShowImageOnExamineUS(int noun);
 void VoodooShowImageOnExamineUS(int noun);

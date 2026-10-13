@@ -64,12 +64,15 @@ uint8_t *ReadFullImageFromNib(uint8_t *data, size_t datasize);
  * Also looks for the inventory image in PAK.INVEN or PAC.INVEN (*invimg, of
  * *invimglen bytes of which the last four are zero), the 0x182 bytes of image
  * unscrambling tables in M2 (*m2) and the Graphics Magician drawing data in
- * M3 (*m3, *m3len). Each is only written to if it is found, so that a disk
+ * M3 (*m3, *m3len), and the kA2CloseupTableSize bytes of the table of close-up
+ * pictures (*closeups): the verb, then sixteen items, sixteen pictures and
+ * sixteen nouns. Each is only written to if it is found, so that a disk
  * without one keeps what its companion disk had: set them to NULL beforehand.
  *
  * The caller must free everything that is returned.
  */
-uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len);
+enum { kA2CloseupTableSize = 1 + 3 * 16 };
+uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len, uint8_t **closeups);
 
 /*
  * Extract every file of a DOS 3.3 disk (a .dsk unless announced as a .nib),

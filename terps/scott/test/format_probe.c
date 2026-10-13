@@ -31,6 +31,7 @@
 #include "glkstart.h"
 
 #include "detect_game.h"
+#include "game_specific.h"
 #include "scott.h"
 #include "scott_defines.h"
 #include "scott_game_info.h"
@@ -200,6 +201,20 @@ static void ProbeGraphics(void)
     /* ReadApple2DOSFile() cuts 0x182 bytes of lookup table out of M2. */
     if (descrambletable != NULL)
         Line("descramble", 0x182, AddBytes(crc32(0, NULL, 0), descrambletable, 0x182));
+
+    /* The table of close-up pictures read from the original interpreter. */
+    if (HasCloseupTable()) {
+        int verb, item, noun, image;
+        count = 0;
+        crc = crc32(0, NULL, 0);
+        while (GetCloseup(count, &verb, &item, &noun, &image)) {
+            crc = AddInt(AddInt(AddInt(AddInt(crc, verb), item), noun), image);
+            if (verbose)
+                printf("    closeup verb=%d noun=%d item=%d image=%d\n", verb, noun, item, image);
+            count++;
+        }
+        Line("closeups", count, crc);
+    }
 
     /* The UK releases: Irmak tile pictures, or Howarth vector pictures. */
     if (images != NULL && number_of_images > 0) {

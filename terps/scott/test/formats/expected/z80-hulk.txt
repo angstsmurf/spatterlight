@@ -10,5 +10,6 @@ messages    100 c6106965
 actions     262 8e66f23f
 sysmess      71 9e6466c8
 zxscreen   6912 30a09572
+closeups      7 44455de1
 irmak        43 a1a89dc2 version=0
 tiles       256 b9f9fd8a

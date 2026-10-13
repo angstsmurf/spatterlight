@@ -31,9 +31,14 @@ extern int gli_determinism;
    script tests ask for it (test/scripts/run_script_tests.py): the goldens of
    "make check" were made without, and have no echoed commands in them. */
 extern int gli_script_keys;
+/* The close-up table of game_specific.c is only consulted when there are
+   graphics, which this build has none of. The command script tests set this
+   to have the lookup (and its "hit enter" pause) in their transcripts. */
+extern int closeups_without_graphics;
 
 __attribute__((constructor)) static void headless_force_determinism(void)
 {
     gli_determinism = 1;
     gli_script_keys = getenv("SCOTT_SCRIPT_KEYS") != NULL;
+    closeups_without_graphics = getenv("SCOTT_FORCE_CLOSEUPS") != NULL;
 }

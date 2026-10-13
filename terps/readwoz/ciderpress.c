@@ -992,7 +992,31 @@ enum {
     kM2TableSize = 0x182,
 };
 
-uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len)
+/* The graphics module keeps a table of the pictures to show when something
+ * is looked at: a JMP past it, the verb, then sixteen items, sixteen pictures
+ * and sixteen nouns, and the prompt to print under the picture. This is M2,
+ * or part of the database file on a disk that has everything in one file. */
+static const char kCloseupPrompt[] = "HIT RETURN PLEASE. ";
+enum {
+    kCloseupJmpSize = 3,
+    kOpcodeJmp = 0x4c,
+};
+
+static uint8_t *CopyCloseupTable(const uint8_t *buf, size_t len)
+{
+    const size_t promptlen = sizeof(kCloseupPrompt) - 1;
+    const size_t before = kCloseupJmpSize + kA2CloseupTableSize;
+    for (size_t i = before; i + promptlen <= len; i++) {
+        if (buf[i - before] == kOpcodeJmp && memcmp(buf + i, kCloseupPrompt, promptlen) == 0) {
+            uint8_t *table = MemAlloc(kA2CloseupTableSize);
+            memcpy(table, buf + i - kA2CloseupTableSize, kA2CloseupTableSize);
+            return table;
+        }
+    }
+    return NULL;
+}
+
+uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len, uint8_t **closeups)
 {
     UseImage(data, *len, kPhysicalFormatSectors);
     ReadCatalog();
@@ -1005,6 +1029,8 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
         if (IsSagaDatabaseName(file->pathName) && (database = ReadDOSFileData(file, &templen)) != NULL)
             *len = templen;
     }
+
+    uint8_t *table = NULL;
 
     /* The inventory image is often on the boot disk (other images on side B) */
     A2File *file = FindFile("PAK.INVEN", strcmp);
@@ -1028,8 +1054,13 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
             *m2 = MemAlloc(kM2TableSize);
             memcpy(*m2, temp + kM2TableOffset, kM2TableSize);
         }
+        table = CopyCloseupTable(temp, templen);
         free(temp);
     }
+    if (table == NULL && database != NULL)
+        table = CopyCloseupTable(database, *len);
+    if (table != NULL)
+        *closeups = table;
 
     /* M3 contains Graphics Magician drawing data (brush bitmaps, patterns, etc.) */
     file = FindFile("M3", strcmp);
@@ -1214,9 +1245,10 @@ static uint8_t *ReadProDOSFileData(const DirEntry *entry, size_t len, size_t *pL
  */
 static void LowerCaseName(char *name, uint16_t lcFlags)
 {
-    // Should be zero or 0x8000 plus other bits; shouldn't be
-    //  bunch of bits without 0x8000 or 0x8000 by itself.  Not
-    //  really a problem, just unexpected.
+    /* Should be zero or 0x8000 plus other bits; shouldn't be
+     * bunch of bits without 0x8000 or 0x8000 by itself.  Not
+     * really a problem, just unexpected.
+     */
     if (lcFlags != 0 && !(lcFlags & 0x8000))
         return;
 

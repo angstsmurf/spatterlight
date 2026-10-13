@@ -59,13 +59,16 @@ USImage *NewImage(void) {
 int IsSagaImage(const char *name) { (void)name; return 0; }
 
 // Functions referenced by the linked objects but never reached on this path
-// (full game detection / .woz conversion / non-room bitmap draw). C linkage
-// resolves by name, so simplified signatures are fine.
+// (full game detection / close-up tables / .woz conversion / non-room bitmap
+// draw). C linkage resolves by name, so simplified signatures are fine.
 static void unreached(const char *who) { Fatal(who); }
 void *LoadBinaryDatabase(void) { unreached("LoadBinaryDatabase"); return 0; }
 void *LookInDatabase(void) { unreached("LookInDatabase"); return 0; }
 void SwapWithCompanionFile(void) { unreached("SwapWithCompanionFile"); }
 void FreeUSImagesIfEmpty(void) { unreached("FreeUSImagesIfEmpty"); }
+void SetCloseupVerb(void) { unreached("SetCloseupVerb"); }
+void AddCloseup(void) { unreached("AddCloseup"); }
+void AddExtraCloseups(void) { unreached("AddExtraCloseups"); }
 void *woz2nib(void) { unreached("woz2nib"); return 0; }
 int is_woz_image(void) { unreached("is_woz_image"); return 0; }
 void DrawApple2ImageFromVideoMem(void) { unreached("DrawApple2ImageFromVideoMem"); }

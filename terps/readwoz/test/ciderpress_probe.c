@@ -6,7 +6,7 @@
  *   ciderpress_probe <op> <image>
  *
  * ops: dos     GetAllApple2DOSFiles
- *      saga    ReadApple2DOSFile (database, inventory image, M2, M3)
+ *      saga    ReadApple2DOSFile (database, inventory image, M2, M3, close-ups)
  *      prodos  GetAllProDOSFiles (on the image as a DOS-order .dsk)
  *      full    ReadFullImageFromNib (nibble images only)
  *      range   ReadImageFromNib at a few offsets (nibble images only)
@@ -118,16 +118,17 @@ int main(int argc, char **argv)
         (void)recs2;
         FreeDiskImage();
     } else if (strcmp(op, "saga") == 0) {
-        uint8_t *inv = NULL, *m2 = NULL, *m3 = NULL;
+        uint8_t *inv = NULL, *m2 = NULL, *m3 = NULL, *closeups = NULL;
         size_t len = size, invlen = 0, m3len = 0;
         Init(data, size, isnib);
-        uint8_t *db = ReadApple2DOSFile(data, &len, &inv, &invlen, &m2, &m3, &m3len);
+        uint8_t *db = ReadApple2DOSFile(data, &len, &inv, &invlen, &m2, &m3, &m3len, &closeups);
         Line(op, "database", db, len);
         /* The last four bytes of the inventory image were never written. */
         printf("%s\tinvlen\t%zu\n", op, inv ? invlen : 0);
         Line(op, "inventory", inv, inv && invlen >= 4 ? invlen - 4 : 0);
         Line(op, "m2", m2, 0x182);
         Line(op, "m3", m3, m3len);
+        Line(op, "closeups", closeups, kA2CloseupTableSize);
         FreeDiskImage();
     } else if (strcmp(op, "prodos") == 0) {
         uint8_t *dsk = data;

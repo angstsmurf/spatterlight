@@ -17,6 +17,7 @@
 #include "read_le16.h"
 #include "dumpactions.h"
 #include "loaddatabase.h"
+#include "apple2detect.h"
 
 Synonym *Substitutions;
 static uint8_t *MysteryValues;
@@ -1304,6 +1305,9 @@ int LoadDatabaseBinary(void)
         } else
             ptr++;
     }
+
+    if (CurrentSys == SYS_APPLE2)
+        ReadApple2SpecialImages(mem, (size_t)(ptr - mem), memlen);
 
     for (ct = 0; ct <= num_obj_img; ct++)
         debug_print("ObjectImages %d: room:%d object:%d image:%x\n", ct, ObjectImages[ct].Room, ObjectImages[ct].Object, ObjectImages[ct].Image);

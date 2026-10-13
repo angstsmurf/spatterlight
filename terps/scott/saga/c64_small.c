@@ -29,247 +29,292 @@ typedef struct {
     int y;     // pixel y position on screen
 } spritelist;
 
-/* Pirate Adventure sprite positions: maps object index to screen coordinates.
-   Items sharing coordinates are drawn at the same spot (e.g. all bottles). */
-static const spritelist sprites[] = {
-    {25, 104,  62}, // Bottle of rum
-    {7,  104,  62}, // Empty bottle
-    {42, 104,  62}, // Bottle of salt water
-    {44, 86,   62}, // sneakers
-    {46, 152,  46}, // shovel
-    {60, 184,  62}, // sack of crackers
-    {8,  152,  46}, // torch
-    {63, 152,  46}, // burnt-out torch
-    {9,  152,  46}, // lit torch
-    {21, 152,  46}, // fish
-    {31, 167,  34}, // hammer
-    {15, 152,  46}, // anchor
-    {3,  105,  46}, // book
-    {10, 104,  30}, // matches
-    {5,  208,  46}, // duffel bag
-    {14, 152,  49}, // mongoose
-    {24, 171,  55}, // parrot
-    {33, 152,  56}, // precut lumber
-    {20, 189,  46}, // pile of sails
-    {0,    0,   0}  // sentinel
-};
+#define MAX_SPRITES 32
+#define MAX_AIO_ITEMS 256
 
-/* Image registry for Pirate Adventure C64: maps object/room indices to
-   byte offsets within the all-in-one file. Object images come first
-   (both RLE bitmaps and raw sprite data), then room backgrounds. */
-static const imglist listPirate[] = {
-    /* RLE bitmap object overlays */
-    { IMG_ROOM_OBJ, 17, 0x0302 }, // (17) (Mean and hungry looking crocodiles
-    { IMG_ROOM_OBJ, 30, 0x0447 }, // (30) Rug
-    { IMG_ROOM_OBJ, 41, 0x0491 }, // (41) Sleeping pirate
-    { IMG_ROOM_OBJ, 12, 0x0519 }, // (12) Wicked looking pirate
-    { IMG_ROOM_OBJ, 37, 0x05e7 }, // (37) Pirate ship
-    { IMG_ROOM_OBJ, 19, 0x073c }, // (19) Open door with hall beyond
-    { IMG_ROOM_OBJ,  4, 0x0788 }, // (4) Bookcase with secret passage beyond
-    { IMG_ROOM_OBJ, 28, 0x08a3 }, // (28) Open treasure chest
-    { IMG_ROOM_OBJ, 22, 0x09a6 }, // (22) DOUBLOONS
-    { IMG_ROOM_OBJ, 23, 0x09fa }, // (23) Deadly mamba snakes
+/* The objects drawn as sprites, read from the game by ReadAllInOneImages().
+   Ends with an entry whose index is 0. */
+static spritelist sprites[MAX_SPRITES + 1];
 
-    /* Raw 63-byte C64 sprite data (24x21 monochrome, 3 bytes per row) */
-    { IMG_ROOM_OBJ, 25, 0x1d02 }, // (23) Bottle of rum
-    { IMG_ROOM_OBJ, 44, 0x1d42 }, // (23) Safety sneakers
-    { IMG_ROOM_OBJ, 46, 0x1d82 }, // (45) Shovel
-    { IMG_ROOM_OBJ, 60, 0x1dc2 }, // (23) Sack of crackers
-    { IMG_ROOM_OBJ,  8, 0x1e02 }, // (23) unlit torch
-    { IMG_ROOM_OBJ, 21, 0x1e42 }, // (21) fish
-    { IMG_ROOM_OBJ, 31, 0x1e82 }, // (31) claw hammer
-    { IMG_ROOM_OBJ, 15, 0x1ec2 }, // (15) anchor
-    { IMG_ROOM_OBJ,  3, 0x1f02 }, // (3) blood-soaked book
-    { IMG_ROOM_OBJ, 10, 0x1f42 }, // (10) Matches
-    { IMG_ROOM_OBJ,  5, 0x1f82 }, // (5) Pirate's duffel bag
-    { IMG_ROOM_OBJ, 14, 0x1fc2 }, // (14) Mongoose
-    { IMG_ROOM_OBJ, 24, 0x2002 }, // (9) Parrot
-    { IMG_ROOM_OBJ, 33, 0x2042 }, // (33) Pile of precut lumber
-    { IMG_ROOM_OBJ, 20, 0x2082 }, // (20) Pile of sails
+/* For an object picture that is only shown in one room, that room. */
+static uint8_t room_gate[MAX_AIO_ITEMS];
 
-    /* Room background images (RLE-compressed multicolor bitmaps) */
-    { IMG_ROOM, 1, 0x2102 }, //  (1) Room in
-    { IMG_ROOM, 2, 0x22c4 }, //  (2) alcove
-    { IMG_ROOM, 3, 0x2517 }, //  (3) Secret passageway
-    { IMG_ROOM, 4, 0x2730 }, //  (4) musty attic
-    { IMG_ROOM, 5, 0x288b }, //  (5) *I'M outside an open window
-    { IMG_ROOM, 6, 0x2bc5 }, //  (6) sandy beach on a tropical isle"
-    { IMG_ROOM, 7, 0x2e17 }, //  (7) maze of caves"
-    { IMG_ROOM, 8, 0x313c }, //  (8) meadow"
-    { IMG_ROOM, 9, 0x3369 }, //  (9) grass shack"
-    { IMG_ROOM, 10, 0x365a }, //  (10) *I'm in the ocean"
-    { IMG_ROOM, 11, 0x37ed }, //  (11) pit"
-    { IMG_ROOM, 12, 0x3a31 }, //  (12) maze of caves"
-    { IMG_ROOM, 13, 0x3ce1 }, //  (13) maze of caves"
-    { IMG_ROOM, 14, 0x3fb8 }, //  (14) *I'm at the foot of a cave ridden hill
-    { IMG_ROOM, 15, 0x4289 }, //  (15) tool shed"
-    { IMG_ROOM, 16, 0x43f7 }, //  (16) long hallway"
-    { IMG_ROOM, 17, 0x463b }, //  (17) large cavern"
-    { IMG_ROOM, 18, 0x490c }, //  (18) *I'm on top of a hill.
-    { IMG_ROOM, 19, 0x4c28 }, //  (19) maze of caves"
-    { IMG_ROOM, 20, 0x4f06 }, //  (20) *I'm aboard Pirate ship anchored off shore"
-    { IMG_ROOM, 21, 0x52ad }, //  (21) *I'm on the beach at *Treasure* Island"
-    { IMG_ROOM, 22, 0x5555 }, //  (22) spooky old graveyard filled with piles
-    { IMG_ROOM, 23, 0x587b }, //  (23) large barren field"
-    { IMG_ROOM, 24, 0x5aed }, //  (24) shallow lagoon.
-    { IMG_ROOM, 25, 0x5c93 }, //  (25) sacked and deserted monastary"
-    { IMG_ROOM, 26, 0x5eee }, //  (26) *Welcome to Never Never Land"
-    { 0, 0, 0, }
-};
-
-/* Image registry for Voodoo Castle C64. Same format as Pirate Adventure. */
-static const imglist listVoodoo[] = {
-    { IMG_ROOM_OBJ, 37, 0x02 }, // (73) Closed Safe
-    { IMG_ROOM_OBJ, 34, 0x65 }, // (72) Open SAfe
-    { IMG_ROOM_OBJ, 17, 0x41b }, // (31) Closed Coffin
-    { IMG_ROOM_OBJ, 31, 0x0125 }, // (71) Wide crack in the wall
-    { IMG_ROOM_OBJ, 41, 0x0191 }, // (68) Wide open door
-    { IMG_ROOM_OBJ, 6, 0x02aa }, // (74) Dark hole
-    { IMG_ROOM_OBJ, 23, 0x0360 }, // (64) Spirit Medium
-    { IMG_ROOM_OBJ, 28, 0x048f }, // (65) Slick chute leading downward
-    { IMG_ROOM, 1, 0x1c02 }, // (0) chapel
-    { IMG_ROOM, 2, 0x1f2e }, // (2) Dingy Looking Stairwell
-    { IMG_ROOM, 3, 0x20a3 }, // (3) room in the castle
-    { IMG_ROOM, 4, 0x244a }, // (4) Tunnel
-    { IMG_ROOM, 5, 0x2828 }, // (5) room in the castle
-    { IMG_ROOM, 6, 0x2abe }, // (6) *I'm in Medium Maegen's Mad Room
-    { IMG_ROOM, 7, 0x2d29 }, // (7) room in the castle
-    { IMG_ROOM, 8, 0x2ff5 }, // (8) room in the castle
-    { IMG_ROOM, 9, 0x3174 }, // (9) room in the castle
-    { IMG_ROOM, 10, 0x346c }, // (10) Ballroom
-    { IMG_ROOM, 11, 0x3682 }, // (11) dungeon
-    { IMG_ROOM, 12, 0x38ef }, // (12) *I'm in the Armory
-    { IMG_ROOM, 13, 0x3d21 }, // (13) torture chamber
-    { IMG_ROOM, 14, 0x3f73 }, // (14) Chimney
-    { IMG_ROOM, 15, 0x43e5 }, // (15) Large Fireplace
-    { IMG_ROOM, 16, 0x47d0 }, // (16) room in the castle
-    { IMG_ROOM, 17, 0x4b74 }, // (17) Lab
-    { IMG_ROOM, 18, 0x4e6a }, // (18) narrow part of the chimney
-    { IMG_ROOM, 19, 0x520f }, // (19) Graveyard
-    { IMG_ROOM, 20, 0x5553 }, // (20) parlor
-    { IMG_ROOM, 21, 0x5726 }, // (21) Jail Cell
-    { IMG_ROOM, 22, 0x5a56 }, // (22) *I'm on a ledge
-    { IMG_ROOM, 23, 0x5cca }, // (23) hidden VOODOO room
-    { IMG_ROOM, 24, 0x5fff }, // (24) room in the castle
-    { IMG_ROOM, 25, 0x62fc }, // (25) lot of TROUBLE!
-    { 0, 0, 0, }
-};
-
-/* Clone an existing image entry under a different object index.
-   Used when multiple objects share the same sprite data (e.g. all
-   three bottle variants reuse the rum bottle sprite). */
-static USImage *copyToImage(USImage *copy, USImage *original, int index) {
-    USImage *previous = copy->previous;
-    memcpy(copy, original, sizeof(USImage));
-    copy->index = index;
-    copy->previous = previous;
-    return AppendImage(copy);
+static void AddSprite(int index, int x, int y)
+{
+    int i = 0;
+    while (sprites[i].index != 0)
+        i++;
+    if (i >= MAX_SPRITES)
+        return;
+    sprites[i].index = index;
+    sprites[i].x = x;
+    sprites[i].y = y;
 }
 
-/* Pirate Adventure reuses some sprites for multiple objects:
-   - Bottle of rum (#25) -> empty bottle (#7), salt water bottle (#42)
-   - Unlit torch (#8) -> burnt-out torch (#63), lit torch (#9)
-   - Rug (#30) -> map/plans (#26)
-   This creates the duplicate image entries so each object has its own
-   entry in the USImages list, pointing at the shared sprite data. */
-static USImage *add_duplicate_image_entries(USImage *image) {
-    USImage *image2 = USImages;
-    USImage *bottle = NULL;
-    USImage *torch = NULL;
-    USImage *rug = NULL;
+/* The pictures are found through the interpreter's own tables. The file
+   is a memory image that starts with its load address, and the tables
+   are given here as C64 memory addresses.
 
-    while (image2 != image) {
-        if (image2->usage == IMG_ROOM_OBJ) {
-            if (image2->index == 25)  {
-                bottle = image2;
-            } else if (image2->index == 8) {
-                torch = image2;
-            } else if (image2->index == 30) {
-                rug = image2;
-            }
+   AIO_ROOM_TABLE holds the address of every room picture, from room 1,
+   and AIO_OBJECT_TABLE the address of every object picture. Which object
+   a slot of the latter belongs to is told by a list that differs between
+   the games: Pirate Adventure has the object of each slot, in slot order,
+   Voodoo Castle the slot of each object.
+
+   An object picture is either a bitmap like the room pictures or, in
+   Pirate Adventure, a five-byte sprite record: sprite number, x (low
+   byte, high bit) and y in sprite coordinates. The objects of
+   PIRATE_SPRITE_ITEMS are sprites. The bitmaps of PIRATE_GATE_ITEMS are
+   only drawn in the matching room of PIRATE_GATE_ROOMS. All three lists
+   end with a byte of 0x80 or more. */
+enum {
+    AIO_ROOM_TABLE = 0x2f00,
+    AIO_OBJECT_TABLE = 0x2f80,
+    AIO_SPRITE_DATA = 0x3000,
+    AIO_SPRITE_SIZE = 63,
+    AIO_SPRITE_STEP = 64,
+    AIO_SPRITE_X0 = 24, /* sprite coordinates of the top left pixel */
+    AIO_SPRITE_Y0 = 50,
+    AIO_HEADER_SIZE = 8,
+
+    PIRATE_SLOT_ITEMS = 0x254c,
+    PIRATE_SPRITE_ITEMS = 0x14d4,
+    PIRATE_GATE_ITEMS = 0x14cd,
+    PIRATE_GATE_ROOMS = 0x14c7,
+
+    VOODOO_ITEM_SLOTS = 0x24f4
+};
+
+/* Objects of Pirate Adventure that have no picture in the original,
+   shown with the picture of another object. */
+static const struct {
+    int item;
+    int like;
+} pirate_extras[] = {
+    {  7, 25 }, // empty bottle: bottle of rum
+    { 42, 25 }, // bottle of salt water
+    { 63,  8 }, // burnt-out torch: unlit torch
+    {  9,  8 }, // lit torch
+};
+
+/* Room gates of our own. The original draws the open treasure chest
+   wherever it is, at its place in the shack picture. */
+static const struct {
+    int item;
+    int room;
+} pirate_extra_gates[] = {
+    { 28, 9 },
+};
+
+typedef struct {
+    const uint8_t *data;
+    size_t end;   /* the pictures end here, where the database begins */
+    int load;
+} aiofile;
+
+/* The file offset of a memory address, or 0 if size bytes from there are
+   not all inside the picture part of the file. */
+static size_t AioOffset(const aiofile *f, int address, size_t size)
+{
+    if (address < f->load)
+        return 0;
+    size_t offset = (size_t)(address - f->load) + 2;
+    if (offset + size > f->end)
+        return 0;
+    return offset;
+}
+
+static int AioByte(const aiofile *f, int address)
+{
+    size_t offset = AioOffset(f, address, 1);
+    return offset ? f->data[offset] : 0xff;
+}
+
+static int AioWord(const aiofile *f, int address)
+{
+    size_t offset = AioOffset(f, address, 2);
+    return offset ? READ_LE_UINT16(f->data + offset) : 0xffff;
+}
+
+/* The offset of the bitmap at address, or 0 if there is no plausible
+   picture header there. */
+static size_t AioBitmap(const aiofile *f, int address)
+{
+    size_t offset = AioOffset(f, address, AIO_HEADER_SIZE);
+    if (offset == 0)
+        return 0;
+    const uint8_t *p = f->data + offset;
+    if (p[0] >= p[2] || p[2] > 40 || p[1] >= p[3] || p[3] > 200)
+        return 0;
+    for (int i = 4; i < AIO_HEADER_SIZE; i++)
+        if (p[i] > 15)
+            return 0;
+    return offset;
+}
+
+/* Fill slots[] with the object-table slot of every object, or -1. */
+static void ReadAllInOneSlots(const aiofile *f, int *slots)
+{
+    for (int i = 0; i < MAX_AIO_ITEMS; i++)
+        slots[i] = -1;
+
+    if (CurrentGame == PIRATE_US) {
+        for (int slot = 0; slot < MAX_AIO_ITEMS; slot++) {
+            int item = AioByte(f, PIRATE_SLOT_ITEMS + slot);
+            if (item >= 0x80)
+                break;
+            slots[item] = slot;
         }
-        image2 = image2->next;
-    }
-    if (bottle != NULL) {
-        image = copyToImage(image, bottle, 7);  // empty bottle
-        image = copyToImage(image, bottle, 42); // salt water bottle
-    }
-    if (torch != NULL) {
-        image = copyToImage(image, torch, 63); // burnt-out torch
-        image = copyToImage(image, torch, 9);  // lit torch
-    }
-    if (rug != NULL) {
-        image = copyToImage(image, rug, 26); // map/plans
-    }
-    return image;
-}
-
-/* The image table of an all-in-one game, or NULL if it has no pictures. */
-static const imglist *AllInOneImageList(size_t cutoff)
-{
-    switch (CurrentGame) {
-        case PIRATE_US:
-            return listPirate;
-        case VOODOO_CASTLE_US:
-            /* listVoodoo is calibrated for the canonical crack's memory layout
-               (object/room images in 0..0x6c30, database at imgoffset 0x6c30).
-               The c64.com release (imgoffset 0x3800, database at $4000) is a
-               stripped crack with no image data anywhere in its depacked RAM,
-               so gate the table to the layout it matches and load the rest
-               text-only. */
-            if (cutoff == 0x6c30)
-                return listVoodoo;
-            return NULL;
-        default:
-            /* COUNT_US and any other all-in-one game without an image table:
-               the database parsed fine, so ship it playable as text.
-               (The c64.com Count crack contains no image data at all.) */
-            return NULL;
+    } else {
+        /* The list is one entry short: the last object, the smiling
+           Count Cristo of the ending, has none. */
+        for (int item = 0; item < GameHeader.NumItems && item < MAX_AIO_ITEMS; item++) {
+            int slot = AioByte(f, VOODOO_ITEM_SLOTS + item);
+            if (slot < 0x80)
+                slots[item] = slot;
+        }
     }
 }
 
-/* Walk the registry and extract each image into the USImages linked list.
-   Image size is determined by the gap between consecutive offsets. */
-static void ExtractAllInOneImages(const imglist *list, const uint8_t *data, size_t extent)
+/* Find out which objects of Pirate Adventure are sprites and which are
+   only drawn in one room. */
+static void ReadPirateGates(const aiofile *f, uint8_t *is_sprite)
 {
+    for (int i = 0; i < MAX_AIO_ITEMS; i++) {
+        int item = AioByte(f, PIRATE_SPRITE_ITEMS + i);
+        if (item >= 0x80)
+            break;
+        is_sprite[item] = 1;
+    }
+    for (int i = 0; i < MAX_AIO_ITEMS; i++) {
+        int item = AioByte(f, PIRATE_GATE_ITEMS + i);
+        if (item >= 0x80)
+            break;
+        room_gate[item] = (uint8_t)AioByte(f, PIRATE_GATE_ROOMS + i);
+    }
+    for (size_t i = 0; i < sizeof pirate_extra_gates / sizeof pirate_extra_gates[0]; i++)
+        room_gate[pirate_extra_gates[i].item] = (uint8_t)pirate_extra_gates[i].room;
+}
+
+/* Give the objects of pirate_extras the picture of their likeness. */
+static void AddPirateExtras(int *slots, uint8_t *is_sprite)
+{
+    for (size_t i = 0; i < sizeof pirate_extras / sizeof pirate_extras[0]; i++) {
+        int item = pirate_extras[i].item, like = pirate_extras[i].like;
+        slots[item] = slots[like];
+        is_sprite[item] = is_sprite[like];
+        room_gate[item] = room_gate[like];
+    }
+}
+
+static int CompareOffsets(const void *a, const void *b)
+{
+    size_t x = *(const size_t *)a, y = *(const size_t *)b;
+    return (x > y) - (x < y);
+}
+
+/* A bitmap has no stored length. It runs to the start of whatever
+   picture comes next in the file; the decoder stops where it ends. */
+static size_t AioBitmapSize(const size_t *starts, int numstarts, size_t offset, size_t end)
+{
+    for (int i = 0; i < numstarts; i++)
+        if (starts[i] > offset)
+            return starts[i] - offset;
+    return end - offset;
+}
+
+static USImage *AddAllInOneImage(USImage *image, USImageType usage, int index, const uint8_t *data, size_t size)
+{
+    image->systype = SYS_C64_TINY;
+    image->usage = usage;
+    image->index = index;
+    image->imagedata = MemAlloc(size);
+    image->datasize = size;
+    memcpy(image->imagedata, data, size);
+    return AppendImage(image);
+}
+
+/* Read the picture tables of an all-in-one game and extract every picture
+   into the USImages linked list. Returns 0 if there are none. */
+static int ReadAllInOneImages(const uint8_t *data, size_t extent, size_t cutoff)
+{
+    aiofile f = { data, cutoff < extent ? cutoff : extent, READ_LE_UINT16(data) };
+
+    int slots[MAX_AIO_ITEMS];
+    uint8_t is_sprite[MAX_AIO_ITEMS] = { 0 };
+    size_t object_offsets[MAX_AIO_ITEMS] = { 0 };
+    size_t room_offsets[MAX_AIO_ITEMS] = { 0 };
+    size_t starts[2 * MAX_AIO_ITEMS + 1];
+    int numstarts = 0;
+
+    memset(sprites, 0, sizeof sprites);
+    memset(room_gate, 0, sizeof room_gate);
+
+    ReadAllInOneSlots(&f, slots);
+    if (CurrentGame == PIRATE_US) {
+        ReadPirateGates(&f, is_sprite);
+        AddPirateExtras(slots, is_sprite);
+    }
+
+    int numrooms = 0;
+    while (numrooms < GameHeader.NumRooms && numrooms < MAX_AIO_ITEMS - 1) {
+        size_t offset = AioBitmap(&f, AioWord(&f, AIO_ROOM_TABLE + numrooms * 2));
+        if (offset == 0)
+            break;
+        room_offsets[++numrooms] = offset;
+        starts[numstarts++] = offset;
+    }
+
+    int have_sprites = 0;
+    for (int item = 0; item < MAX_AIO_ITEMS; item++) {
+        if (slots[item] < 0)
+            continue;
+        int address = AioWord(&f, AIO_OBJECT_TABLE + slots[item] * 2);
+        if (is_sprite[item]) {
+            size_t record = AioOffset(&f, address, 4);
+            if (record == 0)
+                continue;
+            const uint8_t *r = data + record;
+            object_offsets[item] = AioOffset(&f, AIO_SPRITE_DATA + r[0] * AIO_SPRITE_STEP, AIO_SPRITE_SIZE);
+            if (object_offsets[item] == 0)
+                continue;
+            AddSprite(item, r[1] + (r[2] ? 256 : 0) - AIO_SPRITE_X0, r[3] - AIO_SPRITE_Y0);
+            have_sprites = 1;
+        } else {
+            object_offsets[item] = AioBitmap(&f, address);
+            if (object_offsets[item])
+                starts[numstarts++] = object_offsets[item];
+        }
+    }
+    if (have_sprites) {
+        size_t offset = AioOffset(&f, AIO_SPRITE_DATA, 1);
+        if (offset)
+            starts[numstarts++] = offset;
+    }
+    qsort(starts, numstarts, sizeof starts[0], CompareOffsets);
+
     USImages = NewImage();
     USImage *image = USImages;
 
-    for (int outpic = 0; list[outpic].offset != 0; outpic++) {
-        size_t offset = list[outpic].offset;
-        size_t nextoffset = list[outpic + 1].offset;
-
-        size_t size;
-        if (nextoffset < offset) {
-            /* Last entry or wrap-around: image extends to end of file */
-            size = extent - offset;
-        } else {
-            size = nextoffset - offset;
-        }
-
-        if (size > extent) {
-            break;
-        }
-        image->systype = SYS_C64_TINY;
-        image->usage = list[outpic].usage;
-        image->index = list[outpic].index;
-        image->imagedata = MemAlloc(size);
-        image->datasize = size;
-
-        memcpy(image->imagedata, data + offset, size);
-
-        image = AppendImage(image);
+    for (int item = 0; item < MAX_AIO_ITEMS; item++) {
+        size_t offset = object_offsets[item];
+        if (offset == 0)
+            continue;
+        size_t size = is_sprite[item] ? AIO_SPRITE_SIZE : AioBitmapSize(starts, numstarts, offset, f.end);
+        image = AddAllInOneImage(image, IMG_ROOM_OBJ, item, data + offset, size);
     }
-    if (image->imagedata == NULL) {
-        if (image != USImages && CurrentGame == PIRATE_US) {
-            /* Add entries for objects that share sprites with other objects */
-            image = add_duplicate_image_entries(image);
-        }
-        FreeTrailingEmptyImage(image);
+    for (int room = 1; room <= numrooms; room++) {
+        size_t offset = room_offsets[room];
+        image = AddAllInOneImage(image, IMG_ROOM, room, data + offset,
+                                 AioBitmapSize(starts, numstarts, offset, f.end));
     }
+
+    FreeTrailingEmptyImage(image);
 
     /* Safety check: discard the list if it ended up empty */
     FreeUSImagesIfEmpty();
+
+    return USImages != NULL;
 }
 
 /* Prepend a hard-coded all-black "darkness" ROOM image at index 0.
@@ -303,8 +348,8 @@ static void PrependDarknessImage(void)
 /* Load an all-in-one C64 file that bundles the game database and image
    data together. Splits the file at imgoffset: the portion after the
    cutoff becomes the game database (returned via *sf / *extent), while
-   the image data before and after the cutoff is extracted into USImages
-   using the game-specific registry table. */
+   the image data before the cutoff is extracted into USImages through
+   the interpreter's picture tables. */
 GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
 {
     size_t cutoff = c64_registry.imgoffset;
@@ -323,16 +368,18 @@ GameIDType handle_all_in_one(uint8_t **sf, size_t *extent, c64rec c64_registry)
         return UNKNOWN_GAME;
     }
 
-    const imglist *list = AllInOneImageList(cutoff);
+    /* The Count and the c64.com release of Voodoo Castle have no
+       pictures and are played as text. */
+    int has_pictures = 0;
+    if (CurrentGame == PIRATE_US || CurrentGame == VOODOO_CASTLE_US)
+        has_pictures = ReadAllInOneImages(*sf, *extent, cutoff);
 
-    if (list == NULL) {
+    if (!has_pictures) {
         /* Text-only */
         CurrentSys = SYS_C64;
     } else {
         /* Color 0 is always black */
         SetColor(0, 0);
-
-        ExtractAllInOneImages(list, *sf, *extent);
 
         ImageWidth = 320;
         if (CurrentGame == VOODOO_CASTLE_US)
@@ -482,40 +529,16 @@ static int DrawSprite(USImage *img, int index) {
 }
 
 /* Main entry point for drawing a C64 "tiny" image.
-   For Pirate Adventure objects: some bitmaps are location-specific overlays
-   that only make sense in one room, so skip them elsewhere. Objects that
+   Some object bitmaps are location-specific overlays that only make
+   sense in one room, so skip them elsewhere. Objects that
    are C64 sprites are dispatched to DrawSprite; everything else goes
    through the RLE bitmap decoder. After decoding, the image buffer is
    shrunk to its actual consumed size. */
 int DrawMiniC64(USImage *img) {
-    if (CurrentGame == PIRATE_US && img->usage == IMG_ROOM_OBJ) {
+    if (img->usage == IMG_ROOM_OBJ) {
         /* Location-specific bitmap overlays: only draw in the correct room */
-        switch (img->index) {
-            case 26: // rug — only in starting room
-                if (MyLoc != 1)
-                    return 0;
-                break;
-            case 12: // wicked pirate — only in shack
-                if (MyLoc != 9)
-                    return 0;
-                break;
-            case 28: // Open treasure chest — only in shack
-                if (MyLoc != 9)
-                    return 0;
-                break;
-            case 37: // pirate ship — only on beach
-                if (MyLoc != 6)
-                    return 0;
-                break;
-            case 41: // sleeping pirate — only in attic
-                if (MyLoc != 4)
-                    return 0;
-                break;
-            case 22: // doubloons — only in monastery
-                if (MyLoc != 25)
-                    return 0;
-                break;
-        }
+        if (img->index >= 0 && img->index < MAX_AIO_ITEMS && room_gate[img->index] != 0 && MyLoc != room_gate[img->index])
+            return 0;
         /* Check if this object has a sprite; if so, draw it directly */
         for (int i = 0; sprites[i].index != 0; i++) {
             if (img->index == sprites[i].index) {

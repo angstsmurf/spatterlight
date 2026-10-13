@@ -9,4 +9,5 @@ nouns        90 de787a74
 messages    100 79a87c52
 actions     190 dd0cc3b0
 sysmess      71 b649edd3
-usimages     80 450302fb
+usimages     80 925d1d47
+closeups      5 c996b858

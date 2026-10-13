@@ -19,6 +19,7 @@
 #include "c64diskimage.h"
 #include "c64unpack.h"
 #include "detect_game.h"
+#include "game_specific.h"
 #include "sagadraw.h"
 #include "sagagraphics.h"
 #include "c64a8scott.h"
@@ -437,6 +438,70 @@ static void LoadC64USImages(uint8_t *data, size_t length)
     }
 }
 
+/* The interpreter of the US Hulk is not a file of the disk but a chain of
+   sectors that are stored back to front and exclusive-ored with $55. This
+   reads the 254 bytes of the one at offset and gives the offset of the one
+   that follows it, or 0 if there is none. */
+static size_t ReadHiddenSector(const uint8_t *disk, size_t length, size_t offset, uint8_t *out)
+{
+    static const uint8_t sectors[] = { 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21, 21,
+        19, 19, 19, 19, 19, 19, 19, 18, 18, 18, 18, 18, 18, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17 };
+    const uint8_t *sector = disk + offset;
+
+    for (int i = 0; i < 254; i++)
+        out[i] = sector[253 - i] ^ 0x55;
+
+    int track = sector[255] ^ 0x55, next = sector[254] ^ 0x55;
+    if (track < 1 || track > (int)sizeof sectors || next >= sectors[track - 1])
+        return 0;
+    size_t result = 0;
+    for (int i = 1; i < track; i++)
+        result += sectors[i - 1];
+    result = (result + next) * 256;
+    return (result + 256 <= length) ? result : 0;
+}
+
+/* That interpreter has the same table of close-ups as the Apple II one (see
+   SetA2Closeups() in apple2detect.c), just before its "<HIT RETURN>" prompt
+   in inverse video. Its picture slots are the numbers of the room picture
+   files. The pictures must have been read. */
+static void SetC64USCloseups(const uint8_t *disk, size_t length)
+{
+    static const uint8_t prompt[] = { 0x0d, 0xbc, 0xc8, 0xc9, 0xd4, 0xa0, 0xd2, 0xc5, 0xd4, 0xd5, 0xd2, 0xce, 0xbe, 0x0d };
+    enum { ENTRIES = 16, TABLE = 1 + 3 * ENTRIES, DATA = 254 };
+    uint8_t buf[2 * DATA];
+
+    for (size_t offset = 0; offset + 256 <= length; offset += 256) {
+        size_t size = DATA;
+        size_t next = ReadHiddenSector(disk, length, offset, buf);
+        if (next != 0) {
+            ReadHiddenSector(disk, length, next, buf + DATA);
+            size += DATA;
+        }
+        /* A prompt that starts in the second sector is found again when
+           that one comes first, unless the table is split between them. */
+        for (size_t i = TABLE; i + sizeof prompt <= size && i < DATA + TABLE; i++) {
+            if (memcmp(buf + i, prompt, sizeof prompt) != 0)
+                continue;
+            const uint8_t *table = buf + i - TABLE;
+            const uint8_t *items = table + 1, *slots = items + ENTRIES, *nouns = slots + ENTRIES;
+            SetCloseupVerb(table[0], 1);
+            for (int j = 0; j < ENTRIES; j++) {
+                if (nouns[j] == 0)
+                    continue;
+                for (USImage *image = USImages; image != NULL; image = image->next) {
+                    if (image->usage == IMG_ROOM && image->index == slots[j]) {
+                        AddCloseup(items[j], nouns[j], slots[j]);
+                        break;
+                    }
+                }
+            }
+            AddExtraCloseups(CurrentGame);
+            return;
+        }
+    }
+}
+
 /* Sorcerer of Claymorgue Castle US ships as a two-disk set (side A + B).
    If we loaded side A, look for side B by replacing "s1" with "s2" in the
    filename and re-running C64 detection on the companion disk. */
@@ -652,6 +717,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent, const char *filename)
                 if (result) {
                     CurrentSys = SYS_C64;
                     LoadC64USImages(*sf, *extent);
+                    SetC64USCloseups(*sf, *extent);
                     free(*sf);
                     *sf = MemAlloc(newlength);
                     memcpy(*sf, database_file, newlength);

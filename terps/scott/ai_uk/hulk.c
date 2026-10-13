@@ -6,6 +6,7 @@
 //
 
 #include "apple2draw.h"
+#include "detect_game.h"
 #include "game_specific.h"
 #include "hulk.h"
 #include "saga.h"
@@ -61,6 +62,23 @@ static void HulkShowImageOnExamineUS(int noun)
     }
 
     ShowUSCloseup(image, 90);
+}
+
+/* The UK releases have the table of close-ups of the US ones in a shorter
+   form: seven items followed by their nouns. The interpreter only looks at
+   the six that have a picture (the seventh is the gas outlet), and compares
+   the verb with a number in its code. Their pictures are 28 onwards. */
+void HulkReadCloseups(int c64)
+{
+    enum { ITEMS = 7, CLOSEUPS = 6, FIRST_PICTURE = 28, LOOK = 39 };
+    int offset = (c64 ? 0x22f1 : 0x26ff) + file_baseline_offset;
+    const uint8_t *items = SeekToPos(offset);
+
+    if (items == NULL || (size_t)offset + ITEMS + CLOSEUPS > file_length)
+        return;
+    SetCloseupVerb(LOOK, 0);
+    for (int i = 0; i < CLOSEUPS; i++)
+        AddCloseup(items[i], items[ITEMS + i], FIRST_PICTURE + i);
 }
 
 void HulkShowImageOnExamine(int noun)

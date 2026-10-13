@@ -41,7 +41,7 @@ If one disk of a folder is missing the whole folder is skipped.
 
 ## Coverage
 
-299 rows, one per distinct loader result found among about a thousand local
+302 rows, one per distinct loader result found among about a thousand local
 images, and eleven more C64 releases that each take their own way through the
 loader:
 

@@ -9,3 +9,4 @@ nouns        80 832ed85f
 messages     95 3aa1e787
 actions     224 cc1915e7
 sysmess      71 b649edd3
+closeups      0 00000000

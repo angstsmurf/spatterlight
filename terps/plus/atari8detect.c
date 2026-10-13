@@ -18,217 +18,78 @@
 
 #include "atari8detect.h"
 
-/* Where the pictures are on the picture disk of each game. The offset is
-   that of the size word of the picture, two bytes into its data. */
-static const imglist listFantastic[] = {
-    { "R001", 0x0297 },
-    { "R002", 0x0a8e },
-    { "R003", 0x10e48 },
-    { "R004", 0xdac },
-    { "R005", 0x690e },
-    { "R006", 0x70ba },
-    { "R007", 0x7687 },
-    { "R008", 0x1b8e },
-    { "R009", 0x9dd6 },
-    { "R010", 0x7d9e },
-    { "R011", 0x2333 },
-    { "R012", 0x853a },
-    { "R013", 0x339e },
-    { "R014", 0x8879 },
-    { "R015", 0x3c48 },
-    { "R016", 0x4533 },
-    { "R017", 0x48f9 },
-    { "R018", 0x9080 },
-    { "R019", 0x966b },
-    { "R020", 0x532c },
-    { "R021", 0x5fa5 },
-    { "R022", 0xaa0e },
-    { "B020", 0xc10e },
-    { "B002", 0xdd0e },
-    { "B003", 0xb800 },
-    { "B004", 0xeb87 },
-    { "B005", 0xbb97 },
-    { "B006", 0xc01e },
-    { "B007", 0xe1eb },
-    { "B008", 0xd180 },
-    { "B009", 0xc3c8 },
-    { "B010", 0xdbf2 },
-    { "B011", 0xc241 },
-    { "B012", 0xc31e },
-    { "B014", 0xf380 },
-    { "B015", 0xcc72 },
-    { "B016", 0xcfa5 },
-    { "B017", 0xd500 },
-    { "B018", 0xd5e4 },
-    { "B019", 0xe2f2 },
-    { "B013", 0xe625 },
-    { "B021", 0xbfac },
-    { "B022", 0xbf80 },
-    { "B023", 0xea41 },
-    { "S000", 0x10e80 },
-    { "S001", 0xfe80 },
-    { "S002", 0x1016b },
-    { "S003", 0x1032c },
-    { "S004", 0x104e4 },
-    { "S005", 0x10610 },
-    { "S006", 0x10717 },
-    { "S007", 0x1083a },
-    { "S008", 0x10e48 },
-    { "S009", 0x11d07 },
-    { "S010", 0x11d48 },
-    { "S011", 0x11ec8 },
-    { "S012", 0x12000 },
-    { "S013", 0x120f2 },
-    { "S014", 0x12307 },
-    { "S015", 0x12417 },
-    { "S016", 0x1252c },
-    { "S017", 0x125cf },
-    { "S018", 0x12617 },
-    { "S019", 0x1263a },
-    { "S020", 0x126c1 },
-    { NULL, 0 }
+/* The pictures are found through a table on the boot disk, which gives
+   two bytes for each picture: 100 room pictures (R), 100 object pictures
+   (B) and 50 special pictures (S), in that order. The second byte and the
+   two low bits of the first are the sector of the picture, counted from 1,
+   and the five high bits of the first, times seven, its position there.
+   A sector of 0 means that there is no such picture. What the table points
+   at is the size word of the picture, two bytes into its data. */
+enum {
+    A8_HEADER_SIZE = 16,
+    A8_SECTOR_SIZE = 128,
+    A8_PICTURE_TABLE = 0x9593,
+    A8_GROUP_SLOTS = 100,
+    A8_SLOTS = 250,
+    A8_NAME_SIZE = 5
 };
 
-static const imglist listSpidey[] = {
-    { "R001", 0x0297 },
-    { "R002", 0x078e },
-    { "R003", 0x0b64 },
-    { "R005", 0x1741 },
-    { "R006", 0x1df9 },
-    { "R007", 0x2a17 },
-    { "R008", 0x34e4 },
-    { "R013", 0x3c97 },
-    { "R015", 0x463a },
-    { "R017", 0x4dd6 },
-    { "R018", 0x5633 },
-    { "R019", 0x5cac },
-    { "R022", 0x6a00 },
-    { "R024", 0x7464 },
-    { "R025", 0x81ac },
-    { "R034", 0x875d },
-    { "R037", 0x9280 },
-    { "R040", 0xa16b },
-    { "B021", 0xadf2 },
-    { "B015", 0xb1c8 },
-    { "B016", 0xb56b },
-    { "B023", 0xb88e },
-    { "B025", 0xba07 },
-    { "B027", 0xbac8 },
-    { "B028", 0xbc87 },
-    { "B031", 0xc248 },
-    { "B033", 0xc633 },
-    { "B034", 0xc9dd },
-    { "B035", 0xcdeb },
-    { "B038", 0xcf9e },
-    { "B051", 0xd91e },
-    { "B052", 0xdb97 },
-    { "B058", 0xe048 },
-    { "B059", 0xe172 },
-    { "B060", 0xe4c8 },
-    { "B062", 0xe5eb },
-    { "B071", 0xeb0e },
-    { "B049", 0xeb48 },
-    { "B044", 0xee2c },
-    { "B053", 0xf090 },
-    { "B056", 0xf49e },
-    { "B055", 0xf6f9 },
-    { "B050", 0xf8dd },
-    { "S001", 0xff64 },
-    { "S002", 0x10197 },
-    { "S003", 0x103ac },
-    { "S004", 0x105ac },
-    { "S005", 0x10833 },
-    { "S007", 0x11141 },
-    { "S008", 0x11541 },
-    { "S009", 0x11f90 },
-    { "S010", 0x12c79 },
-    { "S011", 0x13590 },
-    { "S012", 0x13e64 },
-    { "S013", 0x14348 },
-    { "S014", 0x149e4 },
-    { "S015", 0x14ddd },
-    { "S016", 0x14e97 },
-    { "S017", 0x14f3a },
-    { "S018", 0x15064 },
-    { "S020", 0x151cf },
-    { "S021", 0x15687 },
-    { "S022", 0x15b64 },
-    { "S023", 0x16179 },
-    { "S026", 0x16179 },
-    /* The title picture is not on the picture disk with the others */
-    { "S000", 0x6d97, 1 },
-    { NULL, 0 }
-};
+/* The title picture of Spider-Man is on the boot disk and not in the
+   table. */
+#define A8_SPIDERMAN_TITLE 0x6d97
 
-static const imglist listBanzai[] = {
-    { "R001", 0x0297 },
-    { "R002", 0x083a },
-    { "R003", 0xb072 },
-    { "R004", 0x115d },
-    { "R005", 0x1c2c },
-    { "R006", 0x264f },
-    { "R008", 0xb7f2 },
-    { "R009", 0x2dc1 },
-    { "R011", 0xc2b3 },
-    { "R012", 0x351e },
-    { "R013", 0x9d56 },
-    { "R014", 0x3b6b },
-    { "R015", 0x1196b },
-    { "R016", 0xc817 },
-    { "R017", 0x41cf },
-    { "R018", 0x4ce4 },
-    { "R019", 0x11bc8 },
-    { "R020", 0x583a },
-    { "R021", 0x5eb3 },
-    { "R022", 0x6556 },
-    { "R023", 0x6b07 },
-    { "R024", 0x7080 },
-    { "R025", 0xa641 },
-    { "R026", 0x7941 },
-    { "R028", 0x8048 },
-    { "R029", 0x856b },
-    { "R035", 0x8b33 },
-    { "S000", 0x92ac },
-    { "B027", 0xca33 },
-    { "B004", 0xcf9e },
-    { "B005", 0xd017 },
-    { "B006", 0xd479 },
-    { "B019", 0xd81e },
-    { "B007", 0xd9cf },
-    { "B030", 0xda5d },
-    { "B025", 0xdbc1 },
-    { "B026", 0xdc25 },
-    { "B051", 0xdcc8 },
-    { "B023", 0xddc8 },
-    { "B055", 0xdeb3 },
-    { "B056", 0xe2b3 },
-    { "B070", 0xe7d6 },
-    { "B071", 0xe956 },
-    { "B073", 0xe9d6 },
-    { "B074", 0xea90 },
-    { "B037", 0xd479 },
-    { "B034", 0xeaf9 },
-    { "B035", 0xed5d },
-    { "S001", 0xf000 },
-    { "S002", 0xf807 },
-    { "S003", 0xf85d },
-    { "S004", 0xfacf },
-    { "S005", 0xfcd6 },
-    { "S006", 0xff56 },
-    { "S007", 0x10180 },
-    { "S008", 0x103cf },
-    { "S009", 0x1064f },
-    { "S010", 0x1088e },
-    { "S011", 0x10f17 },
-    { "S012", 0x11141 },
-    { "S013", 0x11433 },
-    { "S014", 0x11617 },
-    { "S015", 0x1176b },
-    { "S016", 0x11841 },
-    { "S017", 0x118e4 },
+/* The names of the pictures in the table. They are never freed, as those of
+   the other systems are string literals. */
+static char a8names[A8_SLOTS][A8_NAME_SIZE];
 
-    { NULL, 0 }
-};
+/* The table is at the first sector position of the disk image and its first
+   entry, a room 0, is empty. */
+static const uint8_t *FindA8PictureTable(const uint8_t *disk, size_t size)
+{
+    if (disk == NULL || size < A8_PICTURE_TABLE + A8_SLOTS * 2)
+        return NULL;
+    const uint8_t *table = disk + A8_PICTURE_TABLE;
+    if (table[0] != 0 || table[1] != 0)
+        return NULL;
+    return table;
+}
+
+/* A picture begins with its size and its left, top, right and bottom edges,
+   the left and right ones in bytes. */
+static int IsA8Picture(const uint8_t *data, size_t datasize, size_t offset)
+{
+    if (offset < 2 || offset + 6 > datasize)
+        return 0;
+    size_t size = READ_LE_UINT16(data + offset);
+    const uint8_t *edges = data + offset + 2;
+    return (size >= 4 && offset + 2 + size <= datasize && edges[0] <= edges[2] && edges[2] <= 40 && edges[1] <= edges[3] && edges[3] <= 192);
+}
+
+/* Fill list, which has room for A8_SLOTS + 1 entries, with
+   the pictures of the table that are on the picture disk. Returns their
+   number. */
+static int ReadA8PictureTable(imglist *list, const uint8_t *table, const uint8_t *data, size_t datasize)
+{
+    int count = 0;
+
+    for (int slot = 0; slot < A8_SLOTS; slot++) {
+        uint8_t high = table[slot * 2];
+        size_t sector = (high & 3) << 8 | table[slot * 2 + 1];
+        if (sector == 0)
+            continue;
+        size_t offset = A8_HEADER_SIZE + (sector - 1) * A8_SECTOR_SIZE + (high >> 3) * 7;
+        if (!IsA8Picture(data, datasize, offset)) {
+            debug_print("No picture at %zx for slot %d\n", offset, slot);
+            continue;
+        }
+        snprintf(a8names[slot], A8_NAME_SIZE, "%c%03d", "RBS"[slot / A8_GROUP_SLOTS], slot % A8_GROUP_SLOTS);
+        list[count].filename = a8names[slot];
+        list[count].offset = offset;
+        list[count].on_boot_disk = 0;
+        count++;
+    }
+    return count;
+}
 
 /* The picture data skips over the 128 bytes at this offset of the
    picture disk. A picture that begins before the hole continues after it. */
@@ -269,17 +130,19 @@ static int CopyAtariImage(imgrec *img, const imglist *entry, const uint8_t *data
 
 static void ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *bootdisk, size_t bootsize)
 {
-    const imglist *list = listSpidey;
-    if (CurrentGame == BANZAI)
-        list = listBanzai;
-    else if (CurrentGame == FANTASTIC4)
-        list = listFantastic;
-
-    /* The number of images is 65 in all three Atari 8-bit Saga plus games!? */
-    /* (Not counting the title image on the boot disk in Spider-Man.) */
+    imglist list[A8_SLOTS + 1];
     int count = 0;
-    while (list[count].filename != NULL)
+
+    const uint8_t *table = FindA8PictureTable(bootdisk, bootsize);
+    if (table != NULL)
+        count = ReadA8PictureTable(list, table, data, datasize);
+
+    if (CurrentGame == SPIDERMAN) {
+        list[count].filename = "S000";
+        list[count].offset = A8_SPIDERMAN_TITLE;
+        list[count].on_boot_disk = 1;
         count++;
+    }
 
     Images = NewImageList(count);
 

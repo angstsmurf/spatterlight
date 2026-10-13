@@ -80,7 +80,7 @@ def transcript(binary, script, row, keys, games):
     # What the release asks before the first command: a key a line, as the
     # script itself has them. "_" is Return.
     menu += "".join(k.replace("_", "") + "\n" for k in keys).encode()
-    env = dict(os.environ, SCOTT_SCRIPT_KEYS="1")
+    env = dict(os.environ, SCOTT_SCRIPT_KEYS="1", SCOTT_FORCE_CLOSEUPS="1")
     env.pop("SCOTT_OLD_RANDOM", None)
     if script in OLD_RANDOM:
         env["SCOTT_OLD_RANDOM"] = "1"

@@ -22,6 +22,7 @@
 
 #include "game_specific.h"
 #include "gremlins.h"
+#include "hulk.h"
 #include "robin_of_sherwood.h"
 #include "seas_of_blood.h"
 
@@ -913,8 +914,14 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
     file_length = datasize;
 
     /* The UK versions of Hulk uses the Mak Jukic binary database format */
-    if (info->gameID == HULK || info->gameID == HULK_C64)
-        return LoadBinaryDatabase(entire_file, file_length, *info, dict_start);
+    if (info->gameID == HULK || info->gameID == HULK_C64) {
+        GameIDType result = LoadBinaryDatabase(entire_file, file_length, *info, dict_start);
+        if (result != UNKNOWN_GAME) {
+            HulkReadCloseups(info->gameID == HULK_C64);
+            AddExtraCloseups(info->gameID);
+        }
+        return result;
+    }
 
     if (info->type == OLD_STYLE)
         return TryLoadingOld(info, dict_start);

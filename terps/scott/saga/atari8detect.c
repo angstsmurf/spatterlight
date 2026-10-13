@@ -12,6 +12,7 @@
 #include "atari8detect.h"
 #include "common_file_utils.h"
 #include "companion_search.h"
+#include "game_specific.h"
 #include "saga.h"
 #include "sagagraphics.h"
 #include "scott.h"
@@ -31,682 +32,164 @@ static const pairrec a8companionlist[][2] = {
     { { NULL }, { NULL } }
 };
 
-static const imglist listHulk[] = {
-    { IMG_ROOM, 0, 0x297 }, // (0) Too dark
-    { IMG_ROOM, 1, 0x2479 }, // (1) *I'm Bruce Banner, tied hand & foot to a chair
-    { IMG_ROOM, 2, 0x71e }, // (2) dome
-    { IMG_ROOM, 3, 0x2a6b }, // (3) tunnel going outside
-    { IMG_ROOM, 4, 0xd17 }, // (4) field
-    { IMG_ROOM, 9, 0x2ef2 }, // (5) hole
-    { IMG_ROOM, 12, 0x1325 }, // (6) cavern
-    { IMG_ROOM, 15, 0x381e }, // (7) small underground room
-    { IMG_ROOM, 16, 0x4064 }, // (8) fuzzy area
-    { IMG_ROOM, 19, 0x4bac }, // (9) Chief Examiner working
-    { IMG_ROOM, 20, 0x5256 }, // (10) state of limbo
-    { IMG_ROOM, 81, 0x5ee4 }, // (11)
-    { IMG_ROOM, 82, 0x695d }, // (12)
-    { IMG_ROOM, 83, 0x7207 }, // (13)
-    { IMG_ROOM, 84, 0x8deb }, // (14)
-    { IMG_ROOM, 85, 0x7a8e }, // (15)
-    { IMG_ROOM, 86, 0x9deb }, // (16) Gas
-    { IMG_ROOM, 87, 0x8717 }, // (17) Victory
-    { IMG_ROOM, 88, 0xac90 }, // (18) Nightmares
-    { IMG_ROOM, 89, 0xba2c }, // (19) Digging
-    { IMG_ROOM, 90, 0xcb00 }, // (20) Dome with mesh
-    { IMG_ROOM, 91, 0xd497 }, // (21) Closeup bio gem
-    { IMG_ROOM, 92, 0xdea5 }, // (22) Closeup egg
-    { IMG_ROOM, 93, 0x10479 }, // (23) Closeup ant
-    { IMG_ROOM, 94, 0xe7c1 }, // (24) Closeup bees
-    { IMG_ROOM, 95, 0x10df2 }, // (25) Closeup ring
-    { IMG_ROOM, 96, 0xf5a5 }, // (26) Closeup Ant-Man
-    { IMG_ROOM, 97, 0x1146b }, // (27) Closeup outlet
-    { IMG_ROOM, 99, 0x11a33 }, // (28) Title
-    { IMG_ROOM_OBJ, 13, 0x12700 }, // (29) Large hole
-    { IMG_ROOM_OBJ, 20, 0x127ba }, // (30) Alien army ants
-    { IMG_ROOM_OBJ, 24, 0x12e0e }, // (31) Killer Bees
-    { IMG_ROOM_OBJ, 53, 0x12ea5 }, // (32) Sign
-    { IMG_ROOM_OBJ, 26, 0x12f0e }, // (33) Astral projection of Dr. Strange
-    { IMG_ROOM_OBJ, 17, 0x13b8e }, // (34) Natter energy egg
-    { IMG_ROOM_OBJ, 22, 0x13d17 }, // (35) Tiny holes
-    { IMG_ROOM_OBJ, 25, 0x13fdd }, // (36) Wire mesh in wall with bee size holes
-    { IMG_ROOM_OBJ, 33, 0x14100 }, // (37) Large iron ring set in floor
-    { IMG_ROOM_OBJ, 36, 0x141a5 }, // (38) Button in wall
-    { IMG_ROOM_OBJ, 34, 0x1420e }, // (39) Open hole in floor
-    { IMG_ROOM_OBJ, 39, 0x1440e }, // (40) Hole in ceiling
-    { IMG_ROOM_OBJ, 40, 0x145c1 }, // (41) Crack in floor
-    { IMG_ROOM_OBJ, 45, 0x1469e }, // (42) ULTRON
-    { IMG_ROOM_OBJ, 70, 0x1508e }, // (43) Bio gem in room
-    { IMG_ROOM_OBJ, 72, 0x15307 }, // (44) Wax in room
-    { IMG_INV_OBJ, 4, 0x15356 }, // (45) *Gem 1
-    { IMG_INV_OBJ, 12, 0x15397 }, // (46) *Gem 2
-    { IMG_INV_OBJ, 16, 0x153dd }, // (47) *Gem 3
-    { IMG_INV_OBJ, 19, 0x1541e }, // (48) *Gem 4
-    { IMG_INV_OBJ, 29, 0x15464 }, // (49) *Gem 5
-    { IMG_INV_OBJ, 30, 0x154a5 }, // (50) *Gem 6
-    { IMG_INV_OBJ, 31, 0x154eb }, // (51) *Gem 7
-    { IMG_INV_OBJ, 32, 0x1552c }, // (52) *Gem 8
-    { IMG_INV_OBJ, 35, 0x15572 }, // (53) *Gem 9
-    { IMG_INV_OBJ, 37, 0x155b3 }, // (54) *Gem 10
-    { IMG_INV_OBJ, 42, 0x155f9 }, // (55) *Gem 11
-    { IMG_INV_OBJ, 44, 0x1563a }, // (56) *Gem 12
-    { IMG_INV_OBJ, 46, 0x15680 }, // (57) *Gem 13
-    { IMG_INV_OBJ, 48, 0x156c1 }, // (58) Gem 14
-    { IMG_INV_OBJ, 50, 0x15707 }, // (59) *Gem 15
-    { IMG_INV_OBJ, 2, 0x15748 }, // (60) Mirror
-    { IMG_INV_OBJ, 21, 0x157ba }, // (61) Wax
-    { IMG_INV_OBJ, 1, 0x15807 }, // (62) Rage
-    { IMG_INV_OBJ, 18, 0x15cc8 }, // (63) *Bio gem
-    { IMG_INV_OBJ, 3, 0x15da5 }, // (64) Broken chair
-    { IMG_INV_OBJ, 23, 0x15ea5 }, // (65) Metal Hand Fan
-    { IMG_ROOM_OBJ, 250, 0x15f3a }, // (66) // color test
-    { IMG_INV_OBJ, 51, 0x15f79 }, // (67) *Gem 16
-    { IMG_ROOM_OBJ, 47, 0x15fba }, // (68) Small cage
-    { 0, 0, 0, }
+/* The original interpreter finds a picture through a table of two bytes for
+   each of the rooms 0 to 99 followed by each of the objects 0 to 255, where
+   object 250 is a colour test and 255 the title picture of the games with
+   line drawings. The second byte and the two low bits of the first are the
+   number of the disk sector where the picture starts, counted from one, and
+   two zero bytes mean that there is no picture.
+
+   In the games with line drawings the table is on the picture disk, and
+   the six high bits of the first byte give the position in the sector in
+   units of three bytes. In the games with bitmap pictures it is on the boot
+   disk, the five high bits give the position in units of seven bytes, and
+   bit 2 is set if the picture shows the object when carried rather than in
+   the room.
+
+   The table is preceded by the number of the adventure, three times. */
+enum {
+    A8_HEADER_SIZE = 16,
+    A8_SECTOR_SIZE = 128,
+    A8_ROOM_SLOTS = 100,
+    A8_SLOTS = A8_ROOM_SLOTS + 256,
+    A8_COLOR_TEST = 250,
+    A8_LINES_TABLE = 0x293,
+    A8_BITMAP_TABLE = 0x9593,
 };
 
-// "R0198", 0, Disk image A at offset 0x9890
+typedef struct {
+    GameIDType game;
+    USImageType usage;
+    uint8_t slot;
+    uint8_t index;
+} a8renumber;
 
-static const imglist listClaymorgue[] = {
-    { IMG_INV_OBJ, 5, 0x297 }, // (0) *STAR
-    { IMG_INV_OBJ, 6, 0x2c1 }, // (1) *STAR
-    { IMG_INV_OBJ, 7, 0x2e4 }, // (2) *STAR
-    { IMG_INV_OBJ, 8, 0x307 }, // (3) *STAR
-    { IMG_INV_OBJ, 9, 0x32c }, // (4) I'm glowing
-    { IMG_INV_OBJ, 10, 0x3b3 }, // (5) *STAR
-    { IMG_INV_OBJ, 11, 0x3d6 }, // (6) *STAR
-    { IMG_INV_OBJ, 12, 0x400 }, // (7) *STAR
-    { IMG_INV_OBJ, 13, 0x42c }, // (8) *STAR
-    { IMG_INV_OBJ, 14, 0x456 }, // (9) *STAR
-    { IMG_INV_OBJ, 15, 0x479 }, // (10) *STAR
-    { IMG_INV_OBJ, 16, 0x49e }, // (11) *STAR
-    { IMG_INV_OBJ, 17, 0x4c1 }, // (12) *STAR
-    { IMG_INV_OBJ, 20, 0x4eb }, // (13) Magic mirror
-    { IMG_INV_OBJ, 24, 0x52c }, // (14) Fire spell
-    { IMG_INV_OBJ, 33, 0x580 }, // (15) Spell of Methuselah
-    { IMG_INV_OBJ, 34, 0x5cf }, // (16) Seed spell
-    { IMG_INV_OBJ, 35, 0x61e }, // (17) Potion
-    { IMG_INV_OBJ, 36, 0x66b }, // (18) Light squared spell
-    { IMG_INV_OBJ, 40, 0x6b3 }, // (19) Permeability spell
-    { IMG_INV_OBJ, 41, 0x707 }, // (20) Spell of Bliss
-    { IMG_INV_OBJ, 42, 0x74f }, // (21) Piece of wood
-    { IMG_INV_OBJ, 45, 0x7ac }, // (22) Yoho spell
-    { IMG_INV_OBJ, 48, 0x800 }, // (23) Wooden crate
-    { IMG_INV_OBJ, 50, 0x864 }, // (24) Fire bricks
-    { IMG_INV_OBJ, 57, 0x8c1 }, // (25) Firefly spell
-    { IMG_INV_OBJ, 59, 0x910 }, // (26) Dust
-    { IMG_INV_OBJ, 61, 0x93a }, // (27) Wicked Queen's spell
-    { IMG_INV_OBJ, 62, 0x98e }, // (28) Soggy towel
-    { IMG_INV_OBJ, 63, 0x9f2 }, // (29) Ashes
-    { IMG_INV_OBJ, 64, 0xa33 }, // (30) Unravel spell
-    { IMG_INV_OBJ, 68, 0xa87 }, // (31) Tin can
-    { IMG_INV_OBJ, 70, 0xac8 }, // (32) Dizzy Dean spell
-    { IMG_INV_OBJ, 71, 0xb17 }, // (33) Piece of metal
-    { IMG_INV_OBJ, 73, 0xb56 }, // (34) Lycanthrope spell
-    { IMG_INV_OBJ, 28, 0xba5 }, // (35) Broken glass
-    { IMG_INV_OBJ, 51, 0xbf2 }, // (36) Water droplets
-    { IMG_INV_OBJ, 52, 0xc97 }, // (37) Wrinkles
-    { IMG_INV_OBJ, 65, 0xe80 }, // (38) Damp towel
-    { IMG_INV_OBJ, 66, 0xee4 }, // (39) Dry towel
-    { IMG_INV_OBJ, 69, 0xf33 }, // (40) Open can
-    { IMG_ROOM_OBJ, 26, 0xf87 }, // (41) Fallen Chandelier
-    { IMG_ROOM_OBJ, 38, 0x12b3 }, // (42) Loft
-    { IMG_ROOM_OBJ, 30, 0x1e17 }, // (43) Open door
-    { IMG_ROOM_OBJ, 32, 0x1fba }, // (44) Open door
-    { IMG_ROOM_OBJ, 75, 0x211e }, // (45) Rabid rats
-    { IMG_ROOM_OBJ, 39, 0x232c }, // (46) Moat bottom
-    { IMG_ROOM_OBJ, 54, 0x28eb }, // (47) Open door
-    { IMG_ROOM_OBJ, 55, 0x2bc1 }, // (48) Raised drawbridge
-    { IMG_ROOM_OBJ, 4, 0x2f0e }, // (49) Lowered drawbridge
-    { IMG_ROOM_OBJ, 60, 0x3000 }, // (50) Hole
-    { IMG_ROOM, 29, 0x3641 }, // (51) dragon's lair
-    { IMG_ROOM, 99, 0x4797 }, // (52) title
-    { IMG_ROOM_OBJ, 49, 0x51c8 }, // (53) Hole
-    { IMG_ROOM_OBJ, 47, 0x549e }, // (54) Hole
-    { IMG_ROOM_OBJ, 250, 0x5580 }, // (55) Color test
-    { IMG_INV_OBJ, 0, 0x55c1 }, // (56) *STAR
-    { IMG_ROOM_OBJ, 74, 0x55eb }, // (57) Old lever in wall
-    { IMG_ROOM, 0, 0x5617 }, // (58) Too dark to see
-    { IMG_ROOM, 1, 0x57ba }, // (59) field
-    { IMG_ROOM, 2, 0x628e }, // (60) *I'm on a Drawbridge
-    { IMG_ROOM, 3, 0x68cf }, // (61) courtyard
-    { IMG_ROOM, 4, 0x7864 }, // (62) magic fountain
-    { IMG_ROOM, 5, 0x8297 }, // (63) stream of lava
-    { IMG_ROOM, 6, 0x8c33 }, // (64) *I'm on top of the fountain
-    { IMG_ROOM, 7, 0x95dd }, // (65) ball room
-    { IMG_ROOM, 8, 0x9cb3 }, // (66) *I'm on a large chandelier
-    { IMG_ROOM, 9, 0xa61e }, // (67) forest of enchantment
-    { IMG_ROOM, 10, 0xa95d }, // (68) plain room
-    { IMG_ROOM, 11, 0xad72 }, // (69) storeroom
-    { IMG_ROOM, 12, 0xb4ac }, // (70) dungeon cell
-    { IMG_ROOM, 13, 0xbd33 }, // (71) anteroom
-    { IMG_ROOM, 14, 0xc39e }, // (72) staircase
-    { IMG_ROOM, 15, 0xc8d6 }, // (73) loft above ballroom
-    { IMG_ROOM, 16, 0xcf4f }, // (74) *I'm in the water of a moat
-    { IMG_ROOM, 17, 0xdbf2 }, // (75) *I'm underwater
-    { IMG_ROOM, 18, 0xdc48 }, // (76) *I'm under the stairs
-    { IMG_ROOM, 19, 0xeaba }, // (77) hollow tree
-    { IMG_ROOM, 20, 0xfd17 }, // (78) pool of dirty water
-    { IMG_ROOM, 21, 0x1029e }, // (79) kitchen
-    { IMG_ROOM, 22, 0x10aa5 }, // (80) *I'm on a box
-    { IMG_ROOM, 23, 0x10f3a }, // (81) box
-    { IMG_ROOM, 24, 0x116ac }, // (82) dusty room
-    { IMG_ROOM, 25, 0x1228e }, // (83) stone staircase
-    { IMG_ROOM, 26, 0x1260e }, // (84) damp cavern
-    { IMG_ROOM, 27, 0x135f2 }, // (85) stone grotto
-    { IMG_ROOM, 28, 0x14048 }, // (86) *I'm in an entryway
-    { IMG_ROOM, 30, 0x14c97 }, // (87) wizard's workshop
-    { IMG_ROOM, 31, 0x158b3 }, // (88) vacant room
-    { IMG_ROOM, 32, 0x15ccf }, // (89) real mess!
-    { 0, 0, 0 }
+/* ScottFree numbers some pictures otherwise than the disk does. See
+   a2renumberlist in apple2detect.c. */
+static const a8renumber a8renumberlist[] = {
+    { COUNT_US, IMG_ROOM, 80, 90 }, // Closeup package
+    { COUNT_US, IMG_ROOM, 81, 91 }, // Closeup angry mob
+    { COUNT_US, IMG_ROOM_OBJ, 82, 81 }, // Other end of sheet in pit
+    { COUNT_US, IMG_ROOM_OBJ, 83, 82 }, // Coat-of-arms at gate
+    { COUNT_US, IMG_ROOM_OBJ, 84, 63 }, // Dumb-waiter
+    { VOODOO_CASTLE_US, IMG_ROOM, 81, 90 }, // Closeup broken sword
+    { VOODOO_CASTLE_US, IMG_ROOM, 82, 96 }, // Closeup chemicals
+    { VOODOO_CASTLE_US, IMG_ROOM, 83, 101 }, // Closeup Count Cristo
+    { VOODOO_CASTLE_US, IMG_ROOM, 84, 100 }, // Closeup dusty idol
+    { VOODOO_CASTLE_US, IMG_ROOM_OBJ, 70, 80 }, // Wooden boards unnailed
 };
 
-static const imglist listCount[] = {
-    { IMG_INV_OBJ, 0, 0x297 }, // (0) Sheets
-    { IMG_INV_OBJ, 16, 0x310 }, // (1) Tent STAKE
-    { IMG_INV_OBJ, 26, 0x36b }, // (2) Pack of cigarettes
-    { IMG_INV_OBJ, 19, 0x3e4 }, // (3) Empty bottle
-    { IMG_INV_OBJ, 45, 0x425 }, // (4) Package
-    { IMG_INV_OBJ, 42, 0x49e }, // (5) Small Vial
-    { IMG_INV_OBJ, 47, 0x4c8 }, // (6) Postcard
-    { IMG_INV_OBJ, 3, 0x4f9 }, // (7) Pillow
-    { IMG_INV_OBJ, 17, 0x58e }, // (8) Mirror
-    { IMG_INV_OBJ, 27, 0x5dd }, // (9) LIT cigarette
-    { IMG_INV_OBJ, 31, 0x656 }, // (10) Dusty clove of garlic
-    { IMG_INV_OBJ, 5, 0x697 }, // (11) Coat-of-Arms
-    { IMG_INV_OBJ, 18, 0x6f2 }, // (12) Bottle of type V blood
-    { IMG_INV_OBJ, 46, 0x73a }, // (13) Empty box
-    { IMG_INV_OBJ, 33, 0x7a5 }, // (14) Cigarette
-    { IMG_INV_OBJ, 8, 0x7eb }, // (15) 1 nodoz tablet
-    { IMG_INV_OBJ, 21, 0x848 }, // (16) Sulfur matches
-    { IMG_INV_OBJ, 20, 0x8a5 }, // (17) Unlit torch
-    { IMG_INV_OBJ, 51, 0x900 }, // (18) Note
-    { IMG_INV_OBJ, 61, 0x997 }, // (19) Daisies
-    { IMG_INV_OBJ, 9, 0xa4f }, // (20) LIT torch
-    { IMG_INV_OBJ, 24, 0xadd }, // (21) 2 nodoz tablets
-    { IMG_INV_OBJ, 37, 0xb56 }, // (22) Pocket watch
-    { IMG_INV_OBJ, 15, 0xbc8 }, // (23) Paper clip
-    { IMG_INV_OBJ, 23, 0xc2c }, // (24) 3 no-doz tablets
-    { IMG_INV_OBJ, 41, 0xceb }, // (25) Large tempered nail file
-    { IMG_INV_OBJ, 53, 0xd72 }, // (26) Rubber mallet
-    { IMG_INV_OBJ, 65, 0xdf9 }, // (27) Letter
-    { IMG_INV_OBJ, 58, 0xe90 }, // (28) portrait of DRACULA
-    { IMG_INV_OBJ, 70, 0xf2c }, // (29) Century worth of dust
-    { IMG_INV_OBJ, 35, 0xfac }, // (30) The other end of the sheet
-    { IMG_ROOM_OBJ, 6, 0x10c8 }, // (31) Sheet going into window
-    { IMG_ROOM_OBJ, 7, 0x116b }, // (32) sheet tied to flagpole
-    { IMG_ROOM_OBJ, 13, 0x12ba }, // (33) Open door
-    { IMG_ROOM_OBJ, 82, 0x13f9 }, // (34) Coat-of-arms in room
-    { IMG_ROOM_OBJ, 40, 0x168e }, // (35) Broken slide lock
-    { IMG_ROOM_OBJ, 52, 0x16b3 }, // (36) DRACULA
-    { IMG_ROOM_OBJ, 55, 0x1b48 }, // (37) Sheet tied to ring
-    { IMG_ROOM, 90, 0x1ccf }, // (38) Closeup package
-    { IMG_ROOM_OBJ, 63, 0x261e }, // (39) Dumb-waiter
-    { IMG_ROOM_OBJ, 67, 0x2733 }, // (40) Mouldy old skeleton
-    { IMG_ROOM_OBJ, 80, 0x2cdd }, // (41) wall mirror
-    { IMG_ROOM_OBJ, 81, 0x2ecf }, // (42) other end of sheet
-    { IMG_ROOM, 250, 0x3000 }, // (43) Color test
-    { IMG_ROOM_OBJ, 29, 0x302c }, // (44) Coffin is open
-    { IMG_ROOM_OBJ, 30, 0x334f }, // (45) Coffin is closed
-    { IMG_ROOM, 91, 0x3580 }, // (46) Closeup angry mob
-    { IMG_ROOM_OBJ, 1, 0x4072 }, // (47) Open window
-    { IMG_ROOM_OBJ, 36, 0x408e }, // (48) Sheet tied to bed
-    { IMG_ROOM, 2, 0x413a }, // (49) bedroom
-    { IMG_ROOM, 0, 0x4a25 }, // (50) Too dark
-    { IMG_ROOM, 1, 0x5580 }, // (51) *I'm lying in a large brass bed
-    { IMG_ROOM, 3, 0x5e48 }, // (52) *ledge outside an open window
-    { IMG_ROOM, 4, 0x6a17 }, // (53) *hanging on the end of a sheet
-    { IMG_ROOM, 5, 0x74c1 }, // (54) flower box outside window
-    { IMG_ROOM, 6, 0x7cba }, // (55) CRYPT
-    { IMG_ROOM, 7, 0x8f41 }, // (56) closet
-    { IMG_ROOM, 8, 0x984f }, // (57) Bathroom
-    { IMG_ROOM, 9, 0xa10e }, // (58) *I'm outside the castle
-    { IMG_ROOM, 10, 0xad79 }, // (59) DOORLESS room
-    { IMG_ROOM, 11, 0xb687 }, // (60) hall inside the castle
-    { IMG_ROOM, 12, 0xc0d6 }, // (61) kitchen
-    { IMG_ROOM, 13, 0xcc56 }, // (62) large COFFIN
-    { IMG_ROOM, 14, 0xdf5d }, // (63) pAntry
-    { IMG_ROOM, 15, 0xe872 }, // (64) giant SOLAR OVEN
-    { IMG_ROOM, 16, 0xf72c }, // (65) Dungeon
-    { IMG_ROOM, 17, 0x10441 }, // (66) Meandering path
-    { IMG_ROOM, 18, 0x1159e }, // (67) Pit
-    { IMG_ROOM, 19, 0x12872 }, // (68) Dark passage
-    { IMG_ROOM, 20, 0x12f5d }, // (69) dumb-waiter by a room
-    { IMG_ROOM, 21, 0x136b3 }, // (70) workroom
-    { IMG_ROOM, 22, 0x1400e }, // (71) LOT OF TROUBLE!
-    { IMG_ROOM, 99, 0x14f97 }, // (72) Title
-    { IMG_ROOM_OBJ, 56, 0x16156 }, // 73
-    { 0, 0, 0 }
-};
+static int A8Renumber(USImageType usage, int slot)
+{
+    for (size_t i = 0; i < sizeof a8renumberlist / sizeof a8renumberlist[0]; i++) {
+        const a8renumber *entry = &a8renumberlist[i];
+        if (entry->game == CurrentGame && entry->usage == usage && entry->slot == slot)
+            return entry->index;
+    }
+    return slot;
+}
 
-static const imglist listVoodoo[] = {
-    { IMG_ROOM, 1, 0x297 }, // (0) chapel
-    { IMG_ROOM, 14, 0xac1 }, // (1) Chimney
-    { IMG_ROOM, 2, 0x1a79 }, // (2) Dingy Looking Stairwell
-    { IMG_ROOM, 3, 0x1e2c }, // (3) room in the castle
-    { IMG_ROOM, 4, 0x28a5 }, // (4) Tunnel
-    { IMG_ROOM, 5, 0x3817 }, // (5) room in the castle
-    { IMG_ROOM, 6, 0x3f87 }, // (6) *I'm in Medium Maegen's Mad Room
-    { IMG_ROOM, 7, 0x4664 }, // (7) room in the castle
-    { IMG_ROOM, 8, 0x4f0e }, // (8) room in the castle
-    { IMG_ROOM, 9, 0x52ac }, // (9) room in the castle
-    { IMG_ROOM, 10, 0x5b48 }, // (10) Ballroom
-    { IMG_ROOM, 11, 0x6264 }, // (11) dungeon
-    { IMG_ROOM, 12, 0x67dd }, // (12) *I'm in the Armory
-    { IMG_ROOM, 13, 0x740e }, // (13) torture chamber
-    { IMG_ROOM, 15, 0x7d4f }, // (14) large fireplace
-    { IMG_ROOM, 16, 0x8af2 }, // (15) room in the castle
-    { IMG_ROOM, 17, 0x954f }, // (16) Lab
-    { IMG_ROOM, 18, 0xa19e }, // (17) narrow part of the chimney
-    { IMG_ROOM, 19, 0xab17 }, // (18) Graveyard
-    { IMG_ROOM, 20, 0xbe1e }, // (19) parlor
-    { IMG_ROOM, 21, 0xc579 }, // (20) Jail Cell
-    { IMG_ROOM, 22, 0xcf9e }, // (21) *I'm on a ledge
-    { IMG_ROOM, 23, 0xd533 }, // (22) hidden VOODOO room
-    { IMG_ROOM, 24, 0xe5e4 }, // (23) room in the castle
-    { IMG_ROOM, 25, 0xeb3a }, // (24) lot of TROUBLE!
-    { IMG_ROOM, 90, 0xf856 }, // (25) Closeup Broken sword
-    { IMG_ROOM, 96, 0xfd87 }, // (26) Closeup Chemicals
-    { IMG_ROOM, 101, 0x1068e }, // (27) Closeup Count Cristo
-    { IMG_ROOM, 100, 0x114e4 }, // (28) Closeup dusty idol
-    { IMG_ROOM, 99, 0x11956 }, // (29) Title
-    { IMG_ROOM, 0, 0x12879 }, // (30) Too dark
-    { IMG_ROOM_OBJ, 17, 0x131cf }, // (31) Closed Coffin
-    { IMG_INV_OBJ, 26, 0x13325 }, // (32) Ju-Ju bag
-    { IMG_INV_OBJ, 43, 0x13407 }, // (33) Dusty idol
-    { IMG_INV_OBJ, 14, 0x134ba }, // (34) Four leaf clover
-    { IMG_INV_OBJ, 60, 0x1355d }, // (35) Advertising
-    { IMG_INV_OBJ, 16, 0x1359e }, // (36) Cast iron pot
-    { IMG_INV_OBJ, 44, 0x1360e }, // (37) Doll
-    { IMG_INV_OBJ, 25, 0x136ba }, // (38) Sapphire ring
-    { IMG_INV_OBJ, 39, 0x13733 }, // (39) Pocket Shovel
-    { IMG_INV_OBJ, 38, 0x1378e }, // (40) Labeled chemicals
-    { IMG_INV_OBJ, 54, 0x13817 }, // (41) Stick
-    { IMG_INV_OBJ, 33, 0x13879 }, // (42) Dull & broken sword
-    { IMG_INV_OBJ, 0, 0x138dd }, // (43) Bloody Knife
-    { IMG_INV_OBJ, 64, 0x1392c }, // (44) Page torn from a book
-    { IMG_INV_OBJ, 47, 0x13972 }, // (45) Antique hammer
-    { IMG_INV_OBJ, 2, 0x139c1 }, // (46) Plaque
-    { IMG_INV_OBJ, 52, 0x13a2c }, // (47) Voodoo book
-    { IMG_INV_OBJ, 21, 0x13aa5 }, // (48) Soot
-    { IMG_INV_OBJ, 49, 0x13b0e }, // (49) Rusting SAW
-    { IMG_INV_OBJ, 7, 0x13b64 }, // (50) Shield
-    { IMG_INV_OBJ, 4, 0x13c56 }, // (51) Broken glass
-    { IMG_INV_OBJ, 3, 0x13cac }, // (52) Animal heads
-    { IMG_INV_OBJ, 36, 0x13d6b }, // (53) Chem tubes
-    { IMG_INV_OBJ, 53, 0x13db3 }, // (54) Ju-Ju man statue
-    { IMG_INV_OBJ, 9, 0x13e97 }, // (55) Brightly glowing idol
-    { IMG_INV_OBJ, 40, 0x13f72 }, // (56) Mixed Chemicals
-    { IMG_INV_OBJ, 42, 0x13ff9 }, // (57) Nails
-    { IMG_INV_OBJ, 51, 0x1405d }, // (58) Paper
-    { IMG_INV_OBJ, 63, 0x140d6 }, // (59) Pieces of rock
-    { IMG_INV_OBJ, 45, 0x1415d }, // (60) Wooden boards
-    { IMG_INV_OBJ, 59, 0x14217 }, // (61) Broken grating
-    { IMG_INV_OBJ, 29, 0x14279 }, // (62) Ju-Ju man
-    { IMG_ROOM_OBJ, 19, 0x14333 }, // (63) Closed Window
-    { IMG_ROOM_OBJ, 23, 0x144c1 }, // (64) Spirit Medium
-    { IMG_ROOM_OBJ, 28, 0x147f2 }, // (65) Slick chute leading downward
-    { IMG_ROOM_OBJ, 35, 0x14e1e }, // (66) Stuck Chimney Sweep
-    { IMG_ROOM_OBJ, 6, 0x15710 }, // (67) Dark hole
-    { IMG_ROOM_OBJ, 41, 0x158c8 }, // (68) Wide open door
-    { IMG_ROOM_OBJ, 65, 0x15972 }, // (69) Smiling Count Cristo
-    { IMG_ROOM_OBJ, 13, 0x15cf9 }, // (70) Open Flue
-    { IMG_ROOM_OBJ, 31, 0x15eb3 }, // (71) Wide crack in the wall
-    { IMG_ROOM_OBJ, 34, 0x16025 }, // (72) Open SAfe
-    { IMG_ROOM_OBJ, 37, 0x1625d }, // (73) Closed SAfe
-    { IMG_ROOM_OBJ, 46, 0x16348 }, // (74) Wooden boards nailed
-    { IMG_ROOM_OBJ, 48, 0x16472 }, //75 Grating
-    { IMG_INV_OBJ, 32, 0x164f2 }, //76 Rabbit's foot? // 16590, bd9a
-    { IMG_ROOM, 250, 0x16490 }, // 77, Color test
-    { IMG_ROOM_OBJ, 80, 0x165c1 }, // 77, Wooden boards unnailed (45)
-    { 0, 0, 0, }
-};
+/* The title picture of Mission Impossible follows the colour test on the
+   disk, but is not in the table, as the original does not show it. */
+#define A8_MISSION_TITLE 0x8082
 
-// MARK: Adventureland
+static const uint8_t *FindA8PictureTable(const uint8_t *disk, size_t size, size_t offset)
+{
+    if (disk == NULL || size < offset + A8_SLOTS * 2)
+        return NULL;
+    const uint8_t *table = disk + offset;
+    if (table[-1] == 0 || table[-1] != table[-2] || table[-1] != table[-3])
+        return NULL;
+    return table;
+}
 
-static const imglist listAdventureland[] = {
-    { IMG_ROOM, 0,  0x059c }, // (0) Too dark to see?
-    { IMG_ROOM, 1,  0x10b7 }, // (1) Dismal swamp
-    { IMG_ROOM, 2,  0x16c3 }, // (2) top of a tall cypress tree
-    { IMG_ROOM, 3,  0x18ae }, // (3) damp hollow stump in the swamp
-    { IMG_ROOM, 4,  0x1cb7 }, // (4) root chamber under the stump
-    { IMG_ROOM, 5,  0x2146 }, // (5) semi-dark hole by the root chamber
-    { IMG_ROOM, 6,  0x2202 }, // (6) long down sloping hall
-    { IMG_ROOM, 7,  0x24b1 }, // (7) large cavern
-    { IMG_ROOM, 8,  0x2702 }, // (8) large 8 sided room
-    { IMG_ROOM, 9,  0x275b }, // (9) royal anteroom
-    { IMG_ROOM, 10, 0x28d2 }, // (10) *I'm on the shore of a lake
-    { IMG_ROOM, 11, 0x2dc3 }, // (11) forest
-    { IMG_ROOM, 12, 0x33e7 }, // (12) maze of pits. UN...
-    { IMG_ROOM, 13, 0x3525 }, // (13) maze of pits
-    { IMG_ROOM, 14, 0x3628 }, // (14) maze of pits, Aladin
-    { IMG_ROOM, 15, 0x3773 }, // (15) maze of pits
-    { IMG_ROOM, 16, 0x3876 }, // (16) maze of pits
-    { IMG_ROOM, 17, 0x3979 }, // (17) maze of pits, arrow down
-    { IMG_ROOM, 18, 0x3aa5 }, // (18) *I'm at the bottom of a very deep chasm
-    { IMG_ROOM, 19, 0x427f }, // (19) *I'm on a narrow ledge by a chasm
-    { IMG_ROOM, 20, 0x42e4 }, // (20) royal chamber
-    { IMG_ROOM, 21, 0x44b7 }, // (21) *I'm on a narrow ledge by a Throne-room
-    { IMG_ROOM, 22, 0x453d }, // (22) throne room
-    { IMG_ROOM, 23, 0x4b55 }, // (23) sunny meadow
-    { IMG_ROOM, 24, 0x4ed2 }, // (24) *I think I'm in real trouble now! (Hell)
-    { IMG_ROOM, 25, 0x521c }, // (25) hidden grove
-    { IMG_ROOM, 26, 0x581f }, // (26) quick-sand bog
-    { IMG_ROOM, 27, 0x60bd }, // (27) Memory chip of a COMPUTER!
-    { IMG_ROOM, 28, 0x644f }, // (28) top of an oak
-    { IMG_ROOM, 29, 0x6855 }, // (29) *I'm at the edge of a BOTTOMLESS hole
-    { IMG_ROOM, 30, 0x6a67 }, // (30) *I'm on a ledge just below the rim of the BOTTOMLESS hole
-    { IMG_ROOM, 31, 0x6c08 }, // (31) long tunnel. I hear buzzing ahead
-    { IMG_ROOM, 32, 0x6f19 }, // (32) *I'm in an endless corridor
-    { IMG_ROOM, 33, 0x6fb4 }, // (33) large misty room with strange unreadable letters over all the exits.
+/* Two sectors of the table are filled with something else on the boot disk
+   of Voodoo Castle, so we check that there is a picture where an entry says.
+   The header is the size of the picture and its left, top, right and bottom
+   edges, the left and right ones in bytes. */
+static int IsA8Bitmap(const uint8_t *data, size_t datasize, size_t offset)
+{
+    if (offset < 2 || offset + 6 > datasize)
+        return 0;
+    size_t size = READ_LE_UINT16(data + offset);
+    const uint8_t *edges = data + offset + 2;
+    return (size >= 8 && offset + 2 + size <= datasize && edges[0] < edges[2] && edges[2] <= 40 && edges[1] < edges[3] && edges[3] <= 192);
+}
 
-    { IMG_ROOM, 80, 0x72f3 }, // (80) Closeup genie
-    { IMG_ROOM, 81, 0x78c0 }, // (81) Closeup firestone
-    { IMG_ROOM, 82, 0x7b19 }, // (82) Closeup bee
-    { IMG_ROOM, 83, 0x7f73 }, // (83) Closeup flint and steel
-    { IMG_ROOM, 84, 0x8119 }, // (84) Closeup lava
-    { IMG_ROOM, 85, 0x833d }, // (85) Closeup mirror
-    { IMG_ROOM, 86, 0x84ba }, // (86) Closeup chigger
-    { IMG_ROOM, 87, 0x87a2 }, // (87) Closeup fruit
-    { IMG_ROOM, 88, 0x8ae1 }, // (88) Closeup ox
-    { IMG_ROOM, 89, 0x9016 }, // (89) Closeup dragon
-    { IMG_ROOM, 90, 0x9840 }, // (90) KA-BOOM
-    { IMG_ROOM, 91, 0x9b7f }, // (91) Deep hole
-    { IMG_ROOM, 98, 0x9c64 }, // (98) Inventory
-    { IMG_ROOM, 99, 0x9fcf }, // (99) Title background
+static int CompareImgOffsets(const void *a, const void *b)
+{
+    size_t first = ((const imglist *)a)->offset, second = ((const imglist *)b)->offset;
+    return (first > second) - (first < second);
+}
 
-    { IMG_INV_AND_ROOM_OBJ, 0, 0xa94c }, // (0) Glowing *FIRESTONE*
-    { IMG_INV_AND_ROOM_OBJ, 2, 0xa973 }, // (2) *Pot of RUBIES*
-    { IMG_INV_AND_ROOM_OBJ, 4, 0xa9e7 }, // (4) -HOLLOW- stump and remains of a felled tree
-    { IMG_INV_AND_ROOM_OBJ, 7, 0xab22 }, // (7) Evil smelling mud
-    { IMG_INV_AND_ROOM_OBJ, 8, 0xab67 }, // (8) *GOLDEN FISH*
-    { IMG_INV_AND_ROOM_OBJ, 9, 0xac25 }, // (9) Lit brass lamp
-    { IMG_INV_AND_ROOM_OBJ, 10, 0xac8e }, // (10) Old fashioned brass lamp
+/* Returns a list of the pictures on the disk in the order they are stored,
+   which ends with an entry with offset 0 and must be freed by the caller.
+   The offset is that of the size of a bitmap picture and of the start of a
+   line drawing. Returns NULL if there is no table. */
+static imglist *ReadA8PictureTable(const uint8_t *data, size_t datasize, const uint8_t *otherdisk, size_t othersize, int is_vector)
+{
+    const uint8_t *table;
 
-    { IMG_INV_AND_ROOM_OBJ, 11, 0xacd5 }, // (11) Rusty axe (Magic word "BUNYON" on it)
-    { IMG_INV_AND_ROOM_OBJ, 12, 0xad22 }, // (12) Water in bottle
-    { IMG_INV_AND_ROOM_OBJ, 13, 0xad61 }, // (13) Empty bottle
-    { IMG_INV_AND_ROOM_OBJ, 14, 0xad9f }, // (14) Ring of skeleton keys
-    { IMG_INV_AND_ROOM_OBJ, 17, 0xaddb }, // (17) Open door with a hallway beyond
-    { IMG_INV_AND_ROOM_OBJ, 19, 0xae3d }, // (19) *GOLDEN NET*
-    { IMG_INV_AND_ROOM_OBJ, 20, 0xae99 }, // (20) Chigger bites
-    { IMG_INV_AND_ROOM_OBJ, 21, 0xaea5 }, // (21) Infected chigger bites
-    { IMG_INV_AND_ROOM_OBJ, 22, 0xaec6 }, // (22) Patches of "OILY" slime
-    { IMG_INV_AND_ROOM_OBJ, 23, 0xaef0 }, // (23) *ROYAL HONEY*
-    { IMG_INV_AND_ROOM_OBJ, 24, 0xaf28 }, // (24) Large african bees
-    { IMG_INV_AND_ROOM_OBJ, 25, 0xb005 }, // (25) Very thin black bear
-    { IMG_INV_AND_ROOM_OBJ, 26, 0xb30e }, // (26) Bees in a bottle
-    { IMG_INV_AND_ROOM_OBJ, 27, 0xb37c }, // (27) Large sleeping dragon
-    { IMG_INV_AND_ROOM_OBJ, 28, 0xb773 }, // (28) Flint & steel
-    { IMG_INV_AND_ROOM_OBJ, 29, 0xb793 }, // (29) *Thick PERSIAN RUG*
-    { IMG_INV_AND_ROOM_OBJ, 31, 0xb7b4 }, // (31) Distended gas bladder
-    { IMG_INV_AND_ROOM_OBJ, 35, 0xb7e4 }, // (35) Bricked up window with a hole in it
-    { IMG_INV_AND_ROOM_OBJ, 36, 0xb816 }, // (36) Loose fire bricks
-    { IMG_INV_AND_ROOM_OBJ, 37, 0xb888 }, // (37) *GOLD CROWN*22
-    { IMG_INV_AND_ROOM_OBJ, 38, 0xb8d5 }, // (38) *MAGIC MIRROR*21
-    { IMG_INV_AND_ROOM_OBJ, 39, 0xb92e }, // (39) Sleeping bear
-    { IMG_INV_AND_ROOM_OBJ, 40, 0xbb40 }, // (40) Empty wine bladder9
-    { IMG_INV_AND_ROOM_OBJ, 41, 0xbb70 }, // (41) Broken glass
-    { IMG_INV_AND_ROOM_OBJ, 42, 0xbbdb }, // (42) Chiggers1
-    { IMG_INV_AND_ROOM_OBJ, 43, 0xbc02 }, // (43) Slightly woozy bear
-    { IMG_INV_AND_ROOM_OBJ, 44, 0xbd0e }, // (44) *DRAGON EGGS* (very rare)
-    { IMG_INV_AND_ROOM_OBJ, 45, 0xbd4f }, // (45) Lava stream with brick dam
-    { IMG_INV_AND_ROOM_OBJ, 46, 0xbda8 }, // (46) *JEWELED FRUIT*25
-    { IMG_INV_AND_ROOM_OBJ, 47, 0xbdf3 }, // (47) *Small statue of a BLUE OX*26
-    { IMG_INV_AND_ROOM_OBJ, 48, 0xbf08 }, // (48) *DIAMOND RING*
-    { IMG_INV_AND_ROOM_OBJ, 49, 0xbf3a }, // (49) *DIAMOND BRACELET*
-    { IMG_INV_AND_ROOM_OBJ, 52, 0xbf7f }, // (52) Smoking hole. pieces of dragon and gore.
-    { IMG_INV_AND_ROOM_OBJ, 55, 0xc02b }, // (55) Dead fish
-    { IMG_INV_AND_ROOM_OBJ, 56, 0xc0b7 }, // (56) *FIRESTONE* (cold now)
-    { IMG_INV_AND_ROOM_OBJ, 60, 0xc0de }, // (60) Empty lamp
-    { IMG_INV_AND_ROOM_OBJ, 61, 0xc125 }, // (61) Muddy worthless old rug
-    { IMG_ROOM, 250, 0xc146 }, // Color test
-    { IMG_INV_AND_ROOM_OBJ, 255, 0xc18b }, // (255) Title
-    { 0, 0, 0, }
-};
+    if (is_vector) {
+        table = FindA8PictureTable(data, datasize, A8_LINES_TABLE);
+    } else {
+        table = FindA8PictureTable(otherdisk, othersize, A8_BITMAP_TABLE);
+        if (table == NULL)
+            table = FindA8PictureTable(data, datasize, A8_BITMAP_TABLE);
+    }
+    if (table == NULL)
+        return NULL;
 
-static const imglist listPirate[] = {
-    { IMG_ROOM,  0, 0x0590 }, //  (0) Darkness
-    { IMG_ROOM,  1, 0x10b7 }, //  (1) Room in London
-    { IMG_ROOM,  2, 0x12f0 }, //  (2) alcove
-    { IMG_ROOM,  3, 0x152b }, //  (3) Secret passageway
-    { IMG_ROOM,  4, 0x163d }, //  (4) musty attic
-    { IMG_ROOM,  5, 0x17d2 }, //  (5) *I'm outside an open window
-    { IMG_ROOM,  6, 0x19ea }, //  (6) sandy beach on a tropical isle
-    { IMG_ROOM,  7, 0x1bf6 }, //  (7) maze of caves
-    { IMG_ROOM,  8, 0x201c }, //  (8) meadow
-    { IMG_ROOM,  9, 0x238e }, //  (9) grass shack
-    { IMG_ROOM, 10, 0x28e1 }, //  (10) *I'm in the ocean
-    { IMG_ROOM, 11, 0x293d }, //  (11) pit
-    { IMG_ROOM, 12, 0x2a4f }, //  (12) maze of caves
-    { IMG_ROOM, 13, 0x2e73 }, //  (13) maze of caves
-    { IMG_ROOM, 14, 0x3299 }, //  (14) *I'm at the foot of a cave ridden hill
-    { IMG_ROOM, 15, 0x34c6 }, //  (15) tool shed
-    { IMG_ROOM, 16, 0x37ba }, //  (16) long hallway
-    { IMG_ROOM, 17, 0x3a22 }, //  (17) large cavern
-    { IMG_ROOM, 18, 0x3e2b }, //  (18) *I'm on top of a hill.
-    { IMG_ROOM, 19, 0x41f9 }, //  (19) maze of caves
-    { IMG_ROOM, 20, 0x461f }, //  (20) *I'm aboard Pirate ship anchored off shore
-    { IMG_ROOM, 21, 0x49b7 }, //  (21) *I'm on the beach at *Treasure* Island
-    { IMG_ROOM, 22, 0x4c61 }, //  (22) spooky old graveyard filled with piles
-    { IMG_ROOM, 23, 0x50e7 }, //  (23) large barren field
-    { IMG_ROOM, 24, 0x525b }, //  (24) shallow lagoon.
-    { IMG_ROOM, 25, 0x5264 }, //  (25) sacked and deserted monastary
-    { IMG_ROOM, 26, 0x5731 }, //  (26) *Welcome to Never Never Land (Death)
-    { IMG_ROOM, 80, 0x5f37 }, //  (80) Sailing on map (set sail)
-    { IMG_ROOM, 81, 0x63ed }, //  (81) Closeup Plans
-    { IMG_ROOM, 82, 0x692e }, //  (82) Closeup Book
-    { IMG_ROOM, 83, 0x6b13 }, //  (83) Closeup Stamps
-    { IMG_ROOM, 84, 0x714c }, //  (84) Closeup Chest
-    { IMG_ROOM, 85, 0x74a8 }, //  (85) Closeup dubloons
-    { IMG_ROOM, 86, 0x7831 }, //  (86) Closeup map
-    { IMG_ROOM, 87, 0x7d0e }, //  (87) Parrot
-    { IMG_ROOM, 90, 0x8549 }, //  (90) Magic (say yoho)
-    { IMG_ROOM, 91, 0x85ba }, //  (91) Ship (make ship)
-    { IMG_ROOM, 98, 0x8c40 }, //  (98) Inventory
-    { IMG_ROOM, 99, 0x8fab }, //  (99) Title BG
+    imglist *list = MemAlloc((A8_SLOTS + 2) * sizeof *list);
+    int count = 0;
 
-    { IMG_INV_AND_ROOM_OBJ,  3, 0x9928 }, // (3) blood-soaked book
-    { IMG_INV_AND_ROOM_OBJ,  4, 0x9964 }, // (4) Bookcase with secret passage beyond
-    { IMG_INV_AND_ROOM_OBJ,  5, 0x9a28 }, // (5) Pirate's duffel bag
-    { IMG_INV_AND_ROOM_OBJ,  7, 0x9a9c }, // (7) Empty bottle
-    { IMG_INV_AND_ROOM_OBJ,  8, 0x9ae7 }, // (8) Unlit torch
-    { IMG_INV_AND_ROOM_OBJ,  9, 0x9b55 }, // (8) Lit torch
-    { IMG_INV_AND_ROOM_OBJ, 10, 0x9c02 }, // (10) Matches
-    { IMG_INV_AND_ROOM_OBJ, 11, 0x9c1f }, // (11) Small ship's keel and mast
-    { IMG_INV_AND_ROOM_OBJ, 12, 0x9d40 }, // (12) Wicked looking pirate
-    { IMG_INV_AND_ROOM_OBJ, 13, 0xa06d }, // (13) Treasure chest
-    { IMG_INV_AND_ROOM_OBJ, 14, 0xa0c3 }, // (14) Mongoose8
-    { IMG_INV_AND_ROOM_OBJ, 15, 0xa279 }, // (15) Rusty anchor
-    { IMG_INV_AND_ROOM_OBJ, 17, 0xa2f3 }, // (17) Mean and hungry looking crocodiles
-    { IMG_INV_AND_ROOM_OBJ, 18, 0xa479 }, // (18) Locked door
-    { IMG_INV_AND_ROOM_OBJ, 19, 0xa485 }, // (19) Open door with hall beyond
-    { IMG_INV_AND_ROOM_OBJ, 20, 0xa4ba }, // (20) Pile of sails
-    { IMG_INV_AND_ROOM_OBJ, 21, 0xa52e }, // (21) Fish
-    { IMG_INV_AND_ROOM_OBJ, 22, 0xa5b4 }, // (22) *DUBLOONS*
-    { IMG_INV_AND_ROOM_OBJ, 23, 0xa5ea }, // (23) Deadly mamba snakes
-    { IMG_INV_AND_ROOM_OBJ, 24, 0xa7c3 }, // (24) Parrot
-    { IMG_INV_AND_ROOM_OBJ, 25, 0xa8ba }, // (25) Bottle of rum
-    { IMG_INV_AND_ROOM_OBJ, 26, 0xa90e }, // (26) Rug
-    { IMG_INV_AND_ROOM_OBJ, 27, 0xa931 }, // (27) Ring of keys
-    { IMG_INV_AND_ROOM_OBJ, 28, 0xa96d }, // (28) Open treasure chest
-    { IMG_INV_AND_ROOM_OBJ, 29, 0xa9e7 }, // (29) Set of plans
-    { IMG_INV_AND_ROOM_OBJ, 30, 0xaa2b }, // (30) Rug1
-    { IMG_INV_AND_ROOM_OBJ, 31, 0xaa4f }, // (31) Claw hammer
-    { IMG_INV_AND_ROOM_OBJ, 32, 0xaa88 }, // (32) Nails
-    { IMG_INV_AND_ROOM_OBJ, 33, 0xaa9c }, // (33) Pile of precut lumber
-    { IMG_INV_AND_ROOM_OBJ, 37, 0xab64 }, // (37) Pirate ship
-    { IMG_INV_AND_ROOM_OBJ, 41, 0xac7c }, // (41) Sleeping pirate
-    { IMG_INV_AND_ROOM_OBJ, 42, 0xadcf }, // (42) Bottle of salt water
-    { IMG_INV_AND_ROOM_OBJ, 44, 0xae25 }, // (44) Safety sneakers1
-    { IMG_INV_AND_ROOM_OBJ, 45, 0xaea2 }, // (45) Map
-    { IMG_INV_AND_ROOM_OBJ, 46, 0xaf1f }, // (46) Shovel
-    { IMG_INV_AND_ROOM_OBJ, 47, 0xaf76 }, // (47) Mouldy old bones
-    { IMG_INV_AND_ROOM_OBJ, 48, 0xaff9 }, // (48) Sand
-    { IMG_INV_AND_ROOM_OBJ, 49, 0xb040 }, // (49) Bottles of rum
-    { IMG_INV_AND_ROOM_OBJ, 50, 0xb093 }, // (50) Rare stamps
-    { IMG_INV_AND_ROOM_OBJ, 52, 0xb10e }, // (52) The tide is out
-    { IMG_INV_AND_ROOM_OBJ, 53, 0xb173 }, // (53) The tide is coming in
-    { IMG_INV_AND_ROOM_OBJ, 54, 0xb21f }, // (54) Water wings
-    { IMG_INV_AND_ROOM_OBJ, 57, 0xb2a2 }, // (57) Wooden box
-    { IMG_INV_AND_ROOM_OBJ, 58, 0xb2ed }, // (58) Dead squirrel
-    { IMG_INV_AND_ROOM_OBJ, 60, 0xb437 }, // (60) Sack of crackers1
-    { IMG_INV_AND_ROOM_OBJ, 61, 0xb499 }, // (61) Note
-    { IMG_INV_AND_ROOM_OBJ, 62, 0xb4f6 }, // (62) Small advertising flyer
-    { IMG_INV_AND_ROOM_OBJ, 63, 0xb549 }, // (63) Burnt out torch
-    { IMG_ROOM,             250, 0xb5db }, // Color test
-    { IMG_INV_AND_ROOM_OBJ, 255, 0xb61f }, // Title
+    for (int slot = 0; slot < A8_SLOTS; slot++) {
+        uint8_t high = table[slot * 2];
+        size_t sector = (high & 3) << 8 | table[slot * 2 + 1];
+        if (sector == 0)
+            continue;
+        size_t offset = A8_HEADER_SIZE + (sector - 1) * A8_SECTOR_SIZE;
+        offset += is_vector ? (high >> 2) * 3 : (high >> 3) * 7;
 
-    { 0, 0, 0, }
-};
+        int index = slot;
+        USImageType usage = IMG_ROOM;
+        if (slot >= A8_ROOM_SLOTS) {
+            index = slot - A8_ROOM_SLOTS;
+            if (index == A8_COLOR_TEST)
+                ; /* Not an object */
+            else if (is_vector)
+                usage = IMG_INV_AND_ROOM_OBJ;
+            else
+                usage = (high & 4) ? IMG_INV_OBJ : IMG_ROOM_OBJ;
+        }
 
-static const imglist listImpossible[] = {
-    { IMG_ROOM,  0, 0x0590 }, // (0) Darkness. Not used?
-    { IMG_ROOM,  2, 0x10b7 }, // (2) briefing room
-    { IMG_ROOM,  3, 0x1234 }, // (3) long sloping grey corridor
-    { IMG_ROOM,  4, 0x1396 },  // (4) grey room
-    { IMG_ROOM,  5, 0x14e7 },  // (5) *I'm sitting in a grey chair there's a box pointing at me
-    { IMG_ROOM,  6, 0x15f9 },  // (6) twisting white hallway
-    { IMG_ROOM,  7, 0x168e },  // (7) twisting yellow hallway
-    { IMG_ROOM,  8, 0x1725 },  // (8) twisting blue hallway
-    { IMG_ROOM,  9, 0x17cc },  // (9) white room
-    { IMG_ROOM, 10, 0x187f },  // (10) yellow room
-    { IMG_ROOM, 11, 0x1958 },  // (11) blue room
-    { IMG_ROOM, 12, 0x1a16 },  // (12) maintenance room 1
-    { IMG_ROOM, 13, 0x1e31 },  // (13) large white visitors room
-    { IMG_ROOM, 14, 0x2185 },  // (14) yellow corridor
-    { IMG_ROOM, 15, 0x2243 },  // (15) blue anteroom
-    { IMG_ROOM, 16, 0x254c },  // (16) *I'm on a ledge outside of a window high above the reactor core
-    { IMG_ROOM, 17, 0x291f },  // (17) maintenance room 2
-    { IMG_ROOM, 18, 0x2aa2 },  // (18) projectionist room
-    { IMG_ROOM, 19, 0x2c40 },  // (19) Control room surronding the reactor core
-    { IMG_ROOM, 20, 0x30cc },  // (20) break room
-    { IMG_ROOM, 21, 0x3331 },  // (21) reactor core
-    { IMG_ROOM, 22, 0x3696 },  // (22) small viewing room
-    { IMG_ROOM, 23, 0x3710 },  // (23) storage
+        if (is_vector) {
+            /* The same two sectors are bad on the Strange Odyssey disk */
+            if (offset >= datasize || (slot >= A8_ROOM_SLOTS && index > GameHeader.NumItems && index < A8_COLOR_TEST))
+                continue;
+        } else if (!IsA8Bitmap(data, datasize, offset)) {
+            continue;
+        }
 
-    { IMG_ROOM, 80, 0x3d3d },  //    Death
-    { IMG_ROOM, 81, 0x4949 },  //    Closeup security
-    { IMG_ROOM, 82, 0x4bf6 },  //    Closeup visitor
-    { IMG_ROOM, 83, 0x4e79 },  //    Closeup maintenance
-    { IMG_ROOM, 84, 0x514c },  //    Closeup recorder
-    { IMG_ROOM, 85, 0x5746 },  //    Closeup bomb
-    { IMG_ROOM, 88, 0x5bd2 },  //    Victory
-    { IMG_ROOM, 89, 0x6037 },  //    Movie
-    { IMG_ROOM, 98, 0x694f },  //    Inventory
-    { IMG_ROOM, 99, 0x6cc6 },  //    Title background
+        list[count].usage = usage;
+        list[count].index = A8Renumber(usage, index);
+        list[count].offset = offset;
+        count++;
+    }
 
-    { IMG_INV_AND_ROOM_OBJ,  0, 0x7643 }, // (0) Torn up map
-    { IMG_INV_AND_ROOM_OBJ,  1, 0x76d5 }, // (1) Picture of me stamped -security-
-    { IMG_INV_AND_ROOM_OBJ,  2, 0x7710 }, // (2) Bomb detector flashing yellow) bomb is now armed)
-    { IMG_INV_AND_ROOM_OBJ,  3, 0x7728 }, // (3) Large tape recorder2
-    { IMG_INV_AND_ROOM_OBJ,  7, 0x77e1 }, // (7) Picture of me stamped: -visitor-
-    { IMG_INV_AND_ROOM_OBJ,  8, 0x7813 }, // (8) Picture of me stamped -maintenance-
-    { IMG_INV_AND_ROOM_OBJ,  9, 0x785e }, // (9) Surgically implanted bomb detector glows green) bomb's -safe-))
-    { IMG_INV_AND_ROOM_OBJ,  10, 0x7876 }, // (10) Bomb detector glowing red) final countdown active)
-    { IMG_INV_AND_ROOM_OBJ,  11, 0x788e }, // (11) Blue key
-    { IMG_INV_AND_ROOM_OBJ,  12, 0x78d2 }, // (12) Yellow key
-    { IMG_INV_AND_ROOM_OBJ,  16, 0x7916 }, // (16) Old fashioned yarn mop
-    { IMG_INV_AND_ROOM_OBJ,  17, 0x7985 }, // (17) Empty window frame
-    { IMG_INV_AND_ROOM_OBJ,  19, 0x79ba }, // (19) Broken glass
-    { IMG_INV_AND_ROOM_OBJ,  21, 0x7a02 }, // (21: Movie projector with film cartridge
+    if (CurrentGame == SECRET_MISSION_US && A8_MISSION_TITLE < datasize) {
+        list[count].usage = IMG_INV_AND_ROOM_OBJ;
+        list[count].index = 255;
+        list[count].offset = A8_MISSION_TITLE;
+        count++;
+    }
 
-    { IMG_INV_AND_ROOM_OBJ,  22, 0x7a25 }, // (22) Movie film cartridge
-    { IMG_INV_AND_ROOM_OBJ,  23, 0x7aa2 }, // (23) Empty plastic pail
-    { IMG_INV_AND_ROOM_OBJ,  24, 0x7aff }, // (24) Water filled plastic pail
-    { IMG_INV_AND_ROOM_OBJ,  26, 0x7b5b }, // (26) Wire cutters7
-    { IMG_INV_AND_ROOM_OBJ,  27, 0x7bb1 }, // (27) Anti-radiation suit
-    { IMG_INV_AND_ROOM_OBJ,  28, 0x7c5e }, // (28) Very large time bomb
-
-    { IMG_INV_AND_ROOM_OBJ,  30, 0x7d31 }, // (30) Strange lump of glowing plastic
-    { IMG_INV_AND_ROOM_OBJ,  36, 0x7dde }, // (36) The door is partially open
-    { IMG_INV_AND_ROOM_OBJ,  37, 0x7e0e }, // (37) Empty pill case
-    { IMG_INV_AND_ROOM_OBJ,  39, 0x7e34 }, // (39) Empty manila envelope
-    { IMG_INV_AND_ROOM_OBJ,  40, 0x7e96 }, // (40) Piece of yarn
-    { IMG_INV_AND_ROOM_OBJ,  41, 0x7ec9 }, // (41) Picture of saboteur stamped -window maintance-
-    { IMG_INV_AND_ROOM_OBJ,  42, 0x7f0e }, // (42) Dead saboteur
-    { IMG_INV_AND_ROOM_OBJ,  43, 0x7ff0 }, // (43) Loose red wire going into wall
-    { IMG_INV_AND_ROOM_OBJ,  49, 0x8002 }, // (49) A leaflet
-    { IMG_ROOM, 250, 0x8031 }, // Color test
-    { IMG_INV_AND_ROOM_OBJ, 255, 0x8082 }, // Title (not used by original)
-
-    { 0, 0, 0, }
-};
-
-static const imglist listStrange[] = {
-    { IMG_ROOM,  0, 0x0590 }, // (0) Darkness
-    { IMG_ROOM,  1, 0x10b7 }, // (1) one man scoutship
-    { IMG_ROOM,  2, 0x1528 }, // (2) small airlock
-    { IMG_ROOM,  3, 0x15bd }, // (3) large cavern
-    { IMG_ROOM,  4, 0x1b5e }, // (4) *I'm on a small planetoid
-    { IMG_ROOM,  5, 0x2070 }, // (5) *I'm on a small planetoid
-    { IMG_ROOM,  6, 0x2549 }, // (6) strange hexagonal room
-    { IMG_ROOM,  7, 0x27ba }, // (7) storage hold
-    { IMG_ROOM,  8, 0x2aea }, // (8) *I'm on a small planetoid
-    { IMG_ROOM,  9, 0x2fde }, // (9) Large grassy plain at edge of a jungle
-    { IMG_ROOM, 10, 0x3516 }, // (10) methane snow storm
-    { IMG_ROOM, 11, 0x3552 }, // (11) small derelict spacecraft
-    { IMG_ROOM, 12, 0x393a }, // (12) *I'm outside the airlock on a ledge. The ground is 90 meters below"
-    { IMG_ROOM, 13, 0x3b64 },  // (13) Alien Art Museum
-    { IMG_ROOM, 14, 0x3d8b },  // (14) deserted Jovian mining colony
-    { IMG_ROOM, 15, 0x458b },  // (15) Strange jungle
-    { IMG_ROOM, 17, 0x4f67 },  // (17) BLACK EMPTINESS
-    { IMG_ROOM, 18, 0x5522 },  // (18) methane snow storm
-    { IMG_ROOM, 19, 0x552b },  // (19) methane snow storm
-    { IMG_ROOM, 20, 0x5534 },  // (20) methane snow storm
-    { IMG_ROOM, 21, 0x553d },  // (21) *I'm in the ruins of an intergalatic ZOO
-    { IMG_ROOM, 22, 0x60a2 },  // (22) storage hold of the mother ship
-    { IMG_ROOM, 23, 0x67cc },  // (23) maintenance crawl way
-    { IMG_ROOM, 24, 0x686d },  // (24) hollow ice mound
-
-    { IMG_ROOM, 35, 0x697f },  // In a lot of trouble
-    { IMG_ROOM, 81, 0x74ae },  // Closeup phaser
-    { IMG_ROOM, 82, 0x77a2 },  // Closeup control console
-    { IMG_ROOM, 83, 0x7c08 },  // Closeup disc
-    { IMG_ROOM, 84, 0x7e10 },  // Closeup alien sculpture
-    { IMG_ROOM, 85, 0x812b },  // Closeup goggles
-    { IMG_ROOM, 86, 0x845b },  // Closeup belt
-    { IMG_ROOM, 87, 0x868e },  // Closeup beast
-    { IMG_ROOM, 88, 0x8bfc },  // Closeup ice diamond
-    { IMG_ROOM, 91, 0x9264 },  // Teleport
-    { IMG_ROOM, 92, 0x9610 },  // Alien twisting buckle
-    { IMG_ROOM, 93, 0x9cb1 },  // Alien painting
-    { IMG_ROOM, 98, 0xa19f },  // Inventory
-    { IMG_ROOM, 99, 0xa4fc },  // Title screen background
-    { IMG_INV_AND_ROOM_OBJ,  6, 0xae79 }, // (6) Space suit
-    { IMG_INV_AND_ROOM_OBJ,  7, 0xaf5b }, // (7) which I'm wearing
-    { IMG_INV_AND_ROOM_OBJ, 10, 0xb2d5 }, // (10) Phaser
-    { IMG_INV_AND_ROOM_OBJ, 12, 0xb343 }, // (12) Closed door
-    { IMG_INV_AND_ROOM_OBJ, 13, 0xb41c }, // (13) Open door
-    { IMG_INV_AND_ROOM_OBJ, 19, 0xb482 }, // (19) OPen outer door
-    { IMG_INV_AND_ROOM_OBJ, 21, 0xb4f3 }, // (21) Open inner door
-    { IMG_INV_AND_ROOM_OBJ, 23, 0xb525 }, // (23) Hose connects my suit to machine
-    { IMG_INV_AND_ROOM_OBJ, 24, 0xb56a }, // (24) Large boulder
-    { IMG_INV_AND_ROOM_OBJ, 27, 0xb8fc }, // (27) Rod jutting straight out of the wall
-    { IMG_INV_AND_ROOM_OBJ, 28, 0xb934 }, // (28) Broken piece of rod
-    { IMG_INV_AND_ROOM_OBJ, 29, 0xb98b }, // (29) Strange light far to the NORTH
-    { IMG_INV_AND_ROOM_OBJ, 30, 0xb9d2 }, // (30) Rigilian Dia-Ice Hound
-    { IMG_INV_AND_ROOM_OBJ, 31, 0xbad8 }, // (31) Stunned Dia-Ice Hound
-    { IMG_INV_AND_ROOM_OBJ, 34, 0xbb76 }, // (34) * ANCIENT FLASK SAURIAN BRANDY *
-    { IMG_INV_AND_ROOM_OBJ, 35, 0xbc19 }, // (35) Empty crystal holder
-    { IMG_INV_AND_ROOM_OBJ, 36, 0xbc64 }, // (36) Broken pieces of Power Crystal
-    { IMG_INV_AND_ROOM_OBJ, 37, 0xbcb1 }, // (37) Broken rod in power holder
-    { IMG_INV_AND_ROOM_OBJ, 38, 0xbd22 }, // (38) Large ice mound
-    { IMG_INV_AND_ROOM_OBJ, 39, 0xbfe4 }, // (39) Ancient ice pick
-    { IMG_INV_AND_ROOM_OBJ, 40, 0xc01f }, // (40) Broken ice pick
-    { IMG_INV_AND_ROOM_OBJ, 41, 0xc05e }, // (41) Short twisted piece of metal
-    { IMG_INV_AND_ROOM_OBJ, 42, 0xc0a5 }, // (42) Entrance to a crawlway
-    { IMG_INV_AND_ROOM_OBJ, 43, 0xc10e }, // (43) * RIGILIAN ICE DIAMOND *
-    { IMG_INV_AND_ROOM_OBJ, 44, 0xc1b1 }, // (44) * STRANGE ALIEN BELT *
-    { IMG_INV_AND_ROOM_OBJ, 47, 0xc24c }, // (47) * RARE ALIEN PAINTING *
-    { IMG_INV_AND_ROOM_OBJ, 48, 0xc2de }, // (48) Rock dust
-    { IMG_INV_AND_ROOM_OBJ, 50, 0xc50b }, // (50) * ALIEN SCULPTURE *
-    { IMG_INV_AND_ROOM_OBJ, 51, 0xc5bd }, // (51) Strange looking goggles
-    { IMG_INV_AND_ROOM_OBJ, 53, 0xc699 }, // (53) Shovel
-    { IMG_INV_AND_ROOM_OBJ, 55, 0xc72e }, // (55) EVERYTHING HAS A BLUEISH TINT
-    { IMG_ROOM, 250, 0xc758 }, // Color test
-    { IMG_INV_AND_ROOM_OBJ, 255, 0xc79c }, // Title
-    { 0, 0, 0, }
-};
+    qsort(list, count, sizeof *list, CompareImgOffsets);
+    list[count].usage = 0;
+    list[count].index = 0;
+    list[count].offset = 0;
+    return list;
+}
 
 static const CropList a8croplist[] = {
     { VOODOO_CASTLE_US, IMG_ROOM, 10, 8, 8 },
@@ -748,42 +231,29 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
 
     int outpic;
 
-    const imglist *list;
-
     int is_vector = (CurrentGame == ADVENTURELAND_US || CurrentGame == PIRATE_US || CurrentGame == SECRET_MISSION_US || CurrentGame == STRANGE_ODYSSEY_US);
+
+    switch (CurrentGame) {
+    case ADVENTURELAND_US:
+    case PIRATE_US:
+    case SECRET_MISSION_US:
+    case STRANGE_ODYSSEY_US:
+    case CLAYMORGUE_US:
+    case COUNT_US:
+    case VOODOO_CASTLE_US:
+    case HULK_US:
+        break;
+    default:
+        return 0;
+    }
+
+    imglist *list = ReadA8PictureTable(data, datasize, otherdisk, othersize, is_vector);
+    if (list == NULL)
+        return 0;
 
     if (is_vector) {
         ImageWidth = 320;
         ImageHeight = 96;
-    }
-
-    switch (CurrentGame) {
-    case ADVENTURELAND_US:
-        list = listAdventureland;
-        break;
-    case PIRATE_US:
-        list = listPirate;
-        break;
-    case SECRET_MISSION_US:
-        list = listImpossible;
-        break;
-    case STRANGE_ODYSSEY_US:
-        list = listStrange;
-        break;
-    case CLAYMORGUE_US:
-        list = listClaymorgue;
-        break;
-    case COUNT_US:
-        list = listCount;
-        break;
-    case VOODOO_CASTLE_US:
-        list = listVoodoo;
-        break;
-    case HULK_US:
-        list = listHulk;
-        break;
-    default:
-        return 0;
     }
 
     USImages = NewImage();
@@ -855,7 +325,10 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
         image = AppendImage(image);
     }
 
-    /* Read the inventory image from the boot disk */
+    free(list);
+
+    /* Read the inventory image from the boot disk, where it follows the
+       table of pictures */
     if (otherdisk && othersize > 0x988e + 0x5fd && CurrentGame != ADVENTURELAND_US) {
         image->usage = IMG_ROOM;
         image->index = INVENTORY_IMAGE;
@@ -871,6 +344,45 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
     FreeUSImagesIfEmpty();
 
     return 1;
+}
+
+/* The original interpreter has the same table of close-ups as the Apple II
+   one (see SetA2Closeups() in apple2detect.c), just before its "<HIT RETURN>"
+   prompt in inverse video and after a jump past it. Returns NULL if the
+   disk does not have it. */
+static const uint8_t *FindA8Closeups(const uint8_t *data, size_t size)
+{
+    static const uint8_t prompt[] = { 0x0d, 0xbc, 0xc8, 0xc9, 0xd4, 0xa0, 0xd2, 0xc5, 0xd4, 0xd5, 0xd2, 0xce, 0xbe, 0x0d };
+    enum { TABLE = 1 + 3 * 16, JMP = 0x4c };
+
+    for (size_t i = TABLE + 3; data != NULL && i + sizeof prompt <= size; i++) {
+        if (data[i] == prompt[0] && data[i - TABLE - 3] == JMP && memcmp(data + i, prompt, sizeof prompt) == 0)
+            return data + i - TABLE;
+    }
+    return NULL;
+}
+
+/* The picture slots of the table are those of the image lists above, except
+   in the two games whose close-ups we number as their Apple II ones. */
+/* The pictures must have been read. */
+static void SetA8Closeups(const uint8_t *table)
+{
+    enum { ENTRIES = 16 };
+    const uint8_t *items = table + 1, *slots = items + ENTRIES, *nouns = slots + ENTRIES;
+
+    SetCloseupVerb(table[0], 1);
+    for (int i = 0; i < ENTRIES; i++) {
+        if (nouns[i] == 0)
+            continue;
+        int index = A8Renumber(IMG_ROOM, slots[i]);
+        for (USImage *image = USImages; image != NULL; image = image->next) {
+            if (image->usage == IMG_ROOM && image->index == index) {
+                AddCloseup(items[i], nouns[i], index);
+                break;
+            }
+        }
+    }
+    AddExtraCloseups(CurrentGame);
 }
 
 // The only available source of Mission Impossible/Secret Mission
@@ -929,6 +441,11 @@ GameIDType DetectAtari8(uint8_t **sf, size_t *extent)
         CurrentSys = SYS_ATARI8;
         if (companionfile) {
             ExtractImagesFromAtariCompanionFile(companionfile, companionsize, *sf, *extent);
+            const uint8_t *closeups = FindA8Closeups(*sf, *extent);
+            if (closeups == NULL)
+                closeups = FindA8Closeups(companionfile, companionsize);
+            if (closeups != NULL)
+                SetA8Closeups(closeups);
             free(companionfile);
         }
     } else {

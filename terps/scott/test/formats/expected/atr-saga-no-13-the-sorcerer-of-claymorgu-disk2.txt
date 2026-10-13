@@ -9,4 +9,5 @@ nouns       110 62b14fca
 messages     80 2d3cf4a3
 actions     268 d34cd364
 sysmess      71 b649edd3
-usimages     91 baa6d909
+usimages     91 2cfd2861
+closeups      0 00000000

@@ -485,7 +485,8 @@ int ConditionHolds(int condition, int arg)
 }
 
 /* Games that show a closeup picture when something is examined. Each
-   title has EXAMINE in a different slot of its verb list. */
+   title has EXAMINE in a different slot of its verb list. These are for
+   the releases whose own table of close-ups we do not read. */
 static const struct {
     GameIDType game;
     int examine_verb;
@@ -504,6 +505,10 @@ static const struct {
 
 static void ShowImageOnExamine(int verb, int noun)
 {
+    if (HasCloseupTable()) {
+        ShowCloseupOnExamine(verb, noun);
+        return;
+    }
     for (size_t i = 0; i < sizeof examine_hooks / sizeof examine_hooks[0]; i++) {
         if (examine_hooks[i].game == CurrentGame) {
             if (examine_hooks[i].examine_verb == verb)

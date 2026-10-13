@@ -33,6 +33,9 @@ atr-questprobe-2-spider-man-16k	atr-questprobe-2-spider-man-16k	Questprobe #2 - 
 cart-return-to-pirate-s-isle	cart-return-to-pirate-s-isle	Return to Pirate's Isle.cart	ce4c10c667caeb241b6bbce5ea9c349b077465b3870483d81ee36aa7aaf404bc		TI-99/4A cartridge dump
 d64-strange-odyssey	d64-strange-odyssey	Strange Odyssey.d64	39b0218157dde5e707ccba3a4b208c8f652c72ceb24b4db0cc05b702e37f225b		C64 .d64
 d64-questpr1	d64-questpr1	QUESTPR1.D64	5035c0ae93ebfd144e8c473c29ed24c30e07f9e5e5457730e573bbb28d95a4e4		C64 .d64
+d64-questprobe-the-hulk-cbm-1984	d64-questprobe-the-hulk-cbm-1984	questprobe_the_hulk[cbm_1984].D64	5dd2a95bd2fb0842c7c6aaf62505046c7eda4c9fc6d118fecd611bf398d80b78		C64 .d64, with error info; interpreter in hidden sectors
+d64-questprobe-the-hulk-gvp-1986	d64-questprobe-the-hulk-gvp-1986	questprobe_the_hulk[gvp_1986].D64	c638b330d3a9e46921b2a83152fcdf9917ddc0b9da16faefcdddcafe7d1678dd		C64 .d64; interpreter in hidden sectors
+d64-questprobe-the-hulk-sharedata-1987	d64-questprobe-the-hulk-sharedata-1987	questprobe_the_hulk[sharedata_1987].D64	c1dc257673c660f7806f589e9fcdd29043d2ee0f4c4f6f871132edb89a447b4d		C64 .d64; interpreter in hidden sectors
 d64-pirate	d64-pirate	pirate.d64	3cca1b4a461a8241b7498f8585f077d4444e2118dc1e1e16b588c1a167a62e2d		C64 .d64
 d64-sorcerer-of-claymorgue-castle-s1-key	d64-sorcerer-of-claymorgue-castle-s1-key	sorcerer_of_claymorgue_castle_s1[keypunch_19xx].d64	25d97fbfddf86084b07b043dc085a37c722d2456f7ed38f277bf109019fccec9		C64 .d64; two-disk set, first disk named
 d64-sorcerer-of-claymorgue-castle-s1-key-disk2	d64-sorcerer-of-claymorgue-castle-s1-key	sorcerer_of_claymorgue_castle_s2[keypunch_19xx].d64	e1b86c5305007001c246d55d6767dda059193274043ccfec375890fbb58d6b6b		C64 .d64; two-disk set, second disk named

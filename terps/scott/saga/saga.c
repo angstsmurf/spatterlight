@@ -338,6 +338,8 @@ static void DrawGameSpecificOverlays(void)
                 DrawUSRoomObject(81);
             if (Items[5].Location == MyLoc && MyLoc == 9) // Only draw coat-of-arms at gate
                 DrawUSRoomObject(82);
+            if (Items[61].Location == MyLoc && MyLoc == 5) // Only draw daisies in flower box (Apple II only)
+                DrawUSRoomObject(83);
             break;
         case VOODOO_CASTLE_US:
             if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney

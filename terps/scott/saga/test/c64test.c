@@ -74,7 +74,7 @@ int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
 }
 
 // Unity-include the renderer to reach the file-static DrawMiniC64ImageFromData,
-// DrawSprite and sprites[].
+// DrawSprite, AddSprite and sprites[].
 #include "c64_small.c"
 
 // ---- loader stubs the unity-included c64_small.c references ------------------
@@ -96,10 +96,22 @@ GameIDType LoadBinaryDatabase(uint8_t *d, size_t l, GameInfo info, int ds) {
 }
 
 // ---- helpers -----------------------------------------------------------------
+// The interpreter reads the sprite positions from the game file, which this
+// test does not have, only the picture blobs. These are the positions the
+// loader finds in Pirate Adventure for the sprites the specs use.
+static void add_test_sprites(void) {
+    if (sprites[0].index != 0)
+        return;
+    AddSprite(25, 104, 62); // bottle of rum
+    AddSprite(44, 86, 62);  // safety sneakers
+    AddSprite(60, 184, 62); // sack of crackers
+}
+
 // Render one object: a hardware sprite (if its index is in sprites[]) drawn at
 // its fixed screen position, else a self-positioning bitmap overlay — exactly
 // the dispatch DrawMiniC64 does for Pirate Adventure room objects.
 static void render_object(int objindex, uint8_t *blob, size_t sz) {
+    add_test_sprites();
     for (int i = 0; sprites[i].index != 0; i++) {
         if (sprites[i].index == objindex) {
             USImage img = (USImage){0};
