@@ -718,6 +718,8 @@ glkunix_argumentlist_t glkunix_arguments[] = {
         "-c        Draw pictures in the Commodore 64 palette, whatever the game file" },
     { "-x", glkunix_arg_NoValue,
         "-x        Draw pictures in the ZX Spectrum palette, whatever the game file" },
+    { "-a", glkunix_arg_NoValue,
+        "-a        Always list what you carry in the upper window" },
 #else
     { "-z", glkunix_arg_ValueFollows,
         "-z path   Run the vector image tests with this support path, then exit" },
@@ -789,6 +791,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
                 break;
             case 'x':
                 Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+                break;
+            case 'a':
+                Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
                 break;
 #endif
 #ifdef SPATTERLIGHT
