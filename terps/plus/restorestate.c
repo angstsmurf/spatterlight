@@ -243,12 +243,14 @@ int LoadGame(void)
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
         glk_get_line_stream(file, buf, sizeof buf);
         result = sscanf(buf, "%hd\n", &lo);
-        Items[ct].Location = (unsigned char)lo;
-        if (result != 1 || (Items[ct].Location > GameHeader.NumRooms && Items[ct].Location != CARRIED && Items[ct].Location != HIDDEN && Items[ct].Location != HELD_BY_OTHER_GUY)) {
-            fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s, is in room %d)\n", ct, Items[ct].Text, Items[ct].Location);
+        /* Any non-negative room is possible: an action may put an item in
+           a room that does not exist (X-Men uses 500 for used-up items). */
+        if (result != 1 || lo < 0) {
+            fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s)\n", ct, Items[ct].Text);
             RecoverFromBadRestore(state, file);
             return 0;
         }
+        Items[ct].Location = (uint16_t)lo;
     }
 
     glui32 position = glk_stream_get_position(file);

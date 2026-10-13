@@ -1,0 +1,5 @@
+# The database of the synthetic tests, written by mkdatabase.py.
+# Columns as in ../images/games.manifest.tsv.
+#
+# id	dir	file	sha256	keys	note
+synthetic	rare-opcodes	SYNTH.DAT	866201c8f65d6ecb832bd5be15b47dc6d177beb39e450a32ef334905c719df1f		made-up database, loads as X-Men

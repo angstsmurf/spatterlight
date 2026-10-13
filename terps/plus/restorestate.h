@@ -14,7 +14,7 @@
 
 typedef struct SavedState {
     int16_t Counters[NUM_COUNTERS];
-    uint8_t ObjectLocations[256];
+    uint16_t ObjectLocations[256];
     uint64_t BitFlags;
     int ProtagonistString;
     ImgType LastImgType;

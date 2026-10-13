@@ -11,156 +11,44 @@
 
 #include "common.h"
 #include "dumpactions.h"
+#include "opcodes.h"
 
-/* Human-readable names for condition opcodes, indexed by opcode number.
-   Used by DumpActions() when printing a debug dump of the action table.
-   debug_print() compiles to nothing unless DEBUG is defined. */
+/* Names of the conditions for DumpActions(). debug_print() compiles to
+   nothing unless DEBUG is defined. */
 #ifdef DEBUG
-static const char * const ConditionList[] = {
-    "<ERROR>",
-    "CARRIED",
-    "HERE",
-    "PRESENT",
-    "AT",
-    "ROOMDESC",
-    "NOP6",
-    "NOP7",
-    "NOTZERO",
-    "ISZERO",
-    "SOMETHING",
-    "UNK11",
-    "UNK12",
-    "NODESTROYED",
-    "DESTROYED",
-    "CURLE",
-    "CURGT",
-    "CNTEQCNT",
-    "CNTGTCNT", // 18
-    "CUREQ", // 19
-    "CNTEQ",
-    "CNTGTE",
-    "CNTZERO",
-    "INROOMCNT",
-    "NOP24",
-    "NOP25",
-    "OBJIN",
-    "UNK27",
-    "NOUNIS",
-    "DICTWORD",
-    "OBJFLAG",
-    "MODE",
-    "OUT OF RANGE",
-};
-#endif
-
-// clang-format off
-
-/* Human-readable names, opcodes, and argument counts for command opcodes.
-   Opcodes 1–51 are implicit MESSAGE commands (print the message at that index).
-   Opcodes 52+ are explicit commands listed here. Used by DumpActions(). */
-typedef struct
-{
-    const char *name;
-    int        opcode;
-    int        count;
-} Keyword;
-
-static const Keyword CommandList[] =
-{
-    {"NOP",           0, 0 },
-    {"GET",          52, 1 },
-    {"DROP",         53, 1 },
-    {"GOTO",         54, 1 },
-    {"MEANS",        55, 2 },
-    {"LIGHTSOUT",    56, 0 },
-    {"LIGHTSON",     57, 0 },
-    {"SET",          58, 1 },
-    {"DESTROY",      59, 1 },
-    {"CLEAR",        60, 1 },
-    {"DEATH",        61, 0 },
-    {"DROPIN",       62, 2 },
-    {"GAMEOVER",     63, 0 },
-    {"SETCNT",       64, 2 },
-    {"MULTIPLY?",    65, 2 },
-    {"INVENTORY",    66, 0 },
-    {"SET0FLAG",     67, 0 },
-    {"CLEAR0FLAG",   68, 0 },
-    {"DONE",         69, 0 },
-    {"CLS",          70, 0 },
-    {"SAVE",         71, 0 },
-    {"SWAP",         72, 2 },
-    {"CONTINUE",     73, 0 },
-    {"STEAL",        74, 1 },
-    {"SAME",         75, 2 },
-    {"LOOK",         76, 0 },
-    {"DECCUR",       77, 0 },
-    {"PRINTCUR",     78, 0 },
-    {"SETCUR",       79, 1 },
-    {"CNT2LOC",      80, 2 },
-    {"SWAPCUR",      81, 1 },
-    {"ADD",          82, 1 },
-    {"SUB",          83, 1 },
-    {"ECHONOUN",     84, 0 },
-    {"PRINTOBJ",     85, 1 },
-    {"ECHODICT",     86, 1 },
-    {"PAUSE",        88, 0 },
-    {"REDRAW?",      89, 0 },
-    {"SHOWIMG",      90, 1 },
-    {"DIVMOD",       91, 3 },
-    {"NODOMORE",     92, 0 },
-    {"DELAYQS",      93, 1 },
-    {"GETEXIT",      94, 3 },
-    {"SETEXIT",      95, 3 },
-    {"SWAPCNT",      97, 2 },
-    {"SETTOC",       98, 2 },
-    {"SETTOA",       99, 2 },
-    {"ADDCNT",      100, 2 },
-    {"DECCNT",      101, 2 },
-    {"PRNCNT",      102, 1 },
-    {"ABS",         103, 1 },
-    {"NEG",         104, 1 },
-    {"AND",         105, 2 },
-    {"OR",          106, 2 },
-    {"XOR",         107, 2 },
-    {"RAND",        108, 1 },
-    {"CLRCNT",      109, 1 },
-    {"SYSCMD",      110, 2 },
-    {"GOTO0",       111, 0 },
-    {"BEGIN",       112, 0 },
-    {"LOOPBACK",    113, 0 },
-    {"SKIPLP",      114, 0 },
-    {"SKIPLPNXT",   115, 0 },
-    {"DOMORE",      116, 0 },
-    {"FMATCH",      117, 0 },
-    {"DONE",        118, 0 },
-    {"SETPROMPT",   119, 1 },
-    {"GETWORDS",    120, 0 },
-    {"SETWORDS",    121, 0 },
-    {"PRNOBJART",   122, 1 },
-    {"ADDCNT",      123, 2 },
-    {"BREAK",       124, 0 },
-    {"CPYFLAG",     125, 2 },
-    {"INDTOCNT",    126, 2 },
-    {"CNTTOIND",    127, 2 },
-    {"PRINTMESS",   128, 1 },
-    {"",             -1, 0 }
+static const char * const ConditionList[NUM_CONDITIONS] = {
+    [COND_CARRIED] = "CARRIED",
+    [COND_HERE] = "HERE",
+    [COND_PRESENT] = "PRESENT",
+    [COND_AT] = "AT",
+    [COND_ROOM_DESCRIPTION] = "ROOMDESC",
+    [COND_FLAG_SET] = "NOTZERO",
+    [COND_FLAG_CLEAR] = "ISZERO",
+    [COND_CARRYING_ANYTHING] = "SOMETHING",
+    [COND_IN_PLAY] = "NODESTROYED",
+    [COND_NOT_IN_PLAY] = "DESTROYED",
+    [COND_CURRENT_LE] = "CURLE",
+    [COND_CURRENT_GT] = "CURGT",
+    [COND_COUNTERS_EQUAL] = "CNTEQCNT",
+    [COND_COUNTER_GT_COUNTER] = "CNTGTCNT",
+    [COND_CURRENT_EQ] = "CUREQ",
+    [COND_COUNTER_EQ] = "CNTEQ",
+    [COND_COUNTER_GE] = "CNTGTE",
+    [COND_COUNTER_ZERO] = "CNTZERO",
+    [COND_ITEM_IN_COUNTER_ROOM] = "INROOMCNT",
+    [COND_ITEM_IN_ROOM] = "OBJIN",
+    [COND_NOUN_IS] = "NOUNIS",
+    [COND_ITEM_NOUN_IS] = "DICTWORD",
+    [COND_ITEM_FLAG] = "OBJFLAG",
 };
 
-// clang-format on
-
-
-/* Looks up the number of arguments a command opcode takes by searching
-   the CommandList table. Returns 0 for unknown opcodes. */
-static int NumberOfArguments(int opcode)
+static const char *ConditionName(int condition)
 {
-    int i = 0;
-    while (CommandList[i].opcode != -1) {
-        if (CommandList[i].opcode == opcode)
-            return CommandList[i].count;
-        i++;
-    }
-    return 0;
+    if (condition < 0 || condition >= NUM_CONDITIONS || ConditionList[condition] == NULL)
+        return "UNKNOWN";
+    return ConditionList[condition];
 }
+#endif
 
 /* Prints the first dictionary word whose group matches the given index.
    Falls back to printing the raw numeric index if no match is found. */
@@ -181,9 +69,9 @@ void PrintDictWord(int idx, const DictWord *dict)
    Tracks negation and OR state across calls via the output parameters. */
 static void PrintCondition(uint8_t condition, uint16_t argument, int *negate, int *mult, int *or)
 {
-    if (condition == 0) {
+    if (condition == COND_ARGUMENT) {
         debug_print(" %d", argument);
-    } else if (condition == 31) {
+    } else if (condition == COND_CONTROL) {
         if (argument == 1) {
             debug_print(" OR(31) %d ", argument); // Arg 1 == OR
             * or = 1;
@@ -200,8 +88,6 @@ static void PrintCondition(uint8_t condition, uint16_t argument, int *negate, in
             if (argument == 0)
                 * or = 0;
         }
-    } else if (condition > 40) {
-        debug_print(" Condition %d out of range! Arg:%d\n", condition, argument);
     } else {
         debug_print(" ");
         if (*negate) {
@@ -209,7 +95,7 @@ static void PrintCondition(uint8_t condition, uint16_t argument, int *negate, in
             if (!*mult)
                 *negate = 0;
         }
-        debug_print("%s(%d) %d", ConditionList[condition], condition, argument);
+        debug_print("%s(%d) %d", ConditionName(condition), condition, argument);
     }
 }
 
@@ -225,50 +111,32 @@ static void PrintDebugMess(int index)
     }
 }
 
-/* Prints a single command opcode and its arguments for debug output.
-   Opcodes 1–51 are implicit message-print commands. Opcode 128 (PRINTMESS)
-   subtracts 76 from its argument to get the actual message index. Other
-   opcodes are looked up in the CommandList table. */
-static void PrintCommand(uint8_t opcode, uint8_t arg, uint8_t arg2, uint8_t arg3, int numargs)
+/* Prints the command at commands[*cc] with its operands, and steps over
+   it. The line is read as PerformLine() reads it: through the command
+   table, any number taking two bytes when the first is 128 or more. */
+static void PrintCommand(const uint8_t *commands, int *cc, int length)
 {
-    /* Opcodes 1–51 are shorthand for "print message N" */
-    if (opcode > 0 && opcode <= 51) {
-        debug_print(" MESSAGE %d ", opcode);
-        PrintDebugMess(opcode);
+    int command = NextCommandNumber(commands, cc, length);
+
+    if ((command > CMD_NOP && command <= CMD_LAST_SHORT_MESSAGE) || command >= CMD_FIRST_LONG_MESSAGE) {
+        if (command >= CMD_FIRST_LONG_MESSAGE)
+            command -= LONG_MESSAGE_OFFSET;
+        debug_print(" MESSAGE %d ", command);
+        PrintDebugMess(command);
         debug_print("\n");
         return;
     }
 
-    int i = 0;
-    int found = 0;
-    while (CommandList[i].opcode != -1) {
-        if (CommandList[i].opcode == opcode) {
-            found = 1;
-            debug_print(" %s(%d) ", CommandList[i].name, opcode);
-
-            if (opcode == 128) {
-                arg -= 76;
-                debug_print("%d ", arg);
-                PrintDebugMess(arg);
-            } else if (numargs >= 1) {
-                debug_print("%d ", arg);
-                if (numargs >= 2) {
-                    debug_print("%d ", arg2);
-                    if (numargs >= 3) {
-                        debug_print("%d ", arg3);
-                    }
-                }
-            }
-
-            break;
-        }
-        i++;
+    const CommandInfo *info = GetCommandInfo(command);
+    if (info == NULL) {
+        debug_print(" UNKNOWN(%d)\n", command);
+        return;
     }
-    if (found)
-        debug_print("\n");
-    else {
-        debug_print(" UNKNOWN(%d)\n", opcode);
-    }
+
+    debug_print(" %s(%d) ", info->name, command);
+    for (int i = 0; i < MAX_OPERANDS && info->operands[i] != OPERAND_NONE; i++)
+        debug_print("%d ", NextCommandNumber(commands, cc, length));
+    debug_print("\n");
 }
 
 /* Prints a complete human-readable dump of all loaded actions, including
@@ -352,36 +220,8 @@ void DumpActions(char **comments)
         negate_multiple = 0;
         debug_print("\n");
 
-        /* Print the command sequence. Some commands have variable argument
-           counts that depend on the values of their arguments, requiring
-           special-case detection here. */
-        for (int i = 0; i <= ap->CommandLength; i++) {
-            uint8_t command = ap->Commands[i];
-            int numargs = NumberOfArguments(command);
-
-            /* Detect extended argument forms for specific commands */
-            if (numargs > 0 && i < ap->CommandLength - 2 && ap->Commands[i + 1] == 131 && ap->Commands[i + 2] == 230) {
-                numargs++;
-            } else if (command == 99 && ap->Commands[i + 2] > 63) {
-                numargs = 3;
-            } else if (command == 131 && ap->Commands[i + 2] > 31) {
-                numargs = 3;
-            } else if ((command == 82 || command == 119) && ap->Commands[i + 1] > 127) {
-                numargs = 2;
-            }
-
-            int arg1 = 0;
-            if (numargs >= 1)
-                arg1 = ap->Commands[i + 1];
-            int arg2 = 0;
-            if (numargs >= 2)
-                arg2 = ap->Commands[i + 2];
-            int arg3 = 0;
-            if (numargs >= 3)
-                arg3 = ap->Commands[i + 3];
-            PrintCommand(command, arg1, arg2, arg3, numargs);
-            i += numargs;
-        }
+        for (int i = 0; i <= ap->CommandLength;)
+            PrintCommand(ap->Commands, &i, ap->CommandLength);
         debug_print("\n");
         ap++;
     }

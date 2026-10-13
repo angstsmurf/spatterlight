@@ -1042,6 +1042,7 @@
 		C3DA61100000000000FB7D3C /* comprehend_io.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DA610F0000000000FB7D3C /* comprehend_io.cpp */; };
 		C3DA61120000000000FB7D3C /* comprehend_gfx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3DA61110000000000FB7D3C /* comprehend_gfx.cpp */; };
 		C3DA7A012F9B000000A1B2C3 /* dumpactions.c in Sources */ = {isa = PBXBuildFile; fileRef = C3DA7A022F9B000000A1B2C3 /* dumpactions.c */; };
+		C3DA7A042F9B000000A1B2C3 /* opcodes.c in Sources */ = {isa = PBXBuildFile; fileRef = C3DA7A052F9B000000A1B2C3 /* opcodes.c */; };
 		C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */ = {isa = PBXBuildFile; fileRef = C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */; };
 		C3E144E72F0209670068F099 /* apple2_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E144E62F0209670068F099 /* apple2_vector_draw.c */; };
 		C3E1938128628E8400E3B013 /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E1937E28628E8400E3B013 /* restorestate.c */; };
@@ -3868,7 +3869,9 @@
 		C3DA610F0000000000FB7D3C /* comprehend_io.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = comprehend_io.cpp; sourceTree = "<group>"; };
 		C3DA61110000000000FB7D3C /* comprehend_gfx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = comprehend_gfx.cpp; sourceTree = "<group>"; };
 		C3DA7A022F9B000000A1B2C3 /* dumpactions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dumpactions.c; sourceTree = "<group>"; };
+		C3DA7A052F9B000000A1B2C3 /* opcodes.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = opcodes.c; sourceTree = "<group>"; };
 		C3DA7A032F9B000000A1B2C3 /* dumpactions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = dumpactions.h; sourceTree = "<group>"; };
+		C3DA7A062F9B000000A1B2C3 /* opcodes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = opcodes.h; sourceTree = "<group>"; };
 		C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ti99_4a_terp.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = ti99_4a_terp.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CoreDataManager.h; path = coredata/CoreDataManager.h; sourceTree = SOURCE_ROOT; };
@@ -6818,7 +6821,9 @@
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
 				C3DA7A032F9B000000A1B2C3 /* dumpactions.h */,
+				C3DA7A062F9B000000A1B2C3 /* opcodes.h */,
 				C3DA7A022F9B000000A1B2C3 /* dumpactions.c */,
+				C3DA7A052F9B000000A1B2C3 /* opcodes.c */,
 				C3A3EA0F284BAEA300C8A693 /* loaddatabase.h */,
 				C3A3EA10284BAEA300C8A693 /* loaddatabase.c */,
 				C3D6AA3E286B098B000FA5DE /* extracommands.h */,
@@ -9575,6 +9580,7 @@
 				C37EC5A12847AA3C0084B841 /* plusmain.c in Sources */,
 				C3BC41E228F3944D00AB6E6F /* companionfile.c in Sources */,
 				C3DA7A012F9B000000A1B2C3 /* dumpactions.c in Sources */,
+				C3DA7A042F9B000000A1B2C3 /* opcodes.c in Sources */,
 				C3A3EA11284BAEA300C8A693 /* loaddatabase.c in Sources */,
 				C30E9BB0289B264600B42825 /* apple2detect.c in Sources */,
 				C31919B52EF6B97E0062991C /* common_file_utils.c in Sources */,

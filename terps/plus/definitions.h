@@ -27,8 +27,7 @@
 /* The number of counters (16-bit registers) the action table can use */
 #define NUM_COUNTERS 64
 
-/* The counters the system itself uses. Counters 0-29 and 54-59 belong to the game, 36-41 are
-   "old holding rooms" that games may redefine, and 60-62 are reserved. */
+/* The counters the system itself uses. Counters 0-29 and 54-59 belong to the game. 36-41 are "old holding rooms" that games may redefine, and 60-62 are reserved. */
 #define COUNTER_NOUN 30            /* The item ARG_NOUN stands for */
 #define COUNTER_NOUN2 31           /* The item ARG_NOUN2 stands for */
 #define COUNTER_ROOM 32            /* The current room */
@@ -141,8 +140,9 @@ typedef struct {
 
 typedef struct {
     char *Text;
-    uint8_t Location;
-    uint8_t InitialLoc;
+    /* 16 bits: X-Men sends used-up items to "room 500". */
+    uint16_t Location;
+    uint16_t InitialLoc;
     uint16_t Flag;
     uint8_t Dictword;
 } Item;

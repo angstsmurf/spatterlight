@@ -1005,6 +1005,62 @@ static DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
     return FinishDictionary(dictionary, index, loud);
 }
 
+/* A binary database starts with a table of 24 16-bit pointers, one to each
+   section of the data and a last one to the end of it. On the 8-bit systems
+   the sections follow each other directly, so the table is not needed to
+   find them. On Atari ST every section starts on an even address (the
+   68000 cannot read a word from an odd one), so there may be a pad byte
+   after any section with an odd length, and there the table is used.
+   The Atari ST pointers are big-endian offsets into the file. */
+enum {
+    SECT_ACTIONS,
+    SECT_VERBS,
+    SECT_NOUNS,
+    SECT_ROOMS, /* The first of eight, one for each column */
+    SECT_MESSAGES = SECT_ROOMS + 8,
+    SECT_ITEM_NAMES,
+    SECT_ITEM_LOCATIONS,
+    SECT_ITEM_WORDS,
+    SECT_ITEM_FLAGS,
+    SECT_ADVERBS,
+    SECT_PREPOSITIONS,
+    SECT_SUBSTITUTIONS,
+    SECT_TITLE,
+    SECT_OBJIMG_ROOMS,
+    SECT_OBJIMG_OBJECTS,
+    SECT_OBJIMG_IMAGES,
+    SECT_END,
+    NUM_SECTIONS
+};
+
+/* The section table follows the two bytes at the head of the file (a load
+   address on the 8-bit systems; stdetect.c adds two to an Atari ST file
+   to match) */
+#define SECTION_TABLE_OFFSET 2
+
+/* Returns the start of a section. On Atari ST this is looked up in the
+   section table. On the other systems it is ptr, the end of the section
+   before it. */
+static uint8_t *SectionStart(uint8_t *ptr, int section)
+{
+    if (CurrentSys != SYS_ST)
+        return ptr;
+    const uint8_t *entry = mem + SECTION_TABLE_OFFSET + section * 2;
+    size_t offset = (size_t)(entry[0] << 8 | entry[1]) + SECTION_TABLE_OFFSET;
+    if (offset > memlen)
+        Fatal("Broken database!");
+    return mem + offset;
+}
+
+/* Reads a 16-bit value: big-endian on Atari ST, little-endian on the other
+   systems. */
+static int ReadWord(uint8_t **ptr)
+{
+    if (CurrentSys == SYS_ST)
+        return READ_BE_UINT16_AND_ADVANCE(ptr);
+    return READ_LE_UINT16_AND_ADVANCE(ptr);
+}
+
 /* Apple II stores image addresses as two bytes that combine into a memory
    address: high * 0x1000 + low * 0x100. The high byte has already been
    read; the low byte is read from *ptr. */
@@ -1043,8 +1099,8 @@ static int SanityCheckHeader(const Header *h)
    The binary format is more compact than the plaintext version: strings are
    length-prefixed, header values are 16-bit words, and the action count is
    not stored explicitly — actions are read until ActionSum bytes are consumed.
-   The Atari ST versions of Spider-Man and Fantastic Four require various
-   pointer adjustments due to an inconsistent mix of 8-bit and 16-bit values.
+   On Atari ST the 16-bit values are big-endian and the sections are padded
+   to an even length; see SectionStart().
    Returns 1 on success, 0 on failure. */
 int LoadDatabaseBinary(void)
 {
@@ -1054,8 +1110,6 @@ int LoadDatabaseBinary(void)
 
     if (memlen < BINARY_HEADER_OFFSET + BINARY_HEADER_WORDS * 2)
         return 0;
-
-    int isSTSpiderman = 0, isSTFantastic4 = 0;
 
 #pragma mark header
 
@@ -1075,16 +1129,8 @@ int LoadDatabaseBinary(void)
     GameHeader = h;
 
     int num_items = h.NumItems;
-    int action_sum = h.ActionSum;
     int num_rooms = h.NumRooms;
     int num_obj_img = h.NumObjImg;
-
-    /* Identify specific Atari ST games that need special pointer adjustments */
-    if (CurrentSys == SYS_ST && action_sum == 5159)
-        isSTSpiderman = 1;
-
-    if (CurrentSys == SYS_ST && action_sum == 6991)
-        isSTFantastic4 = 1;
 
     Items = MemAlloc(sizeof(Item) * (num_items + 1));
     Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
@@ -1157,7 +1203,9 @@ int LoadDatabaseBinary(void)
 
 #pragma mark dictionary
 
+    ptr = SectionStart(ptr, SECT_VERBS);
     Verbs = ReadDictWords(&ptr, GameHeader.NumVerbs + 1, DEBUG_PRINT);
+    ptr = SectionStart(ptr, SECT_NOUNS);
     Nouns = ReadDictWords(&ptr, GameHeader.NumNouns + 1, DEBUG_PRINT);
 
 #pragma mark room connections
@@ -1165,20 +1213,22 @@ int LoadDatabaseBinary(void)
     /* The room connections are stored column-major: all rooms' North exits
        come first, then South, East, West, Up, Down, then two extra columns
        (Exits[6] = message index for room description, Exits[7] = room image).
-       Directions 6 and 7 are 16-bit on most platforms (read as two bytes).
+       The first six columns are one byte a room, the last two are 16-bit.
        On Apple II, direction 7 encodes a memory address for the image. */
     for (int j = 0; j < 8; j++) {
+        ptr = SectionStart(ptr, SECT_ROOMS + j);
         for (ct = 0; ct <= num_rooms; ct++) {
-            /* Apple II picture addresses are checked where they are read */
-            NeedBytes(ptr, j > 5 && !(CurrentSys == SYS_APPLE2 && j == 7) ? 2 : 1);
-            Rooms[ct].Exits[j] = *ptr++;
-
             if (CurrentSys == SYS_APPLE2 && j == 7) {
-                Rooms[ct].Exits[j] = ReadApple2ImageAddress(Rooms[ct].Exits[j], &ptr);
+                /* The second byte is checked where it is read */
+                NeedBytes(ptr, 1);
+                Rooms[ct].Exits[j] = ReadApple2ImageAddress(*ptr++, &ptr);
                 debug_print("Room image %d address:%x\n", ct, Rooms[ct].Exits[j]);
             } else if (j > 5) {
-                /* Directions 6 and 7 use 16-bit values (second byte here) */
-                Rooms[ct].Exits[j] |= *ptr++;
+                NeedBytes(ptr, 2);
+                Rooms[ct].Exits[j] = ReadWord(&ptr);
+            } else {
+                NeedBytes(ptr, 1);
+                Rooms[ct].Exits[j] = *ptr++;
             }
 
             if (j == 7)
@@ -1186,29 +1236,11 @@ int LoadDatabaseBinary(void)
 
             debug_print("Room %d exit %d: %d\n", ct, j, Rooms[ct].Exits[j]);
         }
-        /* The database seems to use big-endian 16-bit values
-          in the Atari ST versions of Questprobe featuring Spider-Man
-          and Questprobe featuring Human Torch and the Thing,
-          but because none of the actual values is above 255
-          (i.e. all values fit in 8 bits, so every other byte is zero)
-          we can simply advance the pointer a single byte and then read
-          all the values as if they were little-endian. */
-
-       /* Unfortunately we also have to nudge the pointer in other ways
-          here and there, which can't be explained by endianness.
-          It seems that the ST games alternate between 8-bit and 16-bit
-          values in an inconsistent way. */
-
-        if (isSTSpiderman || isSTFantastic4)
-            ptr++;
-    }
-
-    if (isSTSpiderman || isSTFantastic4) {
-        ptr -= 2;
     }
 
 #pragma mark messages
 
+    ptr = SectionStart(ptr, SECT_MESSAGES);
     Messages = LoadMessages(GameHeader.NumMessages + 1, &ptr);
 
     SetRoomDescriptions(1);
@@ -1220,49 +1252,45 @@ int LoadDatabaseBinary(void)
        all flags — similar to the room exit layout. */
     size_t length;
 
-    if (CurrentSys == SYS_ST && !isSTFantastic4)
-        ptr++;
-
+    ptr = SectionStart(ptr, SECT_ITEM_NAMES);
     for (ct = 0; ct <= num_items; ct++)
         ptr = ReadPlusString(ptr, &Items[ct].Text, &length);
 
 #pragma mark item locations
-    if (isSTSpiderman || isSTFantastic4) {
-        ptr++;
-    }
-
+    ptr = SectionStart(ptr, SECT_ITEM_LOCATIONS);
     NeedBytes(ptr, num_items + 1);
     for (ct = 0; ct <= num_items; ct++) {
         Items[ct].Location = *ptr++;
         Items[ct].InitialLoc = Items[ct].Location;
     }
 
-    if (CurrentSys == SYS_ST)
-        ptr += 2;
-
     /* The dictionary words and the flags, two bytes an item each */
-    NeedBytes(ptr, (num_items + 1) * 4);
+    ptr = SectionStart(ptr, SECT_ITEM_WORDS);
+    NeedBytes(ptr, (num_items + 1) * 2);
     for (ct = 0; ct <= num_items; ct++)
-        Items[ct].Dictword = READ_LE_UINT16_AND_ADVANCE(&ptr);
+        Items[ct].Dictword = ReadWord(&ptr);
 
+    ptr = SectionStart(ptr, SECT_ITEM_FLAGS);
+    NeedBytes(ptr, (num_items + 1) * 2);
     for (ct = 0; ct <= num_items; ct++) {
-        Items[ct].Flag = READ_LE_UINT16_AND_ADVANCE(&ptr);
+        Items[ct].Flag = ReadWord(&ptr);
         debug_print("Item %d: \"%s\", %d, %d, %d\n", ct, Items[ct].Text, Items[ct].Location, Items[ct].Dictword, Items[ct].Flag);
     }
 
-    if (CurrentSys == SYS_ST)
-        ptr -= 1;
-
+    ptr = SectionStart(ptr, SECT_ADVERBS);
     Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1, DEBUG_PRINT);
+    ptr = SectionStart(ptr, SECT_PREPOSITIONS);
     Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1, DEBUG_PRINT);
 
 #pragma mark substitutions
 
+    ptr = SectionStart(ptr, SECT_SUBSTITUTIONS);
     Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1, DEBUG_PRINT);
 
     /* In the binary format, the title string comes after the substitutions
        (unlike plaintext where it's at the very beginning) */
     char *title = NULL;
+    ptr = SectionStart(ptr, SECT_TITLE);
     ptr = ReadPlusString(ptr, &title, &length);
     debug_print("Title: %s\n", title);
 
@@ -1275,35 +1303,29 @@ int LoadDatabaseBinary(void)
 
     /* Object image mappings are stored in three separate columnar passes:
        room assignments, object assignments, and image indices. On Apple II,
-       image indices are two-byte memory addresses like room images. */
-    if (isSTFantastic4)
-        ptr++;
-
+       image indices are two-byte memory addresses like room images, on the
+       other systems they are 16-bit values. */
+    ptr = SectionStart(ptr, SECT_OBJIMG_ROOMS);
     NeedBytes(ptr, num_obj_img + 1);
     for (ct = 0; ct <= num_obj_img; ct++)
         ObjectImages[ct].Room = *ptr++;
 
-    if (CurrentSys == SYS_ST && !isSTSpiderman)
-        ptr++;
-
+    ptr = SectionStart(ptr, SECT_OBJIMG_OBJECTS);
     NeedBytes(ptr, num_obj_img + 1);
     for (ct = 0; ct <= num_obj_img; ct++)
         ObjectImages[ct].Object = *ptr++;
 
-    if (CurrentSys == SYS_ST) {
-        ptr++;
-        if (!isSTSpiderman)
-            ptr++;
-    }
-
+    ptr = SectionStart(ptr, SECT_OBJIMG_IMAGES);
     for (ct = 0; ct <= num_obj_img; ct++) {
-        NeedBytes(ptr, 1);
-        ObjectImages[ct].Image = *ptr++;
         if (CurrentSys == SYS_APPLE2) {
-            ObjectImages[ct].Image = ReadApple2ImageAddress(ObjectImages[ct].Image, &ptr);
+            /* The second byte is checked where it is read */
+            NeedBytes(ptr, 1);
+            ObjectImages[ct].Image = ReadApple2ImageAddress(*ptr++, &ptr);
             debug_print("Object image %d address:%x\n", ct, ObjectImages[ct].Image);
-        } else
-            ptr++;
+        } else {
+            NeedBytes(ptr, 2);
+            ObjectImages[ct].Image = ReadWord(&ptr);
+        }
     }
 
     if (CurrentSys == SYS_APPLE2)

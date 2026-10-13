@@ -1,0 +1,13 @@
+# Command script replays on the synthetic database
+# (../../../common_imagetest/run_script_tests.py).
+#
+# script  command script in this folder, without .txt
+# id      a row of games.manifest.tsv
+# lines   length of the transcript
+# sha256  of the transcript
+#
+# script	id	lines	sha256
+rare-opcodes	synthetic	260	e188dbef1e4168f38009cae6c74b79560e4355f1c49ff5688d94fd00ca3563f6
+fatal-parens	synthetic	11	4c5ac2e0155434de493dd96024ca39bf84a54eb0c8f87c2b6a2c648f4ad31543
+fatal-unparen	synthetic	11	849f0717efc8eddfcdf28e6a293549fb8e5141363552dc9b74622404d99065de
+fatal-overflow	synthetic	11	3db42b79d74d26d0d9e4342a453799bee4c23771025744bf8a564a69bc9e5f08

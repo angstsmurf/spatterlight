@@ -13,6 +13,7 @@
 #   make -f Makefile.headless companioncheck
 #   make -f Makefile.headless trunccheck
 #   make -f Makefile.headless scriptcheck
+#   make -f Makefile.headless synthcheck
 #   ./plus_image_probe -d /tmp/pictures "/path/to/Spider-Man side A.atr"
 
 CHEAPGLK_DIR := ../cheapglk
@@ -108,9 +109,15 @@ $(TEXT_OBJDIR)/%.o: %.c | $(TEXT_OBJDIR)
 scriptcheck: plus_hl
 	@python3 $(PROBE_DIR)/run_script_tests.py test/scripts test/images ./plus_hl
 
+# The same on a made-up database that is in the repository, for the opcodes
+# no real game reaches (test/synthetic/README.md).
+synthcheck: plus_hl
+	@python3 test/synthetic/mkdatabase.py --check
+	@python3 $(PROBE_DIR)/run_script_tests.py test/synthetic test/synthetic ./plus_hl
+
 clean:
 	rm -rf $(OBJDIR) $(TEXT_OBJDIR) plus_image_probe plus_hl
 
-.PHONY: clean imagecheck companioncheck scriptcheck trunccheck
+.PHONY: clean imagecheck companioncheck scriptcheck synthcheck trunccheck
 
 -include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)
