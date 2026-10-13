@@ -106,7 +106,10 @@ dsk-scott-adams-graphic-adventure-4-vood-disk2	dsk-scott-adams-graphic-adventure
 dsk-scott-adams-graphic-adventure-3-miss	dsk-scott-adams-graphic-adventure-3-miss	Scott Adams Graphic Adventure 3 - Mission Impossible v2.1-306 (4am crack) side A.dsk	5395140182c355e9dc32ba12f33e19564a53bb331cbb76f86247b4d1540f4eec		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
 dsk-scott-adams-graphic-adventure-3-miss-disk2	dsk-scott-adams-graphic-adventure-3-miss	Scott Adams Graphic Adventure 3 - Mission Impossible v2.1-306 (4am crack) side B (boot).dsk	7734791024687997fa3025c7e52a71a56dd70dd62d7d4601d61c51759ba03a1b		Apple II DOS 3.3 disk image (.dsk); two-disk set, second disk named
 dsk-mission-impossible	dsk-mission-impossible	mission_impossible.dsk	a843fd368d1bdc8b7b16b34aaab73128a4ed2eaa15655dd7c8c27accd88514a3		Apple II DOS 3.3 disk image (.dsk)
-dsk-rtpi	dsk-rtpi	RTPI.DSK	047160607d88f37cad9b67e0d9630985acf357794b15c97da53e4c74e96ce2e7		TI-99/4A disk image
+dsk-rtpi	dsk-rtpi	RTPI.DSK	047160607d88f37cad9b67e0d9630985acf357794b15c97da53e4c74e96ce2e7		TI-99/4A disk image; room 5 picture file damaged, patched by the loader
+dsk-rtpi-rtnpirat	dsk-rtpi-rtnpirat	RTNPIRAT.DSK	d1db5108bc2bcaed5c77b696a52ea8c1cd11293da0350fbecd139508a3ce4add		TI-99/4A disk image, room 5 intact
+dsk-rtpi-pirate1	dsk-rtpi-pirate1	Pirate1.dsk	b5f989ee0c9f7a42e03aaa70c0ba88b4585fb4da374d3fe1ce44a2b793ca8649		TI-99/4A disk image, room 5 intact
+dsk-rtpi-pirate2	dsk-rtpi-pirate2	Pirate2.dsk	53131b66411d2b070c69f7d18a411adf2098cafc544108556e78cbceef842207		TI-99/4A disk image, room 5 intact
 dsk-mission-impossible-phd5047	dsk-mission-impossible-phd5047	Mission_Impossible_PHD5047.dsk	9beed823996e42aa4d205130a349043ca6158c5f4939ff001d0135dfbb4e41e7		TI-99/4A disk image
 dsk-adventureland-phd5046	dsk-adventureland-phd5046	Adventureland_PHD5046.dsk	570be9e90004617bf398dff5045b7ac11bb6d76220e976e240917044098eae6a		TI-99/4A disk image
 dsk-adventureland-disk-1-side-a	dsk-adventureland-disk-1-side-a	Adventureland - Disk 1, Side A.dsk	a362e6c3155357d6163ed5b2631e781a0f7c0c77298d0295a3f87c272360f888		Apple II DOS 3.3 disk image (.dsk); two-disk set, first disk named
@@ -289,6 +292,7 @@ z80-voodoo-c	z80-voodoo-c	VOODOO_C.Z80	c63808967177c4ba80c84838d882967bdaf1c94c5
 z80-adventure-number-04-voodoo-castle-19	z80-adventure-number-04-voodoo-castle-19	Adventure_Number_04_Voodoo_Castle_1985_Adventure_International_a2.z80	c6bea394e0b8f48a1d1a732f8a18738cba7ed8aecaa182203e5bfb197ec02481		ZX .z80 v2
 z80-m11waxwo	z80-m11waxwo	m11waxwo.z80	8e989f1ac73a3e45a173ed0bbca7613fae5c81329c58bf24d6ddf82f27052271		ZX .z80 v2
 zip-return-to-pirate-s-isle-rpk-copy-2	zip-return-to-pirate-s-isle-rpk-copy-2	Return to Pirate's Isle.rpk copy 2.zip	ce4c10c667caeb241b6bbce5ea9c349b077465b3870483d81ee36aa7aaf404bc		TI-99/4A cartridge in a .zip
+zip-retpirat	zip-retpirat	retpirat.zip	485f6c253220e787e3f00d693493c7607fd578d920f5bf411a155dc0b60d8000		TI-99/4A MAME cartridge zip (phm3189c.bin + phm3189g3-g7.bin)
 d64-scott-adams-adventure-pack-1	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	1	C64 .d64; menu choice 1 (Adventureland)
 d64-scott-adams-adventure-pack-2	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	2	C64 .d64; menu choice 2 (Pirate Adventure)
 d64-scott-adams-adventure-pack-3	d64-scott-adams-adventure-pack	Scott Adams Adventure Pack (1983)(Adventure International).d64	5a79ac2d9520fdf82679d2552488b847f87e43b1db39e6b5de1529370af3dcae	3	C64 .d64; menu choice 3 (Mission Impossible)

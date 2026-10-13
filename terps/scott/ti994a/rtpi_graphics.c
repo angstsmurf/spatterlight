@@ -34,6 +34,7 @@
 #include "unzip_in_mem.h"
 
 #include "rtpi_graphics.h"
+#include "ti99_disk.h"
 
 /* VDP screen buffer: 32 columns × 12 rows × 8 bytes per tile = 0xC00 bytes.
    vdp_pixels holds 1-bpp tile pattern data; vdp_colors holds per-row
@@ -797,7 +798,7 @@ static const rtpi_image_record rtpi_disk_image_table[] = {
     { "PICT2/O", IMG_ROOM,      2, 0x21c },
     { "PICT3/O", IMG_ROOM,      3, 0x288 },
     { "PICT4/O", IMG_ROOM,      4, 0x1c0 },
-    { "PICT5/O", IMG_ROOM,      5, 0x16c },
+    { "PICT5/O", IMG_ROOM,      5, 0x15c },
     { "PICT6/O", IMG_ROOM,      6, 0x25b },
     { "PICT7/O", IMG_ROOM,      7, 0x171 },
     { "PICT:/O", IMG_ROOM,     10, 0x148 },
@@ -835,94 +836,56 @@ static const rtpi_image_record rtpi_disk_image_table[] = {
     {NULL, 0, 0, 0}
 };
 
-static uint8_t *unTaggedCode(uint8_t *data, size_t imgsize, size_t datasize) {
-    uint8_t *result = MemAlloc(imgsize);
-    size_t pos = 0;
-    size_t i = 0;
-    while (pos < imgsize && i < datasize) {
-        result[pos++] = data[i++];
-        if (pos >= imgsize || i >= datasize) break;
-        result[pos++] = data[i++];
-        if (pos < imgsize && i < datasize) {
-            if (data[i] == 'F') {
-                while (i < datasize - 6 && !(data[i] == 'B' && data[i+3] == 'B' && data[i+6] == 'B'))
-                    i++;
-            }
-            i++;
-        }
-    }
-    return result;
-}
+/* A picture file loads at an address of its own choosing (0x2700 on
+   the known disks) and begins with a word giving the length of what
+   follows. */
+#define DSK_PICTURE_LEADER 2
 
-typedef struct {
-    /* Native of file name */
-    char *filename;
-    /* Byte offset in disk image of file start */
-    size_t disk_offset;
-    /* File size in bytes */
-    size_t filesize;
-} ti99_disk_file;
+/* The "ADV*RPI*CM" disk image has a damaged record in the middle of
+   room 5's picture: a full record of 24 words, of which the first ten
+   can be read. These are the other fourteen. */
+#define ROOM_5_PATCH_OFFSET 0xfc
+static const uint8_t rtpi_room_5_tile_patch[28] = {
+    0xC4, 0x46, 0x4C, 0x00, 0xE0,
+    0x05, 0x0F, 0x0C, 0xF5, 0x06, 0x5F, 0x03, 0x1F, 0x02, 0x2F, 0x04, 0x02,
+    0x05, 0x0F, 0x06, 0xF5, 0x06, 0x15, 0x04, 0xF5, 0x05, 0x2F, 0x06
+};
 
-static ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length);
-
-static uint8_t rtpi_room_5_tile_patch[23] = { 0x05, 0x0F, 0x0C, 0xF5, 0x06, 0x5F, 0x03, 0x1F, 0x02, 0x2F, 0x04, 0x02, 0x05, 0x0F, 0x06, 0xF5, 0x06, 0x15, 0x04, 0xF5, 0x05, 0x2F, 0x06 };
-
-static int LoadRTPIGraphicsFromDSK(uint8_t *dsk, size_t size) {
+static int LoadRTPIGraphicsFromDSK(const uint8_t *dsk, size_t size, const ti99_disk_file *files) {
     USImages = NewImage();
     USImage *image = USImages;
-
-    /* The "ADV*RPI*CM" disk has a corrupted room 5 image that needs patching */
-    int isbroken = (!memcmp(entire_file, "ADV*RPI*CM", 10));
-
-    /* Parse the disk directory to get file offsets and sizes */
-    ti99_disk_file *files = Read_TI99_disk_image(dsk, size);
-    if (files == NULL)
-        return 0;
 
     /* Walk the known image table and look up each entry on the disk */
     for (int i = 0; rtpi_disk_image_table[i].filename != NULL; i++) {
         const rtpi_image_record *rec = &rtpi_disk_image_table[i];
 
-        size_t offset = 0;
-        size_t tagged_size = 0;
-
-        /* Find this image's file in the disk directory */
-        for (int j = 0; files[j].filename != NULL; j++) {
-            if (strcmp(files[j].filename, rec->filename) == 0) {
-                offset = files[j].disk_offset;
-                tagged_size = files[j].filesize;
-                break;
-            }
-        }
-        if (offset == 0)
+        ti99_object obj;
+        if (!TI99LoadObject(dsk, size, files, rec->filename, &obj))
             continue;
+
+        uint8_t *imagedata = TI99CopyObjectBytes(&obj, obj.low + DSK_PICTURE_LEADER, rec->size);
+        int damaged = obj.damaged;
+        TI99FreeObject(&obj);
+        if (imagedata == NULL)
+            continue;
+
+        /* The data lost with the damaged record is a hole of zeros in
+           the middle of the picture; the records after it say where
+           they load, so the rest is in place. */
+        if (damaged && rec->type == IMG_ROOM && rec->index == 5 &&
+            rec->size >= ROOM_5_PATCH_OFFSET + sizeof(rtpi_room_5_tile_patch)) {
+            memcpy(imagedata + ROOM_5_PATCH_OFFSET, rtpi_room_5_tile_patch, sizeof(rtpi_room_5_tile_patch));
+        }
 
         image->systype = SYS_TI994A;
         image->usage = rec->type;
         image->index = rec->index;
-
-        /* Strip the tag bytes to get the raw image data */
         image->datasize = rec->size;
-        image->imagedata = unTaggedCode(dsk + offset, image->datasize, tagged_size);
-
-        /* The ADV*RPI*CM disk has tile data corruption in room 5's
-           image stream — patch the bad run and shift the tail back
-           into place so the colour decoder doesn't desync */
-        if (isbroken && image->usage == IMG_ROOM && image->index == 5) {
-            memcpy(image->imagedata + 0x101, rtpi_room_5_tile_patch, 23);
-            uint8_t tail[68];
-            memcpy(tail, image->imagedata + 0x128, 68);
-            memcpy(image->imagedata + 0x118, tail, 68);
-        }
+        image->imagedata = imagedata;
 
         /* Append a new node for the next image */
         image = AppendImage(image);
     }
-
-    /* Free the disk file table */
-    for (int i = 0; files[i].filename != NULL; i++)
-        free(files[i].filename);
-    free(files);
 
     /* The loop always leaves one empty trailing USImage node.
        Unlink and free it so the list ends cleanly. */
@@ -931,6 +894,7 @@ static int LoadRTPIGraphicsFromDSK(uint8_t *dsk, size_t size) {
 
     return 1;
 }
+
 
 /* Sanity bound for word_length to prevent runaway parsing if the
    header value is bogus. */
@@ -1143,14 +1107,17 @@ static uint8_t *CutOutGromHeaders(uint8_t *grom) {
    DSK_RECORD_SIZE-byte records on DSK_SECTOR_SIZE-byte sectors,
    starting at DSK_GROM_SRC_START in the disk image and placed
    into the rebuilt GROM buffer starting at DSK_GROM_DST_START.
-   The title screen and tile font live at their own absolute offsets. */
+   The title screen and tile font are data in the object files of two
+   of the program's modules, at these addresses within them. */
 #define DSK_GROM_DST_START    0x3d79
 #define DSK_GROM_DST_END      0x76f6
 #define DSK_GROM_SRC_START    0x2200
 #define DSK_RECORD_SIZE       0xfe
 #define DSK_SECTOR_SIZE       0x100
-#define DSK_TITLE_TEXT_OFFSET 0x9763
-#define DSK_TILE_FONT_OFFSET  0xac25
+#define DSK_TITLE_TEXT_FILE    "ADV5/O"
+#define DSK_TITLE_TEXT_ADDRESS 0x01e4
+#define DSK_TILE_FONT_FILE     "ADV6/O"
+#define DSK_TILE_FONT_ADDRESS  0x0370
 
 /* GameInfo describing the GROM layout. The offsets are raw byte
    positions within the GROM file. Graphics data is handled
@@ -1295,14 +1262,33 @@ static uint8_t *load_rtpi_disk_payload(uint8_t *data, size_t datalength) {
         dst_off += DSK_RECORD_SIZE;
     }
 
-    title_screen = (char *)unTaggedCode(data + DSK_TITLE_TEXT_OFFSET, RTPI_TITLE_TEXT_LENGTH, datalength);
-    replace_nuls_with_newlines(title_screen, RTPI_TITLE_TEXT_LENGTH);
+    /* Without a directory there is still the game, with no pictures. */
+    ti99_disk_file *files = TI99ReadDirectory(data, datalength);
+    if (files == NULL)
+        return grom_data;
+
+    /* The title text and the tile font are data in two of the
+       program's modules. */
+    ti99_object obj;
+    if (TI99LoadObject(data, datalength, files, DSK_TITLE_TEXT_FILE, &obj)) {
+        title_screen = (char *)TI99CopyObjectBytes(&obj, DSK_TITLE_TEXT_ADDRESS, RTPI_TITLE_TEXT_LENGTH);
+        TI99FreeObject(&obj);
+        if (title_screen != NULL)
+            replace_nuls_with_newlines(title_screen, RTPI_TITLE_TEXT_LENGTH);
+    }
 
     /* Extract the 52-tile font (8 bytes per tile). */
-    uint8_t *flat_tiles = unTaggedCode(data + DSK_TILE_FONT_OFFSET, NUM_RTPI_TILES * 8, datalength);
-    memcpy(rtpi_tile_font, flat_tiles, NUM_RTPI_TILES * 8);
+    if (TI99LoadObject(data, datalength, files, DSK_TILE_FONT_FILE, &obj)) {
+        uint8_t *flat_tiles = TI99CopyObjectBytes(&obj, DSK_TILE_FONT_ADDRESS, NUM_RTPI_TILES * 8);
+        TI99FreeObject(&obj);
+        if (flat_tiles != NULL) {
+            memcpy(rtpi_tile_font, flat_tiles, NUM_RTPI_TILES * 8);
+            free(flat_tiles);
+        }
+    }
 
-    LoadRTPIGraphicsFromDSK(data, datalength);
+    LoadRTPIGraphicsFromDSK(data, datalength, files);
+    TI99FreeDirectory(files);
     return grom_data;
 }
 
@@ -1375,85 +1361,4 @@ void UpdateRTPISystemMessages(void) {
     sys[DANGEROUS_TO_MOVE_IN_DARK] = "Dangerous move! ";
     sys[WHAT_NOW] = "-> Command me: ";
     sys[YOUVE_SOLVED_IT] = "Congrats! You did it!\n";
-}
-
-/* TI-99/4A DSR (Device Service Routine) disk layout. Sector 0 is the
-   volume header, sector 1 is the FDIR (file index) which holds up to
-   127 2-byte FDR sector pointers, and each pointed-to sector is a
-   File Descriptor Record (FDR) describing one file. */
-#define SECTOR_SIZE       0x100
-#define FDIR_SECTOR       1
-#define FDIR_MAX_ENTRIES  127
-#define FDIR_ENTRY_SIZE   2
-#define FDR_NAME_LENGTH   10
-#define FDR_RECORD_LENGTH 0x11
-#define FDR_NUM_RECORDS   0x12
-#define FDR_DATA_CHAIN    0x1C
-
-/* Cap computed disk byte offsets to 20 bits (1 MB)
-   and skip the 18-byte leader before file data begins.
-   (Empirically derived from the game's disk image format.) */
-#define DSK_ADDRESS_MASK 0xfffff
-#define DSK_DATA_LEADER  0x12
-
-static ti99_disk_file *Read_TI99_disk_image(uint8_t *dsk, size_t length) {
-    if (length < SECTOR_SIZE * 2)
-        return NULL;
-
-    uint8_t *fdir = dsk + FDIR_SECTOR * SECTOR_SIZE;
-
-    int count = 0;
-    for (int i = 0; i < FDIR_MAX_ENTRIES; i++) {
-        uint16_t fdr_sector = READ_BE_UINT16(fdir + i * FDIR_ENTRY_SIZE);
-        if (fdr_sector == 0)
-            break;
-        count++;
-    }
-
-    if (count == 0)
-        return NULL;
-
-    ti99_disk_file *files = MemAlloc((count + 1) * sizeof(ti99_disk_file));
-
-    int found = 0;
-    for (int i = 0; i < count; i++) {
-        uint16_t fdr_sector = READ_BE_UINT16(fdir + i * FDIR_ENTRY_SIZE);
-        size_t fdr_offset = (size_t)fdr_sector * SECTOR_SIZE;
-        if (fdr_offset + SECTOR_SIZE > length)
-            continue;
-
-        uint8_t *fdr = dsk + fdr_offset;
-
-        char *name = MemAlloc(FDR_NAME_LENGTH + 1);
-        memcpy(name, fdr, FDR_NAME_LENGTH);
-
-        /* Trim trailing spaces */
-        int end = FDR_NAME_LENGTH;
-        while (end > 0 && name[end - 1] == ' ')
-            end--;
-        name[end] = '\0';
-
-        /* TI-99/4A fixed-length record files: logical size is record_length * num_records.
-           A record_length of 0 in the FDR means SECTOR_SIZE (it doesn't fit in a byte).
-           (This does not apply to program files,
-            but we are not interested in them here.) */
-        uint8_t record_length = fdr[FDR_RECORD_LENGTH];
-        uint8_t num_records = fdr[FDR_NUM_RECORDS];
-        size_t filesize = (size_t)(record_length == 0 ? SECTOR_SIZE : record_length) * num_records;
-
-        /* First data sector from the first data chain pointer.
-           Each chain entry is 3 bytes: 2-byte start sector (little-endian)
-           + 1-byte offset to last sector in the chain. */
-        uint16_t first_data_sector = READ_LE_UINT16(fdr + FDR_DATA_CHAIN);
-        size_t disk_offset = (size_t)((first_data_sector * SECTOR_SIZE) & DSK_ADDRESS_MASK) + DSK_DATA_LEADER;
-        files[found].filename = name;
-        files[found].disk_offset = disk_offset;
-        files[found].filesize = filesize;
-
-        found++;
-    }
-
-    /* NULL-terminate by zeroing the sentinel entry */
-    memset(&files[found], 0, sizeof(ti99_disk_file));
-    return files;
 }

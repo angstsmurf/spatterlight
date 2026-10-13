@@ -870,6 +870,7 @@
 		C38D6ECE27CFCC5400328B12 /* line_drawing.c in Sources */ = {isa = PBXBuildFile; fileRef = C38D6ECD27CFCC5400328B12 /* line_drawing.c */; };
 		C39147442974C41D00692B9E /* SideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C39147432974C41D00692B9E /* SideViewController.m */; };
 		C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C391F7792F3D795E00F3102B /* rtpi_graphics.c */; };
+		C3A1D15E2F9D4A0100F3102B /* ti99_disk.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A1D15D2F9D4A0100F3102B /* ti99_disk.c */; };
 		C39613FE28E5D0B300A13624 /* saga.c in Sources */ = {isa = PBXBuildFile; fileRef = C39613FD28E5D0B300A13624 /* saga.c */; };
 		C396E2872F812E3500B6308A /* messagenames.c in Sources */ = {isa = PBXBuildFile; fileRef = C396E2862F812E3500B6308A /* messagenames.c */; };
 		C396E2882F812E3500B6308A /* messagenames.h in Headers */ = {isa = PBXBuildFile; fileRef = C396E2852F812E3500B6308A /* messagenames.h */; };
@@ -3599,7 +3600,9 @@
 		C39147422974C41D00692B9E /* SideViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = SideViewController.h; path = "application/Library window/SideViewController.h"; sourceTree = SOURCE_ROOT; };
 		C39147432974C41D00692B9E /* SideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = SideViewController.m; path = "application/Library window/SideViewController.m"; sourceTree = SOURCE_ROOT; };
 		C391F7782F3D795E00F3102B /* rtpi_graphics.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rtpi_graphics.h; sourceTree = "<group>"; };
+		C3A1D15C2F9D4A0100F3102B /* ti99_disk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ti99_disk.h; sourceTree = "<group>"; };
 		C391F7792F3D795E00F3102B /* rtpi_graphics.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = rtpi_graphics.c; sourceTree = "<group>"; };
+		C3A1D15D2F9D4A0100F3102B /* ti99_disk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = ti99_disk.c; sourceTree = "<group>"; };
 		C39613FC28E5D0B300A13624 /* saga.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = saga.h; sourceTree = "<group>"; };
 		C39613FD28E5D0B300A13624 /* saga.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = saga.c; sourceTree = "<group>"; };
 		C396691B2E85EA50008A75A7 /* Spatterlight 13_5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 13_5.xcdatamodel"; sourceTree = "<group>"; };
@@ -7207,7 +7210,9 @@
 				C3DAC20D27C44BAD00368157 /* ti99_4a_terp.h */,
 				C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */,
 				C391F7782F3D795E00F3102B /* rtpi_graphics.h */,
+				C3A1D15C2F9D4A0100F3102B /* ti99_disk.h */,
 				C391F7792F3D795E00F3102B /* rtpi_graphics.c */,
+				C3A1D15D2F9D4A0100F3102B /* ti99_disk.c */,
 				C3ED35072F464BE200E3A33D /* unzip_in_mem.h */,
 				C3ED35082F464BE200E3A33D /* unzip_in_mem.c */,
 			);
@@ -9468,6 +9473,7 @@
 				C38A881327D2092500AE917E /* ringbuffer.c in Sources */,
 				C318F7702741AA5B006D626A /* bsd.c in Sources */,
 				C391F77A2F3D795E00F3102B /* rtpi_graphics.c in Sources */,
+				C3A1D15E2F9D4A0100F3102B /* ti99_disk.c in Sources */,
 				C30CAD052FAFD61200A90820 /* scott_display.c in Sources */,
 				C31F05282EED8793002A6EC0 /* aiukpalette.c in Sources */,
 				C30C7AE328CA2C4F00D293BE /* sagagraphics.c in Sources */,
