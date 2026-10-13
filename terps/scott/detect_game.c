@@ -917,7 +917,7 @@ GameIDType TryLoading(uint8_t *data, size_t datasize, const GameInfo *info, int 
     if (info->gameID == HULK || info->gameID == HULK_C64) {
         GameIDType result = LoadBinaryDatabase(entire_file, file_length, *info, dict_start);
         if (result != UNKNOWN_GAME) {
-            HulkReadCloseups(info->gameID == HULK_C64);
+            HulkReadCloseups();
             AddExtraCloseups(info->gameID);
         }
         return result;

@@ -21,14 +21,14 @@ alone	atr-saga-3-mission-impossible-side-a	differs: picture; lacks: usimages clo
 alone	atr-s-a-g-a-01-adventureland-v5-0-416-19	UNKNOWN_GAME	differs: picture; lacks: usimages closeups
 alone	d64-sorcerer-of-claymorgue-castle-s1-key	UNKNOWN_GAME	complete
 alone	do-questprobe-featuring-the-hulk-v2-3-12	differs: closeups; lacks: usimages	UNKNOWN_GAME
-alone	do-cple-compil3-scott-adams-saga-2-pirat	differs: closeups; lacks: usimages	differs: actions; lacks: usimages
+alone	do-cple-compil3-scott-adams-saga-2-pirat	differs: closeups; lacks: usimages	differs: actions; lacks: usimages closeups
 alone	do-sorcerer-of-claymorgue-castle-1981-ad	lacks: usimages	UNKNOWN_GAME
 alone	do-cple-compil3-scott-adams-saga-1-adven	differs: closeups; lacks: usimages	UNKNOWN_GAME
 alone	dsk-scott-adams-graphic-adventure-5-the	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	dsk-scott-adams-graphic-adventure-6-stra	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	dsk-questprobe-featuring-the-hulk-4am-cr	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	dsk-hulk-the-1981-scott-adams-cr-disk-1	differs: closeups; lacks: usimages	UNKNOWN_GAME
-alone	dsk-cple-compil3-scott-adams-saga-2-pira	differs: closeups; lacks: usimages	differs: actions; lacks: usimages
+alone	dsk-cple-compil3-scott-adams-saga-2-pira	differs: closeups; lacks: usimages	differs: actions; lacks: usimages closeups
 alone	dsk-sorcerer-of-claymorgue-castle-1981-a	lacks: usimages	UNKNOWN_GAME
 alone	dsk-scott-adams-graphic-adventure-4-vood	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	dsk-scott-adams-graphic-adventure-3-miss	UNKNOWN_GAME	differs: closeups; lacks: usimages
@@ -36,7 +36,7 @@ alone	dsk-adventureland-disk-1-side-a	UNKNOWN_GAME	differs: closeups; lacks: usi
 alone	woz-s-a-g-a-5-the-count-side-a	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	woz-s-a-g-a-6-strange-odyssey-side-a	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	woz-questprobe-featuring-the-hulk-side-a	UNKNOWN_GAME	differs: closeups; lacks: usimages
-alone	woz-saga-2-pirate-adventure-v2-1-408-198	differs: actions; lacks: usimages	differs: closeups; lacks: usimages
+alone	woz-saga-2-pirate-adventure-v2-1-408-198	differs: actions; lacks: usimages closeups	differs: closeups; lacks: usimages
 alone	woz-s-a-g-a-13-sorcerer-of-claymorgue-ca	UNKNOWN_GAME	lacks: usimages
 alone	woz-s-a-g-a-4-voodoo-castle-side-a	UNKNOWN_GAME	differs: closeups; lacks: usimages
 alone	woz-s-a-g-a-3-mission-impossible-side-a	UNKNOWN_GAME	differs: closeups; lacks: usimages

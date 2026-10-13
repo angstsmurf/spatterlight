@@ -227,6 +227,22 @@ static void SetA2Closeups(const uint8_t *table)
     }
 }
 
+/* The disk with the database may not be the one with the graphics module
+   and its table of close-ups (Pirate Adventure has a database on both). */
+static uint8_t *ReadA2CloseupsFromCompanion(uint8_t *companionfile, size_t companionsize, int isnib)
+{
+    uint8_t *invimg = NULL, *m2 = NULL, *m3 = NULL, *closeups = NULL;
+    size_t invimgsiz, m3len = 0;
+
+    InitA2DiskImage(companionfile, companionsize, isnib);
+    free(ReadApple2DOSFile(companionfile, &companionsize, &invimg, &invimgsiz, &m2, &m3, &m3len, &closeups));
+    FreeDiskImage();
+    free(invimg);
+    free(m2);
+    free(m3);
+    return closeups;
+}
+
 GameIDType DetectApple2(uint8_t **sf, size_t *extent)
 {
     if (*extent > MAX_LENGTH || *extent < kDiskImageSize)
@@ -305,6 +321,8 @@ GameIDType DetectApple2(uint8_t **sf, size_t *extent)
     GameIDType result = LoadApple2Database(database, newlength);
 
     if (result != UNKNOWN_GAME) {
+        if (closeups == NULL && companionfile != NULL)
+            closeups = ReadA2CloseupsFromCompanion(companionfile, companionsize, isnib);
         SetUpApple2Images(datafile, companionfile, companionsize, isnib, *sf, disksize);
         if (closeups) {
             SetA2Closeups(closeups);

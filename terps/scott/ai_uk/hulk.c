@@ -5,6 +5,8 @@
 //  Created by Petter Sjölund on 2022-01-18.
 //
 
+#include <string.h>
+
 #include "apple2draw.h"
 #include "detect_game.h"
 #include "game_specific.h"
@@ -14,113 +16,32 @@
 #include "scott.h"
 #include "scott_display.h"
 
-static void HulkShowImageOnExamineUS(int noun)
-{
-    if (!Graphics)
-        return;
-    int image = -1;
-    switch (noun) {
-    case 55:
-        if (Items[11].Location == MyLoc)
-            // Dome
-            image = 0;
-        break;
-    case 124: // Bio-Gem
-    case 41:
-        if (IsPresent(18))
-            image = 1;
-        break;
-    case 108:
-        if (IsPresent(17))
-            // Natter energy egg
-            image = 2;
-        break;
-    case 72:
-        if (IsPresent(20))
-            // Alien army ants
-            image = 3;
-        break;
-    case 21: // Killer Bees
-        if (Items[24].Location == MyLoc)
-            image = 4;
-        break;
-    case 83: // Iron ring
-        if (Items[33].Location == MyLoc)
-            image = 5;
-        break;
-    case 121: // Cage
-        if (Items[47].Location == MyLoc)
-            image = 6;
-        break;
-    case 26: // BASE
-    case 66: // HOLE
-        if (MyLoc == 14)
-            image = 7;
-        break;
-    default:
-        break;
-    }
-
-    ShowUSCloseup(image, 90);
-}
-
 /* The UK releases have the table of close-ups of the US ones in a shorter
    form: seven items followed by their nouns. The interpreter only looks at
    the six that have a picture (the seventh is the gas outlet), and compares
-   the verb with a number in its code. Their pictures are 28 onwards. */
-void HulkReadCloseups(int c64)
+   the verb with a number in its code. Their pictures are 28 onwards.
+
+   The table is not in the same place in every C64 file, so it is found by
+   the 24 bytes in front of it, which are the same in all releases. */
+void HulkReadCloseups(void)
 {
     enum { ITEMS = 7, CLOSEUPS = 6, FIRST_PICTURE = 28, LOOK = 39 };
-    int offset = (c64 ? 0x22f1 : 0x26ff) + file_baseline_offset;
-    const uint8_t *items = SeekToPos(offset);
+    static const uint8_t before[] = {
+        0x14, 0x13, 0x0f, 0x00, 0x0e, 0x0e, 0x00, 0x00, 0x05, 0x00, 0x03, 0x08,
+        0x09, 0x00, 0x09, 0x04, 0x04, 0x09, 0x0a, 0x01, 0x09, 0x00, 0x04, 0x04
+    };
 
-    if (items == NULL || (size_t)offset + ITEMS + CLOSEUPS > file_length)
+    if (entire_file == NULL)
         return;
-    SetCloseupVerb(LOOK, 0);
-    for (int i = 0; i < CLOSEUPS; i++)
-        AddCloseup(items[i], items[ITEMS + i], FIRST_PICTURE + i);
-}
-
-void HulkShowImageOnExamine(int noun)
-{
-    if (CurrentGame == HULK_US) {
-        HulkShowImageOnExamineUS(noun);
+    for (size_t i = 0; i + sizeof before + 2 * ITEMS <= file_length; i++) {
+        if (memcmp(entire_file + i, before, sizeof before) != 0)
+            continue;
+        const uint8_t *items = entire_file + i + sizeof before;
+        SetCloseupVerb(LOOK, 0);
+        for (int j = 0; j < CLOSEUPS; j++)
+            AddCloseup(items[j], items[ITEMS + j], FIRST_PICTURE + j);
         return;
     }
-    int image = 0;
-    switch (noun) {
-    case 55:
-        if (Items[11].Location == MyLoc)
-            // Dome
-            image = 28;
-        break;
-    case 108:
-        if (IsPresent(17))
-            // Natter energy egg
-            image = 30;
-        break;
-    case 124: // Bio-Gem
-    case 41:
-        if (IsPresent(18))
-            image = 29;
-        break;
-    case 21: // Killer Bees
-        if (Items[24].Location == MyLoc)
-            image = 31;
-        break;
-    case 83: // Iron ring
-        if (Items[33].Location == MyLoc)
-            image = 32;
-        break;
-    case 121: // Cage
-        if (Items[47].Location == MyLoc)
-            image = 33;
-        break;
-    default:
-        break;
-    }
-    if (image)
-        ShowCloseup(image);
 }
 
 void HulkLook(void)

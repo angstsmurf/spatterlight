@@ -484,40 +484,6 @@ int ConditionHolds(int condition, int arg)
     return 1;
 }
 
-/* Games that show a closeup picture when something is examined. Each
-   title has EXAMINE in a different slot of its verb list. These are for
-   the releases whose own table of close-ups we do not read. */
-static const struct {
-    GameIDType game;
-    int examine_verb;
-    void (*show_image)(int noun);
-} examine_hooks[] = {
-    { HULK, 39, HulkShowImageOnExamine },
-    { HULK_C64, 39, HulkShowImageOnExamine },
-    { HULK_US, 39, HulkShowImageOnExamine },
-    { COUNT_US, 8, CountShowImageOnExamineUS },
-    { VOODOO_CASTLE_US, 42, VoodooShowImageOnExamineUS },
-    { ADVENTURELAND_US, 29, AdventurelandShowImageOnExamineUS },
-    { PIRATE_US, 27, PirateShowImageOnExamineUS },
-    { SECRET_MISSION_US, 40, MissionShowImageOnExamineUS },
-    { STRANGE_ODYSSEY_US, 37, StrangeShowImageOnExamineUS },
-};
-
-static void ShowImageOnExamine(int verb, int noun)
-{
-    if (HasCloseupTable()) {
-        ShowCloseupOnExamine(verb, noun);
-        return;
-    }
-    for (size_t i = 0; i < sizeof examine_hooks / sizeof examine_hooks[0]; i++) {
-        if (examine_hooks[i].game == CurrentGame) {
-            if (examine_hooks[i].examine_verb == verb)
-                examine_hooks[i].show_image(noun);
-            return;
-        }
-    }
-}
-
 /* What one action line carries from its conditions to its opcodes, and
    what the opcodes report back. */
 typedef struct {
@@ -1037,7 +1003,7 @@ ExplicitResultType PerformActions(int vb, int no)
     }
 
     if (!dark)
-        ShowImageOnExamine(vb, no);
+        ShowCloseupOnExamine(vb, no);
 
     if (CurrentCommand && CurrentCommand->allflag && vb == CurrentCommand->verb && !(dark && vb == TAKE)) {
         if (!lastwasnewline)

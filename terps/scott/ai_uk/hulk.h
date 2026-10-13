@@ -10,9 +10,8 @@
 
 #include "scott_defines.h"
 
-void HulkShowImageOnExamine(int noun);
 void HulkLook(void);
-void HulkReadCloseups(int c64);
+void HulkReadCloseups(void);
 void DrawHulkImage(int p);
 
 #endif /* hulk_h */
