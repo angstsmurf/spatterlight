@@ -368,6 +368,7 @@ void Comprehend::hideGraphics() {
 		_topWindow = nullptr;
 	}
 	_graphicsEnabled = false;
+	_closedBySetting = false;
 }
 
 bool Comprehend::toggleGraphics() {
@@ -402,6 +403,15 @@ void Comprehend::setGraphicsMode(bool graphicsMode) {
 
 void Comprehend::showGraphics() {
 	if (_topWindow) return;
+	// Graphics switched off in the host (Spatterlight's setting, Gargoyle's
+	// "graphics 0"): leave the layout as it is. onArrange() opens the window
+	// if the setting is turned on later.
+	if (!glk_gestalt(gestalt_Graphics, 0)) {
+		_graphicsEnabled = hasPictureTarget();
+		_closedBySetting = true;
+		return;
+	}
+	_closedBySetting = false;
 	if (_statusWindow) {
 		glk_window_close(_statusWindow, nullptr);
 		_statusWindow = nullptr;
@@ -622,6 +632,25 @@ void Comprehend::onArrange() {
 	// loadGame()) and what makes a mid-game change switch the renderer live --
 	// mirroring Bocfel's window_change() and Scott's UpdateSettings().
 	bool modeChanged = applyPreferredGraphicsMode();
+	// Follow the host's graphics on/off setting when it changes mid-game.
+	if (!glk_gestalt(gestalt_Graphics, 0)) {
+		if (_topWindow) {
+			hideGraphics();
+			_closedBySetting = true;
+		}
+	} else if (_closedBySetting) {
+		showGraphics();
+		if (_topWindow && _game && !_lastRoomDesc.empty()) {
+			// Nothing was drawn while the window was closed.
+			_screenComposition.clear();
+			_game->_updateFlags |= UPDATE_GRAPHICS;
+			bool wasSuppressed = _suppressSlowDraw;
+			_suppressSlowDraw = true;
+			_game->update_graphics();
+			_suppressSlowDraw = wasSuppressed;
+			modeChanged = false;
+		}
+	}
 	if (_topWindow) {
 		recomputeGraphicsScale();
 		glk_window_clear(_topWindow);

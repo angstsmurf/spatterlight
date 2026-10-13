@@ -39,6 +39,9 @@ class Comprehend {
 private:
 	int _saveSlot;
 	bool _graphicsEnabled;
+	// The picture window is closed because the host has graphics switched
+	// off, not because the game has no pictures; see showGraphics().
+	bool _closedBySetting = false;
 	bool _disableSaves;
 	bool _shouldQuit;
 	Common::String _gameId;

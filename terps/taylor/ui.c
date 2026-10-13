@@ -456,10 +456,8 @@ static void FitGraphicsWindow(int shrink_only)
    stacking order ends up as: bottom (buffer) → graphics → top (grid). */
 void OpenGraphicsWindow(void)
 {
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
+    if (!TAYLOR_GRAPHICS_ENABLED)
         return;
-#endif
     if (Top == NULL)
         Top = FindGlkWindowWithRock(GLK_STATUS_ROCK);
     if (Graphics == NULL)
@@ -515,6 +513,8 @@ void OpenTopWindow(void)
    the player is in a dark room (no image to show). */
 void DrawBlack(void)
 {
+    if (!Graphics)
+        return;
     GraphicsWindowChanged();
     glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size,
         12 * 8 * pixel_size);

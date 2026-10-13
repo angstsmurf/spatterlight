@@ -207,12 +207,21 @@ static winid_t OpenGraphicsWindowAboveBottom(void)
         60, wintype_Graphics, GLK_GRAPHICS_ROCK);
 }
 
+/* Whether pictures can be shown at all: false when the Glk library has
+   no graphics windows, or has them switched off. */
+static int GraphicsAvailable(void)
+{
+    return glk_gestalt(gestalt_Graphics, 0) != 0;
+}
+
 /* Open (or reconfigure) the Glk graphics window above the text windows.
    Calculates the optimal pixel scaling, centres the image horizontally,
    and sizes the window to fit exactly. If a status window already exists
    it is temporarily closed and reopened below the graphics window. */
 void OpenGraphicsWindow(void)
 {
+    if (!GraphicsAvailable())
+        ResetBit(GRAPHICSBIT);
     if (!IsSet(GRAPHICSBIT))
         return;
     glui32 graphheight, optimal_height;
@@ -2592,10 +2601,8 @@ static void ResizeTitleImage(void)
 static void DrawTitleImage(void)
 {
     DisplayInit();
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
+    if (!GraphicsAvailable() || Graphics == NULL)
         return;
-#endif
     glk_window_close(Top, NULL);
     Top = NULL;
     glk_window_close(Bottom, NULL);
@@ -2619,10 +2626,8 @@ static void DrawTitleImage(void)
         do {
             glk_select(&ev);
             if (ev.type == evtype_Arrange) {
-#ifdef SPATTERLIGHT
-                if (!gli_enable_graphics)
+                if (!GraphicsAvailable())
                     break;
-#endif
                 ResizeTitleImage();
                 glk_window_clear(Graphics);
                 DrawImageWithName("S000");

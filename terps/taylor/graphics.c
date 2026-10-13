@@ -79,6 +79,9 @@ void DrawBufferedPicture(void)
 
 void PutPixel(glsi32 x, glsi32 y, int32_t color)
 {
+    if (!Graphics)
+        return;
+
     if (!Shown.painting)
         GraphicsWindowChanged();
     glk_window_fill_rect(Graphics, pal[color], x * pixel_size + x_offset,

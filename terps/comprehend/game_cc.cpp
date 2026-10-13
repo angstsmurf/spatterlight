@@ -91,6 +91,12 @@ void CrimsonCrownGame::setupDisk(uint diskNum) {
 }
 
 void CrimsonCrownGame::beforeGame() {
+	// The title is a picture and nothing else: with nowhere to show it (the
+	// Glk library has no graphics windows), waiting for a key would leave the
+	// player looking at a blank window.
+	if (!g_comprehend->hasPictureTarget())
+		return;
+
 	// Draw the title
 	g_comprehend->drawPicture(TITLE_IMAGE);
 	g_comprehend->readChar();
@@ -179,6 +185,10 @@ void CrimsonCrownGame::handleSpecialOpcode() {
 
 void CrimsonCrownGame::crystalBallCutscene() {
 	g_comprehend->showGraphics();
+	// Three pictures, each waiting for a key; without a picture window those
+	// would be three silent pauses.
+	if (!g_comprehend->hasPictureTarget())
+		return;
 
 	for (int screenNum = 38; screenNum <= 40; ++screenNum) {
 		g_comprehend->drawLocationPicture(screenNum);
