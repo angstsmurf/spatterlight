@@ -36,4 +36,8 @@ void ImageProbeNote(const char *fmt, ...) __attribute__((format(printf, 1, 2)));
 
 uint32_t ImageProbeCRC(const void *data, size_t length);
 
+/* A CRC32 of the whole graphics window as it is now, painted or not: what
+   tells one frame of an animation from the next. */
+uint32_t ImageProbeCanvasCRC(void);
+
 #endif

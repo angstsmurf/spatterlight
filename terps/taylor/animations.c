@@ -32,6 +32,7 @@
 #define STARS_ANIMATION_RATE_64 40
 #define FIELD_ANIMATION_RATE 10
 #define SERPENT_ANIMATION_RATE 100
+#define SERPENT_WITHDRAW_RATE 50
 #define ROBOT_ANIMATION_RATE 400
 #define SNAPPER_ANIMATION_RATE 400
 #define QUEEN_ANIMATION_RATE 120
@@ -440,7 +441,7 @@ void UpdateRebelAnimations(void)
                 SerpentStage = 0;
                 StopAnimations();
             } else if (SerpentStage == 4) {
-                glk_request_timer_events(50);
+                SetAnimationRate(SERPENT_WITHDRAW_RATE);
             }
             DrawTaylor(MyLoc, MyLoc);
         }
@@ -494,14 +495,14 @@ void StartAnimations(void)
             SetAnimationRate(QUEEN_ANIMATION_RATE);
         } else if (MyLoc > 28 && MyLoc < 34) {
             // Sycane Serpent in sewers
-            glk_request_timer_events(SERPENT_ANIMATION_RATE);
+            SetAnimationRate(SERPENT_ANIMATION_RATE);
             UpdateRebelAnimations();
         } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
             // Killer security robot in museum passage
-            glk_request_timer_events(ROBOT_ANIMATION_RATE);
+            SetAnimationRate(ROBOT_ANIMATION_RATE);
         } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
             // Crag snapper in cave
-            glk_request_timer_events(SNAPPER_ANIMATION_RATE);
+            SetAnimationRate(SNAPPER_ANIMATION_RATE);
         }
     } else if (BaseGame == KAYLETH) {
         int speed = 0;

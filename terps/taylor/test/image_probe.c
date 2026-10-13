@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "animations.h"
 #include "graphics.h"
 #include "image_probe.h"
 #include "irmak.h"
@@ -109,6 +110,132 @@ static void DumpRoomsFromState(const char *folder, int rooms)
     }
 }
 
+/* ---- Animations ---------------------------------------------------------- */
+
+/* Run the animation timer for a number of ticks, and print a line for every
+   tick that changed the screen. */
+static void Tick(const char *name, int ticks)
+{
+    uint32_t last = ImageProbeCanvasCRC();
+    for (int tick = 1; tick <= ticks; tick++) {
+        if (BaseGame == REBEL_PLANET)
+            UpdateRebelAnimations();
+        else
+            UpdateKaylethAnimations();
+        uint32_t crc = ImageProbeCanvasCRC();
+        if (crc != last)
+            ImageProbeNote("%-24s tick %3d %08x", name, tick, crc);
+        last = crc;
+    }
+    ImageProbeNote("%-24s %d ticks, timer %d", name, ticks, AnimationRunning);
+}
+
+/* Walk into a room as Look() does: draw it and start its animation. With
+   clear, onto an empty screen. */
+static void EnterRoom(int room, int clear)
+{
+    MyLoc = room;
+    if (clear) {
+        ClearCanvas();
+        ClearGraphMem();
+    }
+    if (DrawTaylor(room, room))
+        DrawIrmakPictureFromBuffer();
+    StartAnimations();
+}
+
+/* Rebel Planet animates a room while one object is in it. */
+static void RebelRoom(const char *name, int room, int object, int ticks)
+{
+    uint8_t home = ObjectLoc[object];
+    ObjectLoc[object] = room;
+    EnterRoom(room, 1);
+    Tick(name, ticks);
+    ObjectLoc[object] = home;
+}
+
+#define REBEL_SERPENT 92
+#define REBEL_ROBOT 58
+#define REBEL_QUEEN 107
+
+static void DumpRebelAnimations(void)
+{
+    RebelRoom("anim stars", 1, 50, 4);
+    RebelRoom("anim forcefield", 86, 42, 4);
+    /* Seventeen ticks: the head appears, is blanked and appears again */
+    RebelRoom("anim queen", 88, REBEL_QUEEN, 17);
+    RebelRoom("anim robot", 50, REBEL_ROBOT, 3);
+    RebelRoom("anim snapper", 71, 36, 3);
+
+    /* The serpent comes out of the sewer until its timer stops, and
+       withdraws when it has left the room. */
+    uint8_t serpent = ObjectLoc[REBEL_SERPENT];
+    ObjectLoc[REBEL_SERPENT] = 30;
+    EnterRoom(30, 1);
+    Tick("anim serpent out", 7);
+    ObjectLoc[REBEL_SERPENT] = Destroyed();
+    EnterRoom(30, 0);
+    Tick("anim serpent back", 7);
+
+    /* What a restore or an undo can do: jump from one animated room straight
+       to another. The second animation must start at its own first frame. */
+    uint8_t robot = ObjectLoc[REBEL_ROBOT];
+    ObjectLoc[REBEL_SERPENT] = 30;
+    EnterRoom(30, 1);
+    Tick("anim serpent, robot", 7);
+    ObjectLoc[REBEL_ROBOT] = 50;
+    EnterRoom(50, 1);
+    Tick("anim serpent, robot", 2);
+
+    uint8_t queen = ObjectLoc[REBEL_QUEEN];
+    ObjectLoc[REBEL_QUEEN] = 88;
+    EnterRoom(88, 1);
+    Tick("anim queen, robot", 5);
+    EnterRoom(50, 1);
+    Tick("anim queen, robot", 2);
+
+    /* And into a sewer with no serpent in it, where nothing may be drawn */
+    ObjectLoc[REBEL_SERPENT] = Destroyed();
+    EnterRoom(88, 1);
+    Tick("anim queen, sewer", 5);
+    EnterRoom(31, 1);
+    Tick("anim queen, sewer", 3);
+
+    /* A room that is not animated stops the timer */
+    EnterRoom(2, 1);
+    Tick("anim none", 1);
+
+    ObjectLoc[REBEL_SERPENT] = serpent;
+    ObjectLoc[REBEL_ROBOT] = robot;
+    ObjectLoc[REBEL_QUEEN] = queen;
+}
+
+/* Kayleth has a table of animated rooms. Every room that starts the timer is
+   run for long enough to play its frames and loop. */
+static void DumpKaylethAnimations(int rooms)
+{
+    for (int room = 1; room < rooms; room++) {
+        char name[24];
+        EnterRoom(room, 1);
+        if (!AnimationRunning)
+            continue;
+        snprintf(name, sizeof name, "anim room%d", room);
+        Tick(name, room == 3 ? 100 : 60);
+    }
+}
+
+static void DumpAnimations(int rooms)
+{
+    int here = MyLoc;
+    if (BaseGame == REBEL_PLANET)
+        DumpRebelAnimations();
+    else if (BaseGame == KAYLETH)
+        DumpKaylethAnimations(rooms);
+    MyLoc = here;
+    glk_request_timer_events(0);
+    AnimationRunning = 0;
+}
+
 void ImageProbeDump(void)
 {
     ImageProbeNote("game     %s", Game->Title);
@@ -168,4 +295,6 @@ void ImageProbeDump(void)
         DrawIrmakPictureFromBuffer();
         ImageProbeReport(name, NULL);
     }
+    /* The animations, tick by tick. */
+    DumpAnimations(rooms);
 }

@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/taylor`) plays each
 command script in this folder through `taylor_hl` on every release of its game
 in `../images/games/` and compares the transcript with a hash in
-`scripts.tsv`. 115 replays, a few seconds.
+`scripts.tsv`. 206 replays, a few seconds.
 
 `taylor_hl` is the interpreter on plain CheapGlk: commands on standard input,
 transcript on standard output, no pictures (those are tested by
@@ -11,6 +11,13 @@ transcript on standard output, no pictures (those are tested by
 repeatable. Each replay starts with the keys of the game's row in
 `../images/games.manifest.tsv` (the answer to "restore a saved game?", the
 version of a Temple of Terror image).
+
+Each replay runs in an empty temporary folder, so the files it saves do not
+meet those of another replay. The files of `<script>.d/`, if there is such a
+folder, are copied there first (`extras.d/garbage.glksave`, which is not a
+saved game), and for every file the replay wrote, a line with its size and
+SHA-256 is added to the transcript: a saved game or a transcript file that
+changes is a changed hash.
 
 The runner is `../../../common_imagetest/run_script_tests.py`, shared with
 Plus. The transcript is game text, so only its SHA-256 and line count are
@@ -36,10 +43,11 @@ Where a script has to wait, `INVENTORY` takes a turn.
 | script | ends | notes |
 | --- | --- | --- |
 | `blizzard-pass` | won, 100%, on all 4 images | |
+| `extras` | stops early, on all 72 rows | the extra commands of the README, with and without `#`: transcript on and off, quicksave and quickload, undo, save and restore (also from a file that is not a saved game, and from one that is not there), restart |
 | `fantastic-four-uk` | won, on all 10 images | Questprobe 3, UK release. The US one is a Plus game: `terps/plus/test/scripts/fantastic-four-us.txt` |
 | `he-man` | won, on all 9 images | |
 | `kayleth` | won, on all 9 images | no random events |
 | `rebel-planet` | won, on all 8 images | the subway train and its ticket control are random |
-| `temple-of-terror` | won, on all 18 images | |
-| `temple-of-terror-alt` | won, on all 18 images | another route |
+| `temple-of-terror` | won, on all 31 rows | graphics, text only and combined versions alike |
+| `temple-of-terror-alt` | won, on all 31 rows | another route |
 | `uitest-taylormade` | stops early, as written | Temple of Terror; `UITests/Supporting Files/Command scripts/TaylorMade command script.txt` |

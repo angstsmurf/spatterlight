@@ -1,0 +1,2 @@
+game     Temple of Terror C64 text only version
+pictures 0

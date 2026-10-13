@@ -288,8 +288,8 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
     uint8_t *pos = *outpos;
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
     do {
-        if (index >= MAX_INSTRUCTIONS) {
-            index = MAX_INSTRUCTIONS - 1;
+        if (index >= MAX_INSTRUCTIONS || pos >= EndOfGraphicsData) {
+            index = MIN(index, MAX_INSTRUCTIONS - 1);
             break;
         }
         instructions[index++] = *pos;
@@ -303,14 +303,15 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
                 if (baseoffset >= FileImageLen - 1)
                     break;
                 size_t newoffset = READ_LE_UINT16(FileImage + baseoffset) - ZX_RAM_BASE + FileBaselineOffset;
-                while (newoffset < FileImageLen && FileImage[newoffset] != Game->pattern_end_marker) {
+                while (newoffset < FileImageLen && index < MAX_INSTRUCTIONS
+                    && FileImage[newoffset] != Game->pattern_end_marker) {
                     instructions[index++] = FileImage[newoffset++];
                 }
                 break;
             }
         }
         pos++;
-    } while (*pos != 0xfe);
+    } while (pos < EndOfGraphicsData && *pos != 0xfe);
 
     *outpos = pos;
     return index;
@@ -330,15 +331,16 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
    about how repetitions in the tile-based graphics are encoded.
  */
 
-static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **outpos, int recursion_guard)
+static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **outpos,
+    const uint8_t *end, int recursion_guard)
 {
     int index = 0;
     uint8_t *pos = *outpos;
     if (capacity < 1)
         return 0;
     do {
-        if (index >= capacity) {
-            index = capacity - 1;
+        if (index >= capacity || pos >= end) {
+            index = MIN(index, capacity - 1);
             break;
         }
         instructions[index++] = *pos;
@@ -353,11 +355,13 @@ static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **
                 RepeatOpcode(instructions, capacity, 3, &index);
                 break;
             case 0xf3:
+                if (end - pos < 2)
+                    break;
                 pos++;
                 RepeatOpcode(instructions, capacity, *pos, &index);
                 break;
             case 0xfa:
-                if (recursion_guard)
+                if (recursion_guard || end - pos < 3)
                     break;
                 /* Call this function recursively with copied_bytes,
                    a 0xfe-terminated array of bytes to repeat .*/
@@ -368,12 +372,15 @@ static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **
                     numbytes = 0;
                 pos++;
                 int copies = *pos;
+                if (numbytes > end - (pos + 1))
+                    numbytes = (int)(end - (pos + 1));
                 uint8_t *copied_bytes = MemAlloc(numbytes + 1);
                 memcpy(copied_bytes, pos + 1, numbytes);
                 uint8_t *stored_pointer = copied_bytes;
                 copied_bytes[numbytes] = 0xfe;
                 for (int i = 0; i < copies; i++) {
-                    index += DecompressEarlierType(&instructions[index], capacity - index, &copied_bytes, 1);
+                    index += DecompressEarlierType(&instructions[index], capacity - index, &copied_bytes,
+                        stored_pointer + numbytes + 1, 1);
                     copied_bytes = stored_pointer;
                     if (index >= capacity) {
                         break;
@@ -385,7 +392,7 @@ static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **
                 break;
         }
         pos++;
-    } while (*pos != 0xfe);
+    } while (pos < end && *pos != 0xfe);
 
     *outpos = pos;
     return index;
@@ -397,7 +404,7 @@ static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
     if (Version == HEMAN_TYPE) {
         instructions_length = DecompressHemanType(instructions, &pos);
     } else {
-        instructions_length = DecompressEarlierType(instructions, MAX_INSTRUCTIONS, &pos, 0);
+        instructions_length = DecompressEarlierType(instructions, MAX_INSTRUCTIONS, &pos, EndOfGraphicsData, 0);
     }
     /* Leave room for the terminator */
     if (instructions_length >= MAX_INSTRUCTIONS)
@@ -408,7 +415,8 @@ static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
     img->imagedata = MemAlloc(instructions_length);
     img->datasize = instructions_length;
     memcpy(img->imagedata, instructions, instructions_length);
-    return pos + 1;
+    /* Step over the terminator, unless the data ran out before one */
+    return pos < EndOfGraphicsData ? pos + 1 : pos;
 }
 
 /* Carry on without pictures, and say so in the game window: stderr is
@@ -451,7 +459,9 @@ void InitGraphics(void)
     uint8_t *pos;
     int numgraphics = Game->number_of_pictures;
     pos = SeekToPos(tiles_start);
-    if (pos == NULL || SeekToPos(image_blocks_start_address) == NULL) {
+    if (pos == NULL || SeekToPos(image_blocks_start_address) == NULL
+        || (Version != QUESTPROBE3_TYPE
+            && SeekToPos(Game->start_of_image_instructions + FileBaselineOffset) == NULL)) {
         EnterTextOnlyMode("no picture data in this file");
         return;
     }
@@ -481,6 +491,9 @@ void InitGraphics(void)
         }
     } else {
         for (int picture_number = 0; picture_number < numgraphics; picture_number++) {
+            /* The pictures the file ends before are left empty */
+            if (pos >= EndOfGraphicsData)
+                break;
             uint8_t widthheight = *pos++;
             img->width = ((widthheight & 0xf0) >> 4) + 1;
             img->height = (widthheight & 0x0f) + 1;

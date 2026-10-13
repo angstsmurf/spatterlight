@@ -265,6 +265,8 @@ static void PrintToken(unsigned char n)
     }
     unsigned char *p = TokenText(n);
     unsigned char c;
+    if (p >= EndOfData)
+        return;
     do {
         c = *p++;
         if (Version == QUESTPROBE3_TYPE)
@@ -348,6 +350,9 @@ static void PrintTextRebelPlanet(unsigned char *stream, int text_index)
     while (stream < EndOfData) {
         if (token == NULL)
             token = TokenText(*stream++);
+        /* A token table that the file ends in the middle of */
+        if (token == NULL || token >= EndOfData)
+            return;
         /* Mask off the high "last-byte" marker to get the character. */
         unsigned char c = *token & TOKEN_BYTE_MASK;
         if (c == MSG_END_SPACE || c == MSG_END) {

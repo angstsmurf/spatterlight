@@ -262,3 +262,70 @@ room90                    24576 px    0,0   256x96   4343a858
 room91                    24576 px    0,0   256x96   5207ec22
 room92                    24576 px    0,0   256x96   31ef1fed
 room93                    24576 px    0,0   256x96   57b33a65
+anim stars               tick   2 a6247cb7
+anim stars               tick   3 61cfd7bb
+anim stars               tick   4 e97daf70
+anim stars               4 ticks, timer 40
+anim forcefield          tick   1 86c4635c
+anim forcefield          tick   2 dfbbd618
+anim forcefield          tick   3 f79fc185
+anim forcefield          tick   4 c8d219da
+anim forcefield          4 ticks, timer 10
+anim queen               tick   1 6c017404
+anim queen               tick   2 1181f619
+anim queen               tick   3 f908b104
+anim queen               tick   4 fb9b6902
+anim queen               tick   5 2d6a680b
+anim queen               tick   6 3a14dd1c
+anim queen               tick   7 d8365a36
+anim queen               tick   8 799de088
+anim queen               tick   9 77fb11c5
+anim queen               tick  10 9f7256d8
+anim queen               tick  11 9de18ede
+anim queen               tick  12 4b108fd7
+anim queen               tick  13 5c6e3ac0
+anim queen               tick  14 be4cbdea
+anim queen               tick  15 799de088
+anim queen               tick  16 f11d2110
+anim queen               tick  17 6c017404
+anim queen               17 ticks, timer 120
+anim robot               tick   2 ef292428
+anim robot               tick   3 7b242a47
+anim robot               3 ticks, timer 400
+anim snapper             tick   1 650af1b8
+anim snapper             tick   2 ffc2c4e7
+anim snapper             tick   3 650af1b8
+anim snapper             3 ticks, timer 400
+anim serpent out         tick   1 035cfb96
+anim serpent out         tick   2 7c511375
+anim serpent out         tick   3 ca4b3286
+anim serpent out         tick   4 f0e7827e
+anim serpent out         7 ticks, timer 0
+anim serpent back        tick   1 20fc46ec
+anim serpent back        tick   2 5ff1ae0f
+anim serpent back        tick   3 aec9b919
+anim serpent back        tick   4 712b9993
+anim serpent back        7 ticks, timer 0
+anim serpent, robot      tick   1 035cfb96
+anim serpent, robot      tick   2 7c511375
+anim serpent, robot      tick   3 ca4b3286
+anim serpent, robot      tick   4 f0e7827e
+anim serpent, robot      7 ticks, timer 0
+anim serpent, robot      tick   2 ef292428
+anim serpent, robot      2 ticks, timer 400
+anim queen, robot        tick   1 1181f619
+anim queen, robot        tick   2 f908b104
+anim queen, robot        tick   3 fb9b6902
+anim queen, robot        tick   4 2d6a680b
+anim queen, robot        tick   5 3a14dd1c
+anim queen, robot        5 ticks, timer 120
+anim queen, robot        tick   2 ef292428
+anim queen, robot        2 ticks, timer 400
+anim queen, sewer        tick   1 d8365a36
+anim queen, sewer        tick   2 799de088
+anim queen, sewer        tick   3 77fb11c5
+anim queen, sewer        tick   4 9f7256d8
+anim queen, sewer        tick   5 9de18ede
+anim queen, sewer        5 ticks, timer 120
+anim queen, sewer        3 ticks, timer 0
+anim none                1 ticks, timer 0

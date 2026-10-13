@@ -335,3 +335,246 @@ room120                   24576 px    0,0   256x96   a090e77f
 room121                   24576 px    0,0   256x96   60151314
 room122                   24576 px    0,0   256x96   315dce71
 room123                   24576 px    0,0   256x96   f620e4ee
+anim room1               tick  15 2274e2fc
+anim room1               tick  31 58e987a0
+anim room1               tick  47 d29d8c2a
+anim room1               60 ticks, timer 14
+anim room2               tick  31 dbc074f5
+anim room2               tick  52 c139a5cd
+anim room2               60 ticks, timer 10
+anim room3               tick   2 315514e4
+anim room3               tick   3 231dd44b
+anim room3               tick   4 f778187f
+anim room3               tick   5 9b47a1d8
+anim room3               tick   7 af2e8bba
+anim room3               tick   8 460f2fb5
+anim room3               tick   9 02020a53
+anim room3               tick  10 75ec8b49
+anim room3               tick  11 74a55000
+anim room3               tick  12 9a359b05
+anim room3               tick  13 8ea6a409
+anim room3               tick  16 12f7128c
+anim room3               tick  17 7d739b18
+anim room3               tick  18 217098a3
+anim room3               tick  19 98c5236f
+anim room3               tick  20 16ee71e8
+anim room3               tick  21 f9f22ac6
+anim room3               tick  22 2c651065
+anim room3               tick  23 315514e4
+anim room3               tick  25 231dd44b
+anim room3               tick  26 f778187f
+anim room3               tick  27 465214e0
+anim room3               tick  28 da6a93ca
+anim room3               tick  29 02020a53
+anim room3               tick  30 75ec8b49
+anim room3               tick  31 a1805439
+anim room3               tick  34 7287c18f
+anim room3               tick  35 8ea6a409
+anim room3               tick  36 12f7128c
+anim room3               tick  37 6c7f01d9
+anim room3               tick  38 08222334
+anim room3               tick  39 b19798f8
+anim room3               tick  40 3fbcca7f
+anim room3               tick  41 16ee71e8
+anim room3               tick  43 f9f22ac6
+anim room3               tick  44 2c651065
+anim room3               tick  45 47564d44
+anim room3               tick  46 9b47a1d8
+anim room3               tick  47 465214e0
+anim room3               tick  48 da6a93ca
+anim room3               tick  49 9ccd181f
+anim room3               tick  52 ef0a60be
+anim room3               tick  53 a1805439
+anim room3               tick  54 7287c18f
+anim room3               tick  55 b7dbddb3
+anim room3               tick  56 95434360
+anim room3               tick  57 7d739b18
+anim room3               tick  58 217098a3
+anim room3               tick  59 08222334
+anim room3               tick  61 b19798f8
+anim room3               tick  62 3fbcca7f
+anim room3               tick  63 d0a09151
+anim room3               tick  64 315514e4
+anim room3               tick  65 47564d44
+anim room3               tick  66 9b47a1d8
+anim room3               tick  67 af2e8bba
+anim room3               tick  70 460f2fb5
+anim room3               tick  71 9ccd181f
+anim room3               tick  72 ef0a60be
+anim room3               tick  73 74a55000
+anim room3               tick  74 9a359b05
+anim room3               tick  75 8ea6a409
+anim room3               tick  76 12f7128c
+anim room3               tick  77 95434360
+anim room3               tick  79 7d739b18
+anim room3               tick  80 217098a3
+anim room3               tick  81 98c5236f
+anim room3               tick  82 16ee71e8
+anim room3               tick  83 d0a09151
+anim room3               tick  84 315514e4
+anim room3               tick  85 231dd44b
+anim room3               tick  88 f778187f
+anim room3               tick  89 af2e8bba
+anim room3               tick  90 460f2fb5
+anim room3               tick  91 02020a53
+anim room3               tick  92 75ec8b49
+anim room3               tick  93 a1805439
+anim room3               tick  94 7287c18f
+anim room3               tick  95 9a359b05
+anim room3               tick  97 8ea6a409
+anim room3               tick  98 12f7128c
+anim room3               tick  99 6c7f01d9
+anim room3               tick 100 08222334
+anim room3               100 ticks, timer 40
+anim room4               60 ticks, timer 20
+anim room5               60 ticks, timer 20
+anim room6               60 ticks, timer 20
+anim room7               60 ticks, timer 20
+anim room8               60 ticks, timer 20
+anim room9               tick   5 347846ac
+anim room9               tick  11 8cd91142
+anim room9               tick  17 347846ac
+anim room9               tick  23 8cd91142
+anim room9               tick  32 71fba52b
+anim room9               tick  38 8cd91142
+anim room9               tick  44 347846ac
+anim room9               tick  50 8cd91142
+anim room9               tick  56 347846ac
+anim room9               60 ticks, timer 20
+anim room12              tick   5 26a0a808
+anim room12              tick  11 f4dd51b5
+anim room12              tick  17 26a0a808
+anim room12              tick  23 f4dd51b5
+anim room12              tick  29 26a0a808
+anim room12              tick  35 f4dd51b5
+anim room12              tick  41 26a0a808
+anim room12              tick  47 f4dd51b5
+anim room12              tick  53 26a0a808
+anim room12              tick  59 f4dd51b5
+anim room12              60 ticks, timer 20
+anim room13              tick   5 347846ac
+anim room13              tick  11 8cd91142
+anim room13              tick  17 347846ac
+anim room13              tick  23 8cd91142
+anim room13              tick  32 71fba52b
+anim room13              tick  38 8cd91142
+anim room13              tick  44 347846ac
+anim room13              tick  50 8cd91142
+anim room13              tick  56 347846ac
+anim room13              60 ticks, timer 20
+anim room14              tick  15 278809b2
+anim room14              tick  31 1d7c599b
+anim room14              tick  47 278809b2
+anim room14              60 ticks, timer 20
+anim room15              tick   5 347846ac
+anim room15              tick  11 8cd91142
+anim room15              tick  17 347846ac
+anim room15              tick  23 8cd91142
+anim room15              tick  32 71fba52b
+anim room15              tick  38 8cd91142
+anim room15              tick  44 347846ac
+anim room15              tick  50 8cd91142
+anim room15              tick  56 347846ac
+anim room15              60 ticks, timer 20
+anim room21              tick   5 347846ac
+anim room21              tick  11 8cd91142
+anim room21              tick  17 347846ac
+anim room21              tick  23 8cd91142
+anim room21              tick  32 71fba52b
+anim room21              tick  38 8cd91142
+anim room21              tick  44 347846ac
+anim room21              tick  50 8cd91142
+anim room21              tick  56 347846ac
+anim room21              60 ticks, timer 20
+anim room32              tick   1 965aff7e
+anim room32              tick   3 663e0ef2
+anim room32              tick   5 d0e2f669
+anim room32              tick   7 f131694a
+anim room32              tick   9 965aff7e
+anim room32              tick  11 663e0ef2
+anim room32              tick  13 d0e2f669
+anim room32              tick  15 f131694a
+anim room32              tick  17 965aff7e
+anim room32              tick  19 663e0ef2
+anim room32              tick  21 d0e2f669
+anim room32              tick  23 f131694a
+anim room32              tick  25 965aff7e
+anim room32              tick  27 663e0ef2
+anim room32              tick  29 d0e2f669
+anim room32              tick  31 f131694a
+anim room32              tick  33 965aff7e
+anim room32              tick  35 663e0ef2
+anim room32              tick  37 d0e2f669
+anim room32              tick  39 f131694a
+anim room32              tick  41 965aff7e
+anim room32              tick  43 663e0ef2
+anim room32              tick  45 d0e2f669
+anim room32              tick  47 f131694a
+anim room32              tick  49 965aff7e
+anim room32              tick  51 663e0ef2
+anim room32              tick  53 d0e2f669
+anim room32              tick  55 f131694a
+anim room32              tick  57 965aff7e
+anim room32              tick  59 663e0ef2
+anim room32              60 ticks, timer 50
+anim room36              tick  20 5857159e
+anim room36              tick  41 c2263357
+anim room36              60 ticks, timer 12
+anim room37              60 ticks, timer 20
+anim room52              60 ticks, timer 20
+anim room53              tick   2 fbf8ffaf
+anim room53              tick   4 e37516a9
+anim room53              tick   6 fbf8ffaf
+anim room53              tick   8 e37516a9
+anim room53              tick  10 5820bace
+anim room53              tick  12 ccf76ddd
+anim room53              tick  14 b7554a2c
+anim room53              tick  16 41b456ff
+anim room53              tick  18 fbf8ffaf
+anim room53              tick  20 e37516a9
+anim room53              tick  22 fbf8ffaf
+anim room53              tick  24 e37516a9
+anim room53              tick  26 5820bace
+anim room53              tick  28 ccf76ddd
+anim room53              tick  30 b7554a2c
+anim room53              tick  32 41b456ff
+anim room53              tick  34 fbf8ffaf
+anim room53              tick  36 e37516a9
+anim room53              tick  38 fbf8ffaf
+anim room53              tick  40 e37516a9
+anim room53              tick  42 5820bace
+anim room53              tick  44 ccf76ddd
+anim room53              tick  46 b7554a2c
+anim room53              tick  48 41b456ff
+anim room53              tick  50 fbf8ffaf
+anim room53              tick  52 e37516a9
+anim room53              tick  54 fbf8ffaf
+anim room53              tick  56 e37516a9
+anim room53              tick  58 5820bace
+anim room53              tick  60 ccf76ddd
+anim room53              60 ticks, timer 150
+anim room54              tick   5 347846ac
+anim room54              tick  11 8cd91142
+anim room54              tick  17 347846ac
+anim room54              tick  23 8cd91142
+anim room54              tick  32 71fba52b
+anim room54              tick  38 8cd91142
+anim room54              tick  44 347846ac
+anim room54              tick  50 8cd91142
+anim room54              tick  56 347846ac
+anim room54              60 ticks, timer 20
+anim room56              tick  10 5e630bb2
+anim room56              tick  32 bf7a1454
+anim room56              tick  43 d3ccd9c8
+anim room56              tick  54 d794ce21
+anim room56              60 ticks, timer 40
+anim room63              tick   5 347846ac
+anim room63              tick  11 8cd91142
+anim room63              tick  17 347846ac
+anim room63              tick  23 8cd91142
+anim room63              tick  32 71fba52b
+anim room63              tick  38 8cd91142
+anim room63              tick  44 347846ac
+anim room63              tick  50 8cd91142
+anim room63              tick  56 347846ac
+anim room63              60 ticks, timer 20

@@ -19,6 +19,11 @@ SHA-256 and line count of the transcript are compared with the row. The
 transcripts themselves are game text and are not kept; --save writes them
 out, so that two builds can be compared with diff -r.
 
+Each replay runs in an empty temporary directory, so a script may save and
+restore games and write transcripts. The files of SCRIPTDIR/<script>.d, if
+there is such a folder, are put there first, and the name, size and SHA-256
+of every file the replay wrote are added to the end of its transcript.
+
 The same script is run on every release of its game, on purpose: one script
 exercises every loader and every variant of the game's text. A replay that
 does not reach the end of the game (see SCRIPTDIR/README.md) is still
@@ -34,8 +39,10 @@ import concurrent.futures
 import hashlib
 import os
 import re
+import shutil
 import subprocess
 import sys
+import tempfile
 
 import run_image_tests as images
 
@@ -74,14 +81,30 @@ def transcript(binary, script, row, games):
         commands = f.read()
     # CheapGlk reads a key press as a line and takes its first character.
     keys = "".join(k + "\n" for k in row.keys).encode()
-    try:
-        out = subprocess.run(
-            [binary, os.path.join(games, row.dir, row.file)],
-            input=keys + commands, stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL, timeout=TIMEOUT).stdout
-    except subprocess.TimeoutExpired:
-        return b"TIMEOUT\n"
-    return BLANKS.sub(b"\n\n", NOISE.sub(b"", out))
+    # A script may save games and write transcripts, and CheapGlk puts those
+    # in the working directory: every replay gets an empty one of its own,
+    # with the files of SCRIPTDIR/<script>.d (a damaged saved game, say).
+    with tempfile.TemporaryDirectory() as cwd:
+        given = os.path.splitext(script)[0] + ".d"
+        if os.path.isdir(given):
+            shutil.copytree(given, cwd, dirs_exist_ok=True)
+        before = set(os.listdir(cwd))
+        try:
+            out = subprocess.run(
+                [os.path.abspath(binary),
+                 os.path.abspath(os.path.join(games, row.dir, row.file))],
+                input=keys + commands, stdout=subprocess.PIPE,
+                stderr=subprocess.DEVNULL, timeout=TIMEOUT, cwd=cwd).stdout
+        except subprocess.TimeoutExpired:
+            return b"TIMEOUT\n"
+        out = BLANKS.sub(b"\n\n", NOISE.sub(b"", out))
+        # What the replay wrote is part of its transcript.
+        for name in sorted(set(os.listdir(cwd)) - before):
+            with open(os.path.join(cwd, name), "rb") as f:
+                data = f.read()
+            out += (f"[file {name}: {len(data)} bytes, "
+                    f"sha256 {hashlib.sha256(data).hexdigest()}]\n").encode()
+        return out
 
 
 def ending(text):

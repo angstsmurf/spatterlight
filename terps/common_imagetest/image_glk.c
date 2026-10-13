@@ -111,6 +111,11 @@ uint32_t ImageProbeCRC(const void *data, size_t length)
     return (uint32_t)crc32(0, data, (uInt)length);
 }
 
+uint32_t ImageProbeCanvasCRC(void)
+{
+    return ImageProbeCRC(canvas, sizeof canvas);
+}
+
 /* Write the graphics window as a PNG; unpainted pixels come out mid-grey. */
 static void dump_png(const char *name)
 {

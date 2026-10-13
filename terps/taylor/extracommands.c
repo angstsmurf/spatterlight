@@ -139,7 +139,11 @@ int TryExtraCommand(void)
     int verb = ParseExtraCommand(InputWordStrings[verb_position]);
     int noun = NO_COMMAND;
 
-    if (verb > SCRIPT && verb_position > 0) {
+    /* The first word the game knows may be the second word of the command:
+       GAME in RESTART GAME, or, in a game that has a SAVE of its own but no
+       RAM, SAVE in RAM SAVE. */
+    if (verb_position > 0
+        && (verb > SCRIPT || ParseExtraCommand(InputWordStrings[verb_position - 1]) == RAM)) {
         verb_position--;
         verb = ParseExtraCommand(InputWordStrings[verb_position]);
     }

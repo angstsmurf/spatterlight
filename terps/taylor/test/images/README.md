@@ -23,6 +23,21 @@ draw instruction stream, which composes pieces, flips, fills and colour
 changes; *Questprobe 3* has no such streams and no `room` lines. A ZX
 Spectrum loading screen shown before the first prompt is reported as `title`.
 
+*Rebel Planet* and *Kayleth* animate some of their pictures, and their
+goldens end with the frames:
+
+    anim queen               tick   3 b7aa48bc
+    anim queen               17 ticks, timer 400
+
+The probe puts the player in the room, sets the flags and objects the
+animation depends on, and fires the timer by hand: a line for every tick that
+changed the canvas, with its CRC32, then how many ticks were fired and the
+timer interval the animation left behind (0 when it has stopped). For *Rebel
+Planet* that is each of its animations (stars, force field, queen computer,
+robot, crag snapper, serpent out and back) and what is left running after
+walking from one animated room into another; for *Kayleth*, every room that
+starts the timer.
+
 So an extraction regression (tape block, depacker, snapshot offset) changes
 the first CRC, a renderer regression only the last one. The output holds no
 game content, so `expected/<id>.txt` is committed although the games are not.
@@ -74,9 +89,9 @@ whole folder is skipped.
 
 ## Coverage
 
-65 rows: one per distinct result found among about 115 local images of
+72 rows: one per distinct result found among about 115 local images of
 *Rebel Planet*, *Blizzard Pass*, *Temple of Terror*, *Kayleth*, *Masters of
-the Universe* and *Questprobe 3*, and one or two for every C64 *Temple of
+the Universe* and *Questprobe 3*, and one to three for every C64 *Temple of
 Terror* image the loader knows, whose files are found in four different ways:
 
 | Container | Rows | Variants |
@@ -84,10 +99,29 @@ Terror* image the loader knows, whose files are found in four different ways:
 | ZX Spectrum `.z80` | 12 | v1, v2, v3 |
 | ZX Spectrum `.sna` | 6 | |
 | ZX Spectrum `.tap` | 3 | |
-| ZX Spectrum `.tzx` | 10 | incl. the two-sided *Temple of Terror*, either side, combined or not |
-| C64 `.d64` | 15 | incl. *Temple of Terror* graphics and combined versions |
-| C64 `.t64` | 7 | likewise |
-| `.tay` | 12 | any of the above under Spatterlight's own extension |
+| ZX Spectrum `.tzx` | 11 | incl. the two-sided *Temple of Terror*, either side, combined or not |
+| C64 `.d64` | 18 | incl. *Temple of Terror* graphics, text only and combined versions |
+| C64 `.t64` | 8 | likewise |
+| `.tay` | 14 | any of the above under Spatterlight's own extension |
+
+The text-only rows have no pictures at all ("pictures 0"); they are there for
+the loader, and for the command scripts of `../scripts/`, which play them.
+
+## Damaged files
+
+`make -f Makefile.headless damagecheck` runs `damaged.py`, which plays damaged
+copies of the same games in `taylor_hl`, the text build, for one command:
+
+- Six files whose game data is whole but whose pictures cannot be read (five
+  `.sna` snapshots cut off above the game, and a *Questprobe 3* with its
+  picture table signature spoiled) must print "The pictures in this file
+  could not be read. Playing without graphics." and play on.
+- Every row of the manifest, cut off at each eighth of its length, must end
+  in an orderly way: a game that plays, or an error message and an exit. A
+  crash or a hang fails.
+
+It has no goldens: what a truncated file prints is not pinned down, only that
+the interpreter survives it. A second or two.
 
 ## Comparing with the originals
 
@@ -114,8 +148,8 @@ Not compared ("not drawn"): rooms the interpreter leaves the previous picture
 in, and rooms where the original still shows the first room's picture because
 the player died before the room was drawn. `mame_known.tsv` lists the rooms
 that are expected to differ, with the reason: animated pictures (the original
-is caught at some frame, the probe draws none), room numbers past the last
-room of the game, the dark cave of Rebel Planet (black in play, but the
+is caught at some frame, the probe compares the picture before the first),
+room numbers past the last room of the game, the dark cave of Rebel Planet (black in play, but the
 original draws its picture when the player is poked into it), and the
 briefing of Kayleth (room 69), which the original prints over the animated
 picture of the first room. `--diff DIR` writes

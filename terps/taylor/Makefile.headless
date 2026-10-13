@@ -12,6 +12,7 @@
 #   make -f Makefile.headless imagecheck
 #   make -f Makefile.headless mamecheck
 #   make -f Makefile.headless scriptcheck
+#   make -f Makefile.headless damagecheck
 #   ./taylor_image_probe -d /tmp/pictures /path/to/rebelplanet.z80
 
 CHEAPGLK_DIR := ../cheapglk
@@ -111,9 +112,14 @@ $(TEXT_OBJDIR)/%.o: %.c | $(TEXT_OBJDIR)
 scriptcheck: taylor_hl
 	@python3 $(PROBE_DIR)/run_script_tests.py test/scripts test/images ./taylor_hl
 
+# Damaged copies of the picture test images: a file with unreadable pictures
+# must play on without them, and a file cut short must not crash or hang.
+damagecheck: taylor_hl
+	@python3 test/images/damaged.py test/images ./taylor_hl
+
 clean:
 	rm -rf $(OBJDIR) $(TEXT_OBJDIR) taylor_image_probe taylor_hl
 
-.PHONY: clean imagecheck mamecheck scriptcheck
+.PHONY: clean imagecheck mamecheck scriptcheck damagecheck
 
 -include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)

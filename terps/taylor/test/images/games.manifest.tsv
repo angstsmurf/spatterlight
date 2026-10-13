@@ -36,6 +36,7 @@ t64-questprobe-3-c64	t64-questprobe-3-c64	QUESTPR3.T64	9a42a8ff8253d62bb1e91be68
 t64-rebel-planet-c64	t64-rebel-planet-c64	REBELPLA.T64	5ebe588e0a7f3051892c60e4528cb8046de631eefcea6e335283e773b9303b28	n	Rebel Planet C64; C64 .t64
 t64-temple-of-terror-c64-1n	t64-temple-of-terror-c64	TEMPLEOT.T64	baebc7ef305fdb51d4af181302ed448e82db01e494f39f3ea539d9c049ed98c6	1n	Temple of Terror C64; C64 .t64
 t64-temple-of-terror-c64-3n	t64-temple-of-terror-c64	TEMPLEOT.T64	baebc7ef305fdb51d4af181302ed448e82db01e494f39f3ea539d9c049ed98c6	3n	Temple of Terror C64 combined version; C64 .t64
+t64-temple-of-terror-c64-2n	t64-temple-of-terror-c64	TEMPLEOT.T64	baebc7ef305fdb51d4af181302ed448e82db01e494f39f3ea539d9c049ed98c6	2n	Temple of Terror C64 text only version; C64 .t64
 d64-temple-of-terror-c64	d64-temple-of-terror-c64	TMPLTERR.D64	634e41b3c6bdc76f1342b6760ac2f963959afc074d3c22aa4c3926f1bf51a9eb	n	Temple of Terror C64; C64 .d64
 z80-heman	z80-heman	TERRAQUA.Z80	70ee48d989b5adebd9a63effe5d0c5b1860d708bfc13928ba22c3fc4aef7354e	n	Heman; ZX .z80 v3; title picture
 tap-temple-of-terror	tap-temple-of-terror	TEMPTERR.TAP	b767494a483d025e3cd3ab5645b318d8f63c82f47efaa8b00f94977c6600f1f1	n	Temple of Terror; ZX .tap tape
@@ -47,8 +48,10 @@ tay-kayleth	tay-kayleth	KAYLETH (kopia).tay	f8b2247bc15d71054ff8efec35ee4c072233
 z80-temple-of-terror-2	z80-temple-of-terror-2	Temple of Terror.z80	ff3a23f348167004a52efdb4395c8cb78ebba0cd3a9c17416b48f6dd64625a92	n	Temple of Terror; ZX .z80 v2
 d64-temple-of-terror-c64-2-1n	d64-temple-of-terror-c64-2	Temple of Terror.d64	3a6867819401015ddc2f015530a5baf4cea7466794cf1e03239e4cfa5d48e5f7	1n	Temple of Terror C64; C64 .d64
 d64-temple-of-terror-c64-2-3n	d64-temple-of-terror-c64-2	Temple of Terror.d64	3a6867819401015ddc2f015530a5baf4cea7466794cf1e03239e4cfa5d48e5f7	3n	Temple of Terror C64 combined version; C64 .d64
+d64-temple-of-terror-c64-2-2n	d64-temple-of-terror-c64-2	Temple of Terror.d64	3a6867819401015ddc2f015530a5baf4cea7466794cf1e03239e4cfa5d48e5f7	2n	Temple of Terror C64 text only version; C64 .d64
 tay-temple-of-terror-c64-2-1n	tay-temple-of-terror-c64-2	TEMPLEOT (kopia).tay	534e970f881e676d1a3a5c9838c04c76716330af4118fd7b3a102cd17f8a1dfa	1n	Temple of Terror C64; .tay
 tay-temple-of-terror-c64-2-3n	tay-temple-of-terror-c64-2	TEMPLEOT (kopia).tay	534e970f881e676d1a3a5c9838c04c76716330af4118fd7b3a102cd17f8a1dfa	3n	Temple of Terror C64 combined version; .tay
+tay-temple-of-terror-c64-2-2n	tay-temple-of-terror-c64-2	TEMPLEOT (kopia).tay	534e970f881e676d1a3a5c9838c04c76716330af4118fd7b3a102cd17f8a1dfa	2n	Temple of Terror C64 text only version; .tay
 tay-rebel-planet	tay-rebel-planet	RBPLANET (kopia).tay	699321afd526eea8cfee9a57c83d9ba16e68bb202a09a69f976b225b62989712	n	Rebel Planet; .tay; title picture
 d64-kayleth-c64-2	d64-kayleth-c64-2	Kayleth_1987_U.S._Gold.d64	8f48cfac6e90003aa852f81d8e3a71ac6aac4be0be53a344187ec7e49ae416b2		Kayleth C64; C64 .d64
 tzx-temple-of-terror-side-b-combined	tzx-temple-of-terror-two-sides	Temple Of Terror - Side B.tzx	63d4f41c25469b1b26cf529c9b6e83810354cd2c722ba8d82b17beacfe333cb6	yn	Temple of Terror combined version; ZX .tzx tape, other side found by name; title picture
@@ -60,6 +63,7 @@ z80-kayleth-2	z80-kayleth-2	Kayleth_1986_Adventuresoft_UK_a.z80	3669f99d240abd30
 d64-kayleth-c64-3	d64-kayleth-c64-3	Kayleth_1987_U.S._Gold_cr_Newstars.d64	2407783f65b603de96f032ca7ce827f1aed77b3adcc68958644a5df08ad84560		Kayleth C64; C64 .d64
 tay-temple-of-terror-c64-3-1n	tay-temple-of-terror-c64-3	Temple of Terror - Trianon (kopia).tay	ccd1703afefbf09177273617f82316bdd29a6d09e82fbdeb177595c43fba202b	1n	Temple of Terror C64; .tay
 tay-temple-of-terror-c64-3-3n	tay-temple-of-terror-c64-3	Temple of Terror - Trianon (kopia).tay	ccd1703afefbf09177273617f82316bdd29a6d09e82fbdeb177595c43fba202b	3n	Temple of Terror C64 combined version; .tay
+tay-temple-of-terror-c64-3-2n	tay-temple-of-terror-c64-3	Temple of Terror - Trianon (kopia).tay	ccd1703afefbf09177273617f82316bdd29a6d09e82fbdeb177595c43fba202b	2n	Temple of Terror C64 text only version; .tay
 tzx-questprobe-3	tzx-questprobe-3	Questprobe 3 - Human Torch & The Thing.tzx	b60bb94cbd73029b4028b01a58bf62a5781af36b465799241e40046e167df403	n	Questprobe 3; ZX .tzx tape; title picture
 tay-rebel-planet-2	tay-rebel-planet-2	Rebel_Planet_1986_U.S._Gold_a3 (kopia).tay	50e6c6363c8092186aec416a7218c8eb728eaaa9ac61b2acadc4fd693b7bf1ae	n	Rebel Planet; .tay
 tzx-heman	tzx-heman	Masters Of The Universe - Super Adventure.tzx	013cdc83194170d3731103f2aa1cc0f2c7ad6561fce8a8cea8e396b89030b66f	n	Heman; ZX .tzx tape; title picture
@@ -76,8 +80,10 @@ tay-heman-c64-2	tay-heman-c64-2	Masters_of_the_Universe_Terraquake_1987_Gremlin_
 d64-heman-c64	d64-heman-c64	He-Man and the Masters of the Universe in Terraquake.d64	2398799f8976d818f179008f52716af801597eecef308b22eb769fd437576d57	n	Heman C64; C64 .d64, WCC crack, four packer layers
 d64-temple-of-terror-c64-3-1n	d64-temple-of-terror-c64-3	Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64	ce58964a807bf8d08e020247ce0e5cdc80fa924995c96247e5b7e8608fcbe24c	1n	Temple of Terror C64; C64 .d64
 d64-temple-of-terror-c64-3-3n	d64-temple-of-terror-c64-3	Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64	ce58964a807bf8d08e020247ce0e5cdc80fa924995c96247e5b7e8608fcbe24c	3n	Temple of Terror C64 combined version; C64 .d64
+d64-temple-of-terror-c64-3-2n	d64-temple-of-terror-c64-3	Temple_of_Terror_1987_U.S._Gold_cr_Triad.d64	ce58964a807bf8d08e020247ce0e5cdc80fa924995c96247e5b7e8608fcbe24c	2n	Temple of Terror C64 text only version; C64 .d64
 d64-temple-of-terror-c64-4-1n	d64-temple-of-terror-c64-4	Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64	d948dbc35c07f091ae44aabdd99dfc50832eb8de3b4367bc233fd984d4a9397d	1n	Temple of Terror C64; C64 .d64
 d64-temple-of-terror-c64-4-3n	d64-temple-of-terror-c64-4	Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64	d948dbc35c07f091ae44aabdd99dfc50832eb8de3b4367bc233fd984d4a9397d	3n	Temple of Terror C64 combined version; C64 .d64
+d64-temple-of-terror-c64-4-2n	d64-temple-of-terror-c64-4	Temple_of_Terror_1987_U.S._Gold_cr_Trianon.d64	d948dbc35c07f091ae44aabdd99dfc50832eb8de3b4367bc233fd984d4a9397d	2n	Temple of Terror C64 text only version; C64 .d64
 d64-temple-of-terror-c64-5	d64-temple-of-terror-c64-5	Temple_of_Terror_1987_U.S._Gold_cr_FBR.d64	76269e2816e22ae0b0c2fc0088fe2e150a3b3ac7cb06f489431301877aaef9ad	n	Temple of Terror C64; C64 .d64
 d64-temple-of-terror-c64-6	d64-temple-of-terror-c64-6	Temple_of_Terror_Graphic_Version_1987_U.S._Gold_cr_FLT.d64	f606424dfeeaa039bd09603728e8d45ae3e9dcdb406d57626198afb2335b3f58	n	Temple of Terror C64; C64 .d64
 d64-temple-of-terror-c64-7	d64-temple-of-terror-c64-7	Temple_of_Terror_1987_US_Gold_cr_FLT.d64	293ef15e0cc10e287412ff567bd30b34a9124209e6904975834a45b30e1ffd58	n	Temple of Terror C64; C64 .d64

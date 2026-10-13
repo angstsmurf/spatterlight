@@ -179,6 +179,29 @@ void FindTables(void)
     MessageBase = Game->start_of_messages + FileBaselineOffset;
     Message2Base = Game->start_of_messages_2 + FileBaselineOffset;
 
+    /* The offsets come from where the dictionary was found. In a file that
+       was cut short, or where something else matched, they can point past
+       the end of it (or before the start, which wraps around). */
+    const struct {
+        size_t address; /* 0 if the game has no such table */
+        size_t base;
+    } tables[] = {
+        { Game->start_of_room_descriptions, RoomBase },
+        { Game->start_of_item_descriptions, ObjectBase },
+        { Game->start_of_automatics, StatusBase },
+        { Game->start_of_actions, ActionBase },
+        { Game->start_of_room_connections, ExitBase },
+        { Game->start_of_item_locations, ObjLocBase },
+        { Game->start_of_messages, MessageBase },
+        { Game->start_of_messages_2, Message2Base },
+        { 1, TokenBase },
+        { 1, FlagBase },
+    };
+    for (size_t i = 0; i < sizeof tables / sizeof tables[0]; i++) {
+        if (tables[i].address != 0 && tables[i].base >= FileImageLen)
+            Fatal("This game file is damaged or incomplete");
+    }
+
     if (BaseGame == KAYLETH) {
         AnimationData = FindCode("\xff\x00\x00\x00\x0f\x00\x5d\x0f\x00\x61", 0, 10);
         if (AnimationData == -1)
@@ -199,6 +222,8 @@ static int GuessLowObjectEndRebelPlanet(void)
     while (p < EndOfData) {
         if (t == NULL)
             t = TokenText(*p++);
+        if (t >= EndOfData)
+            break;
         lc = c;
         c = *t & TOKEN_BYTE_MASK;
         if (c == MSG_END_SPACE || c == MSG_END) {
@@ -238,6 +263,8 @@ int GuessLowObjectEnd(void)
         /* obj_text[-1] is the last token index of the description; find
            that token's last byte to check whether it ends in a comma. */
         unsigned char *last_byte = TokenText(obj_text[-1]);
+        if (last_byte >= EndOfData)
+            break;
         while (last_byte < EndOfData - 1 && !(*last_byte & TOKEN_LAST_BYTE)) {
             last_byte++;
         }
