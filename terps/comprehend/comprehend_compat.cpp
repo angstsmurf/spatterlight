@@ -28,12 +28,15 @@ extern "C" int gli_comprehend_graphics = 0;
 #endif
 
 /* Gargoyle has none of the Spatterlight user settings the engine consults, so
- * give them fixed values here: no animated picture reveal, no testing mode,
- * and no known content-area height (pictures are then scaled by the window
- * width alone). */
+ * give them fixed values here: no animated picture reveal (unless the -s
+ * option turns it on, see glkstart.c), the fewer-colour picture modes (unless
+ * the -c option asks for double hi-res and PCjr), no testing mode, and no
+ * known content-area height (pictures are then scaled by the window width
+ * alone). */
 #if !defined(SPATTERLIGHT) && !defined(COMPREHEND_HEADLESS)
 extern "C" {
 int gli_slowdraw = 0;
+int gli_comprehend_graphics = 1;
 int gli_determinism = 0;
 int gscreenh = 0;
 }

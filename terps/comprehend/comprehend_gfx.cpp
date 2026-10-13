@@ -31,10 +31,12 @@ static uint32 surfaceColorAt(DrawSurface *ds, int x, int y) {
 }
 
 bool Comprehend::applyPreferredGraphicsMode() {
-#ifdef SPATTERLIGHT
 	// Re-applied on every arrange (see onArrange), so guard against doing work
 	// when the preference hasn't actually changed: a window resize lands here
 	// too. -1 is the initial "never applied" sentinel, so the first call runs.
+	// Outside Spatterlight the preference is set once, by the -c option, so
+	// only that first call does anything and the #dhgr / #pcjr commands (see
+	// game.cpp) have the last word.
 	if (gli_comprehend_graphics == _appliedComprehendGraphics)
 		return false;
 	_appliedComprehendGraphics = gli_comprehend_graphics;
@@ -48,11 +50,6 @@ bool Comprehend::applyPreferredGraphicsMode() {
 		return false;
 	setMoreColours(more);
 	return true;
-#else
-	// No host graphics-quality preference on other Glk back-ends; the mode is
-	// controlled by the #dhgr / #pcjr commands (see game.cpp). Nothing to do.
-	return false;
-#endif
 }
 
 void Comprehend::repaintCurrentScene() {

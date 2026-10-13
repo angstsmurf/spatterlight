@@ -12,12 +12,11 @@
 // gli_determinism selects the reproducible RNG (and suppresses slow-draw).
 extern "C" int gli_slowdraw;
 extern "C" int gli_determinism;
-#ifdef SPATTERLIGHT
 // Comprehend preferred-graphics-mode: 0 = more colours (PCjr/DHGR), 1 = less.
-// Spatterlight-only host preference; other Glk back-ends use the #dhgr / #pcjr
-// commands instead (see game.cpp).
+// A user preference in Spatterlight. Other Glk back-ends start with fewer
+// colours unless the -c option is given (see glkstart.c), and switch with the
+// #dhgr / #pcjr commands after that (see game.cpp).
 extern "C" int gli_comprehend_graphics;
-#endif
 
 // Total content area in pixels, exported by glkimp (0 in the headless build).
 // Used to keep a rescaled picture from eating the whole window vertically.
