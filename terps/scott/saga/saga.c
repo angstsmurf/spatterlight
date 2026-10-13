@@ -167,7 +167,10 @@ static int DrawDOSImage(USImage *image) {
 
     debug_print("DrawDOSImage: usage:%d index:%d\n", image->usage, image->index);
 
-    return DrawDOSImageFromData(image->imagedata);
+    StartPixelRuns();
+    int result = DrawDOSImageFromData(image->imagedata);
+    FlushPixelRuns();
+    return result;
 }
 
 /* Dispatch image drawing to the appropriate platform-specific renderer

@@ -42,6 +42,9 @@ extern fakeglk_window *fakeglk_graphics;
 extern uint32_t fakeglk_canvas[FAKEGLK_CANVAS_H][FAKEGLK_CANVAS_W];
 extern strid_t fakeglk_text_stream, fakeglk_null_stream;
 extern glui32 fakeglk_timer_ms;
+/* How many rectangles have been filled in the graphics window: what a
+   picture costs to draw, each being a message to the window server. */
+extern long fakeglk_fill_rect_count;
 
 /* ---- Supplied by the harness ---- */
 extern const char *fakeglk_name;

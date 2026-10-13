@@ -14,6 +14,7 @@
 fakeglk_window *fakeglk_windows[FAKEGLK_MAX_WINDOWS];
 fakeglk_window *fakeglk_graphics;
 uint32_t fakeglk_canvas[FAKEGLK_CANVAS_H][FAKEGLK_CANVAS_W];
+long fakeglk_fill_rect_count;
 strid_t fakeglk_text_stream, fakeglk_null_stream;
 glui32 fakeglk_timer_ms;
 
@@ -154,6 +155,7 @@ void fakeglk_window_fill_rect(winid_t w, glui32 color, glsi32 left, glsi32 top, 
 {
     if (!w || (fakeglk_window *)w != graphics)
         return;
+    fakeglk_fill_rect_count++;
     for (glsi32 y = top; y < top + (glsi32)height; y++)
         for (glsi32 x = left; x < left + (glsi32)width; x++)
             if (x >= 0 && x < CANVAS_W && y >= 0 && y < CANVAS_H)

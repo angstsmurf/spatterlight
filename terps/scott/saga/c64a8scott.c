@@ -60,6 +60,9 @@ static int C64A8AdjustScott(int width, int height, int *x_origin) {
 int DrawC64A8Image(USImage *image)
 {
     current_image = image;
-    return DrawC64A8ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US, C64A8AdjustScott, image->systype == SYS_C64);
+    StartPixelRuns();
+    int result = DrawC64A8ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US, C64A8AdjustScott, image->systype == SYS_C64);
+    FlushPixelRuns();
+    return result;
 }
 

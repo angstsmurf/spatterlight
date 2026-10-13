@@ -119,6 +119,15 @@ interpreter ships, and pictures that look like the originals'. See
 - [ ] Not covered yet: the Gremlins gang animations (square, road), German and
       Spanish Gremlins, Super Gran, Savage Island, C64 animations
       (`c64_capture.py` has no `!hwnext`).
+- [ ] Not covered yet: the US SAGA bitmap pictures (MS-DOS, C64, Atari 8-bit)
+      as the interpreter draws them. `dostest` and `c64a8test` plot through
+      their own stubs, so nothing goes through `PutPixelWithWidth()` in
+      `sagagraphics.c` and its run merging (2026-10-14). That was checked
+      once by hand: scratch scenes with a `!check` after every walkthrough
+      command, `scenetest -d` with a binary from before and one from after,
+      all 967 frames identical. A scene with a hardware dump of one room per
+      machine would keep it checked. `scenetest -c` prints the rectangles
+      filled per check.
 
 ## Divergences from the originals (found by the scene tests)
 

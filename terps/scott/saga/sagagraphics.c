@@ -75,14 +75,111 @@ void SetColor(int32_t index, glui32 color)
     pal[index] = color;
 }
 
+/* A bitmap picture is decoded a pixel at a time in runs of one colour:
+   left to right along the rows on MS-DOS, down 8-pixel columns on the
+   Commodore 64 and Atari. Each fill_rect is a round trip to the window
+   server, so between StartPixelRuns() and FlushPixelRuns() the pixels are
+   collected here: those of one colour that follow each other on a row into
+   a run, and runs that lie exactly under each other into a block, which is
+   sent as a single rectangle. */
+typedef struct {
+    glui32 color;
+    glsi32 x, y;
+    glui32 width, height; /* width 0: empty */
+} PixelRect;
+
+static PixelRect pending_run;   /* The row being collected */
+static PixelRect pending_block; /* The finished runs before it */
+
+static int collecting_runs = 0;
+
+static void SendPendingBlock(void)
+{
+    if (pending_block.width == 0)
+        return;
+    if (Graphics)
+        glk_window_fill_rect(Graphics, pending_block.color, pending_block.x,
+            pending_block.y, pending_block.width, pending_block.height);
+    pending_block.width = 0;
+}
+
+/* The run is finished: add it to the block if it continues it downwards,
+   otherwise the block is finished too and the run starts a new one. */
+static void CloseRun(void)
+{
+    if (pending_run.width == 0)
+        return;
+    if (pending_block.width != 0 && pending_run.color == pending_block.color
+        && pending_run.x == pending_block.x && pending_run.width == pending_block.width
+        && pending_run.y == pending_block.y + (glsi32)pending_block.height) {
+        pending_block.height += pending_run.height;
+    } else {
+        SendPendingBlock();
+        pending_block = pending_run;
+    }
+    pending_run.width = 0;
+}
+
+static void FillRun(glui32 color, glsi32 x, glsi32 y, glui32 width, glui32 height)
+{
+    if (width == 0 || height == 0)
+        return;
+
+    glsi32 right = x + (glsi32)width;
+    glsi32 pending_right = pending_run.x + (glsi32)pending_run.width;
+
+    /* A rectangle of the same colour on the same row that touches or
+       overlaps the collected run covers the same pixels when joined to
+       it. Anything else is drawn after the run, keeping the order. */
+    if (pending_run.width != 0 && color == pending_run.color
+        && y == pending_run.y && height == pending_run.height
+        && x <= pending_right && right >= pending_run.x) {
+        if (x < pending_run.x)
+            pending_run.x = x;
+        if (right > pending_right)
+            pending_right = right;
+        pending_run.width = (glui32)(pending_right - pending_run.x);
+        return;
+    }
+
+    CloseRun();
+    pending_run.color = color;
+    pending_run.x = x;
+    pending_run.y = y;
+    pending_run.width = width;
+    pending_run.height = height;
+}
+
+/* Start collecting the pixels of a picture into runs. Only for a picture
+   that is drawn in one go: nothing else may draw to the graphics window,
+   and no event may be waited for, before FlushPixelRuns(). */
+void StartPixelRuns(void)
+{
+    collecting_runs = 1;
+}
+
+/* Send what is left of the picture and go back to drawing every pixel
+   as it comes. */
+void FlushPixelRuns(void)
+{
+    CloseRun();
+    SendPendingBlock();
+    collecting_runs = 0;
+}
+
 void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixel_width)
 {
     if (!Graphics || xpos < 0 || xpos > right_margin || xpos < left_margin) {
         return;
     }
 
-    glk_window_fill_rect(Graphics, pal[color], xpos * pixel_size + x_offset,
-        ypos * pixel_size + y_offset, pixel_size * pixel_width, pixel_size);
+    glsi32 x = xpos * pixel_size + x_offset;
+    glsi32 y = ypos * pixel_size + y_offset;
+
+    if (collecting_runs)
+        FillRun(pal[color], x, y, pixel_size * pixel_width, pixel_size);
+    else
+        glk_window_fill_rect(Graphics, pal[color], x, y, pixel_size * pixel_width, pixel_size);
 }
 
 void PutPixel(glsi32 xpos, glsi32 ypos, int32_t color)

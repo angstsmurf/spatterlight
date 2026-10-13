@@ -17,8 +17,10 @@
 // scene_* functions defined here. Streams, files and unicode still come from
 // cheapglk.
 //
-//   scenetest [-v] [-d dumpdir] <file.scene>
+//   scenetest [-v] [-c] [-d dumpdir] <file.scene>
 //     -v  print the game's text output (a transcript) to stdout
+//     -c  print at every check how many rectangles were filled since the one
+//         before: the cost of drawing the picture
 //     -d  write every checked frame to <dumpdir>/<golden>.png
 //
 // A .scene file is a command script. Each plain line answers one input request
@@ -101,6 +103,7 @@ static const char *scene_path;
 static char scene_dir[1024];
 static const char *dump_dir;
 static int verbose;
+static int count_rects;
 static int checks_run, checks_failed;
 
 static void scene_fail(const char *msg)
@@ -261,6 +264,10 @@ static void check(char *args)
     }
 
     checks_run++;
+    if (count_rects) {
+        printf("%-44s %6ld rectangles\n", name, fakeglk_fill_rect_count);
+        fakeglk_fill_rect_count = 0;
+    }
     printf("%-44s ", name);
     if (!graphics) {
         printf("no graphics window  FAIL\n");
@@ -403,13 +410,15 @@ int main(int argc, char **argv)
     for (; arg < argc && argv[arg][0] == '-'; arg++) {
         if (strcmp(argv[arg], "-v") == 0)
             verbose = 1;
+        else if (strcmp(argv[arg], "-c") == 0)
+            count_rects = 1;
         else if (strcmp(argv[arg], "-d") == 0 && arg + 1 < argc)
             dump_dir = argv[++arg];
         else
             break;
     }
     if (arg != argc - 1) {
-        fprintf(stderr, "usage: %s [-v] [-d dumpdir] <file.scene>\n", argv[0]);
+        fprintf(stderr, "usage: %s [-v] [-c] [-d dumpdir] <file.scene>\n", argv[0]);
         return 2;
     }
     scene_path = argv[arg];
