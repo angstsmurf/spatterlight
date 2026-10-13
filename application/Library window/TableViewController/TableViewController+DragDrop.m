@@ -32,7 +32,9 @@
     self.downloadGameInfoCheckBox.state = [defaults boolForKey:@"DownloadInfoWhenImporting"];
 
     panel.accessoryView = self.downloadCheckboxView;
-    panel.allowedFileTypes = gGameFileTypes;
+    // On macOS 27, the Add button opens a selected folder instead of
+    // choosing it unless folders are among the allowed types.
+    panel.allowedFileTypes = [gGameFileTypes arrayByAddingObject:@"public.folder"];
 
     TableViewController * __weak weakSelf = self;
 
