@@ -190,7 +190,6 @@ static void FitImageToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height
     glk_window_get_size(Graphics, &graphwidth, graphheight);
     pixel_size = OptimalPictureSize(&optimal_width, optimal_height);
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
-    right_margin = optimal_width + x_offset;
 }
 
 /* Make the graphics window exactly height pixels tall. */

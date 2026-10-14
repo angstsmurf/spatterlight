@@ -30,7 +30,7 @@ int LastImgIndex;
 int upside_down = 0;
 
 int pixel_size;
-int x_offset, y_offset, right_margin;
+int x_offset, y_offset;
 
 glui32 pal[16];
 
@@ -104,7 +104,7 @@ static winid_t blank_window = NULL;
 typedef struct {
     winid_t window;
     glui32 win_width, win_height;
-    int pixel_size, x_offset, y_offset, right_margin;
+    int pixel_size, x_offset, y_offset;
     int room_image;
     int upside_down;
     int num_objects;
@@ -251,7 +251,8 @@ void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth)
     }
     xpos += x_offset;
 
-    if (xpos < x_offset || xpos >= right_margin) {
+    /* Some pictures draw black columns outside their frame */
+    if (xpos < x_offset || xpos >= x_offset + ImageWidth * pixel_size) {
         return;
     }
 
@@ -463,7 +464,6 @@ static int DescribeScene(Scene *scene)
     scene->pixel_size = pixel_size;
     scene->x_offset = x_offset;
     scene->y_offset = y_offset;
-    scene->right_margin = right_margin;
     scene->room_image = Rooms[MyLoc].Image;
     scene->upside_down = IsUpsideDown();
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
@@ -480,7 +480,7 @@ static int SameScene(const Scene *a, const Scene *b)
     if (a->window != b->window || a->win_width != b->win_width
         || a->win_height != b->win_height || a->pixel_size != b->pixel_size
         || a->x_offset != b->x_offset || a->y_offset != b->y_offset
-        || a->right_margin != b->right_margin || a->room_image != b->room_image
+        || a->room_image != b->room_image
         || a->upside_down != b->upside_down || a->num_objects != b->num_objects)
         return 0;
     for (int i = 0; i < a->num_objects; i++)

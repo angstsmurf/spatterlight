@@ -19,7 +19,7 @@ extern winid_t Graphics;
 
 extern int pixel_size;
 extern int ImageWidth, ImageHeight;
-extern int x_offset, y_offset, right_margin;
+extern int x_offset, y_offset;
 extern int upside_down;
 
 /* Set CurrentSys and the native picture size of that system */

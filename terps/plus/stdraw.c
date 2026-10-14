@@ -471,7 +471,7 @@ static void ColorCyclingPixel(Pixel p, glui32 glk_color)
         xpos = ImageWidth * pixel_size - xpos - (pixel_size * (p.width - 2));
     xpos += x_offset;
 
-    if (xpos < x_offset || xpos >= right_margin) {
+    if (xpos < x_offset || xpos >= x_offset + ImageWidth * pixel_size) {
         return;
     }
 
