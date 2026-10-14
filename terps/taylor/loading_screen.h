@@ -18,6 +18,12 @@
    during loading, consumed (and freed) by DrawZXTitleImage(). */
 extern uint8_t *ZXLoadingScreen;
 
+#ifndef SPATTERLIGHT
+/* Reveal the loading screen slowly. Set by -g; glkimp.h declares
+   Spatterlight's setting of the same name. */
+extern int gli_slowdraw;
+#endif
+
 /* How an Alkatraz loader draws a game's loading screen. Each game's values
    are in its *_loadscreen_data.h header. */
 typedef struct {

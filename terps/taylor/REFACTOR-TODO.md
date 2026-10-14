@@ -262,17 +262,19 @@ wildcard.
       enums in taylor.h (and `Action[12]` is patched at runtime): X-macro the
       enums. Six interleaved `#ifdef DEBUG` fprintf blocks in
       `ExecuteLineCode` → helper functions.
-      → Declined: DEBUG-only; the `-DDEBUG` build still compiles.
+      → Declined: DEBUG-only; the `-DDEBUG` build still compiles. (The fprintf blocks
+        did become helpers on 2026-10-14; see the `#ifdef DEBUG` entry in G.)
 - [x] `Q3Condition[]` / `Q3Action[]`: long runs of trailing `0` → designated
       initialisers.
       → Explicit sizes (`[128]`, `[ACTION_OP_MASK + 1]`), trailing zeros dropped.
-- [~] Named flag/object/message constants instead of literals:
+- [x] Named flag/object/message constants instead of literals:
       `Flag[1]`/`Flag[3]` (OtherGuyLoc/OtherGuyInv), `Flag[2]`, `Flag[26]`,
       [39], [42]/[43], [59], [63], [7], [10]; `Message(31)`, `Message(24)`,
       `Message(223)`, `SysMessage(14)/(15)`; `ObjectLoc[7],[2],[18],[1],[17],
       [33],[37],[48],[29],[10],[11],[46]`; `IsDir` 57/60/≤4/≤10; MyLoc
       250/91/15/49/6/0; QP3 offsets 210/217; Blizzard `0x18000` text offset.
       → Done: `CarriedLoc`, `OtherGuyLoc/Inv`, `TurnsLow`, `Q3_OBJ_*`, `Q3XanduPresent`, `Q3_MSG_*`, `Q3_SYSMESSAGE_BASE`, `Q3_EXITS_MESSAGE`, `BLIZZARD_LONG_ROOM_TEXT`, `KAYLETH_TITLE_ROOM`, `IsIntroRoom()`, `IsDir` via `WEST`/`SOUTHWEST`, `SysMessage(YOU_SEE)`. Left literal where the meaning is not known: `Flag[42]/[43]`, [59], [63], [7], [10], `Message(31)`, objects 10/11/46/48.
+      → 2026-10-14: the list above was stale. The flags (`Q3Restedness`, `Q3OtherGuyDark`, `Q3_DARK_FLAG`, `Q3_64BlobFlag`, `ToTGuardBlinded`, `KaylethDroidPursuing`) and objects (`Q3_OBJ_*`) are named in gamedefs.h and animations.c. The last one, `Message(31)` in `TakeAll`, is `MSG_NOTHING_TO_GET`: only He-Man and Kayleth reach it (REFRESH), and message 31 is "There is nothing to get." / "I can't see anything worth getting!" in every release of both (dumped from the game files).
 - [x] `Destroyed()/Carried()/Worn()/DarkFlag()/WaitFlag()` return QP3 vs
       non-QP3 constants (43/42/49/5/7): make them table lookups off `Game`.
       → Stale: they already return `LOC_*` constants per version.
@@ -300,7 +302,7 @@ wildcard.
       `#define`s → static table keyed by file size; magic
       0xc01b/0x3fe5/0x10000/0xb4bb named.
       → Specs are `static const`; `ZX_MEMORY_SIZE`, `SNA_SIZE`, `SNA_START_IN_MEMORY`, `BROKEN_KAYLETH_Z80_SIZE`, `BLIZZARD_PASS_IMAGE_SIZE` named. Loading-screen calls tabled 2026-10-14: `alkatraz_tapes[]` keyed by file size.
-- [~] animations.c: Queen computer `offset` 3→10→27 chain → array;
+- [x] animations.c: Queen computer `offset` 3→10→27 chain → array;
       `StartAnimations` speed `switch` → table; magic image patch 118;
       `ROBOT_ANIMATION_RATE` reused for the crag snapper;
       `AnimationStage` shared between Rebel and Kayleth click-shelves.
@@ -310,6 +312,12 @@ wildcard.
         left fully out, then a walk to the robot, drew picture 143 for a frame; a restore from
         the Queen computer into the sewers drew pictures 72–68 as a withdrawing serpent.
         `SerpentStage` is also reset on leaving the sewers. Speed `switch` left as it is.
+      → 2026-10-14: the Kayleth half of the speed `switch` stays a `switch`, not a table: two of its
+        cases are not plain lookups (the C64 click-shelf rate, and the forest rooms where the rate
+        and an extra frame depend on the Mokki Ray). Its rooms, objects and rates are named instead
+        (`KAYLETH_ROOM_*`, `KAYLETH_OBJ_AZAP_CHAMBER`/`MOKKI_RAY`, `KAYLETH_*_RATE`), from the room
+        texts, and from the scenery objects for the rooms that have no text (52/53 Twin Peril
+        forest, 56 Zenron).
 - [x] c64decrunch.c: magic memmove/memcpy offsets in `ProcessC64` (0x098a,
       0xc802, 0xd802, …) and the hybrid splice (0x16ea/0x4708/0x1400,
       0x8888/0x8048/0x4123) → named fields in the registry
@@ -325,10 +333,14 @@ wildcard.
       `FindImagePatch(QUESTPROBE3, 55, 0)` applied to picture 17 is
       confusing — pass the table index.
       → Commented; the patch table keys are shared with other games so the lookup stays.
-- [~] loading_screen.c: `AlkatrazDrawOrder[6912]` → `ZX_SCREEN_SIZE`;
+- [x] loading_screen.c: `AlkatrazDrawOrder[6912]` → `ZX_SCREEN_SIZE`;
       `ZX_SCREEN_BASE` duplicates `ZX_RAM_BASE` (extracttape.h);
       `DrawBlack` uses 32*8 × 12*8 vs `IMAGE_WIDTH_IN_PIXELS 255`.
       → First two done. `DrawBlack` 32*8 left: deliberate (room 3).
+      → 2026-10-14: the reason was wrong. `IMAGE_WIDTH_IN_PIXELS` is `IRMAK_IMGWIDTH * 8`, 256 and
+        not 255, so 32*8 × 12*8 was the picture size all along; "room 3" is only the Questprobe 3
+        tar pit, one of the callers. `DrawBlack` fills `IMAGE_WIDTH/HEIGHT_IN_PIXELS` now.
+        loading_screen.c no longer includes extracttape.h: `ZX_RAM_BASE` is decompressz80.h's.
 
 ## E. Structure and splits
 
@@ -380,8 +392,18 @@ wildcard.
         not recognised, no flag data), which now show in the game window. `InitGraphics` does not
         exit: it goes text-only and says so in the game window (2026-10-14). The missing-argument
         usage line still exits silently.
-- [-] `#ifdef DEBUG` / `#ifdef SPATTERLIGHT` sprinkled in logic files.
-      → Not done.
+- [x] `#ifdef DEBUG` / `#ifdef SPATTERLIGHT` sprinkled in logic files.
+      → Done 2026-10-14. The Xcode taylor target defines `DEBUG=1` in Debug builds, so the
+        trace went to stderr in every Debug build. It now goes through `debug_print`
+        (common_utils/debugprint.h), which also needs `DEBUG_PRINT`, as in scott and plus.
+        `ExecuteLineCode` has no ifdefs left: the trace is in `DebugCondition` /
+        `DebugAction`, with no-op stubs when DEBUG is off, and `InitActionDebugging()` is a
+        no-op macro. player.c's "DetectC64 did not recognize the game" printed for every ZX
+        file; it is now a debug_print. gameload.c's "This is %s" also is. loading_screen.c
+        uses `TAYLOR_GRAPHICS_ENABLED` instead of an `#ifdef SPATTERLIGHT` graphics check.
+        The SPATTERLIGHT ifdefs left are needed: glkimp.h includes, `UpdateSettings`, the
+        -c/-x palette flags, the determinism RNG seed, the slow-draw setting, and the
+        `TAYLOR_GRAPHICS_ENABLED` definition in taylor.h.
 - [-] Gather `FileImage` + the 12 table-offset globals into a `TaylorFile`
       struct. (See F.)
       → Declined, see F.
@@ -478,7 +500,7 @@ taylor.h names many flags and objects; these literals remain.
       → New gamedefs.h holds the QP3, ToT and Blizzard Pass flags, objects,
         rooms, messages and words; the names come from a dump of the games' object text and
         dictionaries. Room 6 is the small office (`Q3_ROOM_OPENING`).
-- [~] Objects: `ObjectLoc[7]` (Q3UpdateFlags torch/thing fixup),
+- [x] Objects: `ObjectLoc[7]` (Q3UpdateFlags torch/thing fixup),
       `ObjectLoc[48]` and `arg1 == 45` (ToT serpent guard, LET and IMAGE),
       `ObjectLoc[10]/[11]/[46]` and words 54/44/77/106/121 (QP3 fixups in
       `Parser`), Blizzard words 249->43, 175->44, 134->49, `PrintObject`
@@ -487,6 +509,13 @@ taylor.h names many flags and objects; these literals remain.
         object 41. Correction: object 48 / picture 45 in `IMAGE` are QP3 (the fallen statue), not
         ToT. Word 106 is RING/MAST (the Ringmaster), 121 ALIC/MAST. `ObjectLoc[0]` (Kayleth Azap
         chamber) left; 122 was already `KAYLETH_DROID_SLOT`.
+      → 2026-10-14: `ObjectLoc[0]` named in animations.c. In the speed switch it is
+        `KAYLETH_OBJ_AZAP_CHAMBER`. In `UpdateKaylethAnimationFrames` it is
+        `KAYLETH_ANIM_ALWAYS`: a dump of the animation table (same in all 9 releases) has
+        13 of the 22 animated rooms requiring object 0, 36/37 object 33, 52/53 the Mokki
+        Ray (30), 56 object 63 and 4-8 the droid slot (122). Moving object 0 into the room
+        makes the first group always play; the old comment's "so room-image drawing can
+        reference it" was a guess.
 - [~] Rooms: Rebel objects 42/107/92/58/36 and rooms 86/88/29-34/50/71 (only
       `UNFOLDING_SPACE` is named); Kayleth rooms 1/2/3/32/36/52/53/56 and
       `KaylethAnimations[2]`; `MyLoc == 250` (Rebel) and `MyLoc == 15`
@@ -498,19 +527,35 @@ taylor.h names many flags and objects; these literals remain.
         rooms 2/3/34 and `IsDir` words 57/60 named. Not done: Kayleth rooms other than 3,
         `MyLoc == 250`/`15` in `RunOneInput`, He-Man 83, Blizzard 49, `NumObjects`/`WaitFlag`/
         `GuessLowObjectEnd` values, `Message(31)`: each is used once beside a comment.
+      → 2026-10-14: the Kayleth rooms and `KaylethAnimations[2]` are named in animations.c
+        (see the Kayleth speed `switch` entry in D), and `Message(31)` is `MSG_NOTHING_TO_GET`.
+      → 2026-10-14: `MyLoc == 250`/`15` in `RunOneInput` are `REBEL_ROOM_INSIDE_KUBE` and
+        `KAYLETH_ROOM_AZAP_ELY` in gamedefs.h. Traced with the replay scripts: Rebel's GET X
+        FROM CUBE / DROP X IN KUBE park the player in 250 (no such room, no picture; commit
+        e25d2a631) until the next turn. Kayleth's AZAP CODE ELY puts the player in Azap Chamber
+        15 while object 0, the chamber's description, is still in the chamber left (13, 54,
+        63); the status table moves it after the `Look()`. Without the skip, a bare ". You could
+        go Up." is printed before the real description. Still literals: He-Man 83, Blizzard
+        49, `NumObjects`/`WaitFlag`/`GuessLowObjectEnd` values.
 - [-] Animations: Kayleth speed `switch` literals (14, 10, 40, 80, 50, 12,
       150, 40, 20, 30) and `ClickShelfStage`/`ShelfScrollStage` 9/7/80.
       → Left: each `case` already says which room it is; the speeds are tuned
         by eye, a name would add nothing.
-- [~] graphics.c: QP3 tile count 246, `InitIrmak(..., 4)`, the image opcodes
+      → 2026-10-14: the speed literals did get names after all (`KAYLETH_*_RATE`, see the
+        Kayleth speed `switch` entry in D). The shelf stages 9/7/80 are still literals.
+- [x] graphics.c: QP3 tile count 246, `InitIrmak(..., 4)`, the image opcodes
       `0xfe/0xef/0xee/0xeb/0xf3/0xfa/0x82` in the decompressors; the QP3
       status-table padding `0x7e` in `RunStatusTable` is the `MSG_END` value.
       → Decompressor bytes named (`IMAGE_END`, `REPEAT_COMMAND`, `TOKEN_*`).
         Left: 246, `InitIrmak(..., 4)`, the QP3 `0x7e` padding.
+      → 2026-10-14: `Q3_TILE_COUNT` and `TAYLOR_IRMAK_VERSION` in graphics.c (4 is the
+        version Scott gives Robin of Sherwood and Seas of Blood; irmak treats 3 and up
+        alike), `Q3_STATUS_TABLE_PADDING` in gamedefs.h. The padding equals `MSG_END` but is
+        not a message terminator, so it got a name of its own.
 - [x] `(size_t)-1` is compared as `== -1` in many places (FindCode,
       FindTilesStart, ...). Define `NOT_FOUND` once.
       → `NOT_FOUND` in gameload.h, used for every `FindCode` result.
-- [~] ui.c: `OutCount > 127` against `OutWord[128]` (use `sizeof`); `buf[512]`
+- [x] ui.c: `OutCount > 127` against `OutWord[128]` (use `sizeof`); `buf[512]`
       / `511` in `LineInput`; `Word[5]`, `WordPositions[5]`, `offset < 5`
       against a `WORD_COUNT` constant (`MAX_WORDS` exists in parseinput.h
       but is the input word limit, not this); `IMAGE_WIDTH_IN_PIXELS 255`
@@ -524,6 +569,8 @@ taylor.h names many flags and objects; these literals remain.
           255m and 257m wide clipped the last pixel column, and every picture sat half a pixel
           left of centre. Now `IRMAK_IMGWIDTH * 8` × `IRMAK_IMGHEIGHT * 8`. The
           suites do not size windows, so they cannot see it.
+        → 2026-10-14: `LineInput` (now in parseinput.c) asks for `sizeof buf - 1`
+          characters; G5 settled that `buf[length] = 0` is safe. 512 itself is just a size.
 - [x] c64decrunch.c: the 17 `HYBRID_*`/`TRIANON_*` values are named, but
       `terror_menu` still hard-codes track/sector pairs (17,1) and (20,16);
       give them names. The registry's `parameter` field is unexplained at
@@ -607,7 +654,7 @@ taylor.h names many flags and objects; these literals remain.
 
 ### G4. Structure and readability
 
-- [~] `TryExtraCommand`: relies on enum ordering (`verb > SCRIPT`) to detect
+- [x] `TryExtraCommand`: relies on enum ordering (`verb > SCRIPT`) to detect
       "the first game word is the second word"; derefs
       `InputWordStrings[verb_position]`. **(verify)** it cannot be reached
       with `InputWordStrings == NULL` from the `Word[0]==0 && Word[1]==0`
@@ -615,13 +662,17 @@ taylor.h names many flags and objects; these literals remain.
       table. The `_EXTR` suffixes exist only to dodge enum clashes.
       → Verified: `LineInput` loops until a word is entered, so
         `InputWordStrings` is never NULL when `RunOneInput` runs. Table and `_EXTR` not done.
+      → 2026-10-14: the `switch` is the `ExtraActions` table of `{verb, noun, action}`
+        rows; `verb > SCRIPT` is `IsSecondWord()` (GAME, COMMAND, ON, OFF). The enum is
+        `EXTRA_*` throughout (the clashes were the `SAVE`/`RAMSAVE`/`RAMLOAD` opcodes in
+        taylor.h); `ALL` and `IT`, which no word produced, went.
 - [x] `ParseWord` sets `FoundExtraCommand` as a side effect of looking a word
       up; the hidden coupling with `Parser` and `TryExtraCommand` (which
       resets it) wants a single owner.
       → `ParseWord` only looks up. `Parser` sets `FoundExtraCommand` when a
         word is not found but `IsExtraCommand(word)` (extracommands.c).
         The reset in `TryExtraCommand` was redundant and went.
-- [~] gameload.c: `FindFlags` is nested if/else with fall-through;
+- [x] gameload.c: `FindFlags` is nested if/else with fall-through;
       `TokenClassify` classifies by side effect and writes `Version = 0`
       through the `Version` macro, i.e. into the shared `games[]` row
       (**verify** the intent: NO_TYPE rather than REBEL_PLANET_TYPE); return a
@@ -632,6 +683,13 @@ taylor.h names many flags and objects; these literals remain.
       → `TokenClassify` deleted: an `abort()` probe showed it never fires on
         the whole corpus, and if it did it would set NO_TYPE, which is wrong; the type comes from the
         `games[]` row. The rest not done.
+      → 2026-10-14: `FindFlags` is three early returns. `DetectGame` stops before the
+        "Unknown game" row (all offsets 0, so it could only match by accident) and puts
+        `FileBaselineOffset` back; `LookForSecondTOTGame` works out the companion's offset
+        from its verb table, as `IdentifyGame` does. The option loop walks `argv` with an
+        index. Left: `FindTokens` scanning per candidate, because the result depends on the
+        candidate's offset, and startup still takes no measurable time on any test image.
+        `taylor_hl` takes no options, so the loop was checked by reading only.
 - [-] player.c: `Destroyed()`, `Carried()`, `Worn()` are exported functions
       returning a constant or a flag; inline in taylor.h. The QP3/non-QP3
       differences (`NumObjects`, `WaitFlag`, `CarryItem`, `DropItem`,
@@ -640,7 +698,7 @@ taylor.h names many flags and objects; these literals remain.
       → Left: small and exported; `HeldByPlayer` covers the common use.
 - [x] `TopWidth` is `glui32` and compared with `int` (`OutCount == TopWidth`).
       → See the `OutCount` item in G2.
-- [~] graphics.c: `ExtractImage` copies `instructions` into a
+- [x] graphics.c: `ExtractImage` copies `instructions` into a
       MAX_INSTRUCTIONS stack buffer and then memcpy's again; decompress
       directly. `DecompressHemanType` takes no capacity parameter unlike
       `EarlierType`. `AdjustBlizzardPassImageWidth`'s list wants a table.
@@ -648,6 +706,10 @@ taylor.h names many flags and objects; these literals remain.
       → `DecompressHemanType` takes a capacity. Left: `ExtractImage`'s stack
         buffer (the length is only known after decompressing), the Blizzard switch (six cases),
         the section markers.
+      → 2026-10-14: the section markers are all `#pragma mark` now. The other two stay: a
+        heap buffer shrunk with `realloc` would trade a copy of a few hundred bytes per
+        picture for an allocation, and a table of six picture numbers reads no better than
+        six `case` labels.
 - [x] animations.c: `KaylethAnimations` is `MemAlloc` + a NULL loop; use
       `MemCalloc`.
       → `MemCalloc`.
@@ -727,3 +789,20 @@ taylor.h names many flags and objects; these literals remain.
         and the only caller (`terror_menu`) reads records 1 and 2 of a
         3-record image, so the branch is never taken. Kept, as some T64
         writers get the end address wrong; the doc comment now says so.
+- [x] **(latent)** `FindTokens` tries the token signature of the global `Game`,
+      not of the candidate `DetectGame` is testing. At startup `Game` is NULL,
+      so no signature is tried. In `LookForSecondTOTGame`, `Game` is the game
+      being played, and the companion file is searched with its signature. The
+      only callers are the Spectrum `TEMPLE_OF_TERROR` and `TOT_TEXT_ONLY` rows,
+      which have no signature, so nothing goes wrong today.
+      → 2026-10-14: no C64 case either: the C64 Temple of Terror has both versions
+        on one image, and `terror_menu` (c64decrunch.c) offers the choice and the
+        hybrid itself, with `Game` taken from the C64 registry, so `DetectGame`
+        never sees a C64 file. The search is now `SearchTokens(signature)`,
+        returning `NOT_FOUND` on failure. `FindTokens` (for `FindTables`) passes
+        `Game`'s signature and falls back to its `start_of_tokens`. `DetectGame`
+        passes no signature, as it always in effect did. Passing the candidate's
+        own would let a Spectrum file match a C64 row by its signature, and the
+        fallback would make every candidate match. The generic search now starts
+        at offset 2, as it reads the two bytes before the match (before, a missed
+        signature made `NOT_FOUND + 1` start it at 0).

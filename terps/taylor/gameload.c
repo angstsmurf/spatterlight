@@ -18,6 +18,7 @@
 #include "extracommands.h"
 #include "extracttape.h"
 #include "graphics.h"
+#include "loading_screen.h"
 #include "player.h"
 #include "textoutput.h"
 #include "ui.h"
@@ -74,22 +75,19 @@ size_t FindVerbTable(void)
    byte patterns. Falls back to the Game struct's recorded offset. */
 static size_t FindFlags(void)
 {
-    size_t pos;
-
     /* Questprobe */
-    pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
-    if (pos == NOT_FOUND) {
-        /* Look for the flag initial block copy */
-        pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
-        if (pos == NOT_FOUND) {
-            if (Game)
-                return Game->start_of_flags + FileBaselineOffset;
-            else
-                Fatal("Cannot find initial flag data");
-        } else
-            return pos + 5;
-    }
-    return pos + 11;
+    size_t pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
+    if (pos != NOT_FOUND)
+        return pos + 11;
+
+    /* Look for the flag initial block copy */
+    pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
+    if (pos != NOT_FOUND)
+        return pos + 5;
+
+    if (Game == NULL)
+        Fatal("Cannot find initial flag data");
+    return Game->start_of_flags + FileBaselineOffset;
 }
 
 /* Heuristic: check if the data at pos looks like a token table by
@@ -114,18 +112,19 @@ static int LooksLikeTokens(size_t pos)
     return lowercase_count > TOKEN_SAMPLE_THRESHOLD;
 }
 
-/* Locate the token (text fragment) table by searching for known byte
-   patterns. Tries game-specific signatures first, then falls back to
-   generic Z80 instruction patterns and the "You are in " string. */
-static size_t FindTokens(void)
+/* Search for the token (text fragment) table: the game's own signature, if
+   it has one, then generic Z80 instruction patterns and the "You are in "
+   string. Returns NOT_FOUND if nothing matches. */
+static size_t SearchTokens(const char *signature)
 {
     size_t addr;
-    size_t pos = 0;
+    /* The Z80 pattern is preceded by the table's address */
+    size_t pos = 1;
 
-    if (Game && Game->token_signature) {
-        pos = FindCode(Game->token_signature, 0, TOKEN_SIGNATURE_LENGTH);
-        if (pos != NOT_FOUND)
-            return pos;
+    if (signature) {
+        addr = FindCode(signature, 0, TOKEN_SIGNATURE_LENGTH);
+        if (addr != NOT_FOUND)
+            return addr;
     }
 
     do {
@@ -133,22 +132,27 @@ static size_t FindTokens(void)
         if (pos == NOT_FOUND) {
             /* Questprobe */
             pos = FindCode("\x58\x58\x58\x58\xFF", 0, 5);
-            if (pos == NOT_FOUND) {
-                /* Last resort */
-                addr = FindCode("You are in ", 0, 11);
-                if (addr == NOT_FOUND || addr == 0) {
-                    if (Game)
-                        return Game->start_of_tokens + FileBaselineOffset;
-                    fprintf(stderr, "Unable to find token table.\n");
-                    return 0;
-                }
-                return addr - 1;
-            } else
+            if (pos != NOT_FOUND)
                 return pos + 6;
+            /* Last resort */
+            addr = FindCode("You are in ", 0, 11);
+            if (addr == NOT_FOUND || addr == 0)
+                return NOT_FOUND;
+            return addr - 1;
         }
         addr = READ_LE_UINT16(FileImage + pos - 2) - ZX_RAM_BASE + FileBaselineOffset;
     } while (LooksLikeTokens(addr) == 0);
     return addr;
+}
+
+/* The token table of the game in Game, or where the games[] row says it
+   is if the search finds nothing. */
+static size_t FindTokens(void)
+{
+    size_t pos = SearchTokens(Game->token_signature);
+    if (pos == NOT_FOUND)
+        return Game->start_of_tokens + FileBaselineOffset;
+    return pos;
 }
 
 /* Resolve all data table offsets from the Game struct, applying
@@ -272,6 +276,27 @@ static char *CopyString(const char *string)
     return copy;
 }
 
+/* Spatterlight has preferences for the options in the #ifndef block.
+   Elsewhere (in Gargoyle, through a "terp taylor -x" line in garglk.ini)
+   they are set here; the palette follows the game file unless one is
+   forced. */
+glkunix_argumentlist_t glkunix_arguments[] = {
+    { "-n", glkunix_arg_NoValue, "-n        No delays" },
+#ifndef SPATTERLIGHT
+    { "-g", glkunix_arg_NoValue,
+        "-g        Draw loading screens gradually, as the original games do" },
+    { "-c", glkunix_arg_NoValue,
+        "-c        Draw pictures in the Commodore 64 palette, whatever the game file" },
+    { "-x", glkunix_arg_NoValue,
+        "-x        Draw pictures in the ZX Spectrum palette, whatever the game file" },
+    { "-a", glkunix_arg_NoValue,
+        "-a        Always list what you carry in the upper window" },
+#endif
+    { "", glkunix_arg_ValueFollows, "filename    file to load" },
+
+    { NULL, glkunix_arg_End, NULL }
+};
+
 int glkunix_startup_code(glkunix_startup_t *data)
 {
     int argc = data->argc;
@@ -280,35 +305,35 @@ int glkunix_startup_code(glkunix_startup_t *data)
     if (argc < 1)
         return 0;
 
-    if (argc > 1)
-        while (argv[1]) {
-            if (*argv[1] != '-')
-                break;
-            switch (argv[1][1]) {
-            case 'n':
-                Options |= NO_DELAYS;
-                break;
+    int arg = 1;
+    for (; arg < argc && argv[arg][0] == '-'; arg++) {
+        switch (argv[arg][1]) {
+        case 'n':
+            Options |= NO_DELAYS;
+            break;
 #ifndef SPATTERLIGHT
-            /* Spatterlight has preferences for these; elsewhere the
-               palette follows the game file unless one is forced here. */
-            case 'c':
-                Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
-                break;
-            case 'x':
-                Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
-                break;
+        case 'g':
+            gli_slowdraw = 1;
+            break;
+        case 'c':
+            Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+            break;
+        case 'x':
+            Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+            break;
+        case 'a':
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
 #endif
-            }
-            argv++;
-            argc--;
         }
+    }
 
-    if (argv[1] == NULL) {
+    if (arg >= argc) {
         fprintf(stderr, "%s: <file>.\n", argv[0]);
         glk_exit();
     }
 
-    Filename = CopyString(argv[1]);
+    Filename = CopyString(argv[arg]);
 
     FileImage = ReadFileIfExists(Filename, &FileImageLen);
     if (FileImage == NULL) {
@@ -346,27 +371,31 @@ GameInfo *FindGameByID(GameIDType id)
 
 /* Identify the game by trying each entry in the games[] table. For each
    candidate, compute the baseline offset from the verb table and check
-   whether the token table falls at the expected relative position. */
+   whether the token table falls at the expected relative position.
+   FileBaselineOffset is left as it was: the caller sets it from the
+   game found. */
 GameInfo *DetectGame(size_t LocalVerbBase)
 {
-    GameInfo *LocalGame;
+    long parked_offset = FileBaselineOffset;
+    GameInfo *found = NULL;
 
-    for (int i = 0; i < NUMGAMES; i++) {
-        LocalGame = &games[i];
+    for (int i = 0; i < NUMGAMES && games[i].gameID != UNKNOWN_GAME; i++) {
+        GameInfo *LocalGame = &games[i];
+        /* SearchTokens() reads the candidate's offset. It scans the file
+           again for each one, which takes no measurable time. The
+           signatures are left out: only C64 rows have them, and C64 files
+           are identified by c64decrunch.c before this. */
         FileBaselineOffset = (long)LocalVerbBase - (long)LocalGame->start_of_dictionary;
-        long diff = FindTokens() - LocalVerbBase;
+        long diff = SearchTokens(NULL) - LocalVerbBase;
         if ((LocalGame->start_of_tokens - LocalGame->start_of_dictionary) == diff) {
-#ifdef DEBUG
-            fprintf(stderr, "This is %s\n", LocalGame->Title);
-#endif
-            return LocalGame;
-        } else {
-#ifdef DEBUG
-            fprintf(stderr, "Diff for game %s: %d. Looking for %ld\n", LocalGame->Title, LocalGame->start_of_tokens - LocalGame->start_of_dictionary, diff);
-#endif
+            debug_print("This is %s\n", LocalGame->Title);
+            found = LocalGame;
+            break;
         }
+        debug_print("Diff for game %s: %d. Looking for %ld\n", LocalGame->Title, LocalGame->start_of_tokens - LocalGame->start_of_dictionary, diff);
     }
-    return NULL;
+    FileBaselineOffset = parked_offset;
+    return found;
 }
 
 /* Temple of Terror has separate graphics and text-only versions. If we
@@ -412,9 +441,11 @@ void LookForSecondTOTGame(void)
 
     size_t alt_verb_base = FindVerbTable();
     GameInfo *alt_game = NULL;
+    long alt_offset = 0;
     if (alt_verb_base != NOT_FOUND)
         alt_game = DetectGame(alt_verb_base);
-    long alt_offset = FileBaselineOffset; /* Set by DetectGame() */
+    if (alt_game != NULL)
+        alt_offset = (long)alt_verb_base - (long)alt_game->start_of_dictionary;
 
     int combine = 0;
     if (alt_game != NULL && alt_game->gameID == wanted) {

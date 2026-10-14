@@ -49,6 +49,8 @@ enum {
 #define Q3_MSG_ORDERED_OUT 24
 #define Q3_MSG_WATCH 223 /* Three parts: turns, restedness, and the end */
 
+#define Q3_STATUS_TABLE_PADDING 0x7e /* Between status table entries */
+
 #define Q3_PIC_FALLEN_STATUE 45 /* IMAGE argument */
 #define Q3_PIC_THING_SINKING 53
 
@@ -87,5 +89,21 @@ enum {
     BP_WORD_POLISH = 175,
     BP_WORD_SKIN = 249,
 };
+
+/* Rooms where the command table leaves the player for the rest of the
+   turn, and whose description must not be printed */
+
+/* Rebel Planet: the inside of the lite-kube. GET X FROM CUBE and DROP X IN
+   KUBE move the player here to take or drop the object, and back out on
+   the next turn. There is no such room, and no picture. */
+#define REBEL_ROOM_INSIDE_KUBE 250
+/* Kayleth: AZAP CODE ELY moves the player into this Azap Chamber before
+   the status table moves object 0, the chamber's description, after them,
+   so until then the room reads only ". You could go Up." */
+#define KAYLETH_ROOM_AZAP_ELY 15
+
+/* He-Man and Kayleth, the two games whose REFRESH takes everything in the room */
+
+#define MSG_NOTHING_TO_GET 31 /* "There is nothing to get." / "I can't see anything worth getting!" */
 
 #endif /* gamedefs_h */

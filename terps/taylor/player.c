@@ -638,7 +638,7 @@ static void RunOneInput(void)
     if (Word[0] != 0)
         LastVerb = Word[0];
 
-    if (Redraw && !((BaseGame == REBEL_PLANET && MyLoc == 250) || (BaseGame == KAYLETH && MyLoc == 15))) {
+    if (Redraw && !((BaseGame == REBEL_PLANET && MyLoc == REBEL_ROOM_INSIDE_KUBE) || (BaseGame == KAYLETH && MyLoc == KAYLETH_ROOM_AZAP_ELY))) {
         Look();
     }
 
@@ -700,12 +700,11 @@ static void IdentifyGame(void)
     if (DetectC64(&FileImage, &FileImageLen) != UNKNOWN_GAME) {
         EndOfData = FileImage + FileImageLen;
     } else {
-        fprintf(stderr, "DetectC64 did not recognize the game\n");
+        /* Not an error: every ZX Spectrum file ends up here */
+        debug_print("Not a C64 image\n");
     }
 
-#ifdef DEBUG
-    fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
-#endif
+    debug_print("Loaded %zu bytes.\n", FileImageLen);
 
     /* Step 2: locate the verb table by scanning for its signature */
     VerbBase = FindVerbTable();
@@ -723,9 +722,7 @@ static void IdentifyGame(void)
     } else {
         FileBaselineOffset = VerbBase - Game->start_of_dictionary;
     }
-#ifdef DEBUG
-    fprintf(stderr, "FileBaselineOffset: %ld\n", FileBaselineOffset);
-#endif
+    debug_print("FileBaselineOffset: %ld\n", FileBaselineOffset);
 }
 
 /* Step 5: initialize state and present the opening room. NewGame()
@@ -796,9 +793,7 @@ void glk_main(void)
     /* Step 4: locate all the remaining tables (tokens, messages, rooms,
        actions, etc.) using game-specific offsets or signature scans. */
     FindTables();
-#ifdef DEBUG
     InitActionDebugging();
-#endif
 
     StartGame();
 

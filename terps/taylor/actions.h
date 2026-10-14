@@ -18,6 +18,8 @@ void Okay(void);
 
 #ifdef DEBUG
 void InitActionDebugging(void);
+#else
+#define InitActionDebugging()
 #endif
 
 extern int ActionsExecuted;

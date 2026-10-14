@@ -166,6 +166,12 @@ static void Patch(uint8_t *offset, int patch_number)
 #define Q3_WIND_TUNNEL_SIZE 608  /* picture 17 (wind tunnel) */
 #define Q3_EGG_BIOGEM_SIZE  403  /* picture 56 (egg and bio gem) */
 
+#define Q3_TILE_COUNT 246
+
+/* The irmak picture format version, the one Scott gives Robin of Sherwood
+   and Seas of Blood. Irmak treats every version from 3 up alike. */
+#define TAYLOR_IRMAK_VERSION 4
+
 static void ExtractSingleQ3Image(Image *img, int picture_number, size_t base, size_t offsets, size_t imgdata)
 {
     img->imagedata = NULL;
@@ -424,7 +430,6 @@ static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
         instructions_length = MAX_INSTRUCTIONS - 1;
     instructions[instructions_length++] = IMAGE_END;
 
-
     img->imagedata = MemAlloc(instructions_length);
     img->datasize = instructions_length;
     memcpy(img->imagedata, instructions, instructions_length);
@@ -490,7 +495,7 @@ void InitGraphics(void)
     /* Questprobe 3 has 246 tiles. Two of its pictures use tile 255 too, and
        the original then draws the bytes that follow the tiles as speckles.
        Here that tile is left empty. */
-    for (int i = 0; i < 246; i++) {
+    for (int i = 0; i < Q3_TILE_COUNT; i++) {
         for (int y = 0; y < 8 && pos < EndOfGraphicsData; y++) {
             tiles[i][y] = *pos++;
         }
@@ -540,5 +545,5 @@ void InitGraphics(void)
         InitTaylor(&config);
     }
 
-    InitIrmak(Game->number_of_pictures, 4);
+    InitIrmak(Game->number_of_pictures, TAYLOR_IRMAK_VERSION);
 }

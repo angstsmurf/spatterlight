@@ -515,8 +515,8 @@ void DrawBlack(void)
     if (!Graphics)
         return;
     GraphicsWindowChanged();
-    glk_window_fill_rect(Graphics, 0, x_offset, 0, 32 * 8 * pixel_size,
-        12 * 8 * pixel_size);
+    glk_window_fill_rect(Graphics, 0, x_offset, 0, IMAGE_WIDTH_IN_PIXELS * pixel_size,
+        IMAGE_HEIGHT_IN_PIXELS * pixel_size);
 }
 
 /* Render the current room's picture into the graphics window. Skipped

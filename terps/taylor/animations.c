@@ -34,8 +34,23 @@
 #define REBEL_ROOM_CAVE 71
 #define REBEL_OBJ_SNAPPER 36 /* The crag snapper */
 
-/* Kayleth rooms with a timer rate of their own */
+/* Kayleth rooms with a timer rate of their own, and the objects that
+   set the rate where they are */
+#define KAYLETH_ROOM_CONVEYOR_BELT 1 /* "lying spreadeagled on a conveyor belt" */
+#define KAYLETH_ROOM_PRODUCTION_UNIT 2 /* "an android production unit" */
 #define KAYLETH_ROOM_CLICK_SHELVES 3
+#define KAYLETH_ROOM_VIDEODROME 32
+#define KAYLETH_ROOM_GUARD_DOME 36
+#define KAYLETH_ROOM_TWIN_PERIL_FOREST 52
+#define KAYLETH_ROOM_TWIN_PERIL_FOREST_2 53
+#define KAYLETH_ROOM_ZENRON_CITADEL 56 /* Outside it */
+#define KAYLETH_OBJ_AZAP_CHAMBER 0 /* "You are in an Azap Chamber." */
+#define KAYLETH_OBJ_MOKKI_RAY 30 /* "a huge two headed Mokki Ray!" */
+/* The object an animation that always plays requires (13 of the 22
+   animated rooms in every release). It is the Azap chamber's number, so
+   UpdateKaylethAnimationFrames moves that object into the room while the
+   frames run. */
+#define KAYLETH_ANIM_ALWAYS KAYLETH_OBJ_AZAP_CHAMBER
 
 /* Kayleth's flag for the destroyer droid: above 1 when it pursues us */
 #define KaylethDroidPursuing (Flag[10] > 1)
@@ -49,6 +64,19 @@
 #define ROBOT_ANIMATION_RATE 400
 #define SNAPPER_ANIMATION_RATE 400
 #define QUEEN_ANIMATION_RATE 120
+
+/* Timer intervals (ms) for Kayleth: one for any room with frames, and the
+   rooms and objects that override it */
+#define KAYLETH_FRAMES_RATE 20
+#define KAYLETH_AZAP_RATE_64 30
+#define KAYLETH_CONVEYOR_BELT_RATE 14
+#define KAYLETH_PRODUCTION_UNIT_RATE 10
+#define KAYLETH_CLICK_SHELVES_RATE 40
+#define KAYLETH_CLICK_SHELVES_RATE_64 80
+#define KAYLETH_VIDEODROME_RATE 50
+#define KAYLETH_GUARD_DOME_RATE 12
+#define KAYLETH_MOKKI_RAY_RATE 150
+#define KAYLETH_ZENRON_CITADEL_RATE 40
 
 int AnimationRunning = 0;              /* Current timer rate, or 0 if idle */
 static int KaylethAnimationIndex = 0;  /* Room index of the last Kayleth animation */
@@ -350,7 +378,7 @@ void LoadKaylethAnimationData(void)
     }
 
     /* Patch assembly line (room 2) timing to match original speed */
-    KaylethAnimation *belt = KaylethAnimations[2];
+    KaylethAnimation *belt = KaylethAnimations[KAYLETH_ROOM_PRODUCTION_UNIT];
     if (belt != NULL && belt->number_of_frames > 2) {
         belt->frames[0].counter_to_draw_at = 10;
         belt->frames[1].counter_to_draw_at = 20;
@@ -360,8 +388,10 @@ void LoadKaylethAnimationData(void)
 
 /* Advance the Kayleth animation for the current room by one tick.
    Returns 1 if the current room has an animation, 0 otherwise.
-   Object 0 is temporarily placed in the room so room-image drawing
-   can reference it. If the destroyer droid is pursuing, the droid slot is also temporarily placed here. */
+   Object 0 (KAYLETH_ANIM_ALWAYS) is placed in the room for the duration,
+   so the animations that require it always play. If the destroyer droid
+   is pursuing, the droid slot is placed here too, for the animations
+   (rooms 4-8) that require it. */
 static int UpdateKaylethAnimationFrames(void)
 {
     if (KaylethAnimations == NULL || MyLoc >= NUMBER_OF_KAYLETH_ANIMATIONS
@@ -369,8 +399,8 @@ static int UpdateKaylethAnimationFrames(void)
         return 0;
     }
 
-    int obj0loc = ObjectLoc[0];
-    ObjectLoc[0] = MyLoc;
+    int always_loc = ObjectLoc[KAYLETH_ANIM_ALWAYS];
+    ObjectLoc[KAYLETH_ANIM_ALWAYS] = MyLoc;
     if (KaylethDroidPursuing)
         ObjectLoc[KAYLETH_DROID_SLOT] = MyLoc;
 
@@ -400,7 +430,7 @@ static int UpdateKaylethAnimationFrames(void)
         }
     }
 
-    ObjectLoc[0] = obj0loc;
+    ObjectLoc[KAYLETH_ANIM_ALWAYS] = always_loc;
     ObjectLoc[KAYLETH_DROID_SLOT] = Destroyed();
     return 1;
 }
@@ -566,40 +596,40 @@ void StartAnimations(void)
     } else if (BaseGame == KAYLETH) {
         int speed = 0;
         if (UpdateKaylethAnimationFrames()) {
-            speed = 20;
+            speed = KAYLETH_FRAMES_RATE;
             KaylethAnimationIndex = 0;
         }
-        if (ObjectLoc[0] == MyLoc && CurrentGame == KAYLETH_64) { // Azap chamber
-            speed = 30;
+        if (ObjectLoc[KAYLETH_OBJ_AZAP_CHAMBER] == MyLoc && CurrentGame == KAYLETH_64) {
+            speed = KAYLETH_AZAP_RATE_64;
         }
         switch (MyLoc) {
-        case 1:
-            speed = 14;
+        case KAYLETH_ROOM_CONVEYOR_BELT:
+            speed = KAYLETH_CONVEYOR_BELT_RATE;
             break;
-        case 2: // Conveyor belt
-            speed = 10;
+        case KAYLETH_ROOM_PRODUCTION_UNIT:
+            speed = KAYLETH_PRODUCTION_UNIT_RATE;
             break;
         case KAYLETH_ROOM_CLICK_SHELVES:
             if (CurrentGame == KAYLETH_64)
-                speed = 80;
+                speed = KAYLETH_CLICK_SHELVES_RATE_64;
             else
-                speed = 40;
+                speed = KAYLETH_CLICK_SHELVES_RATE;
             break;
-        case 32: // Videodrome
-            speed = 50;
+        case KAYLETH_ROOM_VIDEODROME:
+            speed = KAYLETH_VIDEODROME_RATE;
             break;
-        case 36: // Guard dome
-            speed = 12;
+        case KAYLETH_ROOM_GUARD_DOME:
+            speed = KAYLETH_GUARD_DOME_RATE;
             break;
-        case 52:
-        case 53: // Twin peril forest
-            if (ObjectLoc[30] == MyLoc) {
-                speed = 150;
+        case KAYLETH_ROOM_TWIN_PERIL_FOREST:
+        case KAYLETH_ROOM_TWIN_PERIL_FOREST_2:
+            if (ObjectLoc[KAYLETH_OBJ_MOKKI_RAY] == MyLoc) {
+                speed = KAYLETH_MOKKI_RAY_RATE;
                 UpdateKaylethAnimationFrames();
             }
             break;
-        case 56: // Citadel of Zenron
-            speed = 40;
+        case KAYLETH_ROOM_ZENRON_CITADEL:
+            speed = KAYLETH_ZENRON_CITADEL_RATE;
             break;
         default:
             break;

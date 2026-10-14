@@ -142,7 +142,8 @@ static void LineInput(void)
         } else
             OutString("> ");
         OutFlush();
-        glk_request_line_event(Bottom, buf, (glui32)511, 0);
+        /* One byte short of the buffer, for the terminator added below */
+        glk_request_line_event(Bottom, buf, (glui32)(sizeof buf - 1), 0);
 
         /* Pump Glk events until the line-input completes. Non-input events
            (timer, resize, etc.) are dispatched to Updates() so the

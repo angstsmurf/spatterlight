@@ -27,6 +27,7 @@
 #include "restorestate.h"
 #include "textoutput.h"
 #include "ui.h"
+#include "utility.h"
 
 #include "actions.h"
 
@@ -148,16 +149,37 @@ static void LoadWordTable(void)
 static void PrintWord(unsigned char word)
 {
     if (word == WORD_WILDCARD)
-        fprintf(stderr, "*	  ");
+        debug_print("*	  ");
     else if (word == 0 || WordMap[word][0] == 0)
-        fprintf(stderr, "%-4d ", word);
+        debug_print("%-4d ", word);
     else {
-        fprintf(stderr, "%c%c%c%c ",
+        debug_print("%c%c%c%c ",
             WordMap[word][0],
             WordMap[word][1],
             WordMap[word][2],
             WordMap[word][3]);
     }
+}
+
+/* The trace of ExecuteLineCode: each condition tested, each action done
+   (with its number in the file, before Questprobe 3's is translated), and
+   a newline at the end of the line. */
+static void DebugCondition(int op, int params, int arg1, int arg2)
+{
+    debug_print("%s %d ", Condition[op], arg1);
+    if (params == 2)
+        debug_print("%d ", arg2);
+}
+
+static void DebugAction(int done_bit, int op, int file_op, int params, int arg1, int arg2)
+{
+    if (done_bit)
+        debug_print("DONE:");
+    debug_print("%s(%d) ", Action[op], file_op);
+    if (params >= 1)
+        debug_print("%d ", arg1);
+    if (params == 2)
+        debug_print("%d ", arg2);
 }
 
 /* Set up the debug-trace tables once the game has been identified. */
@@ -168,6 +190,18 @@ void InitActionDebugging(void)
     if (Version != BLIZZARD_PASS_TYPE && Version != QUESTPROBE3_TYPE)
         Action[12] = "MESSAGE2";
     LoadWordTable();
+}
+
+#else
+
+static inline void PrintWord(unsigned char word) { (void)word; }
+static inline void DebugCondition(int op, int params, int arg1, int arg2)
+{
+    (void)op, (void)params, (void)arg1, (void)arg2;
+}
+static inline void DebugAction(int done_bit, int op, int file_op, int params, int arg1, int arg2)
+{
+    (void)done_bit, (void)op, (void)file_op, (void)params, (void)arg1, (void)arg2;
 }
 
 #endif
@@ -325,7 +359,7 @@ static void TakeAll(int start)
         }
     }
     if (!found) {
-        Message(31);
+        Message(MSG_NOTHING_TO_GET);
     }
 }
 
@@ -955,16 +989,10 @@ static void ExecuteLineCode(unsigned char *code, int *done)
         if (Version == QUESTPROBE3_TYPE)
             Q3TranslateCondition(&op, &arg1);
 
-#ifdef DEBUG
-        fprintf(stderr, "%s %d ", Condition[op], arg1);
-        if (params == 2)
-            fprintf(stderr, "%d ", arg2);
-#endif
+        DebugCondition(op, params, arg1, arg2);
 
         if (!ConditionHolds(op, arg1, arg2)) {
-#ifdef DEBUG
-            fprintf(stderr, "\n");
-#endif
+            debug_print("\n");
             /* Condition failed (or unknown): abandon this line and let the
                caller advance to the next one. */
             return;
@@ -984,9 +1012,7 @@ static void ExecuteLineCode(unsigned char *code, int *done)
         if (done_bit)
             *done = 1;
         op &= ACTION_OP_MASK;
-#ifdef DEBUG
         unsigned char file_op = op;
-#endif
 
         int params = ActionParamCount(op);
         if (params >= 1)
@@ -1000,15 +1026,7 @@ static void ExecuteLineCode(unsigned char *code, int *done)
                 Okay();
         }
 
-#ifdef DEBUG
-        if (done_bit)
-            fprintf(stderr, "DONE:");
-        fprintf(stderr, "%s(%d) ", Action[op], file_op);
-        if (params >= 1)
-            fprintf(stderr, "%d ", arg1);
-        if (params == 2)
-            fprintf(stderr, "%d ", arg2);
-#endif
+        DebugAction(done_bit, op, file_op, params, arg1, arg2);
 
         /* Track lighting before the action so we can redraw if the action
            toggles the dark flag (e.g. lighting a lamp in a dark room). */
@@ -1024,9 +1042,7 @@ static void ExecuteLineCode(unsigned char *code, int *done)
         if (done_bit)
             return;
     }
-#ifdef DEBUG
-    fprintf(stderr, "\n");
-#endif
+    debug_print("\n");
 }
 
 /* Advance past the current action line (conditions + actions) to the
@@ -1077,8 +1093,7 @@ void RunStatusTable(void)
     }
 
     while (*ptr != ACTION_TABLE_END) {
-        /* QP3 pads the status table with 0x7e bytes between entries. */
-        while (Version == QUESTPROBE3_TYPE && *ptr == 0x7e) {
+        while (Version == QUESTPROBE3_TYPE && *ptr == Q3_STATUS_TABLE_PADDING) {
             ptr++;
         }
         ExecuteLineCode(ptr, &done);
@@ -1113,10 +1128,8 @@ void RunCommandTable(void)
         /* Match input to table entry as VERB NOUN or NOUN VERB */
         if (((*ptr == WORD_WILDCARD || *ptr == Word[0]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[1])) ||
             ((*ptr == WORD_WILDCARD || *ptr == Word[1]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[0]))) {
-#ifdef DEBUG
             PrintWord(ptr[0]);
             PrintWord(ptr[1]);
-#endif
             /* Work around a Questprobe 3 bug – the original game
                can be broken by The Thing picking something up in
                the great room right after entering it. */

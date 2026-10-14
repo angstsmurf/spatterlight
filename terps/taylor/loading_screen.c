@@ -13,8 +13,12 @@
 #include "glk.h"
 #ifdef SPATTERLIGHT
 #include "glkimp.h"
+#else
+/* Only Spatterlight has a setting for this: the loading screen is drawn in
+   one go unless the -g option is given. */
+int gli_slowdraw = 0;
 #endif
-#include "decompressz80.h"      /* ExtractTapePayloads, SCREEN$ geometry/decode */
+#include "decompressz80.h"      /* ZX_RAM_BASE, SCREEN$ geometry, the Alkatraz loader */
 #include "zx_title.h"           /* shared ZXTitle renderer */
 #include "aiukpalette.h"            /* pal[], palchosen, ZXOPT, DefinePalette */
 #include "taylor.h"
@@ -23,7 +27,6 @@
 #include "utility.h"            /* MemAlloc, FindGlkWindowWithRock, rocks */
 
 #include "alkatraz_screen.h"
-#include "extracttape.h"          /* ZX_RAM_BASE */
 #include "loading_screen.h"
 
 uint8_t *ZXLoadingScreen = NULL;
@@ -106,10 +109,8 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
 
 void DrawZXTitleImage(void)
 {
-#ifdef SPATTERLIGHT
-    if (!gli_enable_graphics)
+    if (!TAYLOR_GRAPHICS_ENABLED)
         return;
-#endif
     if (!ZXLoadingScreen)
         return;
 
@@ -161,12 +162,10 @@ void DrawZXTitleImage(void)
     }
 
     /* Reveal the picture slowly (in the loader's draw order, when one was
-       captured) when the slow-draw setting is on; otherwise paint it at once.
+       captured) when the slow-draw setting (or -g) is on and delays are
+       not off. Otherwise paint it at once.
        taylor uses the brighter ZXOPT palette (pal[]) and centres vertically. */
-    int slow = 1;
-#ifdef SPATTERLIGHT
-    slow = gli_slowdraw && !gli_determinism;
-#endif
+    int slow = gli_slowdraw && !(Options & NO_DELAYS);
     ZXTitle title = { Graphics, pal, 2, 0, 0, 0 };
     ZXTitleShow(&title, ZXLoadingScreen, keywin, slow,
         AlkatrazDrawOrderLen > 0 ? AlkatrazDrawOrder : NULL, AlkatrazDrawOrderLen);
