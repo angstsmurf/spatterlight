@@ -225,6 +225,28 @@ static uint8_t *GetAtari8CompanionFile(size_t *size)
     return FindCompanionFile(game_file, &search, size);
 }
 
+/* Many images have black bars on one or more sides,
+   probably used to center smaller images. The original
+   interpreters had a black background which hid this,
+   but it looks strange if the background is not black,
+   so we crop them off. */
+static void SetAtari8ImageCrop(USImage *image)
+{
+    if (CurrentGame == VOODOO_CASTLE_US && image->usage == IMG_ROOM)
+        image->cropleft = 8;
+
+    if ((CurrentGame == CLAYMORGUE_US || CurrentGame == COUNT_US) && image->usage == IMG_ROOM && image->imagedata[7] == 126)
+        image->cropright = 8;
+
+    for (int i = 0; a8croplist[i].game != 0; i++) {
+        CropList crop = a8croplist[i];
+        if (crop.game == CurrentGame && crop.index == image->index && crop.usage == image->usage) {
+            image->cropleft = crop.cropleft;
+            image->cropright = crop.cropright;
+        }
+    }
+}
+
 static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, uint8_t *otherdisk, size_t othersize)
 {
     size_t size;
@@ -303,24 +325,7 @@ static int ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, u
             image->imagedata[3] = 0x80;
         }
 
-        /* Many images have black bars on one or more sides,
-           probably used to center smaller images. The original
-           interpreters had a black background which hid this,
-           but it looks strange if the background is not black,
-           so we crop them off. */
-        if (CurrentGame == VOODOO_CASTLE_US && image->usage == IMG_ROOM)
-            image->cropleft = 8;
-
-        if ((CurrentGame == CLAYMORGUE_US || CurrentGame == COUNT_US) && image->usage == IMG_ROOM && image->imagedata[7] == 126)
-            image->cropright = 8;
-
-        for (int i = 0; a8croplist[i].game != 0; i++) {
-            CropList crop = a8croplist[i];
-            if (crop.game == CurrentGame && crop.index == image->index && crop.usage == image->usage) {
-                image->cropleft = crop.cropleft;
-                image->cropright = crop.cropright;
-            }
-        }
+        SetAtari8ImageCrop(image);
 
         image = AppendImage(image);
     }

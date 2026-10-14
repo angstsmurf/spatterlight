@@ -590,7 +590,7 @@ static int ExtractD64Game(uint8_t **sf, size_t *extent, const c64rec *rec)
        file. A negative parameter means that the two overlap. */
     long appendpos = (long)newlength + rec->parameter;
     size_t buflen = newlength + appendixlen;
-    if (appendix != NULL && appendpos > newlength)
+    if (appendix != NULL && appendpos > (long)newlength)
         buflen = appendpos + appendixlen;
     if (buflen == 0 || buflen > MAX_LENGTH || (appendix != NULL && appendpos < 0)) {
         free(largest_file);

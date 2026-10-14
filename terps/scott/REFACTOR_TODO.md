@@ -1,11 +1,14 @@
 # terps/scott: refactoring, cleanup and deduplication TODO
 
-There are no open items. The read-only review of 2026-10-11 (after the two
-cleanup passes, d24161fc4 and 5bb6785f3) gave seventeen; fourteen are done
-and three were turned down, see the end of "Looked at and declined". Kept
-here: how to validate a change, the state of the warning pass, what the
-corpus audit still reports, and the items that were looked at and turned
-down, with the reason, so they are not proposed again.
+No open items. The review of 2026-10-14 gave eight: six are done
+(2d56b043a, 8da426608, d618dfe95 and the commit that closed this list),
+the TI-99/4A command switch and parts of the long-function item were
+turned down, see the end of "Looked at and declined". The review of
+2026-10-11 (after the two cleanup passes, d24161fc4 and 5bb6785f3) gave
+seventeen; fourteen were done and three turned down. Kept here: how to
+validate a change, the state of the warning pass, what the corpus audit
+still reports, and the items that were looked at and turned down, with the
+reason, so they are not proposed again.
 
 Validation: `make -f Makefile.headless check formatcheck scriptcheck
 companioncheck savecheck`, `make -j8 all-tests` in `saga/test` for anything
@@ -15,8 +18,8 @@ libraries). Run `savecheck` after touching scott_meta.c or restore_state.c.
 
 Warning pass: `clang -fsyntax-only -Wall -Wextra -Wmissing-prototypes` over
 the headless sources, with the include paths and defines of
-Makefile.headless, gives 20 sign-compare and 6 missing-field-initializers
-(both declined below) and nothing else. It is clean for missing-prototypes,
+Makefile.headless, gives 6 missing-field-initializers (declined below)
+and nothing else. It is clean for missing-prototypes,
 unused-parameter and unused-variable; keep it so. Where a parameter or
 variable is read by `debug_print` only, it gets a `(void)` cast with a
 comment (`PrintHeaderInfo`, `Skip`, two in rtpi_graphics.c).
@@ -33,6 +36,13 @@ Conventions the last pass settled:
 - `ParseItemSlashAutoGet()` is in scott.c next to `MatchUpItem()`.
   `ParseItemDotAutoGet()` stayed `static` in detect_game.c, which has its
   only caller.
+- The slow-draw tick of the Apple II and Atari 8-bit vector drawers is
+  `VectorOpListPlayChunk()` (saga/vector_oplist.h); a drawer supplies a
+  step function that returns next / extend / pause.
+- `MapSysRange()` returns the next source index, so consecutive ranges
+  chain instead of each start index being typed.
+- Per-game item and room numbers get a file-local `enum` (`ROOM_KITCHEN`,
+  `HULK_ITEM_BIO_GEM`), checked against the game data.
 
 ---
 
@@ -151,4 +161,22 @@ is used, so `TestBitFlag`'s shift is safe.
   zeroed. Spelling the zeros out is noise. (The 20 sign-compare notes that
   were declined with them are fixed: mostly by giving the variable the
   type of what it is compared against or by comparing pointers, with a
-  cast at the five sites where neither fits.)
+  cast at the six sites where neither fits.)
+- **Sharing `ExecuteOpcode()` with the TI-99/4A command switch**
+  (ti99_4a_terp.c). The cases that are the same are already one call each
+  (flags, dark/light, goto, swaps, counters, save, print noun). The rest
+  differ: drop, destroy and force-carry set the location without the
+  room redraw, counters are signed 16-bit and go below -1, LOOK/LOOK_2,
+  clear screen, newline and inventory have no Spectrum-style, US or Seas
+  of Blood branches, and auto-inventory, success on/off and the message
+  ranges are TI-only; parameters come from the bytecode rather than the
+  action line. That is most of the switch, not 4-5 cases.
+- **One `SetUp*Specifics()` per family in `SetUpGameSpecifics`**
+  (detect_game.c). No case body is longer than ten lines; the long ones
+  are already calls (`LoadExtra*Data`, `*Sysmess`).
+- **A shared image-matching step for `ExtractImagesFromAtariCompanionFile`
+  and `ExtractImagesFromApple2CompanionFile`.** The Apple II one hands the
+  disk to `ReadA2VectorImageFiles`/`ReadA2BitmapImages`; the Atari one walks
+  its own picture table and cuts out the VTOC sector. They share the game
+  whitelist and `FreeUSImagesIfEmpty()` only. The Atari crop rules are
+  `SetAtari8ImageCrop()` now.
