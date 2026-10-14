@@ -107,16 +107,15 @@ static void FreeAnimCols(void)
 }
 
 /* Read the NumAnimCols colour cycling records at ptr into a new
-   AnimColors array, with room for num_old more entries after them.
-   Returns a pointer to the first byte after the records. */
-static uint8_t *SetPaletteAnimation(uint8_t *ptr, const uint8_t *end, int num_old)
+   AnimColors array. Returns a pointer to the first byte after the
+   records. */
+static uint8_t *SetPaletteAnimation(uint8_t *ptr, const uint8_t *end)
 {
     if (NumAnimCols == 0)
         return ptr;
 
-    int total = NumAnimCols + num_old;
-    AnimColors = MemAlloc(sizeof(AnimationColor) * total);
-    for (int i = 0; i < total; i++) {
+    AnimColors = MemAlloc(sizeof(AnimationColor) * NumAnimCols);
+    for (int i = 0; i < NumAnimCols; i++) {
         AnimColors[i].Colors = NULL;
         AnimColors[i].Pixels = NULL;
         AnimColors[i].NumPix = 0;
@@ -252,40 +251,38 @@ static int Intersects(Pixel pix, int xpos, int ypos, int width, int height)
         && ypos <= pix.y && pix.y <= ypos + height;
 }
 
-/* Make a an independent copy of b */
-static void CopyAnimCol(AnimationColor *a, const AnimationColor *b)
-{
-    *a = *b;
-    size_t datasize = b->NumCol * sizeof(glui32);
-    a->Colors = MemAlloc(datasize);
-    memcpy(a->Colors, b->Colors, datasize);
-    datasize = b->NumPix * sizeof(Pixel);
-    a->Pixels = MemAlloc(datasize);
-    memcpy(a->Pixels, b->Pixels, datasize);
-}
-
 /* Append numpixels pixel runs to those of animcol */
 static void AddPixels(AnimationColor *animcol, const Pixel *pixels, int numpixels)
 {
     int total = animcol->NumPix + numpixels;
     Pixel *newpix = MemAlloc(sizeof(Pixel) * total);
-    memcpy(newpix, animcol->Pixels, sizeof(Pixel) * animcol->NumPix);
+    if (animcol->NumPix)
+        memcpy(newpix, animcol->Pixels, sizeof(Pixel) * animcol->NumPix);
     memcpy(newpix + animcol->NumPix, pixels, sizeof(Pixel) * numpixels);
     free(animcol->Pixels);
     animcol->Pixels = newpix;
     animcol->NumPix = total;
 }
 
-/* Carry over what is still visible of a cycling colour of the previous
-   picture, after a new picture was drawn in the given rectangle. The
-   surviving pixel runs are added to a colour of the new picture with the
-   same palette index, if there is one, and otherwise the old colour is
-   appended as entry numnew of the array new. Returns the number of
-   entries added to that array (0 or 1). */
-static int AddNonHiddenColAnim(const AnimationColor *old, AnimationColor *new, int numnew, int xpos, int ypos, int width, int height)
+/* The original cycles colour registers, and each new picture sets all of
+   them and replaces the cycling with its own. An item picture repeats
+   the cycling records of the rooms it is drawn in, so that the room goes
+   on cycling around it. This interpreter repaints pixel runs instead, so
+   the runs of an old cycling colour that the new picture leaves
+   uncovered are moved to the new picture's colour with the same palette
+   index. If the new picture has no such colour, they stop cycling. */
+static void MoveNonHiddenColAnim(const AnimationColor *old, AnimationColor *new, int numnew, int xpos, int ypos, int width, int height)
 {
-    if (old->NumPix == 0)
-        return 0;
+    AnimationColor *target = NULL;
+    for (int i = 0; i < numnew; i++) {
+        if (new[i].ColIdx == old->ColIdx) {
+            target = &new[i];
+            break;
+        }
+    }
+
+    if (target == NULL || old->NumPix == 0)
+        return;
 
     int goodpixels = 0;
     Pixel *pixels = MemAlloc(sizeof(Pixel) * old->NumPix);
@@ -295,22 +292,9 @@ static int AddNonHiddenColAnim(const AnimationColor *old, AnimationColor *new, i
             pixels[goodpixels++] = old->Pixels[i];
     }
 
-    if (goodpixels == 0) {
-        free(pixels);
-        return 0;
-    }
-
-    for (int i = 0; i < numnew; i++) {
-        if (new[i].ColIdx == old->ColIdx && new[i].NumPix) {
-            AddPixels(&new[i], pixels, goodpixels);
-            free(pixels);
-            return 0;
-        }
-    }
-
+    if (goodpixels)
+        AddPixels(target, pixels, goodpixels);
     free(pixels);
-    CopyAnimCol(&new[numnew], old);
-    return 1;
 }
 
 /* Pictures wider than this many nibbles (four pixels each) cover the
@@ -376,7 +360,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t total_size)
         NumAnimCols = 0;
     }
 
-    ptr = SetPaletteAnimation(ptr, endOfBuffer, NumOldAnimCols);
+    ptr = SetPaletteAnimation(ptr, endOfBuffer);
 
     Pixel **Pixels = MemAlloc(sizeof(Pixel *) * NumAnimCols);
     for (int i = 0; i < NumAnimCols; i++)
@@ -433,19 +417,11 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t total_size)
     }
     free(Pixels);
 
-    if (AnimColors == NULL && NumOldAnimCols) {
-        AnimColors = MemAlloc(sizeof(AnimationColor) * NumOldAnimCols);
-        for (int i = 0; i < NumOldAnimCols; i++) {
-            AnimColors[i].Colors = NULL;
-            AnimColors[i].Pixels = NULL;
-        }
-    }
-
     for (int i = 0; i < NumOldAnimCols; i++) {
-        NumAnimCols += AddNonHiddenColAnim(&oldColAnim[i], AnimColors, NumAnimCols, xoff, yoff, NibblesWide * 4, ImgHeight);
+        MoveNonHiddenColAnim(&oldColAnim[i], AnimColors, NumAnimCols, xoff, yoff, NibblesWide * 4, ImgHeight);
     }
 
-    /* Everything that survived was copied */
+    /* What survived was copied */
     FreeAnimColArray(oldColAnim, NumOldAnimCols);
 
     if (NumAnimCols) {
