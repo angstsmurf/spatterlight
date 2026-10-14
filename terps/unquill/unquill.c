@@ -360,7 +360,8 @@ static void show_zx_loadscreen(void)
 	}
 
 #ifdef SPATTERLIGHT
-	slow = gli_slowdraw && !gli_determinism;
+	/* Revealed slowly only when both slow drawing and delays are on */
+	slow = gli_slowdraw && gli_sa_delays;
 #endif
 	/* unquill uses the authentic ZX RGB palette and sits the picture a
 	 * little above centre (vcentre divisor 3); a NULL order reveals it
