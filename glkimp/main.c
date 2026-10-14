@@ -1,4 +1,5 @@
 #include "glkimp.h"
+#include "fileref.h"
 
 
 int gli_screenwidth = 80;
@@ -50,6 +51,9 @@ int main(int argc, char **argv)
     }
 
     gli_initialize_misc();
+
+    /* Remove what killed or crashed interpreters left in the temp folder */
+    gli_sweep_abandoned_tempdirs();
 
     win_hello();
 

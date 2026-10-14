@@ -4,8 +4,18 @@
 #include "fileref.h"
 #include "glkimp.h"
 
+#include <errno.h>
+#include <signal.h>
+#include <unistd.h>
+
 char *autosavedir = NULL;
 char tempdir[BUFLEN] = "";
+
+/* Holds the process id of the owner of a temp directory */
+static NSString * const kOwnerFileName = @".glkimp-owner";
+
+static void sweep_abandoned_tempdirs(NSURL *parent, NSString *ours);
+static NSURL *default_tempdir_parent(void);
 
 static void setdefaultworkdir(char **string)
 {
@@ -155,9 +165,96 @@ void gettempdir(void)
             NSLog(@"gettempdir error: %@", error);
         }
 
+        if (!temporaryDirectoryURL)
+            return;
+
         strncpy(tempdir, temporaryDirectoryURL.fileSystemRepresentation, sizeof tempdir);
 
+        /* Sign the directory with our process id, so that a later process
+           can tell when we have died without cleaning up after ourselves. */
+        NSString *owner = [NSString stringWithFormat:@"%d\n", getpid()];
+        [owner writeToFile:[@(tempdir) stringByAppendingPathComponent:kOwnerFileName]
+                atomically:NO encoding:NSUTF8StringEncoding error:NULL];
+
+        /* gli_sweep_abandoned_tempdirs() has already looked in the usual
+           place at startup */
+        NSURL *parent = temporaryDirectoryURL.URLByDeletingLastPathComponent.URLByStandardizingPath;
+        if (![parent.path isEqualToString:default_tempdir_parent().path])
+            sweep_abandoned_tempdirs(parent, temporaryDirectoryURL.lastPathComponent);
     }
+}
+
+/* Where gettempdir() normally gets its directory */
+static NSURL *default_tempdir_parent(void)
+{
+    return [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:@"TemporaryItems"]
+                      isDirectory:YES].URLByStandardizingPath;
+}
+
+/* Called at startup, as a session that is restored from an autosave may
+   never create a temp directory of its own. */
+void gli_sweep_abandoned_tempdirs(void)
+{
+    @autoreleasepool {
+        sweep_abandoned_tempdirs(default_tempdir_parent(), nil);
+    }
+}
+
+/* Remove the temp directories in parent, except ours, of interpreter
+   processes that were killed or crashed: gli_cleanup_tempdir() never ran
+   for them. Only directories signed by gettempdir() are touched. Nothing
+   else needs their files, as an autosave carries the contents of the temp
+   files it uses (see gli_is_tempfile). */
+static void sweep_abandoned_tempdirs(NSURL *parent, NSString *ours)
+{
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSArray<NSURL *> *siblings = [fileManager contentsOfDirectoryAtURL:parent
+                                            includingPropertiesForKeys:nil
+                                                               options:0
+                                                                 error:NULL];
+    for (NSURL *dir in siblings) {
+        if (![dir.lastPathComponent hasPrefix:@"NSIRD_"]
+            || [dir.lastPathComponent isEqualToString:ours])
+            continue;
+        NSString *owner = [NSString stringWithContentsOfURL:[dir URLByAppendingPathComponent:kOwnerFileName]
+                                                   encoding:NSUTF8StringEncoding
+                                                      error:NULL];
+        if (!owner)
+            continue;
+        pid_t pid = (pid_t)owner.intValue;
+        if (pid <= 0 || kill(pid, 0) == 0 || errno != ESRCH)
+            continue;
+        [fileManager removeItemAtURL:dir error:NULL];
+    }
+}
+
+/* Whether path is a temp file in our temp directory. The temp directory is
+   deleted when the process ends, so an autosave stores the contents of such
+   a file in place of its path, and a restored session recreates it in its
+   own temp directory (see gli_restore_tempfile). */
+BOOL gli_is_tempfile(NSString *path)
+{
+    if (!path || tempdir[0] == '\0')
+        return NO;
+    return [path hasPrefix:[@(tempdir) stringByAppendingString:@"/"]];
+}
+
+/* The new path, in our own temp directory, of a temp file of an autosaved
+   session, under its old name. The file is recreated from contents, if the
+   autosave has any (the file may not have been written yet). A stream and
+   its fileref both carry the contents, but only the stream flushed its
+   buffer before they were stored, so a stream replaces the file (with
+   overwrite) and a fileref only writes it when it is missing. No stream is
+   reopened before the whole autosave is read. */
+NSString *gli_restore_tempfile(NSString *oldpath, NSData *contents, BOOL overwrite)
+{
+    gettempdir();
+    if (tempdir[0] == '\0')
+        return oldpath;
+    NSString *path = [@(tempdir) stringByAppendingPathComponent:oldpath.lastPathComponent];
+    if (contents && (overwrite || ![[NSFileManager defaultManager] fileExistsAtPath:path]))
+        [contents writeToFile:path options:0 error:NULL];
+    return path;
 }
 
 /* Remove the per-session temp directory and everything in it. The directory

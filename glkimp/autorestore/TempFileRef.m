@@ -4,6 +4,7 @@
  */
 
 #import "TempFileRef.h"
+#include "fileref.h"
 
 @interface TempFileRef () <NSSecureCoding> {
     NSURL *URL;
@@ -81,6 +82,11 @@
         URL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
     _filetype = [decoder decodeInt32ForKey:@"filetype"];
     _textmode = [decoder decodeInt32ForKey:@"textmode"];
+
+    if ([decoder decodeBoolForKey:@"tempfile"] && URL) {
+        NSData *contents = [decoder decodeObjectOfClass:[NSData class] forKey:@"tempfiledata"];
+        URL = [NSURL fileURLWithPath:gli_restore_tempfile(URL.path, contents, NO) isDirectory:NO];
+    }
     }
 	return self;
 }
@@ -110,6 +116,14 @@
         [encoder encodeObject:URL forKey:@"URL"];
 	[encoder encodeInt32:_filetype forKey:@"filetype"];
 	[encoder encodeInt32:_textmode forKey:@"textmode"];
+
+    /* A temp file goes away with this process: store what it holds */
+    if (gli_is_tempfile(URL.path)) {
+        [encoder encodeBool:YES forKey:@"tempfile"];
+        NSData *contents = [NSData dataWithContentsOfURL:URL];
+        if (contents)
+            [encoder encodeObject:contents forKey:@"tempfiledata"];
+    }
 }
 
 - (void) copyToCStruct:(fileref_t *)ref{

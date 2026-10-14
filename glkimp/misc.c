@@ -66,14 +66,9 @@ GLK_ATTRIBUTE_NORETURN void glk_exit(void)
     gli_close_all_file_streams();
     win_flush();
 
-    /* Only sweep the per-session temp directory when we are really done with
-       the session. When the GUI closes the window while autosave is enabled,
-       the session will be autorestored in a fresh process, and any temporary
-       files backing open file streams must survive so the restored streams can
-       be reopened (see TempStream reopenInternal). Deleting them here is what
-       made read-write temp file streams fail to restore. */
-    if (!(gli_exiting_via_quit_event && gli_enable_autosave))
-        gli_cleanup_tempdir();
+    /* An autosave carries the contents of the temp files it uses, so the
+       temp directory can go even when the session will be autorestored. */
+    gli_cleanup_tempdir();
 
     close(0);
     close(1);

@@ -4,6 +4,7 @@
  */
 
 #import "TempStream.h"
+#include "fileref.h"
 
 @interface TempStream () <NSSecureCoding> {
 
@@ -187,6 +188,11 @@
     lastop = [decoder decodeInt32ForKey:@"lastop"];
 
     offsetinfile = [decoder decodeInt64ForKey:@"offsetinfile"];
+
+    if ([decoder decodeBoolForKey:@"tempfile"] && URL) {
+        NSData *contents = [decoder decodeObjectOfClass:[NSData class] forKey:@"tempfiledata"];
+        URL = [NSURL fileURLWithPath:gli_restore_tempfile(URL.path, contents, YES) isDirectory:NO];
+    }
     }
     return self;
 }
@@ -309,6 +315,14 @@
         fflush(_file);
     }
     [encoder encodeInt64:offsetinfile forKey:@"offsetinfile"];
+
+    /* A temp file goes away with this process: store what it holds */
+    if (gli_is_tempfile(URL.path)) {
+        [encoder encodeBool:YES forKey:@"tempfile"];
+        NSData *contents = [NSData dataWithContentsOfURL:URL];
+        if (contents)
+            [encoder encodeObject:contents forKey:@"tempfiledata"];
+    }
 }
 
 - (void) updateRegisterArray {
