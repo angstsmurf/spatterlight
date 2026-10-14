@@ -3826,10 +3826,9 @@
 		C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = InsecureValueTransformer.m; sourceTree = "<group>"; };
 		C3D571A127D8F5CF008FB786 /* taylor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = taylor; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3D571B127D8F651008FB786 /* taylor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = taylor.h; sourceTree = "<group>"; usesTabs = 0; };
-		C3D571B227D8F651008FB786 /* FORMAT */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = FORMAT; sourceTree = "<group>"; };
+		C3D571B227D8F651008FB786 /* FORMAT.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FORMAT.md; sourceTree = "<group>"; };
 		C3D571B327D8F652008FB786 /* player.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = player.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3D571B427D8F652008FB786 /* ui.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = ui.c; sourceTree = "<group>"; };
-		C3D571B627D8F652008FB786 /* README */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README; sourceTree = "<group>"; };
 		C3D571B927D97BD4008FB786 /* taylor.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = taylor.c; sourceTree = "<group>"; };
 		C3D6AA3E286B098B000FA5DE /* extracommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracommands.h; sourceTree = "<group>"; };
 		C3D6AA3F286B098B000FA5DE /* extracommands.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = extracommands.c; sourceTree = "<group>"; };
@@ -7009,8 +7008,7 @@
 		C3D571A227D8F5CF008FB786 /* taylor */ = {
 			isa = PBXGroup;
 			children = (
-				C3D571B227D8F651008FB786 /* FORMAT */,
-				C3D571B627D8F652008FB786 /* README */,
+				C3D571B227D8F651008FB786 /* FORMAT.md */,
 				C3D571B127D8F651008FB786 /* taylor.h */,
 				C390F30D2FBA9497000F14D3 /* player.h */,
 				C3D571B327D8F652008FB786 /* player.c */,
