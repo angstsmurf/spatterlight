@@ -754,8 +754,9 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Look();
         break;
     case PRINTOK:
-        /* Guess */
-        Okay();
+        /* Despite the name, op 8 prints nothing: in all five non-QP3
+           Spectrum games it only sets the stop flag, as QP3's DONE does. */
+        *done = 1;
         break;
     case GET:
     case DROP:

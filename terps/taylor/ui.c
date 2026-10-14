@@ -387,8 +387,8 @@ void Updates(event_t ev)
 
 /* Native size of the in-game picture. Output is always scaled by an
    integer multiplier to keep the original pixel grid crisp. */
-#define IMAGE_WIDTH_IN_PIXELS 255
-#define IMAGE_HEIGHT_IN_PIXELS 96
+#define IMAGE_WIDTH_IN_PIXELS (IRMAK_IMGWIDTH * 8)
+#define IMAGE_HEIGHT_IN_PIXELS (IRMAK_IMGHEIGHT * 8)
 
 /* Compute the largest integer multiplier that lets the native-size image
    fit in the current graphics window. Returns the multiplier and writes

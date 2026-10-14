@@ -517,7 +517,13 @@ taylor.h names many flags and objects; these literals remain.
       against the irmak constants. **(verify)** 255 vs 256.
       → `OutCount` is `size_t` and checked against `sizeof OutWord` (this also
         fixed an overflow of `OutWord` when `TopWidth` > 128); `WORDS_PER_COMMAND` replaces the
-        5s. `buf[512]`/511 left (see G5). `IMAGE_WIDTH_IN_PIXELS` not checked.
+        5s. `buf[512]`/511 left (see G5).
+        → 2026-10-14: `IMAGE_WIDTH_IN_PIXELS` was 255, copied from Scott, where
+          255×95 is only for the Mysterious pictures. Taylor pictures are 32 cells, 256 px
+          (Blizzard Pass widens its pictures from 16 to 32 cells), so a window between
+          255m and 257m wide clipped the last pixel column, and every picture sat half a pixel
+          left of centre. Now `IRMAK_IMGWIDTH * 8` × `IRMAK_IMGHEIGHT * 8`. The
+          suites do not size windows, so they cannot see it.
 - [x] c64decrunch.c: the 17 `HYBRID_*`/`TRIANON_*` values are named, but
       `terror_menu` still hard-codes track/sector pairs (17,1) and (20,16);
       give them names. The registry's `parameter` field is unexplained at
@@ -671,9 +677,19 @@ taylor.h names many flags and objects; these literals remain.
           (in Thing's inventory, 254), not worn.
         New `worn-drop` script (4 Blizzard Pass rows: wear, get, drop, drop
         again). No walkthrough moved.
-        Left: action 8, our PRINTOK ("Guess"), is 0x6997 in He-Man: it only
-        sets the stop flag, like QP3's DONE. Where "Okay" is printed from
-        (perhaps flag 0x5B85, which every failure clears) is not traced.
+        → 2026-10-14, follow-up: action 8, our PRINTOK, is a silent DONE. In all
+          five non-QP3 Spectrum snapshots its handler is `LD A,1; LD (stop),A; RET`
+          (He-Man 0x6997), and none of them ever prints system message 0x13 (OKAY):
+          the one `LD A,0x13` (He-Man 0x6432) is a store inside the text-output code.
+          The main loop (He-Man 0x5F5D) prints nothing after a matched line, only
+          0x18 or 0x0C when no line matched (0x5B79 = "a line matched"). 0x5B85
+          is not an "Okay" flag: it means more commands are left on the input
+          line (0x667E skips the prompt), so a failure drops the rest of the line.
+          PRINTOK now sets `*done` and prints nothing. Op 8 appears in six lines,
+          each with no other action: Kayleth status NOTZERO 29, Kayleth `* *` NOTZERO 30,
+          Kayleth SEARCH TAPE PRESENT 116, Rebel Planet SAY VALE, OPEN ALCO AT 43,
+          `* *` HERE 58. No script row reaches any of them (checked with a trace on
+          every Kayleth/Rebel row), so no golden moved and there is no test row yet.
         Also left: QP3's inventory loop covers objects 0-47, while our
         `NumObjects()` gives 49 for QP3.
 - [x] loading_screen.c: `DrawZXTitleImage` closes and reopens all three
