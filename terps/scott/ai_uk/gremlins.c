@@ -16,7 +16,26 @@
 
 #define GREMLINS_ANIMATION_RATE 670
 
-#define KITCHEN 3
+/* Rooms and items of the English, German and Spanish releases */
+enum {
+    ROOM_BEDROOM = 1,
+    ROOM_KITCHEN = 3,
+    ROOM_ON_A_ROAD = 6,
+    ROOM_POOL = 10,
+    ROOM_BEHIND_BAR = 16,
+    ROOM_BAR = 17, /* Dotty's Tavern */
+    ROOM_SQUARE = 19,
+    ROOM_STAIRS = 34, /* Top of the department store */
+};
+
+enum {
+    ITEM_WATER = 15, /* In the pool */
+    ITEM_DART_GREMLIN = 50,
+    ITEM_LADDER = 53,
+    ITEM_GREMLIN_GANG = 82,
+    ITEM_EMPTY_POOL = 98,
+    ITEM_DAZED_STRIPE = 99,
+};
 
 /* The original only redraws a picture when something in the room changes, so
    a blender that is switched off keeps the frame it happened to stop on until
@@ -28,7 +47,7 @@ static int KitchenContents(void)
 {
     unsigned hash = 0;
     for (int ct = 0; ct <= GameHeader.NumItems; ct++)
-        if (Items[ct].Location == KITCHEN)
+        if (Items[ct].Location == ROOM_KITCHEN)
             hash = hash * 31 + ct + 1;
     return hash & 0x7fffffff;
 }
@@ -36,7 +55,7 @@ static int KitchenContents(void)
 /* Called after the room and its items have been drawn */
 void GremlinsKeepBlenderFrame(void)
 {
-    if (MyLoc != KITCHEN) {
+    if (MyLoc != ROOM_KITCHEN) {
         blender_frame = 0;
         return;
     }
@@ -57,7 +76,7 @@ void GremlinsKeepBlenderFrame(void)
 
 void UpdateGremlinsAnimations(void)
 {
-    if (MyLoc != KITCHEN)
+    if (MyLoc != ROOM_KITCHEN)
         blender_frame = 0;
     if (Rooms[MyLoc].Image == 255) {
         glk_request_timer_events(0);
@@ -71,8 +90,8 @@ void UpdateGremlinsAnimations(void)
 
     int timer_delay = GREMLINS_ANIMATION_RATE;
     switch (MyLoc) {
-    case 1: /* Bedroom */
-        if (Items[50].Location == 1) /* Gremlin throwing darts */
+    case ROOM_BEDROOM:
+        if (Items[ITEM_DART_GREMLIN].Location == ROOM_BEDROOM)
         {
             if (AnimationFlag) {
                 DrawImage(60); /* Gremlin throwing dart frame 1 */
@@ -81,8 +100,8 @@ void UpdateGremlinsAnimations(void)
             }
         }
         break;
-    case 17: /* Dotty's Tavern */
-        if (Items[82].Location == 17) /* Gang of GREMLINS */
+    case ROOM_BAR:
+        if (Items[ITEM_GREMLIN_GANG].Location == ROOM_BAR)
         {
             if (AnimationFlag) {
                 DrawImage(49); /* Gremlin hanging from curtains frame 1 */
@@ -95,8 +114,8 @@ void UpdateGremlinsAnimations(void)
             }
         }
         break;
-    case 16: /* Behind a Bar */
-        if (Items[82].Location == 16) /* Gang of GREMLINS */
+    case ROOM_BEHIND_BAR:
+        if (Items[ITEM_GREMLIN_GANG].Location == ROOM_BEHIND_BAR)
         {
             if (AnimationFlag) {
                 DrawImage(57); /* Flasher gremlin frame 1 */
@@ -121,8 +140,8 @@ void UpdateGremlinsAnimations(void)
             }
         }
         break;
-    case 19: /* Square */
-        if (Items[82].Location == 19) /* Gang of GREMLINS */
+    case ROOM_SQUARE:
+        if (Items[ITEM_GREMLIN_GANG].Location == ROOM_SQUARE)
         {
             if (AnimationFlag) {
                 DrawImage(55); /* Silhouette of Gremlins frame 1 */
@@ -131,8 +150,8 @@ void UpdateGremlinsAnimations(void)
             }
         }
         break;
-    case 6: /* on a road */
-        if (Items[82].Location == 6) /* Gang of GREMLINS */
+    case ROOM_ON_A_ROAD:
+        if (Items[ITEM_GREMLIN_GANG].Location == ROOM_ON_A_ROAD)
         {
             if (AnimationFlag) {
                 if ((Game->subtype & (LOCALIZED | C64)) == LOCALIZED) {
@@ -145,7 +164,7 @@ void UpdateGremlinsAnimations(void)
             }
         }
         break;
-    case KITCHEN:
+    case ROOM_KITCHEN:
         if (Counters[2] == 2) /* Blender is on */
         {
             if (AnimationFlag) {
@@ -167,7 +186,7 @@ void UpdateGremlinsAnimations(void)
 void GremlinsLook(void)
 {
     if (Rooms[MyLoc].Image != 255) {
-        if (MyLoc == 17 && Items[82].Location == 17)
+        if (MyLoc == ROOM_BAR && Items[ITEM_GREMLIN_GANG].Location == ROOM_BAR)
             DrawImage(45); /* Bar full of Gremlins */
         else
             DrawImage(Rooms[MyLoc].Image);
@@ -175,10 +194,10 @@ void GremlinsLook(void)
         UpdateGremlinsAnimations();
     }
     /* Ladder image at the top of the department store */
-    if (MyLoc == 34 && Items[53].Location == MyLoc) {
+    if (MyLoc == ROOM_STAIRS && Items[ITEM_LADDER].Location == MyLoc) {
         DrawImage(42);
-    } else if (MyLoc == 10 && Items[15].Location == 0) {
-        if (Items[99].Location == MyLoc && CurrentGame == GREMLINS_GERMAN_C64)
+    } else if (MyLoc == ROOM_POOL && Items[ITEM_WATER].Location == 0) {
+        if (Items[ITEM_DAZED_STRIPE].Location == MyLoc && CurrentGame == GREMLINS_GERMAN_C64)
             DrawImage(90); /* Dazed Stripe */
         DrawImage(82); /* Empty pool with puddle */
         /* Draw puddle on top of Stripe */
@@ -221,7 +240,7 @@ static void FillInGermanSystemMessages(void)
     sys[EXITS] = "Ausgaenge: ";
 
     /* The empty pool was left in Spanish, "Piscina vacia" */
-    Items[98].Text = "Leeres Schwimmbad";
+    Items[ITEM_EMPTY_POOL].Text = "Leeres Schwimmbad";
     sys[WHAT] = sys[HUH];
 
     SetParserWordLists(GermanDirections, GermanSkipList, GermanDelimiterList,
@@ -277,7 +296,7 @@ void LoadExtraGermanGremlinsC64Data(void)
 
     FillInGermanSystemMessages();
 
-    Items[99].Image = 255;
+    Items[ITEM_DAZED_STRIPE].Image = 255;
 }
 
 void LoadExtraGermanGremlinsData(void)

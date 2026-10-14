@@ -27,6 +27,26 @@ static uint8_t *forest_images = NULL;
    images. */
 #define NUM_FOREST_ROOMS 63
 
+enum {
+    ROOM_BEDROOM = 7, /* The one with the treasure chest */
+    FIRST_FOREST_ROOM = 11,
+    LAST_FOREST_ROOM = FIRST_FOREST_ROOM + NUM_FOREST_ROOMS - 1,
+    ROOM_OUTLAWS_CAMP = LAST_FOREST_ROOM,
+    ROOM_HERNES_CAVE = 79,
+    ROOM_DOWN_FROM_TREE = 82, /* Exit target of "up a tree" */
+    ROOM_STONE_CIRCLE = 84,
+    ROOM_WATERFALL = 86,
+    ROOM_UP_A_TREE = 93,
+};
+
+enum {
+    ITEM_GREGORY_AND_CART = 36, /* Gregory the tax collector */
+    ITEM_HERNE = 39,
+    ITEM_SERF_AND_CART = 60,
+    ITEM_OPEN_CHEST = 62,
+    ITEM_HORSE_AND_CART = 77,
+};
+
 static void animate_lightning(int stage);
 
 /* Handle game-specific scripted actions triggered by the action table.
@@ -58,14 +78,14 @@ void SherwoodAction(int p)
         Display(Bottom, "\n%s\n", sys[HIT_ENTER]);
         showing_closeup = 1;
         HitEnter();
-        Items[39].Location = 79;
+        Items[ITEM_HERNE].Location = ROOM_HERNES_CAVE;
         Look();
         break;
     case 2:
         /* Climb a tree: remember current forest location so we can
            return when the player climbs back down */
         SavedRoom = MyLoc;
-        MyLoc = 93;
+        MyLoc = ROOM_UP_A_TREE;
         Look();
         break;
     default:
@@ -74,7 +94,7 @@ void SherwoodAction(int p)
     }
 }
 
-static int IsForestLocation(void) { return (MyLoc >= 11 && MyLoc <= 73); }
+static int IsForestLocation(void) { return (MyLoc >= FIRST_FOREST_ROOM && MyLoc <= LAST_FOREST_ROOM); }
 
 /* Forest scene composition types */
 #define TREES 0  /* 10–11 sub-images: 8 tree columns + undergrowth + optional paths */
@@ -93,7 +113,7 @@ static void draw_sherwood(int loc)
     int subimage_index = 0;
 
     /* Skip past preceding rooms' records to reach the one for loc */
-    for (int i = 0; i < loc - 11; i++) {
+    for (int i = 0; i < loc - FIRST_FOREST_ROOM; i++) {
         int skip = 5; /* BUSHES: 5 sub-images */
         if (forest_images[subimage_index] < 128)
             skip = 11; /* TREES: 10 or 11 (skip the maximum) */
@@ -222,38 +242,36 @@ void RobinOfSherwoodLook(void)
 
     /* Room 82 is a dummy exit target from "up a tree" — redirect to
        the forest room the player climbed from */
-    if (MyLoc == 82)
+    if (MyLoc == ROOM_DOWN_FROM_TREE)
         MyLoc = SavedRoom;
     /* Room 93 is "up a tree" — move any items here to the actual
        forest location so they appear when the player climbs down */
-    if (MyLoc == 93)
+    if (MyLoc == ROOM_UP_A_TREE)
         for (int i = 0; i < GameHeader.NumItems; i++)
-            if (Items[i].Location == 93)
+            if (Items[i].Location == ROOM_UP_A_TREE)
                 Items[i].Location = SavedRoom;
     /* Open treasure chest overlay in the left bedroom */
-    if (MyLoc == 7 && Items[62].Location == 7)
+    if (MyLoc == ROOM_BEDROOM && Items[ITEM_OPEN_CHEST].Location == ROOM_BEDROOM)
         DrawImage(70);
     if (IsForestLocation()) {
         OpenGraphicsWindow();
         draw_sherwood(MyLoc);
 
-        if (Items[36].Location == MyLoc) {
-            /* Gregory the tax collector with his horse and cart */
+        if (Items[ITEM_GREGORY_AND_CART].Location == MyLoc) {
             DrawImage(15);
             DrawImage(3);
         }
-        if (Items[60].Location == MyLoc || Items[77].Location == MyLoc) {
-            /* A serf driving a horse and cart */
+        if (Items[ITEM_SERF_AND_CART].Location == MyLoc || Items[ITEM_HORSE_AND_CART].Location == MyLoc) {
             DrawImage(15);
             DrawImage(12);
         }
-        if (MyLoc == 73) {
-            DrawImage(36); /* Campfire at the outlaws' camp */
+        if (MyLoc == ROOM_OUTLAWS_CAMP) {
+            DrawImage(36); /* Campfire */
         }
     }
 
     /* Start waterfall animation at the waterfall or inside the cave */
-    if (MyLoc == 86 || MyLoc == 79) {
+    if (MyLoc == ROOM_WATERFALL || MyLoc == ROOM_HERNES_CAVE) {
         glk_request_timer_events(WATERFALL_ANIMATION_RATE);
     }
 }
@@ -267,10 +285,10 @@ void UpdateRobinOfSherwoodAnimations(void)
     AnimationFlag++;
     if (AnimationFlag > 63)
         AnimationFlag = 0;
-    if (MyLoc == 86 || MyLoc == 79 || MyLoc == 84) {
-        if (MyLoc == 86) {
+    if (MyLoc == ROOM_WATERFALL || MyLoc == ROOM_HERNES_CAVE || MyLoc == ROOM_STONE_CIRCLE) {
+        if (MyLoc == ROOM_WATERFALL) {
             animate_waterfall(11, 6, 2, AnimationFlag, BlueColour(), WhiteColour());
-        } else if (MyLoc == 79) {
+        } else if (MyLoc == ROOM_HERNES_CAVE) {
             animate_waterfall(31, 1, 3, AnimationFlag, WhiteColour(), BlueColour());
         }
     } else {
@@ -296,7 +314,7 @@ static int LoadSherwoodRoomImages(int c64)
     for (ct = 0; ct <= GameHeader.NumRooms; ct++) {
         rp->Image = *(ptr++);
         rp++;
-        if (ct == 10) {
+        if (ct == FIRST_FOREST_ROOM - 1) {
             /* Skip the 63 forest rooms (11–73) — no stored images */
             for (int i = 0; i < NUM_FOREST_ROOMS; i++) {
                 rp++;
@@ -327,9 +345,8 @@ static int LoadSherwoodRoomDescs(int c64)
         *(rp->Text) = tolower(*(rp->Text));
         ct++;
         if (ct == 11) {
-            /* Fill 61 forest rooms with the shared description
-               (rooms 12–72; room 11 was decompressed above, room 73
-               is handled by the next iteration) */
+            /* Rooms 11-71 share one description; the stored texts go
+               on with room 72 */
             for (int i = 0; i < 61; i++) {
                 rp++;
                 rp->Text = "in Sherwood Forest";

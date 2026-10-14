@@ -249,6 +249,33 @@ int DrawUSRoom(int room)
     return 0;
 }
 
+/* Rooms and items of the US games that get overlays */
+enum {
+    HULK_ITEM_LARGE_HOLE = 14, /* Two items, 14 and 15 */
+    HULK_ITEM_BIO_GEM = 18,
+    HULK_ITEM_WAX = 21,
+
+    COUNT_ROOM_FLOWER_BOX = 5,
+    COUNT_ROOM_BATHROOM = 8,
+    COUNT_ROOM_OUTSIDE_CASTLE = 9,
+    COUNT_ROOM_PIT = 18,
+    COUNT_ITEM_COAT_OF_ARMS = 5,
+    COUNT_ITEM_MIRROR = 17,
+    COUNT_ITEM_SHEET_END = 35, /* The other end of the sheet */
+    COUNT_ITEM_DAISIES = 61,
+
+    VOODOO_ROOM_CHIMNEY = 14,
+    VOODOO_ITEM_BOARDS = 45,
+
+    RTPI_ROOM_SEA = 11,
+    RTPI_ROOM_UNDERSEA = 12,
+    RTPI_ROOM_UNDER_DOCK = 22, /* On beam under dock */
+    RTPI_ITEM_DOCK_EAST = 26,
+    RTPI_ITEM_DOCK_UNDERSIDE = 27,
+    RTPI_ITEM_BOAT_WEST = 28,
+    RTPI_ITEM_DOCK = 32, /* DESTROYED at night */
+};
+
 /* Draw a "fuzzy" (blurred/distorted) version of the room image for
    Return to Pirate's Isle. Used when the player's vision is impaired
    (not wearing corrective lenses). Suppressed when it's truly dark
@@ -257,7 +284,7 @@ int DrawFuzzyRoom(int room)
 {
     /* If at sea at night, and floodlights are off or battery is out, don't draw fuzzy image
        (because it really is dark) */
-    if (Items[32].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0))
+    if (Items[RTPI_ITEM_DOCK].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0))
         return 0;
     /* Also don't draw fuzzy image if bitflag 2 is set, which means we are
        wearing corrective lenses */
@@ -327,53 +354,53 @@ static void DrawGameSpecificOverlays(void)
 {
     switch (CurrentGame) {
         case HULK_US:
-            if (Items[18].Location == MyLoc && MyLoc == Items[18].InitialLoc) // Bio Gem
+            if (Items[HULK_ITEM_BIO_GEM].Location == MyLoc && MyLoc == Items[HULK_ITEM_BIO_GEM].InitialLoc)
                 DrawUSRoomObject(70);
-            if (Items[21].Location == MyLoc && MyLoc == Items[21].InitialLoc) // Wax
+            if (Items[HULK_ITEM_WAX].Location == MyLoc && MyLoc == Items[HULK_ITEM_WAX].InitialLoc)
                 DrawUSRoomObject(72);
-            if (Items[14].Location == MyLoc || Items[15].Location == MyLoc) // Large pit
+            if (Items[HULK_ITEM_LARGE_HOLE].Location == MyLoc || Items[HULK_ITEM_LARGE_HOLE + 1].Location == MyLoc)
                 DrawUSRoomObject(13);
             break;
         case COUNT_US:
-            if (Items[17].Location == MyLoc && MyLoc == 8) // Only draw mirror in bathroom
+            if (Items[COUNT_ITEM_MIRROR].Location == MyLoc && MyLoc == COUNT_ROOM_BATHROOM)
                 DrawUSRoomObject(80);
-            if (Items[35].Location == MyLoc && MyLoc == 18) // Only draw other end of sheet in pit
+            if (Items[COUNT_ITEM_SHEET_END].Location == MyLoc && MyLoc == COUNT_ROOM_PIT)
                 DrawUSRoomObject(81);
-            if (Items[5].Location == MyLoc && MyLoc == 9) // Only draw coat-of-arms at gate
+            if (Items[COUNT_ITEM_COAT_OF_ARMS].Location == MyLoc && MyLoc == COUNT_ROOM_OUTSIDE_CASTLE)
                 DrawUSRoomObject(82);
-            if (Items[61].Location == MyLoc && MyLoc == 5) // Only draw daisies in flower box (Apple II only)
+            if (Items[COUNT_ITEM_DAISIES].Location == MyLoc && MyLoc == COUNT_ROOM_FLOWER_BOX) // Apple II only
                 DrawUSRoomObject(83);
             break;
         case VOODOO_CASTLE_US:
-            if (Items[45].Location == MyLoc && MyLoc == 14) // Only draw boards in chimney
+            if (Items[VOODOO_ITEM_BOARDS].Location == MyLoc && MyLoc == VOODOO_ROOM_CHIMNEY)
                 DrawUSRoomObject(80);
             break;
         case RETURN_TO_PIRATES_ISLE:
             /* Dock scene uses layered compositing: underside of dock,
                then beam overlays, and nighttime sea/boat variants. */
-            if (MyLoc == 22) {
+            if (MyLoc == RTPI_ROOM_UNDER_DOCK) {
                 DrawUSRoomObject(27); // Draw underside of dock when under the dock
                 DrawUSRoom(31);       // Draw low beam (on top of underside of dock)
-            } else if (MyLoc == 11) { // If swimming in sea
+            } else if (MyLoc == RTPI_ROOM_SEA) {
                 if (erkyrath_random() % 2 == 1) {
                     /* If a random chance of 1 in 2 succeeds, randomly draw one of two fish images
                        (but not if it would end up on top of the boat or dock) */
                     int fish = 33 + erkyrath_random() % 2;
-                    if (!(fish == 34 && Items[28].Location == MyLoc) &&
-                        !(fish == 33 && Items[26].Location == MyLoc)) {
+                    if (!(fish == 34 && Items[RTPI_ITEM_BOAT_WEST].Location == MyLoc) &&
+                        !(fish == 33 && Items[RTPI_ITEM_DOCK_EAST].Location == MyLoc)) {
                         DrawUSRoom(fish);
                     }
                 }
-                if (Items[32].Location == DESTROYED) {
+                if (Items[RTPI_ITEM_DOCK].Location == DESTROYED) {
                     DrawUSRoom(29);       // Draw sea at night
-                    if (Items[28].Location == MyLoc) {
+                    if (Items[RTPI_ITEM_BOAT_WEST].Location == MyLoc) {
                         DrawUSRoom(32);   // Boat to the west at night
                     }
-                } else if (Items[27].Location == MyLoc) {
-                    /* Draw high beam if item 27: Underside of Dock is present */
+                } else if (Items[RTPI_ITEM_DOCK_UNDERSIDE].Location == MyLoc) {
+                    /* Draw high beam */
                     DrawUSRoom(30);
                 }
-            } else if (MyLoc == 12) { // Diving under sea
+            } else if (MyLoc == RTPI_ROOM_UNDERSEA) {
                 /* If a random chance of 1 in 2 succeeds, randomly draw one of three fish images */
                 if (erkyrath_random() % 2 == 1) {
                     DrawUSRoom(35 + erkyrath_random() % 3);
@@ -381,7 +408,7 @@ static void DrawGameSpecificOverlays(void)
             }
 
             /* If it is night and we are out of battery, just make the image black by clearing the VDP */
-            if (Items[32].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0)) {
+            if (Items[RTPI_ITEM_DOCK].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0)) {
                 ClearVDP();
             }
 

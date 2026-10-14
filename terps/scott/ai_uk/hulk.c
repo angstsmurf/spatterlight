@@ -44,6 +44,13 @@ void HulkReadCloseups(void)
     }
 }
 
+enum {
+    ROOM_UNDERGROUND = 15, /* Small underground room */
+    ITEM_BIO_GEM = 18,
+    ITEM_DR_STRANGE = 26, /* Astral projection of Dr. Strange */
+    ITEM_PLUGGED_OUTLET = 28,
+};
+
 void HulkLook(void)
 {
     DrawImage(Rooms[MyLoc].Image);
@@ -51,9 +58,9 @@ void HulkLook(void)
         int image = Items[ct].Image;
         if (Items[ct].Location == MyLoc && image != 255) {
             /* Don't draw bio gem in fuzzy area */
-            if ((ct == 18 && MyLoc != 15) ||
+            if ((ct == ITEM_BIO_GEM && MyLoc != ROOM_UNDERGROUND) ||
                 /* Don't draw Dr. Strange until outlet is plugged */
-                (ct == 26 && Items[28].Location != MyLoc))
+                (ct == ITEM_DR_STRANGE && Items[ITEM_PLUGGED_OUTLET].Location != MyLoc))
                 continue;
             DrawImage(image);
         }

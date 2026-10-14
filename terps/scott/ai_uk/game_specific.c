@@ -37,9 +37,23 @@ int BlueColour(void)
     return HasC64Colours() ? 6 : 9;
 }
 
+/* Secret Mission */
+enum {
+    ROOM_AFTER_EXPLOSION = 1, /* The blank room the bomb leaves */
+    ROOM_VISITORS_ROOM = 13, /* Large white visitors room */
+};
+
+enum {
+    ITEM_SECURITY_ID = 1, /* Picture of me stamped -security- */
+    ITEM_VISITOR_ID = 7,
+    ITEM_MAINTENANCE_ID = 8,
+    ITEM_PROJECTOR = 21, /* Movie projector with film cartridge */
+    ITEM_SABOTEUR_ID = 41, /* ... stamped -window maintenance- */
+};
+
 void UpdateSecretAnimations(void)
 {
-    if (MyLoc != 13 || AnimationFlag == 0) {
+    if (MyLoc != ROOM_VISITORS_ROOM || AnimationFlag == 0) {
         glk_request_timer_events(0);
         AnimationFlag = 0;
         return;
@@ -51,7 +65,7 @@ void UpdateSecretAnimations(void)
     }
     /* Flicker */
     if (AnimationFlag >= 48 && AnimationFlag < 100) {
-        if (Items[21].Location == 0) {
+        if (Items[ITEM_PROJECTOR].Location == 0) {
             /* Image 30 is a white square */
             DrawImage(30);
             glk_request_timer_events(0);
@@ -82,19 +96,19 @@ void SecretAction(int p)
     case 1: /* Bomb explodes */
         if (split_screen) {
             CloseTopWindow();
-            MyLoc = 1;
+            MyLoc = ROOM_AFTER_EXPLOSION;
         }
-        Rooms[1].Image = 25; /* BOOM */
+        Rooms[ROOM_AFTER_EXPLOSION].Image = 25; /* BOOM */
         DrawImage(25);
         Delay(2);
         DrawImage(26);
-        Rooms[1].Image = 26; /* Mushroom cloud */
+        Rooms[ROOM_AFTER_EXPLOSION].Image = 26; /* Mushroom cloud */
         break;
     case 2: /* ID picture */
         DrawImage(24);
-        if (IsPresent(1)) {
+        if (IsPresent(ITEM_SECURITY_ID)) {
             DrawImage(27); // "Security" label
-        } else if (IsPresent(7) && !IsPresent(8) && !IsPresent(41)) {
+        } else if (IsPresent(ITEM_VISITOR_ID) && !IsPresent(ITEM_MAINTENANCE_ID) && !IsPresent(ITEM_SABOTEUR_ID)) {
             DrawImage(28); /* "Visitor" label */
         }
         showing_closeup = 1;
@@ -103,9 +117,9 @@ void SecretAction(int p)
         break;
     case 3: /* Screen rolls down */
     case 4:
-        oldimage = Rooms[13].Image;
+        oldimage = Rooms[ROOM_VISITORS_ROOM].Image;
         /* Image 30 is a white square */
-        Rooms[13].Image = 30;
+        Rooms[ROOM_VISITORS_ROOM].Image = 30;
         DrawBlack();
         AnimationFlag = 1;
         glk_request_timer_events(10);
@@ -120,7 +134,7 @@ void SecretAction(int p)
             glk_select(&ev);
             Updates(ev);
         } while (AnimationFlag < 200);
-        Rooms[13].Image = oldimage;
+        Rooms[ROOM_VISITORS_ROOM].Image = oldimage;
         AnimationFlag = 0;
         break;
     default:
