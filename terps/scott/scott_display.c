@@ -575,6 +575,12 @@ void Look(void)
 }
 
 static void WriteToLowerWindow(const char *fmt, ...)
+#ifdef __GNUC__
+    __attribute__((__format__(__printf__, 1, 2)))
+#endif
+    ;
+
+static void WriteToLowerWindow(const char *fmt, ...)
 {
     va_list ap;
     va_start(ap, fmt);

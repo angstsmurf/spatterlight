@@ -817,7 +817,7 @@ static int GetListAndLength(ListId id, const char ***plist)
 {
     switch (id) {
         case L_VERBS:
-            *plist = (const char **)Verbs;
+            *plist = Verbs;
             return GameHeader.NumWords + 1;
         case L_DIRECTIONS:
             *plist = Directions;
@@ -829,7 +829,7 @@ static int GetListAndLength(ListId id, const char ***plist)
             *plist = SkipList;
             return NUM_SKIPPABLE_WORDS;
         case L_NOUNS:
-            *plist = (const char **)Nouns;
+            *plist = Nouns;
             return GameHeader.NumWords + 1;
         case L_EXTRACMD:
             *plist = ExtraCommands;
@@ -907,10 +907,10 @@ static int FindVerbOrNoun(const char *word, const SearchSpec *order, int list_si
             case L_ABBREVS: {
                 if (idx > 0 && idx < NUM_ABBREVIATIONS && AbbreviationsKey[idx]) {
                     idx =
-                    WhichWord(AbbreviationsKey[idx], (const char **)Verbs,
+                    WhichWord(AbbreviationsKey[idx], Verbs,
                               GameHeader.WordLength, GameHeader.NumWords + 1);
                     if (idx) {
-                        *out_list = (const char **)Verbs;
+                        *out_list = Verbs;
                         return idx;
                     }
                 }
@@ -996,7 +996,7 @@ static Command *CreateCommandStruct(int verb, int noun, int verbindex,
 
 static int IsNounList(const char **list)
 {
-    return (list == (const char **)Nouns || list == (const char **)Directions || list == (const char **)ExtraNouns);
+    return (list == Nouns || list == Directions || list == ExtraNouns);
 }
 
 static void DontKnowHowTo(int wordindex)
@@ -1014,7 +1014,7 @@ static Command *DirectionCommand(int direction, int i, Command *previous)
     if (i < WordsInInput && (CurrentGame == GREMLINS_GERMAN || CurrentGame == GREMLINS_GERMAN_C64)) {
         const char **verblist = NULL;
         int go = FindVerb(CharWords[i], &verblist);
-        if (verblist == (const char **)Verbs) {
+        if (verblist == Verbs) {
             while (go > 1 && Verbs[go][0] == '*')
                 go--;
             if (go == GO)
@@ -1067,7 +1067,7 @@ static Command *CommandFromStrings(int index, Command *previous)
             } else {
                 verbindex = previous->verbwordindex;
             }
-            int after_all = (list == (const char **)ExtraNouns && verb - GameHeader.NumWords == ALL);
+            int after_all = (list == ExtraNouns && verb - GameHeader.NumWords == ALL);
             return CreateCommandStruct(lastverb, verb, verbindex, i,
                 SkipTrailingWords(i, after_all), previous);
         } else {
@@ -1102,11 +1102,11 @@ static Command *CommandFromStrings(int index, Command *previous)
     if (IsNounList(list)) {
         /* It is a noun */
 
-        int after_all = (list == (const char **)ExtraNouns && noun - GameHeader.NumWords == ALL);
+        int after_all = (list == ExtraNouns && noun - GameHeader.NumWords == ALL);
         /* If we found a noun where a verb was expected, check
            again to see if it matches a verb as well */
         if (found_noun_at_verb_position) {
-            int realverb = WhichWord(CharWords[i - 1], (const char **)Verbs, GameHeader.WordLength,
+            int realverb = WhichWord(CharWords[i - 1], Verbs, GameHeader.WordLength,
                 GameHeader.NumWords + 1);
             if (realverb) {
                 noun = verb;
@@ -1125,7 +1125,7 @@ static Command *CommandFromStrings(int index, Command *previous)
         return CreateCommandStruct(verb, 0, verbindex, i, i, previous);
     }
 
-    if (list == (const char **)Verbs && found_noun_at_verb_position) {
+    if (list == Verbs && found_noun_at_verb_position) {
         /* It is a verb */
         int after_all = (verb - GameHeader.NumWords == ALL);
         return CreateCommandStruct(noun, verb, i - 1, i,
@@ -1155,7 +1155,7 @@ static int CreateAllCommands(Command *command)
     while (next && next->verb == GameHeader.NumWords + EXCEPT) {
         const char *word = CharWords[next->nounwordindex];
         /* The item's own word, or a synonym of it */
-        int noun = WhichWord(word, (const char **)Nouns, GameHeader.WordLength,
+        int noun = WhichWord(word, Nouns, GameHeader.WordLength,
             GameHeader.NumWords + 1);
         /* ALL EXCEPT IT */
         if (next->noun == GameHeader.NumWords + IT)
@@ -1164,7 +1164,7 @@ static int CreateAllCommands(Command *command)
             if (exceptioncount >= MAX_ITEM_LIMIT || !Items[i].AutoGet)
                 continue;
             if (xstrncasecmp(Items[i].AutoGet, word, GameHeader.WordLength) == 0
-                || (noun && noun == WhichWord(Items[i].AutoGet, (const char **)Nouns, GameHeader.WordLength, GameHeader.NumWords + 1))) {
+                || (noun && noun == WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength, GameHeader.NumWords + 1))) {
                 exceptions[exceptioncount++] = i;
             }
         }
@@ -1200,7 +1200,7 @@ static int CreateAllCommands(Command *command)
                    at list_length - 1, so passing NumWords here would make the
                    last dictionary word unmatchable, leaving noun = 0 for an
                    item whose AutoGet word is that entry. */
-                c->noun = WhichWord(Items[i].AutoGet, (const char **)Nouns, GameHeader.WordLength,
+                c->noun = WhichWord(Items[i].AutoGet, Nouns, GameHeader.WordLength,
                     GameHeader.NumWords + 1);
                 c->item = i;
                 c->next = NULL;

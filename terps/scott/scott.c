@@ -101,9 +101,9 @@ char *DirPath = "."; /* Directory containing the game file */
 Header GameHeader;
 Item *Items = NULL;
 Room *Rooms = NULL;
-char **Verbs = NULL;
-char **Nouns = NULL;
-char **Messages = NULL;
+const char **Verbs = NULL;
+const char **Nouns = NULL;
+const char **Messages = NULL;
 Action *Actions = NULL;
 int LightRefill; /* Initial light duration, used when refilling the lamp */
 int Counters[NUM_COUNTERS] =
@@ -377,19 +377,17 @@ int MatchUpItem(int noun, int loc)
    "//" or "[slash]*" (conventions meaning "no auto-get word"). */
 void ParseItemSlashAutoGet(int index)
 {
-    Items[index].AutoGet = strchr(Items[index].Text, '/');
-    if (Items[index].AutoGet == NULL)
+    char *word = strchr(Items[index].Text, '/');
+    Items[index].AutoGet = NULL;
+    if (word == NULL || strcmp(word, "//") == 0 || strcmp(word, "/*") == 0)
         return;
-    if (strcmp(Items[index].AutoGet, "//") == 0 || strcmp(Items[index].AutoGet, "/*") == 0) {
-        Items[index].AutoGet = NULL;
-        return;
-    }
     /* NUL-terminate the description and advance past the '/' */
-    *Items[index].AutoGet++ = 0;
+    *word++ = 0;
     /* Strip the trailing '/' from the word */
-    char *trailingslash = strchr(Items[index].AutoGet, '/');
+    char *trailingslash = strchr(word, '/');
     if (trailingslash != NULL)
         *trailingslash = 0;
+    Items[index].AutoGet = word;
 }
 
 /* Read a double-quoted string from a ScottFree plaintext database file.
@@ -447,13 +445,15 @@ static void FreeDatabaseString(char *string)
         free(string);
 }
 
-/* Free entries 0..last of a string array, then the array itself */
-static void FreeStringArray(char **array, int last)
+/* Free entries 0..last of a string array, then the array itself. The
+   arrays are const for the parser, which only reads them; the loaders
+   allocated the strings, so the cast is the one place that owns them. */
+static void FreeStringArray(const char **array, int last)
 {
     if (array == NULL)
         return;
     for (int i = 0; i <= last; i++)
-        FreeDatabaseString(array[i]);
+        FreeDatabaseString((char *)array[i]);
     free(array);
 }
 

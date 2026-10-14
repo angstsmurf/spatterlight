@@ -100,7 +100,7 @@ typedef struct {
     /* PORTABILITY WARNING: THESE TWO MUST BE 8 BIT VALUES. */
     uint8_t Location;
     uint8_t InitialLoc;
-    char *AutoGet;
+    const char *AutoGet;
     uint8_t Flag;
     uint8_t Image;
 } Item;
@@ -155,7 +155,7 @@ extern Header GameHeader;
 extern Room *Rooms;
 extern Item *Items;
 extern Action *Actions;
-extern char **Verbs, **Nouns, **Messages;
+extern const char **Verbs, **Nouns, **Messages;
 extern char *title_screen;
 extern uint8_t *ZXLoadingScreen;
 extern winid_t Bottom, Top, Graphics;

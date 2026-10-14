@@ -494,8 +494,8 @@ static const uint8_t opcode_arguments[16] = {
     [A2_OP_PAINT] = 2,
 };
 
-static bool doImageOp(uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) {
-    uint8_t *ptr = *outptr;
+static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) {
+    const uint8_t *ptr = *outptr;
     uint8_t opcode;
     uint16_t a, b;
 
@@ -511,7 +511,7 @@ static bool doImageOp(uint8_t **outptr, const uint8_t *end, a2_vector_ctx *ctx) 
 
     // A truncated final op ends the image
     if (ptr + opcode_arguments[opcode] > end) {
-        *outptr = (uint8_t *)end;
+        *outptr = end;
         return true;
     }
 
@@ -617,7 +617,7 @@ int DrawApple2VectorImage(USImage *img) {
 
     a2_vector_ctx ctx = {};
 
-    uint8_t *vecdata = img->imagedata + 4;
+    const uint8_t *vecdata = img->imagedata + 4;
     int done = 0;
     if (screenmem == NULL) {
         screenmem = MemCalloc(A2_SCREEN_MEM_SIZE);

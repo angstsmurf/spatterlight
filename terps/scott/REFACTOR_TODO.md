@@ -1,6 +1,7 @@
 # terps/scott: refactoring, cleanup and deduplication TODO
 
-No open items. The review of 2026-10-14 gave eight: six are done
+No open items. The review of 2026-10-15 gave three, all done (the commit
+that closed this list). The review of 2026-10-14 gave eight: six are done
 (161801bf0, 6ba49fd65, 545bf11fa and the commit that closed this list),
 the TI-99/4A command switch and parts of the long-function item were
 turned down, see the end of "Looked at and declined". The review of
@@ -20,9 +21,14 @@ Warning pass: `clang -fsyntax-only -Wall -Wextra -Wmissing-prototypes` over
 the headless sources, with the include paths and defines of
 Makefile.headless, gives 6 missing-field-initializers (declined below)
 and nothing else. It is clean for missing-prototypes,
-unused-parameter and unused-variable; keep it so. Where a parameter or
-variable is read by `debug_print` only, it gets a `(void)` cast with a
-comment (`PrintHeaderInfo`, `Skip`, two in rtpi_graphics.c).
+unused-parameter and unused-variable; keep it so. Adding `-Wcast-qual
+-Wformat=2 -Wshadow -Wundef -Wredundant-decls -Wunreachable-code
+-Wstrict-prototypes` gives three more, all declined below: two `-Wcast-qual`
+(`FreeStringArray` in scott.c, `TRANSCRIPT_ON` in scott_meta.c) and the
+`AUTOWIN` early return of `battle_loop` (seas_of_blood.c) as unreachable
+code. Run it under bash: zsh does not word-split `$INC`. Where a
+parameter or variable is read by `debug_print` only, it gets a `(void)`
+cast with a comment (`PrintHeaderInfo`, `Skip`, two in rtpi_graphics.c).
 
 Conventions the last pass settled:
 
@@ -71,14 +77,13 @@ is used, so `TestBitFlag`'s shift is safe.
 
 ## Looked at and declined
 
-- **Row table for the examine closeups** (game_specific.c, hulk.c). The
-  predicates are not uniform: item in the room only, item present, two
-  items or-ed, `Items[44].Location == 0 && IsPresent(50)`, else-if chains
-  that pick between images, and several nouns per row. A table needs a
-  predicate kind, two items and a noun list per row and reads worse than
-  the switches. The inline closeup triplets in game_specific.c, gremlins.c
-  and robin_of_sherwood.c differ in output details; folding them changes
-  output.
+- **Folding the inline close-ups of the game actions into
+  `ShowCloseup()`** (game_specific.c, gremlins.c, robin_of_sherwood.c).
+  They differ in output: Adventureland prints a newline before the
+  prompt, Gremlins and Robin of Sherwood use `Display(Bottom, "\n%s\n")`,
+  Robin does not set `showing_closeup`, and the Secret Mission ID card
+  draws a label over the picture. (The examine close-ups are a table
+  already: each release's own, read by 06562d976 and 5f57e3f46.)
 - **Family-default macros for `games[]`.** The table uses designated
   initialisers now, with zero fields left out, so an entry only lists what
   it has. The shared values (0x2451, 0x3a50, 0x2539, 0x28de) are common to
@@ -112,10 +117,11 @@ is used, so `TestBitFlag`'s shift is safe.
   tears the whole window tree down and builds it again around a picture,
   which is its job. `Bottom`, `Top` and `Graphics` are otherwise only
   assigned in scott_display.c (`OpenBottomWindow`, `OpenTopWindow`,
-  `CloseTopWindow`, `OpenGraphicsWindow`); `split_screen` is cleared by the
-  `-w` option and when the status window cannot be opened.
-- unzip_in_mem.c is vendored minizip: left alone, apart from the `filesize`
-  parameter of `unzGoToNextFile()`, which nothing read.
+  `CloseTopWindow`, `OpenGraphicsWindow`, `CloseGraphicsWindow`), apart
+  from the Seas of Blood battle screen, which opens a status window for
+  the battle when there is none (seas_of_blood.c); `split_screen` is
+  cleared by the `-w` option and when the status window cannot be
+  opened.
 - **Predicate table for `ConditionHolds`.** With the `ACT_DEBUG` macro the
   switch is ~110 lines of three-line cases; a table would need 20 one-line
   functions plus the debug strings and reads worse.
@@ -150,7 +156,7 @@ is used, so `TestBitFlag`'s shift is safe.
   at these indices" for two of the four reads worse than the lists, which
   are in the order of the original tables and can be checked against them.
 - **Turning the `fprintf(stderr, ...)` diagnostics into `debug_print`.**
-  33 outside the tests, 6 of them the reports of the saga tests
+  28 outside the tests, 6 of them the reports of the saga tests
   (vector_common.c). `debug_print` prints nothing in a normal build, so
   the change would silence them in the headless harness and the Xcode
   console, which is where a damaged image or an unhandled opcode gets
@@ -172,11 +178,20 @@ is used, so `TestBitFlag`'s shift is safe.
   ranges are TI-only; parameters come from the bytecode rather than the
   action line. That is most of the switch, not 4-5 cases.
 - **One `SetUp*Specifics()` per family in `SetUpGameSpecifics`**
-  (detect_game.c). No case body is longer than ten lines; the long ones
-  are already calls (`LoadExtra*Data`, `*Sysmess`).
+  (detect_game.c). The longest case body is the `default`, at 14 lines,
+  for the Mysterious Adventures messages; the other long ones are already
+  calls (`LoadExtra*Data`, `*Sysmess`).
 - **A shared image-matching step for `ExtractImagesFromAtariCompanionFile`
   and `ExtractImagesFromApple2CompanionFile`.** The Apple II one hands the
   disk to `ReadA2VectorImageFiles`/`ReadA2BitmapImages`; the Atari one walks
   its own picture table and cuts out the VTOC sector. They share the game
   whitelist and `FreeUSImagesIfEmpty()` only. The Atari crop rules are
   `SetAtari8ImageCrop()` now.
+- **The three warnings left by the `-Wcast-qual -Wformat=2` pass.**
+  `Verbs`, `Nouns` and `Messages` are `const char **` for the parser,
+  which only reads them, but the loaders allocate the strings, so
+  `FreeStringArray` casts the `const` away to free them: one cast instead
+  of eleven in parser.c. `glk_put_string_stream()` takes a `char *`, so
+  the cast of `sys[TRANSCRIPT_ON]` in scott_meta.c stays. The `AUTOWIN`
+  return in `battle_loop` is the headless build's dice-free battle on
+  purpose.

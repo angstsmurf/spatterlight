@@ -742,16 +742,18 @@ static int ReadMessages(uint8_t **ptr, int compressed)
    ParseItemSlashAutoGet()). Upper-cases the word after its first letter. */
 static void ParseItemDotAutoGet(int index)
 {
-    Items[index].AutoGet = strchr(Items[index].Text, '.');
-    if (Items[index].AutoGet == NULL)
+    char *word = strchr(Items[index].Text, '.');
+    Items[index].AutoGet = NULL;
+    if (word == NULL)
         return;
-    *Items[index].AutoGet++ = 0;
-    Items[index].AutoGet++;
-    char *t = strchr(Items[index].AutoGet, '.');
+    *word++ = 0;
+    word++;
+    char *t = strchr(word, '.');
     if (t != NULL)
         *t = 0;
     for (int i = 1; i < GameHeader.WordLength; i++)
-        Items[index].AutoGet[i] = toupper(Items[index].AutoGet[i]);
+        word[i] = toupper(word[i]);
+    Items[index].AutoGet = word;
 }
 
 /* Read the item descriptions of TryLoading(): compressed text, or
@@ -1367,7 +1369,7 @@ static void SetUpGameSpecifics(GameIDType detectedGame)
        game-specific overrides below. The direction words before
        PLAY_AGAIN are copied for the Hulk only, below. */
     for (int i = PLAY_AGAIN; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
-        sys[i] = (char *)sysdict_zx[i];
+        sys[i] = sysdict_zx[i];
     }
 
     /* Game-specific post-load setup: load extra data (Robin of Sherwood
@@ -1454,7 +1456,7 @@ static void SetUpGameSpecifics(GameIDType detectedGame)
     case HULK_C64:
     case HULK:
         for (int i = NORTH; i < PLAY_AGAIN; i++) {
-            sys[i] = (char *)sysdict_zx[i];
+            sys[i] = sysdict_zx[i];
         }
         break;
     default:

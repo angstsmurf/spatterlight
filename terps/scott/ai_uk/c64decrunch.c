@@ -330,11 +330,11 @@ static GameIDType adventure_pack_menu(uint8_t **sf, size_t *extent)
         "Mission Impossible", "Voodoo Castle", "The Count", "Strange Odyssey",
         "Fun House", "Pyramid of Doom", "Ghost Town", "Savage Island",
         "Savage Island Part 2", "The Golden Voyage" };
-    int result = SelectGameFromMenu(
+    int choice = SelectGameFromMenu(
         "This disk image contains 12 games. Select one.", titles, 12) + 1;
 
     char filename[100];
-    snprintf(filename, 100, "ADV%d.OBJ", result);
+    snprintf(filename, 100, "ADV%d.OBJ", choice);
 
     size_t length;
     uint8_t *file = di_get_file_named(*sf, *extent, &length, filename);

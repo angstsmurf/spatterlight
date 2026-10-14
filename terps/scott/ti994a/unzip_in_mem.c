@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
+/* Makes z_stream.next_in a pointer to const */
+#define ZLIB_CONST
 #include <zlib.h>
 
 #include "memory_allocation.h"
@@ -100,7 +102,7 @@ static int Inflate(const uint8_t *packed, size_t packed_size, uint8_t *unpacked,
     /* Negative window bits: no zlib header or checksum around the data */
     if (inflateInit2(&stream, -MAX_WBITS) != Z_OK)
         return 0;
-    stream.next_in = (Bytef *)packed;
+    stream.next_in = packed;
     stream.avail_in = (uInt)packed_size;
     stream.next_out = unpacked;
     stream.avail_out = (uInt)unpacked_size;

@@ -221,7 +221,7 @@ static char *GetTI994AString(uint16_t table, int table_offset)
    an array of 16-bit pointers; consecutive pointers delimit each
    word's raw bytes (word_len = word_table[i+1] - word_table[i]). */
 static void LoadTI994ADict(uint16_t table, int num_words,
-    char **dict)
+    const char **dict)
 {
     uint8_t *endptr = entire_file + file_length;
     uint16_t *word_table = (uint16_t *)(entire_file + FixAddress(READ_BE_UINT16(&table)));
@@ -455,7 +455,7 @@ static int ReadNounLinks(uint8_t **data_ptr, const uint8_t *endptr)
         int noun = *((*data_ptr)++);
         Item *item = &Items[idx];
         if (noun && noun <= GameHeader.NumWords) {
-            item->AutoGet = (char *)Nouns[noun];
+            item->AutoGet = Nouns[noun];
             /* Colossal Cave item 3 ("bird") has no noun link in the data.
                A hack like this is probably overkill for such a broken game. */
             if (idx == 3 && strncmp("bird", item->Text, 4) == 0)
