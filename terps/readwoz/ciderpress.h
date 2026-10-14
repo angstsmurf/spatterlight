@@ -62,8 +62,9 @@ uint8_t *ReadFullImageFromNib(uint8_t *data, size_t datasize);
  * file and sets *len to its size, or returns NULL and leaves *len alone.
  *
  * Also looks for the inventory image in PAK.INVEN or PAC.INVEN (*invimg, of
- * *invimglen bytes of which the last four are zero), the 0x182 bytes of image
- * unscrambling tables in M2 (*m2) and the Graphics Magician drawing data in
+ * *invimglen bytes: the file's sectors without its four bytes of address and
+ * length, so longer than the picture), the 0x182 bytes of image unscrambling
+ * tables in M2 (*m2) and the Graphics Magician drawing data in
  * M3 (*m3, *m3len), and the kA2CloseupTableSize bytes of the table of close-up
  * pictures (*closeups): the verb, then sixteen items, sixteen pictures and
  * sixteen nouns. Each is only written to if it is found, so that a disk

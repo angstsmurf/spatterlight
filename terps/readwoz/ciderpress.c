@@ -921,7 +921,8 @@ static void ProcessCatalogSector(const uint8_t *sctBuf)
  * it *might* make sense to mimic this behavior, though on a healthy disk
  * we shouldn't be finding garbage anyway.
  *
- * A catalog that goes bad part of the way keeps the files found so far.
+ * A catalog that goes bad part of the way keeps the files found so far, and
+ * returns the error: the callers report it and go on with those files.
  */
 static DIError ReadCatalog(void)
 {
@@ -1019,7 +1020,12 @@ static uint8_t *CopyCloseupTable(const uint8_t *buf, size_t len)
 uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t *invimglen, uint8_t **m2, uint8_t **m3, size_t *m3len, uint8_t **closeups)
 {
     UseImage(data, *len, kPhysicalFormatSectors);
-    ReadCatalog();
+    DIError dierr = ReadCatalog();
+    if (dierr != kDIErrNone) {
+        debug_print("%s: reading the DOS catalog failed with error %d\n", __func__, dierr);
+        if (g.firstfile == NULL)
+            return NULL;
+    }
 
     uint8_t *temp;
     size_t templen;
@@ -1037,12 +1043,11 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
     if (!file)
         file = FindFile("PAC.INVEN", strcmp);
     if (file && (temp = ReadDOSFileData(file, &templen)) != NULL) {
-        /* Drop the four bytes of address and length, but not from the size
-         * we report, which the callers have always had four bytes too long. */
-        if (templen >= 4 && templen <= 100000) {
-            *invimg = MemCalloc(templen);
-            memcpy(*invimg, temp + 4, templen - 4);
-            *invimglen = templen;
+        /* Drop the four bytes of address and length */
+        if (templen > 4 && templen <= 100000) {
+            *invimglen = templen - 4;
+            *invimg = MemAlloc(*invimglen);
+            memcpy(*invimg, temp + 4, *invimglen);
         }
         free(temp);
     }
@@ -1079,7 +1084,14 @@ uint8_t *ReadApple2DOSFile(uint8_t *data, size_t *len, uint8_t **invimg, size_t 
 A2FileRec *GetAllApple2DOSFiles(uint8_t *data, size_t len, size_t *number_of_files)
 {
     UseImage(data, len, kPhysicalFormatSectors);
-    ReadCatalog();
+    DIError dierr = ReadCatalog();
+    if (dierr != kDIErrNone) {
+        debug_print("%s: reading the DOS catalog failed with error %d\n", __func__, dierr);
+        if (g.firstfile == NULL) {
+            *number_of_files = 0;
+            return NULL;
+        }
+    }
 
     size_t filecount = 0;
     for (A2File *file = g.firstfile; file != NULL; file = file->next)

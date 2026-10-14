@@ -9,6 +9,6 @@ nouns        80 3b2c6d2c
 messages     89 38735d5b
 actions     220 be9f4d49
 sysmess      71 b649edd3
-usimages     76 ac3abbb9
+usimages     76 4d939691
 descramble  386 bd01890f
 closeups      2 83eae7e7

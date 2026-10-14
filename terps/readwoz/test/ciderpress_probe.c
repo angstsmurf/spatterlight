@@ -123,9 +123,7 @@ int main(int argc, char **argv)
         Init(data, size, isnib);
         uint8_t *db = ReadApple2DOSFile(data, &len, &inv, &invlen, &m2, &m3, &m3len, &closeups);
         Line(op, "database", db, len);
-        /* The last four bytes of the inventory image were never written. */
-        printf("%s\tinvlen\t%zu\n", op, inv ? invlen : 0);
-        Line(op, "inventory", inv, inv && invlen >= 4 ? invlen - 4 : 0);
+        Line(op, "inventory", inv, inv ? invlen : 0);
         Line(op, "m2", m2, 0x182);
         Line(op, "m3", m3, m3len);
         Line(op, "closeups", closeups, kA2CloseupTableSize);

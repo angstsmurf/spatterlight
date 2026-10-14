@@ -168,6 +168,9 @@ static void ReloadDatabaseFromCompanion(uint8_t *companionfile, size_t companion
         }
         free(temp);
     }
+    free(invimg);
+    free(m2);
+    free(m3);
     free(closeups);
 }
 
