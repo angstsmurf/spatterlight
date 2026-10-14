@@ -119,7 +119,7 @@ int AutoInventory = 0; /* Auto-display inventory in room descriptions */
 int Options; /* Option flags set */
 glui32 TopWidth; /* Terminal width */
 glui32 TopHeight; /* Height of top window */
-int ImageWidth = 255;
+int ImageWidth = 256; /* 32 character columns */
 int ImageHeight = 96;
 int file_baseline_offset = 0; /* Byte offset adjustment for files with extra data prepended */
 char *title_screen = NULL;

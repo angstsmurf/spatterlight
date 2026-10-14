@@ -241,8 +241,8 @@ glui32 OptimalPictureSize(glui32 graphwidth, glui32 graphheight, glui32 *outwidt
     return multiplier;
 }
 
-/* Scale the image to the Graphics window: set pixel_size, and x_offset and
-   right_margin to centre it horizontally. The window height and the scaled
+/* Scale the image to the Graphics window: set pixel_size, and x_offset to
+   centre it horizontally. The window height and the scaled
    image height are returned in graphheight and optimal_height. */
 void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height)
 {
@@ -250,7 +250,6 @@ void FitPictureToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height)
     glk_window_get_size(Graphics, &graphwidth, graphheight);
     pixel_size = OptimalPictureSize(graphwidth, *graphheight, &optimal_width, optimal_height);
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
-    right_margin = optimal_width + x_offset;
 }
 
 /* Whether pictures can be shown at all: the Glk library has graphics

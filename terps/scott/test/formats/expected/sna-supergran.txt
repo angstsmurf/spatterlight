@@ -1,7 +1,7 @@
 game       Supergran
 variant    sys=unknown type=none subtype=1
 header     items=85 actions=204 words=105 rooms=39 maxcarry=6 start=1 treasures=0 wordlen=4 light=-1 messages=99 treasureroom=0
-picture    width=255 height=96
+picture    width=256 height=96
 rooms        40 03e33345
 items        86 8a0e18c1
 verbs       106 e88db606

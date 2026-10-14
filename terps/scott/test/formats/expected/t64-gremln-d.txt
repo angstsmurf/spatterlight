@@ -1,7 +1,7 @@
 game       Gremlins (German, C64)
 variant    sys=unknown type=gremlins subtype=12
 header     items=99 actions=236 words=125 rooms=42 maxcarry=6 start=1 treasures=0 wordlen=5 light=-1 messages=98 treasureroom=0
-picture    width=255 height=96
+picture    width=256 height=96
 rooms        43 a61e6f9b
 items       100 25be8301
 verbs       126 3785a698

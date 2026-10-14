@@ -28,7 +28,7 @@ int x_offset = 0;
  Images have an internal "y origin" value
  that determines their vertical position. */
 int y_offset = 0;
-int right_margin;
+/* The first picture column to draw */
 int left_margin = 0;
 
 USImage *USImages = NULL;
@@ -169,7 +169,7 @@ void FlushPixelRuns(void)
 
 void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixel_width)
 {
-    if (!Graphics || xpos < 0 || xpos > right_margin || xpos < left_margin) {
+    if (!Graphics || xpos < 0 || xpos < left_margin) {
         return;
     }
 

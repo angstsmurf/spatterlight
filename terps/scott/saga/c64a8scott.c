@@ -31,18 +31,13 @@ static int C64A8AdjustScott(int width, int height, int *x_origin) {
         ImageWidth = width * 8 - 17 + left_margin;
         ImageHeight = height + 2;
 
-        if (image->index == 19 && image->systype == SYS_ATARI8) {
-            width++;
-            ImageWidth = 308;
-        }
-
         glui32 width_in_pixels = ImageWidth * pixel_size;
         while (width_in_pixels > curwidth && pixel_size > 1) {
             pixel_size--;
             width_in_pixels = ImageWidth * pixel_size;
         }
 
-        x_offset = (curwidth - width_in_pixels) / 2;
+        x_offset = ((int)curwidth - (int)width_in_pixels) / 2;
 
         glui32 optimal_height = ImageHeight * pixel_size;
 

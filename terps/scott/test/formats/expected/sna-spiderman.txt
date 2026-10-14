@@ -1,7 +1,7 @@
 game       Questprobe 2: Spider-Man
 variant    sys=unknown type=none subtype=1
 header     items=72 actions=257 words=124 rooms=40 maxcarry=12 start=2 treasures=18 wordlen=4 light=150 messages=99 treasureroom=37
-picture    width=255 height=96
+picture    width=256 height=96
 rooms        41 9928ada8
 items        73 4fc33ed9
 verbs       125 04c42779

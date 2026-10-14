@@ -1574,6 +1574,7 @@ GameIDType DetectGame(const char *file_name)
 
     if (IsMysterious()) {
         Options = Options | SCOTTLIGHT | PREHISTORIC_LAMP;
+        ImageWidth = 255;
         ImageHeight = 95;
     }
 

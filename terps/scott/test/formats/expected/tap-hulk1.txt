@@ -1,7 +1,7 @@
 game       Questprobe 1: The Hulk
 variant    sys=unknown type=none subtype=1
 header     items=54 actions=261 words=128 rooms=20 maxcarry=10 start=1 treasures=17 wordlen=4 light=150 messages=99 treasureroom=16
-picture    width=255 height=96
+picture    width=256 height=96
 rooms        21 fa36dffe
 items        55 044dca5c
 verbs       129 6affe7e2

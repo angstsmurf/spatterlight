@@ -44,7 +44,7 @@ typedef struct {
 
 extern int pixel_size;
 extern int x_offset, y_offset;
-extern int right_margin, left_margin;
+extern int left_margin;
 extern glui32 pal[16];
 
 void SetColor(int32_t index, glui32 color);
