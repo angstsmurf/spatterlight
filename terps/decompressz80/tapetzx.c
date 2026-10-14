@@ -193,6 +193,31 @@ uint8_t *GetTAPBlock(int blockno, const uint8_t *tap, size_t tap_length,
     return NULL;
 }
 
+/* More data blocks than any tape we look at has. Only this many are searched
+   for a loading screen: one further in is not found. */
+#define MAX_SCREEN_SEARCH_BLOCKS 64
+
+uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
+{
+    size_t block_offset[MAX_SCREEN_SEARCH_BLOCKS], block_len[MAX_SCREEN_SEARCH_BLOCKS];
+    int num_blocks = 0;
+
+    uint8_t *payloads = ExtractTapePayloads(raw, raw_len, is_tzx, NULL,
+        block_offset, block_len, &num_blocks, MAX_SCREEN_SEARCH_BLOCKS);
+    if (payloads == NULL)
+        return NULL;
+
+    uint8_t *screen = NULL;
+    for (int i = 0; i < num_blocks; i++) {
+        if (block_len[i] == ZX_SCREEN_SIZE) {
+            screen = CopyOf(payloads + block_offset[i], ZX_SCREEN_SIZE);
+            break;
+        }
+    }
+    free(payloads);
+    return screen;
+}
+
 /* A block that begins with this flag byte is data; 0x00 is for a header */
 #define TAP_DATA_FLAG 0xff
 

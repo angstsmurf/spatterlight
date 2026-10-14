@@ -116,6 +116,14 @@ uint8_t *ExtractTapePayloads(const uint8_t *raw, size_t raw_len, int is_tzx,
     size_t *out_len, size_t *block_offsets, size_t *block_lengths,
     int *num_blocks, int max_blocks);
 
+/* The loading screen of a .tzx (is_tzx != 0) or a .tap (is_tzx == 0): in
+   practice always the first data block that is exactly one SCREEN$
+   (ZX_SCREEN_SIZE bytes) long, flag byte and checksum left out. Only the
+   first 64 data blocks are searched. Returns a malloc'd copy of it for the
+   caller to free, or NULL if there is none. A screen that a loader of its
+   own draws, as Alkatraz does, is not found. */
+uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx);
+
 /* --- Alkatraz copy protection ---
    An Alkatraz loader decrypts the game with a rolling key as it loads it and
    then moves blocks of it about in memory. These do the same to an image of

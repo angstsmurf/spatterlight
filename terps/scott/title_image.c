@@ -126,35 +126,6 @@ static void WaitForKeyOnTitleScreen(void) {
     } while (ev.type != evtype_CharInput);
 }
 
-/* The loading screen is, in practice, always the first standard-length
-   (6912-byte) data block on the tape. ExtractTapePayloads() returns only
-   the 0xFF data blocks (the 0x00 header blocks are skipped) with the
-   offset and length of each, so we just return the first that is exactly
-   one SCREEN$ in size. */
-uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
-{
-#define MAX_TAPE_BLOCKS 64
-    size_t out_len = 0;
-    size_t blk_off[MAX_TAPE_BLOCKS], blk_len[MAX_TAPE_BLOCKS];
-    int n_blk = 0;
-
-    uint8_t *payloads = ExtractTapePayloads(raw, raw_len, is_tzx, &out_len,
-        blk_off, blk_len, &n_blk, MAX_TAPE_BLOCKS);
-    if (!payloads)
-        return NULL;
-
-    uint8_t *screen = NULL;
-    for (int i = 0; i < n_blk; i++) {
-        if (blk_len[i] == ZX_SCREEN_SIZE) {
-            screen = MemAlloc(ZX_SCREEN_SIZE);
-            memcpy(screen, payloads + blk_off[i], ZX_SCREEN_SIZE);
-            break;
-        }
-    }
-    free(payloads);
-    return screen;
-}
-
 void DrawZXTitleImage(void)
 {
     if (!GraphicsEnabled())

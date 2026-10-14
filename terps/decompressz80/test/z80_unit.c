@@ -1102,6 +1102,73 @@ static void TestScreen(void)
     free(screen);
 }
 
+/* A SCREEN$ as PutTAPBlock and PutTZXData make it: payload byte i is
+   0xff + (i + 1) * 3 */
+static int IsScreenPayload(const uint8_t *screen)
+{
+    if (screen == NULL)
+        return 0;
+    for (size_t i = 0; i < ZX_SCREEN_SIZE; i++)
+        if (screen[i] != (uint8_t)(0xff + (i + 1) * 3))
+            return 0;
+    return 1;
+}
+
+static void TestLoadingScreen(void)
+{
+    const size_t screen_block = ZX_SCREEN_SIZE + ZX_TAPE_FRAME_BYTES;
+
+    /* Passed over: a header, data one byte too long and one too short, and a
+       block of the right length that is not data. The first screen is found,
+       not the second. */
+    Buf b = { 0 };
+    PutTAPBlock(&b, 0x00, 19);
+    PutTAPBlock(&b, 0xff, screen_block + 1);
+    PutTAPBlock(&b, 0xff, screen_block - 1);
+    PutTAPBlock(&b, 0x55, screen_block);
+    PutTAPBlock(&b, 0xff, screen_block);
+    size_t second = b.length;
+    PutTAPBlock(&b, 0xff, screen_block);
+    b.data[second + 3] ^= 0xaa;
+    uint8_t *screen = FindTapeLoadingScreen(b.data, b.length, 0);
+    CHECK(IsScreenPayload(screen));
+    free(screen);
+    /* Asked for as a .tzx, a .tap is not one */
+    CHECK(FindTapeLoadingScreen(b.data, b.length, 1) == NULL);
+
+    /* No screen-sized data block */
+    b.length = 0;
+    PutTAPBlock(&b, 0x00, 19);
+    PutTAPBlock(&b, 0xff, 500);
+    CHECK(FindTapeLoadingScreen(b.data, b.length, 0) == NULL);
+
+    /* Only the first 64 data blocks are searched */
+    for (int stop = 63; stop <= 64; stop++) {
+        b.length = 0;
+        for (int i = 0; i < stop; i++)
+            PutTAPBlock(&b, 0xff, 10);
+        PutTAPBlock(&b, 0xff, screen_block);
+        screen = FindTapeLoadingScreen(b.data, b.length, 0);
+        CHECK((screen != NULL) == (stop == 63));
+        CHECK(screen == NULL || IsScreenPayload(screen));
+        free(screen);
+    }
+
+    /* The same in a .tzx */
+    b.length = 0;
+    PutTZXHeader(&b);
+    PutTZXData(&b, 0x00, 19);
+    PutTZXData(&b, 0xff, screen_block);
+    screen = FindTapeLoadingScreen(b.data, b.length, 1);
+    CHECK(IsScreenPayload(screen));
+    free(screen);
+
+    CHECK(FindTapeLoadingScreen(NULL, 100, 0) == NULL);
+    CHECK(FindTapeLoadingScreen(b.data, 0, 1) == NULL);
+
+    free(b.data);
+}
+
 int main(void)
 {
     for (int i = 0; i < 16; i++)
@@ -1113,6 +1180,7 @@ int main(void)
     TestBadPages();
     TestTZX();
     TestTAP();
+    TestLoadingScreen();
     TestAlkatraz();
     TestScreen();
 

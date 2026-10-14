@@ -18,11 +18,6 @@
    during loading, consumed (and freed) by DrawZXTitleImage(). */
 extern uint8_t *ZXLoadingScreen;
 
-/* Locate a standard 6912-byte loading screen in a raw .tap (is_tzx == 0)
-   or .tzx (is_tzx != 0) image. Returns a malloc'd 6912-byte buffer
-   (caller frees) or NULL if none is found. */
-uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx);
-
 /* How an Alkatraz loader draws a game's loading screen. Each game's values
    are in its *_loadscreen_data.h header. */
 typedef struct {

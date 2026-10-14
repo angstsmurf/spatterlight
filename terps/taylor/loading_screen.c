@@ -38,10 +38,6 @@ static int AlkatrazDrawOrderLen = 0;
    all come from the shared ZXTitle renderer (zx_title.h) and
    decompressz80.h. */
 
-/* More data blocks than any tape we look at has. Only this many are
-   searched for a loading screen: one further in is not found. */
-#define MAX_TAPE_BLOCKS 64
-
 void ZXSetDrawOrder(const uint16_t *order, int count)
 {
     if (count > ZX_SCREEN_SIZE)
@@ -51,34 +47,6 @@ void ZXSetDrawOrder(const uint16_t *order, int count)
     if (count > 0)
         memcpy(AlkatrazDrawOrder, order, count * sizeof AlkatrazDrawOrder[0]);
     AlkatrazDrawOrderLen = count;
-}
-
-/* The loading screen is, in practice, always the first standard-length
-   (6912-byte) data block on the tape. ExtractTapePayloads() returns only
-   the 0xFF data blocks (the 0x00 header blocks are skipped), with the
-   offset and length of each, so we just return the first that is exactly
-   one SCREEN$ in size. */
-uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
-{
-    size_t payloads_len = 0;
-    size_t block_offset[MAX_TAPE_BLOCKS], block_len[MAX_TAPE_BLOCKS];
-    int num_blocks = 0;
-
-    uint8_t *payloads = ExtractTapePayloads(raw, raw_len, is_tzx, &payloads_len,
-        block_offset, block_len, &num_blocks, MAX_TAPE_BLOCKS);
-    if (!payloads)
-        return NULL;
-
-    uint8_t *screen = NULL;
-    for (int i = 0; i < num_blocks; i++) {
-        if (block_len[i] == ZX_SCREEN_SIZE) {
-            screen = MemAlloc(ZX_SCREEN_SIZE);
-            memcpy(screen, payloads + block_offset[i], ZX_SCREEN_SIZE);
-            break;
-        }
-    }
-    free(payloads);
-    return screen;
 }
 
 /* Some Alkatraz-protected games (Kayleth, Terraquake) hide the loading screen
