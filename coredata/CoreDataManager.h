@@ -30,6 +30,14 @@
 //! process's one managed object model with every other CoreDataManager, so
 //! entities never resolve against a second copy of the model.
 - (instancetype)initInMemoryWithModelName:(NSString *)aModelName;
+
+//! The store of the test library named by the SPATTERLIGHT_TEST_STORE
+//! environment variable, in the temporary folder, or nil. The UI tests launch
+//! the app with it, so that they work on a library of their own instead of the
+//! user's, and never touch the Spotlight index. SPATTERLIGHT_TEST_STORE_FRESH=1
+//! deletes the store first.
++ (nullable NSURL *)testStoreURL;
+
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) NSManagedObjectContext *privateChildManagedObjectContext;
 - (void)saveChanges;
 

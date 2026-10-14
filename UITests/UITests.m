@@ -23,22 +23,22 @@
     // In UI tests it is usually best to stop immediately when a failure occurs.
     self.continueAfterFailure = NO;
 
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    // Start every test on an empty library of its own
+    XCUIApplication *app = [UITests app];
+    app.launchEnvironment = @{ @"SPATTERLIGHT_TEST_STORE": @"UITests",
+                               @"SPATTERLIGHT_TEST_STORE_FRESH": @"1" };
     [app launch];
 
-    XCUIElementQuery *menuBarsQuery = app.menuBars;
-
-    XCUIElement *fileMenuBarItem = menuBarsQuery.menuBarItems[@"File"];
-    [fileMenuBarItem click];
-    [menuBarsQuery.menuItems[@"Delete Library…"] click];
-    XCUIElement *alertDialog = app.dialogs.firstMatch;
-    XCTAssert([UITests waitForElement:alertDialog toExistWithTimeout:5]);
-    XCUIElement *checkbox = alertDialog.checkBoxes[@"Force quit running games and delete them."];
-    if (checkbox.exists && [checkbox.value isEqual:@0])
-        [checkbox click];
-    [alertDialog.buttons[@"Delete Library"] click];
-
     // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+}
+
+/// The app, set to use the UI tests' own library instead of the user's (see
+/// CoreDataManager +testStoreURL). Launch it through this, relaunches too, or
+/// it opens the user's library.
++ (XCUIApplication *)app {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    app.launchEnvironment = @{ @"SPATTERLIGHT_TEST_STORE": @"UITests" };
+    return app;
 }
 
 - (void)tearDown {
@@ -161,7 +161,7 @@
 
 + (NSURL *)transcriptWithFormat:(NSString *)format {
 
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
     [menuBarsQuery.menuBarItems[@"File"] click];
@@ -192,7 +192,7 @@
 
 + (NSURL *)saveTranscriptInWindow:(XCUIElement *)gameWin {
 
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
     NSURL *transcriptURL = [UITests tempDir];
 
     NSLog(@"Transcript is in directory %@", transcriptURL.path);
@@ -213,7 +213,7 @@
 
 + (void)turnOnDeterminism:(nullable NSString *)theme {
     [UITests selectTheme:theme];
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     [app.toolbars.buttons[@"Details"] click];
     [app.checkBoxes[@"Animate scrolling"] click];
@@ -228,7 +228,7 @@
 + (void)selectTheme:(nullable NSString *)theme {
     if (!theme.length)
         theme = @"Default";
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
     [app typeKey:@"," modifierFlags:XCUIKeyModifierCommand];
     XCUIElement *themesTab = app.toolbars.buttons[@"Themes"];
     if (themesTab.exists)
@@ -237,7 +237,7 @@
 }
 
 - (void)openCommandScript:(NSString *)name {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     [app typeKey:@"o" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierCommand];
 
@@ -272,7 +272,7 @@
 
 //- (void)testTetrisAutorestore {
 //
-//    XCUIApplication *app = [[XCUIApplication alloc] init];
+//    XCUIApplication *app = [UITests app];
 //
 //    XCUIElement *textField = [self addAndSelectGame:@"freefall.z5"];
 //    [textField doubleClick];
@@ -322,7 +322,7 @@
 //}
 //
 //- (void)testImportGame {
-//    XCUIApplication *app = [[XCUIApplication alloc] init];
+//    XCUIApplication *app = [UITests app];
 //
 //    XCUIElement *libraryWindow = app.windows[@"library"];
 //    XCUIElement *foundElement = [self addAndSelectGame:@"freefall.z5"];
@@ -353,7 +353,7 @@
 //}
 
 - (void)testFileMenu {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
@@ -432,7 +432,7 @@
 
 - (void)testMoreFileMenu {
 
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
@@ -538,7 +538,7 @@
 }
 
 - (void)testImportMetadata {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
@@ -642,13 +642,11 @@
 }
 
 - (void)testAutosave {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
 
-    XCUIElement *textField = [self addAndSelectGame:@"autosavetest.gblorb"];
-
-    [textField doubleClick];
+    [self playGame:@"autosavetest.gblorb"];
 
     XCUIElement *gameWindow = app/*@START_MENU_TOKEN@*/.windows[@"autosavetest.gblorb"]/*[[".windows[@\"autosavetest.gblorb\"]",".windows[@\"gameWinGLULX-1-160227-AB0E83B\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
@@ -785,13 +783,11 @@
 }
 
 - (void)testGlulxe {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[1]]@END_MENU_TOKEN@*/;
 
-    XCUIElement *textField = [self addAndSelectGame:@"Transparent.gblorb"];
-
-    [textField doubleClick];
+    [self playGame:@"Transparent.gblorb"];
 
     XCUIElement *gameWindow = app.windows[@"Transparent"];
     XCUIElement *scrollView = gameWindow.scrollViews[@"buffer scroll view"];
@@ -889,20 +885,18 @@
 }
 
 - (void)testTADS3 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElement *licensewinWindow = app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"Fonts License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
     if (licensewinWindow.exists) {
-        XCUIElementQuery *menuBarsQuery = [[XCUIApplication alloc] init].menuBars;
+        XCUIElementQuery *menuBarsQuery = [UITests app].menuBars;
         [menuBarsQuery.menuBarItems[@"Help"] click];
         [menuBarsQuery/*@START_MENU_TOKEN@*/.menuItems[@"GNU Public License"]/*[[".menuBarItems[@\"Help\"]",".menus.menuItems[@\"GNU Public License\"]",".menuItems[@\"GNU Public License\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
         [app/*@START_MENU_TOKEN@*/.windows[@"licenseWin"]/*[[".windows[@\"GNU Public License\"]",".windows[@\"licenseWin\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/.buttons[@"Understood"] click];
 
     }
 
-    XCUIElement *textField = [self addAndSelectGame:@"Elysium.t3"];
-
-    [textField doubleClick];
+    [self playGame:@"Elysium.t3"];
 
     XCUIElement *gameWindow = app.windows[@"The Elysium Enigma"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -944,11 +938,9 @@
 }
 
 - (void)testTADS2 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"tildeath.gam"];
-
-    [textField doubleClick];
+    [self playGame:@"tildeath.gam"];
 
     XCUIElement *gameWindow = app.windows[@"tildeath.gam"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -982,11 +974,9 @@
 }
 
 - (void)testAlan2 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"bugged.acd"];
-
-    [textField doubleClick];
+    [self playGame:@"bugged.acd"];
 
     XCUIElement *gameWindow = app.windows[@"Bugged"];
     if (!gameWindow.exists)
@@ -1011,11 +1001,9 @@
 }
 
 - (void)testAlan3 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"00 Wyldkynd Project.a3c"];
-
-    [textField doubleClick];
+    [self playGame:@"00 Wyldkynd Project.a3c"];
 
     XCUIElement *gameWindow = app.windows[@"The Wyldkynd Project"];
     if (!gameWindow.exists)
@@ -1039,11 +1027,9 @@
 }
 
 - (void)testHugo {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"guilty.hex"];
-
-    [textField doubleClick];
+    [self playGame:@"guilty.hex"];
 
     XCUIElement *gameWindow = app.windows[@"Guilty Bastards"];
 
@@ -1090,11 +1076,9 @@
 }
 
 - (void)testAdvSys {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"onehand.dat"];
-
-    [textField doubleClick];
+    [self playGame:@"onehand.dat"];
 
     XCUIElement *gameWindow = app.windows[@"onehand.dat"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1117,11 +1101,9 @@
 }
 
 - (void)testAGiliTy {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"AGT-03201-0000E16C.agx"];
-
-    [textField doubleClick];
+    [self playGame:@"AGT-03201-0000E16C.agx"];
 
     XCUIElement *gameWindow = app.windows[@"Shades of Gray"];
     if (!gameWindow.exists)
@@ -1185,11 +1167,9 @@
 }
 
 - (void)testLevel9 {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"Q.L9"];
-
-    [textField doubleClick];
+    [self playGame:@"Q.L9"];
 
     XCUIElement *gameWindow = app.windows[@"Q.L9"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1225,11 +1205,9 @@
 }
 
 - (void)testMagnetic {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"mag.mag"];
-
-    [textField doubleClick];
+    [self playGame:@"mag.mag"];
 
     XCUIElement *gameWindow = app.windows[@"mag.mag"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1267,13 +1245,11 @@
 }
 
 - (void)testAdrift {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"Hamper.taf"];
+    [self playGame:@"Hamper.taf"];
 
-    [textField doubleClick];
-
-    XCUIElement *gameWindow = app.windows[@"Hamper.taf"];
+    XCUIElement *gameWindow = app.windows[@"To Hell in a Hamper"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
     XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 
@@ -1325,11 +1301,9 @@
 }
 
 - (void)testAdriftPKGirl {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"the_pk_girl.taf"];
-
-    [textField doubleClick];
+    [self playGame:@"the_pk_girl.taf"];
 
     XCUIElement *gameWindow = app.windows[@"The PK Girl"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1380,12 +1354,10 @@
 }
 
 - (void)testCzech {
-    XCUIElement *textField = [self addAndSelectGame:@"czech.z5"];
-
-    [textField doubleClick];
+    [self playGame:@"czech.z5"];
 
     [UITests selectTheme:@"Default"];
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     [app/*@START_MENU_TOKEN@*/.toolbars.buttons[@"Details"]/*[[".dialogs[@\"Preferences\"]",".tabGroups.toolbars.buttons[@\"Details\"]",".toolbars.buttons[@\"Details\"]",".dialogs[@\"preferences\"]"],[[[-1,2],[-1,1],[-1,3,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/ click];
 
@@ -1424,12 +1396,10 @@
 }
 
 - (void)testPraxix {
-    XCUIElement *textField = [self addAndSelectGame:@"praxix.z5"];
-
-    [textField doubleClick];
+    [self playGame:@"praxix.z5"];
 
     [UITests selectTheme:@"Default"];
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
@@ -1469,11 +1439,9 @@
 }
 
 - (void)testTerpEtude {
-    XCUIElement *textField = [self addAndSelectGame:@"etude.z5"];
+    [self playGame:@"etude.z5"];
 
-    [textField doubleClick];
-
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
     XCUIElement *gameWindow = app.windows[@"etude.z5"];
     XCUIElement *alertSheet = gameWindow.sheets[@"alert"];
     if ([self waitForElement:alertSheet toExistWithTimeout:2]) {
@@ -1518,11 +1486,9 @@
 }
 
 - (void)testJacl {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"grail.j2"];
-
-    [textField doubleClick];
+    [self playGame:@"grail.j2"];
 
     XCUIElement *gameWindow = app.windows[@"grail.j2"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1559,11 +1525,9 @@
 }
 
 - (void)testScott {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"adv01.dat"];
-
-    [textField doubleClick];
+    [self playGame:@"adv01.dat"];
 
     XCUIElement *gameWindow = app.windows[@"adv01.dat"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1597,11 +1561,9 @@
 }
 
 - (void)testTaylor {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"tot.tay"];
-
-    [textField doubleClick];
+    [self playGame:@"tot.tay"];
 
     XCUIElement *gameWindow = app.windows[@"tot.tay"];
     if (![gameWindow exists])
@@ -1637,11 +1599,9 @@
 }
 
 - (void)testPlus {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
-    XCUIElement *textField = [self addAndSelectGame:@"SPL13P.plus"];
-
-    [textField doubleClick];
+    [self playGame:@"SPL13P.plus"];
 
     XCUIElement *gameWindow = app.windows[@"SPL13P.plus"];
     XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
@@ -1677,12 +1637,11 @@
 
 
 - (void)testEditMenu {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
-    XCUIElement *textField = [self addAndSelectGame:@"curses.z5"];
-    [textField doubleClick];
+    [self playGame:@"curses.z5"];
 
     XCUIElement *gameWindow = app.windows[@"curses.z5"];
 
@@ -1842,7 +1801,7 @@
 }
 
 - (void)testContextualMenus {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     XCUIElementQuery *menuBarsQuery = app.menuBars;
 
@@ -2011,7 +1970,7 @@
 
 - (void)testPreferences {
 
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+    XCUIApplication *app = [UITests app];
 
     [self addAndSelectGame:@"curses.z5"];
 
@@ -2302,72 +2261,54 @@
     [app/*@START_MENU_TOKEN@*/.menuItems[@"togglePreview:"]/*[[".dialogs[@\"Preferences\"]",".tabGroups",".menuButtons[@\"action\"]",".menus",".menuItems[@\"Show Preview\"]",".menuItems[@\"togglePreview:\"]",".dialogs[@\"preferences\"]"],[[[-1,5],[-1,4],[-1,3,4],[-1,2,3],[-1,1,2],[-1,6,1],[-1,0,1]],[[-1,5],[-1,4],[-1,3,4],[-1,2,3],[-1,1,2]],[[-1,5],[-1,4],[-1,3,4],[-1,2,3]],[[-1,5],[-1,4],[-1,3,4]],[[-1,5],[-1,4]]],[0]]@END_MENU_TOKEN@*/ click];
 }
 
+/// Relaunches the app on a fresh test library holding only the game, which
+/// the app adds and selects at launch (see TableViewController
+/// -addTestGames). This is much faster than adding it through the open panel
+/// and finding it with the search field. Call it first thing in a test, as
+/// the relaunch loses all earlier state.
 - (XCUIElement *)addAndSelectGame:(NSString *)game {
+    XCUIApplication *app = [self relaunchWithGame:game environmentKey:@"SPATTERLIGHT_TEST_ADD_GAMES"];
 
-    XCUIApplication *app = [[XCUIApplication alloc] init];
-
-    XCUIElement *libraryWindow = app/*@START_MENU_TOKEN@*/.windows[@"library"]/*[[".windows[@\"Interactive Fiction\"]",".windows[@\"library\"]"],[[[-1,1],[-1,0]]],[0]]@END_MENU_TOKEN@*/;
-
-    NSString *gameName = game.stringByDeletingPathExtension;
-    if (![self doesGameExist:gameName]) {
-
-        XCUIElement *addButton = libraryWindow.toolbars.buttons[@"Add"];
-
-        XCTAssert(addButton.exists);
-        [addButton click];
-
-        XCUIElement *openDialog = app.sheets.firstMatch;
-        // Grab a reference to the Open button so we can click it later
-
-        NSURL *url = [testBundle URLForResource:gameName
-                                  withExtension:game.pathExtension
-                                   subdirectory:nil];
-
-        [UITests typeURL:url intoFileDialog:openDialog andPressButtonWithText:@"Add"];
-    }
-
-    XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
-    // Select search field
-    [searchField click];
-
-    XCUIElement *cancelButton = searchField.buttons[@"cancel"];
-    if ([self waitForElement:cancelButton toExistWithTimeout:10])
-        [cancelButton click];
-    else {
-        [searchField doubleClick];
-        [searchField typeText:@" "];
-    }
-
-    [searchField click];
-    [searchField typeText:gameName];
-
-    XCUIElement *gamesTableRow =
-    [[libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0];
-    [gamesTableRow click];
+    XCUIElement *gamesTableRow = [UITests firstGameRowOf:app];
+    XCTAssert([self waitForElement:gamesTableRow toBeHittableWithTimeout:30]);
     return gamesTableRow;
 }
 
-- (BOOL)doesGameExist:(NSString *)game {
-    XCUIApplication *app = [[XCUIApplication alloc] init];
+/// As addAndSelectGame:, but the app also starts the game, as when it is
+/// double-clicked in the library. The game stays selected in the library.
+- (void)playGame:(NSString *)game {
+    XCUIApplication *app = [self relaunchWithGame:game environmentKey:@"SPATTERLIGHT_TEST_PLAY_GAME"];
+    // Game windows have the identifier gameWin<hash> (see GameLauncher)
+    XCUIElement *gameWindow = [app.windows matchingPredicate:[NSPredicate predicateWithFormat:@"identifier BEGINSWITH 'gameWin'"]].firstMatch;
+    XCTAssert([self waitForElement:gameWindow toExistWithTimeout:30]);
+}
 
-    XCUIElementQuery *menuBarsQuery = app.menuBars;
+- (XCUIApplication *)relaunchWithGame:(NSString *)game environmentKey:(NSString *)key {
+    XCUIApplication *app = [UITests app];
 
-    [menuBarsQuery.menuBarItems[@"Window"] click];
-    [menuBarsQuery.menuItems[@"Interactive Fiction"] click];
+    NSURL *url = [testBundle URLForResource:game.stringByDeletingPathExtension
+                              withExtension:game.pathExtension
+                               subdirectory:nil];
+    XCTAssertNotNil(url, @"%@ is missing from the test bundle", game);
 
+    [app terminate];
+    app.launchEnvironment = @{ @"SPATTERLIGHT_TEST_STORE": @"UITests",
+                               @"SPATTERLIGHT_TEST_STORE_FRESH": @"1",
+                               key: url.path };
+    [app launch];
+
+    // The library window may have been closed when the app last quit
     XCUIElement *libraryWindow = app.windows[@"library"];
+    if (![self waitForElement:libraryWindow toExistWithTimeout:5]) {
+        [app.menuBars.menuBarItems[@"Window"] click];
+        [app.menuBars.menuItems[@"Interactive Fiction"] click];
+    }
+    return app;
+}
 
-    XCUIElement *searchField = libraryWindow.searchFields.firstMatch;
-    XCTAssert([self waitForElement:searchField toExistWithTimeout:5]);
-    XCUIElement *cancelButton = searchField.buttons[@"cancel"];
-    if (cancelButton.exists)
-        [cancelButton click];
-    [searchField click];
-    [searchField typeText:game];
-
-    XCUIElement *gamesTable = libraryWindow/*@START_MENU_TOKEN@*/.tables[@"Games"]/*[[".splitGroups[@\"SplitViewTotal\"]",".scrollViews.tables[@\"Games\"]",".tables[@\"Games\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/;
-    XCUIElement *textField = [[gamesTable.tableRows childrenMatchingType:XCUIElementTypeTextField] elementBoundByIndex:0];
-    return (textField.exists && textField.hittable);
++ (XCUIElement *)firstGameRowOf:(XCUIApplication *)app {
+    XCUIElement *gamesTable = app.windows[@"library"].tables[@"Games"];
+    return [[gamesTable.tableRows childrenMatchingType:XCUIElementTypeCell] elementBoundByIndex:0];
 }
 
 
@@ -2375,7 +2316,7 @@
     if (@available(macOS 10.15, iOS 13.0, tvOS 13.0, watchOS 7.0, *)) {
         // This measures how long it takes to launch your application.
         [self measureWithMetrics:@[[[XCTApplicationLaunchMetric alloc] init]] block:^{
-            [[[XCUIApplication alloc] init] launch];
+            [[UITests app] launch];
         }];
     }
 }

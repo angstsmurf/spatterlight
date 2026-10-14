@@ -170,12 +170,15 @@
         [self.coreDataManager saveChanges];
         BOOL forceQuit = self.forceQuitCheckBox.state == NSOnState;
 
-        CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
-        [index deleteSearchableItemsWithDomainIdentifiers:@[@"net.ccxvii.spatterlight"] completionHandler:^(NSError *blockerror){
-            if (blockerror) {
-                NSLog(@"Deleting all searchable items failed: %@", blockerror);
-            }
-        }];
+        // The Spotlight index holds the user's library, not a test store's
+        if (![CoreDataManager testStoreURL]) {
+            CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
+            [index deleteSearchableItemsWithDomainIdentifiers:@[@"net.ccxvii.spatterlight"] completionHandler:^(NSError *blockerror){
+                if (blockerror) {
+                    NSLog(@"Deleting all searchable items failed: %@", blockerror);
+                }
+            }];
+        }
 
         NSArray *entitiesToDelete = @[@"Metadata", @"Game", @"Ifid", @"Image"];
 

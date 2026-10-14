@@ -189,6 +189,8 @@
 
     [self updateTableViews];
 
+    [self addTestGames];
+
     _gameTableView.autosaveName = @"GameTable";
     NSString *key;
     for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
@@ -212,6 +214,61 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
             [InfoController closeStrayInfoWindows];
         });
+    });
+}
+
+//! The UI tests launch the app with SPATTERLIGHT_TEST_ADD_GAMES, a
+//! colon-separated list of game paths, to add games to their test library
+//! (see CoreDataManager +testStoreURL) without going through the open panel,
+//! and select them, or with SPATTERLIGHT_TEST_PLAY_GAME, the path of a game to
+//! add, select and start. Both are ignored on the user's own library.
++ (BOOL)launchedWithTestGames {
+    NSDictionary<NSString *, NSString *> *environment = NSProcessInfo.processInfo.environment;
+    return [CoreDataManager testStoreURL] &&
+    (environment[@"SPATTERLIGHT_TEST_PLAY_GAME"].length || environment[@"SPATTERLIGHT_TEST_ADD_GAMES"].length);
+}
+
+- (void)addTestGames {
+    static BOOL added = NO;
+    if (added || ![TableViewController launchedWithTestGames])
+        return;
+    added = YES;
+
+    NSDictionary<NSString *, NSString *> *environment = NSProcessInfo.processInfo.environment;
+
+    NSString *gameToPlay = environment[@"SPATTERLIGHT_TEST_PLAY_GAME"];
+    NSString *gamesToAdd = environment[@"SPATTERLIGHT_TEST_ADD_GAMES"];
+
+    // Not before the library window is up
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSMutableSet<Game *> *games = [NSMutableSet new];
+        for (NSString *path in [gamesToAdd componentsSeparatedByString:@":"]) {
+            if (!path.length)
+                continue;
+            Game *game = [self.gameLauncher importGame:path
+                                             inContext:self.managedObjectContext
+                                         reportFailure:YES
+                                                  hide:NO];
+            if (game)
+                [games addObject:game];
+        }
+        if (games.count) {
+            self.gameTableDirty = YES;
+            [self updateTableViews];
+            [self selectGames:games];
+        }
+
+        if (gameToPlay.length) {
+            Game *game = [self.gameLauncher importGame:gameToPlay
+                                             inContext:self.managedObjectContext
+                                         reportFailure:YES
+                                                  hide:NO];
+            if (game)
+                [self.gameLauncher selectAndPlayGame:game];
+        }
+
+        // Some tests relaunch the app on the same library
+        [self.coreDataManager saveChanges];
     });
 }
 

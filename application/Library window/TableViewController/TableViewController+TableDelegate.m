@@ -103,6 +103,12 @@ enum  {
             }
         }
 
+        // Keep the current selection rather than clearing it when none of
+        // the games are left, e.g. when the window restores a selection of
+        // games that have since been deleted.
+        if (!newSelection.count)
+            return;
+
         // If any of the games we want to select are filtered out by the
         // current search string, clear the search bar so they become
         // visible. This rebuilds gameTableModel synchronously, so the

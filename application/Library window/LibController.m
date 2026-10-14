@@ -298,6 +298,8 @@
 }
 
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
+    if ([TableViewController launchedWithTestGames])
+        return;
     NSString *searchText = [state decodeObjectOfClass:[NSString class] forKey:@"searchText"];
     if (searchText.length) {
         _searchField.stringValue = searchText;

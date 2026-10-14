@@ -287,7 +287,35 @@
     return _persistentStoreCoordinator;
 }
 
++ (nullable NSURL *)testStoreURL {
+    static NSURL *url = nil;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        NSDictionary<NSString *, NSString *> *environment = NSProcessInfo.processInfo.environment;
+        NSString *name = environment[@"SPATTERLIGHT_TEST_STORE"];
+        if (!name.length)
+            return;
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        NSURL *folder = [[NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES]
+                         URLByAppendingPathComponent:@"Spatterlight test stores" isDirectory:YES];
+        [fileManager createDirectoryAtURL:folder withIntermediateDirectories:YES attributes:nil error:NULL];
+        url = [folder URLByAppendingPathComponent:[name stringByAppendingPathExtension:@"storedata"] isDirectory:NO];
+        if ([environment[@"SPATTERLIGHT_TEST_STORE_FRESH"] isEqualToString:@"1"]) {
+            for (NSString *suffix in @[@"", @"-shm", @"-wal"])
+                [fileManager removeItemAtPath:[url.path stringByAppendingString:suffix] error:NULL];
+        }
+    });
+    return url;
+}
+
 - (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL * __autoreleasing *)groupURL{
+
+    NSURL *testStoreURL = [CoreDataManager testStoreURL];
+    if (testStoreURL) {
+        *needMigrate = NO;
+        *groupURL = testStoreURL;
+        return testStoreURL;
+    }
 
     NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
 
@@ -394,8 +422,10 @@
 
     // Under XCTest the app is only a host. Its Spotlight exporter cannot reach
     // the indexing helper there and floods the log with CDCS errors, and tests
-    // have no business re-indexing the user's library anyway.
-    BOOL runningTests = NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil;
+    // have no business re-indexing the user's library anyway. Nor do the UI
+    // tests, which run the app on a test store.
+    BOOL runningTests = NSProcessInfo.processInfo.environment[@"XCTestConfigurationFilePath"] != nil
+    || [CoreDataManager testStoreURL] != nil;
 
     if (@available(macOS 10.15, *)) {
         // History tracking stays on even under tests: the store has it, and

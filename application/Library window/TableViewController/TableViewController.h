@@ -61,6 +61,11 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)beginImporting;
 - (void)endImporting;
 
+//! Whether the UI tests launched the app with games to add to their library
+//! (see -addTestGames). The library window then does not restore its search
+//! text and selection from the last run, which would hide or deselect them.
++ (BOOL)launchedWithTestGames;
+
 // Forwarding methods to GameLauncher
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl;
 
