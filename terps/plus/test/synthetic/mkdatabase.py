@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 """Write games/rare-opcodes/SYNTH.DAT, a made-up database for the Plus
 interpreter that runs the action opcodes, system commands and condition
-guards no real game reaches (README.md has the list).
+guards no real game reaches (README.md has the list), and two variants of it
+for the plain text loader: games/loader-edges/EDGES.DAT, with an empty
+dictionary slot and a message too long to keep whole, and
+games/prefix-title/PREFIX.DAT, whose title is only the start of a known one.
 
-  mkdatabase.py           write the database
-  mkdatabase.py --check   fail if the one on disk is not what this writes
+  mkdatabase.py           write the databases
+  mkdatabase.py --check   fail if those on disk are not what this writes
 
 The format is that of the MS-DOS games (LoadDatabasePlaintext() in
 loaddatabase.c): text, one number or string per line. The loader only takes a
@@ -20,6 +23,10 @@ import sys
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "games", "rare-opcodes", "SYNTH.DAT")
+EDGES = os.path.join(HERE, "games", "loader-edges", "EDGES.DAT")
+PREFIX = os.path.join(HERE, "games", "prefix-title", "PREFIX.DAT")
+TITLE = "X-MEN "
+MAX_STRING_LENGTH = 1000       # of a string in the plain text loader
 MANIFEST = os.path.join(HERE, "games.manifest.tsv")
 
 CARRIED = 255
@@ -401,7 +408,7 @@ def dictionary(words):
     return ['",%s,"' % w for w in words]
 
 
-def database():
+def database(title=TITLE):
     room_lines = []            # first: the descriptions are messages too
     for exits, text in rooms:
         description = messages.index(msg(text) and text) + 76 if text else 0
@@ -410,7 +417,7 @@ def database():
     header = [len(items) - 1, 0, len(nouns) - 1, len(verbs) - 1, len(rooms) - 1,
               5, LAB, len(messages) - 1, 0, 0, len(preps) - 1, len(adverbs) - 1,
               len(actions) - 1, 0, 0, 0, 0, 0]
-    lines = ['"X-MEN ",' + ",".join(map(str, header))]
+    lines = ['"%s",' % title + ",".join(map(str, header))]
     for v, n, words, conds, commands in actions:
         numbers = [len(words) << 4 | len(commands) - 1, v, n] + words
         numbers += condition_numbers(conds) + commands
@@ -428,31 +435,58 @@ def database():
     return "\n".join(lines) + "\n"
 
 
-def manifest(text):
-    """The one row the script runner needs to find the database."""
-    digest = hashlib.sha256(text.encode("ascii")).hexdigest()
-    return ("# The database of the synthetic tests, written by mkdatabase.py.\n"
-            "# Columns as in ../images/games.manifest.tsv.\n"
-            "#\n"
-            "# id\tdir\tfile\tsha256\tkeys\tnote\n"
-            f"synthetic\trare-opcodes\tSYNTH.DAT\t{digest}\t\t"
-            "made-up database, loads as X-Men\n")
+def add_loader_edges():
+    """Turn the database into EDGES.DAT: the same, with two things added
+    at the end, so that what comes before keeps its numbers."""
+    # A verb group without words: the groups after it keep their numbers
+    verbs.append("")
+    pack(verb("LATER"), 0, [msg("LATER expect this line got it")])
+    # A message longer than the loader keeps: the rest is dropped, and the
+    # message after it is still read from the right place
+    long = "".join(str(n % 10) for n in range(MAX_STRING_LENGTH + 100))
+    test("LONG", msg(long), msg(f"LONG expect {MAX_STRING_LENGTH} digits above got this"))
+
+
+def manifest(rows):
+    """The rows the script runner needs to find the databases."""
+    lines = ["# The databases of the synthetic tests, written by mkdatabase.py.\n"
+             "# Columns as in ../images/games.manifest.tsv.\n"
+             "#\n"
+             "# id\tdir\tfile\tsha256\tkeys\tnote\n"]
+    for path, text, note in rows:
+        digest = hashlib.sha256(text.encode("ascii")).hexdigest()
+        folder = os.path.basename(os.path.dirname(path))
+        ident = "synthetic" if path == OUT else folder
+        lines.append(f"{ident}\t{folder}\t{os.path.basename(path)}\t{digest}\t\t{note}\n")
+    return "".join(lines)
 
 
 def main():
     text = database()
+    prefix = database(title=TITLE.rstrip()[:-1])
+    add_loader_edges()
+    edges = database()
+    rows = [(OUT, text, "made-up database, loads as X-Men"),
+            (EDGES, edges, "the same with an empty verb slot and a long message"),
+            (PREFIX, prefix, "the same titled with the start of X-Men's title: not loaded")]
+    files = [(path, want) for path, want, _ in rows] + [(MANIFEST, manifest(rows))]
     if sys.argv[1:] == ["--check"]:
-        for path, want in ((OUT, text), (MANIFEST, manifest(text))):
-            with open(path, encoding="ascii") as f:
-                if f.read() != want:
-                    sys.exit(f"{path} is out of date: run mkdatabase.py, "
-                             "then synthcheck with --bless")
+        for path, want in files:
+            try:
+                with open(path, encoding="ascii") as f:
+                    have = f.read()
+            except FileNotFoundError:
+                have = None
+            if have != want:
+                sys.exit(f"{path} is out of date: run mkdatabase.py, "
+                         "then synthcheck with --bless")
         return
-    with open(OUT, "w", encoding="ascii") as f:
-        f.write(text)
-    with open(MANIFEST, "w", encoding="ascii") as f:
-        f.write(manifest(text))
-    print(f"wrote {OUT}: {len(actions)} actions, {len(messages)} messages")
+    for path, want in files:
+        os.makedirs(os.path.dirname(path), exist_ok=True)
+        with open(path, "w", encoding="ascii") as f:
+            f.write(want)
+    print(f"wrote {OUT}: {len(actions)} actions, {len(messages)} messages, "
+          f"and its variants {EDGES} and {PREFIX}")
 
 
 if __name__ == "__main__":

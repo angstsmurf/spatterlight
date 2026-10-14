@@ -259,12 +259,12 @@ void LookForApple2Images(void)
     int created = 0;
 
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        uint32_t address = Rooms[i].Image;
+        uint32_t address = (uint32_t)Rooms[i].Exits[EXIT_IMAGE];
         int found = FindImage(0, created, NULL, address);
         if (found < 0 && AddImage(&created, address, 'R', i, 0))
             found = created - 1;
         if (found >= 0)
-            Rooms[i].Image = ImageNumberFromName(Images[found].Filename);
+            Rooms[i].Exits[EXIT_IMAGE] = ImageNumberFromName(Images[found].Filename);
     }
 
     int first_object = created;

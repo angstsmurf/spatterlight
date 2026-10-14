@@ -43,6 +43,7 @@ int DrawImageWithTypeAndNumber(char type, int index);
 void DrawOverlayImage(ImgType type, int index);
 void DrawObjectImages(int room, int location);
 char *ShortNameFromType(char type, int index);
+ImgType ImageTypeFromName(const char *name);
 int ImageNumberFromName(const char *name);
 void DrawBlack(void);
 void ShowApple2Screen(void);

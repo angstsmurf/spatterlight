@@ -16,15 +16,24 @@
 
 #include "glk.h"
 
+#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
+
 void Output(const char *string);
 void OpenGraphicsWindow(void);
 void CloseGraphicsWindow(void);
 void Updates(event_t ev);
-void Display(winid_t w, const char *fmt, ...)
+/* Lets the compiler check the arguments of a printf-style function: the
+   format string is argument fmt, the variable arguments start at first. */
 #ifdef __GNUC__
-    __attribute__((__format__(__printf__, 2, 3)))
+#define PLUS_PRINTF(fmt, first) __attribute__((__format__(__printf__, fmt, first)))
+#else
+#define PLUS_PRINTF(fmt, first)
 #endif
-    ;
+
+/* A printf-style function that prints somewhere */
+typedef void (*PrintFunction)(const char *fmt, ...);
+
+void Display(winid_t w, const char *fmt, ...) PLUS_PRINTF(2, 3);
 
 void SetBit(int bit);
 void ResetBit(int bit);

@@ -69,7 +69,9 @@ typedef struct {
     int totalsectors;
 } MsaImageInfo;
 
-static void ReadMsaImageInfo(MsaImageInfo *msa_image_info, uint8_t *msa_image)
+/* Read the header of an MSA image. Returns 0 if it does not describe a
+   floppy we could expect. */
+static int ReadMsaImageInfo(MsaImageInfo *msa_image_info, uint8_t *msa_image)
 {
     msa_image += 2;
     msa_image_info->sectorsize = 512;
@@ -78,59 +80,72 @@ static void ReadMsaImageInfo(MsaImageInfo *msa_image_info, uint8_t *msa_image)
     msa_image_info->starttrack = READ_BE_UINT16_AND_ADVANCE(&msa_image);
     msa_image_info->endtrack = READ_BE_UINT16_AND_ADVANCE(&msa_image);
     msa_image_info->numtracks = msa_image_info->endtrack + 1;
+    if (msa_image_info->sectors_per_track < 1 || msa_image_info->sectors_per_track > 64 ||
+        msa_image_info->numheads > 2 || msa_image_info->starttrack > msa_image_info->endtrack ||
+        msa_image_info->numtracks > 100)
+        return 0;
     msa_image_info->totalsectors = msa_image_info->numtracks * msa_image_info->sectors_per_track * msa_image_info->numheads;
+    return 1;
 }
 
-static uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t *newsize)
+/* Unpack an MSA image of size bytes into a raw disk image of *newsize
+   bytes. Each track is either stored as it is or run-length encoded with
+   0xe5 as the escape byte. Returns NULL if the data does not fit its own
+   header. */
+static uint8_t *DecodeMsaImageToRawImage(uint8_t *msa_image, size_t size, size_t *newsize)
 {
     MsaImageInfo msa_image_info;
 
-    ReadMsaImageInfo(&msa_image_info, msa_image);
+    if (size < 10 || !ReadMsaImageInfo(&msa_image_info, msa_image))
+        return NULL;
+    size_t tracksize = (size_t)msa_image_info.sectors_per_track * msa_image_info.sectorsize;
     *newsize = msa_image_info.totalsectors * msa_image_info.sectorsize;
-    uint8_t *raw_image = MemAlloc(*newsize);
+    uint8_t *raw_image = MemCalloc(*newsize);
 
     uint8_t *msa_pointer = msa_image + 10;
-    uint8_t *raw_pointer = raw_image + msa_image_info.starttrack * msa_image_info.sectors_per_track * msa_image_info.numheads * msa_image_info.sectorsize;
-    uint8_t *end_pointer;
-    int trackindex;
-    int headindex;
-    int numbytes;
-    uint8_t msa_data;
-    uint8_t rle_data;
-    int rle_count;
+    uint8_t *msa_end = msa_image + size;
 
-    for (trackindex = msa_image_info.starttrack; trackindex <= msa_image_info.endtrack; trackindex++) {
-        for (headindex = 0; headindex < msa_image_info.numheads; headindex++) {
-            numbytes = READ_BE_UINT16_AND_ADVANCE(&msa_pointer);
+    for (int trackindex = msa_image_info.starttrack; trackindex <= msa_image_info.endtrack; trackindex++) {
+        for (int headindex = 0; headindex < msa_image_info.numheads; headindex++) {
+            uint8_t *raw_pointer = raw_image + ((size_t)trackindex * msa_image_info.numheads + headindex) * tracksize;
+            uint8_t *raw_end = raw_pointer + tracksize;
 
-            if (numbytes < msa_image_info.sectors_per_track * msa_image_info.sectorsize) {
-                end_pointer = msa_pointer + numbytes;
+            if (msa_end - msa_pointer < 2)
+                goto bad;
+            size_t numbytes = READ_BE_UINT16_AND_ADVANCE(&msa_pointer);
+            if (numbytes > (size_t)(msa_end - msa_pointer))
+                goto bad;
+            uint8_t *end_pointer = msa_pointer + numbytes;
 
+            if (numbytes < tracksize) {
                 while (msa_pointer < end_pointer) {
-                    msa_data = *msa_pointer++;
+                    uint8_t msa_data = *msa_pointer++;
+                    size_t rle_count = 1;
 
-                    if (msa_data != 0xe5) {
-                        *raw_pointer++ = msa_data;
-                    } else {
-                        rle_data = *msa_pointer++;
+                    if (msa_data == 0xe5) {
+                        if (end_pointer - msa_pointer < 3)
+                            goto bad;
+                        msa_data = *msa_pointer++;
                         rle_count = READ_BE_UINT16_AND_ADVANCE(&msa_pointer);
-
-                        while (rle_count) {
-                            *raw_pointer++ = rle_data;
-                            rle_count--;
-                        }
                     }
+                    if (rle_count > (size_t)(raw_end - raw_pointer))
+                        goto bad;
+                    memset(raw_pointer, msa_data, rle_count);
+                    raw_pointer += rle_count;
                 }
             } else {
-                while (numbytes > 0) {
-                    *raw_pointer++ = *msa_pointer++;
-                    numbytes--;
-                }
+                memcpy(raw_pointer, msa_pointer, tracksize);
+                msa_pointer = end_pointer;
             }
         }
     }
 
     return raw_image;
+
+bad:
+    debug_print("DecodeMsaImageToRawImage: damaged MSA image\n");
+    free(raw_image);
+    return NULL;
 }
 
 /* Size of a FAT directory entry on disk */
@@ -190,7 +205,7 @@ static msdos_dir_entry *ReadFAT12DirEntry(uint8_t **pointer)
     dir->date = READ_LE_UINT16_AND_ADVANCE(&ptr);
     dir->start = READ_LE_UINT16_AND_ADVANCE(&ptr);
     dir->size = READ_LE_UINT16_AND_ADVANCE(&ptr);
-    dir->size += (READ_LE_UINT16_AND_ADVANCE(&ptr) << 16);
+    dir->size += ((uint32_t)READ_LE_UINT16_AND_ADVANCE(&ptr) << 16);
     *pointer = ptr;
     return dir;
 }
@@ -221,20 +236,12 @@ static uint32_t get_next_cluster12(const uint8_t *sf, size_t disksize, uint32_t 
         new_clust = (fat_hi << 8) | fat_lo;
     }
     // for FAT12, the valid entries are between 0x2 and 0xfef.
-    if ((new_clust > 0x02) && (new_clust < 0xfef)) {
+    if ((new_clust >= 0x02) && (new_clust <= 0xfef)) {
         return new_clust;
     }
     return 0;
 }
 
-/* Byte offset of a cluster in the disk image. Cluster numbering starts
-   at 2, at the beginning of the data section after the FATs and the root
-   directory. */
-static size_t ClusterOffset(uint32_t cluster)
-{
-    size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * DIR_ENTRY_SIZE / boot.sector_size);
-    return (datasection + (size_t)(cluster - 2) * boot.sec_per_clus) * boot.sector_size;
-}
 
 /* The most pictures we take from one disk */
 #define MAX_ST_IMAGES 100
@@ -250,7 +257,22 @@ typedef struct {
     int numimgs;
     uint8_t *database; /* The contents of the file DATABASE, or NULL */
     size_t databasesize;
+    size_t entries_left; /* Directory entries we may still read */
 } STScan;
+
+/* The length bytes of a cluster in the disk image, or NULL if they are not
+   all on the disk. Cluster numbering starts at 2, at the beginning of the
+   data section after the FATs and the root directory. */
+static uint8_t *ClusterData(const STScan *scan, uint32_t cluster, size_t length)
+{
+    if (cluster < 2)
+        return NULL;
+    size_t datasection = boot.reserved + boot.fats * boot.fat_length + (boot.dir_entries * DIR_ENTRY_SIZE / boot.sector_size);
+    size_t offset = (datasection + (size_t)(cluster - 2) * boot.sec_per_clus) * boot.sector_size;
+    if (offset > scan->disksize || length > scan->disksize - offset)
+        return NULL;
+    return scan->disk + offset;
+}
 
 /* Read a file into a new buffer of dir->size bytes, by following its
    cluster chain. What is not on the disk is left as zeros. */
@@ -262,10 +284,10 @@ static uint8_t *GetFile(const STScan *scan, const msdos_dir_entry *dir)
     uint32_t cluster = dir->start;
     while (offset < dir->size && cluster) {
         size_t bytestoread = MIN(bytespercluster, dir->size - offset);
-        size_t clusteroffset = ClusterOffset(cluster);
-        if (clusteroffset + bytestoread > scan->disksize)
+        uint8_t *data = ClusterData(scan, cluster, bytestoread);
+        if (data == NULL)
             break;
-        memcpy(result + offset, scan->disk + clusteroffset, bytestoread);
+        memcpy(result + offset, data, bytestoread);
         offset += bytestoread;
         cluster = get_next_cluster12(scan->disk, scan->disksize, cluster);
     }
@@ -276,11 +298,14 @@ static uint8_t *GetFile(const STScan *scan, const msdos_dir_entry *dir)
 /* Read the directory entry at ptr and take note of it in scan if it is
    the game database or a picture. A subdirectory is walked through in
    turn. Returns a pointer to the next entry, or NULL if this was the
-   end of the directory. */
+   end of the directory. No more entries are read than the disk can hold,
+   which ends the walk on a damaged disk whose cluster chains or
+   directories go round in circles. */
 static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, STScan *scan, int depth)
 {
-    if (ptr < scan->disk || (size_t)(ptr - scan->disk) + DIR_ENTRY_SIZE > scan->disksize)
+    if (ptr == NULL || (size_t)(ptr - scan->disk) + DIR_ENTRY_SIZE > scan->disksize || scan->entries_left == 0)
         return NULL;
+    scan->entries_left--;
     msdos_dir_entry *dir = ReadFAT12DirEntry(&ptr);
     if (dir->name[0] == 0) {
         free(dir);
@@ -292,7 +317,9 @@ static uint8_t *ReadDirEntryRecursive(uint8_t *ptr, STScan *scan, int depth)
         int lastfound = (depth >= MAX_DIR_DEPTH);
         size_t entries_per_cluster = (size_t)boot.sector_size * boot.sec_per_clus / DIR_ENTRY_SIZE;
         while (cluster && !lastfound) {
-            uint8_t *subdirentry = scan->disk + ClusterOffset(cluster);
+            uint8_t *subdirentry = ClusterData(scan, cluster, entries_per_cluster * DIR_ENTRY_SIZE);
+            if (subdirentry == NULL)
+                break;
             for (size_t i = 0; i < entries_per_cluster; i++) {
                 subdirentry = ReadDirEntryRecursive(subdirentry, scan, depth + 1);
                 if (subdirentry == NULL) {
@@ -328,9 +355,13 @@ int DetectST(uint8_t **sf, size_t *extent)
         return 0;
 
     if ((*sf)[0] == 0x0e && (*sf)[1] == 0x0f) {
-        uint8_t *raw = DecodeMsaImageToRawImage(*sf, extent);
+        size_t rawsize;
+        uint8_t *raw = DecodeMsaImageToRawImage(*sf, *extent, &rawsize);
+        if (raw == NULL)
+            return 0;
         free(*sf);
         *sf = raw;
+        *extent = rawsize;
     }
 
     if (!ReadFAT12BootSector(*sf, *extent))
@@ -340,6 +371,7 @@ int DetectST(uint8_t **sf, size_t *extent)
     STScan *scan = MemCalloc(sizeof(STScan));
     scan->disk = *sf;
     scan->disksize = *extent;
+    scan->entries_left = *extent / DIR_ENTRY_SIZE;
 
     uint8_t *ptr = *sf + RootDirOffset();
     for (int i = 0; i < boot.dir_entries; i++) {

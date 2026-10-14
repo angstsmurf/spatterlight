@@ -17,16 +17,17 @@
 #include "read_le16.h"
 #include "dumpactions.h"
 #include "loaddatabase.h"
+#include "opcodes.h"
 #include "apple2detect.h"
 
 Synonym *Substitutions;
-static uint8_t *MysteryValues;
 
 /* Reads a complete line from the plaintext database, stripping surrounding
    quote marks. Used to read comment/annotation lines that follow the main
-   game data. Returns NULL on EOF, or an empty string for empty quoted lines.
-   Non-ASCII characters are replaced with '?'. */
-static const char *ReadWholeLine(FILE *f)
+   game data. Returns NULL on EOF, or else an allocated string, empty for an
+   empty quoted line. Non-ASCII characters are replaced with '?', and what
+   does not fit in 1023 characters is dropped. */
+static char *ReadWholeLine(FILE *f)
 {
     char tmp[1024];
     int c;
@@ -40,7 +41,7 @@ static const char *ReadWholeLine(FILE *f)
         if (c == '"') {
             c = fgetc(f);
             if (c == '"')
-                return "\0";
+                return MemCalloc(1);
             break;
         }
     } while (isspace((unsigned char)c));
@@ -51,10 +52,8 @@ static const char *ReadWholeLine(FILE *f)
          * would be to pass Latin-1, but it's probably safe to
          * assume that Scott Adams games are ASCII only.
          */
-        if (c >= 32 && c <= 126)
-            tmp[ct++] = c;
-        else
-            tmp[ct++] = '?';
+        if (ct < (int)sizeof tmp - 1)
+            tmp[ct++] = (c >= 32 && c <= 126) ? c : '?';
         c = fgetc(f);
     }
 
@@ -72,7 +71,7 @@ static const char *ReadWholeLine(FILE *f)
     else if (ct > 1)
         ct--;
     else
-        return "\0";
+        return MemCalloc(1);
 
     tmp[ct] = 0;
     char *t = MemAlloc(ct + 1);
@@ -86,25 +85,30 @@ static const char *ReadWholeLine(FILE *f)
    double quotes. Non-ASCII characters are replaced with '?', and bare CR
    characters are stripped (assumed to be part of CRLF line endings).
    Returns the allocated string and sets *length to its size including the
-   null terminator. */
-static char *ReadString(FILE *f, size_t *length)
+   null terminator, or returns NULL if the file ends first. */
+#define MAX_STRING_LENGTH 1000
+
+static char *ReadQuoted(FILE *f, size_t *length)
 {
-    char tmp[1024];
+    char tmp[MAX_STRING_LENGTH + 1];
     int c;
     int ct = 0;
+    int cut_short = 0;
 
     /* Skip everything until the opening quote */
     do {
         c = fgetc(f);
         if (c == EOF)
-            Fatal("EOF before string");
+            return NULL;
     } while (c != '"');
 
-    /* Read string contents until the closing quote */
-    do {
+    /* Read string contents until the closing quote. What does not fit in
+       MAX_STRING_LENGTH is dropped, but read, so that the next field starts
+       in the right place. */
+    for (;;) {
         c = fgetc(f);
         if (c == EOF)
-            Fatal("EOF in string");
+            return NULL;
         /* A pair of consecutive quotes is an escaped literal quote;
            a single quote followed by something else ends the string */
         if (c == '"') {
@@ -117,23 +121,24 @@ static char *ReadString(FILE *f, size_t *length)
         if (c == '`')
             c = '"';
 
-        /* Ensure a valid Glk newline is sent. */
-        if (c == '\n')
-            tmp[ct++] = 10;
         /* Special case: assume CR is part of CRLF in a
          * DOS-formatted file, and ignore it.
          */
-        else if (c == 13)
-            ;
-        /* Pass only ASCII to Glk; the other reasonable option
-         * would be to pass Latin-1, but it's probably safe to
-         * assume that Scott Adams games are ASCII only.
+        if (c == 13)
+            continue;
+        /* Pass only ASCII to Glk, and a newline as a Glk newline; the
+         * other reasonable option would be to pass Latin-1, but it's
+         * probably safe to assume that Scott Adams games are ASCII only.
          */
-        else if (c >= 32 && c <= 126)
+        if (c != '\n' && (c < 32 || c > 126))
+            c = '?';
+        if (ct < MAX_STRING_LENGTH)
             tmp[ct++] = c;
         else
-            tmp[ct++] = '?';
-    } while (ct < 1000);
+            cut_short = 1;
+    }
+    if (cut_short)
+        debug_print("ReadString: string longer than %d characters cut short\n", MAX_STRING_LENGTH);
 
     tmp[ct] = 0;
     *length = ct + 1;
@@ -142,13 +147,43 @@ static char *ReadString(FILE *f, size_t *length)
     return t;
 }
 
-#define MAX_DICT_ENTRIES 1024
-#define MAX_SYNONYMS 1024
+/* ReadQuoted for the sections after the title, where the end of the file
+   means a damaged database of a known game. */
+static char *ReadString(FILE *f, size_t *length)
+{
+    char *t = ReadQuoted(f, length);
+    if (t == NULL)
+        Fatal("EOF in string");
+    return t;
+}
+
+/* Makes room in a growing array for element number index (and the
+   sentinel after it), doubling its capacity as needed. New elements are
+   zeroed. */
+static void *GrowArray(void *array, int *capacity, int index, size_t elemsize)
+{
+    if (array != NULL && index + 1 < *capacity)
+        return array;
+    int old = array == NULL ? 0 : *capacity;
+    int newcapacity = old == 0 ? 64 : old * 2;
+    while (index + 1 >= newcapacity)
+        newcapacity *= 2;
+    array = MemRealloc(array, (size_t)newcapacity * elemsize);
+    memset((char *)array + (size_t)old * elemsize, 0, (size_t)(newcapacity - old) * elemsize);
+    *capacity = newcapacity;
+    return array;
+}
+
+/* A dictionary while it is read: words, a NULL Word sentinel after them */
+typedef struct {
+    DictWord *words;
+    int count;
+    int capacity;
+} DictBuilder;
 
 /* Splits one comma-separated dictionary string into individual words and
-   appends them, tagged with group, to dict starting at *index. The string
-   is modified in place. */
-static void ParseDictString(char *str, size_t length, int group, DictWord *dict, int *index)
+   appends them, tagged with group, to db. The string is modified in place. */
+static void ParseDictString(char *str, size_t length, int group, DictBuilder *db)
 {
     int lastcomma = 0;
     int commapos = 0;
@@ -163,25 +198,25 @@ static void ParseDictString(char *str, size_t length, int group, DictWord *dict,
         }
 
         int seglen = commapos - lastcomma;
-        if (seglen > 0 && *index < MAX_DICT_ENTRIES - 1) {
-            dict[*index].Word = MemAlloc(seglen);
-            memcpy(dict[*index].Word, &str[lastcomma + 1], seglen);
-            dict[*index].Group = group;
-            debug_print("Dictword %d: %s (%d)\n", *index, dict[*index].Word, group);
-            (*index)++;
+        if (seglen > 0) {
+            db->words = GrowArray(db->words, &db->capacity, db->count, sizeof(DictWord));
+            DictWord *entry = &db->words[db->count];
+            entry->Word = MemAlloc(seglen);
+            memcpy(entry->Word, &str[lastcomma + 1], seglen);
+            entry->Group = group;
+            debug_print("Dictword %d: %s (%d)\n", db->count, entry->Word, group);
+            db->count++;
         }
         lastcomma = commapos;
     }
 }
 
-/* Terminates the stack-built dictionary and copies it to a right-sized
-   heap allocation. */
-static DictWord *FinishDictionary(DictWord *dictionary, int index, int loud)
+/* Returns the dictionary, terminated by a NULL Word sentinel. */
+static DictWord *FinishDictionary(DictBuilder *db, int loud)
 {
-    dictionary[index].Word = NULL;
-    size_t dictsize = (index + 1) * sizeof(DictWord);
-    DictWord *finaldict = MemAlloc(dictsize);
-    memcpy(finaldict, dictionary, dictsize);
+    db->words = GrowArray(db->words, &db->capacity, db->count, sizeof(DictWord));
+    DictWord *finaldict = db->words;
+    finaldict[db->count].Word = NULL;
 
     if (loud)
         for (int j = 0; finaldict[j].Word != NULL; j++)
@@ -194,30 +229,28 @@ static DictWord *FinishDictionary(DictWord *dictionary, int index, int loud)
    the file contains comma-separated words that belong to the same synonym
    group (e.g. "GET,TAKE,GRAB,"). Words within a group are interchangeable.
    The group number increments with each string read from the file.
-   Builds the dictionary in a stack buffer, then copies to a heap-allocated
-   array terminated by a NULL Word sentinel. */
+   Returns an array terminated by a NULL Word sentinel. */
 static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
 {
-    DictWord dictionary[MAX_DICT_ENTRIES];
-    int group = 0;
-    int index = 0;
+    DictBuilder db = { NULL, 0, 0 };
 
-    for (int i = 0; i < numstrings; i++) {
+    /* Each string is one group of synonyms, numbered by its place. An
+       empty string is a group without words. (The empty strings of the
+       binary format are padding and are not counted, see ReadDictWords.) */
+    for (int group = 0; group < numstrings; group++) {
         size_t length;
         char *str = ReadString(f, &length);
-        if (str == NULL || str[0] == '\0')
-            continue;
-        ParseDictString(str, length, group, dictionary, &index);
+        ParseDictString(str, length, group, &db);
         free(str);
-        group++;
     }
 
-    return FinishDictionary(dictionary, index, loud);
+    return FinishDictionary(&db, loud);
 }
 
 /* Accumulates synonym entries while a substitution section is parsed. */
 typedef struct {
-    Synonym syn[MAX_SYNONYMS];
+    Synonym *syn;
+    int capacity;
     char *replace;
     int index;
     int firstsyn;
@@ -259,7 +292,8 @@ static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int
             }
         } else {
             int seglen = commapos - lastcomma;
-            if (seglen > 0 && sb->index < MAX_SYNONYMS - 1) {
+            if (seglen > 0) {
+                sb->syn = GrowArray(sb->syn, &sb->capacity, sb->index, sizeof(Synonym));
                 Synonym *entry = &sb->syn[sb->index];
                 entry->SynonymString = MemAlloc(seglen);
                 memcpy(entry->SynonymString, &str[lastcomma + 1], seglen);
@@ -285,16 +319,14 @@ static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int
     }
 }
 
-/* Terminates the builder's list and copies it to a right-sized heap array. */
+/* Returns the builder's list, terminated by a NULL SynonymString. */
 static Synonym *FinishSynonyms(SynonymBuilder *sb, int loud)
 {
     free(sb->replace);
     sb->replace = NULL;
-    sb->syn[sb->index].SynonymString = NULL;
-
-    size_t synsize = (sb->index + 1) * sizeof(Synonym);
-    Synonym *finalsyns = MemAlloc(synsize);
-    memcpy(finalsyns, sb->syn, synsize);
+    sb->syn = GrowArray(sb->syn, &sb->capacity, sb->index, sizeof(Synonym));
+    Synonym *finalsyns = sb->syn;
+    finalsyns[sb->index].SynonymString = NULL;
 
     if (loud)
         for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
@@ -307,19 +339,20 @@ static Synonym *FinishSynonyms(SynonymBuilder *sb, int loud)
    Each string contains comma-separated tokens. An '=' prefix marks the next
    token as a replacement string; all preceding synonym strings in the current
    group are mapped to that replacement. For example, the string
-   ",HELLO,HI,=,GREET," means both "HELLO" and "HI" expand to "GREET".
-   Builds entries in a stack buffer, then copies to the heap. */
+   ",HELLO,HI,=,GREET," means both "HELLO" and "HI" expand to "GREET". */
 static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
 {
-    SynonymBuilder sb = { .replace = NULL, .index = 0, .firstsyn = 0 };
+    SynonymBuilder sb = { .syn = NULL, .replace = NULL, .index = 0, .firstsyn = 0 };
 
     for (int i = 0; i < numstrings; i++) {
         size_t length;
         char *str = ReadString(f, &length);
         if (loud)
             debug_print("Read synonym string \"%s\"\n", str);
-        if (str == NULL || str[0] == '\0')
+        if (str[0] == '\0') {
+            free(str);
             continue;
+        }
         ParseSynonymString(&sb, str, length, loud);
         free(str);
     }
@@ -348,7 +381,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
    as the plaintext version. Advances *startpointer past the consumed data. */
 static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, int loud)
 {
-    SynonymBuilder sb = { .replace = NULL, .index = 0, .firstsyn = 0 };
+    SynonymBuilder sb = { .syn = NULL, .replace = NULL, .index = 0, .firstsyn = 0 };
     uint8_t *ptr = *startpointer;
 
     for (int i = 0; i < numstrings; i++) {
@@ -381,23 +414,20 @@ static char **Comments;
    terminated array is stored in the global Comments pointer. */
 static void ReadComments(FILE *f, int loud)
 {
-    const char *strings[1024];
-    int count = 0;
+    char **strings = NULL;
+    int count = 0, capacity = 0;
 
-    const char *comment;
-    while ((comment = ReadWholeLine(f)) != NULL && count < 1024)
-        strings[count++] = comment;
-
-    if (count == 0)
-        return;
-
-    Comments = MemAlloc((count + 1) * sizeof(char *));
-    for (int i = 0; i < count; i++) {
-        Comments[i] = (char *)strings[i];
+    char *comment;
+    while ((comment = ReadWholeLine(f)) != NULL) {
+        strings = GrowArray(strings, &capacity, count, sizeof(char *));
+        strings[count] = comment;
         if (loud)
-            debug_print("Comment %d:\"%s\"\n", i, Comments[i]);
+            debug_print("Comment %d:\"%s\"\n", count, comment);
+        count++;
     }
-    Comments[count] = NULL;
+
+    /* GrowArray leaves a NULL after the last one */
+    Comments = strings;
 }
 
 /* Reads a single numeric value from the plaintext database.
@@ -542,15 +572,52 @@ static void SetCountersFromHeader(void)
     SetBit(GRAPHICSBIT); // Graphics on
 }
 
-/* Look up each room's description text: Exits[6] holds a message index
-   offset by 76, or 0 for no description. Call after loading Messages. */
+/* Allocates the item, room and object image tables for GameHeader, zeroed
+   so that FreeGameData can free a half-filled one. */
+static void AllocateTables(void)
+{
+    Items = MemCalloc(sizeof(Item) * (GameHeader.NumItems + 1));
+    Rooms = MemCalloc(sizeof(Room) * (GameHeader.NumRooms + 1));
+    ObjectImages = MemCalloc(sizeof(ObjectImage) * (GameHeader.NumObjImg + 1));
+}
+
+/* Whether every object picture is of an item that exists: the picture
+   code looks the item up to see whether it is in the room. (Object is
+   unsigned, so a negative number in a plain text database is caught as a
+   large one.) */
+static int ObjectImageItemsValid(void)
+{
+    for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
+        if (ObjectImages[ct].Object > (uint32_t)GameHeader.NumItems) {
+            debug_print("Object image %d is of item %u, which does not exist\n", ct, ObjectImages[ct].Object);
+            return 0;
+        }
+    return 1;
+}
+
+/* An item's noun word, which the databases store as 16 bits. Item.Dictword
+   (like DictWord.Group) is 8 bits: no game has more than 96 noun groups.
+   A larger value can only come from a broken database, and means no noun. */
+static uint8_t ItemNounWord(int word, int item)
+{
+    if (word < 0 || word > UINT8_MAX) {
+        debug_print("Item %d has a noun word out of range (%d)\n", item, word);
+        return 0;
+    }
+    return (uint8_t)word;
+}
+
+/* Look up each room's description text: the EXIT_DESCRIPTION column holds
+   the message as a long message command number, or 0 for no description.
+   Call after loading Messages. */
 static void SetRoomDescriptions(int loud)
 {
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
-        if (Rooms[i].Exits[6] == 0)
+        int message = Rooms[i].Exits[EXIT_DESCRIPTION] - LONG_MESSAGE_OFFSET;
+        if (Rooms[i].Exits[EXIT_DESCRIPTION] == 0 || message < 0 || message > GameHeader.NumMessages)
             Rooms[i].Text = "";
         else
-            Rooms[i].Text = Messages[Rooms[i].Exits[6] - 76];
+            Rooms[i].Text = Messages[message];
         if (loud)
             debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
     }
@@ -559,10 +626,12 @@ static void SetRoomDescriptions(int loud)
 /* Matches the game's title/ID string against the known games database.
    Sets the global Game pointer on success. Returns 1 if a match was found,
    0 if the game is unrecognized. */
-static int SetGame(const char *id_string, size_t length)
+/* The title must be the whole ID string: a damaged database whose title
+   is empty or cut short is not one of the games. */
+static int SetGame(const char *id_string)
 {
     for (int i = 0; games[i].title != NULL; i++)
-        if (strncmp(id_string, games[i].ID_string, length) == 0) {
+        if (strcmp(id_string, games[i].ID_string) == 0) {
             Game = &games[i];
             return 1;
         }
@@ -610,8 +679,6 @@ static void FreeGameData(void)
     Rooms = NULL;
     free(ObjectImages);
     ObjectImages = NULL;
-    free(MysteryValues);
-    MysteryValues = NULL;
 
     FreeDictionary(&Verbs);
     FreeDictionary(&Nouns);
@@ -649,7 +716,7 @@ int FindAndAddImageFile(const char *shortname, imgrec *rec)
     if (n > 0) {
         rec->Data = ReadFileIfExists(filename, &rec->Size);
         if (rec->Data == NULL) {
-            fprintf(stderr, "Could not find or read image file %s\n", filename);
+            debug_print("Could not find or read image file %s\n", filename);
         } else {
             size_t namelen = strlen(shortname) + 1;
             rec->Filename = MemAlloc(namelen);
@@ -660,6 +727,40 @@ int FindAndAddImageFile(const char *shortname, imgrec *rec)
     }
     free(filename);
     return result;
+}
+
+/* Builds the image list of an MS-DOS game from the .PAK files next to the
+   database. Images are organized in three groups: room images ('R'),
+   item/object images ('B'), and special images ('S'), each numbered from 0.
+   The games list how many of each there can be; the missing ones are
+   skipped. */
+static void BuildPakImageList(void)
+{
+    const struct {
+        char type;
+        int count;
+    } groups[] = {
+        { 'R', Game->no_of_room_images },
+        { 'B', Game->no_of_item_images },
+        { 'S', Game->no_of_special_images },
+    };
+
+    int numimages = 0;
+    for (size_t g = 0; g < ARRAY_SIZE(groups); g++)
+        numimages += groups[g].count;
+
+    Images = NewImageList(numimages);
+    debug_print("\nTotal number of images:%d\n", numimages);
+
+    int recidx = 0;
+    for (size_t g = 0; g < ARRAY_SIZE(groups); g++)
+        for (int imgidx = 0; imgidx < groups[g].count; imgidx++) {
+            char *shortname = ShortNameFromType(groups[g].type, imgidx);
+            if (FindAndAddImageFile(shortname, &Images[recidx]))
+                recidx++;
+            free(shortname);
+        }
+    Images[recidx].Filename = NULL;
 }
 
 /* Loads a game database from a plaintext (DOS/PC) format file. The plaintext
@@ -680,9 +781,9 @@ int LoadDatabasePlaintext(FILE *f, int loud)
 
     /* The title string comes first and identifies which game this is */
     size_t length;
-    char *title = ReadString(f, &length);
+    char *title = ReadQuoted(f, &length);
 
-    if (!SetGame(title, length)) {
+    if (title == NULL || !SetGame(title)) {
         free(title);
         return UNKNOWN_GAME;
     }
@@ -711,12 +812,9 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     int num_obj_img = GameHeader.NumObjImg;
     int unknown2 = GameHeader.Unknown2;
 
-    Items = (Item *)MemCalloc(sizeof(Item) * (num_items + 1));
-    Actions = (Action *)MemCalloc(sizeof(Action) * (num_actions + 1));
-    Rooms = (Room *)MemAlloc(sizeof(Room) * (num_rooms + 1));
+    AllocateTables();
+    Actions = MemCalloc(sizeof(Action) * (num_actions + 1));
     Messages = MemCalloc(sizeof(char *) * (num_messages + 1));
-    ObjectImages = (ObjectImage *)MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
-    MysteryValues = MemAlloc(unknown2 + 1);
 
     SetCountersFromHeader();
 
@@ -744,15 +842,15 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         debug_print("Reading %d nouns.\n", GameHeader.NumNouns);
     Nouns = ReadDictWordsPC(f, GameHeader.NumNouns + 1, loud);
 
-    /* Load room exit tables: 6 compass directions + Exits[6] (message index
-       for the room description, offset by 76) + Image (room image index) */
+    /* Load the room table: 6 compass directions, the description message
+       and the room image (see NUM_EXIT_COLUMNS) */
     rp = Rooms;
     if (loud)
         debug_print("Reading %d rooms.\n", num_rooms);
     for (ct = 0; ct < num_rooms + 1; ct++) {
         if (fscanf(f, "%d,%d,%d,%d,%d,%d,%d,%d\n", &rp->Exits[0], &rp->Exits[1],
                 &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
-                &rp->Exits[5], &rp->Exits[6], &rp->Image)
+                &rp->Exits[5], &rp->Exits[EXIT_DESCRIPTION], &rp->Exits[EXIT_IMAGE])
             != 8) {
             debug_print("Bad room line (%d)\n", ct);
             FreeGameData();
@@ -788,8 +886,9 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             FreeGameData();
             return UNKNOWN_GAME;
         }
-        ip->Location = (uint8_t)loc;
-        ip->Dictword = (uint8_t)dictword;
+        /* -1 is carried; the location is 16 bits, as in the binary files */
+        ip->Location = loc == -1 ? CARRIED : (uint16_t)loc;
+        ip->Dictword = ItemNounWord(dictword, ct);
         ip->Flag = (uint16_t)flag;
         if (loud && (ip->Location == CARRIED || ip->Location <= GameHeader.NumRooms))
             debug_print("Location of item %d: %d, \"%s\"\n", ct, ip->Location,
@@ -828,13 +927,17 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         }
         objimg++;
     }
-
-    /* Load unknown/mystery values — their purpose is not yet understood */
-    if (loud)
-        debug_print("Reading %d unknown values.\n", unknown2 + 1);
-    for (ct = 0; ct < unknown2 + 1; ct++) {
-        MysteryValues[ct] = ReadNum(f);
+    if (!ObjectImageItemsValid()) {
+        FreeGameData();
+        return UNKNOWN_GAME;
     }
+
+    /* Skip the values of the header's Unknown2 field: their purpose is not
+       known, and the binary databases do not have them */
+    if (loud)
+        debug_print("Skipping %d unknown values.\n", unknown2 + 1);
+    for (ct = 0; ct < unknown2 + 1; ct++)
+        ReadNum(f);
 
     /* Load action comments (human-readable annotations) */
     ReadComments(f, loud);
@@ -848,32 +951,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     }
     fclose(f);
 
-    /* Build the image file table by looking for .PAK files on disk.
-       Images are organized in three groups: room images ('R'), item/object
-       images ('B'), and special images ('S'), each numbered from 0. */
-    int numimages = Game->no_of_room_images + Game->no_of_item_images + Game->no_of_special_images;
-
-    Images = NewImageList(numimages);
-    debug_print("\nTotal number of images:%d\n", numimages);
-
-    int i, recidx = 0, imgidx = 0;
-    char type = 'R';
-    for (i = 0; i < numimages; i++) {
-        if (i == Game->no_of_room_images) {
-            type = 'B';
-            imgidx = 0;
-        }
-        if (i == Game->no_of_room_images + Game->no_of_item_images) {
-            type = 'S';
-            imgidx = 0;
-        }
-        char *shortname = ShortNameFromType(type, imgidx);
-        if (FindAndAddImageFile(shortname, &Images[recidx]))
-            recidx++;
-        free(shortname);
-        imgidx++;
-    }
-    Images[recidx].Filename = NULL;
+    BuildPakImageList();
 
     CurrentSys = SYS_MSDOS;
 
@@ -982,9 +1060,8 @@ static uint8_t *ReadHeader(uint8_t *ptr, int fields[HEADER_FIELDS])
 static DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
 {
     uint8_t *ptr = *pointer;
-    DictWord dictionary[MAX_DICT_ENTRIES];
+    DictBuilder db = { NULL, 0, 0 };
     int group = 0;
-    int index = 0;
 
     for (int i = 0; i < numstrings; i++) {
         char *str = NULL;
@@ -996,13 +1073,13 @@ static DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
             ptr = ReadPlusString(ptr, &str, &strlength);
         }
         debug_print("Read dictionary string \"%s\"\n", str);
-        ParseDictString(str, strlength, group, dictionary, &index);
+        ParseDictString(str, strlength, group, &db);
         free(str);
         group++;
     }
 
     *pointer = ptr;
-    return FinishDictionary(dictionary, index, loud);
+    return FinishDictionary(&db, loud);
 }
 
 /* A binary database starts with a table of 24 16-bit pointers, one to each
@@ -1073,6 +1150,41 @@ static int ReadApple2ImageAddress(int high, uint8_t **ptr)
     return adr;
 }
 
+/* Binary-format variant of ReadAction: the same fields, as bytes, with the
+   conditions as big-endian 16-bit values on every system. Returns the
+   pointer past the action. */
+static uint8_t *ReadActionBinary(uint8_t *ptr, Action *ap)
+{
+    NeedBytes(ptr, 3);
+    /* High nibble = number of extra words, low nibble = command length */
+    uint8_t length = *ptr++;
+    ap->NumWords = length >> 4;
+    ap->CommandLength = length & 0xf;
+    ap->Verb = *ptr++;
+    ap->NounOrChance = *ptr++;
+
+    NeedBytes(ptr, ap->NumWords);
+    ap->Words = MemAlloc(ap->NumWords);
+    for (int i = 0; i < ap->NumWords; i++)
+        ap->Words[i] = *ptr++;
+
+    uint16_t conditions[MAX_CONDITION_ARGS];
+    int condargs = 0;
+    for (;;) {
+        NeedBytes(ptr, 2);
+        uint16_t raw = READ_BE_UINT16_AND_ADVANCE(&ptr);
+        if (AddCondition(raw, conditions, &condargs))
+            break;
+    }
+    SetActionConditions(ap, conditions, condargs);
+
+    int cmdlen = ap->CommandLength + 1;
+    NeedBytes(ptr, cmdlen);
+    ap->Commands = MemAlloc(cmdlen);
+    memcpy(ap->Commands, ptr, cmdlen);
+    return ptr + cmdlen;
+}
+
 /* Validates that key header fields fall within expected ranges for a
    legitimate Plus game database. Returns 1 if valid, 0 if any field
    is out of range. Used by the binary loader to reject corrupt data. */
@@ -1092,6 +1204,19 @@ static int SanityCheckHeader(const Header *h)
         return 0;
 
     return 1;
+}
+
+/* Whether data, read as a binary database, has a plausible header. This
+   reads nothing but the header, so a detector can ask it before anything
+   is loaded. */
+int LooksLikePlusDatabase(uint8_t *data, size_t size)
+{
+    if (size < BINARY_HEADER_OFFSET + BINARY_HEADER_WORDS * 2)
+        return 0;
+    int raw[HEADER_FIELDS];
+    ReadHeader(data + BINARY_HEADER_OFFSET, raw);
+    Header h = HeaderFromFields(raw);
+    return SanityCheckHeader(&h);
 }
 
 /* Loads a game database from an in-memory binary image (previously read from
@@ -1132,9 +1257,7 @@ int LoadDatabaseBinary(void)
     int num_rooms = h.NumRooms;
     int num_obj_img = h.NumObjImg;
 
-    Items = MemAlloc(sizeof(Item) * (num_items + 1));
-    Rooms = MemAlloc(sizeof(Room) * (num_rooms + 1));
-    ObjectImages = MemAlloc(sizeof(ObjectImage) * (num_obj_img + 1));
+    AllocateTables();
 
     SetCountersFromHeader();
 
@@ -1152,38 +1275,7 @@ int LoadDatabaseBinary(void)
     uint8_t *origptr = ptr;
 
     while (ptr - origptr <= GameHeader.ActionSum) {
-        NeedBytes(ptr, 3);
-        /* First byte: high nibble = extra word count, low nibble = command length */
-        uint8_t length = *ptr++;
-        ap->NumWords = length >> 4;
-        ap->CommandLength = length & 0xf;
-        ap->Verb = *ptr++;
-        ap->NounOrChance = *ptr++;
-
-        NeedBytes(ptr, ap->NumWords);
-        ap->Words = MemAlloc(ap->NumWords);
-
-        for (int i = 0; i < ap->NumWords; i++) {
-            ap->Words[i] = *ptr++;
-        }
-
-        /* Read condition chain: each is a 16-bit big-endian value */
-        uint16_t conditions[MAX_CONDITION_ARGS];
-        int condargs = 0;
-        for (;;) {
-            NeedBytes(ptr, 2);
-            uint16_t raw = READ_BE_UINT16_AND_ADVANCE(&ptr);
-            if (AddCondition(raw, conditions, &condargs))
-                break;
-        }
-        SetActionConditions(ap, conditions, condargs);
-
-        int cmdlen = ap->CommandLength + 1;
-        NeedBytes(ptr, cmdlen);
-        ap->Commands = MemAlloc(cmdlen);
-        memcpy(ap->Commands, ptr, cmdlen);
-        ptr += cmdlen;
-
+        ptr = ReadActionBinary(ptr, ap);
         ap++;
         ct++;
 
@@ -1212,27 +1304,24 @@ int LoadDatabaseBinary(void)
 
     /* The room connections are stored column-major: all rooms' North exits
        come first, then South, East, West, Up, Down, then two extra columns
-       (Exits[6] = message index for room description, Exits[7] = room image).
-       The first six columns are one byte a room, the last two are 16-bit.
-       On Apple II, direction 7 encodes a memory address for the image. */
-    for (int j = 0; j < 8; j++) {
+       (EXIT_DESCRIPTION and EXIT_IMAGE). The first six columns are one
+       byte a room, the last two are 16-bit. On Apple II, the image column
+       holds a memory address, which LookForApple2Images turns into a number. */
+    for (int j = 0; j < NUM_EXIT_COLUMNS; j++) {
         ptr = SectionStart(ptr, SECT_ROOMS + j);
         for (ct = 0; ct <= num_rooms; ct++) {
-            if (CurrentSys == SYS_APPLE2 && j == 7) {
+            if (CurrentSys == SYS_APPLE2 && j == EXIT_IMAGE) {
                 /* The second byte is checked where it is read */
                 NeedBytes(ptr, 1);
                 Rooms[ct].Exits[j] = ReadApple2ImageAddress(*ptr++, &ptr);
                 debug_print("Room image %d address:%x\n", ct, Rooms[ct].Exits[j]);
-            } else if (j > 5) {
+            } else if (j >= NUM_DIRECTIONS) {
                 NeedBytes(ptr, 2);
                 Rooms[ct].Exits[j] = ReadWord(&ptr);
             } else {
                 NeedBytes(ptr, 1);
                 Rooms[ct].Exits[j] = *ptr++;
             }
-
-            if (j == 7)
-                Rooms[ct].Image = Rooms[ct].Exits[j];
 
             debug_print("Room %d exit %d: %d\n", ct, j, Rooms[ct].Exits[j]);
         }
@@ -1268,7 +1357,7 @@ int LoadDatabaseBinary(void)
     ptr = SectionStart(ptr, SECT_ITEM_WORDS);
     NeedBytes(ptr, (num_items + 1) * 2);
     for (ct = 0; ct <= num_items; ct++)
-        Items[ct].Dictword = ReadWord(&ptr);
+        Items[ct].Dictword = ItemNounWord(ReadWord(&ptr), ct);
 
     ptr = SectionStart(ptr, SECT_ITEM_FLAGS);
     NeedBytes(ptr, (num_items + 1) * 2);
@@ -1294,7 +1383,7 @@ int LoadDatabaseBinary(void)
     ptr = ReadPlusString(ptr, &title, &length);
     debug_print("Title: %s\n", title);
 
-    if (!SetGame(title, length)) {
+    if (!SetGame(title)) {
         free(title);
         FreeGameData();
         return 0;
@@ -1314,6 +1403,8 @@ int LoadDatabaseBinary(void)
     NeedBytes(ptr, num_obj_img + 1);
     for (ct = 0; ct <= num_obj_img; ct++)
         ObjectImages[ct].Object = *ptr++;
+    if (!ObjectImageItemsValid())
+        Fatal("Broken database!");
 
     ptr = SectionStart(ptr, SECT_OBJIMG_IMAGES);
     for (ct = 0; ct <= num_obj_img; ct++) {

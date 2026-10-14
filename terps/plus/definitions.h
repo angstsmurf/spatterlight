@@ -69,6 +69,7 @@
 #define ItemRegister (Counters[COUNTER_ITEM_REGISTER])
 
 #define CARRIED 255
+#define NO_ROOM_IMAGE 255 /* EXIT_IMAGE of a room without a picture */
 #define HELD_BY_OTHER_GUY 99
 #define DESTROYED 0
 #define HIDDEN 50
@@ -132,10 +133,16 @@ typedef struct {
     uint8_t CommandLength;
 } Action;
 
+/* The columns of the room table. GETEXIT and SETEXIT take the column from
+   a counter, so the games can reach all eight, not just the directions. */
+#define NUM_DIRECTIONS 6
+#define EXIT_DESCRIPTION 6 /* the description message, as a command number */
+#define EXIT_IMAGE 7       /* the room picture */
+#define NUM_EXIT_COLUMNS 8
+
 typedef struct {
     char *Text;
-    int Exits[8];
-    int Image;
+    int Exits[NUM_EXIT_COLUMNS];
 } Room;
 
 typedef struct {
@@ -144,7 +151,7 @@ typedef struct {
     uint16_t Location;
     uint16_t InitialLoc;
     uint16_t Flag;
-    uint8_t Dictword;
+    uint8_t Dictword; /* noun group; 16 bits in the files, see ItemNounWord */
 } Item;
 
 typedef struct {

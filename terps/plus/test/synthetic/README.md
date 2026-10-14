@@ -10,9 +10,12 @@ game: `mkdatabase.py` writes it, and it is in the repository
 
 | File | |
 |---|---|
-| `mkdatabase.py` | the source of the database and of `games.manifest.tsv`; `--check` fails if either is stale |
+| `mkdatabase.py` | the source of the databases and of `games.manifest.tsv`; `--check` fails if any is stale |
 | `games/rare-opcodes/SYNTH.DAT` | the database, in the plain text format of the MS-DOS games. Its title is `X-MEN `, because the loader only takes titles it knows and X-Men has no pictures to miss |
+| `games/loader-edges/EDGES.DAT` | the same database with a verb group that has no words and a message of 1100 characters added at the end |
+| `games/prefix-title/PREFIX.DAT` | the same database titled `X-ME`, the start of a title the loader knows |
 | `rare-opcodes.txt` | the commands: one test each, mostly `TEST <name>` |
+| `loader-edges.txt`, `prefix-title.txt` | the commands for the two variants |
 | `fatal-*.txt` | one script for each error that stops the interpreter |
 | `scripts.tsv` | line count and SHA-256 of each transcript, as in `../scripts` |
 
@@ -36,7 +39,14 @@ Not reached by any walkthrough before this, now run:
   counter, a value and one of the first 51 messages (`TEST WIDE`); a message
   number beyond the last message, which prints nothing (`TEST UNKNOWN`);
 - the fatal errors: conditions nested more than five parentheses deep, a
-  closing parenthesis without an opening one, more than 32 nested loops.
+  closing parenthesis without an opening one, more than 32 nested loops;
+- in the plain text loader: an empty dictionary slot, which is a group
+  without words, so that the verb after it keeps its number (`LATER`); a
+  message longer than the 1000 characters kept of a string, of which the
+  rest is dropped while the next message is still read from the right place
+  (`TEST LONG`); and a title that is only the start of a known one, which is
+  not taken for that game (`prefix-title`: the interpreter says it cannot
+  tell what game it is).
 
 The drawing commands (110-2, 4, 5, 8, 10, 11) are only shown not to crash
 without pictures. What they draw is the business of `imagecheck`.

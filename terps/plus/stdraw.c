@@ -18,8 +18,6 @@
 #include "read_le16.h"
 #include "stdraw.h"
 
-#define ARRAY_SIZE(a) (sizeof(a) / sizeof((a)[0]))
-
 /* The most pixel runs we record for one cycling colour in one image */
 #define MAX_ANIM_PIXELS 3000
 
@@ -354,7 +352,7 @@ int DrawSTImageFromData(uint8_t *imgdata, size_t total_size)
         glk_window_get_size(Graphics, &winwidth, &winheight);
         int width_in_pixels = NibblesWide * 4 * pixel_size;
         GraphicsWindowChanged();
-        glk_window_fill_rect(Graphics, 0xf9f8f9, (winwidth - width_in_pixels) / 2, 0, width_in_pixels, winheight);
+        glk_window_fill_rect(Graphics, 0xf9f8f9, ((int)winwidth - width_in_pixels) / 2, 0, width_in_pixels, winheight);
     }
 
     /* Set the cycling colours of the picture on screen aside, to merge

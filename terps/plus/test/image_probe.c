@@ -218,7 +218,7 @@ void ImageProbeDump(void)
 
     ResetBit(DARKBIT);
     for (int room = 0; room <= GameHeader.NumRooms; room++) {
-        if (Rooms[room].Image == 255)
+        if (Rooms[room].Exits[EXIT_IMAGE] == NO_ROOM_IMAGE)
             continue;
         ImageWidth = width;
         ImageHeight = height;

@@ -21,8 +21,8 @@
 
 int JustRestored = 0;
 int JustRestarted = 0;
-ImgType SavedImgType;
-int SavedImgIndex;
+ImgType RestoredImgType = NO_IMG;
+int RestoredImgIndex;
 
 SavedState *InitialState = NULL;
 static SavedState *ramsave = NULL;
@@ -194,9 +194,17 @@ void SaveGame(void)
         glk_put_string_stream(file, buf);
     }
 
+    /* Glk reports no write errors, so there is nothing to check here */
     glk_stream_close(file, NULL);
     SystemMessage(SAVED);
     SetBit(STOPTIMEBIT);
+}
+
+/* Read one line of a saved game into buf. Returns 0 at end of file, so a
+   short file fails explicitly rather than through sscanf on an empty line. */
+static int ReadSaveLine(strid_t file, char *buf, glui32 size)
+{
+    return glk_get_line_stream(file, buf, size) != 0;
 }
 
 int LoadGame(void)
@@ -222,31 +230,33 @@ int LoadGame(void)
     int result;
 
     for (ct = 0; ct < NUM_COUNTERS; ct++) {
-        glk_get_line_stream(file, buf, sizeof buf);
-        result = sscanf(buf, "%" SCNd16, &Counters[ct]);
-        if (result != 1) {
+        if (!ReadSaveLine(file, buf, sizeof buf) || sscanf(buf, "%" SCNd16, &Counters[ct]) != 1) {
             RecoverFromBadRestore(state, file);
             return 0;
         }
     }
-    glk_get_line_stream(file, buf, sizeof buf);
-    int SavedImgTypeInt;
-    result = sscanf(buf, "%" SCNu64 " %d %d %d %d\n", &BitFlags, &ProtagonistString,
-        &dummy, &SavedImgTypeInt, &SavedImgIndex);
-    SavedImgType = SavedImgTypeInt;
+    int imgtype = NO_IMG, imgindex = 0;
+    result = 0;
+    if (ReadSaveLine(file, buf, sizeof buf))
+        result = sscanf(buf, "%" SCNu64 " %d %d %d %d\n", &BitFlags, &ProtagonistString,
+            &dummy, &imgtype, &imgindex);
     debug_print("LoadGame: Result of sscanf: %d\n", result);
     if ((result < 3) || MyLoc > GameHeader.NumRooms || MyLoc < 1) {
         RecoverFromBadRestore(state, file);
         return 0;
     }
+    /* The image fields are optional; ignore them if missing or garbled */
+    if (result < 5 || imgtype < NO_IMG || imgtype > IMG_SPECIAL)
+        imgtype = NO_IMG;
 
     for (ct = 0; ct <= GameHeader.NumItems; ct++) {
-        glk_get_line_stream(file, buf, sizeof buf);
-        result = sscanf(buf, "%hd\n", &lo);
+        result = 0;
+        if (ReadSaveLine(file, buf, sizeof buf))
+            result = sscanf(buf, "%hd\n", &lo);
         /* Any non-negative room is possible: an action may put an item in
            a room that does not exist (X-Men uses 500 for used-up items). */
         if (result != 1 || lo < 0) {
-            fprintf(stderr, "LoadGame: Unexpected item location in save game file (Item %d, %s)\n", ct, Items[ct].Text);
+            debug_print("LoadGame: Unexpected item location in save game file (Item %d, %s)\n", ct, Items[ct].Text);
             RecoverFromBadRestore(state, file);
             return 0;
         }
@@ -257,7 +267,7 @@ int LoadGame(void)
     glk_stream_set_position(file, 0, seekmode_End);
     glui32 end = glk_stream_get_position(file);
     if (end != position) {
-        fprintf(stderr, "LoadGame: Save game file has unexpected length (%d, expected %d)\n", end, position);
+        debug_print("LoadGame: Save game file has unexpected length (%u, expected %u)\n", end, position);
         RecoverFromBadRestore(state, file);
         return 0;
     }
@@ -267,8 +277,10 @@ int LoadGame(void)
 
     JustStarted = 0;
     ClearAnimationBuffer();
-    LastImgType = SavedImgType;
-    LastImgIndex = SavedImgIndex;
+    LastImgType = imgtype;
+    LastImgIndex = imgindex;
+    RestoredImgType = LastImgType;
+    RestoredImgIndex = LastImgIndex;
 
     SetBit(DRAWBIT);
     Look(0);

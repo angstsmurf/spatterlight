@@ -129,6 +129,23 @@ typedef enum {
    the 76 command numbers that come between the two ranges of messages. */
 #define LONG_MESSAGE_OFFSET (CMD_FIRST_LONG_MESSAGE - CMD_GET)
 
+/* The first operand of CMD_SYSTEM: which system command it is. The second
+   is the counter, item or mode it works on. */
+typedef enum {
+    SYS_LOAD = 1,          /* ask, and restore a saved game */
+    SYS_ADD_SPECIAL = 2,   /* add a special picture to the animation */
+    SYS_CLEAR_ANIM = 3,    /* clear the animation buffer */
+    SYS_ANIMATE = 4,       /* start the animation */
+    SYS_SET_BACKGROUND = 5,/* the special picture behind the animation */
+    SYS_BEEP_WAIT = 6,     /* beep and wait for a key */
+    SYS_DRAW_ITEM = 7,     /* draw an item picture */
+    SYS_DRAW_ROOM = 8,     /* draw a room picture */
+    SYS_SWAP_ITEM_FLAGS = 9, /* swap an item's flags with the item register */
+    SYS_ADD_ITEM = 10,     /* add an item picture to the animation */
+    SYS_ADD_ROOM = 11,     /* add a room picture to the animation */
+    SYS_NEXT_ITEM = 12     /* the next item at a place, see NextItemAt */
+} SysCommandType;
+
 /* What an operand of a command is. All are read the same way; the kind
    says what ARG_NOUN, ARG_NOUN2 and ARG_WITH_LIST turn into, which is
    what the MS-DOS interpreters do for each command. */

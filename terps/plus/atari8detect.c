@@ -160,16 +160,15 @@ static void ExtractImagesFromAtariCompanionFile(uint8_t *data, size_t datasize, 
 
 static const uint8_t atrheader[6] = { 0x96, 0x02, 0x80, 0x16, 0x80, 0x00 };
 
-/* Try to load the game database at data_start in a disk image. On
-   success, mem is left pointing into the disk image, which therefore
-   must never be freed. */
-static int TryDatabaseIn(uint8_t *file, size_t size, size_t data_start)
+/* The disks that DetectAtari8 found, for LoadAtari8Images: the one with
+   the database (which mem points into, so it is never freed) and the
+   picture disk, if there is one. */
+static uint8_t *a8_bootdisk, *a8_picturedisk;
+static size_t a8_bootsize, a8_picturesize;
+
+static int HasDatabaseAt(uint8_t *file, size_t size, size_t data_start)
 {
-    if (size <= data_start)
-        return 0;
-    mem = file + data_start;
-    memlen = size - data_start;
-    return LoadDatabaseBinary();
+    return file != NULL && size > data_start && LooksLikePlusDatabase(file + data_start, size - data_start);
 }
 
 int DetectAtari8(uint8_t **sf, size_t *extent)
@@ -191,37 +190,45 @@ int DetectAtari8(uint8_t **sf, size_t *extent)
     size_t companionsize;
     uint8_t *companionfile = GetCompanionFile(game_file, &companionsize);
 
-    result = TryDatabaseIn(main_disk, main_size, data_start);
-    if (!result && companionfile != NULL) {
-        debug_print("Could not find database in this file, trying the companion file\n");
-        result = TryDatabaseIn(companionfile, companionsize, data_start);
-        if (result) {
-            debug_print("Found database in companion file. Switching files.\n");
-            uint8_t *temp = companionfile;
-            size_t tempsize = companionsize;
-            companionfile = main_disk;
-            companionsize = main_size;
-            main_disk = temp;
-            main_size = tempsize;
-        }
+    result = HasDatabaseAt(main_disk, main_size, data_start);
+    if (!result && HasDatabaseAt(companionfile, companionsize, data_start)) {
+        debug_print("Found database in companion file. Switching files.\n");
+        uint8_t *temp = companionfile;
+        size_t tempsize = companionsize;
+        companionfile = main_disk;
+        companionsize = main_size;
+        main_disk = temp;
+        main_size = tempsize;
+        result = 1;
     }
 
-    if (result) {
-        SetSystem(SYS_ATARI8);
-        if (companionfile) {
-            ExtractImagesFromAtariCompanionFile(companionfile, companionsize, main_disk, main_size);
-            free(companionfile);
-        } else {
-            // No picture disk: play without pictures.
-            Images = NewImageList(0);
-        }
-    } else {
-        debug_print("Failed loading database\n");
-        /* Give the other detectors the file as we found it */
-        mem = main_disk;
-        memlen = main_size;
+    if (!result) {
+        debug_print("No database in this file or its companion\n");
         free(companionfile);
+        return 0;
     }
 
-    return result;
+    SetSystem(SYS_ATARI8);
+    a8_bootdisk = main_disk;
+    a8_bootsize = main_size;
+    a8_picturedisk = companionfile;
+    a8_picturesize = companionsize;
+    *sf = main_disk + data_start;
+    *extent = main_size - data_start;
+    return 1;
+}
+
+/* Builds the picture list from the disks that DetectAtari8 found. Call
+   after the database is loaded: which pictures there are depends on the
+   game. */
+void LoadAtari8Images(void)
+{
+    if (a8_picturedisk == NULL) {
+        /* No picture disk: play without pictures */
+        Images = NewImageList(0);
+        return;
+    }
+    ExtractImagesFromAtariCompanionFile(a8_picturedisk, a8_picturesize, a8_bootdisk, a8_bootsize);
+    free(a8_picturedisk);
+    a8_picturedisk = NULL;
 }

@@ -12,8 +12,10 @@
 #   make -f Makefile.headless imagecheck
 #   make -f Makefile.headless companioncheck
 #   make -f Makefile.headless trunccheck
+#   make -f Makefile.headless containercheck
 #   make -f Makefile.headless scriptcheck
 #   make -f Makefile.headless synthcheck
+#   make -f Makefile.headless check-asan
 #   ./plus_image_probe -d /tmp/pictures "/path/to/Spider-Man side A.atr"
 
 CHEAPGLK_DIR := ../cheapglk
@@ -23,6 +25,9 @@ SAGADRAW_DIR := ../common_sagadraw
 READWOZ_DIR  := ../readwoz
 C64DISK_DIR  := ../c64diskimage
 OBJDIR       := headless_obj
+TEXT_OBJDIR  := headless_text_obj
+PROBE        := plus_image_probe
+HL           := plus_hl
 
 CC ?= clang
 
@@ -31,7 +36,8 @@ CC ?= clang
 COMMON_INC := -I$(PROBE_DIR) -I. -I$(CHEAPGLK_DIR) -I$(COMMON_DIR) -I$(SAGADRAW_DIR) \
               -I$(READWOZ_DIR) -I$(C64DISK_DIR)
 DEPFLAGS   := -MMD -MP
-BASEFLAGS  := -O0 -g -Wall -Wno-unknown-pragmas \
+SANFLAGS   :=
+BASEFLAGS  := -O0 -g -Wall -Wno-unknown-pragmas $(SANFLAGS) \
               $(COMMON_INC) $(DEPFLAGS) -include stddef.h -DSPATTERLIGHT
 CFLAGS     := $(BASEFLAGS) -include image_glk.h
 
@@ -52,8 +58,8 @@ CHEAPGLK_OBJS := $(addprefix $(CHEAPGLK_DIR)/,cgblorb.o cgdate.o cgfref.o cggest
                  cgmisc.o cgschan.o cgstream.o cgstyle.o cgunicod.o cgwindow.o \
                  gi_blorb.o gi_debug.o gi_dispa.o)
 
-plus_image_probe: $(OBJS) $(CHEAPGLK_LIB)
-	$(CC) $(LDFLAGS) -o $@ $(OBJS) $(CHEAPGLK_OBJS) -lz
+$(PROBE): $(OBJS) $(CHEAPGLK_LIB)
+	$(CC) $(LDFLAGS) $(SANFLAGS) -o $@ $(OBJS) $(CHEAPGLK_OBJS) -lz
 
 $(CHEAPGLK_LIB):
 	$(MAKE) -C $(CHEAPGLK_DIR)
@@ -71,19 +77,25 @@ $(PROBE_OBJS): $(OBJDIR)/%.o: $(PROBE_DIR)/%.c | $(OBJDIR)
 
 # Picture regression tests. Rows whose game is not in test/images/games/ are
 # skipped, so this passes on a bare checkout.
-imagecheck: plus_image_probe
-	@python3 $(PROBE_DIR)/run_image_tests.py test/images ./plus_image_probe
+imagecheck: $(PROBE)
+	@python3 $(PROBE_DIR)/run_image_tests.py test/images ./$(PROBE)
 
 # The two-disk sets of the same games, with one disk missing and under other
 # file names: does each disk find the other? Skips like imagecheck.
-companioncheck: plus_image_probe
-	@python3 $(PROBE_DIR)/run_companion_tests.py test/images ./plus_image_probe
+companioncheck: $(PROBE)
+	@python3 $(PROBE_DIR)/run_companion_tests.py test/images ./$(PROBE)
 
 # The binary database of every game, cut short at a thousand-odd lengths: does
 # the loader refuse each one? See test/run_truncation_tests.py. Skips like
 # imagecheck.
-trunccheck: plus_image_probe
-	@python3 test/run_truncation_tests.py test/images ./plus_image_probe
+trunccheck: $(PROBE)
+	@python3 test/run_truncation_tests.py test/images ./$(PROBE)
+
+# The disk images themselves, cut short and damaged: does any copy crash or
+# hang the probe? Only worth running on a probe built with AddressSanitizer,
+# which check-asan does. Skips like imagecheck.
+containercheck: $(PROBE)
+	@python3 test/run_truncation_tests.py --containers test/images ./$(PROBE)
 
 # The interpreter on plain CheapGlk: commands on stdin, transcript on stdout,
 # no pictures. The same sources as the probe, built without the window
@@ -91,12 +103,11 @@ trunccheck: plus_image_probe
 # layer.
 #
 #   printf '\n\n\nlook\n' | ./plus_hl /path/to/SPL53P.DAT
-TEXT_OBJDIR := headless_text_obj
 TEXT_SRCS   := $(filter-out test/image_probe.c,$(SRCS)) $(PROBE_DIR)/text_main.c
 TEXT_OBJS   := $(patsubst %.c,$(TEXT_OBJDIR)/%.o,$(notdir $(TEXT_SRCS)))
 
-plus_hl: $(TEXT_OBJS) $(CHEAPGLK_LIB)
-	$(CC) $(LDFLAGS) -o $@ $(TEXT_OBJS) $(CHEAPGLK_OBJS) -lz
+$(HL): $(TEXT_OBJS) $(CHEAPGLK_LIB)
+	$(CC) $(LDFLAGS) $(SANFLAGS) -o $@ $(TEXT_OBJS) $(CHEAPGLK_OBJS) -lz
 
 $(TEXT_OBJDIR):
 	mkdir -p $(TEXT_OBJDIR)
@@ -106,18 +117,30 @@ $(TEXT_OBJDIR)/%.o: %.c | $(TEXT_OBJDIR)
 
 # Command script replays on the picture test images: transcript hashes of
 # whole playthroughs. Skips, like imagecheck, the rows whose game is missing.
-scriptcheck: plus_hl
-	@python3 $(PROBE_DIR)/run_script_tests.py test/scripts test/images ./plus_hl
+scriptcheck: $(HL)
+	@python3 $(PROBE_DIR)/run_script_tests.py test/scripts test/images ./$(HL)
 
 # The same on a made-up database that is in the repository, for the opcodes
 # no real game reaches (test/synthetic/README.md).
-synthcheck: plus_hl
+synthcheck: $(HL)
 	@python3 test/synthetic/mkdatabase.py --check
-	@python3 $(PROBE_DIR)/run_script_tests.py test/synthetic test/synthetic ./plus_hl
+	@python3 $(PROBE_DIR)/run_script_tests.py test/synthetic test/synthetic ./$(HL)
+
+# Every suite again, built with AddressSanitizer and UBSan into objects and
+# binaries of their own. The loaders and detectors are the only code here
+# that parse untrusted bytes; this is the check for them.
+ASAN := OBJDIR=headless_asan_obj TEXT_OBJDIR=headless_asan_text_obj \
+        PROBE=plus_image_probe_asan HL=plus_hl_asan \
+        SANFLAGS="-fsanitize=address,undefined -fno-sanitize-recover=undefined"
+
+check-asan:
+	ASAN_OPTIONS=detect_leaks=0 $(MAKE) -f Makefile.headless $(ASAN) \
+	    imagecheck companioncheck trunccheck scriptcheck synthcheck containercheck
 
 clean:
-	rm -rf $(OBJDIR) $(TEXT_OBJDIR) plus_image_probe plus_hl
+	rm -rf $(OBJDIR) $(TEXT_OBJDIR) headless_asan_obj headless_asan_text_obj \
+	    plus_image_probe plus_hl plus_image_probe_asan plus_hl_asan
 
-.PHONY: clean imagecheck companioncheck scriptcheck synthcheck trunccheck
+.PHONY: clean imagecheck companioncheck scriptcheck synthcheck trunccheck containercheck check-asan
 
 -include $(OBJS:.o=.d) $(TEXT_OBJS:.o=.d)

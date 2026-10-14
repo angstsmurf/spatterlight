@@ -257,6 +257,10 @@ terps/plus/headless_obj/
 terps/plus/plus_image_probe
 terps/plus/headless_text_obj/
 terps/plus/plus_hl
+terps/plus/headless_asan_obj/
+terps/plus/headless_asan_text_obj/
+terps/plus/plus_image_probe_asan
+terps/plus/plus_hl_asan
 terps/plus/test/images/games/
 terps/taylor/headless_obj/
 terps/taylor/taylor_image_probe

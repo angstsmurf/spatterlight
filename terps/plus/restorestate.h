@@ -25,8 +25,10 @@ typedef struct SavedState {
 
 extern SavedState *InitialState;
 
-extern ImgType SavedImgType;
-extern int SavedImgIndex;
+/* The overlay image a loaded saved game showed, redrawn by glk_main after
+   the first Look() of the restored turn */
+extern ImgType RestoredImgType;
+extern int RestoredImgIndex;
 
 /* Set after a saved game was loaded from file, until the next turn */
 extern int JustRestored;

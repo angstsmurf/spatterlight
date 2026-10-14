@@ -690,6 +690,10 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     int xpos = 0;
     int ypos = 0;
 
+    // Two bytes, the size, the edges and the palette
+    if (datasize < 12)
+        return 0;
+
     ptr += 2;
 
     // For Atari 8-bit, this vaule is already datasize

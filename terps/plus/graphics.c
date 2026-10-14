@@ -170,6 +170,22 @@ char *ShortNameFromType(char type, int index)
     return result;
 }
 
+/* The kind of picture an image name is, from its first letter, e.g.
+   IMG_ROOM for "R003". NO_IMG if it is none of the three. */
+ImgType ImageTypeFromName(const char *name)
+{
+    switch (name[0]) {
+    case 'B':
+        return IMG_OBJECT;
+    case 'R':
+        return IMG_ROOM;
+    case 'S':
+        return IMG_SPECIAL;
+    default:
+        return NO_IMG;
+    }
+}
+
 /* The image number in a short image name, e.g. 3 for "R003". */
 int ImageNumberFromName(const char *name)
 {
@@ -322,31 +338,32 @@ int DrawImageWithName(const char *filename)
     if (!IsSet(GRAPHICSBIT))
         return 0;
 
-    switch (Images[i].Filename[0]) {
-    case 'B':
-        LastImgType = IMG_OBJECT;
-        break;
-    case 'R':
-        LastImgType = IMG_ROOM;
-        break;
-    case 'S':
-        LastImgType = IMG_SPECIAL;
-        break;
-    default:
+    ImgType type = ImageTypeFromName(Images[i].Filename);
+    if (type == NO_IMG)
         debug_print("DrawImageWithName: Unknown image type!\n");
-    }
+    else
+        LastImgType = type;
 
     LastImgIndex = ImageNumberFromName(Images[i].Filename);
 
     int result;
-    if (CurrentSys == SYS_C64 || CurrentSys == SYS_ATARI8) {
+    switch (CurrentSys) {
+    case SYS_C64:
+    case SYS_ATARI8:
         result = DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64);
-    } else if (CurrentSys == SYS_ST) {
+        break;
+    case SYS_ST:
         result = DrawSTImageFromData(Images[i].Data, Images[i].Size);
-    } else if (CurrentSys == SYS_APPLE2) {
-        result = DrawApple2ImageFromData(Images[i].Data + 2, READ_LE_UINT16(Images[i].Data), 0, Apple2AdjustPlus);
-    } else
+        break;
+    case SYS_APPLE2:
+        /* After the size word. Size is the whole record: the word of an
+           object picture does not count itself (AddImage). */
+        result = DrawApple2ImageFromData(Images[i].Data + 2, Images[i].Size - 2, 0, Apple2AdjustPlus);
+        break;
+    default:
         result = DrawDOSImageFromData(Images[i].Data);
+        break;
+    }
 
     FlushPixels();
     return result;
@@ -464,7 +481,7 @@ static int DescribeScene(Scene *scene)
     scene->pixel_size = pixel_size;
     scene->x_offset = x_offset;
     scene->y_offset = y_offset;
-    scene->room_image = Rooms[MyLoc].Image;
+    scene->room_image = Rooms[MyLoc].Exits[EXIT_IMAGE];
     scene->upside_down = IsUpsideDown();
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
         if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc) {
@@ -502,7 +519,7 @@ void DrawCurrentRoom(void)
 
     int dark = IsDark();
 
-    if (Rooms[MyLoc].Image == 255 || Images[0].Filename == NULL) {
+    if (Rooms[MyLoc].Exits[EXIT_IMAGE] == NO_ROOM_IMAGE || Images[0].Filename == NULL) {
         CloseGraphicsWindow();
         return;
     }
@@ -532,7 +549,7 @@ void DrawCurrentRoom(void)
         return;
     }
 
-    if (!DrawRoomImage(Rooms[MyLoc].Image)) {
+    if (!DrawRoomImage(Rooms[MyLoc].Exits[EXIT_IMAGE])) {
         CloseGraphicsWindow();
         return;
     }
