@@ -13,12 +13,9 @@
 
 #include <stdint.h>
 
+#include "loading_screen.h"
+
 /* Decode parameters for the standard Terraquake TZX (file size 0xcd15/0xcd17). */
-#define TERRAQUAKE_SCREEN_BLOCK    3
-#define TERRAQUAKE_SCREEN_OFFSET   2
-#define TERRAQUAKE_SCREEN_LOACON   0x8a
-#define TERRAQUAKE_SCREEN_ADD2     0x55
-#define TERRAQUAKE_SCREEN_ATTRFILL 0x00
 #define TERRAQUAKE_SCREEN_WINDOWS  46
 
 static const uint8_t terraquake_screen_descriptors[TERRAQUAKE_SCREEN_WINDOWS * 4] = {
@@ -38,6 +35,16 @@ static const uint8_t terraquake_screen_descriptors[TERRAQUAKE_SCREEN_WINDOWS * 4
     0xf1, 0x4f, 0x81, 0x61, 0xce, 0x47, 0x81, 0x41, 0x22, 0x47, 0x81, 0x21,
     0x40, 0x47, 0x81, 0x01, 0x1c, 0x47, 0x81, 0x21, 0xf2, 0x4f, 0x81, 0x01,
     0x15, 0x47, 0x83, 0x01,
+};
+
+static const AlkatrazScreen terraquake_screen = {
+    .descriptors = terraquake_screen_descriptors,
+    .windows = TERRAQUAKE_SCREEN_WINDOWS,
+    .block = 3,
+    .offset = 2,
+    .key_seed = 0x8a,
+    .key_step = 0x55,
+    .attr_fill = 0x00,
 };
 
 #endif /* terraquake_loadscreen_data_h */

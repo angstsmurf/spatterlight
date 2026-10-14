@@ -5,17 +5,11 @@
 //  Created by Petter Sjölund on 2022-03-24.
 //
 
-// This is currently inefficient in two ways: 1) we redraw the entire
-// image when only parts have changed, and 2) we sometimes draw the
-// entire image, and then draw a second animation on top of this.
-//
-// There should be a second buffer array copy that represents what is
-// currently on-screen, and every pixel should be compared against this
-// to see if it is the same before being redrawn.
-//
-// The click shelf animation should be done by setting the bitmap in a
-// buffer array first, before drawing the image. This will require a
-// second copy of the image buffer.
+// Frames drawn into imagebuffer[] go to the screen through
+// DrawBufferedPicture(), which paints only the cells that changed. The
+// star field, force field, Queen computer and click shelves instead
+// paint pixels straight into the window with PutPixel() and RectFill(),
+// so each of their frames repaints its whole area.
 
 #include "graphics.h"
 #include "taylordraw.h"
@@ -24,8 +18,27 @@
 
 #include "animations.h"
 
-/* Object index for the "unfolding space" star view in Rebel Planet */
-#define UNFOLDING_SPACE 50
+/* Rebel Planet rooms and the objects whose presence starts each
+   animation there */
+#define REBEL_ROOM_SHIP 1
+#define REBEL_OBJ_UNFOLDING_SPACE 50 /* The star view */
+#define REBEL_ROOM_FORCE_FIELDS 86
+#define REBEL_OBJ_FORCE_FIELDS 42
+#define REBEL_ROOM_QUEEN 88
+#define REBEL_OBJ_QUEEN 107 /* "A holograph head" */
+#define REBEL_FIRST_SEWER 29
+#define REBEL_LAST_SEWER 33
+#define REBEL_OBJ_SERPENT 92 /* The Sycane Serpent */
+#define REBEL_ROOM_MUSEUM_PASSAGE 50
+#define REBEL_OBJ_ROBOT 58 /* The killer security robot */
+#define REBEL_ROOM_CAVE 71
+#define REBEL_OBJ_SNAPPER 36 /* The crag snapper */
+
+/* Kayleth rooms with a timer rate of their own */
+#define KAYLETH_ROOM_CLICK_SHELVES 3
+
+/* Kayleth's flag for the destroyer droid: above 1 when it pursues us */
+#define KaylethDroidPursuing (Flag[10] > 1)
 
 /* Timer intervals (ms) for each Rebel Planet animation */
 #define STARS_ANIMATION_RATE 15
@@ -218,23 +231,23 @@ static void AnimateKaylethClickShelves(int stage)
                 int ypos = line * 8 + i + stage;
                 if (ypos > 79)
                     ypos = ypos - 80;
-                /* Look up colour attributes from the destination rows */
-                uint8_t attribute = imagebuffer[col + (ypos / 8) * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
+                uint8_t bits;
+                int y;
+                if (col > 15) {
+                    /* Right half: draw from source row, scrolling up */
+                    bits = imagebuffer[col + line * IRMAK_IMGWIDTH][i];
+                    y = ypos;
+                } else {
+                    /* Left half: draw from mirrored source row, scrolling down */
+                    bits = imagebuffer[col + (9 - line) * IRMAK_IMGWIDTH][7 - i];
+                    y = 79 - ypos;
+                }
+                /* In the colours of the row drawn to */
+                uint8_t attribute = imagebuffer[col + (y / 8) * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
                 glui32 ink = Remap(AttributeInk(attribute));
-                attribute = imagebuffer[col + ((79 - ypos) / 8) * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
-                glui32 ink2 = Remap(AttributeInk(attribute));
                 for (int j = 0; j < 8; j++) {
-                    if (col > 15) {
-                        /* Right half: draw from source row, scrolling up */
-                        if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][i], 7 - j)) {
-                            PutPixel(col * 8 + j, ypos, ink);
-                        }
-                    } else {
-                        /* Left half: draw from mirrored source row, scrolling down */
-                        if (isNthBitSet(imagebuffer[col + (9 - line) * IRMAK_IMGWIDTH][7 - i], 7 - j)) {
-                            PutPixel(col * 8 + j, 79 - ypos, ink2);
-                        }
-                    }
+                    if (isNthBitSet(bits, 7 - j))
+                        PutPixel(col * 8 + j, y, ink);
                 }
             }
         }
@@ -284,9 +297,7 @@ static KaylethAnimation **KaylethAnimations = NULL;
    original ZX Spectrum playback speed. */
 void LoadKaylethAnimationData(void)
 {
-    KaylethAnimations = MemAlloc(sizeof(KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
-    for (int i = 0; i < NUMBER_OF_KAYLETH_ANIMATIONS; i++)
-        KaylethAnimations[i] = NULL;
+    KaylethAnimations = MemCalloc(sizeof(KaylethAnimation *) * NUMBER_OF_KAYLETH_ANIMATIONS);
     /* No animation data was found in this file: no room is animated */
     if (AnimationData == 0 || AnimationData >= FileImageLen)
         return;
@@ -350,8 +361,7 @@ void LoadKaylethAnimationData(void)
 /* Advance the Kayleth animation for the current room by one tick.
    Returns 1 if the current room has an animation, 0 otherwise.
    Object 0 is temporarily placed in the room so room-image drawing
-   can reference it. If the destroyer droid is pursuing (Flag[10] > 1),
-   the droid slot is also temporarily placed here. */
+   can reference it. If the destroyer droid is pursuing, the droid slot is also temporarily placed here. */
 static int UpdateKaylethAnimationFrames(void)
 {
     if (KaylethAnimations == NULL || MyLoc >= NUMBER_OF_KAYLETH_ANIMATIONS
@@ -361,7 +371,7 @@ static int UpdateKaylethAnimationFrames(void)
 
     int obj0loc = ObjectLoc[0];
     ObjectLoc[0] = MyLoc;
-    if (Flag[10] > 1)
+    if (KaylethDroidPursuing)
         ObjectLoc[KAYLETH_DROID_SLOT] = MyLoc;
 
     KaylethAnimation *anim = KaylethAnimations[MyLoc];
@@ -405,7 +415,7 @@ void UpdateKaylethAnimations(void)
     if (ClickShelfStage == 9)
         ClickShelfStage = 0;
     UpdateKaylethAnimationFrames();
-    if (MyLoc == 3) {
+    if (MyLoc == KAYLETH_ROOM_CLICK_SHELVES) {
         AnimateKaylethClickShelves(ShelfScrollStage);
         if (ClickShelfStage < 7)
             ShelfScrollStage++;
@@ -414,23 +424,66 @@ void UpdateKaylethAnimations(void)
     }
 }
 
+typedef enum {
+    REBEL_NO_ANIMATION,
+    REBEL_STARS,
+    REBEL_FORCE_FIELD,
+    REBEL_QUEEN_COMPUTER,
+    REBEL_SERPENT,
+    REBEL_ROBOT,
+    REBEL_SNAPPER,
+} RebelAnimationType;
+
+static int IsInSewers(void)
+{
+    return MyLoc >= REBEL_FIRST_SEWER && MyLoc <= REBEL_LAST_SEWER;
+}
+
+static int ObjectInRoom(int obj, int room)
+{
+    return MyLoc == room && ObjectLoc[obj] == room;
+}
+
+/* Which Rebel Planet animation belongs in the current room. The serpent
+   animates in the sewers whether or not it is there, as it withdraws. */
+static RebelAnimationType RebelAnimationHere(void)
+{
+    if (ObjectInRoom(REBEL_OBJ_UNFOLDING_SPACE, REBEL_ROOM_SHIP))
+        return REBEL_STARS;
+    if (ObjectInRoom(REBEL_OBJ_FORCE_FIELDS, REBEL_ROOM_FORCE_FIELDS))
+        return REBEL_FORCE_FIELD;
+    if (ObjectInRoom(REBEL_OBJ_QUEEN, REBEL_ROOM_QUEEN))
+        return REBEL_QUEEN_COMPUTER;
+    if (IsInSewers())
+        return REBEL_SERPENT;
+    if (ObjectInRoom(REBEL_OBJ_ROBOT, REBEL_ROOM_MUSEUM_PASSAGE))
+        return REBEL_ROBOT;
+    if (ObjectInRoom(REBEL_OBJ_SNAPPER, REBEL_ROOM_CAVE))
+        return REBEL_SNAPPER;
+    return REBEL_NO_ANIMATION;
+}
+
 /* Timer callback for all Rebel Planet animations. Dispatches to the
    appropriate animation based on the current room and object presence.
    Stops the timer when the player leaves an animated room. */
 void UpdateRebelAnimations(void)
 {
-    if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
+    switch (RebelAnimationHere()) {
+    case REBEL_STARS:
         AnimateStars();
-    } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
+        break;
+    case REBEL_FORCE_FIELD:
         AnimateForcefield();
-    } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
+        break;
+    case REBEL_QUEEN_COMPUTER:
         AnimateQueenComputer();
-    } else if (MyLoc > 28 && MyLoc < 34) {
-        /* Sycane Serpent in sewers (rooms 29–33). SerpentStage tracks
+        break;
+    case REBEL_SERPENT:
+        /* Sycane Serpent in sewers. SerpentStage tracks
            how far the serpent has emerged (0–5). When the serpent object
            is present it grows; when absent it retreats, speeding up as
            it nears full retraction. */
-        if (ObjectLoc[92] == MyLoc) {
+        if (ObjectLoc[REBEL_OBJ_SERPENT] == MyLoc) {
             SerpentStage++;
             if (SerpentStage > 5) {
                 SerpentStage = 5;
@@ -452,21 +505,25 @@ void UpdateRebelAnimations(void)
             DrawPictureAtPos(62 + SerpentStage, 14, 10 - SerpentStage - (SerpentStage > 2), 1);
         }
         DrawBufferedPicture();
-    } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
+        break;
+    case REBEL_ROBOT:
         /* Killer security robot: alternates between two frames */
         DrawPictureAtPos(138 + TwoFrameStage, 13, 2, 0);
         TwoFrameStage = (TwoFrameStage == 0);
-    } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
+        break;
+    case REBEL_SNAPPER:
         /* Crag snapper: alternates between two poses at different positions */
         if (!TwoFrameStage)
             DrawPictureAtPos(133, 14, 4, 0);
         else
             DrawPictureAtPos(142, 17, 6, 0);
         TwoFrameStage = (TwoFrameStage == 0);
-    } else {
+        break;
+    case REBEL_NO_ANIMATION:
         /* No animation for this room — stop the timer */
         StopAnimations();
         QueenStage = SerpentStage = TwoFrameStage = 0;
+        break;
     }
 }
 
@@ -481,29 +538,30 @@ void StartAnimations(void)
         /* The serpent's timer stops once it is fully out, so nothing else
            would reset it: without this it would be seen withdrawing on the
            next visit to the sewers. */
-        if (MyLoc <= 28 || MyLoc >= 34)
+        if (!IsInSewers())
             SerpentStage = 0;
-        if (MyLoc == 1 && ObjectLoc[UNFOLDING_SPACE] == 1) {
-            int rate = STARS_ANIMATION_RATE;
-            if (CurrentGame == REBEL_PLANET_64)
-                rate = STARS_ANIMATION_RATE_64;
-            SetAnimationRate(rate);
-        } else if (MyLoc == 86 && ObjectLoc[42] == 86) {
-            // Force field
+        switch (RebelAnimationHere()) {
+        case REBEL_STARS:
+            SetAnimationRate(CurrentGame == REBEL_PLANET_64 ? STARS_ANIMATION_RATE_64 : STARS_ANIMATION_RATE);
+            break;
+        case REBEL_FORCE_FIELD:
             SetAnimationRate(FIELD_ANIMATION_RATE);
-        } else if (MyLoc == 88 && ObjectLoc[107] == 88) {
-            // Queen computer
+            break;
+        case REBEL_QUEEN_COMPUTER:
             SetAnimationRate(QUEEN_ANIMATION_RATE);
-        } else if (MyLoc > 28 && MyLoc < 34) {
-            // Sycane Serpent in sewers
+            break;
+        case REBEL_SERPENT:
             SetAnimationRate(SERPENT_ANIMATION_RATE);
             UpdateRebelAnimations();
-        } else if (MyLoc == 50 && ObjectLoc[58] == 50) {
-            // Killer security robot in museum passage
+            break;
+        case REBEL_ROBOT:
             SetAnimationRate(ROBOT_ANIMATION_RATE);
-        } else if (MyLoc == 71 && ObjectLoc[36] == 71) {
-            // Crag snapper in cave
+            break;
+        case REBEL_SNAPPER:
             SetAnimationRate(SNAPPER_ANIMATION_RATE);
+            break;
+        case REBEL_NO_ANIMATION:
+            break;
         }
     } else if (BaseGame == KAYLETH) {
         int speed = 0;
@@ -521,7 +579,7 @@ void StartAnimations(void)
         case 2: // Conveyor belt
             speed = 10;
             break;
-        case 3: // Click shelves
+        case KAYLETH_ROOM_CLICK_SHELVES:
             if (CurrentGame == KAYLETH_64)
                 speed = 80;
             else

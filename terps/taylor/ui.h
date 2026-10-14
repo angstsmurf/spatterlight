@@ -8,9 +8,12 @@
 #ifndef ui_h
 #define ui_h
 
+#include <stdarg.h>
+
 #include "glk.h"
 
 void Display(winid_t w, const char *fmt, ...);
+void PrintToStreamV(strid_t stream, const char *fmt, va_list ap);
 void PrintCharacter(unsigned char c);
 unsigned char WaitCharacter(void);
 void TopWindow(void);

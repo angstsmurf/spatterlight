@@ -10,7 +10,11 @@
 
 #include "taylor.h"
 
+/* What FindCode() and the table searches return for a missing pattern */
+#define NOT_FOUND ((size_t)-1)
+
 size_t FindCode(const char *code, size_t base, size_t len);
+size_t FindVerbTable(void);
 GameInfo *DetectGame(size_t LocalVerbBase);
 GameInfo *FindGameByID(GameIDType id);
 void FindTables(void);

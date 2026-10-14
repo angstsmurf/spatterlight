@@ -27,8 +27,9 @@
 
 winid_t Bottom, Top, Graphics;
 winid_t CurrentWindow;
-static int OutCount;            /* Number of bytes currently buffered in OutWord. */
+static size_t OutCount;     /* Number of bytes currently buffered in OutWord. */
 static char OutWord[128];   /* Per-word output buffer, flushed on whitespace. */
+static int JustWroteNewline = 0; /* Suppresses runs of blank lines in Bottom */
 
 static glui32 TopWidth; /* Terminal width */
 static glui32 TopHeight = 1; /* Height of top window */
@@ -38,24 +39,55 @@ int LineEvent = 0;
 int Resizing = 0;
 static int GraphicsOff = 0;
 
+/* Format a message, up to 2047 characters, and print it to a Glk stream */
+void PrintToStreamV(strid_t stream, const char *fmt, va_list ap)
+{
+    char msg[2048];
+    vsnprintf(msg, sizeof msg, fmt, ap);
+    glk_put_string_stream(stream, msg);
+}
+
 /* printf-style wrapper that writes formatted text to a Glk window. */
 void Display(winid_t w, const char *fmt, ...)
 {
     va_list ap;
-    char msg[2048];
-
-    int size = sizeof msg;
-
     va_start(ap, fmt);
-    vsnprintf(msg, size, fmt, ap);
+    PrintToStreamV(glk_window_get_stream(w), fmt, ap);
     va_end(ap);
-
-    glk_put_string_stream(glk_window_get_stream(w), msg);
 }
 
-static void WordFlush(winid_t win);
+/* Emit the contents of the per-word buffer OutWord to the given window
+   (or, for the top window, to the room-description memory stream that
+   FlushRoomDescription later relays out). */
+static void WordFlush(winid_t win)
+{
+    /* A buffered nul prints as nothing. */
+    size_t len = 0;
+    for (size_t i = 0; i < OutCount; i++) {
+        if (OutWord[i] != '\0')
+            OutWord[len++] = OutWord[i];
+    }
+    OutCount = 0;
+    if (len == 0)
+        return;
+    /* Without a status window Top is Bottom (OpenTopWindow), and everything
+       is plain scrollback. */
+    if (win == Top && Top != Bottom) {
+        if (room_description_stream != NULL)
+            glk_put_buffer_stream(room_description_stream, OutWord, (glui32)len);
+    } else {
+        glk_put_buffer_stream(glk_window_get_stream(win), OutWord, (glui32)len);
+    }
+}
 
-static int JustWroteNewline = 0;
+/* Add c to the word being buffered, and write the word out to win once it
+   is limit characters long or fills the buffer. */
+static void AppendToWord(unsigned char c, winid_t win, size_t limit)
+{
+    OutWord[OutCount++] = (char)c;
+    if (OutCount >= limit || OutCount >= sizeof OutWord)
+        WordFlush(win);
+}
 
 /* Lowest-level character output. Buffers characters into OutWord until a
    whitespace boundary, then dispatches the whole word to either the
@@ -92,13 +124,9 @@ void PrintCharacter(unsigned char c)
             return;
         }
         JustWroteNewline = 0;
-        OutWord[OutCount] = c;
-        OutCount++;
-        /* Flush before the buffer overflows; words longer than 128 chars
-           will be split, but that's acceptable for game text. */
-        if (OutCount > 127)
-            WordFlush(Bottom);
-        return;
+        /* Words longer than the buffer are split, which is acceptable
+           for game text. */
+        AppendToWord(c, Bottom, sizeof OutWord);
     } else {
         /* Top window path: characters go to an in-memory stream that
            FlushRoomDescription later wraps and writes to the grid. */
@@ -110,14 +138,10 @@ void PrintCharacter(unsigned char c)
             }
             return;
         }
-        OutWord[OutCount] = c;
-        OutCount++;
         /* In the top window we wrap at the actual terminal width so the
            subsequent layout pass can break lines correctly. */
-        if (OutCount == TopWidth)
-            WordFlush(Top);
+        AppendToWord(c, Top, TopWidth);
     }
-    return;
 }
 
 /* Block until the user types any character, then return its keycode.
@@ -134,30 +158,6 @@ unsigned char WaitCharacter(void)
         Updates(ev);
     } while (ev.type != evtype_CharInput);
     return ev.val1;
-}
-
-/* Emit the contents of the per-word buffer OutWord to the given window
-   (or, for the top window, to the room-description memory stream that
-   FlushRoomDescription later relays out). */
-static void WordFlush(winid_t win)
-{
-    /* A buffered nul prints as nothing. */
-    int len = 0;
-    for (int i = 0; i < OutCount; i++) {
-        if (OutWord[i] != '\0')
-            OutWord[len++] = OutWord[i];
-    }
-    OutCount = 0;
-    if (len == 0)
-        return;
-    /* Without a status window Top is Bottom (OpenTopWindow), and everything
-       is plain scrollback. */
-    if (win == Top && Top != Bottom) {
-        if (room_description_stream != NULL)
-            glk_put_buffer_stream(room_description_stream, OutWord, len);
-    } else {
-        glk_put_buffer_stream(glk_window_get_stream(win), OutWord, len);
-    }
 }
 
 static char *roomdescbuf = NULL;
@@ -229,10 +229,9 @@ static void FlushRoomDescription(void)
     enum { MIN_BOTTOM_ROWS = 3 };
     glui32 bottomheight;
     glk_window_get_size(Bottom, NULL, &bottomheight);
-    winid_t o2 = glk_window_get_parent(Top);
+    winid_t pair = glk_window_get_parent(Top);
     if (!(bottomheight < MIN_BOTTOM_ROWS && TopHeight < rows)) {
-        glk_window_get_size(Top, &TopWidth, &TopHeight);
-        glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
+        glk_window_set_arrangement(pair, winmethod_Above | winmethod_Fixed, rows,
             Top);
     } else {
         print_delimiter = 0;
@@ -262,8 +261,6 @@ static void FlushRoomDescription(void)
         else
             empty_lines = 0;
         string[i] = 0;
-        if (strlen(string) == 0)
-            break;
         glk_window_move_cursor(Top, 0, line);
         Display(Top, "%s", string);
     }
@@ -273,8 +270,9 @@ static void FlushRoomDescription(void)
     line -= empty_lines;
 
     if (line < rows - 1) {
+        /* The arrangement above may have changed the height */
         glk_window_get_size(Top, &TopWidth, &TopHeight);
-        glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
+        glk_window_set_arrangement(pair, winmethod_Above | winmethod_Fixed,
             MIN(rows - 1, TopHeight - 1), Top);
     }
 
@@ -301,10 +299,6 @@ void BottomWindow(void)
     CurrentWindow = Bottom;
 }
 
-/* Sync the local Options bitfield and palette selection with the user's
-   Spatterlight preferences (delays, forced inventory mode, forced
-   palette, graphics on/off). Switches the palette and re-defines colors
-   if it changed. */
 /* Apply a tri-state preference (0 = auto, 1 = first choice, 2 = second)
    to a pair of mutually exclusive option bits. */
 static void SetExclusiveOption(int setting, int first, int second)
@@ -316,6 +310,10 @@ static void SetExclusiveOption(int setting, int first, int second)
         Options |= second;
 }
 
+/* Sync the local Options bitfield and palette selection with the user's
+   Spatterlight preferences (delays, forced inventory mode, forced
+   palette, graphics on/off). Switches the palette and re-defines colors
+   if it changed. */
 static void UpdateSettings(void)
 {
 #ifdef SPATTERLIGHT

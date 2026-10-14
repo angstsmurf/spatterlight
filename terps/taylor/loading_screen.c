@@ -38,7 +38,8 @@ static int AlkatrazDrawOrderLen = 0;
    all come from the shared ZXTitle renderer (zx_title.h) and
    decompressz80.h. */
 
-/* More data blocks than any tape we look at has */
+/* More data blocks than any tape we look at has. Only this many are
+   searched for a loading screen: one further in is not found. */
 #define MAX_TAPE_BLOCKS 64
 
 void ZXSetDrawOrder(const uint16_t *order, int count)
@@ -92,11 +93,10 @@ uint8_t *FindTapeLoadingScreen(const uint8_t *raw, size_t raw_len, int is_tzx)
 
    Returns a malloc'd 6912-byte SCREEN$ (caller frees) or NULL. */
 uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
-    const uint8_t *descriptors, int num_windows, int block_index, int offset,
-    uint8_t key_seed, uint8_t key_step, uint8_t attr_fill)
+    const AlkatrazScreen *spec)
 {
     uint16_t order[ZX_SCREEN_SIZE];
-    int order_len = AlkatrazScreenOrder(descriptors, num_windows, order, ZX_SCREEN_SIZE);
+    int order_len = AlkatrazScreenOrder(spec->descriptors, spec->windows, order, ZX_SCREEN_SIZE);
     if (order_len <= 0)
         return NULL;
 
@@ -105,9 +105,10 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
     ZXSetDrawOrder(order, order_len);
 
     size_t block_len = 0;
-    uint8_t *block = GetTZXBlock(block_index, image, length, &block_len);
+    uint8_t *block = GetTZXBlock(spec->block, image, length, &block_len);
     if (block == NULL)
         return NULL;
+    int offset = spec->offset;
     if (block_len < (size_t)(offset + order_len)) {
         free(block);
         return NULL;
@@ -115,12 +116,12 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
 
     uint8_t *screen = MemAlloc(ZX_SCREEN_SIZE);
     memset(screen, 0x00, ZX_BITMAP_SIZE);                 /* black bitmap   */
-    memset(screen + ZX_BITMAP_SIZE, attr_fill,
+    memset(screen + ZX_BITMAP_SIZE, spec->attr_fill,
         ZX_SCREEN_SIZE - ZX_BITMAP_SIZE);                 /* attribute fill */
 
     /* key is the loader's rolling XOR key (its LOACON), advancing by
        key_step (the loader's ADD2) after each decoded byte. */
-    uint8_t key = key_seed;
+    uint8_t key = spec->key_seed;
     for (int i = 0; i < order_len; i++) {
         uint16_t addr = order[i];
         uint8_t encrypted = block[offset + i];
@@ -128,7 +129,7 @@ uint8_t *DecodeAlkatrazLoadingScreen(uint8_t *image, size_t length,
            maps to the start of our SCREEN$ buffer. */
         screen[addr - ZX_RAM_BASE] =
             encrypted ^ key ^ 1 ^ ((addr >> 8) & 0xff) ^ (addr & 0xff);
-        key += key_step;
+        key += spec->key_step;
     }
 
     free(block);

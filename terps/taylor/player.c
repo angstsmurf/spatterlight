@@ -21,6 +21,7 @@
 #include "animations.h"
 #include "c64decrunch.h"
 #include "extracommands.h"
+#include "gamedefs.h"
 #include "gameload.h"
 #include "graphics.h"
 #include "irmak.h"
@@ -109,7 +110,7 @@ int CarryItem(void)
 
 int DarkFlag(void)
 {
-    return Version == QUESTPROBE3_TYPE ? 43 : 1;
+    return Version == QUESTPROBE3_TYPE ? Q3_DARK_FLAG : 1;
 }
 
 void DropItem(void)
@@ -126,15 +127,22 @@ void Put(unsigned char obj, unsigned char loc)
     ObjectLoc[obj] = loc;
 }
 
+/* Carried or worn. Questprobe 3 has nothing worn, and its Worn() of 0
+   is an ordinary location. */
+int HeldByPlayer(unsigned char obj)
+{
+    if (ObjectLoc[obj] == Carried())
+        return 1;
+    return Version != QUESTPROBE3_TYPE && ObjectLoc[obj] == Worn();
+}
+
 int Present(unsigned char obj)
 {
     if (obj >= NumObjects())
         return 0;
     unsigned char v = ObjectLoc[obj];
-    if (v == MyLoc || v == Worn() || v == Carried() ||
-        (Version == QUESTPROBE3_TYPE && v == OtherGuyInv && OtherGuyLoc == MyLoc))
-        return 1;
-    return 0;
+    return v == MyLoc || HeldByPlayer(obj)
+        || (Version == QUESTPROBE3_TYPE && v == OtherGuyInv && OtherGuyLoc == MyLoc);
 }
 
 /* Room 0 is the intro/title pseudo-room; Kayleth's room 91 is an
@@ -255,7 +263,7 @@ void Inventory(void)
 
     int printed_any = 0;
     for (int i = 0; i < NumObjects(); i++) {
-        if (ObjectLoc[i] == Carried() || ObjectLoc[i] == Worn()) {
+        if (HeldByPlayer(i)) {
             printed_any = 1;
             PrintObject(i);
             if (ObjectLoc[i] == Worn()) {
@@ -531,6 +539,12 @@ static int AutoExit(unsigned char v)
     return 0;
 }
 
+static void LookIfRedrawn(void)
+{
+    if (Redraw)
+        Look();
+}
+
 /* Check if a word code is a direction (N/S/E/W/U/D etc.). */
 static int IsDir(unsigned char word)
 {
@@ -540,8 +554,14 @@ static int IsDir(unsigned char word)
        messages. QP3 has the four compass points first and two more
        direction words further up; the others have all ten in a row. */
     if (Version == QUESTPROBE3_TYPE)
-        return (word <= WEST || word == 57 || word == 60);
+        return (word <= WEST || word == Q3_WORD_UP || word == Q3_WORD_DOWN);
     return (word <= SOUTHWEST);
+}
+
+/* Whether the command is a move: a direction, or GO and a direction */
+static int IsMoveCommand(unsigned char verb)
+{
+    return IsDir(verb) || (Word[0] == GoVerb && IsDir(Word[1]));
 }
 
 /* Process one player command: try extra commands, direction auto-exits,
@@ -553,8 +573,7 @@ static void RunOneInput(void)
 
     if (FoundExtraCommand) {
         if (TryExtraCommand()) {
-            if (Redraw)
-                Look();
+            LookIfRedrawn();
             return;
         }
     }
@@ -564,17 +583,15 @@ static void RunOneInput(void)
             SysMessage(I_DONT_UNDERSTAND);
             StopTime = 2;
         } else {
-            if (Redraw)
-                Look();
+            LookIfRedrawn();
         }
         return;
     }
-    if (IsDir(Word[0]) || (Word[0] == GoVerb && IsDir(Word[1]))) {
+    if (IsMoveCommand(Word[0])) {
         if (AutoExit(Word[0]) || AutoExit(Word[1])) {
             StopTime = 0;
             RunStatusTable();
-            if (Redraw)
-                Look();
+            LookIfRedrawn();
             return;
         }
     }
@@ -593,12 +610,12 @@ static void RunOneInput(void)
         if (TryExtraCommand() == 0) {
             if (LastVerb) {
                 /* Retry with the previous verb in front of the words. */
-                memmove(Word + 1, Word, 4);
+                memmove(Word + 1, Word, WORDS_PER_COMMAND - 1);
                 Word[0] = LastVerb;
                 RunCommandTable();
             }
             if (ActionsExecuted == 0) {
-                if (IsDir(OriginalVerb) || (Word[0] == GoVerb && IsDir(Word[1]))) {
+                if (IsMoveCommand(OriginalVerb)) {
                     SysMessage(YOU_CANT_GO_THAT_WAY);
                 } else if (FoundVerb) {
                     SysMessage(THATS_BEYOND_MY_POWER);
@@ -690,11 +707,9 @@ static void IdentifyGame(void)
     fprintf(stderr, "Loaded %zu bytes.\n", FileImageLen);
 #endif
 
-    /* Step 2: locate the verb table by scanning for its signature — the
-       dictionary always starts with "NORT" + code 1 + "N" (the first
-       direction word, "NORTH", with code 1 followed by its alias "N"). */
-    VerbBase = FindCode("NORT\001N", 0, 6);
-    if (VerbBase == -1) {
+    /* Step 2: locate the verb table by scanning for its signature */
+    VerbBase = FindVerbTable();
+    if (VerbBase == NOT_FOUND) {
         Fatal("This is not a TaylorMade game: no verb table found");
     }
 

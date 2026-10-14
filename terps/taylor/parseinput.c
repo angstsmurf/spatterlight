@@ -13,6 +13,7 @@
 #include "glk.h"
 
 #include "extracommands.h"
+#include "gamedefs.h"
 #include "parseinput.h"
 #include "taylor.h"
 #include "utility.h"
@@ -28,12 +29,13 @@ int EqualsIgnoringCase(const char *a, const char *b)
 }
 
 char **InputWordStrings = NULL; /* Input split into word strings */
-uint8_t Word[5];               /* Dictionary codes for the parsed words (0 = not found) */
-int WordPositions[5];          /* Index into InputWordStrings for each Word entry */
+uint8_t Word[WORDS_PER_COMMAND]; /* Dictionary codes for the parsed words (0 = not found) */
+int WordPositions[WORDS_PER_COMMAND]; /* Index into InputWordStrings for each Word entry */
 int WordsInInput = 0;          /* Number of word strings in InputWordStrings */
 int WordIndex = 0;             /* Position in InputWordStrings of the next command */
 
-int FoundExtraCommand = 0;     /* Set when parser finds a non-dictionary extra command */
+int FoundExtraCommand = 0;     /* Set by Parser when a word of the command is not
+                                  in the dictionary but is an extra command */
 
 /* Free all allocated word strings and reset input state. */
 void FreeInputWords(void)
@@ -111,13 +113,6 @@ static void SplitIntoWords(const char *string, int length)
 /* Read a line of input from the player via Glk, displaying a prompt
    appropriate to the game version. Loops until at least one word is
    entered. Handles non-input events (timer, resize) while waiting. */
-/* Questprobe 3 system messages that make up the prompt, and the room
-   (the opening, with no hero chosen yet) where no name is printed. */
-#define Q3_MSG_PROMPT_TORCH 8
-#define Q3_MSG_PROMPT_THING 9
-#define Q3_MSG_I_WANT_YOU_TO 10
-#define Q3_OPENING_ROOM 6
-
 static void LineInput(void)
 {
     event_t ev;
@@ -128,15 +123,15 @@ static void LineInput(void)
     OutFlush();
     FirstAfterInput = 0;
     LastVerb = 0;
-    do {
+    while (1) {
         /* Pretend the previous character was a newline so OutChar's
            capitalization logic treats the prompt as a fresh sentence. */
         LastChar = '\n';
         if (Version == QUESTPROBE3_TYPE) {
             /* QP3 prefixes the prompt with the active character's name
                ("THING I want you to" / "HUMAN TORCH I want you to"),
-               except in the intro room. */
-            if (MyLoc != Q3_OPENING_ROOM) {
+               except in the opening room. */
+            if (MyLoc != Q3_ROOM_OPENING) {
                 if (IsThing == 0)
                     SysMessage(Q3_MSG_PROMPT_TORCH);
                 else
@@ -186,16 +181,23 @@ static void LineInput(void)
         }
 
         /* Empty input (whitespace only) — print "Huh?" and reprompt. */
-        WordsInInput = 0;
         Display(Bottom, "Huh?");
         FirstAfterInput = 0;
-
-    } while (WordsInInput == 0 || InputWordStrings == NULL);
+    }
 }
 
-/* Single-letter abbreviation expansions (padded to 4 chars) */
-static const char *Abbreviations[] = { "I   ", "L   ", "X   ", "Z   ", "Q   ", "Y   ", NULL };
-static const char *AbbreviationValue[] = { "INVE", "LOOK", "EXAM", "WAIT", "QUIT", "YES ", NULL };
+/* Single-letter abbreviations and the dictionary words they stand for */
+static const struct {
+    char letter;
+    const char *word;
+} Abbreviations[] = {
+    { 'I', "INVE" },
+    { 'L', "LOOK" },
+    { 'X', "EXAM" },
+    { 'Z', "WAIT" },
+    { 'Q', "QUIT" },
+    { 'Y', "YES " },
+};
 
 /* The dictionary in the game file ends with the entry "XXXX", code 0xff */
 static int IsDictionaryEnd(const unsigned char *entry)
@@ -206,7 +208,7 @@ static int IsDictionaryEnd(const unsigned char *entry)
 /* Look up a word in the game dictionary. The dictionary is a flat list of
    5-byte entries (4-char word + 1-byte code), see IsDictionaryEnd().
    Returns the dictionary code, or 0 if not found (after also checking
-   single-letter abbreviations and extra commands). */
+   single-letter abbreviations). */
 int ParseWord(const char *word)
 {
     char key[5];
@@ -230,14 +232,10 @@ int ParseWord(const char *word)
     }
 
     if (word_len == 1) {
-        for (int i = 0; Abbreviations[i] != NULL; i++) {
-            if (memcmp(Abbreviations[i], key, 4) == 0)
-                return ParseWord(AbbreviationValue[i]);
+        for (size_t i = 0; i < sizeof Abbreviations / sizeof Abbreviations[0]; i++) {
+            if (Abbreviations[i].letter == key[0])
+                return ParseWord(Abbreviations[i].word);
         }
-    }
-
-    if (ParseExtraCommand(word)) {
-        FoundExtraCommand = 1;
     }
     return 0;
 }
@@ -280,7 +278,7 @@ static int FindNextCommandDelimiter(void)
 /* Parse the next command from the input. If there are remaining chained
    commands (separated by delimiters), parse the next one; otherwise read
    a new line. Looks up each word in the dictionary and fills the Word[]
-   array with up to 5 dictionary codes. Applies game-specific word fixups
+   array with up to WORDS_PER_COMMAND dictionary codes. Applies game-specific word fixups
    for Blizzard Pass and Questprobe 3. */
 void Parser(void)
 {
@@ -297,7 +295,7 @@ void Parser(void)
 
     int out_index = 0;
 
-    for (int offset = 0; offset < 5 && WordIndex + offset < WordsInInput; offset++) {
+    for (int offset = 0; offset < WORDS_PER_COMMAND && WordIndex + offset < WordsInInput; offset++) {
         int input_pos = WordIndex + offset;
         Word[out_index] = ParseWord(InputWordStrings[input_pos]);
         /* Hack for certain Blizzard Pass verbs */
@@ -306,35 +304,36 @@ void Parser(void)
            differentiate between verbs and nouns, but Blizzard Pass seems confused
            about this. */
         if (CurrentGame == BLIZZARD_PASS && out_index == 0) {
-            /* Change SKIN to VSKI */
-            if (Word[0] == 249)
-                Word[0] = 43;
-            /* Change POLI to VPOL */
-            else if (Word[0] == 175)
-                Word[0] = 44;
+            if (Word[0] == BP_WORD_SKIN)
+                Word[0] = BP_WORD_VERB_SKIN;
+            else if (Word[0] == BP_WORD_POLISH)
+                Word[0] = BP_WORD_VERB_POLISH;
             /* Change noun DRAW(bridge) to verb DRAW */
-            else if (Word[0] == 134)
-                Word[0] = 49;
+            else if (Word[0] == BP_WORD_DRAWBRIDGE)
+                Word[0] = BP_WORD_VERB_DRAW;
         }
         if (Version == QUESTPROBE3_TYPE && out_index == 1) {
             /* Understand WALL and FIRE as the wall of fire */
-            if ((Word[1] == 54 || Word[1] == 44) && (ObjectLoc[10] == MyLoc || ObjectLoc[11] == MyLoc))
-                Word[1] = 77;
-            /* Understand MASTERS as Alicia Masters */
-            if (Word[1] == 106 && ObjectLoc[46] == MyLoc)
-                Word[1] = 121;
+            if ((Word[1] == Q3_WORD_WALL || Word[1] == Q3_WORD_FIRE) && (ObjectLoc[Q3_OBJ_WALL_OF_FIRE] == MyLoc || ObjectLoc[Q3_OBJ_WALL_OF_FIRE_2] == MyLoc))
+                Word[1] = Q3_WORD_FLAME;
+            /* Understand MASTERS as Alicia Masters rather than the
+               Ringmaster when she is here */
+            if (Word[1] == Q3_WORD_RINGMASTER && ObjectLoc[Q3_OBJ_ALICIA_MASTERS] == MyLoc)
+                Word[1] = Q3_WORD_ALICIA;
         }
         if (Word[out_index]) {
             debug_print("Word %d is %d\n", out_index, Word[out_index]);
             WordPositions[out_index] = input_pos;
             out_index++;
         } else {
+            if (IsExtraCommand(InputWordStrings[input_pos]))
+                FoundExtraCommand = 1;
             if (out_index > 0 && IsDelimiterWord(InputWordStrings[input_pos]))
                 break;
             debug_print("Word at position %d, %s, was not recognized\n", input_pos, InputWordStrings[input_pos]);
         }
     }
-    for (int i = out_index; i < 5; i++) {
+    for (int i = out_index; i < WORDS_PER_COMMAND; i++) {
         Word[i] = 0;
         WordPositions[i] = 0;
     }

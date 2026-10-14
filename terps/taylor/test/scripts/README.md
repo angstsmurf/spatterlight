@@ -3,7 +3,7 @@
 `make -f Makefile.headless scriptcheck` (from `terps/taylor`) plays each
 command script in this folder through `taylor_hl` on every release of its game
 in `../images/games/` and compares the transcript with a hash in
-`scripts.tsv`. 206 replays, a few seconds.
+`scripts.tsv`. 210 replays, a few seconds.
 
 `taylor_hl` is the interpreter on plain CheapGlk: commands on standard input,
 transcript on standard output, no pictures (those are tested by
@@ -51,3 +51,4 @@ Where a script has to wait, `INVENTORY` takes a turn.
 | `temple-of-terror` | won, on all 31 rows | graphics, text only and combined versions alike |
 | `temple-of-terror-alt` | won, on all 31 rows | another route |
 | `uitest-taylormade` | stops early, as written | Temple of Terror; `UITests/Supporting Files/Command scripts/TaylorMade command script.txt` |
+| `worn-drop` | stops early, on all 4 Blizzard Pass images | wears the robe, tries to take it ("You are wearing it."), drops it (no message, as in the Spectrum code), then drops it again |

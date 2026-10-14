@@ -398,3 +398,316 @@ wildcard.
 - `*_loadscreen_data.h` define `static const` arrays in headers; they are
   only included by extracttape.c, so the per-TU copy is harmless.
 - Freeing the `images` / patched image buffers at exit: process lifetime.
+
+## G. Second survey (2026-10-14)
+
+Found by reading actions.c, player.c, parseinput.c, extracommands.c, ui.c,
+textoutput.c, gameload.c, restorestate.c, graphics.c, animations.c,
+c64decrunch.c, extracttape.c and loading_screen.c after the passes above.
+Worked through 2026-10-14; outcomes are on the `→` lines. Grep by function
+name; line numbers drift.
+Not read this time: gameinfo.c, decrypttotloader.c, alkatraz_screen.c, test/.
+
+### G1. Dead code and stale text
+
+- [x] The `SysMessageType` members `MOVE_UNDONE`, `CANT_UNDO_ON_FIRST_TURN`,
+      `NO_UNDO_STATES`, `TRANSCRIPT_*`, `STATE_SAVED`, `NO_SAVED_STATE` (taylor.h)
+      are not used anywhere; extracommands.c and restorestate.c hard-code the
+      English in `Display(Bottom, "...")`. Delete the members, or use them.
+      Same for "Please answer Y or N.", "Restart? (Y/N) ", "Taken", "Dropped",
+      "You have nothing to drop. ".
+      → Deleted the unused members (`EXITS_DELIMITER` … `NO_SAVED_STATE`,
+        `LAST_SYSTEM_MESSAGE`); the enum comment now says the interpreter's own
+        messages are written out where printed. `NO_HELP_AVAILABLE` stays: position matters.
+- [x] `RamSave(int game)`: all three callers pass 1. **(verify)** the parameter
+      is unused in the body, then drop it.
+      → Unused; now `RamSave(void)`.
+- [x] animations.c leading comment ("inefficient in two ways ... second buffer
+      array") predates the `Shown.cells` diffing in graphics.c. Update or delete.
+      → Rewritten: `DrawBufferedPicture` paints only changed cells; stars,
+        force field, Queen and click shelves paint directly, so repaint their whole area.
+- [x] Misplaced doc comments: `UpdateSettings` sits above `SetExclusiveOption`
+      (ui.c); the `LineInput` comment in parseinput.c is separated from its
+      function by the `Q3_MSG_*` defines; the `terror_menu` comment in
+      c64decrunch.c is split from it by the TRIANON/HYBRID defines.
+      → Moved all three.
+- [x] `LineInput` do-while condition (`WordsInInput == 0 || InputWordStrings
+      == NULL`) is the only way the loop repeats, since the success path
+      returns inside; make it `while (1)` or move the check.
+      → `while (1)`; dropped the redundant `WordsInInput = 0`.
+- [x] `FlushRoomDescription`: `glk_window_get_size(Top, ...)` called four
+      times; the `strlen == 0` check is unreachable (the string always ends
+      in `\n`); `o2` is a bad name.
+      → One `get_size` before the arrangement change removed (the one after
+        stays: the arrangement may change the height); unreachable check gone; `o2` → `pair`.
+- [x] `JustWroteNewline` and the forward declaration of `WordFlush` sit
+      mid-file in ui.c/textoutput.c; move to the top or the header.
+      → Moved to the top statics; `WordFlush` moved above `PrintCharacter`.
+- [x] c64decrunch.c: `DetectC64` tests `c64_registry[i].type` after copying the
+      row into `record`; use `record` throughout. The `Fatal("Unknown type")`
+      branch is unreachable for the registry as written.
+      → Uses `record` throughout; unreachable `Fatal` removed (else = T64).
+- [x] c64decrunch.c includes "utility.h" and "taylor.h"; **(verify)** both are
+      needed (`MemAlloc`, `Fatal`, `Display` are in utility.h/ui.h).
+      → Verified both are needed; no change.
+- [x] `CompanionFile` (gameload.c) is a file-scope static used only by
+      `LookForSecondTOTGame`; make it local and free it on every exit path
+      (check the hybrid text-only branch that leaves it unused).
+      → `LookForSecondTOTGame` rewritten with a local `companion`, one restore
+        path and a free on every reject; `UnparkFileImage` gone too. Covered by the tzx `-combined` rows.
+- [x] Build products `taylor_hl`, `taylor_image_probe`, `headless_obj`,
+      `headless_text_obj` in the source dir: **(verify)** they are ignored by
+      .gitignore, and that `make clean` removes them.
+      → Ignored by .gitignore and removed by `make clean`.
+
+### G2. Named constants still missing
+
+taylor.h names many flags and objects; these literals remain.
+
+- [x] Flags: `Flag[7]` (QP3 restedness; DIAGNOSE and `WaitFlag`), `Flag[42]` /
+      `Flag[43]` (dark flags, SWITCHINVENTORY, `DarkFlag()`), `Flag[59]` (QP3_64
+      Blob message 44 reset), `Flag[63]/[28]/[12]/[60]` (ToT guard/puzzle),
+      `Flag[10]` (Kayleth droid pursuing, animations.c), `Flag[118]`.
+      → In gamedefs.h: `Q3Restedness`, `Q3OtherGuyDark`/`Q3_DARK_FLAG`,
+        `Q3_64BlobFlag`, `TOT_GUARD_FLAG`/`ToTGuardBlinded`/`TOT_SHARED_FLAG`/`TOT_PUZZLE_FLAG`;
+        `KaylethDroidPursuing` in animations.c. `Flag[118]` is only in a comment.
+- [x] `Q3XanduPresent (Flag[39])` and the `Q3_*` enums live in actions.c while
+      `Q3SwitchedWatch` etc. are in taylor.h, and `Q3_OPENING_ROOM` is in
+      parseinput.c (actions.c's `MyLoc == 6 || MyLoc == 0` is the same room).
+      Gather the QP3/ToT/Kayleth named flags, objects and rooms in one header.
+      → New gamedefs.h holds the QP3, ToT and Blizzard Pass flags, objects,
+        rooms, messages and words; the names come from a dump of the games' object text and
+        dictionaries. Room 6 is the small office (`Q3_ROOM_OPENING`).
+- [~] Objects: `ObjectLoc[7]` (Q3UpdateFlags torch/thing fixup),
+      `ObjectLoc[48]` and `arg1 == 45` (ToT serpent guard, LET and IMAGE),
+      `ObjectLoc[10]/[11]/[46]` and words 54/44/77/106/121 (QP3 fixups in
+      `Parser`), Blizzard words 249->43, 175->44, 134->49, `PrintObject`
+      object 41, `ObjectLoc[0]` and `[122]` (animations.c).
+      → Named: QP3 objects 7, 10, 11, 46, 48 and words; Blizzard words; ToT
+        object 41. Correction: object 48 / picture 45 in `IMAGE` are QP3 (the fallen statue), not
+        ToT. Word 106 is RING/MAST (the Ringmaster), 121 ALIC/MAST. `ObjectLoc[0]` (Kayleth Azap
+        chamber) left; 122 was already `KAYLETH_DROID_SLOT`.
+- [~] Rooms: Rebel objects 42/107/92/58/36 and rooms 86/88/29-34/50/71 (only
+      `UNFOLDING_SPACE` is named); Kayleth rooms 1/2/3/32/36/52/53/56 and
+      `KaylethAnimations[2]`; `MyLoc == 250` (Rebel) and `MyLoc == 15`
+      (Kayleth) in `RunOneInput`; `MyLoc == 83` He-Man; `MyLoc == 49`
+      Blizzard token 0x2d; QP3 `IsDir` words 57/60; `NumObjects()` 49/120;
+      `WaitFlag()` 5/7; `GuessLowObjectEnd` 70/49; `Message(31)`.
+      → Rebel rooms/objects named in animations.c, and a `RebelAnimationHere()`
+        replaces the room tests duplicated in `UpdateRebelAnimations`/`StartAnimations`. QP3
+        rooms 2/3/34 and `IsDir` words 57/60 named. Not done: Kayleth rooms other than 3,
+        `MyLoc == 250`/`15` in `RunOneInput`, He-Man 83, Blizzard 49, `NumObjects`/`WaitFlag`/
+        `GuessLowObjectEnd` values, `Message(31)`: each is used once beside a comment.
+- [-] Animations: Kayleth speed `switch` literals (14, 10, 40, 80, 50, 12,
+      150, 40, 20, 30) and `ClickShelfStage`/`ShelfScrollStage` 9/7/80.
+      → Left: each `case` already says which room it is; the speeds are tuned
+        by eye, a name would add nothing.
+- [~] graphics.c: QP3 tile count 246, `InitIrmak(..., 4)`, the image opcodes
+      `0xfe/0xef/0xee/0xeb/0xf3/0xfa/0x82` in the decompressors; the QP3
+      status-table padding `0x7e` in `RunStatusTable` is the `MSG_END` value.
+      → Decompressor bytes named (`IMAGE_END`, `REPEAT_COMMAND`, `TOKEN_*`).
+        Left: 246, `InitIrmak(..., 4)`, the QP3 `0x7e` padding.
+- [x] `(size_t)-1` is compared as `== -1` in many places (FindCode,
+      FindTilesStart, ...). Define `NOT_FOUND` once.
+      → `NOT_FOUND` in gameload.h, used for every `FindCode` result.
+- [~] ui.c: `OutCount > 127` against `OutWord[128]` (use `sizeof`); `buf[512]`
+      / `511` in `LineInput`; `Word[5]`, `WordPositions[5]`, `offset < 5`
+      against a `WORD_COUNT` constant (`MAX_WORDS` exists in parseinput.h
+      but is the input word limit, not this); `IMAGE_WIDTH_IN_PIXELS 255`
+      against the irmak constants. **(verify)** 255 vs 256.
+      → `OutCount` is `size_t` and checked against `sizeof OutWord` (this also
+        fixed an overflow of `OutWord` when `TopWidth` > 128); `WORDS_PER_COMMAND` replaces the
+        5s. `buf[512]`/511 left (see G5). `IMAGE_WIDTH_IN_PIXELS` not checked.
+- [x] c64decrunch.c: the 17 `HYBRID_*`/`TRIANON_*` values are named, but
+      `terror_menu` still hard-codes track/sector pairs (17,1) and (20,16);
+      give them names. The registry's `parameter` field is unexplained at
+      the call: it is the iteration on which `switches` applies.
+      → `TRIANON_GRAPHICS_TRACK/SECTOR`, `TRIANON_TEXT_TRACK/SECTOR`;
+        `parameter` → `switch_pass`. Also fixed the menu typo "one with without pictures":
+        72 C64 ToT script rows re-blessed for that line alone.
+- [x] extracttape.c: `0xeeab` / `0xeea9` (ToT side B descriptor table and
+      count) and the `FixBrokenKayleth` addresses are unnamed; the Blizzard
+      Pass block numbers `{7,11,13,15,17}` / `{11,15,17,19,21}` are per-TZX/TAP
+      tables and could be one 2-row table indexed by `is_tzx`.
+      → `TOT_SIDE_B_SCREEN_WINDOWS/DESCRIPTORS`, and the window count is now
+        bounded by the snapshot size. `FixBrokenKayleth` has a comment per
+        step instead of names. Blizzard Pass: one `{tzx_block, offset}` table;
+        a TAP has 4 more blocks before each. Loading screens, draw orders and
+        lengths of all 30 Spectrum corpus files hash the same as before.
+
+### G3. Deduplication
+
+- [x] `FindCode("NORT\001N", 0, 6)` (verb-table signature) is repeated in
+      `IdentifyGame` (player.c) and `LookForSecondTOTGame` (gameload.c):
+      one `FindVerbTable()`.
+      → `FindVerbTable()` in gameload.c.
+- [x] `RunOneInput`: `if (Redraw) Look(); return;` appears three times in the
+      extra-command paths, and `IsDir(OriginalVerb) || (Word[0] == GoVerb &&
+      IsDir(Word[1]))` twice. Fold into a helper or an early-return layout.
+      → `LookIfRedrawn()` and `IsMoveCommand(verb)`.
+- [x] `Display()` (ui.c) and `WriteToRoomDescriptionStream()` (textoutput.c)
+      both vsnprintf into a 2048-byte buffer; share one formatter.
+      → `PrintToStreamV()` in ui.c.
+- [x] `PrintCharacter`: the Bottom and Top branches repeat the buffer-append
+      and whitespace logic.
+      → `AppendToWord(c, win, limit)`.
+- [x] `LookForSecondTOTGame`: `UnparkFileImage(...)` is called from four early
+      returns; use one exit label.
+      → See `CompanionFile` above.
+- [x] `Q3Condition`/`Q3Action` and `Q3AdjustConditions/Actions`: one
+      `TranslateQ3(op, &arg1, &arg2)`. The NULL guards on arg1/arg2 exist
+      only for the DEBUG call with dummy pointers.
+      → `Q3TranslateCondition`/`Q3TranslateAction` translate the opcode
+        and its flags; the DEBUG trace now prints after translation, so the NULL guards went.
+- [x] `Carried() || Worn()` is spelled out in CARRIED/NOTCARRIED, Inventory,
+      GetObject and Present: add `HeldByPlayer(obj)`.
+      → `HeldByPlayer(obj)`, also used by `Present`.
+- [x] `Abbreviations[]` / `AbbreviationValue[]` (parseinput.c) are parallel
+      arrays; use a struct table as was done for `ExtraCommands`.
+      → One `{letter, word}` table.
+- [-] restorestate.c writes Flag + ObjectLoc three ways (SaveCurrentState /
+      RestoreState memcpy, LoadGame's two `glk_get_buffer_stream`, SaveGame's
+      two `put_buffer`). Share one helper or read/write the `SavedState`.
+      → Two `memcpy`s, two reads, two writes: already plain, and the save
+        file layout (Flag then ObjectLoc) reads off the code. A helper would hide it.
+- [x] `BEEP`: 25-line comment and three `#if` variants in `PerformAction`;
+      move to `PlayBeep(arg1, arg2)`. The `IMAGE` case's per-game fixups
+      (room 3 DrawBlack, statue 45 / object 48) likewise.
+      → `PlayBeep(duration, pitch)`. The `IMAGE` fixups stay in place (two
+        lines, now named).
+- [x] `SWITCHINVENTORY` swaps by hand; `PerformAction` is ~260 lines and
+      shares one `tmp` across cases (declare per case).
+      → `SwapBytes()` for SWAPF and SWITCHINVENTORY; no shared `tmp`
+        (ADD/SUB clamp inline, SWAP scopes its own).
+- [x] `PatchAndDrawQP3Cannon`: four near-identical `IRMAK_IMGWIDTH * 8 + n`
+      lines; loop over a small table.
+      → Loops over a `bright_cells` table.
+- [x] `AnimateKaylethClickShelves`: ink and ink2 are both computed every
+      iteration of the 4-deep loop although a half uses only one.
+      → One ink per half. Equivalent by inspection; animations are not
+        covered by the headless suites.
+- [x] extracttape.c: `ProcessAlkatrazTape` and the three `ExtractSpec` /
+      `AlkatrazTape` rows repeat `*_SCREEN_*` constants per game; a macro or
+      a screen-spec struct in each `*_loadscreen_data.h` would make the
+      table one line per tape.
+      → `AlkatrazScreen` (loading_screen.h); each `*_loadscreen_data.h`
+        defines one, and `AlkatrazTape` is one line per tape. Also fixed the
+        Kayleth comment "tape block 4": it is block 3, counting from 0.
+- [-] `DetectC64`: the D64 largest-file and T64 first-record branches each
+      free `*sf` and replace it; `GetFileFromT64`'s caller in `terror_menu`
+      does the same twice. One `ExtractFromContainer(layout, ...)`.
+      → Left: the branches differ in what they free and keep; a shared
+        helper would need flags for each.
+
+### G4. Structure and readability
+
+- [~] `TryExtraCommand`: relies on enum ordering (`verb > SCRIPT`) to detect
+      "the first game word is the second word"; derefs
+      `InputWordStrings[verb_position]`. **(verify)** it cannot be reached
+      with `InputWordStrings == NULL` from the `Word[0]==0 && Word[1]==0`
+      path in `RunOneInput`. The `switch` is a `{verb, noun-set, handler}`
+      table. The `_EXTR` suffixes exist only to dodge enum clashes.
+      → Verified: `LineInput` loops until a word is entered, so
+        `InputWordStrings` is never NULL when `RunOneInput` runs. Table and `_EXTR` not done.
+- [x] `ParseWord` sets `FoundExtraCommand` as a side effect of looking a word
+      up; the hidden coupling with `Parser` and `TryExtraCommand` (which
+      resets it) wants a single owner.
+      → `ParseWord` only looks up. `Parser` sets `FoundExtraCommand` when a
+        word is not found but `IsExtraCommand(word)` (extracommands.c).
+        The reset in `TryExtraCommand` was redundant and went.
+- [~] gameload.c: `FindFlags` is nested if/else with fall-through;
+      `TokenClassify` classifies by side effect and writes `Version = 0`
+      through the `Version` macro, i.e. into the shared `games[]` row
+      (**verify** the intent: NO_TYPE rather than REBEL_PLANET_TYPE); return a
+      bool instead. `DetectGame` loops through the "Unknown game" row and
+      sets `FileBaselineOffset` as a side effect; `FindTokens` re-scans the
+      file per candidate; the `glkunix_startup_code` option loop uses
+      `argv++; argc--` and then `argv[1]`.
+      → `TokenClassify` deleted: an `abort()` probe showed it never fires on
+        the whole corpus, and if it did it would set NO_TYPE, which is wrong; the type comes from the
+        `games[]` row. The rest not done.
+- [-] player.c: `Destroyed()`, `Carried()`, `Worn()` are exported functions
+      returning a constant or a flag; inline in taylor.h. The QP3/non-QP3
+      differences (`NumObjects`, `WaitFlag`, `CarryItem`, `DropItem`,
+      `DarkFlag`, `Worn`, `Present`) are `Version == QUESTPROBE3_TYPE` checks
+      scattered through the file: group them or put the values on `GameInfo`.
+      → Left: small and exported; `HeldByPlayer` covers the common use.
+- [x] `TopWidth` is `glui32` and compared with `int` (`OutCount == TopWidth`).
+      → See the `OutCount` item in G2.
+- [~] graphics.c: `ExtractImage` copies `instructions` into a
+      MAX_INSTRUCTIONS stack buffer and then memcpy's again; decompress
+      directly. `DecompressHemanType` takes no capacity parameter unlike
+      `EarlierType`. `AdjustBlizzardPassImageWidth`'s list wants a table.
+      `#pragma mark` and `/* --- */` section markers are mixed.
+      → `DecompressHemanType` takes a capacity. Left: `ExtractImage`'s stack
+        buffer (the length is only known after decompressing), the Blizzard switch (six cases),
+        the section markers.
+- [x] animations.c: `KaylethAnimations` is `MemAlloc` + a NULL loop; use
+      `MemCalloc`.
+      → `MemCalloc`.
+- [x] actions.c `DropObject`: an unresolved FIXME ("check if this is how the
+      real game behaves"). Check against MAME / the Z80 code, then remove.
+      → Checked in the Z80 code with Ghidra: He-Man's action table is at
+        0x6C45 (DROP 0x6A20, GET 0x69DF) and the same DROP bytes are in all
+        five non-QP3 Spectrum snapshots; QP3's tables are at 0x96A8
+        (conditions) and 0x991C (actions; DROP 0x97AB, GET 0x976B).
+        Fixed, all checked against that code:
+        - DROP of a worn object puts it in the room, with no message and the
+          carried count unchanged (we printed "You are wearing it.").
+        - GET of a worn object prints YOU_ARE_WEARING_IT (we printed
+          YOU_HAVE_IT).
+        - A failed GET or DROP sets the loop's stop flag (0x5DFC in He-Man,
+          0x5BE6 in QP3) in every game, which ends the table scan at once. We
+          did this only for Rebel Planet's DROP, and for QP3's GET without
+          leaving the line.
+        - The loop sets that flag *before* an action with bit 6 and returns
+          after it, so the rest of the line is skipped. We ran the rest.
+          It matters once in the corpus: a He-Man LOOK line goes on to
+          `LET 4 11`, so every LOOK raised MaxCarried from 7 to 11.
+        - QP3 has nothing worn: its CARRIED condition and inventory test only
+          Flag[2], and the game has no "worn" text. `Worn()` returns 0
+          there, which is a real room, so `HeldByPlayer` counted objects in
+          room 0 as held. It now ignores Worn() for QP3. The watch is carried
+          (in Thing's inventory, 254), not worn.
+        New `worn-drop` script (4 Blizzard Pass rows: wear, get, drop, drop
+        again). No walkthrough moved.
+        Left: action 8, our PRINTOK ("Guess"), is 0x6997 in He-Man: it only
+        sets the stop flag, like QP3's DONE. Where "Okay" is printed from
+        (perhaps flag 0x5B85, which every failure clears) is not traced.
+        Also left: QP3's inventory loop covers objects 0-47, while our
+        `NumObjects()` gives 49 for QP3.
+- [x] loading_screen.c: `DrawZXTitleImage` closes and reopens all three
+      windows by hand, as the Scott title routine does; **(verify)** whether a
+      shared helper exists in the common code before keeping two copies.
+      `MAX_TAPE_BLOCKS` (64) silently truncates a longer tape: say so in the
+      comment or return the count.
+      → Verified: there is no shared helper. Scott has its own
+        `OpenTitleWindows`/`CloseTitleWindows`, and zx_title.h leaves the
+        windows to the caller, so two copies stay. `MAX_TAPE_BLOCKS`
+        comment now says a screen further in is not found. Possible
+        follow-up: `FindTapeLoadingScreen` is almost the same in
+        scott/title_image.c and could move into decompressz80.
+
+### G5. Possible behaviour issues (each needs a test row)
+
+- [x] **(behaviour)(verify)** `Chance(n)`: `erkyrath_random() % 100 <= n`
+      is n+1 percent. Compare with the original Z80 routine (MAME). If the
+      original is `< n`, fix it and note every seeded transcript that moves.
+      → The original is `< n`. He-Man (0x688D, Ghidra) and the other
+        non-QP3 games compute floor(100 * b / 256) for a byte b from an
+        8-entry table indexed by FRAMES & 7, and succeed if that is below
+        n. QP3 uses FRAMES mod 100, also `< n`. Fixed. Moved: he-man (9 rows:
+        one "The earth tremors more violently." fewer) and rebel-planet (8
+        rows: Energy 1000 instead of 990 once). Both still end as before;
+        re-blessed.
+- [x] **(behaviour)(verify)** `LineInput` buffer: `buf[length] = 0` with
+      `length == ev.val1`; the request is 511 chars into 512, so fine, but
+      check `ev.val1` is never larger on a Glk that ignores the length.
+      → Glk guarantees `val1` ≤ the requested 511; no change.
+- [x] **(verify)** `GetFileFromT64` treats `number_of_records == filenum` as
+      "the last file runs to the end of the image", while `end_addr` of the
+      last record may be correct; check a T64 with trailing garbage.
+      → Verified: every corpus T64's last record has a correct end address,
+        and the only caller (`terror_menu`) reads records 1 and 2 of a
+        3-record image, so the branch is never taken. Kept, as some T64
+        writers get the end address wrong; the doc comment now says so.

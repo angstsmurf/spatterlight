@@ -46,14 +46,13 @@ size_t AnimationData = 0;   /* Offset of Kayleth animation data (0 if none) */
 long FileBaselineOffset = 0;
 
 static char *Filename;
-static uint8_t *CompanionFile; /* Second file for Temple of Terror hybrid mode */
 
 /* Search FileImage for a byte pattern starting at base. Returns the
-   offset if found, or (size_t)-1 if not found. */
+   offset if found, or NOT_FOUND. */
 size_t FindCode(const char *code, size_t base, size_t len)
 {
     if (len > FileImageLen || base > FileImageLen - len)
-        return (size_t)-1;
+        return NOT_FOUND;
     unsigned char *p = FileImage + base;
     unsigned char *last = FileImage + FileImageLen - len;
     while (p <= last) {
@@ -61,7 +60,14 @@ size_t FindCode(const char *code, size_t base, size_t len)
             return p - FileImage;
         p++;
     }
-    return (size_t)-1;
+    return NOT_FOUND;
+}
+
+/* The dictionary always starts with "NORT" + code 1 + "N" (the first
+   direction word, "NORTH", with code 1 followed by its alias "N"). */
+size_t FindVerbTable(void)
+{
+    return FindCode("NORT\001N", 0, 6);
 }
 
 /* Locate the initial flag data in the file image by searching for known
@@ -72,10 +78,10 @@ static size_t FindFlags(void)
 
     /* Questprobe */
     pos = FindCode("\xE7\x97\x51\x95\x5B\x7E\x5D\x7E\x76\x93", 0, 10);
-    if (pos == -1) {
+    if (pos == NOT_FOUND) {
         /* Look for the flag initial block copy */
         pos = FindCode("\x01\x06\x00\xED\xB0\xC9\x00\xFD", 0, 8);
-        if (pos == -1) {
+        if (pos == NOT_FOUND) {
             if (Game)
                 return Game->start_of_flags + FileBaselineOffset;
             else
@@ -108,25 +114,6 @@ static int LooksLikeTokens(size_t pos)
     return lowercase_count > TOKEN_SAMPLE_THRESHOLD;
 }
 
-/* Detect version 0 format by checking for in-stream end markers
-   (MSG_END_SPACE or MSG_END) in the token table. */
-static void TokenClassify(size_t pos)
-{
-    unsigned char *ptr = FileImage + pos;
-    /* Not EndOfData: this also runs on the Temple of Terror companion file */
-    unsigned char *last = FileImage + FileImageLen - 1;
-    int n = 0;
-    if (pos >= FileImageLen)
-        return;
-    while (n++ < 256) {
-        do {
-            /* Game is not set yet while DetectGame() tries the candidates */
-            if (Game && (*ptr == MSG_END_SPACE || *ptr == MSG_END))
-                Version = 0;
-        } while (ptr < last && !(*ptr++ & TOKEN_LAST_BYTE));
-    }
-}
-
 /* Locate the token (text fragment) table by searching for known byte
    patterns. Tries game-specific signatures first, then falls back to
    generic Z80 instruction patterns and the "You are in " string. */
@@ -137,19 +124,19 @@ static size_t FindTokens(void)
 
     if (Game && Game->token_signature) {
         pos = FindCode(Game->token_signature, 0, TOKEN_SIGNATURE_LENGTH);
-        if (pos != -1)
+        if (pos != NOT_FOUND)
             return pos;
     }
 
     do {
         pos = FindCode("\x47\xB7\x28\x0B\x2B\x23\xCB\x7E", pos + 1, 8);
-        if (pos == -1) {
+        if (pos == NOT_FOUND) {
             /* Questprobe */
             pos = FindCode("\x58\x58\x58\x58\xFF", 0, 5);
-            if (pos == -1) {
+            if (pos == NOT_FOUND) {
                 /* Last resort */
                 addr = FindCode("You are in ", 0, 11);
-                if (addr == -1 || addr == 0) {
+                if (addr == NOT_FOUND || addr == 0) {
                     if (Game)
                         return Game->start_of_tokens + FileBaselineOffset;
                     fprintf(stderr, "Unable to find token table.\n");
@@ -161,7 +148,6 @@ static size_t FindTokens(void)
         }
         addr = READ_LE_UINT16(FileImage + pos - 2) - ZX_RAM_BASE + FileBaselineOffset;
     } while (LooksLikeTokens(addr) == 0);
-    TokenClassify(addr);
     return addr;
 }
 
@@ -205,7 +191,7 @@ void FindTables(void)
 
     if (BaseGame == KAYLETH) {
         AnimationData = FindCode("\xff\x00\x00\x00\x0f\x00\x5d\x0f\x00\x61", 0, 10);
-        if (AnimationData == -1)
+        if (AnimationData == NOT_FOUND)
             AnimationData = FindCode("\xff\x00\x00\x15\x0f\x00\x5d\x0f\x00\x61", 0, 10);
     }
 }
@@ -383,17 +369,6 @@ GameInfo *DetectGame(size_t LocalVerbBase)
     return NULL;
 }
 
-/* Restore the FileImage globals to a previously saved state. Used when
-   switching back from a companion file. */
-static void UnparkFileImage(uint8_t *ParkedFile, size_t ParkedLength, long ParkedOffset, int FreeCompanion)
-{
-    FileImage = ParkedFile;
-    FileImageLen = ParkedLength;
-    FileBaselineOffset = ParkedOffset;
-    if (FreeCompanion)
-        free(CompanionFile);
-}
-
 /* Temple of Terror has separate graphics and text-only versions. If we
    loaded one, look for the other by swapping the last character before
    the extension ('a' <-> 'b'). If found, offer to create a hybrid that
@@ -412,66 +387,69 @@ void LookForSecondTOTGame(void)
     else if (period > secondfile)
         period--;
 
-    if (CurrentGame == TEMPLE_OF_TERROR)
+    GameIDType wanted;
+    if (CurrentGame == TEMPLE_OF_TERROR) {
         *period = 'b';
-    else
+        wanted = TOT_TEXT_ONLY;
+    } else {
         *period = 'a';
+        wanted = TEMPLE_OF_TERROR;
+    }
 
     size_t filelength;
-
-    CompanionFile = ReadFileIfExists(secondfile, &filelength);
+    uint8_t *companion = ReadFileIfExists(secondfile, &filelength);
     free(secondfile);
-
-    if (CompanionFile == NULL) {
+    if (companion == NULL)
         return;
-    }
+    companion = ProcessFile(companion, &filelength);
 
-    uint8_t *ParkedFile = FileImage;
-    size_t ParkedLength = FileImageLen;
-    long ParkedOffset = FileBaselineOffset;
-
-    CompanionFile = ProcessFile(CompanionFile, &filelength);
-
-    FileImage = CompanionFile;
+    /* Look at the companion file through the FileImage globals */
+    uint8_t *parked_file = FileImage;
+    size_t parked_length = FileImageLen;
+    long parked_offset = FileBaselineOffset;
+    FileImage = companion;
     FileImageLen = filelength;
 
-    size_t AltVerbBase = FindCode("NORT\001N", 0, 6);
+    size_t alt_verb_base = FindVerbTable();
+    GameInfo *alt_game = NULL;
+    if (alt_verb_base != NOT_FOUND)
+        alt_game = DetectGame(alt_verb_base);
+    long alt_offset = FileBaselineOffset; /* Set by DetectGame() */
 
-    if (AltVerbBase == -1) {
-        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
+    int combine = 0;
+    if (alt_game != NULL && alt_game->gameID == wanted) {
+        Display(Bottom, "Found files for both the text-only version and the graphics version of Temple of Terror.\n"
+                        "Would you like to use the longer texts from the text-only version along with the graphics from the other file? (Y/N) ");
+        combine = YesOrNo();
+    }
+
+    FileImage = parked_file;
+    FileImageLen = parked_length;
+    FileBaselineOffset = parked_offset;
+
+    if (!combine) {
+        free(companion);
         return;
     }
 
-    GameInfo *AltGame = DetectGame(AltVerbBase);
-
-    if (AltGame == NULL) {
-        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
-        return;
-    }
-
-    if ((CurrentGame == TOT_TEXT_ONLY && AltGame->gameID != TEMPLE_OF_TERROR) || (CurrentGame == TEMPLE_OF_TERROR && AltGame->gameID != TOT_TEXT_ONLY)) {
-        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
-        return;
-    }
-
-    Display(Bottom, "Found files for both the text-only version and the graphics version of Temple of Terror.\n"
-                    "Would you like to use the longer texts from the text-only version along with the graphics from the other file? (Y/N) ");
-    if (!YesOrNo()) {
-        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 1);
-        return;
-    }
-
+    /* The pictures are read from the graphics version, which then stays
+       in memory for the picture instructions, and the game is played
+       from the text-only version. */
     if (CurrentGame == TOT_TEXT_ONLY) {
         Game = FindGameByID(TOT_HYBRID);
+        FileImage = companion;
+        FileImageLen = filelength;
+        FileBaselineOffset = alt_offset;
         InitGraphics();
-        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
+        FileImage = parked_file;
+        FileImageLen = parked_length;
+        FileBaselineOffset = parked_offset;
     } else {
-        UnparkFileImage(ParkedFile, ParkedLength, ParkedOffset, 0);
         InitGraphics();
         Game = FindGameByID(TOT_HYBRID);
-        FileImage = CompanionFile;
+        FileImage = companion;
         FileImageLen = filelength;
-        VerbBase = AltVerbBase;
+        VerbBase = alt_verb_base;
     }
 
     EndOfData = FileImage + FileImageLen;

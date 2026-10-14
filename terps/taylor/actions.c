@@ -17,6 +17,7 @@
 #include "glkimp.h"
 #endif
 #include "animations.h"
+#include "gamedefs.h"
 #include "gameload.h"
 #include "graphics.h"
 #include "irmak.h"
@@ -225,28 +226,11 @@ static const unsigned char Q3Action[ACTION_OP_MASK + 1] = {
     /* The rest are unused: ACTIONERROR */
 };
 
-/* Questprobe 3 objects, flags and messages that the interpreter itself
-   needs to know about. */
-enum {
-    Q3_OBJ_HOLDING_THING = 1, /* "Holding THING by the hands" */
-    Q3_OBJ_HOLDING_TORCH = 2, /* "Holding HUMAN TORCH by the hands" */
-    Q3_OBJ_THING = 17,
-    Q3_OBJ_TORCH = 18,
-    Q3_OBJ_CANNON = 29,
-    Q3_OBJ_XANDU = 33,
-    Q3_OBJ_WATCH = 37,
-};
-
-#define Q3XanduPresent (Flag[39])
-
-#define Q3_XANDU_ROOM 22
-#define Q3_ROOM_ORDERED_OUT_TO 26
-#define Q3_MSG_ORDERED_OUT 24
-#define Q3_MSG_WATCH 223 /* Three parts: turns, restedness, and the end */
-
+/* The Spectrum games succeed when a value from 0 to 99 is below n
+   (CHANCE 0 never succeeds, CHANCE 100 always does). */
 static int Chance(int n)
 {
-    return (erkyrath_random() % 100 <= n);
+    return (erkyrath_random() % 100 < n);
 }
 
 static int LoadPrompt(void)
@@ -365,8 +349,12 @@ static void DropAll(int loud)
 
 static int GetObject(unsigned char obj)
 {
-    if (ObjectLoc[obj] == Carried() || ObjectLoc[obj] == Worn()) {
+    if (ObjectLoc[obj] == Carried()) {
         SysMessage(YOU_HAVE_IT);
+        return 0;
+    }
+    if (HeldByPlayer(obj)) {
+        SysMessage(YOU_ARE_WEARING_IT);
         return 0;
     }
     if (!(Version == QUESTPROBE3_TYPE && OtherGuyLoc == MyLoc && ObjectLoc[obj] == OtherGuyInv)) {
@@ -386,10 +374,12 @@ static int GetObject(unsigned char obj)
 
 static int DropObject(unsigned char obj)
 {
-    /* FIXME: check if this is how the real game behaves */
-    if (ObjectLoc[obj] == Worn()) {
-        SysMessage(YOU_ARE_WEARING_IT);
-        return 0;
+    /* As in the Spectrum games: a worn object is dropped too, and does
+       not count against the items carried. Questprobe 3 has no worn
+       objects. */
+    if (Version != QUESTPROBE3_TYPE && ObjectLoc[obj] == Worn()) {
+        Put(obj, MyLoc);
+        return 1;
     }
     if (ObjectLoc[obj] != Carried()) {
         SysMessage(YOU_HAVENT_GOT_IT);
@@ -484,8 +474,8 @@ static void Q3SwitchInvFlags(unsigned char a, unsigned char b)
    update turn/asphyxiation counters. */
 static void Q3UpdateFlags(void)
 {
-    if (ObjectLoc[7] == LOC_INV_TORCH)
-        ObjectLoc[7] = LOC_INV_THING;
+    if (ObjectLoc[Q3_OBJ_COVERED_IN_TAR] == LOC_INV_TORCH)
+        ObjectLoc[Q3_OBJ_COVERED_IN_TAR] = LOC_INV_THING;
     if (IsThing) {
         if (ObjectLoc[Q3_OBJ_HOLDING_TORCH] == LOC_DESTROYED) {
             /* If the "holding HUMAN TORCH by the hands" object is destroyed (i.e. not held) */
@@ -506,8 +496,8 @@ static void Q3UpdateFlags(void)
         Q3SwitchInvFlags(LOC_INV_THING, LOC_INV_TORCH);
     }
 
-    /* Reset flag 39 when Xandu is knocked out */
-    if (ObjectLoc[Q3_OBJ_XANDU] != Q3_XANDU_ROOM)
+    /* Clear the flag when Xandu is knocked out */
+    if (ObjectLoc[Q3_OBJ_XANDU] != Q3_ROOM_XANDU)
         Q3XanduPresent = 0;
     /* And set it when he is present */
     else if (Present(Q3_OBJ_XANDU))
@@ -519,7 +509,7 @@ static void Q3UpdateFlags(void)
      no matter who we begin as
      */
     if (!Q3SwitchedWatch) {
-        if (MyLoc == 6 || MyLoc == 0) {
+        if (MyLoc == Q3_ROOM_OPENING || MyLoc == 0) {
             ObjectLoc[Q3_OBJ_WATCH] = LOC_DESTROYED;
         } else {
             ObjectLoc[Q3_OBJ_WATCH] = LOC_INV_THING;
@@ -544,10 +534,13 @@ static void Q3UpdateFlags(void)
         TorchAsphyx = 0xff;
 }
 
-/* Questprobe 3 numbers the flags differently, so we have to offset them by 4 */
-static void Q3AdjustConditions(unsigned char op, unsigned char *arg1)
+/* Questprobe 3 numbers its opcodes differently, and its flags 4 lower
+   than the other games: translate an opcode and its flag arguments to the
+   canonical numbering. */
+static void Q3TranslateCondition(unsigned char *op, unsigned char *arg1)
 {
-    switch (op) {
+    *op = Q3Condition[*op];
+    switch (*op) {
     case ZERO:
     case NOTZERO:
     case LT:
@@ -561,22 +554,20 @@ static void Q3AdjustConditions(unsigned char op, unsigned char *arg1)
     }
 }
 
-static void Q3AdjustActions(unsigned char op, unsigned char *arg1, unsigned char *arg2)
+static void Q3TranslateAction(unsigned char *op, unsigned char *arg1, unsigned char *arg2)
 {
-    switch (op) {
+    *op = Q3Action[*op];
+    switch (*op) {
     case SET:
     case CLEAR:
     case LET:
     case ADD:
     case SUB:
-        if (arg1 != NULL)
-            *arg1 += 4;
+        *arg1 += 4;
         break;
     case SWAPF:
-        if (arg1 != NULL)
-            *arg1 += 4;
-        if (arg2 != NULL)
-            *arg2 += 4;
+        *arg1 += 4;
+        *arg2 += 4;
         break;
     default:
         break;
@@ -607,8 +598,8 @@ static int ActionParamCount(unsigned char op)
    or added) to the otherwise unused flag 60. */
 static unsigned char ToTPuzzleFlag(unsigned char flag, unsigned char value, unsigned char puzzle_value)
 {
-    if (BaseGame == TEMPLE_OF_TERROR && flag == 12 && value == puzzle_value)
-        return 60;
+    if (BaseGame == TEMPLE_OF_TERROR && flag == TOT_SHARED_FLAG && value == puzzle_value)
+        return TOT_PUZZLE_FLAG;
     return flag;
 }
 
@@ -634,9 +625,9 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
     case NOTHERE:
         return ObjectLoc[arg1] != MyLoc;
     case CARRIED:
-        return ObjectLoc[arg1] == Carried() || ObjectLoc[arg1] == Worn();
+        return HeldByPlayer(arg1);
     case NOTCARRIED:
-        return ObjectLoc[arg1] != Carried() && ObjectLoc[arg1] != Worn();
+        return !HeldByPlayer(arg1);
     case WORN:
         return ObjectLoc[arg1] == Worn();
     case NOTWORN:
@@ -647,13 +638,11 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
         return ObjectLoc[arg1] == Destroyed();
     case ZERO:
         if (BaseGame == TEMPLE_OF_TERROR) {
-            /* Unless we have kicked sand in the eyes of the guard, tracked by flag 63,
-             make sure they kill us if we try to pass, by setting flag 28 to zero */
-            /* This fixes a bug in the original game, which lets us just walk
-               past the guard */
-            /* Word 20 is GO / ENTER / CLIMB / WALK / RUN, word 162 is DOOR */
-            if (arg1 == 28 && Flag[63] == 0 && Word[0] == 20 && Word[1] == 162)
-                Flag[28] = 0;
+            /* Unless we have kicked sand in the eyes of the guard,
+               make sure he kills us if we try to pass. This fixes a bug
+               in the original game, which lets us just walk past him. */
+            if (arg1 == TOT_GUARD_FLAG && !ToTGuardBlinded && Word[0] == TOT_WORD_GO && Word[1] == TOT_WORD_DOOR)
+                Flag[TOT_GUARD_FLAG] = 0;
         }
         return Flag[arg1] == 0;
     case NOTZERO:
@@ -686,13 +675,47 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
     }
 }
 
+static void SwapBytes(uint8_t *a, uint8_t *b)
+{
+    uint8_t tmp = *a;
+    *a = *b;
+    *b = tmp;
+}
+
+/* The BEEP action: duration and pitch are its two arguments */
+static void PlayBeep(unsigned char duration, unsigned char pitch)
+{
+    /* The interpreter's Beep routine (Rebel Planet @0x6AD7) builds the
+     * ROM beeper (0x03B5) inputs from the two operands, then JP 0x03B5:
+     *   DE (cycles)      = (duration * 4) & 0x1FF
+     *   HL (half-period) = pitch * DE   (16x16 multiply at 0x30A9)
+     * The & 0x1FF is not a tidy-up: the routine forms duration*4 with
+     * two ADD A,A and a single RL D, so only bit 6 of the duration
+     * carries into the high byte (it keeps just the low 9 bits). Without
+     * it, durations >= 64 (e.g. 0xFF) overshoot badly. f = 437500 /
+     * (HL+30.125) Hz for DE cycles. Reverse-engineered in MAME: PRESS IH
+     * in Rebel Planet gives duration=0xFF, pitch=2 -> DE=508, HL=1016
+     * (418 Hz) -> ~1.2 s, matching the original. (The old arg1-as-HL
+     * code made a ~3 ms click; a naive duration*4 made a ~4.8 s drone.) */
+#if defined(GLK_MODULE_GARGLKBLEEP)
+    (void)pitch;
+    garglk_zbleep(1 + (duration == 250));
+#elif defined(SPATTERLIGHT)
+    int de = (duration * 4) & 0x1FF;
+    win_beep_zx((pitch * de) & 0xFFFF, de);
+#else
+    (void)duration;
+    (void)pitch;
+    putchar('\007');
+    fflush(stdout);
+#endif
+}
+
 /* Perform a single action opcode (already translated to the canonical
    numbering). May set *done to stop further table scanning. Returns
    nonzero if the rest of the line must be abandoned immediately. */
 static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg2, int *done)
 {
-    int tmp;
-
     switch (op) {
     case LOADPROMPT:
         if (LoadPrompt()) {
@@ -735,11 +758,10 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Okay();
         break;
     case GET:
-        if (GetObject(arg1) == 0 && Version == QUESTPROBE3_TYPE)
-            *done = 1;
-        break;
     case DROP:
-        if (DropObject(arg1) == 0 && BaseGame == REBEL_PLANET) {
+        /* A GET or DROP that fails prints why and, in every game, ends
+           the table scan at once, leaving the rest of the line undone. */
+        if ((op == GET ? GetObject(arg1) : DropObject(arg1)) == 0) {
             *done = 1;
             return 1;
         }
@@ -768,8 +790,8 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         break;
     case MESSAGE:
         /* Prevent repeated "Blob returns to his post" messages */
-        if (CurrentGame == QUESTPROBE3_64 && arg1 == 44)
-            Flag[59] = 0;
+        if (CurrentGame == QUESTPROBE3_64 && arg1 == Q3_64_MSG_BLOB_RETURNS)
+            Q3_64BlobFlag = 0;
         Message(arg1);
         if (CurrentGame == BLIZZARD_PASS && arg1 != 160)
             OutChar('\n');
@@ -794,38 +816,31 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         break;
     case LET:
         if (BaseGame == TEMPLE_OF_TERROR) {
-            if (arg1 == 28 && arg2 == 2) {
-                /* If the serpent guard is present, we have just kicked sand in his eyes. Set flag 63 to track this */
-                Flag[63] = (ObjectLoc[48] == MyLoc);
+            if (arg1 == TOT_GUARD_FLAG && arg2 == 2) {
+                /* If the serpent guard is present, we have just kicked sand in his eyes */
+                ToTGuardBlinded = (ObjectLoc[TOT_OBJ_SERPENT_GUARD] == MyLoc);
             }
         }
         Flag[arg1] = arg2;
         break;
     case ADD:
         arg1 = ToTPuzzleFlag(arg1, arg2, 1);
-        tmp = Flag[arg1] + arg2;
-        if (tmp > 255)
-            tmp = 255;
-        Flag[arg1] = tmp;
+        Flag[arg1] = Flag[arg1] + arg2 > 255 ? 255 : Flag[arg1] + arg2;
         break;
     case SUB:
-        tmp = Flag[arg1] - arg2;
-        if (tmp < 0)
-            tmp = 0;
-        Flag[arg1] = tmp;
+        Flag[arg1] = Flag[arg1] > arg2 ? Flag[arg1] - arg2 : 0;
         break;
     case PUT:
         Put(arg1, arg2);
         break;
-    case SWAP:
-        tmp = ObjectLoc[arg1];
+    case SWAP: {
+        uint8_t loc = ObjectLoc[arg1];
         Put(arg1, ObjectLoc[arg2]);
-        Put(arg2, tmp);
+        Put(arg2, loc);
         break;
+    }
     case SWAPF:
-        tmp = Flag[arg1];
-        Flag[arg1] = Flag[arg2];
-        Flag[arg2] = tmp;
+        SwapBytes(&Flag[arg1], &Flag[arg2]);
         break;
     case MEANS:
         Means(arg1, arg2);
@@ -834,30 +849,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Put(arg1, ObjectLoc[arg2]);
         break;
     case BEEP:
-        /* The interpreter's Beep routine (Rebel Planet @0x6AD7) builds the
-         * ROM beeper (0x03B5) inputs from the two operands, then JP 0x03B5.
-         * arg1 is the duration operand, arg2 the pitch operand:
-         *   DE (cycles)      = (duration * 4) & 0x1FF
-         *   HL (half-period) = pitch * DE   (16x16 multiply at 0x30A9)
-         * The & 0x1FF is not a tidy-up: the routine forms duration*4 with
-         * two ADD A,A and a single RL D, so only bit 6 of the duration
-         * carries into the high byte (it keeps just the low 9 bits). Without
-         * it, durations >= 64 (e.g. 0xFF) overshoot badly. f = 437500 /
-         * (HL+30.125) Hz for DE cycles. Reverse-engineered in MAME: PRESS IH
-         * in Rebel Planet gives arg1=0xFF, arg2=2 -> DE=508, HL=1016
-         * (418 Hz) -> ~1.2 s, matching the original. (The old arg1-as-HL
-         * code made a ~3 ms click; a naive duration*4 made a ~4.8 s drone.) */
-#if defined(GLK_MODULE_GARGLKBLEEP)
-        garglk_zbleep(1 + (arg1 == 250));
-#elif defined(SPATTERLIGHT)
-        {
-            int de = (arg1 * 4) & 0x1FF;
-            win_beep_zx((arg2 * de) & 0xFFFF, de);
-        }
-#else
-        putchar('\007');
-        fflush(stdout);
-#endif
+        PlayBeep(arg1, arg2);
         break;
     case REFRESH:
         if (BaseGame == KAYLETH)
@@ -867,7 +859,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Redraw = 1;
         break;
     case RAMSAVE:
-        RamSave(1);
+        RamSave();
         break;
     case RAMLOAD:
         RamLoad();
@@ -892,8 +884,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
             OutString("100");
         else {
             /* Calculate "restedness" percentage */
-            /* Flag[7] == 80 means 100 percent rested */
-            snprintf(buf, sizeof buf, "%d", (Flag[7] >> 2) + Flag[7]);
+            snprintf(buf, sizeof buf, "%d", (Q3Restedness >> 2) + Q3Restedness);
             OutString(buf);
         }
         Message(Q3_MSG_WATCH + 2);
@@ -901,13 +892,9 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
     }
     case SWITCHINVENTORY: {
         /* Swap "current" and "other character" state: inventory code
-           (CarriedLoc) plus the two dark flags (Flag[42], Flag[43]). */
-        uint8_t temp = CarriedLoc;
-        CarriedLoc = OtherGuyInv;
-        OtherGuyInv = temp;
-        temp = Flag[42];
-        Flag[42] = Flag[43];
-        Flag[43] = temp;
+           (CarriedLoc) plus the two dark flags. */
+        SwapBytes(&CarriedLoc, &OtherGuyInv);
+        SwapBytes(&Q3OtherGuyDark, &Flag[Q3_DARK_FLAG]);
         Redraw = 1;
         break;
     }
@@ -924,16 +911,15 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
     case IMAGE:
         if (!TAYLOR_GRAPHICS_ENABLED)
             break;
-        /* Room 3 is below the tar. The original draws the tar pit as
-           seen from above there. */
-        if (MyLoc == 3 || Flag[DarkFlag()]) {
+        /* The original draws the tar pit as seen from above here */
+        if (MyLoc == Q3_ROOM_SUBMERGED_IN_TAR || Flag[DarkFlag()]) {
             DrawBlack();
             break;
         }
         if (arg1 == 0) {
             ClearGraphMem();
             DrawPictureNumber(MyLoc - 1, 1);
-        } else if (arg1 == 45 && ObjectLoc[48] != MyLoc) {
+        } else if (arg1 == Q3_PIC_FALLEN_STATUE && ObjectLoc[Q3_OBJ_FALLEN_STATUE] != MyLoc) {
             /* A bug in the original: it draws the toppled statue
                while Xandu still stands. */
             break;
@@ -961,29 +947,18 @@ static void ExecuteLineCode(unsigned char *code, int *done)
     while (!(*code & ACTION_BIT)) {
         unsigned char op = *code++;
         arg1 = *code++;
+        int params = ConditionParamCount(op);
+        if (params == 2)
+            arg2 = *code++;
+
+        if (Version == QUESTPROBE3_TYPE)
+            Q3TranslateCondition(&op, &arg1);
 
 #ifdef DEBUG
-        if (Version == QUESTPROBE3_TYPE) {
-            unsigned char debugarg1 = arg1;
-            Q3AdjustConditions(Q3Condition[op], &debugarg1);
-            fprintf(stderr, "%s %d ", Condition[Q3Condition[op]], debugarg1);
-        } else {
-            fprintf(stderr, "%s %d ", Condition[op], arg1);
-        }
-#endif
-        if (ConditionParamCount(op) == 2) {
-            arg2 = *code++;
-#ifdef DEBUG
+        fprintf(stderr, "%s %d ", Condition[op], arg1);
+        if (params == 2)
             fprintf(stderr, "%d ", arg2);
 #endif
-        }
-
-        /* QP3 uses a different opcode numbering — translate to the
-           canonical set and adjust arg1 to match. */
-        if (Version == QUESTPROBE3_TYPE) {
-            op = Q3Condition[op];
-            Q3AdjustConditions(op, &arg1);
-        }
 
         if (!ConditionHolds(op, arg1, arg2)) {
 #ifdef DEBUG
@@ -1003,49 +978,36 @@ static void ExecuteLineCode(unsigned char *code, int *done)
     while (*code & ACTION_BIT) {
         unsigned char op = *code++;
 
-#ifdef DEBUG
-        if (op & ACTION_DONE_BIT)
-            fprintf(stderr, "DONE:");
-        if (Version == QUESTPROBE3_TYPE)
-            fprintf(stderr, "%s(%d) ", Action[Q3Action[op & ACTION_OP_MASK]], op & ACTION_OP_MASK);
-        else
-            fprintf(stderr, "%s(%d) ", Action[op & ACTION_OP_MASK], op & ACTION_OP_MASK);
-#endif
-
         /* Bit 6 ("DONE") asks the table scanner to stop after this line. */
-        if (op & ACTION_DONE_BIT)
+        int done_bit = op & ACTION_DONE_BIT;
+        if (done_bit)
             *done = 1;
         op &= ACTION_OP_MASK;
+#ifdef DEBUG
+        unsigned char file_op = op;
+#endif
 
         int params = ActionParamCount(op);
-        if (params >= 1) {
+        if (params >= 1)
             arg1 = *code++;
-#ifdef DEBUG
-            unsigned char debugarg1 = arg1;
-            if (Version == QUESTPROBE3_TYPE)
-                Q3AdjustActions(Q3Action[op], &debugarg1, NULL);
-            fprintf(stderr, "%d ", debugarg1);
-#endif
-        }
-        if (params == 2) {
+        if (params == 2)
             arg2 = *code++;
-#ifdef DEBUG
-            unsigned char debugarg2 = arg2;
-            if (Version == QUESTPROBE3_TYPE)
-                Q3AdjustActions(Q3Action[op], NULL, &debugarg2);
-            fprintf(stderr, "%d ", debugarg2);
-#endif
-        }
 
-        /* QP3 uses a different action numbering — translate to the
-           canonical set and adjust args to match. */
         if (Version == QUESTPROBE3_TYPE) {
-            op = Q3Action[op];
-            Q3AdjustActions(op, &arg1, &arg2);
-
+            Q3TranslateAction(&op, &arg1, &arg2);
             if (!PrintedOK)
                 Okay();
         }
+
+#ifdef DEBUG
+        if (done_bit)
+            fprintf(stderr, "DONE:");
+        fprintf(stderr, "%s(%d) ", Action[op], file_op);
+        if (params >= 1)
+            fprintf(stderr, "%d ", arg1);
+        if (params == 2)
+            fprintf(stderr, "%d ", arg2);
+#endif
 
         /* Track lighting before the action so we can redraw if the action
            toggles the dark flag (e.g. lighting a lamp in a dark room). */
@@ -1056,6 +1018,10 @@ static void ExecuteLineCode(unsigned char *code, int *done)
 
         if (WasDark != Flag[DarkFlag()])
             Redraw = 1;
+
+        /* The original stops right after an action with the DONE bit. */
+        if (done_bit)
+            return;
     }
 #ifdef DEBUG
     fprintf(stderr, "\n");
@@ -1079,14 +1045,14 @@ void QP3DrawExtraImages(void)
     if (!TAYLOR_GRAPHICS_ENABLED)
         return;
     /* There is an unused image of the cannon
-     on the road (room 34) but it has the wrong background
+     on the road but it has the wrong background
      colour.
      */
-    if (MyLoc == 34 && ObjectLoc[Q3_OBJ_CANNON] == 34) {
+    if (MyLoc == Q3_ROOM_ROAD && ObjectLoc[Q3_OBJ_CANNON] == Q3_ROOM_ROAD) {
         PatchAndDrawQP3Cannon();
-    } else if (MyLoc == 2 && ObjectLoc[Q3_OBJ_THING] == 2 && TurnsLow > 16 && TurnsLow < 20) {
+    } else if (MyLoc == Q3_ROOM_TAR_PIT && ObjectLoc[Q3_OBJ_THING] == Q3_ROOM_TAR_PIT && TurnsLow > 16 && TurnsLow < 20) {
         /* Draw close-up of Thing as he sinks */
-        DrawPictureNumber(53, 1);
+        DrawPictureNumber(Q3_PIC_THING_SINKING, 1);
         DrawBufferedPicture();
     }
 }

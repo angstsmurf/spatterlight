@@ -1852,6 +1852,7 @@
 		01E120DB9AF3E1E490C38748 /* scrun_split.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_split.cpp; sourceTree = "<group>"; };
 		066545D7B54AED7A90A3003E /* scparser.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser.cpp; sourceTree = "<group>"; };
 		07488CCB0BD205058BE2291E /* gameload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameload.h; sourceTree = "<group>"; usesTabs = 0; };
+		A7E1C0DE5EED0000000000A1 /* gamedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamedefs.h; sourceTree = "<group>"; usesTabs = 0; };
 		0949D315816F8163CB2CD887 /* question-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-internal.hh"; sourceTree = "<group>"; };
 		0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Hyperlinks.m"; sourceTree = "<group>"; };
 		0DC680911AC3DA7F2C06CD24 /* question-objects.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-objects.cc"; sourceTree = "<group>"; };
@@ -7015,6 +7016,7 @@
 				C3D571B327D8F652008FB786 /* player.c */,
 				FEDC92A56ADE15EA44439ABE /* actions.h */,
 				C94FA27EE915B77190069612 /* actions.c */,
+				A7E1C0DE5EED0000000000A1 /* gamedefs.h */,
 				07488CCB0BD205058BE2291E /* gameload.h */,
 				EA8AD05091E547F9B3E7E038 /* gameload.c */,
 				4C84AFDAFFC3A247741DE10D /* textoutput.h */,

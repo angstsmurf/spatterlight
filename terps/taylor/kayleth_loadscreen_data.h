@@ -7,7 +7,7 @@
 //  loader's screen-draw is driven by a small list of "window" descriptors
 //  (recovered from the running loader); the generic Alkatraz address-order
 //  generator in alkatraz_screen.c expands them into the draw order, and the
-//  pixel stream in tape block 4 fills it. See DecodeAlkatrazLoadingScreen().
+//  pixel stream in tape block 3 fills it. See DecodeAlkatrazLoadingScreen().
 //
 
 #ifndef kayleth_loadscreen_data_h
@@ -15,13 +15,10 @@
 
 #include <stdint.h>
 
+#include "loading_screen.h"
+
 /* Decode parameters for the standard Kayleth TZX (file size 0xcadc). */
-#define KAYLETH_SCREEN_BLOCK    3     /* TZX data block holding the stream    */
-#define KAYLETH_SCREEN_OFFSET   2     /* byte offset of the pixel stream      */
-#define KAYLETH_SCREEN_LOACON   0x3a  /* initial rolling key                  */
-#define KAYLETH_SCREEN_ADD2     0x8f  /* key increment per byte               */
-#define KAYLETH_SCREEN_ATTRFILL 0x46  /* uniform attribute fill (bright Y/K)  */
-#define KAYLETH_SCREEN_WINDOWS  22    /* number of draw-order window descriptors */
+#define KAYLETH_SCREEN_WINDOWS  22
 
 /* Window descriptors: 4 bytes each (start_lo, start_hi, dir/width, sim/height).
    These are the loader's own SCADDS table, drawing the picture as a set of
@@ -35,6 +32,16 @@ static const uint8_t kayleth_screen_descriptors[KAYLETH_SCREEN_WINDOWS * 4] = {
     0x61, 0x57, 0x81, 0x29, 0x6c, 0x57, 0x84, 0x02, 0x4f, 0x57, 0x8e, 0x05,
     0x6b, 0x4f, 0x87, 0x01, 0x50, 0x4f, 0x91, 0x05, 0xaf, 0x47, 0x8f, 0x03,
     0x41, 0x47, 0x81, 0x02,
+};
+
+static const AlkatrazScreen kayleth_screen = {
+    .descriptors = kayleth_screen_descriptors,
+    .windows = KAYLETH_SCREEN_WINDOWS,
+    .block = 3,
+    .offset = 2,
+    .key_seed = 0x3a,
+    .key_step = 0x8f,
+    .attr_fill = 0x46, /* bright yellow on black */
 };
 
 #endif /* kayleth_loadscreen_data_h */

@@ -27,6 +27,7 @@ int CarryItem(void);
 void DropItem(void);
 void Put(unsigned char obj, unsigned char loc);
 int Present(unsigned char obj);
+int HeldByPlayer(unsigned char obj);
 
 extern uint8_t Flag[];
 extern uint8_t ObjectLoc[];

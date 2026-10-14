@@ -11,7 +11,8 @@
 #include "glk.h"
 
 int TryExtraCommand(void);
-int ParseExtraCommand(const char *p);
+/* Whether word is one of the interpreter's own commands (SAVE, UNDO, ...) */
+int IsExtraCommand(const char *word);
 
 /* The transcript stream, NULL while none is on. */
 extern strid_t Transcript;

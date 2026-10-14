@@ -48,6 +48,11 @@
 #define SNA_128K_EXTRA_OFFSET (SNA_SIZE)
 #define SNA_128K_EXTRA_SIZE 4
 
+// Where the decrypted Temple of Terror Side B image keeps its loader's
+// screen window descriptors (see alkatraz_screen.h), and their count.
+#define TOT_SIDE_B_SCREEN_WINDOWS 0xeea9
+#define TOT_SIDE_B_SCREEN_DESCRIPTORS 0xeeab
+
 // Length of a Kayleth Z80 snapshot that was saved while still unpacking.
 #define BROKEN_KAYLETH_Z80_SIZE 0xb4bb
 
@@ -196,28 +201,14 @@ static const ExtractSpec terraquake = {
 typedef struct {
     size_t file_size;
     const ExtractSpec *spec;
-    const uint8_t *screen_descriptors;
-    int screen_windows;
-    int screen_block;
-    int screen_offset;
-    uint8_t screen_loacon;
-    uint8_t screen_add2;
-    uint8_t screen_attrfill;
+    const AlkatrazScreen *screen;
 } AlkatrazTape;
 
 static const AlkatrazTape alkatraz_tapes[] = {
-    { 0xcadc, &kayleth, kayleth_screen_descriptors, KAYLETH_SCREEN_WINDOWS, // Kayleth (TZX)
-        KAYLETH_SCREEN_BLOCK, KAYLETH_SCREEN_OFFSET, KAYLETH_SCREEN_LOACON,
-        KAYLETH_SCREEN_ADD2, KAYLETH_SCREEN_ATTRFILL },
-    { 0xccca, &templeA, templea_screen_descriptors, TEMPLEA_SCREEN_WINDOWS, // Temple of Terror, Side A (TZX)
-        TEMPLEA_SCREEN_BLOCK, TEMPLEA_SCREEN_OFFSET, TEMPLEA_SCREEN_LOACON,
-        TEMPLEA_SCREEN_ADD2, TEMPLEA_SCREEN_ATTRFILL },
-    { 0xcd15, &terraquake, terraquake_screen_descriptors, TERRAQUAKE_SCREEN_WINDOWS, // Terraquake (TZX, variant 1)
-        TERRAQUAKE_SCREEN_BLOCK, TERRAQUAKE_SCREEN_OFFSET, TERRAQUAKE_SCREEN_LOACON,
-        TERRAQUAKE_SCREEN_ADD2, TERRAQUAKE_SCREEN_ATTRFILL },
-    { 0xcd17, &terraquake, terraquake_screen_descriptors, TERRAQUAKE_SCREEN_WINDOWS, // Terraquake (TZX, variant 2)
-        TERRAQUAKE_SCREEN_BLOCK, TERRAQUAKE_SCREEN_OFFSET, TERRAQUAKE_SCREEN_LOACON,
-        TERRAQUAKE_SCREEN_ADD2, TERRAQUAKE_SCREEN_ATTRFILL },
+    { 0xcadc, &kayleth, &kayleth_screen },       // Kayleth (TZX)
+    { 0xccca, &templeA, &templea_screen },       // Temple of Terror, Side A (TZX)
+    { 0xcd15, &terraquake, &terraquake_screen }, // Terraquake (TZX, variant 1)
+    { 0xcd17, &terraquake, &terraquake_screen }, // Terraquake (TZX, variant 2)
 };
 
 // Decrypts an Alkatraz tape. The loading screen is rebuilt first, before
@@ -225,10 +216,7 @@ static const AlkatrazTape alkatraz_tapes[] = {
 static uint8_t *ProcessAlkatrazTape(uint8_t *image, size_t *length, const AlkatrazTape *tape)
 {
     if (ZXLoadingScreen == NULL)
-        ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, *length,
-            tape->screen_descriptors, tape->screen_windows,
-            tape->screen_block, tape->screen_offset,
-            tape->screen_loacon, tape->screen_add2, tape->screen_attrfill);
+        ZXLoadingScreen = DecodeAlkatrazLoadingScreen(image, *length, tape->screen);
     return process_tzx_extract(image, length, tape->spec);
 }
 
@@ -240,9 +228,12 @@ static uint8_t *FixBrokenKayleth(uint8_t *image, size_t *length)
 {
     uint8_t *mem = MemAlloc(ZX_MEMORY_SIZE);
     memcpy(mem + ZX_RAM_BASE, image, ZX_MEMORY_SIZE - ZX_RAM_BASE);
+    // The rest of the loader's relocation: move 0x1ed5 bytes up by 8 ...
     ZXLddr(mem, 0xf906, 0xf8fe, 0x1ed5);
+    // ... zero the 8 bytes at 0xda2a ...
     mem[0xda2a] = 0;
     ZXLdir(mem, 0xda2b, 0xda2a, 7);
+    // ... and put back the 0x13 gaps from the table that ends at 0x5bde.
     DeshuffleAlkatraz(mem, 0x13, 0x5bde, 0xfdcf);
     free(image);
     *length = ZX_MEMORY_SIZE;
@@ -282,13 +273,8 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
         }
     } else {
         // Not a Z80 snapshot — try TZX/TAP extraction, identified by file size.
-        // The 5 data blocks of Blizzard Pass. The TAP has four blocks more
-        // than the TZX before the first of them.
         uint8_t *out = NULL;
         int isTZX = 0;
-        int TZXblocknums[5] = {7, 11, 13, 15, 17};
-        int TAPblocknums[5] = {11, 15, 17, 19, 21};
-        int *blocknums = TAPblocknums;
 
         // A 128K .SNA is given the layout of a decompressed 128K .z80, so
         // that the pages past the first three are in the same place in both.
@@ -313,12 +299,15 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 if (ZXLoadingScreen == NULL) {
                     CaptureLoadingScreen(memory + ZX_RAM_BASE);
                     // The loader's window descriptors survive in the decrypted
-                    // image (count at 0xeea9); regenerate the draw order so the
-                    // title reveals in the same sequence the loader used.
-                    uint16_t order[ZX_SCREEN_SIZE];
-                    int n = AlkatrazScreenOrder(memory + 0xeeab,
-                        READ_LE_UINT16(memory + 0xeea9), order, ZX_SCREEN_SIZE);
-                    ZXSetDrawOrder(order, n);
+                    // image; regenerate the draw order so the title reveals in
+                    // the same sequence the loader used.
+                    int windows = READ_LE_UINT16(memory + TOT_SIDE_B_SCREEN_WINDOWS);
+                    if (windows <= (ZX_MEMORY_SIZE - TOT_SIDE_B_SCREEN_DESCRIPTORS) / 4) {
+                        uint16_t order[ZX_SCREEN_SIZE];
+                        int n = AlkatrazScreenOrder(memory + TOT_SIDE_B_SCREEN_DESCRIPTORS,
+                            windows, order, ZX_SCREEN_SIZE);
+                        ZXSetDrawOrder(order, n);
+                    }
                 }
                 free(image);
                 image = ShrinkToSnaSize(memory, length);
@@ -327,7 +316,6 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
             }
             case 0x10428: // Blizzard Pass (TZX)
                 isTZX = 1;
-                blocknums = TZXblocknums;
                 // Fallthrough
             case 0x104c4: { // Blizzard Pass (TAP)
                 // Blizzard Pass isn't Alkatraz-encrypted — just put its 5
@@ -335,18 +323,25 @@ uint8_t *ProcessFile(uint8_t *image, size_t *length)
                 // makes of a 128K snapshot of the game, which has page 0
                 // banked in: pages 5, 2, 0, 1, 3, 4, 6, 7. The first block
                 // is page 6. The others are loaded at 0xC000 (page 0),
-                // 0x8000, 0x5ECB and 0xFFDC.
+                // 0x8000, 0x5ECB and 0xFFDC. The block numbers are those of
+                // the TZX: the TAP has four blocks more before the first.
+                static const struct {
+                    int tzx_block;
+                    size_t offset;
+                } BlizzardPassBlocks[] = {
+                    { 7, 6 * ZX_PAGE_SIZE },
+                    { 11, 0xc000 - ZX_RAM_BASE },
+                    { 13, 0x8000 - ZX_RAM_BASE },
+                    { 15, 0x5ecb - ZX_RAM_BASE },
+                    { 17, 0xffdc - ZX_RAM_BASE }
+                };
+                int extra_tap_blocks = isTZX ? 0 : 4;
                 out = MemAlloc(Z80_IMAGE_SIZE_128K);
                 memset(out, 0, Z80_IMAGE_SIZE_128K);
-                const size_t BlizzardPassBlockOffsets[5] = {
-                    6 * ZX_PAGE_SIZE,
-                    0xc000 - ZX_RAM_BASE,
-                    0x8000 - ZX_RAM_BASE,
-                    0x5ecb - ZX_RAM_BASE,
-                    0xffdc - ZX_RAM_BASE
-                };
-                for (int i = 0; i < 5; i++) {
-                    if (!add_block(image, out, Z80_IMAGE_SIZE_128K, origlen, blocknums[i], BlizzardPassBlockOffsets[i], isTZX)) {
+                for (size_t i = 0; i < sizeof BlizzardPassBlocks / sizeof BlizzardPassBlocks[0]; i++) {
+                    if (!add_block(image, out, Z80_IMAGE_SIZE_128K, origlen,
+                            BlizzardPassBlocks[i].tzx_block + extra_tap_blocks,
+                            BlizzardPassBlocks[i].offset, isTZX)) {
                         free(out);
                         return image;
                     }

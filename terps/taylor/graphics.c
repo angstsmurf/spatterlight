@@ -106,11 +106,13 @@ void RectFill(int32_t x, int32_t y, int32_t width, int32_t height,
  */
 void PatchAndDrawQP3Cannon(void)
 {
+    /* The cells (column, row) whose background is wrongly bright */
+    static const struct { int x, y; } bright_cells[] = {
+        { 25, 8 }, { 25, 9 }, { 26, 9 }, { 27, 9 }
+    };
     DrawPictureNumber(46, 1);
-    imagebuffer[IRMAK_IMGWIDTH * 8 + 25][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 25][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 26][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
-    imagebuffer[IRMAK_IMGWIDTH * 9 + 27][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
+    for (size_t i = 0; i < sizeof bright_cells / sizeof bright_cells[0]; i++)
+        imagebuffer[IRMAK_IMGWIDTH * bright_cells[i].y + bright_cells[i].x][IRMAK_CELL_ATTR] &= ~BRIGHT_FLAG;
     DrawBufferedPicture();
 }
 
@@ -217,12 +219,12 @@ static int ExtractQ3Images(Image *img)
 {
     size_t base = FindCode("\x00\x01\x01\x02\x03\x04\x05\x06\x02\x02", 0, 10);
     size_t offsets = FindCode("\x00\x00\xa7\x02\xa7\x03\xb9\x08\xd7\x0b", 0, 10);
-    if (base == (size_t)-1 || offsets == (size_t)-1) {
+    if (base == NOT_FOUND || offsets == NOT_FOUND) {
         fprintf(stderr, "Cannot find the Questprobe 3 picture tables.\n");
         return 0;
     }
     size_t imgdata = FindCode("\x20\x0c\x00\x00\x8a\x01\x44\xa0\x17\x8a", offsets, 10);
-    if (imgdata == (size_t)-1) {
+    if (imgdata == NOT_FOUND) {
         fprintf(stderr, "Cannot find the Questprobe 3 picture data.\n");
         return 0;
     }
@@ -234,6 +236,17 @@ static int ExtractQ3Images(Image *img)
     return 1;
 }
 
+/* Bytes of the picture data */
+#define IMAGE_END 0xfe /* Ends each picture */
+#define REPEAT_COMMAND 0x82 /* irmak COMMAND_BIT | REPEAT_BIT: count, then tile */
+
+/* Tokens of the run-length compression, see DecompressEarlierType() */
+#define TOKEN_REPEAT_1 0xef
+#define TOKEN_REPEAT_2 0xee
+#define TOKEN_REPEAT_3 0xeb
+#define TOKEN_REPEAT_N 0xf3 /* count follows */
+#define TOKEN_COPY 0xfa /* length + 1 and number of copies follow */
+
 /* Replace the token just written at *index - 1 with the three-byte
    "repeat" instruction it stands for, if there is room for it. */
 static void RepeatOpcode(uint8_t *instructions, int capacity, uint8_t repeatcount, int *index)
@@ -241,7 +254,7 @@ static void RepeatOpcode(uint8_t *instructions, int capacity, uint8_t repeatcoun
     int i = *index - 1;
     if (i + 3 > capacity)
         return;
-    instructions[i++] = 0x82;
+    instructions[i++] = REPEAT_COMMAND;
     instructions[i++] = repeatcount;
     instructions[i++] = 0;
     *index = i;
@@ -251,7 +264,7 @@ static size_t FindTilesStart(void)
 {
     /* Look for the tile data */
     size_t pos = FindCode("\x00\x00\x00\x00\x00\x00\x00\x00\x80\x80\x80\x80\x80\x80\x80\x80\x40\x40\x40\x40\x40\x40\x40\x40", 0, 24);
-    if (pos == -1) {
+    if (pos == NOT_FOUND) {
         fprintf(stderr, "Cannot find tile data.\n");
         return pos;
     }
@@ -282,14 +295,14 @@ static void AdjustBlizzardPassImageWidth(Image *img, int picture_number)
 /* A number of repeating patterns in the image drawing code (may) have been
    replaced with single tokens. Here we replace any tokens with their
    corresponding patterns. */
-static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
+static int DecompressHemanType(uint8_t *instructions, int capacity, uint8_t **outpos)
 {
     int index = 0;
     uint8_t *pos = *outpos;
     size_t patterns_lookup = Game->image_patterns_lookup + FileBaselineOffset;
     do {
-        if (index >= MAX_INSTRUCTIONS || pos >= EndOfGraphicsData) {
-            index = MIN(index, MAX_INSTRUCTIONS - 1);
+        if (index >= capacity || pos >= EndOfGraphicsData) {
+            index = MIN(index, capacity - 1);
             break;
         }
         instructions[index++] = *pos;
@@ -303,7 +316,7 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
                 if (baseoffset >= FileImageLen - 1)
                     break;
                 size_t newoffset = READ_LE_UINT16(FileImage + baseoffset) - ZX_RAM_BASE + FileBaselineOffset;
-                while (newoffset < FileImageLen && index < MAX_INSTRUCTIONS
+                while (newoffset < FileImageLen && index < capacity
                     && FileImage[newoffset] != Game->pattern_end_marker) {
                     instructions[index++] = FileImage[newoffset++];
                 }
@@ -311,7 +324,7 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
             }
         }
         pos++;
-    } while (pos < EndOfGraphicsData && *pos != 0xfe);
+    } while (pos < EndOfGraphicsData && *pos != IMAGE_END);
 
     *outpos = pos;
     return index;
@@ -321,10 +334,10 @@ static int DecompressHemanType(uint8_t *instructions, uint8_t **outpos)
 /* Run-length compression of draw instructions (used in some ZX Spectrum
    versions):
    A number of common "repeat next byte n times" instruction patterns
-   beginning with 0x82 have been replace with single tokens. Token 0xfa
-   means "copy the next n bytes m times, which is complicated by the fact
-   that those n bytes may themselves contain repeat tokens, so we call
-   this function again recursively with the bytes to copy.
+   beginning with REPEAT_COMMAND have been replaced with single tokens.
+   TOKEN_COPY means "copy the next n bytes m times", which is complicated
+   by the fact that those n bytes may themselves contain repeat tokens, so
+   we call this function again recursively with the bytes to copy.
 
    See http://aimemorial.if-legends.org/gfxbdp.html and also
    PerformTileTransformations() in irmak.c for more information
@@ -345,26 +358,26 @@ static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **
         }
         instructions[index++] = *pos;
         switch (*pos) {
-            case 0xef:
+            case TOKEN_REPEAT_1:
                 RepeatOpcode(instructions, capacity, 1, &index);
                 break;
-            case 0xee:
+            case TOKEN_REPEAT_2:
                 RepeatOpcode(instructions, capacity, 2, &index);
                 break;
-            case 0xeb:
+            case TOKEN_REPEAT_3:
                 RepeatOpcode(instructions, capacity, 3, &index);
                 break;
-            case 0xf3:
+            case TOKEN_REPEAT_N:
                 if (end - pos < 2)
                     break;
                 pos++;
                 RepeatOpcode(instructions, capacity, *pos, &index);
                 break;
-            case 0xfa:
+            case TOKEN_COPY:
                 if (recursion_guard || end - pos < 3)
                     break;
                 /* Call this function recursively with copied_bytes,
-                   a 0xfe-terminated array of bytes to repeat .*/
+                   an IMAGE_END-terminated array of bytes to repeat. */
                 index--;
                 pos++;
                 int numbytes = *pos - 1;
@@ -377,7 +390,7 @@ static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **
                 uint8_t *copied_bytes = MemAlloc(numbytes + 1);
                 memcpy(copied_bytes, pos + 1, numbytes);
                 uint8_t *stored_pointer = copied_bytes;
-                copied_bytes[numbytes] = 0xfe;
+                copied_bytes[numbytes] = IMAGE_END;
                 for (int i = 0; i < copies; i++) {
                     index += DecompressEarlierType(&instructions[index], capacity - index, &copied_bytes,
                         stored_pointer + numbytes + 1, 1);
@@ -392,7 +405,7 @@ static int DecompressEarlierType(uint8_t *instructions, int capacity, uint8_t **
                 break;
         }
         pos++;
-    } while (pos < end && *pos != 0xfe);
+    } while (pos < end && *pos != IMAGE_END);
 
     *outpos = pos;
     return index;
@@ -402,14 +415,14 @@ static uint8_t *ExtractImage(Image *img, uint8_t *pos) {
     uint8_t instructions[MAX_INSTRUCTIONS];
     int instructions_length;
     if (Version == HEMAN_TYPE) {
-        instructions_length = DecompressHemanType(instructions, &pos);
+        instructions_length = DecompressHemanType(instructions, MAX_INSTRUCTIONS, &pos);
     } else {
         instructions_length = DecompressEarlierType(instructions, MAX_INSTRUCTIONS, &pos, EndOfGraphicsData, 0);
     }
     /* Leave room for the terminator */
     if (instructions_length >= MAX_INSTRUCTIONS)
         instructions_length = MAX_INSTRUCTIONS - 1;
-    instructions[instructions_length++] = 0xfe;
+    instructions[instructions_length++] = IMAGE_END;
 
 
     img->imagedata = MemAlloc(instructions_length);
@@ -461,7 +474,7 @@ void InitGraphics(void)
     DefinePalette();
 
     size_t tiles_start = FindTilesStart();
-    if (tiles_start == (size_t)-1)
+    if (tiles_start == NOT_FOUND)
         tiles_start = Game->start_of_tiles + FileBaselineOffset;
     size_t image_blocks_start_address = Game->start_of_image_blocks + FileBaselineOffset;
     uint8_t *pos;

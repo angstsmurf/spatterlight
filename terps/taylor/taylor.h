@@ -104,9 +104,11 @@ typedef enum {
     NUMGAMES
 } GameIDType;
 
-/* Indices into the per-game system-message table (compass directions,
-   "Inventory", "OK", "You can't go that way", etc.). Order is fixed
-   because the loader populates the table positionally. */
+/* The game's own system messages (compass directions, "Inventory", "OK",
+   "You can't go that way", etc.) by their number in its message table;
+   SysMessage() maps them for Questprobe 3. The interpreter's own messages
+   (undo, transcript, save states) are not in the games and are written
+   out where they are printed. */
 typedef enum {
     YOU_SEE,
     NORTH,
@@ -141,31 +143,6 @@ typedef enum {
     NOWWORN,
     NO_HELP_AVAILABLE,
     I_DONT_UNDERSTAND_THAT_VERB,
-    EXITS_DELIMITER,
-    MESSAGE_DELIMITER,
-    ITEM_DELIMITER,
-    WHAT,
-    YES,
-    NO,
-    ANSWER_YES_OR_NO,
-    ARE_YOU_SURE,
-    MOVE_UNDONE,
-    CANT_UNDO_ON_FIRST_TURN,
-    NO_UNDO_STATES,
-    SAVED,
-    CANT_USE_ALL,
-    TRANSCRIPT_OFF,
-    TRANSCRIPT_ON,
-    NO_TRANSCRIPT,
-    TRANSCRIPT_ALREADY,
-    FAILED_TRANSCRIPT,
-    TRANSCRIPT_START,
-    TRANSCRIPT_END,
-    BAD_DATA,
-    STATE_SAVED,
-    STATE_RESTORED,
-    NO_SAVED_STATE,
-    LAST_SYSTEM_MESSAGE
 } SysMessageType;
 
 /* Condition opcodes from Taylor's action tables. Values match the

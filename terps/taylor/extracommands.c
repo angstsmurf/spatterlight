@@ -130,7 +130,7 @@ static void TranscriptOff(void)
     Display(Bottom, "Transcript is now off.\n");
 }
 
-int ParseExtraCommand(const char *word)
+static int ParseExtraCommand(const char *word)
 {
     if (word == NULL)
         return NO_COMMAND;
@@ -141,11 +141,15 @@ int ParseExtraCommand(const char *word)
     return NO_COMMAND;
 }
 
+int IsExtraCommand(const char *word)
+{
+    return ParseExtraCommand(word) != NO_COMMAND;
+}
+
 int TryExtraCommand(void)
 {
     if (InKaylethPreview)
         return 0;
-    FoundExtraCommand = 0;
     int verb_position = WordPositions[0];
     int verb = ParseExtraCommand(InputWordStrings[verb_position]);
     int noun = NO_COMMAND;
@@ -200,13 +204,13 @@ int TryExtraCommand(void)
             RamLoad();
             return 1;
         } else if (noun == SAVE_EXTR) {
-            RamSave(1);
+            RamSave();
             return 1;
         }
         break;
     case RAMSAVE_EXTR:
         if (noun == NO_COMMAND) {
-            RamSave(1);
+            RamSave();
             return 1;
         }
         break;

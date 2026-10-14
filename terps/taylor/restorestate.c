@@ -107,7 +107,7 @@ void RestoreUndo(int from_player)
     number_of_undos--;
 }
 
-void RamSave(int game)
+void RamSave(void)
 {
     if (ramsave != NULL) {
         Display(Bottom, "Previous state deleted. ");
@@ -115,8 +115,7 @@ void RamSave(int game)
     }
 
     ramsave = SaveCurrentState();
-    if (game)
-        Display(Bottom, "State saved.\n");
+    Display(Bottom, "State saved.\n");
 }
 
 void RamLoad(void)

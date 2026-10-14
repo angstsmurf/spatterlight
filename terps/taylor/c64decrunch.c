@@ -38,7 +38,7 @@ typedef enum {
 /* A registry entry identifying a known C64 game image.
    Fields: game ID, expected file length, 16-bit additive checksum,
    container type, number of unp64 decompression passes, optional
-   unp64 switch string, which iteration to apply switches on, how the
+   unp64 switch string, the pass (1-based) the switches apply to, how the
    game is stored, and the file name for TWO_FILES_BY_NAME. The last three
    are for the releases that unpack their picture data to somewhere other
    than where the game has it: relocate_size bytes are moved from
@@ -50,7 +50,7 @@ typedef struct {
     file_type type;
     int decompress_iterations;
     const char *switches;
-    int parameter;
+    int switch_pass;
     file_layout layout;
     const char *filename;
     size_t relocate_to;
@@ -111,7 +111,9 @@ static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec entry);
 /* Extract a file from a T64 tape image by record number (1-based).
    Reads the directory entry at offset 32 + 32*filenum to find the data
    offset and size, then returns a buffer with the 2-byte C64 load address
-   prepended. Updates *extent to the extracted file size. */
+   prepended. Updates *extent to the extracted file size. The last record
+   runs to the end of the image rather than to its end address, which some
+   T64 writers get wrong. */
 static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf, size_t *extent)
 {
     /* The directory entry itself must lie inside the image */
@@ -139,13 +141,14 @@ static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf,
     return file;
 }
 
-/* Temple of Terror ships with two versions on the same disk/tape:
-   a graphics version and a text-only version with extra prose. The user
-   can also pick a hybrid that combines pictures from the graphics version
-   with the expanded text from the text-only version. This function
-   extracts both files, prompts for a choice, and decompresses. */
-/* The Trianon disks keep the graphics version behind a loader of this
-   many bytes, and the text-only version without its first 16 bytes. */
+/* The Trianon disks keep the two versions out of the directory: the
+   graphics version starts at track 17, sector 1, behind a loader of
+   this many bytes, and the text-only version at track 20, sector 16,
+   without its first 16 bytes. */
+#define TRIANON_GRAPHICS_TRACK 17
+#define TRIANON_GRAPHICS_SECTOR 1
+#define TRIANON_TEXT_TRACK 20
+#define TRIANON_TEXT_SECTOR 16
 #define TRIANON_LOADER_SIZE 176
 #define TRIANON_MISSING_HEADER 16
 
@@ -159,13 +162,18 @@ static uint8_t *GetFileFromT64(int filenum, int number_of_records, uint8_t **sf,
 #define HYBRID_IMAGES_SIZE 0x4123
 #define HYBRID_EXTRA_SIZE 0x4124
 
+/* Temple of Terror ships with two versions on the same disk/tape:
+   a graphics version and a text-only version with extra prose. The user
+   can also pick a hybrid that combines pictures from the graphics version
+   with the expanded text from the text-only version. This function
+   extracts both files, prompts for a choice, and decompresses. */
 static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
 {
     c64rec rec = c64_registry[recindex];
     c64rec textrec = c64_registry[recindex + 1];
     int isdisk = (rec.type == TYPE_D64);
     OpenBottomWindow();
-    Display(Bottom, "This %s image contains one version of Temple of Terror with pictures, and one with without pictures but slightly more text.\n\nPlease select one:\n1. Graphics version\n2. Text-only version\n3. Use pictures from file 1 and text from file 2", isdisk ? "disk" : "datasette");
+    Display(Bottom, "This %s image contains one version of Temple of Terror with pictures, and one without pictures but slightly more text.\n\nPlease select one:\n1. Graphics version\n2. Text-only version\n3. Use pictures from file 1 and text from file 2", isdisk ? "disk" : "datasette");
 
     size_t size1 = *extent;
     size_t size2 = *extent;
@@ -173,14 +181,16 @@ static GameIDType terror_menu(uint8_t **sf, size_t *extent, int recindex)
     uint8_t *file2 = NULL;
     switch (rec.layout) {
     case TWO_FILES_BY_TS: {
-        uint8_t *tempfile1 = di_get_file_at_ts(*sf, *extent, &size1, 17, 1);
+        uint8_t *tempfile1 = di_get_file_at_ts(*sf, *extent, &size1,
+            TRIANON_GRAPHICS_TRACK, TRIANON_GRAPHICS_SECTOR);
         if (tempfile1 != NULL && size1 > TRIANON_LOADER_SIZE) {
             size1 -= TRIANON_LOADER_SIZE;
             file1 = MemAlloc(size1);
             memcpy(file1, tempfile1 + TRIANON_LOADER_SIZE, size1);
         }
         free(tempfile1);
-        uint8_t *tempfile2 = di_get_file_at_ts(*sf, *extent, &size2, 20, 16);
+        uint8_t *tempfile2 = di_get_file_at_ts(*sf, *extent, &size2,
+            TRIANON_TEXT_TRACK, TRIANON_TEXT_SECTOR);
         if (tempfile2 != NULL) {
             file2 = MemCalloc(size2 + TRIANON_MISSING_HEADER);
             memcpy(file2 + TRIANON_MISSING_HEADER, tempfile2, size2);
@@ -304,7 +314,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                 }
 
             /* T64 tape image: extract the first file record */
-            } else if (c64_registry[i].type == TYPE_T64) {
+            } else {
                 int number_of_records = READ_LE_UINT16(*sf + 36);
                 size_t size = *extent;
                 uint8_t *first_file = GetFileFromT64(1, number_of_records, sf, &size);
@@ -314,10 +324,8 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
                 free(*sf);
                 *sf = first_file;
                 *extent = size;
-            } else {
-                Fatal("Unknown type");
             }
-            return ProcessC64(sf, extent, c64_registry[i]);
+            return ProcessC64(sf, extent, record);
         }
     }
     return UNKNOWN_GAME;
@@ -332,7 +340,7 @@ GameIDType DetectC64(uint8_t **sf, size_t *extent)
 static GameIDType ProcessC64(uint8_t **sf, size_t *extent, c64rec record)
 {
     C64DecompressIterations(sf, extent, record.decompress_iterations,
-        record.switches, record.parameter);
+        record.switches, record.switch_pass);
 
     /* The two ranges overlap in Rebel Planet, hence memmove. */
     if (record.relocate_size != 0) {

@@ -19,7 +19,7 @@ typedef struct SavedState {
 
 void SaveUndo(void);
 void RestoreUndo(int game);
-void RamSave(int game);
+void RamSave(void);
 void RamLoad(void);
 SavedState *SaveCurrentState(void);
 void RestoreState(SavedState *state);

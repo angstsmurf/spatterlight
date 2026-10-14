@@ -13,6 +13,7 @@
 #include <stdio.h>
 
 #include "glk.h"
+#include "gamedefs.h"
 #include "gameload.h"
 #include "player.h"
 #include "ui.h"
@@ -33,13 +34,9 @@ void WriteToRoomDescriptionStream(const char *fmt, ...)
     if (room_description_stream == NULL)
         return;
     va_list ap;
-    char msg[2048];
-
     va_start(ap, fmt);
-    vsnprintf(msg, sizeof msg, fmt, ap);
+    PrintToStreamV(room_description_stream, fmt, ap);
     va_end(ap);
-
-    glk_put_string_stream(room_description_stream, msg);
 }
 
 /* Emit a single character, applying auto-capitalization if set. */
@@ -449,7 +446,7 @@ void PrintObject(unsigned char object_index)
        but there is no way to unlock it and you can just walk
        through it anyway. This seems a bit unfair, so we change its
        description to just "door" here. */
-    if (BaseGame == TEMPLE_OF_TERROR && object_index == 41) {
+    if (BaseGame == TEMPLE_OF_TERROR && object_index == TOT_OBJ_LOCKED_DOOR) {
         OutString("door.");
         return;
     }
