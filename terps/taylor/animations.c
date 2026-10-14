@@ -83,7 +83,7 @@ static int KaylethAnimationIndex = 0;  /* Room index of the last Kayleth animati
 /* Each animation keeps its own frame counter, so that a restore or undo
    that jumps from one animated room straight to another cannot start the
    new animation at the old one's frame. */
-static int QueenStage = 0;             /* Queen computer colour cycle, 0–15 */
+static int QueenStage = 0;             /* Queen computer head blink, 0–15 (0–127 on the C64) */
 static int SerpentStage = 0;           /* How far the Sycane Serpent has emerged, 0–5 */
 static int TwoFrameStage = 0;          /* Security robot and crag snapper, 0 or 1 */
 static int ShelfScrollStage = 0;       /* Kayleth click-shelf scroll position, 0–80 */
@@ -146,13 +146,15 @@ static void RotatePixelRow(int line, int pixrow, int first, int last, int to_lef
    The left half of the image scrolls left and the right half scrolls right,
    creating a parallax / hyperspace effect. Works by rotating bits in the
    ZX Spectrum-format imagebuffer (8 pixel-rows per character cell, 1 bit
-   per pixel) and redrawing the affected region. */
+   per pixel) and redrawing the affected region. The original rotates pixel
+   lines 24–48, but in every release the stars are on lines 24–47 (character
+   rows 3–5), so only those are touched. */
 static void AnimateStars(void)
 {
     /* First fill area with black, erasing all stars */
-    RectFill(48, 16, 160, 32, 0);
+    RectFill(48, 24, 160, 24, 0);
     /* We go line by line and pixel row by pixel row */
-    for (int line = 3; line < 7; line++) {
+    for (int line = 3; line < 6; line++) {
         for (int pixrow = 0; pixrow < 8; pixrow++) {
             for (int col = 6; col < 26; col++) {
                 uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
@@ -188,59 +190,90 @@ static void AnimateForcefield(void)
     }
 }
 
-/* Fill the unset (background) pixels of a character cell with the given
-   colour. Used by AnimateQueenComputer to cycle background colours. */
-static void FillCell(int cell, glui32 ink)
+/* Repaint a character cell with the given ink and paper, both palette
+   indices. Used by AnimateQueenComputer to cycle the colours of its
+   lights. */
+static void PaintCell(int cell, glui32 ink, glui32 background)
 {
     int startx = (cell % IRMAK_IMGWIDTH) * 8;
     int starty = (cell / IRMAK_IMGWIDTH) * 8;
     for (int pixrow = 0; pixrow < 8; pixrow++) {
         for (int pix = 0; pix < 8; pix++) {
-            if (!isNthBitSet(imagebuffer[cell][pixrow], 7 - pix)) {
-                PutPixel(startx + pix, starty + pixrow, ink);
-            }
+            int set = isNthBitSet(imagebuffer[cell][pixrow], 7 - pix);
+            PutPixel(startx + pix, starty + pixrow, set ? ink : background);
         }
     }
 }
 
-/* Animate the Queen's computer in Rebel Planet room 88. Cycles bright
-   colours through three pairs of indicator cells (at columns 3, 10, 27)
-   on two rows, plus three cells on the bottom row. Every 16th frame the
-   Arcadian head image is toggled on or off. */
+/* The cells of the Queen's computer lights, in the order the original
+   colours them: the attribute offsets at 7260–726E of the Spectrum
+   release, read from the end. Rows 6, 7 and 3, columns 3, 4, 10, 11,
+   18–20, 27, 28. */
+static const int queen_light_cells[15] = {
+    6 * IRMAK_IMGWIDTH + 28, 6 * IRMAK_IMGWIDTH + 27,
+    6 * IRMAK_IMGWIDTH + 11, 6 * IRMAK_IMGWIDTH + 10,
+    6 * IRMAK_IMGWIDTH + 4, 6 * IRMAK_IMGWIDTH + 3,
+    7 * IRMAK_IMGWIDTH + 20, 7 * IRMAK_IMGWIDTH + 19, 7 * IRMAK_IMGWIDTH + 18,
+    3 * IRMAK_IMGWIDTH + 28, 3 * IRMAK_IMGWIDTH + 27,
+    3 * IRMAK_IMGWIDTH + 11, 3 * IRMAK_IMGWIDTH + 10,
+    3 * IRMAK_IMGWIDTH + 4, 3 * IRMAK_IMGWIDTH + 3
+};
+
+/* The paper colour of the light last coloured. Like the originals'
+   counters (at 726F on the Spectrum, CE98 on the C64) it runs on from
+   frame to frame and is never reset. The Spectrum release starts it at
+   7 and counts up through the eight bright colours; the C64 release
+   starts at 15 and counts down through all sixteen C64 colours. */
+static int QueenLightPaper = 7;
+static int QueenLightPaper64 = 15;
+
+/* C64 light grey, the ink of every light in the C64 release */
+#define C64_LIGHT_GREY 15
+
+/* Whether pal[] holds the C64 colours, in the C64's own order */
+static int PaletteIsC64(void)
+{
+    return palchosen != ZX && palchosen != ZXOPT && palchosen != VGA;
+}
+
+/* Animate the Queen's computer in Rebel Planet room 88. Each frame gives
+   every light the next paper colour in turn, so the colours appear to run
+   around the lights. The Arcadian head image is toggled on and off every
+   8 frames on the Spectrum. The C64 release only toggles it every 1024
+   calls of its animation routine, about every 8 seconds; at our rate that
+   is every 64 frames. */
 static void AnimateQueenComputer(void)
 {
-    /* Leftmost column of each pair of indicator cells */
-    static const int indicator_columns[3] = { 3, 10, 27 };
-    /* Map QueenStage (0–15) to a colour index that wraps 0–7 */
-    int rotatingink = 7 - (QueenStage - 7 * (QueenStage > 7));
-    /* Fill indicator cells with rotating bright colours */
-    for (int i = 0; i < 3; i++) {
-        for (int line = 3; line <= 6; line += 3) {
-            for (int cell = 0; cell < 2; cell++) {
-                FillCell(line * IRMAK_IMGWIDTH + indicator_columns[i] + cell, 8 + rotatingink);
-                rotatingink--;
-                if (rotatingink < 0)
-                    rotatingink = 7;
-            }
+    int c64 = (CurrentGame == REBEL_PLANET_64);
+    int head_period = c64 ? 64 : 8;
+
+    for (int i = 0; i < 15; i++) {
+        int cell = queen_light_cells[i];
+        if (PaletteIsC64()) {
+            /* The C64 writes the counter as the cell's 0-bit colour, then
+               counts it down */
+            PaintCell(cell, C64_LIGHT_GREY, QueenLightPaper64);
+            QueenLightPaper64 = (QueenLightPaper64 - 1) & 15;
+        } else {
+            /* The Spectrum steps the paper first and keeps the cell's ink,
+               making both bright */
+            QueenLightPaper = (QueenLightPaper + 1) & 7;
+            PaintCell(cell, Remap((imagebuffer[cell][IRMAK_CELL_ATTR] & INK_MASK) + 8),
+                Remap(QueenLightPaper + 8));
         }
-    }
-    for (int cell = 0; cell < 3; cell++) {
-        FillCell(7 * IRMAK_IMGWIDTH + 18 + cell, 8 + rotatingink--);
-        if (rotatingink < 0)
-            rotatingink = 7;
     }
     if (QueenStage == 0) {
         /* Draw the Arcadian head overlay (image block 18) */
         DrawPictureAtPos(18, 18, 1, 0);
     }
 
-    if (QueenStage == 7) {
+    if (QueenStage == head_period) {
         /* Erase the Arcadian head area, creating a blink effect */
         RectFill(144, 8, 24, 40, 0);
     }
 
     QueenStage++;
-    if (QueenStage > 15)
+    if (QueenStage >= 2 * head_period)
         QueenStage = 0;
 }
 

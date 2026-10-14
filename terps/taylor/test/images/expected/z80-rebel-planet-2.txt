@@ -271,23 +271,23 @@ anim forcefield          tick   2 24eeb7c3
 anim forcefield          tick   3 6f96451d
 anim forcefield          tick   4 be14c5b9
 anim forcefield          4 ticks, timer 10
-anim queen               tick   1 4ab084c9
-anim queen               tick   2 b0db326d
-anim queen               tick   3 b7aa48bc
-anim queen               tick   4 2fe0b492
-anim queen               tick   5 caf57b64
-anim queen               tick   6 9b943535
-anim queen               tick   7 a4461536
-anim queen               tick   8 facd4d1d
-anim queen               tick   9 3735ea9b
-anim queen               tick  10 3044904a
-anim queen               tick  11 a80e6c64
-anim queen               tick  12 4d1ba392
-anim queen               tick  13 1c7aedc3
-anim queen               tick  14 23a8cdc0
-anim queen               tick  15 facd4d1d
-anim queen               tick  16 cb460df8
-anim queen               tick  17 4ab084c9
+anim queen               tick   1 c5b4b9f2
+anim queen               tick   2 19d9407c
+anim queen               tick   3 cba746d0
+anim queen               tick   4 f201ecd6
+anim queen               tick   5 4f7eb854
+anim queen               tick   6 4c326163
+anim queen               tick   7 05cd6b87
+anim queen               tick   8 096f653e
+anim queen               tick   9 425a6104
+anim queen               tick  10 9e37988a
+anim queen               tick  11 4c499e26
+anim queen               tick  12 75ef3420
+anim queen               tick  13 c89060a2
+anim queen               tick  14 cbdcb995
+anim queen               tick  15 8223b371
+anim queen               tick  16 8e81bdc8
+anim queen               tick  17 c5b4b9f2
 anim queen               17 ticks, timer 120
 anim robot               tick   1 b035856a
 anim robot               tick   2 c129a9b6
@@ -315,20 +315,20 @@ anim serpent, robot      7 ticks, timer 0
 anim serpent, robot      tick   1 b035856a
 anim serpent, robot      tick   2 c129a9b6
 anim serpent, robot      2 ticks, timer 400
-anim queen, robot        tick   1 3735ea9b
-anim queen, robot        tick   2 3044904a
-anim queen, robot        tick   3 a80e6c64
-anim queen, robot        tick   4 4d1ba392
-anim queen, robot        tick   5 1c7aedc3
+anim queen, robot        tick   1 9e37988a
+anim queen, robot        tick   2 4c499e26
+anim queen, robot        tick   3 75ef3420
+anim queen, robot        tick   4 c89060a2
+anim queen, robot        tick   5 cbdcb995
 anim queen, robot        5 ticks, timer 120
 anim queen, robot        tick   1 b035856a
 anim queen, robot        tick   2 c129a9b6
 anim queen, robot        2 ticks, timer 400
-anim queen, sewer        tick   1 23a8cdc0
-anim queen, sewer        tick   2 facd4d1d
-anim queen, sewer        tick   3 3735ea9b
-anim queen, sewer        tick   4 3044904a
-anim queen, sewer        tick   5 a80e6c64
+anim queen, sewer        tick   1 8223b371
+anim queen, sewer        tick   2 8e81bdc8
+anim queen, sewer        tick   3 425a6104
+anim queen, sewer        tick   4 9e37988a
+anim queen, sewer        tick   5 4c499e26
 anim queen, sewer        5 ticks, timer 120
 anim queen, sewer        3 ticks, timer 0
 anim none                1 ticks, timer 0
