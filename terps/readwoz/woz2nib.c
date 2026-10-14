@@ -74,22 +74,38 @@ int is_woz_image(const uint8_t *data, size_t size)
     return size >= 4 && memcmp(data, "WOZ", 3) == 0 && (data[3] == '1' || data[3] == '2');
 }
 
-/* The CRC-32 of zlib and everything else: polynomial 0xedb88320, reflected. */
+/* The CRC-32 of zlib and everything else: polynomial 0xedb88320, reflected.
+ *
+ * Eight bytes at a time ("slicing by 8"): table[k][b] is the CRC of byte b
+ * followed by k zero bytes, so the eight lookups of a step do not wait for
+ * one another. One byte at a time, each lookup waits for the last, and the
+ * checksum took as long as the whole of the conversion that follows it. */
 static uint32_t woz_crc32(const uint8_t *buf, size_t size)
 {
-    static uint32_t table[256];
-    if (table[255] == 0) {
+    static uint32_t table[8][256];
+    if (table[0][255] == 0) {
         for (uint32_t i = 0; i < 256; i++) {
             uint32_t c = i;
             for (int bit = 0; bit < 8; bit++)
                 c = (c & 1) ? (c >> 1) ^ 0xedb88320 : c >> 1;
-            table[i] = c;
+            table[0][i] = c;
         }
+        for (int k = 1; k < 8; k++)
+            for (uint32_t i = 0; i < 256; i++)
+                table[k][i] = table[0][table[k - 1][i] & 0xff] ^ (table[k - 1][i] >> 8);
     }
 
     uint32_t crc = 0xffffffff;
+    for (; size >= 8; size -= 8, buf += 8) {
+        uint32_t lo = READ_LE_UINT32(buf) ^ crc;
+        uint32_t hi = READ_LE_UINT32(buf + 4);
+        crc = table[7][lo & 0xff] ^ table[6][(lo >> 8) & 0xff] ^
+              table[5][(lo >> 16) & 0xff] ^ table[4][lo >> 24] ^
+              table[3][hi & 0xff] ^ table[2][(hi >> 8) & 0xff] ^
+              table[1][(hi >> 16) & 0xff] ^ table[0][hi >> 24];
+    }
     while (size--)
-        crc = table[(crc ^ *buf++) & 0xff] ^ (crc >> 8);
+        crc = table[0][(crc ^ *buf++) & 0xff] ^ (crc >> 8);
     return ~crc;
 }
 
@@ -367,14 +383,6 @@ static int woz_clz64(uint64_t v)
 /* The decoder gives up on a track after reading this many times around it. */
 #define WOZ_GUARD_REVOLUTIONS 3
 
-/* Step n bits on around the track. The caller never asks for a step that
- * would pass the end of the track by a whole revolution. */
-static inline uint32_t woz_advance(uint32_t p, uint32_t n, uint32_t bit_count)
-{
-    p += n;
-    return p >= bit_count ? p - bit_count : p;
-}
-
 /*
  * Decode up to WOZ_NIB_TRACK_LEN nibbles from the bit_count bits at src into
  * out, beginning at start_bit, and return how many there were.
@@ -411,13 +419,15 @@ static size_t woz_decode_track(const uint8_t *src, uint32_t bit_count, uint32_t 
          * Requires the window to lie wholly inside the track, which keeps
          * the load itself within the bitstream. Everything else -- a partly
          * filled latch, and the wrap at the end of the circular read --
-         * falls through to the bit-at-a-time loop below. */
+         * falls through to the bit-at-a-time loop below.
+         * A step here ends inside the window, so it can at most leave p at
+         * bit_count, and p is not wrapped here: with the test for the wrap
+         * on the way from one nibble to the next, the decode took twice as
+         * long. The loop below wraps p before it reads. */
         if (reg == 0 && bit_count - p >= WOZ_WINDOW_BITS) {
             /* Gather the window MSB-first, which is the order the bits come
              * off the disk. Spelling it out keeps this independent of host
-             * byte order. Compilers do not fold it back into a wide load,
-             * so this costs eight byte loads; that is worth roughly a tenth
-             * of the speedup, and buys portability in return. */
+             * byte order; clang makes one load and a byte swap of it. */
             const uint8_t *q = src + (p >> 3);
             uint64_t window = ((uint64_t)q[0] << 56) | ((uint64_t)q[1] << 48) |
                               ((uint64_t)q[2] << 40) | ((uint64_t)q[3] << 32) |
@@ -439,23 +449,25 @@ static size_t woz_decode_track(const uint8_t *src, uint32_t bit_count, uint32_t 
                     /* A long gap: its zero bits leave the latch empty, so
                      * step over the ones we know are zero and look again
                      * from there. */
-                    p = woz_advance(p, WOZ_LATCH_GAP_BITS, bit_count);
+                    p += WOZ_LATCH_GAP_BITS;
                     guard += WOZ_LATCH_GAP_BITS;
                     continue;
                 }
             }
             out[nibble_count++] = (uint8_t)(window >> (56 - skip));
-            p = woz_advance(p, skip + 8, bit_count);
+            p += skip + 8;
             guard += skip + 8;
             continue;
         }
+        if (p >= bit_count)
+            p -= bit_count;
         int bit = (src[p >> 3] >> (7 - (p & 7))) & 1;
         reg = ((reg << 1) | bit) & 0xff;
         if (reg & 0x80) {
             out[nibble_count++] = (uint8_t)reg;
             reg = 0;
         }
-        p = woz_advance(p, 1, bit_count);
+        p++;
         guard++;
     }
     return nibble_count;
