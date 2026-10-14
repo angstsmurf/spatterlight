@@ -18,10 +18,8 @@
 #include <cstdint>
 #include <vector>
 
-extern "C" {
 #include "../../readwoz/ciderpress.h"
 #include "../../readwoz/woz2nib.h"
-}
 extern "C" const uint32_t gm_apple2_palette[16];
 extern "C" void gm_compute_dhgr_row_words(const uint8_t *aux_row, const uint8_t *main_row, uint16_t *words);
 extern "C" void gm_render_dhgr_line_colors(const uint16_t *words, uint8_t *colors560);

@@ -16,11 +16,9 @@
 #include <string>
 
 #include "debugprint.h"
-extern "C" {
 #include "ciderpress.h"
 #include "read_le16.h"
 #include "woz2nib.h"
-}
 #include "memory_allocation.hpp"
 #include "v6_image.h"
 #include "extract_image_data.hpp"

@@ -18,10 +18,8 @@
 #include <vector>
 #include <string>
 
-extern "C" {
 #include "../../readwoz/ciderpress.h"
 #include "../../readwoz/woz2nib.h"
-}
 
 namespace Glk { namespace Comprehend {
 void gmResetScreen(bool white);

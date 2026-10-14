@@ -9,10 +9,8 @@
 #include <cstring>
 #include <cstdint>
 
-extern "C" {
 #include "../../readwoz/ciderpress.h"
 #include "../../readwoz/woz2nib.h"
-}
 
 #define DSK_IMAGE_SIZE (35 * 16 * 256)
 #define NIB_IMAGE_SIZE (35 * 6656)

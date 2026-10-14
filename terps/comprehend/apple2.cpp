@@ -9,12 +9,10 @@
 #include <cstdlib>
 #include <cstring>
 
-extern "C" {
 // Relative paths so the build needs no extra header search paths (the
 // comprehend target links libreadwoz.dylib for these symbols).
 #include "../readwoz/ciderpress.h"
 #include "../readwoz/woz2nib.h"
-}
 
 namespace Glk {
 namespace Comprehend {
