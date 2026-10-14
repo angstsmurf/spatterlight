@@ -16,13 +16,4 @@
 #include "common_defines.h"
 #include "common_utils.h"
 
-void CleanupAndExit(void);
-uint8_t *SeekToPos(size_t offset);
-
-int EqualsIgnoringCase(const char *a, const char *b);
-int rotate_left_with_carry(uint8_t *byte, int last_carry);
-int rotate_right_with_carry(uint8_t *byte, int last_carry);
-
-extern strid_t Transcript;
-
 #endif /* utility_h */

@@ -64,6 +64,43 @@ static void StopAnimations(void)
     AnimationRunning = 0;
 }
 
+/* Paint the set pixels of one pixel row of a character cell in the given
+   ink. */
+static void DrawPixelRow(int col, int line, int pixrow, glui32 ink)
+{
+    uint8_t bits = imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow];
+    for (int bit = 0; bit < 8; bit++) {
+        if (isNthBitSet(bits, 7 - bit))
+            PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
+    }
+}
+
+/* Rotate one pixel row of the cells from column first to column last one
+   pixel to the left (or right) as a single long word: the pixel pushed out
+   at one end comes back in at the other. */
+static void RotatePixelRow(int line, int pixrow, int first, int last, int to_left)
+{
+    uint8_t *row = &imagebuffer[line * IRMAK_IMGWIDTH][pixrow];
+    int carry = 0;
+    if (to_left) {
+        for (int col = last; col >= first; col--) {
+            uint8_t *b = row + col * IRMAK_CELL_BYTES;
+            int out = *b >> 7;
+            *b = (uint8_t)((*b << 1) | carry);
+            carry = out;
+        }
+        row[last * IRMAK_CELL_BYTES] |= (uint8_t)carry;
+    } else {
+        for (int col = first; col <= last; col++) {
+            uint8_t *b = row + col * IRMAK_CELL_BYTES;
+            int out = *b & 1;
+            *b = (uint8_t)((*b >> 1) | (carry << 7));
+            carry = out;
+        }
+        row[first * IRMAK_CELL_BYTES] |= (uint8_t)(carry << 7);
+    }
+}
+
 /* Animate the star field in Rebel Planet room 1 (view through a window).
    The left half of the image scrolls left and the right half scrolls right,
    creating a parallax / hyperspace effect. Works by rotating bits in the
@@ -71,45 +108,19 @@ static void StopAnimations(void)
    per pixel) and redrawing the affected region. */
 static void AnimateStars(void)
 {
-    int carry;
     /* First fill area with black, erasing all stars */
     RectFill(48, 16, 160, 32, 0);
     /* We go line by line and pixel row by pixel row */
     for (int line = 3; line < 7; line++) {
         for (int pixrow = 0; pixrow < 8; pixrow++) {
-            carry = 0;
-            /* The left half is rotated one pixel to the left, */
-            /* byte by byte */
-            for (int col = 15; col > 5; col--) {
+            for (int col = 6; col < 26; col++) {
                 uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
-                glui32 ink = Remap(AttributeInk(attribute));
-                for (int bit = 0; bit < 8; bit++) {
-                    if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - bit)) {
-                        PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
-                    }
-                }
-                carry =
-                rotate_left_with_carry(&(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow]), carry);
+                DrawPixelRow(col, line, pixrow, Remap(AttributeInk(attribute)));
             }
-            imagebuffer[line * IRMAK_IMGWIDTH + 15][pixrow] =
-                imagebuffer[line * IRMAK_IMGWIDTH + 15][pixrow] | carry;
-            carry = 0;
-            /* Then the right half */
-            for (int col = 16; col < 26; col++) {
-                uint8_t attribute = imagebuffer[col + line * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
-                glui32 ink = Remap(AttributeInk(attribute));
-                for (int bit = 0; bit < 8; bit++) {
-                    if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - bit)) {
-                        PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
-                    }
-                }
-                carry =
-                rotate_right_with_carry(&(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow]), carry);
-            }
-            if (carry) {
-                imagebuffer[line * IRMAK_IMGWIDTH + 16][pixrow] =
-                imagebuffer[line * IRMAK_IMGWIDTH + 16][pixrow] | 128;
-            }
+            /* The left half drifts one pixel to the left, the right half
+               one pixel to the right, each wrapping around on itself */
+            RotatePixelRow(line, pixrow, 6, 15, 1);
+            RotatePixelRow(line, pixrow, 16, 25, 0);
         }
     }
 }
@@ -119,7 +130,6 @@ static void AnimateStars(void)
    bit wrapping from the rightmost column back to the leftmost. */
 static void AnimateForcefield(void)
 {
-    int carry;
     /* First fill door area with black, erasing field */
     RectFill(104, 16, 48, 39, 0);
 
@@ -129,19 +139,10 @@ static void AnimateForcefield(void)
 
     for (int line = 2; line < 7; line++) {
         for (int pixrow = 0; pixrow < 8; pixrow++) {
-            carry = 0;
-            for (int col = 13; col < 19; col++) {
-                for (int pix = 0; pix < 8; pix++) {
-                    if (isNthBitSet(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow], 7 - pix)) {
-                        PutPixel(col * 8 + pix, line * 8 + pixrow, ink);
-                    }
-                }
-                /* The force field is rotated one pixel to the right, */
-                /* byte by byte */
-                carry = rotate_right_with_carry(&(imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow]), carry);
-            }
-            if (carry)
-                imagebuffer[line * IRMAK_IMGWIDTH + 13][pixrow] = imagebuffer[line * IRMAK_IMGWIDTH + 13][pixrow] | 128;
+            for (int col = 13; col < 19; col++)
+                DrawPixelRow(col, line, pixrow, ink);
+            /* The force field is rotated one pixel to the right */
+            RotatePixelRow(line, pixrow, 13, 18, 0);
         }
     }
 }

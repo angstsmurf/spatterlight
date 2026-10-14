@@ -429,6 +429,14 @@ static void EnterTextOnlyMode(const char *reason)
         Display(Bottom, "[The pictures in this file could not be read. Playing without graphics.]\n\n");
 }
 
+/* The byte at offset of the game file, or NULL if the file is shorter. */
+static uint8_t *SeekToPos(size_t offset)
+{
+    if (offset > FileImageLen || FileImage == NULL)
+        return NULL;
+    return FileImage + offset;
+}
+
 void InitGraphics(void)
 {
     if (images != NULL || NoGraphics)

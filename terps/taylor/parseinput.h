@@ -11,6 +11,7 @@
 void FreeInputWords(void);
 void Parser(void);
 int ParseWord(const char *word);
+int EqualsIgnoringCase(const char *a, const char *b);
 
 extern char **InputWordStrings;
 extern int WordPositions[5];

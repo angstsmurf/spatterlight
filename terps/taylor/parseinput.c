@@ -17,6 +17,16 @@
 #include "taylor.h"
 #include "utility.h"
 
+/* Whether two strings are the same apart from the case of their letters. */
+int EqualsIgnoringCase(const char *a, const char *b)
+{
+    while (*a && *b) {
+        if (toupper((unsigned char)*a++) != toupper((unsigned char)*b++))
+            return 0;
+    }
+    return *a == *b;
+}
+
 char **InputWordStrings = NULL; /* Input split into word strings */
 uint8_t Word[5];               /* Dictionary codes for the parsed words (0 = not found) */
 int WordPositions[5];          /* Index into InputWordStrings for each Word entry */

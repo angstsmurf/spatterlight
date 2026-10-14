@@ -17,6 +17,7 @@
 #include "glkstart.h"
 
 #include "animations.h"
+#include "extracommands.h"
 #include "layouttext.h"
 #include "graphics.h"
 #include "irmak.h"

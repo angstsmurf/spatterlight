@@ -15,6 +15,7 @@
 #include "glkstart.h"
 #include "c64decrunch.h"
 #include "common_file_utils.h"
+#include "extracommands.h"
 #include "extracttape.h"
 #include "graphics.h"
 #include "player.h"

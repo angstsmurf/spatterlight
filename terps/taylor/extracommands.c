@@ -15,6 +15,17 @@
 #include "restorestate.h"
 #include "utility.h"
 
+strid_t Transcript = NULL;
+
+/* Every interpreter provides this for the shared common_utils.c, whose
+   Fatal() calls it after printing its message. */
+GLK_ATTRIBUTE_NORETURN void CleanupAndExit(void)
+{
+    if (Transcript)
+        glk_stream_close(Transcript, NULL);
+    glk_exit();
+}
+
 typedef enum {
     NO_COMMAND,
     RESTART,

@@ -23,22 +23,21 @@
 //  Created by Petter Sjölund on 2022-04-18.
 //
 
-#include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
 
+#include "alkatraz_screen.h"
 #include "extracttape.h"
-#include "loadtotpicture.h"
 #include "utility.h"
 
 #include "decrypttotloader.h"
 
-// Adds a constant delta to each byte in the range [HL, HL+BC).
-// Emulates: ADD (HL), delta / INC HL / DJNZ
-static void loop_with_delta(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t delta)
+// Adds a constant delta to each byte in the range [HL, HL+BC), modulo 256.
+// Emulates: LD A,(HL) / ADD A,delta / LD (HL),A, or INC (HL) / DEC (HL).
+static void loop_with_delta(uint8_t *mem, uint16_t HL, uint16_t BC, int delta)
 {
     for (int i = 0; i < BC; i++) {
-        mem[HL++] += delta;
+        mem[HL] = (uint8_t)(mem[HL] + delta);
+        HL++;
     }
 }
 
@@ -97,15 +96,18 @@ static void loop_with_cpl(uint8_t *mem, uint16_t HL, uint16_t BC)
     }
 }
 
-// Adds or subtracts a constant value from each byte, with an initial carry
-// applied only to the first byte. The sign parameter (+1 or -1) determines
-// whether the carry is added or subtracted. Direction controls traversal order.
-// Emulates: ADD A,val / SCF or SUB val / SCF with carry flag set on first byte.
-static void loop_with_sub_or_add(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t val, int sign, int direction)
+// Adds or subtracts the Z80 operand n to or from each byte, with the carry
+// flag set for the first byte only (SCF before the loop, so the first byte
+// gets n + 1 or n - 1). Direction controls traversal order.
+// Emulates: SCF / LD A,(HL) / ADC A,n or SBC A,n / LD (HL),A
+static void loop_with_sub_or_add(uint8_t *mem, uint16_t HL, uint16_t BC, uint8_t n, int subtract, int direction)
 {
     int carry = 1;
     for (int i = 0; i < BC; i++) {
-        mem[HL] = mem[HL] + val + carry * sign;
+        if (subtract)
+            mem[HL] = (uint8_t)(mem[HL] - n - carry);
+        else
+            mem[HL] = (uint8_t)(mem[HL] + n + carry);
         carry = 0;
         HL += direction;
     }
@@ -116,8 +118,8 @@ static void loop_with_sub_or_add(uint8_t *mem, uint16_t HL, uint16_t BC, int8_t 
 static void loop_with_rotate_left(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
-        int carry = rotate_left_with_carry(&mem[HL], 0);
-        mem[HL] |= carry;
+        uint8_t b = mem[HL];
+        mem[HL] = (uint8_t)((b << 1) | (b >> 7));
         HL++;
     }
 }
@@ -127,18 +129,17 @@ static void loop_with_rotate_left(uint8_t *mem, uint16_t HL, uint16_t BC)
 static void loop_with_rotate_right(uint8_t *mem, uint16_t HL, uint16_t BC)
 {
     for (int i = 0; i < BC; i++) {
-        int carry = rotate_right_with_carry(&mem[HL], 0);
-        mem[HL] |= (carry * 128);
+        uint8_t b = mem[HL];
+        mem[HL] = (uint8_t)((b >> 1) | (b << 7));
         HL++;
     }
 }
 
 // XORs each byte with the R register, both bytes of DE, and both bytes of
-// the loop counter. DE starts at 0x61A8 and increments each iteration.
+// the loop counter. DE increments each iteration.
 // The combination of R, DE, and the counter creates a complex key stream.
-static void loop_with_r_and_de(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC)
+static void loop_with_r_and_de(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t BC, uint16_t DE)
 {
-    uint16_t DE = 0x61a8;
     for (uint16_t i = BC; i > 0; i--) {
         uint8_t A = R ^ mem[HL]
                       ^ (uint8_t)DE ^ (uint8_t)(DE >> 8)
@@ -173,12 +174,11 @@ static void loop_with_r_and_sp(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP
     }
 }
 
-// Similar to loop_with_r_and_sp but traverses downward from a fixed address
-// (0xEEFF). XORs the low byte of each pair with R, then swaps the pair.
+// Similar to loop_with_r_and_sp but traverses downward from SP.
+// XORs the low byte of each pair with R, then swaps the pair.
 // HL here is the iteration count.
-static void loop_with_r_and_sp2(uint8_t *mem, uint8_t R, uint16_t HL)
+static void loop_with_r_and_sp2(uint8_t *mem, uint8_t R, uint16_t HL, uint16_t SP)
 {
-    uint16_t SP = 0xeeff;
     for (int i = 0; i < HL; i++) {
         uint8_t D = mem[SP] ^ R;
         mem[SP] = mem[SP + 1];
@@ -259,37 +259,37 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_d(mem, 0x3c, 0xe142, 0xdbf, 1);
     loop_with_d(mem, 0x39, 0xef00, 0xdac, -1);
     loop_with_r(mem, 0x7, 0xe164, 0xe164);
-    loop_with_sub_or_add(mem, 0xe175, 0x0d8c, 0x27, 1, 1);
-    loop_with_r_and_de(mem, 0x75, 0xe194, 0x0d6d);
+    loop_with_sub_or_add(mem, 0xe175, 0x0d8c, 0x27, 0, 1);
+    loop_with_r_and_de(mem, 0x75, 0xe194, 0x0d6d, 0x61a8);
     loop_with_d(mem, 0x2d, 0xe1a6, 0x0d5b, 1);
-    loop_with_sub_or_add(mem, 0xe1b7, 0x0d4a, (int8_t)-0x2e, -1, 1);
+    loop_with_sub_or_add(mem, 0xe1b7, 0x0d4a, 0x2e, 1, 1);
     // Zero-fill memory from 0xEF01 to 0xFFFF (LDIR block copy of zeroes)
     mem[0xef02] = 0;
     ZXLdir(mem, 0xef02, 0xef01, 0x10fd);
     loop_with_d(mem, 0x2b, 0xe1d7, 0x0d2a, 1);
     loop_with_xor_hl(mem, 0xe1e7, 0x0d1a);
-    loop_with_r_and_de(mem, 0x26, 0xe206, 0x0cfb);
+    loop_with_r_and_de(mem, 0x26, 0xe206, 0x0cfb, 0x61a8);
     double_loop_with_r(mem, 0x53, 0xe224, 0x0013, 0x066e);
     loop_with_r(mem, 0x6e, 0xe235, 0x0ccc);
-    loop_with_sub_or_add(mem, 0xe246, 0x0cbb, (int8_t)-0x18, -1, 1);
+    loop_with_sub_or_add(mem, 0xe246, 0x0cbb, 0x18, 1, 1);
     // Zero-fill ZX Spectrum screen memory and beyond (0x4000–0xE253)
     mem[ZX_RAM_BASE] = 0;
     ZXLdir(mem, ZX_RAM_BASE + 1, ZX_RAM_BASE, 0xa253);
     loop_with_d(mem, 5, 0xe266, 0x0c9b, 1);
-    loop_with_r_and_de(mem, 0x1c, 0xe285, 0x0c7c);
+    loop_with_r_and_de(mem, 0x1c, 0xe285, 0x0c7c, 0x61a8);
     loop_with_r(mem, 0x57, 0xe295, 0x0c6c);
     loop_with_d(mem, 0xc, 0xe2a7, 0x0c5a, 1);
     loop_with_r_and_sp(mem, 0x52, 0x0622, 0xe2bc, 1);
-    loop_with_sub_or_add(mem, 0xe2ce, 0x0c33, 0xa, 1, 1);
+    loop_with_sub_or_add(mem, 0xe2ce, 0x0c33, 0xa, 0, 1);
     loop_with_r(mem, 0x4b, 0xe2de, 0x0c23);
-    loop_with_r_and_de(mem, 0x0c, 0xe2fd, 0x0c04);
+    loop_with_r_and_de(mem, 0x0c, 0xe2fd, 0x0c04, 0x61a8);
     double_loop_with_r(mem, 0x52, 0xe31b, 0x0372, 0x05f2);
     loop_with_r_and_sp(mem, 0x59, 0x05e7, 0xe331, 0);
     loop_with_r(mem, 0x7d, 0xe342, 0x0bbf);
     loop_with_d(mem, 0x64, 0xef00, 0x0bac, -1);
     loop_with_r(mem, 0x46, 0xe366, 0x0b9b);
     loop_with_delta(mem, 0xe373, 0x0b8e, -1);
-    loop_with_sub_or_add(mem, 0xe373, 0x0b8e, 0x6f, 1, 1);
+    loop_with_sub_or_add(mem, 0xe373, 0x0b8e, 0x6f, 0, 1);
     loop_with_d(mem, 0x68, 0xe396, 0x0b6b, 1);
     loop_with_r_and_sp(mem, 0x42, 0x05aa, 0xe3ab, 1);
     loop_with_r(mem, 0x10, 0xe3bc, 0x0b45);
@@ -299,15 +299,15 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_xor_hl(mem, 0xe40d, 0x0af4);
     loop_with_r_and_sp(mem, 0x77, 0x056f, 0xe422, 0);
     loop_with_d(mem, 0x40, 0xef00, 0x0acb, -1);
-    loop_with_sub_or_add(mem, 0xe446, 0x0abb, 0x4d, 1, 1);
+    loop_with_sub_or_add(mem, 0xe446, 0x0abb, 0x4d, 0, 1);
     loop_with_r(mem, 0x0d, 0xe458, 0x0aa9);
     loop_with_cpl(mem, 0xe467, 0x0a9a);
-    loop_with_sub_or_add(mem, 0xef00, 0x0a88, 0xb7, 1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x0a88, 0xb7, 0, -1);
     loop_with_rotate_left(mem, 0xe486, 0x0a7b);
-    loop_with_sub_or_add(mem, 0xef00, 0x0a69, 0xb1, 1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x0a69, 0xb1, 0, -1);
     loop_with_d(mem, 0xbc, 0xe4a9, 0x0a58, 1);
     loop_with_delta(mem, 0xe4b6, 0x0a4b, 1);
-    loop_with_sub_or_add(mem, 0xe4c7, 0x0a3a, 0xa6, 1, 1);
+    loop_with_sub_or_add(mem, 0xe4c7, 0x0a3a, 0xa6, 0, 1);
     loop_with_d(mem, 0xa5, 0xef00, 0x0a27, -1);
     loop_with_r_and_sp(mem, 0x53, 0x0509, 0xe4ee, 1);
     loop_with_r(mem, 0x53, 0xe4ff, 0x0a02);
@@ -315,10 +315,10 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r(mem, 0x5d, 0xe525, 0x09dc);
     loop_with_d(mem, 0x94, 0xef00, 0x09c9, -1);
     loop_with_r_and_iy(mem, 0x31, 0xe552, 0x09af, 0xe547);
-    loop_with_sub_or_add(mem, 0xef00, 0x099d, (int8_t)-0x9e, -1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x099d, 0x9e, 1, -1);
     double_loop_with_r(mem, 0x31, 0xe581, 0x0f9c, 0x04bf);
     loop_with_r(mem, 0x58, 0xe594, 0xe594);
-    loop_with_r_and_sp2(mem, 0x2f, 0x04aa);
+    loop_with_r_and_sp2(mem, 0x2f, 0x04aa, 0xeeff);
     loop_with_r_and_iy2(mem, 0x29, 0x0485, 0x093a, 0xe5c7);
     loop_with_xor_hl(mem, 0xe5d7, 0x092a);
     loop_with_exx(mem, 0x16, 0xe5fb, 0xe5dc, 0x0906, 0xe5ed);
@@ -332,15 +332,15 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_neg(mem, 0xe677, 0x088a);
     loop_with_d(mem, 0xe3, 0xef00, 0x0877, -1);
     loop_with_neg(mem, 0xe699, 0x0868);
-    loop_with_r_and_sp2(mem, 0x46, 0x0428);
+    loop_with_r_and_sp2(mem, 0x46, 0x0428, 0xeeff);
     loop_with_d(mem, 0xe8, 0xef00, 0x083e, -1);
-    loop_with_sub_or_add(mem, 0xe6d3, 0x082e, 0xd7, 1, 1);
+    loop_with_sub_or_add(mem, 0xe6d3, 0x082e, 0xd7, 0, 1);
     loop_with_r_and_sp(mem, 0x44, 0x040c, 0xe6e8, 0);
     loop_with_rotate_right(mem, 0xe6f7, 0x080a);
     loop_with_delta(mem, 0xe704, 0x07fd, 1);
     loop_with_r_and_sp(mem, 0x26, 0x03f3, 0xe719, 1);
     loop_with_delta(mem, 0xe72a, 0x07d7, 0xc6);
-    loop_with_sub_or_add(mem, 0xef00, 0x07c5, (int8_t)-0xc5, -1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x07c5, 0xc5, 1, -1);
     loop_with_d(mem, 0xc0, 0xef00, 0x07b3, -1);
     loop_with_delta(mem, 0xe75a, 0x07a7, 1);
     loop_with_rotate_right(mem, 0xe768, 0x0799);
@@ -348,7 +348,7 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_d(mem, 0x34, 0xe78a, 0x0777, 1);
     loop_with_rotate_right(mem, 0xe798, 0x0769);
     loop_with_r(mem, 0x28, 0xe7a8, 0x0759);
-    loop_with_sub_or_add(mem, 0xef00, 0x0747, 0x3d, 1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x0747, 0x3d, 0, -1);
     loop_with_d(mem, 0x38, 0xe7cb, 0x0736, 1);
     loop_with_cpl(mem, 0xe7da, 0x0727);
     loop_with_r(mem, 0x2a, 0xe7ec, 0x0715);
@@ -364,11 +364,11 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r(mem, 0x6c, 0xe8a0, 0x0661);
     loop_with_neg(mem, 0xe8b0, 0x0651);
     loop_with_d(mem, 0x0e, 0xe8c2, 0x063f, 1);
-    loop_with_sub_or_add(mem, 0xef00, 0x062d, (int8_t)-0x0d, -1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x062d, 0x0d, 1, -1);
     loop_with_d(mem, 0x08, 0xef00, 0x061b, -1);
-    loop_with_sub_or_add(mem, 0xe8f6, 0x060b, (int8_t)-0x77, -1, 1);
+    loop_with_sub_or_add(mem, 0xe8f6, 0x060b, 0x77, 1, 1);
     loop_with_xor_hl(mem, 0xe906, 0x05fb);
-    loop_with_r_and_de(mem, 1, 0xe925, 0x05dc);
+    loop_with_r_and_de(mem, 1, 0xe925, 0x05dc, 0x61a8);
     loop_with_neg(mem, 0xe935, 0x05cc);
     loop_with_d(mem, 0x7b, 0xef00, 0x05b9, -1);
     loop_with_exx(mem, 0x57, 0xe96b, 0xe94c, 0x0596, 0xe95d);
@@ -376,10 +376,10 @@ static void DecryptToTLoader(uint8_t *mem)
     loop_with_r_and_iy2(mem, 0x4c, 0x0263, 0x0568, 0xe999);
     loop_with_r(mem, 0x66, 0xe9a9, 0x0558);
     loop_with_exx(mem, 0x09, 0xe9cd, 0xe9ae, 0x0534, 0xe9bf);
-    loop_with_sub_or_add(mem, 0xe9de, 0x0523, 0x69, 1, 1);
-    loop_with_sub_or_add(mem, 0xe9ef, 0x0512, (int8_t)-0x54, -1, 1);
+    loop_with_sub_or_add(mem, 0xe9de, 0x0523, 0x69, 0, 1);
+    loop_with_sub_or_add(mem, 0xe9ef, 0x0512, 0x54, 1, 1);
     loop_with_d(mem, 0x53, 0xea01, 0x0500, 1);
-    loop_with_sub_or_add(mem, 0xef00, 0x04ee, (int8_t)-0x5e, -1, -1);
+    loop_with_sub_or_add(mem, 0xef00, 0x04ee, 0x5e, 1, -1);
     loop_with_r(mem, 0x3b, 0xea22, 0x04df);
     loop_with_r_and_iy(mem, 0x16, 0xea3d, 0x04c4, 0xea32);
     loop_with_d(mem, 0x47, 0xea4f, 0x04b2, 1);
@@ -392,20 +392,37 @@ static void DecryptToTLoader(uint8_t *mem)
 // This is the final decryption step of the Alkatraz scheme: the encrypted
 // game data is XORed with known data (the loading screen bitmap and/or the
 // drawing code) to produce the plaintext game image.
-void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_address, uint16_t source_size, uint16_t target_size)
+static void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_address, uint16_t source_size, uint16_t target_size)
 {
-    uint16_t source_start_address = source_address;
-    do {
-        for (int i = 0; i < source_size; i++) {
-            memory[target_address] ^= memory[source_address];
-            source_address++;
-            target_address++;
-            target_size--;
-            if (target_size == 0)
-                return;
-        }
-        source_address = source_start_address;
-    } while (target_size > 0);
+    for (int i = 0; i < target_size; i++)
+        memory[(uint16_t)(target_address + i)] ^= memory[(uint16_t)(source_address + i % source_size)];
+}
+
+// Draws the encrypted loading screen into the memory array (which represents
+// the entire addressable 64 KB of the ZX Spectrum). The original image loader
+// reads a byte from tape, decrypts it and writes the result to a screen
+// address from the draw order; the resulting image is then used to decrypt
+// the game data. Returns 0 if the file_length bytes at file are too few for
+// the picture.
+static int LoadAlkatrazPicture(uint8_t *memory, const uint8_t *file, size_t file_length,
+    const AlkatrazKey *schedule)
+{
+    // Expand the loader's window descriptors (count at 0xeea9, descriptors at
+    // 0xeeab) into the screen draw order.
+    uint16_t order[ZX_SCREEN_SIZE];
+    int count = AlkatrazScreenOrder(memory + 0xeeab,
+        READ_LE_UINT16(memory + 0xeea9), order, ZX_SCREEN_SIZE);
+
+    // Read each pixel/attribute byte from tape, decrypt it with the loader's
+    // rolling-key XOR, and write it to the next address in draw order.
+    uint8_t loacon = 0xf6;
+    if (!DeAlkatraz(file, file_length, 0, memory, 0xea7d, 2, &loacon, schedule))
+        return 0;
+    size_t fileoffset = 2;
+    for (int i = 0; i < count; i++)
+        if (!DeAlkatraz(file, file_length, fileoffset++, memory, order[i], 1, &loacon, schedule))
+            return 0;
+    return 1;
 }
 
 // Main entry point: decrypts Temple of Terror Side B from a TZX tape image.
@@ -417,8 +434,9 @@ void XORAlkatraz(uint8_t *memory, uint16_t target_address, uint16_t source_addre
 //   4. XOR the game data with the loading screen and drawing code to recover it
 //
 // Returns a 64 KB memory buffer containing the decrypted ZX Spectrum memory
-// snapshot, or NULL on failure. The caller is responsible for freeing the result.
-uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
+// snapshot, or NULL on failure. The caller is responsible for freeing the
+// result, and still owns data: this function never frees it.
+uint8_t *DecryptToTSideB(const uint8_t *data, size_t *original_data_length)
 {
     size_t length = 0;
     // Stage 1: Extract the raw, encrypted tape loader data from the TZX image
@@ -449,7 +467,7 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
 
     // Stage 2: Run all ~90 decryption passes to produce the loading screen
     // drawing code. Although we don't execute this Z80 code directly (there
-    // is a C re-implementation in loadtotpicture.c), the resulting byte
+    // is a C re-implementation in LoadAlkatrazPicture()), the resulting byte
     // pattern is needed as an XOR key to decrypt the game data.
     DecryptToTLoader(memory);
 
@@ -501,7 +519,6 @@ uint8_t *DecryptToTSideB(uint8_t *data, size_t *original_data_length)
     ZXLdir(memory, 0xea80, 0xea7f, 0x237);
 
     free(block);
-    free(data);
 
     *original_data_length = ZX_MEMORY_SIZE;
 

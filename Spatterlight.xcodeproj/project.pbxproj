@@ -970,7 +970,6 @@
 		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; };
 		C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */; };
 		C3B6100827DA0C080012FB97 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100427DA07E90012FB97 /* graphics.c */; };
-		C3B6100B27DA10DF0012FB97 /* utility.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100A27DA10DF0012FB97 /* utility.c */; };
 		C3B69695300471950008D4C0 /* The PK Girl command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B69694300471940008D4C0 /* The PK Girl command script.txt */; };
 		C3B69696300471950008D4C0 /* The PK Girl command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B69694300471940008D4C0 /* The PK Girl command script.txt */; };
 		C3B696983004810A0008D4C0 /* Transcript of The PK Girl.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B696973004810A0008D4C0 /* Transcript of The PK Girl.txt */; };
@@ -1007,7 +1006,6 @@
 		C3CEC2B926A6D0A200120469 /* UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC2B826A6D0A200120469 /* UITests.m */; };
 		C3CEC44426C5EB5B0060E64C /* converter.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CEC44226C5EB5B0060E64C /* converter.c */; };
 		C3CED4472810190E0040252F /* decrypttotloader.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4422810190E0040252F /* decrypttotloader.c */; };
-		C3CED4482810190E0040252F /* loadtotpicture.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CED4462810190E0040252F /* loadtotpicture.c */; };
 		C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3693265FA461004D0F7B /* CoverImageView.m */; };
 		C3CF3698265FB2FA004D0F7B /* GameImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF3697265FB2FA004D0F7B /* GameImporter.m */; };
 		C3CF369B2660207E004D0F7B /* neo.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CF36992660207E004D0F7B /* neo.c */; };
@@ -3740,7 +3738,6 @@
 		C3B6100427DA07E90012FB97 /* graphics.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = graphics.c; sourceTree = "<group>"; };
 		C3B6100627DA07E90012FB97 /* graphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = graphics.h; sourceTree = "<group>"; };
 		C3B6100927DA10DF0012FB97 /* utility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utility.h; sourceTree = "<group>"; };
-		C3B6100A27DA10DF0012FB97 /* utility.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = utility.c; sourceTree = "<group>"; };
 		C3B69694300471940008D4C0 /* The PK Girl command script.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "The PK Girl command script.txt"; sourceTree = "<group>"; };
 		C3B696973004810A0008D4C0 /* Transcript of The PK Girl.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Transcript of The PK Girl.txt"; sourceTree = "<group>"; };
 		C3B7280E2667934100E9B08D /* NSImage+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSImage+Categories.h"; sourceTree = "<group>"; };
@@ -3813,9 +3810,7 @@
 		C3CEC44226C5EB5B0060E64C /* converter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = converter.c; sourceTree = "<group>"; };
 		C3CEC44326C5EB5B0060E64C /* converter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = converter.h; sourceTree = "<group>"; };
 		C3CED4422810190E0040252F /* decrypttotloader.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = decrypttotloader.c; sourceTree = "<group>"; };
-		C3CED4442810190E0040252F /* loadtotpicture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = loadtotpicture.h; sourceTree = "<group>"; };
 		C3CED4452810190E0040252F /* decrypttotloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = decrypttotloader.h; sourceTree = "<group>"; };
-		C3CED4462810190E0040252F /* loadtotpicture.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = loadtotpicture.c; sourceTree = "<group>"; };
 		C3CF3693265FA461004D0F7B /* CoverImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CoverImageView.m; sourceTree = "<group>"; };
 		C3CF3694265FA461004D0F7B /* CoverImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoverImageView.h; sourceTree = "<group>"; };
 		C3CF3696265FB2FA004D0F7B /* GameImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameImporter.h; sourceTree = "<group>"; };
@@ -7036,22 +7031,19 @@
 				C3B1489727FCD55400844708 /* extracommands.h */,
 				C3B1489827FCD55400844708 /* extracommands.c */,
 				C3B6100927DA10DF0012FB97 /* utility.h */,
-				C3B6100A27DA10DF0012FB97 /* utility.c */,
 				C37344612804673F00D8AE01 /* extracttape.h */,
 				C37344622804673F00D8AE01 /* extracttape.c */,
-				C3FACE0100000000DEAD0002 /* loading_screen.c */,
 				C3FACE0100000000DEAD0003 /* loading_screen.h */,
-				C3FACE0200000000DEAD0010 /* zx_title.c */,
+				C3FACE0100000000DEAD0002 /* loading_screen.c */,
 				C3FACE0200000000DEAD0011 /* zx_title.h */,
+				C3FACE0200000000DEAD0010 /* zx_title.c */,
 				C3FACE0100000000DEAD0004 /* kayleth_loadscreen_data.h */,
 				C3FACE0100000000DEAD0008 /* terraquake_loadscreen_data.h */,
 				C3FACE0100000000DEAD0009 /* templea_loadscreen_data.h */,
-				C3FACE0100000000DEAD0006 /* alkatraz_screen.c */,
 				C3FACE0100000000DEAD0007 /* alkatraz_screen.h */,
+				C3FACE0100000000DEAD0006 /* alkatraz_screen.c */,
 				C3CED4452810190E0040252F /* decrypttotloader.h */,
 				C3CED4422810190E0040252F /* decrypttotloader.c */,
-				C3CED4442810190E0040252F /* loadtotpicture.h */,
-				C3CED4462810190E0040252F /* loadtotpicture.c */,
 				C3B148AF27FD881400844708 /* animations.h */,
 				C3B148B127FD881400844708 /* animations.c */,
 				C390F30E2FBAF03B000F14D3 /* ui.h */,
@@ -9620,8 +9612,6 @@
 				C31919AC2EF69EF30062991C /* common_utils.c in Sources */,
 				C31919B72EF6BDC10062991C /* common_file_utils.c in Sources */,
 				C3FFF80227E52E19000C481A /* restorestate.c in Sources */,
-				C3B6100B27DA10DF0012FB97 /* utility.c in Sources */,
-				C3CED4482810190E0040252F /* loadtotpicture.c in Sources */,
 				C3B1489927FCD55400844708 /* extracommands.c in Sources */,
 				C30DAE6427EB06E6006C90FB /* gameinfo.c in Sources */,
 				C35032F12F37EF0900BD32A6 /* randomness.c in Sources */,
