@@ -2446,14 +2446,23 @@ static CommandResultType PerformExplicit(void)
     return ER_SUCCESS;
 }
 
-/* Plus takes no options, only the name of the game file. */
+/* Spatterlight has preferences for these options (UpdateSettings), which
+   override them; the ones in the #ifndef block are left out there.
+   Elsewhere (in Gargoyle, through a "terp plus -a" line in garglk.ini)
+   they are set here. */
 glkunix_argumentlist_t glkunix_arguments[] = {
+    { "-n", glkunix_arg_NoValue, "-n        No delays" },
+#ifndef SPATTERLIGHT
+    { "-a", glkunix_arg_NoValue,
+        "-a        Always list what you carry in the upper window" },
+#endif
     { "", glkunix_arg_ValueFollows, "filename    file to load" },
     { NULL, glkunix_arg_End, NULL }
 };
 
-/* Glk startup hook: extract the game file path from command-line arguments
-   and split it into DirPath + filename for image file lookups. */
+/* Glk startup hook: read the options, extract the game file path from
+   command-line arguments and split it into DirPath + filename for image
+   file lookups. */
 int glkunix_startup_code(glkunix_startup_t *data)
 {
     int argc = data->argc;
@@ -2461,6 +2470,21 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     if (argc < 1)
         return 0;
+
+    while (argc > 1 && argv[1][0] == '-') {
+        switch (argv[1][1]) {
+        case 'n':
+            Options |= NO_DELAYS;
+            break;
+#ifndef SPATTERLIGHT
+        case 'a':
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
+#endif
+        }
+        argv++;
+        argc--;
+    }
 
 #ifdef GARGLK
     garglk_set_program_name("Plus 1.0");

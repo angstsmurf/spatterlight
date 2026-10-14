@@ -3,9 +3,8 @@
    interpreter on plain CheapGlk, commands on stdin, transcript on stdout, for
    the command script tests (test/scripts/README.md, level9/test/README.md).
 
-   CheapGlk's own main() is left out. It hands the game file on only if the
-   interpreter lists a nameless argument in glkunix_arguments, and the Plus
-   and TaylorMade ones do not.
+   CheapGlk's own main() is left out: this one hands the game file straight
+   to glkunix_startup_code() and sets up the front-end globals below.
 
    CheapGlk refuses the graphics window, so nothing is drawn. The pictures have
    tests of their own (test/images/README.md). */
