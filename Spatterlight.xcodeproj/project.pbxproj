@@ -3555,6 +3555,7 @@
 		C37EC5912847A9E00084B841 /* gameinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gameinfo.h; sourceTree = "<group>"; };
 		C37EC5922847A9E00084B841 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		C37EC5992847AA040084B841 /* plus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plus; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3E1F0A12FA0000000ABCDEF /* FORMAT.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FORMAT.md; sourceTree = "<group>"; };
 		C37EC5A62847CD620084B841 /* sagaplus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagaplus.c; sourceTree = "<group>"; };
 		C3824B782CAEF0A800D58EFC /* arthur.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = arthur.hpp; sourceTree = "<group>"; };
 		C3824B792CAEF0A800D58EFC /* arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = arthur.cpp; sourceTree = "<group>"; };
@@ -6810,6 +6811,7 @@
 		C37EC58C2847A9E00084B841 /* plus */ = {
 			isa = PBXGroup;
 			children = (
+				C3E1F0A12FA0000000ABCDEF /* FORMAT.md */,
 				C37EC5922847A9E00084B841 /* definitions.h */,
 				C3A3EA18284BAF1100C8A693 /* common.h */,
 				C37EC5902847A9E00084B841 /* plusmain.c */,
