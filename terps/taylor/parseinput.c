@@ -30,7 +30,8 @@ int EqualsIgnoringCase(const char *a, const char *b)
 
 char **InputWordStrings = NULL; /* Input split into word strings */
 uint8_t Word[WORDS_PER_COMMAND]; /* Dictionary codes for the parsed words (0 = not found) */
-int WordPositions[WORDS_PER_COMMAND]; /* Index into InputWordStrings for each Word entry */
+int FirstWordPosition = 0;     /* Index into InputWordStrings of the first known word */
+int KnownWords = 0;            /* Number of dictionary words in the command */
 int WordsInInput = 0;          /* Number of word strings in InputWordStrings */
 int WordIndex = 0;             /* Position in InputWordStrings of the next command */
 
@@ -122,7 +123,6 @@ static void LineInput(void)
     FreeInputWords();
     OutFlush();
     FirstAfterInput = 0;
-    LastVerb = 0;
     while (1) {
         /* Pretend the previous character was a newline so OutChar's
            capitalization logic treats the prompt as a fresh sentence. */
@@ -276,14 +276,78 @@ static int FindNextCommandDelimiter(void)
     return 0;
 }
 
+/* The original parser does not keep the words in the order they were
+   typed. Each of the first two words it knows goes in the verb or the noun
+   slot by its dictionary code: codes below VerbCodeLimit() are verbs, the
+   rest nouns. FLAME OUT and OUT FLAME are both OUT FLAME. A later word of
+   the same kind replaces the earlier one. Words after the first two go in
+   the remaining slots in order. */
+static int VerbCodeLimit(void)
+{
+    switch (BaseGame) {
+    case QUESTPROBE3:
+        return 50;
+    case REBEL_PLANET:
+    case BLIZZARD_PASS:
+        return 85;
+    case HEMAN:
+        return 66;
+    default:
+        return 63;
+    }
+}
+
+/* Questprobe 3 and Rebel Planet leave codes 16 and 44 where they were
+   typed, as the first or second word. */
+static int KeepsPosition(int code)
+{
+    return (BaseGame == QUESTPROBE3 || BaseGame == REBEL_PLANET) && (code == 16 || code == 44);
+}
+
+/* Blizzard Pass has nouns that are also verbs. A noun that comes before
+   any verb is the verb of the same name instead. */
+static int BlizzardPassVerb(int code)
+{
+    switch (code) {
+    case BP_WORD_SKIN:
+        return BP_WORD_VERB_SKIN;
+    case BP_WORD_POLISH:
+        return BP_WORD_VERB_POLISH;
+    case BP_WORD_DRAWBRIDGE:
+        return BP_WORD_VERB_DRAW;
+    default:
+        return 0;
+    }
+}
+
+/* Put a known word in its slot. known is how many known words of the
+   command came before it. */
+static void PlaceWord(int code, int known)
+{
+    if (known >= 2) {
+        /* Questprobe 3 has room for two of these, the others three */
+        if (known < (Version == QUESTPROBE3_TYPE ? 4 : WORDS_PER_COMMAND))
+            Word[known] = code;
+    } else if (KeepsPosition(code)) {
+        Word[known] = code;
+    } else if (code < VerbCodeLimit()) {
+        Word[0] = code;
+    } else if (CurrentGame == BLIZZARD_PASS && Word[0] == 0 && BlizzardPassVerb(code)) {
+        Word[0] = BlizzardPassVerb(code);
+    } else {
+        Word[1] = code;
+    }
+}
+
 /* Parse the next command from the input. If there are remaining chained
    commands (separated by delimiters), parse the next one; otherwise read
-   a new line. Looks up each word in the dictionary and fills the Word[]
-   array with up to WORDS_PER_COMMAND dictionary codes. Applies game-specific word fixups
-   for Blizzard Pass and Questprobe 3. */
+   a new line. Looks up each word in the dictionary and puts the codes in
+   the Word[] slots (see PlaceWord()). A chained command without a verb
+   keeps the verb of the one before: GET LAMP, SWORD. */
 void Parser(void)
 {
     FoundExtraCommand = 0;
+    uint8_t verb = 0;
 
     if (!FindNextCommandDelimiter()) {
         LineInput();
@@ -292,50 +356,43 @@ void Parser(void)
     } else {
         FirstAfterInput = 0;
         OutChar(' ');
+        verb = Word[0];
     }
 
-    int out_index = 0;
+    memset(Word, 0, sizeof Word);
+    Word[0] = verb;
+    FirstWordPosition = 0;
+    KnownWords = 0;
 
-    for (int offset = 0; offset < WORDS_PER_COMMAND && WordIndex + offset < WordsInInput; offset++) {
+    for (int offset = 0; offset < MAX_WORDS && WordIndex + offset < WordsInInput; offset++) {
         int input_pos = WordIndex + offset;
-        Word[out_index] = ParseWord(InputWordStrings[input_pos]);
-        /* Hack for certain Blizzard Pass verbs */
-        /* which are detected as nouns. */
-        /* The TaylorMade dictionary format has a single word list and does not
-           differentiate between verbs and nouns, but Blizzard Pass seems confused
-           about this. */
-        if (CurrentGame == BLIZZARD_PASS && out_index == 0) {
-            if (Word[0] == BP_WORD_SKIN)
-                Word[0] = BP_WORD_VERB_SKIN;
-            else if (Word[0] == BP_WORD_POLISH)
-                Word[0] = BP_WORD_VERB_POLISH;
-            /* Change noun DRAW(bridge) to verb DRAW */
-            else if (Word[0] == BP_WORD_DRAWBRIDGE)
-                Word[0] = BP_WORD_VERB_DRAW;
-        }
-        if (Version == QUESTPROBE3_TYPE && out_index == 1) {
-            /* Understand WALL and FIRE as the wall of fire */
-            if ((Word[1] == Q3_WORD_WALL || Word[1] == Q3_WORD_FIRE) && (ObjectLoc[Q3_OBJ_WALL_OF_FIRE] == MyLoc || ObjectLoc[Q3_OBJ_WALL_OF_FIRE_2] == MyLoc))
-                Word[1] = Q3_WORD_FLAME;
-            /* Understand MASTERS as Alicia Masters rather than the
-               Ringmaster when she is here */
-            if (Word[1] == Q3_WORD_RINGMASTER && ObjectLoc[Q3_OBJ_ALICIA_MASTERS] == MyLoc)
-                Word[1] = Q3_WORD_ALICIA;
-        }
-        if (Word[out_index]) {
-            debug_print("Word %d is %d\n", out_index, Word[out_index]);
-            WordPositions[out_index] = input_pos;
-            out_index++;
+        int code = ParseWord(InputWordStrings[input_pos]);
+        if (code) {
+            debug_print("Word %d is %d\n", KnownWords, code);
+            if (KnownWords == 0)
+                FirstWordPosition = input_pos;
+            PlaceWord(code, KnownWords);
+            KnownWords++;
         } else {
             if (IsExtraCommand(InputWordStrings[input_pos]))
                 FoundExtraCommand = 1;
-            if (out_index > 0 && IsDelimiterWord(InputWordStrings[input_pos]))
+            if (KnownWords > 0 && IsDelimiterWord(InputWordStrings[input_pos]))
                 break;
             debug_print("Word at position %d, %s, was not recognized\n", input_pos, InputWordStrings[input_pos]);
         }
     }
-    for (int i = out_index; i < WORDS_PER_COMMAND; i++) {
-        Word[i] = 0;
-        WordPositions[i] = 0;
+
+    /* A command of unknown words has no verb */
+    if (KnownWords == 0)
+        Word[0] = 0;
+
+    if (Version == QUESTPROBE3_TYPE) {
+        /* Understand WALL and FIRE as the wall of fire */
+        if ((Word[1] == Q3_WORD_WALL || Word[1] == Q3_WORD_FIRE) && (ObjectLoc[Q3_OBJ_WALL_OF_FIRE] == MyLoc || ObjectLoc[Q3_OBJ_WALL_OF_FIRE_2] == MyLoc))
+            Word[1] = Q3_WORD_FLAME;
+        /* Understand MASTERS as Alicia Masters rather than the
+           Ringmaster when she is here */
+        if (Word[1] == Q3_WORD_RINGMASTER && ObjectLoc[Q3_OBJ_ALICIA_MASTERS] == MyLoc)
+            Word[1] = Q3_WORD_ALICIA;
     }
 }

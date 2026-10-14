@@ -23,8 +23,6 @@ void InitActionDebugging(void);
 #endif
 
 extern int ActionsExecuted;
-extern int FoundVerb;
-extern int FoundNoun;
 extern int RecursionGuard;
 
 #endif /* actions_h */

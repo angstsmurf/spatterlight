@@ -32,9 +32,7 @@
 #include "actions.h"
 
 int ActionsExecuted;      /* Whether any action matched this turn */
-int FoundVerb = 0;        /* Current input matched a verb in the action table */
-int FoundNoun = 0;        /* Current input matched a noun in the action table */
-int RecursionGuard = 0;   /* Set while QUIT is running, to avoid re-entry */
+int RecursionGuard = 0;   /* Set while END is running, to avoid re-entry */
 static int DeferredGoto = 0;
 
 #ifdef DEBUG
@@ -55,22 +53,22 @@ static const char *Condition[] = {
     "ABSENT",
     "NOTHERE",
     "CARRIED",
-    "NOTCARRIED",
+    "NOTCARR",
     "WORN",
     "NOTWORN",
-    "NODESTROYED",
-    "DESTROYED",
+    "CREATED",
+    "NOTCREATED",
     "ZERO",
     "NOTZERO",
-    "WORD1",
-    "WORD2",
-    "WORD3",
+    "W3",
+    "W4",
+    "W5",
     "CHANCE",
     "LT",
     "GT",
     "EQ",
     "NE",
-    "OBJECTAT",
+    "OBJECT",
     "COND26",
     "COND27",
     "COND28",
@@ -81,21 +79,21 @@ static const char *Condition[] = {
 
 static const char *Action[] = {
     "<ERROR>",
-    "LOAD?",
-    "QUIT",
-    "INVENTORY",
+    "RESTORE",
+    "END",
+    "INVENT",
     "ANYKEY",
     "SAVE",
     "DROPALL",
     "LOOK",
-    "OK", /* Guess */
+    "OK",
     "GET",
     "DROP",
     "GOTO",
     "GOBY",
     "SET",
     "CLEAR",
-    "MESSAGE",
+    "MESSPRINT",
     "CREATE",
     "DESTROY",
     "PRINT",
@@ -103,9 +101,9 @@ static const char *Action[] = {
     "WEAR",
     "REMOVE",
     "LET",
-    "ADD",
-    "SUB",
-    "PUT", /* ?? */
+    "PLUS",
+    "MINUS",
+    "PLACE",
     "SWAP",
     "SWAPF",
     "MEANS",
@@ -116,11 +114,11 @@ static const char *Action[] = {
     "RAMLOAD",
     "CLSLOW?",
     "OOPS",
-    "DIAGNOSE",
-    "SWITCHINVENTORY",
-    "SWITCHCHARACTER",
-    "CONTINUE",
-    "IMAGE",
+    "WATCH",
+    "SWITCH",
+    "GOTOH",
+    "PICTURE",
+    "ACT40",
     "ACT41",
     "ACT42",
     "ACT43",
@@ -217,46 +215,46 @@ static const unsigned char Q3Condition[128] = {
     PRESENT,
     ABSENT,
     CARRIED,
-    NOTCARRIED,
-    NODESTROYED,
-    DESTROYED,
+    NOTCARR,
+    CREATED,
+    NOTCREATED,
     ZERO,
     NOTZERO,
-    WORD1,
-    WORD2,
+    W3,
+    W4,
     CHANCE,
     LT,
     GT,
     EQ,
-    OBJECTAT,
+    OBJECT,
     /* The rest are unused: CONDITIONERROR */
 };
 
 static const unsigned char Q3Action[ACTION_OP_MASK + 1] = {
     ACTIONERROR,
-    SWITCHINVENTORY, /* Swap inventory and dark flag */
-    DIAGNOSE, /* Print Reed Richards' watch status message */
-    LOADPROMPT,
-    QUIT,
-    SHOWINVENTORY,
+    SWITCH, /* Swap inventory and dark flag */
+    WATCH, /* Print Reed Richards' watch status message */
+    RESTORE,
+    END,
+    INVENT,
     ANYKEY,
     SAVE,
-    DONE, /* Set "condition failed" flag, Flag[118], to 1 */
+    OK, /* Set "condition failed" flag, Flag[118], to 1 */
     GET,
     DROP,
     GOTO,
-    SWITCHCHARACTER, /* Go to the location of the other guy */
+    GOTOH, /* Go to the location of the other guy */
     SET,
     CLEAR,
-    MESSAGE,
+    MESSPRINT,
     CREATE,
     DESTROY,
     LET,
-    ADD,
-    SUB,
-    PUT,
+    PLUS,
+    MINUS,
+    PLACE,
     SWAP,
-    IMAGE, /* Draw image on top of room image */
+    PICTURE, /* Draw image on top of room image */
     /* The rest are unused: ACTIONERROR */
 };
 
@@ -595,8 +593,8 @@ static void Q3TranslateAction(unsigned char *op, unsigned char *arg1, unsigned c
     case SET:
     case CLEAR:
     case LET:
-    case ADD:
-    case SUB:
+    case PLUS:
+    case MINUS:
         *arg1 += 4;
         break;
     case SWAPF:
@@ -660,15 +658,15 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
         return ObjectLoc[arg1] != MyLoc;
     case CARRIED:
         return HeldByPlayer(arg1);
-    case NOTCARRIED:
+    case NOTCARR:
         return !HeldByPlayer(arg1);
     case WORN:
         return ObjectLoc[arg1] == Worn();
     case NOTWORN:
         return ObjectLoc[arg1] != Worn();
-    case NODESTROYED:
+    case CREATED:
         return ObjectLoc[arg1] != Destroyed();
-    case DESTROYED:
+    case NOTCREATED:
         return ObjectLoc[arg1] == Destroyed();
     case ZERO:
         if (BaseGame == TEMPLE_OF_TERROR) {
@@ -681,13 +679,13 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
         return Flag[arg1] == 0;
     case NOTZERO:
         return Flag[arg1] != 0;
-    /* WORD1/2/3 match against the third/fourth/fifth parsed input
+    /* W3/4/5 match against the third/fourth/fifth parsed input
        words (Word[0] and Word[1] are the verb and primary noun). */
-    case WORD1:
+    case W3:
         return Word[2] == arg1;
-    case WORD2:
+    case W4:
         return Word[3] == arg1;
-    case WORD3:
+    case W5:
         return Word[4] == arg1;
     case CHANCE:
         return Chance(arg1);
@@ -700,7 +698,7 @@ static int ConditionHolds(unsigned char op, unsigned char arg1, unsigned char ar
         return Flag[arg1] == arg2;
     case NE:
         return Flag[arg1] != arg2;
-    case OBJECTAT:
+    case OBJECT:
         return ObjectLoc[arg1] == arg2;
     default:
         fprintf(stderr, "Unknown condition %d.\n",
@@ -751,20 +749,20 @@ static void PlayBeep(unsigned char duration, unsigned char pitch)
 static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg2, int *done)
 {
     switch (op) {
-    case LOADPROMPT:
+    case RESTORE:
         if (LoadPrompt()) {
             *done = 1;
             return 1;
         }
         break;
-    case QUIT:
+    case END:
         if (!RecursionGuard) {
             RecursionGuard = 1;
             QuitGame();
         }
         *done = 1;
         return 1;
-    case SHOWINVENTORY:
+    case INVENT:
         Inventory();
         break;
     case ANYKEY:
@@ -787,9 +785,9 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
     case LOOK:
         Look();
         break;
-    case PRINTOK:
-        /* Despite the name, op 8 prints nothing: in all five non-QP3
-           Spectrum games it only sets the stop flag, as QP3's DONE does. */
+    case OK:
+        /* Despite the name, OK prints nothing: in QP3 and in all five
+           other Spectrum games it only sets the stop flag. */
         *done = 1;
         break;
     case GET:
@@ -823,7 +821,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
     case CLEAR:
         Flag[arg1] = 0;
         break;
-    case MESSAGE:
+    case MESSPRINT:
         /* Prevent repeated "Blob returns to his post" messages */
         if (CurrentGame == QUESTPROBE3_64 && arg1 == Q3_64_MSG_BLOB_RETURNS)
             Q3_64BlobFlag = 0;
@@ -858,14 +856,14 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         }
         Flag[arg1] = arg2;
         break;
-    case ADD:
+    case PLUS:
         arg1 = ToTPuzzleFlag(arg1, arg2, 1);
         Flag[arg1] = Flag[arg1] + arg2 > 255 ? 255 : Flag[arg1] + arg2;
         break;
-    case SUB:
+    case MINUS:
         Flag[arg1] = Flag[arg1] > arg2 ? Flag[arg1] - arg2 : 0;
         break;
-    case PUT:
+    case PLACE:
         Put(arg1, arg2);
         break;
     case SWAP: {
@@ -907,7 +905,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         RestoreUndo(0);
         Redraw = 1;
         break;
-    case DIAGNOSE: {
+    case WATCH: {
         char buf[5];
         Message(Q3_MSG_WATCH);
         /* TurnsLow = turns % 100, TurnsHigh == turns / 100 */
@@ -925,7 +923,7 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Message(Q3_MSG_WATCH + 2);
         break;
     }
-    case SWITCHINVENTORY: {
+    case SWITCH: {
         /* Swap "current" and "other character" state: inventory code
            (CarriedLoc) plus the two dark flags. */
         SwapBytes(&CarriedLoc, &OtherGuyInv);
@@ -933,17 +931,14 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         Redraw = 1;
         break;
     }
-    case SWITCHCHARACTER:
+    case GOTOH:
         /* Go to the location of the other guy */
         MyLoc = ObjectLoc[arg1];
         /* Pick him up, so that you don't see yourself */
         GetObject(arg1);
         Redraw = 1;
         break;
-    case DONE:
-        *done = 1;
-        break;
-    case IMAGE:
+    case PICTURE:
         if (!TAYLOR_GRAPHICS_ENABLED)
             break;
         /* The original draws the tar pit as seen from above here */
@@ -1107,27 +1102,18 @@ void RunStatusTable(void)
 }
 
 /* Run the player command action table, matching the parsed input words
-   against verb/noun entries. WORD_WILDCARD is a wildcard. Entries can
-   match as VERB NOUN or NOUN VERB. */
+   against verb/noun entries. WORD_WILDCARD is a wildcard. The parser has
+   put the verb first, whatever order the words were typed in. */
 void RunCommandTable(void)
 {
     unsigned char *ptr = FileImage + ActionBase;
 
     int done = 0;
     ActionsExecuted = 0;
-    FoundVerb = 0;
-    FoundNoun = 0;
 
     while (*ptr != ACTION_TABLE_END) {
 
-        if (ptr[0] == Word[0] || ptr[0] == Word[1])
-            FoundVerb = 1;
-        if (ptr[1] == Word[0] || ptr[1] == Word[1])
-            FoundNoun = 1;
-
-        /* Match input to table entry as VERB NOUN or NOUN VERB */
-        if (((*ptr == WORD_WILDCARD || *ptr == Word[0]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[1])) ||
-            ((*ptr == WORD_WILDCARD || *ptr == Word[1]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[0]))) {
+        if ((*ptr == WORD_WILDCARD || *ptr == Word[0]) && (ptr[1] == WORD_WILDCARD || ptr[1] == Word[1])) {
             PrintWord(ptr[0]);
             PrintWord(ptr[1]);
             /* Work around a Questprobe 3 bug – the original game

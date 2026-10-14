@@ -38,7 +38,6 @@ extern int JustStarted;
 extern int ShouldRestart;
 extern int NoGraphics;
 extern char DelimiterChar;
-extern int LastVerb;
 extern GameInfo *Game;
 extern int InKaylethPreview;
 

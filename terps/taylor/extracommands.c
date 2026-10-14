@@ -197,7 +197,7 @@ int TryExtraCommand(void)
 {
     if (InKaylethPreview)
         return 0;
-    int verb_position = WordPositions[0];
+    int verb_position = FirstWordPosition;
     extra_command verb = ParseExtraCommand(InputWordStrings[verb_position]);
     extra_command noun = EXTRA_NONE;
 
@@ -212,7 +212,7 @@ int TryExtraCommand(void)
     if (verb_position + 1 < WordsInInput)
         noun = ParseExtraCommand(InputWordStrings[verb_position + 1]);
     /* A dictionary word is not an extra command, whatever its code */
-    if (noun == EXTRA_NONE && Word[1] != 0)
+    if (noun == EXTRA_NONE && KnownWords > 1)
         noun = EXTRA_OTHER_WORD;
 
     for (size_t i = 0; i < sizeof ExtraActions / sizeof ExtraActions[0]; i++) {

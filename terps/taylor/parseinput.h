@@ -17,7 +17,8 @@ int ParseWord(const char *word);
 int EqualsIgnoringCase(const char *a, const char *b);
 
 extern char **InputWordStrings;
-extern int WordPositions[WORDS_PER_COMMAND];
+extern int FirstWordPosition;
+extern int KnownWords;
 extern int WordIndex;
 extern int WordsInInput;
 extern uint8_t Word[WORDS_PER_COMMAND];

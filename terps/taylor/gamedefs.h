@@ -55,6 +55,7 @@ enum {
 #define Q3_PIC_THING_SINKING 53
 
 enum {
+    Q3_LAST_DIRECTION = 6, /* BELOW, BENEATH, UNDER */
     Q3_WORD_FIRE = 44, /* also BURN, LIGHT ... */
     Q3_WORD_WALL = 54,
     Q3_WORD_UP = 57,

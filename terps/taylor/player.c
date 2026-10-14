@@ -53,7 +53,6 @@ int NoGraphics = 0;        /* Disable graphics display */
 char DelimiterChar = '_';  /* Word separator in dictionary entries */
 
 static int LastNoun = 0; /* Last noun for "IT" pronoun substitution */
-int LastVerb = 0;        /* Last verb for implicit verb carry-forward */
 static int GoVerb = 0;   /* Dictionary code for "GO" */
 
 GameInfo *Game = NULL;
@@ -551,10 +550,13 @@ static int IsDir(unsigned char word)
     if (word == 0)
         return 0;
     /* Direction words share their codes with the direction system
-       messages. QP3 has the four compass points first and two more
-       direction words further up; the others have all ten in a row. */
+       messages. QP3 has six in a row (5 and 6 are up and down, though
+       only BELOW, BENEATH and UNDER have those codes) and the words U, UP
+       and D further up; the others have all ten in a row. Below these
+       the originals answer an unmatched command with "You can't go that
+       way". */
     if (Version == QUESTPROBE3_TYPE)
-        return (word <= WEST || word == Q3_WORD_UP || word == Q3_WORD_DOWN);
+        return (word <= Q3_LAST_DIRECTION || word == Q3_WORD_UP || word == Q3_WORD_DOWN);
     return (word <= SOUTHWEST);
 }
 
@@ -577,7 +579,10 @@ static void RunOneInput(void)
             return;
         }
     }
-    if (Word[0] == 0 && Word[1] == 0) {
+    /* Questprobe 3 gives up when there is no verb, the later games only
+       when there is no word at all: a noun alone goes through their
+       tables. */
+    if (KnownWords == 0 || (Version == QUESTPROBE3_TYPE && Word[0] == 0)) {
         if (TryExtraCommand() == 0) {
             OutCaps();
             SysMessage(I_DONT_UNDERSTAND);
@@ -608,35 +613,22 @@ static void RunOneInput(void)
     if (ActionsExecuted == 0) {
         int OriginalVerb = Word[0];
         if (TryExtraCommand() == 0) {
-            if (LastVerb) {
-                /* Retry with the previous verb in front of the words. */
-                memmove(Word + 1, Word, WORDS_PER_COMMAND - 1);
-                Word[0] = LastVerb;
-                RunCommandTable();
+            if (IsMoveCommand(OriginalVerb)) {
+                SysMessage(YOU_CANT_GO_THAT_WAY);
+            } else if (OriginalVerb) {
+                SysMessage(THATS_BEYOND_MY_POWER);
+            } else {
+                SysMessage(I_DONT_UNDERSTAND_THAT_VERB);
             }
-            if (ActionsExecuted == 0) {
-                if (IsMoveCommand(OriginalVerb)) {
-                    SysMessage(YOU_CANT_GO_THAT_WAY);
-                } else if (FoundVerb) {
-                    SysMessage(THATS_BEYOND_MY_POWER);
-                } else if (FoundNoun == 1)  {
-                    SysMessage(I_DONT_UNDERSTAND_THAT_VERB);
-                } else {
-                    SysMessage(I_DONT_UNDERSTAND);
-                }
-                OutFlush();
-                StopTime = 1;
-                return;
-            }
+            OutFlush();
+            StopTime = 1;
+            return;
         } else {
             if (Redraw)
                 Look();
             return;
         }
     }
-
-    if (Word[0] != 0)
-        LastVerb = Word[0];
 
     if (Redraw && !((BaseGame == REBEL_PLANET && MyLoc == REBEL_ROOM_INSIDE_KUBE) || (BaseGame == KAYLETH && MyLoc == KAYLETH_ROOM_AZAP_ELY))) {
         Look();
