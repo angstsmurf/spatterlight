@@ -13,7 +13,7 @@
 #include "scott_defines.h"
 
 void MapSysMessages(const SysMessageType *keys, size_t n, int src_offset);
-void MapSysRange(SysMessageType first, SysMessageType last, int src);
+int MapSysRange(SysMessageType first, SysMessageType last, int src);
 void SetParserWordLists(const char **directions, const char **skip_list,
     const char **delimiters, const char **extra_commands, const char **extra_nouns);
 

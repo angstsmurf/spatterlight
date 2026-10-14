@@ -264,7 +264,7 @@ static void appendSIfiles(uint8_t **sf, size_t *extent)
         free(save_island_appendix_2);
     }
     *extent = offset + save_island_appendix_1_length + save_island_appendix_2_length;
-    *sf = malloc(*extent);
+    *sf = MemAlloc(*extent);
     memcpy(*sf, megabuf, *extent);
 }
 

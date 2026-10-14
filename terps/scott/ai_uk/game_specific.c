@@ -183,11 +183,14 @@ void MapSysMessages(const SysMessageType *keys, size_t n, int src_offset)
 }
 
 /* Map the consecutive sys[] slots first to last to the consecutive
-   system_messages[] starting at index src. */
-void MapSysRange(SysMessageType first, SysMessageType last, int src)
+   system_messages[] starting at index src. Returns the index after the
+   last one used, so that ranges which follow each other in the game's
+   table can be chained without typing each start index. */
+int MapSysRange(SysMessageType first, SysMessageType last, int src)
 {
     for (int i = first; i <= (int)last; i++)
         sys[i] = system_messages[src - first + i];
+    return src + (int)last - (int)first + 1;
 }
 
 static void CopyWordList(const char **dest, const char **src, int count)

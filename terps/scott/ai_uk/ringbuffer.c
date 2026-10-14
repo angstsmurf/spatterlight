@@ -6,6 +6,7 @@
 //
 
 #include "ringbuffer.h"
+#include "memory_allocation.h"
 #include <assert.h>
 
 // The hidden definition of our circular buffer structure
@@ -39,8 +40,7 @@ cbuf_handle_t circular_buf_init(uint8_t *buffer, size_t size)
     assert(buffer && size);
     assert(size % 2 == 0); // XY-pair semantics require even buffer size
 
-    cbuf_handle_t cbuf = malloc(sizeof(circular_buf_t));
-    assert(cbuf);
+    cbuf_handle_t cbuf = MemAlloc(sizeof(circular_buf_t));
 
     cbuf->buffer = buffer;
     cbuf->max = size;

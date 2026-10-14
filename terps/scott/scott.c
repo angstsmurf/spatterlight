@@ -735,6 +735,80 @@ glkunix_argumentlist_t glkunix_arguments[] = {
     { NULL, glkunix_arg_End, NULL }
 };
 
+/* Parse the leading -options. Returns the number of arguments consumed
+   after argv[0]; the game file, if any, follows them. */
+static int ParseOptions(int argc, char **argv)
+{
+    int i = 1;
+    for (; i < argc && argv[i][0] == '-'; i++) {
+        const char *opt = argv[i];
+        switch (opt[1]) {
+        case 'y':
+            Options |= YOUARE;
+            break;
+        case 'i':
+            Options &= ~YOUARE;
+            break;
+        case 'd':
+            Options |= DEBUGGING;
+            break;
+        case 's':
+            Options |= SCOTTLIGHT;
+            break;
+        case 't':
+            /* -tN or -t N. A bare -t is the TRS-80 style, as it
+               always was. */
+            if (isdigit((unsigned char)opt[2])) {
+                forced_style = atoi(opt + 2);
+            } else if (i + 1 < argc && isdigit((unsigned char)argv[i + 1][0])
+                && argv[i + 1][1] == '\0') {
+                forced_style = atoi(argv[++i]);
+            } else {
+                forced_style = 1;
+            }
+            break;
+        case 'p':
+            Options |= PREHISTORIC_LAMP;
+            break;
+        case 'w':
+            split_screen = 0;
+            break;
+        case 'n':
+            Options |= NO_DELAYS;
+            break;
+        case 'f':
+            Options |= FLICKER_ON;
+            break;
+#ifndef SPATTERLIGHT
+        case 'g':
+            gli_slowdraw = 1;
+            break;
+        case 'c':
+            Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
+            break;
+        case 'x':
+            Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
+            break;
+        case 'a':
+            Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
+            break;
+#else
+        case 'z':
+            /* Run the vector image tests with the support path that
+               follows, report the result and exit. */
+            if (i + 1 >= argc) {
+                fprintf(stderr, "Usage: -z path\n");
+                glk_exit();
+            }
+            fprintf(stderr, "Running tests\n");
+            win_testresult(RunTests(argv[++i]));
+            glk_exit();
+#endif
+        }
+    }
+    return i - 1;
+}
+
 /* Parse command-line arguments (display style, debugging, delays, etc.)
    and extract the game file path and its parent directory. */
 int glkunix_startup_code(glkunix_startup_t *data)
@@ -745,76 +819,9 @@ int glkunix_startup_code(glkunix_startup_t *data)
     if (argc < 1)
         return 0;
 
-    if (argc > 1)
-        while (argv[1]) {
-            if (*argv[1] != '-')
-                break;
-            switch (argv[1][1]) {
-            case 'y':
-                Options |= YOUARE;
-                break;
-            case 'i':
-                Options &= ~YOUARE;
-                break;
-            case 'd':
-                Options |= DEBUGGING;
-                break;
-            case 's':
-                Options |= SCOTTLIGHT;
-                break;
-            case 't':
-                /* -tN or -t N. A bare -t is the TRS-80 style, as it
-                   always was. */
-                if (isdigit((unsigned char)argv[1][2])) {
-                    forced_style = atoi(argv[1] + 2);
-                } else if (argv[2] && isdigit((unsigned char)argv[2][0])
-                    && argv[2][1] == '\0') {
-                    forced_style = atoi(argv[2]);
-                    argv++;
-                    argc--;
-                } else {
-                    forced_style = 1;
-                }
-                break;
-            case 'p':
-                Options |= PREHISTORIC_LAMP;
-                break;
-            case 'w':
-                split_screen = 0;
-                break;
-            case 'n':
-                Options |= NO_DELAYS;
-                break;
-            case 'f':
-                Options |= FLICKER_ON;
-                break;
-#ifndef SPATTERLIGHT
-            case 'g':
-                gli_slowdraw = 1;
-                break;
-            case 'c':
-                Options = (Options | FORCE_PALETTE_C64) & ~FORCE_PALETTE_ZX;
-                break;
-            case 'x':
-                Options = (Options | FORCE_PALETTE_ZX) & ~FORCE_PALETTE_C64;
-                break;
-            case 'a':
-                Options = (Options | FORCE_INVENTORY) & ~FORCE_INVENTORY_OFF;
-                break;
-#endif
-#ifdef SPATTERLIGHT
-            case 'z':
-                // Run the test suite RunTests() with the support file path as parameter,
-                // call win_testresult() with the return value as parameter,
-                // exit.
-                fprintf(stderr, "Running tests\n");
-                win_testresult(RunTests(argv[2]));
-                glk_exit();
-#endif
-            }
-            argv++;
-            argc--;
-        }
+    int consumed = ParseOptions(argc, argv);
+    argc -= consumed;
+    argv += consumed;
 
 #ifdef GARGLK
     garglk_set_program_name("ScottFree 1.14");
@@ -825,20 +832,16 @@ int glkunix_startup_code(glkunix_startup_t *data)
     if (argc == 2) {
         game_file = argv[1];
 
+        const char *base = strrchr(game_file, '/');
+        if (base == NULL)
+            base = strrchr(game_file, '\\');
+        base = base ? base + 1 : game_file;
+
 #ifdef GARGLK
-        const char *s;
-        if ((s = strrchr(game_file, '/')) != NULL || (s = strrchr(game_file, '\\')) != NULL) {
-            garglk_set_story_name(s + 1);
-        } else {
-            garglk_set_story_name(game_file);
-        }
+        garglk_set_story_name(base);
 #endif
 
-        const char *n;
-        int dirlen = 0;
-        if ((n = strrchr(game_file, '/')) != NULL || (n = strrchr(game_file, '\\')) != NULL) {
-            dirlen = (int)(n - game_file + 1);
-        }
+        int dirlen = (int)(base - game_file);
         if (dirlen) {
             DirPath = MemAlloc(dirlen + 1);
             memcpy(DirPath, game_file, dirlen);

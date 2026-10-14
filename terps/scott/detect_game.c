@@ -1364,8 +1364,9 @@ static GameIDType DetectZXSpectrum(void)
 static void SetUpGameSpecifics(GameIDType detectedGame)
 {
     /* Copy ZX Spectrum style system messages as a base, then apply
-       game-specific overrides below */
-    for (int i = 6; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
+       game-specific overrides below. The direction words before
+       PLAY_AGAIN are copied for the Hulk only, below. */
+    for (int i = PLAY_AGAIN; i < MAX_SYSMESS && sysdict_zx[i] != NULL; i++) {
         sys[i] = (char *)sysdict_zx[i];
     }
 
@@ -1385,10 +1386,11 @@ static void SetUpGameSpecifics(GameIDType detectedGame)
     case SEAS_OF_BLOOD_C64:
         LoadExtraSeasOfBloodData(1);
         break;
-    case CLAYMORGUE:
-        MapSysRange(OK, RESUME_A_SAVED_GAME, 6);
-        MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
+    case CLAYMORGUE: {
+        int src = MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
+        MapSysRange(OK, RESUME_A_SAVED_GAME, src);
         break;
+    }
     case SECRET_MISSION:
     case SECRET_MISSION_C64:
         Items[3].Image = 23;
@@ -1399,11 +1401,12 @@ static void SetUpGameSpecifics(GameIDType detectedGame)
             break;
         }
         // fallthrough
-    case ADVENTURELAND:
-        MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
-        MapSysRange(OK, YOU_HAVENT_GOT_IT, 6);
-        MapSysRange(YOU_DONT_SEE_IT, RESUME_A_SAVED_GAME, 13);
+    case ADVENTURELAND: {
+        int src = MapSysRange(PLAY_AGAIN, ON_A_SCALE_THAT_RATES, 2);
+        src = MapSysRange(OK, YOU_HAVENT_GOT_IT, src);
+        MapSysRange(YOU_DONT_SEE_IT, RESUME_A_SAVED_GAME, src);
         break;
+    }
     case ADVENTURELAND_C64:
         Adventureland64Sysmess();
         break;
@@ -1450,16 +1453,16 @@ static void SetUpGameSpecifics(GameIDType detectedGame)
         break;
     case HULK_C64:
     case HULK:
-        for (int i = 0; i < 6; i++) {
+        for (int i = NORTH; i < PLAY_AGAIN; i++) {
             sys[i] = (char *)sysdict_zx[i];
         }
         break;
     default:
         if (!(Game->subtype & C64)) {
             if (Game->subtype & MYSTERIOUS) {
-                MapSysRange(PLAY_AGAIN, YOU_HAVENT_GOT_IT, 2);
-                MapSysRange(YOU_DONT_SEE_IT, WHAT_NOW, 15);
-                MapSysRange(LIGHT_HAS_RUN_OUT, RESUME_A_SAVED_GAME, 31);
+                int src = MapSysRange(PLAY_AGAIN, YOU_HAVENT_GOT_IT, 2);
+                src = MapSysRange(YOU_DONT_SEE_IT, WHAT_NOW, src);
+                MapSysRange(LIGHT_HAS_RUN_OUT, RESUME_A_SAVED_GAME, src);
                 sys[ITEM_DELIMITER] = " - ";
                 sys[MESSAGE_DELIMITER] = "\n";
                 sys[YOU_SEE] = "\nThings I can see:\n";

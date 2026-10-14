@@ -155,9 +155,9 @@ static int DecodeRTPIColors(uint8_t *ptr, USImage *image) {
 
     size_t used = ptr - origptr;
     if (used < image->datasize) {
-        image->imagedata = realloc(image->imagedata, used);
+        image->imagedata = MemRealloc(image->imagedata, used);
         image->datasize = used;
-        fprintf(stderr, "DecodeRTPIColors: Pruned size of %s %d to 0x%zx\n", image->usage == IMG_ROOM ? "IMG_ROOM" : "IMG_ROOM_OBJ", image->index, used);
+        LoadTrace("DecodeRTPIColors: Pruned size of %s %d to 0x%zx\n", image->usage == IMG_ROOM ? "IMG_ROOM" : "IMG_ROOM_OBJ", image->index, used);
     }
     return 1;
 }
