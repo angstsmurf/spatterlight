@@ -12,7 +12,7 @@
 
 #include "definitions.h"
 
-int LoadDatabasePlaintext(FILE *f, int loud);
+int LoadDatabasePlaintext(FILE *f);
 int LoadDatabaseBinary(void);
 int LooksLikePlusDatabase(uint8_t *data, size_t size);
 int FindAndAddImageFile(const char *shortname, imgrec *rec);

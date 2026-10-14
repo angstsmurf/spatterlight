@@ -212,15 +212,14 @@ static void ParseDictString(char *str, size_t length, int group, DictBuilder *db
 }
 
 /* Returns the dictionary, terminated by a NULL Word sentinel. */
-static DictWord *FinishDictionary(DictBuilder *db, int loud)
+static DictWord *FinishDictionary(DictBuilder *db)
 {
     db->words = GrowArray(db->words, &db->capacity, db->count, sizeof(DictWord));
     DictWord *finaldict = db->words;
     finaldict[db->count].Word = NULL;
 
-    if (loud)
-        for (int j = 0; finaldict[j].Word != NULL; j++)
-            debug_print("Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
+    for (int j = 0; finaldict[j].Word != NULL; j++)
+        debug_print("Dictionary entry %d: \"%s\", group %d\n", j, finaldict[j].Word, finaldict[j].Group);
 
     return finaldict;
 }
@@ -230,7 +229,7 @@ static DictWord *FinishDictionary(DictBuilder *db, int loud)
    group (e.g. "GET,TAKE,GRAB,"). Words within a group are interchangeable.
    The group number increments with each string read from the file.
    Returns an array terminated by a NULL Word sentinel. */
-static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
+static DictWord *ReadDictWordsPC(FILE *f, int numstrings)
 {
     DictBuilder db = { NULL, 0, 0 };
 
@@ -244,7 +243,7 @@ static DictWord *ReadDictWordsPC(FILE *f, int numstrings, int loud)
         free(str);
     }
 
-    return FinishDictionary(&db, loud);
+    return FinishDictionary(&db);
 }
 
 /* Accumulates synonym entries while a substitution section is parsed. */
@@ -257,7 +256,7 @@ typedef struct {
 } SynonymBuilder;
 
 /* Parses one comma-separated substitution string into sb. */
-static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int loud)
+static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length)
 {
     int lastcomma = 0;
     int commapos = 0;
@@ -287,8 +286,7 @@ static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int
                 free(sb->replace);
                 sb->replace = MemAlloc(seglen);
                 memcpy(sb->replace, &str[lastcomma + 2], seglen);
-                if (loud)
-                    debug_print("Found new replacement string \"%s\"\n", sb->replace);
+                debug_print("Found new replacement string \"%s\"\n", sb->replace);
             }
         } else {
             int seglen = commapos - lastcomma;
@@ -297,8 +295,7 @@ static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int
                 Synonym *entry = &sb->syn[sb->index];
                 entry->SynonymString = MemAlloc(seglen);
                 memcpy(entry->SynonymString, &str[lastcomma + 1], seglen);
-                if (loud)
-                    debug_print("Found new synonym string \"%s\"\n", entry->SynonymString);
+                debug_print("Found new synonym string \"%s\"\n", entry->SynonymString);
                 sb->index++;
             }
         }
@@ -308,8 +305,7 @@ static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int
             for (int k = sb->firstsyn; k < sb->index; k++) {
                 sb->syn[k].ReplacementString = MemAlloc(replen);
                 memcpy(sb->syn[k].ReplacementString, sb->replace, replen);
-                if (loud)
-                    debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", sb->syn[k].SynonymString, k, sb->syn[k].ReplacementString);
+                debug_print("Setting replacement string of \"%s\" (%d) to \"%s\"\n", sb->syn[k].SynonymString, k, sb->syn[k].ReplacementString);
             }
             sb->firstsyn = sb->index;
             foundrep = 0;
@@ -320,7 +316,7 @@ static void ParseSynonymString(SynonymBuilder *sb, char *str, size_t length, int
 }
 
 /* Returns the builder's list, terminated by a NULL SynonymString. */
-static Synonym *FinishSynonyms(SynonymBuilder *sb, int loud)
+static Synonym *FinishSynonyms(SynonymBuilder *sb)
 {
     free(sb->replace);
     sb->replace = NULL;
@@ -328,9 +324,8 @@ static Synonym *FinishSynonyms(SynonymBuilder *sb, int loud)
     Synonym *finalsyns = sb->syn;
     finalsyns[sb->index].SynonymString = NULL;
 
-    if (loud)
-        for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
-            debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
+    for (int j = 0; finalsyns[j].SynonymString != NULL; j++)
+        debug_print("Synonym entry %d: \"%s\", Replacement \"%s\"\n", j, finalsyns[j].SynonymString, finalsyns[j].ReplacementString);
 
     return finalsyns;
 }
@@ -340,24 +335,23 @@ static Synonym *FinishSynonyms(SynonymBuilder *sb, int loud)
    token as a replacement string; all preceding synonym strings in the current
    group are mapped to that replacement. For example, the string
    ",HELLO,HI,=,GREET," means both "HELLO" and "HI" expand to "GREET". */
-static Synonym *ReadSubstitutions(FILE *f, int numstrings, int loud)
+static Synonym *ReadSubstitutions(FILE *f, int numstrings)
 {
     SynonymBuilder sb = { .syn = NULL, .replace = NULL, .index = 0, .firstsyn = 0 };
 
     for (int i = 0; i < numstrings; i++) {
         size_t length;
         char *str = ReadString(f, &length);
-        if (loud)
-            debug_print("Read synonym string \"%s\"\n", str);
+        debug_print("Read synonym string \"%s\"\n", str);
         if (str[0] == '\0') {
             free(str);
             continue;
         }
-        ParseSynonymString(&sb, str, length, loud);
+        ParseSynonymString(&sb, str, length);
         free(str);
     }
 
-    return FinishSynonyms(&sb, loud);
+    return FinishSynonyms(&sb);
 }
 
 /* The end of the binary database being loaded: one past its last byte. Set by
@@ -379,7 +373,7 @@ static uint8_t *ReadPlusString(uint8_t *ptr, char **string, size_t *length);
    an in-memory binary database using length-prefixed strings (via ReadPlusString)
    instead of file I/O. Same comma-delimited format and '=' replacement logic
    as the plaintext version. Advances *startpointer past the consumed data. */
-static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, int loud)
+static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings)
 {
     SynonymBuilder sb = { .syn = NULL, .replace = NULL, .index = 0, .firstsyn = 0 };
     uint8_t *ptr = *startpointer;
@@ -392,18 +386,17 @@ static Synonym *ReadSubstitutionsBinary(uint8_t **startpointer, int numstrings, 
             free(str);
             ptr = ReadPlusString(ptr, &str, &length);
         }
-        if (loud)
-            debug_print("Read synonym string %d, \"%s\"\n", i, str);
+        debug_print("Read synonym string %d, \"%s\"\n", i, str);
         if (str[0] == 0) {
             free(str);
             continue;
         }
-        ParseSynonymString(&sb, str, length, loud);
+        ParseSynonymString(&sb, str, length);
         free(str);
     }
 
     *startpointer = ptr;
-    return FinishSynonyms(&sb, loud);
+    return FinishSynonyms(&sb);
 }
 
 static char **Comments;
@@ -412,7 +405,7 @@ static char **Comments;
    the plaintext database. These are human-readable descriptions of each action,
    used by DumpActions() to annotate the debug output. The resulting NULL-
    terminated array is stored in the global Comments pointer. */
-static void ReadComments(FILE *f, int loud)
+static void ReadComments(FILE *f)
 {
     char **strings = NULL;
     int count = 0, capacity = 0;
@@ -421,8 +414,7 @@ static void ReadComments(FILE *f, int loud)
     while ((comment = ReadWholeLine(f)) != NULL) {
         strings = GrowArray(strings, &capacity, count, sizeof(char *));
         strings[count] = comment;
-        if (loud)
-            debug_print("Comment %d:\"%s\"\n", count, comment);
+        debug_print("Comment %d:\"%s\"\n", count, comment);
         count++;
     }
 
@@ -610,7 +602,7 @@ static uint8_t ItemNounWord(int word, int item)
 /* Look up each room's description text: the EXIT_DESCRIPTION column holds
    the message as a long message command number, or 0 for no description.
    Call after loading Messages. */
-static void SetRoomDescriptions(int loud)
+static void SetRoomDescriptions(void)
 {
     for (int i = 0; i <= GameHeader.NumRooms; i++) {
         int message = Rooms[i].Exits[EXIT_DESCRIPTION] - LONG_MESSAGE_OFFSET;
@@ -618,8 +610,7 @@ static void SetRoomDescriptions(int loud)
             Rooms[i].Text = "";
         else
             Rooms[i].Text = Messages[message];
-        if (loud)
-            debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
+        debug_print("Room description of room %d: \"%s\"\n", i, Rooms[i].Text);
     }
 }
 
@@ -771,7 +762,7 @@ static void BuildPakImageList(void)
    On success, closes the file and returns the game ID. On failure (unrecognized
    game or malformed data), returns UNKNOWN_GAME with the file left open so
    the caller can retry with the binary loader. */
-int LoadDatabasePlaintext(FILE *f, int loud)
+int LoadDatabasePlaintext(FILE *f)
 {
     int ct;
 
@@ -795,8 +786,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             &raw[7], &raw[8], &raw[9], &raw[10], &raw[11], &raw[12],
             &raw[13], &raw[14], &raw[15], &raw[16], &raw[17])
         < HEADER_FIELDS) {
-        if (loud)
-            debug_print("Invalid database(bad header)\n");
+        debug_print("Invalid database(bad header)\n");
         free(title);
         Game = NULL;
         return UNKNOWN_GAME;
@@ -818,16 +808,14 @@ int LoadDatabasePlaintext(FILE *f, int loud)
 
     SetCountersFromHeader();
 
-    if (loud) {
+    if (DEBUG_PRINT)
         PrintHeaderInfo(GameHeader);
-    }
 
     /* Load actions — each action has a verb/noun trigger, optional extra
        words, a condition chain, and a command sequence */
     ct = 0;
     ap = Actions;
-    if (loud)
-        debug_print("Reading %d actions.\n", num_actions);
+    debug_print("Reading %d actions.\n", num_actions);
     while (ct < num_actions + 1) {
         ReadAction(f, ap);
         ap++;
@@ -835,18 +823,15 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     }
 
     /* Load verb and noun dictionaries */
-    if (loud)
-        debug_print("Reading %d verbs.\n", GameHeader.NumVerbs);
-    Verbs = ReadDictWordsPC(f, GameHeader.NumVerbs + 1, loud);
-    if (loud)
-        debug_print("Reading %d nouns.\n", GameHeader.NumNouns);
-    Nouns = ReadDictWordsPC(f, GameHeader.NumNouns + 1, loud);
+    debug_print("Reading %d verbs.\n", GameHeader.NumVerbs);
+    Verbs = ReadDictWordsPC(f, GameHeader.NumVerbs + 1);
+    debug_print("Reading %d nouns.\n", GameHeader.NumNouns);
+    Nouns = ReadDictWordsPC(f, GameHeader.NumNouns + 1);
 
     /* Load the room table: 6 compass directions, the description message
        and the room image (see NUM_EXIT_COLUMNS) */
     rp = Rooms;
-    if (loud)
-        debug_print("Reading %d rooms.\n", num_rooms);
+    debug_print("Reading %d rooms.\n", num_rooms);
     for (ct = 0; ct < num_rooms + 1; ct++) {
         if (fscanf(f, "%d,%d,%d,%d,%d,%d,%d,%d\n", &rp->Exits[0], &rp->Exits[1],
                 &rp->Exits[2], &rp->Exits[3], &rp->Exits[4],
@@ -860,27 +845,23 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     }
 
     /* Load message strings */
-    if (loud)
-        debug_print("Reading %d messages.\n", num_messages);
+    debug_print("Reading %d messages.\n", num_messages);
     for (ct = 0; ct < num_messages + 1; ct++) {
         Messages[ct] = ReadString(f, &length);
-        if (loud)
-            debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
+        debug_print("Message %d: \"%s\"\n", ct, Messages[ct]);
     }
 
-    SetRoomDescriptions(loud);
+    SetRoomDescriptions();
 
     /* Load items: each has a quoted text string followed by comma-separated
        location, dictionary word index, and flag values */
     ct = 0;
-    if (loud)
-        debug_print("Reading %d items.\n", num_items);
+    debug_print("Reading %d items.\n", num_items);
     int loc, dictword, flag;
     ip = Items;
     while (ct < num_items + 1) {
         ip->Text = ReadString(f, &length);
-        if (loud)
-            debug_print("Item %d: \"%s\"\n", ct, ip->Text);
+        debug_print("Item %d: \"%s\"\n", ct, ip->Text);
         if (fscanf(f, ",%d,%d,%d\n", &loc, &dictword, &flag) != 3) {
             debug_print("Bad item line (%d)\n", ct);
             FreeGameData();
@@ -890,7 +871,7 @@ int LoadDatabasePlaintext(FILE *f, int loud)
         ip->Location = loc == -1 ? CARRIED : (uint16_t)loc;
         ip->Dictword = ItemNounWord(dictword, ct);
         ip->Flag = (uint16_t)flag;
-        if (loud && (ip->Location == CARRIED || ip->Location <= GameHeader.NumRooms))
+        if (ip->Location == CARRIED || ip->Location <= GameHeader.NumRooms)
             debug_print("Location of item %d: %d, \"%s\"\n", ct, ip->Location,
                 ip->Location == CARRIED ? "CARRIED" : Rooms[ip->Location].Text);
         ip->InitialLoc = ip->Location;
@@ -899,21 +880,18 @@ int LoadDatabasePlaintext(FILE *f, int loud)
     }
 
     /* Load additional dictionaries: adverbs and prepositions */
-    if (loud)
-        debug_print("Reading %d adverbs.\n", GameHeader.NumAdverbs);
-    Adverbs = ReadDictWordsPC(f, GameHeader.NumAdverbs + 1, loud);
-    if (loud)
-        debug_print("Reading %d prepositions.\n", GameHeader.NumPreps);
-    Prepositions = ReadDictWordsPC(f, GameHeader.NumPreps + 1, loud);
+    debug_print("Reading %d adverbs.\n", GameHeader.NumAdverbs);
+    Adverbs = ReadDictWordsPC(f, GameHeader.NumAdverbs + 1);
+    debug_print("Reading %d prepositions.\n", GameHeader.NumPreps);
+    Prepositions = ReadDictWordsPC(f, GameHeader.NumPreps + 1);
 
     /* Load text substitutions (synonym expansions) */
-    Substitutions = ReadSubstitutions(f, GameHeader.NumSubStr + 1, loud);
+    Substitutions = ReadSubstitutions(f, GameHeader.NumSubStr + 1);
 
     /* Load object image mappings: each entry maps a room and object to an
        image index, controlling which graphics are shown for item sprites */
     ObjectImage *objimg = ObjectImages;
-    if (loud)
-        debug_print("Reading %d object image values.\n", num_obj_img + 1);
+    debug_print("Reading %d object image values.\n", num_obj_img + 1);
     for (ct = 0; ct <= num_obj_img; ct++) {
         if (fscanf(f, "%d,%d,%d\n", &objimg->Room, &objimg->Object, &objimg->Image)
             != 3) {
@@ -921,10 +899,8 @@ int LoadDatabasePlaintext(FILE *f, int loud)
             FreeGameData();
             return UNKNOWN_GAME;
         }
-        if (loud) {
-            debug_print("Object image %d ", ct);
-            debug_print("room: %d object: %d image: %d\n", objimg->Room, objimg->Object, objimg->Image);
-        }
+        debug_print("Object image %d ", ct);
+        debug_print("room: %d object: %d image: %d\n", objimg->Room, objimg->Object, objimg->Image);
         objimg++;
     }
     if (!ObjectImageItemsValid()) {
@@ -934,18 +910,17 @@ int LoadDatabasePlaintext(FILE *f, int loud)
 
     /* Skip the values of the header's Unknown2 field: their purpose is not
        known, and the binary databases do not have them */
-    if (loud)
-        debug_print("Skipping %d unknown values.\n", unknown2 + 1);
+    debug_print("Skipping %d unknown values.\n", unknown2 + 1);
     for (ct = 0; ct < unknown2 + 1; ct++)
         ReadNum(f);
 
     /* Load action comments (human-readable annotations) */
-    ReadComments(f, loud);
+    ReadComments(f);
 
     if (CurrentGame == XMEN)
         PatchXMenAquarian();
 
-    if (loud) {
+    if (DEBUG_PRINT) {
         debug_print("\nLoad Complete.\n\n");
         DumpActions(Comments);
     }
@@ -1057,7 +1032,7 @@ static uint8_t *ReadHeader(uint8_t *ptr, int fields[HEADER_FIELDS])
    Same comma-delimited grouping as the plaintext version. Empty strings
    (padding bytes) are skipped; ReadPlusString() stops the skipping at the end
    of the database. Advances *pointer past all consumed data. */
-static DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
+static DictWord *ReadDictWords(uint8_t **pointer, int numstrings)
 {
     uint8_t *ptr = *pointer;
     DictBuilder db = { NULL, 0, 0 };
@@ -1079,7 +1054,7 @@ static DictWord *ReadDictWords(uint8_t **pointer, int numstrings, int loud)
     }
 
     *pointer = ptr;
-    return FinishDictionary(&db, loud);
+    return FinishDictionary(&db);
 }
 
 /* A binary database starts with a table of 24 16-bit pointers, one to each
@@ -1296,9 +1271,9 @@ int LoadDatabaseBinary(void)
 #pragma mark dictionary
 
     ptr = SectionStart(ptr, SECT_VERBS);
-    Verbs = ReadDictWords(&ptr, GameHeader.NumVerbs + 1, DEBUG_PRINT);
+    Verbs = ReadDictWords(&ptr, GameHeader.NumVerbs + 1);
     ptr = SectionStart(ptr, SECT_NOUNS);
-    Nouns = ReadDictWords(&ptr, GameHeader.NumNouns + 1, DEBUG_PRINT);
+    Nouns = ReadDictWords(&ptr, GameHeader.NumNouns + 1);
 
 #pragma mark room connections
 
@@ -1332,7 +1307,7 @@ int LoadDatabaseBinary(void)
     ptr = SectionStart(ptr, SECT_MESSAGES);
     Messages = LoadMessages(GameHeader.NumMessages + 1, &ptr);
 
-    SetRoomDescriptions(1);
+    SetRoomDescriptions();
 
 #pragma mark items
 
@@ -1367,14 +1342,14 @@ int LoadDatabaseBinary(void)
     }
 
     ptr = SectionStart(ptr, SECT_ADVERBS);
-    Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1, DEBUG_PRINT);
+    Adverbs = ReadDictWords(&ptr, GameHeader.NumAdverbs + 1);
     ptr = SectionStart(ptr, SECT_PREPOSITIONS);
-    Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1, DEBUG_PRINT);
+    Prepositions = ReadDictWords(&ptr, GameHeader.NumPreps + 1);
 
 #pragma mark substitutions
 
     ptr = SectionStart(ptr, SECT_SUBSTITUTIONS);
-    Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1, DEBUG_PRINT);
+    Substitutions = ReadSubstitutionsBinary(&ptr, GameHeader.NumSubStr + 1);
 
     /* In the binary format, the title string comes after the substitutions
        (unlike plaintext where it's at the very beginning) */

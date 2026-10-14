@@ -2534,7 +2534,7 @@ static void LoadGameFile(void)
         Fatal("Game file empty");
     }
 
-    if (LoadDatabasePlaintext(f, DEBUG_PRINT) != UNKNOWN_GAME)
+    if (LoadDatabasePlaintext(f) != UNKNOWN_GAME)
         return;
 
     fseek(f, 0, SEEK_SET);
