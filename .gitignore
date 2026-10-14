@@ -244,6 +244,7 @@ terps/scott/scott_cond_audit
 # Apple II disk reader snapshot probe
 terps/readwoz/test/ciderpress_probe
 terps/readwoz/test/ciderpress_probe.dSYM/
+terps/readwoz/test/v6games
 terps/c64diskimage/test/c64diskimage_probe
 terps/c64diskimage/test/c64diskimage_probe.dSYM/
 
