@@ -608,7 +608,7 @@ static void RunOneInput(void)
         LastNoun = Word[1];
 
     OutCaps();
-    RunCommandTable();
+    RunEventTable();
 
     if (ActionsExecuted == 0) {
         int OriginalVerb = Word[0];

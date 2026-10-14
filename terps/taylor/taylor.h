@@ -77,7 +77,7 @@
 /* Terminator byte that marks the end of a status or command action table. */
 #define ACTION_TABLE_END 0x7F
 
-/* Word code used as a wildcard in command-table verb/noun entries — matches
+/* Word code used as a wildcard in event-table verb/noun entries — matches
    any input word. */
 #define WORD_WILDCARD    126
 
@@ -274,8 +274,8 @@ typedef struct {
     const char *token_signature;
     int start_of_room_descriptions;
     int start_of_item_descriptions;
-    int start_of_automatics;
-    int start_of_actions;
+    int start_of_status_table;
+    int start_of_event_table;
     int start_of_room_connections;
     int start_of_flags;
     int start_of_item_locations;

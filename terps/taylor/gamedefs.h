@@ -91,7 +91,7 @@ enum {
     BP_WORD_SKIN = 249,
 };
 
-/* Rooms where the command table leaves the player for the rest of the
+/* Rooms where the event table leaves the player for the rest of the
    turn, and whose description must not be printed */
 
 /* Rebel Planet: the inside of the lite-kube. GET X FROM CUBE and DROP X IN

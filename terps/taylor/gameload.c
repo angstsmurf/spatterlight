@@ -37,8 +37,8 @@ size_t RoomBase;            /* Offset of room description text */
 size_t ObjectBase;          /* Offset of object description text */
 size_t ExitBase;            /* Offset of room exit/connection table */
 size_t ObjLocBase;          /* Offset of initial object location table */
-size_t StatusBase;          /* Offset of automatic (status) action table */
-size_t ActionBase;          /* Offset of player command action table */
+size_t StatusBase;          /* Offset of the status table, run every turn */
+size_t EventBase;           /* Offset of the event table, matched against the command */
 size_t FlagBase;            /* Offset of initial flag values */
 size_t AnimationData = 0;   /* Offset of Kayleth animation data (0 if none) */
 
@@ -162,8 +162,8 @@ void FindTables(void)
     TokenBase = FindTokens();
     RoomBase = Game->start_of_room_descriptions + FileBaselineOffset;
     ObjectBase = Game->start_of_item_descriptions + FileBaselineOffset;
-    StatusBase = Game->start_of_automatics + FileBaselineOffset;
-    ActionBase = Game->start_of_actions + FileBaselineOffset;
+    StatusBase = Game->start_of_status_table + FileBaselineOffset;
+    EventBase = Game->start_of_event_table + FileBaselineOffset;
     ExitBase = Game->start_of_room_connections + FileBaselineOffset;
     FlagBase = FindFlags();
     ObjLocBase = Game->start_of_item_locations + FileBaselineOffset;
@@ -179,8 +179,8 @@ void FindTables(void)
     } tables[] = {
         { Game->start_of_room_descriptions, RoomBase },
         { Game->start_of_item_descriptions, ObjectBase },
-        { Game->start_of_automatics, StatusBase },
-        { Game->start_of_actions, ActionBase },
+        { Game->start_of_status_table, StatusBase },
+        { Game->start_of_event_table, EventBase },
         { Game->start_of_room_connections, ExitBase },
         { Game->start_of_item_locations, ObjLocBase },
         { Game->start_of_messages, MessageBase },

@@ -36,7 +36,7 @@ extern size_t ObjectBase;
 extern size_t ExitBase;
 extern size_t ObjLocBase;
 extern size_t StatusBase;
-extern size_t ActionBase;
+extern size_t EventBase;
 extern size_t FlagBase;
 extern size_t AnimationData;
 

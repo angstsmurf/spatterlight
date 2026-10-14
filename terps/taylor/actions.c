@@ -4,8 +4,8 @@
 //
 //  Created by Petter Sjölund on 2022-04-05.
 //
-//  The condition/action bytecode interpreter: running the automatic
-//  (status) table and the player command table, and the implementations
+//  The condition/action bytecode interpreter: running the status
+//  table and the event table, and the implementations
 //  of the individual action opcodes.
 //
 
@@ -1069,7 +1069,7 @@ void QP3DrawExtraImages(void)
     }
 }
 
-/* Run the automatic (status) action table — these fire every turn
+/* Run the status table (STATUS in the BBC source) — it fires every turn
    regardless of player input. Entries are executed until ACTION_TABLE_END
    or an action sets the done flag. */
 void RunStatusTable(void)
@@ -1101,12 +1101,12 @@ void RunStatusTable(void)
         DrawImages = 0;
 }
 
-/* Run the player command action table, matching the parsed input words
+/* Run the event table (EVENT in the BBC source), matching the parsed input words
    against verb/noun entries. WORD_WILDCARD is a wildcard. The parser has
    put the verb first, whatever order the words were typed in. */
-void RunCommandTable(void)
+void RunEventTable(void)
 {
-    unsigned char *ptr = FileImage + ActionBase;
+    unsigned char *ptr = FileImage + EventBase;
 
     int done = 0;
     ActionsExecuted = 0;

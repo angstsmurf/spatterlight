@@ -11,7 +11,7 @@
 #include "taylor.h"
 
 void RunStatusTable(void);
-void RunCommandTable(void);
+void RunEventTable(void);
 void QP3DrawExtraImages(void);
 void Goto(unsigned char destination);
 void Okay(void);
