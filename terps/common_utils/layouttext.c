@@ -6,102 +6,134 @@
 //  Created by Petter Sjölund on 2022-01-11.
 //
 
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
 
+#include "glk.h"
 #include "memory_allocation.h"
 
 #include "layouttext.h"
 
-#define LAYOUT_BUF_SIZE 768
+/* A bottom window shorter than this is not made any shorter */
+#define MIN_BOTTOM_ROWS 3
 
-static int FindBreak(const char *buf, int pos, int columns)
+static int IsLineBreak(char c)
 {
-    int diff = 0;
-
-    if (isspace((unsigned char)buf[pos]))
-        return 0;
-
-    while (diff < columns && !isspace((unsigned char)buf[pos])) {
-        pos--;
-        diff++;
-    }
-
-    if (diff >= columns || diff < 1) /* Found no space */ {
-        return -1;
-    }
-
-    return diff;
+    return c == '\n' || c == '\r';
 }
 
-/* Breaks a null-terminated string up by inserting newlines, moving words
- down to the next line when reaching the end of the line */
-char *LineBreakText(const char *source, int columns, int *rows, int *length)
+char *LineBreakText(const char *source, int columns, int *rows)
 {
-    columns -= 1;
-
-    char *result = NULL;
-    char buf[LAYOUT_BUF_SIZE];
-    int col = 0;
-    int row = 0;
-    int sourcepos = 0;
-    int destpos = 0;
-    int diff = 0;
     *rows = 0;
-    if (!source)
-        return NULL;
-    while (source[sourcepos] != '\0' && (source[sourcepos] == ' ' || source[sourcepos] == '.'))
-        sourcepos++;
-    while (source[sourcepos] != '\0') {
-        while (col < columns && source[sourcepos] != '\0') {
-            if (source[sourcepos] == 10 || source[sourcepos] == 13) {
-                /* Found a line break. */
-                /* Any spaces before a line break may cause trouble, */
-                /* so we delete them */
-                while (destpos && buf[destpos - 1] == ' ') {
-                    destpos--;
-                }
-                col = 0;
-                row++;
+    if (source == NULL)
+        source = "";
+
+    while (*source == ' ' || *source == '.')
+        source++;
+
+    /* Wrap at columns - 1: a line that fills the last column of a text grid
+       moves the cursor to the next row, so the newline after it would leave
+       a blank row. */
+    size_t width = columns > 2 ? (size_t)columns - 1 : 1;
+    size_t len = strlen(source);
+    /* Every break replaces a space or adds a newline after at least one
+       character, so the result is at most twice as long. */
+    char *result = MemAlloc(2 * len + 1);
+    size_t out = 0;
+
+    const char *line = source;
+    while (*line != '\0') {
+        size_t linelen = 0;
+        while (line[linelen] != '\0' && !IsLineBreak(line[linelen]))
+            linelen++;
+        const char *next = line + linelen;
+        if (next[0] == '\r' && next[1] == '\n')
+            next += 2;
+        else if (*next != '\0')
+            next++;
+        /* Spaces at the end of a line would only push it over the edge */
+        while (linelen > 0 && line[linelen - 1] == ' ')
+            linelen--;
+
+        while (linelen > width) {
+            /* Break at the last space that leaves at most width characters
+               on this line, or in the middle of a word with no such space */
+            size_t brk = width;
+            while (brk > 0 && line[brk] != ' ')
+                brk--;
+            size_t skip = brk;
+            if (brk == 0) {
+                brk = skip = width;
             } else {
-                col++;
+                while (brk > 0 && line[brk - 1] == ' ')
+                    brk--;
+                while (line[skip] == ' ')
+                    skip++;
+                if (brk == 0)
+                    brk = skip = width;
             }
-
-            buf[destpos++] = source[sourcepos++];
-
-            if (destpos >= LAYOUT_BUF_SIZE) {
-                return NULL;
-            }
-
-            if (source[sourcepos] == 10 || source[sourcepos] == 13)
-                col--;
+            memcpy(result + out, line, brk);
+            out += brk;
+            result[out++] = '\n';
+            line += skip;
+            linelen -= skip;
         }
+        memcpy(result + out, line, linelen);
+        out += linelen;
+        if (*next != '\0' || IsLineBreak(next[-1]))
+            result[out++] = '\n';
+        line = next;
+    }
 
-        /* We have reached the end of a line */
-        row++;
-        col = 0;
+    while (out > 0 && (result[out - 1] == '\n' || result[out - 1] == ' '))
+        out--;
+    result[out] = '\0';
 
-        if (source[sourcepos] == '\0') {
+    if (out > 0) {
+        *rows = 1;
+        for (size_t i = 0; i < out; i++)
+            if (result[i] == '\n')
+                (*rows)++;
+    }
+    return result;
+}
+
+int ShowTextInTopWindow(winid_t top, winid_t bottom, const char *text,
+    void (*print)(winid_t win, const char *text))
+{
+    glui32 width, height, bottomheight;
+    glk_window_clear(top);
+    glk_window_get_size(top, &width, &height);
+    glk_window_get_size(bottom, NULL, &bottomheight);
+
+    int rows;
+    char *wrapped = LineBreakText(text, (int)width, &rows);
+    glui32 wanted = (glui32)rows + 1;
+
+    int resized = 0;
+    if (bottomheight >= MIN_BOTTOM_ROWS || height >= wanted) {
+        glk_window_set_arrangement(glk_window_get_parent(top),
+            winmethod_Above | winmethod_Fixed, wanted, top);
+        resized = 1;
+    }
+
+    /* The lines are printed one at a time, as print may have a buffer
+       shorter than the whole text. */
+    glk_window_move_cursor(top, 0, 0);
+    char *line = wrapped;
+    while (*line != '\0') {
+        char *end = strchr(line, '\n');
+        if (end == NULL) {
+            print(top, line);
             break;
         }
-
-        diff = FindBreak(source, sourcepos, columns);
-        if (diff > -1) { /* We found a suitable break */
-            sourcepos = sourcepos - diff;
-            destpos = destpos - diff;
-            buf[destpos++] = '\n';
-
-            if (isspace((unsigned char)source[sourcepos])) {
-                sourcepos++;
-            }
-        }
+        char after = end[1];
+        end[1] = '\0';
+        print(top, line);
+        end[1] = after;
+        line = end + 1;
     }
-    *rows = row;
-    *length = 0;
-    result = MemAlloc(destpos + 1);
-    memcpy(result, buf, destpos);
-    result[destpos] = '\0';
-    *length = destpos;
-    return result;
+
+    free(wrapped);
+    return resized;
 }

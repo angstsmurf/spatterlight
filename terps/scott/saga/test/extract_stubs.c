@@ -39,8 +39,9 @@ GLK_ATTRIBUTE_NORETURN void Fatal(const char *x) {
     fprintf(stderr, "Fatal: %s\n", x ? x : "(null)");
     exit(1);
 }
-char *LineBreakText(const char *source, int columns, int *rows, int *length) {
-    (void)source; (void)columns; if (rows) *rows = 0; if (length) *length = 0; return NULL;
+int ShowTextInTopWindow(winid_t top, winid_t bottom, const char *text,
+    void (*print)(winid_t win, const char *text)) {
+    (void)top; (void)bottom; (void)text; (void)print; return 0;
 }
 
 // The scene harness (scenetest.c) plays the game for real, so it builds this

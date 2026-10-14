@@ -459,6 +459,11 @@ static void PrintWindowDelimiter(void)
         glk_put_char(DelimiterChar);
 }
 
+static void PrintTopLine(winid_t win, const char *line)
+{
+    Display(win, "%s", line);
+}
+
 /* Close the room description memory stream, optionally write it to the
    transcript, then display it. In split-screen mode, the text is word-
    wrapped to the status window width and the window is resized to fit;
@@ -486,49 +491,8 @@ static void FlushRoomDescription(char *buf, int transcript)
     int print_delimiter = 1;
 
     if (split_screen) {
-        glk_window_clear(Top);
+        print_delimiter = ShowTextInTopWindow(Top, Bottom, buf, PrintTopLine);
         glk_window_get_size(Top, &TopWidth, &TopHeight);
-        int rows, length;
-        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
-
-        glui32 bottomheight;
-        glk_window_get_size(Bottom, NULL, &bottomheight);
-        winid_t o2 = glk_window_get_parent(Top);
-        if (!(bottomheight < 3 && TopHeight < rows)) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
-                Top);
-        } else {
-            print_delimiter = 0;
-        }
-
-        int line = 0;
-        int index = 0;
-        int i;
-        char string[2048];
-        /* Leave room for a line break and the terminator */
-        int width = MIN(TopWidth, sizeof string - 2);
-        for (line = 0; line < rows && index < length; line++) {
-            for (i = 0; i < width; i++) {
-                string[i] = text_with_breaks[index++];
-                if (string[i] == 10 || string[i] == 13 || index >= length)
-                    break;
-            }
-            string[i++] = '\n';
-            string[i] = 0;
-            if (strlen(string) == 0)
-                break;
-            glk_window_move_cursor(Top, 0, line);
-            Display(Top, "%s", string);
-        }
-
-        if (line < rows - 1) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
-                MIN(rows - 1, TopHeight - 1), Top);
-        }
-
-        free(text_with_breaks);
     } else {
         Display(Bottom, "%s", buf);
     }

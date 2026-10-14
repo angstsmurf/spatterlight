@@ -82,6 +82,11 @@ static char *OpenRoomDescriptionStream(void)
     return buf;
 }
 
+static void PrintTopLine(winid_t win, const char *line)
+{
+    Display(win, "%s", line);
+}
+
 /* Close the room description memory stream and render its contents.
    In split-screen mode, the text is line-broken to fit the top window;
    otherwise it's printed inline in the main window. Also handles
@@ -96,51 +101,9 @@ static void FlushRoomDescription(char *buf)
     int print_delimiter = (Options & (TRS80_STYLE | SPECTRUM_STYLE | TI994A_STYLE));
 
     if (split_screen) {
-        glk_window_clear(Top);
-        glk_window_get_size(Top, &TopWidth, &TopHeight);
-        int rows, length;
-        char *text_with_breaks = LineBreakText(buf, TopWidth, &rows, &length);
-
-        glui32 bottomheight;
-        glk_window_get_size(Bottom, NULL, &bottomheight);
-        winid_t o2 = glk_window_get_parent(Top);
-        if (!(bottomheight < 3 && TopHeight < (glui32)rows)) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed, rows,
-                Top);
-        } else {
+        if (!ShowTextInTopWindow(Top, Bottom, buf, PrintTopLine))
             print_delimiter = 0;
-        }
-
-        int line = 0;
-        int index = 0;
-        glui32 i;
-        char string[DISPLAY_BUFFER_SIZE];
-        if (TopWidth > DISPLAY_BUFFER_SIZE - 1)
-            TopWidth = DISPLAY_BUFFER_SIZE - 1;
-        for (line = 0; line < rows && index < length; line++) {
-            for (i = 0; i < TopWidth; i++) {
-                string[i] = text_with_breaks[index++];
-                if (string[i] == '\n' || string[i] == '\r' || index >= length)
-                    break;
-            }
-            if (i < TopWidth + 1) {
-                string[i++] = '\n';
-            }
-            string[i] = 0;
-            if (strlen(string) == 0)
-                break;
-            glk_window_move_cursor(Top, 0, line);
-            Display(Top, "%s", string);
-        }
-
-        if (line < rows - 1) {
-            glk_window_get_size(Top, &TopWidth, &TopHeight);
-            glk_window_set_arrangement(o2, winmethod_Above | winmethod_Fixed,
-                MIN((glui32)(rows - 1), TopHeight - 1), Top);
-        }
-
-        free(text_with_breaks);
+        glk_window_get_size(Top, &TopWidth, &TopHeight);
     } else {
         Display(Bottom, "%s", buf);
     }

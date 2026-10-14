@@ -196,10 +196,15 @@ static void PrintWindowDelimiter(void)
         glk_put_char(DelimiterChar);
 }
 
+static void PrintTopLine(winid_t win, const char *line)
+{
+    Display(win, "%s", line);
+}
+
 /* Reflow the buffered room description and paint it into the top window.
    Steps: close the memory stream, mirror to transcript, line-wrap to the
-   current top-window width, resize the top window to fit, blit line by
-   line, and finally draw the delimiter bar at the bottom. */
+   current top-window width, resize the top window to fit, and finally
+   draw the delimiter bar at the bottom. */
 static void FlushRoomDescription(void)
 {
     if (!room_description_stream)
@@ -215,68 +220,8 @@ static void FlushRoomDescription(void)
         glk_put_string_stream(Transcript, roomdescbuf);
     }
 
-    int print_delimiter = 1;
-
-    glk_window_clear(Top);
+    int print_delimiter = ShowTextInTopWindow(Top, Bottom, roomdescbuf, PrintTopLine);
     glk_window_get_size(Top, &TopWidth, &TopHeight);
-    int rows, length;
-    char *text_with_breaks = LineBreakText(roomdescbuf, TopWidth, &rows, &length);
-
-    /* If the bottom window is tiny (less than MIN_BOTTOM_ROWS) and the
-       room text would need more rows than the top window currently has,
-       leave the layout alone (and skip the delimiter) rather than shrink
-       the bottom window further. */
-    enum { MIN_BOTTOM_ROWS = 3 };
-    glui32 bottomheight;
-    glk_window_get_size(Bottom, NULL, &bottomheight);
-    winid_t pair = glk_window_get_parent(Top);
-    if (!(bottomheight < MIN_BOTTOM_ROWS && TopHeight < rows)) {
-        glk_window_set_arrangement(pair, winmethod_Above | winmethod_Fixed, rows,
-            Top);
-    } else {
-        print_delimiter = 0;
-    }
-
-    /* Walk the wrapped buffer one line at a time, emitting each into the
-       text-grid window via cursor moves. Trailing empty lines are tracked
-       so the final window height can be trimmed below. */
-    enum { LINE_BUF_SIZE = 2048 };
-    int line = 0;
-    int index = 0;
-    int i;
-    int empty_lines = 0;
-    char string[LINE_BUF_SIZE];
-    /* Room for a full line plus its newline and terminator. */
-    if (TopWidth > LINE_BUF_SIZE - 2)
-        TopWidth = LINE_BUF_SIZE - 2;
-    for (line = 0; line < rows && index < length; line++) {
-        for (i = 0; i < TopWidth; i++) {
-            string[i] = text_with_breaks[index++];
-            if (string[i] == '\n' || string[i] == '\r' || index >= length)
-                break;
-        }
-        string[i++] = '\n';
-        if (i < 2)
-            empty_lines++;
-        else
-            empty_lines = 0;
-        string[i] = 0;
-        glk_window_move_cursor(Top, 0, line);
-        Display(Top, "%s", string);
-    }
-
-    /* Trim trailing blank lines from the window height so the delimiter
-       sits flush against the actual text. */
-    line -= empty_lines;
-
-    if (line < rows - 1) {
-        /* The arrangement above may have changed the height */
-        glk_window_get_size(Top, &TopWidth, &TopHeight);
-        glk_window_set_arrangement(pair, winmethod_Above | winmethod_Fixed,
-            MIN(rows - 1, TopHeight - 1), Top);
-    }
-
-    free(text_with_breaks);
 
     if (print_delimiter) {
         PrintWindowDelimiter();
