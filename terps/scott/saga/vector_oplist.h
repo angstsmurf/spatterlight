@@ -22,6 +22,8 @@
 
 #define VECTOR_OPLIST_INITIAL_CAPACITY 100
 
+extern int gli_slowdraw; // CheapGlk / Spatterlight
+
 typedef struct {
     void *ops;
     size_t elem_size;
@@ -100,6 +102,47 @@ static inline int VectorOpListFinishIfDone(VectorOpList *list)
     VectorState = SHOWING_VECTOR_IMAGE;
     VectorOpListFree(list);
     return 1;
+}
+
+// What a VectorOpListPlayChunk() step asks for after drawing its op.
+typedef enum {
+    VECTOR_STEP_NEXT, // Go on, up to the end of the chunk
+    VECTOR_STEP_EXTEND, // Go on even past the end of the chunk
+    VECTOR_STEP_PAUSE, // Stop here; the next call goes on after this op
+} VectorStepResult;
+
+// One tick of drawing a vector image. Without slow drawing, draw_all paints
+// the whole image at once. Otherwise step is called for the next chunk ops,
+// from the first one if from_start is set. When all ops have been played
+// back, the image is marked as shown (VectorOpListFinishIfDone()).
+static inline void VectorOpListPlayChunk(VectorOpList *list, int from_start,
+    size_t chunk, VectorStepResult (*step)(const void *op, size_t index),
+    void (*draw_all)(void))
+{
+    if (!gli_slowdraw) {
+        draw_all();
+        list->current = list->total;
+    } else {
+        VectorState = DRAWING_VECTOR_IMAGE;
+        if (from_start) {
+            list->current = 0;
+            VectorOpListShrink(list);
+        }
+        size_t i = list->current;
+        size_t chunk_end = i + chunk;
+        int extend = 0;
+        for (; i < list->total && (i < chunk_end || extend); i++) {
+            VectorStepResult result = step(VectorOpAt(list, i), i);
+            if (result == VECTOR_STEP_PAUSE) {
+                list->current = i + 1;
+                return;
+            }
+            extend = (result == VECTOR_STEP_EXTEND);
+        }
+        list->current = i;
+    }
+
+    VectorOpListFinishIfDone(list);
 }
 
 struct USImage;

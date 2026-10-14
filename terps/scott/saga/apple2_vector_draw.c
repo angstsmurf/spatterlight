@@ -578,7 +578,12 @@ static void white_background(void) {
     RectFill(2, 0, ImageWidth - 2, ImageHeight, 1);
 }
 
-static int write_pixel(const byte_to_write *towrite, size_t current_op_index) {
+static VectorStepResult write_pixel(const void *op, size_t current_op_index) {
+    const byte_to_write *towrite = op;
+    if (towrite->fill_bg) {
+        white_background();
+        return VECTOR_STEP_NEXT;
+    }
     slow_vector_screenmem[towrite->offset] = towrite->value;
     DrawSingleApple2ImageByte(slow_vector_screenmem, towrite->offset);
     if (current_op_index + 1 < write_ops.total) {
@@ -590,44 +595,16 @@ static int write_pixel(const byte_to_write *towrite, size_t current_op_index) {
         // same-pattern fills snap in within a single tick instead of revealing
         // gradually like the rest of the picture.)
         if (next_byte->offset >= towrite->offset - 1 && next_byte->offset <= towrite->offset + 1) {
-            return 1;
+            return VECTOR_STEP_EXTEND;
         }
     }
-    return 0;
+    return VECTOR_STEP_NEXT;
 }
 
 void DrawSomeApple2VectorBytes(int from_start)
 {
-    if (!gli_slowdraw) {
-        DrawApple2ImageFromVideoMem();
-        write_ops.current = write_ops.total;
-    } else {
-        VectorState = DRAWING_VECTOR_IMAGE;
-        if (from_start) {
-            write_ops.current = 0;
-            VectorOpListShrink(&write_ops);
-        }
-        size_t i = write_ops.current;
-
-        /* keep_going extends the chunk past the normal cap when the next op
-         * writes an adjacent byte — this avoids visible seams in runs of
-         * neighbouring writes. */
-        int keep_going = 0;
-        size_t chunk_end = i + APPLE2_VECTOR_BYTES_PER_TICK;
-
-        for (; i < write_ops.total && (i < chunk_end || keep_going); i++) {
-            const byte_to_write *towrite = VectorOpAt(&write_ops, i);
-            if (towrite->fill_bg) {
-                white_background();
-            } else {
-                keep_going = write_pixel(towrite, i);
-            }
-        }
-
-        write_ops.current = i;
-    }
-
-    VectorOpListFinishIfDone(&write_ops);
+    VectorOpListPlayChunk(&write_ops, from_start, APPLE2_VECTOR_BYTES_PER_TICK,
+        write_pixel, DrawApple2ImageFromVideoMem);
 }
 
 int DrawingApple2Vector(void) {

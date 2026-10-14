@@ -780,42 +780,28 @@ static void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
 
 static int delay_active = 0;
 
+static VectorStepResult draw_or_delay(const void *op, size_t index) {
+    (void)index;
+    const a8_byte_to_write *towrite = op;
+    if (towrite->delay > 0) {
+        delay_active = towrite->delay;
+        debug_print("DrawSomeAtari8VectorBytes: initiating a delay of %d\n", delay_active);
+        return VECTOR_STEP_PAUSE;
+    }
+    DrawSingleAtari8ImageByte(towrite);
+    return VECTOR_STEP_NEXT;
+}
+
 void DrawSomeAtari8VectorBytes(int from_start)
 {
-    if (!gli_slowdraw) {
-        DrawAtari8bitImageFromScreenmem();
-        write_ops.current = write_ops.total;
-    } else {
-        VectorState = DRAWING_VECTOR_IMAGE;
-        if (from_start) {
-            write_ops.current = 0;
-            delay_active = 0;
-            VectorOpListShrink(&write_ops);
-        }
-
-        if (delay_active > 0) {
-            delay_active--;
-            return;
-        }
-
-        size_t i = write_ops.current;
-        size_t chunk_end = i + ATARI8_VECTOR_BYTES_PER_TICK;
-
-        for (; i < write_ops.total && i < chunk_end; i++) {
-            const a8_byte_to_write *towrite = VectorOpAt(&write_ops, i);
-            if (towrite->delay > 0) {
-                delay_active = towrite->delay;
-                debug_print("DrawSomeAtari8VectorBytes: initiating a delay of %d\n", delay_active);
-                write_ops.current = i + 1;
-                return;
-            }
-            DrawSingleAtari8ImageByte(towrite);
-        }
-
-        write_ops.current = i;
+    if (from_start) {
+        delay_active = 0;
+    } else if (gli_slowdraw && delay_active > 0) {
+        delay_active--;
+        return;
     }
-
-    VectorOpListFinishIfDone(&write_ops);
+    VectorOpListPlayChunk(&write_ops, from_start, ATARI8_VECTOR_BYTES_PER_TICK,
+        draw_or_delay, DrawAtari8bitImageFromScreenmem);
 }
 
 int DrawingAtari8Vector(void) {
