@@ -286,8 +286,10 @@ int DrawFuzzyRoom(int room)
        (because it really is dark) */
     if (Items[RTPI_ITEM_DOCK].Location == DESTROYED && (!TestBitFlag(29) || CurrentCounter <= 0))
         return 0;
-    /* Also don't draw fuzzy image if bitflag 2 is set, which means we are
-       wearing corrective lenses */
+    /* Bitflag 2 is set while we cannot see clearly: the glasses are off or
+       lost, the face mask is off or full of water, or the silt is stirred
+       up. The game then says everything is "too FUZZY to see". If the flag
+       is clear, it really is dark. */
     if (!TestBitFlag(2))
         return 0;
 
