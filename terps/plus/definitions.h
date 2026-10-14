@@ -70,14 +70,11 @@
 
 #define CARRIED 255
 #define NO_ROOM_IMAGE 255 /* EXIT_IMAGE of a room without a picture */
-#define HELD_BY_OTHER_GUY 99
 #define DESTROYED 0
-#define HIDDEN 50
 
 /* The flags the system itself uses. The rest belong to the game; 61 and 62 are reserved. */
 #define FLAG0BIT 0        /* The flag of actions 67 and 68 */
 #define DARKBIT 15
-#define LIGHTOUTBIT 16    /* "Light burnt out" of the older system; free for games here */
 #define MATCHBIT 33       /* A command matched the words, but its logics failed */
 #define DRAWBIT 34        /* The room picture needs redrawing */
 #define GRAPHICSBIT 35    /* Graphics are on */
@@ -242,28 +239,10 @@ typedef enum {
     UP,
     DOWN,
     PLAY_AGAIN,
-    IVE_STORED,
-    TREASURES,
-    ON_A_SCALE_THAT_RATES,
-    DROPPED,
-    TAKEN,
     OK,
-    YOUVE_SOLVED_IT,
     I_DONT_UNDERSTAND,
     YOU_CANT_DO_THAT_YET,
     HUH,
-    DIRECTION,
-    YOU_HAVENT_GOT_IT,
-    YOU_HAVE_IT,
-    YOU_DONT_SEE_IT,
-    THATS_BEYOND_MY_POWER,
-    DANGEROUS_TO_MOVE_IN_DARK,
-    YOU_FELL_AND_BROKE_YOUR_NECK,
-    YOU_CANT_GO_THAT_WAY,
-    I_DONT_KNOW_HOW_TO,
-    SOMETHING,
-    I_DONT_KNOW_WHAT_A,
-    IS,
     TOO_DARK_TO_SEE,
     YOU_ARE,
     YOU_SEE,
@@ -272,20 +251,12 @@ typedef enum {
     NOTHING,
     WHAT_NOW,
     HIT_ANY,
-    LIGHT_HAS_RUN_OUT,
-    LIGHT_RUNS_OUT_IN,
-    TURNS,
     YOURE_CARRYING_TOO_MUCH,
     IM_DEAD,
     RESUME_A_SAVED_GAME,
     NONE,
-    NOTHING_HERE_TO_TAKE,
-    YOU_HAVE_NOTHING,
-    LIGHT_GROWING_DIM,
     EXITS_DELIMITER,
-    MESSAGE_DELIMITER,
     ITEM_DELIMITER,
-    WHAT,
     YES,
     NO,
     ANSWER_YES_OR_NO,
@@ -294,7 +265,6 @@ typedef enum {
     CANT_UNDO_ON_FIRST_TURN,
     NO_UNDO_STATES,
     SAVED,
-    CANT_USE_ALL,
     TRANSCRIPT_OFF,
     TRANSCRIPT_ON,
     NO_TRANSCRIPT,
