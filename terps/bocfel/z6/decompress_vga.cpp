@@ -10,21 +10,30 @@
 //  Implements LZW decompression for Infocom V6 VGA/EGA/CGA image data.
 //  The compressed data uses variable-width codes (starting at 9 bits,
 //  growing up to 12 bits) with a code table of up to 4096 entries.
+//
+//  This is the same decoding as the "Trivia" routine in Infocom's IBM
+//  interpreter sources (graphics.asm) does. The names of the three special
+//  codes below are Infocom's (Clr_Token, Eof_Token, FF_Token).
 
 #include <stdlib.h>
 #include <string.h>
 
 #include "decompress_vga.hpp"
 
-static constexpr int kLzwMinCodeSize = 8;
+static constexpr int kLzwMinCodeWidth = 9;
 static constexpr int kLzwMaxCodeWidth = 12;
 static constexpr int kLzwTableSize = 1 << kLzwMaxCodeWidth;
+
+// Codes below kClearCode are literal pixels.
+static constexpr uint16_t kClearCode = 256;     // Start over with an empty table
+static constexpr uint16_t kEndCode = 257;       // End of the compressed stream
+static constexpr uint16_t kFirstFreeCode = 258; // First code the table can define
 
 // One entry of the code table: the string of `prefix` followed by `pixel`.
 // A prefix of kLzwTableSize means "no prefix" (a root/literal code).
 struct LzwEntry {
     uint16_t prefix;
-    uint16_t pixel;
+    uint8_t pixel;
 };
 
 // The low `bits` bits set.
@@ -34,61 +43,38 @@ static constexpr unsigned low_bits(unsigned bits) {
 
 // Persistent state for reading variable-width LZW codes from a bitstream.
 typedef struct lzw_state_s {
-    uint16_t next_table_code;       // Next available code to add to the table
-    uint16_t buffer_bits_remaining; // Unread bits remaining in the read buffer
-    uint16_t buffer_bit_position;   // Current bit offset within the read buffer
-    uint16_t code_bit_width;        // Current code width in bits (9-12)
+    const uint8_t *data;      // The compressed data
+    size_t datasize;          // Its length in bytes
+    size_t bit_position;      // Offset in bits of the next code
+    uint16_t next_table_code; // Next available code to add to the table
+    uint16_t code_bit_width;  // Current code width in bits (9-12)
 } lzw_state_t;
 
 
 // Reads the next variable-width LZW code from the compressed bitstream.
-// Refills the read buffer from *ptr in kLzwTableSize-byte chunks as needed.
-// Automatically increases code_bit_width when the table is about to overflow
-// the current width. Returns -1 if the input data is exhausted.
-static int16_t read_lzw_code(const uint8_t **ptr, size_t bytes_remaining, lzw_state_t *state, uint8_t *read_buffer)
+// Codes are packed starting at the low bit of each byte.
+// The code width grows by one bit when the next free code reaches 512, 1024
+// and 2048, and stays at 12 bits until a clear code comes through. Returns
+// -1 if the input data is exhausted.
+static int16_t read_lzw_code(lzw_state_t *state)
 {
-    uint16_t code = 0;
-    uint16_t bits_needed = state->code_bit_width;
-    uint16_t bits_assembled = 0;
+    unsigned width = state->code_bit_width;
+    if (state->bit_position + width > state->datasize * 8)
+        return -1;
 
-    // Assemble the code one byte-boundary fragment at a time, since codes
-    // may straddle byte boundaries in the packed bitstream.
-    while (bits_needed)
-    {
-        // Refill the read buffer when all buffered bits have been consumed.
-        if (state->buffer_bits_remaining == 0)
-        {
-            size_t chunk_size = kLzwTableSize;
-            if (bytes_remaining < chunk_size)
-                chunk_size = bytes_remaining;
-            if (chunk_size == 0)
-                return -1;
-            memcpy(read_buffer, *ptr, chunk_size);
-            *ptr += chunk_size;
-            bytes_remaining -= chunk_size;
-            state->buffer_bits_remaining = chunk_size * 8;
-            state->buffer_bit_position = 0;
-        }
+    // A code may straddle up to three bytes. The check above guarantees
+    // that every byte holding a bit of it is inside the data.
+    size_t byte_offset = state->bit_position >> 3;
+    unsigned shift = state->bit_position & 7;
+    uint32_t bits = 0;
+    for (unsigned i = 0; i * 8 < shift + width; i++)
+        bits |= (uint32_t)state->data[byte_offset + i] << (i * 8);
+    uint16_t code = (bits >> shift) & low_bits(width);
+    state->bit_position += width;
 
-        // Extract bits from the current byte up to the next byte boundary,
-        // or fewer if that's all we need to complete the code.
-        uint16_t bits_available = 8 - (state->buffer_bit_position & 7);
-        if (bits_needed < bits_available)
-            bits_available = bits_needed;
-
-        unsigned int byte_val = read_buffer[state->buffer_bit_position >> 3];
-        unsigned int shifted = byte_val >> (state->buffer_bit_position & 7);
-        unsigned int masked = shifted & low_bits(bits_available);
-        code |= masked << bits_assembled;
-
-        bits_needed -= bits_available;
-        bits_assembled += bits_available;
-        state->buffer_bits_remaining -= bits_available;
-        state->buffer_bit_position += bits_available;
-    }
-
-    // When the next code to be added would exceed the current bit width,
-    // increase the width (up to the 12-bit maximum).
+    // The caller is about to define next_table_code. If that is the last
+    // code that fits in the current width, the code after this one is a bit
+    // wider (up to the 12-bit maximum).
     if (state->code_bit_width < kLzwMaxCodeWidth && state->next_table_code == low_bits(state->code_bit_width))
         state->code_bit_width++;
 
@@ -114,22 +100,17 @@ static int find_root(const LzwEntry *table, uint16_t code) {
 // Returns a freshly allocated buffer of width * height bytes containing palette
 // indices, or nullptr on bad dimensions, allocation failure, or corrupt data.
 uint8_t *decompress_vga(const ImageStruct *image) {
-    lzw_state_t state;
-    uint8_t read_buffer[kLzwTableSize];
-
     size_t output_size = 0;
     ImageBuf output(image_alloc(image->width, image->height, 1, &output_size));
     if (output == nullptr)
         return nullptr;
 
-    // The clear code resets the table; end code (clear_code + 1) signals
-    // the end of the compressed stream. First two codes after the 256
-    // literal pixel codes are reserved for these special codes.
-    uint16_t clear_code = 1 << kLzwMinCodeSize;
-    state.next_table_code = clear_code + 2;
-    state.buffer_bits_remaining = 0;
-    state.buffer_bit_position = 0;
-    state.code_bit_width = kLzwMinCodeSize + 1;
+    lzw_state_t state;
+    state.data = image->data;
+    state.datasize = image->datasize;
+    state.bit_position = 0;
+    state.next_table_code = kFirstFreeCode;
+    state.code_bit_width = kLzwMinCodeWidth;
 
     // pixel_stack is used to reverse the prefix chain (which is stored
     // root-last) into the correct output order.
@@ -139,25 +120,24 @@ uint8_t *decompress_vga(const ImageStruct *image) {
 
     for (int i = 0; i < kLzwTableSize; i++) {
         lzw_table[i].prefix = kLzwTableSize;
-        lzw_table[i].pixel = (uint16_t)i;
+        lzw_table[i].pixel = (uint8_t)i;
     }
 
     size_t output_pos = 0;
-    const uint8_t *read_ptr = image->data;
     uint16_t previous_code = 0;
     for (;;) {
-        int16_t raw_code = read_lzw_code(&read_ptr, image->datasize - (read_ptr - image->data), &state, read_buffer);
-        if (raw_code < 0 || raw_code == clear_code + 1)
+        int16_t raw_code = read_lzw_code(&state);
+        if (raw_code < 0 || raw_code == kEndCode)
             break;
         if (raw_code >= kLzwTableSize)
             return nullptr;
         uint16_t code = raw_code;
 
-        if (code == clear_code) {
+        if (code == kClearCode) {
             // Reset the code table to its initial state.
-            state.code_bit_width = kLzwMinCodeSize + 1;
-            state.next_table_code = clear_code + 2;
-            raw_code = read_lzw_code(&read_ptr, image->datasize - (read_ptr - image->data), &state, read_buffer);
+            state.code_bit_width = kLzwMinCodeWidth;
+            state.next_table_code = kFirstFreeCode;
+            raw_code = read_lzw_code(&state);
             if (raw_code < 0 || raw_code >= kLzwTableSize)
                 return nullptr;
             code = raw_code;
@@ -185,7 +165,7 @@ uint8_t *decompress_vga(const ImageStruct *image) {
         do {
             if (stack_depth >= kLzwTableSize || code >= kLzwTableSize)
                 return nullptr;
-            pixel_stack[stack_depth++] = (uint8_t)lzw_table[code].pixel;
+            pixel_stack[stack_depth++] = lzw_table[code].pixel;
         } while ((code = lzw_table[code].prefix) != kLzwTableSize);
 
         do {

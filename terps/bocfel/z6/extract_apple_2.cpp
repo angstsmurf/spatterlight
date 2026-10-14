@@ -34,15 +34,20 @@ static const int kV6FileLengthMultiplier = 8;
 
 static const size_t kBlockTableSize = 1024;
 static const size_t kBlockTableHalfSize = 512;
-static const int kExtendedTableThreshold = 256;
 
-// Block table layout offsets
+// Block table layout offsets. Infocom's Apple II interpreter sources call
+// this the segment table (the SGT* equates in zip.equ). It starts with its
+// own length in words, not counting that first word, then the number of
+// disks, then 16 unused bytes, and then one section per disk side.
 static const int kBTDiskCountOffset = 2;
 static const int kBTFirstDiskOffset = 20;
-static const int kBTDisk1GraphicsOffset = 22;
 static const int kBTDiskHeaderSize = 8;
-// Within a disk's section header: block number where its graphics data
-// starts, and how many range entries follow the header.
+// A disk's section header is four words: a checksum, the block number
+// where its graphics data starts, how many range entries follow the
+// header, and the block number of the global picture directory, which says
+// which sides each picture is on. Only side 2 of Arthur, Journey and Shogun
+// has a global directory, and we have no use for it, as we read the
+// pictures of every side up front.
 static const int kBTGraphicsOffset = 2;
 static const int kBTEntryCountOffset = 4;
 static const int kBTRangeEntrySize = 6;
@@ -124,7 +129,8 @@ static uint16_t read_block_table_word(int offset) {
 }
 
 // Reads the block mapping table from the first 512 bytes of disk 1.
-// If the entry count (first word) exceeds 256, the table spans 1024 bytes.
+// The first word is the length in words of the rest of the table. If that
+// doesn't fit in 512 bytes, the table spans 1024 bytes.
 static bool initialize_block_table(void) {
     uint8_t *first_disk = disks.images[0];
     if (first_disk == nullptr) {
@@ -136,7 +142,8 @@ static bool initialize_block_table(void) {
         return false;
     memcpy(disks.block_table, first_disk, kBlockTableHalfSize);
 
-    if (READ_BE_UINT16(disks.block_table) > kExtendedTableThreshold && disks.image_lengths[0] >= kBlockTableSize) {
+    size_t table_length = 2 + (size_t)READ_BE_UINT16(disks.block_table) * 2;
+    if (table_length > kBlockTableHalfSize && disks.image_lengths[0] >= kBlockTableSize) {
         memcpy(disks.block_table + kBlockTableHalfSize, first_disk + kBlockTableHalfSize, kBlockTableHalfSize);
     }
     disks.table_is_set = true;
@@ -265,14 +272,9 @@ static void resolve_logical_block(uint16_t logical_block, int *disk, uint16_t *p
 }
 
 // Returns the byte offset where graphics data begins on the given disk side
-// (1-based), or 0 if there is none. For disk 1, this is stored directly in
-// the block table. For other disks, it is in the header of that disk's
-// section of the table.
+// (1-based), or 0 if there is none. It is in the header of that disk's
+// section of the block table.
 static off_t find_graphics_data_offset(int disk) {
-    if (disk == 1) {
-        return read_block_table_word(kBTDisk1GraphicsOffset) * kProDOSBlockSize;
-    }
-
     int table_offset = disk_table_offset(disk - 1);
     if (table_offset < 0)
         return 0;
@@ -282,24 +284,32 @@ static off_t find_graphics_data_offset(int disk) {
 // Extracts graphics images from all disk sides and merges them into a single
 // flat array. Each disk may contain its own set of images at a different offset.
 // The per-disk ImageStruct arrays are freed after their contents are copied out.
+// *version is the release number of the first side that has one: sides 3-5
+// of Journey have 0 there, where side 2 has the real number.
 static int collect_images_from_disks(ImageStruct **output_images, int *version, int numdisks) {
     ImageStruct *per_disk_images[kMaxDiskSides];
 
     int per_disk_count[kMaxDiskSides];
     int total_count = 0;
+    int first_version = 0;
 
     for (int i = 0; i < numdisks; i++) {
         off_t offset = find_graphics_data_offset(i+1);
         if (offset != 0) {
             // Trying to extract images from disk i + 1
             GraphicsType type = kGraphicsTypeApple2;
-            per_disk_count[i] = extract_images(disks.images[i], disks.image_lengths[i], i + 1, offset, &per_disk_images[i], version, &type);
+            int disk_version = 0;
+            per_disk_count[i] = extract_images(disks.images[i], disks.image_lengths[i], i + 1, offset, &per_disk_images[i], &disk_version, &type);
             total_count += per_disk_count[i];
+            if (first_version == 0)
+                first_version = disk_version;
         } else {
             per_disk_count[i] = 0;
             per_disk_images[i] = nullptr;
         }
     }
+
+    *version = first_version;
 
     int output_index = 0;
     if (total_count == 0) {

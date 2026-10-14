@@ -38,20 +38,25 @@ static const uint8_t apple2_palette[16][3] =
 };
 
 // Decompresses Apple II image data from an ImageStruct.
-// The format is: pairs of (color_index, run_length) bytes encoded as a
-// bitstream starting at offset 3. Each byte pair consists of a color
-// value (0x0-0xF) followed by a repeat count. If the next byte is
+// This is the same decoding as ZDISPL in Infocom's Apple II interpreter
+// sources (pic.asm) does.
+// The format is: a 3-byte length of the data that follows, then color
+// bytes (0x0-0xF), each optionally followed by a repeat count. If the next byte is
 // <= 0x0F or we're at the end of data, the repeat count defaults to 1
 // (0x0F - 0x0E). Otherwise, the repeat count is (byte - 0x0E).
 // After decoding each pixel, a vertical XOR pass is applied inline:
 // each pixel is XOR'd with the one directly above it (one scanline
 // width earlier), reconstructing the image from delta-encoded scanlines.
-// (The last part seems to be pure obfuscation.)
+// (XORing each line with the one above before run-length encoding turns
+// whatever repeats from line to line into runs of zeros. The Mac and Amiga
+// pictures are compressed the same way, see decompress_amiga.cpp.)
 // Only the low four bits of a color value are a palette index.
 static uint8_t *decompress_apple2(ImageStruct *image) {
     if (image == nullptr || image->data == nullptr)
         return nullptr;
 
+    // The length of the rest of the data, which load_image() in
+    // extract_image_data.cpp has already used to set datasize.
     static const size_t kHeaderSize = 3;
     // A byte above kColorMask after a color is a run length, stored with
     // kRunLengthBias added.

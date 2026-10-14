@@ -9,8 +9,15 @@
 //  in the bitstream, where leaf nodes >= 0x90 represent run lengths
 //  (repeat the current color N times) and leaf nodes < 0x10 represent
 //  a new color index (used once). After decoding, a vertical XOR pass
-//  reconstructs the final image from delta-encoded scanlines. This last
-//  step seems to be pure obfuscation.
+//  reconstructs the final image from delta-encoded scanlines.
+//
+//  Infocom's Mac interpreter sources (gfx.c) describe the compression as
+//  three steps: each line is XORed with the previous line, which turns
+//  whatever repeats from one line to the next into runs of zeros; the
+//  result is run-length encoded, with bytes 0-15 being colors and 16-127
+//  repeat counts with 15 added; and finally the run-length bytes are
+//  optionally Huffman-coded. Every picture in the released files is
+//  Huffman-coded, and that is the only kind this decoder reads.
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,6 +29,10 @@ uint8_t *decompress_amiga(ImageStruct *image) {
     if (image == nullptr || image->data == nullptr || image->huffman_tree == nullptr)
         return nullptr;
 
+    // The picture data starts with two 3-byte lengths: that of the
+    // compressed data, and that of the data after Huffman decoding but
+    // before run-length decoding. load_image() in extract_image_data.cpp
+    // has already used the first to set datasize.
     static const size_t kHeaderSize = 6;
     // A Huffman tree byte with kLeafFlag set is a leaf; its other bits are
     // the value. Values up to kMaxColor are a color index, larger ones a run

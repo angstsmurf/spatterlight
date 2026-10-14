@@ -43,6 +43,9 @@ static const size_t kFileHeaderSize = 16;
 // Header flags value indicating monochrome Mac graphics
 static const uint8_t kMacBWFlags = 0x0e;
 
+// Header flag: the header has the offset of a Huffman tree shared by all images
+static const uint8_t kGlobalHuffmanFlag = 0x04;
+
 // Huffman decoding tree: 256 entries, one per possible byte value
 static const size_t kHuffmanTreeSize = 256;
 
@@ -53,10 +56,21 @@ static const size_t kColorPaletteSize = 512;
 // actual byte offset (i.e. in 2-byte units), so multiply by 2 to get bytes
 static const int kHuffmanOffsetScale = 2;
 
-// Transparency: bit 0 of the flags field indicates transparency is enabled.
-// The transparent color index is stored in the upper bits, shifted by 4 in
-// compact entries or 12 in standard/extended entries.
+// Directory entry flags, as Infocom's IBM (pic.h, LDF_*) and Amiga (gfx.c,
+// EF_*) interpreter sources have them:
+//   0x01  has a transparent color
+//   0x02  the run-length data is Huffman-coded
+//   0x04  "picture was XORed on alternate lines"
+//   0x08  two-color picture
+//   0x10  vertical
+//   0x20  the data is an IFF picture (Amiga)
+// Only the first is looked at here. In the released files, every Mac and
+// Amiga picture that has data is Huffman-coded, every CGA picture is
+// two-color, and 0x04, 0x10 and 0x20 are never set.
 static const uint16_t kTransparencyFlag = 0x01;
+
+// The transparent color index is stored in the upper bits of the flags,
+// shifted by 4 in compact entries or 12 in standard/extended entries.
 static const int kCompactTransparentColorShift = 4;
 static const int kExtendedTransparentColorShift = 12;
 
@@ -70,17 +84,41 @@ static const glui32 kMinBlorbResourceSize = 8;
 
 // Header structure at the start of an Infocom graphics file.
 // Multi-disk games split images across several files, each identified by disk_part.
+// The fields are as Infocom's own YZIP interpreters describe them (struct
+// PF_HEADER in the IBM sources, struct gHeader in the Amiga ones).
+//
+// Header flags, from the same sources:
+//   0x01  the file has a global directory
+//   0x02  directory entries carry their own Huffman tree offset
+//   0x04  the header carries a Huffman tree offset shared by all images
+//   0x08  no palettes (12-byte directory entries)
+// Monochrome Mac files have 0x0e, colour Mac/Amiga ones 0x06 or 0x02.
 typedef struct InfocomImageFileHeader {
     uint8_t  disk_part; // Which disk this file belongs to (1-based)
     uint8_t  flags; // Format flags; 0x0e indicates monochrome Mac graphics
-    uint16_t unknown_1;
+    // Offset of the shared Huffman tree, in 2-byte units (see
+    // kGlobalHuffmanFlag). In the files that set it, it points right after
+    // the directory. 0 in the PC and Apple II files, which are not
+    // Huffman-coded, and in the colour Shogun file, where every picture has
+    // a tree of its own.
+    uint16_t global_huffman_offset;
     uint16_t image_count;// Total number of images described in the directory
-    uint16_t unknown_2;
+    // Byte offset of the global directory, which says which disk's file each
+    // image is in: a count word followed by one word per image. Only set in
+    // the first file of the two-disk PC EGA games (Arthur, Journey). The
+    // Amiga and Apple II sources call this word a count of global entries
+    // instead, but ignore it, and it is 0 in their files. (The Apple II
+    // disks keep their global directory apart from the picture files, see
+    // extract_apple_2.cpp.)
+    uint16_t global_directory_offset;
     uint8_t  directory_entry_size; // Size in bytes of each directory entry (8, 12, 14, or 16)
-    uint8_t  unknown_3;
+    uint8_t  padding; // Always 0
     uint16_t checksum;
-    uint16_t unknown_4;
-    uint16_t version; // Graphics format version number
+    // "Kinda meaningless" according to the IBM sources. The bytes 01 00,
+    // whatever the byte order of the rest of the file, except on sides 3-5
+    // of the Apple II Journey, where this and the release number are 0.
+    uint16_t header_version;
+    uint16_t version; // Release number of the graphics file, as returned by @picture_data 0
 } InfocomImageFileHeader;
 
 // Per-image entry in the directory that follows the file header.
@@ -90,7 +128,7 @@ typedef struct ImageDirectoryEntry {
     uint16_t id;              // Image resource number used by the game
     uint16_t width;
     uint16_t height;
-    uint16_t flags;               // Bit 0: has transparency; upper bits encode transparent color index
+    uint16_t flags;               // See kTransparencyFlag; upper bits encode transparent color index
     uint32_t pixel_data_offset;         // Byte offset of compressed pixel data within the file
     uint32_t next_entry_data_offset;    // Offset of the next image's data (used to compute this image's data length)
     uint32_t color_map_offset;          // Byte offset of this image's color palette (0 if shared/absent)
@@ -144,13 +182,13 @@ static InfocomImageFileHeader read_file_header(uint8_t **ptr, bool needs_byte_sw
     InfocomImageFileHeader header;
     header.disk_part = read_byte_and_advance(ptr);
     header.flags = read_byte_and_advance(ptr);
-    header.unknown_1 = read_word();
+    header.global_huffman_offset = read_word();
     header.image_count = read_word();
-    header.unknown_2 = read_word();
+    header.global_directory_offset = read_word();
     header.directory_entry_size = read_byte_and_advance(ptr);
-    header.unknown_3 = read_byte_and_advance(ptr);
+    header.padding = read_byte_and_advance(ptr);
     header.checksum = read_word();
-    header.unknown_4 = read_word();
+    header.header_version = read_word();
     header.version = read_word();
     return header;
 }
@@ -194,7 +232,7 @@ static ImageDirectoryEntry read_directory_entry(uint8_t **ptr, int entry_size, b
     return entry;
 }
 
-// The file format doesn't store explicit data lengths for each image.
+// The directory doesn't store a data length for each image.
 // We compute each image's data size by finding the next image whose pixel data
 // starts at a higher offset. An image with no such successor runs to the end
 // of the file.
@@ -212,6 +250,32 @@ static void set_data_boundaries(ImageDirectoryEntry *directory, int count, size_
             }
         }
     }
+}
+
+// Apple II, Mac and Amiga picture data starts with its own length, as three
+// big-endian bytes that don't count themselves. Mac and Amiga data has a
+// second such length after the first (see decompress_amiga.cpp), which the
+// first doesn't count either. The IBM formats have nothing of the kind.
+//
+// What set_data_boundaries() finds can be too long: a palette may sit between
+// one picture and the next. So trust the stored length where there is one,
+// unless it claims more than the gap has room for.
+static uint32_t stored_data_length(GraphicsType type, const uint8_t *picture, uint32_t gap)
+{
+    static const uint32_t kLengthSize = 3;
+    uint32_t header_size;
+    if (type == kGraphicsTypeApple2)
+        header_size = kLengthSize;
+    else if (type == kGraphicsTypeAmiga || type == kGraphicsTypeMacBW)
+        header_size = 2 * kLengthSize;
+    else
+        return gap;
+    if (gap < header_size)
+        return gap;
+    uint32_t length = ((uint32_t)picture[0] << 16) | ((uint32_t)picture[1] << 8) | picture[2];
+    if (length > gap - header_size)
+        return gap;
+    return header_size + length;
 }
 
 // Fill in `image` from its directory entry: metadata, a copy of the raw
@@ -237,6 +301,8 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
     // Validate that pixel data lies within the file bounds (use size_t to avoid 32-bit overflow)
     if ((size_t)entry.pixel_data_offset + (size_t)pixel_data_length > datasize)
         return;
+
+    pixel_data_length = stored_data_length(type, data + entry.pixel_data_offset, pixel_data_length);
 
     image->datasize = pixel_data_length;
     image->data = (uint8_t *)MemAlloc(pixel_data_length);
@@ -337,10 +403,13 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
     for (int entry_index = 0; entry_index < file_header.image_count; entry_index++)
         directory[entry_index] = read_directory_entry(&ptr, file_header.directory_entry_size, needs_byte_swap);
 
-    // The 256-byte default Huffman tree immediately follows the directory.
-    // Images without their own tree use this shared one.
-    if (ptr + kHuffmanTreeSize <= end) {
-        memcpy(default_huffman_tree, ptr, kHuffmanTreeSize);
+    // Images without their own tree use one shared by the whole file, which
+    // the header says where to find (as Infocom's interpreters do, see
+    // gfx.c in the Amiga sources).
+    size_t shared_tree_offset = (size_t)file_header.global_huffman_offset * kHuffmanOffsetScale;
+    if ((file_header.flags & kGlobalHuffmanFlag) && shared_tree_offset != 0 &&
+        shared_tree_offset + kHuffmanTreeSize <= datasize) {
+        memcpy(default_huffman_tree, data + shared_tree_offset, kHuffmanTreeSize);
     } else {
         memset(default_huffman_tree, 0, kHuffmanTreeSize);
     }

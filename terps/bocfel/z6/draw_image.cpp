@@ -57,7 +57,9 @@ enum PaletteColours {
 };
 
 // The colormap data for the default EGA color palette was taken from
-// http://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter.
+// http://en.wikipedia.org/wiki/Enhanced_Graphics_Adapter. It is the same
+// as Mcga_palette in Infocom's IBM interpreter sources (data.c), scaled
+// from 6 to 8 bits per channel.
 static const uint8_t ega_colormap[16][3] =
 {
     {   0,  0,  0 },
@@ -66,7 +68,7 @@ static const uint8_t ega_colormap[16][3] =
     {   0,170,170 },
     { 170,  0,  0 },
     { 170,  0,170 },
-    { 170, 85,  0 }, // -> This is { 170,170, 0 } in pix2gif (?).
+    { 170, 85,  0 }, // Brown. pix2gif has { 170,170, 0 } here, but Infocom's own table agrees with this.
     { 170,170,170 },
     {  85, 85, 85 },
     {  85, 85,255 },
@@ -491,7 +493,9 @@ static void populate_color_table(ImageStruct *image, bool use_previous_palette,
 
     if (image->palette != nullptr && !use_previous_palette) {
         unsigned palette_color_count = image->palette[0];
-        /* Fix for some buggy _Arthur_ pictures. */
+        // The Arthur palettes claim 16 colors, two more than there is room
+        // for after the reserved slots. Infocom's Amiga interpreter clamps
+        // the count in the same way (ReadGFXPalette in gfx.c).
         if (palette_color_count > kMaxPaletteColors)
             palette_color_count = kMaxPaletteColors;
         memcpy(&color_table[kReservedPaletteSlots][RED], &image->palette[1],
