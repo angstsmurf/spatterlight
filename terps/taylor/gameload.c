@@ -449,6 +449,9 @@ void LookForSecondTOTGame(void)
 
     int combine = 0;
     if (alt_game != NULL && alt_game->gameID == wanted) {
+        /* Nothing has picked a window yet, and YesOrNo prints its echo
+           and "Please answer Y or N." through the current one. */
+        CurrentWindow = Bottom;
         Display(Bottom, "Found files for both the text-only version and the graphics version of Temple of Terror.\n"
                         "Would you like to use the longer texts from the text-only version along with the graphics from the other file? (Y/N) ");
         combine = YesOrNo();

@@ -123,6 +123,28 @@ copies of the same games in `taylor_hl`, the text build, for one command:
 It has no goldens: what a truncated file prints is not pinned down, only that
 the interpreter survives it. A second or two.
 
+## The versions of Temple of Terror
+
+`make -f Makefile.headless totcheck` runs `tot_versions.py`, which checks the
+version menus themselves, on every C64 image holding both versions and on the
+two-sided Spectrum tape:
+
+- C64: the menu is there (it says "disk" or "datasette"), 1, 2 and 3 load
+  the graphics, text-only and combined versions, and other keys are ignored.
+- Spectrum: the question is asked when the other side is next to the file,
+  under the tape's names or under others (`tot a.tzx`, `tot b.tzx`), and not
+  when it is missing, is the same version, or is another game. `y`/`Y` and
+  `n`/`N` work from either side, and any other key is answered "Please
+  answer Y or N.".
+- The combined version has the pictures of the graphics version and plays
+  `../scripts/temple-of-terror.txt` exactly like the text-only version. The
+  graphics version plays differently.
+- Deleting the files while the menu or the question waits for its key
+  changes nothing: both files are already in memory by then.
+
+It needs both builds (the probe for the game and its pictures, `taylor_hl`
+for the text) and has no goldens. About 3 seconds.
+
 ## Comparing with the originals
 
 The goldens above only say that nothing changed. `make -f Makefile.headless
