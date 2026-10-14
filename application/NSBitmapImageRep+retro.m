@@ -75,7 +75,8 @@
 + (NSBitmapImageRep *)repFromMG1URL:(NSURL *)url {
 
     const char *filename = url.fileSystemRepresentation;
-    init_mg1_graphics(filename);
+    if (init_mg1_graphics(filename) != 0)
+        return nil;
     uint16_t numImages = get_number_of_mg1_images();
     if (numImages < 1) {
         end_mg1_graphics();
@@ -83,6 +84,10 @@
     }
 
     uint16_t *pictureNumberArray = get_mg1_picture_numbers();
+    if (pictureNumberArray == NULL) {
+        end_mg1_graphics();
+        return nil;
+    }
 
     z_image *zimg = get_mg1_picture(pictureNumberArray[0]);
     free(pictureNumberArray);
