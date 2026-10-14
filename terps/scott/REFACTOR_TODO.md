@@ -1,7 +1,7 @@
 # terps/scott: refactoring, cleanup and deduplication TODO
 
 No open items. The review of 2026-10-14 gave eight: six are done
-(2d56b043a, 8da426608, d618dfe95 and the commit that closed this list),
+(161801bf0, 6ba49fd65, 545bf11fa and the commit that closed this list),
 the TI-99/4A command switch and parts of the long-function item were
 turned down, see the end of "Looked at and declined". The review of
 2026-10-11 (after the two cleanup passes, d24161fc4 and 5bb6785f3) gave
