@@ -8,7 +8,11 @@ Two surveys of `terps/scarier` have been taken and worked through:
   first was closed, worked through the same day (7d2f82a33).  Sections
   lettered A–F.
 
-Every item was done or declined except the one under "Open" below.  This
+- **Third pass**: surveyed 2026-10-15 (wip @ b9d1635), read-only; its
+  findings are under "Open" and "Third pass" below.
+
+Every item of the first two passes was done or declined except the one
+under "Open" below.  This
 file keeps what a later pass needs: where things landed, what was
 declined and why (so it is not re-proposed), what was left on purpose,
 how the surveys were measured, and the safety net.
@@ -46,6 +50,69 @@ messages and the old logs still resolve.
   `if_file_read_callback` / `if_file_write_callback` unreachable.
   (`scr_game_from_stream` is *not* in the family: `platform/os_ansi.cpp`
   loads through it.)
+
+- **N1. Third-pass candidates** (new; see "Third pass" below for the
+  measurements).  None changes behaviour; all are small:
+  1. `lib_carried_size` / `lib_carried_weight`
+     (`library/sclibrar_take.cpp:89`, `:108`): identical loops, differing
+     in the running-total test and the `obj_get_size` / `obj_get_weight`
+     call.  A single static helper taking the two as parameters (or a
+     small `bool weight` switch) folds ~20 lines.  Low risk; called from
+     the capacity tests the take / put corpus pins.
+  2. `ser_get_int` / `ser_get_uint` (`core/scserial.cpp:1333`): the same
+     `sscanf` + error + `throw` body with `%ld` / `%lu`.  Fold the shared
+     "read a line, scan one number, throw `ser_tas_error_t`" part (the
+     boolean reader a few lines down has the same skeleton).
+  3. `parse_get_keyed_integer` / `_boolean` / `_child_count`
+     (`core/sctafpar.cpp:765`–`807`): three byte-identical-after-
+     normalisation bodies (find keyed node, check type, return a field).
+  4. `char_restr_t::have_seen_character` / `_object` / `_location`
+     (`adrift5/a5restr.cpp:1269`–`1302`): three members with identical
+     structure and one different state accessor.
+  5. `lib_cmd_put_all_in` / `lib_cmd_put_all_on`
+     (`library/sclibrar_put_multiple.cpp:217`, `:231`), `lib_cmd_lock_other`
+     / `lib_cmd_unlock_other` (`sclibrar_refuse.cpp:811`),
+     `lib_cmd_verbose` / `lib_cmd_brief` (`sclibrar_meta.cpp:1123`),
+     `lib_cmd_kiss_object` / `lib_cmd_sell_object` (`sclibrar_verbs.cpp`):
+     thin verb pairs.  Same family as the declined 1.1 / C4: **leave**
+     unless the corpus diff is in hand.
+  6. `inout_site` / `ud_site_primary` (`mapdraw.cpp:994`, `:1012`): same
+     `switch (edge)` with a different table; could be one 4x2 table
+     lookup.  Cosmetic.
+  7. The `core/scvars.cpp` getter twins (`:1091`/`:1633`, `:1421`/`:1648`,
+     `var_get_integer` / `var_get_string` at `:2076` / `:2110`): same
+     skeleton, different table.  Check the tracing before folding.
+
+
+- **N2. Mid-size functions** (150–200 lines).  Unchanged class from the
+  second pass but recounted: 43 over 150, **1** over 200 (`mapdraw.cpp`
+  `render_link`, declined under D).  Best candidates for a stage split, in
+  order of size: `library/sclibrar_sitstand.cpp` (`lib_stand_sit_lie` and
+  two helpers, 198 / 159 / 154 lines, in one file), `tools/scdump.cpp`
+  (`scdump_objects`, `_objloc`, `_events`, `_exits`: 197 / 171 / 168 /
+  158; debug-only, so they are the safest to cut),
+  `library/sclibrar_examine.cpp` (`lib_cmd_examine_self` 194,
+  `_object` 169), `library/sclibrar_go.cpp` (`lib_cmd_go_place` 184,
+  `lib_go` 182), `core/sctasks_endgame.cpp`
+  (`task_print_end_game_message` 173), `adrift5/run/a5run_save.cpp`
+  (`restore_fd_game` 189, mirror `ser_load_game_body`'s section split),
+  `adrift5/run/a5run_resp.cpp` (`resp_flush` 187),
+  `runner/scrun_dispatch.cpp` (`run_line_t::get_outer_400` 176,
+  `settle` 173, `library` 156), `core/scbattle.cpp` (178),
+  `core/screstrs.cpp` (three at 159–179).  Each wants its own
+  corpus-diffed step; `library/` ones need the transcript recompare.
+
+- **N3. Remaining `goto`**: `goto refuse` at
+  `library/sclibrar_put_multiple.cpp:1730` is the only one left in the
+  tree (confirmed by grep); `lib_put_named_pre400` (176 lines) is the
+  function holding it, so the N2 split and the `goto` removal are one step.
+
+- **N4. Sanity items that came out clean** (so they need no work):
+  no `#if 0`, no TODO / FIXME in code, no `using namespace` in headers,
+  no `sprintf` / `strcpy` / `strcat` calls; 330 `NULL` occurrences, all in
+  comments or strings; no exported function (other than group A) with
+  fewer than three non-test references (definition, declaration, use).  The nm-based dead-code check from
+  the second pass has not been re-run.
 
 ## What the surveys found
 
@@ -225,6 +292,39 @@ not committed vs new.
 New files go into the Xcode project by hand; the next free id in the
 `5C1B1A…` series is 0118.
 
+### Third pass (2026-10-15, wip @ b9d1635)
+
+Read-only; no code changed.  Measured with the same recipes as the second
+pass, minus the `nm` step (no build here):
+
+- **Size**: 179 `.cpp` / `.h` files, 156,440 lines.  Largest files:
+  `library/sclibrar_drop.cpp` 2736, `mapdraw.cpp` 2726, `core/scdebug.cpp`
+  2527, `core/scvars.cpp` 2515, `core/scgamest.cpp` 2404.  None stands out
+  against the "File sizes" note under "Left on purpose".
+- **Duplicates**: column-0 `{ … }` bodies of 10+ lines with identifiers,
+  strings and numbers normalised, MD5-bucketed: 26 buckets.  Of these, the declined ones are C2, C4, C6, C7, C8, C9
+  and `lib_cmd_wear_all` / `_remove_all`; the rest are N1 above.
+  Still no two bodies byte-identical after whitespace normalisation.
+- **Dead code**: the Open A group is unchanged (each name has exactly one
+  reference outside `core/scarier.h` / `scinterf.cpp`: its own
+  declaration).  Every other identifier defined at column 0 appears at
+  least three times in the non-test tree (definition, declaration, use);
+  the only two-reference ones are `a5parse_ref` and
+  `a5state_var_num_by_name`, both used by the test harnesses
+  (`test/adrift5/harness/`), and `dbg_conv`, a file-static.
+- **Env flags**: 67 `getenv` lines in 17 `.cpp` files outside `test/` (the second pass
+  quoted 22 files; some reads were folded into `SCR_TRACE_ON` / `_IF`
+  since).  2.1 stays declined.
+- **File-scope statics**: files with more than 8 are `core/sctafpar.cpp`
+  (19), `glk/os_glk_map.cpp` (13) and `glk/os_glk_autosave.cpp` (13);
+  the same census as "The rest of the file-scope statics" would start
+  with those three.
+
+Note on commit hashes: the hashes quoted in this file name commits on
+`master` (some may not exist on `wip` after its rebase; this checkout is
+also shallow, 50 commits).  Use `git log --grep` on the subject, or
+`git show <hash>` on a full clone of master.
+
 ## Declined (do not re-propose without new evidence)
 
 ### First pass
@@ -250,7 +350,7 @@ New files go into the Xcode project by hand; the next free id in the
   functions whose arms differ on purpose.
 - **2.1 env registry** (`scr_env`, generated env reference): cosmetic
   and wide, and the determinism harness depends on when flags are read
-  (`getenv` reads are spread over 22 files, each for a debug flag).
+  (`getenv` reads are spread over 17 files outside `test/`, 67 lines in all, each for a debug flag).
   The `os_*` `SCR_MARK_*` / wrap / echo sharing under 4 depended on it.
 - **`scarier.hdr`**: maintained by hand, not a build input.
 - **`lib_ctx_t` context struct** for the 251 `bundle` / 197 `filter` /
@@ -328,7 +428,7 @@ New files go into the Xcode project by hand; the next free id in the
   at the root (the Makefile explains "engine-neutral map renderer, stays
   at root").  `scmap` is 4.x-only, so only `mapdraw` and `sessrec.h`
   would move.  Cosmetic.
-- **E `<cstdio>` / `<cstring>` sweep**: 47 of the `.cpp` files still
+- **E `<cstdio>` / `<cstring>` sweep**: 45 of the `.cpp` files still
   include the C-style headers.  Pure noise; only if something else is
   touched.
 - **Section 4's table** (RNG, map, save, text, input existing once per
@@ -411,7 +511,7 @@ These are candidates, not tasks; each wants its own decision.
   (`-DGARGLK` against a garglk checkout, compiled and linked); the
   plain Windows Glk branch is not built here.
 - **File sizes.**  The largest are `mapdraw.cpp` (2726) and
-  `library/sclibrar_drop.cpp` (2715), with a dozen more between 2000
+  `library/sclibrar_drop.cpp` (2736), with a dozen more between 2000
   and 2530; none stands out, so no further split is proposed.
 - **Functions between 150 and 200 lines**: the second census counted 61
   over 150; only the 20 over 200 were taken up.
