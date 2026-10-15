@@ -71,6 +71,13 @@ The document describes the games and their original engines. Where it describes 
   - [13.1 The original engine](#131-the-original-engine)
   - [13.2 This interpreter](#132-this-interpreter)
 - [14. Saved games](#14-saved-games)
+  - [14.1 What is saved](#141-what-is-saved)
+  - [14.2 MS-DOS](#142-ms-dos)
+  - [14.3 Commodore 64 and Plus/4](#143-commodore-64-and-plus4)
+  - [14.4 Atari 8-bit](#144-atari-8-bit)
+  - [14.5 Apple II](#145-apple-ii)
+  - [14.6 Atari ST](#146-atari-st)
+  - [14.7 This interpreter](#147-this-interpreter)
 - [Appendix A. Command summary](#appendix-a-command-summary)
 - [Appendix B. Condition summary](#appendix-b-condition-summary)
 
@@ -1008,7 +1015,7 @@ The original counts the delay and the rate in vertical blanks, in an interrupt r
 
 **Rules.** Each picture sets all 16 colour registers, and replaces the colour cycling of the picture before it, even where the old picture is still visible. So that what is already on screen goes on cycling, an item picture repeats the cycling records of the room it is drawn in, and of the other items there. In *Fantastic Four*, items 11 and 14 repeat those of rooms 11 and 9, and items 3, 5, 13, 21 and 22 share those of room 4.
 
-This interpreter cycles by repainting the pixels of each cycling colour, not by setting a colour register. When a new picture is drawn, it moves the pixels of the old picture's cycling colours that the new picture leaves uncovered to the new picture's colour with the same palette index; those with no such colour stop cycling. There is no cycling in the dark, except in *Claymorgue* **(this interpreter)**.
+This interpreter cycles by repainting the pixels of each cycling colour, not by setting a colour register. When a new picture is drawn, it moves the pixels of the old picture's cycling colours that the new picture leaves uncovered to the new picture's colour with the same palette index; those with no such colour stop cycling. There is no cycling in the dark, except in *Claymorgue*, where the darkness picture R000 ([§12.2](#122-what-is-drawn)) cycles like any other picture.
 
 The original unpacks S999 once, at the start, and restores the screen from that copy before a small room picture; S999's palette and colour cycling are not loaded again. A small room picture is drawn over the backdrop S999, except in *Claymorgue*, where the rooms 0, 5, 11, 16, 18 and 31 are small but full. In *Spider-Man*, the special pictures 6, 7, 8, 12 and 18 have a white background.
 
@@ -1054,11 +1061,131 @@ Game-specific rules:
 
 ## 14. Saved games
 
-The original saved game formats are not described here. This interpreter writes a text file:
+### 14.1 What is saved
+
+Every original engine saves the same state:
+
+- the 64 flags and the 64 counters,
+- the protagonist, the message set by [command 119](#86-commands),
+- the location and the flags of every item (system command 9 changes item flags, [§8.7](#87-system-commands)),
+- room columns 0–6 of every room: the six exits, which commands 94 and 95 change, and the description.
+
+No original saves the picture on screen, the animation, or anything that identifies the game or the version. The counts of items and rooms are not saved either: they come from the database in memory. A saved game of one game restores into another without complaint, and is read as that game's state.
+
+The Apple II, Atari 8-bit and Atari ST engines save the whole database image, which holds the item and room state; the MS-DOS and Commodore engines write only the parts that change. A saved game always goes to one of several **areas**, named by a letter. After a restore, the room is shown again.
+
+In the layouts below, *I* is the header's item count and *R* its room count ([§10.1](#101-header)), so there are *I* + 1 items and *R* + 1 rooms ([§2.2](#22-counts-are-highest-indices)).
+
+### 14.2 MS-DOS
+
+**Saving.** Command 71 prints "Saving game.", then asks `SAVE GAME AREA (A-D)` until a letter A–D is typed, and echoes it in upper case. *Spider-Man* does not ask: it always uses area A. The file is `SAVEG`*x*`.DAT`, where *x* is the area letter, in the game's directory.
+
+**Restoring.** System command 1 asks `Want to use your old saved game ?` (*Claymorgue* leaves out the `?`). On Y, it asks `Which save game area (A-D)`; on N, the game goes on. If the file is missing, *Claymorgue* and *The Fantastic Four* print `Save area not found!`, while the *Spider-Man* interpreter stops with the BASIC error `File not found in line 760`. Nothing in the file is checked.
+
+**Format.** The file is text, one number per line, as BASIC's `PRINT #` writes it: a space or a minus sign, the digits, a space, and CR LF (`" 24 \r\n"`, `"-1 \r\n"`). After the last number comes one 0x1A byte, then filler up to a multiple of 128 bytes, left over from the file buffer. A reader stops at the 0x1A.
+
+| Numbers | Content |
+|---------|---------|
+| 1 | The protagonist |
+| 2 × (*I* + 1) | For each item, its location (−1 for carried, [§3.3](#33-locations)) and its flags |
+| 2 × 64 | For each *n* from 0 to 63, flag *n* (0 or −1) and counter *n* |
+| 7 × (*R* + 1) | For each room, its exits n, s, e, w, u, d and its description, as in the database ([§10.2](#102-plain-text-database)). The picture column is not saved |
+
+So *Spider-Man* writes 562 numbers, *Claymorgue* 529 and *The Fantastic Four* 472. The saved games of all five MS-DOS games have this layout.
+
+### 14.3 Commodore 64 and Plus/4
+
+**Saving.** Command 71 first makes sure that the program disk is not in the drive: if a file named `$A0` (one shifted space) loads, it prints `Mount save game disk!`, waits for a key and tries again. It then asks `Save area (A-Z or FORMAT)?`. `FORMAT` prints `Formatting!` and formats the disk with the drive command `N0:S,SG`. A letter names the file: the letter with bit 7 set, `.`, and 0xD3 (a shifted S), so area A is `$C1 $2E $D3`. The old file is scratched, and the new one is saved as a PRG file on device 8. On a disk error, it prints `DISK ERROR` and asks again. At the end it asks to `Mount program disk!`.
+
+**Restoring.** System command 1 asks `Shall I restore your saved game?` until Y or N is typed. On Y, it checks the disk and asks for the area as above, and loads the file to the address stored in it. If the load fails, it prints `BAD SAVE FILE` and asks again. Nothing else is checked.
+
+**Format.** The file is a PRG file with the load address 0x0800 (0x1000 on the Plus/4), followed by:
+
+| Size | Content |
+|------|---------|
+| 8 × (*R* + 1) | Room columns 0–6 as in the database ([§10.3](#103-binary-database)): six columns of one byte per room, then the description column of one LE16 per room |
+| 3 × (*I* + 1) | For each item, its flags (LE16) and its location (one byte) |
+| 64 | Flags 0–63, one byte each, 0x00 or 0xFF |
+| 128 | Counters 0–63, LE16 |
+| 2 | The protagonist, LE16 |
+
+*Buckaroo Banzai* (35 rooms, 60 items) gives 665 bytes after the load address, *Spider-Man* 741 and *The Fantastic Four* 621. All the C64 interpreters and the Plus/4 one (`SAGA.TED`) write this format.
+
+### 14.4 Atari 8-bit
+
+The Atari 8-bit engine has no file system. It writes sectors of a separate save disk directly, with the 128-byte sectors counted from 1.
+
+**Saving.** Command 71 asks `Put save disk & hit key.`. It refuses the boot disk and the picture disk, then asks `Format disk (Y/N)?`, where only a lower-case `y` (0x79) means yes, then `Type game save area (A-D)`. On a disk error it prints `ERROR!`. At the end it asks `Put SAGA+ disk side 2 & hit key.`.
+
+**Restoring.** System command 1 asks `Want to restore a` / `previously saved game?`, then for the disk and the area as above.
+
+**Format.** The save consists of the database image, 0x1000–0x4FFF in memory (64 pages, starting with the section table, [§10.3](#103-binary-database)), and a state block:
+
+| Offset | Size | Content |
+|--------|------|---------|
+| 0 | 64 | Flags 0–63, one byte each, 0x00 or 0xFF |
+| 64 | 128 | Counters 0–63, LE16 |
+| 192 | 2 | The protagonist, LE16 |
+| 194 | 2 | A scratch word: the room whose items were last listed. Not in the first *Buckaroo Banzai* release |
+
+Area A starts at sector 8, B at 160, C at 320 and D at 480. Page *k* of the image is written to sectors *N* + 2*k* and *N* + 2*k* + 1, where *N* is the area's first sector, and the state block to sector *N* + 128 and the start of *N* + 129. Sector 360, the DOS directory, is skipped and the rest of the area moves up one sector. Sector 2 is a directory: formatting fills it with 0x33, saving sets byte 2 × *area* (A = 0) to 0, and restoring an area whose byte is not 0 prints `Bad file.`.
+
+The first release of *Buckaroo Banzai* differs: it asks `Put disk & hit any key`, `Init disk (Y/N)?` and `Type game area (A-C):`, prints `I/O error`, has only the areas A–C, writes the 194-byte state block, and keeps no directory.
+
+### 14.5 Apple II
+
+The Apple II engine has no file system either. It writes logical DOS 3.3 sectors of a separate data disk, with its own copy of RWTS.
+
+**Saving.** Command 71 asks for the data disk. It refuses the program disk's second side, which it recognises by the bytes 0x00, 0x01, … 0xFF in track 0, sector 1. *Spider-Man* then offers a menu whose first choice formats the disk, without a catalog. Then it asks for the area. At the end it asks for the program disk. The messages are:
+
+| *Spider-Man* | *The Fantastic Four*, *Buckaroo Banzai* |
+|--------------|------------------------------------------|
+| `ENTER YOUR 'DATA DISK' AND TYPE 'Y'` | `PUT 'DATA DISK' & TYPE 'Y'` |
+| `(1) INIT YOUR 'SAVE GAME' DISK (2) SAVE GAME (3) EXIT ENTER:` | |
+| `Enter 'game save' area (A-D) :` | `Type 'GAME SAVE' area (A-D) :` |
+| `READ/WRITE ERROR !!!` | `I/O ERROR !` |
+| `Insert program disk (side #02) into drive #01 and 'RETURN'` | `Put SAGA+ disk (side#2) & 'RETURN'` |
+| `Do you want to restore a previously saved game? (Yes,No)` | `Want to restore a previously saved game? (Yes,No)` |
+
+**Restoring.** System command 1 asks the last question of the table, then for the disk and the area.
+
+**Format.** The save consists of the database image, 0x4000–0x7FFF in memory (64 pages), and a state block laid out as on the Atari 8-bit: 194 bytes in *Spider-Man*, 196 in *The Fantastic Four* and *Buckaroo Banzai*. For an area whose first track is *T*, page *k* of the image goes to track *T* − ⌊*k* / 16⌋, sector 15 − (*k* mod 16), so the image fills four tracks downwards, and the state block goes to track *T* − 4, sector 15.
+
+| Area | First track, *Spider-Man* | First track, the others |
+|------|---------------------------|-------------------------|
+| A | 5 | 6 |
+| B | 15 | 15 |
+| C | 22 | 22 |
+| D | 32 | 32 |
+
+*The Fantastic Four* and *Buckaroo Banzai* keep a directory in track 0, sector 1: saving sets byte *area* (A = 0) to 0x33, and restoring an area without it asks for the area again. On a disk formatted by DOS 3.3, that sector holds boot code.
+
+### 14.6 Atari ST
+
+**Saving.** Command 71 prints `Now saving game.`. If the file `WPROTECT` exists, the program disk is in the drive: it prints `Mount save game disk!` and waits for Return until it is gone. It then asks `Save area A-Z` and `? ` until one letter A–Z is typed. The file is named by the letter alone, without an extension. *The Fantastic Four* writes it in the root directory of the current drive; the known *Spider-Man* and *Claymorgue* disks, whose programs are identical and patched, write it to drive A:. If the file cannot be created, it prints `File open error.` and `DISK ERROR`, and a short write prints `DISK ERROR`. At the end it waits with `Mount program disk!` until `WPROTECT` can be found again. Only *The Fantastic Four* disk has a `WPROTECT` file; the others save to the program disk.
+
+**Restoring.** System command 1 asks `Shall I restore your saved game?` until Y or N is typed. On Y, it asks for the area as above and reads the file straight into memory. If the file is missing, or is not exactly 16,834 bytes long, it prints `BAD SAVE FILE.` and asks again; a short file has already overwritten part of the state by then.
+
+**Format.** The file is 16,834 (0x41C2) bytes, big-endian:
+
+| Offset | Size | Content |
+|--------|------|---------|
+| 0x0000 | 0x4100 | The `DATABASE` file as loaded, starting with the section table, padded with zeros |
+| 0x4100 | 64 | Flags 0–63, one byte each, 0x00 or 0xFF |
+| 0x4140 | 128 | Counters 0–63, BE16 |
+| 0x41C0 | 2 | The protagonist, BE16 |
+
+### 14.7 This interpreter
+
+This interpreter writes a text file of its own:
 
 1. 64 lines, each a counter.
-2. One line: `flags protagonist 0 imgtype imgindex`, where *flags* is all 64 flags as one 64-bit decimal number (flag *n* is bit *n*), *protagonist* is the message that names the player character ([command 119](#86-commands)), and *imgtype* and *imgindex* are the picture last drawn.
+2. One line: `flags protagonist 0 imgtype imgindex`, where *flags* is all 64 flags as one 64-bit decimal number (flag *n* is bit *n*), and *imgtype* and *imgindex* are the picture last drawn.
 3. One line per item, items 0 to the last, each its location.
+4. One line per item, items 0 to the last, each its flags as an unsigned number.
+5. One line per room, rooms 0 to the last, each its columns 0–6 (the six exits and the description) separated by spaces.
+
+Older versions of this interpreter wrote only parts 1–3. Such a file still loads, and leaves the item flags and the room exits as they were. Undo states, the RAMSAVE slot and restarting keep the same state as the file, picture aside. Like the originals, it does not save the picture column. It cannot read the original formats.
 
 Saving sets the stop-time flag. This interpreter keeps 100 undo states, and one RAMSAVE slot.
 
