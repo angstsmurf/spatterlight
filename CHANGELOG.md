@@ -2,25 +2,18 @@
 
 ## Unreleased
 
-### Bocfel (Z-code)
-- The core interpreter is updated to Bocfel 2.6, keeping Spatterlight's own V6 support.
-- The charging boar in *Arthur* now lines up with the tree behind it.
-- Fixes two crashes when resuming from an autosave: one that hit the next autosave in games with sound, and one that hit old autosaves on relaunch. Autosave also works again when its folder does not exist yet.
-
 ### Scarier (Adrift)
-- Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
-- The default map colours are now less flat, with in-between tints added to the previous two.
-- A map too big for its pane can be moved about with the arrow buttons at its top right, and any map zoomed with the + and − buttons beside them. *glk zoom N* sets an exact size, from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter. The buttons also work while the game waits for a keypress or a pop-up answer, the map is redrawn at each such pause so that it keeps up with a cutscene, and rooms on another level than yours are drawn fainter.
-- Autosave also works at a "press a key" pause, so a long cutscene closed halfway comes back where you left it. The same goes for the name and gender questions at the start of an Adrift 4 game and the pop-up questions of an Adrift 5 one.
-- The *glk map colour* command has been removed: the map is always drawn in the standard colours.
-- Sounds and pictures that a game names but never packed into its game file are now found beside it. Such a game refers to each file by its full path on the author's computer, so Scarier looks in the game's own folder for a file of that name, whatever its capitals. This brings back the sounds of Adrift 4 games like *Druggy Lane*, and the pictures and sounds of Adrift 5 games shipped as a bare .taf.
+Most of the work this time has been done on the Adrift 3.7 to 4 side of Scarier. By analysing the original Adrift runners and running lots of custom test games on them, the output of Scarier was painstakingly made to exactly match the original output . This is kind of important, as the games use something called [ALR](https://www.ifwiki.org/ADRIFT_Language_Resource) which is basically a list of replacement strings. *Asteroid Aftermath*, for example, replaces the parser output `Which satellite.   satellite,  satellite,  satellite,  satellite or  satellite?` with `Please refer to a satellite by its correct name or number.`
+However, a lot of this was just porting original bugs and glitches to Scarier, so once this was done, many of the changes which only made things worse were reverted. The goal was for the user experience to at least be on par with the original SCARE interpreter.
+Also to this end, 35 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, were patched on-the-fly to be winnable. The command GLK PATCHES OFF will remove those, for the original experience.
+All of the 663 tested Adrift 4 and earlier games can now be played to the end in Scarier, compared to 439 in SCARE (66 percent.)
 
 #### Adrift 3.7 to 4
-- 35 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, are repaired as they load, each by the smallest change that gets past the bug. The fix only applies to the exact release that has the bug, and saved games still load. Use *glk patches off* to play the games as released.
-- A title picture is now either a title screen of its own, filling the window until you press a key or click, or, when it is small enough to sit comfortably above the text, the first thing in the story. It no longer squeezes the opening text into a strip below it, as it did in *SS Whore*.
-- Games known to need one of the assists (combat, movement, repeated tasks, room restrictions, capacity) get it turned on automatically, and a notice at startup names each assist and the command that turns it off. The assists now share one command, *glk assist*: *glk assist* on its own lists them, and *glk assist combat off* turns one off. The old *glk combatassist*, *glk moveassist* and *glk capacity* still work, and *glk assist repeat* and *glk assist room* are new.
+- A title picture is now either a title screen of its own, filling the window until you press a key or click, or, when it is small enough to sit comfortably above the text, inline at the top of the story text. It no longer squeezes the opening text into a strip below it and confusingly scrolls the text instead of closing when you press a key.
+- Games known to need one of the assist hacks (combat, movement, repeated tasks, room restrictions, capacity) get it turned on automatically, and a notice at startup names each assist and the command that turns it off. The different assists (five in total) are now consolidated under one command, GLK ASSIST: on its own the command lists all of the others, and GLK ASSIST COMBAT OFF turns one of them off.
 - Where matching the original runners would only have made the parser understand less, Scarier keeps the more helpful behaviour: UNDO, Z, LOOK X and commas between commands in 3.7 and 3.8 games, GO TO and the other verbs a runner happened not to know, and a *key* that no longer gets confused with a *key ring*. When a command matches none of the game's tasks under the runner's strict rules, it is tried again under looser ones, so a sensible phrasing reaches the author's task.
 - Text stays grammatical where the original runners printed an accident, such as a lost full stop, a doubled space or a verb that does not agree with its subject. The runner's wording is kept only where a game's own text replacements expect it.
+- A few more places where the runners' answer was plainly wrong are changed: LOOK AROUND describes the room instead of saying "Nothing special", GET OFF X when you are standing on nothing says so instead of picking X up, and a game task that runs but prints nothing is answered with "Done." rather than the game's "I don't understand" text. When such a silent task is attached to READ, the object's own text is shown, which gives back the one clue in *Everything Emanuelle*.
 - Adrift 3.7 and 3.8 games are now played by their own runners' rules rather than 3.9's: the earlier wording for taking, putting, opening and refusing, PUT IN and PUT ON as a single handler, container listings, the disambiguation prompt, the refusals for things that are not here, and the descriptions and restrictions those versions evaluate differently.
 - Random numbers are drawn from a stream compatible with the original runners, so games that turn on chance — and the games whose walkthroughs depend on it — play out as they do there.
 - More of the battle system, settled against the 3.9 and 4.0 runners: a blow strikes every character the line names, "Who do you want to attack?" and "What do you want to attack X with?" carry on into the next line, THROW is a battle verb, stamina recovery can revive a fallen character, the narration follows the game's chosen perspective, and a task that changes a character's attitude, speed, strength or defence changes it the way both runners do — a raise stops at the attribute's maximum, an attitude is stored as written, and a 3.9 speed change lands on the character its author meant. *Deaths*, *The Spirit's Flight* and *Secret of the Lost World* now fight the same fights as the original.
@@ -28,23 +21,38 @@
 - UNDO prints the output of the turn it restores, in the wording each runner version uses.
 - Autosave now keeps the whole session: what AGAIN would repeat, the command history, the pronouns, a pending "Which one?" question, and the verbose and score-notification settings.
 - Another long round of parser and world-model work measured command by command against all four runners: which object a noun resolves to and how ties are broken, the "Which one?" prompt itself, the precedence of PUT and TAKE and their auto-supplied "from", capacity limits, what counts as having been seen, ALR and synonym rewriting, wildcard task matching, and the rule that one typed line runs at most one game task.
+- More fixes from replaying a further collection of walkthroughs against the runners: things listed as being in or on something can be referred to from then on, PUT ON fetches a known object from elsewhere as PUT IN does, an object inside another can be taken when a game's own task would have swallowed the command, a never-seen object no longer shadows a similarly named one in your hands, TALK TO gives the runner's hint about asking, and a 3.9 game counts what you carry the way its runner does, which lets *Lara Croft: The Sun Obelisk* take the belt pouch.
+- Bold, italics and underline are simply on or off, as in the runners, and an intro that forgets to close one no longer sets the first room description in it.
 - Timed events and character walks follow the runners more closely again: walk steps land on the exact tick, a stopped walk still stamps the walker, events recheck the restrictions of a task that has already run, and the turn an event starts is itself a tick.
 - Text-heavy and event-heavy games are considerably faster. The ALR table is indexed instead of scanned in full for every line, undo snapshots are no longer compressed, and the map's unchanging data is read once per game rather than at every prompt.
 - All of the above is held in place by a regression suite that replays a walkthrough for more than 400 Adrift games, and by a library of transcripts recorded from the original 3.7, 3.8, 3.9 and 4.0 runners for each of them.
 
 #### Adrift 5
-- Autosave also works while a "Which key?" question or a half-finished command such as "Get what?" is waiting for an answer.
-- Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins.
+- Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins (Dan Fabulich).
 - Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
 - Fixes an occasional crash when a game resumed from an autosave loaded a picture or sound.
-- Scarier now builds with Visual C++, and plays the pictures and sounds of Adrift 5 games under Windows Glk.
+- Scarier now builds with Visual C++, and plays the pictures and sounds of Adrift 5 games under Windows Glk (Dan Fabulich).
+- The status line updates properly during questions and window resizing.
+- Adrift 5 games now load through Glk rather than directly from disk, so the interpreter also works in ports without a file system (such as Emglken) (Dan Fabulich).
+
+#### Both
+- Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
+- The default map colours are now less flat, with in-between tints added to the previous two (Dan Fabulich).
+- The *glk map colour* command has been removed: the map is always drawn in the standard colours (Dan Fabulich).
+- A map too big for its pane can be moved about with the arrow buttons at its top right, and any map zoomed with the + and − buttons beside them. *glk zoom N* sets an exact size, from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter. The buttons also work while the game waits for a keypress or a pop-up answer, the map is redrawn at each such pause so that it keeps up with a cutscene, and rooms on another level than yours are drawn fainter (Dan Fabulich).
+- Clicking just off a side or corner of your own room on the map walks one step that way, when the room has an exit there, even into a room not yet seen.
+- A walk started by clicking a room on the map begins on the prompt's own line, in the input colour. In Adrift 4 games it no longer answers "I don't understand what you mean!" first, or runs whatever was half-typed. A click on a room does nothing while a game is asking a question rather than waiting for a command.
+- Autosave also works at a "press a key" pause, so a long cutscene closed halfway comes back where you left it. The same goes for the name and gender questions at the start of an Adrift 4 game and the pop-up questions of an Adrift 5 one.
+- Sounds and pictures that a game names but never packed into its game file are now found if they are in the same folder. This brings back the sounds of Adrift 4 games like *Druggy Lane*, and the pictures and sounds of Adrift 5 games shipped as a bare .taf.
+- A status too wide for the window is now cut at its start behind a single … placed right after the room name, where it used to be right-aligned behind three dots. This cuts out less letters.
 
 ### Question (Quest)
 - The Quest interpreter formerly called Geas is now called Question. Existing saves still load. An autosave from an earlier version does not: the game starts from the beginning.
 - Autosave also works while the parser asks which of several things you meant, in both Quest 4 and Quest 5 games. The game resumes at the same list, with anything you had already answered earlier in that turn kept.
 - Autosave works at every other question a game asks as well — a name or gender prompt, a menu, a yes/no question, a line of free input — and at a "press a key" pause. A game closed at one comes back at it.
-- *SIDEBAR WIDE* gives the side pane 35% of the window instead of 20%, for games whose object names or status lines do not fit it, and *SIDEBAR NORMAL* puts it back. The choice is kept in the autosave.
+- SIDEBAR WIDE gives the side pane 35% of the window instead of 20%, for games whose object names or status lines do not fit it, and SIDEBAR NORMAL puts it back. The choice is kept in the autosave.
 - A status line too long for the banner at the top is listed in the side pane instead, one value per line, and returns to the banner when the window is wide enough to hold it.
+- Both Quest 4 and Quest 5 games run faster, by a third or more over a large collection of walkthroughs: built-in functions and object fields are looked up directly instead of searched for, command patterns that cannot match are rejected before their regular expression runs, and synonyms are only checked against objects in scope when they occur in the command.
 
 #### Quest 4
 - A game with a timer, closed between two of its firings, resumes with the right amount of time left.
@@ -52,37 +60,125 @@
 #### Quest 5
 - *Deeper* no longer hangs while generating its levels.
 - Games that ask for input with `GetInput()`, such as *System Restore*, *Escape from Byron Bay* and *The Last Survivor*, now work, and every page in *Victorian Detective* keeps its own `firsttime` state instead of sharing one.
-- Fixes a crash in *Whitefield Academy of Witchcraft*, and with it the order in which `on ready` callbacks run.
-- A "Continue..." link appears while the game is waiting for a keypress.
+- Fixes a crash in *Whitefield Academy of Witchcraft*, and with it the order in which `on ready` callbacks run (Dan Fabulich).
+- A "Continue..." link appears while the game is waiting for a keypress (Dan Fabulich).
 - A turnscript can no longer fire between a command's question and its answer, matching the original's turn boundary.
 - Rooms that the map library can never reach on its own — one entered by a script rather than through an exit, or through an exit revealed after the player was already next to it — are charted anyway, so *The Acreage* draws its map instead of printing errors.
 - The undo history is part of the autosave, so UNDO still works after a game is reopened. UNDO itself follows the original more closely in what it puts back.
 
+### Bocfel (Z-code)
+- The core interpreter is updated to Bocfel 2.6. Our own Z6 support is bolted on top of it.
+- The charging boar in *Arthur* now lines up with the tree behind it.
+- Fixes two crashes when resuming from an autosave: one that hit the next autosave in games with sound, and one that hit old autosaves on relaunch. Autosave also works again when the system autosave folder does not exist yet.
+- *Beyond Zork* keeps its colours after being resumed from an autosave, where they used to reset at the next command. Autorestoring a second time no longer fails and starts the game over with an error window in place of the status window.
+- The DEFINE menu in *Beyond Zork* is no longer wrapped at the wrong column, its input field out of place, when the game is autorestored after its theme was changed while it was closed.
+- The mini-games in the early releases of *Zork Zero* (242, 296 and 66) get the same treatment as the later ones. Peggleboz used to be drawn with the wrong layout there, and resizing the window during it ended in a fatal error. Clicking a weight in the Tower of Bozbar now works in releases 296 and 66, and the Snarfem number boxes no longer forget the selected pile when the window is resized. Release 242 has no mouse support of its own in these games, so no clickable boxes are drawn in it.
+- Double Fanucci in *Zork Zero* works in every release that has it. The sample game in the demo was blank in release 296 and half drawn in release 66, the scores shown were wrong in releases 296, 66, 343 and 366, and wide windows got the abbreviated play names meant for narrow ones.
+- Skipping a *Zork Zero* mini-game with VoiceOver on (or graphics off): Peggleboz is now solved at once, where it used to ask for two or three more key presses. Skipping Snarfem works in release 242 as well, and no longer counts as a loss in releases 296 and 66. If you decline the offer to skip Snarfem, it is not repeated before every key you press.
+- In *Zork Zero* releases before 366, the selected peg in Peggleboz keeps blinking after the window is resized, and is still selected after an autorestore.
+- In Snarfem, box 9 can be clicked, and clicks on the flowers are no longer taken for clicks on a pile.
+- A play in Double Fanucci can be picked with the mouse again: the list of plays stopped listening after the first click. The highlighted play is also shown again when a game of Double Fanucci is resumed from an autosave. The edges of the Snarfem boxes and piles are where they are drawn, not a pixel off.
+- The *Zork Zero* demo starts its playable part on a clean page, instead of printing the name of the first room on the same line as "Hit any key to continue". The Double Fanucci scores in its slide show are drawn in the right colour, and the right-hand score no longer overlaps the cards.
+- *Zork Zero*, *Arthur* and *Shogun* follow a change of theme again, instead of holding on to the old theme's text colours as if you had picked them in the game.
+- The last few pixels of the bottom row were missing from many pictures in *Zork Zero* and the other Infocom Z6 games.
+- *Journey* keeps its story text on screen when the game quits, instead of leaving an empty window with no scrollback. A renamed Tag no longer loses the first two letters of his name in some menu entries, and the Apple II and MS-DOS versions use their narrower picture margin, which leaves more room for text.
+- The poles of the banner in *Arthur* no longer show a doubled line where the stretched part meets the foot, most visible in the Mac black and white graphics.
+- The text area in *Shogun* is the right height when the menu window is open.
+- Fixes a crash in the hint menus of the Infocom Z6 games when the hint table sits high in memory, and one in the *Journey* VoiceOver menus.
+- When looking for the second disk side of an Apple II Z6 game, a year or other number in the file name is no longer mistaken for the side number.
+- The Z-code ports of the eleven Mysterious Adventures show their pictures properly. The blank band between the picture and the room description is gone, the picture comes back after a window resize or an autorestore instead of waiting for the next room, and the 2011 releases, which draw their pictures themselves, no longer show nothing but a solid colour.
+- The non-Infocom Z6 games behave much better. Erasing the text window now clears the screen, so the Z6 port of *Adventure* no longer continues its story below the intro screens, and the commands typed in it are shown. Its STYLE layouts, with the room description and the inventory in panels of their own, are laid out as windows instead of being jumbled into the story text, and its quote boxes stay visible.
+- The menu bar in *Moments Out of Time* gets a window of its own at the bottom, instead of being printed into the story before every prompt.
+- *Wyrmward* and other games that make room for a picture by printing newlines no longer leave it below hundreds of blank lines.
+- The start menu of *Sunburst Contamination* is cleared when the game begins.
+- A Z6 game that draws in the theme's background colour no longer gets white on a dark theme.
+- *Zork Zero*, *Shogun*, *Arthur* and *Journey* now respect the Enable graphics setting. With it off they drew no pictures, but still laid the screen out around them and waited for a key on title screens that were never shown. Now the title screens are skipped and the text gets the whole window. *Zork Zero* and *Shogun* get a plain reverse-video status bar in place of the picture border, *Zork Zero* prints ordinary letters for its drop caps and a note in place of its map, and *Arthur* uses its own text-only mode. The puzzle shortcuts made for VoiceOver are offered when pictures are off, and the layout follows the setting when it is changed during play.
+- *Journey* draws its command menu in the right place after an autorestore, without needing the window to be resized first.
+- Clicks in the *Zork Zero* mini-games (the Peggleboz and Tower of Bozbar buttons, the Snarfem boxes and the Double Fanucci cards) land where the mouse pointer is, instead of slightly up and to the left of it.
+- The picture files of the Z6 games are read within the lengths their own headers give, following Infocom's interpreter sources, so a damaged or cut-short picture file is skipped instead of crashing the interpreter.
+
 ### ScottFree
-- TI-99/4A games run their actions as the Adventure cartridge does. Random events were falling on the wrong turns in every one of them, dying ended the game where it should carry on in the game's last room, and *Pyramid of Doom* could not be won.
-- Whatever follows a verb and its noun is ignored, as in the original interpreters: LOOK UP AT THE GREMLIN is LOOK UP. TAKE A COIN is understood, and ALL EXCEPT accepts synonyms and IT.
+- TI-99/4A games run their actions accurate to the original Adventure cartridge. Random events were falling on the wrong turns in every one of them, dying ended the game where it should carry on in the game's last room, and *Pyramid of Doom* could not be won.
+- Whatever follows a verb and its noun is ignored, as in the original Adventure International UK interpreters: LOOK UP AT THE GREMLIN is LOOK UP. TAKE A COIN is understood, and ALL EXCEPT accepts synonyms and IT.
 - The Italian *Perseus and Andromeda*, *Antica Grecia*, has its interpreter messages and its system commands in Italian.
 - Spanish *Gremlins* on Commodore 64 disk can be won: its first action was garbled, which made the dart in the attic always fatal. The German *Gremlins* understands "nach unten gehen", and both have a number of text fixes.
-- The second disk of a two-disk game is found under more file names, such as "disk.1" and "Side A", and a *Saga Plus* game on Atari 8-bit no longer crashes when its picture disk is missing.
-- Zip64 archives can be read.
+- The second disk of a two-disk game is found under more file names, such as "disk.1" and "Side A".
+- The pictures of the Apple II *The Hulk*, *The Count*, *Voodoo Castle* and *Sorcerer of Claymorgue Castle* are found through the picture disk's own index rather than a built-in list for each release. This brings back a few that were missing or wrong: the gems in the inventory of *The Hulk*, the coat-of-arms in the inventory and the daisies in the flower box of *The Count*, and a cut-off room picture and a spell in *Claymorgue*.
+- The pictures of the Atari 8-bit games are likewise found through the table on the game's own disk. In *The Hulk*, the gems in the inventory picture are now drawn in the same places as in the original.
+- The pictures of the Commodore 64 versions of *Pirate Adventure* and *Voodoo Castle* with small graphics are found through the tables in the game itself. This fixes the open door and the pirate ship in *Pirate Adventure*, and moves three of its objects one pixel.
+- The pictures of the Atari 8-bit versions of *Spider-Man*, *Fantastic Four* and *Buckaroo Banzai* are found through the table on the boot disk. *Spider-Man* gains a picture of Doctor Octopus that was missing, and two object pictures in *Buckaroo Banzai* that were wrong or not drawn now show.
+- The pictures of the Apple II versions of *Spider-Man*, *Fantastic Four* and *Buckaroo Banzai* are found through the tables in the game database.
+- The close-up pictures shown when examining certain things in the Apple II and Atari games and the Commodore 64 and UK releases of *The Hulk* are now taken from the game's own table instead of a built-in list, so they appear for the same words and under the same conditions as in the original, plus a few extra ones that the old list had (such as the bees once they are in the bottle in *Adventureland*). With graphics turned off, these games and the UK release of *Adventureland* no longer stop to wait for a key where a close-up would have been.
 - Small fixes to *Robin of Sherwood* on Commodore 64 and *Strange Odyssey*.
+- Pictures in the ZX Spectrum and Commodore 64 games released by Adventure International UK, *Seas of Blood* among them, use far fewer drawing operations, up to three quarters fewer depending on the game. Pixels of one colour in a row are sent as a single rectangle.
+- With graphics turned off, games with a title picture or loading screen no longer wait for a key on a blank window, and *Robin of Sherwood*, *Spider-Man* and the dice of *Seas of Blood* no longer try to draw in a window that is not there.
+- Nineteen more Commodore 64 disk images of *The Time Machine* and *The Sorcerer of Claymorgue Castle* are recognised, among them 40-track disks, the "773 - 695" menu disk and the Slam compilation, whose directory lists a copy cut short while the complete one sits unlisted elsewhere on the disk. The Danish Crackers release of *Claymorgue*, which has fourteen bytes wrong, is repaired as it loads: the pool of dirty water had turned into bars, and two bad tiles showed in 27 of its 44 pictures.
+- The disk release of *Return to Pirate's Isle* for the TI-99/4A has its pictures, title screen and font read through the disk's directory rather than at fixed offsets, and the one known disk with a damaged picture of room 5 is repaired where the damage is.
+- The lava dam in the Apple II *Adventureland* is drawn again.
+- ZX Spectrum and TI-99/4A pictures are 256 pixels wide, not 255, so they no longer sit half a pixel left of centre and lose their rightmost pixel column in a narrow window. The Atari 8-bit pictures are no longer widened by a black bar on the right, and a picture wider than the window is centred rather than drawn off screen.
+
+### TaylorMade
+- Pictures take 70 to 90 per cent fewer drawing operations. A room picture is no longer wiped and painted again from scratch every turn: only the parts that changed are redrawn. *Questprobe featuring Human Torch and The Thing*, which repainted its whole picture several times a turn, gains the most.
+- Text in *Rebel Planet* is printed about ten times faster.
+- A file that turns out not to be a TaylorMade game now says so in the game window, where the window used to close without a word.
+- A game whose picture data cannot be read is now played without graphics, with a note saying so in the game window. A *Questprobe featuring Human Torch and The Thing* file with damaged picture tables used to leave an empty graphics window above the text.
+- The animations in *Rebel Planet* no longer start on the wrong frame when you arrive from another animated room. The security robot could flash a wrong picture after you had met the serpent in the sewers, and restoring a game saved at the Queen's computer could show a serpent withdrawing that was never there.
+- With graphics turned off, the status window is no longer closed and opened again at every room description.
+- A game file that is cut short or damaged is refused, or played without its pictures, instead of crashing the interpreter.
+- RAM SAVE, RAM LOAD and RAM RESTORE in *Rebel Planet* now save and restore in memory like QUICKSAVE and QUICKLOAD. They used to ask for a file.
+- An animation in *Rebel Planet* no longer runs at the speed of the one in the room you came from.
+- The parser sorts the words of a command into verb and noun as the original engines do, by each word's number, instead of trying both orders. *Blizzard Pass* turns SKIN, POLISH and DRAW into verbs as its engine does, the verb is kept after a comma, and the "I don't understand" messages are the originals'.
+- Taking, dropping and chance follow the Spectrum code: a worn object is dropped silently and cannot be taken again without removing it, a failed GET or DROP ends the turn at once (a LOOK in *He-Man* used to go on and raise the carrying limit), chance rolls succeed slightly less often, and the action that printed "Okay" in *Kayleth* and *Rebel Planet* prints nothing, as it does in the originals.
+- The Queen's lights in *Rebel Planet* change colour in the original order, with the Spectrum's bright inks or the Commodore 64's own cycle, her head is shown and hidden for equal halves and much more slowly on the Commodore 64, and the star field animation leaves its blank lines alone.
+- Pictures are 256 pixels wide rather than 255, so they no longer lose their rightmost pixel column in a narrow window.
+- Five more Commodore 64 disk images of *Temple of Terror* are recognised, and the text-only choice in its menu is spelt properly.
+
+### Plus
+- Pictures take 24 to 83 per cent fewer drawing operations, depending on the game. Pixels of one colour in a row are sent as a single rectangle, and a picture that is already showing is not drawn again.
+- The unfinished *Questprobe Number 4: X-Men* fragment now behaves as it does in the original MS-DOS interpreter, which was disassembled for the purpose: the conditions and actions that only this game uses are implemented the way XMEN.EXE runs them.
+- The Bio Gem in *X-Men* can now be saved. The game's own data made this impossible; it is patched as the game loads.
+- A game file that is cut short or damaged is refused instead of crashing the interpreter.
+- With graphics turned off, a game no longer starts by waiting for a key on a blank window.
+- In the Atari ST games, the colours that cycled in the previous picture stop when a new one is drawn, as in the original, where they used to cycle on for good behind it.
+- The Atari 8-bit *Spider-Man* pictures are cropped to their frame like the other games', without the black column on the right.
+- Atari 8-bit games no longer crashes when their picture disk is missing.
+
+### Comprehend
+- The picture area is always black behind and beside the picture, as on the original machines, where it used to take the theme's text background colour. With a light theme this left stray lines around the rooms of *The Coveted Mirror*.
+- The Enable graphics setting is respected, where it used to be ignored: with it off no picture window is opened, and the window comes and goes when the setting is changed during play. The title picture and the crystal ball scene of *The Crimson Crown* no longer wait for keys on an empty screen.
+- The 16-colour PCjr pictures of *Transylvania* and *The Crimson Crown* now match the real games pixel for pixel, checked against captures of all 73 of them in an emulator: the dither pattern was on the wrong rows and one kind of fill used the wrong tiles.
+- When a game's own NOVEL.EXE or PC_GRAPH.OVR is missing, built-in copies of its brushes and fonts are used and the pictures come out the same as in the CGA renderer, where an older, less faithful renderer used to take over.
 
 ### General
 - Autosave in Bocfel, Glulxe, Scarier and Question now writes the new files completely before replacing the old ones, so a crash or failed write no longer leaves a game state paired with the previous turn's window layout.
-- Spatterlight now answers `glk_style_measure` for size, weight, obliqueness and proportional spacing, so an interpreter that asks about the current theme's fonts gets a real answer.
+- Spatterlight now answers `glk_style_measure` for size, weight, obliqueness and proportional spacing, so an interpreter that asks about the current theme's fonts gets a real answer (Dan Fabulich).
 - Fixes a crash when loading a sound or image whose resource number is very large, which killed some Adrift games at their first prompt.
-- The Adrift interpreter can take its game data from an already-open file, for ports that have no file system of their own.
-- Builds again on Xcode 27 and with GCC 9, and releases are now built, signed and notarized by an automated workflow.
+- Builds again on Xcode 27 and with GCC 9, and releases are now built, signed and notarized by an automated workflow (Dan Fabulich).
 - Cancelling line input no longer writes past the game's input buffer: the text typed so far came back as two bytes per character into a buffer sized for one, which could crash a game that takes input back on a timer. Cancelling the file dialog of a restore command no longer hands the game a made-up file name, and text a game pre-loads into the input line keeps its accented characters instead of showing `?`.
+- Fixes text occasionally losing its first character, or the line break before it, when the interpreter had just asked whether a character can be displayed. In Adrift games with unusual characters in a room name this ran a reply into the typed command and clipped the room name.
 - Each temporary file a game creates no longer leaves a file descriptor open, and a very long line of input no longer risks the interpreter giving up with a protocol error.
+- The temporary folder of an interpreter that crashed or was force quit is removed the next time a game starts, and a game's own temporary files are carried inside its autosave, so a resumed session gets them back.
 - Text windows with many pictures in the margins lay out several times faster, which shows most when resizing the window of a long session of an illustrated game such as *Zork Zero*.
 - Reading the scrollback in a game that runs a timer is no longer interrupted by the view jumping back to the bottom, however you scrolled up. Clicking a link that enters a command scrolls down to the prompt, as typing the command does.
 - Sound that is already playing moves to the new output device when you plug in headphones.
-- Games resumed from an autosave open a fifth of a second sooner. A game force quit in fullscreen no longer comes back as a blank window, leaving fullscreen after a relaunch no longer puts the window in a corner of the screen, and windows opened after a restore keep their colours and alignment.
+- Games resumed from an autosave open a fifth of a second quicker. A game force quit in fullscreen no longer comes back as a blank window, leaving fullscreen after a relaunch no longer puts the window in a corner of the screen, and windows opened after a restore keep their colours and alignment.
 - Fixes a hang when an interpreter rejected an autosave from an older version and restarted the game.
 - Starting a game no longer stalls for a moment when the library is large. Opening a game file that the library's search field is hiding clears the search, and the selection no longer jumps back to the opened game a moment later.
-- Spatterlight opts out of Game Mode, which macOS otherwise turned on, with a notification, whenever a game window entered fullscreen.
-- Thanks to Dan Fabulich (@dfabulich) for the Quest 5 fixes, the `glk_style_measure` support, the map colour scheme, the Windows port of Scarier and the build fixes.
+- Spatterlight opts out of Game Mode, which macOS otherwise turned on with a notification whenever a game window entered fullscreen.
+- Graphics windows draw much faster. Filled rectangles now go straight into a bitmap instead of through one drawing call each, which shows most in pictures and maps made of many small pieces: the ScottFree, Plus and TaylorMade pictures, and the map pane of a large Adrift 5 game such as *The Axe of Kolt*.
+- Add Games in the library can choose a folder again on macOS 27, where selecting a folder and clicking Add opened the folder instead of adding its games.
+- A game that restarts itself while being resumed from a fullscreen autosave no longer lays out its windows for the full screen in an ordinary window.
+- A graphics window that asks for the default background colour gets the theme's background instead of white, and a rectangle filled with the default colour is no longer drawn in whatever colour was used last.
+- A quote box that was on screen when a game was autosaved comes back intact: without stripes of the story text showing through, centred instead of hanging off the left edge, and fading out at the right time.
+- With smart quotes on, text that a game prints and then takes back is removed properly even when it contains a quote mark or an apostrophe.
+- A sound that has played to its end is not started again when the game unpauses a channel that was never paused (Dan Fabulich).
+- Fixes a crash when choosing Delete All User Themes while one of them was selected. Changing a colour of a built-in theme by dragging in the Colors panel makes one copy of the theme, not several, and deleting a theme selects the one it was made from. The themes table has a contextual menu.
+- Adding a damaged or cut-short game file to the library can no longer crash Spatterlight or make it hang while it works out what kind of file it is.
+- A cut-short Magnetic Scrolls picture file no longer crashes the library when it looks for cover art.
+- The unpacker for packed Commodore 64 programs, shared by the ScottFree, Plus, TaylorMade and UnQuill interpreters, handles programs that were packed more than once, where it used to unpack the first layer again at every pass, and no longer reads outside its memory on an odd file.
+- ScottFree, Plus, TaylorMade, Comprehend and Question build outside Spatterlight again, on Linux and Windows too, and the terminal versions take options for the choices Spatterlight makes in its settings: graphics off, palette, gradual drawing and delays.
+- Library entries that share an IFID, such as other releases of the same game, no longer overwrite each other's files when the library is organised into folders. Adding the original of an AGT game that Spatterlight had converted no longer makes a duplicate entry.
+- Thanks to Dan Fabulich (@dfabulich) for the Quest 5 fixes, the `glk_style_measure` support, the map colour scheme, the Windows port of Scarier, the build fixes, and general help and support.
 
 ## Release 1.5.4
 
@@ -94,7 +190,7 @@
 - Pictures and sounds in Michael Zerbo games such as *The Child Murderer*, *The Hollywood Murders*, *Inner Demons*, and *A Matter of Time*.
 
 ### Scarier (Adrift)
-- Games that colour their text now display those colours. Colour display can be toggled with the *glk colour* command.
+- Games that colour their text now display those colours. Colour display can be toggled with the *glk colour* command (Dan Fabulich).
 - New *glk undo*, *glk restore*, *glk restart* and *glk quit* meta-commands to use when their standard counterparts are unavailable, such as in the player name entry dialog.
 - A new *glk map colour* command switches the map between the standard colours and an alternative scheme derived from the current theme, which mixes room fills, connector greys and a you-are-here marker out of the theme's own paper and ink. The choice is remembered per game.
 
@@ -108,18 +204,18 @@
 - The battle system was settled command by command against the original 3.9 and 4.0 runners: weapons and armour, wielding, thrown weapons, the combat narration and the status display. Several games previously believed unwinnable can now be played to the end, among them *The Search for Mr. Smith* and *Wes Garden's Halting Nightmare*.
 - A random-number bug that made choices between two outcomes far less random than intended is fixed.
 - Many parser and world-model fixes, including the precedence of PUT commands, taking and dropping, and restrictions that reach into closed carried containers.
-- Bold, italic and right-justified text.
+- Bold, italic and right-justified text (Dan Fabulich).
 - The score summary that the original runners print after every ending is now shown, and score-change notifications are off by default, as in the original.
 - Another round of wording and behaviour matched against the original 3.8/3.9/4.0 runners: the "You pick up" / "You take" version split, the pre-4.0 refusals and death message, where the ending message and "Congratulations!" appear, room-name headings, and *last* and *previous* as synonyms for *again*.
-- The map draws its room connectors the way the original Runner does, with opaque badges and arrowheads on one-way exits, and no longer opens an empty pane when the player is in a hidden room.
+- The map draws its room connectors the way the original Runner does, with opaque badges and arrowheads on one-way exits, and no longer opens an empty pane when the player is in a hidden room (Dan Fabulich).
 
 #### Adrift 5
-- The map pane now opens by itself when games ask it to. In and Out connectors are drawn on the map, with a badge at both ends. In-Out badges also appear for one-way connections that only exist as character movements.
+- The map pane now opens by itself when games ask it to. In and Out connectors are drawn on the map, with a badge at both ends. In-Out badges also appear for one-way connections that only exist as character movements (Dan Fabulich).
 - Questions that the game asks through a pop-up dialog, such as the player's name or "Are you male or female?", are asked in the story window instead of being silently skipped.
 - An adventure with no locations is refused with the same error message as the original runner, rather than starting the player nowhere.
 - A large batch of engine fixes found by a new conformance test suite and by reviewing the Adrift 5 file format: restrictions, task actions, character walks, user-defined functions, object references, conversation, and a dozen text functions that were missing or wrong.
 - The source tree now includes a hand-written specification of the Adrift 5 adventure and save file format, contributed by Dan Fabulich (@dfabulich).
-- Support for the `<del>` tag, so games can erase text they printed earlier, even across turns.
+- Support for the `<del>` tag, so games can erase text they printed earlier, even across turns (Dan Fabulich).
 
 ### Question (Quest)
 - Both Quest engines are faster after a profiling pass over their per-turn hot spots: about a fifth off Quest 4 replay times, with movement-heavy games like *Shipwrecked* several times quicker, and a smaller gain in Quest 5.
@@ -139,7 +235,7 @@
 ### General
 - The library organiser can no longer delete a folder it does not own. Previously, choosing a custom library location that already contained game files could delete the folder's entire contents. Now only game folders that Spatterlight itself created are moved and cleaned up; everything else is copied and the originals left in place, as intended.
 - Fixes to scrolling after a game changes a text window's size.
-- Supports the macOS "Now Playing" controls: music from a game shows up in Control Center and on the media keys, and can be paused from there.
+- Supports the macOS "Now Playing" controls: music from a game shows up in Control Center and on the media keys, and can be paused from there (Dan Fabulich).
 - A text window whose text fits the window is no longer restored scrolled past its own first line.
 - Autorestoring a game saved under a theme that no longer exists no longer brings back the wrong fonts and colors.
 - Library entries for different games that share an IFID no longer steal each other's titles, and existing crossed titles are repaired once at startup.
