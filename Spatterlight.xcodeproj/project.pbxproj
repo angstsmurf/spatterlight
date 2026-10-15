@@ -1852,7 +1852,6 @@
 		01E120DB9AF3E1E490C38748 /* scrun_split.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_split.cpp; sourceTree = "<group>"; };
 		066545D7B54AED7A90A3003E /* scparser.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scparser.cpp; sourceTree = "<group>"; };
 		07488CCB0BD205058BE2291E /* gameload.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gameload.h; sourceTree = "<group>"; usesTabs = 0; };
-		A7E1C0DE5EED0000000000A1 /* gamedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamedefs.h; sourceTree = "<group>"; usesTabs = 0; };
 		0949D315816F8163CB2CD887 /* question-internal.hh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = "question-internal.hh"; sourceTree = "<group>"; };
 		0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Hyperlinks.m"; sourceTree = "<group>"; };
 		0DC680911AC3DA7F2C06CD24 /* question-objects.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-objects.cc"; sourceTree = "<group>"; };
@@ -3215,6 +3214,7 @@
 		A5MAP0000000000000000003 /* a5map.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = a5map.h; sourceTree = "<group>"; };
 		A6ADA87D19CD2A79FA2A9CD6 /* scrunner.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrunner.cpp; sourceTree = "<group>"; };
 		A6AE1074305149939B370BB6 /* GlkTextBufferWindow+Speech.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Speech.h"; sourceTree = "<group>"; };
+		A7E1C0DE5EED0000000000A1 /* gamedefs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gamedefs.h; sourceTree = "<group>"; usesTabs = 0; };
 		A92950C009BF4A39CF12625D /* question-session.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-session.cc"; sourceTree = "<group>"; };
 		A96F706FE94CA20FD7525B14 /* q3ext_builtin.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = q3ext_builtin.cc; sourceTree = "<group>"; };
 		A9D52153A2D95F87DB7DE75F /* question-verbs.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-verbs.cc"; sourceTree = "<group>"; };
@@ -3555,7 +3555,6 @@
 		C37EC5912847A9E00084B841 /* gameinfo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gameinfo.h; sourceTree = "<group>"; };
 		C37EC5922847A9E00084B841 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		C37EC5992847AA040084B841 /* plus */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = plus; sourceTree = BUILT_PRODUCTS_DIR; };
-		C3E1F0A12FA0000000ABCDEF /* FORMAT.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FORMAT.md; sourceTree = "<group>"; };
 		C37EC5A62847CD620084B841 /* sagaplus.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sagaplus.c; sourceTree = "<group>"; };
 		C3824B782CAEF0A800D58EFC /* arthur.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = arthur.hpp; sourceTree = "<group>"; };
 		C3824B792CAEF0A800D58EFC /* arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = arthur.cpp; sourceTree = "<group>"; };
@@ -3875,6 +3874,7 @@
 		C3E144E62F0209670068F099 /* apple2_vector_draw.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = apple2_vector_draw.c; sourceTree = "<group>"; };
 		C3E1937E28628E8400E3B013 /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 		C3E1938028628E8400E3B013 /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
+		C3E1F0A12FA0000000ABCDEF /* FORMAT.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FORMAT.md; sourceTree = "<group>"; };
 		C3E2EAAE25D08EEC0012B7FB /* UKSyntaxColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColor.h; sourceTree = "<group>"; };
 		C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
 		C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColor.m; sourceTree = "<group>"; };
@@ -6818,8 +6818,8 @@
 				C37EC5912847A9E00084B841 /* gameinfo.h */,
 				C37EC58D2847A9E00084B841 /* gameinfo.c */,
 				C3DA7A032F9B000000A1B2C3 /* dumpactions.h */,
-				C3DA7A062F9B000000A1B2C3 /* opcodes.h */,
 				C3DA7A022F9B000000A1B2C3 /* dumpactions.c */,
+				C3DA7A062F9B000000A1B2C3 /* opcodes.h */,
 				C3DA7A052F9B000000A1B2C3 /* opcodes.c */,
 				C3A3EA0F284BAEA300C8A693 /* loaddatabase.h */,
 				C3A3EA10284BAEA300C8A693 /* loaddatabase.c */,
@@ -6843,8 +6843,8 @@
 				C3BC41E128F3944D00AB6E6F /* companionfile.c */,
 				C3A3EA15284BAF0000C8A693 /* graphics.h */,
 				C3A3EA16284BAF0000C8A693 /* graphics.c */,
-				C3EC5024289C0C820078AB83 /* stdraw.c */,
 				C3EC5027289C0C820078AB83 /* stdraw.h */,
+				C3EC5024289C0C820078AB83 /* stdraw.c */,
 				C36797E42EF0B884008A6A0D /* sagadraw_glue.h */,
 				C36797E52EF0B884008A6A0D /* sagadraw_glue.c */,
 			);
