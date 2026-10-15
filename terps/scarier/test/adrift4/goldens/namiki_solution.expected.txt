@@ -24,7 +24,7 @@ shelf are my CDs and DVDs.
 I roll up the futon and stand it against the wall.
 
 > open tatami mat
-I don't understand what you mean!
+Done.
 
 > x mat
 One of the tatami mats is loose. That's because I keep... special things

@@ -514,7 +514,9 @@ run_any_task_ran_this_command (void)
  * spent-task port had taken most of those cells: re-measured it costs six
  * goldens and no win -- alexis, alexis_worn_cube, lifesimulation, life and
  * everything change one line of text, the_hangover two turns -- and all six
- * rows then match their Runner transcripts exactly.  3.7/3.8 are left alone:
+ * rows then match their Runner transcripts exactly (but for the "Done."
+ * that replaced the DontUnderstand text on 2026-10-15, a deliberate
+ * deviation; see run_line_t::settle()).  3.7/3.8 are left alone:
  * checktask is the same routine there, but no probe has been run and no corpus
  * row asks.
  */

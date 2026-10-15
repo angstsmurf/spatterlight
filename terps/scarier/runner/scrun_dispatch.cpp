@@ -1065,8 +1065,8 @@ run_line_t::task_passes ()
    * CompleteText, draws nothing in run390x per alexis_tr_trace.txt, and
    * ticking there put every later battle roll a turn out of phase), then the
    * claim (2026-09-20), which is the `!silent_task_390` guard on library():
-   * status stays FALSE, so run_process_input_line() prints
-   * DontUnderstand, and nothing between here and there speaks.
+   * the Runner then prints DontUnderstand over the empty buffer, and
+   * Scarier prints "Done." instead (deliberate deviation, see settle()).
    *
    * It is what run390 answers `read diary` in everything, `piss` in life,
    * `turn off tv` in lifesimulation and `open chest` in alexis with, and in
@@ -1396,6 +1396,26 @@ run_line_t::settle ()
                                             silent_names_npc_390)
           && silent_names_npc_390)
         status = TRUE;
+    }
+
+  /*
+   * Deliberate deviation (2026-10-15): a silent task's line that nothing
+   * else answered says "Done." where every Runner before 4.0 prints the
+   * game's DontUnderstand text over the empty buffer.  The task ran -- it
+   * opened the chest (alexis), the tatami mat (namiki), scored the filing
+   * cabinet (the_hangover) -- so "What you typed doesn't work." told the
+   * player the opposite of what happened.  The claim itself stays: letting
+   * the library answer the line instead made it refuse what the task had
+   * just done ("The loose tatami mat is already open!", "You can't open
+   * that.") in six of the eight goldens it reached.  The turn is the
+   * Runner's still: is_admin above decides it, so the line is not a turn at
+   * 3.9 and is one at 3.7/3.8 (see task_passes()) -- which the FALSE status
+   * the line returned before this never ticked.
+   */
+  if (silent_task_390 && !status && pf_buffer_length (filter) == task_mark)
+    {
+      pf_buffer_string (filter, "Done.\n");
+      status = TRUE;
     }
 
   /*

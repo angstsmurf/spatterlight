@@ -248,7 +248,7 @@ Leopard". You should probably try to open the cabinet.  The cabinet is
 closed.
 
 > open the filing cabinet
-What you typed doesn't work.
+Done.
 
 > x cabinet
 This is a rusted filing cabinet and the only one even possible of opening in

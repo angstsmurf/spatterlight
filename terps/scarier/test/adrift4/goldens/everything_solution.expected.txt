@@ -228,7 +228,7 @@ I am carrying her diary.
 expression: the passion, the excitement, and the sense of discovery.
 
 > read diary
-I don't understand what you mean!
+Done.
 
 > out
    I could never spend another minute in my nay! Emanuelle's room - the

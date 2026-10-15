@@ -266,7 +266,7 @@ the holes of debris as super-heated steam blasts through into the room,
 making it even hotter than before.
 
 > close valve
-Hmmmmm.  Try something different.
+Done.
 
 > mount pipe
         The pipe fittings are now attached to the pipes and to the walsl.

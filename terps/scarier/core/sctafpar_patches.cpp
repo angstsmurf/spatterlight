@@ -179,7 +179,8 @@ static const scr_patch_edit_t PATCH_SANDY[] = {
  * Office (room 14), where the game's own task 13 puts the Platypus.
  *
  * Two more tasks need a hand.  Task 8, "open the filing cabinet", scores its
- * point and says the cabinet is open, but carries no action to open it, so
+ * point but carries no action to open the cabinet and no text, and a silent
+ * task claims its line before 4.0, so the library never opens it either and
  * the first approval form stays shut inside -- Mystery House's bug exactly.
  * The added action opens it (stateful object 2).
  *

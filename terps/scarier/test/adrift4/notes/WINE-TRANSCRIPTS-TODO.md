@@ -852,6 +852,20 @@ case, and their goldens are re-blessed. The row notes in
   handlers already keep the turn's text where the Runner's callers put it
   back, and nothing measured differs (`thetest`, 3.90, matches on every
   turn). The other turn-sectioning joins are in the index.
+- **A silent task's line says "Done." (2026-10-15).** Before 4.0 a task
+  that runs and prints nothing claims the line, and every Runner prints the
+  game's DontUnderstand text over the empty buffer ("What you typed doesn't
+  work.") -- though the task scored, or opened the chest. Scarier keeps the
+  claim and the Runner's turn (none at 3.9, one at 3.7/3.8) but prints
+  "Done." (run_line_t::settle()). Letting the library answer instead was
+  tried and dropped: it refused what the task had just done in six of the
+  eight goldens ("The loose tatami mat is already open!", "You can't open
+  that.", "You can't close that.", the swear refusal for life's `piss`).
+  Nine goldens differ from their Runner transcripts by that one line:
+  alexis, alexis_worn_cube (T99), everything (T38), lifesimulation, life,
+  the_hangover, the_hangover_patched (T35), journ2_patched (`close valve`),
+  namiki (`open tatami mat`). A line naming a character still gets
+  characters()' topic reply first. 4.0 falls through to the library.
 - **Definite object names fold the author's article, in any case and in
   every version (`lib_print_object_np`).** The Runner matches the Prefix
   case-sensitively, so a capital Prefix prints mid-sentence ("You take The
@@ -2403,6 +2417,8 @@ transcript names are in the code comment next to the named function, in
     text, and the_hangover T34 also keeps the filing cabinet shut, so
     `take approval form` is "Take what?" -- all six rows went identical to
     their Runner transcripts. 4.0 falls through to the library instead.
+    Scarier prints "Done." for the DontUnderstand text since 2026-10-15
+    (see "Deliberate deviations").
     3.7/3.8 are unmeasured and left alone. `[3.9]` p39done
     (make_39_doneprobe.py, Adrift_18/19), alexis, everything,
     lifesimulation, life, the_hangover

@@ -248,7 +248,7 @@ Leopard". You should probably try to open the cabinet.  The cabinet is
 closed.
 
 > open the filing cabinet
-What you typed doesn't work.
+Done.
 
 > take approval form
 Take what?

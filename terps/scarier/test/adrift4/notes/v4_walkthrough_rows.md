@@ -445,6 +445,9 @@ mountain pass banks task 25 (+1; repeatable, but scores once).  `touch ball`
 castle room, so the route goes `s`, `e`, `touch ball` (Long room at seed 1),
 `s` before the old `w`, `u`.  That landing narrows the winning seeds to 1 and 4.
 All insertions follow command 35, so the lantern timing is untouched.
+Re-blessed 2026-10-15: T99 `open chest` is a silent task's line, and now
+says "Done." where run390 prints the game's DontUnderstand text (deliberate
+deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## alexis_worn_cube_solution.txt
@@ -485,6 +488,9 @@ with cube` for the bridgekeeper (task 8, +5), wolf (task 9, +2, caught on its
 3-hidden/5-in-the-Pass walk), Longmore king (task 17, +2) and eagle (task 22,
 +3).  A bare `attack` keeps the LAST weapon used, so `attack X with spade`
 switches back once the cube is worn again.  Wins at every seed 1-8.
+Re-blessed 2026-10-15: T99 `open chest` is a silent task's line, and now
+says "Done." where run390 prints the game's DontUnderstand text (deliberate
+deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## topaz_solution.txt
@@ -1580,6 +1586,9 @@ string ("I don't understand what you mean!") where we print the library's
 "You can't turn your tv."  Same rule as the Hangover filing cabinet, reached
 through a reverse command for the first time.  Everything else matches.
 See notes/WINE-TRANSCRIPTS-TODO.md.
+Re-blessed 2026-10-15: `turn off tv` is a silent task's line, and now says
+"Done." where run390 prints the game's DontUnderstand text (deliberate
+deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## matts_house_solution.txt
@@ -2796,15 +2805,20 @@ Known split kept: `open the filing cabinet` runs the silent +1 TASK8 in
 both, but run390 then prints the game's DontUnderstand text ("What you
 typed doesn't work.") and never opens the cabinet (later `open cabinet`
 = "You have already done that."), so the approval form is unreachable
-there; Scarier falls through to the library open.  Same score either
-way -- deliberate deviation (the silent-task half; the spent-task half of
-the same family was ported 2026-09-13, see journ2).
+there.  Scarier falls through to the library open no longer: it claims
+the line as run390 does (0732a1819, 2026-09-20), so the form stays
+inside, and since 2026-10-15 it says "Done." instead of the
+DontUnderstand text.
 SCR_ASSUME_ROOMS=1 ("glk roomassist on", 2026-09-21) lets both Where=0
 tasks run, and the doctor's fries score 6/7 -- but no row, because it is
 still no win: T10's text hands over "the second approval form", yet its
 actions only move the keys; that form (object 16) stays with the doctor,
 and T14 needs all three.  With SCR_ASSUME_REPEATS=1 too, a second `open
 cabinet` gets the first form out of the filing cabinet.
+Re-blessed 2026-10-15: T35 `open the filing cabinet` is a silent task's
+line, and now says "Done." where run390 prints the game's DontUnderstand
+text (deliberate deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing
+else moved.
 ```
 
 ## the_hangover_patched_solution.txt
@@ -2818,6 +2832,10 @@ at once and the platypus ending fires, 7 out of 7.  The route gains two
 lines: `x cabinet` after opening it, because a form inside a container is
 only takeable once the player has seen it listed, and the take names the
 object as "replacement approval form" rather than by its prefix.
+Re-blessed 2026-10-15: T35 `open the filing cabinet` is a silent task's
+line, and now says "Done." where run390 prints the game's DontUnderstand
+text (deliberate deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing
+else moved.
 ```
 
 ## troll_solution.txt
@@ -5332,6 +5350,9 @@ through to the library `read`, which prints it.  Same deliberate deviation as
 the Hangover filing cabinet (see notes/WINE-TRANSCRIPTS-TODO.md) -- not ported,
 and harmless here: %opinion% is 5 on both sides, so both reach ending5 and the
 win marker.
+Re-blessed 2026-10-15: T38 `read diary` is a silent task's line, and now
+says "Done." where run390 prints the game's DontUnderstand text (deliberate
+deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## textident_evil_solution.txt
@@ -5704,6 +5725,9 @@ Re-blessed 2026-09-19: the 3.9 silent-task line keeps the library's answer
 (the deliberate deviation) but is no longer a turn, as in run390.  T24 `piss` no
 longer ticks the clock/decay events; the recompare differs only at T4's
 text (`piss`, the deviation itself).
+Re-blessed 2026-10-15: `piss` is a silent task's line, and now says "Done."
+where run390 prints the game's DontUnderstand text (deliberate deviation,
+see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## renuntio_solution.txt
@@ -6178,6 +6202,9 @@ gateTask=25` names the MALE twin, so the route ends in Rage on a refused `n`,
 and the game is still unwinnable for anyone, the card game having no command
 that starts it.  The male career is worth 10 more with the same patch, since
 task 25 unstolen is a task he can walk out of Rage on; not derived here.
+Re-blessed 2026-10-15: `close valve` is a silent task's line, and now says
+"Done." where run390 prints the game's DontUnderstand text (deliberate
+deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## murder_great_falls_solution.txt
@@ -11641,6 +11668,9 @@ the three bonus points, turned into commands on the dumped map, 8 of 8.
   - The CD, the jewelry and the boots are unseen until their shelf / box
     is examined, and `take cd` before that is "Take what?" in run390 too
     (run390x, Adrift_namiki_take2.txt, 2026-09-22), hence the x lines.
+Re-blessed 2026-10-15: `open tatami mat` is a silent task's line, and now
+says "Done." where run390 prints the game's DontUnderstand text (deliberate
+deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
 ```
 
 ## akari_solution.txt

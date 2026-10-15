@@ -55,8 +55,9 @@
 #
 # Parser notes for the four lines that are not self-explanatory:
 #  * `close valve` runs task 23, which has no completion text and no actions at
-#    all, so the turn is silent and the game answers with its own
-#    DontUnderstand string, "Hmmmmm.  Try something different."  It DID run:
+#    all, so the turn is silent: run390 answers with the game's own
+#    DontUnderstand string, "Hmmmmm.  Try something different.", and Scarier
+#    with "Done." (deliberate deviation, 2026-10-15).  It DID run:
 #    `mount pipe` on the next line is task 20, gated on task 23 being done.
 #  * the first `s` in the Lair is eaten by the Creature (T4, one-shot, matches
 #    all twenty direction words and does not move you).
