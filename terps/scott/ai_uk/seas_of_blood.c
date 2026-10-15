@@ -430,11 +430,11 @@ static void draw_rect(winid_t win, int32_t x, int32_t y, int32_t width, int32_t 
 }
 
 // Renders a single die face (1-6) in a graphics window. The die body is
-// drawn as two overlapping rounded rectangles, then the pips are punched
+// drawn as two overlapping rectangles, then the pips are punched
 // out in the background colour. The number parameter is 0-based (0=1 pip).
 static void draw_graphical_dice(winid_t win, int number)
 {
-    // Die body: two overlapping rectangles form a rounded shape
+    // Die body: two overlapping rectangles
     draw_rect(win, 1, 2, 7, 5, dice_colour);
     draw_rect(win, 2, 1, 5, 7, dice_colour);
 
