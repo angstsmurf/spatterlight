@@ -46,7 +46,9 @@ When a game is deleted on the Interactive Fiction library window, Spatterlight w
 
 ## Slowdowns
 
-If you have played a game for a long time and it has printed a lot of text to the scrolling main window without ever erasing it, things may eventually become slow and unresponsive. You may be able to fix this with the File > Clear scrollback command, which will delete all the text printed so far.
+Spatterlight limits how much text is kept in each scrolling text window. When a game has printed more than this, the oldest text is trimmed away. The limit is set per theme, with the Scrollback limit setting on the Details tab of the settings window. The default is 30000 characters. Setting it to 0 means unlimited scrollback, with no trimming.
+
+If a game becomes slow and unresponsive after printing a lot of text, check that the Scrollback limit of its theme is not set to 0 or to a very large number. As a quick fix, the File > Clear Scrollback command (⌘K) will delete all the text printed so far.
 
 <p align="center">
   <img src="readme_images/clearscrollback.png" width="300">
