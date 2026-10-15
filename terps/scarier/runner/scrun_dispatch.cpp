@@ -317,6 +317,25 @@ private:
 };
 
 /*
+ * silent_read_line()
+ *
+ * Whether LINE is a `read` line.  Below 4.0 a task that ran and printed
+ * nothing claims its line, but not a read line: the Runner's "I don't
+ * understand." there would swallow the object's own read text, and
+ * Everything Emanuelle's task 14 (`read * diary *`, silent, sets the
+ * variable for the best ending) would hide the diary, the game's one
+ * clue.  The task has run; the library's read shows the text.  Deliberate
+ * deviation from the Runner, a convenience.
+ */
+static scr_bool
+silent_read_line (scr_gameref_t game, const scr_char *line)
+{
+  return line
+      && run_c_word_pre400 (run_get_version (gs_get_bundle (game)), line,
+                            "read") == 0;
+}
+
+/*
  * run_line_t::reset()
  *
  * The per-line stores generaltasks makes before it looks at the line.
@@ -937,7 +956,8 @@ run_line_t::task_peek ()
   silent_before_priority = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
-      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && !silent_read_line (game, task_string);
 }
 
 /*
@@ -1085,7 +1105,8 @@ run_line_t::task_passes ()
   silent_task_390 = !claimed_before_tasks && !status
       && run_any_task_ran_this_command ()
       && pf_buffer_length (filter) == task_mark
-      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400;
+      && run_get_version (gs_get_bundle (game)) < TAF_VERSION_400
+      && !silent_read_line (game, task_string);
 }
 
 /*

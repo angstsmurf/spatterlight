@@ -5350,9 +5350,11 @@ through to the library `read`, which prints it.  Same deliberate deviation as
 the Hangover filing cabinet (see notes/WINE-TRANSCRIPTS-TODO.md) -- not ported,
 and harmless here: %opinion% is 5 on both sides, so both reach ending5 and the
 win marker.
-Re-blessed 2026-10-15: T38 `read diary` is a silent task's line, and now
-says "Done." where run390 prints the game's DontUnderstand text (deliberate
-deviation, see notes/WINE-TRANSCRIPTS-TODO.md). Nothing else moved.
+Re-blessed 2026-10-15: T38 `read diary` is a silent task's line, and run390
+prints the game's DontUnderstand text over it.  A read line is the one silent
+task line below 4.0 that does not claim: the task runs, and the library's
+read shows the diary (deliberate deviation, silent_read_line() in
+scrun_dispatch.cpp). Nothing else moved.
 ```
 
 ## textident_evil_solution.txt
