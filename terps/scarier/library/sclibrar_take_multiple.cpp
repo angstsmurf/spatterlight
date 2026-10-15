@@ -1914,7 +1914,8 @@ enum lib_take_stage_t
  * `get off X` reaches the take rows first, and below 4.0 takes() names X
  * over the whole line, so a player standing on the stool picked it up
  * (run370x/run380x/run390x p3xSIT).  Deliberate deviation: while the
- * player is on something, leave the line to lib_cmd_get_off_object().
+ * player is on something, leave the line to lib_cmd_get_off_object(); and
+ * since 2026-10-15 on nothing too, unless lib_get_off_may_take().
  */
 static scr_bool
 lib_take_multi_get_off_line (void)
@@ -2202,9 +2203,10 @@ lib_take_multiple_common (scr_gameref_t game, scr_bool is_except)
   scr_bool parsed = FALSE;
   lib_take_stage_t stage;
 
-  /* While the player is on something, `get off X` is not a take. */
-  if (!is_except && lib_player_parent_here (game) != -1
-      && lib_take_multi_get_off_line ())
+  /* `get off X` is a get-off, not a take; see lib_get_off_may_take(). */
+  if (!is_except && lib_take_multi_get_off_line ()
+      && (lib_player_parent_here (game) != -1
+          || !lib_get_off_may_take (game)))
     return FALSE;
 
   if (!is_except)

@@ -1386,10 +1386,12 @@ lib_cmd_get_off_object (scr_gameref_t game)
    * chair.", "You've already got a stool!" (run370x/run380x p3738sit3,
    * 2026-09-19).  Deliberate deviation: they get the 3.9 behaviour, where a
    * take that happened stands and any other take answer is overwritten by
-   * sitstand's below (see lib_cmd_get_off()).
+   * sitstand's below (see lib_cmd_get_off()).  And only where the line
+   * might name an "off ..." object; see lib_get_off_may_take().
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
-      && lib_player_parent_here (game) == -1)
+      && lib_player_parent_here (game) == -1
+      && lib_get_off_may_take (game))
     {
       const scr_filterref_t filter = gs_get_filter (game);
       const scr_char *line = run_get_dispatch_input ();
@@ -1474,6 +1476,58 @@ lib_player_parent_here (scr_gameref_t game)
       && !obj_indirectly_in_room (game, parent, gs_playerroom (game)))
     return -1;
   return parent;
+}
+
+/*
+ * lib_name_starts_off()
+ * lib_get_off_may_take()
+ *
+ * Whether `get off X` may still be read as a take of X while the player is
+ * on nothing.  Every Runner reads it so, 3.7 to 4.0: the take rows see the
+ * line before any get-off (see lib_cmd_get_off_object()), so `get off
+ * stool` beside the stool picked it up.  Deliberate deviation since
+ * 2026-10-15: it is "You are not standing on anything!" instead, unless the
+ * game has a takeable object a Short or Alias of which starts with the word
+ * "off" (an "off switch"), which such a line might really name.  No game in
+ * the corpus has one: the only whole-word "off" names are insidejob's static
+ * "Log Off" and SBFT's "cut-off jeans".
+ */
+static scr_bool
+lib_name_starts_off (const scr_char *name)
+{
+  if (!name)
+    return FALSE;
+  name += strspn (name, " ");
+  return scr_strncasecmp (name, "off", 3) == 0
+         && (name[3] == ' ' || name[3] == NUL);
+}
+
+scr_bool
+lib_get_off_may_take (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_int object;
+
+  GS_FOR_EACH_OBJECT (game, object)
+    {
+      scr_vartype_t vt_key[4];
+      scr_int alias_count, alias;
+
+      if (obj_is_static (game, object))
+        continue;
+      if (lib_name_starts_off (prop_get_indexed_string (bundle, "Objects",
+                                                        object, "Short")))
+        return TRUE;
+      alias_count = lib_alias_prepare (bundle, vt_key, "Objects", object);
+      for (alias = 0; alias < alias_count; alias++)
+        {
+          vt_key[3].integer = alias;
+          if (lib_name_starts_off (prop_get_string (bundle, "S<-sisi",
+                                                    vt_key)))
+            return TRUE;
+        }
+    }
+  return FALSE;
 }
 
 scr_bool

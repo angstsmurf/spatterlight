@@ -985,10 +985,16 @@ case, and their goldens are re-blessed. The row notes in
     every version, with the 3.9 wording. The 3.7/3.8 Runners answer
     `get off` with "Take what?", and below 4.0 `get off stool` while
     standing on the stool takes it (climbing off first, run370x/run380x/
-    run390x p3xSIT). Scarier only leaves the take reading while the
-    player is on something (lib_take_multiple_common); off it, `get off
-    X` still takes X, as in the Runner. A 3.7/3.8 parent the player
-    walked away from counts as none (lib_player_parent_here()). thewill
+    run390x p3xSIT); off it, every Runner (3.7-4.0) takes X. Scarier
+    never reads the line as a take (lib_take_multiple_common): on
+    something it dismounts, and off it (2026-10-15) it answers "You are
+    not standing on anything!" at every version. The take reading is kept
+    only in a game with a takeable object whose Short or an Alias starts
+    with the word "off" (lib_get_off_may_take()); no game in the corpus
+    has one (insidejob's "Log Off" is static, SBFT's "cut-off jeans"
+    doesn't start with it), and no golden takes with `get off X`. A
+    3.7/3.8 parent the player walked away from counts as none
+    (lib_player_parent_here()). thewill
     typed `get off pedestal` on the pedestal to take it, so its route now
     adds `get pedestal`; it is the one turn where it differs from
     runner_transcripts/thewill.txt.

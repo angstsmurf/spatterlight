@@ -236,6 +236,7 @@ extern scr_bool lib_npc_referenced (scr_gameref_t game, scr_int npc,
 
 /* sclibrar_sitstand.cpp */
 extern scr_int lib_player_parent_here (scr_gameref_t game);
+extern scr_bool lib_get_off_may_take (scr_gameref_t game);
 
 /* sclibrar_talk.cpp */
 extern const scr_char * lib_ask_format_subject (scr_gameref_t game);
