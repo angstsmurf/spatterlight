@@ -80,7 +80,9 @@ lib_cmd_look (scr_gameref_t game)
  * location looks, so `examine room`, `look at room` and `x the room` show
  * the room instead of "Nothing special." (3.7-3.9) or "You see no such
  * thing." (4.0).  Below 3.9 since 2026-09-27, at every version since
- * 2026-09-30 (bec2def78).  The bare forms keep the Runner's answer.  A
+ * 2026-09-30 (bec2def78).  `look around` and `l around` look as well, at
+ * every version since 2026-10-15; the Runners answer them as above.  The
+ * bare forms keep the Runner's answer.  A
  * typed `l` or `look` that a game synonym would turn into a bare `x` stays
  * a look; see run_element_filtered().
  */
@@ -113,7 +115,9 @@ lib_cmd_look_typed (scr_gameref_t game)
           const scr_char *last = strrchr (line, ' ');
           last = last ? last + 1 : line;
           is_look = scr_strcasecmp (last, "room") == 0
-                    || scr_strcasecmp (last, "location") == 0;
+                    || scr_strcasecmp (last, "location") == 0
+                    || scr_strcasecmp (line, "look around") == 0
+                    || scr_strcasecmp (line, "l around") == 0;
           if (is_look)
             SCR_DEVIATION ("look_at_room", nullptr);
         }

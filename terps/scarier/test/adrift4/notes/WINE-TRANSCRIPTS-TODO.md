@@ -995,8 +995,13 @@ case, and their goldens are re-blessed. The row notes in
   - `examine room`, `look room`, `look at room` and `x the room` show the
     room at 3.7/3.8. run370/run380 look only for `l`, `look`, `x room`
     and `x location` and answer the rest "Nothing special." (55f577bb1,
-    p37EXAM/p38EXAM). Bare `x`, `look at` and `look around` keep the
-    Runner's "Nothing special.". See lib_cmd_look_typed().
+    p37EXAM/p38EXAM). Bare `x` and `look at` keep the Runner's "Nothing
+    special.". See lib_cmd_look_typed().
+  - `look around` and `l around` show the room at every version
+    (2026-10-15). Every Runner sends them to the examine handler:
+    "Nothing special." at 3.7-3.9, "You see no such thing." at 4.0
+    (p37EXAM..p4EXAM). A game's own `look around` task still comes first
+    (melancholy1).
   - `lay down` and `lay on X` lie at every version, as `lie` does. Only
     run400 knows `lay`; run370-run390 answer "I don't understand." and
     the catch-all (e5c0a91e5, p37SIT..p39SIT). The one pre-4.0 `lay` task
