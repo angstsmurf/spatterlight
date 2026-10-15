@@ -2424,8 +2424,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     }
 
 #ifdef GARGLK
-    garglk_set_program_name("Plus 1.0");
-    garglk_set_program_info("Plus 1.0 by Petter Sjölund");
+    garglk_set_program_name("Plus 1.1");
+    garglk_set_program_info("Plus 1.1 by Petter Sjölund");
 #endif
 
     if (argc == 2) {

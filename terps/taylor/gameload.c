@@ -345,8 +345,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     EndOfData = FileImage + FileImageLen;
 
 #ifdef GARGLK
-    garglk_set_program_name("TaylorMade 0.4");
-    garglk_set_program_info("TaylorMade 0.4 by Alan Cox\n"
+    garglk_set_program_name("TaylorMade 0.5");
+    garglk_set_program_info("TaylorMade 0.5 by Alan Cox\n"
                             "Glk port, graphics and Questprobe 3 support by Petter Sjölund\n");
     const char *s;
     if ((s = strrchr(Filename, '/')) != NULL || (s = strrchr(Filename, '\\')) != NULL) {

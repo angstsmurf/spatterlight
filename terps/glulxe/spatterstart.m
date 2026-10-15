@@ -68,8 +68,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     unsigned char buf[64];
     int res;
 
-    garglk_set_program_name("Glulxe 0.5.4.147");
-    garglk_set_program_info("Glulxe 0.5.4 by Andrew Plotkin");
+    garglk_set_program_name("Glulxe 0.6.1");
+    garglk_set_program_info("Glulxe 0.6.1 by Andrew Plotkin");
 
     char *cx = strrchr(data->argv[1], '/');
     if (!cx) cx = strrchr(data->argv[1], '\\');

@@ -824,8 +824,8 @@ int glkunix_startup_code(glkunix_startup_t *data)
     argv += consumed;
 
 #ifdef GARGLK
-    garglk_set_program_name("ScottFree 1.14");
-    garglk_set_program_info("ScottFree 1.14 by Alan Cox\n"
+    garglk_set_program_name("ScottFree 1.15");
+    garglk_set_program_info("ScottFree 1.15 by Alan Cox\n"
                             "Glk port by Chris Spiegel\n");
 #endif
 

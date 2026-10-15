@@ -24,7 +24,7 @@ static void setdefaultworkdir(char **string)
     @autoreleasepool {
 
         /* Keyed by the lower-cased FIRST WORD of the terp's program name
-         * (garglk_set_program_name), e.g. "ScottFree 1.14" -> "scottfree".
+         * (garglk_set_program_name), e.g. "ScottFree 1.15" -> "scottfree".
          * Keys must match that first word, not the format or binary name,
          * or the lookup falls through to a "(null) Files" folder. */
         NSDictionary *gFolderMap = @{@"scarier": @"SCARE",
