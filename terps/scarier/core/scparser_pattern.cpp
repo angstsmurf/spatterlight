@@ -453,7 +453,7 @@ uip_new_node (scr_pttype_t type)
  * Destroy a node, and any allocated word memory.  If the node was allocated,
  * free its memory; if not, return it to the pool.
  */
-void
+static void
 uip_destroy_node (scr_ptnoderef_t node)
 {
   /* Free any word contained at this node. */

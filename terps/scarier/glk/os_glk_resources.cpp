@@ -348,7 +348,7 @@ gsc_title_screen_wait (void)
  *
  * Refresh the size-sensitive windows, on Glk Arrange and Redraw events.
  */
-void
+static void
 gsc_refresh_windows (void)
 {
   /* An Arrange is how a library preference flip announces itself, and the

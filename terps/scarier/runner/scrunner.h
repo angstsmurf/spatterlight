@@ -284,8 +284,6 @@ extern scr_bool run_standard_commands (scr_gameref_t game,
 /* scrun_match.cpp */
 extern const std::vector<const scr_char *> &
 run_task_command_patterns (scr_gameref_t game, scr_int task, scr_bool forwards);
-extern void run_replace_all (std::string &text, const scr_char *find,
-                             const scr_char *with);
 
 /* scrun_match_run.cpp */
 extern void run_restriction_cache_task_pick (scr_gameref_t game,

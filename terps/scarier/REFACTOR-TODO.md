@@ -108,22 +108,11 @@ messages and the old logs still resolve.
   tree (confirmed by grep); `lib_put_named_pre400` (176 lines) is the
   function holding it, so the N2 split and the `goto` removal are one step.
 
-- **N5. Exported but used in one TU: `static` for four of five** (from the
-  nm pass, below).  Each is defined above its only caller, so no forward
-  declaration is needed; delete the header line too:
-  `gsc_refresh_windows` (`glk/os_glk_resources.cpp`, header line in
-  `os_glk_internal.h`), `pf_alr_key` (`core/scprintf.cpp`,
-  `scprintf_internal.h`), `uip_destroy_node`
-  (`core/scparser_pattern.cpp`, `scparser_internal.h`) and
-  `run_replace_all` (`runner/scrun_match.cpp`, `scrunner.h`).  Leave
-  `gsc_a5_media_fire` alone: `os_glk_a5_display.cpp` calls it at line 476,
-  above its definition at 710, the case B already declined.
-
 - **N4. Sanity items that came out clean** (so they need no work):
   no `#if 0`, no TODO / FIXME in code, no `using namespace` in headers,
   no `sprintf` / `strcpy` / `strcat` calls; 330 `NULL` occurrences, all in
   comments or strings; no exported function (other than group A) with
-  fewer than three non-test references (definition, declaration, use).  The nm pass was re-run: see N5.
+  fewer than three non-test references (definition, declaration, use).  The nm pass was re-run: see "Third pass".
 
 ## What the surveys found
 
@@ -323,8 +312,10 @@ pass, minus the `nm` step (no build here):
   `nm -P` gave 1901 strong global symbols; 165 of them (project names,
   not libstdc++ templates) are never undefined in any object.  Of those,
   only `glkunix_arguments` / `glkunix_startup_code` have no code caller
-  (they are the Glk host's entry points, keep), five are used in one TU
-  (N5), and the rest are `lib_*_t` / `run_*_t` stage members, which are
+  (they are the Glk host's entry points, keep), five were used in one TU
+  (four made `static` after the pass: `gsc_refresh_windows`, `pf_alr_key`,
+  `uip_destroy_node`, `run_replace_all`; `gsc_a5_media_fire` stays
+  exported, called above its definition, as B declined), and the rest are `lib_*_t` / `run_*_t` stage members, which are
   called from their own file by construction.  Open A is unchanged; the
   census also found `scr_does_game_use_sounds`, missing from the list.
   (The earlier grep-only claim below is still true.)  The Open A group is unchanged (each name has exactly one

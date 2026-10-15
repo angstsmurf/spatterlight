@@ -81,7 +81,7 @@ pf_str_pair_set (pf_str_pair_t &entry,
  * Pack the first PF_ALR_KEY_LENGTH bytes at 'text' into the key used by
  * pf.alr.index.  The caller guarantees that many bytes are readable.
  */
-scr_uint
+static scr_uint
 pf_alr_key (const scr_char *text)
 {
   const unsigned char *bytes = (const unsigned char *) text;

@@ -585,7 +585,7 @@ run_line_names_word (const std::string &line, const scr_char *name)
 
 /* Put WITH in place of every FIND in TEXT, the way VB's Replace() with a
    count of -1 does. */
-void
+static void
 run_replace_all (std::string &text, const scr_char *find,
                  const scr_char *with)
 {

@@ -304,7 +304,6 @@ uip_free_cleansed_string (scr_char *string, const scr_char *buffer);
 
 /* scparser_pattern.cpp */
 extern scr_ptnoderef_t uip_new_node (scr_pttype_t type);
-extern void uip_destroy_node (scr_ptnoderef_t node);
 extern void uip_debug_dump (scr_ptnoderef_t tree);
 
 /* scparser_match.cpp */

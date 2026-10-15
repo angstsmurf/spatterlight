@@ -256,7 +256,6 @@ extern scr_pf_state_t pf;
 /* scprintf.cpp */
 extern scr_bool pf_is_valid (scr_filterref_t filter);
 extern void pf_reset_state (scr_filterref_t filter);
-extern scr_uint pf_alr_key (const scr_char *text);
 extern void pf_alr_cache_build (scr_prop_setref_t bundle, scr_int alr_count);
 extern void pf_synonym_cache_build (scr_prop_setref_t bundle,
                                     scr_int synonym_count);
