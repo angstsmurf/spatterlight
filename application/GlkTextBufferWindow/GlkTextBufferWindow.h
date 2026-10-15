@@ -67,6 +67,12 @@ NS_ASSUME_NONNULL_BEGIN
 // otherwise at least the minimum floor). Exposed for the Preferences UI.
 + (NSUInteger)clampScrollbackLimit:(NSInteger)value;
 
+// How much text a scrollback trim keeps, and the text length above which a
+// trim happens (at least a minimum slack above the kept amount, so small
+// limits do not trim on every turn). Exposed for unit testing.
++ (NSUInteger)scrollbackKeepForLimit:(NSUInteger)limit;
++ (NSUInteger)scrollbackTrimThresholdForLimit:(NSUInteger)limit;
+
 - (void)padWithNewlines:(NSUInteger)lines;
 
 - (void)scrollWheelchanged:(NSEvent *)event fromPosition:(CGFloat)oldPosition;

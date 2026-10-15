@@ -14,7 +14,8 @@
 
 // Rolling scrollback cap. When the live text storage grows past the limit
 // (the current theme's scrollbackLimit attribute) the oldest committed text is
-// trimmed back to two thirds of the limit at a paragraph boundary, so layout,
+// trimmed back to two thirds of the limit at a paragraph boundary (with small
+// limits, only once the text is kScrollbackTrimMinimumSlack past that), so layout,
 // margin-image anchoring, and scrolling stay bounded over very long sessions.
 // The active input region is never trimmed, and trimming only happens while
 // the view is scrolled to the bottom.
@@ -22,6 +23,11 @@ static const NSUInteger kScrollbackTrimDefault = 30000;
 // Floor for the setting, so the keep math stays meaningful and paging
 // still works even if someone sets a tiny value.
 static const NSUInteger kScrollbackTrimMinimum = 2000;
+// Minimum amount of new text between two trims. A trim forces a re-layout of
+// the whole buffer, so with a small limit (where a third of the limit is about
+// one turn's output) we let the text grow past the limit rather than trim on
+// nearly every turn.
+static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 
 @implementation GlkTextBufferWindow (Scrolling)
 
@@ -89,6 +95,17 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     return (NSUInteger)value;
 }
 
+// How much text a trim keeps: two thirds of the limit.
++ (NSUInteger)scrollbackKeepForLimit:(NSUInteger)limit {
+    return limit * 2 / 3;
+}
+
+// The text length above which we trim. Normally the limit itself, but never
+// less than kScrollbackTrimMinimumSlack above what a trim keeps.
++ (NSUInteger)scrollbackTrimThresholdForLimit:(NSUInteger)limit {
+    return MAX(limit, [self scrollbackKeepForLimit:limit] + kScrollbackTrimMinimumSlack);
+}
+
 // The scrollback character limit for this window, taken from the current
 // theme's scrollbackLimit attribute (clamped). 0 means unlimited.
 - (NSUInteger)scrollbackLimit {
@@ -118,7 +135,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
         // that rebuilds a trimmed, pre-laid-out text system off the main thread
         // and swaps it in with the scroll position preserved.
         NSUInteger limit = self.scrollbackLimit;
-        if (limit != 0 && textstorage.length > limit * 2)
+        if (limit != 0 && textstorage.length > MAX(limit * 2, [GlkTextBufferWindow scrollbackTrimThresholdForLimit:limit]))
             [self scheduleBackgroundTrimToLimit:limit];
         return;
     }
@@ -126,14 +143,14 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
     NSUInteger limit = self.scrollbackLimit;
     if (limit == 0)
         return; // unlimited scrollback
-    if (textstorage.length <= limit)
+    if (textstorage.length <= [GlkTextBufferWindow scrollbackTrimThresholdForLimit:limit])
         return;
 
     // During a line request, never trim into the editable input region.
     NSUInteger safeLimit = line_request ? fence : textstorage.length;
 
     NSUInteger cut = [GlkTextBufferWindow scrollbackCutPointForString:textstorage.string
-                                                          targetKeep:(limit * 2 / 3)
+                                                          targetKeep:[GlkTextBufferWindow scrollbackKeepForLimit:limit]
                                                            safeLimit:safeLimit];
     if (cut == 0)
         return;
@@ -256,7 +273,7 @@ static const NSUInteger kScrollbackTrimMinimum = 2000;
             safeLimit = firstVisibleChar;
     }
     NSUInteger cut = [GlkTextBufferWindow scrollbackCutPointForString:textstorage.string
-                                                          targetKeep:(limit * 2 / 3)
+                                                          targetKeep:[GlkTextBufferWindow scrollbackKeepForLimit:limit]
                                                            safeLimit:safeLimit];
     if (cut == 0)
         return;

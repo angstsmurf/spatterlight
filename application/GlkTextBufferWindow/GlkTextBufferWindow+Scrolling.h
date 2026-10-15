@@ -25,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
                                 safeLimit:(NSUInteger)safeLimit;
 - (NSUInteger)scrollbackLimit;
 + (NSUInteger)clampScrollbackLimit:(NSInteger)value;
++ (NSUInteger)scrollbackKeepForLimit:(NSUInteger)limit;
++ (NSUInteger)scrollbackTrimThresholdForLimit:(NSUInteger)limit;
 
 @end
 

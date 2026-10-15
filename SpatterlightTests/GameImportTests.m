@@ -1142,6 +1142,20 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     XCTAssertEqual([GlkTextBufferWindow clampScrollbackLimit:-5], 0u);
 }
 
+// A trim keeps two thirds of the limit. With a large limit it triggers at the
+// limit itself; with a small one it waits until at least 4000 characters of
+// new text have arrived, so it does not re-layout on every turn.
+- (void)testScrollbackTrimThreshold {
+    XCTAssertEqual([GlkTextBufferWindow scrollbackKeepForLimit:30000], 20000u);
+    XCTAssertEqual([GlkTextBufferWindow scrollbackTrimThresholdForLimit:30000], 30000u);
+
+    XCTAssertEqual([GlkTextBufferWindow scrollbackKeepForLimit:2000], 1333u);
+    XCTAssertEqual([GlkTextBufferWindow scrollbackTrimThresholdForLimit:2000], 5333u);
+
+    // Crossover: a third of the limit equals the minimum slack.
+    XCTAssertEqual([GlkTextBufferWindow scrollbackTrimThresholdForLimit:12000], 12000u);
+}
+
 // The Preferences nib must instantiate with the new scrollback controls wired
 // up. A mismatched outlet name would raise NSUnknownKeyException here, and a
 // missing action would leave the controller unable to respond - this guards
