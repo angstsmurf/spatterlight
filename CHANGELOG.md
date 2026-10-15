@@ -3,23 +3,31 @@
 ## Unreleased
 
 ### Scarier (Adrift)
-Most of the work this time has been done on the Adrift 3.7 to 4 side of Scarier. By analysing the original Adrift runners and running lots of custom test games on them, the output of Scarier was painstakingly made to exactly match the original output . This is kind of important, as the games use something called [ALR](https://www.ifwiki.org/ADRIFT_Language_Resource) which is basically a list of replacement strings. *Asteroid Aftermath*, for example, replaces the parser output `Which satellite.   satellite,  satellite,  satellite,  satellite or  satellite?` with `Please refer to a satellite by its correct name or number.`
-However, a lot of this was just porting original bugs and glitches to Scarier, so once this was done, many of the changes which only made things worse were reverted. The goal was for the user experience to at least be on par with the original SCARE interpreter.
-Also to this end, 35 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, were patched on-the-fly to be winnable. The command GLK PATCHES OFF will remove those, for the original experience.
-All of the 663 tested Adrift 4 and earlier games can now be played to the end in Scarier, compared to 439 in SCARE (66 percent.)
+This time, most of the work has been done on the Adrift 4 and earlier side of Scarier. By analysing the original Adrift runners and running lots of custom tests, the output of Scarier was painstakingly made to exactly match that of the original Adrift runners. This is kind of important, as many games use something called [ALR](https://www.ifwiki.org/ADRIFT_Language_Resource), which is basically a list of replacement strings. *Asteroid Aftermath*, for example, replaces the parser output
+
+`Which satellite.   satellite,  satellite,  satellite,  satellite or  satellite?`
+
+with
+
+`Please refer to a satellite by its correct name or number.`
+
+However, getting the output this exact meant porting a lot of original bugs and glitches over to Scarier, which isn't ideal. Many of of these quirks did *not* fix any ALRs or other problems, but only made the games worse. Once the output was true to the original runners, a lot of these ported bugs were therefore reverted. Where the original runners often used incorrect grammar and punctuation, or refused to understand obvious commands, Scarier now tries to be better. The ultimate goal is to make the user experience at least on par with the original SCARE interpreter.
+
+To this end, 35 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, were patched on-the-fly, and can now be played to the end in Scarier. The command GLK PATCHES OFF will remove the patches for the original broken experience.
+
+All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 439 in SCARE (66 percent.)
 
 #### Adrift 3.7 to 4
-- A title picture is now either a title screen of its own, filling the window until you press a key or click, or, when it is small enough to sit comfortably above the text, inline at the top of the story text. It no longer squeezes the opening text into a strip below it and confusingly scrolls the text instead of closing when you press a key.
-- Games known to need one of the assist hacks (combat, movement, repeated tasks, room restrictions, capacity) get it turned on automatically, and a notice at startup names each assist and the command that turns it off. The different assists (five in total) are now consolidated under one command, GLK ASSIST: on its own the command lists all of the others, and GLK ASSIST COMBAT OFF turns one of them off.
-- Where matching the original runners would only have made the parser understand less, Scarier keeps the more helpful behaviour: UNDO, Z, LOOK X and commas between commands in 3.7 and 3.8 games, GO TO and the other verbs a runner happened not to know, and a *key* that no longer gets confused with a *key ring*. When a command matches none of the game's tasks under the runner's strict rules, it is tried again under looser ones, so a sensible phrasing reaches the author's task.
-- Text stays grammatical where the original runners printed an accident, such as a lost full stop, a doubled space or a verb that does not agree with its subject. The runner's wording is kept only where a game's own text replacements expect it.
-- A few more places where the runners' answer was plainly wrong are changed: LOOK AROUND describes the room instead of saying "Nothing special", GET OFF X when you are standing on nothing says so instead of picking X up, and a game task that runs but prints nothing is answered with "Done." rather than the game's "I don't understand" text. When such a silent task is attached to READ, the object's own text is shown, which gives back the one clue in *Everything Emanuelle*.
-- Adrift 3.7 and 3.8 games are now played by their own runners' rules rather than 3.9's: the earlier wording for taking, putting, opening and refusing, PUT IN and PUT ON as a single handler, container listings, the disambiguation prompt, the refusals for things that are not here, and the descriptions and restrictions those versions evaluate differently.
-- Random numbers are drawn from a stream compatible with the original runners, so games that turn on chance — and the games whose walkthroughs depend on it — play out as they do there.
-- More of the battle system, settled against the 3.9 and 4.0 runners: a blow strikes every character the line names, "Who do you want to attack?" and "What do you want to attack X with?" carry on into the next line, THROW is a battle verb, stamina recovery can revive a fallen character, the narration follows the game's chosen perspective, and a task that changes a character's attitude, speed, strength or defence changes it the way both runners do — a raise stops at the attribute's maximum, an attitude is stored as written, and a 3.9 speed change lands on the character its author meant. *Deaths*, *The Spirit's Flight* and *Secret of the Lost World* now fight the same fights as the original.
-- The meta-commands are the runner's own. PAST, BYE, END and ENDGAME are understood, declining the QUIT confirmation answers as the original does, and a dozen invented commands — among them STATS, HINTS, BRIEF, VERBOSE and NOTIFY — no longer quietly take a line away from the game's own tasks.
-- UNDO prints the output of the turn it restores, in the wording each runner version uses.
-- Autosave now keeps the whole session: what AGAIN would repeat, the command history, the pronouns, a pending "Which one?" question, and the verbose and score-notification settings.
+- A title picture is now either gets its own graphics window, filling the screen until you press a key or click, or if it is small enough, drawin inline above the story text. It no longer squeezes the opening text into a strip below it and confusingly scrolls the text instead of closing when you press a key.
+- Games known to need one of the assist hacks (combat, movement, repeated tasks, room restrictions or capacity assist) get it turned on automatically, and a notice at startup names each assist and the command to turn them off. The five different assists are now consolidated under one command, GLK ASSIST: for example GLK ASSIST COMBAT, which makes the combat work in games that have been converted from Adrift 3.9 to 4.0. Turn it off with GLK ASSIST COMBAT OFF.
+- More of the battle system is implemented, settled against the 3.9 and 4.0 runners: ATTACK THE ORC AND THE GOBLIN will strike both the orc and the goblin at the same time. If there are four guards, all four will be struck. "Who do you want to attack?" and "What do you want to attack X with?" carry on into the next line.
+- THROW is a battle verb, stamina recovery can revive a fallen character.
+- The narration follows the game's chosen perspective.
+- A task that changes a character's attitude, speed, strength or defence changes it the way both runners do — a raise stops at the attribute's maximum, an attitude is stored as written, and a 3.9 speed change lands on the character its author meant.
+- *Deaths*, *The Spirit's Flight* and *Secret of the Lost World* now fight the same fights as the original.
+- All the original metacommands are understood, such as PAST, BYE, END and ENDGAME, and a dozen Scarier-only commands — STATS, HINTS, BRIEF, VERBOSE and NOTIFY, for example — no longer quietly steal the game's own custom tasks.
+- UNDO prints the output of the turn it restores, in the original wording of the runners.
+- Autosave now stores the entire session: what AGAIN would repeat, the command history, pronouns, a pending "Which one?" question, the verbose and notification settings.
 - Another long round of parser and world-model work measured command by command against all four runners: which object a noun resolves to and how ties are broken, the "Which one?" prompt itself, the precedence of PUT and TAKE and their auto-supplied "from", capacity limits, what counts as having been seen, ALR and synonym rewriting, wildcard task matching, and the rule that one typed line runs at most one game task.
 - More fixes from replaying a further collection of walkthroughs against the runners: things listed as being in or on something can be referred to from then on, PUT ON fetches a known object from elsewhere as PUT IN does, an object inside another can be taken when a game's own task would have swallowed the command, a never-seen object no longer shadows a similarly named one in your hands, TALK TO gives the runner's hint about asking, and a 3.9 game counts what you carry the way its runner does, which lets *Lara Croft: The Sun Obelisk* take the belt pouch.
 - Bold, italics and underline are simply on or off, as in the runners, and an intro that forgets to close one no longer sets the first room description in it.
@@ -30,24 +38,24 @@ All of the 663 tested Adrift 4 and earlier games can now be played to the end in
 #### Adrift 5
 - Turning the music off at a game's opening question — the name prompt in *Grandpa's Ranch*, for instance — now keeps it off once play begins (Dan Fabulich).
 - Identical `<# #>` expression tags inside one block of text all show the first one's value, as the original runner's replace-all does.
-- Fixes an occasional crash when a game resumed from an autosave loaded a picture or sound.
-- Scarier now builds with Visual C++, and plays the pictures and sounds of Adrift 5 games under Windows Glk (Dan Fabulich).
-- The status line updates properly during questions and window resizing.
+- Fixes an occasional crash when a game resumed from an autosave tried to load a picture or a sound.
+- Scarier can now be built with Visual C++, and plays the pictures and sounds of Adrift 5 games under Windows Glk (Dan Fabulich).
+- The status line updates properly during dialogs and window resizing.
 - Adrift 5 games now load through Glk rather than directly from disk, so the interpreter also works in ports without a file system (such as Emglken) (Dan Fabulich).
 
 #### Both
-- Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that put meaning in a symbol font — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
-- The default map colours are now less flat, with in-between tints added to the previous two (Dan Fabulich).
-- The *glk map colour* command has been removed: the map is always drawn in the standard colours (Dan Fabulich).
-- A map too big for its pane can be moved about with the arrow buttons at its top right, and any map zoomed with the + and − buttons beside them. *glk zoom N* sets an exact size, from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter. The buttons also work while the game waits for a keypress or a pop-up answer, the map is redrawn at each such pause so that it keeps up with a cutscene, and rooms on another level than yours are drawn fainter (Dan Fabulich).
+- Text set in Wingdings, Wingdings 3 or Symbol is translated to Unicode, as Webdings already was. Games that use symbol fonts — the aliens' speech in *The Most Average Man in the World*, the row of droplets in *The Reluctant Resurrectee* — now read as the author meant them to instead of spilling raw letters.
+- The default map colours are now less flat, with in-between tints added to the previous strict monochrome (Dan Fabulich).
+- The GLK MAP COLOUR command has been removed: the map is always drawn in the standard colours (Dan Fabulich).
+- A map too big for its pane can be moved about with the arrow buttons at the top right, and any map zoomed with the + and − buttons beside them. GLK ZOOM (N) sets an exact size from 3 to 32; below 10 the rooms lose their names, to give an overview of a big map. The Up and Down badges now show an arrow rather than a letter. The buttons also work while the game waits for a keypress or a pop-up answer, the map is redrawn at each such pause so that it keeps up with a cutscene, and rooms on another level than yours are drawn fainter (Dan Fabulich).
 - Clicking just off a side or corner of your own room on the map walks one step that way, when the room has an exit there, even into a room not yet seen.
 - A walk started by clicking a room on the map begins on the prompt's own line, in the input colour. In Adrift 4 games it no longer answers "I don't understand what you mean!" first, or runs whatever was half-typed. A click on a room does nothing while a game is asking a question rather than waiting for a command.
 - Autosave also works at a "press a key" pause, so a long cutscene closed halfway comes back where you left it. The same goes for the name and gender questions at the start of an Adrift 4 game and the pop-up questions of an Adrift 5 one.
 - Sounds and pictures that a game names but never packed into its game file are now found if they are in the same folder. This brings back the sounds of Adrift 4 games like *Druggy Lane*, and the pictures and sounds of Adrift 5 games shipped as a bare .taf.
-- A status too wide for the window is now cut at its start behind a single … placed right after the room name, where it used to be right-aligned behind three dots. This cuts out less letters.
+- A status too wide for the window is now cut at its start behind a single "…" placed right after the room name, where it used to be right-aligned behind three full-width dots. This cuts out fewer letters.
 
 ### Question (Quest)
-- The Quest interpreter formerly called Geas is now called Question. Existing saves still load. An autosave from an earlier version does not: the game starts from the beginning.
+- The Quest interpreter formerly known as Geas is now called Question. Existing saves still load. An autosave from an earlier version does not: the game starts from the beginning.
 - Autosave also works while the parser asks which of several things you meant, in both Quest 4 and Quest 5 games. The game resumes at the same list, with anything you had already answered earlier in that turn kept.
 - Autosave works at every other question a game asks as well — a name or gender prompt, a menu, a yes/no question, a line of free input — and at a "press a key" pause. A game closed at one comes back at it.
 - SIDEBAR WIDE gives the side pane 35% of the window instead of 20%, for games whose object names or status lines do not fit it, and SIDEBAR NORMAL puts it back. The choice is kept in the autosave.
@@ -150,7 +158,7 @@ All of the 663 tested Adrift 4 and earlier games can now be played to the end in
 - When a game's own NOVEL.EXE or PC_GRAPH.OVR is missing, built-in copies of its brushes and fonts are used and the pictures come out the same as in the CGA renderer, where an older, less faithful renderer used to take over.
 
 ### General
-- Autosave in Bocfel, Glulxe, Scarier and Question now writes the new files completely before replacing the old ones, so a crash or failed write no longer leaves a game state paired with the previous turn's window layout.
+- Autosave now writes the new files completely before replacing the old ones, so a crash or failed write no longer leaves a game state paired with the previous turn's window layout.
 - Spatterlight now answers `glk_style_measure` for size, weight, obliqueness and proportional spacing, so an interpreter that asks about the current theme's fonts gets a real answer (Dan Fabulich).
 - Fixes a crash when loading a sound or image whose resource number is very large, which killed some Adrift games at their first prompt.
 - Builds again on Xcode 27 and with GCC 9, and releases are now built, signed and notarized by an automated workflow (Dan Fabulich).
