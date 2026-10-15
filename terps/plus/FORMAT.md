@@ -510,12 +510,12 @@ Operands are listed in the order they follow the command. Where a command combin
 | 85 | *item* | Print a space and the item's text |
 | 86 | *item* | Print the item's noun and a space |
 | 87 | | Unused |
-| 88 | | Wait one second |
+| 88 | | Wait, with an empty loop of 47,766 steps: about 0.9 s on a 4.77 MHz IBM PC, less on a faster one ([§8.8](#88-differences-between-the-original-engines)). This interpreter waits one second |
 | 89 | | Redraw the room picture, and clear the draw flag |
 | 90 | *num* | Show special picture *num*, set the draw flag, and wait for a key |
 | 91 | *counter*, *counter*, *counter* | Divide: if the first counter is not 0, the third counter gets the second modulo the first, and the second counter gets the second divided by the first |
 | 92 | | Stop the search after this action ([§9.3](#93-explicit-actions)) |
-| 93 | *counter* | Wait the counter × 250 ms (× 125 ms in *Claymorgue*) |
+| 93 | *counter* | Wait, with an empty loop of 9,001 steps for each unit of the counter: about 0.16 s per unit on a 4.77 MHz IBM PC. This interpreter waits 250 ms per unit, and 125 ms in *Claymorgue*, which waits 50 units with nothing on screen when the lamp burns out |
 | 94 | *counter*, *counter*, *counter* | Set the first counter to exit *c3* of room *c2*, where *c2* and *c3* are the values of the second and third counters |
 | 95 | *counter*, *counter*, *counter* | Set exit *c2* of room *c1* to *c3* |
 | 96 | | Unused |
@@ -606,8 +606,9 @@ The MS-DOS and 6502 programs of *Spider-Man* and *Buckaroo Banzai* are built fro
 | Conditions 15, 16, 18, 21, command 65 | Unsigned in the early 6502 builds, signed in the later ones and on the Atari ST |
 | Conditions 24, 25, 27 | Have code only on the Atari 8-bit, where 24 and 25 do not work; elsewhere they return at once. No Atari 8-bit database uses them |
 | System command 12 | Only the MS-DOS programs of *X-Men* and *Claymorgue* have it |
+| Commands 88, 93 | Every program waits with an empty loop, so the wait depends on the speed of the machine; none reads a clock. In the early MS-DOS programs, 88 counts 1,000 steps (about 0.02 s on a 4.77 MHz PC) and 93 counts the counter × 1,000 steps, a 16-bit product that overflows above 32. The early 6502 builds wait about 0.2–0.35 s for 88 and about 1.4 s per unit for 93 (0.8 s on the Atari 8-bit). The later 6502 builds wait about 0.2–0.5 s for 88 and 0.1–0.2 s per unit for 93. On the Atari ST, 88 counts 1,048,575 steps, about 3.5 s, and 93 about 0.03 s per unit |
 
-This interpreter follows the later MS-DOS programs, except that it always copies the words in command 120.
+This interpreter follows the later MS-DOS programs, except that it always copies the words in command 120, and that it times commands 88 and 93 by the clock.
 
 ---
 
@@ -1029,7 +1030,7 @@ This is how the MS-DOS and Atari ST programs of *The Fantastic Four* do it.
 - The pace comes from the game: it waits between pictures with commands 88 and 93, and for a key with command 110 6.
 - Neither program has system command 12.
 
-For example, the cannon in *The Fantastic Four*: one action draws special picture 7 (110 5) and sets counters to add the specials 8–17 to the store in a loop. Another beeps and waits for a key (110 6). Then a loop shows the stored pictures 0–9 (110 4), with a delay of 250 ms (93 5) after each. A last action clears the store, adds the specials 18–20 and shows them in the same way.
+For example, the cannon in *The Fantastic Four*: one action draws special picture 7 (110 5) and sets counters to add the specials 8–17 to the store in a loop. Another beeps and waits for a key (110 6). Then a loop shows the stored pictures 0–9 (110 4), with a short delay (93 5) after each. A last action clears the store, adds the specials 18–20 and shows them in the same way.
 
 ### 13.2 This interpreter
 

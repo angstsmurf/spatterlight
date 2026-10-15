@@ -1843,7 +1843,10 @@ static ActionResultType PerformLine(int ct)
                 break;
             case CMD_DELAY:
                 /* The delay unit is a quarter of a second, except in
-                   Claymorgue, where it is an eighth. */
+                   Claymorgue, where it is an eighth. The originals count
+                   an empty loop, about 0.16 s per unit on a 4.77 MHz PC,
+                   and Claymorgue waits 50 units in silence when the lamp
+                   burns out, which at 250 ms looks as if the game hangs. */
                 debug_print("Delay Counter %d (%d) * %d ms\n", arg1, ca1, CurrentGame == CLAYMORGUE ? 125 : 250);
                 Delay(ca1 * (CurrentGame == CLAYMORGUE ? 125 : 250));
                 break;
