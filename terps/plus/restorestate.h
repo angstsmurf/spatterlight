@@ -12,9 +12,17 @@
 
 #include "definitions.h"
 
+/* The room columns a saved state keeps: the exits and the description, as
+   the original engines save them. The picture column never changes. */
+#define NUM_SAVED_EXIT_COLUMNS (EXIT_DESCRIPTION + 1)
+
+/* One allocation, freed with free(): the per-item and per-room arrays sit
+   after the struct, sized for the game in memory. */
 typedef struct SavedState {
     int16_t Counters[NUM_COUNTERS];
-    uint16_t ObjectLocations[256];
+    uint16_t *ObjectLocations;
+    uint16_t *ItemFlags;
+    int (*RoomExits)[NUM_SAVED_EXIT_COLUMNS];
     uint64_t BitFlags;
     int ProtagonistString;
     ImgType LastImgType;
