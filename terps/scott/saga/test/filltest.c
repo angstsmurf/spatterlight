@@ -98,6 +98,11 @@ static int cmp_str(const void *a, const void *b) {
 static const char *const corpus_games[] = { "adventureland", "mission", "pirate", "strange" };
 #define NUM_CORPUS_GAMES ((int)(sizeof corpus_games / sizeof corpus_games[0]))
 
+// The Atari corpus adds SHIP.PIC, the sample picture on the S.A.G.E. (Scott Adams
+// Graphics Editor) disk, rendered by the game's own drawing routine.
+static const char *const atari_corpus_games[] = { "adventureland", "mission", "pirate", "strange", "sage" };
+#define NUM_ATARI_CORPUS_GAMES ((int)(sizeof atari_corpus_games / sizeof atari_corpus_games[0]))
+
 // The *.dat files in dir, sorted so the run order is stable and readable.
 // Returns the count (the caller frees each name and the array), or -1 after a
 // warning if dir cannot be opened.
@@ -216,20 +221,6 @@ static int run_groundtruth_corpus(const char *root) {
 
 #define ATARI8_PLANE 0xf00
 
-// Known-divergent object overlays. These three Adventureland objects contain a
-// flood fill that, drawn in isolation on a cleared screen, leaks across the whole
-// screen on the real Atari (the captured golden is fully filled), whereas the C
-// flood_fill stays contained. In real play these objects are always composited
-// over a room whose lines bound the fill, so the divergence never occurs in the
-// game. Tracked separately so the corpus run stays green; revisit if the C
-// flood-fill spill behaviour is ever made bit-faithful for unbounded regions.
-static int is_known_divergent(const char *game, const char *base) {
-	return strcmp(game, "adventureland") == 0 &&
-	       (strcmp(base, "OBJ_IMG_26") == 0 ||   // Bees in a bottle
-	        strcmp(base, "OBJ_IMG_27") == 0 ||   // Large sleeping dragon
-	        strcmp(base, "OBJ_IMG_28") == 0);    // Flint & steel
-}
-
 static int compare_one_atari(const char *dir, const char *datname) {
 	char base[64];
 	snprintf(base, sizeof base, "%.*s", (int)(strlen(datname) - 4), datname); // strip ".dat"
@@ -278,10 +269,10 @@ static int compare_one_atari(const char *dir, const char *datname) {
 }
 
 static int run_atari_groundtruth_corpus(const char *root) {
-	const char *const *games = corpus_games;
-	int total = 0, passed = 0, known = 0;
+	const char *const *games = atari_corpus_games;
+	int total = 0, passed = 0;
 
-	for (int g = 0; g < NUM_CORPUS_GAMES; g++) {
+	for (int g = 0; g < NUM_ATARI_CORPUS_GAMES; g++) {
 		char dir[1024];
 		snprintf(dir, sizeof dir, "%s/%s", root, games[g]);
 		char **names;
@@ -289,27 +280,17 @@ static int run_atari_groundtruth_corpus(const char *root) {
 		if (count < 0)
 			continue;
 
-		int gpass = 0, gknown = 0;
+		int gpass = 0;
 		for (int i = 0; i < count; i++) {
-			int ok = compare_one_atari(dir, names[i]);
-			if (ok) {
-				gpass++;
-			} else {
-				char base[64];
-				snprintf(base, sizeof base, "%.*s", (int)(strlen(names[i]) - 4), names[i]);
-				if (is_known_divergent(games[g], base)) { gknown++; fprintf(stderr, "  (known-divergent, ignored: %s)\n", base); }
-			}
+			gpass += compare_one_atari(dir, names[i]);
 			free(names[i]);
 		}
 		free(names);
-		if (gknown)
-			printf("%-14s : %3d/%3d image planes match (+%d known-divergent)\n", games[g], gpass, count, gknown);
-		else
-			printf("%-14s : %3d/%3d image planes match\n", games[g], gpass, count);
-		passed += gpass; known += gknown; total += count;
+		printf("%-14s : %3d/%3d image planes match\n", games[g], gpass, count);
+		passed += gpass; total += count;
 	}
-	printf("\nAtari ground truth: %d/%d images byte-exact (both planes), %d known-divergent ignored\n", passed, total, known);
-	return passed + known == total;
+	printf("\nAtari ground truth: %d/%d images byte-exact (both planes)\n", passed, total);
+	return passed == total;
 }
 
 int main(int argc, char **argv) {
