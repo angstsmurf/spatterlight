@@ -4,6 +4,28 @@ File: `atari_8bit_vector_draw.c` (mainly `create_patterns()`, `make_pattern()`,
 `flood_fill()`, `plot_pixel()`, `handle_draw_line()` and the `DrawSingleByteAt()`
 renderer).
 
+## Status: DONE
+
+Implemented in `atari_8bit_vector_draw.c`. Every item below is ticked. Deviations
+from the plan, and how it was checked:
+
+- `a8_pixel_rgb()` is an inline function (`RGBpalette[color_matrix[p & 3][p >> 2]]`),
+  not a `const uint32_t[16]`. C cannot initialise a const table from the other
+  const arrays, and the two lookups are cheap.
+- `pixel_offset` is the only position state besides `xpos`/`ypos`. `screen_offset`,
+  `pixel_remainder` and the byte-offset helpers are gone. `move_up/down` move it
+  by ±160.
+- The scanline patterns are `rows[2][2]` (`rows[0]` = the old `*_pattern_even`),
+  separate from the built `tile[2][2]` that patterns 5..31 reuse.
+- Lines-only mode stores `saved_pixel[2]`: a line in colour `[0]` is redrawn in `[1]`.
+- Ops are `{offset, uint16_t pixels (four nibbles), fill_bg, delay}`, recorded
+  after the write by reading the pixel buffer back.
+- Checked with `make test` / `make groundtruth` (6/6 fixtures, 315/318 Atari images
+  byte-exact, the same 3 known-divergent as before), and by hashing the whole
+  recorded op stream (offset, both plane bytes, fill flag, delay) for all 318
+  corpus images before and after: identical, so slow-draw pacing is unchanged.
+  The hash hook was temporary and is not committed.
+
 ## The problem
 
 A colour currently goes through three representations before it reaches the
@@ -74,7 +96,7 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
 
 ## Proposed design
 
-- [ ] **One 4-bit-per-pixel framebuffer.** Replace `a8_screenmem90` /
+- [x] **One 4-bit-per-pixel framebuffer.** Replace `a8_screenmem90` /
       `a8_screenmemA0` with a single `uint8_t a8_pixels[160 * 96]`. That is
       `A8_IMAGE_SIZE * 4`. The planes hold 96 rows even though
       `A8_SCREEN_HEIGHT` is 95: fills and lines can reach row 95, and the
@@ -83,13 +105,13 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       index instead would also work, but the hardware value keeps the
       edge/background comparisons and the golden test files trivial to
       derive.)
-- [ ] **One lookup table per colour index.** Build
+- [x] **One lookup table per colour index.** Build
       `static const uint8_t a8_index_to_pixel[16]` (the table above) once,
       replacing `color_pair()` / `color_array` everywhere. Build
       `static const uint32_t a8_pixel_rgb[16]` =
       `RGBpalette[color_matrix[p & 3][p >> 2]]`, so the renderer does a single
       lookup.
-- [ ] **Patterns as a 2×2 tile of pixel values.** `create_patterns()` produces
+- [x] **Patterns as a 2×2 tile of pixel values.** `create_patterns()` produces
       `uint8_t tile[2][2]` (`[row parity][x parity]`) straight from
       `pattern_defs`, rewritten as A/B selectors. `make_pattern()`,
       `pattern_color[]`, `pattern_byte[]` and the four
@@ -103,14 +125,14 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       `pattern_byte[]`), not as `flood_fill()`'s row swaps or a line colour
       left the working copy. So keep the built tile and the working row
       state separate.
-- [ ] **`plot_pixel()` becomes `a8_pixels[off] = cur_row[x & 1]`.** No
+- [x] **`plot_pixel()` becomes `a8_pixels[off] = cur_row[x & 1]`.** No
       masks, no read-modify-write of two buffers. `cur_row` is today's
       `*_pattern_even`. In a fill it is whichever tile row the swaps have
       selected, which is not necessarily `y & 1`. For a line it is the solid
       line colour.
-- [ ] **`get_pixel_color()` becomes `a8_pixels[pixel_offset]`.**
+- [x] **`get_pixel_color()` becomes `a8_pixels[pixel_offset]`.**
       `fill_edge_color` becomes `a8_index_to_pixel[color_idx]`.
-- [ ] **Drop the redundant position state where possible.** With one byte per
+- [x] **Drop the redundant position state where possible.** With one byte per
       pixel, a linear pixel index alone addresses a pixel. `screen_offset` and
       `pixel_remainder` only exist to address the packed planes, so
       `move_left/right`, `byte_offset_from_pixel_offset()` etc. can shrink
@@ -123,7 +145,7 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       next row, and an index below 0 is off-screen. Today that case is a
       wrapped `uint16_t` and is skipped, so it must not wrap into valid
       memory.
-- [ ] **Simplify, don't remove, the 4-pixel fast path in `flood_fill()`.** Its
+- [x] **Simplify, don't remove, the 4-pixel fast path in `flood_fill()`.** Its
       result on screen matches the per-pixel path: it only fires when the
       column is byte-aligned, all four pixels are background and erase mode
       is off, and rows are 160 wide, so it can never overrun the row end. But
@@ -132,25 +154,25 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       it as "if `x % 4 == 0` and the next four pixels equal the background,
       write them as one op". `last_plane90_byte` / `last_planeA0_byte` /
       `build_plane_byte()` can still go.
-- [ ] **Lines.** `handle_draw_line()` sets a single solid pixel value instead
+- [x] **Lines.** `handle_draw_line()` sets a single solid pixel value instead
       of building two nibble-duplicated plane bytes. Lines-only mode currently
       compares `saved_pattern[0..1]` with the line's plane bytes and then draws
       with `saved_pattern[2..3]`. That reduces to: *if the line's colour
       equals saved colour A, draw it in saved colour B*. Store two pixel values
       instead of four pattern bytes.
-- [ ] **Background fill** (`A8_OP_SET_BACKGROUND_OR_MODE`, arg 0) becomes
+- [x] **Background fill** (`A8_OP_SET_BACKGROUND_OR_MODE`, arg 0) becomes
       `memset(a8_pixels, tile[0][0], ...)`.
 
 ## Things that must be preserved
 
-- [ ] **The parity-swap quirk at the start of `flood_fill()`.** Whether the
+- [x] **The parity-swap quirk at the start of `flood_fill()`.** Whether the
       even/odd patterns get swapped is decided by a *signed 8-bit difference of
       the packed plane bytes*, `(int8_t)(second_90 - first_90) < 0`, with a
       fallback to the A0 bytes. That is a 6502 artefact, and the output depends
       on it. Keep a small helper that packs a tile row back into the two plane
       bytes (`a<<6|b<<4|a<<2|b`) just to evaluate this condition. Or derive the
       equivalent rule on pixel values and prove it against the test corpus.
-- [ ] **Golden tests compare the two planes byte-for-byte.** `TestAtari8ImageWithName()`
+- [x] **Golden tests compare the two planes byte-for-byte.** `TestAtari8ImageWithName()`
       / `RunAtari8bitVectorTests()` here and `test/filltest.c` (via
       `GetAtari8Screenmem90()` / `GetAtari8ScreenmemA0()`) do this. Keep those
       accessors, but have them pack the pixel buffer into two plane images on
@@ -159,11 +181,11 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       existing `.result` / `.90` / `.a0` goldens stay valid and prove the
       refactor is exact. Run `make test` / `make groundtruth` in `test/`
       before and after.
-- [ ] **Out-of-bounds behaviour.** Pixels outside the screen read as colour 0
+- [x] **Out-of-bounds behaviour.** Pixels outside the screen read as colour 0
       and count as an edge. `pixel_offset` going negative stops `scan_up()`.
       `xpos == -1` / `xpos == 160` bound the row scans. All of these need to
       survive the change of addressing.
-- [ ] **Slow-draw pacing.** `write_ops` records one op per `plot_pixel()`
+- [x] **Slow-draw pacing.** `write_ops` records one op per `plot_pixel()`
       call and one per fast-path byte. Each op carries the *whole* screen byte
       containing the pixel(s), and `ATARI8_VECTOR_BYTES_PER_TICK` is tuned to
       that stream. To keep the animation identical, emit exactly the same op

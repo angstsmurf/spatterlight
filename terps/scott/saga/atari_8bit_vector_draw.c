@@ -17,39 +17,42 @@
 
 #include "atari_8bit_vector_draw.h"
 
-#define A8_IMAGE_SIZE 0xf00
+#define A8_IMAGE_SIZE 0xf00 /* bytes per plane on the original: four pixels per byte */
 #define A8_SCREEN_COLUMNS 40
 #define A8_SCREEN_WIDTH 160
 /* Width in output pixels: every Atari pixel is drawn two wide. */
 #define A8_OUTPUT_WIDTH (A8_SCREEN_WIDTH * 2)
 #define A8_SCREEN_HEIGHT 95
+/* The planes hold 96 rows although A8_SCREEN_HEIGHT is 95: fills and lines can
+   reach row 95, and the renderer draws it. */
+#define A8_PIXEL_COUNT (A8_IMAGE_SIZE * 4)
 
 typedef struct {
     uint8_t *imagedata;
     size_t datasize;
 
-    uint16_t screen_offset; // screen memory offset in bytes. pixel_offset / 4.
-    // (there are four pixels in every screen memory byte, as a pixel uses two bits)
-    int pixel_offset; // screen memory offset in pixels. screen_offset * 4 + pixel_remainder
-    uint8_t pixel_remainder; // pixel offset within the current byte (0..3). pixel_offset % 4.
+    // Screen memory offset in pixels: ypos * 160 + xpos, a linear index into
+    // a8_pixels. Signed, as it goes negative above the top of the screen, and an
+    // x past 159 spills into the next row. Anything outside 0..A8_PIXEL_COUNT-1
+    // is off-screen.
+    int pixel_offset;
 
     uint8_t color_a_index; // color A index used for pattern lookup
     uint8_t color_b_index; // color B index used for pattern lookup
 
-    // Arrays for creating color patterns and preserving them through opcode calls
-    uint8_t pattern_color[4];
-    uint8_t pattern_byte[4];
-    uint8_t saved_pattern[4];
+    // The fill pattern as built by create_patterns(): a 2x2 tile of pixel values,
+    // indexed [row parity][x parity]. Patterns 5..31 do not rebuild it, they
+    // reuse the previous one.
+    uint8_t tile[2][2];
+    // The two scanline patterns the drawing routines write with, indexed
+    // [0] = this scanline, [1] = the next one, then [x parity]. flood_fill()
+    // swaps the rows as it descends, so [0] is not necessarily an even
+    // scanline. A line is drawn with the solid colour in [0].
+    uint8_t rows[2][2];
+    // Lines-only mode: a line drawn in saved_pixel[0] is redrawn in saved_pixel[1].
+    uint8_t saved_pixel[2];
 
     uint16_t pattern_start_pixel; // start offset in pixels for pattern fill
-
-    uint8_t plane90_pattern_even; // pattern/mask byte used for writing to even lines of plane $9000
-    uint8_t planeA0_pattern_even; // pattern/mask byte used for writing to even lines of plane  $A000
-    uint8_t plane90_pattern_odd; // pattern/mask byte used for writing to odd lines of plane $9000
-    uint8_t planeA0_pattern_odd; // pattern/mask byte used for writing to odd lines of plane $A000
-
-    uint8_t last_plane90_byte; // cached expected byte value for fast-write path on plane $9000
-    uint8_t last_planeA0_byte; // cached expected byte value for fast-write path on plane $A000
 
     uint8_t color_idx; // Current draw color
     uint8_t fill_background_color; // Any pixels of this color inside a shape will be replaced with the fill color/pattern by the flood fill routine.
@@ -68,41 +71,32 @@ typedef struct {
     uint8_t xpos; // current x coordinate
 } a8_draw_ctx;
 
-static uint8_t *a8_screenmem90 = NULL;
-static uint8_t *a8_screenmemA0 = NULL;
+/* The screen: one byte per pixel, holding the 4-bit hardware pixel value
+   A0 << 2 | 90, where A0 and 90 are the pixel's 2-bit values in the $A000
+   and $9000 planes. The original swapped the planes every frame to fake 16
+   colors, but nothing here reads one plane without the other. */
+static uint8_t *a8_pixels = NULL;
 
-// This is always accessed at even offsets,
-// reading a color pair (0..3).
-static const uint8_t color_array[32] = {
-    0x03, 0x03,
-    0x03, 0x02,
-    0x03, 0x01,
-    0x03, 0x00,
-    0x02, 0x02,
-    0x02, 0x01,
-    0x02, 0x00,
-    0x01, 0x01,
-    0x01, 0x00,
-    0x00, 0x00,
-    0x02, 0x03,
-    0x01, 0x03,
-    0x00, 0x03,
-    0x01, 0x02,
-    0x00, 0x02,
-    0x00, 0x01
+/* The pixel value of each of the 16 color indices from the image data
+   (the original's color_array, a pair of 2-bit values per index: A0, then 90). */
+static const uint8_t a8_index_to_pixel[16] = {
+    0xf, 0xe, 0xd, 0xc,
+    0xa, 0x9, 0x8, 0x5,
+    0x4, 0x0, 0xb, 0x7,
+    0x3, 0x6, 0x2, 0x1
 };
 
-/* Returns the first (half 0) or second (half 1) color of color pair index.
-   Indices come straight from the image data, so malformed data can point past
-   the 16 pairs; wrap them instead of reading past the end of the table. */
-static inline uint8_t color_pair(uint8_t index, int half) {
-    return color_array[((index & 0x0f) << 1) | half];
+/* Indices come straight from the image data, so malformed data can point past
+   the 16 colors; wrap them instead of reading past the end of the table. */
+static inline uint8_t pixel_for_color_index(uint8_t index) {
+    return a8_index_to_pixel[index & 0x0f];
 }
 
 typedef struct {
-    uint16_t offset;
-    uint8_t value90;
-    uint8_t valueA0;
+    uint16_t offset; // screen memory byte offset: pixel index / 4
+    // The four pixels of that byte, as 4-bit pixel values: the first pixel in
+    // the top nibble. All four are the fill color for a fill_bg op.
+    uint16_t pixels;
     bool fill_bg;
     // Slow-draw timer ticks to pause for an A8_OP_DELAY op (see
     // atari8_delay_ticks()). Worst case is a few thousand ticks, so a uint16_t
@@ -116,51 +110,42 @@ static VectorOpList write_ops = VECTOR_OPLIST(a8_byte_to_write);
  * change in step with it. */
 #define ATARI8_VECTOR_BYTES_PER_TICK 50
 
-
-static inline bool is_valid_screen_offset(uint16_t offset) {
-    return offset < A8_IMAGE_SIZE;
+static inline bool is_valid_pixel_offset(int offset) {
+    return offset >= 0 && offset < A8_PIXEL_COUNT;
 }
 
-static void write_to_screenmem(uint16_t offset, uint8_t value90, uint8_t valueA0, bool fill, int delay) {
-    if (!is_valid_screen_offset(offset) && delay == 0) {
-        fprintf(stderr, "write_to_screenmem: 0x%04x is an invalid screen address\n", offset);
-        return;
-    }
-
-    if (fill) {
-        memset(a8_screenmem90, value90, A8_IMAGE_SIZE);
-        memset(a8_screenmemA0, valueA0, A8_IMAGE_SIZE);
-    } else if (delay == 0) {
-        a8_screenmem90[offset] = value90;
-        a8_screenmemA0[offset] = valueA0;
-    }
-
+static void push_op(uint16_t offset, uint16_t pixels, bool fill, uint16_t delay) {
     a8_byte_to_write *op = VectorOpListPush(&write_ops);
     op->offset = offset;
-    op->value90 = value90;
-    op->valueA0 = valueA0;
+    op->pixels = pixels;
     op->fill_bg = fill;
     op->delay = delay;
+}
+
+/* Records that the screen byte containing the pixels at screen byte offset
+   `offset` has been written, with the value it now holds. */
+static void push_byte_op(uint16_t offset) {
+    const uint8_t *p = &a8_pixels[offset * 4];
+    push_op(offset, p[0] << 12 | p[1] << 8 | p[2] << 4 | p[3], false, 0);
+}
+
+static void fill_screen(uint8_t pixel) {
+    memset(a8_pixels, pixel, A8_PIXEL_COUNT);
+    push_op(0, pixel * 0x1111, true, 0);
+}
+
+static void push_delay_op(uint16_t ticks) {
+    push_op(0, 0, false, ticks);
 }
 
 static void move_left(a8_draw_ctx *ctx) {
     ctx->xpos--;
     ctx->pixel_offset--;
-    ctx->pixel_remainder--;
-    if ((int8_t)ctx->pixel_remainder < 0) {
-        ctx->pixel_remainder = 3;
-        ctx->screen_offset--;
-    }
 }
 
 static void move_right(a8_draw_ctx *ctx) {
     ctx->xpos++;
     ctx->pixel_offset++;
-    ctx->pixel_remainder++;
-    if (ctx->pixel_remainder > 3) {
-        ctx->pixel_remainder = 0;
-        ctx->screen_offset++;
-    }
 }
 
 static void move_left_or_right(bool right_and_down, a8_draw_ctx *ctx) {
@@ -173,12 +158,12 @@ static void move_left_or_right(bool right_and_down, a8_draw_ctx *ctx) {
 
 static void move_up(a8_draw_ctx *ctx) {
     ctx->ypos--;
-    ctx->screen_offset -= A8_SCREEN_COLUMNS;
+    ctx->pixel_offset -= A8_SCREEN_WIDTH;
 }
 
 static void move_down(a8_draw_ctx *ctx) {
     ctx->ypos++;
-    ctx->screen_offset += A8_SCREEN_COLUMNS;
+    ctx->pixel_offset += A8_SCREEN_WIDTH;
 }
 
 static void move_up_or_down(bool right_and_down, a8_draw_ctx *ctx) {
@@ -189,32 +174,22 @@ static void move_up_or_down(bool right_and_down, a8_draw_ctx *ctx) {
     }
 }
 
-// Determine x and y coordinates from screen memory offset in pixels.
-// (remember: there are four pixels in every screen byte, as a pixel uses two bits)
+// Determine x and y coordinates from the pixel offset.
 static void coordinates_from_pixel_offset(a8_draw_ctx *ctx) {
     ctx->ypos = ctx->pixel_offset / A8_SCREEN_WIDTH;
     ctx->xpos = ctx->pixel_offset % A8_SCREEN_WIDTH;
 }
 
-// Determine screen memory byte offset and pixel remainder from pixel offset
-static inline void byte_offset_from_pixel_offset(a8_draw_ctx *ctx) {
-    ctx->pixel_remainder = ctx->pixel_offset % 4;
-    ctx->screen_offset = ctx->pixel_offset / 4;
-}
-
-// Determine screen memory offsets from x and y coordinates
-static void offsets_from_coordinates(a8_draw_ctx *ctx) {
+// Determine the pixel offset from x and y coordinates
+static void offset_from_coordinates(a8_draw_ctx *ctx) {
     ctx->pixel_offset = ctx->ypos * A8_SCREEN_WIDTH + ctx->xpos;
-    byte_offset_from_pixel_offset(ctx);
 }
 
 static inline void plot_pixel(a8_draw_ctx *ctx) {
-    if (ctx->screen_offset >= A8_IMAGE_SIZE) return;
+    if (!is_valid_pixel_offset(ctx->pixel_offset)) return;
 
-    uint8_t pixmask[4] = {0xc0, 0x30, 0x0c, 0x03};
-    uint8_t mask = pixmask[ctx->pixel_remainder & 3];
-
-    write_to_screenmem(ctx->screen_offset, (a8_screenmem90[ctx->screen_offset] & ~mask) | (ctx->plane90_pattern_even & mask), (a8_screenmemA0[ctx->screen_offset] & ~mask) | (ctx->planeA0_pattern_even & mask), false, 0);
+    a8_pixels[ctx->pixel_offset] = ctx->rows[0][ctx->pixel_offset & 1];
+    push_byte_op(ctx->pixel_offset >> 2);
 }
 
 static void draw_line(a8_draw_ctx *ctx) {
@@ -239,7 +214,7 @@ static void draw_line(a8_draw_ctx *ctx) {
         ctx->ypos = ctx->target_y;
     }
 
-    offsets_from_coordinates(ctx);
+    offset_from_coordinates(ctx);
 
     /* For y-major, swap axes so the loop body is identical to x-major.
        "major" is the primary iteration axis, "minor" is the secondary. */
@@ -277,103 +252,68 @@ static void draw_line(a8_draw_ctx *ctx) {
 
 /*
  Pattern system overview:
- 
+
  The Scott Adams Atari 8-bit vector draw code uses two screen memory planes ($9000 and $A000).
  Each byte holds four 2-bit pixels. The orignal code alternated between these on every screen update, giving the impression of a total of 16 colors (the color mixing being a side effect of the NTSC CRT hardware limitations, in combination with the perception limitations of the player.)
- We simulate this with a lookup table of 16 colors (color_matrix), indexed by combining data from the two images (A0 bits as high pair, 90 bits as low pair).
+ We simulate this by storing each pixel as one 4-bit value, combining its two 2-bit values (A0 bits as high pair, 90 bits as low pair), and looking up the RGB color of the 16 possible values (a8_pixel_rgb()).
 
  On top of all this, additional colors are simulated by dithering.
 
- Dithering patterns are defined as four bytes (pattern_byte[0..3]):
-   - Bytes 0/1 are written to even scanlines (A0 and 90 planes respectively).
-   - Bytes 2/3 are written to odd scanlines (A0 and 90 planes respectively).
- This allows patterns to alternate row-by-row for dithering effects.
- 
- The four pattern_color values (derived from color_array via color_a_index
- and color_b_index) serve as the building blocks:
-   - pattern_color[0] and [1] come from color_a_index (a pair of 2-bit colors)
-   - pattern_color[2] and [3] come from color_b_index (a second pair)
- 
- Five pattern types (0-4) combine these colors in different ways to produce
- solid fills, horizontal stripes, checkerboards, and mixed dithers.
+ A dithering pattern is a 2x2 tile of two colors, A and B, built from the
+ color_a_index and color_b_index of the last A8_OP_SET_COLOR. The tile is indexed
+ by the parity of the scanline and of the x coordinate. Each pixel of it
+ is either color A or color B, never a mix.
+
+ Five pattern types (0-4) combine the colors in different ways.
 */
 
-/* Each row defines four pattern bytes as pairs of pattern_color indices.
-   Solid fills use identical indices; alternating fills use different ones.
-   Pattern 0: Horizontal stripes (solid color_a on even and odd scanlines)
-   Pattern 1: Checkerboard (alternating color_a/color_b, swapped on odd lines)
-   Pattern 2: Mixed solid stripes (color_a on even, color_b on odd scanlines)
-   Pattern 3: Uniform vertical stripes (alternating color_b/color_a, all lines)
-   Pattern 4: Solid-to-striped dither (solid even, alternating odd scanlines) */
-static const uint8_t pattern_defs[5][4][2] = {
-    {{0,0}, {1,1}, {0,0}, {1,1}},
-    {{0,2}, {1,3}, {2,0}, {3,1}},
-    {{0,0}, {1,1}, {2,2}, {3,3}},
-    {{2,0}, {3,1}, {2,0}, {3,1}},
-    {{0,0}, {1,1}, {2,0}, {3,1}},
+/* Which color (0 = A, 1 = B) goes where in the tile, [row parity][x parity].
+   Pattern 0: Solid color A
+   Pattern 1: Checkerboard (alternating A/B, swapped on odd lines)
+   Pattern 2: Horizontal stripes (A on even, B on odd scanlines)
+   Pattern 3: Vertical stripes (alternating B/A on all lines)
+   Pattern 4: Solid-to-striped dither (solid A on even, alternating B/A on odd scanlines) */
+static const uint8_t pattern_defs[5][2][2] = {
+    {{0, 0}, {0, 0}},
+    {{0, 1}, {1, 0}},
+    {{0, 0}, {1, 1}},
+    {{1, 0}, {1, 0}},
+    {{0, 0}, {1, 0}},
 };
-
-static void make_pattern(uint8_t pattern, a8_draw_ctx *ctx) {
-    for (int i = 0; i < 4; i++) {
-        uint8_t a = ctx->pattern_color[pattern_defs[pattern][i][0]];
-        uint8_t b = ctx->pattern_color[pattern_defs[pattern][i][1]];
-        /* Repeat two 2-bit color values in a single byte (abab)
-           representing four screen pixels. */
-        ctx->pattern_byte[i] = a << 6 | b << 4 | a << 2 | b;
-    }
-}
 
 /* Build the complete fill pattern from an opcode's parameters.
    Steps:
-   1. Look up the four base colors from color_a_index and color_b_index.
-   2. Compute the seed pixel offset from the x/y arguments.
-   3. Generate the four pattern bytes using the selected pattern type (0-4).
-   4. Copy the pattern bytes into the plane-specific drawing registers. */
+   1. Compute the seed pixel offset from the x/y arguments.
+   2. Generate the pattern tile from color A and color B using the selected
+      pattern type (0-4). Other types keep the previous tile.
+   3. Copy the tile into the two scanline patterns that the drawing routines use. */
 static void create_patterns(uint8_t pattern, uint8_t op_arg_a, uint8_t op_arg_b, a8_draw_ctx *ctx) {
-
-    /* Look up the four 2-bit base colors from color_array.
-     color_a_index selects one pair (pattern_color[0..1]),
-     color_b_index selects a second pair (pattern_color[2..3]).
-     These are the raw color values used by make_pattern(). */
-    ctx->pattern_color[0] = color_pair(ctx->color_a_index, 0);
-    ctx->pattern_color[1] = color_pair(ctx->color_a_index, 1);
-    ctx->pattern_color[2] = color_pair(ctx->color_b_index, 0);
-    ctx->pattern_color[3] = color_pair(ctx->color_b_index, 1);
 
     /* Convert the opcode's x/y arguments into a pixel offset for the flood fill
      seed point. The formula op_arg_b * 160 + op_arg_a computes the linear pixel
      position (160 pixels per scanline). */
     ctx->pattern_start_pixel = (op_arg_b << 7) + op_arg_b * 32 + op_arg_a;
 
-    if (pattern < 5)
-        make_pattern(pattern, ctx);
+    if (pattern < 5) {
+        uint8_t color[2] = { pixel_for_color_index(ctx->color_a_index),
+                             pixel_for_color_index(ctx->color_b_index) };
+        for (int row = 0; row < 2; row++)
+            for (int x = 0; x < 2; x++)
+                ctx->tile[row][x] = color[pattern_defs[pattern][row][x]];
+    }
 
-    /* Copy the four pattern bytes into the plane-specific even/odd registers
-     that the drawing routines use directly.
-     Bytes 0/1 → even scanlines (A0/90 planes), bytes 2/3 → odd scanlines. */
-    ctx->planeA0_pattern_even = ctx->pattern_byte[0];
-    ctx->plane90_pattern_even = ctx->pattern_byte[1];
-    ctx->planeA0_pattern_odd  = ctx->pattern_byte[2];
-    ctx->plane90_pattern_odd  = ctx->pattern_byte[3];
-}
-
-// Extract the 2-bit pixel in `slot` (0..3) from a screen byte; slot 0 is the
-// most significant pair, slot 3 the least.
-inline static uint8_t color_at_byte_slot(uint8_t value, uint8_t slot) {
-    return (value >> (6 - 2 * slot)) & 3;
+    memcpy(ctx->rows, ctx->tile, sizeof ctx->rows);
 }
 
 // Pixels outside screen memory read as color 0 (and count as an edge in at_edge())
 static uint8_t get_pixel_color(a8_draw_ctx *ctx) {
-    if (!is_valid_screen_offset(ctx->screen_offset))
+    if (!is_valid_pixel_offset(ctx->pixel_offset))
         return 0;
-    uint8_t color_90 = color_at_byte_slot(a8_screenmem90[ctx->screen_offset], ctx->pixel_remainder);
-    uint8_t color_a0 = color_at_byte_slot(a8_screenmemA0[ctx->screen_offset], ctx->pixel_remainder);
-    return color_a0 << 2 | color_90;
+    return a8_pixels[ctx->pixel_offset];
 }
 
 static bool at_edge(a8_draw_ctx *ctx) {
-    if (!is_valid_screen_offset(ctx->screen_offset))
+    if (!is_valid_pixel_offset(ctx->pixel_offset))
         return true;
     uint8_t color = get_pixel_color(ctx);
     if (ctx->erase_enabled)
@@ -388,7 +328,6 @@ static void scan_up(a8_draw_ctx *ctx) {
     for (;;) {
         ctx->pixel_offset -= A8_SCREEN_WIDTH;
         if (ctx->pixel_offset < 0) return;
-        byte_offset_from_pixel_offset(ctx);
         if (at_edge(ctx))
             return;
     }
@@ -409,19 +348,18 @@ static bool scan_right(a8_draw_ctx *ctx) {
     }
 }
 
-static void swap_even_and_odd_patterns(a8_draw_ctx *ctx) {
-    uint8_t temp = ctx->plane90_pattern_odd;
-    ctx->plane90_pattern_odd = ctx->plane90_pattern_even;
-    ctx->plane90_pattern_even = temp;
-
-    temp = ctx->planeA0_pattern_odd;
-    ctx->planeA0_pattern_odd = ctx->planeA0_pattern_even;
-    ctx->planeA0_pattern_even = temp;
+static void swap_scanline_patterns(a8_draw_ctx *ctx) {
+    uint8_t temp[2] = { ctx->rows[1][0], ctx->rows[1][1] };
+    memcpy(ctx->rows[1], ctx->rows[0], sizeof ctx->rows[0]);
+    memcpy(ctx->rows[0], temp, sizeof temp);
 }
 
-static uint8_t build_plane_byte(uint8_t target_val) {
-    uint8_t color_nibble = (target_val & 3) << 2 | (target_val & 3);
-    return color_nibble << 4 | color_nibble;
+/* The byte the original wrote to screen plane `plane` (0: $9000, 1: $A000) for a
+   scanline pattern: its two pixels repeated, four to a byte. */
+static uint8_t plane_byte_of_row(const uint8_t row[2], int plane) {
+    uint8_t a = (row[0] >> (plane * 2)) & 3;
+    uint8_t b = (row[1] >> (plane * 2)) & 3;
+    return a << 6 | b << 4 | a << 2 | b;
 }
 
 /* Fill the region around the seed pixel with the current dither pattern,
@@ -431,42 +369,37 @@ static uint8_t build_plane_byte(uint8_t target_val) {
 
    A pixel is "fillable" until at_edge() says otherwise: normally that means
    anything still the background colour, or in erase mode anything that is not
-   the contour (edge) colour. The screen is two bit-planes ($9000/$A000) of four
-   2-bit pixels per byte, so positions are tracked redundantly as a pixel offset,
-   a byte offset + remainder, and x/y, kept in sync by the move_* helpers. */
+   the contour (edge) colour. Positions are tracked as a pixel offset and as
+   x/y, kept in sync by the move_* helpers. */
 static void flood_fill(a8_draw_ctx *ctx) {
     ctx->pixel_offset = ctx->pattern_start_pixel;
-    byte_offset_from_pixel_offset(ctx);
     ctx->fill_background_color = get_pixel_color(ctx);
-    ctx->last_plane90_byte = build_plane_byte(ctx->fill_background_color);
-    ctx->last_planeA0_byte = build_plane_byte(ctx->fill_background_color >> 2);
 
     /* Find top of unfilled region */
     scan_up(ctx);
 
     /* Move down one line to last non-filled pixel */
     ctx->pixel_offset += A8_SCREEN_WIDTH;
-    byte_offset_from_pixel_offset(ctx);
     coordinates_from_pixel_offset(ctx);
 
-    /* Determine whether even/odd patterns need swapping based on
+    /* Determine whether the two scanline patterns need swapping based on
        the parity of the starting line. On even lines the "first" pattern
-       is even; on odd lines it is odd. We compare the first against
-       the second and swap if the signed difference is negative. */
-    uint8_t first_90, second_90, first_A0, second_A0;
-    if ((ctx->ypos & 1) == 0) {
-        first_90 = ctx->plane90_pattern_even;  second_90 = ctx->plane90_pattern_odd;
-        first_A0 = ctx->planeA0_pattern_even;  second_A0 = ctx->planeA0_pattern_odd;
-    } else {
-        first_90 = ctx->plane90_pattern_odd;   second_90 = ctx->plane90_pattern_even;
-        first_A0 = ctx->planeA0_pattern_odd;   second_A0 = ctx->planeA0_pattern_even;
-    }
+       is the even one; on odd lines it is the odd one. We compare the first
+       against the second and swap if the signed difference is negative.
+       The original compared the bytes it wrote to the screen planes, so we
+       compute them. rows[0] is the "even" pattern here and rows[1] the "odd" one,
+       whatever the parity of the starting line. */
+    const uint8_t *first = ctx->rows[ctx->ypos & 1];
+    const uint8_t *second = ctx->rows[(ctx->ypos & 1) ^ 1];
+    uint8_t first_90 = plane_byte_of_row(first, 0), second_90 = plane_byte_of_row(second, 0);
+    uint8_t first_A0 = plane_byte_of_row(first, 1), second_A0 = plane_byte_of_row(second, 1);
     bool need_swap = (first_90 == second_90)
         ? (int8_t)(second_A0 - first_A0) < 0
         : (int8_t)(second_90 - first_90) < 0;
     if (need_swap) {
-        swap_even_and_odd_patterns(ctx);
+        swap_scanline_patterns(ctx);
     }
+
 
     /* Descend one scanline at a time, filling the connected segment beneath the
        seed. This was originally a chain of mutually tail-recursive functions
@@ -490,32 +423,33 @@ static void flood_fill(a8_draw_ctx *ctx) {
         /* Fill the segment left -> right: a fast whole-byte (4-pixel) write where
            the column is aligned and still background, otherwise pixel by pixel. */
         do {
-            if (ctx->screen_offset >= A8_IMAGE_SIZE) {
+            if (!is_valid_pixel_offset(ctx->pixel_offset)) {
                 fprintf(stderr, "flood_fill: Address out of bounds!\n");
                 return;
             }
-            if (ctx->pixel_remainder != 0 || ctx->erase_enabled ||
-                a8_screenmem90[ctx->screen_offset] != ctx->last_plane90_byte ||
-                a8_screenmemA0[ctx->screen_offset] != ctx->last_planeA0_byte) {
+            uint8_t *byte = &a8_pixels[ctx->pixel_offset];
+            if ((ctx->pixel_offset & 3) != 0 || ctx->erase_enabled ||
+                byte[0] != ctx->fill_background_color || byte[1] != ctx->fill_background_color ||
+                byte[2] != ctx->fill_background_color || byte[3] != ctx->fill_background_color) {
                 if (at_edge(ctx))
                     break;
                 plot_pixel(ctx);
                 move_right(ctx);
             } else {
-                write_to_screenmem(ctx->screen_offset, ctx->plane90_pattern_even, ctx->planeA0_pattern_even, false, 0);
+                byte[0] = byte[2] = ctx->rows[0][0];
+                byte[1] = byte[3] = ctx->rows[0][1];
+                push_byte_op(ctx->pixel_offset >> 2);
                 ctx->xpos += 4;
                 ctx->pixel_offset += 4;
-                ctx->screen_offset++;
             }
         } while (ctx->xpos != A8_SCREEN_WIDTH);
 
         /* Drop to the next line at the segment's start column, alternating the
            dither patterns. Stop at the bottom of the screen, or when the line
            below is blocked from the start column rightward. */
-        swap_even_and_odd_patterns(ctx);
+        swap_scanline_patterns(ctx);
         ctx->scan_saved_xpos = ctx->xpos;
         ctx->pixel_offset = ctx->scan_saved_pixoff + A8_SCREEN_WIDTH;
-        byte_offset_from_pixel_offset(ctx);
         if (ctx->ypos == A8_SCREEN_HEIGHT)
             return;
         coordinates_from_pixel_offset(ctx);
@@ -569,34 +503,28 @@ static const RGBColor color_matrix[4][4] = {
     {GOLD12,   GOLD13,   WHITE14,  YELLOW15}
 };
 
-// Sets colour 1 to the colour of the pixel whose two-bit values in the
-// $9000 and $A000 planes are idx90 and idxA0
-static void SetA8PixelColor(int idx90, int idxA0) {
-    SetColor(1, RGBpalette[color_matrix[idx90][idxA0]]);
+// The RGB color of a 4-bit pixel value: its $9000 plane bits (the low pair)
+// select the row of color_matrix and its $A000 plane bits (the high pair) the column.
+static inline uint32_t a8_pixel_rgb(uint8_t pixel) {
+    return RGBpalette[color_matrix[pixel & 3][pixel >> 2]];
 }
 
 // Draws the four pixels of one screen memory byte
-static void DrawSingleByteAt(uint8_t byte90, uint8_t bytea0, glsi32 x, glsi32 y) {
-    uint8_t mask = 0xc0;
-
-    for (int i = 6; i >= 0; i -= 2) {
-        SetA8PixelColor((byte90 & mask) >> i, (bytea0 & mask) >> i);
+static void DrawSingleByteAt(uint16_t pixels, glsi32 x, glsi32 y) {
+    for (int shift = 12; shift >= 0; shift -= 4) {
+        SetColor(1, a8_pixel_rgb((pixels >> shift) & 0xf));
         PutDoublePixel(x, y, 1);
-        mask >>= 2;
         x += 2;
     }
-}
-
-static void DrawByteAt(glsi32 *x, glsi32 *y, int index) {
-    DrawSingleByteAt(a8_screenmem90[index], a8_screenmemA0[index], *x, *y);
-    (*x) += 8;
 }
 
 static void DrawAtari8bitImageFromScreenmem(void) {
     glsi32 x = 0;
     glsi32 y = 0;
-    for (int i = 0; i < A8_IMAGE_SIZE; i++) {
-        DrawByteAt(&x, &y, i);
+    for (int i = 0; i < A8_PIXEL_COUNT; i += 4) {
+        const uint8_t *p = &a8_pixels[i];
+        DrawSingleByteAt(p[0] << 12 | p[1] << 8 | p[2] << 4 | p[3], x, y);
+        x += 8;
         if (x >= A8_OUTPUT_WIDTH) {
             x = 0;
             y++;
@@ -650,26 +578,18 @@ static uint16_t atari8_delay_ticks(uint8_t arg0, uint8_t arg_a, uint8_t arg_b) {
     return ticks > UINT16_MAX ? UINT16_MAX : (uint16_t)ticks;
 }
 
-static void handle_draw_line(a8_draw_ctx *ctx) {
-    /* Set up two pattern bytes derived from color_array,
-     then set plane90/planeA0 pattern even bytes and draw the line. */
-    /* Build two bytes by looking up color_array[opcode_arg] and then
-     duplicating nibbles. */
-    uint8_t nibble0 = color_pair(ctx->color_idx, 0) & 3;
-    uint8_t nibble1 = color_pair(ctx->color_idx, 1) & 3;
-    uint8_t pattern_nibble_combined0 = nibble0 << 2 | nibble0;
-    uint8_t pattern_nibble_combined1 = nibble1 << 2 | nibble1;
 
-    ctx->plane90_pattern_even = pattern_nibble_combined1 << 4 | pattern_nibble_combined1;
-    ctx->planeA0_pattern_even = pattern_nibble_combined0 << 4 | pattern_nibble_combined0;
+static void handle_draw_line(a8_draw_ctx *ctx) {
+    /* Draw the line in a solid color */
+    uint8_t line_pixel = pixel_for_color_index(ctx->color_idx);
+    ctx->rows[0][0] = ctx->rows[0][1] = line_pixel;
 
     if (ctx->lines_only_mode == true) {
         /* Use saved colors in lines-only mode */
-        /* Only draw line if patterns 0 and 1 match current */
-        if (ctx->saved_pattern[0] == ctx->planeA0_pattern_even &&
-            ctx->saved_pattern[1] == ctx->plane90_pattern_even) {
-            ctx->planeA0_pattern_even = ctx->saved_pattern[2];
-            ctx->plane90_pattern_even = ctx->saved_pattern[3];
+        /* Only draw line if its color matches saved color A,
+           and then draw it in saved color B */
+        if (line_pixel == ctx->saved_pixel[0]) {
+            ctx->rows[0][0] = ctx->rows[0][1] = ctx->saved_pixel[1];
             draw_line(ctx);
         }
     } else {
@@ -689,8 +609,7 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
         case A8_OP_ERASE_FILL:
             if (ctx->lines_only_mode) return false;
             ctx->erase_enabled = true;
-            ctx->fill_edge_color = color_pair(ctx->color_idx, 0) << 2 |
-            color_pair(ctx->color_idx, 1);
+            ctx->fill_edge_color = pixel_for_color_index(ctx->color_idx);
             // fallthrough
         case A8_OP_FLOOD_FILL:
             if (ctx->lines_only_mode) return false;
@@ -703,12 +622,12 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
             if (arg_0 == 0) {
                 if (ctx->lines_only_mode) return false;
                 create_patterns(0, arg_a, arg_b, ctx);
-                write_to_screenmem(0, ctx->pattern_byte[1], ctx->pattern_byte[0], true, 0);
+                fill_screen(ctx->tile[0][0]);
                 /* The "teleport animation" in Pirate Adventure, which mostly just does a
                    number of full-screen color changes in the Atari 8-bit version,
                    needs an extra delay in order to be noticeable */
                 if (Game != NULL && CurrentGame == PIRATE_US && vector_image_shown == 90)
-                    write_to_screenmem(0, 0, 0, 0, 10);
+                    push_delay_op(10);
             } else {
                 /* If arg_0 == 1 we store the current pattern and then redraw
                  the entire image in lines-only mode on top of the current one. */
@@ -721,8 +640,8 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
                 ctx->lines_only_mode = !ctx->lines_only_mode;
                 if (ctx->lines_only_mode) {
                     create_patterns(2, arg_a, arg_b, ctx);
-                    for (int i = 0; i < 4; i++)
-                        ctx->saved_pattern[i] = ctx->pattern_byte[i];
+                    ctx->saved_pixel[0] = ctx->tile[0][0];
+                    ctx->saved_pixel[1] = ctx->tile[1][0];
                 }
                 return ctx->lines_only_mode;
             }
@@ -752,7 +671,7 @@ static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_
                 uint16_t ticks = atari8_delay_ticks(arg0, arg_a, arg_b);
                 debug_print("Delay arg0=%d arg_a=%d arg_b=%d -> %d ticks\n",
                             arg0, arg_a, arg_b, ticks);
-                write_to_screenmem(0, 0, 0, 0, ticks);
+                push_delay_op(ticks);
             }
             break;
         case A8_OP_DRAW_LINE:
@@ -769,12 +688,12 @@ static bool process_opcode(a8_draw_ctx *ctx, Opcode opcode, uint8_t arg0, uint8_
 
 static void DrawSingleAtari8ImageByte(const a8_byte_to_write *towrite) {
     if (towrite->fill_bg == true) {
-        SetA8PixelColor(towrite->value90 & 0x3, towrite->valueA0 & 0x3);
+        SetColor(1, a8_pixel_rgb(towrite->pixels & 0xf));
         RectFill(0, 0, ImageWidth, ImageHeight, 1);
     } else {
         glsi32 y = towrite->offset / A8_SCREEN_COLUMNS;
         glsi32 x = (towrite->offset % A8_SCREEN_COLUMNS) * 8;
-        DrawSingleByteAt(towrite->value90, towrite->valueA0, x, y);
+        DrawSingleByteAt(towrite->pixels, x, y);
     }
 }
 
@@ -818,17 +737,15 @@ uint8_t *DrawAtari8BitVectorImage(USImage *img) {
     ctx.imagedata = img->imagedata;
     ctx.datasize = img->datasize;
 
-    ctx.color_idx = 10; // initial color index. (2,1)
+    ctx.color_idx = 10; // initial color index. (A0 2, 90 3)
 
-    if (a8_screenmem90 == NULL)
-        a8_screenmem90 = MemCalloc(A8_IMAGE_SIZE);
-    if (a8_screenmemA0 == NULL)
-        a8_screenmemA0 = MemCalloc(A8_IMAGE_SIZE);
+    if (a8_pixels == NULL)
+        a8_pixels = MemCalloc(A8_PIXEL_COUNT);
 
     if (!VectorBeginImage(&write_ops, img, DrawAtari8bitImageFromScreenmem))
         return NULL;
     if (img->usage == IMG_ROOM)
-        write_to_screenmem(0, 0, 0, true, 0);
+        fill_screen(0);
 
     uint16_t offset = 0;
 
@@ -861,16 +778,35 @@ static int ReadAndDrawImageWithName(const char *name, const char *supportpath, U
     return 1;
 }
 
+/* The screen as the two byte planes the golden files hold. For byte i, the pixel
+   in slot s (0..3) has its $9000 bits at 6 - 2s of plane90[i] and its $A000 bits
+   at the same place in planeA0[i]. */
+static uint8_t plane90[A8_IMAGE_SIZE];
+static uint8_t planeA0[A8_IMAGE_SIZE];
+
+static void pack_planes(void) {
+    memset(plane90, 0, sizeof plane90);
+    memset(planeA0, 0, sizeof planeA0);
+    if (a8_pixels == NULL)
+        return;
+    for (int i = 0; i < A8_PIXEL_COUNT; i++) {
+        int shift = 6 - 2 * (i & 3);
+        plane90[i >> 2] |= (a8_pixels[i] & 3) << shift;
+        planeA0[i >> 2] |= (a8_pixels[i] >> 2) << shift;
+    }
+}
+
+const uint8_t *GetAtari8Screenmem90(void) { pack_planes(); return plane90; }
+const uint8_t *GetAtari8ScreenmemA0(void) { pack_planes(); return planeA0; }
+
 int TestAtari8ImageWithName(const char *name, const char *supportpath) {
     if (!ReadAndDrawImageWithName(name, supportpath, IMG_ROOM))
         return 0;
-    if (!CompareWithTestFile("atari8", name, "90.result", supportpath, a8_screenmem90, A8_IMAGE_SIZE))
+    pack_planes();
+    if (!CompareWithTestFile("atari8", name, "90.result", supportpath, plane90, A8_IMAGE_SIZE))
         return 0;
-    return CompareWithTestFile("atari8", name, "A0.result", supportpath, a8_screenmemA0, A8_IMAGE_SIZE);
+    return CompareWithTestFile("atari8", name, "A0.result", supportpath, planeA0, A8_IMAGE_SIZE);
 }
-
-const uint8_t *GetAtari8Screenmem90(void) { return a8_screenmem90; }
-const uint8_t *GetAtari8ScreenmemA0(void) { return a8_screenmemA0; }
 
 int RunAtari8bitVectorTests(const char *supportpath) {
 
@@ -890,7 +826,8 @@ int RunAtari8bitVectorTests(const char *supportpath) {
     if (!ReadAndDrawImageWithName("so_tint", supportpath, IMG_INV_AND_ROOM_OBJ))
         return 0;
 
-    if (!CompareWithTestFile("tint", "90", ".result", supportpath, a8_screenmem90, A8_IMAGE_SIZE))
+    pack_planes();
+    if (!CompareWithTestFile("tint", "90", ".result", supportpath, plane90, A8_IMAGE_SIZE))
         return 0;
-    return CompareWithTestFile("tint", "a0", ".result", supportpath, a8_screenmemA0, A8_IMAGE_SIZE);
+    return CompareWithTestFile("tint", "a0", ".result", supportpath, planeA0, A8_IMAGE_SIZE);
 }
