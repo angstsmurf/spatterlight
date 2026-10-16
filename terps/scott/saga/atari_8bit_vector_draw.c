@@ -4,6 +4,18 @@
 //
 //  Created by Administrator on 2026-01-13.
 //
+//  Renderer for the Atari 8-bit vector pictures of the Scott Adams games. The
+//  games' intro screens call the drawing code "Graphics Package for ATARI
+//  S.A.G.A. developed by SCOTT ADAMS. Art by AD-VENTURE GRAPHICS". The pictures
+//  were drawn with S.A.G.E., the Scott Adams Graphics Editor, which Adventure
+//  International later sold (manual dated October 1983). The S.A.G.E. disk
+//  includes the 6502 source of the drawing routine: GEDIT5.ASM ("MAIN GRAPHIC
+//  ROUTINE FOR SAGA": command loop, colour pairs, fill patterns) and GEDIT4.ASM
+//  (flood fill and line drawing). It is the routine the games use, except that
+//  the editor's screens are at $7000/$8000. The opcode, pattern and variable
+//  names below follow that source.
+//  Not related to Penguin's Graphics Magician on the Apple II.
+//
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -363,9 +375,9 @@ static uint8_t plane_byte_of_row(const uint8_t row[2], int plane) {
 }
 
 /* Fill the region around the seed pixel with the current dither pattern,
-   following the Graphics Magician scheme: scan straight up to the top border,
-   then sweep downward one scanline at a time, filling the connected segment
-   beneath the seed and dropping from its start column to the next line.
+   the way the original Atari S.A.G.A. graphics package does: scan straight up to the top
+   border, then sweep downward one scanline at a time, filling the connected
+   segment beneath the seed and dropping from its start column to the next line.
 
    A pixel is "fillable" until at_edge() says otherwise: normally that means
    anything still the background colour, or in erase mode anything that is not
