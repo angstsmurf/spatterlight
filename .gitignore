@@ -293,3 +293,6 @@ terps/level9/test/games/
 # Python bytecode caches (harness/probe scripts under terps/)
 __pycache__/
 *.pyc
+
+# Xcode DerivedData from xcodebuild -derivedDataPath xc
+/xc/
