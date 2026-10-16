@@ -69,7 +69,7 @@ typedef struct {
     uint8_t color_idx; // Current draw color
     uint8_t fill_background_color; // Any pixels of this color inside a shape will be replaced with the fill color/pattern by the flood fill routine.
     uint8_t fill_edge_color; // This is the color of "contours" that delimit the shapes that the flood fill routine will fill. The flood fill will never change this color.
-    bool erase_enabled; // flag: enable erase mode in flood fill, which means that anything that is not the edge color will be replaced by the fill color. Otherwise only the background color is replaced.
+    bool boundary_fill; // FFLAG in the S.A.G.E. source: fill over anything until the edge (line) color is met. Otherwise only the background color is replaced.
     bool lines_only_mode; // A special mode used to redraw the image lines on top in a second pass.
 
     uint8_t scan_saved_xpos; // saved x position used while scanning the fill
@@ -280,11 +280,13 @@ static void draw_line(a8_draw_ctx *ctx) {
 */
 
 /* Which color (0 = A, 1 = B) goes where in the tile, [row parity][x parity].
-   Pattern 0: Solid color A
-   Pattern 1: Checkerboard (alternating A/B, swapped on odd lines)
-   Pattern 2: Horizontal stripes (A on even, B on odd scanlines)
-   Pattern 3: Vertical stripes (alternating B/A on all lines)
-   Pattern 4: Solid-to-striped dither (solid A on even, alternating B/A on odd scanlines) */
+   The names are the S.A.G.E. editor's.
+   Pattern 0: SOLID (color A)
+   Pattern 1: DIAMOND (alternating A/B, swapped on odd lines; wide Atari pixels
+              make this pixel checkerboard look like diamonds)
+   Pattern 2: HORIZONTAL (A on even, B on odd scanlines)
+   Pattern 3: VERTICAL (alternating B/A on all lines)
+   Pattern 4: CHECKERBOARD (solid A on even, alternating B/A on odd scanlines) */
 static const uint8_t pattern_defs[5][2][2] = {
     {{0, 0}, {0, 0}},
     {{0, 1}, {1, 0}},
@@ -328,7 +330,7 @@ static bool at_edge(a8_draw_ctx *ctx) {
     if (!is_valid_pixel_offset(ctx->pixel_offset))
         return true;
     uint8_t color = get_pixel_color(ctx);
-    if (ctx->erase_enabled)
+    if (ctx->boundary_fill)
         return color == ctx->fill_edge_color;
     return color != ctx->fill_background_color;
 }
@@ -380,7 +382,7 @@ static uint8_t plane_byte_of_row(const uint8_t row[2], int plane) {
    segment beneath the seed and dropping from its start column to the next line.
 
    A pixel is "fillable" until at_edge() says otherwise: normally that means
-   anything still the background colour, or in erase mode anything that is not
+   anything still the background colour, or in a boundary fill anything that is not
    the contour (edge) colour. Positions are tracked as a pixel offset and as
    x/y, kept in sync by the move_* helpers. */
 static void flood_fill(a8_draw_ctx *ctx) {
@@ -440,7 +442,7 @@ static void flood_fill(a8_draw_ctx *ctx) {
                 return;
             }
             uint8_t *byte = &a8_pixels[ctx->pixel_offset];
-            if ((ctx->pixel_offset & 3) != 0 || ctx->erase_enabled ||
+            if ((ctx->pixel_offset & 3) != 0 || ctx->boundary_fill ||
                 byte[0] != ctx->fill_background_color || byte[1] != ctx->fill_background_color ||
                 byte[2] != ctx->fill_background_color || byte[3] != ctx->fill_background_color) {
                 if (at_edge(ctx))
@@ -546,13 +548,13 @@ static void DrawAtari8bitImageFromScreenmem(void) {
 
 typedef enum  {
     A8_OP_END = 0,
-    A8_OP_SET_BACKGROUND_OR_MODE = 1,
-    A8_OP_DELAY = 2,
+    A8_OP_SET_BACKGROUND_OR_MODE = 1, // S.A.G.E.: 0 = quick clear, 1 = swap line color
+    A8_OP_DELAY = 2,                  // S.A.G.E.: wait
     A8_OP_SET_COLOR = 3,
-    A8_OP_MOVE_TO = 4,
+    A8_OP_MOVE_TO = 4,                // S.A.G.E.: new line
     A8_OP_DRAW_LINE = 5,
-    A8_OP_ERASE_FILL = 6,
-    A8_OP_FLOOD_FILL = 7,
+    A8_OP_BOUNDARY_FILL = 6,          // S.A.G.E.: fill until line color met ("U" key)
+    A8_OP_FILL = 7,                   // S.A.G.E.: regular fill ("F" key)
 } Opcode;
 
 /* A8_OP_DELAY (2) faithful timing.
@@ -615,15 +617,15 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
                                           Opcode opcode,
                                           uint8_t arg_0,
                                           uint8_t arg_a, uint8_t arg_b) {
-    ctx->erase_enabled = false;
+    ctx->boundary_fill = false;
 
     switch (opcode) {
-        case A8_OP_ERASE_FILL:
+        case A8_OP_BOUNDARY_FILL:
             if (ctx->lines_only_mode) return false;
-            ctx->erase_enabled = true;
+            ctx->boundary_fill = true;
             ctx->fill_edge_color = pixel_for_color_index(ctx->color_idx);
             // fallthrough
-        case A8_OP_FLOOD_FILL:
+        case A8_OP_FILL:
             if (ctx->lines_only_mode) return false;
             create_patterns(arg_0, arg_a, arg_b, ctx);
             flood_fill(ctx);
@@ -644,7 +646,7 @@ static bool handle_fill_or_set_background(a8_draw_ctx *ctx,
                 /* If arg_0 == 1 we store the current pattern and then redraw
                  the entire image in lines-only mode on top of the current one. */
                 /* (This is a common trick for drawing room objects such as the dragon
-                 on top of background images: draw a colored contour, fill it in erase
+                 on top of background images: draw a colored contour, fill it in boundary
                  mode, then draw a black contour on top in lines-only mode.) */
 
                 /* If lines-only mode is aready on,
