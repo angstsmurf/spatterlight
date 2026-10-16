@@ -3798,6 +3798,9 @@
 		C3CA11ECC0DE000000000002 /* gm_vector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gm_vector.h; sourceTree = "<group>"; };
 		C3CA11ECC0DE000000000005 /* gm_artifact.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = gm_artifact.c; sourceTree = "<group>"; };
 		C3CA11ECC0DE000000000006 /* gm_artifact.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gm_artifact.h; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000010 /* gm_hires.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gm_hires.h; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000011 /* sagadraw_host.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sagadraw_host.h; sourceTree = "<group>"; };
+		C3CA11ECC0DE000000000012 /* atari8_palette.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = atari8_palette.h; sourceTree = "<group>"; };
 		C3CB504A2662606600A95BE2 /* CoverImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageHandler.h; sourceTree = "<group>"; };
 		C3CB504B2662606600A95BE2 /* CoverImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageHandler.m; sourceTree = "<group>"; };
 		C3CB504D26627B1A00A95BE2 /* Spatterlight 9.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 9.xcdatamodel"; sourceTree = "<group>"; };
@@ -6796,12 +6799,15 @@
 			children = (
 				C36797CE2EF0415B008A6A0D /* apple2draw.h */,
 				C36797CF2EF0415B008A6A0D /* apple2draw.c */,
+				C3CA11ECC0DE000000000010 /* gm_hires.h */,
 				C3CA11ECC0DE000000000002 /* gm_vector.h */,
 				C3CA11ECC0DE000000000001 /* gm_vector.c */,
 				C3CA11ECC0DE000000000006 /* gm_artifact.h */,
 				C3CA11ECC0DE000000000005 /* gm_artifact.c */,
 				C36797D02EF0415B008A6A0D /* c64a8draw.h */,
 				C36797D12EF0415B008A6A0D /* c64a8draw.c */,
+				C3CA11ECC0DE000000000012 /* atari8_palette.h */,
+				C3CA11ECC0DE000000000011 /* sagadraw_host.h */,
 				C3F27EF02EF6037B00B7D716 /* pcdraw.h */,
 				C36797D32EF0415B008A6A0D /* pcdraw.c */,
 			);

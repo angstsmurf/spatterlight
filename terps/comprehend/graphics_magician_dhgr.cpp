@@ -28,6 +28,7 @@
 #include "graphics_magician_dhgr.h"
 #include "graphics_magician.h"
 #include "gm_artifact.h"
+#include "gm_hires.h"
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstring>
@@ -36,7 +37,7 @@ namespace Glk {
 namespace Comprehend {
 
 // ---- framebuffer --------------------------------------------------------------
-#define A2_PAGE_SIZE   0x2000
+#define A2_PAGE_SIZE   GM_HIRES_PAGE_SIZE
 #define DHGR_HEIGHT    192
 #define DHGR_PIC_ROWS  160   // picture region (text rows 0xa0..0xbf excluded)
 #define DHGR_COLS      80    // 560 px / 7
@@ -44,7 +45,7 @@ namespace Comprehend {
 static uint8_t s_main[A2_PAGE_SIZE];
 static uint8_t s_aux[A2_PAGE_SIZE];
 
-#define CALC(y) ((((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10))
+#define CALC(y) gm_row_address(y)
 
 // ---- Slow ("animated") draw ---------------------------------------------------
 //

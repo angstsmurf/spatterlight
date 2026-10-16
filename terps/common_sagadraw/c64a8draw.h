@@ -18,6 +18,9 @@
 typedef int(*adjustments_fn)(int, int, int *);
 
 int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, int is_c64);
-int DrawPatternAndAdvancePos(int x, int *y,  uint8_t pattern);
+// Draws one bitmap byte as four double-width pixels at (x, *y), two bits
+// per pixel with the high pair leftmost, then moves *y down one row.
+// Returns x unchanged, so a column of bytes keeps the same left edge.
+int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern);
 
 #endif /* c64a8draw_h */

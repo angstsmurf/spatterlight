@@ -47,6 +47,7 @@
 #include "detect_game.h"
 #include "restore_state.h"
 #include "sagagraphics.h"
+#include "sagadraw_host.h"
 #include "vector_common.h"
 #include "rtpi_graphics.h"
 

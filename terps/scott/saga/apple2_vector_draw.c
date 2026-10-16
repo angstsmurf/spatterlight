@@ -156,7 +156,7 @@ static VectorOpList write_ops = VECTOR_OPLIST(byte_to_write);
 // set_color / set_draw_position now live in common_sagadraw/gm_vector.c.
 
 static inline bool is_valid_screen_offset(uint16_t offset) {
-    return offset <= MAX_SCREEN_ADDR;
+    return offset <= GM_MAX_SCREEN_ADDR;
 }
 
 // MARK: SLOW DRAW

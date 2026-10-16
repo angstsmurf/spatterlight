@@ -6,9 +6,9 @@
 //  and the Comprehend renderer (comprehend/graphics_magician.cpp).
 //
 //  These two engines were reverse-engineered from different 6502 interpreters
-//  but the cursor/line-drawing primitives are byte-for-byte identical in both,
-//  so they live here once. (The flood fill is NOT shared: the two products use
-//  genuinely different fill routines — see the cross-wire experiment notes.)
+//  but the cursor, line and brush primitives are the same in both, so they
+//  live here once. (The flood fill is NOT shared: the two products use
+//  genuinely different fill routines.)
 //
 //  The caller owns the hi-res page and supplies a write hook, so each engine
 //  keeps its own slow-draw / dirty-row bookkeeping.
@@ -20,14 +20,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+#include "gm_hires.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-// Offset into the hi-res page of the first byte of scanline y
-static inline int gm_row_address(int y) {
-    return (((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10);
-}
 
 // Cursor + colour state for the Graphics Magician line primitives. The field
 // names match the 6502 zero-page locations the disassembly uses.
@@ -35,9 +32,9 @@ typedef struct gm_vector_ctx {
     uint16_t HBAS;       // hi-res base address of row HGR_Y
     uint16_t HGR_X;      // current pen X (0..279)
     uint8_t  HGR_Y;      // current pen Y (0..191)
-    uint8_t  HMASK;      // bit mask within the current column
+    uint8_t  HMASK;      // bit mask within the current column byte
     uint8_t  HGR_BITS;   // colour byte, phase-adjusted for the column
-    uint8_t  HGR_HORIZ;  // current column (0..39)
+    uint8_t  HGR_HORIZ;  // current column, i.e. byte within the row (0..39)
     uint8_t  HGR_COLOR;  // current pen colour (hi-res byte)
 
     uint8_t *screenmem;  // hi-res page (>= 0x2000 bytes), owned by the caller
@@ -55,7 +52,8 @@ typedef struct gm_vector_ctx {
 // blitter and the Comprehend text-glyph blitter.
 void gm_spread7(uint8_t src, uint8_t offset, uint8_t *mask_a, uint8_t *mask_b);
 
-// Set the current pen colour from a 0..7 colour index.
+// Set the current pen colour from a 0..7 colour index. Other values leave the
+// colour unchanged.
 void gm_set_color(uint8_t color_index, gm_vector_ctx *c);
 
 // Move the pen to (x, y), recomputing HBAS / HMASK / HGR_BITS for that position.

@@ -168,7 +168,7 @@ static int DrawDOSImage(USImage *image) {
     debug_print("DrawDOSImage: usage:%d index:%d\n", image->usage, image->index);
 
     StartPixelRuns();
-    int result = DrawDOSImageFromData(image->imagedata);
+    int result = DrawDOSImageFromData(image->imagedata, image->datasize);
     FlushPixelRuns();
     return result;
 }

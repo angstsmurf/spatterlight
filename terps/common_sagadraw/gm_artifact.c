@@ -3,15 +3,14 @@
 //
 //  Shared Apple II hi-res -> colour kernel. See gm_artifact.h.
 //
-//  Verbatim extraction of the artifact-colour code that was duplicated between
-//  common_sagadraw/apple2draw.c and comprehend/graphics_magician.cpp. The two
-//  copies were byte-for-byte identical; this is a pure move, not a rewrite.
-//  (Borrowed originally from the MAME Apple II driver.)
+//  The artifact-colour algorithm is borrowed from the MAME Apple II driver.
 //
 
 #include "gm_artifact.h"
 
-// 4-bit left rotate. Bits 4-6 of n must be a copy of bits 0-2.
+// Rotate the 4-bit colour in the low nibble of n left by count (mod 4). Done
+// as a right shift by (4 - count) mod 4, which needs bits 4-6 of n to be a
+// copy of bits 0-2; every artifact_color_lut entry repeats its nibble.
 static unsigned rotl4b(unsigned n, unsigned count) { return (n >> (-count & 3)) & 0x0f; }
 
 static const uint8_t artifact_color_lut[128] =
@@ -33,7 +32,7 @@ const uint32_t gm_apple2_palette[16] =
     0x401cf7, /* Dark Blue */
     0xe628ff, /* Purple */
     0x007440, /* Dark Green */
-    0x808080, /* Dark Gray */
+    0x808080, /* Dark Gray (the same as Light Grey; both greys are authentic) */
     0x1990ff, /* Medium Blue */
     0xbf9cff, /* Light Blue */
     0x406300, /* Brown */
@@ -46,17 +45,33 @@ const uint32_t gm_apple2_palette[16] =
     0xffffff  /* White */
 };
 
+// Bits of the previous 14-pixel group kept below the current one in the
+// render window
 #define CONTEXTBITS 3
+#define PIXELS_PER_WORD 14
+
+// Each 7-bit value with every bit doubled: bit k becomes bits 2k and 2k+1
+static const uint16_t double7bits[128] = {
+    0x0000, 0x0003, 0x000c, 0x000f, 0x0030, 0x0033, 0x003c, 0x003f,
+    0x00c0, 0x00c3, 0x00cc, 0x00cf, 0x00f0, 0x00f3, 0x00fc, 0x00ff,
+    0x0300, 0x0303, 0x030c, 0x030f, 0x0330, 0x0333, 0x033c, 0x033f,
+    0x03c0, 0x03c3, 0x03cc, 0x03cf, 0x03f0, 0x03f3, 0x03fc, 0x03ff,
+    0x0c00, 0x0c03, 0x0c0c, 0x0c0f, 0x0c30, 0x0c33, 0x0c3c, 0x0c3f,
+    0x0cc0, 0x0cc3, 0x0ccc, 0x0ccf, 0x0cf0, 0x0cf3, 0x0cfc, 0x0cff,
+    0x0f00, 0x0f03, 0x0f0c, 0x0f0f, 0x0f30, 0x0f33, 0x0f3c, 0x0f3f,
+    0x0fc0, 0x0fc3, 0x0fcc, 0x0fcf, 0x0ff0, 0x0ff3, 0x0ffc, 0x0fff,
+    0x3000, 0x3003, 0x300c, 0x300f, 0x3030, 0x3033, 0x303c, 0x303f,
+    0x30c0, 0x30c3, 0x30cc, 0x30cf, 0x30f0, 0x30f3, 0x30fc, 0x30ff,
+    0x3300, 0x3303, 0x330c, 0x330f, 0x3330, 0x3333, 0x333c, 0x333f,
+    0x33c0, 0x33c3, 0x33cc, 0x33cf, 0x33f0, 0x33f3, 0x33fc, 0x33ff,
+    0x3c00, 0x3c03, 0x3c0c, 0x3c0f, 0x3c30, 0x3c33, 0x3c3c, 0x3c3f,
+    0x3cc0, 0x3cc3, 0x3ccc, 0x3ccf, 0x3cf0, 0x3cf3, 0x3cfc, 0x3cff,
+    0x3f00, 0x3f03, 0x3f0c, 0x3f0f, 0x3f30, 0x3f33, 0x3f3c, 0x3f3f,
+    0x3fc0, 0x3fc3, 0x3fcc, 0x3fcf, 0x3ff0, 0x3ff3, 0x3ffc, 0x3fff,
+};
 
 uint16_t gm_double7bits(uint8_t value) {
-    static uint16_t table[128];
-    static int init = 0;
-    if (!init) {
-        for (unsigned k = 1; k < 128; k++)
-            table[k] = table[k >> 1] * 4 + (k & 1) * 3;
-        init = 1;
-    }
-    return (value > 127) ? 0 : table[value];
+    return (value > 127) ? 0 : double7bits[value];
 }
 
 void gm_compute_row_words(const uint8_t *vram_row, uint16_t *words) {
@@ -78,10 +93,10 @@ static void render_line_colors_phase(const uint16_t *in, uint8_t *colors560, int
     w += in[0] << CONTEXTBITS;
     for (int col = 0; col < 40; col++) {
         if (col < 39)
-            w += in[col + 1] << (14 + CONTEXTBITS);
-        for (int b = 0; b < 14; b++) {
+            w += in[col + 1] << (PIXELS_PER_WORD + CONTEXTBITS);
+        for (int b = 0; b < PIXELS_PER_WORD; b++) {
             // colour is an index 0 (black)..15 (white) into gm_apple2_palette.
-            colors560[col * 14 + b] = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * 14 + b + phase);
+            colors560[col * PIXELS_PER_WORD + b] = (uint8_t)rotl4b(artifact_color_lut[w & 0x7f], col * PIXELS_PER_WORD + b + phase);
             w >>= 1;
         }
     }

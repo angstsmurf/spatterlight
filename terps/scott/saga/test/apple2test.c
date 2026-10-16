@@ -62,7 +62,7 @@ int main(int argc, char **argv) {
     // leaves blank (see groundtruth/README.md), so they are excluded.
     int diff = 0, total = 0, first = -1;
     for (int y = 0; y < 160; y++) {
-        unsigned base = (((y / 8) & 0x07) << 7) + (((y / 8) & 0x18) * 5) + ((y & 7) << 10);
+        unsigned base = gm_row_address(y);
         for (int x = 0; x < 40; x++) {
             unsigned i = base + x;
             total++;

@@ -3,21 +3,13 @@
 //
 //  Shared Apple II Graphics Magician vector primitives. See gm_vector.h.
 //
-//  This is a verbatim extraction of the cursor/line code that was duplicated,
-//  byte-for-byte, in scott/saga/apple2_vector_draw.c and
-//  comprehend/graphics_magician.cpp. Both renderers are validated pixel-exact
-//  against hardware captures, so this code must not change behaviour. It
-//  started as a pure move; gm_draw_line() has since been rewritten with a
-//  signed error term, checked write-for-write against the 6502-style original
-//  over every target from 100 start points plus random lines.
+//  Both renderers that use this code are validated pixel-exact against
+//  hardware captures, so it must not change behaviour: the cursor, line and
+//  brush code reproduce the 6502 routines write for write, including their
+//  byte-sized wraps at the screen edges.
 //
 
 #include "gm_vector.h"
-
-// Kept local to this translation unit so the two engines can keep their own
-// copies of the same macros without a redefinition clash.
-#define COL_BITS           7
-#define GM_MAX_SCREEN_ADDR 0x1fff
 
 #define BRUSH_PART_SIZE        8
 #define BRUSH_TOTAL_PARTS      4
@@ -35,6 +27,14 @@ void gm_spread7(uint8_t src, uint8_t offset, uint8_t *mask_a, uint8_t *mask_b) {
     *mask_b = carry;        /* bits carried into column col+1 */
 }
 
+// A coloured pattern (bits 5 and 6 differ) alternates between two bytes on
+// even and odd columns, so stepping into the neighbouring column inverts its
+// pixel bits. Black and white patterns are the same in every column.
+static void flip_color_phase(gm_vector_ctx *c) {
+    if ((c->HGR_BITS * 2 + 0x40) & 0x80)
+        c->HGR_BITS ^= 0x7f;
+}
+
 void gm_set_color(uint8_t color_index, gm_vector_ctx *c) {
     static const uint8_t COLORTBL[8] = {0x00, 0x2a, 0x55, 0x7f, 0x80, 0xaa, 0xd5, 0xff};
     if (color_index < 8)
@@ -45,13 +45,12 @@ void gm_set_draw_position(uint16_t xpos, uint8_t ypos, gm_vector_ctx *c) {
     c->HGR_X = xpos;
     c->HGR_Y = ypos;
     c->HBAS = gm_row_address(ypos);
-    c->HGR_HORIZ = xpos / COL_BITS;
-    static const uint8_t masktable[COL_BITS] = {0x81, 0x82, 0x84, 0x88, 0x90, 0xa0, 0xc0};
-    c->HMASK = masktable[xpos % COL_BITS];
+    c->HGR_HORIZ = xpos / GM_PIXELS_PER_BYTE;
+    static const uint8_t masktable[GM_PIXELS_PER_BYTE] = {0x81, 0x82, 0x84, 0x88, 0x90, 0xa0, 0xc0};
+    c->HMASK = masktable[xpos % GM_PIXELS_PER_BYTE];
     c->HGR_BITS = c->HGR_COLOR;
-    // If odd column, rotate bits
-    if ((c->HGR_HORIZ & 1) == 1 && ((c->HGR_COLOR * 2 + 0x40) & 0x80))
-        c->HGR_BITS = c->HGR_COLOR ^ 0x7f;
+    if ((c->HGR_HORIZ & 1) == 1)
+        flip_color_phase(c);
 }
 
 static void move_left(gm_vector_ctx *c) {
@@ -64,12 +63,10 @@ static void move_left(gm_vector_ctx *c) {
     c->HGR_HORIZ--;
     if ((int8_t)c->HGR_HORIZ < 0) {
         /* off the left edge, wrap around to the right edge */
-        c->HGR_HORIZ = 39;
+        c->HGR_HORIZ = GM_HIRES_COLS - 1;
     }
     c->HMASK = 0xc0;
-    if ((c->HGR_BITS * 2 + 0x40) & 0x80) {
-        c->HGR_BITS ^= 0x7f;
-    }
+    flip_color_phase(c);
 }
 
 static void move_right(gm_vector_ctx *c) {
@@ -80,23 +77,21 @@ static void move_right(gm_vector_ctx *c) {
     }
     c->HMASK = 0x81;
     c->HGR_HORIZ++;
-    if (c->HGR_HORIZ >= 40) {
+    if (c->HGR_HORIZ >= GM_HIRES_COLS) {
         /* off the right edge, wrap around to the left edge */
         c->HGR_HORIZ = 0;
     }
-    if ((c->HGR_BITS * 2 + 0x40) & 0x80) {
-        c->HGR_BITS ^= 0x7f;
-    }
+    flip_color_phase(c);
 }
 
 static void move_up_or_down(bool down, gm_vector_ctx *c) {
     if (down) {
         c->HGR_Y++;
-        if (c->HGR_Y > 191) c->HGR_Y = 0;
+        if (c->HGR_Y >= GM_HIRES_ROWS) c->HGR_Y = 0;
     } else {
         c->HGR_Y--;
         /* Note: `(int8_t)HGR_Y < 0` would wrongly fire for valid rows 128..191. */
-        if (c->HGR_Y > 191) c->HGR_Y = 191;
+        if (c->HGR_Y >= GM_HIRES_ROWS) c->HGR_Y = GM_HIRES_ROWS - 1;
     }
     c->HBAS = gm_row_address(c->HGR_Y);
 }
@@ -186,12 +181,12 @@ static void brush_quadrant(gm_vector_ctx *c, const uint8_t *bitmap,
 // The current X,Y position determines the top-left corner, not the center.
 void gm_draw_brush(uint16_t x, uint8_t y, uint8_t brush,
                    uint8_t pat_even, uint8_t pat_odd, gm_vector_ctx *c) {
-    /* The offset is a byte, so brush 8 and up wrap onto brushes 0..7 (see
-       TODO.md: "gm_draw_brush index overflow"). */
+    /* The offset is a byte, so brush 8 and up wrap onto brushes 0..7,
+       as on the 6502. */
     const uint8_t *bitmap =
         c->brush_bitmaps + (uint8_t)(brush * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS);
-    const uint8_t column = (uint8_t)(x / COL_BITS);
-    const uint8_t shift = x % COL_BITS;
+    const uint8_t column = (uint8_t)(x / GM_PIXELS_PER_BYTE);
+    const uint8_t shift = x % GM_PIXELS_PER_BYTE;
 
     for (int part = 0; part < BRUSH_TOTAL_PARTS; part++)
         brush_quadrant(c, bitmap + part * BRUSH_PART_SIZE,

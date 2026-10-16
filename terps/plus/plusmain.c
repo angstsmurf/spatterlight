@@ -20,6 +20,7 @@
 #include "animations.h"
 #include "apple2detect.h"
 #include "apple2draw.h"
+#include "sagadraw_host.h"
 #include "atari8detect.h"
 #include "c64detect.h"
 #include "common.h"

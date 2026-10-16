@@ -11,23 +11,23 @@
 
 #include "glk.h"
 #include "debugprint.h"
-#include "read_le16.h"
 #include "minmax.h"
 #include "memory_allocation.h"
 
 #include "apple2draw.h"
 #include "gm_artifact.h"
-
-extern winid_t Graphics;
-
-extern int pixel_size;
-extern int x_offset;
-extern int y_offset;
+#include "gm_hires.h"
+#include "sagadraw_host.h"
 
 uint8_t *descrambletable = NULL;
 uint8_t *screenmem = NULL;
 
-#define APPLE_SCREEN_WIDTH 160
+static void EnsureScreenMem(void)
+{
+    if (screenmem == NULL) {
+        screenmem = MemCalloc(A2_SCREEN_MEM_SIZE);
+    }
+}
 
 void ClearApple2ScreenMem(void)
 {
@@ -38,9 +38,9 @@ void ClearApple2ScreenMem(void)
 
 static int WriteByteAndAdvanceY(uint8_t x, uint8_t *y, uint8_t byte_to_write)
 {
-    uint16_t address = (((*y / 8) & 0x07) << 7) + (((*y / 8) & 0x18) * 5) + ((*y & 7) << 10) + x;
-    if (address > MAX_SCREEN_ADDR) {
-        debug_print("apple2draw WriteByteAt() ERROR: Attempt to write outside Apple 2 screen memory at offset 0x%04x. Max: 0x%04x\n", address, MAX_SCREEN_ADDR);
+    uint16_t address = gm_row_address(*y) + x;
+    if (address > GM_MAX_SCREEN_ADDR) {
+        debug_print("apple2draw WriteByteAt() ERROR: Attempt to write outside Apple 2 screen memory at offset 0x%04x. Max: 0x%04x\n", address, GM_MAX_SCREEN_ADDR);
         return 0;
     }
     screenmem[address] = byte_to_write;
@@ -48,25 +48,33 @@ static int WriteByteAndAdvanceY(uint8_t x, uint8_t *y, uint8_t byte_to_write)
     return 1;
 }
 
-static uint16_t DescrambleScreenAddress(uint8_t ypos)
+// Returns the screenmem offset of the start of row ypos, or -1 if the
+// descramble table has no valid entry for it.
+static int DescrambleScreenAddress(uint8_t ypos)
 {
     if (0xc0 + ypos >= 0x182)
-        return 0;
+        return -1;
     // The descrambletable values are copied from the disk image, so we must subtract
     // the offset of the Apple 2 screen memory (0x2000), in order to convert it to an index
     // for our screenmem array (starting at 0 rather than 0x2000).
     uint16_t result = ((descrambletable[0xc0 + ypos] << 8) | descrambletable[ypos]) - 0x2000;
-    if (result > MAX_SCREEN_ADDR)
-        return 0;
+    if (result > GM_MAX_SCREEN_ADDR)
+        return -1;
     return result;
+}
+
+static void WriteScrambledByte(uint8_t xpos, uint8_t ypos, uint8_t byte_to_write)
+{
+    int address = DescrambleScreenAddress(ypos);
+    if (address < 0 || address + xpos > GM_MAX_SCREEN_ADDR) {
+        debug_print("apple2draw: scrambled write outside screen memory (x %d, y %d)\n", xpos, ypos);
+        return;
+    }
+    screenmem[address + xpos] = byte_to_write;
 }
 
 static size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
 {
-    if (screenmem == NULL) {
-        screenmem = MemCalloc(A2_SCREEN_MEM_SIZE);
-    }
-
     uint8_t *origptr = ptr;
     uint8_t *end_of_data = ptr + datasize;
 
@@ -100,9 +108,9 @@ static size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
         }
 
         while (repeats--) {
-            screenmem[DescrambleScreenAddress(ypos) + xpos] = work1;
+            WriteScrambledByte(xpos, ypos, work1);
             ypos++;
-            screenmem[DescrambleScreenAddress(ypos) + xpos] = work2;
+            WriteScrambledByte(xpos, ypos, work2);
             ypos++;
             if (height <= ypos) {
                 ypos = y_origin;
@@ -120,21 +128,20 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
 {
     uint8_t pattern_top = 0, pattern_bottom = 0;
     uint8_t repetitions;
-    uint8_t i;
 
     uint8_t xpos = 0;
     uint8_t ypos = 0;
 
     uint8_t left = 0, top, right, bottom;
 
-    if (ptr == NULL)
+    // Both layouts start with at least a four-byte header
+    if (ptr == NULL || datasize < 4)
         return 0;
 
     uint8_t *origptr = ptr;
+    uint8_t *end_of_data = ptr + datasize;
 
-    if (screenmem == NULL) {
-        screenmem = MemCalloc(A2_SCREEN_MEM_SIZE);
-    }
+    EnsureScreenMem();
 
     if (descrambletable) {
         size_t result = DrawScrambledApple2Image(ptr, datasize);
@@ -156,13 +163,12 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         top = 0;
         right = 0;
         bottom = 0;
-        while (right == 0 && bottom == 0) {
-            right = *ptr++;
-            bottom = *ptr++;
-        }
     }
 
+    // Skip zero padding before the dimensions
     while (right == 0 && bottom == 0) {
+        if (end_of_data - ptr < 2)
+            return 1;
         right = *ptr++;
         bottom = *ptr++;
     }
@@ -176,7 +182,7 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         adjust_plus(right, bottom, top);
     }
 
-    while (ptr - origptr < datasize - 2) {
+    while ((size_t)(ptr - origptr) < datasize - 2) {
         // First get repetitions
         repetitions = *ptr++;
 
@@ -193,12 +199,12 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
             pattern_top = *ptr++;
             pattern_bottom = *ptr++;
         }
-        for (i = 0; i < repetitions + 1; i++) {
+        for (int i = 0; i < repetitions + 1; i++) {
             // If we are not repeating bytes, we simply
             // draw the next (repetitions + 1) * 2 bytes,
             // i.e. we read two new bytes on every iteration
             if (!repeat_next_two_bytes) {
-                if (ptr - origptr >= datasize - 1) {
+                if ((size_t)(ptr - origptr) >= datasize - 1) {
                     debug_print("Reached end of image data at offset %lx\n", ptr - origptr);
                     return 1;
                 }
@@ -245,8 +251,6 @@ static void PutApplePixelFlippable(glsi32 xpos, glsi32 ypos, glui32 color, int w
    word + colour expansion) lives in common_sagadraw/gm_artifact.c, shared with
    the Comprehend renderer. This file keeps only the Glk plotting on top of it. */
 
-extern int ImageHeight;
-
 static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int upside_down)
 {
     uint8_t colors560[560];
@@ -273,8 +277,7 @@ static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int ups
                 // of a line has a different color to the one on its
                 // we have to handle it separately.
                 if (at_last_pixel && color != lastcolor) {
-                    glui32 glkcolor = gm_apple2_palette[color];
-                    PutApplePixelFlippable(col * 14 + b, row * 2, glkcolor, 1, upside_down);
+                    PutApplePixelFlippable(col * 14 + b, row * 2, gm_apple2_palette[color], 1, upside_down);
                 }
                 runlength = 0;
             } else {
@@ -290,12 +293,14 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
     if (screenmem == NULL)
         return;
 
+    // Note that this draws ImageHeight / 2 + 1 rows, one more than the image
+    // height: with the usual ImageHeight of 320 that is row 160, the top
+    // scanline of the text area. Left as is, because the goldens include it.
     int endrow = MIN(ImageHeight / 2, 160);
 
     for (int row = 0; row <= endrow; row++) {
         /* calculate address */
-        unsigned const address = (((row / 8) & 0x07) << 7) + (((row / 8) & 0x18) * 5) + ((row & 7) << 10);
-        uint8_t const *const vram_row = screenmem + address;
+        uint8_t const *const vram_row = screenmem + gm_row_address(row);
         uint16_t words[40];
         gm_compute_row_words(vram_row, words);
         RenderLineWithA2ArtifactColors(words, row, upside_down);
@@ -304,10 +309,11 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
 
 void DrawSingleApple2ImageByte(uint8_t *mem, size_t offset)
 {
-    if (mem == NULL)
+    // Offsets in the 8-byte "screen holes" belong to no scanline
+    if (mem == NULL || offset > GM_MAX_SCREEN_ADDR || (offset & 0x7f) >= 3 * GM_HIRES_COLS)
         return;
 
-    int row = ((offset & 0x7f) / 40) * 64 + ((offset >> 7) & 7) * 8 + ((offset >> 10) & 7);
+    int row = gm_row_from_offset((unsigned)offset);
     int col = (offset & 0x7f) % 40;
 
     unsigned const row_offset = (unsigned)offset - col;

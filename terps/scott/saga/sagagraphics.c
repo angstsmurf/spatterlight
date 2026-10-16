@@ -10,6 +10,7 @@
 #include <string.h>
 
 #include "apple2draw.h"
+#include "sagadraw_host.h"
 #include "apple2_vector_draw.h"
 #include "atari_8bit_vector_draw.h"
 #include "vector_common.h"

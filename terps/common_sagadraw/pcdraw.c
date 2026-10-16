@@ -16,10 +16,22 @@
 
 #include "glk.h"
 #include "read_le16.h"
+#include "sagadraw_host.h"
 
-void PutPixelWithWidth(glsi32 xpos, glsi32 ypos, int32_t color, int pixelwidth);
-void SetColor(int32_t index, glui32);
+/* Image header: offsets of its fields, and its length */
+#define DOS_HEADER_DATA_SIZE    0x05 /* 16-bit length of the whole image */
+#define DOS_HEADER_STRIPED      0x0d /* 0xff: double-width pixels */
+#define DOS_HEADER_START_OFFSET 0x0f /* 16-bit CGA offset of the top left */
+#define DOS_HEADER_END_OFFSET   0x11 /* 16-bit CGA offset of the bottom left */
+#define DOS_HEADER_WIDTH        0x13 /* width in bytes, 4 pixels each */
+#define DOS_HEADER_LENGTH       0x17
 
+/* CGA bytes per scanline, in one of the two interleaved banks */
+#define CGA_BYTES_PER_ROW 80
+
+/* The image is stored interlaced, like CGA video memory: first the even
+   scanlines from the top, then the odd ones. x and y are in pixels, `right`
+   is the width in pixels and `bottom` the number of scanline pairs. */
 typedef struct {
     int x;
     int y;
@@ -27,9 +39,9 @@ typedef struct {
     int bottom;
     int left;
     int top;
-    int ycount;
+    int ycount;          /* scanline pairs done in the current pass */
     int pixelwidth;
-    int at_last_line;
+    int passes_done;     /* 0 while drawing even rows, 1 odd, 2 finished */
 } DrawState;
 
 /* Advance x by dx and handle end-of-line/last-line logic. */
@@ -43,13 +55,12 @@ static inline void StepX(DrawState *st, int dx)
     }
     if (st->ycount > st->bottom) {
         st->y = st->top + 1;
-        st->at_last_line++;
+        st->passes_done++;
         st->ycount = 0;
     }
 }
 
-/* Draw 4 two-bit pixels packed in "pattern". */
-/* Skip every other pixel when pixelwidth is 1 */
+/* Draw the 4 two-bit pixels packed in "pattern", each pixelwidth wide. */
 static inline void DrawPattern(DrawState *st, uint8_t pattern)
 {
     uint8_t mask = 0xc0;
@@ -62,9 +73,9 @@ static inline void DrawPattern(DrawState *st, uint8_t pattern)
     }
 }
 
-int DrawDOSImageFromData(uint8_t *ptr)
+int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
 {
-    if (!ptr) return 0;
+    if (!ptr || datasize < DOS_HEADER_LENGTH) return 0;
 
     DrawState st = {0};
 
@@ -81,27 +92,29 @@ int DrawDOSImageFromData(uint8_t *ptr)
     }
 
     /* Get the size of the graphics chunk */
-    size_t size = READ_LE_UINT16(ptr + 5);
+    size_t size = READ_LE_UINT16(ptr + DOS_HEADER_DATA_SIZE);
+    if (size > datasize)
+        size = datasize;
 
     /* Get whether it is striped */
-    st.pixelwidth = 1 + (ptr[0x0d] == 0xff);
+    st.pixelwidth = 1 + (ptr[DOS_HEADER_STRIPED] == 0xff);
 
     /* Get the offset */
-    int rawoffset = READ_LE_UINT16(ptr + 0x0f);
-    st.left = ((rawoffset % 80) * 4) - 24;
+    int rawoffset = READ_LE_UINT16(ptr + DOS_HEADER_START_OFFSET);
+    st.left = ((rawoffset % CGA_BYTES_PER_ROW) * 4) - 24;
     st.top = rawoffset / 40;
     st.top -= (st.top & 1);
     st.x = st.left;
     st.y = st.top;
 
     /* Get the height and width */
-    st.bottom = (READ_LE_UINT16(ptr + 0x11) - rawoffset) / 80;
-    st.right = ptr[0x13] * 4;
+    st.bottom = (READ_LE_UINT16(ptr + DOS_HEADER_END_OFFSET) - rawoffset) / CGA_BYTES_PER_ROW;
+    st.right = ptr[DOS_HEADER_WIDTH] * 4;
 
     uint8_t *endptr = ptr + size;
-    ptr += 0x17;
+    ptr += DOS_HEADER_LENGTH;
 
-    while (ptr < endptr && st.at_last_line <= 1) {
+    while (ptr < endptr && st.passes_done < 2) {
         uint8_t count = *ptr++;
         int repeat = (count & 0x80) != 0;
         int reps = (count & 0x7f) + 1;
@@ -109,10 +122,10 @@ int DrawDOSImageFromData(uint8_t *ptr)
         if (repeat) {
             if (ptr >= endptr) break;
             uint8_t value = *ptr++;
-            for (int i = 0; i < reps && st.at_last_line <= 1; ++i)
+            for (int i = 0; i < reps && st.passes_done < 2; ++i)
                 DrawPattern(&st, value);
         } else {
-            for (int i = 0; i < reps && ptr < endptr && st.at_last_line <= 1; ++i) {
+            for (int i = 0; i < reps && ptr < endptr && st.passes_done < 2; ++i) {
                 uint8_t value = *ptr++;
                 DrawPattern(&st, value);
             }

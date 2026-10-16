@@ -27,7 +27,7 @@
 
 #include "glk.h"
 
-int DrawDOSImageFromData(uint8_t *ptr);
+int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
 
 // ---- CGA logical-pixel capture ------------------------------------------------
 #define CGA_W 320
@@ -62,7 +62,7 @@ static void render(const char *pakpath) {
     size_t sz = 0;
     uint8_t *pak = read_file(pakpath, &sz);
     if (!pak) { fprintf(stderr, "cannot read %s\n", pakpath); exit(1); }
-    DrawDOSImageFromData(pak);
+    DrawDOSImageFromData(pak, sz);
     free(pak);
 }
 

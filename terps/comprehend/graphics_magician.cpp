@@ -121,11 +121,9 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
 
 // ---- Apple hi-res framebuffer -------------------------------------------------
 
-#define A2_SCREEN_MEM_SIZE 0x2000
-#define MAX_SCREEN_ADDR    0x1fff
-#define APPLE2_SCREEN_HEIGHT 192
-#define APPLE2_SCREEN_COLS   40
-#define COL_BITS 7
+#define A2_SCREEN_MEM_SIZE   GM_HIRES_PAGE_SIZE
+#define APPLE2_SCREEN_HEIGHT GM_HIRES_ROWS
+#define APPLE2_SCREEN_COLS   GM_HIRES_COLS
 #define RIGHT_EXPAND_MASK 0x40
 
 
@@ -135,7 +133,7 @@ bool gmInstallDrawingTables(const uint8_t *t2, size_t size) {
 // via gmResetScreen() only when starting a fresh room.
 static uint8_t s_screenmem[A2_SCREEN_MEM_SIZE];
 
-static inline bool valid_offset(uint16_t off) { return off <= MAX_SCREEN_ADDR; }
+static inline bool valid_offset(uint16_t off) { return off <= GM_MAX_SCREEN_ADDR; }
 
 // ---- Slow ("animated") draw -------------------------------------------------
 //
@@ -322,8 +320,8 @@ static void glyph_blit_half(uint16_t addr, int col, uint8_t mask, bool normal, u
 static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 							uint8_t pat_even, uint8_t pat_odd) {
 	const uint8_t *glyph = &s_fontGlyphs[(ch & 0x7f) * 8];
-	uint8_t col = (uint8_t)(x / COL_BITS);
-	uint8_t off = (uint8_t)(x % COL_BITS);
+	uint8_t col = (uint8_t)(x / GM_PIXELS_PER_BYTE);
+	uint8_t off = (uint8_t)(x % GM_PIXELS_PER_BYTE);
 	uint8_t scan = y;
 	for (int row = 0; row < 8; row++, scan++) {
 		uint8_t g = glyph[row];

@@ -11,10 +11,11 @@
 #define apple2draw_h
 
 #include <stdint.h>
-#include <stdlib.h>
+#include <stddef.h>
 
-#define A2_SCREEN_MEM_SIZE 0x2000
-#define MAX_SCREEN_ADDR 0x1fff
+#include "gm_hires.h"
+
+#define A2_SCREEN_MEM_SIZE GM_HIRES_PAGE_SIZE
 
 void ClearApple2ScreenMem(void);
 void DrawApple2ImageFromVideoMem(void);
@@ -25,6 +26,5 @@ void DrawSingleApple2ImageByte(uint8_t *mem, size_t offset);
 /* The hi-res page, A2_SCREEN_MEM_SIZE bytes; NULL until first drawn to. */
 extern uint8_t *screenmem;
 extern uint8_t *descrambletable;
-void test_move_up_and_down(void);
 
 #endif /* apple2draw_h */

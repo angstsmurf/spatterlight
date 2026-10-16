@@ -6,6 +6,7 @@
 //
 
 #include <ctype.h>
+#include <stdlib.h>
 #include <string.h>
 
 #include "glk.h"
@@ -15,6 +16,7 @@
 
 #include "animations.h"
 #include "apple2draw.h"
+#include "sagadraw_host.h"
 #include "common.h"
 #include "graphics.h"
 #include "loaddatabase.h"
@@ -361,7 +363,7 @@ int DrawImageWithName(const char *filename)
         result = DrawApple2ImageFromData(Images[i].Data + 2, Images[i].Size - 2, 0, Apple2AdjustPlus);
         break;
     default:
-        result = DrawDOSImageFromData(Images[i].Data);
+        result = DrawDOSImageFromData(Images[i].Data, Images[i].Size);
         break;
     }
 
