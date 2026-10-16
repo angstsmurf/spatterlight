@@ -22,7 +22,6 @@
 #define BRUSH_PART_SIZE        8
 #define BRUSH_TOTAL_PARTS      4
 #define BRUSH_PART_HEIGHT      8
-#define GM_BRUSH_BITMAPS_SIZE  256
 
 void gm_spread7(uint8_t src, uint8_t offset, uint8_t *mask_a, uint8_t *mask_b) {
     /* Rotate the 7-bit source left `offset` times, collecting bit 6 into the
@@ -147,79 +146,56 @@ void gm_draw_line(uint16_t target_x, uint8_t target_y, gm_vector_ctx *c) {
 
 // ---- Brush / shape drawing ----------------------------------------------------
 
-// Scratch state for one brush draw (not persistent across ops).
-typedef struct {
-    uint8_t scanline;
-    uint8_t seed_column;
-    uint8_t pixel_offset;
-    uint8_t bitmap_index;
-    uint8_t pattern_even;
-    uint8_t pattern_odd;
-} gm_brush_scratch;
-
-// One 8-row brush quadrant: for each row, spread the brush byte across two
-// adjacent hi-res bytes by a 7-bit rotate (collecting bit 6 into the right byte),
-// then blend it into the screen using the current fill colour pattern.
-static void brush_bitmap(gm_vector_ctx *c, gm_brush_scratch *s) {
-    for (int row = 0; row < 8; row++) {
-        uint16_t address = gm_row_address(s->scanline) + s->seed_column;
-        int idx = s->bitmap_index + row;
-        if (idx < GM_BRUSH_BITMAPS_SIZE && address <= GM_MAX_SCREEN_ADDR) {
-            uint8_t b = c->brush_bitmaps[idx];
-            if (b != 0) {
-                /* 7-bit spread by the pixel offset within the column. */
-                uint8_t mask_a, mask_b;
-                gm_spread7(b, s->pixel_offset, &mask_a, &mask_b);
-
-                uint8_t pat_base = ((s->scanline & 1) ? s->pattern_odd
-                                                      : s->pattern_even) * 4;
-                uint8_t pat0 = c->pattern_data[(s->seed_column & 3) | pat_base];
-                uint8_t pat1 = c->pattern_data[((s->seed_column + 1) & 3) | pat_base];
-
-                if (mask_a != 0)
-                    c->write(address,
-                        (uint8_t)(((mask_a ^ 0x7f) & c->screenmem[address]) | ((mask_a | 0x80) & pat0)),
-                        c->user);
-                if (mask_b != 0 && (uint16_t)(address + 1) <= GM_MAX_SCREEN_ADDR)
-                    c->write((uint16_t)(address + 1),
-                        (uint8_t)(((mask_b ^ 0x7f) & c->screenmem[address + 1]) | ((mask_b | 0x80) & pat1)),
-                        c->user);
-            }
-        }
-        s->scanline++;
-    }
+// Blend the pixels set in `mask` (low 7 bits) into the screen byte at
+// `address`, taking their colour from `pattern`; the palette bit (bit 7)
+// always comes from the pattern.
+static void brush_blend(gm_vector_ctx *c, uint16_t address, uint8_t mask,
+                        uint8_t pattern) {
+    c->write(address,
+             (uint8_t)(((mask ^ 0x7f) & c->screenmem[address]) | ((mask | 0x80) & pattern)),
+             c->user);
 }
 
-static void brush_quadrant(gm_vector_ctx *c, gm_brush_scratch *s,
-                           int column_offset, int line_offset) {
-    s->seed_column += column_offset;
-    s->scanline += line_offset;
-    brush_bitmap(c, s);
-    /* Restore original column; brush_bitmap() advanced scanline by 8 rows. */
-    s->seed_column -= column_offset;
-    s->scanline -= line_offset + BRUSH_PART_HEIGHT;
+// One 8x8 brush quadrant with its top-left pixel at column `column`, pixel
+// `shift` within it, on row `scanline`. Each row is shifted across the column
+// and the next one, then blended with the fill pattern: `pat_even` on even
+// scanlines, `pat_odd` on odd ones, indexed by the column's position mod 4.
+// `column` and `scanline` are bytes and wrap, as the 6502's do.
+static void brush_quadrant(gm_vector_ctx *c, const uint8_t *bitmap,
+                           uint8_t column, uint8_t scanline, uint8_t shift,
+                           uint8_t pat_even, uint8_t pat_odd) {
+    for (int row = 0; row < BRUSH_PART_HEIGHT; row++, scanline++) {
+        uint16_t address = (uint16_t)(gm_row_address(scanline) + column);
+        if (bitmap[row] == 0 || address > GM_MAX_SCREEN_ADDR)
+            continue;
+
+        uint8_t mask_a, mask_b;
+        gm_spread7(bitmap[row], shift, &mask_a, &mask_b);
+
+        const uint8_t *pattern =
+            c->pattern_data + (uint8_t)(((scanline & 1) ? pat_odd : pat_even) * 4);
+
+        if (mask_a != 0)
+            brush_blend(c, address, mask_a, pattern[column & 3]);
+        if (mask_b != 0 && address + 1 <= GM_MAX_SCREEN_ADDR)
+            brush_blend(c, (uint16_t)(address + 1), mask_b, pattern[(column + 1) & 3]);
+    }
 }
 
 // Draw a brush as four quadrants: top-left, top-right, bottom-left, bottom-right.
 // The current X,Y position determines the top-left corner, not the center.
 void gm_draw_brush(uint16_t x, uint8_t y, uint8_t brush,
                    uint8_t pat_even, uint8_t pat_odd, gm_vector_ctx *c) {
-    gm_brush_scratch s = {0};
-    s.scanline = y;
-    s.pattern_even = pat_even;
-    s.pattern_odd = pat_odd;
-    s.seed_column = x / COL_BITS;
-    s.pixel_offset = x % COL_BITS;
-    s.bitmap_index = brush * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS;
+    /* The offset is a byte, so brush 8 and up wrap onto brushes 0..7 (see
+       TODO.md: "gm_draw_brush index overflow"). */
+    const uint8_t *bitmap =
+        c->brush_bitmaps + (uint8_t)(brush * BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS);
+    const uint8_t column = (uint8_t)(x / COL_BITS);
+    const uint8_t shift = x % COL_BITS;
 
-    if (s.bitmap_index + BRUSH_PART_SIZE * BRUSH_TOTAL_PARTS > GM_BRUSH_BITMAPS_SIZE)
-        return;
-
-    brush_quadrant(c, &s, 0, 0);                   // Top-left
-    s.bitmap_index += BRUSH_PART_SIZE;
-    brush_quadrant(c, &s, 1, 0);                   // Top-right
-    s.bitmap_index += BRUSH_PART_SIZE;
-    brush_quadrant(c, &s, 0, BRUSH_PART_HEIGHT);   // Bottom-left
-    s.bitmap_index += BRUSH_PART_SIZE;
-    brush_quadrant(c, &s, 1, BRUSH_PART_HEIGHT);   // Bottom-right
+    for (int part = 0; part < BRUSH_TOTAL_PARTS; part++)
+        brush_quadrant(c, bitmap + part * BRUSH_PART_SIZE,
+                       (uint8_t)(column + (part & 1)),
+                       (uint8_t)(y + (part >> 1) * BRUSH_PART_HEIGHT),
+                       shift, pat_even, pat_odd);
 }

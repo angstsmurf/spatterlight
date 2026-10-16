@@ -217,13 +217,12 @@ existing pixel-exact tests in `terps/scott/saga/test/` (`apple2test`,
   warning, but now that the duplicates are gone make sure the paths mentioned
   still exist and the brush code (added later, not a verbatim extraction) is
   covered by the comment.
-- **[cleanup] `brush_quadrant`** mutates the scratch struct and then undoes it
-  (`seed_column -= column_offset`; `scanline -= line_offset + 8`). Passing
-  `col/row` offsets as parameters to `brush_bitmap` would remove the restore
-  step and a class of state bugs.
-- `gm_brush_scratch` stores `uint8_t scanline` and `uint8_t seed_column`, both of
+- ~~**[cleanup] `brush_quadrant`** mutates the scratch struct and then undoes it~~:
+  done. `gm_brush_scratch` is gone; `brush_quadrant()` takes its column, first
+  scanline and bitmap as parameters, and `brush_blend()` does the two writes.
+- `brush_quadrant()` takes `uint8_t scanline` and `uint8_t column`, both of
   which are summed with offsets (`+ 8`, `+ 1`) and can wrap near the bottom/right
-  edge; `brush_bitmap` re-checks `address <= GM_MAX_SCREEN_ADDR`, but
+  edge; `brush_quadrant` re-checks `address <= GM_MAX_SCREEN_ADDR`, but
   `gm_row_address(uint8 scanline wrapping to 0..)` would wrap onto the top of the
   screen rather than clip. Use `int` for both and clip explicitly.
 
