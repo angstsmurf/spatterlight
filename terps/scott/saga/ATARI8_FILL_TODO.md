@@ -75,7 +75,10 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
 ## Proposed design
 
 - [ ] **One 4-bit-per-pixel framebuffer.** Replace `a8_screenmem90` /
-      `a8_screenmemA0` with a single `uint8_t a8_pixels[160 * 95]`. Each entry
+      `a8_screenmemA0` with a single `uint8_t a8_pixels[160 * 96]`. That is
+      `A8_IMAGE_SIZE * 4`. The planes hold 96 rows even though
+      `A8_SCREEN_HEIGHT` is 95: fills and lines can reach row 95, and the
+      renderer draws it. Each entry
       holds the 4-bit hardware pixel value `A0<<2 | 90`. (Storing the colour
       index instead would also work, but the hardware value keeps the
       edge/background comparisons and the golden test files trivial to
@@ -93,20 +96,42 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       `plane*_pattern_even/odd` fields go away. The even/odd swap becomes
       swapping the tile's two rows. Alternatively, drop the swap and index the
       tile by `(y ^ start_parity) & 1`.
-- [ ] **`plot_pixel()` becomes `a8_pixels[off] = tile[row][x & 1]`.** No
-      masks, no read-modify-write of two buffers.
+      Pattern numbers 5..31 (`arg_0` is 5 bits) skip `make_pattern()` today and
+      reuse the previous fill's pattern bytes, so they must leave the previous
+      tile untouched. Before any fill has run, that tile is all zeros. "The
+      previous tile" means the tile as `create_patterns()` built it (today's
+      `pattern_byte[]`), not as `flood_fill()`'s row swaps or a line colour
+      left the working copy. So keep the built tile and the working row
+      state separate.
+- [ ] **`plot_pixel()` becomes `a8_pixels[off] = cur_row[x & 1]`.** No
+      masks, no read-modify-write of two buffers. `cur_row` is today's
+      `*_pattern_even`. In a fill it is whichever tile row the swaps have
+      selected, which is not necessarily `y & 1`. For a line it is the solid
+      line colour.
 - [ ] **`get_pixel_color()` becomes `a8_pixels[pixel_offset]`.**
       `fill_edge_color` becomes `a8_index_to_pixel[color_idx]`.
 - [ ] **Drop the redundant position state where possible.** With one byte per
-      pixel, `pixel_offset` alone addresses a pixel. `screen_offset` and
+      pixel, a linear pixel index alone addresses a pixel. `screen_offset` and
       `pixel_remainder` only exist to address the packed planes, so
       `move_left/right`, `byte_offset_from_pixel_offset()` etc. can shrink
       accordingly. `xpos`/`ypos` are still needed for the scan limits.
-- [ ] **Remove the 4-pixel fast path in `flood_fill()`.** It exists only to
-      write a whole plane byte at once. Its result matches the per-pixel path
-      (it only fires when all four pixels are background and erase mode is off),
-      so `last_plane90_byte` / `last_planeA0_byte` / `build_plane_byte()` can go.
-      See the note on slow-draw pacing below.
+      **Careful:** today `move_up()` / `move_down()` change only
+      `screen_offset`, so `pixel_offset` goes stale during `draw_line()`, and
+      `plot_pixel()` addresses through `screen_offset * 4 + pixel_remainder`.
+      The new index must follow that value, so `move_up/down` have to move it
+      by ±160. That includes the wrap-around: an x past 159 spills into the
+      next row, and an index below 0 is off-screen. Today that case is a
+      wrapped `uint16_t` and is skipped, so it must not wrap into valid
+      memory.
+- [ ] **Simplify, don't remove, the 4-pixel fast path in `flood_fill()`.** Its
+      result on screen matches the per-pixel path: it only fires when the
+      column is byte-aligned, all four pixels are background and erase mode
+      is off, and rows are 160 wide, so it can never overrun the row end. But
+      it emits *one* write op for four pixels where the per-pixel path emits
+      four, so removing it changes the slow-draw animation (see below). Keep
+      it as "if `x % 4 == 0` and the next four pixels equal the background,
+      write them as one op". `last_plane90_byte` / `last_planeA0_byte` /
+      `build_plane_byte()` can still go.
 - [ ] **Lines.** `handle_draw_line()` sets a single solid pixel value instead
       of building two nibble-duplicated plane bytes. Lines-only mode currently
       compares `saved_pattern[0..1]` with the line's plane bytes and then draws
@@ -138,17 +163,16 @@ says pattern 0 is "horizontal stripes" when it is solid, and pattern 2 is
       and count as an edge. `pixel_offset` going negative stops `scan_up()`.
       `xpos == -1` / `xpos == 160` bound the row scans. All of these need to
       survive the change of addressing.
-- [ ] **Slow-draw pacing.** `write_ops` currently records one op per screen
-      *byte* (4 pixels), and `ATARI8_VECTOR_BYTES_PER_TICK` is tuned to that.
-      Pick one:
-  - keep recording one op per 4-pixel group (`offset` = byte offset, the 4
-    pixel values packed in a `uint16_t`), which keeps pacing and memory use
-    unchanged; or
-  - record per pixel or per horizontal run and retune the constant.
-
-  The first is the least risky. The playback side (`DrawSingleByteAt()`)
-  then does four `a8_pixel_rgb[]` lookups instead of splitting two plane
-  bytes.
+- [ ] **Slow-draw pacing.** `write_ops` records one op per `plot_pixel()`
+      call and one per fast-path byte. Each op carries the *whole* screen byte
+      containing the pixel(s), and `ATARI8_VECTOR_BYTES_PER_TICK` is tuned to
+      that stream. To keep the animation identical, emit exactly the same op
+      sequence: each op holds the byte offset and the four pixel values of
+      that byte, packed in a `uint16_t`, read back from the pixel buffer after
+      the write. Memory use is unchanged, and the playback side
+      (`DrawSingleByteAt()`) does four `a8_pixel_rgb[]` lookups instead of
+      splitting two plane bytes. Recording per pixel or per run instead would
+      be simpler, but it changes the pacing and needs the constant retuned.
 
 ## Side notes found while reading
 
