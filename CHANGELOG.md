@@ -60,10 +60,14 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - Autosave works at every other question a game asks as well — a name or gender prompt, a menu, a yes/no question, a line of free input — and at a "press a key" pause. A game closed at one comes back at it.
 - SIDEBAR WIDE gives the side pane 35% of the window instead of 20%, for games whose object names or status lines do not fit it, and SIDEBAR NORMAL puts it back. The choice is kept in the autosave.
 - A status line too long for the banner at the top is listed in the side pane instead, one value per line, and returns to the banner when the window is wide enough to hold it.
+- Accented letters in game text are printed correctly instead of as two wrong characters each, and letters outside Latin-1 can be typed at the command line and in answers to a game's questions.
+- The status bar is brought up to date before a "press a key" pause and while a game's opening script runs, and is redrawn when the window is resized while a question or menu is open.
 - Both Quest 4 and Quest 5 games run faster, by a third or more over a large collection of walkthroughs: built-in functions and object fields are looked up directly instead of searched for, command patterns that cannot match are rejected before their regular expression runs, and synonyms are only checked against objects in scope when they occur in the command.
 
 #### Quest 4
 - A game with a timer, closed between two of its firings, resumes with the right amount of time left.
+- Timers and "press a key" pauses are spaced as in Quest 4.1.5: no blank line after a pause, no stray prompts left behind by a timer, and the text no longer jumps once a second in games that run on timers, such as *Sim Political Career*.
+- IT, THEM, HIM, HER and the other pronouns only stand for the last thing referred to while it is still in reach and of the right kind, as in the original.
 
 #### Quest 5
 - *Deeper* no longer hangs while generating its levels.
@@ -123,6 +127,7 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - Nineteen more Commodore 64 disk images of *The Time Machine* and *The Sorcerer of Claymorgue Castle* are recognised, among them 40-track disks, the "773 - 695" menu disk and the Slam compilation, whose directory lists a copy cut short while the complete one sits unlisted elsewhere on the disk. The Danish Crackers release of *Claymorgue*, which has fourteen bytes wrong, is repaired as it loads: the pool of dirty water had turned into bars, and two bad tiles showed in 27 of its 44 pictures.
 - The disk release of *Return to Pirate's Isle* for the TI-99/4A has its pictures, title screen and font read through the disk's directory rather than at fixed offsets, and the one known disk with a damaged picture of room 5 is repaired where the damage is.
 - The lava dam in the Apple II *Adventureland* is drawn again.
+- In *Gremlins*, a few cells of the street, bar and bedroom pictures no longer get the wrong tile, and the blender keeps the frame it stopped on instead of jumping back to the first. The waterfall seen from inside the cave in *Robin of Sherwood* is no longer animated with its colours swapped. These were found by comparing the pictures, room by room, with screens captured from the original ZX Spectrum games, and are fixed in the Commodore 64 versions as well.
 - ZX Spectrum and TI-99/4A pictures are 256 pixels wide, not 255, so they no longer sit half a pixel left of centre and lose their rightmost pixel column in a narrow window. The Atari 8-bit pictures are no longer widened by a black bar on the right, and a picture wider than the window is centred rather than drawn off screen.
 
 ### TaylorMade
@@ -135,6 +140,7 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - A game file that is cut short or damaged is refused, or played without its pictures, instead of crashing the interpreter.
 - RAM SAVE, RAM LOAD and RAM RESTORE in *Rebel Planet* now save and restore in memory like QUICKSAVE and QUICKLOAD. They used to ask for a file.
 - An animation in *Rebel Planet* no longer runs at the speed of the one in the room you came from.
+- The room pictures have been compared with screens captured from the original ZX Spectrum games, and the differences this turned up are fixed. Several pictures in *Rebel Planet* had wrongly coloured squares, and pictures in *He-Man* and *Blizzard Pass* had small errors: a colour was not carried over from one picture to the next, mirroring disturbed the middle row or column of an odd-sized area, and a fill stopped one cell short of the end of the picture. Pictures could also come out differently from one run to the next, which no longer happens.
 - The parser sorts the words of a command into verb and noun as the original engines do, by each word's number, instead of trying both orders. *Blizzard Pass* turns SKIN, POLISH and DRAW into verbs as its engine does, the verb is kept after a comma, and the "I don't understand" messages are the originals'.
 - Taking, dropping and chance follow the Spectrum code: a worn object is dropped silently and cannot be taken again without removing it, a failed GET or DROP ends the turn at once (a LOOK in *He-Man* used to go on and raise the carrying limit), chance rolls succeed slightly less often, and the action that printed "Okay" in *Kayleth* and *Rebel Planet* prints nothing, as it does in the originals.
 - The Queen's lights in *Rebel Planet* change colour in the original order, with the Spectrum's bright inks or the Commodore 64's own cycle, her head is shown and hidden for equal halves and much more slowly on the Commodore 64, and the star field animation leaves its blank lines alone.
@@ -150,6 +156,8 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - In the Atari ST games, the colours that cycled in the previous picture stop when a new one is drawn, as in the original, where they used to cycle on for good behind it.
 - The Atari 8-bit *Spider-Man* pictures are cropped to their frame like the other games', without the black column on the right.
 - Atari 8-bit games no longer crashes when their picture disk is missing.
+- The inventory no longer leaves out the item listed after an invisible one.
+- A picture wider than the graphics window is no longer drawn far off to the side when the window is resized.
 
 ### Comprehend
 - The picture area is always black behind and beside the picture, as on the original machines, where it used to take the theme's text background colour. With a light theme this left stray lines around the rooms of *The Coveted Mirror*.
