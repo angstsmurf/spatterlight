@@ -6,8 +6,10 @@
 //  This is a verbatim extraction of the cursor/line code that was duplicated,
 //  byte-for-byte, in scott/saga/apple2_vector_draw.c and
 //  comprehend/graphics_magician.cpp. Both renderers are validated pixel-exact
-//  against hardware captures, so this code must not change behaviour: it is a
-//  pure move, not a rewrite.
+//  against hardware captures, so this code must not change behaviour. It
+//  started as a pure move; gm_draw_line() has since been rewritten with a
+//  signed error term, checked write-for-write against the 6502-style original
+//  over every target from 100 start points plus random lines.
 //
 
 #include "gm_vector.h"
@@ -16,7 +18,6 @@
 // copies of the same macros without a redefinition clash.
 #define COL_BITS           7
 #define GM_MAX_SCREEN_ADDR 0x1fff
-#define CARRY_THRESHOLD    0x100
 
 #define BRUSH_PART_SIZE        8
 #define BRUSH_TOTAL_PARTS      4
@@ -117,43 +118,30 @@ void gm_plot_pixel(gm_vector_ctx *c) {
              c->user);
 }
 
+// Applesoft-style HGLIN: dx + dy single-axis steps, plotting after each one.
+// The 6502 keeps the error term as a 16-bit value plus the carry flag; the
+// carry is clear exactly when that term, read as signed, is negative, so a
+// plain signed error term reproduces it step for step.
 void gm_draw_line(uint16_t target_x, uint8_t target_y, gm_vector_ctx *c) {
-    const bool move_down = target_y > c->HGR_Y;
-    const bool mleft = target_x < c->HGR_X;
-
-    const uint16_t delta_x = (target_x > c->HGR_X) ? (target_x - c->HGR_X) : (c->HGR_X - target_x);
-    const uint8_t delta_y = (target_y > c->HGR_Y) ? (target_y - c->HGR_Y) : (c->HGR_Y - target_y);
+    const bool left = target_x < c->HGR_X;
+    const bool down = target_y > c->HGR_Y;
+    const int dx = left ? c->HGR_X - target_x : target_x - c->HGR_X;
+    const int dy = down ? target_y - c->HGR_Y : c->HGR_Y - target_y;
 
     gm_plot_pixel(c);
 
-    const int total_steps = delta_x + delta_y;
-    if (total_steps == 0) return;
-
-    /* The 6502 sets HGR_DY to -delta_y - 1, with a carry of 1 added each use.
-       Not the same as (uint8_t)(-delta_y): the result may overflow 8 bits. */
-    const int minus_delta_y = (uint8_t)(~delta_y) + 1;
-
-    bool carry = (uint8_t)delta_x + minus_delta_y < CARRY_THRESHOLD;
-    /* moving_vertically tracks the carry flag at the end of each 6502 iteration. */
-    bool moving_vertically = (delta_x >> 8) < carry;
-
-    uint16_t error_term = delta_x + minus_delta_y - CARRY_THRESHOLD;
-
-    for (int i = 0; i < total_steps; i++) {
-        if (moving_vertically) {
-            move_up_or_down(move_down, c);
-            moving_vertically = error_term + delta_x < CARRY_THRESHOLD << 8;
-            error_term += delta_x;
+    int error = dx - dy;
+    for (int steps = dx + dy; steps > 0; steps--) {
+        if (error < 0) {
+            move_up_or_down(down, c);
+            error += dx;
         } else {
-            move_left_or_right(mleft, c);
-            uint16_t nocarry = ((uint8_t)error_term + minus_delta_y < CARRY_THRESHOLD) << 8;
-            moving_vertically = error_term < nocarry;
-            uint8_t e_low = (uint8_t)error_term + minus_delta_y;
-            error_term = ((error_term - nocarry) & 0xff00) | e_low;
+            move_left_or_right(left, c);
+            error -= dy;
         }
         gm_plot_pixel(c);
     }
-    /* HGR_Y is already set (in move_up_or_down()), but not HGR_X. */
+    /* move_up_or_down() keeps HGR_Y, but nothing tracks HGR_X. */
     c->HGR_X = target_x;
 }
 
