@@ -453,55 +453,40 @@ static void flood_fill(a8_draw_ctx *ctx) {
     }
 }
 
-static const uint32_t RGBpalette[16] = {
-    /* black*/     0x000000,
-    /* blue */     0x2f869f,
-    /* red04 */    0xcc0043,
-    /* magenta */  0x703d49,
-    /* green11 */  0x319c4b,
-    /* blue10 */   0x279bc2,
-    /* yellow15 */ 0x9dc229,
-    /* white14 */  0x8da2e6,
-    /* gold09 */   0xa24922,
-    /* violet06 */ 0x693fa4,
-    /* orange5 */  0x971f16,
-    /* brmagnta */ 0x8c41e2,
-    /* brgreen */  0x75d512,
-    /* yellow07 */ 0x696023,
-    /* gold12 */   0xd5d062,
-    /* gold13 */   0x8c4a26,
+/* The RGB colour of each 4-bit pixel value (SCREEN2 bits high, SCREEN1 bits
+   low): what the eye sees when the display alternates the two planes' colour
+   registers every frame. The games never change the registers ($42,$B4,$E4
+   on SCREEN1, $32,$84,$D4 on SCREEN2), and the only statement of how the
+   mixes should look is the colour test picture (image 250), whose six blocks
+   the engine labels WHITE BROWN ORANGE YELLOW BLUE GREEN and asks the player
+   to tune the TV to. test/a8_palette_fit.py solves the six registers so
+   that those blocks land on their names (linear-light mean of the two
+   frames, BROWN being a checkerboard of ORANGE and YELLOW) and derives the
+   other ten mixes from the same registers. The S.A.G.E. editor numbers the
+   register pairs 0-15 in GEDIT5's COLORS table (10-15 are its "object
+   colours") and never names a hue; the hue words are ours, the five from
+   the test picture excepted. */
+static const uint32_t a8_rgb_of_pixel[16] = {
+    /*  0: SCREEN1 0 SCREEN2 0  S.A.G.E.  9  black */ 0x000000,
+    /*  1: SCREEN1 1 SCREEN2 0  S.A.G.E. 15  burnt orange, same as 4 */ 0xbc3800,
+    /*  2: SCREEN1 2 SCREEN2 0  S.A.G.E. 14  dark teal */ 0x006d71,
+    /*  3: SCREEN1 3 SCREEN2 0  S.A.G.E. 12  mustard */ 0xbca839,
+    /*  4: SCREEN1 0 SCREEN2 1  S.A.G.E.  8  burnt orange, same as 1 */ 0xbc3800,
+    /*  5: SCREEN1 1 SCREEN2 1  S.A.G.E.  7  orange (test picture) */ 0xff5000,
+    /*  6: SCREEN1 2 SCREEN2 1  S.A.G.E. 13  rose */ 0xbc7971,
+    /*  7: SCREEN1 3 SCREEN2 1  S.A.G.E. 11  amber */ 0xffaf39,
+    /*  8: SCREEN1 0 SCREEN2 2  S.A.G.E.  6  royal blue */ 0x3165bc,
+    /*  9: SCREEN1 1 SCREEN2 2  S.A.G.E.  5  orchid */ 0xc172bc,
+    /* 10: SCREEN1 2 SCREEN2 2  S.A.G.E.  4  blue (test picture) */ 0x3191d5,
+    /* 11: SCREEN1 3 SCREEN2 2  S.A.G.E. 10  white (test picture) */ 0xc1bfc2,
+    /* 12: SCREEN1 0 SCREEN2 3  S.A.G.E.  3  chartreuse */ 0x95ac00,
+    /* 13: SCREEN1 1 SCREEN2 3  S.A.G.E.  2  gold */ 0xe7b300,
+    /* 14: SCREEN1 2 SCREEN2 3  S.A.G.E.  1  green (test picture) */ 0x95c671,
+    /* 15: SCREEN1 3 SCREEN2 3  S.A.G.E.  0  yellow (test picture) */ 0xe7e739,
 };
 
-typedef enum {
-    BLACK,
-    BLUE,
-    RED04,
-    MAGENTA,
-    GREEN11,
-    BLUE10,
-    YELLOW15,
-    WHITE14,
-    GOLD09,
-    VIOLET06,
-    ORANGE5,
-    BRMAGENTA,
-    BRGREEN,
-    YELLOW07,
-    GOLD12,
-    GOLD13
-} RGBColor;
-
-static const RGBColor color_matrix[4][4] = {
-    {BLACK,    YELLOW15, BLUE,     BLUE},
-    {RED04,    ORANGE5,  VIOLET06, YELLOW07},
-    {YELLOW07, GOLD09,   BLUE10,   GREEN11},
-    {GOLD12,   GOLD13,   WHITE14,  YELLOW15}
-};
-
-// The RGB color of a 4-bit pixel value: its $9000 plane bits (the low pair)
-// select the row of color_matrix and its $A000 plane bits (the high pair) the column.
 static inline uint32_t a8_pixel_rgb(uint8_t pixel) {
-    return RGBpalette[color_matrix[pixel & 3][pixel >> 2]];
+    return a8_rgb_of_pixel[pixel];
 }
 
 // Draws the four pixels of one screen memory byte
