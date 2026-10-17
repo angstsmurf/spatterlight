@@ -1,4 +1,4 @@
-2026-10-11  Petter Sjölund <ignalina@me.com>
+2026-10-17  Petter Sjölund <ignalina@me.com>
 
 	* Unreleased; changes since Spatterlight 1.5.4.
 
@@ -12,6 +12,12 @@
 	even into an unseen room; a map-click walk starts on the prompt's own
 	line and no longer runs half-typed input or draws an "I don't
 	understand" in ADRIFT 4 games.  Removed "glk map colour".
+	* New "glk notify" sets score notification and "glk statusline" (or
+	"glk stats") prints the status line, for when a game's own task or a
+	build without SCARE's meta-commands puts the plain words out of reach.
+	"glk summary" no longer turns verbose on as it reports it, and an
+	abbreviation such as "glk stat" or "glk col" that also prefixes the
+	command's aliases is no longer ambiguous.
 	* Text set in Wingdings, Wingdings 3 or Symbol is translated to
 	Unicode, as Webdings already was.
 	* Autosave at a "press a key" pause, at the ADRIFT 4 name and gender
@@ -38,6 +44,11 @@
 	Scarier keeps UNDO, Z, LOOK X, comma splitting, GO TO and the other
 	verbs, and retries an unmatched command under looser rules; the text
 	stays grammatical where a Runner printed an accident.
+	* A few more deliberate departures from the Runners: LOOK AROUND shows
+	the room at every version, GET OFF X answers "You are not standing on
+	anything!" instead of taking X, and before 4.0 a task that runs and
+	prints nothing says "Done." rather than the game's "don't understand"
+	text, and no longer hides the object's own text on a READ line.
 	* Random numbers come from a stream compatible with the original
 	Runners (SCR_RNG=xoshiro), so chance-driven games and the walkthroughs
 	that depend on them play out as they do there.
@@ -49,7 +60,9 @@
 	both Runners apply them.
 	* The meta-commands are the Runner's own: PAST, BYE, END and ENDGAME
 	are understood, and a dozen invented commands no longer take a line
-	away from the game's tasks.  UNDO prints the restored turn's output in
+	away from the game's tasks.  SCARE's own words (VERBOSE, NOTIFY,
+	HINTS, STATUSLINE, STATS and the rest) stand aside whenever the game
+	has a task whose command matches the line.  UNDO prints the restored turn's output in
 	each version's wording.
 	* Another long round of parser and world-model work measured command by
 	command against all four Runners: noun resolution and its tie-breaks,
@@ -68,18 +81,22 @@
 	* A game or saved game that names an object, character, room, task
 	or event that does not exist, in a place the loader does not already
 	repair, now stops the game cleanly instead of aborting the
-	interpreter.
+	interpreter, and says why: under Spatterlight in an error sheet,
+	elsewhere in the main window.
 	* Performance: the ALR table is indexed instead of scanned per line,
 	undo snapshots are no longer compressed, the map's unchanging data is
 	read once per game rather than at every prompt, the map is flushed as
 	merged rectangles rather than one-row spans, and an ADRIFT 5 game no
-	longer takes a full state snapshot every turn when autosave is off.
+	longer takes a full state snapshot every turn when autosave is off and
+	reuses its unchanged sections when it does.  Command matching is
+	cheaper, the ALR lookup is filtered before it searches, and ADRIFT 5
+	property and group lookups are hashed.
 	The one-second pause before a finished game restarts honours the
 	delays preference.
 	* ADRIFT 5: identical <# #> tags in one block of text all show the
 	first one's value, as the Runner's replace-all does; music turned off
 	at an opening question stays off; a finished sound can be replayed.
-	Builds with Visual C++, and plays ADRIFT 5 pictures and sounds under
+	Builds with GCC, Visual C++ and clang-cl, and plays ADRIFT 5 pictures and sounds under
 	Windows Glk.
 	* Source layout: a top-level review split scrunner.cpp into runner/,
 	sclibrar.cpp into topic fragments, os_glk into glk/, sctafpar.cpp into
@@ -93,13 +110,17 @@
 	take and put libraries by topic and some forty long functions into
 	stages; gathered each module's file-scope state into one struct;
 	opens the game file by path in one place; and lets the Makefile find
-	its sources by wildcard.  Every step verified against the headless
-	suite's recorded output.
+	its sources by wildcard.  A third pass split another dozen long
+	functions into helpers and removed the last goto, and scarier.h is
+	now documented as a supported embedding API for other hosts.  Every
+	step verified against the headless suite's recorded output.
 	* Test tree: test/adrift4 and test/adrift5, with sha256 manifests and
 	fetch_games.sh for the corpora.  The ADRIFT 4 walkthrough suite grew to
 	675 rows, backed by a library of transcripts recorded from the original
 	3.7, 3.8, 3.9 and 4.0 Runners; a headless scmap_dump map renderer, now
-	seeded like the other harnesses.
+	seeded like the other harnesses.  notes/ holds the comparisons with
+	SCARE 1.3.10, FrankenDrift and between ADRIFT 4 and 5, and the
+	ADRIFT 5 XML notes.
 
 2026-08-17  Petter Sjölund <ignalina@me.com>
 

@@ -56,9 +56,9 @@ instrumentation (structural dumps, per-turn traces, the lenient census),
 compiled only into the headless walkthrough binary with -DSCARIER_DUMP_TOOLS
 and never into a shipping build.
 
-See ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
+See notes/ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
 (formats, saves, restriction evaluation, division rounding, and RNG
-streams), and ADRIFT-5-XML.md for a specification of the ADRIFT 5
+streams), and notes/ADRIFT-5-XML.md for a specification of the ADRIFT 5
 adventure and save formats.
 
 

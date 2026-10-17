@@ -5,7 +5,7 @@ answered. Lives at `test/adrift4/notes/RUNNER_TESTS_TODO.md` (moved from
 `terps/scarier/RUNNER_TESTS_TODO.md` and pruned to conclusions on 2026-09-28;
 the full narrative history is in git:
 `git log --follow -p -- terps/scarier/test/adrift4/notes/RUNNER_TESTS_TODO.md`).
-Companion to `ADRIFT4_vs_ADRIFT5.md` (in `terps/scarier/`, semantics already
+Companion to `ADRIFT4_vs_ADRIFT5.md` (in `terps/scarier/notes/`, semantics already
 settled) and `test/adrift4/notes/WALKTHROUGH_TODO.md` (route derivation, not
 engine fidelity).
 
