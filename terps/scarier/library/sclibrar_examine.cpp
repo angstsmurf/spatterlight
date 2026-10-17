@@ -29,127 +29,87 @@
 #include "sclibrar_internal.h"
 
 /*
- * lib_cmd_examine_self()
+ * lib_examine_self_pre390()
  *
- * Show the long description of a player.
+ * The 3.7/3.8 self description fallback, closed with its answer break.
+ * 3.7/3.8 build the whole reply in one piece (run370 435AED-435BEA,
+ * run380 43D43E): the fallback's own full stop comes only with the
+ * sitting/lying clause, the standing-on clause follows with two spaces
+ * and no full stop before it, the object is named by its raw Prefix,
+ * and one "." closes the lot.  run370x p3738sit3 (2026-09-19): "...the
+ * circumstances.  You are sitting down on a stool." and "...the
+ * circumstances  You are standing on a stool.".
  */
-scr_bool
-lib_cmd_examine_self (scr_gameref_t game)
+static void
+lib_examine_self_pre390 (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_int parent = gs_playerparent (game);
+
+  pf_buffer_string (filter,
+                    lib_select_response (game,
+                                   "You are as well as can be expected,"
+                                   " considering the circumstances",
+                                   "I am as well as can be expected,"
+                                   " considering the circumstances",
+                                   "%player% is as well as can be"
+                                   " expected, considering the"
+                                   " circumstances"));
+  if (gs_playerposition (game) == 1 || gs_playerposition (game) == 2)
+    {
+      pf_buffer_string (filter, ".  ");
+      pf_buffer_string (filter,
+                        gs_playerposition (game) == 1
+                        ? lib_select_response (game,
+                                               "You are sitting down",
+                                               "I am sitting down",
+                                               "%player% is sitting down")
+                        : lib_select_response (game,
+                                               "You are lying down",
+                                               "I am lying down",
+                                               "%player% is lying down"));
+    }
+  if (parent != -1)
+    {
+      if (gs_playerposition (game) == 0)
+        {
+          pf_buffer_string (filter, "  ");
+          pf_buffer_string (filter,
+                            lib_select_response (game,
+                                                 "You are standing",
+                                                 "I am standing",
+                                                 "%player% is standing"));
+        }
+      pf_buffer_string (filter, " on ");
+      lib_print_object_raw (game, parent);
+    }
+  pf_buffer_character (filter, '.');
+  /*
+   * And that is the whole reply: neither run370's block (435A9B-435BEA)
+   * nor run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8
+   * `x me` never says "You are wearing ..." -- only `i` does.  run370x/
+   * run380x p37SITN/p38SITN `wear hat sit` then `x me`
+   * (runner_probes/sitn.run370.rtf, runner_probes/sitn.run380.rtf,
+   * 2026-09-20): "...the circumstances.  You are sitting down." while `i`
+   * lists the hat worn.
+   */
+  pf_buffer_answer_break (filter);
+}
+
+
+/*
+ * lib_examine_self_close()
+ *
+ * After the description: if not just standing on the floor, say more;
+ * otherwise close an authored description with its full stop.
+ */
+static void
+lib_examine_self_close (scr_gameref_t game, const scr_char *description)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_prop_setref_t bundle = gs_get_bundle (game);
-  scr_vartype_t vt_key[2];
-  scr_int task, object;
-  lib_list_t list;
-  const scr_char *description, *position = nullptr;
+  const scr_char *position = nullptr;
 
-  /*
-   * The darkness fork again, this time on its `x me` arm: run390 44C424
-   * answers "<player> can just make out that <you> <are> okay." (44C430) in
-   * place of the whole self description.  The two slots are the person
-   * array's 5 and 4, filled at 464800-4648A8 -- "I"/"am" in the first
-   * person, "you"/"are" in the second; a third-person player cannot reach
-   * this at all, lib_get_perspective() clamping pre-4.0 to those two.  See
-   * lib_room_is_dark() and lib_cmd_examine_other().
-   */
-  if (lib_room_is_dark (game, gs_playerroom (game)))
-    return lib_print_response_message (game,
-                    "You can just make out that you are okay.\n",
-                    "I can just make out that I am okay.\n",
-                    "%player% can just make out that"
-                    " %player_pronoun% is okay.\n");
-
-  /* Get selection task. */
-  vt_key[0].string = "Globals";
-  vt_key[1].string = "Task";
-  task = prop_get_integer (bundle, "I<-ss", vt_key) - 1;
-
-  /* Select either the main or the alternate description. */
-  if (gs_task_valid (game, task) && gs_task_done (game, task))
-    vt_key[1].string = "AltDesc";
-  else
-    vt_key[1].string = "PlayerDesc";
-
-  /* Print the description, or default response. */
-  description = prop_get_string (bundle, "S<-ss", vt_key);
-  if (!scr_strempty (description))
-    pf_buffer_string (filter, description);
-  else if (prop_get_taf_version (bundle) < TAF_VERSION_390)
-    {
-      /*
-       * 3.7/3.8 build the whole reply in one piece (run370 435AED-435BEA,
-       * run380 43D43E): the fallback's own full stop comes only with the
-       * sitting/lying clause, the standing-on clause follows with two spaces
-       * and no full stop before it, the object is named by its raw Prefix,
-       * and one "." closes the lot.  run370x p3738sit3 (2026-09-19): "...the
-       * circumstances.  You are sitting down on a stool." and "...the
-       * circumstances  You are standing on a stool.".
-       */
-      const scr_int parent = gs_playerparent (game);
-
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                       "You are as well as can be expected,"
-                                       " considering the circumstances",
-                                       "I am as well as can be expected,"
-                                       " considering the circumstances",
-                                       "%player% is as well as can be"
-                                       " expected, considering the"
-                                       " circumstances"));
-      if (gs_playerposition (game) == 1 || gs_playerposition (game) == 2)
-        {
-          pf_buffer_string (filter, ".  ");
-          pf_buffer_string (filter,
-                            gs_playerposition (game) == 1
-                            ? lib_select_response (game,
-                                                   "You are sitting down",
-                                                   "I am sitting down",
-                                                   "%player% is sitting down")
-                            : lib_select_response (game,
-                                                   "You are lying down",
-                                                   "I am lying down",
-                                                   "%player% is lying down"));
-        }
-      if (parent != -1)
-        {
-          if (gs_playerposition (game) == 0)
-            {
-              pf_buffer_string (filter, "  ");
-              pf_buffer_string (filter,
-                                lib_select_response (game,
-                                                     "You are standing",
-                                                     "I am standing",
-                                                     "%player% is standing"));
-            }
-          pf_buffer_string (filter, " on ");
-          lib_print_object_raw (game, parent);
-        }
-      pf_buffer_character (filter, '.');
-      /*
-       * And that is the whole reply: neither run370's block (435A9B-435BEA)
-       * nor run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8
-       * `x me` never says "You are wearing ..." -- only `i` does.  run370x/
-       * run380x p37SITN/p38SITN `wear hat sit` then `x me`
-       * (runner_probes/sitn.run370.rtf, runner_probes/sitn.run380.rtf,
-       * 2026-09-20): "...the circumstances.  You are sitting down." while `i`
-       * lists the hat worn.
-       */
-      pf_buffer_answer_break (filter);
-      return TRUE;
-    }
-  else
-    {
-      pf_buffer_string (filter,
-                        lib_select_response (game,
-                                       "You are as well as can be expected,"
-                                       " considering the circumstances.",
-                                       "I am as well as can be expected,"
-                                       " considering the circumstances.",
-                                       "%player% is as well as can be expected,"
-                                       " considering the circumstances."));
-    }
-
-  /* If not just standing on the floor, say more. */
   switch (gs_playerposition (game))
     {
     case 0:
@@ -210,8 +170,22 @@ lib_cmd_examine_self (scr_gameref_t game)
       if (!closed)
         pf_buffer_character (filter, '.');
     }
+}
 
-  /* Find and list each object worn by the player (3.9+, see above). */
+
+/*
+ * lib_examine_self_worn()
+ *
+ * List each object worn by the player (3.9+; 3.7/3.8 never do, see
+ * lib_examine_self_pre390()).
+ */
+static void
+lib_examine_self_worn (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  scr_int object;
+  lib_list_t list;
+
   GS_FOR_EACH_OBJECT (game, object)
     {
       if (gs_object_position (game, object) == OBJ_WORN_PLAYER)
@@ -226,6 +200,73 @@ lib_cmd_examine_self (scr_gameref_t game)
       lib_print_list (game, list, lib_print_object, " and ");
       pf_buffer_character (filter, '.');
     }
+}
+
+
+/*
+ * lib_cmd_examine_self()
+ *
+ * Show the long description of a player.
+ */
+scr_bool
+lib_cmd_examine_self (scr_gameref_t game)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[2];
+  scr_int task;
+  const scr_char *description;
+
+  /*
+   * The darkness fork again, this time on its `x me` arm: run390 44C424
+   * answers "<player> can just make out that <you> <are> okay." (44C430) in
+   * place of the whole self description.  The two slots are the person
+   * array's 5 and 4, filled at 464800-4648A8 -- "I"/"am" in the first
+   * person, "you"/"are" in the second; a third-person player cannot reach
+   * this at all, lib_get_perspective() clamping pre-4.0 to those two.  See
+   * lib_room_is_dark() and lib_cmd_examine_other().
+   */
+  if (lib_room_is_dark (game, gs_playerroom (game)))
+    return lib_print_response_message (game,
+                    "You can just make out that you are okay.\n",
+                    "I can just make out that I am okay.\n",
+                    "%player% can just make out that"
+                    " %player_pronoun% is okay.\n");
+
+  /* Get selection task. */
+  vt_key[0].string = "Globals";
+  vt_key[1].string = "Task";
+  task = prop_get_integer (bundle, "I<-ss", vt_key) - 1;
+
+  /* Select either the main or the alternate description. */
+  if (gs_task_valid (game, task) && gs_task_done (game, task))
+    vt_key[1].string = "AltDesc";
+  else
+    vt_key[1].string = "PlayerDesc";
+
+  /* Print the description, or default response. */
+  description = prop_get_string (bundle, "S<-ss", vt_key);
+  if (!scr_strempty (description))
+    pf_buffer_string (filter, description);
+  else if (prop_get_taf_version (bundle) < TAF_VERSION_390)
+    {
+      lib_examine_self_pre390 (game);
+      return TRUE;
+    }
+  else
+    {
+      pf_buffer_string (filter,
+                        lib_select_response (game,
+                                       "You are as well as can be expected,"
+                                       " considering the circumstances.",
+                                       "I am as well as can be expected,"
+                                       " considering the circumstances.",
+                                       "%player% is as well as can be expected,"
+                                       " considering the circumstances."));
+    }
+
+  lib_examine_self_close (game, description);
+  lib_examine_self_worn (game);
 
   pf_buffer_answer_break (filter);
   return TRUE;
