@@ -210,7 +210,7 @@ static void draw_line(a8_draw_ctx *ctx) {
 
     bool going_left = ctx->target_x < ctx->start_x;
     bool going_up = ctx->target_y < ctx->start_y;
-    bool x_major = dy < dx;
+    bool x_major = dy <= dx; /* GEDIT4 branches on DELTAX>=DELTAY */
     bool positive_direction = (going_left == going_up);
 
     /* Choose which endpoint to start from so the iteration direction
@@ -233,26 +233,20 @@ static void draw_line(a8_draw_ctx *ctx) {
     int major = x_major ? dx : dy;
     int minor = x_major ? dy : dx;
 
-    /* 8-bit overflow tracking (original Atari code used single-byte
-       arithmetic, so values >= 128 cause twice_* to wrap) */
-    uint8_t twice_major = major * 2;
-    uint8_t twice_minor = minor * 2;
-    int minor_overflows = (int8_t)minor < 0;
-    int major_overflows = (int8_t)major < 0;
-
-    int16_t error = (minor_overflows << 8) + twice_minor - major;
+    /* Bresenham. GEDIT4.ASM keeps the error in ERRLO/ERRHI and the doubled
+       deltas in DXLO/DXHI and DYLO/DYHI, so the byte-sized endpoints never
+       wrap it; plain int arithmetic plots the same pixels. */
+    int error = 2 * minor - major;
     for (int i = 0; i < major; i++) {
         plot_pixel(ctx);
         if (error < 0) {
-            error += ((uint8_t)minor_overflows << 8) + twice_minor;
+            error += 2 * minor;
         } else {
             if (x_major)
                 move_down(ctx);
             else
                 move_right(ctx);
-            uint8_t err_lo = twice_minor - twice_major;
-            uint8_t err_hi = minor_overflows - major_overflows - (twice_major > twice_minor ? 1 : 0);
-            error += (int16_t)(err_hi << 8 | err_lo);
+            error += 2 * (minor - major);
         }
         if (x_major)
             move_left_or_right(positive_direction, ctx);
