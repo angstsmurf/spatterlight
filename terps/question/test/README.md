@@ -64,7 +64,7 @@ Everything above runs the engines through the in-repo harnesses and CheapGlk.
 The autosave and autorestore code never gets there: it is compiled only into
 the Spatterlight build of the terp (`#ifdef SPATTERLIGHT`,
 `../questionglk-autosave.mm` and the `ASLXGLK-AUTOSAVE` blob in
-`../quest5/aslxglk.cc`) and talks to `libglkimp`. This suite tests it the way
+`../quest5/aslxglk-autosave.cc`) and talks to `libglkimp`. This suite tests it the way
 the app exercises it. `glkdrive.py` plays the app: it launches
 `build/Debug/question` with the library, answers the protocol, feeds scripted
 input, and ends each session with the window-closed event (`EVTQUIT`), which is
@@ -116,3 +116,117 @@ Both Glk frontends (`questionglk.cc` and `quest5/aslxglk.cc`) draw on
 in-repo CheapGlk for the `glk_*` symbols its helpers reference. It belongs to
 neither engine, so it stays here and is built at the root as
 `./questglk_unit_tests`. Exit 0 is a pass.
+
+## Where the code is
+
+Two engines and two Glk frontends share `terps/question`:
+
+- **Quest 4 engine.** `QuestionRunner.hh` is the interface a frontend sees,
+  `question-impl.hh` the class behind it, `question-*.cc` the engine.
+  `readfile.cc` reads and preprocesses the `.asl`/`.cas` file; `preprocess`
+  is its passes (`collect_addtos`, `splice_addtos`, `convert_friendly_ifs`,
+  `strip_comments`, `deinline_braces`, `trim_and_join_elses`). A script runs
+  through a table of `exec_<statement>` handlers: `question-script.cc`
+  tokenises, dispatches and evaluates conditions, the handlers are in
+  `question-script-flow.cc`, `question-script-world.cc` and
+  `question-script-output.cc`. A command goes down an ordered list of
+  `try_<verb>` handlers in `question-verbs.cc`, in the order of Quest's
+  `ExecCommand`. The libraries Quest bundles are compiled in verbatim as
+  `standardlib_builtin.cc`, `stdverbs_builtin.cc`, `typelib_builtin.cc` and
+  `q3ext_builtin.cc`, declared in `builtin_libs.hh`.
+- **Quest 5 engine.** `quest5/aslx*.cc`; `quest5/TODO-quest5.md` is its
+  own history and status.
+- **Frontends.** `questionglk.cc` for Quest 4; `quest5/aslxglk*.cc` for
+  Quest 5, all in `namespace aslxglk`, with `aslxglk-internal.hh` holding
+  the types, the prototypes and every global as a C++17 `inline` variable.
+  What both need is in `questglk-common.cc` (UTF-8 encoding of a Glk
+  buffer, resource registration with the "does Glk really know it" probe,
+  cancel and re-arm of the live line request, the autosave codec) and in
+  `qstr.hh`, the header-only string helpers (`trim`, `ascii_lower`,
+  `starts_with`, `ends_with`, `iequal`, `ifind`) both engines use too.
+  readfile's own `trim (s, modes)`, `trim_braces`, `lcase`, `ci_equal` and
+  the two line splitters (`split_lines`, and aslx's `split_into_lines`,
+  which trims and drops empty lines) stay apart because they do something
+  different.
+
+A new source file is registered by hand:
+
+- a Quest 4 engine `.cc`: `Spatterlight.xcodeproj`, the unity include list
+  in `quest4/harness/headless_common.hh`, and
+  `SpatterlightTests/QuestionRegressionTests.mm`;
+- a Quest 5 `.cc`: `Spatterlight.xcodeproj` and the `Makefile` here
+  (`ASLXGLKSRC` for a frontend file).
+
+## Behaviour settled by the pass of October 2026
+
+The tree was split into the layout above between 2026-10-11 and
+2026-10-17, checked against Quest's own source (`V4Game.cs` and
+`V4Game.Part2.cs` in the QuestViva checkout the Quest 5 oracle builds from)
+where a question of behaviour came up. The gates for any change here are
+`make check`, the Quest 4 sweep (`quest4/harness/run_walkthroughs.sh`,
+150 games), the Quest 5 native replays (`quest5/harness/run_replays.sh`) and
+`make autosave`. These are decisions; a change to one wants a fixture.
+
+- **One autosave format for both engines.** `autosave.glksave` is a
+  `questglk::AutosaveRecord` under the stamp `QUESTION-AUTOSAVE 1`: engine
+  state, undo history and the replay record for either engine.
+  `autosave.plist` carries one blob per frontend under the key
+  `question_frontend_state`, and each frontend lays out its own fields
+  (`QUESTIONGLK-AUTOSAVE 1`, `ASLXGLK-AUTOSAVE 8`). An autosave in any
+  older layout (the `GEASAUTO1` container, the `geas_*` NSCoder keys,
+  Quest 5's `ASLXGLK-BOOT` sentinel) is discarded and the game starts
+  fresh: `q4-old-format`, `q5-old-format`. The record itself is unit-tested
+  in `aslxglk_link_tests`.
+- **`!addto` in a library takes three forms,** `game`, `synonyms` and
+  `type <name>` for any type name, compared lowercased against the game's
+  `define type <name>` line; a type the game lacks gets a block of its own.
+  The lines go in just before the block's `end define`, because commands
+  and verbs match in file order and lines at the front would beat the
+  author's own. `addtotype` pins it; the engine used to refuse every type
+  but `<default>` and `<defaultroom>`.
+- **A parenthesised condition** after `if`, `until`, `while`, `not`, `and`
+  or `or` is rewritten to `is <a;op;b>`; `not` and `while` were missing
+  once, and a raw `<` left behind opens a parameter and loses the whole
+  statement (Kingdom's village never rioted). The comparison found first in
+  Quest's order (`!=`, `<>`, `<=`, `>=`, `<`, `>`, `=`) is the one the
+  condition splits at. `compare` and `iscompare` pin the rewrite.
+- **Font and pane statements in a script are ignored on purpose**
+  (`exec_ignored` in `question-script-output.cc`); they are not a gap.
+- **`make syntax` runs with `-Wshadow`** and the tree is clean under it.
+  A struct split or a function split tends to leave a copied local
+  shadowing a member, and the harnesses' unity build hides it.
+- **Quest 4 and Quest 5 keep separate parsers** (`question-parse.cc`,
+  `quest5/aslx-runtime-parse.cc`): different languages, sharing helpers
+  and not structure.
+
+## Declined, with the reason
+
+- `game_function`/`text_function` as a table of one method per built-in
+  name: most bodies are two or three lines, so the table would be mostly
+  declarations in `question-impl.hh`.
+- A shared metaverb dispatcher for the two frontends: each handler is
+  about five lines, and what is left after the shared matcher and the
+  shared print is the frontend-specific part (which window echoes, which
+  pane refreshes). A callbacks struct would be longer than the code.
+- Folding the `aslxglk` globals into structs: the names are grouped by
+  prefix already; `reset_frontend_state` is selective on purpose, since
+  some state outlives a session, so a struct would not become one
+  assignment; the autosave codec names every field anyway; and it is a
+  rename of about 1500 references with the shadow trap attached.
+- A `questionglk-objwin.cc`: the side pane is about 280 lines sharing
+  sixteen file-statics with the rest of `questionglk.cc`, so moving it
+  means an internal header exposing most of the file's state to relocate
+  15% of it. The functions were split instead (`draw_objwin_sections`,
+  `echo_objlist_to_transcript`, `objwin_link_clicked`).
+- Cutting the remaining 150-210 line functions: `eval_cond`,
+  `eval_string_body`, `game_function`, `text_function`, `static_eval` and
+  `try_builtin_verb` are flat keyword dispatchers whose length is mostly
+  the comments citing Quest; `read_block_line`, `ensure_cached`,
+  `print_formatted`, `object_verbs`, `get_places`, `try_take` and
+  `try_use` each walk one piece of state start to finish, and a cut would
+  only pass that state around.
+- Decomposing `question_implementation` into sub-objects: large churn in a
+  golden-tested engine for a readability win the per-verb and
+  per-statement split already gave.
+- Touching `quest5/aslx-core/**/*.aslx`: the vendored Quest 5 core and
+  language files stay byte-for-byte with upstream.
