@@ -97,8 +97,10 @@ Testing
 
 Makefile.headless builds the standalone test and dump harnesses used for
 regression work -- an ANSI/stdout runner plus a family of a5* tools -- and
-runs the suites.  The engine objects are shared between harnesses and the
-suite stages run in parallel:
+runs the suites; the engine objects are shared between harnesses and the
+suite stages run in parallel.  test/README.md maps the test tree, records
+the decisions the 2026 clean-up passes settled and the safety net for any
+further change.
 
     make -f Makefile.headless test           # full suite
     make -f Makefile.headless quick          # the same minus the two

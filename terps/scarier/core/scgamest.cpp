@@ -68,7 +68,7 @@ static const scr_uint GAME_MAGIC = 0x35aed26e;
  * pointer that is not a game, so it is an assert().  The normal builds keep
  * asserts, which is why the validity test here is the file-local inline
  * gs_game_ok() rather than a call to the exported gs_is_game_valid() (that
- * call was 5% of self time in the 2026-10-04 profile, see REFACTOR-TODO.md).
+ * call was 5% of self time in the 2026-10-04 profile, see test/README.md).
  * gs_is_game_valid() is the same test for the other modules.
  *
  * The index half is not an invariant.  Entity indexes reach these accessors

@@ -102,18 +102,18 @@
 	sclibrar.cpp into topic fragments, os_glk into glk/, sctafpar.cpp into
 	parser, fixups and patches, scrun_dispatch.cpp into tables, dispatch,
 	input and census, and the a5run and a5text families into subfolders
-	under adrift5/.  A second pass, recorded in REFACTOR-TODO.md, moved
-	the ADRIFT 4 engine into core/ with one prototype header per module
-	in place of scprotos.h, the console and autosave files into
-	platform/, the dump and trace tools into tools/ and the test stubs
-	into headless/; split scparser, scprintf, sctasks, the disambiguation,
-	take and put libraries by topic and some forty long functions into
-	stages; gathered each module's file-scope state into one struct;
-	opens the game file by path in one place; and lets the Makefile find
-	its sources by wildcard.  A third pass split another dozen long
-	functions into helpers and removed the last goto, and scarier.h is
-	now documented as a supported embedding API for other hosts.  Every
-	step verified against the headless suite's recorded output.
+	under adrift5/.  A second pass moved the ADRIFT 4 engine into core/
+	with one prototype header per module in place of scprotos.h, the
+	console and autosave files into platform/, the dump and trace tools
+	into tools/ and the test stubs into headless/; split scparser,
+	scprintf, sctasks, the disambiguation, take and put libraries by
+	topic and some forty long functions into stages; gathered each
+	module's file-scope state into one struct; opens the game file by
+	path in one place; and lets the Makefile find its sources by
+	wildcard.  A third pass split another dozen long functions into
+	helpers and removed the last goto, and scarier.h is now documented as
+	a supported embedding API for other hosts.  Every step verified
+	against the headless suite's recorded output.
 	* Test tree: test/adrift4 and test/adrift5, with sha256 manifests and
 	fetch_games.sh for the corpora.  The ADRIFT 4 walkthrough suite grew to
 	675 rows, backed by a library of transcripts recorded from the original
