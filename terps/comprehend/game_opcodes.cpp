@@ -51,7 +51,7 @@ void ComprehendGameOpcodes::execute_opcode(const Instruction *instr, const Sente
 		if (instr->_operand[1] == 0x81)
 			index += 256;
 		if (index >= _functions.size())
-			error("Bad function %.4x >= %.4x\n", index, _functions.size());
+			error("Bad function %.4x >= %.4x\n", index, (uint)_functions.size());
 
 		eval_function(index, sentence);
 		break;
