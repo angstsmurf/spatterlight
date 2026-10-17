@@ -60,7 +60,7 @@ interpreter ships, and pictures that look like the originals'. See
         regression guard is wanted, assert set-bit *geometry* (lines == 100%).
       - See `ai_uk/NOTES_howarth_vector.md` for the ROM anchors and method.
 
-- [x] **Atari 8-bit bitmap** (`c64a8draw.c` with `is_c64=0`) — `make c64a8test`,
+- [x] **Atari 8-bit bitmap** (`c64a8draw.c` with `C64A8_ATARI8`) — `make c64a8test`,
       **four** Atari goldens, all 100% byte-exact:
       `hulk_atari8/room01_chair`, `count_atari8/room01_bed`,
       `voodoo_atari8/room01_coffin`, `claymorgue_atari8/room01_castle`.
@@ -68,7 +68,7 @@ interpreter ships, and pictures that look like the originals'. See
         Fiction experiments/Saga and TaylorMade stuff/Atari 8-bit saga/`. Dump
         blobs with `build/extract_images <Side A/Disk 1 .atr> <outdir>` (real
         `DetectAtari8`; the `(Side B)`/`(Disk 2)` sibling is auto-found).
-      - Coverage: this exercises the `is_c64=0` `TranslateColorAtari8` +
+      - Coverage: this exercises the `C64A8_ATARI8` `TranslateColorAtari8` +
         `ataricolors[256]` path (so c64a8 is covered on both C64 and Atari), the
         `!voodoo` RLE variant (Count/Voodoo) **and** the plain bit-7 RLE branch
         (Hulk/Claymorgue), plus the first Atari **object-overlay** golden

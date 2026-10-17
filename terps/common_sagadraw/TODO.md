@@ -108,6 +108,10 @@ How it was verified:
   → Kept as `C64_UNUSED` (-1) in the new table. `TranslateColorC64` calls
   `SetColor` only for other entries. All 256 inputs were checked against the
   old function.
+  → Later (2026-10-17) the map was replaced by the original interpreter's
+  algorithm, so every value now gets a colour and nothing is left
+  unchanged. Values the old map left stale ($E4, $F1, $F3, $F9, $FD) now get
+  their original colours.
 
 ## 2. Duplicated code
 
@@ -208,6 +212,10 @@ How it was verified:
   unchanged". The map was generated from the old function's output, checked
   for all 256 inputs, and has a `_Static_assert` on its length. The file went
   from 778 lines to 218.
+  → 2026-10-17: `c64colormap` was replaced by the original C64 interpreter's
+  algorithm: two 16-entry hue tables picked by luminance, with Claymorgue's
+  variant. A short per-interpreter override list holds the deliberate
+  readability fixes.
 - [x] **[cleanup] `ataricolors[256]` contains patched entries.** Several entries are
   hand-overridden (`0xad5f64`, `0xa23f40`, `0x4b1ead`, `0x088817`, ...) with the
   original value left commented out beside it, and the index comments become
@@ -224,6 +232,11 @@ How it was verified:
   values. The old table did have exactly 256 entries; the "197" comment on
   index 199 was a mislabel. A `_Static_assert` checks the length, and the
   values are byte-identical.
+  → 2026-10-17: the original interpreters write the colour values straight
+  to the colour registers, and the GTIA ignores luminance bit 0. So the table
+  now holds the unmodified palette and is looked up with `value & 0xfe`. The
+  18 hand-picked colours are an override list in `c64a8draw.c` that matches
+  exact values only.
 - [x] **[cleanup] Unused declarations/includes:** `extern glui32 pal[16];`
   and `#include <stdio.h>` appear unused here.
   → Removed.
@@ -244,6 +257,10 @@ How it was verified:
   `voodoo_or_count` has two meanings, so an enum would have to split it into
   two flags. The extra 4 lines at every call site aren't worth it on their
   own.
+  → `is_c64` was replaced on 2026-10-17 by `enum c64a8_palette`
+  (`C64A8_ATARI8`, `C64A8_C64`, `C64A8_C64_CLAYMORGUE`), because the
+  Claymorgue interpreter uses different tables. `voodoo_or_count` is still
+  an int.
 - [-] `adjustments_fn` is `int(*)(int,int,int*)`: it both returns `right` and
   mutates `left` via pointer. Consider a small `struct image_bounds` in/out
   parameter. The Apple version uses a different typedef (`adjust_plus_fn`,

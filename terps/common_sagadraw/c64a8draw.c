@@ -16,92 +16,164 @@
 
 #include "atari8_palette.h"
 
+// The original Atari interpreters write the colour values straight to the
+// colour registers. Deliberate deviations from the palette, made by hand.
+// Each comment gives the colour the palette has and the games that use the
+// value.
+struct atari8override {
+    uint8_t value;
+    glui32 rgb;
+};
+
+static const struct atari8override atari8overrides[] = {
+    { 0x0e, 0xe0e0e0 }, // 0xd1d1d1: most games
+    { 0x0f, 0xe0e0e0 }, // 0xd1d1d1: Count, Hulk, Voodoo Castle. Must match
+                        // 0x0e, e.g. the Count inventory picture vs. the
+                        // object overlays drawn on it
+    { 0x12, 0xad5f64 }, // 0x521d00: Claymorgue
+    { 0x25, 0xad5f64 }, // 0x762e00: Voodoo Castle
+    { 0x32, 0xad5f64 }, // 0x54050b: Claymorgue, Hulk, Voodoo Castle
+    { 0x34, 0xa23f40 }, // 0x712329: Claymorgue, Hulk
+    { 0x36, 0xa23f40 }, // 0x8f4146: most games
+    { 0x3a, 0xad5f64 }, // 0xcb7d82: Claymorgue, Hulk, Spider-Man
+    { 0x56, 0x4b1ead }, // 0x693ccb: Claymorgue
+    { 0x66, 0x7941c3 }, // 0x4f43ee: Count, Hulk
+    { 0x85, 0x3468ee }, // 0x073bc5: Voodoo Castle
+    { 0xc6, 0x088817 }, // 0x497600: Buckaroo Banzai, Claymorgue,
+                        // Fantastic Four, Hulk, Spider-Man
+    { 0xc7, 0x3a6700 }, // 0x497600: Claymorgue, Fantastic Four, Spider-Man
+    { 0xc8, 0x088817 }, // 0x679405: Buckaroo Banzai, Hulk
+    { 0xd8, 0x637000 }, // 0x818d00: Hulk
+    { 0xe4, 0x944c02 }, // 0x5e4700: Claymorgue
+    { 0xf7, 0xad5f64 }, // 0x8d5900: Count, Voodoo Castle
+    { 0xf8, 0x8d5900 }, // 0xab7700: Claymorgue, Fantastic Four, Voodoo Castle
+    { 0xff, 0xba8600 }, // 0xeed146: Claymorgue, Voodoo Castle
+};
+
 static void TranslateColorAtari8(uint8_t index, uint8_t value)
 {
-    SetColor(index, ataricolors[value]);
+    for (size_t i = 0; i < sizeof(atari8overrides) / sizeof(atari8overrides[0]); i++) {
+        if (atari8overrides[i].value == value) {
+            SetColor(index, atari8overrides[i].rgb);
+            return;
+        }
+    }
+    // The GTIA ignores bit 0 of the luminance, so an odd value shows the
+    // same colour as the even value below it.
+    SetColor(index, ataricolors[value & 0xfe]);
 }
 
-// C64 colors
+// The 16 C64 colours, in the C64's own order
 enum c64_color {
+    C64_BLACK,
     C64_WHITE,
     C64_RED,
+    C64_CYAN,
     C64_PURPLE,
     C64_GREEN,
     C64_BLUE,
     C64_YELLOW,
     C64_ORANGE,
+    C64_BROWN,
     C64_LRED,
+    C64_DGREY,
     C64_GREY,
     C64_LGREEN,
     C64_LBLUE,
-    C64_BROWN,
-    C64_NUM_COLORS,
-    C64_UNUSED = -1 // leave the palette slot unchanged
+    C64_LGREY
 };
 
-static const glui32 c64colors[C64_NUM_COLORS] = {
+static const glui32 c64colors[16] = {
+    [C64_BLACK]  = 0x000000,
     [C64_WHITE]  = 0xffffff,
     [C64_RED]    = 0xbf6148,
+    [C64_CYAN]   = 0x99e6f9,
     [C64_PURPLE] = 0xb159b9,
     [C64_GREEN]  = 0x79d570,
     [C64_BLUE]   = 0x5f48e9,
     [C64_YELLOW] = 0xf7ff6c,
     [C64_ORANGE] = 0xba8620,
+    [C64_BROWN]  = 0x837000,
     [C64_LRED]   = 0xe79a84,
+    [C64_DGREY]  = 0x454545,
     [C64_GREY]   = 0xa7a7a7,
     [C64_LGREEN] = 0xc0ffb9,
     [C64_LBLUE]  = 0xa28fff,
-    [C64_BROWN]  = 0x837000,
+    [C64_LGREY]  = 0xc8c8c8,
 };
 
-// The C64 colour for each colour value a game uses, determined by looking at
-// the games running in the VICE C64 emulator.
-// I have no idea how the original interpreter calculates
-// them. I might have made some mistakes.
-// C64_UNUSED values are not used by any game; they leave the palette slot
-// holding whatever colour it had before.
-static const int8_t c64colormap[] = {
-    /*   0 */ C64_PURPLE,  C64_BLUE,    C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_UNUSED,  C64_UNUSED,  C64_BLUE,
-    /*   8 */ C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,
-    /*  16 */ C64_YELLOW,  C64_ORANGE,  C64_ORANGE,  C64_GREEN,   C64_GREEN,   C64_YELLOW,  C64_YELLOW,  C64_YELLOW,
-    /*  24 */ C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_BROWN,
-    /*  32 */ C64_BROWN,   C64_BROWN,   C64_BROWN,   C64_BROWN,   C64_BROWN,   C64_BROWN,   C64_BROWN,   C64_BROWN,
-    /*  40 */ C64_BROWN,   C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_ORANGE,
-    /*  48 */ C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,
-    /*  56 */ C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_ORANGE,
-    /*  64 */ C64_ORANGE,  C64_ORANGE,  C64_ORANGE,  C64_RED,     C64_RED,     C64_RED,     C64_RED,     C64_RED,
-    /*  72 */ C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,
-    /*  80 */ C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,
-    /*  88 */ C64_UNUSED,  C64_LRED,    C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,
-    /*  96 */ C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,  C64_PURPLE,
-    /* 104 */ C64_PURPLE,  C64_PURPLE,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_LBLUE,   C64_UNUSED,
-    /* 112 */ C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,
-    /* 120 */ C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,
-    /* 128 */ C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,
-    /* 136 */ C64_UNUSED,  C64_BLUE,    C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_UNUSED,
-    /* 144 */ C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_BLUE,    C64_BLUE,    C64_BLUE,    C64_BLUE,
-    /* 152 */ C64_BLUE,    C64_BLUE,    C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_LBLUE,   C64_UNUSED,  C64_UNUSED,
-    /* 160 */ C64_UNUSED,  C64_GREY,    C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,
-    /* 168 */ C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,
-    /* 176 */ C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,
-    /* 184 */ C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,
-    /* 192 */ C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,
-    /* 200 */ C64_GREEN,   C64_LGREEN,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,
-    /* 208 */ C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_GREEN,   C64_GREEN,   C64_GREEN,   C64_GREEN,
-    /* 216 */ C64_GREEN,   C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,
-    /* 224 */ C64_PURPLE,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_YELLOW,  C64_YELLOW,
-    /* 232 */ C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_YELLOW,  C64_UNUSED,
-    /* 240 */ C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_BROWN,   C64_BROWN,   C64_BROWN,   C64_BROWN,
-    /* 248 */ C64_BROWN,   C64_UNUSED,  C64_UNUSED,  C64_UNUSED,  C64_YELLOW,  C64_UNUSED,  C64_UNUSED,  C64_WHITE
+// The colour values in the image files are Atari 8-bit colours: hue in the
+// high nibble, luminance in the low nibble. The original C64 interpreter
+// (at $8C4A in the SagaPlus "prog" file) turns one into a C64 colour like
+// this: luminance 0 is always black, otherwise the hue picks an entry from
+// one table for luminance 1-8 and from another for luminance 9-15.
+// The Claymorgue interpreter (at $7B71 in "saga.c64") has two entries
+// different from the SagaPlus games.
+static const uint8_t c64dark[2][16] = {
+    { C64_BLACK, C64_GREEN, C64_BROWN, C64_ORANGE, C64_RED, C64_PURPLE, C64_PURPLE, C64_BLUE,
+        C64_BLUE, C64_BLUE, C64_GREY, C64_GREEN, C64_GREEN, C64_GREEN, C64_YELLOW, C64_BROWN },
+    { C64_WHITE, C64_GREEN, C64_BROWN, C64_ORANGE, C64_RED, C64_PURPLE, C64_PURPLE, C64_BLUE,
+        C64_BLUE, C64_BLUE, C64_GREY, C64_GREEN, C64_GREEN, C64_GREEN, C64_YELLOW, C64_BROWN }
 };
 
-_Static_assert(sizeof(c64colormap) == 256, "one entry per colour value");
+static const uint8_t c64bright[2][16] = {
+    { C64_WHITE, C64_LGREEN, C64_YELLOW, C64_ORANGE, C64_LRED, C64_LRED, C64_PURPLE, C64_LBLUE,
+        C64_WHITE, C64_LBLUE, C64_CYAN, C64_LGREEN, C64_LGREEN, C64_LGREEN, C64_YELLOW, C64_YELLOW },
+    { C64_WHITE, C64_YELLOW, C64_YELLOW, C64_ORANGE, C64_LRED, C64_LRED, C64_PURPLE, C64_LBLUE,
+        C64_WHITE, C64_LBLUE, C64_CYAN, C64_LGREEN, C64_LGREEN, C64_LGREEN, C64_YELLOW, C64_YELLOW }
+};
 
-static void TranslateColorC64(uint8_t index, uint8_t value)
+// Deliberate deviations from the original colours, to make some pictures
+// easier to read, one list for each interpreter. Each comment gives the
+// colour the original draws.
+struct c64override {
+    uint8_t value;
+    uint8_t color;
+};
+
+static const struct c64override c64overrides[2][8] = {
+    {
+        // Spider-Man, Buckaroo Banzai, Fantastic Four
+        { 0x03, C64_WHITE },  // black: Buckaroo Banzai r024
+        { 0x07, C64_BLUE },   // black: Buckaroo Banzai r014
+        { 0x08, C64_BLUE },   // black: Spider-Man b053, b056
+        { 0x11, C64_ORANGE }, // green: the Thing in Fantastic Four r013
+        { 0x4d, C64_PURPLE }, // light red: Fantastic Four r022
+        { 0x6e, C64_LBLUE },  // purple: Buckaroo Banzai r014
+        { 0x89, C64_BLUE },   // white: the sky in Buckaroo Banzai r020
+    },
+    {
+        // Sorcerer of Claymorgue Castle
+        { 0x01, C64_BLUE },   // white: r13014
+        { 0x12, C64_ORANGE }, // green: r13023, a wooden room
+        { 0x15, C64_YELLOW }, // green: r13018, wooden planks
+        { 0x18, C64_YELLOW }, // green: r13019, "LEAVE STARS HERE" in green
+                              // on green
+        { 0x2f, C64_ORANGE }, // yellow: r13035
+        { 0x89, C64_BLUE },   // white: r13020, water on the kitchen floor
+        { 0xff, C64_WHITE },  // yellow: b13030r
+    }
+};
+
+static void TranslateColorC64(uint8_t index, uint8_t value, int claymorgue)
 {
-    int8_t color = c64colormap[value];
-    if (color != C64_UNUSED)
-        SetColor(index, c64colors[color]);
+    // An entry with value 0 ends a list early. 0 is always black, so it
+    // never needs an override.
+    for (int i = 0; i < 8 && c64overrides[claymorgue][i].value != 0; i++) {
+        if (c64overrides[claymorgue][i].value == value) {
+            SetColor(index, c64colors[c64overrides[claymorgue][i].color]);
+            return;
+        }
+    }
+
+    int luminance = value & 0x0f;
+    int hue = value >> 4;
+    int color = C64_BLACK;
+    if (luminance > 8)
+        color = c64bright[claymorgue][hue];
+    else if (luminance > 0)
+        color = c64dark[claymorgue][hue];
+    SetColor(index, c64colors[color]);
 }
 
 int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern)
@@ -118,7 +190,7 @@ int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern)
     return x - 8;
 }
 
-int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, int is_c64)
+int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, enum c64a8_palette palette)
 {
     uint8_t pattern_top = 0, pattern_bottom = 0;
     int repetitions;
@@ -167,10 +239,10 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     // Get the palette
     for (int i = 1; i < 5; i++) {
         uint8_t color = *ptr++;
-        if (is_c64) {
-            TranslateColorC64(i, color);
-        } else {
+        if (palette == C64A8_ATARI8) {
             TranslateColorAtari8(i, color);
+        } else {
+            TranslateColorC64(i, color, palette == C64A8_C64_CLAYMORGUE);
         }
     }
 

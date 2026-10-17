@@ -352,7 +352,7 @@ int DrawImageWithName(const char *filename)
     switch (CurrentSys) {
     case SYS_C64:
     case SYS_ATARI8:
-        result = DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64);
+        result = DrawC64A8ImageFromData(Images[i].Data, Images[i].Size, 0, C64A8AdjustPlus, CurrentSys == SYS_C64 ? C64A8_C64 : C64A8_ATARI8);
         break;
     case SYS_ST:
         result = DrawSTImageFromData(Images[i].Data, Images[i].Size);

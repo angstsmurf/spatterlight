@@ -14,7 +14,8 @@
 // captured as displayed RGB, exactly like c64test.
 //
 // A render spec is a small text file (paths relative to the spec's dir):
-//     [!atari8]                     optional: render with is_c64=0 (Atari 8-bit)
+//     [!atari8]                     optional: render with the Atari 8-bit palette
+//     [!claymorgue]                 optional: render with the Claymorgue C64 palette
 //     [!voodoo]                     optional: voodoo_or_count loader variant
 //     <background.dat>              room background (IMG_ROOM adjustment)
 //     <obj> <object.dat>           ... zero or more object overlays
@@ -82,11 +83,12 @@ static int adjust_room(int width, int height, int *x_origin) {
 }
 
 // ---- helpers -----------------------------------------------------------------
-static int g_is_c64 = 1;
+static enum c64a8_palette g_palette = C64A8_C64;
 static int g_voodoo = 0;
 
 static int spec_directive(const char *p, int lineno) {
-    if (strcmp(p, "!atari8") == 0) g_is_c64 = 0;
+    if (strcmp(p, "!atari8") == 0) g_palette = C64A8_ATARI8;
+    else if (strcmp(p, "!claymorgue") == 0) g_palette = C64A8_C64_CLAYMORGUE;
     else if (strcmp(p, "!voodoo") == 0) g_voodoo = 1;
     else if (strncmp(p, "!cliptop ", 9) == 0) g_cliptop = atoi(p + 9);
     else if (strncmp(p, "!clipbottom ", 12) == 0) g_clipbottom = atoi(p + 12);
@@ -97,15 +99,15 @@ static int spec_directive(const char *p, int lineno) {
 static void draw_spec_image(int isobj, int objindex, uint8_t *blob, size_t sz) {
     (void)objindex;
     g_is_room = !isobj;
-    DrawC64A8ImageFromData(blob, sz, g_voodoo, adjust_room, g_is_c64);
+    DrawC64A8ImageFromData(blob, sz, g_voodoo, adjust_room, g_palette);
 }
 
-// Parse a render spec (directives: !atari8, !voodoo, !cliptop N, !clipbottom N)
+// Parse a render spec (directives: !atari8, !claymorgue, !voodoo, !cliptop N, !clipbottom N)
 // and composite it into `grid`. Returns 0 on success.
 static int render_spec(const char *specpath) {
     rg_clear();
     memset(slot_rgb, 0, sizeof slot_rgb);
-    g_is_c64 = 1; g_voodoo = 0; g_cliptop = 0; g_clipbottom = 0;
+    g_palette = C64A8_C64; g_voodoo = 0; g_cliptop = 0; g_clipbottom = 0;
 
     int drew = rg_parse_spec(specpath, spec_directive, draw_spec_image);
     if (drew < 0) return 1;

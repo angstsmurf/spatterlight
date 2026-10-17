@@ -56,7 +56,9 @@ int DrawC64A8Image(USImage *image)
 {
     current_image = image;
     StartPixelRuns();
-    int result = DrawC64A8ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US, C64A8AdjustScott, image->systype == SYS_C64);
+    // Claymorgue is the only game with these images on the C64
+    enum c64a8_palette palette = image->systype == SYS_C64 ? C64A8_C64_CLAYMORGUE : C64A8_ATARI8;
+    int result = DrawC64A8ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US, C64A8AdjustScott, palette);
     FlushPixelRuns();
     return result;
 }

@@ -244,7 +244,7 @@ c64test: build/c64test
 # golden decoded from a real VICE screenshot (approach B, same C64R1/C64C2
 # pipeline as c64test; see c64_decode_png.py + groundtruth_c64a8/README.md). A
 # render spec (<name>.spec) lists the background blob and any object overlays.
-# The Atari 8-bit half of the renderer (is_c64=0) is covered by the same target
+# The Atari 8-bit half of the renderer (C64A8_ATARI8) is covered by the same target
 # via the `!atari8` spec directive (golden hulk_atari8/room01_chair); its blobs
 # come off a companion disk side, dumped with build/extract_images.
 C64A8_SRCS := c64a8test.c

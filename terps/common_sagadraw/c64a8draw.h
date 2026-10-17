@@ -17,7 +17,14 @@
 
 typedef int (*adjustments_fn)(int, int, int *);
 
-int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, int is_c64);
+// How the palette bytes of an image translate into colours
+enum c64a8_palette {
+    C64A8_ATARI8,          // Atari 8-bit
+    C64A8_C64,             // C64: Spider-Man, Buckaroo Banzai, Fantastic Four
+    C64A8_C64_CLAYMORGUE,  // C64: Sorcerer of Claymorgue Castle
+};
+
+int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, enum c64a8_palette palette);
 // Draws one bitmap byte as four double-width pixels at (x, *y), two bits
 // per pixel with the high pair leftmost, then moves *y down one row.
 // Returns x unchanged, so a column of bytes keeps the same left edge.
