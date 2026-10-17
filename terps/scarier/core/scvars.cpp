@@ -883,6 +883,46 @@ var_return_string (const scr_char *value, scr_int *type, scr_vartype_t *vt_rvalu
 
 
 /*
+ * var_return_global_string()
+ * var_return_game_count()
+ *
+ * The two shapes several system variables share: a global game string with
+ * a placeholder for when the author left it empty, and a counter held in the
+ * game, zero (with an error naming WHAT) when there is no game yet.
+ */
+static scr_bool
+var_return_global_string (scr_var_setref_t vars, const scr_char *key,
+                          const scr_char *unknown,
+                          scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_char *value;
+
+  value = prop_get_global_string (vars->bundle, key);
+  if (scr_strempty (value))
+    value = unknown;
+
+  return var_return_string (value, type, vt_rvalue);
+}
+
+static scr_bool
+var_return_game_count (scr_var_setref_t vars, scr_int scr_game_s::*count,
+                       const scr_char *what,
+                       scr_int *type, scr_vartype_t *vt_rvalue)
+{
+  const scr_gameref_t game = vars->game;
+
+  /* Check there's enough information to return a value. */
+  if (!game)
+    {
+      scr_error ("var_get_system: no game for %s\n", what);
+      return var_return_integer (0, type, vt_rvalue);
+    }
+
+  return var_return_integer (game->*count, type, vt_rvalue);
+}
+
+
+/*
  * var_find_object_by_short()
  *
  * Find the lowest-indexed object whose Short, alone or after its Prefix and
@@ -1089,15 +1129,9 @@ static scr_bool
 var_system_author (scr_var_setref_t vars, const scr_char * /* name */,
                    scr_int *type, scr_vartype_t *vt_rvalue)
 {
-  const scr_prop_setref_t bundle = vars->bundle;
-  const scr_char *author;
-
   /* Get and return the global gameauthor string. */
-  author = prop_get_global_string (bundle, "GameAuthor");
-  if (scr_strempty (author))
-    author = "[Author unknown]";
-
-  return var_return_string (author, type, vt_rvalue);
+  return var_return_global_string (vars, "GameAuthor", "[Author unknown]",
+                                   type, vt_rvalue);
 }
 
 static scr_bool
@@ -1419,17 +1453,9 @@ static scr_bool
 var_system_score (scr_var_setref_t vars, const scr_char * /* name */,
                   scr_int *type, scr_vartype_t *vt_rvalue)
 {
-  const scr_gameref_t game = vars->game;
-
-  /* Check there's enough information to return a value. */
-  if (!game)
-    {
-      scr_error ("var_get_system: no game for score\n");
-      return var_return_integer (0, type, vt_rvalue);
-    }
-
   /* Return the current game score. */
-  return var_return_integer (game->score, type, vt_rvalue);
+  return var_return_game_count (vars, &scr_game_s::score, "score",
+                                type, vt_rvalue);
 }
 
 static scr_bool
@@ -1631,32 +1657,18 @@ static scr_bool
 var_system_title (scr_var_setref_t vars, const scr_char * /* name */,
                   scr_int *type, scr_vartype_t *vt_rvalue)
 {
-  const scr_prop_setref_t bundle = vars->bundle;
-  const scr_char *gamename;
-
   /* Return the game's title. */
-  gamename = prop_get_global_string (bundle, "GameName");
-  if (scr_strempty (gamename))
-    gamename = "[Title unknown]";
-
-  return var_return_string (gamename, type, vt_rvalue);
+  return var_return_global_string (vars, "GameName", "[Title unknown]",
+                                   type, vt_rvalue);
 }
 
 static scr_bool
 var_system_turns (scr_var_setref_t vars, const scr_char * /* name */,
                   scr_int *type, scr_vartype_t *vt_rvalue)
 {
-  const scr_gameref_t game = vars->game;
-
-  /* Check there's enough information to return a value. */
-  if (!game)
-    {
-      scr_error ("var_get_system: no game for turns\n");
-      return var_return_integer (0, type, vt_rvalue);
-    }
-
   /* Return the count of game turns. */
-  return var_return_integer (game->turns, type, vt_rvalue);
+  return var_return_game_count (vars, &scr_game_s::turns, "turns",
+                                type, vt_rvalue);
 }
 
 static scr_bool
@@ -2071,19 +2083,33 @@ var_put_integer (scr_var_setref_t vars, const scr_char *name, scr_int value)
   var_put (vars, name, VAR_INTEGER, vt_value);
 }
 
-scr_int
-var_get_integer (scr_var_setref_t vars, const scr_char *name)
+/*
+ * var_get_typed()
+ *
+ * The lookup under var_get_integer() and var_get_string(): fatal, naming
+ * CALLER, if NAME is not a variable or is not of type WANT.
+ */
+static scr_vartype_t
+var_get_typed (scr_var_setref_t vars, const scr_char *name, scr_int want,
+               const scr_char *caller, const scr_char *kind)
 {
   scr_vartype_t vt_rvalue;
   scr_int type;
   assert (var_is_valid (vars));
 
   if (!var_get (vars, name, &type, &vt_rvalue))
-    scr_fatal ("var_get_integer: no such variable, %s\n", name);
-  else if (type != VAR_INTEGER)
-    scr_fatal ("var_get_integer: not an integer, %s\n", name);
+    scr_fatal ("%s: no such variable, %s\n", caller, name);
+  else if (type != want)
+    scr_fatal ("%s: not %s, %s\n", caller, kind, name);
 
-  return vt_rvalue.integer;
+  return vt_rvalue;
+}
+
+scr_int
+var_get_integer (scr_var_setref_t vars, const scr_char *name)
+{
+  return var_get_typed (vars, name, VAR_INTEGER,
+                        "var_get_integer", "an integer").integer;
 }
 
 
@@ -2108,16 +2134,8 @@ var_put_string (scr_var_setref_t vars,
 const scr_char *
 var_get_string (scr_var_setref_t vars, const scr_char *name)
 {
-  scr_vartype_t vt_rvalue;
-  scr_int type;
-  assert (var_is_valid (vars));
-
-  if (!var_get (vars, name, &type, &vt_rvalue))
-    scr_fatal ("var_get_string: no such variable, %s\n", name);
-  else if (type != VAR_STRING)
-    scr_fatal ("var_get_string: not a string, %s\n", name);
-
-  return vt_rvalue.string;
+  return var_get_typed (vars, name, VAR_STRING,
+                        "var_get_string", "a string").string;
 }
 
 
