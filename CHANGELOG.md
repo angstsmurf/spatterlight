@@ -127,6 +127,7 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - Nineteen more Commodore 64 disk images of *The Time Machine* and *The Sorcerer of Claymorgue Castle* are recognised, among them 40-track disks, the "773 - 695" menu disk and the Slam compilation, whose directory lists a copy cut short while the complete one sits unlisted elsewhere on the disk. The Danish Crackers release of *Claymorgue*, which has fourteen bytes wrong, is repaired as it loads: the pool of dirty water had turned into bars, and two bad tiles showed in 27 of its 44 pictures.
 - The disk release of *Return to Pirate's Isle* for the TI-99/4A has its pictures, title screen and font read through the disk's directory rather than at fixed offsets, and the one known disk with a damaged picture of room 5 is repaired where the damage is.
 - The lava dam in the Apple II *Adventureland* is drawn again.
+- The colours of the Commodore 64 *Sorcerer of Claymorgue Castle* pictures are worked out the way the original interpreter does, with a few deliberate changes to make some pictures easier to read, such as the water on the kitchen floor. A few colours that used to be carried over from the previous picture are now right. In the Atari 8-bit pictures, colours that the Atari shows alike are now drawn alike, which makes many of them slightly darker.
 - In *Gremlins*, a few cells of the street, bar and bedroom pictures no longer get the wrong tile, and the blender keeps the frame it stopped on instead of jumping back to the first. The waterfall seen from inside the cave in *Robin of Sherwood* is no longer animated with its colours swapped. These were found by comparing the pictures, room by room, with screens captured from the original ZX Spectrum games, and are fixed in the Commodore 64 versions as well.
 - ZX Spectrum and TI-99/4A pictures are 256 pixels wide, not 255, so they no longer sit half a pixel left of centre and lose their rightmost pixel column in a narrow window. The Atari 8-bit pictures are no longer widened by a black bar on the right, and a picture wider than the window is centred rather than drawn off screen.
 
@@ -155,7 +156,8 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - With graphics turned off, a game no longer starts by waiting for a key on a blank window.
 - In the Atari ST games, the colours that cycled in the previous picture stop when a new one is drawn, as in the original, where they used to cycle on for good behind it.
 - The Atari 8-bit *Spider-Man* pictures are cropped to their frame like the other games', without the black column on the right.
-- Atari 8-bit games no longer crashes when their picture disk is missing.
+- Atari 8-bit games no longer crash when their picture disk is missing.
+- The colours of the Commodore 64 pictures are worked out the way the original interpreter does, with a few deliberate changes, such as the orange Thing in *Fantastic Four*. A few colours that used to be carried over from the previous picture are now right, for example in one of the *Spider-Man* pictures. In the Atari 8-bit pictures, colours that the Atari shows alike are now drawn alike, which makes many of them slightly darker.
 - The inventory no longer leaves out the item listed after an invisible one.
 - A picture wider than the graphics window is no longer drawn far off to the side when the window is resized.
 
