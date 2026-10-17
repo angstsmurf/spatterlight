@@ -1408,7 +1408,11 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    * #deerdies) hide the NPC and restore its stamina so that a walk
    * respawns it, and with the NPC dead for good (bc16dfe2d) the house goal
    * could no longer be reached.  An NPC with no KilledTask, or one left at
-   * no stamina, stays dead.
+   * no stamina, stays dead.  The Runner side is measured, not inferred:
+   * run390x through Azra's bandit kill and 70 waits brings no bandit back
+   * and answers `where is the bandit` with "Bandit is dead!"
+   * (runner_probes/the_town_of_azra_v390.run390.revive.txt, 2026-10-17);
+   * Scarier on the same feed has him back after eight waits.
    */
   if (!(task >= 0 && gs_npc_stamina (game, npc) > 0))
     gs_set_npc_dead (game, npc, TRUE);

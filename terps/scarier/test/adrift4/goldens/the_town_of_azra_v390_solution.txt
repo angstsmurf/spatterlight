@@ -38,6 +38,13 @@
 # the $800 stealth lesson is the tighter constraint.
 # See The_Town_Of_Azra_walkthrough.md.
 #
+# 2026-09-30 / 2026-10-17: Scarier now deliberately lets a KilledTask that
+# hands stamina back keep the NPC's walk alive (battle_kill in scbattle.cpp),
+# so in Scarier the bandit and the deer DO respawn and goal 5 is reachable
+# again; the Runner's permanence was re-measured live on 2026-10-17
+# (runner_probes/the_town_of_azra_v390.run390.revive.txt).  This route still
+# kills each once and stops short of the house, so it stays Runner-identical.
+#
 # Lines beginning with '#' are comments (harness skips them); one command/line.
 # No name line: the game authors a player name, and run390 only asks for one
 # when it is blank (4416C8) -- Adrift_536's drive left its `Hero` unused.

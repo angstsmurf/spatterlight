@@ -147,6 +147,16 @@ run400 `@44B13C`) runs the KilledTask and then, unconditionally and *after* it,
 stamps `&HFB` — that is **−5**, a `LitI2_Byte` sign-extended, not 251 — into
 the NPC's room field. Exactly two places read it:
 
+Measured live on 2026-10-17 (run390x, seed 1234): the golden's route to the
+bandit kill, then 70 `wait`s on Bandit Trail. No bandit returned and `where is
+the bandit` answered "Bandit is dead!"; the deer the same after 65 waits
+(`runner_probes/the_town_of_azra_v390.run390.revive.txt`,
+`harness/cmdfile_azra_revive.txt`). The game itself never moves a corpse into
+a room: its four move-character actions (tasks 19, 33, 37, 42) all go to
+hidden. **Scarier deliberately deviates** (3b8a9781c, 2026-09-30, kept by
+decision 2026-10-17): a KilledTask that hands stamina back keeps the walk
+alive, so here the bandit is back eight waits later and goal 5 is reachable.
+
 * the **walk ticker** breaks out of the walk loop for any NPC at −5
   (run390 `loc_45A4BC → loc_45ABD0`; run400 `loc_4685B6 → loc_468D61`), so the
   KilledTask's move-to-hidden is the last thing that NPC's walk ever does; and

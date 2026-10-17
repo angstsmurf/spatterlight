@@ -1,0 +1,191 @@
+
+
+
+e
+change a dollar into cents
+buy a coffee
+take the mug of coffee
+gulp the coffee
+buy a steak
+take a bite out of the steak
+w
+w
+buy a bronze helmet
+buy rawhide armor
+wear the rawhide armor
+wear the bronze helmet
+e
+s
+s
+buy a hunting sword
+wield the hunting sword
+n
+se
+rent a room
+in
+lie on the bed
+nap on the bed
+#sleep 11
+out
+nw
+n
+n
+n
+
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+attack bandit
+search for money
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look
+where is the bandit
+n
+attack deer
+attack deer
+attack deer
+attack deer
+take the deer carcass
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+look
+where is the deer
+wealth

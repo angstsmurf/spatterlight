@@ -1421,7 +1421,17 @@ case, and their goldens are re-blessed. The row notes in
     the author meant. The Town of Azra's #banditkristdies/#deerdies revive
     their NPC this way, and with the NPC dead for good (bc16dfe2d) the
     house goal was unreachable. An NPC with no KilledTask, or left at no
-    stamina, stays dead.
+    stamina, stays dead. Measured live 2026-10-17 to be sure the Runner
+    really never revives: run390x on the 3.90 file, the golden's route to
+    the kill and then 70 `wait`s on the trail -- no bandit, and `where is
+    the bandit` answers "Bandit is dead!"; the deer the same after 65 waits
+    (runner_probes/the_town_of_azra_v390.run390.revive.txt,
+    harness/cmdfile_azra_revive.txt). Scarier on the same feed and seed has
+    the bandit back after eight waits and the player dead at turn 65. Azra
+    has four move-character actions in all (tasks 19, 33, 37, 42) and every
+    one goes to hidden, so only the walks ever place the Bandit or the Deer;
+    nothing in the game moves a corpse into a room. Kept as a deviation by
+    decision 2026-10-17.
   - Not changed: a 3.7/3.8 Obj2 restriction on a static object still fails
     (985d3a092). b607dd8 tested the preceding dynamic object instead, which
     only happened to suit twilight; PATCH_TWILIGHT covers that game.

@@ -1767,6 +1767,12 @@ Re-blessed 2026-09-14: `status` prints run390's own three tab-joined rows
 ("Stamina:\t\t80 (102)", "Hit strength:\t\t6 (1)", "Defense value:\t3 (0)";
 dobattle 44C6D2..44C80F), not the 4.0 table.  run390x Adrift_188 T60, and the
 row is now identical to runner_transcripts/the_town_of_azra_v390.txt on every turn.
+2026-10-17: the Runner's "dead for good" was measured live (run390x, 70 waits after
+the bandit kill, "Bandit is dead!"; runner_probes/the_town_of_azra_v390.run390.revive.txt).
+Scarier deliberately deviates since 3b8a9781c (a KilledTask that restores stamina keeps
+the walk alive), so the bandit respawns here and goal 5 is reachable in Scarier; this
+route is unchanged and still Runner-identical. Azra's only character moves (tasks 19,
+33, 37, 42) all go to hidden.
 ```
 
 ## thetest_solution.txt
