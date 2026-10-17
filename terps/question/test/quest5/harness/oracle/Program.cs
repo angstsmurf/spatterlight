@@ -97,8 +97,7 @@ if (args.Length >= 2)
     }
 }
 
-var provider = new FileDirectoryGameDataProvider(args[0]);
-var gameData = await provider.GetData();
+var gameData = QvhGameFile.Load(args[0]);
 
 // QVH_LOADSAVE=<file>: boot from a saved game (native .quest-save format). The
 // save may be one QuestViva wrote (`save:` step below) or one the native Question

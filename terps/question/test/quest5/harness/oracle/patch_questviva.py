@@ -231,26 +231,29 @@ shutil.copy2(oracle / "ErkyrathRandomV4.cs", legacy / "ErkyrathRandomV4.cs")
 
 v4 = legacy / "V4Game.cs"
 v4text = v4.read_text()
-v4_edits = [
-    (("    private Random _random = new();",
-      "    private readonly Random _random = new();"),
-     "    private ErkyrathRandomV4 _random = ErkyrathRandomV4.FromEnv();"),
-    ("""            return Conversion.Str(
+def v4_rand(conv):
+    # `rand` converts its bounds with Conversions.ToDouble up to v6.0.0 and with
+    # the culture-invariant Conversion.Val since #2502; keep whichever is there.
+    return ("""            return Conversion.Str(
                 Conversion.Int(_random.NextDouble() *
-                               (Conversions.ToDouble(parameters[2]) - Conversions.ToDouble(parameters[1]) + 1d)) +
-                Conversions.ToDouble(parameters[1]));""",
-     """            return Conversion.Str(_random.Rand(
-                Conversions.ToDouble(parameters[1]), Conversions.ToDouble(parameters[2])));"""),
+                               (%s(parameters[2]) - %s(parameters[1]) + 1d)) +
+                %s(parameters[1]));""" % (conv, conv, conv),
+            """            return Conversion.Str(_random.Rand(
+                %s(parameters[1]), %s(parameters[2])));""" % (conv, conv))
+# Each edit lists (old, new) alternatives; the first old present is replaced.
+v4_edits = [
+    [(old, "    private ErkyrathRandomV4 _random = ErkyrathRandomV4.FromEnv();")
+     for old in ("    private Random _random = new();",
+                 "    private readonly Random _random = new();")],
+    [v4_rand("Conversion.Val"), v4_rand("Conversions.ToDouble")],
 ]
 v4_already = "ErkyrathRandomV4.FromEnv()" in v4text
-for olds, new in v4_edits:
-    if isinstance(olds, str):
-        olds = (olds,)
-    hit = next((o for o in olds if o in v4text), None)
+for alternatives in v4_edits:
+    hit = next(((o, n) for o, n in alternatives if o in v4text), None)
     if hit:
-        v4text = v4text.replace(hit, new, 1)
+        v4text = v4text.replace(hit[0], hit[1], 1)
     elif not v4_already:
-        sys.exit(f"[patch] V4 anchor not found (upstream changed?):\n  {olds[0]}")
+        sys.exit(f"[patch] V4 anchor not found (upstream changed?):\n  {alternatives[0][0]}")
 v4.write_text(v4text)
 # The matching SetRandomSeed hook (#2294) lives in V4Game.Part2.cs.
 p2 = legacy / "V4Game.Part2.cs"

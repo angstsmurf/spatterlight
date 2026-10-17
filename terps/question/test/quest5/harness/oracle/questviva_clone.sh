@@ -13,13 +13,15 @@
 QV_HARNESS="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ORACLE_HOME="${ORACLE_HOME:-$HOME/questviva-oracle}"
 QV="$ORACLE_HOME/questviva"
-# Pinned upstream revision: v6.0.0-rc.4 + 9 (2026-10-02). Since beta.57 this
+# Pinned upstream revision: v6.0.0 + 69 (2026-10-14). Since beta.57 this
 # brings the shared per-game ExpressionOwner and SetRandomSeed hook (#2294),
 # inline Ask/ShowMenu prompts for v600 games (#2288), the turn no longer ending
-# when a blocking prompt resumes (#2413) and the nullable/LF refactors. Override
-# with QV_REV=<sha> to test another revision; patch_questviva.py's anchors are
-# checked against this one (and still accept beta.57's).
-QV_REV="${QV_REV:-5ef2091b91cbedb8c7b50f0c7d765159b37428e0}"
+# when a blocking prompt resumes (#2413) and the nullable/LF refactors; since
+# rc.4+9 the post-6.0.0 player fixes (#2501..#2545) and GameData taking the
+# game's bytes (QvhGameFile.cs). Override with QV_REV=<sha> to test another
+# revision; patch_questviva.py's anchors are checked against this one (and
+# still accept rc.4+9's and beta.57's).
+QV_REV="${QV_REV:-290a87df817f5091362b38a996ca4f04c47024da}"
 
 mkdir -p "$ORACLE_HOME"
 if [ ! -d "$QV/.git" ]; then

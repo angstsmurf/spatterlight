@@ -29,7 +29,7 @@ but not something to vendor), just like the FrankenDrift build the a5 oracle use
 
 Clones QuestViva into `$ORACLE_HOME` (default `~/questviva-oracle`), moves the
 clone to the **pinned upstream revision** (`QV_REV` in `questviva_clone.sh`, currently
-v6.0.0-rc.4 + 9 = `5ef2091b`), applies the harness patches (below), and builds
+v6.0.0 + 69 = `290a87df`), applies the harness patches (below), and builds
 `bin/Release/net10.0/qvh.dll`. With the .NET 10 SDK the checkout needs no
 retargeting. Override the location with `ORACLE_HOME=/path ./build.sh`, the
 revision with `QV_REV=<sha>`; an existing clone on another revision is reset to
@@ -444,7 +444,9 @@ what `1 —or— 2` (sent verbatim) triggered before the extractor fix.
 
 ## Oracle vs goldens at the pinned revision
 
-`./check_golden.sh` against v6.0.0-rc.4+9 (2026-10-03): **165 passed, 0 failed**.
+`./check_golden.sh` against v6.0.0+69 (2026-10-17): **354 passed, 0 failed** —
+no golden moved from rc.4+9, and the Quest 4 oracle's transcripts are
+byte-identical too.
 The goldens are the oracle's own transcripts (regenerated with
 `update_golden.sh`, or by driving one game from its `overrides/` script), so a
 native/oracle disagreement shows up in `../run_replays.sh`, not here.

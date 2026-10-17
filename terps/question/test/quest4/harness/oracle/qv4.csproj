@@ -17,5 +17,7 @@
     <!-- Legacy *is* the Quest 4 engine: V4Game handles .asl/.cas/.qsg, and it
          references only Common, never Engine (the Quest 5 world model). -->
     <ProjectReference Include="$(QuestVivaDir)/src/Legacy/Legacy.csproj" />
+    <!-- Loads the game and the files beside it; shared with the Quest 5 oracle. -->
+    <Compile Include="../../../quest5/harness/oracle/QvhGameFile.cs" />
   </ItemGroup>
 </Project>

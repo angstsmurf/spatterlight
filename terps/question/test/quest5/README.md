@@ -133,7 +133,7 @@ cd harness/oracle
 ./update_golden.sh             # re-freeze after an INTENDED change
 ```
 
-The oracle is pinned to QuestViva rc.4+9 (`5ef2091b`, since 2026-10-03);
+The oracle is pinned to QuestViva v6.0.0+69 (`290a87df`, since 2026-10-17);
 `build.sh` checks that commit out and `patch_questviva.py` applies the
 determinism patches (`ErkyrathRandom.cs` replaces .NET's `Random`, with
 QuestViva's own per-expression streams kept); `Program.cs` is the driver,

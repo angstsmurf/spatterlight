@@ -127,9 +127,7 @@ void Unprint(string text)
         transcript.Length = start;
 }
 
-var provider = new FileDirectoryGameDataProvider(pos[0]);
-var gameData = await provider.GetData();
-if (gameData == null) { Console.Error.WriteLine("[fatal] cannot read game"); return 3; }
+var gameData = QvhGameFile.Load(pos[0]);
 
 var game = new V4Game(gameData, null!);
 game.PrintText += Emit;
