@@ -1283,6 +1283,89 @@ a5_scan_release (const uint8_t *buf, uint32_t len)
   return a5_scan_tag (buf, len, "<release><version>");
 }
 
+/* 5.0.20+ .taf/.blorb payloads insert a Babel <ifindex> metadata block
+   right after the 4-byte hex size field at offset 12: a size of "0000"
+   means an empty (absent) block, but a non-empty block is only detectable
+   by the literal "<ifindex" tag at offset 16 (the Adrift 5 runner FileIO.vb:800,
+   sSize = "0000" OrElse sCheck = "<ifindex"). Skip exactly that many bytes
+   before the obfuscated/deflated game payload starts.
+   Sets *header and *obfuscated for the payload. */
+static void
+a5_payload_layout (const uint8_t *file_buf, uint32_t file_len,
+                   const uint8_t *payload, uint32_t payload_len, int from_blorb,
+                   uint32_t *header, int *obfuscated)
+{
+  int is_zero_size = (payload[12] == '0' && payload[13] == '0'
+                       && payload[14] == '0' && payload[15] == '0');
+  int has_ifindex = (payload_len >= 24
+                      && memcmp (payload + 16, "<ifindex", 8) == 0);
+  if (is_zero_size || has_ifindex)
+    {
+      char size_hex[5];
+      memcpy (size_hex, payload + 12, 4);
+      size_hex[4] = '\0';
+      *header = 16 + (uint32_t) strtoul (size_hex, nullptr, 16);
+    }
+  else
+    {
+      /* Pre-5.0.20 layout: the deflate stream follows the 12-byte version
+         header directly.  It is also the layout of the game data embedded in
+         ADRIFT 5 .exe-wrapped games (the virtual human). */
+      *header = 12;
+    }
+
+  if (from_blorb)
+    {
+      /* A BLORB Exec chunk takes its own runner path (FileIO.vb:751), where
+         the layout picks only the header offset and obfuscation is decided
+         by the Blorb metadata instead:
+
+           bDeObfuscate = clsBlorb.MetaData Is Nothing _
+                          OrElse MetaData.OuterXml.Contains("compilerversion")
+
+         i.e. a blorb the ADRIFT Generator wrote (its iFiction carries
+         <compilerversion>), or one with no iFiction chunk at all, is
+         obfuscated; a blorb whose metadata came from elsewhere -- Jacaranda
+         Jim's 2011 release was rewrapped with a Babel-written IFmd -- is
+         plain deflate.  Skybreak has no IFmd and RtC.blorb has one with
+         compilerversion, so both stay obfuscated. */
+      a5_blorb_chunk_t meta;
+      *obfuscated = 1;
+      if (a5blorb_find_metadata (file_buf, file_len, &meta))
+        *obfuscated = a5_buf_contains (meta.data, meta.size, "compilerversion");
+    }
+  else
+    {
+      /* A bare .taf in the old layout is not obfuscated (FileIO.vb:816,
+         "Pre 5.0.20 ... bObfuscate = False"). */
+      *obfuscated = (is_zero_size || has_ifindex);
+    }
+}
+
+/* The A5_DUMP_XML debugging dump of the inflated game XML. */
+static void
+a5_dump_xml (const uint8_t *xml, uint32_t xml_len)
+{
+  const char *dp = getenv ("A5_DUMP_XML");
+  if (dp != nullptr && dp[0] != '\0')
+    {
+      /* Convenience: A5_DUMP_XML is a FILE PATH.  As a shorthand, a bare
+         "1" / "y" / "-" (i.e. someone treating it like a boolean flag) is
+         mapped to a stable default path so the common "=1" mistake still
+         produces a usable dump instead of a file literally named "1". */
+      if ((dp[1] == '\0' && (dp[0] == '1' || dp[0] == 'y' || dp[0] == '-')))
+        dp = "/tmp/a5dump.xml";
+      FILE *df = fopen (dp, "wb");
+      if (df != nullptr)
+        {
+          fwrite (xml, 1, xml_len, df);
+          fclose (df);
+          fprintf (stderr, "[A5_DUMP_XML] wrote %lu bytes to %s\n",
+                   (unsigned long) xml_len, dp);
+        }
+    }
+}
+
 a5_adventure_t *
 a5model_load_buffer (uint8_t *file_buf, uint32_t file_len)
 {
@@ -1320,60 +1403,9 @@ a5model_load_buffer (uint8_t *file_buf, uint32_t file_len)
       free (file_buf);
       return nullptr;
     }
-  /* 5.0.20+ .taf/.blorb payloads insert a Babel <ifindex> metadata block
-     right after the 4-byte hex size field at offset 12: a size of "0000"
-     means an empty (absent) block, but a non-empty block is only detectable
-     by the literal "<ifindex" tag at offset 16 (the Adrift 5 runner FileIO.vb:800,
-     sSize = "0000" OrElse sCheck = "<ifindex"). Skip exactly that many bytes
-     before the obfuscated/deflated game payload starts. */
   int obfuscated;
-  {
-    int is_zero_size = (payload[12] == '0' && payload[13] == '0'
-                         && payload[14] == '0' && payload[15] == '0');
-    int has_ifindex = (payload_len >= 24
-                        && memcmp (payload + 16, "<ifindex", 8) == 0);
-    if (is_zero_size || has_ifindex)
-      {
-        char size_hex[5];
-        memcpy (size_hex, payload + 12, 4);
-        size_hex[4] = '\0';
-        header = 16 + (uint32_t) strtoul (size_hex, nullptr, 16);
-      }
-    else
-      {
-        /* Pre-5.0.20 layout: the deflate stream follows the 12-byte version
-           header directly.  It is also the layout of the game data embedded in
-           ADRIFT 5 .exe-wrapped games (the virtual human). */
-        header = 12;
-      }
-
-    if (from_blorb)
-      {
-        /* A BLORB Exec chunk takes its own runner path (FileIO.vb:751), where
-           the layout picks only the header offset and obfuscation is decided
-           by the Blorb metadata instead:
-
-             bDeObfuscate = clsBlorb.MetaData Is Nothing _
-                            OrElse MetaData.OuterXml.Contains("compilerversion")
-
-           i.e. a blorb the ADRIFT Generator wrote (its iFiction carries
-           <compilerversion>), or one with no iFiction chunk at all, is
-           obfuscated; a blorb whose metadata came from elsewhere -- Jacaranda
-           Jim's 2011 release was rewrapped with a Babel-written IFmd -- is
-           plain deflate.  Skybreak has no IFmd and RtC.blorb has one with
-           compilerversion, so both stay obfuscated. */
-        a5_blorb_chunk_t meta;
-        obfuscated = 1;
-        if (a5blorb_find_metadata (file_buf, file_len, &meta))
-          obfuscated = a5_buf_contains (meta.data, meta.size, "compilerversion");
-      }
-    else
-      {
-        /* A bare .taf in the old layout is not obfuscated (FileIO.vb:816,
-           "Pre 5.0.20 ... bObfuscate = False"). */
-        obfuscated = (is_zero_size || has_ifindex);
-      }
-  }
+  a5_payload_layout (file_buf, file_len, payload, payload_len, from_blorb,
+                     &header, &obfuscated);
   if (header + 14 > payload_len)
     {
       free (file_buf);
@@ -1408,26 +1440,7 @@ a5model_load_buffer (uint8_t *file_buf, uint32_t file_len)
       return nullptr;
     }
 
-  {
-    const char *dp = getenv ("A5_DUMP_XML");
-    if (dp != nullptr && dp[0] != '\0')
-      {
-        /* Convenience: A5_DUMP_XML is a FILE PATH.  As a shorthand, a bare
-           "1" / "y" / "-" (i.e. someone treating it like a boolean flag) is
-           mapped to a stable default path so the common "=1" mistake still
-           produces a usable dump instead of a file literally named "1". */
-        if ((dp[1] == '\0' && (dp[0] == '1' || dp[0] == 'y' || dp[0] == '-')))
-          dp = "/tmp/a5dump.xml";
-        FILE *df = fopen (dp, "wb");
-        if (df != nullptr)
-          {
-            fwrite (xml, 1, xml_len, df);
-            fclose (df);
-            fprintf (stderr, "[A5_DUMP_XML] wrote %lu bytes to %s\n",
-                     (unsigned long) xml_len, dp);
-          }
-      }
-  }
+  a5_dump_xml (xml, xml_len);
 
   doc = a5xml_parse ((char *) xml, xml_len);
   if (doc == nullptr)
