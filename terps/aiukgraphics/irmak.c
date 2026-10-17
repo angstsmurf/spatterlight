@@ -116,12 +116,6 @@ uint8_t imagebuffer[IRMAK_IMGSIZE][IRMAK_CELL_BYTES];
 /* Forward declarations of necessary external functions */
 void RectFill(int32_t x, int32_t y, int32_t width, int32_t height, int32_t color);
 
-/* Test whether bit n (0 = LSB, 7 = MSB) of c is set. */
-int isNthBitSet(unsigned const char c, int n)
-{
-    return (c >> n) & 1;
-}
-
 /* The tile transformations are built from three primitives: mirroring
    left to right (Flip), mirroring top to bottom (ReverseRows) and
    mirroring in the main diagonal (Transpose). */

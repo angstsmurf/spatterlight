@@ -181,7 +181,7 @@ static void animate_waterfall(int first_col, int cols, int first_line,
         for (int col = first_col; col < first_col + cols; col++) {
             for (int i = 0; i < 8; i++) {
                 for (int j = 0; j < 8; j++) {
-                    if (isNthBitSet(layout[col + line * IRMAK_IMGWIDTH][i], 7 - j)) {
+                    if (PixelSet(layout[col + line * IRMAK_IMGWIDTH][i], j)) {
                         int ypos = line * 8 + i + stage;
                         if (ypos > top + 63)
                             ypos = ypos - 64;

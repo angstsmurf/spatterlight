@@ -606,7 +606,7 @@ void DrawRTPIFromMem(void) {
             bg = fg & 0xf;
             fg >>= 4;
             for (int p = 0; p < 8; p++) {
-                if (isNthBitSet(byte, 7 - p)) {
+                if (PixelSet(byte, p)) {
                     PutPixel(x + p, y + line, fg);
                 } else {
                     PutPixel(x + p, y + line, bg);

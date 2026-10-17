@@ -88,9 +88,9 @@
 extern void gli_initialize_misc(void);
 extern int gli_slowdraw, gli_determinism;
 extern int ImageWidth, ImageHeight;
-extern glui32 pal[16];
 extern void glk_main(void);
 
+#include "aiukpalette.h"
 #include "scott.h"
 #include "fake_glk_window.h"
 #include "test_util.h"

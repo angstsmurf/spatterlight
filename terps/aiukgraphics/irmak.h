@@ -51,6 +51,13 @@ static inline uint8_t AttributePaper(uint8_t attribute)
 #define IRMAK_CELL_ATTR 8
 #define IRMAK_CELL_BYTES 9
 
+/* Whether the pixel in the given column (0 = leftmost) of a pixel row is
+   set. */
+static inline int PixelSet(uint8_t row, int column)
+{
+    return (row & (0x80 >> column)) != 0;
+}
+
 /* Passed as x or y to DrawPictureAtPos(): use the position
    stored with the image. Any value outside the image area
    means the same. */
@@ -66,7 +73,6 @@ void DrawIrmakBufferChanges(const uint8_t shown[][IRMAK_CELL_BYTES]);
 
 void Flip(uint8_t *tile);
 void RotateTile(uint8_t *tile, int rotation);
-int isNthBitSet(unsigned const char c, int n);
 
 /* Used by SagaGraphicsSetup() and TaylorSetup() */
 extern uint8_t tiles[256][8];

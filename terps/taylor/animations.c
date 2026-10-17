@@ -111,7 +111,7 @@ static void DrawPixelRow(int col, int line, int pixrow, glui32 ink)
 {
     uint8_t bits = imagebuffer[col + line * IRMAK_IMGWIDTH][pixrow];
     for (int bit = 0; bit < 8; bit++) {
-        if (isNthBitSet(bits, 7 - bit))
+        if (PixelSet(bits, bit))
             PutPixel(col * 8 + bit, line * 8 + pixrow, ink);
     }
 }
@@ -199,7 +199,7 @@ static void PaintCell(int cell, glui32 ink, glui32 background)
     int starty = (cell / IRMAK_IMGWIDTH) * 8;
     for (int pixrow = 0; pixrow < 8; pixrow++) {
         for (int pix = 0; pix < 8; pix++) {
-            int set = isNthBitSet(imagebuffer[cell][pixrow], 7 - pix);
+            int set = PixelSet(imagebuffer[cell][pixrow], pix);
             PutPixel(startx + pix, starty + pixrow, set ? ink : background);
         }
     }
@@ -307,7 +307,7 @@ static void AnimateKaylethClickShelves(int stage)
                 uint8_t attribute = imagebuffer[col + (y / 8) * IRMAK_IMGWIDTH][IRMAK_CELL_ATTR];
                 glui32 ink = Remap(AttributeInk(attribute));
                 for (int j = 0; j < 8; j++) {
-                    if (isNthBitSet(bits, 7 - j))
+                    if (PixelSet(bits, j))
                         PutPixel(col * 8 + j, y, ink);
                 }
             }
