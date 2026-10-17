@@ -155,9 +155,10 @@ All six failures are understood and none is a regression:
 - **The oracle is patched.** To make the runs repeatable the QuestViva clone
   carries local patches (`patch_questviva.py`): a per-expression generator
   (`ErkyrathRandom.cs`, byte-identical to the C one), `SetRandomSeed`, the
-  invariant-culture pin (so a double does not print as `100,4`; upstream
-  formats invariantly itself since #2501, so the pin is now belt and braces),
-  an error limit
+  invariant-culture pin (so a double does not print as `100,4`; upstream's
+  #2501 fixed only concatenation inside an expression, and `msg (x)` of a bare
+  double still goes through the machine's culture in
+  `Utility.ExpressionResultToString`), an error limit
   hook (`QV_ERROR_LIMIT`), and the `V4Game` Type-as-class fixes.
   "QuestViva" in the tables is QuestViva plus those patches.
 - **The Quest 4 goldens are self-goldens.** They freeze what Question printed.

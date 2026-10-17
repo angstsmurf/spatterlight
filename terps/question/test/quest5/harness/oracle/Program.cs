@@ -38,7 +38,10 @@ if (args.Length < 1)
 // so on a Swedish machine GiantKiller Too's voice said "100,4"; the games were
 // written (and the native engine prints) with the invariant "100.4". Expression
 // PARSING already uses InvariantCulture inside QuestNCalcExpressionFactory, so
-// this only touches formatting.
+// this only touches formatting. Upstream #2501 made concatenation inside an
+// expression invariant, but `msg (x)` of a bare double still prints through
+// Utility.ExpressionResultToString's plain ToString(), so the pin stays
+// (checked 2026-10-17 at 290a87df: "100,4" under sv_SE without it).
 System.Globalization.CultureInfo.DefaultThreadCurrentCulture =
     System.Globalization.CultureInfo.InvariantCulture;
 System.Globalization.CultureInfo.DefaultThreadCurrentUICulture =
