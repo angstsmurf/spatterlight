@@ -45,6 +45,7 @@ int GetDictWord(int group);
 int YesOrNo(void);
 void OpenTopWindow(void);
 void Look(int transcript);
+Room *PlayerRoom(void);
 void SystemMessage(SysMessageType message);
 void AnyKey(int timeout, int message);
 void SetTimer(glui32 milliseconds);

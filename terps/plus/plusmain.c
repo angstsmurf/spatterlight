@@ -541,8 +541,10 @@ static void ListExits(void)
     int ct = 0;
     int numexits = 0;
 
+    Room *room = PlayerRoom();
+
     for (int i = 0; i < NUM_DIRECTIONS; i++)
-        if (Rooms[MyLoc].Exits[i] != 0)
+        if (room->Exits[i] != 0)
             numexits++;
 
     if (numexits == 0) {
@@ -555,7 +557,7 @@ static void ListExits(void)
         WriteToRoomDescriptionStream(" %s", sys[EXITS]);
 
     for (int i = 0; i < NUM_DIRECTIONS; i++)
-        if (Rooms[MyLoc].Exits[i] != 0) {
+        if (room->Exits[i] != 0) {
             if (ct) {
                 if (ct == numexits - 1)
                     WriteToRoomDescriptionStream(", and ");
@@ -646,7 +648,7 @@ void Look(int transcript)
         return;
     }
 
-    r = &Rooms[MyLoc];
+    r = PlayerRoom();
 
     if (!r->Text) {
         /* A room without a description: nothing to show */
@@ -927,6 +929,18 @@ static int IsValidCounter(int counter)
     return 1;
 }
 
+/* The room the player is in. It is counter 32, which the counter commands
+   may write like any other (Fantastic Four swaps it into the main counter
+   as scratch), so it is checked where it is used as an index, not where
+   it is written. A room that does not exist stops the original
+   interpreters with "Subscript out of range", and stops this one here. */
+Room *PlayerRoom(void)
+{
+    if (MyLoc < 0 || MyLoc > GameHeader.NumRooms)
+        Fatal("Player room out of range");
+    return &Rooms[MyLoc];
+}
+
 /* Move an item to a room (or to CARRIED, or out of play), and note
    whether the room picture must be redrawn. */
 static void MoveItemTo(int item, int location)
@@ -941,7 +955,7 @@ static void PutItemAInRoomB(int itemA, int roomB)
 {
     if (!IsValidItem(itemA))
         return;
-    debug_print("Item %d (%s) is put in room %d. MyLoc: %d (%s)\n", itemA, Items[itemA].Text, roomB, MyLoc, Rooms[MyLoc].Text);
+    debug_print("Item %d (%s) is put in room %d. MyLoc: %d\n", itemA, Items[itemA].Text, roomB, MyLoc);
     Items[itemA].Location = roomB;
     if (roomB == MyLoc)
         CheckForObjectImage(itemA);
@@ -1664,8 +1678,10 @@ static ActionResultType PerformLine(int ct)
                 break;
             case CMD_GOTO:
                 debug_print("Player location is now room %d.\n", arg1);
-                MyLoc = arg1;
-                SetBit(DRAWBIT);
+                if (IsValidRoom(arg1)) {
+                    MyLoc = arg1;
+                    SetBit(DRAWBIT);
+                }
                 break;
             case CMD_MEANS:
                 debug_print("The command is changed to ");

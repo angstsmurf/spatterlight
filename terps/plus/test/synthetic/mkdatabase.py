@@ -158,6 +158,8 @@ BAD_ITEM = 200                 # more than there are items
 BAD_SMALL_ITEM = 100           # the same, written in one byte
 BAD_COUNTER = 100              # there are 64 counters
 BAD_BIT = 100                  # and 64 flags
+BAD_ROOM = 100                 # and four rooms
+ROOM_COUNTER = 32              # the player's room
 
 adverbs = ["ANY", "NONE", "QUICKLY"]
 preps = ["ANY", "NONE", "WITH", "AT", "IN"]   # 2 and 3 start a "with" list
@@ -310,8 +312,11 @@ for n, conds in (
         (30, [(30, BAD_ITEM), (0, 1)])):
     cont([NOT] + conds, tok(n))
 
-# Commands with such operands do nothing
-test("BADARGS", msg("BADARGS expect 7 7 got"), setc(1, 7), setc(2, 200), printc(1),
+# Commands with such operands do nothing. A GOTO to a room that does not
+# exist is one of them (the player stays in the laboratory, room 1). A
+# counter command may write any value into counter 32, the room, as long
+# as it is a room again before anything looks at it (BADROOM below).
+test("BADARGS", msg("BADARGS expect 7 7 1 100 got"), setc(1, 7), setc(2, 200), printc(1),
      [52] + val(BAD_ITEM), [53] + val(BAD_ITEM), [59] + val(BAD_ITEM),
      [74] + val(BAD_ITEM), [62] + val(BAD_ITEM) + [LAB],
      [72] + val(BAD_ITEM) + [LAMP], [72, LAMP] + val(BAD_ITEM),
@@ -328,7 +333,9 @@ test("BADARGS", msg("BADARGS expect 7 7 got"), setc(1, 7), setc(2, 200), printc(
      [102, BAD_COUNTER], [104, BAD_COUNTER], [109, BAD_COUNTER],
      [123, 1, BAD_COUNTER], [126, BAD_COUNTER, 1], [126, 1, 2],
      [127, BAD_COUNTER, 1], [127, 1, 2],
-     printc(1))
+     printc(1),
+     [54, BAD_ROOM], printc(ROOM_COUNTER),
+     setc(ROOM_COUNTER, BAD_ROOM), printc(ROOM_COUNTER), setc(ROOM_COUNTER, LAB))
 
 # Logic control: 2 XOR, 9 fuzzy and 10 strict noun matching, one that does
 # not exist, and a condition that does not exist (true)
@@ -387,6 +394,8 @@ actions[-1][3][:] = [RPAREN]
 test("OVERFLOW", LOOP)
 for _ in range(32):
     cont([], LOOP)
+# A room that does not exist, left in counter 32 when the room is described
+test("BADROOM", setc(ROOM_COUNTER, BAD_ROOM))
 
 test("END", [63])
 

@@ -1173,6 +1173,10 @@ static int SanityCheckHeader(const Header *h)
         return 0;
     if (h->NumRooms < 10 || h->NumRooms > 100)
         return 0;
+    /* The player must start in a room that exists (PlayerRoom() stops
+       the interpreter otherwise) */
+    if (h->PlayerRoom < 0 || h->PlayerRoom > h->NumRooms)
+        return 0;
     /* The other counts are used as array sizes */
     if (h->ActionSum < 0 || h->NumMessages < 0 || h->NumPreps < 0 ||
         h->NumAdverbs < 0 || h->NumSubStr < 0 || h->NumObjImg < 0)

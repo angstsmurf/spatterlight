@@ -29,7 +29,10 @@ Not reached by any walkthrough before this, now run:
   modes with the rescan of mode 3, and the unknown ones;
 - 115 inside a nested loop, and the 116/117/118 combinations;
 - the out-of-range guards of conditions 1, 2, 3, 5, 13, 14, 18 and of the
-  others, logic flags 2 (XOR), 9, 10 and an unknown one, and how results
+  others, and of the player's room (a GOTO to a room that does not exist
+  does nothing, while a counter command may write anything into counter 32,
+  `TEST BADARGS`), logic flags 2 (XOR), 9, 10 and an unknown one, and how
+  results
   are combined (`TEST GROUPS`: an OR that comes too late, groups, a negated
   group, 31.8);
 - the operands 997 (the "with" list) and 999 (second noun), and the two-byte
@@ -39,7 +42,8 @@ Not reached by any walkthrough before this, now run:
   counter, a value and one of the first 51 messages (`TEST WIDE`); a message
   number beyond the last message, which prints nothing (`TEST UNKNOWN`);
 - the fatal errors: conditions nested more than five parentheses deep, a
-  closing parenthesis without an opening one, more than 32 nested loops;
+  closing parenthesis without an opening one, more than 32 nested loops,
+  and a room that does not exist left in counter 32 (`fatal-room`);
 - in the plain text loader: an empty dictionary slot, which is a group
   without words, so that the verb after it keeps its number (`LATER`); a
   message longer than the 1000 characters kept of a string, of which the

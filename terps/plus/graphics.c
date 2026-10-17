@@ -483,7 +483,7 @@ static int DescribeScene(Scene *scene)
     scene->pixel_size = pixel_size;
     scene->x_offset = x_offset;
     scene->y_offset = y_offset;
-    scene->room_image = Rooms[MyLoc].Exits[EXIT_IMAGE];
+    scene->room_image = PlayerRoom()->Exits[EXIT_IMAGE];
     scene->upside_down = IsUpsideDown();
     for (int ct = 0; ct <= GameHeader.NumObjImg; ct++)
         if (ObjectImages[ct].Room == MyLoc && Items[ObjectImages[ct].Object].Location == MyLoc) {
@@ -521,7 +521,7 @@ void DrawCurrentRoom(void)
 
     int dark = IsDark();
 
-    if (Rooms[MyLoc].Exits[EXIT_IMAGE] == NO_ROOM_IMAGE || Images[0].Filename == NULL) {
+    if (PlayerRoom()->Exits[EXIT_IMAGE] == NO_ROOM_IMAGE || Images[0].Filename == NULL) {
         CloseGraphicsWindow();
         return;
     }
@@ -551,7 +551,7 @@ void DrawCurrentRoom(void)
         return;
     }
 
-    if (!DrawRoomImage(Rooms[MyLoc].Exits[EXIT_IMAGE])) {
+    if (!DrawRoomImage(PlayerRoom()->Exits[EXIT_IMAGE])) {
         CloseGraphicsWindow();
         return;
     }
