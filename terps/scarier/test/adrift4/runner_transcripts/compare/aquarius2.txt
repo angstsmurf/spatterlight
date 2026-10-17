@@ -10,7 +10,7 @@ turn 8  take sword
 
 turn 17  take stone
   run400   Which Stone. A Shiny Magical Stone, A Glowing Magical Stone or A Radiant Magical Stone?
-  scarier  Which Stone? The Shiny Magical Stone, the Glowing Magical Stone or the Radiant Magical Stone?
+  scarier  You pick up the Radiant Magical Stone.
 
 turn 37  take potion
   run400   You pick up A Magical Potion.
@@ -18,7 +18,7 @@ turn 37  take potion
 
 turn 44  take stone
   run400   Which Stone. A Shiny Magical Stone, A Glowing Magical Stone, A Radiant Magical Stone or A Golden Magical Stone?
-  scarier  Which Stone? The Shiny Magical Stone, the Glowing Magical Stone, the Radiant Magical Stone or the Golden Magical Stone?
+  scarier  You pick up the Golden Magical Stone.
 
 (the openings differ too -- banner, graphics notice or the
  Runner's own startup lines; usually not an engine difference)

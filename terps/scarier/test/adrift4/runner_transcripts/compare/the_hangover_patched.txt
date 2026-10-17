@@ -1,0 +1,14 @@
+feed        58 commands
+runner      57 turns echoed
+scarier     57 turns, feed[0] is scarier turn 0
+
+ended       feed[57:58] score -- after the game ended on both sides; not compared
+
+RULE 2 -- every feed command was echoed.
+
+turn 34  open the filing cabinet
+  run400   What you typed doesn't work.
+  scarier  Done.
+
+(the openings differ too -- banner, graphics notice or the
+ Runner's own startup lines; usually not an engine difference)

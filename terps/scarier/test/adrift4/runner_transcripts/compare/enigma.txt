@@ -28,9 +28,13 @@ turn 7  kill knife goblin
   run400   Which goblin. A short goblin or a sadistic goblin?
   scarier  You stab a sadistic goblin with it's short sword. The greenskin's dagger breaks as it hits the ground, shards of rusted knife bouncing everywhere.
 
+turn 11  look in garbage
+  run400   This is a smelly heap of trash, it consists mainly of feces and other excretions, there is some scrap wood and metal here aswell and you're sure you just saw a skull. A small book is on the pile of garbage, and inside is some trash and a copper key.
+  scarier  This is a smelly heap of trash, it consists mainly of feces and other excretions, there is some scrap wood and metal here aswell and you're sure you just saw a skull. A small book is on the pile of garbage, and inside are some trash and a copper key.
+
 turn 17  w
   run400   You move west. Goblin guard room This smelly room reminds you of the prison cell! There are two torches nailed into the wall and a stone chair on the northern wall. There is a brown door to the east and a long passageway to the west. a goblin guard is here. You can move east and west.
-  scarier  You move west. Goblin guard room This smelly room reminds you of the prison cell! There are two torches nailed into the wall and a stone chair on the northern wall. There is a brown door to the east and a long passageway to the west. a goblin guard is here. You can move east and west. A goblin guard hits you, but it doesn't seem to do any damage.
+  scarier  You move west. Goblin guard room This smelly room reminds you of the prison cell! There are two torches nailed into the wall and a stone chair on the northern wall. There is a brown door to the east and a long passageway to the west. A goblin guard is here. You can move east and west. A goblin guard hits you, but it doesn't seem to do any damage.
 
 turn 18  kill goblin guard
   run400   a goblin guard manages to avoid your attack with it's short sword. You manage to avoid a goblin guard's attack.
@@ -39,10 +43,6 @@ turn 18  kill goblin guard
 turn 23  ne
   run400   You move northeast. Small fungi cave This cave is littered with wheelbarrows. They are everywhere, all wooden and covered in toad stools. Some of them are carrying mushrooms, the others are empty. There are some crossroads to the south west. there is a goblin farmer here. You can only move southwest.
   scarier  You move northeast. Small fungi cave This cave is littered with wheelbarrows. They are everywhere, all wooden and covered in toad stools. Some of them are carrying mushrooms, the others are empty. There are some crossroads to the south west. there is a goblin farmer here. You can only move southwest. A small goblin farmer hits you.
-
-turn 24  kill goblin farmer
-  run400   a small goblin farmer manages to avoid your attack with it's short sword. You manage to avoid a small goblin farmer's attack.
-  scarier  You stab a small goblin farmer with it's short sword. Goblin farmer falls down, dead.
 
 ... stopping after 10 differing turns
 (the openings differ too -- banner, graphics notice or the

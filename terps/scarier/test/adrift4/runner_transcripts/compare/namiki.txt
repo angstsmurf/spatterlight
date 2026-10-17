@@ -4,6 +4,10 @@ scarier     112 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
+turn 1  open tatami mat
+  run400   I don't understand what you mean!
+  scarier  Done.
+
 turn 10  open chest
   run400   I open the lacquered chest. Inside the lacquered chest is a kimono, a yukata, a ceremonial dress and my hairpins.
   scarier  I open the lacquered chest. Inside the lacquered chest are a kimono, a yukata, a ceremonial dress and my hairpins.

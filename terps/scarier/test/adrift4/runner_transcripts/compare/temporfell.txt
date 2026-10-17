@@ -4,6 +4,18 @@ scarier     158 turns, feed[0] is scarier turn 0
 
 RULE 2 -- every feed command was echoed.
 
+turn 41  examine containers
+  run400   Which containers. The cooled V-Unit container or the containers?
+  scarier  Which containers? The cooled V-Unit container or the containers?
+
+turn 53  examine unit
+  run400   Which unit. The left door, the middle door or the right door?
+  scarier  Which unit? The left door, the middle door or the right door?
+
+turn 54  open door
+  run400   Which door. The left door, the middle door, the right door or the glass, security door?
+  scarier  Which door? The left door, the middle door, the right door or the glass, security door?
+
 turn 59  inventory
   run400   
   scarier  You are wearing your helmet and your atmosphere suit, and you are carrying a cooling B6 container.
@@ -35,18 +47,6 @@ turn 121  s
 turn 123  s
   run400   You move south. Bridge to Stairs Node floats into the room from the north.
   scarier  You move south. Bridge to Stairs Node comes into the room from the north.
-
-turn 124  s
-  run400   You move south. Stairwell Top Node floats into the room from the north.
-  scarier  You move south. Stairwell Top Node enters from the north.
-
-turn 125  d
-  run400   You move down. Stairwell Bottom !*! Bottom of the stairs. You can go up and north. Node floats into the room from above.
-  scarier  You move down. Stairwell Bottom !*! Bottom of the stairs. You can go up and north. Node enters from above.
-
-turn 126  e
-  run400   You move east. Triangular Hallway West |*| A triangular shaped hallway. There are closed doors to your north and south, the bottom of the stairwell lies west and the hallway continues east. Node floats into the room from the west.
-  scarier  You move east. Triangular Hallway West |*| A triangular shaped hallway. There are closed doors to your north and south, the bottom of the stairwell lies west and the hallway continues east. Node enters from the west.
 
 ... stopping after 10 differing turns
 1 turn(s) differed by whitespace only -- see the note above.
