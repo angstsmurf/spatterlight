@@ -91,6 +91,162 @@ task_run_change_object_status (scr_gameref_t game, scr_int var1, scr_int var2)
 
 
 /*
+ * task_change_integer_variable()
+ *
+ * The numeric variable arm of task_run_change_variable_action().
+ */
+static void
+task_change_integer_variable (scr_gameref_t game, const scr_char *name,
+                              scr_int var1, scr_int var2, scr_int var3,
+                              const scr_char *expr, scr_int var5)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  scr_int value;
+
+  /* Select again based on action type. */
+  switch (var2)
+    {
+    case 0:                /* Var = */
+      if (tasks.trace)
+        scr_trace ("Task: variable %ld (%s) = %ld\n", var1, name, var3);
+
+      var_put_integer (vars, name, var3);
+      return;
+
+    case 1:                /* Var += */
+      if (tasks.trace)
+        scr_trace ("Task: variable %ld (%s) += %ld\n", var1, name, var3);
+
+      value = var_get_integer (vars, name) + var3;
+      var_put_integer (vars, name, value);
+      return;
+
+    case 2:                /* Var = rnd(range) */
+      if (tasks.trace)
+        {
+          scr_trace ("Task: variable %ld (%s) = random(%ld,%ld)\n",
+                    var1, name, var3, var5);
+        }
+
+      value = scr_randomint (var3, var5);
+      var_put_integer (vars, name, value);
+      return;
+
+    case 3:                /* Var += rnd(range) */
+      if (tasks.trace)
+        {
+          scr_trace ("Task: variable %ld (%s) += random(%ld,%ld)\n",
+                    var1, name, var3, var5);
+        }
+
+      value = var_get_integer (vars, name) + scr_randomint (var3, var5);
+      var_put_integer (vars, name, value);
+      return;
+
+    case 4:                /* Var = ref */
+      value = var_get_ref_number (vars);
+      if (tasks.trace)
+        {
+          scr_trace ("Task: variable %ld (%s) = ref, %ld\n",
+                    var1, name, value);
+        }
+
+      var_put_integer (vars, name, value);
+      return;
+
+    case 5:                /* Var = expr */
+      if (!expr_eval_numeric_expression (expr, vars, &value))
+        {
+          scr_error ("task_run_change_variable_action:"
+                    " invalid expression, %s\n", expr);
+          value = 0;
+        }
+      if (tasks.trace)
+        {
+          scr_trace ("Task: variable %ld (%s) = %s, %ld\n",
+                    var1, name, expr, value);
+        }
+
+      var_put_integer (vars, name, value);
+      return;
+
+    default:
+      scr_fatal ("task_run_change_variable_action:"
+                " unknown integer change type, %ld\n", var2);
+    }
+}
+
+
+/*
+ * task_change_string_variable()
+ *
+ * The string variable arm of task_run_change_variable_action().
+ */
+static void
+task_change_string_variable (scr_gameref_t game, const scr_char *name,
+                             scr_int var1, scr_int var2, const scr_char *expr)
+{
+  const scr_var_setref_t vars = gs_get_vars (game);
+  const scr_char *string;
+
+  /* Select again based on action type. */
+  switch (var2)
+    {
+    case 0:                /* Var = text literal */
+      if (tasks.trace)
+        {
+          scr_trace ("Task: variable %ld (%s) = \"%s\"\n",
+                    var1, name, expr);
+        }
+
+      var_put_string (vars, name, expr);
+      return;
+
+    case 1:                /* Var = ref */
+      string = var_get_ref_text (vars);
+      if (tasks.trace)
+        {
+          scr_trace ("Task: variable %ld (%s) = ref, \"%s\"\n",
+                    var1, name, string);
+        }
+
+      var_put_string (vars, name, string);
+      return;
+
+    case 2:                /* Var = expr */
+      {
+        /*
+         * expr_eval_string_expression() hands back a scr_malloc'd string
+         * (or we synthesise the error one); own it with RAII so the
+         * var_put_string() below -- which can throw scr_fatal_error from a
+         * prop_put -- no longer leaks it past the old trailing scr_free.
+         */
+        scr_char *evaluated;
+        if (!expr_eval_string_expression (expr, vars, &evaluated))
+          {
+            scr_error ("task_run_change_variable_action:"
+                      " invalid string expression, %s\n", expr);
+            evaluated = scr_strdup ("[expr error]");
+          }
+        scr_owned_string mutable_string (evaluated);
+        if (tasks.trace)
+          {
+            scr_trace ("Task: variable %ld (%s) = %s, %s\n",
+                      var1, name, expr, mutable_string.get ());
+          }
+
+        var_put_string (vars, name, mutable_string.get ());
+        return;
+      }
+
+    default:
+      scr_fatal ("task_run_change_variable_action:"
+                " unknown string change type, %ld\n", var2);
+    }
+}
+
+
+/*
  * task_run_change_variable_action()
  *
  * Change a variable's value in inscrutable ways.
@@ -104,8 +260,8 @@ task_run_change_variable_action (scr_gameref_t game,
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_vartype_t vt_key[3];
-  const scr_char *name, *string;
-  scr_int type, value;
+  const scr_char *name;
+  scr_int type;
 
   /*
    * At this point, we need to checkpoint the filter.  We're about to change
@@ -136,135 +292,12 @@ task_run_change_variable_action (scr_gameref_t game,
   switch (type)
     {
     case TAFVAR_NUMERIC:       /* Integer */
-
-      /* Select again based on action type. */
-      switch (var2)
-        {
-        case 0:                /* Var = */
-          if (tasks.trace)
-            scr_trace ("Task: variable %ld (%s) = %ld\n", var1, name, var3);
-
-          var_put_integer (vars, name, var3);
-          return;
-
-        case 1:                /* Var += */
-          if (tasks.trace)
-            scr_trace ("Task: variable %ld (%s) += %ld\n", var1, name, var3);
-
-          value = var_get_integer (vars, name) + var3;
-          var_put_integer (vars, name, value);
-          return;
-
-        case 2:                /* Var = rnd(range) */
-          if (tasks.trace)
-            {
-              scr_trace ("Task: variable %ld (%s) = random(%ld,%ld)\n",
-                        var1, name, var3, var5);
-            }
-
-          value = scr_randomint (var3, var5);
-          var_put_integer (vars, name, value);
-          return;
-
-        case 3:                /* Var += rnd(range) */
-          if (tasks.trace)
-            {
-              scr_trace ("Task: variable %ld (%s) += random(%ld,%ld)\n",
-                        var1, name, var3, var5);
-            }
-
-          value = var_get_integer (vars, name) + scr_randomint (var3, var5);
-          var_put_integer (vars, name, value);
-          return;
-
-        case 4:                /* Var = ref */
-          value = var_get_ref_number (vars);
-          if (tasks.trace)
-            {
-              scr_trace ("Task: variable %ld (%s) = ref, %ld\n",
-                        var1, name, value);
-            }
-
-          var_put_integer (vars, name, value);
-          return;
-
-        case 5:                /* Var = expr */
-          if (!expr_eval_numeric_expression (expr, vars, &value))
-            {
-              scr_error ("task_run_change_variable_action:"
-                        " invalid expression, %s\n", expr);
-              value = 0;
-            }
-          if (tasks.trace)
-            {
-              scr_trace ("Task: variable %ld (%s) = %s, %ld\n",
-                        var1, name, expr, value);
-            }
-
-          var_put_integer (vars, name, value);
-          return;
-
-        default:
-          scr_fatal ("task_run_change_variable_action:"
-                    " unknown integer change type, %ld\n", var2);
-        }
+      task_change_integer_variable (game, name, var1, var2, var3, expr, var5);
+      return;
 
     case TAFVAR_STRING:        /* String */
-
-      /* Select again based on action type. */
-      switch (var2)
-        {
-        case 0:                /* Var = text literal */
-          if (tasks.trace)
-            {
-              scr_trace ("Task: variable %ld (%s) = \"%s\"\n",
-                        var1, name, expr);
-            }
-
-          var_put_string (vars, name, expr);
-          return;
-
-        case 1:                /* Var = ref */
-          string = var_get_ref_text (vars);
-          if (tasks.trace)
-            {
-              scr_trace ("Task: variable %ld (%s) = ref, \"%s\"\n",
-                        var1, name, string);
-            }
-
-          var_put_string (vars, name, string);
-          return;
-
-        case 2:                /* Var = expr */
-          {
-            /*
-             * expr_eval_string_expression() hands back a scr_malloc'd string
-             * (or we synthesise the error one); own it with RAII so the
-             * var_put_string() below -- which can throw scr_fatal_error from a
-             * prop_put -- no longer leaks it past the old trailing scr_free.
-             */
-            scr_char *evaluated;
-            if (!expr_eval_string_expression (expr, vars, &evaluated))
-              {
-                scr_error ("task_run_change_variable_action:"
-                          " invalid string expression, %s\n", expr);
-                evaluated = scr_strdup ("[expr error]");
-              }
-            scr_owned_string mutable_string (evaluated);
-            if (tasks.trace)
-              {
-                scr_trace ("Task: variable %ld (%s) = %s, %s\n",
-                          var1, name, expr, mutable_string.get ());
-              }
-
-            var_put_string (vars, name, mutable_string.get ());
-            return;
-          }
-
-        default:
-          scr_fatal ("task_run_change_variable_action:"
-                    " unknown string change type, %ld\n", var2);
-        }
+      task_change_string_variable (game, name, var1, var2, expr);
+      return;
 
     default:
       scr_fatal ("task_run_change_variable_action:"
