@@ -1,7 +1,7 @@
-﻿<library>
+<library>
   <function name="RunTurnScripts">
     if (IsGameRunning()) {
-      if (game.menucallback = null) {
+      if (game.menucallback = null and (game.currentpage = null or GetBoolean(game, "pageturnscripts"))) {
         foreach (turnscript, ObjectListSort(AllTurnScripts(), "name")) {
           if (GetBoolean(turnscript, "enabled")) {
             inscope = false
@@ -20,7 +20,7 @@
       }
     }
   </function>
-  
+
   <function name="EnableTurnScript" parameters="turnscript">
     turnscript.enabled = true
   </function>
@@ -57,9 +57,9 @@
       SetTurnScript(turnscript) {
         this.turncount = this.turncount + 1
         if (this.turncount >= this.triggerturncount) {
-        this.enabled = false
-        invoke (this.timeoutscript)
-        destroy (this.name)
+          this.enabled = false
+          invoke (this.timeoutscript)
+          destroy (this.name)
         }
       }
       EnableTurnScript(turnscript)

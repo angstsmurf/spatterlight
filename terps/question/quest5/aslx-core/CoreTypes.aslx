@@ -1,4 +1,4 @@
-﻿<library>
+<library>
   <type name="defaultgame">
     <enablehyperlinks/>
     <echocommand/>
@@ -30,7 +30,7 @@
     <showpanes/>
     <showcommandbar/>
     <showlocation/>
-    
+
     <statusandcompassattop type="boolean">false</statusandcompassattop>
     <turnoffcompass type="boolean">false</turnoffcompass>
     <turnoffinventory type="boolean">false</turnoffinventory>
@@ -45,10 +45,9 @@
     <commandcursor>&gt;</commandcursor>
     <moneyformat>$!</moneyformat>
     <classiclocation/>
-    <turnoffsavebutton type="boolean">false</turnoffsavebutton>
     <mapexitwidth type="int">1</mapexitwidth>
     <mapexitcolour>Black</mapexitcolour>
-    
+
     <setcustomwidth type="boolean">false</setcustomwidth>
     <customwidth type="int">950</customwidth>
     <setcustompadding type="boolean">false</setcustompadding>
@@ -76,6 +75,7 @@
     <command_newline type="boolean">false</command_newline>
     <description type="string"></description>
     <languageid>[LanguageId]</languageid>
+    <versioncode type="int">1</versioncode>
     <gridmap type="boolean">false</gridmap>
     <mapscale type="int">30</mapscale>
     <mapsize type="int">300</mapsize>
@@ -94,7 +94,6 @@
     <showmenuresponses type="boolean">false</showmenuresponses>
     <multiplecommands type="boolean">false</multiplecommands>
     <publishfileextensions>*.jpg;*.jpeg;*.png;*.gif;*.js;*.wav;*.mp3;*.htm;*.html;*.svg;*.ogg;*.ogv</publishfileextensions>
-    <writelogtofile type="boolean">false</writelogtofile>
     <notranscript type="boolean">false</notranscript>
     <savetranscript type="boolean">false</savetranscript>
     <changedsavetranscript type="script">
@@ -171,7 +170,7 @@
         game.textprocessorcommandresult = ProcessTextCommand_Command (section, data)
       </item>
       <item key="page:">
-        game.textprocessorcommandresult = ProcessTextCommand_Command (section, data)
+        game.textprocessorcommandresult = ProcessTextCommand_Page (section, data)
       </item>
       <item key="exit:">
         game.textprocessorcommandresult = ProcessTextCommand_Exit (section, data)
@@ -364,7 +363,7 @@
     <lockmessage>[LockedExit]</lockmessage>
     <lookonly type="boolean">false</lookonly>
     <runscript type="boolean">false</runscript>
-    <lightstrength type="string"></lightstrength>  
+    <lightstrength type="string"></lightstrength>
     <grid_length type="int">1</grid_length>
     <grid_render type="boolean">false</grid_render>
     <grid_offset_x type="int">0</grid_offset_x>
@@ -476,75 +475,75 @@
     <multiobjectmenuempty>[NoObjectsAvailable]</multiobjectmenuempty>
     <script type="script">
       <![CDATA[
-      if (not IsDefined("object2")) {
-        object2 = null
-      }
-      
-      switch (TypeOf(object, this.property)) {
-        case ("script") {
-          if (object2 = null) {
-            do (object, this.property)
-          }
-          else {
-            msg (this.multiobjectdefault)
-          }
+        if (not IsDefined("object2")) {
+          object2 = null
         }
-        case ("string") {
-          if (object2 = null) {
-            msg (GetString(object, this.property))
-          }
-          else {
-            msg (this.multiobjectdefault)
-          }
-        }
-        case ("scriptdictionary") {
-          if (object2 <> null) {
-            HandleMultiVerb (object, this.property, object2, this.multiobjectdefault)
-          }
-          else {
-            objectlist = ListCombine (ScopeReachableInventory(), ScopeReachableNotHeld())
-            excludelist = NewObjectList()
-            list add (excludelist, game.pov)
-            list add (excludelist, object)
-            candidates = ListExclude(RemoveSceneryObjects(objectlist), excludelist)
-            if (ListCount(candidates) = 0) {
-              msg (this.multiobjectmenuempty)
+
+        switch (TypeOf(object, this.property)) {
+          case ("script") {
+            if (object2 = null) {
+              do (object, this.property)
             }
             else {
-              game.pov.multiverb = this.property
-              game.pov.multiverbobject = object
-              game.pov.multiverbobjectdefault = this.multiobjectdefault
-              ShowMenu (this.multiobjectmenu, candidates, true) {
-                if (result <> null) {
-                  HandleMultiVerb (game.pov.multiverbobject, game.pov.multiverb, GetObject(result), game.pov.multiverbobjectdefault)
-                  game.pov.multiverb = null
-                  game.pov.multiverbobject = null
-                  game.pov.multiverbobjectdefault = null
+              msg (this.multiobjectdefault)
+            }
+          }
+          case ("string") {
+            if (object2 = null) {
+              msg (GetString(object, this.property))
+            }
+            else {
+              msg (this.multiobjectdefault)
+            }
+          }
+          case ("scriptdictionary") {
+            if (object2 <> null) {
+              HandleMultiVerb (object, this.property, object2, this.multiobjectdefault)
+            }
+            else {
+              objectlist = ListCombine (ScopeReachableInventory(), ScopeReachableNotHeld())
+              excludelist = NewObjectList()
+              list add (excludelist, game.pov)
+              list add (excludelist, object)
+              candidates = ListExclude(RemoveSceneryObjects(objectlist), excludelist)
+              if (ListCount(candidates) = 0) {
+                msg (this.multiobjectmenuempty)
+              }
+              else {
+                game.pov.multiverb = this.property
+                game.pov.multiverbobject = object
+                game.pov.multiverbobjectdefault = this.multiobjectdefault
+                ShowMenu (this.multiobjectmenu, candidates, true) {
+                  if (result <> null) {
+                    HandleMultiVerb (game.pov.multiverbobject, game.pov.multiverb, GetObject(result), game.pov.multiverbobjectdefault)
+                    game.pov.multiverb = null
+                    game.pov.multiverbobject = null
+                    game.pov.multiverbobjectdefault = null
+                  }
                 }
               }
             }
           }
-        }
-        case ("null") {
-          if (this.defaulttext <> null) {
-            msg (this.defaulttext)
+          case ("null") {
+            if (this.defaulttext <> null) {
+              msg (this.defaulttext)
+            }
+            else if (this.defaulttemplate <> null) {
+              msg (DynamicTemplate(this.defaulttemplate, object))
+            }
+            else if (this.defaultexpression <> null) {
+              params = NewDictionary()
+              dictionary add (params, "object", object)
+              msg (Eval(this.defaultexpression, params))
+            }
+            else {
+              error ("No verb response defined")
+            }
           }
-          else if (this.defaulttemplate <> null) {
-            msg (DynamicTemplate(this.defaulttemplate, object))
-          }
-          else if (this.defaultexpression <> null) {
-            params = NewDictionary()
-            dictionary add (params, "object", object)
-            msg (Eval(this.defaultexpression, params))
-          }
-          else {
+          default {
             error ("No verb response defined")
           }
         }
-        default {
-          error ("No verb response defined")
-        }
-      }
       ]]>
     </script>
   </type>
@@ -566,7 +565,7 @@
     <possessive>[MalePossessive]</possessive>
     <wornmodifier>[MaleWornModifier]</wornmodifier>
   </type>
-  
+
   <type name="namedmale">
     <inherit name="male" />
     <usedefaultprefix type="boolean">[UseDefaultPrefixIfNamed]</usedefaultprefix>
@@ -580,7 +579,7 @@
     <possessive>[FemalePossessive]</possessive>
     <wornmodifier>[FemaleWornModifier]</wornmodifier>
   </type>
-  
+
   <type name="namedfemale">
     <inherit name="female" />
     <usedefaultprefix type="boolean">[UseDefaultPrefixIfNamed]</usedefaultprefix>
@@ -671,7 +670,7 @@
         }
         activecontainer = activecontainer.parent
       }
-    
+
       children = GetDirectChildren(this)
       if (listcount(children) >= this.maxobjects) {
         correct = false
@@ -682,7 +681,7 @@
           message=DynamicTemplate("MaxObjectsInContainer", this)
         }
       }
-    
+
       if (correct = false) {
         msg (message)
       }
@@ -695,15 +694,15 @@
         else {
           object.parent = this
           msg (Template("Done"))
-        }      
+        }
       }
     </addscript>
   </type>
-  
+
   <type name="container_lockable">
     <openscript type="script">
       if (this.locked) {
-        if (this.autounlock and AllKeysAvailable(this)) {
+        if (this.autounlock and KeysAvailable(this)) {
           do (this, "unlock")
           if (not this.isopen) {
             OpenObject (this)
@@ -733,7 +732,7 @@
         msg (DynamicTemplate("CannotLockOpen", this))
       }
       else {
-        if (AllKeysAvailable(this)) {
+        if (KeysAvailable(this)) {
           msg (this.lockmessage)
           this.locked = true
         }
@@ -747,7 +746,7 @@
         msg (DynamicTemplate("AlreadyUnlocked", this))
       }
       else {
-        if (AllKeysAvailable(this)) {
+        if (KeysAvailable(this)) {
           msg (this.unlockmessage)
           this.locked = false
           if (this.autoopen and not this.isopen) {
@@ -766,6 +765,7 @@
     <canlockopen type="boolean">false</canlockopen>
     <autoopen/>
     <autounlock/>
+    <requireallkeys type="boolean">true</requireallkeys>
   </type>
 
   <type name="defaultplayer">
@@ -796,10 +796,10 @@
           }
           this.switchedon = true
         }
-      } 
+      }
       else {
         msg(DynamicTemplate("DefaultTurnOn", this))
-      }            
+      }
     </turnon>
     <turnoff type="script">
       if (ListContains(ScopeReachable(), this)){
@@ -815,10 +815,10 @@
           }
           this.switchedon = false
         }
-      } 
+      }
       else {
         msg(DynamicTemplate("DefaultTurnOff", this))
-      }        
+      }
     </turnoff>
   </type>
 

@@ -268,15 +268,15 @@
   <template name="LanguageSpecificObjectTypes">masculine=Inanimate object (masculine); feminine=Inanimate object (feminine); </template>
 
   <type name="masculine">
-  <gender>il</gender>
-  <article>le</article>
+    <gender>il</gender>
+    <article>le</article>
   </type>
-  
+
   <type name="feminine">
-  <gender>elle</gender>
-  <article>la</article>
+    <gender>elle</gender>
+    <article>la</article>
   </type>
-  
+
   <template name="EditorVerbDefaultExpression">"Vous ne pouvez pas " + object.article + " #verb#."</template>
 
   <function name="GetDefaultPrefix" type="string" parameters="obj">
@@ -285,7 +285,7 @@
     }
     else {
       return ("un")
-     }
+    }
   </function>
 
   <function name="WriteVerb" type="string" parameters="obj, verb">
@@ -293,8 +293,8 @@
   </function>
 
   <function name="Conjugate" type="string" parameters="obj, verb">
-    // TO DO: This should be implemented for any verbs passed to WriteVerb in templates above
+    // TO DO (#2072): This should be implemented for any verbs passed to WriteVerb in templates above
     return (verb)
   </function>
-  
+
 </library>

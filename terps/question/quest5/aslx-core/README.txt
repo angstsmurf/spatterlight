@@ -21,5 +21,8 @@ other Editor*.aslx files and the .template files (an editor artifact) are also
 omitted. One version is enough -- Core itself branches on the game's declared
 <asl version=>.
 
-To refresh: re-copy the non-editor *.aslx (plus CoreEditor.aslx) from a current
-QuestViva checkout's src/Engine/Core/ and src/Engine/Core/Languages/.
+To refresh: re-copy the non-editor *.aslx (plus CoreEditor.aslx) from the
+oracle's QuestViva checkout (test/quest5/harness/oracle/questviva_clone.sh's
+QV_REV), src/Engine/Core/ and src/Engine/Core/Languages/, so the native engine
+and the oracle run the same Core. Last refreshed 2026-10-17 from 290a87df
+(v6.0.0 + 69), which added CorePages.aslx.
