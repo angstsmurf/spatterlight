@@ -91,10 +91,11 @@ public:
 	Pics *_pics;
 	uint _drawFlags;
 
-	// Pixel scale used when blitting our 280x160 render buffer to the Glk
-	// graphics window. Matches scott's PutPixel-style approach. In double
-	// hi-res mode this is the vertical pixel height; the horizontal column step
-	// is halved (560 columns over the same physical width) -- see pixelStepX().
+	// Pixel scale used when blitting the render buffer to the Glk graphics
+	// window: one 280-wide column, and one picture row, is _pixelSize window
+	// pixels. The Apple II renders 560 columns over the same physical width, so
+	// there _pixelSize is the vertical height and the horizontal column step is
+	// half of it -- see pixelStepX().
 	int _pixelSize;
 
 	// The higher-colour renderer is selected: Apple II double hi-res ("<D>" mode,
@@ -266,19 +267,27 @@ public:
 	// with JR_GRAPH.OVR).
 	bool moreColoursAvailable() const;
 	// Switch between the default renderer (standard hi-res / CGA) and the
-	// higher-colour one (double hi-res / PCjr). Double hi-res widens the draw
-	// surface to 560. Clears the window; the caller repaints the picture.
+	// higher-colour one (double hi-res / PCjr). Clears the window; the caller
+	// repaints the picture.
 	void setMoreColours(bool on);
 	bool moreColours() const { return _moreColours; }
 	// The Apple II renderer (and its panel verbs) that The Coveted Mirror's
 	// hourglass lives on.
 	const GmBackend *cmBackend() const;
 	const GmCMPanelOps *cmPanelOps() const { return cmBackend()->cm; }
+	// The Apple II renderers (standard and double hi-res) fill a 560-wide
+	// surface, one column per NTSC dot, so colour edges land where MAME puts
+	// them. The DOS renderers fill 280 columns.
+	bool appleRender() const {
+		GfxBackend b = gfxBackend();
+		return b == GFX_APPLE_HIRES || b == GFX_APPLE_DHGR;
+	}
+	int renderWidth() const;
 	// Horizontal width (in window pixels) of one render column: full _pixelSize
-	// for standard hi-res, half for the 560-wide DHGR surface so the picture
-	// keeps the same physical size/aspect.
+	// for the 280-wide DOS surface, half for the 560-wide Apple II one so the
+	// picture keeps the same physical size/aspect.
 	int pixelStepX() const {
-		return gfxBackend() == GFX_APPLE_DHGR ? (_pixelSize > 1 ? _pixelSize / 2 : 1) : _pixelSize;
+		return appleRender() ? (_pixelSize > 1 ? _pixelSize / 2 : 1) : _pixelSize;
 	}
 	// Logical text/graphics-mode switch that keeps the picture window open
 	// (used by Talisman's mode-switch opcodes), unlike toggleGraphics() which

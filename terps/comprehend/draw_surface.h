@@ -30,10 +30,11 @@ namespace Comprehend {
 #define G_RENDER_WIDTH  280
 #define G_RENDER_HEIGHT 160
 
-// Double hi-res ("<D>" mode) renders 560 native columns over the same 160 rows.
-// The surface is widened to this; the window blit halves the horizontal pixel
-// step so the picture keeps the standard physical size and aspect ratio.
-#define G_RENDER_WIDTH_DHGR 560
+// The Apple II renderers (standard and double hi-res) render the 560 NTSC dots
+// of a scanline over the same 160 rows. The surface is widened to this; the
+// window blit halves the horizontal pixel step so the picture keeps the
+// standard physical size and aspect ratio.
+#define G_RENDER_WIDTH_APPLE 560
 
 // The RGBA page a Graphics Magician renderer blits its picture to, and the
 // window blit reads back from.
@@ -49,9 +50,9 @@ public:
 	void reset();
 
 	/**
-	 * Re-create the surface at a given render width (G_RENDER_WIDTH for standard
-	 * hi-res, G_RENDER_WIDTH_DHGR for double hi-res), keeping the picture height
-	 * and pixel format. Used when toggling the Apple II <D> double hi-res mode.
+	 * Re-create the surface at a given render width (G_RENDER_WIDTH for the DOS
+	 * renderers, G_RENDER_WIDTH_APPLE for the Apple II ones), keeping the
+	 * picture height and pixel format.
 	 */
 	void setRenderWidth(int width);
 };

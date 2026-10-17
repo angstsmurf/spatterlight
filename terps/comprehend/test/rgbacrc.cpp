@@ -1,9 +1,9 @@
 /* rgbacrc.cpp -- behaviour anchor for the Apple II hi-res -> RGBA artifact
  * renderer. Feeds a deterministic synthetic hi-res page through the public
  * gmSetPage/gmBlitToSurface path and prints an FNV-1a checksum of the RGBA
- * output. Used to prove the artifact-kernel extraction (gm_artifact) is
- * byte-for-byte behaviour-preserving: the checksum must be identical before
- * and after the refactor.
+ * output, at the game's 560 columns and at 280. Used to prove the
+ * artifact-kernel extraction (gm_artifact) was byte-for-byte
+ * behaviour-preserving, and guards the kernel since.
  */
 #include "../graphics_magician.h"
 #include <cstdio>
@@ -20,20 +20,27 @@ int main() {
 		page[i] = (uint8_t)(i * 37u + i / 40u + (i << 3));
 	gmSetPage(page.data());
 
-	const int w = 280, h = 160;
-	std::vector<uint32_t> buf((size_t)w * h, 0);
-	gmBlitToSurface(buf.data(), w, h);
+	// 280 columns: the sampled path pixtest and the tools use. Its golden was
+	// captured before the gm_artifact kernel extraction. 560 columns: what the
+	// game draws, every NTSC dot of the kernel (which matches MAME).
+	struct { int w; uint32_t expected; } const cases[] = {
+		{ 280, 0xbf0561c5u },
+		{ 560, 0x84b041c5u },
+	};
+	const int h = 160;
+	bool ok = true;
+	for (const auto &c : cases) {
+		std::vector<uint32_t> buf((size_t)c.w * h, 0);
+		gmBlitToSurface(buf.data(), c.w, h);
 
-	uint32_t crc = 2166136261u;
-	for (uint32_t v : buf) {
-		crc ^= v;
-		crc *= 16777619u;
+		uint32_t crc = 2166136261u;
+		for (uint32_t v : buf) {
+			crc ^= v;
+			crc *= 16777619u;
+		}
+		bool pass = (crc == c.expected);
+		printf("w=%d rgba_fnv=%08x (expected %08x) %s\n", c.w, crc, c.expected, pass ? "PASS" : "FAIL");
+		ok = ok && pass;
 	}
-
-	// Golden checksum captured before the gm_artifact kernel extraction. The
-	// artifact renderer has no byte-exact page corpus, so this anchors it.
-	const uint32_t expected = 0xbf0561c5u;
-	bool ok = (crc == expected);
-	printf("rgba_fnv=%08x (expected %08x) %s\n", crc, expected, ok ? "PASS" : "FAIL");
 	return ok ? 0 : 1;
 }

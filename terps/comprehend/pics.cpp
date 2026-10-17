@@ -282,7 +282,7 @@ Common::SeekableReadStream *Pics::createReadStreamForMember(const Common::Path &
 //    OO-Topos, Crimson Crown) are validated pixel-exact vs MAME; the dialect
 //    differences are handled by gmSetLegacyFormat().
 //  - Apple II double hi-res ("<D>" mode): the 560-wide aux/main pages,
-//    NTSC-converted. The surface was widened to 560 by setMoreColours().
+//    NTSC-converted onto the same 560-wide surface as standard hi-res.
 //  - DOS CGA: the v2 releases, tables from NOVEL.EXE; and the v1 releases,
 //    tables from the graphics overlay.
 //  - DOS PCjr: the v1 releases (Transylvania v1 / Crimson Crown) in 16 colours,

@@ -448,6 +448,10 @@ GfxBackend Comprehend::gfxBackend() const {
 	return GFX_DOS_CGA;
 }
 
+int Comprehend::renderWidth() const {
+	return appleRender() ? G_RENDER_WIDTH_APPLE : G_RENDER_WIDTH;
+}
+
 // The Apple II renderer holding The Coveted Mirror's panel and hourglass: the
 // double hi-res one when that mode is on, the standard hi-res one otherwise.
 const GmBackend *Comprehend::cmBackend() const {
@@ -463,18 +467,9 @@ void Comprehend::setMoreColours(bool on) {
 	if (on == _moreColours)
 		return;
 	_moreColours = on;
-	if (Common::DiskImageFS::active()) {
-		// Widen/narrow the persistent render surface. This clears it; the caller
-		// (the toggle / picture code) redraws the current picture afterwards.
-		if (_drawSurface)
-			_drawSurface->setRenderWidth(on ? G_RENDER_WIDTH_DHGR : G_RENDER_WIDTH);
-		// The horizontal step changed, so the integer scale may need to (re)round
-		// to even.
-		if (_topWindow)
-			recomputeGraphicsScale();
-	}
-	// PCjr shares the CGA renderer's 280x160 logical surface, so no resize is
-	// needed there; just clear the window so the caller repaints in the new mode.
+	// Both Apple II modes fill the same 560-wide surface, and PCjr shares the
+	// CGA renderer's 280-wide one, so no resize is needed; just clear the
+	// window so the caller repaints in the new mode.
 	if (_topWindow)
 		glk_window_clear(_topWindow);
 }
@@ -534,13 +529,13 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
 	if (y0 > y1) return;
 
 	// Centre the render horizontally (matches ScummVM's 20*SCALE_FACTOR x offset).
-	// The physical width is the same in both hi-res modes: standard is
-	// G_RENDER_WIDTH*_pixelSize; DHGR is its 560 columns at half-width
+	// The physical width is the same on every machine: DOS is
+	// G_RENDER_WIDTH*_pixelSize; the Apple II is its 560 columns at half-width
 	// (560 * _pixelSize/2 == 280 * _pixelSize), so the 280-unit centring holds.
 	int xOff = ((int)winW - G_RENDER_WIDTH * _pixelSize) / 2;
 	if (xOff < 0) xOff = 0;
-	const int surfaceW = _drawSurface->w;   // 280 (std) or 560 (DHGR)
-	const int stepX = pixelStepX();          // _pixelSize (std) or _pixelSize/2 (DHGR)
+	const int surfaceW = _drawSurface->w;   // 280 (DOS) or 560 (Apple II)
+	const int stepX = pixelStepX();          // _pixelSize (DOS) or _pixelSize/2 (Apple II)
 
 	// Run-length encode along each row so we issue one glk_window_fill_rect
 	// per same-coloured horizontal run instead of one per pixel — about 30x
@@ -570,19 +565,20 @@ void Comprehend::blitSurfaceRowsToWindow(int y0, int y1) {
 	}
 
 	// The Coveted Mirror's room (a bright wall) butts directly against the black
-	// hourglass panel at column 24. The Apple II NTSC artifact renderer extends a
-	// white run one pixel past its last column, so the wall's white bleeds into
-	// the panel's leftmost pixel — a stray white fringe down the panel's left
-	// edge. The page is correct (the panel byte is black); only the rendered
-	// colour bleeds, so we can't fix it on the page. Repaint the panel's two
-	// leftmost (always-black, logo starts at column 26) columns in black on top.
-	// CM standard hi-res only; DHGR has no panel. gmCMPanelValid() gates this to
-	// when the panel is actually present (false on the title screen, whose
-	// columns 24-25 are real picture content, not panel).
+	// hourglass panel at byte column 24. On an NTSC screen a white run carries on
+	// for one dot past its last lit pixel, so where the wall's last column is
+	// white, the panel's first dot (dot 336 of 560) is white too. MAME shows the
+	// same thin line down the panel's left edge. We paint it out, a deliberate
+	// difference from the original: the edge looks like a drawing fault, not
+	// part of the panel. Columns 24-25 are always black in the panel itself (the
+	// logo starts at column 26), so only that dot changes. Standard hi-res only.
+	// gmCMPanelValid() gates this to when the panel is actually present (false
+	// on the title screen, whose columns 24-25 are real picture content).
 	if (gfxBackend() != GFX_APPLE_DHGR && traits().hasHourglassPanel && gmCMPanelValid()) {
 		const int kCMPanelCol = 24;            // pics.cpp gmCaptureCMPanel(24, 39)
-		int px0 = xOff + (kCMPanelCol * 7) * stepX;
-		int w = 2 * 7 * stepX;                 // columns 24-25
+		const int dotsPerCol = surfaceW / 40;  // 14 on the 560-wide Apple surface
+		int px0 = xOff + (kCMPanelCol * dotsPerCol) * stepX;
+		int w = 2 * dotsPerCol * stepX;        // columns 24-25
 		glk_window_fill_rect(_topWindow, 0x000000,
 			px0, y0 * _pixelSize, w, (y1 - y0 + 1) * _pixelSize);
 	}
@@ -603,10 +599,10 @@ bool Comprehend::recomputeGraphicsScale() {
 			scale = scaleByHeight;
 	}
 	if (scale < 1) scale = 1;
-	// Double hi-res halves the horizontal step (pixelStepX == scale/2), so the
+	// The Apple II halves the horizontal step (pixelStepX == scale/2), so the
 	// vertical scale must be even (and >= 2) for the 560 columns to land on
 	// whole window pixels.
-	if (gfxBackend() == GFX_APPLE_DHGR) {
+	if (appleRender()) {
 		if (scale < 2) scale = 2;
 		scale &= ~1;
 	}

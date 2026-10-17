@@ -601,7 +601,9 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 // common_sagadraw/gm_artifact.c, shared with apple2draw.c.
 
 // Convert a hi-res page -> RGBA into out[w*h] (0xRRGGBBAA). Renders Apple rows
-// 0..h-1, sampling the 560-wide artifact colours down to w columns.
+// 0..h-1, sampling the 560-wide artifact colours down to w columns. The game
+// uses w = 560, which keeps every colour edge where MAME puts it; a narrower
+// w drops the odd half-pixels, moving some edges by half an Apple pixel.
 static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 	for (int row = 0; row < h; row++) {
 		unsigned const address = gm_row_address(row);
@@ -611,7 +613,9 @@ static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 		uint8_t colors560[560];
 		gm_render_line_colors(words, colors560);
 		for (int x = 0; x < w; x++) {
-			uint32_t rgb = gm_apple2_palette[colors560[(2 * x < 560) ? 2 * x : 559] & 0x0f];
+			int sx = (x * 560) / w;
+			if (sx > 559) sx = 559;
+			uint32_t rgb = gm_apple2_palette[colors560[sx] & 0x0f];
 			out[row * w + x] = (rgb << 8) | 0xff;
 		}
 	}

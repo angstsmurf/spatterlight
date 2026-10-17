@@ -86,7 +86,10 @@ void Comprehend::initialize() {
 #endif
 	showGraphics();   // closes and reopens _statusWindow around the graphics window
 
+	// The Apple II disk image (if any) is loaded before runGame(), so the
+	// renderer, and with it the surface width, is already known.
 	_drawSurface = new DrawSurface();
+	_drawSurface->setRenderWidth(renderWidth());
 	_pics = new Pics();
 }
 
