@@ -1525,6 +1525,121 @@ battle_blow_join (scr_gameref_t game, scr_int attacker)
 
 
 /*
+ * battle_print_hit()
+ *
+ * The visible narration of a landed blow, up to the damage clause;
+ * bare is TRUE where "you"/"I" leads as the attacker.  See battle_resolve().
+ */
+static void
+battle_print_hit (scr_gameref_t game, scr_int attacker, scr_int target,
+                  scr_int weapon, scr_int method, scr_int naming,
+                  scr_bool bare)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  battle_blow_join (game, attacker);
+  battle_print_combatant (game, attacker,
+                          BATTLE_FORM_SUBJECT_CAPITALISED, naming);
+  if (method == 5)
+    {
+      pf_buffer_string (filter, bare ? " throw "
+                                               : " throws ");
+      lib_print_object_np (game, weapon);
+      pf_buffer_string (filter, " at ");
+      battle_print_combatant (game, target,
+                              BATTLE_FORM_OBJECT, naming);
+    }
+  else if (method >= 0)
+    {
+      pf_buffer_character (filter, ' ');
+      pf_buffer_string (filter, BATTLE_METHOD_VERBS[method]);
+      if (!bare)
+        pf_buffer_character (filter, 's');
+      pf_buffer_character (filter, ' ');
+      battle_print_combatant (game, target,
+                              BATTLE_FORM_OBJECT, naming);
+      pf_buffer_string (filter, " with ");
+      lib_print_object_np (game, weapon);
+    }
+  else
+    {
+      pf_buffer_string (filter, bare ? " hit " : " hits ");
+      battle_print_combatant (game, target,
+                              BATTLE_FORM_OBJECT, naming);
+    }
+}
+
+
+/*
+ * battle_print_miss()
+ *
+ * The visible narration of a missed blow; bare is TRUE where "you"/"I"
+ * leads as the target.  See battle_resolve().
+ */
+static void
+battle_print_miss (scr_gameref_t game, scr_int attacker, scr_int target,
+                   scr_int weapon, scr_int method, scr_int naming,
+                   scr_bool bare)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+
+  battle_blow_join (game, attacker);
+  if (method < 0)
+    {
+      battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
+      pf_buffer_string (filter, bare ? " manage to avoid "
+                                             : " manages to avoid ");
+      battle_print_combatant (game, attacker,
+                              BATTLE_FORM_POSSESSIVE, naming);
+      pf_buffer_string (filter, " attack.");
+      pf_buffer_answer_break (filter);
+    }
+  else if (attacker < 0)
+    {
+      battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
+      pf_buffer_string (filter, " manages to avoid ");
+      battle_print_combatant (game, attacker,
+                              BATTLE_FORM_POSSESSIVE, naming);
+      pf_buffer_string (filter, " attack with ");
+      lib_print_object_np (game, weapon);
+      pf_buffer_character (filter, '.');
+      pf_buffer_answer_break (filter);
+    }
+  else
+    {
+      battle_print_combatant (game, attacker,
+                              BATTLE_FORM_SUBJECT_CAPITALISED, naming);
+      pf_buffer_string (filter, " attacks ");
+      battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
+      pf_buffer_string (filter, " with ");
+      lib_print_object_np (game, weapon);
+      pf_buffer_string (filter, ", but ");
+      if (target >= 0 && !battle_legacy)
+        {
+          /*
+           * An NPC dodging another NPC's armed blow is named by pronoun,
+           * not by name: run400 Proc_11_2 @465495 splices
+           * Proc_21_51_4496C8(target, 0), which maps the record's Gender
+           * byte to "he" / "she" / "it" (and anything else to "").
+           * wes_ghn T81: "Hope attacks Charity Bell with the Stripper
+           * Sword, but she manages to avoid it."  The player's own dodge
+           * (@4653FF) still reads Ary(2).  3.9 unmeasured, left as it was.
+           */
+          const scr_char *pronoun = battle_npc_pronoun (game, target);
+
+          if (pronoun[0] != '\0')
+            pf_buffer_string (filter, pronoun);
+        }
+      else
+        battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
+      pf_buffer_string (filter, bare ? " manage to avoid it."
+                                             : " manages to avoid it.");
+      pf_buffer_answer_break (filter);
+    }
+}
+
+
+/*
  * battle_resolve()
  *
  * Resolve a single attack from attacker against target with the given wielded
@@ -1609,38 +1724,8 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
                  weapon, accuracy, agility, strength, defence);
 
       if (visible)
-        {
-          battle_blow_join (game, attacker);
-          battle_print_combatant (game, attacker,
-                                  BATTLE_FORM_SUBJECT_CAPITALISED, naming);
-          if (method == 5)
-            {
-              pf_buffer_string (filter, bare_attacker ? " throw "
-                                                       : " throws ");
-              lib_print_object_np (game, weapon);
-              pf_buffer_string (filter, " at ");
-              battle_print_combatant (game, target,
-                                      BATTLE_FORM_OBJECT, naming);
-            }
-          else if (method >= 0)
-            {
-              pf_buffer_character (filter, ' ');
-              pf_buffer_string (filter, BATTLE_METHOD_VERBS[method]);
-              if (!bare_attacker)
-                pf_buffer_character (filter, 's');
-              pf_buffer_character (filter, ' ');
-              battle_print_combatant (game, target,
-                                      BATTLE_FORM_OBJECT, naming);
-              pf_buffer_string (filter, " with ");
-              lib_print_object_np (game, weapon);
-            }
-          else
-            {
-              pf_buffer_string (filter, bare_attacker ? " hit " : " hits ");
-              battle_print_combatant (game, target,
-                                      BATTLE_FORM_OBJECT, naming);
-            }
-        }
+        battle_print_hit (game, attacker, target, weapon, method, naming,
+                          bare_attacker);
       if (player_throw)
         {
           gs_object_to_room (game, weapon, gs_playerroom (game));
@@ -1663,61 +1748,8 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
         }
     }
   else if (visible)
-    {
-      battle_blow_join (game, attacker);
-      if (method < 0)
-        {
-          battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
-          pf_buffer_string (filter, bare_target ? " manage to avoid "
-                                                 : " manages to avoid ");
-          battle_print_combatant (game, attacker,
-                                  BATTLE_FORM_POSSESSIVE, naming);
-          pf_buffer_string (filter, " attack.");
-          pf_buffer_answer_break (filter);
-        }
-      else if (attacker < 0)
-        {
-          battle_print_combatant (game, target, BATTLE_FORM_SUBJECT, naming);
-          pf_buffer_string (filter, " manages to avoid ");
-          battle_print_combatant (game, attacker,
-                                  BATTLE_FORM_POSSESSIVE, naming);
-          pf_buffer_string (filter, " attack with ");
-          lib_print_object_np (game, weapon);
-          pf_buffer_character (filter, '.');
-          pf_buffer_answer_break (filter);
-        }
-      else
-        {
-          battle_print_combatant (game, attacker,
-                                  BATTLE_FORM_SUBJECT_CAPITALISED, naming);
-          pf_buffer_string (filter, " attacks ");
-          battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
-          pf_buffer_string (filter, " with ");
-          lib_print_object_np (game, weapon);
-          pf_buffer_string (filter, ", but ");
-          if (target >= 0 && !battle_legacy)
-            {
-              /*
-               * An NPC dodging another NPC's armed blow is named by pronoun,
-               * not by name: run400 Proc_11_2 @465495 splices
-               * Proc_21_51_4496C8(target, 0), which maps the record's Gender
-               * byte to "he" / "she" / "it" (and anything else to "").
-               * wes_ghn T81: "Hope attacks Charity Bell with the Stripper
-               * Sword, but she manages to avoid it."  The player's own dodge
-               * (@4653FF) still reads Ary(2).  3.9 unmeasured, left as it was.
-               */
-              const scr_char *pronoun = battle_npc_pronoun (game, target);
-
-              if (pronoun[0] != '\0')
-                pf_buffer_string (filter, pronoun);
-            }
-          else
-            battle_print_combatant (game, target, BATTLE_FORM_OBJECT, naming);
-          pf_buffer_string (filter, bare_target ? " manage to avoid it."
-                                                 : " manages to avoid it.");
-          pf_buffer_answer_break (filter);
-        }
-    }
+    battle_print_miss (game, attacker, target, weapon, method, naming,
+                       bare_target);
 }
 
 
