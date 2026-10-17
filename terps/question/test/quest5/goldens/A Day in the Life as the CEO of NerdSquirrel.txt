@@ -1,0 +1,211 @@
+A Day in the Life as the CEO of NerdSquirrel
+
+by Gideon Castro
+
+A Day in the Life as the CEO of NerdSquirrel by Gideon Castro
+
+You start your day off like any other day at NerdSquirrel.
+You go in the building, and then go into your office.
+An annoying employee comes in. He starts yelling
+"SIR?" repeatedly. You obviously hate him. He's dumb.
+---------------------------------------------------------------------------
+You are in the Office of NerdSquirrel.
+You can see an annoying employee, a desk (which has a drawer on the side and a laptop on the desk), a file cabinet, a water cooler, a briefcase and an intercom.
+You can go south.
+> look
+
+> look
+You are in the Office of NerdSquirrel.
+You can see an annoying employee, a desk (which has a drawer on the side and a laptop on the desk), a file cabinet, a water cooler, a briefcase and an intercom.
+You can go south.
+> who am i
+
+> who am i
+You are the CEO of NerdSquirrel, Gideon Castro. "Thanks,
+talking voice inside my head!" you think.
+> x employee
+
+> x employee
+The employee bothers you while you work, yelling "SIR?" in your face repeatedly.
+> ask employee about the building
+
+> ask employee about the building
+"SIR?"
+> x desk
+
+> x desk
+Your desk has your stuff all organized. It's really important.
+> x drawer
+
+> x drawer
+This is a drawer, with most of your stuff in it.
+> open drawer
+
+> open drawer
+You can't open it.
+> x phone
+
+> x phone
+I can't see that.
+> x laptop
+
+> x laptop
+The laptop is on your desk. It is very important, because there
+are business programs on there.
+> open laptop
+
+> open laptop
+You open the PC, and you turn it on. You login, and do your
+daily routine.
+> switch on laptop
+
+> switch on laptop
+The laptop turns on. You login. You do what you always do in the building.
+> switch off laptop
+
+> switch off laptop
+The laptop turns off. You take a break for awhile, then you turn it back on.
+> close laptop
+
+> close laptop
+It is already closed.
+> x file cabinet
+
+> x file cabinet
+Your file cabinet is stuffed with paperwork.
+> open file cabinet
+
+> open file cabinet
+You open it.
+It has some paperwork.
+> x paperwork
+
+> x paperwork
+You search for your files. You realize they are in your briefcase.
+> x water cooler
+
+> x water cooler
+The water cooler is where everybody goes in their spare time.
+Your workers are hanging out and chatting here.
+
+> x briefcase
+
+> x briefcase
+The briefcase is sitting in the bottom-right corner of the office,
+waiting to be picked up.
+> open briefcase
+
+> open briefcase
+You open it.
+It contains some files.
+> x files
+
+> x files
+Your business files. They are so important to you.
+> x intercom
+
+> x intercom
+The intercom is the only thing to talk to your workers without wires from a different room. It is also one of the most used things in the building, other than your laptop.
+> say something hello
+
+> say something hello
+You say 'something hello', but nobody is there.
+> hit employee
+
+> hit employee
+ You get a laptop from your desk and hit the employee
+ on the head with it. The employee cries and then runs out of
+ the building. You open the window up and see him outside,
+ yelling for his mommy.
+> south
+
+> south
+
+You are in a Yard.
+You can see your car and an annoying employee.
+You can go north or in.
+> look
+
+> look
+You are in a Yard.
+You can see your car and an annoying employee.
+You can go north or in.
+> x employee
+
+> x employee
+The employee bothers you while you work, yelling "SIR?" in your face repeatedly.
+> x car
+
+> x car
+This car is very clean. Nothing is in it but a Car AC.
+> drive car
+
+> drive car
+You drive the car safely. You come out of the car with a ME GUSTA face. Your face turns normal when you go into the building again.
+> in
+
+> in
+
+You are in your car.
+You can see a car AC, a steering wheel and a glove box.
+You can go out.
+> look
+
+> look
+You are in your car.
+You can see a car AC, a steering wheel and a glove box.
+You can go out.
+> x car ac
+
+> x car ac
+The car AC has a squirrel smell. You make a ME GUSTA face when you look at it.
+> x steering wheel
+
+> x steering wheel
+You use this to drive.
+> x glove box
+
+> x glove box
+You use this for storing stuff in your car. You keep it all
+organized.
+> open glove box
+
+> open glove box
+You can't open it.
+> x pens
+
+> x pens
+I can't see that.
+> out
+
+> out
+
+You are in a Yard.
+You can see your car and an annoying employee.
+You can go north or in.
+> north
+
+> north
+
+You are in the Office of NerdSquirrel.
+You can see a desk (which has a drawer on the side and a laptop on the desk), a file cabinet (containing some paperwork), a water cooler, a briefcase (containing some files) and an intercom.
+You can go south.
+> xyzzy
+
+> xyzzy
+"You are on a planet where NOTHING happens!" a creepy voice
+says to you. "Really?" you reply, while smiling, and making a begging pose. "NO!" the voice yells back.
+You die.
+-------You have died-------
+You are sitting in a coffin.
+Gideon: "I'm the ACTUAL NerdSquirrel CEO. *points to you* That person isn't."
+The crowd gasps.
+Annoying employee: "Hi, Gideon! Nice to see you again!"
+Gideon sighs.
+> look
+
+> look
+You are in the Office of NerdSquirrel.
+You can see a desk (which has a drawer on the side and a laptop on the desk), a file cabinet (containing some paperwork), a water cooler, a briefcase (containing some files) and an intercom.
+You can go south.
+[state=Running]

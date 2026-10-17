@@ -1,6 +1,6 @@
 # Quest 5+ games without a full walkthrough script
 
-Status as of 2026-10-17: 374 game files in `games/`, 361 `corpus.tsv` rows, every
+Status as of 2026-10-17: 374 game files in `games/`, 363 `corpus.tsv` rows, every
 row with a golden. The list counts a game as done when its script reaches a win,
 or the game's authored ending, or the furthest state a game with no ending or a
 broken ending can reach. Everything else is listed here, numbered straight through.
@@ -10,71 +10,69 @@ The per-game reasons come from `harness/oracle/overrides/README.md`.
 
 Each one loads and answers `look` in `aslx_replay`. Nothing more has been checked.
 
-1. A Day in the Life as the CEO of NerdSquirrel
-2. Beyond The Gloom (ASL 600, Quest Viva 6.0.1 save)
-3. Chicken Farm
-4. Final Hours
-5. Indy Wrestler
-6. Johnny Blue Man
-7. Mystery Musical
-8. RollingDice
-9. Star Trek Wrath of the Romulans
-10. TVGM 01 The Return of the Game Master
+1. Beyond The Gloom (ASL 600, Quest Viva 6.0.1 save)
+2. Chicken Farm
+3. Indy Wrestler
+4. Johnny Blue Man
+5. Mystery Musical
+6. RollingDice
+7. Star Trek Wrath of the Romulans
+8. TVGM 01 The Return of the Game Master
 
 Alternate builds of games that are already wired:
 
-11. Thyme (ASL 600 build). The ASL 580 `Thyme.quest` is wired; this one isn't.
-12. Signos.aslx, the browser-download release. The corpus row runs `Signos.quest`.
-13. What Once Was.aslx, the browser-download release. The corpus row runs `What Once Was.quest`.
+9. Thyme (ASL 600 build). The ASL 580 `Thyme.quest` is wired; this one isn't.
+10. Signos.aslx, the browser-download release. The corpus row runs `Signos.quest`.
+11. What Once Was.aslx, the browser-download release. The corpus row runs `What Once Was.quest`.
 
 ## B. Partial script, and a win exists or hasn't been ruled out
 
-14. A Galaxy Consumed: bounded tour of character creation, quarters, terminal and the first story message. `inventory` errors in the oracle.
-15. A Tiny Furry In A Huge World: opening tour only (v0.9, unfinished).
-16. The Quest for the Golden Egg: the win is known (destroy the egg, then drop the king's note in the Amphitheater) but not derived. The script is an overworld tour.
-17. Rise of Death: bounded opening (tutorial, first fight, two cave steps). The game has several `finish` calls that haven't been reached.
-18. The Story of MLJesus: opening only. The long RPG after it hasn't been derived.
-19. Pokemon Type Harley Gold And Silver: opening tour only.
-20. What Dragons Need: creation, the town and the Library. Nothing past the town gate has been played.
-21. Xanadu 3 - The Death of Xanadu: village tour only. No victory exists, but the lake, cliff, crypt and rat dungeon haven't been visited.
-22. Detective: the deduction tour stops because at seed 1234 the murder weapon, jar_caviar, can't be taken. Another seed might allow REUNE/ACUSA.
-23. Worship the Pig: only the short death route is recorded. The eyes/constellation, Proscenium, Clock tower and AntiBazaar branches haven't been walked.
-24. Midnight: upstairs tour only. The downstairs and the timer-driven ending haven't been played.
-25. Enter The Double Dare: opening screen only. The doors open on a real-time timer.
-26. Fishvale: tour of the opening area. It's a gold and fishing-level grind, and the north and east exits are locked.
-27. Giantess-Shrunk Dimensions (W.I.P): bounded tour. Scenes end in death.
-28. Giantess Shrinking: bounded tour. Endings haven't been derived.
-29. I want to Isekai: opening tour only (a large RPG with vore-themed content).
+12. A Galaxy Consumed: bounded tour of character creation, quarters, terminal and the first story message. `inventory` errors in the oracle.
+13. A Tiny Furry In A Huge World: opening tour only (v0.9, unfinished).
+14. The Quest for the Golden Egg: the win is known (destroy the egg, then drop the king's note in the Amphitheater) but not derived. The script is an overworld tour.
+15. Rise of Death: bounded opening (tutorial, first fight, two cave steps). The game has several `finish` calls that haven't been reached.
+16. The Story of MLJesus: opening only. The long RPG after it hasn't been derived.
+17. Pokemon Type Harley Gold And Silver: opening tour only.
+18. What Dragons Need: creation, the town and the Library. Nothing past the town gate has been played.
+19. Xanadu 3 - The Death of Xanadu: village tour only. No victory exists, but the lake, cliff, crypt and rat dungeon haven't been visited.
+20. Detective: the deduction tour stops because at seed 1234 the murder weapon, jar_caviar, can't be taken. Another seed might allow REUNE/ACUSA.
+21. Worship the Pig: only the short death route is recorded. The eyes/constellation, Proscenium, Clock tower and AntiBazaar branches haven't been walked.
+22. Midnight: upstairs tour only. The downstairs and the timer-driven ending haven't been played.
+23. Enter The Double Dare: opening screen only. The doors open on a real-time timer.
+24. Fishvale: tour of the opening area. It's a gold and fishing-level grind, and the north and east exits are locked.
+25. Giantess-Shrunk Dimensions (W.I.P): bounded tour. Scenes end in death.
+26. Giantess Shrinking: bounded tour. Endings haven't been derived.
+27. I want to Isekai: opening tour only (a large RPG with vore-themed content).
 
 ## C. Partial on purpose (content not played)
 
-30. Vore Inc: ground floor only.
-31. So fun to be a Scientist: apartment only.
-32. Fantastic Dungeon Extender for American Audiences (TM): room tour only.
-33. Window: opening only (child protagonist, abuse themes).
-34. Shrunk at High-School: opening screen and one `look`.
-35. The Great Something _br_Act I: title and warning screen only.
-36. The Lodge: introduction and one `look`.
-37. Ursake The Text Adventure: home-only tour. The school half and a win that hangs on `RandomChance(25)` were skipped.
+28. Vore Inc: ground floor only.
+29. So fun to be a Scientist: apartment only.
+30. Fantastic Dungeon Extender for American Audiences (TM): room tour only.
+31. Window: opening only (child protagonist, abuse themes).
+32. Shrunk at High-School: opening screen and one `look`.
+33. The Great Something _br_Act I: title and warning screen only.
+34. The Lodge: introduction and one `look`.
+35. Ursake The Text Adventure: home-only tour. The school half and a win that hangs on `RandomChance(25)` were skipped.
 
 ## D. No ending in the game; the script is a bounded tour rather than an exhaustive one
 
 These can't be "won". The open question is how much more of each to cover.
 
-38. Blech- Kogasux edition: every `finish` is a death.
-39. Sburb [A Sburb (Homestuck) Game]: stops on reaching the Medium.
-40. Fighting Sim: a game-side script error after the first raft tiles.
-41. Fatalonia: up to the Secret Temple.
-42. House in the Forest v1.4: upstairs only (the living room raises an `Ask()` error).
-43. Fishvale Remake: 25-room tour.
-44. Summoner: 30-room tour.
-45. The Fat House: hub rooms only.
-46. Furry diaper adventure: home rooms only.
-47. Sword Warrior Adventure: village and surroundings.
-48. Great Stories: home and the Watchtower.
-49. The 12 x 12 Deadly Rooms: clues and the Blue Key.
-50. Shop Shaper: sandbox actions.
-51. Deeper Test: creation and the first chamber of the random dungeon.
+36. Blech- Kogasux edition: every `finish` is a death.
+37. Sburb [A Sburb (Homestuck) Game]: stops on reaching the Medium.
+38. Fighting Sim: a game-side script error after the first raft tiles.
+39. Fatalonia: up to the Secret Temple.
+40. House in the Forest v1.4: upstairs only (the living room raises an `Ask()` error).
+41. Fishvale Remake: 25-room tour.
+42. Summoner: 30-room tour.
+43. The Fat House: hub rooms only.
+44. Furry diaper adventure: home rooms only.
+45. Sword Warrior Adventure: village and surroundings.
+46. Great Stories: home and the Watchtower.
+47. The 12 x 12 Deadly Rooms: clues and the Blue Key.
+48. Shop Shaper: sandbox actions.
+49. Deeper Test: creation and the first chamber of the random dungeon.
 
 ## Considered complete, so not listed above
 

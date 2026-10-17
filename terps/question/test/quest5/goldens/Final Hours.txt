@@ -1,0 +1,131 @@
+Final Hours
+Rise of an apocalypse
+
+by Ernest Jr
+
+You wake up lying on the cold hard ground on top of some shattered glass. You then stagger to your feet to see the destruction of what stage 1 of the apocalypse has done. You fear time for stage 2 total annihilation is near.You can see vaguely, a phone and a melting candle. But right now you can't see much. What will you do? You can go east or south.
+> look
+
+> look
+You wake up lying on the cold hard ground on top of some shattered glass. You then stagger to your feet to see the destruction of what stage 1 of the apocalypse has done. You fear time for stage 2 total annihilation is near.You can see vaguely, a phone and a melting candle. But right now you can't see much. What will you do? You can go east or south.
+> light candle
+
+> light candle
+You light up the room with the candle, nice work
+> x phone
+
+> x phone
+A shattered destroyed old X-Phone 4GR
+> take phone
+
+> take phone
+It may buzz when you get a message
+> x candle
+
+> x candle
+Melted and charred.
+> south
+
+> south
+
+You stumble and fall over into the kitchen and on to a burning toaster after trying to barge down the broken door and shearing its bolt clean off. The fire isn't too intense so you're not that hurt. You quickly roll away and get to your feet and look around. Rubble is all you can see. The room is already illuminated by the burning toaster. You can go north or southeast
+> x toaster
+
+> x toaster
+Charred. It's still on fire.....
+> x food supply
+
+> x food supply
+A small box of food, it could keep you going for a while.
+> open food supply
+
+> open food supply
+You open the box of food supplies, in it is: Bags of nutrients, cereal, apples, bananas, And other unnecessary items
+> x bag of nutrients
+
+> x bag of nutrients
+Lots of nutritious value
+> eat bag of nutrients
+
+> eat bag of nutrients
+You eat a bit of the nutrients inside the bag, your hunger is being quenched
+> north
+
+> north
+
+You enter the bathroom to see the overflowing bath. You struggle to stay on your feet but somehow manage it your legs are drenched in water. You can go west or southwest
+> x bath
+
+> x bath
+An overflowing bath, how about you turn it off?
+> switch off bath
+
+> switch off bath
+There, not only are you conserving water you stopping the place getting drenched even more.
+> x cupboard
+
+> x cupboard
+Charred and drenched, an unusual combination....
+> open cupboard
+
+> open cupboard
+You open the cupboard to see a first aid kit and a pistol may come in handy. You decide to take all 3 with the hidden blade in pocket, pistol on the hook of your belt and the first aid kit in your backpack
+> x first aid kit
+
+> x first aid kit
+Pale green with 2 corners completely charred.
+> open first aid kit
+
+> open first aid kit
+You open the first aid kit to find a pack of tissues, bandages, plasters and stuff like that.
+> x bandages
+
+> x bandages
+I can't see that.
+> x pistol
+
+> x pistol
+M1911 Colt. Small, sleek and handy
+> x hidden blade
+
+> x hidden blade
+Sharp and deadly. Good for close combat.
+> inventory
+
+> inventory
+You are carrying a Phone, a Bolt, a Bag of nutrients, a First Aid Kit, a Pistol and a Hidden Blade.
+> north
+
+> north
+
+You crawl through the broken back door and into the wet garden. And there's more rubble, but it looks like it's a different kind.
+> look
+
+> look
+You crawl through the broken back door and into the wet garden. And there's more rubble, but it looks like it's a different kind.
+> climb over fence
+
+> climb over fence
+You climb over the fence and hit the streets. In doing so you prick yourself on some thorns.
+
+> x plane
+
+> x plane
+Destroyed old Boeing 767, I wonder what happened
+> walk to destroyed plane
+
+> walk to destroyed plane
+You walk to the destroyed plane and the ground starts to shake
+> walk closer destroyed plane
+
+> walk closer destroyed plane
+You walk closer to the plane and the ground shakes even more, you fall over and knock your head. You fall unconscious. The last thing you see is the rain...
+The pitter patter of the rain hits you and wakes you up to find yourself under a blanket inside the destroyed plane. You see a man.
+> look
+
+> look
+> x man
+
+> x man
+I can't see that.
+[state=Running]

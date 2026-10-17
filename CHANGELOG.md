@@ -25,7 +25,7 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - The narration follows the game's chosen perspective.
 - A task that changes a character's attitude, speed, strength or defence changes it the way both runners do — a raise stops at the attribute's maximum, an attitude is stored as written, and a 3.9 speed change lands on the character its author meant.
 - *Deaths*, *The Spirit's Flight* and *Secret of the Lost World* now fight the same fights as the original.
-- All the original metacommands are understood, such as PAST, BYE, END and ENDGAME, and a dozen Scarier-only commands — STATS, HINTS, BRIEF, VERBOSE and NOTIFY, for example — no longer quietly steal the game's own custom tasks.
+- All the original metacommands, such as PAST, BYE, END and ENDGAME, are implemented, and Scarier-only commands — STATS, HINTS, BRIEF, VERBOSE and NOTIFY etc. — no longer quietly steal the game's own custom tasks.
 - UNDO prints the output of the turn it restores, in the original wording of the runners.
 - Autosave now stores the entire session: what AGAIN would repeat, the command history, pronouns, a pending "Which one?" question, the verbose and notification settings.
 - Another long round of parser and world-model work measured command by command against all four runners: which object a noun resolves to and how ties are broken, the "Which one?" prompt itself, the precedence of PUT and TAKE and their auto-supplied "from", capacity limits, what counts as having been seen, ALR and synonym rewriting, wildcard task matching, and the rule that one typed line runs at most one game task.
