@@ -26,7 +26,6 @@ Alternate builds (Thyme ASL 600, Signos.aslx, What Once Was.aslx) are wired as `
 9. Pokemon Type Harley Gold And Silver: opening tour only.
 10. What Dragons Need: creation, the town and the Library. Nothing past the town gate has been played.
 11. Xanadu 3 - The Death of Xanadu: village tour only. No victory exists, but the lake, cliff, crypt and rat dungeon haven't been visited.
-12. Detective: the deduction tour stops because at seed 1234 the murder weapon, jar_caviar, can't be taken. Another seed might allow REUNE/ACUSA.
 13. Worship the Pig: only the short death route is recorded. The eyes/constellation, Proscenium, Clock tower and AntiBazaar branches haven't been walked.
 14. Midnight: upstairs tour only. The downstairs and the timer-driven ending haven't been played.
 15. Enter The Double Dare: opening screen only. The doors open on a real-time timer.

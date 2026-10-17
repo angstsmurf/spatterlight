@@ -1,46 +1,24 @@
-# Detective (Spanish): bounded deduction tour, NOT a win. The mystery is generated at start; at seed 1234 the murder weapon is the
-# caviar jar (jar_caviar), the one object in the game with no <take/>, so the weapon can never be carried and REUNE/ACUSA stay locked (a game bug).
-# Route: menu 1,1; lupa in the Baño Principal (n, arriba, n, n, o); alibis of Maude/Esther/Gerald/Margaret/Earl (Margaret's "with Earl" is contradicted by
-# Earl's "with John" -> Margaret); floors with the lupa until the Cocina bloodstain; the jar in the Bodega shows blood (ver con lupa) but coger refuses; reune refuses.
+# Detective (Spanish): WIN at seed 1 (Caso cerrado, "Detective Profesional"). The mystery is generated at start from the RNG: at the default
+# seed 1234 the murder weapon is the caviar jar (jar_caviar), the one object with no <take/>, so the weapon can never be carried and
+# REUNE/ACUSA stay locked (a game bug). `#!seed=1` (both drivers) picks a seed whose weapon is takeable: Mansion 1 layout, the lupa and the weapon
+# (the thawing quail) both lie in the Comedor, the murder room is the Baño Principal, the murderer is Lizbeth Slocombe. Those facts were read off
+# the game state with asserts while authoring; the script itself plays no interrogations, it just does what a solved case would do:
+# menu 1,1; n,n,o to the Comedor; coger lupa; ver con lupa codorniz (blood: the murder weapon); coger codorniz; carry it to the Baño Principal
+# (e,s,arriba,n,n,o); reune; acusa a Lizbeth.
+#!seed=1
 1
 1
-n
-arriba
 n
 n
 o
 coger lupa
+ver con lupa codorniz
+coger codorniz
 e
 s
-s
-abajo
+arriba
 n
-e
-e
-interroga Maude
-o
-interroga Esther
-o
-o
-interroga Gerald
-e
-s
-o
-interroga Margaret
-mirar piso
-e
-e
-mirar piso
-o
 n
-e
-mirar piso
-o
-interroga Earl
-e
-e
-ver con lupa caviar
-coger caviar
 o
 reune
-examinar libreta
+acusa a Lizbeth

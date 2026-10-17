@@ -335,7 +335,7 @@ teleport that never gets map coordinates, so its enter-script throws
 and trips the breaker. In real Quest an enter-script error is non-fatal (legacy Quest
 has no breaker at all — it prints every script error and carries on), so the game is
 winnable there. That legacy behaviour is now reproducible per-game: a
-`#!errorlimit=N` first line in a script raises the breaker threshold for that run
+`#!seed=N` selects the RNG seed for that game (qvh: `QVH_SEED`, native: `ASLX_SEED`; both drivers read it before the game loads), for randomised games whose default-seed layout is unwinnable (Detective). `#!errorlimit=N` first line in a script raises the breaker threshold for that run
 (`QVH_ERROR_LIMIT` via `patch_questviva.py` §4; the native engine honours the same
 directive). Both Whitefield (34 errors, finite cage burst) and The Acreage (58
 errors, finite Port-entry recursion) use it in their overrides and run to their

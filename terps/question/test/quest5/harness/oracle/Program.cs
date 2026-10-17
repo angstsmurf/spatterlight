@@ -95,6 +95,8 @@ if (args.Length >= 2)
     {
         if (l.StartsWith("#!errorlimit="))
             Environment.SetEnvironmentVariable("QVH_ERROR_LIMIT", l["#!errorlimit=".Length..].Trim());
+        else if (l.StartsWith("#!seed="))
+            Environment.SetEnvironmentVariable("QVH_SEED", l["#!seed=".Length..].Trim());
         else if (l.StartsWith("#!clock=") && int.TryParse(l["#!clock=".Length..].Trim(), out var cs) && cs > 0)
             clockSecs = cs;
     }

@@ -117,6 +117,14 @@ int main(int argc, char **argv) {
     if (argc < 3) { std::cerr << "usage: nreplay <game> <script>\n"; return 2; }
     World w;
     if (!aslx_drive::load_game(argv[1], w)) return 3;
+    // qvh `#!seed=N` directive: RNG seed for this game (Detective's murder
+    // weapon is unreachable at the default 1234). Must precede Interp.
+    {
+        std::ifstream sf(argv[2]);
+        std::string sl;
+        while (std::getline(sf, sl))
+            if (sl.rfind("#!seed=", 0) == 0) setenv("ASLX_SEED", sl.c_str() + 7, 1);
+    }
     Interp in(w);
     std::string transcript;
     // GetFileData reads the .quest package entry, or the file beside a bare
