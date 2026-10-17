@@ -958,7 +958,7 @@ zanoza_solution.txt|zanoza.taf|Поздравляю с победой|SCR_SKIP_WAITKEY=1
 tempest7_solution.txt|tempest7.taf|Congratulations, you have won!|SCR_RNG=xoshiro
 # Imagings: demo, no score/ending; deepest point Church Road.
 imagings_solution.txt|imagings.taf||
-wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1 SCR_ASSUME_CAPACITY=1 SCR_SKIP_WAITKEY=1
+wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1
 # Short-lived: unwinnable by design, MaxScore 0.
 shortlived_solution.txt|shortlived.taf||
 # The Monster in the Mirror: WIN 100/100.

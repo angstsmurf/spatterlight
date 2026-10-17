@@ -1,4 +1,4 @@
-# Welcome to Wonderland — walkthrough (**WIN** 215, needs `SCR_ASSUME_COMBAT=1` + `SCR_ASSUME_CAPACITY=1`)
+# Welcome to Wonderland — walkthrough (**WIN** 215, needs `SCR_ASSUME_COMBAT=1`; `SCR_ASSUME_CAPACITY=1` dropped 2026-10-17)
 
 - **Engine:** ADRIFT 4.00, `wonderland.taf` (7 KB, 27 rooms, 12 tasks, 4 NPCs).
   Alice falls back into a nightmare Wonderland: a card-guarded gnome mine,
@@ -8,14 +8,17 @@
   rest of Wonderland."*).
 - **Result:** WIN, 215 points, 78 commands. The win text comes from TASK 11
   `push button` (EndGame, +100) in the Nightmare Gate (room 26).
-- **Row:** `wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1 SCR_ASSUME_CAPACITY=1 SCR_SKIP_WAITKEY=1`
-- **Assists:** both of them, and both are defaulted on for this game in the
-  app by `GSC_GAME_ASSIST_TABLE` (os_glk.cpp, 2026-09-26), so the GUI plays
-  the same route without typing anything. `SCR_ASSUME_CAPACITY` is the harness
-  hook added on 2026-09-26 for the capacity switch (`glk capacity on`): unlike
-  the other four it is per-game state, so the env var sets the default that
-  each newly created game picks up (`gs_capacity_assist`, scgamest.cpp).
-  Without it the route stalls at command 1, `get knife` — see below.
+- **Row:** `wonderland_solution.txt|wonderland.taf|The Tempest has put you someplace different|SCR_ASSUME_COMBAT=1 SCR_SKIP_WAITKEY=1`
+- **Assists:** combat only, defaulted on for this game in the app by
+  `GSC_GAME_ASSIST_TABLE` (os_glk.cpp), so the GUI plays the same route
+  without typing anything. Until 2026-10-17 the row (and the table entry) also
+  carried the capacity assist (`SCR_ASSUME_CAPACITY=1` / `glk capacity on`,
+  the harness hook added 2026-09-26; per-game state, so the env var sets the
+  default each new game picks up via `gs_capacity_assist`, scgamest.cpp).
+  Without it the route stalled at command 1, `get knife` — see below. Scarier
+  no longer ports the Runner's phantom weight, so the knife is takeable with
+  the default running total and the assist was dropped; the golden is
+  unchanged.
 
 ## Why the combat assist is needed (same case as athylon)
 
@@ -45,7 +48,11 @@ as authored — the knife is the only weapon, and every ending needs kills.
 
 `glk capacity on` (harness `SCR_ASSUME_CAPACITY=1`) switches the accounting
 back to the legacy recompute-from-held-objects, which weighs only what the
-player actually carries, so the knife is takeable and the route runs.
+player actually carries, so the knife is takeable and the route runs. Since
+2026-10-17 this is no longer needed: `obj_weigh` counts only real children
+(position In/On with the matching parent) in the running total too, a
+deliberate deviation from the Runner logged in WINE-TRANSCRIPTS-TODO.md, so
+the take succeeds with the default accounting.
 
 ## Scoring (every `ACT type=4`)
 

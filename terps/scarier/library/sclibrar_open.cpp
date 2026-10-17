@@ -993,10 +993,45 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
  * then `unlock box` "You unlock the box with the coin.", and only the
  * openness refusals when the box is already in the state asked for
  * (make_400_lockprobe.py / runner_probes/lock.run400.b.txt, 2026-09-20).
+ * Deliberate deviation (2026-10-17): the arm reaches only into the player's
+ * room.  Locking or unlocking an object that is somewhere else is the same
+ * Runner bug as the put fetch removed the same day, and no game needs it;
+ * what the gate keeps is sswhore's drawer, seen and in the room but shut
+ * inside the closed desk, which is the only corpus case.  An object in
+ * another room falls through to the ordinary "You can't lock/unlock that."
+ * Logged under "Deliberate deviations" in
+ * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+ *
  * Returns the object, or -1 when the present pass matched or tied, when the
- * head names nothing seen, or when the object has no Openable/Key for the arm
- * to work on.
+ * head names nothing seen or nothing in the room, or when the object has no
+ * Openable/Key for the arm to work on.
  */
+
+/*
+ * lib_lock_object_in_room_400()
+ *
+ * Is OBJECT in the player's room, counting one shut inside a closed
+ * container there?  obj_indirectly_in_room() stops at a closed parent, so
+ * the containment chain is climbed first, whatever each parent's openness.
+ */
+static scr_bool
+lib_lock_object_in_room_400 (scr_gameref_t game, scr_int object)
+{
+  scr_int depth;
+
+  for (depth = 0; depth < 32 && !obj_is_static (game, object); depth++)
+    {
+      const scr_int position = gs_object_position (game, object);
+
+      if (position != OBJ_IN_OBJECT && position != OBJ_ON_OBJECT)
+        break;
+      object = gs_object_parent (game, object);
+      if (object < 0)
+        return FALSE;
+    }
+  return obj_indirectly_in_room (game, object, gs_playerroom (game));
+}
+
 scr_int
 lib_lock_absent_object_400 (scr_gameref_t game)
 {
@@ -1019,7 +1054,7 @@ lib_lock_absent_object_400 (scr_gameref_t game)
     return -1;
   object = lib_verb_object_resolve_400_string (game, head.c_str (), nullptr,
                                                FALSE);
-  if (object < 0)
+  if (object < 0 || !lib_lock_object_in_room_400 (game, object))
     return -1;
 
   vt_key[0].string = "Objects";
@@ -1206,7 +1241,9 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
   /*
    * The arm's own object comes first: it resolved the head of the line with
    * 463640 and does not care where the object is, so a seen-but-absent one
-   * is locked and unlocked just the same.  Its key then comes from the
+   * is locked and unlocked just the same -- in the Runner; Scarier's arm
+   * reaches only into the player's room (lib_lock_absent_object_400(), the
+   * 2026-10-17 deviation).  Its key then comes from the
    * " with " half alone (475CB0) -- the parser bound no reference text for a
    * line it could not place -- and a half that resolves to nothing leaves
    * var_88 at -1, the keyless branch.

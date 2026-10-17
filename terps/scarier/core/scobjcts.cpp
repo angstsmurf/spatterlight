@@ -618,28 +618,26 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
     return weight;
 
   /*
-   * Add the recursive weights of "child" objects.  run400's weigh routine
-   * (Sub_22_63 @447600) matches children on the bare per-object container
-   * field ([2E]) with only an i <> self guard -- it checks neither the
-   * child's position nor whether the weighed object is a container or
-   * surface, so objects whose [2E] is stale (leftover raw Parent data that
-   * ordinary takes, drops, and task/event moves never touch) silently add
-   * phantom weight; see the runner_parent notes in scgamest.h.  We match on the
-   * runner_parent shadow of that field, but only for the version that keeps
-   * a running carried total to corrupt (obj_uses_running_load, i.e. 4.0).
-   * A 3.7 or 3.8 game never calls this on the take path at all, and those
-   * versions' loaders rewrote the raw Parent values our shadow is seeded
-   * from; a 3.9 game recomputes its totals, so a stale parent has nothing to
-   * accumulate into.  All three keep the position-filtered membership.
+   * Add the recursive weights of "child" objects: those in or on this one.
    *
-   * `glk capacity on` (game->capacity_recompute) keeps the same older
-   * membership: that switch exists to hand a player a load model free of the
-   * Runner's accounting bugs, and phantom weight is one of them -- with the
-   * Runner rule left in place here, the escape hatch cured the running total's
-   * size leaks but still weighed a stale parent's children.  Goldilocks is the
-   * case that shows it: `drop package` refunds 29 where the package and its
-   * leaflet weigh 10, the extra 19 being worn objects whose leftover raw
-   * Parent still points at the package.
+   * Deliberate deviation (2026-10-17): run400's weigh routine (Sub_22_63
+   * @447600) matches children on the bare per-object container field
+   * ([2E]) with only an i <> self guard -- it checks neither the child's
+   * position nor whether the weighed object is a container or surface, so
+   * objects whose [2E] is stale (leftover raw Parent data that ordinary
+   * takes, drops, and task/event moves never touch, or the NPC index its
+   * loader leaves on an NPC-held or NPC-worn object) silently add phantom
+   * weight; see the runner_parent notes in scgamest.h.  From 2026-08-22 to
+   * 2026-10-17 a 4.0 game matched on the runner_parent shadow of that
+   * field, which made Welcome to Wonderland's only weapon untakeable (the
+   * Card Guard's rod, letter and key weigh into the knife, 94 > 90) and put
+   * 19 of goldilocks' worn watch and dress into the package.  That is a
+   * Runner bug no game needs, so every version now weighs the position-
+   * filtered membership, as 3.9 always did and as `glk capacity on`
+   * (game->capacity_recompute) already did at 4.0.  runner_parent itself
+   * stays: the possession predicates (gs_runner_possessed()) still read it.
+   * Logged under "Deliberate deviations" in
+   * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
    */
   GS_FOR_EACH_OBJECT (game, other)
     {
@@ -648,12 +646,9 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
       if (other == object)
         continue;
 
-      if (!obj_uses_running_load (game) || game->capacity_recompute)
-        is_child = (gs_object_position (game, other) == OBJ_IN_OBJECT
-                    || gs_object_position (game, other) == OBJ_ON_OBJECT)
-                   && gs_object_parent (game, other) == object;
-      else
-        is_child = gs_object_runner_parent (game, other) == object;
+      is_child = (gs_object_position (game, other) == OBJ_IN_OBJECT
+                  || gs_object_position (game, other) == OBJ_ON_OBJECT)
+                 && gs_object_parent (game, other) == object;
 
       if (is_child)
         weight += obj_weigh (game, other, depth + 1);

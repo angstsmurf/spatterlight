@@ -591,6 +591,10 @@ game's: an ALR rewrites the library's "Standing up first".
 Re-blessed 2026-09-30, four lines (openclose_not_carried): the first `open
 package` opens the package where it stands instead of run400's "I am not
 carrying the package!", so the second says "The package is already open!".
+Re-blessed 2026-10-17 (NPC-held/worn phantom weight REVERTED, deliberate
+deviation): the crown no longer weighs into the package, so `take all` also
+takes the pumpkin and the gloves, the Godmother scene arrives earlier and two
+later lines are no-ops; still the win.
 ```
 
 ## mhpquest_solution.txt
@@ -11179,6 +11183,11 @@ Ported 2026-09-07; golden re-blessed.  The later `unlock drawer with key`
 keeps SCARE's invented "Please be more clear" wording: `key` is a word
 inside two Shorts and not a name 4.0 prompts on, so what run400 prints for
 an ambiguous instrument is still unmeasured.
+Re-blessed 2026-10-17, two lines: a 4.0 lock/unlock now needs the object in
+the player's room (deliberate deviation), and the desk drawer is a hidden
+object until the elixir opens it, so `unlock drawer` is "You can't unlock
+that." and `unlock drawer with skeleton key` is "You can't see the desk
+drawer." instead of run400's "The desk drawer is not locked!".
 ```
 
 ## warlord_solution.txt
@@ -11840,6 +11849,8 @@ skipping `x table` (key unseen, "Take what?"), `open bag` inside the chest
 pass), `put bag in ass` (too big).  runner_transcripts/britishfox.txt is the
 OLD route and was not re-driven; the Runner would answer this route the same
 way bar the five is/are turns already listed.
+Re-blessed 2026-10-17 (textless take-family task runs ONCE, deliberate
+deviation): T318 `get grace` prints its text once; 50/50 unchanged.
 ```
 
 ## doa_xbs_solution.txt
@@ -13120,6 +13131,10 @@ Welcome to Wonderland: UNWINNABLE in run400 -- the ethereal knife is phantom-wei
 by the NPC-held rod/Staff chain (94 > MaxWt 90) and never taken, and every blow
 misses (Accuracy/Agility 0).  Both assists are defaulted on for this game by the
 known-game table in os_glk.cpp, so the row runs them too: WIN 215 (2026-09-26).
+2026-10-17: SCR_ASSUME_CAPACITY dropped from the row and GSC_ASSIST_CAPACITY
+from the table.  The phantom weight is no longer ported (deliberate
+deviation), so the knife is takeable with the default running total; golden
+identical, combat assist still needed.
 ```
 
 ## taot3_patched_solution.txt
@@ -13151,6 +13166,10 @@ Govard. Zabvenie part 1 (3.90, Russian): WIN 300/310. Line 1 is blank for the
 intro waitkey; fists on the jailer until he drops; the gambling phase depends
 on the xoshiro stream. See notes/Govard_walkthrough.md.
 2026-09-27 re-blessed, lenient task matching (deliberate deviation): three wear lines answer with the task text instead of the library.
+2026-10-17 re-routed, the weapon question is free at every version
+(deliberate deviation): an `инвентарь` line before `полоснуть волка` (line
+217) spends the turn the question used to and the wolf bites on it instead,
+so the RNG stream and the dice ladder are unchanged; re-blessed, same win.
 ```
 
 ## cs2_patched_solution.txt

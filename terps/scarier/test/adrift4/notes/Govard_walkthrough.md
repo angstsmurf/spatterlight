@@ -92,14 +92,14 @@ robber give nothing more):
    `надеть всё` ("take all" / "wear all"), `срезать рог у рыбины` ("cut the
    horn off the fish") and `дать рог охотнику` ("give the horn to the
    hunter").
-5. **Hunting (215–260).** `охотиться` ("go hunting"), then the wolf and the
+5. **Hunting (215–261).** `охотиться` ("go hunting"), then the wolf and the
    bear. Skin both (`свежевать мёртвого волка/медведя`, "skin the dead
    wolf/bear") and sell the skins at the skinner.
-6. **Harpy (261–296).** Accept the armourer's vampire job. At the tavern say
+6. **Harpy (262–297).** Accept the armourer's vampire job. At the tavern say
    `беру работу` ("I'll take the job"), eat a chicken, go west to the
    vineyard and kill the harpy (one balm swig midway). `благодарить`
    ("thank") must be typed there, right after the kill.
-7. **Gambling (298–333).** NW of the tavern: `играть в кости` ("play dice"),
+7. **Gambling (299–334).** NW of the tavern: `играть в кости` ("play dice"),
    then `ставлю N` ("I bet N"). Event 8 re-rolls var18 every turn, and a bet
    wins when var18 == 1 (task 151; 2 is task 152's loss). The bet ladder was
    found greedily under xoshiro (bet the largest stake you can afford; on a
@@ -108,12 +108,12 @@ robber give nothing more):
    3006. The ladder was re-derived on 2026-09-25 after the two run390 ports
    below moved the RNG stream; the earlier 39-turn ladder then lost its
    fourth bet and never recovered.
-8. **Gear up (339–368).** Buy the Storm sword, Storm shield and Storm helm,
+8. **Gear up (340–369).** Buy the Storm sword, Storm shield and Storm helm,
    plate mail, cuirass and leather gloves, and wear them all. Result:
    attack 14, defence 19. Level 2 at the school. Accept the griffin quest
    (herbalist), the Grim quest (skinner) and the snake quest (smith). With
    defence 19, nothing except the basilisk can hurt Govard any more.
-9. **Contracts (369–466).** The hunting knife goes into the hunting bag
+9. **Contracts (370–467).** The hunting knife goes into the hunting bag
    (`put ножик в охотничий мешок`, "put the knife in the hunting bag"; the
    Russian `положить ` never passes the synonym gate, see above).
    Otherwise every attack asks «Чем мне атаковать X with?» ("what shall I
@@ -131,7 +131,7 @@ robber give nothing more):
    - Vampire: W, W to the old cemetery, then `подождать темноты` ("wait for
      darkness"; see oddities). The vampire needs 20 hits of `проткнуть
      вампира` ("thrust at the vampire") with the silver rapier.
-10. **Endgame (467–542).**
+10. **Endgame (468–543).**
     - The vampire task drops all carried items in the armoury (room 31).
       Take back the Storm sword there and drop the rapier.
     - `поймать птицу` ("catch the bird") in the abandoned house E of the
@@ -178,8 +178,13 @@ robber give nothing more):
   only one weapon. In 3.9 the question is a full turn: run390's dobattle
   (44CE85-44CEDF) sets no not-a-turn byte, so the NPC strikes and the events
   tick on the same line (Runner turn 213: «Чем мне атаковать Волк with? Волк
-  укусил меня...»). Only 4.0 makes it a free question; Scarier now gates
-  `is_admin` on the version (`lib_battle_attack_bare`).
+  укусил меня...»). Only 4.0 makes it a free question. Scarier gated
+  `is_admin` on the version from 2026-09-25 to 2026-10-17 and then made the
+  question free at every version again (deliberate deviation,
+  WINE-TRANSCRIPTS-TODO.md): the route spends that turn on `инвентарь`
+  (solution line 217) just before T213 so the RNG stream stays the
+  Runner's; every solution line from there on is one later than in the
+  Runner transcript's numbering.
 - **Room alts on a held object, pre-4.0, test the object's own position.**
   The Ruins' «...на юго-востоке - Хибара.» line (room 11, Obj 15 the knife)
   shows only while the knife is carried directly, not once it is in the
@@ -211,7 +216,10 @@ both confirmed in the run390 decompile and ported:
 - **T213, the weapon question is a turn in 3.9** (see the oddities above).
   Scarier had answered «Чем мне атаковать Волк with?» without ticking, so
   from there on its RNG stream, event timing and every fight differed from
-  the Runner's.
+  the Runner's. Flipped back 2026-10-17: the question is free in Scarier at
+  3.9 too (deliberate deviation); the route's `инвентарь` line before
+  `полоснуть волка` takes the turn instead, so the stream and the dice
+  ladder are unchanged.
 - **T74/T210/T248, room alts on a held object test the object's own
   position pre-4.0** (see above).
 

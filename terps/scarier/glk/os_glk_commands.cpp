@@ -1439,8 +1439,7 @@ static const char GSC_HELP_CAPACITY[] =
   " take is refused as too much to carry, and what"
   " `count` reports.  Only a 4.0 Runner keeps such a total; earlier ones"
   " recompute anyway, so for a 3.7, 3.8 or 3.9 game the setting does"
-  " nothing.  For a game known to be uncompletable without it, it is"
-  " switched on automatically at startup.\n";
+  " nothing.  No known game needs it to be completed.\n";
 
 static const char GSC_HELP_PATCHES[] =
   "Corrects games broken by their own data.\n\n"

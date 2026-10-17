@@ -769,10 +769,13 @@ gsc_get_ending_option (void)
  *  - Room assist.  A task left set to run in no room at all.  Space Run's
  *    ending is behind one; in The Hangover it is the doctor taking the fries
  *    (5/7 without, 6/7 with -- a separate bug still blocks the last point).
- *  - Capacity recompute.  Welcome to Wonderland: the characters' held
- *    objects phantom-weigh the ethereal knife past the player's limit in the
- *    4.0 running total, so the game's only weapon cannot be taken; with it
- *    and combat assist the game is won.
+ *  - Capacity recompute.  No row needs it since 2026-10-17.  Welcome to
+ *    Wonderland did: the 4.0 Runner's running total phantom-weighs the
+ *    characters' held objects, so the game's only weapon, the ethereal knife,
+ *    could not be taken.  Scarier no longer ports that (the weigh routine
+ *    counts only real children, a deliberate deviation), so the knife is
+ *    takeable and the row runs with the combat assist alone.  The switch
+ *    stays as a user preference.
  *
  * Not listed, although their walkthrough rows once carried an assist: games
  * where it measured no difference (g7056, Ghoster, Noximion; combat in Space
@@ -833,8 +836,7 @@ static gsc_game_assist_t GSC_GAME_ASSIST_TABLE[] = {
   {"The Hangover", "Red Conine", GSC_ASSIST_ROOM,
    "Part of this game cannot be reached as authored"},
   {"Welcome to Wonderland", "The Cheshire Cat (Michael Suhar)",
-   GSC_ASSIST_COMBAT | GSC_ASSIST_CAPACITY,
-   "This game cannot be completed as authored"},
+   GSC_ASSIST_COMBAT, "This game cannot be completed as authored"},
   {nullptr, nullptr, 0, nullptr}
 };
 

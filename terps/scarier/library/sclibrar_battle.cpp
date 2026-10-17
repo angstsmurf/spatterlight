@@ -767,6 +767,13 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
        * Govard (runner_transcripts/govard.txt, turn 213): "Чем мне атаковать
        * Волк with?" is followed on the same turn by the wolf's bite and the
        * events' output, where 4.0 would print the question alone.
+       *
+       * Deliberate deviation (2026-10-17): the question is free at every
+       * version.  A missing byte store in run390 gave the NPC a free blow
+       * while the game asked the player a question, which is how a player
+       * reads it: a bug, not a rule.  Logged under "Deliberate deviations"
+       * in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md; govard's golden was
+       * re-derived.
        */
       if (weapon < 0)
         {
@@ -775,8 +782,7 @@ lib_battle_attack_bare (scr_gameref_t game, const scr_char *verb,
           if (count > 1)
             {
               lib_battle_weapon_question (game, npc);
-              if (lib_is_version_400 (game))
-                game->is_admin = TRUE;
+              game->is_admin = TRUE;
               return TRUE;
             }
           if (count == 1)
@@ -2258,10 +2264,10 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   if (struck)
     lib_battle_400_claim_line ();
 
-  /* Only the question, and no blow: as for one target, not a turn in 4.0
-   * (and a turn in 3.9, which sets no not-a-turn byte; see the single-
-   * target path in lib_battle_attack_bare). */
-  if (!struck && !refused && lib_is_version_400 (game))
+  /* Only the question, and no blow: as for one target, not a turn (in 3.9
+   * the Runner ticks, a deliberate deviation; see the single-target path in
+   * lib_battle_attack_bare). */
+  if (!struck && !refused)
     game->is_admin = TRUE;
 
   return TRUE;

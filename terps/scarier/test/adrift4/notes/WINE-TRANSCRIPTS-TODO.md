@@ -319,7 +319,9 @@ below as not yet ported.
     so task_move_object now sets runner_parent likewise. `count` never
     re-weighs a held object, so a cleared child only shows on its next
     drop/take. The game is unwinnable in run400; golden re-blessed, marker
-    dropped. T7-T10 `attack card guard with knife` with the knife absent
+    dropped. REVERTED 2026-10-17 (deliberate deviations section): the weigh
+    counts only real children, the knife is takeable without the capacity
+    assist, golden unchanged. T7-T10 `attack card guard with knife` with the knife absent
     PORTED 2026-09-25: dobattle's with-loop asks co() (47EC16), and co()
     resolves only a PRESENT object (obhere, and seen from 3.9: 464360-
     46437E, 4647C5-464819), so dobattle prints nothing; therest then splits
@@ -494,7 +496,9 @@ is now ported; the row is identical on every turn.
   `--objects`, Adrift_282_p4tdbo) the task runs ONCE and the library take
   follows: "Player take the ball.  BOBTEXT." (take line first, 47359A),
   held "BOBTEXT.Player is already carrying the gem." (refusal glued on).
-  Ported too; no stored transcript or golden has the case.
+  Ported too; no stored transcript or golden has the case. The double run
+  was REVERTED 2026-10-17 (deliberate deviations section): one run, the
+  line claimed; britishfox re-blessed without the duplicate text.
 
 **Not ported / left open:**
 
@@ -642,6 +646,9 @@ case, and their goldens are re-blessed. The row notes in
   ladder, the sword, a Sirin death instead of the win). Ported in
   `lib_battle_attack_bare` / `lib_battle_attack_many` with a `>= 4.0` gate;
   the govard dice ladder was then re-derived. `Govard_walkthrough.md`.
+  FLIPPED 2026-10-17 (deliberate deviations section): the question is
+  free at every version again; govard spends the turn on an `инвентарь`
+  line instead and keeps the stream.
 - **govard T74/T210/T248 (3.90): a pre-4.0 room alt's "is/isn't holding"
   tests the object's own position field.** run390 isdark (433920, the
   ladder at 433734-4337C6 already transcribed above `lib_room_alt_darkens`)
@@ -676,6 +683,64 @@ case, and their goldens are re-blessed. The row notes in
 
 ## Deliberate deviations (measured, not ported)
 
+- **The battle weapon question is free at every version (2026-10-17).**
+  run390's dobattle (44CE85-44CEDF) never sets the not-a-turn byte for
+  "What do you want to attack X with?", so in 3.9 the NPC strikes and the
+  events tick on the question line (govard T213 «Чем мне атаковать Волк
+  with? Волк укусил меня...», runner_transcripts/govard.txt); 4.0's
+  question is free. Ported 2026-09-25 with a `>= 4.0` gate on `is_admin`,
+  FLIPPED 2026-10-17: a question is not a turn, at 3.9 too
+  (`lib_battle_attack_bare`; `lib_battle_attack_many` when nothing was
+  struck or refused). govard's route keeps the Runner's RNG stream by
+  spending that turn on an `инвентарь` line before `полоснуть волка`
+  (solution line 217; the wolf's bite lands on the inventory line
+  instead), re-blessed, still the win. `[3.9]` govard T213
+  (library/sclibrar_battle.cpp)
+- **A textless take-family task runs once (2026-10-17).** get_piece
+  dispatches a pre-matched task at 472DE7 and claims the line only on a
+  pre-match of 1; a textless task's 473241 pre-match hits again, get_piece
+  exits silently and the dispatcher at 48A481 runs the typed line a second
+  time, so British Fox T318 `get grace` prints its text twice (p4TDBL, see
+  the index entry). Ported 2026-09-24 (`outer_twice`), REVERTED
+  2026-10-17: the second run is a Runner bug no game needs, so the kind-2
+  arm of `get_outer_400` claims the line after one run (`outer_twice` /
+  `outer_silent` removed); the spent-task "Take what?" and the
+  object-in-reach single run + library take are unchanged. britishfox
+  re-blessed, only the duplicate paragraph gone, 50/50. `[4.0]` p4TDBL,
+  britishfox T318 (runner/scrun_dispatch.cpp)
+- **A held object's children weigh by position, not by the Runner's [2E]
+  field (2026-10-17).** run400's recursive weigh (447680) matches each
+  object's container field against the held object's number, and that
+  field is Parent-1 for NPC-held/worn objects straight from the loader and
+  stale after library moves, so the Card Guard's rod, letter and key (NPC
+  0) phantom-weigh Wonderland's knife (object 0), 94 > MaxWt 90 with empty
+  hands, and goldilocks' crown (worn by NPC 0) weighs into the package (47
+  vs 38). Ported 2026-09-25 (runner_parent seeded in gs_create, mirrored
+  by task_move_object), REVERTED 2026-10-17: `obj_weigh` counts a child
+  only when its position is In/On with the object as its parent, at every
+  version; runner_parent stays for gs_runner_possessed() /
+  gs_runner_worn(). Wonderland's knife is takeable with the default
+  running total, so GSC_ASSIST_CAPACITY came off the known-game table and
+  SCR_ASSUME_CAPACITY off the row (golden unchanged); goldilocks
+  re-blessed (the pumpkin and the gloves ride along in `take all`, the
+  Godmother scene comes earlier, two later lines become no-ops, still the
+  win). The capacity switch itself stays as a user preference. `[4.0]`
+  wonderland T0, goldilocks (core/scobjcts.cpp `obj_weigh`)
+- **A 4.0 lock or unlock needs the object in the player's room
+  (2026-10-17).** openclose's lock and unlock arms resolve the head with
+  463640 in mode 0 and never ask where the object is: from p4LOCK's Beta,
+  `lock box with coin` locks the box left in Alpha (index entry). Ported
+  2026-09-20 as `lib_lock_absent_object_400`, GATED 2026-10-17: locking
+  something in another room is a Runner bug no game relies on, so the
+  resolver also requires the object -- or, following its In/On chain, the
+  static it sits in or on -- to be in the player's room
+  (`lib_lock_object_in_room_400`); anything else falls through to the
+  library's own refusal. One golden moved: sswhore's desk drawer is a
+  hidden object (no room) until the elixir reveals it, so `unlock drawer`
+  is "You can't unlock that." and `unlock drawer with skeleton key` is
+  "You can't see the desk drawer." instead of run400's "The desk drawer
+  is not locked!", both still no-ops in the route (gitignored golden).
+  `[4.0]` p4LOCK, sswhore (library/sclibrar_open.cpp)
 - **A 4.0 put does not fetch a seen object from another room
   (2026-10-17).** name_object's scorer (463640) counts every object the
   player has seen wherever it now lies, and nothing between it and the take
@@ -2884,7 +2949,9 @@ transcript names are in the code comment next to the named function, in
   nothing. p4WTIE's feed 3 re-locks between cells and proves it properly
   -- see the next entry.) This generalises the sswhore refusal already
   noted. `[4.0]` p4LOCK (`cmdfile_lock2.txt`, Adrift_lock2.txt;
-  `lib_lock_absent_object_400`, `lib_lock_backend`, 2026-09-20)
+  `lib_lock_absent_object_400`, `lib_lock_backend`, 2026-09-20). GATED
+  2026-10-17: Scarier now also requires the object to be in the player's
+  room (deliberate deviations section).
 - **A 4.0 lock or unlock never asks which key, and naming the key is what
   picks it up.** openclose starts var_88 at -1 (475C63) and sets it only
   from a " with " half that 463640 RESOLVES (475CB0), so a half that ties
@@ -4275,7 +4342,8 @@ transcript names are in the code comment next to the named function, in
   not-a-turn byte in run390 (44CE85-44CEDF), so characters() and events()
   run on the question line; 4.0's question is free (run400 light_up
   `attack higher`). `[3.9]` govard T213 (`lib_battle_attack_bare`,
-  `lib_battle_attack_many`, 2026-09-25)
+  `lib_battle_attack_many`, 2026-09-25). FLIPPED 2026-10-17: free at
+  every version in Scarier (deliberate deviations section).
 - **The with-question rule is 3.9's too, and it overwrites dobattle's
   "attack" prefix in both Runners.** A line whose output is "With what?"
   or ends "with?" leaves line & " with " as the prefix (run390 46058C,

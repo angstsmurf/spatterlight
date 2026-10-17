@@ -297,7 +297,6 @@ private:
      get_outer_400(). */
   std::string outer_battle;
   const scr_char *outer_line = string;
-  scr_bool outer_twice = FALSE, outer_silent = FALSE;
   size_t outer_mark = 0;
   /* Where the buffer stood when the task dispatcher got the line, and what
      the passes before and after it settled; see task_peek() and
@@ -840,8 +839,16 @@ run_line_t::get_outer_400 ()
                * twice (runner_transcripts/britishfox.txt); p4TDBL `get bob`
                * "BOBTEXT.  BOBTEXT." with its counter up by two, `get eel`,
                * nothing printed by either run, "I don't understand.".
+               *
+               * Deliberate deviation (2026-10-17): the task runs ONCE.  The
+               * second run is a Runner accident that doubles the task's
+               * text and its actions (a counter it bumps goes up by two),
+               * which no game was written for.  The line is claimed as
+               * get_piece's; whatever the one run printed answers it.
+               * Logged under "Deliberate deviations" in
+               * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
                */
-              outer_twice = TRUE;
+              status = TRUE;
             }
           else
             {
@@ -923,16 +930,10 @@ run_line_t::task_peek ()
   claimed_before_tasks = status;
   if (!status && !refused)
     {
-      /* get_piece's run does not count as the dispatcher's one task, and
-         the take it stood in for has had its turn: no silent-literal peek
-         to hand the line back to it. */
-      run_matcher_second_pass = outer_twice;
       status = run_game_commands_in_parser_context (
                    game, task_string, FALSE,
-                   !outer_twice
-                   && run_get_version (gs_get_bundle (game))
-                      >= TAF_VERSION_400);
-      run_matcher_second_pass = FALSE;
+                   run_get_version (gs_get_bundle (game))
+                   >= TAF_VERSION_400);
       if (run_any_task_ran_this_command ())
         run_takes_second_pass_370 (game, string, task_string, task_mark);
       /* A silent task on a take or drop line: the handler's own "Take
@@ -1164,18 +1165,9 @@ run_line_t::battle_pass ()
     }
   if (inv_listed)
     status = TRUE;
-  /*
-   * After get_piece's double run the library has nothing left for the line:
-   * get_outer was its take.  Whatever either run printed answers it;
-   * nothing at all is DontUnderstand (p4TDBL `get eel`,
-   * runner_probes/tdbl.run400.txt).
-   */
-  outer_silent = outer_twice && !status;
-  if (outer_silent && pf_buffer_length (filter) > outer_mark)
-    status = TRUE;
-  if (!status && !silent_task_390 && !outer_silent && battle_kinds)
+  if (!status && !silent_task_390 && battle_kinds)
     status = run_battle_line (game, string, battle_kinds);
-  reached_library = !status && !silent_task_390 && !outer_silent;
+  reached_library = !status && !silent_task_390;
 }
 
 /*
@@ -1188,7 +1180,7 @@ run_line_t::battle_pass ()
 void
 run_line_t::library ()
 {
-  if (status || silent_task_390 || outer_silent)
+  if (status || silent_task_390)
     return;
 
   /*

@@ -1081,9 +1081,8 @@ the fuses are touching the heating elements of the toaster.
 
 > get all
 I take the matchbox, the empty beer can, the pair of secateurs, the blackened
-metal poker, the cue ball, the ratty old paintbrush and the dead mouse.  The
-overripe pumpkin is too heavy for me to carry at the moment.  The pair of
-gardening gloves is too heavy for me to carry at the moment.
+metal poker, the cue ball, the ratty old paintbrush, the dead mouse, the
+overripe pumpkin and the pair of gardening gloves.
 
 > drop package
 I drop the package.
@@ -1330,8 +1329,7 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package, an overripe pumpkin and a pair of gardening gloves.  I can
-move south and in.
+see a package.  I can move south and in.
 
 > s
 I move south.
@@ -1384,8 +1382,7 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package, an overripe pumpkin and a pair of gardening gloves.  I can
-move south and in.
+see a package.  I can move south and in.
 
 > in
 I move in.
@@ -1431,7 +1428,15 @@ the... oh, what was it now?' She looks up at me, bewildered. 'Who are you? Is
 it time for my medicine?'
 
 > give pumpkin to godmother
-I don't have a pumpkin!
+'Thankyou dear,' says my Fairy Godmother as I hand her the pumpkin. 'With a
+wave of my wand I shall transform this pumpkin into a lovely golden coach.
+Now let me see...' She takes out her wand and waves it over the pumpkin a
+couple of times, somewhat uncertainly. After a short time the pumpkin begins
+to swell as though someone were pumping it full of air. Then there is a soft,
+damp 'plop' as the pumpkin explodes, showering the two of us with orange goo.
+   'Oh dear,' says my Fairy Godmother 'that wasn't quite right! Never mind,
+we'll have to make do without a coach. Perhaps you can ride one of the coach
+horses...'
 
 > out
 I can only move down.
@@ -1454,14 +1459,13 @@ I'm standing on the porch of the Three Bears' cottage. It would be quite
 pretty in a rustic sort of way had someone not seen fit to paint it gold. The
 front door has been wedged open. Just south of me is the clearing in the
 forest.  A battered old dustbin sits to one side of the porch.  I can also
-see a package, an overripe pumpkin and a pair of gardening gloves.  I can
-move south and in.
+see a package.  I can move south and in.
 
 > get puimpkin
 Take what?
 
 > take pumpkin
-I take the overripe pumpkin.
+There is nothing worth taking here.
 
 > in
 I move in.
@@ -1488,15 +1492,7 @@ move down.
 Give what?
 
 > give pumpkin to godmother
-'Thankyou dear,' says my Fairy Godmother as I hand her the pumpkin. 'With a
-wave of my wand I shall transform this pumpkin into a lovely golden coach.
-Now let me see...' She takes out her wand and waves it over the pumpkin a
-couple of times, somewhat uncertainly. After a short time the pumpkin begins
-to swell as though someone were pumping it full of air. Then there is a soft,
-damp 'plop' as the pumpkin explodes, showering the two of us with orange goo.
-   'Oh dear,' says my Fairy Godmother 'that wasn't quite right! Never mind,
-we'll have to make do without a coach. Perhaps you can ride one of the coach
-horses...'
+I can't see the overripe pumpkin.
 
 > give mouse to godmother
 'He's a jolly little chap, isn't he?' Says my Fairy Godmother as I hand over
