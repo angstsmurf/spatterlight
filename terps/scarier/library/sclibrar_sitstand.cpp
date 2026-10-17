@@ -781,6 +781,177 @@ lib_sitstand_strip (const scr_char *line, scr_int taf_version)
 
 
 /*
+ * lib_sitstand_speech_line()
+ *
+ * TRUE for a line led by a speech verb (ask, say, tell, talk, shout, yell),
+ * which sitstand leaves alone as free text; see lib_sitstand_anywhere().
+ */
+static scr_bool
+lib_sitstand_speech_line (const scr_char *line, scr_int taf_version)
+{
+  static const scr_char *const SPEECH[] = {
+    "ask", "say", "tell", "talk", "shout", "yell", nullptr
+  };
+  const scr_char *const *word;
+
+  for (word = SPEECH; *word; word++)
+    {
+      const size_t length = strlen (*word);
+
+      if (scr_strncasecmp (line, *word, length) == 0
+          && (line[length] == NUL || line[length] == ' '))
+        {
+          if (lib_co_contains (line, "sit") || lib_co_contains (line, "stand")
+              || lib_co_contains (line, "lie")
+              || (taf_version >= TAF_VERSION_400
+                  && lib_co_contains (line, "lay")))
+            SCR_DEVIATION ("sitstand_speech", nullptr);
+          return TRUE;
+        }
+    }
+  return FALSE;
+}
+
+
+/*
+ * lib_sitstand_trace_mask()
+ *
+ * Deviation trace for a sit/stand/lie word that lib_mask_long_names() hid
+ * inside an object or character name.
+ */
+static void
+lib_sitstand_trace_mask (const scr_char *line, const std::string &masked,
+                         scr_int taf_version)
+{
+  if (SCR_TRACING_DEVIATIONS () && masked != line
+      && ((lib_co_contains (line, "sit") != lib_co_contains (masked.c_str (), "sit"))
+          || (lib_co_contains (line, "stand")
+              != lib_co_contains (masked.c_str (), "stand"))
+          || (lib_co_contains (line, "lie")
+              != lib_co_contains (masked.c_str (), "lie"))
+          || (taf_version >= TAF_VERSION_400
+              && lib_co_contains (line, "lay")
+                 != lib_co_contains (masked.c_str (), "lay"))))
+    SCR_DEVIATION ("mask_sitstand", "masked=\"%s\"", masked.c_str ());
+}
+
+
+/*
+ * lib_sitstand_plain_move()
+ *
+ * TRUE for a line that is only a move -- sit, stand, lie or lay leading,
+ * an optional down/up, then nothing or an on/in phrase -- which the
+ * ordinary sit/stand/lie rows answer instead.
+ */
+static scr_bool
+lib_sitstand_plain_move (const scr_char *line)
+{
+  static const scr_char *const VERBS[] = {
+    "sit", "stand", "lie", "lay", nullptr
+  };
+  const scr_char *const *word;
+  const scr_char *rest_ = nullptr;
+
+  for (word = VERBS; *word && !rest_; word++)
+    {
+      const size_t length = strlen (*word);
+
+      if (scr_strncasecmp (line, *word, length) == 0
+          && (line[length] == NUL || line[length] == ' '))
+        rest_ = line + length;
+    }
+  if (!rest_)
+    return FALSE;
+
+  rest_ += strspn (rest_, " ");
+  if (scr_strncasecmp (rest_, "down", 4) == 0
+      && (rest_[4] == NUL || rest_[4] == ' '))
+    rest_ += 4;
+  else if (scr_strncasecmp (rest_, "up", 2) == 0
+           && (rest_[2] == NUL || rest_[2] == ' '))
+    rest_ += 2;
+  rest_ += strspn (rest_, " ");
+  return rest_[0] == NUL
+         || ((scr_strncasecmp (rest_, "on", 2) == 0
+              || scr_strncasecmp (rest_, "in", 2) == 0)
+             && (rest_[2] == NUL || rest_[2] == ' '));
+}
+
+
+/*
+ * lib_sitstand_examines()
+ * lib_sitstand_swears()
+ *
+ * The examines and swearing words, anywhere in the line, by Runner version.
+ */
+static scr_bool
+lib_sitstand_examines (const scr_char *line, scr_int taf_version)
+{
+  static const scr_char *const EXAMINES[] = {
+    "x", "examine", "look at", "ex", "exam", "read", nullptr
+  };
+  const scr_char *const *word;
+
+  for (word = EXAMINES; *word; word++)
+    if (lib_co_contains (line, *word))
+      return TRUE;
+  return (taf_version >= TAF_VERSION_380 && lib_co_contains (line, "look in"))
+         || (taf_version >= TAF_VERSION_390
+             && (lib_co_contains (line, "look") || lib_co_contains (line, "l")));
+}
+
+static scr_bool
+lib_sitstand_swears (const scr_char *line, scr_int taf_version)
+{
+  static const scr_char *const PROFANITY[] = {
+    "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag", "bollocks",
+    "bollox", "piss", nullptr
+  };
+  const scr_char *const *word;
+
+  for (word = PROFANITY; *word; word++)
+    if (lib_co_contains (line, *word))
+      return TRUE;
+  return (taf_version >= TAF_VERSION_390 && lib_co_contains (line, "bugger"))
+         || (taf_version < TAF_VERSION_400 && lib_co_contains (line, "bloody"));
+}
+
+
+/*
+ * lib_sitstand_prerun()
+ *
+ * wears() and removes() run before sitstand and keep their move; a
+ * 3.7/4.0 put keeps the line only when it moved something (a refusal
+ * does not claim there, see lib_sitstand_anywhere()).  The text goes either
+ * way: sitstand writes over it.  Returns TRUE when a put moved something.
+ */
+static scr_bool
+lib_sitstand_prerun (scr_gameref_t game, lib_line_runner_t run_line,
+                     const std::string &stripped, scr_bool putish)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const size_t before = pf_buffer_length (filter);
+  std::vector<scr_int> positions;
+  scr_int object;
+
+  if (putish)
+    GS_FOR_EACH_OBJECT (game, object)
+      positions.push_back (gs_object_position (game, object)
+                           * (gs_object_count (game) + 2)
+                           + gs_object_parent (game, object) + 1);
+  run_line (game, stripped.c_str ());
+  if (putish)
+    GS_FOR_EACH_OBJECT (game, object)
+      if (gs_object_position (game, object)
+          * (gs_object_count (game) + 2)
+          + gs_object_parent (game, object) + 1 != positions[object])
+        return TRUE;
+  pf_truncate (filter, before);
+  return FALSE;
+}
+
+
+/*
  * lib_sitstand_anywhere()
  *
  * The Runner's sitstand is one proc of blocks, each entered on its word
@@ -857,13 +1028,6 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
   static const scr_char *const LEFT_ALONE[] = {
     "get", "take", "pick", "drop", "leave", nullptr
   };
-  static const scr_char *const EXAMINES[] = {
-    "x", "examine", "look at", "ex", "exam", "read", nullptr
-  };
-  static const scr_char *const PROFANITY[] = {
-    "shit", "fuck", "bastard", "cunt", "crap", "hell", "shag", "bollocks",
-    "bollox", "piss", nullptr
-  };
   const scr_filterref_t filter = gs_get_filter (game);
   const scr_int taf_version = prop_get_taf_version (gs_get_bundle (game));
   const scr_char *line = run_get_dispatch_input ();
@@ -882,38 +1046,10 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
    * a longer object or character name is no verb (lib_mask_long_names()),
    * and a line that says, asks, tells or talks is free text.
    */
-  {
-    static const scr_char *const SPEECH[] = {
-      "ask", "say", "tell", "talk", "shout", "yell", nullptr
-    };
-
-    for (word = SPEECH; *word; word++)
-      {
-        const size_t length = strlen (*word);
-
-        if (scr_strncasecmp (line, *word, length) == 0
-            && (line[length] == NUL || line[length] == ' '))
-          {
-            if (lib_co_contains (line, "sit") || lib_co_contains (line, "stand")
-                || lib_co_contains (line, "lie")
-                || (taf_version >= TAF_VERSION_400
-                    && lib_co_contains (line, "lay")))
-              SCR_DEVIATION ("sitstand_speech", nullptr);
-            return FALSE;
-          }
-      }
-  }
+  if (lib_sitstand_speech_line (line, taf_version))
+    return FALSE;
   const std::string masked = lib_mask_long_names (game, line);
-  if (SCR_TRACING_DEVIATIONS () && masked != line
-      && ((lib_co_contains (line, "sit") != lib_co_contains (masked.c_str (), "sit"))
-          || (lib_co_contains (line, "stand")
-              != lib_co_contains (masked.c_str (), "stand"))
-          || (lib_co_contains (line, "lie")
-              != lib_co_contains (masked.c_str (), "lie"))
-          || (taf_version >= TAF_VERSION_400
-              && lib_co_contains (line, "lay")
-                 != lib_co_contains (masked.c_str (), "lay"))))
-    SCR_DEVIATION ("mask_sitstand", "masked=\"%s\"", masked.c_str ());
+  lib_sitstand_trace_mask (line, masked, taf_version);
 
   sit = lib_co_contains (masked.c_str (), "sit");
   stand = lib_co_contains (masked.c_str (), "stand");
@@ -936,53 +1072,11 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
       && (taf_version == TAF_VERSION_380 || taf_version == TAF_VERSION_390))
     return FALSE;
 
-  if (blocks == 1)
-    {
-      static const scr_char *const VERBS[] = {
-        "sit", "stand", "lie", "lay", nullptr
-      };
-      const scr_char *rest_ = nullptr;
+  if (blocks == 1 && lib_sitstand_plain_move (line))
+    return FALSE;
 
-      for (word = VERBS; *word && !rest_; word++)
-        {
-          const size_t length = strlen (*word);
-
-          if (scr_strncasecmp (line, *word, length) == 0
-              && (line[length] == NUL || line[length] == ' '))
-            rest_ = line + length;
-        }
-      if (rest_)
-        {
-          rest_ += strspn (rest_, " ");
-          if (scr_strncasecmp (rest_, "down", 4) == 0
-              && (rest_[4] == NUL || rest_[4] == ' '))
-            rest_ += 4;
-          else if (scr_strncasecmp (rest_, "up", 2) == 0
-                   && (rest_[2] == NUL || rest_[2] == ' '))
-            rest_ += 2;
-          rest_ += strspn (rest_, " ");
-          if (rest_[0] == NUL
-              || ((scr_strncasecmp (rest_, "on", 2) == 0
-                   || scr_strncasecmp (rest_, "in", 2) == 0)
-                  && (rest_[2] == NUL || rest_[2] == ' ')))
-            return FALSE;
-        }
-    }
-
-  examine = FALSE;
-  for (word = EXAMINES; *word && !examine; word++)
-    examine = lib_co_contains (line, *word);
-  if ((taf_version >= TAF_VERSION_380 && lib_co_contains (line, "look in"))
-      || (taf_version >= TAF_VERSION_390
-          && (lib_co_contains (line, "look") || lib_co_contains (line, "l"))))
-    examine = TRUE;
-
-  profanity = FALSE;
-  for (word = PROFANITY; *word && !profanity; word++)
-    profanity = lib_co_contains (line, *word);
-  if ((taf_version >= TAF_VERSION_390 && lib_co_contains (line, "bugger"))
-      || (taf_version < TAF_VERSION_400 && lib_co_contains (line, "bloody")))
-    profanity = TRUE;
+  examine = lib_sitstand_examines (line, taf_version);
+  profanity = lib_sitstand_swears (line, taf_version);
   score = lib_co_contains (line, "score");
 
   /* characters() overwrites last: talk-to anywhere, ask leading pre-4.0. */
@@ -993,32 +1087,9 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
 
   const std::string stripped = lib_sitstand_strip (line, taf_version);
 
-  if ((wearish || putish) && run_line && !stripped.empty ())
-    {
-      /*
-       * wears() and removes() run before sitstand and keep their move; a
-       * 3.7/4.0 put keeps the line only when it moved something (a refusal
-       * does not claim there, see the note above).  The text goes either
-       * way: sitstand writes over it.
-       */
-      const size_t before = pf_buffer_length (filter);
-      std::vector<scr_int> positions;
-      scr_int object;
-
-      if (putish)
-        GS_FOR_EACH_OBJECT (game, object)
-          positions.push_back (gs_object_position (game, object)
-                               * (gs_object_count (game) + 2)
-                               + gs_object_parent (game, object) + 1);
-      run_line (game, stripped.c_str ());
-      if (putish)
-        GS_FOR_EACH_OBJECT (game, object)
-          if (gs_object_position (game, object)
-              * (gs_object_count (game) + 2)
-              + gs_object_parent (game, object) + 1 != positions[object])
-            return TRUE;
-      pf_truncate (filter, before);
-    }
+  if ((wearish || putish) && run_line && !stripped.empty ()
+      && lib_sitstand_prerun (game, run_line, stripped, putish))
+    return TRUE;
 
   const size_t mark = pf_buffer_length (filter);
   if (sit)
