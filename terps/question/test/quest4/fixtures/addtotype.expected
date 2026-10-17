@@ -1,0 +1,17 @@
+
+AddtoType
+
+You are in Room.
+There is lamp and box here.
+A room.
+
+> probe lamp
+lamp glows.
+lamp does not hum.
+lamp is metal.
+
+> probe box
+box does not glow.
+box hums.
+box is not metal.
+[runner] turns=2 leftover=0 running=true

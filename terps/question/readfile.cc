@@ -1348,6 +1348,12 @@ static void collect_addtos (const vector<string> &v2,
       tok = first_token (v2[line], tok_start, tok_end);
       if (tok == "!addto")
 	{
+	  /* Quest's library loader knows exactly three forms (V4Game.cs
+	   * 1497-1660): "!addto game", "!addto synonyms" and "!addto type
+	   * <name>" for any type name, which it compares lowercased against
+	   * the "define type <name>" line and whose block it creates when the
+	   * game has none.  The key here is the "define" line's own tokens,
+	   * which is what splice_addtos builds from the other side. */
 	  tok = next_token (v2[line], tok_start, tok_end);
 	  if (!(tok == "game" || tok == "synonyms" || tok == "type"))
 	    {
@@ -1355,15 +1361,7 @@ static void collect_addtos (const vector<string> &v2,
 	      continue;
 	    }
 	  if (tok == "type")
-	    {
-	      string tmp = next_token (v2[line], tok_start, tok_end);
-	      if (!(tmp == "<default>" || tmp == "<defaultroom>"))
-		{
-		  gi->debug_print ("Error: Bad addto '" + v2[line] + "'\n");
-		  continue;
-		}
-	      tok = tok + " " + tmp;
-	    }
+	    tok = tok + " " + lcase (next_token (v2[line], tok_start, tok_end));
 	  ++ line; // skip !addto
 	  while (line < v2.size() && 
  		 first_token (v2[line], tok_start, tok_end) != "!end")
@@ -1387,10 +1385,9 @@ static void splice_addtos (const vector<string> &v2,
    * splices an !addto's lines in immediately *before* the block's "end define"
    * (V4Game.cs:1497-1568), not after its header, and that is not cosmetic:
    * within a block Quest matches commands and verbs in file order, so lines
-   * put at the front would beat the author's own.
-   *
-   * TODO: What if there's a !addto for a block other than game, synonyms,
-   * default, defaultroom? */
+   * put at the front would beat the author's own.  A key that no block in
+   * the game answers to (a type the library adds outright) becomes a block
+   * of its own after the last line, as Quest's AddLine does. */
   vector<string> owed;
   /* Inside a text or synonyms block only its "end define" counts: a line of
    * prose starting "define" would otherwise push an entry nothing pops. */
@@ -1421,7 +1418,7 @@ static void splice_addtos (const vector<string> &v2,
 	{
 	  string key = next_token (v2[line], tok_start, tok_end);
 	  if (key == "type")
-	    key = key + " " + next_token (v2[line], tok_start, tok_end);
+	    key = key + " " + lcase (next_token (v2[line], tok_start, tok_end));
 	  v.push_back (v2[line]);
 	  owed.push_back (addtos.find (key) != addtos.end() ? key : string ());
 	  continue;
@@ -1456,9 +1453,13 @@ static void splice_addtos (const vector<string> &v2,
  * the parenthesised group to "if/and/or is <..;lt;..>". */
 static void convert_friendly_ifs (vector<string> &v)
 {
-  // TODO: Is it "!=" or "<>" or both, and if both, which has priority?
+  /* Both "!=" and "<>" mean not-equal.  The table is in Quest's search order
+   * (ConvertFriendlyIfs, V4Game.cs:425-470): the first symbol of the list
+   * that occurs anywhere in the group is the one the group is split at, so
+   * "!=" beats "<>", and the two-character symbols are tried before the
+   * one-character ones they contain. */
   static string comps[][2] = 
-    { { "<>", "!=;" },  { "!=", "!=;" },  { "<=", "lt=;" },  { ">=", "gt=;" }, 
+    { { "!=", "!=;" },  { "<>", "!=;" },  { "<=", "lt=;" },  { ">=", "gt=;" }, 
       { "<",  "lt;" },  { ">",  "gt;" },  { "=",  "" } };
 
   std::string::size_type tok_start, tok_end;
