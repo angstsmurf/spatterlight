@@ -121,7 +121,15 @@ struct EntryPoint {
     bool stub_original;
     void (*fn)();
     bool global_search = false;
+    // Tells rows that hook the same routine through different patterns
+    // apart where the finder needs to know which one matched. Only the
+    // Zork Zero V-MAP-LOOP rows set it, see z0_find_map_globals().
+    int variant = 0;
 };
+
+// Variants of the Zork Zero V-MAP-LOOP rows.
+constexpr int kVMapLoopAlt = 1;    // r242: the loop is inlined into V-MAP, CALL_VN2 anchor
+constexpr int kVMapLoopInline = 2; // r296/r66/r366: inlined too, CALL_VS2 anchor
 
 // Sentinel value in a pattern that matches any byte. Chosen so it's
 // unlikely to collide with a literal opcode at the same position.
@@ -640,7 +648,7 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::Shogun,
-        "SCENE-SELECT alt ",
+        "SCENE-SELECT alt",
         { 0xbe, 0x13, 0x5f, 0x07, 0x02 },
         0,
         0,
@@ -760,11 +768,27 @@ static std::vector<EntryPoint> entrypoints = {
         shogun_DISPLAY_BORDER
     },
 
+    // DISPLAY-BORDER, CENTER-PIC-X, CENTER-PIC and MARGINAL-PIC all open with
+    // the same PICINF L01,TABLE ?~RFALSE (be 06 8f 01 .. .. 40), so the
+    // CENTER-PIC-X rows include the locals count that precedes a routine
+    // entry: 3 in the r278 s890209 beta, 4 in every later revision. Without
+    // it the pattern hits the body of DISPLAY-BORDER first in r279-r292,
+    // where the "alt 2" row has already claimed that routine.
+    {
+        Game::Shogun,
+        "CENTER-PIC-X older",
+        { 0x03, 0xbe, 0x06, 0x8f, 0x01, WILDCARD, WILDCARD, 0x40 },
+        1,
+        0,
+        true,
+        CENTER_PIC_X
+    },
+
     {
         Game::Shogun,
         "CENTER-PIC-X",
-        { 0xbe, 0x06, 0x8f, 0x01, WILDCARD, WILDCARD, 0x40 },
-        0,
+        { 0x04, 0xbe, 0x06, 0x8f, 0x01, WILDCARD, WILDCARD, 0x40 },
+        1,
         0,
         true,
         CENTER_PIC_X
@@ -1108,8 +1132,8 @@ static std::vector<EntryPoint> entrypoints = {
         // 25/26-33 are the same numbers in r242 -- but V_REFRESH is its only
         // cleanup), so it would bleed into the main text window. This alt
         // pattern matches ONLY r242/beta (head 0x14f9c); every other revision
-        // matches the release pattern above, and neither pattern matches both,
-        // so no dedup is needed. global_search for the usual cursor reasons.
+        // matches the release pattern above, and neither pattern matches both.
+        // global_search for the usual cursor reasons.
         "V-REFRESH alt",
         { 0x01, 0xa0, 0x01, WILDCARD, 0xa0, WILDCARD, WILDCARD, 0x8f, WILDCARD, WILDCARD },
         1,
@@ -1240,6 +1264,25 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
+        "V-MODE",
+        { 0x00, 0xed, 0x3f, 0xff, 0xff, 0xa0 },
+        1,
+        0,
+        false,
+        V_MODE,
+        // The real V-MODE routine can precede the (global_search) V-REFRESH match
+        // (it does in r343, r296, ...), so a forward-only search from the
+        // V-REFRESH cursor would skip it. This pattern is globally unique in
+        // every revision that has it (absent only in the r242 betas, which rely
+        // on "V-MODE alt"), so scanning the whole story always lands on the
+        // correct routine. It comes before "V-MODE alt", whose anchor lies
+        // three bytes into this routine's first instruction in every revision
+        // but r242: a hook there would never fire.
+        true,
+    },
+
+    {
+        Game::ZorkZero,
         "V-MODE alt",
         { 0xa0, WILDCARD, 0xc8, 0x0d, WILDCARD, 0x00, 0x8c, 0x00, 0x05 },
         -3,
@@ -1270,23 +1313,6 @@ static std::vector<EntryPoint> entrypoints = {
 
     {
         Game::ZorkZero,
-        "V-MODE",
-        { 0x00, 0xed, 0x3f, 0xff, 0xff, 0xa0 },
-        1,
-        0,
-        false,
-        V_MODE,
-        // The real V-MODE routine can precede the (global_search) V-REFRESH match
-        // (it does in r343, r296, ...), so a forward-only search from the
-        // V-REFRESH cursor would skip it. This pattern is globally unique in
-        // every revision that has it (absent only in the r242 betas, which rely
-        // on "V-MODE alt"), so scanning the whole story always lands on the
-        // correct routine.
-        true,
-    },
-
-    {
-        Game::ZorkZero,
         "V-MAP-LOOP",
         { 0x88, 0x1e, WILDCARD, 0x00, 0xa0, 0x00, 0xf3 },
         0,
@@ -1302,7 +1328,9 @@ static std::vector<EntryPoint> entrypoints = {
         0,
         0,
         false,
-        V_MAP_LOOP
+        V_MAP_LOOP,
+        false,
+        kVMapLoopAlt,
     },
 
     // The r296/r66 betas (and the r366 demo) also inline the map loop into
@@ -1313,10 +1341,11 @@ static std::vector<EntryPoint> entrypoints = {
     //   = CALL_VS2 BLINK ((SP)+,#cc,L04,L03,#07) -> L05
     // This exact call also appears in the releases, but there it lives in a
     // standalone V-MAP-LOOP routine claimed first by the "V-MAP-LOOP" row above;
-    // the V_MAP_LOOP dedup in find_entrypoints() keeps this global match from
-    // shadowing it. So this row only ever wins on the inline-map betas, which
-    // match neither of the rows above. global_search because, like the betas'
-    // other map routines, its position relative to its neighbours varies.
+    // find_entrypoints() skips the rows of a routine already claimed, which
+    // keeps this global match from shadowing it. So this row only ever wins
+    // on the inline-map betas, which match neither of the rows above.
+    // global_search because, like the betas' other map routines, its position
+    // relative to its neighbours varies.
     {
         Game::ZorkZero,
         "V-MAP-LOOP inline",
@@ -1326,6 +1355,7 @@ static std::vector<EntryPoint> entrypoints = {
         false,
         V_MAP_LOOP,
         true,
+        kVMapLoopInline,
     },
 
     // MAP-X (and the near-identical MAP-Y right after it, derived in the
@@ -1337,7 +1367,7 @@ static std::vector<EntryPoint> entrypoints = {
     // (only the two adjacent MAP-X/MAP-Y routines match, no false hits), so scan
     // the whole story. Same overshoot fix as INIT-STATUS-LINE/SET-BORDER below;
     // a release uses the non-alt JE branch (4c), the r242/r296/r66 betas the alt
-    // one (4e da). Only one pattern matches per revision, so no dedup is needed.
+    // one (4e da). Only one pattern matches per revision.
     {
         Game::ZorkZero,
         "MAP-X",
@@ -1451,10 +1481,10 @@ static std::vector<EntryPoint> entrypoints = {
         // memory -- so a forward-only search can never reach it. The pattern is
         // globally unique in those revisions, so scan the whole story. It is
         // guarded against double-matching in find_entrypoints(): once any
-        // z0_UPDATE_STATUS_LINE has matched, this row is skipped. (The 3-locals
-        // row's own false-interior matches in r296 are rejected before they can
-        // set the dedup flag -- see the 0xda check in find_entrypoints -- so the
-        // dedup never lets the false 3-locals match shadow this real 2-locals one.)
+        // z0_UPDATE_STATUS_LINE row has matched, this row is skipped. (The
+        // 3-locals row's own false-interior matches in r296 are rejected before
+        // they can claim the routine -- see the 0xda check in find_entrypoints --
+        // so the false 3-locals match never shadows this real 2-locals one.)
         "UPDATE-STATUS-LINE alt",
         { 0x02, 0xeb, 0x7f, 0x01, WILDCARD, 0x04, 0x7f, 0x04, 0x00 },
         1,
@@ -1514,8 +1544,8 @@ static std::vector<EntryPoint> entrypoints = {
     //     gone), so SETUP-PBOZ lacks the leading <FSET ,NOT-HERE-OBJECT 7>
     //     and DRAW-PEGS / PBOZ-WIN-CHECK read the table.
     //   - r242 has no mouse support in Peggleboz: no PBOZ-CLICK.
-    // Exactly one pattern per routine matches in any given revision; see
-    // has_alt_pattern() in find_entrypoints().
+    // Exactly one pattern per routine matches in any given revision, and
+    // find_entrypoints() skips the rest once one has.
 
     {
         Game::ZorkZero,
@@ -3111,7 +3141,7 @@ static void z0_find_map_globals(EntryPoint &entrypoint, int &start) {
     // call we anchor on reads X from var 5, Y from var 6 (operand bytes
     // ...cc 06 05 07). Storing into the wrong slots leaves the marker's X
     // holding the Y coordinate, drawing it too far left.
-    if (entrypoint.title == "V-MAP-LOOP alt") {
+    if (entrypoint.variant == kVMapLoopAlt) {
         zr.MAP_CX_VAR = 5;
         zr.MAP_CY_VAR = 6;
 
@@ -3125,7 +3155,7 @@ static void z0_find_map_globals(EntryPoint &entrypoint, int &start) {
         zr.V_MAP_BLINK_CALL = entrypoint.found_at_address;
         zr.V_MAP = find_zork0_v_map_head(entrypoint.found_at_address, 0x400);
         fprintf(stderr, "zr.V_MAP: 0x%x (BLINK call 0x%x)\n", zr.V_MAP, zr.V_MAP_BLINK_CALL);
-    } else if (entrypoint.title == "V-MAP-LOOP inline") {
+    } else if (entrypoint.variant == kVMapLoopInline) {
         // r296/r66/r366 inline the loop into V-MAP too, but unlike r242
         // their CALL_VS2 reads X from var 4 and Y from var 5 (operand
         // bytes ...cc 05 04 07), the same as the release V-MAP-LOOP.
@@ -3682,44 +3712,19 @@ void find_entrypoints(void) {
     int start = header.static_start;
     int end = memory_size - kScanTailMargin;
 
-    // Zork Zero registers UPDATE-STATUS-LINE with two patterns (3-locals for
-    // the releases, 2-locals for the r242 beta). Only one is the real routine
-    // in any given revision; the 2-locals pattern additionally hits a
-    // mid-routine false match in r296. The 3-locals row comes first in the
-    // table, so once any z0_UPDATE_STATUS_LINE has matched, skip the rest.
-    bool found_z0_update_status_line = false;
-
-    // Zork Zero registers V-MAP-LOOP with three patterns: the release standalone
-    // routine ("V-MAP-LOOP"), the r242 inline CALL_VN2 ("V-MAP-LOOP alt"), and
-    // the r296/r66/r366 inline CALL_VS2 ("V-MAP-LOOP inline"). Exactly one is the
-    // real loop in any given revision, but the inline-CALL_VS2 call also exists
-    // verbatim inside the releases' standalone routine, so the "inline" row would
-    // double-match there. The rows are ordered release / r242 / inline, so once
-    // any V_MAP_LOOP has matched, skip the rest.
-    bool found_v_map_loop = false;
-
-    // Several Zork Zero mini-game routines have "alt" patterns for the early
-    // revisions (r242, r296, r66): SETUP-FANUCCI, FANUCCI and J-PLAY, and the
-    // Peggleboz, Snarfem and Tower of Bozbar ones listed here. Exactly one
-    // pattern of each set is the real routine, so once one has matched, skip
-    // the others.
-    auto has_alt_pattern = [](void (*fn)()) {
-        return fn == SETUP_FANUCCI || fn == FANUCCI || fn == J_PLAY ||
-            fn == PBOZ_CLICK || fn == SETUP_PBOZ ||
-            fn == DRAW_PEGS || fn == B_MOUSE_WEIGHT_PICK || fn == DRAW_SN_BOXES;
-    };
-    std::vector<void (*)()> found_with_alt;
+    // A routine with several rows (the "alt" and "older" patterns for the
+    // earlier revisions) is real in exactly one place in any given story, so
+    // once a row for a hook function has matched, the remaining rows for the
+    // same function are skipped. Where two patterns can both match the same
+    // story the row for the real routine comes first in the table: Zork Zero's
+    // 2-locals UPDATE-STATUS-LINE pattern also hits a mid-routine false match
+    // in r296, and the inline-CALL_VS2 V-MAP-LOOP call exists verbatim inside
+    // the releases' standalone routine.
+    std::vector<void (*)()> claimed;
 
     for (auto &entrypoint : entrypoints) {
         if (is_game(entrypoint.game)) {
-            if (entrypoint.fn == z0_UPDATE_STATUS_LINE && found_z0_update_status_line) {
-                continue;
-            }
-            if (entrypoint.fn == V_MAP_LOOP && found_v_map_loop) {
-                continue;
-            }
-            if (has_alt_pattern(entrypoint.fn) &&
-                std::find(found_with_alt.begin(), found_with_alt.end(), entrypoint.fn) != found_with_alt.end()) {
+            if (std::find(claimed.begin(), claimed.end(), entrypoint.fn) != claimed.end()) {
                 continue;
             }
             if (entrypoint.pattern.size()) {
@@ -3739,9 +3744,9 @@ void find_entrypoints(void) {
                 // false hit at 0x1cd06, mid INIT-STATUS-LINE 0x1cca0; the real
                 // routine is 0x1cdc4). A genuine routine head continues with
                 // LOADB/JZ (10/a0); the interior copy continues with a CALL_2N to
-                // PICINF-PLUS-ONE (da .. .. 01 7e). Skip such matches so the dedup
-                // flag below stays clear and the 2-locals alt can claim the real
-                // routine. (In the releases/r343/r366/r66 the real 3-locals routine
+                // PICINF-PLUS-ONE (da .. .. 01 7e). Skip such matches so the
+                // routine stays unclaimed and the 2-locals alt can claim the real
+                // one. (In the releases/r343/r366/r66 the real 3-locals routine
                 // matches first, so this never rejects a wanted match.)
                 while (offset != -1 && entrypoint.fn == z0_UPDATE_STATUS_LINE &&
                        entrypoint.pattern.size() >= 9 && entrypoint.pattern[0] == 0x03 &&
@@ -3754,15 +3759,7 @@ void find_entrypoints(void) {
                         start = entrypoint.found_at_address;
                     }
                     fprintf(stderr, "Found routine %s at offset 0x%04x\n", entrypoint.title.c_str(), entrypoint.found_at_address);
-                    if (entrypoint.fn == z0_UPDATE_STATUS_LINE) {
-                        found_z0_update_status_line = true;
-                    }
-                    if (entrypoint.fn == V_MAP_LOOP) {
-                        found_v_map_loop = true;
-                    }
-                    if (has_alt_pattern(entrypoint.fn)) {
-                        found_with_alt.push_back(entrypoint.fn);
-                    }
+                    claimed.push_back(entrypoint.fn);
                     if (entrypoint.stub_original) {
                         // Overwrite original byte with rtrue;
                         store_byte(entrypoint.found_at_address, kOpRtrue);
