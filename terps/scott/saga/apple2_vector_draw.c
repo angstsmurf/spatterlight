@@ -569,13 +569,12 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_vector_ctx 
 }
 
 static void white_background(void) {
-    // Draw a white background
-    // with a black line to the left
-    // to match the artifact renderer
+    // Draw a white background with a black line to the left, to match
+    // the artifact renderer: an all-0xff line is black at dot 0 only.
     SetColor(0, 0);
     SetColor(1, 0xffffff);
-    RectFill(0, 0, 2, ImageHeight, 0);
-    RectFill(2, 0, ImageWidth - 2, ImageHeight, 1);
+    RectFill(0, 0, 1, ImageHeight, 0);
+    RectFill(1, 0, ImageWidth - 1, ImageHeight, 1);
 }
 
 static VectorStepResult write_pixel(const void *op, size_t current_op_index) {
