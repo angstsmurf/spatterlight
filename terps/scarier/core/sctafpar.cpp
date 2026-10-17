@@ -749,6 +749,21 @@ parse_get_string_property (void)
 
 
 /*
+ * parse_push_string_key()
+ *
+ * Push a string key, the first step of every keyed access below.
+ */
+static void
+parse_push_string_key (const scr_char *key)
+{
+  scr_vartype_t vt_key;
+
+  vt_key.string = key;
+  parse_push_key (vt_key, PROP_KEY_STRING);
+}
+
+
+/*
  * parse_get_keyed_integer()
  * parse_get_keyed_boolean()
  * parse_get_keyed_string()
@@ -763,11 +778,9 @@ parse_get_string_property (void)
 scr_int
 parse_get_keyed_integer (const scr_char *key)
 {
-  scr_vartype_t vt_key;
   scr_int retval;
 
-  vt_key.string = key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (key);
   retval = parse_get_integer_property ();
   parse_pop_key ();
 
@@ -777,11 +790,9 @@ parse_get_keyed_integer (const scr_char *key)
 scr_bool
 parse_get_keyed_boolean (const scr_char *key)
 {
-  scr_vartype_t vt_key;
   scr_bool retval;
 
-  vt_key.string = key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (key);
   retval = parse_get_boolean_property ();
   parse_pop_key ();
 
@@ -791,11 +802,9 @@ parse_get_keyed_boolean (const scr_char *key)
 const scr_char *
 parse_get_keyed_string (const scr_char *key)
 {
-  scr_vartype_t vt_key;
   const scr_char *retval;
 
-  vt_key.string = key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (key);
   retval = parse_get_string_property ();
   parse_pop_key ();
 
@@ -805,11 +814,9 @@ parse_get_keyed_string (const scr_char *key)
 scr_int
 parse_get_keyed_child_count (const scr_char *key)
 {
-  scr_vartype_t vt_key;
   scr_int retval;
 
-  vt_key.string = key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (key);
   retval = parse_get_child_count ();
   parse_pop_key ();
 
@@ -819,10 +826,9 @@ parse_get_keyed_child_count (const scr_char *key)
 void
 parse_put_keyed_integer (const scr_char *key, scr_int value)
 {
-  scr_vartype_t vt_key, vt_value;
+  scr_vartype_t vt_value;
 
-  vt_key.string = key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (key);
   vt_value.integer = value;
   parse_put_property (vt_value, PROP_INTEGER);
   parse_pop_key ();
@@ -831,10 +837,9 @@ parse_put_keyed_integer (const scr_char *key, scr_int value)
 void
 parse_put_keyed_string (const scr_char *key, const scr_char *value)
 {
-  scr_vartype_t vt_key, vt_value;
+  scr_vartype_t vt_value;
 
-  vt_key.string = key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (key);
   vt_value.string = value;
   parse_put_property (vt_value, PROP_STRING);
   parse_pop_key ();
@@ -855,8 +860,7 @@ parse_put_indexed_property (const scr_char *list_key, scr_int index_,
 {
   scr_vartype_t vt_key;
 
-  vt_key.string = list_key;
-  parse_push_key (vt_key, PROP_KEY_STRING);
+  parse_push_string_key (list_key);
   vt_key.integer = index_;
   parse_push_key (vt_key, PROP_KEY_INTEGER);
   parse_put_property (vt_value, type);
