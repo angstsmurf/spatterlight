@@ -164,7 +164,7 @@ replayed nothing at all exits non-zero rather than reading green. `GAMES=`,
 `JOBS=` and `DIFF_LINES=` override the corpus directory, the fan-out and the
 diff excerpt.
 
-**The expected result is 349 passed, 6 failed** (2026-10-17). The six are
+**The expected result is 364 passed, 7 failed** (2026-10-17). The seven are
 documented deviations, each with its diff size, and any *other* line in their
 diffs is a regression:
 
@@ -172,6 +172,7 @@ diffs is a regression:
 | --- | --- | --- |
 | The Acreage (pub 6.29 revision) | 5 | Quest Viva #2189: the oracle prints grid errors on arriving in an uncharted room; we chart the room (`chart_uncharted_room`) |
 | Woo Rebooted 3.7 | 7 | same |
+| Thyme (ASL 600 build) | 5 | same (the arrest teleport at the end) |
 | GiantKiller Too 2.15 | 45 | same, five arrivals |
 | Rogues Adventure | 54 | the `void` room's message is a glitched source dump the oracle rejects as an expression; we print it as text |
 | Heliacal Hostility | 3 | an attribute named `in jungle`: QuestViva says "Invalid attribute name", we accept it (unresolved, not a decision) |

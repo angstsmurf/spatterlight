@@ -1,0 +1,711 @@
+SIGNOS:
+
+AN ESSENTIAL QUEST
+
+BY M4U
+
+******************************************************************************
+
+WELCOME TRAVELLER!
+
+IT HAS BEEN A LONG JOURNEY AND THIS IS THE FINAL ACT
+
+TRY "HINT" FOR HELP
+
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone. There is some light coming from all directions.
+
+After a life time, you still wondering the same old questions: "Why am I here?", "Where I came from?" and "What's my purpose?".
+
+And now, you have created these rooms with your imagination, in order to search for those answers.  I'm convinced as well that in the items from here are answers that has been already found, hidden as meaningful and symbolic objects.  Yes, objects hidden in the deepest corners of your mind, waiting for being discovered or remembered.
+> go west
+> go west
+The ground is filled with green grass. It feels soft under you feet. There is small place with chairs made of stone.
+
+You can see a fakir sitting down with the legs crossed.  He looks like a statue with his arm lifted.
+
+You can go back to the hall, going to the east.
+___________________________________________
+The ground is filled with green grass. It feels soft under you feet. There is small place with chairs made of stone.
+
+You can see a fakir sitting down with the legs crossed.  He looks like a statue with his arm lifted.
+
+You can go back to the hall, going to the east.
+___________________________________________
+> x fakir
+
+The fakir says: "Before your efforts give some fruit, you need to concentrate, but before concentrating, you need to be relaxed completely"
+> sit down
+> sit down
+You sit on the floor and relax...
+> close eyes
+> close eyes
+You close your eyes and concentrate...
+> lift arm
+> lift arm
+You lift you arm as the fakir, you realize how difficult it is to remain that way...
+
+After a while, just when you was about to give up, you feel something on your hand!
+> eat apple
+> eat apple
+You break the apple in small pieces and eat it through the opening on your mask.
+
+It tastes really good! But after a while you start to feel a stomach ache...
+
+You lose the consciousness and fall into the ground!
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+There is something glowing in your pocket!
+> wake up
+> wake up
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone...
+> go east
+> go east
+The small chappel is beautiful decorated with big windows with colorful glasses. A chandelier hangs from the ceiling. The place is almost empty.
+
+You can see a monk with the head up pointing to one of the windows and a bed with white sheets in one corner.
+
+You can go back to the hall, going to the west.
+___________________________________________
+The small chappel is beautiful decorated with big windows with colorful glasses. A chandelier hangs from the ceiling. The place is almost empty.
+
+You can see a monk with the head up pointing to one of the windows and a bed with white sheets in one corner.
+
+You can go back to the hall, going to the west.
+___________________________________________
+> x monk
+
+The monk stops praying for a moment and says: "Another traveller visited me once.  He asked me why I had so few belongings in my room."
+
+- "And what did you say?". You ask.
+
+- "I said: Why do you have so few belongings?".
+
+- "He was a traveller, I guess he was only passing by here".
+
+- "Me too!", replied the monk and continued praying.
+> sit down
+> sit down
+You sit on the floor and relax...
+> close eyes
+> close eyes
+You close your eyes and concentrate...
+> pray
+> pray
+You pray with all the content of your heart.
+
+After a while, the monk stops praying and gives you the cross with a smile on his face!
+> sit on bed
+> sit on bed
+After a while, you start to forget what you came for.  You feeling sleepy, your eyes are feeling heavy right now.
+
+You have fallen asleep and lose your consciousness!!!
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+There is something glowing in your pocket!
+> wake up
+> wake up
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone...
+> go south
+> go south
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go  north or in.
+___________________________________________
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go  north or in.
+___________________________________________
+> x yogi
+
+The yogi says: "We are not alone.  We are all-one. But if all the things become one, what is the one become?"
+> sit down
+> sit down
+You sit on the floor and relax...
+> close eyes
+> close eyes
+You close your eyes and concentrate...
+> think
+> think
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go  north or in.
+___________________________________________
+You think about the riddle for a while and then you hear something falling into the lake!
+> swim
+> swim
+The water feels warm. You can see the bottom from here. There are a lot of colorful and different fishes swimming close to your feet.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go out or down.
+___________________________________________
+The water feels warm. You can see the bottom from here. There are a lot of colorful and different fishes swimming close to your feet.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go out or down.
+___________________________________________
+> down
+> down
+You are in the bottom of the lake. There are fishes every where of different colors.
+
+You can see a stone.
+
+You can go up.
+___________________________________________
+You are in the bottom of the lake. There are fishes every where of different colors.
+
+You can see a stone.
+
+You can go up.
+___________________________________________
+> get stone
+> get stone
+You are in the bottom of the lake. There are fishes every where of different colors.
+
+You can go up.
+___________________________________________
+You rescued the stone that was dropped.  Good for you!
+> up
+> up
+The water feels warm. You can see the bottom from here. There are a lot of colorful and different fishes swimming close to your feet.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go out or down.
+___________________________________________
+The water feels warm. You can see the bottom from here. There are a lot of colorful and different fishes swimming close to your feet.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go out or down.
+___________________________________________
+> out
+> out
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go  north or in.
+___________________________________________
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go  north or in.
+___________________________________________
+> x yogi
+> x yogi
+He is sitting down by the lake with his eyes closed. He has a big head and is wearing a crown made of gold.
+> get crown
+> get crown
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply and there is a lake.
+
+You can go  north or in.
+___________________________________________
+You sneak behind the yogi and steal his crown.
+> wear crown
+> wear crown
+You put the crown on your head.
+
+Suddenly, you feel a really bad headache.
+
+You lose the consciousness and fall into the floor!
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+There is something glowing in your pocket!
+> wake up
+> wake up
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone...
+> go south
+> go south
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply (wearing a crown) and there is a lake.
+
+You can go  north or in.
+___________________________________________
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply (wearing a crown) and there is a lake.
+
+You can go  north or in.
+___________________________________________
+> x lake
+> x lake
+The lake looks really quiet. From time to time a bird passes by, making some noise.
+> drink water
+> drink water
+You sink you head into the lake and drink.  It tastes really good!
+> drink water
+> drink water
+You are full but you keep drinking the water.
+
+Suddenly, you feel dizzy and fall into the lake.
+
+As you hit the bottom you lose the consciousness!
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+There is something glowing in your pocket!
+> wake up
+> wake up
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone...
+> go north
+> go north
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south.
+___________________________________________
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south.
+___________________________________________
+> x mirror
+> x mirror
+You are wearing a strange mask like the used on old theaters, with two sides, in one side there is a face with a smile and if it is turned upside down shows a sad face.
+> remove mask
+> remove mask
+You try to see your face in the mirror but it starts to shine.
+
+You are blinded by the light.  As you try to walk you hit against a wall and fall to the floor...
+
+You lost the consciousness!
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+There is something glowing in your pocket!
+> wake up
+> wake up
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone...
+> go north
+> go north
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south.
+___________________________________________
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south.
+___________________________________________
+> break mirror with stone
+> break mirror with stone
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south or north.
+___________________________________________
+You break one of the walls using the stone.  The mirror get smashed into pieces revealing an exit!
+> go north
+> go north
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+> yell at buda
+> yell at buda
+The buda with a calm voice says: "Dear friend, if someone brings you a gift and you don't take it, who is keeping the gift?"
+
+After words, your mask starts to burn.  You try to remove it but you can't.
+
+You fall into the ground and lose the consciousness!
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+You are in a dark place. You can't see anything around you.
+
+There is something strange. It seems you are floating in the air. And you think: "Am I dreaming?"
+
+___________________________________________
+There is something glowing in your pocket!
+> wake up
+> wake up
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You wake up in a big hall made of stone...
+> go north
+> go north
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south or north.
+___________________________________________
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south or north.
+___________________________________________
+> go north
+> go north
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+> climb tree
+> climb tree
+You are in one of the branches of the tree. You still can't see the top from here.
+
+You can see an empty nest.
+
+You can go down.
+___________________________________________
+You are in one of the branches of the tree. You still can't see the top from here.
+
+You can see an empty nest.
+
+You can go down.
+___________________________________________
+> get nest
+> get nest
+You are in one of the branches of the tree. You still can't see the top from here.
+
+You can go down.
+___________________________________________
+You pick it up.
+> down
+> down
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+> in
+> in
+The well is really deep. The water is very cold in here.
+
+You can see the bottom deep down.
+
+You can go down.
+___________________________________________
+The well is really deep. The water is very cold in here.
+
+You can see the bottom deep down.
+
+You can go down.
+___________________________________________
+> down
+> down
+The water here is really cold. It's reaching your bones. You are very deep now and you can't see the way where you came from.
+
+You can go west, south, north, east, up, northeast, southwest, southeast or northwest.
+___________________________________________
+The water here is really cold. It's reaching your bones. You are very deep now and you can't see the way where you came from.
+
+You can go west, south, north, east, up, northeast, southwest, southeast or northwest.
+___________________________________________
+> go north
+> go north
+You are in an entrance of a cave. The ground and walls are covered with small plants. It seems to be alive.
+
+You can go east, west, north or south.
+___________________________________________
+You are in an entrance of a cave. The ground and walls are covered with small plants. It seems to be alive.
+
+You can go east, west, north or south.
+___________________________________________
+> go north
+> go north
+In the walls of the cavern there are many shiny stones of different sizes. The room seems to be illuminated by the stones.
+
+You can see some ashes close to the north wall in some kind of recipient and an entrance.
+
+You can go south.
+___________________________________________
+In the walls of the cavern there are many shiny stones of different sizes. The room seems to be illuminated by the stones.
+
+You can see some ashes close to the north wall in some kind of recipient and an entrance.
+
+You can go south.
+___________________________________________
+> burn nest
+> burn nest
+You make fire using the flint and the steel, from the cross and stone! The nest is burning now.
+> burn page 1
+> burn page 1
+The page is burning. There is a violet smoke coming out from the fire! The bottle in your pockets seems to be absorbing the smoke!!
+> burn page 2
+> burn page 2
+The page is burning. There is a violet smoke coming out from the fire! The bottle in your pockets seems to be absorbing the smoke!!
+> burn page 3
+> burn page 3
+The page is burning. There is a violet smoke coming out from the fire! The bottle in your pockets seems to be absorbing the smoke!!
+> burn page 4
+> burn page 4
+The page is burning. There is a violet smoke coming out from the fire! The bottle in your pockets seems to be absorbing the smoke!!
+> burn page 5
+> burn page 5
+The page is burning. There is a violet smoke coming out from the fire! The bottle in your pockets seems to be absorbing the smoke!!
+> burn page 6
+> burn page 6
+The page is burning. There is a violet smoke coming out from the fire! The bottle in your pockets seems to be absorbing the smoke!!
+> go south
+> go south
+You are in an entrance of a cave. The ground and walls are covered with small plants. It seems to be alive.
+
+You can go east, west, north or south.
+___________________________________________
+You are in an entrance of a cave. The ground and walls are covered with small plants. It seems to be alive.
+
+You can go east, west, north or south.
+___________________________________________
+> go south
+> go south
+The water here is really cold. It's reaching your bones. You are very deep now and you can't see the way where you came from.
+
+You can go west, south, north, east, up, northeast, southwest, southeast or northwest.
+___________________________________________
+The water here is really cold. It's reaching your bones. You are very deep now and you can't see the way where you came from.
+
+You can go west, south, north, east, up, northeast, southwest, southeast or northwest.
+___________________________________________
+> go south
+> go south
+You are in the bottom of the lake. There are fishes every where of different colors.
+
+You can go up.
+___________________________________________
+You are in the bottom of the lake. There are fishes every where of different colors.
+
+You can go up.
+___________________________________________
+> up
+> up
+The water feels warm. You can see the bottom from here. There are a lot of colorful and different fishes swimming close to your feet.
+
+You can see a yogi here, thinking about something very deeply (wearing a crown) and there is a lake (on which there is water).
+
+You can go out or down.
+___________________________________________
+The water feels warm. You can see the bottom from here. There are a lot of colorful and different fishes swimming close to your feet.
+
+You can see a yogi here, thinking about something very deeply (wearing a crown) and there is a lake (on which there is water).
+
+You can go out or down.
+___________________________________________
+> out
+> out
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply (wearing a crown) and there is a lake (on which there is water).
+
+You can go  north or in.
+___________________________________________
+This place looks really peaceful, only disturbed by the singing of the nearby birds flying over the trees all around the lake. The water of the lake is so clear like a mirror reflecting the clouds in the sky.
+
+You can see a yogi here, thinking about something very deeply (wearing a crown) and there is a lake (on which there is water).
+
+You can go  north or in.
+___________________________________________
+> go north
+> go north
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+You are in a big hall made of stone. The ceiling looks really high from the ground. There is a deep silence in this room.
+
+You can see some kind of  glass room to the north.
+
+You can go west, east, south or north.
+___________________________________________
+> go north
+> go north
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south or north.
+___________________________________________
+There are mirrors covering all of the walls. It seems like if you were between long corridors with infinite rooms made of glass and there is a person like you in all of them.
+
+You can see yourself in the mirror wearing a strange mask.
+
+You can go south or north.
+___________________________________________
+> go north
+> go north
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+You are in a zen garden. There are flowers all around the place, a small river is passing under a bridge made of wood. The ground is cover with white sand. In the center, there is a well.
+
+You can see from the big tree are falling leaves.  Some of them fall into the well, the well is made of stone and big enough for someone to fit in it and a buda wearing long clothes under the big tree.
+
+You can go south or in.
+___________________________________________
+[assert PASS] essence.volume = 100
+[assert PASS] player.score = 108
+> give essence to buda
+> give essence to buda
+The buda opens his eyes and takes the essence with his hands.  He smells it gladly and then look at you intensively.
+
+You look at his eyes, it's like the glowing light around him, is around you also now.  You start to feel like him and think like him.  You are under the tree now, wearing the buda clothes!
+
+The flowers in this garden smells really nice! And in the distance, you can see someone is coming.  You try to recognize it but you can't, why? Because this person is wearing a strange mask.
+
+CONGRATULATIONS!!! You have completed this adventure and became one with the universe!
+SCORE: You achieved 108 points of 108 possible points.
+[state=Finished]
