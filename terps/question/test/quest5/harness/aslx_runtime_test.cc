@@ -1489,6 +1489,8 @@ static void test_parity_batch() {
     CHECK_STR(evals(in, "ListCount(GetDirectChildren(box1))"), "1");
 
     // -- expression ShowMenu: synchronous host provider supplies the key.
+    // 540-580 refuse the expression form, so this runs as a 520 game.
+    w.asl_version = 520;
     in.menu_provider = [](const MenuData &m, std::string &key) {
         CHECK(m.options.size() == 2);
         key = m.options[1].first;
@@ -1782,6 +1784,48 @@ static void test_getinput_expression() {
                 std::string::npos;
     }
     CHECK(threw);
+    w.errors.clear();
+}
+
+// The version window QuestViva refuses the blocking forms in: the ShowMenu and
+// Ask expression functions throw only for 540-580, the Wait request for
+// 540-580 and the Pause request for 550-580. 600+ allows them all again, which
+// Thyme's ASL 600 re-save needs for the WaitForKeyPress in its intro.
+static void test_blocking_forms_version_window() {
+    World w;
+    Interp in(w);
+    in.menu_provider = [](const MenuData &, std::string &k) { k = "a"; return true; };
+    in.ask_provider = [](const std::string &, bool &a) { a = true; return true; };
+    // A script error either propagates or lands in w.errors; look in both.
+    auto refused = [&](const char *code, const char *what) {
+        w.errors.clear();
+        try {
+            run(in, code);
+        } catch (const std::exception &e) {
+            return std::string(e.what()).find(what) != std::string::npos;
+        }
+        for (const std::string &e : w.errors)
+            if (e.find(what) != std::string::npos) return true;
+        return false;
+    };
+    const char *menu = "x = ShowMenu (\"Pick\", Split(\"a;b\"), false)";
+    const char *ask = "x = Ask (\"Sure?\")";
+    for (int v : {550, 580}) {
+        w.asl_version = v;
+        CHECK(refused(menu, "'ShowMenu' function is not supported"));
+        CHECK(refused(ask, "'Ask' function is not supported"));
+        CHECK(refused("request (Wait, \"\")", "'Wait' request is not supported"));
+        CHECK(refused("request (Pause, \"10\")", "'Pause' request is not supported"));
+    }
+    w.asl_version = 540;
+    CHECK(!refused("request (Pause, \"10\")", "not supported"));
+    for (int v : {520, 600}) {
+        w.asl_version = v;
+        CHECK(!refused(menu, "not supported"));
+        CHECK(!refused(ask, "not supported"));
+        CHECK(!refused("request (Wait, \"\")", "not supported"));
+        CHECK(!refused("request (Pause, \"10\")", "not supported"));
+    }
     w.errors.clear();
 }
 
@@ -2442,6 +2486,7 @@ int main() {
     test_save_hostile();
     test_number_parse_oracle();
     test_getinput_expression();
+    test_blocking_forms_version_window();
     test_firsttime_per_attribute();
     test_print_all_tags_empty();
     test_parser_depth_caps();

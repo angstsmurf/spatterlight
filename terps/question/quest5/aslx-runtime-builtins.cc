@@ -1134,8 +1134,14 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
 
     // ExpressionOwner.ShowMenu -- the EXPRESSION form, which QuestViva AWAITS:
     // print the caption, get the selection from the synchronous host provider,
-    // echo " - <display>", and return the key ("" on cancel).
+    // echo " - <display>", and return the key ("" on cancel). The 540-580
+    // versions refuse it with a script error, as they do GetInput below.
     if (fn == B_showmenu && n == 3) {
+        if (world_.asl_version >= 540 && world_.asl_version < 600)
+            error("The 'ShowMenu' function is not supported for games with "
+                  "WorldModel version 540\xE2\x80\x93" "580. Use the 'show menu' "
+                  "script command instead, or set the game's WorldModel version "
+                  "to 600 or later.");
         MenuData md;
         md.caption = sarg(0);
         md.allow_cancel = truthy(arg(2));
@@ -1177,8 +1183,13 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
     // ExpressionOwner.Ask -- the EXPRESSION form, which QuestViva AWAITS: hand
     // the caption to the synchronous host and return its yes/no. Before v600
     // the caption is not printed (PlayerUI.ShowQuestion renders it); a v600+
-    // game draws the question and its Yes/No links inline.
+    // game draws the question and its Yes/No links inline. 540-580 refuse it.
     if (fn == B_ask && n == 1) {
+        if (world_.asl_version >= 540 && world_.asl_version < 600)
+            error("The 'Ask' function is not supported for games with "
+                  "WorldModel version 540\xE2\x80\x93" "580. Use the 'ask' "
+                  "script command instead, or set the game's WorldModel version "
+                  "to 600 or later.");
         if (!ask_provider)
             error("Ask (expression form) requires a host question provider");
         bool answer = false;

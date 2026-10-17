@@ -3100,33 +3100,35 @@ void Interp::exec_request(const std::string &name, const ExprList &args,
             panes_visible(req == "Show");
     } else if (req == "Wait") {
         // RequestScript Wait -> DoWaitAsync: the pre-JS "press any key"
-        // prompt (Core's WaitForKeyPress). Valid only pre-v540 -- v540+
-        // throws (games use the `wait` script command instead). It claims
+        // prompt (Core's WaitForKeyPress). v540-580 throw (games use the
+        // `wait` script command instead); <540 and 600+ wait. It claims
         // the wait slot (BeginPrompt on _waitTcs): a parked synchronous
         // `play sound` resumes inline HERE and a pending `wait` callback is
         // cancelled. A synchronous host then BLOCKS in do_wait until the
         // keypress and the enclosing script resumes inline; headless it is a
         // silent no-op (do_wait's doc explains why that stays oracle-exact).
-        if (world_.asl_version >= 540)
+        if (world_.asl_version >= 540 && world_.asl_version < 600)
             throw std::runtime_error(
-                "The 'Wait' request is not supported for games written for "
-                "Quest 5.4 or later. Use the 'wait' script command "
-                "instead.");
+                "The 'Wait' request is not supported for games with "
+                "WorldModel version 540\xE2\x80\x93" "580. Use the 'wait' "
+                "script command instead, or set the game's WorldModel "
+                "version to 600 or later.");
         claim_wait_slot();
         if (do_wait) do_wait();
     } else if (req == "Pause") {
         // RequestScript Pause -> DoPauseAsync (Core's Pause function).
-        // Valid only pre-v550 -- v550+ throws (games use SetTimeout). The
+        // v550-580 throw (games use SetTimeout); <550 and 600+ pause. The
         // data is int.TryParse'd; a non-numeric string is ignored (no
         // pause), matching QuestViva. Pause uses a SEPARATE slot (_pauseTcs)
         // so it leaves any parked sync sound on the wait slot untouched. A
         // synchronous host BLOCKS in do_pause for the interval; headless it
         // is a silent no-op.
-        if (world_.asl_version >= 550)
+        if (world_.asl_version >= 550 && world_.asl_version < 600)
             throw std::runtime_error(
-                "The 'Pause' request is not supported for games written "
-                "for Quest 5.5 or later. Use the 'SetTimeout' function "
-                "instead.");
+                "The 'Pause' request is not supported for games with "
+                "WorldModel version 550\xE2\x80\x93" "580. Use the "
+                "'SetTimeout' function instead, or set the game's WorldModel "
+                "version to 600 or later.");
         long ms = 0;
         if (parse_int32_text(to_string(ev(1)), ms) == IntParse::Ok && do_pause)
             do_pause((int)ms);
