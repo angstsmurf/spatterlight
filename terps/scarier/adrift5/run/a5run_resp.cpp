@@ -371,6 +371,140 @@ rebind_objects (a5_state_t *st, const std::vector<std::string> &keys)
   a5state_bind_ref (st, "ReferencedObjects", pipe.c_str ());
 }
 
+/* The runner drops a fail whose every reference item also produced a pass
+   (clsUserSession.vb:812-834).  A merged fail (obj_keys accumulated by
+   resp_add_fail) is dropped only when ALL its items passed; a fail with no
+   merged set falls back to the single-item check (the old resp_add_text
+   path -- movement fails, SetTasks-Execute fails). */
+static bool
+resp_fail_covered (const resp_entry &e, const std::set<std::string> &passed)
+{
+  if (!e.obj_keys.empty ())
+    {
+      bool all_passed = true;
+      for (auto &k : e.obj_keys)
+        if (!passed.count (k)) { all_passed = false; break; }
+      if (all_passed) return true;
+    }
+  else if (!e.item.empty () && passed.count (e.item))
+    return true;
+  return false;
+}
+
+/* Render one entry at flush time into *text.  Returns false for a deferred
+   room view identical to one already shown this flush (skip it). */
+static bool
+resp_render_entry (a5_run_t *run, resp_entry &e,
+                   std::set<std::string> &look_seen, std::string *text)
+{
+  a5_state_t *st = run->st;
+
+  if (e.is_look)
+    {
+      /* A deferred room view (Execute Look): rendered now, at the command's
+         final state, mirroring the Adrift 5 runner's AggregateOutput Look whose
+         function replacement is deferred to Display.  So a move whose After
+         children relocated an NPC lists it at its new spot.  Real output:
+         retire DisplayOnce segments (view_location_impl honours the
+         ambient marking flag). */
+      *text = render_look_marked (run);
+      /* The runner keys the stock Look's AggregateOutput on its response template
+         (htblResponsesPass), so a command that Executes Look more than once
+         -- e.g. Bug Hunt's cl_ZMovePlaye, which runs Execute Look after the
+         player moves AND again after the marine squad follows -- shows a
+         single room view, not one per Execute.  Mirror the non-resp path's
+         pass_seen dedup: collapse identical deferred views. */
+      if (!look_seen.insert (*text).second)
+        return false;
+    }
+  else if (e.aggregate)
+    {
+      /* Restore the references this message was queued with, so its
+         deferred %object%/%character%/%direction% tokens resolve as they
+         did when the task ran (the runner reassigns NewReferences at Display). */
+      if (e.has_snap) ref_snap_restore (st, &e.snap);
+      /* A genuine plural %objects% command merged several items into this
+         entry: rebind the whole set (overriding the snapshot's singular
+         object binding) so the completion renders its "a, b and c" list.
+         A single-reference command has no merged items (obj_keys empty) and
+         keeps the restored snapshot's singular binding untouched. */
+      if (!e.obj_keys.empty ())
+        {
+          rebind_objects (st, e.obj_keys);
+          if (!e.obj2.empty ())
+            bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
+        }
+      char *m;
+      {
+        a5_mark_guard mg (st, 1);
+        a5_intro_guard ig (st, 1);   /* this IS the runner's Display */
+        m = a5text_describe (st, e.comp);
+      }
+      if (m != nullptr) *text = m;
+      free (m);
+    }
+  else if (e.fail_comp != nullptr && e.obj_keys.size () > 1)
+    {
+      /* A merged fail: re-render the restriction template ONCE over the
+         combined %objects% set, so %TheObjects[%objects%]% lists every
+         failing item (the runner Display over the accumulated htblResponsesFail
+         NewReferences).  The aggregate string is what a game ALR can match
+         at the display boundary -- AoS "You are not carrying the gold gonks
+         and the silver ginks." blanked by cl_YouAreNotC1.  A single-item
+         fail (obj_keys.size()==1) keeps its eager render below, byte-exact. */
+      if (e.has_snap) ref_snap_restore (st, &e.snap);
+      rebind_objects (st, e.obj_keys);
+      a5_intro_guard ig (st, 1);       /* fail text always expands in Display */
+      char *m = a5text_describe (st, e.fail_comp);
+      if (m != nullptr) *text = m;
+      free (m);
+    }
+  else
+    *text = e.rendered;
+  return true;
+}
+
+/* A `\004N\004` sentinel in an eagerly-rendered entry marks a deferred
+   `<#..#>`/%var[rand]% draw (see resp_add_comp): the runner's Display
+   renders responses IN ORDER, drawing each response's expressions at
+   its slot -- so the movement completion's OneOf must draw here,
+   BEFORE a later is_look entry's final room-view render, not at the
+   post-drain display_defers flush.  Resolve the sentinels now (left
+   to right, the runner's ReplaceExpressions scan) and blank the sink
+   bodies so the later flush neither re-draws nor re-splices them. */
+static std::string
+resp_draw_sentinels (a5_run_t *run, const std::string &text)
+{
+  std::string res;
+  std::unordered_map<size_t, std::string> drawn;
+  size_t p = 0;
+  while (p < text.size ())
+    {
+      if (text[p] == '\004')
+        {
+          size_t q = text.find ('\004', p + 1);
+          if (q != std::string::npos)
+            {
+              int idx = atoi (text.substr (p + 1, q - p - 1).c_str ());
+              if (idx >= 0
+                  && (size_t) idx < run->display_defers->size ())
+                {
+                  char *val = a5run_draw_defer_entry (run, (size_t) idx,
+                                                      drawn);
+                  res += val;
+                  free (val);
+                  /* consumed: no re-draw */
+                  (*run->display_defers)[idx] = "\001";
+                }
+              p = q + 1;
+              continue;
+            }
+        }
+      res += text[p++];
+    }
+  return res;
+}
+
 /* Flush the map to `out`: pass responses first in insertion order (aggregate
    entries re-rendered over their merged %objects% set), then any fail response
    whose item was not covered by a pass (clsUserSession.vb:804-855). */
@@ -406,128 +540,16 @@ resp_flush (a5_run_t *run, resp_map *rm, sb_t *out)
     for (auto &e : rm->ents)
       {
         if (e.is_pass != (phase == 0)) continue;
-        /* The runner drops a fail whose every reference item also produced a pass
-           (clsUserSession.vb:812-834).  A merged fail (obj_keys accumulated by
-           resp_add_fail) is dropped only when ALL its items passed; a fail with no
-           merged set falls back to the single-item check (the old resp_add_text
-           path -- movement fails, SetTasks-Execute fails). */
-        if (!e.is_pass)
-          {
-            if (!e.obj_keys.empty ())
-              {
-                bool all_passed = true;
-                for (auto &k : e.obj_keys)
-                  if (!passed.count (k)) { all_passed = false; break; }
-                if (all_passed) continue;
-              }
-            else if (!e.item.empty () && passed.count (e.item))
-              continue;
-          }
+        if (!e.is_pass && resp_fail_covered (e, passed))
+          continue;
 
         std::string text;
-        if (e.is_look)
-          {
-            /* A deferred room view (Execute Look): rendered now, at the command's
-               final state, mirroring the Adrift 5 runner's AggregateOutput Look whose
-               function replacement is deferred to Display.  So a move whose After
-               children relocated an NPC lists it at its new spot.  Real output:
-               retire DisplayOnce segments (view_location_impl honours the
-               ambient marking flag). */
-            text = render_look_marked (run);
-            /* The runner keys the stock Look's AggregateOutput on its response template
-               (htblResponsesPass), so a command that Executes Look more than once
-               -- e.g. Bug Hunt's cl_ZMovePlaye, which runs Execute Look after the
-               player moves AND again after the marine squad follows -- shows a
-               single room view, not one per Execute.  Mirror the non-resp path's
-               pass_seen dedup: collapse identical deferred views. */
-            if (!look_seen.insert (text).second)
-              continue;
-          }
-        else if (e.aggregate)
-          {
-            /* Restore the references this message was queued with, so its
-               deferred %object%/%character%/%direction% tokens resolve as they
-               did when the task ran (the runner reassigns NewReferences at Display). */
-            if (e.has_snap) ref_snap_restore (st, &e.snap);
-            /* A genuine plural %objects% command merged several items into this
-               entry: rebind the whole set (overriding the snapshot's singular
-               object binding) so the completion renders its "a, b and c" list.
-               A single-reference command has no merged items (obj_keys empty) and
-               keeps the restored snapshot's singular binding untouched. */
-            if (!e.obj_keys.empty ())
-              {
-                rebind_objects (st, e.obj_keys);
-                if (!e.obj2.empty ())
-                  bind_reference (st, "object2", e.obj2.c_str (), e.obj2.c_str ());
-              }
-            char *m;
-            {
-              a5_mark_guard mg (st, 1);
-              a5_intro_guard ig (st, 1);   /* this IS the runner's Display */
-              m = a5text_describe (st, e.comp);
-            }
-            if (m != nullptr) text = m;
-            free (m);
-          }
-        else if (e.fail_comp != nullptr && e.obj_keys.size () > 1)
-          {
-            /* A merged fail: re-render the restriction template ONCE over the
-               combined %objects% set, so %TheObjects[%objects%]% lists every
-               failing item (the runner Display over the accumulated htblResponsesFail
-               NewReferences).  The aggregate string is what a game ALR can match
-               at the display boundary -- AoS "You are not carrying the gold gonks
-               and the silver ginks." blanked by cl_YouAreNotC1.  A single-item
-               fail (obj_keys.size()==1) keeps its eager render below, byte-exact. */
-            if (e.has_snap) ref_snap_restore (st, &e.snap);
-            rebind_objects (st, e.obj_keys);
-            a5_intro_guard ig (st, 1);       /* fail text always expands in Display */
-            char *m = a5text_describe (st, e.fail_comp);
-            if (m != nullptr) text = m;
-            free (m);
-          }
-        else
-          text = e.rendered;
+        if (!resp_render_entry (run, e, look_seen, &text))
+          continue;
 
-        /* A `\004N\004` sentinel in an eagerly-rendered entry marks a deferred
-           `<#..#>`/%var[rand]% draw (see resp_add_comp): the runner's Display
-           renders responses IN ORDER, drawing each response's expressions at
-           its slot -- so the movement completion's OneOf must draw here,
-           BEFORE a later is_look entry's final room-view render, not at the
-           post-drain display_defers flush.  Resolve the sentinels now (left
-           to right, the runner's ReplaceExpressions scan) and blank the sink
-           bodies so the later flush neither re-draws nor re-splices them. */
         if (run->display_defers != nullptr
             && text.find ('\004') != std::string::npos)
-          {
-            std::string res;
-            std::unordered_map<size_t, std::string> drawn;
-            size_t p = 0;
-            while (p < text.size ())
-              {
-                if (text[p] == '\004')
-                  {
-                    size_t q = text.find ('\004', p + 1);
-                    if (q != std::string::npos)
-                      {
-                        int idx = atoi (text.substr (p + 1, q - p - 1).c_str ());
-                        if (idx >= 0
-                            && (size_t) idx < run->display_defers->size ())
-                          {
-                            char *val = a5run_draw_defer_entry (run, (size_t) idx,
-                                                                drawn);
-                            res += val;
-                            free (val);
-                            /* consumed: no re-draw */
-                            (*run->display_defers)[idx] = "\001";
-                          }
-                        p = q + 1;
-                        continue;
-                      }
-                  }
-                res += text[p++];
-              }
-            text = res;
-          }
+          text = resp_draw_sentinels (run, text);
 
         /* Marks-only entries (see resp_add_comp) are emitted too: the runner Displayed
            the markup skeleton, so it space-joins here and leaves the buffer
