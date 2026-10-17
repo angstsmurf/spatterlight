@@ -8,11 +8,11 @@ Two surveys of `terps/scarier` have been taken and worked through:
   first was closed, worked through the same day (7d2f82a33).  Sections
   lettered A–F.
 
-- **Third pass**: surveyed 2026-10-15 (wip @ b9d1635), read-only; its
-  findings are under "Open" and "Third pass" below.
+- **Third pass**: surveyed 2026-10-15 (wip @ b9d1635), read-only;
+  worked through 2026-10-17 on wip (72b9cf3b8..7b3836896).  Items
+  numbered N1–N4.
 
-Every item of the first two passes was done or declined except the one
-under "Open" below.  This
+Every item of the three passes was done or declined.  This
 file keeps what a later pass needs: where things landed, what was
 declined and why (so it is not re-proposed), what was left on purpose,
 how the surveys were measured, and the safety net.
@@ -28,85 +28,10 @@ messages and the old logs still resolve.
 
 ## Open
 
-- **A. Public-API functions in `core/scarier.h` / `scinterf.cpp` with no
-  caller in this tree** (the Glk front end never uses them).  Whether
-  `scarier.h` is a supported library surface is the maintainer's call
-  (Gargoyle takes the folder as a drop-in, per `common_utils/README`):
-  if it is, leave them and say so in the header; if not, delete.
-
-  `scr_does_game_use_graphics`, `scr_does_game_use_sounds`,
-  `scr_get_game_compile_date`,
-  `scr_get_game_max_score`, `scr_get_game_preferred_font`,
-  `scr_get_game_bold_room_names` / `scr_set_game_bold_room_names`,
-  `scr_get_game_notify_score_change` / `scr_set_game_notify_score_change`,
-  `scr_get_game_patches`, `scr_get_capacity_assist`, `scr_get_end_keyprompt`,
-  `scr_get_game_debugger_enabled`, `scr_run_game_debugger_command`,
-  `scr_scarier_emulation`, `scr_scarier_version`,
-  `scr_load_game_from_filename` / `_stream`, `scr_save_game` /
-  `scr_save_game_to_filename` / `_stream`.
-
-  The `scr_save/load_*_stream/filename` family is the clearest case:
-  nothing outside `scinterf.cpp` calls them, and the Glk front end goes
-  through the `*_callback` forms.  Deleting them would also make
-  `if_file_read_callback` / `if_file_write_callback` unreachable.
-  (`scr_game_from_stream` is *not* in the family: `platform/os_ansi.cpp`
-  loads through it.)
-
-- **N1. Third-pass candidates** (new; see "Third pass" below for the
-  measurements).  None changes behaviour; all are small:
-  1. `lib_carried_size` / `lib_carried_weight`
-     (`library/sclibrar_take.cpp:89`, `:108`): identical loops, differing
-     in the running-total test and the `obj_get_size` / `obj_get_weight`
-     call.  A single static helper taking the two as parameters (or a
-     small `bool weight` switch) folds ~20 lines.  Low risk; called from
-     the capacity tests the take / put corpus pins.
-  2. `ser_get_int` / `ser_get_uint` (`core/scserial.cpp:1333`): the same
-     `sscanf` + error + `throw` body with `%ld` / `%lu`.  Fold the shared
-     "read a line, scan one number, throw `ser_tas_error_t`" part (the
-     boolean reader a few lines down has the same skeleton).
-  3. `parse_get_keyed_integer` / `_boolean` / `_child_count`
-     (`core/sctafpar.cpp:765`–`807`): three byte-identical-after-
-     normalisation bodies (find keyed node, check type, return a field).
-  4. `char_restr_t::have_seen_character` / `_object` / `_location`
-     (`adrift5/a5restr.cpp:1269`–`1302`): three members with identical
-     structure and one different state accessor.
-  5. `lib_cmd_put_all_in` / `lib_cmd_put_all_on`
-     (`library/sclibrar_put_multiple.cpp:217`, `:231`), `lib_cmd_lock_other`
-     / `lib_cmd_unlock_other` (`sclibrar_refuse.cpp:811`),
-     `lib_cmd_verbose` / `lib_cmd_brief` (`sclibrar_meta.cpp:1123`),
-     `lib_cmd_kiss_object` / `lib_cmd_sell_object` (`sclibrar_verbs.cpp`):
-     thin verb pairs.  Same family as the declined 1.1 / C4: **leave**
-     unless the corpus diff is in hand.
-  6. `inout_site` / `ud_site_primary` (`mapdraw.cpp:994`, `:1012`): same
-     `switch (edge)` with a different table; could be one 4x2 table
-     lookup.  Cosmetic.
-  7. The `core/scvars.cpp` getter twins (`:1091`/`:1633`, `:1421`/`:1648`,
-     `var_get_integer` / `var_get_string` at `:2076` / `:2110`): same
-     skeleton, different table.  Check the tracing before folding.
-
-
-- **N2. Mid-size functions** (150–200 lines).  Unchanged class from the
-  second pass but recounted: 43 over 150, **1** over 200 (`mapdraw.cpp`
-  `render_link`, declined under D).  Best candidates for a stage split, in
-  order of size: `library/sclibrar_sitstand.cpp` (`lib_stand_sit_lie` and
-  two helpers, 198 / 159 / 154 lines, in one file), `tools/scdump.cpp`
-  (`scdump_objects`, `_objloc`, `_events`, `_exits`: 197 / 171 / 168 /
-  158; debug-only, so they are the safest to cut),
-  `library/sclibrar_examine.cpp` (`lib_cmd_examine_self` 194,
-  `_object` 169), `library/sclibrar_go.cpp` (`lib_cmd_go_place` 184,
-  `lib_go` 182), `core/sctasks_endgame.cpp`
-  (`task_print_end_game_message` 173), `adrift5/run/a5run_save.cpp`
-  (`restore_fd_game` 189, mirror `ser_load_game_body`'s section split),
-  `adrift5/run/a5run_resp.cpp` (`resp_flush` 187),
-  `runner/scrun_dispatch.cpp` (`run_line_t::get_outer_400` 176,
-  `settle` 173, `library` 156), `core/scbattle.cpp` (178),
-  `core/screstrs.cpp` (three at 159–179).  Each wants its own
-  corpus-diffed step; `library/` ones need the transcript recompare.
-
-- **N3. Remaining `goto`**: `goto refuse` at
-  `library/sclibrar_put_multiple.cpp:1730` is the only one left in the
-  tree (confirmed by grep); `lib_put_named_pre400` (176 lines) is the
-  function holding it, so the N2 split and the `goto` removal are one step.
+Nothing.  A was settled 2026-10-17 (kept, documented; see "Declined",
+"Third pass"), and N1–N3 of the third pass are done or declined: see
+"Third pass, worked through" under "Done" and "Third pass" under
+"Declined".
 
 - **N4. Sanity items that came out clean** (so they need no work):
   no `#if 0`, no TODO / FIXME in code, no `using namespace` in headers,
@@ -338,6 +263,48 @@ Note on commit hashes: the hashes quoted in this file name commits on
 also shallow, 50 commits).  Use `git log --grep` on the subject, or
 `git show <hash>` on a full clone of master.
 
+### Third pass, worked through (2026-10-17, wip)
+
+One commit per step, each with the full `make -f Makefile.headless test`
+signature unchanged, `runner_transcripts.py recompare` identical to a
+recompare run with the pre-change binary (the committed `manifest.tsv` is
+stale against HEAD, so compare against a fresh baseline, not it),
+`make -j8 scarier glkscarier` warning-free and `-Wall -Wextra -Wshadow`
+clean on the touched file.  Save-code steps also ran
+`test/adrift4/harness/run_autosave_tests.py --build`.
+
+- **N1.1** `lib_sum_carried` under `lib_carried_size` / `_weight`
+  (72b9cf3b8).
+- **N1.2** `ser_reject_number` under `ser_get_int` / `_uint` /
+  `_boolean` (29481d300).  The format strings stay literal at the call
+  sites (a format parameter trips `-Wformat-nonliteral`); only the error
+  and the throw are shared.
+- **N1.3** `parse_push_string_key` under the six keyed wrappers and
+  `parse_put_indexed_property` (843ee8b8a).
+- **N1.7** `var_return_global_string`, `var_return_game_count` and
+  `var_get_typed` under the scvars getter twins (f82e793ff); the tracing
+  and the "no game for %s" message are unchanged.
+- **N3** The last `goto` was in `lib_put_that_390`, not
+  `lib_put_named_pre400` as surveyed: its `refuse:` block is now
+  `lib_put_that_refuse_390` (0bdb9a040).  No `goto` is left in the tree.
+- **N2** splits, bodies moved verbatim into static helpers:
+  `tools/scdump.cpp` `scdump_objloc` / `_objects` / `_events` / `_exits`
+  one function per section, checked by diffing `SCR_DUMP_TASKS`,
+  `SCR_DUMP_BATTLE` and `SCR_DUMP_OBJLOC` output over 739 corpus games
+  (9cf3d54f6); `restore_fd_game` one `restore_fd_<kind>` per saved node
+  (5fed579e6); `lib_sitstand_anywhere` (0c9470022); `lib_cmd_go_place`
+  (2cb6ad27c); `lib_cmd_examine_self` (1752b4af1); `battle_resolve`
+  (0ffc808aa); `replace_functions` (b7aa7b0e7); `a5model_load_buffer`
+  (00737e0f5); `task_run_change_variable_action` (d19f8812b);
+  `resp_flush` (7b3836896).
+- **Census after**: 29 functions over 150 lines (from 38 at the start of
+  the step; the survey's 43 was a looser count), none over 200 but
+  `render_link`.  Counted as code lines (not blank, not comment-only),
+  the largest left are `pass_object` 128, `render_link` 125,
+  `lib_stand_sit_lie` 117, `not_understood` 106,
+  `lib_try_game_command_common` 104, and the rest are 105 or under;
+  most of their length is Runner-citation comments.
+
 ## Declined (do not re-propose without new evidence)
 
 ### First pass
@@ -474,6 +441,50 @@ also shallow, 50 commits).  Use `git log --grep` on the subject, or
     `a5run_words.cpp` is pronoun and synonym substitution and the
     NotUnderstood ladder of the ADRIFT 5 Runner.  No common table.
 
+### Third pass
+
+- **A. Public-API functions (kept) in `core/scarier.h` / `scinterf.cpp` with no
+  caller in this tree** (the Glk front end never uses them).  Whether
+  `scarier.h` is a supported library surface is the maintainer's call
+  (Gargoyle takes the folder as a drop-in, per `common_utils/README`):
+  if it is, leave them and say so in the header; if not, delete.
+
+  `scr_does_game_use_graphics`, `scr_does_game_use_sounds`,
+  `scr_get_game_compile_date`,
+  `scr_get_game_max_score`, `scr_get_game_preferred_font`,
+  `scr_get_game_bold_room_names` / `scr_set_game_bold_room_names`,
+  `scr_get_game_notify_score_change` / `scr_set_game_notify_score_change`,
+  `scr_get_game_patches`, `scr_get_capacity_assist`, `scr_get_end_keyprompt`,
+  `scr_get_game_debugger_enabled`, `scr_run_game_debugger_command`,
+  `scr_scarier_emulation`, `scr_scarier_version`,
+  `scr_load_game_from_filename` / `_stream`, `scr_save_game` /
+  `scr_save_game_to_filename` / `_stream`.
+
+  The `scr_save/load_*_stream/filename` family is the clearest case:
+  nothing outside `scinterf.cpp` calls them, and the Glk front end goes
+  through the `*_callback` forms.  Deleting them would also make
+  `if_file_read_callback` / `if_file_write_callback` unreachable.
+  (`scr_game_from_stream` is *not* in the family: `platform/os_ansi.cpp`
+  loads through it.)
+
+  Settled 2026-10-17 by the maintainer: `scarier.h` is a supported
+  embedding API, so they stay; the header now says so above the
+  interpreter prototypes.  Do not re-propose deleting them.
+- **N1.4 `have_seen_character` / `_object` / `_location`**
+  (`adrift5/a5restr.cpp`): not the same body.  `have_seen_location`
+  answers 0 for a non-player observer where the other two answer 1,
+  deliberately (each function's comment says why), so a shared helper
+  would need that case as a parameter.
+- **N1.5 thin verb pairs**: as the survey said, the family 1.1 / C4
+  declined.
+- **N1.6 `inout_site` / `ud_site_primary`** (`mapdraw.cpp`): cosmetic;
+  the two switches read as the port layout they draw.
+- **N2 leftovers**: `pass_object` and `restr_pass_task_char` are flat
+  operator dispatches in the Runner's case order, each arm short;
+  `lib_stand_sit_lie` is per-movement message switches; the others in
+  the census above are mostly comments.  Split one only when a change
+  touches it.
+
 ## Left on purpose
 
 These are candidates, not tasks; each wants its own decision.
@@ -489,9 +500,7 @@ These are candidates, not tasks; each wants its own decision.
   `prop_adopt()`, pool entries, or stack-buffer-with-heap-fallback.
   The second pass spot-checked the 78 raw `new` / 28 `delete` with the
   same verdict: struct owners with destroy functions.
-- **One `goto`** is left, `goto refuse` in
-  `library/sclibrar_put_multiple.cpp`; the other six went with the D
-  splits.
+- **No `goto`** is left: six went with the D splits, the last with N3.
 - **The rest of the file-scope statics.**  The state-struct pass covered
   the modules the survey named.  The other library files have their own
   (`lib_battle_who_reset()`, `lib_with_prefix_390_reset()`,

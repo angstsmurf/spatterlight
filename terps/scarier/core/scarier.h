@@ -99,7 +99,16 @@ enum
 /* Module-wide trace control function prototype. */
 extern void scr_set_trace_flags (scr_uint trace_flags);
 
-/* Interpreter interface function prototypes. */
+/*
+ * Interpreter interface function prototypes.  This header is a supported
+ * embedding API, not just the seam to Spatterlight's Glk front end: the folder
+ * is meant to drop into other hosts (Gargoyle among them), so entry points that
+ * no front end in this tree calls -- the filename and stream save/load forms,
+ * the compile-date, max-score, font, bold-room-name, score-notify, patch,
+ * capacity-assist and debugger queries, scr_scarier_version /
+ * scr_scarier_emulation -- stay and are kept working.  Do not remove one
+ * because nothing here calls it.
+ */
 extern scr_game scr_game_from_filename (const scr_char *filename);
 extern scr_game scr_game_from_stream (FILE *stream);
 extern scr_game scr_game_from_callback (scr_int (*callback)
