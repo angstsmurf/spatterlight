@@ -1721,6 +1721,105 @@ resolve_model_vars_ordered (a5_state_t *st, const char *src)
   return cur;
 }
 
+/* Evaluate a %Name[args]% call whose "[" is at q: the args are replaced
+   recursively (as an argument list) and any OO chain left in them resolved
+   first.  Sets *value and returns the position past the closing "%", or
+   nullptr if the brackets do not close into "]%". */
+static const char *
+eval_bracket_call (a5_state_t *st, const char *name_start, size_t nlen,
+                   const char *q, char **value)
+{
+  int depth = 1;
+  const char *a = q + 1;
+  const char *astart = a;
+  while (*a && depth > 0)
+    {
+      if (*a == '[') depth++;
+      else if (*a == ']') depth--;
+      if (depth > 0) a++;
+    }
+  if (*a != ']' || a[1] != '%')
+    return nullptr;
+
+  char *rawargs = strndup (astart, (size_t) (a - astart));
+  char *name = strndup (name_start, nlen);
+  char *args = replace_functions (st, rawargs, 1);
+  /* Resolve any OO property chain left in the args (e.g.
+     %LCase[%object%.OpenStatus]% -> args "Closet.OpenStatus"
+     -> "Closed") before the outer function transforms it.
+     the Adrift 5 runner's ReplaceFunctions(sArgs) recursion runs its
+     own ReplaceOO pass on the args (Global.vb:2046); Scarier's
+     OO pass otherwise runs only after the whole replace pass,
+     too late for a function that consumed the chain as an
+     argument (LCase would lower-case the raw "Closet.OpenStatus"
+     to "closet.openstatus").  a5expr_replace is a no-op unless
+     args holds a real <key>.<chain>. */
+  if (strchr (args, '.') != nullptr)
+    {
+      char *ooargs = a5expr_replace (st, args);
+      free (args);
+      args = ooargs;
+    }
+  *value = eval_function (st, name, args);
+  free (rawargs);
+  free (args);
+  free (name);
+  return a + 2;
+}
+
+/* Emit a resolved token value into sb (and free it). */
+static void
+emit_function_value (a5_state_t *st, sb_t *sb, char *value)
+{
+  /* CharacterName sentence-start fudge (the runner Global.vb:2103): when
+     the resolved name is immediately preceded by two spaces or a
+     CRLF, capitalise its first character.  iMatchLoc>3 there means
+     at least 3 chars precede the token (sb->len >= 3 here). */
+  if (st->name_cap_eligible && sb->len >= 3 && value[0] != '\0'
+      && ((sb->p[sb->len - 2] == ' ' && sb->p[sb->len - 1] == ' ')
+          || (sb->p[sb->len - 2] == '\r' && sb->p[sb->len - 1] == '\n')))
+    value[0] = (char) toupper ((unsigned char) value[0]);
+  st->name_cap_eligible = 0;
+  pron_capture (st, (long) sb->len);
+  sb_puts (sb, value);
+  free (value);
+}
+
+/* Emit the unresolved token p..q (exclusive) into sb. */
+static void
+emit_unresolved_token (sb_t *sb, const char *p, const char *q)
+{
+  /* leave the original token verbatim -- but the runner rewrites
+     EVERY bare singular reference alias to its numbered form
+     BEFORE resolving (ReplaceIgnoreCase, Global.vb:1754-1760:
+     %object% %character% %location% %direction% %item% %text%
+     %number% -> %...1%), so an unresolved singular surfaces
+     numbered: the Blender's "You put %object%.Name on the
+     table.", ProbeRefCapture's intro "...%number1%,
+     %location1%, %item1%, and %characters%." (the plurals are
+     NOT rewritten). */
+  static const char *const singulars[] =
+    { "object", "character", "location", "direction",
+      "item", "text", "number", nullptr };
+  size_t tlen = (size_t) (q - p);
+  int rewrote = 0;
+  for (int si = 0; singulars[si] != nullptr; si++)
+    {
+      size_t sl = strlen (singulars[si]);
+      if (tlen == sl + 2 && p[0] == '%' && p[tlen - 1] == '%'
+          && strncasecmp (p + 1, singulars[si], sl) == 0)
+        {
+          sb_putc (sb, '%');
+          sb_puts (sb, singulars[si]);
+          sb_puts (sb, "1%");
+          rewrote = 1;
+          break;
+        }
+    }
+  if (!rewrote)
+    sb_putn (sb, p, (size_t) (q - p));
+}
+
 /* Replace %function%/%variable% tokens in src (single pass; args recurse).
    as_arg: the text is the argument list of an enclosing %Func[...]%, so a
    bare object/character reference resolves to its KEY, not its name. */
@@ -1738,7 +1837,7 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
         {
           const char *q = p + 1;
           const char *name_start = q;
-          char *name, *args = nullptr, *value = nullptr;
+          char *name, *value = nullptr;
           int ok = 0;
 
           while (*q && (isalnum ((unsigned char) *q) || *q == '_' || *q == '-'))
@@ -1808,41 +1907,11 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
                 }
               else if (*q == '[')
                 {
-                  int depth = 1;
-                  const char *a = q + 1;
-                  const char *astart = a;
-                  while (*a && depth > 0)
+                  const char *end = eval_bracket_call (st, name_start, nlen, q,
+                                                       &value);
+                  if (end != nullptr)
                     {
-                      if (*a == '[') depth++;
-                      else if (*a == ']') depth--;
-                      if (depth > 0) a++;
-                    }
-                  if (*a == ']' && a[1] == '%')
-                    {
-                      char *rawargs = strndup (astart, (size_t) (a - astart));
-                      name = strndup (name_start, nlen);
-                      args = replace_functions (st, rawargs, 1);
-                      /* Resolve any OO property chain left in the args (e.g.
-                         %LCase[%object%.OpenStatus]% -> args "Closet.OpenStatus"
-                         -> "Closed") before the outer function transforms it.
-                         the Adrift 5 runner's ReplaceFunctions(sArgs) recursion runs its
-                         own ReplaceOO pass on the args (Global.vb:2046); Scarier's
-                         OO pass otherwise runs only after the whole replace pass,
-                         too late for a function that consumed the chain as an
-                         argument (LCase would lower-case the raw "Closet.OpenStatus"
-                         to "closet.openstatus").  a5expr_replace is a no-op unless
-                         args holds a real <key>.<chain>. */
-                      if (strchr (args, '.') != nullptr)
-                        {
-                          char *ooargs = a5expr_replace (st, args);
-                          free (args);
-                          args = ooargs;
-                        }
-                      value = eval_function (st, name, args);
-                      free (rawargs);
-                      free (args);
-                      free (name);
-                      q = a + 2;
+                      q = end;
                       ok = 1;
                     }
                 }
@@ -1851,52 +1920,9 @@ replace_functions (a5_state_t *st, const char *src, int as_arg)
           if (ok)
             {
               if (value != nullptr)
-                {
-                  /* CharacterName sentence-start fudge (the runner Global.vb:2103): when
-                     the resolved name is immediately preceded by two spaces or a
-                     CRLF, capitalise its first character.  iMatchLoc>3 there means
-                     at least 3 chars precede the token (sb.len >= 3 here). */
-                  if (st->name_cap_eligible && sb.len >= 3 && value[0] != '\0'
-                      && ((sb.p[sb.len - 2] == ' ' && sb.p[sb.len - 1] == ' ')
-                          || (sb.p[sb.len - 2] == '\r' && sb.p[sb.len - 1] == '\n')))
-                    value[0] = (char) toupper ((unsigned char) value[0]);
-                  st->name_cap_eligible = 0;
-                  pron_capture (st, (long) sb.len);
-                  sb_puts (&sb, value);
-                  free (value);
-                }
+                emit_function_value (st, &sb, value);
               else
-                {
-                  /* leave the original token verbatim -- but the runner rewrites
-                     EVERY bare singular reference alias to its numbered form
-                     BEFORE resolving (ReplaceIgnoreCase, Global.vb:1754-1760:
-                     %object% %character% %location% %direction% %item% %text%
-                     %number% -> %...1%), so an unresolved singular surfaces
-                     numbered: the Blender's "You put %object%.Name on the
-                     table.", ProbeRefCapture's intro "...%number1%,
-                     %location1%, %item1%, and %characters%." (the plurals are
-                     NOT rewritten). */
-                  static const char *const singulars[] =
-                    { "object", "character", "location", "direction",
-                      "item", "text", "number", nullptr };
-                  size_t tlen = (size_t) (q - p);
-                  int rewrote = 0;
-                  for (int si = 0; singulars[si] != nullptr; si++)
-                    {
-                      size_t sl = strlen (singulars[si]);
-                      if (tlen == sl + 2 && p[0] == '%' && p[tlen - 1] == '%'
-                          && strncasecmp (p + 1, singulars[si], sl) == 0)
-                        {
-                          sb_putc (&sb, '%');
-                          sb_puts (&sb, singulars[si]);
-                          sb_puts (&sb, "1%");
-                          rewrote = 1;
-                          break;
-                        }
-                    }
-                  if (!rewrote)
-                    sb_putn (&sb, p, (size_t) (q - p));
-                }
+                emit_unresolved_token (&sb, p, q);
               p = q;
               continue;
             }
