@@ -1,0 +1,154 @@
+In retrospect, forgetting your parachute when skydiving did not not strike your fancy at all.
+
+What happened?
+
+That's exactly what happened. For some reason you decided to try skydiving without an instructor, and it's only midway that you forgot your parachute. So here you are, freefalling at the speed of 76 m/s into the cold, hard earth below. You're by no means a physicist, but you reckon you only have about ten seconds of life.
+
+It does! Well, there's only so much you can do in 10 seconds. You might be able to do something before you got squished like a mashed potato. Use your imagination here! Whatever might help you pass this shortest 10 seconds of your life. Each actions take time, but don't ask me how much time it takes! It can take one to five seconds for all I know!
+
+It's possible, and I'm saying definitely possible, to survive this. But can you?
+
+(Hint: In the worst of times, always cry for help)
+
+You are freefalling in the open sky.
+It's blue, it's beautiful, it had nothing. Absolutely nothing in the sky can help you, so don't bother trying to find something to use.
+> look self
+
+> look self
+I don't understand your command.
+You have 10 seconds left.
+> inventory
+
+> inventory
+You are carrying phone, a box of chocolate, hope and a fancy book.
+You have 9 seconds left.
+> look phone
+
+> look phone
+I don't understand your command.
+You have 8 seconds left.
+> look hope
+
+> look hope
+I don't understand your command.
+You have 7 seconds left.
+> read fancy book
+
+> read fancy book
+===IMPORTANT NOTICE ON HOW TO SURVIVE A FALL WITHOUT A PARACHUTE===
+
+You can't. So don't forget the parachute next time!
+
+===THANK YOU FOR YOUR TIME===
+
+You have 6 seconds left.
+> remember
+
+> remember
+
+You tried to remember your life events so far.
+
+And honestly, a lot came to mind. Maybe it's that one time you casually defeated a dragon. Or when you went ripped the fabric of dimension and stopped the Masters of Dimension from killing Great Astral and destroying the world.
+
+It was good times.
+
+Remembering the past makes you calmer than ever in facing your destiny. Even if "destiny" here means the cold, hard rocks below.
+
+You have 10 seconds left.
+> remember
+
+> remember
+
+You tried to remember your life events so far.
+
+Except you remembered exactly what you want to remember because you just did. Maybe it's not a good choice trying to remember too much from your life.
+
+You have 9 seconds left.
+> wish time travel
+
+> wish time travel
+
+Are you reading a guide or something? Or is this your second playthrough? You can't just wish time travel!
+You have 8 seconds left.
+> bite a box of chocolate
+
+> bite a box of chocolate
+You bit open the box of chocolate. You ripped it open, leaving the nice, gooey chocolate inside.
+
+The box was wrapped by a sheet of crumpled newspaper.
+You have 7 seconds left.
+> wish time travel
+
+> wish time travel
+
+Are you reading a guide or something? Or is this your second playthrough? You can't just wish time travel!
+You have 6 seconds left.
+> read newspaper
+
+> read newspaper
+===BREAKING NEWS: BABY PANDA IS BORN===
+
+The world is captivated by the birth of a baby panda that looks exactly the same as other baby panda. This panda, born from the father Pandamale and the mother Pandafemale, was born in the Pandaloo zoo in the country of Pandalia. The zoo keepers are debating what to name this significant progress in humanity, but apparently they settled on naming her "Terry".
+
+In other, completely unrelated news, scientists discover time travel. Apparently you just need to wish for it hard enough.
+
+===========================================
+
+You have 5 seconds left.
+> wish time travel
+
+> wish time travel
+
+You tried very, very hard to wish that you can travel back through time to the time before you jumped.
+
+It's hard making a wish without a clear head, though. You just can't make it. And it's taking too much time.
+
+You have 3 seconds left.
+> eat chocolate
+
+> eat chocolate
+You ate the chocolate. The bittersweet taste reminds you of your life, beautiful and raw as it is. You can think clearer now.
+
+Though it means you can see the earth more clearly.
+You have 2 seconds left.
+> wish time travel
+
+> wish time travel
+
+Yes! The key to time-travelling is, of course, wishing hard enough for it to be! Miracles!
+
+And you did just that! As soon as you close your eyes, rainbows began to envelop your body. Then, a winged unicorn with the body of a bear came and grabbed you.
+
+You can feel your body moving through the sands of time.
+
+Strangely, you can still feel your body freefalling. You opened your eyes only to realize that you are indeed freefalling. Yes, you have time-travelled. To 10 seconds ago.
+
+Maybe you really can't escape from a freefall?
+
+You have 11 seconds left.
+> wish time travel
+
+> wish time travel
+This "time travel" sucks. You don't want to do it again.
+You have 10 seconds left.
+> help
+
+> help
+
+What, you never played a text adventure game or something? Just type the command and the object ("look self", for example). If you typed it exactly they way I wanted it then you'll get a reaction. If not, you probably suck at giving commands.
+
+If you have finished admiring the blue sky and the wide earth below, You might want to look at yourself. What are you carrying?
+
+And it's said that when one is about to die, one's life flashes before his or her eyes. Maybe this is not a bad time to remember your past.
+
+You have 10 seconds left.
+> wake up
+
+> wake up
+What, really? You wanted the least imaginative solution of all? "You woke up and it was all just a dream." Is that what you want, really?
+
+You know what--fine. Cheat death if you want You woke up and it was all just a dream. There. Congratulations! Happy? I hope you're happy.
+
+And be careful when hitting the ground.
+
+[state=Finished]
