@@ -1,0 +1,322 @@
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> x rug
+
+> x rug
+It's a brown rugged... err... rug. Somebody spilled BBQ sauce on it. Oh, yeah, that was you, you dunce.
+> speak to rug
+
+> speak to rug
+"Rug."
+"Johnny"
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Why do you smell of chicken and biscuits?"
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"I dunno. Why are you talking to your rug? Is it Christmas again?"
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"I'm Jewish, Rug. I don't celebrate Christmas. I celebrate Hanukkah."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> x wallpaper
+
+> x wallpaper
+It's yellow with purple polka dots. Wait, what?
+> touch wallpaper
+
+> touch wallpaper
+You attempt to touch the wallpaper.
+"Oi! Don't you have a girlfriend?"
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Oh, sorry. No, I'm single."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Pshhh... womanizer."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+:c
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> x television
+
+> x television
+Kyary Pamyu Pamyu is seriously freaky.
+> change channel
+
+> change channel
+I don't understand your command.
+> x hot dogs
+
+> x hot dogs
+Chef Excellence's Deluxe Hot Dogs, your favorite brand.
+> x remote
+
+> x remote
+Wanna change the channel on the TV? You're gonna need that.
+> take remote
+
+> take remote
+You think you can just defy gravity and go grab it? Pshhh... you're no Jesus.
+> go to storage room
+
+> go to storage room
+
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+> x ladder
+
+> x ladder
+That's a ladder. Yes, you use that to reach things high up. -clap clap clap-
+> x sponge
+
+> x sponge
+It's a dry, yellow sponge lying on the floor. Who cares?
+> speak to sponge
+
+> speak to sponge
+"Hey, there! I'm Stanley. You won't ever need me because I break everything I touch."
+"Oh. So, you're Spongebob's cousin, right?"
+> look
+
+> look
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+"Spongebob? I'm sorry, but you must have me mistaken."
+> look
+
+> look
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+"Oh."
+> look
+
+> look
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+> look
+
+> look
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+> look
+
+> look
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+> look
+
+> look
+You are in the  storage room.
+There is a ladder and a sponge.
+You can go to the lounge.
+> take ladder
+
+> take ladder
+"This is kinda heavy."
+> go to lounge
+
+> go to lounge
+
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> use ladder
+
+> use ladder
+You open out the ladder and are about to climb it.
+"Woah, woah, woah! What're you doing!?"
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Oh, sorry. I only wanted to get the remote from the ceiling."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Don't mean you can just climb on me, man! Lemme get it for you."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television, hot dogs and a remote.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+A ghostly arm stretches from the top of the ladder, grabs the remote from the ceiling, plucking it out, and hands it to you.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Bloody hell. How d'you manage to get it up there in the first place? Know what? I don't even care. I'm going out for a drink."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Oh, okay. I'll see you around, I guess. And thanks... you know, for the remote."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+"Whatever."
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> x remote
+
+> x remote
+Wanna change the channel on the TV? You're gonna need that.
+> use remote
+
+> use remote
+You switch the channel. Thank goodness. Channel 6 is viewing the vote results for whether elephants should be legalized as domestic pets, and the vote for is winning. This amuses you so much that you laugh...
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+to death.
+> look
+
+> look
+You are in the lounge.
+You can see a rug, a wallpaper, a television and hot dogs.
+You can go to the storage room.
+The lounge was never the best looking room, but you like to spend a lot of your time here. You don't know why. Every day in this lounge is another story. Today, the wallpaper is purple with yellow polka dots. There is a tear in the wallpaper from which a string of hot dogs are sticking out. The rug looks mighty tasty. It has a stain of BBQ sauce and smells of biscuits and chicken. Nothing interesting on the television. Just Kyary Pamyu Pamyu eating her fingers on stage again. The remote is stuck to the ceiling. You might wanna get that off.
+Good on you, Johnny.
+[state=Finished]
