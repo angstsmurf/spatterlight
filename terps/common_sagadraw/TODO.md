@@ -280,7 +280,7 @@ How it was verified:
   also done *before* the descrambletable branch that already allocates, i.e. the
   scrambled path does it twice.
   → `EnsureScreenMem()`, called once.
-- [-] **[cleanup] `RenderLineWithA2ArtifactColors` run-length logic** is hard to
+- [x] **[cleanup] `RenderLineWithA2ArtifactColors` run-length logic** is hard to
   follow (own comment: "not sure why" about the +1 overlap, plus a special
   case for the last pixel that re-fetches `glkcolor`, shadowing the outer
   variable). Rewrite as a plain "find run end, emit run" loop over the flat
@@ -288,11 +288,29 @@ How it was verified:
   560-element scan). Also hoist the magic numbers (560, 319, 14, 40) into
   named constants, and make the flip a mirror helper, since
   `PutApplePixelFlippable` is the only place that knows the geometry.
-  → Only the shadowing is fixed. The loop has odd overlap rules: runs are
-  drawn one pixel too wide, and the last pixel gets special handling. The
-  goldens record its exact sequence of fill_rect calls. A clean run loop
-  would change those calls, and probably the pixels where runs overlap, so it
-  needs new goldens and a visual check. That is out of scope here.
+  → Rewritten as a flat scan over `colors560[]` that draws each run of
+  one colour with one fill_rect (`A2_LINE_PIXELS`, `A2_PLOT_HEIGHT`,
+  `PutApplePixels`). The old loop drew every run except the first one
+  pixel to the right of where it belonged, and lost single-pixel runs.
+  That is why it needed the "+1 overlap". It made the same number of
+  fill_rect calls.
+  Visual check: Spider-Man (SpiderMan-S1/S2.dsk) was booted in MAME
+  `apple2e`, and its title screen and main menu were captured as $2000 page
+  dumps and screenshots taken while paused. On the 160 picture rows the new
+  renderer, and the Plus probe's own `title` picture (dsk, do and woz), match
+  MAME pixel for pixel. The old renderer differed on 6954 pixels.
+  The only differences left are in rows 160-191, MAME's mixed-mode text
+  window, which this code never draws. The Plus `imagecheck` goldens of the
+  15 Apple II rows were re-blessed, and only the pixel CRC changed.
+  Comprehend is not affected: both of its blits copy the colours pixel by
+  pixel. The DHGR kernel (`gm_render_dhgr_line_colors`) was checked the same
+  way on the OO-Topos `<D>` title, with main and aux pages from MAME. It
+  matches MAME's composite monitor with "Pixel-run (color bias)" on every
+  pixel of the 560x192 screen.
+  Two changes to upside-down drawing (Spider-Man on the ceiling). It is now
+  an exact 180° mirror at every `pixel_size`; before, it was off by
+  `pixel_size - 1` rows. It also leaves out the extra row 160, which used to
+  land two rows above the top of the picture.
 - [~] **[cleanup] Shadowed/ambiguous names:** the two inner `glkcolor` variables, the
   `uint8_t repetitions, i` mix noted above, `pattern_top/bottom` initialised to 0
   and never needed before assignment, `origptr` used only for a length.

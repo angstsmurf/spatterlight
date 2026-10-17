@@ -229,61 +229,38 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
     return 1;
 }
 
-static void PutApplePixel(glsi32 xpos, glsi32 ypos, glui32 color, int width)
-{
-    xpos = xpos * pixel_size + x_offset;
-    ypos = ypos * pixel_size + y_offset;
-    glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
-}
+// One hi-res scanline is 560 artifact-colour pixels wide, plotted as two
+// Glk rows so that the 192 scanlines keep the Apple's 4:3 aspect.
+#define A2_LINE_PIXELS (GM_HIRES_COLS * 14)
+#define A2_PLOT_HEIGHT 320
 
-static void PutApplePixelFlippable(glsi32 xpos, glsi32 ypos, glui32 color, int width, int upside_down)
+// Fills pixels xpos .. xpos + width - 1 of plot row ypos. Upside down, the
+// whole picture is mirrored both ways about the 560x320 plot area.
+static void PutApplePixels(glsi32 xpos, glsi32 ypos, glui32 color, int width, int upside_down)
 {
     if (upside_down) {
-        xpos = (560 - xpos - width) * pixel_size + x_offset;
-        ypos = (319 - ypos) * pixel_size + y_offset - 1;
-        glk_window_fill_rect(Graphics, color, xpos, ypos, pixel_size * width, pixel_size * 2);
-    } else {
-        PutApplePixel(xpos, ypos, color, width);
+        xpos = A2_LINE_PIXELS - xpos - width;
+        ypos = A2_PLOT_HEIGHT - 2 - ypos;
     }
+    glk_window_fill_rect(Graphics, color, xpos * pixel_size + x_offset,
+        ypos * pixel_size + y_offset, pixel_size * width, pixel_size * 2);
 }
 
 /* The NTSC artifact-colour kernel (artifact LUT, palette, Double7Bits, per-row
    word + colour expansion) lives in common_sagadraw/gm_artifact.c, shared with
    the Comprehend renderer. This file keeps only the Glk plotting on top of it. */
 
-static void  RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int upside_down)
+// Draws one scanline, one fill_rect per run of same-coloured pixels.
+static void RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int upside_down)
 {
-    uint8_t colors560[560];
+    uint8_t colors560[A2_LINE_PIXELS];
     gm_render_line_colors(in, colors560);
 
-    uint8_t lastcolor = 0xff;
-    int runlength = 0;
-
-    for (int col = 0; col < 40; col++)
-    {
-        for (int b = 0; b < 14; b++)
-        {
-            // color is an index value between 0 (black) and 15 (white).
-            uint8_t color = colors560[col * 14 + b];
-            // We optimize runs of the same color by only drawing
-            // when the color changes or we are at the last pixel of the line.
-            int at_last_pixel = (b == 13 && col == 39);
-            if (at_last_pixel || (color != lastcolor && runlength > 0)) {
-                glui32 glkcolor = gm_apple2_palette[lastcolor];
-                PutApplePixelFlippable(col * 14 + b - runlength, row * 2, glkcolor, runlength + 1, upside_down);
-                // The code above only draws the *previous* pixel(s),
-                // (except we always have to add 1 pixel of overlap to
-                // runlength to avoid gaps, not sure why) so if the last pixel
-                // of a line has a different color to the one on its
-                // we have to handle it separately.
-                if (at_last_pixel && color != lastcolor) {
-                    PutApplePixelFlippable(col * 14 + b, row * 2, gm_apple2_palette[color], 1, upside_down);
-                }
-                runlength = 0;
-            } else {
-                runlength++;
-            }
-            lastcolor = color;
+    int start = 0;
+    for (int x = 1; x <= A2_LINE_PIXELS; x++) {
+        if (x == A2_LINE_PIXELS || colors560[x] != colors560[start]) {
+            PutApplePixels(start, row * 2, gm_apple2_palette[colors560[start]], x - start, upside_down);
+            start = x;
         }
     }
 }
@@ -296,7 +273,11 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
     // Note that this draws ImageHeight / 2 + 1 rows, one more than the image
     // height: with the usual ImageHeight of 320 that is row 160, the top
     // scanline of the text area. Left as is, because the goldens include it.
+    // Upside down, that row would land above the top of the picture, so it
+    // is left out.
     int endrow = MIN(ImageHeight / 2, 160);
+    if (upside_down)
+        endrow--;
 
     for (int row = 0; row <= endrow; row++) {
         /* calculate address */
