@@ -8,6 +8,7 @@
 //  data tables (dictionary, tokens, messages, rooms, actions, ...) inside it.
 //
 
+#include <errno.h>
 #include <stdio.h>
 #include <string.h>
 
@@ -15,7 +16,9 @@
 #include "glkstart.h"
 #include "c64decrunch.h"
 #include "common_file_utils.h"
+#include "common_utils.h"
 #include "extracommands.h"
+#include "gamedefs.h"
 #include "extracttape.h"
 #include "graphics.h"
 #include "loading_screen.h"
@@ -235,9 +238,10 @@ int GuessLowObjectEnd(void)
 {
     /* Can't automatically guess in this case */
     if (CurrentGame == BLIZZARD_PASS)
-        return 70;
+        return BP_NUM_LOW_OBJECTS;
+    /* Questprobe 3 writes every object into the room description */
     else if (Version == QUESTPROBE3_TYPE)
-        return 49;
+        return Q3_NUM_OBJECTS;
 
     if (Version == REBEL_PLANET_TYPE)
         return GuessLowObjectEndRebelPlanet();
@@ -328,17 +332,28 @@ int glkunix_startup_code(glkunix_startup_t *data)
         }
     }
 
+    /* No game file: a usage line on stderr, and refusing to start makes the
+       library exit. Only a command line gets here; the GUI front ends
+       always pass a file. */
     if (arg >= argc) {
-        fprintf(stderr, "%s: <file>.\n", argv[0]);
-        glk_exit();
+        fprintf(stderr, "usage: %s", argv[0]);
+        for (glkunix_argumentlist_t *a = glkunix_arguments; a->argtype != glkunix_arg_End; a++) {
+            if (a->name[0] == '-')
+                fprintf(stderr, " [%s]", a->name);
+        }
+        fprintf(stderr, " <game file>\n");
+        return 0;
     }
 
     Filename = CopyString(argv[arg]);
 
+    /* A file that cannot be read is reported in a window too: in a GUI
+       the file was chosen by the user, and stderr goes nowhere. */
     FileImage = ReadFileIfExists(Filename, &FileImageLen);
     if (FileImage == NULL) {
-        perror(Filename);
-        CleanupAndExit();
+        char message[1024];
+        snprintf(message, sizeof message, "Cannot read %s: %s", Filename, strerror(errno));
+        Fatal(message);
     }
 
     FileImage = ProcessFile(FileImage, &FileImageLen);

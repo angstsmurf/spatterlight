@@ -43,6 +43,7 @@ wildcard.
 - [~] `ChangeLog`, `README`, `FORMAT` are stale: refresh or fold the useful
       parts of `FORMAT` into a `docs` note, drop the rest.
       → `FORMAT` brought in line with the interpreter (opcode tables, text, exits, objects, picture codes, a Questprobe 3 section). `ChangeLog` and `README` left alone.
+      → 2026-10-14 (27880a26b): rewritten as `FORMAT.md`, a formal specification. `ChangeLog` is still the 0.3-era text.
 - [x] ui.c: `HitEnter()` is defined (`static`) and never called — delete.
       → Deleted.
 - [x] ui.c header comment names the wrong file (`restorestate.c`).
@@ -118,9 +119,13 @@ wildcard.
       bounds (`AutoExit` has the guard) — runs off the table on a malformed
       room. Share the lookup (see C).
       → `FindExitBlock()` with `EXITS_END` and an `EndOfData` bound, shared with `AutoExit`.
-- [~] player.c `LoadGame` returns 1 even on a bad restore;
+- [x] player.c `LoadGame` returns 1 even on a bad restore;
       `YesOrNo` `c == 250 → 0` is odd.
       → `250` explained as `(uint8_t)keycode_Return`. `LoadGame` return left: the caller redraws either way and changing it alters the restore prompt flow.
+      → 2026-10-17: `LoadGame` returns a `LoadResult` (`LOAD_NO_FILE`, `LOAD_BAD_DATA`, `LOAD_OK`).
+        The RESTORE action ends the turn for anything but `LOAD_NO_FILE`, as before: a rejected
+        file has put the state back and said so. Script suite unchanged (210, with `extras.txt`'s
+        garbage restore).
 - [x] graphics.c `ExtractSingleQ3Image`: `uint16_t offset_addr` is computed
       (and truncated) before the `offsets >= FileImageLen` check; the
       `FindCode` results (base, offsets, imgdata) are used unchecked against -1.
@@ -288,6 +293,10 @@ wildcard.
       TOT_TEXT_ONLY / TOT_HYBRID (and `_64`) rows duplicate ~20 fields.
       `DetectGame` loops over the "Unknown game" row too.
       → Comments now name the real fields. Designated initialisers done 2026-10-14: zero fields left out, table compared field by field before and after. Unused `start_of_intro_text` removed. The ToT rows still repeat their fields.
+      → 2026-10-17: the shared groups are macros, `TOT_TEXT_ONLY_TABLES`, `TOT_PICTURES` and
+        `TOT_TEXT_ONLY_TABLES_64`; the C64 combined row keeps its own picture offsets, which
+        are where c64decrunch.c splices them. Table dumped field by field before and after:
+        identical.
 - [-] Per-game word/room fixups hard-coded inside `Parser`/actions:
       Blizzard Pass (SKIN→43, POLI→44, DRAW 134→49), QP3 (WALL/FIRE→77,
       MASTERS→121), `Word[0]==20 && Word[1]==162/141/254` (ToT, Rebel,
@@ -358,10 +367,13 @@ wildcard.
       `Upper`, `LastChar`, `PendSpace`, `FirstAfterInput`) → one output-state
       struct; `Message2` doesn't reset `InventoryLower`.
       → `Message2` now resets `InventoryLower`. State struct declined (golden risk, no gain).
-- [~] Game-specific text hacks (Blizzard token 0x2d in room 49, ToT object 41
+- [x] Game-specific text hacks (Blizzard token 0x2d in room 49, ToT object 41
       "door.", message 156 InventoryLower, QP3 sysmessage offsets) → named
       constants / patch table.
       → QP3 and Blizzard offsets named; the per-token hacks stay inline.
+      → 2026-10-17: the Blizzard hack is `BP_ROOM_CAVERN_WEST_END` / `BP_TOKEN_YOUR`. The long
+        room descriptions are plain characters, each its own token, except 0x2d ("your "), and a
+        scan of all 102 finds that byte only in room 49 ("rough-hewn").
 - [-] `PatchAndDrawQP3Cannon` lives in graphics.c but is called from
       actions.c; QP3 hacks (`&= 191`, image 46) are spread over four files.
       → Declined 2026-10-14: the cannon patch writes into `imagebuffer`, which is private to
@@ -385,13 +397,16 @@ wildcard.
       vertical/horizontal advance branches) — optional split.
       → 2026-10-14: `alk_load_slot()` and `alk_advance()` split out. Draw order compared against
         the old function on the three real descriptor tables and 20000 random ones: identical.
-- [~] Error handling: `fprintf(stderr)` + `glk_exit()` is invisible in the GUI
+- [x] Error handling: `fprintf(stderr)` + `glk_exit()` is invisible in the GUI
       (also `InitGraphics`); route through one `Fatal()`-style helper that
       prints to the Bottom window.
       → New failure paths use `Fatal()`, and so do the three load failures (no verb table, game
         not recognised, no flag data), which now show in the game window. `InitGraphics` does not
         exit: it goes text-only and says so in the game window (2026-10-14). The missing-argument
         usage line still exits silently.
+      → 2026-10-17: a usage line built from `glkunix_arguments` on stderr, and `return 0`, so the
+        library exits; only a command line gets there. An unreadable game file goes through
+        `Fatal()` with the file name and `strerror`, so a GUI shows it in a window.
 - [x] `#ifdef DEBUG` / `#ifdef SPATTERLIGHT` sprinkled in logic files.
       → Done 2026-10-14. The Xcode taylor target defines `DEBUG=1` in Debug builds, so the
         trace went to stderr in every Debug build. It now goes through `debug_print`
@@ -516,7 +531,7 @@ taylor.h names many flags and objects; these literals remain.
         Ray (30), 56 object 63 and 4-8 the droid slot (122). Moving object 0 into the room
         makes the first group always play; the old comment's "so room-image drawing can
         reference it" was a guess.
-- [~] Rooms: Rebel objects 42/107/92/58/36 and rooms 86/88/29-34/50/71 (only
+- [x] Rooms: Rebel objects 42/107/92/58/36 and rooms 86/88/29-34/50/71 (only
       `UNFOLDING_SPACE` is named); Kayleth rooms 1/2/3/32/36/52/53/56 and
       `KaylethAnimations[2]`; `MyLoc == 250` (Rebel) and `MyLoc == 15`
       (Kayleth) in `RunOneInput`; `MyLoc == 83` He-Man; `MyLoc == 49`
@@ -537,12 +552,18 @@ taylor.h names many flags and objects; these literals remain.
         63); the status table moves it after the `Look()`. Without the skip, a bare ". You could
         go Up." is printed before the real description. Still literals: He-Man 83, Blizzard
         49, `NumObjects`/`WaitFlag`/`GuessLowObjectEnd` values.
+      → 2026-10-17: all named in gamedefs.h. `HEMAN_ROOM_GRAYSKULL` (room 83 has no text; the
+        transformation message moves the player there and OOPSes back), `BP_ROOM_CAVERN_WEST_END`,
+        `Q3_NUM_OBJECTS` (with the object-count note), `KAYLETH_NUM_OBJECTS` (flag 6 says 123;
+        objects 120-122 have no text, 121 starts in a room), `Q3_WAIT_COUNTER_FLAG` 5 and
+        `WAIT_COUNTER_FLAG` 7 (FORMAT.md §3.3 and the QP3 flag table), `BP_NUM_LOW_OBJECTS`.
 - [-] Animations: Kayleth speed `switch` literals (14, 10, 40, 80, 50, 12,
       150, 40, 20, 30) and `ClickShelfStage`/`ShelfScrollStage` 9/7/80.
       → Left: each `case` already says which room it is; the speeds are tuned
         by eye, a name would add nothing.
       → 2026-10-14: the speed literals did get names after all (`KAYLETH_*_RATE`, see the
         Kayleth speed `switch` entry in D). The shelf stages 9/7/80 are still literals.
+      → 2026-10-17: `SHELF_TICKS_PER_CYCLE` 9, `SHELF_MOVING_TICKS` 7, `SHELF_LAST_POSITION` 80.
 - [x] graphics.c: QP3 tile count 246, `InitIrmak(..., 4)`, the image opcodes
       `0xfe/0xef/0xee/0xeb/0xf3/0xfa/0x82` in the decompressors; the QP3
       status-table padding `0x7e` in `RunStatusTable` is the `MSG_END` value.
@@ -752,8 +773,15 @@ taylor.h names many flags and objects; these literals remain.
           Kayleth SEARCH TAPE PRESENT 116, Rebel Planet SAY VALE, OPEN ALCO AT 43,
           `* *` HERE 58. No script row reaches any of them (checked with a trace on
           every Kayleth/Rebel row), so no golden moved and there is no test row yet.
-        Also left: QP3's inventory loop covers objects 0-47, while our
-        `NumObjects()` gives 49 for QP3.
+        → 2026-10-17, QP3 object count CLOSED: 49 is right. The Spectrum code copies
+          0x31 = 49 initial locations (0x9443, `LDIR` 0x90A3 → 0x5BB5) and its room listing
+          (0x99BC) runs object 0 to 48. Only its INVENT loop (0x96FB, `LD B,$30` + `DJNZ`)
+          stops at 47. The BBC source (A.ALL, `NOBS%=48`) covers 0 to 48 in the init copy,
+          the room listing, `.invent` (`CPX #NOBS%+1`) and `.dropall`, and Q.OBSTART is 49
+          bytes. Object 48, the fallen statue, is only ever `SWAP`ped with 47 (two status
+          entries) and tested with `PRESENT` (one event entry); both start in room 22 / 252
+          and nothing moves either anywhere else, so the Spectrum off-by-one cannot show.
+          No change to the code; the reasoning is in the `NumObjects` comment.
 - [x] loading_screen.c: `DrawZXTitleImage` closes and reopens all three
       windows by hand, as the Scott title routine does; **(verify)** whether a
       shared helper exists in the common code before keeping two copies.
@@ -765,6 +793,7 @@ taylor.h names many flags and objects; these literals remain.
         comment now says a screen further in is not found. Possible
         follow-up: `FindTapeLoadingScreen` is almost the same in
         scott/title_image.c and could move into decompressz80.
+      → Done the same day (418d0e294): `FindTapeLoadingScreen` is shared from decompressz80.
 
 ### G5. Possible behaviour issues (each needs a test row)
 

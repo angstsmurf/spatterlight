@@ -38,6 +38,15 @@ enum {
     Q3_ROOM_ROAD = 34,
 };
 
+/* 49 objects: the Spectrum code copies 49 initial locations and lists
+   objects 0-48 in the room, as the BBC source does everywhere (NOBS%=48,
+   loops to NOBS%+1). Only the Spectrum inventory loop stops at 47, which
+   cannot show: object 48, the fallen statue, is only ever swapped with 47
+   and both stay in room 22 or destroyed. All of them are low objects,
+   written into the room description. */
+#define Q3_NUM_OBJECTS 49
+
+#define Q3_WAIT_COUNTER_FLAG 5 /* Turns of WAIT still to run; flag 7 in the other games */
 #define Q3Restedness (Flag[7]) /* 80 is 100 percent */
 #define Q3XanduPresent (Flag[39])
 #define Q3OtherGuyDark (Flag[42])
@@ -80,7 +89,20 @@ enum {
 #define TOT_WORD_GO 20 /* also ENTER, CLIMB, WALK, RUN */
 #define TOT_WORD_DOOR 162
 
-/* Blizzard Pass: verbs that the parser finds as nouns first */
+/* Blizzard Pass */
+
+/* Objects 0-69 are low objects, written into the room description. The
+   usual guess, a comma ending the last low object's text, does not work
+   here. */
+#define BP_NUM_LOW_OBJECTS 70
+
+/* The long room descriptions (text-only game) are plain characters, each
+   its own token, except that byte 0x2d is the token "your " rather than
+   "-". The one hyphen among them is "rough-hewn" in room 49. */
+#define BP_ROOM_CAVERN_WEST_END 49 /* "a huge cavern, at the western end" */
+#define BP_TOKEN_YOUR 0x2d
+
+/* Verbs that the parser finds as nouns first */
 
 enum {
     BP_WORD_VERB_SKIN = 43, /* VSKI */
@@ -90,6 +112,20 @@ enum {
     BP_WORD_POLISH = 175,
     BP_WORD_SKIN = 249,
 };
+
+/* He-Man */
+
+/* The transformation: "There is a mighty flash as you cry out 'By the
+   power of Grayskull.'" moves the player to this room, which has no
+   description, and OOPSes back from it. */
+#define HEMAN_ROOM_GRAYSKULL 83
+
+/* Rebel Planet and Kayleth */
+
+#define WAIT_COUNTER_FLAG 7 /* Turns of WAIT still to run */
+/* The file's flag 6 says 123, but objects 120-122 have no text, and 121
+   begins in a room: listed, it is an empty "You notice." */
+#define KAYLETH_NUM_OBJECTS 120
 
 /* Rooms where the event table leaves the player for the rest of the
    turn, and whose description must not be printed */

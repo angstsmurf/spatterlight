@@ -76,11 +76,11 @@ unsigned char Worn(void)
 unsigned char NumObjects(void)
 {
     if (Version == QUESTPROBE3_TYPE)
-        return 49;
+        return Q3_NUM_OBJECTS;
 
     /* This removes one weird empty "You notice." in Kayleth */
     if (BaseGame == KAYLETH)
-        return 120;
+        return KAYLETH_NUM_OBJECTS;
 
     return Flag[6];
 }
@@ -88,11 +88,11 @@ unsigned char NumObjects(void)
 static int WaitFlag(void)
 {
     if (Version == QUESTPROBE3_TYPE)
-        return 5;
+        return Q3_WAIT_COUNTER_FLAG;
     else if (BaseGame != REBEL_PLANET && BaseGame != KAYLETH)
         return -1;
     else
-        return 7;
+        return WAIT_COUNTER_FLAG;
 }
 
 int CarryItem(void)
@@ -208,13 +208,13 @@ static void FileNotice(const char *text)
     OutFlush();
 }
 
-int LoadGame(void)
+LoadResult LoadGame(void)
 {
     frefid_t fileref = glk_fileref_create_by_prompt(fileusage_SavedGame,
         filemode_Read, 0);
     if (!fileref) {
         OutFlush();
-        return 0;
+        return LOAD_NO_FILE;
     }
 
     /*
@@ -227,10 +227,11 @@ int LoadGame(void)
     if (!stream) {
         glk_fileref_destroy(fileref);
         FileNotice("Unable to open file.\n");
-        return 0;
+        return LOAD_NO_FILE;
     }
 
     SavedState *state = SaveCurrentState();
+    LoadResult result;
 
     /* Restore saved game data. */
 
@@ -238,15 +239,17 @@ int LoadGame(void)
         || glk_get_buffer_stream(stream, (char *)ObjectLoc, sizeof(ObjectLoc)) != sizeof(ObjectLoc)
         || (size_t)GetGlkFileLength(stream) != sizeof(Flag) + sizeof(ObjectLoc)) {
         RecoverFromBadRestore(state);
+        result = LOAD_BAD_DATA;
     } else {
         glk_window_clear(Bottom);
         Look();
         free(state);
         InKaylethPreview = 0;
+        result = LOAD_OK;
     }
     glk_stream_close(stream, NULL);
     glk_fileref_destroy(fileref);
-    return 1;
+    return result;
 }
 
 /* Print the player's inventory: every object whose location matches the

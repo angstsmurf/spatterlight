@@ -78,6 +78,12 @@
 #define KAYLETH_MOKKI_RAY_RATE 150
 #define KAYLETH_ZENRON_CITADEL_RATE 40
 
+/* The click shelves scroll through 81 positions, moving on seven ticks out
+   of every nine: the jerky cadence of the Spectrum original */
+#define SHELF_TICKS_PER_CYCLE 9
+#define SHELF_MOVING_TICKS 7
+#define SHELF_LAST_POSITION 80
+
 int AnimationRunning = 0;              /* Current timer rate, or 0 if idle */
 static int KaylethAnimationIndex = 0;  /* Room index of the last Kayleth animation */
 /* Each animation keeps its own frame counter, so that a restore or undo
@@ -475,14 +481,14 @@ static int UpdateKaylethAnimationFrames(void)
 void UpdateKaylethAnimations(void)
 {
     ClickShelfStage++;
-    if (ClickShelfStage == 9)
+    if (ClickShelfStage == SHELF_TICKS_PER_CYCLE)
         ClickShelfStage = 0;
     UpdateKaylethAnimationFrames();
     if (MyLoc == KAYLETH_ROOM_CLICK_SHELVES) {
         AnimateKaylethClickShelves(ShelfScrollStage);
-        if (ClickShelfStage < 7)
+        if (ClickShelfStage < SHELF_MOVING_TICKS)
             ShelfScrollStage++;
-        if (ShelfScrollStage > 80)
+        if (ShelfScrollStage > SHELF_LAST_POSITION)
             ShelfScrollStage = 0;
     }
 }

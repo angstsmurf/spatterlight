@@ -254,9 +254,10 @@ static void Q3PrintChar(uint8_t c)
    are the character; the high bit marks the end of the token. */
 static void PrintToken(unsigned char n)
 {
-    /* Blizzard Pass: token 0x2d in room 49 should render as a single hyphen
-       instead of its usual expansion. */
-    if (CurrentGame == BLIZZARD_PASS && MyLoc == 49 && n == 0x2d) {
+    /* Blizzard Pass: the long room descriptions are plain characters, and
+       the one byte among them that is not its own token is the hyphen of
+       "rough-hewn" in room 49. */
+    if (CurrentGame == BLIZZARD_PASS && MyLoc == BP_ROOM_CAVERN_WEST_END && n == BP_TOKEN_YOUR) {
         OutChar('-');
         return;
     }

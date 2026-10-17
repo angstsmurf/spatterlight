@@ -10,7 +10,15 @@
 
 #include "taylor.h"
 
-int LoadGame(void);
+/* What a restore did. A file that was opened but rejected has had the
+   state it found put back, and ends the turn like a good one. */
+typedef enum {
+    LOAD_NO_FILE = 0, /* The prompt was cancelled, or the file would not open */
+    LOAD_BAD_DATA, /* Opened, but not a saved game of this interpreter */
+    LOAD_OK
+} LoadResult;
+
+LoadResult LoadGame(void);
 void SaveGame(void);
 void Look(void);
 void Inventory(void);

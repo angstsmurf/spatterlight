@@ -189,6 +189,49 @@ GameInfo games[NUMGAMES] = {
         .palette = C64TAYLOR,
     },
 
+    /* Temple of Terror came as two games on each machine, one with
+       pictures and one with longer text. The "combined" rows are the two
+       loaded together (LookForSecondTOTGame, c64decrunch.c): the text-only
+       game's tables with the graphical game's pictures, which on the
+       Spectrum are where the graphical game has them and on the C64 are
+       copied to a place of their own. */
+#define TOT_TEXT_ONLY_TABLES                   \
+    .start_of_dictionary = 0x4ba2,             \
+    .start_of_tokens = 0x50d9,                 \
+    .start_of_room_descriptions = 0x7a2a,      \
+    .start_of_item_descriptions = 0x5419,      \
+    .start_of_status_table = 0x4809,           \
+    .start_of_event_table = 0x38a9,            \
+    .start_of_room_connections = 0x4661,       \
+    .start_of_flags = 0x21bf,                  \
+    .start_of_item_locations = 0x4599,         \
+    .start_of_messages = 0x5fd9,               \
+    .start_of_messages_2 = 0x73b7
+
+#define TOT_PICTURES                           \
+    .start_of_tiles = 0x83cb,                  \
+    .start_of_image_blocks = 0x8a33,           \
+    .image_patterns_lookup = 0x3837,           \
+    .number_of_patterns = 0x0012,              \
+    .pattern_end_marker = 0x00aa,              \
+    .start_of_image_instructions = 0x7b75,     \
+    .number_of_pictures = 143,                 \
+    .palette = ZXOPT
+
+#define TOT_TEXT_ONLY_TABLES_64                \
+    .start_of_dictionary = 0x5001,             \
+    .start_of_tokens = 0x5538,                 \
+    .token_signature = "\x80You are i",        \
+    .start_of_room_descriptions = 0x7e89,      \
+    .start_of_item_descriptions = 0x5878,      \
+    .start_of_status_table = 0x4c68,           \
+    .start_of_event_table = 0x3d08,            \
+    .start_of_room_connections = 0x4ac0,       \
+    .start_of_flags = 0x0b95,                  \
+    .start_of_item_locations = 0x49f8,         \
+    .start_of_messages = 0x6438,               \
+    .start_of_messages_2 = 0x7816
+
     {
         .Title = "Temple of Terror",
         .gameID = TEMPLE_OF_TERROR,
@@ -207,14 +250,7 @@ GameInfo games[NUMGAMES] = {
         .start_of_messages = 0x667d,
         .start_of_messages_2 = 0x75d0,
 
-        .start_of_tiles = 0x83cb,
-        .start_of_image_blocks = 0x8a33,
-        .image_patterns_lookup = 0x3837,
-        .number_of_patterns = 0x0012,
-        .pattern_end_marker = 0x00aa,
-        .start_of_image_instructions = 0x7b75,
-        .number_of_pictures = 143,
-        .palette = ZXOPT,
+        TOT_PICTURES,
     },
 
     {
@@ -223,17 +259,7 @@ GameInfo games[NUMGAMES] = {
         .type = HEMAN_TYPE,
         .base_game = TEMPLE_OF_TERROR,
 
-        .start_of_dictionary = 0x4ba2,
-        .start_of_tokens = 0x50d9,
-        .start_of_room_descriptions = 0x7a2a,
-        .start_of_item_descriptions = 0x5419,
-        .start_of_status_table = 0x4809,
-        .start_of_event_table = 0x38a9,
-        .start_of_room_connections = 0x4661,
-        .start_of_flags = 0x21bf,
-        .start_of_item_locations = 0x4599,
-        .start_of_messages = 0x5fd9,
-        .start_of_messages_2 = 0x73b7,
+        TOT_TEXT_ONLY_TABLES,
     },
 
     {
@@ -242,26 +268,9 @@ GameInfo games[NUMGAMES] = {
         .type = HEMAN_TYPE,
         .base_game = TEMPLE_OF_TERROR,
 
-        .start_of_dictionary = 0x4ba2,
-        .start_of_tokens = 0x50d9,
-        .start_of_room_descriptions = 0x7a2a,
-        .start_of_item_descriptions = 0x5419,
-        .start_of_status_table = 0x4809,
-        .start_of_event_table = 0x38a9,
-        .start_of_room_connections = 0x4661,
-        .start_of_flags = 0x21bf,
-        .start_of_item_locations = 0x4599,
-        .start_of_messages = 0x5fd9,
-        .start_of_messages_2 = 0x73b7,
+        TOT_TEXT_ONLY_TABLES,
 
-        .start_of_tiles = 0x83cb,
-        .start_of_image_blocks = 0x8a33,
-        .image_patterns_lookup = 0x3837,
-        .number_of_patterns = 0x0012,
-        .pattern_end_marker = 0x00aa,
-        .start_of_image_instructions = 0x7b75,
-        .number_of_pictures = 143,
-        .palette = ZXOPT,
+        TOT_PICTURES,
     },
 
     {
@@ -296,18 +305,7 @@ GameInfo games[NUMGAMES] = {
         .type = HEMAN_TYPE,
         .base_game = TEMPLE_OF_TERROR,
 
-        .start_of_dictionary = 0x5001,
-        .start_of_tokens = 0x5538,
-        .token_signature = "\x80You are i",
-        .start_of_room_descriptions = 0x7e89,
-        .start_of_item_descriptions = 0x5878,
-        .start_of_status_table = 0x4c68,
-        .start_of_event_table = 0x3d08,
-        .start_of_room_connections = 0x4ac0,
-        .start_of_flags = 0x0b95,
-        .start_of_item_locations = 0x49f8,
-        .start_of_messages = 0x6438,
-        .start_of_messages_2 = 0x7816,
+        TOT_TEXT_ONLY_TABLES_64,
 
         .palette = C64TAYLOR,
     },
@@ -318,19 +316,9 @@ GameInfo games[NUMGAMES] = {
         .type = HEMAN_TYPE,
         .base_game = TEMPLE_OF_TERROR,
 
-        .start_of_dictionary = 0x5001,
-        .start_of_tokens = 0x5538,
-        .token_signature = "\x80You are i",
-        .start_of_room_descriptions = 0x7e89,
-        .start_of_item_descriptions = 0x5878,
-        .start_of_status_table = 0x4c68,
-        .start_of_event_table = 0x3d08,
-        .start_of_room_connections = 0x4ac0,
-        .start_of_flags = 0x0b95,
-        .start_of_item_locations = 0x49f8,
-        .start_of_messages = 0x6438,
-        .start_of_messages_2 = 0x7816,
+        TOT_TEXT_ONLY_TABLES_64,
 
+        /* Where c64decrunch.c splices them: HYBRID_IMAGES_TO, HYBRID_TILES_TO */
         .start_of_tiles = 0x8888,
         .start_of_image_blocks = 0x8ef0,
         .start_of_image_instructions = 0x16ea,

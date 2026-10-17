@@ -265,7 +265,7 @@ static int Chance(int n)
     return (erkyrath_random() % 100 < n);
 }
 
-static int LoadPrompt(void)
+static LoadResult LoadPrompt(void)
 {
     OutCaps();
     glk_window_clear(Bottom);
@@ -278,7 +278,7 @@ static int LoadPrompt(void)
             MyLoc = 1;
             DeferredGoto = 0;
         }
-        return 0;
+        return LOAD_NO_FILE;
     } else {
         return LoadGame();
     }
@@ -750,7 +750,10 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
 {
     switch (op) {
     case RESTORE:
-        if (LoadPrompt()) {
+        /* A file that was read ends the turn, good or bad: a bad one has
+           put the state back and said so. Only "no", or no file, goes on
+           with the line. */
+        if (LoadPrompt() != LOAD_NO_FILE) {
             *done = 1;
             return 1;
         }
@@ -800,11 +803,9 @@ static int PerformAction(unsigned char op, unsigned char arg1, unsigned char arg
         }
         break;
     case GOTO:
-        /*
-             He-Man moves the the player to a special "By the power of Grayskull" room
-             and then issues an undo to return to the previous room.
-        */
-        if (BaseGame == HEMAN && arg1 == 83)
+        /* He-Man's transformation moves the player to a room with no
+           description and OOPSes back to the room left. */
+        if (BaseGame == HEMAN && arg1 == HEMAN_ROOM_GRAYSKULL)
             SaveUndo();
         Goto(arg1);
         break;
