@@ -1,0 +1,164 @@
+You are on the Bridge on board the Starship Enterprise.  a The Bridge.
+You can see  Spock and a Captains Chair.
+You can go north or west.
+> look
+
+> look
+You are on the Bridge on board the Starship Enterprise.  a The Bridge.
+You can see  Spock and a Captains Chair.
+You can go north or west.
+> x spock
+
+> x spock
+
+> speak to spock
+
+> speak to spock
+Captain, I need you to help me. My planet (Vulcan) is under attack by the Romulans and as everyone knows, you're  ALWAYS the only one who can stop them. I need you to go and talk to Scotty. He should be on the shuttle deck.
+> ask spock about how are you spock
+
+> ask spock about how are you spock
+I am fine
+> x chair
+
+> x chair
+An extremely comfortable chair in which you order the crew about in. (And look sexy in)
+> sit on chair
+
+> sit on chair
+Time to get to some serious work. Unless you're just having a rest in which case GET UP THE FATE OF THE UNIVERSE IS IN YOUR HANDS!!!!
+> west
+
+> west
+
+You are in the Observation Lounge an Observation Lounge.
+You can see a Jerry Can of Fuel, a Screwdriver and a Space.
+You can go west or east.
+This is the place where you can look dreamily into space, hoping that the camera glares will one day fade away.
+> take fuel
+
+> take fuel
+You have picked up the fuel.(Too bad it's such a small amount, you'll never get anywhere with that)
+> take screwdriver
+
+> take screwdriver
+Don't know what you'll need it for but you've picked it up
+> x screwdriver
+
+> x screwdriver
+A classic phillips screwdriver.
+> east
+
+> east
+
+You are on the Bridge on board the Starship Enterprise.  a The Bridge.
+You can see  Spock and a Captains Chair.
+You can go north or west.
+> west
+
+> west
+
+You are in the Observation Lounge an Observation Lounge.
+You can see a Space.
+You can go west or east.
+This is the place where you can look dreamily into space, hoping that the camera glares will one day fade away.
+> west
+
+> west
+
+You are in the main shuttle bay of the u.s.s enterprise. a Main Shuttle Bay.
+You can see Scotty.
+You can go east or west.
+You can hear Scotty in the distance, talking in his thick scottish accent.
+> look
+
+> look
+You are in the main shuttle bay of the u.s.s enterprise. a Main Shuttle Bay.
+You can see Scotty.
+You can go east or west.
+You can hear Scotty in the distance, talking in his thick scottish accent.
+> speak to scotty
+
+> speak to scotty
+I hear you're in need of a shuttle. Well, you can have one if you can find me a can of fuel and a screwdriver. I can't seem to find the damn things anywhere.
+> ask scotty about Scotty, I need to borrow a shuttle
+
+> ask scotty about Scotty, I need to borrow a shuttle
+Well, you can if you find me some fuel and a screwdriver...
+> west
+
+> west
+
+You are in the shuttle. a Shuttle.
+You can see a Warp Speed.
+You can go east or west.
+You're in the shuttle. It's just basic really. Not half as impressive as the U.S.S Enterprise but it'll have to do. You prepare yourself for your misssion. You could die, (but you're Captain James Tiberius Kirk so you probably won't).
+> look
+
+> look
+You are in the shuttle. a Shuttle.
+You can see a Warp Speed.
+You can go east or west.
+You're in the shuttle. It's just basic really. Not half as impressive as the U.S.S Enterprise but it'll have to do. You prepare yourself for your misssion. You could die, (but you're Captain James Tiberius Kirk so you probably won't).
+> x warp speed
+
+> x warp speed
+Just an accelerator.
+> push warp speed
+
+> push warp speed
+Woooooooshhhhhhh
+> west
+
+> west
+
+You are in a The Council of Vulcan.
+You can go east.
+> look
+
+> look
+You are in a The Council of Vulcan.
+You can go east.
+> inventory
+
+> inventory
+You are carrying a Jerry Can of Fuel and a Screwdriver.
+> east
+
+> east
+
+You are in the shuttle. a Shuttle.
+You can see a Warp Speed.
+You can go east or west.
+You're in the shuttle. It's just basic really. Not half as impressive as the U.S.S Enterprise but it'll have to do. You prepare yourself for your misssion. You could die, (but you're Captain James Tiberius Kirk so you probably won't).
+> east
+
+> east
+
+You are in the main shuttle bay of the u.s.s enterprise. a Main Shuttle Bay.
+You can see Scotty.
+You can go east or west.
+You can hear Scotty in the distance, talking in his thick scottish accent.
+> east
+
+> east
+
+You are in the Observation Lounge an Observation Lounge.
+You can see a Space.
+You can go west or east.
+This is the place where you can look dreamily into space, hoping that the camera glares will one day fade away.
+> east
+
+> east
+
+You are on the Bridge on board the Starship Enterprise.  a The Bridge.
+You can see  Spock and a Captains Chair.
+You can go north or west.
+> north
+
+> north
+
+You are in space a Space.
+You survive for a few mere seconds, before you run out of oxygen and your head explodes, Unfortuantly, you left the door open so the rest of your crew are sucked into the endless vacuum of space
+You have died. But don't worry, many alien women will remember you bacause of their weird hybrid children that you helped create.
+[state=Finished]
