@@ -28,7 +28,7 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - UNDO prints the output of the turn it restores, just like the runners do.
 - Autosave now stores the entire session: the last command that AGAIN would repeat, command history, pronouns, a pending "Which one?" question, verbosity and notification settings.
 - Once an object has been listed as being in or on something, it can be referred to. 
-- An object inside another can be taken even if it matches a broadly defined game task, such as `get \*stove\*` in *Warlord*.
+- An object inside another can be taken even if it matches a broadly defined game task, such as `get *stove*` in *Warlord*.
 - A never-seen object can no longer shadow a similarly named one in your hands.
 - TALK TO gives the runner-accurate "Use the format 'ask [character] about [subject]'."
 - The carry count in 3.9 games matches the runner, which makes it possible to take the belt pouch in *Lara Croft: The Sun Obelisk*.
@@ -112,6 +112,7 @@ All of the 663 tested Adrift-4-and-earlier games are now winnable, compared to 4
 - *Journey* draws its command menu in the right place after an autorestore, without needing the window to be resized first.
 - Clicks in the *Zork Zero* mini-games (the Peggleboz and Tower of Bozbar buttons, the Snarfem boxes and the Double Fanucci cards) land where the mouse pointer is, instead of slightly up and to the left of it.
 - The picture files of the Z6 games are read within the lengths their own headers give, following Infocom's interpreter sources, so a damaged or cut-short picture file is skipped instead of crashing the interpreter.
+- Games that keep data files of their own next to the story file, such as *WITHOUT corporation*, read and write them directly again, instead of asking for a file with a file dialog every time.
 
 ### ScottFree
 - TI-99/4A games run their actions accurate to the original Adventure cartridge. Random events were falling on the wrong turns in every one of them, dying ended the game where it should carry on in the game's last room, and *Pyramid of Doom* could not be won.
