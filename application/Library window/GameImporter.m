@@ -747,9 +747,9 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             NSString *imgExtension = url.pathExtension.lowercaseString;
 
             if ([imgExtension isEqualToString:@"mg1"]) {
-                imageData = [NSData imageDataFromMG1URL:imageFiles.firstObject];
+                imageData = [NSData imageDataFromMG1URL:url];
             } else if ([imgExtension isEqualToString:@"neo"]) {
-                imageData = [NSData imageDataFromNeoURL:imageFiles.firstObject];
+                imageData = [NSData imageDataFromNeoURL:url];
             } else if ([imgExtension isEqualToString:@"blb"] || [imgExtension isEqualToString:@"blorb"]) {
                 Blorb *blorb = [[Blorb alloc] initWithData:imageData];
                 imageData = blorb.coverImageData;
