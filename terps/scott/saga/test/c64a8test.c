@@ -16,7 +16,7 @@
 // A render spec is a small text file (paths relative to the spec's dir):
 //     [!atari8]                     optional: render with the Atari 8-bit palette
 //     [!claymorgue]                 optional: render with the Claymorgue C64 palette
-//     [!voodoo]                     optional: voodoo_or_count loader variant
+//     [!voodoo]                     optional: Count/Voodoo Castle RLE variant
 //     <background.dat>              room background (IMG_ROOM adjustment)
 //     <obj> <object.dat>           ... zero or more object overlays
 //
@@ -77,19 +77,18 @@ glui32 pal[16];
 // unchanged. We replicate just that geometry (no glk window / pixel_size
 // scaling, which only affects on-screen blit, not the plotted grid).
 static int g_is_room = 1;
-static int adjust_room(int width, int height, int *x_origin) {
-    (void)height; (void)x_origin;
-    return g_is_room ? width - 1 : width;
+static void adjust_room(struct c64a8_bounds *bounds) {
+    if (g_is_room)
+        bounds->right -= 1;
 }
 
 // ---- helpers -----------------------------------------------------------------
-static enum c64a8_palette g_palette = C64A8_C64;
-static int g_voodoo = 0;
+static enum c64a8_variant g_variant = C64A8_C64;
 
 static int spec_directive(const char *p, int lineno) {
-    if (strcmp(p, "!atari8") == 0) g_palette = C64A8_ATARI8;
-    else if (strcmp(p, "!claymorgue") == 0) g_palette = C64A8_C64_CLAYMORGUE;
-    else if (strcmp(p, "!voodoo") == 0) g_voodoo = 1;
+    if (strcmp(p, "!atari8") == 0) g_variant = C64A8_ATARI8;
+    else if (strcmp(p, "!claymorgue") == 0) g_variant = C64A8_C64_CLAYMORGUE;
+    else if (strcmp(p, "!voodoo") == 0) g_variant = C64A8_ATARI8_COUNT_VOODOO;
     else if (strncmp(p, "!cliptop ", 9) == 0) g_cliptop = atoi(p + 9);
     else if (strncmp(p, "!clipbottom ", 12) == 0) g_clipbottom = atoi(p + 12);
     else { fprintf(stderr, "spec line %d: unknown directive %s\n", lineno + 1, p); return 1; }
@@ -99,7 +98,7 @@ static int spec_directive(const char *p, int lineno) {
 static void draw_spec_image(int isobj, int objindex, uint8_t *blob, size_t sz) {
     (void)objindex;
     g_is_room = !isobj;
-    DrawC64A8ImageFromData(blob, sz, g_voodoo, adjust_room, g_palette);
+    DrawC64A8ImageFromData(blob, sz, adjust_room, g_variant);
 }
 
 // Parse a render spec (directives: !atari8, !claymorgue, !voodoo, !cliptop N, !clipbottom N)
@@ -107,7 +106,7 @@ static void draw_spec_image(int isobj, int objindex, uint8_t *blob, size_t sz) {
 static int render_spec(const char *specpath) {
     rg_clear();
     memset(slot_rgb, 0, sizeof slot_rgb);
-    g_palette = C64A8_C64; g_voodoo = 0; g_cliptop = 0; g_clipbottom = 0;
+    g_variant = C64A8_C64; g_cliptop = 0; g_clipbottom = 0;
 
     int drew = rg_parse_spec(specpath, spec_directive, draw_spec_image);
     if (drew < 0) return 1;

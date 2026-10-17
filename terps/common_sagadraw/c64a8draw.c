@@ -190,15 +190,19 @@ int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern)
     return x - 8;
 }
 
-int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, enum c64a8_palette palette)
+int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, c64a8_adjust_fn adjust, enum c64a8_variant variant)
 {
     uint8_t pattern_top = 0, pattern_bottom = 0;
     int repetitions;
 
     uint8_t *origptr = ptr;
 
-    int xpos = 0;
-    int ypos = 0;
+    // The Count and Voodoo Castle: every run starts with a count byte,
+    // 1-based, followed by the two bytes to repeat. The other games only do
+    // that when bit 7 of the count is set; otherwise the count is the number
+    // of literal byte pairs that follow, minus one.
+    int counted_rle = variant == C64A8_ATARI8_COUNT_VOODOO;
+    int c64 = variant == C64A8_C64 || variant == C64A8_C64_CLAYMORGUE;
 
     // Two bytes, the size, the edges and the palette
     if (datasize < 12)
@@ -214,35 +218,31 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
         datasize = size + 2;
     }
 
-    // Get the offset
-    int left = *ptr++ - 3;
-    int top = *ptr++;
+    struct c64a8_bounds bounds;
+    bounds.left = *ptr++ - 3;
+    bounds.top = *ptr++;
+    bounds.right = *ptr++;
+    bounds.bottom = *ptr++;
+    if (counted_rle)
+        bounds.bottom -= 2;
 
-    // Get the x position of the right edge
-    int right = *ptr++;
-    // Get the y position of the bottom edge
-    int bottom = *ptr++;
-    if (voodoo_or_count)
-        bottom -= 2;
+    // Let the host (Plus or ScottFree) size its graphics window and
+    // move the edges if it wants to.
+    if (adjust != NULL)
+        adjust(&bounds);
 
-    // Custom graphics window adjustments
-    // depending on whether we are being called
-    // by Plus or by ScottFree.
-    if (adjustments != NULL)
-        right = adjustments(right, bottom, &left);
-
-    xpos = left * 8;
-    ypos = top;
+    int xpos = bounds.left * 8;
+    int ypos = bounds.top;
 
     SetColor(0, 0); // Color 0 is always black
 
     // Get the palette
     for (int i = 1; i < 5; i++) {
         uint8_t color = *ptr++;
-        if (palette == C64A8_ATARI8) {
-            TranslateColorAtari8(i, color);
+        if (c64) {
+            TranslateColorC64(i, color, variant == C64A8_C64_CLAYMORGUE);
         } else {
-            TranslateColorC64(i, color, palette == C64A8_C64_CLAYMORGUE);
+            TranslateColorAtari8(i, color);
         }
     }
 
@@ -250,16 +250,15 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
         // First get repetitions
         repetitions = *ptr++;
 
-        // If bit 7 is set or this is an early game
-        // we write the next two bytes (repetitions) times
         int repeat_next_two_bytes = 0;
-        if (((repetitions & 0x80) == 0x80) || voodoo_or_count) {
+        if (counted_rle) {
             repeat_next_two_bytes = 1;
-            if (voodoo_or_count) {
-                repetitions -= 1;
-            } else {
-                repetitions &= 0x7f;
-            }
+            repetitions -= 1;
+        } else if (repetitions & 0x80) {
+            repeat_next_two_bytes = 1;
+            repetitions &= 0x7f;
+        }
+        if (repeat_next_two_bytes) {
             pattern_top = *ptr++;
             pattern_bottom = *ptr++;
         }
@@ -272,14 +271,13 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
                 pattern_top = *ptr++;
                 pattern_bottom = *ptr++;
             }
-            if (xpos <= (right - 3) * 8) {
-                // We print a "pattern" of 8 x 2 pixels,
-                // or technically 4 x 2 double-width, non-square pixels
+            if (xpos <= (bounds.right - 3) * 8) {
+                // Each byte pair is one column of 4 x 2 double-width pixels
                 xpos = DrawPatternAndAdvancePos(xpos, &ypos, pattern_top);
                 xpos = DrawPatternAndAdvancePos(xpos, &ypos, pattern_bottom);
-                if (ypos > bottom) {
+                if (ypos > bounds.bottom) {
                     xpos += 8;
-                    ypos = top;
+                    ypos = bounds.top;
                 }
             }
         }

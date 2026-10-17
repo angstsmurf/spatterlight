@@ -28,9 +28,12 @@ static void AdjustGraphicsWindowHeight(void) {
     }
 }
 
-int C64A8AdjustPlus(int width, int height, int *x_origin) {
-    if (*x_origin < 0)
-        *x_origin = 0;
+void C64A8AdjustPlus(struct c64a8_bounds *bounds) {
+    if (bounds->left < 0)
+        bounds->left = 0;
+
+    int width = bounds->right;
+    int height = bounds->bottom;
 
     // We only want to adjust the graphics window height in Atari 8 Spider-Man.
     // In C64 Spider-Man, all room images have the same height.
@@ -47,8 +50,6 @@ int C64A8AdjustPlus(int width, int height, int *x_origin) {
     }
 
     AdjustGraphicsWindowHeight();
-
-    return width;
 }
 
 void Apple2AdjustPlus(uint8_t width, uint8_t height, uint8_t y_origin) {

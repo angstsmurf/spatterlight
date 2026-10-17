@@ -248,26 +248,33 @@ How it was verified:
   → Documented in `c64a8draw.h`. It draws four double-width pixels on one
   row, moves `*y` down a row, and returns `x` unchanged. The signature stays
   the same because `scott/saga/c64_small.c` calls it too and the return
-  value does no harm. The "8x2" comment no longer exists.
-- [-] **[cleanup] `voodoo_or_count` and `is_c64` are int flags** threaded through
+  value does no harm. The "8x2" comment was still there on 2026-10-17 and
+  now says "one column of 4 x 2 double-width pixels".
+- [x] **[cleanup] `voodoo_or_count` and `is_c64` are int flags** threaded through
   `DrawC64A8ImageFromData`. An `enum { SAGA_RLE_COUNT, SAGA_RLE_FLAGGED }`
   and `enum { PLATFORM_C64, PLATFORM_ATARI8 }` would make call sites readable
   (`voodoo_or_count` is also used for `bottom -= 2`, a second meaning).
-  → Declined for now. It is an API change across Scott and Plus, and
-  `voodoo_or_count` has two meanings, so an enum would have to split it into
-  two flags. The extra 4 lines at every call site aren't worth it on their
-  own.
   → `is_c64` was replaced on 2026-10-17 by `enum c64a8_palette`
   (`C64A8_ATARI8`, `C64A8_C64`, `C64A8_C64_CLAYMORGUE`), because the
-  Claymorgue interpreter uses different tables. `voodoo_or_count` is still
-  an int.
-- [-] `adjustments_fn` is `int(*)(int,int,int*)`: it both returns `right` and
+  Claymorgue interpreter uses different tables.
+  → Later the same day `voodoo_or_count` went too. Its "two meanings" are
+  both properties of one thing, the early Atari interpreter used by The
+  Count and Voodoo Castle, and the palette enum already named interpreters.
+  So it is now `enum c64a8_variant` with a fourth value,
+  `C64A8_ATARI8_COUNT_VOODOO`, and the function takes one parameter fewer.
+  The renderer derives `counted_rle` and `c64` from it locally. Call sites
+  got shorter: Plus dropped its bare `0`, Scott has a small `C64A8Variant()`
+  helper, and the test's `!voodoo` directive sets the variant.
+- [x] `adjustments_fn` is `int(*)(int,int,int*)`: it both returns `right` and
   mutates `left` via pointer. Consider a small `struct image_bounds` in/out
   parameter. The Apple version uses a different typedef (`adjust_plus_fn`,
   `void(*)(uint8_t,uint8_t,uint8_t)`) for the same purpose; unify.
-  → Declined. The two callbacks do different jobs. The C64 one clamps and
-  returns new bounds. The Apple one only tells Plus the image size. Merging
-  them changes each host's callback for no gain.
+  → 2026-10-17: now `struct c64a8_bounds { left, top, right, bottom }` and
+  `typedef void (*c64a8_adjust_fn)(struct c64a8_bounds *)`. The three
+  callbacks (Scott, Plus, c64a8test) read and write named fields instead of
+  positional ints. Unifying with the Apple callback stays declined: it is
+  read-only, carries `top` rather than `left`, and only tells Plus the image
+  size.
 
 ## 4. `apple2draw.c` / `apple2draw.h`
 

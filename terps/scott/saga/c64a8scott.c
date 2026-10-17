@@ -16,20 +16,20 @@
 
 static USImage *current_image = NULL;
 
-static int C64A8AdjustScott(int width, int height, int *x_origin) {
+static void C64A8AdjustScott(struct c64a8_bounds *bounds) {
     USImage *image = current_image;
     if (image == NULL || Graphics == NULL)
-        return width;
+        return;
 
     glui32 curheight, curwidth;
     glk_window_get_size(Graphics, &curwidth, &curheight);
 
-    if (image->usage == IMG_ROOM || (width == 38 && *x_origin < 1)) {
-        width = width - 1 - image->cropright / 8;
+    if (image->usage == IMG_ROOM || (bounds->right == 38 && bounds->left < 1)) {
+        bounds->right = bounds->right - 1 - image->cropright / 8;
         left_margin = image->cropleft;
 
-        ImageWidth = width * 8 - 17 + left_margin;
-        ImageHeight = height + 2;
+        ImageWidth = bounds->right * 8 - 17 + left_margin;
+        ImageHeight = bounds->bottom + 2;
 
         glui32 width_in_pixels = ImageWidth * pixel_size;
         while (width_in_pixels > curwidth && pixel_size > 1) {
@@ -48,17 +48,23 @@ static int C64A8AdjustScott(int width, int height, int *x_origin) {
                                            optimal_height, NULL);
         }
     }
+}
 
-    return width;
+static enum c64a8_variant C64A8Variant(USImage *image)
+{
+    // Claymorgue is the only game with these images on the C64
+    if (image->systype == SYS_C64)
+        return C64A8_C64_CLAYMORGUE;
+    if (CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US)
+        return C64A8_ATARI8_COUNT_VOODOO;
+    return C64A8_ATARI8;
 }
 
 int DrawC64A8Image(USImage *image)
 {
     current_image = image;
     StartPixelRuns();
-    // Claymorgue is the only game with these images on the C64
-    enum c64a8_palette palette = image->systype == SYS_C64 ? C64A8_C64_CLAYMORGUE : C64A8_ATARI8;
-    int result = DrawC64A8ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US || CurrentGame == VOODOO_CASTLE_US, C64A8AdjustScott, palette);
+    int result = DrawC64A8ImageFromData(image->imagedata, image->datasize, C64A8AdjustScott, C64A8Variant(image));
     FlushPixelRuns();
     return result;
 }
