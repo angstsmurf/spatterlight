@@ -18,13 +18,13 @@ to live in `quest5/TODO-quest5.md` is in the git history of that file.
   loader and runtime tests open them by name; a few are for driving by hand
   (see below).
 - `goldens/` — the answer keys, `<Game>.cmd` (the frozen command script) plus
-  `<Game>.txt` (the QuestViva transcript it produces), 354 games. Both halves
+  `<Game>.txt` (the QuestViva transcript it produces), 355 games. Both halves
   are committed; the `.cmd` is what everything replays, so a diff here is a
   change in what "real Quest does".
 - `harness/` — the native harnesses, plus `harness/oracle/`, the QuestViva
   driver that produces the goldens. Binaries build in `harness/` and are
   gitignored.
-- `games/` — the `.quest` corpus: 372 game files, 354 of them wired to a
+- `games/` — the `.quest` corpus: 372 game files, 355 of them wired to a
   golden, the rest duplicate releases and games with no route yet.
   **Untracked** (`../.gitignore`), like `quest4/games/` — third-party game
   data is never committed. The oracle scripts use it automatically when it is
@@ -40,7 +40,7 @@ to live in `quest5/TODO-quest5.md` is in the git history of that file.
 - `downloaded/` — the same arrangement for the third-party walkthrough
   documents `extract_walkthrough.py` reads, falling back to
   `~/Downloads/Quest 5 walkthroughs` (or set `WALKS=`). Only the
-  extractor-driven corpus rows need them (27 of 354); every other row is
+  extractor-driven corpus rows need them (27 of 355); every other row is
   driven by a curated script in `harness/oracle/overrides/`, which is
   committed.
 
@@ -164,7 +164,7 @@ replayed nothing at all exits non-zero rather than reading green. `GAMES=`,
 `JOBS=` and `DIFF_LINES=` override the corpus directory, the fan-out and the
 diff excerpt.
 
-**The expected result is 348 passed, 6 failed** (2026-10-17). The six are
+**The expected result is 349 passed, 6 failed** (2026-10-17). The six are
 documented deviations, each with its diff size, and any *other* line in their
 diffs is a regression:
 
@@ -344,11 +344,11 @@ source or a live run; reverse one only with a golden that shows why.
 
 1. `make check` from `../`: loader, runtime and link-parser tests plus the
    Quest 4 fixtures. Corpus-free.
-2. `make replays`: 348 passed, 6 failed with exactly the diffs in the table
+2. `make replays`: 349 passed, 6 failed with exactly the diffs in the table
    above. A seventh row, or a new line inside one of the six, is a
    regression.
 3. `harness/oracle/check_golden.sh` when a golden changes or the oracle
-   is rebuilt: 354/354, else the oracle moved and the native sweep is
+   is rebuilt: 355/355, else the oracle moved and the native sweep is
    measuring against a stale baseline.
 4. `make asan` for anything touching the runtime or the loader; the corpus
    has been clean under ASan/UBSan since the engine landed.
