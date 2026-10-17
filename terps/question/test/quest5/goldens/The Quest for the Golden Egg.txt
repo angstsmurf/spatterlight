@@ -1,153 +1,800 @@
-The Quest for the Golden Egg
-Redlands Egg Hunt
 
-by Redlands Sky
+> 2
+Er, what..?
+> attack gross spider
 
-You awaken in a deserted amphitheater, confused and unsure of how you arrived here.
-You look around, and nothing is familiar. You do not even know your own name.
-Are you male or female?
- - Male
-That's right. You're a Male. How could you have forgotten?
-You are in an Amphitheater.
-You can see a Lamp.
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> 2
+
+> 2
+Er, what..?
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 1
+That one is already dead.
+> attack gross spider
+
+> attack gross spider
+Please choose which 'gross spider' you mean:
+1: gross spider
+2: gross spider
+> 2
+You jab the dagger at the gross spider and get a critical (9 hits)!
+It is dead!
+Player Health: 57
+> northeast
+
+> northeast
+
+You are in a Dungeon Room.
+You can see a Metal Door and a dirty mouse.
 You can go northeast or southwest.
-This is a seemingly old, abandoned amphitheater with rows of stone benches facing the stage.
-> take lamp
+A creepy dungeon room... not your favorite.
+Dirty mouse attacks you and misses...
+Player Health: 57
+> attack dirty mouse
 
-> take lamp
-You reach down and retrieve the lamp, on the ground beside you.
-How convenient. You are not a fan stealing, or at least you don't believe that you are, so you glance around to see if you can find the lamp's owner, but there is no one here. So you take the lamp... and after all, it might just as well have been your lamp to being with--you can't remember.
-Cat enters.
+> attack dirty mouse
+Please choose which 'dirty mouse' you mean:
+1: dirty mouse
+2: dirty mouse
+> 1
+That one is already dead.
+Dirty mouse attacks you and misses...
+Player Health: 57
+> attack dirty mouse
+
+> attack dirty mouse
+Please choose which 'dirty mouse' you mean:
+1: dirty mouse
+2: dirty mouse
+> 2
+You jab the dagger at the dirty mouse and get a critical (15 hits)!
+It is dead!
+Player Health: 57
 > northeast
 
 > northeast
 
-You are in a Forest Glade.
-You can see a Statue of Old Woman and a Female Villager.
+You are in a Dungeon Room.
+You can go northwest or northeast.
+A creepy dungeon room... not your favorite.
+> northeast
+
+> northeast
+Player is not wearing repellent.
+Player is not wearing repellent.
+
+You are in a Dungeon Room.
+You can see a Small Dark Hole, a Stone Chest and a Stone Seal.
+You can go southwest, west or northwest.
+A creepy dungeon room... not your favorite.
+> crawl through hole
+
+> crawl through hole
+On your hands and knees, through the dark dust, you squeeze through the hole.
+
+You are in a Dungeon Room.
+You can see a Small Dark Hole.
+You can go south.
+A creepy dungeon room... not your favorite.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> look
+
+> look
+You are in a Dungeon Room.
+You can see a Small Dark Hole, a Pedestal and some Leather Pants.
+You can go south.
+A creepy dungeon room... not your favorite.
+> take pants
+
+> take pants
+You pick them up.
+> wear pants
+
+> wear pants
+You put them on.
+> south
+
+> south
+
+You are in a Dungeon Room.
+You can go southwest or north.
+A creepy dungeon room... not your favorite.
+Slender spider attacks you and misses...
+Player Health: 57
+> attack slender spider
+
+> attack slender spider
+You swing wildly at the slender spider and miss...
+Player Health: 57
+Slender spider bites you and gets a critical (6 hits)!
+Player Health: 51
+> attack slender spider
+
+> attack slender spider
+You swing wildly at the slender spider and miss...
+Player Health: 51
+Slender spider attacks you and misses...
+Player Health: 51
+> attack slender spider
+
+> attack slender spider
+You swing wildly at the slender spider and miss...
+Player Health: 51
+Slender spider has hit you (2 hits).
+Player Health: 49
+> attack slender spider
+
+> attack slender spider
+You jab the dagger at the slender spider and get a critical (15 hits)!
+It is dead!
+Player Health: 49
+> southwest
+
+> southwest
+
+You are in a Dungeon Room.
 You can go southwest or northeast.
-Beside the Amphitheater, you find a pleasant Forest Glade-- just a little grassy clearing within a small collection of trees, and it seems to be safe here, which is good, because you like safe. At the edge of the Glade is a statue of an old woman.
+A creepy dungeon room... not your favorite.
+Player is not wearing repellent.
+Vile rat spins whipping its tail at you (3 hits)!
+Player Health: 46
+Awful spider attacks you and misses...
+Player Health: 46
+> attack vile rat
 
-Female Villager leaves.
-> northeast
+> attack vile rat
+You swing wildly at the vile rat and miss...
+Player Health: 46
+Vile rat attacks you and misses...
+Player Health: 46
+Awful spider bites you and gets a critical (6 hits)!
+Player Health: 40
+> attack vile rat
 
-> northeast
+> attack vile rat
+You swing wildly at the vile rat and miss...
+Player Health: 40
+Vile rat bites you and gets a critical (6 hits)!
+Player Health: 34
+Awful spider attacks you and misses...
+Player Health: 34
+> attack vile rat
 
-You are in a Fountain Meadow.
-You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a Female Villager.
-You can go southwest, in, northwest or southeast.
-You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
-> southeast
+> attack vile rat
+You jab the dagger at the vile rat and get a critical (9 hits)!
+It is dead!
+Player Health: 34
+Awful spider has hit you (2 hits).
+Player Health: 32
+> attack awful spider
 
-> southeast
-
-You are outside of a Brick Chapel.
-You can see a Chapel Fountain.
-You can go east or northwest.
-This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
-> x fountain
-
-> x fountain
-A delicate fountain, affixed to the exterior of the old chapel.
-> east
-
-> east
-
-You are on the Box Street Road.
-You can go northwest, southeast, west, Tooth Doctor Shop, Grand Kingdom Day Spa or northeast.
-A narrow road with tall stately palm trees on either side.
-> west
-
-> west
-
-You are outside of a Brick Chapel.
-You can see a Chapel Fountain.
-You can go east or northwest.
-This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
-> northwest
-
-> northwest
-
-You are in a Fountain Meadow.
-You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a Bottle.
-You can go southwest, in, northwest or southeast.
-You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
-Cat enters.
-> northwest
-
-> northwest
-
-You are at the Hall of Learning Entrance.
-You can see a Statue of the two brothers.
-You can go southeast, in or northeast.
-A giant brick structure, engraved into a stone archway above the main door are the words, "The Hall of Learning."
-> in
-
-> in
-You close the door behind you.
-
-You are in the Hall of Learning.
-You can go out.
-It is too dark to make anything out.
-> out
-
-> out
-
-You are at the Hall of Learning Entrance.
-You can see a Statue of the two brothers.
-You can go southeast, in or northeast.
-A giant brick structure, engraved into a stone archway above the main door are the words, "The Hall of Learning."
-> northeast
-
-> northeast
-
-You are in a Glen of Tall Trees.
-You can see a Statue of a Lady Holding Birds and a Dry Fountain.
-You can go southwest, northeast, southeast, northwest or north.
-The glen is located in a massive steep-walled stone canyon, that is slightly intimidating. Inside the glen there is a dry fountain, and a statue of a lady holding birds.
-> northeast
-
-> northeast
-
-You are in a Town Center.
-You can go southwest, seedshop, north, Thrifty Boat Book Store, Ice Cream Parlor, The Armoury of Sir Jack, west, Melted Jewelry Studio, southeast, northwest or Side Street Coffeehouse.
-The village Town Center is filled with people, and shops selling their goods. What an exciting place.
-> go to seedshop
-
-> go to seedshop
-
-You are in a Seed Shop.
-You can see a Female Villager.
-You can go out.
-This quaint little shop has every variation of seed you could want.
-> out
-
-> out
-
-You are in a Town Center.
-You can go southwest, seedshop, north, Thrifty Boat Book Store, Ice Cream Parlor, The Armoury of Sir Jack, west, Melted Jewelry Studio, southeast, northwest or Side Street Coffeehouse.
-The village Town Center is filled with people, and shops selling their goods. What an exciting place.
+> attack awful spider
+You jab the dagger at the awful spider and get a critical (9 hits)!
+It is dead!
+Player Health: 32
 > southwest
 
 > southwest
 
-You are in a Glen of Tall Trees.
-You can see a Statue of a Lady Holding Birds, a Dry Fountain, a Feathers, a stick, a Torch, a stick, a stick, a stick, a stick, a stick and a stick.
-You can go southwest, northeast, southeast, northwest or north.
-The glen is located in a massive steep-walled stone canyon, that is slightly intimidating. Inside the glen there is a dry fountain, and a statue of a lady holding birds.
+You are in a Dungeon Room.
+You can see a Metal Chest.
+You can go southwest or northeast.
+A creepy dungeon room... not your favorite.
+Mean spider has hit you (2 hits).
+Player Health: 30
+> attack mean spider
+
+> attack mean spider
+You swing wildly at the mean spider and miss...
+Player Health: 30
+Mean spider has hit you (2 hits).
+Player Health: 28
+> attack mean spider
+
+> attack mean spider
+You slash the dagger at the mean spider and hit (4 hits)!
+It is dead!
+Player Health: 28
+> look
+
+> look
+You are in a Dungeon Room.
+You can see a Metal Chest and a mean spider.
+You can go southwest or northeast.
+A creepy dungeon room... not your favorite.
+> open chest
+
+> open chest
+You open it.
+You open the chest and find a bronze shield.
+> take all
+
+> take all
+Metal Chest: You can't take it.
+mean spider: You can't take it.
+Bronze Shield:
+You pick it up.
+> eat bread
+
+> eat bread
+Please choose which 'bread' you mean:
+1: bread
+2: bread
+3: bread
+4: bread
+5: bread
+> eat orange
+
+> eat orange
+You eat the orange, and instantly you feel a little better.
+ Health increased by 3%.
+> eat bread
+
+> eat bread
+Please choose which 'bread' you mean:
+1: bread
+2: bread
+3: bread
+4: bread
+5: bread
+> eat orange
+
+> eat orange
+I can't see that. (orange)
+> eat apple
+
+> eat apple
+I can't see that. (apple)
+> eat grape
+
+> eat grape
+I can't see that. (grape)
+> wear bronze shield
+
+> wear bronze shield
+You cannot wear that while wearing a Wooden Shield.
+> x bronze shield
+
+> x bronze shield
+A regular bronze shield, it's kind of shiny... not too shiny, just a little shiny.
+> inventory
+
+> inventory
+You are carrying a Worn Items (containing a Shorts (worn), a Shirt (worn), some Leather Gauntlets (worn), a Wooden Shield (worn), some Leather Sandals (worn) and some Leather Pants (worn)), a Lamp, a Bottle, a bread, a bread, a Wooden Dagger, a bread, a stick, a stick, a stick, a Gold Necklace, a bread, a stick, a stick, a stick, a King's Note, a Vitamin Stone - B12, a bread and a Bronze Shield.
+> eat bread
+
+> eat bread
+Please choose which 'bread' you mean:
+1: bread
+2: bread
+3: bread
+4: bread
+5: bread
+> 1
+You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
+ Health increased by 7%.
+> eat bread
+
+> eat bread
+Please choose which 'bread' you mean:
+1: bread
+2: bread
+3: bread
+4: bread
+> 1
+You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
+ Health increased by 7%.
+> eat bread
+
+> eat bread
+Please choose which 'bread' you mean:
+1: bread
+2: bread
+3: bread
+> 1
+You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
+ Health increased by 7%.
+Your eyes are getting heavy.
+> eat bread
+
+> eat bread
+Please choose which 'bread' you mean:
+1: bread
+2: bread
+> 1
+You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
+ Health increased by 7%.
+> eat bread
+
+> eat bread
+You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
+ Health increased by 7%.
+> eat bread
+
+> eat bread
+I can't see that. (bread)
+> eat orange
+
+> eat orange
+I can't see that. (orange)
+> eat apple
+
+> eat apple
+I can't see that. (apple)
+> eat grape
+
+> eat grape
+I can't see that. (grape)
+> take off wooden shield
+
+> take off wooden shield
+You take it off.
+> wear bronze shield
+
+> wear bronze shield
+
+> wear bronze shield
+
+> wear bronze shield
+
+You drift off to sleep, and when you awake, an hour has passed.
+While you slept the mean spider attacked you. Health: -18%.
+> drop wooden shield
+
+> drop wooden shield
+You drop it.
+> drop note
+
+> drop note
+You drop it.
+> inventory
+
+> inventory
+You are carrying a Worn Items (containing a Shorts (worn), a Shirt (worn), some Leather Gauntlets (worn), some Leather Sandals (worn), some Leather Pants (worn) and a Bronze Shield (worn)), a Lamp, a Bottle, a Wooden Dagger, a stick, a stick, a stick, a Gold Necklace, a stick, a stick, a stick and a Vitamin Stone - B12.
 > southwest
 
 > southwest
 
-You are at the Hall of Learning Entrance.
-You can see a Statue of the two brothers.
-You can go southeast, in or northeast.
-A giant brick structure, engraved into a stone archway above the main door are the words, "The Hall of Learning."
-> southeast
+You are in a Dungeon Room.
+You can see a Pedestal.
+You can go west or northeast.
+A creepy dungeon room... not your favorite.
+> look
 
-> southeast
+> look
+You are in a Dungeon Room.
+You can see a Pedestal.
+You can go west or northeast.
+A creepy dungeon room... not your favorite.
+> make torch
 
-You are in a Fountain Meadow.
-You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a Bottle.
-You can go southwest, in, northwest or southeast.
-You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+> make torch
+You light the stick on fire. You've made a torch!
+You pick up the Torch.
+> light pedestal
+
+> light pedestal
+You ignite the pedestal.
+> break pot
+
+> break pot
+I can't see that.
+> take all
+
+> take all
+Pedestal: You can't take it.
 [state=Running]

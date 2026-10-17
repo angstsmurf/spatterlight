@@ -225,8 +225,13 @@ if (args.Length >= 2)
         }
         else if (cmd.StartsWith("eval:"))
         {
-            var v = await world.EvaluateAsync(cmd[5..]);
-            Line($"[eval] {cmd[5..]} = {v}");
+            // An invalid expression must not kill a live session.
+            try
+            {
+                var v = await world.EvaluateAsync(cmd[5..]);
+                Line($"[eval] {cmd[5..]} = {v}");
+            }
+            catch (Exception ex) { Line($"[eval-error] {cmd[5..]}: {ex.Message}"); }
         }
         else if (cmd.StartsWith("label:") || cmd.StartsWith("delay:") || cmd.StartsWith("runtime:"))
         {
