@@ -1,0 +1,1322 @@
+Beyond the Gloom
+
+by Father Thyme
+
+Your bedroom
+You awake to a bedroom filled with a strange green fog. The lamp fungus above the bed is a pale green glow. The rocky walls of your small bedroom are barely visible. You realise that you have been drugged. You stagger from your bed. Where is the Wizard?
+
+“Boss!” you yell. There is no reply. Only the sound of distant hammering from outside the cave. Your head is clearing as the fog slowly dissipates.
+
+You can see your bed and a lamp fungus.
+You can go east.
+
+Do you want to play with sound effects?
+1: Yes
+2: No
+Sound effects have been switched off. Type SOUND to switch them on again.
+
+[Type HELP for guidance]
+> east
+
+> east
+
+The passage
+The rather gloomy passage looks deserted. The front door to the north is closed. Odd? It’s usually open. Perhaps you should look in the workroom. You cannot imagine the Wizard is still in his bedroom with all this going on. The hammering outside the door ceases. An odd scraping noise echoes from outside the cave. A sudden brief rush of air, then all is silent. The last wisps of green vapour begin to drift out under the front door.
+
+You can see the front door.
+You can go north to the outside, south to the workroom, west back to your bedroom or east to the Wizard’s bedroom.
+> east
+
+> east
+
+The Wizard’s bedroom
+A small room with a large but quite basic bed. The Wizard seems to be satisfied with simple things. There is very little furniture and practically no ornaments. The bed has been slept in, but the Wizard is not here. The steel door on the east wall is closed as it always is.
+
+You can see a door east, a bed, a table and a glass.
+You can go west or east.
+> look at bed
+
+> look at bed
+A simple wooden bed.
+On it is  a coat and a pillow.
+> take coat
+
+> take coat
+You toy with taking the coat but decide not to. It’s not cold. You pass it onto the other bedpost. There’s a key hanging where the coat was hanging at first. You take the key instead. That’s much more interesting. It could be the front door key. Having not worked here for long you are not sure.
+> look under pillow
+
+> look under pillow
+You are surprised to discover a strange metal device under the pillow. You pick it up.
+> look under bed
+
+> look under bed
+You discover and drag out a large trunk from under the bed.
+> open trunk
+
+> open trunk
+You open the trunk.
+Inside you find a strange glove puppet.
+> take glove puppet
+
+> take glove puppet
+You pick it up.
+> wear glove puppet
+
+> wear glove puppet
+You ease your hand into the puppet and find it a very comfortable fit.
+> look at table
+
+> look at table
+A very heavy wooden table.
+On the table you see a skull and a lamp fungus.
+> look at skull
+
+> look at skull
+The skull of a rang, one of the great semi-intelligent apes of the northern forests. The Wizard considers this to be an ornament.
+ Around it is a headband.
+> take headband
+
+> take headband
+You grab the headband.  The fungus rips the glove puppet from your hand and tears  it into a shredded wreckage, spitting it out in disgust as inedible. The headband flies over your head and lands unharmed beside you.
+> take headband
+
+> take headband
+You take the headband.
+> wear headband
+
+> wear headband
+You fit the headband onto your head.
+
+As you position the headband plate centrally on your forehead strange symbols appear in the air in front of your eyes. Time seems to stand still. The plate emits a shrill buzz which permeates your skull.
+
+You jerk awake. You feel that several minutes have passed. The strange symbols are still there, but now you can understand them.
+
+THANK YOU FOR PURCHASING A YALE UNIVERSITY LITERACY PROGRAM. YOUR BASIC COURSE IS NOW COMPLETE. UPGRADES MAY BE PURCHASED FROM YOUR LOCAL UNIVERSITY STOCKIST.
+
+You only partly understood this. You only understand that you have suddenly learned to read. What a ‘local stockist’ is you have no idea. You can lay a bet that they no longer exist whoever they are.
+> wear headband
+
+> wear headband
+You are already wearing it.
+> look under device
+
+> look under device
+On the bottom of the device someone has scratched "long left right short."
+
+What can that mean?
+> look at device
+
+> look at device
+A plain oval metal device with a central red button of an unknown substance. It does not look like an ornamental object. It certainly looks scratched and well used. It is about the size of the palm of your hand. It looks very old.
+> long push button
+
+> long push button
+You hold the button down until you hear a 'click'.
+> turn button left
+
+> turn button left
+You turn the button left until you hear a 'click'.
+> turn button right
+
+> turn button right
+You turn the button right until you hear a 'click'.
+> short push button
+
+> short push button
+After you push the button you hear a 'click' and the device starts to hum quietly.
+> use device
+
+> use device
+The device vibrates and a voice with a strange old fashioned accent announces:
+
+Gold room
+You didn’t understand a word of that. What were all those long words?
+
+A weird rushing. Objects around you move away at speed into the distance. You feel a strange tingling sensation which spreads rapidly to encompass your entire body. A small black box appears. It rapidly increases in size to surround you in darkness.
+
+The tingling stops as suddenly as it came. Things start to move back towards you. They are not the same. Your surroundings have changed completely.
+
+You find yourself in a strange gold painted room. A soft yellow glow illuminates from no discernible source. It is furnished as a comfortable hideaway. Thick rugs cover the floor.  The walls, floor and ceiling look very plain. The furnishings seem to have been added later to bring home comforts to a previously utilitarian room. In fact you can see markings on the walls where shelving units have been removed. This was a storeroom of some kind.
+
+You can see an armchair, rugs and a table.
+> look
+
+> look
+Gold room
+The rapid rushing away and return of nearby objects repeats. The tingling returns but worries you less, as you know it will stop shortly.
+
+The gold room surrounds you with its homely furniture.
+
+You can see an armchair, rugs and a table.
+> use device
+
+> use device
+The device vibrates and a voice announces:
+
+The room seems to expand — Then move to the side in the form of a large black box. The box rapidly shrinks to the size of a cigar box, then drops downwards.
+
+A small room
+You find yourself in another strange location. This is a very small room, barely the size of a a large cupboard. A small lamp fungus provides a pale light. You have never been in here before. This must be the other side of the mysterious steel door! There are bolts on this side.
+
+The room is unoccupied. So who bolted the door?
+
+You can see the door and a lamp fungus.
+You can go west.
+
+For some reason, you remember a childhood fairy tale, Jack in the Box.  In it, Jack has a small magic box he can get inside or carry about with him. NO! That’s ridiculous. That was just a kid’s story.
+> look
+
+> look
+A small room
+You are in the Wizard’s bedroom cupboard.
+
+You can see the door and a lamp fungus.
+You can go west.
+> look at fungus
+
+> look at fungus
+The fungus senses your proximity and brightens up a little. You can now see a small black box beside it.
+> take box
+
+> take box
+You take the black box.
+> west
+
+> west
+You unbolt the door, open it and walk through. Automatically, the door closes behind you and the bolts click into place.
+
+The Wizard’s bedroom
+A small simply furnished room.
+
+You can see a door east, a bed (on which there is a coat and a pillow), a table (on which there is a skull and a lamp fungus), a trunk, shredded wreckage and a glass.
+You can go west or east.
+> west
+
+> west
+
+The passage
+The passage looks quite normal.
+
+You can see the front door.
+You can go north to the outside, south to the workroom, west back to your bedroom or east to the Wizard’s bedroom.
+> put box under front door
+
+> put box under front door
+You push the box under the door. It slides outside and disappears from sight.
+> use device
+
+> use device
+The device vibrates and a voice announces:
+
+Gold room
+The rapid rushing away and return of nearby objects repeats. The tingling returns but worries you less, as you know it will stop shortly.
+
+The gold room surrounds you with its homely furniture.
+
+You can see an armchair, rugs and a table.
+> use device
+
+> use device
+The device vibrates and a voice announces:
+
+The room seems to expand — Then move to the side in the form of a large black box. The box rapidly shrinks to the size of a cigar box, then drops downwards.
+
+The riverbank
+To your relief your strategy worked. You are outside in the open air. The Kikapoopoo rolls sedately by. This mighty river is twelve miles wide at this point. Your tiny island sits centrally six miles from either bank, which explains why the door is not usually closed.
+
+The vertical rock face curves out to east and west enclosing a few dozen paces of flatness. The east cliff  is tunnelled to form the boathouse blocked off by a stout ironwood door.
+
+Your attention is drawn to two parallel lines carved in the scrubby turf, a man length apart and seven long. They were certainly not there yesterday.
+
+You can see the boathouse door, the front door, a dumdog tree and a black box.
+You can go south back into the cave or east to the boathouse.
+> look
+
+> look
+The riverbank
+A small shoal of jawfish break surface, see you standing there and survey a possible dinner.
+
+You can see the boathouse door, the front door, a dumdog tree and a black box.
+You can go south back into the cave or east to the boathouse.
+> look at front door
+
+> look at front door
+The door is jammed from this side.
+Hammered in around it are half a dozen  wooden wedges.
+> take wedges
+
+> take wedges
+You manage to wrestle the loosest wedge out, using it to bash out the other five. You hurl all six into the river, to the consternation of the jawfish that try to eat them.
+
+The front door rumbles upward and vanishes into its slot in the roof.
+> south
+
+> south
+
+The passage
+The passage looks quite normal.
+
+You can see a fishing rod.
+You can go north to the outside, south to the workroom, west back to your bedroom or east to the Wizard’s bedroom.
+
+The Wizard's fishing rod was invisible in the dim light before, but now with the door open you can see to pick it up. You do so.
+> look
+
+> look
+The passage
+The passage looks quite normal.
+
+You can go north to the outside, south to the workroom, west back to your bedroom or east to the Wizard’s bedroom.
+> north
+
+> north
+
+The riverbank
+A small untidy area of turf.
+
+You can see the boathouse door, a dumdog tree and a black box.
+You can go south back into the cave or east to the boathouse.
+> use rod
+
+> use rod
+Fishing without bait is a pointless exercise.
+
+A loud clang echoes from the cave mouth, followed by a shrill scream. Silence reigns. The sound is not repeated.
+> look
+
+> look
+The riverbank
+A small untidy area of turf.
+
+You can see the boathouse door, a dumdog tree and a black box.
+You can go south back into the cave or east to the boathouse.
+> south
+
+> south
+
+The passage
+The passage looks quite normal.
+
+You can go north to the outside, south to the workroom, west back to your bedroom or east to the Wizard’s bedroom.
+> east
+
+> east
+
+The Wizard’s bedroom
+A small simply furnished room.
+
+You can see a door east, a bed (on which there is a coat and a pillow), a table (on which there is a skull and a lamp fungus), a trunk, shredded wreckage, a rat trap and a glass.
+You can go west or east.
+
+There’s a terrible smell in here that wasn’t there before.
+> look
+
+> look
+The Wizard’s bedroom
+A small simply furnished room.
+
+You can see a door east, a bed (on which there is a coat and a pillow), a table (on which there is a skull and a lamp fungus), a trunk, shredded wreckage, a rat trap and a glass.
+You can go west or east.
+> look at rat trap
+
+> look at rat trap
+A large steel rat trap is chained to the wall under the bed. It has sprung violently enough to throw it almost out into the open.
+In it is a rat.
+> take rat
+
+> take rat
+You manage to wrestle the gruesome remains of the rat away from the trap.  You throw the trap back into the darkness.
+> use rat on fishing rod
+
+> use rat on fishing rod
+You attach the rat to the fishing rod. A disgusting procedure!
+> look at rod
+
+> look at rod
+The Wizard’s old fishing rod.
+ It has been 'baited' with a dead rat.
+> west
+
+> west
+
+The passage
+The passage looks quite normal.
+
+You can go north to the outside, south to the workroom, west back to your bedroom or east to the Wizard’s bedroom.
+> north
+
+> north
+
+The riverbank
+A small untidy area of turf.
+
+You can see the boathouse door, a dumdog tree and a black box.
+You can go south back into the cave or east to the boathouse.
+> use rod
+
+> use rod
+SNAP!
+
+You had barely dropped your bait in the water when a large jawfish grabs it. Startled, you fall over backwards in astonishment, yanking the rod and fish out of the water. The fish flies over your head and lands unconscious behind you, while the rod falls into the river, vanishing in a trail of bubbles.
+> look
+
+> look
+The riverbank
+A small untidy area of turf.
+
+You can see the boathouse door, a dumdog tree, a stunned jawfish and a black box.
+You can go south back into the cave or east to the boathouse.
+> take fish
+
+> take fish
+You gingerly pick the jawfish up. It looks in no condition to do anything.
+> climb tree
+
+> climb tree
+You manage to get a short way off the ground, then slip. You fall heavily onto the riverbank. You climb unsteadily to your feet. Seems what they say about dumdog trees being unclimbable is true.
+
+As you dust yourself off, you notice a small black dot far away in the sky.
+
+It rapidly grows bigger revealing itself as Nevermore, the Wizard’s pet raven.
+
+He lands beside you, looking exhausted.
+> give fish to raven
+
+> give fish to raven
+You give the stunned jawfish to the raven. The raven swiftly dispatches the fish with his beak, then takes several bites from it.
+> ask raven about wizard
+
+> ask raven about wizard
+Nevermore hops from leg to leg, drops the fish, and tells his tale.
+
+“Bad hu-man he come in flying nest. CAW! He land on ground. Nest scratch up ground. He go cave, carry Wizard to nest. Bad hu-man  throw small door thing in waters. QUAAARK!  He go nest. Nest fly over big waters to Place call Gloom. He live top of darkness. I know. QUARK! I follow. I come back. I do good? Yes?” CAW! I go now.”
+
+The raven picks up the half eaten fish and flies with it into the dumdog tree. Sounds of eating continue for some time. Suddenly an object flies out of the tree and lands at your feet. It’s a fish ribcage.
+
+You know of the strange village Gloom. It is north over the river. Nearby is the mysterious phenomenon the Darkness. How it is possible to live on top of it is a mystery.
+> look
+
+> look
+The riverbank
+A small untidy area of turf.
+
+You can see the boathouse door, a dumdog tree, a fish ribcage and a black box.
+You can go south back into the cave or east to the boathouse.
+> look at ribcage
+
+> look at ribcage
+The ribcage looks revolving. There’s bits of intestine stuck to it. Yeuk!
+Inside the sticky mess is  the boathouse key.
+> take boathouse key
+
+> take boathouse key
+Rather nauseously you remove the key from the ribs of the deceased fish and kick the carcass into the river.
+> east
+
+> east
+You insert the key, unlock the door and enter the boathouse.
+
+The boathouse
+The boathouse smells strongly of tar, paint and fish. The available area is almost filled by the boat.
+
+You can see a boat.
+You can go west back to the riverbank.
+> take boat
+
+> take boat
+You push the boat downhill into the water, and secure it to the bank.
+
+The riverbank
+A small untidy area of turf.
+
+You can see the boathouse door, a dumdog tree, a black box and a boat.
+You can go south back into the cave or east to the boathouse.
+> east
+
+> east
+You open the door and enter the boathouse.
+
+The boathouse
+The Wizard’s rather smelly boathouse.
+
+You can go west back to the riverbank.
+> north
+
+> north
+You climb into the boat, leaving the boathouse key in the lock in case you lose it.
+
+In the boat
+The boat rocks alarmingly as you get in. It's not in the best of condition, but is the only transport available.
+
+You can see the oars.
+You can go out (disembark boat) or go north across the river.
+> look
+
+> look
+In the boat
+A rather ancient boat.
+
+You can see the oars.
+You can go out (disembark boat) or go north across the river.
+> use oars
+
+> use oars
+You row towards the far bank.
+
+Midstream
+You are midstream. The boat is beginning to leak. Water is dribbling in at several places.
+
+You can see the oars.
+You can go south back to the island, west upstream, east downstream or continue north across the river.
+> use oars
+
+> use oars
+You row like a maniac!
+
+Alongside the north riverbank
+The boat is awash with water and in serious danger of sinking. Fortunately, the bank is only a step away. You have crossed successfully!
+
+You can see the oars.
+You can go out of the boat.
+> out
+
+> out
+
+The north riverbank
+The area north of the riverbank  is heavily wooded. The small area you are standing on seems the only open area. A narrow track leads north into the trees, probably used by fishermen.
+
+You can see a bush.
+You can go north into the forest or south towards the river.
+
+As you climb out onto the riverbank the boat lurches. Water slops over the gunwales. The boat slides gently into the depths and disappears. The oars and other miscellaneous flotsam drift downstream into the distance. A few jawfish circle hopefully and depart disappointed when unable to find anything edible.
+> look
+
+> look
+The north riverbank
+A small clearing by the river.
+
+You can see a bush.
+You can go north into the forest or south towards the river.
+> take bush
+
+> take bush
+The bush is small and has shallow roots but you are not keen to carry such an obnoxious piece of vegetation about with you. It smells disgusting.
+> take bush
+
+> take bush
+You put both hands around the stem of the bush and rock it back and forth. Eventually, it emerges from the ground. Phew it stinks!
+> north
+
+> north
+
+Forest
+The forest is a mass of untamed thorny undergrowth, except where a narrow path leads north. The trees loom over the path casting thick shade on the rampant growth below.
+
+You can go north further into the forest or south back to the riverbank.
+> north
+
+> north
+
+Outside the Darkness of Gloom
+You reach a small well trodden clearing in the forest. The Darkness of Gloom looms to the north.
+
+You can see The Darkness  and a signboard.
+You can go south back towards the river, east into a swampy area, north into the Darkness or west into the forest.
+> read signboard
+
+> read signboard
+The sign reads:
+THE DARKNESS OF GLOOM
+
+Be warned that the Council of Gloom will accept no responsibility for the demise of persons entering the Darkness. The awful dampness within will instantly snuff out all manner of flames, be they torches or closed lanterns, leaving those daring to enter disoriented in total darkness and prey to the dreadful  denizens of the labyrinth.
+
+Signed by the hand of
+Alac Miserium (Chairman)
+
+There is a sudden rustling from behind you. You turn swiftly to counter a possible threat. A thin man in a flamboyant yellow hat approaches from the bushes. He looks harmless.
+> talk to thin man
+
+> talk to thin man
+Before you can utter a word the man walks up to greet you.
+
+“Greetings friend! You look the kind of hero who seeks a way to dare the fabled Darkness of Gloom. Fear not for I have the answer to the unholy damp that extinguishes all flames within. Do not believe the sign saying torches and lanterns fail  within, all things are possible.”
+
+He produces from his cloak a slim pole topped by a furry black elongated blob.
+
+“Behold the Everlight, a marvel created by the ancient men of science. Once these were common, but now few remain. One was possessed by Lucram Luckman the famous explorer. and discoverer of many strange things within the Darkness. Surely you must have heard of him! I am his son, and am the possessor of one of these wonders. It is guaranteed to burn with exceptional brilliance without being consumed and may be used again and again."
+
+"Sadly, I am unable to use it to search the Darkness due to my delicate condition.”
+
+He coughs discreetly into a spotted handkerchief.
+
+“Therefore I offer it to you for the trifling sum of fifty credits.”
+
+This is all the money you possess. Do you buy the Everlight? Yes or no?
+1: Yes
+2: No
+> 2
+The man shrugs. “Your loss stranger. Another will buy the luck you have dismissed.”
+
+He disappears east in the direction of Gloom. As he does so you see something fall from his pocket. You are unable to gain his attention as he hurries away. You pick the object up. It’s a matchbox.
+> look
+
+> look
+Outside the Darkness of Gloom
+You reach a small well trodden clearing in the forest.
+
+You can see The Darkness  and a signboard.
+You can go south back towards the river, east into a swampy area, north into the Darkness or west into the forest.
+> east
+
+> east
+You move east into the swamp.
+
+A swamp
+You are in a fetid swamp. A crude stone and rammed earth causeway runs east to what looks like the Village of Gloom. There are hundreds of odd rushes growing here. They have tall stems with furry black cylindrical blobs on top. Near the biggest clump, where a yellow hat lies, a violent disturbance in the mud shows where someone has fallen  off the causeway. Several of the strange stems are floating as if cut off.
+
+You can see a yellow hat.
+You can go west back to the Darkness or east to the Village of Gloom.
+> east
+
+> east
+
+Gloom
+You enter the Village of Gloom. It seems to be composed of a small number of ramshackle houses, one or two larger buildings and very little else. There is no sign of any inns or bars.
+
+The houses and streets are deserted but there  is activity on open ground to the north. A crowd of people are singing and dancing around a coffin. They seem very cheerful bearing in mind Gloom people are notoriously miserable.
+
+You can see a stone building.
+You can go west back towards the Darkness, north to open ground or south deeper into the village.
+> look at stone building
+
+> look at stone building
+A large stone building exudes an appalling stench. It can only be the municipal dung treatment works.
+ A huge door must be for access of the dung cart.
+> look at huge door
+
+> look at huge door
+The door into the stone building is a huge sliding monstrosity in bad repair.
+ There’s a rope hanging beside it.
+> pull rope
+
+> pull rope
+You pull mightily on the rope. The door rolls open on sliders, then jams immovably leaving only enough space to squeeze through.
+> in
+
+> in
+You enter the stone building.
+
+Inside the stone building.
+You are in a long narrow room. it smells horrible in here. Definitely the municipal dung processing plant. This is a combined cart storage and stable.
+
+You can see a dung cart, a grunt and a manger.
+You can go out of the stone building.
+> drop bush
+
+> drop bush
+You toss the gruntmumble bush into the manger. The grunt lumbers over, sinking his nose into the fodder. It now seems calm and placid, making the cart approachable.
+> look at cart
+
+> look at cart
+The dung cart is full to the brim. It is enormous.
+ A brick is set on the floor in front of one of the huge wooden wheels.
+> take brick
+
+> take brick
+You kick the brick out from in front of the wheel. The cart rumbles forward and crashes into the wall.
+
+As the wheel turns you can see something stuck in the mud on the  wheel rim. Looks like a key.
+> take brass key
+
+> take brass key
+You pick the brass key off the wheel. Ugh!
+> out
+
+> out
+The large door is still unopenable even from inside. You leave by the smaller door.
+
+Gloom
+The village is deserted. Its population seem to be crowded onto open ground to the north.
+
+You can see a stone building (entry to which seems to be by a huge door and a rope).
+You can go west back towards the Darkness, north to open ground, south deeper into the village or in to stone building.
+> south
+
+> south
+
+The southern district of Gloom
+You appear to be in the more affluent part of the village. The houses here are bigger than those to the north, though no better maintained. You are standing outside a whitewashed  cottage.
+
+You can see a white cottage.
+You can go west towards a swamp, east into the forest, north back to the centre of Gloom or in to the white cottage.
+> look at white cottage
+
+> look at white cottage
+A small white cottage, slightly less run down than most dwellings nearby. By the entrance door is a small, battered and faded sign.
+> unlock door
+
+> unlock door
+You insert the key, unlock the door and enter the cottage.
+
+Lobby
+A small entrance lobby completely unfurnished. Internal doors lead off in three directions.
+
+You can go out out of the front door, west, east or south.
+> in
+
+> in
+You see no reason to go in that direction.
+> east
+
+> east
+
+A workshop
+A tidy looking workshop. Tools are arranged neatly in a rack. This place looks altogether neater than the rest of Gloom put together.
+
+You can see tools, a bench and a notice.
+You can go west.
+> look at bench
+
+> look at bench
+A heavy wooden bench.  It appears burned in several places by acid.
+On the bench is a bottle.
+> take bottle
+
+> take bottle
+You pick up the bottle carefully.
+
+In the case the villagers come looking for the cottage key, you decide to leave it on the bench.
+> read notice
+
+> read notice
+WARE LECTRICKERY
+
+You are not sure what that means. Perhaps the Wizard might know, but he’s not here to ask is he.
+> look at bottle
+
+> look at bottle
+A large green bottle containing murky liquid and vaguely visible metal plates. The neck is crowned with a large glass bulb containing wires.
+ It is uncomfortably heavy!
+ On top it has a bulb.
+> twist bulb
+
+> twist bulb
+You twist he bulb at the top of the bottle. A brilliant white light illuminates the surrounding area.
+> west
+
+> west
+
+Lobby
+A small entrance lobby completely unfurnished. Internal doors lead off in three directions.
+
+You can go out out of the front door, west, east or south.
+> out
+
+> out
+
+The southern district of Gloom
+You appear to be in the more affluent part of the village.  You are standing outside a whitewashed  cottage.
+
+You can see a white cottage (on which there is a house sign and a door).
+You can go west towards a swamp, east into the forest, north back to the centre of Gloom or in to the white cottage.
+> north
+
+> north
+
+Gloom
+The village is deserted. Its population seem to be crowded onto open ground to the north.
+
+You can see a stone building (entry to which seems to be by a huge door and a rope).
+You can go west back towards the Darkness, north to open ground, south deeper into the village or in to stone building.
+> west
+
+> west
+
+A swamp
+You are in a fetid swamp. A crude stone and rammed earth causeway runs east to what looks like the Village of Gloom.
+
+You can go west back to the Darkness or east to the Village of Gloom.
+> west
+
+> west
+
+Outside the Darkness of Gloom
+You reach a small well trodden clearing in the forest.
+
+You can see The Darkness  and a signboard.
+You can go south back towards the river, east into a swampy area, north into the Darkness or west into the forest.
+> north
+
+> north
+You push through the softly yielding surface into the Darkness.
+
+Inside the Darkness
+The dampness hits you like a wet blanket, but strangely is not accompanied by mist or fog. The light is working well but reveals only rippling black walls. Where are the mysteries of the Darkness from the stories you have heard?
+
+You can go south, north, west or east.
+> north
+
+> north
+You bounce off the soft wall in that direction.
+> south
+
+> south
+You cannot penetrate the soft rubbery wall.
+> south
+
+> south
+You have discovered a gap in the soft wall. You pass through.
+
+A gloomy room
+A mournful voice quite clearly says DIE!
+
+You can go east, west, north or south.
+> look
+
+> look
+A gloomy room
+A huge shadowy figure crosses in front of you and vanishes into the darkness.
+
+You can go east, west, north or south.
+> east
+
+> east
+
+A gloomy room
+A knife is lying on the floor. You reach out to it. Your hand passes right through it.  Tantalisingly it lies unreachable until you leave.
+
+You can go east, south, north or west.
+> look
+
+> look
+A gloomy room
+A large dollop of mud from nowhere hits you in the back.
+
+You can go east, south, north or west.
+> north
+
+> north
+
+A gloomy room
+ A drum is being beaten very slowly.
+
+You can go east, west, north or south.
+> look
+
+> look
+A gloomy room
+ A sudden unexpected fall of snow. Impossible, it’s not even winter. The snow vanishes.
+
+You can go east, west, north or south.
+> north
+
+> north
+
+A gloomy room
+ A voice shouts “ Incoming! Incoming! Hit the deck!” A loud screech is followed by a terrific bang. A blast of hot air nearly flattens you.
+
+You can go east, south, north or west.
+> look
+
+> look
+A gloomy room
+ You have a strange feeling that you have two heads. You find yourself arguing with yourself.
+
+You can go east, south, north or west.
+> east
+
+> east
+
+A gloomy room
+You hear thunderous roar as some unimaginable flying object passes overhead.
+
+You can go east, west, north or south.
+
+You are rapidly losing your sense of direction.
+> look
+
+> look
+A gloomy room
+Footsteps cross your path. There’s no one there.
+
+You can go east, west, north or south.
+> east
+
+> east
+
+A gloomy room
+ You have a strange feeling that you have two heads. You find yourself arguing with yourself.
+
+You can go east, south, north or west.
+> north
+
+> north
+
+A gloomy room
+A bell tolls mournfully.
+
+You can go east, west, north or south.
+> east
+
+> east
+
+A gloomy room
+This room looks a little less damp than those you have encountered.  The objects around you don’t fade. This is an oasis of reality in a maze of illusions. It is also the scene of a death.
+
+You can see a body (on which there is a backpack and clothes) and a glass globe.
+You can go west, east, north or south.
+> look
+
+> look
+A gloomy room
+This room looks a little less damp than those you have encountered.
+
+You can see a body (on which there is a backpack and clothes) and a glass globe.
+You can go west, east, north or south.
+> look at body
+
+> look at body
+The body of a tall man, obviously long dead. His clothes are reduced to rags and mummification has long set in despite the dampness. His legs are crushed and his lower body covered in a thick crusty deposit that looks like a dried slime trail crossing the room. Did he break his light globe accidentally or did his killer break it? Who knows?
+> look at backpack
+
+> look at backpack
+A good quality backpack, mildewed but intact.
+> open backpack
+
+> open backpack
+You open the backpack to find a congealed mess.
+> look at mess
+
+> look at mess
+A mass of ribbons, scissors, buttons, lace, rotten clothing, decayed food and other miscellaneous items, all rusted or rotted beyond hope into a solid lump of useless unpleasantness. This man must have been a pedlar.
+
+As you examine the unpleasant contents a stoppered jar separates from the rest.
+> take jar
+
+> take jar
+You pick up the jar.
+> west
+
+> west
+
+A gloomy room
+ You look around waiting for the next strange manifestation. Nothing happens.
+
+You can go east, south, north or west.
+> east
+
+> east
+
+A gloomy room
+A huge metal cylinder dominates the room. It extends from floor level to vanish into the murk above.
+
+It would take four or five people with arms extended to circle its circumference. There seems to be a door in this side. It is almost hidden by a giant slug which has plastered itself diagonally across it. This seems to be real. It’s not an illusion.
+
+You can see a giant slug, a cylinder and a door.
+You can go north, south, east, west or in.
+
+You think you may be walking in circles. This featureless gloom makes it difficult to orient yourself.
+> look
+
+> look
+A gloomy room
+A huge metal cylinder dominates the room. It extends from floor level to vanish into the murk above.
+
+You can see a giant slug, a cylinder and a door.
+You can go north, south, east, west or in.
+> throw jar at slug
+
+> throw jar at slug
+You hurl the bottle at the slug. It shatters on the wall above it. Salt scatters, the slug exudes a greenish foam from its gills. Uttering a loud rumbling sound it vanishes into the darkness.
+> look
+
+> look
+A gloomy room
+A huge metal cylinder dominates the room. It extends from floor level to vanish into the murk above.
+
+You can see a cylinder and a door.
+You can go north, south, east, west or in.
+> look at door
+
+> look at door
+The door is slightly curved to match the cylinder. You can see now that there’s a small knob centrally located.
+> turn knob
+
+> turn knob
+You turn the knob. It snaps back into the door. The door slides sideways with a creaking and jerking movement. It vanishes into the wall of the cylinder. A pale yellow light emerges.
+> in
+
+> in
+You enter the cylinder.
+
+Inside the cylinder
+You find yourself in a small round metal room. A ceiling above your head emits a bright yellow light from around its edges. The floor begins shuddering as if trying to rise up. The door is trying to close also. Some unseen device screams like a wounded direcat. You can smell burning oil. The heavy bottle  bounces up and down and seems to be dragging you down.
+
+You can go out of the cylinder.
+> drop bottle
+
+> drop bottle
+You set the bottle down, and feel relieved to be rid of it, but that hasn't reduced the screeching noises around you.
+> look
+
+> look
+Inside the cylinder
+The floor begins to move as before but not so violently. The door shuts with a loud screech and clang. The whole room is moving. The movement is jerky but the general direction is upward. If this is magic it’s not working perfectly.
+
+At last the room slows and comes to a shuddering halt. The door retracts  flooding in daylight and dry air. You are amazed! An open doorway beckons to you.
+
+You can see a bottle (on which there is a bulb (lit)).
+You can go out of the cylinder.
+> out
+
+> out
+
+The south end of a plaza
+You blink in the bright sunlight as you find yourself on a plaza bounded by a low wall. You have emerged from a large grey building centrally placed on this circular open area. Peering over the wall you see a vast panorama shrouded in the mists of the swamp hundreds of feet below.  Strangely this entire area, plaza, wall and building must be balanced in the sky on the narrow metal tube you rode up in. How this is achieved you have no idea.   Unless the misty column of the Darkness has some strange lifting power. The magic of the ancients seems boundless.
+
+You can go in to the cylinder again or north along the plaza.
+> north
+
+> north
+You make your way north past the central building.
+
+The north area of the plaza
+The plaza ends a short distance north of the central building. The view below is obscured by mist rising from the Gloom swamps. An open doorway to the east allows access into the building. Beside it is a rusty ladder.
+
+You can see a doorway and a rusty ladder.
+You can go south back to the cylinder, up the rusty ladder or east into the building.
+> east
+
+> east
+The entrance is open. The sliding door appears to be stuck almost completely  open. It is rusty and looks ill maintained. There seems to be a general air of decay about this place.
+
+The building lower floor
+You enter a large room.
+The walls are stained and scuffed. The south wall is completely covered with fur hangings.
+
+You can see a rug, fur hangings and curtains.
+You can go west out of the building.
+> take rug
+
+> take rug
+You pick up the filthy rug. Vermin scatter in all directions. You quickly drop it. You have no wish to possess such a foul item.
+
+Look! There’s a metal disc on the floor where the rug was.
+> stand on disc
+
+> stand on disc
+You hear a whirr from below you. A circular metal wall rises  from the edge of the disc, enclosing you. The floor presses up. You are rising. The movement stops. The metal wall retracts. You step forward into  the upper floor.
+
+The building upper floor
+ The upper floor has a small archway in the north wall. There’s a pile of bedding in one corner. You see no other sign of personal belongings.
+
+You can see a glass oblong and a metal disc.
+You can go north to a balcony.
+> look at glass oblong
+
+> look at glass oblong
+The glass oblong is fixed into the wall. Oddly this strange glass looks like a window, but shows a view, not of outside but of the room below, a place it cannot possibly face into. The view flickers occasionally as you watch it. You notice the words MONITOR TWO in black letters in the corner of the oblong. You have no idea what that means.
+
+Looking into the glass you can see that there is now another metal disc on the floor of the lower room with a metal post central to it up to the one in your floor. Obviously this is the post that pushes the lifting disc up, by some unknown means. The disc below must have risen up with the post to replace the one you rode up on. A strange arrangement indeed.
+> north
+
+> north
+You leave via the archway.
+
+A balcony
+You find yourself on a narrow balcony protruding from the north wall of the building. You spot a small moving dot in the distance. It swiftly grows into a strange silent flying machine about the size of a large  wagon. Instead of wheels it has two long metal skis, which it  proceeds to use to make a noiseless landing on the plaza below you.
+
+A strange black clad figure steps down from it. Looking up, he spots you. Uttering a mighty curse and drawing a long handled axe from a harness on his back he brandishes it at you and runs into the doorway below.
+
+You can go south back into the building.
+> south
+
+> south
+You return inside the building.
+
+The building upper floor
+The room is as it was before.
+
+You can see a glass oblong and a metal disc.
+You can go north to a balcony.
+> stand on disc
+
+> stand on disc
+You are not sure that going down to the lower floor is a wise move but you can't think of an alternative.
+
+The disc descends much faster than it came up. You hear shouting from below you. The disc slams onto the floor. You are thrown off. The shouts increase in volume. The disc shudders as a metal object is hammered against its underside. The disc holds firm. The man in black is obviously trapped underneath.
+
+The building lower floor
+You enter a large room.
+It has an air of neglect.
+
+Loud shouting, cursing and banging can be heard from below the metal disc on the floor.
+
+You can see a rug, fur hangings, curtains and a metal disc (under which is a cloth bag).
+You can go west out of the building.
+> look
+
+> look
+The building lower floor
+You enter a large room.
+It has an air of neglect.
+
+Loud shouting, cursing and banging can be heard from below the metal disc on the floor.
+
+You can see a rug, fur hangings, curtains and a metal disc (under which is a cloth bag).
+You can go west out of the building.
+> west
+
+> west
+
+The north area of the plaza
+The plaza north of the central building.
+
+You can see a doorway, a flying machine and a rusty ladder.
+You can go south back to the cylinder, up the rusty ladder, east into the building or in to the flying machine.
+> look
+
+> look
+The north area of the plaza
+The plaza north of the central building.
+
+You can see a doorway, a flying machine and a rusty ladder.
+You can go south back to the cylinder, up the rusty ladder, east into the building or in to the flying machine.
+> up
+
+> up
+Is this ladder safe? You shake it as hard as you can to make sure. Satisfied, you start climbing.
+
+It's a long slow process but after a few stops to catch your breath, your journey finally ends. Exhausted, you arrive at the top.
+
+The roof
+You are on the roof of the Darkness. Surprisingly, it is bare apart from a pile of tree branches in the middle.
+
+You can see a pile of tree branches and a rusty ladder.
+You can go back down to the plaza.
+> look at branches
+
+> look at branches
+As you approach the branches you see they are arranged in a circle with a depression in the middle. It's a nest!
+It contains some broken eggshell.
+> take eggshell
+
+> take eggshell
+You pick up a piece of shell. It's not much of a weapon but better than nothing.
+> down
+
+> down
+
+The north area of the plaza
+The plaza north of the central building.
+
+You can see a doorway, a flying machine and a rusty ladder.
+You can go south back to the cylinder, up the rusty ladder, east into the building or in to the flying machine.
+> east
+
+> east
+You enter the building.
+
+The building lower floor
+You enter a large room.
+It has an air of neglect.
+
+Loud shouting, cursing and banging can be heard from below the metal disc on the floor.
+
+You can see a rug, fur hangings, curtains and a metal disc (under which is a cloth bag).
+You can go west out of the building.
+> cut bag
+
+> cut bag
+You rub the edge of the shell back and forth on the bag. The shell is not very sharp but eventually you cut the bag free.
+> open bag
+
+> open bag
+You open the bag and remove an iron key you find there.
+> take furs
+
+> take furs
+The furs are rotten. As you touch them they fall to the floor, revealing a door.
+> south
+
+> south
+You insert the key, unlock the door and enter the room ahead.
+
+A Cell
+This room seems to be a cell. Some poor soul has scratched marks on the wall to denote the passage of many days. No attempt has been made to supply a bed or bedding.
+
+You are horrified to see that the prisoner is still here.
+
+You can see a skeleton.
+You can go north out of the cell.
+> look at skeleton
+
+> look at skeleton
+A skeleton lies in the corner. To your surprise it’s wearing spectacles.
+> take spectacles
+
+> take spectacles
+You pick them up.
+> wear spectacles
+
+> wear spectacles
+You put them on. You can see much more clearly now.
+> north
+
+> north
+
+The building lower floor
+You enter a large room.
+It has an air of neglect.
+
+Loud shouting, cursing and banging can be heard from below the metal disc on the floor.
+
+You can see a rug, fur hangings, a wooden south door, curtains and a metal disc.
+You can go south through the wooden door or west out of the building.
+> open curtains
+
+> open curtains
+You open the curtains to reveal a wolfhound.
+> look at wolfhound
+
+> look at wolfhound
+Although shocked at first you soon realise the huge dog is obviously dead and entombed in a solid block of glass, or something resembling glass. This seems to be the tomb of a companion of the owner of this place.
+ The creature is wearing a collar.
+> look at collar
+
+> look at collar
+A heavy collar studded with iron spikes.
+ Hanging from the collar is a tag.
+> read tag
+
+> read tag
+FANG
+> west
+
+> west
+
+The north area of the plaza
+The plaza north of the central building.
+
+You can see a doorway, a flying machine and a rusty ladder.
+You can go south back to the cylinder, up the rusty ladder, east into the building or in to the flying machine.
+> fang
+
+> fang
+You say "fang."
+The lethal looking blue sparks from the flying machine subside and die away.
+
+The voice booms—
+PASSWORD ACCEPTED. SECURITY DEFENCES DEACTIVATED.
+PERSONNEL MAY NOW ENTER THE VEHICLE.
+> climb flying machine
+
+> climb flying machine
+You climb the side of the odd vehicle.
+
+Inside the flier
+You climb over the raised side into an open topped compartment with waist high metal walls. This must be where the driver of this weird contrivance sits. A metal door leads into the rear cabin of the machine.
+
+You can see seats, controls and a door.
+You can go out of the flying machine or in to the rear cabin.
+> sit on seats
+
+> sit on seats
+This is not the time to relax. There are more important things to do.
+
+Wait! There’s a box between the seats.
+> open box
+
+> open box
+You open the box.
+Inside you find a pistol.
+> take pistol
+
+> take pistol
+You pick up the pistol.
+> out
+
+> out
+You climb out of the flying machine.
+ On emerging you are alarmed to see a huge flying lizard in the plaza!
+
+The north area of the plaza
+The plaza north of the central building.
+
+You can see a doorway, a flying machine, a flying lizard and a rusty ladder.
+You can go south back to the cylinder, up the rusty ladder, east into the building or in to the flying machine.
+> fire pistol
+
+> fire pistol
+A red glow emanates from the pistol briefly turning the lizard red. The large creature almost the size of a man shrinks rapidly to the size of a wasp.
+> fire pistol
+
+> fire pistol
+The tiny lizard is outlined in green and rapidly increases in size to attain normal size. The creature looks around bewilderedly then flaps rapidly away into the distance. Obviously the first shot shrinks living things and a second to the same creature restores it to normal.
+
+The wonders of this ancient science seem to know no bounds. What the ancestors used this for is anybody’s guess.
+
+A shout of anger from behind you rings out. You turn to see the man in black approaching menacingly. He must have found a way out.
+> fire pistol
+
+> fire pistol
+At the last moment the intruder spots the pistol. He charges. His axe swings wildly. The pistol bathes him in red light. His axe clatters across the plaza.
+
+You are conscious of a tiny tapping on your left foot. You look down to see a tiny figure attacking your boot with his fists.
+
+Luckily you have the empty matchbox in your pocket. The tiny man fits inside perfectly. You return it to your pocket.
+> take axe
+
+> take axe
+As you pick the axe up you notice something shining on the handle. You pull it away. It's a medallion.
+> climb flying machine
+
+> climb flying machine
+You climb the side of the odd vehicle.
+
+Inside the flier
+You are in the open front of the flying machine.
+
+You can see seats, controls, a box and a door.
+You can go out of the flying machine or in to the rear cabin.
+
+As you enter the flying machine the medallion glows red briefly and emits a short beeping sound. You are just in time to witness the metal door behind the seats vanish into a slot inside the dividing wall.
+> in
+
+> in
+You make your way into the rear cabin.
+
+Inside the rear cabin
+This is a good sized metal room. The floor is cluttered with various discarded rubbish, none of it any use to you. The owner of this vehicle is not a tidy person.
+
+You can see a cage.
+You can go out.
+> open cage
+
+> open cage
+You open the cage.
+To your amazement the Wizard reduced to the size of a beetle steps out.
+> fire pistol
+
+> fire pistol
+To your relief the tiny figure is bathed in the green glow of the strange pistol. The Wizard swiftly expands to his normal size, a little battered but otherwise in good shape.
+At first he looks shocked, but soon his astonished expression fades into a broad grin. “Zit Squoze! As I live and breathe. Have you dealt with our friend?”
+
+You explain the events after his capture and the fate of the intruder.
+
+“Well played!” he chortles. “You deserve an explanation to what the situation is. You have not worked for me long and I have not yet taken you into my confidence.”
+
+The Wizard seats himself on the cage and continues. “Many many years ago the technicians of the outpost worlds of The Federation left to fight an alien invasion. That war is now won. The time has come to recover the abandoned planets. A Federation fleet is at this moment arriving in orbit. Before the landings begin, however, an advance party of  undercover agents must eliminate various unsavoury individuals who command dangerous old high tech equipment. Such people can cause untold harm to our landing forces and the local population.”
+
+The Wizard rises  to his feet. “I am not a common Wizard as you think. I am Commander Bart Langstrom FSN, the chief agent for this sector. We have been pursuing this particular gentleman for some time. He may act like a barbarian, but he commands the technology to bring down shuttlecraft. He has been difficult to catch as he recommissioned  this old substrat raft and owned a spatial reduction pistol  among other things. He caught me napping but you were a match for him. Now he’s a match for you. Good luck you had the matchbox” he chuckles.
+
+“Now we have a job to do. This chap has to be returned to the hypno teams where we hope he’ll identify a few others of his kind.”
+
+The Wizard rises to his feet. “By the way, you said you travelled here in the old boat. If only you had been able to use my Zero G jacket you could have flown directly to this spot in minutes. It was hanging on my bedpost. But then it was protected by a mind baffler field. You wouldn’t have seen through its disguise with the MB unit running, or known how to use it anyway.”
+
+“Let’s get this thing in the air. I may even show you how to fly it!”
+
+Completely confused but looking forward to a new future you follow on into the flyer.
+
+THE END
+[state=Finished]
