@@ -958,10 +958,11 @@ lib_battle_attack_with (scr_gameref_t game, const scr_char *verb,
  *
  * Scarier's grammar binds one %character%, so those lines never reached a
  * handler and went to the catch-all.  These two rows sit behind every
- * %character% row and take the line as text: they strike every target, and
- * with none they print "Who do you want to attack?" unless an absent NPC is
- * named.  A shared name raises 4.0's question only after the blows
- * (lib_npc_400_raise_for_line()).
+ * %character% row and take the line as text.  With no target they print
+ * "Who do you want to attack?" unless an absent NPC is named; with one they
+ * strike it; with several they ask which was meant and strike nobody until
+ * the answer -- a deliberate deviation from the loop above, see
+ * lib_battle_attack_many().
  */
 static const struct
 {
@@ -975,7 +976,8 @@ static const struct
 
 static scr_bool
 lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
-                          const scr_char *input, scr_int verb_index)
+                          const scr_char *input, scr_int verb_index,
+                          const scr_char **named_by_out = nullptr)
 {
   const scr_prop_setref_t bundle = gs_get_bundle (game);
   const scr_char *name, *named_by;
@@ -994,6 +996,8 @@ lib_battle_npc_is_target (scr_gameref_t game, scr_int npc,
   if (!named_by || !npc_in_room (game, npc, gs_playerroom (game)))
     return FALSE;
 
+  if (named_by_out)
+    *named_by_out = named_by;
   return lib_instr (input, LIB_BATTLE_VERBS[verb_index].verb)
          < lib_instr (input, named_by);
 }
@@ -1147,6 +1151,7 @@ lib_battle_names_absent_npc (scr_gameref_t game, const scr_char *input)
 std::string lib_battle_who_pending;
 static std::string lib_battle_who_at_line;
 static scr_bool lib_battle_who_unanswered = FALSE;
+static scr_bool lib_battle_400_claimed = FALSE;
 
 void
 lib_battle_who_reset (void)
@@ -1154,6 +1159,45 @@ lib_battle_who_reset (void)
   lib_battle_who_pending.clear ();
   lib_battle_who_at_line.clear ();
   lib_battle_who_unanswered = FALSE;
+  lib_battle_400_claimed = FALSE;
+}
+
+/*
+ * lib_battle_400_claim_line()
+ * lib_battle_400_line_claimed()
+ *
+ * Set by lib_battle_attack_many() when it has struck the one target a line
+ * naming several settled on, or asked which one was meant.  run_line_t::
+ * settle() then leaves the line alone: generaltasks' namesake question
+ * would wipe the blow, or the question, and ask "Which guard.  A guard or
+ * a guard?" over it -- the Runner's outcome, which the deviation replaces
+ * (see the comment in lib_battle_attack_many()).  Cleared with each
+ * element.
+ */
+void
+lib_battle_400_claim_line (void)
+{
+  lib_battle_400_claimed = TRUE;
+}
+
+scr_bool
+lib_battle_400_line_claimed (void)
+{
+  return lib_battle_400_claimed;
+}
+
+/*
+ * lib_battle_which_pending()
+ *
+ * TRUE while lib_battle_ask_which_target()'s question is open, so that the
+ * answer -- a bare `guard`, which at 4.0 names the very namesakes asked
+ * about -- is left to lib_battle_who_continuation() rather than to the
+ * scan's own "Which guard." (run_line_t::settle()).
+ */
+scr_bool
+lib_battle_which_pending (void)
+{
+  return lib_battle_who_pending.compare (0, 2, "||") == 0;
 }
 
 /* The prefix between two lines, for a Spatterlight autosave. */
@@ -1189,6 +1233,7 @@ lib_battle_who_begin_element (scr_bool new_line)
   if (new_line)
     lib_battle_who_at_line = lib_battle_who_pending;
   lib_battle_who_unanswered = FALSE;
+  lib_battle_400_claimed = FALSE;
 }
 
 /*
@@ -1228,6 +1273,21 @@ lib_battle_who_continuation (const scr_char *command, scr_bool status)
    * line after it.  A line without the term takes the plain prefix form
    * (4601A5), line & " " & answer.
    */
+  /*
+   * lib_battle_ask_which_target()'s own form, "||" & before & "|" & after:
+   * the answer goes between the two halves, `attack` + `bob` + ` with club`.
+   */
+  if (lib_battle_who_pending.compare (0, 2, "||") == 0)
+    {
+      const size_t mid = lib_battle_who_pending.find ('|', 2);
+      const std::string before (lib_battle_who_pending.substr (2, mid - 2));
+      const std::string after (mid == std::string::npos
+                               ? "" : lib_battle_who_pending.substr (mid + 1));
+
+      lib_battle_who_pending.clear ();
+      return before + " " + command + after;
+    }
+
   bar = lib_battle_who_pending.find ('|');
   if (bar != std::string::npos)
     {
@@ -1623,7 +1683,10 @@ lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
  * lib_battle_400_namesake_tail()
  *
  * 4.0 asks about namesakes only AFTER dobattle has run, and the question
- * replaces everything the line printed; the blows themselves stand.
+ * replaces everything the line printed; the blows themselves stand.  (In
+ * Scarier the blows no longer happen on such a line -- lib_battle_attack_many()
+ * asks first, a deliberate deviation -- so this tail serves the Who path
+ * alone: a line naming namesakes by an alias at 4.0, below.)
  * Measured 2026-09-13 on p4BATTLEMULTI: `attack guard` against the two
  * stamina-500 Guards prints only "Which Guard.  A guard or a guard?" yet
  * draws for two blows (runner_probes/battlemulti.run400.which_a.txt), and
@@ -1653,6 +1716,302 @@ lib_battle_400_namesake_tail (scr_gameref_t game)
 }
 
 /*
+ * lib_battle_prefix_contest()
+ *
+ * 4.0's Prefix contest over the line's battle targets: the character whose
+ * own Prefix words the line holds most of is THE target, a tie keeps the
+ * crowd, and no Prefix word at all keeps everyone.  Scarier holds it at
+ * every version, as lib_disambiguate_npc_pick() does for %character%, so
+ * `attack red riven` with Red Riven and Blue Riven present is one blow.
+ */
+static void
+lib_battle_prefix_contest (scr_gameref_t game, std::vector<scr_int> *targets,
+                           const scr_char *input)
+{
+  std::vector<scr_int> kept;
+  scr_int best, index_;
+
+  best = 0;
+  for (index_ = 0; index_ < (scr_int) targets->size (); index_++)
+    best = std::max (best, lib_npc_400_prefix_score (game,
+                                                     (*targets)[index_],
+                                                     input));
+  if (best <= 0)
+    return;
+  for (index_ = 0; index_ < (scr_int) targets->size (); index_++)
+    {
+      if (lib_npc_400_prefix_score (game, (*targets)[index_], input) == best)
+        kept.push_back ((*targets)[index_]);
+    }
+  *targets = kept;
+}
+
+/*
+ * lib_battle_npc_signature()
+ * lib_battle_dedupe_targets()
+ *
+ * Everything an answer could single a character out by, lower-cased: its
+ * Name and Prefix, and before 4.0 its aliases too (dobattle names its
+ * targets by Name alone at 4.0, 47EB46, and the 4.0 question's answer is
+ * settled by the Prefix contest, so an alias there helps nobody:
+ * p4BATTLEMULTI's `sentry` answered to "Which Guard.  A guard or a guard?"
+ * only asks again).  Two characters with the same signature can never be
+ * told apart, so of each such set only the first by index is kept: a line
+ * naming two identical Guards and a Droid asks "Guard or Droid?", and
+ * `guard` then strikes the first Guard, as a pre-4.0 `hit guard` is settled
+ * (NPC_PICK_FIRST), and `attack guard` alone strikes it without a question.
+ */
+static std::vector<std::string>
+lib_battle_npc_signature (scr_gameref_t game, scr_int npc)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::vector<std::string> words;
+  scr_vartype_t vt_key[4];
+  const scr_char *text;
+  scr_int alias_count, alias;
+
+  text = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+  words.push_back (text ? text : "");
+  text = prop_get_indexed_string (bundle, "NPCs", npc, "Prefix");
+  words.push_back (text ? text : "");
+  alias_count = lib_is_version_400 (game)
+                ? 0 : lib_alias_prepare (bundle, vt_key, "NPCs", npc);
+  for (alias = 0; alias < alias_count; alias++)
+    {
+      vt_key[3].integer = alias;
+      text = prop_get_string (bundle, "S<-sisi", vt_key);
+      words.push_back (text ? text : "");
+    }
+  for (auto &word : words)
+    scr_lowercase (word);
+  return words;
+}
+
+/*
+ * lib_battle_remove_word()
+ *
+ * Take every whole-word occurrence of `word` (one or more words, matched
+ * without case) out of `line`, leaving single spaces.
+ */
+static void
+lib_battle_remove_word (std::string *line, const scr_char *word)
+{
+  const size_t length = word ? strlen (word) : 0;
+  size_t at;
+
+  if (length == 0)
+    return;
+  for (at = 0; at + length <= line->size (); )
+    {
+      const scr_bool starts = at == 0 || (*line)[at - 1] == ' ';
+      const scr_bool ends = at + length == line->size ()
+                            || (*line)[at + length] == ' ';
+
+      if (starts && ends
+          && scr_strncasecmp (line->c_str () + at, word, length) == 0)
+        line->erase (at, length);
+      else
+        at++;
+    }
+  while ((at = line->find ("  ")) != std::string::npos)
+    line->erase (at, 1);
+  while (!line->empty () && line->back () == ' ')
+    line->pop_back ();
+  while (!line->empty () && line->front () == ' ')
+    line->erase (0, 1);
+}
+
+static void
+lib_battle_dedupe_targets (scr_gameref_t game, std::vector<scr_int> *targets)
+{
+  std::vector<std::vector<std::string>> seen;
+  std::vector<scr_int> kept;
+  scr_int index_;
+
+  for (index_ = 0; index_ < (scr_int) targets->size (); index_++)
+    {
+      const std::vector<std::string> signature
+        = lib_battle_npc_signature (game, (*targets)[index_]);
+
+      if (std::find (seen.begin (), seen.end (), signature) != seen.end ())
+        continue;
+      seen.push_back (signature);
+      kept.push_back ((*targets)[index_]);
+    }
+  *targets = kept;
+}
+
+/*
+ * lib_battle_prefer_named_targets()
+ *
+ * Pre-4.0 names a target by its Name or its first alias.  When a line
+ * names some targets by Name and others only by alias, the Name wins:
+ * the answer `ann` to "Who do you want to attack?  Ann or Bob?" re-runs
+ * as `attack ann guard`, which names Ann by Name and Bob by his alias
+ * "guard" -- and must not ask again.
+ */
+static void
+lib_battle_prefer_named_targets (scr_gameref_t game,
+                                 std::vector<scr_int> *targets,
+                                 const scr_char *input, scr_int verb_index)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  std::vector<scr_int> by_name;
+  scr_int index_;
+
+  for (index_ = 0; index_ < (scr_int) targets->size (); index_++)
+    {
+      const scr_int npc = (*targets)[index_];
+      const scr_char *named_by = nullptr, *name;
+
+      lib_battle_npc_is_target (game, npc, input, verb_index, &named_by);
+      name = prop_get_indexed_string (bundle, "NPCs", npc, "Name");
+      if (named_by && name && scr_strcasecmp (named_by, name) == 0)
+        by_name.push_back (npc);
+    }
+  if (!by_name.empty () && by_name.size () < targets->size ())
+    *targets = by_name;
+}
+
+/*
+ * lib_battle_ask_which_target()
+ *
+ * The question a line naming several present targets gets instead of the
+ * Runner's blows.  At 4.0, when the targets are exactly the namesakes the
+ * end-of-turn scan would have asked about, it is that scan's own question
+ * -- "Which riven?  Red riven or Blue riven?" -- and its answer slot: the
+ * answer words are spliced in before the term and the line re-run
+ * (lib_co_400_object_answer_line()), where the Prefix contest settles it.
+ *
+ * Otherwise -- pre-4.0, or a line naming two different characters
+ * (`attack droid guard`) -- it is "Who do you want to attack?" with the
+ * targets listed, each by Name, or by Prefix and name where two share a
+ * Name.  The answer is carried by the Who prefix in its own form, "||" &
+ * before & "|" & after (lib_battle_who_continuation()): the line up to and
+ * including the verb, then the rest of it with every target's naming word
+ * and the "and"s between them taken out.  `attack ann bob with club` / `bob`
+ * runs `attack bob with club`; `attack guard` / `ann` runs `attack ann`.
+ * (The 3.9 `term|line` splice keeps the term, and would name everyone
+ * again.)
+ *
+ * Not a turn at any version: nobody was struck, and the Runner has no
+ * such question to keep parity with.
+ */
+static void
+lib_battle_ask_which_target (scr_gameref_t game, const scr_char *input,
+                             scr_int verb_index,
+                             const std::vector<scr_int> &targets)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_char *verb = LIB_BATTLE_VERBS[verb_index].verb;
+  std::string before, after;
+  scr_int index_;
+  size_t at;
+
+  game->is_admin = TRUE;
+
+  if (lib_is_version_400 (game))
+    {
+      std::vector<scr_int> namesakes, all_targets;
+      std::string unused;
+
+      /* The scan's namesakes against every target the line names, before
+       * the dedupe: it lists identical namesakes itself. */
+      all_targets = lib_battle_named_targets (game, input, verb_index);
+      lib_battle_prefix_contest (game, &all_targets, input);
+      if (lib_npc_400_find_namesakes (game, &unused, &namesakes))
+        {
+          std::sort (namesakes.begin (), namesakes.end ());
+          std::sort (all_targets.begin (), all_targets.end ());
+          if (namesakes == all_targets && lib_npc_400_raise_for_line (game))
+            return;
+        }
+    }
+
+  /* The line up to the verb, and the rest of it without the targets. */
+  before = input;
+  after.clear ();
+  for (at = 0; at < before.size (); at++)
+    {
+      const size_t length = strlen (verb);
+
+      if ((at == 0 || before[at - 1] == ' ')
+          && scr_strncasecmp (before.c_str () + at, verb, length) == 0
+          && (at + length == before.size () || before[at + length] == ' '))
+        {
+          after = before.substr (at + length);
+          before.erase (at + length);
+          break;
+        }
+    }
+  if (at >= before.size ())
+    {
+      before = verb;
+      after.clear ();
+    }
+  for (index_ = 0; index_ < (scr_int) targets.size (); index_++)
+    {
+      const scr_char *named_by = nullptr;
+
+      lib_battle_npc_is_target (game, targets[index_], input, verb_index,
+                                &named_by);
+      if (named_by)
+        lib_battle_remove_word (&after, named_by);
+    }
+  lib_battle_remove_word (&after, "and");
+  lib_battle_who_pending = "||" + before + "|"
+                           + (after.empty () ? "" : " " + after);
+  lib_battle_400_claim_line ();
+
+  pf_buffer_string (filter, "Who do you want to ");
+  pf_buffer_string (filter, verb);
+  pf_buffer_string (filter, "?  ");
+  pf_new_sentence (filter);
+  for (index_ = 0; index_ < (scr_int) targets.size (); index_++)
+    {
+      const scr_char *name, *prefix;
+      scr_bool shared;
+      scr_int other;
+
+      if (index_ > 0)
+        pf_buffer_string (filter,
+                          index_ == (scr_int) targets.size () - 1
+                          ? " or " : ", ");
+
+      /* By Name, as the room lists them; Prefix and name where two share
+       * one, as the 4.0 question lists them ("Red riven"). */
+      name = prop_get_indexed_string (bundle, "NPCs", targets[index_], "Name");
+      shared = FALSE;
+      for (other = 0; other < (scr_int) targets.size (); other++)
+        {
+          const scr_char *other_name;
+
+          if (other == index_)
+            continue;
+          other_name = prop_get_indexed_string (bundle, "NPCs",
+                                                targets[other], "Name");
+          if (name && other_name && scr_strcasecmp (name, other_name) == 0)
+            shared = TRUE;
+        }
+      prefix = prop_get_indexed_string (bundle, "NPCs", targets[index_],
+                                        "Prefix");
+      if (shared && !scr_strempty (prefix))
+        {
+          std::string lower (name ? name : "");
+
+          scr_lowercase (lower);
+          pf_buffer_string (filter, prefix);
+          pf_buffer_character (filter, ' ');
+          pf_buffer_string (filter, lower.c_str ());
+        }
+      else
+        lib_print_npc_np (game, targets[index_]);
+    }
+  pf_buffer_string (filter, "?\n");
+}
+
+/*
  * lib_battle_strike_loop()
  *
  * dobattle's target loop from NPC `start` on.  It tests each NPC as it
@@ -1666,7 +2025,8 @@ lib_battle_strike_loop (scr_gameref_t game, scr_int verb_index,
                         scr_int start, const scr_char *start_line,
                         scr_bool replaced, scr_bool with_object,
                         scr_int object, scr_bool scan,
-                        scr_bool *struck, scr_bool *refused)
+                        scr_bool *struck, scr_bool *refused,
+                        const std::vector<scr_int> *only = nullptr)
 {
   const scr_filterref_t filter = gs_get_filter (game);
   std::string line = start_line;
@@ -1679,6 +2039,11 @@ lib_battle_strike_loop (scr_gameref_t game, scr_int verb_index,
       const scr_char *killed_line;
 
       if (!lib_battle_npc_is_target (game, npc, line.c_str (), verb_index))
+        continue;
+      /* The one target the typed line settled on; a 3.9 KilledTask's
+       * command, once swapped in, is tested as the Runner tests it. */
+      if (only && !replaced
+          && std::find (only->begin (), only->end (), npc) == only->end ())
         continue;
       if (replaced)
         {
@@ -1806,6 +2171,36 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
    * reads no alias), where the catch-all would name the guard.
    */
   targets = lib_battle_named_targets (game, input, verb_index);
+  if (targets.size () > 1)
+    {
+      /*
+       * Deliberate deviation: ONE blow per line.  dobattle's target loop
+       * has no exit (run400 47EB0E-47F006, run390 44CC1C), so the Runner
+       * strikes every present character the line names -- `attack guard`
+       * with two Guards, `attack droid and guard` -- four draws and real
+       * damage each, and 4.0 then asks "Which guard." over the blows'
+       * text, with no way left to take the question's answer as the one
+       * target (runner_probes/battlemulti.run400.txt).  The manual (v4.0,
+       * p.73) gives the command as `attack <character> [with <object>]`,
+       * and the multi-foe rule (p.68) is written for characters only, who
+       * "randomly pick between" their foes; the question's very existence
+       * says one target was meant.  So Scarier asks FIRST and strikes
+       * nobody until the answer names one (lib_battle_ask_which_target()),
+       * names that cannot be told apart collapse to the first of them
+       * (lib_battle_dedupe_targets()), and the 4.0 scan's question is kept
+       * off the line it settles (lib_battle_400_claim_line()).  Logged in
+       * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md, "Deliberate
+       * deviations".
+       */
+      lib_battle_prefix_contest (game, &targets, input);
+      lib_battle_prefer_named_targets (game, &targets, input, verb_index);
+      lib_battle_dedupe_targets (game, &targets);
+      if (targets.size () > 1)
+        {
+          lib_battle_ask_which_target (game, input, verb_index, targets);
+          return TRUE;
+        }
+    }
   if (targets.empty ())
     {
       /*
@@ -1859,7 +2254,9 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   struck = FALSE;
   refused = FALSE;
   lib_battle_strike_loop (game, verb_index, 0, input, FALSE, with_object,
-                          object, scan, &struck, &refused);
+                          object, scan, &struck, &refused, &targets);
+  if (struck)
+    lib_battle_400_claim_line ();
 
   /* Only the question, and no blow: as for one target, not a turn in 4.0
    * (and a turn in 3.9, which sets no not-a-turn byte; see the single-
@@ -1867,7 +2264,6 @@ lib_battle_attack_many (scr_gameref_t game, scr_bool with_object)
   if (!struck && !refused && lib_is_version_400 (game))
     game->is_admin = TRUE;
 
-  lib_battle_400_namesake_tail (game);
   return TRUE;
 }
 

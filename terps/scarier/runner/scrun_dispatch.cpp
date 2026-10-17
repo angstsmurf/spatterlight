@@ -1508,6 +1508,12 @@ run_line_t::settle ()
    * answer ("You don't have the stone!") to it.  `probe`, a task, keeps its
    * own text (the 48B60C gate above).
    *
+   * Not over a battle line that settled on one target or asked which was
+   * meant (lib_battle_400_line_claimed()), nor over that question's answer
+   * (lib_battle_which_pending()): the deviation logged in
+   * lib_battle_attack_many() keeps the blow, or the question, in view and
+   * lets `guard` answer "Guard or Droid?".
+   *
    * Both halves of the question read ONE untyped index, MemVar_4941EC, and
    * the object half (48B6B1) gets first refusal: it runs when that index is
    * also a valid object index AND the line names that object, printing the
@@ -1521,6 +1527,8 @@ run_line_t::settle ()
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running
       && !run_any_task_ran_this_command ()
+      && !lib_battle_400_line_claimed ()
+      && !lib_battle_which_pending ()
       && lib_npc_400_line_names_namesakes (game, string))
     {
       pf_empty (filter);

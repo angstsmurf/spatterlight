@@ -404,10 +404,12 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"kill %character%", lib_cmd_kill_npc},
   {"fight %character%", lib_cmd_fight_npc},
   /*
-   * One line naming several NPCs: dobattle strikes every one of them, and
-   * a battle verb naming no NPC at all asks "Who do you want to attack?";
-   * see lib_battle_attack_many().  `throw` is one of var_90's verbs too
-   * (47E9EF-47EADB): les_feux T115 `throw grappin on rocher` asks Who.
+   * One line naming several NPCs: dobattle strikes every one of them, where
+   * Scarier asks which was meant and strikes that one alone (a deliberate
+   * deviation, see lib_battle_attack_many()); a battle verb naming no NPC
+   * at all asks "Who do you want to attack?".  `throw` is one of var_90's
+   * verbs too (47E9EF-47EADB): les_feux T115 `throw grappin on rocher`
+   * asks Who.
    */
   {"[attack/kick/fight/kill/chop/cut/hit/shoot/stab/throw] %text%"
    " with %object%", lib_cmd_attack_npcs_with},

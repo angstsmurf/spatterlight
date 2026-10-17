@@ -1786,9 +1786,13 @@ lib_cmd_verb_npc (scr_gameref_t game)
    * asked of the line before any library branch (run400 48B6AE-48BB92).
    * `attack droid and guard` splits to a bare `guard` that lands here:
    * "Which Guard.  A guard or a guard?"
-   * (runner_probes/battlemulti.run400.txt).
+   * (runner_probes/battlemulti.run400.txt).  Not while the battle
+   * library's "Who do you want to attack?  Guard or Droid?" is open: that
+   * `guard` is its answer, and falls through to the catch-all so that
+   * lib_battle_who_continuation() re-runs the line with it.
    */
   if (count > 1 && lib_is_version_400 (game)
+      && !lib_battle_which_pending ()
       && lib_npc_400_raise_for_line (game))
     return TRUE;
   if (count != 1)

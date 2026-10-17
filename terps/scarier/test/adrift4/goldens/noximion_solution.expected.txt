@@ -352,15 +352,20 @@ A venemous buzzard are here.  The buzzard hits you, but it doesn't seem to do
 any damage.  The buzzard hits you, but it doesn't seem to do any damage.
 
 > kill venemous buzzard with sword
-Which buzzard?  Venemous buzzard or venemous buzzard?
+You hit the buzzard with the light sword.  The buzzard hits you, but it
+doesn't seem to do any damage.  The buzzard hits you, but it doesn't seem to
+do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard drops.  The buzzard
+hits you, but it doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard hits you, but it
+doesn't seem to do any damage.
 
 > kill venemous buzzard with sword
 You hit the buzzard with the light sword.  The buzzard drops.
-You hit the buzzard with the light sword.  The buzzard drops.
-
-> kill venemous buzzard with sword
-
-> kill venemous buzzard with sword
 
 > kill venemous buzzard with sword
 
@@ -428,9 +433,11 @@ You hit the buzzard with the light sword.  The buzzard hits you, but it
 doesn't seem to do any damage.
 
 > kill venemous buzzard with sword
-You hit the buzzard with the light sword.  The buzzard drops.
+You hit the buzzard with the light sword.  The buzzard hits you, but it
+doesn't seem to do any damage.
 
 > kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard drops.
 
 > kill venemous buzzard with sword
 
@@ -451,29 +458,6 @@ You hit the buzzard with the light sword.  The buzzard hits you, but it
 doesn't seem to do any damage.
 
 > kill venemous buzzard with sword
-You hit the buzzard with the light sword.  The buzzard drops.
-
-> kill venemous buzzard with sword
-
-> kill venemous buzzard with sword
-
-> n
-You move north.
-
-Mihokosa Barrens
-Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and
-ugly on the eyes as they sound. There is virtually no plant life here. Dust
-and dirt has taken over. Mountainous structures border your path and reach
-high into the sky.
-
-A venemous buzzard is here.  The buzzard hits you, but it doesn't seem to do
-any damage.
-
-> kill venemous buzzard with sword
-You hit the buzzard with the light sword.  The buzzard hits you, but it
-doesn't seem to do any damage.
-
-> kill venemous buzzard with sword
 You hit the buzzard with the light sword.  The buzzard hits you, but it
 doesn't seem to do any damage.
 
@@ -497,6 +481,25 @@ any damage.
 > kill venemous buzzard with sword
 You hit the buzzard with the light sword.  The buzzard hits you, but it
 doesn't seem to do any damage.
+
+> kill venemous buzzard with sword
+You hit the buzzard with the light sword.  The buzzard drops.
+
+> kill venemous buzzard with sword
+
+> kill venemous buzzard with sword
+
+> n
+You move north.
+
+Mihokosa Barrens
+Dry, arid, and stinking like rotten cupcakes. The Barrens are as plain and
+ugly on the eyes as they sound. There is virtually no plant life here. Dust
+and dirt has taken over. Mountainous structures border your path and reach
+high into the sky.
+
+A venemous buzzard is here.  The buzzard hits you, but it doesn't seem to do
+any damage.
 
 > kill venemous buzzard with sword
 You hit the buzzard with the light sword.  The buzzard hits you, but it
@@ -518,6 +521,8 @@ You can currently go to:
 1.) Mihokosa Barrens I
 2.) ***
 3.) ***
+
+> kill venemous buzzard with sword
 
 > kill venemous buzzard with sword
 

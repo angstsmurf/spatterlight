@@ -676,6 +676,37 @@ case, and their goldens are re-blessed. The row notes in
 
 ## Deliberate deviations (measured, not ported)
 
+- **One blow per battle line; a line naming several present targets asks
+  first (3.9 and 4.0, 2026-10-17).** dobattle's target loop has no exit
+  (run400 47EB0E-47F006, run390 44CC1C-44D1D5): every present NPC the line
+  names after the verb runs the whole attack branch, so `attack guard` with
+  two Guards, or `attack droid guard`, is two or three blows -- four draws
+  and real damage each -- and 4.0's generaltasks then asks "Which guard.  A
+  guard or a guard?" over the blows' text, with the answer unable to name
+  one target (runner_probes/battlemulti.run400.txt, battlemulti2, p4BATT
+  `attack guard` / `ann` -> "That is still ambiguous!"). The manual (v4.0,
+  p.73) gives the command as `attack <character> [with <object>]`, its
+  multi-foe rule (p.68) is written for NPCs only, and the question's
+  existence says one target was meant: the loop is an accident, not a
+  design. Scarier now: names that cannot be told apart (same Name and
+  Prefix, and before 4.0 the same aliases) collapse to the first by index,
+  as a pre-4.0 `hit guard` is settled (noximion's two "venemous buzzard"s:
+  one dies per `kill venemous buzzard with sword`, the other hits back);
+  a line naming one target by Name and others only by alias (3.9 `attack
+  dave guard`) strikes the Name; whatever is still several asks "Who do you
+  want to attack?  Ann or Bob?" (Prefix + name where two share a Name) and
+  strikes nobody, not a turn, the answer re-run as the line with the other
+  targets' words removed (`attack ann bob with club` / `bob` -> `attack bob
+  with club`); at 4.0, exactly the scan's namesakes get the scan's own
+  "Which riven?  Red riven or Blue riven?" and its Prefix-contest answer,
+  and the generaltasks question is kept off a line the battle library
+  settled, and off that question's bare-noun answer. The 4.0 question on a
+  line naming namesakes by ALIAS (`attack guard` against Ann and Bob, both
+  aliased "guard", which dobattle itself never strikes) is unchanged.
+  See lib_battle_attack_many(), lib_battle_ask_which_target(). Rows
+  re-blessed: noximion (win marker kept). light_up's "Which riven?" lines
+  are unchanged (its Rivens are named by alias, so nothing was ever struck
+  there).
 - **Player conveniences the 3.7/3.8 Runners lack are kept (restored
   2026-09-26).** Each was a Runner port that took a working command away:
   - `undo` works at 3.7 and 3.8 exactly as at 3.9/4.0 ("Undone." and the
