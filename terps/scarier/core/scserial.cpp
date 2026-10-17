@@ -1328,20 +1328,27 @@ ser_get_string (void)
   return string;
 }
 
+/*
+ * ser_reject_number()
+ *
+ * Report a line that does not hold the number the caller wanted, and throw
+ * the restore error.  The line has been consumed, so it is the one before.
+ */
+[[noreturn]] static void
+ser_reject_number (const scr_char *caller, const scr_char *what)
+{
+  scr_error ("%s: invalid %s at line %ld\n", caller, what, ser.read.line - 1);
+  throw ser_tas_error_t ();
+}
+
 static scr_int
 ser_get_int (void)
 {
-  const scr_char *string;
   scr_int value;
 
   /* Get line, and scan for a single integer; return it. */
-  string = ser_get_string ();
-  if (sscanf (string, "%ld", &value) != 1)
-    {
-      scr_error ("ser_get_int:"
-                " invalid integer at line %ld\n", ser.read.line - 1);
-      throw ser_tas_error_t ();
-    }
+  if (sscanf (ser_get_string (), "%ld", &value) != 1)
+    ser_reject_number ("ser_get_int", "integer");
 
   return value;
 }
@@ -1349,17 +1356,11 @@ ser_get_int (void)
 static scr_uint
 ser_get_uint (void)
 {
-  const scr_char *string;
   scr_uint value;
 
   /* Get line, and scan for a single integer; return it. */
-  string = ser_get_string ();
-  if (sscanf (string, "%lu", &value) != 1)
-    {
-      scr_error ("ser_get_uint:"
-                " invalid integer at line %ld\n", ser.read.line - 1);
-      throw ser_tas_error_t ();
-    }
+  if (sscanf (ser_get_string (), "%lu", &value) != 1)
+    ser_reject_number ("ser_get_uint", "integer");
 
   return value;
 }
@@ -1367,20 +1368,14 @@ ser_get_uint (void)
 static scr_bool
 ser_get_boolean (void)
 {
-  const scr_char *string;
   scr_uint value;
 
   /*
    * Get line, and scan for a single integer; check it's a valid-looking flag,
    * and return it.
    */
-  string = ser_get_string ();
-  if (sscanf (string, "%lu", &value) != 1)
-    {
-      scr_error ("ser_get_boolean:"
-                " invalid boolean at line %ld\n", ser.read.line - 1);
-      throw ser_tas_error_t ();
-    }
+  if (sscanf (ser_get_string (), "%lu", &value) != 1)
+    ser_reject_number ("ser_get_boolean", "boolean");
   if (value != 0 && value != 1)
     {
       scr_error ("ser_get_boolean:"
