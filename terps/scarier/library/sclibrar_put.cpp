@@ -88,14 +88,7 @@ lib_check_put_recursion (scr_gameref_t game, scr_int object, scr_int target,
 
 
 /*
- * A seen object lying elsewhere that a 4.0 put's noun names, admitted to
- * lib_put_named_filter() for the rest of that one command; see
- * lib_put_in_multiple_common().
- */
-scr_int lib_put_seen_absent = -1;
-
-/*
- * The twin case: an object present but still unseen, resolved for the rest
+ * An object present but still unseen, resolved for the rest
  * of that one command by asking the scorer directly instead of the seen-gated
  * %text% parse; see lib_put_fragment_present_object() and
  * lib_put_in_multiple_common().  Named so lib_put_print_object_or_that() can
@@ -177,8 +170,7 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
            && obj_indirectly_in_room (game, object, gs_playerroom (game));
 
   if (lib_is_version_400 (game))
-    return object == lib_put_seen_absent
-           || obj_indirectly_in_room (game, object, gs_playerroom (game));
+    return obj_indirectly_in_room (game, object, gs_playerroom (game));
 
   /*
    * Pre-4.0 is wider than "held or worn" as well.  run390 takes an object
@@ -1538,7 +1530,6 @@ scr_bool lib_put_refusal_swept = FALSE;
 void
 lib_put_reset (void)
 {
-  lib_put_seen_absent = -1;
   lib_put_present_unseen = -1;
   lib_put_announce_bytes = 0;
   lib_put_mid_word_390 = FALSE;

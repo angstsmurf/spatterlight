@@ -266,11 +266,12 @@ put thyme in kettle
 # is "cobweb" and it has no alias -- so run400's put/drop list parser
 # rewrites the line to "put web " and the catch-all speaks for the kettle.
 # Scarier's lenient task matching (2026-09-27, deliberate deviation) lets
-# the kettle task take it.  Kept as coverage...
+# the kettle task take it.  Kept as coverage.  The Runner's own spelling,
+# `put cobweb in kettle`, used to follow as a duplicate; its answer leaned on
+# the 4.0 fetch of a seen object from wherever it lies, which Scarier dropped
+# on 2026-10-17, so the duplicate went with it (transcript otherwise
+# identical through the win).
 put web in kettle
-# ...as is the Runner's own spelling, which fishes the cobweb out and puts
-# it in again.
-put cobweb in kettle
 put honey in kettle
 reveal thy secret
 use pipette on kettle

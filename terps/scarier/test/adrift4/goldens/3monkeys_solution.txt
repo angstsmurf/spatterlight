@@ -60,6 +60,12 @@ lift trough with fork
 s
 push up gate
 w
+# The husk is still lying in the NE corner.  run400 fetches it from there
+# ("(Taking the coconut husk first)", runner_transcripts/); Scarier
+# deliberately does not (2026-10-17), so walk over and carry it back.
+ne
+get husk
+sw
 put husk in fire
 lift husk with fork
 turn fan east

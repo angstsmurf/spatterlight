@@ -3441,6 +3441,16 @@ already carrying your sheet." (get_piece's possession test 44615C counts
 worn), and T109's Southeast Corner lists "There are anvils all over the
 place." -- events 6 and 7's finish moves ADD rooms to a static (checkevent
 4702FF-4704F7), so the anvils lie in all four corners, not just the last.
+2026-10-17 re-blessed: `ne` / `get husk` / `sw` inserted before `put husk in
+fire`.  The husk is still lying in the Northeast Corner at that point (T41
+`get husk` was "Huh?", above) and the put used to fetch it from there --
+"(Taking the coconut husk first)" / "(first stepping over to the northeast)"
+in runner_transcripts/3monkeys.txt -- a 4.0 rule Scarier dropped as a
+deliberate deviation (notes/WINE-TRANSCRIPTS-TODO.md).  The walk is three
+turns of monkey movement, so the mandrill now escapes the smoke to the
+northeast rather than north and the tail re-spaces; same 98/100 win.  A
+`look` before the earlier `get husk` instead of the walk breaks the timing
+and the player dies.
 ```
 
 ## humbug_solution.txt
@@ -11009,6 +11019,14 @@ upstairs and stings Cathy in the master bedroom (death, 19/30).  Seeds 1-40:
 2026-09-27 re-blessed: the typed put line also drops the contradictory
 "The jar of honey is too big to fit inside the large cast iron kettle."
 ahead of `pour honey`'s task text.
+2026-10-17 re-blessed: `put cobweb in kettle`, the duplicate after the `web`
+line, is gone with the 4.0 "a put fetches a seen object from wherever it
+lies" rule, which Scarier dropped as a deliberate deviation
+(notes/WINE-TRANSCRIPTS-TODO.md): the line's "(Taking the cobweb first)" was
+that fetch and nothing else ever answered it.  Transcript otherwise
+identical through the win; `put wood in fireplace` still answers "Your hands
+are full.  You dump the wood into the fireplace." because the wood is lying
+in the room, which the plain 4.0 named filter admits.
 ```
 
 ## lca_solution.txt
@@ -11733,7 +11751,8 @@ names (deliberate deviation, 8f7dc3d7a).  Still 100/100.
 
 ```text
 British Fox and the Celebrity Abductions (Sirene).  50/50 since 2026-10-09
-(21 when first wired, 43 after rerouting, 46 on 2026-09-27).  Needs
+(21 when first wired, 43 after rerouting, 46 on 2026-09-27); dungeon part
+re-derived 2026-10-17 without the 4.0 put fetch, see the end.  Needs
 SCR_SKIP_WAITKEY=1 for the same family of unattended-prompt reasons as
 CW2/CW4 above.
 
@@ -11791,6 +11810,36 @@ fox`, an unmatched line where run400's profanity arm answers "I really don't
 think there's any need for language like that!" (not ported, see
 thenightmoon) and Scarier gives the NPC-command refusal.  No task fires on
 that turn in either.
+2026-10-17 re-derived, still 50/50: the 4.0 "a put fetches a seen object
+from another room" rule was removed from Scarier (deliberate deviation,
+notes/WINE-TRANSCRIPTS-TODO.md), and the one-session dungeon scene above
+leaned on it -- `get bag` / `open bag` / `get silver key` / `put silver key
+in ass` were typed right after `open chest` with the search already due,
+the key still in the bag in another cellar room, and the put fetched it
+("(Taking the silver key first)" in runner_transcripts/britishfox.txt; the
+`get silver key` one line earlier is "Take what?").  The route now plays
+XavierHawkUk's two-session dungeon: after `open chest`, `wait` x10 (the
+scene runs 6 turns from arrival to the search; 10 waits land the next
+command on turn 1 of the next session), `get bag`, `open bag`, `get silver
+key`, `put silver key in ass`, `wait` x3, `get silver key` back in the cell,
+one more `wait` (the shower lasts two turns here) and `unlock collar`; then
+`wait` x4, `remove collar`, `attack cadets` (the visitor is RNG-drawn per
+session -- default seed Torturess, Highrise, Cadets -- and any of them earns
+the "attack person in dungeon" points), `ring bell`.  Knock-on effects:
+Grace's arousal starts one step higher, so `kiss grace's pussy` x19 (20
+overshoots and Eugene refuses the computer); and the two-person patrol
+knocked out on the way in is circling the grounds again by the exit, where
+on this clock it walks into Outside the Back Door one turn after British Fox
+("Kill her!", T59 raises the alarm and clears variable 40, losing T460
+"# Sneak": 49/50).  Five `wait`s before the post-computer `out` let it pass
+-- 5 and 6 waits exit clean, 1-4 and 7-8 meet it (scratch pads, default
+seed) -- and the run is 50/50 again with no alarm.  One-session tricks that
+do NOT work without the fetch: fewer waits (not yet in the dungeon),
+skipping `x table` (key unseen, "Take what?"), `open bag` inside the chest
+(then `put silver key in ass` takes the HELD brass key by the mode-2 held
+pass), `put bag in ass` (too big).  runner_transcripts/britishfox.txt is the
+OLD route and was not re-driven; the Runner would answer this route the same
+way bar the five is/are turns already listed.
 ```
 
 ## doa_xbs_solution.txt

@@ -1664,10 +1664,6 @@ You drop the thyme into the boiling water.
 > put web in kettle
 You drop the cobweb into the boiling water.
 
-> put cobweb in kettle
-(Taking the cobweb first)
-You drop the cobweb into the boiling water.
-
 > put honey in kettle
 You pour some of the sticky honey into the boiling water.
 

@@ -676,6 +676,32 @@ case, and their goldens are re-blessed. The row notes in
 
 ## Deliberate deviations (measured, not ported)
 
+- **A 4.0 put does not fetch a seen object from another room
+  (2026-10-17).** name_object's scorer (463640) counts every object the
+  player has seen wherever it now lies, and nothing between it and the take
+  piece asks where the object is, so `put X in Y` -- and, name_object being
+  one routine for both, `put X on Y` -- with X seen but lying elsewhere and
+  Y present takes X from that other room and puts it: p4LOCK from Beta,
+  the gem left in Alpha, `put gem in jar` -> "(Taking the gem first)" /
+  "You put the gem inside the jar." (runner_probes/lock.run400.txt, cells
+  72-78), and three archived walkthrough drives lean on it once each:
+  britishfox `put silver key in ass` (the key in a bag in another cellar
+  room; `get silver key` the line before is "Take what?"), 3monkeys `put
+  husk in fire` (husk in the NE corner, player in the SW) and house `put
+  cobweb in kettle` (runner_transcripts/). Ported 2026-09-14 for `in` and
+  2026-10-09 (36516c9ce) for `on`, REMOVED 2026-10-17: putting an object
+  that is not in the room is a Runner bug, not a rule any game needs --
+  every affected route walks to the object instead (britishfox plays the
+  walkthrough's two-session dungeon, 3monkeys `ne` / `get husk` / `sw`,
+  house drops the duplicate line; v4_walkthrough_rows.md), and the p4LOCK
+  line now gets the unseen-noun exit, "It is not clear which object you
+  are referring to.", a turn, as run400 itself answers `put gem in jar`
+  before the gem has been seen (lock.run400.txt:48) and p4PUT `put zzz in
+  box`. What stays is the other half of the same resolver: a fragment that
+  names something PRESENT the seen-gated %text% parse missed is still
+  recovered (`lib_put_fragment_present_object`). `[4.0]` p4LOCK,
+  britishfox, 3monkeys, house (`lib_put_in_multiple_common`,
+  `lib_put_on_multiple_common`, library/sclibrar_put_multiple.cpp)
 - **One blow per battle line; a line naming several present targets asks
   first (3.9 and 4.0, 2026-10-17).** dobattle's target loop has no exit
   (run400 47EB0E-47F006, run390 44CC1C-44D1D5): every present NPC the line

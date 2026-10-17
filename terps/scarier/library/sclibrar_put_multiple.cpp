@@ -1227,62 +1227,54 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
   /*
    * name_object's scorer (463640) counts every object the player has seen,
    * wherever it now lies, and nothing between it and the take asks where the
-   * object is.  So a noun naming nothing present but one seen object elsewhere
-   * is fetched from that other room: p4LOCK `put gem in jar`, the gem left in
+   * object is.  So run400 fetches a noun naming nothing present but one seen
+   * object from that other room: p4LOCK `put gem in jar`, the gem left in
    * Beta, answers "(Taking the gem first)" / "You put the gem inside the
-   * jar." (runner_probes/lock.run400.txt, 2026-09-14).  An unseen noun still
-   * falls to the clobbering exit below.
+   * jar." (runner_probes/lock.run400.txt, 2026-09-14), and the archived
+   * britishfox, 3monkeys and house transcripts (runner_transcripts/) each
+   * lean on it once.  Scarier deliberately does NOT follow (deviation,
+   * 2026-10-17): putting an object that is not in the room is a Runner bug,
+   * no game needs it -- every affected route can walk to the object and
+   * carry it instead -- and the noun falls to the clobbering exit below
+   * like an unseen one.  The same goes for "put X on Y", see
+   * lib_put_on_multiple_common().  What IS still recovered here is a
+   * fragment naming something present that the seen-gated %text% parse
+   * above could not see.
    */
   if (!parsed && !is_except && lib_is_version_400 (game))
     {
       const scr_char *input = run_get_dispatch_input ();
       std::string fragment;
 
-      if (input && run_unnamed_put_fragment (input, fragment))
+      if (input && run_unnamed_put_fragment (input, fragment)
+          && !lib_put_fragment_names_nothing (game))
         {
-          if (lib_put_fragment_names_nothing (game))
-            {
-              const scr_int seen = lib_verb_object_resolve_400_string
-                                     (game, fragment.c_str (), nullptr, FALSE);
+          /*
+           * The fragment names something present after all -- just not
+           * anything the seen-gated %text% parse above could see.  Ask
+           * the scorer directly, the same way run400's own mode 2 does;
+           * see lib_put_fragment_present_object().
+           */
+          const scr_int present =
+            lib_put_fragment_present_object (game, fragment.c_str ());
 
-              if (seen >= 0 && !obj_is_static (game, seen))
-                {
-                  lib_put_seen_absent = seen;
-                  gs_clear_multiple_references (game);
-                  game->multiple_references[seen] = TRUE;
-                  references = 1;
-                  parsed = TRUE;
-                }
-            }
-          else
+          if (present >= 0 && !obj_is_static (game, present))
             {
               /*
-               * The fragment names something present after all -- just not
-               * anything the seen-gated %text% parse above could see.  Ask
-               * the scorer directly, the same way run400's own mode 2 does;
-               * see lib_put_fragment_present_object().
+               * Only the genuinely unseen case prints as "that" --
+               * lib_put_fragment_present_object() ignores seen state
+               * when it searches, so it can also recover an object the
+               * top parse missed for some other reason while it was
+               * already seen (measured on TheADRIFTProject, 2026-09-19:
+               * `put battery in remote` finds an already-seen battery
+               * this way and must still name it, not say "that").
                */
-              const scr_int present =
-                lib_put_fragment_present_object (game, fragment.c_str ());
-
-              if (present >= 0 && !obj_is_static (game, present))
-                {
-                  /*
-                   * Only the genuinely unseen case prints as "that" --
-                   * lib_put_fragment_present_object() ignores seen state
-                   * when it searches, so it can also recover an object the
-                   * top parse missed for some other reason while it was
-                   * already seen (measured on TheADRIFTProject, 2026-09-19:
-                   * `put battery in remote` finds an already-seen battery
-                   * this way and must still name it, not say "that").
-                   */
-                  if (!gs_object_seen (game, present))
-                    lib_put_present_unseen = present;
-                  gs_clear_multiple_references (game);
-                  game->multiple_references[present] = TRUE;
-                  references = 1;
-                  parsed = TRUE;
-                }
+              if (!gs_object_seen (game, present))
+                lib_put_present_unseen = present;
+              gs_clear_multiple_references (game);
+              game->multiple_references[present] = TRUE;
+              references = 1;
+              parsed = TRUE;
             }
         }
     }
@@ -1855,46 +1847,6 @@ lib_cmd_put_in_multiple (scr_gameref_t game)
 
 
 /*
- * lib_put_on_seen_absent_400()
- *
- * The one seen, dynamic object a 4.0 "put X on Y" names when X names nothing
- * present, or -1.  The "on" twin of the fragment test in
- * lib_put_in_multiple_common(); a list ("all", "and") is left alone.
- */
-static scr_int
-lib_put_on_seen_absent_400 (scr_gameref_t game)
-{
-  const scr_char *input = run_get_dispatch_input ();
-  std::string line, fragment;
-  std::string::size_type split;
-  scr_int index_, seen;
-
-  if (!input || !lib_is_version_400 (game))
-    return -1;
-
-  line = run_normalise_put_line (input);
-  split = line.find (" on ");
-  if (split == std::string::npos)
-    return -1;
-  fragment = line.substr (0, split + 1);
-  if ((" " + fragment).find (" all ") != std::string::npos
-      || (" " + line).find (" and ") != std::string::npos)
-    return -1;
-
-  GS_FOR_EACH_OBJECT (game, index_)
-    {
-      if (obj_indirectly_in_room (game, index_, gs_playerroom (game))
-          && lib_verb_object_name_score (game, index_, fragment.c_str ()) > 0)
-        return -1;
-    }
-
-  seen = lib_verb_object_resolve_400_string (game, fragment.c_str (), nullptr,
-                                             FALSE);
-  return seen >= 0 && !obj_is_static (game, seen) ? seen : -1;
-}
-
-
-/*
  * lib_put_on_multiple_common()
  *
  * Put the objects held by the player and listed in %text% onto an object,
@@ -1934,20 +1886,14 @@ lib_put_on_multiple_common (scr_gameref_t game, scr_bool is_except)
                                         &references))
     {
       /*
-       * name_object is one routine for "in" and "on", so the seen object
-       * lying elsewhere is fetched here too; see lib_put_in_multiple_common().
-       * warlord `put globe on stove`, the globe hidden by the wrap-in-hankie
-       * task, answers "(Taking the foul-smelling globe first)" / "You put
-       * the foul-smelling globe onto the iron stove." in run400, and the
-       * author's own walkthrough leans on it (2026-10-10).
+       * name_object is one routine for "in" and "on", so run400 fetches a
+       * seen object lying elsewhere here too (warlord `put globe on stove`,
+       * the globe hidden by the wrap-in-hankie task, "(Taking the
+       * foul-smelling globe first)").  Scarier deliberately does not; see
+       * lib_put_in_multiple_common().  In Scarier the globe is held after
+       * `unwrap globe`, so warlord's golden never needed it.
        */
-      const scr_int seen = is_except ? -1 : lib_put_on_seen_absent_400 (game);
-
-      if (seen < 0)
-        return FALSE;
-      lib_put_seen_absent = seen;
-      gs_clear_multiple_references (game);
-      game->multiple_references[seen] = TRUE;
+      return FALSE;
     }
   else if (references == 0)
     return TRUE;

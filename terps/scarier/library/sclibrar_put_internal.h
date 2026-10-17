@@ -48,24 +48,22 @@ typedef struct
 } lib_put_outcome_t;
 
 /*
- * The per-command admissions and flags, each described where
+ * The per-command admission and flags, each described where
  * sclibrar_put.cpp defines it; lib_put_reset() clears them all.
  */
-extern scr_int lib_put_seen_absent;
 extern scr_int lib_put_present_unseen;
 extern scr_bool lib_put_mid_word_390;
 extern scr_bool lib_put_refusal_swept;
 
 /*
- * Both admissions last for one command only.  Each put backend's multiple
- * form holds one of these for its whole run, so the two objects are
- * forgotten however the command ends.
+ * The admission lasts for one command only.  Each put backend's multiple
+ * form holds one of these for its whole run, so the object is forgotten
+ * however the command ends.
  */
 struct lib_put_admission_guard_t
 {
   ~lib_put_admission_guard_t ()
   {
-    lib_put_seen_absent = -1;
     lib_put_present_unseen = -1;
   }
 };
