@@ -1487,13 +1487,216 @@ restore_props (a5_state_t *st, const a5_xml_node_t *n, const char *entkey)
       }
 }
 
+/* Restore one saved <Object> node. */
 static void
-restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
+restore_fd_object (a5_run_t *run, const a5_xml_node_t *n)
+{
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+
+  int oi = a5state_object_index (st, a5xml_child_text (n, "Key"));
+  if (oi >= 0)
+    {
+      int is_static = 0;
+      a5_owhere_t w = fd_decode_object_where (
+          a5xml_child_text (n, "DynamicExistWhere"),
+          a5xml_child_text (n, "StaticExistWhere"), &is_static);
+      st->obj[oi].where = w;
+      st->obj[oi].is_static = is_static;
+      if (w == A5_OWHERE_NONE || w == A5_OWHERE_HIDDEN
+          || w == A5_OWHERE_ALLROOMS)
+        st->obj[oi].key = nullptr;
+      else
+        st->obj[oi].key =
+          intern_key (adv, a5xml_child_text (n, "LocationKey"));
+      restore_props (st, n, adv->objects[oi].key);
+    }
+}
+
+/* Restore one saved <Task> node. */
+static void
+restore_fd_task (a5_run_t *run, const a5_xml_node_t *n)
+{
+  a5_state_t *st = run->st;
+
+  int ti = a5state_task_index (st, a5xml_child_text (n, "Key"));
+  if (ti >= 0)
+    {
+      st->task_done[ti] = a5xml_bool (a5xml_child_text (n, "Completed"));
+      st->task_scored[ti] = a5xml_bool (a5xml_child_text (n, "Scored"));
+    }
+}
+
+/* Restore one saved <Event> node. */
+static void
+restore_fd_event (a5_run_t *run, const a5_xml_node_t *n)
+{
+  const a5_adventure_t *adv = run->adv;
+
+  int ei = fd_event_index (adv, a5xml_child_text (n, "Key"));
+  if (ei >= 0 && ei < (int) run->events->size ())
+    {
+      a5_event_rt &e = (*run->events)[ei];
+      int sei = (int) child_long (n, "SubEventIndex");
+      e.status = fd_decode_event_status (a5xml_child_text (n, "Status"));
+      e.timer_to_end = child_long (n, "Timer");
+      e.last_se_time = child_long (n, "SubEventTime");
+      /* Our own writer emits count for "none"; also clamp any index at
+         or past the sub-event list back to Scarier's -1 sentinel. */
+      e.last_se_index = (sei >= 0 && sei < adv->events[ei].n_subevents)
+                          ? sei : -1;
+    }
+}
+
+/* Restore one saved <Character> node. */
+static void
+restore_fd_character (a5_run_t *run, const a5_xml_node_t *n)
 {
   a5_state_t *st = run->st;
   const a5_adventure_t *adv = run->adv;
   const char *player = a5state_player_key (st);
-  const a5_xml_node_t *n, *c;
+  const a5_xml_node_t *c;
+
+  int ci = a5state_character_index (st, a5xml_child_text (n, "Key"));
+  if (ci >= 0)
+    {
+      const char *where = a5xml_child_text (n, "ExistWhere");
+      const char *pos   = a5xml_child_text (n, "Position");
+      const char *lkey  = a5xml_child_text (n, "LocationKey");
+      int wslot = 0;
+
+      st->char_loc[ci] = nullptr;
+      st->char_onobj[ci] = nullptr;
+      if (st->char_in != nullptr)
+        st->char_in[ci] = 0;
+      if (where == nullptr || streq (where, "Hidden")
+          || streq (where, "Uninitialised"))
+        { /* hidden: no placement */ }
+      else if (streq (where, "AtLocation")
+               || streq (where, "OnCharacter"))
+        st->char_loc[ci] = intern_key (adv, lkey);
+      else if (streq (where, "OnObject"))
+        st->char_onobj[ci] = intern_key (adv, lkey);
+      else if (streq (where, "InObject"))
+        {
+          st->char_onobj[ci] = intern_key (adv, lkey);
+          if (st->char_in != nullptr)
+            st->char_in[ci] = 1;
+        }
+      free (st->char_position[ci]);
+      st->char_position[ci] = strdup (pos ? pos : "Standing");
+
+      /* Walks: nested <Walk> in order map onto this character's slots. */
+      for (c = n->first_child; c != nullptr; c = c->next)
+        if (streq (c->name, "Walk"))
+          {
+            int found = -1, count = 0, w;
+            for (w = 0; w < (int) run->walks->size (); w++)
+              if ((*run->walks)[w].char_index == ci)
+                { if (count == wslot) { found = w; break; } count++; }
+            if (found >= 0)
+              {
+                a5_walk_rt &wk = (*run->walks)[found];
+                wk.status =
+                  fd_decode_walk_status (a5xml_child_text (c, "Status"));
+                wk.timer_to_end = child_long (c, "Timer");
+              }
+            wslot++;
+          }
+
+      /* Seen keys (player only -- Scarier tracks no NPC seen-sets). */
+      if (streq (adv->characters[ci].key, player))
+        for (c = n->first_child; c != nullptr; c = c->next)
+          if (streq (c->name, "Seen"))
+            {
+              const char *k = c->text ? c->text : "";
+              int oi = a5state_object_index (st, k);
+              int cc = a5state_character_index (st, k);
+              if (oi >= 0 && st->obj_seen != nullptr)
+                st->obj_seen[oi] = 1;
+              else if (cc >= 0 && st->char_seen != nullptr)
+                st->char_seen[cc] = 1;
+              else
+                a5state_mark_loc_seen (st, k);
+            }
+
+      restore_props (st, n, adv->characters[ci].key);
+    }
+}
+
+/* Restore one saved <Variable> node. */
+static void
+restore_fd_variable (a5_run_t *run, const a5_xml_node_t *n)
+{
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+
+  int vi = a5state_variable_index (st, a5xml_child_text (n, "Key"));
+  if (vi >= 0)
+    {
+      const char *v0 = a5xml_child_text (n, "Value_0");
+      if (!streq (adv->variables[vi].type, "Text"))
+        {
+          st->var_num[vi] = v0 != nullptr ? strtol (v0, nullptr, 10) : 0;
+          /* An array variable saves each element as Value_0..
+             Value_(n-1) (FileIO.vb:174; zero-valued elements are
+             omitted from the save, so default to 0). */
+          if (st->var_arr != nullptr && st->var_arr[vi] != nullptr)
+            for (int e = 0; e < adv->variables[vi].array_length; e++)
+              {
+                char tag[24];
+                snprintf (tag, sizeof tag, "Value_%d", e);
+                const char *ve = a5xml_child_text (n, tag);
+                st->var_arr[vi][e] = ve != nullptr ? strtol (ve, nullptr, 10) : 0;
+              }
+        }
+      else
+        {
+          free (st->var_text[vi]);
+          st->var_text[vi] = strdup (v0 ? v0 : "");
+        }
+    }
+}
+
+/* Restore one saved <Group> node. */
+static void
+restore_fd_group (a5_run_t *run, const a5_xml_node_t *n)
+{
+  a5_state_t *st = run->st;
+  const a5_adventure_t *adv = run->adv;
+  const a5_xml_node_t *c;
+
+  const char *gk = a5xml_child_text (n, "Key");
+  int gi;
+  for (gi = 0; gi < adv->n_groups; gi++)
+    if (streq (adv->groups[gi].key, gk))
+      break;
+  if (gi < adv->n_groups)
+    {
+      const a5_group_t *g = &adv->groups[gi];
+      int j, ncand = group_candidate_count (adv, g);
+      /* Effective membership = the listed <Member> set (add/remove vs
+         the model list via the runtime override layer).  Reconcile
+         across the whole candidate space so runtime removals are also
+         restored, for Objects, Locations and Characters groups alike. */
+      for (j = 0; j < ncand; j++)
+        {
+          const char *ck = group_candidate_key (adv, g, j);
+          int listed = 0;
+          for (c = n->first_child; c != nullptr; c = c->next)
+            if (streq (c->name, "Member") && streq (c->text, ck))
+              { listed = 1; break; }
+          if (listed != a5state_object_in_group (st, gk, ck))
+            a5state_set_object_in_group (st, gk, ck, listed);
+        }
+    }
+}
+
+static void
+restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
+{
+  a5_state_t *st = run->st;
+  const a5_xml_node_t *n;
 
   restore_reset (run);
 
@@ -1509,173 +1712,17 @@ restore_fd_game (a5_run_t *run, const a5_xml_node_t *root)
             restore_props (st, n, lk);
         }
       else if (streq (nm, "Object"))
-        {
-          int oi = a5state_object_index (st, a5xml_child_text (n, "Key"));
-          if (oi >= 0)
-            {
-              int is_static = 0;
-              a5_owhere_t w = fd_decode_object_where (
-                  a5xml_child_text (n, "DynamicExistWhere"),
-                  a5xml_child_text (n, "StaticExistWhere"), &is_static);
-              st->obj[oi].where = w;
-              st->obj[oi].is_static = is_static;
-              if (w == A5_OWHERE_NONE || w == A5_OWHERE_HIDDEN
-                  || w == A5_OWHERE_ALLROOMS)
-                st->obj[oi].key = nullptr;
-              else
-                st->obj[oi].key =
-                  intern_key (adv, a5xml_child_text (n, "LocationKey"));
-              restore_props (st, n, adv->objects[oi].key);
-            }
-        }
+        restore_fd_object (run, n);
       else if (streq (nm, "Task"))
-        {
-          int ti = a5state_task_index (st, a5xml_child_text (n, "Key"));
-          if (ti >= 0)
-            {
-              st->task_done[ti] = a5xml_bool (a5xml_child_text (n, "Completed"));
-              st->task_scored[ti] = a5xml_bool (a5xml_child_text (n, "Scored"));
-            }
-        }
+        restore_fd_task (run, n);
       else if (streq (nm, "Event"))
-        {
-          int ei = fd_event_index (adv, a5xml_child_text (n, "Key"));
-          if (ei >= 0 && ei < (int) run->events->size ())
-            {
-              a5_event_rt &e = (*run->events)[ei];
-              int sei = (int) child_long (n, "SubEventIndex");
-              e.status = fd_decode_event_status (a5xml_child_text (n, "Status"));
-              e.timer_to_end = child_long (n, "Timer");
-              e.last_se_time = child_long (n, "SubEventTime");
-              /* Our own writer emits count for "none"; also clamp any index at
-                 or past the sub-event list back to Scarier's -1 sentinel. */
-              e.last_se_index = (sei >= 0 && sei < adv->events[ei].n_subevents)
-                                  ? sei : -1;
-            }
-        }
+        restore_fd_event (run, n);
       else if (streq (nm, "Character"))
-        {
-          int ci = a5state_character_index (st, a5xml_child_text (n, "Key"));
-          if (ci >= 0)
-            {
-              const char *where = a5xml_child_text (n, "ExistWhere");
-              const char *pos   = a5xml_child_text (n, "Position");
-              const char *lkey  = a5xml_child_text (n, "LocationKey");
-              int wslot = 0;
-
-              st->char_loc[ci] = nullptr;
-              st->char_onobj[ci] = nullptr;
-              if (st->char_in != nullptr)
-                st->char_in[ci] = 0;
-              if (where == nullptr || streq (where, "Hidden")
-                  || streq (where, "Uninitialised"))
-                { /* hidden: no placement */ }
-              else if (streq (where, "AtLocation")
-                       || streq (where, "OnCharacter"))
-                st->char_loc[ci] = intern_key (adv, lkey);
-              else if (streq (where, "OnObject"))
-                st->char_onobj[ci] = intern_key (adv, lkey);
-              else if (streq (where, "InObject"))
-                {
-                  st->char_onobj[ci] = intern_key (adv, lkey);
-                  if (st->char_in != nullptr)
-                    st->char_in[ci] = 1;
-                }
-              free (st->char_position[ci]);
-              st->char_position[ci] = strdup (pos ? pos : "Standing");
-
-              /* Walks: nested <Walk> in order map onto this character's slots. */
-              for (c = n->first_child; c != nullptr; c = c->next)
-                if (streq (c->name, "Walk"))
-                  {
-                    int found = -1, count = 0, w;
-                    for (w = 0; w < (int) run->walks->size (); w++)
-                      if ((*run->walks)[w].char_index == ci)
-                        { if (count == wslot) { found = w; break; } count++; }
-                    if (found >= 0)
-                      {
-                        a5_walk_rt &wk = (*run->walks)[found];
-                        wk.status =
-                          fd_decode_walk_status (a5xml_child_text (c, "Status"));
-                        wk.timer_to_end = child_long (c, "Timer");
-                      }
-                    wslot++;
-                  }
-
-              /* Seen keys (player only -- Scarier tracks no NPC seen-sets). */
-              if (streq (adv->characters[ci].key, player))
-                for (c = n->first_child; c != nullptr; c = c->next)
-                  if (streq (c->name, "Seen"))
-                    {
-                      const char *k = c->text ? c->text : "";
-                      int oi = a5state_object_index (st, k);
-                      int cc = a5state_character_index (st, k);
-                      if (oi >= 0 && st->obj_seen != nullptr)
-                        st->obj_seen[oi] = 1;
-                      else if (cc >= 0 && st->char_seen != nullptr)
-                        st->char_seen[cc] = 1;
-                      else
-                        a5state_mark_loc_seen (st, k);
-                    }
-
-              restore_props (st, n, adv->characters[ci].key);
-            }
-        }
+        restore_fd_character (run, n);
       else if (streq (nm, "Variable"))
-        {
-          int vi = a5state_variable_index (st, a5xml_child_text (n, "Key"));
-          if (vi >= 0)
-            {
-              const char *v0 = a5xml_child_text (n, "Value_0");
-              if (!streq (adv->variables[vi].type, "Text"))
-                {
-                  st->var_num[vi] = v0 != nullptr ? strtol (v0, nullptr, 10) : 0;
-                  /* An array variable saves each element as Value_0..
-                     Value_(n-1) (FileIO.vb:174; zero-valued elements are
-                     omitted from the save, so default to 0). */
-                  if (st->var_arr != nullptr && st->var_arr[vi] != nullptr)
-                    for (int e = 0; e < adv->variables[vi].array_length; e++)
-                      {
-                        char tag[24];
-                        snprintf (tag, sizeof tag, "Value_%d", e);
-                        const char *ve = a5xml_child_text (n, tag);
-                        st->var_arr[vi][e] = ve != nullptr ? strtol (ve, nullptr, 10) : 0;
-                      }
-                }
-              else
-                {
-                  free (st->var_text[vi]);
-                  st->var_text[vi] = strdup (v0 ? v0 : "");
-                }
-            }
-        }
+        restore_fd_variable (run, n);
       else if (streq (nm, "Group"))
-        {
-          const char *gk = a5xml_child_text (n, "Key");
-          int gi;
-          for (gi = 0; gi < adv->n_groups; gi++)
-            if (streq (adv->groups[gi].key, gk))
-              break;
-          if (gi < adv->n_groups)
-            {
-              const a5_group_t *g = &adv->groups[gi];
-              int j, ncand = group_candidate_count (adv, g);
-              /* Effective membership = the listed <Member> set (add/remove vs
-                 the model list via the runtime override layer).  Reconcile
-                 across the whole candidate space so runtime removals are also
-                 restored, for Objects, Locations and Characters groups alike. */
-              for (j = 0; j < ncand; j++)
-                {
-                  const char *ck = group_candidate_key (adv, g, j);
-                  int listed = 0;
-                  for (c = n->first_child; c != nullptr; c = c->next)
-                    if (streq (c->name, "Member") && streq (c->text, ck))
-                      { listed = 1; break; }
-                  if (listed != a5state_object_in_group (st, gk, ck))
-                    a5state_set_object_in_group (st, gk, ck, listed);
-                }
-            }
-        }
+        restore_fd_group (run, n);
     }
   /* No RNG in an ADRIFT 5 Runner save: the run keeps its current (fresh: 1234) seed. */
 }
