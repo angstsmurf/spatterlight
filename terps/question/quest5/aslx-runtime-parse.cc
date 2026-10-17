@@ -658,6 +658,11 @@ struct Parser {
 
 // Compile an expression source string to an AST (used by the statement parser).
 ExprP compile_expr_str(const std::string &src) {
+    // NCalc rejects an empty source before parsing; QuestViva's wrapper reports
+    // it with this exact text (The Mold Cage's `CloneObjectAndMove ( , )`).
+    if (trim(src).empty())
+        throw std::runtime_error(
+            "Error evaluating expression '': ExpressionString cannot be null or empty.");
     std::string enc = encode_identifier_spaces(src);
     Lexer lex(enc);
     lex.lex();

@@ -1,0 +1,114 @@
+A long long time ago, in a very damp part of the world very far away, is a land ruled by magic.
+
+The wizards there are not very clean at all, and use the resulting molds (i.e. penicillin) to create magical spauras around them and can turn into things.
+
+You are the first wizard to figure out how to turn into cute kitties, like, as cute as those on /r/aww, and have a mild fear of dinosaurs. Luckily there are no dinosaurs in this game.
+
+That you have discovered such an adorable use of mold makes you believe you can challenge the Moldest Wizard for his spot.
+
+The Moldest Wizard does not appreciate cute things. He will destroy you.
+Error running script: Error evaluating expression '': ExpressionString cannot be null or empty.
+You are totally disgusted by the smell of a The Moldest Throne.
+You can see a Mold and The Moldest Wizard.
+> look
+> look
+You are totally disgusted by the smell of a The Moldest Throne.
+You can see a Mold and The Moldest Wizard.
+> x moldest wizard
+> x moldest wizard
+The Moldest Wizard has mold in his hair, teeth, and wreaks of spauras. He seems so powerful.
+> speak to moldest wizard
+> speak to moldest wizard
+What do I care about cat nip? I suppose, being a plant, it is mildly similar to mold. But its really not nearly gross enough.
+> challenge for title of moldest wizard moldest wizard
+> challenge for title of moldest wizard moldest wizard
+"What! You challenge me?
+
+"You who have learned cute in a world of power! You're not a powerful wizard, you're not even very Mold. I PROFUSELY EXPEL MOLD STENCH!
+
+I laugh. A powerful wizard, no. You are a pawerful wizard! Get it like a cat! You're a cat! Seriously! What the hell!
+
+"But I accept your challenge, so that I may break you."
+
+*The Moldest Wizard begins to chant*
+
+"Rumbledore Fumbledore, Sumbledore Crumbledore, Fungi Mushroom delight!!!!!!"
+
+And a beam of green flies toward you
+You find yourself in a The Mold Cage Entrance.
+You can see an even more mold, a Mold and a Mold.
+The Mold Cage is not a place, but the most wicked spell.
+
+You are in a box of magic, covered in the mold of its caster.
+
+You will have to eat your way out.
+> look
+> look
+You find yourself in a The Mold Cage Entrance.
+You can see an even more mold, a Mold and a Mold.
+The Mold Cage is not a place, but the most wicked spell.
+
+You are in a box of magic, covered in the mold of its caster.
+
+You will have to eat your way out.
+> get tired of how much mold there is even more mold
+> get tired of how much mold there is even more mold
+An entrance to the Mold Cage proper appears... It seems you have found a way to pass the mold without eating all of it. Being a kitty without a very large stomach this is very important.
+> go to an opening into the mold cage maple syrup factory
+> go to an opening into the mold cage maple syrup factory
+You can smell that you are in a The Mold Cage Maple Syrup Factory.
+You can see a Factory Workers, a Moldple Syrup, a Mold and a Mold.
+You can go east.
+There are workers everywhere making maple syrup. Unfortunately there is a ton of mold in it.
+> look
+> look
+You can smell that you are in a The Mold Cage Maple Syrup Factory.
+You can see a Factory Workers, a Moldple Syrup, a Mold and a Mold.
+You can go east.
+There are workers everywhere making maple syrup. Unfortunately there is a ton of mold in it.
+> speak to factory workers
+> speak to factory workers
+Hmm. Until you tell me
+THE KEY INGREDIENT FOR MIND-BLOWING SYRUP
+I'm not going to let you out of here.
+
+Be wary of the dinosaur!
+> look east
+> look east
+You are looking east.
+> east
+> east
+You are in a The Mold Cage Rec Center.
+You can see a Mold and a Mold.
+You can go west.
+> look
+> look
+You are in a The Mold Cage Rec Center.
+You can see a Mold and a Mold.
+You can go west.
+> west
+> west
+You can smell that you are in a The Mold Cage Maple Syrup Factory.
+You can see a Factory Workers, a Dinosaur, a Moldple Syrup, a Mold and a Mold.
+You can go east.
+There are workers everywhere making maple syrup. Unfortunately there is a ton of mold in it.
+> look at factory workers
+> look at factory workers
+They keep making maple syrup........
+They're still making maple syrup.
+
+Actually, some time between when you started watching them and when you stopped, a new room appeared!
+> go to the mold cage self surgery room
+> go to the mold cage self surgery room
+You are in a The Mold Cage Self Surgery Room.
+You can see a Surgery Machine and a Mold.
+> look
+> look
+You are in a The Mold Cage Self Surgery Room.
+You can see a Surgery Machine and a Mold.
+> use surgery machine
+> use surgery machine
+You die.
+
+Therefore you are out of the Mold Cage!! You Win!!
+[state=Finished]

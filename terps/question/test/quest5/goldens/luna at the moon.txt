@@ -1,0 +1,42 @@
+You`re in a strange place. a the moon.
+> look
+
+> look
+You`re in a strange place. a the moon.
+> x me
+
+> x me
+It is too dark to make anything out.
+> x flashlight
+
+> x flashlight
+I can't see that.
+> turn on flashlight
+
+> turn on flashlight
+I can't see that. (flashlight)
+> sing
+
+> sing
+I dont know why, they threw me on the moon; partake my awful doom; i dont know why.. (to the tune of "I`m Wide Awake')
+> dance
+
+> dance
+you start dancing around. you trip on a rock, and fall on your face. you hope nopony noticed your a horrible dancer.
+> x stars
+
+> x stars
+I can't see that.
+> north
+
+> north
+You can't go there.
+> south
+
+> south
+You can't go there.
+> inventory
+
+> inventory
+You are not carrying anything.
+[state=Running]

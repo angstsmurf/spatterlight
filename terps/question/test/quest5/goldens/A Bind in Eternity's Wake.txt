@@ -1,0 +1,95 @@
+You are Outside.
+You can see a Rebecca and a Anthony.
+A large Estate looms over the street. Police cars block off the ends of the road and officers mill about. Yellow tape surrounds the area. The lights from the vehicles cast akward shadows. Your friends Anthony and Rebecca stand next to you.
+> look
+> look
+You are Outside.
+You can see a Rebecca and a Anthony.
+A large Estate looms over the street. Police cars block off the ends of the road and officers mill about. Yellow tape surrounds the area. The lights from the vehicles cast akward shadows. Your friends Anthony and Rebecca stand next to you.
+> x rebecca
+> x rebecca
+Rebecca (Becca) has been your friend for years. She has soft brown hair and soft blue eyes. She is a kind person.
+> x anthony
+> x anthony
+Anthony (Tony). A tall, young man. His dirty blonde hair is accented by his dark blue eyes. Tony has been one of your best friends for as long as you can remember. He has a short temper.
+> ask rebecca about estate
+> ask rebecca about estate
+It looks really creepy doesn't it? Even more so with all that's happened. I think this was the Holtzman's place.
+> ask rebecca about holtzmans
+> ask rebecca about holtzmans
+They were pretty strange, but they kept to themselves. I had know idea all this stuff was happening in their backyard.
+> ask rebecca about tony
+> ask rebecca about tony
+He would know more about himself than I would.
+> ask rebecca about becca
+> ask rebecca about becca
+She does not reply.
+> ask anthony about holtzman
+> ask anthony about holtzman
+I don't know much other than they lived on this street and usually kept to themselves. I had no idea they would have done something as sick as this though...
+> ask anthony about estate
+> ask anthony about estate
+All I know is that it is, well, was owned by the Holtzmans
+> ask anthony about rebecca
+> ask anthony about rebecca
+" Sorry, I have no idea."
+> ask anthony about himself
+> ask anthony about himself
+" Sorry, I have no idea."
+> ask anthony about the weather
+> ask anthony about the weather
+" Sorry, I have no idea."
+> speak to rebecca
+> speak to rebecca
+"This is all very strange isn't it? What did you want to ask me?"
+> speak to anthony
+> speak to anthony
+"Hey, man. This is some weird shit huh? Anyway, was there something you wanted to ask me?"
+> smell rebecca
+> smell rebecca
+She smells of sweet smelling perfume.
+> smell anthony
+> smell anthony
+He smells faintly of Old Spice.
+> touch rebecca
+> touch rebecca
+Her skin feels soft and supple. "Um, can you stop touching me, please?"
+> take rebecca
+> take rebecca
+What do you mean "Take" her? She is a human being not some object!
+> take anthony
+> take anthony
+What do you mean "Take" him? How are you expecting to fit in your pack?
+> north
+> north
+You can't go there.
+> hit anthony
+> hit anthony
+You punch Anthony in the face. "Ow! What the hell was that for? Asshole. You know what? Do give what you can't take!"
+Anthony smashes his fist into your face and you see stars.
+
+You receive 10 damage.
+
+The stars finally fade.
+> kiss anthony
+> kiss anthony
+Your lips touch softly against his.
+Suddenly you feel his fist collide with your face.
+"WHAT THE HELL!?"
+
+You receive 5 damage.
+> climb anthony
+> climb anthony
+You grab onto him and attempt your assent, but Anthony pushes you off and onto the ground. "What is wrong with you?"
+
+You fall hard, there is going to be a bruise later.
+
+You receive 5 damage.
+> kill anthony
+> kill anthony
+OH MY GOD! What the hell is wrong with you!? Anthony now lies dead in the street.
+
+The police notice the murder and immediately arrest you.
+
+--GAME OVER--
+[state=Finished]

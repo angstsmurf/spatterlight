@@ -1,0 +1,49 @@
+You are in a Bedroom.
+You can see a Bed and a Computer.
+You can go south or east.
+This is your bedroom, you sleep in here. To the east is the window and to the south is the door to the hallway.
+> look
+> look
+You are in a Bedroom.
+You can see a Bed and a Computer.
+You can go south or east.
+This is your bedroom, you sleep in here. To the east is the window and to the south is the door to the hallway.
+> x bed
+> x bed
+This is the bed that you sleep and masturbate on.
+> south
+> south
+You are in a Hallway.
+You can see a dildo.
+You can go north or south.
+This is the hallway leading to the other rooms on the second floor and to the stairs. To the north is your bedroom and to the south is the stairs.
+> south
+> south
+You are in a Stairs.
+You can go north or south.
+The stairs... "Well what the fuck do you want they're just stairs!"
+
+To the north is the hallway and the south leads to the living room.
+> south
+> south
+You are in a Living room.
+You can see a couch and a Television.
+You can go north or southeast.
+Your living room where you spend time with your family (jk they don't love you) and watch tv. To the north is the stairs and to the southeast is your front door.
+> look
+> look
+You are in a Living room.
+You can see a couch and a Television.
+You can go north or southeast.
+Your living room where you spend time with your family (jk they don't love you) and watch tv. To the north is the stairs and to the southeast is your front door.
+> x television
+> x television
+A 62" flat screen lcd tv, the screen in blank and dark because it is turned off
+> southeast
+> southeast
+You are in a front yard.
+You can go northwest.
+It's the front yard of your house
+You look up into the sky and see something strange
+It was a meteor and you got it by it and died
+[state=Finished]
