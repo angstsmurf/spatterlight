@@ -100,6 +100,16 @@ How it was verified:
   → Kept, with a comment. It draws ImageHeight/2 + 1 rows (row 160 at
   height 320). The Scott and Plus Apple II goldens include that row, so
   changing it would mean regenerating them for no visible gain.
+  → 2026-10-17: fixed after all. The vector games draw into rows 160 to
+  191 (every Apple II `.result` page dump in the SpatterlightTests fixtures
+  has content there: 0x7f in so_console, a 55/2a dither in so_painting),
+  which the Apple hides behind its text window. Drawn at plot row 320 it
+  is normally clipped by the graphics window, but on a title screen, where
+  `y_offset` is a third of the spare height, it showed as a stray line.
+  The loop is now `row < MIN(ImageHeight / 2, 160)` for both orientations.
+  The 15 Plus Apple II image goldens were re-blessed: every row lost two
+  plot rows (560x322 to 560x320, 560x306 to 560x304) and nothing else.
+  None of the Scott golden suites draw this path, so none changed.
 - [x] **[hazard] Unterminated `TranslateColorC64` semantics.** Many `case` labels
   fall to `break` *without* calling `SetColor`, so the palette slot silently
   keeps the previous image's colour. That is behaviour, not an accident (see

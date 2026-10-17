@@ -275,16 +275,12 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
     if (screenmem == NULL)
         return;
 
-    // Note that this draws ImageHeight / 2 + 1 rows, one more than the image
-    // height: with the usual ImageHeight of 320 that is row 160, the top
-    // scanline of the text area. Left as is, because the goldens include it.
-    // Upside down, that row would land above the top of the picture, so it
-    // is left out.
-    int endrow = MIN(ImageHeight / 2, 160);
-    if (upside_down)
-        endrow--;
+    // The picture is the top 160 scanlines. The Apple shows the hi-res page
+    // in mixed mode, so rows 160 to 191 are hidden behind the text window
+    // even though the vector pictures draw into them.
+    int rows = MIN(ImageHeight / 2, 160);
 
-    for (int row = 0; row <= endrow; row++) {
+    for (int row = 0; row < rows; row++) {
         uint8_t const *const vram_row = screenmem + gm_row_address(row);
         uint16_t words[40];
         gm_compute_row_words(vram_row, words);
