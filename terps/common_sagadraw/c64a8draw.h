@@ -42,7 +42,6 @@ typedef void (*c64a8_adjust_fn)(struct c64a8_bounds *bounds);
 int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, c64a8_adjust_fn adjust, enum c64a8_variant variant);
 // Draws one bitmap byte as four double-width pixels at (x, *y), two bits
 // per pixel with the high pair leftmost, then moves *y down one row.
-// Returns x unchanged, so a column of bytes keeps the same left edge.
-int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern);
+void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern);
 
 #endif /* c64a8draw_h */

@@ -176,18 +176,13 @@ static void TranslateColorC64(uint8_t index, uint8_t value, int claymorgue)
     SetColor(index, c64colors[color]);
 }
 
-int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern)
+void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern)
 {
-    uint8_t mask = 0xc0;
-
-    for (int i = 6; i >= 0; i -= 2) {
-        int color = (pattern & mask) >> i;
-        PutDoublePixel(x, *y, color);
-        mask >>= 2;
+    for (int shift = 6; shift >= 0; shift -= 2) {
+        PutDoublePixel(x, *y, (pattern >> shift) & 3);
         x += 2;
     }
     (*y)++;
-    return x - 8;
 }
 
 int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, c64a8_adjust_fn adjust, enum c64a8_variant variant)
@@ -273,8 +268,8 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, c64a8_adjust_fn adjust
             }
             if (xpos <= (bounds.right - 3) * 8) {
                 // Each byte pair is one column of 4 x 2 double-width pixels
-                xpos = DrawPatternAndAdvancePos(xpos, &ypos, pattern_top);
-                xpos = DrawPatternAndAdvancePos(xpos, &ypos, pattern_bottom);
+                DrawPatternAndAdvancePos(xpos, &ypos, pattern_top);
+                DrawPatternAndAdvancePos(xpos, &ypos, pattern_bottom);
                 if (ypos > bounds.bottom) {
                     xpos += 8;
                     ypos = bounds.top;

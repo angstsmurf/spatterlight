@@ -153,7 +153,7 @@ static int DrawApple2Image(USImage *image)
 {
     if (image->usage == IMG_ROOM)
         ClearApple2ScreenMem();
-    DrawApple2ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US, NULL);
+    DrawApple2ImageFromData(image->imagedata, image->datasize, CurrentGame == COUNT_US ? APPLE2_COUNT : APPLE2_STANDARD, NULL);
     debug_print("Drawing image with index %d, usage %d\n", image->index, image->usage);
     return 1;
 }

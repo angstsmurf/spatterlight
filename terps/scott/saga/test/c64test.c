@@ -61,16 +61,12 @@ void SetColor(int32_t index, glui32 color) {
 
 // c64_small.c calls this (the original lives in c64a8draw.c); copied verbatim so
 // we don't drag in the whole c64a8draw translation unit.
-int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
-    uint8_t mask = 0xc0;
-    for (int i = 6; i >= 0; i -= 2) {
-        int color = (pattern & mask) >> i;
-        PutDoublePixel(x, *y, color);
-        mask >>= 2;
+void DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
+    for (int shift = 6; shift >= 0; shift -= 2) {
+        PutDoublePixel(x, *y, (pattern >> shift) & 3);
         x += 2;
     }
     (*y)++;
-    return x - 8;
 }
 
 // Unity-include the renderer to reach the file-static DrawMiniC64ImageFromData,

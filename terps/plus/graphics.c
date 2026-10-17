@@ -360,7 +360,7 @@ int DrawImageWithName(const char *filename)
     case SYS_APPLE2:
         /* After the size word. Size is the whole record: the word of an
            object picture does not count itself (AddImage). */
-        result = DrawApple2ImageFromData(Images[i].Data + 2, Images[i].Size - 2, 0, Apple2AdjustPlus);
+        result = DrawApple2ImageFromData(Images[i].Data + 2, Images[i].Size - 2, APPLE2_STANDARD, Apple2AdjustPlus);
         break;
     default:
         result = DrawDOSImageFromData(Images[i].Data, Images[i].Size);

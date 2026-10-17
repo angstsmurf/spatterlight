@@ -124,7 +124,7 @@ static size_t DrawScrambledApple2Image(uint8_t *ptr, size_t datasize)
     return ptr - origptr;
 }
 
-int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adjust_plus_fn adjust_plus)
+int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, enum apple2_variant variant, adjust_plus_fn adjust_plus)
 {
     uint8_t pattern_top = 0, pattern_bottom = 0;
     uint8_t repetitions;
@@ -149,7 +149,9 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         return (result > 0);
     }
 
-    if (!is_the_count) {
+    int counted_rle = variant == APPLE2_COUNT;
+
+    if (!counted_rle) {
         // Get the origin
         left = *ptr++;
         top = *ptr++;
@@ -186,16 +188,19 @@ int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adj
         // First get repetitions
         repetitions = *ptr++;
 
-        // If bit 7 is set or this is an early game
-        // we write the next two bytes (repetitions + 1) times
+        // In The Count every run is a count followed by the two bytes to
+        // repeat. In the other games that is only so when bit 7 of the count
+        // is set; otherwise the count is the number of literal byte pairs
+        // that follow, minus one.
         int repeat_next_two_bytes = 0;
-        if (is_the_count || (repetitions & 0x80) != 0) {
+        if (counted_rle) {
             repeat_next_two_bytes = 1;
-            if (is_the_count) {
-                repetitions -= 1;
-            } else {
-                repetitions &= 0x7f;
-            }
+            repetitions -= 1;
+        } else if (repetitions & 0x80) {
+            repeat_next_two_bytes = 1;
+            repetitions &= 0x7f;
+        }
+        if (repeat_next_two_bytes) {
             pattern_top = *ptr++;
             pattern_bottom = *ptr++;
         }

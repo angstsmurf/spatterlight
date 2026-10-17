@@ -45,8 +45,9 @@ int main(int argc, char **argv) {
     uint8_t *img = read_file(argv[2], &isz);
     if (!img) { fprintf(stderr, "cannot read %s\n", argv[2]); return 2; }
 
-    // is_the_count = 0 for Hulk-style games; the count flag is game-specific.
-    DrawApple2ImageFromData(img, isz, 0, NULL);
+    // The Count's own layout (APPLE2_COUNT) is never reached: its disks are
+    // all scrambled, so the descrambletable path handles them.
+    DrawApple2ImageFromData(img, isz, APPLE2_STANDARD, NULL);
     free(img);
 
     size_t gsz = 0;

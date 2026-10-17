@@ -6,7 +6,7 @@ Items are grouped by theme and tagged **[bug]**, **[dedup]**, **[cleanup]** or
 existing pixel-exact tests in `terps/scott/saga/test/` (`apple2test`,
 `c64a8test`, `dostest`, ...) and `terps/comprehend/test/`.
 
-## Status (worked through 2026-10-17, nothing committed yet)
+## Status (worked through 2026-10-17, committed in steps; see `git log -- terps/common_sagadraw`)
 
 `[x]` = done, `[~]` = partly done, `[-]` = declined or not done; the line
 after `→` says what was done or why not. Line numbers in the findings are
@@ -240,7 +240,7 @@ How it was verified:
 - [x] **[cleanup] Unused declarations/includes:** `extern glui32 pal[16];`
   and `#include <stdio.h>` appear unused here.
   → Removed.
-- [~] **[cleanup] `DrawPatternAndAdvancePos`** is exported, returns `x - 8`
+- [x] **[cleanup] `DrawPatternAndAdvancePos`** is exported, returns `x - 8`
   (undoing its own `x += 2` four times) and mutates `*y` as a side effect.
   Make the contract obvious (return the new x explicitly or take `int *x`),
   name the magic `8`, and document that it draws a 4x2 double-wide block
@@ -250,6 +250,11 @@ How it was verified:
   the same because `scott/saga/c64_small.c` calls it too and the return
   value does no harm. The "8x2" comment was still there on 2026-10-17 and
   now says "one column of 4 x 2 double-width pixels".
+  → Later on 2026-10-17 it became `void`. The callers in `c64a8draw.c` and
+  `c64_small.c` no longer assign its result, and the copy in
+  `scott/saga/test/c64test.c` matches. `DrawApple2ImageFromData`'s
+  `is_the_count` flag became `enum apple2_variant` (`APPLE2_STANDARD`,
+  `APPLE2_COUNT`) at the same time, to match the C64 side.
 - [x] **[cleanup] `voodoo_or_count` and `is_c64` are int flags** threaded through
   `DrawC64A8ImageFromData`. An `enum { SAGA_RLE_COUNT, SAGA_RLE_FLAGGED }`
   and `enum { PLATFORM_C64, PLATFORM_ATARI8 }` would make call sites readable

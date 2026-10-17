@@ -495,8 +495,8 @@ static uint8_t *DrawMiniC64ImageFromData(uint8_t *ptr, size_t datasize)
                 work2 = *ptr++;
             }
             /* Draw two bytes of pixel data and advance the cursor */
-            xpos = DrawPatternAndAdvancePos(xpos, &ypos, work1);
-            xpos = DrawPatternAndAdvancePos(xpos, &ypos, work2);
+            DrawPatternAndAdvancePos(xpos, &ypos, work1);
+            DrawPatternAndAdvancePos(xpos, &ypos, work2);
 
             if (ypos > bottom) {
                 if (xpos == right)
