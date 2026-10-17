@@ -85,41 +85,38 @@ lib_carried_burden (scr_gameref_t game)
  * that for the same reason, having no running total to poison.
  */
 static scr_int
-lib_carried_size (scr_gameref_t game)
+lib_sum_carried (scr_gameref_t game,
+                 scr_int (*measure) (scr_gameref_t, scr_int))
 {
-  scr_int index_, size;
+  scr_int index_, total;
 
-  if (obj_uses_running_load (game) && !game->capacity_recompute)
-    return gs_carried_size (game);
-
-  size = 0;
+  total = 0;
   GS_FOR_EACH_OBJECT (game, index_)
     {
       if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
           || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-        size += obj_get_size (game, index_);
+        total += measure (game, index_);
     }
 
-  return size;
+  return total;
+}
+
+static scr_int
+lib_carried_size (scr_gameref_t game)
+{
+  if (obj_uses_running_load (game) && !game->capacity_recompute)
+    return gs_carried_size (game);
+
+  return lib_sum_carried (game, obj_get_size);
 }
 
 static scr_int
 lib_carried_weight (scr_gameref_t game)
 {
-  scr_int index_, weight;
-
   if (obj_uses_running_weight (game) && !game->capacity_recompute)
     return gs_carried_weight (game);
 
-  weight = 0;
-  GS_FOR_EACH_OBJECT (game, index_)
-    {
-      if (gs_object_position (game, index_) == OBJ_HELD_PLAYER
-          || gs_object_position (game, index_) == OBJ_WORN_PLAYER)
-        weight += obj_get_weight (game, index_);
-    }
-
-  return weight;
+  return lib_sum_carried (game, obj_get_weight);
 }
 
 
