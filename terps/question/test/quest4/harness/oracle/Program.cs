@@ -52,6 +52,13 @@ using QuestViva.Legacy;
 // <x; 3.5>` reads back as 3.  That is a QuestViva translation slip rather than
 // Quest behaviour, and it would otherwise be blamed on Question, so pin the
 // invariant culture for the whole process.
+//
+// Still needed after upstream #2502 (checked 2026-10-17 at 290a87df), which
+// fixed the store (V4Game.Part2.cs:549 now formats invariantly) but not
+// Conversion.Str: it takes its minus sign from the current culture, so under
+// sv_SE %a% (V4Game.cs:6725) prints -10 as "−10", which then reads back as
+// non-numeric (`if (%a% < 0)` is false).  Unpinned under sv_SE, compare.sh
+// drops from 139/150 to 132/150 (Ponyville, KingsQuestV, EasyMoney, ...).
 CultureInfo.DefaultThreadCurrentCulture = CultureInfo.InvariantCulture;
 CultureInfo.CurrentCulture = CultureInfo.InvariantCulture;
 

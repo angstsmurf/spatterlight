@@ -158,7 +158,9 @@ All six failures are understood and none is a regression:
   invariant-culture pin (so a double does not print as `100,4`; upstream's
   #2501 fixed only concatenation inside an expression, and `msg (x)` of a bare
   double still goes through the machine's culture in
-  `Utility.ExpressionResultToString`), an error limit
+  `Utility.ExpressionResultToString`; the Quest 4 oracle pins it too, since
+  #2502 fixed numeric storage but `Conversion.Str` still prints a negative
+  with U+2212 under sv_SE), an error limit
   hook (`QV_ERROR_LIMIT`), and the `V4Game` Type-as-class fixes.
   "QuestViva" in the tables is QuestViva plus those patches.
 - **The Quest 4 goldens are self-goldens.** They freeze what Question printed.
