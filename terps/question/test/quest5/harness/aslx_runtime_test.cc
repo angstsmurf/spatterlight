@@ -1255,6 +1255,21 @@ static void test_update_lists() {
     // v580 Core supplies GetDisplayVerbs ("Look at"/"Drop"/...).
     CHECK(!lists["inventory"][0].verbs.empty());
 
+    // "hidefrominventory" drops a carried object from the pane only
+    // (GetInventoryObjectsList, QuestViva #2516): the verb menus and the
+    // parser still see it as held.
+    Context hide;
+    in.run_script("apple.hidefrominventory = true", hide);
+    in.send_command("look");
+    CHECK(!has("inventory", "apple"));
+    bool menu_has_apple = false;
+    for (const ListData &d : in.verb_menu_objects())
+        if (d.element_name == "apple") menu_has_apple = true;
+    CHECK(menu_has_apple);
+    in.send_command("drop apple");
+    CHECK_STR(Interp::to_string(in.eval("apple.parent", boot)), "lounge");
+    w.errors.clear();
+
     // Status attributes: Core's UpdateStatusAttributes runs every turn and
     // lands in JS.updateStatus.
     Context ctx;

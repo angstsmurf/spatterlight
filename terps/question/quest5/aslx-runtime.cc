@@ -1635,6 +1635,8 @@ std::vector<ListData> Interp::verb_menu_objects() {
     // Same objects and verb sources the pane uses (see update_lists), minus the
     // exits: inventory objects carry inventoryverbs, room/place objects carry
     // displayverbs. Inventory first, so a carried object wins a name clash.
+    // Every carried object, "hidefrominventory" ones too: like QuestViva's
+    // ElementMenuVerbs, this reads ScopeInventory, not the pane's list.
     std::vector<ListData> out;
     for (Element *e : objects_in_scope("ScopeInventory"))
         out.push_back(list_data_for(e, true));
@@ -1695,8 +1697,13 @@ void Interp::update_lists() {
                 places.push_back(std::move(d));
             update_list("placesobjects", places);
 
+            // GetInventoryObjectsList leaves out "hidefrominventory" objects,
+            // for display only; a game whose Core predates it falls back to
+            // the parser scope (QuestViva #2516).
             std::vector<ListData> inv;
-            for (Element *e : objects_in_scope("ScopeInventory"))
+            for (Element *e : objects_in_scope(world_.find_function("GetInventoryObjectsList")
+                                                   ? "GetInventoryObjectsList"
+                                                   : "ScopeInventory"))
                 inv.push_back(list_data_for(e, true));
             update_list("inventory", inv);
 
