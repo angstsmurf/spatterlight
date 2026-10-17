@@ -6,8 +6,9 @@ the .NET successor to Quest 5 from which it takes its reference behaviour.
 Quest 6 / QuestJS is out of scope for both.
 
 "QuestViva" means `textadventures/quest` at the revision the oracle is pinned
-to: `5ef2091b`, v6.0.0-rc.4 plus nine commits (2026-10-02), with the local
-oracle patches described below. Figures are from 2026-10-12.
+to: `290a87df`, v6.0.0 plus 69 commits (2026-10-14), with the local
+oracle patches described below. The corpus figures were last checked on
+2026-10-17, after the move to that revision; the timings are from 2026-10-12.
 
 This is not a comparison of equals. QuestViva *is* Quest's own engine going
 forward, and Question is a from-scratch C++ engine for playing Quest games in
@@ -20,7 +21,7 @@ below say how closely Question matches that key, not whether the key is right.
 |---|---|---|
 | What it is | Quest's engine, editor and players | A player only: a C++ engine behind Spatterlight's Glk front end |
 | Quest 2–4 (`.asl`, `.cas`) | `V4Game.cs`, a line-by-line C# translation of the VB6 Quest 4 | Own engine, checked against `V4Game.cs` |
-| Quest 5 (`.quest`, `.aslx`) | The reference | Own engine plus QuestViva's Core libraries, checked against it |
+| Quest 5 (`.quest`, `.aslx`) | The reference | Own engine plus QuestViva's Core libraries (from the pinned revision), checked against it |
 | Quest 4 corpus rows identical to the other (of 150) | – | 139 (11 differ, all catalogued) |
 | Quest 5 corpus rows identical to the oracle (of 354) | – | 348 (6 differ, all documented) |
 | Editor, game publishing | Yes | No |
@@ -54,7 +55,14 @@ below say how closely Question matches that key, not whether the key is right.
 - **Actively developed by the people who own the format.** Question follows
   upstream: the oracle pin moved from beta.57 to rc.4+9 on 2026-10-03, and the
   bump needed engine work on our side (inline `ask`/`show menu` prompts in
-  ASL 600 games, the turn-boundary rewrites).
+  ASL 600 games, the turn-boundary rewrites). It moved again to v6.0.0+69 on
+  2026-10-17, with the bundled Core libraries re-copied from the same
+  revision (they had been about five months older than the pin). That move
+  changed no golden and no replay; the one engine change it called for was
+  the inventory pane leaving out `hidefrominventory` objects (#2516). Of the
+  other post-6.0.0 engine fixes, Question already behaved like the fixed
+  QuestViva for a handler with no parameters (#2524) and needs no locale
+  fix (#2501), since it never formats numbers through a locale.
 - **Features Question does not have.** `GetExternalFileData`/
   `SetExternalFileData` are unsupported and `<backgroundimage>` is skipped
   (see `test/quest5/README.md`). `play sound` plays through one Glk sound
@@ -147,7 +155,9 @@ All six failures are understood and none is a regression:
 - **The oracle is patched.** To make the runs repeatable the QuestViva clone
   carries local patches (`patch_questviva.py`): a per-expression generator
   (`ErkyrathRandom.cs`, byte-identical to the C one), `SetRandomSeed`, the
-  invariant-culture pin (so a double does not print as `100,4`), an error limit
+  invariant-culture pin (so a double does not print as `100,4`; upstream
+  formats invariantly itself since #2501, so the pin is now belt and braces),
+  an error limit
   hook (`QV_ERROR_LIMIT`), and the `V4Game` Type-as-class fixes.
   "QuestViva" in the tables is QuestViva plus those patches.
 - **The Quest 4 goldens are self-goldens.** They freeze what Question printed.
@@ -161,7 +171,9 @@ All six failures are understood and none is a regression:
   differing lines that were oracle defects, not Question's. A ground-truth oracle that is wrong
   in a corner is worse than none there, because the diff looks like evidence.
 - **Translations of the same source.** Question's Quest 5 Core libraries are
-  QuestViva's, copied verbatim; the engine underneath is Question's own.
+  QuestViva's, copied verbatim from the pinned revision and re-copied whenever
+  the pin moves, so both engines run the same Core; the engine underneath is
+  Question's own.
 
 ## Timing
 
@@ -200,7 +212,8 @@ Process start-up and loading are included.
 - Both projects are developed with AI assistance; QuestViva's tree has a
   `CLAUDE.md`.
 - Question's `quest5/aslx-core/` is QuestViva's Core library copied verbatim
-  and stays MIT-licensed; its `README.txt` records that.
+  from the pinned revision (last refreshed 2026-10-17, from `290a87df`) and
+  stays MIT-licensed; its `README.txt` records that and how to refresh it.
 - The oracle clone (`~/questviva-oracle/questviva`) is outside the repo and is
   built by `test/quest5/harness/oracle/build.sh`; the scratch timing scripts
   were not kept in the repo.
