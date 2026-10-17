@@ -1744,17 +1744,32 @@ static void test_number_parse_oracle() {
     CHECK_STR(evals(in, "16 >> 1 >> 1"), "4");
     CHECK_STR(evals(in, "5 + (1 << 2)"), "9");
     CHECK(throws_with("-1 << 1", "too large or too small for a UInt64"));
-    CHECK_STR(evals(in, "5 and 8"), "True");
-    CHECK_STR(evals(in, "(5 and 8) > 0"), "True");
+    // and/or/xor are bitwise on two integers and logical otherwise (FLEE's
+    // rule, which QuestViva took back after NCalcAsync 6.3.2 made them all
+    // logical); and binds tighter than or, or tighter than xor. Read off the
+    // v6.0.0+69 oracle. ZORK1_beta's RANDOM is "seed and 0x7FFF".
+    CHECK_STR(evals(in, "5 and 8"), "0");
+    CHECK_STR(evals(in, "(5 and 8) > 0"), "False");
     CHECK_STR(evals(in, "(0 and 8) > 0"), "False");
-    CHECK_STR(evals(in, "0 or 0"), "False");
-    CHECK_STR(evals(in, "5 xor 3"), "False");
+    CHECK_STR(evals(in, "0 or 0"), "0");
+    CHECK_STR(evals(in, "5 or 2"), "7");
+    CHECK_STR(evals(in, "5 xor 3"), "6");
+    CHECK_STR(evals(in, "TypeOf(5 and 3)"), "int");
+    CHECK_STR(evals(in, "true and 5"), "True");
+    CHECK_STR(evals(in, "5 and true"), "True");
+    CHECK_STR(evals(in, "0 and true"), "False");
+    CHECK_STR(evals(in, "true or false and false"), "True");
+    CHECK_STR(evals(in, "false and true or true"), "True");
+    CHECK_STR(evals(in, "true or true xor true"), "False");
+    CHECK_STR(evals(in, "0x7FFF"), "32767");
+    CHECK_STR(evals(in, "0x10l"), "16");
+    CHECK_STR(evals(in, "40000 and 0x7FFF"), "7232");
     CHECK_STR(evals(in, "not 5"), "False");
     CHECK_STR(evals(in, "true > 0"), "True");
     CHECK_STR(evals(in, "false > 0"), "False");
     CHECK_STR(evals(in, "true < 2"), "True");
     CHECK_STR(evals(in, "false = 0"), "True");
-    CHECK_STR(evals(in, "(6 and 8) = true"), "True");
+    CHECK_STR(evals(in, "(6 and 8) = true"), "False");
     CHECK_STR(evals(in, "StringListItem(Split(\"small;medium;large\"), 1)"),
               "medium");
     CHECK_STR(evals(in, "ListCount(Split(\"a,b;c\"))"), "2");

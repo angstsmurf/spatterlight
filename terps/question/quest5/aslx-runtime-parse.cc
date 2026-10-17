@@ -236,6 +236,12 @@ struct Lexer {
             char c = src[i];
             if (std::isspace((unsigned char)c)) { ++i; continue; }
             if (c == '"') { lex_string(); continue; }
+            if (c == '0' && i + 2 < src.size() &&
+                (src[i + 1] == 'x' || src[i + 1] == 'X') &&
+                std::isxdigit((unsigned char)src[i + 2])) {
+                lex_hex();
+                continue;
+            }
             if (std::isdigit((unsigned char)c) ||
                 (c == '.' && i + 1 < src.size() &&
                  std::isdigit((unsigned char)src[i + 1]))) {
@@ -293,6 +299,24 @@ struct Lexer {
         Tok t{Tok::T::Num, n};
         t.num = c_strtod(n.c_str());
         t.is_int = !isdbl;
+        toks.push_back(t);
+    }
+
+    // FLEE's hex integer literal, kept by QuestViva's parser (hexLiteral):
+    // "0x" then hex digits, then an optional one- or two-letter u/l suffix
+    // that is ignored. ZORK1_beta's RANDOM masks with "and 0x7FFF".
+    void lex_hex() {
+        i += 2;
+        size_t start = i;
+        while (i < src.size() && std::isxdigit((unsigned char)src[i])) ++i;
+        std::string n = src.substr(start, i - start);
+        for (int k = 0; k < 2 && i < src.size() &&
+                        std::strchr("uUlL", src[i]); ++k)
+            ++i;
+        Tok t{Tok::T::Num, "0x" + n};
+        // Convert.ToUInt64 then int/long; above long.MaxValue it wraps.
+        t.num = (double)(long)std::strtoull(n.c_str(), nullptr, 16);
+        t.is_int = true;
         toks.push_back(t);
     }
 
@@ -392,11 +416,29 @@ struct Parser {
         return e;
     }
 
+    // FLEE's precedence, which QuestViva keeps, tightest first: and > or >
+    // xor, each left-associative, so "a or b and c" is "a or (b and c)".
     ExprP parse_logical() {
+        ExprP l = parse_or();
+        while (is_kw("xor")) {
+            advance();
+            l = bin("xor", l, parse_or());
+        }
+        return l;
+    }
+    ExprP parse_or() {
+        ExprP l = parse_and();
+        while (is_kw("or")) {
+            advance();
+            l = bin("or", l, parse_and());
+        }
+        return l;
+    }
+    ExprP parse_and() {
         ExprP l = parse_not();
-        while (is_kw("and") || is_kw("or") || is_kw("xor")) {
-            std::string op = cur().s; advance();
-            l = bin(op, l, parse_not());
+        while (is_kw("and")) {
+            advance();
+            l = bin("and", l, parse_not());
         }
         return l;
     }

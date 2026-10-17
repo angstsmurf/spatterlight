@@ -156,9 +156,13 @@ std::string utf8_case(const std::string &s, bool upper, bool first_only) {
 // The element kinds QuestViva files under ElementType.Object: exits,
 // turnscripts and the game element as well as plain objects (ObjectType.Exit /
 // TurnScript / Game).
+// QuestViva's ElementType.Object: plain objects, exits, turnscripts, the game
+// and commands (verbs are commands with IsVerb). ZORK1_beta's VERB_P looks its
+// verbs up by name: GetObject("V_MOVE").
 static bool is_object_element(const Element &e) {
     return e.kind == ElemKind::Object || e.kind == ElemKind::Exit ||
-           e.kind == ElemKind::Turnscript || e.kind == ElemKind::Game;
+           e.kind == ElemKind::Turnscript || e.kind == ElemKind::Game ||
+           e.kind == ElemKind::Command || e.kind == ElemKind::Verb;
 }
 
 // A fresh, empty dictionary of type `t`. The backing is allocated EAGERLY: a

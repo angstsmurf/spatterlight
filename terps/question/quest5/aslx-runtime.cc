@@ -2397,17 +2397,34 @@ Value Interp::eval_expr_node(const Expr &e, Context &ctx) {
     }
     case Expr::Kind::Binary: {
         const std::string &op = e.str;
-        if (op == "and") return vbool(truthy(eval_expr(*e.a, ctx)) &&
-                                      truthy(eval_expr(*e.b, ctx)));
-        if (op == "or") return vbool(truthy(eval_expr(*e.a, ctx)) ||
-                                     truthy(eval_expr(*e.b, ctx)));
+        // QuestViva's EvaluateAndOrXorAsync, after FLEE: "and", "or" and
+        // "xor" are bitwise when both operands are integers ("seed and
+        // 0x7FFF") and logical otherwise, "and"/"or" short-circuiting. A
+        // right operand already evaluated for the integer test is reused.
+        if (op == "and" || op == "or" || op == "xor") {
+            Value l = eval_expr(*e.a, ctx);
+            Value r;
+            bool r_done = false;
+            if (l.type == Value::Type::Int) {
+                r = eval_expr(*e.b, ctx);
+                r_done = true;
+                if (r.type == Value::Type::Int)
+                    return vint(op == "and" ? (l.integer & r.integer)
+                                : op == "or" ? (l.integer | r.integer)
+                                             : (l.integer ^ r.integer));
+            }
+            bool lb = truthy(l);
+            if (op == "and" && !lb) return vbool(false);
+            if (op == "or" && lb) return vbool(true);
+            if (!r_done) r = eval_expr(*e.b, ctx);
+            return vbool(op == "xor" ? lb != truthy(r) : truthy(r));
+        }
         last_null_desc_.clear();
         Value l = eval_expr(*e.a, ctx);
         std::string l_null_desc = l.type == Value::Type::Null ? last_null_desc_ : std::string();
         last_null_desc_.clear();
         Value r = eval_expr(*e.b, ctx);
         std::string r_null_desc = r.type == Value::Type::Null ? last_null_desc_ : std::string();
-        if (op == "xor") return vbool(truthy(l) != truthy(r));
         // NCalc's double-evaluation quirk, ported for side-effect parity
         // (AsyncEvaluationVisitor.Visit(BinaryExpression) + BinaryEventArgs):
         // for the operators QuestViva's EvaluateBinaryAsync intercepts
