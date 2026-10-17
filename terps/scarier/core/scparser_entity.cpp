@@ -342,7 +342,7 @@ uip_build_candidate (scr_uip_candidate_t *candidate,
   std::string composed;
   size_t word;
 
-  /* Compose "prefix name" as the old per-call sprintf ("%s %s") did. */
+  /* Compose "prefix name". */
   composed.assign (prefix);
   composed.append (1, ' ');
   composed.append (name);

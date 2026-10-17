@@ -455,8 +455,7 @@ task_run_task_actions_buffered (scr_gameref_t game, scr_int task)
        * the buffer transferred out of the filter may be NULL if there is no
        * text currently in the filter.  RAII the transferred buffer: the
        * task_start_npc_walks() / task_run_task_actions() below can throw
-       * (run_loop_halt / scr_fatal_error), which previously leaked it past the
-       * prepend-and-free.
+       * (run_loop_halt / scr_fatal_error).
        */
       const scr_int printed_to = pf_printed_to (filter);
       scr_owned_string buffer (pf_transfer_buffer (filter));

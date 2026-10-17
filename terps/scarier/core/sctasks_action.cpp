@@ -103,7 +103,6 @@ task_change_integer_variable (scr_gameref_t game, const scr_char *name,
   const scr_var_setref_t vars = gs_get_vars (game);
   scr_int value;
 
-  /* Select again based on action type. */
   switch (var2)
     {
     case 0:                /* Var = */
@@ -189,7 +188,6 @@ task_change_string_variable (scr_gameref_t game, const scr_char *name,
   const scr_var_setref_t vars = gs_get_vars (game);
   const scr_char *string;
 
-  /* Select again based on action type. */
   switch (var2)
     {
     case 0:                /* Var = text literal */
@@ -217,9 +215,8 @@ task_change_string_variable (scr_gameref_t game, const scr_char *name,
       {
         /*
          * expr_eval_string_expression() hands back a scr_malloc'd string
-         * (or we synthesise the error one); own it with RAII so the
-         * var_put_string() below -- which can throw scr_fatal_error from a
-         * prop_put -- no longer leaks it past the old trailing scr_free.
+         * (or we synthesise the error one); own it, since var_put_string()
+         * below can throw scr_fatal_error from a prop_put.
          */
         scr_char *evaluated;
         if (!expr_eval_string_expression (expr, vars, &evaluated))

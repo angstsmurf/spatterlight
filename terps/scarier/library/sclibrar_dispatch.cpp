@@ -29,8 +29,8 @@
 #include "sclibrar_internal.h"
 
 /*
- * lib_save_game_references()
- * lib_restore_game_references()
+ * lib_save_object_references()
+ * lib_restore_object_references()
  *
  * Helpers for trying game commands.  Save and restore game references
  * so that parsing game commands doesn't interfere with backend loops that
@@ -231,9 +231,9 @@ lib_definite_prefix_400 (const scr_char *prefix, scr_char *buffer, size_t size)
  *
  * run400's task pre-matcher Proc_19_35_453C50 on the typed line: does any
  * task in scope pattern-match it with its restrictions passing, or fail a
- * restriction that has a message to print?  (Not "restrictions ignored", as
- * this used to say; see run_does_command_match() for the two passes and the
- * House measurement.)  Object references are left exactly as they were.
+ * restriction that has a message to print?  See run_does_command_match() for
+ * the two passes and the House measurement.  Object references are left
+ * exactly as they were.
  * class_filter is the pre-matcher's mode byte -- 1 for the take-family
  * look-ups, 2 for the put/drop family, 0 for none; see
  * run_set_task_class_filter().

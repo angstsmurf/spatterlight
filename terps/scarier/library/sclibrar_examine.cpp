@@ -821,8 +821,7 @@ lib_list_in_object_joined (scr_gameref_t game, scr_int container)
  * List the objects in a given container object.
  *
  * The Runner has two distinct styles for listing a container's contents, and
- * which one it picks used to be recorded here as "frankly, a mystery".  It
- * isn't: run400.exe selects purely on the *number* of contained objects.  The
+ * run400.exe selects purely on the *number* of contained objects.  The
  * listing helper at 0006A418 in run400.txt counts the objects whose position
  * is 246 (in object) and whose parent is this container into var_98, then
  *

@@ -77,10 +77,9 @@ extern scr_char *scr_strdup (const scr_char *string);
 /*
  * RAII owner for a scr_malloc'd C string.  Frees with scr_free() at scope exit,
  * so an scr_fatal_error / run_loop_halt thrown between acquiring the buffer and
- * the old manual scr_free() no longer leaks it (P3).  This keeps the engine's
- * char* contract intact: .get() hands the raw pointer back to the existing C
- * call sites and to the pointer-aliasing logic that decides which buffer
- * "wins", so callers are otherwise unchanged.
+ * the end of its scope does not leak it.  This keeps the engine's char*
+ * contract intact: .get() hands the raw pointer back to the C call sites and
+ * to the pointer-aliasing logic that decides which buffer "wins".
  */
 struct scr_free_deleter
 {

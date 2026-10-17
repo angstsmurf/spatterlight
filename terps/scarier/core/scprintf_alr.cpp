@@ -336,7 +336,7 @@ pf_alr_rewrites_span (scr_prop_setref_t bundle, const scr_char *text,
  * ALRs match).  A game whose ALRs quote a Runner-shaped phrase -- "assassin
  * manages " in Les Feux de l'enfer -- was written against that exact shape,
  * so callers use this to keep the Runner's text there rather than a
- * deliberately cleaned-up one; see battle_print_npc_name().
+ * deliberately cleaned-up one; see battle_npc_name().
  */
 scr_bool
 pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)

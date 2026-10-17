@@ -463,7 +463,6 @@ lib_put_implicit_take (scr_gameref_t game, scr_int object, scr_int target,
 /*
  * lib_put_outcome_t
  * lib_output_length()
- * lib_put_drop_statics_400()
  *
  * What a put backend has to tell its caller beyond the object moves.
  * is_refusal_only is the 4.0 size/capacity refusal that leaves the line
@@ -1297,8 +1296,8 @@ lib_put_in_refused (scr_gameref_t game, scr_bool is_refusal_only)
  * End the put's line and settle its claim from the backend's outcome; see
  * lib_put_outcome_t.  Only the container backend ever reports a
  * refusal-only outcome; see lib_put_in_refused().  A 4.0 put that printed
- * nothing (statics only, see lib_put_drop_statics_400()) is left unclaimed
- * with no line ending, for the task pass to answer.
+ * nothing is left unclaimed with no line ending, for the task pass to
+ * answer.
  *
  * A 4.0 put whose only words are the implicit take's announcement, with a
  * task claiming it silently, ends on the game's DontUnderstand text.  run400

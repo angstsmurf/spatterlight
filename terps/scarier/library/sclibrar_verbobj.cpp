@@ -902,7 +902,7 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
 
 /*
  * lib_cmd_verb_object()
- * lib_cmd_verb_character()
+ * lib_cmd_verb_npc()
  *
  * Handlers for unrecognized verbs with known object/NPC.
  */
@@ -1567,7 +1567,7 @@ lib_cmd_verb_object (scr_gameref_t game)
    * (runner_transcripts/seaside.txt:123).
    *
    * Returning FALSE hands the line to `put *` and `* %character% *` and then
-   * to the DontUnderstand text in run_process_input_line(), which is the
+   * to the DontUnderstand text in run_element_not_understood(), which is the
    * tail's order too.
    */
   if (lib_is_version_400 (game) && game->pending_endgame != 0)
@@ -1815,7 +1815,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
     game->is_admin = TRUE;
 
   /* Under a character question this line is its answer; see the slot in
-   * run_process_input_line() and lib_co_400_npc_answer_line(). */
+   * run_element_questions() and lib_co_400_npc_answer_line(). */
   if (lib_is_version_400 (game) && lib_co_400_question_pending ()
       && lib_co_400_pending_is_npc ())
     lib_co_400_note_refusal ();

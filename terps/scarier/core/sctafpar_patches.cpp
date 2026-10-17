@@ -962,8 +962,9 @@ static const scr_patch_edit_t PATCH_SPACE_BOY[] = {
  * hand", the task's third command being `behead dark elf with %object%`.  But
  * the reference a `behead` line leaves behind is the body, not the weapon:
  * `behead dark elf` binds it directly, and `behead dark elf with longsword`
- * binds it too, because the earlier pattern's %object% walk runs first (run390
- * checktask, modelled in run_task_match_command()).  So the second
+ * binds it too, because the earlier pattern's %object% walk runs first
+ * (run390 checktask, modelled in
+ * run_command_match_t::bind_unmatched_object_390()).  So the second
  * restriction asks for the corpse to be carried while the first asks for it to
  * be lying in the Library, and the task answers "You do not have dead dark
  * elf." to every spelling.  `behead drow`, the author's own first command, has
@@ -1008,7 +1009,7 @@ static const scr_patch_edit_t PATCH_NIGHTMOON[] = {
  * "#A#A(#O#)" -- so either half carries it and the sample can be pressed
  * before the death or after it.  Skynd's says "#A#A(#A#)", and asks for the
  * Orgaan to be alive in the room and dead on the floor at once.  The same
- * expression is evaluated by the Runner (restr_pass_task_restrictions() here,
+ * expression is evaluated by the Runner (restr_eval_task_restrictions() here,
  * evaluaterestrictions there), so Skynd's five points are out of reach in
  * run400 too, and the game ships with "You finished 5 points short." as its
  * best ending.

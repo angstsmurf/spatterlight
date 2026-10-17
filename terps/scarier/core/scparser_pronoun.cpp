@@ -956,7 +956,7 @@ uip_renote_named_npcs (scr_gameref_t game, const scr_char *cut_line,
  * TRUE if the line names any character at all -- the same walk over
  * Proc_21_40_45E99C that run400 makes at loc_48B53C..48B569, whose result
  * (var_29C) gates the DontUnderstand text at 48B585.  See the note in
- * run_process_input_line().
+ * run_element_not_understood().
  */
 scr_bool
 uip_line_names_npc (scr_gameref_t game, const scr_char *string)

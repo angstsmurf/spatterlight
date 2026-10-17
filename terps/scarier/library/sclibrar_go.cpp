@@ -516,7 +516,7 @@ lib_goto_step_name (scr_gameref_t game, scr_int room, scr_int next)
  * run400x runner_probes/goto.run400.txt.
  */
 /*
- * lib_go_place_off is set by run_goto_anywhere() for the pass that answers
+ * lib_go_place_off is set by run_line_t::library() for the pass that answers
  * the rest of a goto line as though gotoplace were not there.
  */
 scr_bool lib_go_place_off = FALSE;
@@ -618,7 +618,7 @@ lib_goto_line_enters (scr_gameref_t game, const scr_char *input)
  *
  * Whether the line names, whole word, the Short or an Alias of an object
  * the player has or can see -- what a take, drop or openclose needs before
- * it answers a goto line for itself; see run_goto_anywhere().
+ * it answers a goto line for itself; see run_line_t::library().
  */
 scr_bool
 lib_goto_line_names_object (scr_gameref_t game, const scr_char *line)

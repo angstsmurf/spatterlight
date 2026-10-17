@@ -101,9 +101,8 @@ scr_fatal (const scr_char *format, ...)
   /*
    * Throw rather than abort().  The public entry points in scinterf.cpp catch
    * this at the host boundary and return a clean failure, so a corrupt or
-   * pathological game no longer takes down the whole application.  If thrown
-   * from an unwrapped path it still terminates the process (as abort() did),
-   * so this is strictly more robust, never less.
+   * pathological game does not take down the whole application.  From an
+   * unwrapped path it still terminates the process, as abort() did.
    */
   throw scr_fatal_error (message);
 }

@@ -127,7 +127,7 @@ static std::string cached_dirs_re;   /* invalidated by a5parse_set_directions */
    pattern on every task-command probe, every turn -- yet a pattern always
    yields the same regexes and ref names.  Caching the whole variant list also
    drops the per-probe variant_pattern() string rebuild and the hash of the
-   (longer) expanded string that the old per-variant cache paid.  Invalidated
+   (longer) expanded string.  Invalidated
    alongside cached_dirs_re when the direction table changes, since a
    %direction% group embeds directions_re() output.
 

@@ -903,10 +903,8 @@ run_element_not_understood (scr_gameref_t game, const scr_char *command)
     }
 
   /*
-   * Command line element not understood.  Own the escaped copy with
-   * RAII (as the sibling code above does): var_set_ref_text() can throw
-   * (scr_fatal_error), and the old manual scr_free() after it leaked on
-   * the throw.
+   * Command line element not understood.  Own the escaped copy:
+   * var_set_ref_text() can throw (scr_fatal_error).
    */
   scr_owned_string escaped
       (pf_escape (scr_normalize_string (run_line_element)));

@@ -967,7 +967,7 @@ ser_save_player (scr_gameref_t game)
   /*
    * Write encumbrance details: the player's size and weight limits (constant
    * for a game, the same converted values the Runner stores), then the current
-   * carried size and weight.  We now maintain these running totals (matching
+   * carried size and weight.  We maintain these running totals (matching
    * the Runner's accounting, double-count and all), so we write the live values
    * just as the Runner does.  They are still recomputed from inventory on load,
    * so a reader that ignores them remains correct.
@@ -1879,7 +1879,7 @@ ser_load_events (scr_gameref_t game)
       {
         /*
          * An unknown state would only surface later, as a scr_fatal from
-         * evt_tick() that ends the session; refuse the save instead.
+         * evt_tick_event() that ends the session; refuse the save instead.
          */
         const scr_int state = ser_get_int () + 1;
 

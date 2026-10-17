@@ -133,18 +133,16 @@ eval_num_value (a5_state_t *st, const char *raw)
      (clsVariable) and reads the numeric result as VB Val(): full arithmetic
      (+ - * / ^ mod, with runner precedence and away-from-zero division) plus
      function calls -- min/max/if and the rand()/oneof() draws.  a5_eval_sexpr
-     IS that evaluator; it supersedes the old integer-only a5arith fast path,
-     whose ^ handled precedence/associativity differently from the runner
-     (clsVariable reduces ^ on run 2, the +/- tier, left-to-right -- see
-     FrankenDrift clsVariable.vb).  %vars% are already substituted, so Tingalan's
-     Roller "rand(0,%playerwits%)" is now rand(0,N) and draws via the same
+     IS that evaluator, ^ included (clsVariable reduces ^ on run 2, the +/-
+     tier, left-to-right -- see FrankenDrift clsVariable.vb).  %vars% are
+     already substituted, so Tingalan's Roller "rand(0,%playerwits%)" arrives
+     as rand(0,N) and draws via the same
      a5rand_between as the uppercase RAND path.
 
      The value is Val() of the *result* -- its leading integer, else 0.  So a
      non-numeric value ("Object3") reads as 0, as does an out-of-range result
      the runner guards with SafeInt(Val(...)): a division by zero evaluates to
-     "\xe2\x88\x9e" (Val 0, the former a5arith div/mod-by-zero guard), not the
-     leading digit of the raw "5/0". */
+     "\xe2\x88\x9e" (Val 0), not the leading digit of the raw "5/0". */
   {
     char *sv = a5_eval_sexpr (proc);
     long e = strtol (sv, nullptr, 10);      /* Val(): leading integer, else 0 */

@@ -540,7 +540,7 @@ lib_battle_absent_npc (scr_gameref_t game)
  * ~[CH=%know_chadwick%]Chadwick" and elsewhere, answers `attack chadwick` with
  * "The man is not here!", where Scarier said the game's "Pardon me?".  3.9 is
  * from the decompile alone; 3.7/3.8's per-verb sites (run370 43865D, run380
- * 4404D9) are lib_hit_absent_npc_pre390().
+ * 4404D9) are lib_hit_arm_pre390().
  *
  * Returns TRUE having printed for the first such NPC.
  */

@@ -44,9 +44,8 @@
  * that a swallowed turn shows.  Transcripts runner_probes/co.run400.t9*.txt,
  * run400 under Wine (harness/make_400_coprobe.py).
  *
- * The gate comment on lib_co_ambiguity_prompt() above used to say 4.0 "never
- * raises this prompt from the dispatcher, so the port stops at 3.9".  It does
- * raise it -- from the two handlers rather than from the turn driver, under
+ * 4.0 does raise this prompt -- from the two handlers rather than from the
+ * turn driver, under
  * two different tests (runner_probes/co.run400.t926.txt, every cell isolated
  * by a neutral `look`):
  *
@@ -429,7 +428,7 @@ lib_co_400_drop_question (void)
 /*
  * The unhandled-verb catch-all leaves the turn as empty-handed as the
  * DontUnderstand path does, so a pending question claims that line too; see
- * the answer slot in run_process_input_line().
+ * the answer slot in run_element_questions().
  */
 void
 lib_co_400_note_refusal (void)

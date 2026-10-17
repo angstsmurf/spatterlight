@@ -201,7 +201,7 @@ scr_char run_prior_element[LINE_BUFFER_SIZE];
  * The last two typed lines, lower-cased, as the Runner's command history
  * holds them: run390 shifts every new line into MemVar_468100 at 436268-
  * 43629F, run380 into MemVar_44F098, so (1) is the line being run and (2)
- * the one typed before it.  Blank lines go in too.  See run_with_history().
+ * the one typed before it.  Blank lines go in too.  See run_element_command().
  */
 std::string run_typed_line, run_previous_typed_line;
 

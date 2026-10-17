@@ -315,8 +315,7 @@ resp_add_text (a5_run_t *run, const char *text, bool is_pass, int pos)
    not carrying the gold gonks and the silver ginks." (which the game's
    cl_YouAreNotC1 ALR then blanks), where Scarier used to show two singular fails
    that no ALR could match.  A single-item fail (the common case) keeps its
-   eagerly-rendered singular text, so every non-aggregating fail stays byte-
-   identical to the old resp_add_text path. */
+   eagerly-rendered singular text. */
 void
 resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
 {
@@ -336,8 +335,8 @@ resp_add_fail (a5_run_t *run, const a5_xml_node_t *fm)
           return;
         }
 
-  /* First occurrence: render eagerly at the failing item's state (identical to
-     the old path) and text-dedup against the existing fails, so two DIFFERENT
+  /* First occurrence: render eagerly at the failing item's state and
+     text-dedup against the existing fails, so two DIFFERENT
      restrictions that render the same string still collapse.
 
      bDisplaying: unlike a completion message, a restriction failure has no
@@ -374,8 +373,8 @@ rebind_objects (a5_state_t *st, const std::vector<std::string> &keys)
 /* The runner drops a fail whose every reference item also produced a pass
    (clsUserSession.vb:812-834).  A merged fail (obj_keys accumulated by
    resp_add_fail) is dropped only when ALL its items passed; a fail with no
-   merged set falls back to the single-item check (the old resp_add_text
-   path -- movement fails, SetTasks-Execute fails). */
+   merged set falls back to the single-item check (movement fails,
+   SetTasks-Execute fails). */
 static bool
 resp_fail_covered (const resp_entry &e, const std::set<std::string> &passed)
 {

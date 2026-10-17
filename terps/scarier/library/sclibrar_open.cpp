@@ -975,7 +975,7 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
 }
 
 /*
- * lib_lock_absent_400()
+ * lib_lock_absent_object_400()
  *
  * openclose's lock and unlock arms resolve their object with 463640 in mode
  * 0 (475D91, 476141) -- present and seen, then any seen object -- on the

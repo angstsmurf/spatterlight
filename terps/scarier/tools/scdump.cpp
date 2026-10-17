@@ -1581,7 +1581,7 @@ scdump_npcs (scr_gameref_t game)
 
         /*
          * Prefix and aliases: the 4.0 battle narration names an NPC by
-         * "<Prefix> <Alias[0]>" rather than by Name (see battle_print_name()
+         * "<Prefix> <Alias[0]>" rather than by Name (see battle_npc_name()
          * in scbattle.cpp), so a battle diff wants them visible.
          */
         {

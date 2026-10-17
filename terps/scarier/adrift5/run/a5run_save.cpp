@@ -540,9 +540,8 @@ scarier_save_t::walks ()
 void
 scarier_save_t::displayed ()
 {
-  /* Displayed <DisplayOnce> segments (by DOM pre-order index).  The cached
-     node->index map turns the old O(n_disp_once x nodes) linear pointer search
-     into a hash lookup per displayed segment. */
+  /* Displayed <DisplayOnce> segments (by DOM pre-order index), found through
+     the cached node->index map, one hash lookup per displayed segment. */
   if (st->n_disp_once > 0)
     {
       int j;

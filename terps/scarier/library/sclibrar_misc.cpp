@@ -402,7 +402,7 @@ lib_cmd_locate_npc (scr_gameref_t game)
   /*
    * If no NPCs identified, be coy about revealing anything; if more than one,
    * be vague.  The "... where that is..." is the correct message even for
-   * NPCs -- it's the same response as for lib_locate_other().
+   * NPCs -- it's the same response as for lib_cmd_locate_other().
    */
   if (count == 0)
     {

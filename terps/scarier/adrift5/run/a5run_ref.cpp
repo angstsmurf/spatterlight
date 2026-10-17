@@ -141,9 +141,9 @@ name_match (const char *article, const char *prefix,
   if (in.empty ())
     return 0;
   /* Lowercase the input, prefix and every candidate name ONCE up front, so the
-     backtracking match (name_match_prefix/_tail) is pure string comparison --
-     the old code re-lowered both operands at every recursion node and re-split
-     each name on every tail probe. */
+     backtracking match (name_match_prefix/_tail) is pure string comparison,
+     with no re-lowering at each recursion node or re-splitting per tail
+     probe. */
   for (auto &w : in) w = lower (w);
   std::vector<std::string> pfx = split_ws (prefix);
   for (auto &w : pfx) w = lower (w);

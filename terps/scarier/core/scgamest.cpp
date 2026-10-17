@@ -2390,15 +2390,12 @@ gs_destroy (scr_gameref_t game)
    * The state arrays (rooms, objects, tasks, events, npcs and their walksteps,
    * the *_references) are std::vector and the owning game strings
    * (current_room_name, status_line, title, author, hint_text) are
-   * scr_owned_string; all free themselves when the game is delete'd below
-   * (P3 RAII), so there is nothing to free by hand here.
+   * scr_owned_string; all free themselves when the game is delete'd below,
+   * so there is nothing to free by hand here.
    */
 
   /*
    * Free the game state itself; its destructor releases the owned strings.
-   * (The old 0xaa poison is gone -- it would corrupt the unique_ptr members the
-   * destructor is about to free, the same reason the scr_filter_s struct moved
-   * to new/delete in P3.)
    */
   delete game;
 }
