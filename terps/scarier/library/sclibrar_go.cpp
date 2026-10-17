@@ -656,6 +656,121 @@ lib_goto_line_names_object (scr_gameref_t game, const scr_char *line)
 }
 
 
+/*
+ * lib_goto_line_examines()
+ *
+ * Whether a pre-4.0 examines() takes the line: one of its entry words
+ * anywhere, whole word; see lib_cmd_go_place().
+ */
+static scr_bool
+lib_goto_line_examines (scr_int version, const std::string &line)
+{
+  static const scr_char *const EXAMINE_WORDS[] = {
+    "x", "examine", "look at", "ex", "exam", "read", nullptr
+  };
+
+  for (const scr_char *const *word = EXAMINE_WORDS; *word; word++)
+    if (run_c_word (version, line.c_str (), *word))
+      return TRUE;
+  return (version >= TAF_VERSION_380
+          && run_c_word (version, line.c_str (), "look in"))
+         || (version >= TAF_VERSION_390
+             && (run_c_word (version, line.c_str (), "look")
+                 || run_c_word (version, line.c_str (), "l")));
+}
+
+
+/*
+ * lib_goto_room_names()
+ *
+ * The rooms' names, lower-cased, as the Runner compares them.
+ */
+static std::vector<std::string>
+lib_goto_room_names (scr_gameref_t game)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int rooms = gs_room_count (game);
+  std::vector<std::string> names (rooms);
+  scr_int room;
+
+  for (room = 0; room < rooms; room++)
+    {
+      const scr_char *name = prop_get_indexed_string (bundle, "Rooms", room,
+                                                      "Short");
+      names[room] = name ? name : "";
+      for (char &c : names[room])
+        c = scr_tolower (c);
+    }
+  return names;
+}
+
+
+/*
+ * lib_goto_print_which()
+ *
+ * The "Which ...?" question listing the count marked rooms by their
+ * authored Short.
+ */
+static void
+lib_goto_print_which (scr_gameref_t game, const std::string &text,
+                      const std::vector<char> &marked, scr_int count)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  const scr_int rooms = gs_room_count (game);
+  scr_int room;
+
+  pf_buffer_string (filter, "Which \"");
+  pf_buffer_string (filter, text.c_str ());
+  pf_buffer_string (filter, "\"?\n");
+  for (room = 0; room < rooms; room++)
+    {
+      if (!marked[room])
+        continue;
+      pf_buffer_character (filter, '\'');
+      pf_buffer_string (filter, prop_get_indexed_string (bundle, "Rooms",
+                                                         room, "Short"));
+      pf_buffer_character (filter, '\'');
+      count--;
+      pf_buffer_string (filter, count > 0 ? ", " : ".");
+      if (count == 1)
+        pf_buffer_string (filter, "or ");
+    }
+  pf_buffer_answer_break (filter);
+}
+
+
+/*
+ * lib_goto_walk()
+ *
+ * Walk to target.  The route is fixed now and typed blindly: each step is
+ * the last direction leading to the next room, whatever happens on the way.
+ */
+static void
+lib_goto_walk (scr_gameref_t game, scr_int target, const std::string &name)
+{
+  const scr_filterref_t filter = gs_get_filter (game);
+  std::vector<scr_int> path;
+  scr_int room;
+
+  lib_goto_reachable (game, target, path);
+  for (room = gs_playerroom (game); room != target; room = path[room])
+    {
+      const scr_char *step = lib_goto_step_name (game, room, path[room]);
+
+      if (step)
+        run_queue_goto_step (step);
+    }
+  run_set_goto_arrival (("Arrived " + name + ".\n").c_str ());
+  uip_renote_named_npcs (game, "", TRUE);
+
+  pf_buffer_string (filter, "Moving to ");
+  pf_buffer_string (filter, name.c_str ());
+  pf_buffer_string (filter, "...\n");
+  game->is_admin = TRUE;
+}
+
+
 scr_bool
 lib_cmd_go_place (scr_gameref_t game)
 {
@@ -704,20 +819,8 @@ lib_cmd_go_place (scr_gameref_t game)
    * 4.0 splits `and look` off first (run400x
    * runner_probes/goto.run400.gs_b.txt).
    */
-  if (version < TAF_VERSION_400)
-    {
-      static const scr_char *const EXAMINE_WORDS[] = {
-        "x", "examine", "look at", "ex", "exam", "read", nullptr
-      };
-
-      for (const scr_char *const *word = EXAMINE_WORDS; *word; word++)
-        if (has_word (*word))
-          return lib_cmd_examine_other (game);
-      if ((version >= TAF_VERSION_380 && has_word ("look in"))
-          || (version >= TAF_VERSION_390
-              && (has_word ("look") || has_word ("l"))))
-        return lib_cmd_examine_other (game);
-    }
+  if (version < TAF_VERSION_400 && lib_goto_line_examines (version, line))
+    return lib_cmd_examine_other (game);
 
   if (has_alias)
     drop_front (alias.size () + 1);
@@ -731,16 +834,7 @@ lib_cmd_go_place (scr_gameref_t game)
   text = line;
   uip_renote_named_npcs (game, line.c_str (), FALSE);
 
-  /* The rooms' names, lower-cased, as the Runner compares them. */
-  std::vector<std::string> names (rooms);
-  for (room = 0; room < rooms; room++)
-    {
-      const scr_char *name = prop_get_indexed_string (bundle, "Rooms", room,
-                                                      "Short");
-      names[room] = name ? name : "";
-      for (char &c : names[room])
-        c = scr_tolower (c);
-    }
+  const std::vector<std::string> names = lib_goto_room_names (game);
 
   const auto visited = [&] (scr_int candidate) -> scr_bool
     {
@@ -792,23 +886,7 @@ lib_cmd_go_place (scr_gameref_t game)
 
   if (count > 1)
     {
-      pf_buffer_string (filter, "Which \"");
-      pf_buffer_string (filter, text.c_str ());
-      pf_buffer_string (filter, "\"?\n");
-      for (room = 0; room < rooms; room++)
-        {
-          if (!marked[room])
-            continue;
-          pf_buffer_character (filter, '\'');
-          pf_buffer_string (filter, prop_get_indexed_string (bundle, "Rooms",
-                                                             room, "Short"));
-          pf_buffer_character (filter, '\'');
-          count--;
-          pf_buffer_string (filter, count > 0 ? ", " : ".");
-          if (count == 1)
-            pf_buffer_string (filter, "or ");
-        }
-      pf_buffer_answer_break (filter);
+      lib_goto_print_which (game, text, marked, count);
       return TRUE;
     }
 
@@ -822,24 +900,6 @@ lib_cmd_go_place (scr_gameref_t game)
       return TRUE;
     }
 
-  /*
-   * Walk it.  The route is fixed now and typed blindly: each step is the
-   * last direction leading to the next room, whatever happens on the way.
-   */
-  lib_goto_reachable (game, target, path);
-  for (room = gs_playerroom (game); room != target; room = path[room])
-    {
-      const scr_char *step = lib_goto_step_name (game, room, path[room]);
-
-      if (step)
-        run_queue_goto_step (step);
-    }
-  run_set_goto_arrival (("Arrived " + names[target] + ".\n").c_str ());
-  uip_renote_named_npcs (game, "", TRUE);
-
-  pf_buffer_string (filter, "Moving to ");
-  pf_buffer_string (filter, names[target].c_str ());
-  pf_buffer_string (filter, "...\n");
-  game->is_admin = TRUE;
+  lib_goto_walk (game, target, names[target]);
   return TRUE;
 }
