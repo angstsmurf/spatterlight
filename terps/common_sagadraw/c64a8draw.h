@@ -15,7 +15,7 @@
 #include <stddef.h>
 #include <stdint.h>
 
-typedef int(*adjustments_fn)(int, int, int *);
+typedef int (*adjustments_fn)(int, int, int *);
 
 int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, adjustments_fn adjustments, int is_c64);
 // Draws one bitmap byte as four double-width pixels at (x, *y), two bits

@@ -246,9 +246,9 @@ static void PutApplePixels(glsi32 xpos, glsi32 ypos, glui32 color, int width, in
         ypos * pixel_size + y_offset, pixel_size * width, pixel_size * 2);
 }
 
-/* The NTSC artifact-colour kernel (artifact LUT, palette, Double7Bits, per-row
-   word + colour expansion) lives in common_sagadraw/gm_artifact.c, shared with
-   the Comprehend renderer. This file keeps only the Glk plotting on top of it. */
+// The NTSC artifact-colour kernel (artifact LUT, palette, Double7Bits, per-row
+// word + colour expansion) lives in common_sagadraw/gm_artifact.c, shared with
+// the Comprehend renderer. This file keeps only the Glk plotting on top of it.
 
 // Draws one scanline, one fill_rect per run of same-coloured pixels.
 static void RenderLineWithA2ArtifactColors(uint16_t const *in, int row, int upside_down)
@@ -280,7 +280,6 @@ void DrawApple2ImageFromVideoMemWithFlip(int upside_down)
         endrow--;
 
     for (int row = 0; row <= endrow; row++) {
-        /* calculate address */
         uint8_t const *const vram_row = screenmem + gm_row_address(row);
         uint16_t words[40];
         gm_compute_row_words(vram_row, words);

@@ -70,7 +70,7 @@ void gm_draw_line(uint16_t target_x, uint8_t target_y, gm_vector_ctx *c);
 // with the fill-colour pattern given as even/odd-row sub-indices. Requires
 // c->pattern_data and c->brush_bitmaps to be set. Does not touch the pen cursor.
 void gm_draw_brush(uint16_t x, uint8_t y, uint8_t brush,
-                   uint8_t pat_even, uint8_t pat_odd, gm_vector_ctx *c);
+    uint8_t pat_even, uint8_t pat_odd, gm_vector_ctx *c);
 
 #ifdef __cplusplus
 }

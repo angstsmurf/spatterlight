@@ -44,7 +44,7 @@ void gm_render_line_colors(const uint16_t *words, uint8_t *colors560);
 // by the main byte's low 7 pixels. Build those words from a scanline's aux/main
 // bytes (aux_row[0..39], main_row[0..39]). words[] must hold 40 entries.
 void gm_compute_dhgr_row_words(const uint8_t *aux_row, const uint8_t *main_row,
-                               uint16_t *words);
+    uint16_t *words);
 
 // Expand one DHGR scanline's 40 words into 560 4-bit NTSC-artifact colour
 // indices. Identical pixel-run colour kernel as gm_render_line_colors(), but at

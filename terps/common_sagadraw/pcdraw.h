@@ -17,8 +17,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
-/* Draws a DOS (CGA) picture: the whole contents of a .PAK file. Returns 0 if
-   the data is too short to hold the header, otherwise 1. */
+// Draws a DOS (CGA) picture: the whole contents of a .PAK file. Returns 0 if
+// the data is too short to hold the header, otherwise 1.
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize);
 
 #endif /* pcdraw_h */

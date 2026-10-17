@@ -18,20 +18,20 @@
 #include "read_le16.h"
 #include "sagadraw_host.h"
 
-/* Image header: offsets of its fields, and its length */
-#define DOS_HEADER_DATA_SIZE    0x05 /* 16-bit length of the whole image */
-#define DOS_HEADER_STRIPED      0x0d /* 0xff: double-width pixels */
-#define DOS_HEADER_START_OFFSET 0x0f /* 16-bit CGA offset of the top left */
-#define DOS_HEADER_END_OFFSET   0x11 /* 16-bit CGA offset of the bottom left */
-#define DOS_HEADER_WIDTH        0x13 /* width in bytes, 4 pixels each */
+// Image header: offsets of its fields, and its length
+#define DOS_HEADER_DATA_SIZE    0x05 // 16-bit length of the whole image
+#define DOS_HEADER_STRIPED      0x0d // 0xff: double-width pixels
+#define DOS_HEADER_START_OFFSET 0x0f // 16-bit CGA offset of the top left
+#define DOS_HEADER_END_OFFSET   0x11 // 16-bit CGA offset of the bottom left
+#define DOS_HEADER_WIDTH        0x13 // width in bytes, 4 pixels each
 #define DOS_HEADER_LENGTH       0x17
 
-/* CGA bytes per scanline, in one of the two interleaved banks */
+// CGA bytes per scanline, in one of the two interleaved banks
 #define CGA_BYTES_PER_ROW 80
 
-/* The image is stored interlaced, like CGA video memory: first the even
-   scanlines from the top, then the odd ones. x and y are in pixels, `right`
-   is the width in pixels and `bottom` the number of scanline pairs. */
+// The image is stored interlaced, like CGA video memory: first the even
+// scanlines from the top, then the odd ones. x and y are in pixels, `right`
+// is the width in pixels and `bottom` the number of scanline pairs.
 typedef struct {
     int x;
     int y;
@@ -39,12 +39,12 @@ typedef struct {
     int bottom;
     int left;
     int top;
-    int ycount;          /* scanline pairs done in the current pass */
+    int ycount;      // scanline pairs done in the current pass
     int pixelwidth;
-    int passes_done;     /* 0 while drawing even rows, 1 odd, 2 finished */
+    int passes_done; // 0 while drawing even rows, 1 odd, 2 finished
 } DrawState;
 
-/* Advance x by dx and handle end-of-line/last-line logic. */
+// Advance x by dx and handle end-of-line/last-line logic.
 static inline void StepX(DrawState *st, int dx)
 {
     st->x += dx;
@@ -60,7 +60,7 @@ static inline void StepX(DrawState *st, int dx)
     }
 }
 
-/* Draw the 4 two-bit pixels packed in "pattern", each pixelwidth wide. */
+// Draw the 4 two-bit pixels packed in "pattern", each pixelwidth wide.
 static inline void DrawPattern(DrawState *st, uint8_t pattern)
 {
     uint8_t mask = 0xc0;
@@ -75,31 +75,32 @@ static inline void DrawPattern(DrawState *st, uint8_t pattern)
 
 int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
 {
-    if (!ptr || datasize < DOS_HEADER_LENGTH) return 0;
+    if (!ptr || datasize < DOS_HEADER_LENGTH)
+        return 0;
 
     DrawState st = {0};
 
-    /* set up the palette */
+    // set up the palette
     const glui32 palette[4] = {
-        0x000000, /* black */
-        0x00ffff, /* cyan */
-        0xff00ff, /* magenta */
-        0xffffff  /* white */
+        0x000000, // black
+        0x00ffff, // cyan
+        0xff00ff, // magenta
+        0xffffff  // white
     };
 
     for (int i = 0; i < 4; ++i) {
         SetColor(i, palette[i]);
     }
 
-    /* Get the size of the graphics chunk */
+    // Get the size of the graphics chunk
     size_t size = READ_LE_UINT16(ptr + DOS_HEADER_DATA_SIZE);
     if (size > datasize)
         size = datasize;
 
-    /* Get whether it is striped */
+    // Get whether it is striped
     st.pixelwidth = 1 + (ptr[DOS_HEADER_STRIPED] == 0xff);
 
-    /* Get the offset */
+    // Get the offset
     int rawoffset = READ_LE_UINT16(ptr + DOS_HEADER_START_OFFSET);
     st.left = ((rawoffset % CGA_BYTES_PER_ROW) * 4) - 24;
     st.top = rawoffset / 40;
@@ -107,7 +108,7 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
     st.x = st.left;
     st.y = st.top;
 
-    /* Get the height and width */
+    // Get the height and width
     st.bottom = (READ_LE_UINT16(ptr + DOS_HEADER_END_OFFSET) - rawoffset) / CGA_BYTES_PER_ROW;
     st.right = ptr[DOS_HEADER_WIDTH] * 4;
 
@@ -120,7 +121,8 @@ int DrawDOSImageFromData(uint8_t *ptr, size_t datasize)
         int reps = (count & 0x7f) + 1;
 
         if (repeat) {
-            if (ptr >= endptr) break;
+            if (ptr >= endptr)
+                break;
             uint8_t value = *ptr++;
             for (int i = 0; i < reps && st.passes_done < 2; ++i)
                 DrawPattern(&st, value);

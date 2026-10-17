@@ -21,7 +21,7 @@ static void TranslateColorAtari8(uint8_t index, uint8_t value)
     SetColor(index, ataricolors[value]);
 }
 
-/* C64 colors */
+// C64 colors
 enum c64_color {
     C64_WHITE,
     C64_RED,
@@ -36,7 +36,7 @@ enum c64_color {
     C64_LBLUE,
     C64_BROWN,
     C64_NUM_COLORS,
-    C64_UNUSED = -1 /* leave the palette slot unchanged */
+    C64_UNUSED = -1 // leave the palette slot unchanged
 };
 
 static const glui32 c64colors[C64_NUM_COLORS] = {
@@ -54,13 +54,12 @@ static const glui32 c64colors[C64_NUM_COLORS] = {
     [C64_BROWN]  = 0x837000,
 };
 
-/*
- The C64 colour for each colour value a game uses, determined by looking at
- the games running in the VICE C64 emulator.
- I have no idea how the original interpreter calculates
- them. I might have made some mistakes.
- C64_UNUSED values are not used by any game; they leave the palette slot
- holding whatever colour it had before. */
+// The C64 colour for each colour value a game uses, determined by looking at
+// the games running in the VICE C64 emulator.
+// I have no idea how the original interpreter calculates
+// them. I might have made some mistakes.
+// C64_UNUSED values are not used by any game; they leave the palette slot
+// holding whatever colour it had before.
 static const int8_t c64colormap[] = {
     /*   0 */ C64_PURPLE,  C64_BLUE,    C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_UNUSED,  C64_UNUSED,  C64_BLUE,
     /*   8 */ C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,   C64_WHITE,
@@ -105,7 +104,8 @@ static void TranslateColorC64(uint8_t index, uint8_t value)
         SetColor(index, c64colors[color]);
 }
 
-int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern) {
+int DrawPatternAndAdvancePos(int x, int *y, uint8_t pattern)
+{
     uint8_t mask = 0xc0;
 
     for (int i = 6; i >= 0; i -= 2) {
@@ -122,7 +122,6 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
 {
     uint8_t pattern_top = 0, pattern_bottom = 0;
     int repetitions;
-    int i;
 
     uint8_t *origptr = ptr;
 
@@ -135,7 +134,7 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
 
     ptr += 2;
 
-    // For Atari 8-bit, this vaule is already datasize
+    // For Atari 8-bit, this value is already datasize
     // but on C64, datasize is the actual file size of the image
     // file on disk, so we shrink it here.
     size_t size = READ_LE_UINT16_AND_ADVANCE(&ptr);
@@ -166,7 +165,7 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     SetColor(0, 0); // Color 0 is always black
 
     // Get the palette
-    for (i = 1; i < 5; i++) {
+    for (int i = 1; i < 5; i++) {
         uint8_t color = *ptr++;
         if (is_c64) {
             TranslateColorC64(i, color);
@@ -178,7 +177,7 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
     while ((size_t)(ptr - origptr) < datasize - 2) {
         // First get repetitions
         repetitions = *ptr++;
-        
+
         // If bit 7 is set or this is an early game
         // we write the next two bytes (repetitions) times
         int repeat_next_two_bytes = 0;
@@ -192,7 +191,7 @@ int DrawC64A8ImageFromData(uint8_t *ptr, size_t datasize, int voodoo_or_count, a
             pattern_top = *ptr++;
             pattern_bottom = *ptr++;
         }
-        for (i = 0; i < repetitions + 1; i++) {
+        for (int i = 0; i < repetitions + 1; i++) {
             // If we are not repeating bytes,
             // we read two new bytes on every iteration
             if (!repeat_next_two_bytes) {

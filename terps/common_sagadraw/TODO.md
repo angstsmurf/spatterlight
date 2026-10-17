@@ -433,13 +433,23 @@ How it was verified:
 
 ## 8. Cross-cutting
 
-- [-] **[cleanup]** Mixed C dialect/style: tabs vs spaces, `//` vs `/* */`, inconsistent
+- [x] **[cleanup]** Mixed C dialect/style: tabs vs spaces, `//` vs `/* */`, inconsistent
   brace style and `uint8_t`/`int` for loop variables across the five source
   files. Pick one (the surrounding repo uses 4-space) and run a formatter on this
   directory *after* the functional changes so the diff stays reviewable.
-  → Not done. Running a formatter over the whole directory would bury this
-  pass's changes in `git blame`. It is better done as its own commit once
-  this pass is committed, if wanted.
+  → Done as its own pass (2026-10-17), after the functional commits. The
+  style is WebKit, as most Scott and Plus code uses: function braces on
+  their own line, 4-space continuation indent, no statement on the same
+  line as its `if`. Comments are `//`, except the `/* 0 */` index markers
+  inside table rows and the include-guard `#endif` comments. There were
+  no tabs. The edits were made by hand, with clang-format (WebKit style)
+  used only as a checklist: run on the whole directory it puts one table
+  entry per line and pulls apart aligned columns. Every `.c` file
+  compiles to byte-identical objects (`-O2`, code and data) compared with
+  HEAD. For that reason the one `uint8_t` loop counter (`gm_spread7`) was
+  left alone: as `int` it is equivalent but compiles differently. Also
+  fixed a "vaule" typo and dropped a redundant "calculate address"
+  comment.
 - [-] **[design]** No unit tests live in this directory; coverage is spread across
   `scott/saga/test/` and `comprehend/test/` using stubbed host symbols
   (`filltest.c`, `c64test.c`, ...). A `common_sagadraw/test/` with the shared
@@ -460,7 +470,7 @@ How it was verified:
   (2) share `gm_row_address` / screen-size constants; (3) add the host-callback
   header and shared test stubs; (4) table-ise the C64/Atari colour mapping;
   (5) unify the RLE iterator; (6) formatting pass.
-  → Steps 1 to 4 are done, without the shared test stubs. Steps 5 and 6 are
-  declined, as noted above. No test rows were added for the section 1 fixes:
+  → Steps 1 to 4 are done, without the shared test stubs. Step 5 is
+  declined, as noted above. Step 6 was done later, as its own pass. No test rows were added for the section 1 fixes:
   they only affect malformed data and count mode, which the real corpus
   never reaches. The differential harness covered them with fuzzed blobs.

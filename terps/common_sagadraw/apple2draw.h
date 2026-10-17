@@ -20,10 +20,10 @@
 void ClearApple2ScreenMem(void);
 void DrawApple2ImageFromVideoMem(void);
 void DrawApple2ImageFromVideoMemWithFlip(int upside_down);
-typedef void(*adjust_plus_fn)(uint8_t, uint8_t, uint8_t);
+typedef void (*adjust_plus_fn)(uint8_t, uint8_t, uint8_t);
 int DrawApple2ImageFromData(uint8_t *ptr, size_t datasize, int is_the_count, adjust_plus_fn adjust_plus);
 void DrawSingleApple2ImageByte(uint8_t *mem, size_t offset);
-/* The hi-res page, A2_SCREEN_MEM_SIZE bytes; NULL until first drawn to. */
+// The hi-res page, A2_SCREEN_MEM_SIZE bytes; NULL until first drawn to.
 extern uint8_t *screenmem;
 extern uint8_t *descrambletable;
 

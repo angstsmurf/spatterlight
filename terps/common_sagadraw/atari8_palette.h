@@ -50,11 +50,11 @@ static const glui32 ataricolors[] = {
 
 _Static_assert(sizeof(ataricolors) / sizeof(ataricolors[0]) == 256, "one entry per colour value");
 
-/* The values the remapped entries replaced:
-    14: 0xd1d1d1   18: 0x521d00   37: 0x853d00   50: 0x54050b
-    52: 0x712329   54: 0x8f4146   58: 0xcb7d82   86: 0x693ccb
-   102: 0x4f43ee  133: 0x164ad4  198: 0x497600  199: 0x588500
-   200: 0x679405  216: 0x818d00  228: 0x5e4700  247: 0x9c6800
-   248: 0xab7700  255: 0xeee055 */
+// The values the remapped entries replaced:
+//    14: 0xd1d1d1   18: 0x521d00   37: 0x853d00   50: 0x54050b
+//    52: 0x712329   54: 0x8f4146   58: 0xcb7d82   86: 0x693ccb
+//   102: 0x4f43ee  133: 0x164ad4  198: 0x497600  199: 0x588500
+//   200: 0x679405  216: 0x818d00  228: 0x5e4700  247: 0x9c6800
+//   248: 0xab7700  255: 0xeee055
 
 #endif /* atari8_palette_h */
