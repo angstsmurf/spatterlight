@@ -8,34 +8,6 @@ You can see a bed, a Clock, a desk, a lamp, a note and a dresser.
 You can go east.
 
 You wake up in your room, its raining and thundering outside, your room is dark, hardly can see anything but you can make out some objects, there's a bed, a Clock, a dresser, a desk, and a lamp. Your door is closed, as the flashing of the thunder give a bit of light in your room.
-> look
-
-> look
-You are in a Bedroom.
-You can see a bed, a Clock, a desk, a lamp, a note and a dresser.
-You can go east.
-
-You wake up in your room, its raining and thundering outside, your room is dark, hardly can see anything but you can make out some objects, there's a bed, a Clock, a dresser, a desk, and a lamp. Your door is closed, as the flashing of the thunder give a bit of light in your room.
-> x clock
-
-> x clock
-The clock shows 12:00, its seems like there was a outage sometime in the night. You begin to wonder what time it really is.
-> x note
-
-> x note
-The note lies on top of the desk, there seems to being some writing on it.
-> read note
-
-> read note
-You need light to read this note.
-> x dresser
-
-> x dresser
-The flashing of the thunder shows a figure close to the wall, it appears to look like your dresser.
-> x desk
-
-> x desk
-You usually did your homework here, there seems to be a note on the top of the desk, maybe the light will make it more visible.
 > e
 
 > e
@@ -46,9 +18,100 @@ You can go west, north, east or down.
 
 You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
 You leave the door open behind you, as you gaze out into the dark hallway.
-> look
+> e
 
-> look
+> e
+You walk down the hall some more, you start to hear footsteps.
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+The footsteps fade, and you run into a figure, you jump a bit, the figure disappears, you look around, its too dark to tell what it was.
+> n
+
+> n
+You open your sister's door, and walk in. Its dark all around.
+
+You are in a HaileysBedroom.
+You can see a HaileysBed, a HaileysDesk, a HaileysCloset, a HaileysLamp, a Note3 and a phone charger.
+You can go south.
+
+You are in your sister's bedroom, she usually doesn't mind you in her room, you two always played together, and did stuff together, she loved to pull pranks on you with your older brother, but usually makes up for it afterward.
+You leave the door open, as you walk in.
+> turn on HaileysLamp
+
+> turn on HaileysLamp
+You turn the lamp on. The top of the desk is visible.
+The note is now readable.
+> open HaileysDesk
+
+> open HaileysDesk
+You open the desk. A phone lays in the desk. It might be useful as a flashlight.
+> take phone
+
+> take phone
+You put the phone in your pocket.
+> open HaileysCloset
+
+> open HaileysCloset
+You open the closet door, there is clothes and shoes, there is something shining at the top shelf. You grab it to see its a SpecialKey.
+> take SpecialKey
+
+> take SpecialKey
+You slide the key in your pocket.
+> s
+
+> s
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> w
+
+> w
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> w
+
+> w
+
+You are in a Bedroom.
+You can see a bed, a Clock, a desk, a lamp, a note and a dresser.
+You can go east.
+
+You wake up in your room, its raining and thundering outside, your room is dark, hardly can see anything but you can make out some objects, there's a bed, a Clock, a dresser, a desk, and a lamp. Your door is closed, as the flashing of the thunder give a bit of light in your room.
+> turn on phone
+
+> turn on phone
+You turned the phone flashlight setting on.
+You see a key in the dark corner, looks like it goes somewhere.
+> take DresserKey
+
+> take DresserKey
+You pick the key up and put it in your pocket.
+> open dresser
+
+> open dresser
+You unlocked the dresser.
+You open the dresser, inside seems to be a piece you can use that the note says.
+You open it.
+> open dresser
+
+> open dresser
+It is already open.
+> take MetalHorseBody
+
+> take MetalHorseBody
+You put the small body in your other pocket.
+> e
+
+> e
+
 You are in a Hallway.
 You can go west, north, east or down.
 
@@ -64,14 +127,36 @@ You can go south.
 
 Alex's room, your brother, he never wants you in his room, but you must find out if he is still here or not with the strange note you found in your room, makes you wonder if anyone is even in the house. You can see bed, desk, lamp, and a LooseFloorBoard.
 You leave the door open, there is nothing but darkness all around the thunder makes little light shadows of certain objects will appear every so often.
-> look
+> turn on lamp
 
-> look
-You are in an AlexsBedroom.
-You can see a bed, a desk, a LooseFloorBoard, a lamp and a note.
-You can go south.
+> turn on lamp
+The light shines through the room.
+> open desk
 
-Alex's room, your brother, he never wants you in his room, but you must find out if he is still here or not with the strange note you found in your room, makes you wonder if anyone is even in the house. You can see bed, desk, lamp, and a LooseFloorBoard.
+> open desk
+You open his dresser, and look though it, you feel something metal inside the dresser, you pick it up to look at AlexsKey.
+> take AlexsKey
+
+> take AlexsKey
+This key will come in handy.
+> open LooseFloorBoard
+
+> open LooseFloorBoard
+You open the floor board to see a BlackBox, the box appears to be locked?
+> open BlackBox
+
+> open BlackBox
+The box is unlocked
+Alex will get in big trouble if mom found this knife. The knife might just come in handy.
+You open it.
+> open BlackBox
+
+> open BlackBox
+It is already open.
+> take Knife
+
+> take Knife
+I can put this to good use maybe.
 > s
 
 > s
@@ -83,16 +168,38 @@ You enter into a dark hallway, your bedroom is to the west, your brothers room i
 > e
 
 > e
-You walk down the hall some more, you start to hear footsteps.
 
 You are in a Hallway1.
 You can go west, north, south or east.
 
 Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
-The footsteps fade, and you run into a figure, you jump a bit, the figure disappears, you look around, its too dark to tell what it was.
-> look
+> s
 
-> look
+> s
+You walk into your parents room to look for them. Opening the door, the room is all dark.
+
+You are in a MasterBedroom.
+You can see a chair, a ParentsBed, a ParentsDesk, a DeskLamp, a Note4, a TV and a nightstand.
+You can go north.
+
+You enter your parents bedroom, the room is dark, thunder continues to flash adding a bit of lighting into the room. Your parents don't like you being in their room but that doesn't matter, you need to know if your parents are here. You can see the ParentsBed, the ParentsDesk, a chair, a DeskLamp, a TV, and a nightstand.
+You leave the door open as you begin to look around the room.
+> open ParentsDesk
+
+> open ParentsDesk
+You open the desk, a gun appears in it, its empty no ammo around, maybe if you found some it be in good use.
+> take gun
+
+> take gun
+You put the gun in the back of your sweat pants to hold it there.
+> take chair
+
+> take chair
+This will help reach things.
+> n
+
+> n
+
 You are in a Hallway1.
 You can go west, north, south or east.
 
@@ -107,10 +214,146 @@ You can go west, east or up.
 
 You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
 The bathroom is just up ahead.
-> look
+> drop chair
 
-> look
+> drop chair
+You set the chair down.
+You can now reach the attic pull string.
+> pull attic pull string
+
+> pull attic pull string
+You pull the string, the door opens as stairs slowly begin to fall down to the hallway floor, it creates a staircase in the hallway, you can now enter the attic.
+> e
+
+> e
+You open the bathroom door, you really need to pee, you should use the toilet.
+
+You are in a Bathroom.
+You can see a shower, a curtain, a sink, a mirror and a toilet.
+You can go west.
+
+The bathroom, a place for a bit of peace, the toilet is next to the shower, the shower has a shower curtain, there is a sink on the other wall, with a mirror above it.
+You can't hold it, you leave the door open, the toilet is just right there, you gotta go pee bad.
+> open curtain
+
+> open curtain
+You really didn't want to but you have to, you open the curtain, nothing weird appears, looking in the tub, you see a screwdriver, it might come to some type of importance.
+> take screwdriver
+
+> take screwdriver
+You put the screwdriver in your other pocket.
+> use the toilet
+
+> use the toilet
+You relieve yourself in the toilet. A sudden slam is heard downstairs, you jump a bit, and look at the direction of the noise, you decide to go downstairs.
+> w
+
+> w
+
 You are in a hallway2.
+You can see an attic pull string and a chair.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+> up
+
+> up
+You begin to feel odd about going up to the attic, maybe it isn't a good idea.
+
+You are in an Attic.
+You can go down or west.
+
+The attic is where your family stores things. There is still room to move around, it was completely dark. You can see a thing.
+You are stuck in the darkness, you need a light, you should use something to light the way first before doing anything up here.
+> w
+
+> w
+The room is dark, and scary, you don't like scary, creepy things. You will need a light to see anything here.
+
+You are in an AtticHallway.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+You stand in the hall, without a light you won't know where you are or the way back down.
+> turn off phone
+
+> turn off phone
+You turned the phone flashlight setting off.
+The darkness fills the area, you are unable to see clearly.
+> turn on phone
+
+> turn on phone
+You turned the phone flashlight setting on.
+you can now see the AtticTable and note5 on the table.
+A cardboard box is seen next to the table.
+A door is seen at the end of the hall.
+A door is seen on the south wall.
+> open cardboardBox
+
+> open cardboardBox
+A key lays in the box.
+> take SpareBasementKey
+
+> take SpareBasementKey
+The key for the basement. You slide it in your pocket.
+> open storageroomDoor
+
+> open storageroomDoor
+You unlocked the door.
+You can now enter the storageroom.
+You open it.
+> w
+
+> w
+You open the door and walk into the dark room.
+
+You are in a StorageRoom.
+You can see a storageRoom3Door.
+You can go east or south.
+
+The room is dark, objects can only be seen with a light source. This is were your parents would usually store most things.
+You leave the door open as you walk in the storage room.
+> turn off phone
+
+> turn off phone
+You turned the phone flashlight setting off.
+The darkness fills the area, you are unable to see clearly.
+> turn on phone
+
+> turn on phone
+You turned the phone flashlight setting on.
+A vent is attached on the lower part of the wall in the corner, something glows from inside.
+> open vent
+
+> open vent
+You take out your screwdriver, and start to unscrew the screws in the vent, you open the vent and look inside, there lays a key.
+> take BasementRoomKey
+
+> take BasementRoomKey
+You slide the key in one of your pockets.
+> e
+
+> e
+
+You are in an AtticHallway.
+You can see an AtticTable, a note5, a cardboardBox, a storageroomDoor and a storageroomDoor2.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+> e
+
+> e
+
+You are in an Attic.
+You can go down or west.
+
+The attic is where your family stores things. There is still room to move around, it was completely dark. You can see a thing.
+> d
+
+> d
+
+You are in a hallway2.
+You can see an attic pull string and a chair.
 You can go west, east or up.
 
 You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
@@ -133,5 +376,997 @@ You enter into a dark hallway, your bedroom is to the west, your brothers room i
 > d
 
 > d
-You can't go down stairs till you find out if your parents, brother or sister are in the house.
-[state=Running]
+You begin to go down the stairs into the foyer, footsteps is heard but you can't tell where.
+
+You are in a staircase.
+You can go south or up.
+
+The staircase that leads down to the foyer.
+You are half way down the steps the footsteps get louder, then suddenly you are pushed by some unknown force. You fall down the stairs, you reach the bottom, and pain fills your body, you feel like you are going to cry but you hold it in, you get up and continue on ward.
+> s
+
+> s
+You look around your body still in pain, the footsteps are gone.
+
+You are in a Foyer.
+You can go north, east or west.
+
+You are now in the downstairs of the house. In front of you, south is the front door. East is the guest room, west is the dining room, north is the staircase.
+You try the front door, the door is shut tight, you can't open it, some type of force is keeping closed.
+> e
+
+> e
+You begin to walk into the guess room, you feel like something is watching you.
+
+You are in a GuessRoom.
+You can see a GuessCouch, a GuessCoffeeTable and a PictureFrame.
+You can go west or north.
+
+As you enter the guess room, there is a tapping sound, you look around, scared, fear fills your body, you look towards the near by window to see a tree tapping the window. You are relieved and then you hear footsteps, you jump, the footsteps fade, you look around, nothing is around.
+The feeling of someone watching you grows stronger you begin to look around.
+> check GuessCouch
+
+> check GuessCouch
+You looked through the couch, to find a key in between the cushions it looks like it can go to the office.
+> take OfficeKey
+
+> take OfficeKey
+You put the key in your other pocket.
+> n
+
+> n
+You walk in the living room, nothing out of the ordinary.
+
+You are in a LivingRoom.
+You can see an OfficeDoor, a LivingRoomCouch, a LivingRoomCoffeeTable and a LivingRoomTV.
+You can go south, east or north.
+
+The living room were you and your family spend a lot of time at, watching TV, and doing really nothing but that, talking sometimes.
+You are in the living room as you look around, it seems the guy stopped messing with you, maybe.
+> open OfficeDoor
+
+> open OfficeDoor
+You unlocked the office door.
+You can now enter the office.
+You open it.
+> e
+
+> e
+You open the office door and walk in.
+
+You are in an Office.
+You can see a computer and an officeCabinet.
+You can go west.
+
+The room were your dad worked all the time in. It always locked, so no one doesn't disturb him, its looks like his computer is still on.
+You leave the door open, you can see his computer on, maybe you should take a look.
+> turn off phone
+
+> turn off phone
+You turned the phone flashlight setting off.
+The darkness fills the area, you are unable to see clearly.
+> turn on phone
+
+> turn on phone
+You turned the phone flashlight setting on.
+You find a key in the corner of the room, looks like it goes to the office cabinet, like the note said.
+> take CabinetKey
+
+> take CabinetKey
+You put the key in your pocket.
+> open officeCabinet
+
+> open officeCabinet
+You unlocked the cabinet.
+You open the cabinet, a key rest in the cabinet like what the note said.
+You open it.
+> take StorageRoom3Key
+
+> take StorageRoom3Key
+You pick the key up and put it in your pocket.
+> w
+
+> w
+
+You are in a LivingRoom.
+You can see an OfficeDoor, a LivingRoomCouch, a LivingRoomCoffeeTable and a LivingRoomTV.
+You can go south, east or north.
+
+The living room were you and your family spend a lot of time at, watching TV, and doing really nothing but that, talking sometimes.
+> n
+
+> n
+You walk into the library, it was a big library, as you look around you can hear a tapping noise, then some footsteps.
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a Book3, a LibraryDesk and a Painting.
+You can go south or west.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+A book is thrown for the self and towards you, you see it and quickly get on the ground, the book misses and you look up, there was no one around, the book just flew off the self on its own, you wonder what the hell was going on, you stand up to look around, you are on edge, your heart racing.
+> take Book3
+
+> take Book3
+You carry the book in your hand.
+> w
+
+> w
+You enter the hallway, You hear footsteps again, you begin to wish that nothing else will happen to you, you don't want to go though anymore.
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+You are in the hallway, the footsteps stop, nothing is around you, you hear a tapping noise again, you jump after each tap, your heart skips a beat with each tap. The tapping stops and all is silent, nothing too bad happened.
+> open basementDoor
+
+> open basementDoor
+You unlocked the basement door.
+You can now enter the basement.
+You open it.
+> w
+
+> w
+You enter the laundry room, nothing to special about it.
+
+You are in a LaundryRoom.
+You can see a washer, a dryer, a bluePaint, a clearPaint and a greenPaint.
+You can go south or east.
+
+The place were your family washed the laundry, and dried it, you hardly spend anytime here. It's dark in the room.
+You are in the laundry room, you look around to see what you could use.
+> paint book with bluePaint
+
+> paint book with bluePaint
+You painted the book blue.
+> s
+
+> s
+You enter into the kitchen, seems the guy isn't going to try anything this time.
+
+You are in a Kitchen.
+You can see a KitchenCabinet, an Oven, a Refrigerator, a deepFreezer and a counter.
+You can go south or north.
+
+The room were your mother always loved to be in, she loved to cook, your sister would sometimes help mom with the cooking, her cooking was always good, it was the best in fact.
+As you enter the kitchen, you can still remember the good times in here, as you begin to look around, maybe something could be of use.
+> s
+
+> s
+Your eyes are closed, you are smiling as you are remembering the good times, weird cause of what is going on, as you open your eyes, a figure appears in front of you, you jump back, and fall on the floor, you are frighten, you could scream, you were in shock, the figure disappears, and you are left in the room alone, you can't remember what you saw, only a figure you remember.
+
+You are in a DiningRoom.
+You can see a DiningRoomTable, a DiningRoomRug, a DiningRoomCabinet, a FamilyPhoto and a ScratchMarks.
+You can go east or north.
+
+The dining is were the family usually gather to sit at the table to eat and to talk about each others day, or to play games together, used a lot for family time. You miss it, you can still smell the best food you mom makes, the laughter, all the good times  run though your mind.  In the center of the room is the DiningRoomTable, on the floor is the DiningRoomRug, against the wall is the DiningRoomCabinet, on the cabinet is the FamilyPhoto, on top of the table you can see ScratchMarks.
+Your heart is beating fast, you shake your head, you need to focus.
+> look under DiningRoomRug
+
+> look under DiningRoomRug
+You decide to look under the rug, you need to find anything to help you, and you wouldn't suspect anything to be under it. As you look under there, you see a lockpick, it could come in handy, lucky you know how to use one.
+> take lockpick
+
+> take lockpick
+You slide the lockpick in your back pocket.
+> n
+
+> n
+
+You are in a Kitchen.
+You can see a KitchenCabinet, an Oven, a Refrigerator, a deepFreezer and a counter.
+You can go south or north.
+
+The room were your mother always loved to be in, she loved to cook, your sister would sometimes help mom with the cooking, her cooking was always good, it was the best in fact.
+> open KitchenCabinet
+
+> open KitchenCabinet
+You unlocked the cabinet.
+You used your lockpick to open the cabinet, you open it and see a pack of matches, maybe you could use these.
+You open it.
+> take Matches
+
+> take Matches
+You could use this to light a candle.
+> n
+
+> n
+
+You are in a LaundryRoom.
+You can see a washer, a dryer, a bluePaint, a clearPaint and a greenPaint.
+You can go south or east.
+
+The place were your family washed the laundry, and dried it, you hardly spend anytime here. It's dark in the room.
+> e
+
+> e
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+> e
+
+> e
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a LibraryDesk and a Painting.
+You can go south or west.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+> add book on LibraryStand
+
+> add book on LibraryStand
+You place the book down on the stand in the hole, the stand goes down a bit, and in front of it, a trapdoor opens up, stairs are leading down to a door. It was a secret room, the room that the girls kept from you, should you go down, or keep it a secret.
+> d
+
+> d
+You look at the trapdoor, and decide to go down, you begin to walk down the steps.
+
+You are in a secretRoom.
+You can see a Table and a SecretNote.
+You can go up.
+
+The room under the library, this was the place the girl kept from you, wonder what could be inside here.
+You enter the secret room, in the middle of the room is a table, on top looks like a top, around the walls are shelves, the shelves have many books on top of them. You look at the note, and wonder what it says.
+> look SecretNote
+
+> look SecretNote
+The note lays on the table it reads:
+
+A suicide of a man that lived in this house, the man always loved this house, he never let anyone have it. He made sure the house was the way he left it. The man is said to have commit suicide after the death of his wife, others say he killed his wife cause she messed up a part of the house, after the suicide of the man, weird stuff has been happening to families that move in here, they usually ended up dead, once they change any part of the house. Every family that died had this in common, it was midnight when the families will be found, it seems that the ghost of this guy is killing the families, and having there bodies discovered at midnight. Everyone calls him the midnight killer. Others don't believe it, others believe what the police put out, that a family member killed the family, and killed themselves to avoid jail.
+
+You look at the note, and set it down, maybe this guy was after you, you need to escape this house before you die.
+> u
+
+> u
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a LibraryDesk and a Painting.
+You can go south, west or down.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+> w
+
+> w
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+> d
+
+> d
+You open the door, and walk down in the basement.
+
+You are in a Basement.
+You can go up or south.
+
+The basement, the most scariest part of the house, your parents even told you to never go down there, you always wondered why, they usually leave things that they don't need down there, but maybe there is something else they don't want you to know about.
+You are at the bottom of the steps, you hear a weird, cold noise, breathing, it fades, as footsteps begin to be heard, those fade, and tapping starts again, each thing makes you more scared and jumping, your heart racing so fast, skipping beats here and there. The noise fade, and all is silent again.
+> s
+
+> s
+You feel a shiver down your back.
+
+You are in a BasementHall.
+You can see a WallPicture, a basementRoomDoor, a CeilingLight, a basementRoom1Door and a basementRoom2Door.
+You can go north, east, west or south.
+
+You are in the big, kinda short hall in the basement, on the wall is a WallPicture, junk is all around the area, the CeilingLight on the top of the wall is on,  somehow there is power down here.
+A figure appears in the middle of the room, you see the figure, he is tall, slim, his eyes have blacked filled holes, his mouth closed, when he opens them there are fangs , he doesn't have hair, his skin pale, and slimey. Your heart begins to race faster, you are scared you want to scream but you are too scared, you fall over, the figure then disappears, and you just lay there looking at the center of the room for a few minutes, you realize that what you saw was real and stand up. You need to keep going and escape the house.
+> move WallPicture
+
+> move WallPicture
+You move the picture off the wall to see a secret box behind it, it's sealed with a screw, it requires a screwdriver to open it. There is also tape that seems to be attached, a knife should work to cut the tape.
+> open SecretBox
+
+> open SecretBox
+You opened the box.
+You cut the tape with the knife, and unscrew the box with the screwdriver, You open the box and a key rest in the box, it looks like it goes to one of the doors in the attic.
+You open it.
+> take Storageroom2Key
+
+> take Storageroom2Key
+You put this key in your pocket.
+> open basementRoomDoor
+
+> open basementRoomDoor
+You unlocked the door.
+You can now go into the basement room.
+You open it.
+> e
+
+> e
+You enter the room, wondering what was on the other side.
+
+You are in a BasementRoom.
+You can see a Cardboardbox and a target.
+You can go west.
+
+A room that was locked, you don't know why. You should look around, there is junk all over, a Cardboardbox, a target that hangs in front of  a razor sharp object, the target is attached to some rope, it appears you will need to push the target into the razor, cause on the other side of the rope was a HeavyBoxKey.
+You walk inside to see a target, with rope on it, and above in the air was a key, attached to the rope, you need that key. But how do you get it.
+> open Cardboardbox
+
+> open Cardboardbox
+You used your knife to open the box, inside the box is ammo for a gun, you might need these for that target.
+> load Ammo
+
+> load Ammo
+You take the ammo, and load your gun, good thing you know how to load a gun and shoot one.
+> shoot target
+
+> shoot target
+You shoot at the target, you hit the bullseye on the target, this causing the target to be pushed back, the rope is caught into the razor sharp object cutting it, the target falls to the ground, and the key falls to the ground as well. You can now get the key.
+> take HeavyBoxKey
+
+> take HeavyBoxKey
+You take the key and slide it in your pocket.
+> w
+
+> w
+
+You are in a BasementHall.
+You can see a WallPicture, a SecretBox, a basementRoomDoor, a CeilingLight, a basementRoom1Door and a basementRoom2Door.
+You can go north, east, west or south.
+
+You are in the big, kinda short hall in the basement, on the wall is a WallPicture, junk is all around the area, the CeilingLight on the top of the wall is on,  somehow there is power down here.
+> n
+
+> n
+
+You are in a Basement.
+You can go up or south.
+
+The basement, the most scariest part of the house, your parents even told you to never go down there, you always wondered why, they usually leave things that they don't need down there, but maybe there is something else they don't want you to know about.
+> u
+
+> u
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+> e
+
+> e
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a LibraryDesk and a Painting.
+You can go south, west or down.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+> s
+
+> s
+
+You are in a LivingRoom.
+You can see an OfficeDoor, a LivingRoomCouch, a LivingRoomCoffeeTable and a LivingRoomTV.
+You can go south, east or north.
+
+The living room were you and your family spend a lot of time at, watching TV, and doing really nothing but that, talking sometimes.
+> s
+
+> s
+
+You are in a GuessRoom.
+You can see a GuessCouch, a GuessCoffeeTable and a PictureFrame.
+You can go west or north.
+
+As you enter the guess room, there is a tapping sound, you look around, scared, fear fills your body, you look towards the near by window to see a tree tapping the window. You are relieved and then you hear footsteps, you jump, the footsteps fade, you look around, nothing is around.
+> w
+
+> w
+
+You are in a Foyer.
+You can go north, east or west.
+
+You are now in the downstairs of the house. In front of you, south is the front door. East is the guest room, west is the dining room, north is the staircase.
+> n
+
+> n
+
+You are in a staircase.
+You can go south or up.
+
+The staircase that leads down to the foyer.
+> u
+
+> u
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> e
+
+> e
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> e
+
+> e
+
+You are in a hallway2.
+You can see an attic pull string and a chair.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+> up
+
+> up
+
+You are in an Attic.
+You can go down or west.
+
+The attic is where your family stores things. There is still room to move around, it was completely dark. You can see a thing.
+> w
+
+> w
+
+You are in an AtticHallway.
+You can see an AtticTable, a note5, a cardboardBox, a storageroomDoor and a storageroomDoor2.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+> open storageroomDoor2
+
+> open storageroomDoor2
+You unlocked the door.
+You can now enter storageroom2.
+You open it.
+> s
+
+> s
+You enter into the second storage room, opening the door, you walk in.
+
+You are in a StorageRoom2.
+You can see a candle and a webs.
+You can go north or west.
+
+Another dark storage room, You can't really see anything, there are weird thick objects all over they look at lot like webs, a candle is also nearby, maybe you could use it.
+You walk in leaving the door open, a spider dangles in front of you, you jump back a bit, your heart skips a beat, as you hit the spider out of the way. You wipe your hand, and look around.
+> light candle
+
+> light candle
+You light the candle, you can now go through the webbing.
+As the webbing is burned away, there is a heavy box, it needs a key in order to open it.
+> open HeavyBox
+
+> open HeavyBox
+You unlocked the box.
+You open the heavy box, and what lies inside is another key to the basement.
+You open it.
+> take BasementRoom1Key
+
+> take BasementRoom1Key
+You grab the key and slide it in your pocket.
+> n
+
+> n
+
+You are in an AtticHallway.
+You can see an AtticTable, a note5, a cardboardBox, a storageroomDoor and a storageroomDoor2.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+> w
+
+> w
+
+You are in a StorageRoom.
+You can see a vent and a storageRoom3Door.
+You can go east or south.
+
+The room is dark, objects can only be seen with a light source. This is were your parents would usually store most things.
+> open storageRoom3Door
+
+> open storageRoom3Door
+You unlocked the door.
+You open the third storage room door, you can now enter the room.
+You open it.
+> s
+
+> s
+You open the door to the third storage room, as you enter it was somewhat lit.
+
+You are in a StorageRoom3.
+You can see a StorageStand and an ImportantNote.
+You can go north or east.
+
+Its dark, with little dim lighting, a StorageStand is in the middle of the room, there seems to be a ImportantNote.
+As you look in the room, leaving the door open, you wonder what this room was, you never knew you had more storage rooms. What could be here.
+> take ImportantNote
+
+> take ImportantNote
+You grab the note, and put it in your pocket.
+> n
+
+> n
+
+You are in a StorageRoom.
+You can see a vent and a storageRoom3Door.
+You can go east or south.
+
+The room is dark, objects can only be seen with a light source. This is were your parents would usually store most things.
+> e
+
+> e
+
+You are in an AtticHallway.
+You can see an AtticTable, a note5, a cardboardBox, a storageroomDoor and a storageroomDoor2.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+> e
+
+> e
+
+You are in an Attic.
+You can go down or west.
+
+The attic is where your family stores things. There is still room to move around, it was completely dark. You can see a thing.
+> d
+
+> d
+
+You are in a hallway2.
+You can see an attic pull string and a chair.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+> w
+
+> w
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> w
+
+> w
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> d
+
+> d
+
+You are in a staircase.
+You can go south or up.
+
+The staircase that leads down to the foyer.
+> s
+
+> s
+
+You are in a Foyer.
+You can go north, east or west.
+
+You are now in the downstairs of the house. In front of you, south is the front door. East is the guest room, west is the dining room, north is the staircase.
+> e
+
+> e
+
+You are in a GuessRoom.
+You can see a GuessCouch, a GuessCoffeeTable and a PictureFrame.
+You can go west or north.
+
+As you enter the guess room, there is a tapping sound, you look around, scared, fear fills your body, you look towards the near by window to see a tree tapping the window. You are relieved and then you hear footsteps, you jump, the footsteps fade, you look around, nothing is around.
+> n
+
+> n
+
+You are in a LivingRoom.
+You can see an OfficeDoor, a LivingRoomCouch, a LivingRoomCoffeeTable, a LivingRoomTV and a GrandfatherClock.
+You can go south, east or north.
+
+The living room were you and your family spend a lot of time at, watching TV, and doing really nothing but that, talking sometimes.
+> open GrandfatherClock
+
+> open GrandfatherClock
+You open the grandfather clock, inside lays a metal horse head, maybe the item in the note is this. You should take it.
+> take MetalHorseHead
+
+> take MetalHorseHead
+You put the small head in your pocket.
+> n
+
+> n
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a LibraryDesk and a Painting.
+You can go south, west or down.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+> w
+
+> w
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+> d
+
+> d
+
+You are in a Basement.
+You can go up or south.
+
+The basement, the most scariest part of the house, your parents even told you to never go down there, you always wondered why, they usually leave things that they don't need down there, but maybe there is something else they don't want you to know about.
+> s
+
+> s
+
+You are in a BasementHall.
+You can see a WallPicture, a SecretBox, a basementRoomDoor, a CeilingLight, a basementRoom1Door and a basementRoom2Door.
+You can go north, east, west or south.
+
+You are in the big, kinda short hall in the basement, on the wall is a WallPicture, junk is all around the area, the CeilingLight on the top of the wall is on,  somehow there is power down here.
+> open basementRoom1Door
+
+> open basementRoom1Door
+You unlocked the door.
+You unlocked the basement door, you can now enter the other basement room.
+You open it.
+> w
+
+> w
+You enter the room to find it was a little bit lit, a table rest in the center of the room.
+
+You are in a BasementRoom1.
+You can see a BasementNote, a BasementTable and a BasementVent.
+You can go east.
+
+The room is a bit dark, within the room you can see a BasementTable on top of the table seems to be another BasementNote.
+You look around, you see a note, maybe it's one of those notes the thing keeps making, you wonder if you should not read it or read it.
+> open BasementVent
+
+> open BasementVent
+You unscrew the vent, a box rest inside the vent, you take it out. It's taped up.
+> open TapedUpBox
+
+> open TapedUpBox
+You open the box with your knife, You open the lid and see metal horse legs, this might be a piece you need, that the note says about.
+> take MetalHorseLegs
+
+> take MetalHorseLegs
+You put the legs in your pocket.
+> e
+
+> e
+
+You are in a BasementHall.
+You can see a WallPicture, a SecretBox, a basementRoomDoor, a CeilingLight, a basementRoom1Door and a basementRoom2Door.
+You can go north, east, west or south.
+
+You are in the big, kinda short hall in the basement, on the wall is a WallPicture, junk is all around the area, the CeilingLight on the top of the wall is on,  somehow there is power down here.
+> n
+
+> n
+
+You are in a Basement.
+You can go up or south.
+
+The basement, the most scariest part of the house, your parents even told you to never go down there, you always wondered why, they usually leave things that they don't need down there, but maybe there is something else they don't want you to know about.
+> u
+
+> u
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+> e
+
+> e
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a LibraryDesk and a Painting.
+You can go south, west or down.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+> s
+
+> s
+
+You are in a LivingRoom.
+You can see an OfficeDoor, a LivingRoomCouch, a LivingRoomCoffeeTable, a LivingRoomTV and a GrandfatherClock.
+You can go south, east or north.
+
+The living room were you and your family spend a lot of time at, watching TV, and doing really nothing but that, talking sometimes.
+> s
+
+> s
+
+You are in a GuessRoom.
+You can see a GuessCouch, a GuessCoffeeTable and a PictureFrame.
+You can go west or north.
+
+As you enter the guess room, there is a tapping sound, you look around, scared, fear fills your body, you look towards the near by window to see a tree tapping the window. You are relieved and then you hear footsteps, you jump, the footsteps fade, you look around, nothing is around.
+> w
+
+> w
+
+You are in a Foyer.
+You can go north, east or west.
+
+You are now in the downstairs of the house. In front of you, south is the front door. East is the guest room, west is the dining room, north is the staircase.
+> n
+
+> n
+
+You are in a staircase.
+You can go south or up.
+
+The staircase that leads down to the foyer.
+> u
+
+> u
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> e
+
+> e
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> e
+
+> e
+
+You are in a hallway2.
+You can see an attic pull string and a chair.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+> up
+
+> up
+
+You are in an Attic.
+You can go down or west.
+
+The attic is where your family stores things. There is still room to move around, it was completely dark. You can see a thing.
+> w
+
+> w
+
+You are in an AtticHallway.
+You can see an AtticTable, a note5, a cardboardBox, a storageroomDoor and a storageroomDoor2.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+> w
+
+> w
+
+You are in a StorageRoom.
+You can see a vent and a storageRoom3Door.
+You can go east or south.
+
+The room is dark, objects can only be seen with a light source. This is were your parents would usually store most things.
+> s
+
+> s
+
+You are in a StorageRoom3.
+You can see a StorageStand.
+You can go north or east.
+
+Its dark, with little dim lighting, a StorageStand is in the middle of the room, there seems to be a ImportantNote.
+> add items on StorageStand
+
+> add items on StorageStand
+You place the items in the hole like it was a puzzle, as you place the last piece, the stand moves down a bit, and a box starts to slowly fall towards the ground, attached to some rope, as the box lands on the ground, it lays there waiting for you to open it.
+> open StorageBox
+
+> open StorageBox
+You open the box, the last key lies at the bottom.
+> take BasementRoom2Key
+
+> take BasementRoom2Key
+You grab the key and slide it in your pocket.
+> n
+
+> n
+
+You are in a StorageRoom.
+You can see a vent and a storageRoom3Door.
+You can go east or south.
+
+The room is dark, objects can only be seen with a light source. This is were your parents would usually store most things.
+> e
+
+> e
+
+You are in an AtticHallway.
+You can see an AtticTable, a note5, a cardboardBox, a storageroomDoor and a storageroomDoor2.
+You can go east, west or south.
+
+The dark hall in the attic, there are boxes around, but are sealed shut with tape, There is a AtticTable, there appears to be something on top, you can't quite make it out. Made if you had a light somehow.
+> e
+
+> e
+
+You are in an Attic.
+You can go down or west.
+
+The attic is where your family stores things. There is still room to move around, it was completely dark. You can see a thing.
+> d
+
+> d
+
+You are in a hallway2.
+You can see an attic pull string and a chair.
+You can go west, east or up.
+
+You are now in the last part of the dark hallway. The hallway continues west. The bathroom is to the east. Up above is the attic, with a string that can't be reached, you need something to help you reach the string.
+> w
+
+> w
+
+You are in a Hallway1.
+You can go west, north, south or east.
+
+Your are half way in the dark hallway, The hallway continues east, and west, Your sister's bedroom is to the north, and the master bedroom, or your parents room to the south.
+> w
+
+> w
+
+You are in a Hallway.
+You can go west, north, east or down.
+
+You enter into a dark hallway, your bedroom is to the west, your brothers room is to the north, the stairs are to the south, the hallway continues to the east.
+> d
+
+> d
+
+You are in a staircase.
+You can go south or up.
+
+The staircase that leads down to the foyer.
+> s
+
+> s
+
+You are in a Foyer.
+You can go north, east or west.
+
+You are now in the downstairs of the house. In front of you, south is the front door. East is the guest room, west is the dining room, north is the staircase.
+> e
+
+> e
+
+You are in a GuessRoom.
+You can see a GuessCouch, a GuessCoffeeTable and a PictureFrame.
+You can go west or north.
+
+As you enter the guess room, there is a tapping sound, you look around, scared, fear fills your body, you look towards the near by window to see a tree tapping the window. You are relieved and then you hear footsteps, you jump, the footsteps fade, you look around, nothing is around.
+> n
+
+> n
+
+You are in a LivingRoom.
+You can see an OfficeDoor, a LivingRoomCouch, a LivingRoomCoffeeTable, a LivingRoomTV and a GrandfatherClock.
+You can go south, east or north.
+
+The living room were you and your family spend a lot of time at, watching TV, and doing really nothing but that, talking sometimes.
+> n
+
+> n
+
+You are in a Library.
+You can see a LibraryStand, a MysteriousBookshelf, a Book1, a Book2, a LibraryDesk and a Painting.
+You can go south, west or down.
+
+Your family library, your sister was always in here, she loves to read, she always did, she knew a lot about anything, she might even have red all the books in the library. There is a shelf on the one wall, that stands alone, you always wondered why, your mother and sister are the only ones that know, you wonder if you could figure out the meaning behind it.
+> w
+
+> w
+
+You are in a Hall.
+You can see a basementDoor.
+You can go west, east or down.
+
+This is just a hallway, there is a basementDoor, locked, you are going to need a key to open it, and to enter the basement, You don't like going down there, the stories you brother told, got you to always stay away from the basement, but if you have to you are going to need to get in there.
+> d
+
+> d
+
+You are in a Basement.
+You can go up or south.
+
+The basement, the most scariest part of the house, your parents even told you to never go down there, you always wondered why, they usually leave things that they don't need down there, but maybe there is something else they don't want you to know about.
+> s
+
+> s
+
+You are in a BasementHall.
+You can see a WallPicture, a SecretBox, a basementRoomDoor, a CeilingLight, a basementRoom1Door and a basementRoom2Door.
+You can go north, east, west or south.
+
+You are in the big, kinda short hall in the basement, on the wall is a WallPicture, junk is all around the area, the CeilingLight on the top of the wall is on,  somehow there is power down here.
+> open basementRoom2Door
+
+> open basementRoom2Door
+You unlocked the basement door.
+You open the door, you can now enter the basement room.
+You open it.
+> s
+
+> s
+You enter into the room, the door shuts behind you. It's all dark in the room.
+
+You are in a BasementRoom2.
+You can see a BloodyNote.
+You can go north.
+
+You enter the room, Its dark, you don't know what is around you. What is going on, you feel a presence that creeps you out.
+The light turns on all around you, in front of you in the middle of the room, you see four hanging bodies. Each one was familiar to you, each one was your family member. Each member had cut marks, blood dripping off them, Alex, Hailey, Amanda, Steve all dead, hanging from the ceiling. Your eyes go wide you begin to cry, you fall to your knees horrified, you can seem to move, In front of you on the floor is a note. Should you read it, Or not?
+> read BloodyNote
+
+> read BloodyNote
+You pick up the note, as you begin to read it, crying, your body is weak. The note reads.
+
+This is what you deserve, this is what you get. You and your family did this. You will soon join them.
+
+You throw the note, you are now on your hands and knees, tears fall from your eyes. As you cry more, you couldn't get your eyes off your dead family.
+The figure comes out from behind you as you are on your hands and knees. The figure begins to speak:
+
+haha...haha....haha....You think I was going to let you escape, let you ruin my house, without a punishment. You should have moved while you had the chance. Haha.....Now you are going to die, just like the rest of your family.
+
+The voice was cold, and filled the room, all you can hear is his words, he was going to kill you, you couldn't let that happen. As you look around there was a knife right next to you.
+You look at the knife, you have to use it.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> throw KitchenKnife
+
+> throw KitchenKnife
+You pick the knife up, and turn around quickly to throw it at the man, he disappears the knife misses and gets stuck in the door, You look around he is nowhere. Where could he have gone? You move your body back so your on your knees facing the dead family members. Then suddenly he appears before you, standing in front of you looking down at you.
+He begins to talk in a cold, hard voice.
+
+You really think you could hit me with that, you don't know who I am, you are weak like the rest of them. You are going to die either way kid.
+
+He grabs your head and lifts you up as you are lifted off the ground, he stares at you, he moves his claws to your chest. He begins to talk again.
+
+I let you live, so that you think you would have a chance, You made it all the way here, your a smart kid, but now how are you going to get out of this one.....
+
+He impales you in the chest. His claws go through your lungs, liver, and heart. You cough blood up as your life slowly fades away, you look at him as you die. He begins to talk more.
+
+And now you are going to die, you will get to see your family soon. Hahahahaha........hahahaha......Goodnight little boy. It's midnight, way past your bed time.....hahaha
+
+His laugh was so evil and sinister, You slowly begin to close your eyes, your heart stops, you no long breath. You are now dead, as he held you, he throws you down on the ground........and disappears.
+[state=Finished]

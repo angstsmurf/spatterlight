@@ -27,7 +27,6 @@ Alternate builds (Thyme ASL 600, Signos.aslx, What Once Was.aslx) are wired as `
 10. What Dragons Need: creation, the town and the Library. Nothing past the town gate has been played.
 11. Xanadu 3 - The Death of Xanadu: village tour only. No victory exists, but the lake, cliff, crypt and rat dungeon haven't been visited.
 13. Worship the Pig: only the short death route is recorded. The eyes/constellation, Proscenium, Clock tower and AntiBazaar branches haven't been walked.
-14. Midnight: upstairs tour only. The downstairs and the timer-driven ending haven't been played.
 15. Enter The Double Dare: opening screen only. The doors open on a real-time timer.
 16. Fishvale: tour of the opening area. It's a gold and fishing-level grind, and the north and east exits are locked.
 17. Giantess-Shrunk Dimensions (W.I.P): bounded tour. Scenes end in death.

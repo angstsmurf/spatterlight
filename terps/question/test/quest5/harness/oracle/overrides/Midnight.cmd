@@ -1,20 +1,197 @@
-# Midnight (Logan Peters, v580, horror escape): bounded tour of the upstairs only (bedroom, hallway, brother's bedroom, hallway east), not a solve.
-# The only ending found is a graphic death on real-time SetTimeouts in the basement (inert in the oracle without #!clock); the game forbids going downstairs until the family is found. Not derived.
-look
-x clock
-x note
-read note
-x dresser
-x desk
+# Midnight (Logan Peters, v580): full route to the authored ending, a death by the basement man (no winning ending exists).
 e
-look
+e
 n
-look
+turn on HaileysLamp
+open HaileysDesk
+take phone
+open HaileysCloset
+take SpecialKey
+s
+w
+w
+turn on phone
+take DresserKey
+open dresser
+open dresser
+take MetalHorseBody
+e
+n
+turn on lamp
+open desk
+take AlexsKey
+open LooseFloorBoard
+open BlackBox
+open BlackBox
+take Knife
 s
 e
-look
+s
+open ParentsDesk
+take gun
+take chair
+n
 e
-look
+drop chair
+pull attic pull string
+e
+open curtain
+take screwdriver
+use the toilet
+w
+up
+w
+turn off phone
+turn on phone
+open cardboardBox
+take SpareBasementKey
+open storageroomDoor
+w
+turn off phone
+turn on phone
+open vent
+take BasementRoomKey
+e
+e
+d
 w
 w
 d
+s
+e
+check GuessCouch
+take OfficeKey
+n
+open OfficeDoor
+e
+turn off phone
+turn on phone
+take CabinetKey
+open officeCabinet
+take StorageRoom3Key
+w
+n
+take Book3
+w
+open basementDoor
+w
+paint book with bluePaint
+s
+s
+look under DiningRoomRug
+take lockpick
+n
+open KitchenCabinet
+take Matches
+n
+e
+e
+add book on LibraryStand
+d
+look SecretNote
+u
+w
+d
+s
+move WallPicture
+open SecretBox
+take Storageroom2Key
+open basementRoomDoor
+e
+open Cardboardbox
+load Ammo
+shoot target
+take HeavyBoxKey
+w
+n
+u
+e
+s
+s
+w
+n
+u
+e
+e
+up
+w
+open storageroomDoor2
+s
+light candle
+open HeavyBox
+take BasementRoom1Key
+n
+w
+open storageRoom3Door
+s
+take ImportantNote
+n
+e
+e
+d
+w
+w
+d
+s
+e
+n
+open GrandfatherClock
+take MetalHorseHead
+n
+w
+d
+s
+open basementRoom1Door
+w
+open BasementVent
+open TapedUpBox
+take MetalHorseLegs
+e
+n
+u
+e
+s
+s
+w
+n
+u
+e
+e
+up
+w
+w
+s
+add items on StorageStand
+open StorageBox
+take BasementRoom2Key
+n
+e
+e
+d
+w
+w
+d
+s
+e
+n
+n
+w
+d
+s
+open basementRoom2Door
+s
+read BloodyNote
+wait
+wait
+wait
+wait
+throw KitchenKnife
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
