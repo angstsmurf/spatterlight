@@ -1698,6 +1698,32 @@ lib_put_target_390 (scr_gameref_t game, const scr_char *line)
   return chosen;
 }
 
+/*
+ * lib_put_that_refuse_390()
+ *
+ * lib_put_that_390()'s answer when insides() is left without a target:
+ * "You can't put anything inside that!" (or "onto"), then the task sweep.
+ */
+static scr_bool
+lib_put_that_refuse_390 (scr_gameref_t game, const scr_char *line,
+                         scr_bool typed_on)
+{
+  const size_t from = pf_buffer_length (gs_get_filter (game));
+
+  lib_print_response_message (game,
+                              typed_on
+                              ? "You can't put anything onto that!\n"
+                              : "You can't put anything inside that!\n",
+                              typed_on
+                              ? "I can't put anything onto that!\n"
+                              : "I can't put anything inside that!\n",
+                              typed_on
+                              ? "%player% can't put anything onto that!\n"
+                              : "%player% can't put anything inside that!\n");
+  lib_put_sweep_390 (game, line, from);
+  return TRUE;
+}
+
 static scr_bool
 lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
 {
@@ -1727,7 +1753,7 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
     {
       if (lib_put_target_390 (game, line) != -1)
         return FALSE;
-      goto refuse;
+      return lib_put_that_refuse_390 (game, line, typed_on);
     }
 
   named = 0;
@@ -1784,23 +1810,7 @@ lib_put_that_390 (scr_gameref_t game, scr_bool typed_on)
       return status;
     }
 
-refuse:
-  {
-    const size_t from = pf_buffer_length (gs_get_filter (game));
-
-    lib_print_response_message (game,
-                                 typed_on
-                                 ? "You can't put anything onto that!\n"
-                                 : "You can't put anything inside that!\n",
-                                 typed_on
-                                 ? "I can't put anything onto that!\n"
-                                 : "I can't put anything inside that!\n",
-                                 typed_on
-                                 ? "%player% can't put anything onto that!\n"
-                                 : "%player% can't put anything inside that!\n");
-    lib_put_sweep_390 (game, line, from);
-  }
-  return TRUE;
+  return lib_put_that_refuse_390 (game, line, typed_on);
 }
 
 scr_bool
