@@ -250,8 +250,8 @@ static int compare_one_atari(const char *dir, const char *datname) {
 		free(g90); free(ga0); return 0;
 	}
 
-	const uint8_t *r90 = GetAtari8Screenmem90();
-	const uint8_t *ra0 = GetAtari8ScreenmemA0();
+	const uint8_t *r90 = GetAtari8Screen1Plane();
+	const uint8_t *ra0 = GetAtari8Screen2Plane();
 	int verbose = getenv("GTVERBOSE") != NULL;
 	int ndiff = 0, firstdiff = -1; char plane = '?';
 	for (int i = 0; i < ATARI8_PLANE; i++) {
