@@ -89,7 +89,17 @@ void Line(string s) => transcript.Append(s).Append('\n');
 // command, and nothing else drains. See DrainTimers below for why a game with a
 // real-time chase needs this.
 var clockSecs = 0;
-if (args.Length >= 2)
+// Live mode (script "-"): commands are read from stdin one at a time and the new
+// transcript text is written to stdout after each, ended by a \u0001 line, so a
+// solver process can inspect the game between moves. `eval:EXPR` prints a value.
+var live = args.Length >= 2 && args[1] == "-";
+IEnumerable<string> ScriptLines()
+{
+    if (!live) { foreach (var l in File.ReadLines(args[1])) yield return l; yield break; }
+    string? l2;
+    while ((l2 = Console.In.ReadLine()) != null) yield return l2;
+}
+if (args.Length >= 2 && !live)
 {
     foreach (var l in File.ReadLines(args[1]))
     {
@@ -172,7 +182,8 @@ var stepCount = 0;
 var scriptExhausted = true;
 if (args.Length >= 2)
 {
-    foreach (var raw in File.ReadLines(args[1]))
+    var liveSent = 0;
+    foreach (var raw in ScriptLines())
     {
         if (world.State == GameState.Finished) { scriptExhausted = false; break; }
         var cmd = raw.Trim();
@@ -212,6 +223,11 @@ if (args.Length >= 2)
             Line($"[assert {(ok ? "PASS" : "FAIL")}] {expr}");
             if (!ok) Console.Error.WriteLine($"[assert-fail] {expr}");
         }
+        else if (cmd.StartsWith("eval:"))
+        {
+            var v = await world.EvaluateAsync(cmd[5..]);
+            Line($"[eval] {cmd[5..]} = {v}");
+        }
         else if (cmd.StartsWith("label:") || cmd.StartsWith("delay:") || cmd.StartsWith("runtime:"))
         {
             // editor bookkeeping — ignore
@@ -248,6 +264,14 @@ if (args.Length >= 2)
 
         await AutoAdvance();
         await SettleClock(typed);
+        if (live)
+        {
+            var all = transcript.ToString();
+            Console.Out.Write(all[liveSent..]);
+            Console.Out.Write(world.State == GameState.Finished ? "\n[state=Finished]\n\u0001\n" : "\u0001\n");
+            Console.Out.Flush();
+            liveSent = all.Length;
+        }
     }
 }
 
@@ -261,7 +285,7 @@ Console.Error.WriteLine($"[diag] end: steps={stepCount} emits={emitCount} state=
     $"errors={errorCount} scriptExhausted={scriptExhausted}");
 Line($"[state={reportedState}]");
 
-Console.Out.Write(Normalise(transcript.ToString()));
+if (!live) Console.Out.Write(Normalise(transcript.ToString()));
 return 0;
 
 // Auto-continue `wait`/`DoPause` prompts, which carry no player text. A menu or

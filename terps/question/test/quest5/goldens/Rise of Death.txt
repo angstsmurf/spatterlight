@@ -1,168 +1,7 @@
-Rise of Death
-- a World of Warcraft story
 
-by Enceladus
+Enemy magic damage done decreased! Enemy physical damage taken increased!
 
-Watery Cave
-You can go south.
-
-Suddenly you think.
-
-And therefore you are.
-
-You are small, you can figure that out. After all, you can even make out the grain of your individual cells!
-
-Your senses are primitive, as basic as you are young. You can get a general sense of direction, and light as well. It's easy for you to determine that you are in water, and the... things drifting over you are food particles. The water around you trembles, but it's hard to make out the size of your world. Could be infinite for all you know, and that thought... excites you.
-
-Well. No time like the present! Time to explore this infinite world and see what it has to offer. Surely there's more than just neverending water in all directions.
-> help
-
-HELP
-
-Enter 's' to view your Stats. In Stats, enter 'b' to return.
-
-Enter 'u' to view your Upgrades. In Upgrades, enter 'b' to return.
-
-While not in a fight, enter 'd' to drain molecules. This will heal you for 10% of your maximum Health, and give you 10% of your current Health in Unspent Mass.
-
-While in a fight, you can observe both yourself and the enemy without advancing the turn. Entering one of the available Moves will cause something to happen.
-
-Fights are won when the enemy reaches 0 Health. Fights are lost when you reach 0 Health.
-
-Good luck!
-> go south
-
-Watery Cave
-You can go south.
-
-As you drift around, overpowering the water currents with your feeble flagella, you decide that it might be in your best interests to see what state you came into this world. You feel intact, just on first glance, but there's a... hollow feeling inside your body, where there could be, should be something, but there isn't, to say nothing of the unused material bouncing around your body.
-
-Right. Before you go on, you need to get a firm grasp of, if not your surroundings, then at least your body.
-
-(Enter 's' to check your current status)
-> s
-
-Inner Focus
-More status to the  east or south.
-
-Enter 'b' to return.
-
-Your name is ... well, nothing yet. You'll figure out something eventually.
-
-You have 50/50 Health!
-
-You have 0/0 Mana!
-
-You have 5 Unspent Mass!
-
-Strength: 5
-
-Magical Power: 0
-
-Physical damage done to you is multiplied by 1.
-
-Magical damage done to you is multiplied by 1.
-
-> b
-
-Watery Cave
-You can go south.
-
-As you drift around, overpowering the water currents with your feeble flagella, you decide that it might be in your best interests to see what state you came into this world. You feel intact, just on first glance, but there's a... hollow feeling inside your body, where there could be, should be something, but there isn't, to say nothing of the unused material bouncing around your body.
-
-Right. Before you go on, you need to get a firm grasp of, if not your surroundings, then at least your body.
-
-(Enter 's' to check your current status)
-> go south
-
-Watery Cave
-You can go south.
-
-You feel well enough, though that gap in your being is still bothering you. Bothering you almost as much as the fact that there has yet to be any indication there's more to this world than just water.
-
-You navigate further, swimming against the tides. The material bouncing around inside your body has gotten tremendously bothersome. That does it. You have to do something about that. If not expell it, then at least put it to good use!
-
-(Enter 'u' to bring up the Upgrades menu)
-> u
-
-Inner Focus
-More upgrades to the east.
-
-(Enter 'b' to return)
-
-Unspent Mass: 5
-
-Tier 0 Upgrades
-
-Lashing Tendrils: 'Q' attack. Basic Melee Attack.
-Cost: 5 Unspent Mass
-Enter '1' to purchase this upgrade.
-
-> 1
-
-EmptyRoom
-
-Inner Focus
-More upgrades to the east.
-
-(Enter 'b' to return)
-
-Unspent Mass: 0
-
-Tier 0 Upgrades
-
-Lashing Tendrils: 'Q' attack. Basic Melee Attack.
-Cost: 5 Unspent Mass
-Enter '1' to purchase this upgrade.
- PURCHASED!
-> b
-
-Watery Cave
-You can go south.
-
-You feel well enough, though that gap in your being is still bothering you. Bothering you almost as much as the fact that there has yet to be any indication there's more to this world than just water.
-
-You navigate further, swimming against the tides. It feels good, yet odd to have changed yourself like this. In addition to your propulsion flagella, you have thicker arms that wave about, and you can direct them to grab and slash as need be. Fascinating.
-
-(Enter 'u' to bring up the Upgrades menu)
-> go south
-
-Battle!
-You can check your Opponent and Yourself.
-
-You encountered a Squirming Mass!
-
-For more detailed information on either You or your Opponent, just Look At the desired target!
-
-ENEMY
-30/30 Health.
-
-0/0 Mana.
-
-YOU
-
-50/50 Health.
-
-0/0 Mana.
-
-MOVES
-
-'Q': Tendril Lash
-
-'W': Empty
-
-'E': Empty
-
-'R': Empty
-
-'O': Pass your turn.
-> q
-
-A Fight Happens
-
-You lash at your enemy with your tendrils! 10 physical damage!
-
- The Squirming Mass strikes you with its own tendrils! 6 physical damage!
+ I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
 
 Enter 'C' to continue.
 > c
@@ -170,37 +9,39 @@ Enter 'C' to continue.
 Battle!
 You can check your Opponent and Yourself.
 
-You encountered a Squirming Mass!
+I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
 
 ENEMY
-20/30 Health.
+100000/100000 Health.
 
-0/0 Mana.
+925/7500 Mana.
 
 YOU
 
-44/50 Health.
+10460/11030 Health.
 
-0/0 Mana.
+700/780 Mana.
 
 MOVES
 
-'Q': Tendril Lash
+'Q': Lacerate
 
-'W': Empty
+'W': Drain Life
 
-'E': Empty
+'E': Haunt
 
 'R': Empty
 
 'O': Pass your turn.
-> q
+> e
 
 A Fight Happens
 
-You lash at your enemy with your tendrils! 10 physical damage!
+You send a smokey rush of dark magic into your opponent. They shiver in terror.
 
- The Squirming Mass strikes you with its own tendrils! 6 physical damage!
+Enemy magic damage done decreased! Enemy physical damage taken increased!
+
+ I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
 
 Enter 'C' to continue.
 > c
@@ -208,93 +49,252 @@ Enter 'C' to continue.
 Battle!
 You can check your Opponent and Yourself.
 
-You encountered a Squirming Mass!
+I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
 
 ENEMY
-10/30 Health.
+100000/100000 Health.
 
-0/0 Mana.
+875/7500 Mana.
 
 YOU
 
-38/50 Health.
+10430/11030 Health.
 
-0/0 Mana.
+696/780 Mana.
 
 MOVES
 
-'Q': Tendril Lash
+'Q': Lacerate
 
-'W': Empty
+'W': Drain Life
 
-'E': Empty
+'E': Haunt
 
 'R': Empty
 
 'O': Pass your turn.
-> q
+> e
 
 A Fight Happens
 
-You lash at your enemy with your tendrils! 10 physical damage!
+You send a smokey rush of dark magic into your opponent. They shiver in terror.
 
- The Squirming Mass struggles a little more, then goes still and drifts away. You win!
+Enemy magic damage done decreased! Enemy physical damage taken increased!
+
+ I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+
+Enter 'C' to continue.
+> c
+
+Battle!
+You can check your Opponent and Yourself.
+
+I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+
+ENEMY
+100000/100000 Health.
+
+825/7500 Mana.
+
+YOU
+
+10400/11030 Health.
+
+692/780 Mana.
+
+MOVES
+
+'Q': Lacerate
+
+'W': Drain Life
+
+'E': Haunt
+
+'R': Empty
+
+'O': Pass your turn.
+> e
+
+A Fight Happens
+
+You send a smokey rush of dark magic into your opponent. They shiver in terror.
+
+Enemy magic damage done decreased! Enemy physical damage taken increased!
+
+ I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+
+Enter 'C' to continue.
+> c
+
+Battle!
+You can check your Opponent and Yourself.
+
+I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+
+ENEMY
+100000/100000 Health.
+
+775/7500 Mana.
+
+YOU
+
+10370/11030 Health.
+
+688/780 Mana.
+
+MOVES
+
+'Q': Lacerate
+
+'W': Drain Life
+
+'E': Haunt
+
+'R': Empty
+
+'O': Pass your turn.
+> e
+
+A Fight Happens
+
+You send a smokey rush of dark magic into your opponent. They shiver in terror.
+
+Enemy magic damage done decreased! Enemy physical damage taken increased!
+
+ I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+
+Enter 'C' to continue.
+> c
+
+Battle!
+You can check your Opponent and Yourself.
+
+I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+
+ENEMY
+100000/100000 Health.
+
+725/7500 Mana.
+
+YOU
+
+10340/11030 Health.
+
+684/780 Mana.
+
+MOVES
+
+'Q': Lacerate
+
+'W': Drain Life
+
+'E': Haunt
+
+'R': Empty
+
+'O': Pass your turn.
+> e
+
+A Fight Happens
+
+You send a smokey rush of dark magic into your opponent. They shiver in terror.
+
+Enemy magic damage done decreased! Enemy physical damage taken increased!
+
+ Suddenly, its spell is finished. Darkness implodes upon your vision. Life is drained from you, your magic explodes from within, your armor plating impales you. When it is finished you float limply. 9104.722862933591 magical damage!
 
 Enter 'C' to continue.
 > c
 
 Watery Cave
-You can go south.
 
-That thing just tried to kill you!
+Even after having weakened I'Thaq, it hurts so, so much. You can't move your tentacles. You can't snap with your jaws, or conjure your magic. You just... float there. I'Thaq pants, taking in a rush of water, and begins to laugh. Lowly, slowly, but faster and faster as time passes.
 
-You'd killed it first, obviously. Thank goodness you decided to repurpose your excess material when you did. But still! You hadn't done anything to it. Was there any reason to its attack at all?!
+Eventually, its laughter stops. "I... I did it! I did it!" it cheers.
 
-Maybe. Maybe not.
+But with your magical sonar, you see someone approaching. Y'Shaarj has healed the worst of its bleeding and is dragging itself into range. By the time I'Thaq stops laughing, it's already opening all four mouths. You've seen this spell before. The more mana someone is missing, and the stronger Y'Shaarj is, the more it hurts and nothing can diminish it. With as much mana as I'Thaq spent, and as powerful as Y'Shaarj is, there is no hope for it to survive.
 
-Well, in the end it hardly mattered. The one you struck down resembled you closely, but was practically half your size. If you come across another such creature that's larger than you...
+You will recover. You'll be able to divide up I'Thaq and go outside. You'll kill the elemental, see the rest of the world, and -
 
-... you'd better start figuring out how to fight.
+"Oh no!" I'Thaq shouts, suddenly understanding. Suddenly a brilliant blue light flashes around its white body. Horror fills you. It just recharged most of its mana...
 
-For starters though, your body is heavily damaged. Ectoplasm is leaking from your walls and one of your many tendrils hangs limply. The ocean around you is brimming with food though. Brimming with raw materials. It'd be prudent to absorb those and use the molecules to heal yourself.
+94200 chaos damage to I'Thaq!
 
-(Enter 'd' to drain the nearby ocean. This restores your health and gives you Unspent Mass to spend on upgrades.)
+It has 5800/100000 health.
 
-(New upgrades are available)
+A corona of bright blue energy explodes from I'Thaq. It spurts from its mouths, from its tentacles, from in between its armor plates, shrouding it with a halo of its own lost magic. It screams, piercingly high, and goes limp, but already it's taking in vast gulps of water and once again struggling to move.
 
-(You can type in Help at any time to review commands.)
-> go south
+... it wasn't enough. Y'Shaarj's greatest spell wasn't enough.
 
-Watery Cave
-You can go east or south.
+"Come on, come on," I'Thaq mutters to itself audibly. "I can do this. I can do this." Suddenly, a plethora of its tentacles reach out and grab you, pulling you close. "Just a little more," it mutters.
 
-Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the north and west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, extending south and east, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them.
+You struggle, thrashing around, but the water around you begins to burn with acid, and you can feel bits and pieces of you sloughing off and being absorbed by I'Thaq. There has to be a way out of this. There has to!
 
-On second thought, maybe swimming isn't so tiring...
+You can't harm it physically.
 
-> look
-Watery Cave
-You can go east or south.
+You can't harm it magically.
 
-Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the north and west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, extending south and east, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them.
+You can't weaken it enough to save yourself.
 
-On second thought, maybe swimming isn't so tiring...
+Even as you're drained, you desperately rearrange your molecules and cells and arcanite. There has to be a way out of this. There has to!
 
-> go south
+You make your best guess and, with the last of your strength, focus...
+
+'R': ???
+> r
 
 Watery Cave
-You can go east, north or south.
+You can go out.
 
-Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them. They extend far above and below, to the north and south.
+You grab something.
 
-Though on second thought, maybe swimming isn't so tiring...
+You don't know what. It's not matter. It's not magic. It's something deeper, something integral to I'Thaq's being that it'd be nothing without.
 
-> look
-Watery Cave
-You can go east, north or south.
+So you pull.
 
-Water and food molecules drift around. Your sensor cannot penetrate far into this environment, though there is a rockwall to the west. You grab onto it, taking a rest from swimming for the time being. The rocks are black and cruel, and so sharp you have to remain absolutely still to avoid lacerating yourself. If you focus, you swear you can hear distant rumbling through them. They extend far above and below, to the north and south.
+19 chaos damage to I'Thaq!
 
-Though on second thought, maybe swimming isn't so tiring...
+It shrieks and pulls away from you. Instantly you open your mouths for a deep gulp of water. Fresh, pure water free of acid. I'Thaq's made some distance between you two, but you aren't willing to give up. Your magic is still grabbing onto that something, so you pull again.
 
+385 chaos damage to I'Thaq!
+
+You pull again.
+
+7600 chaos damage to I'Thaq!
+
+You don't even see what you're doing. You barely even hear how its shrieks are growing quieter, or how it feels like something foreign is entering you. You pull one last time...
+
+150000 chaos damage to I'Thaq!
+
+Something horribly unfamiliar enters you, and you let go on reflex when you realize there's nothing left to hold. You drift backwards from I'Thaq's body, staring numbly at what you've done.
+
+It's gone totally limp. Blue trails of mana still leak from its orifices, but now there's something lacking about it. It's discolored, and looks so frail you feel you could shatter it with a touch. Not to mention the squirming thing inside of you.
+
+C'Thun, N'Zoth, and Y'Shaarj eventually recover enough to approach you, and you recover enough to approach them.
+
+"We... we did it," C'Thun whispers. "We actually did it!" It crosses two of its tendrils angrily. "Lot of help I was."
+
+"It happens," N'Zoth reassures.
+
+"Quite," you say. "We couldn't have predicted it'd be THAT powerful. Come on, lets divide it up. Also, can anyone tell me what I actually did? I was too busy trying not to die to pay attention."
+
+That gets a laugh from the others. N'Zoth tears I'Thaq's corpse into four even pieces, which you begin assimilating. It's tough, given how dense the armor is, but you can make do.
+
+"You were draining something purple from it. Well, purple, teal, and gray. Whatever that was, you pulled it out of I'Thraq and then it died," Y'Shaarj explains. "Think you can share that with us?"
+
+"Sure, sure. Let's just finish this up first," you say, pointing back to the melting bits of I'Thaq you're absorbing.
+
+A little while later, the four of you are done. You finish expending any remaining mass, and while you aren't quite sure what you've done yet, you give the spell to the others.
+
+The caverns are empty, and you've grown so much. The exit to the rest of the world might actually be too small for more than one of you to go at once. But you're ready.
+
+It's time to leave.
+
+(New upgrades are available!)
+
+(+1 Soul!)
+
+(New stats are available!)
+
+(New abilities unlocked!)
 [state=Running]

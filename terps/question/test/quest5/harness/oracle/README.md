@@ -70,6 +70,10 @@ script line. For human-authored walkthroughs that lack the `menu:`/`answer:`
 prefixes, a bare line pending a menu/question is resolved leniently (menu key,
 option number, or yes/no).
 
+### Live mode
+
+`qvh <game> -` reads commands from stdin instead of a script. After each command the new transcript text is written to stdout, ended by a line holding `\u0001` (preceded by `[state=Finished]` once the game has ended), so a solver process can look at the game between moves. `eval:EXPR` prints `[eval] EXPR = value`; an invalid expression crashes the child. `solvers/riseofdeath/qlive.py` is a Python wrapper.
+
 ## Corpus regression
 
 `corpus.tsv` is the curated manifest — 72 driven rows: each of the 26 games with
@@ -335,7 +339,7 @@ teleport that never gets map coordinates, so its enter-script throws
 and trips the breaker. In real Quest an enter-script error is non-fatal (legacy Quest
 has no breaker at all — it prints every script error and carries on), so the game is
 winnable there. That legacy behaviour is now reproducible per-game: a
-`#!seed=N` selects the RNG seed for that game (qvh: `QVH_SEED`, native: `ASLX_SEED`; both drivers read it before the game loads), for randomised games whose default-seed layout is unwinnable (Detective). `#!errorlimit=N` first line in a script raises the breaker threshold for that run
+`#!seed=N` selects the RNG seed for that game (qvh: `QVH_SEED`, native: `ASLX_SEED`; both drivers read it before the game loads), for randomised games whose default-seed layout is unwinnable (Detective). `#!tail=N` keeps only the last N transcript lines of a very long script (Rise of Death), applied by the shell drivers, not by qvh itself. `#!errorlimit=N` first line in a script raises the breaker threshold for that run
 (`QVH_ERROR_LIMIT` via `patch_questviva.py` §4; the native engine honours the same
 directive). Both Whitefield (34 errors, finite cage burst) and The Acreage (58
 errors, finite Port-entry recursion) use it in their overrides and run to their

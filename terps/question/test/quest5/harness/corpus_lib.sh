@@ -38,6 +38,14 @@ match_filter() {  # $1 = game name; true if no filters, or any filter matches
   return 1
 }
 
+# A script whose transcript is too long to commit (Rise of Death: 6.9 MB) can
+# carry a `#!tail=N` line; only the last N transcript lines are then kept and
+# compared. Used by the golden check, the native replay and run_corpus.sh alike.
+tail_filter() {  # $1 = .cmd path; stdin -> stdout
+  local n; n="$(sed -n 's/^#!tail=\([0-9][0-9]*\).*/\1/p' "$1" | head -1)"
+  if [ -n "$n" ]; then tail -n "$n"; else cat; fi
+}
+
 corpus_one() {  # $1 = golden .cmd path; prints one "STATUS<TAB>game<TAB>detail" line
   local cmd="$1" game q gold got
   game="$(basename "$cmd" .cmd)"
@@ -46,7 +54,7 @@ corpus_one() {  # $1 = golden .cmd path; prints one "STATUS<TAB>game<TAB>detail"
   [ -f "$q" ]    || { printf 'MISS\t%s\tgame file missing\n' "$game"; return; }
   [ -f "$gold" ] || { printf 'MISS\t%s\tno golden .txt\n' "$game";    return; }
   got="$WORK/$game.$SUFFIX.txt"
-  run_game "$q" "$cmd" > "$got" 2>/dev/null
+  run_game "$q" "$cmd" 2>/dev/null | tail_filter "$cmd" > "$got"
   if diff -q "$gold" "$got" >/dev/null; then
     printf 'PASS\t%s\t\n' "$game"
   else
@@ -60,7 +68,7 @@ corpus_one() {  # $1 = golden .cmd path; prints one "STATUS<TAB>game<TAB>detail"
 corpus_check() {
   local results cmd status game detail
   local sel_list=()
-  export -f corpus_one run_game; export GAMES GOLDEN WORK SUFFIX
+  export -f corpus_one run_game tail_filter; export GAMES GOLDEN WORK SUFFIX
 
   results="$(mktemp)"
   for cmd in "$GOLDEN"/*.cmd; do

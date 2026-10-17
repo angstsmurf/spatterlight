@@ -16,6 +16,11 @@ WALKS="${WALKS:-$HOME/Downloads/Quest 5 walkthroughs}"
 OUT="$HERE/out"
 mkdir -p "$OUT"
 DLL="$HERE/bin/Release/net10.0/qvh.dll"
+# `#!tail=N` in a script keeps only the last N transcript lines (see corpus_lib.sh).
+tail_filter() {
+  local n; n="$(sed -n 's/^#!tail=\([0-9][0-9]*\).*/\1/p' "$1" | head -1)"
+  if [ -n "$n" ]; then tail -n "$n"; else cat; fi
+}
 
 printf "%-52s %-6s %6s %6s %4s %-9s\n" "GAME" "ASL" "STEPS" "EMITS" "ERR" "STATE"
 # `bad` counts corpus rows that could not be driven at all (missing game file,
@@ -64,7 +69,7 @@ while IFS=$'\t' read -r game wt mode preamble; do
   python3 "$HERE/extract_walkthrough.py" --mode "$mode" "$src" >> "$cmd"
   fi
   [ -s "$cmd" ] || { printf "%-52s  (no commands extracted)\n" "$game"; bad=$((bad+1)); continue; }
-  dotnet "$DLL" "$q" "$cmd" > "$OUT/$game.txt" 2> "$OUT/$game.err"
+  dotnet "$DLL" "$q" "$cmd" 2> "$OUT/$game.err" | tail_filter "$cmd" > "$OUT/$game.txt"
   diag="$(grep '^\[diag\] end:' "$OUT/$game.err")"
   ver="$(grep -o 'version=[^ ]*' "$OUT/$game.err" | head -1 | cut -d= -f2)"
   steps="$(echo "$diag" | grep -o 'steps=[0-9]*' | cut -d= -f2)"
