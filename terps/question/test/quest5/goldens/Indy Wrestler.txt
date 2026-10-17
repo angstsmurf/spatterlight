@@ -1,0 +1,320 @@
+You are in an apartment.
+You can see a bed, a tv, a computer and gym.
+You can go out.
+
+You live in a small apartment, which contains a small bed. The bed currently stinks, because you peed on it last night in your sleep. You love sleeping and can't be arsed to wake up in the middle of the night to offload in the washroom. You live alone, so nobody is going to know about it.  Your apartment also contains a computer, which you use to browse, read emails, and most importantly, search for indy jobs.  On a side of the room, you have created a small gym to keep your body in shape and increase your stamina. There is also a tv in the room. It is currently broken.
+> look
+
+> look
+You are in an apartment.
+You can see a bed, a tv, a computer and gym.
+You can go out.
+
+You live in a small apartment, which contains a small bed. The bed currently stinks, because you peed on it last night in your sleep. You love sleeping and can't be arsed to wake up in the middle of the night to offload in the washroom. You live alone, so nobody is going to know about it.  Your apartment also contains a computer, which you use to browse, read emails, and most importantly, search for indy jobs.  On a side of the room, you have created a small gym to keep your body in shape and increase your stamina. There is also a tv in the room. It is currently broken.
+> read manual
+
+> read manual
+
+FAQ
+
+How to put on a A* match?
+Wrestling is a scripted sport (Don't tell me you didn't know that before!). To put on a good match, you need to follow the script given by your booker. Here are the few pointers:
+-- If your opponent is to win, then put your ego aside and make sure that he wins!
+-- Try to finish the match in the allotted time. If you finish the match within the allotted time (within 15 seconds of the end time), then you get a bonus point. Similarly, if you go way beyond the allotted time, you lose points. You should also not finish the match too early, or the fans will be disappointed.
+-- Try to mix up your moves. Avoid being repetitive, because that will bore the heck out of the fans.
+
+I am trying to follow the script, but my opponent is not cooperating with me!
+You can't get everything in life according to your wishes. Life doesn't work that way. Get over it!
+
+What's the use of TV? All I can watch is wrestling!
+Keep watching and you might learn something new...
+
+I am tired of being on the losing side!
+Keep performing and putting on good matches and you will be rewarded my child...
+
+When the game ends?
+When you reach 100 reputation, go bankrupt, or when nobody wants to hire you.
+
+This game is annoying! The rules are impossible to follow...
+Here are a few pointers to help you:
+-- Try to avoid performing any move three times in a row, otherwise it will negatively affect the match rating. "Nothing" is an exception and can be performed any times you want.
+-- "Pinfall" is not a move. It also doesn't cost any stamina to perform. However it comes under "3 times in a row" rule.
+-- "Submission" is an offensive move. Performing it will add +1 to your "Offense Counter".
+-- Be careful with performing "Offense" move twice in a row. If the opponent blocks the move the second time, you will be forced to perform it the third time. This is where "the opponent is not cooperating with me" thing comes. When you are in the ring trying to put on a good match, the miscalculations can happen. Your opponent has also has his own moves to worry about.
+> x bed
+
+> x bed
+The bed currently stinks, because you peed on it last night.
+> x computer
+
+> x computer
+This is your computer. It's pretty old and slow, but gets the job done.
+> x gym
+
+> x gym
+Here you can excercise and increase your stamina points, which will help you stay longer in matches. You can only use the gym once per day.
+> excercise gym
+
+> excercise gym
+Your stamina has increased a bit.
+> excercise gym
+
+> excercise gym
+You've already used the gym for today.
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> browse computer
+
+> browse computer
+Good Luck! Press any key to continue.
+
+You are in SMF Arena.
+
+Booker: Hey! Thank you for showing up! Your match is next. You are competing against JoJo! The match is scheduled for 60 seconds. You are allowed 2 offenses and 0 defenses. JoJo will be winning the match by Pinfall. Make sure that you follow the rules, otherwise you will hurt your reputation! Follow the rules and you might make it to the next level. Good Luck!
+
+Press any key to start the match.
+You vs JoJo!
+
+JoJo's Stamina: 50.1
+
+Time Limit: 60 seconds
+
+Rules: 2 offenses 0 defenses
+
+JoJo makes an attacking move. Time Left: 55 seconds. Stamina Left: 48.1
+
+Offense Counter: 0(2) Defense Counter: 0(0)
+
+Select Your Move
+ - Offense
+
+You countered and made an attacking move. Time Left: 50 seconds. Stamina Left: 48.1
+
+JoJo counters and makes an attacking move. Time Left: 45 seconds. Stamina Left: 46.1
+
+Offense Counter: 1(2) Defense Counter: 0(0)
+
+Select Your Move
+ - Nothing
+
+You took the offense. Time Left: 40 seconds. Stamina Left: 45.1
+
+JoJo makes an attacking move. Time Left: 35 seconds. Stamina Left: 44.1
+
+Offense Counter: 1(2) Defense Counter: 0(0)
+
+Select Your Move
+ - Offense
+
+You countered and made an attacking move. Time Left: 30 seconds. Stamina Left: 43.1
+
+JoJo counters and makes an attacking move. Time Left: 25 seconds. Stamina Left: 42.1
+
+Offense Counter: 2(2) Defense Counter: 0(0)
+
+Select Your Move
+ - Nothing
+
+You took the offense. Time Left: 20 seconds. Stamina Left: 40.1
+
+JoJo makes an attacking move. Time Left: 15 seconds. Stamina Left: 40.1
+
+Offense Counter: 2(2) Defense Counter: 0(0)
+
+Select Your Move
+ - Nothing
+
+You took the offense. Time Left: 10 seconds. Stamina Left: 37.1
+
+JoJo goes for the pin. Time Left: 5 seconds. Stamina Left: 40.1
+
+Offense Counter: 2(2) Defense Counter: 0(0)
+
+Select Your Move
+ - Nothing
+
+1...2...3You were unable to kick out! Time Left: 0 seconds. Stamina Left: 37.1
+
+Match Over!
+
+Winner: JoJo
+
+Match Grade: A
+Reputation Gained: 1.2000000000000002
+Cash Earned: 50
+
+Moves Repeated: 0 Offense: 2 Defense: 0
+
+You are in an apartment.
+You can see a bed, a tv, a computer and gym.
+You can go out.
+
+You live in a small apartment, which contains a small bed. The bed currently stinks, because you peed on it last night in your sleep. You love sleeping and can't be arsed to wake up in the middle of the night to offload in the washroom. You live alone, so nobody is going to know about it.  Your apartment also contains a computer, which you use to browse, read emails, and most importantly, search for indy jobs.  On a side of the room, you have created a small gym to keep your body in shape and increase your stamina. There is also a tv in the room. It is currently broken.
+> look
+
+> look
+You are in an apartment.
+You can see a bed, a tv, a computer and gym.
+You can go out.
+
+You live in a small apartment, which contains a small bed. The bed currently stinks, because you peed on it last night in your sleep. You love sleeping and can't be arsed to wake up in the middle of the night to offload in the washroom. You live alone, so nobody is going to know about it.  Your apartment also contains a computer, which you use to browse, read emails, and most importantly, search for indy jobs.  On a side of the room, you have created a small gym to keep your body in shape and increase your stamina. There is also a tv in the room. It is currently broken.
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+> clean bed
+
+> clean bed
+You cleaned the bed.
+> sleep bed
+
+> sleep bed
+You had a good sleep and woke up the next day with some stamina back. And you peed on the bed again...
+You went bankrupt!
+[state=Finished]

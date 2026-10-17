@@ -357,9 +357,39 @@ static std::string fmt_double(double d) {
         std::snprintf(buf, sizeof(buf), "%lld", (long long)d);
         return buf;
     }
-    std::ostringstream o;
-    o << d;
-    return o.str();
+    if (!std::isfinite(d))
+        return std::isnan(d) ? "NaN" : (d < 0 ? "-Infinity" : "Infinity");
+    // .NET Core 3.0+ double.ToString(): the shortest digit string that round-trips,
+    // positional for 1e-5 <= |d| < 1e15, otherwise "d.dddE+XX" (two-digit minimum exponent).
+    char e[40];
+    int prec = 1;
+    for (; prec <= 17; ++prec) {
+        std::snprintf(e, sizeof(e), "%.*e", prec - 1, d);
+        if (c_strtod(e) == d) break;
+    }
+    std::string m = e;  // [-]d[.ddd]e[+-]XX
+    bool neg = m[0] == '-';
+    if (neg) m.erase(0, 1);
+    size_t ep = m.find('e');
+    int exp10 = std::atoi(m.c_str() + ep + 1);
+    std::string digits;
+    for (size_t i = 0; i < ep; ++i)
+        if (m[i] != '.') digits += m[i];
+    std::string out;
+    if (exp10 >= 15 || exp10 < -5) {
+        out = digits.substr(0, 1);
+        if (digits.size() > 1) out += "." + digits.substr(1);
+        char x[16];
+        std::snprintf(x, sizeof(x), "E%c%02d", exp10 < 0 ? '-' : '+', std::abs(exp10));
+        out += x;
+    } else if (exp10 < 0) {
+        out = "0." + std::string(-exp10 - 1, '0') + digits;
+    } else if ((int)digits.size() <= exp10 + 1) {
+        out = digits + std::string(exp10 + 1 - digits.size(), '0');
+    } else {
+        out = digits.substr(0, exp10 + 1) + "." + digits.substr(exp10 + 1);
+    }
+    return neg ? "-" + out : out;
 }
 
 std::string Interp::to_string(const Value &v) {
