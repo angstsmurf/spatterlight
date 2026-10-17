@@ -1,0 +1,80 @@
+You are in a room covered with white walls.
+You can see a calendar, a corgi, a radio and a bed.
+> look
+
+> look
+You are in a room covered with white walls.
+You can see a calendar, a corgi, a radio and a bed.
+> x calendar
+
+> x calendar
+The date is displayed as May 28, 1940.
+> x corgi
+
+> x corgi
+A Pembroke Welsh Corgi. He is wagging his tail.
+> take corgi
+
+> take corgi
+The corgi happily leaps into your arms.
+> drop corgi
+
+> drop corgi
+You try to drop the corgi but it holds onto your arm. You decide it would be too cruel to keep trying.
+> use corgi
+
+> use corgi
+
+You pet the corgi. He is pleased.
+> tell corgi about the bed
+
+> tell corgi about the bed
+I'm a corgi. I can't talk, but you're imagining that I can and I am saying this. Maybe you should ask the bed.
+> x radio
+
+> x radio
+Interesting, I didn't think The Arctic Monkeys were around in 1940.
+On the back of it is a battery compartment.
+> turn on radio
+
+> turn on radio
+R U Mine by the Arctic Monkeys is on the radio.
+> turn off radio
+
+> turn off radio
+You turn off the radio. Even if it's it's the best song ever made you need to concentrate.
+> open radio
+
+> open radio
+You can't open it.
+> look
+
+> look
+You are in a room covered with white walls.
+You can see a calendar, a radio (containing a battery compartment) and a bed.
+> x battery compartment
+
+> x battery compartment
+The battery compartment for the radio. Strange, these don't look like batteries.
+It contains two batteries.
+> x two batteries
+
+> x two batteries
+They don't really look like batteries, maybe they're pills. Oh well, only one way to find out.
+> take two batteries
+
+> take two batteries
+Might need these later.
+> x bed
+
+> x bed
+A queen sized bed with purple sheets.
+> inventory
+
+> inventory
+You are carrying a corgi and two batteries.
+> eat calendar
+
+> eat calendar
+Not the most filing but it will have to do.
+[state=Running]
