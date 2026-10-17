@@ -262,6 +262,13 @@ gamesfetch:
 	@Q4_GAMES_DIR="$(Q4_GAMES_DIR)" Q5_GAMES_DIR="$(Q5_GAMES_DIR)" \
 	  sh ./fetch_games.sh fetch
 
+# The native Quest 5 corpus sweep: every frozen goldens/<Game>.cmd through
+# aslx_replay, diffed against the QuestViva transcript. Not part of check: it
+# needs the (untracked) corpus. 348 passed + the 6 documented rows is green;
+# see quest5/README.md.
+replays:
+	$(Q5)/run_replays.sh
+
 # Spatterlight autosave/autorestore regression, both engines. Not part of
 # check: it needs the Xcode build of the terp (the autosave code is compiled
 # only under SPATTERLIGHT) and a few seconds per case. `--build` runs
@@ -280,4 +287,4 @@ drivesync:
 	    exit 1; \
 	fi
 
-.PHONY: all syntax check asan clean gamescheck gamesfetch autosave drivesync
+.PHONY: all syntax check asan clean gamescheck gamesfetch replays autosave drivesync

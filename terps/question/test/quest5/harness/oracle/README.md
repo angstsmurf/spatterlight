@@ -5,10 +5,10 @@ engine (`github.com/textadventures/quest`, branch `main`, aka "Quest Viva"). It
 loads a real `.quest`/`.aslx` game, replays a command script, and prints a
 normalised plain-text transcript.
 
-This is the reference oracle for the planned native Question ASLX engine
-(`terps/question/quest5/TODO-quest5.md`, milestone 6): once that engine exists, diff its
-transcript for a given command script against `qvh`'s, exactly as
-`test/adrift5/harness/a5_groundtruth.sh` diffs Scarier against FrankenDrift. Until then it also
+This is the reference oracle for the native Question ASLX engine
+(`terps/question/quest5/`, documented in `../../README.md`): `../run_replays.sh`
+diffs its transcript for a given command script against `qvh`'s, exactly as
+`test/adrift5/harness/a5_groundtruth.sh` diffs Scarier against FrankenDrift. It also
 serves to capture golden transcripts and to answer "what does real Quest do
 here?" questions during the port.
 

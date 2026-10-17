@@ -18,7 +18,7 @@
 
 // aslx.hh -- Quest 5 (.aslx / .quest) loader for Question.
 //
-// This is the first piece of the "second engine" described in TODO-quest5.md:
+// This is the first piece of the "second engine" (see test/quest5/README.md):
 // a native port of the Quest 5 WorldModel that shares the Glk frontend with the
 // existing ASL text interpreter. Milestone 1 is the loader only -- unzip a
 // .quest package (or read a raw .aslx), parse the XML into a typed element

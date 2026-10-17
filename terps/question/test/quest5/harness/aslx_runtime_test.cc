@@ -21,7 +21,7 @@
 //   ./aslx_runtime_test            run the assertions
 //
 // Built by test/Makefile; links libexpat + zlib (via the loader). See
-// TODO-quest5.md §2.
+// ../README.md.
 
 #include "../../../quest5/aslx.hh"
 #include "../../../quest5/aslx-runtime.hh"

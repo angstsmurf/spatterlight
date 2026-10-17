@@ -21,7 +21,7 @@
 //   ./aslx_loader_test              run the assertions
 //   ./aslx_loader_test <file>       load <file> (.aslx or .quest) and dump it
 //
-// Built by test/Makefile; links libexpat and zlib. See TODO-quest5.md.
+// Built by test/Makefile; links libexpat and zlib. See ../README.md.
 
 #include "../../../quest5/aslx.hh"
 

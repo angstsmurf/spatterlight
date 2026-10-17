@@ -134,8 +134,8 @@ Two engines and two Glk frontends share `terps/question`:
   `ExecCommand`. The libraries Quest bundles are compiled in verbatim as
   `standardlib_builtin.cc`, `stdverbs_builtin.cc`, `typelib_builtin.cc` and
   `q3ext_builtin.cc`, declared in `builtin_libs.hh`.
-- **Quest 5 engine.** `quest5/aslx*.cc`; `quest5/TODO-quest5.md` is its
-  own history and status.
+- **Quest 5 engine.** `quest5/aslx*.cc`; `quest5/README.md` here maps
+  the files and records what its build-up settled.
 - **Frontends.** `questionglk.cc` for Quest 4; `quest5/aslxglk*.cc` for
   Quest 5, all in `namespace aslxglk`, with `aslxglk-internal.hh` holding
   the types, the prototypes and every global as a C++17 `inline` variable.

@@ -17,11 +17,11 @@ Wayback workaround, folder layout and known data bugs. That folder's top level
 holds only Quest 5 walkthroughs; `_pre-quest5/` (Quest 1–4) and `_not-quest5/`
 (QuestJS) are set aside.
 
-## Corrections to `terps/question/TODO-quest5.md`
+## Corrections to the original Quest 5 plan
 
 1. **§7's "free regression scripts" assumption is false.** It says "many `.quest` games ship `<walkthrough>` elements". **None of the games here do.** It is an editor-side testing feature authors essentially never populate. Regression scripts must come from the external walkthroughs harvested here.
 2. **§7 names textadventures.co.uk as the corpus source.** Direct access is Cloudflare-blocked (403 to any scripted client), **but the Wayback Machine is not** — see the README for the working recipe. 11 games here exist nowhere else. The corpus is therefore **not size-capped**: IFDB's `system:Quest` filter returns **631 Quest games**, any of which can be pulled the same way.
-3. **`The_House_on_Highfield_Lane` is QuestJS ("Quest 6", pure JavaScript), not Quest 5.** No `game.aslx`. TODO-quest5.md explicitly rejects QuestJS, so the planned engine can never run it. Moved to `_not-quest5/`.
+3. **`The_House_on_Highfield_Lane` is QuestJS ("Quest 6", pure JavaScript), not Quest 5.** No `game.aslx`. The plan explicitly rejected QuestJS, so the engine can never run it. Moved to `_not-quest5/`.
 
 ## Corpus facts
 

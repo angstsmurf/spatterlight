@@ -55,9 +55,10 @@ below say how closely Question matches that key, not whether the key is right.
   upstream: the oracle pin moved from beta.57 to rc.4+9 on 2026-10-03, and the
   bump needed engine work on our side (inline `ask`/`show menu` prompts in
   ASL 600 games, the turn-boundary rewrites).
-- **Features Question does not have.** `play sound` only warns,
-  `GetExternalFileData`/`SetExternalFileData` are unsupported and
-  `<backgroundimage>` is skipped (see `quest5/TODO-quest5.md`).
+- **Features Question does not have.** `GetExternalFileData`/
+  `SetExternalFileData` are unsupported and `<backgroundimage>` is skipped
+  (see `test/quest5/README.md`). `play sound` plays through one Glk sound
+  channel in Spatterlight and only warns in the headless harnesses.
 
 ## Where Question is better
 
@@ -193,8 +194,8 @@ Process start-up and loading are included.
 
 ## Where the work stands
 
-- Open: `<backgroundimage>` and `play sound` on the Question side, and
-  the oracle fork's `oracle-patches` branch (not regenerated since the pin
+- Open: nothing on the Question side (`<backgroundimage>` is declined in
+  `test/quest5/README.md`), and the oracle fork's `oracle-patches` branch (not regenerated since the pin
   move, outward-facing so not pushed).
 - Both projects are developed with AI assistance; QuestViva's tree has a
   `CLAUDE.md`.

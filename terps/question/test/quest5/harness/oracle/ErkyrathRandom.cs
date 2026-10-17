@@ -8,7 +8,7 @@ namespace QuestViva.Engine;
 // GetRandomInt / GetRandomDouble produce a reproducible sequence — and, more
 // importantly, the SAME sequence the future native Question ASLX engine will
 // produce when it routes those built-ins through erkyrath_random() under
-// SPATTERLIGHT determinism (seed 1234; see TODO-quest5.md §2 "Determinism").
+// SPATTERLIGHT determinism (seed 1234; see test/quest5/README.md, "Determinism").
 //
 // The inclusive-range mapping follows terps/scarier/a5rand.cpp a5rand_between
 // (the ADRIFT 5 analog of GetRandomInt): span = hi-lo+1; lo + rand % span, with

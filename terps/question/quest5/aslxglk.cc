@@ -18,7 +18,7 @@
 
 // aslxglk.cc -- Glk frontend for the native Quest 5 (.aslx / .quest) engine.
 //
-// This is the "second engine sharing the Glk frontend" of TODO-quest5.md:
+// This is the "second engine sharing the Glk frontend" (see test/quest5/README.md):
 // questionglk.cc's glk_main sniffs the story file and hands Quest 5 games to
 // aslx_glk_main() below, while .asl/.cas keep going to the classic runner.
 //

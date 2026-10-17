@@ -22,7 +22,7 @@
 // on top of the milestone-1 element tree, with no Core library. The expression
 // grammar and script-command semantics mirror QuestViva's src/Engine
 // (QuestNCalcLogicalExpressionParser, ScriptFactory + Scripts/, ExpressionOwner
-// / StringFunctions). See TODO-quest5.md §2.
+// / StringFunctions). See test/quest5/README.md.
 
 #ifndef QUESTION_ASLX_RUNTIME_HH
 #define QUESTION_ASLX_RUNTIME_HH
