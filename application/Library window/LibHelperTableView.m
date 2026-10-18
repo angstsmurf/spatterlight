@@ -27,6 +27,11 @@
     return flag;
 }
 
+- (void)mouseDown:(NSEvent *)event {
+    self.selectionBeforeClick = [self.selectedRowIndexes copy];
+    [super mouseDown:event];
+}
+
 - (void)keyDown:(NSEvent *)event {
     NSString *pressed = event.characters;
     if ([pressed isEqualToString:@" "])

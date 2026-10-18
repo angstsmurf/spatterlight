@@ -356,7 +356,14 @@ enum  {
             // for one). Refresh the cells in place: a full reload throws away
             // and rebuilds every visible row, which stalls the main thread
             // long enough to delay a game that is starting up.
-            [tableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, model.count)]
+            // Leave a row that is being renamed alone: refreshing it drops
+            // the cell under the field editor, and the recycled cell can
+            // come back on a neighbouring row, where the edit then commits.
+            NSMutableIndexSet *rows = [NSMutableIndexSet indexSetWithIndexesInRange:NSMakeRange(0, model.count)];
+            NSInteger edited = tableView.editedRow;
+            if (edited >= 0)
+                [rows removeIndex:(NSUInteger)edited];
+            [tableView reloadDataForRowIndexes:rows
                                  columnIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, (NSUInteger)tableView.numberOfColumns)]];
         } else {
             [tableView reloadData];
@@ -594,13 +601,19 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     if (textField) {
         self.canEdit = NO;
         NSInteger row = [self.gameTableView rowForView:sender];
-        if ((NSUInteger)row >= self.gameTableModel.count)
+        // Map the row through the order the table is showing, not the
+        // model: updateTableViews replaces and re-sorts gameTableModel before
+        // the table is reloaded, and an edit that ends in that window (or
+        // after the cell was refreshed in place) would otherwise land on
+        // whichever game happens to hold that index in the new order.
+        NSArray<Game *> *shown = self.displayedGames ?: self.gameTableModel;
+        if ((NSUInteger)row >= shown.count)
             return;
         NSInteger col = [self.gameTableView columnForView:sender];
         if ((NSUInteger)col >= self.gameTableView.tableColumns.count)
             return;
 
-        Game *game = self.gameTableModel[(NSUInteger)row];
+        Game *game = shown[(NSUInteger)row];
         Metadata *meta = game.metadata;
         NSString *key = self.gameTableView.tableColumns[(NSUInteger)col].identifier;
         BOOL isGroup = [key isEqualToString:@"group"];
@@ -946,22 +959,51 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
 #pragma mark Open game on double click, edit on click and wait
 
 - (void)doClick:(id)sender {
-    if (self.canEdit) {
-        NSInteger row = self.gameTableView.clickedRow;
-        if ([self.gameTableView.selectedRowIndexes containsIndex:(NSUInteger)row]) {
-            TableViewController * __weak weakSelf = self;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-                TableViewController *strongSelf = weakSelf;
-                if (strongSelf && strongSelf.canEdit) {
-                    NSInteger selectedRow = strongSelf.gameTableView.selectedRow;
-                    NSInteger column = strongSelf.gameTableView.selectedColumn;
-                    if (selectedRow != -1 && column != -1) {
-                        [strongSelf.gameTableView editColumn:column row:selectedRow withEvent:nil select:YES];
-                    }
-                }
-            });
-        }
-    }
+    // Click and wait to rename, the way the Finder does it: the rename is
+    // armed only by a plain single click on the one row that was already
+    // selected, by itself, before the mouse went down. The click that
+    // selects a row, a click with a modifier key held, and the first click
+    // of a double click all leave the table alone.
+    if (!self.canEdit)
+        return;
+    LibHelperTableView *tableView = self.gameTableView;
+    NSInteger row = tableView.clickedRow;
+    NSInteger column = tableView.clickedColumn;
+    if (row == -1 || column == -1)
+        return;
+
+    NSEvent *event = NSApp.currentEvent;
+    if (event.type != NSEventTypeLeftMouseUp && event.type != NSEventTypeLeftMouseDown)
+        return;
+    if (event.clickCount != 1)
+        return;
+    NSEventModifierFlags held = event.modifierFlags & (NSEventModifierFlagCommand | NSEventModifierFlagShift | NSEventModifierFlagOption | NSEventModifierFlagControl);
+    if (held)
+        return;
+
+    NSIndexSet *before = tableView.selectionBeforeClick;
+    if (before.count != 1 || ![before containsIndex:(NSUInteger)row])
+        return;
+    NSIndexSet *now = tableView.selectedRowIndexes;
+    if (now.count != 1 || ![now containsIndex:(NSUInteger)row])
+        return;
+
+    // The rename opens only if nothing has cancelled it by the time the
+    // delay is up (doDoubleClick bumps the token) and the same row is
+    // still the only one selected.
+    NSUInteger token = ++self.pendingRenameToken;
+    TableViewController * __weak weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
+        TableViewController *strongSelf = weakSelf;
+        if (!strongSelf || !strongSelf.canEdit || strongSelf.pendingRenameToken != token)
+            return;
+        NSIndexSet *selected = strongSelf.gameTableView.selectedRowIndexes;
+        if (selected.count != 1 || ![selected containsIndex:(NSUInteger)row])
+            return;
+        if (row >= strongSelf.gameTableView.numberOfRows || column >= strongSelf.gameTableView.numberOfColumns)
+            return;
+        [strongSelf.gameTableView editColumn:column row:row withEvent:nil select:YES];
+    });
 }
 
 // DoubleAction
@@ -969,6 +1011,10 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     if (self.gameTableView.clickedRow == -1) {
         return;
     }
+    // Drop the rename the first click scheduled: a double click plays the
+    // game, and a title cell left open under a starting game is how a
+    // rename ends up on the wrong row.
+    self.pendingRenameToken++;
     [self enableClickToRenameAfterDelay];
     [self play:sender];
 }

@@ -22,6 +22,11 @@
 @interface LibHelperTableView : NSTableView
 @property NSInteger mouseOverRow;
 @property IBOutlet NSBox *horizontalLine;
+// The rows that were selected when the last mouse button went down, before
+// the table changed the selection for that click. The click-and-wait rename
+// in doClick: uses it to tell a click on the already selected row from the
+// click that selected it.
+@property (nullable) NSIndexSet *selectionBeforeClick;
 @end
 
 @interface MyIndicator : NSLevelIndicator

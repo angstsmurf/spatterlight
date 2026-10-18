@@ -14,6 +14,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 // Private properties previously declared as ivars
 @property BOOL canEdit;
+// Bumped to cancel a click-and-wait rename that has been scheduled but has
+// not opened yet (a double click on the same row plays the game instead).
+@property NSUInteger pendingRenameToken;
 @property (nullable) NSString *searchString;
 @property (nullable) NSLocale *englishUSLocale;
 @property (nullable) NSDictionary *languageCodes;
