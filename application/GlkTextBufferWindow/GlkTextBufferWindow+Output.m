@@ -213,7 +213,6 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
                                   attributes:attributes];
 
     [bufferTextstorage appendAttributedString:attstr];
-    dirty = YES;
     if (!_pendingClear && textstorage.length && bufferTextstorage.length) {
         [self coalescePendingEchoDeleteWithAppend:bufferTextstorage];
         bufferTextstorage = [[NSMutableAttributedString alloc] init];

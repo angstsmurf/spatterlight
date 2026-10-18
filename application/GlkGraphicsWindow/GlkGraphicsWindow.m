@@ -87,12 +87,12 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         // Archived as an NSImage, as before the bitmap canvas, so old and new
         // autosaves read the same way.
         self.image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
-        dirty = YES;
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
         subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
         dirtyRects = [NSMutableArray new];
+        [self markWholeWindowDirty];
     }
     return self;
 }
@@ -219,8 +219,19 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     return !transparent;
 }
 
+// Transparency changes what drawRect: composites over, not the canvas, so
+// nothing else queues a rect for it; queue the whole window.
 - (void)makeTransparent {
     transparent = YES;
+    [self markWholeWindowDirty];
+}
+
+// The inherited dirty flag means: dirtyRects holds rects that need
+// repainting. Every site that changes what is on screen appends one and
+// sets the flag together, so flushDisplay (called for every window on
+// every interpreter update) does nothing for a window nobody drew into.
+- (void)markWholeWindowDirty {
+    [dirtyRects addObject:@(self.bounds)];
     dirty = YES;
 }
 
@@ -317,7 +328,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
            maxwidth:0
               style:style_Normal];
 
-    dirty = YES;
+    [self markWholeWindowDirty];
 }
 
 // A FILLRECT batch: opaque fills, applied in order straight into the canvas
@@ -370,12 +381,12 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 }
 
 - (void)flushDisplay {
-    if (dirty) {
-        for (NSValue *val in dirtyRects) {
-            [self setNeedsDisplayInRect:val.rectValue];
-        }
+    if (!dirty)
+        return;
+    for (NSValue *val in dirtyRects) {
+        [self setNeedsDisplayInRect:val.rectValue];
     }
-    dirtyRects = [NSMutableArray new];
+    [dirtyRects removeAllObjects];
     dirty = NO;
 }
 
