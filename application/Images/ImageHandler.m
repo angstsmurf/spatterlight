@@ -222,7 +222,17 @@
     ImageResource *resource = _resources[@(resno)];
     if (resource) {
         _lastimage = [resource createImage];
-        return (_lastimage != nil);
+        // This is the path every blorb-resident picture takes: the resource
+        // table is filled at launch, so the FINDIMAGE request lands here and
+        // the LOADIMAGE request (whose handler stores into the cache) never
+        // follows. Store here too, or the cache stays empty and each draw
+        // rebuilds the NSImage and decodes the data again.
+        if (_lastimage) {
+            [_imageCache setObject:_lastimage forKey:@(resno)];
+            _lastimageresno = resno;
+            return YES;
+        }
+        return NO;
     }
     return NO;
 }
