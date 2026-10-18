@@ -207,6 +207,14 @@
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
 
+    // Buffer Normal BackColor is the window fill (see liveUpdateNormalBackColor /
+    // recalcBackground), not a per-run attribute — so ambient _immediate
+    // updates stay O(1). Pinned BackColor on other styles still paints on runs.
+    if (stylevalue == style_Normal &&
+        [self isKindOfClass:[GlkTextBufferWindow class]]) {
+        [attributes removeObjectForKey:NSBackgroundColorAttributeName];
+    }
+
     NSArray *hintsForStyle = self.styleHints[stylevalue];
     if (hintsForStyle.count <= stylehint_ReverseColor)
         return attributes;
@@ -273,6 +281,11 @@
 
 - (void)setBgColor:(NSInteger)bc {
     NSLog(@"set background color in %@ not allowed", [self class]);
+}
+
+- (void)liveUpdateNormalBackColor:(NSInteger)bc {
+    // Default: pane only (graphics / unimplemented). Text windows override.
+    [self setBgColor:bc];
 }
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n {

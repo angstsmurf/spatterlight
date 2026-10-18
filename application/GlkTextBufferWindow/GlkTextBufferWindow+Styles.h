@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)recalcBackground;
 - (void)createBeyondZorkStyle;
 - (NSDictionary *)font3ToUnicode;
+- (void)liveUpdateNormalBackColor:(NSInteger)bc;
+- (NSDictionary *)drawingAttributesForStyle:(NSUInteger)stylevalue;
 
 @end
 
