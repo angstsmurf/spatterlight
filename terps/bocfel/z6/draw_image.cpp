@@ -291,6 +291,22 @@ uint64_t digest_pixels(const uint8_t *data, size_t size) {
     return hash;
 }
 
+bool operator==(const SentImage &a, const SentImage &b) {
+    return a.digest == b.digest && a.width == b.width && a.height == b.height;
+}
+
+// Write `size` bytes of RGBA pixels to a TIFF and hand it to the host under
+// `picnum`. Returns false if no temp file could be created.
+bool purge_image(glui32 picnum, const uint8_t *data, size_t size, int width) {
+    std::string filename = create_temp_tiff_file_name();
+    if (filename.empty())
+        return false;
+
+    write_to_tiff(filename, data, size, width);
+    win_purgeimage(picnum, filename.c_str(), (int)size);
+    return true;
+}
+
 // Hand `size` bytes of RGBA pixels to the host under `picnum`, or, when the
 // host already holds these exact pixels under that number, just make them
 // its current image again: win_drawimage() draws whatever was last found,
@@ -298,20 +314,12 @@ uint64_t digest_pixels(const uint8_t *data, size_t size) {
 bool send_image(glui32 picnum, const uint8_t *data, size_t size, int width, int height) {
     SentImage sent = { digest_pixels(data, size), width, height };
     auto previous = sent_images.find(picnum);
-    if (previous != sent_images.end() &&
-        previous->second.digest == sent.digest &&
-        previous->second.width == sent.width &&
-        previous->second.height == sent.height &&
-        win_findimage(picnum)) {
+    if (previous != sent_images.end() && previous->second == sent && win_findimage(picnum)) {
         return true;
     }
 
-    std::string filename = create_temp_tiff_file_name();
-    if (filename.empty())
+    if (!purge_image(picnum, data, size, width))
         return false;
-
-    write_to_tiff(filename, data, size, width);
-    win_purgeimage(picnum, filename.c_str(), (int)size);
     // win_purgeimage() sends nothing while graphics are off, so the host
     // has nothing to hit then.
     if (gli_enable_graphics) {
@@ -322,22 +330,82 @@ bool send_image(glui32 picnum, const uint8_t *data, size_t size, int width, int 
     return true;
 }
 
+// The composited pixmap is sent through a ring of resource numbers rather
+// than one, because its contents alternate between a handful of states
+// rather than staying put: the compass in the Zork Zero border lights the
+// exits of the current room, so a walk between rooms cycles through as
+// many pixmaps as there are exit patterns, and a single memo would miss
+// every one of them. Each slot remembers what the host holds under its
+// number; a flush that matches a slot finds it, otherwise it takes the
+// slot used longest ago. The numbers lie above every picture number the
+// games use.
+constexpr glui32 kPixmapResourceBase = 600;
+constexpr size_t kPixmapRingSize = 32;
+
+struct PixmapSlot {
+    SentImage sent;
+    uint64_t last_used;
+    bool held;
+};
+
+PixmapSlot pixmap_ring[kPixmapRingSize];
+uint64_t pixmap_ring_clock;
+
+void forget_pixmap_ring(void) {
+    for (auto &slot : pixmap_ring) {
+        slot.held = false;
+    }
+}
+
+// Like send_image(), for the pixmap: find it under the slot that already
+// holds these pixels, or purge it into the least recently used slot.
+// Returns the resource number it was drawn from, or 0 on failure.
+glui32 send_pixmap(const uint8_t *data, size_t size, int width, int height) {
+    SentImage sent = { digest_pixels(data, size), width, height };
+    PixmapSlot *oldest = nullptr;
+    for (size_t i = 0; i < kPixmapRingSize; i++) {
+        PixmapSlot &slot = pixmap_ring[i];
+        glui32 resno = kPixmapResourceBase + (glui32)i;
+        if (slot.held && slot.sent == sent) {
+            if (win_findimage(resno)) {
+                slot.last_used = ++pixmap_ring_clock;
+                return resno;
+            }
+            // The host has let it go.
+            slot.held = false;
+        }
+        // A free slot beats any held one; among held ones, the least
+        // recently used.
+        if (oldest == nullptr ||
+            (!slot.held && oldest->held) ||
+            (slot.held == oldest->held && slot.last_used < oldest->last_used)) {
+            oldest = &slot;
+        }
+    }
+
+    glui32 resno = kPixmapResourceBase + (glui32)(oldest - pixmap_ring);
+    if (!purge_image(resno, data, size, width))
+        return 0;
+    oldest->sent = sent;
+    oldest->last_used = ++pixmap_ring_clock;
+    oldest->held = gli_enable_graphics;
+    return resno;
+}
+
 } // namespace
 
 // Forget what the host has been sent. Call whenever the image table is
 // replaced: the same picture number may then stand for another picture.
 void forget_sent_images(void) {
     sent_images.clear();
+    forget_pixmap_ring();
 }
 
-// Resource id the composited pixmap is registered under in the Glk image
-// cache. Outside the range of picture numbers the games use.
-static constexpr int kPixmapResourceId = 600;
-
-// Commit the accumulated pixmap to the Glk graphics window: write it out
-// as a TIFF, hand it to the image cache under kPixmapResourceId,
-// and stretch-blit it to fill the destination. If image_needs_redraw is
-// set, the window is cleared first so previous frames don't show through.
+// Commit the accumulated pixmap to the Glk graphics window: hand it to
+// the image cache under one of the pixmap ring's resource numbers (see
+// send_pixmap()) and stretch-blit it to fill the destination. If
+// image_needs_redraw is set, the window is cleared first so previous
+// frames don't show through.
 void flush_bitmap(winid_t winid) {
     if (winid == nullptr)
         return;
@@ -353,7 +421,7 @@ void flush_bitmap(winid_t winid) {
     if (image_needs_redraw)
         glk_window_clear(winid);
 
-    if (!send_image(kPixmapResourceId, pixmap.data.data(), pixmap.data.size(), pixmap.width_px, pixmap.rows()))
+    if (send_pixmap(pixmap.data.data(), pixmap.data.size(), pixmap.width_px, pixmap.rows()) == 0)
         return;
     // Stretch the pixmap to the full window width; its height follows from
     // the number of pixmap rows and the pixel aspect ratio.
