@@ -15,7 +15,7 @@
 #import "Image.h"
 #import "Metadata.h"
 
-#import "NSData+Categories.h"
+#import "FileSignature.h"
 #import "NSString+Categories.h"
 
 #import "iFictionPreviewController.h"
@@ -45,15 +45,15 @@
 
 // App-level categories are only available if their .m file is compiled into
 // this extension target. A missing one otherwise shows up as an unrecognized
-// selector deep inside a preview (see the 1.4.6 -[NSData sha256String] crash),
-// so check the ones we use at launch. If this fires, add the named file to
+// selector deep inside a preview (see the 1.4.6 -[NSData sha256String] crash;
+// hashing now goes through FileSignature, which BlorbFramework provides), so
+// check the ones we still use at launch. If this fires, add the named file to
 // the SpatterlightQuickLook target's Compile Sources build phase.
 + (void)initialize {
     if (self != [PreviewViewController class])
         return;
 
     NSArray<NSArray *> *requiredCategoryMethods = @[
-        @[NSData.class, @"sha256String", @"NSData+Categories.m"],
         @[NSString.class, @"signatureFromFile", @"NSString+Categories.m"],
         @[NSFont.class, @"fontToFitWidth:sampleText:", @"NSFont+Categories.m"]
     ];
@@ -70,7 +70,7 @@
 + (NSImage *)iconFromURL:(NSURL *)url {
     NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
     NSData *imageData = icon.TIFFRepresentation;
-    NSString *sha256 = [imageData sha256String];
+    NSString *sha256 = [FileSignature sha256StringFromData:imageData];
     if ([sha256 isEqualToString:@"4D5665BE8E0382BFFB7500F86A69117080A036B9698DC2395F3A86F9DCE7170E"] || [sha256 isEqualToString:@"48FA6B493F338A1A14423CEBCC1012C2EB9548E983A9BB6DF44A7EE5A855D2AE"]) {
         return [NSImage imageNamed:@"house"];
     }
@@ -369,7 +369,7 @@
                 fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
             }
             if (fetchedObjects.count == 0) {
-                metadata = [strongSelf metadataFromBlorb:url];
+                metadata = [strongSelf metadataFromBlorb:url inContext:context];
                 if (metadata == nil || metadata.count == 0) {
                     // Found no matching path or hashTag. File not a blorb or blorb empty. Bailing to noPreviewForURL
                     [strongSelf noPreviewForURL:url handler:handler];
@@ -1053,7 +1053,9 @@
     return date;
 }
 
-- (NSMutableDictionary *)metadataFromBlorb:(NSURL *)url {
+// Must be called from inside a perform block on context, which is used
+// for the IFhd title lookup.
+- (NSMutableDictionary *)metadataFromBlorb:(NSURL *)url inContext:(NSManagedObjectContext *)context {
     if (![Blorb isBlorbURL:url])
         return nil;
 
@@ -1070,7 +1072,7 @@
 
         metaDict[@"IFhd"] = [blorb ifidFromIFhd];
         if (metaDict[@"IFhd"]) {
-            metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"]];
+            metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"] inContext:context];
         } else NSLog(@"No IFdh resource in Blorb file");
 
         for (NSString *chunkName in blorb.optionalChunks.allKeys) {
@@ -1125,6 +1127,28 @@
     return metaDict;
 }
 
+// Must be called from inside a perform block on context, so that callers
+// already running on a context's queue can reuse it instead of creating a
+// second context and nesting another performBlockAndWait inside the first.
+- (NSString *)titleFromIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context {
+    if (!ifid || !context)
+        return nil;
+
+    NSError *error = nil;
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
+
+    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+    if (!fetchedObjects.count)
+        return nil;
+
+    if (fetchedObjects.count > 1)
+        NSLog(@"Found %ld games with ifid %@", fetchedObjects.count, ifid);
+    Game *game = fetchedObjects.firstObject;
+    [self addImageFromGame:game];
+    return game.metadata.title;
+}
+
 - (NSString *)titleFromIfid:(NSString *)ifid {
     if (!ifid)
         return nil;
@@ -1138,20 +1162,7 @@
     // Managed objects may only be accessed on their context's queue,
     // so read everything we need from the game inside the block
     [context performBlockAndWait:^{
-        NSError *error = nil;
-        NSArray *fetchedObjects;
-
-        NSFetchRequest *fetchRequest = [Game fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"ifid like[c] %@", ifid];
-
-        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-        if (fetchedObjects && fetchedObjects.count) {
-            if (fetchedObjects.count > 1)
-                NSLog(@"Found %ld games with ifid %@", fetchedObjects.count, ifid);
-            Game *game = fetchedObjects.firstObject;
-            [self addImageFromGame:game];
-            title = game.metadata.title;
-        }
+        title = [self titleFromIfid:ifid inContext:context];
     }];
 
     return title;

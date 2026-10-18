@@ -604,7 +604,6 @@
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
 		C3123A7F2F6A103D00A87289 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
-		C3123A812F6A108400A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C3123A822F6A117400A87289 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C314D6E82FD6C1B600EABA28 /* archetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D6992FD6C00A00EABA28 /* archetype.cpp */; };
 		C314D6E92FD6C1B600EABA28 /* archetype_compat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D69C2FD6C00A00EABA28 /* archetype_compat.cpp */; };
@@ -9353,7 +9352,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3123A812F6A108400A87289 /* NSData+Categories.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
