@@ -12,7 +12,7 @@ import os, re, subprocess, threading
 
 Q = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
 DLL = f"{Q}/harness/oracle/bin/Release/net10.0/qvh.dll"
-GAME = f"{Q}/games/The Quest for the Golden Egg.quest"
+GAME = f"{Q}/games/{os.environ.get('GE_GAME', 'The Quest for the Golden Egg')}.quest"
 NATIVE = f"{Q}/harness/aslx_replay"
 
 

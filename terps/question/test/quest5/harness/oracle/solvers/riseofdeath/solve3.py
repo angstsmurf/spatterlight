@@ -56,7 +56,7 @@ def hook(b,loc):
         if story_ready() and not geno:
             if n!=10: b.send(step_toward(n,10)); return True
             b.send("go east"); return True
-        opts={"go east":n%5!=0 and n!=10,"go west":(n-1)%5!=0,"go south":n<=15,"go north":n>5}
+        opts={"go east":n%5!=0 and n!=10,"go west":(n-1)%5!=0,"go south":n<=20,"go north":n>5}
         b.send(random.choice([k for k,v in opts.items() if v])); return True
     if loc=="TutorialCave3": b.send("go south"); return True
     if loc.startswith("Upgrade") or loc.startswith("Status"): b.send("b"); return True

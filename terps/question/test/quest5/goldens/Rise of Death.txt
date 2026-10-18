@@ -1,7 +1,18 @@
 
-Enemy magic damage done decreased! Enemy physical damage taken increased!
+'R': Extinguish Life
 
- I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+'O': Pass your turn.
+> q
+
+A Fight Happens
+
+You lash at your enemy with your tendrils. You tear off some of the mass for yourself! 5008749.999999998 physical damage!
+
+Health restored to you!
+
+ 'Ha ha ha!' your opponent shouts. The winds seem to condense on him and his form grows sturdier. You fear that, now that he's stronger, Al'Akir will hurt you more.
+
+Enemy health increased!
 
 Enter 'C' to continue.
 > c
@@ -9,39 +20,39 @@ Enter 'C' to continue.
 Battle!
 You can check your Opponent and Yourself.
 
-I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+A'Akir the Windlord towers above you, brandishing a colossal, electrified scimitar. You tense, ready to strike. Maybe if you defeat him, you will rule his kind?
 
 ENEMY
-100000/100000 Health.
+114273750/200000000 Health.
 
-925/7500 Mana.
+1500000/1500000 Mana.
 
 YOU
 
-10460/11030 Health.
+10000000/10000000 Health.
 
-700/780 Mana.
+999686/999750 Mana.
 
 MOVES
 
-'Q': Lacerate
+'Q': Tendril Lash
 
 'W': Drain Life
 
 'E': Haunt
 
-'R': Empty
+'R': Extinguish Life
 
 'O': Pass your turn.
-> e
+> q
 
 A Fight Happens
 
-You send a smokey rush of dark magic into your opponent. They shiver in terror.
+You lash at your enemy with your tendrils. You tear off some of the mass for yourself! 5008749.999999998 physical damage!
 
-Enemy magic damage done decreased! Enemy physical damage taken increased!
+Health restored to you!
 
- I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+ Al'Akir's arm moves with surprising grace for such a colossal creature, and the scimitar comes down! You dodge, but it still slices and fries one of your tentacles! 360574.4999999969 physical damage!
 
 Enter 'C' to continue.
 > c
@@ -49,39 +60,39 @@ Enter 'C' to continue.
 Battle!
 You can check your Opponent and Yourself.
 
-I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+A'Akir the Windlord towers above you, brandishing a colossal, electrified scimitar. You tense, ready to strike. Maybe if you defeat him, you will rule his kind?
 
 ENEMY
-100000/100000 Health.
+109265000/200000000 Health.
 
-875/7500 Mana.
+1500000/1500000 Mana.
 
 YOU
 
-10430/11030 Health.
+10000000/10000000 Health.
 
-696/780 Mana.
+999686/999750 Mana.
 
 MOVES
 
-'Q': Lacerate
+'Q': Tendril Lash
 
 'W': Drain Life
 
 'E': Haunt
 
-'R': Empty
+'R': Extinguish Life
 
 'O': Pass your turn.
-> e
+> q
 
 A Fight Happens
 
-You send a smokey rush of dark magic into your opponent. They shiver in terror.
+You lash at your enemy with your tendrils. You tear off some of the mass for yourself! 5008749.999999998 physical damage!
 
-Enemy magic damage done decreased! Enemy physical damage taken increased!
+Health restored to you!
 
- I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+ 'Winds, obey my command!' Al'Akir shouts. Suddenly, a torrent of winds lifts you up into the air. Then, Al'Akir points his sword at you and electrocutes you, before dropping you back down. 344045.6249999971 magical damage!
 
 Enter 'C' to continue.
 > c
@@ -89,39 +100,41 @@ Enter 'C' to continue.
 Battle!
 You can check your Opponent and Yourself.
 
-I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+A'Akir the Windlord towers above you, brandishing a colossal, electrified scimitar. You tense, ready to strike. Maybe if you defeat him, you will rule his kind?
 
 ENEMY
-100000/100000 Health.
+104256250/200000000 Health.
 
-825/7500 Mana.
+1500000/1500000 Mana.
 
 YOU
 
-10400/11030 Health.
+10000000/10000000 Health.
 
-692/780 Mana.
+999686/999750 Mana.
 
 MOVES
 
-'Q': Lacerate
+'Q': Tendril Lash
 
 'W': Drain Life
 
 'E': Haunt
 
-'R': Empty
+'R': Extinguish Life
 
 'O': Pass your turn.
-> e
+> q
 
 A Fight Happens
 
-You send a smokey rush of dark magic into your opponent. They shiver in terror.
+You lash at your enemy with your tendrils. You tear off some of the mass for yourself! 5008749.999999998 physical damage!
 
-Enemy magic damage done decreased! Enemy physical damage taken increased!
+Health restored to you!
 
- I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
+ Badly hurt, Al'Akir roars, 'ENOUGH!'. Suddenly he's growing to twice, thrice, ten times his size and the platform is just gone. You're floating before Al'Akir while a tornado rages around you. 'I will no longer be contained!'.
+
+Enemy is now impervious to regular attacks.
 
 Enter 'C' to continue.
 > c
@@ -129,172 +142,159 @@ Enter 'C' to continue.
 Battle!
 You can check your Opponent and Yourself.
 
-I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
+Al'Akir has sundered the platform, and you are suspended before his giant form. The winds won't let you get in a normal attack, but surely there's something that will get through?
 
 ENEMY
-100000/100000 Health.
+99247500/200000000 Health.
 
-775/7500 Mana.
+1500000/1500000 Mana.
 
 YOU
 
-10370/11030 Health.
+10000000/10000000 Health.
 
-688/780 Mana.
+999686/999750 Mana.
 
 MOVES
 
-'Q': Lacerate
+'Q': Tendril Lash
 
 'W': Drain Life
 
 'E': Haunt
 
-'R': Empty
+'R': Extinguish Life
 
 'O': Pass your turn.
-> e
-
-A Fight Happens
-
-You send a smokey rush of dark magic into your opponent. They shiver in terror.
-
-Enemy magic damage done decreased! Enemy physical damage taken increased!
-
- I'Thaq's tentacles wave around in a whirlwind of motion, charging an immense spell. At the same time, other tendrils strike viciously at you! You try to dodge, but are still clipped. 30 physical damage!
-
-Enter 'C' to continue.
-> c
-
-Battle!
-You can check your Opponent and Yourself.
-
-I'Thaq is looking very tired, but it still has a lot of fight left in it. Nothing is inhibiting it anymore, and it's ready to turn its full fury upon you!
-
-ENEMY
-100000/100000 Health.
-
-725/7500 Mana.
-
-YOU
-
-10340/11030 Health.
-
-684/780 Mana.
-
-MOVES
-
-'Q': Lacerate
-
-'W': Drain Life
-
-'E': Haunt
-
-'R': Empty
-
-'O': Pass your turn.
-> e
-
-A Fight Happens
-
-You send a smokey rush of dark magic into your opponent. They shiver in terror.
-
-Enemy magic damage done decreased! Enemy physical damage taken increased!
-
- Suddenly, its spell is finished. Darkness implodes upon your vision. Life is drained from you, your magic explodes from within, your armor plating impales you. When it is finished you float limply. 9104.722862933591 magical damage!
-
-Enter 'C' to continue.
-> c
-
-Watery Cave
-
-Even after having weakened I'Thaq, it hurts so, so much. You can't move your tentacles. You can't snap with your jaws, or conjure your magic. You just... float there. I'Thaq pants, taking in a rush of water, and begins to laugh. Lowly, slowly, but faster and faster as time passes.
-
-Eventually, its laughter stops. "I... I did it! I did it!" it cheers.
-
-But with your magical sonar, you see someone approaching. Y'Shaarj has healed the worst of its bleeding and is dragging itself into range. By the time I'Thaq stops laughing, it's already opening all four mouths. You've seen this spell before. The more mana someone is missing, and the stronger Y'Shaarj is, the more it hurts and nothing can diminish it. With as much mana as I'Thaq spent, and as powerful as Y'Shaarj is, there is no hope for it to survive.
-
-You will recover. You'll be able to divide up I'Thaq and go outside. You'll kill the elemental, see the rest of the world, and -
-
-"Oh no!" I'Thaq shouts, suddenly understanding. Suddenly a brilliant blue light flashes around its white body. Horror fills you. It just recharged most of its mana...
-
-94200 chaos damage to I'Thaq!
-
-It has 5800/100000 health.
-
-A corona of bright blue energy explodes from I'Thaq. It spurts from its mouths, from its tentacles, from in between its armor plates, shrouding it with a halo of its own lost magic. It screams, piercingly high, and goes limp, but already it's taking in vast gulps of water and once again struggling to move.
-
-... it wasn't enough. Y'Shaarj's greatest spell wasn't enough.
-
-"Come on, come on," I'Thaq mutters to itself audibly. "I can do this. I can do this." Suddenly, a plethora of its tentacles reach out and grab you, pulling you close. "Just a little more," it mutters.
-
-You struggle, thrashing around, but the water around you begins to burn with acid, and you can feel bits and pieces of you sloughing off and being absorbed by I'Thaq. There has to be a way out of this. There has to!
-
-You can't harm it physically.
-
-You can't harm it magically.
-
-You can't weaken it enough to save yourself.
-
-Even as you're drained, you desperately rearrange your molecules and cells and arcanite. There has to be a way out of this. There has to!
-
-You make your best guess and, with the last of your strength, focus...
-
-'R': ???
 > r
 
-Watery Cave
+A Fight Happens
+
+Your body lurches. The thousands of foreign souls squirming within you begin to flow like a river, exploding out from within. You shatter them and send the power at your foe to deal grievous damage! 100000000 chaos damage!
+
+Enter 'C' to continue.
+> c
+
+Al'Akir the Windlord
+You can go east.
+
+You feel like you're going to throw up. You'd stored so many souls within you that to expell them all, at so high a rate, makes it feel like you're being turned inside out. They just keep coming and coming, shattering around you in a halo and battering into the titanic elemental lord. The winds holding you aloft are weakening, and the tornado surrounding Al'Akir is dissipating. He's roaring and protesting, but shrinking and falling lower and lower. You're falling with him at a comfortable pace, past the clouds, past the structures his kind built, past the legions of air elementals staring in disbelief as their lord falls to the earth and you're still releasing souls.
+
+Soon you're on the ground and Al'Akir is back to normal size, and only then does your onslaught finally end. You're still dizzy and twitching from stray lightning bolts, but Al'Akir is much worse off.
+
+He's about to be even worse off.
+
+You strike with your dark magic, bringing the curled-over elemental lord all the way down while crawling around to his head. You bend him over backwards and throw his scimitar out of reach, then pin his arms and head to the stoney land and push your telepathy in brutally hard."You," you say. "You work for me now." You open your many maws and siphon magic off of his defeated form, using it to grow even stronger. "When we're done here, you'll take your armies and battle whoever is leading the fire elementals, understood?"
+
+Al'Akir's static eyes glare at you hatefully, but eventually he snarls, "Understood, creature. Release me at once!"
+
+"In a moment," you say menacingly. "I just need to make sure you mean it."
+
+"What do you mean... by... that... " Al'Akir asks, trailing off as you push your magic even deeper into his mind, and start rewriting his soul. Before long, Al'Akir is tied to your will utterly.
+
+"There. Now you meant it," you say, crawling back and releasing the elemental lord. "Fire elementals. Don't kill their leader, kill their servants and keep me safe. Get to it."
+
+Al'Akir looks down and you. He holds out a hand and his weapon flies into it. Then he bows his head. "Yes, master."
+> east
+
+Dominion
 You can go out.
 
-You grab something.
+After that, life is... surprisingly good. With Al'Akir under your  command, you finally get some actual semblence of security. You remain behind in their domain, occasionally reinforcing your mind control. Their elemental armies go forth and devastate the others, and with sacrificial rites offer you the souls of those they destroy. You grow to actually quite enjoy the soul offerings. The power, the rush of well being and fullness, the sharp electric flavor, the way they squirm inside of you...
 
-You don't know what. It's not matter. It's not magic. It's something deeper, something integral to I'Thaq's being that it'd be nothing without.
+You continue to grow in size and strength, occasionally collapsing the souls in order to grow ever larger, ever more powerful. You keep growing until you're the size of Al'Akir, then bigger than them. You continue to tune your weapons and body, adjusting yourself. It's getting harder to make large-scale changes with a body so massive, so you settle on having eight legs out from a center, filled with tentacles of three main varieties but with some less common ones as you see fit. There's armor, there's magic globules. You move your brain into a head and then attach that head to a long snake-like growth from the center of your body, and cover the head with a plethora of maws and fangs.
 
-So you pull.
+You take up residence at Al'Akir's domain, carving out an area specifically for you. With your height you can see the very curvature of the planet, and soon you'll venture out and see the entire thing. You are the size of a mountain, with dozens of souls, thousands of souls influxing every second, and the landscape never stays the same. It's always bucking and rolling, storms coming and going, mountains rising and falling... this is the life.
 
-19 chaos damage to I'Thaq!
+You crawl forward, dragging yourself over the stone plains of the world. As you do, you effortlessly crush the elementals you pass over and steal their souls. Some of them belong to Al'Akir, but what are they going to do about it? Nothing.
 
-It shrieks and pulls away from you. Instantly you open your mouths for a deep gulp of water. Fresh, pure water free of acid. I'Thaq's made some distance between you two, but you aren't willing to give up. Your magic is still grabbing onto that something, so you pull again.
+Suddenly, you feel a chill. There, in the distance. Just before the horizon, there's something huge. And purple... and it has tentacles. You suddenly start rushing over to them. Impossible. You thought it was dead, could it be... ?
+> out
 
-385 chaos damage to I'Thaq!
+Reunion
+You can go out.
 
-You pull again.
+It is! It's N'Zoth! It's the size of a mountain with millions of tentacles, some larger than others, but it's N'Zoth. The same purple plates with yellow undersides, the same suction cups, the same head with fanged maws stitched together in the middle, with the same red eye.
 
-7600 chaos damage to I'Thaq!
+... red eyes. N'Zoth has three eyes now.
 
-You don't even see what you're doing. You barely even hear how its shrieks are growing quieter, or how it feels like something foreign is entering you. You pull one last time...
+You push your telepathy to N'Zoth. "Well look at you!" you say excitedly. "What happened?! We all got separated so fast, I thought you were dead!" you babble, your entire body going slack with relief because your friend is alright, and if it's alright then the others might be alright too! "Where have you been, are the others alright, have you seen these elementals, have - "
 
-150000 chaos damage to I'Thaq!
+"Yogg, Yogg!" it shouts, crawling over and bumping a larger tentacle against you. "Calm down. Ca-a-alm down. Everything's fine. So, let me explain..."
 
-Something horribly unfamiliar enters you, and you let go on reflex when you realize there's nothing left to hold. You drift backwards from I'Thaq's body, staring numbly at what you've done.
+N'Zoth launches into a story, explaining how it was whisked away and washed up on a shore, forced to frantically battle against legions of Earth elementals. How it was forced to dip into searing heat, dizzying heights, and crushing water to avoid being ground to dust. Of devouring souls to grow stronger and larger, tapping into darker and darker powers until N'Zoth could finally bring an elemental lord to heel.
 
-It's gone totally limp. Blue trails of mana still leak from its orifices, but now there's something lacking about it. It's discolored, and looks so frail you feel you could shatter it with a touch. Not to mention the squirming thing inside of you.
+"Truly, you battled and defeated one of their lords?" you ask. "I have too," you explain. "Al'Akir, actually.'
 
-C'Thun, N'Zoth, and Y'Shaarj eventually recover enough to approach you, and you recover enough to approach them.
+"The others have too," N'Zoth says. "We were wondering where you vanished off to. Also explains why those elementals are acting more vicious these days."
 
-"We... we did it," C'Thun whispers. "We actually did it!" It crosses two of its tendrils angrily. "Lot of help I was."
+"Small world," you joke.
 
-"It happens," N'Zoth reassures.
+"Small world," N'Zoth says with a grin in its voice. "Come on, let me introduce you to the others. They are at the north pole right now."
 
-"Quite," you say. "We couldn't have predicted it'd be THAT powerful. Come on, lets divide it up. Also, can anyone tell me what I actually did? I was too busy trying not to die to pay attention."
+N'Zoth leads you north, past towering glaciers - that aren't so towering once you're the size of a mountain - and erupting supervolcanoes, all the way to the frigid pole where, as it said, C'Thun and Y'Shaarj are. Currently C'Thun is embroiled in what appears to be a magical puzzle created by Y'Shaarj, twisting and turning a complex cube made of billions of purple lines.
 
-That gets a laugh from the others. N'Zoth tears I'Thaq's corpse into four even pieces, which you begin assimilating. It's tough, given how dense the armor is, but you can make do.
+You spend some time catching up with the others on your journey, wrapping each other up into a giant, spikey betentacled ball. They're alive.
 
-"You were draining something purple from it. Well, purple, teal, and gray. Whatever that was, you pulled it out of I'Thraq and then it died," Y'Shaarj explains. "Think you can share that with us?"
+You're all alive, and so hideously, impossibly powerful that nothing can ever threaten your lives ever again. You can do whatever you want, whenever you want. Create fleshy servents to worship you, to sacrifice souls to you, create a weak and feeble race that can't grow strong and harvest them for souls and misery. You can have them build temples in your honor, and thrones the size of mountain ranges, all while you grow stronger and stronger, and the elementals wage bloody, endless war against each other like you were made to do against your own kind.
 
-"Sure, sure. Let's just finish this up first," you say, pointing back to the melting bits of I'Thaq you're absorbing.
+And that's exactly what you four do.
 
-A little while later, the four of you are done. You finish expending any remaining mass, and while you aren't quite sure what you've done yet, you give the spell to the others.
+This entire world belongs to you four now.
+> out
 
-The caverns are empty, and you've grown so much. The exit to the rest of the world might actually be too small for more than one of you to go at once. But you're ready.
+Your World
+You can go west, north, south or east.
 
-It's time to leave.
+The sky is red and life is wonderful. Your servants, the insectoid aqir and betentacled n'raqi, roam around the world, torturing lesser races - that you also created just to be tortured - and feed the anguish to you. Your millions of gibbering maws are open to take in the souls and suffering. It rushes through your body in a torrent of well-being.
 
-(New upgrades are available!)
+The land is black and weeps blood, the air is thick and the clouds are black. The seas are violent and frothing, and all the fire is black and smoldering.
 
-(+1 Soul!)
+To the north is the throne you've been having your favorite n'raqi - you call him General Vezax - construct.
 
-(New stats are available!)
+To the south is Y'Shaarj's throne, you could drop by for a visit.
 
-(New abilities unlocked!)
-[state=Running]
+To the east is N'Zoth's throne, you could drop by for a visit.
+
+To the west is C'Thun's throne, you could drop by for a visit.
+
+You're enormous. Literally the size of a continent, so huge your body has to conform to the curvature of the world. You can't imagine what you would have done, upon coming into existence, if you'd known this was where you'd end up. As such a tiny thing, you literally could not have comprehended the sheer scale you possess now. Indeed, you've come very far. You all have.
+
+It feels like a good time to see exactly just how far you've come since you came into being.
+
+(Enter 's' to check your current status)
+
+(Enter 'u' to bring up the Upgrades menu)
+> north
+
+Your Throne
+You can go south or in.
+
+You are tireless and neverending, but you have to admit it's nice to have a throne to come back to. To have a home, something that says 'this is where I am secure'. It's made of pillars of black stone, capped with blue-green rocks that shoot lasers at intruders. It's perfectly molded for the endless twists and turns of your body, and the hard rock is just what your boneless - though certainly not squishy - body needs to relax and enjoy some refined anguish.
+
+You feel like retiring into your throne, but you also want to get a good look around and appreciate how far the four of you have come.
+
+Once you go into your throne, your rise to power will be truly complete.
+> in
+
+So it ends.
+
+You are tireless and neverending.
+
+But you don't think you could get any more powerful if you tried.
+
+And really, why would you? The four of you are safe. The others of your kind in the cove are all dead, you made sure of that. The elementals are firmly under your rule, the n'raqi and aqir were CREATED to worship you, and the lesser races you created beneath them are powerless by design. Your dark powers reach wide and far, your strength can shake worlds, and your stamina can survive the destruction of planets.
+
+Time passes. You make puzzles for the others, and solve puzzles by the others. Your play-war against N'Zoth wages back and forth, with Y'Shaarj coming in with its vast - even by your standards - power to tip the odds now and then. You spar against the other three, though it's not for actual practice but more for old times' sake.
+
+Under your command, the elementals keep reshaping the world. Your surroundings keep changing, you will NEVER be locked into a static realm ever again. You want to see every possible arrangement, again and again, and nothing will ever be static or predictable ever again. And if you tire of this world?
+
+Well, you're sure you can find some others that could use your brand of... excitement.
+
+But for now you're content with this world. With your friends C'Thun, N'Zoth and Y'Shaarj, the future is looking bright.
+
+You think back to how little you were, how powerless. The elementals should have killed you when they had the chance, because you will take your revenge a thousand-fold. Back before being attacked for the first time you were so filled with wonder, excitement, with 'what could be around this corner'. You want that feeling. You get that feeling, because you're a god  now and gods get whatever they want whenever they want. Unpredictable change runs free, and you four are so powerful the changes can't even come close to harming you. This world, this universe, is your playground from now until the end of time. Their clocks have run down. You have gathered your power.
+
+Finally, death has risen.
+
+[state=Finished]

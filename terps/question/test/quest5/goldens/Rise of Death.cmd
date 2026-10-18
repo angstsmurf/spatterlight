@@ -2557,13180 +2557,8 @@ c
 look
 out
 go north
-go south
 go north
-go south
-go east
-go north
-go east
-go south
-go north
-go south
-go north
-go south
-go west
-go west
-go north
-go north
-go east
-go west
-go east
-go west
-go north
-go east
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go west
-go east
-go south
-go east
-go west
-go west
-go north
-go west
-go south
-go south
-go north
-go south
-go west
-go east
-go east
-go west
-go west
-go north
-go south
-go north
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go east
-go north
-go east
-go west
-go south
-go east
-go north
-go east
-go south
-go north
-go east
-go north
-go south
-go north
-go south
-go west
-go south
-go east
-go north
-go north
-go west
-go west
-go west
-go north
-go south
-go west
-go east
-go north
-go west
-go east
-go east
-go west
-go west
-go south
-go east
-go south
-go north
-go south
-go south
-go east
-go east
-go east
-go west
-go west
-go east
-go west
-go east
-go west
-go north
-go east
-go north
-go south
-go east
-go north
-go west
-go north
-go south
-go west
-go north
-go east
-go west
-go south
-go south
-go east
-go north
-go north
-go west
-go south
-go east
-go west
-go west
-go west
-go east
-go west
-go north
-go south
-go north
-go east
-go south
-go north
-go south
-go south
-go west
-go north
-go north
-go east
-go east
-go east
-go south
-go east
-go north
-go west
-go west
-go east
-go east
-go west
-go west
-go east
-go west
-go south
-go west
-go south
-go south
-go north
-go north
-go west
-go east
-go south
-go north
-go north
-go south
-go west
-go north
-go east
-go south
-go east
-go north
-go east
-go south
-go east
-go west
-go west
-go west
-go north
-go south
-go east
-go east
-go south
-go north
-go east
-go north
-go west
-go east
-go west
-go west
-go east
-go east
-go south
-go north
-go west
-go east
-go south
-go south
-go north
-go north
-go west
-go south
-go south
-go north
-go north
-go south
-go west
-go south
-go west
-go north
-go west
-go south
-go east
-go north
-go north
-go west
-go east
-go south
-go west
-go south
-go east
-go west
-go north
-go south
-go east
-go west
-go north
-go north
-go south
-go east
-go south
-go west
-go south
-go east
-go north
-go east
-go north
-go north
-go east
-go south
-go west
-go west
-go north
-go south
-go north
-go west
-go south
-go east
-go south
-go south
-go east
-go north
-go south
-go east
-go west
-go north
-go north
-go north
-go south
-go east
-go north
-go west
-go south
-go south
-go east
-go east
-go west
-go east
-go west
-go south
-go west
-go east
-go east
-go north
-go west
-go north
-go south
-go north
-go west
-go north
-go south
-go south
-go east
-go south
-go east
-go west
-go west
-go east
-go west
-go east
-go north
-go east
-go south
-go west
-go north
-go west
-go east
-go south
-go east
-go north
-go west
-go south
-go north
-go north
-go south
-go west
-go east
-go west
-go east
-go west
-go south
-go east
-go east
-go west
-go west
-go north
-go south
-go north
-go west
-go south
-go west
-go east
-go west
-go north
-go east
-go south
-go east
-go east
-go east
-go west
-go north
-go north
-go west
-go north
-go east
-go south
-go north
-go south
-go north
-go south
-go north
-go south
-go south
-go west
-go west
-go south
-go east
-go north
-go west
-go north
-go south
-go east
-go west
-go east
-go east
-go south
-go west
-go east
-go east
-go west
-go north
-go north
-go south
-go west
-go south
-go east
-go west
-go east
-go east
-go north
-go south
-go west
-go west
-go west
-go west
-go north
-go east
-go east
-go south
-go east
-go west
-go east
-go east
-go north
-go south
-go west
-go west
-go west
-go north
-go west
-go east
-go east
-go east
-go south
-go east
-go west
-go west
-go north
-go east
-go north
-go east
-go south
-go south
-go west
-go east
-go west
-go north
-go north
-go south
-go north
-go west
-go south
-go west
-go east
-go north
-go west
-go east
-go west
-go east
-go east
-go east
-go west
-go south
-go east
-go south
-go north
-go north
-go west
-go east
-go north
-go west
-go west
-go west
-go east
-go west
-go east
-go south
-go east
-go east
-go north
-go south
-go south
-go west
-go south
-go east
-go west
-go east
-go north
-go south
-go north
-go west
-go north
-go south
-go east
-go north
-go north
-go west
-go east
-go west
-go west
-go west
-go south
-go south
-go west
-go east
-go north
-go east
-go north
-go west
-go south
-go east
-go west
-go north
-go west
-go south
-go south
-go south
-go north
-go east
-go west
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go north
-go south
-go north
-go west
-go east
-go east
-go east
-go west
-go south
-go south
-go east
-go north
-go south
-go east
-go north
-go west
-go north
-go north
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go west
-go west
-go east
-go west
-go south
-go south
-go south
-go east
-go west
-go east
-go west
-go north
-go south
-go east
-go east
-go north
-go east
-go south
-go west
-go west
-go east
-go west
-go west
-go east
-go west
-go north
-go south
-go east
-go west
-go east
-go east
-go north
-go south
-go north
-go west
-go west
-go south
-go north
-go north
-go south
-go east
-go south
-go west
-go east
-go north
-go north
-go west
-go north
-go east
-go east
-go south
-go north
-go west
-go south
-go west
-go north
-go south
-go south
-go east
-go west
-go east
-go north
-go north
-go west
-go south
-go south
-go south
-go north
-go south
-go east
-go west
-go north
-go north
-go north
-go south
-go east
-go west
-go north
-go east
-go east
-go east
-go south
-go north
-go south
-go west
-go north
-go west
-go west
-go south
-go east
-go west
-go east
-go east
-go west
-go south
-go east
-go south
-go east
-go west
-go west
-go north
-go west
-go east
-go north
-go north
-go west
-go east
-go west
-go south
-go south
-go east
-go north
-go south
-go south
-go east
-go north
-go west
-go east
-go south
-go east
-go west
-go west
-go north
-go north
-go north
-go west
-go east
-go east
-go east
-go west
-go south
-go north
-go south
-go north
-go east
-go east
-go south
-go north
-go south
-go south
-go west
-go east
-go west
-go west
-go west
-go east
-go north
-go east
-go east
-go west
-go west
-go west
-go east
-go south
-go west
-go south
-go north
-go north
-go east
-go east
-go east
-go south
-go north
-go north
-go west
-go west
-go west
-go east
-go south
-go east
-go east
-go north
-go south
-go south
-go south
-go north
-go north
-go west
-go north
-go south
-go west
-go west
-go east
-go north
-go south
-go south
-go east
-go east
-go west
-go north
-go north
-go east
-go south
-go west
-go north
-go west
-go east
-go west
-go east
-go south
-go south
-go north
-go south
-go north
-go west
-go east
-go south
-go east
-go west
-go north
-go west
-go south
-go west
-go west
-go south
-go east
-go west
-go north
-go east
-go north
-go west
-go east
-go north
-go west
-go east
-go south
-go west
-go south
-go east
-go west
-go east
-go west
-go south
-go east
-go north
-go east
-go west
-go north
-go north
-go south
-go south
-go east
-go east
-go west
-go south
-go east
-go east
-go north
-go west
-go south
-go north
-go north
-go south
-go south
-go west
-go east
-go east
-go west
-go east
-go north
-go west
-go south
-go west
-go east
-go north
-go west
-go north
-go south
-go south
-go west
-go east
-go east
-go north
-go north
-go west
-go south
-go north
-go west
-go south
-go south
-go north
-go north
-go east
-go north
-go east
-go south
-go north
-go east
-go south
-go west
-go north
-go east
-go west
-go west
-go east
-go south
-go east
-go north
-go south
-go south
-go south
-go north
-go north
-go west
-go south
-go south
-go west
-go west
-go east
-go north
-go east
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go south
-go north
-go west
-go north
-go west
-go east
-go south
-go west
-go west
-go south
-go west
-go north
-go south
-go east
-go north
-go west
-go south
-go east
-go east
-go west
-go east
-go north
-go east
-go north
-go south
-go west
-go north
-go east
-go east
-go south
-go north
-go west
-go west
-go east
-go north
-go west
-go south
-go north
-go east
-go east
-go west
-go west
-go west
-go south
-go west
-go north
-go east
-go west
-go south
-go south
-go north
-go south
-go south
-go north
-go north
-go south
-go east
-go north
-go west
-go east
-go west
-go east
-go west
-go south
-go north
-go east
-go south
-go east
-go north
-go south
-go west
-go west
-go north
-go east
-go north
-go east
-go east
-go east
-go south
-go west
-go north
-go west
-go east
-go west
-go east
-go east
-go west
-go east
-go west
-go east
-go south
-go north
-go west
-go west
-go south
-go south
-go east
-go east
-go north
-go north
-go south
-go west
-go east
-go south
-go south
-go west
-go east
-go west
-go west
-go east
-go north
-go west
-go east
-go south
-go west
-go north
-go south
-go east
-go north
-go south
-go east
-go west
-go east
-go north
-go north
-go south
-go west
-go north
-go east
-go south
-go north
-go north
-go west
-go south
-go east
-go north
-go west
-go west
-go south
-go south
-go north
-go south
-go south
-go west
-go east
-go west
-go north
-go south
-go west
-go north
-go east
-go south
-go north
-go west
-go south
-go north
-go east
-go east
-go north
-go west
-go north
-go east
-go east
-go west
-go south
-go south
-go north
-go west
-go west
-go east
-go east
-go west
-go north
-go east
-go south
-go south
-go west
-go west
-go south
-go north
-go east
-go west
-go east
-go east
-go north
-go north
-go east
-go west
-go east
-go east
-go south
-go south
-go west
-go north
-go east
-go north
-go west
-go south
-go west
-go north
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go north
-go south
-go west
-go north
-go west
-go east
-go east
-go east
-go south
-go west
-go east
-go east
-go north
-go south
-go west
-go north
-go south
-go north
-go south
-go south
-go north
-go south
-go west
-go north
-go north
-go south
-go south
-go north
-go north
-go east
-go east
-go west
-go south
-go north
-go west
-go east
-go west
-go south
-go north
-go east
-go west
-go west
-go east
-go east
-go east
-go south
-go south
-go south
-go west
-go west
-go north
-go east
-go east
-go north
-go west
-go east
-go north
-go south
-go north
-go west
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go east
-go west
-go west
-go north
-go west
-go east
-go south
-go west
-go east
-go south
-go south
-go east
-go west
-go north
-go south
-go west
-go east
-go west
-go north
-go north
-go west
-go north
-go south
-go north
-go east
-go west
-go south
-go east
-go west
-go east
-go north
-go east
-go south
-go south
-go south
-go west
-go east
-go west
-go east
-go north
-go east
-go south
-go west
-go north
-go east
-go south
-go north
-go north
-go south
-go south
-go west
-go west
-go north
-go west
-go south
-go north
-go east
-go north
-go west
-go east
-go east
-go south
-go south
-go west
-go north
-go south
-go north
-go east
-go east
-go west
-go west
-go south
-go north
-go north
-go north
-go south
-go south
-go east
-go west
-go north
-go west
-go north
-go east
-go east
-go east
-go east
-go south
-go south
-go west
-go south
-go north
-go west
-go north
-go south
-go west
-go west
-go south
-go north
-go east
-go west
-go east
-go west
-go north
-go east
-go north
-go east
-go east
-go south
-go west
-go south
-go north
-go south
-go east
-go east
-go north
-go north
-go south
-go north
-go south
-go north
-go south
-go west
-go west
-go east
-go east
-go west
-go east
-go south
-go west
-go west
-go west
-go east
-go east
-go east
-go north
-go north
-go west
-go east
-go south
-go west
-go north
-go south
-go west
-go south
-go east
-go south
-go north
-go east
-go north
-go south
-go north
-go north
-go west
-go west
-go west
-go south
-go north
-go east
-go south
-go north
-go east
-go east
-go west
-go west
-go east
-go south
-go east
-go west
-go south
-go south
-go north
-go east
-go south
-go north
-go north
-go north
-go south
-go south
-go north
-go west
-go east
-go north
-go west
-go east
-go south
-go west
-go west
-go west
-go south
-go west
-go south
-go north
-go north
-go east
-go north
-go south
-go north
-go west
-go east
-go east
-go west
-go south
-go west
-go north
-go south
-go east
-go north
-go south
-go east
-go west
-go west
-go east
-go east
-go east
-go east
-go north
-go west
-go west
-go east
-go south
-go east
-go west
-go east
-go west
-go east
-go north
-go west
-go south
-go east
-go west
-go south
-go west
-go east
-go north
-go east
-go west
-go west
-go west
-go east
-go east
-go east
-go north
-go west
-go south
-go south
-go north
-go east
-go west
-go east
-go north
-go west
-go west
-go west
-go west
-go south
-go south
-go east
-go south
-go west
-go north
-go east
-go south
-go west
-go north
-go south
-go east
-go west
-go east
-go west
-go east
-go west
-go north
-go north
-go east
-go west
-go north
-go east
-go south
-go south
-go west
-go south
-go east
-go north
-go west
-go south
-go east
-go east
-go west
-go west
-go east
-go west
-go east
-go west
-go north
-go north
-go south
-go north
-go east
-go south
-go west
-go north
-go east
-go north
-go east
-go east
-go south
-go east
-go south
-go north
-go north
-go west
-go south
-go south
-go south
-go east
-go north
-go south
-go west
-go west
-go north
-go east
-go south
-go east
-go north
-go south
-go north
-go north
-go north
-go west
-go west
-go south
-go west
-go north
-go east
-go south
-go east
-go south
-go south
-go north
-go west
-go north
-go south
-go west
-go north
-go north
-go south
-go south
-go west
-go east
-go south
-go west
-go east
-go north
-go west
-go south
-go north
-go north
-go north
-go east
-go south
-go west
-go east
-go south
-go south
-go east
-go east
-go west
-go east
-go west
-go north
-go east
-go west
-go east
-go west
-go north
-go west
-go west
-go south
-go north
-go south
-go south
-go north
-go east
-go east
-go east
-go south
-go east
-go north
-go south
-go west
-go east
-go north
-go south
-go west
-go north
-go south
-go west
-go east
-go east
-go north
-go north
-go north
-go south
-go west
-go west
-go north
-go south
-go north
-go east
-go south
-go west
-go west
-go east
-go north
-go west
-go west
-go south
-go north
-go east
-go west
-go east
-go west
-go east
-go west
-go south
-go south
-go south
-go east
-go north
-go north
-go west
-go north
-go south
-go east
-go north
-go west
-go east
-go east
-go west
-go south
-go west
-go east
-go west
-go north
-go south
-go east
-go north
-go south
-go west
-go north
-go south
-go north
-go east
-go south
-go south
-go south
-go west
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go north
-go east
-go south
-go west
-go west
-go north
-go east
-go east
-go east
-go north
-go north
-go south
-go south
-go south
-go east
-go west
-go west
-go north
-go north
-go west
-go north
-go west
-go east
-go east
-go east
-go east
-go west
-go west
-go south
-go west
-go west
-go south
-go north
-go north
-go south
-go south
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go north
-go south
-go north
-go west
-go south
-go east
-go south
-go west
-go east
-go north
-go south
-go west
-go north
-go south
-go north
-go north
-go north
-go east
-go south
-go south
-go west
-go south
-go north
-go east
-go east
-go south
-go east
-go north
-go south
-go north
-go east
-go north
-go west
-go west
-go east
-go south
-go south
-go north
-go east
-go north
-go west
-go west
-go west
-go north
-go west
-go east
-go east
-go west
-go south
-go west
-go north
-go east
-go south
-go south
-go west
-go south
-go east
-go north
-go east
-go north
-go east
-go east
-go south
-go south
-go west
-go east
-go north
-go south
-go west
-go west
-go west
-go east
-go north
-go north
-go west
-go north
-go east
-go south
-go east
-go west
-go south
-go north
-go north
-go south
-go south
-go north
-go south
-go north
-go north
-go south
-go east
-go west
-go south
-go east
-go east
-go north
-go west
-go south
-go east
-go north
-go south
-go south
-go west
-go east
-go west
-go north
-go north
-go west
-go south
-go east
-go south
-go west
-go west
-go north
-go west
-go south
-go north
-go south
-go north
-go south
-go east
-go west
-go north
-go south
-go north
-go south
-go north
-go north
-go south
-go north
-go south
-go east
-go north
-go east
-go south
-go west
-go south
-go north
-go south
-go east
-go north
-go east
-go east
-go south
-go north
-go north
-go north
-go west
-go west
-go west
-go east
-go east
-go east
-go west
-go west
-go south
-go east
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go east
-go west
-go west
-go east
-go west
-go south
-go south
-go south
-go east
-go west
-go east
-go west
-go east
-go west
-go north
-go east
-go north
-go east
-go west
-go north
-go south
-go north
-go west
-go east
-go east
-go south
-go north
-go west
-go west
-go west
-go south
-go east
-go east
-go north
-go east
-go west
-go south
-go east
-go south
-go west
-go east
-go north
-go north
-go west
-go east
-go west
-go east
-go west
-go west
-go east
-go west
-go south
-go west
-go north
-go south
-go west
-go east
-go south
-go west
-go north
-go east
-go south
-go north
-go north
-go south
-go south
-go east
-go east
-go east
-go west
-go east
-go north
-go north
-go west
-go west
-go west
-go west
-go east
-go west
-go east
-go west
-go south
-go north
-go south
-go south
-go north
-go east
-go west
-go east
-go south
-go west
-go north
-go south
-go south
-go north
-go south
-go north
-go north
-go south
-go south
-go north
-go east
-go south
-go north
-go east
-go west
-go south
-go north
-go north
-go west
-go south
-go south
-go north
-go north
-go east
-go north
-go west
-go east
-go west
-go south
-go south
-go south
-go east
-go north
-go east
-go south
-go east
-go north
-go west
-go south
-go north
-go north
-go south
-go east
-go north
-go north
-go east
-go west
-go west
-go south
-go east
-go north
-go west
-go south
-go west
-go south
-go east
-go north
-go north
-go south
-go east
-go south
-go east
-go west
-go north
-go south
-go south
-go west
-go north
-go west
-go west
-go east
-go west
-go east
-go west
-go north
-go south
-go south
-go north
-go south
-go east
-go east
-go east
-go west
-go west
-go east
-go west
-go north
-go north
-go east
-go west
-go south
-go east
-go south
-go west
-go north
-go east
-go east
-go east
-go west
-go north
-go west
-go south
-go south
-go west
-go east
-go west
-go north
-go west
-go south
-go east
-go west
-go east
-go east
-go west
-go east
-go east
-go east
-go west
-go north
-go south
-go north
-go north
-go north
-go east
-go south
-go west
-go east
-go south
-go south
-go west
-go north
-go east
-go north
-go north
-go south
-go west
-go north
-go east
-go south
-go west
-go west
-go west
-go east
-go south
-go south
-go east
-go north
-go east
-go west
-go south
-go north
-go north
-go east
-go west
-go west
-go south
-go east
-go west
-go south
-go north
-go north
-go east
-go north
-go west
-go west
-go west
-go south
-go east
-go south
-go north
-go north
-go east
-go west
-go east
-go east
-go south
-go east
-go south
-go north
-go west
-go east
-go west
-go west
-go east
-go south
-go west
-go north
-go east
-go north
-go east
-go west
-go west
-go west
-go west
-go east
-go west
-go east
-go south
-go south
-go west
-go south
-go east
-go north
-go east
-go west
-go north
-go west
-go south
-go east
-go south
-go west
-go north
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go east
-go west
-go north
-go east
-go south
-go west
-go north
-go east
-go west
-go north
-go east
-go west
-go north
-go south
-go south
-go east
-go south
-go east
-go west
-go west
-go north
-go east
-go west
-go east
-go north
-go south
-go north
-go west
-go east
-go south
-go west
-go north
-go east
-go north
-go south
-go south
-go west
-go south
-go east
-go north
-go south
-go east
-go west
-go west
-go east
-go west
-go east
-go west
-go east
-go east
-go east
-go north
-go west
-go west
-go west
-go north
-go east
-go east
-go north
-go west
-go east
-go east
-go east
-go west
-go south
-go south
-go west
-go east
-go east
-go north
-go north
-go south
-go north
-go west
-go south
-go south
-go south
-go west
-go north
-go north
-go east
-go east
-go south
-go south
-go west
-go north
-go south
-go east
-go west
-go north
-go south
-go east
-go west
-go north
-go south
-go north
-go east
-go south
-go north
-go north
-go west
-go east
-go south
-go north
-go west
-go south
-go north
-go east
-go south
-go west
-go north
-go north
-go south
-go east
-go north
-go west
-go east
-go west
-go east
-go west
-go south
-go west
-go west
-go east
-go south
-go south
-go north
-go east
-go east
-go west
-go west
-go south
-go east
-go north
-go north
-go west
-go north
-go east
-go west
-go east
-go south
-go west
-go east
-go south
-go east
-go south
-go north
-go north
-go north
-go south
-go west
-go east
-go west
-go north
-go east
-go west
-go east
-go west
-go south
-go north
-go south
-go north
-go east
-go west
-go south
-go north
-go south
-go north
-go south
-go east
-go south
-go west
-go south
-go west
-go west
-go east
-go west
-go north
-go north
-go south
-go north
-go east
-go south
-go west
-go south
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go west
-go east
-go south
-go west
-go east
-go north
-go east
-go west
-go west
-go north
-go north
-go west
-go south
-go east
-go east
-go east
-go north
-go south
-go north
-go south
-go north
-go west
-go south
-go east
-go south
-go west
-go east
-go south
-go west
-go east
-go north
-go west
-go south
-go west
-go north
-go west
-go east
-go east
-go south
-go east
-go north
-go north
-go north
-go west
-go west
-go east
-go south
-go west
-go south
-go north
-go south
-go south
-go east
-go north
-go east
-go north
-go north
-go south
-go south
-go north
-go north
-go west
-go south
-go north
-go east
-go south
-go south
-go north
-go south
-go north
-go south
-go south
-go north
-go west
-go west
-go south
-go east
-go east
-go north
-go north
-go south
-go west
-go south
-go east
-go west
-go west
-go north
-go south
-go west
-go west
-go north
-go east
-go south
-go east
-go east
-go east
-go west
-go north
-go south
-go west
-go north
-go east
-go north
-go north
-go west
-go south
-go east
-go west
-go west
-go north
-go west
-go south
-go east
-go west
-go north
-go south
-go north
-go east
-go south
-go north
-go west
-go east
-go west
-go east
-go east
-go west
-go south
-go east
-go north
-go west
-go south
-go west
-go south
-go south
-go east
-go west
-go north
-go north
-go south
-go south
-go north
-go south
-go north
-go south
-go north
-go north
-go south
-go east
-go north
-go north
-go west
-go south
-go east
-go south
-go west
-go south
-go north
-go north
-go east
-go east
-go south
-go south
-go north
-go west
-go south
-go east
-go west
-go east
-go east
-go east
-go north
-go north
-go south
-go south
-go north
-go north
-go north
-go south
-go north
-go south
-go south
-go south
-go north
-go west
-go south
-go west
-go east
-go north
-go east
-go north
-go west
-go east
-go south
-go south
-go north
-go north
-go north
-go west
-go east
-go south
-go south
-go south
-go north
-go north
-go north
-go south
-go north
-go west
-go east
-go south
-go south
-go south
-go west
-go west
-go north
-go west
-go east
-go south
-go north
-go south
-go north
-go north
-go west
-go south
-go west
-go north
-go east
-go north
-go east
-go east
-go south
-go east
-go south
-go north
-go north
-go west
-go south
-go north
-go east
-go west
-go west
-go south
-go east
-go south
-go north
-go east
-go north
-go west
-go south
-go east
-go west
-go west
-go north
-go south
-go south
-go west
-go west
-go south
-go east
-go east
-go east
-go north
-go east
-go west
-go east
-go west
-go west
-go north
-go north
-go south
-go north
-go east
-go south
-go east
-go north
-go south
-go west
-go west
-go south
-go south
-go east
-go east
-go north
-go north
-go west
-go east
-go south
-go west
-go north
-go north
-go east
-go west
-go east
-go south
-go north
-go west
-go west
-go east
-go south
-go west
-go west
-go west
-go east
-go west
-go north
-go east
-go west
-go east
-go west
-go south
-go south
-go north
-go south
-go south
-go east
-go east
-go north
-go north
-go west
-go north
-go west
-go south
-go north
-go south
-go east
-go west
-go east
-go west
-go east
-go south
-go north
-go west
-go east
-go south
-go north
-go south
-go east
-go south
-go north
-go north
-go south
-go north
-go east
-go east
-go south
-go south
-go west
-go west
-go east
-go west
-go west
-go west
-go east
-go west
-go east
-go west
-go east
-go west
-go east
-go east
-go north
-go west
-go east
-go west
-go south
-go north
-go west
-go north
-go south
-go south
-go east
-go east
-go west
-go west
-go east
-go north
-go north
-go north
-go south
-go west
-go south
-go south
-go east
-go east
-go west
-go north
-go west
-go north
-go south
-go north
-go south
-go north
-go south
-go north
-go east
-go north
-go south
-go west
-go east
-go east
-go east
-go south
-go north
-go east
-go north
-go west
-go west
-go east
-go west
-go south
-go east
-go west
-go west
-go south
-go west
-go north
-go east
-go east
-go south
-go south
-go east
-go east
-go north
-go west
-go west
-go south
-go east
-go north
-go north
-go south
-go south
-go west
-go west
-go north
-go west
-go south
-go east
-go east
-go west
-go north
-go south
-go west
-go east
-go north
-go north
-go west
-go south
-go south
-go east
-go east
-go west
-go east
-go west
-go north
-go west
-go north
-go north
-go east
-go west
-go east
-go south
-go west
-go south
-go east
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go west
-go west
-go north
-go south
-go north
-go north
-go south
-go south
-go north
-go north
-go south
-go east
-go east
-go south
-go east
-go east
-go west
-go east
-go west
-go south
-go east
-go north
-go north
-go west
-go north
-go south
-go north
-go south
-go west
-go south
-go east
-go south
-go west
-go west
-go west
-go north
-go north
-go east
-go west
-go south
-go north
-go north
-go east
-go west
-go east
-go east
-go south
-go south
-go west
-go west
-go north
-go east
-go south
-go west
-go east
-go west
-go south
-go north
-go south
-go east
-go east
-go north
-go south
-go east
-go east
-go north
-go north
-go south
-go west
-go west
-go east
-go north
-go west
-go south
-go south
-go east
-go north
-go west
-go west
-go south
-go north
-go east
-go north
-go west
-go west
-go north
-go south
-go south
-go east
-go east
-go south
-go east
-go west
-go west
-go east
-go east
-go east
-go north
-go south
-go west
-go east
-go north
-go south
-go west
-go east
-go north
-go south
-go north
-go north
-go south
-go south
-go west
-go north
-go east
-go west
-go east
-go south
-go north
-go west
-go south
-go north
-go south
-go east
-go north
-go south
-go north
-go west
-go south
-go east
-go north
-go west
-go south
-go north
-go south
-go north
-go west
-go east
-go west
-go east
-go east
-go south
-go west
-go west
-go west
-go east
-go north
-go west
-go east
-go south
-go north
-go south
-go west
-go east
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go east
-go east
-go west
-go north
-go north
-go east
-go west
-go north
-go west
-go west
-go south
-go west
-go south
-go north
-go north
-go east
-go east
-go south
-go west
-go west
-go east
-go north
-go south
-go north
-go east
-go east
-go west
-go west
-go east
-go east
-go south
-go south
-go east
-go west
-go north
-go west
-go south
-go east
-go east
-go north
-go north
-go south
-go south
-go west
-go north
-go east
-go north
-go west
-go south
-go west
-go north
-go west
-go east
-go west
-go south
-go south
-go west
-go south
-go east
-go north
-go south
-go north
-go north
-go north
-go south
-go west
-go south
-go north
-go north
-go east
-go east
-go south
-go south
-go south
-go north
-go north
-go south
-go north
-go west
-go south
-go south
-go north
-go east
-go west
-go west
-go north
-go north
-go south
-go north
-go east
-go east
-go south
-go south
-go north
-go south
-go west
-go north
-go north
-go west
-go east
-go east
-go east
-go east
-go west
-go east
-go south
-go north
-go west
-go east
-go south
-go north
-go south
-go west
-go north
-go east
-go west
-go south
-go east
-go south
-go north
-go west
-go north
-go east
-go west
-go south
-go east
-go south
-go north
-go south
-go north
-go west
-go west
-go north
-go east
-go east
-go south
-go north
-go west
-go west
-go east
-go east
-go south
-go west
-go east
-go north
-go west
-go west
-go west
-go east
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go south
-go west
-go south
-go north
-go south
-go north
-go east
-go south
-go east
-go east
-go north
-go north
-go north
-go south
-go north
-go south
-go west
-go south
-go east
-go south
-go north
-go north
-go west
-go east
-go north
-go west
-go west
-go west
-go east
-go south
-go north
-go east
-go south
-go north
-go east
-go west
-go west
-go east
-go east
-go south
-go west
-go west
-go south
-go north
-go west
-go south
-go south
-go west
-go east
-go east
-go west
-go east
-go west
-go north
-go north
-go east
-go east
-go east
-go west
-go north
-go west
-go east
-go south
-go north
-go west
-go east
-go south
-go east
-go south
-go south
-go west
-go west
-go east
-go north
-go east
-go west
-go west
-go south
-go north
-go north
-go south
-go north
-go north
-go west
-go west
-go east
-go west
-go south
-go south
-go east
-go east
-go west
-go north
-go east
-go west
-go west
-go south
-go south
-go north
-go east
-go south
-go west
-go east
-go north
-go east
-go east
-go west
-go north
-go east
-go south
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go north
-go south
-go north
-go north
-go west
-go west
-go south
-go north
-go west
-go east
-go south
-go south
-go south
-go west
-go north
-go south
-go east
-go east
-go west
-go east
-go east
-go west
-go east
-go north
-go south
-go north
-go south
-go north
-go west
-go east
-go west
-go south
-go north
-go south
-go west
-go north
-go south
-go east
-go east
-go west
-go north
-go west
-go south
-go north
-go south
-go west
-go west
-go north
-go north
-go east
-go north
-go west
-go east
-go west
-go south
-go north
-go east
-go east
-go south
-go south
-go west
-go east
-go west
-go east
-go north
-go north
-go east
-go south
-go south
-go east
-go west
-go west
-go east
-go west
-go east
-go east
-go west
-go south
-go north
-go west
-go east
-go west
-go south
-go north
-go east
-go south
-go east
-go west
-go west
-go west
-go north
-go east
-go north
-go north
-go south
-go south
-go west
-go east
-go north
-go east
-go east
-go north
-go south
-go south
-go north
-go south
-go south
-go north
-go west
-go east
-go south
-go north
-go west
-go north
-go south
-go west
-go east
-go east
-go west
-go west
-go west
-go east
-go south
-go west
-go west
-go north
-go north
-go north
-go east
-go south
-go south
-go west
-go north
-go north
-go south
-go north
-go south
-go east
-go south
-go north
-go south
-go south
-go north
-go south
-go east
-go west
-go east
-go north
-go north
-go east
-go south
-go west
-go west
-go north
-go east
-go east
-go west
-go east
-go east
-go north
-go west
-go south
-go west
-go south
-go south
-go north
-go west
-go west
-go north
-go east
-go east
-go south
-go west
-go north
-go north
-go east
-go south
-go south
-go north
-go north
-go east
-go west
-go east
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go west
-go north
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go south
-go north
-go east
-go east
-go west
-go east
-go west
-go west
-go south
-go south
-go south
-go west
-go east
-go north
-go west
-go south
-go north
-go east
-go south
-go west
-go east
-go west
-go east
-go west
-go east
-go east
-go west
-go north
-go north
-go west
-go north
-go east
-go east
-go south
-go south
-go east
-go north
-go west
-go north
-go east
-go west
-go south
-go east
-go east
-go west
-go east
-go west
-go south
-go west
-go south
-go east
-go east
-go north
-go north
-go south
-go west
-go north
-go south
-go north
-go south
-go east
-go north
-go west
-go west
-go east
-go east
-go west
-go west
-go north
-go south
-go east
-go east
-go west
-go south
-go east
-go west
-go east
-go south
-go west
-go north
-go north
-go east
-go west
-go west
-go west
-go east
-go south
-go north
-go east
-go south
-go west
-go west
-go east
-go south
-go north
-go west
-go east
-go south
-go west
-go east
-go east
-go east
-go west
-go west
-go north
-go south
-go west
-go east
-go west
-go north
-go east
-go north
-go south
-go south
-go north
-go north
-go south
-go north
-go north
-go west
-go south
-go north
-go west
-go east
-go west
-go south
-go south
-go east
-go east
-go west
-go south
-go north
-go north
-go west
-go east
-go east
-go east
-go east
-go north
-go west
-go west
-go south
-go south
-go north
-go south
-go north
-go east
-go north
-go south
-go north
-go south
-go south
-go north
-go west
-go north
-go west
-go south
-go east
-go north
-go south
-go south
-go south
-go east
-go north
-go west
-go south
-go west
-go west
-go north
-go north
-go north
-go south
-go north
-go east
-go east
-go east
-go south
-go south
-go west
-go west
-go south
-go east
-go north
-go west
-go west
-go north
-go south
-go east
-go east
-go south
-go west
-go west
-go north
-go east
-go north
-go west
-go north
-go south
-go south
-go east
-go south
-go west
-go north
-go south
-go east
-go west
-go north
-go south
-go north
-go north
-go east
-go north
-go south
-go north
-go south
-go west
-go north
-go east
-go east
-go south
-go west
-go south
-go north
-go west
-go north
-go south
-go north
-go south
-go south
-go south
-go east
-go north
-go west
-go east
-go south
-go east
-go north
-go west
-go south
-go north
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go north
-go north
-go east
-go west
-go west
-go south
-go south
-go north
-go east
-go north
-go north
-go west
-go east
-go south
-go south
-go north
-go north
-go south
-go south
-go south
-go east
-go west
-go north
-go west
-go north
-go east
-go south
-go east
-go west
-go south
-go east
-go east
-go west
-go west
-go west
-go north
-go south
-go east
-go east
-go north
-go north
-go north
-go south
-go north
-go west
-go west
-go east
-go east
-go west
-go west
-go south
-go east
-go east
-go west
-go west
-go south
-go north
-go east
-go south
-go south
-go west
-go north
-go east
-go east
-go west
-go east
-go east
-go east
-go south
-go west
-go east
-go north
-go west
-go west
-go south
-go west
-go east
-go north
-go north
-go west
-go north
-go east
-go south
-go west
-go south
-go south
-go east
-go north
-go east
-go west
-go south
-go north
-go south
-go east
-go west
-go west
-go west
-go north
-go north
-go south
-go north
-go south
-go north
-go east
-go south
-go south
-go east
-go west
-go west
-go north
-go south
-go east
-go east
-go east
-go east
-go north
-go south
-go north
-go north
-go north
-go west
-go west
-go west
-go east
-go west
-go south
-go east
-go south
-go east
-go east
-go south
-go north
-go west
-go south
-go east
-go north
-go south
-go west
-go north
-go west
-go north
-go north
-go south
-go north
-go east
-go east
-go west
-go east
-go south
-go north
-go west
-go east
-go west
-go east
-go south
-go west
-go east
-go north
-go west
-go west
-go east
-go south
-go south
-go west
-go west
-go west
-go north
-go east
-go east
-go north
-go east
-go east
-go west
-go east
-go south
-go west
-go south
-go north
-go north
-go east
-go west
-go south
-go west
-go east
-go west
-go north
-go west
-go east
-go south
-go south
-go west
-go south
-go west
-go north
-go north
-go east
-go west
-go north
-go east
-go west
-go east
-go west
-go south
-go east
-go south
-go west
-go north
-go north
-go east
-go east
-go west
-go east
-go south
-go west
-go north
-go west
-go south
-go east
-go east
-go south
-go east
-go west
-go east
-go south
-go west
-go west
-go east
-go west
-go east
-go east
-go west
-go west
-go west
-go east
-go east
-go east
-go west
-go west
-go east
-go north
-go south
-go east
-go north
-go east
-go west
-go south
-go east
-go west
-go north
-go south
-go east
-go west
-go west
-go west
-go west
-go north
-go east
-go south
-go north
-go south
-go east
-go east
-go west
-go east
-go north
-go north
-go east
-go north
-go west
-go east
-go south
-go south
-go west
-go east
-go west
-go east
-go south
-go west
-go west
-go north
-go south
-go east
-go west
-go north
-go west
-go south
-go east
-go north
-go east
-go south
-go east
-go north
-go south
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go west
-go west
-go north
-go east
-go south
-go west
-go east
-go east
-go north
-go east
-go north
-go south
-go south
-go west
-go west
-go west
-go north
-go west
-go east
-go west
-go north
-go north
-go east
-go east
-go east
-go east
-go west
-go west
-go south
-go west
-go west
-go east
-go west
-go east
-go south
-go east
-go north
-go north
-go south
-go east
-go south
-go east
-go west
-go west
-go west
-go west
-go north
-go north
-go east
-go east
-go east
-go south
-go south
-go east
-go west
-go west
-go west
-go south
-go west
-go east
-go west
-go east
-go east
-go west
-go west
-go north
-go east
-go east
-go west
-go west
-go north
-go north
-go east
-go east
-go west
-go east
-go east
-go east
-go west
-go south
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go south
-go west
-go east
-go west
-go east
-go south
-go north
-go west
-go south
-go north
-go west
-go north
-go north
-go east
-go west
-go south
-go south
-go east
-go north
-go west
-go north
-go west
-go south
-go south
-go east
-go east
-go south
-go east
-go west
-go east
-go north
-go north
-go west
-go north
-go south
-go east
-go south
-go north
-go south
-go north
-go north
-go south
-go south
-go south
-go west
-go east
-go north
-go north
-go north
-go south
-go south
-go west
-go south
-go west
-go north
-go east
-go east
-go south
-go north
-go south
-go north
-go south
-go west
-go west
-go north
-go west
-go east
-go south
-go west
-go west
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go north
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go east
-go west
-go west
-go west
-go east
-go west
-go east
-go east
-go west
-go south
-go north
-go west
-go south
-go south
-go north
-go north
-go east
-go east
-go west
-go south
-go east
-go east
-go west
-go east
-go west
-go north
-go south
-go south
-go south
-go north
-go east
-go north
-go west
-go south
-go north
-go east
-go south
-go north
-go south
-go south
-go west
-go west
-go north
-go north
-go east
-go north
-go west
-go west
-go east
-go east
-go south
-go east
-go north
-go west
-go west
-go south
-go west
-go north
-go south
-go east
-go south
-go north
-go west
-go east
-go south
-go west
-go east
-go east
-go north
-go west
-go south
-go west
-go south
-go east
-go west
-go north
-go north
-go east
-go north
-go west
-go south
-go north
-go south
-go south
-go east
-go north
-go east
-go south
-go west
-go west
-go north
-go east
-go west
-go south
-go north
-go north
-go east
-go south
-go south
-go east
-go south
-go west
-go west
-go east
-go west
-go north
-go south
-go east
-go north
-go south
-go west
-go north
-go east
-go south
-go west
-go north
-go south
-go north
-go south
-go north
-go east
-go west
-go north
-go south
-go north
-go south
-go north
-go east
-go south
-go east
-go west
-go south
-go north
-go north
-go north
-go east
-go west
-go west
-go south
-go north
-go south
-go north
-go south
-go north
-go east
-go west
-go south
-go east
-go east
-go south
-go south
-go north
-go south
-go west
-go east
-go east
-go north
-go east
-go north
-go north
-go south
-go north
-go west
-go west
-go east
-go south
-go west
-go east
-go north
-go west
-go south
-go south
-go north
-go north
-go west
-go west
-go south
-go east
-go west
-go north
-go south
-go north
-go south
-go east
-go west
-go south
-go north
-go east
-go north
-go east
-go south
-go east
-go west
-go north
-go west
-go east
-go south
-go south
-go west
-go west
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go south
-go west
-go north
-go south
-go east
-go south
-go north
-go west
-go west
-go south
-go east
-go west
-go east
-go west
-go east
-go north
-go east
-go east
-go south
-go east
-go west
-go west
-go north
-go west
-go north
-go south
-go east
-go north
-go east
-go east
-go north
-go south
-go west
-go north
-go east
-go south
-go north
-go south
-go south
-go north
-go north
-go west
-go east
-go west
-go west
-go south
-go east
-go west
-go west
-go east
-go south
-go north
-go south
-go east
-go south
-go north
-go east
-go north
-go west
-go north
-go west
-go south
-go north
-go east
-go south
-go east
-go south
-go north
-go south
-go north
-go south
-go west
-go north
-go west
-go north
-go west
-go south
-go north
-go east
-go west
-go south
-go west
-go east
-go north
-go east
-go west
-go east
-go east
-go south
-go east
-go south
-go west
-go west
-go south
-go east
-go north
-go south
-go north
-go east
-go north
-go north
-go west
-go east
-go south
-go west
-go north
-go east
-go south
-go north
-go south
-go north
-go west
-go south
-go south
-go south
-go west
-go east
-go east
-go west
-go north
-go south
-go west
-go east
-go north
-go north
-go east
-go south
-go west
-go west
-go south
-go west
-go west
-go east
-go west
-go north
-go south
-go east
-go east
-go north
-go south
-go north
-go north
-go west
-go south
-go south
-go north
-go east
-go west
-go south
-go north
-go north
-go north
-go east
-go west
-go east
-go east
-go east
-go west
-go east
-go south
-go west
-go east
-go west
-go north
-go east
-go west
-go south
-go east
-go south
-go south
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go south
-go north
-go west
-go east
-go south
-go west
-go west
-go north
-go west
-go north
-go north
-go south
-go west
-go east
-go north
-go south
-go north
-go east
-go south
-go west
-go west
-go east
-go north
-go south
-go west
-go north
-go east
-go east
-go east
-go east
-go west
-go east
-go south
-go west
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go south
-go west
-go west
-go north
-go east
-go north
-go east
-go west
-go east
-go west
-go south
-go west
-go south
-go east
-go north
-go east
-go west
-go east
-go north
-go west
-go south
-go east
-go north
-go west
-go south
-go south
-go north
-go north
-go south
-go east
-go north
-go west
-go east
-go west
-go south
-go north
-go east
-go west
-go south
-go west
-go north
-go east
-go south
-go east
-go north
-go south
-go north
-go west
-go east
-go west
-go east
-go west
-go west
-go west
-go west
-go south
-go south
-go east
-go north
-go south
-go west
-go east
-go east
-go east
-go east
-go west
-go west
-go north
-go north
-go west
-go south
-go west
-go north
-go east
-go east
-go east
-go south
-go east
-go north
-go west
-go west
-go east
-go east
-go south
-go south
-go south
-go west
-go west
-go west
-go west
-go east
-go west
-go north
-go east
-go west
-go south
-go east
-go north
-go north
-go south
-go south
-go east
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go south
-go west
-go east
-go north
-go west
-go west
-go east
-go east
-go south
-go north
-go north
-go south
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go west
-go north
-go west
-go north
-go east
-go west
-go west
-go south
-go east
-go south
-go west
-go north
-go east
-go west
-go north
-go west
-go north
-go south
-go south
-go east
-go south
-go west
-go east
-go east
-go north
-go west
-go south
-go north
-go west
-go north
-go east
-go east
-go north
-go west
-go east
-go east
-go south
-go east
-go north
-go west
-go east
-go south
-go west
-go west
-go east
-go north
-go south
-go south
-go north
-go west
-go east
-go south
-go south
-go west
-go west
-go north
-go west
-go south
-go east
-go west
-go north
-go south
-go east
-go east
-go west
-go east
-go east
-go east
-go north
-go north
-go south
-go south
-go west
-go east
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go east
-go west
-go east
-go north
-go west
-go east
-go south
-go north
-go north
-go west
-go west
-go east
-go east
-go south
-go west
-go south
-go east
-go north
-go south
-go west
-go east
-go north
-go north
-go south
-go south
-go north
-go west
-go east
-go west
-go west
-go south
-go west
-go east
-go east
-go north
-go west
-go west
-go north
-go south
-go west
-go north
-go south
-go south
-go east
-go east
-go east
-go north
-go north
-go south
-go west
-go south
-go east
-go west
-go west
-go west
-go east
-go east
-go west
-go north
-go north
-go east
-go north
-go east
-go west
-go west
-go east
-go east
-go west
-go west
-go east
-go east
-go east
-go west
-go west
-go west
-go west
-go south
-go east
-go south
-go east
-go east
-go west
-go north
-go west
-go north
-go east
-go east
-go west
-go south
-go east
-go west
-go west
-go south
-go west
-go east
-go east
-go north
-go south
-go north
-go north
-go south
-go west
-go east
-go north
-go south
-go south
-go east
-go west
-go south
-go north
-go south
-go east
-go east
-go north
-go south
-go north
-go west
-go east
-go north
-go north
-go west
-go south
-go north
-go south
-go east
-go north
-go west
-go west
-go south
-go west
-go south
-go west
-go south
-go north
-go north
-go east
-go south
-go west
-go north
-go east
-go east
-go north
-go south
-go east
-go north
-go east
-go west
-go west
-go west
-go east
-go east
-go west
-go south
-go south
-go west
-go east
-go north
-go east
-go west
-go east
-go south
-go north
-go west
-go east
-go north
-go west
-go south
-go north
-go south
-go west
-go west
-go east
-go north
-go east
-go west
-go west
-go south
-go east
-go south
-go east
-go north
-go west
-go south
-go north
-go east
-go south
-go west
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go south
-go north
-go east
-go south
-go east
-go north
-go east
-go south
-go west
-go east
-go east
-go west
-go north
-go south
-go east
-go west
-go east
-go north
-go west
-go east
-go north
-go south
-go south
-go north
-go north
-go north
-go west
-go east
-go south
-go north
-go south
-go west
-go east
-go south
-go west
-go east
-go south
-go west
-go west
-go east
-go east
-go north
-go west
-go north
-go south
-go east
-go south
-go west
-go west
-go north
-go south
-go north
-go west
-go north
-go east
-go south
-go north
-go west
-go south
-go west
-go south
-go north
-go north
-go south
-go north
-go east
-go east
-go north
-go east
-go south
-go south
-go east
-go south
-go north
-go south
-go west
-go west
-go west
-go east
-go west
-go east
-go east
-go north
-go north
-go north
-go east
-go west
-go west
-go south
-go south
-go north
-go north
-go west
-go east
-go east
-go south
-go west
-go south
-go east
-go east
-go north
-go west
-go north
-go south
-go north
-go south
-go east
-go south
-go north
-go south
-go south
-go north
-go south
-go north
-go south
-go west
-go west
-go north
-go east
-go west
-go north
-go south
-go east
-go south
-go north
-go west
-go west
-go west
-go south
-go north
-go north
-go south
-go east
-go east
-go north
-go east
-go west
-go east
-go north
-go south
-go south
-go east
-go west
-go east
-go west
-go east
-go north
-go west
-go east
-go west
-go west
-go west
-go south
-go west
-go east
-go east
-go east
-go east
-go west
-go west
-go west
-go north
-go south
-go east
-go south
-go west
-go west
-go north
-go north
-go south
-go south
-go north
-go east
-go east
-go south
-go east
-go west
-go east
-go east
-go west
-go north
-go south
-go east
-go north
-go south
-go north
-go west
-go west
-go east
-go west
-go north
-go north
-go west
-go south
-go east
-go west
-go south
-go east
-go north
-go east
-go east
-go north
-go west
-go east
-go south
-go south
-go west
-go east
-go north
-go south
-go north
-go south
-go west
-go east
-go west
-go west
-go east
-go north
-go west
-go south
-go north
-go south
-go east
-go east
-go west
-go east
-go west
-go south
-go east
-go north
-go north
-go west
-go west
-go west
-go south
-go south
-go east
-go east
-go east
-go west
-go west
-go west
-go north
-go south
-go west
-go north
-go north
-go north
-go south
-go east
-go south
-go east
-go south
-go east
-go west
-go north
-go west
-go west
-go east
-go west
-go south
-go east
-go east
-go west
-go east
-go north
-go south
-go north
-go north
-go south
-go east
-go east
-go north
-go west
-go north
-go west
-go west
-go east
-go west
-go south
-go west
-go south
-go south
-go north
-go north
-go south
-go north
-go south
-go north
-go south
-go north
-go south
-go north
-go east
-go east
-go north
-go east
-go south
-go south
-go west
-go east
-go west
-go east
-go north
-go east
-go south
-go north
-go west
-go south
-go north
-go east
-go west
-go north
-go south
-go east
-go north
-go west
-go east
-go south
-go north
-go west
-go south
-go east
-go north
-go west
-go west
-go east
-go south
-go north
-go east
-go west
-go east
-go south
-go south
-go north
-go south
-go south
-go west
-go east
-go north
-go north
-go west
-go east
-go south
-go north
-go north
-go south
-go south
-go west
-go west
-go south
-go west
-go west
-go east
-go north
-go west
-go north
-go east
-go north
-go east
-go south
-go south
-go west
-go east
-go south
-go north
-go north
-go west
-go south
-go south
-go east
-go north
-go south
-go north
-go west
-go north
-go east
-go east
-go west
-go south
-go east
-go south
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go north
-go south
-go north
-go north
-go south
-go south
-go north
-go south
-go west
-go east
-go west
-go north
-go north
-go west
-go east
-go west
-go west
-go south
-go south
-go north
-go south
-go west
-go north
-go south
-go east
-go east
-go north
-go south
-go north
-go east
-go south
-go east
-go north
-go west
-go east
-go north
-go south
-go south
-go north
-go south
-go west
-go north
-go south
-go west
-go east
-go east
-go west
-go east
-go north
-go west
-go east
-go west
-go south
-go east
-go west
-go west
-go north
-go east
-go west
-go north
-go north
-go west
-go west
-go south
-go south
-go north
-go north
-go south
-go south
-go south
-go north
-go north
-go south
-go north
-go east
-go east
-go north
-go west
-go west
-go east
-go south
-go west
-go east
-go west
-go south
-go north
-go south
-go north
-go north
-go east
-go south
-go east
-go north
-go south
-go north
-go east
-go south
-go west
-go north
-go east
-go east
-go south
-go north
-go south
-go west
-go west
-go east
-go west
-go south
-go north
-go west
-go north
-go south
-go east
-go north
-go east
-go west
-go west
-go west
-go east
-go west
-go east
-go south
-go west
-go north
-go south
-go north
-go east
-go east
-go east
-go south
-go east
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go west
-go south
-go north
-go east
-go west
-go east
-go west
-go south
-go north
-go east
-go south
-go west
-go south
-go south
-go east
-go north
-go west
-go north
-go east
-go west
-go east
-go south
-go north
-go west
-go west
-go south
-go west
-go west
-go east
-go west
-go east
-go east
-go north
-go west
-go south
-go north
-go east
-go north
-go east
-go west
-go east
-go east
-go south
-go west
-go south
-go north
-go west
-go west
-go south
-go north
-go west
-go east
-go west
-go east
-go north
-go west
-go south
-go south
-go south
-go east
-go north
-go west
-go south
-go east
-go east
-go east
-go north
-go south
-go east
-go north
-go west
-go north
-go north
-go west
-go south
-go north
-go west
-go west
-go south
-go north
-go east
-go west
-go east
-go south
-go west
-go east
-go east
-go south
-go north
-go east
-go north
-go east
-go south
-go north
-go south
-go south
-go south
-go north
-go north
-go west
-go north
-go south
-go east
-go west
-go north
-go west
-go south
-go north
-go west
-go south
-go south
-go west
-go north
-go north
-go east
-go south
-go west
-go north
-go south
-go north
-go south
-go south
-go north
-go north
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go south
-go east
-go west
-go east
-go south
-go west
-go north
-go south
-go north
-go south
-go east
-go west
-go north
-go north
-go south
-go east
-go south
-go west
-go north
-go north
-go north
-go south
-go east
-go south
-go north
-go east
-go south
-go east
-go south
-go west
-go west
-go west
-go east
-go north
-go north
-go east
-go east
-go west
-go west
-go east
-go west
-go west
-go south
-go east
-go west
-go east
-go north
-go south
-go east
-go east
-go west
-go east
-go west
-go north
-go west
-go east
-go north
-go south
-go north
-go west
-go east
-go south
-go west
-go west
-go south
-go east
-go east
-go east
-go west
-go east
-go east
-go west
-go south
-go north
-go west
-go east
-go north
-go west
-go east
-go west
-go west
-go south
-go west
-go south
-go east
-go west
-go north
-go south
-go north
-go south
-go north
-go east
-go north
-go east
-go west
-go west
-go east
-go west
-go south
-go north
-go north
-go east
-go west
-go east
-go west
-go east
-go west
-go south
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go east
-go north
-go west
-go north
-go east
-go south
-go east
-go south
-go north
-go west
-go north
-go south
-go north
-go west
-go south
-go north
-go east
-go west
-go south
-go east
-go south
-go west
-go north
-go north
-go east
-go south
-go south
-go south
-go north
-go south
-go north
-go south
-go east
-go north
-go north
-go south
-go east
-go north
-go east
-go west
-go north
-go east
-go south
-go south
-go north
-go north
-go south
-go north
-go west
-go east
-go west
-go east
-go south
-go south
-go west
-go north
-go north
-go south
-go south
-go east
-go north
-go south
-go north
-go south
-go west
-go east
-go south
-go north
-go west
-go east
-go north
-go south
-go south
-go north
-go west
-go north
-go south
-go north
-go south
-go north
-go north
-go east
-go west
-go south
-go west
-go south
-go east
-go west
-go south
-go north
-go north
-go west
-go south
-go east
-go north
-go north
-go east
-go east
-go west
-go east
-go west
-go west
-go south
-go north
-go south
-go east
-go south
-go south
-go north
-go west
-go west
-go east
-go west
-go south
-go west
-go east
-go east
-go east
-go west
-go east
-go west
-go west
-go east
-go east
-go east
-go north
-go west
-go north
-go north
-go east
-go west
-go west
-go west
-go west
-go east
-go south
-go north
-go east
-go south
-go north
-go west
-go south
-go west
-go south
-go east
-go east
-go south
-go west
-go east
-go east
-go west
-go west
-go west
-go north
-go north
-go south
-go east
-go north
-go south
-go west
-go south
-go east
-go west
-go north
-go east
-go west
-go south
-go north
-go south
-go north
-go north
-go north
-go east
-go west
-go east
-go west
-go east
-go west
-go east
-go west
-go south
-go north
-go south
-go north
-go south
-go south
-go north
-go east
-go west
-go south
-go east
-go west
-go south
-go north
-go north
-go east
-go east
-go north
-go east
-go east
-go west
-go east
-go west
-go east
-go west
-go south
-go south
-go east
-go west
-go east
-go south
-go west
-go west
-go east
-go west
-go west
-go north
-go east
-go north
-go south
-go west
-go east
-go west
-go west
-go east
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go north
-go north
-go south
-go east
-go east
-go north
-go south
-go west
-go south
-go west
-go north
-go south
-go east
-go east
-go west
-go north
-go north
-go east
-go south
-go north
-go south
-go north
-go west
-go west
-go west
-go west
-go east
-go east
-go east
-go east
-go west
-go east
-go west
-go east
-go south
-go north
-go west
-go south
-go north
-go west
-go west
-go south
-go east
-go east
-go west
-go north
-go east
-go east
-go west
-go east
-go south
-go west
-go east
-go south
-go north
-go south
-go south
-go north
-go south
-go west
-go east
-go west
-go west
-go north
-go west
-go east
-go west
-go west
-go east
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go north
-go south
-go east
-go north
-go west
-go west
-go west
-go south
-go south
-go north
-go east
-go north
-go west
-go north
-go east
-go west
-go east
-go south
-go west
-go north
-go east
-go west
-go east
-go west
-go east
-go east
-go south
-go west
-go north
-go east
-go east
-go south
-go west
-go north
-go west
-go south
-go north
-go east
-go east
-go west
-go east
-go south
-go west
-go north
-go east
-go east
-go south
-go west
-go south
-go south
-go west
-go east
-go west
-go north
-go south
-go east
-go east
-go north
-go south
-go north
-go west
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go east
-go north
-go north
-go west
-go east
-go east
-go south
-go north
-go south
-go south
-go west
-go north
-go west
-go west
-go east
-go north
-go west
-go east
-go south
-go east
-go west
-go east
-go east
-go west
-go south
-go west
-go east
-go west
-go south
-go west
-go east
-go north
-go south
-go west
-go north
-go south
-go east
-go west
-go west
-go east
-go east
-go east
-go east
-go north
-go west
-go west
-go south
-go north
-go east
-go east
-go south
-go west
-go north
-go west
-go east
-go west
-go east
-go south
-go east
-go north
-go north
-go south
-go north
-go north
-go south
-go north
-go west
-go west
-go south
-go west
-go north
-go south
-go south
-go west
-go south
-go north
-go north
-go north
-go east
-go south
-go south
-go west
-go north
-go east
-go north
-go west
-go east
-go east
-go south
-go south
-go south
-go east
-go north
-go north
-go south
-go north
-go west
-go north
-go south
-go south
-go south
-go west
-go north
-go east
-go south
-go west
-go west
-go east
-go north
-go north
-go south
-go south
-go west
-go north
-go east
-go south
-go north
-go west
-go east
-go north
-go south
-go south
-go north
-go east
-go south
-go north
-go east
-go south
-go west
-go west
-go east
-go west
-go north
-go south
-go east
-go west
-go west
-go north
-go east
-go west
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go west
-go south
-go north
-go south
-go north
-go south
-go east
-go west
-go east
-go north
-go west
-go north
-go east
-go south
-go south
-go east
-go north
-go west
-go south
-go east
-go east
-go east
-go north
-go south
-go west
-go east
-go north
-go north
-go west
-go east
-go south
-go south
-go north
-go north
-go south
-go west
-go north
-go north
-go east
-go south
-go west
-go south
-go east
-go south
-go north
-go west
-go east
-go north
-go north
-go west
-go east
-go west
-go south
-go west
-go south
-go east
-go west
-go west
-go west
-go south
-go north
-go east
-go east
-go south
-go north
-go east
-go north
-go east
-go west
-go west
-go north
-go west
-go west
-go south
-go east
-go west
-go east
-go south
-go north
-go west
-go north
-go south
-go east
-go south
-go west
-go south
-go east
-go north
-go south
-go west
-go north
-go north
-go south
-go south
-go east
-go east
-go north
-go north
-go north
-go east
-go south
-go west
-go north
-go south
-go north
-go east
-go east
-go south
-go north
-go south
-go west
-go south
-go north
-go west
-go east
-go east
-go west
-go east
-go west
-go south
-go east
-go south
-go north
-go north
-go south
-go south
-go north
-go north
-go south
-go north
-go west
-go east
-go north
-go south
-go west
-go south
-go south
-go north
-go west
-go west
-go north
-go south
-go south
-go north
-go south
-go west
-go east
-go north
-go south
-go east
-go west
-go north
-go south
-go east
-go west
-go north
-go east
-go south
-go east
-go west
-go east
-go west
-go east
-go west
-go east
-go east
-go west
-go north
-go north
-go south
-go north
-go south
-go west
-go west
-go north
-go west
-go south
-go north
-go east
-go east
-go north
-go east
-go west
-go south
-go north
-go south
-go east
-go north
-go south
-go north
-go east
-go west
-go east
-go west
-go south
-go west
-go south
-go west
-go west
-go north
-go north
-go south
-go south
-go north
-go north
-go east
-go south
-go north
-go south
-go east
-go west
-go south
-go south
-go west
-go east
-go north
-go west
-go north
-go south
-go north
-go south
-go north
-go east
-go south
-go north
-go north
-go south
-go west
-go east
-go east
-go east
-go east
-go north
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go west
-go east
-go south
-go north
-go south
-go west
-go west
-go west
-go south
-go north
-go south
-go north
-go east
-go west
-go south
-go south
-go east
-go east
-go east
-go north
-go east
-go west
-go west
-go south
-go north
-go south
-go west
-go north
-go east
-go west
-go north
-go south
-go east
-go east
-go south
-go east
-go north
-go west
-go north
-go west
-go north
-go south
-go north
-go west
-go west
-go east
-go east
-go west
-go west
-go east
-go east
-go south
-go south
-go north
-go east
-go west
-go east
-go west
-go north
-go west
-go west
-go south
-go north
-go south
-go east
-go south
-go north
-go west
-go east
-go south
-go north
-go north
-go east
-go south
-go west
-go north
-go east
-go west
-go south
-go west
-go east
-go west
-go south
-go north
-go east
-go south
-go south
-go west
-go east
-go west
-go north
-go south
-go east
-go west
-go north
-go east
-go south
-go west
-go east
-go north
-go west
-go north
-go east
-go south
-go east
-go north
-go north
-go west
-go south
-go north
-go east
-go east
-go east
-go south
-go west
-go west
-go south
-go west
-go north
-go north
-go west
-go east
-go east
-go east
-go south
-go west
-go west
-go north
-go south
-go west
-go south
-go north
-go north
-go south
-go east
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go east
-go south
-go north
-go west
-go south
-go west
-go south
-go south
-go east
-go west
-go east
-go north
-go west
-go south
-go east
-go west
-go north
-go east
-go east
-go north
-go west
-go west
-go west
-go west
-go east
-go south
-go south
-go east
-go west
-go west
-go east
-go west
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go north
-go east
-go west
-go east
-go east
-go south
-go north
-go west
-go north
-go south
-go north
-go east
-go west
-go east
-go south
-go west
-go south
-go north
-go north
-go south
-go north
-go east
-go south
-go south
-go west
-go north
-go north
-go south
-go north
-go west
-go east
-go west
-go west
-go east
-go south
-go east
-go west
-go north
-go south
-go west
-go east
-go east
-go south
-go north
-go east
-go west
-go south
-go north
-go west
-go west
-go north
-go east
-go west
-go west
-go east
-go east
-go south
-go north
-go south
-go east
-go south
-go east
-go south
-go north
-go north
-go south
-go north
-go north
-go west
-go west
-go east
-go east
-go west
-go south
-go east
-go south
-go west
-go south
-go west
-go north
-go west
-go east
-go east
-go east
-go south
-go west
-go north
-go south
-go north
-go west
-go north
-go north
-go east
-go east
-go south
-go south
-go south
-go north
-go south
-go west
-go west
-go east
-go west
-go east
-go west
-go west
-go north
-go north
-go north
-go south
-go south
-go east
-go east
-go north
-go south
-go west
-go west
-go north
-go north
-go south
-go south
-go south
-go east
-go north
-go west
-go north
-go west
-go south
-go east
-go east
-go east
-go north
-go east
-go west
-go north
-go south
-go south
-go north
-go east
-go west
-go east
-go south
-go south
-go west
-go west
-go west
-go east
-go west
-go east
-go east
-go east
-go west
-go north
-go west
-go east
-go east
-go north
-go west
-go east
-go west
-go south
-go north
-go north
-go west
-go south
-go west
-go south
-go east
-go east
-go north
-go south
-go east
-go west
-go east
-go south
-go west
-go north
-go west
-go south
-go north
-go north
-go south
-go west
-go north
-go east
-go south
-go north
-go south
-go south
-go north
-go south
-go north
-go east
-go east
-go north
-go south
-go south
-go west
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go west
-go east
-go west
-go north
-go south
-go north
-go west
-go south
-go north
-go south
-go east
-go east
-go north
-go west
-go east
-go east
-go south
-go north
-go west
-go south
-go west
-go north
-go west
-go south
-go north
-go east
-go east
-go south
-go north
-go east
-go west
-go north
-go north
-go east
-go east
-go south
-go south
-go north
-go south
-go west
-go south
-go north
-go south
-go west
-go north
-go north
-go north
-go east
-go west
-go east
-go south
-go south
-go north
-go east
-go west
-go west
-go east
-go west
-go south
-go south
-go west
-go west
-go north
-go south
-go north
-go east
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go east
-go west
-go east
-go west
-go south
-go north
-go south
-go east
-go west
-go east
-go west
-go east
-go west
-go east
-go west
-go north
-go east
-go north
-go north
-go east
-go east
-go east
-go south
-go south
-go west
-go east
-go north
-go west
-go north
-go south
-go north
-go south
-go east
-go west
-go north
-go west
-go east
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go north
-go south
-go west
-go north
-go east
-go south
-go north
-go west
-go west
-go west
-go east
-go east
-go east
-go south
-go south
-go north
-go west
-go south
-go south
-go east
-go north
-go south
-go north
-go east
-go west
-go south
-go west
-go north
-go south
-go north
-go south
-go west
-go north
-go north
-go north
-go west
-go south
-go north
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go east
-go east
-go east
-go south
-go north
-go south
-go west
-go south
-go north
-go north
-go east
-go west
-go east
-go west
-go west
-go east
-go east
-go south
-go west
-go east
-go south
-go north
-go south
-go north
-go west
-go north
-go east
-go west
-go east
-go south
-go west
-go south
-go south
-go north
-go north
-go north
-go west
-go east
-go south
-go east
-go south
-go west
-go north
-go west
-go west
-go south
-go east
-go east
-go east
-go west
-go north
-go north
-go south
-go north
-go west
-go east
-go south
-go north
-go south
-go south
-go east
-go south
-go north
-go south
-go west
-go west
-go north
-go north
-go east
-go north
-go east
-go south
-go north
-go west
-go west
-go south
-go north
-go south
-go east
-go east
-go north
-go south
-go south
-go west
-go north
-go south
-go east
-go south
-go west
-go west
-go north
-go north
-go north
-go east
-go west
-go south
-go east
-go south
-go south
-go north
-go west
-go north
-go east
-go north
-go west
-go south
-go west
-go north
-go west
-go east
-go south
-go south
-go east
-go west
-go south
-go north
-go east
-go west
-go east
-go west
-go south
-go east
-go north
-go north
-go west
-go south
-go west
-go east
-go west
-go south
-go north
-go south
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go north
-go south
-go west
-go east
-go east
-go east
-go east
-go north
-go north
-go north
-go west
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go south
-go east
-go east
-go south
-go north
-go west
-go north
-go east
-go west
-go east
-go south
-go west
-go east
-go west
-go south
-go east
-go west
-go north
-go south
-go west
-go west
-go south
-go north
-go north
-go west
-go north
-go south
-go south
-go south
-go east
-go east
-go north
-go south
-go east
-go east
-go west
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go west
-go north
-go south
-go north
-go north
-go west
-go north
-go east
-go east
-go south
-go south
-go west
-go west
-go west
-go east
-go east
-go east
-go north
-go south
-go west
-go west
-go west
-go north
-go east
-go north
-go south
-go north
-go east
-go east
-go south
-go south
-go west
-go west
-go north
-go south
-go north
-go south
-go west
-go north
-go east
-go south
-go north
-go south
-go south
-go north
-go east
-go west
-go north
-go south
-go north
-go south
-go west
-go north
-go south
-go north
-go east
-go east
-go north
-go east
-go south
-go south
-go south
-go north
-go south
-go north
-go west
-go west
-go west
-go north
-go west
-go east
-go north
-go west
-go south
-go south
-go north
-go east
-go east
-go north
-go south
-go west
-go south
-go north
-go west
-go south
-go south
-go north
-go south
-go north
-go north
-go south
-go north
-go north
-go east
-go east
-go west
-go south
-go east
-go north
-go south
-go east
-go south
-go north
-go south
-go west
-go north
-go east
-go north
-go west
-go south
-go west
-go east
-go east
-go west
-go south
-go north
-go west
-go north
-go west
-go south
-go north
-go south
-go south
-go south
-go east
-go east
-go east
-go west
-go north
-go east
-go north
-go north
-go south
-go south
-go north
-go west
-go west
-go north
-go west
-go south
-go south
-go south
-go north
-go north
-go south
-go east
-go north
-go west
-go north
-go east
-go east
-go east
-go west
-go west
-go east
-go east
-go east
-go south
-go south
-go south
-go north
-go north
-go west
-go east
-go north
-go west
-go east
-go west
-go south
-go east
-go south
-go west
-go south
-go west
-go east
-go east
-go north
-go north
-go south
-go west
-go east
-go west
-go east
-go south
-go north
-go west
-go north
-go south
-go south
-go west
-go east
-go west
-go east
-go west
-go east
-go east
-go north
-go north
-go south
-go west
-go north
-go east
-go west
-go south
-go south
-go north
-go south
-go north
-go west
-go east
-go south
-go west
-go east
-go north
-go south
-go east
-go west
-go west
-go north
-go north
-go south
-go south
-go west
-go east
-go north
-go west
-go south
-go east
-go north
-go south
-go north
-go north
-go south
-go north
-go east
-go east
-go north
-go west
-go south
-go north
-go south
-go south
-go north
-go west
-go north
-go south
-go west
-go north
-go east
-go west
-go east
-go west
-go west
-go east
-go south
-go south
-go south
-go north
-go west
-go north
-go south
-go north
-go north
-go east
-go west
-go south
-go north
-go east
-go south
-go west
-go south
-go south
-go north
-go east
-go east
-go south
-go west
-go north
-go west
-go north
-go east
-go west
-go south
-go north
-go south
-go east
-go south
-go north
-go west
-go east
-go south
-go west
-go north
-go south
-go north
-go south
-go north
-go south
-go east
-go east
-go west
-go east
-go west
-go east
-go west
-go west
-go north
-go east
-go south
-go west
-go east
-go north
-go south
-go east
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go north
-go west
-go north
-go south
-go east
-go north
-go north
-go west
-go west
-go south
-go east
-go south
-go north
-go south
-go west
-go north
-go north
-go west
-go east
-go east
-go west
-go south
-go east
-go west
-go west
-go east
-go east
-go west
-go west
-go east
-go north
-go west
-go south
-go south
-go north
-go east
-go west
-go north
-go east
-go west
-go south
-go east
-go east
-go south
-go east
-go east
-go south
-go north
-go west
-go north
-go west
-go west
-go east
-go west
-go north
-go east
-go west
-go east
-go south
-go south
-go north
-go east
-go north
-go west
-go west
-go east
-go west
-go east
-go west
-go west
-go east
-go east
-go south
-go east
-go north
-go south
-go west
-go east
-go south
-go west
-go east
-go west
-go south
-go west
-go north
-go east
-go north
-go east
-go east
-go south
-go north
-go south
-go south
-go north
-go south
-go north
-go south
-go west
-go east
-go north
-go west
-go east
-go west
-go south
-go north
-go north
-go west
-go east
-go east
-go north
-go west
-go south
-go west
-go east
-go north
-go west
-go south
-go south
-go south
-go east
-go west
-go north
-go south
-go north
-go east
-go south
-go east
-go north
-go west
-go west
-go west
-go west
-go east
-go south
-go east
-go west
-go west
-go north
-go east
-go north
-go north
-go south
-go east
-go east
-go north
-go south
-go east
-go south
-go north
-go west
-go north
-go west
-go east
-go east
-go south
-go west
-go north
-go west
-go west
-go east
-go east
-go east
-go south
-go north
-go south
-go north
-go west
-go south
-go west
-go west
-go west
-go east
-go east
-go south
-go west
-go south
-go east
-go east
-go east
-go north
-go west
-go east
-go west
-go north
-go north
-go south
-go west
-go north
-go west
-go south
-go west
-go east
-go north
-go west
-go east
-go east
-go west
-go south
-go west
-go south
-go east
-go west
-go south
-go east
-go east
-go north
-go south
-go north
-go west
-go east
-go south
-go north
-go east
-go north
-go north
-go south
-go east
-go west
-go south
-go north
-go north
-go east
-go south
-go west
-go south
-go north
-go west
-go north
-go west
-go west
-go south
-go north
-go east
-go west
-go east
-go west
-go east
-go west
-go south
-go south
-go east
-go east
-go south
-go east
-go east
-go west
-go east
-go west
-go north
-go south
-go west
-go north
-go south
-go east
-go east
-go west
-go west
-go west
-go north
-go north
-go north
-go west
-go east
-go east
-go east
-go west
-go east
-go west
-go south
-go north
-go east
-go east
-go south
-go north
-go west
-go east
-go south
-go north
-go south
-go north
-go west
-go east
-go west
-go west
-go west
-go east
-go south
-go east
-go west
-go north
-go west
-go east
-go south
-go south
-go east
-go north
-go west
-go south
-go east
-go south
-go north
-go east
-go west
-go south
-go west
-go north
-go west
-go south
-go east
-go west
-go east
-go west
-go north
-go west
-go east
-go south
-go north
-go west
-go north
-go south
-go south
-go north
-go south
-go east
-go west
-go north
-go north
-go south
-go east
-go west
-go north
-go east
-go north
-go east
-go east
-go south
-go south
-go west
-go north
-go south
-go north
-go north
-go west
-go east
-go west
-go east
-go west
-go south
-go south
-go west
-go north
-go south
-go north
-go east
-go north
-go west
-go east
-go east
-go west
-go south
-go north
-go south
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go east
-go north
-go east
-go east
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go west
-go south
-go west
-go south
-go south
-go north
-go north
-go north
-go east
-go south
-go east
-go east
-go east
-go west
-go south
-go east
-go north
-go north
-go south
-go west
-go west
-go north
-go south
-go south
-go north
-go east
-go south
-go south
-go east
-go north
-go north
-go south
-go north
-go south
-go north
-go west
-go west
-go south
-go south
-go west
-go west
-go east
-go east
-go east
-go east
-go north
-go south
-go west
-go north
-go north
-go south
-go south
-go east
-go west
-go north
-go south
-go east
-go west
-go north
-go west
-go east
-go west
-go south
-go north
-go north
-go west
-go north
-go south
-go north
-go east
-go east
-go west
-go east
-go east
-go south
-go west
-go east
-go north
-go west
-go east
-go west
-go west
-go west
-go south
-go east
-go west
-go north
-go south
-go west
-go north
-go south
-go south
-go east
-go west
-go south
-go east
-go west
-go north
-go east
-go west
-go south
-go north
-go east
-go south
-go north
-go west
-go south
-go north
-go east
-go south
-go north
-go north
-go east
-go east
-go south
-go east
-go west
-go south
-go west
-go west
-go east
-go north
-go east
-go east
-go west
-go north
-go south
-go south
-go east
-go west
-go north
-go south
-go north
-go east
-go south
-go north
-go south
-go west
-go west
-go west
-go north
-go east
-go south
-go west
-go west
-go east
-go north
-go south
-go east
-go west
-go north
-go north
-go south
-go south
-go west
-go north
-go east
-go east
-go south
-go north
-go east
-go west
-go north
-go east
-go east
-go north
-go south
-go north
-go west
-go west
-go south
-go east
-go west
-go west
-go east
-go west
-go north
-go south
-go east
-go west
-go east
-go west
-go east
-go west
-go west
-go south
-go north
-go east
-go west
-go north
-go south
-go south
-go south
-go east
-go east
-go north
-go south
-go west
-go north
-go north
-go east
-go south
-go north
-go west
-go north
-go east
-go south
-go south
-go east
-go north
-go west
-go east
-go south
-go north
-go north
-go west
-go south
-go east
-go north
-go east
-go west
-go west
-go east
-go east
-go south
-go south
-go west
-go south
-go north
-go north
-go east
-go south
-go north
-go north
-go south
-go north
-go south
-go north
-go south
-go south
-go north
-go west
-go north
-go east
-go south
-go west
-go south
-go west
-go north
-go west
-go west
-go east
-go west
-go east
-go south
-go east
-go north
-go south
-go south
-go east
-go east
-go north
-go south
-go north
-go north
-go north
-go south
-go north
-go west
-go west
-go west
-go west
-go south
-go south
-go east
-go east
-go north
-go south
-go west
-go east
-go north
-go west
-go west
-go south
-go south
-go east
-go west
-go east
-go north
-go south
-go west
-go north
-go north
-go east
-go south
-go south
-go north
-go south
-go west
-go east
-go east
-go east
-go north
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go east
-go north
-go north
-go south
-go south
-go north
-go north
-go west
-go east
-go north
-go south
-go north
-go south
-go west
-go north
-go south
-go south
-go east
-go south
-go north
-go west
-go south
-go west
-go east
-go west
-go east
-go north
-go east
-go west
-go north
-go east
-go north
-go south
-go west
-go south
-go south
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go north
-go north
-go south
-go north
-go south
-go north
-go south
-go south
-go west
-go east
-go west
-go north
-go east
-go west
-go north
-go south
-go west
-go north
-go north
-go south
-go south
-go north
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go west
-go north
-go east
-go east
-go south
-go south
-go south
-go east
-go east
-go north
-go south
-go west
-go east
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go east
-go west
-go west
-go north
-go east
-go south
-go west
-go west
-go west
-go east
-go west
-go north
-go north
-go east
-go south
-go north
-go north
-go east
-go south
-go east
-go east
-go south
-go north
-go south
-go west
-go east
-go north
-go west
-go south
-go west
-go east
-go north
-go north
-go west
-go west
-go south
-go west
-go north
-go south
-go south
-go east
-go north
-go south
-go east
-go west
-go south
-go west
-go east
-go north
-go west
-go east
-go north
-go north
-go south
-go north
-go west
-go east
-go east
-go east
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go east
-go south
-go west
-go east
-go north
-go south
-go west
-go east
-go north
-go west
-go east
-go south
-go south
-go south
-go west
-go west
-go north
-go west
-go south
-go east
-go east
-go east
-go north
-go north
-go north
-go west
-go east
-go south
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go north
-go west
-go east
-go south
-go north
-go east
-go west
-go east
-go south
-go south
-go north
-go south
-go north
-go south
-go west
-go south
-go west
-go west
-go east
-go east
-go east
-go north
-go west
-go north
-go east
-go north
-go south
-go west
-go east
-go south
-go west
-go north
-go east
-go north
-go west
-go west
-go east
-go east
-go south
-go north
-go west
-go south
-go north
-go south
-go west
-go east
-go east
-go west
-go west
-go west
-go west
-go south
-go south
-go north
-go east
-go south
-go west
-go east
-go north
-go north
-go west
-go north
-go south
-go north
-go east
-go east
-go west
-go west
-go east
-go south
-go north
-go south
-go west
-go south
-go east
-go south
-go north
-go north
-go west
-go south
-go north
-go south
-go east
-go east
-go east
-go east
-go south
-go west
-go west
-go east
-go north
-go east
-go north
-go north
-go west
-go east
-go west
-go south
-go west
-go west
-go north
-go west
-go east
-go west
-go south
-go east
-go south
-go north
-go west
-go south
-go south
-go north
-go east
-go south
-go east
-go north
-go west
-go north
-go south
-go south
-go north
-go east
-go west
-go east
-go east
-go west
-go west
-go east
-go west
-go north
-go west
-go east
-go south
-go south
-go west
-go east
-go west
-go east
-go west
-go east
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go east
-go east
-go north
-go south
-go north
-go north
-go east
-go west
-go east
-go north
-go west
-go south
-go west
-go north
-go east
-go east
-go south
-go north
-go south
-go east
-go west
-go south
-go west
-go west
-go north
-go east
-go east
-go west
-go south
-go east
-go east
-go west
-go north
-go south
-go east
-go west
-go north
-go south
-go west
-go south
-go west
-go north
-go east
-go north
-go west
-go south
-go north
-go north
-go east
-go west
-go south
-go west
-go east
-go west
-go south
-go east
-go west
-go north
-go north
-go east
-go west
-go east
-go east
-go east
-go east
-go west
-go west
-go east
-go west
-go west
-go south
-go south
-go east
-go west
-go east
-go east
-go east
-go north
-go west
-go east
-go west
-go south
-go west
-go north
-go south
-go south
-go north
-go north
-go north
-go south
-go west
-go east
-go south
-go west
-go west
-go east
-go north
-go north
-go east
-go west
-go west
-go east
-go south
-go east
-go north
-go west
-go west
-go south
-go north
-go south
-go south
-go north
-go south
-go north
-go north
-go south
-go north
-go east
-go west
-go south
-go south
-go north
-go east
-go north
-go east
-go south
-go south
-go south
-go east
-go west
-go west
-go east
-go east
-go east
-go north
-go south
-go north
-go south
-go north
-go north
-go south
-go south
-go west
-go west
-go east
-go north
-go east
-go south
-go north
-go west
-go south
-go west
-go west
-go north
-go north
-go north
-go south
-go east
-go west
-go west
-go east
-go south
-go west
-go south
-go north
-go south
-go east
-go north
-go north
-go east
-go west
-go south
-go east
-go west
-go east
-go south
-go west
-go west
-go north
-go south
-go north
-go north
-go south
-go east
-go south
-go north
-go west
-go east
-go north
-go south
-go west
-go south
-go east
-go east
-go west
-go east
-go west
-go north
-go south
-go east
-go east
-go east
-go north
-go south
-go west
-go west
-go east
-go west
-go west
-go west
-go east
-go west
-go east
-go east
-go east
-go north
-go west
-go north
-go west
-go west
-go south
-go south
-go north
-go east
-go east
-go north
-go south
-go west
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go west
-go west
-go north
-go east
-go north
-go east
-go west
-go east
-go east
-go east
-go south
-go south
-go south
-go west
-go west
-go west
-go east
-go east
-go west
-go west
-go west
-go east
-go west
-go east
-go east
-go east
-go north
-go west
-go north
-go west
-go east
-go south
-go north
-go south
-go north
-go west
-go west
-go east
-go south
-go north
-go east
-go north
-go east
-go east
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go east
-go south
-go west
-go east
-go south
-go north
-go south
-go west
-go east
-go north
-go west
-go east
-go south
-go north
-go north
-go south
-go south
-go west
-go south
-go north
-go east
-go west
-go north
-go east
-go south
-go west
-go west
-go south
-go north
-go east
-go south
-go west
-go east
-go north
-go north
-go west
-go north
-go east
-go east
-go west
-go south
-go west
-go east
-go west
-go east
-go east
-go west
-go west
-go south
-go south
-go east
-go east
-go west
-go west
-go east
-go north
-go east
-go west
-go west
-go north
-go east
-go east
-go west
-go west
-go west
-go east
-go east
-go east
-go south
-go south
-go north
-go north
-go south
-go south
-go north
-go west
-go west
-go east
-go north
-go east
-go south
-go north
-go south
-go south
-go north
-go north
-go north
-go south
-go west
-go east
-go north
-go south
-go north
-go south
-go west
-go west
-go east
-go south
-go south
-go north
-go north
-go north
-go south
-go east
-go south
-go west
-go south
-go east
-go west
-go north
-go west
-go north
-go north
-go east
-go west
-go west
-go west
-go east
-go west
-go south
-go east
-go south
-go east
-go east
-go east
-go north
-go south
-go south
-go north
-go south
-go north
-go west
-go north
-go south
-go west
-go east
-go north
-go east
-go west
-go west
-go south
-go east
-go south
-go north
-go north
-go north
-go south
-go north
-go west
-go east
-go south
-go south
-go south
-go east
-go north
-go west
-go north
-go north
-go east
-go south
-go south
-go west
-go east
-go north
-go west
-go north
-go west
-go east
-go east
-go west
-go west
-go east
-go west
-go south
-go north
-go south
-go east
-go east
-go west
-go north
-go west
-go south
-go east
-go west
-go east
-go south
-go east
-go north
-go west
-go west
-go west
-go east
-go south
-go north
-go north
-go west
-go south
-go west
-go east
-go south
-go east
-go east
-go east
-go north
-go north
-go south
-go west
-go south
-go west
-go south
-go east
-go west
-go north
-go east
-go west
-go west
-go east
-go east
-go north
-go south
-go north
-go east
-go south
-go north
-go west
-go west
-go north
-go south
-go south
-go south
-go north
-go south
-go north
-go west
-go north
-go south
-go north
-go south
-go west
-go east
-go west
-go south
-go north
-go south
-go north
-go east
-go south
-go west
-go east
-go west
-go north
-go east
-go east
-go east
-go north
-go west
-go south
-go east
-go north
-go north
-go south
-go west
-go west
-go east
-go north
-go east
-go south
-go south
-go south
-go east
-go north
-go south
-go west
-go west
-go north
-go east
-go south
-go west
-go east
-go west
-go north
-go east
-go south
-go east
-go north
-go west
-go south
-go west
-go east
-go north
-go west
-go south
-go west
-go north
-go west
-go south
-go east
-go west
-go north
-go south
-go east
-go north
-go south
-go west
-go north
-go north
-go north
-go south
-go east
-go east
-go south
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go south
-go east
-go north
-go south
-go west
-go east
-go west
-go west
-go west
-go east
-go north
-go east
-go north
-go west
-go south
-go south
-go east
-go north
-go west
-go east
-go west
-go north
-go north
-go west
-go south
-go south
-go south
-go north
-go south
-go east
-go east
-go north
-go east
-go south
-go west
-go east
-go north
-go north
-go south
-go west
-go west
-go west
-go east
-go south
-go north
-go west
-go west
-go south
-go east
-go west
-go east
-go north
-go north
-go west
-go south
-go east
-go south
-go west
-go east
-go west
-go north
-go north
-go east
-go east
-go east
-go north
-go west
-go south
-go east
-go west
-go south
-go north
-go south
-go east
-go west
-go north
-go north
-go south
-go south
-go north
-go west
-go west
-go east
-go east
-go north
-go west
-go east
-go east
-go west
-go east
-go south
-go east
-go north
-go west
-go west
-go south
-go north
-go east
-go west
-go west
-go south
-go north
-go west
-go south
-go north
-go south
-go east
-go west
-go north
-go east
-go south
-go south
-go west
-go north
-go south
-go east
-go south
-go north
-go south
-go east
-go west
-go west
-go east
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go east
-go west
-go north
-go north
-go north
-go south
-go south
-go east
-go south
-go east
-go west
-go east
-go west
-go east
-go north
-go west
-go south
-go east
-go east
-go east
-go west
-go west
-go east
-go north
-go south
-go east
-go west
-go north
-go north
-go north
-go south
-go north
-go south
-go east
-go south
-go south
-go north
-go west
-go east
-go west
-go north
-go east
-go south
-go south
-go north
-go north
-go south
-go west
-go west
-go west
-go east
-go west
-go south
-go west
-go east
-go west
-go east
-go east
-go east
-go west
-go west
-go north
-go south
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go north
-go south
-go west
-go east
-go south
-go west
-go north
-go north
-go north
-go south
-go east
-go east
-go west
-go west
-go north
-go south
-go east
-go east
-go west
-go north
-go south
-go west
-go south
-go east
-go south
-go east
-go east
-go east
-go west
-go north
-go west
-go east
-go east
-go north
-go north
-go south
-go south
-go west
-go north
-go south
-go north
-go east
-go south
-go north
-go north
-go west
-go west
-go south
-go south
-go east
-go south
-go east
-go north
-go north
-go west
-go west
-go east
-go west
-go west
-go east
-go north
-go east
-go east
-go west
-go south
-go east
-go north
-go south
-go north
-go west
-go east
-go south
-go south
-go west
-go west
-go north
-go east
-go west
-go east
-go north
-go east
-go south
-go west
-go east
-go north
-go south
-go west
-go north
-go south
-go north
-go south
-go east
-go north
-go south
-go north
-go south
-go south
-go north
-go west
-go north
-go west
-go south
-go west
-go south
-go north
-go east
-go east
-go west
-go south
-go east
-go north
-go north
-go west
-go west
-go west
-go east
-go east
-go east
-go east
-go south
-go north
-go west
-go south
-go west
-go east
-go east
-go north
-go west
-go east
-go west
-go west
-go south
-go north
-go south
-go east
-go south
-go east
-go north
-go south
-go south
-go west
-go west
-go east
-go north
-go east
-go north
-go south
-go north
-go west
-go north
-go west
-go west
-go east
-go south
-go east
-go west
-go south
-go north
-go west
-go north
-go east
-go west
-go east
-go east
-go west
-go south
-go west
-go north
-go west
-go south
-go south
-go south
-go east
-go west
-go north
-go east
-go north
-go north
-go south
-go north
-go west
-go south
-go east
-go west
-go south
-go south
-go north
-go east
-go west
-go east
-go east
-go west
-go south
-go east
-go east
-go north
-go west
-go east
-go south
-go north
-go south
-go east
-go north
-go west
-go north
-go west
-go east
-go east
-go north
-go west
-go south
-go east
-go north
-go south
-go south
-go north
-go north
-go west
-go south
-go west
-go north
-go east
-go east
-go west
-go east
-go south
-go west
-go south
-go north
-go east
-go north
-go south
-go west
-go north
-go west
-go west
-go east
-go south
-go west
-go west
-go south
-go east
-go east
-go south
-go north
-go south
-go north
-go east
-go west
-go west
-go east
-go east
-go east
-go west
-go west
-go south
-go east
-go north
-go east
-go west
-go south
-go west
-go east
-go north
-go north
-go west
-go south
-go north
-go east
-go north
-go south
-go east
-go west
-go north
-go east
-go west
-go south
-go west
-go west
-go west
-go south
-go east
-go west
-go north
-go east
-go south
-go east
-go south
-go east
-go west
-go north
-go south
-go east
-go west
-go west
-go north
-go south
-go north
-go west
-go north
-go south
-go north
-go north
-go south
-go east
-go west
-go south
-go east
-go west
-go north
-go north
-go south
-go north
-go east
-go west
-go east
-go west
-go south
-go north
-go east
-go south
-go west
-go south
-go north
-go north
-go south
-go south
-go east
-go west
-go east
-go north
-go south
-go east
-go south
-go west
-go north
-go east
-go east
-go north
-go north
-go south
-go south
-go north
-go east
-go west
-go north
-go east
-go south
-go south
-go north
-go west
-go north
-go east
-go west
-go west
-go east
-go east
-go west
-go west
-go west
-go west
-go east
-go south
-go north
-go south
-go north
-go south
-go west
-go south
-go south
-go east
-go west
-go north
-go north
-go east
-go west
-go north
-go east
-go west
-go south
-go south
-go east
-go south
-go west
-go east
-go east
-go west
-go west
-go north
-go east
-go east
-go south
-go north
-go north
-go west
-go south
-go north
-go south
-go north
-go south
-go east
-go east
-go east
-go west
-go south
-go west
-go east
-go east
-go west
-go north
-go west
-go south
-go north
-go east
-go east
-go west
-go west
-go south
-go east
-go east
-go north
-go north
-go south
-go north
-go west
-go west
-go east
-go west
-go north
-go east
-go east
-go west
-go east
-go south
-go north
-go west
-go west
-go south
-go west
-go south
-go south
-go north
-go east
-go north
-go south
-go south
-go west
-go north
-go north
-go south
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go south
-go north
-go east
-go east
-go south
-go north
-go north
-go north
-go south
-go south
-go south
-go west
-go north
-go north
-go south
-go south
-go west
-go east
-go north
-go east
-go north
-go west
-go west
-go west
-go south
-go east
-go south
-go west
-go west
-go north
-go east
-go west
-go east
-go east
-go south
-go west
-go north
-go west
-go east
-go south
-go east
-go east
-go east
-go west
-go north
-go east
-go north
-go south
-go west
-go south
-go east
-go north
-go west
-go north
-go east
-go west
-go south
-go west
-go west
-go east
-go east
-go north
-go west
-go south
-go north
-go west
-go north
-go west
-go east
-go west
-go east
-go east
-go west
-go south
-go west
-go north
-go south
-go north
-go south
-go south
-go east
-go west
-go south
-go east
-go west
-go east
-go east
-go north
-go east
-go north
-go north
-go east
-go west
-go east
-go south
-go west
-go south
-go north
-go south
-go south
-go west
-go east
-go west
-go west
-go west
-go east
-go north
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go north
-go north
-go south
-go south
-go north
-go east
-go south
-go east
-go east
-go east
-go west
-go west
-go west
-go east
-go north
-go north
-go north
-go east
-go south
-go north
-go east
-go west
-go west
-go south
-go east
-go south
-go south
-go east
-go west
-go north
-go south
-go west
-go east
-go north
-go north
-go west
-go east
-go east
-go north
-go west
-go east
-go west
-go west
-go west
-go south
-go west
-go north
-go east
-go east
-go south
-go west
-go west
-go east
-go west
-go east
-go east
-go east
-go west
-go west
-go west
-go east
-go east
-go south
-go west
-go east
-go west
-go west
-go east
-go north
-go south
-go east
-go east
-go south
-go west
-go north
-go east
-go east
-go west
-go west
-go west
-go north
-go south
-go west
-go north
-go north
-go east
-go east
-go east
-go south
-go east
-go north
-go south
-go north
-go south
-go west
-go east
-go west
-go south
-go east
-go south
-go north
-go north
-go south
-go west
-go west
-go south
-go north
-go west
-go north
-go north
-go west
-go east
-go east
-go south
-go north
-go west
-go east
-go west
-go west
-go east
-go east
-go west
-go south
-go west
-go north
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go east
-go south
-go east
-go east
-go north
-go west
-go north
-go west
-go south
-go west
-go west
-go east
-go west
-go east
-go east
-go south
-go south
-go west
-go west
-go north
-go east
-go south
-go east
-go east
-go north
-go south
-go north
-go east
-go south
-go north
-go north
-go north
-go west
-go east
-go west
-go south
-go south
-go west
-go west
-go west
-go east
-go north
-go west
-go north
-go south
-go north
-go east
-go west
-go south
-go north
-go east
-go east
-go west
-go east
-go east
-go east
-go west
-go east
-go west
-go west
-go south
-go south
-go west
-go east
-go east
-go west
-go west
-go north
-go east
-go east
-go north
-go south
-go south
-go east
-go north
-go west
-go east
-go west
-go east
-go south
-go west
-go west
-go south
-go west
-go north
-go east
-go north
-go south
-go north
-go south
-go north
-go east
-go north
-go east
-go south
-go west
-go east
-go south
-go north
-go north
-go south
-go south
-go north
-go west
-go north
-go east
-go west
-go east
-go west
-go east
-go west
-go east
-go south
-go south
-go north
-go west
-go east
-go west
-go east
-go south
-go north
-go west
-go north
-go east
-go west
-go east
-go south
-go south
-go west
-go east
-go west
-go east
-go north
-go south
-go north
-go north
-go south
-go west
-go south
-go west
-go south
-go east
-go west
-go north
-go north
-go north
-go west
-go south
-go east
-go west
-go east
-go south
-go west
-go north
-go south
-go north
-go north
-go west
-go east
-go east
-go south
-go south
-go west
-go east
-go north
-go south
-go south
-go west
-go north
-go west
-go north
-go south
-go south
-go east
-go north
-go south
-go east
-go west
-go west
-go north
-go north
-go south
-go north
-go east
-go west
-go east
-go north
-go south
-go east
-go east
-go west
-go north
-go south
-go west
-go north
-go west
-go east
-go south
-go south
-go west
-go north
-go east
-go west
-go north
-go south
-go east
-go east
-go north
-go west
-go west
-go east
-go south
-go south
-go north
-go north
-go west
-go east
-go west
-go east
-go east
-go west
-go west
-go south
-go south
-go east
-go north
-go west
-go east
-go north
-go east
-go west
-go south
-go north
-go south
-go north
-go east
-go east
-go south
-go south
-go west
-go east
-go north
-go west
-go south
-go north
-go south
-go west
-go west
-go south
-go north
-go south
-go north
-go east
-go west
-go east
-go south
-go north
-go south
-go east
-go east
-go north
-go west
-go east
-go north
-go north
-go east
-go west
-go east
-go south
-go west
-go north
-go south
-go west
-go east
-go south
-go west
-go east
-go north
-go east
-go west
-go north
-go east
-go south
-go west
-go south
-go north
-go west
-go east
-go south
-go east
-go west
-go north
-go east
-go west
-go west
-go north
-go east
-go east
-go south
-go west
-go north
-go west
-go west
-go east
-go west
-go west
-go east
-go south
-go east
-go west
-go east
-go south
-go west
-go west
-go east
-go south
-go west
-go north
-go east
-go east
-go east
-go south
-go west
-go west
-go west
-go north
-go north
-go north
-go south
-go south
-go south
-go north
-go east
-go south
-go west
-go east
-go west
-go north
-go north
-go north
-go east
-go east
-go east
-go east
-go south
-go west
-go south
-go north
-go east
-go north
-go south
-go north
-go west
-go west
-go east
-go west
-go west
-go south
-go north
-go south
-go west
-go north
-go south
-go east
-go east
-go east
-go north
-go west
-go east
-go east
-go west
-go east
-go west
-go south
-go south
-go west
-go west
-go north
-go east
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go south
-go west
-go west
-go north
-go east
-go west
-go east
-go south
-go south
-go west
-go north
-go north
-go east
-go west
-go east
-go south
-go east
-go south
-go north
-go south
-go west
-go west
-go north
-go east
-go south
-go east
-go north
-go north
-go north
-go west
-go west
-go west
-go south
-go north
-go south
-go east
-go south
-go west
-go north
-go east
-go west
-go south
-go east
-go south
-go west
-go east
-go west
-go east
-go north
-go north
-go south
-go east
-go east
-go west
-go south
-go north
-go west
-go west
-go east
-go north
-go west
-go south
-go north
-go south
-go north
-go south
-go north
-go east
-go south
-go east
-go north
-go north
-go south
-go south
-go north
-go south
-go east
-go west
-go north
-go east
-go north
-go east
-go south
-go north
-go south
-go north
-go south
-go south
-go west
-go west
-go north
-go west
-go south
-go east
-go south
-go west
-go west
-go north
-go south
-go north
-go east
-go east
-go south
-go north
-go west
-go north
-go west
-go south
-go east
-go north
-go west
-go north
-go south
-go south
-go north
-go north
-go east
-go south
-go east
-go east
-go east
-go south
-go south
-go north
-go west
-go west
-go north
-go west
-go south
-go north
-go east
-go north
-go south
-go west
-go north
-go south
-go west
-go east
-go south
-go west
-go east
-go west
-go north
-go east
-go east
-go south
-go east
-go east
-go north
-go south
-go south
-go north
-go west
-go south
-go north
-go east
-go north
-go north
-go south
-go south
-go north
-go south
-go west
-go north
-go south
-go west
-go west
-go north
-go north
-go west
-go south
-go north
-go east
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go south
-go south
-go north
-go east
-go north
-go east
-go east
-go west
-go south
-go south
-go south
-go east
-go east
-go west
-go west
-go west
-go west
-go east
-go north
-go south
-go east
-go north
-go south
-go west
-go east
-go east
-go north
-go north
-go west
-go north
-go west
-go west
-go south
-go north
-go south
-go north
-go south
-go south
-go north
-go east
-go north
-go south
-go north
-go east
-go south
-go east
-go north
-go west
-go west
-go south
-go east
-go south
-go east
-go west
-go south
-go north
-go north
-go east
-go north
-go west
-go south
-go east
-go west
-go west
-go west
-go north
-go south
-go south
-go north
-go south
-go south
-go north
-go south
-go north
-go north
-go east
-go west
-go east
-go east
-go north
-go south
-go south
-go south
-go north
-go west
-go south
-go west
-go east
-go west
-go east
-go east
-go west
-go east
-go north
-go east
-go west
-go north
-go north
-go west
-go west
-go south
-go north
-go east
-go west
-go south
-go south
-go south
-go north
-go east
-go north
-go west
-go north
-go east
-go east
-go east
-go south
-go south
-go west
-go north
-go north
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go east
-go south
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go north
-go north
-go south
-go north
-go west
-go south
-go north
-go east
-go west
-go south
-go east
-go north
-go south
-go north
-go south
-go west
-go north
-go south
-go north
-go west
-go east
-go west
-go south
-go west
-go east
-go west
-go north
-go south
-go west
-go south
-go east
-go south
-go east
-go west
-go east
-go east
-go east
-go north
-go south
-go north
-go north
-go north
-go west
-go west
-go west
-go east
-go west
-go east
-go south
-go south
-go south
-go north
-go west
-go south
-go east
-go west
-go north
-go north
-go east
-go west
-go east
-go south
-go south
-go east
-go west
-go east
-go north
-go east
-go west
-go north
-go north
-go south
-go east
-go west
-go south
-go east
-go north
-go south
-go north
-go south
-go north
-go north
-go south
-go south
-go south
-go north
-go north
-go north
-go south
-go south
-go south
-go north
-go south
-go west
-go east
-go north
-go north
-go west
-go north
-go east
-go south
-go west
-go west
-go east
-go north
-go south
-go west
-go west
-go west
-go south
-go east
-go south
-go west
-go north
-go south
-go north
-go north
-go east
-go north
-go south
-go north
-go east
-go west
-go south
-go west
-go north
-go south
-go north
-go south
-go north
-go east
-go east
-go south
-go north
-go south
-go north
-go south
-go south
-go north
-go south
-go south
-go north
-go east
-go west
-go north
-go south
-go east
-go east
-go west
-go east
-go north
-go south
-go south
-go north
-go west
-go south
-go east
-go west
-go west
-go north
-go east
-go south
-go west
-go north
-go east
-go east
-go west
-go west
-go north
-go west
-go east
-go east
-go east
-go north
-go west
-go south
-go east
-go west
-go south
-go west
-go north
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go south
-go north
-go east
-go south
-go south
-go east
-go east
-go west
-go east
-go north
-go west
-go north
-go west
-go east
-go south
-go east
-go west
-go west
-go north
-go west
-go east
-go south
-go north
-go east
-go north
-go east
-go south
-go west
-go south
-go east
-go west
-go south
-go east
-go west
-go east
-go north
-go west
-go south
-go north
-go west
-go east
-go north
-go east
-go north
-go south
-go south
-go south
-go west
-go west
-go north
-go south
-go north
-go east
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go south
-go west
-go west
-go north
-go south
-go east
-go west
-go north
-go east
-go north
-go east
-go north
-go south
-go west
-go west
-go east
-go north
-go east
-go south
-go north
-go west
-go west
-go west
-go west
-go east
-go south
-go north
-go east
-go east
-go west
-go south
-go south
-go south
-go east
-go east
-go north
-go north
-go west
-go west
-go south
-go west
-go east
-go south
-go east
-go north
-go east
-go south
-go north
-go south
-go north
-go north
-go north
-go south
-go west
-go south
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go east
-go west
-go south
-go west
-go north
-go east
-go north
-go south
-go east
-go south
-go north
-go north
-go west
-go south
-go east
-go north
-go west
-go south
-go east
-go north
-go south
-go west
-go north
-go south
-go east
-go west
-go west
-go south
-go north
-go north
-go south
-go east
-go south
-go north
-go west
-go south
-go east
-go west
-go north
-go west
-go north
-go south
-go east
-go south
-go east
-go west
-go north
-go east
-go west
-go west
-go west
-go north
-go south
-go north
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go east
-go north
-go south
-go north
-go east
-go east
-go south
-go north
-go south
-go south
-go north
-go north
-go west
-go east
-go west
-go east
-go west
-go west
-go east
-go west
-go east
-go east
-go west
-go west
-go west
-go east
-go west
-go east
-go south
-go west
-go north
-go south
-go east
-go north
-go east
-go south
-go east
-go south
-go north
-go west
-go south
-go east
-go east
-go south
-go west
-go west
-go west
-go north
-go south
-go west
-go east
-go east
-go west
-go west
-go east
-go east
-go west
-go north
-go east
-go south
-go north
-go north
-go east
-go east
-go north
-go south
-go south
-go south
-go north
-go south
-go west
-go north
-go west
-go east
-go west
-go west
-go south
-go north
-go south
-go north
-go east
-go south
-go west
-go west
-go north
-go north
-go south
-go south
-go east
-go east
-go east
-go west
-go north
-go west
-go west
-go east
-go south
-go east
-go east
-go north
-go north
-go north
-go south
-go east
-go south
-go south
-go west
-go east
-go north
-go west
-go east
-go north
-go west
-go north
-go west
-go south
-go north
-go east
-go south
-go west
-go north
-go west
-go west
-go south
-go south
-go south
-go north
-go east
-go south
-go north
-go east
-go east
-go north
-go north
-go south
-go north
-go south
-go north
-go west
-go east
-go south
-go east
-go west
-go south
-go south
-go east
-go west
-go east
-go north
-go west
-go west
-go east
-go west
-go north
-go west
-go east
-go west
-go east
-go south
-go west
-go south
-go west
-go north
-go east
-go north
-go west
-go south
-go north
-go south
-go south
-go east
-go west
-go north
-go north
-go north
-go east
-go east
-go east
-go west
-go south
-go east
-go west
-go north
-go west
-go south
-go east
-go south
-go east
-go west
-go west
-go east
-go south
-go east
-go east
-go west
-go west
-go north
-go west
-go south
-go east
-go west
-go east
-go east
-go north
-go south
-go west
-go west
-go west
-go east
-go west
-go east
-go west
-go north
-go north
-go north
-go south
-go north
-go south
-go east
-go south
-go north
-go east
-go south
-go north
-go west
-go north
-go west
-go south
-go north
-go south
-go south
-go south
-go east
-go west
-go east
-go west
-go north
-go south
-go north
-go south
-go east
-go east
-go east
-go north
-go north
-go north
-go west
-go south
-go east
-go south
-go north
-go north
-go east
-go west
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go south
-go south
-go south
-go west
-go west
-go north
-go east
-go east
-go south
-go west
-go east
-go west
-go west
-go east
-go west
-go north
-go north
-go south
-go east
-go east
-go north
-go west
-go south
-go south
-go east
-go north
-go south
-go west
-go west
-go west
-go east
-go east
-go west
-go east
-go west
-go west
-go west
-go east
-go east
-go north
-go west
-go east
-go west
-go north
-go south
-go south
-go east
-go north
-go south
-go west
-go north
-go north
-go north
-go west
-go south
-go east
-go north
-go west
-go east
-go west
-go south
-go north
-go south
-go north
-go east
-go west
-go south
-go south
-go south
-go east
-go north
-go north
-go south
-go west
-go north
-go east
-go west
-go east
-go north
-go south
-go west
-go east
-go east
-go east
-go south
-go north
-go west
-go south
-go south
-go north
-go east
-go east
-go south
-go north
-go west
-go north
-go north
-go south
-go south
-go east
-go south
-go west
-go west
-go north
-go north
-go north
-go east
-go east
-go south
-go south
-go south
-go north
-go north
-go north
-go south
-go south
-go north
-go north
-go south
-go south
-go west
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go south
-go west
-go east
-go west
-go west
-go east
-go west
-go west
-go north
-go north
-go east
-go west
-go south
-go west
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go west
-go east
-go south
-go west
-go north
-go east
-go east
-go east
-go north
-go north
-go east
-go west
-go south
-go east
-go south
-go south
-go north
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go west
-go west
-go west
-go west
-go east
-go north
-go north
-go north
-go west
-go east
-go east
-go south
-go west
-go west
-go north
-go east
-go south
-go south
-go east
-go east
-go south
-go east
-go north
-go west
-go east
-go north
-go west
-go north
-go west
-go east
-go west
-go east
-go south
-go west
-go south
-go south
-go north
-go west
-go west
-go south
-go east
-go north
-go north
-go west
-go east
-go north
-go east
-go east
-go south
-go east
-go west
-go west
-go east
-go east
-go north
-go west
-go east
-go south
-go north
-go south
-go west
-go north
-go south
-go west
-go south
-go east
-go north
-go east
-go south
-go south
-go north
-go west
-go west
-go south
-go north
-go north
-go west
-go north
-go east
-go west
-go west
-go south
-go south
-go south
-go east
-go east
-go west
-go west
-go east
-go west
-go north
-go north
-go south
-go south
-go north
-go east
-go south
-go north
-go south
-go west
-go east
-go west
-go east
-go north
-go north
-go west
-go north
-go south
-go north
-go south
-go east
-go east
-go north
-go west
-go west
-go south
-go east
-go north
-go south
-go east
-go north
-go west
-go east
-go east
-go south
-go north
-go south
-go north
-go east
-go south
-go south
-go west
-go south
-go north
-go east
-go north
-go north
-go south
-go west
-go south
-go north
-go south
-go north
-go north
-go east
-go west
-go west
-go west
-go west
-go south
-go north
-go east
-go west
-go south
-go north
-go south
-go east
-go east
-go east
-go west
-go east
-go north
-go south
-go north
-go west
-go east
-go west
-go west
-go west
-go south
-go south
-go east
-go north
-go east
-go south
-go south
-go north
-go north
-go west
-go north
-go west
-go east
-go south
-go west
-go east
-go south
-go south
-go west
-go east
-go east
-go east
-go north
-go west
-go south
-go west
-go north
-go west
-go north
-go north
-go east
-go west
-go east
-go east
-go east
-go south
-go south
-go north
-go east
-go south
-go north
-go south
-go north
-go north
-go west
-go east
-go south
-go north
-go west
-go south
-go south
-go west
-go west
-go west
-go east
-go west
-go north
-go north
-go south
-go east
-go west
-go north
-go east
-go south
-go north
-go east
-go south
-go west
-go south
-go north
-go east
-go west
-go south
-go north
-go west
-go north
-go east
-go east
-go west
-go west
-go east
-go west
-go east
-go east
-go south
-go east
-go north
-go south
-go west
-go north
-go south
-go north
-go west
-go west
-go south
-go south
-go east
-go west
-go east
-go east
-go south
-go west
-go west
-go north
-go south
-go north
-go north
-go east
-go west
-go east
-go north
-go south
-go south
-go north
-go west
-go east
-go east
-go west
-go west
-go south
-go north
-go north
-go south
-go east
-go east
-go west
-go north
-go west
-go east
-go east
-go south
-go west
-go west
-go north
-go east
-go south
-go north
-go west
-go east
-go east
-go south
-go west
-go south
-go north
-go south
-go east
-go east
-go south
-go west
-go west
-go east
-go east
-go west
-go west
-go north
-go west
-go east
-go west
-go south
-go east
-go east
-go east
-go north
-go north
-go west
-go east
-go west
-go north
-go west
-go south
-go north
-go west
-go east
-go east
-go west
-go south
-go west
-go south
-go south
-go east
-go north
-go west
-go south
-go east
-go west
-go north
-go east
-go east
-go east
-go west
-go north
-go south
-go south
-go east
-go east
-go north
-go south
-go north
-go west
-go north
-go south
-go east
-go west
-go north
-go south
-go north
-go west
-go north
-go east
-go west
-go south
-go west
-go north
-go south
-go east
-go south
-go east
-go east
-go west
-go north
-go north
-go east
-go south
-go north
-go south
-go south
-go north
-go south
-go west
-go east
-go north
-go north
-go south
-go south
-go north
-go south
-go south
-go west
-go north
-go north
-go east
-go north
-go south
-go north
-go south
-go south
-go north
-go west
-go north
-go south
-go north
-go east
-go west
-go west
-go south
-go west
-go west
-go north
-go south
-go east
-go south
-go west
-go south
-go east
-go west
-go east
-go east
-go north
-go north
-go west
-go west
-go north
-go east
-go west
-go south
-go north
-go south
-go north
-go south
-go south
-go south
-go north
-go south
-go north
-go south
-go north
-go south
-go east
-go east
-go west
-go north
-go east
-go south
-go north
-go east
-go east
-go north
-go north
-go south
-go north
-go west
-go south
-go east
-go west
-go east
-go south
-go south
-go west
-go north
-go west
-go north
-go north
-go east
-go west
-go west
-go east
-go east
-go east
-go south
-go north
-go south
-go south
-go west
-go east
-go south
-go west
-go north
-go west
-go north
-go north
-go south
-go south
-go north
-go south
-go north
-go south
-go west
-go south
-go west
-go north
-go south
-go east
-go east
-go north
-go north
-go south
-go south
-go east
-go north
-go east
-go north
-go south
-go south
-go west
-go west
-go north
-go north
-go south
-go south
-go north
-go south
-go west
-go north
-go east
-go south
-go east
-go east
-go north
-go north
-go west
-go north
-go west
-go east
-go west
-go south
-go east
-go east
-go north
-go west
-go east
-go south
-go west
-go west
-go north
-go west
-go south
-go east
-go north
-go east
-go west
-go west
-go east
-go east
-go west
-go west
-go east
-go south
-go west
-go north
-go east
-go east
-go south
-go west
-go south
-go north
-go west
-go south
-go south
-go east
-go west
-go north
-go east
-go west
-go south
-go west
-go north
-go east
-go north
-go south
-go south
-go north
-go south
-go north
-go north
-go west
-go south
-go east
-go north
-go south
-go south
-go east
-go north
-go east
-go east
-go north
-go west
-go west
-go south
-go south
-go west
-go west
-go east
-go west
-go north
-go south
-go north
-go east
-go north
-go south
-go east
-go west
-go west
-go east
-go east
-go east
-go south
-go east
-go west
-go north
-go north
-go east
-go north
-go west
-go east
-go south
-go south
-go north
-go west
-go north
-go west
-go south
-go east
-go south
-go west
-go north
-go south
-go west
-go south
-go east
-go north
-go north
-go east
-go south
-go north
-go east
-go south
-go south
-go north
-go south
-go west
-go west
-go west
-go east
-go east
-go east
-go north
-go west
-go south
-go north
-go west
-go west
-go east
-go west
-go south
-go west
-go north
-go south
-go east
-go east
-go east
-go north
-go west
-go east
-go east
-go south
-go north
-go west
-go north
-go south
-go north
-go north
-go east
-go south
-go west
-go south
-go north
-go east
-go north
-go south
-go north
-go south
-go south
-go south
-go west
-go west
-go west
-go west
-go east
-go north
-go south
-go west
-go east
-go north
-go north
-go north
-go east
-go west
-go east
-go west
-go west
-go east
-go east
-go south
-go west
-go west
-go east
-go east
-go west
-go north
-go east
-go south
-go north
-go east
-go south
-go east
-go north
-go west
-go east
-go west
-go south
-go south
-go north
-go south
-go south
-go east
-go north
-go south
-go west
-go west
-go west
-go east
-go north
-go north
-go east
-go north
-go east
-go south
-go south
-go west
-go east
-go west
-go west
-go north
-go west
-go east
-go north
-go west
-go west
-go south
-go south
-go east
-go east
-go west
-go north
-go south
-go west
-go east
-go west
-go north
-go north
-go east
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go south
-go east
-go west
-go south
-go north
-go south
-go west
-go north
-go north
-go east
-go east
-go east
-go west
-go east
-go south
-go north
-go west
-go south
-go north
-go south
-go north
-go north
-go south
-go north
-go east
-go west
-go west
-go south
-go south
-go west
-go east
-go south
-go east
-go east
-go east
-go north
-go north
-go south
-go north
-go west
-go north
-go west
-go south
-go west
-go south
-go west
-go south
-go east
-go west
-go north
-go east
-go west
-go east
-go north
-go east
-go west
-go west
-go east
-go north
-go east
-go east
-go east
-go south
-go north
-go west
-go south
-go west
-go north
-go south
-go north
-go west
-go south
-go west
-go north
-go south
-go east
-go east
-go east
-go north
-go west
-go west
-go south
-go west
-go south
-go north
-go south
-go east
-go east
-go west
-go north
-go east
-go east
-go south
-go south
-go east
-go north
-go south
-go north
-go north
-go north
-go south
-go south
-go south
-go west
-go north
-go east
-go south
-go north
-go south
-go north
-go south
-go north
-go west
-go south
-go north
-go east
-go south
-go north
-go south
-go west
-go east
-go north
-go south
-go north
-go west
-go south
-go west
-go east
-go west
-go east
-go east
-go north
-go west
-go south
-go east
-go north
-go north
-go south
-go north
-go west
-go west
-go west
-go north
-go west
-go east
-go east
-go south
-go east
-go south
-go east
-go north
-go south
-go west
-go east
-go west
-go north
-go west
-go north
-go east
-go west
-go south
-go north
-go south
-go north
-go south
-go west
-go north
-go east
-go west
-go south
-go west
-go south
-go east
-go east
-go north
-go north
-go west
-go west
-go south
-go north
-go south
-go north
-go south
-go north
-go south
-go south
-go south
-go east
-go east
-go north
-go west
-go north
-go north
-go east
-go south
-go east
-go north
-go east
-go west
-go south
-go south
-go south
-go north
-go east
-go north
-go south
-go south
-go north
-go north
-go west
-go north
-go east
-go south
-go north
-go west
-go south
-go north
-go west
-go west
-go west
-go south
-go north
-go south
-go north
-go south
-go south
-go north
-go south
-go south
-go north
-go east
-go east
-go north
-go north
-go west
-go south
-go west
-go east
-go north
-go west
-go south
-go east
-go west
-go east
-go north
-go west
-go south
-go south
-go south
-go east
-go east
-go east
-go west
-go east
-go west
-go west
-go north
-go north
-go north
-go east
-go east
-go south
-go south
-go south
-go west
 go west
-go west
-go east
-go west
-go east
-go east
-go north
-go west
-go north
-go south
-go east
-go east
-go east
-go south
-go west
-go west
-go north
-go west
-go west
-go north
-go east
-go north
-go east
-go west
-go south
-go south
-go west
-go south
-go north
-go south
-go north
-go east
-go south
-go west
-go north
-go north
-go north
-go east
-go south
-go west
-go north
-go south
-go south
-go north
-go east
-go east
-go east
-go north
-go south
-go west
-go east
-go east
-go south
-go south
-go north
-go north
-go west
-go west
-go east
-go east
-go south
-go south
-go west
-go north
-go north
-go north
-go east
-go west
-go east
-go south
-go west
-go south
-go west
-go south
-go east
-go west
-go west
-go west
-go north
-go south
-go north
-go north
-go north
-go east
-go south
-go east
-go south
-go north
-go west
-go east
-go west
-go south
-go east
-go west
-go east
-go west
-go east
-go south
-go north
-go south
-go north
-go south
-go west
-go north
-go south
-go west
-go east
-go north
-go north
-go east
-go east
-go west
-go north
-go south
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go east
-go north
-go north
-go west
-go south
-go south
-go north
-go east
-go north
-go west
-go east
-go south
-go north
-go west
-go south
-go east
-go north
-go west
-go east
-go west
-go south
-go east
-go east
-go west
-go west
-go east
-go north
-go south
-go east
-go west
-go west
-go south
-go north
-go north
-go south
-go west
-go east
-go south
-go west
-go west
-go south
-go east
-go north
-go east
-go east
-go east
-go west
-go east
-go south
-go north
-go west
-go east
-go north
-go north
-go south
-go south
-go west
-go north
-go east
-go west
-go north
-go south
-go north
-go south
-go west
-go south
-go west
-go north
-go south
-go east
-go west
-go north
-go west
-go east
-go south
-go south
-go east
-go east
-go east
-go north
-go west
-go west
-go west
-go south
-go north
-go south
-go west
-go east
-go west
-go east
-go east
-go east
-go north
-go north
-go west
-go west
-go north
-go south
-go west
-go east
-go north
-go east
-go south
-go south
-go south
-go east
-go west
-go north
-go west
-go east
-go south
-go west
-go west
-go east
-go north
-go east
-go east
-go east
-go west
-go west
-go west
-go north
-go west
-go east
-go south
-go south
-go north
-go east
-go east
-go south
-go east
-go west
-go west
-go west
-go north
-go north
-go south
-go north
-go west
-go east
-go north
-go south
-go east
-go south
-go north
-go north
-go south
-go south
-go south
-go north
-go west
-go north
-go east
-go east
-go north
-go west
-go east
-go west
-go west
-go east
-go east
-go east
-go west
-go west
-go south
-go west
-go north
-go west
-go east
-go west
-go east
-go west
-go east
-go west
-go south
-go north
-go south
-go east
-go south
-go west
-go south
-go north
-go east
-go east
-go west
-go south
-go west
-go north
-go east
-go south
-go west
-go east
-go east
-go east
-go north
-go north
-go north
-go south
-go west
-go north
-go east
-go east
-go west
-go east
-go south
-go north
-go south
-go west
-go south
-go south
-go north
-go east
-go west
-go west
-go west
-go west
-go south
-go east
-go north
-go east
-go south
-go east
-go west
-go north
-go east
-go east
-go north
-go north
-go west
-go west
-go west
-go east
-go south
-go north
-go south
-go south
-go east
-go east
-go west
-go north
-go south
-go north
-go west
-go west
-go east
-go north
-go south
-go west
-go west
-go south
-go north
-go north
-go south
-go east
-go east
-go east
-go north
-go south
-go south
-go north
-go west
-go west
-go east
-go east
-go east
-go south
-go north
-go north
-go west
-go south
-go east
-go west
-go east
-go west
-go north
-go east
-go west
-go west
-go east
-go west
-go west
-go east
-go east
-go east
-go west
-go west
-go south
-go north
-go west
-go east
-go west
-go west
-go east
-go south
-go north
-go west
-go east
-go west
-go east
-go south
-go north
-go east
-go west
-go west
-go east
-go east
-go south
-go south
-go north
-go east
-go west
-go west
-go east
-go west
-go west
-go south
-go east
-go south
-go west
-go north
-go north
-go north
-go south
-go east
-go west
-go south
-go north
-go north
-go east
-go west
-go east
-go south
-go south
-go east
-go east
-go west
-go south
-go west
-go west
-go east
-go west
-go north
-go east
-go west
-go north
-go east
-go north
-go west
-go east
-go south
-go south
-go south
-go east
-go north
-go south
-go east
-go west
-go east
-go east
-go north
-go south
-go west
-go east
-go north
-go north
-go north
-go west
-go south
-go north
-go west
-go south
-go west
-go east
-go east
-go south
-go west
-go east
-go north
-go east
-go west
-go south
-go east
-go west
-go west
-go south
-go east
-go west
-go west
-go west
-go east
-go north
-go north
 d
 go south
 go south
@@ -15949,3 +2777,1585 @@ c
 e
 c
 r
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+out
+west
+south
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+west
+south
+south
+up
+west
+west
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+north
+south
+north
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+north
+south
+north
+south
+north
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+south
+north
+south
+north
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+north
+south
+north
+south
+north
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+u
+east
+east
+east
+east
+east
+east
+east
+2
+b
+s
+east
+q
+b
+south
+down
+up
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+r
+c
+down
+up
+down
+up
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+E
+c
+E
+c
+E
+c
+E
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+u
+east
+east
+east
+east
+east
+east
+east
+3
+b
+east
+east
+down
+north
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+south
+up
+down
+up
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+north
+down
+up
+down
+north
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+south
+up
+down
+up
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+north
+down
+up
+down
+north
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+south
+up
+down
+up
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+north
+down
+up
+down
+north
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+south
+up
+down
+up
+south
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+u
+east
+east
+east
+east
+east
+east
+east
+east
+3
+b
+north
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+down
+up
+down
+up
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+down
+up
+down
+up
+down
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+u
+east
+east
+east
+east
+east
+east
+east
+1
+b
+u
+east
+east
+east
+east
+east
+east
+east
+east
+1
+b
+u
+east
+east
+east
+east
+east
+east
+east
+east
+2
+b
+u
+east
+east
+east
+east
+east
+east
+east
+east
+east
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+1
+b
+u
+east
+east
+east
+east
+east
+east
+east
+east
+east
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+2
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+3
+d
+d
+d
+d
+d
+d
+d
+d
+d
+d
+b
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+w
+c
+r
+a
+c
+up
+west
+west
+up
+north
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+a
+c
+west
+s
+east
+r
+b
+up
+up
+down
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+E
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+q
+c
+r
+c
+east
+out
+out
+north
+in
