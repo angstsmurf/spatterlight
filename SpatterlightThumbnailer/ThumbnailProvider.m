@@ -17,6 +17,28 @@
 
 @implementation ThumbnailProvider
 
+// App-level categories are only available if their .m file is compiled into
+// this extension target. A missing one otherwise shows up as an unrecognized
+// selector deep inside thumbnail generation, so check the ones we use at
+// launch. If this fires, add the named file to the SpatterlightThumbnailer
+// target's Compile Sources build phase.
++ (void)initialize {
+    if (self != [ThumbnailProvider class])
+        return;
+
+    NSArray<NSArray *> *requiredCategoryMethods = @[
+        @[NSString.class, @"signatureFromFile", @"NSString+Categories.m"]
+    ];
+
+    for (NSArray *entry in requiredCategoryMethods) {
+        Class cls = entry[0];
+        if (![cls instancesRespondToSelector:NSSelectorFromString(entry[1])]) {
+            NSLog(@"Thumbnailer: -[%@ %@] is missing. Is %@ in the SpatterlightThumbnailer target?", cls, entry[1], entry[2]);
+            NSAssert(NO, @"-[%@ %@] is missing. Add %@ to the SpatterlightThumbnailer target.", cls, entry[1], entry[2]);
+        }
+    }
+}
+
 #pragma mark - Core Data stack
 
 @synthesize persistentContainer = _persistentContainer;
@@ -63,6 +85,21 @@
 
     NSError *error;
 
+    // Blorb parsing doesn't touch Core Data, so keep it outside the
+    // context's perform block. A malformed file should only mean no
+    // embedded cover, so fall back to the database lookup on exceptions.
+    @try {
+        if ([Blorb isBlorbURL:url]) {
+            NSData *blorbData = [NSData dataWithContentsOfURL:url];
+            Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
+            if (blorb)
+                imgdata = [blorb coverImageData];
+        }
+    } @catch (NSException *exception) {
+        NSLog(@"SpatterlightThumbnailer: Exception parsing Blorb file %@: %@", url.path, exception);
+        imgdata = nil;
+    }
+
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
 
     if (!context) {
@@ -74,13 +111,6 @@
     [context performBlockAndWait:^{
 
         NSError *blockerror = nil;
-
-        if ([Blorb isBlorbURL:url]) {
-            NSData *blorbData = [NSData dataWithContentsOfURL:url];
-            Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
-            if (blorb)
-                imgdata = [blorb coverImageData];
-        }
 
         if (!imgdata) {
 

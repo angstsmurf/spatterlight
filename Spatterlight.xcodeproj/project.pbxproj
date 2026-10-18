@@ -603,9 +603,7 @@
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
-		C3123A7E2F6A103300A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C3123A7F2F6A103D00A87289 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
-		C3123A802F6A106E00A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C3123A812F6A108400A87289 /* NSData+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C3075512265C2D2E00931D5B /* NSData+Categories.m */; };
 		C3123A822F6A117400A87289 /* FileSignature.m in Sources */ = {isa = PBXBuildFile; fileRef = C3CF8A152DF8762600EF2297 /* FileSignature.m */; };
 		C314D6E82FD6C1B600EABA28 /* archetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C314D6992FD6C00A00EABA28 /* archetype.cpp */; };
@@ -726,7 +724,7 @@
 		C3218A9E2F68C8C800F21988 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
 		C322714B25CC214A0083BD5B /* QuickLookThumbnailing.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DF3C25C473B700484639 /* QuickLookThumbnailing.framework */; };
 		C322714C25CC214A0083BD5B /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
-		C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C322714F25CC214A0083BD5B /* ThumbnailProvider.m */; };
+		C322715025CC214A0083BD5B /* ThumbnailProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C322714F25CC214A0083BD5B /* ThumbnailProvider.m */; settings = {COMPILER_FLAGS = "-fobjc-arc-exceptions"; }; };
 		C322717225CC22260083BD5B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		C322718C25CC224F0083BD5B /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		C32271A625CC22530083BD5B /* Metadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC1FAEE252A5A5900540C6E /* Metadata.m */; };
@@ -735,7 +733,7 @@
 		C32419CD262DFFA300366AAE /* BuiltInThemes.m in Sources */ = {isa = PBXBuildFile; fileRef = C32419CC262DFFA300366AAE /* BuiltInThemes.m */; };
 		C326B13D26C18280006C398F /* The Sound of One Hand Clapping command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C326B13C26C18280006C398F /* The Sound of One Hand Clapping command script.txt */; };
 		C326B14126C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt in Resources */ = {isa = PBXBuildFile; fileRef = C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */; };
-		C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; };
+		C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc-exceptions"; }; };
 		C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
 		C32A3D882719F34B0049C777 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */; };
@@ -9517,7 +9515,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C3123A802F6A106E00A87289 /* NSData+Categories.m in Sources */,
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,
@@ -9691,7 +9688,6 @@
 			files = (
 				C3123A822F6A117400A87289 /* FileSignature.m in Sources */,
 				C3123A7F2F6A103D00A87289 /* NSString+Categories.m in Sources */,
-				C3123A7E2F6A103300A87289 /* NSData+Categories.m in Sources */,
 				C3F53C64271BB93300538393 /* iff.c in Sources */,
 				55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */,
 				C3F53C65271BB94C00538393 /* Blorb.m in Sources */,
@@ -10404,7 +10400,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 1.5.5;
+				APP_BUILD = 29;
 				APP_VERSION = 1.5.5;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;
@@ -10471,7 +10467,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				APP_BUILD = 1.5.5;
+				APP_BUILD = 29;
 				APP_VERSION = 1.5.5;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_GCD_PERFORMANCE = YES;

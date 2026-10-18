@@ -11,9 +11,17 @@
 
 #import "Blorb.h"
 #import "BlorbResource.h"
-#import "NSData+Categories.h"
+#import "FileSignature.h"
 #include "iff.h"
 #import <BlorbFramework/BlorbFramework-Swift.h>
+
+// Calls FileSignature directly rather than the -[NSData sha256String]
+// category, so that Blorb does not depend on app-level categories that may
+// not be compiled into every target using the framework. FileSignature.m is
+// compiled into BlorbFramework itself.
+static NSString *BlorbSHA256String(NSData *data) {
+  return [FileSignature sha256StringFromData:data];
+}
 
 @interface Blorb () {
   NSData *data;
@@ -266,7 +274,7 @@
   for (BlorbResource *res in images)
     if (res.number == frontispiece) {
       NSData *imageData = [self dataForResource:res];
-      NSString *sha = imageData.sha256String;
+      NSString *sha = BlorbSHA256String(imageData);
       // The images extracted this way from Narcolepsy, Dracula and
       // Pytho's mask are really boring, so we skip them
       if (_fakeFrontispiece &&

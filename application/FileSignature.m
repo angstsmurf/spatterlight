@@ -69,7 +69,6 @@
 
             Byte bytes12[12];
             NSInteger execStart = 0;
-            NSInteger execLength = 0;
             for (NSUInteger i = 24; i <= (NSUInteger)chunkLength + 8 && i < theData.length - 12; i += 12) {
                 [theData getBytes:bytes12 range:NSMakeRange(i, 12)];
                 if (bytes12[0] == 'E' && bytes12[1] == 'x' && bytes12[2] == 'e' && bytes12[3] == 'c') {
@@ -82,21 +81,22 @@
                     NSInteger nextChunkStart = bytes12[8] << 24 | (bytes12[9] & 0xff) << 16 |
                     (bytes12[10] & 0xff) << 8 |
                     (bytes12[11] & 0xff);
-                    if (nextChunkStart > execStart) {
-                        execLength = execStart - nextChunkStart;
+                    if (nextChunkStart > execStart)
                         break;
-                    }
                 }
             }
 
             if (execStart > 0) {
-                if (execLength == 0) {
-                    execLength = (NSInteger)theData.length - execStart;
-                }
-                NSRange subRange = NSMakeRange((NSUInteger)execStart, (NSUInteger)execLength);
-                subRange = NSIntersectionRange(NSMakeRange(0, theData.length), subRange);
-
-                subData = [theData subdataWithRange:subRange];
+                // The signature always covers everything from the start of
+                // the executable chunk to the end of the file, even when
+                // other resources follow it. Signatures are stored as
+                // hashTags in the library, so changing this to hash only
+                // the executable chunk would break matching of existing
+                // games. (Earlier versions intended to do that, but got the
+                // length negative, which either clipped to the end of the
+                // file anyway or raised an NSRangeException.)
+                NSUInteger start = MIN((NSUInteger)execStart, theData.length);
+                subData = [theData subdataWithRange:NSMakeRange(start, theData.length - start)];
             } else {
                 NSLog(@"signature: Found no executable index chunk in data!");
             }

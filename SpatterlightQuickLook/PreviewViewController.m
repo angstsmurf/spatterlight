@@ -43,6 +43,30 @@
 
 @implementation PreviewViewController
 
+// App-level categories are only available if their .m file is compiled into
+// this extension target. A missing one otherwise shows up as an unrecognized
+// selector deep inside a preview (see the 1.4.6 -[NSData sha256String] crash),
+// so check the ones we use at launch. If this fires, add the named file to
+// the SpatterlightQuickLook target's Compile Sources build phase.
++ (void)initialize {
+    if (self != [PreviewViewController class])
+        return;
+
+    NSArray<NSArray *> *requiredCategoryMethods = @[
+        @[NSData.class, @"sha256String", @"NSData+Categories.m"],
+        @[NSString.class, @"signatureFromFile", @"NSString+Categories.m"],
+        @[NSFont.class, @"fontToFitWidth:sampleText:", @"NSFont+Categories.m"]
+    ];
+
+    for (NSArray *entry in requiredCategoryMethods) {
+        Class cls = entry[0];
+        if (![cls instancesRespondToSelector:NSSelectorFromString(entry[1])]) {
+            NSLog(@"QuickLook: -[%@ %@] is missing. Is %@ in the SpatterlightQuickLook target?", cls, entry[1], entry[2]);
+            NSAssert(NO, @"-[%@ %@] is missing. Add %@ to the SpatterlightQuickLook target.", cls, entry[1], entry[2]);
+        }
+    }
+}
+
 + (NSImage *)iconFromURL:(NSURL *)url {
     NSImage *icon = [[NSWorkspace sharedWorkspace] iconForFile:url.path];
     NSData *imageData = icon.TIFFRepresentation;
@@ -393,13 +417,20 @@
     if (!_metaDict[@"title"])
         _metaDict[@"title"] = url.lastPathComponent;
 
-    if ([Blorb isBlorbURL:url]) {
-        NSData *blorbData = [NSData dataWithContentsOfURL:url];
-        Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
-        if (blorb) {
-            imageData = [blorb coverImageData];
-            [_imageView addImageFromData:imageData];
+    // A malformed file should only mean no embedded cover, so fall back
+    // to the database cover or file icon below on exceptions.
+    @try {
+        if ([Blorb isBlorbURL:url]) {
+            NSData *blorbData = [NSData dataWithContentsOfURL:url];
+            Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
+            if (blorb) {
+                imageData = [blorb coverImageData];
+                [_imageView addImageFromData:imageData];
+            }
         }
+    } @catch (NSException *exception) {
+        NSLog(@"QuickLook: Exception parsing Blorb file %@: %@", url.path, exception);
+        imageData = nil;
     }
 
     if (!_imageView.hasImage && _metaDict[@"cover"]) {
@@ -1028,20 +1059,31 @@
 
     NSMutableDictionary *metaDict = [NSMutableDictionary new];
 
-    Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
-    metaDict[@"cover"] = [blorb coverImageData];
+    NSData *data = nil;
 
-    metaDict[@"IFhd"] = [blorb ifidFromIFhd];
-    if (metaDict[@"IFhd"]) {
-        metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"]];
-    } else NSLog(@"No IFdh resource in Blorb file");
+    // This is called from inside a Core Data perform block, so an exception
+    // from a malformed file would be rethrown and crash the extension.
+    // Treat it as a file without Blorb metadata instead.
+    @try {
+        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+        metaDict[@"cover"] = [blorb coverImageData];
 
-    for (NSString *chunkName in blorb.optionalChunks.allKeys) {
-        metaDict[chunkName] = blorb.optionalChunks[chunkName];
-        //        NSLog(@"metaDict[%@] = \"%@\"", chunkName, metaDict[chunkName]);
+        metaDict[@"IFhd"] = [blorb ifidFromIFhd];
+        if (metaDict[@"IFhd"]) {
+            metaDict[@"IFhdTitle"] = [self titleFromIfid:metaDict[@"IFhd"]];
+        } else NSLog(@"No IFdh resource in Blorb file");
+
+        for (NSString *chunkName in blorb.optionalChunks.allKeys) {
+            metaDict[chunkName] = blorb.optionalChunks[chunkName];
+            //        NSLog(@"metaDict[%@] = \"%@\"", chunkName, metaDict[chunkName]);
+        }
+
+        data = blorb.metaData;
+    } @catch (NSException *exception) {
+        NSLog(@"QuickLook: Exception parsing Blorb file %@: %@", url.path, exception);
+        return nil;
     }
 
-    NSData *data = blorb.metaData;
     if (data) {
         NSError *error = nil;
         NSXMLDocument *xml =
@@ -1091,8 +1133,10 @@
         NSLog(@"Could not create new context!");
         return nil;
     }
-    Game __block *game = nil;
+    NSString __block *title = nil;
 
+    // Managed objects may only be accessed on their context's queue,
+    // so read everything we need from the game inside the block
     [context performBlockAndWait:^{
         NSError *error = nil;
         NSArray *fetchedObjects;
@@ -1104,16 +1148,13 @@
         if (fetchedObjects && fetchedObjects.count) {
             if (fetchedObjects.count > 1)
                 NSLog(@"Found %ld games with ifid %@", fetchedObjects.count, ifid);
-            game = fetchedObjects.firstObject;
+            Game *game = fetchedObjects.firstObject;
+            [self addImageFromGame:game];
+            title = game.metadata.title;
         }
     }];
 
-    if (game) {
-        [self addImageFromGame:game];
-        return game.metadata.title;
-    } else {
-        return nil;
-    }
+    return title;
 }
 
 - (NSString *)titleFromHash:(NSString *)hash {
@@ -1122,8 +1163,10 @@
         NSLog(@"context is nil!");
         return nil;
     }
-    Game __block *game = nil;
+    NSString __block *title = nil;
 
+    // Managed objects may only be accessed on their context's queue,
+    // so read everything we need from the game inside the block
     [context performBlockAndWait:^{
         NSError *error = nil;
         NSArray *fetchedObjects;
@@ -1135,15 +1178,13 @@
         if (fetchedObjects && fetchedObjects.count) {
             if (fetchedObjects.count > 1)
                 NSLog(@"Found %ld games with requested hash", fetchedObjects.count);
-            game = fetchedObjects.firstObject;
+            Game *game = fetchedObjects.firstObject;
+            [self addImageFromGame:game];
+            title = game.metadata.title;
         }
     }];
-    if (game) {
-        [self addImageFromGame:game];
-        return game.metadata.title;
-    } else {
-        return nil;
-    }
+
+    return title;
 }
 
 + (NSString *)ifidFromFile:(NSString *)path {
@@ -1206,7 +1247,7 @@
 }
 
 - (NSString *)titleFromQuetzalSave:(NSData *)data {
-    NSString *title = nil;
+    NSString __block *title = nil;
     NSString *ifid = nil;
     if (data) {
         const void *ptr = data.bytes;
@@ -1234,8 +1275,8 @@
 
                 NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
                 if (context) {
-                    Game __block *game = nil;
-
+                    // Managed objects may only be accessed on their context's
+                    // queue, so read everything we need from the game in here
                     [context performBlockAndWait:^{
                         NSError *error = nil;
                         NSArray *fetchedObjects;
@@ -1252,14 +1293,12 @@
 
                         if (fetchedObjects.count > 1)
                             NSLog(@"Found %ld matching games!", fetchedObjects.count);
-                        game = fetchedObjects.firstObject;
-
+                        Game *game = fetchedObjects.firstObject;
+                        if (game) {
+                            title = game.metadata.title;
+                            [self addImageFromGame:game];
+                        }
                     }];
-
-                    if (game) {
-                        title = game.metadata.title;
-                        [self addImageFromGame:game];
-                    }
                 }
 
                 if (!title) {
