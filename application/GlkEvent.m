@@ -184,6 +184,14 @@ unsigned chartokeycode(unsigned ch) {
     return self;
 }
 
+- (instancetype)initAutosaveEvent {
+    self = [super init];
+    if (self) {
+        _type = EVTAUTOSAVE;
+    }
+    return self;
+}
+
 - (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound {
     self = [super init];
     if (self) {

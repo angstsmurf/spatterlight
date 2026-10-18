@@ -41,6 +41,12 @@ bool gli_autosave_exists(const char *gamepath);
  * wakeup, and a timer event only with the autosave-on-timer preference). */
 bool gli_autosave_wanted(void);
 
+/* A terp that paces its autosaves (glulxe skips timer-driven saves that
+ * come too close together) sets this.  win_select calls it when the window
+ * server sends EVTAUTOSAVE, just before it closes the game, so the pair on
+ * disk is brought up to date whatever the pacing skipped. */
+extern void (*gli_autosave_request_hook)(void);
+
 /* Delete the pair and its -bak copies, e.g. after a failed restore, so the
  * next launch starts fresh instead of failing the same way. */
 void gli_autosave_discard(const char *gamepath);

@@ -16,6 +16,7 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)theme force:(BOOL)forceFlag;
 - (instancetype)initRedrawEvent;
 - (instancetype)initQuitEvent;
+- (instancetype)initAutosaveEvent;
 - (instancetype)initSoundNotify:(NSInteger)notify withSound:(NSInteger)sound;
 - (instancetype)initVolumeNotify:(NSInteger)notify;
 - (instancetype)initLinkEvent:(NSUInteger)linkid forWindow:(NSInteger)name;

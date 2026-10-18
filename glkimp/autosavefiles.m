@@ -47,6 +47,8 @@ bool gli_autosave_exists(const char *gamepath)
     }
 }
 
+void (*gli_autosave_request_hook)(void) = NULL;
+
 bool gli_autosave_wanted(void)
 {
     if (!gli_enable_autosave)

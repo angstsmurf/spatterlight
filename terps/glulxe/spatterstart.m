@@ -29,11 +29,17 @@ static void *accel_func_array; /* used by the archive/unarchive hooks */
 //static void spatterglk_game_start(void);
 static void spatterglk_game_autorestore(void);
 static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2);
+static void spatterglk_autosave_now(void);
 static void spatterglk_library_archive(TempLibrary *library, NSCoder *encoder);
 static void spatterglk_library_unarchive(TempLibrary *library, NSCoder *decoder);
 static void recover_library_state(LibraryState *library_state);
 
 static char autosavename[1024] = "";
+
+/* The operands of the @glk call the VM is blocked in, and whether the timer
+ * pacing in spatterglk_game_select has skipped a save since the last one. */
+static glui32 blocked_selector, blocked_arg0, blocked_arg1, blocked_arg2;
+static BOOL autosave_skipped = NO;
 
 /* The only command-line argument is the filename. And the profiling switch,
  if that's compiled in. The only *two* command-line arguments are...
@@ -215,6 +221,7 @@ int glkunix_startup_code(glkunix_startup_t *data)
 
     set_library_autorestore_hook(&spatterglk_game_autorestore);
     set_library_select_hook(&spatterglk_game_select);
+    gli_autosave_request_hook = &spatterglk_autosave_now;
     max_undo_level = 32; // allow 32 undo steps
 
     lastAutosaveTimestamp = [NSDate distantPast];
@@ -336,12 +343,24 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
 {
 //    NSLog(@"### game called select, last event was %d", lasteventtype);
 
+    /* Remembered for spatterglk_autosave_now: a save requested while the VM
+     * is blocked in this call must find the same operands. */
+    blocked_selector = selector;
+    blocked_arg0 = arg0;
+    blocked_arg1 = arg1;
+    blocked_arg2 = arg2;
+
     /* Do not autosave if we've just started up, or if the last event was a rearrange event. (We get rearranges in clusters, and they don't change anything interesting anyhow.) */
     if (!gli_autosave_wanted())
         return;
 
-    if (lasteventtype == evtype_Timer && lastAutosaveTimestamp.timeIntervalSinceNow > -0.05) {
-//        NSLog(@"last autosave was less than 0.05 seconds ago. skipping this one.");
+    /* A timer-driven game would otherwise save on every tick: each save is a
+     * VM save plus a library archive here, and a keyed archive of the whole
+     * window hierarchy in the app. Saves after player input stay immediate,
+     * so this bounds only how much timer-driven state a crash can lose; the
+     * window server asks for the skipped save before it closes the game. */
+    if (lasteventtype == evtype_Timer && lastAutosaveTimestamp.timeIntervalSinceNow > -1.0) {
+        autosave_skipped = YES;
         return;
     }
 
@@ -349,8 +368,23 @@ static void spatterglk_game_select(glui32 selector, glui32 arg0, glui32 arg1, gl
       return;
 
     lastAutosaveTimestamp = [NSDate date];
+    autosave_skipped = NO;
 
     spatterglk_do_autosave(selector, arg0, arg1, arg2);
+}
+
+/* The gli_autosave_request_hook: the window server is about to close the
+ * game and wants the autosave on disk to match the VM. Called from inside
+ * win_select, so the VM is still blocked in the @glk call the select hook
+ * last saw, with that call's operands on the stack. Nothing to do unless
+ * the timer pacing above skipped a save since the last one written. */
+static void spatterglk_autosave_now(void)
+{
+    if (!autosave_skipped || !gli_enable_autosave)
+        return;
+    lastAutosaveTimestamp = [NSDate date];
+    autosave_skipped = NO;
+    spatterglk_do_autosave(blocked_selector, blocked_arg0, blocked_arg1, blocked_arg2);
 }
 
 void spatterglk_do_autosave(glui32 selector, glui32 arg0, glui32 arg1, glui32 arg2)

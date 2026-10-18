@@ -1,5 +1,6 @@
 #include "glkimp.h"
 #include "protocol.h"
+#include "autosavefiles.h"
 
 #include <errno.h>
 #include <math.h>
@@ -1181,6 +1182,15 @@ again:
             fprintf(stderr, "win_select: received event EVTTEST\n");
             event->type = EVTTEST;
             break;
+
+        case EVTAUTOSAVE:
+            /* The window is about to be closed: bring the autosave on disk
+               up to date (a terp that paces its saves may have skipped the
+               last few), then wait for the next event as if nothing
+               happened. The quit follows. */
+            if (gli_autosave_request_hook)
+                gli_autosave_request_hook();
+            goto again;
 
         case EVTQUIT:
             /* The window is being closed */

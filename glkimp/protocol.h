@@ -158,7 +158,10 @@ enum
 
     EVTPREFS,
     EVTQUIT,
-    EVTTEST
+    EVTTEST,
+    /* The window server is about to close the game: autosave now, whatever
+       the terp's own autosave pacing says, then ask for the next event. */
+    EVTAUTOSAVE
 };
 
 #endif

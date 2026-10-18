@@ -1406,6 +1406,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         return;
     } else windowClosedAlready = YES;
 
+    [self requestFinalAutosave];
+
     // Prevent the interpreter from processing new events during teardown
     waitforfilename = YES;
 

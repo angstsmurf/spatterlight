@@ -1,7 +1,10 @@
+#include <sys/select.h>
+
 #import "GlkController_Private.h"
 #import "GlkController+BorderColor.h"
 #import "GlkController+FullScreen.h"
 #import "GlkController+GlkRequests.h"
+#import "GlkController+InterpreterGlue.h"
 #import "GlkController+Speech.h"
 
 #import "BufferTextView.h"
@@ -582,6 +585,52 @@
         //        if (error)
         //            NSLog(@"Error: %@", error);
     }
+}
+
+static BOOL waitForData(int fd, int milliseconds) {
+    fd_set fdset;
+    struct timeval tmout = { 0, milliseconds * 1000 };
+    FD_ZERO(&fdset);
+    FD_SET(fd, &fdset);
+    return (select(fd + 1, &fdset, NULL, NULL, &tmout) > 0);
+}
+
+// Ask the interpreter for one last autosave and wait for it, so that the
+// GUI archive autoSaveOnExit writes next matches an interpreter save taken
+// now. Glulxe paces its timer-driven saves, so without this the interpreter
+// side could be up to that interval behind the window at the moment it
+// closes, and an autorestore would run that interval of the game again.
+// The request can only go out while the interpreter is waiting in
+// glk_select; if it is mid-turn we read its output until it asks for an
+// event. The wait is bounded so a busy game cannot hold the window open.
+- (void)requestFinalAutosave {
+    if (!self.supportsAutorestore || !self.theme.autosave || dead || !task || !task.isRunning)
+        return;
+    if (waitforfilename)
+        return; /* blocked in a file prompt, not in glk_select */
+
+    // Whatever was queued for the game is moot now: the next event it gets
+    // after the save is the quit, so the save stays its last state.
+    [self.queue removeAllObjects];
+
+    int readfd = readfh.fileDescriptor;
+    NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:2.0];
+    BOOL sent = NO;
+    while (deadline.timeIntervalSinceNow > 0) {
+        if (waitforevent) {
+            if (sent)
+                return; /* saved (or nothing to save) and waiting again */
+            GlkEvent *evt = [[GlkEvent alloc] initAutosaveEvent];
+            [evt writeEvent:sendfh.fileDescriptor];
+            waitforevent = NO;
+            sent = YES;
+        }
+        if (waitForData(readfd, 50))
+            [self noteDataAvailable:nil];
+        if (dead)
+            return;
+    }
+    NSLog(@"requestFinalAutosave: interpreter did not answer in time (request %s)", sent ? "sent" : "not sent");
 }
 
 - (void)autoSaveOnExit {

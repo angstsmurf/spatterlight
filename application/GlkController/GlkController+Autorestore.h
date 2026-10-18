@@ -16,6 +16,7 @@
 - (void)deleteAutosaveFilesForGame:(Game *)game;
 - (void)deleteAutosaveFiles;
 - (void)deleteFiles:(NSArray<NSURL *> *)urls;
+- (void)requestFinalAutosave;
 - (void)autoSaveOnExit;
 
 - (void)showAutorestoreAlert:(id)userInfo;

@@ -39,7 +39,7 @@ const char *msgnames[] = {
     NAME(NEXTEVENT),       NAME(EVTARRANGE),       NAME(EVTREDRAW),   NAME(EVTLINE),
     NAME(EVTKEY),          NAME(EVTMOUSE),         NAME(EVTTIMER),    NAME(EVTHYPER),
     NAME(EVTSOUND),        NAME(EVTVOLUME),        NAME(EVTPREFS),    NAME(EVTQUIT),
-    NAME(EVTTEST)
+    NAME(EVTTEST),         NAME(EVTAUTOSAVE)
 };
 
 const size_t msgnames_count = sizeof msgnames / sizeof msgnames[0];
