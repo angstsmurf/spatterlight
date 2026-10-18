@@ -69,7 +69,7 @@
                 NSLog(@"GlkTextBufferWindow couldn't create style dict for style %ld", i);
                 [styles addObject:[NSNull null]];
             } else {
-                [styles addObject:styleDict];
+                [styles addObject:[self styleAttributesWithLanguage:styleDict]];
             }
         }
 
@@ -250,16 +250,14 @@
 // 2. If a clear is pending, replace textstorage with the buffered content
 // 3. Otherwise, append buffered text to textstorage
 // 4. Perform any pending scroll
-// The hyphenation language is temporarily set to the game's language to
-// ensure correct word breaking for non-English text.
+// Hyphenation follows the game's language through the NSLanguage attribute
+// carried by every style (see styleAttributesWithLanguage:), not through
+// the NSHyphenationLanguage user default: TextKit reads that default only
+// once per process, and each write to it posted a defaults-changed
+// notification whose AppKit-side KVO fan-out cost up to a third of the main
+// thread on timer-driven games.
 - (void)flushDisplay {
     GlkController *glkctl = self.glkctl;
-    NSString *language = glkctl.game.metadata.language;
-    if (!language.length)
-        language = @"en";
-    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    NSString *hyphenationLanguage = [defaults valueForKey:@"NSHyphenationLanguage"];
-    [NSUserDefaults.standardUserDefaults setValue:language forKey:@"NSHyphenationLanguage"];
 
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
@@ -420,7 +418,23 @@
 
         [self reallyPerformScroll];
     }
-    [NSUserDefaults.standardUserDefaults setValue:hyphenationLanguage forKey:@"NSHyphenationLanguage"];
+}
+
+// Returns the style attributes with the game's language added as the
+// NSLanguage attribute (the value of NSLanguageIdentifierAttributeName,
+// spelled out so builds with a pre-12 deployment target link). TextKit
+// hyphenates each range according to this attribute; it also informs
+// spell checking and VoiceOver. Games without language metadata get
+// English, as the old NSHyphenationLanguage code did.
+- (NSDictionary *)styleAttributesWithLanguage:(NSDictionary *)attributes {
+    NSString *language = self.glkctl.game.metadata.language;
+    if (!language.length)
+        language = @"en";
+    if ([attributes[@"NSLanguage"] isEqualToString:language])
+        return attributes;
+    NSMutableDictionary *withLanguage = [attributes mutableCopy];
+    withLanguage[@"NSLanguage"] = language;
+    return withLanguage;
 }
 
 // Track user scrolling while the game produces unattended output —

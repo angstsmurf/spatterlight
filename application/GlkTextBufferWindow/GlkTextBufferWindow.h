@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable) GlkTextGridWindow *quoteBox;
 
 - (void)recalcBackground;
+- (NSDictionary *)styleAttributesWithLanguage:(NSDictionary *)attributes;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate;

@@ -100,7 +100,7 @@
         }
 
         if (attributes) {
-            [newstyles addObject:attributes];
+            [newstyles addObject:[self styleAttributesWithLanguage:attributes]];
             if (!different && ![newstyles[i] isEqualToDictionary:styles[i]])
                 different = YES;
         } else
