@@ -228,14 +228,14 @@ check: syntax drivesync $(BIN) $(TESTBIN) $(ASLXBIN) $(ASLXRTBIN) $(QGLKBIN) $(A
 	cd $(Q5) && ./aslxglk_link_tests
 	$(Q4)/run_fixtures.sh
 
-asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ) $(ASLXENGSRC) $(ASLXMAPSRC) $(ASLXHDRS)
+asan: $(SRC) $(TESTSRC) $(DEPS) $(RANDOBJ) $(ASLXENGSRC) $(ASLXMAPSRC) $(ASLXGLKSRC) $(ASLXHDRS)
 	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(TESTSRC) $(RANDOBJ) -o $(TESTBIN)
 	$(CXX) $(ASANFLAGS) $(RANDFLAGS) $(SRC) $(RANDOBJ) -o $(BIN)
 	$(CXX) $(ASANFLAGS) $(ASLXSRC) $(ASLXLOADSRC) $(ASLXLIBS) -o $(ASLXBIN)
 	$(CXX) $(ASANFLAGS) $(ASLXRTSRC) $(ASLXENGSRC) $(ASLXLIBS) -o $(ASLXRTBIN)
 	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) $(QGLKSRC) $(QGLKCOMMON) $(CHEAPGLK)/libcheapglk.a -o $(QGLKBIN)
-	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) -I../../common_utils $(ASLXLINKSRC) $(QGLKCOMMON) $(ASLXENGSRC) \
-	    $(ASLXMAPSRC) $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $(ASLXLINKBIN)
+	$(CXX) $(ASANFLAGS) -I$(CHEAPGLK) -I../../common_utils $(ASLXLINKSRC) $(ASLXGLKSRC) $(QGLKCOMMON) \
+	    $(ASLXENGSRC) $(ASLXMAPSRC) $(CHEAPGLK)/libcheapglk.a $(ASLXLIBS) -o $(ASLXLINKBIN)
 	cd $(Q4) && ./question_unit_tests
 	cd $(Q5) && ./aslx_loader_test
 	cd $(Q5) && ./aslx_runtime_test

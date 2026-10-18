@@ -18,7 +18,7 @@
 
 // aslx_drive.hh -- the .cmd script driver the native Quest 5 harness programs
 // share (aslx_replay.cc, aslx_linkcapture.cc). It mirrors oracle/Program.cs:
-// same step grammar (menu:/answer:/assert:/save:/tick:/label:/delay:/runtime:/
+// same step grammar (menu:/answer:/assert:/save:/tick:/clock:/label:/delay:/runtime:/
 // event:/# comments; bare lines resolve pending menus and questions), same
 // auto-advance of pending waits, same deterministic DrainTimers (after each
 // step, tick pending SetTimeout timers by exactly their trigger delta; only
@@ -197,6 +197,11 @@ public:
     Context boot;
     // Script lines consumed so far, comments and blank lines aside.
     int steps = 0;
+    // Live mode (script "-", as qvh): steps come from stdin one at a time,
+    // `eval:EXPR` notes a value, and on_step runs after each step so the host
+    // can hand the new transcript text to the solver.
+    bool live = false;
+    std::function<void()> on_step;
 
     // The script and its prompt providers go in BEFORE the boot: StartGame
     // can itself raise an expression-form Ask/ShowMenu/GetInput (The Day
@@ -204,9 +209,10 @@ public:
     // from the first script line.
     Driver(World &world, Interp &interp, const char *game, const char *script)
         : w(world), in(interp), game_path(game) {
-        std::ifstream f(script);
+        live = std::string(script) == "-";
+        std::ifstream f(live ? "" : script);
         std::string raw;
-        while (std::getline(f, raw)) lines.push_back(raw);
+        while (!live && std::getline(f, raw)) lines.push_back(raw);
         // qvh `#!errorlimit=N` directive: raise the script-error breaker
         // threshold for this game (legacy Quest had no breaker at all).
         // qvh `#!clock=N` directive: typing clock instead of DrainTimers --
@@ -321,6 +327,15 @@ public:
                 }
                 if (on_note)
                     on_note(std::string("[assert ") + (ok ? "PASS" : "FAIL") + "] " + expr);
+            } else if (cmd.compare(0, 5, "eval:") == 0) {
+                // qvh eval:EXPR; an invalid expression must not end the session.
+                std::string expr = cmd.substr(5);
+                try {
+                    std::string v = dotnet_string(in.eval(expr, boot));
+                    if (on_note) on_note("[eval] " + expr + " = " + v);
+                } catch (const std::exception &err) {
+                    if (on_note) on_note("[eval-error] " + expr + ": " + err.what());
+                }
             } else if (cmd.compare(0, 6, "label:") == 0 ||
                        cmd.compare(0, 6, "delay:") == 0 ||
                        cmd.compare(0, 8, "runtime:") == 0) {
@@ -333,6 +348,12 @@ public:
                 // qvh: await world.SendEvent(name, param)
                 in.send_event(name, param);
                 typed = true;
+            } else if (cmd.compare(0, 6, "clock:") == 0) {
+                // qvh clock:N — switch the real-time model from this step on:
+                // N > 0 runs the typing clock, clock:0 returns to DrainTimers.
+                char *end = nullptr;
+                long cs = std::strtol(cmd.c_str() + 6, &end, 10);
+                if (end != cmd.c_str() + 6 && cs >= 0) clock_secs = (int)cs;
             } else if (cmd.compare(0, 5, "tick:") == 0) {
                 // qvh tick:N — deterministic real-time advance: tick the game
                 // clock by exactly N seconds, firing due AUTHORED timers (the
@@ -352,6 +373,7 @@ public:
             in.drain_on_ready();
             auto_advance();
             settle_clock(typed);
+            if (on_step) on_step();
         }
     }
 
@@ -363,10 +385,29 @@ private:
     size_t li = 0;
     int clock_secs = 0;
 
+    // A value as qvh's eval: prints it (.NET ToString): "Object: x" for an
+    // element, "List: a; b; " for a list; scalars as to_string.
+    std::string dotnet_string(const Value &v) {
+        using T = Value::Type;
+        if (v.type == T::ObjectRef) {
+            const Element *e = w.find(v.str);
+            std::string kind = e ? e->elem_type : "object";
+            if (!kind.empty()) kind[0] = (char)std::toupper((unsigned char)kind[0]);
+            return kind + ": " + v.str;
+        }
+        if (v.type == T::StringList || v.type == T::ObjectList) {
+            std::string out = "List: ";
+            for (const Value &x : v.list()) out += dotnet_string(x) + "; ";
+            return out;
+        }
+        return Interp::to_string(v);
+    }
+
     // The next script step, skipping blank lines and # comments.
     bool next(std::string &cmd) {
-        while (li < lines.size()) {
-            cmd = nr_trim(lines[li++]);
+        std::string raw;
+        while (live ? (bool)std::getline(std::cin, raw) : li < lines.size()) {
+            cmd = nr_trim(live ? raw : lines[li++]);
             if (cmd.empty() || cmd[0] == '#') continue;
             steps++;
             return true;

@@ -106,6 +106,11 @@ struct Value {
     bool list_extend = false;
 
     std::string str;            // String / Script / ObjectRef
+    // Script: the compiled instance this value runs as (its firsttime flags
+    // and RNG streams), when that is not the holding attribute's own. A
+    // `=>` literal is ONE IScript in QuestViva, shared by every object it is
+    // assigned to, and Clone shares the source's script instances.
+    std::string script_scope;
     long integer = 0;           // Int
     double dbl = 0.0;           // Double
     bool boolean = false;       // Boolean

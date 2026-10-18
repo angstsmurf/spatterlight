@@ -200,11 +200,20 @@ int main(int argc, char **argv) {
         if (echo) line_out("> " + cmd);
     };
     drive.on_note = line_out;
+    size_t live_sent = 0;
+    if (drive.live)
+        drive.on_step = [&] {
+            std::cout << transcript.substr(live_sent)
+                      << (w.finished ? "\n[state=Finished]\n\x01\n" : "\x01\n");
+            std::cout.flush();
+            live_sent = transcript.size();
+        };
     drive.begin(restored);
     drive.run();
 
     // A Finished reached only because the 20-error breaker fired is reported
     // as Wedged, exactly like qvh's reflection probe on _scriptErrorsFatal.
+    if (drive.live) return 0;
     line_out(std::string("[state=") +
              (in.script_errors_fatal() ? "Wedged"
               : w.finished             ? "Finished"

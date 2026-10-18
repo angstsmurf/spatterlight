@@ -555,6 +555,23 @@ Value Interp::eval(const std::string &source, Context &ctx) {
     return eval_expr(*e, ctx);
 }
 
+// Give each `=>` literal in a compiled body (preorder) the scope of its one
+// QuestViva SetScriptScript instance: the enclosing instance's scope plus
+// its position, so it is stable across runs and saves.
+static void stamp_arrow_scopes(std::vector<Stmt> &body, const std::string &scope,
+                               long &n) {
+    for (Stmt &s : body) {
+        if (s.kind == Stmt::Kind::Assign && !s.expr)
+            s.arrow_scope = scope + '\x1D' + std::to_string(n++);
+        stamp_arrow_scopes(s.body, scope, n);
+        for (auto &ei : s.elseifs)
+            stamp_arrow_scopes(ei.second, scope, n);
+        stamp_arrow_scopes(s.else_body, scope, n);
+        for (auto &c : s.cases)
+            stamp_arrow_scopes(c.second, scope, n);
+    }
+}
+
 std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src,
                                                           const std::string &scope) {
     // QuestViva compiles each script ATTRIBUTE into its own IScript tree, so
@@ -568,6 +585,8 @@ std::shared_ptr<std::vector<Stmt>> Interp::compile_script(const std::string &src
     if (it != script_cache_.end()) return it->second;
     auto v = std::make_shared<std::vector<Stmt>>(parse_statements(src, *this));
     if (!scope.empty()) {
+        long n = 0;
+        stamp_arrow_scopes(*v, scope, n);
         // A save written before scoping recorded the flags by source alone;
         // seed this instance from it so restored one-time text stays spent.
         auto lg = legacy_firsttime_.find(src);
@@ -712,6 +731,7 @@ void Interp::exec_stmt(const Stmt &s, Context &ctx) {
     case Stmt::Kind::Assign: {
         // "x => { ... }" (no expression) assigns the script literal itself.
         Value val = s.expr ? eval_expr(*s.expr, ctx) : vscript(s.script_text);
+        if (!s.expr) val.script_scope = s.arrow_scope;
         if (!s.obj) {
             ctx.locals[s.name] = val;
             return;
@@ -2184,7 +2204,9 @@ std::string Interp::field_scope(Element *e, const std::string &attr) {
     if (!e) return std::string();
     for (const Element *t : world_.field_chain(e))
         if (const Value *own = t->field(attr); own && !own->list_extend)
-            return scope_key(t->name, attr);
+            return own->type == Value::Type::Script && !own->script_scope.empty()
+                       ? own->script_scope
+                       : scope_key(t->name, attr);
     return std::string();
 }
 

@@ -125,7 +125,8 @@ void wr_value(std::string &out, const Value &v, int depth = 0) {
     switch (v.type) {
     case Value::Type::Null:       t = 'n'; break;
     case Value::Type::String:     t = 's'; break;
-    case Value::Type::Script:     t = 'c'; break;
+    // 'C': a script running a shared instance, its scope after the text.
+    case Value::Type::Script:     t = v.script_scope.empty() ? 'c' : 'C'; break;
     case Value::Type::Int:        t = 'i'; break;
     case Value::Type::Double:     t = 'f'; break;
     case Value::Type::Boolean:    t = 'b'; break;
@@ -146,6 +147,7 @@ void wr_value(std::string &out, const Value &v, int depth = 0) {
     case Value::Type::Script:
     case Value::Type::ObjectRef:
         wr_blob(out, v.str);
+        if (t == 'C') wr_blob(out, v.script_scope);
         break;
     case Value::Type::Int:
         wr_num(out, v.integer);
@@ -194,6 +196,9 @@ bool rd_value(const char *&p, const char *end, Value &v, int depth = 0) {
                  : t == 'c' ? Value::Type::Script
                             : Value::Type::ObjectRef;
         return rd_blob(p, end, v.str);
+    case 'C':
+        v.type = Value::Type::Script;
+        return rd_blob(p, end, v.str) && rd_blob(p, end, v.script_scope);
     case 'i':
         v.type = Value::Type::Int;
         return rd_num(p, end, v.integer);

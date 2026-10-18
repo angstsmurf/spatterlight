@@ -600,7 +600,9 @@ void write_field(SaveWriter &w, Interp &in, const std::string &elem_name,
         // Own script attribute: bake the flags of THIS element's instance
         // (the firsttime scope its runs were cached under).
         typed(script_type(v),
-              in.bake_firsttime_source(v.str, Interp::scope_key(elem_name, attr)));
+              in.bake_firsttime_source(v.str, v.script_scope.empty()
+                                                  ? Interp::scope_key(elem_name, attr)
+                                                  : v.script_scope));
         return;
     case T::Int:
         typed("int", std::to_string(v.integer));

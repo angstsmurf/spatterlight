@@ -1114,6 +1114,10 @@ Value Interp::call_builtin(const std::string &name, std::vector<Value> &args,
                 if (kv.first == "name") continue;
                 Value v = kv.second;
                 v.detach();
+                // Fields.Clone keeps the same IScript: the clone runs the
+                // source's instance (shared firsttime, RNG streams).
+                if (v.type == Value::Type::Script && v.script_scope.empty())
+                    v.script_scope = Interp::scope_key(from->name, kv.first);
                 e->set_field(kv.first, v);
             }
             if (deep) {

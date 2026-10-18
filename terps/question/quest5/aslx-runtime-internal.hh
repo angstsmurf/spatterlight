@@ -127,6 +127,9 @@ struct Stmt {
     // "x => { script }" (SetScriptScript): the RHS is a script literal, stored
     // as source text and assigned as a Script value. expr is null in that case.
     std::string script_text;
+    // Its compiled-instance scope (Value::script_scope), stamped by
+    // compile_script from the enclosing body's scope; empty when unscoped.
+    std::string arrow_scope;
     ExprP obj;                     // Assign target object (before last dot), or null
     ExprP from, to, step;          // For
     ExprP list;                    // ForEach

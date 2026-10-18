@@ -1890,6 +1890,36 @@ static void test_firsttime_per_attribute() {
     (void)save;
 }
 
+// ...but ONE `=>` literal is one SetScriptScript instance, shared by every
+// object it is assigned to, and Clone shares the source's script instance
+// (Fields.Clone keeps the IScript). Golden Egg's cloned chests pay out once
+// between them, and SpawnSpider's searchscript money roll is one RNG stream.
+static void test_firsttime_shared_instance() {
+    World w;
+    w.asl_version = 550;
+    Interp in(w);
+    run(in, "create (\"a\")\ncreate (\"b\")\ncreate (\"maker\")\n"
+            "create (\"cnt\")\ncnt.n = 0");
+    // Every run of the loop assigns the same literal: one instance.
+    run(in, "maker.make => {\n"
+            "  foreach (o, Split(\"a;b\", \";\")) {\n"
+            "    obj = GetObject(o)\n"
+            "    obj.hello => { firsttime { cnt.n = cnt.n + 1 } }\n"
+            "  }\n"
+            "}");
+    run(in, "do (maker, \"make\")");
+    run(in, "do (a, \"hello\")\ndo (b, \"hello\")");
+    CHECK_STR(evals(in, "cnt.n"), "1");
+    // A clone runs its source's instance: spent on the source, spent here.
+    run(in, "a.wave => { firsttime { cnt.n = cnt.n + 10 } }");
+    run(in, "do (a, \"wave\")\nc = Clone (a)\ndo (c, \"wave\")");
+    CHECK_STR(evals(in, "cnt.n"), "11");
+    // The snapshot records which instance each value runs.
+    std::string save = in.save_game("x.aslx");
+    CHECK(save.find(std::string("make") + '\x1D') != std::string::npos);
+    CHECK(w.errors.empty());
+}
+
 // Pre-540 print of a text that is nothing but tags (a gamebook option with an
 // empty display text: `<command input="Murder2"></command>`) emits NOTHING --
 // qvh's Emit skips an empty stripped chunk without appending '\n'. Fun Tiemz
@@ -2503,6 +2533,7 @@ int main() {
     test_getinput_expression();
     test_blocking_forms_version_window();
     test_firsttime_per_attribute();
+    test_firsttime_shared_instance();
     test_print_all_tags_empty();
     test_parser_depth_caps();
     test_attribute_names_deep();
