@@ -86,6 +86,7 @@ All of the 609 tested Adrift-4-and-earlier games that have an ending can now be 
 - A turnscript can no longer fire between a command's question and its answer, matching the original's turn boundary.
 - Rooms that the map library can never reach on its own — one entered by a script rather than through an exit, or through an exit that appeared while the player was already beside it — now show up on the map, and *The Acreage* draws its map instead of printing errors.
 - The undo history is part of the autosave, so UNDO still works after a game is reopened. UNDO itself follows the original more closely in what it puts back.
+- A script that a game gives to several objects, or copies along with a cloned object, is one shared script as in the original, so its "first time" text runs only once and its random numbers come out the same. In *The Quest for the Golden Egg*, a second treasure chest no longer pays out the same one-time treasure again.
 
 ### Bocfel (Z-code)
 - The core interpreter is updated to Bocfel 2.6. Our own Z6 support is bolted on top of it.

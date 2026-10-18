@@ -80,6 +80,16 @@ below say how closely Question matches that key, not whether the key is right.
   0.85 s for the oracle. Most of the oracle's time is .NET start-up and JIT,
   so the comparison is about running a single game, not about engine speed.
   See [Timing](#timing).
+- **It makes solutions for large games practical to derive.** Finding a
+  route through a long game means replaying the commands so far over and
+  over: from a checkpoint after a lost fight, or with each candidate tried in
+  turn. Each of those replays takes a fraction of the time on Question. The
+  solver drivers (`test/quest5/harness/oracle/solvers/`) play on
+  `aslx_replay`'s live mode (`GE_DRIVER=native`), with commands on stdin and
+  `eval:` probes of game state. That is about 6x faster than driving qvh, and
+  it is what made the 3845-command full win of *The Quest for the Golden Egg*
+  and the *Rise of Death* route feasible. QuestViva stays the reference: a
+  finished script is replayed on qvh before it is frozen as an override.
 - **No runtime.** It is a single native binary with libexpat and zlib.
 - **Deterministic by design.** One generator (`erkyrath_random`, xoshiro128**)
   seeded by `QUESTION_SEED` or Spatterlight's determinism mode makes every
