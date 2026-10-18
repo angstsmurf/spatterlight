@@ -7585,11 +7585,10 @@ The game is now over. Play again?
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=308
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=296
 [TEXT] I'm in a field, and I see here a dirty looking moat, an ancient medieval
-castle, and a raised drawbridge. I see exits to the north, south, east, and
-west.
-[MSG] cmd=MOVETO a1=2 a2=0 a3=3 len=0
+castle, and a raised drawbridge. I see exits to the north, south, and west.
+[MSG] cmd=MOVETO a1=2 a2=0 a3=2 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=160
 [TEXT] ________________________________________________________________________________
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
@@ -7619,22 +7618,20 @@ west.
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=308
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=296
 [TEXT] I'm in a field, and I see here a dirty looking moat, an ancient medieval
-castle, and a raised drawbridge. I see exits to the north, south, east, and
-west.
-[MSG] cmd=MOVETO a1=2 a2=0 a3=3 len=0
+castle, and a raised drawbridge. I see exits to the north, south, and west.
+[MSG] cmd=MOVETO a1=2 a2=0 a3=2 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=160
 [TEXT] ________________________________________________________________________________
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=308
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=296
 [TEXT] I'm in a field, and I see here a dirty looking moat, an ancient medieval
-castle, and a raised drawbridge. I see exits to the north, south, east, and
-west.
-[MSG] cmd=MOVETO a1=2 a2=0 a3=3 len=0
+castle, and a raised drawbridge. I see exits to the north, south, and west.
+[MSG] cmd=MOVETO a1=2 a2=0 a3=2 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=160
 [TEXT] ________________________________________________________________________________
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
@@ -7650,11 +7647,10 @@ No transcript is currently running.
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=MOVETO a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=308
+[MSG] cmd=PRINT a1=2 a2=0 a3=0 len=296
 [TEXT] I'm in a field, and I see here a dirty looking moat, an ancient medieval
-castle, and a raised drawbridge. I see exits to the north, south, east, and
-west.
-[MSG] cmd=MOVETO a1=2 a2=0 a3=3 len=0
+castle, and a raised drawbridge. I see exits to the north, south, and west.
+[MSG] cmd=MOVETO a1=2 a2=0 a3=2 len=0
 [MSG] cmd=PRINT a1=2 a2=0 a3=0 len=160
 [TEXT] ________________________________________________________________________________
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=44
