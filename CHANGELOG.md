@@ -1,6 +1,6 @@
 # Change log
 
-## Unreleased
+## Release 1.5.5
 
 ### Scarier (Adrift)
 This time, most of the work has been done on the Adrift 4 and earlier side of Scarier. By analysing the original Adrift runners and running lots of custom tests, the output of Scarier was painstakingly made to exactly match that of the original Adrift runners. This is kind of important, as many games use something called [ALR](https://www.ifwiki.org/ADRIFT_Language_Resource), which is basically a list of replacement strings. *Asteroid Aftermath*, for example, replaces the parser output
@@ -11,7 +11,7 @@ with
 
 `Please refer to a satellite by its correct name or number.`
 
-However, getting the output this exact meant porting a lot of original bugs and glitches over to Scarier, which isn't ideal. Many of these quirks did *not* fix any ALRs or other problems, but only made the games worse. So after spending a lot of time (and tokens) making sure that output and functionality were exactly like the original runners, a lot of time (and tokens) was then spent on making output and functionality differ from the original runners again.
+However, getting the output this exact meant porting a lot of original bugs and glitches over to Scarier, which isn't ideal. Many of these quirks did *not* fix any ALRs or other problems, but only made the games worse. So after spending a lot of time (and tokens) making sure that output and functionality were exactly like the original runners, a lot of time (and tokens) was spent on making output and functionality differ from the original runners again.
 
 The goals were to fix as much broken stuff as possible, make things work as the authors intended, minimize player frustration, and at least keep the user experience on par with the original SCARE interpreter. To this end, 37 games whose own data makes them unwinnable, such as *Ebony's World* and *Bedlam*, are patched on-the-fly, and can now be played to the end in Scarier. The command GLK PATCHES OFF will remove all patches for the original broken experience.
 
