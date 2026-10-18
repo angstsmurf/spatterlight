@@ -161,6 +161,14 @@
 
 @end
 
+// Byte budget for the decoded pictures the NSCache keeps alive. An NSImage
+// is cheap until it draws; after that its bitmap rep holds the decoded pixels
+// (4 bytes per pixel), which is what this limit counts. Kerkerkruip 9 is the
+// heaviest blorb seen: its intro animation cycles 115 frames of 500x279
+// (64 MiB decoded) and all 452 of its pictures decode to 178 MiB, so this
+// holds a whole game of that size and the cache starts evicting only beyond.
+static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
+
 @implementation ImageHandler {
     // Signals when the initial background caching of Blorb images (kicked off by
     // cacheImagesFromBlorbURL:) has finished. Main-thread readers wait on this
@@ -177,6 +185,7 @@
         _files = [NSMutableDictionary new];
         _lastimageresno = -1;
         _imageCache = [NSCache new];
+        _imageCache.totalCostLimit = kImageCacheCostLimit;
         _imageDescriptions = [NSMutableDictionary new];
         _cacheGroup = dispatch_group_create();
     }
@@ -198,6 +207,11 @@
         }
     _lastimageresno = [decoder decodeIntForKey:@"lastimageresno"];
     _cacheGroup = dispatch_group_create();
+    // The cache is not archived (it is only decoded pixels), and a restored
+    // handler needs one just as much as a fresh one.
+    _imageCache = [NSCache new];
+    _imageCache.totalCostLimit = kImageCacheCostLimit;
+    _imageDescriptions = [NSMutableDictionary new];
     }
     return self;
 }
@@ -206,6 +220,21 @@
     [encoder encodeObject:_files forKey:@"files"];
     [encoder encodeObject:_resources forKey:@"resources"];
     [encoder encodeInteger:_lastimageresno forKey:@"lastimageresno"];
+}
+
+// Store an image in the cache with its decoded size as the cost, so
+// totalCostLimit bounds memory rather than object count.
+- (void)cacheImage:(NSImage *)image forResource:(NSInteger)resno {
+    NSUInteger cost = 0;
+    for (NSImageRep *rep in image.representations) {
+        NSInteger w = rep.pixelsWide, h = rep.pixelsHigh;
+        if (w <= 0 || h <= 0) {
+            w = (NSInteger)ceil(rep.size.width);
+            h = (NSInteger)ceil(rep.size.height);
+        }
+        cost += (NSUInteger)(w * h) * 4;
+    }
+    [_imageCache setObject:image forKey:@(resno) cost:cost];
 }
 
 - (BOOL)imageIsLoaded:(NSInteger)resno {
@@ -228,7 +257,7 @@
         // follows. Store here too, or the cache stays empty and each draw
         // rebuilds the NSImage and decodes the data again.
         if (_lastimage) {
-            [_imageCache setObject:_lastimage forKey:@(resno)];
+            [self cacheImage:_lastimage forResource:resno];
             _lastimageresno = resno;
             return YES;
         }
@@ -331,7 +360,7 @@
         _lastimageresno = -1;
         return;
     }
-    [_imageCache setObject:_lastimage forKey:@(resno)];
+    [self cacheImage:_lastimage forResource:resno];
     _lastimageresno = resno;
 }
 
@@ -398,7 +427,7 @@
         if (_lastimage.accessibilityDescription.length == 0) {
             _lastimage.accessibilityDescription = _imageDescriptions[@(resno)];
         }
-        [_imageCache setObject:_lastimage forKey:@(resno)];
+        [self cacheImage:_lastimage forResource:resno];
         _lastimageresno = resno;
     }
 }
