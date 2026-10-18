@@ -1,0 +1,9 @@
+# Dungeon Three — purple medallion (agent report, condensed)
+- purple_medallion in dungeon_three_room27, invisible until boss searched. use in Shrine -> northwestwind (L14411). Taking it outside Shrine: SetTimeout(5) teleports to Shrine AND sets eastwind=false (bug, L14425). Taking blue clears northwestwind (L11323). Taking a medallion in the Shrine clears its own wind. Hammer needs all 8 true at once.
+- Compass Rose.direction initial "southwest" (L361). Lever cycles clockwise N->NE->E->SE->S->SW->W->NW->N. Needs: D1 SW, D2 N, D3 NW, D7 W, D8 S (L1663,1844,1827,7403,7721).
+- Shrine door: switch off right fountain + switch off left fountain (either back on relocks). Shrine dark -> lamp on.
+- Entrance: Hall of Learning outside front (NW of Fountain Meadow): `push brothers` with direction NW -> exit down.
+- Route: down, west(room1), southwest(2), southwest(3), south(7: cave slug 15hp att1 def3 arm4 2d4; `sprinkle salt` zeroes def/arm; `take stone` = Courage Stone needed for D8 pillar puzzle L21728), south(8), east(9), northeast(10: `open chest` Silver Dagger 1d8 att+3), east(27 BOSS giant bat 20hp att2 def4 arm6 2d8). `search giant bat` -> 125-175 coins + medallion visible. `take purple medallion` -> to Shrine after 5s. `use purple medallion`.
+- Every room dark, lamp required (torch lasts 10 turns). DungeonThreeEnemies on each entry: 25% nothing else bat / rat+bat / spider / rat+mouse+bat. Monsters follow 80%.
+- Loot: room6 (3 NW->4 NW->5 W->6) Bronze Helmet arm1; room12 (8 W->11 NW->12) Silver Gauntlets arm2 + arrows, dig green_diamond_stone; room19 (entrance E->14 SE->15 SE->16 NE->17 NE->18 E->19) Silver Vest arm2; room13 (S of 8) 4 bats -> Leather Vest; room26 (S of 21) 2 slugs -> random treasure chest; room4 dig red_diamond_stone. Salt bag 6c / String 5c at Star Tulip Emporium (L31980); `make bow` stick+string.
+- Monsters: bat 4hp 2d4; rat 6hp 3; mouse 4hp 2; spider 4hp def1 3.

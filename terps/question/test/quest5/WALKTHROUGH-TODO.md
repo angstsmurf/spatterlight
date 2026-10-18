@@ -20,7 +20,6 @@ Alternate builds (Thyme ASL 600, Signos.aslx, What Once Was.aslx) are wired as `
 
 4. A Galaxy Consumed: bounded tour of character creation, quarters, terminal and the first story message. `inventory` errors in the oracle.
 5. A Tiny Furry In A Huge World: opening tour only (v0.9, unfinished).
-6. The Quest for the Golden Egg: furthest-state golden only (926 commands: dungeon one done, dungeon two partly). The win is known (see `overrides/README.md`) but needs dungeons 2-8, the eight Shrine medallions and the golden hammer; combat attrition made it impractical to finish.
 7. Rise of Death: furthest state is Stage 4 (I'Thaq killed, `KillCaveBoss`); the solver is in `harness/oracle/solvers/riseofdeath/`. The four elemental zones, soul tiers 7-9, the four lords, the Old Gods and the Finale (`finish`) remain.
 8. The Story of MLJesus: opening only. The long RPG after it hasn't been derived.
 9. Pokemon Type Harley Gold And Silver: opening tour only.

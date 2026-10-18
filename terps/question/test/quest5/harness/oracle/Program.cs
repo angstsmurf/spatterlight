@@ -243,6 +243,15 @@ if (args.Length >= 2)
             await world.SendEvent(parts[0], parts.Length > 1 ? parts[1] : "");
             typed = true;
         }
+        else if (cmd.StartsWith("clock:"))
+        {
+            // Switch the real-time model from this step on: `clock:N` (N > 0)
+            // runs the typing clock, `clock:0` returns to DrainTimers. For a
+            // DrainTimers script with one short real-time window (a song that
+            // stops after 10 s) that the header would impose on every step.
+            if (int.TryParse(cmd[6..].Trim(), out var ncs) && ncs >= 0)
+                clockSecs = ncs;
+        }
         else if (cmd.StartsWith("tick:"))
         {
             // Deterministic real-time advance: tick the game clock by exactly N

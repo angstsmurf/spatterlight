@@ -392,6 +392,12 @@ native driver honours the same header the same way, and
 side-fire) on both drivers. The header is opt-in per script, so every DrainTimers
 golden is untouched.
 
+A `clock:N` step switches the model mid-script, from the next step on: `clock:5`
+starts the typing clock, `clock:0` goes back to DrainTimers (which then drains
+whatever is still pending). It is for a DrainTimers script with one short window a
+patient player could never hit, such as The Quest for the Golden Egg's widow, who
+sings for 10 s and has to be accompanied while she does.
+
 Every clock advance goes through `TickSettled`: `WorldModel.Tick` awaits each due
 timer script to completion, and a timer that runs a synchronous `play sound(...,
 true, ...)` (Mt. Underlook's intercom timers) parks on a `FinishWait` that only the

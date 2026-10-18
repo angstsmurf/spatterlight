@@ -1,800 +1,800 @@
+Female Villager leaves.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+Cat leaves.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+ You have reached max health.
+You take a drink from it, and feel instantly a little better.
+> fill bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> fill bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+You fill it.
+> in
 
-> 2
-Er, what..?
-> attack gross spider
+> in
 
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion and a silver medallion.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> in
+
+> in
+You climb down the ladder into the Pillar Room.
+
+You are in a Dungeon Room.
+You can see a Stone Pillar (on which there is a Faith Stone), a Stone Pillar (on which there is a Loyalty Stone), a Stone Pillar (on which there is a Strength Stone), a Stone Pillar (on which there is a Justice Stone), a Stone Pillar (on which there is a Wisdom Stone), a Stone Pillar (on which there is a Patience Stone), a Stone Pillar (on which there is a Tolerance Stone), a Stone Pillar (on which there is a Courage Stone) and a Metal Chest.
+You can go west, east or up.
+This is a medium-sized room that is mostly circular, around the center of the room, in a circle, stand eight stone pillars.
+> east
+
+> east
+
+You are in a Dungeon Room.
+You can see a Dragon's Treasure and a beguiling giant cave dragon.
+You can go west.
+A dungeon room.
+Beguiling giant cave dragon attacks you and misses...
+Player Health: 110
+> attack beguiling giant cave dragon
+
+> attack beguiling giant cave dragon
+You swing wildly at the beguiling giant cave dragon and miss...
+Player Health: 110
+Beguiling giant cave dragon attacks you and misses...
+Player Health: 110
+> attack beguiling giant cave dragon
+
+> attack beguiling giant cave dragon
+You swing wildly at the beguiling giant cave dragon and miss...
+Player Health: 110
+Your ice stone helps to protect your items from the heat of the dragon's fire.
+The flames from the beguiling giant cave dragon scorch your skin. Health: -13%.
+Beguiling giant cave dragon attacks you and misses...
+Player Health: 97
+> west
+
+> west
+
+You are in a Dungeon Room.
+You can see a Stone Pillar (on which there is a Faith Stone), a Stone Pillar (on which there is a Loyalty Stone), a Stone Pillar (on which there is a Strength Stone), a Stone Pillar (on which there is a Justice Stone), a Stone Pillar (on which there is a Wisdom Stone), a Stone Pillar (on which there is a Patience Stone), a Stone Pillar (on which there is a Tolerance Stone), a Stone Pillar (on which there is a Courage Stone) and a Metal Chest.
+You can go west, east or up.
+This is a medium-sized room that is mostly circular, around the center of the room, in a circle, stand eight stone pillars.
+> up
+
+> up
+You climb up the ladder toward the ceiling.
+
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion and a silver medallion.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> out
+
+> out
+
+You are in a Fountain Meadow.
+You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a bread.
+You can go southwest, in, northwest, down, south or southeast.
+You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+Female Villager enters.
+> drink from bottle
+
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+Female Villager leaves.
+Cat enters.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+Female Villager enters.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+ You have reached max health.
+You take a drink from it, and feel instantly a little better.
+> fill bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> fill bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+You fill it.
+> in
 
-> 2
-Er, what..?
-> attack gross spider
+> in
 
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion and a silver medallion.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> in
+
+> in
+You climb down the ladder into the Pillar Room.
+
+You are in a Dungeon Room.
+You can see a Stone Pillar (on which there is a Faith Stone), a Stone Pillar (on which there is a Loyalty Stone), a Stone Pillar (on which there is a Strength Stone), a Stone Pillar (on which there is a Justice Stone), a Stone Pillar (on which there is a Wisdom Stone), a Stone Pillar (on which there is a Patience Stone), a Stone Pillar (on which there is a Tolerance Stone), a Stone Pillar (on which there is a Courage Stone) and a Metal Chest.
+You can go west, east or up.
+This is a medium-sized room that is mostly circular, around the center of the room, in a circle, stand eight stone pillars.
+> east
+
+> east
+
+You are in a Dungeon Room.
+You can see a Dragon's Treasure and a beguiling giant cave dragon.
+You can go west.
+A dungeon room.
+Beguiling giant cave dragon attacks you and misses...
+Player Health: 110
+> attack beguiling giant cave dragon
+
+> attack beguiling giant cave dragon
+You jab the sword at the beguiling giant cave dragon and get a critical (25 hits)!
+Player Health: 110
+Beguiling giant cave dragon claws you (15 hits).
+Player Health: 95
+> west
+
+> west
+
+You are in a Dungeon Room.
+You can see a Stone Pillar (on which there is a Faith Stone), a Stone Pillar (on which there is a Loyalty Stone), a Stone Pillar (on which there is a Strength Stone), a Stone Pillar (on which there is a Justice Stone), a Stone Pillar (on which there is a Wisdom Stone), a Stone Pillar (on which there is a Patience Stone), a Stone Pillar (on which there is a Tolerance Stone), a Stone Pillar (on which there is a Courage Stone) and a Metal Chest.
+You can go west, east or up.
+This is a medium-sized room that is mostly circular, around the center of the room, in a circle, stand eight stone pillars.
+> up
+
+> up
+You climb up the ladder toward the ceiling.
+
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion and a silver medallion.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> out
+
+> out
+
+You are in a Fountain Meadow.
+You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a bread.
+You can go southwest, in, northwest, down, south or southeast.
+You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+> drink from bottle
+
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+> drink from bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> drink from bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+ Health increased by 5%.
+You take a drink from it, and feel instantly a little better.
+> fill bottle
 
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
+> fill bottle
+Please choose which 'bottle' you mean:
+1: Bottle
+2: Bottle
 > 1
-That one is already dead.
-> 2
+You fill it.
+> in
 
-> 2
-Er, what..?
-> attack gross spider
+> in
 
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion and a silver medallion.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> in
 
-> 2
-Er, what..?
-> attack gross spider
+> in
+You climb down the ladder into the Pillar Room.
 
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
+You are in a Dungeon Room.
+You can see a Stone Pillar (on which there is a Faith Stone), a Stone Pillar (on which there is a Loyalty Stone), a Stone Pillar (on which there is a Strength Stone), a Stone Pillar (on which there is a Justice Stone), a Stone Pillar (on which there is a Wisdom Stone), a Stone Pillar (on which there is a Patience Stone), a Stone Pillar (on which there is a Tolerance Stone), a Stone Pillar (on which there is a Courage Stone) and a Metal Chest.
+You can go west, east or up.
+This is a medium-sized room that is mostly circular, around the center of the room, in a circle, stand eight stone pillars.
+> east
 
-> 2
-Er, what..?
-> attack gross spider
+> east
 
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
+You are in a Dungeon Room.
+You can see a Dragon's Treasure and a beguiling giant cave dragon.
+You can go west.
+A dungeon room.
+You hide your items from the dragon's fire.
+Error running script: Error evaluating expression 'Got(melt_name)': Unknown object or variable 'melt_name'
+Beguiling giant cave dragon attacks you and misses...
+Player Health: 110
+> attack beguiling giant cave dragon
 
-> 2
-Er, what..?
-> attack gross spider
+> attack beguiling giant cave dragon
+You swing wildly at the beguiling giant cave dragon and miss...
+Player Health: 110
+Beguiling giant cave dragon attacks you and misses...
+Player Health: 110
+> attack beguiling giant cave dragon
 
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> 2
-
-> 2
-Er, what..?
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 1
-That one is already dead.
-> attack gross spider
-
-> attack gross spider
-Please choose which 'gross spider' you mean:
-1: gross spider
-2: gross spider
-> 2
-You jab the dagger at the gross spider and get a critical (9 hits)!
+> attack beguiling giant cave dragon
+You slash the sword at the beguiling giant cave dragon and hit (8 hits)!
 It is dead!
-Player Health: 57
-> northeast
+Player Health: 110
+> search giant cave dragon
 
-> northeast
+> search giant cave dragon
+You find $834.
+You also find a bread.
+You find a Gold Medallion.
+> take gold medallion
 
-You are in a Dungeon Room.
-You can see a Metal Door and a dirty mouse.
-You can go northeast or southwest.
-A creepy dungeon room... not your favorite.
-Dirty mouse attacks you and misses...
-Player Health: 57
-> attack dirty mouse
-
-> attack dirty mouse
-Please choose which 'dirty mouse' you mean:
-1: dirty mouse
-2: dirty mouse
-> 1
-That one is already dead.
-Dirty mouse attacks you and misses...
-Player Health: 57
-> attack dirty mouse
-
-> attack dirty mouse
-Please choose which 'dirty mouse' you mean:
-1: dirty mouse
-2: dirty mouse
-> 2
-You jab the dagger at the dirty mouse and get a critical (15 hits)!
-It is dead!
-Player Health: 57
-> northeast
-
-> northeast
-
-You are in a Dungeon Room.
-You can go northwest or northeast.
-A creepy dungeon room... not your favorite.
-> northeast
-
-> northeast
-Player is not wearing repellent.
-Player is not wearing repellent.
-
-You are in a Dungeon Room.
-You can see a Small Dark Hole, a Stone Chest and a Stone Seal.
-You can go southwest, west or northwest.
-A creepy dungeon room... not your favorite.
-> crawl through hole
-
-> crawl through hole
-On your hands and knees, through the dark dust, you squeeze through the hole.
-
-You are in a Dungeon Room.
-You can see a Small Dark Hole.
-You can go south.
-A creepy dungeon room... not your favorite.
-> wait
-
-> wait
-Time passes.
-> wait
-
-> wait
-Time passes.
-> wait
-
-> wait
-Time passes.
-> wait
-
-> wait
-Time passes.
-> wait
-
-> wait
-Time passes.
-> look
-
-> look
-You are in a Dungeon Room.
-You can see a Small Dark Hole, a Pedestal and some Leather Pants.
-You can go south.
-A creepy dungeon room... not your favorite.
-> take pants
-
-> take pants
-You pick them up.
-> wear pants
-
-> wear pants
-You put them on.
-> south
-
-> south
-
-You are in a Dungeon Room.
-You can go southwest or north.
-A creepy dungeon room... not your favorite.
-Slender spider attacks you and misses...
-Player Health: 57
-> attack slender spider
-
-> attack slender spider
-You swing wildly at the slender spider and miss...
-Player Health: 57
-Slender spider bites you and gets a critical (6 hits)!
-Player Health: 51
-> attack slender spider
-
-> attack slender spider
-You swing wildly at the slender spider and miss...
-Player Health: 51
-Slender spider attacks you and misses...
-Player Health: 51
-> attack slender spider
-
-> attack slender spider
-You swing wildly at the slender spider and miss...
-Player Health: 51
-Slender spider has hit you (2 hits).
-Player Health: 49
-> attack slender spider
-
-> attack slender spider
-You jab the dagger at the slender spider and get a critical (15 hits)!
-It is dead!
-Player Health: 49
-> southwest
-
-> southwest
-
-You are in a Dungeon Room.
-You can go southwest or northeast.
-A creepy dungeon room... not your favorite.
-Player is not wearing repellent.
-Vile rat spins whipping its tail at you (3 hits)!
-Player Health: 46
-Awful spider attacks you and misses...
-Player Health: 46
-> attack vile rat
-
-> attack vile rat
-You swing wildly at the vile rat and miss...
-Player Health: 46
-Vile rat attacks you and misses...
-Player Health: 46
-Awful spider bites you and gets a critical (6 hits)!
-Player Health: 40
-> attack vile rat
-
-> attack vile rat
-You swing wildly at the vile rat and miss...
-Player Health: 40
-Vile rat bites you and gets a critical (6 hits)!
-Player Health: 34
-Awful spider attacks you and misses...
-Player Health: 34
-> attack vile rat
-
-> attack vile rat
-You jab the dagger at the vile rat and get a critical (9 hits)!
-It is dead!
-Player Health: 34
-Awful spider has hit you (2 hits).
-Player Health: 32
-> attack awful spider
-
-> attack awful spider
-You jab the dagger at the awful spider and get a critical (9 hits)!
-It is dead!
-Player Health: 32
-> southwest
-
-> southwest
-
-You are in a Dungeon Room.
-You can see a Metal Chest.
-You can go southwest or northeast.
-A creepy dungeon room... not your favorite.
-Mean spider has hit you (2 hits).
-Player Health: 30
-> attack mean spider
-
-> attack mean spider
-You swing wildly at the mean spider and miss...
-Player Health: 30
-Mean spider has hit you (2 hits).
-Player Health: 28
-> attack mean spider
-
-> attack mean spider
-You slash the dagger at the mean spider and hit (4 hits)!
-It is dead!
-Player Health: 28
-> look
-
-> look
-You are in a Dungeon Room.
-You can see a Metal Chest and a mean spider.
-You can go southwest or northeast.
-A creepy dungeon room... not your favorite.
-> open chest
-
-> open chest
-You open it.
-You open the chest and find a bronze shield.
-> take all
-
-> take all
-Metal Chest: You can't take it.
-mean spider: You can't take it.
-Bronze Shield:
+> take gold medallion
 You pick it up.
-> eat bread
+You grab the medallion and instantly you are drawn through time and space into the Shrine of the Beloved King.
 
-> eat bread
-Please choose which 'bread' you mean:
-1: bread
-2: bread
-3: bread
-4: bread
-5: bread
-> eat orange
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion and a silver medallion.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> use gold medallion
 
-> eat orange
-You eat the orange, and instantly you feel a little better.
- Health increased by 3%.
-> eat bread
+> use gold medallion
+You place the gold medallion onto the compass rose, and the south wind of the compass glows a bright gold.
+The shrine begins to shake, and the sound of bells can be heard from somewhere. A golden light shoots down into the center of the room; and there upon the compass, materializes a glittering golden hammer of obvious power and exquisite beauty.
+> look
 
-> eat bread
-Please choose which 'bread' you mean:
-1: bread
-2: bread
-3: bread
-4: bread
-5: bread
-> eat orange
+> look
+You are in a Shrine.
+You can see a Statue of the beloved King, a blue medallion, an orange medallion, an orange, a purple medallion, a green medallion, a yellow medallion, a red medallion, a silver medallion, a gold medallion and a Gold Hammer.
+You can go out, down or in the Pillar Room.
+This is the Shrine of the beloved King. The room is hexagon-shaped, with a white marble statue of the beloved King sitting on a pedestal against the wall opposite the door. On the floor, there is a design of an old-fashioned, eight-point compass rose. There is a shabby, rusted lever on the left side of the room.
+> take golden hammer
 
-> eat orange
-I can't see that. (orange)
-> eat apple
+> take golden hammer
+You pick it up.
+> out
 
-> eat apple
-I can't see that. (apple)
-> eat grape
+> out
 
-> eat grape
-I can't see that. (grape)
-> wear bronze shield
+You are in a Fountain Meadow.
+You can see a Right Fountain, a Left Fountain, a Small Building, a Statue of the fallen king, a Statue of a mother and her child , a Large Building and a bread.
+You can go southwest, in, northwest, down, south or southeast.
+You come into a Fountain Meadow. On one side of the meadow, there are two fountains just in front of a small ornate building; across from the fountains is a great building of some kind; and there are two statues--one is at the entrance to the meadow, a statue of a serious-faced man, and the other statue is of a mother with her child.
+> southeast
 
-> wear bronze shield
-You cannot wear that while wearing a Wooden Shield.
-> x bronze shield
+> southeast
 
-> x bronze shield
-A regular bronze shield, it's kind of shiny... not too shiny, just a little shiny.
-> inventory
+You are outside of a Brick Chapel.
+You can see a Chapel Fountain and a bread.
+You can go down, east or northwest.
+This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
+> east
 
-> inventory
-You are carrying a Worn Items (containing a Shorts (worn), a Shirt (worn), some Leather Gauntlets (worn), a Wooden Shield (worn), some Leather Sandals (worn) and some Leather Pants (worn)), a Lamp, a Bottle, a bread, a bread, a Wooden Dagger, a bread, a stick, a stick, a stick, a Gold Necklace, a bread, a stick, a stick, a stick, a King's Note, a Vitamin Stone - B12, a bread and a Bronze Shield.
-> eat bread
+> east
 
-> eat bread
-Please choose which 'bread' you mean:
-1: bread
-2: bread
-3: bread
-4: bread
-5: bread
+You are on the Box Street Road.
+You can go northwest, southeast, west, Tooth Doctor Shop, Grand Kingdom Day Spa or northeast.
+A narrow road with tall stately palm trees on either side.
+> go to Grand Kingdom Day Spa
+
+> go to Grand Kingdom Day Spa
+
+You are in a Grand Kingdom Day Spa.
+You can see a Table (on which there is a Vase (containing an Orange Blossom)) and a Spa Attendant.
+You can go out.
+The Grand Kingdom Day Spa is located inside a small white and green house along the Box Street road. The Spa has such an inviting, relaxing environment. Gentle scents of lavender permeate room. You already feel more aromatic just being here.
+You can see a table in the corner of the room, a sign near the entrance, and a shelf along the wall with all sorts of elegant products.
+> buy sleep mist spray
+
+> buy sleep mist spray
+Please choose which 'sleep mist spray' you mean:
+1: Sleep Mist Spray
+2: Focus Mist Spray
 > 1
-You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
- Health increased by 7%.
-> eat bread
+You buy it for $80.
+> drop gold ring
 
-> eat bread
-Please choose which 'bread' you mean:
-1: bread
-2: bread
-3: bread
-4: bread
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+8: Gold Ring
+9: Gold Ring
+10: Gold Ring
+11: Gold Ring
+12: Gold Ring
+13: Gold Ring
 > 1
-You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
- Health increased by 7%.
-> eat bread
+You drop it.
+> drop gold ring
 
-> eat bread
-Please choose which 'bread' you mean:
-1: bread
-2: bread
-3: bread
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+8: Gold Ring
+9: Gold Ring
+10: Gold Ring
+11: Gold Ring
+12: Gold Ring
 > 1
-You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
- Health increased by 7%.
-Your eyes are getting heavy.
-> eat bread
+You drop it.
+> drop gold ring
 
-> eat bread
-Please choose which 'bread' you mean:
-1: bread
-2: bread
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+8: Gold Ring
+9: Gold Ring
+10: Gold Ring
+11: Gold Ring
 > 1
-You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
- Health increased by 7%.
-> eat bread
+You drop it.
+> drop gold ring
 
-> eat bread
-You eat the entire loaf of bread, in only a few bites. You must have been very hungry. Instantly, you feel better.
- Health increased by 7%.
-> eat bread
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+8: Gold Ring
+9: Gold Ring
+10: Gold Ring
+> 1
+You drop it.
+> drop gold ring
 
-> eat bread
-I can't see that. (bread)
-> eat orange
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+8: Gold Ring
+9: Gold Ring
+> 1
+You drop it.
+> drop gold ring
 
-> eat orange
-I can't see that. (orange)
-> eat apple
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+8: Gold Ring
+> 1
+You drop it.
+> drop gold ring
 
-> eat apple
-I can't see that. (apple)
-> eat grape
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+7: Gold Ring
+> 1
+You drop it.
+> drop gold ring
 
-> eat grape
-I can't see that. (grape)
-> take off wooden shield
+> drop gold ring
+Please choose which 'gold ring' you mean:
+1: Gold Ring
+2: Gold Ring
+3: Gold Ring
+4: Gold Ring
+5: Gold Ring
+6: Gold Ring
+> 1
+You drop it.
+> drop silver dagger
 
-> take off wooden shield
-You take it off.
-> wear bronze shield
+> drop silver dagger
+> drop gold necklace
 
-> wear bronze shield
+> drop gold necklace
+You drop it.
+> wear mask
 
-> wear bronze shield
+> wear mask
+You put on the sleep mask. You cannot see anything.
+> use sleep mist spray
 
-> wear bronze shield
+> use sleep mist spray
+Please choose which 'sleep mist spray' you mean:
+1: Sleep Mist Spray
+2: Focus Mist Spray
+3: Sleep Mist Spray
+> 3
+You spray the Sleep Mist Spray.
+You drift off to sleep, and when you awake, four hours have passed.
+> remove mask
 
+> remove mask
+You can't carry any more items.
+> wear mask
+
+> wear mask
+You put on the sleep mask. You cannot see anything.
 You drift off to sleep, and when you awake, an hour has passed.
-While you slept the mean spider attacked you. Health: -18%.
-> drop wooden shield
+> remove mask
 
-> drop wooden shield
-You drop it.
+> remove mask
+You take it off.
+> wear mask
+
+> wear mask
+You put on the sleep mask. You cannot see anything.
+You drift off to sleep, and when you awake, an hour has passed.
+> remove mask
+
+> remove mask
+You take it off.
+> wear mask
+
+> wear mask
+You put on the sleep mask. You cannot see anything.
+You drift off to sleep, and when you awake, an hour has passed.
+> use sleep mist spray
+
+> use sleep mist spray
+Please choose which 'sleep mist spray' you mean:
+1: Sleep Mist Spray
+2: Focus Mist Spray
+3: Sleep Mist Spray
+> 3
+You spray the Sleep Mist Spray.
+You drift off to sleep, and when you awake, four hours have passed.
+> use sleep mist spray
+
+> use sleep mist spray
+Please choose which 'sleep mist spray' you mean:
+1: Sleep Mist Spray
+2: Focus Mist Spray
+3: Sleep Mist Spray
+> 3
+You spray the Sleep Mist Spray.
+You drift off to sleep, and when you awake, four hours have passed.
+> use sleep mist spray
+
+> use sleep mist spray
+Please choose which 'sleep mist spray' you mean:
+1: Sleep Mist Spray
+2: Focus Mist Spray
+3: Sleep Mist Spray
+> 3
+You spray the Sleep Mist Spray.
+You drift off to sleep, and when you awake, four hours have passed.
+You have used up all of your Sleep Mist Spray.
+> remove mask
+
+> remove mask
+You take it off.
+> out
+
+> out
+
+You are on the Box Street Road.
+You can go northwest, southeast, west, Tooth Doctor Shop, Grand Kingdom Day Spa or northeast.
+A narrow road with tall stately palm trees on either side.
+> west
+
+> west
+
+You are outside of a Brick Chapel.
+You can see a Chapel Fountain and a bread.
+You can go down, east or northwest.
+This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
+> use gold hammer on lamp
+
+> use gold hammer on lamp
+You smash the lamp into pieces. Inside the broken pieces of the lamp is some mysterious glowing, golden, glittery object.
+> wear mask
+
+> wear mask
+You put on the sleep mask. You cannot see anything.
+> take egg
+
+> take egg
+You pick it up.
+You reach down into the fragments of the broken lamp and find the glowing object. With your sleep mask on, you cannot tell what it is. Besides the glowing light that seeps in around the edges of your mask, you cannot see a thing. The object is not much bigger than your hand, rounder at the bottom than at the top, and unusually heavy for such a small object.
+Cat enters.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+Cat leaves.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+Cat enters.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+Cat leaves.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+> wait
+
+> wait
+Time passes.
+The Black Knight enters the room, from northwest.
+You see the Black Knight coming toward you, ready to fight.
+> break egg
+
+> break egg
+You strike the glowing object with the golden hammer, and the object shatters into a million tiny pieces of dust, blown away with the breeze. As the dust flies, it shines with bright distinct rays, and then disappears from sight.
+You hear a stumbling noise, and a beleaguered voice saying,"What am I doing here? How have I come to this place?"
+You remove your sleep mask to better investigate this strange noise, and you find the Black Knight, kneeling on the ground with his helmet in his hands.
+He looks familiar, so oddly familiar. That's it! You know who he is. He's the Fallen King. You recognize his face from his statue.
+And so many other thoughts and memories come flooding back into your brain. The effects of the Golden Egg must have kept these from you.
+You are the lost prince.
+The beloved king was your father, Abraham... and the Black Knight was the old king, who ruled the kingdom of Red Lands before your father rightfully took the throne. So much makes sense now.
+"Thank you for freeing me," the old king says. "I was lost in my resentment of your father's position, and his just place as king. In my bitterness, and with the lure of the golden egg, I had forgotten all else, except anger and greed. I am a new man without that deceptive treasure, and I will no longer seek the throne. It is your mother's to possess, if she so chooses, and after that, the throne will be yours."
+"What happened to the egg?" you ask.
+"It has been blown into another world, I should imagine," he says. The old king reaches into his pocket. "What is this?" he says, as he retrieves an old folded, wrinkled letter.
+> look
+
+> look
+You are outside of a Brick Chapel.
+You can see a Chapel Fountain, a bread, a Broken Lamp, a Black Knight and a King's Note.
+You can go down, east or northwest.
+This old brick chapel is just beautiful with its lofty bell tower and stained glass windows.
+> take note
+
+> take note
+You pick it up.
+Cat enters.
+> read note
+
+> read note
+The note looks like it was written in your father's own handwriting. It reads,
+"My Dear Son,"
+"If you have found this note, then that means that I was not successful in my quest, but that you were--and that thought makes me hopeful even now, understanding that you will read this after my death; but to know that our kingdom is freed from the golden egg, and that our friend, the old king, has been healed from his jealous trance, those things are good enough a legacy to leave, if one may be so fortunate."
+"This note I carried with me into battle against the old king, and if you have found it, I was slain in my attempts to free him. But now that the golden egg has been destroyed, peace will reign in Red Lands once more. "
+"And if the egg has been destroyed, that means that the fragments of the golden egg have undoubtedly blown into another world. You may seek it there, if you so desire, but beware, seek the treasure with your hands only, and not your heart. Which may free yourself to seek for better things, not made with gold, or fine metalwork. Those are the better things on which to place your affections."
+"My son,"
+"Set your heart on things above, things that will last eternal, beyond this earthly greed. For pure gold is indeed valuable, but a pure heart is even better still."
+"Ask the pilot of the other world where the golden egg may be found. Tell him how you found the egg, and he will help you complete your journey."
+Send a message to the pilot - redlandssky@gmail.com
+The egg has been found, and destroyed, and the kingdom restored. Your quest is complete. If you drop this note in the Amphitheater, your adventure will finish.
+> wear mask
+
+> wear mask
+You put on the sleep mask. You cannot see anything.
+> remove mask
+
+> remove mask
+You take it off.
+What is this that you're holding? You look down and find the Golden Egg!
+ How long have you been holding it?
+ And where did you find it?
+ What is you name? You would think someone might remember his own name, but you find that it escapes you.
+ What were you doing here? Where is this place? The world is swimming, and your mind becomes a blur.
+
+You are in an Amphitheater.
+You can go northeast or southwest.
+This is a seemingly old, abandoned amphitheater with rows of stone benches facing the stage.
+ You awaken in a deserted amphitheater, confused and unsure of how you arrived here.
 > drop note
 
 > drop note
 You drop it.
-> inventory
-
-> inventory
-You are carrying a Worn Items (containing a Shorts (worn), a Shirt (worn), some Leather Gauntlets (worn), some Leather Sandals (worn), some Leather Pants (worn) and a Bronze Shield (worn)), a Lamp, a Bottle, a Wooden Dagger, a stick, a stick, a stick, a Gold Necklace, a stick, a stick, a stick and a Vitamin Stone - B12.
-> southwest
-
-> southwest
-
-You are in a Dungeon Room.
-You can see a Pedestal.
-You can go west or northeast.
-A creepy dungeon room... not your favorite.
-> look
-
-> look
-You are in a Dungeon Room.
-You can see a Pedestal.
-You can go west or northeast.
-A creepy dungeon room... not your favorite.
-> make torch
-
-> make torch
-You light the stick on fire. You've made a torch!
-You pick up the Torch.
-> light pedestal
-
-> light pedestal
-You ignite the pedestal.
-> break pot
-
-> break pot
-I can't see that.
-> take all
-
-> take all
-Pedestal: You can't take it.
-[state=Running]
+You have restored the kingdom of Red Lands. All is at peace.
+You Won!!!
+[state=Finished]
