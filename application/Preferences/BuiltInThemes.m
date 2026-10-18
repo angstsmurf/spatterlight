@@ -186,11 +186,10 @@
            @"border": @"Border",
         };
 
-        NSDictionary *attributes = [NSEntityDescription
-                                    entityForName:@"Theme"
-                                    inManagedObjectContext:context].attributesByName;
-
-        for (NSString *attr in attributes) {
+        // Only the attributes above have a defaults key. Looking up the
+        // others would pass a nil key to objectForKey:, which crashes
+        // ("CFHash() called with NULL") on macOS 10.13 and earlier.
+        for (NSString *attr in attributesToDefaultsDict) {
             id defaultsValue = [defaults objectForKey:attributesToDefaultsDict[attr]];
 
             if (defaultsValue == nil) {
