@@ -6,66 +6,77 @@
 //
 
 #import "ImageHandler.h"
-#import <ImageIO/ImageIO.h>
 #import <BlorbFramework/BlorbFramework.h>
 #import <BlorbFramework/BlorbFramework-Swift.h>
+#import <objc/runtime.h>
 
-static BOOL dataIsGIF(NSData *data) {
-    return data.length >= 6 && (memcmp(data.bytes, "GIF89a", 6) == 0 ||
-                                memcmp(data.bytes, "GIF87a", 6) == 0);
-}
+static const void *kImageAnimationKey = &kImageAnimationKey;
 
 @implementation ImageAnimation {
-    CGImageSourceRef _source;
+    NSBitmapImageRep *_rep;
     // End time of each frame, in seconds from the start of a pass.
     NSTimeInterval *_frameEnds;
-    NSCache<NSNumber *, NSImage *> *_frameCache;
 }
 
-- (nullable instancetype)initWithData:(NSData *)data {
+// The first bitmap rep of image that has more than one frame, or nil.
+static NSBitmapImageRep *animatedRep(NSImage *image) {
+    for (NSImageRep *rep in image.representations) {
+        if (![rep isKindOfClass:[NSBitmapImageRep class]])
+            continue;
+        NSNumber *frames = [(NSBitmapImageRep *)rep valueForProperty:NSImageFrameCount];
+        if (frames.unsignedIntegerValue > 1)
+            return (NSBitmapImageRep *)rep;
+    }
+    return nil;
+}
+
++ (nullable ImageAnimation *)animationForImage:(NSImage *)image {
+    if (!image)
+        return nil;
+    // Kept as an associated object so that it goes when the image goes: the
+    // image cache's cost limit then bounds animations along with stills, and
+    // every cell that draws the image gets the same instance.
+    ImageAnimation *animation = objc_getAssociatedObject(image, kImageAnimationKey);
+    if (animation)
+        return animation == (id)[NSNull null] ? nil : animation;
+    NSBitmapImageRep *rep = animatedRep(image);
+    animation = rep ? [[ImageAnimation alloc] initWithImage:image rep:rep] : nil;
+    objc_setAssociatedObject(image, kImageAnimationKey, animation ?: [NSNull null],
+                             OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    return animation;
+}
+
+- (instancetype)initWithImage:(NSImage *)image rep:(NSBitmapImageRep *)rep {
     self = [super init];
     if (self) {
-        if (!dataIsGIF(data))
-            return nil;
-        _source = CGImageSourceCreateWithData((__bridge CFDataRef)data, NULL);
-        if (!_source)
-            return nil;
-        _frameCount = CGImageSourceGetCount(_source);
-        if (_frameCount < 2)
-            return nil;
+        _image = image;
+        _rep = rep;
+        _frameCount = ((NSNumber *)[rep valueForProperty:NSImageFrameCount]).unsignedIntegerValue;
 
         // A GIF without a looping extension plays once.
         _loopCount = 1;
-        NSDictionary *properties = CFBridgingRelease(CGImageSourceCopyProperties(_source, NULL));
-        NSDictionary *gif = properties[(__bridge NSString *)kCGImagePropertyGIFDictionary];
-        NSNumber *loops = gif[(__bridge NSString *)kCGImagePropertyGIFLoopCount];
+        NSNumber *loops = [rep valueForProperty:NSImageLoopCount];
         if (loops)
             _loopCount = loops.unsignedIntegerValue;
 
+        // Each frame's delay is only readable while it is the current frame.
+        NSNumber *current = [rep valueForProperty:NSImageCurrentFrame];
         _frameEnds = calloc(_frameCount, sizeof(NSTimeInterval));
         for (NSUInteger i = 0; i < _frameCount; i++) {
-            NSDictionary *frameProperties = CFBridgingRelease(CGImageSourceCopyPropertiesAtIndex(_source, i, NULL));
-            NSDictionary *frameGif = frameProperties[(__bridge NSString *)kCGImagePropertyGIFDictionary];
-            NSNumber *delay = frameGif[(__bridge NSString *)kCGImagePropertyGIFUnclampedDelayTime];
-            if (!delay)
-                delay = frameGif[(__bridge NSString *)kCGImagePropertyGIFDelayTime];
-            NSTimeInterval seconds = delay.doubleValue;
+            [rep setProperty:NSImageCurrentFrame withValue:@(i)];
+            NSTimeInterval seconds = ((NSNumber *)[rep valueForProperty:NSImageCurrentFrameDuration]).doubleValue;
             // Like web browsers, treat delays too short to display as 100 ms.
             if (seconds < 0.011)
                 seconds = 0.1;
             _duration += seconds;
             _frameEnds[i] = _duration;
         }
-
-        _frameCache = [NSCache new];
-        _frameCache.countLimit = 4;
+        [rep setProperty:NSImageCurrentFrame withValue:current ?: @0];
     }
     return self;
 }
 
 - (void)dealloc {
-    if (_source)
-        CFRelease(_source);
     free(_frameEnds);
 }
 
@@ -90,17 +101,8 @@ static BOOL dataIsGIF(NSData *data) {
 - (nullable NSImage *)imageForFrame:(NSUInteger)frame {
     if (frame >= _frameCount)
         return nil;
-    NSImage *image = [_frameCache objectForKey:@(frame)];
-    if (!image) {
-        NSDictionary *options = @{ (__bridge NSString *)kCGImageSourceShouldCacheImmediately : @YES };
-        CGImageRef cgImage = CGImageSourceCreateImageAtIndex(_source, frame, (__bridge CFDictionaryRef)options);
-        if (!cgImage)
-            return nil;
-        image = [[NSImage alloc] initWithCGImage:cgImage size:NSZeroSize];
-        CGImageRelease(cgImage);
-        [_frameCache setObject:image forKey:@(frame)];
-    }
-    return image;
+    [_rep setProperty:NSImageCurrentFrame withValue:@(frame)];
+    return _image;
 }
 
 @end
@@ -255,19 +257,6 @@ static BOOL dataIsGIF(NSData *data) {
     return img;
 }
 
-- (nullable ImageAnimation *)createAnimation {
-    if (!_data) {
-        // Only keep the resource in memory if it can be an animation.
-        NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_imageFile.URL error:NULL];
-        if (!fileHandle)
-            return nil;
-        [fileHandle seekToFileOffset:_offset];
-        if (!dataIsGIF([fileHandle readDataOfLength:6]) || ![self loadWithError:NULL])
-            return nil;
-    }
-    return [[ImageAnimation alloc] initWithData:_data];
-}
-
 @end
 
 // Byte budget for the decoded pictures the NSCache keeps alive. An NSImage
@@ -285,8 +274,6 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     // caching queue. A group that was never entered returns from wait
     // immediately, so the decoded-from-autosave case needs no special handling.
     dispatch_group_t _cacheGroup;
-    // ImageAnimation, or NSNull for a resource known to be a still image.
-    NSMutableDictionary<NSNumber *, id> *_animations;
 }
 
 - (instancetype)init {
@@ -348,33 +335,35 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     [_imageCache setObject:image forKey:@(resno) cost:cost];
 }
 
-- (BOOL)imageIsLoaded:(NSInteger)resno {
-    if (_lastimageresno == resno && _lastimage) {
-        return YES;
-    }
-    NSImage *cachedimage = [_imageCache objectForKey:@(resno)];
-    if (cachedimage) {
-        _lastimage = cachedimage;
-        _lastimageresno = resno;
-//        NSLog(@"Image found in cache!");
-        return YES;
-    }
+// The image for resno: the last one found, a cached one, or one decoded from
+// its resource and cached here. Does not touch the "last image".
+- (nullable NSImage *)imageForResource:(NSInteger)resno {
+    if (_lastimageresno == resno && _lastimage)
+        return _lastimage;
+    NSImage *image = [_imageCache objectForKey:@(resno)];
+    if (image)
+        return image;
     ImageResource *resource = _resources[@(resno)];
-    if (resource) {
-        _lastimage = [resource createImage];
-        // This is the path every blorb-resident picture takes: the resource
-        // table is filled at launch, so the FINDIMAGE request lands here and
-        // the LOADIMAGE request (whose handler stores into the cache) never
-        // follows. Store here too, or the cache stays empty and each draw
-        // rebuilds the NSImage and decodes the data again.
-        if (_lastimage) {
-            [self cacheImage:_lastimage forResource:resno];
-            _lastimageresno = resno;
-            return YES;
-        }
+    if (!resource)
+        return nil;
+    image = [resource createImage];
+    // This is the path every blorb-resident picture takes: the resource
+    // table is filled at launch, so the FINDIMAGE request lands here and
+    // the LOADIMAGE request (whose handler stores into the cache) never
+    // follows. Store here too, or the cache stays empty and each draw
+    // rebuilds the NSImage and decodes the data again.
+    if (image)
+        [self cacheImage:image forResource:resno];
+    return image;
+}
+
+- (BOOL)imageIsLoaded:(NSInteger)resno {
+    NSImage *image = [self imageForResource:resno];
+    if (!image)
         return NO;
-    }
-    return NO;
+    _lastimage = image;
+    _lastimageresno = resno;
+    return YES;
 }
 
 - (void)cacheImagesFromBlorbData:(NSData *)blorbData path:(NSString *)path {
@@ -500,19 +489,12 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     [res loadWithError:NULL];
 }
 
+// Unlike handleFindImageNumber: this leaves the "last image" alone, so a
+// rescale or an autorestore can ask about any image in the buffer without
+// changing what the next draw request draws.
 - (nullable ImageAnimation *)animationForImageNumber:(NSInteger)resno {
     [self waitForCaching];
-    if (!_animations)
-        _animations = [NSMutableDictionary new];
-    id animation = _animations[@(resno)];
-    if (!animation) {
-        ImageResource *resource = _resources[@(resno)];
-        if (!resource)
-            return nil;
-        animation = [resource createAnimation];
-        _animations[@(resno)] = animation ?: [NSNull null];
-    }
-    return animation == [NSNull null] ? nil : animation;
+    return [ImageAnimation animationForImage:[self imageForResource:resno]];
 }
 
 - (NSString *)lastImageLabel {
@@ -530,7 +512,6 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     [self waitForCaching];
 
     [_imageCache removeObjectForKey:@(resno)];
-    [_animations removeObjectForKey:@(resno)];
     ImageResource *resource = _resources[@(resno)];
     NSError *error = nil;
     if (![Blorb isBlorbURL:resource.imageFile.URL]) {

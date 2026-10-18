@@ -269,15 +269,19 @@
 // frame in place of the stored image.
 - (BOOL)drawScaledInFrame:(NSRect)cellFrame {
     NSImage *image = self.image;
+    BOOL animating = NO;
     if (_animation && _animationStart != 0) {
+        // Switches the shared image to the frame; it must be drawn right away.
         NSImage *frame = [_animation imageForFrame:_animationFrame];
-        if (frame)
+        if (frame) {
             image = frame;
+            animating = YES;
+        }
     }
     if (!image)
         return NO;
-    if (image == self.image && (lastDisplaySize.width <= 0 ||
-                                NSEqualSizes(lastDisplaySize, image.size)))
+    if (!animating && (lastDisplaySize.width <= 0 ||
+                       NSEqualSizes(lastDisplaySize, image.size)))
         return NO;
     NSGraphicsContext *ctx = NSGraphicsContext.currentContext;
     NSImageInterpolation oldInterpolation = ctx.imageInterpolation;

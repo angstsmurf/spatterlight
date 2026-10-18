@@ -21,14 +21,20 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 
-// The frames of an animated image (currently only GIF), decoded on demand.
-// Shared by every attachment cell that shows the same resource; the cells
-// keep their own playback position.
+// The playback timing of an animated image (currently only GIF). An NSImage
+// decoded from a multi-frame GIF already carries every frame in its bitmap
+// rep, so there is nothing to decode here: this reads the rep's frame delays
+// and loop count once, and switches the rep's current frame on request. The
+// one instance for an image lives as long as the image does, so it shares the
+// image cache's budget and is shared by every attachment cell that shows the
+// same image; the cells keep their own playback position.
 @interface ImageAnimation : NSObject
 
-// Returns nil unless data is a GIF with more than one frame.
-- (nullable instancetype)initWithData:(NSData *)data;
+// The animation of image, made the first time it is asked for. Returns nil
+// unless image has a bitmap rep with more than one frame.
++ (nullable ImageAnimation *)animationForImage:(NSImage *)image;
 
+@property (readonly) NSImage *image;
 @property (readonly) NSUInteger frameCount;
 // Length of one pass through all frames, in seconds.
 @property (readonly) NSTimeInterval duration;
@@ -40,6 +46,8 @@ NS_ASSUME_NONNULL_BEGIN
 // playback has stopped on the final frame.
 - (NSUInteger)frameAtTime:(NSTimeInterval)elapsed
                 untilNext:(nullable NSTimeInterval *)untilNext;
+// The image, switched to show frame. Call it right before drawing: the frame
+// is a property of the rep, which every cell showing the image shares.
 - (nullable NSImage *)imageForFrame:(NSUInteger)frame;
 
 @end
@@ -51,7 +59,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL load NS_SWIFT_UNAVAILABLE("Use the throwing method instead");
 - (BOOL)loadWithError:(NSError**)outError;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSImage * _Nullable createImage;
-@property (NS_NONATOMIC_IOSONLY, readonly) ImageAnimation * _Nullable createAnimation;
 
 @property (nullable) NSData *data;
 @property (nullable) ImageFile *imageFile;

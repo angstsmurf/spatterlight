@@ -450,4 +450,56 @@ static const NSSize kDecoySize = { 30, 30 };
     XCTAssertEqual(rescaled.animationFrame, 1UL);
 }
 
+// The gray level at the middle of image, drawn the way a cell draws it.
+- (CGFloat)grayDrawnBy:(NSImage *)image {
+    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
+                                                                    pixelsWide:(NSInteger)kAnimatedSize.width
+                                                                    pixelsHigh:(NSInteger)kAnimatedSize.height
+                                                                 bitsPerSample:8
+                                                               samplesPerPixel:4
+                                                                      hasAlpha:YES
+                                                                      isPlanar:NO
+                                                                colorSpaceName:NSDeviceRGBColorSpace
+                                                                   bytesPerRow:0
+                                                                  bitsPerPixel:0];
+    [NSGraphicsContext saveGraphicsState];
+    NSGraphicsContext.currentContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
+    [image drawInRect:NSMakeRect(0, 0, kAnimatedSize.width, kAnimatedSize.height)
+             fromRect:NSZeroRect
+            operation:NSCompositingOperationCopy
+             fraction:1.0
+       respectFlipped:YES
+                hints:nil];
+    [NSGraphicsContext restoreGraphicsState];
+    NSColor *color = [rep colorAtX:(NSInteger)kAnimatedSize.width / 2 y:(NSInteger)kAnimatedSize.height / 2];
+    return color.redComponent;
+}
+
+// The animation is the cached image itself, with its bitmap rep switched
+// between frames. Switching must change what the image draws, or every cell
+// would show the first frame for ever.
+- (void)testAnimationIsTheCachedImage {
+    GlkController *ctl = [self startGame];
+    XCTAssertTrue([self findImage:kAnimated in:ctl]);
+    NSImage *cached = ctl.imageHandler.lastimage;
+
+    ImageAnimation *animation = [ctl.imageHandler animationForImageNumber:kAnimated];
+    XCTAssertNotNil(animation);
+    XCTAssertEqual(animation.image, cached, @"no second copy of the picture");
+    XCTAssertEqual(animation.frameCount, 2UL);
+    XCTAssertEqual(animation.loopCount, 0UL, @"the test GIF loops for ever");
+    XCTAssertEqualWithAccuracy(animation.duration, 1.0, 0.01, @"two frames of half a second");
+
+    XCTAssertEqualWithAccuracy([self grayDrawnBy:[animation imageForFrame:0]], 0.2, 0.02);
+    XCTAssertEqualWithAccuracy([self grayDrawnBy:[animation imageForFrame:1]], 0.8, 0.02);
+    XCTAssertEqualWithAccuracy([self grayDrawnBy:[animation imageForFrame:0]], 0.2, 0.02, @"and back");
+    XCTAssertNil([animation imageForFrame:2]);
+
+    // Asking again, or after the handler has moved on to another image,
+    // gives the same animation.
+    XCTAssertTrue([self findImage:kPicture in:ctl]);
+    XCTAssertEqual([ctl.imageHandler animationForImageNumber:kAnimated], animation);
+    XCTAssertEqual(ctl.imageHandler.lastimageresno, kPicture, @"asking does not change the last image");
+}
+
 @end
