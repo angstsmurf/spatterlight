@@ -8,6 +8,7 @@
 #import "MyAttachmentCell.h"
 #import "BufferTextView.h"
 #include "glkimp.h"
+#import <QuartzCore/QuartzCore.h>
 
 // In release builds, suppress NSLog entirely.
 #ifndef DEBUG
@@ -131,6 +132,15 @@ static const NSUInteger kMaxMarginImages = 200;
                                          at:textstorage.length
                                       index:index];
 
+    // The image being drawn is always the one the handler loaded last.
+    cell.imageNumber = self.glkctl.imageHandler.lastimageresno;
+    if (!isMargin && cell.imageNumber >= 0) {
+        cell.animation = [self.glkctl.imageHandler animationForImageNumber:cell.imageNumber];
+        cell.animationResolved = YES;
+        if (cell.animation)
+            [self startImageAnimations];
+    }
+
     if (cellRule) {
         cell.imagerule = cellRule;
         cell.ruleWidth = (NSUInteger)w;
@@ -175,6 +185,95 @@ static const NSUInteger kMaxMarginImages = 200;
     }
 
     [textstorage addAttributes:styles[style] range:NSMakeRange(textstorage.length - 1, 1)];
+}
+
+#pragma mark Animated images
+
+// How often to look again while there are animated images in the buffer but
+// none of them is playing (scrolled out of view, window hidden, Reduce
+// Motion on).
+static const NSTimeInterval kImageAnimationIdleInterval = 0.5;
+static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
+
+- (void)startImageAnimations {
+    if (!imageAnimationTimer)
+        [self scheduleImageAnimationTick:kImageAnimationMinInterval];
+}
+
+- (void)scheduleImageAnimationTick:(NSTimeInterval)delay {
+    __weak GlkTextBufferWindow *weakSelf = self;
+    imageAnimationTimer = [NSTimer timerWithTimeInterval:delay repeats:NO block:^(NSTimer *timer) {
+        [weakSelf tickImageAnimations];
+    }];
+    // Common modes, so that playback carries on while scrolling.
+    [[NSRunLoop mainRunLoop] addTimer:imageAnimationTimer forMode:NSRunLoopCommonModes];
+}
+
+// Advance every animated inline image that is on screen to the frame it
+// should be showing now, and schedule the next tick for when the earliest
+// of them is due to change again. Images that are not on screen are left
+// alone, so a long scrollback costs nothing to animate. Margin images are
+// not animated.
+- (void)tickImageAnimations {
+    imageAnimationTimer = nil;
+
+    BOOL play = self.window.visible &&
+        (self.window.occlusionState & NSWindowOcclusionStateVisible) &&
+        !NSWorkspace.sharedWorkspace.accessibilityDisplayShouldReduceMotion;
+
+    NSRange visibleRange = NSMakeRange(0, 0);
+    NSPoint origin = _textview.textContainerOrigin;
+    if (play) {
+        NSRect visibleRect = NSOffsetRect(_textview.visibleRect, -origin.x, -origin.y);
+        NSRange glyphRange = [layoutmanager glyphRangeForBoundingRectWithoutAdditionalLayout:visibleRect
+                                                                            inTextContainer:container];
+        visibleRange = [layoutmanager characterRangeForGlyphRange:glyphRange actualGlyphRange:NULL];
+    }
+
+    CFTimeInterval now = CACurrentMediaTime();
+    __block BOOL anyAnimated = NO;
+    __block NSTimeInterval nextTick = kImageAnimationIdleInterval;
+
+    [textstorage
+     enumerateAttribute:NSAttachmentAttributeName
+     inRange:NSMakeRange(0, textstorage.length)
+     options:0
+     usingBlock:^(NSTextAttachment *value, NSRange subrange, BOOL *stop) {
+        MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
+        if (![cell isKindOfClass:[MyAttachmentCell class]] ||
+            cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight)
+            return;
+
+        // Cells restored from an autosave arrive without their animation.
+        if (!cell.animationResolved) {
+            if (cell.imageNumber >= 0)
+                cell.animation = [self.glkctl.imageHandler animationForImageNumber:cell.imageNumber];
+            cell.animationResolved = YES;
+        }
+        ImageAnimation *animation = cell.animation;
+        if (!animation)
+            return;
+        anyAnimated = YES;
+
+        if (!NSLocationInRange(subrange.location, visibleRange))
+            return;
+
+        if (cell.animationStart == 0)
+            cell.animationStart = now;
+        NSTimeInterval untilNext;
+        NSUInteger frame = [animation frameAtTime:now - cell.animationStart untilNext:&untilNext];
+        if (frame != cell.animationFrame) {
+            cell.animationFrame = frame;
+            NSRange glyphRange = [layoutmanager glyphRangeForCharacterRange:subrange actualCharacterRange:NULL];
+            NSRect rect = [layoutmanager boundingRectForGlyphRange:glyphRange inTextContainer:container];
+            [_textview setNeedsDisplayInRect:NSOffsetRect(rect, origin.x, origin.y)];
+        }
+        if (untilNext < nextTick)
+            nextTick = untilNext;
+    }];
+
+    if (anyAnimated)
+        [self scheduleImageAnimationTick:MAX(nextTick, kImageAnimationMinInterval)];
 }
 
 // Insert a flow break marker into the text storage. This tells the
@@ -231,6 +330,13 @@ static const NSUInteger kMaxMarginImages = 200;
         marginImages[marginImage.uuid] = marginImage;
     }
 
+    // Looking images up below makes each of them the handler's "last image"
+    // in turn. Put back the one the interpreter last asked for when done, or
+    // a draw request that follows would draw the wrong picture.
+    ImageHandler *handler = self.glkctl.imageHandler;
+    NSImage *savedLastImage = handler.lastimage;
+    NSInteger savedLastImageResno = handler.lastimageresno;
+
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
      inRange:NSMakeRange(0, textstorage.length)
@@ -240,6 +346,8 @@ static const NSUInteger kMaxMarginImages = 200;
             return;
         }
         MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
+        if (![cell isKindOfClass:[MyAttachmentCell class]])
+            return;
 
         // Rule-scaled cells (glk_image_draw_scaled_ext) resolve their display
         // size against the wrap width at layout time; scaling their stored
@@ -250,11 +358,16 @@ static const NSUInteger kMaxMarginImages = 200;
         NSImage *img = nil;
         BOOL imageIsMargin = (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight);
 
-        if (cell && [self.glkctl.imageHandler handleFindImageNumber:cell.index]) {
+        // The resource number, that is, not cell.index, which is whatever
+        // the game passed as val2 of glk_image_draw(). Cells from autosaves
+        // older than imageNumber do not know theirs; fall back on the index
+        // for those, as Bocfel (the only caller) passes the picture number.
+        NSInteger resno = cell.imageNumber >= 0 ? cell.imageNumber : (NSInteger)cell.index;
+        if ([handler handleFindImageNumber:resno]) {
             CGFloat blockXScale = xscale;
             CGFloat blockYScale = yscale;
 
-            img = self.glkctl.imageHandler.lastimage;
+            img = handler.lastimage;
             if (!imageIsMargin && cell.image && cell.image.size.width > scrollview.contentView.frame.size.width * 0.7) {
                 CGFloat width = scrollview.contentView.frame.size.width;
                 CGFloat factor = img.size.width * xscale / width;
@@ -269,6 +382,12 @@ static const NSUInteger kMaxMarginImages = 200;
         // Replace non-margin inline images (alignment imagealign_InlineUp, imagealign_InlineDown, or imagealign_InlineCenter)
         if (!imageIsMargin) {
             NSTextAttachment *att = [self textAttachmenWithImage:img alignment:cell.glkImgAlign index:cell.index position:subrange.location];
+            MyAttachmentCell *newCell = (MyAttachmentCell *)att.attachmentCell;
+            newCell.imageNumber = cell.imageNumber;
+            newCell.animation = cell.animation;
+            newCell.animationResolved = cell.animationResolved;
+            newCell.animationStart = cell.animationStart;
+            newCell.animationFrame = cell.animationFrame;
             [textstorage addAttribute:NSAttachmentAttributeName value:att range:subrange];
             return;
         }
@@ -284,6 +403,9 @@ static const NSUInteger kMaxMarginImages = 200;
         cell.marginImage = container.marginImages.lastObject;
         cell.marginImgUUID = cell.marginImage.uuid;
     }];
+
+    handler.lastimage = savedLastImage;
+    handler.lastimageresno = savedLastImageResno;
 }
 
 @end

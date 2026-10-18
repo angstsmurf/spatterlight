@@ -95,6 +95,10 @@ NS_ASSUME_NONNULL_BEGIN
     BOOL backgroundLayoutInProgress;   // YES while a background layout pass is running
     NSUInteger backgroundLayoutGeneration; // Incremented when text changes, to discard stale results
 
+    // --- Animated images ---
+    NSTimer *imageAnimationTimer;      // One-shot, rescheduled by each tick; nil when the
+                                       // buffer holds no animated images
+
     // --- Backing ivars for properties declared in GlkTextBufferWindow.h ---
     // Declared explicitly here (auto-synthesis adopts them) so the category
     // files, which are separate translation units, can access them directly.
