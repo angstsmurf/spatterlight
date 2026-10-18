@@ -557,7 +557,14 @@
                 bgCol = col;
             }
         }
-        if (longest < blockTextStorage.length - rows * 2)
+        // Highlighted words (such as the yellow "menu" links in WITHOUT
+        // Corporation) can add up to far more than two columns per row,
+        // so also accept a color that fills most of the window as long as
+        // it is the background of the first and last cell of every row,
+        // which are the ones that border the margins.
+        if (longest < blockTextStorage.length - rows * 2 &&
+            (longest < blockTextStorage.length / 2 ||
+             ![self color:bgCol isAtRowEdgesOf:blockTextStorage]))
             bgCol = nil;
     }
 
@@ -570,6 +577,20 @@
         }
     }
     _pendingBackgroundCol = bgCol;
+}
+
+- (BOOL)color:(NSColor *)color isAtRowEdgesOf:(NSAttributedString *)storage {
+    // Each row is cols characters followed by a newline.
+    NSUInteger rowLength = cols + 1;
+    if (cols < 1 || storage.length < rowLength)
+        return NO;
+    for (NSUInteger start = 0; start + rowLength <= storage.length; start += rowLength) {
+        NSColor *first = [storage attribute:NSBackgroundColorAttributeName atIndex:start effectiveRange:nil];
+        NSColor *last = [storage attribute:NSBackgroundColorAttributeName atIndex:start + cols - 1 effectiveRange:nil];
+        if (![first isEqual:color] || ![last isEqual:color])
+            return NO;
+    }
+    return YES;
 }
 
 // With certain fonts, a line consisting of nothing but spaces "collapses": the
