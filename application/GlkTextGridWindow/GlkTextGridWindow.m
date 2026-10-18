@@ -53,6 +53,11 @@
     BOOL mouse_request;
     BOOL transparent;
     NSInteger terminator;
+    // The inherited dirty flag means: _bufferTextStorage, or anything that
+    // decides the window background colour, has changed since the last
+    // flushDisplay. The controller flushes every window on every interpreter
+    // update, so a static grid would otherwise be re-scanned, re-laid-out and
+    // repainted on each tick of a timer-driven game.
 }
 - (void)mergeSideBySideQuoteBoxAtColumn:(NSUInteger)otherColumn
                                   width:(NSUInteger)otherWidth
@@ -66,8 +71,17 @@
 
 @implementation GlkTextGridWindow
 
+@synthesize bufferTextStorage = _bufferTextStorage;
+
 + (BOOL) supportsSecureCoding {
     return YES;
+}
+
+// Anyone handing us a new buffer from outside (autorestore, the tests)
+// gets the next flush to take it on board.
+- (void)setBufferTextStorage:(NSMutableAttributedString *)bufferTextStorage {
+    _bufferTextStorage = bufferTextStorage;
+    dirty = YES;
 }
 
 + (BOOL)isCompatibleWithResponsiveScrolling
@@ -117,6 +131,7 @@
 
         textstorage = [[NSTextStorage alloc] init];
         _bufferTextStorage = [[NSMutableAttributedString alloc] init];
+        dirty = YES;
 
         layoutmanager = [[NSLayoutManager alloc] init];
         layoutmanager.backgroundLayoutEnabled = YES;
@@ -201,7 +216,6 @@
         _selectedCol = (NSUInteger)[decoder decodeIntegerForKey:@"selectedCol"];
         _selectedString = [decoder decodeObjectOfClass:[NSString class] forKey:@"selectedString"];
 
-        dirty = YES;
         transparent = [decoder decodeBoolForKey:@"transparent"];
 
         _restoredSelection =
@@ -210,6 +224,7 @@
 
         _pendingBackgroundCol = [decoder decodeObjectOfClass:[NSColor class] forKey:@"pendingBackgroundCol"];
         _bufferTextStorage = [decoder decodeObjectOfClass:[NSMutableAttributedString class] forKey:@"bufferTextStorage"];
+        dirty = YES;
 
         _enteredTextSoFar = [decoder decodeObjectOfClass:[NSString class] forKey:@"inputString"];
         maxInputLength = (NSUInteger)[decoder decodeIntForKey:@"maxInputLength"];
@@ -285,6 +300,7 @@
 
     if (restoredWin.bufferTextStorage)
         _bufferTextStorage = restoredWin.bufferTextStorage;
+    dirty = YES;
 
     [self flushDisplay];
 
@@ -378,6 +394,7 @@
         // autorestoring a game whose theme was changed while it was closed.
         NSAttributedString *source = _bufferTextStorage.length ? [_bufferTextStorage copy] : [textstorage copy];
         _bufferTextStorage = [source mutableCopy];
+        dirty = YES;
 
         GlkTextGridWindow * __weak weakSelf = self;
 
@@ -437,10 +454,6 @@
 
         if (NSMaxRange(selectedRange) <= textstorage.length)
             _textview.selectedRange = selectedRange;
-        // A frame that is still pending needs the next flush to apply it.
-        if (!self.framePending)
-            dirty = NO;
-
         [self recalcBackground];
         _textview.backgroundColor = _pendingBackgroundCol;
 
@@ -479,6 +492,12 @@
 }
 
 - (void)recalcBackground {
+    // The pending colour this computes is normally superseded by
+    // checkForUglyBorder at the next flush. Make sure that flush does the
+    // full work, so the colour that reaches the text view is the same one
+    // as before the buffer-changed gate existed.
+    dirty = YES;
+
     NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
     GlkController *glkctl = self.glkctl;
 
@@ -685,7 +704,37 @@
     }
 }
 
+- (void)applyPendingFrame {
+    if (!self.framePending)
+        return;
+    if (!NSEqualRects(self.frame, self.pendingFrame)) {
+        super.frame = self.pendingFrame;
+    }
+    if (!NSEqualRects(_textview.frame, self.bounds)) {
+        _textview.frame = self.bounds;
+    }
+    self.framePending = NO;
+}
+
 - (void)flushDisplay {
+    // Nothing printed, resized, restyled or recoloured since the last flush:
+    // the text storage already shows the buffer, so skip the background scan,
+    // the blank-row fix and the replacement that would re-lay-out and repaint
+    // the whole grid. A pending frame is still applied, as setFrame: leaves
+    // one behind without touching the buffer during live resize and for
+    // frames that would not fit the screen, and the selection is still
+    // recorded, as setFrame: reads it.
+    if (!dirty && _bufferTextStorage) {
+        [self applyPendingFrame];
+        if (_pendingBackgroundCol) {
+            _textview.backgroundColor = _pendingBackgroundCol;
+        }
+        _pendingBackgroundCol = nil;
+        _restoredSelection = _textview.selectedRange;
+        return;
+    }
+    dirty = NO;
+
     // Making the textview temporarily editable
     // reduces flicker in Hugo Tetris, for some reason.
     _textview.editable = YES;
@@ -694,16 +743,7 @@
     _selectedRow = selectedRange.location / (cols + 1);
     _selectedCol = selectedRange.location % (cols + 1);
 
-    if (self.framePending) {
-        if (!NSEqualRects(self.frame, self.pendingFrame)) {
-            super.frame = self.pendingFrame;
-        }
-        if (!NSEqualRects(_textview.frame, self.bounds)) {
-            _textview.frame = self.bounds;
-        }
-
-        self.framePending = NO;
-    }
+    [self applyPendingFrame];
 
     if (!transparent)
         [self checkForUglyBorder];
@@ -815,6 +855,7 @@
         }
 
         NSMutableDictionary *attrDict = [styles[style_Normal] mutableCopy];
+        dirty = YES;
 
         if (cols == 0 || rows == 0)
             _bufferTextStorage = nil;
@@ -931,7 +972,6 @@
         super.frame = frame;
         self.framePending = NO;
     }
-    dirty = YES;
 }
 
 - (NSDictionary *)findRowColorOfString:(NSMutableAttributedString *)attString index:(NSUInteger)index rowLength:(NSUInteger)rowLength {
@@ -985,6 +1025,7 @@
         return;
     _bufferTextStorage = [[NSMutableAttributedString alloc]
                           initWithString:@""];
+    dirty = YES;
 
     rows = cols = xpos = ypos = 0;
 
@@ -1037,6 +1078,7 @@
     if (textstoragelength == 0) {
         if (textstorage.length) {
             _bufferTextStorage = [textstorage mutableCopy];
+            dirty = YES;
             textstoragelength = textstorage.length;
         } else return;
     }
@@ -1976,6 +2018,7 @@
     // and have flushDisplay work on the text quotebox: gave us instead, so
     // that the blank rows of the box are kept from collapsing.
     _bufferTextStorage = [textstorage mutableCopy];
+    dirty = YES;
     [self flushDisplay];
 
     [quoteboxParent addFloatingSubview:self forAxis:NSEventGestureAxisVertical];
