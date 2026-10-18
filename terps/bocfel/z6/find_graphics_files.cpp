@@ -19,6 +19,7 @@ extern "C" {
 #include "v6_specific.h"
 #include "extract_apple_2.h"
 
+#include "draw_image.hpp"
 #include "extract_image_data.hpp"
 #include "find_graphics_files.hpp"
 
@@ -54,6 +55,7 @@ void free_images(void) {
     free(raw_images);
     raw_images = nullptr;
     image_count = 0;
+    forget_sent_images();
 }
 
 // If nothing is recorded for `slot` yet and a file exists at `path`, record
@@ -208,6 +210,7 @@ static void append_eg2_images(const std::string &eg1_path) {
     free(more_images);
     raw_images = all_images;
     image_count = total_count;
+    forget_sent_images();
 }
 
 // Opens a graphics file and extracts images from it into the global raw_images
@@ -229,6 +232,7 @@ static void extract_from_file(const std::string &path, GraphicsType type) {
         return;
 
     graphics_type = type;
+    forget_sent_images();
 
     if (type == kGraphicsTypeApple2) {
         glk_stream_close(file, nullptr);
@@ -261,6 +265,7 @@ bool load_apple2_graphics(void) {
     if (path.empty())
         return false;
     image_count = extract_apple2_disk_images(path.c_str(), &raw_images, &pixversion);
+    forget_sent_images();
     if (image_count == 0)
         return false;
     graphics_type = kGraphicsTypeApple2;

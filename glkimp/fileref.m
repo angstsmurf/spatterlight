@@ -155,6 +155,15 @@ void gettempdir(void)
                                        isDirectory:YES];
         NSError *error = nil;
 
+        /* The host app only creates the work directory when it has an
+           autosave to put there. NSItemReplacementDirectory needs it to
+           exist, and without a temp directory no image can be handed over,
+           so a V6 game in a fresh home with autosave off drew nothing. */
+        [[NSFileManager defaultManager] createDirectoryAtURL:desktopURL
+                                 withIntermediateDirectories:YES
+                                                  attributes:nil
+                                                       error:nil];
+
         NSURL *temporaryDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSItemReplacementDirectory
                    inDomain:NSUserDomainMask
           appropriateForURL:desktopURL

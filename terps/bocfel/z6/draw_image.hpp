@@ -68,6 +68,7 @@ void flush_bitmap(winid_t winid);
 void extract_palette(ImageStruct *image);
 void extract_palette_from_picnum(int picnum);
 ImageStruct *recreate_image(glui32 picnum, int flipped);
+void forget_sent_images(void);
 void draw_inline_image(winid_t winid, glui32 picnum, glsi32 x, glsi32 y,  float scalefactor, bool flipped);
 void draw_to_buffer(winid_t winid, int picnum, int x, int y);
 void draw_to_pixmap_unscaled(int image, int x, int y);

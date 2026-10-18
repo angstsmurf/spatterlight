@@ -22,6 +22,7 @@ extern "C" {
 #include <cstdio>
 #include <cstring>
 #include <string>
+#include <unordered_map>
 #include "v6_image.h"
 #include "draw_png.h"
 #include "draw_apple_2.h"
@@ -261,6 +262,74 @@ static std::string create_temp_tiff_file_name(void) {
     return tiffname;
 }
 
+// What was last sent to the Glk image cache under each picture number: a
+// digest of the RGBA pixels and their size. The host keeps the decoded
+// image under that number until the next purge, so when a redraw would send
+// identical pixels, the purge (a TIFF write, a message carrying it and a
+// decode on the host side) can be replaced by a win_findimage() that makes
+// the host's cached copy the current image. Zork Zero recreates its margin
+// images on every draw and flushes an unchanged pixmap on most turns. The
+// digest is taken of the output rather than of the inputs because the
+// pixels depend on the palette and colour state of the moment.
+namespace {
+
+struct SentImage {
+    uint64_t digest;
+    int width;
+    int height;
+};
+
+std::unordered_map<glui32, SentImage> sent_images;
+
+// 64-bit FNV-1a.
+uint64_t digest_pixels(const uint8_t *data, size_t size) {
+    uint64_t hash = 14695981039346656037ULL;
+    for (size_t i = 0; i < size; i++) {
+        hash ^= data[i];
+        hash *= 1099511628211ULL;
+    }
+    return hash;
+}
+
+// Hand `size` bytes of RGBA pixels to the host under `picnum`, or, when the
+// host already holds these exact pixels under that number, just make them
+// its current image again: win_drawimage() draws whatever was last found,
+// loaded or purged. Returns false if no temp file could be created.
+bool send_image(glui32 picnum, const uint8_t *data, size_t size, int width, int height) {
+    SentImage sent = { digest_pixels(data, size), width, height };
+    auto previous = sent_images.find(picnum);
+    if (previous != sent_images.end() &&
+        previous->second.digest == sent.digest &&
+        previous->second.width == sent.width &&
+        previous->second.height == sent.height &&
+        win_findimage(picnum)) {
+        return true;
+    }
+
+    std::string filename = create_temp_tiff_file_name();
+    if (filename.empty())
+        return false;
+
+    write_to_tiff(filename, data, size, width);
+    win_purgeimage(picnum, filename.c_str(), (int)size);
+    // win_purgeimage() sends nothing while graphics are off, so the host
+    // has nothing to hit then.
+    if (gli_enable_graphics) {
+        sent_images[picnum] = sent;
+    } else {
+        sent_images.erase(picnum);
+    }
+    return true;
+}
+
+} // namespace
+
+// Forget what the host has been sent. Call whenever the image table is
+// replaced: the same picture number may then stand for another picture.
+void forget_sent_images(void) {
+    sent_images.clear();
+}
+
 // Resource id the composited pixmap is registered under in the Glk image
 // cache. Outside the range of picture numbers the games use.
 static constexpr int kPixmapResourceId = 600;
@@ -284,11 +353,8 @@ void flush_bitmap(winid_t winid) {
     if (image_needs_redraw)
         glk_window_clear(winid);
 
-    std::string filename = create_temp_tiff_file_name();
-    if (filename.empty())
+    if (!send_image(kPixmapResourceId, pixmap.data.data(), pixmap.data.size(), pixmap.width_px, pixmap.rows()))
         return;
-    write_to_tiff(filename, pixmap.data.data(), pixmap.data.size(), pixmap.width_px);
-    win_purgeimage(kPixmapResourceId, filename.c_str(), (int)pixmap.data.size());
     // Stretch the pixmap to the full window width; its height follows from
     // the number of pixmap rows and the pixel aspect ratio.
     win_drawimage(winid->peer, 0, 0, gscreenw, (float)gscreenw / pixelwidth * pixmap.rows() / pixmap.width_px, 0, 0);
@@ -656,16 +722,12 @@ ImageStruct *recreate_image(glui32 picnum, int flipped) {
     if (pixmapsize == 0)
         return nullptr;
 
-    std::string filename = create_temp_tiff_file_name();
-    if (filename.empty())
-        return nullptr;
-
     if (flipped) {
         flip_bitmap(image, result.get());
     }
 
-    write_to_tiff(filename, result.get(), pixmapsize, image->width);
-    win_purgeimage(picnum, filename.c_str(), (int)pixmapsize);
+    if (!send_image(picnum, result.get(), pixmapsize, image->width, image->height))
+        return nullptr;
     return image;
 }
 

@@ -62,7 +62,7 @@ WINTYPE_GRAPHICS = 5
 GROUND = (128, 128, 128)        # where no graphics window is
 LIMIT = 4096                    # no window or picture is larger than this
 MONTAGES_PER_CASE = 4
-PICTURE_LINES = ("PURGEIMG ", "DRAWIMAGE ", "LOADIMAGE ")
+PICTURE_LINES = ("PURGEIMG ", "DRAWIMAGE ", "LOADIMAGE ", "FINDIMAGE ")
 
 
 def decode_tiff(data):
@@ -204,6 +204,7 @@ def screens(trace, pictures):
     windows = {}
     size = [800, 600]
     current = None                      # name of the picture last sent
+    held = {}                           # resource number -> picture name
     dirty = False
 
     def composite():
@@ -231,11 +232,13 @@ def screens(trace, pictures):
                 yield "line %d" % number, composite()
             if line.startswith("====== session"):
                 windows.clear()
+                held.clear()
                 current = None
             continue
         word, _, rest = line.partition(" ")
         if word not in ("NEWWIN", "DELWIN", "SIZWIN", "CLRWIN", "SETBGND",
-                        "FILLRECT", "DRAWIMAGE", "PURGEIMG", "LOADIMAGE"):
+                        "FILLRECT", "DRAWIMAGE", "PURGEIMG", "LOADIMAGE",
+                        "FINDIMAGE"):
             continue
         fields = rest.split(" ")
         a1 = int(fields[0])
@@ -249,12 +252,19 @@ def screens(trace, pictures):
         elif word in ("PURGEIMG", "LOADIMAGE"):
             if " file " not in line:
                 current = None
+                held.pop(a1, None)
                 continue
             digest = line.rsplit(" file ", 1)[1]
             if word == "LOADIMAGE":
                 current = picture_name(digest, int(fields[1]), int(fields[2]))
             else:
                 current = picture_name(digest)
+            held[a1] = current
+        elif word == "FINDIMAGE":
+            # Answered yes (v6trace.py) exactly when the number is held, and
+            # the picture held under it becomes the current one, as in the
+            # app; on a no the interpreter sends the picture next.
+            current = held.get(a1)
         elif a1 not in windows:
             continue
         elif word == "SIZWIN":

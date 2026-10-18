@@ -154,6 +154,11 @@ class Tracer(glkdrive.Driver):
         self.last_print = ""
         self.mouse_peer = None
         self.mouse_peers = set()
+        # Resource numbers a picture has been sent under and not purged
+        # since. The app answers FINDIMAGE from the same record
+        # (ImageHandler imageIsLoaded:), and Bocfel draws a picture it has
+        # already sent without sending it again when the answer is yes.
+        self.held_images = set()
         self.untyped = None
         self.queue = []
         self.returns = 0
@@ -191,6 +196,16 @@ class Tracer(glkdrive.Driver):
                 self.mouse_peer = None
         if cmd == glkdrive.HELLO:
             self.reply(glkdrive.OKAY, self.graphics_on, 1)
+            return
+        if cmd == glkdrive.PURGEIMG:
+            if payload.rstrip(b"\0"):
+                self.held_images.add(a1)
+            else:
+                self.held_images.discard(a1)
+        elif cmd == glkdrive.LOADIMAGE:
+            self.held_images.add(a1)
+        elif cmd == glkdrive.FINDIMAGE:
+            self.reply(glkdrive.OKAY, int(a1 in self.held_images))
             return
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
 
