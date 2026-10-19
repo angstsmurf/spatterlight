@@ -178,13 +178,7 @@
 
     if (imageView && _game) {
         imageView.gameObjID = _game.objectID;
-
-        NSImage *image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
-        if (!image) {
-            image = [NSImage imageNamed:@"Question"];
-            imageView.isPlaceholder = YES;
-        }
-        [imageView processImage:image];
+        [self showCoverImage];
     } else NSLog(@"Error! No imageView!");
 
     [self update];
@@ -345,18 +339,17 @@
     }
 }
 
-- (void)updateImage {
-    NSImage *image = nil;
-    if (_meta.cover) {
-        image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
-        imageView.isPlaceholder = NO;
-    }
-
-    if (!image) {
+// The cover image, or a question mark placeholder if there is none
+- (void)showCoverImage {
+    NSImage *image = [[NSImage alloc] initWithData:(NSData *)_meta.cover.data];
+    imageView.isPlaceholder = (image == nil);
+    if (!image)
         image = [NSImage imageNamed:@"Question"];
-        imageView.isPlaceholder = YES;
-    }
     [imageView processImage:image];
+}
+
+- (void)updateImage {
+    [self showCoverImage];
     [self sizeToFitImageAnimate:YES];
 }
 
@@ -528,28 +521,30 @@
     return shadowRect;
 }
 
-- (void)animateIn:(NSRect)finalframe {
-    NSRect startingFrame = [_libcontroller rectForLineWithHash:_game.hashTag];
-    [self makeAndPrepareSnapshotWindow:startingFrame];
-
-    NSWindow *snapshotWindow = snapshotController.window;
-    CALayer *shadowLayer = snapshotWindow.contentView.layer.sublayers.firstObject;
-    CALayer *snapshotLayer = snapshotWindow.contentView.layer.sublayers[1];
-
-    NSRect finalLayerFrame = [snapshotWindow convertRectFromScreen:finalframe];
-    snapshotLayer.frame = [snapshotWindow convertRectFromScreen:startingFrame];
+// Animate the snapshot layer (and its shadow) made by
+// makeAndPrepareSnapshotWindow: to finalLayerFrame, in snapshot window coordinates
+- (void)animateSnapshotToFrame:(NSRect)finalLayerFrame
+                      duration:(CFTimeInterval)duration
+                        timing:(CAMediaTimingFunctionName)timing
+                  shadowTiming:(nullable CAMediaTimingFunctionName)shadowTiming
+                    completion:(void (^)(void))completion {
+    NSView *snapshotView = snapshotController.window.contentView;
+    CALayer *shadowLayer = snapshotView.layer.sublayers.firstObject;
+    CALayer *snapshotLayer = snapshotView.layer.sublayers[1];
 
     // We need to explicitly animate the shadow path to reflect the new size.
     CGPathRef shadowPath = CGPathCreateWithRect([self shadowRectWithRect:finalLayerFrame], NULL);
     CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
     shadowAnimation.fromValue = (id)shadowLayer.shadowPath;
     shadowAnimation.toValue = (__bridge id)(shadowPath);
-    shadowAnimation.duration = .3;
+    shadowAnimation.duration = duration;
+    if (shadowTiming)
+        shadowAnimation.timingFunction = [CAMediaTimingFunction functionWithName:shadowTiming];
     shadowAnimation.removedOnCompletion = NO;
     shadowAnimation.fillMode = kCAFillModeForwards;
 
     CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    transformAnimation.duration=.3;
+    transformAnimation.duration = duration;
     CGFloat scaleFactorX = NSWidth(finalLayerFrame) / NSWidth(snapshotLayer.frame);
     CGFloat scaleFactorY = NSHeight(finalLayerFrame) / NSHeight(snapshotLayer.frame);
     transformAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DMakeScale(scaleFactorX, scaleFactorY, 1)];
@@ -565,8 +560,8 @@
 
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = .3;
-        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+        context.duration = duration;
+        context.timingFunction = [CAMediaTimingFunction functionWithName:timing];
 
         shadowLayer.shadowPath = shadowPath;
         CGPathRelease(shadowPath);
@@ -575,7 +570,20 @@
         snapshotLayer.position = point;
         [snapshotLayer addAnimation:positionAnimation forKey:@"position"];
         [snapshotLayer addAnimation:transformAnimation forKey:@"transform"];
-    } completionHandler:^{
+    } completionHandler:completion];
+}
+
+- (void)animateIn:(NSRect)finalframe {
+    NSRect startingFrame = [_libcontroller rectForLineWithHash:_game.hashTag];
+    [self makeAndPrepareSnapshotWindow:startingFrame];
+
+    NSWindow *snapshotWindow = snapshotController.window;
+
+    [self animateSnapshotToFrame:[snapshotWindow convertRectFromScreen:finalframe]
+                        duration:.3
+                          timing:kCAMediaTimingFunctionEaseOut
+                    shadowTiming:nil
+                      completion:^{
         self.window.alphaValue = 1.0;
         [self.window setFrame:finalframe display:YES];
         snapshotWindow.contentView.hidden = YES;
@@ -591,57 +599,21 @@
     [self makeAndPrepareSnapshotWindow:self.window.frame];
     NSWindow *snapshotWindow = snapshotController.window;
     NSView *snapshotView = snapshotWindow.contentView;
-    CALayer *shadowLayer = snapshotView.layer.sublayers.firstObject;
-    CALayer *snapshotLayer = snapshotView.layer.sublayers[1];
 
     TableViewController *libctrl = _libcontroller;
 
     if (_libcontroller == nil)
         NSLog(@"nil!");
 
-    NSRect currentFrame = snapshotLayer.frame;
     NSRect targetFrame = [libctrl rectForLineWithHash:_game.hashTag];
-
-    NSRect finalLayerFrame = [snapshotWindow convertRectFromScreen:targetFrame];
-
-    CABasicAnimation *transformAnimation = [CABasicAnimation animationWithKeyPath:@"transform"];
-    transformAnimation.duration=.4;
-    CGFloat scaleFactorX = NSWidth(finalLayerFrame) / NSWidth(currentFrame);
-    CGFloat scaleFactorY = NSHeight(finalLayerFrame) / NSHeight(currentFrame);
-    transformAnimation.toValue=[NSValue valueWithCATransform3D:CATransform3DMakeScale(scaleFactorX, scaleFactorY, 1)];
-    transformAnimation.removedOnCompletion = NO;
-    transformAnimation.fillMode = kCAFillModeForwards;
-
-// We need to explicitly animate the shadow path to reflect the new size.
-    CGPathRef shadowPath = CGPathCreateWithRect([self shadowRectWithRect:finalLayerFrame], NULL);
-    CABasicAnimation *shadowAnimation = [CABasicAnimation animationWithKeyPath:@"shadowPath"];
-    shadowAnimation.fromValue = (id)shadowLayer.shadowPath;
-    shadowAnimation.toValue = (__bridge id)(shadowPath);
-    shadowAnimation.duration = .4;
-    shadowAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    shadowAnimation.removedOnCompletion = NO;
-    shadowAnimation.fillMode = kCAFillModeForwards;
-
-    CABasicAnimation *positionAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
-    positionAnimation.fromValue = [snapshotLayer valueForKey:@"position"];
-    NSPoint point = finalLayerFrame.origin;
-    positionAnimation.toValue = [NSValue valueWithPoint:point];
-    positionAnimation.fillMode = kCAFillModeForwards;
 
     NSString *blockHash = _hashTag;
 
-    [NSAnimationContext
-     runAnimationGroup:^(NSAnimationContext *context) {
-        context.duration = .4;
-        context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
-        shadowLayer.shadowPath = shadowPath;
-        CGPathRelease(shadowPath);
-        [shadowLayer addAnimation:shadowAnimation forKey:@"shadowPath"];
-        snapshotLayer.position = point;
-        [snapshotLayer addAnimation:positionAnimation forKey:@"position"];
-        [snapshotLayer addAnimation:transformAnimation forKey:@"transform"];
-    }
-     completionHandler:^{
+    [self animateSnapshotToFrame:[snapshotWindow convertRectFromScreen:targetFrame]
+                        duration:.4
+                          timing:kCAMediaTimingFunctionEaseIn
+                    shadowTiming:kCAMediaTimingFunctionEaseInEaseOut
+                      completion:^{
         self.inAnimation = NO;
         snapshotView.hidden = YES;
         [self->snapshotController close];
@@ -722,35 +694,38 @@
     return [self.libcontroller validateMenuItem:menuItem];
 }
 
-- (IBAction)like:(id)sender {
-    return [self.libcontroller like:sender];
+// Game actions from the menu bar, sent here when the info window is key,
+// are handled by the library
++ (NSSet<NSString *> *)forwardedActions {
+    static NSSet<NSString *> *actions;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        actions = [NSSet setWithArray:@[
+            NSStringFromSelector(@selector(like:)),
+            NSStringFromSelector(@selector(dislike:)),
+            NSStringFromSelector(@selector(play:)),
+            NSStringFromSelector(@selector(download:)),
+            NSStringFromSelector(@selector(revealGameInFinder:)),
+            NSStringFromSelector(@selector(deleteGame:)),
+            NSStringFromSelector(@selector(selectSameTheme:)),
+            NSStringFromSelector(@selector(deleteSaves:)),
+            NSStringFromSelector(@selector(openIfdb:)),
+            NSStringFromSelector(@selector(applyTheme:))
+        ]];
+    });
+    return actions;
 }
-- (IBAction)dislike:(id)sender {
-    return [self.libcontroller dislike:sender];
+
+- (BOOL)respondsToSelector:(SEL)aSelector {
+    if ([InfoController.forwardedActions containsObject:NSStringFromSelector(aSelector)])
+        return _libcontroller != nil;
+    return [super respondsToSelector:aSelector];
 }
-- (IBAction)play:(id)sender {
-    return [self.libcontroller play:sender];
-}
-- (IBAction)download:(id)sender {
-    return [self.libcontroller download:sender];
-}
-- (IBAction)revealGameInFinder:(id)sender {
-    return [self.libcontroller revealGameInFinder:sender];
-}
-- (IBAction)deleteGame:(id)sender {
-    return [self.libcontroller deleteGame:sender];
-}
-- (IBAction)selectSameTheme:(id)sender {
-    return [self.libcontroller selectSameTheme:sender];
-}
-- (IBAction)deleteSaves:(id)sender {
-    return [self.libcontroller deleteSaves:sender];
-}
-- (IBAction)openIfdb:(id)sender {
-    return [self.libcontroller openIfdb:sender];
-}
-- (IBAction)applyTheme:(id)sender {
-    return [self.libcontroller applyTheme:sender];
+
+- (id)forwardingTargetForSelector:(SEL)aSelector {
+    if ([InfoController.forwardedActions containsObject:NSStringFromSelector(aSelector)])
+        return _libcontroller;
+    return [super forwardingTargetForSelector:aSelector];
 }
 
 @end
