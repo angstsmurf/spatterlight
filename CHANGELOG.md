@@ -33,6 +33,7 @@
 - Images replaced by a game are read in full, and purging pictures no longer deletes picture files that belong to the game. Placeholder rectangles in a Blorb file are kept, a picture that fails to load no longer leaves the previous one showing, and the temporary files of replaced pictures are deleted once decoded.
 - JPEG pictures with Exif data are recognised. VoiceOver rotor fixes, among them in *A Colder Light*.
 - In text buffer windows, turning echo on and off works, clicks on hyperlinks are only sent when the game is waiting for one, a margin picture keeps its link when rescaled, and clearing the scrollback is fixed. Fixes a crash when dragging a picture that has no bitmap and one in *Dead Cities*. The VoiceOver labels of pictures and the input history are localised.
+- In text grid windows, such as status lines, making the window narrower no longer leaves the last character of each row behind, and line input in an empty grid window no longer crashes. VoiceOver says "End of command history", not "Start", when stepping past the newest command, and a selection that ends at the last character is kept when the game is autorestored.
 
 ## Release 1.5.5
 
