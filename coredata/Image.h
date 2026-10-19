@@ -41,4 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+// Image and Metadata are the entities MyCoreDataCoreSpotlightDelegate indexes,
+// keyed by the object ID's URI. Both call this from -willSave when deleted.
+@interface NSManagedObject (SpotlightRemoval)
+
+- (void)removeFromSpotlightIndex;
+
+@end
+
 NS_ASSUME_NONNULL_END

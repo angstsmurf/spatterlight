@@ -11,7 +11,6 @@
 #import "Game.h"
 #import "GlkStyle.h"
 #import "Interpreter.h"
-#import "Theme.h"
 
 #include "glk.h"
 #include "glkimp.h"
@@ -117,9 +116,6 @@
 @dynamic lightTheme;
 
 - (Theme *)clone {
-
-    NSLog(@"Creating a clone of theme %@", self.name);
-
 	//create new object in data store
 	Theme *cloned = [NSEntityDescription
                      insertNewObjectForEntityForName:@"Theme"
@@ -144,7 +140,6 @@
                                 inManagedObjectContext:self.managedObjectContext].attributesByName;
 
 	for (NSString *attr in attributes) {
-        //NSLog(@"Setting my %@ to %@", attr, [theme valueForKey:attr]);
         [self setValue:[theme valueForKey:attr] forKey:attr];
 	}
 
@@ -156,21 +151,13 @@
 
     //Loop through all relationships, and clone them if nil in target.
 
-    NSString *keyName;
-    GlkStyle *clonedStyle;
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
-        //Clone it, and add clone to set
-        keyName = gBufferStyleNames[i];
-        clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
-        //NSLog(@"Setting my %@ to a clone of the %@ of %@", keyName, keyName, theme.name);
-        [self setValue:clonedStyle forKey:keyName];
-        if ([clonedStyle valueForKey:keyName] != self)
-            NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
-        keyName = gGridStyleNames[i];
-        clonedStyle = [(GlkStyle * )[theme valueForKey:keyName] clone];
-        [self setValue:clonedStyle forKey:keyName];
-        if ([clonedStyle valueForKey:keyName] != self)
-            NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
+        for (NSString *keyName in @[gBufferStyleNames[i], gGridStyleNames[i]]) {
+            GlkStyle *clonedStyle = [(GlkStyle *)[theme valueForKey:keyName] clone];
+            [self setValue:clonedStyle forKey:keyName];
+            if ([clonedStyle valueForKey:keyName] != self)
+                NSLog(@"copyAttributesFrom error! Reciprocal relationship did not work as expected");
+        }
 	}
 }
 
@@ -291,28 +278,17 @@
 }
 
 - (NSArray *)allStyles {
-    return @[ self.bufAlert,
-              self.bufBlock,
-              self.bufEmph,
-              self.bufferNormal,
-              self.bufHead,
-              self.bufInput,
-              self.bufNote,
-              self.bufPre,
-              self.bufSubH,
-              self.bufUsr1,
-              self.bufUsr2,
-              self.gridAlert,
-              self.gridBlock,
-              self.gridEmph,
-              self.gridHead,
-              self.gridInput,
-              self.gridNormal,
-              self.gridNote,
-              self.gridPre,
-              self.gridSubH,
-              self.gridUsr1,
-              self.gridUsr2 ];
+    // Skips missing styles: a theme whose styles have not been populated yet
+    // would otherwise raise when building the array.
+    NSMutableArray<GlkStyle *> *styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES * 2];
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        for (NSString *key in @[gBufferStyleNames[i], gGridStyleNames[i]]) {
+            GlkStyle *style = [self valueForKey:key];
+            if (style)
+                [styles addObject:style];
+        }
+    }
+    return styles;
 }
 
 // These are values that should be the same in all
@@ -349,19 +325,6 @@
     self.bufLinkColor = nil;
     self.gridLinkColor = nil;
     self.slowDrawing = YES;
-
-// These values are not currently used
-
-//    self.maxCols = 1000;
-//    self.maxRows = 1000;
-//    self.minCols = 32;
-//    self.minRows = 5;
-//    self.cursorShape = 0;
-//    self.imageSizing = NO;
-//    self.justify = NO;
-//    self.vOExtraElements = NO;
-//    self.vOSpeakInputType = 0;
-
 }
 
 - (BOOL)hasCustomStyles {

@@ -18,10 +18,6 @@
     return [NSColor class];
 }
 
--(id)description {
-    return @"ColorTransformer";
-}
-
 - (BOOL)allowsReverseTransformation {
     return YES;
 }

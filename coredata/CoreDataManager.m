@@ -15,9 +15,14 @@
 
 @interface CoreDataManager () {
     NSString *modelName;
-    NSManagedObjectContext *privateManagedObjectContext;
     BOOL inMemory;
 }
+
+@property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, strong) NSPersistentContainer *persistentContainer;
+@property (nonatomic, strong) NSManagedObjectContext *mainManagedObjectContext;
+@property (nonatomic, strong) MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
+
 @end
 
 @implementation CoreDataManager
@@ -221,72 +226,6 @@
     return NO;
 }
 
-// Returns the persistent store coordinator for the application. This implementation creates and return a coordinator, having added the store for the application to it. (The directory for the store is created, if necessary.)
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator
-{
-    if (_persistentStoreCoordinator) {
-        return _persistentStoreCoordinator;
-    }
-
-    // An in-memory stack has exactly one store: the container's.
-    if (inMemory) {
-        _persistentStoreCoordinator = self.persistentContainer.persistentStoreCoordinator;
-        return _persistentStoreCoordinator;
-    }
-
-    //    BOOL needDeleteOld  = false;
-
-    NSManagedObjectModel *mom = self.managedObjectModel;
-    if (!mom) {
-        NSLog(@"%@:%@ ERROR! No model to generate a store from!", [self class], NSStringFromSelector(_cmd));
-        return nil;
-    }
-
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
-
-    NSDictionary *options = @{ NSMigratePersistentStoresAutomaticallyOption: @(YES),
-                               NSInferMappingModelAutomaticallyOption: @(YES) };
-
-    NSURL *groupURL = nil;
-    BOOL needMigrate = NO;
-
-    NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
-
-    NSError *error = nil;
-
-    // Chain through intermediate model versions first, so custom mapping models
-    // (e.g. the IfidToHashMigrationPolicy that runs at "Spatterlight 15") get a
-    // chance to run. Best effort: if it fails, fall through to the standard
-    // automatic/inferred migration below, which still opens the store.
-    if (![self progressivelyMigrateStoreAtURL:targetURL ofType:NSSQLiteStoreType toModel:mom error:&error]) {
-        NSLog(@"Progressive migration of %@ did not complete: %@. Falling back to automatic migration.", targetURL.path, error);
-        error = nil;
-    }
-
-    NSPersistentStore *store = [coordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:targetURL options:options error:&error];
-
-    if (!store) {
-        [NSApp presentError:error];
-        return nil;
-    }
-
-    // do the migrate job from local store to a group store.
-    if (needMigrate) {
-        error = nil;
-        NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        context.persistentStoreCoordinator = coordinator;
-        [coordinator migratePersistentStore:store toURL:groupURL options:options withType:NSSQLiteStoreType error:&error];
-        if (error != nil) {
-            NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
-            abort();
-        }
-    }
-
-    _persistentStoreCoordinator = coordinator;
-
-    return _persistentStoreCoordinator;
-}
-
 + (nullable NSURL *)testStoreURL {
     static NSURL *url = nil;
     static dispatch_once_t once;
@@ -353,7 +292,7 @@
 
             NSMutableDictionary *dict = [NSMutableDictionary dictionary];
             [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:101 userInfo:dict];
+            error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteFileExistsError userInfo:dict];
 
             [NSApp presentError:error];
             return nil;
@@ -445,11 +384,14 @@
     _persistentContainer.persistentStoreDescriptions = @[ description ];
 
     NSPersistentContainer *blockContainer = _persistentContainer;
+    __block NSError *loadError = nil;
 
+    // The store is added synchronously (the description's default), so the
+    // handler has run by the time this returns.
     [blockContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
 
         if (error != nil) {
-            NSLog(@"Failed to load Core Data stack: %@", error);
+            loadError = error;
             return;
         }
 
@@ -470,14 +412,24 @@
             [coordinator migratePersistentStore:store toURL:groupURL options:@{ NSMigratePersistentStoresAutomaticallyOption: @(YES), NSInferMappingModelAutomaticallyOption: @(YES)} withType:NSSQLiteStoreType error:&error];
             // We could delete the old store here, but it doesn't really hurt to keep it,
             // and it helps to have a non-sandboxed store around for development purposes.
+            // On failure the old store is still the one loaded, so keep using
+            // it and try the move again at next launch.
             if (error != nil) {
-                NSLog(@"Error during Core Data migration to group folder: %@, %@", error, error.userInfo);
-                abort();
+                NSLog(@"Error during Core Data migration to group folder: %@, %@. Staying on the store at %@.", error, error.userInfo, targetURL.path);
             } else {
                 NSLog(@"Successfully migrated store at %@ to %@", targetURL.absoluteString, groupURL.absoluteString);
             }
         }
     }];
+
+    // Without a store the app has nothing to show. Say why once; the caller
+    // (AppDelegate) quits on a nil container.
+    if (loadError) {
+        NSLog(@"Failed to load Core Data stack: %@", loadError);
+        [NSApp presentError:loadError];
+        _persistentContainer = nil;
+        _spotlightDelegate = nil;
+    }
 
     return _persistentContainer;
 }
@@ -510,28 +462,6 @@
 
     _persistentContainer = container;
     return _persistentContainer;
-}
-
-// Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-- (NSManagedObjectContext *)privateManagedObjectContext
-{
-    if (privateManagedObjectContext) {
-        return privateManagedObjectContext;
-    }
-
-    NSPersistentStoreCoordinator *coordinator = self.persistentStoreCoordinator;
-    if (!coordinator) {
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        [dict setValue:@"Failed to initialize the store" forKey:NSLocalizedDescriptionKey];
-        [dict setValue:@"There was an error building up the data file." forKey:NSLocalizedFailureReasonErrorKey];
-        NSError *error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        [NSApp presentError:error];
-        exit(0);
-    }
-    privateManagedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    privateManagedObjectContext.persistentStoreCoordinator = coordinator;
-
-    return privateManagedObjectContext;
 }
 
 - (NSManagedObjectContext *)mainManagedObjectContext
@@ -620,20 +550,16 @@
 }
 
 - (void)saveChanges {
-//    NSLog(@"CoreDataManagar saveChanges");
     NSManagedObjectContext *mainContext = _mainManagedObjectContext;
 
     [mainContext performBlock:^{
         NSError *error = nil;
         if (mainContext.hasChanges) {
-            BOOL result = NO;
             @try {
-                result = [mainContext save:&error];
+                if (![mainContext save:&error])
+                    NSLog(@"Error while saving context: %@", error);
             } @catch (NSException *exception) {
                 NSLog(@"Exception while saving managed object context: %@", exception);
-            } @finally {
-                if (!result || error)
-                    NSLog(@"Error while saving context: %@", error);
             }
         }
     }];

@@ -44,7 +44,6 @@
 - (void)createDefaultAttributeDictionary;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL testGridStyle;
 - (NSMutableDictionary<NSAttributedStringKey, id> *)attributesWithHints:(NSArray *)hints;
-- (void)printDebugInfo;
 
 @property NSInteger index;
 @property (strong, nonatomic) NSFont *font;

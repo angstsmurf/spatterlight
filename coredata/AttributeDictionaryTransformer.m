@@ -18,10 +18,6 @@
     return [NSDictionary class];
 }
 
--(id)description {
-    return @"AttributeDictionaryTransformer";
-}
-
 - (BOOL)allowsReverseTransformation {
     return YES;
 }

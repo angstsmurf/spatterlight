@@ -24,24 +24,32 @@
 @dynamic metadata;
 
 - (void)willSave {
-    if (!self.deleted)
-        return;
-    CSSearchableIndex *index = [CSSearchableIndex defaultSearchableIndex];
-    NSString *identifier = self.objectID.URIRepresentation.absoluteString;
-    if (!identifier)
-        return;
-    [index deleteSearchableItemsWithIdentifiers:@[identifier]
-                              completionHandler:^(NSError *blockerror){
-        if (blockerror) {
-            NSLog(@"Deleting searchable item for Image failed: %@", blockerror);
-        }
-    }];
+    if (self.deleted)
+        [self removeFromSpotlightIndex];
 }
 
 + (void)deleteIfOrphan:(Image *)image {
     if (image && image.metadata.count == 0 && ![image.originalURL isEqualToString:@"Placeholder"]) {
         [image.managedObjectContext deleteObject:image];
     }
+}
+
+@end
+
+@implementation NSManagedObject (SpotlightRemoval)
+
+- (void)removeFromSpotlightIndex {
+    NSString *identifier = self.objectID.URIRepresentation.absoluteString;
+    if (!identifier)
+        return;
+    NSString *entityName = self.entity.name;
+    [[CSSearchableIndex defaultSearchableIndex]
+     deleteSearchableItemsWithIdentifiers:@[identifier]
+     completionHandler:^(NSError *blockerror){
+        if (blockerror) {
+            NSLog(@"Deleting searchable item for %@ failed: %@", entityName, blockerror);
+        }
+    }];
 }
 
 @end

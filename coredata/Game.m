@@ -57,18 +57,19 @@
                                        bookmarkDataIsStale:&bookmarkIsStale
                                                      error:&theError];
 
-    if (bookmarkIsStale) {
-        NSLog(@"Bookmark is stale! New location: %@", bookmarkURL.path);
-        [self bookmarkForPath:bookmarkURL.path];
-    }
-    if (theError != nil) {
-
+    // Check the resolve result before acting on staleness, so a failed
+    // resolve never rewrites the bookmark or path.
+    if (bookmarkURL == nil) {
         NSLog(@"Game urlForBookmark: Error! %@", theError);
         if (self.path.length) {
             NSLog(@"Path: %@", self.path);
         }
         self.found = NO;
         return nil;
+    }
+    if (bookmarkIsStale) {
+        NSLog(@"Bookmark is stale! New location: %@", bookmarkURL.path);
+        [self bookmarkForPath:bookmarkURL.path];
     }
     self.path = bookmarkURL.path;
     return bookmarkURL;

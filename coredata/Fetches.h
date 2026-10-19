@@ -7,7 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Theme, Game;
+@class Theme, Game, Metadata;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context;
 + (nullable Game *)fetchGameForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context;
+//! \c predicate is a format string with no arguments (e.g. @"hidden == YES"),
+//! never user data: anything with a % in it would be read as a format
+//! specifier. Pass nil to fetch every object of the entity.
 + (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context;
 + (nullable NSArray<Game *> *)fetchGamesForIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 + (nullable NSSet<Metadata *> *)fetchMetadataForIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context;

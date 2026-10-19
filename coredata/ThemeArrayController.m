@@ -8,6 +8,7 @@
 
 #import "ThemeArrayController.h"
 #import "Theme.h"
+#import "Fetches.h"
 
 @implementation ThemeArrayController
 
@@ -25,22 +26,7 @@
 }
 
 - (Theme *)findThemeByName:(NSString *)name {
-
-    if (!name)
-        return nil;
-
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    NSArray *fetchedObjects;
-    NSError *error;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
-    fetchRequest.includesPropertyValues = NO;
-    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects == nil || fetchedObjects.count == 0) {
-        return nil;
-    }
-
-    return fetchedObjects[0];
+    return [Fetches findTheme:name inContext:self.managedObjectContext];
 }
 
 - (Theme *)selectedTheme {

@@ -17,7 +17,7 @@
 
 @implementation IfidToHashMigrationPolicy
 
-+ (void)copyAttributesFrom:(NSManagedObject *)sourceObject to:(NSManagedObject *)destinationObject usingValues:(NSDictionary<NSString *, NSObject *> *)sourceValues andKeys:(NSArray<NSString *> *)destinationKeys {
++ (void)copyValues:(NSDictionary<NSString *, NSObject *> *)sourceValues to:(NSManagedObject *)destinationObject forKeys:(NSArray<NSString *> *)destinationKeys {
 
     for (NSString *key in destinationKeys) {
         NSObject *val = sourceValues[key];
@@ -29,7 +29,7 @@
 
 + (void)copyAttributesFrom:(NSManagedObject *)sourceObject toMetadata:(Metadata *)destinationMetadata usingValues:(NSDictionary<NSString *, NSObject *> *)sourceValues andKeys:(NSArray<NSString *> *)destinationKeys ifid:(NSString *)sourceIfid {
 
-    [IfidToHashMigrationPolicy copyAttributesFrom:sourceObject to:destinationMetadata usingValues:sourceValues andKeys:destinationKeys];
+    [IfidToHashMigrationPolicy copyValues:sourceValues to:destinationMetadata forKeys:destinationKeys];
 
     NSSet<NSManagedObject *> *ifids = [sourceObject valueForKey:@"ifids"];
     NSManagedObject *cover = [sourceObject valueForKey:@"cover"];
@@ -71,7 +71,7 @@
     NSArray<NSString *> *destinationKeys = destinationInstance.entity.attributesByName.allKeys;
 
     // Copy attributes from old model to new
-    [IfidToHashMigrationPolicy copyAttributesFrom:sInstance to:destinationInstance usingValues:sourceValues andKeys:destinationKeys];
+    [IfidToHashMigrationPolicy copyValues:sourceValues to:destinationInstance forKeys:destinationKeys];
 
     // Delete any old hash tags (because we use a new system).
     // NB: use containsObject: (value equality) not indexOfObjectIdenticalTo:
@@ -91,8 +91,11 @@
     [manager associateSourceInstance:sInstance withDestinationInstance:destinationInstance forEntityMapping:mapping];
 
     if ([mapping.destinationEntityName isEqualToString:@"Metadata"]) {
+        // Only blank a missing title. This used to test respondsToSelector:
+        // @selector(title), which no NSString passes, so every title was
+        // wiped here and later refilled from the game's filename.
         NSObject *title = sourceValues[@"title"];
-        if ([title isEqual:[NSNull null]] || ![title respondsToSelector:NSSelectorFromString(@"title")] || [(NSString *)title length] == 0) {
+        if (![title isKindOfClass:[NSString class]] || ((NSString *)title).length == 0) {
             [destinationInstance setValue:@"" forKey:@"title"];
         }
         // if this Metadata entity has more than one games entity:
@@ -115,8 +118,7 @@
     } else if ([mapping.destinationEntityName isEqualToString:@"Game"]) {
         Game *game = (Game *)destinationInstance;
         if (game.found && !game.hashTag.length) {
-            if ([game respondsToSelector:NSSelectorFromString(@"urlForBookmark")])
-                [FolderAccess grantAccessToFile:[game urlForBookmark]];
+            [FolderAccess grantAccessToFile:[game urlForBookmark]];
             game.hashTag = [game.path signatureFromFile];
         }
     }
@@ -126,9 +128,8 @@
 
 - (BOOL)createRelationshipsForDestinationInstance:(NSManagedObject *)dInstance entityMapping:(NSEntityMapping *)mapping manager:(NSMigrationManager *)manager error:(NSError * __autoreleasing *)error {
 
-    NSError *error3 = nil;
-
-    [super createRelationshipsForDestinationInstance:dInstance entityMapping:mapping manager:manager error:&error3];
+    if (![super createRelationshipsForDestinationInstance:dInstance entityMapping:mapping manager:manager error:error])
+        return NO;
 
     NSManagedObjectContext *dContext = manager.destinationContext;
 
@@ -142,8 +143,10 @@
         if (ifidStr.length == 0) {
             NSLog(@"createRelationshipsForDestinationInstance: Error! Game has no ifid?");
         } else if (game.metadata == nil && [dInstance valueForKey:@"ifid"]) {
-            request.predicate = [NSPredicate predicateWithFormat:@"hashTag LIKE %@", [dInstance valueForKey:@"ifid"]];
+            request.predicate = [NSPredicate predicateWithFormat:@"hashTag == %@", [dInstance valueForKey:@"ifid"]];
             NSArray<Metadata *> *result = [dContext executeFetchRequest:request error:&error2];
+            if (!result)
+                NSLog(@"createRelationshipsForDestinationInstance: Metadata fetch failed: %@", error2);
             // Several games can share an ifid, and the Metadata mapping made
             // one hashTag-tagged copy per source game. Claim only a copy that
             // no other game has taken yet. Stealing an already-owned copy (as
@@ -199,7 +202,7 @@
         // with Image.
         if (destinationMeta.cover == nil && destinationMeta.coverArtURL.length) {
             request = [NSFetchRequest fetchRequestWithEntityName:@"Image"];
-            request.predicate = [NSPredicate predicateWithFormat:@"originalURL LIKE %@", destinationMeta.coverArtURL];
+            request.predicate = [NSPredicate predicateWithFormat:@"originalURL == %@", destinationMeta.coverArtURL];
             NSError *error2 = nil;
             NSArray<Image *> *result = [dContext executeFetchRequest:request error:&error2];
             if (result.count) {
@@ -215,7 +218,7 @@
             }
             if (ifid.length) {
                 request = [Ifid fetchRequest];
-                request.predicate = [NSPredicate predicateWithFormat:@"ifidString LIKE %@", ifid];
+                request.predicate = [NSPredicate predicateWithFormat:@"ifidString == %@", ifid];
                 NSError *error2 = nil;
                 NSArray<NSManagedObject *> *result = [dContext executeFetchRequest:request error:&error2];
                 if (result.count) {
@@ -232,7 +235,7 @@
             if (destinationMeta.hashTag.length) {
                 // At this point hashTag still holds the ifid of the game this
                 // copy was made for (see createDestinationInstancesForSourceInstance).
-                request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid LIKE %@", destinationMeta.hashTag];
+                request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid == %@", destinationMeta.hashTag];
                 result = [dContext executeFetchRequest:request error:&error2];
                 if (result.count) {
                     destinationMeta.game = result.firstObject;
@@ -242,7 +245,7 @@
             if (!result.count) {
                 for (Ifid *ifid in destinationMeta.ifids) {
                     if (ifid.ifidString.length) {
-                        request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid LIKE %@", ifid.ifidString];
+                        request.predicate = [NSPredicate predicateWithFormat:@"metadata == NIL AND ifid == %@", ifid.ifidString];
                         result = [dContext executeFetchRequest:request error:&error2];
                         if (result.count) {
                             destinationMeta.game = result.firstObject;
@@ -255,9 +258,11 @@
     // Create relationships for Image
     } else if ([dInstance.entity.name isEqualToString:@"Image"] && [dInstance valueForKey:@"originalURL"]) {
         request = [Metadata fetchRequest];
-        request.predicate = [NSPredicate predicateWithFormat:@"coverArtURL LIKE %@", [dInstance valueForKey:@"originalURL"]];
-        error3 = nil;
-        NSArray<Metadata *> *metas = [dContext executeFetchRequest:request error:&error3];
+        request.predicate = [NSPredicate predicateWithFormat:@"coverArtURL == %@", [dInstance valueForKey:@"originalURL"]];
+        NSError *error2 = nil;
+        NSArray<Metadata *> *metas = [dContext executeFetchRequest:request error:&error2];
+        if (!metas)
+            NSLog(@"createRelationshipsForDestinationInstance: Metadata fetch failed: %@", error2);
         if (metas.count)
             [(Image *)dInstance addMetadata:[NSSet setWithArray:metas]];
     }

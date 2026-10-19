@@ -95,11 +95,9 @@
     NSFont *font;
     
     if ([self testGridStyle]) {
-//        NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a grid style. Setting font to Source Code Pro 11");
         font = [NSFont fontWithName:@"Source Code Pro" size:11];
 
     } else {
-//        NSLog(@"GlkStyle createDefaultAttributeDictionary: This is a buffer style. Setting font to Helvetica 13");
         font = [NSFont fontWithName:@"Helvetica" size:13];
     }
 
@@ -111,8 +109,6 @@
     dict[NSParagraphStyleAttributeName] = para;
     dict[NSForegroundColorAttributeName] = [NSColor blackColor];
 
-//    dict[NSCursorAttributeName] = [NSCursor arrowCursor];
-
     dict[@"GlkStyle"] = @(self.index);
 
     self.attributeDict = dict;
@@ -123,7 +119,11 @@
     if (self.bufferNormal)
         return NO;
 
-    return (self.gridNormal || self.gridAlert || self.gridBlock || self.gridEmph || self.gridPre || self.gridHead || self.gridInput || self.gridNote || self.gridSubH || self.gridUsr1 || self.gridUsr2);
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        if ([self valueForKey:gGridStyleNames[i]])
+            return YES;
+    }
+    return NO;
 }
 
 
@@ -296,114 +296,15 @@
     Theme *theme = nil;
     NSInteger count = 0;
 
-    if (self.gridNormal) {
-        theme = self.gridNormal;
-        count++;
-    }
-
-    if (self.bufferNormal) {
-        theme = self.bufferNormal;
-        count++;
-    }
-
-    if (self.gridAlert) {
-        theme = self.gridAlert;
-        count++;
-    }
-
-    if (self.gridBlock) {
-        theme = self.gridBlock;
-        count++;
-    }
-
-    if (self.gridEmph) {
-        theme = self.gridEmph;
-        count++;
-    }
-
-    if (self.gridPre) {
-        theme = self.gridPre;
-        count++;
-    }
-
-    if (self.gridHead) {
-        theme = self.gridHead;
-        count++;
-    }
-
-    if (self.gridInput) {
-        theme = self.gridInput;
-        count++;
-    }
-
-    if (self.gridNote) {
-        theme = self.gridNote;
-        count++;
-    }
-
-    if (self.gridSubH) {
-        theme = self.gridSubH;
-        count++;
-    }
-
-    if (self.gridUsr1) {
-        theme = self.gridUsr1;
-        count++;
-    }
-
-    if (self.gridUsr2) {
-        theme = self.gridUsr2;
-        count++;
-    }
-
-    if (self.bufAlert) {
-        theme = self.bufAlert;
-        count++;
-    }
-
-    if (self.bufBlock) {
-        theme = self.bufBlock;
-        count++;
-    }
-
-    if (self.bufEmph) {
-        theme = self.bufEmph;
-        count++;
-    }
-
-    if (self.bufPre) {
-        theme = self.bufPre;
-        count++;
-    }
-
-    if (self.bufHead) {
-        theme = self.bufHead;
-        count++;
-    }
-
-    if (self.bufInput) {
-        theme = self.bufInput;
-        count++;
-    }
-
-    if (self.bufNote) {
-        theme = self.bufNote;
-        count++;
-    }
-
-    if (self.bufSubH) {
-        theme = self.bufSubH;
-        count++;
-    }
-
-    if (self.bufUsr1) {
-        theme = self.bufUsr1;
-        count++;
-    }
-
-    if (self.bufUsr2) {
-        theme = self.bufUsr2;
-        count++;
+    // A style should hang off exactly one Theme relationship.
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        for (NSString *key in @[gBufferStyleNames[i], gGridStyleNames[i]]) {
+            Theme *owner = [self valueForKey:key];
+            if (owner) {
+                theme = owner;
+                count++;
+            }
+        }
     }
 
     if (count > 1)
@@ -481,24 +382,6 @@
     paraStyle.lineSpacing = lineSpacing;
     dict[NSParagraphStyleAttributeName] = paraStyle;
     self.attributeDict = dict;
-}
-
-- (void)printDebugInfo {
-    NSUInteger stylevalue = (NSUInteger)((NSNumber *)(self.attributeDict)[@"GlkStyle"]).integerValue;
-    NSString *styleName = [self testGridStyle] ? gGridStyleNames[stylevalue] : gBufferStyleNames[stylevalue];
-    NSColor *debugColor = self.color;
-    NSString *fontColorName = [debugColor isEqual:[NSColor blackColor]]?@"black":@"not black";
-    if ([debugColor isEqual:[NSColor whiteColor]]) {
-        fontColorName = @"white";
-    }
-    debugColor = (self.attributeDict)[NSBackgroundColorAttributeName];
-    NSString *backgroundColorName = [debugColor isEqual:[NSColor blackColor]]?@"black":@"not black";
-    if ([debugColor isEqual:[NSColor whiteColor]]) {
-        fontColorName = @"white";
-    }
-
-    NSFont *debugFont = self.font;
-    NSLog(@"GlkStyle printDebugInfo: theme: %@ style: %ld (%@). Font: %@ Font size: %f Foreground color:%@ Background color: %@", [self findTheme].name, stylevalue, styleName, debugFont.fontName, debugFont.pointSize, fontColorName, backgroundColorName);
 }
 
 @end

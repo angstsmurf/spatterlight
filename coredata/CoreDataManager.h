@@ -8,20 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class MyCoreDataCoreSpotlightDelegate;
-
 @interface CoreDataManager : NSObject
 
-@property (strong, nonatomic) NSManagedObjectModel
-*managedObjectModel;
-@property (strong, nonatomic) NSPersistentStoreCoordinator
-*persistentStoreCoordinator;
-@property (strong, nonatomic) NSPersistentContainer
-*persistentContainer;
-@property (strong, nonatomic) NSManagedObjectContext
-*mainManagedObjectContext;
-
-@property MyCoreDataCoreSpotlightDelegate *spotlightDelegate;
+@property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;
+//! nil if the store could not be loaded (the error has been presented).
+@property (readonly, strong, nonatomic) NSPersistentContainer *persistentContainer;
+@property (readonly, strong, nonatomic) NSManagedObjectContext *mainManagedObjectContext;
 
 - (instancetype)initWithModelName:(NSString *)aModelName;
 

@@ -13,10 +13,6 @@
     return [super transformedValueClass];
 }
 
--(id)description {
-    return @"InsecureValueTransformer";
-}
-
 - (BOOL)allowsReverseTransformation {
     return YES;
 }

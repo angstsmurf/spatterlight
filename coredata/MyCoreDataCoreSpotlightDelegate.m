@@ -67,22 +67,13 @@
         if (metadata.languageAsWord.length)
             attributeSet.languages = @[metadata.languageAsWord];
 
-        CSCustomAttributeKey *ifids = [[CSCustomAttributeKey alloc] initWithKeyName:@"net_ccxvii_spatterlight_ifid"
-                                                                         searchable:YES
-                                                                searchableByDefault:YES
-                                                                             unique:YES
-                                                                        multiValued:YES];
-
-        NSArray<NSString *> *ifidArray = nil;
+        NSMutableArray<NSString *> *ifidArray = [NSMutableArray arrayWithCapacity:metadata.ifids.count];
         for (Ifid *ifidobject in metadata.ifids) {
-            if (ifidArray == nil) {
-                ifidArray = @[ifidobject.ifidString];
-            } else {
-                ifidArray = [ifidArray arrayByAddingObject:ifidobject.ifidString];
-            }
+            if (ifidobject.ifidString.length)
+                [ifidArray addObject:ifidobject.ifidString];
         }
-        if (ifidArray)
-            [attributeSet setValue:ifidArray forCustomKey:ifids];
+        if (ifidArray.count)
+            [attributeSet setValue:ifidArray forCustomKey:[MyCoreDataCoreSpotlightDelegate customKeyNamed:@"ifid" multiValued:YES]];
 
         [MyCoreDataCoreSpotlightDelegate addKeyword:metadata.group
             toCustomAttribute:@"group"
@@ -99,16 +90,30 @@
     return attributeSet;
 }
 
+// CSCustomAttributeKeys are immutable, so make each one once instead of per
+// keyword per object on every re-index.
++ (CSCustomAttributeKey *)customKeyNamed:(NSString *)name multiValued:(BOOL)multiValued {
+    static NSMutableDictionary<NSString *, CSCustomAttributeKey *> *keys;
+    @synchronized (self) {
+        if (!keys)
+            keys = [NSMutableDictionary new];
+        CSCustomAttributeKey *key = keys[name];
+        if (!key) {
+            key = [[CSCustomAttributeKey alloc] initWithKeyName:[NSString stringWithFormat:@"net_ccxvii_spatterlight_%@", name]
+                                                     searchable:YES
+                                            searchableByDefault:YES
+                                                         unique:YES
+                                                    multiValued:multiValued];
+            keys[name] = key;
+        }
+        return key;
+    }
+}
+
 + (void)addKeyword:(id)keyword toCustomAttribute:(NSString *)name inSet:(CSSearchableItemAttributeSet *)attributeSet {
     if (keyword == nil)
         return;
-    CSCustomAttributeKey *customKey =
-    [[CSCustomAttributeKey alloc] initWithKeyName:[NSString stringWithFormat:@"net_ccxvii_spatterlight_%@", name]
-                                       searchable:YES
-                              searchableByDefault:YES
-                                           unique:YES
-                                      multiValued:NO];
-    [attributeSet setValue:keyword forCustomKey:customKey];
+    [attributeSet setValue:keyword forCustomKey:[MyCoreDataCoreSpotlightDelegate customKeyNamed:name multiValued:NO]];
 }
 
 @end
