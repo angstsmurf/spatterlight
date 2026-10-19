@@ -447,17 +447,23 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         shouldAddTitlePrefixToSpeech = NO;
     }
 
-    NSWindow *window = self.window;
+    [self announce:newString priority:NSAccessibilityPriorityHigh];
+}
 
-    if (self.gameID == kGameIsJourney && Preferences.instance.currentGame == self.game) {
-        window = NSApp.mainWindow;
-    }
+- (NSWindow *)announcementWindow {
+    if (self.gameID == kGameIsJourney && Preferences.instance.currentGame == self.game)
+        return NSApp.mainWindow;
+    return self.window;
+}
 
+- (void)announce:(NSString *)string priority:(NSAccessibilityPriorityLevel)priority {
+    if (string.length == 0)
+        return;
     NSAccessibilityPostNotificationWithUserInfo(
-                                                window,
+                                                self.announcementWindow,
                                                 NSAccessibilityAnnouncementRequestedNotification,
-                                                @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
-                                                  NSAccessibilityAnnouncementKey: newString
+                                                @{NSAccessibilityPriorityKey: @(priority),
+                                                  NSAccessibilityAnnouncementKey: string
                                                 });
 }
 

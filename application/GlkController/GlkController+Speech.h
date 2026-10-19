@@ -30,6 +30,12 @@
 - (void)forceSpeech;
 - (void)speakStringNow:(NSString *)string;
 - (void)speakString:(NSString *)string;
+// Posts a VoiceOver announcement to announcementWindow, without the checks
+// and clean-up speakString: does.
+- (void)announce:(NSString *)string priority:(NSAccessibilityPriorityLevel)priority;
+// The window announcements are posted to: the game window, or the main
+// window while Journey is the current game.
+@property (NS_NONATOMIC_IOSONLY, readonly) NSWindow *announcementWindow;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkWindow *largestWithMoves;
 
 // Custom rotors

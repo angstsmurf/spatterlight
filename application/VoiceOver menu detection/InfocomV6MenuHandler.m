@@ -10,22 +10,23 @@
 #import "ZMenu.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
-
+#import "NSString+Categories.h"
 
 #import "InfocomV6MenuHandler.h"
 
 @interface InfocomV6MenuHandler () {
     InfocomV6MenuType hintDepth;
     BOOL hasUpdatedMoveRanges;
-    BOOL lastWasEdit;
 }
+
+@property NSMutableArray<NSString *> *menuItems;
+@property NSUInteger numberOfItems;
+@property NSString *title;
+@property NSUInteger selectedLine;
+
 @end
 
 @implementation InfocomV6MenuHandler
-
-+ (BOOL) supportsSecureCoding {
-    return YES;
-}
 
 - (instancetype)initWithDelegate:(GlkController *)delegate {
     self = [super init];
@@ -37,6 +38,8 @@
 }
 
 + (NSString *)makeDefinitionStringVerbose:(NSString *)string {
+    if (string.length == 0)
+        return string;
     unichar c = [string characterAtIndex:string.length - 1];
     if (c == ' ')
         string = [string stringByAppendingString:@"(space)"];
@@ -63,13 +66,8 @@
         _menuItems = [NSMutableArray new];
     }
 
-    NSString *str = @"";
-    if (len > 0) {
-        unichar cstring[len];
-        for (NSUInteger i = 0; i < len; i++) {
-            cstring[i] = (unichar)buf[i];
-        }
-        str = [NSString stringWithCharacters:cstring length:len];
+    NSString *str = [NSString stringWithLatin1Bytes:buf length:len];
+    if (str.length) {
         str = [str stringByTrimmingCharactersInSet:[NSCharacterSet illegalCharacterSet]];
         if (type == kV6MenuTypeDefine) {
             str = [InfocomV6MenuHandler makeDefinitionStringVerbose:str];
@@ -98,21 +96,24 @@
             // We overload the total parameter for the typed character
             unichar c = (unichar)total;
             // 0 means delete
+            if (_selectedLine >= _menuItems.count)
+                return;
             str = _menuItems[_selectedLine];
             str = [str stringByReplacingOccurrencesOfString:@" (space)" withString:@" "];
             str = [str stringByReplacingOccurrencesOfString:@" (vertical line)" withString:@"|"];
             if (c == 0) {
+                if (str.length == 0)
+                    return;
                 NSString *deleted = [str substringFromIndex:str.length - 1];
                 [_delegate speakString:[NSString stringWithFormat:@"Delete %@", deleted]];
                 str = [str substringToIndex:str.length - 1];
             } else {
-                NSString *added = [NSString stringWithFormat:@"%c", c];
+                NSString *added = [NSString stringWithCharacters:&c length:1];
                 [_delegate speakString:added];
                 str = [str stringByAppendingString:added];
             }
 
             [_menuItems replaceObjectAtIndex:_selectedLine withObject:[InfocomV6MenuHandler makeDefinitionStringVerbose:str]];
-            lastWasEdit = YES;
         }
     }
 }
@@ -184,15 +185,15 @@
         NSString *indexString;
 
         if (hintDepth == kV6MenuTypeHint && _menuItems.count == 0) {
-            indexString = [NSString stringWithFormat:@"%ld hint%@ available", _numberOfItems, _numberOfItems == 1 ? @"" : @"s"];
+            indexString = [NSString stringWithFormat:@"%lu hint%@ available", _numberOfItems, _numberOfItems == 1 ? @"" : @"s"];
         } else {
-            if (_selectedLine >= _numberOfItems) {
+            if (_numberOfItems && _selectedLine >= _numberOfItems) {
                 _selectedLine = _numberOfItems - 1;
             }
-            indexString = [NSString stringWithFormat:@".\n%@ %ld", menuItemString, _selectedLine + 1];
+            indexString = [NSString stringWithFormat:@".\n%@ %lu", menuItemString, _selectedLine + 1];
             if (useTotal) {
                 indexString = [indexString stringByAppendingString:
-                               [NSString stringWithFormat:@" of %ld", _numberOfItems]];
+                               [NSString stringWithFormat:@" of %lu", _numberOfItems]];
             }
         }
 

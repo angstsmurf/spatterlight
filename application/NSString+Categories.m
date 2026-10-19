@@ -286,6 +286,11 @@ static NSString *SPTruncatedTitle(NSString *title) {
     return [NSString stringWithString:hexString];
 }
 
-
++ (NSString *)stringWithLatin1Bytes:(const char *)bytes length:(NSUInteger)length {
+    if (bytes == NULL || length == 0)
+        return @"";
+    NSString *string = [[NSString alloc] initWithBytes:bytes length:length encoding:NSISOLatin1StringEncoding];
+    return string ?: @"";
+}
 
 @end
