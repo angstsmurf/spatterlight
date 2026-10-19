@@ -197,8 +197,11 @@ inline void fast_dct_rgba_32_32(const double pixels[32][32], double result[32][3
           }
       }
     });
-    for (int u = 0; u < N; u++) {
-        for (int v = 0; v < N; v++) {
+    // The hash only uses the 8 x 8 lowest frequencies (see
+    // fast_avg_no_first_el_rgba_8_8 and phash_rgba_8_8), so only those are
+    // computed. The rest of result is left as it was.
+    for (int u = 0; u < 8; u++) {
+        for (int v = 0; v < 8; v++) {
             double sum = 0.0;
             UNROLL_DCT_I(u, v)
             sum *= CV[u][v];

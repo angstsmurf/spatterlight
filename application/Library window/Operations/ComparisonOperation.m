@@ -48,7 +48,7 @@
     void (^completionHandler)(void) = _completionHandler;
 
     dispatch_async(dispatch_get_main_queue(), ^{
-        ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+        ImageCompareViewController *imageCompare = [ImageCompareViewController new];
         if ([imageCompare userWantsImage:dataA ratherThanImage:dataB source:kImageComparisonDownloaded force:force]) {
             completionHandler();
         } 

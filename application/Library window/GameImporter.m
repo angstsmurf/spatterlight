@@ -574,7 +574,7 @@ void ReportImportFailure(NSString *title, NSString *info) {
             if (comparisonResult != kImageComparisonResultB) {
                 if (comparisonResult == kImageComparisonResultWantsUserInput) {
                     dispatch_async(dispatch_get_main_queue(), ^{
-                        ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
+                        ImageCompareViewController *imageCompare = [ImageCompareViewController new];
                         if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
                             [CoverImageStore insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
                         }
