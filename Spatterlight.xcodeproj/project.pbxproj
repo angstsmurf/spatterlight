@@ -3152,6 +3152,7 @@
 		96A9BA520A064C9C001B5B9B /* md5.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = md5.c; sourceTree = "<group>"; };
 		96A9BA530A064C9C001B5B9B /* md5.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		96A9BA540A064C9C001B5B9B /* misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = misc.c; sourceTree = "<group>"; };
+		96A9BA390A064C9C00B4BE11 /* babel_util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = babel_util.h; sourceTree = "<group>"; };
 		96A9BA550A064C9C001B5B9B /* modules.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = modules.h; sourceTree = "<group>"; };
 		96A9BA570A064C9C001B5B9B /* register.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = register.c; sourceTree = "<group>"; };
 		96A9BA580A064C9C001B5B9B /* register_ifiction.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = register_ifiction.c; sourceTree = "<group>"; };
@@ -6234,6 +6235,7 @@
 				96A9BA500A064C9C001B5B9B /* makefile */,
 				96A9BA370A064C9C001B5B9B /* babel.h */,
 				96A9BA390A064C9C001B5B9B /* babel_handler.h */,
+				96A9BA390A064C9C00B4BE11 /* babel_util.h */,
 				96A9BA4D0A064C9C001B5B9B /* ifiction.h */,
 				96A9BA530A064C9C001B5B9B /* md5.h */,
 				96A9BA550A064C9C001B5B9B /* modules.h */,

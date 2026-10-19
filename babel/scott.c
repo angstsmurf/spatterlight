@@ -17,6 +17,7 @@
 #define MAX(a, b) ((a) > (b) ? (a) : (b))
 
 #include "treaty_builder.h"
+#include "babel_util.h"
 #include <ctype.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -526,16 +527,8 @@ static const struct scottrec TI994A_registry[] = {
     { 0, 0, 0 }
 };
 
-static uint16_t checksum(unsigned char *sf, int32 extent)
-{
-    uint16_t c = 0;
-    for (int i = 0; i < extent; i++)
-        c+=sf[i];
-    return c;
-}
 
-
-static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
+static int32 find_in_database(unsigned char *sf, int32 extent, char *ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
@@ -545,15 +538,12 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     for (int i = 0; scott_registry[i].length != 0; i++) {
         if (extent == scott_registry[i].length) {
             if (!calculated_checksum) {
-                chksum = checksum(sf, extent);
+                chksum = babel_sum16(sf, extent);
                 calculated_checksum  = 1;
             }
             if (chksum == scott_registry[i].chk) {
-                if (ifid != NULL) {
-                    size_t length = strlen(ifids[scott_registry[i].ifid]);
-                    strncpy(*ifid, ifids[scott_registry[i].ifid], length);
-                    (*ifid)[length] = 0;
-                }
+                if (ifid != NULL)
+                    babel_copy_ifid(ifid, ifids[scott_registry[i].ifid]);
                 return VALID_STORY_FILE_RV;
             }
         }
@@ -561,35 +551,20 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     return INVALID_STORY_FILE_RV;
 }
 
-static int32 find_in_TI994Adatabase(uint16_t chksum, char **ifid) {
+static int32 find_in_TI994Adatabase(uint16_t chksum, char *ifid) {
 
     for (int i = 0; TI994A_registry[i].length != 0; i++) {
         if (chksum == TI994A_registry[i].chk) {
-            if (ifid != NULL) {
-                strncpy(*ifid, ifids[TI994A_registry[i].ifid], 32);
-                (*ifid)[32] = '\0';
-            }
+            if (ifid != NULL)
+                babel_copy_ifid(ifid, ifids[TI994A_registry[i].ifid]);
             return VALID_STORY_FILE_RV;
         }
     }
     return INVALID_STORY_FILE_RV;
 }
 
-static int find_code(char *x, int codelen, unsigned char *sf, int32 extent) {
-    if (codelen >= extent)
-        return -1;
-    unsigned const char *p = sf;
-    while (p < sf + extent - codelen) {
-        if (memcmp(p, x, codelen) == 0) {
-            return p - sf;
-        }
-        p++;
-    }
-    return -1;
-}
-
 static int detect_ti994a(unsigned char *sf, int32 extent) {
-    return find_code("\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10, sf, extent);
+    return babel_memfind(sf, extent, "\x30\x30\x30\x30\x00\x30\x30\x00\x28\x28", 10);
 }
 
 static int SanityCheckHeader(int ni, int na, int nw, int nr)
@@ -614,7 +589,7 @@ static void ReadHeader(uint8_t *ptr, int header[15])
 }
 
 static int detect_atari(unsigned char *sf, int32 extent) {
-    if (extent == 0x16810 && find_code("\x96\x02\x80\x16\x80\x00", 6, sf, 7) != -1) {
+    if (extent == 0x16810 && memcmp(sf, "\x96\x02\x80\x16\x80\x00", 6) == 0) {
         int header[15];
         ReadHeader(&sf[0x04f9], header);
         int ni = header[3];
@@ -749,10 +724,10 @@ static int32 claim_story_file(void *storyvp, int32 extent)
     unsigned char *storystring = (unsigned char *)storyvp;
 
 #ifdef DEBUG
-    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, babel_sum16(storystring, extent));
 #endif
 
-    if (extent < 24 || extent > 300000)
+    if (extent < MIN_LENGTH || extent > MAX_LENGTH)
         return INVALID_STORY_FILE_RV;
 
     if (detect_atari(storystring, extent))
@@ -787,9 +762,7 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         }
         const char *ifid = ifids[index];
         if (ifid != NULL) {
-            int len = strlen(ifid);
-            strncpy(output, ifid, len);
-            output[len] = '\0';
+            babel_copy_ifid(output, ifid);
             return VALID_STORY_FILE_RV;
         }
 
@@ -802,19 +775,14 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
         /* Calculate checksum using 3 Kb after the title screen */
         int checksum_length = MIN(3072, extent - title_screen_offset);
 
-        int sum = checksum(storystring + title_screen_offset, checksum_length);
-        if (find_in_TI994Adatabase(sum, &output) == VALID_STORY_FILE_RV) {
+        int sum = babel_sum16(storystring + title_screen_offset, checksum_length);
+        if (find_in_TI994Adatabase(sum, output) == VALID_STORY_FILE_RV) {
             return VALID_STORY_FILE_RV;
         }
     }
 
-    if (find_in_database(storystring, extent, &output) == VALID_STORY_FILE_RV) {
-        size_t length = strlen(output);
-        for (int i = 0; i< length; i++)
-            output[i] = toupper(output[i]);
-        output[length] = 0;
+    if (find_in_database(storystring, extent, output) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
-    }
 
     if (detect_scottfree(storystring, extent) == VALID_STORY_FILE_RV
      || ti99offset != -1)

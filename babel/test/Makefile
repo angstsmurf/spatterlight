@@ -1,6 +1,6 @@
 # test-html is not part of "all": the html module is not registered in
 # modules.h, so HTML files are deliberately left unclaimed here.
-all: test-adrift test-alan test-hugo test-twine test-bronze test-sensory test-quest test-marker
+all: test-adrift test-alan test-hugo test-twine test-bronze test-sensory test-quest test-marker test-saga
 
 
 .PHONY: test-adrift
@@ -39,6 +39,10 @@ test-quest:
 test-marker:
 	$(MAKE) -C marker
 
+.PHONY: test-saga
+test-saga:
+	$(MAKE) -C saga
+
 clean:
 	$(MAKE) -C adrift clean
 	$(MAKE) -C alan clean
@@ -49,3 +53,4 @@ clean:
 	$(MAKE) -C sensory clean
 	$(MAKE) -C quest clean
 	$(MAKE) -C marker clean
+	$(MAKE) -C saga clean

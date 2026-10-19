@@ -1,4 +1,4 @@
-/* quest.c  Treaty of Babel module for Quest 4 files
+/* quest4.c  Treaty of Babel module for Quest 4 files
  * Parts based on the Geas source
  * 2021 By Petter Sjölund.
  * GPL license.
@@ -13,18 +13,17 @@
 #define NO_COVER
 
 #include "treaty_builder.h"
+#include "babel_util.h"
 #include "babel_handler.h"
 #include "ifiction.h"
 #include <stdbool.h>
 
 
 /* If string is found, returns a pointer to the char AFTER it */
-static unsigned char *find_string(unsigned char *storyvp,  int32 extent, char *string, int32 stringlength)
+static unsigned char *find_string(unsigned char *storyvp, int32 extent, const char *string, int32 stringlength)
 {
-    for(int i=0;i<extent-stringlength-1;i++)
-        if (memcmp(string,storyvp+i,stringlength)==0)
-            return storyvp + i + stringlength;
-    return NULL;
+    int32 i = babel_memfind(storyvp, extent, string, stringlength);
+    return i < 0 ? NULL : storyvp + i + stringlength;
 }
 
 /* A compiled Quest file begins with its container header, and three versions

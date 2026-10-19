@@ -42,7 +42,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     game_version = read_agt_short(sf+l);
     game_sig=read_agt_int(sf+l+2);
     ASSERT_OUTPUT_SIZE(19);
-    sprintf(output,"AGT-%05d-%08X",game_version,game_sig);
+    sprintf(output,"AGT-%05d-%08X",game_version,(unsigned) game_sig);
     return 1;
 }
 

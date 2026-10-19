@@ -20,8 +20,23 @@ The following files are public domain:
 - alan.c
 - adrift.c
 - html.c
+- twine.c
+- archetype.c
+- comprehend.c
 - treaty.h
 - treaty_builder.h
+
+The following format modules were added for Spatterlight and are under the
+GPL (see the header of each file):
+
+- quest4.c
+- quest5.c
+- quill.c (from UnQuill, (c) 1996-2002 John Elliott)
+- sagaplus.c
+- scott.c
+- taylor.c
+
+jacl.c and babel_util.h carry no licence statement of their own.
 
 The following files are Copyright (C) 1999, 2000, 2002 Aladdin Enterprises:
 
@@ -51,9 +66,15 @@ To build babel:
 3. the end
 
 For folks who find makefiles more useful than generalizations, there is a
-makefile provided for babel.  The makefile is currently configured for
-Borland's 32-bit C compiler.  Comment out those lines and uncomment the block
-which follows for gcc.
+GNU makefile provided for babel. It uses the system C compiler on Linux and
+macOS and Borland's 32-bit compiler elsewhere. `make test` runs the tests in
+test/; see test/README.md.
+
+Spatterlight does not use the makefile: its Xcode project compiles
+babel_handler.c, register.c, register_ifiction.c, misc.c, md5.c, ifiction.c,
+blorb.c and the format modules listed in modules.h straight into the app.
+babel.c, babel_*_functions.c, html.c, extras/ and babel-get/ are only built
+by the makefiles.
 
 To compile babel-get, first compile babel, then do the same thing in the
 babel-get directory.

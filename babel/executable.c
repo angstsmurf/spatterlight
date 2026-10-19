@@ -8,7 +8,7 @@
  */
 
 #define FORMAT executable
-#define HOME_PAGE "http://http://en.wikipedia.org/wiki/Executable"
+#define HOME_PAGE "https://en.wikipedia.org/wiki/Executable"
 #define FORMAT_EXT ".exe"
 #define NO_METADATA
 #define NO_COVER
@@ -58,7 +58,8 @@ static int32 get_story_file_IFID(void *sf, int32 extent, char *output, int32 out
     o=deduce_magic(sf,extent);
     if (!o) return 0;
     ASSERT_OUTPUT_SIZE((signed) strlen(o)+2);
-    memcpy(output, o, strlen(o) + 1);
-    strlcat(output, "-", output_extent);
+    memcpy(output, o, strlen(o));
+    output[strlen(o)] = '-';
+    output[strlen(o)+1] = 0;
     return INCOMPLETE_REPLY_RV;
 }

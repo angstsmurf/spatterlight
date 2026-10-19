@@ -13,13 +13,9 @@
 #define MAX_LENGTH 300000
 #define MIN_LENGTH 24
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-
 #include "treaty_builder.h"
+#include "babel_util.h"
 #include <ctype.h>
-#include <stdlib.h>
-#include <stdbool.h>
 
 static const char *ifids[] = {
     NULL,
@@ -125,15 +121,7 @@ static const struct rec taylor_registry[] = {
 };
 
 
-static uint16_t checksum(unsigned char *sf, int32 extent)
-{
-    uint16_t c=0;
-    for(int i = 0; i < extent; i++)
-        c+=sf[i];
-    return c;
-}
-
-static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
+static int32 find_in_database(unsigned char *sf, int32 extent, char *ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
@@ -143,15 +131,12 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     for (int i = 0; taylor_registry[i].length != 0; i++) {
         if (extent == taylor_registry[i].length) {
             if (calculated_checksum == 0) {
-                chksum = checksum(sf, extent);
+                chksum = babel_sum16(sf, extent);
                 calculated_checksum = 1;
             }
             if (chksum == taylor_registry[i].chk) {
-                if (ifid != NULL) {
-                    size_t length = strlen(ifids[taylor_registry[i].ifid]);
-                    strncpy(*ifid, ifids[taylor_registry[i].ifid], length);
-                    (*ifid)[length] = 0;
-                }
+                if (ifid != NULL)
+                    babel_copy_ifid(ifid, ifids[taylor_registry[i].ifid]);
                 return VALID_STORY_FILE_RV;
             }
         }
@@ -159,28 +144,11 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
     return INVALID_STORY_FILE_RV;
 }
 
-static int find_code(char *x, int codelen, unsigned char *sf, int32 extent) {
-    if (codelen >= extent)
-        return -1;
-    unsigned const char *p = sf;
-    while (p < sf + extent - codelen) {
-        if (memcmp(p, x, codelen) == 0) {
-            return p - sf;
-        }
-        p++;
-    }
-    return -1;
-}
-
-static int detect_verbs(unsigned char *sf, int32 extent) {
-    return find_code("NORT\01N   \01S   \02SOUT", 19, sf, extent);
-}
-
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
-    if (extent < 24 || extent > 300000)
+    if (extent < MIN_LENGTH || extent > MAX_LENGTH)
         return INVALID_STORY_FILE_RV;
 
     if (find_in_database(storystring, extent, NULL) == VALID_STORY_FILE_RV)
@@ -195,19 +163,8 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
 
     unsigned char *storystring = (unsigned char *)storyvp;
 
-    if (find_in_database(storystring, extent, &output) == VALID_STORY_FILE_RV) {
-        size_t length = strlen(output);
-        for (int i = 0; i< length; i++)
-            output[i] = toupper(output[i]);
-        output[length] = 0;
+    if (find_in_database(storystring, extent, output) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
-    }
-
-    if (detect_verbs(storystring, extent) == VALID_STORY_FILE_RV)
-    {
-        output[0] = '\0';
-        return INCOMPLETE_REPLY_RV;
-    }
 
     return INVALID_STORY_FILE_RV;
 }

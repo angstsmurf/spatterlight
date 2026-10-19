@@ -51,6 +51,13 @@
 #endif
 
 
+/* Spatterlight: this order is also the claim order. babel_init takes the
+ * first module that lists the file's extension and claims it, and failing
+ * that the first one to claim it outright, so a module earlier in the list
+ * wins a file that two of them claim. The modules after executable were
+ * added for Spatterlight; executable claims any MZ, ELF, Mach-O ... file,
+ * so moving it would change which module identifies such a file and hence
+ * its IFID. */
 REGISTER_CONTAINER(blorb)
 REGISTER_TREATY(zcode)
 REGISTER_TREATY(glulx)

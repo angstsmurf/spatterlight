@@ -55,9 +55,12 @@ babel: ${babel_objs}
 	${COMPILER} ${OUTPUT_BABEL} ${babel_objs} -lz
 
 %${OBJ} : %.c
-	${COMPILER} -c $^
+	${COMPILER} -c $<
 
-register${OBJ}: modules.h
+# No automatic header dependencies: list the headers every file uses.
+${bh_objs} ${ifiction_objs} ${babel_functions} babel${OBJ}: treaty.h treaty_builder.h
+${bh_objs}: babel_util.h
+register${OBJ} register_ifiction${OBJ}: modules.h
 
 babel.lib: ${foreach dep,${bh_objs},${dep}.bl}
 
@@ -91,7 +94,7 @@ test:
 
 dist:
 	# MANIFEST filenames cannot contain spaces.
-	-rm rf babel.zip
+	-rm -f babel.zip
 	cut -c1-31 MANIFEST | sed -e "s/ //g" | zip babel.zip -@
 
 clean:

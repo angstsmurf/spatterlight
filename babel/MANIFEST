@@ -2,6 +2,8 @@ adrift.c                        Treaty of Babel module for Adrift
 advsys.c                        Treaty of Babel module for AdvSys
 agt.c                           Treaty of Babel module for AGT
 alan.c                          Treaty of Babel module for Alan
+archetype.c                     Treaty of Babel module for Archetype
+babel_util.h                    Helpers shared by the Spatterlight modules
 babel.h                         babel program header
 md5.h                           L. Peter Deutsch's md5 header
 modules.h                       babel module registry
@@ -14,25 +16,35 @@ babel_ifiction_functions.c      Babel program-specific ifiction operations
 babel_multi_functions.c         Babel program-specific multi operations
 babel_story_functions.c         Babel program-specific story operations
 blorb.c                         babel handler blorb module
-executable.c                    Treaty of Bable module for executables 
+comprehend.c                    Treaty of Babel module for Comprehend
+executable.c                    Treaty of Babel module for executables
 glulx.c                         Treaty of Babel module for glulx
 hugo.c                          Draft Treaty of Babel module for hugo
 ifiction.h                      babel ifiction header
 ifiction.c                      babel ifiction api
+jacl.c                          Treaty of Babel module for JACL
 level9.c                        Treaty of Babel module for level9
 magscrolls.c                    Magnetic Scrolls treaty module
-Makefile                        Provisional makefile
+makefile                        Provisional makefile
 md5.c                           L. Peter Deutsch's md5 implementation
 misc.c                          babel memory allocator
+quest4.c                        Treaty of Babel module for Quest 4
+quest5.c                        Treaty of Babel module for Quest 5
+quill.c                         Treaty of Babel module for the Quill
 register.c                      babel module registry
 register_ifiction.c             babel module registry for ifiction API
+sagaplus.c                      Treaty of Babel module for SAGA Plus
+scott.c                         Treaty of Babel module for ScottFree
 tads.h                          Prototypes for tads2.c and tads3.c
 tads.c                          Common functions for TADS modules
 tads2.c                         Treaty of Babel module for tads2
 tads3.c                         Treaty of Babel module for tads3
+taylor.c                        Treaty of Babel module for TaylorMade
+twine.c                         Treaty of Babel module for Twine
 html.c                          Treaty of Babel module for HTML
 zcode.c                         Treaty of Babel module for zcode
 README.md                       documentation
+babel_rev7.txt                  Treaty of Babel specification text
 MANIFEST                        this file
 LICENSE                         CC license note
 extras/babel-cache.pl           Perl demo of babel interaction
@@ -50,9 +62,11 @@ babel-get/get_dir.c             Directory source
 babel-get/get_ifiction.c        ifiction source
 babel-get/get_story.c           story file source
 babel-get/get_url.c             URL source
-babel-get/Makefile              Makefile for babel-get
+babel-get/makefile              Makefile for babel-get
 test/Makefile                   Makefile for test suite
 test/Makefile.boilerplate       Common definitions for test Makefiles
+test/README.md                  How to run the tests
+test/corpus_ifids.sh            Corpus IFID regression list
 test/alan/Makefile              Makefile for alan test
 test/alan/expected              Expected alan test output
 test/alan/invalid.a3c           Alan test file
@@ -73,4 +87,36 @@ test/sensory/Makefile           Makefile for Sensory Jam test
 test/sensory/expected           Expected Sensory Jam test output
 test/sensory/sensory.blb        Sensory Jam by Andrew Plotkin
 test/sensory/sensory.ulx        Expected Sensory Jam story file
-
+test/adrift/Makefile            Makefile for ADRIFT test
+test/adrift/expected            Expected ADRIFT test output
+test/adrift/test4.taf           ADRIFT 4 test file
+test/adrift/test5.taf           ADRIFT 5 test file
+test/alan/.gitignore            Ignore test output
+test/hugo/Makefile              Makefile for Hugo test
+test/hugo/expected              Expected Hugo test output
+test/hugo/minimal.hex           Hugo test file
+test/html/Makefile              Makefile for HTML test
+test/html/expected              Expected HTML test output
+test/html/Test-Game-Legacy.html HTML test file
+test/html/Test-Game-Meta.html   HTML test file
+test/html/Test-Game-UUID.html   HTML test file
+test/marker/Makefile            Makefile for IFID marker test
+test/marker/expected            Expected IFID marker test output
+test/marker/at-end.z5           IFID marker test file
+test/marker/cut-short.z5        IFID marker test file
+test/marker/lowercase.ulx       IFID marker test file
+test/marker/lowercase.z5        IFID marker test file
+test/marker/padded.z5           IFID marker test file
+test/marker/second.z5           IFID marker test file
+test/marker/unclosed.z5         IFID marker test file
+test/marker/valid.ulx           IFID marker test file
+test/marker/valid.z5            IFID marker test file
+test/quest/Makefile             Makefile for Quest test
+test/quest/expected             Expected Quest test output
+test/quest/legacy.quest         Quest test file
+test/quest/modern.quest         Quest test file
+test/quest/raw.aslx             Quest test file
+test/quest/sample.asl           Quest test file
+test/quest/sample.cas           Quest test file
+test/saga/Makefile              Makefile for ScottFree and SAGA Plus test
+test/saga/expected              Expected ScottFree and SAGA Plus test output

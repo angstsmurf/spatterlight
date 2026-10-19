@@ -25,7 +25,7 @@ static int32 get_story_file_IFID(void *story_file, int32 extent, char *output, i
     /* This line suppresses a warning from the borland compiler */
     if (story_file || extent) { }
     ASSERT_OUTPUT_SIZE(8);
-    strncpy(output,"ADVSYS-", output_extent);
+    memcpy(output,"ADVSYS-",sizeof("ADVSYS-"));
     return INCOMPLETE_REPLY_RV;
 
 }

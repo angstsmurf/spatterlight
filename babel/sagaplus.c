@@ -1,4 +1,4 @@
-/* scott.c  Treaty of Babel module for Saga Plus files
+/* sagaplus.c  Treaty of Babel module for Saga Plus files
  * GPL license.
  *
  * This file depends on treaty_builder.h
@@ -13,12 +13,9 @@
 #define MAX_LENGTH 368641
 #define MIN_LENGTH 24
 
-#define MIN(a, b) ((a) < (b) ? (a) : (b))
-#define MAX(a, b) ((a) > (b) ? (a) : (b))
-
 #include "treaty_builder.h"
+#include "babel_util.h"
 #include <ctype.h>
-#include <stdlib.h>
 #include <stdbool.h>
 
 static const char *ifids[] = {
@@ -126,49 +123,7 @@ static const struct plusrec plus_registry[] = {
     { 0, 0, NO_ID_STRING, NO_IFID }
 };
 
-/* All numbers in Saga Plus text format files are stored as text delimited by whitespace */
-static int read_next_number(unsigned char *text, int32_t extent, int32_t *offset, bool *failure) {
-    char numstring[100];
-    int i;
-    bool number_found = false;
-
-    if (*offset >= extent) {
-        *failure = true;
-        return 0;
-    }
-
-    unsigned char c = text[*offset];
-    if (c == ',')
-        *offset = *offset + 1;
-    for (i = 0; i < extent - *offset && i < 99; i++) {
-        c = text[*offset + i];
-        numstring[i] = c;
-        if (isspace(c) || c == ',') {
-            if (number_found == true)
-                break;
-        } else if (isdigit(c) || c == '-') {
-            number_found = true;
-        } else {
-            *failure = true;
-            return 0;
-        }
-    }
-
-    if (number_found == false) {
-        *failure = true;
-        return 0;
-    }
-    /* i is either at the delimiter or one past the last character read */
-    numstring[i] = '\0';
-    *offset += i;
-    int result = atoi(numstring);
-    if (result > INT16_MAX || result < INT16_MIN)
-        *failure = true;
-
-    return result;
-}
-
-static int read_string(unsigned char *text, int32_t extent, int32_t *offset, bool *failure, bool checkforcomma)
+static int read_string(unsigned char *text, int32_t extent, int32_t *offset, bool *failure)
 {
     int c,nc;
     int ct=0;
@@ -201,11 +156,6 @@ static int read_string(unsigned char *text, int32_t extent, int32_t *offset, boo
                 break;
             }
         }
-        if (checkforcomma && ct == 0 && c != ',') {
-            *failure = true;
-            return 0;
-        }
-
         if (!isprint(c)) {
             *failure = true;
             return 0;
@@ -217,14 +167,6 @@ static int read_string(unsigned char *text, int32_t extent, int32_t *offset, boo
     return ct;
 }
 
-static uint16_t checksum(unsigned char *sf, int32 extent)
-{
-    uint16_t c=0;
-    for(int i = 0; i < extent; i++)
-        c+=sf[i];
-    return c;
-}
-
 /* Compares an id string to the quoted string that read_string() has just
    read from the very start of the file, leaving offset after the closing quote. */
 static bool title_matches(unsigned char *sf, int32 offset, const char *id)
@@ -233,7 +175,7 @@ static bool title_matches(unsigned char *sf, int32 offset, const char *id)
     return (offset >= 2 && length == (size_t)(offset - 2) && memcmp(sf + 1, id, length) == 0);
 }
 
-static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifid) {
+static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char *ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
@@ -243,15 +185,12 @@ static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifi
     for (int i = 0; plus_registry[i].ifid != NO_IFID; i++) {
         if (extent == plus_registry[i].length) {
             if (calculated_checksum == 0) {
-                chksum = checksum(sf, extent);
+                chksum = babel_sum16(sf, extent);
                 calculated_checksum = 1;
             }
             if (chksum == plus_registry[i].chk) {
-                size_t length = strlen(ifids[plus_registry[i].ifid]);
-                if (ifid != NULL) {
-                    strncpy(*ifid, ifids[plus_registry[i].ifid], length);
-                    (*ifid)[length] = 0;
-                }
+                if (ifid != NULL)
+                    babel_copy_ifid(ifid, ifids[plus_registry[i].ifid]);
                 return VALID_STORY_FILE_RV;
             }
         }
@@ -259,14 +198,14 @@ static int32 find_dskimg_in_database(unsigned char *sf, int32 extent, char **ifi
     return INVALID_STORY_FILE_RV;
 }
 
-static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
+static int32 find_in_database(unsigned char *sf, int32 extent, char *ifid) {
     if (extent > MAX_LENGTH || extent < MIN_LENGTH)
         return INVALID_STORY_FILE_RV;
 
     int32 offset = 0;
     bool failure = false;
 
-    read_string(sf, extent, &offset, &failure, false);
+    read_string(sf, extent, &offset, &failure);
     if (failure == true)
         return INVALID_STORY_FILE_RV;
 
@@ -275,11 +214,8 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
 
     for (int i = 0; plus_registry[i].id != NO_ID_STRING; i++) {
         if (title_matches(sf, offset, idstrings[plus_registry[i].id])) {
-            if (ifid != NULL) {
-                size_t length = strlen(ifids[plus_registry[i].ifid]);
-                strncpy(*ifid, ifids[plus_registry[i].ifid], length);
-                (*ifid)[length] = 0;
-            }
+            if (ifid != NULL)
+                babel_copy_ifid(ifid, ifids[plus_registry[i].ifid]);
             return VALID_STORY_FILE_RV;
         }
     }
@@ -287,73 +223,19 @@ static int32 find_in_database(unsigned char *sf, int32 extent, char **ifid) {
 }
 
 
-static int32 detect_sagaplus(unsigned char *storystring, int32 extent) {
-    /* Load the header */
-
-    int32 offset = 0;
-    int header[18];
-    bool failure = false;
-
-    /* We read the id string and compare it to idstrings[].
-     */
-
-    read_string(storystring, extent, &offset, &failure, false);
-    if (failure == true)
-        return INVALID_STORY_FILE_RV;
-
-    if (offset < 2)
-        return INVALID_STORY_FILE_RV;
-
-    int found = 0;
-    for (int i = 1; i < 5; i++)
-        if (title_matches(storystring, offset, idstrings[i]))
-            found = 1;
-
-    if (found == 0) {
-#ifdef DEBUG
-        fprintf(stderr, "title: \"%.*s\"\n", offset - 2, storystring + 1);
-#endif
-        return INVALID_STORY_FILE_RV;
-    }
-
-    /* First the 18 integers of the header */
-    for (int i = 0; i < 18; i++) {
-        header[i] = read_next_number(storystring, extent, &offset, &failure);
-        if (failure == true)
-            return INVALID_STORY_FILE_RV;
-    }
-
-    /* Then the number of actions given in header[1] */
-    for (int i = 0; i <= header[1]; i++) {
-        int result = read_next_number(storystring, extent, &offset, &failure);
-        if (failure == true || result > 255)
-            return INVALID_STORY_FILE_RV;
-    }
-
-    /* Finally the number of verb strings given in header[3] */
-    for (int i = 0; i <= header[3]; i++) {
-        read_string(storystring, extent, &offset, &failure, true);
-        if (failure == true)
-            return INVALID_STORY_FILE_RV;
-    }
-
-    return VALID_STORY_FILE_RV;
-}
-
 static int32 claim_story_file(void *storyvp, int32 extent)
 {
     unsigned char *storystring = (unsigned char *)storyvp;
 
 #ifdef DEBUG
-    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, checksum(storystring, extent));
+    fprintf(stderr, "The length of this file is %x, and its checksum %x\n", extent, babel_sum16(storystring, extent));
 #endif
 
     if (extent < MIN_LENGTH || extent > MAX_LENGTH)
         return INVALID_STORY_FILE_RV;
 
-    if (detect_sagaplus(storystring, extent) == VALID_STORY_FILE_RV)
-        return VALID_STORY_FILE_RV;
-
+    /* A text database is known by its title string, a disk image by its
+       length and checksum */
     if (find_in_database(storystring, extent, NULL) == VALID_STORY_FILE_RV)
         return VALID_STORY_FILE_RV;
 
@@ -366,9 +248,8 @@ static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int3
 
     unsigned char *storystring = (unsigned char *)storyvp;
 
-    if (detect_sagaplus(storystring, extent) == VALID_STORY_FILE_RV) {
-        return find_in_database(storystring, extent, &output);
-    }
+    if (find_in_database(storystring, extent, output) == VALID_STORY_FILE_RV)
+        return VALID_STORY_FILE_RV;
 
-    return (find_dskimg_in_database(storystring, extent, &output));
+    return find_dskimg_in_database(storystring, extent, output);
 }

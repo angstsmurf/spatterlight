@@ -397,11 +397,10 @@ static int32 claim_story_file(void *storyvp, int32 extent)
 
 static int32 get_story_file_IFID(void *storyvp, int32 extent, char *output, int32 output_extent)
 {
-//    char *story = storyvp;
     ASSERT_OUTPUT_SIZE(7);
     if (claim_story_file(storyvp, extent) == VALID_STORY_FILE_RV)
     {
-	strncpy(output, "QUILL-", sizeof("QUILL-"));
+	memcpy(output, "QUILL-", sizeof("QUILL-"));
 	return INCOMPLETE_REPLY_RV;
     }
     return INVALID_STORY_FILE_RV;

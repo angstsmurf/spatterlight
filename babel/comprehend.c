@@ -33,6 +33,7 @@
 #define NO_COVER
 
 #include "treaty_builder.h"
+#include "babel_util.h"
 #include "md5.h"
 #include <ctype.h>
 #include <stdio.h>
@@ -103,15 +104,6 @@ static const char *comprehend_dos_exe_md5s[] = {
     NULL
 };
 
-static uint16_t comprehend_checksum(unsigned char *sf, int32 extent)
-{
-    uint16_t c = 0;
-    int32 i;
-    for (i = 0; i < extent; i++)
-        c += sf[i];
-    return c;
-}
-
 static int32 claim_story_file(void *story_file, int32 extent)
 {
     unsigned char *sf = (unsigned char *)story_file;
@@ -145,7 +137,7 @@ static int32 claim_story_file(void *story_file, int32 extent)
         for (i = 0; comprehend_registry[i].length; i++) {
             if (extent == comprehend_registry[i].length) {
                 if (!calculated) {
-                    chk = comprehend_checksum(sf, extent);
+                    chk = babel_sum16(sf, extent);
                     calculated = 1;
                 }
                 if (chk == comprehend_registry[i].chk)

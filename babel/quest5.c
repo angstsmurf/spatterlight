@@ -18,6 +18,7 @@
 #define FORMAT_EXT ".quest,.aslx"
 
 #include "treaty_builder.h"
+#include "babel_util.h"
 #include "ifiction.h"
 #include "md5.h"
 #include <ctype.h>
@@ -29,10 +30,8 @@
 /* If string is found, returns a pointer to the char AFTER it */
 static unsigned char *find_string(unsigned char *storyvp, int32 extent, const char *string, int32 stringlength)
 {
-    for (int i = 0; i < extent - stringlength - 1; i++)
-        if (memcmp(string, storyvp + i, (size_t) stringlength) == 0)
-            return storyvp + i + stringlength;
-    return NULL;
+    int32 i = babel_memfind(storyvp, extent, string, stringlength);
+    return i < 0 ? NULL : storyvp + i + stringlength;
 }
 
 static bool zip_find_entry(const unsigned char *zip, int32 extent,

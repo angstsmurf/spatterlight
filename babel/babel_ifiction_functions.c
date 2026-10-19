@@ -48,7 +48,7 @@ static void write_story_to_disk(struct XMLTag *xtg, void *ctx)
         l=end-begin+1;
         b=(char *)my_malloc(l,"XML buffer");
         memcpy(b,begin,l-1);
-        b[l]=0;
+        b[l-1]=0;
         j=ifiction_get_IFID(b,buffer,TREATY_MINIMUM_EXTENT);
         if (!j)
         {
