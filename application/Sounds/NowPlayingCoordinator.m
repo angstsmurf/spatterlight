@@ -10,14 +10,14 @@
 
 #import "SoundHandler.h"
 #import "GlkSoundChannel.h"
-#import "GlkController.h"
-#import "Game.h"
-#import "Metadata.h"
-#import "Image.h"
 
 @interface NowPlayingCoordinator ()
 /// The SoundHandler that currently owns system Now Playing.
 @property (weak, nullable) SoundHandler *activeHandler;
+/// The last cover decoded, and the data it was decoded from, so that a
+/// pause or a new sound does not decode the same image again.
+@property (nullable) NSData *artworkData;
+@property (nullable) MPMediaItemArtwork *artwork;
 @end
 
 @implementation NowPlayingCoordinator
@@ -81,6 +81,25 @@
     infoCenter.playbackState = MPNowPlayingPlaybackStateStopped;
 }
 
+- (nullable MPMediaItemArtwork *)artworkForData:(nullable NSData *)data {
+    if (!data.length)
+        return nil;
+    if (data == _artworkData || [data isEqualToData:_artworkData])
+        return _artwork;
+
+    NSImage *image = [[NSImage alloc] initWithData:data];
+    MPMediaItemArtwork *artwork = nil;
+    if (image)
+        artwork = [[MPMediaItemArtwork alloc] initWithBoundsSize:image.size
+                                                  requestHandler:^NSImage *(CGSize requestSize) {
+#pragma unused(requestSize)
+                                                      return image;
+                                                  }];
+    _artworkData = data;
+    _artwork = artwork;
+    return artwork;
+}
+
 - (void)refreshForHandler:(SoundHandler *)handler {
     BOOL anyPlaying = NO;
     BOOL anyPaused = NO;
@@ -107,31 +126,14 @@
 
     NSMutableDictionary *info = [NSMutableDictionary dictionary];
 
-    NSString *title = handler.glkctl.game.metadata.title;
-    if (title.length)
-        info[MPMediaItemPropertyTitle] = title;
-    else
-        info[MPMediaItemPropertyTitle] = @"Spatterlight";
+    NSString *appName = [NSRunningApplication currentApplication].localizedName ?: @"Spatterlight";
+    NSString *title = handler.nowPlayingTitle;
+    info[MPMediaItemPropertyTitle] = title.length ? title : appName;
+    info[MPMediaItemPropertyArtist] = appName;
 
-    info[MPMediaItemPropertyArtist] = @"Spatterlight";
-
-    NSObject *coverObj = handler.glkctl.game.metadata.cover.data;
-    if ([coverObj isKindOfClass:[NSData class]]) {
-        NSData *coverData = (NSData *)coverObj;
-        if (coverData.length) {
-            NSImage *image = [[NSImage alloc] initWithData:coverData];
-            if (image) {
-                CGSize size = image.size;
-                MPMediaItemArtwork *artwork =
-                    [[MPMediaItemArtwork alloc] initWithBoundsSize:size
-                                                    requestHandler:^NSImage *(CGSize requestSize) {
-#pragma unused(requestSize)
-                                                        return image;
-                                                    }];
-                info[MPMediaItemPropertyArtwork] = artwork;
-            }
-        }
-    }
+    MPMediaItemArtwork *artwork = [self artworkForData:handler.nowPlayingArtworkData];
+    if (artwork)
+        info[MPMediaItemPropertyArtwork] = artwork;
 
     if (!looping && duration > 0)
         info[MPMediaItemPropertyPlaybackDuration] = @(duration);

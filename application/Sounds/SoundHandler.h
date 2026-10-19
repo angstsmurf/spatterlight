@@ -34,6 +34,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopAllAndCleanUp;
 
 - (void)nowPlayingStateDidChange;
+/// The game's title and cover image data, for system Now Playing.
+@property (readonly, nullable) NSString *nowPlayingTitle;
+@property (readonly, nullable) NSData *nowPlayingArtworkData;
 /// Channels holding music-like sound (see GlkSoundChannel.claimsNowPlaying).
 @property (readonly) NSArray<GlkSoundChannel *> *eligibleNowPlayingChannels;
 - (void)pauseEligibleNowPlayingChannels;

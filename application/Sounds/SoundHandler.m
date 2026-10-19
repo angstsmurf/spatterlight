@@ -16,6 +16,9 @@
 #import "GlkController.h"
 #import "GlkController+InterpreterGlue.h"
 #import "GlkEvent.h"
+#import "Game.h"
+#import "Metadata.h"
+#import "Image.h"
 
 @interface SoundHandler ()
 @property (strong, nonatomic) SpectrumBeeper *beeper;
@@ -238,6 +241,15 @@
 }
 
 #pragma mark Now Playing
+
+- (NSString *)nowPlayingTitle {
+    return _glkctl.game.metadata.title;
+}
+
+- (NSData *)nowPlayingArtworkData {
+    NSObject *data = _glkctl.game.metadata.cover.data;
+    return [data isKindOfClass:[NSData class]] ? (NSData *)data : nil;
+}
 
 - (void)nowPlayingStateDidChange {
     [[NowPlayingCoordinator shared] refreshForHandler:self];
