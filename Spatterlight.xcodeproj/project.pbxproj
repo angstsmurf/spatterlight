@@ -4536,6 +4536,8 @@
 				C35C54032676613800294FE7 /* NSFont+Categories.m */,
 				7E91B054998441D190A9189D /* NSView+Categories.h */,
 				2D0828655AE94F68BE83A03E /* NSView+Categories.m */,
+				406BED8480304BF1B610D5FA /* ImageDragSource.h */,
+				50966F36FE2F44509985FE86 /* ImageDragSource.m */,
 				C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */,
 				C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */,
 			);
@@ -6959,8 +6961,6 @@
 				C3AD647226176982008614C5 /* FlowBreak.m */,
 				C3AD648D261769DB008614C5 /* MarginImage.h */,
 				C3AD648E261769DB008614C5 /* MarginImage.m */,
-				406BED8480304BF1B610D5FA /* ImageDragSource.h */,
-				50966F36FE2F44509985FE86 /* ImageDragSource.m */,
 				C3AD640726176589008614C5 /* MarginContainer.h */,
 				C3AD640826176589008614C5 /* MarginContainer.m */,
 				C3AD642326176737008614C5 /* BufferTextView.h */,

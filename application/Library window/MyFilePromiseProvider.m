@@ -7,7 +7,7 @@
 
 #import "MyFilePromiseProvider.h"
 
-#import "ImageView.h"
+#import "ImageDragSource.h"
 
 @implementation MyFilePromiseProvider
 
@@ -29,10 +29,8 @@
 
 - (id)pasteboardPropertyListForType:(NSPasteboardType)type {
 
-    ImageView *imageView = (ImageView *)self.delegate;
-
     if ([type isEqual: NSPasteboardTypePNG]) {
-        return imageView.pngData;
+        return ((ImageDragSource *)self.delegate).pngData;
     }
 
     return [super pasteboardPropertyListForType: type];

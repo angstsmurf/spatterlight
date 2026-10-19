@@ -15,11 +15,11 @@
 
 @implementation ImageDragSource
 
-- (void)dragImage:(NSImage *)image
-             from:(NSView *)source
-            event:(NSEvent *)event
-         filename:(NSString *)filename
-            frame:(NSRect)frame {
+- (NSDraggingSession *)dragImage:(NSImage *)image
+                            from:(NSView *)source
+                           event:(NSEvent *)event
+                        filename:(nullable NSString *)filename
+                           frame:(NSRect)frame {
     NSDraggingItem *dragItem;
 
     if (@available(macOS 10.14, *)) {
@@ -36,10 +36,11 @@
     }
 
     _image = image;
+    _sourceView = source;
     baseFilename = filename.length ? filename : @"image";
 
     [dragItem setDraggingFrame:frame contents:image];
-    [source beginDraggingSessionWithItems:@[dragItem] event:event source:self];
+    return [source beginDraggingSessionWithItems:@[dragItem] event:event source:self];
 }
 
 - (nonnull NSString *)filePromiseProvider:(nonnull NSFilePromiseProvider *)filePromiseProvider fileNameForType:(nonnull NSString *)fileType {
@@ -59,6 +60,10 @@
     }
 
     completionHandler(nil);
+}
+
+- (NSOperationQueue *)operationQueueForFilePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider {
+    return _operationQueue ?: [NSOperationQueue mainQueue];
 }
 
 - (NSDragOperation)draggingSession:(nonnull NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context {
@@ -120,11 +125,16 @@
 
 // Also asked for by MyFilePromiseProvider, for the PNG pasteboard type.
 - (nullable NSData *)pngData {
-    NSBitmapImageRep *bitmaprep = _image.bitmapImageRepresentation;
-    if (!bitmaprep) {
+    NSData *data = [ImageDragSource pngDataForImage:_image];
+    if (!data)
         NSLog(@"ImageDragSource: no image to drag");
+    return data;
+}
+
++ (nullable NSData *)pngDataForImage:(nullable NSImage *)image {
+    NSBitmapImageRep *bitmaprep = image.bitmapImageRepresentation;
+    if (!bitmaprep)
         return nil;
-    }
 
     NSDictionary *props = @{ NSImageInterlaced: @(NO) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];

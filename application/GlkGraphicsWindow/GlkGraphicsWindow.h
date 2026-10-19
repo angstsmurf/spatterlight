@@ -1,6 +1,6 @@
 #import "GlkWindow.h"
 
-@interface GlkGraphicsWindow : GlkWindow <NSSecureCoding, NSFilePromiseProviderDelegate, NSDraggingSource, NSPasteboardItemDataProvider>
+@interface GlkGraphicsWindow : GlkWindow <NSSecureCoding>
 
 @property NSImage *image;
 @property BOOL showingImage;

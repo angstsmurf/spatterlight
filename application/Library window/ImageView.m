@@ -23,7 +23,7 @@
 #import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
-#import "MyFilePromiseProvider.h"
+#import "ImageDragSource.h"
 
 #import "NotificationBezel.h"
 #import "FolderAccess.h"
@@ -43,6 +43,7 @@
     NSArray<NSString *> *imageTypes;
     CALayer *imageLayer;
     CAShapeLayer *shapeLayer;
+    ImageDragSource *dragSource; // made on first drag
 }
 
 @property NSOperationQueue *workQueue;
@@ -649,8 +650,11 @@
             canAccept = YES;
     }
 
-    if ([draggingInfo.draggingSource isKindOfClass:[ImageView class]]) {
-        ImageView *source = (ImageView *)draggingInfo.draggingSource;
+    id dragSourceObject = draggingInfo.draggingSource;
+    if ([dragSourceObject isKindOfClass:[ImageDragSource class]])
+        dragSourceObject = ((ImageDragSource *)dragSourceObject).sourceView;
+    if ([dragSourceObject isKindOfClass:[ImageView class]]) {
+        ImageView *source = (ImageView *)dragSourceObject;
         Game *sourcegame = [source gameFromObjectID];
         Game *targetgame = [self gameFromObjectID];
         if ([sourcegame.hashTag isEqualToString:targetgame.hashTag])
@@ -880,11 +884,6 @@
 
 #pragma mark Dragging source stuff
 
-- (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
-{
-    return NSDragOperationCopy;
-}
-
 - (void)myMouseDown:(NSEvent *)event {
     _isSelected = YES;
     [self.window makeFirstResponder:self];
@@ -922,131 +921,26 @@
                 if (_isPlaceholder)
                     return;
 
-                NSDraggingItem *dragItem;
-
-                if (@available(macOS 10.14, *)) {
-
-                    MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
-
-                    dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:provider];
-
-                } else {
-                    NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
-
-                    [pasteboardItem setDataProvider:self forTypes:@[NSPasteboardTypePNG, PasteboardFileURLPromise, PasteboardFilePromiseContent]];
-
-                    // Create the dragging item for the drag operation
-                    dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
+                if (!_image)
+                    return;
+                if (!dragSource) {
+                    dragSource = [ImageDragSource new];
+                    dragSource.operationQueue = self.workQueue;
                 }
-
-                [dragItem setDraggingFrame:self.bounds contents:_image];
-                NSDraggingSession *session = [self beginDraggingSessionWithItems:@[dragItem] event:event source:self];
+                NSDraggingSession *session =
+                    [dragSource dragImage:_image
+                                     from:self
+                                    event:event
+                                 filename:[self gameFromObjectID].path.lastPathComponent.stringByDeletingPathExtension
+                                    frame:self.bounds];
                 _numberForSelfSourcedDrag = session.draggingSequenceNumber;
             }
         }
     }];
 }
 
-// For pre-10.14
-- (void)pasteboard:(NSPasteboard *)sender item:(NSPasteboardItem *)item provideDataForType:(NSString *)type
-{
-    //sender has accepted the drag and now we need to send the data for the type we promised
-    if ( [type isEqual:NSPasteboardTypePNG]) {
-        //set data for PNG type on the pasteboard as requested
-        [sender setData:self.pngData forType:NSPasteboardTypePNG];
-    } else if ([type isEqualTo:PasteboardFilePromiseContent]) {
-        // The receiver will send this asking for the content type for the drop, to figure out
-        // whether it wants to/is able to accept the file type.
-
-        [sender setString:@"public.png" forType: PasteboardFilePromiseContent];
-    }
-    else if ([type isEqualTo: PasteboardFileURLPromise]) {
-        // The receiver is interested in our data, and is happy with the format that we told it
-        // about during the PasteboardFilePromiseContent request.
-        // The receiver has passed us a URL where we are to write our data to.
-
-        NSString *str = [sender stringForType:PasteboardFilePasteLocation];
-        NSURL *destinationFolderURL = [NSURL fileURLWithPath:str isDirectory:YES];
-        if (!destinationFolderURL) {
-            NSLog(@"ERROR:- Receiver didn't tell us where to put the file?");
-            return;
-        }
-
-        // Here, we build the file destination using the receivers destination URL
-        Game *game = [self gameFromObjectID];
-        NSString *baseFileName = game.path.lastPathComponent.stringByDeletingPathExtension;
-
-        if (!baseFileName.length)
-            baseFileName = @"image";
-
-        NSString *fileName = [baseFileName stringByAppendingPathExtension:@"png"];
-
-        NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName isDirectory:NO];
-
-        NSUInteger index = 2;
-
-        // Handle duplicate file names
-        // by slapping on a number at the end.
-        while ([[NSFileManager defaultManager] fileExistsAtPath:destinationFileURL.path]) {
-            NSString *newFileName = [NSString stringWithFormat:@"%@ %ld", baseFileName, index];
-            newFileName = [newFileName stringByAppendingPathExtension:@"png"];
-            destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:newFileName isDirectory:NO];
-            index++;
-        }
-
-        NSData *bitmapData = self.pngData;
-
-        NSError *error = nil;
-
-        if (![bitmapData writeToURL:destinationFileURL options:NSDataWritingAtomic error:&error]) {
-            NSLog(@"Error: Could not write PNG data to url %@: %@", destinationFileURL.path, error);
-        }
-
-        // And finally, tell the receiver where we wrote our file
-        if (destinationFileURL.path.length > 0)
-            [sender setString:destinationFileURL.path forType:PasteboardFileURLPromise];
-    }
-}
-
-- (NSString *)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider
-                  fileNameForType:(NSString *)fileType {
-    Game *game = [self gameFromObjectID];
-    NSString *fileName = [game.path.lastPathComponent.stringByDeletingPathExtension stringByAppendingPathExtension:@"png"];
-    if (!fileName.length)
-        fileName = @"image.png";
-
-    return fileName;
-}
-
-- (void)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider
-          writePromiseToURL:(NSURL *)url
-          completionHandler:(void (^)(NSError *errorOrNil))completionHandler {
-
-    NSData *bitmapData = self.pngData;
-
-    NSError *error = nil;
-
-    if (![bitmapData writeToURL:url options:NSDataWritingAtomic error:&error]) {
-        NSLog(@"Error: Could not write PNG data to url %@: %@", url.path, error);
-        completionHandler(error);
-        return;
-    }
-
-    completionHandler(nil);
-    NSLog(@"Your image has been saved to %@", url.path);
-}
-
-- (NSOperationQueue *)operationQueueForFilePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider {
-    return self.workQueue;
-}
-
 - (nullable NSData *)pngData {
-    NSBitmapImageRep *bitmaprep = self.image.bitmapImageRepresentation;
-    if (!bitmaprep)
-        return nil;
-
-    NSDictionary *props = @{ NSImageInterlaced: @(NO) };
-    return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];
+    return [ImageDragSource pngDataForImage:self.image];
 }
 
 #pragma mark Accessibility

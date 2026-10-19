@@ -11,7 +11,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ImageView : NSControl <NSDraggingDestination, NSDraggingSource, NSFilePromiseProviderDelegate, NSPasteboardTypeOwner, NSPasteboardItemDataProvider>
+@interface ImageView : NSControl <NSDraggingDestination>
 
 @property BOOL isSelected;
 @property BOOL isReceivingDrag;
