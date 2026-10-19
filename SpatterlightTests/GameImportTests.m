@@ -2249,6 +2249,155 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                    @"a 12-byte non-IFRS FORM is not a Blorb");
 }
 
+// Assemble a Blorb from Pict resources (number -> payload) and trailing
+// chunks (fourCC -> payload). Resources come first, in the order given, and
+// the chunks follow, padded to even lengths.
+- (NSData *)blorbWithPictures:(NSArray<NSArray *> *)pictures chunks:(NSArray<NSArray *> *)chunks {
+    NSMutableData *data = [NSMutableData data];
+    blorbAppendFourCC(data, "FORM");
+    blorbAppendBE32(data, 0);
+    blorbAppendFourCC(data, "IFRS");
+    blorbAppendFourCC(data, "RIdx");
+    blorbAppendBE32(data, (uint32_t)(4 + 12 * pictures.count));
+    blorbAppendBE32(data, (uint32_t)pictures.count);
+
+    NSMutableData *body = [NSMutableData data];
+    for (NSArray *chunk in chunks) {
+        NSData *payload = chunk[1];
+        blorbAppendFourCC(body, [chunk[0] UTF8String]);
+        blorbAppendBE32(body, (uint32_t)payload.length);
+        [body appendData:payload];
+        if (payload.length & 1)
+            [body appendBytes:"\0" length:1];
+    }
+
+    NSUInteger offset = data.length + 12 * pictures.count + body.length;
+    NSMutableData *pictData = [NSMutableData data];
+    for (NSArray *picture in pictures) {
+        blorbAppendFourCC(data, "Pict");
+        blorbAppendBE32(data, [picture[0] unsignedIntValue]);
+        blorbAppendBE32(data, (uint32_t)(offset + pictData.length));
+        NSData *payload = picture[1];
+        blorbAppendFourCC(pictData, "PNG ");
+        blorbAppendBE32(pictData, (uint32_t)payload.length);
+        [pictData appendData:payload];
+        if (payload.length & 1)
+            [pictData appendBytes:"\0" length:1];
+    }
+    [data appendData:body];
+    [data appendData:pictData];
+    return data;
+}
+
+// 40 bytes, so FileSignature gives it a real hash.
+static NSData *blorbFakeImage(char fill) {
+    NSMutableData *image = [NSMutableData dataWithLength:40];
+    memset(image.mutableBytes, fill, 40);
+    return image;
+}
+
+// Without an Fspc chunk the first picture is used as a fake frontispiece.
+// Asking twice used to clear the flag and could pick a different picture.
+- (void)testBlorbCoverImageWithoutFspcIsStable {
+    NSData *data = [self blorbWithPictures:@[@[@3, blorbFakeImage('a')], @[@1, blorbFakeImage('b')]] chunks:@[]];
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    NSData *first = blorb.coverImageData;
+    XCTAssertEqualObjects(first, blorbFakeImage('a'), @"the first picture in index order is the fallback cover");
+    XCTAssertTrue(blorb.fakeFrontispiece);
+    XCTAssertEqualObjects(blorb.coverImageData, first);
+    XCTAssertTrue(blorb.fakeFrontispiece, @"a second call must not reset the flag");
+}
+
+- (void)testBlorbCoverImageUsesFspc {
+    uint8_t fspc[4] = {0, 0, 0, 1};
+    NSData *data = [self blorbWithPictures:@[@[@3, blorbFakeImage('a')], @[@1, blorbFakeImage('b')]]
+                                    chunks:@[@[@"Fspc", [NSData dataWithBytes:fspc length:4]]]];
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertEqualObjects(blorb.coverImageData, blorbFakeImage('b'));
+    XCTAssertFalse(blorb.fakeFrontispiece);
+    XCTAssertFalse(blorb.fakeFrontispiece, @"reading the flag first or twice gives the same answer");
+}
+
+// SNam is UTF-16BE; the other text chunks are ASCII. An odd-length chunk is
+// padded, and the chunk after it must still be found.
+- (void)testBlorbOptionalTextChunks {
+    NSData *snam = [@"Zork Zero" dataUsingEncoding:NSUTF16BigEndianStringEncoding];
+    NSData *data = [self blorbWithPictures:@[]
+                                    chunks:@[@[@"SNam", snam],
+                                             @[@"AUTH", [@"Odd" dataUsingEncoding:NSASCIIStringEncoding]],
+                                             @[@"(c) ", [@"1988" dataUsingEncoding:NSASCIIStringEncoding]]]];
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertEqualObjects(blorb.optionalChunks[@"SNam"], @"Zork Zero");
+    XCTAssertEqualObjects(blorb.optionalChunks[@"AUTH"], @"Odd");
+    XCTAssertEqualObjects(blorb.optionalChunks[@"(c) "], @"1988");
+}
+
+- (void)testBlorbIFhd {
+    const uint8_t ifhd[13] = {0x00, 0x58, '8', '4', '0', '7', '2', '6', 0xAB, 0xCD, 0, 0, 0};
+    NSData *data = [self blorbWithPictures:@[] chunks:@[@[@"IFhd", [NSData dataWithBytes:ifhd length:13]]]];
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertEqual(blorb.releaseNumber, 88u);
+    XCTAssertEqualObjects(blorb.serialNumber, @"840726");
+    XCTAssertEqual(blorb.checkSum, 0xABCDu);
+    XCTAssertEqualObjects(blorb.ifidFromIFhd, @"ZCODE-88-840726", @"serials that look like 1970s-1990s dates omit the checksum");
+
+    // Too short to hold the fields: ignored rather than over-read.
+    data = [self blorbWithPictures:@[] chunks:@[@[@"IFhd", [NSData dataWithBytes:ifhd length:9]]]];
+    blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertNil(blorb.serialNumber);
+    XCTAssertNil(blorb.ifidFromIFhd);
+
+    XCTAssertEqualObjects([Blorb zcodeIFIDWithRelease:1 serial:@"000000" checksum:0x1234], @"ZCODE-1-000000");
+    XCTAssertEqualObjects([Blorb zcodeIFIDWithRelease:1 serial:@"123456" checksum:0x1234], @"ZCODE-1-123456-1234");
+    XCTAssertEqualObjects([Blorb zcodeIFIDWithRelease:1 serial:@"12" checksum:0x1234], @"ZCODE-1-12-1234",
+                          @"a short serial must not throw");
+}
+
+// A chunk length with the top bit set used to be clamped to UINT32_MAX by
+// unpackLong. Either way it runs past the file and must be skipped.
+- (void)testBlorbHugeChunkLength {
+    NSMutableData *data = [[self blorbWithPictures:@[] chunks:@[]] mutableCopy];
+    blorbAppendFourCC(data, "AUTH");
+    blorbAppendBE32(data, UINT32_MAX);
+    blorbAppendFourCC(data, "Zork");
+    Blorb *blorb = [[Blorb alloc] initWithData:data];
+    XCTAssertNotNil(blorb);
+    XCTAssertNil(blorb.optionalChunks[@"AUTH"]);
+}
+
+- (void)testIFFHelpers {
+    const uint8_t bytes[] = {'F', 'O', 'R', 'M', 0x80, 0, 0, 1, 'I', 'F', 'Z', 'S', 'I', 'F', 'h', 'd', 0, 0, 0, 13};
+    XCTAssertEqual(unpackLong(bytes + 4), 0x80000001u, @"no hidden clamp for values with the top bit set");
+    XCTAssertEqual(unpackShort(bytes + 4), 0x8000u);
+    XCTAssertEqual(IFFID((char)0xA9, 'a', 'b', 'c'), 0xA9616263u, @"high-bit characters are not sign-extended");
+
+    XCTAssertTrue(isForm(bytes, sizeof bytes, 'I', 'F', 'Z', 'S'));
+    XCTAssertFalse(isForm(bytes, 11, 'I', 'F', 'Z', 'S'), @"too short for a FORM header");
+    XCTAssertFalse(isForm(NULL, 12, 'I', 'F', 'Z', 'S'));
+
+    uint32_t chunkID = 0, length = 0;
+    XCTAssertTrue(chunkHeaderAt(bytes, sizeof bytes, 12, &chunkID, &length));
+    XCTAssertEqual(chunkID, IFFID('I', 'F', 'h', 'd'));
+    XCTAssertEqual(length, 13u);
+    XCTAssertFalse(chunkHeaderAt(bytes, sizeof bytes, 13, &chunkID, &length), @"header runs past the end");
+    XCTAssertFalse(chunkHeaderAt(bytes, sizeof bytes, 1000, &chunkID, &length), @"offset past the end");
+    XCTAssertFalse(chunkHeaderAt(bytes, sizeof bytes, SIZE_MAX, &chunkID, &length));
+
+    XCTAssertEqual(paddedLength(0), 0u);
+    XCTAssertEqual(paddedLength(13), 14u);
+    XCTAssertEqual(paddedLength(UINT32_MAX), (size_t)UINT32_MAX + 1);
+    XCTAssertEqual(paddedLength(SIZE_MAX), SIZE_MAX, @"saturates instead of wrapping to 0");
+
+    IFhdInfo info;
+    const uint8_t ifhd[10] = {0, 2, '8', '6', '0', '9', '1', '0', 0x12, 0x34};
+    XCTAssertTrue(parseIFhd(ifhd, 10, &info));
+    XCTAssertEqual(info.release, 2u);
+    XCTAssertEqual(memcmp(info.serial, "860910", 6), 0);
+    XCTAssertEqual(info.checksum, 0x1234u);
+    XCTAssertFalse(parseIFhd(ifhd, 9, &info));
+    XCTAssertFalse(parseIFhd(NULL, 10, &info));
+}
+
 #pragma mark - Crossed filename-title repair
 
 // Build a standalone in-memory context on the Spatterlight model, independent

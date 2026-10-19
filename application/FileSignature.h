@@ -12,6 +12,8 @@ NS_ASSUME_NONNULL_BEGIN
 @interface FileSignature : NSObject
 
 + (NSString *)sha256StringFromData:(NSData *)data;
+// Upper-case hex digits, two per byte.
++ (NSString *)hexStringFromData:(NSData *)data;
 + (NSString *)signatureFromData:(NSData *)theData;
 
 @end

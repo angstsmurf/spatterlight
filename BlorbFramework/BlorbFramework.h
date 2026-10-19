@@ -8,7 +8,7 @@ Header for MacOS app framework
 
 #import <Foundation/Foundation.h>
 
-#include <BlorbFramework/iff.h>
+#import <BlorbFramework/iff.h>
 #import <BlorbFramework/Blorb.h>
 #import <BlorbFramework/BlorbResource.h>
 

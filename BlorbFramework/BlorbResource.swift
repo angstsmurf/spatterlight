@@ -1,11 +1,11 @@
 //
-//  Resource.swift
+//  BlorbResource.swift
 //  BlorbFramework
 //
 //  Created by C.W. Betts on 11/30/23.
 //
 
-import Cocoa
+import Foundation
 
 extension Blorb {
     @objcMembers @objc(BlorbResource) public class Resource : NSObject {

@@ -1,12 +1,15 @@
 //
 //  Blorb.h
-//  Yazmin
+//  Spatterlight
 //
-//  Created by David Schweinsberg on 21/11/07.
+//  Based on code from Yazmin by David Schweinsberg
+//  https://github.com/yazmin
+//
+//  Original code created by David Schweinsberg on 21/11/07.
 //  Copyright 2007 David Schweinsberg. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,28 +22,42 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nullable) NSData *pictureData;
 @property(readonly, nullable) NSData *metaData;
 
-@property(readonly, nullable) NSString *snam;
+// From the IFhd chunk. Only read for Z-code Blorbs (or Blorbs without an
+// executable): Glulx identifies a game by the first 128 bytes of the story
+// file instead, and that is left to Babel.
+@property(readonly) NSUInteger releaseNumber;
+@property(readonly) NSUInteger checkSum;
+@property(readonly, nullable) NSString *serialNumber;
 
-@property NSUInteger releaseNumber;
-@property NSUInteger checkSum;
-@property(nullable) NSString *serialNumber;
+// Text chunks keyed by chunk ID: ANNO, AUTH, "(c) " and SNam.
+@property(readonly) NSDictionary<NSString *, NSString *> *optionalChunks;
 
-@property(nullable) NSMutableDictionary *optionalChunks;
-@property BOOL fakeFrontispiece;
+// The image returned by coverImageData, and whether it was picked from the
+// pictures because the file has no Fspc chunk.
+@property(readonly, nullable) NSData *coverImageData;
+@property(readonly) BOOL fakeFrontispiece;
+
+// ZCODE-release-serial[-checksum], or nil if there is no IFhd chunk.
+@property(readonly, nullable) NSString *ifidFromIFhd;
 
 + (BOOL)isBlorbURL:(nullable NSURL *)url;
+// Checks for a FORM IFRS header.
 + (BOOL)isBlorbData:(NSData *)data;
 
-- (instancetype)initWithData:(nullable NSData *)data NS_DESIGNATED_INITIALIZER;
+// The Treaty of Babel IFID for a Z-code game, as built from its IFhd or
+// story file header fields. Shared with the Quetzal save code.
++ (NSString *)zcodeIFIDWithRelease:(NSUInteger)release
+                            serial:(NSString *)serial
+                          checksum:(NSUInteger)checksum;
+
+// Returns nil for data too short to hold a FORM header and a chunk. Does not
+// check that the FORM type is IFRS; use isBlorbData: for that.
+- (nullable instancetype)initWithData:(nullable NSData *)data NS_DESIGNATED_INITIALIZER;
 - (instancetype)init __attribute__((unavailable));
 
 - (nullable NSData *)dataForResource:(BlorbResource *)resource;
 - (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage;
 - (nullable BlorbResource *)findResourceOfUsage:(FourCharCode)usage;
-
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSData * _Nullable coverImageData;
-
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString * _Nullable ifidFromIFhd;
 
 @end
 

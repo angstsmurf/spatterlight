@@ -1261,72 +1261,63 @@
     NSString __block *title = nil;
     NSString *ifid = nil;
     if (data) {
-        const void *ptr = data.bytes;
-        if (isForm(ptr, 'I', 'F', 'Z', 'S') || isForm(ptr, 'B', 'F', 'Z', 'S')) {
-            ptr += 12;
-            unsigned int chunkID;
-            NSUInteger length = chunkIDAndLength(ptr, &chunkID);
-            if (chunkID == IFFID('I', 'F', 'h', 'd')) {
-                // Game Identifier Chunk
-                NSUInteger releaseNumber = unpackShort(ptr + 8);
+        const unsigned char *bytes = data.bytes;
+        NSUInteger dataLength = data.length;
+        uint32_t chunkID, length;
+        IFhdInfo info;
+        if ((isForm(bytes, dataLength, 'I', 'F', 'Z', 'S') || isForm(bytes, dataLength, 'B', 'F', 'Z', 'S')) &&
+            chunkHeaderAt(bytes, dataLength, 12, &chunkID, &length) && chunkID == IFFID('I', 'F', 'h', 'd') &&
+            length <= dataLength - 20 && parseIFhd(bytes + 20, length, &info)) {
+            // Game Identifier Chunk
+            NSUInteger releaseNumber = info.release;
+            NSUInteger checksum = info.checksum;
+            NSString *serialNum = [[NSString alloc] initWithBytes:info.serial length:6 encoding:NSASCIIStringEncoding];
 
-                NSData *serialData = [NSData dataWithBytes:ptr + 10 length:6];
-                NSUInteger checksum  = unpackShort(ptr + 16);
-                NSString *serialNum = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+            // See if we can find a path to the game file as well
+            NSString __block *path = nil;
+            NSUInteger next = 20 + paddedLength(length);
+            if (chunkHeaderAt(bytes, dataLength, next, &chunkID, &length) &&
+                chunkID == IFFID('I', 'n', 't', 'D') &&
+                length >= 12 && length <= dataLength - next - 8) {
+                // Found IntD chunk! The path follows its 12-byte header.
+                NSData *pathData = [data subdataWithRange:NSMakeRange(next + 20, length - 12)];
+                path = [[NSString alloc] initWithData:pathData encoding:NSASCIIStringEncoding];
+            }
 
-                // See if we can find a path to the game file as well
-                NSString __block *path = nil;
-                ptr += paddedLength(length) + 8;
-                length = chunkIDAndLength(ptr, &chunkID);
-                if (chunkID == IFFID('I', 'n', 't', 'D')) {
-                    // Found IntD chunk!
-                    NSData *pathData = [NSData dataWithBytes:ptr + 20 length:length - 12];
-                    path = [[NSString alloc] initWithData:pathData encoding:NSASCIIStringEncoding];
-                }
+            NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
+            if (context) {
+                // Managed objects may only be accessed on their context's
+                // queue, so read everything we need from the game in here
+                [context performBlockAndWait:^{
+                    NSError *error = nil;
+                    NSArray *fetchedObjects;
 
-                NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
-                if (context) {
-                    // Managed objects may only be accessed on their context's
-                    // queue, so read everything we need from the game in here
-                    [context performBlockAndWait:^{
-                        NSError *error = nil;
-                        NSArray *fetchedObjects;
+                    NSFetchRequest *fetchRequest = [Game fetchRequest];
+                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"serialString LIKE[c] %@ AND releaseNumber == %d AND checksum == %d", serialNum, releaseNumber, checksum];
+                    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
 
-                        NSFetchRequest *fetchRequest = [Game fetchRequest];
-                        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"serialString LIKE[c] %@ AND releaseNumber == %d AND checksum == %d", serialNum, releaseNumber, checksum];
+                    //If no match, look for path
+                    if (!fetchedObjects.count && path.length) {
+                        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path LIKE[c] %@", path];
                         fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-
-                        //If no match, look for path
-                        if (!fetchedObjects.count && path.length) {
-                            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path LIKE[c] %@", path];
-                            fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-                        }
-
-                        if (fetchedObjects.count > 1)
-                            NSLog(@"Found %ld matching games!", fetchedObjects.count);
-                        Game *game = fetchedObjects.firstObject;
-                        if (game) {
-                            title = game.metadata.title;
-                            [self addImageFromGame:game];
-                        }
-                    }];
-                }
-
-                if (!title) {
-                    if (path.length) {
-                        title = path.lastPathComponent;
-                    } else if (!ifid) {
-                        serialNum = [serialNum stringByReplacingOccurrencesOfString:@"[^0-Z]" withString:@"-" options:NSRegularExpressionSearch range:NSMakeRange(0, 6)];
-
-                        NSInteger date = serialNum.intValue;
-
-                        if ((date < 700000 || date > 900000) && date != 0 && date != 999999) {
-                            ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@-%04lX", releaseNumber, serialNum, (unsigned long)checksum];
-                        } else {
-                            ifid = [NSString stringWithFormat:@"ZCODE-%ld-%@", releaseNumber, serialNum];
-                        }
-                        title = [self titleFromIfid:ifid];
                     }
+
+                    if (fetchedObjects.count > 1)
+                        NSLog(@"Found %ld matching games!", fetchedObjects.count);
+                    Game *game = fetchedObjects.firstObject;
+                    if (game) {
+                        title = game.metadata.title;
+                        [self addImageFromGame:game];
+                    }
+                }];
+            }
+
+            if (!title) {
+                if (path.length) {
+                    title = path.lastPathComponent;
+                } else if (!ifid) {
+                    ifid = [Blorb zcodeIFIDWithRelease:releaseNumber serial:serialNum ?: @"" checksum:checksum];
+                    title = [self titleFromIfid:ifid];
                 }
             }
         }
@@ -1338,29 +1329,15 @@
 }
 
 - (NSString *)hashFromQuetzalSave:(NSData *)data {
-    NSMutableString *hexString = nil;
-    if (data.length >= 84) {
-        const void *ptr = data.bytes;
-        if (isForm(ptr, 'I', 'F', 'Z', 'S')) {
-            ptr += 12;
-            unsigned int chunkID;
-            chunkIDAndLength(ptr, &chunkID);
-            if (chunkID == IFFID('I', 'F', 'h', 'd')) {
-                // Game Identifier Chunk
-                Byte *bytes64 = (Byte *)malloc(64);
-                [data getBytes:bytes64
-                         range:NSMakeRange(20, 64)];
-
-                hexString = [NSMutableString stringWithCapacity:(64 * 2)];
-
-                for (int i = 0; i < 64; ++i) {
-                    [hexString appendFormat:@"%02x", (unsigned int)bytes64[i]];
-                }
-                free(bytes64);
-            }
-        }
+    // The first 64 bytes of the IFhd payload, which for Glulx saves is the
+    // start of the game file header.
+    uint32_t chunkID, length;
+    if (data.length >= 84 && isForm(data.bytes, data.length, 'I', 'F', 'Z', 'S') &&
+        chunkHeaderAt(data.bytes, data.length, 12, &chunkID, &length) &&
+        chunkID == IFFID('I', 'F', 'h', 'd')) {
+        return [FileSignature hexStringFromData:[data subdataWithRange:NSMakeRange(20, 64)]].lowercaseString;
     }
-    return hexString;
+    return nil;
 }
 
 + (NSString *)ifidFromData:(NSData *)data {

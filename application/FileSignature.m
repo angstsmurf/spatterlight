@@ -27,17 +27,15 @@
     // CC_SHA256 performs digest calculation and places the result in the caller-supplied buffer for digest (resultCString).
     CC_SHA256(data.bytes, length, resultCString);
 
-    return [NSString stringWithFormat:
-                @"%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X%02X",
-            resultCString[0], resultCString[1], resultCString[2], resultCString[3],
-            resultCString[4], resultCString[5], resultCString[6], resultCString[7],
-            resultCString[8], resultCString[9], resultCString[10], resultCString[11],
-            resultCString[12], resultCString[13], resultCString[14], resultCString[15],
-            resultCString[16], resultCString[17], resultCString[18], resultCString[19],
-            resultCString[20], resultCString[21], resultCString[22], resultCString[23],
-            resultCString[24], resultCString[25], resultCString[26], resultCString[27],
-            resultCString[28], resultCString[29], resultCString[30], resultCString[31]
-    ];
+    return [self hexStringFromData:[NSData dataWithBytesNoCopy:resultCString length:CC_SHA256_DIGEST_LENGTH freeWhenDone:NO]];
+}
+
++ (NSString *)hexStringFromData:(NSData *)data {
+    const unsigned char *bytes = data.bytes;
+    NSMutableString *hexString = [NSMutableString stringWithCapacity:data.length * 2];
+    for (NSUInteger i = 0; i < data.length; i++)
+        [hexString appendFormat:@"%02X", bytes[i]];
+    return hexString;
 }
 
 + (NSString *)signatureFromData:(NSData *)theData {

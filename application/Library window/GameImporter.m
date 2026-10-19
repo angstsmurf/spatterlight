@@ -601,6 +601,9 @@ void freeContext(void **ctx) {
     if (!found) {
         if (!data)
             data = [NSData dataWithContentsOfFile:path];
+        // The fields read below end at byte 30 of the Z-machine header.
+        if (data.length < 30)
+            return;
         const unsigned char *ptr = data.bytes;
         game.releaseNumber = shortAtPointer(ptr + 2);
         NSData *serialData = [NSData dataWithBytes:ptr + 18 length:6];
