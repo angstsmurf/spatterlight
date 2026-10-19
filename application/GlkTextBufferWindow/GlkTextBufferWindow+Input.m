@@ -415,7 +415,7 @@
         if ([history empty])
             [self.glkctl speakStringNow:@"No commands entered"];
         else
-            [self.glkctl speakStringNow:@"Start of command history"];
+            [self.glkctl speakStringNow:NSLocalizedString(@"Start of command history", nil)];
     }
 }
 
@@ -434,7 +434,7 @@
         if ([history empty])
             [self.glkctl speakStringNow:@"No commands entered"];
         else
-            [self.glkctl speakStringNow:@"End of command history"];
+            [self.glkctl speakStringNow:NSLocalizedString(@"End of command history", nil)];
     }
 }
 
