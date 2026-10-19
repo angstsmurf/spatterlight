@@ -18,6 +18,7 @@
 #import "GlkSoundChannel.h"
 #import "SpectrumBeeper.h"
 #import "SFBSoundBackend.h"
+#import "MIDISoundBackend.h"
 
 @interface GlkSoundChannel (Testing)
 - (glui32)remainingFadeDuration;
@@ -376,6 +377,53 @@ static NSData *TinyMIDI(void) {
     XCTAssertEqualObjects(restored.soundNotifications, (@[@[@7, @4]]));
     XCTAssertEqual(handler.soundNotifications.count, 0U, @"the stopped original stays quiet");
     [restored stopAllAndCleanUp];
+}
+
+/// Format 1, 480 ticks a beat: a one-beat note on channel 1 and a three-beat
+/// note on channel 2, each in its own track.
+static NSData *UnevenTracksMIDI(void) {
+    static const uint8_t bytes[] = {
+        'M', 'T', 'h', 'd', 0, 0, 0, 6, 0, 1, 0, 2, 0x01, 0xE0,
+        'M', 'T', 'r', 'k', 0, 0, 0, 13,
+        0x00, 0x90, 60, 64,
+        0x83, 0x60, 0x80, 60, 0,
+        0x00, 0xFF, 0x2F, 0x00,
+        'M', 'T', 'r', 'k', 0, 0, 0, 13,
+        0x00, 0x91, 64, 64,
+        0x8B, 0x20, 0x81, 64, 0,
+        0x00, 0xFF, 0x2F, 0x00,
+    };
+    return [NSData dataWithBytes:bytes length:sizeof bytes];
+}
+
+/// Seconds from play to the finish call, after making sure there is only one.
+- (NSTimeInterval)secondsToFinishMIDI:(NSData *)midi repeats:(glsi32)repeats {
+    MIDISoundBackend *backend = [MIDISoundBackend new];
+    XCTestExpectation *done = [self expectationWithDescription:@"finished"];
+    NSDate *start = [NSDate date];
+    __block NSTimeInterval took = 0;
+    __block int calls = 0;
+    XCTAssertTrue([backend playData:midi format:GlkSoundBlorbFormatMIDI repeats:repeats position:0 paused:NO volume:0 finished:^{
+        if (calls++ == 0) {
+            took = -start.timeIntervalSinceNow;
+            [done fulfill];
+        }
+    }]);
+    [self waitForExpectations:@[done] timeout:10];
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.7]];
+    XCTAssertEqual(calls, 1);
+    [backend stop];
+    return took;
+}
+
+/// A loop count of N is N passes, each half a second at the default tempo.
+- (void)testMIDIRepeatsArePasses {
+    XCTAssertGreaterThan([self secondsToFinishMIDI:TinyMIDI() repeats:3], 1.4);
+}
+
+/// The sequence ends with its longest track, not with the first.
+- (void)testMIDIFinishesWithLongestTrack {
+    XCTAssertGreaterThan([self secondsToFinishMIDI:UnevenTracksMIDI() repeats:1], 1.4);
 }
 
 #pragma mark Backends
