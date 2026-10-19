@@ -3,7 +3,7 @@
 //  SpatterlightTests
 //
 //  Tests for the iFiction XML parsers in "iFiction/" (IFictionMetadata,
-//  IFStory, IFIdentification, IFZoomID, IFBibliographic, IFDB), for copying
+//  IFStory, IFIdentification, IFBibliographic, IFDB), for copying
 //  their results into Core Data (Metadata+IFiction), and for the cover
 //  bookkeeping in +[CoverImageStore insertImageData:inMetadataID:context:].
 //  Everything runs on an in-memory store; nothing touches the network.
@@ -15,7 +15,6 @@
 #import "IFictionMetadata.h"
 #import "IFStory.h"
 #import "IFIdentification.h"
-#import "IFZoomID.h"
 #import "IFBibliographic.h"
 #import "IFCoverDescription.h"
 #import "IFDB.h"
@@ -184,19 +183,19 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
 
 - (void)testZoomIfidMatchesBabel {
     // Date-like serials get the checksum, printed like babel's %04X
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"940726", @"88", @"a4b2")], @"ZCODE-88-940726-A4B2");
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"940726", @"88", @"3f")], @"ZCODE-88-940726-003F");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"940726", @"88", @"a4b2")], @"ZCODE-88-940726-A4B2");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"940726", @"88", @"3f")], @"ZCODE-88-940726-003F");
     // "000000", serials starting with 8 and non-digit serials do not
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"000000", @"1", @"ABCD")], @"ZCODE-1-000000");
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"870915", @"5", @"ABCD")], @"ZCODE-5-870915");
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"A10101", @"2", @"ABCD")], @"ZCODE-2-A10101");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"000000", @"1", @"ABCD")], @"ZCODE-1-000000");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"870915", @"5", @"ABCD")], @"ZCODE-5-870915");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"A10101", @"2", @"ABCD")], @"ZCODE-2-A10101");
     // Non-alphanumeric serial characters become dashes
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"12 4.6", @"3", @"0001")], @"ZCODE-3-12-4-6-0001");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"12 4.6", @"3", @"0001")], @"ZCODE-3-12-4-6-0001");
     // A missing checksum is left out rather than printed as "(null)"
-    XCTAssertEqualObjects([IFZoomID ifidStringFromElement:ZoomID(@"940726", @"88", nil)], @"ZCODE-88-940726");
+    XCTAssertEqualObjects([IFIdentification ifidStringFromZoomIDElement:ZoomID(@"940726", @"88", nil)], @"ZCODE-88-940726");
     // No serial, or not Z-code: no IFID
-    XCTAssertNil([IFZoomID ifidStringFromElement:ZoomID(nil, @"88", @"ABCD")]);
-    XCTAssertNil([IFZoomID ifidStringFromElement:Element(@"<id><format>glulx</format><zcode><serial>840726</serial></zcode></id>")]);
+    XCTAssertNil([IFIdentification ifidStringFromZoomIDElement:ZoomID(nil, @"88", @"ABCD")]);
+    XCTAssertNil([IFIdentification ifidStringFromZoomIDElement:Element(@"<id><format>glulx</format><zcode><serial>840726</serial></zcode></id>")]);
 }
 
 - (void)testZoomStoryUsesStoryElementAsBibliographic {
@@ -204,7 +203,6 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
                       IFiction(@"<story><id><format>zcode</format><zcode><serial>940726</serial><release>88</release><checksum>A4B2</checksum></zcode></id>"
                                "<id><format>zcode</format><zcode><serial>940727</serial><release>89</release><checksum>0001</checksum></zcode></id>"
                                "<title>Zoomed</title></story>")].firstStory;
-    XCTAssertTrue([story.identification isKindOfClass:[IFZoomID class]]);
     NSSet *expected = [NSSet setWithArray:@[ @"ZCODE-88-940726-A4B2", @"ZCODE-89-940727-0001" ]];
     XCTAssertEqualObjects(story.identification.ifids, expected);
     XCTAssertEqualObjects(story.identification.format, @"zcode");

@@ -572,7 +572,6 @@
 		265757BE39AE5088FF327672 /* IFictionMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E0239FFB0900FB24C0 /* IFictionMetadata.m */; };
 		7591FB1105DD324A7057DDB8 /* IFStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E4239FFB0900FB24C0 /* IFStory.m */; };
 		A0B23F5908006296223E844A /* IFIdentification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E2239FFB0900FB24C0 /* IFIdentification.m */; };
-		358E4D91F5503C742B8DCDE7 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		B847ADA7B973D9E50739F0B8 /* IFBibliographic.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */; };
 		5F3D4796DBA61A8315223DB7 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
 		4EAB7698371D1978C7BD2F97 /* IFDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673DC239FFB0900FB24C0 /* IFDB.m */; };
@@ -771,7 +770,6 @@
 		C3484A7C2F105FF1003D6B4C /* writetiff.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C384A6812C6EB06C0081FC50 /* writetiff.cpp */; };
 		C349856C2FD095B7005ABD84 /* libdecompressz80.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797BB2EF02497008A6A0D /* libdecompressz80.dylib */; };
 		C349B4DC28803A7C00D99943 /* parseinput.c in Sources */ = {isa = PBXBuildFile; fileRef = C349B4DA28803A7C00D99943 /* parseinput.c */; };
-		C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
 		C34E570F2CF3941200A8DC2B /* OpenGameOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */; };
 		C34F1FA81ED85E06002AB38B /* gi_debug.c in Sources */ = {isa = PBXBuildFile; fileRef = C34F1FA61ED85E06002AB38B /* gi_debug.c */; };
 		C35032EF2F37EF0900BD32A6 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
@@ -3492,8 +3490,6 @@
 		C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SFBAudioEngine.xcodeproj; path = SFBAudioEngine/SFBAudioEngine.xcodeproj; sourceTree = "<group>"; };
 		C349B4DA28803A7C00D99943 /* parseinput.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = parseinput.c; sourceTree = "<group>"; };
 		C349B4DB28803A7C00D99943 /* parseinput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = parseinput.h; sourceTree = "<group>"; };
-		C34DF53F26A1FFDE007AD7D3 /* IFZoomID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IFZoomID.h; sourceTree = "<group>"; };
-		C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IFZoomID.m; sourceTree = "<group>"; };
 		C34E570D2CF3941200A8DC2B /* OpenGameOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OpenGameOperation.h; sourceTree = "<group>"; };
 		C34E570E2CF3941200A8DC2B /* OpenGameOperation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OpenGameOperation.m; sourceTree = "<group>"; };
 		C34F1FA61ED85E06002AB38B /* gi_debug.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = gi_debug.c; sourceTree = "<group>"; };
@@ -4567,8 +4563,6 @@
 				6D7673E4239FFB0900FB24C0 /* IFStory.m */,
 				6D7673E1239FFB0900FB24C0 /* IFIdentification.h */,
 				6D7673E2239FFB0900FB24C0 /* IFIdentification.m */,
-				C34DF53F26A1FFDE007AD7D3 /* IFZoomID.h */,
-				C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */,
 				6D7673D7239FFB0900FB24C0 /* IFBibliographic.h */,
 				6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */,
 				C3C180C625C717F30040AE79 /* IFCoverDescription.h */,
@@ -8939,7 +8933,6 @@
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				C35D520826F24142002E2F59 /* FolderAccess.m in Sources */,
 				6D79435A224A2D2E0071EB3D /* NSString+Categories.m in Sources */,
-				C34DF54126A1FFDE007AD7D3 /* IFZoomID.m in Sources */,
 				C35ED515256DD37A00C14847 /* InputHistory.m in Sources */,
 				6DCFFC2E22BE57790035FA99 /* SideInfoView.m in Sources */,
 				C3C180C825C717F30040AE79 /* IFCoverDescription.m in Sources */,
@@ -9427,7 +9420,6 @@
 				265757BE39AE5088FF327672 /* IFictionMetadata.m in Sources */,
 				7591FB1105DD324A7057DDB8 /* IFStory.m in Sources */,
 				A0B23F5908006296223E844A /* IFIdentification.m in Sources */,
-				358E4D91F5503C742B8DCDE7 /* IFZoomID.m in Sources */,
 				B847ADA7B973D9E50739F0B8 /* IFBibliographic.m in Sources */,
 				5F3D4796DBA61A8315223DB7 /* IFCoverDescription.m in Sources */,
 				4EAB7698371D1978C7BD2F97 /* IFDB.m in Sources */,

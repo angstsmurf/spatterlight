@@ -10,7 +10,6 @@
 
 #import "IFStory.h"
 #import "IFIdentification.h"
-#import "IFZoomID.h"
 #import "IFBibliographic.h"
 #import "IFCoverDescription.h"
 #import "IFDB.h"
@@ -31,7 +30,7 @@
             // data, which callers that already know the game can use.
             _identification = [[IFIdentification alloc] initWithXMLElement:idElement];
         } else if (zoomIdElements.count) {
-            _identification = [[IFZoomID alloc] initWithElements:zoomIdElements];
+            _identification = [[IFIdentification alloc] initWithZoomIDElements:zoomIdElements];
             legacyZoomFormat = YES;
         } else {
             NSLog(@"Unsupported iFiction file!");
