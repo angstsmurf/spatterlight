@@ -486,6 +486,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             NSString *name = [self imageNameForGame:game description:&description];
             cellView.imageView.image = symbolImage(name, description);
             cellView.imageView.accessibilityLabel = description;
+            return cellView;
         } else if ([identifier isEqual:@"like"]) {
             LikeCellView *likeCellView = (LikeCellView *)cellView;
             switch (game.like) {
