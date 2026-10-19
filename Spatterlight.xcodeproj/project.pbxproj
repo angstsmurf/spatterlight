@@ -734,7 +734,6 @@
 		C326B14126C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt in Resources */ = {isa = PBXBuildFile; fileRef = C326B14026C182ED006C398F /* Transcript of The Sound of One Hand Clapping.txt */; };
 		C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C311DEFA25C472E500484639 /* PreviewViewController.m */; settings = {COMPILER_FLAGS = "-fobjc-arc-exceptions"; }; };
 		C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C35978C425DA14A6004B1448 /* iFictionPreviewController.m */; };
-		C32A3D882719F34B0049C777 /* iFiction.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3E2EAB325D08EEC0012B7FB /* iFiction.plist */; };
 		C32B472B2F1700CA002AD28F /* atari_8bit_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C32B472A2F1700CA002AD28F /* atari_8bit_vector_draw.c */; };
 		C32DBFA626714EFE00AB5704 /* MyFilePromiseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */; };
 		C33874D22E8BF89200153FED /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
@@ -1041,8 +1040,6 @@
 		C3DAC21027C44BAD00368157 /* ti99_4a_terp.c in Sources */ = {isa = PBXBuildFile; fileRef = C3DAC20F27C44BAD00368157 /* ti99_4a_terp.c */; };
 		C3E144E72F0209670068F099 /* apple2_vector_draw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E144E62F0209670068F099 /* apple2_vector_draw.c */; };
 		C3E1938128628E8400E3B013 /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3E1937E28628E8400E3B013 /* restorestate.c */; };
-		C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */; };
-		C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */; };
 		C3EAD78126D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */; };
 		C3EAD78326D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3EAD78226D453EE00AF31AF /* Transcript of Till Death Makes a Monk-Fish out of Me.txt */; };
 		C3EC5026289C0C820078AB83 /* stdraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C3EC5024289C0C820078AB83 /* stdraw.c */; };
@@ -3875,11 +3872,6 @@
 		C3E1937E28628E8400E3B013 /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 		C3E1938028628E8400E3B013 /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
 		C3E1F0A12FA0000000ABCDEF /* FORMAT.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = FORMAT.md; sourceTree = "<group>"; };
-		C3E2EAAE25D08EEC0012B7FB /* UKSyntaxColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UKSyntaxColor.h; sourceTree = "<group>"; };
-		C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSScanner+SkipUpToCharset.m"; sourceTree = "<group>"; };
-		C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UKSyntaxColor.m; sourceTree = "<group>"; };
-		C3E2EAB225D08EEC0012B7FB /* NSScanner+SkipUpToCharset.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSScanner+SkipUpToCharset.h"; sourceTree = "<group>"; };
-		C3E2EAB325D08EEC0012B7FB /* iFiction.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = iFiction.plist; sourceTree = "<group>"; };
 		C3E934A8296D932B000A0640 /* types.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = types.h; sourceTree = "<group>"; };
 		C3E934AC296D93C2000A0640 /* v1234.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = v1234.h; sourceTree = "<group>"; };
 		C3EAD78026D453B400AF31AF /* Till Death Makes a Monk-Fish out of Me command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Till Death Makes a Monk-Fish out of Me command script.txt"; sourceTree = "<group>"; };
@@ -6771,7 +6763,6 @@
 		C35978C225DA14A6004B1448 /* iFictionQuickLook */ = {
 			isa = PBXGroup;
 			children = (
-				C3E2EAAC25D08EEC0012B7FB /* SyntaxColor */,
 				C35978C325DA14A6004B1448 /* iFictionPreviewController.h */,
 				C35978C425DA14A6004B1448 /* iFictionPreviewController.m */,
 			);
@@ -7055,18 +7046,6 @@
 				C3D571B427D8F652008FB786 /* ui.c */,
 			);
 			path = taylor;
-			sourceTree = "<group>";
-		};
-		C3E2EAAC25D08EEC0012B7FB /* SyntaxColor */ = {
-			isa = PBXGroup;
-			children = (
-				C3E2EAAE25D08EEC0012B7FB /* UKSyntaxColor.h */,
-				C3E2EAB125D08EEC0012B7FB /* UKSyntaxColor.m */,
-				C3E2EAB225D08EEC0012B7FB /* NSScanner+SkipUpToCharset.h */,
-				C3E2EAAF25D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m */,
-				C3E2EAB325D08EEC0012B7FB /* iFiction.plist */,
-			);
-			path = SyntaxColor;
 			sourceTree = "<group>";
 		};
 		C3ED631C2C6E0FCC000F90A8 /* readwoz */ = {
@@ -8431,7 +8410,6 @@
 			files = (
 				C3EEF5C025F2D8F000FA19CE /* Quicklook.xcassets in Resources */,
 				C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */,
-				C32A3D882719F34B0049C777 /* iFiction.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -9358,8 +9336,6 @@
 				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
 				C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
-				C3E2EAB525D08EEC0012B7FB /* NSScanner+SkipUpToCharset.m in Sources */,
-				C3E2EAB625D08EEC0012B7FB /* UKSyntaxColor.m in Sources */,
 				C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */,
 				C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */,
 				C36B3895271F712700756D94 /* NonInterpolatedImage.m in Sources */,
