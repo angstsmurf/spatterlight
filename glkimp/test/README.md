@@ -6,7 +6,7 @@ autosave (`autorestore/Temp*.m`, `autosavefiles.m`). Every terp links it, so
 run all of this before and after a change:
 
 ```
-glkimp/test/run_stream_test.sh               # stream.c under ASan+UBSan, a few seconds
+glkimp/test/run_stream_test.sh               # stream.c and connect.c's UTF-16 under ASan+UBSan, a few seconds
 python3 glkimp/test/run_autosave_tests.py --build   # Bocfel + Glulxe autosave/autorestore
 (cd terps/question/test && python3 autosave/run_autosave_tests.py)
 (cd terps/scarier/test && python3 adrift4/harness/run_autosave_tests.py)
@@ -20,7 +20,10 @@ xcodebuild -project Spatterlight.xcodeproj -scheme Spatterlight -configuration D
   Unicode binary = big-endian 32-bit) through `get_char`, `get_buffer` and
   `get_line` at several buffer sizes, writes in every file mode, seeks,
   positions, memory overflow and the null stream. `--bless` rewrites the
-  expected file; only bless a diff you can explain.
+  expected file; only bless a diff you can explain. It then runs
+  `connect_utf16_test.c`, which includes `connect.c` and plays the app on
+  two pipes: print, unprint, line preload and the line input reply, with
+  characters beyond the BMP, lone surrogates and out-of-range values.
 - `run_autosave_tests.py`: `glulxe/undo-across-relaunch` is an expected
   XFAIL. `--build` builds the bocfel and glulxe targets into `build/`; if
   another build left `build/` with one architecture only, the x86_64 link
@@ -59,6 +62,26 @@ xcodebuild -project Spatterlight.xcodeproj -scheme Spatterlight -configuration D
   `gli_debug_log()`, which compiles out unless `DEBUG` is defined.
   Protocol errors and the sanity checks still print.
 
+## Characters beyond the BMP (checked 2026-10-19)
+
+Everything crosses the pipe as UTF-16, encoded in one place
+(`utf16_encode` in connect.c); a lone surrogate or a value past U+10FFFF
+becomes U+FFFD.
+
+- Printing sends a surrogate pair in one PRINT message.
+- Line input comes back as UTF-16: a Unicode request gets the pair
+  combined into one code point, a narrow request one `?` for it.
+- Preloaded line text is sent as pairs (it used to become `?`).
+- `garglk_unput_string_count_uni` sends pairs and returns characters, as
+  Bocfel, Question and Scarier expect (it used to cut each character to
+  16 bits and return UTF-16 units).
+- Echo streams: a Unicode line goes through `gli_put_char_uni`, so a UTF-8
+  or binary Unicode file gets the code point intact; a narrow line holds
+  only Latin-1 to begin with.
+- Left on the app side: the grid window's input field and the line event
+  (cut at 2048 units in `GlkEvent writeEvent:`) count UTF-16 units, so a
+  cut at the limit can split a pair, which then arrives as a final U+FFFD.
+
 ## Rules
 
 - Do not renumber `protocol.h` messages or the `messagenames.c` table: the
@@ -84,7 +107,3 @@ xcodebuild -project Spatterlight.xcodeproj -scheme Spatterlight -configuration D
 - `connect.c`'s `win_*` wrappers are already one `sendmsg()` call each.
 - Splitting `stream.c`, `connect.c`, `glkimp.h` and `fileref.m` into more
   files: pbxproj plus several headless Makefiles to update for little gain.
-- Unverified: whether an astral character survives print -> line input ->
-  echo stream the same way (`win_print` sends surrogates,
-  `gli_stream_echo_line` goes through Latin-1 `gli_put_buffer`,
-  `store_line_input` decodes UTF-16).

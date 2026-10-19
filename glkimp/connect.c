@@ -221,18 +221,32 @@ void win_flush(void)
     bufferwin = -1;
 }
 
+/* Store `ch` as UTF-16 in `out` (room for two units) and return the number
+   of units: a character beyond the BMP becomes a surrogate pair, and what is
+   not a Unicode scalar value becomes the replacement character. */
+static int utf16_encode(glui32 ch, uint16_t *out)
+{
+    if (ch > 0x10ffff || (ch >= 0xd800 && ch <= 0xdfff))
+        ch = 0xfffd;
+    if (ch > 0xffff)
+    {
+        ch -= 0x10000;
+        out[0] = (uint16_t)(0xd800 | (ch >> 10));
+        out[1] = (uint16_t)(0xdc00 | (ch & 0x3ff));
+        return 2;
+    }
+    out[0] = (uint16_t)ch;
+    return 1;
+}
+
 /* Queue one character for window `name` in style `at`. Text travels to the
    app as UTF-16, so a character beyond the BMP becomes a surrogate pair --
    and both halves must go in the same PRINT message, or the app would see
    two lone surrogates. */
 void win_print(int name, glui32 ch, int at)
 {
-    int units;
-
-    if (ch > 0x10ffff || (ch >= 0xd800 && ch <= 0xdfff))
-        ch = 0xfffd; /* not a Unicode scalar value: replacement character */
-
-    units = (ch > 0xffff) ? 2 : 1;
+    uint16_t enc[2];
+    int units = utf16_encode(ch, enc);
 
     if (buffering == BUFRECT)
         win_flush();
@@ -252,22 +266,22 @@ void win_print(int name, glui32 ch, int at)
         bufferlen = 0;
     }
 
+    pbuf[bufferlen++] = enc[0];
     if (units == 2)
-    {
-        ch -= 0x10000;
-        pbuf[bufferlen++] = (uint16_t)(0xd800 | (ch >> 10));
-        pbuf[bufferlen++] = (uint16_t)(0xdc00 | (ch & 0x3ff));
-    }
-    else
-    {
-        pbuf[bufferlen++] = (uint16_t)ch;
-    }
+        pbuf[bufferlen++] = enc[1];
 }
 
 /* Gargoyle glue */
 
+/* Ask the app to remove the last `len` characters printed to window `name`
+   if they match `str`. The app matches all or nothing and counts in UTF-16
+   units; this returns `len` (characters) or 0. */
 glui32 win_unprint(int name, glui32 *str, int len)
 {
+    uint16_t enc[2];
+    unsigned long units = 0;
+    int ix, n;
+
     if (len <= 0)
         return 0;
 
@@ -276,22 +290,27 @@ glui32 win_unprint(int name, glui32 *str, int len)
      * cannot be sent, and since unput only removes text that matches in full,
      * reporting "removed nothing" is the honest answer -- truncating here
      * would ask the app to delete a prefix the caller never asked about. */
-    if ((unsigned long)len > PBUFSIZE)
+    for (ix=0; ix<len; ix++)
+        units += (unsigned long)utf16_encode(str[ix], enc);
+    if (units > PBUFSIZE)
         return 0;
 
     win_flush();
 
-    glui32 ix;
+    units = 0;
     for (ix=0; ix<len; ix++) {
-         pbuf[ix] = str[ix];
+        n = utf16_encode(str[ix], enc);
+        pbuf[units++] = enc[0];
+        if (n == 2)
+            pbuf[units++] = enc[1];
     }
 
     sendmsg(UNPRINT, name, 0, 0, 0, 0,
-            len * sizeof(uint16_t),
+            units * sizeof(uint16_t),
             (char *)pbuf);
 
     readmsg(&wmsg, wbuf);
-    return wmsg.a1;  /* Length */
+    return wmsg.a1 > 0 ? (glui32)len : 0;
 }
 
 
@@ -559,6 +578,10 @@ static int store_line_input(const uint16_t *src, int srclen, int unicode,
         while (in < srclen && out < cap)
         {
             uint16_t ch = src[in++];
+            /* one '?' for a surrogate pair, as for any other character */
+            if (ch >= 0xd800 && ch <= 0xdbff && in < srclen
+                && src[in] >= 0xdc00 && src[in] <= 0xdfff)
+                in++;
             dst[out++] = (ch < 0x100) ? (unsigned char)ch : '?';
         }
     }
@@ -573,24 +596,28 @@ void win_initline(int name, int cap, int len, void *buf)
     if (!win)
         return;
 
-    int ix;
+    int ix, units = 0;
+    uint16_t enc[2];
 
-    /* The pre-loaded text; as UCS-2, which is all a line can hold. */
-    if (len > (int)PBUFSIZE)
-        len = (int)PBUFSIZE;
-
+    /* The pre-loaded text, as UTF-16; cut short at a whole character if
+       it does not fit. */
     if (win->line_request_uni) {
         for (ix=0; ix<len; ix++) {
-            glui32 ch = ((glui32 *)buf)[ix];
-            pbuf[ix] = (ch <= 0xffff) ? (uint16_t)ch : '?';
+            int n = utf16_encode(((glui32 *)buf)[ix], enc);
+            if (units + n > (int)PBUFSIZE)
+                break;
+            pbuf[units++] = enc[0];
+            if (n == 2)
+                pbuf[units++] = enc[1];
         }
     } else {
-        for (ix=0; ix<len; ix++) {
-            pbuf[ix] = ((unsigned char *)buf)[ix];
-        }
+        if (len > (int)PBUFSIZE)
+            len = (int)PBUFSIZE;
+        for (ix=0; ix<len; ix++)
+            pbuf[units++] = ((unsigned char *)buf)[ix];
     }
 
-    sendmsg(INITLINE, name, cap, 0, 0, 0, len * sizeof(uint16_t), (char *)pbuf);
+    sendmsg(INITLINE, name, cap, 0, 0, 0, units * sizeof(uint16_t), (char *)pbuf);
 }
 
 /* Cancel the line request on window `name` and store what the player had
