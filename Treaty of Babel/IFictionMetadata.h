@@ -4,14 +4,27 @@
 //  See https://github.com/dcsch/yazmin
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 @class IFStory;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFictionMetadata : NSObject
 
-@property(readonly) NSArray *stories;
+//! Never empty
+@property(readonly) NSArray<IFStory *> *stories;
 
-- (instancetype)initWithData:(NSData *)data;
+//! The first story. Logs a warning if there is more than one, for callers
+//! that expect exactly one.
+@property(readonly) IFStory *firstStory;
+
+//! Returns nil if the data is not iFiction XML or contains no usable story
+- (nullable instancetype)initWithData:(NSData *)data;
+
+//! Parses data with the options used for iFiction files throughout the app
++ (nullable NSXMLDocument *)XMLDocumentFromData:(NSData *)data;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -23,6 +23,9 @@
 #import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
+#import "IFictionMetadata.h"
+#import "IFStory.h"
+#import "IFCoverDescription.h"
 #import "ImageDragSource.h"
 
 #import "NotificationBezel.h"
@@ -501,18 +504,10 @@
 }
 
 + (NSString *)coverArtDescriptionFromXMLData:(NSData *)data {
-    NSString *result = @"";
-    NSError *error = nil;
-    NSXMLDocument *xml =
-    [[NSXMLDocument alloc] initWithData:data
-                                options:NSXMLDocumentTidyXML
-                                  error:&error];
-    NSArray *descriptions = [xml.rootElement nodesForXPath:@"story/cover/description" error:&error];
-    if (descriptions.count) {
-        NSXMLElement *description = descriptions.firstObject;
-        result = description.stringValue;
-    } else {
+    NSString *result = [[IFictionMetadata alloc] initWithData:data].firstStory.coverDescription.coverArtDescription;
+    if (!result) {
         NSLog(@"No cover image description found in metadata!");
+        return @"";
     }
     return result;
 }

@@ -25,6 +25,7 @@
 #import "Metadata.h"
 #import "Theme.h"
 #import "Fetches.h"
+#import "IFDB.h"
 
 #import "GameLauncher.h"
 #import "MetadataHandler.h"
@@ -100,14 +101,9 @@
 
 - (IBAction)openIfdb:(id)sender {
     for (Game *game in self.targetGames) {
-        NSString *urlString;
-        if (game.metadata.tuid.length)
-            urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
-        else if (game.ifid.length)
-            urlString = [@"https://ifdb.tads.org/viewgame?ifid=" stringByAppendingString:game.ifid];
-        else
-            continue;
-        [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
+        NSURL *url = [IFDB viewGameURLForTUID:game.metadata.tuid IFID:game.ifid iFiction:NO];
+        if (url)
+            [[NSWorkspace sharedWorkspace] openURL:url];
     }
 }
 

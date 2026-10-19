@@ -4,14 +4,20 @@
 //  See https://github.com/dcsch/yazmin
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 @class Metadata;
 
+NS_ASSUME_NONNULL_BEGIN
+
+//! Returns the language code for the contents of an iFiction <language>
+//! element, and its English name in languageAsWord when there is one.
+NSString *IFLanguageCodeFromString(NSString *raw, NSString * _Nullable * _Nullable languageAsWord);
+
 @interface IFBibliographic : NSObject
 
-- (instancetype _Nullable)initWithXMLElement:(NSXMLElement * _Nonnull)element;
-- (void)addInfoToMetadata:(Metadata * _Nonnull)metadata;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element;
+- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @property(nullable) NSString *title;
 @property(nullable) NSString *author;
@@ -29,3 +35,5 @@
 @property(nullable) NSString *blurb;
 
 @end
+
+NS_ASSUME_NONNULL_END

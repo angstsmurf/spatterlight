@@ -4,84 +4,125 @@
 //  See https://github.com/dcsch/yazmin
 //
 
+#import <Foundation/Foundation.h>
+
+#import "DebugLog.h"
 
 #import "IFBibliographic.h"
 #import "Metadata.h"
-#import "Game.h"
 #import "NSString+Categories.h"
 
-typedef NS_ENUM(NSInteger, kForgiveness) {
-    FORGIVENESS_NONE,
-    FORGIVENESS_CRUEL,
-    FORGIVENESS_NASTY,
-    FORGIVENESS_TOUGH,
-    FORGIVENESS_POLITE,
-    FORGIVENESS_MERCIFUL
-};
+// Indexed by Metadata.forgivenessNumeric. Must match the forgiveness pop-up
+// in the library window.
+static NSDictionary<NSString *, NSNumber *> *ForgivenessLevels(void) {
+    static NSDictionary<NSString *, NSNumber *> *levels;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        levels = @{
+            @"" : @0,
+            @"Cruel" : @1,
+            @"Nasty" : @2,
+            @"Tough" : @3,
+            @"Polite" : @4,
+            @"Merciful" : @5
+        };
+    });
+    return levels;
+}
 
-@interface IFBibliographic ()
+// Converts the contents of an iFiction <language> element to a language code
+// and, if the code is known, its English name.
+//
+// In IFDB xml data, "language" is usually a two-letter ISO 639 code such
+// as "en", but may also be a locale code such as "en-US" or a descriptive
+// string like "English, French (en, fr)."
+// We keep the English name on purpose: it is what the library sorts and
+// searches on, whatever the user's locale.
+NSString *IFLanguageCodeFromString(NSString *raw, NSString * _Nullable * _Nullable languageAsWord) {
+    static NSLocale *englishUSLocale;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+    });
 
-- (NSString *)renderDescriptionElement:(NSXMLElement *)element;
+    NSString *languageCode = raw;
+    NSString *word = nil;
+    if (languageCode.length > 1) {
+        // A descriptive string lists the codes in parentheses, main one first
+        NSRange open = [raw rangeOfString:@"("];
+        NSRange close = [raw rangeOfString:@")" options:NSBackwardsSearch];
+        if (open.location != NSNotFound && close.location != NSNotFound && close.location > open.location) {
+            NSString *inside = [raw substringWithRange:NSMakeRange(NSMaxRange(open), close.location - NSMaxRange(open))];
+            NSCharacterSet *separators = [NSCharacterSet characterSetWithCharactersInString:@", "];
+            for (NSString *code in [inside componentsSeparatedByCharactersInSet:separators]) {
+                if (code.length) {
+                    languageCode = code;
+                    break;
+                }
+            }
+        }
+        if (languageCode.length > 3) {
+            // If it is longer than three characters, we use the first two
+            // as language code. This covers locale codes such as "en-US".
+            languageCode = [languageCode substringToIndex:2];
+        }
+        languageCode = languageCode.lowercaseString;
+        word = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
+        if (!word) {
+            // Otherwise we use the full string for both language and languageAsWord.
+            word = raw;
+            languageCode = raw;
+        }
+    }
+    if (languageAsWord)
+        *languageAsWord = word;
+    return languageCode;
+}
 
-@end
+// Joins the text nodes of a <description> element with blank lines and
+// cleans up the ways line breaks are spelled in the wild.
+static NSString *BlurbFromDescriptionElement(NSXMLElement *element) {
+    NSMutableArray<NSString *> *paragraphs = [NSMutableArray new];
+    for (NSXMLNode *node in element.children) {
+        if (node.kind == NSXMLTextKind)
+            [paragraphs addObject:node.stringValue];
+    }
+
+    NSString *blurb = [paragraphs componentsJoinedByString:@"\n\n"].stringByDecodingXMLEntities;
+
+    // Descriptions that escaped their line breaks, such as the one in the
+    // Grandpa's Ranch blorb ("&lt;br&gt;"), still spell the tags out at this
+    // point, so replace them with actual newlines.
+    blurb = blurb.stringByReplacingBreakTagsWithNewlines;
+
+    // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
+    blurb = [blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+
+    return [blurb stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
+}
 
 @implementation IFBibliographic
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element {
     self = [super init];
     if (self) {
-        NSLocale *englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-
-        NSDictionary *forgiveness = @{
-            @"" : @(FORGIVENESS_NONE),
-            @"Cruel" : @(FORGIVENESS_CRUEL),
-            @"Nasty" : @(FORGIVENESS_NASTY),
-            @"Tough" : @(FORGIVENESS_TOUGH),
-            @"Polite" : @(FORGIVENESS_POLITE),
-            @"Merciful" : @(FORGIVENESS_MERCIFUL)
-        };
-
-        NSDateFormatter *dateFormatter;
-
         for (NSXMLNode *node in element.children) {
             NSString *keyVal = node.stringValue;
             NSString *key = node.name;
+            if (!key)
+                continue;
 
             if ([key isEqualToString:@"firstpublished"] || [key isEqualToString:@"year"]) {
-                if (dateFormatter == nil)
-                    dateFormatter = [[NSDateFormatter alloc] init];
-                if (keyVal.length == 4)
-                    dateFormatter.dateFormat = @"yyyy";
-                else if (keyVal.length == 10)
-                    dateFormatter.dateFormat = @"yyyy-MM-dd";
-                else NSLog(@"Illegal date format!");
-                _firstPublishedDate = [dateFormatter dateFromString:keyVal];
-                dateFormatter.dateFormat = @"yyyy";
-                _firstPublished = [dateFormatter stringFromDate:_firstPublishedDate];
+                [self parseFirstPublished:keyVal];
             } else if ([key isEqualToString:@"language"]) {
-                // In IFDB xml data, "language" is usually a two-letter ISO 639 code such
-                // as "e", but may also be a locale code such as "en-US" or a descriptive
-                // string like "English, French (en, fr)."
-                // We try to deal with all of them here.
-                NSString *languageCode = keyVal;
-                if (languageCode.length > 1) {
-                    if (languageCode.length > 3) {
-                        // If it is longer than three characters, we use the first two
-                        // as language code. This seems to cover all known cases.
-                        languageCode = [languageCode substringToIndex:2];
-                    }
-                    NSString *language = [englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
-                    if (language) {
-                        _languageAsWord = language;
-                    } else {
-                        // Otherwise we use the full string for both language and languageAsWord.
-                        _languageAsWord = keyVal;
-                        languageCode = keyVal;
-                    }
-                }
-                _language = languageCode;
+                NSString *word = nil;
+                _language = IFLanguageCodeFromString(keyVal, &word);
+                if (word)
+                    _languageAsWord = word;
             } else if ([key isEqualToString:@"forgiveness"]) {
-                _forgivenessNumeric = forgiveness[keyVal];
+                _forgivenessNumeric = ForgivenessLevels()[keyVal];
+                if (_forgivenessNumeric.integerValue > 0)
+                    _forgiveness = keyVal;
             } else if ([key isEqualToString:@"title"]) {
                 NSString *title = keyVal.stringByDecodingXMLEntities;
                 if (title.length)
@@ -99,49 +140,42 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
             } else if ([key isEqualToString:@"seriesnumber"]) {
                 _seriesnumber = keyVal;
             } else if ([key isEqualToString:@"description"] || [key isEqualToString:@"teaser"]) {
-                _blurb =
-                [self renderDescriptionElement:(NSXMLElement *)node];
-                _blurb =
-                [_blurb stringByDecodingXMLEntities];
-
-                // Descriptions that escaped their line breaks, such as the one in the
-                // Grandpa's Ranch blorb ("&lt;br&gt;"), still spell the tags out at this
-                // point, so replace them with actual newlines.
-                _blurb = _blurb.stringByReplacingBreakTagsWithNewlines;
-
-                // When importing Return to Ditch Day, Babel returns a text with \\n instead of line breaks.
-                _blurb =
-                [_blurb stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
-
-                _blurb =
-                [_blurb stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-//            } else {
-//                NSLog(@"Unhandled node name:%@ value: %@", key, keyVal);
+                _blurb = BlurbFromDescriptionElement((NSXMLElement *)node);
             }
         }
     }
     return self;
 }
 
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-    }
-    return self;
-}
+// The Treaty of Babel allows "YYYY" or "YYYY-MM-DD". Anything else is ignored.
+- (void)parseFirstPublished:(NSString *)string {
+    static NSDateFormatter *yearFormatter, *dayFormatter;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        NSLocale *posix = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US_POSIX"];
+        NSTimeZone *utc = [NSTimeZone timeZoneForSecondsFromGMT:0];
+        yearFormatter = [NSDateFormatter new];
+        yearFormatter.locale = posix;
+        yearFormatter.timeZone = utc;
+        yearFormatter.dateFormat = @"yyyy";
+        dayFormatter = [NSDateFormatter new];
+        dayFormatter.locale = posix;
+        dayFormatter.timeZone = utc;
+        dayFormatter.dateFormat = @"yyyy-MM-dd";
+    });
 
-- (NSString *)renderDescriptionElement:(NSXMLElement *)element {
-    NSMutableString *string = [NSMutableString string];
-    NSUInteger count = 0;
-    for (NSXMLNode *node in element.children) {
-        if (node.kind == NSXMLTextKind) {
-            if (count > 0)
-                [string appendString:@"\n\n"];
-            [string appendString:node.stringValue];
-            ++count;
-        }
+    NSDate *date = nil;
+    if (string.length == 4)
+        date = [yearFormatter dateFromString:string];
+    else if (string.length == 10)
+        date = [dayFormatter dateFromString:string];
+
+    if (!date) {
+        NSLog(@"IFBibliographic: illegal date format \"%@\"", string);
+        return;
     }
-    return string;
+    _firstPublishedDate = date;
+    _firstPublished = [yearFormatter stringFromDate:date];
 }
 
 - (void)addInfoToMetadata:(Metadata *)metadata {
@@ -158,7 +192,7 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
     if (_blurb.length)
         metadata.blurb = _blurb;
     if (_firstPublished.length)
-        metadata.headline = _firstPublished;
+        metadata.firstpublished = _firstPublished;
     if (_firstPublishedDate)
         metadata.firstpublishedDate = _firstPublishedDate;
     if (_genre.length)
@@ -174,6 +208,5 @@ typedef NS_ENUM(NSInteger, kForgiveness) {
     if (_forgivenessNumeric)
         metadata.forgivenessNumeric = _forgivenessNumeric;
 }
-
 
 @end

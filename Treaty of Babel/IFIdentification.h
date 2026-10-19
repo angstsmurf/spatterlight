@@ -4,18 +4,23 @@
 //  See https://github.com/dcsch/yazmin
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
-@class Metadata, Ifid;
+@class Metadata;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface IFIdentification : NSObject
 
-@property (nonatomic) NSSet *ifids;
-@property (nonatomic) NSString *format;
-@property (nonatomic) NSString *bafn;
+@property (nonatomic) NSSet<NSString *> *ifids;
+@property (nonatomic, nullable) NSString *format;
+@property (nonatomic, nullable) NSString *bafn;
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element;
-+(void)addIfids:(NSSet<NSString *> *)ifids toMetadata:(Metadata *)metadata;
+//! Returns nil if the element contains no <ifid>
+- (nullable instancetype)initWithXMLElement:(NSXMLElement *)element;
++ (void)addIfids:(NSSet<NSString *> *)ifids toMetadata:(Metadata *)metadata;
 - (void)addInfoToMetadata:(Metadata *)metadata;
 
 @end
+
+NS_ASSUME_NONNULL_END

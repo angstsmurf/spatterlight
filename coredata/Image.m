@@ -11,6 +11,9 @@
 #import <CoreSpotlight/CoreSpotlight.h>
 
 
+NSString * const kImagePlaceholderOriginalURL = @"Placeholder";
+NSString * const kImagePlaceholderDescription = @"Inform 7 placeholder cover image: The worn spine of an old book, laying open on top of another open book. Caption: \"Interactive fiction by Inform. Photograph: Scot Campbell\".";
+
 @implementation Image
 
 + (NSFetchRequest<Image *> *)fetchRequest {
@@ -29,7 +32,7 @@
 }
 
 + (void)deleteIfOrphan:(Image *)image {
-    if (image && image.metadata.count == 0 && ![image.originalURL isEqualToString:@"Placeholder"]) {
+    if (image && image.metadata.count == 0 && ![image.originalURL isEqualToString:kImagePlaceholderOriginalURL]) {
         [image.managedObjectContext deleteObject:image];
     }
 }

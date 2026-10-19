@@ -19,6 +19,11 @@ typedef NS_ENUM(int32_t, kImageInterpolationType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+//! originalURL of the single shared Image for the Inform 7 placeholder cover,
+//! which is never deleted as an orphan
+extern NSString * const kImagePlaceholderOriginalURL;
+extern NSString * const kImagePlaceholderDescription;
+
 @interface Image : NSManagedObject
 
 + (NSFetchRequest<Image *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());

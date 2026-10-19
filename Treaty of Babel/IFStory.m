@@ -15,38 +15,33 @@
 #import "IFCoverDescription.h"
 #import "IFDB.h"
 #import "Metadata.h"
-#import "Image.h"
-#import "IFDBDownloader.h"
-#import "constants.h"
 
 @implementation IFStory
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element {
     self = [super init];
     if (self) {
-        NSXMLElement *idElement;
-        if ([element elementsForName:@"identification"].count) {
-            idElement = [element elementsForName:@"identification"][0];
+        NSXMLElement *idElement = [element elementsForName:@"identification"].firstObject;
+        NSArray<NSXMLElement *> *zoomIdElements = [element elementsForName:@"id"];
+        // The legacy Zoom format has no <bibliographic> element either:
+        // the bibliographic tags are children of the story element itself.
+        BOOL legacyZoomFormat = NO;
+
+        if (idElement) {
+            // Nil if there is no <ifid>. We still keep the bibliographic
+            // data, which callers that already know the game can use.
             _identification = [[IFIdentification alloc] initWithXMLElement:idElement];
-        } else if ([element elementsForName:@"id"].count) {
-            NSArray<NSXMLElement *> *elements = [element elementsForName:@"id"];
-            _identification = [[IFZoomID alloc] initWithElements:elements];
+        } else if (zoomIdElements.count) {
+            _identification = [[IFZoomID alloc] initWithElements:zoomIdElements];
+            legacyZoomFormat = YES;
         } else {
             NSLog(@"Unsupported iFiction file!");
             return nil;
         }
 
-        NSArray *biblioElements = [element elementsForName:@"bibliographic"];
-        NSXMLElement *biblioElement;
-        if (biblioElements.count == 0) {
-            if ([_identification isKindOfClass:[IFZoomID class]]) {
-                biblioElement = element;
-            } else {
-                biblioElement = nil;
-            }
-        } else {
-            biblioElement = biblioElements.firstObject;
-        }
+        NSXMLElement *biblioElement = [element elementsForName:@"bibliographic"].firstObject;
+        if (!biblioElement && legacyZoomFormat)
+            biblioElement = element;
 
         if (biblioElement) {
             _bibliographic = [[IFBibliographic alloc] initWithXMLElement:biblioElement];
@@ -54,49 +49,22 @@
             NSLog(@"IFStory initWithXMLElement: No bibliographic tag found!");
         }
 
-        NSArray *elements = [element elementsForLocalName:@"ifdb"
-                                                      URI:@"http://ifdb.org/api/xmlns"];
-        if (elements.count > 0) {
-            _ifdb = [[IFDB alloc] initWithXMLElement:elements[0]];
-        }
+        NSXMLElement *ifdbElement = [element elementsForLocalName:@"ifdb" URI:kIFDBXMLNamespace].firstObject;
+        if (ifdbElement)
+            _ifdb = [[IFDB alloc] initWithXMLElement:ifdbElement];
 
-        NSArray<NSXMLElement *> *coverElements = [element elementsForName:@"cover"];
-        if (coverElements.count)
-            _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElements[0]];
-
-        // The metadata in blorbs sometimes contain tags corresponding to the game
-        // format (e.g. <zcode> for a Z-code game.)
-        // The code below simply looks for these tags and prints them and their values
-        // for informational (debug?) purposes.
-
-//        if (gFormatMap.count) {
-//            for (NSString *key in gFormatMap.allKeys) {
-//                NSArray<NSXMLElement *> *formatElements = [element elementsForName:key];
-//                if (formatElements.count) {
-//                    NSLog(@"Found <%@> element", key);
-//                    NSEnumerator *enumChildren = [formatElements[0].children objectEnumerator];
-//                    NSXMLNode *node;
-//                    while ((node = [enumChildren nextObject])) {
-//                        NSLog(@"Found %@ : %@ under the \"%@\" element", node.name, node.stringValue, key);
-//                    }
-//                }
-//            }
-//        }
+        NSXMLElement *coverElement = [element elementsForName:@"cover"].firstObject;
+        if (coverElement)
+            _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElement];
     }
     return self;
 }
 
-- (void)addInfoToMetadata:(Metadata * _Nonnull)metadata {
-    if (_identification) {
-        [_identification addInfoToMetadata:metadata];
-    }
-    if (_bibliographic) {
-        [_bibliographic addInfoToMetadata:metadata];
-    }
-    if (_ifdb) {
-        [_ifdb addInfoToMetadata:metadata];
-    }
-    if (_coverDescription && _coverDescription.coverArtDescription.length)
+- (void)addInfoToMetadata:(Metadata *)metadata {
+    [_identification addInfoToMetadata:metadata];
+    [_bibliographic addInfoToMetadata:metadata];
+    [_ifdb addInfoToMetadata:metadata];
+    if (_coverDescription.coverArtDescription.length)
         metadata.coverArtDescription = _coverDescription.coverArtDescription;
 }
 

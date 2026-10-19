@@ -1,50 +1,52 @@
 //
-//  IFDB.h
+//  IFDB.m
 //  Adapted from Yazmin by David Schweinsberg
 //  See https://github.com/dcsch/yazmin
 //
 
-
 #import "IFDB.h"
 #import "Metadata.h"
 
-@interface IFDB ()
+NSString * const kIFDBXMLNamespace = @"http://ifdb.org/api/xmlns";
 
-@end
+static NSString *URLFromCoverArtElement(NSXMLElement *element) {
+    for (NSXMLNode *node in element.children) {
+        if ([node.name isEqualToString:@"url"])
+            return node.stringValue;
+    }
+    return nil;
+}
 
 @implementation IFDB
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element {
-  self = [super init];
-  if (self) {
-    for (NSXMLNode *node in element.children) {
-      if ([node.name compare:@"tuid"] == 0) {
-        _tuid = node.stringValue;
-      } else if ([node.name compare:@"coverart"] == 0) {
-          _coverArtURL = [IFDB pathFromCoverArtElement:(NSXMLElement *)node];
-      } else if ([node.name compare:@"starRating"] == 0) {
-          _starRating = node.stringValue;
-      } else if ([node.name compare:@"link"] == 0) {
-          _link = [NSURL URLWithString:node.stringValue];
-      } else if ([node.name compare:@"averageRating"] == 0) {
-          _averageRating = node.stringValue;
-      } else if ([node.name compare:@"ratingCountAvg"] == 0) {
-          _ratingCountAvg = node.stringValue;
-      } else if ([node.name compare:@"ratingCountTot"] == 0) {
-          _ratingCountTot = node.stringValue;
-      }
-    }
-  }
-  return self;
++ (NSURL *)viewGameURLForTUID:(NSString *)tuid IFID:(NSString *)ifid iFiction:(BOOL)iFiction {
+    NSURLQueryItem *key;
+    if (tuid.length)
+        key = [NSURLQueryItem queryItemWithName:@"id" value:tuid];
+    else if (ifid.length)
+        key = [NSURLQueryItem queryItemWithName:@"ifid" value:ifid];
+    else
+        return nil;
+    NSURLComponents *components = [NSURLComponents componentsWithString:@"https://ifdb.org/viewgame"];
+    components.queryItems = iFiction ? @[ [NSURLQueryItem queryItemWithName:@"ifiction" value:nil], key ] : @[ key ];
+    return components.URL;
 }
 
-+ (NSString *)pathFromCoverArtElement:(NSXMLElement *)element {
-  for (NSXMLNode *node in element.children) {
-    if ([node.name compare:@"url"] == 0) {
-      return node.stringValue;
+- (instancetype)initWithXMLElement:(NSXMLElement *)element {
+    self = [super init];
+    if (self) {
+        for (NSXMLNode *child in element.children) {
+            NSString *name = child.name;
+            if ([name isEqualToString:@"tuid"]) {
+                _tuid = child.stringValue;
+            } else if ([name isEqualToString:@"coverart"]) {
+                _coverArtURL = URLFromCoverArtElement((NSXMLElement *)child);
+            } else if ([name isEqualToString:@"starRating"]) {
+                _starRating = child.stringValue;
+            }
+        }
     }
-  }
-  return nil;
+    return self;
 }
 
 - (void)addInfoToMetadata:(Metadata *)metadata {

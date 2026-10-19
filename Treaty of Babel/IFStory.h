@@ -4,19 +4,24 @@
 //  See https://github.com/dcsch/yazmin
 //
 
-
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 @class IFIdentification, IFBibliographic, IFCoverDescription, IFDB, Metadata;
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFStory : NSObject
 
-@property(readonly) IFIdentification *identification;
-@property(readonly) IFBibliographic *bibliographic;
-@property(readonly) IFCoverDescription *coverDescription;
-@property(readonly) IFDB *ifdb;
+@property(readonly, nullable) IFIdentification *identification;
+@property(readonly, nullable) IFBibliographic *bibliographic;
+@property(readonly, nullable) IFCoverDescription *coverDescription;
+@property(readonly, nullable) IFDB *ifdb;
 
-- (instancetype)initWithXMLElement:(NSXMLElement *)element;
+//! Returns nil if the story has neither an <identification> nor a
+//! legacy Zoom <id> element
+- (nullable instancetype)initWithXMLElement:(NSXMLElement *)element;
 - (void)addInfoToMetadata:(Metadata *)metadata;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -14,6 +14,7 @@
 #import "LibController.h"
 
 #import "Fetches.h"
+#import "IFDB.h"
 
 #import "GlkWindow.h"
 #import "GlkTextGridWindow.h"
@@ -51,12 +52,9 @@ static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NS
 }
 
 - (IBAction)openIfdb:(id)sender {
-    NSString *urlString;
-    if (self.game.metadata.tuid)
-        urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:self.game.metadata.tuid];
-    else
-        urlString = [@"https://ifdb.tads.org/viewgame?ifid=" stringByAppendingString:self.game.ifid];
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
+    NSURL *url = [IFDB viewGameURLForTUID:self.game.metadata.tuid IFID:self.game.ifid iFiction:NO];
+    if (url)
+        [[NSWorkspace sharedWorkspace] openURL:url];
 }
 
 - (IBAction)download:(id)sender {

@@ -529,13 +529,7 @@ void ReportImportFailure(NSString *title, NSString *info) {
 }
 
 + (void)importInfoFromXML:(NSData *)mdbuf intoMetadata:(Metadata * _Nonnull)metadata {
-    IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf];
-    if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
-        return;
-    if (ifictionmetadata.stories.count > 1) {
-        NSLog(@"Found more than one story in data (%ld). Only using the first one", ifictionmetadata.stories.count);
-    }
-    IFStory *story = ifictionmetadata.stories.firstObject;
+    IFStory *story = [[IFictionMetadata alloc] initWithData:mdbuf].firstStory;
     [story addInfoToMetadata:metadata];
 }
 

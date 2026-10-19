@@ -5,116 +5,72 @@
 //  Created by Administrator on 2021-07-16.
 //
 
-#import "IFZoomID.h"
-#import "Metadata.h"
-#import "Ifid.h"
-#import "Game.h"
+#import <Foundation/Foundation.h>
 
-@interface IFZoomID () {
-    NSString *serial;
-    NSInteger release;
-    NSString *checksum;
-}
-@end
+#import "DebugLog.h"
+
+#import "IFZoomID.h"
 
 @implementation IFZoomID
 
 - (instancetype)initWithElements:(NSArray<NSXMLElement *> *)elements {
     self = [super init];
     if (self) {
-//        self.context = metadata.managedObjectContext;
-        NSMutableSet *ifidSet = [[NSMutableSet alloc] initWithCapacity:elements.count];
+        self.format = @"zcode";
+        NSMutableSet<NSString *> *ifidSet = [[NSMutableSet alloc] initWithCapacity:elements.count];
         for (NSXMLElement *element in elements) {
-            NSString *ifidString = [self ifidStringFromElement:element];
+            NSString *ifidString = [IFZoomID ifidStringFromElement:element];
             if (ifidString.length)
                 [ifidSet addObject:ifidString];
         }
         self.ifids = ifidSet;
-
-        // Used to find of create a unique metadata object that have Ifid objects representing the IFID strings in ifidArray.
-        // As neither Metada or Ifid objects are unique anymore, we just create new, fresh ones and return them.
-//        [self addIfids:ifidSet toMetadata:metadata];
-//
-//        if (!metadata.format)
-//            metadata.format = @"zcode";
     }
     return self;
 }
 
++ (NSString *)ifidStringFromElement:(NSXMLElement *)element {
+    NSString *serial = nil;
+    NSString *checksum = nil;
+    NSInteger release = 0;
 
-// Return an ifid string.
-- (NSString *)ifidStringFromElement:(NSXMLElement *)element {
     for (NSXMLNode *node in element.children) {
-        if ([node.name compare:@"format"] == 0) {
-            self.format = node.stringValue;
-            if (![self.format.lowercaseString isEqualToString:@"zcode"]) {
+        if ([node.name isEqualToString:@"format"]) {
+            if (![node.stringValue.lowercaseString isEqualToString:@"zcode"]) {
                 NSLog(@"IFZoomID only supports Z-code format");
                 return nil;
             }
-        } else if ([node.name compare:@"zcode"] == 0) {
+        } else if ([node.name isEqualToString:@"zcode"]) {
             for (NSXMLNode *subnode in node.children) {
-                if ([subnode.name compare:@"serial"] == 0) {
+                if ([subnode.name isEqualToString:@"serial"]) {
                     serial = subnode.stringValue;
-                } else if ([subnode.name compare:@"release"] == 0) {
+                } else if ([subnode.name isEqualToString:@"release"]) {
                     release = subnode.stringValue.integerValue;
-                } else if ([subnode.name compare:@"checksum"] == 0) {
-                    checksum = subnode.stringValue.uppercaseString;
+                } else if ([subnode.name isEqualToString:@"checksum"]) {
+                    checksum = subnode.stringValue;
                 }
             }
         }
     }
     if (!serial.length)
         return nil;
-//    Game *game = [self findGame];
-//    
-//    if (game) {
-//        if (!game.ifid.length)
-//            NSLog(@"Error! Game object in store without ifid!");
-//        return (game.ifid);
-//    } else {
-        // If no matching game is found in the Core Data store, we create a new Ifid,
-        // the way the Babel tool does it.
-        unichar firstChar = [serial characterAtIndex:0];
-        if (![serial isEqualToString:@"000000"] && isdigit(firstChar) && firstChar != '8') {
-            return [NSString stringWithFormat:@"ZCODE-%ld-%@-%@", (long)release, serial, checksum];
-        } else {
-            return [NSString stringWithFormat:@"ZCODE-%ld-%@", (long)release, serial];
-        }
-//    }
-}
 
-- (Game *)findGameInContext:(NSManagedObjectContext *)context {
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-    NSPredicate *predicate;
-
-    NSFetchRequest *fetchRequest = [Game fetchRequest];
-
-    predicate =  [NSPredicate predicateWithFormat:@"detectedFormat like[c] %@ AND serialString like[c] %@ AND releaseNumber == %d", @"zcode", serial, release];
-
-    if (checksum.length) {
-        unsigned checksumInt = 0;
-        NSScanner *scanner = [NSScanner scannerWithString:checksum];
-        [scanner scanHexInt:&checksumInt];
-
-        predicate = [NSCompoundPredicate andPredicateWithSubpredicates:@[predicate, [NSPredicate predicateWithFormat:@"checksum = %d", checksumInt]]];
+    // Same rules as babel/zcode.c: non-alphanumeric serial characters
+    // become dashes, and the checksum is only included for serials that
+    // look like dates.
+    NSMutableString *cleanSerial = [serial mutableCopy];
+    for (NSUInteger i = 0; i < cleanSerial.length; i++) {
+        unichar c = [cleanSerial characterAtIndex:i];
+        if (c > 127 || !isalnum(c))
+            [cleanSerial replaceCharactersInRange:NSMakeRange(i, 1) withString:@"-"];
     }
 
-    fetchRequest.predicate = predicate;
-
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"findGame: Problem! %@",error);
-        return nil;
+    unichar firstChar = [cleanSerial characterAtIndex:0];
+    unsigned checksumValue = 0;
+    if (![cleanSerial isEqualToString:@"000000"] && firstChar < 128 && isdigit(firstChar) && firstChar != '8' &&
+        checksum.length && [[NSScanner scannerWithString:checksum] scanHexInt:&checksumValue]) {
+        return [NSString stringWithFormat:@"ZCODE-%ld-%@-%04X", (long)release, cleanSerial, checksumValue];
     }
-
-    if (fetchedObjects.count > 1) {
-        NSLog(@"Found more than one matching Game entity!?");
-    } else if (fetchedObjects.count == 0) {
-        return nil;
-    }
-
-    return fetchedObjects.firstObject;
+    return [NSString stringWithFormat:@"ZCODE-%ld-%@", (long)release, cleanSerial];
 }
 
 @end

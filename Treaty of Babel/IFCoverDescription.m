@@ -6,9 +6,6 @@
 //
 
 #import "IFCoverDescription.h"
-#import "Metadata.h"
-#import "Image.h"
-#import "NSString+Categories.h"
 
 @implementation IFCoverDescription
 
@@ -16,9 +13,8 @@
     self = [super init];
     if (self) {
         for (NSXMLNode *node in element.children) {
-            if ([node.name compare:@"description"] == 0) {
+            if ([node.name isEqualToString:@"description"])
                 _coverArtDescription = node.stringValue;
-            }
         }
     }
     return self;

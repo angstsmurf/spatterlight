@@ -98,7 +98,7 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
     IFictionMetadata *ifictionmetadata = [[IFictionMetadata alloc] initWithData:mdbuf];
 
-    if (!ifictionmetadata || ifictionmetadata.stories.count == 0)
+    if (!ifictionmetadata)
         return directMatches;
 
     indirectMatches = [[NSMutableDictionary alloc] init];
