@@ -8,6 +8,7 @@
 
 #import "HelpPanelController.h"
 #import <AppKit/AppKit.h>
+#import "NSView+Categories.h"
 
 #import "DebugLog.h"
 
@@ -207,27 +208,6 @@
     return _textView;
 }
 
-- (NSSearchField *)findSearchFieldIn:
-    (NSView *)theView // search the subviews for a view of class NSSearchField
-{
-    NSSearchField __block __weak  *(^weak_findSearchField)(NSView *);
-    NSSearchField *(^findSearchField)(NSView *);
-    weak_findSearchField = findSearchField = ^(NSView *view) {
-        if ([view isKindOfClass:[NSSearchField class]])
-            return (NSSearchField *)view;
-        NSSearchField __block *foundView = nil;
-        [view.subviews enumerateObjectsUsingBlock:^(
-                           NSView *subview, NSUInteger idx, BOOL *stop) {
-            foundView = weak_findSearchField(subview);
-            if (foundView)
-                *stop = YES;
-        }];
-        return foundView;
-    };
-
-    return findSearchField(theView);
-}
-
 #pragma mark -
 #pragma mark Windows restoration
 
@@ -240,7 +220,7 @@
 }
 
 - (void)window:(NSWindow *)window willEncodeRestorableState:(NSCoder *)state {
-    NSSearchField *searchField = [self findSearchFieldIn:window.contentView];
+    NSSearchField *searchField = window.contentView.firstSearchField;
     if (searchField) {
         [state encodeObject:searchField.stringValue forKey:@"searchString"];
     }
@@ -253,8 +233,7 @@
     if (searchString) {
         NSTextFinder *newFinder = _textView.textFinder;
         [newFinder performAction:NSTextFinderActionShowFindInterface];
-        NSSearchField *searchField =
-            [self findSearchFieldIn:window.contentView];
+        NSSearchField *searchField = window.contentView.firstSearchField;
         if (searchField) {
             searchField.stringValue = searchString;
             [newFinder cancelFindIndicator];

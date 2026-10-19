@@ -7,6 +7,7 @@
 #import "MarginImage.h"
 #import "MyAttachmentCell.h"
 #import "BufferTextView.h"
+#import "NSView+Categories.h"
 #include "glkimp.h"
 
 #import "DebugLog.h"
@@ -131,7 +132,7 @@
     [encoder encodeObject:_textview.insertionPointColor
                    forKey:@"insertionPointColor"];
     [encoder encodeBool:_textview.shouldDrawCaret forKey:@"shouldDrawCaret"];
-    NSSearchField *searchField = [self findSearchFieldIn:self];
+    NSSearchField *searchField = self.firstSearchField;
     if (searchField) {
         [encoder encodeObject:searchField.stringValue forKey:@"searchString"];
     }
@@ -214,12 +215,13 @@
      options:0
      usingBlock:^(NSTextAttachment *attachment, NSRange range, BOOL *stop) {
         MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
-        if (cell) {
-            if (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight) {
-                if (cell.marginImgUUID != nil)
-                    attachmentCells[cell.marginImgUUID] = cell;
-            }
+        if ([cell isKindOfClass:[MyAttachmentCell class]]) {
+            if (cell.isMargin && cell.marginImgUUID != nil)
+                attachmentCells[cell.marginImgUUID] = cell;
             cell.pos = range.location;
+            // Not archived (it would archive the whole text storage again
+            // inside it), so point the cell back at its string here.
+            cell.attrstr = textstorage;
         }
     }];
 
@@ -268,7 +270,7 @@
         scrollview.backgroundColor = bgcolor;
         scrollview.hasHorizontalScroller = NO;
         scrollview.hasVerticalScroller = YES;
-        scrollview.verticalScroller.alphaValue = 100;
+        scrollview.verticalScroller.alphaValue = 1;
         scrollview.autohidesScrollers = YES;
         scrollview.borderType = NSNoBorder;
     }
@@ -294,7 +296,7 @@
 
     if (_restoredFindBarVisible) {
         [newFinder performAction:NSTextFinderActionShowFindInterface];
-        NSSearchField *searchField = [self findSearchFieldIn:self];
+        NSSearchField *searchField = self.firstSearchField;
         if (searchField) {
             if (_restoredSearch)
                 searchField.stringValue = _restoredSearch;
@@ -310,36 +312,12 @@
 // the search field to find its top-level container within the scroll
 // view, then removes it.
 - (void)destroyTextFinder {
-    NSView *aView = [self findSearchFieldIn:scrollview];
+    NSView *aView = scrollview.firstSearchField;
     if (aView) {
         while (aView.superview != scrollview)
             aView = aView.superview;
         [aView removeFromSuperview];
     }
-}
-
-// Recursively search the view hierarchy for an NSSearchField.
-// Uses a weak/strong block pattern to allow recursive block invocation.
-- (NSSearchField *)findSearchFieldIn:
-(NSView *)theView
-{
-    NSSearchField __block __weak *(^weak_findSearchField)(NSView *);
-    NSSearchField * (^findSearchField)(NSView *);
-
-    weak_findSearchField = findSearchField = ^(NSView *view) {
-        if ([view isKindOfClass:[NSSearchField class]])
-            return (NSSearchField *)view;
-        NSSearchField __block *foundView = nil;
-        [view.subviews enumerateObjectsUsingBlock:^(
-                           NSView *subview, NSUInteger idx, BOOL *stop) {
-          foundView = weak_findSearchField(subview);
-          if (foundView)
-              *stop = YES;
-        }];
-        return foundView;
-    };
-
-    return findSearchField(theView);
 }
 
 @end

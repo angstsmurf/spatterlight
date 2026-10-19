@@ -61,7 +61,7 @@
         theline = [layout lineFragmentRectForGlyphAtIndex:ourglyph.location
                                            effectiveRange:nil];
 
-        _bounds = NSMakeRect(0, theline.origin.y, FLT_MAX, theline.size.height);
+        _bounds = NSMakeRect(0, theline.origin.y, CGFLOAT_MAX, theline.size.height);
 
         /* invalidate our fake layout *after* we set the bounds ... to avoid
          * infiniloop */

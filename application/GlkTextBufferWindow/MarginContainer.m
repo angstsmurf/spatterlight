@@ -37,12 +37,12 @@
 
 - (instancetype)initWithContainerSize:(NSSize)size {
     self = [super initWithContainerSize:size];
-
-    layoutCharIndex = NSNotFound;
-    layoutParagraphEnd = NSNotFound;
-    _marginImages = [[NSMutableArray alloc] init];
-    flowbreaks = [[NSMutableArray alloc] init];
-
+    if (self) {
+        layoutCharIndex = NSNotFound;
+        layoutParagraphEnd = NSNotFound;
+        _marginImages = [[NSMutableArray alloc] init];
+        flowbreaks = [[NSMutableArray alloc] init];
+    }
     return self;
 }
 
@@ -51,11 +51,16 @@
     if (self) {
         layoutCharIndex = NSNotFound;
         layoutParagraphEnd = NSNotFound;
-        _marginImages = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"marginImages"];
+        // The arrays come back immutable (or missing, from a damaged
+        // archive), and both are appended to later. (decodeArrayOfObjectsOfClass:
+        // would be neater, but needs macOS 11.)
+        NSArray *images = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [MarginImage class], nil] forKey:@"marginImages"];
+        _marginImages = images ? images.mutableCopy : [[NSMutableArray alloc] init];
         for (MarginImage *img in _marginImages) {
             img.container = self;
         }
-        flowbreaks = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"flowbreaks"];
+        NSArray *breaks = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FlowBreak class], nil] forKey:@"flowbreaks"];
+        flowbreaks = breaks ? breaks.mutableCopy : [[NSMutableArray alloc] init];
     }
 
     return self;

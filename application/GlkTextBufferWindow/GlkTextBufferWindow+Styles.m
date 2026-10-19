@@ -58,8 +58,27 @@
 // all style attributes to existing text (preserving inline images, hyperlinks,
 // Z-colors, and reverse video), updates margins, link appearance, and scroll
 // position. If the game has ended, adjusts the window frame to fill available space.
+// Build the styles array: one NSDictionary of text attributes per Glk style
+// (NSNull where the theme has none). When doStyles is on, game-provided style
+// hints are applied on top of the theme defaults; otherwise, raw theme
+// attributes are used directly.
+- (NSMutableArray *)buildStyles {
+    NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
+        GlkStyle *style = [self.theme valueForKey:gBufferStyleNames[i]];
+        NSDictionary *attributes = self.theme.doStyles ?
+            [style attributesWithHints:self.styleHints[i]] : style.attributeDict;
+        if (attributes) {
+            [newstyles addObject:[self styleAttributesWithLanguage:attributes]];
+        } else {
+            NSLog(@"GlkTextBufferWindow couldn't create style dict for style %lu", (unsigned long)i);
+            [newstyles addObject:[NSNull null]];
+        }
+    }
+    return newstyles;
+}
+
 - (void)prefsDidChange {
-    NSDictionary *attributes;
     if (!_pendingScrollRestore) {
         [self storeScrollOffset];
     }
@@ -67,42 +86,27 @@
     GlkController *glkctl = self.glkctl;
 
     // Adjust terminators for Beyond Zork arrow keys hack
-    if (glkctl.gameID == kGameIsBeyondZork || [glkctl zVersion6]) {
+    if (self.mayEatArrowKeys) {
         [self adjustBZTerminators:self.pendingTerminators];
         [self adjustBZTerminators:self.currentTerminators];
     }
 
     // Preferences has changed, so first we must redo the styles library
-    NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     BOOL different = NO;
-    for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
-        if (self.theme.doStyles) {
-            // We're doing styles, so we call the current theme object with our hints array
-            // in order to get an attributes dictionary
-            attributes = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
-        } else {
-            // We're not doing styles, so use the raw style attributes from
-            // the theme object's attributeDict object
-            attributes = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
-        }
-
-        if (usingStyles != self.theme.doStyles) {
-            different = YES;
-            usingStyles = self.theme.doStyles;
-        }
-
-        if (underlineLinks != (self.theme.bufLinkStyle != NSUnderlineStyleNone)) {
-            different = YES;
-            underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
-        }
-
-        if (attributes) {
-            [newstyles addObject:[self styleAttributesWithLanguage:attributes]];
-            if (!different && ![newstyles[i] isEqualToDictionary:styles[i]])
-                different = YES;
-        } else
-            [newstyles addObject:[NSNull null]];
+    if (usingStyles != self.theme.doStyles) {
+        different = YES;
+        usingStyles = self.theme.doStyles;
     }
+
+    BOOL newUnderlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
+    if (underlineLinks != newUnderlineLinks) {
+        different = YES;
+        underlineLinks = newUnderlineLinks;
+    }
+
+    NSMutableArray *newstyles = [self buildStyles];
+    if (!different && ![newstyles isEqualToArray:styles])
+        different = YES;
 
     CGFloat marginX = (CGFloat)self.theme.bufferMarginX;
     CGFloat marginY = (CGFloat)self.theme.bufferMarginY;
@@ -165,7 +169,8 @@
             id styleobject = attrs[@"GlkStyle"];
             if (styleobject) {
                 NSDictionary *stylesAtt = blockStyles[(NSUInteger)[styleobject intValue]];
-                [backingStorage setAttributes:stylesAtt range:range];
+                if ([stylesAtt isKindOfClass:[NSDictionary class]])
+                    [backingStorage setAttributes:stylesAtt range:range];
             }
 
             // Then, we re-add all the "non-Glk" style values we want to keep
@@ -232,18 +237,16 @@
             [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
         }
     } else {
-        if (!glkctl.isAlive) {
-            NSRect frame = self.frame;
+        NSRect frame = self.frame;
 
-            if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
-                frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
-            }
-
-            if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
-                frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
-            }
-            self.frame = frame;
+        if ((self.autoresizingMask & NSViewWidthSizable) == NSViewWidthSizable) {
+            frame.size.width = glkctl.gameView.frame.size.width - frame.origin.x;
         }
+
+        if ((self.autoresizingMask & NSViewHeightSizable) == NSViewHeightSizable) {
+            frame.size.height = glkctl.gameView.frame.size.height - frame.origin.y;
+        }
+        self.frame = frame;
         [self flushDisplay];
         [self recalcBackground];
         [self restoreScrollBarStyle];

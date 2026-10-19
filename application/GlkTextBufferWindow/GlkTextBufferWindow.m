@@ -46,29 +46,10 @@
         NSInteger marginX = self.theme.bufferMarginX;
         NSInteger marginY = self.theme.bufferMarginY;
 
-        NSUInteger i;
 
         // Deep-copy the style hints so per-window hint changes don't affect others
-        NSDictionary *styleDict = nil;
         self.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.glkctl.bufferStyleHints];
-
-        // Build the styles array: one NSDictionary of text attributes per Glk style.
-        // When doStyles is on, game-provided style hints are applied on top of the
-        // theme defaults; otherwise, raw theme attributes are used directly.
-        styles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-        for (i = 0; i < style_NUMSTYLES; i++) {
-            if (self.theme.doStyles) {
-                styleDict = [((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]) attributesWithHints:self.styleHints[i]];
-            } else {
-                styleDict = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[i]]).attributeDict;
-            }
-            if (!styleDict) {
-                NSLog(@"GlkTextBufferWindow couldn't create style dict for style %ld", i);
-                [styles addObject:[NSNull null]];
-            } else {
-                [styles addObject:[self styleAttributesWithLanguage:styleDict]];
-            }
-        }
+        styles = [self buildStyles];
 
         echo = YES;
 
@@ -136,7 +117,7 @@
 
         [_textview enableCaret:nil];
 
-        scrollview.accessibilityLabel = @"buffer scroll view";
+        scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
 
         [self addSubview:scrollview];
         [self observeLiveScroll];
@@ -532,11 +513,16 @@
 // autorestore to pad the text so that scroll position can be restored
 // correctly (the restored content needs the same vertical extent).
 - (void)padWithNewlines:(NSUInteger)lines {
-    NSString *newlinestring = [[[NSString alloc] init]
-                               stringByPaddingToLength:lines
-                               withString:@"\n"
-                               startingAtIndex:0];
-    NSDictionary *attributes = [textstorage attributesAtIndex:0 effectiveRange:nil];
+    if (lines == 0)
+        return;
+    NSString *newlinestring = [@"" stringByPaddingToLength:lines
+                                                withString:@"\n"
+                                           startingAtIndex:0];
+    NSDictionary *attributes = nil;
+    if (textstorage.length)
+        attributes = [textstorage attributesAtIndex:0 effectiveRange:nil];
+    else if ([styles[style_Normal] isKindOfClass:[NSDictionary class]])
+        attributes = styles[style_Normal];
     NSAttributedString *attrStr = [[NSAttributedString alloc] initWithString:newlinestring attributes:attributes];
     [textstorage insertAttributedString:attrStr atIndex:0];
     if (self.moveRanges.count) {

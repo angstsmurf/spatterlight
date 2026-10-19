@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  * with the text flowing around them like in HTML.
  */
 
-@interface MarginImage : NSAccessibilityElement <NSSecureCoding, NSFilePromiseProviderDelegate, NSDraggingSource, NSPasteboardItemDataProvider>
+@interface MarginImage : NSAccessibilityElement <NSSecureCoding>
 
 @property (strong) NSImage *image;
 @property (readonly) NSInteger glkImgAlign;
@@ -26,6 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *uuid;
 @property (weak) MarginContainer *container;
 
+- (instancetype)init NS_UNAVAILABLE;
 - (instancetype)initWithImage:(NSImage *)animage
                     alignment:(NSInteger)analign
                        linkId:(NSUInteger)linkId

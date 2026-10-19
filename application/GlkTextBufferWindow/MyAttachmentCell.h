@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 // I suppose this is necessary to get rid of that ugly Markup menu on attached
 // images.
 
-@interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding, NSPasteboardItemDataProvider, NSDraggingSource, NSFilePromiseProviderDelegate>
+@interface MyAttachmentCell : NSTextAttachmentCell <NSSecureCoding>
 
 @property (weak) NSAttributedString *attrstr;
 @property (weak) MarginImage *marginImage;
@@ -24,6 +24,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property NSString *marginImgUUID;
 
 @property BOOL hasDescription;
+
+// YES for imagealign_MarginLeft/MarginRight cells, which only anchor a
+// MarginImage and draw nothing themselves.
+@property (readonly) BOOL isMargin;
 
 // Glk 0.7.6 (GLK_MODULE_IMAGE2) scaling rule, from glk_image_draw_scaled_ext.
 // 0 = legacy draw call. Nonzero: ruleWidth/ruleHeight are the rule's raw
@@ -62,6 +66,8 @@ NS_ASSUME_NONNULL_BEGIN
                   maxwidth:(NSUInteger)maxwidth
                    natural:(NSSize)natural
                  available:(CGFloat)availwidth;
+
++ (BOOL)isMarginAlignment:(NSInteger)alignment;
 
 - (instancetype)initImageCell:(NSImage *)image
                  andAlignment:(NSInteger)analignment

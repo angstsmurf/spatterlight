@@ -130,6 +130,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)linkWasClicked;
 - (void)linkDidEnterCommand;
 
+// Implemented in +Input.m.
+- (NSString *)currentInputText;
+// Beyond Zork and V6 games may take the arrow keys for themselves, so
+// Home/End can stand in for them in the command history.
+@property (readonly) BOOL mayEatArrowKeys;
+
+// Implemented in +Styles.m.
+- (NSMutableArray *)buildStyles;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -143,16 +143,15 @@
 
     } else if (line_request && (ch == keycode_Return ||
                                 [self.currentTerminators[key] isEqual:@(YES)])) {
-        NSString *line = [textstorage.string substringFromIndex:fence];
-        [self sendInputLine:line withTerminator:ch == keycode_Return ? 0 : key.unsignedIntegerValue];
+        [self sendInputLine:[self currentInputText] withTerminator:ch == keycode_Return ? 0 : key.unsignedIntegerValue];
         return;
     } else if (line_request && (ch == keycode_Up ||
                                 // Use Home to travel backward in history when Beyond Zork eats up arrow
-                                ((self.glkctl.gameID == kGameIsBeyondZork || [self.glkctl zVersion6]) && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
+                                (self.mayEatArrowKeys && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
         [self travelBackwardInHistory];
     } else if (line_request && (ch == keycode_Down ||
                                 // Use End to travel forward in history when Beyond Zork eats down arrow
-                                ((self.glkctl.gameID == kGameIsBeyondZork || [self.glkctl zVersion6]) && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
+                                (self.mayEatArrowKeys && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
         [self travelForwardInHistory];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
@@ -215,10 +214,7 @@
 // to Up/Down terminators, queues the line event, and resets input state.
 - (void)sendInputLine:(NSString *)line withTerminator:(NSUInteger)terminator {
     if (echo) {
-        //        [textstorage
-        //         addAttribute:NSCursorAttributeName value:[NSCursor arrowCursor] range:[self editableRange]];
-        [self printToWindow:@"\n"
-                      style:style_Normal]; // XXX arranger lastchar needs to be set
+        [self printToWindow:@"\n" style:style_Normal];
         _lastchar = '\n';
     } else {
         // Defer the deletion until the next output arrives, so the on-screen
@@ -238,7 +234,7 @@
     line = [line scrubInvalidCharacters];
     line = [line stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-    if (self.glkctl.gameID == kGameIsBeyondZork || [self.glkctl zVersion6]) {
+    if (self.mayEatArrowKeys) {
         if (terminator == keycode_Home) {
             terminator = keycode_Up;
         } else if (terminator == keycode_End) {
@@ -343,13 +339,24 @@
     }
 
     _textview.selectedRange = NSMakeRange(textstorage.length, 0);
-    if (bufferedEvents.count)  {
-        NSMutableArray *copiedEvents = bufferedEvents.copy;
-        for (NSEvent *event in copiedEvents) {
-            [self keyDown:event];
-        }
-        bufferedEvents = [NSMutableArray new];
-    }
+    // Take the queue before replaying it: a replayed key can end the line
+    // request, and the keys after it must be buffered again, not dropped.
+    NSArray<NSEvent *> *replay = bufferedEvents;
+    bufferedEvents = nil;
+    for (NSEvent *event in replay)
+        [self keyDown:event];
+}
+
+- (BOOL)mayEatArrowKeys {
+    GlkController *glkctl = self.glkctl;
+    return glkctl.gameID == kGameIsBeyondZork || [glkctl zVersion6];
+}
+
+// The text typed so far on the input line: everything after the fence.
+- (NSString *)currentInputText {
+    if (fence >= textstorage.length)
+        return @"";
+    return [textstorage.string substringFromIndex:fence];
 }
 
 - (void)recalcInputAttributes {
@@ -366,21 +373,18 @@
     // meaning of fence; apply it before reading the input.
     [self applyPendingEchoDeleteIfValid];
 
-    NSString *str = textstorage.string;
-    str = [str substringFromIndex:fence];
+    NSString *str = [self currentInputText];
     if (linkClickPending) {
         linkClickPending = NO;
         lineCancelledAfterLink = str;
     }
     if (echo) {
         [self printToWindow:@"\n" style:style_Input];
-        _lastchar = '\n'; // [str characterAtIndex: str.length - 1];
-    } else
-        [textstorage
-         deleteCharactersInRange:NSMakeRange(
-                                             fence,
-                                             textstorage.length -
-                                             fence)]; // Don't echo input line
+        _lastchar = '\n';
+    } else if (str.length) {
+        // Don't echo input line
+        [textstorage deleteCharactersInRange:NSMakeRange(fence, str.length)];
+    }
 
     _textview.editable = NO;
     line_request = NO;
@@ -398,14 +402,7 @@
 // Announces via VoiceOver if at the start of history or history is empty.
 - (void)travelBackwardInHistory {
     [self flushDisplay];
-    NSString *cx;
-    if (textstorage.length > fence) {
-        cx = [textstorage.string substringFromIndex:fence];
-    } else {
-        cx = @"";
-    }
-
-    cx = [history travelBackwardInHistory:cx];
+    NSString *cx = [history travelBackwardInHistory:[self currentInputText]];
 
     if (cx) {
         [textstorage
@@ -473,14 +470,13 @@ replacementString:(id)repl {
     if (!line_request)
         return;
 
-    if (textstorage.editedRange.location < fence)
+    if (editedRange.location < fence)
         return;
 
     if (!_inputAttributes)
         [self recalcInputAttributes];
 
-    [textstorage setAttributes:_inputAttributes
-                         range:textstorage.editedRange];
+    [textStorage setAttributes:_inputAttributes range:editedRange];
 }
 
 // NSTextViewDelegate: Clamp the insertion point to the editable region.

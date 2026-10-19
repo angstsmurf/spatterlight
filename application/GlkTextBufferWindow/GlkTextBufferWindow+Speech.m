@@ -178,7 +178,7 @@
         NSDictionary *attachments = [self attachmentsInRange:range withKeys:&keys];
         NSUInteger offset = 0;
         for (NSNumber *num in keys) {
-            NSUInteger index = (NSUInteger)num.intValue - range.location + offset;
+            NSUInteger index = num.unsignedIntegerValue - range.location + offset;
             MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)attachments[num]).attachmentCell;
             NSString *label = cell.customA11yLabel;
             if (self.theme.vOSpeakImages != kVOImageWithDescriptionOnly || cell.hasDescription) {
@@ -412,9 +412,11 @@
             return;
         }
         MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)value).attachmentCell;
+        if (![cell isKindOfClass:[MyAttachmentCell class]])
+            return;
         if (withDescOnly && cell.hasDescription == NO)
             return;
-        if (subrange.length < 2 && (cell.alignment == imagealign_MarginRight || cell.alignment == imagealign_MarginLeft))
+        if (subrange.length < 2 && cell.isMargin)
             subrange.length = 2;
         [images addObject:[NSValue valueWithRange:subrange]];
     }];

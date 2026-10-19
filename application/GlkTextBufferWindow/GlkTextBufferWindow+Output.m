@@ -39,22 +39,28 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     [_textview resetTextFinder];
     fence = 0;
     pendingEchoDeleteRange = NSMakeRange(0, 0);
+    lastAtBottom = NO;
+    lastAtTop = NO;
+    rewrapFollowupScroll = NO;
+    scrollAdjustTimeStamp = [NSDate distantPast];
+    [self resetScrollState];
+    [container invalidateLayout:nil];
+    _pendingClear = NO;
+}
+
+// State shared by reallyClear and clearScrollback: character indices into
+// the old text (lastseen marker, rewrap anchor, VoiceOver move ranges) and
+// the margin images, none of which survive deleting the text before them.
+- (void)resetScrollState {
     _lastseen = 0;
     docHeightAtLastSeen = 0;
     _lastchar = '\n';
-    lastAtBottom = NO;
-    lastAtTop = NO;
     lastVisible = 0;
     rewrapLastseenChar = NSNotFound;
-    rewrapFollowupScroll = NO;
-    scrollAdjustTimeStamp = [NSDate distantPast];
     _printPositionOnInput = 0;
     [container clearImages];
-
     self.moveRanges = [[NSMutableArray alloc] init];
     moveRangeIndex = 0;
-    [container invalidateLayout:nil];
-    _pendingClear = NO;
 }
 
 // Clear old text, keeping only the current prompt and input. Finds the second
@@ -76,7 +82,7 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     NSUInteger prompt;
     NSUInteger i;
 
-    NSUInteger charsAfterFence = length - fence;
+    NSUInteger charsAfterFence = (fence < length) ? length - fence : 0;
     BOOL found = NO;
 
     // find the second newline from the end
@@ -100,14 +106,12 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
         }
     }
 
+    // Belt and braces: the delete bypasses the text view delegate, and this
+    // keeps willProcessEditing from treating it as input.
     line_request = NO;
 
     [textstorage deleteCharactersInRange:NSMakeRange(0, length - prompt)];
 
-    _lastseen = 0;
-    docHeightAtLastSeen = 0;
-    _lastchar = '\n';
-    _printPositionOnInput = 0;
     if (textstorage.length < charsAfterFence)
         fence = 0;
     else
@@ -115,11 +119,10 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
 
     line_request = save_request;
 
-    [container clearImages];
+    [self resetScrollState];
     for (NSView *view in _textview.subviews)
         if ([view isKindOfClass:[MarginImage class]])
             [view removeFromSuperview];
-    self.moveRanges = [[NSMutableArray alloc] init];
 }
 
 // Append a string to the window with the given Glk style. This is the main
@@ -149,12 +152,11 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
 
     [self printToWindow:str style:stylevalue];
 
-    if (self.glkctl.gameID == kGameIsDeadCities && line_request && [[str substringFromIndex:str.length - 1] isEqualToString:@"\n"]) {
+    if (self.glkctl.gameID == kGameIsDeadCities && line_request && [str hasSuffix:@"\n"]) {
         // This is against the Glk spec but makes
         // hyperlinks in Dead Cities work.
         // Turn this off by disabling game specific hacks in preferences.
-        NSString *line = [textstorage.string substringFromIndex:fence];
-        [self sendInputLine:line withTerminator:0];
+        [self sendInputLine:[self currentInputText] withTerminator:0];
     }
 }
 
@@ -265,6 +267,22 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
         if (_printPositionOnInput > newLength)
             _printPositionOnInput = newLength;
         _lastchar = newLength ? [textstorage.string characterAtIndex:newLength - 1] : '\n';
+        // Clip the VoiceOver move ranges too, or speaking the last move
+        // would ask for characters that are gone.
+        NSMutableArray<NSValue *> *clipped = [[NSMutableArray alloc] initWithCapacity:self.moveRanges.count];
+        for (NSValue *value in self.moveRanges) {
+            NSRange range = value.rangeValue;
+            if (range.location >= newLength)
+                break;
+            if (NSMaxRange(range) > newLength)
+                range.length = newLength - range.location;
+            [clipped addObject:[NSValue valueWithRange:range]];
+        }
+        if (![clipped isEqualToArray:self.moveRanges]) {
+            self.moveRanges = clipped;
+            if (moveRangeIndex > clipped.count)
+                moveRangeIndex = clipped.count;
+        }
     }
     return result;
 }
@@ -272,8 +290,10 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
 // Request a change in echo behavior. The toggle is deferred until the next
 // line input request to avoid disrupting the current input.
 - (void)echo:(BOOL)val {
-    if ((!(val) && echo) || (val && !(echo)))
-        echo_toggle_pending = YES;
+    // Applied on the next line request (see initLine). Recomputed on every
+    // call, so that turning echo off and back on again before then is a
+    // no-op rather than a toggle.
+    echo_toggle_pending = (val != echo);
 }
 
 @end

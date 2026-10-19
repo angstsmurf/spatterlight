@@ -778,6 +778,7 @@
 		C354C6DF275791ED00EBB449 /* t2indlg.c in Sources */ = {isa = PBXBuildFile; fileRef = C354C6DE275791ED00EBB449 /* t2indlg.c */; };
 		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
+		F472E875DFFA44EEBDBC9CB5 /* NSView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0828655AE94F68BE83A03E /* NSView+Categories.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
@@ -930,6 +931,7 @@
 		C3AD642526176737008614C5 /* BufferTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD642426176737008614C5 /* BufferTextView.m */; };
 		C3AD647326176982008614C5 /* FlowBreak.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD647226176982008614C5 /* FlowBreak.m */; };
 		C3AD648F261769DB008614C5 /* MarginImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD648E261769DB008614C5 /* MarginImage.m */; };
+		7C0BA9071DBE485B9EF6FDA1 /* ImageDragSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50966F36FE2F44509985FE86 /* ImageDragSource.m */; };
 		C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD64DD26176DC5008614C5 /* GridTextView.m */; };
 		C3AE6C9C25CF408100B7AB0A /* libbabel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 96A9BA790A06558F001B5B9B /* libbabel.a */; };
 		C3B1489927FCD55400844708 /* extracommands.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B1489827FCD55400844708 /* extracommands.c */; };
@@ -3503,6 +3505,8 @@
 		C359A2D42EE5AF670079F9EA /* irmak.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = irmak.c; sourceTree = "<group>"; };
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
+		7E91B054998441D190A9189D /* NSView+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+Categories.h"; sourceTree = "<group>"; };
+		2D0828655AE94F68BE83A03E /* NSView+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+Categories.m"; sourceTree = "<group>"; };
 		C35CB31B285DD7BF00601E97 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
 		C35CB31D285DD7BF00601E97 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
 		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
@@ -3704,6 +3708,8 @@
 		C3AD647226176982008614C5 /* FlowBreak.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FlowBreak.m; sourceTree = "<group>"; };
 		C3AD648D261769DB008614C5 /* MarginImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarginImage.h; sourceTree = "<group>"; };
 		C3AD648E261769DB008614C5 /* MarginImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarginImage.m; sourceTree = "<group>"; };
+		406BED8480304BF1B610D5FA /* ImageDragSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDragSource.h; sourceTree = "<group>"; };
+		50966F36FE2F44509985FE86 /* ImageDragSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDragSource.m; sourceTree = "<group>"; };
 		C3AD64DC26176DC5008614C5 /* GridTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridTextView.h; sourceTree = "<group>"; };
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
 		C3B1489727FCD55400844708 /* extracommands.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = extracommands.h; sourceTree = "<group>"; };
@@ -4528,6 +4534,8 @@
 				C3191AA3266D3A1F00528F6E /* NSBitmapImageRep+retro.m */,
 				C35C54022676613800294FE7 /* NSFont+Categories.h */,
 				C35C54032676613800294FE7 /* NSFont+Categories.m */,
+				7E91B054998441D190A9189D /* NSView+Categories.h */,
+				2D0828655AE94F68BE83A03E /* NSView+Categories.m */,
 				C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */,
 				C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */,
 			);
@@ -6951,6 +6959,8 @@
 				C3AD647226176982008614C5 /* FlowBreak.m */,
 				C3AD648D261769DB008614C5 /* MarginImage.h */,
 				C3AD648E261769DB008614C5 /* MarginImage.m */,
+				406BED8480304BF1B610D5FA /* ImageDragSource.h */,
+				50966F36FE2F44509985FE86 /* ImageDragSource.m */,
 				C3AD640726176589008614C5 /* MarginContainer.h */,
 				C3AD640826176589008614C5 /* MarginContainer.m */,
 				C3AD642326176737008614C5 /* BufferTextView.h */,
@@ -8943,6 +8953,7 @@
 				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,
 				C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
+				F472E875DFFA44EEBDBC9CB5 /* NSView+Categories.m in Sources */,
 				C3A1997E299982E300D27500 /* OSFastGraphics.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
@@ -8955,6 +8966,7 @@
 				6DC520AA23BAD54B0004923A /* Game.m in Sources */,
 				6DD7679C23E45FB7003B605C /* ThemeArrayController.m in Sources */,
 				C3AD648F261769DB008614C5 /* MarginImage.m in Sources */,
+				7C0BA9071DBE485B9EF6FDA1 /* ImageDragSource.m in Sources */,
 				C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */,
 				C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */,
 				C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */,

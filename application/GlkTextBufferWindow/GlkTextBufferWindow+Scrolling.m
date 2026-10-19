@@ -578,8 +578,6 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         rewrapFollowupScroll = NO;
     }
     _pendingScroll = NO;
-    //    NSLog(@"GlkTextBufferWindow %ld restoreScroll", self.name);
-    //    NSLog(@"lastVisible: %ld lastScrollOffset:%f", lastVisible, lastScrollOffset);
     // A window whose entire text fits within the viewport has nothing to
     // scroll, and this restore must actively put it back at the top rather
     // than just decline to move it. The scroll position is part of the
@@ -683,7 +681,6 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 
     CGFloat charbottom = NSMaxY(line); // bottom of the line
     if (fabs(charbottom - NSHeight(scrollview.frame)) < charHeight && NSHeight(scrollview.frame) / charHeight > 3) {
-        //        NSLog(@"scrollToCharacter: too close to the top!");
         [self scrollToTop];
         return;
     }
@@ -739,12 +736,8 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         [self scrollToTop];
         return;
     }
-//
-//    if (textstorage.length < 1000000)
-//        // first, force a layout so we have the correct textview frame
-//        [layoutmanager ensureLayoutForTextContainer:container];
 
-    // then, get the bottom
+    // Get the bottom
     CGFloat bottom = NSHeight(_textview.frame);
 
     // If _lastseen is stale (e.g. a game restart truncated the textstorage

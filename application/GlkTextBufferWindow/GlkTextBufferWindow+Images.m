@@ -43,10 +43,10 @@ static const NSUInteger kMaxMarginImages = 200;
     return dst;
 }
 
-// Create an NSTextAttachment wrapping a MyAttachmentCell for an inline image.
+// Create an NSTextAttachment wrapping a MyAttachmentCell for an image.
 // The cell stores the Glk alignment mode and image resource index for later
 // identification during rescaling and accessibility queries.
-- (NSTextAttachment *)textAttachmenWithImage:(NSImage *)image alignment:(NSInteger)alignment index:(NSInteger)index position:(NSUInteger)position {
+- (NSTextAttachment *)textAttachmentWithImage:(NSImage *)image alignment:(NSInteger)alignment index:(NSInteger)index position:(NSUInteger)position {
     NSTextAttachment *att = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     MyAttachmentCell *cell =
     [[MyAttachmentCell alloc] initImageCell:image
@@ -83,8 +83,7 @@ static const NSUInteger kMaxMarginImages = 200;
         _lastchar = '\n';
     }
 
-    BOOL isMargin = (alignment == imagealign_MarginLeft ||
-                     alignment == imagealign_MarginRight);
+    BOOL isMargin = [MyAttachmentCell isMarginAlignment:alignment];
     NSUInteger cellRule = 0;
     NSSize natural = image.size;
 
@@ -122,12 +121,8 @@ static const NSUInteger kMaxMarginImages = 200;
         _lastchar = '\n';
     }
 
-    MyAttachmentCell *cell =
-    [[MyAttachmentCell alloc] initImageCell:image
-                               andAlignment:alignment
-                                  andAttStr:textstorage
-                                         at:textstorage.length
-                                      index:index];
+    NSTextAttachment *att = [self textAttachmentWithImage:image alignment:alignment index:index position:textstorage.length];
+    MyAttachmentCell *cell = (MyAttachmentCell *)att.attachmentCell;
 
     // The image being drawn is always the one the handler loaded last.
     cell.imageNumber = self.glkctl.imageHandler.lastimageresno;
@@ -146,7 +141,7 @@ static const NSUInteger kMaxMarginImages = 200;
         cell.naturalSize = natural;
     }
 
-    if (alignment == imagealign_MarginLeft || alignment == imagealign_MarginRight) {
+    if (isMargin) {
         if (_lastchar != '\n') {
             NSLog(@"lastchar is not line break. Do not add margin image.");
             return;
@@ -170,8 +165,6 @@ static const NSUInteger kMaxMarginImages = 200;
         cell.marginImgUUID = cell.marginImage.uuid;
     }
 
-    NSTextAttachment *att = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-    att.attachmentCell = cell;
     NSAttributedString *attstr = [NSAttributedString
                                   attributedStringWithAttachment:att];
 
@@ -237,8 +230,7 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
      options:0
      usingBlock:^(NSTextAttachment *value, NSRange subrange, BOOL *stop) {
         MyAttachmentCell *cell = (MyAttachmentCell *)value.attachmentCell;
-        if (![cell isKindOfClass:[MyAttachmentCell class]] ||
-            cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight)
+        if (![cell isKindOfClass:[MyAttachmentCell class]] || cell.isMargin)
             return;
 
         // Cells restored from an autosave arrive without their animation.
@@ -349,7 +341,7 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         if (cell.imagerule)
             return;
 
-        BOOL imageIsMargin = (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight);
+        BOOL imageIsMargin = cell.isMargin;
 
         // The resource number, that is, not cell.index, which is whatever
         // the game passed as val2 of glk_image_draw(). Cells from autosaves
@@ -374,7 +366,7 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
 
         // Replace non-margin inline images (alignment imagealign_InlineUp, imagealign_InlineDown, or imagealign_InlineCenter)
         if (!imageIsMargin) {
-            NSTextAttachment *att = [self textAttachmenWithImage:img alignment:cell.glkImgAlign index:cell.index position:subrange.location];
+            NSTextAttachment *att = [self textAttachmentWithImage:img alignment:cell.glkImgAlign index:cell.index position:subrange.location];
             MyAttachmentCell *newCell = (MyAttachmentCell *)att.attachmentCell;
             newCell.imageNumber = cell.imageNumber;
             newCell.animation = cell.animation;
@@ -392,7 +384,7 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         }
 
         [container.marginImages removeObject:mimg];
-        [container addImage:img alignment:mimg.glkImgAlign at:subrange.location linkid:0];
+        [container addImage:img alignment:mimg.glkImgAlign at:subrange.location linkid:mimg.linkid];
         cell.marginImage = container.marginImages.lastObject;
         cell.marginImgUUID = cell.marginImage.uuid;
     }];

@@ -7,11 +7,9 @@ NS_ASSUME_NONNULL_BEGIN
  * adjustments, and restoration of the scroll bar style and find bar state.
  */
 
+// restoreScrollBarStyle and restoreTextFinder, which are called from outside
+// the class, are declared in GlkTextBufferWindow.h.
 @interface GlkTextBufferWindow (Autorestore)
-
-- (void)restoreScrollBarStyle;
-- (void)restoreTextFinder;
-
 @end
 
 NS_ASSUME_NONNULL_END
