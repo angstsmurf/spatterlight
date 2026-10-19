@@ -234,9 +234,142 @@
 // once per process, and each write to it posted a defaults-changed
 // notification whose AppKit-side KVO fan-out cost up to a third of the main
 // thread on timer-driven games.
-- (void)flushDisplay {
+// Applies a frame change deferred by setFrame:. wasAtBottom is the
+// scrolledToBottom state captured before this flush appended any text.
+- (void)applyPendingFrameWasAtBottom:(BOOL)wasAtBottom {
     GlkController *glkctl = self.glkctl;
+    if (!self.framePending)
+        return;
+    self.framePending = NO;
+    if (!NSEqualRects(self.pendingFrame, self.frame)) {
 
+        if ([container hasMarginImages])
+            [container invalidateLayout:nil];
+
+        if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
+            self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
+        }
+
+        // A width change re-wraps the whole document, so every
+        // y-coordinate captured in the old layout — the clip origin as
+        // well as _lastseen — is invalid afterwards: content above the
+        // viewport that wraps to more lines pushes everything below it
+        // further down. Capture the position as a character anchor
+        // before the old layout goes away, and schedule the same
+        // uncapped restore used after theme changes and live resizes.
+        // Without this, a game-driven arrange (e.g. ADRIFT opening its
+        // map pane) leaves the auto-scroll caps aiming at old-layout
+        // coordinates, which strands the view mid-scrollback when the
+        // rewrap growth exceeds the caps (wide margins and large line
+        // spacing make it large). Live resizes and fullscreen
+        // transitions store/restore around the whole gesture instead.
+        BOOL rewrapRestore = NSWidth(self.pendingFrame) != NSWidth(self.frame)
+            && !_pendingScrollRestore && !self.inLiveResize
+            && !glkctl.ignoreResizes && textstorage.length > 0;
+        if (rewrapRestore) {
+            [self storeScrollOffset];
+            // _lastseen is a y-coordinate in the layout that is about to
+            // go away; remember the character under it so restoreScroll
+            // can recompute it once the new layout exists. Also note
+            // whether an auto-scroll was pending: it will run against
+            // old-layout coordinates and typically go nowhere, so the
+            // restore re-runs it afterwards.
+            if (_lastseen > 0) {
+                rewrapLastseenChar =
+                    [layoutmanager characterIndexForPoint:NSMakePoint(0, (CGFloat)_lastseen - 1)
+                                          inTextContainer:container
+                 fractionOfDistanceBetweenInsertionPoints:nil];
+                if (rewrapLastseenChar >= textstorage.length)
+                    rewrapLastseenChar = textstorage.length - 1;
+            }
+            rewrapFollowupScroll = _pendingScroll;
+        }
+
+        super.frame = self.pendingFrame;
+
+        // If the viewport shrank while we were pinned to the bottom,
+        // re-pin immediately. Without this, a live-resize shrink leaves
+        // clipView.bounds.origin.y unchanged while the viewport height
+        // decreases, so NSMaxY(clipView.bounds) no longer reaches the
+        // document end and the last line disappears below the visible area.
+        // Growing works without intervention: the clip view extending
+        // downward already satisfies scrolledToBottom, so the existing
+        // restoreScroll / layoutComplete path is not needed there.
+        // (On a rewrap this is a stale-layout best effort that reduces
+        // the visible jump; the scheduled restoreScroll finishes the job.)
+        //
+        // A scroll-to-bottom that is still in flight (queued callback or
+        // running animation) counts as "was at bottom": when a game
+        // prints a line and then opens a graphics window above this one
+        // (Alan 2's pause-then-viewer sequence), the append and the frame
+        // shrink arrive in separate flushes, and at this point the view
+        // still sits one line above the bottom waiting for the delayed
+        // scroll. That callback caps its advance to one viewport of the
+        // now-shrunken window, which strands the view mid-scrollback with
+        // nothing scheduled to finish the job. For the in-flight case the
+        // re-pin is capped at _lastseen so it can never race past output
+        // the player hasn't acknowledged.
+        BOOL bottomScrollInFlight = scrollToBottomPending
+            || (scrolling && lastAtBottom);
+        if ((wasAtBottom || bottomScrollInFlight) && !self.scrolledToBottom) {
+            NSClipView *clipView = scrollview.contentView;
+            CGFloat viewportHeight = NSHeight(clipView.bounds);
+            CGFloat newBottom = NSMaxY(_textview.frame) - viewportHeight
+                                + _textview.textContainerInset.height;
+            if (!wasAtBottom && newBottom > (CGFloat)_lastseen)
+                newBottom = (CGFloat)_lastseen;
+            if (newBottom > clipView.bounds.origin.y) {
+                [clipView scrollToPoint:NSMakePoint(clipView.bounds.origin.x, newBottom)];
+                [scrollview reflectScrolledClipView:clipView];
+            }
+            // The capped in-flight re-pin may stop short of the true
+            // bottom; only record "at bottom" when that is actually so,
+            // or a later restoreScroll would jump past unread text.
+            if (wasAtBottom || self.scrolledToBottom)
+                lastAtBottom = YES;
+        }
+
+        if (rewrapRestore) {
+            _pendingScrollRestore = YES;
+            [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
+        }
+    }
+}
+
+// Runs the auto-scroll requested by this flush's output, unless the user
+// has paused it by scrolling up during a command script.
+- (void)resumeAutoScrollWasAtBottom:(BOOL)wasAtBottom {
+    GlkController *glkctl = self.glkctl;
+    // Resume auto-scrolling once the user has scrolled back to the bottom.
+    // wasAtBottom was captured before flushDisplay appended, so it reflects
+    // whether the user was following output rather than the just-grown
+    // document (which always reads as "not at bottom" until we scroll).
+    // This is the resume counterpart to userDidScrollFromPosition's pause and
+    // covers both command-script and timer-driven output.
+    if (pauseScrolling && wasAtBottom)
+        pauseScrolling = NO;
+
+    if (glkctl.commandScriptRunning) {
+        if (!commandScriptWasRunning) {
+            // A command script just started
+            pauseScrolling = NO;
+            commandScriptWasRunning = YES;
+        }
+
+        if (pauseScrolling) {
+            _pendingScroll = NO;
+            return;
+        }
+    } else if (commandScriptWasRunning) {
+        // A command script was just switched off
+        pauseScrolling = NO;
+        commandScriptWasRunning = NO;
+    }
+
+    [self reallyPerformScroll];
+}
+
+- (void)flushDisplay {
     if (!bufferTextstorage)
         bufferTextstorage = [[NSMutableAttributedString alloc] init];
 
@@ -246,102 +379,7 @@
     // user has paged or scrolled up to read.
     BOOL wasAtBottom = self.scrolledToBottom;
 
-    if (self.framePending) {
-        self.framePending = NO;
-        if (!NSEqualRects(self.pendingFrame, self.frame)) {
-
-            if ([container hasMarginImages])
-                [container invalidateLayout:nil];
-
-            if (NSMaxX(self.pendingFrame) > NSWidth(glkctl.gameView.bounds) && NSWidth(self.pendingFrame) > 10) {
-                self.pendingFrame = NSMakeRect(self.pendingFrame.origin.x, self.pendingFrame.origin.y, NSWidth(glkctl.gameView.bounds) - self.pendingFrame.origin.x, self.pendingFrame.size.height);
-            }
-
-            // A width change re-wraps the whole document, so every
-            // y-coordinate captured in the old layout — the clip origin as
-            // well as _lastseen — is invalid afterwards: content above the
-            // viewport that wraps to more lines pushes everything below it
-            // further down. Capture the position as a character anchor
-            // before the old layout goes away, and schedule the same
-            // uncapped restore used after theme changes and live resizes.
-            // Without this, a game-driven arrange (e.g. ADRIFT opening its
-            // map pane) leaves the auto-scroll caps aiming at old-layout
-            // coordinates, which strands the view mid-scrollback when the
-            // rewrap growth exceeds the caps (wide margins and large line
-            // spacing make it large). Live resizes and fullscreen
-            // transitions store/restore around the whole gesture instead.
-            BOOL rewrapRestore = NSWidth(self.pendingFrame) != NSWidth(self.frame)
-                && !_pendingScrollRestore && !self.inLiveResize
-                && !glkctl.ignoreResizes && textstorage.length > 0;
-            if (rewrapRestore) {
-                [self storeScrollOffset];
-                // _lastseen is a y-coordinate in the layout that is about to
-                // go away; remember the character under it so restoreScroll
-                // can recompute it once the new layout exists. Also note
-                // whether an auto-scroll was pending: it will run against
-                // old-layout coordinates and typically go nowhere, so the
-                // restore re-runs it afterwards.
-                if (_lastseen > 0) {
-                    rewrapLastseenChar =
-                        [layoutmanager characterIndexForPoint:NSMakePoint(0, (CGFloat)_lastseen - 1)
-                                              inTextContainer:container
-                     fractionOfDistanceBetweenInsertionPoints:nil];
-                    if (rewrapLastseenChar >= textstorage.length)
-                        rewrapLastseenChar = textstorage.length - 1;
-                }
-                rewrapFollowupScroll = _pendingScroll;
-            }
-
-            super.frame = self.pendingFrame;
-
-            // If the viewport shrank while we were pinned to the bottom,
-            // re-pin immediately. Without this, a live-resize shrink leaves
-            // clipView.bounds.origin.y unchanged while the viewport height
-            // decreases, so NSMaxY(clipView.bounds) no longer reaches the
-            // document end and the last line disappears below the visible area.
-            // Growing works without intervention: the clip view extending
-            // downward already satisfies scrolledToBottom, so the existing
-            // restoreScroll / layoutComplete path is not needed there.
-            // (On a rewrap this is a stale-layout best effort that reduces
-            // the visible jump; the scheduled restoreScroll finishes the job.)
-            //
-            // A scroll-to-bottom that is still in flight (queued callback or
-            // running animation) counts as "was at bottom": when a game
-            // prints a line and then opens a graphics window above this one
-            // (Alan 2's pause-then-viewer sequence), the append and the frame
-            // shrink arrive in separate flushes, and at this point the view
-            // still sits one line above the bottom waiting for the delayed
-            // scroll. That callback caps its advance to one viewport of the
-            // now-shrunken window, which strands the view mid-scrollback with
-            // nothing scheduled to finish the job. For the in-flight case the
-            // re-pin is capped at _lastseen so it can never race past output
-            // the player hasn't acknowledged.
-            BOOL bottomScrollInFlight = scrollToBottomPending
-                || (scrolling && lastAtBottom);
-            if ((wasAtBottom || bottomScrollInFlight) && !self.scrolledToBottom) {
-                NSClipView *clipView = scrollview.contentView;
-                CGFloat viewportHeight = NSHeight(clipView.bounds);
-                CGFloat newBottom = NSMaxY(_textview.frame) - viewportHeight
-                                    + _textview.textContainerInset.height;
-                if (!wasAtBottom && newBottom > (CGFloat)_lastseen)
-                    newBottom = (CGFloat)_lastseen;
-                if (newBottom > clipView.bounds.origin.y) {
-                    [clipView scrollToPoint:NSMakePoint(clipView.bounds.origin.x, newBottom)];
-                    [scrollview reflectScrolledClipView:clipView];
-                }
-                // The capped in-flight re-pin may stop short of the true
-                // bottom; only record "at bottom" when that is actually so,
-                // or a later restoreScroll would jump past unread text.
-                if (wasAtBottom || self.scrolledToBottom)
-                    lastAtBottom = YES;
-            }
-
-            if (rewrapRestore) {
-                _pendingScrollRestore = YES;
-                [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
-            }
-        }
-    }
+    [self applyPendingFrameWasAtBottom:wasAtBottom];
 
     if (_pendingClear) {
         [self reallyClear];
@@ -367,35 +405,8 @@
 
     [self trimScrollbackIfNeeded:wasAtBottom];
 
-    if (_pendingScroll) {
-        // Resume auto-scrolling once the user has scrolled back to the bottom.
-        // wasAtBottom was captured before the append above, so it reflects
-        // whether the user was following output rather than the just-grown
-        // document (which always reads as "not at bottom" until we scroll).
-        // This is the resume counterpart to userDidScrollFromPosition's pause and
-        // covers both command-script and timer-driven output.
-        if (pauseScrolling && wasAtBottom)
-            pauseScrolling = NO;
-
-        if (glkctl.commandScriptRunning) {
-            if (!commandScriptWasRunning) {
-                // A command script just started
-                pauseScrolling = NO;
-                commandScriptWasRunning = YES;
-            }
-
-            if (pauseScrolling) {
-                _pendingScroll = NO;
-                return;
-            }
-        } else if (commandScriptWasRunning) {
-            // A command script was just switched off
-            pauseScrolling = NO;
-            commandScriptWasRunning = NO;
-        }
-
-        [self reallyPerformScroll];
-    }
+    if (_pendingScroll)
+        [self resumeAutoScrollWasAtBottom:wasAtBottom];
 }
 
 // Returns the style attributes with the game's language added as the

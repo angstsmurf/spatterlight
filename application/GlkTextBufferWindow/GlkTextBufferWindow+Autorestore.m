@@ -26,8 +26,12 @@
         layoutmanager = _textview.layoutManager;
         textstorage = _textview.textStorage;
         container = (MarginContainer *)_textview.textContainer;
-        if (!layoutmanager)
-            NSLog(@"layoutmanager nil!");
+        scrollview = _textview.enclosingScrollView;
+        // A damaged archive is logged but not rejected: the controller
+        // expects a window for every name it archived.
+        if (!layoutmanager || !textstorage || !container || !scrollview)
+            NSLog(@"GlkTextBufferWindow initWithCoder: missing layoutmanager %@ textstorage %@ container %@ scrollview %@",
+                  layoutmanager, textstorage ? @"(present)" : nil, container, scrollview);
         layoutmanager.delegate = self;
         // NSLayoutManager does not archive backgroundLayoutEnabled, so a
         // decoded one comes back with it off however it was configured when
@@ -37,21 +41,11 @@
         // against a document whose height has not settled yet.
         layoutmanager.backgroundLayoutEnabled = YES;
         layoutmanager.allowsNonContiguousLayout = NO;
-        if (!textstorage)
-            NSLog(@"textstorage nil!");
-        if (!container)
-            NSLog(@"container nil!");
-        scrollview = _textview.enclosingScrollView;
-        if (!scrollview)
-            NSLog(@"scrollview nil!");
         scrollview.accessibilityLabel = NSLocalizedString(@"buffer scroll view", nil);
         scrollview.documentView = _textview;
         [self observeLiveScroll];
         _textview.delegate = self;
         textstorage.delegate = self;
-
-        if (_textview.textStorage != textstorage)
-            NSLog(@"Error! _textview.textStorage != textstorage");
 
         [self restoreScrollBarStyle];
 
@@ -256,26 +250,6 @@
     else
         [self performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.5];
 }
-
-// Configure the scroll view to use overlay scrollers with the buffer
-// window's background color. Called during init and after preference changes.
-- (void)restoreScrollBarStyle {
-    if (scrollview) {
-        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-        scrollview.scrollerStyle = NSScrollerStyleOverlay;
-        scrollview.drawsBackground = YES;
-        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
-        if (!bgcolor)
-            bgcolor = self.theme.bufferBackground;
-        scrollview.backgroundColor = bgcolor;
-        scrollview.hasHorizontalScroller = NO;
-        scrollview.hasVerticalScroller = YES;
-        scrollview.verticalScroller.alphaValue = 1;
-        scrollview.autohidesScrollers = YES;
-        scrollview.borderType = NSNoBorder;
-    }
-}
-
 
 #pragma mark Text finder
 

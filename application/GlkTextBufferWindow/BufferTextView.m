@@ -18,6 +18,7 @@
 
 @interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
     NSTextFinder *_textFinder;
+    NSTimer *caretTimer;
 }
 @end
 
@@ -68,6 +69,13 @@
     return YES;
 }
 
+// Let the buffer window handle the click (hyperlinks, input focus) and fall
+// back to normal text view behaviour if it doesn't.
+- (void)forwardMouseDown:(NSEvent *)theEvent {
+    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
+        [super mouseDown:theEvent];
+}
+
 - (void)mouseDown:(NSEvent *)theEvent {
     NSDate *mouseTime = [NSDate date];
 
@@ -79,8 +87,7 @@
 
     MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:adjustedPoint];
     if (!marginImage) {
-        if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
-            [super mouseDown:theEvent];
+        [self forwardMouseDown:theEvent];
     } else {
 
         NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
@@ -95,8 +102,7 @@
             if (event.type == NSEventTypeLeftMouseUp) {
                 *stop = YES;
                 if (mouseTime.timeIntervalSinceNow > -0.5) {
-                    if (![(GlkTextBufferWindow *)self.delegate myMouseDown:theEvent])
-                        [super mouseDown:theEvent];
+                    [self forwardMouseDown:theEvent];
                 }
             } else if (event.type == NSEventTypeLeftMouseDragged) {
                 NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
@@ -130,24 +136,22 @@
     [super mouseMoved:event];
 }
 
+// Never draw a caret if the system doesn't want to. Super overrides
+// glkTextBuffer.
 - (BOOL)shouldDrawInsertionPoint {
-    BOOL result = super.shouldDrawInsertionPoint;
-
-    // Never draw a caret if the system doesn't want to. Super overrides
-    // glkTextBuffer.
-    if (result && !_shouldDrawCaret)
-        result = _shouldDrawCaret;
-
-    return result;
+    return super.shouldDrawInsertionPoint && _shouldDrawCaret;
 }
 
 - (void)enableCaret:(nullable id)sender {
     _shouldDrawCaret = YES;
 }
 
+// Hide the caret for a moment. Repeated calls extend the pause rather than
+// stacking timers, so the caret comes back 0.05 s after the last call.
 - (void)temporarilyHideCaret {
     _shouldDrawCaret = NO;
-    [NSTimer scheduledTimerWithTimeInterval:0.05
+    [caretTimer invalidate];
+    caretTimer = [NSTimer scheduledTimerWithTimeInterval:0.05
                                      target:self
                                    selector:@selector(enableCaret:)
                                    userInfo:nil
@@ -354,18 +358,12 @@
     return (((GlkTextBufferWindow *)self.delegate).glkctl).createCustomRotors;
 }
 
+// Margin images compute their own accessibilityFrame on demand.
 - (NSArray *)accessibilityChildren {
     NSArray *children = super.accessibilityChildren;
-
-    for (MarginImage *mi in ((MarginContainer *)self.textContainer).marginImages) {
-        children = [children arrayByAddingObject:mi];
-        NSRect bounds = [mi boundsWithLayout:self.layoutManager];
-        bounds = NSAccessibilityFrameInView(self, bounds);
-        bounds.origin.x += self.textContainerInset.width;
-        bounds.origin.y -= self.textContainerInset.height;
-
-        mi.accessibilityFrame = bounds;
-    }
+    NSArray<MarginImage *> *marginImages = ((MarginContainer *)self.textContainer).marginImages;
+    if (marginImages.count)
+        children = [children arrayByAddingObjectsFromArray:marginImages];
     return children;
 }
 

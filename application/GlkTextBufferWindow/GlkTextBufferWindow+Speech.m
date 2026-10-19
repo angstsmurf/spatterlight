@@ -12,6 +12,18 @@
 
 #import "DebugLog.h"
 
+// If s[i] is a prompt — a '>' at the start of a line — return the index
+// where the typed command begins: just past the '>' and an optional single
+// space, and possibly equal to limit. Otherwise return NSNotFound.
+static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUInteger limit) {
+    if ([s characterAtIndex:i] != '>' || (i > 0 && [s characterAtIndex:i - 1] != '\n'))
+        return NSNotFound;
+    NSUInteger cmd = i + 1;
+    if (cmd < limit && [s characterAtIndex:cmd] == ' ')
+        cmd++;
+    return cmd;
+}
+
 @implementation GlkTextBufferWindow (Speech)
 
 // Record the text range of the latest "move" (turn) for VoiceOver speech.
@@ -46,11 +58,13 @@
         } else if (lastMove.length == maxlength) {
             return NO;
         } else {
+            // lastMove ends within the text here, so a lastMove starting at
+            // _printPositionOnInput means _printPositionOnInput <= maxlength.
             if (lastMove.location == _printPositionOnInput && lastMove.length != maxlength - _printPositionOnInput) {
                 // Removing last move object (because it does not go all
                 // the way to the end)
                 [self.moveRanges removeLastObject];
-                currentMove = NSMakeRange(_printPositionOnInput, maxlength);
+                currentMove = NSMakeRange(_printPositionOnInput, maxlength - _printPositionOnInput);
             } else {
                 NSUInteger chainedStart = NSMaxRange(lastMove);
                 // A restore (and other full-screen reprints) dumps a block of
@@ -75,7 +89,7 @@
                         chainedStart = snapped;
                     }
                 }
-                currentMove = NSMakeRange(chainedStart, maxlength);
+                currentMove = NSMakeRange(chainedStart, maxlength - chainedStart);
             }
         }
     }
@@ -101,13 +115,9 @@
 // mid-reprint after a restore onto the next real command.
 - (NSUInteger)commandStartForwardFrom:(NSUInteger)from upTo:(NSUInteger)limit inString:(NSString *)s {
     for (NSUInteger i = from; i < limit; i++) {
-        if ([s characterAtIndex:i] == '>' && (i == 0 || [s characterAtIndex:i - 1] == '\n')) {
-            NSUInteger cmd = i + 1;
-            if (cmd < limit && [s characterAtIndex:cmd] == ' ')
-                cmd++;
-            if (cmd < limit)
-                return cmd;
-        }
+        NSUInteger cmd = commandStartAfterPromptAt(s, i, limit);
+        if (cmd != NSNotFound && cmd < limit)
+            return cmd;
     }
     return NSNotFound;
 }
@@ -141,18 +151,16 @@
     NSMutableArray<NSValue *> *rebuilt = [[NSMutableArray alloc] init];
     NSUInteger moveStart = 0;
     for (NSUInteger i = 0; i < length; i++) {
-        if ([text characterAtIndex:i] == '>' && (i == 0 || [text characterAtIndex:i - 1] == '\n')) {
-            NSUInteger cmd = i + 1;
-            if (cmd < length && [text characterAtIndex:cmd] == ' ')
-                cmd++;
-            // Stop at the live input prompt (its command begins at fence): the
-            // most recent move runs through it to the end, as in live play.
-            if (line_request && fence > 0 && cmd >= fence)
-                break;
-            if (cmd > moveStart && cmd < length) {
-                [rebuilt addObject:[NSValue valueWithRange:NSMakeRange(moveStart, cmd - moveStart)]];
-                moveStart = cmd;
-            }
+        NSUInteger cmd = commandStartAfterPromptAt(text, i, length);
+        if (cmd == NSNotFound)
+            continue;
+        // Stop at the live input prompt (its command begins at fence): the
+        // most recent move runs through it to the end, as in live play.
+        if (line_request && fence > 0 && cmd >= fence)
+            break;
+        if (cmd > moveStart && cmd < length) {
+            [rebuilt addObject:[NSValue valueWithRange:NSMakeRange(moveStart, cmd - moveStart)]];
+            moveStart = cmd;
         }
     }
     if (rebuilt.count == 0)
@@ -179,6 +187,10 @@
         NSUInteger offset = 0;
         for (NSNumber *num in keys) {
             NSUInteger index = num.unsignedIntegerValue - range.location + offset;
+            // The accessibility string should be index-aligned with the
+            // textstorage range, but don't throw if it is not.
+            if (index > string.length)
+                break;
             MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)attachments[num]).attachmentCell;
             NSString *label = cell.customA11yLabel;
             if (self.theme.vOSpeakImages != kVOImageWithDescriptionOnly || cell.hasDescription) {
@@ -190,7 +202,7 @@
     }
 
     // Strip command line if the speak command setting is off
-    if (!self.glkctl.theme.vOSpeakCommand && range.location != 0 && !self.glkctl.showingInfocomV6Menu) {
+    if (!self.glkctl.theme.vOSpeakCommand && range.location != 0 && range.location <= textstorage.length && !self.glkctl.showingInfocomV6Menu) {
         NSUInteger promptIndex = range.location - 1;
         if ([textstorage.string characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [textstorage.string characterAtIndex:promptIndex - 1] == '>')) {
             NSRange foundRange = [string rangeOfString:@"\n"];
@@ -199,7 +211,6 @@
             }
         }
     }
-
 
     return string;
 }
@@ -223,6 +234,16 @@
     lastSpokenString = @"";
 }
 
+// Cancel any pending Z-machine menu or form announcement timers, so they
+// don't talk over what we are about to speak.
+- (void)cancelPendingMenuAnnouncements {
+    GlkController *glkctl = self.glkctl;
+    if (glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
+    if (glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
+}
+
 // Speak the latest move text via VoiceOver. Cancels any pending Z-machine
 // menu or form timers first. Prepends quote box text if one is visible.
 // When called automatically by GlkController (sender == glkctl), deduplicates
@@ -230,10 +251,7 @@
 // When invoked by the user (menu item or shortcut), always speaks.
 - (void)repeatLastMove:(id)sender {
     GlkController *glkctl = self.glkctl;
-    if (glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
-    if (glkctl.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
+    [self cancelPendingMenuAnnouncements];
 
     NSString *str = [self lastMoveString];
 
@@ -311,27 +329,31 @@
 // user requests the status to be read aloud. Cancels pending Z-machine
 // menu/form timers to avoid conflicts.
 - (void)speakStatus {
-    GlkController *glkctl = self.glkctl;
-    if (glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
-    if (glkctl.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
-    [glkctl speakStringNow:textstorage.string];
+    [self cancelPendingMenuAnnouncements];
+    [self.glkctl speakStringNow:textstorage.string];
 }
 
 // Build move ranges from Infocom V6 menu item strings. Each menu item
 // is located in the text storage by string matching, and its range is
 // added to moveRanges so VoiceOver can navigate between menu items.
+// Repeated menu strings map to successive occurrences in the text.
 - (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings {
     self.moveRanges = [[NSMutableArray<NSValue *> alloc] initWithCapacity:menuStrings.count];
-    moveRangeIndex = menuStrings.count - 1;
     [self flushDisplay];
+    NSString *text = textstorage.string;
     for (NSString *str in menuStrings) {
-        NSRange range = [textstorage.string rangeOfString:str];
+        NSRange searchRange = NSMakeRange(0, text.length);
+        NSRange range = [text rangeOfString:str options:0 range:searchRange];
+        while (range.location != NSNotFound &&
+               [self.moveRanges containsObject:[NSValue valueWithRange:range]]) {
+            searchRange = NSMakeRange(NSMaxRange(range), text.length - NSMaxRange(range));
+            range = [text rangeOfString:str options:0 range:searchRange];
+        }
         if (range.location != NSNotFound) {
             [self.moveRanges addObject:[NSValue valueWithRange:range]];
         }
     }
+    moveRangeIndex = self.moveRanges.count ? self.moveRanges.count - 1 : 0;
 }
 
 #pragma mark Accessibility
@@ -367,7 +389,7 @@
             break;
     }
     if (links.count > 15)
-        links.array = [links subarrayWithRange:NSMakeRange(0, 15)];
+        [links removeObjectsInRange:NSMakeRange(15, links.count - 15)];
     return links;
 }
 
@@ -392,7 +414,7 @@
 - (NSArray<NSValue *> *)images {
     if (self.theme.vOSpeakImages == kVOImageNone)
         return @[];
-    NSArray<NSValue *> *images = [self imagesInRange:NSMakeRange(0,_textview.string.length)];
+    NSArray<NSValue *> *images = [self imagesInRange:NSMakeRange(0, textstorage.length)];
     return images;
 }
 

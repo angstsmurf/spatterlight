@@ -395,7 +395,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
             // understand that they have a size, so we have to add an extra
             // character to the selection to make the view scroll to the image
             // (VoiceOver knows that letters have a size.)
-            if (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight) {
+            if (cell.isMargin) {
                 range.length++;
             }
             NSRange allText = NSMakeRange(0, view.string.length);

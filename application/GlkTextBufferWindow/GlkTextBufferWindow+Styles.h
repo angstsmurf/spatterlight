@@ -11,6 +11,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)recalcBackground;
 - (void)createBeyondZorkStyle;
+
+// Also declared in GlkTextBufferWindow.h; implemented in this category.
+- (void)restoreScrollBarStyle;
 - (NSDictionary *)font3ToUnicode;
 
 @end

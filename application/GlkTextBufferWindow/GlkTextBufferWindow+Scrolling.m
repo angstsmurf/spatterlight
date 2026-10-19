@@ -152,13 +152,9 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     if (cut == 0)
         return;
 
-    // Measure the removed height (the y at which the first kept line currently
-    // sits) so we can shift _lastseen, which is a y-coordinate, correctly.
-    NSUInteger keptGlyph = [layoutmanager glyphRangeForCharacterRange:NSMakeRange(cut, 1)
-                                                actualCharacterRange:NULL].location;
-    NSRect keptLineRect = [layoutmanager lineFragmentRectForGlyphAtIndex:keptGlyph
-                                                         effectiveRange:NULL];
-    CGFloat removedHeight = keptLineRect.origin.y;
+    // Measure the removed height so we can shift _lastseen, which is a
+    // y-coordinate, correctly.
+    CGFloat removedHeight = [self heightAboveTrimCut:cut];
 
     // Capture the current scroll origin so we can shift it up by the removed
     // height after the trim. Without this, the clip origin stays in the old
@@ -200,6 +196,28 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         [clipView setBoundsOrigin:scrollOrigin];
         [scrollview reflectScrolledClipView:clipView];
     }
+}
+
+// The height of the text a front trim of `cut` characters removes: the y at
+// which the first kept line currently sits.
+- (CGFloat)heightAboveTrimCut:(NSUInteger)cut {
+    NSUInteger keptGlyph = [layoutmanager glyphRangeForCharacterRange:NSMakeRange(cut, 1)
+                                                actualCharacterRange:NULL].location;
+    return [layoutmanager lineFragmentRectForGlyphAtIndex:keptGlyph
+                                           effectiveRange:NULL].origin.y;
+}
+
+// Carry the per-window state of the live text view over to the one that
+// replaces it after a background trim. configureBufferTextView: sets up
+// everything else; anything set on _textview at run time belongs here.
+- (void)carryTextViewStateFrom:(BufferTextView *)oldView to:(BufferTextView *)newView {
+    newView.textContainerInset  = oldView.textContainerInset;
+    newView.backgroundColor     = oldView.backgroundColor;
+    newView.insertionPointColor = oldView.insertionPointColor;
+    newView.linkTextAttributes  = oldView.linkTextAttributes;
+    newView.shouldDrawCaret     = oldView.shouldDrawCaret;
+    newView.bottomPadding       = oldView.bottomPadding;
+    newView.editable            = oldView.editable;
 }
 
 // Shift every cached absolute offset to account for a front trim of `cut`
@@ -281,10 +299,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     if (lastAtBottom || lastAtTop)
         return; // not actually parked in the middle; let the inline path handle it
 
-    NSUInteger keptGlyph = [layoutmanager glyphRangeForCharacterRange:NSMakeRange(cut, 1)
-                                                actualCharacterRange:NULL].location;
-    CGFloat removedHeight = [layoutmanager lineFragmentRectForGlyphAtIndex:keptGlyph
-                                                           effectiveRange:NULL].origin.y;
+    CGFloat removedHeight = [self heightAboveTrimCut:cut];
     CGFloat anchorOffset = lastScrollOffset;
 
     backgroundLayoutInProgress = YES;
@@ -299,15 +314,6 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
                                               error:nil];
     NSSize containerSize = container.size;
     CGFloat lineFragmentPadding = container.lineFragmentPadding;
-
-    NSSize   inset           = _textview.textContainerInset;
-    BOOL     isEditable      = _textview.editable;
-    NSRange  selection       = _textview.selectedRange;
-    NSColor *bgColor         = _textview.backgroundColor;
-    NSColor *cursorColor     = _textview.insertionPointColor;
-    NSDictionary *linkAttrs  = [_textview.linkTextAttributes copy];
-    BOOL     shouldDrawCaret = _textview.shouldDrawCaret;
-    CGFloat  bottomPadding   = _textview.bottomPadding;
 
     dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
         @autoreleasepool {
@@ -347,13 +353,11 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
                     [[BufferTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000)
                                             textContainer:bgContainer];
                 [self configureBufferTextView:newTextView];
-                newTextView.textContainerInset  = inset;
-                newTextView.backgroundColor     = bgColor;
-                newTextView.insertionPointColor = cursorColor;
-                newTextView.linkTextAttributes  = linkAttrs;
-                newTextView.shouldDrawCaret     = shouldDrawCaret;
-                newTextView.bottomPadding       = bottomPadding;
-                newTextView.editable            = isEditable;
+                // The text is unchanged since the snapshot (the generation
+                // check above), so the live view's state still applies.
+                BufferTextView *oldTextView = self.textview;
+                [self carryTextViewStateFrom:oldTextView to:newTextView];
+                NSRange selection = oldTextView.selectedRange;
                 newTextView.delegate = self;
                 bgStorage.delegate   = self;
                 bgLayoutManager.delegate = self;
@@ -388,7 +392,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
                     }
                 }];
 
-                BOOL wasFirstResponder = (self.window.firstResponder == self.textview);
+                BOOL wasFirstResponder = (self.window.firstResponder == oldTextView);
 
                 self->scrollview.documentView = newTextView;
                 self->textstorage   = bgStorage;
@@ -670,7 +674,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 
     NSRect line;
 
-    if (character >= textstorage.length - 1 || !textstorage.length) {
+    if (!textstorage.length || character >= textstorage.length - 1) {
         return;
     }
 
@@ -927,7 +931,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
             }
         }
 
-		[self scrollToPosition:bottom animate:animate];
+        [self scrollToPosition:bottom animate:animate];
     });
 }
 
@@ -942,10 +946,10 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     }
     NSClipView* clipView = scrollview.contentView;
     NSRect newBounds = clipView.bounds;
-    CGFloat diff = position - newBounds.origin.y;
     if (newBounds.origin.y > position) {
         return;
     }
+    CGFloat diff = position - newBounds.origin.y;
     newBounds.origin.y = position;
     if (animate && self.theme.smoothScroll) {
         scrolling = YES;

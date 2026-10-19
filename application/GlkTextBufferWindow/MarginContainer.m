@@ -12,6 +12,16 @@
 #import "BufferTextView.h"
 #include "glk.h"
 
+// How many characters past a margin image its effect on layout can reach.
+// Flow breaks and later images further away than this are not examined,
+// which keeps re-layout of a long scrollback fast. MarginFlowBreakTests fails
+// without these cutoffs.
+static const NSUInteger kFlowBreakReach = 1000;
+
+// A line fragment squeezed narrower than this by margin images is pushed
+// down below them instead. A slightly arbitrary cutoff width.
+static const CGFloat kMinLineFragmentWidth = 50;
+
 @interface MarginContainer () <NSSecureCoding> {
     NSMutableArray<FlowBreak *> *flowbreaks;
     // Character index of the line fragment currently being laid out, or
@@ -192,14 +202,19 @@
     return rect;
 }
 
+// Fit the line fragment around the margin images. The outer loop repeats
+// until a full pass over the images finds no overlap. For each overlapping
+// image, the inner loop narrows the fragment past the image, and whenever
+// that leaves it too narrow (kMinLineFragmentWidth), moves it below the last
+// image it collided with at its original width, and tries again. The
+// fragment only ever moves right, gets narrower, or moves down.
 - (NSRect)lineFragmentRectForProposedRect:(NSRect)proposed
                            sweepDirection:(NSLineSweepDirection)sweepdir
                         movementDirection:(NSLineMovementDirection)movementdir
                             remainingRect:(NSRect *)remaining {
     NSRect bounds;
     NSRect rect;
-    MarginImage *image, *lastleft, *lastright;
-    FlowBreak *f;
+    MarginImage *lastleft, *lastright;
 
     rect = [super lineFragmentRectForProposedRect:proposed
                                    sweepDirection:sweepdir
@@ -216,8 +231,7 @@
         overlapped = NO;
         lastleft = lastright = nil;
 
-        NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
-        while (image = [enumerator nextObject]) {
+        for (MarginImage *image in _marginImages.reverseObjectEnumerator) {
             if (layoutCharIndex != NSNotFound && image.pos > layoutCharIndex)
                 continue;
 
@@ -230,9 +244,9 @@
             // then end up at the wrong height, beside an image they should be
             // below or on top of the lines above. MarginFlowBreakTests fails
             // without this loop.
-            for (f in flowbreaks)
+            for (FlowBreak *f in flowbreaks)
                 if (f.pos > image.pos) {
-                    if (f.pos - image.pos > 1000)
+                    if (f.pos - image.pos > kFlowBreakReach)
                         break;
                     if (layoutParagraphEnd != NSNotFound && f.pos >= layoutParagraphEnd)
                         break;
@@ -252,7 +266,7 @@
                 // check if the image still intersects
 
                 while (overlapped2) // = while (NSIntersectsRect(bounds,
-                                    // newrect) || newrect.size.width < 50)
+                                    // newrect) || newrect.size.width <= kMinLineFragmentWidth)
                 {
                     overlapped2 = NO;
 
@@ -274,11 +288,10 @@
                             lastright = image;
                         }
                     }
-                    if (newrect.size.width <= 50) {
+                    if (newrect.size.width <= kMinLineFragmentWidth) {
                         overlapped2 = YES;
                         // If the rect has now become too narrow, push it down
-                        // and restore original width. 50 is a slightly arbitrary
-                        // cutoff width
+                        // and restore original width
                         newrect.size.width = rect.size.width; // Original width
                         newrect.origin.x = rect.origin.x;
                         if (lastleft && lastright) {
@@ -304,16 +317,13 @@
 }
 
 - (NSRect)adjustForBreaks:(NSRect)rect {
-    FlowBreak *f;
     NSRect flowrect;
-    MarginImage *img2;
 
-    NSEnumerator *breakenumerator = [flowbreaks reverseObjectEnumerator];
-    while (f = [breakenumerator nextObject]) {
+    for (FlowBreak *f in flowbreaks.reverseObjectEnumerator) {
         if (layoutParagraphEnd != NSNotFound && f.pos >= layoutParagraphEnd)
             continue;
         if (_marginImages.count == 1) {
-            if (f.pos - _marginImages.firstObject.pos > 1000)
+            if (f.pos - _marginImages.firstObject.pos > kFlowBreakReach)
                 continue;
         }
         flowrect = [f boundsWithLayout:self.layoutManager];
@@ -321,7 +331,7 @@
         if (NSIntersectsRect(flowrect, rect)) {
             CGFloat lowest = 0;
 
-            for (img2 in _marginImages)
+            for (MarginImage *img2 in _marginImages)
                 // Moving below the lowest image drawn before the flowbreak.
                 // A flowbreak does not affect images drawn after it.
                 if (img2.pos < f.pos && NSMaxY(img2.bounds) > lowest &&
@@ -339,9 +349,10 @@
 
 - (void)unoverlap:(MarginImage *)image {
     // Skip if we only have one image, or none, or bounds are empty
-    if (_marginImages.count < 2
-        || NSIsEmptyRect(image.bounds)
-        || [_marginImages indexOfObject:image] == NSNotFound)
+    if (_marginImages.count < 2 || NSIsEmptyRect(image.bounds))
+        return;
+    NSUInteger index = [_marginImages indexOfObject:image];
+    if (index == NSNotFound)
         return;
 
     NSTextView *textview = self.textView;
@@ -364,14 +375,14 @@
         adjustedBounds.origin.x = rightMargin - adjustedBounds.size.width;
     }
 
-    for (NSInteger i = (NSInteger)[_marginImages indexOfObject:image] - 1; i >= 0; i--) {
+    for (NSInteger i = (NSInteger)index - 1; i >= 0; i--) {
         MarginImage *img2 = _marginImages[(NSUInteger)i];
 
         // Margin images are appended in pos order and unoverlap only ever moves
-        // the current image down, never up - so once we're 1000 character
+        // the current image down, never up - so once we're kFlowBreakReach character
         // positions past img2 there's no way a downward push could reach it.
         // Mirrors the flowbreak cutoff in lineFragmentRectForProposedRect:.
-        if (image.pos - img2.pos > 1000)
+        if (image.pos - img2.pos > kFlowBreakReach)
             break;
 
         // If overlapping, shift in opposite alignment direction
@@ -427,9 +438,7 @@
     NSRect bounds;
     CGFloat extendneeded = 0;
 
-    MarginImage *image;
-    NSEnumerator *enumerator = [_marginImages reverseObjectEnumerator];
-    while (image = [enumerator nextObject]) {
+    for (MarginImage *image in _marginImages.reverseObjectEnumerator) {
         bounds = image.bounds;
 
         if (!NSIsEmptyRect(bounds)) {

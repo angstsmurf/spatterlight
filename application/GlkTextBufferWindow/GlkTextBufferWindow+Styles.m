@@ -49,6 +49,25 @@
     [self.glkctl setBorderColor:bgcolor fromWindow:self];
 }
 
+// Configure the scroll view to use overlay scrollers with the buffer
+// window's background color. Called during init and after preference changes.
+- (void)restoreScrollBarStyle {
+    if (scrollview) {
+        scrollview.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        scrollview.scrollerStyle = NSScrollerStyleOverlay;
+        scrollview.drawsBackground = YES;
+        NSColor *bgcolor = styles[style_Normal][NSBackgroundColorAttributeName];
+        if (!bgcolor)
+            bgcolor = self.theme.bufferBackground;
+        scrollview.backgroundColor = bgcolor;
+        scrollview.hasHorizontalScroller = NO;
+        scrollview.hasVerticalScroller = YES;
+        scrollview.verticalScroller.alphaValue = 1;
+        scrollview.autohidesScrollers = YES;
+        scrollview.borderType = NSNoBorder;
+    }
+}
+
 - (void)setBgColor:(NSInteger)bc {
     bgnd = bc;
     [self recalcBackground];

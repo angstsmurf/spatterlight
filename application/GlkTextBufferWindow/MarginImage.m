@@ -9,6 +9,8 @@
 #import "MarginContainer.h"
 #import "ImageDragSource.h"
 
+#import "DebugLog.h"
+
 #include "glk.h"
 
 @interface MarginImage () <NSSecureCoding> {
@@ -154,13 +156,20 @@
 
 #pragma mark Accessibility
 
+// Computed on demand, as the image moves whenever the text is laid out again.
+- (NSRect)accessibilityFrame {
+    NSTextView *textView = _container.textView;
+    if (!textView)
+        return super.accessibilityFrame;
+    NSRect bounds = [self boundsWithLayout:_container.layoutManager];
+    bounds = NSAccessibilityFrameInView(textView, bounds);
+    bounds.origin.x += textView.textContainerInset.width;
+    bounds.origin.y -= textView.textContainerInset.height;
+    return bounds;
+}
+
 - (void)setAccessibilityFocused:(BOOL)accessibilityFocused {
     if (accessibilityFocused) {
-        NSRect bounds = [self boundsWithLayout:_container.layoutManager];
-        bounds = NSAccessibilityFrameInView(_container.textView, bounds);
-        bounds.origin.x += _container.textView.textContainerInset.width;
-        bounds.origin.y -= _container.textView.textContainerInset.height;
-        self.accessibilityFrame = bounds;
         NSTextView *parent = (NSTextView *)self.accessibilityParent;
         if (parent) {
             [parent becomeFirstResponder];

@@ -1,6 +1,5 @@
 #import "GlkTextBufferWindow.h"
 
-#import "GlkTextBufferWindow+Autorestore.h"
 #import "GlkTextBufferWindow+Hyperlinks.h"
 #import "GlkTextBufferWindow+Images.h"
 #import "GlkTextBufferWindow+Input.h"
@@ -121,6 +120,28 @@ NS_ASSUME_NONNULL_BEGIN
     GlkTextGridWindow *_quoteBox;
     NSInteger _lastNewTextOnTurn;
 }
+
+// for keeping track of previous moves
+@property NSUInteger printPositionOnInput;
+
+// Autorestore: the decoded window carries these over to the live window in
+// postRestoreAdjustments:.
+@property NSUInteger restoredLastVisible;
+@property CGFloat restoredScrollOffset;
+@property BOOL restoredAtBottom;
+@property BOOL restoredAtTop;
+@property NSRange restoredSelection;
+@property (nullable) NSString *restoredSearch;
+@property BOOL restoredFindBarVisible;
+@property (nullable) NSAttributedString *restoredInput;
+
+@property BOOL pendingScroll;
+@property BOOL pendingClear;
+@property NSDictionary *inputAttributes;
+
+- (NSDictionary *)styleAttributesWithLanguage:(NSDictionary *)attributes;
+- (BOOL)documentFitsViewport;
+- (void)restoreTextFinder;
 
 // Shared helpers implemented in GlkTextBufferWindow.m proper.
 - (BOOL)coalescePendingEchoDeleteWithAppend:(NSAttributedString *)toAppend;

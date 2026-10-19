@@ -3255,7 +3255,6 @@
 		A9D52153A2D95F87DB7DE75F /* question-verbs.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-verbs.cc"; sourceTree = "<group>"; };
 		AA03C3D8920B74853A42168F /* aslxglk-media.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslxglk-media.cc"; sourceTree = "<group>"; };
 		AA11US7A09F29EE60083E64E /* illustrator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = illustrator.c; sourceTree = "<group>"; };
-		AA2B7934CD9F4447B195CFA0 /* GlkTextBufferWindow+Autorestore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GlkTextBufferWindow+Autorestore.h"; sourceTree = "<group>"; };
 		AA889483D559290F70E80C64 /* scutils.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scutils.cpp; sourceTree = "<group>"; };
 		AACD49A13B6CCDC934F28451 /* a5restr.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5restr.cpp; sourceTree = "<group>"; };
 		AB01DAD407B134C528B7D00C /* sctaffil.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = sctaffil.cpp; sourceTree = "<group>"; };
@@ -7018,7 +7017,6 @@
 				961CCEE509F239E700528FF9 /* GlkTextBufferWindow.h */,
 				961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */,
 				3777563A3F41478D9D6D4C22 /* GlkTextBufferWindowPrivate.h */,
-				AA2B7934CD9F4447B195CFA0 /* GlkTextBufferWindow+Autorestore.h */,
 				621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */,
 				39EE443C3CA84CFD89C8E2B8 /* GlkTextBufferWindow+Hyperlinks.h */,
 				0B97A332BA494DD98C1A1131 /* GlkTextBufferWindow+Hyperlinks.m */,

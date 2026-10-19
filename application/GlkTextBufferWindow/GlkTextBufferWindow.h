@@ -15,49 +15,24 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property(readonly) unichar lastchar; /* for smart formatting */
 @property(readonly) NSInteger lastseen; /* for more paging */
-// for keeping track of previous moves
-@property NSUInteger printPositionOnInput;
 
-/* For autorestoring scroll position */
-@property NSUInteger restoredLastVisible;
-@property CGFloat restoredScrollOffset;
-@property BOOL restoredAtBottom;
-@property BOOL restoredAtTop;
-
-@property NSRange restoredSelection;
-@property NSString *restoredSearch;
-@property BOOL restoredFindBarVisible;
-@property BOOL pendingScroll;
-@property BOOL pendingClear;
+// Set while a scroll restore (after autorestore or a full screen change) is
+// pending. See restoreScroll:.
 @property BOOL pendingScrollRestore;
-
-@property NSAttributedString *restoredInput;
-@property NSDictionary *inputAttributes;
 
 @property (nullable) GlkTextGridWindow *quoteBox;
 
 - (void)recalcBackground;
-- (NSDictionary *)styleAttributesWithLanguage:(NSDictionary *)attributes;
 - (void)echo:(BOOL)val;
 - (BOOL)myMouseDown:(NSEvent *)theEvent;
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate;
 - (void)scrollToTop;
 - (void)scrollToBottomAnimated:(BOOL)animate;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL scrolledToBottom;
-- (BOOL)documentFitsViewport;
 - (void)storeScrollOffset;
-- (void)restoreTextFinder;
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
 - (void)forceLayout;
-
-// Compute a front-trim cut point at a paragraph boundary for capping the
-// scrollback. Returns the number of leading characters that may be deleted
-// (always at a line boundary, never past safeLimit), or 0 if no trim should
-// happen. Exposed for unit testing.
-+ (NSUInteger)scrollbackCutPointForString:(NSString *)string
-                               targetKeep:(NSUInteger)targetKeep
-                                safeLimit:(NSUInteger)safeLimit;
 
 // The scrollback character limit for this window, taken from the current
 // theme's scrollbackLimit attribute (clamped to a sensible floor). 0 means
@@ -68,12 +43,6 @@ NS_ASSUME_NONNULL_BEGIN
 // otherwise at least the minimum floor). Exposed for the Preferences UI.
 + (NSUInteger)clampScrollbackLimit:(NSInteger)value;
 
-// How much text a scrollback trim keeps, and the text length above which a
-// trim happens (at least a minimum slack above the kept amount, so small
-// limits do not trim on every turn). Exposed for unit testing.
-+ (NSUInteger)scrollbackKeepForLimit:(NSUInteger)limit;
-+ (NSUInteger)scrollbackTrimThresholdForLimit:(NSUInteger)limit;
-
 - (void)padWithNewlines:(NSUInteger)lines;
 
 - (void)scrollWheelchanged:(NSEvent *)event fromPosition:(CGFloat)oldPosition;
@@ -82,14 +51,32 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)resetLastSpokenString;
 
-// Only used by JourneyMenuHandler
+// Used by JourneyMenuHandler
 - (NSString *)lastMoveString;
-- (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings;
 @property NSInteger lastNewTextOnTurn;
+
+// Used by InfocomV6MenuHandler
+- (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfLines;
+
+#pragma mark Testing
+
+// Compute a front-trim cut point at a paragraph boundary for capping the
+// scrollback. Returns the number of leading characters that may be deleted
+// (always at a line boundary, never past safeLimit), or 0 if no trim should
+// happen.
++ (NSUInteger)scrollbackCutPointForString:(NSString *)string
+                               targetKeep:(NSUInteger)targetKeep
+                                safeLimit:(NSUInteger)safeLimit;
+
+// How much text a scrollback trim keeps, and the text length above which a
+// trim happens (at least a minimum slack above the kept amount, so small
+// limits do not trim on every turn).
++ (NSUInteger)scrollbackKeepForLimit:(NSUInteger)limit;
++ (NSUInteger)scrollbackTrimThresholdForLimit:(NSUInteger)limit;
 
 @end
 

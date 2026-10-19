@@ -8,6 +8,8 @@
 #import "NSImage+Categories.h"
 #import "Constants.h"
 
+#import "DebugLog.h"
+
 @interface ImageDragSource () {
     NSString *baseFilename;
     NSURL *temporaryFileURL;
