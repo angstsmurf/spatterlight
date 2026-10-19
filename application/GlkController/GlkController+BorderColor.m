@@ -8,9 +8,7 @@
 #import "Preferences.h"
 #import "NSColor+integer.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 // The size a window has, or is about to get if a resize is pending.
 static NSSize currentSizeOfWindow(GlkWindow *win) {

@@ -6,10 +6,7 @@
 #import "MarginContainer.h"
 #import "BufferTextView.h"
 
-// In release builds, suppress NSLog entirely.
-#ifndef DEBUG
-#define NSLog(...)
-#endif // DEBUG
+#import "DebugLog.h"
 
 @implementation GlkTextBufferWindow (Hyperlinks)
 

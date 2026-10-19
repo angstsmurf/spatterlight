@@ -12,10 +12,7 @@
 #import "BufferTextView.h"
 #include "glkimp.h"
 
-// In release builds, suppress NSLog entirely.
-#ifndef DEBUG
-#define NSLog(...)
-#endif // DEBUG
+#import "DebugLog.h"
 
 /*
  * GlkTextBufferWindow is the Glk text buffer window type — a scrollable,

@@ -68,6 +68,8 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     NSWindowController *snapshotController;
 
     BOOL windowClosedAlready;
+    // We are registered for voiceOverEnabled KVO on NSWorkspace.
+    BOOL observingVoiceOver;
     BOOL restartingAlready;
 
     // The interpreter has stopped for good: either it terminated during this
@@ -127,7 +129,7 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
 
 // Set during autorestore when the autosaved theme name cannot be resolved to
 // an existing theme, meaning the archived window styles may not match the
-// current theme and must be rebuilt. See runTerpWithAutorestore.
+// current theme and must be rebuilt. See adoptRestoredTheme.
 @property BOOL restoredStylesStale;
 
 // systemUptime of the most recent window-layout change (window resize, etc.).

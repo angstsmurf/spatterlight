@@ -15,9 +15,7 @@
 #import "NSFont+Categories.h"
 
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @interface SideInfoView ()
 {

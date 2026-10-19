@@ -19,9 +19,7 @@
 #import "NSFont+Categories.h"
 #import "NSDate+relative.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @interface InfoView ()
 {

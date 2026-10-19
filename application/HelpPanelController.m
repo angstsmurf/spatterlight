@@ -9,9 +9,7 @@
 #import "HelpPanelController.h"
 #import <AppKit/AppKit.h>
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @interface HelpTextView () <NSTextFinderClient> {
     NSTextFinder *_textFinder; // define your own text finder

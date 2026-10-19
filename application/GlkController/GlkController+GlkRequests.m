@@ -33,9 +33,7 @@
 #include "messagenames.h"
 #include "protocol.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 // Answer a file prompt: OKAY carrying the chosen path, or an empty payload
 // if the user cancelled (path is NULL or "").
@@ -647,116 +645,347 @@ static NSString *stringFromPayload(char *buf, size_t len) {
     restoredController = restoredControllerLate;
 }
 
+#pragma mark Per-request handlers
+
+// The Glk window a request's a1 names, or nil.
+- (GlkWindow *)windowForRequest:(struct message *)req {
+    if (req->a1 >= 0 && req->a1 < kMaxGlkWindows)
+        return self.gwindows[@(req->a1)];
+    return nil;
+}
+
+// Fade out the oldest quote box once the game has printed or cleared past
+// the point where it was added, or as soon as a newer one appears.
+- (void)dismissExpiredQuoteBox {
+    if (!self.quoteBoxes.count)
+        return;
+    if (self.quoteBoxes.lastObject.quoteboxAddedOnPAC == 0)
+        self.quoteBoxes.lastObject.quoteboxAddedOnPAC = self.numberOfPrintsAndClears;
+    if (self.numberOfPrintsAndClears <= self.quoteBoxes.lastObject.quoteboxAddedOnPAC &&
+        self.quoteBoxes.count <= 1)
+        return;
+
+    GlkTextGridWindow *view = self.quoteBoxes.firstObject;
+    [self.quoteBoxes removeObjectAtIndex:0];
+    ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
+    view.quoteboxParent = nil;
+    if (self.quoteBoxes.count == 0) {
+        self.quoteBoxes = nil;
+    }
+    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 1;
+        view.animator.alphaValue = 0;
+    } completionHandler:^{
+        view.hidden = YES;
+        view.alphaValue = 1;
+        [view removeFromSuperview];
+        view.glkctl = nil;
+    }];
+}
+
+// Returns YES if the interpreter is now waiting for an event, so the caller
+// should stop reading. A queued event is written here directly; otherwise
+// an OKAY reply is set up when the interpreter asked not to wait (a1 == 0).
+- (BOOL)handleNextEvent:(struct message *)req reply:(struct message *)ans {
+    if (self.windowsToRestore.count) {
+        for (GlkWindow *win in self.windowsToRestore) {
+            if (![win isKindOfClass:[GlkGraphicsWindow class]])
+                [self.gwindows[@(win.name)] postRestoreAdjustments:win];
+        }
+        self.windowsToRestore = nil;
+    }
+    // If this is the first turn, we try to restore the UI
+    // from an autosave file.
+    if (self.eventcount == 2) {
+        if (shouldRestoreUI) {
+            [self restoreUI];
+        } else {
+            // If we are not autorestoring, try to guess an input window.
+            for (GlkTextBufferWindow *win in self.bufferWindows) {
+                if (win.wantsFocus) {
+                    [win grabFocus];
+                }
+            }
+        }
+    }
+
+    if (self.eventcount > 1 && !self.shouldShowAutorestoreAlert) {
+        self.mustBeQuiet = NO;
+    }
+
+    self.eventcount++;
+
+    if (self.shouldSpeakNewText) {
+        self.turns++;
+    }
+
+    self.numberOfPrintsAndClears += self.printsAndClearsThisTurn;
+    self.printsAndClearsThisTurn = 0;
+    [self dismissExpiredQuoteBox];
+
+    if (self.slowReadAlert != nil) {
+        [self.slowReadAlert.window close];
+        self.slowReadAlert = nil;
+    }
+
+    if (!autorestoring)
+        [self flushDisplay];
+
+    if (self.queue.count) {
+        GlkEvent *gevent = self.queue[0];
+        [gevent writeEvent:sendfh.fileDescriptor];
+        [self.queue removeObjectAtIndex:0];
+        return NO; /* keep reading ... we sent the reply */
+    }
+
+    if (!req->a1) {
+        // Argument 1 is FALSE. No waiting for more events. Send a dummy
+        // reply to hand over to the interpreter immediately.
+        ans->cmd = OKAY;
+        return NO;
+    }
+
+    [self guessFocus];
+
+    waitforevent = YES;
+    return YES; /* stop reading ... terp is waiting for reply */
+}
+
+- (void)handleDeleteWindow:(GlkWindow *)reqWin name:(int)name {
+    if (reqWin) {
+        [self.windowsToBeRemoved addObject:reqWin];
+        [self.gwindows removeObjectForKey:@(name)];
+        self.shouldCheckForMenu = YES;
+    } else if (shouldRestoreUI && restoredController.gwindows[@(name)]) {
+        // An autorestored window, closed by the interpreter before
+        // restoreUI has brought its view back.
+        if (!windowsClosedBeforeRestore)
+            windowsClosedBeforeRestore = [[NSMutableSet alloc] init];
+        [windowsClosedBeforeRestore addObject:@(name)];
+    } else
+        NSLog(@"delwin called on a non-existant Glk window (%d)", name);
+}
+
+- (void)handleBeep:(int)type frequency:(int)frequency duration:(int)duration {
+    Theme *theme = self.theme;
+    if (!theme.doSound)
+        return;
+    if (type == 0) {
+        // Accurate ZX Spectrum tone: frequency in Hz, duration in ms.
+        // Synthesised as a square wave.
+        [self.soundHandler playSpectrumBeepFrequency:frequency
+                                            duration:duration];
+    }
+    if (type == 1)
+        playSoundNamed(theme.beepHigh);
+    if (type == 2) {
+        playSoundNamed(theme.beepLow);
+        // For Bureaucracy form accessibility
+        if (self.form)
+            [self.form speakError];
+    }
+}
+
+- (void)handleSizeWindow:(GlkWindow *)reqWin rect:(const struct sizewinrect *)sizewin {
+    // Drop a request computed for a game view size we no longer have.
+    if (fabs(sizewin->gamewidth - self.gameView.frame.size.width) > 1.0)
+        return;
+
+    if (fabs(sizewin->gameheight - self.gameView.frame.size.height) > 1.0)
+        return;
+
+    NSRect rect = NSMakeRect(sizewin->x0, sizewin->y0,
+                             sizewin->x1 - sizewin->x0, sizewin->y1 - sizewin->y0);
+    if (rect.size.width < 0)
+        rect.size.width = 0;
+    if (rect.size.height < 0)
+        rect.size.height = 0;
+    // Record layout churn so VoiceOver announcements wait until the
+    // UI settles (see scheduleSpeakNewTextAfterDelay / fireSpeakNewText).
+    if (!NSEqualRects(reqWin.frame, rect))
+        self.lastLayoutChurnTimestamp = NSProcessInfo.processInfo.systemUptime;
+    reqWin.frame = rect;
+
+    NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
+    NSAutoresizingMaskOptions vmask = NSViewMaxYMargin;
+
+    if (fabs(NSMaxX(rect) - self.gameView.frame.size.width) < 2.0 &&
+        rect.size.width > 0) {
+        // If window is at right edge, attach to that edge
+        hmask = NSViewWidthSizable;
+    }
+
+    // We special-case graphics windows, because the fullscreen animation looks
+    // bad if they do not stay pinned to the top of the window.
+    if (!([reqWin isKindOfClass:[GlkGraphicsWindow class]] && rect.origin.y == 0) &&
+        (fabs(NSMaxY(rect) - self.gameView.frame.size.height) < 2.0 &&
+         rect.size.height > 0)) {
+        // Otherwise, if the Glk window is at the bottom,
+        // pin it to the bottom of the main window
+        vmask = NSViewHeightSizable;
+    }
+
+    reqWin.autoresizingMask = hmask | vmask;
+
+    windowdirty = YES;
+}
+
+// win == -1 is the border (the area outside all Glk windows); a negative
+// color means the theme's buffer background.
+- (void)handleSetBackground:(GlkWindow *)reqWin window:(int)win color:(int)color {
+    NSColor *bg = (color < 0) ? self.theme.bufferBackground : [NSColor colorFromInteger:color];
+    if (win == -1) {
+        self.lastAutoBGColor = bg;
+        [self setBorderColor:bg];
+        changedBorderThisTurn = YES;
+    }
+
+    if (reqWin) {
+        [reqWin setBgColor:color];
+    }
+}
+
+- (void)handleDrawImageOnWindow:(GlkWindow *)reqWin rect:(const struct drawrect *)drawstruct {
+    NSImage *lastimage = self.imageHandler.lastimage;
+    if (!lastimage || lastimage.size.width <= 0 || lastimage.size.height <= 0)
+        return;
+    [reqWin drawImage:lastimage
+                 val1:(glsi32)drawstruct->x
+                 val2:(glsi32)drawstruct->y
+                width:drawstruct->width
+               height:drawstruct->height
+            imagerule:drawstruct->imagerule
+             maxwidth:drawstruct->maxwidth
+                style:drawstruct->style];
+}
+
+- (void)handleInitLine:(struct message *)req buffer:(char *)buf {
+    [self performScroll];
+
+    // Text to preload the input line with. Dropped when restoring
+    // the UI: the restored window already holds its input.
+    NSUInteger preloadLength = (NSUInteger)req->len / sizeof(unichar);
+    if ([self restoreUIIfNeeded])
+        preloadLength = 0;
+    GlkWindow *reqWin = [self windowForRequest:req];
+
+    if (reqWin && self.gameID != kGameIsAColderLight && !skipNextScriptCommand) {
+        NSString *preloaded = [NSString stringWithCharacters:(unichar *)buf length:preloadLength];
+        if (!preloaded.length || [preloaded characterAtIndex:0] == '\0')
+            preloaded = @"";
+        [reqWin initLine:preloaded maxLength:(NSUInteger)req->a2];
+
+        if (self.commandScriptRunning) {
+            [self.commandScriptHandler sendCommandLineToWindow:reqWin];
+        }
+
+        self.shouldSpeakNewText = YES;
+
+        // Check if we are in Beyond Zork Definitions menu
+        if (self.gameID == kGameIsBeyondZork)
+            self.shouldCheckForMenu = YES;
+    }
+    skipNextScriptCommand = NO;
+}
+
+- (void)handleCancelLine:(GlkWindow *)reqWin reply:(struct message *)ans buffer:(char *)buf {
+    ans->cmd = OKAY;
+    if (!reqWin)
+        return;
+    NSString *str = reqWin.cancelLine;
+    // buf holds GLKBUFSIZE bytes: copy no more than the reply
+    // carries, or a very long line would run past it.
+    NSUInteger units = MIN(str.length, GLKBUFSIZE / sizeof(unichar));
+    ans->len = units * sizeof(unichar);
+    [str getCharacters:(unsigned short *)buf
+                 range:NSMakeRange(0, units)];
+}
+
+- (void)handleInitChar:(struct message *)req {
+    if (!self.gwindows.count && shouldRestoreUI && restoredControllerLate.commandScriptRunning)
+        [self resumeRestoredCommandScript];
+    [self restoreUIIfNeeded];
+    GlkWindow *reqWin = [self windowForRequest:req];
+
+    // Distinguish a meaningful INITCHAR (one that follows real game
+    // output) from one issued by a rapid CANCELCHAR/INITCHAR cycle
+    // some games use as a polling timer (notably the Level 9 Adrian
+    // Mole / Archers games). Only treat this INITCHAR as a real
+    // input prompt — for scrolling, VoiceOver, and menu detection —
+    // if a real output request preceded it, or it has been more
+    // than a second since the last keystroke.
+    if (lastRequest == PRINT ||
+        lastRequest == SETZCOLOR ||
+        lastRequest == NEXTEVENT ||
+        lastRequest == MOVETO ||
+        lastKeyTimestamp.timeIntervalSinceNow < -1) {
+        // This flag may be set by GlkBufferWindow as well
+        self.shouldScrollOnCharEvent = YES;
+        self.shouldSpeakNewText = YES;
+        self.shouldCheckForMenu = YES;
+    }
+
+    lastKeyTimestamp = [NSDate date];
+
+    if (self.shouldScrollOnCharEvent) {
+        [self performScroll];
+    }
+
+    if (reqWin && !skipNextScriptCommand) {
+        [reqWin initChar];
+        if (self.commandScriptRunning) {
+            if (self.gameID != kGameIsAdrianMole || lastScriptKeyTimestamp.timeIntervalSinceNow < -0.5) {
+                [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
+                lastScriptKeyTimestamp = [NSDate date];
+            }
+        }
+    }
+    skipNextScriptCommand = NO;
+}
+
+// This updates an existing window on-the-fly with the styles that normally
+// would only be applied to a new window. It can also update any inline
+// images (xscale/yscale in thousandths; 0 leaves them alone).
+- (void)handleRefreshWindow:(GlkWindow *)reqWin xscale:(int)xscale yscale:(int)yscale {
+    if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
+        reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.bufferStyleHints];
+        if (xscale > 0)
+            [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale:xscale / 1000.0 yScale:yscale / 1000.0];
+    } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
+        reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.gridStyleHints];
+    } else {
+        return;
+    }
+    [self flushDisplay];
+    [reqWin prefsDidChange];
+}
+
+- (void)handleMenuItem:(struct message *)req buffer:(char *)buf {
+    if (self.gameID == kGameIsJourney) {
+        [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(req->a4 == 1) text:buf length:(NSUInteger)req->len];
+    } else {
+        [self.infocomV6MenuHandler handleMenuItemOfType:(InfocomV6MenuType)req->a1 index:(NSUInteger)req->a2 total:(NSUInteger)req->a3 text:buf length:(NSUInteger)req->len];
+    }
+}
+
+#pragma mark Request dispatch
+
 - (BOOL)handleRequest:(struct message *)req
                 reply:(struct message *)ans
                buffer:(char *)buf {
-    NSInteger result;
-    GlkWindow *reqWin = nil;
-    NSColor *bg = nil;
-
-    Theme *theme = self.theme;
-
-    if (req->a1 >= 0 && req->a1 < kMaxGlkWindows && self.gwindows[@(req->a1)])
-        reqWin = self.gwindows[@(req->a1)];
+    BOOL stop = NO;
+    GlkWindow *reqWin = [self windowForRequest:req];
 
     switch (req->cmd) {
         case HELLO:
             ans->cmd = OKAY;
-            ans->a1 = theme.doGraphics;
-            ans->a2 = theme.doSound;
+            ans->a1 = self.theme.doGraphics;
+            ans->a2 = self.theme.doSound;
             break;
 
         case NEXTEVENT:
-            if (self.windowsToRestore.count) {
-                for (GlkWindow *win in self.windowsToRestore) {
-                    if (![win isKindOfClass:[GlkGraphicsWindow class]])
-                        [self.gwindows[@(win.name)] postRestoreAdjustments:win];
-                }
-                self.windowsToRestore = nil;
-            }
-            // If this is the first turn, we try to restore the UI
-            // from an autosave file.
-            if (self.eventcount == 2) {
-                if (shouldRestoreUI) {
-                    [self restoreUI];
-                } else {
-                    // If we are not autorestoring, try to guess an input window.
-                    for (GlkTextBufferWindow *win in self.bufferWindows) {
-                        if (win.wantsFocus) {
-                            [win grabFocus];
-                        }
-                    }
-                }
-            }
-
-            if (self.eventcount > 1 && !self.shouldShowAutorestoreAlert) {
-                self.mustBeQuiet = NO;
-            }
-
-            self.eventcount++;
-
-            if (self.shouldSpeakNewText) {
-                self.turns++;
-            }
-
-            self.numberOfPrintsAndClears += self.printsAndClearsThisTurn;
-            self.printsAndClearsThisTurn = 0;
-            if (self.quoteBoxes.count) {
-                if (self.quoteBoxes.lastObject.quoteboxAddedOnPAC == 0)
-                    self.quoteBoxes.lastObject.quoteboxAddedOnPAC = self.numberOfPrintsAndClears;
-                if (self.numberOfPrintsAndClears > self.quoteBoxes.lastObject.quoteboxAddedOnPAC ||
-                    self.quoteBoxes.count > 1) {
-                    GlkTextGridWindow *view = self.quoteBoxes.firstObject;
-                    [self.quoteBoxes removeObjectAtIndex:0];
-                    ((GlkTextBufferWindow *)view.quoteboxParent.superview).quoteBox = nil;
-                    view.quoteboxParent = nil;
-                    if (self.quoteBoxes.count == 0) {
-                        self.quoteBoxes = nil;
-                    }
-                    [NSAnimationContext runAnimationGroup:^(NSAnimationContext *context) {
-                        context.duration = 1;
-                        view.animator.alphaValue = 0;
-                    } completionHandler:^{
-                        view.hidden = YES;
-                        view.alphaValue = 1;
-                        [view removeFromSuperview];
-                        view.glkctl = nil;
-                    }];
-                }
-            }
-
-            if (self.slowReadAlert != nil) {
-                [self.slowReadAlert.window close];
-                self.slowReadAlert = nil;
-            }
-
-            if (!autorestoring)
-                [self flushDisplay];
-
-            if (self.queue.count) {
-                GlkEvent *gevent;
-                gevent = self.queue[0];
-
-                [gevent writeEvent:sendfh.fileDescriptor];
-                [self.queue removeObjectAtIndex:0];
-                lastRequest = req->cmd;
-                return NO; /* keep reading ... we sent the reply */
-            } else {
-                // No queued events.
-
-                if (!req->a1) {
-                    // Argument 1 is FALSE. No waiting for more events. Send a dummy
-                    // reply to hand over to the interpreter immediately.
-                    ans->cmd = OKAY;
-                    break;
-                }
-            }
-
-            [self guessFocus];
-
-            waitforevent = YES;
-            lastRequest = req->cmd;
-            return YES; /* stop reading ... terp is waiting for reply */
+            stop = [self handleNextEvent:req reply:ans];
+            break;
 
         case PROMPTOPEN:
             // Flush first so any text the game printed immediately before the
@@ -778,8 +1007,8 @@ static NSString *stringFromPayload(char *buf, size_t len) {
                                hint:(NSUInteger)req->a3];
             break;
 
-        case STYLEMEASURE:
-            result = 0;
+        case STYLEMEASURE: {
+            NSInteger result = 0;
             ans->cmd = OKAY;
             ans->a1 = [self handleStyleMeasureOnWin:reqWin
                                               style:(NSUInteger)req->a2
@@ -787,6 +1016,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
                                              result:&result];
             ans->a2 = (int)result;
             break;
+        }
 
         case CLEARHINT:
             [self setStyleHintValue:[NSNull null]
@@ -795,11 +1025,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
                                hint:(NSUInteger)req->a3];
             break;
 
-            /*
-             * Create and destroy windows and channels
-             */
-
-#pragma mark Create and destroy windows and sound channels
+        // Create and destroy windows and sound channels
 
         case NEWWIN:
             ans->cmd = OKAY;
@@ -812,30 +1038,14 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             break;
 
         case DELWIN:
-            if (reqWin) {
-                [self.windowsToBeRemoved addObject:reqWin];
-                [self.gwindows removeObjectForKey:@(req->a1)];
-                self.shouldCheckForMenu = YES;
-            } else if (shouldRestoreUI && restoredController.gwindows[@(req->a1)]) {
-                // An autorestored window, closed by the interpreter before
-                // restoreUI has brought its view back.
-                if (!windowsClosedBeforeRestore)
-                    windowsClosedBeforeRestore = [[NSMutableSet alloc] init];
-                [windowsClosedBeforeRestore addObject:@(req->a1)];
-            } else
-                NSLog(@"delwin called on a non-existant Glk window (%d)", req->a1);
-
+            [self handleDeleteWindow:reqWin name:req->a1];
             break;
 
         case DELCHAN:
             [self.soundHandler handleDeleteChannel:req->a1];
             break;
 
-            /*
-             * Load images; load and play sounds
-             */
-
-#pragma mark Load images; load and play sounds
+        // Load images; load and play sounds
 
         case FINDIMAGE:
             ans->cmd = OKAY;
@@ -845,27 +1055,22 @@ static NSString *stringFromPayload(char *buf, size_t len) {
         case LOADIMAGE:
             buf[req->len] = 0;
             [self.imageHandler handleLoadImageNumber:req->a1
-                                            from:@(buf)
-                                          offset:(NSUInteger)req->a2
-                                            size:(NSUInteger)req->a3];
+                                                from:@(buf)
+                                              offset:(NSUInteger)req->a2
+                                                size:(NSUInteger)req->a3];
             break;
 
-        case SIZEIMAGE:
-        {
+        case SIZEIMAGE: {
             ans->cmd = OKAY;
-            ans->a1 = 0;
-            ans->a2 = 0;
             NSImage *lastimage = self.imageHandler.lastimage;
             if (lastimage) {
-                NSSize size;
-                size = lastimage.size;
-                ans->a1 = (int)size.width;
-                ans->a2 = (int)size.height;
+                ans->a1 = (int)lastimage.size.width;
+                ans->a2 = (int)lastimage.size.height;
             } else {
                 NSLog(@"SIZEIMAGE: No last image found!");
             }
-        }
             break;
+        }
 
         case FINDSOUND:
             ans->cmd = OKAY;
@@ -875,16 +1080,16 @@ static NSString *stringFromPayload(char *buf, size_t len) {
         case LOADSOUND:
             buf[req->len] = 0;
             [self.soundHandler handleLoadSoundNumber:req->a1
-                                            from:@(buf)
-                                          offset:(NSUInteger)req->a2
-                                          length:(NSUInteger)req->a3];
+                                                from:@(buf)
+                                              offset:(NSUInteger)req->a2
+                                              length:(NSUInteger)req->a3];
             break;
 
         case SETVOLUME:
             [self.soundHandler handleSetVolume:(glui32)req->a2
-                                   channel:req->a1
-                                  duration:(glui32)req->a3
-                                    notify:(glui32)req->a4];
+                                       channel:req->a1
+                                      duration:(glui32)req->a3
+                                        notify:(glui32)req->a4];
             break;
 
         case PLAYSOUND:
@@ -904,31 +1109,13 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             break;
 
         case BEEP:
-            if (theme.doSound) {
-                if (req->a1 == 0) {
-                    // Accurate ZX Spectrum tone: a2 = frequency (Hz),
-                    // a3 = duration (ms). Synthesised as a square wave.
-                    [self.soundHandler playSpectrumBeepFrequency:req->a2
-                                                        duration:req->a3];
-                }
-                if (req->a1 == 1)
-                    playSoundNamed(theme.beepHigh);
-                if (req->a1 == 2) {
-                    playSoundNamed(theme.beepLow);
-                    // For Bureaucracy form accessibility
-                    if (self.form)
-                        [self.form speakError];
-                }
-            }
-
+            [self handleBeep:req->a1 frequency:req->a2 duration:req->a3];
             break;
-            /*
-             * Window sizing, printing, drawing, etc...
-             */
 
-#pragma mark Window sizing, printing, drawing …
+        // Window sizing, printing, drawing, etc.
+
         case SHOWERROR:
-            [self handleShowError:(char *)buf length:req->len];
+            [self handleShowError:buf length:req->len];
             break;
 
         case CANPRINT:
@@ -938,58 +1125,10 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
         case SIZWIN:
             if (reqWin) {
-                int x0, y0, x1, y1, checksumWidth, checksumHeight;
-                NSRect rect;
-
+                // Copy out: buf need not be aligned for the struct.
                 struct sizewinrect sizewin;
-                memcpy(&sizewin, buf, sizeof(struct sizewinrect));
-
-                checksumWidth = sizewin.gamewidth;
-                checksumHeight = sizewin.gameheight;
-
-                if (fabs(checksumWidth - self.gameView.frame.size.width) > 1.0)
-                    break;
-
-                if (fabs(checksumHeight - self.gameView.frame.size.height) > 1.0)
-                    break;
-
-                x0 = sizewin.x0;
-                y0 = sizewin.y0;
-                x1 = sizewin.x1;
-                y1 = sizewin.y1;
-                rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
-                if (rect.size.width < 0)
-                    rect.size.width = 0;
-                if (rect.size.height < 0)
-                    rect.size.height = 0;
-                // Record layout churn so VoiceOver announcements wait until the
-                // UI settles (see scheduleSpeakNewTextAfterDelay / fireSpeakNewText).
-                if (!NSEqualRects(reqWin.frame, rect))
-                    self.lastLayoutChurnTimestamp = NSProcessInfo.processInfo.systemUptime;
-                reqWin.frame = rect;
-
-                NSAutoresizingMaskOptions hmask = NSViewMaxXMargin;
-                NSAutoresizingMaskOptions vmask = NSViewMaxYMargin;
-
-                if (fabs(NSMaxX(rect) - self.gameView.frame.size.width) < 2.0 &&
-                    rect.size.width > 0) {
-                    // If window is at right edge, attach to that edge
-                    hmask = NSViewWidthSizable;
-                }
-
-                // We special-case graphics windows, because the fullscreen animation looks
-                // bad if they do not stay pinned to the top of the window.
-                if (!([reqWin isKindOfClass:[GlkGraphicsWindow class]] && rect.origin.y == 0) &&
-                    (fabs(NSMaxY(rect) - self.gameView.frame.size.height) < 2.0 &&
-                           rect.size.height > 0)) {
-                    // Otherwise, if the Glk window is at the bottom,
-                    // pin it to the bottom of the main window
-                    vmask = NSViewHeightSizable;
-                }
-
-                reqWin.autoresizingMask = hmask | vmask;
-
-                windowdirty = YES;
+                memcpy(&sizewin, buf, sizeof sizewin);
+                [self handleSizeWindow:reqWin rect:&sizewin];
             } else
                 NSLog(@"sizwin called on a non-existant Glk window (%d)", req->a1);
             break;
@@ -1003,36 +1142,14 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             break;
 
         case SETBGND:
-            if (req->a2 < 0)
-                bg = theme.bufferBackground;
-            else
-                bg = [NSColor colorFromInteger:req->a2];
-            if (req->a1 == -1) {
-                self.lastAutoBGColor = bg;
-                [self setBorderColor:bg];
-                changedBorderThisTurn = YES;
-            }
-
-            if (reqWin) {
-                [reqWin setBgColor:req->a2];
-            }
+            [self handleSetBackground:reqWin window:req->a1 color:req->a2];
             break;
 
         case DRAWIMAGE:
             if (reqWin) {
-                NSImage *lastimage = self.imageHandler.lastimage;
-                if (lastimage && lastimage.size.width > 0 && lastimage.size.height > 0) {
-                    struct drawrect drawstruct;
-                    memcpy(&drawstruct, buf, sizeof(struct drawrect));
-                    [reqWin drawImage:lastimage
-                                 val1:(glsi32)drawstruct.x
-                                 val2:(glsi32)drawstruct.y
-                                width:drawstruct.width
-                               height:drawstruct.height
-                            imagerule:drawstruct.imagerule
-                             maxwidth:drawstruct.maxwidth
-                                style:drawstruct.style];
-                }
+                struct drawrect drawstruct;
+                memcpy(&drawstruct, buf, sizeof drawstruct);
+                [self handleDrawImageOnWindow:reqWin rect:&drawstruct];
             }
             break;
 
@@ -1045,7 +1162,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
         case PRINT:
             self.printsAndClearsThisTurn++;
             if ([self restoreUIIfNeeded])
-                reqWin = self.gwindows[@(req->a1)];
+                reqWin = [self windowForRequest:req];
             if (reqWin && req->len) {
                 [self handlePrintOnWindow:reqWin
                                     style:(NSUInteger)req->a2
@@ -1058,10 +1175,8 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
         case UNPRINT:
             if ([self restoreUIIfNeeded])
-                reqWin = self.gwindows[@(req->a1)];
+                reqWin = [self windowForRequest:req];
             ans->cmd = OKAY;
-            ans->a1 = 0;
-            ans->a2 = 0;
             if (reqWin && req->len) {
                 ans->a1 = (int)[self handleUnprintOnWindow:reqWin string:(unichar *)buf length:req->len / sizeof(unichar)];
             }
@@ -1069,20 +1184,14 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
         case MOVETO:
             if (reqWin) {
-                NSUInteger x = (NSUInteger)req->a2;
-                NSUInteger y = (NSUInteger)req->a3;
-                [reqWin moveToColumn:x row:y];
+                [reqWin moveToColumn:(NSUInteger)req->a2 row:(NSUInteger)req->a3];
             }
             break;
 
         case SETECHO:
-            if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]])
+            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]])
                 [(GlkTextBufferWindow *)reqWin echo:(req->a2 != 0)];
             break;
-
-            /*
-             * Request and cancel events
-             */
 
         case TERMINATORS:
             [self handleSetTerminatorsOnWindow:reqWin
@@ -1114,92 +1223,18 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             }
             break;
 
-#pragma mark Request and cancel events
+        // Request and cancel events
 
-        case INITLINE: {
-            [self performScroll];
-
-            // Text to preload the input line with. Dropped when restoring
-            // the UI: the restored window already holds its input.
-            NSUInteger preloadLength = (NSUInteger)req->len / sizeof(unichar);
-
-            if ([self restoreUIIfNeeded]) {
-                preloadLength = 0;
-                reqWin = self.gwindows[@(req->a1)];
-            }
-            if (reqWin && self.gameID != kGameIsAColderLight && !skipNextScriptCommand) {
-                NSString *preloaded = [NSString stringWithCharacters:(unichar *)buf length:preloadLength];
-                if (!preloaded.length || [preloaded characterAtIndex:0] == '\0')
-                    preloaded = @"";
-                [reqWin initLine:preloaded maxLength:(NSUInteger)req->a2];
-
-                if (self.commandScriptRunning) {
-                    [self.commandScriptHandler sendCommandLineToWindow:reqWin];
-                }
-
-                self.shouldSpeakNewText = YES;
-
-                // Check if we are in Beyond Zork Definitions menu
-                if (self.gameID == kGameIsBeyondZork)
-                    self.shouldCheckForMenu = YES;
-            }
-            skipNextScriptCommand = NO;
+        case INITLINE:
+            [self handleInitLine:req buffer:buf];
             break;
-        }
 
         case CANCELLINE:
-            ans->cmd = OKAY;
-            if (reqWin) {
-                NSString *str = reqWin.cancelLine;
-                // buf holds GLKBUFSIZE bytes: copy no more than the reply
-                // carries, or a very long line would run past it.
-                NSUInteger units = MIN(str.length, GLKBUFSIZE / sizeof(unichar));
-                ans->len = units * sizeof(unichar);
-                [str getCharacters:(unsigned short *)buf
-                             range:NSMakeRange(0, units)];
-            }
+            [self handleCancelLine:reqWin reply:ans buffer:buf];
             break;
 
         case INITCHAR:
-            if (!self.gwindows.count && shouldRestoreUI && restoredControllerLate.commandScriptRunning)
-                [self resumeRestoredCommandScript];
-            if ([self restoreUIIfNeeded])
-                reqWin = self.gwindows[@(req->a1)];
-
-            // Distinguish a meaningful INITCHAR (one that follows real game
-            // output) from one issued by a rapid CANCELCHAR/INITCHAR cycle
-            // some games use as a polling timer (notably the Level 9 Adrian
-            // Mole / Archers games). Only treat this INITCHAR as a real
-            // input prompt — for scrolling, VoiceOver, and menu detection —
-            // if a real output request preceded it, or it has been more
-            // than a second since the last keystroke.
-            if (lastRequest == PRINT ||
-                lastRequest == SETZCOLOR ||
-                lastRequest == NEXTEVENT ||
-                lastRequest == MOVETO ||
-                lastKeyTimestamp.timeIntervalSinceNow < -1) {
-                // This flag may be set by GlkBufferWindow as well
-                self.shouldScrollOnCharEvent = YES;
-                self.shouldSpeakNewText = YES;
-                self.shouldCheckForMenu = YES;
-            }
-
-            lastKeyTimestamp = [NSDate date];
-
-            if (self.shouldScrollOnCharEvent) {
-                [self performScroll];
-            }
-
-            if (reqWin && !skipNextScriptCommand) {
-                [reqWin initChar];
-                if (self.commandScriptRunning) {
-                    if (self.gameID != kGameIsAdrianMole || lastScriptKeyTimestamp.timeIntervalSinceNow < -0.5) {
-                        [self.commandScriptHandler sendCommandKeyPressToWindow:reqWin];
-                        lastScriptKeyTimestamp = [NSDate date];
-                    }
-                }
-            }
-            skipNextScriptCommand = NO;
+            [self handleInitChar:req];
             break;
 
         case CANCELCHAR:
@@ -1209,7 +1244,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
         case INITMOUSE:
             if ([self restoreUIIfNeeded])
-                reqWin = self.gwindows[@(req->a1)];
+                reqWin = [self windowForRequest:req];
             [self performScroll];
             if (reqWin) {
                 [reqWin initMouse];
@@ -1230,7 +1265,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
         case INITLINK:
             if ([self restoreUIIfNeeded])
-                reqWin = self.gwindows[@(req->a1)];
+                reqWin = [self windowForRequest:req];
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
@@ -1248,7 +1283,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             [self handleSetTimer:(NSUInteger)req->a1];
             break;
 
-#pragma mark Non-standard Glk extensions stuff
+        // Non-standard Glk extensions
 
         case MAKETRANSPARENT:
             if (reqWin)
@@ -1256,7 +1291,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             break;
 
         case SETTITLE:
-            [self handleChangeTitle:(char *)buf length:req->len];
+            [self handleChangeTitle:buf length:req->len];
             break;
 
         case AUTOSAVE:
@@ -1273,7 +1308,6 @@ static NSString *stringFromPayload(char *buf, size_t len) {
         case BANNERCOLS:
         case BANNERLINES:
             ans->cmd = OKAY;
-            ans->a1 = 0;
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
                 ans->a1 = (int)(req->cmd == BANNERCOLS ? banner.numberOfColumns : banner.numberOfLines);
@@ -1284,40 +1318,22 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             if (req->len) {
                 buf[req->len] = 0;
                 [self.imageHandler purgeImage:req->a1
-                          withReplacement:@(buf)
-                                     size:(NSUInteger)req->a2];
+                              withReplacement:@(buf)
+                                         size:(NSUInteger)req->a2];
             } else {
                 [self.imageHandler purgeImage:req->a1
-                          withReplacement:nil
-                                     size:0];
+                              withReplacement:nil
+                                         size:0];
             }
             break;
 
         case REFRESH:
-//            This updates an existing window on-the-fly with the styles
-//            that normally would only be applied to a new window.
-//            It can also update any inline images.
-            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
-                reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.bufferStyleHints];
-                if (req->a2 > 0)
-                    [((GlkTextBufferWindow *)reqWin) updateImageAttachmentsWithXScale: req->a2 / 1000.0 yScale: req->a3 / 1000.0 ];
-            } else if ([reqWin isKindOfClass:[GlkTextGridWindow class]]) {
-                reqWin.styleHints = [GlkWindow deepCopyOfStyleHintsArray:self.gridStyleHints];
-            } else {
-                break;
-            }
-            [self flushDisplay];
-            [reqWin prefsDidChange];
+            [self handleRefreshWindow:reqWin xscale:req->a2 yscale:req->a3];
             break;
 
-        case MENUITEM: {
-            if (self.gameID == kGameIsJourney) {
-                [self.journeyMenuHandler handleMenuItemOfType:(JourneyMenuType)req->a1 column:(NSUInteger)req->a2 line:(NSUInteger)req->a3 stopflag:(req->a4 == 1) text:(char *)buf length:(NSUInteger)req->len];
-            } else {
-                [self.infocomV6MenuHandler handleMenuItemOfType:(InfocomV6MenuType)req->a1 index:(NSUInteger)req->a2 total:(NSUInteger)req->a3 text:(char *)buf length:(NSUInteger)req->len];
-            }
+        case MENUITEM:
+            [self handleMenuItem:req buffer:buf];
             break;
-        }
 
         default:
             NSLog(@"glkctl: unhandled request (%d)", req->cmd);
@@ -1326,7 +1342,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
     if (req->cmd != AUTOSAVE)
         lastRequest = req->cmd;
-    return NO; /* keep reading */
+    return stop; /* if YES, stop reading: terp is waiting for reply */
 }
 
 @end

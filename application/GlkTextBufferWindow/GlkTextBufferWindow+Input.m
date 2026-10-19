@@ -13,10 +13,7 @@
 #import "BufferTextView.h"
 #include "glkimp.h"
 
-// In release builds, suppress NSLog entirely.
-#ifndef DEBUG
-#define NSLog(...)
-#endif // DEBUG
+#import "DebugLog.h"
 
 @implementation GlkTextBufferWindow (Input)
 

@@ -46,7 +46,7 @@ Files: GlkController.m (2259), +GlkRequests (1435), +Autorestore (943), +FullScr
 - [x] `noteColorModeChanged:` / `notePreferencesChanged:` duplicate light/dark/game.theme resolution → one `-resolvedTheme`.
 - [x] `nohacks`-or-`identifyGame` branch appears in `runTerp` and `notePreferencesChanged`.
 - [x] `startGameInFullScreenAnimationWithDuration:` duplicates border_finalFrame/center-frame setup from `enterFullScreenAnimationWithDuration:`.
-  - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
+  - Shared setup in helpers (see P2); the second animation step is now `-startGameInFullScreenEnlargeToFrame:duration:showAlert:`.
 - [x] Autoresizing-mask combinations repeated many times in FullScreen → named constants.
 - [x] "Largest window by area" loop exists three times: Speech `speakLargest:`, Speech `largestWithMoves`, BorderColor `largestWindow` (plus `framePending ? pendingFrame : bounds` size logic in BorderColor ×2). One helper `-areaOfWindow:` / `-largestOf:`.
 - [x] Loops `for win in gwindows.allValues if isKindOfClass:GlkTextBufferWindow` (markLastSeen, performScroll, storeScrollOffsets, restoreScrollOffsets, speakMostRecentAfterDelay, checkZMenuAndSpeak, …) → `-bufferWindows`; same for grid windows (`statusWindow`, `saveAsRTF:`, `validateMenuItem:`).
@@ -73,27 +73,31 @@ Files: GlkController.m (2259), +GlkRequests (1435), +Autorestore (943), +FullScr
 - [x] `speakString:` removes `\0` twice (charset trim + `stringWithCharacters:&nc`); only the trim/replace is needed.
 - [x] `dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(x * NSEC_PER_SEC)), main_queue, ^{…})` repeated in GlkController.m, Speech (3×), others → `-afterDelay:perform:`.
 - [x] Notification-name literals (`"PreferencesChanged"`, `"DefaultSizeChanged"`, `"BorderChanged"`, `"ColorModeChanged"`) used in GlkController.m, MenuItems, etc. → `extern NSString *const`.
-- [ ] `#ifndef DEBUG #define NSLog(...) #endif` copy-pasted into every .m → shared header (e.g. GlkController_Private.h).
-  - Declined: the same three lines are the convention in ~28 .m files app-wide; changing only GlkController would make it the odd one out.
+- [x] `#ifndef DEBUG #define NSLog(...) #endif` copy-pasted into every .m → shared header (e.g. GlkController_Private.h).
+  - Done app-wide rather than only here: application/DebugLog.h replaces the copy in all 31 .m files (the app, SpatterlightQuickLook/InfoView.m, Treaty of Babel IFStory.m / IFDBDownloader.m). The header imports Foundation itself, so it can't define the macro before Foundation's `NSLog` declaration. AppDelegate, GlkGraphicsWindow and GlkTextGridWindow keep a local `#ifdef DEBUG` override that logs to stderr without the timestamp.
 
 ## P3: Structure
 
-- [ ] `handleRequest:` is a ~725-line switch → per-command handler methods (NEXTEVENT, SIZWIN, INITCHAR, INITLINE, BEEP, REFRESH, …) with a dispatch table; remove stray `#pragma mark` inside the switch.
-  - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
-- [ ] `runTerpWithAutorestore` (~310 lines) → move to the Autorestore category and split (decide-source / load-GUI / compare-tags / restore). `TempLibrary` shim class at the top of GlkController.m goes with it.
-  - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
-- [ ] `runTerp:` (~300 lines) → helpers: theme fallback, `setupStyleHints`, `registerNotifications`, border/mask setup, autorestore decision.
-  - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
+- [x] `handleRequest:` is a ~725-line switch → per-command handler methods (NEXTEVENT, SIZWIN, INITCHAR, INITLINE, BEEP, REFRESH, …) with a dispatch table; remove stray `#pragma mark` inside the switch.
+  - The long cases are now methods (`#pragma mark Per-request handlers`): `-handleNextEvent:reply:` (returns whether to stop reading), `-handleDeleteWindow:name:`, `-handleBeep:…`, `-handleSizeWindow:rect:`, `-handleSetBackground:…`, `-handleDrawImageOnWindow:rect:`, `-handleInitLine:buffer:`, `-handleCancelLine:reply:buffer:`, `-handleInitChar:`, `-handleRefreshWindow:…`, `-handleMenuItem:buffer:`, `-dismissExpiredQuoteBox`. `-windowForRequest:` does the `a1` bounds check once.
+  - Kept the switch instead of a dispatch table: the handlers take different arguments (some the reply, some the buffer, some a struct copied out of it), and a table of selectors would have meant boxing them all into one signature. Every case is now a few lines, so the switch is the table.
+  - Stray `#pragma mark` lines inside the switch are plain comments; the switch sets `BOOL stop` and records `lastRequest` once at the end.
+- [x] `runTerpWithAutorestore` (~310 lines) → move to the Autorestore category and split (decide-source / load-GUI / compare-tags / restore). `TempLibrary` shim class at the top of GlkController.m goes with it.
+  - Now in +Autorestore (`#pragma mark Autorestore at launch`), declared in GlkController+Autorestore.h, together with the `TempLibrary` shim (decoded by class name, so its file doesn't matter). Steps: `-loadRestoredControllers`, `-checkTerpAutosave` (NO → start normally), `-usePreviousTerpAutosave` (swap in the -bak pair, game state first), `-adoptRestoredTheme`, `-adoptRestoredWindowFrame`.
+- [x] `runTerp:` (~300 lines) → helpers: theme fallback, `setupStyleHints`, `registerNotifications`, border/mask setup, autorestore decision.
+  - `-adoptFallbackThemeIfNeeded`, `-resetStyleHints`, `-registerForNotifications`, `-setUpBorderAndGameView`, `-startInterpreterOrAutorestore`, in that order, right after `runTerp:`.
 - [x] `identifyGame:` (~110-line if/else of IFID `isEqualToString:`) → static dictionary IFID→`kGameIdentity` plus prefix rule (LEVEL9-001/002/019).
 - [x] `runTerpNormal` window-cascade loop (L835-860) → `-cascadeWindowFrame:`.
 - [x] `forkInterpreterTask`: extract `openInterpreterLog` (pair with `closeLogFile`), and bocfel/tads argument building.
   - `-openLogFile` sits next to `-closeLogFile` in InterpreterGlue; arguments built by `-interpreterArgumentsForTheme:`.
-- [ ] `enterFullScreenAnimationWithDuration:` 5-level nested blocks → step helpers.
-- [ ] `restoreUI` long → split; `dealWithOldFormatAutosaveDir` deeply nested migration shim reading whole files only to rewrite them: use `moveItem`, or schedule removal.
-  - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
+- [x] `enterFullScreenAnimationWithDuration:` 5-level nested blocks → step helpers.
+  - Each completion handler calls the next step through `weakSelf`: `-enterFullScreenEnlargeToFrame:duration:` → `-enterFullScreenPositionGameViewWithDuration:` → `-enterFullScreenFadeOutSnapshotWithDuration:` → `-enterFullScreenExtendGameView`.
+- [x] `restoreUI` long → split; `dealWithOldFormatAutosaveDir` deeply nested migration shim reading whole files only to rewrite them: use `moveItem`, or schedule removal.
+  - `restoreUI` keeps its order of operations and calls `-chooseRestoredControllerForCommandScript`, `-adoptRestoredSoundHandler`, `-adoptRestoredWindows` (→ `-adoptRestoredWindow:` per key), `-adoptRestoredJourneyMenus`, `-finishRestoredWindows`.
+  - `dealWithOldFormatAutosaveDir` flattened (early return, per-file `-migrateOldFormatAutosaveFile:toDirectory:`). It still copies via NSData instead of `moveItem`: an atomic write gives the file a fresh creation date, and autorestore compares creation dates, so `moveItem` would change behaviour for a path nobody can easily test. Removing the shim is the user's call.
 - [x] `findGridWindowIn:` weak block-recursion → plain recursive method.
-- [ ] `windowWillClose:` mixes many responsibilities (try/catch around `removeObserver`).
-  - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
+- [x] `windowWillClose:` mixes many responsibilities (try/catch around `removeObserver`).
+  - The `@try` is gone: a new `observingVoiceOver` ivar records whether the VoiceOver KVO observer was added (also stops it being added twice). Handing the current game to another window is `-passCurrentGameToAnotherSession`.
 - [x] Move `showingInfocomV6Menu`, `gameTitle` (Speech) and the `journeyMenuHandler` / `infocomV6MenuHandler` lazy getters (GlkRequests) next to their ivars/owner.
   - Lazy getters moved to GlkController.m (`#pragma mark Menu handlers`). `showingInfocomV6Menu` / `gameTitle` stay in Speech: they are VoiceOver accessors used only by speech code.
 - [x] `GlkHelperView` out of GlkController.m into its own file.

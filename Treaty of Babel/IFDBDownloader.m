@@ -8,9 +8,7 @@
 #import <Foundation/Foundation.h>
 #import <Security/Security.h>
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 
 #import "IFDBDownloader.h"

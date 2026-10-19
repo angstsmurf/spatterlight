@@ -20,9 +20,7 @@
 
 #import <QuartzCore/QuartzCore.h>
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @implementation InfoPanel
 

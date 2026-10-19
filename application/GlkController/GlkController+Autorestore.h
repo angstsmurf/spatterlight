@@ -14,6 +14,7 @@ extern NSString * const kAutosaveGUILateFile;
 
 @interface GlkController (Autorestore)
 
+- (void)runTerpWithAutorestore;
 - (void)restoreUI;
 - (void)postRestoreArrange:(id)sender;
 - (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView;

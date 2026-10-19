@@ -19,9 +19,7 @@
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @implementation GlkController (MenuItems)
 

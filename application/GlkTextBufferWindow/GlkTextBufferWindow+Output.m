@@ -7,10 +7,7 @@
 #import "BufferTextView.h"
 #include "glkimp.h"
 
-// In release builds, suppress NSLog entirely.
-#ifndef DEBUG
-#define NSLog(...)
-#endif // DEBUG
+#import "DebugLog.h"
 
 // Hard cap on the *uncommitted* output buffer (bufferTextstorage), applied in
 // putString before the text is flushed to the live text storage. This is a

@@ -32,9 +32,7 @@
 #import "NSString+Categories.h"
 #import "NSColor+integer.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 NSString * const kAutosaveTerpFile = @"autosave.plist";
 NSString * const kAutosaveTerpBakFile = @"autosave-bak.plist";
@@ -44,6 +42,32 @@ NSString * const kAutosaveGlkSaveBakFile = @"autosave-bak.glksave";
 NSString * const kAutosaveGlkSaveTmpFile = @"autosave-tmp.glksave";
 NSString * const kAutosaveGUIFile = @"autosave-GUI.plist";
 NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
+
+// TempLibrary is a lightweight shim used solely to peek at the autosaveTag
+// stored in interpreter autosave files, without needing to fully deserialize
+// the interpreter library state. This lets us compare tags between the GUI
+// and interpreter autosave files to verify they are in sync.
+@interface TempLibrary : NSObject
+@property glui32 autosaveTag;
+@end
+
+@implementation TempLibrary
+
+- (instancetype) initWithCoder:(NSCoder *)decoder {
+    self = [super init];
+    if (self) {
+    int version = [decoder decodeIntForKey:@"version"];
+    if (version <= 0 || version != AUTOSAVE_SERIAL_VERSION)
+    {
+        NSLog(@"Interpreter autosave file:Wrong serial version!");
+        return nil;
+    }
+
+    _autosaveTag = (glui32)[decoder decodeInt32ForKey:@"autosaveTag"];
+    }
+    return self;
+}
+@end
 
 @implementation GlkController (Autorestore)
 
@@ -78,6 +102,307 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     return foundTheme;
 }
 
+#pragma mark Autorestore at launch
+
+// Attempt to restore a previously autosaved game session. This involves:
+// 1. Deserializing the GUI state from autosave-GUI.plist (window layout, text, scroll positions)
+// 2. Optionally deserializing a "late" GUI state captured after the interpreter finished processing
+// 3. Verifying that the GUI and interpreter autosave files are in sync via autosaveTag comparison
+// 4. Handling edge cases like version mismatches, missing files, and dead (finished) games
+- (void)runTerpWithAutorestore {
+    autorestoring = YES;
+    [self loadRestoredControllers];
+
+    if (!restoredController) {
+        // If there are no useful UI autosave files,
+        // delete any leftovers and run game without autorestoring
+        [self deleteAutosaveFiles];
+        self.game.autosaved = NO;
+        [self runTerpNormal];
+        return;
+    }
+
+    // Restore fullscreen state and the window frame from before fullscreen,
+    // which we'll need if the user exits fullscreen later.
+    self.inFullscreen = restoredControllerLate.inFullscreen;
+    self.windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
+    self.shouldStoreScrollOffset = NO;
+
+    // If the game had ended (interpreter process was dead) when autosaved,
+    // we either show the finished game window (system restoration) or
+    // start a fresh game (user-initiated launch).
+    if (!restoredController.isAlive) {
+        if (windowRestoredBySystem) {
+            [self restoreWindowWhenDead];
+        } else {
+            // Otherwise we delete any autorestore files and
+            // restart the game
+            [self deleteAutosaveFiles];
+            self.game.autosaved = NO;
+            // If we die in fullscreen and close the game,
+            // the game should not open in fullscreen the next time
+            self.inFullscreen = NO;
+            [self runTerpNormal];
+        }
+        return;
+    }
+
+    if (![self checkTerpAutosave]) {
+        self.game.autosaved = NO;
+        [self runTerpNormal];
+        return;
+    }
+
+    // If we're in UI-only restore mode but the late autosave wasn't from the
+    // first turn, the UI state won't match the fresh game state. Fall back to
+    // a clean start.
+    if (restoreUIOnly && restoredControllerLate.hasAutoSaved) {
+        NSLog(@"restoredControllerLate was not saved at the first turn!");
+        NSLog(@"Delete autosave files and start normally without restoring UI");
+        restoreUIOnly = NO;
+        [self deleteAutosaveFiles];
+        self.game.autosaved = NO;
+        [self runTerpNormal];
+        return;
+    }
+
+    [self adoptRestoredTheme];
+    [self adoptRestoredWindowFrame];
+
+    [self adjustContentView];
+    shouldRestoreUI = YES;
+    [self forkInterpreterTask];
+
+    // The interpreter must process several events (including arrange events)
+    // before the Glk windows exist and are ready to receive restored UI state.
+    // The actual UI restoration happens later in the GlkRequests category
+    // when the interpreter reaches the appropriate NEXTEVENT.
+}
+
+// Read the GUI autosave and the late GUI autosave into restoredController
+// and restoredControllerLate, and settle on a consistent pair: either may
+// stand in for the other when it is missing, older or tagged differently.
+// restoredController is left nil if neither is usable.
+- (void)loadRestoredControllers {
+    restoredController = [self unarchiveAutosaveFile:self.autosaveFileGUI];
+
+    NSDate *terpAutosaveDate = [self creationDateOfFile:self.autosaveFileTerp];
+    NSDate *GUIAutosaveDate = [self creationDateOfFile:self.autosaveFileGUI];
+    if (terpAutosaveDate && GUIAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
+        NSLog(@"GUI autosave file is created before terp autosave file!");
+    }
+
+    // Check if restored GUI is correct version
+    if (restoredController && restoredController.autosaveVersion != AUTOSAVE_SERIAL_VERSION) {
+        NSLog(@"GUI autosave file is wrong version! Wanted %d, got %ld. Deleting!", AUTOSAVE_SERIAL_VERSION, restoredController.autosaveVersion );
+        restoredController = nil;
+    }
+
+    // The "late" autosave is a second GUI snapshot taken after the interpreter
+    // has finished processing, capturing any additional state changes (like
+    // text printed after the autosave point). If the main GUI autosave fails,
+    // the late one can serve as a fallback.
+    restoredControllerLate = nil;
+
+    NSDate *GUILateAutosaveDate = nil;
+    NSString *autosaveLatePath = [self appSupportFile:kAutosaveGUILateFile];
+
+    if ([[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath]) {
+        GUILateAutosaveDate = [self creationDateOfFile:autosaveLatePath];
+        restoredControllerLate = [self unarchiveAutosaveFile:autosaveLatePath];
+        if (!restoredController) {
+            restoredController = restoredControllerLate;
+            GUIAutosaveDate = GUILateAutosaveDate;
+        }
+    }
+
+    // With no late autosave at all (the window was closed before the first
+    // one was written, say), the ordinary one has to stand in for it.
+    // Everything below reads the late controller without checking it, and
+    // from a nil one gets an empty window frame, no sound handler, no style
+    // hints and a hasAutoSaved of NO, which then passes for a first-turn save.
+    if (!restoredControllerLate)
+        restoredControllerLate = restoredController;
+
+    if (GUIAutosaveDate && GUILateAutosaveDate && [GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
+        NSLog(@"GUI late autosave file is created before GUI autosave file!");
+        NSLog(@"Do not use it.");
+        restoredControllerLate = restoredController;
+    }
+
+    if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
+        NSLog(@"GUI late autosave tag does not match GUI autosave file tag!");
+        NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
+        if (restoredController && restoredControllerLate.autosaveTag == 0)
+            restoredControllerLate = restoredController;
+        else
+            restoredController = restoredControllerLate;
+    }
+}
+
+// If the interpreter's autosave file exists, verify its tag matches the
+// GUI autosave tag to ensure they represent the same game state. A mismatch
+// means one was saved at a different point than the other, so we try falling
+// back to a backup terp save or limiting restoration to UI-only.
+//
+// Sets restoreUIOnly. Returns NO if the game should start normally instead
+// (autosave off, or the user chose never to autorestore).
+- (BOOL)checkTerpAutosave {
+    if (![[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileTerp]) {
+        NSLog(@"No interpreter autorestore file exists");
+        NSLog(@"Only restore UI state at first turn");
+        restoreUIOnly = YES;
+        return YES;
+    }
+
+    restoreUIOnly = NO;
+
+    // A truncated or malformed archive (a plist half-written when the
+    // machine lost power) makes the unarchiver raise, so read it
+    // defensively like the GUI archives above (unarchiveAutosaveFile:
+    // catches that). Without this the exception is uncaught at launch
+    // and, since nothing removes the bad file, every relaunch retries the
+    // same restoration: a crash loop.
+    //
+    // An unreadable library must then be rejected on the nil, NOT on the
+    // tag: an archive that fails to decode reports tag 0, and a restored
+    // GUI controller can legitimately carry tag 0 as well (observed), so
+    // comparing tags alone would call the two "in sync" and feed a corrupt
+    // library into the restore. Falling into the mismatch path below is
+    // the right failure -- it tries the backup save, or deletes both files
+    // and restores UI only.
+    TempLibrary *tempLib = [self unarchiveAutosaveFile:self.autosaveFileTerp];
+    if (!tempLib || tempLib.autosaveTag != restoredController.autosaveTag) {
+        NSLog(@"The terp autosave is unreadable, or has a tag not matching the GUI autosave.");
+        NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
+        NSLog(@"Trying to use previous terp save");
+
+        if ([self usePreviousTerpAutosave]) {
+            NSLog(@"Successfully used previous terp save");
+        } else {
+            NSLog(@"Only restore UI state at first turn");
+            [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI isDirectory:NO],
+                                 [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO] ]];
+            restoreUIOnly = YES;
+        }
+        return YES;
+    }
+
+    // Only show the alert about autorestoring if this is not a system
+    // window restoration, and the user has not suppressed it.
+    if (windowRestoredBySystem)
+        return YES;
+    if (self.theme.autosave == NO)
+        return NO;
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
+        // Autorestore alert suppressed
+        if (![defaults boolForKey:@"AlwaysAutorestore"]) {
+            // The user has checked "Remember this choice" when
+            // choosing to not autorestore
+            [self deleteAutosaveFiles];
+            return NO;
+        }
+    } else {
+        self.shouldShowAutorestoreAlert = YES;
+    }
+    return YES;
+}
+
+// The interpreter autosave does not match the GUI one. If the backup
+// interpreter autosave (-bak) does, move the backup pair into place.
+// Returns YES if it did.
+- (BOOL)usePreviousTerpAutosave {
+    NSString *oldAutosaveFileTerp = [self appSupportFile:kAutosaveTerpBakFile];
+    TempLibrary *tempLib = [self unarchiveAutosaveFile:oldAutosaveFileTerp];
+    if (!tempLib || tempLib.autosaveTag != restoredController.autosaveTag)
+        return NO;
+
+    // Put the previous pair back, game state first. The library
+    // carries the tag, so as long as the backup library is still
+    // waiting under its -bak name, a crash in here leaves a
+    // mismatch that the next launch finds and finishes. Library
+    // first would instead leave the previous library beside the
+    // current game state, with matching tags: two turns mixed
+    // and nothing to tell.
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    NSString *glkSaveTerp = [self appSupportFile:kAutosaveGlkSaveFile];
+    NSString *oldGlkSaveTerp = [self appSupportFile:kAutosaveGlkSaveBakFile];
+
+    // No backup game state means an earlier launch already put
+    // it back and was interrupted before the library followed.
+    BOOL gameStateBack = YES;
+    if ([fileManager fileExistsAtPath:oldGlkSaveTerp]) {
+        gameStateBack = [fileManager replaceItemAtURL:[NSURL fileURLWithPath:glkSaveTerp isDirectory:NO]
+                                        withItemAtURL:[NSURL fileURLWithPath:oldGlkSaveTerp isDirectory:NO]
+                                       backupItemName:nil
+                                              options:0
+                                     resultingItemURL:nil
+                                                error:&error];
+    }
+    BOOL usedPrevious = NO;
+    if (gameStateBack) {
+        usedPrevious = [fileManager replaceItemAtURL:[NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO]
+                                       withItemAtURL:[NSURL fileURLWithPath:oldAutosaveFileTerp isDirectory:NO]
+                                      backupItemName:nil
+                                             options:0
+                                    resultingItemURL:nil
+                                               error:&error];
+    }
+    if (!usedPrevious)
+        NSLog(@"Could not move previous terp save into place: %@", error);
+    return usedPrevious;
+}
+
+// Temporarily switch to the theme that was active when the autosave was
+// created, so the restored UI renders correctly. The original theme is
+// stashed and will be restored after the autorestore process completes.
+- (void)adoptRestoredTheme {
+    Theme *theme = self.theme;
+    self.stashedTheme = theme;
+    self.restoredStylesStale = NO;
+    Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
+    if (restoredTheme && restoredTheme != theme) {
+        NSLog(@"GlkController runtTerpWithAutorestore: Temporarily set theme to %@", restoredTheme.name);
+        self.theme = restoredTheme;
+        NSLog(@"GlkController runtTerpWithAutorestore: BufNormal font name to %@", restoredTheme.bufferNormal.font.displayName);
+    } else {
+        self.stashedTheme = nil;
+        // If the autosaved theme name could not be resolved to an existing
+        // theme, there was no temporary theme to render with, so the archived
+        // window styles may belong to a different theme than the current one.
+        // Flag this so the style rebuild in notePreferencesChanged is not
+        // skipped during autorestore, which would otherwise leave the restored
+        // windows showing stale fonts/colors (e.g. the default serif font when
+        // the game is set to the DOSBox theme).
+        self.restoredStylesStale = (restoredTheme == nil);
+    }
+}
+
+// If this is not a window restoration done by the system, we re-enter
+// fullscreen manually if the game was closed in fullscreen mode. Otherwise
+// put the window back where it was.
+- (void)adoptRestoredWindowFrame {
+    if (!windowRestoredBySystem && self.inFullscreen
+        && !self.isInSystemFullscreen) {
+        self.startingInFullscreen = YES;
+        [self startInFullscreen];
+        return;
+    }
+    self.gameView.autoresizingMask = kResizeCenteredAtTop;
+    [self.window setFrame:restoredControllerLate.storedWindowFrame display:YES];
+    // A game restored in fullscreen keeps its width and stays centered,
+    // as windowDidEnterFullScreen: would have it. The system may still
+    // resize the window, when it applies its own saved state to it, and a
+    // game view that follows the window's width while keeping its
+    // fullscreen margins would be squeezed down to nothing.
+    if (self.inFullscreen)
+        self.gameView.autoresizingMask = kResizeCenteredFullHeight;
+    else
+        self.gameView.autoresizingMask = kResizeFill;
+}
+
 // Take over a quote box from the restored controller, attached to bufwin.
 - (void)adoptQuoteBox:(GlkTextGridWindow *)quotebox
       forBufferWindow:(GlkTextBufferWindow *)bufwin
@@ -98,44 +423,12 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     // but not sent any events to the interpreter process.
     // This method is called in handleRequest on NEXTEVENT.
 
-    if (restoreUIOnly) {
-        restoredController = restoredControllerLate;
-        self.shouldShowAutorestoreAlert = NO;
-    } else {
-        self.windowsToBeAdded = [[NSMutableArray alloc] init];
-
-        if (restoredController.commandScriptRunning) {
-            CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
-            if (handler.commandIndex >= handler.commandArray.count - 1) {
-                restoredController.commandScriptHandler = nil;
-                restoredController.commandScriptRunning = NO;
-            } else {
-                skipNextScriptCommand = YES;
-                restoredController = restoredControllerLate;
-            }
-        }
-    }
+    [self chooseRestoredControllerForCommandScript];
 
     shouldRestoreUI = NO;
     self.shouldStoreScrollOffset = NO;
 
-    // Stop whatever the pre-restore handler started before replacing it
-    // wholesale. Sound requests can arrive between the fork and restoreUI, and
-    // GlkSoundChannel.handler is weak, so in the common case the outgoing
-    // handler simply deallocates and takes its players with it. A channel
-    // mid-fade is the exception: init_fade schedules a repeating NSTimer with
-    // target:self, so the run loop retains that channel after its handler is
-    // gone. It would keep playing and ticking forever with a nil handler
-    // (notifications silently dropped), and nothing could ever reach it --
-    // stopAllAndCleanUp iterates only the live handler's channels. [stop]
-    // runs [cleanup], which invalidates the timer and releases the channel.
-    [self.soundHandler stopAllAndCleanUp];
-
-    self.soundHandler = restoredControllerLate.soundHandler;
-    self.soundHandler.glkctl = self;
-    [self.soundHandler restartAll];
-
-    GlkWindow *win;
+    [self adoptRestoredSoundHandler];
 
     // Copy values from autorestored GlkController object
     self.firstResponderView = restoredControllerLate.firstResponderView;
@@ -157,76 +450,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     // Restore frame size
     self.gameView.frame = restoredControllerLate.storedGameViewFrame;
 
-    // Copy all views and GlkWindow objects from restored Controller.
-    // Re-add the subviews in ascending window-name order, which is the order
-    // the windows were originally created in (names are sequential creation
-    // tags). addSubview: stacks later views on top, so this reproduces the
-    // live creation z-order (flushDisplay adds _windowsToBeAdded in creation
-    // order). Iterating allKeys directly would use an undefined dictionary
-    // order, which can leave overlapping V6 windows mis-stacked -- e.g. the
-    // Zork Zero encyclopedia caption (windows[3], created after the foreground
-    // graphics window) ending up hidden behind graphics_fg_glk.
-    NSArray *orderedKeys = [restoredController.gwindows.allKeys
-                            sortedArrayUsingSelector:@selector(compare:)];
-    for (id key in orderedKeys) {
-
-        if (!restoreUIOnly && [windowsClosedBeforeRestore containsObject:key]) {
-            [(restoredController.gwindows)[key] removeFromSuperview];
-            continue;
-        }
-
-        win = self.gwindows[key];
-
-        if (!restoreUIOnly) {
-            if (win) {
-                [win removeFromSuperview];
-            }
-            win = (restoredController.gwindows)[key];
-
-            self.gwindows[@(win.name)] = win;
-
-            if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-                NSScrollView *scrollview = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
-
-                GlkTextGridWindow *aView = [self findGridWindowIn:scrollview];
-                while (aView) {
-                    [aView removeFromSuperview];
-                    aView = [self findGridWindowIn:scrollview];
-                }
-
-                GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
-                if (quotebox && (restoredController.numberOfPrintsAndClears == quotebox.quoteboxAddedOnPAC) && (restoredController.printsAndClearsThisTurn == 0 || quotebox.quoteboxAddedOnPAC == 0)) {
-                    // Our own count of prints and clears starts over (and
-                    // already includes the scrollback the interpreter replayed
-                    // while restoring), so a count stamped on the box by the
-                    // previous session means nothing here. Zero makes the next
-                    // NEXTEVENT stamp it afresh; otherwise the box would fade
-                    // at once or outstay its turn, depending on which count
-                    // happened to be higher.
-                    [self adoptQuoteBox:quotebox
-                        forBufferWindow:(GlkTextBufferWindow *)win
-                             addedOnPAC:0];
-                }
-            }
-
-            [win removeFromSuperview];
-            [self.gameView addSubview:win];
-
-            win.glkctl = self;
-            win.theme = self.theme;
-
-        // Ugly hack to make sure quote boxes shown at game start still appear when restoring UI only
-        } else if (self.quoteBoxes.count == 0 && self.restorationHandler && [win isKindOfClass:[GlkTextBufferWindow class]]) {
-            GlkWindow *restored = restoredController.gwindows[@(win.name)];
-            GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)restored).quoteBox;
-            if (quotebox)
-                [self adoptQuoteBox:quotebox
-                    forBufferWindow:(GlkTextBufferWindow *)win
-                         addedOnPAC:self.numberOfPrintsAndClears];
-        }
-        GlkWindow *laterWin = (restoredControllerLate.gwindows)[key];
-        win.frame = laterWin.frame;
-    }
+    [self adoptRestoredWindows];
 
     // This makes autorestoring in fullscreen a little less flickery
     [self adjustContentView];
@@ -234,41 +458,12 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     if (restoredControllerLate.bgcolor)
         [self setBorderColor:restoredControllerLate.bgcolor];
 
-    GlkWindow *winToGrabFocus = nil;
-
     if (restoredController.commandScriptRunning) {
         [self.commandScriptHandler copyPropertiesFrom:restoredController.commandScriptHandler];
     }
 
-    if (self.gameID == kGameIsJourney && restoredController.journeyMenuHandler) {
-        self.journeyMenuHandler = restoredController.journeyMenuHandler;
-        restoredController.journeyMenuHandler = nil;
-        self.journeyMenuHandler.delegate = self;
-        self.journeyMenuHandler.textGridWindow = (GlkTextGridWindow *)self.gwindows[@(self.journeyMenuHandler.gridTextWinName)];
-        self.journeyMenuHandler.textBufferWindow = (GlkTextBufferWindow *)self.gwindows[@(self.journeyMenuHandler.bufferTextWinName)];
-
-        [self.journeyMenuHandler showJourneyMenus];
-    }
-
-    // Restore scroll position etc
-    for (win in self.gwindows.allValues) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]] && !self.windowsToRestore.count) {
-            [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
-        }
-        if (win.name == self.firstResponderView) {
-            winToGrabFocus = win;
-        }
-        if (self.commandScriptRunning && win.name == self.commandScriptHandler.lastCommandWindow) {
-            if (self.commandScriptHandler.lastCommandType == kCommandTypeLine) {
-                [self.commandScriptHandler sendCommandLineToWindow:win];
-            } else {
-                [self.commandScriptHandler sendCommandKeyPressToWindow:win];
-            }
-        }
-    }
-
-    if (winToGrabFocus)
-        [winToGrabFocus grabFocus];
+    [self adoptRestoredJourneyMenus];
+    [self finishRestoredWindows];
 
     if (!restoreUIOnly)
         self.hasAutoSaved = YES;
@@ -289,6 +484,163 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     // window:didDecodeRestorableState:.
 
     [self performSelector:@selector(postRestoreArrange:) withObject:nil afterDelay:0];
+}
+
+// Pick which archived controller restoreUI copies from. A UI-only restore
+// always uses the late one. Otherwise, a command script that was running
+// either had its last command handled (drop it) or continues from the late
+// controller's state.
+- (void)chooseRestoredControllerForCommandScript {
+    if (restoreUIOnly) {
+        restoredController = restoredControllerLate;
+        self.shouldShowAutorestoreAlert = NO;
+        return;
+    }
+
+    self.windowsToBeAdded = [[NSMutableArray alloc] init];
+
+    if (restoredController.commandScriptRunning) {
+        CommandScriptHandler *handler = restoredControllerLate.commandScriptHandler;
+        if (handler.commandIndex >= handler.commandArray.count - 1) {
+            restoredController.commandScriptHandler = nil;
+            restoredController.commandScriptRunning = NO;
+        } else {
+            skipNextScriptCommand = YES;
+            restoredController = restoredControllerLate;
+        }
+    }
+}
+
+- (void)adoptRestoredSoundHandler {
+    // Stop whatever the pre-restore handler started before replacing it
+    // wholesale. Sound requests can arrive between the fork and restoreUI, and
+    // GlkSoundChannel.handler is weak, so in the common case the outgoing
+    // handler simply deallocates and takes its players with it. A channel
+    // mid-fade is the exception: init_fade schedules a repeating NSTimer with
+    // target:self, so the run loop retains that channel after its handler is
+    // gone. It would keep playing and ticking forever with a nil handler
+    // (notifications silently dropped), and nothing could ever reach it --
+    // stopAllAndCleanUp iterates only the live handler's channels. [stop]
+    // runs [cleanup], which invalidates the timer and releases the channel.
+    [self.soundHandler stopAllAndCleanUp];
+
+    self.soundHandler = restoredControllerLate.soundHandler;
+    self.soundHandler.glkctl = self;
+    [self.soundHandler restartAll];
+}
+
+// Copy all views and GlkWindow objects from the restored controller (or, in
+// a UI-only restore, keep our own windows and only take their frames).
+- (void)adoptRestoredWindows {
+    // Re-add the subviews in ascending window-name order, which is the order
+    // the windows were originally created in (names are sequential creation
+    // tags). addSubview: stacks later views on top, so this reproduces the
+    // live creation z-order (flushDisplay adds _windowsToBeAdded in creation
+    // order). Iterating allKeys directly would use an undefined dictionary
+    // order, which can leave overlapping V6 windows mis-stacked -- e.g. the
+    // Zork Zero encyclopedia caption (windows[3], created after the foreground
+    // graphics window) ending up hidden behind graphics_fg_glk.
+    NSArray *orderedKeys = [restoredController.gwindows.allKeys
+                            sortedArrayUsingSelector:@selector(compare:)];
+    for (NSNumber *key in orderedKeys) {
+        GlkWindow *win;
+        if (!restoreUIOnly) {
+            if ([windowsClosedBeforeRestore containsObject:key]) {
+                [(restoredController.gwindows)[key] removeFromSuperview];
+                continue;
+            }
+            win = [self adoptRestoredWindow:key];
+        } else {
+            win = self.gwindows[key];
+            // Ugly hack to make sure quote boxes shown at game start still appear when restoring UI only
+            if (self.quoteBoxes.count == 0 && self.restorationHandler && [win isKindOfClass:[GlkTextBufferWindow class]]) {
+                GlkWindow *restored = restoredController.gwindows[@(win.name)];
+                GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)restored).quoteBox;
+                if (quotebox)
+                    [self adoptQuoteBox:quotebox
+                        forBufferWindow:(GlkTextBufferWindow *)win
+                             addedOnPAC:self.numberOfPrintsAndClears];
+            }
+        }
+        GlkWindow *laterWin = (restoredControllerLate.gwindows)[key];
+        win.frame = laterWin.frame;
+    }
+}
+
+// Replace our window named key (if any) with the restored one.
+- (GlkWindow *)adoptRestoredWindow:(NSNumber *)key {
+    [self.gwindows[key] removeFromSuperview];
+
+    GlkWindow *win = (restoredController.gwindows)[key];
+    self.gwindows[@(win.name)] = win;
+
+    if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+        NSScrollView *scrollview = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
+
+        GlkTextGridWindow *aView = [self findGridWindowIn:scrollview];
+        while (aView) {
+            [aView removeFromSuperview];
+            aView = [self findGridWindowIn:scrollview];
+        }
+
+        GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
+        if (quotebox && (restoredController.numberOfPrintsAndClears == quotebox.quoteboxAddedOnPAC) && (restoredController.printsAndClearsThisTurn == 0 || quotebox.quoteboxAddedOnPAC == 0)) {
+            // Our own count of prints and clears starts over (and
+            // already includes the scrollback the interpreter replayed
+            // while restoring), so a count stamped on the box by the
+            // previous session means nothing here. Zero makes the next
+            // NEXTEVENT stamp it afresh; otherwise the box would fade
+            // at once or outstay its turn, depending on which count
+            // happened to be higher.
+            [self adoptQuoteBox:quotebox
+                forBufferWindow:(GlkTextBufferWindow *)win
+                     addedOnPAC:0];
+        }
+    }
+
+    [win removeFromSuperview];
+    [self.gameView addSubview:win];
+
+    win.glkctl = self;
+    win.theme = self.theme;
+    return win;
+}
+
+- (void)adoptRestoredJourneyMenus {
+    if (self.gameID != kGameIsJourney || !restoredController.journeyMenuHandler)
+        return;
+    self.journeyMenuHandler = restoredController.journeyMenuHandler;
+    restoredController.journeyMenuHandler = nil;
+    self.journeyMenuHandler.delegate = self;
+    self.journeyMenuHandler.textGridWindow = (GlkTextGridWindow *)self.gwindows[@(self.journeyMenuHandler.gridTextWinName)];
+    self.journeyMenuHandler.textBufferWindow = (GlkTextBufferWindow *)self.gwindows[@(self.journeyMenuHandler.bufferTextWinName)];
+
+    [self.journeyMenuHandler showJourneyMenus];
+}
+
+// Restore scroll positions etc., focus the window that had it, and resend
+// the command a running command script was in the middle of.
+- (void)finishRestoredWindows {
+    GlkWindow *winToGrabFocus = nil;
+
+    for (GlkWindow *win in self.gwindows.allValues) {
+        if (![win isKindOfClass:[GlkGraphicsWindow class]] && !self.windowsToRestore.count) {
+            [win postRestoreAdjustments:(restoredControllerLate.gwindows)[@(win.name)]];
+        }
+        if (win.name == self.firstResponderView) {
+            winToGrabFocus = win;
+        }
+        if (self.commandScriptRunning && win.name == self.commandScriptHandler.lastCommandWindow) {
+            if (self.commandScriptHandler.lastCommandType == kCommandTypeLine) {
+                [self.commandScriptHandler sendCommandLineToWindow:win];
+            } else {
+                [self.commandScriptHandler sendCommandKeyPressToWindow:win];
+            }
+        }
+    }
+
+    if (winToGrabFocus)
+        [winToGrabFocus grabFocus];
 }
 
 
@@ -465,7 +817,12 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
 // equivalents in the new-style autosave directory. Then delete the
 // old files and the old directory.
 
--(void)dealWithOldFormatAutosaveDir {
+// Migration shim: autosaves used to live in a directory named after the
+// game's old file signature. Move anything found there into the current
+// directory (unless a newer file of the same name is already there) and
+// remove the old directory.
+- (void)dealWithOldFormatAutosaveDir {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
     NSError *error = nil;
 
     NSURL *newDirURL = [NSURL fileURLWithPath:self.appSupportDir isDirectory:YES];
@@ -475,74 +832,74 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     oldDirPath = [oldDirPath stringByAppendingPathComponent:self.gamefile.oldSignatureFromFile];
     NSURL *oldDirURL = [NSURL fileURLWithPath:oldDirPath isDirectory:YES];
 
-    // Get a list of files in the old directory and iterate through them
-    NSArray<NSURL *> *files = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:oldDirURL includingPropertiesForKeys:nil options:0 error:&error];
-    if (files.count) {
-        for (NSURL *url in files) {
-            error = nil;
-            NSData *data = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedAlways error:&error];
-            if (!data) {
-                NSLog(@"GlkController: Could not read file in old autosave directory. Error: %@", error);
-                continue;
-            } else {
-                NSString *filename = [url lastPathComponent];
-                NSDate *dateInOld = nil, *dateInNew = nil;
+    NSArray<NSURL *> *files = [fileManager contentsOfDirectoryAtURL:oldDirURL includingPropertiesForKeys:nil options:0 error:&error];
+    if (!files.count)
+        return;
 
-                // Get the creation date of the file
-                error = nil;
-                NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:url.path error:&error];
-                if (attrs) {
-                    dateInOld = (NSDate*)attrs[NSFileCreationDate];
-                } else {
-                    NSLog(@"GlkController: Failed to get creation date of file %@ in old directory. Error:%@", url.path, error);
-                }
-                error = nil;
-                NSURL *newfileURL = [newDirURL URLByAppendingPathComponent:filename];
-                BOOL overwrite = YES;
+    for (NSURL *url in files)
+        [self migrateOldFormatAutosaveFile:url toDirectory:newDirURL];
 
-                // Get the creation date of the file with the same name in the new directory,
-                // if there is one.
-                error = nil;
-                attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:newfileURL.path error:&error];
-                if (attrs) {
-                    dateInNew = (NSDate*)attrs[NSFileCreationDate];
-                    if (dateInNew && dateInOld && [dateInNew compare:dateInOld] == NSOrderedDescending) {
-                        NSLog(@"%@: Newer file exists in new directory. Don't overwrite! dateInNew:%@ dateInOld:%@", filename, dateInNew, dateInOld);
-                        overwrite = NO;
-                    }
-                } else {
-                    NSLog(@"GlkController: Failed to get creation date of file %@ in new directory. Error:%@", url.path, error);
-                }
+    // Delete the old directory
+    error = nil;
+    if (![fileManager removeItemAtURL:oldDirURL error:&error]) {
+        NSLog(@"GlkController: Failed to delete old autosave directory at %@. Error:%@", oldDirURL.path, error);
+    }
 
-                // Copy the file from the old directory to the new, overwriting any older files there
-                if (overwrite) {
-                    BOOL copied = [data writeToURL:newfileURL options:NSDataWritingAtomic error:&error];
-                    if (!copied) {
-                        NSLog(@"GlkController: Failed to copy file %@ to new autosave directory. Error:%@", filename, error);
-                        continue; // Don't delete the original if the copy failed
-                    }
-                }
+    // Re-write the late UI autosave, to give it a creation date later than autosave-GUI.plist
+    // (Our autorestore code will compare the creation dates of autosave-GUI.plist and
+    // autosave-GUI-late.plist.)
+    NSURL *lateUIURL = [newDirURL URLByAppendingPathComponent:kAutosaveGUILateFile];
+    NSData *lateUISave = [NSData dataWithContentsOfURL:lateUIURL options:NSDataReadingMappedAlways error:&error];
+    if (lateUISave) {
+        [lateUISave writeToURL:lateUIURL options:NSDataWritingAtomic error:&error];
+    }
+}
 
-                // Delete the original file
-                BOOL deleted = [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
-                if (!deleted) {
-                    NSLog(@"GlkController: Failed to delete file %@ in old autosave directory. Error:%@", filename, error);
-                }
-            }
+// Copy one file from the old autosave directory into newDirURL, unless a file
+// of the same name created later is already there, then delete the original.
+// The original is kept if the copy fails.
+- (void)migrateOldFormatAutosaveFile:(NSURL *)url toDirectory:(NSURL *)newDirURL {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSError *error = nil;
+    NSString *filename = url.lastPathComponent;
+
+    NSData *data = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedAlways error:&error];
+    if (!data) {
+        NSLog(@"GlkController: Could not read file in old autosave directory. Error: %@", error);
+        return;
+    }
+
+    NSDate *dateInOld = nil;
+    error = nil;
+    NSDictionary *attrs = [fileManager attributesOfItemAtPath:url.path error:&error];
+    if (attrs) {
+        dateInOld = (NSDate *)attrs[NSFileCreationDate];
+    } else {
+        NSLog(@"GlkController: Failed to get creation date of file %@ in old directory. Error:%@", url.path, error);
+    }
+
+    NSURL *newfileURL = [newDirURL URLByAppendingPathComponent:filename];
+    BOOL overwrite = YES;
+
+    error = nil;
+    attrs = [fileManager attributesOfItemAtPath:newfileURL.path error:&error];
+    if (attrs) {
+        NSDate *dateInNew = (NSDate *)attrs[NSFileCreationDate];
+        if (dateInNew && dateInOld && [dateInNew compare:dateInOld] == NSOrderedDescending) {
+            NSLog(@"%@: Newer file exists in new directory. Don't overwrite! dateInNew:%@ dateInOld:%@", filename, dateInNew, dateInOld);
+            overwrite = NO;
         }
-        // Delete the old directory
-        BOOL result = [[NSFileManager defaultManager] removeItemAtURL:oldDirURL error:&error];
-        if (!result) {
-            NSLog(@"GlkController: Failed to delete old autosave directory at %@. Error:%@", oldDirURL.path, error);
-        }
-        // Re-write the late UI autosave, to give it a creation date later than autosave-GUI.plist
-        // (Our autorestore code will compare the creation dates of autosave-GUI.plist and
-        // autosave-GUI-late.plist.)
-        NSURL *lateUIURL = [newDirURL URLByAppendingPathComponent:kAutosaveGUILateFile];
-        NSData *lateUISave = [NSData dataWithContentsOfURL:lateUIURL options:NSDataReadingMappedAlways error:&error];
-        if (lateUISave) {
-            [lateUISave writeToURL:lateUIURL options:NSDataWritingAtomic error:&error];
-        }
+    } else {
+        NSLog(@"GlkController: Failed to get creation date of file %@ in new directory. Error:%@", url.path, error);
+    }
+
+    if (overwrite && ![data writeToURL:newfileURL options:NSDataWritingAtomic error:&error]) {
+        NSLog(@"GlkController: Failed to copy file %@ to new autosave directory. Error:%@", filename, error);
+        return;
+    }
+
+    if (![fileManager removeItemAtURL:url error:&error]) {
+        NSLog(@"GlkController: Failed to delete file %@ in old autosave directory. Error:%@", filename, error);
     }
 }
 

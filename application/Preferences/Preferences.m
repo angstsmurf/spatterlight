@@ -24,9 +24,7 @@
 
 #import "Preferences.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @interface DummyTextView : NSTextView <NSWindowDelegate>
 

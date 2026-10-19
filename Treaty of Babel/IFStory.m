@@ -6,9 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 #import "IFStory.h"
 #import "IFIdentification.h"

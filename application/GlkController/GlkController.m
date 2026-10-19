@@ -52,37 +52,7 @@
 #include "protocol.h"
 
 
-// In release builds, suppress NSLog entirely to avoid unnecessary logging overhead.
-#ifndef DEBUG
-#define NSLog(...)
-#endif
-
-// TempLibrary is a lightweight shim used solely to peek at the autosaveTag
-// stored in interpreter autosave files, without needing to fully deserialize
-// the interpreter library state. This lets us compare tags between the GUI
-// and interpreter autosave files to verify they are in sync.
-@interface TempLibrary : NSObject
-@property glui32 autosaveTag;
-@end
-
-@implementation TempLibrary
-
-- (instancetype) initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (self) {
-    int version = [decoder decodeIntForKey:@"version"];
-    if (version <= 0 || version != AUTOSAVE_SERIAL_VERSION)
-    {
-        NSLog(@"Interpreter autosave file:Wrong serial version!");
-        return nil;
-    }
-
-    _autosaveTag = (glui32)[decoder decodeInt32ForKey:@"autosaveTag"];
-    }
-    return self;
-}
-@end
-
+#import "DebugLog.h"
 
 #import "GlkController_Private.h"
 
@@ -161,21 +131,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     [self.window registerForDraggedTypes:@[ NSPasteboardTypeURL, NSPasteboardTypeString]];
 
-    if (!_theme.name) {
-        NSLog(@"GlkController runTerp called with theme without name!");
-        Theme *currentTheme = Preferences.currentTheme;
-        NSManagedObjectContext *gameContext = game.managedObjectContext;
-        if (currentTheme) {
-            if (gameContext.persistentStoreCoordinator ==
-                currentTheme.managedObjectContext.persistentStoreCoordinator)
-                game.theme = [gameContext objectWithID:currentTheme.objectID];
-            else if (gameContext)
-                // A game from another store (a test's in-memory one) cannot
-                // borrow the library's theme: objectWithID: would raise.
-                game.theme = [BuiltInThemes createDefaultThemeInContext:gameContext forceRebuild:NO];
-        }
-        _theme = game.theme;
-    }
+    [self adoptFallbackThemeIfNeeded];
 
     // Identify the specific game being played so we can apply game-specific
     // workarounds and special behaviors (e.g., Narcolepsy window mask,
@@ -228,24 +184,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if ([_terpname isEqualToString:@"bocfel"])
         _usesFont3 = YES;
 
-    // Initialize style hint arrays for both text grid and text buffer windows.
-    // Glk style hints allow games to override default text appearance (font
-    // weight, color, indentation, etc.) per style. Each window type gets its
-    // own style_NUMSTYLES x stylehint_NUMHINTS matrix, initially filled with
-    // NSNull to indicate "no override" for each hint slot.
-    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
-
-    NSInteger i;
-
-    for (i = 0 ; i < stylehint_NUMHINTS ; i ++)
-        [nullarray addObject:[NSNull null]];
-    _gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    _bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-
-    for (i = 0 ; i < style_NUMSTYLES ; i ++) {
-        [_gridStyleHints addObject:[nullarray mutableCopy]];
-        [_bufferStyleHints addObject:[nullarray mutableCopy]];
-    }
+    [self resetStyleHints];
 
     // Initialize VoiceOver / speech state. We start quiet (mustBeQuiet = YES)
     // to prevent speaking during initialization and autorestore. Speech is
@@ -330,9 +269,78 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     lastTheme = _theme;
     _windowPreFullscreenFrame = [self frameWithSanitycheckedSize:NSZeroRect];
 
+    [self registerForNotifications];
+
+    lastContentResize = NSZeroRect;
+
+    restoredController = nil;
+    windowsClosedBeforeRestore = nil;
+    inFullScreenResize = NO;
+
+    self.window.representedFilename = _gamefile;
+
+    [self setUpBorderAndGameView];
+
+    lastScriptKeyTimestamp = [NSDate distantPast];
+    lastKeyTimestamp = [NSDate distantPast];
+
+    // Narcolepsy uses a special image-based mask on the game view to create
+    // a shaped window effect. Only applied when graphics and styles are on.
+    if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
+        [self adjustMaskLayer:nil];
+    }
+
+    [self startInterpreterOrAutorestore];
+}
+
+// A game whose theme has no name (it has none, or it was deleted) gets the
+// current theme, or a default one if the game lives in another store.
+- (void)adoptFallbackThemeIfNeeded {
+    if (_theme.name)
+        return;
+    NSLog(@"GlkController runTerp called with theme without name!");
+    Game *game = _game;
+    Theme *currentTheme = Preferences.currentTheme;
+    NSManagedObjectContext *gameContext = game.managedObjectContext;
+    if (currentTheme) {
+        if (gameContext.persistentStoreCoordinator ==
+            currentTheme.managedObjectContext.persistentStoreCoordinator)
+            game.theme = [gameContext objectWithID:currentTheme.objectID];
+        else if (gameContext)
+            // A game from another store (a test's in-memory one) cannot
+            // borrow the library's theme: objectWithID: would raise.
+            game.theme = [BuiltInThemes createDefaultThemeInContext:gameContext forceRebuild:NO];
+    }
+    _theme = game.theme;
+}
+
+// Initialize style hint arrays for both text grid and text buffer windows.
+// Glk style hints allow games to override default text appearance (font
+// weight, color, indentation, etc.) per style. Each window type gets its
+// own style_NUMSTYLES x stylehint_NUMHINTS matrix, initially filled with
+// NSNull to indicate "no override" for each hint slot.
+- (void)resetStyleHints {
+    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
+    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
+        [nullarray addObject:[NSNull null]];
+
+    _gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    _bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
+    for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
+        [_gridStyleHints addObject:[nullarray mutableCopy]];
+        [_bufferStyleHints addObject:[nullarray mutableCopy]];
+    }
+}
+
+// VoiceOver, preference, theme and Core Data observers. Removed in
+// windowWillClose:.
+- (void)registerForNotifications {
     _voiceOverActive = [NSWorkspace sharedWorkspace].voiceOverEnabled;
 
-    [[NSWorkspace sharedWorkspace] addObserver:self forKeyPath:@"voiceOverEnabled" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:nil];
+    if (!observingVoiceOver) {
+        [[NSWorkspace sharedWorkspace] addObserver:self forKeyPath:@"voiceOverEnabled" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:nil];
+        observingVoiceOver = YES;
+    }
 
     NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
 
@@ -358,22 +366,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
      addObserver:self
      selector:@selector(noteManagedObjectContextDidChange:)
      name:NSManagedObjectContextObjectsDidChangeNotification
-     object:game.managedObjectContext];
+     object:_game.managedObjectContext];
 
     [notifications
      addObserver:self
      selector:@selector(noteColorModeChanged:)
      name:kColorModeChangedNotification
      object:nil];
+}
 
-    lastContentResize = NSZeroRect;
-
-    restoredController = nil;
-    windowsClosedBeforeRestore = nil;
-    inFullScreenResize = NO;
-
-    self.window.representedFilename = _gamefile;
-
+// Layer setup for the border and game views, and the initial border color.
+- (void)setUpBorderAndGameView {
     // Enable layer-backing for the border view so we can animate its
     // background color. The border color can be set manually by the user
     // (kUserOverride) or automatically derived from the buffer background.
@@ -395,304 +398,27 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self setBorderColor:_theme.borderColor];
     else
         [self setBorderColor:_theme.bufferBackground];
+}
 
-    NSString *autosaveLatePath = [self appSupportFile:kAutosaveGUILateFile];
-
-    lastScriptKeyTimestamp = [NSDate distantPast];
-    lastKeyTimestamp = [NSDate distantPast];
-
-    // Narcolepsy uses a special image-based mask on the game view to create
-    // a shaped window effect. Only applied when graphics and styles are on.
-    if (self.gameID == kGameIsNarcolepsy && _theme.doGraphics && _theme.doStyles) {
-        [self adjustMaskLayer:nil];
-    }
+// Decide whether to autorestore or start fresh. If GUI autosave files
+// exist, attempt autorestore; otherwise delete stale files and start normally.
+- (void)startInterpreterOrAutorestore {
+    BOOL autosaveOn = (_supportsAutorestore && _theme.autosave);
 
     // Migrate any old-format autosave directories before checking for files.
-    if (_supportsAutorestore && _theme.autosave) {
+    if (autosaveOn) {
         [self dealWithOldFormatAutosaveDir];
     }
 
-    // Decide whether to autorestore or start fresh. If GUI autosave files
-    // exist, attempt autorestore; otherwise delete stale files and start normally.
-    if (_supportsAutorestore && _theme.autosave &&
-        ([[NSFileManager defaultManager] fileExistsAtPath:self.autosaveFileGUI] || [[NSFileManager defaultManager] fileExistsAtPath:autosaveLatePath])) {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    if (autosaveOn &&
+        ([fileManager fileExistsAtPath:self.autosaveFileGUI] ||
+         [fileManager fileExistsAtPath:[self appSupportFile:kAutosaveGUILateFile]])) {
         [self runTerpWithAutorestore];
     } else {
         [self deleteAutosaveFiles];
         [self runTerpNormal];
     }
-}
-
-// Attempt to restore a previously autosaved game session. This involves:
-// 1. Deserializing the GUI state from autosave-GUI.plist (window layout, text, scroll positions)
-// 2. Optionally deserializing a "late" GUI state captured after the interpreter finished processing
-// 3. Verifying that the GUI and interpreter autosave files are in sync via autosaveTag comparison
-// 4. Handling edge cases like version mismatches, missing files, and dead (finished) games
-- (void)runTerpWithAutorestore {
-    autorestoring = YES;
-    restoredController = [self unarchiveAutosaveFile:self.autosaveFileGUI];
-
-    NSDate *GUILateAutosaveDate = nil;
-
-    NSError *error;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSDate *terpAutosaveDate = [self creationDateOfFile:self.autosaveFileTerp];
-    NSDate *GUIAutosaveDate = [self creationDateOfFile:self.autosaveFileGUI];
-    if (terpAutosaveDate && GUIAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
-        NSLog(@"GUI autosave file is created before terp autosave file!");
-    }
-
-    // Check if restored GUI is correct version
-    if (restoredController && restoredController.autosaveVersion != AUTOSAVE_SERIAL_VERSION) {
-        NSLog(@"GUI autosave file is wrong version! Wanted %d, got %ld. Deleting!", AUTOSAVE_SERIAL_VERSION, restoredController.autosaveVersion );
-        restoredController = nil;
-    }
-
-    // The "late" autosave is a second GUI snapshot taken after the interpreter
-    // has finished processing, capturing any additional state changes (like
-    // text printed after the autosave point). If the main GUI autosave fails,
-    // the late one can serve as a fallback.
-    restoredControllerLate = nil;
-
-    NSString *autosaveLatePath = [self appSupportFile:kAutosaveGUILateFile];
-
-    if ([fileManager fileExistsAtPath:autosaveLatePath]) {
-        GUILateAutosaveDate = [self creationDateOfFile:autosaveLatePath];
-        restoredControllerLate = [self unarchiveAutosaveFile:autosaveLatePath];
-        if (!restoredController) {
-            restoredController = restoredControllerLate;
-            GUIAutosaveDate = GUILateAutosaveDate;
-        }
-    }
-
-    // With no late autosave at all (the window was closed before the first
-    // one was written, say), the ordinary one has to stand in for it.
-    // Everything below reads the late controller without checking it, and
-    // from a nil one gets an empty window frame, no sound handler, no style
-    // hints and a hasAutoSaved of NO, which then passes for a first-turn save.
-    if (!restoredControllerLate)
-        restoredControllerLate = restoredController;
-
-    if (GUIAutosaveDate && GUILateAutosaveDate && [GUIAutosaveDate compare:GUILateAutosaveDate] == NSOrderedDescending) {
-        NSLog(@"GUI late autosave file is created before GUI autosave file!");
-        NSLog(@"Do not use it.");
-        restoredControllerLate = restoredController;
-    }
-
-    if (restoredController.autosaveTag != restoredControllerLate.autosaveTag) {
-        NSLog(@"GUI late autosave tag does not match GUI autosave file tag!");
-        NSLog(@"restoredController.autosaveTag %ld restoredControllerLate.autosaveTag: %ld", restoredController.autosaveTag, restoredControllerLate.autosaveTag);
-        if (restoredController && restoredControllerLate.autosaveTag == 0)
-            restoredControllerLate = restoredController;
-        else
-            restoredController = restoredControllerLate;
-    }
-
-    Game *game = _game;
-    Theme *theme = _theme;
-
-    if (!restoredController) {
-        // If there are no useful UI autosave files,
-        // delete any leftovers and run game without autorestoring
-        [self deleteAutosaveFiles];
-        game.autosaved = NO;
-        [self runTerpNormal];
-        return;
-    }
-
-    // Restore fullscreen state and the window frame from before fullscreen,
-    // which we'll need if the user exits fullscreen later.
-    _inFullscreen = restoredControllerLate.inFullscreen;
-    _windowPreFullscreenFrame = restoredController.windowPreFullscreenFrame;
-    _shouldStoreScrollOffset = NO;
-
-    // If the game had ended (interpreter process was dead) when autosaved,
-    // we either show the finished game window (system restoration) or
-    // start a fresh game (user-initiated launch).
-    if (!restoredController.isAlive) {
-        if (windowRestoredBySystem) {
-            [self restoreWindowWhenDead];
-            return;
-        } else {
-            // Otherwise we delete any autorestore files and
-            // restart the game
-            [self deleteAutosaveFiles];
-            game.autosaved = NO;
-            // If we die in fullscreen and close the game,
-            // the game should not open in fullscreen the next time
-            _inFullscreen = NO;
-            [self runTerpNormal];
-            return;
-        }
-    }
-
-    // If the interpreter's autosave file exists, verify its tag matches the
-    // GUI autosave tag to ensure they represent the same game state. A mismatch
-    // means one was saved at a different point than the other, so we try falling
-    // back to a backup terp save or limiting restoration to UI-only.
-    if ([fileManager fileExistsAtPath:self.autosaveFileTerp]) {
-        restoreUIOnly = NO;
-
-        // A truncated or malformed archive (a plist half-written when the
-        // machine lost power) makes the unarchiver raise, so read it
-        // defensively like the GUI archives above (unarchiveAutosaveFile:
-        // catches that). Without this the exception is uncaught at launch
-        // and, since nothing removes the bad file, every relaunch retries the
-        // same restoration: a crash loop.
-        //
-        // An unreadable library must then be rejected on the nil, NOT on the
-        // tag: an archive that fails to decode reports tag 0, and a restored
-        // GUI controller can legitimately carry tag 0 as well (observed), so
-        // comparing tags alone would call the two "in sync" and feed a corrupt
-        // library into the restore. Falling into the mismatch path below is
-        // the right failure -- it tries the backup save, or deletes both files
-        // and restores UI only.
-        TempLibrary *tempLib = [self unarchiveAutosaveFile:self.autosaveFileTerp];
-        if (!tempLib || tempLib.autosaveTag != restoredController.autosaveTag) {
-            NSLog(@"The terp autosave is unreadable, or has a tag not matching the GUI autosave.");
-            NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
-            NSLog(@"Trying to use previous terp save");
-
-            NSString *oldAutosaveFileTerp = [self appSupportFile:kAutosaveTerpBakFile];
-            tempLib = [self unarchiveAutosaveFile:oldAutosaveFileTerp];
-            BOOL usedPrevious = NO;
-            if (tempLib && tempLib.autosaveTag == restoredController.autosaveTag) {
-                // Put the previous pair back, game state first. The library
-                // carries the tag, so as long as the backup library is still
-                // waiting under its -bak name, a crash in here leaves a
-                // mismatch that the next launch finds and finishes. Library
-                // first would instead leave the previous library beside the
-                // current game state, with matching tags: two turns mixed
-                // and nothing to tell.
-                NSString *glkSaveTerp = [self appSupportFile:kAutosaveGlkSaveFile];
-                NSString *oldGlkSaveTerp = [self appSupportFile:kAutosaveGlkSaveBakFile];
-
-                // No backup game state means an earlier launch already put
-                // it back and was interrupted before the library followed.
-                BOOL gameStateBack = YES;
-                if ([fileManager fileExistsAtPath:oldGlkSaveTerp]) {
-                    gameStateBack = [fileManager replaceItemAtURL:[NSURL fileURLWithPath:glkSaveTerp isDirectory:NO]
-                                                    withItemAtURL:[NSURL fileURLWithPath:oldGlkSaveTerp isDirectory:NO]
-                                                   backupItemName:nil
-                                                          options:0
-                                                 resultingItemURL:nil
-                                                            error:&error];
-                }
-                if (gameStateBack) {
-                    usedPrevious = [fileManager replaceItemAtURL:[NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO]
-                                                   withItemAtURL:[NSURL fileURLWithPath:oldAutosaveFileTerp isDirectory:NO]
-                                                  backupItemName:nil
-                                                         options:0
-                                                resultingItemURL:nil
-                                                           error:&error];
-                }
-                if (!usedPrevious)
-                    NSLog(@"Could not move previous terp save into place: %@", error);
-            }
-            if (usedPrevious) {
-                NSLog(@"Successfully used previous terp save");
-            } else {
-                NSLog(@"Only restore UI state at first turn");
-                [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI isDirectory:NO],
-                                     [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO] ]];
-                restoreUIOnly = YES;
-            }
-        } else {
-            // Only show the alert about autorestoring if this is not a system
-            // window restoration, and the user has not suppressed it.
-            if (!windowRestoredBySystem) {
-                if (theme.autosave == NO) {
-                    game.autosaved = NO;
-                    [self runTerpNormal];
-                    return;
-                }
-                NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-                if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
-                    // Autorestore alert suppressed
-                    if (![defaults boolForKey:@"AlwaysAutorestore"]) {
-                        // The user has checked "Remember this choice" when
-                        // choosing to not autorestore
-                        [self deleteAutosaveFiles];
-                        game.autosaved = NO;
-                        [self runTerpNormal];
-                        return;
-                    }
-                } else {
-                    _shouldShowAutorestoreAlert = YES;
-                }
-            }
-        }
-    } else {
-        NSLog(@"No interpreter autorestore file exists");
-        NSLog(@"Only restore UI state at first turn");
-        restoreUIOnly = YES;
-    }
-
-    // If we're in UI-only restore mode but the late autosave wasn't from the
-    // first turn, the UI state won't match the fresh game state. Fall back to
-    // a clean start.
-    if (restoreUIOnly && restoredControllerLate.hasAutoSaved) {
-        NSLog(@"restoredControllerLate was not saved at the first turn!");
-        NSLog(@"Delete autosave files and start normally without restoring UI");
-        restoreUIOnly = NO;
-        [self deleteAutosaveFiles];
-        game.autosaved = NO;
-        [self runTerpNormal];
-        return;
-    }
-
-    // Temporarily switch to the theme that was active when the autosave was
-    // created, so the restored UI renders correctly. The original theme is
-    // stashed and will be restored after the autorestore process completes.
-    _stashedTheme = theme;
-    _restoredStylesStale = NO;
-    Theme *restoredTheme = [self findThemeByName:restoredControllerLate.oldThemeName];
-    if (restoredTheme && restoredTheme != theme) {
-        NSLog(@"GlkController runtTerpWithAutorestore: Temporarily set theme to %@", restoredTheme.name);
-        _theme = restoredTheme;
-        NSLog(@"GlkController runtTerpWithAutorestore: BufNormal font name to %@", restoredTheme.bufferNormal.font.displayName);
-    } else {
-        _stashedTheme = nil;
-        // If the autosaved theme name could not be resolved to an existing
-        // theme, there was no temporary theme to render with, so the archived
-        // window styles may belong to a different theme than the current one.
-        // Flag this so the style rebuild in notePreferencesChanged is not
-        // skipped during autorestore, which would otherwise leave the restored
-        // windows showing stale fonts/colors (e.g. the default serif font when
-        // the game is set to the DOSBox theme).
-        _restoredStylesStale = (restoredTheme == nil);
-    }
-
-    // If this is not a window restoration done by the system,
-    // we now re-enter fullscreen manually if the game was
-    // closed in fullscreen mode.
-    if (!windowRestoredBySystem && _inFullscreen
-        && !self.isInSystemFullscreen) {
-        _startingInFullscreen = YES;
-        [self startInFullscreen];
-    } else {
-        _gameView.autoresizingMask = kResizeCenteredAtTop;
-        [self.window setFrame:restoredControllerLate.storedWindowFrame display:YES];
-        // A game restored in fullscreen keeps its width and stays centered,
-        // as windowDidEnterFullScreen: would have it. The system may still
-        // resize the window, when it applies its own saved state to it, and a
-        // game view that follows the window's width while keeping its
-        // fullscreen margins would be squeezed down to nothing.
-        if (_inFullscreen)
-            _gameView.autoresizingMask = kResizeCenteredFullHeight;
-        else
-            _gameView.autoresizingMask = kResizeFill;
-    }
-
-    [self adjustContentView];
-    shouldRestoreUI = YES;
-    [self forkInterpreterTask];
-
-    // The interpreter must process several events (including arrange events)
-    // before the Glk windows exist and are ready to receive restored UI state.
-    // The actual UI restoration happens later in the GlkRequests category
-    // when the interpreter reaches the appropriate NEXTEVENT.
 }
 
 // Start the interpreter without autorestore. Sizes and positions the window
@@ -1259,7 +985,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     if (windowClosedAlready) {
         NSLog(@"windowWillClose called twice! Returning");
         return;
-    } else windowClosedAlready = YES;
+    }
+    windowClosedAlready = YES;
 
     [self requestFinalAutosave];
 
@@ -1286,27 +1013,14 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self deleteAutosaveFiles];
     }
 
-    @try {
+    // Only registered once runTerp got past its early exits.
+    if (observingVoiceOver) {
         [[NSWorkspace sharedWorkspace] removeObserver:self forKeyPath:@"voiceOverEnabled"];
-    } @catch (NSException *ex) {
-        NSLog(@"%@", ex);
+        observingVoiceOver = NO;
     }
 
-    if (_game && [Preferences instance].currentGame == _game) {
-        GlkController *remainingGameSession = nil;
-        if (libcontroller) {
-            for (GlkController *session in
-                 libcontroller.gameSessions.allValues)
-                if (session != self) {
-                    remainingGameSession = session;
-                    break;
-                }
-        }
-        [Preferences changeCurrentGlkController:remainingGameSession];
-        if (remainingGameSession) {
-            [remainingGameSession.window makeKeyAndOrderFront:nil];
-        }
-    }
+    if (_game && [Preferences instance].currentGame == _game)
+        [self passCurrentGameToAnotherSession];
 
     if (timer) {
         // Stop the timer
@@ -1325,6 +1039,20 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [FolderAccess releaseBookmark:_secureBookmark];
 
     libcontroller = nil;
+}
+
+// We were the current game: make another open game session current (and
+// key), or none if this was the last one.
+- (void)passCurrentGameToAnotherSession {
+    GlkController *remainingGameSession = nil;
+    for (GlkController *session in libcontroller.gameSessions.allValues) {
+        if (session != self) {
+            remainingGameSession = session;
+            break;
+        }
+    }
+    [Preferences changeCurrentGlkController:remainingGameSession];
+    [remainingGameSession.window makeKeyAndOrderFront:nil];
 }
 
 // YES while a repeating Glk timer is scheduled.

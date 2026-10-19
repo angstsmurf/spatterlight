@@ -3443,6 +3443,7 @@
 		C32DBFA526714EFE00AB5704 /* MyFilePromiseProvider.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyFilePromiseProvider.m; sourceTree = "<group>"; };
 		C331B95630069635008F8BD9 /* scmap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scmap.h; sourceTree = "<group>"; };
 		C334C47A269C708700B00A2F /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D3B6C0A12E9F4A0000DEB06A /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		C338CF412F71BD3500BCBD18 /* LibHelperTableView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LibHelperTableView.h; sourceTree = "<group>"; };
 		C338CF422F71BD4200BCBD18 /* LibHelperTableView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LibHelperTableView.m; sourceTree = "<group>"; };
 		C338CF452F71BD6400BCBD18 /* MetadataHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MetadataHandler.h; sourceTree = "<group>"; };
@@ -5113,6 +5114,7 @@
 				6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */,
 				6D212739246BDC5B00D775A8 /* Categories */,
 				C334C47A269C708700B00A2F /* Constants.h */,
+				D3B6C0A12E9F4A0000DEB06A /* DebugLog.h */,
 				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				C3C684DF26137B44002F1436 /* Images */,

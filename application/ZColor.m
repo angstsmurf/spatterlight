@@ -10,9 +10,7 @@
 #import "NSColor+integer.h"
 #include "glk.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @implementation ZColor
 

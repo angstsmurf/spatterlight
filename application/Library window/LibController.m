@@ -17,9 +17,7 @@
 
 #import "LibController.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @interface MyButtonToolbarItem : NSToolbarItem
 @end

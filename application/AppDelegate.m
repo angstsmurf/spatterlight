@@ -23,12 +23,13 @@
 #import "Game.h"
 #import "Theme.h"
 
+#import "DebugLog.h"
+
+// Debug builds log to stderr without the NSLog timestamp prefix.
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
     fprintf(stderr, "%s\n",                                                    \
             [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
-#else
-#define NSLog(...)
 #endif
 
 @interface AppDelegate () <NSWindowDelegate, NSWindowRestoration> {

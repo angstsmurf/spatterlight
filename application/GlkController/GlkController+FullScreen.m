@@ -11,9 +11,7 @@
 #import "CoverImageView.h"
 #import "Preferences.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @implementation GlkController (FullScreen)
 
@@ -181,6 +179,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     return frame;
 }
 
+// Our own enter-fullscreen animation, in five steps, each started from the
+// previous one's completion handler: move the window (under the snapshot
+// window) to the center of the screen, enlarge it to full size, move the
+// still invisible game view into place, fade out the snapshot, and finally
+// extend the game view vertically.
 - (void)enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSWindow *window = self.window;
     NSWindow *snapshotWindow = snapshotController.window;
@@ -191,7 +194,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSScreen *screen = window.screen;
 
     // The final, full screen frame
-    NSRect border_finalFrame = [self fullScreenBorderFrameOnScreen:screen];
+    NSRect borderFinalFrame = [self fullScreenBorderFrameOnScreen:screen];
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -213,94 +216,114 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     self.borderView.autoresizingMask = kResizeFill;
     self.gameView.autoresizingMask = kResizeCenteredAtTop;
 
-    NSView *localContentView = self.gameView;
-    NSView *localBorderView = self.borderView;
-    NSWindow *localSnapshot = snapshotController.window;
-
-    GlkController * __weak weakSelf = self;
     // Hide contentview
     self.gameView.alphaValue = 0;
 
-    // Our animation will be broken into five steps.
+    GlkController * __weak weakSelf = self;
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        // First, we move the window to the center
-        // of the screen with the snapshot window on top
         context.duration = duration / 4 + 0.1;
-        [[localSnapshot animator] setFrame:centerWindowFrame display:YES];
+        [[snapshotWindow animator] setFrame:centerWindowFrame display:YES];
         [[window animator] setFrame:centerWindowFrame display:YES];
     }
      completionHandler:^{
-        [NSAnimationContext
-         runAnimationGroup:^(NSAnimationContext *context) {
-            // and then we enlarge it to its full size.
-            context.duration = duration / 4 - 0.1;
-            [[window animator]
-             setFrame:[window
-                       frameRectForContentRect:border_finalFrame]
-             display:YES];
-        }
-         completionHandler:^{
-            // We get the invisible content view into position ...
-            NSRect newContentFrame = localContentView.frame;
-
-            newContentFrame.origin =
-            NSMakePoint(floor((NSWidth(localBorderView.bounds) -
-                               NSWidth(localContentView.frame)) /
-                              2),
-                        floor(NSHeight(localBorderView.bounds) - weakSelf.theme.border - localContentView.frame.size.height)
-                        );
-            [NSAnimationContext
-             runAnimationGroup:^(NSAnimationContext *context) {
-                context.duration = duration / 4;
-                localContentView.frame = newContentFrame;
-                [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
-                [weakSelf flushDisplay];
-            }
-             completionHandler:^{
-                // Now we can fade out the snapshot window
-                localContentView.alphaValue = 1;
-
-                [NSAnimationContext
-                 runAnimationGroup:^(NSAnimationContext *context) {
-                    context.duration = duration / 4;
-                    [localSnapshot.contentView animator].alphaValue = 0;
-                }
-                 completionHandler:^{
-                    // Finally, we extend the content view vertically if needed.
-                    [NSAnimationContext
-                     runAnimationGroup:^(NSAnimationContext *context) {
-                        context.duration = 0.2;
-                        [localContentView animator].frame = [weakSelf contentFrameForFullscreen];
-                    }
-                     completionHandler:^{
-                        // Hide the snapshot window.
-                        ((NSView *)localSnapshot.contentView).hidden = YES;
-                        ((NSView *)localSnapshot.contentView).alphaValue = 1;
-
-                        // Send an arrangement event to fill
-                        // the new extended area
-                        [weakSelf sendArrangeEventWithFrame:localContentView.frame force:NO];
-                        NSLog(@"enterFullScreenAnimationWithDuration: finished animation, calling restoreScrollOffsets in fullscreen");
-                        [weakSelf restoreScrollOffsets];
-                        for (GlkTextGridWindow *quotebox in weakSelf.quoteBoxes)
-                        {
-                            [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.1];
-                        }
-                    }];
-                }];
-            }];
-        }];
+        [weakSelf enterFullScreenEnlargeToFrame:borderFinalFrame duration:duration];
     }];
 }
 
+// Step 2: enlarge the window to its full size.
+- (void)enterFullScreenEnlargeToFrame:(NSRect)borderFinalFrame duration:(NSTimeInterval)duration {
+    NSWindow *window = self.window;
+    GlkController * __weak weakSelf = self;
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = duration / 4 - 0.1;
+        [[window animator]
+         setFrame:[window frameRectForContentRect:borderFinalFrame]
+         display:YES];
+    }
+     completionHandler:^{
+        [weakSelf enterFullScreenPositionGameViewWithDuration:duration];
+    }];
+}
+
+// Step 3: move the invisible game view into position, centered at the top.
+- (void)enterFullScreenPositionGameViewWithDuration:(NSTimeInterval)duration {
+    NSView *gameView = self.gameView;
+    NSRect newContentFrame = gameView.frame;
+    newContentFrame.origin =
+    NSMakePoint(floor((NSWidth(self.borderView.bounds) - NSWidth(gameView.frame)) / 2),
+                floor(NSHeight(self.borderView.bounds) - self.theme.border - gameView.frame.size.height));
+
+    GlkController * __weak weakSelf = self;
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = duration / 4;
+        gameView.frame = newContentFrame;
+        [weakSelf sendArrangeEventWithFrame:gameView.frame force:NO];
+        [weakSelf flushDisplay];
+    }
+     completionHandler:^{
+        gameView.alphaValue = 1;
+        [weakSelf enterFullScreenFadeOutSnapshotWithDuration:duration];
+    }];
+}
+
+// Step 4: fade out the snapshot window, uncovering the game view.
+- (void)enterFullScreenFadeOutSnapshotWithDuration:(NSTimeInterval)duration {
+    NSWindow *snapshotWindow = snapshotController.window;
+    GlkController * __weak weakSelf = self;
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = duration / 4;
+        [snapshotWindow.contentView animator].alphaValue = 0;
+    }
+     completionHandler:^{
+        [weakSelf enterFullScreenExtendGameView];
+    }];
+}
+
+// Step 5: extend the game view vertically if needed, then let the game
+// fill the new area.
+- (void)enterFullScreenExtendGameView {
+    NSView *gameView = self.gameView;
+    NSWindow *snapshotWindow = snapshotController.window;
+    GlkController * __weak weakSelf = self;
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = 0.2;
+        [gameView animator].frame = [weakSelf contentFrameForFullscreen];
+    }
+     completionHandler:^{
+        // Hide the snapshot window.
+        ((NSView *)snapshotWindow.contentView).hidden = YES;
+        ((NSView *)snapshotWindow.contentView).alphaValue = 1;
+
+        GlkController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        // Send an arrangement event to fill
+        // the new extended area
+        [strongSelf sendArrangeEventWithFrame:gameView.frame force:NO];
+        NSLog(@"enterFullScreenAnimationWithDuration: finished animation, calling restoreScrollOffsets in fullscreen");
+        [strongSelf restoreScrollOffsets];
+        for (GlkTextGridWindow *quotebox in strongSelf.quoteBoxes) {
+            [quotebox performSelector:@selector(quoteboxAdjustSize:) withObject:nil afterDelay:0.1];
+        }
+    }];
+}
+
+// Like enterFullScreenAnimationWithDuration:, for a game autorestored in
+// fullscreen: there is no snapshot, and the game view is laid out by the
+// arrange event at the end. Two steps: move the window to the center of the
+// screen, then enlarge it.
 - (void)startGameInFullScreenAnimationWithDuration:(NSTimeInterval)duration {
 
     NSWindow *window = self.window;
     NSScreen *screen = window.screen;
 
     // The final, full screen frame
-    NSRect border_finalFrame = [self fullScreenBorderFrameOnScreen:screen];
+    NSRect borderFinalFrame = [self fullScreenBorderFrameOnScreen:screen];
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -315,42 +338,48 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     centerWindowFrame.origin.x += NSMinX(screen.frame);
     centerWindowFrame.origin.y += NSMinY(screen.frame);
 
-    GlkController * __weak weakSelf = self;
-
+    // Hold the autorestore alert back until the animation is done.
     BOOL stashShouldShowAlert = self.shouldShowAutorestoreAlert;
     self.shouldShowAutorestoreAlert = NO;
 
-    // Our animation will be broken into three steps.
+    GlkController * __weak weakSelf = self;
     [NSAnimationContext
      runAnimationGroup:^(NSAnimationContext *context) {
-        // First, we move the window to the center
-        // of the screen
         context.duration = duration / 2;
         [[window animator] setFrame:centerWindowFrame display:YES];
     }
      completionHandler:^{
-        [NSAnimationContext
-         runAnimationGroup:^(NSAnimationContext *context) {
-            // then, we enlarge the window to its full size.
-            context.duration = duration / 2;
-            [[window animator]
-             setFrame:[window frameRectForContentRect:border_finalFrame]
-             display:YES];
-        }
-         completionHandler:^{
-            GlkController *strongSelf = weakSelf;
-            // Finally, we get the content view into position ...
-            if (strongSelf) {
+        [weakSelf startGameInFullScreenEnlargeToFrame:borderFinalFrame
+                                             duration:duration / 2
+                                            showAlert:stashShouldShowAlert];
+    }];
+}
 
-                [strongSelf enableArrangementEvents];
-                [strongSelf sendArrangeEventWithFrame:[strongSelf contentFrameForFullscreen] force:NO];
+// Second step: enlarge the window to its full size, then lay out the game
+// for it and show the autorestore alert if one was held back.
+- (void)startGameInFullScreenEnlargeToFrame:(NSRect)borderFinalFrame
+                                   duration:(NSTimeInterval)duration
+                                  showAlert:(BOOL)showAlert {
+    NSWindow *window = self.window;
+    GlkController * __weak weakSelf = self;
+    [NSAnimationContext
+     runAnimationGroup:^(NSAnimationContext *context) {
+        context.duration = duration;
+        [[window animator]
+         setFrame:[window frameRectForContentRect:borderFinalFrame]
+         display:YES];
+    }
+     completionHandler:^{
+        GlkController *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        [strongSelf enableArrangementEvents];
+        [strongSelf sendArrangeEventWithFrame:[strongSelf contentFrameForFullscreen] force:NO];
 
-                strongSelf.shouldShowAutorestoreAlert = stashShouldShowAlert;
-                [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
-                NSLog(@"startGameInFullScreenAnimationWithDuration: Finished. Restoring scroll offsets");
-                [strongSelf restoreScrollOffsets];
-            }
-        }];
+        strongSelf.shouldShowAutorestoreAlert = showAlert;
+        [strongSelf performSelector:@selector(showAutorestoreAlert:) withObject:nil afterDelay:0.1];
+        NSLog(@"startGameInFullScreenAnimationWithDuration: Finished. Restoring scroll offsets");
+        [strongSelf restoreScrollOffsets];
     }];
 }
 

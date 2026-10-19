@@ -7,10 +7,7 @@
 #import "MyAttachmentCell.h"
 #import "BufferTextView.h"
 
-// In release builds, suppress NSLog entirely.
-#ifndef DEBUG
-#define NSLog(...)
-#endif // DEBUG
+#import "DebugLog.h"
 
 // Rolling scrollback cap. When the live text storage grows past the limit
 // (the current theme's scrollbackLimit attribute) the oldest committed text is

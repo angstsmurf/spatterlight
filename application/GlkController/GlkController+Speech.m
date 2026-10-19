@@ -14,9 +14,7 @@
 #import "BureaucracyForm.h"
 #import "JourneyMenuHandler.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 // The window with the largest frame, or nil if none has any area.
 static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {

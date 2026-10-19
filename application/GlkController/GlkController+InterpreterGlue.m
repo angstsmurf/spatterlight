@@ -29,9 +29,7 @@
 #include "messagenames.h"
 #include "glkimp.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @implementation GlkController (InterpreterGlue)
 

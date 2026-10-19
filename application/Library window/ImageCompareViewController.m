@@ -7,9 +7,7 @@
 
 #import <Foundation/Foundation.h>
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 
 #import "NSData+Categories.h"

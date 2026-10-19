@@ -15,9 +15,7 @@
 
 #include "glkimp.h"
 
-#ifndef DEBUG
-#define NSLog(...)
-#endif
+#import "DebugLog.h"
 
 @implementation GlkWindow
 
