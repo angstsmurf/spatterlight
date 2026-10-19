@@ -28,6 +28,7 @@
 #import "MarginImage.h"
 #import "Preferences.h"
 #import <BlorbFramework/BlorbFramework.h>
+#import <BlorbFramework/BlorbFramework-Swift.h>
 #include "glk.h"
 
 // Little helpers for hand-assembling Blorb test fixtures.
