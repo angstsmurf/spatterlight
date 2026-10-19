@@ -219,7 +219,7 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
             NSManagedObjectContext *childContext = [self newImageContext];
             [childContext performBlockAndWait:^{
                 [CoverImageStore setCover:[childContext objectWithID:imgID] onMetadata:[childContext objectWithID:metaID]];
-                [childContext safeSave];
+                [childContext safeSaveAndWait];
             }];
             [manager saveChanges];
         }];
@@ -255,7 +255,13 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
         }];
 
         [IFDBDownloader checkIfUserWants:data ratherThan:currentData force:force completionHandler:^{
-            [CoverImageStore insertImageData:data inMetadataID:metaID context:[self newImageContext]];
+            NSManagedObjectContext *imageContext = [self newImageContext];
+            [CoverImageStore insertImageData:data inMetadataID:metaID context:imageContext];
+            // Queued after insertImageData's blocks, which save the child
+            // context before they return
+            [imageContext performBlock:^{
+                [manager saveChanges];
+            }];
         }];
     }];
 

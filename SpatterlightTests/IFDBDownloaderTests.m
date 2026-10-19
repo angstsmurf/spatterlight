@@ -179,17 +179,19 @@ static NSString * const kStubCoverURL = @"https://ifdb.org/coverart?id=stubtest"
     [self waitForExpectations:@[finished] timeout:10];
 }
 
-// Waits for the main context to see a cover on the game, and returns its data
+// Waits for the store itself (not just the main context) to hold a cover for
+// the game, and returns its data
 - (NSData *)waitForCoverOf:(NSManagedObjectID *)gameID imageID:(NSManagedObjectID * __autoreleasing *)imageID {
-    NSManagedObjectContext *context = self.manager.mainManagedObjectContext;
+    NSPersistentStoreCoordinator *coordinator = self.manager.mainManagedObjectContext.persistentStoreCoordinator;
     NSData __block *data;
     NSManagedObjectID __block *coverID;
     NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:10];
     while (!data && deadline.timeIntervalSinceNow > 0) {
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
-        [context performBlockAndWait:^{
-            Game *game = [context objectWithID:gameID];
-            [context refreshObject:game.metadata mergeChanges:YES];
+        NSManagedObjectContext *storeContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+        storeContext.persistentStoreCoordinator = coordinator;
+        [storeContext performBlockAndWait:^{
+            Game *game = [storeContext objectWithID:gameID];
             Image *cover = game.metadata.cover;
             data = (NSData *)cover.data;
             coverID = cover.objectID;

@@ -41,7 +41,7 @@
         [context performBlock:^{
             Image *placeholder = [CoverImageStore placeholderImageWithData:data inContext:context];
             [CoverImageStore setCover:placeholder onMetadata:[context objectWithID:metaID]];
-            [context safeSave];
+            [context safeSaveAndWait];
         }];
         return;
     }
@@ -56,7 +56,7 @@
         if (img && [((NSData *)img.data) isEqual:data]) {
             // Image with same originalURL and data already existed in database
             [CoverImageStore setCover:img onMetadata:metadata];
-            [context safeSave];
+            [context safeSaveAndWait];
             reused = YES;
         }
     }];
@@ -73,7 +73,7 @@
         img.originalURL = metadata.coverArtURL;
         img.imageDescription = metadata.coverArtDescription;
         [CoverImageStore setCover:img onMetadata:metadata];
-        [context safeSave];
+        [context safeSaveAndWait];
     }];
 }
 
