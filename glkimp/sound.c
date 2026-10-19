@@ -7,8 +7,6 @@
 
 static channel_t *gli_channellist = NULL;
 
-extern char *gli_workdir;
-
 static int loadsound(int sound)
 {
     glui32 chunktype;
@@ -79,7 +77,6 @@ schanid_t glk_schannel_create_ext(glui32 rock, glui32 volume)
     if (!chan)
 	return NULL;
 
-    chan->magicnum = MAGIC_SCHANNEL_NUM;
     chan->rock = rock;
     chan->peer = win_newchan(volume);
     if (chan->peer == -1)
@@ -120,8 +117,6 @@ void glk_schannel_destroy(schanid_t chan)
 	(*gli_unregister_obj)(chan, gidisp_Class_Schannel, chan->disprock);
 	chan->disprock.ptr = NULL;
     }
-
-    chan->magicnum = 0;
 
     win_delchan(chan->peer);
     
@@ -187,7 +182,7 @@ glui32 glk_schannel_play_ext(schanid_t chan, glui32 snd, glui32 repeats,
     }
     
     if (!loadsound(snd)) {
-        fprintf(stderr, "loadsound %d returned false\n", snd);
+        gli_debug_log("loadsound %d returned false\n", snd);
         return FALSE;
     }
     
@@ -213,8 +208,6 @@ void glk_schannel_pause(schanid_t chan)
     }
 
     win_pause(chan->peer);
-
-//    chan->paused = TRUE;
 }
 
 void glk_schannel_unpause(schanid_t chan)
@@ -226,8 +219,6 @@ void glk_schannel_unpause(schanid_t chan)
     }
 
     win_unpause(chan->peer);
-
-//    chan->paused = 0;
 }
 
 

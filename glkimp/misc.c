@@ -157,14 +157,8 @@ char *gli_story_title = NULL;
 
 static void malloc_and_set_string(char **variable, const char *string)
 {
-    size_t length = strlen(string);
-
-    if (*variable != NULL)
-        free(*variable);
-
-    *variable = malloc(length + 1);
-    strncpy(*variable, string, length);
-    (*variable)[length] = 0;
+    free(*variable);
+    *variable = string ? strdup(string) : NULL;
 }
 
 void garglk_set_program_name(const char *name)

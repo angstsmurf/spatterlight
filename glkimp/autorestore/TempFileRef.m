@@ -13,32 +13,6 @@
 
 @implementation TempFileRef
 
-/* Work out the directory for a given type of file, based on the base directory, the usage, and the game identity.
- See the comments on GlkFileRefLayer.m for an explanation.
- */
-//+ (NSString *) subDirOfBase:(NSString *)basedir forUsage:(glui32)usage gameid:(NSString *)gameid {
-//	NSString *subdir;
-//
-//	switch (usage & fileusage_TypeMask) {
-//		case fileusage_SavedGame:
-//			subdir = [NSString stringWithFormat:@"GlkSavedGame_%@", gameid];
-//			break;
-//		case fileusage_InputRecord:
-//			subdir = @"GlkInputRecord";
-//			break;
-//		case fileusage_Transcript:
-//			subdir = @"GlkTranscript";
-//			break;
-//		case fileusage_Data:
-//		default:
-//			subdir = @"GlkData";
-//			break;
-//	}
-//
-//	NSString *dirname = [basedir stringByAppendingPathComponent:subdir];
-//	return dirname;
-//}
-
 + (BOOL) supportsSecureCoding {
     return YES;
 }
@@ -76,17 +50,9 @@
     _prev = [decoder decodeInt32ForKey:@"prev"];
     _next = [decoder decodeInt32ForKey:@"next"];
 
-    NSData *bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
-    URL = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:nil error:nil];
-    if (!URL)
-        URL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
+    URL = gli_decode_file_url(decoder, NO);
     _filetype = [decoder decodeInt32ForKey:@"filetype"];
     _textmode = [decoder decodeInt32ForKey:@"textmode"];
-
-    if ([decoder decodeBoolForKey:@"tempfile"] && URL) {
-        NSData *contents = [decoder decodeObjectOfClass:[NSData class] forKey:@"tempfiledata"];
-        URL = [NSURL fileURLWithPath:gli_restore_tempfile(URL.path, contents, NO) isDirectory:NO];
-    }
     }
 	return self;
 }
@@ -98,57 +64,21 @@
     [encoder encodeInt32:_prev forKey:@"prev"];
     [encoder encodeInt32:_next forKey:@"next"];
 
-    NSData *bookmark = nil;
-    if (URL)
-    {
-        NSError* theError = nil;
-        bookmark = [URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
-                 includingResourceValuesForKeys:nil
-                                  relativeToURL:nil
-                                          error:&theError];
-        if (theError || !bookmark)
-            NSLog(@"Error when encoding bookmark %@: %@", URL.path, theError);
-    }
-
-    if (bookmark)
-        [encoder encodeObject:bookmark forKey:@"bookmark"];
-    if (URL)
-        [encoder encodeObject:URL forKey:@"URL"];
+    gli_encode_file_url(encoder, URL);
 	[encoder encodeInt32:_filetype forKey:@"filetype"];
 	[encoder encodeInt32:_textmode forKey:@"textmode"];
-
-    /* A temp file goes away with this process: store what it holds */
-    if (gli_is_tempfile(URL.path)) {
-        [encoder encodeBool:YES forKey:@"tempfile"];
-        NSData *contents = [NSData dataWithContentsOfURL:URL];
-        if (contents)
-            [encoder encodeObject:contents forKey:@"tempfiledata"];
-    }
 }
 
 - (void) copyToCStruct:(fileref_t *)ref{
-
-    ref->magicnum = MAGIC_FILEREF_NUM;
 
     ref->tag = _tag;
     ref->rock = _rock;
     ref->filetype = _filetype;
     ref->textmode = _textmode;
-    if (URL)
-    {
-        const char *path = URL.fileSystemRepresentation;
-        char *urlpath = malloc(1 + strlen(path));
-
-        strncpy(urlpath, path, strlen(path));
-        urlpath[strlen(path)] = '\0';
-        ref->filename = urlpath;
-//        NSLog(@"TempFileRef copyToCStruct: set filename of fileref %d to %s",_tag, ref->filename);
-    }
-    else
-    {
+    const char *path = URL.fileSystemRepresentation;
+    ref->filename = path ? strdup(path) : NULL;
+    if (!path)
         NSLog(@"TempFileRef copyToCStruct: no URL for fileref %d, will have no filename",_tag);
-        ref->filename = NULL;
-    }
 }
 
 - (void) sanityCheck

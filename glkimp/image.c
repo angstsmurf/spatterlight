@@ -18,7 +18,7 @@ static int loadimage(int image)
     if (!giblorb_is_resource_map())
     {
         snprintf(filename, sizeof(filename), "%s/PIC%d", gli_parentdir, image);
-        fprintf(stderr, "loadimage %s in %s\n", filename, gli_parentdir);
+        gli_debug_log("loadimage %s in %s\n", filename, gli_parentdir);
 
         file = fopen(filename, "rb");
         if (!file) {
@@ -137,7 +137,7 @@ glui32 glk_image_get_info(glui32 image, glui32 *width, glui32 *height)
     
     if (!loadimage(image))
     {
-        fprintf(stderr, "glk_image_get_info: loadimage(%d) FAILED\n", image);
+        gli_debug_log("glk_image_get_info: loadimage(%d) FAILED\n", image);
         return FALSE;
     }
     
@@ -161,57 +161,45 @@ void glk_window_flow_break(winid_t win)
     win_flowbreak(win->peer);
 }
 
-void glk_window_erase_rect(winid_t win,
-                           glsi32 left, glsi32 top, glui32 width, glui32 height)
+/* FALSE, with a warning, unless win is a graphics window */
+static int gli_check_graphics_window(winid_t win, const char *caller)
 {
+    char msg[80];
     if (!win)
     {
-        gli_strict_warning("window_erase_rect: invalid ref");
-        return;
+        snprintf(msg, sizeof msg, "%s: invalid ref", caller);
+        gli_strict_warning(msg);
+        return FALSE;
     }
     if (win->type != wintype_Graphics)
     {
-        gli_strict_warning("window_erase_rect: not a graphics window");
-        return;
+        snprintf(msg, sizeof msg, "%s: not a graphics window", caller);
+        gli_strict_warning(msg);
+        return FALSE;
     }
+    return TRUE;
+}
+
+void glk_window_erase_rect(winid_t win,
+                           glsi32 left, glsi32 top, glui32 width, glui32 height)
+{
+    if (!gli_check_graphics_window(win, "window_erase_rect"))
+        return;
     win_fillrect(win->peer, win->background, left, top, width, height);
 }
 
 void glk_window_fill_rect(winid_t win, glui32 color,
                           glsi32 left, glsi32 top, glui32 width, glui32 height)
 {
-    if (!win)
-    {
-        gli_strict_warning("window_fill_rect: invalid ref");
+    if (!gli_check_graphics_window(win, "window_fill_rect"))
         return;
-    }
-    if (win->type != wintype_Graphics)
-    {
-        gli_strict_warning("window_fill_rect: not a graphics window");
-        return;
-    }
-#ifdef DEBUG
-    //    fprintf(stderr, "win_fillrect called with color %d\n", color);
-#endif
     win_fillrect(win->peer, color, left, top, width, height);
 }
 
 void glk_window_set_background_color(winid_t win, glui32 color)
 {
-    if (!win)
-    {
-        gli_strict_warning("window_set_background_color: invalid ref");
+    if (!gli_check_graphics_window(win, "window_set_background_color"))
         return;
-    }
-    
-    if (win->type != wintype_Graphics)
-    {
-        gli_strict_warning("window_set_background_color: not a graphics window");
-        return;
-    }
-#ifdef DEBUG
-    //    fprintf (stderr, "glk_window_set_background_color called with color %d\n", color);
-#endif
     win->background = color;
     win_setbgnd(win->peer, color);
 }

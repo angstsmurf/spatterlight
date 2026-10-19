@@ -19,14 +19,16 @@ static NSURL *default_tempdir_parent(void);
 
 static void setdefaultworkdir(char **string)
 {
-    size_t length;
     *string = NULL;
+    if (gli_program_name == NULL)
+        return;
+
     @autoreleasepool {
 
         /* Keyed by the lower-cased FIRST WORD of the terp's program name
          * (garglk_set_program_name), e.g. "ScottFree 1.15" -> "scottfree".
          * Keys must match that first word, not the format or binary name,
-         * or the lookup falls through to a "(null) Files" folder. */
+         * or the lookup falls back to a folder named after that word. */
         NSDictionary *gFolderMap = @{@"scarier": @"SCARE",
                                      @"advsys": @"AdvSys",
                                      @"agility": @"AGiliTy",
@@ -60,23 +62,25 @@ static void setdefaultworkdir(char **string)
         }
 
         NSString *terpName = @(gli_program_name);
-        NSString *firstWord = [terpName componentsSeparatedByString:@" "][0].lowercaseString;
+        NSString *firstWord = [terpName componentsSeparatedByString:@" "][0];
+        NSString *key = firstWord.lowercaseString;
 
-        if ([firstWord isEqualToString:@"alan"] && [[terpName componentsSeparatedByString:@"."][0] isEqualToString:@"Alan 3"])
-            firstWord = @"alan 3";
+        if ([key isEqualToString:@"alan"] && [[terpName componentsSeparatedByString:@"."][0] isEqualToString:@"Alan 3"])
+            key = @"alan 3";
 
-        NSString *dirstr = [NSString stringWithFormat: @"Spatterlight/%@", gFolderMap[firstWord]];
+        NSString *folder = gFolderMap[key];
+        if (folder == nil)
+            folder = firstWord.length ? firstWord : @"Glk";
 
-        dirstr = [dirstr stringByAppendingString:@" Files"];
-        dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
-        appSupportDir = [NSURL URLWithString:dirstr relativeToURL:appSupportDir];
+        NSURL *dir = [appSupportDir URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
+        dir = [dir URLByAppendingPathComponent:[folder stringByAppendingString:@" Files"] isDirectory:YES];
 
-        length = appSupportDir.path.length;
-        *string = malloc(length + 1);
-        strncpy(*string, appSupportDir.fileSystemRepresentation, length);
+        /* fileSystemRepresentation is UTF-8 and may be longer than the
+           UTF-16 path, e.g. for a home folder with non-ASCII characters. */
+        const char *path = dir.fileSystemRepresentation;
+        if (path)
+            *string = strdup(path);
     }
-
-    (*string)[length] = 0;
 }
 
 void getworkdir(void)
@@ -132,11 +136,11 @@ void getautosavedir(char *file)
         }
 
         NSString *finalDir = [dirname stringByAppendingPathComponent:signature];
-        NSUInteger length = finalDir.length + 1;
 
-        autosavedir = malloc(length);
-        [finalDir getFileSystemRepresentation:autosavedir maxLength:length];
-        autosavedir[finalDir.length] = 0;
+        /* Not finalDir.length: the UTF-8 form can be longer. */
+        const char *path = finalDir.fileSystemRepresentation;
+        if (path)
+            autosavedir = strdup(path);
     }
 }
 
@@ -147,9 +151,11 @@ void gettempdir(void)
         return;
     }
 
-    @autoreleasepool {
-        getworkdir();
+    getworkdir();
+    if (gli_workdir == NULL)
+        return;
 
+    @autoreleasepool {
         NSString *string = @(gli_workdir);
         NSURL *desktopURL = [NSURL fileURLWithPath:string
                                        isDirectory:YES];
@@ -174,10 +180,11 @@ void gettempdir(void)
             NSLog(@"gettempdir error: %@", error);
         }
 
-        if (!temporaryDirectoryURL)
+        const char *path = temporaryDirectoryURL.fileSystemRepresentation;
+        if (!path || strlen(path) >= sizeof tempdir)
             return;
 
-        strncpy(tempdir, temporaryDirectoryURL.fileSystemRepresentation, sizeof tempdir);
+        strcpy(tempdir, path);
 
         /* Sign the directory with our process id, so that a later process
            can tell when we have died without cleaning up after ourselves. */
@@ -266,6 +273,50 @@ NSString *gli_restore_tempfile(NSString *oldpath, NSData *contents, BOOL overwri
     return path;
 }
 
+/* Archive the file of a stream or fileref: a bookmark, the URL as a fallback,
+   and for a temp file what it holds (see gli_is_tempfile). */
+void gli_encode_file_url(NSCoder *encoder, NSURL *URL)
+{
+    if (!URL)
+        return;
+
+    NSError *error = nil;
+    NSData *bookmark = [URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
+                     includingResourceValuesForKeys:nil
+                                      relativeToURL:nil
+                                              error:&error];
+    if (bookmark)
+        [encoder encodeObject:bookmark forKey:@"bookmark"];
+    else
+        NSLog(@"Error when encoding bookmark %@: %@", URL.path, error);
+    [encoder encodeObject:URL forKey:@"URL"];
+
+    if (gli_is_tempfile(URL.path)) {
+        [encoder encodeBool:YES forKey:@"tempfile"];
+        NSData *contents = [NSData dataWithContentsOfURL:URL];
+        if (contents)
+            [encoder encodeObject:contents forKey:@"tempfiledata"];
+    }
+}
+
+/* The counterpart of gli_encode_file_url. A temp file is recreated in our
+   own temp directory; overwrite as for gli_restore_tempfile. */
+NSURL *gli_decode_file_url(NSCoder *decoder, BOOL overwrite)
+{
+    NSData *bookmark = [decoder decodeObjectOfClass:[NSData class] forKey:@"bookmark"];
+    NSURL *URL = nil;
+    if (bookmark)
+        URL = [NSURL URLByResolvingBookmarkData:bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:nil error:nil];
+    if (!URL)
+        URL = [decoder decodeObjectOfClass:[NSURL class] forKey:@"URL"];
+
+    if ([decoder decodeBoolForKey:@"tempfile"] && URL) {
+        NSData *contents = [decoder decodeObjectOfClass:[NSData class] forKey:@"tempfiledata"];
+        URL = [NSURL fileURLWithPath:gli_restore_tempfile(URL.path, contents, overwrite) isDirectory:NO];
+    }
+    return URL;
+}
+
 /* Remove the per-session temp directory and everything in it. The directory
    is a dedicated NSItemReplacementDirectory created by gettempdir() and used
    only by this process, so it is safe to delete the whole tree. This sweeps
@@ -290,6 +341,8 @@ void gli_cleanup_tempdir(void)
 int create_workdir(void) {
     int retval = 0;
     getworkdir();
+    if (gli_workdir == NULL)
+        return retval;
     @autoreleasepool {
         NSURL *appSupportDir = [NSURL fileURLWithPath:@(gli_workdir) isDirectory:YES];
         NSError *error = nil;

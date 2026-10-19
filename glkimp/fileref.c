@@ -31,7 +31,6 @@ fileref_t *gli_new_fileref(char *filename, glui32 usage, glui32 rock)
 	if (!fref)
 		return NULL;
 
-    fref->magicnum = MAGIC_FILEREF_NUM;
     fref->tag = generate_tag(); /* For serialization */
 
 	fref->rock = rock;
@@ -67,8 +66,6 @@ void gli_delete_fileref(fileref_t *fref)
         (*gli_unregister_obj)(fref, gidisp_Class_Fileref, fref->disprock);
         fref->disprock.ptr = NULL;
     }
-
-    fref->magicnum = 0;
 
     if (fref->filename) {
         free(fref->filename);
@@ -121,6 +118,11 @@ frefid_t glk_fileref_create_temp(glui32 usage, glui32 rock)
     int fd;
 
     gettempdir();
+    if (tempdir[0] == '\0')
+    {
+        gli_strict_warning("fileref_create_temp: no temporary directory.");
+        return NULL;
+    }
 
     snprintf(temppath, sizeof temppath, "%s/glktempfref-XXXXXX", tempdir);
 

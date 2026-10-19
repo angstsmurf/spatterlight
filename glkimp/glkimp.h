@@ -229,10 +229,6 @@ typedef glui32 gli_decomp_block_t[2]; /* count, position */
 /* The position points to a subarray of the unigen_decomp_array.
  If the count is zero, there is no decomposition. */
 
-void gli_putchar_utf8(glui32 val, FILE *fl);
-glui32 gli_getchar_utf8(FILE *fl);
-glui32 gli_parse_utf8(unsigned char *buf, glui32 buflen, glui32 *out, glui32 outlen);
-
 /* blorb resources */
 
 int giblorb_is_resource_map(void);
@@ -252,14 +248,16 @@ extern gidispatch_rock_t (*gli_restore_arr)(long bufkey, glui32 len, char *typec
 /* This macro is called whenever the library code catches an error
  or illegal operation from the game program. */
 
-//#define gli_strict_warning(msg) do { fprintf(stderr, "glk: %s\n", msg); } while (0)
-
 #define gli_strict_warning(msg) do { win_showerror(msg); if (gli_error_handling == ERRORS_ARE_FATAL) { exit(0); } } while (0)
 
-/* The overall screen size, as set by command-line options. A
- better implementation would check the real screen size
- somehow. */
-extern int gli_screenwidth, gli_screenheight;
+/* Tracing for debugging glkimp itself. Compiled out of release builds;
+   real errors go to stderr with a plain fprintf. */
+#ifdef DEBUG
+#define gli_debug_log(...) fprintf(stderr, __VA_ARGS__)
+#else
+#define gli_debug_log(...) do { } while (0)
+#endif
+
 /* Should we assume that the terminal (or whatever is handling our
  stdin/stdout) is expecting UTF-8 encoding? Normally input and output
  will be the same, but they don't have to be. */
@@ -284,12 +282,6 @@ typedef struct grect_struct
     glui32 x1, y1;
 } grect_t;
 
-#define MAGIC_WINDOW_NUM (9876)
-#define MAGIC_STREAM_NUM (8769)
-#define MAGIC_FILEREF_NUM (7698)
-#define MAGIC_SCHANNEL_NUM (6987)
-
-
 typedef struct attr_s
 {
     unsigned fgset   : 1;
@@ -304,7 +296,6 @@ typedef struct attr_s
 
 struct glk_window_struct {
 
-    glui32 magicnum;
     glui32 rock;
     glui32 type;
 
@@ -344,9 +335,6 @@ struct glk_window_struct {
     int char_request_uni;
     int mouse_request;
     int hyper_request;
-    //int more_request;
-    //int scroll_request;
-    //int image_loaded;
 
     glui32 echo_line_input;
     glui32 *line_terminators;
@@ -354,10 +342,6 @@ struct glk_window_struct {
 
     glui32 style;
 
-    //void *linebuf;
-    //glui32 linebuflen;
-    //int linecap;
-    //gidispatch_rock_t inarrayrock;
 
     attr_t attr;
 
@@ -394,7 +378,6 @@ void gli_delete_window(window_t *win);
 
 
 struct glk_stream_struct {
-    glui32 magicnum;
     glui32 rock;
 
     int tag;			/* for serialization */
@@ -412,7 +395,6 @@ struct glk_stream_struct {
     FILE *file;
     char *filename; /* Only needed for serialization */
     glui32 lastop; /* 0, filemode_Write, or filemode_Read */
-    //int textfile;
 
     /* for strtype_Resource */
     int isbinary;
@@ -436,7 +418,6 @@ struct glk_stream_struct {
 };
 
 struct glk_fileref_struct {
-    glui32 magicnum;
     glui32 rock;
 
     int tag;			/* for serialization */
@@ -454,7 +435,6 @@ struct glk_fileref_struct {
 extern void gli_initialize_misc(void);
 
 extern window_t *gli_new_window(glui32 type, glui32 rock); /* does not touch hierarchy */
-//extern window_t *gli_new_window(glui32 rock);
 
 extern void gli_delete_window(window_t *win);
 extern window_t *gli_window_get(void);
@@ -463,6 +443,10 @@ extern void gli_window_set_root(window_t *win);
 
 /* For autorestore */
 
+/* Bump this whenever the autosave archive changes incompatibly (a field
+   added, removed or reinterpreted). Older autosaves are then discarded
+   instead of misread. The app writes the same number into its GUI
+   autosave, so a bump discards both. Never rename an existing plist key. */
 #define AUTOSAVE_SERIAL_VERSION (10)
 
 extern void gli_replace_window_list(window_t *win);
@@ -484,7 +468,6 @@ extern void gli_sanity_check_filerefs(void);
 extern stream_t *gli_new_stream(int type, int readable, int writable,
                                 glui32 rock);
 extern void gli_delete_stream(stream_t *str);
-//extern strid_t gli_stream_open_pathname(char *pathname, int textmode, glui32 rock);
 extern strid_t gli_stream_open_pathname(char *pathname, int writemode,
                         int textmode, glui32 rock);
 extern void gli_stream_set_current(stream_t *str);
@@ -508,7 +491,6 @@ void gli_stop_all_sound_channels(void);
 
 struct glk_schannel_struct
 {
-    glui32 magicnum;
     glui32 rock;
 
     int peer;

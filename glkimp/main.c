@@ -1,10 +1,6 @@
 #include "glkimp.h"
 #include "fileref.h"
 
-
-int gli_screenwidth = 80;
-int gli_screenheight = 24;
-
 #if GIDEBUG_LIBRARY_SUPPORT
 int gli_debugger = FALSE;
 #endif /* GIDEBUG_LIBRARY_SUPPORT */

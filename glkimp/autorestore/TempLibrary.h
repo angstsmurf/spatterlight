@@ -23,7 +23,6 @@ All windows, streams, filerefs, and schannels
 Identity of the root window
 Identity of the current selected output stream */
 
-//@property CGRect bounds;
 @property NSMutableArray *windows;
 @property NSMutableArray *streams;
 @property NSMutableArray *filerefs;
@@ -37,7 +36,6 @@ Identity of the current selected output stream */
 
 @property (nonatomic, retain) id extraData;
 
-//@property id specialrequest;
 
 + (void) setExtraArchiveHook:(void (*)(TempLibrary *, NSCoder *))hook;
 + (void) setExtraUnarchiveHook:(void (*)(TempLibrary *, NSCoder *))hook;
@@ -45,6 +43,7 @@ Identity of the current selected output stream */
 - (TempWindow *) windowForTag:(glui32)tag;
 - (TempStream *) streamForTag:(glui32)tag;
 - (TempFileRef *) filerefForTag:(glui32)tag;
+- (TempSChannel *) schannelForTag:(glui32)tag;
 
 @property (readonly, strong) TempWindow *rootWindow;
 @property (readonly, strong) TempStream *currentStream;

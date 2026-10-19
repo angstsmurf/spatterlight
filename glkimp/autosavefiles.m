@@ -245,27 +245,33 @@ TempLibrary *gli_autosave_load_library(const char *gamepath,
 {
     if (!gli_enable_autosave)
         return nil;
-    NSString *dirname = autosave_dirname(gamepath);
-    if (!dirname)
-        return nil;
-    NSString *libfile = [dirname stringByAppendingPathComponent:@"autosave.plist"];
-
-    NSError *error = nil;
     TempLibrary *newlib = nil;
-    NSData *libdata = [NSData dataWithContentsOfFile:libfile options:0 error:&error];
-    if (libdata) {
-        NSKeyedUnarchiver *unarchiver =
-            [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&error];
-        if (unarchiver) {
-            unarchiver.requiresSecureCoding = NO;
-            [TempLibrary setExtraUnarchiveHook:unarchive_hook];
-            newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey
-                                                                     error:&error];
-            [TempLibrary setExtraUnarchiveHook:NULL];
-            [unarchiver finishDecoding];
+    @autoreleasepool {
+        NSString *dirname = autosave_dirname(gamepath);
+        if (!dirname)
+            return nil;
+        NSString *libfile = [dirname stringByAppendingPathComponent:@"autosave.plist"];
+
+        NSError *error = nil;
+        NSData *libdata = [NSData dataWithContentsOfFile:libfile options:0 error:&error];
+        if (libdata) {
+            NSKeyedUnarchiver *unarchiver =
+                [[NSKeyedUnarchiver alloc] initForReadingFromData:libdata error:&error];
+            if (unarchiver) {
+                /* The Temp* classes adopt NSSecureCoding for the typed
+                 * decode calls, but the terps' extra-archive hooks store
+                 * arbitrary objects, so the archive is not read as secure
+                 * coding. */
+                unarchiver.requiresSecureCoding = NO;
+                [TempLibrary setExtraUnarchiveHook:unarchive_hook];
+                newlib = (TempLibrary *)[unarchiver decodeTopLevelObjectForKey:NSKeyedArchiveRootObjectKey
+                                                                         error:&error];
+                [TempLibrary setExtraUnarchiveHook:NULL];
+                [unarchiver finishDecoding];
+            }
         }
+        if (!newlib)
+            NSLog(@"autorestore: could not restore library state: %@", error);
     }
-    if (!newlib)
-        NSLog(@"autorestore: could not restore library state: %@", error);
     return newlib;
 }

@@ -7,16 +7,8 @@
 
 @implementation TempLibrary
 
-//static TempLibrary *singleton = nil;
 static void (*extra_archive_hook)(TempLibrary *, NSCoder *) = nil;
 static void (*extra_unarchive_hook)(TempLibrary *, NSCoder *) = nil;
-
-static window_t *temp_windowlist = NULL; /* linked list of all windows */
-
-static stream_t *temp_streamlist = NULL; /* linked list of all streams */
-
-static fileref_t *temp_filereflist = NULL;  /* linked list of all filerefs */
-static channel_t *temp_channellist = NULL;  /* linked list of all sound channels */
 
 + (BOOL) supportsSecureCoding {
     return YES;
@@ -56,18 +48,17 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
         if (root)
             _rootwintag = root->tag;
         else {
-            root = glk_window_iterate(NULL, NULL);
-            do {
+            /* Fall back to the first window without a parent. There may be
+               no windows at all, e.g. between glk_window_close and the next
+               glk_window_open. */
+            for (root = glk_window_iterate(NULL, NULL); root; root = glk_window_iterate(root, NULL)) {
                 if (root->parent == NULL) {
                     _rootwintag = root->tag;
                     break;
                 }
-            } while ((root=glk_window_iterate(root, NULL)) != NULL);
-            if (!root) {
-                NSLog(@"TempLibrary init: Error: no root window!");
             }
-
-            //NSLog(@"TempLibrary init: Setting root to first window in list!");
+            if (!root && _windows.count)
+                NSLog(@"TempLibrary init: Error: no root window!");
         }
 
         strid_t current = glk_stream_get_current();
@@ -105,9 +96,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     _schannels = [decoder decodeObjectOfClass:[NSMutableArray class]  forKey:@"schannels"];
     if (!_schannels)
         NSLog(@"TempLibrary initWithCoder: No sound channels in archive file!");
-
-	// will be zero if no timerinterval was saved
-	// timerinterval = [decoder decodeInt32ForKey:@"timerinterval"];
 
 	// skip the calendar and filemanager fields; they're not needed
 
@@ -148,7 +136,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 }
 
 - (void) encodeWithCoder:(NSCoder *)encoder {
-//    NSLog(@"### TempLibrary: encoding with %ld windows, %ld streams, %ld filerefs, %ld sound channels", (unsigned long)_windows.count, (unsigned long)_streams.count, (unsigned long)_filerefs.count, (unsigned long)_schannels.count);
     int serial_version = AUTOSAVE_SERIAL_VERSION;
 	[encoder encodeInt:serial_version forKey:@"version"];
 
@@ -192,7 +179,6 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	for (TempStream *str in _streams) {
 		if (str.tag == tag)
         {
-            //NSLog(@"streamForTag:found stream object with a tag of %d (%@)",tag, str);
 			return str;
         }
 	}
@@ -243,96 +229,41 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 	return nil;
 }
 
-- (void) clearForRestart {
-
-    window_t *rootwin = glk_window_get_root();
-
-    if (rootwin) {
-        // This takes care of all the windows
-        glk_window_close(rootwin, NULL);
-    }
-    stream_t *str = glk_stream_iterate(NULL, NULL);
-
-    while (str) {
-        glk_stream_close(str, NULL);
-        str = glk_stream_iterate(NULL, NULL);
-    }
-
-    fileref_t *fref = glk_fileref_iterate(NULL, NULL);
-
-    while (fref) {
-        glk_fileref_destroy(fref);
-        fref = glk_fileref_iterate(NULL, NULL);
-    }
-
-    channel_t *chan = glk_schannel_iterate(NULL, NULL);
-
-    while (chan) {
-        glk_schannel_destroy(chan);
-        chan = glk_schannel_iterate(NULL, NULL);
-    }
-
-    glk_request_timer_events(0);
-
-    //    NSAssert(windows.count == 0 && streams.count == 0 && filerefs.count == 0, @"clearForRestart: unclosed objects remain!");
-    //    NSAssert(currentstr == nil && rootwin == nil, @"clearForRestart: root references remain!");
-}
+/* Rebuild a C object list from the archived objects, which are stored in
+   list order: start from the tail (the last one) and follow the prev tags
+   back to the head. The structs are zeroed, as copyToCStruct does not set
+   every field. */
+#define REBUILD_C_LIST(objctype, ctype, array, lookup, head) do { \
+    objctype *tempobj = (array).lastObject;                       \
+    ctype *cobj = NULL;                                           \
+    while (tempobj) {                                             \
+        ctype *newobj = calloc(1, sizeof(ctype));                 \
+        newobj->next = cobj;                                      \
+        if (cobj)                                                 \
+            cobj->prev = newobj;                                  \
+        cobj = newobj;                                            \
+        [tempobj copyToCStruct:cobj];                             \
+        tempobj = [self lookup:tempobj.prev];                     \
+    }                                                             \
+    (head) = cobj;                                                \
+} while (0)
 
 - (void) updateFromLibrary {
+    window_t *windowlist;
+    stream_t *streamlist;
+    fileref_t *filereflist;
+    channel_t *channellist;
 
-    //	self.specialrequest = otherlib.specialrequest;
-
-    TempWindow *tempwin = _windows.lastObject;
-    window_t *tempCwin = NULL;
-
-	if (tempwin) {
-        tempCwin = (window_t *)malloc(sizeof(window_t));
-        tempCwin->next = NULL;
-
-        [tempwin copyToCStruct:tempCwin];
-
-        tempwin = [self windowForTag:tempwin.prev];
-
-        while (tempwin) {
-            tempCwin->prev = (window_t *)malloc(sizeof(window_t));
-            tempCwin->prev->next = tempCwin;
-            tempCwin = tempCwin->prev;
-
-            [tempwin copyToCStruct:tempCwin];
-            tempwin = [self windowForTag:tempwin.prev];
-        }
-
-        tempCwin->prev = NULL;
-        temp_windowlist = tempCwin;
-
-        gli_replace_window_list(temp_windowlist);
+    REBUILD_C_LIST(TempWindow, window_t, _windows, windowForTag, windowlist);
+    if (windowlist) {
+        gli_replace_window_list(windowlist);
         if (_rootwintag)
             gli_window_set_root(gli_window_for_tag(_rootwintag));
     }
 
-    TempStream *tempstream = _streams.lastObject;
-    stream_t *tempCstream = NULL;
-
-	if (tempstream) {
-        tempCstream = (stream_t *)malloc(sizeof(stream_t));
-        tempCstream->next = NULL;
-        [tempstream copyToCStruct:tempCstream];
-
-        tempstream = [self streamForTag:tempstream.prev];
-
-        while (tempstream) {
-            tempCstream->prev = (stream_t *)malloc(sizeof(stream_t));
-            tempCstream->prev->next = tempCstream;
-
-            tempCstream = tempCstream->prev;
-            [tempstream copyToCStruct:tempCstream];
-
-            tempstream = [self streamForTag:tempstream.prev];
-        }
-
-        tempCstream->prev = NULL;
-        temp_streamlist = tempCstream;
-        gli_replace_stream_list(temp_streamlist);
+    REBUILD_C_LIST(TempStream, stream_t, _streams, streamForTag, streamlist);
+    if (streamlist) {
+        gli_replace_stream_list(streamlist);
         /* Restore current output stream */
         if (_currentstrtag)
             gli_stream_set_current(gli_stream_for_tag(_currentstrtag));
@@ -342,63 +273,17 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
     if (!glk_stream_get_current())
         NSLog(@"ERROR: TempLibrary updateFromLibrary: could not update current stream!");
 
-    TempFileRef *tempfileref = _filerefs.lastObject;
-    fileref_t *tempCfileref = NULL;
+    REBUILD_C_LIST(TempFileRef, fileref_t, _filerefs, filerefForTag, filereflist);
+    if (filereflist)
+        gli_replace_fileref_list(filereflist);
 
-	if (tempfileref) {
-        tempCfileref = (fileref_t *)malloc(sizeof(fileref_t));
-        tempCfileref->next = NULL;
-        [tempfileref copyToCStruct:tempCfileref];
+    REBUILD_C_LIST(TempSChannel, channel_t, _schannels, schannelForTag, channellist);
+    if (channellist)
+        gli_replace_schan_list(channellist);
 
-        tempfileref = [self filerefForTag:tempfileref.prev];
-
-        while (tempfileref) {
-            tempCfileref->prev = (fileref_t *)malloc(sizeof(fileref_t));
-            tempCfileref->prev->next = tempCfileref;
-
-            tempCfileref = tempCfileref->prev;
-            [tempfileref copyToCStruct:tempCfileref];
-
-            tempfileref = [self filerefForTag:tempfileref.prev];
-        }
-
-        tempCfileref->prev = NULL;
-        temp_filereflist = tempCfileref;
-        gli_replace_fileref_list(temp_filereflist);
-    }
-
-    TempSChannel *tempchannel = _schannels.lastObject;
-    channel_t *tempCchannel = NULL;
-
-	if (tempchannel) {
-        tempCchannel = (channel_t *)malloc(sizeof(channel_t));
-        tempCchannel->next = NULL;
-        [tempchannel copyToCStruct:tempCchannel];
-
-        tempchannel = [self schannelForTag:tempchannel.prev];
-
-        while (tempchannel) {
-            tempCchannel->prev = (channel_t *)malloc(sizeof(channel_t));
-            tempCchannel->prev->next = tempCchannel;
-
-            tempCchannel = tempCchannel->prev;
-            [tempchannel copyToCStruct:tempCchannel];
-
-            tempchannel = [self schannelForTag:tempchannel.prev];
-        }
-
-        tempCchannel->prev = NULL;
-        temp_channellist = tempCchannel;
-
-        gli_replace_schan_list(temp_channellist);
-    }
-
-    tempCwin = temp_windowlist;
-    while (tempCwin) {
-        tempwin = [self windowForTag:tempCwin->tag];
-        [tempwin finalizeCStruct:tempCwin]; /* Now that we have created all objects, we can set pointers to them */
-        tempCwin = tempCwin->next;
-    }
+    /* Now that we have created all objects, we can set pointers to them */
+    for (window_t *tempCwin = windowlist; tempCwin; tempCwin = tempCwin->next)
+        [[self windowForTag:tempCwin->tag] finalizeCStruct:tempCwin];
 
     NSMutableArray *failedstreams = [NSMutableArray arrayWithCapacity:4];
     for (TempStream *str in _streams) {
@@ -411,7 +296,7 @@ static channel_t *temp_channellist = NULL;  /* linked list of all sound channels
 
     for (TempStream *str in failedstreams) {
         NSLog(@"### stream %d failed to reopen; closing it", str.tag);
-        tempCstream = gli_stream_for_tag(str.tag);
+        stream_t *tempCstream = gli_stream_for_tag(str.tag);
         if (tempCstream)
         {
             tempCstream->file = NULL;

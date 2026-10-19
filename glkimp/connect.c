@@ -5,7 +5,6 @@
 #include <errno.h>
 #include <math.h>
 
-//#define DEBUG
 
 #define PBUFSIZE (GLKBUFSIZE / sizeof(unsigned short))
 #define RBUFSIZE (GLKBUFSIZE / sizeof(struct fillrect))
@@ -16,8 +15,9 @@ enum { BUFNONE, BUFPRINT, BUFRECT };
 
 static struct message wmsg;
 /* One byte more than the largest payload, so readmsg() can always
-   NUL-terminate what it received (the prompt replies are read as C strings). */
-static char wbuf[GLKBUFSIZE + 1];
+   NUL-terminate what it received (the prompt replies are read as C strings).
+   Aligned because the pointers below view it as uint16_t and structs. */
+static char wbuf[GLKBUFSIZE + 1] __attribute__((aligned(16)));
 static uint16_t *pbuf = (void*)wbuf;
 
 /* These structs are used to transmit information that
@@ -142,9 +142,6 @@ void sendmsg_glk(int cmd, int a1, int a2, int a3, int a4, int a5, size_t len, co
     msgbuf.a5 = a5;
     msgbuf.len = len;
 
-#ifdef DEBUG
-        //fprintf(stderr, "SENDMSG %d len=%d\n", cmd, len);
-#endif
     if (!write_fully(sendfd, &msgbuf, sizeof msgbuf))
         protocol_error("write header");
 
@@ -203,7 +200,6 @@ void win_flush(void)
     if (buffering == BUFNONE || bufferlen == 0)
         return;
 
-    //	fprintf(stderr, "win_flush buf=%d len=%d win=%d\n", buffering, bufferlen, bufferwin);
 
     if (buffering == BUFPRINT)
     {
@@ -310,7 +306,6 @@ void wintitle(void)
 
 void win_fillrect(int name, glui32 color, int x, int y, int w, int h)
 {
-//    fprintf(stderr, "win_fillrect name %d color %d x %d y %d w %d h %d\n", name, color, x, y, w, h);
     if (buffering == BUFPRINT)
         win_flush();
 
@@ -369,9 +364,6 @@ int win_newwin(int type)
 {
     int expected_peer;
     win_flush();
-
-//    if (type == wintype_Graphics && !gli_enable_graphics)
-//        return -1;
 
     /* We calculate which peer id this new window should get,
      i.e. the first integer (including 0) that is not used by a window already.
@@ -802,18 +794,14 @@ void win_clearhint(int wintype, int styl, int hint)
 {
     win_flush();
     sendmsg(CLEARHINT, wintype, styl, hint, 0, 0, 0, NULL);
-#ifdef DEBUG
-    fprintf(stderr, "sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
-#endif
+    gli_debug_log("sent CLEARHINT type:%d styl:%d hint:%d\n",wintype, styl, hint);
 }
 
 int win_style_measure(int name, int styl, int hint, glui32 *result)
 {
     win_flush();
     sendmsg(STYLEMEASURE, name, styl, hint, 0, 0, 0, NULL);
-#ifdef DEBUG
-    fprintf(stderr, "sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
-#endif
+    gli_debug_log("sent STYLEMEASURE name:%d styl:%d hint:%d\n",name, styl, hint);
     readmsg(&wmsg, wbuf);
     *result = wmsg.a2;
     return wmsg.a1;  /* TRUE or FALSE */
@@ -821,7 +809,6 @@ int win_style_measure(int name, int styl, int hint, glui32 *result)
 
 void win_setbgnd(int name, glui32 color)
 {
-//    fprintf(stderr, "win_setbgnd in win %d:%06x\n", name, color);
     win_flush();
     sendmsg(SETBGND, name, (int)color, 0, 0, 0, 0, NULL);
 }
@@ -834,9 +821,7 @@ void win_refresh(int name, float xscale, float yscale)
 
 void win_sound_notify(int snd, int notify)
 {
-#ifdef DEBUG
-    fprintf(stderr, "sent EVTSOUND snd:%d notify:%d\n",snd, notify);
-#endif
+    gli_debug_log("sent EVTSOUND snd:%d notify:%d\n",snd, notify);
     win_flush();
     sendmsg(EVTSOUND, 0, snd, notify, 0, 0, 0, NULL);
 }
@@ -944,7 +929,7 @@ void win_testresult(int result)
         cmd = OKAY;
     else
         cmd = ERROR;
-    fprintf(stderr, "win_testresult: Sending result %d\n", cmd);
+    gli_debug_log("win_testresult: Sending result %d\n", cmd);
     sendmsg_glk(cmd, 0, 0, 0, 0, 0, 0, NULL);
 }
 
@@ -961,9 +946,7 @@ again:
     switch (wmsg.cmd)
     {
         case OKAY:
-#ifdef DEBUG
-            fprintf(stderr, "win_select: no event...?!\n");
-#endif
+            gli_debug_log("win_select: no event...?!\n");
             break;
 
         case EVTPREFS:
@@ -976,10 +959,7 @@ again:
             goto again;
 
         case EVTARRANGE:
-#ifdef DEBUG
-            fprintf(stderr, "win_select: arrange event\n");
-            fprintf(stderr, "gscreenw: %u gscreenh: %u\n", settings->screen_width, settings->screen_height);
-#endif
+            gli_debug_log("win_select: arrange event, gscreenw: %u gscreenh: %u\n", settings->screen_width, settings->screen_height);
             /* + 5 for default line fragment padding */
             if (gscreenw == settings->screen_width &&
                 gscreenh == settings->screen_height &&
@@ -1055,9 +1035,7 @@ again:
             break;
 
         case EVTLINE:
-#ifdef DEBUG
-            fprintf(stderr, "win_select: received line input event for win peer %d\n", wmsg.a1);
-#endif
+            gli_debug_log("win_select: received line input event for win peer %d\n", wmsg.a1);
 
             event->win = gli_window_for_peer(wmsg.a1);
             if (event->win == NULL || !event->win->line_request || event->win->line.buf == NULL)
@@ -1109,13 +1087,15 @@ again:
             break;
 
         case EVTKEY:
-#ifdef DEBUG
-            fprintf(stderr, "win_select: received key input event for win peer %d\n", wmsg.a1);
-#endif
+            gli_debug_log("win_select: received key input event for win peer %d\n", wmsg.a1);
             event->type = evtype_CharInput;
             event->win = gli_window_for_peer(wmsg.a1);
             if (event->win == NULL)
-                break;
+            {
+                /* As for line input: the window closed in the meantime */
+                fprintf(stderr, "win_select: key input for unknown window %d\n", wmsg.a1);
+                goto again;
+            }
             event->val1 = wmsg.a2;
             if (!event->win->char_request_uni)
             {
@@ -1128,58 +1108,49 @@ again:
             break;
 
         case EVTMOUSE:
-#ifdef DEBUG
-            fprintf(stderr, "win_select: received mouse input event for win peer %d\n", wmsg.a1);
-#endif
+            gli_debug_log("win_select: received mouse input event for win peer %d\n", wmsg.a1);
             event->type = evtype_MouseInput;
             event->win = gli_window_for_peer(wmsg.a1);
-            if (event->win == NULL) {
-                fprintf(stderr, "ERROR: Mouse request from invalid window!\n");
+            if (event->win == NULL)
+            {
+                fprintf(stderr, "win_select: mouse input for unknown window %d\n", wmsg.a1);
                 goto again;
-            } else
-                event->win->mouse_request = FALSE;
+            }
+            event->win->mouse_request = FALSE;
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
             break;
         case EVTTIMER:
-#ifdef DEBUG
-            fprintf(stderr, "timer event\n");
-#endif
+            gli_debug_log("timer event\n");
             event->type = evtype_Timer;
             break;
         case EVTSOUND:
-#ifdef DEBUG
-            fprintf(stderr, "sound notification event\n");
-#endif
+            gli_debug_log("sound notification event\n");
             event->type = evtype_SoundNotify;
             event->val1 = wmsg.a2;
             event->val2 = wmsg.a3;
             break;
         case EVTHYPER:
-#ifdef DEBUG
-            fprintf(stderr, "hyperlink event with val1 = %d\n",  wmsg.a2);
-#endif
+            gli_debug_log("hyperlink event with val1 = %d\n",  wmsg.a2);
             event->type = evtype_Hyperlink;
             event->win = gli_window_for_peer(wmsg.a1);
             if (event->win == NULL)
             {
-                fprintf(stderr, "Error: window %d not found!\n",  wmsg.a1);
-                break;
+                fprintf(stderr, "win_select: hyperlink for unknown window %d\n", wmsg.a1);
+                goto again;
             }
             event->val1 = wmsg.a2;
             event->win->hyper_request = FALSE;
             break;
 
 		case EVTVOLUME:
-#ifdef DEBUG
-            fprintf(stderr, "volume notification event");
-#endif
+            gli_debug_log("volume notification event");
             event->type = evtype_VolumeNotify;
             event->val2 = wmsg.a3;
             break;
 
         case EVTTEST:
-            fprintf(stderr, "win_select: received event EVTTEST\n");
+            gli_debug_log("win_select: received event EVTTEST\n");
             event->type = EVTTEST;
             break;
 
@@ -1198,9 +1169,7 @@ again:
             break;
 
         default:
-#ifdef DEBUG
-            fprintf(stderr, "unknown event type: %d\n", wmsg.cmd);
-#endif
+            gli_debug_log("unknown event type: %d\n", wmsg.cmd);
             break;
     }
     lasteventtype = (event ? event->type : evtype_None);

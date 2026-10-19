@@ -1,0 +1,551 @@
+mem-narrow get_char: 48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74 | pos 30
+  close: read 30 written 0
+mem-narrow get_char_uni: 48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74 | pos 30
+  close: read 30 written 0
+mem-narrow get_buffer(1): [48] [65] [6c] [6c] [6f] [a] [57] [e9] [72] [6c] [64] [2c] [20] [6c] [6f] [6e] [67] [65] [72] [20] [6c] [69] [6e] [65] [a] [a] [6c] [61] [73] [74]
+  close: read 30 written 0
+mem-narrow get_buffer_uni(1): [48] [65] [6c] [6c] [6f] [a] [57] [e9] [72] [6c] [64] [2c] [20] [6c] [6f] [6e] [67] [65] [72] [20] [6c] [69] [6e] [65] [a] [a] [6c] [61] [73] [74]
+  close: read 30 written 0
+mem-narrow get_buffer(2): [48 65] [6c 6c] [6f a] [57 e9] [72 6c] [64 2c] [20 6c] [6f 6e] [67 65] [72 20] [6c 69] [6e 65] [a a] [6c 61] [73 74]
+  close: read 30 written 0
+mem-narrow get_buffer_uni(2): [48 65] [6c 6c] [6f a] [57 e9] [72 6c] [64 2c] [20 6c] [6f 6e] [67 65] [72 20] [6c 69] [6e 65] [a a] [6c 61] [73 74]
+  close: read 30 written 0
+mem-narrow get_buffer(3): [48 65 6c] [6c 6f a] [57 e9 72] [6c 64 2c] [20 6c 6f] [6e 67 65] [72 20 6c] [69 6e 65] [a a 6c] [61 73 74]
+  close: read 30 written 0
+mem-narrow get_buffer_uni(3): [48 65 6c] [6c 6f a] [57 e9 72] [6c 64 2c] [20 6c 6f] [6e 67 65] [72 20 6c] [69 6e 65] [a a 6c] [61 73 74]
+  close: read 30 written 0
+mem-narrow get_buffer(5): [48 65 6c 6c 6f] [a 57 e9 72 6c] [64 2c 20 6c 6f] [6e 67 65 72 20] [6c 69 6e 65 a] [a 6c 61 73 74]
+  close: read 30 written 0
+mem-narrow get_buffer_uni(5): [48 65 6c 6c 6f] [a 57 e9 72 6c] [64 2c 20 6c 6f] [6e 67 65 72 20] [6c 69 6e 65 a] [a 6c 61 73 74]
+  close: read 30 written 0
+mem-narrow get_buffer(64): [48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74]
+  close: read 30 written 0
+mem-narrow get_buffer_uni(64): [48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74]
+  close: read 30 written 0
+mem-narrow get_line(1):
+  close: read 0 written 0
+mem-narrow get_line_uni(1):
+  close: read 0 written 0
+mem-narrow get_line(2): [48|0] [65|0] [6c|0] [6c|0] [6f|0] [a|0] [57|0] [e9|0] [72|0] [6c|0] [64|0] [2c|0] [20|0] [6c|0] [6f|0] [6e|0] [67|0] [65|0] [72|0] [20|0] [6c|0] [69|0] [6e|0] [65|0] [a|0] [a|0] [6c|0] [61|0] [73|0] [74|0]
+  close: read 30 written 0
+mem-narrow get_line_uni(2): [48|0] [65|0] [6c|0] [6c|0] [6f|0] [a|0] [57|0] [e9|0] [72|0] [6c|0] [64|0] [2c|0] [20|0] [6c|0] [6f|0] [6e|0] [67|0] [65|0] [72|0] [20|0] [6c|0] [69|0] [6e|0] [65|0] [a|0] [a|0] [6c|0] [61|0] [73|0] [74|0]
+  close: read 30 written 0
+mem-narrow get_line(4): [48 65 6c|0] [6c 6f a|0] [57 e9 72|0] [6c 64 2c|0] [20 6c 6f|0] [6e 67 65|0] [72 20 6c|0] [69 6e 65|0] [a|0] [a|0] [6c 61 73|0] [74|0]
+  close: read 30 written 0
+mem-narrow get_line_uni(4): [48 65 6c|0] [6c 6f a|0] [57 e9 72|0] [6c 64 2c|0] [20 6c 6f|0] [6e 67 65|0] [72 20 6c|0] [69 6e 65|0] [a|0] [a|0] [6c 61 73|0] [74|0]
+  close: read 30 written 0
+mem-narrow get_line(64): [48 65 6c 6c 6f a|0] [57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a|0] [a|0] [6c 61 73 74|0]
+  close: read 30 written 0
+mem-narrow get_line_uni(64): [48 65 6c 6c 6f a|0] [57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a|0] [a|0] [6c 61 73 74|0]
+  close: read 30 written 0
+mem-uni get_char: 41 e9 a 3f 3f a 7a | pos 7
+  close: read 7 written 0
+mem-uni get_char_uni: 41 e9 a 20ac 1f600 a 7a | pos 7
+  close: read 7 written 0
+mem-uni get_buffer(1): [41] [e9] [a] [3f] [3f] [a] [7a]
+  close: read 7 written 0
+mem-uni get_buffer_uni(1): [41] [e9] [a] [20ac] [1f600] [a] [7a]
+  close: read 7 written 0
+mem-uni get_buffer(2): [41 e9] [a 3f] [3f a] [7a]
+  close: read 7 written 0
+mem-uni get_buffer_uni(2): [41 e9] [a 20ac] [1f600 a] [7a]
+  close: read 7 written 0
+mem-uni get_buffer(3): [41 e9 a] [3f 3f a] [7a]
+  close: read 7 written 0
+mem-uni get_buffer_uni(3): [41 e9 a] [20ac 1f600 a] [7a]
+  close: read 7 written 0
+mem-uni get_buffer(5): [41 e9 a 3f 3f] [a 7a]
+  close: read 7 written 0
+mem-uni get_buffer_uni(5): [41 e9 a 20ac 1f600] [a 7a]
+  close: read 7 written 0
+mem-uni get_buffer(64): [41 e9 a 3f 3f a 7a]
+  close: read 7 written 0
+mem-uni get_buffer_uni(64): [41 e9 a 20ac 1f600 a 7a]
+  close: read 7 written 0
+mem-uni get_line(1):
+  close: read 0 written 0
+mem-uni get_line_uni(1):
+  close: read 0 written 0
+mem-uni get_line(2): [41|0] [e9|0] [a|0] [3f|0] [3f|0] [a|0] [7a|0]
+  close: read 7 written 0
+mem-uni get_line_uni(2): [41|0] [e9|0] [a|0] [20ac|0] [1f600|0] [a|0] [7a|0]
+  close: read 7 written 0
+mem-uni get_line(4): [41 e9 a|0] [3f 3f a|0] [7a|0]
+  close: read 7 written 0
+mem-uni get_line_uni(4): [41 e9 a|0] [20ac 1f600 a|0] [7a|0]
+  close: read 7 written 0
+mem-uni get_line(64): [41 e9 a|0] [3f 3f a|0] [7a|0]
+  close: read 7 written 0
+mem-uni get_line_uni(64): [41 e9 a|0] [20ac 1f600 a|0] [7a|0]
+  close: read 7 written 0
+file-narrow-text get_char: 48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74 | pos 30
+  close: read 30 written 0
+file-narrow-text get_char_uni: 48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74 | pos 30
+  close: read 30 written 0
+file-narrow-text get_buffer(1): [48] [65] [6c] [6c] [6f] [a] [57] [e9] [72] [6c] [64] [2c] [20] [6c] [6f] [6e] [67] [65] [72] [20] [6c] [69] [6e] [65] [a] [a] [6c] [61] [73] [74]
+  close: read 30 written 0
+file-narrow-text get_buffer_uni(1): [48] [65] [6c] [6c] [6f] [a] [57] [e9] [72] [6c] [64] [2c] [20] [6c] [6f] [6e] [67] [65] [72] [20] [6c] [69] [6e] [65] [a] [a] [6c] [61] [73] [74]
+  close: read 30 written 0
+file-narrow-text get_buffer(2): [48 65] [6c 6c] [6f a] [57 e9] [72 6c] [64 2c] [20 6c] [6f 6e] [67 65] [72 20] [6c 69] [6e 65] [a a] [6c 61] [73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer_uni(2): [48 65] [6c 6c] [6f a] [57 e9] [72 6c] [64 2c] [20 6c] [6f 6e] [67 65] [72 20] [6c 69] [6e 65] [a a] [6c 61] [73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer(3): [48 65 6c] [6c 6f a] [57 e9 72] [6c 64 2c] [20 6c 6f] [6e 67 65] [72 20 6c] [69 6e 65] [a a 6c] [61 73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer_uni(3): [48 65 6c] [6c 6f a] [57 e9 72] [6c 64 2c] [20 6c 6f] [6e 67 65] [72 20 6c] [69 6e 65] [a a 6c] [61 73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer(5): [48 65 6c 6c 6f] [a 57 e9 72 6c] [64 2c 20 6c 6f] [6e 67 65 72 20] [6c 69 6e 65 a] [a 6c 61 73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer_uni(5): [48 65 6c 6c 6f] [a 57 e9 72 6c] [64 2c 20 6c 6f] [6e 67 65 72 20] [6c 69 6e 65 a] [a 6c 61 73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer(64): [48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74]
+  close: read 30 written 0
+file-narrow-text get_buffer_uni(64): [48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74]
+  close: read 30 written 0
+file-narrow-text get_line(1):
+  close: read 0 written 0
+file-narrow-text get_line_uni(1):
+  close: read 0 written 0
+file-narrow-text get_line(2): [48|0] [65|0] [6c|0] [6c|0] [6f|0] [a|0] [57|0] [e9|0] [72|0] [6c|0] [64|0] [2c|0] [20|0] [6c|0] [6f|0] [6e|0] [67|0] [65|0] [72|0] [20|0] [6c|0] [69|0] [6e|0] [65|0] [a|0] [a|0] [6c|0] [61|0] [73|0] [74|0]
+  close: read 30 written 0
+file-narrow-text get_line_uni(2): [48|0] [65|0] [6c|0] [6c|0] [6f|0] [a|0] [57|0] [e9|0] [72|0] [6c|0] [64|0] [2c|0] [20|0] [6c|0] [6f|0] [6e|0] [67|0] [65|0] [72|0] [20|0] [6c|0] [69|0] [6e|0] [65|0] [a|0] [a|0] [6c|0] [61|0] [73|0] [74|0]
+  close: read 30 written 0
+file-narrow-text get_line(4): [48 65 6c|0] [6c 6f a|0] [57 e9 72|0] [6c 64 2c|0] [20 6c 6f|0] [6e 67 65|0] [72 20 6c|0] [69 6e 65|0] [a|0] [a|0] [6c 61 73|0] [74|0]
+  close: read 30 written 0
+file-narrow-text get_line_uni(4): [48 65 6c|0] [6c 6f a|0] [57 e9 72|0] [6c 64 2c|0] [20 6c 6f|0] [6e 67 65|0] [72 20 6c|0] [69 6e 65|0] [a|0] [a|0] [6c 61 73|0] [74|0]
+  close: read 30 written 0
+file-narrow-text get_line(64): [48 65 6c 6c 6f a|0] [57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a|0] [a|0] [6c 61 73 74|0]
+  close: read 30 written 0
+file-narrow-text get_line_uni(64): [48 65 6c 6c 6f a|0] [57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a|0] [a|0] [6c 61 73 74|0]
+  close: read 30 written 0
+file-narrow-binary get_char: 0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0 | pos 30
+  close: read 30 written 0
+file-narrow-binary get_char_uni: 0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0 | pos 30
+  close: read 30 written 0
+file-narrow-binary get_buffer(1): [0] [0] [0] [48] [0] [0] [0] [a] [0] [0] [0] [e9] [0] [0] [20] [ac] [0] [1] [f6] [0] [0] [0] [0] [a] [0] [0] [0] [5a] [0] [0]
+  close: read 30 written 0
+file-narrow-binary get_buffer_uni(1): [0] [0] [0] [48] [0] [0] [0] [a] [0] [0] [0] [e9] [0] [0] [20] [ac] [0] [1] [f6] [0] [0] [0] [0] [a] [0] [0] [0] [5a] [0] [0]
+  close: read 30 written 0
+file-narrow-binary get_buffer(2): [0 0] [0 48] [0 0] [0 a] [0 0] [0 e9] [0 0] [20 ac] [0 1] [f6 0] [0 0] [0 a] [0 0] [0 5a] [0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer_uni(2): [0 0] [0 48] [0 0] [0 a] [0 0] [0 e9] [0 0] [20 ac] [0 1] [f6 0] [0 0] [0 a] [0 0] [0 5a] [0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer(3): [0 0 0] [48 0 0] [0 a 0] [0 0 e9] [0 0 20] [ac 0 1] [f6 0 0] [0 0 a] [0 0 0] [5a 0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer_uni(3): [0 0 0] [48 0 0] [0 a 0] [0 0 e9] [0 0 20] [ac 0 1] [f6 0 0] [0 0 a] [0 0 0] [5a 0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer(5): [0 0 0 48 0] [0 0 a 0 0] [0 e9 0 0 20] [ac 0 1 f6 0] [0 0 0 a 0] [0 0 5a 0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer_uni(5): [0 0 0 48 0] [0 0 a 0 0] [0 e9 0 0 20] [ac 0 1 f6 0] [0 0 0 a 0] [0 0 5a 0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer(64): [0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0]
+  close: read 30 written 0
+file-narrow-binary get_buffer_uni(64): [0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0]
+  close: read 30 written 0
+file-narrow-binary get_line(1):
+  close: read 0 written 0
+file-narrow-binary get_line_uni(1):
+  close: read 0 written 0
+file-narrow-binary get_line(2):
+  close: read 0 written 0
+file-narrow-binary get_line_uni(2): [0|0] [0|0] [0|0] [48|0] [0|0] [0|0] [0|0] [a|0] [0|0] [0|0] [0|0] [e9|0] [0|0] [0|0] [20|0] [ac|0] [0|0] [1|0] [f6|0] [0|0] [0|0] [0|0] [0|0] [a|0] [0|0] [0|0] [0|0] [5a|0] [0|0] [0|0]
+  close: read 30 written 0
+file-narrow-binary get_line(4):
+  close: read 0 written 0
+file-narrow-binary get_line_uni(4): [0 0 0|0] [48 0 0|0] [0 a|0] [0 0 0|0] [e9 0 0|0] [20 ac 0|0] [1 f6 0|0] [0 0 0|0] [a|0] [0 0 0|0] [5a 0 0|0]
+  close: read 30 written 0
+file-narrow-binary get_line(64):
+  close: read 0 written 0
+file-narrow-binary get_line_uni(64): [0 0 0 48 0 0 0 a|0] [0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a|0] [0 0 0 5a 0 0|0]
+  close: read 30 written 0
+file-uni-text get_char: 48 69 a 57 e9 20 3f 20 3f 21 a | pos 19
+  close: read 11 written 0
+file-uni-text get_char_uni: 48 69 a 57 e9 20 20ac 20 1f600 21 a | pos 19
+  close: read 11 written 0
+file-uni-text get_buffer(1): [48] [69] [a] [57] [e9] [20] [3f] [20] [3f] [21] [a]
+  close: read 11 written 0
+file-uni-text get_buffer_uni(1): [48] [69] [a] [57] [e9] [20] [20ac] [20] [1f600] [21] [a]
+  close: read 11 written 0
+file-uni-text get_buffer(2): [48 69] [a 57] [e9 20] [3f 20] [3f 21] [a] [a 65] [6e 64]
+  close: read 15 written 0
+file-uni-text get_buffer_uni(2): [48 69] [a 57] [e9 20] [20ac 20] [1f600 21] [a] [a 65] [6e 64]
+  close: read 15 written 0
+file-uni-text get_buffer(3): [48 69 a] [57 e9 20] [3f 20 3f] [21 a] [a 65 6e] [64]
+  close: read 15 written 0
+file-uni-text get_buffer_uni(3): [48 69 a] [57 e9 20] [20ac 20 1f600] [21 a] [a 65 6e] [64]
+  close: read 15 written 0
+file-uni-text get_buffer(5): [48 69 a 57 e9] [20 3f 20 3f 21] [a] [a 65 6e 64]
+  close: read 15 written 0
+file-uni-text get_buffer_uni(5): [48 69 a 57 e9] [20 20ac 20 1f600 21] [a] [a 65 6e 64]
+  close: read 15 written 0
+file-uni-text get_buffer(64): [48 69 a 57 e9 20 3f 20 3f 21 a] [a 65 6e 64]
+  close: read 15 written 0
+file-uni-text get_buffer_uni(64): [48 69 a 57 e9 20 20ac 20 1f600 21 a] [a 65 6e 64]
+  close: read 15 written 0
+file-uni-text get_line(1):
+  close: read 0 written 0
+file-uni-text get_line_uni(1):
+  close: read 0 written 0
+file-uni-text get_line(2): [48|0] [69|0] [a|0] [57|0] [e9|0] [20|0] [3f|0] [20|0] [3f|0] [21|0] [a|0]
+  close: read 11 written 0
+file-uni-text get_line_uni(2): [48|0] [69|0] [a|0] [57|0] [e9|0] [20|0] [20ac|0] [20|0] [1f600|0] [21|0] [a|0]
+  close: read 11 written 0
+file-uni-text get_line(4): [48 69 a|0] [57 e9 20|0] [3f 20 3f|0] [21 a|0]
+  close: read 11 written 0
+file-uni-text get_line_uni(4): [48 69 a|0] [57 e9 20|0] [20ac 20 1f600|0] [21 a|0]
+  close: read 11 written 0
+file-uni-text get_line(64): [48 69 a|0] [57 e9 20 3f 20 3f 21 a|0]
+  close: read 11 written 0
+file-uni-text get_line_uni(64): [48 69 a|0] [57 e9 20 20ac 20 1f600 21 a|0]
+  close: read 11 written 0
+file-uni-binary get_char: 48 a e9 3f 3f a 5a | pos 7
+  close: read 7 written 0
+file-uni-binary get_char_uni: 48 a e9 20ac 1f600 a 5a | pos 7
+  close: read 7 written 0
+file-uni-binary get_buffer(1): [48] [a] [e9] [3f] [3f] [a] [5a]
+  close: read 7 written 0
+file-uni-binary get_buffer_uni(1): [48] [a] [e9] [20ac] [1f600] [a] [5a]
+  close: read 7 written 0
+file-uni-binary get_buffer(2): [48 a] [e9 3f] [3f a] [5a]
+  close: read 7 written 0
+file-uni-binary get_buffer_uni(2): [48 a] [e9 20ac] [1f600 a] [5a]
+  close: read 7 written 0
+file-uni-binary get_buffer(3): [48 a e9] [3f 3f a] [5a]
+  close: read 7 written 0
+file-uni-binary get_buffer_uni(3): [48 a e9] [20ac 1f600 a] [5a]
+  close: read 7 written 0
+file-uni-binary get_buffer(5): [48 a e9 3f 3f] [a 5a]
+  close: read 7 written 0
+file-uni-binary get_buffer_uni(5): [48 a e9 20ac 1f600] [a 5a]
+  close: read 7 written 0
+file-uni-binary get_buffer(64): [48 a e9 3f 3f a 5a]
+  close: read 7 written 0
+file-uni-binary get_buffer_uni(64): [48 a e9 20ac 1f600 a 5a]
+  close: read 7 written 0
+file-uni-binary get_line(1):
+  close: read 0 written 0
+file-uni-binary get_line_uni(1):
+  close: read 0 written 0
+file-uni-binary get_line(2): [48|0] [a|0] [e9|0] [3f|0] [3f|0] [a|0] [5a|0]
+  close: read 7 written 0
+file-uni-binary get_line_uni(2): [48|0] [a|0] [e9|0] [20ac|0] [1f600|0] [a|0] [5a|0]
+  close: read 7 written 0
+file-uni-binary get_line(4): [48 a|0] [e9 3f 3f|0] [a|0] [5a|0]
+  close: read 7 written 0
+file-uni-binary get_line_uni(4): [48 a|0] [e9 20ac 1f600|0] [a|0] [5a|0]
+  close: read 7 written 0
+file-uni-binary get_line(64): [48 a|0] [e9 3f 3f a|0] [5a|0]
+  close: read 7 written 0
+file-uni-binary get_line_uni(64): [48 a|0] [e9 20ac 1f600 a|0] [5a|0]
+  close: read 7 written 0
+file-uni-empty get_char: | pos 0
+  close: read 0 written 0
+file-uni-empty get_char_uni: | pos 0
+  close: read 0 written 0
+file-uni-empty get_buffer(1):
+  close: read 0 written 0
+file-uni-empty get_buffer_uni(1):
+  close: read 0 written 0
+file-uni-empty get_buffer(2):
+  close: read 0 written 0
+file-uni-empty get_buffer_uni(2):
+  close: read 0 written 0
+file-uni-empty get_buffer(3):
+  close: read 0 written 0
+file-uni-empty get_buffer_uni(3):
+  close: read 0 written 0
+file-uni-empty get_buffer(5):
+  close: read 0 written 0
+file-uni-empty get_buffer_uni(5):
+  close: read 0 written 0
+file-uni-empty get_buffer(64):
+  close: read 0 written 0
+file-uni-empty get_buffer_uni(64):
+  close: read 0 written 0
+file-uni-empty get_line(1):
+  close: read 0 written 0
+file-uni-empty get_line_uni(1):
+  close: read 0 written 0
+file-uni-empty get_line(2):
+  close: read 0 written 0
+file-uni-empty get_line_uni(2):
+  close: read 0 written 0
+file-uni-empty get_line(4):
+  close: read 0 written 0
+file-uni-empty get_line_uni(4):
+  close: read 0 written 0
+file-uni-empty get_line(64):
+  close: read 0 written 0
+file-uni-empty get_line_uni(64):
+  close: read 0 written 0
+res-narrow-text get_char: 48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74 | pos 30
+  close: read 30 written 0
+res-narrow-text get_char_uni: 48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74 | pos 30
+  close: read 30 written 0
+res-narrow-text get_buffer(1): [48] [65] [6c] [6c] [6f] [a] [57] [e9] [72] [6c] [64] [2c] [20] [6c] [6f] [6e] [67] [65] [72] [20] [6c] [69] [6e] [65] [a] [a] [6c] [61] [73] [74]
+  close: read 30 written 0
+res-narrow-text get_buffer_uni(1): [48] [65] [6c] [6c] [6f] [a] [57] [e9] [72] [6c] [64] [2c] [20] [6c] [6f] [6e] [67] [65] [72] [20] [6c] [69] [6e] [65] [a] [a] [6c] [61] [73] [74]
+  close: read 30 written 0
+res-narrow-text get_buffer(2): [48 65] [6c 6c] [6f a] [57 e9] [72 6c] [64 2c] [20 6c] [6f 6e] [67 65] [72 20] [6c 69] [6e 65] [a a] [6c 61] [73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer_uni(2): [48 65] [6c 6c] [6f a] [57 e9] [72 6c] [64 2c] [20 6c] [6f 6e] [67 65] [72 20] [6c 69] [6e 65] [a a] [6c 61] [73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer(3): [48 65 6c] [6c 6f a] [57 e9 72] [6c 64 2c] [20 6c 6f] [6e 67 65] [72 20 6c] [69 6e 65] [a a 6c] [61 73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer_uni(3): [48 65 6c] [6c 6f a] [57 e9 72] [6c 64 2c] [20 6c 6f] [6e 67 65] [72 20 6c] [69 6e 65] [a a 6c] [61 73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer(5): [48 65 6c 6c 6f] [a 57 e9 72 6c] [64 2c 20 6c 6f] [6e 67 65 72 20] [6c 69 6e 65 a] [a 6c 61 73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer_uni(5): [48 65 6c 6c 6f] [a 57 e9 72 6c] [64 2c 20 6c 6f] [6e 67 65 72 20] [6c 69 6e 65 a] [a 6c 61 73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer(64): [48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74]
+  close: read 30 written 0
+res-narrow-text get_buffer_uni(64): [48 65 6c 6c 6f a 57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a a 6c 61 73 74]
+  close: read 30 written 0
+res-narrow-text get_line(1):
+  close: read 0 written 0
+res-narrow-text get_line_uni(1):
+  close: read 0 written 0
+res-narrow-text get_line(2): [48|0] [65|0] [6c|0] [6c|0] [6f|0] [a|0] [57|0] [e9|0] [72|0] [6c|0] [64|0] [2c|0] [20|0] [6c|0] [6f|0] [6e|0] [67|0] [65|0] [72|0] [20|0] [6c|0] [69|0] [6e|0] [65|0] [a|0] [a|0] [6c|0] [61|0] [73|0] [74|0]
+  close: read 30 written 0
+res-narrow-text get_line_uni(2): [48|0] [65|0] [6c|0] [6c|0] [6f|0] [a|0] [57|0] [e9|0] [72|0] [6c|0] [64|0] [2c|0] [20|0] [6c|0] [6f|0] [6e|0] [67|0] [65|0] [72|0] [20|0] [6c|0] [69|0] [6e|0] [65|0] [a|0] [a|0] [6c|0] [61|0] [73|0] [74|0]
+  close: read 30 written 0
+res-narrow-text get_line(4): [48 65 6c|0] [6c 6f a|0] [57 e9 72|0] [6c 64 2c|0] [20 6c 6f|0] [6e 67 65|0] [72 20 6c|0] [69 6e 65|0] [a|0] [a|0] [6c 61 73|0] [74|0]
+  close: read 30 written 0
+res-narrow-text get_line_uni(4): [48 65 6c|0] [6c 6f a|0] [57 e9 72|0] [6c 64 2c|0] [20 6c 6f|0] [6e 67 65|0] [72 20 6c|0] [69 6e 65|0] [a|0] [a|0] [6c 61 73|0] [74|0]
+  close: read 30 written 0
+res-narrow-text get_line(64): [48 65 6c 6c 6f a|0] [57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a|0] [a|0] [6c 61 73 74|0]
+  close: read 30 written 0
+res-narrow-text get_line_uni(64): [48 65 6c 6c 6f a|0] [57 e9 72 6c 64 2c 20 6c 6f 6e 67 65 72 20 6c 69 6e 65 a|0] [a|0] [6c 61 73 74|0]
+  close: read 30 written 0
+res-narrow-binary get_char: 0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0 | pos 30
+  close: read 30 written 0
+res-narrow-binary get_char_uni: 0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0 | pos 30
+  close: read 30 written 0
+res-narrow-binary get_buffer(1): [0] [0] [0] [48] [0] [0] [0] [a] [0] [0] [0] [e9] [0] [0] [20] [ac] [0] [1] [f6] [0] [0] [0] [0] [a] [0] [0] [0] [5a] [0] [0]
+  close: read 30 written 0
+res-narrow-binary get_buffer_uni(1): [0] [0] [0] [48] [0] [0] [0] [a] [0] [0] [0] [e9] [0] [0] [20] [ac] [0] [1] [f6] [0] [0] [0] [0] [a] [0] [0] [0] [5a] [0] [0]
+  close: read 30 written 0
+res-narrow-binary get_buffer(2): [0 0] [0 48] [0 0] [0 a] [0 0] [0 e9] [0 0] [20 ac] [0 1] [f6 0] [0 0] [0 a] [0 0] [0 5a] [0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer_uni(2): [0 0] [0 48] [0 0] [0 a] [0 0] [0 e9] [0 0] [20 ac] [0 1] [f6 0] [0 0] [0 a] [0 0] [0 5a] [0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer(3): [0 0 0] [48 0 0] [0 a 0] [0 0 e9] [0 0 20] [ac 0 1] [f6 0 0] [0 0 a] [0 0 0] [5a 0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer_uni(3): [0 0 0] [48 0 0] [0 a 0] [0 0 e9] [0 0 20] [ac 0 1] [f6 0 0] [0 0 a] [0 0 0] [5a 0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer(5): [0 0 0 48 0] [0 0 a 0 0] [0 e9 0 0 20] [ac 0 1 f6 0] [0 0 0 a 0] [0 0 5a 0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer_uni(5): [0 0 0 48 0] [0 0 a 0 0] [0 e9 0 0 20] [ac 0 1 f6 0] [0 0 0 a 0] [0 0 5a 0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer(64): [0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0]
+  close: read 30 written 0
+res-narrow-binary get_buffer_uni(64): [0 0 0 48 0 0 0 a 0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a 0 0 0 5a 0 0]
+  close: read 30 written 0
+res-narrow-binary get_line(1):
+  close: read 0 written 0
+res-narrow-binary get_line_uni(1):
+  close: read 0 written 0
+res-narrow-binary get_line(2): [0|0] [0|0] [0|0] [48|0] [0|0] [0|0] [0|0] [a|0] [0|0] [0|0] [0|0] [e9|0] [0|0] [0|0] [20|0] [ac|0] [0|0] [1|0] [f6|0] [0|0] [0|0] [0|0] [0|0] [a|0] [0|0] [0|0] [0|0] [5a|0] [0|0] [0|0]
+  close: read 30 written 0
+res-narrow-binary get_line_uni(2): [0|0] [0|0] [0|0] [48|0] [0|0] [0|0] [0|0] [a|0] [0|0] [0|0] [0|0] [e9|0] [0|0] [0|0] [20|0] [ac|0] [0|0] [1|0] [f6|0] [0|0] [0|0] [0|0] [0|0] [a|0] [0|0] [0|0] [0|0] [5a|0] [0|0] [0|0]
+  close: read 30 written 0
+res-narrow-binary get_line(4): [0 0 0|0] [48 0 0|0] [0 a|0] [0 0 0|0] [e9 0 0|0] [20 ac 0|0] [1 f6 0|0] [0 0 0|0] [a|0] [0 0 0|0] [5a 0 0|0]
+  close: read 30 written 0
+res-narrow-binary get_line_uni(4): [0 0 0|0] [48 0 0|0] [0 a|0] [0 0 0|0] [e9 0 0|0] [20 ac 0|0] [1 f6 0|0] [0 0 0|0] [a|0] [0 0 0|0] [5a 0 0|0]
+  close: read 30 written 0
+res-narrow-binary get_line(64): [0 0 0 48 0 0 0 a|0] [0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a|0] [0 0 0 5a 0 0|0]
+  close: read 30 written 0
+res-narrow-binary get_line_uni(64): [0 0 0 48 0 0 0 a|0] [0 0 0 e9 0 0 20 ac 0 1 f6 0 0 0 0 a|0] [0 0 0 5a 0 0|0]
+  close: read 30 written 0
+res-uni-text get_char: 48 69 a 57 e9 20 3f 20 3f 21 a | pos 19
+  close: read 11 written 0
+res-uni-text get_char_uni: 48 69 a 57 e9 20 20ac 20 1f600 21 a | pos 19
+  close: read 11 written 0
+res-uni-text get_buffer(1): [48] [69] [a] [57] [e9] [20] [3f] [20] [3f] [21] [a]
+  close: read 11 written 0
+res-uni-text get_buffer_uni(1): [48] [69] [a] [57] [e9] [20] [20ac] [20] [1f600] [21] [a]
+  close: read 11 written 0
+res-uni-text get_buffer(2): [48 69] [a 57] [e9 20] [3f 20] [3f 21] [a] [a 65] [6e 64]
+  close: read 15 written 0
+res-uni-text get_buffer_uni(2): [48 69] [a 57] [e9 20] [20ac 20] [1f600 21] [a] [a 65] [6e 64]
+  close: read 15 written 0
+res-uni-text get_buffer(3): [48 69 a] [57 e9 20] [3f 20 3f] [21 a] [a 65 6e] [64]
+  close: read 15 written 0
+res-uni-text get_buffer_uni(3): [48 69 a] [57 e9 20] [20ac 20 1f600] [21 a] [a 65 6e] [64]
+  close: read 15 written 0
+res-uni-text get_buffer(5): [48 69 a 57 e9] [20 3f 20 3f 21] [a] [a 65 6e 64]
+  close: read 15 written 0
+res-uni-text get_buffer_uni(5): [48 69 a 57 e9] [20 20ac 20 1f600 21] [a] [a 65 6e 64]
+  close: read 15 written 0
+res-uni-text get_buffer(64): [48 69 a 57 e9 20 3f 20 3f 21 a] [a 65 6e 64]
+  close: read 15 written 0
+res-uni-text get_buffer_uni(64): [48 69 a 57 e9 20 20ac 20 1f600 21 a] [a 65 6e 64]
+  close: read 15 written 0
+res-uni-text get_line(1):
+  close: read 0 written 0
+res-uni-text get_line_uni(1):
+  close: read 0 written 0
+res-uni-text get_line(2): [48|0] [69|0] [a|0] [57|0] [e9|0] [20|0] [3f|0] [20|0] [3f|0] [21|0] [a|0]
+  close: read 11 written 0
+res-uni-text get_line_uni(2): [48|0] [69|0] [a|0] [57|0] [e9|0] [20|0] [20ac|0] [20|0] [1f600|0] [21|0] [a|0]
+  close: read 11 written 0
+res-uni-text get_line(4): [48 69 a|0] [57 e9 20|0] [3f 20 3f|0] [21 a|0]
+  close: read 11 written 0
+res-uni-text get_line_uni(4): [48 69 a|0] [57 e9 20|0] [20ac 20 1f600|0] [21 a|0]
+  close: read 11 written 0
+res-uni-text get_line(64): [48 69 a|0] [57 e9 20 3f 20 3f 21 a|0]
+  close: read 11 written 0
+res-uni-text get_line_uni(64): [48 69 a|0] [57 e9 20 20ac 20 1f600 21 a|0]
+  close: read 11 written 0
+res-uni-binary get_char: 48 a e9 3f 3f a 5a | pos 30
+  close: read 7 written 0
+res-uni-binary get_char_uni: 48 a e9 20ac 1f600 a 5a | pos 30
+  close: read 7 written 0
+res-uni-binary get_buffer(1): [48] [a] [e9] [3f] [3f] [a] [5a]
+  close: read 7 written 0
+res-uni-binary get_buffer_uni(1): [48] [a] [e9] [20ac] [1f600] [a] [5a]
+  close: read 7 written 0
+res-uni-binary get_buffer(2): [48 a] [e9 3f] [3f a] [5a]
+  close: read 7 written 0
+res-uni-binary get_buffer_uni(2): [48 a] [e9 20ac] [1f600 a] [5a]
+  close: read 7 written 0
+res-uni-binary get_buffer(3): [48 a e9] [3f 3f a] [5a]
+  close: read 7 written 0
+res-uni-binary get_buffer_uni(3): [48 a e9] [20ac 1f600 a] [5a]
+  close: read 7 written 0
+res-uni-binary get_buffer(5): [48 a e9 3f 3f] [a 5a]
+  close: read 7 written 0
+res-uni-binary get_buffer_uni(5): [48 a e9 20ac 1f600] [a 5a]
+  close: read 7 written 0
+res-uni-binary get_buffer(64): [48 a e9 3f 3f a 5a]
+  close: read 7 written 0
+res-uni-binary get_buffer_uni(64): [48 a e9 20ac 1f600 a 5a]
+  close: read 7 written 0
+res-uni-binary get_line(1):
+  close: read 0 written 0
+res-uni-binary get_line_uni(1):
+  close: read 0 written 0
+res-uni-binary get_line(2): [48|0] [a|0] [e9|0] [3f|0] [3f|0] [a|0] [5a|0]
+  close: read 7 written 0
+res-uni-binary get_line_uni(2): [48|0] [a|0] [e9|0] [20ac|0] [1f600|0] [a|0] [5a|0]
+  close: read 7 written 0
+res-uni-binary get_line(4): [48 a|0] [e9 3f 3f|0] [a|0] [5a|0]
+  close: read 7 written 0
+res-uni-binary get_line_uni(4): [48 a|0] [e9 20ac 1f600|0] [a|0] [5a|0]
+  close: read 7 written 0
+res-uni-binary get_line(64): [48 a|0] [e9 3f 3f a|0] [5a|0]
+  close: read 7 written 0
+res-uni-binary get_line_uni(64): [48 a|0] [e9 20ac 1f600 a|0] [5a|0]
+  close: read 7 written 0
+res-uni-empty get_char: | pos 0
+  close: read 0 written 0
+res-uni-empty get_char_uni: | pos 0
+  close: read 0 written 0
+res-uni-empty get_buffer(1):
+  close: read 0 written 0
+res-uni-empty get_buffer_uni(1):
+  close: read 0 written 0
+res-uni-empty get_buffer(2):
+  close: read 0 written 0
+res-uni-empty get_buffer_uni(2):
+  close: read 0 written 0
+res-uni-empty get_buffer(3):
+  close: read 0 written 0
+res-uni-empty get_buffer_uni(3):
+  close: read 0 written 0
+res-uni-empty get_buffer(5):
+  close: read 0 written 0
+res-uni-empty get_buffer_uni(5):
+  close: read 0 written 0
+res-uni-empty get_buffer(64):
+  close: read 0 written 0
+res-uni-empty get_buffer_uni(64):
+  close: read 0 written 0
+res-uni-empty get_line(1):
+  close: read 0 written 0
+res-uni-empty get_line_uni(1):
+  close: read 0 written 0
+res-uni-empty get_line(2):
+  close: read 0 written 0
+res-uni-empty get_line_uni(2):
+  close: read 0 written 0
+res-uni-empty get_line(4):
+  close: read 0 written 0
+res-uni-empty get_line_uni(4):
+  close: read 0 written 0
+res-uni-empty get_line(64):
+  close: read 0 written 0
+res-uni-empty get_line_uni(64):
+  close: read 0 written 0
+res unknown type: 0x0
+res missing: 0x0
+res no map: 0x0
+file-narrow-binary write:
+  pos 17
+  close: read 0 written 17
+  file: 41 e9 3f 3f 78 79 0a 75 e9 3f 3f 73 e9 75 e9 3f 3f (17 bytes)
+  close: read 0 written 1
+  file: 41 e9 3f 3f 78 79 0a 75 e9 3f 3f 73 e9 75 e9 3f 3f 51 (18 bytes)
+  readwrite: 41 3f end 18 then 57
+  close: read 3 written 1
+  file: 41 57 3f 3f 78 79 0a 75 e9 3f 3f 73 e9 75 e9 3f 3f 51 (18 bytes)
+file-narrow-text write:
+  pos 17
+  close: read 0 written 17
+  file: 41 e9 3f 3f 78 79 0a 75 e9 3f 3f 73 e9 75 e9 3f 3f (17 bytes)
+  close: read 0 written 1
+  file: 41 e9 3f 3f 78 79 0a 75 e9 3f 3f 73 e9 75 e9 3f 3f 51 (18 bytes)
+  readwrite: 41 3f end 18 then 57
+  close: read 3 written 1
+  file: 41 57 3f 3f 78 79 0a 75 e9 3f 3f 73 e9 75 e9 3f 3f 51 (18 bytes)
+file-uni-binary write:
+  pos 17
+  close: read 0 written 17
+  file: 00 00 00 41 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 78 00 00 00 79 00 00 00 0a 00 00 00 75 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 73 00 00 00 e9 00 00 00 75 00 00 00 e9 00 00 20 ac 00 01 f6 00 (68 bytes)
+  close: read 0 written 1
+  file: 00 00 00 41 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 78 00 00 00 79 00 00 00 0a 00 00 00 75 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 73 00 00 00 e9 00 00 00 75 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 51 (72 bytes)
+  readwrite: 41 20ac end 18 then 78
+  close: read 3 written 1
+  file: 00 00 00 41 00 00 00 57 00 00 20 ac 00 01 f6 00 00 00 00 78 00 00 00 79 00 00 00 0a 00 00 00 75 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 73 00 00 00 e9 00 00 00 75 00 00 00 e9 00 00 20 ac 00 01 f6 00 00 00 00 51 (72 bytes)
+file-uni-text write:
+  pos 36
+  close: read 0 written 17
+  file: 41 c3 a9 e2 82 ac f0 9f 98 80 78 79 0a 75 c3 a9 e2 82 ac f0 9f 98 80 73 c3 a9 75 c3 a9 e2 82 ac f0 9f 98 80 (36 bytes)
+  close: read 0 written 1
+  file: 41 c3 a9 e2 82 ac f0 9f 98 80 78 79 0a 75 c3 a9 e2 82 ac f0 9f 98 80 73 c3 a9 75 c3 a9 e2 82 ac f0 9f 98 80 51 (37 bytes)
+  readwrite: 41 ffffffff end 37 then 57
+  close: read 2 written 1
+  file: 41 57 a9 e2 82 ac f0 9f 98 80 78 79 0a 75 c3 a9 e2 82 ac f0 9f 98 80 73 c3 a9 75 c3 a9 e2 82 ac f0 9f 98 80 51 (37 bytes)
+mem-narrow(4) write:
+  pos 4
+  close: read 0 written 17
+  buf: 41 e9 3f 3f 2e 2e 2e 2e
+mem-uni(4) write:
+  pos 4
+  close: read 0 written 17
+  buf: 41 e9 20ac 1f600 0 0 0 0
+mem-narrow(8) write:
+  pos 8
+  close: read 0 written 17
+  buf: 41 e9 3f 3f 78 79 a 75
+mem-uni(8) write:
+  pos 8
+  close: read 0 written 17
+  buf: 41 e9 20ac 1f600 78 79 a 75
+mem-null write:
+  close: read 0 written 17
+file-narrow-binary seek: pos 2, 65, 73
+  close: read 4 written 0
+file-uni-binary seek: pos 2, a, a0000
+  close: read 4 written 0
+file-uni-text seek: pos 2, 69, ffffffff
+  close: read 3 written 0
+mem seek: 6c 74 clamp 30
+  close: read 2 written 0
+res-uni-binary seek: e9 pos 12
+  close: read 1 written 0
+  [strict warning: get_char_stream: invalid ref]
+  [strict warning: get_buffer_stream: invalid ref]
+  [strict warning: get_line_stream_uni: invalid ref]
+null stream: -1 0 0

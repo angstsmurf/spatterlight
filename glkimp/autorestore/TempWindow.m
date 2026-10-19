@@ -8,8 +8,6 @@
 
 @interface TempWindow () <NSSecureCoding> {
 
-    TempLibrary *library;
-
     glui32 x0, y0, x1, y1;
 
     // For pair window struct:
@@ -135,6 +133,16 @@
         cap = win->line.cap;
 
         inarrayrock = win->line.inarrayrock;
+
+        background = win->background;
+
+        fgset = win->attr.fgset;
+        bgset = win->attr.bgset;
+        reverse = win->attr.reverse;
+        attrstyle = win->attr.style;
+        fgcolor = win->attr.fgcolor;
+        bgcolor = win->attr.bgcolor;
+        hyper = (int)win->attr.hyper;
     }
     return self;
 }
@@ -258,7 +266,6 @@
         }
     }
 
-    //[encoder encodeInt:pending_echo_line_input forKey:@"pending_echo_line_input"];
     [encoder encodeInt32:echo_line_input forKey:@"echo_line_input"];
     if (line_terminators)
         [encoder encodeObject:line_terminators forKey:@"line_terminators"];
@@ -295,16 +302,11 @@
 
     [self updateRegisterArray];
 
-    win->magicnum = MAGIC_WINDOW_NUM;
 
     win->peer = _peer;
     win->tag = _tag;
     win->rock = _rock;
     win->type = _type;
-
-    win->line.buf = buf;
-    win->line.len = len;
-    win->line.cap = cap;
 
     win->background = background;
 
@@ -313,6 +315,7 @@
     win->line_request = line_request;
     win->line_request_uni = line_request_uni;
     win->mouse_request = mouse_request;
+    win->hyper_request = hyper_request;
     win->echo_line_input = echo_line_input;
 
     win->bbox.x0 = x0;
@@ -362,11 +365,11 @@
 
     win->str = gli_stream_for_tag(_streamtag);
     if (_streamtag && !win->str)
-        NSLog(@"finalizeCStruct: Error! Could no find window stream %d for window %d",_echostreamtag, _tag);
+        NSLog(@"finalizeCStruct: Error! Could not find window stream %d for window %d", _streamtag, _tag);
 
     win->echostr = gli_stream_for_tag(_echostreamtag);
     if (_echostreamtag && !win->echostr)
-        NSLog(@"finalizeCStruct: Error! Could no find echostream %d for window %d",_echostreamtag, _tag);
+        NSLog(@"finalizeCStruct: Error! Could not find echostream %d for window %d",_echostreamtag, _tag);
 
     if (win->str && win->tag != win->str->win->tag)
         NSLog(@"finalizeCStruct: Error! Window stream does not point back at window %d, but at %d",win->tag, win->str->win->tag);
@@ -456,8 +459,6 @@
                 NSLog(@"SANITY: pair child2 tag mismatch");
             if (style)
                 NSLog(@"SANITY: pair window has styleset");
-            if (key)
-                NSLog(@"SANITY: pair window has leftover keydamage");
         }
             break;
 
