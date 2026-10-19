@@ -58,7 +58,7 @@
     return maskImage;
 }
 
-- (void)showAndFadeOutWithDelay:(CGFloat)delay duration:(CGFloat)duration {
+- (void)showAndFadeOutWithDelay:(CGFloat)delay duration:(CGFloat)duration completion:(nullable dispatch_block_t)completion {
     [self orderFront:nil];
 
     // The blocks retain the window strongly, which is what keeps it alive
@@ -72,6 +72,8 @@
             self.animator.alphaValue = 0;
         } completionHandler:^{
             [self orderOut:nil];
+            if (completion)
+                completion();
         }];
     });
 }

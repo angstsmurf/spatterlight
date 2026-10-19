@@ -30,14 +30,14 @@ static const CGFloat kFadeDuration = 0.25;
 }
 
 - (void)showStandardWithText:(NSString *)text {
-    // Announce once the bezel has faded. VoiceOver users get the
-    // announcement even with the visual bezel turned off.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-        [self speakString:text];
-    });
-
-    if (!NotificationBezel.bezelsEnabled)
+    // VoiceOver users get the announcement even with the visual bezel
+    // turned off.
+    if (!NotificationBezel.bezelsEnabled) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+            [self speakString:text];
+        });
         return;
+    }
 
     NSSize size = NSMakeSize(kStandardBezelSize, kStandardBezelSize);
     BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:(NSRect){NSZeroPoint, size}];
@@ -57,7 +57,10 @@ static const CGFloat kFadeDuration = 0.25;
     if (text.length > firstWordLength)
         bezelContentView.bottomText = [text substringFromIndex:firstWordLength];
 
-    [self presentContentView:bezelContentView delay:0.7];
+    // Announce once the bezel has faded.
+    [self presentContentView:bezelContentView delay:0.7 completion:^{
+        [self speakString:text];
+    }];
 }
 
 - (void)showGameOver {
@@ -68,7 +71,7 @@ static const CGFloat kFadeDuration = 0.25;
     BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:(NSRect){NSZeroPoint, size}];
     bezelContentView.type = kGameOver;
 
-    [self presentContentView:bezelContentView delay:0.7];
+    [self presentContentView:bezelContentView delay:0.7 completion:nil];
 }
 
 // Not gated by ShowBezels: the cover image is shown as part of the
@@ -115,14 +118,46 @@ static const CGFloat kFadeDuration = 0.25;
     bezelContentView.image = image;
     bezelContentView.interpolation = interpolation;
 
-    [self presentContentView:bezelContentView delay:1];
+    [self presentContentView:bezelContentView delay:1 completion:nil];
 }
 
-- (void)presentContentView:(BezelContentView *)contentView delay:(CGFloat)delay {
-    NSRect contentRect = [self lowerCenterRectOfSize:contentView.frame.size];
-    BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
-    [bezelWindow.contentView addSubview:contentView];
-    [bezelWindow showAndFadeOutWithDelay:delay duration:kFadeDuration];
+// Bezels are shown one at a time: a bezel requested while another is on
+// screen waits until the earlier ones have faded out.
+static NSMutableArray<dispatch_block_t> *pendingBezels;
+static BOOL bezelOnScreen = NO;
+
++ (void)showNextBezel {
+    if (bezelOnScreen || !pendingBezels.count)
+        return;
+    dispatch_block_t next = pendingBezels.firstObject;
+    [pendingBezels removeObjectAtIndex:0];
+    bezelOnScreen = YES;
+    next();
+}
+
+- (void)presentContentView:(BezelContentView *)contentView delay:(CGFloat)delay completion:(nullable dispatch_block_t)completion {
+    if (!NSThread.isMainThread) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self presentContentView:contentView delay:delay completion:completion];
+        });
+        return;
+    }
+
+    if (!pendingBezels)
+        pendingBezels = [NSMutableArray new];
+
+    [pendingBezels addObject:^{
+        NSRect contentRect = [self lowerCenterRectOfSize:contentView.frame.size];
+        BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
+        [bezelWindow.contentView addSubview:contentView];
+        [bezelWindow showAndFadeOutWithDelay:delay duration:kFadeDuration completion:^{
+            bezelOnScreen = NO;
+            if (completion)
+                completion();
+            [NotificationBezel showNextBezel];
+        }];
+    }];
+    [NotificationBezel showNextBezel];
 }
 
 - (NSRect)lowerCenterRectOfSize:(NSSize)size {
