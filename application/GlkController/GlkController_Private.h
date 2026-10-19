@@ -40,11 +40,10 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
 }
 
 @interface GlkController () {
-    @public
+    @private
     /* for talking to the interpreter */
     NSTask *task;
     NSFileHandle *readfh;
-    NSFileHandle *sendfh;
 
     /* current state of the protocol */
     NSTimer *timer;
@@ -57,12 +56,6 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     BOOL inFullScreenResize;
 
     BOOL windowRestoredBySystem;
-    BOOL shouldRestoreUI;
-
-    // When a game supports autosave, but is still on its first turn,
-    // so that no interpreter autosave file exists, we still restore the UI
-    // to catch entered text and scroll position
-    BOOL restoreUIOnly;
 
     // Used for fullscreen animation
     NSWindowController *snapshotController;
@@ -83,8 +76,6 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     /* the glk objects */
     BOOL windowdirty; /* the contentView needs to repaint */
 
-    GlkController *restoredController;
-    GlkController *restoredControllerLate;
     // Restored windows the interpreter closed before restoreUI adopted their
     // views, so restoreUI must leave them out.
     NSMutableSet<NSNumber *> *windowsClosedBeforeRestore;
@@ -106,14 +97,29 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     kVOMenuPrefsType lastVOSpeakMenu;
     BOOL shouldAddTitlePrefixToSpeech;
     BOOL changedBorderThisTurn;
-    BOOL autorestoring;
 
     // Backing ivars for lazy-initialized properties (accessed from categories)
     NSString *_autosaveFileGUI;
     NSString *_autosaveFileTerp;
     InfocomV6MenuHandler *_infocomV6MenuHandler;
     JourneyMenuHandler *_journeyMenuHandler;
-    
+
+    // The rest are @public only because SpatterlightTests sets them directly
+    // (GridRestyleTests, QuoteBoxTests, BufferImageRescaleTests): sendfh to send
+    // replies to /dev/null, the others to fake an autorestore without a
+    // running interpreter.
+    @public
+    NSFileHandle *sendfh;
+
+    BOOL shouldRestoreUI;
+    // When a game supports autosave, but is still on its first turn,
+    // so that no interpreter autosave file exists, we still restore the UI
+    // to catch entered text and scroll position
+    BOOL restoreUIOnly;
+    BOOL autorestoring;
+
+    GlkController *restoredController;
+    GlkController *restoredControllerLate;
 }
 
 @property (nonatomic) JourneyMenuHandler *journeyMenuHandler;
