@@ -56,11 +56,13 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 #pragma mark Global accessors
 
-+ (kZoomDirectionType)zoomDirection;
+@property (class, readonly) kZoomDirectionType zoomDirection;
 
-+ (Theme *)currentTheme;
+// The theme the panel shows and edits; the default theme if there is none
+@property (class, readonly) Theme *currentTheme;
 
-+ (Preferences *)instance;
+// The preferences window controller, once its window has loaded
+@property (class, readonly) Preferences *instance;
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl;
 - (void)updatePrefsPanel;

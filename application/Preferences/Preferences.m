@@ -104,6 +104,15 @@
     NSToolbarItemIdentifier globalPanel;
 }
 
+// The theme the panel shows and edits. It is set before the panel exists,
+// so it is a class property; the instance property forwards to it, which
+// lets self.theme work in class and instance methods alike.
+@property (class) Theme *theme;
+@property Theme *theme;
+
+@property (class, readwrite) kZoomDirectionType zoomDirection;
+@property (class, readwrite) Preferences *instance;
+
 @property (strong) IBOutlet PreviewController *previewController;
 @property (strong) IBOutlet NSLayoutConstraint *previewHeightConstraint;
 
@@ -133,15 +142,6 @@ NSNotificationName const kBorderChangedNotification = @"BorderChanged";
 NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
 
 @implementation Preferences
-
-/*
- * Preference variables, all unpacked
- */
-
-static kZoomDirectionType zoomDirection = ZOOMRESET;
-
-static Theme *theme = nil;
-static Preferences *prefs = nil;
 
 /*
  * Load and save defaults
@@ -181,13 +181,13 @@ static Preferences *prefs = nil;
 
     if (fetchedObjects == nil || fetchedObjects.count == 0) {
         NSLog(@"Preference readDefaults: Error! Saved theme %@ not found. Creating new default theme!", name);
-        theme = [BuiltInThemes createThemeFromDefaultsPlistInContext:managedObjectContext];
-        if (!theme)
-            theme = [BuiltInThemes createDefaultThemeInContext:managedObjectContext forceRebuild:NO];
-        if (!theme) {
+        self.theme = [BuiltInThemes createThemeFromDefaultsPlistInContext:managedObjectContext];
+        if (!self.theme)
+            self.theme = [BuiltInThemes createDefaultThemeInContext:managedObjectContext forceRebuild:NO];
+        if (!self.theme) {
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
         }
-    } else theme = fetchedObjects[0];
+    } else self.theme = fetchedObjects[0];
 
     // Rebuild default themes the first time a new Spatterlight version is run (or the preferences are deleted.)
     // Rebuilding is so quick that this may be overkill. Perhaps we should just rebuild on every run?
@@ -207,8 +207,9 @@ static Preferences *prefs = nil;
 }
 
 + (void)changeCurrentGlkController:(GlkController *)ctrl {
+    Preferences *prefs = self.instance;
     if (prefs) {
-        // Never read the theme global raw here. It can be nil if the built-in
+        // Never read self.theme raw here. It can be nil if the built-in
         // themes could not be created at startup, or if an earlier call handed
         // restoreThemeSelection: an empty themes table. objectWithID: raises on
         // a nil object ID, so a nil theme used to abort the app on game launch.
@@ -237,13 +238,13 @@ static Preferences *prefs = nil;
                 ctrl.theme = ctrlCtxTheme;
             // ctrl.theme is still nil if the game has no context of its own.
             if (ctrl.theme)
-                theme = [currentTheme.managedObjectContext objectWithID:ctrl.theme.objectID];
+                self.theme = [currentTheme.managedObjectContext objectWithID:ctrl.theme.objectID];
             if (!game.theme)
-                game.theme = theme;
+                game.theme = self.theme;
         } else {
             prefs.currentGame = game;
         }
-        [prefs restoreThemeSelection:theme];
+        [prefs restoreThemeSelection:self.theme];
         prefs.themesHeader.stringValue = [prefs themeScopeTitle];
     }
 }
@@ -258,31 +259,60 @@ static Preferences *prefs = nil;
 
 #pragma mark Global accessors
 
+// Backing storage of the class properties. Only the accessors below use it.
+static Theme *sTheme = nil;
+static Preferences *sInstance = nil;
+static kZoomDirectionType sZoomDirection = ZOOMRESET;
+
++ (Theme *)theme {
+    return sTheme;
+}
+
++ (void)setTheme:(Theme *)aTheme {
+    sTheme = aTheme;
+}
+
+- (Theme *)theme {
+    return sTheme;
+}
+
+- (void)setTheme:(Theme *)aTheme {
+    sTheme = aTheme;
+}
+
 + (kZoomDirectionType)zoomDirection {
-    return zoomDirection;
+    return sZoomDirection;
+}
+
++ (void)setZoomDirection:(kZoomDirectionType)zoomDirection {
+    sZoomDirection = zoomDirection;
 }
 
 + (Theme *)currentTheme {
-    if (!theme)
-        theme = [Preferences instance].defaultTheme;
-    return theme;
+    if (!self.theme)
+        self.theme = self.instance.defaultTheme;
+    return self.theme;
 }
 
 + (Preferences *)instance {
-    return prefs;
+    return sInstance;
+}
+
++ (void)setInstance:(Preferences *)instance {
+    sInstance = instance;
 }
 
 
 #pragma mark GlkStyle and attributed-string magic
 
 + (void)rebuildTextAttributes {
-    [theme populateStyles];
-    NSSize cellsize = theme.gridNormal.cellSize;
-    theme.cellWidth = cellsize.width;
-    theme.cellHeight = cellsize.height;
-    cellsize = theme.bufferNormal.cellSize;
-    theme.bufferCellWidth = cellsize.width;
-    theme.bufferCellHeight = cellsize.height;
+    [self.theme populateStyles];
+    NSSize cellsize = self.theme.gridNormal.cellSize;
+    self.theme.cellWidth = cellsize.width;
+    self.theme.cellHeight = cellsize.height;
+    cellsize = self.theme.bufferNormal.cellSize;
+    self.theme.bufferCellWidth = cellsize.width;
+    self.theme.bufferCellHeight = cellsize.height;
 }
 
 #pragma mark - Instance -- controller for preference panel
@@ -352,10 +382,10 @@ NSString *fontToString(NSFont *font) {
         }
     }
 
-    if (!theme)
-        theme = self.defaultTheme;
+    if (!self.theme)
+        self.theme = self.defaultTheme;
 
-    _previewController.theme = theme;
+    _previewController.theme = self.theme;
 
     [self findDarkAndLightThemes];
     if (_lightTheme && [Preferences currentSystemMode] == kLightMode) {
@@ -369,7 +399,7 @@ NSString *fontToString(NSFont *font) {
 
     _adjustSize = [defaults boolForKey:@"AdjustSize"];
 
-    prefs = self;
+    Preferences.instance = self;
 
     _scrollView.scrollerStyle = NSScrollerStyleOverlay;
     _scrollView.drawsBackground = YES;
@@ -379,7 +409,7 @@ NSString *fontToString(NSFont *font) {
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
 
-    [self changeThemeName:theme.name];
+    [self changeThemeName:self.theme.name];
 
 #pragma mark Init toolbar
 
@@ -452,7 +482,7 @@ NSString *fontToString(NSFont *font) {
     if (!found)
         [self switchToPanel:toolbar.items[0] resizePreview:YES];
 
-    [self performSelector:@selector(restoreThemeSelection:) withObject:theme afterDelay:0.1];
+    [self performSelector:@selector(restoreThemeSelection:) withObject:self.theme afterDelay:0.1];
 
     self.windowFrameAutosaveName = @"PrefsPanel";
     themesTableView.autosaveName = @"ThemesTable";
@@ -515,10 +545,10 @@ NSString *fontToString(NSFont *font) {
         if (_oneThemeForAll) {
             self.oneThemeForAll = YES;
         } else if (_currentGame) {
-            _currentGame.theme = theme;
+            _currentGame.theme = self.theme;
         }
     } else if (_currentGame) {
-        [prefs restoreThemeSelection:_currentGame.theme];
+        [Preferences.instance restoreThemeSelection:_currentGame.theme];
     }
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kColorModeChangedNotification object:nil]];
 }
@@ -592,12 +622,12 @@ NSString *fontToString(NSFont *font) {
         _hardLightCheckbox.state = NSControlStateValueOn;
     }
     [self changeHardLightTheme:_hardLightCheckbox];
-    if (!theme.hardLight) {
+    if (!self.theme.hardLight) {
         //We switched off the light theme override. Current game (or all) gets this theme applied
         if (_oneThemeForAll) {
             self.oneThemeForAll = YES;
         } else if (_currentGame) {
-            [theme addGames:[NSSet setWithObject:_currentGame]];
+            [self.theme addGames:[NSSet setWithObject:_currentGame]];
         }
     }
 }
@@ -609,12 +639,12 @@ NSString *fontToString(NSFont *font) {
         _hardDarkCheckbox.state = NSControlStateValueOn;
     }
     [self changeHardDarkTheme:_hardDarkCheckbox];
-    if (!theme.hardDark) {
+    if (!self.theme.hardDark) {
         // We switched off the dark theme override. Current game (or all) gets this theme applied
         if (_oneThemeForAll) {
             self.oneThemeForAll = YES;
         } else if (_currentGame) {
-            [theme addGames:[NSSet setWithObject:_currentGame]];
+            [self.theme addGames:[NSSet setWithObject:_currentGame]];
         }
     }
 }
@@ -632,11 +662,11 @@ NSString *fontToString(NSFont *font) {
         _lightTheme = nil;
     }
     [self lightOrDarkOverrideWasRemoved];
-    theme = _arrayController.selectedTheme;
+    self.theme = _arrayController.selectedTheme;
     if (_oneThemeForAll)
         self.oneThemeForAll = YES;
     else
-        _currentGame.theme = theme;
+        _currentGame.theme = self.theme;
     [self updatePrefsPanel];
 }
 
@@ -646,45 +676,45 @@ NSString *fontToString(NSFont *font) {
 - (void)updatePrefsPanel {
     // A deleted theme has no context to create styles in, so populateStyles
     // below would crash on it.
-    if (theme.isDeleted || !theme.managedObjectContext)
-        theme = nil;
-    if (!theme) {
-        theme = _currentGame.theme;
+    if (self.theme.isDeleted || !self.theme.managedObjectContext)
+        self.theme = nil;
+    if (!self.theme) {
+        self.theme = _currentGame.theme;
     }
-    if (!theme)
-        theme = self.defaultTheme;
-    if (!theme.gridNormal.attributeDict)
-        [theme populateStyles];
-    if (!theme.gridNormal.color) {
+    if (!self.theme)
+        self.theme = self.defaultTheme;
+    if (!self.theme.gridNormal.attributeDict)
+        [self.theme populateStyles];
+    if (!self.theme.gridNormal.color) {
         NSLog(@"Preferences updatePrefsPanel: Something is very wrong");
         [BuiltInThemes createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
         return;
     }
-    clrGridFg.color = theme.gridNormal.color;
-    clrGridBg.color = theme.gridBackground;
-    clrBufferFg.color = theme.bufferNormal.color;
-    clrBufferBg.color = theme.bufferBackground;
+    clrGridFg.color = self.theme.gridNormal.color;
+    clrGridBg.color = self.theme.gridBackground;
+    clrBufferFg.color = self.theme.bufferNormal.color;
+    clrBufferBg.color = self.theme.bufferBackground;
 
-    txtGridMargin.floatValue = (float)theme.gridMarginX;
-    txtBufferMargin.floatValue = (float)theme.bufferMarginX;
-    txtLeading.doubleValue = theme.bufferNormal.lineSpacing;
+    txtGridMargin.floatValue = (float)self.theme.gridMarginX;
+    txtBufferMargin.floatValue = (float)self.theme.bufferMarginX;
+    txtLeading.doubleValue = self.theme.bufferNormal.lineSpacing;
 
-    txtCols.intValue = theme.defaultCols;
-    txtRows.intValue = theme.defaultRows;
+    txtCols.intValue = self.theme.defaultCols;
+    txtRows.intValue = self.theme.defaultRows;
 
-    txtBorder.intValue = theme.border;
+    txtBorder.intValue = self.theme.border;
 
-    btnGridFont.title = fontToString(theme.gridNormal.font);
-    btnBufferFont.title = fontToString(theme.bufferNormal.font);
+    btnGridFont.title = fontToString(self.theme.gridNormal.font);
+    btnBufferFont.title = fontToString(self.theme.bufferNormal.font);
 
-    btnSmartQuotes.state = theme.smartQuotes;
-    btnSpaceFormat.state = (theme.spaceFormat == TAG_SPACES_ONE);
+    btnSmartQuotes.state = self.theme.smartQuotes;
+    btnSpaceFormat.state = (self.theme.spaceFormat == TAG_SPACES_ONE);
 
-    btnEnableGraphics.state = theme.doGraphics;
-    btnEnableSound.state = theme.doSound;
-    btnEnableStyles.state = theme.doStyles;
+    btnEnableGraphics.state = self.theme.doGraphics;
+    btnEnableSound.state = self.theme.doSound;
+    btnEnableStyles.state = self.theme.doStyles;
 
-    _btnOverwriteStyles.enabled = theme.hasCustomStyles;
+    _btnOverwriteStyles.enabled = self.theme.hasCustomStyles;
 
     _btnOneThemeForAll.state = _oneThemeForAll;
     _btnAdjustSize.state = _adjustSize;
@@ -699,26 +729,26 @@ NSString *fontToString(NSFont *font) {
     clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
 
-    _btnAutoBorderColor.state = theme.borderBehavior == kAutomatic ? NSControlStateValueOn : NSControlStateValueOff;
-    _borderColorWell.enabled = (theme.borderBehavior == kUserOverride);
-    if (theme.borderColor == nil)
-        theme.borderColor = theme.bufferBackground;
+    _btnAutoBorderColor.state = self.theme.borderBehavior == kAutomatic ? NSControlStateValueOn : NSControlStateValueOff;
+    _borderColorWell.enabled = (self.theme.borderBehavior == kUserOverride);
+    if (self.theme.borderColor == nil)
+        self.theme.borderColor = self.theme.bufferBackground;
 
-    _btnUnderlineLinksGrid.state = (theme.gridLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
-    _btnUnderlineLinksBuffer.state = (theme.bufLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
+    _btnUnderlineLinksGrid.state = (self.theme.gridLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
+    _btnUnderlineLinksBuffer.state = (self.theme.bufLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
 
-    _btnVOSpeakCommands.state = theme.vOSpeakCommand;
-    [_vOMenuButton selectItemWithTag:theme.vOSpeakMenu];
-    [_vOImagesButton selectItemWithTag:theme.vOSpeakImages];
-    _vODelaySlider.doubleValue = theme.vOHackDelay;
-    _vODelayTextField.doubleValue = theme.vOHackDelay;
-    _vODelayTextField.enabled = theme.vODelayOn;
-    _vODelaySlider.enabled = theme.vODelayOn;
+    _btnVOSpeakCommands.state = self.theme.vOSpeakCommand;
+    [_vOMenuButton selectItemWithTag:self.theme.vOSpeakMenu];
+    [_vOImagesButton selectItemWithTag:self.theme.vOSpeakImages];
+    _vODelaySlider.doubleValue = self.theme.vOHackDelay;
+    _vODelayTextField.doubleValue = self.theme.vOHackDelay;
+    _vODelayTextField.enabled = self.theme.vODelayOn;
+    _vODelaySlider.enabled = self.theme.vODelayOn;
     _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
-    _vODelayCheckbox.state = theme.vODelayOn ? NSControlStateValueOn : NSControlStateValueOff;
+    _vODelayCheckbox.state = self.theme.vODelayOn ? NSControlStateValueOn : NSControlStateValueOff;
 
-    NSString *beepHigh = theme.beepHigh;
-    NSString *beepLow = theme.beepLow;
+    NSString *beepHigh = self.theme.beepHigh;
+    NSString *beepLow = self.theme.beepLow;
 
     if (@available(macOS 11, *)) {
         NSString *newHigh = catalinaSoundsToBigSur[beepHigh];
@@ -732,34 +762,34 @@ NSString *fontToString(NSFont *font) {
     [_beepHighMenu selectItemWithTitle:beepHigh];
     [_beepLowMenu selectItemWithTitle:beepLow];
     // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
-    if (theme.zMachineTerp < 1 || theme.zMachineTerp > 11) {
-        theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
+    if (self.theme.zMachineTerp < 1 || self.theme.zMachineTerp > 11) {
+        self.theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
     }
-    [_zterpMenu selectItemWithTag:theme.zMachineTerp];
-    [_bZArrowsMenu selectItemWithTag:theme.bZTerminator];
+    [_zterpMenu selectItemWithTag:self.theme.zMachineTerp];
+    [_bZArrowsMenu selectItemWithTag:self.theme.bZTerminator];
 
-    _zVersionTextField.stringValue = theme.zMachineLetter;
+    _zVersionTextField.stringValue = self.theme.zMachineLetter;
 
-    _bZVerticalTextField.integerValue = theme.bZAdjustment;
-    _bZVerticalStepper.integerValue = theme.bZAdjustment;
+    _bZVerticalTextField.integerValue = self.theme.bZAdjustment;
+    _bZVerticalStepper.integerValue = self.theme.bZAdjustment;
 
-    [_comprehendGraphicsPopup selectItemWithTag:theme.comprehendGraphicsType];
-    [_z6GraphicsPopup selectItemWithTag:theme.z6GraphicsType];
-    _z6ColorizeCheckBox.state = theme.z6Colorize1Bit ? NSControlStateValueOn : NSControlStateValueOff;
-    _quoteBoxCheckBox.state = theme.quoteBox ? NSControlStateValueOn : NSControlStateValueOff;
+    [_comprehendGraphicsPopup selectItemWithTag:self.theme.comprehendGraphicsType];
+    [_z6GraphicsPopup selectItemWithTag:self.theme.z6GraphicsType];
+    _z6ColorizeCheckBox.state = self.theme.z6Colorize1Bit ? NSControlStateValueOn : NSControlStateValueOff;
+    _quoteBoxCheckBox.state = self.theme.quoteBox ? NSControlStateValueOn : NSControlStateValueOff;
 
-    _zMachineNoErrWinCheckbox.state = theme.zMachineNoErrWin ? NSControlStateValueOn : NSControlStateValueOff;
+    _zMachineNoErrWinCheckbox.state = self.theme.zMachineNoErrWin ? NSControlStateValueOn : NSControlStateValueOff;
 
-    _btnSmoothScroll.state = theme.smoothScroll;
-    _btnAutosave.state = theme.autosave;
-    _btnAutosaveOnTimer.state = theme.autosaveOnTimer;
-    _btnAutosaveOnTimer.enabled = theme.autosave ? YES : NO;
-    [_errorHandlingPopup selectItemWithTag:theme.errorHandling];
+    _btnSmoothScroll.state = self.theme.smoothScroll;
+    _btnAutosave.state = self.theme.autosave;
+    _btnAutosaveOnTimer.state = self.theme.autosaveOnTimer;
+    _btnAutosaveOnTimer.enabled = self.theme.autosave ? YES : NO;
+    [_errorHandlingPopup selectItemWithTag:self.theme.errorHandling];
 
-    _btnDeterminism.state = theme.determinism;
-    _btnNoHacks.state = theme.nohacks ? NSControlStateValueOff : NSControlStateValueOn;
+    _btnDeterminism.state = self.theme.determinism;
+    _btnNoHacks.state = self.theme.nohacks ? NSControlStateValueOff : NSControlStateValueOn;
 
-    [_coverImagePopup selectItemWithTag:theme.coverArtStyle];
+    [_coverImagePopup selectItemWithTag:self.theme.coverArtStyle];
 
     [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
 
@@ -767,17 +797,17 @@ NSString *fontToString(NSFont *font) {
 
     _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSControlStateValueOn : NSControlStateValueOff;
 
-    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:theme.scrollbackLimit];
+    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:self.theme.scrollbackLimit];
     _scrollbackLimitTextField.integerValue = scrollbackLimit;
     _scrollbackLimitStepper.integerValue = scrollbackLimit;
     _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
 
-    if (theme.minTimer != 0) {
-        if (_timerSlider.doubleValue != floor(1000.0 / theme.minTimer)) {
-            _timerSlider.doubleValue = floor(1000.0 / (CGFloat)theme.minTimer);
+    if (self.theme.minTimer != 0) {
+        if (_timerSlider.doubleValue != floor(1000.0 / self.theme.minTimer)) {
+            _timerSlider.doubleValue = floor(1000.0 / (CGFloat)self.theme.minTimer);
         }
-        if (_timerTextField.doubleValue != floor(1000.0 / theme.minTimer)) {
-            _timerTextField.doubleValue = floor(1000.0 / (CGFloat)theme.minTimer);
+        if (_timerTextField.doubleValue != floor(1000.0 / self.theme.minTimer)) {
+            _timerTextField.doubleValue = floor(1000.0 / (CGFloat)self.theme.minTimer);
         }
         _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];
     }
@@ -788,17 +818,17 @@ NSString *fontToString(NSFont *font) {
     _recheckFrequencyTextfield.stringValue = [defaults stringForKey:@"RecheckFrequency"];
     _recheckFrequencyTextfield.enabled = _recheckMissingCheckbox.state ? YES : NO;
 
-    [_palettePopup selectItemWithTag:theme.sAPalette];
-    [_inventoryPopup selectItemWithTag:theme.sAInventory];
-    _delaysCheckbox.state = theme.sADelays;
-    _slowDrawCheckbox.state = theme.slowDrawing;
+    [_palettePopup selectItemWithTag:self.theme.sAPalette];
+    [_inventoryPopup selectItemWithTag:self.theme.sAInventory];
+    _delaysCheckbox.state = self.theme.sADelays;
+    _slowDrawCheckbox.state = self.theme.slowDrawing;
 
-    _hardDarkCheckbox.state = theme.hardDark;
-    _darkModeMenuItem.state = theme.hardDark;
-    _hardLightCheckbox.state = theme.hardLight;
-    _lightModeMenuItem.state = theme.hardLight;
+    _hardDarkCheckbox.state = self.theme.hardDark;
+    _darkModeMenuItem.state = self.theme.hardDark;
+    _hardLightCheckbox.state = self.theme.hardLight;
+    _lightModeMenuItem.state = self.theme.hardLight;
 
-    _scottAdamsFlickerCheckbox.state = theme.flicker;
+    _scottAdamsFlickerCheckbox.state = self.theme.flicker;
 
     [self updateLibraryOrganiserControls];
 
@@ -820,7 +850,7 @@ NSString *fontToString(NSFont *font) {
 
 - (GlkStyle *)selectedStyle {
     NSString *styleName = [self selectedStyleName];
-    return [theme valueForKey:styleName];
+    return [self.theme valueForKey:styleName];
 }
 
 - (NSString *)selectedStyleName {
@@ -832,7 +862,7 @@ NSString *fontToString(NSFont *font) {
 - (void)setCurrentGame:(Game *)currentGame {
     _currentGame = currentGame;
     _themesHeader.stringValue = [self themeScopeTitle];
-    if (currentGame && currentGame.theme != theme && !(_darkOverrideActive || _lightOverrideActive)) {
+    if (currentGame && currentGame.theme != self.theme && !(_darkOverrideActive || _lightOverrideActive)) {
         [self restoreThemeSelection:currentGame.theme];
     }
 }
@@ -1025,13 +1055,13 @@ NSString *fontToString(NSFont *font) {
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:refreshedObjects];
     updatedObjects = [updatedObjects setByAddingObjectsFromSet:deletedObjects];
 
-    if ([updatedObjects containsObject:theme]) {
+    if ([updatedObjects containsObject:self.theme]) {
         Preferences * __weak weakSelf = self;
 
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf updatePrefsPanel];
             [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
+             postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:self.theme]];
         });
     }
 }
@@ -1071,8 +1101,8 @@ NSString *fontToString(NSFont *font) {
     if (!themes.count && sender) {
         // windowDidLoad calls us 0.1 seconds after the nib loads, which is not
         // always long enough for the themes array controller to have fetched its
-        // content. Wait for it instead of giving up: the old code cleared the
-        // theme global here, and the next game launch then aborted the app in
+        // content. Wait for it instead of giving up: the old code cleared
+        // self.theme here, and the next game launch then aborted the app in
         // changeCurrentGlkController:.
         if (restoreSelectionAttempts++ < 20) {
             [self performSelector:@selector(restoreThemeSelection:) withObject:sender afterDelay:0.1];
@@ -1083,16 +1113,16 @@ NSString *fontToString(NSFont *font) {
     }
     restoreSelectionAttempts = 0;
     if (![themes containsObject:sender]) {
-        // Fall back to the last theme in the table, but never leave the global
+        // Fall back to the last theme in the table, but never leave self.theme
         // nil: everything downstream (changeCurrentGlkController: in particular)
         // assumes that a current theme exists.
         Theme *fallback = themes.lastObject ? themes.lastObject : sender;
         if (fallback)
-            theme = fallback;
+            self.theme = fallback;
         return;
     }
-    theme = sender;
-    NSUInteger row = [themes indexOfObject:theme];
+    self.theme = sender;
+    NSUInteger row = [themes indexOfObject:self.theme];
 
     disregardTableSelection = NO;
 
@@ -1121,10 +1151,10 @@ NSString *fontToString(NSFont *font) {
         Theme *selected = _arrayController.selectedTheme;
         if (!selected)
             return;
-        theme = selected;
+        self.theme = selected;
         [self updatePrefsPanel];
-        [self changeThemeName:theme.name];
-        _btnRemove.enabled = theme.editable;
+        [self changeThemeName:self.theme.name];
+        _btnRemove.enabled = self.theme.editable;
 
         if (!_lightOverrideActive && !_darkOverrideActive) {
             if (_oneThemeForAll) {
@@ -1133,15 +1163,15 @@ NSString *fontToString(NSFont *font) {
                 NSError *error;
                 fetchRequest.includesPropertyValues = NO;
                 fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-                [theme addGames:[NSSet setWithArray:fetchedObjects]];
+                [self.theme addGames:[NSSet setWithArray:fetchedObjects]];
             } else if (_currentGame) {
-                _currentGame.theme = theme;
+                _currentGame.theme = self.theme;
             }
         }
 
         // Send notification that theme has changed -- trigger configure events
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
+         postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:self.theme]];
     }
 }
 
@@ -1199,7 +1229,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         NSTextField *textfield = notification.object;
         // A theme renamed from the contextual menu may not be the current one.
         Theme *renamed = [self themeForTableCellSubview:textfield];
-        if (!renamed || renamed == theme)
+        if (!renamed || renamed == self.theme)
             [self changeThemeName:textfield.stringValue];
     }
 }
@@ -1223,7 +1253,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         if (row >= 0 && row < (NSInteger)themes.count)
             return themes[(NSUInteger)row];
     }
-    return theme;
+    return self.theme;
 }
 
 - (NSArray *)sortDescriptors {
@@ -1304,7 +1334,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         NSError *error = nil;
         fetchRequest.includesPropertyValues = NO;
         NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        theme.games = [NSSet setWithArray:fetchedObjects];
+        self.theme.games = [NSSet setWithArray:fetchedObjects];
     } else {
         _btnOneThemeForAll.state = NSControlStateValueOff;
     }
@@ -1342,7 +1372,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSAlert *anAlert = [[NSAlert alloc] init];
     anAlert.messageText =
     [NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOfGames:games], (games.count == 1) ? @"has" : @"have"];
-    anAlert.informativeText = [NSString stringWithFormat:@"Would you like to use theme %@ for all games?", theme.name];
+    anAlert.informativeText = [NSString stringWithFormat:@"Would you like to use theme %@ for all games?", self.theme.name];
     anAlert.showsSuppressionButton = YES;
     anAlert.suppressionButton.title = NSLocalizedString(@"Do not show again.", nil);
     [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
@@ -1471,7 +1501,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     // The current theme may be one of the deleted ones. Pick a built-in theme
     // to take its place before deleting: a deleted theme loses its context,
     // and updatePrefsPanel would crash trying to give it new styles.
-    Theme *survivor = theme;
+    Theme *survivor = self.theme;
     if (survivor.editable) {
         survivor = [self findAncestorThemeOf:survivor];
         if (!survivor || survivor.editable)
@@ -1496,7 +1526,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     // Removing the selected theme moves the selection to some other row. That
     // is not a user choice, so it must not be applied to the current game.
-    theme = survivor;
+    self.theme = survivor;
     ignoreTableSelectionChanges = YES;
     [arrayController removeObjects:fetchedObjects];
     ignoreTableSelectionChanges = NO;
@@ -1587,7 +1617,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         // another row they only show that theme's state.
         Theme *target = [self themeForMenuCommand:menuItem];
         menuItem.state = (action == @selector(useInLightMode:)) ? target.hardLight : target.hardDark;
-        return target == theme;
+        return target == self.theme;
 
     } else if (action == @selector(togglePreview:)) {
         NSString* title = _previewShown ? NSLocalizedString(@"Hide Preview", nil) : NSLocalizedString(@"Show Preview", nil);
@@ -1602,14 +1632,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 #pragma mark User actions
 
 - (void)changeBooleanAttribute:(NSString *)attribute fromButton:(NSButton *)button {
-    if (((NSNumber *)[theme valueForKey:attribute]).intValue == button.state)
+    if (((NSNumber *)[self.theme valueForKey:attribute]).intValue == button.state)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     [themeToChange setValue:@(button.state) forKey:attribute];
 }
 
 - (void)changeMenuAttribute:(NSString *)attribute fromPopUp:(NSPopUpButton *)button {
-    if (((NSNumber *)[theme valueForKey:attribute]).intValue == button.selectedTag)
+    if (((NSNumber *)[self.theme valueForKey:attribute]).intValue == button.selectedTag)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     [themeToChange setValue:@(button.selectedTag) forKey:attribute];
@@ -1620,7 +1650,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     int32_t value = MAX(5, MIN(200, [sender intValue]));
     [sender setIntValue:value];
-    if (sender == txtCols ? theme.defaultCols == value : theme.defaultRows == value)
+    if (sender == txtCols ? self.theme.defaultCols == value : self.theme.defaultRows == value)
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     if (sender == txtCols)
@@ -1659,19 +1689,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (sender == clrGridFg) {
         key = @"gridNormal";
-        if ([self selectedStyle] == theme.gridNormal)
+        if ([self selectedStyle] == self.theme.gridNormal)
             clrAnyFg.color = color;
     } else if (sender == clrGridBg) {
-        if ([theme.gridBackground isEqualToColor:color])
+        if ([self.theme.gridBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.gridBackground = color;
     } else if (sender == clrBufferFg) {
         key = @"bufferNormal";
-        if ([self selectedStyle] == theme.bufferNormal)
+        if ([self selectedStyle] == self.theme.bufferNormal)
             clrAnyFg.color = color;
     } else if (sender == clrBufferBg) {
-        if ([theme.bufferBackground isEqualToColor:color])
+        if ([self.theme.bufferBackground isEqualToColor:color])
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.bufferBackground = color;
@@ -1684,7 +1714,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     GlkStyle *style = nil;
     if (key) {
-        style = [theme valueForKey:key];
+        style = [self.theme valueForKey:key];
         if ([style.color isEqualToColor:color])
             return;
 
@@ -1710,7 +1740,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)changeBorderColor:(NSColor *)color {
-    if ([color isEqualToColor:theme.borderColor])
+    if ([color isEqualToColor:self.theme.borderColor])
         return;
 
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -1739,13 +1769,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
     Theme *themeToChange;
 
     if (sender == txtGridMargin) {
-        if (theme.gridMarginX == val)
+        if (self.theme.gridMarginX == val)
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.gridMarginX = val;
         themeToChange.gridMarginY = val;
     } else if (sender == txtBufferMargin) {
-        if (theme.bufferMarginX == val)
+        if (self.theme.bufferMarginX == val)
             return;
         themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.bufferMarginX = val;
@@ -1790,7 +1820,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSMutableDictionary *convertedAttributes = selectedStyle.attributeDict.mutableCopy;
 
     convertedAttributes[@"NSDocumentBackgroundColor"] = (windowType == wintype_TextGrid) ?
-    theme.gridBackground : theme.bufferBackground;
+    self.theme.gridBackground : self.theme.bufferBackground;
     [fontManager setSelectedFont:selectedStyle.font isMultiple:NO];
     [fontManager setSelectedAttributes:convertedAttributes isMultiple:NO];
 }
@@ -1801,13 +1831,13 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSUnderlineStyle selectedStyle = (((NSButton *)sender).state == NSControlStateValueOn) ? NSUnderlineStyleSingle : NSUnderlineStyleNone;
     switch (windowType) {
         case wintype_TextGrid:
-            if (theme.gridLinkStyle == selectedStyle)
+            if (self.theme.gridLinkStyle == selectedStyle)
                 return;
             themeToChange = [self cloneThemeIfNotEditable];
             themeToChange.gridLinkStyle = (int32_t)selectedStyle;
             break;
         case wintype_TextBuffer:
-            if (theme.bufLinkStyle == selectedStyle)
+            if (self.theme.bufLinkStyle == selectedStyle)
                 return;
             themeToChange = [self cloneThemeIfNotEditable];
             themeToChange.bufLinkStyle = (int32_t)selectedStyle;
@@ -1820,31 +1850,31 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeHardDarkTheme:(id)sender {
     BOOL lightOrDarkWasRemoved = NO;
-    theme.hardDark = (_hardDarkCheckbox.state == NSControlStateValueOn);
-    if (theme.hardDark) {
+    self.theme.hardDark = (_hardDarkCheckbox.state == NSControlStateValueOn);
+    if (self.theme.hardDark) {
         // The Use in dark mode checkbox was switched on.
         // Switch off the other one
         _hardLightCheckbox.state = NSControlStateValueOff;
         // If this was the light theme, nil it
-        if (_lightTheme == theme) {
+        if (_lightTheme == self.theme) {
             _lightTheme = nil;
             if (_lightOverrideActive) {
                 lightOrDarkWasRemoved = YES;
             }
         }
-        theme.hardLight = NO;
-        if (_darkTheme && _darkTheme != theme) {
+        self.theme.hardLight = NO;
+        if (_darkTheme && _darkTheme != self.theme) {
             // Reset any previous dark theme
             _darkTheme.hardDark = NO;
             _darkTheme.hardLightOrDark = NO;
         }
-        theme.hardLightOrDark = YES;
-        _darkTheme = theme;
+        self.theme.hardLightOrDark = YES;
+        _darkTheme = self.theme;
     } else {
         // The use in dark mode checkbox was switched off
         // This means that both checkboxes are off
-        theme.hardLightOrDark = NO;
-        if (_darkTheme == theme) {
+        self.theme.hardLightOrDark = NO;
+        if (_darkTheme == self.theme) {
             _darkTheme = nil;
             if (_darkOverrideActive) {
                 lightOrDarkWasRemoved = YES;
@@ -1861,31 +1891,31 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeHardLightTheme:(id)sender {
     BOOL lightOrDarkWasRemoved = NO;
-    theme.hardLight = (_hardLightCheckbox.state == NSControlStateValueOn);
-    if (theme.hardLight) {
+    self.theme.hardLight = (_hardLightCheckbox.state == NSControlStateValueOn);
+    if (self.theme.hardLight) {
         // The Use in light mode checkbox was switched on
         // Switch off the other one
         _hardDarkCheckbox.state = NSControlStateValueOff;
         // If this was the dark theme, nil it
-        theme.hardDark = NO;
-        if (_darkTheme == theme) {
+        self.theme.hardDark = NO;
+        if (_darkTheme == self.theme) {
             if (_darkOverrideActive) {
                 lightOrDarkWasRemoved = YES;
             }
             _darkTheme = nil;
         }
-        if (_lightTheme && _lightTheme != theme) {
+        if (_lightTheme && _lightTheme != self.theme) {
             // Reset any previous light theme
             _lightTheme.hardLight = NO;
             _lightTheme.hardLightOrDark = NO;
         }
-        theme.hardLightOrDark = YES;
-        _lightTheme = theme;
+        self.theme.hardLightOrDark = YES;
+        _lightTheme = self.theme;
     } else {
         // The use in light mode checkbox was switched off
         // This means that both checkboxes are off
-        theme.hardLightOrDark = NO;
-        if (_lightTheme == theme) {
+        self.theme.hardLightOrDark = NO;
+        if (_lightTheme == self.theme) {
             _lightTheme = nil;
             if (_lightOverrideActive) {
                 lightOrDarkWasRemoved = YES;
@@ -1903,17 +1933,17 @@ textShouldEndEditing:(NSText *)fieldEditor {
 #pragma mark Margin Popover
 
 - (IBAction)showMarginPopover:(id)sender {
-    _marginHorizontalGridTextField.integerValue = theme.gridMarginX;
-    _marginHorizontalGridStepper.integerValue = theme.gridMarginX;
+    _marginHorizontalGridTextField.integerValue = self.theme.gridMarginX;
+    _marginHorizontalGridStepper.integerValue = self.theme.gridMarginX;
     
-    _marginVerticalGridTextField.integerValue = theme.gridMarginY;
-    _marginVerticalGridStepper.integerValue = theme.gridMarginY;
+    _marginVerticalGridTextField.integerValue = self.theme.gridMarginY;
+    _marginVerticalGridStepper.integerValue = self.theme.gridMarginY;
 
-    _marginHorizontalBufferTextField.integerValue = theme.bufferMarginX;
-    _marginHorizontalBufferStepper.integerValue = theme.bufferMarginX;
+    _marginHorizontalBufferTextField.integerValue = self.theme.bufferMarginX;
+    _marginHorizontalBufferStepper.integerValue = self.theme.bufferMarginX;
 
-    _marginVerticalBufferTextField.integerValue = theme.bufferMarginY;
-    _marginVerticalBufferStepper.integerValue = theme.bufferMarginY;
+    _marginVerticalBufferTextField.integerValue = self.theme.bufferMarginY;
+    _marginVerticalBufferStepper.integerValue = self.theme.bufferMarginY;
 
     [_marginsPopover showRelativeToRect:[sender bounds] ofView:sender preferredEdge:NSMaxYEdge];
 }
@@ -1921,7 +1951,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 // Shared body of the four margins popover actions
 - (void)changeMarginAttribute:(NSString *)attribute fromControl:(id)sender
                     textField:(NSTextField *)textField stepper:(NSStepper *)stepper {
-    if (((NSNumber *)[theme valueForKey:attribute]).integerValue == [sender integerValue])
+    if (((NSNumber *)[self.theme valueForKey:attribute]).integerValue == [sender integerValue])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     [themeToChange setValue:@([sender intValue]) forKey:attribute];
@@ -1966,14 +1996,14 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeVOMenuMenu:(id)sender {
-    if (theme.vOSpeakMenu == (int)[sender selectedTag])
+    if (self.theme.vOSpeakMenu == (int)[sender selectedTag])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.vOSpeakMenu = (int)[sender selectedTag];
 }
 
 - (IBAction)changeVOImageMenu:(id)sender {
-    if (theme.vOSpeakImages == (int)[sender selectedTag])
+    if (self.theme.vOSpeakImages == (int)[sender selectedTag])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.vOSpeakImages = (int)[sender selectedTag];
@@ -2017,7 +2047,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeBeepHighMenu:(id)sender {
     NSString *title = [self playBeepFromMenu:sender];
-    if (!title || [theme.beepHigh isEqualToString:title])
+    if (!title || [self.theme.beepHigh isEqualToString:title])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.beepHigh = title;
@@ -2025,7 +2055,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeBeepLowMenu:(id)sender {
     NSString *title = [self playBeepFromMenu:sender];
-    if (!title || [theme.beepLow isEqualToString:title])
+    if (!title || [self.theme.beepLow isEqualToString:title])
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.beepLow = title;
@@ -2040,11 +2070,11 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeZVersion:(id)sender {
-    if ([theme.zMachineLetter isEqualToString:[sender stringValue]]) {
+    if ([self.theme.zMachineLetter isEqualToString:[sender stringValue]]) {
         return;
     }
     if ([sender stringValue].length == 0) {
-        _zVersionTextField.stringValue = theme.zMachineLetter;
+        _zVersionTextField.stringValue = self.theme.zMachineLetter;
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -2053,7 +2083,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 
 - (IBAction)changeBZVerticalAdjustment:(id)sender {
-    if (theme.bZAdjustment == [sender integerValue]) {
+    if (self.theme.bZAdjustment == [sender integerValue]) {
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -2141,7 +2171,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         value = 2000;
     else if (value > 2000000)
         value = 2000000;
-    if (theme.scrollbackLimit != value) {
+    if (self.theme.scrollbackLimit != value) {
         Theme *themeToChange = [self cloneThemeIfNotEditable];
         themeToChange.scrollbackLimit = (int32_t)value;
     }
@@ -2160,7 +2190,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeTimerSlider:(id)sender {
-    if ([sender integerValue] == 0 || theme.minTimer == 1000.0 / [sender floatValue]) {
+    if ([sender integerValue] == 0 || self.theme.minTimer == 1000.0 / [sender floatValue]) {
         return;
     }
     Theme *themeToChange = [self cloneThemeIfNotEditable];
@@ -2175,7 +2205,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeNoHacks:(id)sender {
-    if (theme.nohacks == ([sender state] == NSControlStateValueOff))
+    if (self.theme.nohacks == ([sender state] == NSControlStateValueOff))
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.nohacks = ([sender state] == NSControlStateValueOff);
@@ -2361,8 +2391,8 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if ([sender state] == NSControlStateValueOn) {
         if (![[NSUserDefaults standardUserDefaults] boolForKey:@"OverwriteStylesAlertSuppression"]) {
             NSMutableArray *customStyles = [[NSMutableArray alloc] initWithCapacity:style_NUMSTYLES * 2];
-            for (GlkStyle *style in theme.allStyles) {
-                if (!style.autogenerated && style != theme.bufferNormal && style != theme.gridNormal) {
+            for (GlkStyle *style in self.theme.allStyles) {
+                if (!style.autogenerated && style != self.theme.bufferNormal && style != self.theme.gridNormal) {
                     [customStyles addObject:style];
                 }
             }
@@ -2409,16 +2439,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)overWriteStyles {
-    theme = [self cloneThemeIfNotEditable];
+    self.theme = [self cloneThemeIfNotEditable];
     NSUInteger counter = 0;
-    for (GlkStyle *style in theme.allStyles) {
+    for (GlkStyle *style in self.theme.allStyles) {
         if (!style.autogenerated) {
             counter++;
             style.autogenerated = YES;
         }
     }
     if (counter) {
-        [theme populateStyles];
+        [self.theme populateStyles];
         [Preferences rebuildTextAttributes];
     }
     NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
@@ -2426,19 +2456,19 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (IBAction)changeBorderSize:(id)sender {
-    if (theme.border == [sender intValue])
+    if (self.theme.border == [sender intValue])
         return;
-    theme = [self cloneThemeIfNotEditable];
-    NSInteger oldBorder = theme.border;
-    theme.border = [sender intValue];
-    NSInteger diff = theme.border - oldBorder;
+    self.theme = [self cloneThemeIfNotEditable];
+    NSInteger oldBorder = self.theme.border;
+    self.theme.border = [sender intValue];
+    NSInteger diff = self.theme.border - oldBorder;
     [[NSNotificationCenter defaultCenter]
      postNotificationName:kBorderChangedNotification
-     object:theme
+     object:self.theme
      userInfo:@{@"diff":@(diff)}];
 }
 - (IBAction)changeAutomaticBorderColor:(id)sender {
-    if (theme.borderBehavior == ([sender state] == NSControlStateValueOff))
+    if (self.theme.borderBehavior == ([sender state] == NSControlStateValueOff))
         return;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     themeToChange.borderBehavior = ([sender state] == NSControlStateValueOff);
@@ -2451,50 +2481,50 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (Theme *)cloneThemeIfNotEditable {
-    if (!theme.editable) {
-        Theme *clonedTheme = theme.clone;
+    if (!self.theme.editable) {
+        Theme *clonedTheme = self.theme.clone;
         clonedTheme.editable = YES;
-        NSString *name = [theme.name stringByAppendingString:@" (modified)"];
+        NSString *name = [self.theme.name stringByAppendingString:@" (modified)"];
         NSUInteger counter = 2;
         while ([_arrayController findThemeByName:name]) {
-            name = [NSString stringWithFormat:@"%@ (modified) %ld", theme.name, counter++];
+            name = [NSString stringWithFormat:@"%@ (modified) %ld", self.theme.name, counter++];
         }
         clonedTheme.name = name;
         [self changeThemeName:name];
         _btnRemove.enabled = YES;
-        theme = clonedTheme;
+        self.theme = clonedTheme;
         pendingSelectionTheme = clonedTheme;
         [self performSelector:@selector(restoreThemeSelection:) withObject:clonedTheme afterDelay:0.1];
         return clonedTheme;
     }
-    return theme;
+    return self.theme;
 }
 
 #pragma mark Zoom
 
 + (void)zoomIn {
-    zoomDirection = ZOOMRESET;
-    NSFont *gridroman = theme.gridNormal.font;
+    self.zoomDirection = ZOOMRESET;
+    NSFont *gridroman = self.theme.gridNormal.font;
     if (gridroman.pointSize < 200) {
-        zoomDirection = ZOOMIN;
+        self.zoomDirection = ZOOMIN;
         [self scale:(gridroman.pointSize + 1) / gridroman.pointSize];
     }
 }
 
 + (void)zoomOut {
-    zoomDirection = ZOOMRESET;
-    NSFont *gridroman = theme.gridNormal.font;
+    self.zoomDirection = ZOOMRESET;
+    NSFont *gridroman = self.theme.gridNormal.font;
     if (gridroman.pointSize > 6) {
-        zoomDirection = ZOOMOUT;
+        self.zoomDirection = ZOOMOUT;
         [self scale:(gridroman.pointSize - 1) / gridroman.pointSize];
     }
 }
 
 + (void)zoomToActualSize {
-    zoomDirection = ZOOMRESET;
+    self.zoomDirection = ZOOMRESET;
 
     CGFloat scale = 12;
-    Theme *parent = theme.defaultParent;
+    Theme *parent = self.theme.defaultParent;
     while (parent.defaultParent)
         parent = parent.defaultParent;
 
@@ -2504,18 +2534,18 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (scale < 6)
         scale = 12;
 
-    [self scale:scale / theme.gridNormal.font.pointSize];
+    [self scale:scale / self.theme.gridNormal.font.pointSize];
 }
 
 + (void)scale:(CGFloat)scalefactor {
     if (scalefactor < 0)
         scalefactor = fabs(scalefactor);
 
-    [prefs cloneThemeIfNotEditable];
+    [Preferences.instance cloneThemeIfNotEditable];
 
     CGFloat fontSize;
 
-    for (GlkStyle *style in theme.allStyles) {
+    for (GlkStyle *style in self.theme.allStyles) {
         fontSize = style.font.pointSize;
         fontSize *= scalefactor;
         if (fontSize > 0) {
@@ -2555,12 +2585,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
     /* send notification that default size has changed -- resize all windows */
     [[NSNotificationCenter defaultCenter]
      postNotificationName:kDefaultSizeChangedNotification
-     object:theme];
+     object:self.theme];
 }
 
 - (void)updatePanelAfterZoom {
-    btnGridFont.title = fontToString(theme.gridNormal.font);
-    btnBufferFont.title = fontToString(theme.bufferNormal.font);
+    btnGridFont.title = fontToString(self.theme.gridNormal.font);
+    btnBufferFont.title = fontToString(self.theme.bufferNormal.font);
     btnAnyFont.title = fontToString([self selectedStyle].font);
 }
 
@@ -2573,16 +2603,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
     NSColor *selectedDocumentColor = nil;
     GlkStyle *selectedStyle = nil;
 
-    selectedFont = theme.bufferNormal.font;
-    selectedFontColor = theme.bufferNormal.color;
-    selectedDocumentColor = theme.bufferBackground;
-    selectedStyle = theme.bufferNormal;
+    selectedFont = self.theme.bufferNormal.font;
+    selectedFontColor = self.theme.bufferNormal.color;
+    selectedDocumentColor = self.theme.bufferBackground;
+    selectedStyle = self.theme.bufferNormal;
 
     if (sender == btnGridFont) {
-        selectedFont = theme.gridNormal.font;
-        selectedFontColor = theme.gridNormal.color;
-        selectedDocumentColor = theme.gridBackground;
-        selectedStyle = theme.gridNormal;
+        selectedFont = self.theme.gridNormal.font;
+        selectedFontColor = self.theme.gridNormal.color;
+        selectedDocumentColor = self.theme.gridBackground;
+        selectedStyle = self.theme.gridNormal;
     }
     if (sender == btnAnyFont) {
         selectedStyle = [self selectedStyle];
@@ -2590,7 +2620,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         selectedFontColor = selectedStyle.color;
         NSInteger windowType = _windowTypePopup.selectedTag;
         selectedDocumentColor = (windowType == wintype_TextGrid) ?
-        theme.gridBackground : theme.bufferBackground;
+        self.theme.gridBackground : self.theme.bufferBackground;
     }
 
     NSDictionary *attConvDict = @{ NSForegroundColorAttributeName: @"NSColor",
@@ -2660,7 +2690,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         return;
     }
 
-    GlkStyle *style = [theme valueForKey:styleName];
+    GlkStyle *style = [self.theme valueForKey:styleName];
     NSFont *newFont = [fontManager convertFont:style.font ?: [NSFont systemFontOfSize:12]];
     if (!newFont || [style.font isEqual:newFont])
         return;
@@ -2687,9 +2717,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
 
-    GlkStyle *style = theme.bufferNormal;
+    GlkStyle *style = self.theme.bufferNormal;
     if (selectedFontButton == btnGridFont)
-        style = theme.gridNormal;
+        style = self.theme.gridNormal;
     else if (selectedFontButton == btnAnyFont)
         style = [self selectedStyle];
 
@@ -2715,9 +2745,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     if (newAttributes[@"NSColor"]) {
         NSColorWell *colorWell = nil;
-        if (style == theme.gridNormal)
+        if (style == self.theme.gridNormal)
             colorWell = clrGridFg;
-        else if (style == theme.bufferNormal)
+        else if (style == self.theme.bufferNormal)
             colorWell = clrBufferFg;
         else if (style == [self selectedStyle])
             colorWell = clrAnyFg;
@@ -2740,16 +2770,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
         sender = self.dummyTextView.sender;
     }
 
-    GlkStyle *style = theme.bufferNormal;
+    GlkStyle *style = self.theme.bufferNormal;
     if (selectedFontButton == btnGridFont)
-        style = theme.gridNormal;
+        style = self.theme.gridNormal;
     else if (selectedFontButton == btnAnyFont)
         style = [self selectedStyle];
 
     NSColorWell *colorWell = nil;
-    if (style == theme.gridNormal)
+    if (style == self.theme.gridNormal)
         colorWell = clrGridBg;
-    else if (style == theme.bufferNormal)
+    else if (style == self.theme.bufferNormal)
         colorWell = clrBufferBg;
     else if (style == [self selectedStyle]) {
         NSInteger windowType = _windowTypePopup.selectedTag;
