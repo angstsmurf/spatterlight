@@ -96,8 +96,9 @@ Files: GlkController.m (2259), +GlkRequests (1435), +Autorestore (943), +FullScr
   - Open. Duplicated pieces were pulled out into helpers (see P2), but the method itself is not split yet.
 - [x] Move `showingInfocomV6Menu`, `gameTitle` (Speech) and the `journeyMenuHandler` / `infocomV6MenuHandler` lazy getters (GlkRequests) next to their ivars/owner.
   - Lazy getters moved to GlkController.m (`#pragma mark Menu handlers`). `showingInfocomV6Menu` / `gameTitle` stay in Speech: they are VoiceOver accessors used only by speech code.
-- [ ] `GlkHelperView` out of GlkController.m into its own file.
-  - Deferred: needs a project.pbxproj edit, and the working tree has an unrelated pbxproj change in flight.
+- [x] `GlkHelperView` out of GlkController.m into its own file.
+  - Now GlkHelperView.h/.m. GlkController.h imports GlkHelperView.h, so existing users (tests, Preferences) need no change.
+  - No project.pbxproj edit was needed: application/GlkController/ is a synchronized folder group, so new files in it are picked up automatically.
 
 ## P4: Headers, dead code
 

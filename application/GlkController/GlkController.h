@@ -11,6 +11,8 @@
 
 #import <AppKit/AppKit.h>
 
+#import "GlkHelperView.h"
+
 @class Game, Theme, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController, InfocomV6MenuHandler;
 
 typedef enum kGameIdentity : NSUInteger {
@@ -38,12 +40,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
     kMinimumWindowWidth = 212,
     kMinimumWindowHeight = 100
 } kMinimumWindowSize;
-
-@interface GlkHelperView : NSView
-
-@property (weak) IBOutlet GlkController *glkctrl;
-
-@end
 
 @interface GlkController : NSWindowController <NSSecureCoding, NSDraggingDestination>
 
