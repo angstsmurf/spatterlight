@@ -154,8 +154,8 @@
     for (NSTableColumn *tableColumn in _gameTableView.tableColumns) {
         key = tableColumn.identifier;
         for (NSMenuItem *menuitem in _headerMenu.itemArray) {
-            if ([[menuitem valueForKey:@"identifier"] isEqualToString:key]) {
-                menuitem.state = (tableColumn.hidden) ? NSOffState : NSOnState;
+            if ([menuitem.identifier isEqualToString:key]) {
+                menuitem.state = (tableColumn.hidden) ? NSControlStateValueOff : NSControlStateValueOn;
                 break;
             }
         }

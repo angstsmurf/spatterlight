@@ -42,8 +42,8 @@
         if (result == NSModalResponseOK) {
             NSArray *urls = panel.URLs;
 
-            BOOL lookForImages = weakSelf.lookForCoverImagesCheckBox.state ? YES : NO;
-            BOOL downloadInfo = weakSelf.downloadGameInfoCheckBox.state ? YES : NO;
+            BOOL lookForImages = weakSelf.lookForCoverImagesCheckBox.state == NSControlStateValueOn;
+            BOOL downloadInfo = weakSelf.downloadGameInfoCheckBox.state == NSControlStateValueOn;
 
             [defaults setBool:lookForImages forKey:@"LookForImagesWhenImporting"];
             [defaults setBool:downloadInfo forKey:@"DownloadInfoWhenImporting"];

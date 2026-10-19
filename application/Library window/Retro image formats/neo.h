@@ -6,7 +6,7 @@
  *
  * This file is based on code from NEOLoad by Jason "Joefish" Railton
  * (See https://www.atari-forum.com/viewtopic.php?t=29650)
- * and drilbo-mg1.h, part of Fizmo *
+ * and drilbo-mg1.h, part of Fizmo.
  *
  * Copyright (c) 2021 Petter Sjölund.
  * All rights reserved.

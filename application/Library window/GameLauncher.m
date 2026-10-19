@@ -128,7 +128,7 @@
     NSURL *trashUrl = [fileManager URLForDirectory:NSTrashDirectory inDomain:NSUserDomainMask appropriateForURL:[NSURL fileURLWithPath:path isDirectory:NO] create:NO error:&error];
     if (error)
         NSLog(@"Error getting Trash path: %@", error);
-    if (trashUrl && [path hasPrefix:trashUrl.path]) {
+    if (trashUrl && [path hasPrefix:[trashUrl.path stringByAppendingString:@"/"]]) {
         if (!systemWindowRestoration) {
             NSAlert *alert = [[NSAlert alloc] init];
             alert.messageText = NSLocalizedString(@"This game is in Trash.", nil);

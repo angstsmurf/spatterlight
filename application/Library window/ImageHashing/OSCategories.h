@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSData (CococaImageHashing)
+@interface NSData (CocoaImageHashing)
 
 - (nullable NSData *)RGBABitmapDataForResizedImageWithWidth:(NSUInteger)width
                                                   andHeight:(NSUInteger)height;

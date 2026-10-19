@@ -1,5 +1,5 @@
 //
-//  LookForMissingFiles.h
+//  MissingFilesFinder.h
 //  Spatterlight
 //
 //  Created by Administrator on 2021-05-22.

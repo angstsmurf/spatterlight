@@ -319,7 +319,7 @@
         return;
     NSDictionary *attributes = @{ NSFontAttributeName:[NSFont systemFontOfSize:12] };
     NSRect newFrame = descriptionText.frame;
-    NSRect requiredFrame = [descriptionString boundingRectWithSize:NSMakeSize(NSWidth(descriptionText.frame) - 4, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
+    NSRect requiredFrame = [descriptionString boundingRectWithSize:NSMakeSize(NSWidth(descriptionText.frame) - 4, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:attributes context:nil];
     newFrame.size.height = requiredFrame.size.height;
     descriptionText.frame = newFrame;
     descriptionText.stringValue = descriptionString;

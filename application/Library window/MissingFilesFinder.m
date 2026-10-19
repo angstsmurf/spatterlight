@@ -1,5 +1,5 @@
 //
-//  LookForMissingFiles.m
+//  MissingFilesFinder.m
 //  Spatterlight
 //
 //  Created by Administrator on 2021-05-22.

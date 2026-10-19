@@ -1,5 +1,5 @@
 //
-//  CoverImageComparisonViewController.h
+//  ImageCompareViewController.h
 //  Spatterlight
 //
 //  Created by Administrator on 2021-05-21.

@@ -61,6 +61,11 @@ static const SInt64 OSHashTypeError = -1;
     return leftHandImageDataHash == rightHandImageDataHash;
 }
 
+OS_INLINE SInt64 OSHammingDistance(SInt64 leftHand, SInt64 rightHand)
+{
+    return (SInt64)__builtin_popcountll((UInt64)leftHand ^ (UInt64)rightHand);
+}
+
 - (SInt64)hashDistance:(NSData *)leftHandImageData
                     to:(NSData *)rightHandImageData {
     NSAssert(leftHandImageData, @"Left hand image data must not be null");
@@ -68,11 +73,6 @@ static const SInt64 OSHashTypeError = -1;
     SInt64 leftHandImageDataHash = [self hashImageData:leftHandImageData];
     SInt64 rightHandImageDataHash = [self hashImageData:rightHandImageData];
     return OSHammingDistance(leftHandImageDataHash, rightHandImageDataHash);
-}
-
-OS_INLINE SInt64 OSHammingDistance(SInt64 leftHand, SInt64 rightHand)
-{
-    return (SInt64)__builtin_popcountll((UInt64)leftHand ^ (UInt64)rightHand);
 }
 
 @end

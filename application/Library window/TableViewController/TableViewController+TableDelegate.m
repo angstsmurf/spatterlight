@@ -515,7 +515,7 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
             NSMenuItem *none = popUp.menu.itemArray[0];
             if (value == 0) {
                 [popUp selectItem:none];
-                none.state = NSOnState;
+                none.state = NSControlStateValueOn;
                 if (@available(macOS 10.14, *)) {
                     popUp.title = @"";
                 } else {

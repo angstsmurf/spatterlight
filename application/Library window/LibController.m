@@ -296,7 +296,7 @@
         });
     }
     NSNumber *scrollPosNum = [state decodeObjectOfClass:[NSNumber class] forKey:@"scrollPosition"];
-    CGFloat scrollPosition = scrollPosNum.floatValue;
+    CGFloat scrollPosition = scrollPosNum.doubleValue;
     NSArray *selectedHashtags;
     if (@available(macOS 11.0, *)) {
         @try {

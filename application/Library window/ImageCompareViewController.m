@@ -1,5 +1,5 @@
 //
-//  CoverImageComparisonViewController.m
+//  ImageCompareViewController.m
 //  Spatterlight
 //
 //  Created by Administrator on 2021-05-21.
@@ -76,7 +76,7 @@
     _rightImage.image = [[NSImage alloc] initWithData:imageA];
     _leftImage.image = [[NSImage alloc] initWithData:imageB];
 
-    [alert setMessageText:NSLocalizedString(@"Do you want the replace this image?", nil)];
+    [alert setMessageText:NSLocalizedString(@"Do you want to replace this image?", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"No", nil)];
 
@@ -93,7 +93,7 @@
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if (checkbox.state == NSOnState) {
+    if (checkbox.state == NSControlStateValueOn) {
         if (source == kImageComparisonDownloaded) {
             [defaults setInteger:(choice == NSAlertFirstButtonReturn) ? kAlwaysReplace : kNeverReplace forKey:@"ImageReplacement"];
             if (Preferences.instance)

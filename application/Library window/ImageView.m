@@ -117,7 +117,7 @@
     [menu addItem:paste];
     [menu addItem:delete];
     [menu addItem:[NSMenuItem separatorItem]];
-    filter.state = NSOffState;
+    filter.state = NSControlStateValueOff;
     filter.tag = FILTERTAG;
     [menu addItem:filter];
 
@@ -323,10 +323,10 @@
     else if (menuItem.action == @selector(toggleFilter:)) {
         NSMenuItem *filter = [self.menu itemWithTag:FILTERTAG];
         if (!_isPlaceholder) {
-            filter.state = (game.metadata.cover.interpolation == kNearestNeighbor) ? NSOffState : NSOnState;
+            filter.state = (game.metadata.cover.interpolation == kNearestNeighbor) ? NSControlStateValueOff : NSControlStateValueOn;
             return YES;
         } else {
-            filter.state = NSOffState;
+            filter.state = NSControlStateValueOff;
             return NO;
         }
     }

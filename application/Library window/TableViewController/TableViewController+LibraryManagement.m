@@ -138,7 +138,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
     if (self.gameSessions.count) {
         alert.accessoryView = self.forceQuitView;
-        self.forceQuitCheckBox.state = NSOffState;
+        self.forceQuitCheckBox.state = NSControlStateValueOff;
     }
 
     NSModalResponse choice = [alert runModal];
@@ -147,7 +147,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 
         [self cancel:nil];
         [self.coreDataManager saveChanges];
-        BOOL forceQuit = self.forceQuitCheckBox.state == NSOnState;
+        BOOL forceQuit = self.forceQuitCheckBox.state == NSControlStateValueOn;
 
         // The Spotlight index holds the user's library, not a test store's
         if (![CoreDataManager testStoreURL]) {
@@ -316,13 +316,13 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
-        [defaults setBool:alert.suppressionButton.state ? YES : NO forKey:@"VerifyAlertSuppression"];
-        [defaults setBool:self.verifyReCheckbox.state ? YES : NO forKey:@"RecheckForMissing"];
+        [defaults setBool:alert.suppressionButton.state == NSControlStateValueOn forKey:@"VerifyAlertSuppression"];
+        [defaults setBool:self.verifyReCheckbox.state == NSControlStateValueOn forKey:@"RecheckForMissing"];
         if (self.verifyReCheckbox.state)
             [self startVerifyTimer];
         else
             [self stopVerifyTimer];
-        [defaults setBool:self.verifyDeleteMissingCheckbox.state ? YES : NO forKey:@"DeleteMissing"];
+        [defaults setBool:self.verifyDeleteMissingCheckbox.state == NSControlStateValueOn forKey:@"DeleteMissing"];
         [defaults setInteger:self.verifyFrequencyTextField.integerValue forKey:@"RecheckFrequency"];
     }
     return choice;
