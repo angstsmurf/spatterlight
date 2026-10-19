@@ -707,7 +707,11 @@
                 if (errorOrNil) {
                     NSLog(@"Error: %@", errorOrNil);
                 } else {
-                    [self imageFromURL:fileURL dontAsk:NO];
+                    // The reader runs on workQueue, but imageFromURL: reaches
+                    // the main context through processImageData:
+                    dispatch_async(dispatch_get_main_queue(), ^{
+                        [self imageFromURL:fileURL dontAsk:NO];
+                    });
                 }
             }];
         } else if ([draggingItem.item isKindOfClass:[NSURL class]] ) {
@@ -777,6 +781,7 @@
 
     NSData *gameData = (NSData *)game.metadata.cover.data;
     NSString *gamePath = game.path;
+    NSManagedObjectContext *context = game.managedObjectContext;
 
     NSData __block *data = imageData;
     [self.workQueue addOperationWithBlock:^{
@@ -789,10 +794,10 @@
         [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData];
 
         if (replaceWithoutAsking) {
-            [metadata.managedObjectContext performBlockAndWait:^{
+            [context performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
-                [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
+                [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:context];
                 [ImageView setUserEditedForMetadata:metadata];
             }];
             return;
@@ -804,10 +809,10 @@
             ImageCompareViewController *compare = [ImageCompareViewController new];
             // We always replace when pasting
             if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data source:kImageComparisonLocalFile force:NO]) {
-                [metadata.managedObjectContext performBlockAndWait:^{
+                [context performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
-                    [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
+                    [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:context];
                     [ImageView setUserEditedForMetadata:metadata];
                 }];
             }

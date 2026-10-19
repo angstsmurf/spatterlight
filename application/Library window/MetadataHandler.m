@@ -528,10 +528,11 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
                     Game *game = [childContext objectWithID:objectID];
                     game.hasDownloaded = YES;
                 }
-                [childContext safeSave];
+                [childContext safeSaveAndWait];
+                // Only now are the child's changes in the main context
+                [weakTVC.coreDataManager saveChanges];
             }];
             [weakTVC endImporting];
-            [weakTVC.coreDataManager saveChanges];
         };
 
         BOOL reportFailure = NO;
