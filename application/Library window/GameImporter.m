@@ -21,6 +21,7 @@
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
+#import "FileSignature.h"
 #import "Preferences.h"
 #import "Constants.h"
 
@@ -299,11 +300,95 @@ void ReportImportFailure(NSString *title, NSString *info) {
     return kBabelIdentified;
 }
 
+//! Imports a file that is not a game: an iFiction file is read into the
+//! library's metadata, anything else is reported as an unknown format.
+- (void)importNonGameFile:(NSString *)path inContext:(NSManagedObjectContext *)context report:(BOOL)report {
+    if ([path.pathExtension.lowercaseString isEqualToString:@"ifiction"]) {
+        NSData *data = [NSData dataWithContentsOfFile:path];
+        if (data) {
+            NSDictionary<NSString *, IFStory *> *indirectMatches;
+            NSDictionary<NSString *, IFStory *> *exactMatches = [MetadataHandler importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
+            [_tableViewController.ifictionMatches addEntriesFromDictionary:exactMatches];
+            [_tableViewController.ifictionPartialMatches addEntriesFromDictionary:indirectMatches];
+            return;
+        }
+    }
+
+    if (report) {
+        ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
+                            [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension]);
+    }
+}
+
+//! Asks babel for the format and IFID, reporting or logging why if it can't
+//! give both.
+- (BOOL)identifyWithBabel:(NSString *)path report:(BOOL)report format:(NSString * _Nullable * _Nonnull)formatStr ifid:(NSString * _Nullable * _Nonnull)ifid {
+    switch ([GameImporter identifyFile:path format:formatStr ifid:ifid]) {
+        case kBabelIdentified:
+            return YES;
+        case kBabelUnknownFormat:
+            if (report)
+                ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
+                                    NSLocalizedString(@"Babel can not identify the file format.", nil));
+            return NO;
+        case kBabelNoIfid:
+            if (report)
+                ReportImportFailure(NSLocalizedString(@"Fatal error.", nil),
+                                    NSLocalizedString(@"Can not compute IFID from the file.", nil));
+            else
+                NSLog(@"Babel can not compute IFID from the file.");
+            return NO;
+    }
+}
+
+//! Whether we have an interpreter for the format, and the format is one we
+//! expect behind the file extension.
+- (BOOL)isSupportedFormat:(NSString *)formatStr extension:(NSString *)extension data:(nullable NSData *)fileData {
+    NSString *terp = gExtMap[extension];
+
+    if (!terp)
+        terp = gFormatMap[formatStr];
+
+    if (!terp)
+        return NO;
+
+    // Some extensions are used across many unrelated formats (e.g. .dsk could be a
+    // Scott Adams disk image, a Level 9 game, a Taylor adventure, etc.). For each
+    // such ambiguous extension, list the formats we actually know how to handle;
+    // any other format reported by babel is rejected. This guards against, e.g.,
+    // a random .dsk disk image being misidentified.
+    static NSDictionary<NSString *, NSSet<NSString *> *> *allowedFormatsByExtension;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        allowedFormatsByExtension = @{
+            @"dat": [NSSet setWithObjects:@"zcode", @"level9", @"advsys", @"sagaplus", @"scott", nil],
+            @"gam": [NSSet setWithObjects:@"tads2", nil],
+            @"msa": [NSSet setWithObjects:@"sagaplus", nil],
+            @"st":  [NSSet setWithObjects:@"sagaplus", nil],
+            @"d64": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", nil],
+            @"dsk": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", @"comprehend", nil],
+            @"woz": [NSSet setWithObjects:@"scott", @"sagaplus", @"comprehend", @"zcode", nil],
+            @"exe": [NSSet setWithObjects:@"comprehend", nil],
+        };
+    });
+
+    NSSet<NSString *> *allowedFormats = allowedFormatsByExtension[extension];
+    if (!allowedFormats)
+        return YES;
+
+    if (![allowedFormats containsObject:formatStr])
+        return NO;
+
+    // .dat + zcode additionally requires the file to actually look like Z-code,
+    // since plenty of unrelated games ship a story file called e.g. "story.dat".
+    if ([extension isEqualToString:@"dat"] && [formatStr isEqualToString:@"zcode"])
+        return [GameImporter looksLikeZcode:fileData];
+
+    return YES;
+}
+
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
-    Metadata __block *metadata;
-    Game __block *game;
-    Blorb __block *blorb = nil;
-    NSString *ifid;
+    NSString *ifid = nil;
     NSString *formatStr = nil;
 
     NSString *extension = path.pathExtension.lowercaseString;
@@ -331,29 +416,18 @@ void ReportImportFailure(NSString *title, NSString *info) {
         directAGT = YES;
     }
 
-    if (![gGameFileTypes containsObject:extension])
-    {
-            if ([extension isEqualToString:@"ifiction"]) {
-                NSData *data = [NSData dataWithContentsOfFile:path];
-                if (data) {
-                    NSDictionary<NSString *, IFStory *> *indirectMatches;
-                    NSDictionary<NSString *, IFStory *> *exactMatches = [MetadataHandler importMetadataFromXML:data indirectMatches:&indirectMatches inContext:context];
-                    [_tableViewController.ifictionMatches addEntriesFromDictionary:exactMatches];
-                    [_tableViewController.ifictionPartialMatches addEntriesFromDictionary:indirectMatches];
-                    return nil;
-                }
-            }
-
-        if (report) {
-            ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
-                                [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension]);
-        }
+    if (![gGameFileTypes containsObject:extension]) {
+        [self importNonGameFile:path inContext:context report:report];
         return nil;
     }
 
-    NSData *fileData = nil;
+    // The file is read once, mapped, and the data shared by every step below
+    // (babel reads it on its own).
+    NSData *fileData = [NSData dataWithContentsOfURL:[NSURL fileURLWithPath:path isDirectory:NO]
+                                             options:NSDataReadingMappedAlways error:NULL];
+
+    Blorb *blorb = nil;
     if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
-        fileData = [NSData dataWithContentsOfFile:path];
         blorb = [[Blorb alloc] initWithData:fileData];
         BlorbResource *executable = [blorb resourcesForUsage:ExecutableResource].firstObject;
         if (!executable) {
@@ -370,62 +444,10 @@ void ReportImportFailure(NSString *title, NSString *info) {
         // the IFmd chunk, and the scarier terp plays the Blorb directly.
     }
 
-    if (!directAGT) {
-        switch ([GameImporter identifyFile:path format:&formatStr ifid:&ifid]) {
-            case kBabelIdentified:
-                break;
-            case kBabelUnknownFormat:
-                if (report)
-                    ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
-                                        NSLocalizedString(@"Babel can not identify the file format.", nil));
-                return nil;
-            case kBabelNoIfid:
-                if (report)
-                    ReportImportFailure(NSLocalizedString(@"Fatal error.", nil),
-                                        NSLocalizedString(@"Can not compute IFID from the file.", nil));
-                else
-                    NSLog(@"Babel can not compute IFID from the file.");
-                return nil;
-        }
-    }
+    if (!directAGT && ![self identifyWithBabel:path report:report format:&formatStr ifid:&ifid])
+        return nil;
 
-    NSString *terp = gExtMap[path.pathExtension.lowercaseString];
-
-    if (!terp)
-        terp = gFormatMap[formatStr];
-
-    // Some extensions are used across many unrelated formats (e.g. .dsk could be a
-    // Scott Adams disk image, a Level 9 game, a Taylor adventure, etc.). For each
-    // such ambiguous extension, list the formats we actually know how to handle;
-    // any other format reported by babel is rejected. This guards against, e.g.,
-    // a random .dsk disk image being misidentified.
-    static NSDictionary<NSString *, NSSet<NSString *> *> *allowedFormatsByExtension;
-    static dispatch_once_t onceToken;
-    dispatch_once(&onceToken, ^{
-        allowedFormatsByExtension = @{
-            @"dat": [NSSet setWithObjects:@"zcode", @"level9", @"advsys", @"sagaplus", @"scott", nil],
-            @"gam": [NSSet setWithObjects:@"tads2", nil],
-            @"msa": [NSSet setWithObjects:@"sagaplus", nil],
-            @"st":  [NSSet setWithObjects:@"sagaplus", nil],
-            @"d64": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", nil],
-            @"dsk": [NSSet setWithObjects:@"scott", @"taylor", @"sagaplus", @"level9", @"comprehend", nil],
-            @"woz": [NSSet setWithObjects:@"scott", @"sagaplus", @"comprehend", @"zcode", nil],
-            @"exe": [NSSet setWithObjects:@"comprehend", nil],
-        };
-    });
-
-    NSSet<NSString *> *allowedFormats = allowedFormatsByExtension[extension];
-    BOOL extensionIsAmbiguous = (allowedFormats != nil);
-    BOOL formatMatchesExtension = [allowedFormats containsObject:formatStr];
-
-    // .dat + zcode additionally requires the file to actually look like Z-code,
-    // since plenty of unrelated games ship a story file called e.g. "story.dat".
-    if (formatMatchesExtension && [extension isEqualToString:@"dat"] &&
-        [formatStr isEqualToString:@"zcode"] && ![self checkZcode:path]) {
-        formatMatchesExtension = NO;
-    }
-
-    if (!terp || (extensionIsAmbiguous && !formatMatchesExtension)) {
+    if (![self isSupportedFormat:formatStr extension:extension data:fileData]) {
         if (report) {
             ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
                                 NSLocalizedString(@"Not a supported format.", nil));
@@ -433,99 +455,101 @@ void ReportImportFailure(NSString *title, NSString *info) {
         return nil;
     }
 
-    NSData __block *blockdata = fileData;
-    NSString *hash = path.signatureFromFile;
-
+    if (!fileData)
+        return nil;
+    NSString *hash = [FileSignature signatureFromData:fileData];
     if (!hash.length)
         return nil;
 
+    Game __block *game;
     [context performBlockAndWait:^{
-        // We really should check if there is a game-less metadata object that we can use here
-        // but we skip this for now.
-        metadata = [Fetches fetchMetadataForHash:hash inContext:context];
-        game = metadata.game;
-
-        if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]] && !blorb) {
-            if (blockdata == nil)
-                blockdata = [NSData dataWithContentsOfFile:path];
-            blorb = [[Blorb alloc] initWithData:blockdata];
-        }
-
-        if (!game) {
-            game = (Game *) [NSEntityDescription
-                             insertNewObjectForEntityForName:@"Game"
-                             inManagedObjectContext:context];
-        }
-
-        if (!metadata) {
-            metadata = (Metadata *) [NSEntityDescription
-                                     insertNewObjectForEntityForName:@"Metadata"
-                                     inManagedObjectContext:context];
-        }
-
-        // There can be any number of Ifid objects with the same ifid string (because we ambitiously want to keep track of all ifids associated with a game) but they must all be attached to a Metadata object
-        [metadata createIfid:ifid];
-
-        if (!metadata.format)
-            metadata.format = formatStr;
-        if (metadata.title.length == 0) {
-            metadata.title = path.lastPathComponent;
-        }
-
-        if (blorb.metaData) {
-            // ADRIFT (5) blorbs frequently carry a placeholder
-            // <title>Untitled</title> in their embedded iFiction metadata.
-            // Don't let that clobber the filename-derived (or previously
-            // stored) title.
-            NSString *titleBeforeXML = metadata.title;
-            [GameImporter importInfoFromXML:blorb.metaData intoMetadata:metadata];
-            if ([formatStr isEqualToString:@"adrift"] &&
-                [metadata.title caseInsensitiveCompare:@"Untitled"] == NSOrderedSame) {
-                metadata.title = titleBeforeXML;
-            }
-            metadata.source = @(kInternal);
-            metadata.lastModified = [NSDate date];
-        }
-
-        [game bookmarkForPath:path];
-
-        game.added = [NSDate date];
-        game.hidden = hide;
-        game.ifid = ifid;
-        game.detectedFormat = formatStr;
-        game.hashTag = hash;
-        metadata.hashTag = hash;
-
-        if (!metadata.cover && blorb) {
-            NSData *imageData = blorb.coverImageData;
-            if (imageData) {
-                metadata.coverArtURL = path;
-                [CoverImageStore insertImageData:imageData inMetadataID:metadata.objectID context:context];
-            }
-        }
-
-        game.metadata = metadata;
-
-        if ([game.detectedFormat isEqualToString:@"zcode"]) {
-            // Used when associating save file with game
-            [self addZCodeIDfromFile:path blorb:blorb toGame:game];
-        } else if ([game.detectedFormat isEqualToString:@"glulx"]) {
-            // Used when associating save file with game
-            game.serialString = [path oldSignatureFromFile];
-        }
-        blorb = nil;
-
-        // If the user asked us to keep games organised, copy this newly
-        // imported game into the central library folder and re-point its
-        // bookmark. Skip hidden games (opened but not added to the library).
-        // The source folder is already access-granted for the whole import run.
-        if (!hide && [LibraryOrganizer keepGamesOrganised]) {
-            NSError *orgError = nil;
-            if (![[LibraryOrganizer sharedOrganizer] organiseGame:game error:&orgError])
-                NSLog(@"GameImporter: could not organise \"%@\": %@",
-                      metadata.title, orgError.localizedDescription);
-        }
+        game = [self insertGameAtPath:path ifid:ifid format:formatStr hash:hash data:fileData blorb:blorb hide:hide inContext:context];
     }];
+
+    return game;
+}
+
+//! Creates or updates the Game and Metadata objects of an identified game
+//! file. Runs on the context's queue.
+- (Game *)insertGameAtPath:(NSString *)path ifid:(NSString *)ifid format:(NSString *)formatStr hash:(NSString *)hash data:(NSData *)fileData blorb:(nullable Blorb *)blorb hide:(BOOL)hide inContext:(NSManagedObjectContext *)context {
+    // We really should check if there is a game-less metadata object that we can use here
+    // but we skip this for now.
+    Metadata *metadata = [Fetches fetchMetadataForHash:hash inContext:context];
+    Game *game = metadata.game;
+
+    if (!game) {
+        game = (Game *) [NSEntityDescription
+                         insertNewObjectForEntityForName:@"Game"
+                         inManagedObjectContext:context];
+    }
+
+    if (!metadata) {
+        metadata = (Metadata *) [NSEntityDescription
+                                 insertNewObjectForEntityForName:@"Metadata"
+                                 inManagedObjectContext:context];
+    }
+
+    // There can be any number of Ifid objects with the same ifid string (because we ambitiously want to keep track of all ifids associated with a game) but they must all be attached to a Metadata object
+    [metadata createIfid:ifid];
+
+    if (!metadata.format)
+        metadata.format = formatStr;
+    if (metadata.title.length == 0) {
+        metadata.title = path.lastPathComponent;
+    }
+
+    if (blorb.metaData) {
+        // ADRIFT (5) blorbs frequently carry a placeholder
+        // <title>Untitled</title> in their embedded iFiction metadata.
+        // Don't let that clobber the filename-derived (or previously
+        // stored) title.
+        NSString *titleBeforeXML = metadata.title;
+        [GameImporter importInfoFromXML:blorb.metaData intoMetadata:metadata];
+        if ([formatStr isEqualToString:@"adrift"] &&
+            [metadata.title caseInsensitiveCompare:@"Untitled"] == NSOrderedSame) {
+            metadata.title = titleBeforeXML;
+        }
+        metadata.source = @(kInternal);
+        metadata.lastModified = [NSDate date];
+    }
+
+    [game bookmarkForPath:path];
+
+    game.added = [NSDate date];
+    game.hidden = hide;
+    game.ifid = ifid;
+    game.detectedFormat = formatStr;
+    game.hashTag = hash;
+    metadata.hashTag = hash;
+
+    if (!metadata.cover && blorb) {
+        NSData *imageData = blorb.coverImageData;
+        if (imageData) {
+            metadata.coverArtURL = path;
+            [CoverImageStore insertImageData:imageData inMetadataID:metadata.objectID context:context];
+        }
+    }
+
+    game.metadata = metadata;
+
+    if ([game.detectedFormat isEqualToString:@"zcode"]) {
+        // Used when associating save file with game
+        [GameImporter addZCodeIDFromData:fileData blorb:blorb toGame:game];
+    } else if ([game.detectedFormat isEqualToString:@"glulx"]) {
+        // Used when associating save file with game
+        game.serialString = [path oldSignatureFromFile];
+    }
+
+    // If the user asked us to keep games organised, copy this newly
+    // imported game into the central library folder and re-point its
+    // bookmark. Skip hidden games (opened but not added to the library).
+    // The source folder is already access-granted for the whole import run.
+    if (!hide && [LibraryOrganizer keepGamesOrganised]) {
+        NSError *orgError = nil;
+        if (![[LibraryOrganizer sharedOrganizer] organiseGame:game error:&orgError])
+            NSLog(@"GameImporter: could not organise \"%@\": %@",
+                  metadata.title, orgError.localizedDescription);
+    }
 
     return game;
 }
@@ -568,43 +592,35 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
     return (uint16_t)((memory[addr] << 8) | memory[addr + 1]);
 }
 
-- (void)addZCodeIDfromFile:(NSString *)path blorb:(nullable Blorb *)blorb toGame:(Game *)game {
-    BOOL found = NO;
-    NSData *data = nil;
-    if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
-        if (!blorb)
-            blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfFile:path]];
+//! Reads the release, serial and checksum of a Z-code game, from the Blorb
+//! if it has them, otherwise from the story file header. @c blorb is the
+//! Blorb read from @c data, or nil if the game is a bare story file.
++ (void)addZCodeIDFromData:(NSData *)data blorb:(nullable Blorb *)blorb toGame:(Game *)game {
+    if (blorb) {
         if (blorb.checkSum && blorb.serialNumber && blorb.releaseNumber) {
-            found = YES;
             game.checksum = (int32_t)blorb.checkSum;
             game.serialString = blorb.serialNumber;
             game.releaseNumber = (int32_t)blorb.releaseNumber;
-        }
-        if (!found) {
-            BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
-            // Without an executable chunk there is no Z-code header to read:
-            // don't fall back to reading the IFF container as one.
-            if (!zcode)
-                return;
-            data = [blorb dataForResource:zcode];
-        }
-    }
-    if (!found) {
-        if (!data)
-            data = [NSData dataWithContentsOfFile:path];
-        // The fields read below end at byte 30 of the Z-machine header.
-        if (data.length < 30)
             return;
-        const unsigned char *ptr = data.bytes;
-        game.releaseNumber = word(ptr, 2);
-        NSData *serialData = [NSData dataWithBytes:ptr + 18 length:6];
-        game.serialString = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
-        game.checksum = word(ptr, 28);
+        }
+        BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
+        // Without an executable chunk there is no Z-code header to read:
+        // don't fall back to reading the IFF container as one.
+        if (!zcode)
+            return;
+        data = [blorb dataForResource:zcode];
     }
+    // The fields read below end at byte 30 of the Z-machine header.
+    if (data.length < 30)
+        return;
+    const unsigned char *ptr = data.bytes;
+    game.releaseNumber = word(ptr, 2);
+    NSData *serialData = [NSData dataWithBytes:ptr + 18 length:6];
+    game.serialString = [[NSString alloc] initWithData:serialData encoding:NSASCIIStringEncoding];
+    game.checksum = word(ptr, 28);
 }
 
-- (BOOL)checkZcode:(NSString *)file {
-    NSData *mem = [NSData dataWithContentsOfFile:file];
++ (BOOL)looksLikeZcode:(nullable NSData *)mem {
     // A Z-code header is 64 bytes
     if (mem.length < 64)
         return NO;
@@ -635,7 +651,11 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
     return YES;
 }
 
-- (void)lookForImagesForGame:(Game *)game {
+//! The image files that may be the cover of a game: in its folder, its
+//! "Cover" subfolder, or the folder above a "Data" folder. Sets
+//! @c screenDatCopy to a temporary copy of SCREEN.DAT that the caller deletes.
+- (NSArray<NSURL *> *)candidateImageFilesForGame:(Game *)game screenDatCopy:(NSURL * _Nullable * _Nonnull)screenDatCopy {
+    *screenDatCopy = nil;
     NSFileManager *filemgr = [NSFileManager defaultManager];
     NSURL *dirUrl = [NSURL fileURLWithPath:(game.path).stringByDeletingLastPathComponent isDirectory:YES];
     // First check if there are other games in this folder
@@ -674,7 +694,6 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
     }];
 
     NSArray<NSURL *> *imageFiles = [contentsOfDir filteredArrayUsingPredicate:imageFilesFilter];
-    NSURL *screenDatCopy = nil;
 
     // If there is more than one game in folder, and they don't share the same
     // file name without extension, i.e. "enchanter.z3" and "zork.z5" rather than
@@ -696,9 +715,9 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
             // The original Beyond Zork cover image is named SCREEN.DAT, but is in fact
             // a Neochrome image. We cheat and create a renamed copy with a .neo file extension
             // in a temp folder, which is deleted below.
-            screenDatCopy = [self neoCopyOfScreenDatBeside:game.path];
-            if (screenDatCopy)
-                imageFiles = @[screenDatCopy];
+            *screenDatCopy = [self neoCopyOfScreenDatBeside:game.path];
+            if (*screenDatCopy)
+                imageFiles = @[*screenDatCopy];
         }
     } else if (imageFiles.count == 0) {
         if (coverURL) {
@@ -725,43 +744,50 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
         }
     }
 
-    if (imageFiles.count > 0) {
-        NSData *imageData = nil;
-        NSURL *chosenURL = nil;
-        for (NSURL *url in imageFiles) {
-            NSError *error = nil;
+    return imageFiles;
+}
 
-            imageData = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:&error];
+//! The image in a file, converting the retro formats and taking the cover of
+//! a Blorb. nil or empty if there is none.
++ (nullable NSData *)imageDataFromURL:(NSURL *)url {
+    NSString *imgExtension = url.pathExtension.lowercaseString;
 
-            NSString *imgExtension = url.pathExtension.lowercaseString;
+    if ([imgExtension isEqualToString:@"mg1"])
+        return [NSData imageDataFromMG1URL:url];
+    if ([imgExtension isEqualToString:@"neo"])
+        return [NSData imageDataFromNeoURL:url];
 
-            if ([imgExtension isEqualToString:@"mg1"]) {
-                imageData = [NSData imageDataFromMG1URL:url];
-            } else if ([imgExtension isEqualToString:@"neo"]) {
-                imageData = [NSData imageDataFromNeoURL:url];
-            } else if ([imgExtension isEqualToString:@"blb"] || [imgExtension isEqualToString:@"blorb"]) {
-                Blorb *blorb = [[Blorb alloc] initWithData:imageData];
-                imageData = blorb.coverImageData;
-            }
-            if (imageData.length) {
-                chosenURL = url;
-                break;
-            }
+    NSData *imageData = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:NULL];
+    if ([imgExtension isEqualToString:@"blb"] || [imgExtension isEqualToString:@"blorb"])
+        return [[Blorb alloc] initWithData:imageData].coverImageData;
+    return imageData;
+}
+
+- (void)lookForImagesForGame:(Game *)game {
+    NSURL *screenDatCopy = nil;
+    NSArray<NSURL *> *imageFiles = [self candidateImageFilesForGame:game screenDatCopy:&screenDatCopy];
+
+    NSData *imageData = nil;
+    NSURL *chosenURL = nil;
+    for (NSURL *url in imageFiles) {
+        imageData = [GameImporter imageDataFromURL:url];
+        if (imageData.length) {
+            chosenURL = url;
+            break;
         }
-
-        if (screenDatCopy) {
-            [filemgr removeItemAtURL:screenDatCopy.URLByDeletingLastPathComponent error:NULL];
-            if (chosenURL)
-                chosenURL = [NSURL fileURLWithPath:[game.path.stringByDeletingLastPathComponent stringByAppendingPathComponent:@"SCREEN.DAT"] isDirectory:NO];
-        }
-
-        // imageData holds the last candidate even when none was usable
-        if (!chosenURL)
-            return;
-
-        game.metadata.coverArtURL = chosenURL.path;
-        [CoverImageStore insertImageData:imageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
     }
+
+    if (screenDatCopy) {
+        [[NSFileManager defaultManager] removeItemAtURL:screenDatCopy.URLByDeletingLastPathComponent error:NULL];
+        if (chosenURL)
+            chosenURL = [NSURL fileURLWithPath:[game.path.stringByDeletingLastPathComponent stringByAppendingPathComponent:@"SCREEN.DAT"] isDirectory:NO];
+    }
+
+    if (!chosenURL)
+        return;
+
+    game.metadata.coverArtURL = chosenURL.path;
+    [CoverImageStore insertImageData:imageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
 }
 
 
