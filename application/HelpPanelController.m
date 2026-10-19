@@ -12,58 +12,7 @@
 
 #import "DebugLog.h"
 
-@interface HelpTextView () <NSTextFinderClient> {
-    NSTextFinder *_textFinder; // define your own text finder
-}
-@end
-
 @implementation HelpTextView
-
-// Text finder command validation (could also be done in method
-// validateUserInterfaceItem: if you prefer)
-
-- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    BOOL isValidItem = NO;
-
-    if (menuItem.action == @selector(performTextFinderAction:)) {
-        isValidItem = [self.textFinder validateAction:menuItem.tag];
-    }
-    // validate other menu items if needed
-    // ...
-    // and don't forget to call the superclass
-    else {
-        isValidItem = [super validateMenuItem:menuItem];
-    }
-
-    return isValidItem;
-}
-
-// Text Finder
-
-- (NSTextFinder *)textFinder {
-    // Create the text finder on demand
-    if (_textFinder == nil) {
-        _textFinder = [[NSTextFinder alloc] init];
-        _textFinder.client = self;
-        _textFinder.findBarContainer = self.enclosingScrollView;
-        _textFinder.incrementalSearchingEnabled = YES;
-        _textFinder.incrementalSearchingShouldDimContentView = NO;
-    }
-
-    return _textFinder;
-}
-
-- (void)resetTextFinder {
-    if (_textFinder != nil) {
-        [_textFinder noteClientStringWillChange];
-    }
-}
-
-// This is where the commands are actually sent to the text finder
-- (void)performTextFinderAction:(id<NSValidatedUserInterfaceItem>)sender {
-    [self.textFinder performAction:sender.tag];
-}
-
 @end
 
 @implementation HelpPanelController

@@ -16,8 +16,7 @@
 #import "Game.h"
 
 
-@interface BufferTextView () <NSTextFinderClient, NSSecureCoding> {
-    NSTextFinder *_textFinder;
+@interface BufferTextView () <NSSecureCoding> {
     NSTimer *caretTimer;
 }
 @end
@@ -164,7 +163,6 @@
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
-    BOOL isValidItem = NO;
     BOOL waseditable = self.editable;
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
 
@@ -202,17 +200,8 @@
         return NO;
     }
 
-    if (menuItem.action == @selector(performTextFinderAction:))
-        isValidItem = [self.textFinder validateAction:menuItem.tag];
-
-    // validate other menu items if needed
-    // ...
-    // and don't forget to call the superclass
-    else {
-        isValidItem = [super validateMenuItem:menuItem];
-    }
-
-    return isValidItem;
+    // Also validates performTextFinderAction:.
+    return [super validateMenuItem:menuItem];
 }
 
 - (void)cut:(id)sender {
@@ -315,30 +304,11 @@
 
 #pragma mark Text Finder
 
-- (NSTextFinder *)textFinder {
-    // Create the text finder on demand
-    if (_textFinder == nil) {
-        _textFinder = [[NSTextFinder alloc] init];
-        _textFinder.client = self;
-        _textFinder.findBarContainer = self.enclosingScrollView;
-        _textFinder.incrementalSearchingEnabled = YES;
-        _textFinder.incrementalSearchingShouldDimContentView = NO;
-    }
-
-    return _textFinder;
-}
-
-- (void)resetTextFinder {
-    if (_textFinder != nil) {
-        [_textFinder noteClientStringWillChange];
-    }
-}
-
-// This is where the commands are actually sent to the text finder
+// The finder must not run while the input line is editable.
 - (void)performTextFinderAction:(id<NSValidatedUserInterfaceItem>)sender {
     BOOL waseditable = self.editable;
     self.editable = NO;
-    [self.textFinder performAction:sender.tag];
+    [super performTextFinderAction:sender];
     self.editable = waseditable;
 }
 

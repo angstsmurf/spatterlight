@@ -791,6 +791,7 @@
 		C359499E2D2C39EB008F6551 /* InfocomV6MenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */; };
 		C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = C35C54032676613800294FE7 /* NSFont+Categories.m */; };
 		F472E875DFFA44EEBDBC9CB5 /* NSView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0828655AE94F68BE83A03E /* NSView+Categories.m */; };
+		4F7696813E6D67E87447EF24 /* FindableTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */; };
 		C35CB31E285DD7BF00601E97 /* animations.c in Sources */ = {isa = PBXBuildFile; fileRef = C35CB31D285DD7BF00601E97 /* animations.c */; };
 		C35D520826F24142002E2F59 /* FolderAccess.m in Sources */ = {isa = PBXBuildFile; fileRef = C35D520726F24142002E2F59 /* FolderAccess.m */; };
 		C35ED515256DD37A00C14847 /* InputHistory.m in Sources */ = {isa = PBXBuildFile; fileRef = C35ED514256DD37A00C14847 /* InputHistory.m */; };
@@ -3534,6 +3535,8 @@
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
 		7E91B054998441D190A9189D /* NSView+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+Categories.h"; sourceTree = "<group>"; };
 		2D0828655AE94F68BE83A03E /* NSView+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+Categories.m"; sourceTree = "<group>"; };
+		07278A76862045EE1F210609 /* FindableTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindableTextView.h; sourceTree = "<group>"; };
+		E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindableTextView.m; sourceTree = "<group>"; };
 		C35CB31B285DD7BF00601E97 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
 		C35CB31D285DD7BF00601E97 /* animations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = animations.c; sourceTree = "<group>"; };
 		C35D520626F24142002E2F59 /* FolderAccess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FolderAccess.h; sourceTree = "<group>"; };
@@ -4567,6 +4570,8 @@
 				C35C54032676613800294FE7 /* NSFont+Categories.m */,
 				7E91B054998441D190A9189D /* NSView+Categories.h */,
 				2D0828655AE94F68BE83A03E /* NSView+Categories.m */,
+				07278A76862045EE1F210609 /* FindableTextView.h */,
+				E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */,
 				406BED8480304BF1B610D5FA /* ImageDragSource.h */,
 				50966F36FE2F44509985FE86 /* ImageDragSource.m */,
 				C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */,
@@ -9010,6 +9015,7 @@
 				C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
 				F472E875DFFA44EEBDBC9CB5 /* NSView+Categories.m in Sources */,
+				4F7696813E6D67E87447EF24 /* FindableTextView.m in Sources */,
 				C3A1997E299982E300D27500 /* OSFastGraphics.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,

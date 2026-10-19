@@ -6,6 +6,7 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "FindableTextView.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -19,17 +20,14 @@ NS_ASSUME_NONNULL_BEGIN
  *   - customize contextual menu
  */
 
-@interface BufferTextView : NSTextView <NSTextFinderClient, NSSecureCoding>
+@interface BufferTextView : FindableTextView <NSSecureCoding>
 
 - (void)superKeyDown:(NSEvent *)evt;
 - (void)temporarilyHideCaret;
-- (void)resetTextFinder; // Call after changing the text storage, or search will
-                         // break.
 - (void)enableCaret:(nullable id)sender;
 
 @property BOOL shouldDrawCaret;
 @property CGFloat bottomPadding;
-@property(weak, readonly) NSTextFinder *textFinder;
 
 @end
 

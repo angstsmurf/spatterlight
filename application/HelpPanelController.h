@@ -7,10 +7,9 @@
 //
 
 #import <AppKit/AppKit.h>
+#import "FindableTextView.h"
 
-@interface HelpTextView : NSTextView <NSTextFinderClient>
-
-@property(readonly) NSTextFinder *textFinder;
+@interface HelpTextView : FindableTextView
 @end
 
 @interface HelpPanelController : NSWindowController
