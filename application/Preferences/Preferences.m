@@ -211,15 +211,50 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     disregardTableSelection = YES;
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [self setUpZArrowsMenuItems];
+    [self setUpBeepMenus];
+    [self setUpThemeState];
 
+    Preferences.instance = self;
+
+    [self setUpScrollView];
+
+    [self changeThemeName:self.theme.name];
+
+    NSToolbar *toolbar = [self setUpToolbar];
+
+    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
+
+    // The tool menu is also the contextual menu of the themes table, where
+    // it applies to the clicked theme. Skip the hidden pull-down title item.
+    NSMenu *contextMenu = [_actionButton.menu copy];
+    [contextMenu removeItemAtIndex:0];
+    themesTableView.menu = contextMenu;
+
+    [self setUpWindowHeight];
+    [self showSelectedPanelOfToolbar:toolbar];
+
+    [self performSelector:@selector(restoreThemeSelection:) withObject:self.theme afterDelay:0.1];
+
+    self.windowFrameAutosaveName = @"PrefsPanel";
+    themesTableView.autosaveName = @"ThemesTable";
+
+    [self addObservers];
+}
+
+#pragma mark windowDidLoad steps
+
+- (void)setUpZArrowsMenuItems {
     _standardZArrowsMenuItem.title = NSLocalizedString(@"↑ and ↓ work as in original", nil);
     _standardZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history.", nil);
     _compromiseZArrowsMenuItem.title = NSLocalizedString(@"Replaced by \u2318↑ and \u2318↓", nil);
     _compromiseZArrowsMenuItem.toolTip = NSLocalizedString(@"\u2318↑ and \u2318↓ are used where the original uses ↑ and ↓. ↑ and ↓ step through command history as in other games.", nil);
     _strictZArrowsMenuItem.title = NSLocalizedString(@"↑↓ and ←→ work as in original", nil);
     _strictZArrowsMenuItem.toolTip = NSLocalizedString(@"↑ and ↓ navigate menus and status windows. \u2318↑ and \u2318↓ step through command history. ← and → don't do anything.", nil);
+}
 
+// On Big Sur and later the system alert sounds have new names
+- (void)setUpBeepMenus {
     if (@available(macOS 11, *)) {
 
         catalinaSoundsToBigSur = @{ @"Purr" : @"Pluck",
@@ -259,7 +294,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
             menuItem.title = catalinaSoundsToBigSur[key];
         }
     }
+}
 
+- (void)setUpThemeState {
     if (!self.theme)
         self.theme = self.defaultTheme;
 
@@ -272,13 +309,14 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         _darkOverrideActive = YES;
     }
 
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
     _themesHeader.stringValue = [self themeScopeTitle];
 
     _adjustSize = [defaults boolForKey:@"AdjustSize"];
+}
 
-    Preferences.instance = self;
-
+- (void)setUpScrollView {
     _scrollView.scrollerStyle = NSScrollerStyleOverlay;
     _scrollView.drawsBackground = YES;
     _scrollView.hasHorizontalScroller = NO;
@@ -286,11 +324,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     _scrollView.verticalScroller.alphaValue = 1;
     _scrollView.autohidesScrollers = YES;
     _scrollView.borderType = NSNoBorder;
+}
 
-    [self changeThemeName:self.theme.name];
-
-#pragma mark Init toolbar
-
+- (NSToolbar *)setUpToolbar {
     themesPanel = @"themes";
     stylesPanel = @"styles";
     presentationPanel = @"presentation";
@@ -321,14 +357,11 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     if (toolbar.selectedItemIdentifier == nil)
         toolbar.selectedItemIdentifier = themesPanel;
 
-    _previewShown = [defaults boolForKey:@"ShowThemePreview"];
+    return toolbar;
+}
 
-    // The tool menu is also the contextual menu of the themes table, where
-    // it applies to the clicked theme. Skip the hidden pull-down title item.
-    NSMenu *contextMenu = [_actionButton.menu copy];
-    [contextMenu removeItemAtIndex:0];
-    themesTableView.menu = contextMenu;
-
+// Fits the window to the current panel, plus the preview if it is shown
+- (void)setUpWindowHeight {
     if (!_belowView.subviews.count) {
         currentPanel = _themesView;
     } else {
@@ -347,7 +380,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         [self resizeWindowToHeight:height + defaultWindowHeight animate:NO];
         [_previewController fixScrollBar];
     }
+}
 
+- (void)showSelectedPanelOfToolbar:(NSToolbar *)toolbar {
     BOOL found = NO;
     for (NSToolbarItem *item in toolbar.items) {
         if ([item.itemIdentifier isEqual:toolbar.selectedItemIdentifier]) {
@@ -359,12 +394,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     if (!found)
         [self switchToPanel:toolbar.items[0] resizePreview:YES];
+}
 
-    [self performSelector:@selector(restoreThemeSelection:) withObject:self.theme afterDelay:0.1];
-
-    self.windowFrameAutosaveName = @"PrefsPanel";
-    themesTableView.autosaveName = @"ThemesTable";
-
+- (void)addObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
                                                  name:kPreferencesChangedNotification
@@ -381,6 +413,28 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 #pragma mark Update panels
 
 - (void)updatePrefsPanel {
+    if (![self prepareThemeForPanel])
+        return;
+
+    [self updateThemesPane];
+    [self updateStylesPane];
+    [self updatePresentationPane];
+    [self updateFormatPane];
+    [self updateVoiceOverPane];
+    [self updateMiscPane];
+    [self updateGlobalPane];
+
+    if ([NSFontPanel sharedFontPanel].visible) {
+        if (!selectedFontButton)
+            selectedFontButton = btnBufferFont;
+        [self showFontPanel:selectedFontButton];
+    }
+}
+
+// Picks the theme to show: falls back to the current game's theme, then the
+// default theme. Returns NO, after rebuilding the built-in themes, if it has
+// no grid colour even after populateStyles.
+- (BOOL)prepareThemeForPanel {
     // A deleted theme has no context to create styles in, so populateStyles
     // below would crash on it.
     if (self.theme.isDeleted || !self.theme.managedObjectContext)
@@ -393,10 +447,23 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     if (!self.theme.gridNormal.attributeDict)
         [self.theme populateStyles];
     if (!self.theme.gridNormal.color) {
-        NSLog(@"Preferences updatePrefsPanel: Something is very wrong");
+        NSLog(@"Preferences prepareThemeForPanel: Something is very wrong");
         [BuiltInThemes createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
-        return;
+        return NO;
     }
+    return YES;
+}
+
+- (void)updateThemesPane {
+    _btnOneThemeForAll.state = _oneThemeForAll;
+    _btnAdjustSize.state = _adjustSize;
+
+    _darkModeMenuItem.state = self.theme.hardDark;
+
+    _lightModeMenuItem.state = self.theme.hardLight;
+}
+
+- (void)updateStylesPane {
     clrGridFg.color = self.theme.gridNormal.color;
     clrGridBg.color = self.theme.gridBackground;
     clrBufferFg.color = self.theme.bufferNormal.color;
@@ -406,25 +473,12 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     txtBufferMargin.floatValue = (float)self.theme.bufferMarginX;
     txtLeading.doubleValue = self.theme.bufferNormal.lineSpacing;
 
-    txtCols.intValue = self.theme.defaultCols;
-    txtRows.intValue = self.theme.defaultRows;
-
-    txtBorder.intValue = self.theme.border;
-
     btnGridFont.title = fontToString(self.theme.gridNormal.font);
     btnBufferFont.title = fontToString(self.theme.bufferNormal.font);
 
-    btnSmartQuotes.state = self.theme.smartQuotes;
-    btnSpaceFormat.state = (self.theme.spaceFormat == TAG_SPACES_ONE);
-
-    btnEnableGraphics.state = self.theme.doGraphics;
-    btnEnableSound.state = self.theme.doSound;
     btnEnableStyles.state = self.theme.doStyles;
 
     _btnOverwriteStyles.enabled = self.theme.hasCustomStyles;
-
-    _btnOneThemeForAll.state = _oneThemeForAll;
-    _btnAdjustSize.state = _adjustSize;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [_windowTypePopup selectItemWithTag:
@@ -435,6 +489,19 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     GlkStyle *selectedStyle = [self selectedStyle];
     clrAnyFg.color = selectedStyle.color;
     btnAnyFont.title = fontToString(selectedStyle.font);
+}
+
+- (void)updatePresentationPane {
+    txtCols.intValue = self.theme.defaultCols;
+    txtRows.intValue = self.theme.defaultRows;
+
+    txtBorder.intValue = self.theme.border;
+
+    btnSmartQuotes.state = self.theme.smartQuotes;
+    btnSpaceFormat.state = (self.theme.spaceFormat == TAG_SPACES_ONE);
+
+    btnEnableGraphics.state = self.theme.doGraphics;
+    btnEnableSound.state = self.theme.doSound;
 
     _btnAutoBorderColor.state = self.theme.borderBehavior == kAutomatic ? NSControlStateValueOn : NSControlStateValueOff;
     _borderColorWell.enabled = (self.theme.borderBehavior == kUserOverride);
@@ -444,16 +511,21 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     _btnUnderlineLinksGrid.state = (self.theme.gridLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
     _btnUnderlineLinksBuffer.state = (self.theme.bufLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
 
-    _btnVOSpeakCommands.state = self.theme.vOSpeakCommand;
-    [_vOMenuButton selectItemWithTag:self.theme.vOSpeakMenu];
-    [_vOImagesButton selectItemWithTag:self.theme.vOSpeakImages];
-    _vODelaySlider.doubleValue = self.theme.vOHackDelay;
-    _vODelayTextField.doubleValue = self.theme.vOHackDelay;
-    _vODelayTextField.enabled = self.theme.vODelayOn;
-    _vODelaySlider.enabled = self.theme.vODelayOn;
-    _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
-    _vODelayCheckbox.state = self.theme.vODelayOn ? NSControlStateValueOn : NSControlStateValueOff;
+    _btnSmoothScroll.state = self.theme.smoothScroll;
 
+    [_coverImagePopup selectItemWithTag:self.theme.coverArtStyle];
+
+    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:self.theme.scrollbackLimit];
+    _scrollbackLimitTextField.integerValue = scrollbackLimit;
+    _scrollbackLimitStepper.integerValue = scrollbackLimit;
+    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
+
+    _hardDarkCheckbox.state = self.theme.hardDark;
+
+    _hardLightCheckbox.state = self.theme.hardLight;
+}
+
+- (void)updateFormatPane {
     NSString *beepHigh = self.theme.beepHigh;
     NSString *beepLow = self.theme.beepLow;
 
@@ -487,7 +559,27 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     _zMachineNoErrWinCheckbox.state = self.theme.zMachineNoErrWin ? NSControlStateValueOn : NSControlStateValueOff;
 
-    _btnSmoothScroll.state = self.theme.smoothScroll;
+    [_palettePopup selectItemWithTag:self.theme.sAPalette];
+    [_inventoryPopup selectItemWithTag:self.theme.sAInventory];
+    _delaysCheckbox.state = self.theme.sADelays;
+    _slowDrawCheckbox.state = self.theme.slowDrawing;
+
+    _scottAdamsFlickerCheckbox.state = self.theme.flicker;
+}
+
+- (void)updateVoiceOverPane {
+    _btnVOSpeakCommands.state = self.theme.vOSpeakCommand;
+    [_vOMenuButton selectItemWithTag:self.theme.vOSpeakMenu];
+    [_vOImagesButton selectItemWithTag:self.theme.vOSpeakImages];
+    _vODelaySlider.doubleValue = self.theme.vOHackDelay;
+    _vODelayTextField.doubleValue = self.theme.vOHackDelay;
+    _vODelayTextField.enabled = self.theme.vODelayOn;
+    _vODelaySlider.enabled = self.theme.vODelayOn;
+    _vODelaySlider.accessibilityValueDescription = [self secondsAccessibilityString];
+    _vODelayCheckbox.state = self.theme.vODelayOn ? NSControlStateValueOn : NSControlStateValueOff;
+}
+
+- (void)updateMiscPane {
     _btnAutosave.state = self.theme.autosave;
     _btnAutosaveOnTimer.state = self.theme.autosaveOnTimer;
     _btnAutosaveOnTimer.enabled = self.theme.autosave ? YES : NO;
@@ -495,19 +587,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     _btnDeterminism.state = self.theme.determinism;
     _btnNoHacks.state = self.theme.nohacks ? NSControlStateValueOff : NSControlStateValueOn;
-
-    [_coverImagePopup selectItemWithTag:self.theme.coverArtStyle];
-
-    [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
-
-    _saveInGameDirCheckbox.state = [defaults boolForKey:@"SaveInGameDirectory"] ? NSControlStateValueOn : NSControlStateValueOff;
-
-    _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSControlStateValueOn : NSControlStateValueOff;
-
-    NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:self.theme.scrollbackLimit];
-    _scrollbackLimitTextField.integerValue = scrollbackLimit;
-    _scrollbackLimitStepper.integerValue = scrollbackLimit;
-    _scrollbackUnitLabel.stringValue = (scrollbackLimit == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
 
     if (self.theme.minTimer != 0) {
         if (_timerSlider.doubleValue != floor(1000.0 / self.theme.minTimer)) {
@@ -518,6 +597,17 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         }
         _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];
     }
+}
+
+// Global settings come from NSUserDefaults, not the theme
+- (void)updateGlobalPane {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
+
+    _saveInGameDirCheckbox.state = [defaults boolForKey:@"SaveInGameDirectory"] ? NSControlStateValueOn : NSControlStateValueOff;
+
+    _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSControlStateValueOn : NSControlStateValueOff;
 
     _libraryAtStartCheckbox.state = [defaults boolForKey:@"ShowLibrary"] ? NSControlStateValueOn : NSControlStateValueOff;
     _addToLibraryCheckbox.state = [defaults boolForKey:@"AddToLibrary"] ? NSControlStateValueOn : NSControlStateValueOff;
@@ -525,25 +615,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     _recheckFrequencyTextfield.stringValue = [defaults stringForKey:@"RecheckFrequency"];
     _recheckFrequencyTextfield.enabled = _recheckMissingCheckbox.state ? YES : NO;
 
-    [_palettePopup selectItemWithTag:self.theme.sAPalette];
-    [_inventoryPopup selectItemWithTag:self.theme.sAInventory];
-    _delaysCheckbox.state = self.theme.sADelays;
-    _slowDrawCheckbox.state = self.theme.slowDrawing;
-
-    _hardDarkCheckbox.state = self.theme.hardDark;
-    _darkModeMenuItem.state = self.theme.hardDark;
-    _hardLightCheckbox.state = self.theme.hardLight;
-    _lightModeMenuItem.state = self.theme.hardLight;
-
-    _scottAdamsFlickerCheckbox.state = self.theme.flicker;
-
     [self updateLibraryOrganiserControls];
-
-    if ([NSFontPanel sharedFontPanel].visible) {
-        if (!selectedFontButton)
-            selectedFontButton = btnBufferFont;
-        [self showFontPanel:selectedFontButton];
-    }
 }
 
 - (NSString *)secondsAccessibilityString {
