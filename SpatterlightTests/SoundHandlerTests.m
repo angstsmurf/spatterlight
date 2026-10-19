@@ -16,8 +16,8 @@
 
 #import "SoundHandler.h"
 #import "GlkSoundChannel.h"
-#import "MIDIChannel.h"
 #import "SpectrumBeeper.h"
+#import "SFBSoundBackend.h"
 
 @interface GlkSoundChannel (Testing)
 - (glui32)remainingFadeDuration;
@@ -206,21 +206,96 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     XCTAssertEqual(chan.remainingFadeDuration, 250U);
 }
 
-- (void)testChannelSwapCarriesVolumeAndFade {
-    GlkSoundChannel *chan = [self channelHalfwayThroughFade];
-    MIDIChannel *midi = [[MIDIChannel alloc] initWithHandler:nil name:0 volume:0x10000];
-    [chan copyValues:midi];
+/// A channel that was playing, with nothing restarted since: what an autosave
+/// holds for a channel just deserialized.
+- (GlkSoundChannel *)playingChannelAt:(double)position MIDI:(BOOL)midi {
+    GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:3 volume:0x10000];
+    chan.status = GlkSoundChannelStatusSound;
+    [chan setValue:@(midi) forKey:@"soundIsMIDI"];
+    [chan setValue:@(position) forKey:@"resumePosition"];
+    [chan setValue:@4 forKey:@"loop"];
+    [chan setValue:@7 forKey:@"resid"];
+    return chan;
+}
 
-    XCTAssertEqualWithAccuracy([[midi valueForKey:@"volume"] floatValue], 0.5f, 0.001f,
-                               @"the fade continues from where it was, not from full volume");
-    XCTAssertEqual(midi.remainingFadeDuration, 500U);
-    XCTAssertEqualWithAccuracy([[midi valueForKey:@"target_volume"] floatValue], 0.0f, 0.001f);
-    [midi stop];
+- (void)testMIDIChannelArchivesUnderOldClassName {
+    GlkSoundChannel *chan = [self playingChannelAt:12.5 MIDI:YES];
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:chan requiringSecureCoding:YES error:&error];
+    XCTAssertNotNil(data, @"%@", error);
+    GlkSoundChannel *copy = [NSKeyedUnarchiver unarchivedObjectOfClasses:[NSSet setWithObjects:[GlkSoundChannel class], [MIDIChannel class], nil] fromData:data error:&error];
+    XCTAssertNotNil(copy, @"%@", error);
+    XCTAssertTrue([copy isMemberOfClass:[MIDIChannel class]],
+                  @"an older build reading the autosave needs the MIDI class name");
+    XCTAssertEqualWithAccuracy([[copy valueForKey:@"resumePosition"] doubleValue], 12.5, 0.0001);
+    XCTAssertTrue([[copy valueForKey:@"soundIsMIDI"] boolValue]);
+    XCTAssertEqual([[copy valueForKey:@"loop"] intValue], 4);
+    XCTAssertEqual(copy.status, GlkSoundChannelStatusSound);
+}
+
+- (void)testSampledChannelArchivesFrame {
+    GlkSoundChannel *chan = [self playingChannelAt:44100 MIDI:NO];
+    GlkSoundChannel *copy = [self roundTrip:chan ofClass:[GlkSoundChannel class]];
+    XCTAssertTrue([copy isMemberOfClass:[GlkSoundChannel class]]);
+    XCTAssertFalse([[copy valueForKey:@"soundIsMIDI"] boolValue]);
+    XCTAssertEqualWithAccuracy([[copy valueForKey:@"resumePosition"] doubleValue], 44100, 0.0001);
+    XCTAssertEqual([[copy valueForKey:@"loop"] intValue], 4);
+}
+
+- (void)testIdleChannelArchivesNoPosition {
+    GlkSoundChannel *chan = [self playingChannelAt:500 MIDI:NO];
+    chan.status = GlkSoundChannelStatusIdle;
+    GlkSoundChannel *copy = [self roundTrip:chan ofClass:[GlkSoundChannel class]];
+    XCTAssertEqualWithAccuracy([[copy valueForKey:@"resumePosition"] doubleValue], 0, 0.0001);
 }
 
 - (void)testVolumeAboveGlkMaximumIsFull {
     GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x30000];
     XCTAssertEqualWithAccuracy([[chan valueForKey:@"volume"] floatValue], 1.0f, 0.0001f);
+}
+
+#pragma mark Backends
+
+/// Plays at volume 0, so the test makes no sound.
+- (void)testSFBBackendFinishesEveryRepeat {
+    NSData *wav = [SpectrumBeeper WAVWithFrequency:440 duration:50];
+    SFBSoundBackend *backend = [SFBSoundBackend new];
+    XCTestExpectation *done = [self expectationWithDescription:@"finished"];
+    XCTAssertTrue([backend playData:wav format:GlkSoundBlorbFormatWave repeats:2 position:0 paused:NO volume:0 finished:^{
+        [done fulfill];
+    }]);
+    XCTAssertEqualWithAccuracy(backend.duration, 0.05, 0.005);
+    XCTAssertEqual(backend.resumeRepeats, 2);
+    [self waitForExpectations:@[done] timeout:5];
+    [backend stop];
+}
+
+- (void)testSFBBackendStopDropsFinish {
+    NSData *wav = [SpectrumBeeper WAVWithFrequency:440 duration:50];
+    SFBSoundBackend *backend = [SFBSoundBackend new];
+    XCTestExpectation *never = [self expectationWithDescription:@"no finish after stop"];
+    never.inverted = YES;
+    XCTAssertTrue([backend playData:wav format:GlkSoundBlorbFormatWave repeats:1 position:0 paused:NO volume:0 finished:^{
+        [never fulfill];
+    }]);
+    [backend stop];
+    [self waitForExpectations:@[never] timeout:0.5];
+}
+
+- (void)testSFBBackendPausedStartWaitsForResume {
+    NSData *wav = [SpectrumBeeper WAVWithFrequency:440 duration:50];
+    SFBSoundBackend *backend = [SFBSoundBackend new];
+    __block BOOL finished = NO;
+    XCTestExpectation *done = [self expectationWithDescription:@"finished after resume"];
+    XCTAssertTrue([backend playData:wav format:GlkSoundBlorbFormatWave repeats:1 position:0 paused:YES volume:0 finished:^{
+        finished = YES;
+        [done fulfill];
+    }]);
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.3]];
+    XCTAssertFalse(finished, @"a sound readied paused must not play");
+    XCTAssertTrue([backend resume]);
+    [self waitForExpectations:@[done] timeout:5];
+    [backend stop];
 }
 
 #pragma mark Beeper

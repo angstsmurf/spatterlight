@@ -11,7 +11,6 @@
 
 #import "GlkSoundChannel.h"
 #import "SpectrumBeeper.h"
-#import "MIDIChannel.h"
 #import "NowPlayingCoordinator.h"
 #import "GlkController.h"
 #import "GlkController+InterpreterGlue.h"
@@ -185,27 +184,10 @@
     [_glkchannels[@(channel)] setVolume:volume duration:duration notification:notify];
 }
 
-/* MIDI and sampled sound are played by different channel classes. Swap the
-   channel for one of the class the sound needs, carrying its state across. */
-- (GlkSoundChannel *)channel:(GlkSoundChannel *)glkchan ofClass:(Class)channelClass {
-    if ([glkchan isMemberOfClass:channelClass])
-        return glkchan;
-    int channel = glkchan.name;
-    GlkSoundChannel *replacement = [[channelClass alloc] initWithHandler:self
-                                                                    name:channel
-                                                                  volume:GLK_MAXVOLUME];
-    _glkchannels[@(channel)] = replacement;
-    [glkchan copyValues:replacement];
-    return replacement;
-}
-
 - (void)handlePlaySoundOnChannel:(int)channel repeats:(glsi32)repeats notify:(glui32)notify {
     GlkSoundChannel *glkchan = _glkchannels[@(channel)];
     if (_lastsoundresno == -1 || !glkchan)
         return;
-
-    BOOL isMIDI = (_resources[@(_lastsoundresno)].type == GlkSoundBlorbFormatMIDI);
-    glkchan = [self channel:glkchan ofClass:isMIDI ? [MIDIChannel class] : [GlkSoundChannel class]];
 
     BOOL result = [glkchan playSound:_lastsoundresno countOfRepeats:repeats notification:notify];
     if (!result) {

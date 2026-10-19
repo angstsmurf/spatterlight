@@ -599,7 +599,7 @@
 		C3100F5D27972E850027D6FF /* hulk.c in Sources */ = {isa = PBXBuildFile; fileRef = C3100F5C27972E850027D6FF /* hulk.c */; };
 		C3109FCD2798B19F00854ED0 /* parser.c in Sources */ = {isa = PBXBuildFile; fileRef = C3109FCC2798B19F00854ED0 /* parser.c */; };
 		C311866825BD3B1800739D7B /* sound.c in Sources */ = {isa = PBXBuildFile; fileRef = C311866725BD3B1800739D7B /* sound.c */; };
-		C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.mm */; };
+		C31186DB25BD500800739D7B /* GlkSoundChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C31186D925BD500700739D7B /* GlkSoundChannel.m */; };
 		C311DE2A25C4383100484639 /* twine.c in Sources */ = {isa = PBXBuildFile; fileRef = C311DE2925C4383100484639 /* twine.c */; };
 		C311DEF725C472E500484639 /* Quartz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C311DEF625C472E500484639 /* Quartz.framework */; };
 		C311DEFE25C472E500484639 /* PreviewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = C311DEFC25C472E500484639 /* PreviewViewController.xib */; };
@@ -833,6 +833,8 @@
 		C37344632804673F00D8AE01 /* extracttape.c in Sources */ = {isa = PBXBuildFile; fileRef = C37344622804673F00D8AE01 /* extracttape.c */; };
 		C37391BE27A128E4009147EF /* Transcript of adv01.txt in Resources */ = {isa = PBXBuildFile; fileRef = C37391BC27A128E4009147EF /* Transcript of adv01.txt */; };
 		C37391DB27A25D04009147EF /* game_specific.c in Sources */ = {isa = PBXBuildFile; fileRef = C37391DA27A25D04009147EF /* game_specific.c */; };
+		C3D1A00526EE4E75006F430E /* SFBSoundBackend.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00226EE4E75006F430E /* SFBSoundBackend.mm */; };
+		C3D1A00626EE4E75006F430E /* MIDISoundBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */; };
 		C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C374D1C226EE4E75006F430E /* SoundHandler.m */; };
 		27EAFC3E50AB728845509D74 /* SoundResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 218569F9A77E50E51794C2F6 /* SoundResource.m */; };
 		353FB4704ED3A648FEE6F303 /* SpectrumBeeper.m in Sources */ = {isa = PBXBuildFile; fileRef = A8CC55B7BA2ECF9EF86E7C45 /* SpectrumBeeper.m */; };
@@ -842,7 +844,6 @@
 		C3780A022F9D0001008A6A0D /* tapetzx.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A012F9D0001008A6A0D /* tapetzx.c */; };
 		C3780A042F9D0001008A6A0D /* alkatraz.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A032F9D0001008A6A0D /* alkatraz.c */; };
 		C3780A062F9D0001008A6A0D /* zxscreen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A052F9D0001008A6A0D /* zxscreen.c */; };
-		C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675C26E9844D0005873E /* MIDIChannel.m */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
 		C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676126E992440005873E /* AudioToolbox.framework */; };
 		C37E676426E992590005873E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676326E992590005873E /* AudioUnit.framework */; };
@@ -3277,7 +3278,7 @@
 		C3109FCB2798B19F00854ED0 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3109FCC2798B19F00854ED0 /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; usesTabs = 0; };
 		C311866725BD3B1800739D7B /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
-		C31186D925BD500700739D7B /* GlkSoundChannel.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GlkSoundChannel.mm; sourceTree = "<group>"; };
+		C31186D925BD500700739D7B /* GlkSoundChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkSoundChannel.m; sourceTree = "<group>"; };
 		C31186DA25BD500700739D7B /* GlkSoundChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundChannel.h; sourceTree = "<group>"; };
 		C311875125BD8F1E00739D7B /* SoundHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundHandler.h; sourceTree = "<group>"; };
 		C311DE2925C4383100484639 /* twine.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = twine.c; sourceTree = "<group>"; };
@@ -3534,6 +3535,11 @@
 		C37391BC27A128E4009147EF /* Transcript of adv01.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of adv01.txt"; sourceTree = "<group>"; };
 		C37391D927A25D03009147EF /* game_specific.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = game_specific.h; sourceTree = "<group>"; usesTabs = 0; };
 		C37391DA27A25D04009147EF /* game_specific.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = game_specific.c; sourceTree = "<group>"; usesTabs = 0; };
+		C3D1A00026EE4E75006F430E /* GlkSoundBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkSoundBackend.h; sourceTree = "<group>"; };
+		C3D1A00126EE4E75006F430E /* SFBSoundBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SFBSoundBackend.h; sourceTree = "<group>"; };
+		C3D1A00226EE4E75006F430E /* SFBSoundBackend.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SFBSoundBackend.mm; sourceTree = "<group>"; };
+		C3D1A00326EE4E75006F430E /* MIDISoundBackend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDISoundBackend.h; sourceTree = "<group>"; };
+		C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDISoundBackend.m; sourceTree = "<group>"; };
 		C374D1C226EE4E75006F430E /* SoundHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SoundHandler.m; sourceTree = "<group>"; };
 		47C5EEB5CE34095A2D1204D9 /* SoundResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SoundResource.h; sourceTree = "<group>"; };
 		218569F9A77E50E51794C2F6 /* SoundResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SoundResource.m; sourceTree = "<group>"; };
@@ -3545,8 +3551,6 @@
 		C3780A052F9D0001008A6A0D /* zxscreen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zxscreen.c; sourceTree = "<group>"; };
 		C3780A072F9D0001008A6A0D /* decompressz80_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompressz80_internal.h; sourceTree = "<group>"; };
 		C37B7BBA2FB60FEF000472AF /* scott_display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_display.h; sourceTree = "<group>"; };
-		C37E675A26E9844D0005873E /* MIDIChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIChannel.h; sourceTree = "<group>"; };
-		C37E675C26E9844D0005873E /* MIDIChannel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIChannel.m; sourceTree = "<group>"; };
 		C37E675E26E987FF0005873E /* MIDIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIPlayer.m; sourceTree = "<group>"; };
 		C37E675F26E987FF0005873E /* MIDIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIPlayer.h; sourceTree = "<group>"; };
 		C37E676126E992440005873E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -6393,9 +6397,12 @@
 				648338D8B86DAE7B126871D8 /* SpectrumBeeper.h */,
 				A8CC55B7BA2ECF9EF86E7C45 /* SpectrumBeeper.m */,
 				C31186DA25BD500700739D7B /* GlkSoundChannel.h */,
-				C31186D925BD500700739D7B /* GlkSoundChannel.mm */,
-				C37E675A26E9844D0005873E /* MIDIChannel.h */,
-				C37E675C26E9844D0005873E /* MIDIChannel.m */,
+				C31186D925BD500700739D7B /* GlkSoundChannel.m */,
+				C3D1A00026EE4E75006F430E /* GlkSoundBackend.h */,
+				C3D1A00126EE4E75006F430E /* SFBSoundBackend.h */,
+				C3D1A00226EE4E75006F430E /* SFBSoundBackend.mm */,
+				C3D1A00326EE4E75006F430E /* MIDISoundBackend.h */,
+				C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */,
 				C37E675F26E987FF0005873E /* MIDIPlayer.h */,
 				C37E675E26E987FF0005873E /* MIDIPlayer.m */,
 				61C07B573024065000388340 /* NowPlayingCoordinator.h */,
@@ -8827,7 +8834,7 @@
 				C39147442974C41D00692B9E /* SideViewController.m in Sources */,
 				C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
-				C31186DB25BD500800739D7B /* GlkSoundChannel.mm in Sources */,
+				C31186DB25BD500800739D7B /* GlkSoundChannel.m in Sources */,
 				961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */,
 				C3191A9E266CDAF300528F6E /* ImageView.m in Sources */,
 				C3D8177B256CBA21005DBC1F /* InputTextField.m in Sources */,
@@ -8846,7 +8853,6 @@
 				C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */,
 				C338CF432F71BD4200BCBD18 /* LibHelperTableView.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
-				C37E675D26E9844D0005873E /* MIDIChannel.m in Sources */,
 				C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */,
 				C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,
@@ -8897,6 +8903,8 @@
 				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				C3AD647326176982008614C5 /* FlowBreak.m in Sources */,
 				C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */,
+				C3D1A00526EE4E75006F430E /* SFBSoundBackend.mm in Sources */,
+				C3D1A00626EE4E75006F430E /* MIDISoundBackend.m in Sources */,
 				27EAFC3E50AB728845509D74 /* SoundResource.m in Sources */,
 				353FB4704ED3A648FEE6F303 /* SpectrumBeeper.m in Sources */,
 				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,

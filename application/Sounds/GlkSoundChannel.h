@@ -1,6 +1,6 @@
 #import <Foundation/Foundation.h>
 
-@class SoundHandler, MIDIChannel;
+@class SoundHandler;
 
 typedef uint32_t glui32;
 typedef int32_t glsi32;
@@ -8,31 +8,20 @@ typedef int32_t glsi32;
 #define FADE_GRANULARITY 100
 #define GLK_MAXVOLUME 0x10000
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(NSInteger, GlkSoundChannelStatus) {
     GlkSoundChannelStatusIdle,
     GlkSoundChannelStatusSound
 };
 
-@interface GlkSoundChannel : NSObject <NSSecureCoding> {
-    glsi32 loop;
-    glui32 notify;
-    BOOL paused;
-
-    glsi32 resid; /* for notifies */
-
-    /* for volume fades */
-    glui32 volume_notify;
-    glui32 volume_timeout; /* ticks left */
-    NSTimeInterval volume_tick; /* seconds per tick */
-    float target_volume;
-    float volume;
-    float volume_delta;
-    NSTimer *timer;
-}
+/// A Glk sound channel. It plays each sound through the backend its format
+/// needs (see GlkSoundBackend.h), and keeps what Glk can see across them.
+@interface GlkSoundChannel : NSObject <NSSecureCoding>
 
 @property GlkSoundChannelStatus status;
 @property int name;
-@property (weak) SoundHandler *handler;
+@property (weak, nullable) SoundHandler *handler;
 
 /// YES while this channel holds a music-like sound (looping or >5s).
 /// Derived from status, nowPlayingLooping and nowPlayingDuration.
@@ -44,22 +33,25 @@ typedef NS_ENUM(NSInteger, GlkSoundChannelStatus) {
 
 - (BOOL)isPaused;
 
-- (instancetype)initWithHandler:(SoundHandler *)handler name:(int)name volume:(glui32)vol;
+- (instancetype)initWithHandler:(nullable SoundHandler *)handler name:(int)name volume:(glui32)vol;
 - (oneway void)setVolume:(glui32) vol duration:(glui32)dur notification:(glui32)noti;
 - (BOOL)playSound:(glsi32) sound countOfRepeats:(glsi32)repeat notification:(glui32)noti;
-/// The actual playback work; subclasses override this rather than playSound:,
-/// which wraps it in a single Now Playing update.
-- (BOOL)playSoundInternal:(glsi32) sound countOfRepeats:(glsi32)repeat notification:(glui32)noti;
 - (oneway void)stop;
 - (oneway void)pause;
 - (oneway void)unpause;
-- (void)cleanup;
 
-- (void)copyValues:(GlkSoundChannel *)otherChannel;
-
+/// Pick up a deserialized channel's sound and fade where they left off.
 - (void)restartInternal;
 
-- (instancetype)initWithCoder:(NSCoder *)decoder;
+- (nullable instancetype)initWithCoder:(NSCoder *)decoder;
 - (void) encodeWithCoder:(NSCoder *)encoder;
 
 @end
+
+/// The class name a channel playing MIDI is archived under. Channels were
+/// once a pair of classes, one for MIDI; this keeps autosaves readable both
+/// by older builds and from them.
+@interface MIDIChannel : GlkSoundChannel
+@end
+
+NS_ASSUME_NONNULL_END
