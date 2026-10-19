@@ -327,12 +327,9 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         marginImages[marginImage.uuid] = marginImage;
     }
 
-    // Looking images up below makes each of them the handler's "last image"
-    // in turn. Put back the one the interpreter last asked for when done, or
-    // a draw request that follows would draw the wrong picture.
+    // Looked up without making them the handler's "last image", which a draw
+    // request that follows would draw.
     ImageHandler *handler = self.glkctl.imageHandler;
-    NSImage *savedLastImage = handler.lastimage;
-    NSInteger savedLastImageResno = handler.lastimageresno;
 
     [textstorage
      enumerateAttribute:NSAttachmentAttributeName
@@ -352,7 +349,6 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         if (cell.imagerule)
             return;
 
-        NSImage *img = nil;
         BOOL imageIsMargin = (cell.glkImgAlign == imagealign_MarginLeft || cell.glkImgAlign == imagealign_MarginRight);
 
         // The resource number, that is, not cell.index, which is whatever
@@ -360,11 +356,11 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         // older than imageNumber do not know theirs; fall back on the index
         // for those, as Bocfel (the only caller) passes the picture number.
         NSInteger resno = cell.imageNumber >= 0 ? cell.imageNumber : (NSInteger)cell.index;
-        if ([handler handleFindImageNumber:resno]) {
+        NSImage *img = [handler imageForNumber:resno];
+        if (img) {
             CGFloat blockXScale = xscale;
             CGFloat blockYScale = yscale;
 
-            img = handler.lastimage;
             if (!imageIsMargin && cell.image && cell.image.size.width > scrollview.contentView.frame.size.width * 0.7) {
                 CGFloat width = scrollview.contentView.frame.size.width;
                 CGFloat factor = img.size.width * xscale / width;
@@ -401,8 +397,6 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
         cell.marginImgUUID = cell.marginImage.uuid;
     }];
 
-    handler.lastimage = savedLastImage;
-    handler.lastimageresno = savedLastImageResno;
 }
 
 @end

@@ -1240,11 +1240,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (CALayer *)createMaskLayer {
     CALayer *layer = [CALayer layer];
 
-    if (![_imageHandler handleFindImageNumber:3]) {
+    NSData *maskData = [_imageHandler dataForImageNumber:3];
+    if (!maskData) {
         NSLog(@"createMaskLayer: Failed to load Narcolepsy image 3!");
         return nil;
     } else {
-        CIImage *inputImage = [CIImage imageWithData:_imageHandler.resources[@(3)].data];
+        CIImage *inputImage = [CIImage imageWithData:maskData];
 
         CIFilter *invert = [CIFilter filterWithName:@"CIColorInvert"];
 

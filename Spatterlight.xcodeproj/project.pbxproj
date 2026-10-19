@@ -995,6 +995,8 @@
 		C3C3792B2FD0DA290006039B /* libunp64.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = C3F09D7F288892BD0035DAC2 /* libunp64.dylib */; };
 		C3C506E526590E4B00763D3E /* MissingFilesFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C506E426590E4B00763D3E /* MissingFilesFinder.m */; };
 		C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C684E126137DC6002F1436 /* ImageHandler.m */; };
+		C3D1A0032F4B000100A1B2C3 /* ImageAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A0022F4B000100A1B2C3 /* ImageAnimation.m */; };
+		C3D1A0062F4B000100A1B2C3 /* ImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A0052F4B000100A1B2C3 /* ImageResource.m */; };
 		C3C72B6F278CB0F900E095A6 /* detect_game.c in Sources */ = {isa = PBXBuildFile; fileRef = C3C72B6E278CB0F900E095A6 /* detect_game.c */; };
 		C3CA11ECC0DE000000000003 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; };
 		C3CA11ECC0DE000000000004 /* gm_vector.c in Sources */ = {isa = PBXBuildFile; fileRef = C3CA11ECC0DE000000000001 /* gm_vector.c */; };
@@ -3797,6 +3799,10 @@
 		C3C506E426590E4B00763D3E /* MissingFilesFinder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MissingFilesFinder.m; sourceTree = "<group>"; };
 		C3C684E026137DC6002F1436 /* ImageHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageHandler.h; sourceTree = "<group>"; };
 		C3C684E126137DC6002F1436 /* ImageHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageHandler.m; sourceTree = "<group>"; };
+		C3D1A0012F4B000100A1B2C3 /* ImageAnimation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageAnimation.h; sourceTree = "<group>"; };
+		C3D1A0022F4B000100A1B2C3 /* ImageAnimation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageAnimation.m; sourceTree = "<group>"; };
+		C3D1A0042F4B000100A1B2C3 /* ImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageResource.h; sourceTree = "<group>"; };
+		C3D1A0052F4B000100A1B2C3 /* ImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageResource.m; sourceTree = "<group>"; };
 		C3C72B6D278CB0F900E095A6 /* detect_game.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = detect_game.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B6E278CB0F900E095A6 /* detect_game.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = detect_game.c; sourceTree = "<group>"; usesTabs = 0; };
 		C3C72B71278CC21200E095A6 /* scott_defines.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_defines.h; sourceTree = "<group>"; usesTabs = 0; };
@@ -7000,6 +7006,10 @@
 			children = (
 				C3C684E026137DC6002F1436 /* ImageHandler.h */,
 				C3C684E126137DC6002F1436 /* ImageHandler.m */,
+				C3D1A0012F4B000100A1B2C3 /* ImageAnimation.h */,
+				C3D1A0022F4B000100A1B2C3 /* ImageAnimation.m */,
+				C3D1A0042F4B000100A1B2C3 /* ImageResource.h */,
+				C3D1A0052F4B000100A1B2C3 /* ImageResource.m */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -8835,6 +8845,8 @@
 				C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */,
 				C338CF4A2F71BE1000BCBD18 /* GameLauncher.m in Sources */,
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
+				C3D1A0032F4B000100A1B2C3 /* ImageAnimation.m in Sources */,
+				C3D1A0062F4B000100A1B2C3 /* ImageResource.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				C39147442974C41D00692B9E /* SideViewController.m in Sources */,
 				C3F9D8882675FCE00076EAFB /* OSCategories.m in Sources */,
