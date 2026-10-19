@@ -66,12 +66,36 @@ static NSString *signalToName(NSTask *task) {
     }
 }
 
-static BOOL pollMoreData(int fd) {
-    fd_set fdset;
-    struct timeval tmout = { 0, 0 }; // return immediately
-    FD_ZERO(&fdset);
-    FD_SET(fd, &fdset);
-    return (select(fd + 1, &fdset, NULL, NULL, &tmout) > 0);
+- (void)openLogFile {
+    NSString *logDirectory = [[NSUserDefaults standardUserDefaults] stringForKey:@"InterpreterLogDirectory"];
+    if (!logDirectory || logDirectory.length == 0) {
+        // Default to Desktop if no directory specified
+        logDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
+    }
+    
+    // Create log filename with timestamp
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyy-MM-dd HH.mm.ss";
+    NSString *timestamp = [formatter stringFromDate:[NSDate date]];
+    
+    NSString *gameName = [self.gamefile.lastPathComponent stringByDeletingPathExtension];
+    NSString *logFilename = [NSString stringWithFormat:@"Spatterlight-%@-%@.log", gameName, timestamp];
+    NSString *logPath = [logDirectory stringByAppendingPathComponent:logFilename];
+    
+    // Create/open the log file
+    [[NSFileManager defaultManager] createFileAtPath:logPath contents:nil attributes:nil];
+    self.interpreterLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logPath];
+    
+    if (self.interpreterLogFileHandle) {
+        NSLog(@"Logging interpreter output to: %@", logPath);
+        
+        // Write header to log file
+        NSString *header = [NSString stringWithFormat:@"=== Spatterlight Interpreter Log ===\nGame: %@\nInterpreter: %@\n\n",
+                            self.gamefile.lastPathComponent, self.terpname];
+        [self.interpreterLogFileHandle writeData:[header dataUsingEncoding:NSUTF8StringEncoding]];
+    } else {
+        NSLog(@"Warning: Could not create interpreter log file at %@", logPath);
+    }
 }
 
 - (void)closeLogFile {
@@ -124,7 +148,7 @@ static BOOL pollMoreData(int fd) {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];
         [bezel showGameOver];
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        runOnMainAfterDelay(1, ^{
             NSAccessibilityPostNotificationWithUserInfo(
                                                         NSApp.mainWindow,
                                                         NSAccessibilityAnnouncementRequestedNotification,
@@ -156,13 +180,7 @@ static BOOL pollMoreData(int fd) {
     if (!restartingAlready)
         [self autoSaveOnExit];
 
-    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"] isDirectory:NO] ]];
+    [self deleteAutosaveFilesKeepingLateGUI:YES];
 }
 
 - (void)queueEvent:(GlkEvent *)gevent {
@@ -172,11 +190,11 @@ static BOOL pollMoreData(int fd) {
     // an input event added here is swallowed silently and the window appears to
     // lock up. Windows should already be refusing input at this point (see
     // terpDidStop), so this is a backstop for any path that slips through.
-    if (terpHasStopped &&
-        (gevent.type == EVTKEY || gevent.type == EVTLINE ||
-         gevent.type == EVTHYPER || gevent.type == EVTMOUSE)) {
+    BOOL isInputEvent = (gevent.type == EVTKEY || gevent.type == EVTLINE ||
+                         gevent.type == EVTHYPER || gevent.type == EVTMOUSE);
+    if (terpHasStopped && isInputEvent)
         return;
-    }
+
     if (gevent.type == EVTARRANGE) {
         Theme *theme = self.theme;
         NSDictionary *newArrangeValues = @{
@@ -200,12 +218,10 @@ static BOOL pollMoreData(int fd) {
             redrawEvent = [[GlkEvent alloc] initRedrawEvent];
     }
 
-    if (gevent.type == EVTKEY || gevent.type == EVTLINE || gevent.type == EVTHYPER || gevent.type == EVTMOUSE)
+    if (isInputEvent)
         self.shouldScrollOnCharEvent = YES;
 
-    if (waitforfilename) {
-        [self.queue addObject:gevent];
-    } else if (waitforevent) {
+    if (waitforevent && !waitforfilename) {
         [gevent writeEvent:sendfh.fileDescriptor];
         waitforevent = NO;
         [readfh waitForDataInBackgroundAndNotify];
@@ -216,27 +232,61 @@ static BOOL pollMoreData(int fd) {
         [self queueEvent:redrawEvent];
 }
 
-- (void)noteDataAvailable: (id)sender {
+// Write all of len bytes, retrying on short writes and EINTR.
+static BOOL writeAll(int fd, const void *data, size_t len) {
+    const char *p = data;
+    while (len > 0) {
+        ssize_t t = write(fd, p, len);
+        if (t < 0) {
+            if (errno == EINTR)
+                continue;
+            return NO;
+        }
+        p += t;
+        len -= (size_t)t;
+    }
+    return YES;
+}
+
+- (void)writeToInterpreterLog:(NSString *)string {
+    @try {
+        [self.interpreterLogFileHandle writeData:[string dataUsingEncoding:NSUTF8StringEncoding]];
+    } @catch (NSException *exception) {
+        NSLog(@"noteDataAvailable: Could not write to log file: %@", exception);
+    }
+}
+
+- (void)logRequestHeader:(struct message *)request {
+    // The header comes straight off the pipe: only look up a name the
+    // table has, and log anything else by number.
+    const char *name = (request->cmd >= 0 && (size_t)request->cmd < msgnames_count) ? msgnames[request->cmd] : NULL;
+    NSString *cmdName = name ? @(name) : [NSString stringWithFormat:@"%d", request->cmd];
+    [self writeToInterpreterLog:[NSString stringWithFormat:@"[MSG] cmd=%@ a1=%d a2=%d a3=%d len=%zu\n",
+                                 cmdName, request->a1, request->a2, request->a3, request->len]];
+}
+
+- (void)logRequestBody:(struct message *)request buffer:(const char *)buf {
+    // PRINT bodies are UTF-16 text; log them as such
+    if (request->cmd == PRINT && request->len) {
+        NSString *text = [[NSString alloc] initWithBytes:buf length:request->len encoding:NSUTF16LittleEndianStringEncoding];
+        if (text)
+            [self writeToInterpreterLog:[NSString stringWithFormat:@"[TEXT] %@\n", text]];
+        else
+            [self writeToInterpreterLog:[NSString stringWithFormat:@"[DATA] %zu bytes\n", request->len]];
+    }
+}
+
+// Read one message (header and body) from the interpreter, handle it and
+// send any reply. Returns NO if nothing more should be read: the pipe
+// failed, or the handler asked us to stop.
+- (BOOL)readAndHandleMessageFrom:(int)readfd replyTo:(int)sendfd {
     struct message request;
     struct message reply;
     char minibuf[GLKBUFSIZE + 1];
-    char *maxibuf;
-    char *buf;
+    char *maxibuf = NULL;
+    char *buf = minibuf;
     ssize_t n, t;
-    BOOL stop;
 
-    int readfd = readfh.fileDescriptor;
-    int sendfd = sendfh.fileDescriptor;
-    
-    NSFileHandle *logFileHandle = self.interpreterLogFileHandle;
-
-again:
-
-    buf = minibuf;
-    maxibuf = NULL;
-
-    if (!pollMoreData(readfd))
-        return;
     n = read(readfd, &request, sizeof(struct message));
     if (n < (ssize_t)sizeof(struct message))
     {
@@ -245,105 +295,75 @@ again:
         } else {
             NSLog(@"glkctl: connection closed");
         }
-        return;
+        return NO;
     }
-    
-    // Log the message header if logging is enabled
-    if (logFileHandle) {
-        // The header comes straight off the pipe: only look up a name the
-        // table has, and log anything else by number.
-        const char *name = (request.cmd >= 0 && (size_t)request.cmd < msgnames_count) ? msgnames[request.cmd] : NULL;
-        NSString *cmdName = name ? @(name) : [NSString stringWithFormat:@"%d", request.cmd];
-        NSString *headerLog = [NSString stringWithFormat:@"[MSG] cmd=%@ a1=%d a2=%d a3=%d len=%zu\n",
-                               cmdName, request.a1, request.a2, request.a3, request.len];
-        @try {
-            [logFileHandle writeData:[headerLog dataUsingEncoding:NSUTF8StringEncoding]];
-        } @catch (NSException *exception) {
-            NSLog(@"noteDataAvailable: Could not write to log file: %@", exception);
-        }
-    }
+
+    if (self.interpreterLogFileHandle)
+        [self logRequestHeader:&request];
 
     /* this should only happen when sending resources */
     if (request.len > GLKBUFSIZE)
     {
-        maxibuf = malloc(request.len);
+        // + 1: handlers may NUL-terminate the payload (see protocol.h)
+        maxibuf = malloc(request.len + 1);
         if (!maxibuf)
         {
             NSLog(@"glkctl: out of memory for message (%zu bytes)", request.len);
-            return;
+            return NO;
         }
         buf = maxibuf;
     }
 
-    if (request.len)
+    n = 0;
+    while (n < (ssize_t)request.len)
     {
-        n = 0;
-        while (n < (ssize_t)request.len)
+        t = read(readfd, buf + n, request.len - (size_t)n);
+        if (t <= 0)
         {
-            t = read(readfd, buf + n, request.len - (size_t)n);
-            if (t <= 0)
-            {
-                NSLog(@"glkctl: could not read message body");
-                if (maxibuf)
-                    free(maxibuf);
-                return;
-            }
-            n += t;
+            NSLog(@"glkctl: could not read message body");
+            free(maxibuf);
+            return NO;
         }
-        
-        // Log the message body if logging is enabled and it's text data
-        if (logFileHandle && request.len > 0) {
-            // Try to interpret as text for certain commands (like PRINT)
-            if (request.cmd == PRINT) { // PRINT command
-                unichar *unibuf = malloc(request.len);
-                if (unibuf == NULL) {
-                    NSLog(@"Out of memory!");
-                    return;
-                }
-                memcpy(unibuf, buf, request.len);
-                NSString *text = [NSString stringWithCharacters:unibuf length:request.len / sizeof(unichar)];
-                free(unibuf);
-                if (text) {
-                    NSString *bodyLog = [NSString stringWithFormat:@"[TEXT] %@\n", text];
-                    [logFileHandle writeData:[bodyLog dataUsingEncoding:NSUTF8StringEncoding]];
-                } else {
-                    // If not valid text, log as hex
-                    NSString *bodyLog = [NSString stringWithFormat:@"[DATA] %zu bytes\n", request.len];
-                    [logFileHandle writeData:[bodyLog dataUsingEncoding:NSUTF8StringEncoding]];
-                }
-            }
-        }
+        n += t;
     }
+
+    if (self.interpreterLogFileHandle)
+        [self logRequestBody:&request buffer:buf];
 
     memset(&reply, 0, sizeof reply);
 
-    stop = [self handleRequest: &request reply: &reply buffer: buf];
+    BOOL stop = [self handleRequest: &request reply: &reply buffer: buf];
 
     if (reply.cmd > NOREPLY)
     {
-        write(sendfd, &reply, sizeof(struct message));
-        if (reply.len)
-            write(sendfd, buf, reply.len);
-        
-        // Log reply if logging is enabled
-        if (logFileHandle) {
-            NSString *replyLog = [NSString stringWithFormat:@"[REPLY] cmd=%u a1=%d a2=%d a3=%d len=%zu\n",
-                                  reply.cmd, reply.a1, reply.a2, reply.a3, reply.len];
-            [logFileHandle writeData:[replyLog dataUsingEncoding:NSUTF8StringEncoding]];
-        }
+        if (!writeAll(sendfd, &reply, sizeof(struct message)) ||
+            (reply.len && !writeAll(sendfd, buf, reply.len)))
+            NSLog(@"glkctl: could not write reply: %s", strerror(errno));
+
+        if (self.interpreterLogFileHandle)
+            [self writeToInterpreterLog:[NSString stringWithFormat:@"[REPLY] cmd=%u a1=%d a2=%d a3=%d len=%zu\n",
+                                         reply.cmd, reply.a1, reply.a2, reply.a3, reply.len]];
     }
 
-    if (maxibuf)
-        free(maxibuf);
+    free(maxibuf);
 
     /* if stop, don't read or wait for more data */
-    if (stop)
+    return !stop;
+}
+
+- (void)noteDataAvailable: (id)sender {
+    int readfd = readfh.fileDescriptor;
+    int sendfd = sendfh.fileDescriptor;
+
+    if (!waitForData(readfd, 0))
         return;
 
-    if (pollMoreData(readfd))
-        goto again;
-    else
-        [readfh waitForDataInBackgroundAndNotify];
+    do {
+        if (![self readAndHandleMessageFrom:readfd replyTo:sendfd])
+            return;
+    } while (waitForData(readfd, 0));
+
+    [readfh waitForDataInBackgroundAndNotify];
 }
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification {

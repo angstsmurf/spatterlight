@@ -14,6 +14,7 @@
 #import "Theme.h"
 #import "Game.h"
 #import "Metadata.h"
+#import "Preferences.h"
 #import "Image.h"
 #import "NotificationBezel.h"
 
@@ -271,7 +272,7 @@
     [[NSNotificationCenter defaultCenter]
      addObserver:self
      selector:@selector(notePreferencesChanged:)
-     name:@"PreferencesChanged"
+     name:kPreferencesChangedNotification
      object:nil];
 
     [[NSNotificationCenter defaultCenter]

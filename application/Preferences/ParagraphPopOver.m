@@ -112,7 +112,7 @@
         [Preferences rebuildTextAttributes];
     else
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+         postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
 }
 
 - (IBAction)changeAlignment:(id)sender {

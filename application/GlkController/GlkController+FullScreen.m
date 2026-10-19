@@ -24,8 +24,8 @@
         [self.coverController.imageView positionImage];
     }
 
-    self.gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
-    self.borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    self.gameView.autoresizingMask = kResizeCenteredFullHeight;
+    self.borderView.autoresizingMask = kResizeFill;
 
     if (!inFullScreenResize) {
         NSSize borderSize = self.borderView.frame.size;
@@ -81,11 +81,10 @@
 // then puts the window back as an ordinary one. Go with what the system did
 // and fit the game view to the window.
 - (void)window:(NSWindow *)window didDecodeRestorableState:(NSCoder *)state {
-    if (window != self.window || !self.inFullscreen ||
-        (window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen)
+    if (window != self.window || !self.inFullscreen || self.isInSystemFullscreen)
         return;
     self.inFullscreen = NO;
-    self.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    self.gameView.autoresizingMask = kResizeFill;
     [self adjustContentView];
     [self restoreScrollOffsets];
 }
@@ -129,27 +128,25 @@
     self.gameView.frame = [self contentFrameForWindowed];
     NSLog(@"windowDidFailToEnterFullScreen calling restoreScrollOffsets");
     [self restoreScrollOffsets];
-    self.gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
-    self.borderView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    self.gameView.autoresizingMask = kResizeFill;
+    self.borderView.autoresizingMask = kResizeFill;
 }
 
 - (void)storeScrollOffsets {
     if (self.ignoreResizes)
         return;
-    for (GlkWindow *win in self.gwindows.allValues)
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            ((GlkTextBufferWindow *)win).pendingScrollRestore = NO;
-            [(GlkTextBufferWindow *)win storeScrollOffset];
-            ((GlkTextBufferWindow *)win).pendingScrollRestore = YES;
-        }
+    for (GlkTextBufferWindow *win in self.bufferWindows) {
+        win.pendingScrollRestore = NO;
+        [win storeScrollOffset];
+        win.pendingScrollRestore = YES;
+    }
 }
 
 - (void)restoreScrollOffsets {
-    for (GlkWindow *win in self.gwindows.allValues)
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [(GlkTextBufferWindow *)win restoreScrollBarStyle];
-            [(GlkTextBufferWindow *)win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
-        }
+    for (GlkTextBufferWindow *win in self.bufferWindows) {
+        [win restoreScrollBarStyle];
+        [win performSelector:@selector(restoreScroll:) withObject:nil afterDelay:0.2];
+    }
 }
 
 - (void)window:(NSWindow *)window
@@ -174,6 +171,16 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 }
 
+// The border view's frame once in fullscreen on screen. The size is
+// remembered (in borderFullScreenSize) the first time.
+- (NSRect)fullScreenBorderFrameOnScreen:(NSScreen *)screen {
+    if (NSEqualSizes(self.borderFullScreenSize, NSZeroSize))
+        self.borderFullScreenSize = screen.frame.size;
+    NSRect frame = screen.frame;
+    frame.size = self.borderFullScreenSize;
+    return frame;
+}
+
 - (void)enterFullScreenAnimationWithDuration:(NSTimeInterval)duration {
     NSWindow *window = self.window;
     NSWindow *snapshotWindow = snapshotController.window;
@@ -183,12 +190,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     NSScreen *screen = window.screen;
 
-    if (NSEqualSizes(self.borderFullScreenSize, NSZeroSize))
-        self.borderFullScreenSize = screen.frame.size;
-
     // The final, full screen frame
-    NSRect border_finalFrame = screen.frame;
-    border_finalFrame.size = self.borderFullScreenSize;
+    NSRect border_finalFrame = [self fullScreenBorderFrameOnScreen:screen];
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -204,12 +207,11 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     NSRect centerWindowFrame = [window frameRectForContentRect:centerBorderFrame];
 
-    centerWindowFrame.origin.x += screen.frame.origin.x;
-    centerWindowFrame.origin.y += screen.frame.origin.y;
+    centerWindowFrame.origin.x += NSMinX(screen.frame);
+    centerWindowFrame.origin.y += NSMinY(screen.frame);
 
-    self.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    self.gameView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
-    NSViewMinYMargin; // Attached at top but not bottom or sides
+    self.borderView.autoresizingMask = kResizeFill;
+    self.gameView.autoresizingMask = kResizeCenteredAtTop;
 
     NSView *localContentView = self.gameView;
     NSView *localBorderView = self.borderView;
@@ -297,12 +299,8 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     NSWindow *window = self.window;
     NSScreen *screen = window.screen;
 
-    if (NSEqualSizes(self.borderFullScreenSize, NSZeroSize))
-        self.borderFullScreenSize = screen.frame.size;
-
     // The final, full screen frame
-    NSRect border_finalFrame = screen.frame;
-    border_finalFrame.size = self.borderFullScreenSize;
+    NSRect border_finalFrame = [self fullScreenBorderFrameOnScreen:screen];
 
     // The center frame for the window is used during
     // the 1st half of the fullscreen animation and is
@@ -310,13 +308,12 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     // center of its eventual full screen frame.
 
     NSRect centerWindowFrame = [self frameWithSanitycheckedSize:self.windowPreFullscreenFrame];
-    centerWindowFrame.origin = NSMakePoint(screen.frame.origin.x + floor((screen.frame.size.width -
-                                                                          self.borderView.frame.size.width) /
-                                                                         2), screen.frame.origin.x + self.borderFullScreenSize.height
-                                           - centerWindowFrame.size.height);
+    centerWindowFrame.origin = NSMakePoint(floor((screen.frame.size.width -
+                                                  self.borderView.frame.size.width) / 2),
+                                           self.borderFullScreenSize.height - centerWindowFrame.size.height);
 
-    centerWindowFrame.origin.x += screen.frame.origin.x;
-    centerWindowFrame.origin.y += screen.frame.origin.y;
+    centerWindowFrame.origin.x += NSMinX(screen.frame);
+    centerWindowFrame.origin.y += NSMinY(screen.frame);
 
     GlkController * __weak weakSelf = self;
 
@@ -361,7 +358,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     inFullScreenResize = NO;
 }
 
-- (void)window:window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
+- (void)window:(NSWindow *)window startCustomAnimationToExitFullScreenWithDuration:(NSTimeInterval)duration {
     if (self.showingCoverImage) {
         [self.coverController exitFullscreenWithDuration:duration];
         return;
@@ -376,8 +373,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     inFullScreenResize = YES;
 
-    self.gameView.autoresizingMask =
-    NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+    self.gameView.autoresizingMask = kResizeCenteredAtTop;
 
     NSWindow __weak *localWindow = self.window;
     NSView __weak *localBorderView = self.borderView;
@@ -397,7 +393,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [weakSelf enableArrangementEvents];
         localBorderView.frame = ((NSView *)localWindow.contentView).frame;
         localContentView.frame = [weakSelf contentFrameForWindowed];
-        localContentView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+        localContentView.autoresizingMask = kResizeFill;
         [weakSelf performSelector:@selector(windowDidExitFullScreen:) withObject:nil afterDelay:0];
     }];
 }
@@ -410,7 +406,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self adjustContentView];
     [self contentDidResize:self.gameView.frame];
     lastSizeInChars = [self contentSizeToCharCells:self.gameView.frame.size];
-    self.gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+    self.gameView.autoresizingMask = kResizeCenteredFullHeight;
     [self restoreScrollOffsets];
 }
 
@@ -431,7 +427,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
         [self.window setFrame:newFrame display:YES];
         [self adjustMaskLayer:nil];
     }
-    self.gameView.autoresizingMask = NSViewHeightSizable | NSViewWidthSizable;
+    self.gameView.autoresizingMask = kResizeFill;
 }
 
 - (void)startInFullscreen {
@@ -444,18 +440,15 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 
     self.gameView.frame = [self contentFrameForWindowed];
 
-    self.gameView.autoresizingMask = NSViewMinXMargin | NSViewMaxXMargin |
-    NSViewMinYMargin; // Attached at top but not bottom or sides
+    self.gameView.autoresizingMask = kResizeCenteredAtTop;
 
     [self contentDidResize:self.gameView.frame];
-    for (GlkWindow *win in self.gwindows.allValues)
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            GlkTextBufferWindow *bufwin = (GlkTextBufferWindow *)win;
-            [bufwin restoreScrollBarStyle];
-            // This will prevent storing scroll
-            // positions during fullscreen animation
-            bufwin.pendingScrollRestore = YES;
-        }
+    for (GlkTextBufferWindow *bufwin in self.bufferWindows) {
+        [bufwin restoreScrollBarStyle];
+        // This will prevent storing scroll
+        // positions during fullscreen animation
+        bufwin.pendingScrollRestore = YES;
+    }
 }
 
 - (void)deferredEnterFullscreen:(id)sender {
@@ -513,7 +506,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 // Some convenience methods
 - (void)adjustContentView {
     NSRect frame;
-    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen || self.inFullscreen) {
+    if (self.isInSystemFullscreen || self.inFullscreen) {
         // We are in fullscreen
         frame = [self contentFrameForFullscreen];
     } else {

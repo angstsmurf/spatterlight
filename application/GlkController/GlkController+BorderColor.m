@@ -12,14 +12,17 @@
 #define NSLog(...)
 #endif
 
+// The size a window has, or is about to get if a resize is pending.
+static NSSize currentSizeOfWindow(GlkWindow *win) {
+    return win.framePending ? win.pendingFrame.size : win.bounds.size;
+}
+
 @implementation GlkController (BorderColor)
 
 - (void)setBorderColor:(NSColor *)color fromWindow:(GlkWindow *)aWindow {
     if (changedBorderThisTurn)
         return;
-    NSSize windowsize = aWindow.bounds.size;
-    if (aWindow.framePending)
-        windowsize = aWindow.pendingFrame.size;
+    NSSize windowsize = currentSizeOfWindow(aWindow);
     CGFloat relativeSize = (windowsize.width * windowsize.height) / (self.gameView.bounds.size.width * self.gameView.bounds.size.height);
     if (relativeSize < 0.70 && ![aWindow isKindOfClass:[GlkTextBufferWindow class]])
         return;
@@ -73,9 +76,7 @@
             return winArray[0];
     }
     for (GlkWindow *win in winArray) {
-        NSSize windowsize = win.bounds.size;
-        if (win.framePending)
-            windowsize = win.pendingFrame.size;
+        NSSize windowsize = currentSizeOfWindow(win);
         CGFloat winarea = windowsize.width * windowsize.height;
         if (winarea >= largestSize) {
             largestSize = winarea;

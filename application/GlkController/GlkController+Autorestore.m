@@ -36,28 +36,27 @@
 #define NSLog(...)
 #endif
 
+NSString * const kAutosaveTerpFile = @"autosave.plist";
+NSString * const kAutosaveTerpBakFile = @"autosave-bak.plist";
+NSString * const kAutosaveTerpTmpFile = @"autosave-tmp.plist";
+NSString * const kAutosaveGlkSaveFile = @"autosave.glksave";
+NSString * const kAutosaveGlkSaveBakFile = @"autosave-bak.glksave";
+NSString * const kAutosaveGlkSaveTmpFile = @"autosave-tmp.glksave";
+NSString * const kAutosaveGUIFile = @"autosave-GUI.plist";
+NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
+
 @implementation GlkController (Autorestore)
 
-- (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView
-{
-    // Search the subviews for a view of class GlkTextGridWindow
-    GlkTextGridWindow __block __weak *(^weak_findGridWindow)(NSView *);
-
-    GlkTextGridWindow * (^findGridWindow)(NSView *);
-
-    weak_findGridWindow = findGridWindow = ^(NSView *view) {
-        if ([view isKindOfClass:[GlkTextGridWindow class]])
-            return (GlkTextGridWindow *)view;
-        GlkTextGridWindow __block *foundView = nil;
-        [view.subviews enumerateObjectsUsingBlock:^(NSView *subview, NSUInteger idx, BOOL *stop) {
-            foundView = weak_findGridWindow(subview);
-            if (foundView)
-                *stop = YES;
-        }];
-        return foundView;
-    };
-
-    return findGridWindow(theView);
+// Depth-first search of theView and its subviews for a grid window.
+- (GlkTextGridWindow *)findGridWindowIn:(NSView *)theView {
+    if ([theView isKindOfClass:[GlkTextGridWindow class]])
+        return (GlkTextGridWindow *)theView;
+    for (NSView *subview in theView.subviews) {
+        GlkTextGridWindow *found = [self findGridWindowIn:subview];
+        if (found)
+            return found;
+    }
+    return nil;
 }
 
 - (Theme *)findThemeByName:(NSString *)name {
@@ -77,6 +76,20 @@
             NSLog(@"GlkController findThemeByName: %@", error);
     }
     return foundTheme;
+}
+
+// Take over a quote box from the restored controller, attached to bufwin.
+- (void)adoptQuoteBox:(GlkTextGridWindow *)quotebox
+      forBufferWindow:(GlkTextBufferWindow *)bufwin
+           addedOnPAC:(NSInteger)pac {
+    if (self.quoteBoxes == nil)
+        self.quoteBoxes = [[NSMutableArray alloc] init];
+    [quotebox removeFromSuperview];
+    [self.quoteBoxes addObject:quotebox];
+    quotebox.glkctl = self;
+    quotebox.quoteboxAddedOnPAC = pac;
+    quotebox.quoteboxParent = bufwin.textview.enclosingScrollView;
+    bufwin.quoteBox = quotebox;
 }
 
 - (void)restoreUI {
@@ -183,12 +196,6 @@
 
                 GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)win).quoteBox;
                 if (quotebox && (restoredController.numberOfPrintsAndClears == quotebox.quoteboxAddedOnPAC) && (restoredController.printsAndClearsThisTurn == 0 || quotebox.quoteboxAddedOnPAC == 0)) {
-                    if (self.quoteBoxes == nil)
-                        self.quoteBoxes = [[NSMutableArray alloc] init];
-                    [quotebox removeFromSuperview];
-                    [self.quoteBoxes addObject:quotebox];
-                    quotebox.glkctl = self;
-                    quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
                     // Our own count of prints and clears starts over (and
                     // already includes the scrollback the interpreter replayed
                     // while restoring), so a count stamped on the box by the
@@ -196,7 +203,9 @@
                     // NEXTEVENT stamp it afresh; otherwise the box would fade
                     // at once or outstay its turn, depending on which count
                     // happened to be higher.
-                    quotebox.quoteboxAddedOnPAC = 0;
+                    [self adoptQuoteBox:quotebox
+                        forBufferWindow:(GlkTextBufferWindow *)win
+                             addedOnPAC:0];
                 }
             }
 
@@ -210,15 +219,10 @@
         } else if (self.quoteBoxes.count == 0 && self.restorationHandler && [win isKindOfClass:[GlkTextBufferWindow class]]) {
             GlkWindow *restored = restoredController.gwindows[@(win.name)];
             GlkTextGridWindow *quotebox = ((GlkTextBufferWindow *)restored).quoteBox;
-            if (quotebox) {
-                self.quoteBoxes = [[NSMutableArray alloc] init];
-                [quotebox removeFromSuperview];
-                [self.quoteBoxes addObject:quotebox];
-                quotebox.glkctl = self;
-                quotebox.quoteboxAddedOnPAC = self.numberOfPrintsAndClears;
-                quotebox.quoteboxParent = ((GlkTextBufferWindow *)win).textview.enclosingScrollView;
-                ((GlkTextBufferWindow *)win).quoteBox = quotebox;
-            }
+            if (quotebox)
+                [self adoptQuoteBox:quotebox
+                    forBufferWindow:(GlkTextBufferWindow *)win
+                         addedOnPAC:self.numberOfPrintsAndClears];
         }
         GlkWindow *laterWin = (restoredControllerLate.gwindows)[key];
         win.frame = laterWin.frame;
@@ -298,7 +302,7 @@
         self.theme = stashedTheme;
         self.stashedTheme = nil;
     }
-    NSNotification *notification = [NSNotification notificationWithName:@"PreferencesChanged" object:self.theme];
+    NSNotification *notification = [NSNotification notificationWithName:kPreferencesChangedNotification object:self.theme];
     [self notePreferencesChanged:notification];
     self.restoredStylesStale = NO;
     self.shouldStoreScrollOffset = YES;
@@ -330,127 +334,130 @@
 }
 
 - (NSString *)buildAppSupportDir {
-    NSDictionary *gFolderMap = @{@"adrift" : @"SCARE",
-                                     @"advsys" : @"AdvSys",
-                                     @"agt"    : @"AGiliTy",
-                                     @"archetype" : @"Archetype",
-                                     @"comprehend" : @"Comprehend",
-                                     @"glulx"  : @"Glulxe",
-                                     @"hugo"   : @"Hugo",
-                                     @"level9" : @"Level 9",
-                                     @"magscrolls" : @"Magnetic",
-                                     @"quest4" : @"Quest",
-                                     // Both Quest versions share one folder: the Question terp runs
-                                     // both and cannot distinguish them when naming its own
-                                     // work/autosave dir (glkimp fileref.m keys off the program
-                                     // name's first word, "quest" for either). Per-game signature
-                                     // subfolders keep individual games separate inside it.
-                                     @"quest5" : @"Quest",
-                                     @"quill"  : @"UnQuill",
-                                     @"tads2"  : @"TADS",
-                                     @"tads3"  : @"TADS",
-                                     @"zcode"  : @"Bocfel",
-                                     @"sagaplus" : @"Plus",
-                                     @"scott"  : @"ScottFree",
-                                     @"jacl"   : @"JACL",
-                                     @"taylor" : @"TaylorMade"
+    static NSDictionary *gFolderMap;
+    static NSDictionary *gFolderMapExt;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        gFolderMap = @{@"adrift" : @"SCARE",
+                       @"advsys" : @"AdvSys",
+                       @"agt"    : @"AGiliTy",
+                       @"archetype" : @"Archetype",
+                       @"comprehend" : @"Comprehend",
+                       @"glulx"  : @"Glulxe",
+                       @"hugo"   : @"Hugo",
+                       @"level9" : @"Level 9",
+                       @"magscrolls" : @"Magnetic",
+                       @"quest4" : @"Quest",
+                       // Both Quest versions share one folder: the Question terp runs
+                       // both and cannot distinguish them when naming its own
+                       // work/autosave dir (glkimp fileref.m keys off the program
+                       // name's first word, "quest" for either). Per-game signature
+                       // subfolders keep individual games separate inside it.
+                       @"quest5" : @"Quest",
+                       @"quill"  : @"UnQuill",
+                       @"tads2"  : @"TADS",
+                       @"tads3"  : @"TADS",
+                       @"zcode"  : @"Bocfel",
+                       @"sagaplus" : @"Plus",
+                       @"scott"  : @"ScottFree",
+                       @"jacl"   : @"JACL",
+                       @"taylor" : @"TaylorMade"
         };
 
-        NSDictionary *gFolderMapExt = @{@"acd" : @"Alan 2",
-                                        @"a3c" : @"Alan 3",
-                                        @"d$$" : @"AGiliTy"};
+        // Formats not in gFolderMap are looked up by file extension
+        gFolderMapExt = @{@"acd" : @"Alan 2",
+                          @"a3c" : @"Alan 3",
+                          @"d$$" : @"AGiliTy"};
+    });
 
-        NSError *error;
-        NSURL *appSupportURL = [[NSFileManager defaultManager]
-                                URLForDirectory:NSApplicationSupportDirectory
-                                inDomain:NSUserDomainMask
-                                appropriateForURL:nil
-                                create:NO
-                                error:&error];
-
-        if (error)
-            NSLog(@"Could not find Application Support folder. Error: %@",
-                  error);
-
-        if (appSupportURL == nil)
-            return nil;
-
-        Game *game = self.game;
-        NSString *detectedFormat = game.detectedFormat;
-
-        if (!detectedFormat) {
-            NSLog(@"GlkController appSupportDir: Game %@ has no specified format!", game.metadata.title);
-            return nil;
-        }
-
-        NSString *signature = self.gameSignature;
-
-        if (signature.length == 0) {
-            NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", self.gamefile);
-            return nil;
-        }
-
-        NSString *terpFolder =
-        [gFolderMap[detectedFormat]
-         stringByAppendingString:@" Files"];
-
-        if (!terpFolder) {
-            terpFolder = [gFolderMapExt[self.gamefile.pathExtension.lowercaseString]
-                          stringByAppendingString:@" Files"];
-        }
-
-        if (!terpFolder) {
-            NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", detectedFormat);
-            return nil;
-        }
-
-        NSString *dirstr =
-        [@"Spatterlight" stringByAppendingPathComponent:terpFolder];
-        dirstr = [dirstr stringByAppendingPathComponent:@"Autosaves"];
-        dirstr = [dirstr
-                  stringByAppendingPathComponent:signature];
-        dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
-
-        appSupportURL = [NSURL URLWithString:dirstr
-                               relativeToURL:appSupportURL];
-
-        if (self.supportsAutorestore && self.theme.autosave) {
-            error = nil;
-            BOOL succeed  = [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
-                                     withIntermediateDirectories:YES
-                                                      attributes:nil
-                                                           error:&error];
-
-            if (!succeed || error != nil) {
-                NSLog(@"Error when creating appSupportDir: %@", error);
-            }
-
-            NSString *dummyfilename = [game.metadata.title
-                                       stringByAppendingPathExtension:@"txt"];
-
-            NSString *dummytext = [NSString
-                                   stringWithFormat:
-                                       @"This file, %@, was placed here by Spatterlight in order to make "
-                                   @"it easier for humans to guess what game these autosave files belong "
-                                   @"to. Any files in this folder are for the game %@, or possibly "
-                                   @"a game with a different name but identical contents.",
-                                   dummyfilename, game.metadata.title];
-
-            NSString *dummyfilepath =
-            [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
-
-            error = nil;
-            succeed =
-            [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath isDirectory:NO]
-                       atomically:YES
-                         encoding:NSUTF8StringEncoding
+    NSError *error;
+    NSURL *appSupportURL = [[NSFileManager defaultManager]
+                            URLForDirectory:NSApplicationSupportDirectory
+                            inDomain:NSUserDomainMask
+                            appropriateForURL:nil
+                            create:NO
                             error:&error];
-            if (!succeed || error) {
-                NSLog(@"Failed to write dummy file to autosave directory. Error:%@",
-                      error);
-            }
+
+    if (error)
+        NSLog(@"Could not find Application Support folder. Error: %@",
+              error);
+
+    if (appSupportURL == nil)
+        return nil;
+
+    Game *game = self.game;
+    NSString *detectedFormat = game.detectedFormat;
+
+    if (!detectedFormat) {
+        NSLog(@"GlkController appSupportDir: Game %@ has no specified format!", game.metadata.title);
+        return nil;
+    }
+
+    NSString *signature = self.gameSignature;
+
+    if (signature.length == 0) {
+        NSLog(@"GlkController appSupportDir: Could not create signature from game file \"%@\"!", self.gamefile);
+        return nil;
+    }
+
+    NSString *terpName = gFolderMap[detectedFormat];
+    if (!terpName)
+        terpName = gFolderMapExt[self.gamefile.pathExtension.lowercaseString];
+
+    if (!terpName) {
+        NSLog(@"GlkController appSupportDir: Could not map game format %@ to a folder name!", detectedFormat);
+        return nil;
+    }
+
+    NSString *terpFolder = [terpName stringByAppendingString:@" Files"];
+
+    NSString *dirstr =
+    [@"Spatterlight" stringByAppendingPathComponent:terpFolder];
+    dirstr = [dirstr stringByAppendingPathComponent:@"Autosaves"];
+    dirstr = [dirstr
+              stringByAppendingPathComponent:signature];
+    dirstr = [dirstr stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLPathAllowedCharacterSet]];
+
+    appSupportURL = [NSURL URLWithString:dirstr
+                           relativeToURL:appSupportURL];
+
+    if (self.supportsAutorestore && self.theme.autosave) {
+        error = nil;
+        BOOL succeed  = [[NSFileManager defaultManager] createDirectoryAtURL:appSupportURL
+                                 withIntermediateDirectories:YES
+                                                  attributes:nil
+                                                       error:&error];
+
+        if (!succeed || error != nil) {
+            NSLog(@"Error when creating appSupportDir: %@", error);
         }
-        return appSupportURL.path;
+
+        NSString *dummyfilename = [game.metadata.title
+                                   stringByAppendingPathExtension:@"txt"];
+
+        NSString *dummytext = [NSString
+                               stringWithFormat:
+                                   @"This file, %@, was placed here by Spatterlight in order to make "
+                               @"it easier for humans to guess what game these autosave files belong "
+                               @"to. Any files in this folder are for the game %@, or possibly "
+                               @"a game with a different name but identical contents.",
+                               dummyfilename, game.metadata.title];
+
+        NSString *dummyfilepath =
+        [appSupportURL.path stringByAppendingPathComponent:dummyfilename];
+
+        error = nil;
+        succeed =
+        [dummytext writeToURL:[NSURL fileURLWithPath:dummyfilepath isDirectory:NO]
+                   atomically:YES
+                     encoding:NSUTF8StringEncoding
+                        error:&error];
+        if (!succeed || error) {
+            NSLog(@"Failed to write dummy file to autosave directory. Error:%@",
+                  error);
+        }
+    }
+    return appSupportURL.path;
 }
 
 // If there exists an autosave dir using the old hashing method,
@@ -531,7 +538,7 @@
         // Re-write the late UI autosave, to give it a creation date later than autosave-GUI.plist
         // (Our autorestore code will compare the creation dates of autosave-GUI.plist and
         // autosave-GUI-late.plist.)
-        NSURL *lateUIURL = [newDirURL URLByAppendingPathComponent:@"autosave-GUI-late.plist"];
+        NSURL *lateUIURL = [newDirURL URLByAppendingPathComponent:kAutosaveGUILateFile];
         NSData *lateUISave = [NSData dataWithContentsOfURL:lateUIURL options:NSDataReadingMappedAlways error:&error];
         if (lateUISave) {
             [lateUISave writeToURL:lateUIURL options:NSDataWritingAtomic error:&error];
@@ -539,18 +546,51 @@
     }
 }
 
+- (NSString *)appSupportFile:(NSString *)name {
+    return [self.appSupportDir stringByAppendingPathComponent:name];
+}
+
 - (NSString *)autosaveFileGUI {
     if (!_autosaveFileGUI)
-        _autosaveFileGUI = [self.appSupportDir
-                            stringByAppendingPathComponent:@"autosave-GUI.plist"];
+        _autosaveFileGUI = [self appSupportFile:kAutosaveGUIFile];
     return _autosaveFileGUI;
 }
 
 - (NSString *)autosaveFileTerp {
     if (!_autosaveFileTerp)
-        _autosaveFileTerp =
-        [self.appSupportDir stringByAppendingPathComponent:@"autosave.plist"];
+        _autosaveFileTerp = [self appSupportFile:kAutosaveTerpFile];
     return _autosaveFileTerp;
+}
+
+- (NSDate *)creationDateOfFile:(NSString *)path {
+    NSError *error = nil;
+    NSDictionary *attrs = [[NSFileManager defaultManager] attributesOfItemAtPath:path error:&error];
+    if (!attrs)
+        NSLog(@"Could not get creation date of %@: %@", path.lastPathComponent, error);
+    return attrs[NSFileCreationDate];
+}
+
+// Unarchive an autosave plist. A truncated or malformed archive (one
+// half-written when the machine lost power) makes the unarchiver raise, so
+// catch that and return nil.
+- (id)unarchiveAutosaveFile:(NSString *)path {
+    NSError *error = nil;
+    NSData *data = [NSData dataWithContentsOfFile:path options:0 error:&error];
+    if (!data)
+        return nil;
+    id result = nil;
+    @try {
+        NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+        unarchiver.requiresSecureCoding = NO;
+        result = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+        [unarchiver finishDecoding];
+    } @catch (NSException *ex) {
+        NSLog(@"Unable to read autosave file %@: %@", path.lastPathComponent, ex);
+        result = nil;
+    }
+    if (!result && error)
+        NSLog(@"Unable to read autosave file %@: %@", path.lastPathComponent, error);
+    return result;
 }
 
 // TableViewController calls this to reset non-running games
@@ -564,35 +604,30 @@
 }
 
 - (void)deleteAutosaveFiles {
-    if (self.autosaveFileGUI == nil || self.autosaveFileTerp == nil)
+    [self deleteAutosaveFilesKeepingLateGUI:NO];
+}
+
+// When the game has ended we keep the late GUI archive, so that the finished
+// game window can be shown again, but nothing that would restore the game.
+- (void)deleteAutosaveFilesKeepingLateGUI:(BOOL)keepLate {
+    if (self.appSupportDir.length == 0)
         return;
-    [self deleteFiles:@[ [NSURL fileURLWithPath:self.autosaveFileGUI isDirectory:NO],
-                         [NSURL fileURLWithPath:self.autosaveFileTerp isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"]  isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.glksave"]  isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI.plist"] isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-GUI-late.plist"]  isDirectory:NO],
-                         [NSURL fileURLWithPath:[self.appSupportDir stringByAppendingPathComponent:@"autosave-tmp.plist"]  isDirectory:NO]]];
+    NSMutableArray<NSString *> *names =
+    @[ kAutosaveTerpFile, kAutosaveTerpBakFile, kAutosaveTerpTmpFile,
+       kAutosaveGlkSaveFile, kAutosaveGlkSaveBakFile, kAutosaveGlkSaveTmpFile,
+       kAutosaveGUIFile ].mutableCopy;
+    if (!keepLate)
+        [names addObject:kAutosaveGUILateFile];
+
+    NSMutableArray<NSURL *> *urls = [[NSMutableArray alloc] initWithCapacity:names.count];
+    for (NSString *name in names)
+        [urls addObject:[NSURL fileURLWithPath:[self appSupportFile:name] isDirectory:NO]];
+    [self deleteFiles:urls];
 }
 
 - (void)deleteFiles:(NSArray<NSURL *> *)urls {
-    NSError *error;
-    for (NSURL *url in urls) {
-        error = nil;
-        [[NSFileManager defaultManager] removeItemAtURL:url error:&error];
-        //        if (error)
-        //            NSLog(@"Error: %@", error);
-    }
-}
-
-static BOOL waitForData(int fd, int milliseconds) {
-    fd_set fdset;
-    struct timeval tmout = { 0, milliseconds * 1000 };
-    FD_ZERO(&fdset);
-    FD_SET(fd, &fdset);
-    return (select(fd + 1, &fdset, NULL, NULL, &tmout) > 0);
+    for (NSURL *url in urls)
+        [[NSFileManager defaultManager] removeItemAtURL:url error:nil];
 }
 
 // Ask the interpreter for one last autosave and wait for it, so that the
@@ -633,20 +668,21 @@ static BOOL waitForData(int fd, int milliseconds) {
     NSLog(@"requestFinalAutosave: interpreter did not answer in time (request %s)", sent ? "sent" : "not sent");
 }
 
+// Archive the GUI state to path. Returns NO if archiving or writing failed.
+- (BOOL)writeGUIAutosaveToFile:(NSString *)path {
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
+    if (!data || ![data writeToFile:path options:NSDataWritingAtomic error:&error]) {
+        NSLog(@"Could not write GUI autosave %@: %@", path.lastPathComponent, error.localizedDescription);
+        return NO;
+    }
+    return YES;
+}
+
 - (void)autoSaveOnExit {
     if (self.supportsAutorestore && self.theme.autosave && self.appSupportDir.length) {
-        NSString *autosaveLate = [self.appSupportDir
-                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
-
-        NSError *error = nil;
-
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
-        [data writeToFile:autosaveLate options:NSDataWritingAtomic error:&error];
-
-        if (error) {
-            NSLog(@"autoSaveOnExit: Write returned error: %@", [error localizedDescription]);
+        if (![self writeGUIAutosaveToFile:[self appSupportFile:kAutosaveGUILateFile]])
             return;
-        }
 
         self.game.autosaved = !dead;
     } else {
@@ -747,12 +783,12 @@ static BOOL waitForData(int fd, int milliseconds) {
                  forKey:@"windowPreFullscreenFrame"];
 
     [encoder encodeObject:self.queue forKey:@"queue"];
-    self.firstResponderView = -1;
+    NSInteger firstResponderView = -1;
 
     NSResponder *firstResponder = self.window.firstResponder;
 
     if ([firstResponder isKindOfClass:[GlkWindow class]]) {
-        self.firstResponderView = ((GlkWindow *)firstResponder).name;
+        firstResponderView = ((GlkWindow *)firstResponder).name;
     } else {
         id delegate = nil;
         if ([firstResponder isKindOfClass:[NSTextView class]]) {
@@ -762,13 +798,11 @@ static BOOL waitForData(int fd, int milliseconds) {
             }
         }
         if (delegate) {
-            self.firstResponderView = ((GlkWindow *)delegate).name;
+            firstResponderView = ((GlkWindow *)delegate).name;
         }
     }
-    [encoder encodeInteger:self.firstResponderView forKey:@"firstResponder"];
-    [encoder encodeBool:((self.window.styleMask & NSWindowStyleMaskFullScreen) ==
-                         NSWindowStyleMaskFullScreen)
-                 forKey:@"fullscreen"];
+    [encoder encodeInteger:firstResponderView forKey:@"firstResponder"];
+    [encoder encodeBool:self.isInSystemFullscreen forKey:@"fullscreen"];
 
     [encoder encodeInteger:self.turns forKey:@"turns"];
     [encoder encodeInteger:self.numberOfPrintsAndClears forKey:@"printsAndClears"];
@@ -862,14 +896,9 @@ static BOOL waitForData(int fd, int milliseconds) {
     self.commandScriptHandler = nil;
     _journeyMenuHandler = nil;
 
-    if (task) {
-        // Stop the interpreter
-        task.terminationHandler = nil;
-        [task.standardOutput fileHandleForReading].readabilityHandler = nil;
-        readfh = nil;
-        [task terminate];
-        task = nil;
-    }
+    // Stop the interpreter
+    [self terminateTask];
+    task = nil;
 
     [self performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.3];
 }
@@ -924,20 +953,11 @@ static BOOL waitForData(int fd, int milliseconds) {
     self.autosaveTag = hash;
 
     @autoreleasepool {
-        NSError *error = nil;
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:self requiringSecureCoding:NO error:&error];
-        [data writeToFile:self.autosaveFileGUI options:NSDataWritingAtomic error:&error];
-        if (error) {
-            NSLog(@"handleAutosave: Write returned error: %@", [error localizedDescription]);
+        if (![self writeGUIAutosaveToFile:self.autosaveFileGUI])
             return;
-        }
     }
 
     self.hasAutoSaved = YES;
 }
-
-/*
- *
- */
 
 @end

@@ -186,7 +186,7 @@
     }
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+     postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
 }
 
 - (IBAction)selectSameTheme:(id)sender {

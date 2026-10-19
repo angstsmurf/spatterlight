@@ -57,20 +57,6 @@
 #define NSLog(...)
 #endif
 
-//static const char *wintypenames[] = {"wintype_AllTypes", "wintype_Pair",
-//    "wintype_Blank",    "wintype_TextBuffer",
-//    "wintype_TextGrid", "wintype_Graphics"};
-//
-
-// static const char *stylehintnames[] =
-//{
-//    "stylehint_Indentation", "stylehint_ParaIndentation",
-//    "stylehint_Justification", "stylehint_Size",
-//    "stylehint_Weight","stylehint_Oblique", "stylehint_Proportional",
-//    "stylehint_TextColor", "stylehint_BackColor", "stylehint_ReverseColor",
-//    "stylehint_NUMHINTS"
-//};
-
 // TempLibrary is a lightweight shim used solely to peek at the autosaveTag
 // stored in interpreter autosave files, without needing to fully deserialize
 // the interpreter library state. This lets us compare tags between the GUI
@@ -124,8 +110,7 @@
 // so they can be restored afterward to prevent text from jumping around.
 - (void)viewWillStartLiveResize {
     GlkController *glkctl = _glkctrl;
-    if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
-        NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
+    if (!glkctl.isInSystemFullscreen && !glkctl.ignoreResizes) {
         [glkctl storeScrollOffsets];
     }
 }
@@ -136,8 +121,7 @@
     GlkController *glkctl = _glkctrl;
     // We use a custom fullscreen width, so don't resize to full screen width
     // when viewDidEndLiveResize is called because we just entered fullscreen
-    if ((glkctl.window.styleMask & NSWindowStyleMaskFullScreen) !=
-        NSWindowStyleMaskFullScreen && !glkctl.ignoreResizes) {
+    if (!glkctl.isInSystemFullscreen && !glkctl.ignoreResizes) {
         [glkctl contentDidResize:self.frame];
         [glkctl restoreScrollOffsets];
     }
@@ -164,10 +148,6 @@
 + (BOOL) supportsSecureCoding {
     return YES;
 }
-
-/*
- * This is the real initializer.
- */
 
 #pragma mark Initialization
 
@@ -246,11 +226,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // workarounds and special behaviors (e.g., Narcolepsy window mask,
     // Beyond Zork font handling, Journey menu system). The "nohacks" theme
     // option disables all game-specific behavior.
-    if (_theme.nohacks) {
-        [self resetGameIdentification];
-    } else {
-        [self identifyGame:game.ifid];
-    }
+    [self identifyGameUnlessNoHacks:_theme];
 
     // Adopt the restoration handler BEFORE anything below can bail out. The
     // game-file-gone path just below needs it, and a reset re-enters here with
@@ -367,7 +343,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // here, so this must be cleared or the restarted game would refuse input.
     terpHasStopped = NO;
 
-    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+    _gameView.autoresizingMask = kResizeFill;
 
     windowdirty = NO;
 
@@ -384,7 +360,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         // an autorestore, before postRestoreArrange: has taken a game that
         // was saved in fullscreen back there. The window then stays as it is,
         // so stop counting it as being in fullscreen.
-        if ((self.window.styleMask & NSWindowStyleMaskFullScreen) != NSWindowStyleMaskFullScreen)
+        if (!self.isInSystemFullscreen)
             _inFullscreen = NO;
         if (!_inFullscreen) {
             _windowPreFullscreenFrame = self.window.frame;
@@ -408,19 +384,19 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     [notifications
      addObserver:self
      selector:@selector(notePreferencesChanged:)
-     name:@"PreferencesChanged"
+     name:kPreferencesChangedNotification
      object:nil];
 
     [notifications
      addObserver:self
      selector:@selector(noteDefaultSizeChanged:)
-     name:@"DefaultSizeChanged"
+     name:kDefaultSizeChangedNotification
      object:nil];
 
     [notifications
      addObserver:self
      selector:@selector(noteBorderChanged:)
-     name:@"BorderChanged"
+     name:kBorderChangedNotification
      object:nil];
 
     [notifications
@@ -432,7 +408,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     [notifications
      addObserver:self
      selector:@selector(noteColorModeChanged:)
-     name:@"ColorModeChanged"
+     name:kColorModeChangedNotification
      object:nil];
 
     lastContentResize = NSZeroRect;
@@ -465,9 +441,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     else
         [self setBorderColor:_theme.bufferBackground];
 
-    NSString *autosaveLatePath = [[self appSupportDir]
-                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
-
+    NSString *autosaveLatePath = [self appSupportFile:kAutosaveGUILateFile];
 
     lastScriptKeyTimestamp = [NSDate distantPast];
     lastKeyTimestamp = [NSDate distantPast];
@@ -501,38 +475,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // 4. Handling edge cases like version mismatches, missing files, and dead (finished) games
 - (void)runTerpWithAutorestore {
     autorestoring = YES;
-    @try {
-        restoredController =
-        [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileGUI];
-    } @catch (NSException *ex) {
-        // leave restoredController as nil
-        NSLog(@"Unable to restore GUI autosave: %@", ex);
-    }
+    restoredController = [self unarchiveAutosaveFile:self.autosaveFileGUI];
 
-    NSDate *terpAutosaveDate = nil;
-    NSDate *GUIAutosaveDate = nil;
     NSDate *GUILateAutosaveDate = nil;
 
     NSError *error;
     NSFileManager *fileManager = [NSFileManager defaultManager];
 
-    // Check creation date of interpreter autosave file
-    NSDictionary* attrs = [fileManager attributesOfItemAtPath:self.autosaveFileTerp error:&error];
-    if (attrs) {
-        terpAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
-    } else {
-        NSLog(@"Error: %@", error);
-    }
-
-    // Check creation date of GUI autosave file
-    attrs = [fileManager attributesOfItemAtPath:self.autosaveFileGUI error:&error];
-    if (attrs) {
-        GUIAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
-        if (terpAutosaveDate && GUIAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
-            NSLog(@"GUI autosave file is created before terp autosave file!");
-        }
-    } else {
-        NSLog(@"Error: %@", error);
+    NSDate *terpAutosaveDate = [self creationDateOfFile:self.autosaveFileTerp];
+    NSDate *GUIAutosaveDate = [self creationDateOfFile:self.autosaveFileGUI];
+    if (terpAutosaveDate && GUIAutosaveDate && [terpAutosaveDate compare:GUIAutosaveDate] == NSOrderedDescending) {
+        NSLog(@"GUI autosave file is created before terp autosave file!");
     }
 
     // Check if restored GUI is correct version
@@ -547,27 +500,14 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // the late one can serve as a fallback.
     restoredControllerLate = nil;
 
-    NSString *autosaveLatePath = [self.appSupportDir
-                                  stringByAppendingPathComponent:@"autosave-GUI-late.plist"];
+    NSString *autosaveLatePath = [self appSupportFile:kAutosaveGUILateFile];
 
     if ([fileManager fileExistsAtPath:autosaveLatePath]) {
-        // Get creation date of GUI late autosave
-        attrs = [fileManager attributesOfItemAtPath:autosaveLatePath error:&error];
-        if (attrs) {
-            GUILateAutosaveDate = (NSDate*)attrs[NSFileCreationDate];
-        } else {
-            NSLog(@"Error: %@", error);
-        }
-        @try {
-            restoredControllerLate =
-            [NSKeyedUnarchiver unarchiveObjectWithFile:autosaveLatePath];
-            if (!restoredController) {
-                restoredController = restoredControllerLate;
-                GUIAutosaveDate = GUILateAutosaveDate;
-            }
-        } @catch (NSException *ex) {
-            NSLog(@"Unable to restore late GUI autosave: %@", ex);
-            restoredControllerLate = restoredController;
+        GUILateAutosaveDate = [self creationDateOfFile:autosaveLatePath];
+        restoredControllerLate = [self unarchiveAutosaveFile:autosaveLatePath];
+        if (!restoredController) {
+            restoredController = restoredControllerLate;
+            GUIAutosaveDate = GUILateAutosaveDate;
         }
     }
 
@@ -640,10 +580,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         restoreUIOnly = NO;
 
         // A truncated or malformed archive (a plist half-written when the
-        // machine lost power) makes unarchiveObjectWithFile: raise, so read
-        // it defensively like the GUI archives above. Without this the
-        // exception is uncaught at launch and, since nothing removes the bad
-        // file, every relaunch retries the same restoration: a crash loop.
+        // machine lost power) makes the unarchiver raise, so read it
+        // defensively like the GUI archives above (unarchiveAutosaveFile:
+        // catches that). Without this the exception is uncaught at launch
+        // and, since nothing removes the bad file, every relaunch retries the
+        // same restoration: a crash loop.
         //
         // An unreadable library must then be rejected on the nil, NOT on the
         // tag: an archive that fails to decode reports tag 0, and a restored
@@ -652,25 +593,14 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         // library into the restore. Falling into the mismatch path below is
         // the right failure -- it tries the backup save, or deletes both files
         // and restores UI only.
-        TempLibrary *tempLib = nil;
-        @try {
-            tempLib = [NSKeyedUnarchiver unarchiveObjectWithFile:self.autosaveFileTerp];
-        } @catch (NSException *ex) {
-            NSLog(@"Unable to read terp autosave: %@", ex);
-        }
+        TempLibrary *tempLib = [self unarchiveAutosaveFile:self.autosaveFileTerp];
         if (!tempLib || tempLib.autosaveTag != restoredController.autosaveTag) {
             NSLog(@"The terp autosave is unreadable, or has a tag not matching the GUI autosave.");
             NSLog(@"The terp autosave tag: %u GUI autosave tag: %ld", tempLib.autosaveTag, restoredController.autosaveTag);
             NSLog(@"Trying to use previous terp save");
 
-            NSString *oldAutosaveFileTerp =
-            [self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.plist"];
-            tempLib = nil;
-            @try {
-                tempLib = [NSKeyedUnarchiver unarchiveObjectWithFile:oldAutosaveFileTerp];
-            } @catch (NSException *ex) {
-                NSLog(@"Unable to read previous terp autosave: %@", ex);
-            }
+            NSString *oldAutosaveFileTerp = [self appSupportFile:kAutosaveTerpBakFile];
+            tempLib = [self unarchiveAutosaveFile:oldAutosaveFileTerp];
             BOOL usedPrevious = NO;
             if (tempLib && tempLib.autosaveTag == restoredController.autosaveTag) {
                 // Put the previous pair back, game state first. The library
@@ -680,8 +610,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 // first would instead leave the previous library beside the
                 // current game state, with matching tags: two turns mixed
                 // and nothing to tell.
-                NSString *glkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave.glksave"];
-                NSString *oldGlkSaveTerp = [self.appSupportDir stringByAppendingPathComponent:@"autosave-bak.glksave"];
+                NSString *glkSaveTerp = [self appSupportFile:kAutosaveGlkSaveFile];
+                NSString *oldGlkSaveTerp = [self appSupportFile:kAutosaveGlkSaveBakFile];
 
                 // No backup game state means an earlier launch already put
                 // it back and was interrupted before the library followed.
@@ -783,12 +713,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // we now re-enter fullscreen manually if the game was
     // closed in fullscreen mode.
     if (!windowRestoredBySystem && _inFullscreen
-        && (self.window.styleMask & NSWindowStyleMaskFullScreen) != NSWindowStyleMaskFullScreen) {
+        && !self.isInSystemFullscreen) {
         _startingInFullscreen = YES;
         [self startInFullscreen];
     } else {
-        _gameView.autoresizingMask =
-        NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+        _gameView.autoresizingMask = kResizeCenteredAtTop;
         [self.window setFrame:restoredControllerLate.storedWindowFrame display:YES];
         // A game restored in fullscreen keeps its width and stays centered,
         // as windowDidEnterFullScreen: would have it. The system may still
@@ -796,9 +725,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         // game view that follows the window's width while keeping its
         // fullscreen margins would be squeezed down to nothing.
         if (_inFullscreen)
-            _gameView.autoresizingMask = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+            _gameView.autoresizingMask = kResizeCenteredFullHeight;
         else
-            _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
+            _gameView.autoresizingMask = kResizeFill;
     }
 
     [self adjustContentView];
@@ -829,35 +758,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         // Place the window just above center by default
         newWindowFrame.origin.y = round(screenFrame.origin.y + (NSHeight(screenFrame) - NSHeight(newWindowFrame)) / 2) + 40;
 
-        // Cascade windows so multiple game windows don't stack directly on
-        // top of each other. Offsets each new window 20px right and 20px down
-        // from any overlapping window.
-        if (libcontroller.gameSessions.count > 1) {
-            NSPoint thisPoint, thatPoint;
-            NSInteger repeats = 0;
-            BOOL overlapping;
-            thisPoint = newWindowFrame.origin;
-            thisPoint.y += NSHeight(newWindowFrame);
-            do {
-                overlapping = NO;
-                for (GlkController *ctrl in libcontroller.gameSessions.allValues) {
-                    if (ctrl != self && ctrl.window) {
-                        thatPoint = ctrl.window.frame.origin;
-                        thatPoint.y += NSHeight(ctrl.window.frame);
-                        if (fabs(thisPoint.x - thatPoint.x) < 3 || fabs(thisPoint.y - thatPoint.y) < 3) {
-                            thisPoint.x = thatPoint.x + 20;
-                            thisPoint.y = thatPoint.y - 20;
-                            overlapping = YES;
-                            repeats++;
-                        }
-                    }
-                }
-            } while (overlapping == YES && repeats < 100);
-            if (repeats >= 100)
-                NSLog(@"Got caught in a cascading windows infinite loop");
-            newWindowFrame.origin = thisPoint;
-            newWindowFrame.origin.y -= NSHeight(newWindowFrame);
-        }
+        newWindowFrame = [self cascadeWindowFrame:newWindowFrame];
 
         [self.window setFrame:newWindowFrame display:NO];
         [self adjustContentView];
@@ -869,8 +770,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         if (![self runWindowsRestorationHandler])
             [self showWindow:nil];
         [self deleteAutosaveFiles];
-        _gameView.autoresizingMask =
-        NSViewMinXMargin | NSViewMaxXMargin | NSViewHeightSizable;
+        _gameView.autoresizingMask = kResizeCenteredFullHeight;
         restoredController = nil;
         _coverController = [[CoverImageHandler alloc] initWithController:self];
         [_coverController showLogoWindow];
@@ -883,6 +783,40 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         if (![self runWindowsRestorationHandler])
             [self showWindow:nil];
     }
+}
+
+// Cascade windows so multiple game windows don't stack directly on
+// top of each other. Offsets the frame 20px right and 20px down from
+// any overlapping game window.
+- (NSRect)cascadeWindowFrame:(NSRect)frame {
+    if (libcontroller.gameSessions.count < 2)
+        return frame;
+
+    NSPoint thisPoint, thatPoint;
+    NSInteger repeats = 0;
+    BOOL overlapping;
+    thisPoint = frame.origin;
+    thisPoint.y += NSHeight(frame);
+    do {
+        overlapping = NO;
+        for (GlkController *ctrl in libcontroller.gameSessions.allValues) {
+            if (ctrl != self && ctrl.window) {
+                thatPoint = ctrl.window.frame.origin;
+                thatPoint.y += NSHeight(ctrl.window.frame);
+                if (fabs(thisPoint.x - thatPoint.x) < 3 || fabs(thisPoint.y - thatPoint.y) < 3) {
+                    thisPoint.x = thatPoint.x + 20;
+                    thisPoint.y = thatPoint.y - 20;
+                    overlapping = YES;
+                    repeats++;
+                }
+            }
+        }
+    } while (overlapping == YES && repeats < 100);
+    if (repeats >= 100)
+        NSLog(@"Got caught in a cascading windows infinite loop");
+    frame.origin = thisPoint;
+    frame.origin.y -= NSHeight(frame);
+    return frame;
 }
 
 // Invoke and clear the system window restoration completion handler, if one
@@ -931,9 +865,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     GlkController * __weak weakSelf = self;
     NSScreen *screen = self.window.screen;
     NSString *title = [NSString stringWithFormat:@"%@ has finished.", _game.metadata.title];
-    double delayInSeconds = 1.5;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+    runOnMainAfterDelay(1.5, ^{
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:screen];
         [bezel showGameOver];
         [weakSelf speakStringNow:title];
@@ -948,119 +880,113 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // (e.g., Journey's menu system, Narcolepsy's window mask, Adrian Mole's
 // scrolling fix, Bureaucracy's form handling, Beyond Zork's font 3 support).
 - (void)identifyGame:(NSString *)ifid {
-    NSString *l9Substring = nil;
-    if (ifid.length >= 10)
-        l9Substring = [ifid substringToIndex:10];
-    if ([l9Substring isEqualToString:@"LEVEL9-001"] || // The Secret Diary of Adrian Mole
-        [l9Substring isEqualToString:@"LEVEL9-002"] || // The Growing Pains of Adrian Mole
-        [l9Substring isEqualToString:@"LEVEL9-019"]) { // The Archers
+    static NSDictionary<NSString *, NSNumber *> *gameIDs;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        gameIDs = @{
+            @"ZCODE-5-990206-6B48" : @(kGameIsAnchorheadOriginal),
+            @"ZCODE-47-870915" : @(kGameIsBeyondZork),
+            @"ZCODE-49-870917" : @(kGameIsBeyondZork),
+            @"ZCODE-51-870923" : @(kGameIsBeyondZork),
+            @"ZCODE-57-871221" : @(kGameIsBeyondZork),
+            @"ZCODE-60-880610" : @(kGameIsBeyondZork),
+            @"ZCODE-86-870212" : @(kGameIsBureaucracy),
+            @"ZCODE-116-870602" : @(kGameIsBureaucracy),
+            @"ZCODE-160-880521" : @(kGameIsBureaucracy),
+            @"BFDE398E-C724-4B9B-99EB-18EE4F26932E" : @(kGameIsAColderLight),
+            @"ZCODE-7-930428-0000" : @(kGameIsCurses),
+            @"ZCODE-8-930603-0000" : @(kGameIsCurses),
+            @"ZCODE-10-940120-BD9E" : @(kGameIsCurses),
+            @"ZCODE-12-940604-6035" : @(kGameIsCurses),
+            @"ZCODE-16-951024-4DE6" : @(kGameIsCurses),
+            @"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A" : @(kGameIsDeadCities),
+            @"AC0DAF65-F40F-4A41-A4E4-50414F836E14" : @(kGameIsKerkerkruip),
+            @"GLULX-1-040108-D8D78266" : @(kGameIsNarcolepsy),
+            @"afb163f4-4d7b-0dd9-1870-030f2231e19f" : @(kGameIsThaumistry),
+            @"ZCODE-1-851202" : @(kGameIsTrinity),
+            @"ZCODE-1-860221" : @(kGameIsTrinity),
+            @"ZCODE-14-860313" : @(kGameIsTrinity),
+            @"ZCODE-11-860509" : @(kGameIsTrinity),
+            @"ZCODE-12-860926" : @(kGameIsTrinity),
+            @"ZCODE-15-870628" : @(kGameIsTrinity),
+            @"ZCODE-1-050929-F8AB" : @(kGameIsVespers),
+            @"ZCODE-1-051128-B5AA" : @(kGameIsVespers),
+            @"CF619423-EEC7-4E83-8C66-AE7182D55C89" : @(kGameIsJuniorArithmancer),
+            @"ZCODE-0-870831" : @(kGameIsZorkZero),
+            @"ZCODE-1-871030" : @(kGameIsZorkZero),
+            @"ZCODE-74-880114" : @(kGameIsZorkZero),
+            @"ZCODE-96-880224" : @(kGameIsZorkZero),
+            @"ZCODE-153-880510" : @(kGameIsZorkZero),
+            @"ZCODE-242-880830" : @(kGameIsZorkZero),
+            @"ZCODE-242-880901" : @(kGameIsZorkZero),
+            @"ZCODE-296-881019" : @(kGameIsZorkZero),
+            @"ZCODE-66-890111" : @(kGameIsZorkZero),
+            @"ZCODE-343-890217" : @(kGameIsZorkZero),
+            @"ZCODE-366-890323" : @(kGameIsZorkZero),
+            @"ZCODE-383-890602" : @(kGameIsZorkZero),
+            @"ZCODE-387-890612" : @(kGameIsZorkZero),
+            @"ZCODE-392-890714" : @(kGameIsZorkZero),
+            @"ZCODE-393-890714" : @(kGameIsZorkZero),
+            @"ZCODE-40-890502" : @(kGameIsArthur),
+            @"ZCODE-41-890504" : @(kGameIsArthur),
+            @"ZCODE-54-890606" : @(kGameIsArthur),
+            @"ZCODE-63-890622" : @(kGameIsArthur),
+            @"ZCODE-74-890714" : @(kGameIsArthur),
+            @"ZCODE-278-890209" : @(kGameIsShogun),
+            @"ZCODE-278-890211" : @(kGameIsShogun),
+            @"ZCODE-279-890217" : @(kGameIsShogun),
+            @"ZCODE-280-890217" : @(kGameIsShogun),
+            @"ZCODE-281-890222" : @(kGameIsShogun),
+            @"ZCODE-282-890224" : @(kGameIsShogun),
+            @"ZCODE-283-890228" : @(kGameIsShogun),
+            @"ZCODE-284-890302" : @(kGameIsShogun),
+            @"ZCODE-286-890306" : @(kGameIsShogun),
+            @"ZCODE-288-890308" : @(kGameIsShogun),
+            @"ZCODE-289-890309" : @(kGameIsShogun),
+            @"ZCODE-290-890311" : @(kGameIsShogun),
+            @"ZCODE-291-890313" : @(kGameIsShogun),
+            @"ZCODE-292-890314" : @(kGameIsShogun),
+            @"ZCODE-295-890321" : @(kGameIsShogun),
+            @"ZCODE-311-890510" : @(kGameIsShogun),
+            @"ZCODE-320-890627" : @(kGameIsShogun),
+            @"ZCODE-321-890629" : @(kGameIsShogun),
+            @"ZCODE-322-890706" : @(kGameIsShogun),
+            @"ZCODE-142-890205" : @(kGameIsJourney),
+            @"ZCODE-2-890303" : @(kGameIsJourney),
+            @"ZCODE-11-890304" : @(kGameIsJourney),
+            @"ZCODE-3-890310" : @(kGameIsJourney),
+            @"ZCODE-5-890310" : @(kGameIsJourney),
+            @"ZCODE-10-890313" : @(kGameIsJourney),
+            @"ZCODE-26-890316" : @(kGameIsJourney),
+            @"ZCODE-30-890322" : @(kGameIsJourney),
+            @"ZCODE-51-890522" : @(kGameIsJourney),
+            @"ZCODE-54-890526" : @(kGameIsJourney),
+            @"ZCODE-76-890615" : @(kGameIsJourney),
+            @"ZCODE-77-890616" : @(kGameIsJourney),
+            @"ZCODE-79-890627" : @(kGameIsJourney),
+            @"ZCODE-83-890706" : @(kGameIsJourney),
+        };
+    });
+
+    NSString *l9Prefix = (ifid.length >= 10) ? [ifid substringToIndex:10] : nil;
+    if ([l9Prefix isEqualToString:@"LEVEL9-001"] || // The Secret Diary of Adrian Mole
+        [l9Prefix isEqualToString:@"LEVEL9-002"] || // The Growing Pains of Adrian Mole
+        [l9Prefix isEqualToString:@"LEVEL9-019"]) { // The Archers
         _gameID = kGameIsAdrianMole;
-    } else if ([ifid isEqualToString:@"ZCODE-5-990206-6B48"]) {
-        _gameID = kGameIsAnchorheadOriginal;
-    } else if ([ifid isEqualToString:@"ZCODE-47-870915"] ||
-               [ifid isEqualToString:@"ZCODE-49-870917"] ||
-               [ifid isEqualToString:@"ZCODE-51-870923"] ||
-               [ifid isEqualToString:@"ZCODE-57-871221"] ||
-               [ifid isEqualToString:@"ZCODE-60-880610"]) {
-        _gameID = kGameIsBeyondZork;
-    } else if ([ifid isEqualToString:@"ZCODE-86-870212"] ||
-               [ifid isEqualToString:@"ZCODE-116-870602"] ||
-               [ifid isEqualToString:@"ZCODE-160-880521"]) {
-        _gameID = kGameIsBureaucracy;
-    } else if ([ifid isEqualToString:@"BFDE398E-C724-4B9B-99EB-18EE4F26932E"]) {
-        _gameID = kGameIsAColderLight;
-    } else if ([ifid isEqualToString:@"ZCODE-7-930428-0000"] ||
-               [ifid isEqualToString:@"ZCODE-8-930603-0000"] ||
-               [ifid isEqualToString:@"ZCODE-10-940120-BD9E"] ||
-               [ifid isEqualToString:@"ZCODE-12-940604-6035"] ||
-               [ifid isEqualToString:@"ZCODE-16-951024-4DE6"]) {
-        _gameID = kGameIsCurses;
-    } else if ([ifid isEqualToString:@"303E9BDC-6D86-4389-86C5-B8DCF01B8F2A"]) {
-        _gameID = kGameIsDeadCities;
-    } else if ([ifid isEqualToString:@"AC0DAF65-F40F-4A41-A4E4-50414F836E14"]) {
-        _gameID = kGameIsKerkerkruip;
-    } else if ([ifid isEqualToString:@"GLULX-1-040108-D8D78266"]) {
-        _gameID = kGameIsNarcolepsy;
-    } else if ([ifid isEqualToString:@"afb163f4-4d7b-0dd9-1870-030f2231e19f"]) {
-        _gameID = kGameIsThaumistry;
-    } else if ([ifid isEqualToString:@"ZCODE-1-851202"] ||
-               [ifid isEqualToString:@"ZCODE-1-860221"] ||
-               [ifid isEqualToString:@"ZCODE-14-860313"] ||
-               [ifid isEqualToString:@"ZCODE-11-860509"] ||
-               [ifid isEqualToString:@"ZCODE-12-860926"] ||
-               [ifid isEqualToString:@"ZCODE-15-870628"]) {
-        _gameID = kGameIsTrinity;
-    } else if ([ifid isEqualToString:@"ZCODE-1-050929-F8AB"] ||
-               [ifid isEqualToString:@"ZCODE-1-051128-B5AA"]) {
-        _gameID = kGameIsVespers;
-    } else if ([ifid isEqualToString:@"CF619423-EEC7-4E83-8C66-AE7182D55C89"]) {
-        _gameID = kGameIsJuniorArithmancer;
-    } else if ([ifid isEqualToString:@"ZCODE-0-870831"] ||
-               [ifid isEqualToString:@"ZCODE-1-871030"] ||
-               [ifid isEqualToString:@"ZCODE-74-880114"] ||
-               [ifid isEqualToString:@"ZCODE-96-880224"] ||
-               [ifid isEqualToString:@"ZCODE-153-880510"] ||
-               [ifid isEqualToString:@"ZCODE-242-880830"] ||
-               [ifid isEqualToString:@"ZCODE-242-880901"] ||
-               [ifid isEqualToString:@"ZCODE-296-881019"] ||
-               [ifid isEqualToString:@"ZCODE-66-890111"] ||
-               [ifid isEqualToString:@"ZCODE-343-890217"] ||
-               [ifid isEqualToString:@"ZCODE-366-890323"] ||
-               [ifid isEqualToString:@"ZCODE-383-890602"] ||
-               [ifid isEqualToString:@"ZCODE-387-890612"] ||
-               [ifid isEqualToString:@"ZCODE-392-890714"] ||
-               [ifid isEqualToString:@"ZCODE-393-890714"]) {
-        _gameID = kGameIsZorkZero;
-    } else if ([ifid isEqualToString:@"ZCODE-40-890502"] ||
-               [ifid isEqualToString:@"ZCODE-41-890504"] ||
-               [ifid isEqualToString:@"ZCODE-54-890606"] ||
-               [ifid isEqualToString:@"ZCODE-63-890622"] ||
-               [ifid isEqualToString:@"ZCODE-74-890714"] ) {
-        _gameID = kGameIsArthur;
-    } else if ([ifid isEqualToString:@"ZCODE-278-890209"] ||
-               [ifid isEqualToString:@"ZCODE-278-890211"] ||
-               [ifid isEqualToString:@"ZCODE-279-890217"] ||
-               [ifid isEqualToString:@"ZCODE-280-890217"] ||
-               [ifid isEqualToString:@"ZCODE-281-890222"] ||
-               [ifid isEqualToString:@"ZCODE-282-890224"] ||
-               [ifid isEqualToString:@"ZCODE-283-890228"] ||
-               [ifid isEqualToString:@"ZCODE-284-890302"] ||
-               [ifid isEqualToString:@"ZCODE-286-890306"] ||
-               [ifid isEqualToString:@"ZCODE-288-890308"] ||
-               [ifid isEqualToString:@"ZCODE-289-890309"] ||
-               [ifid isEqualToString:@"ZCODE-290-890311"] ||
-               [ifid isEqualToString:@"ZCODE-291-890313"] ||
-               [ifid isEqualToString:@"ZCODE-292-890314"] ||
-               [ifid isEqualToString:@"ZCODE-295-890321"] ||
-               [ifid isEqualToString:@"ZCODE-311-890510"] ||
-               [ifid isEqualToString:@"ZCODE-320-890627"] ||
-               [ifid isEqualToString:@"ZCODE-321-890629"] ||
-               [ifid isEqualToString:@"ZCODE-322-890706"]) {
-        _gameID = kGameIsShogun;
-    } else if ([ifid isEqualToString:@"ZCODE-142-890205"] ||
-               [ifid isEqualToString:@"ZCODE-2-890303"] ||
-               [ifid isEqualToString:@"ZCODE-11-890304"] ||
-               [ifid isEqualToString:@"ZCODE-3-890310"] ||
-               [ifid isEqualToString:@"ZCODE-5-890310"] ||
-               [ifid isEqualToString:@"ZCODE-10-890313"] ||
-               [ifid isEqualToString:@"ZCODE-26-890316"] ||
-               [ifid isEqualToString:@"ZCODE-30-890322"] ||
-               [ifid isEqualToString:@"ZCODE-51-890522"] ||
-               [ifid isEqualToString:@"ZCODE-54-890526"] ||
-               [ifid isEqualToString:@"ZCODE-76-890615"] ||
-               [ifid isEqualToString:@"ZCODE-77-890616"] ||
-               [ifid isEqualToString:@"ZCODE-79-890627"] ||
-               [ifid isEqualToString:@"ZCODE-83-890706"]) {
-        _gameID = kGameIsJourney;
-    } else {
-        _gameID = kGameIsGeneric;
+        return;
     }
+
+    NSNumber *gameID = ifid ? gameIDs[ifid] : nil;
+    _gameID = gameID ? (kGameIdentity)gameID.unsignedIntegerValue : kGameIsGeneric;
 }
 
-// Clear any game-specific identification, treating the game as generic.
-// Called when the theme's "nohacks" option is enabled.
-- (void)resetGameIdentification {
-    _gameID = kGameIsGeneric;
+// Identify the game from its IFID, or treat it as generic if the theme's
+// "nohacks" option is enabled.
+- (void)identifyGameUnlessNoHacks:(Theme *)theme {
+    if (theme.nohacks)
+        _gameID = kGameIsGeneric;
+    else
+        [self identifyGame:_game.ifid];
 }
 
 // Z-machine version 6 games (Arthur, Journey, Shogun, Zork Zero) use a
@@ -1074,6 +1000,44 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // in protocol.h. The interpreter sends display commands (print text, create
 // windows, draw images, play sounds) and Spatterlight sends back events
 // (key presses, line input, arrange events, timer events).
+// The interpreter command line: the game file, preceded by any
+// interpreter-specific options.
+- (NSArray<NSString *> *)interpreterArgumentsForTheme:(Theme *)theme {
+    NSArray<NSString *> *arguments = @[ _gamefile ];
+
+    // Bocfel (Z-machine interpreter) accepts extra options:
+    // -n: set the interpreter number reported to the game
+    // -N: set the interpreter letter
+    // -z: fix the random seed for deterministic/reproducible playback
+    // -p: disable game-specific patches (the "nohacks" option)
+    if ([_terpname isEqualToString:@"bocfel"]) {
+        // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
+        if (theme.zMachineTerp < 1 || theme.zMachineTerp > 11) {
+            theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
+        }
+        NSArray *extraBocfelOptions =
+        @[@"-n", [NSString stringWithFormat:@"%d", theme.zMachineTerp],
+          @"-N", theme.zMachineLetter];
+        if (theme.determinism)
+            extraBocfelOptions = [extraBocfelOptions arrayByAddingObjectsFromArray:@[@"-z", @"1234"]];
+        if (theme.nohacks)
+            extraBocfelOptions = [extraBocfelOptions arrayByAddingObject:@"-p"];
+
+        arguments = [extraBocfelOptions arrayByAddingObjectsFromArray:arguments];
+    }
+
+    // TADS 3 interpreter: -norandomize disables random number generation
+    // for deterministic/reproducible testing.
+    if ([_game.detectedFormat isEqualToString:@"tads3"]) {
+        if (theme.determinism) {
+            NSArray *extraTadsOptions = @[@"-norandomize"];
+            arguments = [extraTadsOptions arrayByAddingObjectsFromArray:arguments];
+        }
+    }
+
+    return arguments;
+}
+
 - (void)forkInterpreterTask {
     Theme *theme = _theme;
 
@@ -1095,43 +1059,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     task.standardInput = sendpipe;
     
     // Optional: Log interpreter output to file for debugging
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL shouldLogOutput = [defaults boolForKey:@"LogInterpreterOutput"];
-    
-    if (shouldLogOutput) {
-        NSString *logDirectory = [defaults stringForKey:@"InterpreterLogDirectory"];
-        if (!logDirectory || logDirectory.length == 0) {
-            // Default to Desktop if no directory specified
-            logDirectory = [NSHomeDirectory() stringByAppendingPathComponent:@"Desktop"];
-        }
-        
-        // Create log filename with timestamp
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"yyyy-MM-dd HH.mm.ss";
-        NSString *timestamp = [formatter stringFromDate:[NSDate date]];
-        
-        NSString *gameName = [_gamefile.lastPathComponent stringByDeletingPathExtension];
-        NSString *logFilename = [NSString stringWithFormat:@"Spatterlight-%@-%@.log", gameName, timestamp];
-        NSString *logPath = [logDirectory stringByAppendingPathComponent:logFilename];
-        
-        // Create/open the log file
-        [[NSFileManager defaultManager] createFileAtPath:logPath contents:nil attributes:nil];
-        self.interpreterLogFileHandle = [NSFileHandle fileHandleForWritingAtPath:logPath];
-        
-        if (self.interpreterLogFileHandle) {
-            NSLog(@"Logging interpreter output to: %@", logPath);
-            
-            // Write header to log file
-            NSString *header = [NSString stringWithFormat:@"=== Spatterlight Interpreter Log ===\nGame: %@\nInterpreter: %@\n\n",
-                                _gamefile.lastPathComponent, _terpname];
-            [self.interpreterLogFileHandle writeData:[header dataUsingEncoding:NSUTF8StringEncoding]];
-        } else {
-            NSLog(@"Warning: Could not create interpreter log file at %@", logPath);
-        }
-    }
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"LogInterpreterOutput"])
+        [self openLogFile];
 
     task.launchPath = terppath;
-    task.arguments = @[ _gamefile ];
+    task.arguments = [self interpreterArgumentsForTheme:theme];
 
     // Hand the interpreter the same per-game signature the GUI uses for its
     // autosave directory. Unlike us, the interpreter cannot fall back to the
@@ -1144,36 +1076,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             [NSProcessInfo.processInfo.environment mutableCopy];
         environment[@"SPATTERLIGHT_AUTOSAVE_SIGNATURE"] = signature;
         task.environment = environment;
-    }
-
-    // Bocfel (Z-machine interpreter) accepts extra options:
-    // -n: set the interpreter number reported to the game
-    // -N: set the interpreter letter
-    // -z: fix the random seed for deterministic/reproducible playback
-    // -p: disable game-specific patches (the "nohacks" option)
-    if ([_terpname isEqualToString:@"bocfel"]) {
-        // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
-        if (theme.zMachineTerp < 1 || theme.zMachineTerp > 11) {
-            theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
-        }
-        NSArray *extraBocfelOptions =
-        @[@"-n", [NSString stringWithFormat:@"%d", theme.zMachineTerp],
-          @"-N", theme.zMachineLetter];
-        if (theme.determinism)
-            extraBocfelOptions = [extraBocfelOptions arrayByAddingObjectsFromArray:@[@"-z", @"1234"]];
-        if (theme.nohacks)
-            extraBocfelOptions = [extraBocfelOptions arrayByAddingObject:@"-p"];
-
-        task.arguments = [extraBocfelOptions arrayByAddingObjectsFromArray:task.arguments];
-    }
-
-    // TADS 3 interpreter: -norandomize disables random number generation
-    // for deterministic/reproducible testing.
-    if ([_game.detectedFormat isEqualToString:@"tads3"]) {
-        if (theme.determinism) {
-            NSArray *extraTadsOptions = @[@"-norandomize"];
-            task.arguments = [extraTadsOptions arrayByAddingObjectsFromArray:task.arguments];
-        }
     }
 
     GlkController * __weak weakSelf = self;
@@ -1242,9 +1144,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             if ([FolderAccess needsPermissionForURL:bookmarkURL]) {
 
                 if (!dialogFlag) {
-                    double delayInSeconds = 0.5;
-                    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-                    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
+                    runOnMainAfterDelay(0.5, ^{
                         // Closing game window as we have no security scoped bookmark
                         // and we don't want to show a file dialog during window
                         // restoration.
@@ -1293,7 +1193,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     anAlert.messageText = [NSString stringWithFormat:NSLocalizedString(@"The game file \"%@\" is no longer accessible. This game will now close.", nil), self.gamefile.lastPathComponent];
 
     [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        runOnMainAfterDelay(0.1, ^{
             [self.window performClose:nil];
         });
     }];
@@ -1556,11 +1456,10 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (void)guessFocus {
     // Journey with VoiceOver always focuses the text buffer for accessibility.
     if (_gameID == kGameIsJourney && _voiceOverActive) {
-        for (GlkWindow *win in _gwindows.allValues) {
-            if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-                [win grabFocus];
-                return;
-            }
+        GlkTextBufferWindow *bufwin = self.bufferWindows.firstObject;
+        if (bufwin) {
+            [bufwin grabFocus];
+            return;
         }
     }
 
@@ -1593,11 +1492,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // by the user. Used to determine the "more" prompt position - text after this
 // point is considered new and may trigger a scroll pause.
 - (void)markLastSeen {
-    for (GlkWindow *win in _gwindows.allValues) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [win markLastSeen];
-        }
-    }
+    for (GlkTextBufferWindow *win in self.bufferWindows)
+        [win markLastSeen];
 }
 
 // Scroll all text buffer windows to show new content. Skipped during
@@ -1605,10 +1501,20 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (void)performScroll {
     if (autorestoring)
         return;
+    for (GlkTextBufferWindow *win in self.bufferWindows)
+        [win performScroll];
+}
+
+- (BOOL)isInSystemFullscreen {
+    return (self.window.styleMask & NSWindowStyleMaskFullScreen) == NSWindowStyleMaskFullScreen;
+}
+
+- (NSArray<GlkTextBufferWindow *> *)bufferWindows {
+    NSMutableArray<GlkTextBufferWindow *> *result = [[NSMutableArray alloc] init];
     for (GlkWindow *win in _gwindows.allValues)
-        if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-            [win performScroll];
-        }
+        if ([win isKindOfClass:[GlkTextBufferWindow class]])
+            [result addObject:(GlkTextBufferWindow *)win];
+    return result;
 }
 
 // Provide custom field editors for Glk text input fields. Each GlkWindow's
@@ -1756,12 +1662,26 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
 
     if (!inFullScreenResize && !dead) {
-        GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
-                                                       height:(NSInteger)frame.size.height
-                                                        theme:_theme
-                                                        force:NO];
-        [self queueEvent:gevent];
+        [self sendArrangeEventWithFrame:frame force:NO];
     }
+}
+
+// The window frame for a content size, clipped to the main screen and keeping
+// the window's top edge in place.
+- (NSRect)windowFrameForContentSize:(NSSize)size screenHeightMargin:(CGFloat)margin {
+    NSRect screenframe = [NSScreen mainScreen].visibleFrame;
+
+    NSRect winrect = [self.window frameRectForContentRect:NSMakeRect(0, 0, size.width, size.height)];
+    winrect.origin = self.window.frame.origin;
+
+    // If the new size is too big to fit on screen, clip at screen size
+    if (NSHeight(winrect) > NSHeight(screenframe) - margin)
+        winrect.size.height = NSHeight(screenframe) - margin;
+    if (NSWidth(winrect) > NSWidth(screenframe))
+        winrect.size.width = NSWidth(screenframe);
+
+    winrect.origin.y -= NSHeight(winrect) - NSHeight(self.window.frame);
+    return winrect;
 }
 
 // Resize the game content area to a specific pixel size. Handles both windowed
@@ -1774,28 +1694,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     NSUInteger borders = (NSUInteger)_theme.border * 2;
 
-    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
-        NSWindowStyleMaskFullScreen) {
+    if (!self.isInSystemFullscreen) {
         newSize.width += (CGFloat)borders;
         newSize.height += (CGFloat)borders;
 
-        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
-
-        NSRect contentRect = NSMakeRect(0, 0, newSize.width, newSize.height);
-
-        NSRect winrect = [self.window frameRectForContentRect:contentRect];
-        winrect.origin = self.window.frame.origin;
-
-        // If the new size is too big to fit on screen, clip at screen size
-        if (NSHeight(winrect) > NSHeight(screenframe))
-            winrect.size.height = NSHeight(screenframe);
-        if (NSWidth(winrect) > NSWidth(screenframe))
-            winrect.size.width = NSWidth(screenframe);
-
-        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
-
-        winrect.origin.y -= offset;
-
+        NSRect winrect = [self windowFrameForContentSize:newSize screenHeightMargin:0];
         [self.window setFrame:winrect display:YES];
         _gameView.frame = [self contentFrameForWindowed];
     } else {
@@ -1830,8 +1733,10 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     Theme *theme = _theme;
     size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
     size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    // Defensive: the cell metrics come from the theme's font measurements,
+    // and a non-finite height here would end up in the window frame.
     if (isnan(size.height) || isinf(size.height)) {
-        NSLog(@"ERROR: charCellsToContentSize: Height is NaN!");
+        NSLog(@"ERROR: charCellsToContentSize: Height is not finite!");
         size.height = 10;
     }
     return size;
@@ -1845,18 +1750,17 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     CGFloat cellHeight;
     CGFloat gridMarginX;
     CGFloat gridMarginY;
-    if (_theme == nil)
-        _theme = [Preferences currentTheme];
-    if (_theme == nil) {
+    Theme *theme = _theme ?: [Preferences currentTheme];
+    if (theme == nil) {
         cellWidth = 8.0;
         cellHeight = 18.0;
         gridMarginX = 5;
         gridMarginY = 0;
     } else {
-        cellWidth = _theme.cellWidth;
-        cellHeight = _theme.cellHeight;
-        gridMarginX = _theme.gridMarginX + 5;
-        gridMarginY = _theme.gridMarginY;
+        cellWidth = theme.cellWidth;
+        cellHeight = theme.cellHeight;
+        gridMarginX = theme.gridMarginX + 5;
+        gridMarginY = theme.gridMarginY;
     }
 
     size.width = round((points.width - gridMarginX * 2) / cellWidth);
@@ -1869,8 +1773,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // frame to accommodate the new border while keeping the content area stable.
 // Only applies in windowed mode when "Adjust window size" is enabled.
 - (void)noteBorderChanged:(NSNotification *)notify {
-    if (notify.object != _theme || (self.window.styleMask & NSWindowStyleMaskFullScreen) ==
-        NSWindowStyleMaskFullScreen || ![[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"])
+    if (notify.object != _theme || self.isInSystemFullscreen || ![[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"])
         return;
     [Preferences instance].inMagnification = YES;
     _movingBorder = YES;
@@ -1884,8 +1787,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     [self.window setFrame:frame display:NO];
     _gameView.frame = contentframe;
     _movingBorder = NO;
-    _gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
-    NSNotification *notification = [[NSNotification alloc] initWithName:@"PreferencesChanged" object:_theme userInfo:nil];
+    _gameView.autoresizingMask = kResizeFill;
+    NSNotification *notification = [[NSNotification alloc] initWithName:kPreferencesChangedNotification object:_theme userInfo:nil];
     [self notePreferencesChanged:notification];
 }
 
@@ -1894,17 +1797,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // haven't changed (used after preference changes that affect layout).
 - (void)sendArrangeEventWithFrame:(NSRect)frame force:(BOOL)force {
     GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
-
                                                    height:(NSInteger)frame.size.height
                                                     theme:_theme
                                                     force:force];
     [self queueEvent:gevent];
 }
 
-
-/*
- *
- */
 
 #pragma mark Preference and style hint glue
 
@@ -1929,18 +1827,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     // Determine the active theme, accounting for dark/light mode overrides.
     // During autorestore, _stashedTheme holds the original theme while we
     // temporarily use the autosaved theme.
-    if (_game) {
-        if (!_stashedTheme) {
-            if ([Preferences instance].lightOverrideActive)
-                _theme = [Preferences instance].lightTheme;
-            else if ([Preferences instance].darkOverrideActive)
-                _theme = [Preferences instance].darkTheme;
-            else
-                _theme = _game.theme;
-            theme = _theme;
-        }
-    } else {
+    if (!_game)
         return;
+    if (!_stashedTheme) {
+        _theme = [self resolvedTheme];
+        theme = _theme;
     }
 
     if (notify.object != theme && notify.object != nil) {
@@ -1948,11 +1839,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         return;
     }
 
-    if (theme.nohacks) {
-        [self resetGameIdentification];
-    } else {
-        [self identifyGame:_game.ifid];
-    }
+    [self identifyGameUnlessNoHacks:theme];
 
     if (theme.vOSpeakMenu == kVOMenuNone) { // "Check for menu" was switched off
         if (_zmenu) {
@@ -2023,23 +1910,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [self setBorderColor:_lastAutoBGColor];
     }
 
-    GlkEvent *gevent;
+    NSRect frame = _gameView.frame;
+    frame.size.width = MAX(frame.size.width, 0);
+    frame.size.height = MAX(frame.size.height, 0);
 
-    CGFloat width = _gameView.frame.size.width;
-    CGFloat height = _gameView.frame.size.height;
-
-    if (width < 0)
-        width = 0;
-    if (height < 0)
-        height = 0;
-
-    gevent = [[GlkEvent alloc] initPrefsEventForTheme:theme];
-    [self queueEvent:gevent];
-    gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)width
-                                         height:(NSInteger)height
-                                          theme:theme
-                                          force:YES];
-    [self queueEvent:gevent];
+    [self queueEvent:[[GlkEvent alloc] initPrefsEventForTheme:theme]];
+    [self sendArrangeEventWithFrame:frame force:YES];
 
     for (GlkWindow *win in _gwindows.allValues)
     {
@@ -2072,64 +1948,54 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // then triggers a full preferences update to propagate the change.
 - (void)noteColorModeChanged:(NSNotification *)notification {
     Theme *oldTheme = _theme;
-    if ([Preferences instance].darkOverrideActive) {
-        if ([Preferences instance].darkTheme) {
-            if (_theme != [Preferences instance].darkTheme) {
-                _theme = [Preferences instance].darkTheme;
-            }
-        } else {
-            NSLog(@"ERROR: darkOverrideActive but no hard dark theme exists, use normal selected theme");
-            _theme = _game.theme;
-        }
-    } else if ([Preferences instance].lightOverrideActive) {
-        if ([Preferences instance].lightTheme) {
-            if (_theme != [Preferences instance].lightTheme) {
-                _theme = [Preferences instance].lightTheme;
-            }
-        } else {
-            NSLog(@"ERROR: lightOverrideActive but no hard light theme exists, use normal selected theme");
-            _theme = _game.theme;
-        }
-    } else {
-        _theme = _game.theme;
-    }
+    _theme = [self resolvedTheme];
 
     if (_theme != oldTheme) {
-        [self notePreferencesChanged:[NSNotification notificationWithName:@"PreferencesChanged" object:_theme]];
+        [self notePreferencesChanged:[NSNotification notificationWithName:kPreferencesChangedNotification object:_theme]];
     }
 }
 
+// The theme this game should use: the light or dark override theme if one
+// is active, otherwise the game's own theme. Preferences briefly has both
+// overrides flagged while switching, so the light-first order matters.
+- (Theme *)resolvedTheme {
+    Preferences *prefs = [Preferences instance];
+    if (prefs.lightOverrideActive) {
+        if (prefs.lightTheme)
+            return prefs.lightTheme;
+        NSLog(@"ERROR: lightOverrideActive but no hard light theme exists, use normal selected theme");
+    } else if (prefs.darkOverrideActive) {
+        if (prefs.darkTheme)
+            return prefs.darkTheme;
+        NSLog(@"ERROR: darkOverrideActive but no hard dark theme exists, use normal selected theme");
+    }
+    return _game.theme;
+}
 
 #pragma mark Zoom
 
 // Zoom actions (Cmd+Plus, Cmd+Minus, Cmd+0) scale the font size and
 // optionally resize the window to maintain the same number of character cells.
 // Disabled when showing cover art in fullscreen to prevent layout issues.
-- (IBAction)zoomIn:(id)sender {
+- (void)performZoom:(void (^)(void))zoom {
     if (_showingCoverImage && _inFullscreen)
         return;
-    [Preferences instance].inMagnification = YES;
-    [Preferences zoomIn];
-    if (Preferences.instance)
-        [Preferences.instance updatePanelAfterZoom];
+    Preferences *prefs = [Preferences instance];
+    prefs.inMagnification = YES;
+    zoom();
+    [prefs updatePanelAfterZoom];
+}
+
+- (IBAction)zoomIn:(id)sender {
+    [self performZoom:^{ [Preferences zoomIn]; }];
 }
 
 - (IBAction)zoomOut:(id)sender {
-    if (_showingCoverImage && _inFullscreen)
-        return;
-    [Preferences instance].inMagnification = YES;
-    [Preferences zoomOut];
-    if (Preferences.instance)
-        [Preferences.instance updatePanelAfterZoom];
+    [self performZoom:^{ [Preferences zoomOut]; }];
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
-    if (_showingCoverImage && _inFullscreen)
-        return;
-    [Preferences instance].inMagnification = YES;
-    [Preferences zoomToActualSize];
-    if (Preferences.instance)
-        [Preferences.instance updatePanelAfterZoom];
+    [self performZoom:^{ [Preferences zoomToActualSize]; }];
 }
 
 // Respond to changes in the default character cell size (triggered by zoom or
@@ -2164,27 +2030,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         return;
     }
 
-    if ((self.window.styleMask & NSWindowStyleMaskFullScreen) !=
-        NSWindowStyleMaskFullScreen) {
+    if (!self.isInSystemFullscreen) {
 
-        NSRect screenframe = [NSScreen mainScreen].visibleFrame;
-
-        NSRect contentRect = NSMakeRect(0, 0, sizeAfterZoom.width, sizeAfterZoom.height);
-
-        NSRect winrect = [self.window frameRectForContentRect:contentRect];
-        winrect.origin = self.window.frame.origin;
-
-        // If the new size is too big to fit on screen, clip at screen size
-        if (NSHeight(winrect) > NSHeight(screenframe) - 1)
-            winrect.size.height = NSHeight(screenframe) - 1;
-        if (NSWidth(winrect) > NSWidth(screenframe))
-            winrect.size.width = NSWidth(screenframe);
-
-        CGFloat offset = NSHeight(winrect) - NSHeight(self.window.frame);
-
-        winrect.origin.y -= offset;
-
-
+        NSRect winrect = [self windowFrameForContentSize:sizeAfterZoom screenHeightMargin:1];
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
         CGFloat borders = _theme.border * 2;
@@ -2205,9 +2053,33 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 }
 
 
-/*
- *
- */
+#pragma mark Menu handlers
+
+// Created on first use. The Journey handler needs the game's grid and
+// buffer windows, so it stays nil until both exist.
+- (nullable JourneyMenuHandler *)journeyMenuHandler {
+    if (_journeyMenuHandler == nil) {
+        GlkTextGridWindow *gridwindow = nil;
+        GlkTextBufferWindow *bufferwindow = nil;
+        for (GlkWindow *win in self.gwindows.allValues)
+            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
+                gridwindow = (GlkTextGridWindow *)win;
+            } else if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
+                bufferwindow = (GlkTextBufferWindow *)win;
+            }
+        if (gridwindow == nil || bufferwindow == nil)
+            return nil;
+        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow bufferWindow:bufferwindow];
+    }
+    return _journeyMenuHandler;
+}
+
+- (nullable InfocomV6MenuHandler *)infocomV6MenuHandler {
+    if (_infocomV6MenuHandler == nil) {
+        _infocomV6MenuHandler = [[InfocomV6MenuHandler alloc] initWithDelegate:self];
+    }
+    return _infocomV6MenuHandler;
+}
 
 #pragma mark Command script
 
@@ -2221,10 +2093,6 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         _commandScriptHandler.glkctl = self;
     }
     return _commandScriptHandler;
-}
-
-- (void)setCommandScriptHandler:(CommandScriptHandler *)commandScriptHandler {
-    _commandScriptHandler = commandScriptHandler;
 }
 
 // Cancel a running command script (Cmd+. / Escape)

@@ -9,6 +9,7 @@
 #import "GlkStyle.h"
 
 #import "PreviewController.h"
+#import "Preferences.h"
 
 @interface PreviewTextView : NSTextView
 
@@ -35,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.wantsLayer = YES;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePreferencesChanged:) name:@"PreferencesChanged" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePreferencesChanged:) name:kPreferencesChangedNotification object:nil];
 }
 
 - (void)fixScrollBar {

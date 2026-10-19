@@ -34,18 +34,22 @@
                      inFileViewerRootedAtPath:@""];
 }
 
+// game.like: 0 = neither, 1 = liked, 2 = disliked
+- (void)toggleLike:(int32_t)value {
+    self.game.like = (self.game.like == value) ? 0 : value;
+}
+
 - (IBAction)like:(id)sender {
-    if (self.game.like == 1)
-        self.game.like = 0;
-    else
-        self.game.like = 1;
+    [self toggleLike:1];
 }
 
 - (IBAction)dislike:(id)sender {
-    if (self.game.like == 2)
-        self.game.like = 0;
-    else
-        self.game.like = 2;
+    [self toggleLike:2];
+}
+
+static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NSString *offTitle) {
+    menuItem.title = on ? onTitle : offTitle;
+    menuItem.state = on ? NSControlStateValueOn : NSControlStateValueOff;
 }
 
 - (IBAction)openIfdb:(id)sender {
@@ -71,13 +75,10 @@
         return;
     }
 
-    Preferences *prefwin = [Preferences instance];
-    if (prefwin) {
-        [prefwin restoreThemeSelection:theme];
-    }
+    [[Preferences instance] restoreThemeSelection:theme];
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+     postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
 }
 
 - (IBAction)deleteGame:(id)sender {
@@ -119,29 +120,17 @@
         }
         return NO;
     } else if (action == @selector(like:)) {
-        if (self.game.like == 1) {
-            menuItem.title = NSLocalizedString(@"Liked", nil);
-            menuItem.state = NSOnState;
-        } else {
-            menuItem.title = NSLocalizedString(@"Like", nil);
-            menuItem.state = NSOffState;
-        }
+        setLikeMenuItem(menuItem, self.game.like == 1,
+                        NSLocalizedString(@"Liked", nil), NSLocalizedString(@"Like", nil));
     } else if (action == @selector(dislike:)) {
-        if (self.game.like == 2) {
-            menuItem.title = NSLocalizedString(@"Disliked", nil);
-            menuItem.state = NSOnState;
-        } else {
-            menuItem.title = NSLocalizedString(@"Disike", nil);
-            menuItem.state = NSOffState;
-        }
+        setLikeMenuItem(menuItem, self.game.like == 2,
+                        NSLocalizedString(@"Disliked", nil), NSLocalizedString(@"Dislike", nil));
     } else if (action == @selector(applyTheme:)) {
-        if ([Preferences instance].darkOverrideActive || [Preferences instance].lightOverrideActive)
+        Preferences *prefs = [Preferences instance];
+        if (prefs.darkOverrideActive || prefs.lightOverrideActive)
             return NO;
         for (NSMenuItem *item in libcontroller.mainThemesSubMenu.submenu.itemArray) {
-            if ([item.title isEqual:self.game.theme.name])
-                item.state = NSOnState;
-            else
-                item.state = NSOffState;
+            item.state = [item.title isEqual:self.game.theme.name] ? NSControlStateValueOn : NSControlStateValueOff;
         }
     } else if (action == @selector(deleteGame:)) {
         return (!self.game.hidden);

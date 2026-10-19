@@ -13,7 +13,26 @@
 
 @class Game, Theme, GlkEvent, GlkWindow, ZMenu, BureaucracyForm, GlkTextGridWindow, GlkSoundChannel, SoundHandler, ImageHandler, RotorHandler, CommandScriptHandler, CoverImageHandler, GlkController, InfocomV6MenuHandler;
 
-#define MAXWIN 64
+typedef enum kGameIdentity : NSUInteger {
+    kGameIsGeneric,
+    kGameIsAdrianMole,
+    kGameIsArthur,
+    kGameIsAnchorheadOriginal,
+    kGameIsBeyondZork,
+    kGameIsBureaucracy,
+    kGameIsAColderLight,
+    kGameIsCurses,
+    kGameIsDeadCities,
+    kGameIsJourney,
+    kGameIsJuniorArithmancer,
+    kGameIsKerkerkruip,
+    kGameIsNarcolepsy,
+    kGameIsShogun,
+    kGameIsThaumistry,
+    kGameIsTrinity,
+    kGameIsVespers,
+    kGameIsZorkZero
+} kGameIdentity;
 
 typedef enum kMinimumWindowSize : NSUInteger {
     kMinimumWindowWidth = 212,
@@ -33,8 +52,6 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property ImageHandler *imageHandler;
 @property NSMutableArray *imagesToSpeak;
 
-@property NSMutableArray<GlkWindow *> *windowsToBeAdded;
-@property NSMutableArray<GlkWindow *> *windowsToBeRemoved;
 @property IBOutlet NSView *borderView;
 @property IBOutlet GlkHelperView *gameView;
 
@@ -56,6 +73,9 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property BOOL startingInFullscreen;
 @property NSSize borderFullScreenSize;
 @property(readonly) BOOL inFullscreen;
+// Whether the window is in system fullscreen right now. inFullscreen is
+// our own record of it, which is archived with the autosave.
+- (BOOL)isInSystemFullscreen;
 @property BOOL shouldStoreScrollOffset;
 
 @property (copy) void (^restorationHandler)(NSWindow *, NSError *);
@@ -85,38 +105,11 @@ typedef enum kMinimumWindowSize : NSUInteger {
 // To fix scrolling in the Adrian Mole games
 @property BOOL shouldScrollOnCharEvent;
 
-@property (weak) Theme *stashedTheme;
 @property NSString *oldThemeName;
-
-// Set during autorestore when the autosaved theme name cannot be resolved to
-// an existing theme, meaning the archived window styles may not match the
-// current theme and must be rebuilt. See runTerpWithAutorestore.
-@property BOOL restoredStylesStale;
 
 @property NSData *gameData;
 @property NSURL *gameFileURL;
 @property NSAlert *slowReadAlert;
-
-typedef enum kGameIdentity : NSUInteger {
-    kGameIsGeneric,
-    kGameIsAdrianMole,
-    kGameIsArthur,
-    kGameIsAnchorheadOriginal,
-    kGameIsBeyondZork,
-    kGameIsBureaucracy,
-    kGameIsAColderLight,
-    kGameIsCurses,
-    kGameIsDeadCities,
-    kGameIsJourney,
-    kGameIsJuniorArithmancer,
-    kGameIsKerkerkruip,
-    kGameIsNarcolepsy,
-    kGameIsShogun,
-    kGameIsThaumistry,
-    kGameIsTrinity,
-    kGameIsVespers,
-    kGameIsZorkZero
-} kGameIdentity;
 
 @property kGameIdentity gameID;
 
@@ -168,13 +161,6 @@ typedef enum kGameIdentity : NSUInteger {
 @property NSDate *speechTimeStamp;
 @property NSDate *lastResetTimestamp;
 @property NSString *lastSpokenString;
-
-// systemUptime of the most recent window-layout change (window resize, etc.).
-// Used to debounce VoiceOver announcements so they fire only after the UI has
-// stopped churning (e.g. after a full-screen graphic is dismissed and the
-// border/status windows are redrawn), preventing the announcement from being
-// interrupted by AppKit re-reading the focused window on each frame change.
-@property NSTimeInterval lastLayoutChurnTimestamp;
 
 @property BureaucracyForm *form;
 

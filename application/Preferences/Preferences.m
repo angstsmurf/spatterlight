@@ -129,6 +129,11 @@
 
 @end
 
+NSNotificationName const kPreferencesChangedNotification = @"PreferencesChanged";
+NSNotificationName const kDefaultSizeChangedNotification = @"DefaultSizeChanged";
+NSNotificationName const kBorderChangedNotification = @"BorderChanged";
+NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
+
 @implementation Preferences
 
 /*
@@ -456,7 +461,7 @@ NSString *fontToString(NSFont *font) {
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(notePreferencesChanged:)
-                                                 name:@"PreferencesChanged"
+                                                 name:kPreferencesChangedNotification
                                                object:nil];
 
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -481,7 +486,7 @@ NSString *fontToString(NSFont *font) {
         if (_darkTheme) {
             _darkOverrideActive = YES;
             [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_darkTheme]];
+             postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:_darkTheme]];
         } else {
             if (_lightOverrideActive || _darkOverrideActive)
                 [self lightOrDarkOverrideWasRemoved];
@@ -492,15 +497,15 @@ NSString *fontToString(NSFont *font) {
         if (_lightTheme) {
             _lightOverrideActive = YES;
             [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:_lightTheme]];
+             postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:_lightTheme]];
         } else {
-            if (_darkOverrideActive || _darkOverrideActive)
+            if (_lightOverrideActive || _darkOverrideActive)
                 [self lightOrDarkOverrideWasRemoved];
             return;
         }
         _darkOverrideActive = NO;
     }
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kColorModeChangedNotification object:nil]];
     _themesHeader.stringValue = [self themeScopeTitle];
 }
 
@@ -517,7 +522,7 @@ NSString *fontToString(NSFont *font) {
     } else if (_currentGame) {
         [prefs restoreThemeSelection:_currentGame.theme];
     }
-    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:@"ColorModeChanged" object:nil]];
+    [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kColorModeChangedNotification object:nil]];
 }
 
 - (void)findDarkAndLightThemes {
@@ -1025,7 +1030,7 @@ NSString *fontToString(NSFont *font) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [weakSelf updatePrefsPanel];
             [[NSNotificationCenter defaultCenter]
-             postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+             postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
         });
     }
 }
@@ -1135,7 +1140,7 @@ NSString *fontToString(NSFont *font) {
 
         // Send notification that theme has changed -- trigger configure events
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:theme]];
+         postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:theme]];
     }
 }
 
@@ -1634,7 +1639,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         txtRows.intValue = themeToChange.defaultRows ;
     }
     /* send notification that default size has changed -- resize all windows */
-    NSNotification *notification = [NSNotification notificationWithName:@"DefaultSizeChanged" object:themeToChange];
+    NSNotification *notification = [NSNotification notificationWithName:kDefaultSizeChangedNotification object:themeToChange];
     [[NSNotificationCenter defaultCenter]
      postNotification:notification];
 }
@@ -1710,7 +1715,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
         [Preferences rebuildTextAttributes];
     else
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"PreferencesChanged" object:themeToChange]];
+         postNotification:[NSNotification notificationWithName:kPreferencesChangedNotification object:themeToChange]];
 }
 
 - (void)changeBorderColor:(NSColor *)color {
@@ -2448,7 +2453,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     theme.border = [sender intValue];
     NSInteger diff = theme.border - oldBorder;
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"BorderChanged"
+     postNotificationName:kBorderChangedNotification
      object:theme
      userInfo:@{@"diff":@(diff)}];
 }
@@ -2565,7 +2570,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     /* send notification that default size has changed -- resize all windows */
     [[NSNotificationCenter defaultCenter]
-     postNotificationName:@"DefaultSizeChanged"
+     postNotificationName:kDefaultSizeChangedNotification
      object:theme];
 }
 

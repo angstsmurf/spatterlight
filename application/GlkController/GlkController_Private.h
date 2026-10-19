@@ -9,7 +9,35 @@
 #import "GlkController.h"
 #import "Theme.h"
 
-@class TableViewController, CommandScriptHandler, JourneyMenuHandler;
+#include <sys/select.h>
+
+@class TableViewController, CommandScriptHandler, JourneyMenuHandler, GlkTextBufferWindow;
+
+// Autoresizing masks for the game and border views.
+// Fill the superview:
+// Must match MAXWIN in glkimp/connect.c
+static const NSInteger kMaxGlkWindows = 64;
+
+static const NSAutoresizingMaskOptions kResizeFill = NSViewWidthSizable | NSViewHeightSizable;
+// Fixed width, centered horizontally, stretched vertically:
+static const NSAutoresizingMaskOptions kResizeCenteredFullHeight = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
+// Fixed size, centered horizontally, attached at the top:
+static const NSAutoresizingMaskOptions kResizeCenteredAtTop = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+
+// Wait up to milliseconds (0 = just poll) for fd to become readable.
+static inline BOOL waitForData(int fd, int milliseconds) {
+    fd_set fdset;
+    struct timeval tmout = { milliseconds / 1000, (milliseconds % 1000) * 1000 };
+    FD_ZERO(&fdset);
+    FD_SET(fd, &fdset);
+    return (select(fd + 1, &fdset, NULL, NULL, &tmout) > 0);
+}
+
+// Run block on the main queue after the given number of seconds.
+static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t block) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(seconds * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(), block);
+}
 
 @interface GlkController () {
     @public
@@ -91,6 +119,24 @@
 @property (nonatomic) NSFileHandle *interpreterLogFileHandle;
 @property NSURL *saveDir;
 
+// Internal state shared between the categories
+@property NSMutableArray<GlkWindow *> *windowsToBeAdded;
+@property NSMutableArray<GlkWindow *> *windowsToBeRemoved;
+
+@property (weak) Theme *stashedTheme;
+
+// Set during autorestore when the autosaved theme name cannot be resolved to
+// an existing theme, meaning the archived window styles may not match the
+// current theme and must be rebuilt. See runTerpWithAutorestore.
+@property BOOL restoredStylesStale;
+
+// systemUptime of the most recent window-layout change (window resize, etc.).
+// Used to debounce VoiceOver announcements so they fire only after the UI has
+// stopped churning (e.g. after a full-screen graphic is dismissed and the
+// border/status windows are redrawn), preventing the announcement from being
+// interrupted by AppKit re-reading the focused window on each frame change.
+@property NSTimeInterval lastLayoutChurnTimestamp;
+
 // Redeclare readonly properties as readwrite for category access
 @property(readwrite) NSRect storedWindowFrame;
 @property(readwrite) NSRect storedGameViewFrame;
@@ -103,9 +149,9 @@
 // Internal methods implemented in GlkController.m
 - (void)flushDisplay;
 - (void)guessFocus;
-- (void)performScroll;
+- (NSArray<GlkTextBufferWindow *> *)bufferWindows;
 - (void)identifyGame:(NSString *)ifid;
-- (void)resetGameIdentification;
+- (void)identifyGameUnlessNoHacks:(Theme *)theme;
 - (void)runTerpNormal;
 - (NSRect)frameWithSanitycheckedSize:(NSRect)rect;
 - (NSSize)defaultContentSize;

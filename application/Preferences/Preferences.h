@@ -25,6 +25,12 @@ typedef NS_ENUM(NSUInteger, kModeType) {
     kLightMode
 };
 
+// Notifications posted when theme settings change. The object is the
+// affected Theme (nil for ColorModeChanged).
+extern NSNotificationName const kPreferencesChangedNotification;
+extern NSNotificationName const kDefaultSizeChangedNotification;
+extern NSNotificationName const kBorderChangedNotification;
+extern NSNotificationName const kColorModeChangedNotification;
 
 @class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, TableViewController, DummyTextView, ParagraphPopOver, NSPersistentContainer;
 

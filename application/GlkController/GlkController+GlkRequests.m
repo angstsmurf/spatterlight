@@ -37,6 +37,25 @@
 #define NSLog(...)
 #endif
 
+// Answer a file prompt: OKAY carrying the chosen path, or an empty payload
+// if the user cancelled (path is NULL or "").
+static void sendFilenameReply(int fd, const char *path) {
+    struct message reply = { .cmd = OKAY };
+    reply.len = path ? strlen(path) : 0;
+    write(fd, &reply, sizeof(struct message));
+    if (reply.len)
+        write(fd, path, reply.len);
+}
+
+// Theme beep sounds. Stop first so a rapid repeat restarts the sound.
+static void playSoundNamed(NSString *name) {
+    if (!name)
+        return;
+    NSSound *sound = [NSSound soundNamed:name];
+    [sound stop];
+    [sound play];
+}
+
 @implementation GlkController (GlkRequests)
 
 - (void)handleOpenPrompt:(int)fileusage {
@@ -59,8 +78,6 @@
 
     self.mustBeQuiet = YES;
 
-    waitforfilename = YES; /* don't interrupt */
-
     if (fileusage == fileusage_SavedGame)
         panel.prompt = NSLocalizedString(@"Restore", nil);
     panel.directoryURL = directory;
@@ -69,7 +86,6 @@
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
         const char *s;
-        struct message reply;
 
         if (result == NSModalResponseOK) {
             NSURL *theDoc = (panel.URLs)[0];
@@ -82,19 +98,12 @@
         } else
             s = "";
 
-        reply.cmd = OKAY;
-        reply.len = strlen(s);
-
-        write((int)sendfd, &reply, sizeof(struct message));
-        if (reply.len)
-            write((int)sendfd, s, reply.len);
+        sendFilenameReply((int)sendfd, s);
         self.mustBeQuiet = NO;
         // Needed to prevent Journey dialog from popping up after closing file dialog
         if (self.gameID == kGameIsJourney)
             self.journeyMenuHandler.skipNextDialog = YES;
     }];
-
-    waitforfilename = NO; /* we're all done, resume normal processing */
 
     [readfh waitForDataInBackgroundAndNotify];
 }
@@ -105,13 +114,7 @@
      setObject:self.pendingSaveFilePath
         .stringByDeletingLastPathComponent
      forKey:@"SaveDirectory"];
-    const char *s = self.pendingSaveFilePath.fileSystemRepresentation;
-    struct message reply;
-    reply.cmd = OKAY;
-    reply.len = strlen(s);
-    write((int)sendfd, &reply, sizeof(struct message));
-    if (reply.len)
-        write((int)sendfd,s, reply.len);
+    sendFilenameReply((int)sendfd, self.pendingSaveFilePath.fileSystemRepresentation);
     [readfh waitForDataInBackgroundAndNotify];
 }
 
@@ -137,8 +140,6 @@
     NSString *ext;
     NSString *filename;
     NSString *date;
-
-    waitforfilename = YES; /* don't interrupt */
 
     switch (fileusage) {
         case fileusage_Data:
@@ -199,8 +200,7 @@
 
     [panel beginSheetModalForWindow:self.window
                   completionHandler:^(NSInteger result) {
-        struct message reply;
-        const char *s;
+        const char *s = NULL;
 
         if (result == NSModalResponseOK) {
             NSURL *theFile = panel.URL;
@@ -212,21 +212,11 @@
                 .stringByDeletingLastPathComponent
              forKey:@"SaveDirectory"];
             s = (theFile.path).fileSystemRepresentation;
-            reply.len = strlen(s);
-        } else {
-            s = nil;
-            reply.len = 0;
         }
 
-        reply.cmd = OKAY;
-
-        write((int)sendfd, &reply, sizeof(struct message));
-        if (reply.len)
-            write((int)sendfd, s, reply.len);
+        sendFilenameReply((int)sendfd, s);
         self.mustBeQuiet = NO;
     }];
-
-    waitforfilename = NO; /* we're all done, resume normal processing */
 
     [readfh waitForDataInBackgroundAndNotify];
 }
@@ -239,11 +229,11 @@
         self.theme = [Preferences currentTheme];
     }
 
-    for (i = 0; i < MAXWIN; i++)
+    for (i = 0; i < kMaxGlkWindows; i++)
         if (self.gwindows[@(i)] == nil)
             break;
 
-    if (i == MAXWIN)
+    if (i == kMaxGlkWindows)
         return -1;
 
     // If we are autorestoring, the window the interpreter process is asking us
@@ -256,30 +246,26 @@
         return name;
     }
 
-    GlkWindow *win;
+    Class windowClass;
 
     switch (wintype) {
         case wintype_TextGrid:
-            win = [[GlkTextGridWindow alloc] initWithGlkController:self name:i];
-            self.gwindows[@(i)] = win;
-            [self.windowsToBeAdded addObject:win];
-            return i;
-
+            windowClass = [GlkTextGridWindow class];
+            break;
         case wintype_TextBuffer:
-            win = [[GlkTextBufferWindow alloc] initWithGlkController:self name:i];
-
-            self.gwindows[@(i)] = win;
-            [self.windowsToBeAdded addObject:win];
-            return i;
-
+            windowClass = [GlkTextBufferWindow class];
+            break;
         case wintype_Graphics:
-            win = [[GlkGraphicsWindow alloc] initWithGlkController:self name:i];
-            self.gwindows[@(i)] = win;
-            [self.windowsToBeAdded addObject:win];
-            return i;
+            windowClass = [GlkGraphicsWindow class];
+            break;
+        default:
+            return -1;
     }
 
-    return -1;
+    GlkWindow *win = [(GlkWindow *)[windowClass alloc] initWithGlkController:self name:i];
+    self.gwindows[@(i)] = win;
+    [self.windowsToBeAdded addObject:win];
+    return i;
 }
 
 - (void)handleSetTimer:(NSUInteger)millisecs {
@@ -297,7 +283,6 @@
             millisecs = minTimer;
         }
         if (self.gameID == kGameIsKerkerkruip && millisecs == 10) {
-            [timer invalidate];
             NSLog(@"Kerkerkruip tried to start a 10 millisecond timer.");
             return;
         }
@@ -322,33 +307,26 @@
     [self handleSetTimer:(NSUInteger)(self.storedTimerInterval * 1000)];
 }
 
-- (void)handleStyleHintOnWindowType:(int)wintype
-                              style:(NSUInteger)style
-                               hint:(NSUInteger)hint
-                              value:(int)value {
-    if (style >= style_NUMSTYLES)
+// Set (or, with NSNull, clear) a style hint in the grid and/or buffer table.
+- (void)setStyleHintValue:(id)value
+             onWindowType:(int)wintype
+                    style:(NSUInteger)style
+                     hint:(NSUInteger)hint {
+    if (style >= style_NUMSTYLES || hint >= stylehint_NUMHINTS)
         return;
 
-    if (hint >= stylehint_NUMHINTS)
+    if (wintype != wintype_AllTypes && wintype != wintype_TextGrid && wintype != wintype_TextBuffer) {
+        NSLog(@"setStyleHintValue: unhandled wintype %d!", wintype);
         return;
+    }
 
-    NSMutableArray *bufferHintsForStyle = self.bufferStyleHints[style];
-    NSMutableArray *gridHintsForStyle = self.gridStyleHints[style];
-
-    switch (wintype) {
-        case wintype_AllTypes:
-            gridHintsForStyle[hint] = @(value);
-            bufferHintsForStyle[hint] = @(value);
-            break;
-        case wintype_TextGrid:
-            gridHintsForStyle[hint] = @(value);
-            break;
-        case wintype_TextBuffer:
-            bufferHintsForStyle[hint] = @(value);
-            break;
-        default:
-            NSLog(@"styleHintOnWindowType for unhandled wintype!");
-            break;
+    if (wintype != wintype_TextBuffer) {
+        NSMutableArray *gridHintsForStyle = self.gridStyleHints[style];
+        gridHintsForStyle[hint] = value;
+    }
+    if (wintype != wintype_TextGrid) {
+        NSMutableArray *bufferHintsForStyle = self.bufferStyleHints[style];
+        bufferHintsForStyle[hint] = value;
     }
 }
 
@@ -427,33 +405,6 @@
     return NO;
 }
 
-- (void)handleClearHintOnWindowType:(int)wintype
-                              style:(NSUInteger)style
-                               hint:(NSUInteger)hint {
-
-    if (style >= style_NUMSTYLES)
-        return;
-
-    NSMutableArray *gridHintsForStyle = self.gridStyleHints[style];
-    NSMutableArray *bufferHintsForStyle = self.bufferStyleHints[style];
-
-    switch (wintype) {
-        case wintype_AllTypes:
-            gridHintsForStyle[hint] = [NSNull null];
-            bufferHintsForStyle[hint] = [NSNull null];
-            break;
-        case wintype_TextGrid:
-            gridHintsForStyle[hint] = [NSNull null];
-            break;
-        case wintype_TextBuffer:
-            bufferHintsForStyle[hint] = [NSNull null];
-            break;
-        default:
-            NSLog(@"clearHintOnWindowType for unhandled wintype!");
-            break;
-    }
-
-}
 
 - (void)handlePrintOnWindow:(GlkWindow *)gwindow
                       style:(NSUInteger)style
@@ -472,7 +423,7 @@
     BOOL proportional = ([gwindow isKindOfClass:[GlkTextBufferWindow class]] &&
                          (style & 0xff) != style_Preformatted &&
                          style != style_BlockQuote &&
-                         ([styleHintProportional isEqualTo:[NSNull null]] ||
+                         ([styleHintProportional isEqual:[NSNull null]] ||
                           styleHintProportional.integerValue == 1));
 
     if (proportional) {
@@ -481,65 +432,45 @@
         NSUInteger spaceformat = (NSUInteger)self.theme.spaceFormat;
         NSInteger lastchar = textwin.lastchar;
         NSInteger spaced = 0;
-        NSUInteger i;
+        size_t out = 0;
 
-        for (i = 0; i < len; i++) {
+        // Rewrite buf in place; out trails in when characters are dropped
+        for (size_t in = 0; in < len; in++) {
+            unichar c = buf[in];
+
             /* turn (punct sp sp) into (punct sp) */
             if (spaceformat) {
-                if (buf[i] == '.' || buf[i] == '!' || buf[i] == '?')
+                if (c == '.' || c == '!' || c == '?')
                     spaced = 1;
-                else if (buf[i] == ' ' && spaced == 1)
+                else if (c == ' ' && spaced == 1)
                     spaced = 2;
-                else if (buf[i] == ' ' && spaced == 2) {
-                    memmove(buf + i, buf + i + 1,
-                            (len - (i + 1)) * sizeof(unichar));
-                    len--;
-                    i--;
+                else if (c == ' ' && spaced == 2) {
                     spaced = 0;
+                    continue;
                 } else {
                     spaced = 0;
                 }
             }
 
-            if (smartquotes && buf[i] == '`')
-                buf[i] = 0x2018;
-
-            else if (smartquotes && buf[i] == '\'') {
-                if (lastchar == ' ' || lastchar == '\n')
-                    buf[i] = 0x2018;
-                else
-                    buf[i] = 0x2019;
+            if (smartquotes) {
+                if (c == '`') {
+                    c = 0x2018;
+                } else if (c == '\'') {
+                    c = (lastchar == ' ' || lastchar == '\n') ? 0x2018 : 0x2019;
+                } else if (c == '"') {
+                    c = (lastchar == ' ' || lastchar == '\n') ? 0x201c : 0x201d;
+                } else if (c == '-' && out > 0 && (buf[out - 1] == '-' || buf[out - 1] == 0x2013)) {
+                    /* "--" becomes an en dash, "---" an em dash */
+                    buf[out - 1] = (buf[out - 1] == '-') ? 0x2013 : 0x2014;
+                    lastchar = buf[out - 1];
+                    continue;
+                }
             }
 
-            else if (smartquotes && buf[i] == '"') {
-                if (lastchar == ' ' || lastchar == '\n')
-                    buf[i] = 0x201c;
-                else
-                    buf[i] = 0x201d;
-            }
-
-            else if (smartquotes && i > 1 && buf[i - 1] == '-' &&
-                     buf[i] == '-') {
-                memmove(buf + i, buf + i + 1,
-                        (len - (i + 1)) * sizeof(unichar));
-                len--;
-                i--;
-                buf[i] = 0x2013;
-            }
-
-            else if (smartquotes && i > 1 && buf[i - 1] == 0x2013 &&
-                     buf[i] == '-') {
-                memmove(buf + i, buf + i + 1,
-                        (len - (i + 1)) * sizeof(unichar));
-                len--;
-                i--;
-                buf[i] = 0x2014;
-            }
-
-            lastchar = buf[i];
+            buf[out++] = c;
+            lastchar = c;
         }
-
-        len = (size_t)i;
+        len = out;
     }
 
     str = [NSString stringWithCharacters:buf length:len];
@@ -595,12 +526,16 @@
     gwindow.terminatorsPending = YES;
 }
 
-- (void)handleChangeTitle:(char *)buf length:(size_t)len {
+// SETTITLE and SHOWERROR send a UTF-8 string without a terminating NUL.
+// The request buffer has room for one (see protocol.h).
+static NSString *stringFromPayload(char *buf, size_t len) {
     buf[len] = '\0';
-    NSString *str = @(buf);
-    if (str && str.length > (NSUInteger)len - 1)
-        [@(buf) substringToIndex:(NSUInteger)len - 1];
-    if (str == nil || str.length < 2)
+    return @(buf);
+}
+
+- (void)handleChangeTitle:(char *)buf length:(size_t)len {
+    NSString *str = stringFromPayload(buf, len);
+    if (str.length < 2)
         return;
     // ADRIFT games with no author-set name report the placeholder "Untitled"
     // (scarier's scr_get_game_name). Don't overwrite a sensible title with it.
@@ -614,12 +549,9 @@
 }
 
 - (void)handleShowError:(char *)buf length:(size_t)len {
-    buf[len] = '\0';
-    NSLog(@"handleShowError: %s length: %zu", buf, len);
-    NSString *str = @(buf);
-    if (str && str.length > (NSUInteger)len - 1)
-        [@(buf) substringToIndex:(NSUInteger)len - 1];
-    if (str == nil || str.length < 2)
+    NSString *str = stringFromPayload(buf, len);
+    NSLog(@"handleShowError: %@ length: %zu", str, len);
+    if (str.length < 2)
         return;
     if (self.theme.errorHandling == IGNORE_ERRORS) {
         self.pendingErrorMessage = str;
@@ -643,12 +575,21 @@
 }
 
 - (NSInteger)handleCanPrintGlyph:(glui32)glyph {
-    glui32 uniglyph[1];
-    uniglyph[0] = glyph;
-    NSData *data = [NSData dataWithBytes:uniglyph length:4];
-    NSString *str  = [[NSString alloc] initWithData:data
+    // Checking means asking every installed font, and games tend to ask
+    // about the same few characters over and over, so remember the answers.
+    static NSMutableDictionary<NSNumber *, NSNumber *> *cache;
+    if (!cache)
+        cache = [[NSMutableDictionary alloc] init];
+    NSNumber *cached = cache[@(glyph)];
+    if (cached)
+        return cached.boolValue;
+
+    NSString *str = [[NSString alloc] initWithBytes:&glyph
+                                             length:sizeof(glyph)
                                            encoding:NSUTF32LittleEndianStringEncoding];
-    return [GlkController unicodeAvailableForChar:str];
+    BOOL available = [GlkController unicodeAvailableForChar:str];
+    cache[@(glyph)] = @(available);
+    return available;
 }
 
 + (BOOL)isCharacter:(NSString *)character supportedByFont:(NSString *)fontName
@@ -679,29 +620,31 @@
     return NO;
 }
 
-- (nullable JourneyMenuHandler *)journeyMenuHandler {
-    if (_journeyMenuHandler == nil) {
-        GlkTextGridWindow *gridwindow = nil;
-        GlkTextBufferWindow *bufferwindow = nil;
-        for (GlkWindow *win in self.gwindows.allValues)
-            if ([win isKindOfClass:[GlkTextGridWindow class]]) {
-                gridwindow = (GlkTextGridWindow *)win;
-            } else if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
-                bufferwindow = (GlkTextBufferWindow *)win;
-            }
-        if (gridwindow == nil || bufferwindow == nil)
-            return nil;
-        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow bufferWindow:bufferwindow];
-    }
-    return _journeyMenuHandler;
+// The first window request after an autorestore rebuilds the UI from the
+// late GUI autosave. Returns YES if it did, so the caller can look up its
+// window again.
+- (BOOL)restoreUIIfNeeded {
+    if (self.gwindows.count || !shouldRestoreUI)
+        return NO;
+    self.windowsToRestore = restoredControllerLate.gwindows.allValues;
+    [self restoreUI];
+    return YES;
 }
 
-- (nullable InfocomV6MenuHandler *)infocomV6MenuHandler {
-    if (_infocomV6MenuHandler == nil) {
-
-       _infocomV6MenuHandler = [[InfocomV6MenuHandler alloc] initWithDelegate:self];
+// A command script was running in the autosaved session. Step past the command that was being handled, or drop the script if that
+// was its last one.
+- (void)resumeRestoredCommandScript {
+    CommandScriptHandler *handler = restoredController.commandScriptHandler;
+    handler.commandIndex++;
+    if (handler.commandIndex >= handler.commandArray.count) {
+        restoredController.commandScriptHandler = nil;
+        restoredControllerLate.commandScriptHandler = nil;
+    } else {
+        restoredControllerLate.commandScriptHandler = handler;
+        skipNextScriptCommand = YES;
+        lastScriptKeyTimestamp = [NSDate date];
     }
-    return _infocomV6MenuHandler;
+    restoredController = restoredControllerLate;
 }
 
 - (BOOL)handleRequest:(struct message *)req
@@ -713,7 +656,7 @@
 
     Theme *theme = self.theme;
 
-    if (req->a1 >= 0 && req->a1 < MAXWIN && self.gwindows[@(req->a1)])
+    if (req->a1 >= 0 && req->a1 < kMaxGlkWindows && self.gwindows[@(req->a1)])
         reqWin = self.gwindows[@(req->a1)];
 
     switch (req->cmd) {
@@ -738,8 +681,8 @@
                     [self restoreUI];
                 } else {
                     // If we are not autorestoring, try to guess an input window.
-                    for (GlkWindow *win in self.gwindows.allValues) {
-                        if ([win isKindOfClass:[GlkTextBufferWindow class]] && win.wantsFocus) {
+                    for (GlkTextBufferWindow *win in self.bufferWindows) {
+                        if (win.wantsFocus) {
                             [win grabFocus];
                         }
                     }
@@ -829,10 +772,10 @@
             return YES; /* stop reading ... terp is waiting for reply */
 
         case STYLEHINT:
-            [self handleStyleHintOnWindowType:req->a1
-                                        style:(NSUInteger)req->a2
-                                         hint:(NSUInteger)req->a3
-                                        value:req->a4];
+            [self setStyleHintValue:@(req->a4)
+                       onWindowType:req->a1
+                              style:(NSUInteger)req->a2
+                               hint:(NSUInteger)req->a3];
             break;
 
         case STYLEMEASURE:
@@ -846,7 +789,10 @@
             break;
 
         case CLEARHINT:
-            [self handleClearHintOnWindowType:req->a1 style:(NSUInteger)req->a2 hint:(NSUInteger)req->a3];
+            [self setStyleHintValue:[NSNull null]
+                       onWindowType:req->a1
+                              style:(NSUInteger)req->a2
+                               hint:(NSUInteger)req->a3];
             break;
 
             /*
@@ -965,19 +911,10 @@
                     [self.soundHandler playSpectrumBeepFrequency:req->a2
                                                         duration:req->a3];
                 }
-                if (req->a1 == 1 && theme.beepHigh) {
-                    NSSound *sound = [NSSound soundNamed:theme.beepHigh];
-                    if (sound) {
-                        [sound stop];
-                        [sound play];
-                    }
-                }
-                if (req->a1 == 2 && theme.beepLow) {
-                    NSSound *sound = [NSSound soundNamed:theme.beepLow];
-                    if (sound) {
-                        [sound stop];
-                        [sound play];
-                    }
+                if (req->a1 == 1)
+                    playSoundNamed(theme.beepHigh);
+                if (req->a1 == 2) {
+                    playSoundNamed(theme.beepLow);
                     // For Bureaucracy form accessibility
                     if (self.form)
                         [self.form speakError];
@@ -1004,27 +941,22 @@
                 int x0, y0, x1, y1, checksumWidth, checksumHeight;
                 NSRect rect;
 
-                struct sizewinrect *sizewin = malloc(sizeof(struct sizewinrect));
+                struct sizewinrect sizewin;
+                memcpy(&sizewin, buf, sizeof(struct sizewinrect));
 
-                memcpy(sizewin, buf, sizeof(struct sizewinrect));
+                checksumWidth = sizewin.gamewidth;
+                checksumHeight = sizewin.gameheight;
 
-                checksumWidth = sizewin->gamewidth;
-                checksumHeight = sizewin->gameheight;
-
-                if (fabs(checksumWidth - self.gameView.frame.size.width) > 1.0) {
-                    free(sizewin);
+                if (fabs(checksumWidth - self.gameView.frame.size.width) > 1.0)
                     break;
-                }
 
-                if (fabs(checksumHeight - self.gameView.frame.size.height) > 1.0) {
-                    free(sizewin);
+                if (fabs(checksumHeight - self.gameView.frame.size.height) > 1.0)
                     break;
-                }
 
-                x0 = sizewin->x0;
-                y0 = sizewin->y0;
-                x1 = sizewin->x1;
-                y1 = sizewin->y1;
+                x0 = sizewin.x0;
+                y0 = sizewin.y0;
+                x1 = sizewin.x1;
+                y1 = sizewin.y1;
                 rect = NSMakeRect(x0, y0, x1 - x0, y1 - y0);
                 if (rect.size.width < 0)
                     rect.size.width = 0;
@@ -1058,7 +990,6 @@
                 reqWin.autoresizingMask = hmask | vmask;
 
                 windowdirty = YES;
-                free(sizewin);
             } else
                 NSLog(@"sizwin called on a non-existant Glk window (%d)", req->a1);
             break;
@@ -1091,17 +1022,16 @@
             if (reqWin) {
                 NSImage *lastimage = self.imageHandler.lastimage;
                 if (lastimage && lastimage.size.width > 0 && lastimage.size.height > 0) {
-                    struct drawrect *drawstruct = malloc(sizeof(struct drawrect));
-                    memcpy(drawstruct, buf, sizeof(struct drawrect));
+                    struct drawrect drawstruct;
+                    memcpy(&drawstruct, buf, sizeof(struct drawrect));
                     [reqWin drawImage:lastimage
-                                 val1:(glsi32)drawstruct->x
-                                 val2:(glsi32)drawstruct->y
-                                width:drawstruct->width
-                               height:drawstruct->height
-                            imagerule:drawstruct->imagerule
-                             maxwidth:drawstruct->maxwidth
-                                style:drawstruct->style];
-                    free(drawstruct);
+                                 val1:(glsi32)drawstruct.x
+                                 val2:(glsi32)drawstruct.y
+                                width:drawstruct.width
+                               height:drawstruct.height
+                            imagerule:drawstruct.imagerule
+                             maxwidth:drawstruct.maxwidth
+                                style:drawstruct.style];
                 }
             }
             break;
@@ -1114,11 +1044,8 @@
 
         case PRINT:
             self.printsAndClearsThisTurn++;
-            if (!self.gwindows.count && shouldRestoreUI) {
-                self.windowsToRestore = restoredControllerLate.gwindows.allValues;
-                [self restoreUI];
+            if ([self restoreUIIfNeeded])
                 reqWin = self.gwindows[@(req->a1)];
-            }
             if (reqWin && req->len) {
                 [self handlePrintOnWindow:reqWin
                                     style:(NSUInteger)req->a2
@@ -1130,11 +1057,8 @@
             break;
 
         case UNPRINT:
-            if (!self.gwindows.count && shouldRestoreUI) {
-                self.windowsToRestore = restoredControllerLate.gwindows.allValues;
-                [self restoreUI];
+            if ([self restoreUIIfNeeded])
                 reqWin = self.gwindows[@(req->a1)];
-            }
             ans->cmd = OKAY;
             ans->a1 = 0;
             ans->a2 = 0;
@@ -1192,17 +1116,19 @@
 
 #pragma mark Request and cancel events
 
-        case INITLINE:
+        case INITLINE: {
             [self performScroll];
 
-            if (!self.gwindows.count && shouldRestoreUI) {
-                buf = "\0";
-                self.windowsToRestore = restoredControllerLate.gwindows.allValues;
-                [self restoreUI];
+            // Text to preload the input line with. Dropped when restoring
+            // the UI: the restored window already holds its input.
+            NSUInteger preloadLength = (NSUInteger)req->len / sizeof(unichar);
+
+            if ([self restoreUIIfNeeded]) {
+                preloadLength = 0;
                 reqWin = self.gwindows[@(req->a1)];
             }
             if (reqWin && self.gameID != kGameIsAColderLight && !skipNextScriptCommand) {
-                NSString *preloaded = [NSString stringWithCharacters:(unichar *)buf length:(NSUInteger)req->len / sizeof(unichar)];
+                NSString *preloaded = [NSString stringWithCharacters:(unichar *)buf length:preloadLength];
                 if (!preloaded.length || [preloaded characterAtIndex:0] == '\0')
                     preloaded = @"";
                 [reqWin initLine:preloaded maxLength:(NSUInteger)req->a2];
@@ -1219,6 +1145,7 @@
             }
             skipNextScriptCommand = NO;
             break;
+        }
 
         case CANCELLINE:
             ans->cmd = OKAY;
@@ -1234,25 +1161,10 @@
             break;
 
         case INITCHAR:
-            if (!self.gwindows.count && shouldRestoreUI) {
-                GlkController *g = restoredControllerLate;
-                self.windowsToRestore = restoredControllerLate.gwindows.allValues;
-                if (g.commandScriptRunning) {
-                    CommandScriptHandler *handler = restoredController.commandScriptHandler;
-                    handler.commandIndex++;
-                    if (handler.commandIndex >= handler.commandArray.count) {
-                        restoredController.commandScriptHandler = nil;
-                        restoredControllerLate.commandScriptHandler = nil;
-                    } else {
-                        restoredControllerLate.commandScriptHandler = handler;
-                        skipNextScriptCommand = YES;
-                        lastScriptKeyTimestamp = [NSDate date];
-                    }
-                    restoredController = restoredControllerLate;
-                }
-                [self restoreUI];
+            if (!self.gwindows.count && shouldRestoreUI && restoredControllerLate.commandScriptRunning)
+                [self resumeRestoredCommandScript];
+            if ([self restoreUIIfNeeded])
                 reqWin = self.gwindows[@(req->a1)];
-            }
 
             // Distinguish a meaningful INITCHAR (one that follows real game
             // output) from one issued by a rapid CANCELCHAR/INITCHAR cycle
@@ -1296,11 +1208,8 @@
             break;
 
         case INITMOUSE:
-            if (!self.gwindows.count && shouldRestoreUI) {
-                self.windowsToRestore = restoredControllerLate.gwindows.allValues;
-                [self restoreUI];
+            if ([self restoreUIIfNeeded])
                 reqWin = self.gwindows[@(req->a1)];
-            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initMouse];
@@ -1320,11 +1229,8 @@
             break;
 
         case INITLINK:
-            if (!self.gwindows.count && shouldRestoreUI) {
-                self.windowsToRestore = restoredControllerLate.gwindows.allValues;
-                [self restoreUI];
+            if ([self restoreUIIfNeeded])
                 reqWin = self.gwindows[@(req->a1)];
-            }
             [self performScroll];
             if (reqWin) {
                 [reqWin initHyperlink];
@@ -1363,23 +1269,14 @@
             [self reset:nil];
             break;
 
-            // Used by Tads 3 to adapt the banner width.
+            // Used by Tads 3 to adapt the banner width and height.
         case BANNERCOLS:
-            ans->cmd = OKAY;
-            ans->a1 = 0;
-            if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
-                GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = (int)banner.numberOfColumns;
-            }
-            break;
-
-            // Used by Tads 3 to adapt the banner height.
         case BANNERLINES:
             ans->cmd = OKAY;
             ans->a1 = 0;
-            if (reqWin && [reqWin isKindOfClass:[GlkTextBufferWindow class]] ) {
+            if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = (int)banner.numberOfLines;
+                ans->a1 = (int)(req->cmd == BANNERCOLS ? banner.numberOfColumns : banner.numberOfLines);
             }
             break;
 

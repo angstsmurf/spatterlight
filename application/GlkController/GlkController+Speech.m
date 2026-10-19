@@ -18,6 +18,20 @@
 #define NSLog(...)
 #endif
 
+// The window with the largest frame, or nil if none has any area.
+static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
+    GlkWindow *largest = nil;
+    CGFloat largestSize = 0;
+    for (GlkWindow *view in windows) {
+        CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
+        if (size > largestSize) {
+            largestSize = size;
+            largest = view;
+        }
+    }
+    return largest;
+}
+
 @implementation GlkController (Speech)
 
 - (BOOL)isAccessibilityElement {
@@ -78,13 +92,10 @@
     largest = nil;
     NSUInteger longestTextLength = 0;
     for (GlkWindow *win in self.gwindows.allValues) {
-        if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
-            GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)win;
-            NSUInteger length = bufWin.textview.string.length;
-            if (length > longestTextLength) {
-                longestTextLength = length;
-                largest = win;
-            }
+        NSUInteger length = [self speakableStringForWindow:win].length;
+        if (length > longestTextLength) {
+            longestTextLength = length;
+            largest = win;
         }
     }
 
@@ -127,10 +138,8 @@
         }
     }
     if (self.zmenu) {
-        for (GlkTextBufferWindow *view in self.gwindows.allValues) {
-            if ([view isKindOfClass:[GlkTextBufferWindow class]])
-                [view setLastMove];
-        }
+        for (GlkTextBufferWindow *view in self.bufferWindows)
+            [view setLastMove];
         if (speak)
             [self.zmenu speakSelectedLine];
     }
@@ -210,19 +219,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         return;
     }
 
-    GlkWindow *largest = nil;
-    if (array.count == 1) {
-        largest = (GlkWindow *)array.firstObject;
-    } else {
-        CGFloat largestSize = 0;
-        for (GlkWindow *view in array) {
-            CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
-            if (size > largestSize) {
-                largestSize = size;
-                largest = view;
-            }
-        }
-    }
+    GlkWindow *largest = (array.count == 1) ? array.firstObject : largestByFrameArea(array);
     if (largest) {
         if ([largest isKindOfClass:[GlkTextGridWindow class]] && self.quoteBoxes.count) {
             GlkTextGridWindow *box = self.quoteBoxes.lastObject;
@@ -246,7 +243,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         self.shouldCheckForMenu = YES;
         [self checkZMenuAndSpeak:NO];
         if (self.theme.vODelayOn && !self.mustBeQuiet) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            runOnMainAfterDelay(0.5, ^{
                 [self speakMostRecentAfterDelay];
             });
         }
@@ -282,21 +279,18 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         self.speechTimeStamp = [NSDate distantPast];
     }
     [mainWindow setLastMove];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    runOnMainAfterDelay(1.1, ^{
         [mainWindow repeatLastMove:sender];
     });
 }
 
 - (void)speakMostRecentAfterDelay {
-    for (GlkWindow *win in self.gwindows.allValues) {
-        if ([win isKindOfClass:[GlkTextBufferWindow class]])
-            [(GlkTextBufferWindow *)win resetLastSpokenString];
-    }
+    for (GlkTextBufferWindow *win in self.bufferWindows)
+        [win resetLastSpokenString];
 
     CGFloat delay = self.theme.vOHackDelay;
     shouldAddTitlePrefixToSpeech = (delay < 1);
-    delay *= NSEC_PER_SEC;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)delay), dispatch_get_main_queue(), ^(void) {
+    runOnMainAfterDelay(delay, ^{
         [self speakMostRecent:self];
     });
 }
@@ -427,12 +421,14 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     self.speechTimeStamp = [NSDate date];
     self.lastSpokenString = string;
 
-    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@"\u00A0 >\n_\0\uFFFC"];
-    newString = [newString stringByTrimmingCharactersInSet:charset];
-
+    // Drop NULs everywhere first, so they can't shield whitespace at the
+    // ends from the trim below.
     unichar nc = '\0';
     NSString *nullChar = [NSString stringWithCharacters:&nc length:1];
     newString = [newString stringByReplacingOccurrencesOfString:nullChar withString:@""];
+
+    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:@"\u00A0 >\n_\uFFFC"];
+    newString = [newString stringByTrimmingCharactersInSet:charset];
 
     // VoiceOver silently drops an entire announcement that contains a
     // U+FFFC OBJECT REPLACEMENT CHARACTER. These come from inline images
@@ -469,14 +465,12 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
 
 - (GlkWindow *)largestWithMoves {
     // Find a "main text window"
-    GlkWindow *largest = nil;
 
 // This somewhat reduces VoiceOver confusingly speaking of the command area grid in Journey
     if (self.gameID == kGameIsJourney) {
-        for (GlkWindow *view in self.gwindows.allValues) {
-            if ([view isKindOfClass:[GlkTextBufferWindow class]])
-                return view;
-        }
+        GlkTextBufferWindow *bufwin = self.bufferWindows.firstObject;
+        if (bufwin)
+            return bufwin;
     }
 
     NSMutableArray *windowsWithMoves = self.gwindows.allValues.mutableCopy;
@@ -494,7 +488,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         if (self.quoteBoxes.count)
             [allWindows addObject:self.quoteBoxes.lastObject];
         for (GlkWindow *view in allWindows) {
-            if (![view isKindOfClass:[GlkGraphicsWindow class]] && ((GlkTextGridWindow *)view).textview.string.length > 0)
+            if ([self speakableStringForWindow:view].length > 0)
                 [windowsWithMoves addObject:view];
         }
         if (!windowsWithMoves.count) {
@@ -503,15 +497,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         }
     }
 
-    CGFloat largestSize = 0;
-    for (GlkWindow *view in windowsWithMoves) {
-        CGFloat size = fabs(view.frame.size.width * view.frame.size.height);
-        if (size > largestSize) {
-            largestSize = size;
-            largest = view;
-        }
-    }
-    return largest;
+    return largestByFrameArea(windowsWithMoves);
 }
 
 #pragma mark Custom rotors
