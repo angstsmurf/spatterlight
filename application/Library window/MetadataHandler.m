@@ -504,7 +504,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     tvc.verifyIsCancelled = YES;
     tvc.currentlyAddingGames = YES;
 
-    NSMutableArray<NSManagedObjectID *> __block *blockGames = [NSMutableArray new];
+    NSMutableArray<NSManagedObjectID *> *blockGames = [NSMutableArray new];
 
     for (Game *gameInMain in games) {
         [blockGames addObject:gameInMain.objectID];

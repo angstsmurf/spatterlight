@@ -176,8 +176,8 @@
 
     TableViewController __weak *weakTVC = tvc;
 
-    GlkController __block *blockgctl = gctl;
-    Game __block *blockGame = game;
+    GlkController *blockgctl = gctl;
+    Game *blockGame = game;
     NSString __block *hashTag = game.hashTag;
 
     [gctl askForAccessToURL:url showDialog:!systemWindowRestoration andThenRunBlock:^{

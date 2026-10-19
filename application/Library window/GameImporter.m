@@ -112,7 +112,7 @@ extern char *agt_copy_ifid_for_file(const char *path);
     newOptions[@"select"] = select;
 
     TableViewController *tableViewController = _tableViewController;
-    NSManagedObjectContext __block *context = options[@"context"];
+    NSManagedObjectContext *context = options[@"context"];
 
     // A block that will run when all files are added
     // and all metadata is downloaded
