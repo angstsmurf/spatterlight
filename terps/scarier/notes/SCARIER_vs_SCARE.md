@@ -7,7 +7,10 @@ left out, except where it costs the ADRIFT 4 side something.
 
 "SCARE" here means Simon Baldwin's SCARE 1.3.10, upstream's last release
 (2008), in the copy Spatterlight took from Gargoyle in `ed31bf462` (2017) and
-shipped until the fork. Figures are from 2026-10-11.
+shipped until the fork. The route figures were re-measured on 2026-10-19;
+the sizes and timings are from 2026-10-11. The text was brought up to date on
+2026-10-19, after the Runner behaviours dropped as deliberate deviations on
+2026-10-15 and 2026-10-17.
 
 ## In short
 
@@ -21,7 +24,7 @@ shipped until the fork. Figures are from 2026-10-11.
 | Language | ANSI C (C89) | C-like C++11 |
 | Size, engine and front ends | about 44,000 lines, 27 files | about 104,000 lines in 100-odd files, plus 13,000 of Glk seam |
 | Time for the same 120 routes | 6.1 s | 2.7 s |
-| Tests | `sx` script harness, a few dozen scripts | 677 walkthrough rows, 678 Runner transcripts, 616 probe files, unit and autosave suites |
+| Tests | `sx` script harness, a few dozen scripts | 677 walkthrough rows, 678 Runner transcripts, 617 probe files, unit and autosave suites |
 | Maintained | No (last release 2008) | Yes |
 
 The route figures come from the replay described under
@@ -43,7 +46,11 @@ Read the caveats there before quoting them.
 - **The battle system.** SCARE reads the battle properties and ignores them.
   Scarier implements both the 3.8/3.9 system and the quite different 4.0 one
   (stamina, weapons, armour, wielding, thrown weapons, the narration), checked
-  against the 3.9 and 4.0 Runners. Of the 84 corpus games with the battle flag
+  against the 3.9 and 4.0 Runners. Two departures are deliberate: a line
+  naming several targets asks which one is meant and strikes one, where the
+  Runners strike every character the line names; and a character whose death
+  task hands back its stamina may walk again, where in the Runner it stays
+  dead. Of the 84 corpus games with the battle flag
   set, SCARE finishes the route in 25, and those are mostly games that set
   the flag without depending on it: the fight is handled by the game's own
   tasks, or is not needed to reach the ending. A game whose ending is
@@ -104,7 +111,7 @@ all four Runners under Wine, and each version follows its own rules.
   sections, and the map's static data is read once.
 - 677 walkthrough rows are replayed and strict-diffed against goldens on every
   suite run, 43 s for the full suite and about 4 s for the quick one. Behind
-  them sit 678 files of original-Runner transcripts and 616 probe files from
+  them sit 678 files of original-Runner transcripts and 617 probe files from
   synthetic games built to isolate one rule each.
 - ASan and UBSan builds of the unit harnesses, and an autosave regression
   suite.
@@ -129,14 +136,18 @@ all four Runners under Wine, and each version follows its own rules.
 
 - SCARE's public API is `scare.h` with `sc_` names. Scarier renamed it to
   `scarier.h` and `scr_`, so it is not a drop-in replacement in Gargoyle or any
-  other host that embeds SCARE.
+  other host that embeds SCARE. `core/scarier.h` is kept as a supported
+  embedding API, entry points no Spatterlight front end calls included, but a
+  host written against `scare.h` has to be ported to the new names.
 - SCARE has been frozen since 2008. Its bugs are known and fifteen years of
   bug reports and walkthroughs describe its behaviour. Scarier changes weekly,
-  1,322 commits so far, and a save or transcript from last month's build may
+  1,353 commits so far, and a save or transcript from last month's build may
   not match this month's.
 - SCARE ships BUILDING, PORTING, RUNNING, DEBUGGER and TESTING documents.
-  Scarier has one README; much of what a porter needs is in source comments
-  and commit messages.
+  Scarier has a README, a ChangeLog, `test/README.md` (the test tree, the
+  headless targets and where the code lives) and the comparison notes in
+  `notes/`. Much of what a porter needs is still only in source comments and
+  commit messages.
 
 ### Simplicity of behaviour
 
@@ -151,14 +162,20 @@ all four Runners under Wine, and each version follows its own rules.
   they stole input from games' own tasks. A player used to SCARE will find a
   few things missing or reworded. The policy is to keep conveniences and
   grammatical text wherever no game depends on the Runner's accident, but the
-  call is made case by case.
+  call is made case by case, and it moves. In October 2026 several Runner
+  behaviours ported earlier were dropped again as bugs no game needs: a 4.0
+  put or lock that reaches a seen object in another room, the phantom weight
+  of objects a character holds, a textless take task that runs twice, and the
+  game's "don't understand" text after a silent task (Scarier now says
+  "Done."). `get off X` no longer takes X, and `look around` looks at every
+  version.
 - Patching a game at load is an editorial act. It is keyed to exact releases,
   announced, and can be switched off, but SCARE never alters a game.
 
 ### Provenance and verification
 
 - SCARE was written by hand by one author over five years. The Scarier README
-  describes it as "a lazy AI C++ clone"; most of its 1,322 commits were written
+  describes it as "a lazy AI C++ clone"; most of its 1,353 commits were written
   with AI assistance and reviewed through tests more than through reading.
 - The evidence behind Scarier's behaviour is hard to reproduce elsewhere. It
   needs the original Runners under Wine with a custom driver, and a corpus of
@@ -201,6 +218,15 @@ white space collapsed because SCARE's front end wraps lines. Lines that answer
 Scarier's name and gender prompts were removed from SCARE's input, since SCARE
 never asks. SCARE was given five seeds per row and credited if any one reached
 the marker.
+
+The replay was first made on 2026-10-11 and was repeated on 2026-10-19,
+after a handful of routes had been re-derived when Scarier dropped a Runner
+behaviour (*Three Monkeys, One Cage*, *House*, *British Fox*, *Noximion*, *The
+Town of Azra*, *Howard. Oblivion. Part 1*, the patched row of *The Long
+Journey Home*). The SCARE build and the replay script had to be rebuilt from
+the description above. Every figure and every list below came out the same
+both times; the re-derived routes still win in Scarier and still fail in
+SCARE.
 
 | | Rows | Games |
 |---|---|---|
