@@ -27,20 +27,26 @@ bundle.
   any non-Blorb file. A purged LOADIMAGE `PIC3`, or a Hugo resource file,
   used to be deleted.
 - Blorb Rect placeholders are decoded by `ImageResource` (two 32-bit values),
-  so FINDIMAGE finds them and they survive cache eviction. A Blorb with Rect
-  chunks now sends one LOADIMAGE fewer per placeholder; none of the facit
-  games has one.
+  so FINDIMAGE finds them and they survive cache eviction. Arthur (34),
+  Shogun (6) and Zork Zero (107) have Rect chunks; their facit tests pass.
 - `lastImageLabel` had no callers and went. Alt texts stay in one handler
   table and go onto every image made for that number, purge replacements
   included (they used to lose theirs after a purge without a replacement).
 
-## Needs a measurement
+## Measured, no change
 
-- **B5 [U].** Blorb pictures are sliced out of the game data with
-  `dataForResource:` at launch. If that copies, every picture is in memory
-  twice. Mapping the file (`NSDataReadingMappedIfSafe`) and loading lazily
-  would cut launch memory for large Blorbs (Kerkerkruip, 452 pictures).
-  Measure first.
+- **B5.** Blorb pictures are not in memory twice. `dataForResource:` is
+  `subdataWithRange:`, which on the game data returns an `NSSubrangeData`
+  that points into the parent's bytes (all 452 Kerkerkruip 9 slices, all 396
+  Zork Zero PNGs; footprint +0.0 MiB after slicing). Only the 8-byte Rect
+  chunks are copied, into `_NSInlineData`. What stays resident is the game
+  file itself: `OpenGameOperation` reads it with options 0 and
+  `GlkController.gameData` keeps it for the session, 21 MiB for Kerkerkruip
+  (8.4 MiB of it pictures). Mapping it (`NSDataReadingMappedIfSafe`) would
+  bring that to near 0, and the slices stay views on the mapping. But a
+  mapped file that is replaced or truncated during play crashes the
+  process with SIGBUS on the next touch, which a heap copy never does. Not
+  worth that for ~20 MiB; revisit only if games get far larger.
 
 ## Needs a decision
 
