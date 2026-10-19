@@ -36,6 +36,19 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
 
 @end
 
+// What downloadImageFor: needs to know from Core Data, read in one go on the
+// queue of the caller's context
+@interface IFDBCoverLookup : NSObject
+@property (nullable) NSString *coverArtURL;
+//! An Image already in the library with coverArtURL as its originalURL
+@property (nullable) NSManagedObjectID *existingImageID;
+@property (nullable) NSData *existingImageData;
+@property (nullable) NSData *currentCoverData;
+@end
+
+@implementation IFDBCoverLookup
+@end
+
 @implementation IFDBDownloader
 
 - (instancetype)initWithTableViewController:(TableViewController *)tableViewController {
@@ -145,7 +158,10 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
         NSString *coverArtURL = story.ifdb.coverArtURL;
         if (coverArtURL.length && ![metadata.cover.originalURL isEqualToString:coverArtURL]) {
             metadata.coverArtURL = coverArtURL;
-            NSOperation *op = [self downloadImageFor:objectID inContext:context onQueue:queue forceDialog:NO reportFailure:NO];
+            // We are already on the queue of context, so look up the cover
+            // here rather than through downloadImageFor:, which would
+            // nest a performBlockAndWait: on the same queue
+            NSOperation *op = [self downloadImageFor:objectID lookup:[self coverLookupFor:objectID inContext:context] onQueue:queue forceDialog:NO reportFailure:NO];
             if (op) {
                 _tableViewController.lastImageDownloadOperation = op;
             }
@@ -184,35 +200,45 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
 }
 
 - (NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force reportFailure:(BOOL)report {
+    IFDBCoverLookup __block *lookup;
+    [context performBlockAndWait:^{
+        lookup = [self coverLookupFor:metaID inContext:context];
+    }];
+    return [self downloadImageFor:metaID lookup:lookup onQueue:queue forceDialog:force reportFailure:report];
+}
 
-    NSString __block *coverArtURL = nil;
+// Must be called on the queue of context
+- (IFDBCoverLookup *)coverLookupFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context {
+    IFDBCoverLookup *lookup = [IFDBCoverLookup new];
+    Metadata *metadata = [context objectWithID:metaID];
+    lookup.coverArtURL = metadata.coverArtURL;
+    if (!lookup.coverArtURL.length)
+        return lookup;
+    Image *img = [CoverImageStore fetchImageForURL:lookup.coverArtURL inContext:context];
+    if (img) {
+        lookup.existingImageID = img.objectID;
+        lookup.existingImageData = (NSData *)img.data;
+        lookup.currentCoverData = (NSData *)metadata.cover.data;
+    }
+    return lookup;
+}
+
+// Does not touch the context the lookup was made in, so it can be called
+// from any queue
+- (NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID lookup:(IFDBCoverLookup *)lookup onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force reportFailure:(BOOL)report {
+
+    NSString *coverArtURL = lookup.coverArtURL;
+    NSManagedObjectID *imgID = lookup.existingImageID;
+    NSData *newData = lookup.existingImageData;
+    NSData *oldData = lookup.currentCoverData;
 
     CoreDataManager *manager = _tableViewController.coreDataManager;
-
-    [context performBlockAndWait:^{
-        Metadata *metadata = [context objectWithID:metaID];
-        coverArtURL = metadata.coverArtURL;
-    }];
 
     if (!coverArtURL.length) {
         NSLog(@"IFDBDownloader downloadImageFor: found no coverArtURL!");
         [IFDBDownloader reportNoDataFoundIf:report];
         return nil;
     }
-
-    NSData __block *newData;
-    NSData __block *oldData;
-    NSManagedObjectID __block *imgID;
-
-    [context performBlockAndWait:^{
-        Image *img = [CoverImageStore fetchImageForURL:coverArtURL inContext:context];
-        if (img) {
-            imgID = img.objectID;
-            newData = (NSData *)img.data;
-            Metadata *metadata = [context objectWithID:metaID];
-            oldData = (NSData *)metadata.cover.data;
-        }
-    }];
 
     if (imgID) {
         // We already have an image from this URL in the library
