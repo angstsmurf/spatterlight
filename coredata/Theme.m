@@ -10,7 +10,6 @@
 #import "Theme.h"
 #import "Game.h"
 #import "GlkStyle.h"
-#import "Interpreter.h"
 #import "Fetches.h"
 
 #include "glk.h"
@@ -113,7 +112,6 @@
 @dynamic gridSubH;
 @dynamic gridUsr1;
 @dynamic gridUsr2;
-@dynamic interpreter;
 @dynamic lightTheme;
 
 + (NSString *)unusedNameBasedOn:(NSString *)name inContext:(NSManagedObjectContext *)context {

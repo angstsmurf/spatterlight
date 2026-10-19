@@ -167,8 +167,6 @@
 		6DC520AA23BAD54B0004923A /* Game.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC520A923BAD54B0004923A /* Game.m */; };
 		6DC6213D23A26078002DEF3B /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		6DC6214023A26078002DEF3B /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
-		6DC6214323A26078002DEF3B /* Tag.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214223A26078002DEF3B /* Tag.m */; };
-		6DC6214623A26078002DEF3B /* Interpreter.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6214523A26078002DEF3B /* Interpreter.m */; };
 		6DC79A832455AD4800CD9989 /* hecugel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79A822455AD4800CD9989 /* hecugel.c */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
@@ -2078,10 +2076,6 @@
 		6DC6213C23A26078002DEF3B /* Ifid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Ifid.m; path = coredata/Ifid.m; sourceTree = SOURCE_ROOT; };
 		6DC6213E23A26078002DEF3B /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = coredata/Image.h; sourceTree = SOURCE_ROOT; };
 		6DC6213F23A26078002DEF3B /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Image.m; path = coredata/Image.m; sourceTree = SOURCE_ROOT; };
-		6DC6214123A26078002DEF3B /* Tag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tag.h; path = coredata/Tag.h; sourceTree = SOURCE_ROOT; };
-		6DC6214223A26078002DEF3B /* Tag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Tag.m; path = coredata/Tag.m; sourceTree = SOURCE_ROOT; };
-		6DC6214423A26078002DEF3B /* Interpreter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Interpreter.h; path = coredata/Interpreter.h; sourceTree = SOURCE_ROOT; };
-		6DC6214523A26078002DEF3B /* Interpreter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Interpreter.m; path = coredata/Interpreter.m; sourceTree = SOURCE_ROOT; };
 		6DC79A822455AD4800CD9989 /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel.c; path = heglk/hecugel.c; sourceTree = "<group>"; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
@@ -3908,6 +3902,7 @@
 		C3D8817C29A1BAE50085C383 /* Transcript of Praxix old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of Praxix old.rtf"; sourceTree = "<group>"; };
 		C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude old.rtf"; sourceTree = "<group>"; };
 		C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 16.xcdatamodel"; sourceTree = "<group>"; };
+		C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 17.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_dhgr.cpp; sourceTree = "<group>"; };
 		C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_dhgr.h; sourceTree = "<group>"; };
 		C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_pcjr.cpp; sourceTree = "<group>"; };
@@ -4728,10 +4723,6 @@
 				6DC520A923BAD54B0004923A /* Game.m */,
 				6DF73C3323B8F46100F76CF9 /* GlkStyle.h */,
 				6DF73C3423B8F46100F76CF9 /* GlkStyle.m */,
-				6DC6214423A26078002DEF3B /* Interpreter.h */,
-				6DC6214523A26078002DEF3B /* Interpreter.m */,
-				6DC6214123A26078002DEF3B /* Tag.h */,
-				6DC6214223A26078002DEF3B /* Tag.m */,
 				6DC6213E23A26078002DEF3B /* Image.h */,
 				6DC6213F23A26078002DEF3B /* Image.m */,
 				6DC6213B23A26078002DEF3B /* Ifid.h */,
@@ -9003,8 +8994,6 @@
 				C341A4A0272B265100A46ED4 /* ComparisonOperation.m in Sources */,
 				C3C2053D268D304500DB7AE0 /* BezelWindow.m in Sources */,
 				C3A72FDA2E8281FA00A840EC /* IfidToHashMigrationPolicy.m in Sources */,
-				6DC6214323A26078002DEF3B /* Tag.m in Sources */,
-				6DC6214623A26078002DEF3B /* Interpreter.m in Sources */,
 				C3AD647326176982008614C5 /* FlowBreak.m in Sources */,
 				C374D1C326EE4E75006F430E /* SoundHandler.m in Sources */,
 				C3D1A00526EE4E75006F430E /* SFBSoundBackend.mm in Sources */,
@@ -13544,6 +13533,7 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */,
 				C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */,
 				C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */,
 				C300775E2E869FA900C32069 /* Spatterlight 14_ 2.xcdatamodel */,
@@ -13564,7 +13554,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */;
+			currentVersion = C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

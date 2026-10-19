@@ -10,7 +10,6 @@
 #import "Game.h"
 #import "Ifid.h"
 #import "Image.h"
-#import "Tag.h"
 
 
 @implementation Metadata
@@ -50,7 +49,6 @@
 @dynamic cover;
 @dynamic game;
 @dynamic ifids;
-@dynamic tag;
 
 - (void)createIfid:(NSString *)ifidstring {
     for (Ifid *ifid in self.ifids) {

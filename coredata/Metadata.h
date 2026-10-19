@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Game, Ifid, Image, Tag;
+@class Game, Ifid, Image;
 
 #define kSource @".source"
 
@@ -58,7 +58,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) Image *cover;
 @property (nullable, nonatomic, retain) Game *game;
 @property (nullable, nonatomic, retain) NSSet<Ifid *> *ifids;
-@property (nullable, nonatomic, retain) Tag *tag;
 
 - (void)createIfid:(NSString *)ifidstring;
 

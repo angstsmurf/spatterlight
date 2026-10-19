@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Game, GlkStyle, Interpreter, Theme, NSColor;
+@class Game, GlkStyle, Theme, NSColor;
 
 typedef NS_ENUM(int32_t, kSpacesFormatType) {
     TAG_SPACES_GAME,
@@ -160,7 +160,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) GlkStyle *gridSubH;
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr1;
 @property (nullable, nonatomic, retain) GlkStyle *gridUsr2;
-@property (nullable, nonatomic, retain) Interpreter *interpreter;
 @property (nullable, nonatomic, retain) Theme *lightTheme;
 
 //! \c name if no theme has it (case-insensitively), else "name 2", "name 3"…

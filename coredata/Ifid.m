@@ -8,7 +8,6 @@
 
 #import "Ifid.h"
 #import "Metadata.h"
-#import "Game.h"
 
 
 @implementation Ifid

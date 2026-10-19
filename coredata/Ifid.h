@@ -9,13 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Metadata, Game;
+@class Metadata;
+
+NS_ASSUME_NONNULL_BEGIN
 
 @interface Ifid : NSManagedObject
 
 + (NSFetchRequest<Ifid *> *)fetchRequest NS_SWIFT_NAME(fetchRequest());
 
-@property (nonatomic, retain) NSString * ifidString;
-@property (nonatomic, retain) Metadata *metadata;
+@property (nullable, nonatomic, copy) NSString *ifidString;
+@property (nullable, nonatomic, retain) Metadata *metadata;
 
 @end
+
+NS_ASSUME_NONNULL_END

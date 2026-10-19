@@ -2002,10 +2002,10 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     NSFileManager *fm = NSFileManager.defaultManager;
     for (NSString *suffix in @[@"", @"-wal", @"-shm"]) {
         NSURL *src = [NSURL fileURLWithPath:[url.path stringByAppendingString:suffix]];
-        if (![fm fileExistsAtPath:src.path])
-            continue;
         NSURL *dst = [NSURL fileURLWithPath:[dstURL.path stringByAppendingString:suffix]];
         [fm removeItemAtURL:dst error:NULL];
+        if (![fm fileExistsAtPath:src.path])
+            continue;
         if (![fm copyItemAtURL:src toURL:dst error:NULL])
             return NO;
     }
@@ -2043,22 +2043,25 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     }
     [candidates addObject:[NSURL fileURLWithPath:[NSHomeDirectory() stringByAppendingPathComponent:
                            @"Library/Group Containers/group.net.ccxvii.spatterlight/Spatterlight.storedata"]]];
-    for (NSURL *s in candidates) {
-        if (![fm fileExistsAtPath:s.path])
-            continue;
-        NSDictionary *m = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:s options:nil error:NULL];
-        if (m && [v13 isConfiguration:nil compatibleWithStoreMetadata:m]) { realStore = s; break; }
-    }
-    if (!realStore) {
-        NSLog(@"Skipping testProgressiveMigrationFromRealV13Store: no model-13 fixture store found.");
-        return;
-    }
-
-    // Snapshot it to a temp location; the original is never opened/modified.
+    // Snapshot each candidate to a temp location before reading its metadata:
+    // even a metadata read opens the SQLite file and rewrites its -shm, so the
+    // original is never opened.
     NSURL *tmpStore = [[NSURL fileURLWithPath:NSTemporaryDirectory()]
                        URLByAppendingPathComponent:[NSString stringWithFormat:@"v13fixture-%@.storedata",
                                                     NSProcessInfo.processInfo.globallyUniqueString]];
-    XCTAssertTrue([self copyStoreFilesFrom:realStore to:tmpStore], @"failed to snapshot fixture store");
+    for (NSURL *s in candidates) {
+        if (![fm fileExistsAtPath:s.path])
+            continue;
+        XCTAssertTrue([self copyStoreFilesFrom:s to:tmpStore], @"failed to snapshot candidate store");
+        NSDictionary *m = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
+        if (m && [v13 isConfiguration:nil compatibleWithStoreMetadata:m]) { realStore = s; break; }
+    }
+    if (!realStore) {
+        for (NSString *suffix in @[@"", @"-wal", @"-shm"])
+            [fm removeItemAtPath:[tmpStore.path stringByAppendingString:suffix] error:NULL];
+        NSLog(@"Skipping testProgressiveMigrationFromRealV13Store: no model-13 fixture store found.");
+        return;
+    }
 
     NSManagedObjectModel *finalModel = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"].managedObjectModel;
     XCTAssertNotNil(finalModel);
@@ -2108,19 +2111,19 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     // Verify data survived and the policy ran.
     NSUInteger postGames = 0, postMeta = 0, postNonEmptyHash = 0;
     @autoreleasepool {
-        NSPersistentStoreCoordinator *c16 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel];
+        NSPersistentStoreCoordinator *cFinal = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel];
         NSError *e = nil;
-        XCTAssertNotNil([c16 addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"open migrated store: %@", e);
+        XCTAssertNotNil([cFinal addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"open migrated store: %@", e);
         NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-        ctx.persistentStoreCoordinator = c16;
+        ctx.persistentStoreCoordinator = cFinal;
         NSArray<NSManagedObject *> *games = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Game"] error:&e];
         for (NSManagedObject *g in games)
             if (((NSString *)[g valueForKey:@"hashTag"]).length)
                 postNonEmptyHash++;
         postGames = games.count;
         postMeta = [ctx countForFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Metadata"] error:&e];
-        for (NSPersistentStore *s in c16.persistentStores.copy)
-            [c16 removePersistentStore:s error:NULL];
+        for (NSPersistentStore *s in cFinal.persistentStores.copy)
+            [cFinal removePersistentStore:s error:NULL];
     }
 
     NSLog(@"Progressive migration: games %lu->%lu, metadata %lu->%lu, non-empty hashTags %lu->%lu",
@@ -2150,6 +2153,81 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                    (unsigned long)postNonEmptyHash, (unsigned long)preNonEmptyHash);
 
     // Clean up the temp snapshot.
+    [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel]
+     destroyPersistentStoreAtURL:tmpStore withType:NSSQLiteStoreType options:nil error:NULL];
+}
+
+// Model 17 drops the never-used Interpreter and Tag entities and the
+// Theme.interpreter and Metadata.tag relationships to them. Build a model-16
+// store where both are filled in and check that the inferred migration drops
+// them and keeps the Theme and Metadata rows they pointed at.
+- (void)testMigrationFromV16DropsInterpreterAndTag {
+    NSURL *momd = [[NSBundle mainBundle] URLForResource:@"Spatterlight" withExtension:@"momd"];
+    NSManagedObjectModel *v16 = [[NSManagedObjectModel alloc]
+                                 initWithContentsOfURL:[momd URLByAppendingPathComponent:@"Spatterlight 16.mom"]];
+    XCTAssertNotNil(v16, @"model 16 must exist in the momd");
+    XCTAssertNotNil(v16.entitiesByName[@"Interpreter"]);
+    XCTAssertNotNil(v16.entitiesByName[@"Tag"]);
+
+    NSManagedObjectModel *finalModel = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"].managedObjectModel;
+    XCTAssertNil(finalModel.entitiesByName[@"Interpreter"]);
+    XCTAssertNil(finalModel.entitiesByName[@"Tag"]);
+    XCTAssertNil(finalModel.entitiesByName[@"Theme"].relationshipsByName[@"interpreter"]);
+    XCTAssertNil(finalModel.entitiesByName[@"Metadata"].relationshipsByName[@"tag"]);
+
+    NSURL *tmpStore = [[NSURL fileURLWithPath:NSTemporaryDirectory()]
+                       URLByAppendingPathComponent:[NSString stringWithFormat:@"v16fixture-%@.storedata",
+                                                    NSProcessInfo.processInfo.globallyUniqueString]];
+
+    @autoreleasepool {
+        NSPersistentStoreCoordinator *c16 = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:v16];
+        NSError *e = nil;
+        XCTAssertNotNil([c16 addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"create v16 store: %@", e);
+        NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        ctx.persistentStoreCoordinator = c16;
+        NSManagedObject *theme = [NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:ctx];
+        [theme setValue:@"V16 theme" forKey:@"name"];
+        NSManagedObject *interpreter = [NSEntityDescription insertNewObjectForEntityForName:@"Interpreter" inManagedObjectContext:ctx];
+        [interpreter setValue:@"bocfel" forKey:@"name"];
+        [theme setValue:interpreter forKey:@"interpreter"];
+        NSManagedObject *metadata = [NSEntityDescription insertNewObjectForEntityForName:@"Metadata" inManagedObjectContext:ctx];
+        [metadata setValue:@"V16 title" forKey:@"title"];
+        NSManagedObject *tag = [NSEntityDescription insertNewObjectForEntityForName:@"Tag" inManagedObjectContext:ctx];
+        [tag setValue:@"tagged" forKey:@"content"];
+        [metadata setValue:tag forKey:@"tag"];
+        XCTAssertTrue([ctx save:&e], @"save v16 store: %@", e);
+        for (NSPersistentStore *s in c16.persistentStores.copy)
+            [c16 removePersistentStore:s error:NULL];
+    }
+
+    NSDictionary *preMetaDict = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
+    XCTAssertTrue([v16 isConfiguration:nil compatibleWithStoreMetadata:preMetaDict]);
+    XCTAssertFalse([finalModel isConfiguration:nil compatibleWithStoreMetadata:preMetaDict]);
+
+    CoreDataManager *cdm = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
+    NSError *migErr = nil;
+    XCTAssertTrue([cdm progressivelyMigrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel error:&migErr],
+                  @"migration failed: %@", migErr);
+
+    NSDictionary *postMetaDict = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
+    XCTAssertTrue([finalModel isConfiguration:nil compatibleWithStoreMetadata:postMetaDict], @"store is not at the current model after migration");
+
+    @autoreleasepool {
+        NSPersistentStoreCoordinator *cFinal = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel];
+        NSError *e = nil;
+        XCTAssertNotNil([cFinal addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:tmpStore options:nil error:&e], @"open migrated store: %@", e);
+        NSManagedObjectContext *ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+        ctx.persistentStoreCoordinator = cFinal;
+        NSArray<Theme *> *themes = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Theme"] error:&e];
+        XCTAssertEqual(themes.count, 1u);
+        XCTAssertEqualObjects(themes.firstObject.name, @"V16 theme");
+        NSArray<Metadata *> *metas = [ctx executeFetchRequest:[NSFetchRequest fetchRequestWithEntityName:@"Metadata"] error:&e];
+        XCTAssertEqual(metas.count, 1u);
+        XCTAssertEqualObjects(metas.firstObject.title, @"V16 title");
+        for (NSPersistentStore *s in cFinal.persistentStores.copy)
+            [cFinal removePersistentStore:s error:NULL];
+    }
+
     [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:finalModel]
      destroyPersistentStoreAtURL:tmpStore withType:NSSQLiteStoreType options:nil error:NULL];
 }
