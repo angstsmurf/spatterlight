@@ -9,7 +9,7 @@
 
 #include "glkimp.h"
 
-@class GlkController, JourneyMenuItem, GlkTextGridWindow;
+@class GlkController, JourneyMenuItem, GlkTextGridWindow, GlkTextBufferWindow;
 
 typedef NS_ENUM(NSInteger, kJourneyDialogType) {
     kJourneyDialogTextEntry,
@@ -20,12 +20,14 @@ typedef NS_ENUM(NSInteger, kJourneyDialogType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JourneyMenuHandler : NSObject
+// Not NSSecureCoding: the captured members menu is archived as NSMenuItems,
+// which don't adopt it.
+@interface JourneyMenuHandler : NSObject <NSCoding>
 
 - (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow bufferWindow:(GlkTextBufferWindow *)bufferwindow;
 - (void)handleMenuItemOfType:(JourneyMenuType)type column:(NSUInteger)column line:(NSUInteger)line stopflag:(BOOL)stopflag text:(char *_Nullable)buf length:(NSUInteger)len;
 
-- (void)sendCorrespondingMouseEventForMenuItem:(JourneyMenuItem *)item;
+- (void)sendCorrespondingMouseEventForMenuItem:(nullable JourneyMenuItem *)item;
 
 - (void)journeyPartyAction:(id)sender;
 - (void)journeyMemberVerbAction:(id)sender;
@@ -36,47 +38,24 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)captureMembersMenu;
 - (void)recreateDialog;
 - (void)flushDisplay;
-- (BOOL)updateOnBecameKey:(BOOL)recreateDialog;
+// Looks up the windows again if needed and rebuilds the menus. If
+// shouldRecreateDialog is YES, also schedules recreateDialog and returns
+// YES; returns NO if nothing was scheduled.
+- (BOOL)updateOnBecameKey:(BOOL)shouldRecreateDialog;
 
-@property BOOL showsJourneyMenus;
+// Whether a dialog was closed (or menus deleted) less than a second ago.
+@property (readonly) BOOL dialogClosedRecently;
+
 @property (weak) GlkController *delegate;
 @property (weak) GlkTextGridWindow *textGridWindow;
 @property (weak) GlkTextBufferWindow *textBufferWindow;
 
-@property NSPopUpButton *journeyPopupButton;
-@property NSTextField *journeyTextField;
-
-// These must be arrays, because a dictionary won't stay sorted
-// in the order items are added to it
-@property NSMutableArray<JourneyMenuItem *> *journeyDialogMenuItems;
-@property NSMutableArray<JourneyMenuItem *> *journeyPartyMenuItems;
-
-// We need this in order to know when to dispaly a new dialog.
-// If we didn't show dialogs, we could have compared to the actual menu instead
-@property NSMutableArray<JourneyMenuItem *> *journeyLastPartyMenuItems;
-@property NSMutableArray<JourneyMenuItem *> *journeyLastDialogMenuItems;
-
 @property NSDate *journeyDialogClosedTimestamp;
-
-@property NSMutableDictionary<NSNumber *,JourneyMenuItem *> *journeyVerbMenuItems;
-@property NSMutableArray<JourneyMenuItem *> *journeyGlueStrings;
-
-@property (nonatomic) NSMenuItem *journeyMembersMenu;
-@property (nonatomic) NSMenuItem *journeyPartyMenu;
-
-@property NSMutableArray<NSMenuItem *> *capturedMembersMenu;
 
 @property NSInteger gridTextWinName;
 @property NSInteger bufferTextWinName;
 @property BOOL shouldShowDialog;
-@property BOOL reallyShowingDialog;
-@property BOOL restoredShowingDialog;
-@property BOOL lastDialogAddedMove;
-@property BOOL restoredDialogAddedMove;
 @property BOOL skipNextDialog;
-
-@property kJourneyDialogType storedDialogType;
-@property NSString *storedDialogText;
 
 @end
 

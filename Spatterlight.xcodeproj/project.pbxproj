@@ -858,6 +858,8 @@
 		C3836ED82789B569004B5061 /* seas_of_blood.c in Sources */ = {isa = PBXBuildFile; fileRef = C3836ED52789B553004B5061 /* seas_of_blood.c */; };
 		C384A68B2C6EB64E0081FC50 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = C384A68A2C6EB64E0081FC50 /* libz.tbd */; };
 		C384A68E2C6F480C0081FC50 /* JourneyMenuHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */; };
+		C3E7A1142F95100100A1B2C3 /* JourneyMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E7A1112F95100100A1B2C3 /* JourneyMenuItem.m */; };
+		C3E7A1152F95100100A1B2C3 /* JourneyTextFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3E7A1132F95100100A1B2C3 /* JourneyTextFormatter.m */; };
 		C3853E5F29676561002D4A27 /* SplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C3853E5E29676561002D4A27 /* SplitViewController.m */; };
 		C3853E7129679175002D4A27 /* SplitView.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3853E7029679175002D4A27 /* SplitView.storyboard */; };
 		C385B8B62757DFF700FE9AB3 /* vmuni_cs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C385B8B52757DFF700FE9AB3 /* vmuni_cs.cpp */; };
@@ -3581,6 +3583,10 @@
 		C384A68A2C6EB64E0081FC50 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		C384A68C2C6F480B0081FC50 /* JourneyMenuHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JourneyMenuHandler.h; sourceTree = "<group>"; };
 		C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JourneyMenuHandler.m; sourceTree = "<group>"; };
+		C3E7A1102F95100100A1B2C3 /* JourneyMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JourneyMenuItem.h; sourceTree = "<group>"; };
+		C3E7A1112F95100100A1B2C3 /* JourneyMenuItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JourneyMenuItem.m; sourceTree = "<group>"; };
+		C3E7A1122F95100100A1B2C3 /* JourneyTextFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JourneyTextFormatter.h; sourceTree = "<group>"; };
+		C3E7A1132F95100100A1B2C3 /* JourneyTextFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JourneyTextFormatter.m; sourceTree = "<group>"; };
 		C3853E5D29676561002D4A27 /* SplitViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SplitViewController.h; sourceTree = "<group>"; };
 		C3853E5E29676561002D4A27 /* SplitViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SplitViewController.m; sourceTree = "<group>"; };
 		C3853E7029679175002D4A27 /* SplitView.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplitView.storyboard; sourceTree = "<group>"; };
@@ -6379,6 +6385,10 @@
 				C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */,
 				C384A68C2C6F480B0081FC50 /* JourneyMenuHandler.h */,
 				C384A68D2C6F480C0081FC50 /* JourneyMenuHandler.m */,
+				C3E7A1102F95100100A1B2C3 /* JourneyMenuItem.h */,
+				C3E7A1112F95100100A1B2C3 /* JourneyMenuItem.m */,
+				C3E7A1122F95100100A1B2C3 /* JourneyTextFormatter.h */,
+				C3E7A1132F95100100A1B2C3 /* JourneyTextFormatter.m */,
 				C359499C2D2C39EB008F6551 /* InfocomV6MenuHandler.h */,
 				C359499D2D2C39EB008F6551 /* InfocomV6MenuHandler.m */,
 			);
@@ -8888,6 +8898,8 @@
 				AC710000000000000000B007 /* util.c in Sources */,
 				AC710000000000000000B008 /* agilstub.c in Sources */,
 				C384A68E2C6F480C0081FC50 /* JourneyMenuHandler.m in Sources */,
+				C3E7A1142F95100100A1B2C3 /* JourneyMenuItem.m in Sources */,
+				C3E7A1152F95100100A1B2C3 /* JourneyTextFormatter.m in Sources */,
 				6D85C897218BD6E10088D849 /* HelpPanelController.m in Sources */,
 				C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */,
 				C35D520826F24142002E2F59 /* FolderAccess.m in Sources */,

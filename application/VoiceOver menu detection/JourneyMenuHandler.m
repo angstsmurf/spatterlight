@@ -13,144 +13,31 @@
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"
 #import "GlkEvent.h"
-#import "InputTextField.h"
 #import "JourneyMenuHandler.h"
+#import "JourneyMenuItem.h"
+#import "JourneyTextFormatter.h"
+#import "NSString+Categories.h"
+#import "DebugLog.h"
 
-@interface JourneyMenuItem : NSObject
+// The longest text the text entry dialogs send, and the field limits
+// for elvish and for the main character's name.
+static const NSUInteger kMaxEnteredTextLength = 40;
+static const NSUInteger kElvishMaxLength = 13;
+static const NSUInteger kNameMaxLength = 8;
+// The last move text prepended to a recreated dialog is cut to this.
+static const NSUInteger kMaxLastMoveLength = 500;
 
-@property NSString *title;
-@property NSUInteger column;
-@property NSUInteger line;
-@property NSInteger tag;
+// Click geometry: the bottom rows of the grid window hold the menus, in
+// five equal columns after the name column.
+static const NSUInteger kMenuColumns = 5;
+static const NSUInteger kMenuRows = 5;
+static const NSUInteger kClickInset = 2;
 
-@property NSString *actor;
-
-- (instancetype)initWithTitle:(NSString *)title column:(NSUInteger)column line:(NSUInteger)line tag:(NSInteger)tag;
-
-@end
-
-@implementation JourneyMenuItem
-
-+ (BOOL) supportsSecureCoding {
-    return YES;
-}
-
-- (instancetype)initWithTitle:(NSString *)title column:(NSUInteger)column line:(NSUInteger)line tag:(NSInteger)tag {
-    self = [super init];
-    if (self) {
-        self.title = title;
-        self.column = column;
-        self.line = line;
-        self.tag = tag;
-    }
-    return self;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (self) {
-        self.title = [decoder decodeObjectOfClass:[NSString class] forKey:@"title"];
-        self.column = (NSUInteger)[decoder decodeIntegerForKey:@"column"];
-        self.line = (NSUInteger)[decoder decodeIntegerForKey:@"line"];
-        self.tag = [decoder decodeIntegerForKey:@"tag"];
-        self.actor = [decoder decodeObjectOfClass:[NSString class] forKey:@"actor"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:_title forKey:@"title"];
-    [encoder encodeInteger:(NSInteger)_column forKey:@"column"];
-    [encoder encodeInteger:(NSInteger)_line forKey:@"line"];
-    [encoder encodeInteger:_tag forKey:@"tag"];
-    [encoder encodeObject:_actor forKey:@"actor"];
-}
-
-@end
-
-@interface JourneyTextFormatter : MyTextFormatter
-
-- (instancetype)initWithMaxLength:(NSUInteger)maxLength elvish:(BOOL)elvish;
-
-@property BOOL elvish;
-
-@end
-
-@implementation JourneyTextFormatter
-
-- (instancetype)initWithMaxLength:(NSUInteger)maxLength elvish:(BOOL)elvish {
-    if (self = [super initWithMaxLength:maxLength]) {
-        self.elvish = elvish;
-    }
-    return self;
-}
-
-- (BOOL)isBadCharacter:(unichar)c {
-    if (_elvish) {
-        switch (c) {
-            case ' ':
-            case '-':
-            case '\'':
-            case '.':
-            case ',':
-            case '?':
-                return NO;
-            default:
-                break;
-        }
-    }
-    return !isalpha(c);
-}
-
-- (BOOL)isPartialStringValid:(NSString * __autoreleasing *)partialStringPtr
-proposedSelectedRange:(NSRangePointer)proposedSelRangePtr
-originalString:(NSString *)origString
-originalSelectedRange:(NSRange)origSelRange
-errorDescription:(NSString * __autoreleasing *)error
-{
-    BOOL valid = [super isPartialStringValid:partialStringPtr proposedSelectedRange:proposedSelRangePtr originalString:origString originalSelectedRange:origSelRange errorDescription:error];
-
-    NSString *proposedString = *partialStringPtr;
-    NSMutableSet<NSString *> *badCharacters = [NSMutableSet new];
-    for (NSUInteger i = 0; i < proposedString.length; i++) {
-        unichar c = [proposedString characterAtIndex:i];
-        if ([self isBadCharacter:c]) {
-            [badCharacters addObject:[NSString stringWithCharacters:&c length:1]];
-            valid = NO;
-        }
-    }
-
-    for (NSString *bad in badCharacters) {
-        proposedString = [proposedString stringByReplacingOccurrencesOfString:bad withString:@""];
-    }
-
-    if (!_elvish && proposedString.length > 0) {
-        unichar first = [proposedString characterAtIndex:0];
-        if (islower(first)) {
-            valid = NO;
-            first = (unichar)toupper(first);
-            proposedString = [NSString stringWithFormat:@"%@%@", [NSString stringWithCharacters:&first length:1], [proposedString substringFromIndex:1]];
-        }
-        badCharacters = [NSMutableSet new];
-        for (NSUInteger i = 1; i < proposedString.length; i++) {
-            unichar c = [proposedString characterAtIndex:i];
-            if (isupper(c)) {
-                [badCharacters addObject:[NSString stringWithCharacters:&c length:1]];
-                valid = NO;
-            }
-        }
-        for (NSString *bad in badCharacters) {
-            unichar lower = (unichar)tolower([bad characterAtIndex:0]);
-            proposedString = [proposedString stringByReplacingOccurrencesOfString:bad withString:[NSString stringWithCharacters:&lower length:1]];
-        }
-    }
-    *partialStringPtr = proposedString;
-
-    return valid;
-}
-
-
-@end
+static const NSTimeInterval kRecentlyClosedInterval = 1;
+static const NSTimeInterval kRecreateDialogDelay = 0.5;
+static const NSTimeInterval kBecameKeyDelay = 0.1;
+static const NSTimeInterval kSpeakMusingsDelay = 1;
+static const NSTimeInterval kSpeakEnteredTextDelay = 2;
 
 @interface JourneyMenuHandler () {
     BOOL shouldStartNewJourneyPartyMenu;
@@ -158,13 +45,38 @@ errorDescription:(NSString * __autoreleasing *)error
     BOOL shouldStartNewJourneyDialogMenu;
     NSInteger tagCounter;
 }
+
+@property NSPopUpButton *journeyPopupButton;
+@property NSTextField *journeyTextField;
+
+// These must be arrays, because a dictionary won't stay sorted
+// in the order items are added to it
+@property NSMutableArray<JourneyMenuItem *> *journeyDialogMenuItems;
+@property NSMutableArray<JourneyMenuItem *> *journeyPartyMenuItems;
+
+// We need this in order to know when to dispaly a new dialog.
+// If we didn't show dialogs, we could have compared to the actual menu instead
+@property NSMutableArray<JourneyMenuItem *> *journeyLastPartyMenuItems;
+
+@property NSMutableDictionary<NSNumber *,JourneyMenuItem *> *journeyVerbMenuItems;
+@property NSMutableArray<JourneyMenuItem *> *journeyGlueStrings;
+
+@property (nonatomic) NSMenuItem *journeyMembersMenu;
+@property (nonatomic) NSMenuItem *journeyPartyMenu;
+
+@property NSMutableArray<NSMenuItem *> *capturedMembersMenu;
+
+@property BOOL reallyShowingDialog;
+@property BOOL restoredShowingDialog;
+@property BOOL lastDialogAddedMove;
+@property BOOL restoredDialogAddedMove;
+
+@property kJourneyDialogType storedDialogType;
+@property NSString *storedDialogText;
+
 @end
 
 @implementation JourneyMenuHandler
-
-+ (BOOL) supportsSecureCoding {
-    return YES;
-}
 
 - (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow bufferWindow:(GlkTextBufferWindow *)bufferwindow {
     self = [super init];
@@ -183,12 +95,24 @@ errorDescription:(NSString * __autoreleasing *)error
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-        self.journeyDialogMenuItems = [decoder decodeObjectOfClass:[NSDictionary class] forKey:@"journeyDialogMenuItems"];
-        self.journeyVerbMenuItems = [decoder decodeObjectOfClass:[NSDictionary class] forKey:@"journeyVerbMenuItems"];
-        self.journeyPartyMenuItems = [decoder decodeObjectOfClass:[NSArray class] forKey:@"journeyPartyMenuItems"];
-        self.journeyLastPartyMenuItems = [decoder decodeObjectOfClass:[NSArray class] forKey:@"journeyLastPartyMenuItems"];
-        self.journeyGlueStrings = [decoder decodeObjectOfClass:[NSArray class] forKey:@"journeyGlueStrings"];
-        self.capturedMembersMenu = [decoder decodeObjectOfClass:[NSArray class] forKey:@"capturedMembersMenu"];
+        NSSet *itemArray = [NSSet setWithObjects:[NSMutableArray class], [JourneyMenuItem class], nil];
+        NSSet *itemDictionary = [NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [JourneyMenuItem class], nil];
+        NSSet *menuItemArray = [NSSet setWithObjects:[NSMutableArray class], [NSMenuItem class], nil];
+
+        self.journeyDialogMenuItems = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyDialogMenuItems"] mutableCopy];
+        self.journeyVerbMenuItems = [[decoder decodeObjectOfClasses:itemDictionary forKey:@"journeyVerbMenuItems"] mutableCopy];
+        self.journeyPartyMenuItems = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyPartyMenuItems"] mutableCopy];
+        self.journeyLastPartyMenuItems = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyLastPartyMenuItems"] mutableCopy];
+        self.journeyGlueStrings = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyGlueStrings"] mutableCopy];
+        self.capturedMembersMenu = [[decoder decodeObjectOfClasses:menuItemArray forKey:@"capturedMembersMenu"] mutableCopy];
+        // Older autosaves have no tag counter. Start above every restored
+        // verb tag, so that new verbs don't replace restored ones.
+        if ([decoder containsValueForKey:@"tagCounter"]) {
+            tagCounter = [decoder decodeIntegerForKey:@"tagCounter"];
+        } else {
+            for (NSNumber *tag in _journeyVerbMenuItems)
+                tagCounter = MAX(tagCounter, tag.integerValue + 1);
+        }
         self.gridTextWinName = [decoder decodeIntegerForKey:@"gridTextWinName"];
         self.bufferTextWinName = [decoder decodeIntegerForKey:@"bufferTextWinName"];
         self.shouldShowDialog = [decoder decodeBoolForKey:@"shouldShowDialog"];
@@ -221,6 +145,7 @@ errorDescription:(NSString * __autoreleasing *)error
     [encoder encodeBool:_lastDialogAddedMove forKey:@"lastDialogAddedMove"];
     [encoder encodeInteger:_storedDialogType forKey:@"storedDialogType"];
     [encoder encodeObject:_storedDialogText forKey:@"storedDialogText"];
+    [encoder encodeInteger:tagCounter forKey:@"tagCounter"];
 }
 
 - (NSMenuItem *)journeyPartyMenu {
@@ -260,13 +185,33 @@ errorDescription:(NSString * __autoreleasing *)error
     return YES;
 }
 
+- (void)rebuildPartySubmenu {
+    NSMenu *submenu = self.journeyPartyMenu.submenu;
+    [submenu removeAllItems];
+    for (JourneyMenuItem *item in _journeyPartyMenuItems) {
+        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:item.title action:@selector(journeyPartyAction:) keyEquivalent:@""];
+        menuItem.tag = item.tag;
+        [submenu addItem:menuItem];
+    }
+}
+
+// The party member whose verbs are on the given line, or nil.
+- (nullable NSString *)actorOnLine:(NSUInteger)line {
+    for (JourneyMenuItem *verb in _journeyVerbMenuItems.allValues) {
+        if (verb.line == line)
+            return verb.actor;
+    }
+    return nil;
+}
+
+- (BOOL)dialogClosedRecently {
+    return [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -kRecentlyClosedInterval;
+}
+
 - (void)recreateJourneyMenus {
     if (![self partyIsEqualToLast] && _journeyPartyMenuItems.count) {
         shouldStartNewJourneyPartyMenu = YES;
-        [self.journeyPartyMenu.submenu removeAllItems];
-        for (JourneyMenuItem *item in _journeyPartyMenuItems) {
-            [self.journeyPartyMenu.submenu addItem:[[NSMenuItem alloc] initWithTitle:item.title action:@selector(journeyPartyAction:) keyEquivalent:@""]];
-        }
+        [self rebuildPartySubmenu];
     }
 
     if (![self membersMenuMatchesArray] && _capturedMembersMenu.count) {
@@ -305,20 +250,24 @@ errorDescription:(NSString * __autoreleasing *)error
 
 - (void)sendCorrespondingMouseEventForMenuItem:(JourneyMenuItem *)item {
     _restoredShowingDialog = NO;
+    if (item == nil) {
+        NSLog(@"sendCorrespondingMouseEventForMenuItem: no menu item");
+        return;
+    }
 
     NSUInteger x = 0;
     NSSize winsize = [_textGridWindow currentSizeInChars];
 
     if (item.column < 1) {
-        x = 2;
+        x = kClickInset;
     } else {
-        NSUInteger commandWidth = (NSUInteger)winsize.width / 5;
-        NSUInteger nameWidth = (NSUInteger)winsize.width % 5;
+        NSUInteger commandWidth = (NSUInteger)winsize.width / kMenuColumns;
+        NSUInteger nameWidth = (NSUInteger)winsize.width % kMenuColumns;
 
-        x = nameWidth + commandWidth * (item.column) + 2;
+        x = nameWidth + commandWidth * (item.column) + kClickInset;
     }
 
-    NSUInteger y = (NSUInteger)winsize.height - 5 + item.line;
+    NSUInteger y = (NSUInteger)winsize.height - kMenuRows + item.line;
 
     // Check if we are in border mode (i.e. if interpreter is set to Amiga)
     unichar c = [_textGridWindow characterAtPoint:NSZeroPoint];
@@ -329,7 +278,8 @@ errorDescription:(NSString * __autoreleasing *)error
 
     NSPoint point = NSMakePoint((CGFloat)x, (CGFloat)y);
 
-    if (x > (NSUInteger)winsize.width || y > (NSUInteger)winsize.height) {
+    if (x >= (NSUInteger)winsize.width || y >= (NSUInteger)winsize.height) {
+        // Still sent, as it always has been.
         NSLog(@"Mouse click out of bounds at %@", NSStringFromPoint(point));
     }
 
@@ -357,7 +307,7 @@ errorDescription:(NSString * __autoreleasing *)error
 
     NSAlert *journeyDialog = [NSAlert new];
 
-    journeyDialog.messageText = NSLocalizedString(text, nil);
+    journeyDialog.messageText = text;
     _reallyShowingDialog = YES;
     return journeyDialog;
 }
@@ -390,25 +340,21 @@ errorDescription:(NSString * __autoreleasing *)error
     journeyDialog.window.initialFirstResponder = _journeyTextField;
 
     [journeyDialog beginSheetModalForWindow:self.delegate.window completionHandler:^(NSInteger result) {
-        NSString *enteredText = weakSelf.journeyTextField.stringValue;
-        size_t length = enteredText.length;
-        if (length > 40)
-            length = 40;
+        JourneyMenuHandler *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        NSString *enteredText = strongSelf.journeyTextField.stringValue;
+        NSUInteger length = MIN(enteredText.length, kMaxEnteredTextLength);
         for (NSUInteger i = 0; i < length; i++) {
             unsigned keyPress = [enteredText characterAtIndex:i];
             keyPress = chartokeycode(keyPress);
-            [self.textGridWindow sendKeypress:keyPress];
+            [strongSelf.textGridWindow sendKeypress:keyPress];
         }
-        [self.textGridWindow sendKeypress:keycode_Return];
-        [weakSelf.delegate markLastSeen];
-        [self dialogEnded];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSAccessibilityPostNotificationWithUserInfo(
-                                                        NSApp.mainWindow,
-                                                        NSAccessibilityAnnouncementRequestedNotification,
-                                                        @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
-                                                          NSAccessibilityAnnouncementKey: enteredText
-                                                        });
+        [strongSelf.textGridWindow sendKeypress:keycode_Return];
+        [strongSelf.delegate markLastSeen];
+        [strongSelf dialogEnded];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakEnteredTextDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.delegate announce:enteredText priority:NSAccessibilityPriorityHigh];
         });
     }];
 }
@@ -431,7 +377,7 @@ errorDescription:(NSString * __autoreleasing *)error
         } else {
             [weakSelf sendCorrespondingMouseEventForMenuItem:weakSelf.journeyDialogMenuItems.lastObject];
         }
-        [self dialogEnded];
+        [weakSelf dialogEnded];
     }];
 }
 
@@ -442,13 +388,12 @@ errorDescription:(NSString * __autoreleasing *)error
     if (!journeyDialog)
         return;
 
-    if ([_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 && [messageText hasPrefix:@"Musings:"]) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.delegate speakMostRecent:nil];
+    if (self.dialogClosedRecently && [messageText hasPrefix:@"Musings:"]) {
+        JourneyMenuHandler __weak *weakSelf = self;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakMusingsDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [weakSelf.delegate speakMostRecent:nil];
         });
     }
-
-    _journeyLastDialogMenuItems = _journeyDialogMenuItems;
 
     NSMutableArray *strings = [NSMutableArray new];
     for (JourneyMenuItem *dialogMenuItem in _journeyDialogMenuItems) {
@@ -477,7 +422,7 @@ errorDescription:(NSString * __autoreleasing *)error
         } else {
             [weakSelf sendCorrespondingMouseEventForMenuItem: weakSelf.journeyDialogMenuItems.lastObject];
         }
-        [self dialogEnded];
+        [weakSelf dialogEnded];
     }];
 }
 
@@ -493,7 +438,7 @@ errorDescription:(NSString * __autoreleasing *)error
 
     _journeyTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0, 10.0, 100, 22.0)];
 
-    JourneyTextFormatter *formatter = [[JourneyTextFormatter alloc] initWithMaxLength:(elvish ? 13 : 8) elvish:elvish];
+    JourneyTextFormatter *formatter = [[JourneyTextFormatter alloc] initWithMaxLength:(elvish ? kElvishMaxLength : kNameMaxLength) elvish:elvish];
 
     _journeyTextField.formatter = formatter;
 
@@ -561,11 +506,8 @@ errorDescription:(NSString * __autoreleasing *)error
 
     self.journeyMembersMenu.hidden = (self.journeyMembersMenu.submenu.itemArray.count == 0);
 
-    if (self.journeyPartyMenu.submenu.itemArray.count == 0 && _journeyPartyMenuItems.count) {
-        for (JourneyMenuItem *item in _journeyPartyMenuItems) {
-            [self.journeyPartyMenu.submenu addItem:[[NSMenuItem alloc] initWithTitle:item.title action:@selector(journeyPartyAction:) keyEquivalent:@""]];
-        }
-    }
+    if (self.journeyPartyMenu.submenu.itemArray.count == 0 && _journeyPartyMenuItems.count)
+        [self rebuildPartySubmenu];
 
     self.journeyPartyMenu.hidden = (self.journeyPartyMenu.submenu.itemArray.count == 0);
 }
@@ -591,14 +533,7 @@ errorDescription:(NSString * __autoreleasing *)error
         BOOL elvish = stopflag;
         NSString *messageText;
         if (elvish) {
-            if (_journeyVerbMenuItems.count == 0)
-                return;
-            for (JourneyMenuItem *actor in _journeyVerbMenuItems.allValues) {
-                if (actor.line == line) {
-                    messageText = actor.actor;
-                    break;
-                }
-            }
+            messageText = [self actorOnLine:line];
             if (messageText == nil)
                 return;
             messageText = [messageText stringByAppendingString:@" says..."];
@@ -609,15 +544,7 @@ errorDescription:(NSString * __autoreleasing *)error
         return;
     }
 
-    unichar cstring[len];
-    for (NSUInteger i = 0; i < len; i++) {
-        cstring[i] = (unichar)buf[i];
-    }
-    NSString *str = [NSString stringWithCharacters:cstring length:len];
-    if (!str) {
-        NSLog(@"ERROR!");
-        return;
-    }
+    NSString *str = [NSString stringWithLatin1Bytes:buf length:len];
 
     BOOL stringIsCancel = [str isEqualToString:@"[cancel]"];
 
@@ -657,18 +584,14 @@ errorDescription:(NSString * __autoreleasing *)error
                         _skipNextDialog = NO;
                         return;
                     }
-                    _journeyDialogMenuItems = _journeyPartyMenuItems;
-                    _journeyLastPartyMenuItems = _journeyPartyMenuItems;
+                    _journeyDialogMenuItems = [_journeyPartyMenuItems mutableCopy];
+                    _journeyLastPartyMenuItems = [_journeyPartyMenuItems mutableCopy];
                     _shouldShowDialog = NO;
                     [self prepareAlertWithText:@"Please Select One:" type:kJourneyDialogMultipleChoice];
                     return;
                 } else {
                     _journeyLastPartyMenuItems = [NSMutableArray new];
-                    for (JourneyMenuItem *menuToAdd in _journeyPartyMenuItems) {
-                        NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:menuToAdd.title action:@selector(journeyPartyAction:) keyEquivalent:@""];
-                        menuItem.tag = menuToAdd.tag;
-                        [self.journeyPartyMenu.submenu addItem:menuItem];
-                    }
+                    [self rebuildPartySubmenu];
                     if (_delegate.voiceOverActive) {
                         self.journeyPartyMenu.hidden = NO;
                     }
@@ -698,24 +621,25 @@ errorDescription:(NSString * __autoreleasing *)error
         case kJMenuTypeVerbs:
             if (self.journeyMembersMenu) {
                 NSMenuItem *last = self.journeyMembersMenu.submenu.itemArray.lastObject;
+                if (last == nil) {
+                    NSLog(@"handleMenuItemOfType: verb \"%@\" before any party member", str);
+                    return;
+                }
                 last.action = @selector(journeyPartyAction:);
                 if (!last.submenu)
                     last.submenu = [[NSMenu alloc] initWithTitle:@""];
                 NSMenuItem *menuItemToAdd = [[NSMenuItem alloc] initWithTitle:str action:@selector(journeyMemberVerbAction:) keyEquivalent:@""];
                 menuItemToAdd.tag = item.tag;
-                if ([menuItemToAdd.title characterAtIndex:0] == '[')
+                if ([str hasPrefix:@"["])
                     menuItemToAdd.action = nil;
                 [last.submenu addItem:menuItemToAdd];
                 item.actor = last.title;
-                if (item.actor == nil) {
-                    NSLog(@"ERROR!!!");
-                }
                 _journeyVerbMenuItems[@(item.tag)] = item;
                 if (_delegate.voiceOverActive) {
                     self.journeyMembersMenu.hidden = NO;
                 }
             } else {
-                NSLog(@"ERROR!");
+                NSLog(@"handleMenuItemOfType: No Individual Commands menu");
             }
             break;
 
@@ -739,7 +663,6 @@ errorDescription:(NSString * __autoreleasing *)error
                 if (self.journeyMembersMenu == nil || _journeyGlueStrings.count == 0)
                     return;
 
-                NSString *messageText = @"";
                 NSUInteger actorline = _journeyGlueStrings.firstObject.line;
 
                 // Hack for final game action,
@@ -747,9 +670,12 @@ errorDescription:(NSString * __autoreleasing *)error
                 if (actorline == 2 && [_journeyGlueStrings.firstObject.title isEqualToString:@"Mix"])
                     actorline = 4;
 
-                for (JourneyMenuItem *actor in _journeyVerbMenuItems.allValues) {
-                    if (actor.line == actorline) {
-                        messageText = actor.actor;
+                // No actor (the Musings dialog) is fine, but an actor
+                // without a name is not.
+                NSString *messageText = @"";
+                for (JourneyMenuItem *verb in _journeyVerbMenuItems.allValues) {
+                    if (verb.line == actorline) {
+                        messageText = verb.actor;
                         break;
                     }
                 }
@@ -790,25 +716,13 @@ errorDescription:(NSString * __autoreleasing *)error
 }
 
 - (void)captureMembersMenu {
-    _capturedMembersMenu = [[NSMutableArray alloc] initWithCapacity:self.journeyMembersMenu.submenu.itemArray.count];
-
-    for (NSMenuItem *item in self.journeyMembersMenu.submenu.itemArray) {
-        [_capturedMembersMenu addObject:item];
-    }
-}
-
-- (void)findCancelItemWithColumn:(NSUInteger *)column line:(NSUInteger *)line array:(NSArray *)array{
-    if (_journeyPartyMenuItems.count) {
-        JourneyMenuItem *item = array.lastObject;
-        *column = item.column;
-        *line = item.line;
-    }
+    _capturedMembersMenu = [self.journeyMembersMenu.submenu.itemArray mutableCopy];
 }
 
 - (void)recreateDialog {
     [self showJourneyMenus];
 
-    if (_reallyShowingDialog || [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -1 || _delegate.mustBeQuiet || _delegate.shouldShowAutorestoreAlert) {
+    if (_reallyShowingDialog || self.dialogClosedRecently || _delegate.mustBeQuiet || _delegate.shouldShowAutorestoreAlert) {
         return;
     }
 
@@ -839,12 +753,12 @@ errorDescription:(NSString * __autoreleasing *)error
         if (lastMoveString.length == 0) {
             lastMoveString = _textBufferWindow.textview.string;
         }
-        if (lastMoveString.length > 500) {
+        if (lastMoveString.length > kMaxLastMoveLength) {
             NSRange lastNewLine = [lastMoveString rangeOfString:@"\n" options:NSBackwardsSearch];
-            if (lastNewLine.location == NSNotFound) {
-                lastNewLine.location = lastMoveString.length - 500;
-            }
-            lastMoveString = [lastMoveString substringFromIndex:lastNewLine.location + 1];
+            if (lastNewLine.location == NSNotFound)
+                lastMoveString = [lastMoveString substringFromIndex:lastMoveString.length - kMaxLastMoveLength];
+            else
+                lastMoveString = [lastMoveString substringFromIndex:lastNewLine.location + 1];
         }
 
         _storedDialogText = [NSString stringWithFormat:@"\"%@\"\n\n%@",  lastMoveString, _storedDialogText];
@@ -852,25 +766,28 @@ errorDescription:(NSString * __autoreleasing *)error
 
     JourneyMenuHandler __weak *weakSelf = self;
 
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        switch (weakSelf.storedDialogType) {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kRecreateDialogDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        JourneyMenuHandler *strongSelf = weakSelf;
+        if (!strongSelf)
+            return;
+        switch (strongSelf.storedDialogType) {
             case kJourneyDialogTextEntry:
-                [self displayAlertWithTextEntry:weakSelf.storedDialogText elvish:NO];
+                [strongSelf displayAlertWithTextEntry:strongSelf.storedDialogText elvish:NO];
                 break;
             case kJourneyDialogTextEntryElvish:
-                [self displayAlertWithTextEntry:weakSelf.storedDialogText elvish:YES];
+                [strongSelf displayAlertWithTextEntry:strongSelf.storedDialogText elvish:YES];
                 break;
             case kJourneyDialogSingleChoice:
-                [self displayAlertWithText:weakSelf.storedDialogText];
+                [strongSelf displayAlertWithText:strongSelf.storedDialogText];
                 break;
             case kJourneyDialogMultipleChoice:
-                [self displayPopupMenuWithMessageText:weakSelf.storedDialogText];
+                [strongSelf displayPopupMenuWithMessageText:strongSelf.storedDialogText];
                 break;
         }
     });
 }
 
-- (BOOL)updateOnBecameKey:(BOOL)recreateDialog {
+- (BOOL)updateOnBecameKey:(BOOL)shouldRecreateDialog {
     if (_delegate.gameID != kGameIsJourney) {
         [self hideJourneyMenus];
     } else {
@@ -890,9 +807,10 @@ errorDescription:(NSString * __autoreleasing *)error
         if (_delegate.mustBeQuiet) {
             _journeyDialogClosedTimestamp = [NSDate date];
         }
-        if (recreateDialog) {
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [self recreateDialog];
+        if (shouldRecreateDialog) {
+            JourneyMenuHandler __weak *weakSelf = self;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBecameKeyDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [weakSelf recreateDialog];
             });
             return YES;
         }
