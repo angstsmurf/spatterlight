@@ -18,6 +18,7 @@
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
+#import "DebugLog.h"
 
 // Larger windows are not searched for menus.
 static const NSUInteger kMaxGridTextLength = 10000;
