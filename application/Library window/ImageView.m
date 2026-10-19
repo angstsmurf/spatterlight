@@ -10,10 +10,7 @@
 
 #import "ImageView.h"
 
-#import "Constants.h"
-
 #import "AppDelegate.h"
-#import "LibController.h"
 #import "TableViewController.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -43,12 +40,17 @@
 
 @interface ImageView ()
 {
-    NSSet<NSPasteboardType> *nonURLTypes;
     NSArray<NSString *> *imageTypes;
     CALayer *imageLayer;
     CAShapeLayer *shapeLayer;
     ImageDragSource *dragSource; // made on first drag
 }
+
+@property BOOL isSelected;
+@property BOOL isReceivingDrag;
+@property NSInteger numberForSelfSourcedDrag;
+@property (readwrite) CGFloat ratio;
+@property (readonly, copy, nullable) NSData *pngData;
 
 @property NSOperationQueue *workQueue;
 @property NSURL *destinationURL;
@@ -65,10 +67,7 @@
         self.wantsLayer = YES;
         self.enabled = YES;
 
-        nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
-        _acceptableTypes = [NSSet setWithObject:NSPasteboardTypeURL];
-        _acceptableTypes = [_acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
-        [self registerForDraggedTypes:_acceptableTypes.allObjects];
+        [self registerForDraggedTypes:ImageView.acceptableDragTypes.allObjects];
         _numberForSelfSourcedDrag = NSNotFound;
 
         imageTypes = NSImage.imageTypes;
@@ -92,6 +91,15 @@
             [self processImage:_image];
     }
     return self;
+}
+
++ (NSSet<NSPasteboardType> *)acceptableDragTypes {
+    static NSSet<NSPasteboardType> *types;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        types = [NSSet setWithObjects:NSPasteboardTypeURL, NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
+    });
+    return types;
 }
 
 + (NSMenu *)defaultMenu {
@@ -306,7 +314,7 @@
             return YES;
         } else {
             NSMutableSet *types = [NSMutableSet setWithArray:pasteBoard.types];
-            [types intersectSet:_acceptableTypes];
+            [types intersectSet:ImageView.acceptableDragTypes];
             if (types.count)
                 return YES;
         }
@@ -350,15 +358,21 @@
     return YES;
 }
 
+// Delete the cover relation of the Metadata object, and the Image object
+// too if that leaves it an orphan
+- (void)removeCover {
+    Metadata *metadata = [self gameFromObjectID].metadata;
+    Image *image = metadata.cover;
+    if (!image)
+        return;
+    metadata.cover = nil;
+    metadata.coverArtDescription = nil;
+    [Image deleteIfOrphan:image];
+}
+
 - (void)cut:(id)sender {
     [self copy:nil];
-    Game *game = [self gameFromObjectID];
-    //Delete the cover relation of the Metadata object
-    Image *image = game.metadata.cover;
-    game.metadata.cover = nil;
-    game.metadata.coverArtDescription = nil;
-    //If the Image object becomes an orphan, delete it from the Core Data store
-    [Image deleteIfOrphan:image];
+    [self removeCover];
 }
 
 - (void)copy:(id)sender {
@@ -383,20 +397,8 @@
     [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
     [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
-    NSInteger choice = [alert runModal];
-
-    Game *game = [self gameFromObjectID];
-
-    if (choice == NSAlertFirstButtonReturn) {
-        //Delete the cover relation of the Metadata object
-        Image *image = game.metadata.cover;
-        if (!image)
-            return;
-        game.metadata.cover = nil;
-        game.metadata.coverArtDescription = nil;
-        //If the Image object becomes an orphan, delete it from the Core Data store
-        [Image deleteIfOrphan:image];
-    }
+    if ([alert runModal] == NSAlertFirstButtonReturn)
+        [self removeCover];
 }
 
 - (void)paste:(id)sender {
@@ -409,10 +411,13 @@
     NSData *coverData = (NSData *)game.metadata.cover.data;
     NSData *imgData1 = coverData ? [[NSImage alloc] initWithData:coverData].TIFFRepresentation : nil;
 
+    BOOL (^isCurrentCover)(NSImage *) = ^BOOL(NSImage *image) {
+        return imgData1 && [imgData1 isEqualToData:image.TIFFRepresentation];
+    };
+
     for (id item in objects) {
         if ([item isKindOfClass:[NSImage class]]) {
-            NSData *imgData2 = ((NSImage *)item).TIFFRepresentation;
-            if (imgData1 && [imgData1 isEqualToData:imgData2]) {
+            if (isCurrentCover((NSImage *)item)) {
                 NSBeep();
                 return;
             }
@@ -428,8 +433,7 @@
                 NSArray *objects2 = [pb readObjectsForClasses:@[[NSImage class]] options:nil];
                 if ([objects2.firstObject isKindOfClass:[NSImage class]]) {
                     NSImage *image = (NSImage *)objects2.firstObject;
-                    NSData *imgData2 = image.TIFFRepresentation;
-                    if (imgData1 && [imgData1 isEqualToData:imgData2]) {
+                    if (isCurrentCover(image)) {
                         NSBeep();
                         return;
                     }
@@ -641,7 +645,7 @@
         canAccept = YES;
     } else {
         NSMutableSet *types = [NSMutableSet setWithArray:pasteBoard.types];
-        [types intersectSet:_acceptableTypes];
+        [types intersectSet:ImageView.acceptableDragTypes];
         if (types.count)
             canAccept = YES;
     }
@@ -709,8 +713,10 @@
                 } else {
                     // The reader runs on workQueue, but imageFromURL: reaches
                     // the main context through processImageData:
+                    // The received file is only needed until it has been read.
                     dispatch_async(dispatch_get_main_queue(), ^{
                         [self imageFromURL:fileURL dontAsk:NO];
+                        [[NSFileManager defaultManager] removeItemAtURL:fileURL error:nil];
                     });
                 }
             }];
@@ -794,12 +800,7 @@
         [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData];
 
         if (replaceWithoutAsking) {
-            [context performBlockAndWait:^{
-                metadata.coverArtURL = URLPath;
-                metadata.coverArtDescription = nil;
-                [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:context];
-                [ImageView setUserEditedForMetadata:metadata];
-            }];
+            [ImageView commitCoverData:data sourceUrl:URLPath toMetadata:metadata context:context];
             return;
         }
 
@@ -808,15 +809,19 @@
         dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
             ImageCompareViewController *compare = [ImageCompareViewController new];
             // We always replace when pasting
-            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data source:kImageComparisonLocalFile force:NO]) {
-                [context performBlockAndWait:^{
-                    metadata.coverArtURL = URLPath;
-                    metadata.coverArtDescription = nil;
-                    [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:context];
-                    [ImageView setUserEditedForMetadata:metadata];
-                }];
-            }
+            if ([compare userWantsImage:data ratherThanImage:(NSData *)metadata.cover.data source:kImageComparisonLocalFile force:NO])
+                [ImageView commitCoverData:data sourceUrl:URLPath toMetadata:metadata context:context];
         });
+    }];
+}
+
+// Make data the cover of metadata, as a user edit
++ (void)commitCoverData:(NSData *)data sourceUrl:(NSString *)URLPath toMetadata:(Metadata *)metadata context:(NSManagedObjectContext *)context {
+    [context performBlockAndWait:^{
+        metadata.coverArtURL = URLPath;
+        metadata.coverArtDescription = nil;
+        [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:context];
+        [ImageView setUserEditedForMetadata:metadata];
     }];
 }
 
@@ -902,7 +907,7 @@
 
     NSDate *mouseTime = [NSDate date];
 
-    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+    NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
 
     NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
     NSTimeInterval timeout = NSEventDurationForever;
