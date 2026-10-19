@@ -303,6 +303,10 @@
 		C9A43CAC60A7163252C04BE6 /* Preferences+Settings.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D626D3DC2CE12D4995306C4 /* Preferences+Settings.m */; };
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
 		961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */; };
+		C38E7BAF171D86446D535171 /* GlkTextGridWindow+Styles.m in Sources */ = {isa = PBXBuildFile; fileRef = C30FF7157B3B7105366EB15E /* GlkTextGridWindow+Styles.m */; };
+		C3ABB26CA13CAD1E38F0F413 /* GlkTextGridWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = C325E4E614F4DDC07EC5FF12 /* GlkTextGridWindow+Input.m */; };
+		C3275A9036B302698710EC44 /* GlkTextGridWindow+QuoteBox.m in Sources */ = {isa = PBXBuildFile; fileRef = C38223FB52921F4A083212DF /* GlkTextGridWindow+QuoteBox.m */; };
+		C328808209FB9AFF0CEC0F95 /* GlkTextGridWindow+Speech.m in Sources */ = {isa = PBXBuildFile; fileRef = C33F052310C440E0341FEDD2 /* GlkTextGridWindow+Speech.m */; };
 		961CCEF709F23A0000528FF9 /* GlkWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEEA09F239E700528FF9 /* GlkWindow.m */; };
 		961CCF3D09F2946700528FF9 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2C09F2940F00528FF9 /* MainMenu.xib */; };
 		961CCF3E09F2946700528FF9 /* PrefsWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 961CCF2D09F2940F00528FF9 /* PrefsWindow.xib */; };
@@ -2543,6 +2547,13 @@
 		961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextBufferWindow.m; sourceTree = "<group>"; };
 		961CCEE709F239E700528FF9 /* GlkTextGridWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkTextGridWindow.h; sourceTree = "<group>"; };
 		961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkTextGridWindow.m; sourceTree = "<group>"; };
+		C3BEC23975B0124EC6348FF6 /* GlkTextGridWindowPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GlkTextGridWindowPrivate.h"; sourceTree = "<group>"; };
+		C350502BD16AC3B6A6DECA95 /* GlkTextGridWindow+Styles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GlkTextGridWindow+Styles.h"; sourceTree = "<group>"; };
+		C30FF7157B3B7105366EB15E /* GlkTextGridWindow+Styles.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GlkTextGridWindow+Styles.m"; sourceTree = "<group>"; };
+		C3CBB7FBDBFC54D4A697E485 /* GlkTextGridWindow+Input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GlkTextGridWindow+Input.h"; sourceTree = "<group>"; };
+		C325E4E614F4DDC07EC5FF12 /* GlkTextGridWindow+Input.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GlkTextGridWindow+Input.m"; sourceTree = "<group>"; };
+		C38223FB52921F4A083212DF /* GlkTextGridWindow+QuoteBox.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GlkTextGridWindow+QuoteBox.m"; sourceTree = "<group>"; };
+		C33F052310C440E0341FEDD2 /* GlkTextGridWindow+Speech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GlkTextGridWindow+Speech.m"; sourceTree = "<group>"; };
 		961CCEE909F239E700528FF9 /* GlkWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GlkWindow.h; sourceTree = "<group>"; };
 		961CCEEA09F239E700528FF9 /* GlkWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkWindow.m; sourceTree = "<group>"; };
 		961CCF2309F2940F00528FF9 /* Credits.rtf */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; path = Credits.rtf; sourceTree = "<group>"; };
@@ -7039,6 +7050,13 @@
 				C3AD64DD26176DC5008614C5 /* GridTextView.m */,
 				961CCEE709F239E700528FF9 /* GlkTextGridWindow.h */,
 				961CCEE809F239E700528FF9 /* GlkTextGridWindow.m */,
+				C3BEC23975B0124EC6348FF6 /* GlkTextGridWindowPrivate.h */,
+				C350502BD16AC3B6A6DECA95 /* GlkTextGridWindow+Styles.h */,
+				C30FF7157B3B7105366EB15E /* GlkTextGridWindow+Styles.m */,
+				C3CBB7FBDBFC54D4A697E485 /* GlkTextGridWindow+Input.h */,
+				C325E4E614F4DDC07EC5FF12 /* GlkTextGridWindow+Input.m */,
+				C38223FB52921F4A083212DF /* GlkTextGridWindow+QuoteBox.m */,
+				C33F052310C440E0341FEDD2 /* GlkTextGridWindow+Speech.m */,
 			);
 			path = GlkTextGridWindow;
 			sourceTree = "<group>";
@@ -8946,6 +8964,10 @@
 				8E86FCA2EE8EF71E0B0444C0 /* Metadata+IFiction.m in Sources */,
 				C338CF432F71BD4200BCBD18 /* LibHelperTableView.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
+				C38E7BAF171D86446D535171 /* GlkTextGridWindow+Styles.m in Sources */,
+				C3ABB26CA13CAD1E38F0F413 /* GlkTextGridWindow+Input.m in Sources */,
+				C3275A9036B302698710EC44 /* GlkTextGridWindow+QuoteBox.m in Sources */,
+				C328808209FB9AFF0CEC0F95 /* GlkTextGridWindow+Speech.m in Sources */,
 				C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */,
 				C3B728102667934100E9B08D /* NSImage+Categories.m in Sources */,
 				C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */,

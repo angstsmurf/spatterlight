@@ -293,4 +293,8 @@ static NSString *SPTruncatedTitle(NSString *title) {
     return string ?: @"";
 }
 
++ (NSString *)spacesOfLength:(NSUInteger)length {
+    return [@"" stringByPaddingToLength:length withString:@" " startingAtIndex:0];
+}
+
 @end

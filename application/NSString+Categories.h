@@ -36,6 +36,9 @@
 //! Decodes the bytes an interpreter sends with a menu item. Each byte is one Latin-1 character; \c nil or zero length gives an empty string
 + (NSString *)stringWithLatin1Bytes:(const char *)bytes length:(NSUInteger)length;
 
+//! A string of \c length spaces
++ (NSString *)spacesOfLength:(NSUInteger)length;
+
 //! The old deprecated way to calculate a file signature, used for backward compatibility
 - (NSString *)oldSignatureFromFile;
 
