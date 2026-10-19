@@ -19,7 +19,6 @@
 #import "Ifid.h"
 #import "NSString+Categories.h"
 
-static NSString *const kMigrationDoneKey = @"OutdatedIfidMigrationDone";
 static NSString *const kMarkerFilename = @".spatterlightIdentity";
 
 // Reach into the organiser's private custom-URL cache so the tests can point
@@ -86,8 +85,8 @@ static NSString *BabelIfid(NSString *path) {
     self.savedOrganizerURL = organizer.accessedCustomURL;
     organizer.accessedCustomURL = self.root;
 
-    self.savedMigrationDefault = [defaults objectForKey:kMigrationDoneKey];
-    [defaults removeObjectForKey:kMigrationDoneKey];
+    self.savedMigrationDefault = [defaults objectForKey:kOutdatedIfidMigrationDone];
+    [defaults removeObjectForKey:kOutdatedIfidMigrationDone];
 
     self.importer = [[GameImporter alloc] initWithTableViewController:nil];
 }
@@ -99,9 +98,9 @@ static NSString *BabelIfid(NSString *path) {
     else
         [defaults removeObjectForKey:kOrganiseDirBookmarkKey];
     if (self.savedMigrationDefault)
-        [defaults setObject:self.savedMigrationDefault forKey:kMigrationDoneKey];
+        [defaults setObject:self.savedMigrationDefault forKey:kOutdatedIfidMigrationDone];
     else
-        [defaults removeObjectForKey:kMigrationDoneKey];
+        [defaults removeObjectForKey:kOutdatedIfidMigrationDone];
     [LibraryOrganizer sharedOrganizer].accessedCustomURL = self.savedOrganizerURL;
 
     [NSFileManager.defaultManager removeItemAtURL:self.root error:NULL];
@@ -176,7 +175,7 @@ static NSString *BabelIfid(NSString *path) {
 }
 
 - (BOOL)migrationIsDone {
-    return [NSUserDefaults.standardUserDefaults boolForKey:kMigrationDoneKey];
+    return [NSUserDefaults.standardUserDefaults boolForKey:kOutdatedIfidMigrationDone];
 }
 
 #pragma mark - Quest

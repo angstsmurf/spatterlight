@@ -30,6 +30,10 @@ void ReportImportFailure(NSString *title, NSString *info);
 /// whenever babel recognised the file, even if no IFID could be computed.
 + (BabelIdentifyResult)identifyFile:(NSString *)path format:(NSString * _Nullable * _Nullable)format ifid:(NSString * _Nullable * _Nullable)ifid;
 
+/// The IFID of an AGT game, computed from its .D$$ file set without
+/// converting it to AGX. nil if the files are not a readable AGT game.
++ (nullable NSString *)identifyAGTFile:(NSString *)path;
+
 - (instancetype)initWithTableViewController:(TableViewController *)libController;
 
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
@@ -37,6 +41,18 @@ void ReportImportFailure(NSString *title, NSString *info);
 - (void)addFiles:(NSArray<NSURL *> *)urls options:(NSDictionary *)options;
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game;
 - (void)lookForImagesForGame:(Game *)game;
+
+@property (weak) TableViewController *tableViewController;
+
+
+@end
+
+// NSUserDefaults keys marking the one-time migrations below as done
+extern NSString *const kAGTConvertedToDirectMigrationDone;
+extern NSString *const kAGTMigratedHashRepairDone;
+extern NSString *const kOutdatedIfidMigrationDone;
+
+@interface GameImporter (Migrations)
 
 // One-time migration: re-point AGT games that were imported the old way (stored
 // as a converted Converted/<IFID>.agx in the app container) at their original
@@ -55,9 +71,6 @@ void ReportImportFailure(NSString *title, NSString *info);
 // the UUID:// marker used to be copied as found). Updates the game, its
 // metadata's IFID record and the organised folder's identity marker.
 - (void)migrateOutdatedIfidsInContext:(NSManagedObjectContext *)context;
-
-@property (weak) TableViewController *tableViewController;
-
 
 @end
 

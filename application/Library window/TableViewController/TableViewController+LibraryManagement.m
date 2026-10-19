@@ -440,8 +440,8 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 
 - (void)migrateConvertedAGTGames {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"AGTConvertedToDirectMigrationDone"] &&
-        [defaults boolForKey:@"AGTMigratedHashRepairDone"])
+    if ([defaults boolForKey:kAGTConvertedToDirectMigrationDone] &&
+        [defaults boolForKey:kAGTMigratedHashRepairDone])
         return;
 
     NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
@@ -460,7 +460,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 }
 
 - (void)migrateOutdatedIfids {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"OutdatedIfidMigrationDone"])
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kOutdatedIfidMigrationDone])
         return;
 
     NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
