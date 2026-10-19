@@ -1,13 +1,12 @@
 //
 //  BezelWindow.m
-//  BezelTest
+//  Spatterlight
 //
 //  Created by Administrator on 2021-06-29.
 //
 #import <QuartzCore/QuartzCore.h>
 
 #import "BezelWindow.h"
-#import "BezelContentView.h"
 
 @implementation BezelWindow
 
@@ -19,22 +18,17 @@
                                 defer: NO];
 
     if (self) {
-        self.contentView = [self makeVisualEffectsBackingView];
-
-        self.minSize = contentRect.size;
-        self.maxSize = contentRect.size;
+        self.contentView = [self makeVisualEffectsBackingViewWithSize:contentRect.size];
 
         self.releasedWhenClosed = NO;
         self.ignoresMouseEvents = YES;
         self.opaque = NO;
         self.backgroundColor = NSColor.clearColor;
-        self.contentView.wantsLayer = YES;
     }
     return self;
 }
 
-
-- (NSVisualEffectView *)makeVisualEffectsBackingView {
+- (NSVisualEffectView *)makeVisualEffectsBackingViewWithSize:(NSSize)size {
     NSVisualEffectView *visualEffectView = [NSVisualEffectView new];
     visualEffectView.wantsLayer = YES;
     visualEffectView.blendingMode = NSVisualEffectBlendingModeBehindWindow;
@@ -45,23 +39,18 @@
     }
     visualEffectView.emphasized = YES;
     visualEffectView.state = NSVisualEffectStateActive;
-    visualEffectView.maskImage = [self roundedRectMaskWithSize:self.contentView.frame.size cornerRadius:18];
+    visualEffectView.maskImage = [self roundedRectMaskWithSize:size cornerRadius:18];
 
     return visualEffectView;
 }
 
 - (NSImage *)roundedRectMaskWithSize:(NSSize)size cornerRadius:(CGFloat)cornerRadius {
-
-    NSImage *maskImage = [[NSImage alloc] initWithSize:size];
-    NSRect rect = NSMakeRect(0, 0, size.width, size.height);
-
-    NSBezierPath *bezierPath = [NSBezierPath bezierPathWithRoundedRect:rect xRadius:cornerRadius yRadius:cornerRadius];
-
-    [maskImage lockFocus];
-
-    [NSColor.blackColor set];
-    [bezierPath fill];
-    [maskImage unlockFocus];
+    // Drawn on demand, so the corners are rendered at the backing scale.
+    NSImage *maskImage = [NSImage imageWithSize:size flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+        [NSColor.blackColor set];
+        [[NSBezierPath bezierPathWithRoundedRect:dstRect xRadius:cornerRadius yRadius:cornerRadius] fill];
+        return YES;
+    }];
 
     maskImage.capInsets = NSEdgeInsetsMake(cornerRadius, cornerRadius, cornerRadius, cornerRadius);
     maskImage.resizingMode = NSImageResizingModeStretch;
@@ -70,9 +59,10 @@
 }
 
 - (void)showAndFadeOutWithDelay:(CGFloat)delay duration:(CGFloat)duration {
-
     [self orderFront:nil];
 
+    // The blocks retain the window strongly, which is what keeps it alive
+    // until the fade completes. Do not weakify.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
         [NSAnimationContext
          runAnimationGroup:^(NSAnimationContext *context) {
@@ -85,6 +75,5 @@
         }];
     });
 }
-
 
 @end

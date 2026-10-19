@@ -1,6 +1,6 @@
 //
 //  BezelContentView.h
-//  BezelTest
+//  Spatterlight
 //
 //  Created by Administrator on 2021-06-29.
 //
@@ -19,10 +19,9 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BezelContentView : NSView
 
 @property kBezelType type;
-@property NSString *topText;
-@property NSString *bottomText;
-@property NSImage *image;
-@property CALayer *imageLayer;
+@property (nullable) NSString *topText;
+@property (nullable) NSString *bottomText;
+@property (nullable) NSImage *image;
 @property kImageInterpolationType interpolation;
 
 @end

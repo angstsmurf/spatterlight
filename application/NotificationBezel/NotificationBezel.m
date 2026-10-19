@@ -1,33 +1,40 @@
 //
 //  NotificationBezel.m
-//  BezelTest
+//  Spatterlight
 //
 //  Created by Administrator on 2021-06-29.
 //
 
 #import "NotificationBezel.h"
 #import "BezelWindow.h"
+#import "BezelContentView.h"
+
+static const CGFloat kStandardBezelSize = 200;
+static const CGFloat kCoverBezelSize = 300;
+static const CGFloat kCoverBezelSmallSize = 200;
+static const CGFloat kBezelBottomOffset = 140;
+static const CGFloat kFadeDuration = 0.25;
 
 @implementation NotificationBezel
 
 - (instancetype)initWithScreen:(NSScreen *)screen {
     self = [super init];
     if (self) {
-        _screen = screen;
+        _screen = screen ?: NSScreen.mainScreen;
     }
     return self;
 }
 
-- (void)showStandardWithText:(NSString *)text {
++ (BOOL)bezelsEnabled {
+    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowBezels"];
+}
 
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowBezels"])
+- (void)showStandardWithText:(NSString *)text {
+    if (!NotificationBezel.bezelsEnabled)
         return;
 
-    NSRect contentRect = [self lowerCenterRectOfSize: NSMakeSize(200, 200)];
-
-    BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
-
-    BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:NSMakeRect(0, 0, contentRect.size.width, contentRect.size.height)];
+    NSSize size = NSMakeSize(kStandardBezelSize, kStandardBezelSize);
+    BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:(NSRect){NSZeroPoint, size}];
 
     NSArray<NSString *> *words = [text componentsSeparatedByString:@" "];
 
@@ -42,93 +49,100 @@
     }
 
     if (text.length > firstWordLength)
-    bezelContentView.bottomText = [text substringFromIndex:firstWordLength];
+        bezelContentView.bottomText = [text substringFromIndex:firstWordLength];
 
-    [bezelWindow.contentView addSubview:bezelContentView];
-    [bezelWindow showAndFadeOutWithDelay:0.7 duration:0.25];
+    [self presentContentView:bezelContentView delay:0.7];
+
+    // Announce once the bezel has faded.
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
         [self speakString:text];
     });
 }
 
 - (void)showGameOver {
-
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"ShowBezels"])
+    if (!NotificationBezel.bezelsEnabled)
         return;
 
-    NSRect contentRect = [self lowerCenterRectOfSize: NSMakeSize(200, 200)];
-
-    BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
-
-    BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:NSMakeRect(0, 0, contentRect.size.width, contentRect.size.height)];
-
+    NSSize size = NSMakeSize(kStandardBezelSize, kStandardBezelSize);
+    BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:(NSRect){NSZeroPoint, size}];
     bezelContentView.type = kGameOver;
 
-    [bezelWindow.contentView addSubview:bezelContentView];
-    [bezelWindow showAndFadeOutWithDelay:0.7 duration:0.25];
+    [self presentContentView:bezelContentView delay:0.7];
 }
 
-
+// Not gated by ShowBezels: the cover image is shown as part of the
+// "show and fade" cover-art preference, not as a notification.
 - (void)showCoverImage:(NSData *)imageData interpolation:(kImageInterpolationType)interpolation {
+    if (!imageData)
+        return;
     NSImage *image = [[NSImage alloc] initWithData:imageData];
     if (!image)
         return;
+
+    // Vector representations report zero pixel dimensions, so fall back
+    // to the image's point size.
     NSImageRep *rep = image.representations.lastObject;
+    NSSize original = NSMakeSize(rep.pixelsWide, rep.pixelsHigh);
+    if (original.width <= 0 || original.height <= 0)
+        original = image.size;
+    if (original.width <= 0 || original.height <= 0)
+        return;
 
     NSSize size;
+    NSRect visibleFrame = _screen.visibleFrame;
 
-    CGFloat ratio = (CGFloat)rep.pixelsHigh / (CGFloat)rep.pixelsWide;
-    if (rep.pixelsWide > rep.pixelsHigh) {
-        size.height = 300;
-        size.width = 300 / ratio;
-        if (size.width > NSWidth(_screen.visibleFrame) / 2) {
-            size.height = 200;
-            size.width = 200 / ratio;
+    CGFloat ratio = original.height / original.width;
+    if (original.width > original.height) {
+        size.height = kCoverBezelSize;
+        size.width = kCoverBezelSize / ratio;
+        if (size.width > NSWidth(visibleFrame) / 2) {
+            size.height = kCoverBezelSmallSize;
+            size.width = kCoverBezelSmallSize / ratio;
         }
     } else {
-        size.width = 300;
-        size.height = 300 * ratio;
+        size.width = kCoverBezelSize;
+        size.height = kCoverBezelSize * ratio;
+        if (size.height > NSHeight(visibleFrame) / 2) {
+            size.height = MAX(kCoverBezelSmallSize, NSHeight(visibleFrame) / 2);
+            size.width = size.height / ratio;
+        }
     }
 
-    NSRect contentRect = [self lowerCenterRectOfSize: size];
-
-    BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
-
-    BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:NSMakeRect(0, 0, size.width, size.height)];
+    BezelContentView *bezelContentView = [[BezelContentView alloc] initWithFrame:(NSRect){NSZeroPoint, size}];
 
     bezelContentView.type = kCoverImage;
     bezelContentView.image = image;
     bezelContentView.interpolation = interpolation;
 
-    [bezelWindow.contentView addSubview:bezelContentView];
-    [bezelWindow showAndFadeOutWithDelay:1 duration:0.25];
+    [self presentContentView:bezelContentView delay:1];
+}
+
+- (void)presentContentView:(BezelContentView *)contentView delay:(CGFloat)delay {
+    NSRect contentRect = [self lowerCenterRectOfSize:contentView.frame.size];
+    BezelWindow *bezelWindow = [[BezelWindow alloc] initWithContentRect:contentRect];
+    [bezelWindow.contentView addSubview:contentView];
+    [bezelWindow showAndFadeOutWithDelay:delay duration:kFadeDuration];
 }
 
 - (NSRect)lowerCenterRectOfSize:(NSSize)size {
-
-    CGFloat lowerCenterRectBottomOffset = 140;
-
-    NSRect result = NSMakeRect(NSMidX(_screen.visibleFrame) - (size.width / 2),
-                      NSMinY(_screen.visibleFrame) + lowerCenterRectBottomOffset,
-                      size.width, size.height);
+    NSRect visibleFrame = _screen.visibleFrame;
+    NSRect result = NSMakeRect(NSMidX(visibleFrame) - (size.width / 2),
+                               NSMinY(visibleFrame) + kBezelBottomOffset,
+                               size.width, size.height);
+    if (!_screen)
+        return NSIntegralRect(result);
     return [_screen backingAlignedRect:result options:NSAlignAllEdgesNearest];
 }
 
 - (void)speakString:(NSString *)string {
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey:@(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey:string
-    };
-
     NSWindow *mainWin = NSApp.mainWindow;
+    if (!mainWin)
+        return;
 
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    NSAccessibilityPostNotificationWithUserInfo(mainWin,
+                                                NSAccessibilityAnnouncementRequestedNotification,
+                                                @{ NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
+                                                   NSAccessibilityAnnouncementKey: string });
 }
-
-
 
 @end

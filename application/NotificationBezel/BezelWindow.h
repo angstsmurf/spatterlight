@@ -1,13 +1,11 @@
 //
 //  BezelWindow.h
-//  BezelTest
+//  Spatterlight
 //
 //  Created by Administrator on 2021-06-29.
 //
 
 #import <Cocoa/Cocoa.h>
-
-@class BezelParameters;
 
 NS_ASSUME_NONNULL_BEGIN
 
