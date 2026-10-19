@@ -73,7 +73,6 @@ typedef struct {
 #pragma mark Themes
 
 + (void)createBuiltInThemesInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
-    [BuiltInThemes createThemeFromDefaultsPlistInContext:context forceRebuild:force];
     [BuiltInThemes createDefaultThemeInContext:context forceRebuild:force];
     [BuiltInThemes createZoomThemeInContext:context forceRebuild:force];
     [BuiltInThemes createClassicSpatterlightThemeInContext:context forceRebuild:force];
@@ -86,11 +85,15 @@ typedef struct {
     [BuiltInThemes createAutomapThemeInContext:context forceRebuild:force];
 }
 
-+ (nullable Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
-
+// Imports the pre-themes preferences once, for a user with no saved theme
+// (see Preferences readDefaults). Old settings is then the user's to edit or
+// delete, so it is never rebuilt: a forced rebuild of the built-in themes
+// used to overwrite their edits, recreate it after deletion, or delete it
+// when the old defaults matched Spatterlight Classic.
++ (nullable Theme *)createThemeFromDefaultsPlistInContext:(NSManagedObjectContext *)context {
     BOOL exists = NO;
     Theme *oldTheme = [BuiltInThemes findOrCreateTheme:@"Old settings" inContext:context alreadyExists:&exists];
-    if (exists && !force)
+    if (exists)
         return oldTheme;
 
     // Built, not just found or created: a bare find-or-create here left a

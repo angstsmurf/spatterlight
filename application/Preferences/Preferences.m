@@ -181,7 +181,7 @@ static Preferences *prefs = nil;
 
     if (fetchedObjects == nil || fetchedObjects.count == 0) {
         NSLog(@"Preference readDefaults: Error! Saved theme %@ not found. Creating new default theme!", name);
-        theme = [BuiltInThemes createThemeFromDefaultsPlistInContext:managedObjectContext forceRebuild:NO];
+        theme = [BuiltInThemes createThemeFromDefaultsPlistInContext:managedObjectContext];
         if (!theme)
             theme = [BuiltInThemes createDefaultThemeInContext:managedObjectContext forceRebuild:NO];
         if (!theme) {

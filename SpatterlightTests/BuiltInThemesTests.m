@@ -57,8 +57,8 @@
 #pragma mark - Helpers
 
 + (NSArray<NSString *> *)builtInNames {
-    // Not "Old settings": that is only kept when the user's pre-themes
-    // defaults differ from Spatterlight Classic
+    // Not "Old settings": that is imported from the pre-themes defaults by
+    // Preferences readDefaults, not by createBuiltInThemesInContext:
     return @[ @"Default", @"Spatterlight Classic", @"Gargoyle",
               @"Lectrote", @"Lectrote Dark", @"Zoom", @"MS-DOS", @"DOSBox",
               @"Montserrat", @"Automap" ];
@@ -197,6 +197,27 @@ static NSString *describeObject(NSManagedObject *object) {
         else if ([theme.name isEqualToString:@"Montserrat"])
             XCTAssertEqualObjects(theme.bufHead.attributeDict[NSBaselineOffsetAttributeName], @(0));
     }
+}
+
+// Old settings belongs to the user: a forced rebuild (every new app build,
+// or Rebuild Default Themes) re-imported it from the old defaults keys,
+// overwriting edits, and recreated it after it had been deleted.
+- (void)testForcedRebuildLeavesOldSettingsAlone {
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
+
+    Theme *oldSettings = [NSEntityDescription insertNewObjectForEntityForName:@"Theme" inManagedObjectContext:self.context];
+    oldSettings.name = @"Old settings";
+    oldSettings.editable = YES;
+    oldSettings.defaultCols = 33;
+
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:YES];
+    XCTAssertFalse(oldSettings.isDeleted);
+    XCTAssertEqual(oldSettings.defaultCols, 33);
+
+    [self.context deleteObject:oldSettings];
+    [self.context processPendingChanges];
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:YES];
+    XCTAssertFalse([[[self allThemes] valueForKey:@"name"] containsObject:@"Old settings"]);
 }
 
 // On a store without built-in themes the defaults-plist import ran first
