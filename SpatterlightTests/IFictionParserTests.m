@@ -4,7 +4,7 @@
 //
 //  Tests for the iFiction XML parsers in "iFiction/" (IFictionMetadata,
 //  IFStory, IFIdentification, IFZoomID, IFBibliographic, IFDB) and for the
-//  cover bookkeeping in +[IFDBDownloader insertImageData:inMetadataID:context:].
+//  cover bookkeeping in +[CoverImageStore insertImageData:inMetadataID:context:].
 //  Everything runs on an in-memory store; nothing touches the network.
 //
 
@@ -18,7 +18,7 @@
 #import "IFBibliographic.h"
 #import "IFCoverDescription.h"
 #import "IFDB.h"
-#import "IFDBDownloader.h"
+#import "CoverImageStore.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Ifid.h"
@@ -337,7 +337,7 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
     metadata.cover = old;
 
     NSData *data = [@"new" dataUsingEncoding:NSUTF8StringEncoding];
-    [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:self.context];
+    [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:self.context];
     [self drainContext];
 
     XCTAssertEqualObjects((NSData *)metadata.cover.data, data);
@@ -356,7 +356,7 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
     metadata.coverArtURL = @"https://example.com/same.png";
     metadata.cover = old;
 
-    [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:self.context];
+    [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:self.context];
     [self drainContext];
 
     XCTAssertEqual(metadata.cover, existing);

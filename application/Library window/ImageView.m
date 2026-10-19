@@ -23,6 +23,7 @@
 #import "NSData+Categories.h"
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
+#import "CoverImageStore.h"
 #import "IFictionMetadata.h"
 #import "IFStory.h"
 #import "IFCoverDescription.h"
@@ -791,7 +792,7 @@
             [metadata.managedObjectContext performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
-                [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
+                [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
                 [ImageView setUserEditedForMetadata:metadata];
             }];
             return;
@@ -806,7 +807,7 @@
                 [metadata.managedObjectContext performBlockAndWait:^{
                     metadata.coverArtURL = URLPath;
                     metadata.coverArtDescription = nil;
-                    [IFDBDownloader insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
+                    [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:metadata.managedObjectContext];
                     [ImageView setUserEditedForMetadata:metadata];
                 }];
             }

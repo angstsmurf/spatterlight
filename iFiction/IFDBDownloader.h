@@ -17,9 +17,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)initWithTableViewController:(TableViewController *)tableViewController;
 - (nullable NSOperation *)downloadMetadataForGames:(NSArray<NSManagedObjectID *> *)games inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue imageOnly:(BOOL)imageOnly reportFailure:(BOOL)reportFailure completionHandler:(nullable void (^)(void))completionHandler;
 - (nullable NSOperation *)downloadImageFor:(NSManagedObjectID *)metaID inContext:(NSManagedObjectContext *)context onQueue:(NSOperationQueue *)queue forceDialog:(BOOL)force reportFailure:(BOOL)report;
-//! Makes data the cover image of the metadata, reusing an Image object with
-//! the same originalURL and data if there is one
-+ (void)insertImageData:(NSData *)data inMetadataID:(NSManagedObjectID *)metadata context:(NSManagedObjectContext *)context;
 
 @property (weak) TableViewController *tableViewController;
 

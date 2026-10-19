@@ -17,6 +17,7 @@
 #import "CoreDataManager.h"
 
 #import "IFDBDownloader.h"
+#import "CoverImageStore.h"
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
@@ -498,7 +499,7 @@ void ReportImportFailure(NSString *title, NSString *info) {
             NSData *imageData = blorb.coverImageData;
             if (imageData) {
                 metadata.coverArtURL = path;
-                [IFDBDownloader insertImageData:imageData inMetadataID:metadata.objectID context:context];
+                [CoverImageStore insertImageData:imageData inMetadataID:metadata.objectID context:context];
             }
         }
 
@@ -549,11 +550,11 @@ void ReportImportFailure(NSString *title, NSString *info) {
                     dispatch_async(dispatch_get_main_queue(), ^{
                         ImageCompareViewController *imageCompare = [[ImageCompareViewController alloc] initWithNibName:@"ImageCompareViewController" bundle:nil];
                         if ([imageCompare userWantsImage:newImageData ratherThanImage:oldImageData source:kImageComparisonLocalFile force:NO]) {
-                            [IFDBDownloader insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
+                            [CoverImageStore insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
                         }
                     });
                 } else {
-                    [IFDBDownloader insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
+                    [CoverImageStore insertImageData:newImageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
                 }
             }
         }
@@ -757,7 +758,7 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
             return;
 
         game.metadata.coverArtURL = chosenURL.path;
-        [IFDBDownloader insertImageData:imageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
+        [CoverImageStore insertImageData:imageData inMetadataID:game.metadata.objectID context:game.managedObjectContext];
     }
 }
 

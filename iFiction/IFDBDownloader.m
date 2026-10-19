@@ -24,16 +24,14 @@
 #import "DownloadOperation.h"
 #import "NSManagedObjectContext+safeSave.h"
 #import "ComparisonOperation.h"
-#import "NSData+Categories.h"
 #import "CoreDataManager.h"
+#import "CoverImageStore.h"
 
 typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, NSError * _Nullable, NSString * _Nullable);
 
 @interface IFDBDownloader () {
     NSURLSession *defaultSession;
 }
-
-+ (nullable Image *)fetchImageForURL:(NSString *)imgurl inContext:(NSManagedObjectContext *)context;
 
 @end
 
@@ -206,7 +204,7 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
     NSManagedObjectID __block *imgID;
 
     [context performBlockAndWait:^{
-        Image *img = [IFDBDownloader fetchImageForURL:coverArtURL inContext:context];
+        Image *img = [CoverImageStore fetchImageForURL:coverArtURL inContext:context];
         if (img) {
             imgID = img.objectID;
             newData = (NSData *)img.data;
@@ -220,7 +218,7 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
         [IFDBDownloader checkIfUserWants:newData ratherThan:oldData force:force completionHandler:^{
             NSManagedObjectContext *childContext = [self newImageContext];
             [childContext performBlockAndWait:^{
-                [IFDBDownloader setCover:[childContext objectWithID:imgID] onMetadata:[childContext objectWithID:metaID]];
+                [CoverImageStore setCover:[childContext objectWithID:imgID] onMetadata:[childContext objectWithID:metaID]];
                 [childContext safeSave];
             }];
             [manager saveChanges];
@@ -257,7 +255,7 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
         }];
 
         [IFDBDownloader checkIfUserWants:data ratherThan:currentData force:force completionHandler:^{
-            [IFDBDownloader insertImageData:data inMetadataID:metaID context:[self newImageContext]];
+            [CoverImageStore insertImageData:data inMetadataID:metaID context:[self newImageContext]];
         }];
     }];
 
@@ -283,121 +281,6 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
             libController.lastImageComparisonData = newData;
         });
     }
-}
-
-// Makes img the cover of metadata, copies the cover description whichever
-// way is needed, and deletes the previous cover if nothing else uses it.
-// Must be called on the queue of their context.
-+ (void)setCover:(Image *)img onMetadata:(Metadata *)metadata {
-    Image *oldCover = metadata.cover;
-    metadata.cover = img;
-    if (oldCover != img)
-        [Image deleteIfOrphan:oldCover];
-    if (img.imageDescription.length) {
-        metadata.coverArtDescription = img.imageDescription;
-    } else if (metadata.coverArtDescription.length) {
-        img.imageDescription = metadata.coverArtDescription;
-    }
-}
-
-+ (void)insertImageData:(NSData *)data inMetadataID:(NSManagedObjectID *)metaID context:(NSManagedObjectContext *)context {
-    if (!data.length) {
-        NSLog(@"IFDBDownloader insertImageData called with empty image data");
-        return;
-    }
-
-    if (!context) {
-        NSLog(@"Error! No context!");
-        return;
-    }
-
-    if ([data isPlaceHolderImage]) {
-        [context performBlock:^{
-            Image *placeholder = [IFDBDownloader placeholderImageWithData:data inContext:context];
-            [IFDBDownloader setCover:placeholder onMetadata:[context objectWithID:metaID]];
-            [context safeSave];
-        }];
-        return;
-    }
-
-    BOOL __block reused = NO;
-
-    [context performBlockAndWait:^{
-        Metadata *metadata = [context objectWithID:metaID];
-        if (!metadata || metadata.coverArtURL.length == 0)
-            return;
-        Image *img = [IFDBDownloader fetchImageForURL:metadata.coverArtURL inContext:context];
-        if (img && [((NSData *)img.data) isEqual:data]) {
-            // Image with same originalURL and data already existed in database
-            [IFDBDownloader setCover:img onMetadata:metadata];
-            [context safeSave];
-            reused = YES;
-        }
-    }];
-
-    if (reused)
-        return;
-
-    [context performBlock:^{
-        Image *img = (Image *) [NSEntityDescription
-                                insertNewObjectForEntityForName:@"Image"
-                                inManagedObjectContext:context];
-        img.data = [data copy];
-        Metadata *metadata = [context objectWithID:metaID];
-        img.originalURL = metadata.coverArtURL;
-        img.imageDescription = metadata.coverArtDescription;
-        [IFDBDownloader setCover:img onMetadata:metadata];
-        [context safeSave];
-    }];
-}
-
-// The shared Image for the Inform 7 placeholder cover, created on first use.
-// Must be called on the queue of context.
-+ (Image *)placeholderImageWithData:(NSData *)data inContext:(NSManagedObjectContext *)context {
-    Image *placeholder = [IFDBDownloader fetchImageForURL:kImagePlaceholderOriginalURL inContext:context];
-    if (!placeholder) {
-        NSLog(@"IFDBDownloader: Creating new placeholder Image object in Core Data");
-        placeholder = (Image *) [NSEntityDescription
-                                 insertNewObjectForEntityForName:@"Image"
-                                 inManagedObjectContext:context];
-        placeholder.data = [data copy];
-        placeholder.originalURL = kImagePlaceholderOriginalURL;
-        placeholder.imageDescription = kImagePlaceholderDescription;
-    }
-    return placeholder;
-}
-
-// Must be called on the queue of context.
-+ (Image *)fetchImageForURL:(NSString *)imgurl inContext:(NSManagedObjectContext *)context {
-
-    if (imgurl.length == 0)
-        return nil;
-
-    NSError *error = nil;
-    NSFetchRequest *fetchRequest = [Image fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
-
-    NSArray<Image *> *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"fetchImageForURL: Could not execute fetch request! %@",error);
-    }
-
-    if (fetchedObjects.count == 0) {
-        // Found no previously loaded Image object with url imgurl
-        return nil;
-    }
-
-    // Found more than one Image object with the same originalURL string.
-    // Merge those with identical data into the first one. Ones with
-    // different data are kept.
-    Image *toKeep = fetchedObjects.firstObject;
-    for (Image *image in fetchedObjects) {
-        if (image != toKeep && [(NSData *)image.data isEqual:(NSData *)toKeep.data]) {
-            [toKeep addMetadata:image.metadata];
-            [context deleteObject:image];
-        }
-    }
-    return toKeep;
 }
 
 @end
