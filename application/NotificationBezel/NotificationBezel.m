@@ -30,6 +30,12 @@ static const CGFloat kFadeDuration = 0.25;
 }
 
 - (void)showStandardWithText:(NSString *)text {
+    // Announce once the bezel has faded. VoiceOver users get the
+    // announcement even with the visual bezel turned off.
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        [self speakString:text];
+    });
+
     if (!NotificationBezel.bezelsEnabled)
         return;
 
@@ -52,11 +58,6 @@ static const CGFloat kFadeDuration = 0.25;
         bezelContentView.bottomText = [text substringFromIndex:firstWordLength];
 
     [self presentContentView:bezelContentView delay:0.7];
-
-    // Announce once the bezel has faded.
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-        [self speakString:text];
-    });
 }
 
 - (void)showGameOver {
