@@ -19,7 +19,7 @@
     IBOutlet NSButton *btnAnyFont, *btnBufferFont, *btnGridFont;
     IBOutlet NSColorWell *clrAnyFg, *clrBufferFg, *clrGridFg;
     IBOutlet NSColorWell *clrBufferBg, *clrGridBg;
-    IBOutlet NSTextField *txtBufferMargin, *txtGridMargin, *txtLeading;
+    IBOutlet NSTextField *txtBufferMargin, *txtGridMargin;
     IBOutlet NSTextField *txtRows, *txtCols;
     IBOutlet NSTextField *txtBorder;
     IBOutlet NSButton *btnSmartQuotes;

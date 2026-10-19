@@ -471,7 +471,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     txtGridMargin.floatValue = (float)self.theme.gridMarginX;
     txtBufferMargin.floatValue = (float)self.theme.bufferMarginX;
-    txtLeading.doubleValue = self.theme.bufferNormal.lineSpacing;
 
     btnGridFont.title = fontToString(self.theme.gridNormal.font);
     btnBufferFont.title = fontToString(self.theme.bufferNormal.font);
