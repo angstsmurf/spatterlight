@@ -4545,7 +4545,7 @@
 			name = Categories;
 			sourceTree = "<group>";
 		};
-		6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */ = {
+		6D7673D3239FFB0900FB24C0 /* iFiction */ = {
 			isa = PBXGroup;
 			children = (
 				6D7673DF239FFB0900FB24C0 /* IFictionMetadata.h */,
@@ -4565,8 +4565,8 @@
 				C300D48223A11786000B2165 /* IFDBDownloader.h */,
 				C300D48323A11786000B2165 /* IFDBDownloader.m */,
 			);
-			name = "IFiction XML parsing";
-			path = "Treaty of Babel";
+			name = iFiction;
+			path = iFiction;
 			sourceTree = SOURCE_ROOT;
 		};
 		6D7917CF223130CC00C3C9F7 /* autorestore */ = {
@@ -5149,7 +5149,7 @@
 			isa = PBXGroup;
 			children = (
 				6DCFFC1622BCCF600035FA99 /* coredata */,
-				6D7673D3239FFB0900FB24C0 /* IFiction XML parsing */,
+				6D7673D3239FFB0900FB24C0 /* iFiction */,
 				6D212739246BDC5B00D775A8 /* Categories */,
 				C334C47A269C708700B00A2F /* Constants.h */,
 				D3B6C0A12E9F4A0000DEB06A /* DebugLog.h */,

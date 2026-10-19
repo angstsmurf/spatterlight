@@ -2,7 +2,7 @@
 //  IFictionParserTests.m
 //  SpatterlightTests
 //
-//  Tests for the iFiction XML parsers in "Treaty of Babel/" (IFictionMetadata,
+//  Tests for the iFiction XML parsers in "iFiction/" (IFictionMetadata,
 //  IFStory, IFIdentification, IFZoomID, IFBibliographic, IFDB) and for the
 //  cover bookkeeping in +[IFDBDownloader insertImageData:inMetadataID:context:].
 //  Everything runs on an in-memory store; nothing touches the network.
