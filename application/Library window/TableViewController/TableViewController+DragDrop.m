@@ -95,47 +95,39 @@
 
 #pragma mark Drag-n-drop destination handler
 
+static NSArray<NSURL *> *fileURLsOnPasteboard(NSPasteboard *pboard) {
+    return [pboard readObjectsForClasses:@[NSURL.class]
+                                 options:@{ NSPasteboardURLReadingFileURLsOnlyKey: @YES }] ?: @[];
+}
+
 - (NSDragOperation)draggingEntered:sender {
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
-    NSUInteger i;
 
     if (self.currentlyAddingGames)
         return NSDragOperationNone;
 
-    NSPasteboard *pboard = [sender draggingPasteboard];
-    if ([pboard.types containsObject:NSFilenamesPboardType]) {
-        NSArray *paths = [pboard propertyListForType:NSFilenamesPboardType];
-        NSUInteger count = paths.count;
-        for (i = 0; i < count; i++) {
-            NSString *path = paths[i];
-            if ([gGameFileTypes
-                 containsObject:path.pathExtension.lowercaseString])
+    for (NSURL *url in fileURLsOnPasteboard([sender draggingPasteboard])) {
+        NSString *path = url.path;
+        if ([gGameFileTypes
+             containsObject:path.pathExtension.lowercaseString])
+            return NSDragOperationCopy;
+        if ([path.pathExtension.lowercaseString isEqualToString:@"ifiction"])
+            return NSDragOperationCopy;
+        if ([mgr fileExistsAtPath:path isDirectory:&isdir])
+            if (isdir)
                 return NSDragOperationCopy;
-            if ([path.pathExtension.lowercaseString isEqualToString:@"ifiction"])
-                return NSDragOperationCopy;
-            if ([mgr fileExistsAtPath:path isDirectory:&isdir])
-                if (isdir)
-                    return NSDragOperationCopy;
-        }
     }
 
     return NSDragOperationNone;
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {
-    NSPasteboard *pboard = sender.draggingPasteboard;
-    if ([pboard.types containsObject:NSFilenamesPboardType]) {
-        NSArray *files = [pboard propertyListForType:NSFilenamesPboardType];
-        NSMutableArray *urls =
-        [[NSMutableArray alloc] initWithCapacity:files.count];
-        for (id tempObject in files) {
-            [urls addObject:[NSURL fileURLWithPath:tempObject]];
-        }
-        [self addInBackground:urls lookForImages:NO downloadInfo:NO];
-        return YES;
-    }
-    return NO;
+    NSArray<NSURL *> *urls = fileURLsOnPasteboard(sender.draggingPasteboard);
+    if (!urls.count)
+        return NO;
+    [self addInBackground:urls lookForImages:NO downloadInfo:NO];
+    return YES;
 }
 
 @end

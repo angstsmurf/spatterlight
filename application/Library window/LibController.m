@@ -65,7 +65,7 @@
     self.windowFrameAutosaveName = @"LibraryWindow";
     self.window.acceptsMouseMovedEvents = YES;
     self.window.excludedFromWindowsMenu = YES;
-    [self.window registerForDraggedTypes:@[ NSFilenamesPboardType ]];
+    [self.window registerForDraggedTypes:@[ NSPasteboardTypeFileURL ]];
 
     addToLibrary = @"addToLibrary";
     showInfo = @"showInfo";
