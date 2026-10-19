@@ -19,8 +19,8 @@ the sizes and timings are from 2026-10-11. The text was brought up to date on
 | Versions played | 3.8, 3.9, 4.0 | 3.7, 3.8, 3.9, 4.0 |
 | Reference for behaviour | jAsea, plus bug reports | The four original Runners, command by command |
 | Battle system | Parsed, never run | 3.8/3.9 and 4.0 systems both implemented |
-| Routes that reach their ending (of 663) | 439 | 663 |
-| Games those routes cover (of 609) | 432 | 609 |
+| Routes that reach their ending (of 663) | 438 | 663 |
+| Games those routes cover (of 609) | 431 | 609 |
 | Language | ANSI C (C89) | C-like C++11 |
 | Size, engine and front ends | about 44,000 lines, 27 files | about 104,000 lines in 100-odd files, plus 13,000 of Glk seam |
 | Time for the same 120 routes | 6.1 s | 2.7 s |
@@ -199,7 +199,9 @@ version 2 only, with no practical change for users.
 SCARE 1.3.10 was built from `ed31bf462` with its own ANSI front end. Three
 harness-only changes were made to `os_ansi.c` so that it reads a script the way
 Scarier's test build does: `#` comment lines are skipped, `SCR_SKIP_WAITKEY`
-makes key pauses transparent, and the random seed is settable. One change was
+makes key pauses transparent, and the random seed is settable. As in
+Scarier, the seed is set before the game is loaded, and setting it also stops
+the clock behind `%time%`. One change was
 made to the engine: it prints the Runner's end-of-game score summary ("You
 scored 50 out of the maximum 50!" and the lines after it), at the end of the
 turn as the Runner does. SCARE prints no summary, and about a third of the
@@ -224,15 +226,22 @@ after a handful of routes had been re-derived when Scarier dropped a Runner
 behaviour (*Three Monkeys, One Cage*, *House*, *British Fox*, *Noximion*, *The
 Town of Azra*, *Howard. Oblivion. Part 1*, the patched row of *The Long
 Journey Home*). The SCARE build and the replay script had to be rebuilt from
-the description above. Every figure and every list below came out the same
-both times; the re-derived routes still win in Scarier and still fail in
-SCARE.
+the description above, and are now kept in `test/adrift4/scare_replay/`. The
+rebuild showed that the first build set the seed only after loading the game.
+Loading draws each event's start time, and those draws came from SCARE's
+clock-seeded generator, so a run could not be repeated: *Mangiasaur* reached
+its marker in some runs and not in others. With the seed set before the load,
+as Scarier sets it, every run gives the same result, and *Mangiasaur* fails
+under all five seeds, so it moves into list C. Every other figure and list
+came out as on 2026-10-11, and the re-derived routes still win in Scarier and
+still fail in SCARE. The further experiments in the next section were made
+with the first build and cover the 221 rows that failed then.
 
 | | Rows | Games |
 |---|---|---|
 | Reach the marker in Scarier | 663 | 609 |
-| Reach the marker in SCARE | 439 | 432 |
-| SCARE: route runs but does not reach the marker | 205 | 163 |
+| Reach the marker in SCARE | 438 | 431 |
+| SCARE: route runs but does not reach the marker | 206 | 164 |
 | SCARE: aborts during the route | 16 | 11 |
 | SCARE: refuses to load the game | 3 | 3 |
 
@@ -240,7 +249,7 @@ By game version:
 
 | Version | Games | Finish in SCARE | Do not finish | Abort | Not loaded |
 |---|---|---|---|---|---|
-| 4.0 | 406 | 304 | 92 | 9 | 1 |
+| 4.0 | 406 | 303 | 93 | 9 | 1 |
 | 3.9 | 183 | 120 | 62 | 1 | 0 |
 | 3.8 | 18 | 8 | 9 | 1 | 0 |
 | 3.7 | 2 | 0 | 0 | 0 | 2 |
@@ -260,8 +269,8 @@ By game version:
   generator, which draws at different points, so no seed gives it the same
   stream. The five seeds per row are the only allowance made. To see how much
   this matters, every route was rerun in Scarier under five other seeds. Of
-  the 163 games in list C, 116 have a route that still wins under all five, so
-  chance does not explain SCARE's failure there. For the other 47 the route
+  the 164 games in list C, 116 have a route that still wins under all five, so
+  chance does not explain SCARE's failure there. For the other 48 the route
   depends on the random stream to some degree (33 rows win under none of the
   five), and SCARE's failure on those may be bad luck and not a defect.
 - Giving SCARE the same generator does not close that gap. A SCARE 1.3.10
@@ -433,9 +442,9 @@ flag could not be read for every file, so B is an undercount.
 | The X-Files: A New Beginning | `The_X-Files_A_New_Beginning.taf` | 4.0 | task_run_move_npc_action: unknown NPC move type, -1 |
 | Through Time | `Through time.taf` | 4.0 | lib_random_roomgroup_member: no rooms in group 0 |
 
-### C. Route does not reach its ending — ADRIFT 4.0 (92)
+### C. Route does not reach its ending — ADRIFT 4.0 (93)
 
-3 Minutes to Live; A Day at the Iachini House; A View to a Home; ADRIFT-O-RAMA [B]; Adventure (Colossal Cave); Albert is Lost!: An Adventure in Real Life; Ba'Roo!; Blast; Briefcase; British Fox and the Celebrity Abductions; Can I do it? [B]; Crazy Old Bag Lady [P]; Cursed; Cyber Warp 1 [B]; Cyber Warp 2 [B]; DeL SoL MADNESS [B,P]; Donuts [B]; El Ascensor; Fair Scare Nightmare; Fire in the Blood; G7056 [B]; Get Treasure for Trabula [B]; Ghost Town; Ghoster [B]; Glum Fiddle; Goldilocks Is a FOX!; Goldilocks: Breaking & Entering [P]; Gorxungula's Curse; Greek School Adventure; Hammurabi; Herr Doktor von Nordlingendinkelsbuhlhundchen-am-Rhein; House; Humbug; Hunting Ground; IL GOLEM; Illegal Socks [B,P]; Invasion of the Second-Hand Shirts [B]; Irvine Quik & The Search for the Fish of Traglea; It's Easter, Peeps; Jason vs. Salm [B]; Lair of the Vampire; Les Feux de l'enfer [B]; Light Up [B]; Main Course [B]; Monster Island; Monsters; Motion; Mystery Manor; Noximion [B]; Oh No Not Another Fantasy Adventure [P]; Pieces of Eden; Professor Von Witt's Fabulous Flying Machine [P]; Provenance [P]; Quest for Flesh [B]; Rock Band: Revenge of Gigantor!; Rodney and the Princess [B]; Scandal on the Seven Seas; Selma's Will; Shadowpeak; Showtime at the Gallows; Snakes and Ladders; SPAM; Storm Tossed; Sun Empire: Quest for the Founders [B,P]; Take One; Target; Terrified [P]; The Adventures of Space Boy! Volume II [B]; The Angel, the Devil and the Human; The Dead Man; The Hunter; The Labyrinth; The Long Barrow; The Magic Show; The Night That Dripped Blood; The PK Girl; The Potter and the Mould; The Prostitute; The Puzzle Box; The Successor; The Town of Azra [B]; The Tunnels of Athylon [B,A]; The Village of Love and Lust; The Woodfish Compendium: ImagiDroids; Three Monkeys, One Cage; Ticket to No Where; Topaz; Twenty-One!; Welcome To Wonderland [B,A]; Wes Garden's Halting Nightmare; Where Are My Keys?; Wumpus Run
+3 Minutes to Live; A Day at the Iachini House; A View to a Home; ADRIFT-O-RAMA [B]; Adventure (Colossal Cave); Albert is Lost!: An Adventure in Real Life; Ba'Roo!; Blast; Briefcase; British Fox and the Celebrity Abductions; Can I do it? [B]; Crazy Old Bag Lady [P]; Cursed; Cyber Warp 1 [B]; Cyber Warp 2 [B]; DeL SoL MADNESS [B,P]; Donuts [B]; El Ascensor; Fair Scare Nightmare; Fire in the Blood; G7056 [B]; Get Treasure for Trabula [B]; Ghost Town; Ghoster [B]; Glum Fiddle; Goldilocks Is a FOX!; Goldilocks: Breaking & Entering [P]; Gorxungula's Curse; Greek School Adventure; Hammurabi; Herr Doktor von Nordlingendinkelsbuhlhundchen-am-Rhein; House; Humbug; Hunting Ground; IL GOLEM; Illegal Socks [B,P]; Invasion of the Second-Hand Shirts [B]; Irvine Quik & The Search for the Fish of Traglea; It's Easter, Peeps; Jason vs. Salm [B]; Lair of the Vampire; Les Feux de l'enfer [B]; Light Up [B]; Main Course [B]; Mangiasaur; Monster Island; Monsters; Motion; Mystery Manor; Noximion [B]; Oh No Not Another Fantasy Adventure [P]; Pieces of Eden; Professor Von Witt's Fabulous Flying Machine [P]; Provenance [P]; Quest for Flesh [B]; Rock Band: Revenge of Gigantor!; Rodney and the Princess [B]; Scandal on the Seven Seas; Selma's Will; Shadowpeak; Showtime at the Gallows; Snakes and Ladders; SPAM; Storm Tossed; Sun Empire: Quest for the Founders [B,P]; Take One; Target; Terrified [P]; The Adventures of Space Boy! Volume II [B]; The Angel, the Devil and the Human; The Dead Man; The Hunter; The Labyrinth; The Long Barrow; The Magic Show; The Night That Dripped Blood; The PK Girl; The Potter and the Mould; The Prostitute; The Puzzle Box; The Successor; The Town of Azra [B]; The Tunnels of Athylon [B,A]; The Village of Love and Lust; The Woodfish Compendium: ImagiDroids; Three Monkeys, One Cage; Ticket to No Where; Topaz; Twenty-One!; Welcome To Wonderland [B,A]; Wes Garden's Halting Nightmare; Where Are My Keys?; Wumpus Run
 
 ### C. Route does not reach its ending — ADRIFT 3.9 (62)
 

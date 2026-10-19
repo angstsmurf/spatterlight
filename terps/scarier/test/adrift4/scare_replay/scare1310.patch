@@ -1,0 +1,148 @@
+--- a/os_ansi.c
++++ b/os_ansi.c
+@@ -135,8 +135,12 @@
+       {
+         sc_char dummy[256];
+         full_flush ();
+-        if (!feof (stdin))
+-          fgets (dummy, sizeof (dummy), stdin);
++        if (getenv ("SCR_SKIP_WAITKEY"))
++          break;
++        dummy[0] = '\0';
++        while (!feof (stdin) && fgets (dummy, sizeof (dummy), stdin)
++               && dummy[strspn (dummy, " \t")] == '#')
++          dummy[0] = '\0';
+         break;
+       }
+     }
+@@ -227,7 +231,15 @@
+ 
+   putchar ('>');
+   fflush (stdout);
+-  fgets (buffer, length, stdin);
++  do
++    {
++      if (!fgets (buffer, length, stdin))
++        {
++          buffer[0] = '\0';
++          break;
++        }
++    }
++  while (buffer[strspn (buffer, " \t")] == '#');
+   return TRUE;
+ }
+ 
+@@ -424,6 +436,13 @@
+   if (locale)
+     sc_set_locale (locale);
+ 
++  /* Seed before the load: game creation draws the initial event times. */
++  if (getenv ("SCR_SEED"))
++    {
++      sc_set_portable_random (TRUE);
++      sc_reseed_random_sequence (strtoul (getenv ("SCR_SEED"), NULL, 0));
++    }
++
+   printf ("Loading game...\n");
+   game = sc_game_from_stream (stream);
+   if (!game)
+--- a/scrunner.c
++++ b/scrunner.c
+@@ -1298,6 +1298,8 @@
+  *
+  * Main interpreter loop.
+  */
++extern sc_int task_end_type;
++
+ static void
+ run_main_loop (sc_gameref_t game)
+ {
+@@ -1454,8 +1456,46 @@
+ 
+               /* Give the debugger a chance to catch watchpoints. */
+               debug_turn_update (game);
++            }
++        }
++    }
++
++  /* Replay harness: the Runner's end-of-game score summary. */
++  if (game->has_completed && task_end_type >= 0 && task_end_type <= 2)
++    {
++      sc_vartype_t vt_key[2];
++      sc_int max_score, version, percent;
++      sc_char buffer[64];
++
++      vt_key[0].string = "Version";
++      version = prop_get_integer (bundle, "I<-s", vt_key);
++      vt_key[0].string = "Globals";
++      vt_key[1].string = "MaxScore";
++      max_score = prop_get_integer (bundle, "I<-ss", vt_key);
++      if (max_score > 0 || version < TAF_VERSION_400 || task_end_type == 2)
++        {
++          percent = max_score > 0
++                    ? (sc_int) ((double) game->score * (100.0 / max_score)) : 100;
++          sprintf (buffer, "You scored %ld out of the maximum %ld!\n",
++                   game->score, max_score);
++          pf_buffer_string (filter, buffer);
++          sprintf (buffer, "That is %ld%% of the game!\n", percent);
++          pf_buffer_string (filter, buffer);
++          if (task_end_type == 0)
++            {
++              if (game->score == max_score)
++                pf_buffer_string (filter,
++                                  "Well done - you scored maximum points!\n");
++              else
++                {
++                  sprintf (buffer, "You finished %ld points short.\n",
++                           max_score - game->score);
++                  pf_buffer_string (filter, buffer);
++                }
+             }
++          pf_buffer_character (filter, '\n');
+         }
++      pf_flush (filter, vars, bundle);
+     }
+ 
+   /*
+--- a/sctasks.c
++++ b/sctasks.c
+@@ -882,6 +882,8 @@
+  *
+  * End of game task action.
+  */
++sc_int task_end_type = -1;  /* replay harness: how the game ended */
++
+ static sc_bool
+ task_run_end_game_action (sc_gameref_t game, sc_int var1)
+ {
+@@ -936,6 +938,8 @@
+     default:
+       sc_fatal ("task_run_end_game_action: invalid type, %ld\n", var1);
+     }
++
++  task_end_type = var1;
+ 
+   /* Stop the game, and note that it's not resumeable. */
+   game->is_running = FALSE;
+--- a/scvars.c
++++ b/scvars.c
+@@ -1431,7 +1431,8 @@
+       sc_int retval;
+ 
+       /* Return the elapsed game time in seconds. */
+-      delta = difftime (time (NULL), vars->timestamp);
++      delta = getenv ("SCR_SEED") ? 0.0
++              : difftime (time (NULL), vars->timestamp);
+       retval = (sc_int) delta + vars->time_offset;
+ 
+       return var_return_integer (retval, type, vt_rvalue);
+@@ -1824,7 +1825,8 @@
+   double delta;
+   assert (var_is_valid (vars));
+ 
+-  delta = difftime (time (NULL), vars->timestamp);
++  delta = getenv ("SCR_SEED") ? 0.0
++              : difftime (time (NULL), vars->timestamp);
+   return (sc_uint) delta + vars->time_offset;
+ }
+ 
