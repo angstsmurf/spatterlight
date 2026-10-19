@@ -569,6 +569,13 @@
 		BE850B4909BE8CFA26332D0F /* screstrs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = B0C28DFE777A2A70B7F78AF6 /* screstrs.cpp */; };
 		C0FFEE000000000000000B11 /* comprehend.c in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE000000000000000F11 /* comprehend.c */; };
 		C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D794358224A2D2E0071EB3D /* NSString+Categories.m */; };
+		265757BE39AE5088FF327672 /* IFictionMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E0239FFB0900FB24C0 /* IFictionMetadata.m */; };
+		7591FB1105DD324A7057DDB8 /* IFStory.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E4239FFB0900FB24C0 /* IFStory.m */; };
+		A0B23F5908006296223E844A /* IFIdentification.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673E2239FFB0900FB24C0 /* IFIdentification.m */; };
+		358E4D91F5503C742B8DCDE7 /* IFZoomID.m in Sources */ = {isa = PBXBuildFile; fileRef = C34DF54026A1FFDE007AD7D3 /* IFZoomID.m */; };
+		B847ADA7B973D9E50739F0B8 /* IFBibliographic.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */; };
+		5F3D4796DBA61A8315223DB7 /* IFCoverDescription.m in Sources */ = {isa = PBXBuildFile; fileRef = C3C180C725C717F30040AE79 /* IFCoverDescription.m */; };
+		4EAB7698371D1978C7BD2F97 /* IFDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673DC239FFB0900FB24C0 /* IFDB.m */; };
 		C300D48423A11786000B2165 /* IFDBDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = C300D48323A11786000B2165 /* IFDBDownloader.m */; };
 		C30135BF27219AC60006B85C /* DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C30135BD27219AC60006B85C /* DownloadOperation.m */; };
 		C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D73051E22BFA9EB00DFC73C /* NSDate+relative.m */; };
@@ -9417,6 +9424,13 @@
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
 				C30142FA25E90EB800E74087 /* NSDate+relative.m in Sources */,
 				C30077D72E871F9A00C32069 /* NSString+Categories.m in Sources */,
+				265757BE39AE5088FF327672 /* IFictionMetadata.m in Sources */,
+				7591FB1105DD324A7057DDB8 /* IFStory.m in Sources */,
+				A0B23F5908006296223E844A /* IFIdentification.m in Sources */,
+				358E4D91F5503C742B8DCDE7 /* IFZoomID.m in Sources */,
+				B847ADA7B973D9E50739F0B8 /* IFBibliographic.m in Sources */,
+				5F3D4796DBA61A8315223DB7 /* IFCoverDescription.m in Sources */,
+				4EAB7698371D1978C7BD2F97 /* IFDB.m in Sources */,
 				C36B3892271F710200756D94 /* InfoView.m in Sources */,
 				C32A3D852719F30A0049C777 /* PreviewViewController.m in Sources */,
 				C32A3D862719F3240049C777 /* iFictionPreviewController.m in Sources */,

@@ -17,6 +17,10 @@
 
 #import "FileSignature.h"
 #import "NSString+Categories.h"
+#import "IFictionMetadata.h"
+#import "IFStory.h"
+#import "IFIdentification.h"
+#import "IFBibliographic.h"
 
 #import "iFictionPreviewController.h"
 #import "PreviewViewController.h"
@@ -1086,44 +1090,25 @@
         return nil;
     }
 
-    if (data) {
-        NSError *error = nil;
-        NSXMLDocument *xml =
-        [[NSXMLDocument alloc] initWithData:data
-                                    options:NSXMLDocumentTidyXML
-                                      error:&error];
-        if (error)
-            NSLog(@"Error: %@", error);
+    // A Blorb holds the iFiction record of one story
+    IFStory *story = data ? [[IFictionMetadata alloc] initWithData:data].firstStory : nil;
+    IFBibliographic *bibliographic = story.bibliographic;
+    if (bibliographic.title.length)
+        metaDict[@"title"] = bibliographic.title;
+    if (bibliographic.author.length)
+        metaDict[@"author"] = bibliographic.author;
+    if (bibliographic.headline.length)
+        metaDict[@"headline"] = bibliographic.headline;
+    if (bibliographic.blurb.length)
+        metaDict[@"blurb"] = bibliographic.blurb;
 
-        NSArray *nodeNames = @[@"title", @"author", @"headline", @"description"];
-
-        NSXMLElement *story =
-        [[xml rootElement] elementsForName:@"story"].firstObject;
-        if (story) {
-            NSXMLElement *idElement = [story elementsForName:@"bibliographic"].firstObject;
-            for (NSXMLNode *node in idElement.children) {
-                if (node.stringValue.length) {
-                    for (NSString *nodeName in nodeNames) {
-                        if ([node.name compare:nodeName] == 0) {
-                            if ([nodeName isEqualToString:@"description"])
-                                metaDict[@"blurb"] = node.stringValue;
-                            else
-                                metaDict[nodeName] = node.stringValue;
-                            break;
-                        }
-                    }
-                }
-            }
-
-            idElement = [story elementsForName:@"identification"].firstObject;
-            for (NSXMLNode *node in idElement.children) {
-                if ([node.name compare:@"ifid"] == 0 && node.stringValue.length) {
-                    metaDict[@"ifid"] = node.stringValue;
-                    break;
-                }
-            }
-        }
-    }
+    // Prefer the IFID the Blorb identifies itself with, if the record lists it
+    NSSet<NSString *> *ifids = story.identification.ifids;
+    NSString *ifhd = metaDict[@"IFhd"];
+    if (ifhd.length && [ifids containsObject:ifhd])
+        metaDict[@"ifid"] = ifhd;
+    else if (ifids.count)
+        metaDict[@"ifid"] = [ifids.allObjects sortedArrayUsingSelector:@selector(compare:)].firstObject;
     return metaDict;
 }
 
