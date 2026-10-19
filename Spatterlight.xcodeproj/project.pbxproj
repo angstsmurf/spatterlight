@@ -844,6 +844,7 @@
 		C3780A022F9D0001008A6A0D /* tapetzx.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A012F9D0001008A6A0D /* tapetzx.c */; };
 		C3780A042F9D0001008A6A0D /* alkatraz.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A032F9D0001008A6A0D /* alkatraz.c */; };
 		C3780A062F9D0001008A6A0D /* zxscreen.c in Sources */ = {isa = PBXBuildFile; fileRef = C3780A052F9D0001008A6A0D /* zxscreen.c */; };
+		C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00826EE4E75006F430E /* MIDISequenceUtils.m */; };
 		C37E676026E988000005873E /* MIDIPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = C37E675E26E987FF0005873E /* MIDIPlayer.m */; };
 		C37E676226E992440005873E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676126E992440005873E /* AudioToolbox.framework */; };
 		C37E676426E992590005873E /* AudioUnit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C37E676326E992590005873E /* AudioUnit.framework */; };
@@ -3551,6 +3552,8 @@
 		C3780A052F9D0001008A6A0D /* zxscreen.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = zxscreen.c; sourceTree = "<group>"; };
 		C3780A072F9D0001008A6A0D /* decompressz80_internal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decompressz80_internal.h; sourceTree = "<group>"; };
 		C37B7BBA2FB60FEF000472AF /* scott_display.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = scott_display.h; sourceTree = "<group>"; };
+		C3D1A00726EE4E75006F430E /* MIDISequenceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDISequenceUtils.h; sourceTree = "<group>"; };
+		C3D1A00826EE4E75006F430E /* MIDISequenceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDISequenceUtils.m; sourceTree = "<group>"; };
 		C37E675E26E987FF0005873E /* MIDIPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDIPlayer.m; sourceTree = "<group>"; };
 		C37E675F26E987FF0005873E /* MIDIPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDIPlayer.h; sourceTree = "<group>"; };
 		C37E676126E992440005873E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
@@ -6405,6 +6408,8 @@
 				C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */,
 				C37E675F26E987FF0005873E /* MIDIPlayer.h */,
 				C37E675E26E987FF0005873E /* MIDIPlayer.m */,
+				C3D1A00726EE4E75006F430E /* MIDISequenceUtils.h */,
+				C3D1A00826EE4E75006F430E /* MIDISequenceUtils.m */,
 				61C07B573024065000388340 /* NowPlayingCoordinator.h */,
 				61C07B593024065800388340 /* NowPlayingCoordinator.m */,
 			);
@@ -8908,6 +8913,7 @@
 				27EAFC3E50AB728845509D74 /* SoundResource.m in Sources */,
 				353FB4704ED3A648FEE6F303 /* SpectrumBeeper.m in Sources */,
 				C37E676026E988000005873E /* MIDIPlayer.m in Sources */,
+				C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */,
 				C35C54042676613800294FE7 /* NSFont+Categories.m in Sources */,
 				C3A1997E299982E300D27500 /* OSFastGraphics.m in Sources */,
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
