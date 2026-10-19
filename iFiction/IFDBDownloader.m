@@ -64,7 +64,7 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
     if (!games.count)
         return nil;
 
-    NSOperation __block *lastoperation = nil;
+    NSOperation *lastoperation = nil;
 
     TableViewController *tableViewController = _tableViewController;
 
@@ -87,49 +87,47 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
         }];
     };
 
-    [context performBlockAndWait:^{
-        for (NSManagedObjectID *gameID in games) {
-            Game *game = [context objectWithID:gameID];
-            Metadata *metadata = game.metadata;
-            if (metadata == nil)
-                continue;
-            NSString *identifier = metadata.objectID.URIRepresentation.absoluteString;
-            if (identifier.length == 0)
-                continue;
+    for (NSManagedObjectID *gameID in games) {
+        Game *game = [context objectWithID:gameID];
+        Metadata *metadata = game.metadata;
+        if (metadata == nil)
+            continue;
+        NSString *identifier = metadata.objectID.URIRepresentation.absoluteString;
+        if (identifier.length == 0)
+            continue;
 
-            // Look the game up by TUID if we know it, otherwise by every IFID.
-            NSMutableArray<NSURL *> *urls = [NSMutableArray new];
-            if (metadata.tuid.length || !metadata.ifids.count) {
-                NSURL *url = [IFDB viewGameURLForTUID:metadata.tuid IFID:game.ifid iFiction:YES];
+        // Look the game up by TUID if we know it, otherwise by every IFID.
+        NSMutableArray<NSURL *> *urls = [NSMutableArray new];
+        if (metadata.tuid.length || !metadata.ifids.count) {
+            NSURL *url = [IFDB viewGameURLForTUID:metadata.tuid IFID:game.ifid iFiction:YES];
+            if (url)
+                [urls addObject:url];
+        } else {
+            for (Ifid *ifid in metadata.ifids) {
+                NSURL *url = [IFDB viewGameURLForTUID:nil IFID:ifid.ifidString iFiction:YES];
                 if (url)
                     [urls addObject:url];
-            } else {
-                for (Ifid *ifid in metadata.ifids) {
-                    NSURL *url = [IFDB viewGameURLForTUID:nil IFID:ifid.ifidString iFiction:YES];
-                    if (url)
-                        [urls addObject:url];
-                }
-            }
-
-            for (NSURL *url in urls) {
-                DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url identifier:identifier completionHandler:handler];
-                [queue addOperation:operation];
-                lastoperation = operation;
             }
         }
 
-        if (completionHandler && lastoperation) {
-            NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:completionHandler];
-            [finisher addDependency:lastoperation];
-            [queue addOperationWithBlock:^{
-                NSOperation *op = tableViewController.lastImageDownloadOperation;
-                if (op)
-                    [finisher addDependency:op];
-                [queue addOperation:finisher];
-            }];
-            lastoperation = finisher;
+        for (NSURL *url in urls) {
+            DownloadOperation *operation = [[DownloadOperation alloc] initWithSession:defaultSession dataTaskURL:url identifier:identifier completionHandler:handler];
+            [queue addOperation:operation];
+            lastoperation = operation;
         }
-    }];
+    }
+
+    if (completionHandler && lastoperation) {
+        NSBlockOperation *finisher = [NSBlockOperation blockOperationWithBlock:completionHandler];
+        [finisher addDependency:lastoperation];
+        [queue addOperationWithBlock:^{
+            NSOperation *op = tableViewController.lastImageDownloadOperation;
+            if (op)
+                [finisher addDependency:op];
+            [queue addOperation:finisher];
+        }];
+        lastoperation = finisher;
+    }
 
     if (lastoperation == nil)
         NSLog(@"Error! downloadMetadataForGames lastoperation == nil!");
