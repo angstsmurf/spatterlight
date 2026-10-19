@@ -1,5 +1,39 @@
 # Change log
 
+## Unreleased
+
+### Bocfel (Z-code)
+- The VoiceOver menus of the Infocom Z6 games read accented letters correctly, instead of decoding the game's Latin-1 text as something else.
+- In *Journey*, VoiceOver no longer capitalises names wrongly ("AnnA" for "Anna"), the menus come back correctly when the game is autorestored, an empty menu title no longer crashes, and rebuilding the dialog no longer drops a character.
+- In *Bureaucracy*, the VoiceOver form reading is fixed, and an instruction waiting to be spoken survives an error message.
+- A menu read by VoiceOver no longer speaks the instruction for a key twice.
+
+### Plus
+- The versions of the *X-Men* SAGA database other than the original can now be added to the library, as they now get an IFID of their own.
+
+### General
+- Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.
+- The story name stored in a Blorb file is read correctly, where it used to come out empty for the Infocom Blorbs, and the cover picture is chosen the same way everywhere. A Blorb whose cover entry names a picture that isn't there falls back to the first picture.
+- Data downloaded from IFDB no longer overwrites the headline with the year; the year goes to the first-published date. The forgiveness rating is stored, dates in odd formats are understood, and the language is stored as a code, so "French, English (fr, en)" becomes "fr". Covers downloaded from IFDB are saved straight away, and Open in IFDB works for games without an IFID. Spatterlight no longer accepts an untrusted certificate when talking to IFDB.
+- Games with the older Zoom-style IFIDs are matched the same way as babel does.
+- Verify Library no longer acts on games that have been deleted, can't remove the game you are playing, and doesn't import games that have several IFIDs again. The check for missing files and for dropped files ignores the case of the file name, and the check for files in the Trash only matches the Trash folder itself. When looking for missing files in a moved folder, a folder name no longer matches inside a longer one, such as "Games" inside "MyGames".
+- Exported metadata escapes characters that are special in XML. Damaged Z-code, Blorb and NEO files are refused instead of being read past their end. Files ending in .zlb and .gblorb are recognised as Blorbs.
+- Sorting the library by the Liked column works, and the window subtitle shows the right count. Copying and pasting covers in the info window is fixed, and the temporary file a dropped cover is read from is deleted. When organising the library, a game's group is only recorded once the file has actually been moved. The "taking a long time" alert is no longer shown after a game has failed to load.
+- The copy of *Beyond Zork*'s SCREEN.DAT made for the game is deleted afterwards.
+- Changing only the size in the font panel no longer resets the font to a different family. The Right and Center alignment buttons were swapped on Intel Macs. The baseline of the DOSBox and Montserrat themes is fixed. Out-of-range values for the default size and the update check interval are corrected, and the quote box checkbox shows the right state.
+- Updating a library from an older version of Spatterlight no longer replaces the game titles with file names. If the library can't be moved to its new shared location, Spatterlight keeps using it where it is and tries again at the next launch, instead of quitting.
+- Your "Old settings" theme is no longer overwritten, recreated or deleted with each new build of Spatterlight or by Rebuild Default Themes.
+- Removing the light mode override of a theme works.
+- Notification bezels shown in quick succession wait their turn instead of drawing on top of each other. VoiceOver announces their text even with bezels turned off. The Game Over bezel gets the right tint, and vector covers and tall portrait covers show correctly in bezels.
+- A home folder name with non-ASCII characters no longer breaks autosaves and temporary files. Fixes several crashes when autorestoring, and one when an event arrives for a window that has just closed. Characters outside the Basic Multilingual Plane work in preloaded input, replies and erased text, and the position in a Unicode file stream is kept correctly.
+- Each sound channel no longer leaks an audio output. A sound that can't be decoded no longer crashes, and is not played again after an autorestore. A fade in progress when the game was autosaved continues with the right timing, and volumes out of range are clamped. A sound that can't be resumed after a pause starts again from where it was. Autosaves stay compatible with older and newer builds.
+- ZX Spectrum beeps play at the exact pitch (a 4000 Hz note used to play at 4410 Hz), and a tune stops when the game ends.
+- Graphics windows with a transparent background resize correctly, edges no longer grow softer with each resize, and the window is redrawn when moved to a screen with a different resolution. A click no longer counts as a drag unless the mouse moves at least 3 points, and dragging a graphics window drags a picture of its contents.
+- A dragged picture can be dropped as a file, for example into Terminal.
+- Images replaced by a game are read in full, and purging pictures no longer deletes picture files that belong to the game. Placeholder rectangles in a Blorb file are kept, a picture that fails to load no longer leaves the previous one showing, and the temporary files of replaced pictures are deleted once decoded.
+- JPEG pictures with Exif data are recognised. VoiceOver rotor fixes, among them in *A Colder Light*.
+- In text buffer windows, turning echo on and off works, clicks on hyperlinks are only sent when the game is waiting for one, a margin picture keeps its link when rescaled, and clearing the scrollback is fixed. Fixes a crash when dragging a picture that has no bitmap and one in *Dead Cities*. The VoiceOver labels of pictures and the input history are localised.
+
 ## Release 1.5.5
 
 ### Scarier (Adrift)
