@@ -40,8 +40,8 @@ NS_ASSUME_NONNULL_BEGIN
                        offset:(NSUInteger)offset
                          size:(NSUInteger)size;
 // Forgets picture resno. With a replacement, the whole file at path (a
-// temporary file the handler then owns and deletes when this picture is
-// purged again) becomes picture resno and current.
+// temporary file the handler then owns and deletes once it has decoded it)
+// becomes picture resno and current.
 - (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)path;
 
 #pragma mark Lookups: these leave the last image alone

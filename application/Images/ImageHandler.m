@@ -46,6 +46,17 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     return self;
 }
 
+// A replacement file is left in the interpreter's temp folder for the host
+// to delete, and nothing else reads it.
+- (void)deleteFileOfResource:(ImageResource *)resource {
+    if (!resource.ownsFile)
+        return;
+    resource.ownsFile = NO;
+    NSError *error = nil;
+    if (![[NSFileManager defaultManager] removeItemAtPath:resource.filename error:&error])
+        NSLog(@"ImageHandler: could not delete %@: %@", resource.filename, error);
+}
+
 // Store an image in the cache with its decoded size as the cost, so
 // totalCostLimit bounds memory rather than object count.
 - (void)cacheImage:(NSImage *)image forResource:(NSInteger)resno {
@@ -175,12 +186,7 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     [self waitForCaching];
 
     [_imageCache removeObjectForKey:@(resno)];
-    ImageResource *resource = _resources[@(resno)];
-    if (resource.ownsFile) {
-        NSError *error = nil;
-        if (![[NSFileManager defaultManager] removeItemAtPath:resource.filename error:&error])
-            NSLog(@"purgeImage: %@", error);
-    }
+    [self deleteFileOfResource:_resources[@(resno)]];
     [_resources removeObjectForKey:@(resno)];
     _lastimage = nil;
     _lastimageresno = -1;
@@ -190,7 +196,12 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     ImageResource *replacement = [[ImageResource alloc] initWithFilename:replacementPath offset:0 length:0];
     replacement.ownsFile = YES;
     _resources[@(resno)] = replacement;
-    [self selectImageNumber:resno];
+    // The picture is decoded from the data read, so once that worked the
+    // file can go. glkimp removes its temp folder when the interpreter
+    // exits, but until then the last replacement under every number would
+    // stay there: 6 to 20 MB over the walkthrough of a V6 game.
+    if ([self selectImageNumber:resno])
+        [self deleteFileOfResource:replacement];
 }
 
 #pragma mark Lookups

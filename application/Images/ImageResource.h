@@ -25,7 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (readonly, nullable) NSData *data;
 
 // The file is a temporary one the interpreter wrote for the host and left to
-// it (a PURGEIMG replacement), so the handler deletes it with the resource.
+// it (a PURGEIMG replacement), so the handler deletes it: once it is decoded,
+// or else when the number is purged again.
 @property BOOL ownsFile;
 
 // Reads data from the file. Returns NO, and leaves data as it was, if the

@@ -5,7 +5,7 @@
 //  application/Images on its own, without a game: the "last image" that
 //  FINDIMAGE, LOADIMAGE and PURGEIMG leave for a draw request, lookups that
 //  must not change it, Blorb Rect placeholders, PURGEIMG replacements as
-//  Bocfel writes them (and which files a purge may delete), and the frame
+//  Bocfel writes them (and which files the handler deletes, and when), and the frame
 //  timing of an animated GIF.
 //
 
@@ -198,23 +198,37 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
     XCTAssertTrue([handler handleFindImageNumber:600]);
 }
 
-// The replacement's file is the handler's to delete once it is purged in
-// turn; the picture it replaces is gone, not drawn again.
-- (void)testPurgeDeletesTheReplacedReplacementFile {
+// A replacement's file is the handler's to delete, and it goes as soon as
+// the picture is decoded: the image is made from the data read, so it
+// survives the file, a cache eviction included.
+- (void)testPurgeDeletesTheReplacementFileOnceDecoded {
     ImageHandler *handler = [ImageHandler new];
     NSString *first = [self write:BocfelTIFF(4, 4) named:@"r1.tiff"];
     NSString *second = [self write:BocfelTIFF(8, 2) named:@"r2.tiff"];
     [handler purgeImage:600 withReplacement:first];
-    [handler purgeImage:600 withReplacement:second];
     XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:first]);
-    XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:second]);
+    [handler purgeImage:600 withReplacement:second];
+    XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:second]);
     XCTAssertEqual(handler.lastimage.size.width, 8);
+    XCTAssertEqual([handler dataForImageNumber:600].length, BocfelTIFF(8, 2).length);
 
     [handler purgeImage:600 withReplacement:nil];
-    XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:second]);
     XCTAssertNil(handler.lastimage);
     XCTAssertEqual(handler.lastimageresno, -1);
     XCTAssertFalse([handler handleFindImageNumber:600]);
+}
+
+// A replacement that does not decode keeps its file, so a later lookup can
+// try again, until its number is purged again. (glkimp deletes whatever is
+// left in its temp folder when the interpreter exits.)
+- (void)testUndecodedReplacementKeepsItsFileUntilPurged {
+    NSString *junk = [self write:[@"not a picture" dataUsingEncoding:NSASCIIStringEncoding] named:@"junk.tiff"];
+    ImageHandler *handler = [ImageHandler new];
+    [handler purgeImage:600 withReplacement:junk];
+    XCTAssertNil(handler.lastimage);
+    XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:junk]);
+    [handler purgeImage:600 withReplacement:nil];
+    XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:junk]);
 }
 
 // A file the game declared with LOADIMAGE (a PIC file, a game's own

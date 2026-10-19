@@ -28,6 +28,12 @@ bundle.
 - A purge deletes only files the handler owns (PURGEIMG replacements), not
   any non-Blorb file. A purged LOADIMAGE `PIC3`, or a Hugo resource file,
   used to be deleted.
+- A replacement's file is deleted as soon as it has been decoded (one that
+  does not decode stays until its number is purged again). No TIFF outlived
+  a session before either: glkimp removes its temp folder at `glk_exit`, and
+  sweeps the folders of killed interpreters at the next launch. But until
+  then the last replacement under every number stayed on disk, 17.5 MB by
+  the end of the Zork Zero walkthrough.
 - Blorb Rect placeholders are decoded by `ImageResource` (two 32-bit values),
   so FINDIMAGE finds them and they survive cache eviction. Arthur (34),
   Shogun (6) and Zork Zero (107) have Rect chunks; their facit tests pass.
@@ -49,13 +55,6 @@ bundle.
   mapped file that is replaced or truncated during play crashes the
   process with SIGBUS on the next touch, which a heap copy never does. Not
   worth that for ~20 MiB; revisit only if games get far larger.
-
-## Needs a decision
-
-- **Temp files at the end of a session.** The last replacement under each
-  number is never purged, so its TIFF stays in Bocfel's temp folder. Deleting
-  owned files in `dealloc` would fix it; check with an autorestore first
-  that nothing reads them after the handler is gone.
 
 ## Small, low value alone
 
