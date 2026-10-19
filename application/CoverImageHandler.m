@@ -1,5 +1,5 @@
 //
-//  CoverImageWindowController.m
+//  CoverImageHandler.m
 //  Spatterlight
 //
 //  Created by Administrator on 2021-05-29.
@@ -17,6 +17,7 @@
 #import "Preferences.h"
 #import "Image.h"
 #import "NotificationBezel.h"
+#import "DebugLog.h"
 
 #import <QuartzCore/QuartzCore.h>
 
@@ -39,9 +40,25 @@
 @end
 
 
-@interface CoverImageHandler ()
+static NSWindow *SPBorderlessWindow(NSRect contentRect) {
+    return [[NSWindow alloc] initWithContentRect:contentRect
+                                       styleMask:NSWindowStyleMaskBorderless
+                                         backing:NSBackingStoreBuffered
+                                           defer:YES];
+}
 
-@end
+// A one-shot opacity animation that holds its final value
+static CABasicAnimation *SPOpacityAnimation(float from, float to, CFTimeInterval beginTime, CFTimeInterval duration) {
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.fromValue = @(from);
+    animation.toValue = @(to);
+    animation.additive = NO;
+    animation.removedOnCompletion = NO;
+    animation.beginTime = beginTime;
+    animation.duration = duration;
+    animation.fillMode = kCAFillModeForwards;
+    return animation;
+}
 
 @implementation CoverImageHandler
 
@@ -62,10 +79,7 @@
                             kCGWindowImageBoundsIgnoreFraming);
 
     CALayer *snapshotLayer = [[CALayer alloc] init];
-    NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
-                                                   styleMask: NSWindowStyleMaskBorderless
-                                                     backing: NSBackingStoreBuffered
-                                                       defer: YES];
+    NSWindow *newWin = SPBorderlessWindow(_glkctl.window.contentView.frame);
     newWin.opaque = NO;
     newWin.backgroundColor = NSColor.clearColor;
     newWin.contentView.wantsLayer = YES;
@@ -79,10 +93,7 @@
 }
 
 - (NSWindow *)backgroundColorWindow {
-    NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
-                                                   styleMask: NSWindowStyleMaskBorderless
-                                                     backing: NSBackingStoreBuffered
-                                                       defer: YES];
+    NSWindow *newWin = SPBorderlessWindow(_glkctl.window.contentView.frame);
     newWin.opaque = YES;
     newWin.backgroundColor = _glkctl.bgcolor;
 
@@ -91,10 +102,7 @@
 }
 
 - (NSWindow *)fadeWindow {
-    NSWindow *newWin = [[NSWindow alloc] initWithContentRect:_glkctl.window.contentView.frame
-                                                   styleMask: NSWindowStyleMaskBorderless
-                                                     backing: NSBackingStoreBuffered
-                                                       defer: YES];
+    NSWindow *newWin = SPBorderlessWindow(_glkctl.window.contentView.frame);
     newWin.opaque = NO;
     newWin.backgroundColor = NSColor.clearColor;
 
@@ -175,14 +183,7 @@
         [glkctl.borderView addSubview:glkctl.gameView];
         [glkctl adjustContentView];
 
-        CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        fadeOutAnimation.fromValue = @1.0f;
-        fadeOutAnimation.toValue = @0.0f;
-        fadeOutAnimation.additive = NO;
-        fadeOutAnimation.removedOnCompletion = NO;
-        fadeOutAnimation.beginTime = 0.0;
-        fadeOutAnimation.duration = 0.5;
-        fadeOutAnimation.fillMode = kCAFillModeForwards;
+        CABasicAnimation *fadeOutAnimation = SPOpacityAnimation(1, 0, 0.0, 0.5);
 
         glkctl.showingCoverImage = NO;
         // FIXME: Just fork the interpreter NSTask here instead
@@ -301,26 +302,18 @@
 
     [window makeFirstResponder:_imageView];
 
-    CABasicAnimation *fadeInAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeInAnimation.fromValue = @0.0f;
-    fadeInAnimation.toValue = @1.0f;
-    fadeInAnimation.additive = NO;
-    fadeInAnimation.removedOnCompletion = NO;
-    fadeInAnimation.beginTime = 0.0;
-    fadeInAnimation.duration = 0.2;
-    fadeInAnimation.fillMode = kCAFillModeForwards;
+    CABasicAnimation *fadeInAnimation = SPOpacityAnimation(0, 1, 0.0, 0.2);
 
     [_imageView.layer addAnimation:fadeInAnimation forKey:nil];
 }
 
 - (void)showLogoAndFade {
     [_glkctl forkInterpreterTask];
-    CoverImageView __block *imageView;
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 
         NSWindow *fadeWindow = [self fadeWindow];
 
-        imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds delegate:self];
+        CoverImageView *imageView = [[CoverImageView alloc] initWithFrame:fadeWindow.contentView.bounds delegate:self];
 
         [fadeWindow.contentView addSubview:imageView];
         [imageView positionImage];
@@ -341,15 +334,7 @@
         layer.opacity = 1;
         [self.glkctl.window addChildWindow:fadeWindow ordered:NSWindowAbove];
 
-        CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-        fadeOutAnimation.fromValue = @1.0f;
-        fadeOutAnimation.toValue = @0.0f;
-        fadeOutAnimation.additive = NO;
-        fadeOutAnimation.removedOnCompletion = NO;
-        fadeOutAnimation.beginTime = 1.5;
-        fadeOutAnimation.duration = 0.5;
-        fadeOutAnimation.fillMode = kCAFillModeForwards;
-
+        CABasicAnimation *fadeOutAnimation = SPOpacityAnimation(1, 0, 1.5, 0.5);
 
         CFTimeInterval addTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
         CAAnimationGroup *group = [CAAnimationGroup animation];
@@ -494,11 +479,7 @@
 
 - (NSWindow *)enterFullscreenWindow {
     if (!_enterFullscreenWindow) {
-        _enterFullscreenWindow =
-        [[NSWindow alloc] initWithContentRect:NSZeroRect
-                                    styleMask: NSWindowStyleMaskBorderless
-                                      backing: NSBackingStoreBuffered
-                                        defer: YES];
+        _enterFullscreenWindow = SPBorderlessWindow(NSZeroRect);
     }
     return _enterFullscreenWindow;
 }

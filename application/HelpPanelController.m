@@ -161,7 +161,7 @@
 
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithString:string];
     NSTextContainer *textContainer = [[NSTextContainer alloc]
-        initWithContainerSize:NSMakeSize(textWidth + padding * 2, FLT_MAX)];
+        initWithContainerSize:NSMakeSize(textWidth + padding * 2, CGFLOAT_MAX)];
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
     [layoutManager addTextContainer:textContainer];
     [textStorage addLayoutManager:layoutManager];

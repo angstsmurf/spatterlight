@@ -11,6 +11,7 @@
 #import "FileSignature.h"
 
 #import "NSString+Categories.h"
+#import "DebugLog.h"
 
 
 @implementation NSString (Categories)
@@ -35,45 +36,20 @@
 // https://stackoverflow.com/questions/39729525/replacing-smart-quote-in-nsstring-replace-doesnt-catch-it
 
 - (NSString *)scrubInvalidCharacters {
+    // None of the replacements contains a character that is itself replaced,
+    // so the order does not matter.
+    static NSString * const replacements[][2] = {
+        { @"\u2010", @"-" },   { @"\u2011", @"-" },  { @"\u2012", @"-" },
+        { @"\u2013", @"-" },   { @"\u2014", @"-" },  { @"\u2015", @"-" },
+        { @"\u2017", @"_" },   { @"\u2018", @"'" },  { @"\u2019", @"'" },
+        { @"\u201a", @"," },   { @"\u201b", @"'" },  { @"\u201c", @"\"" },
+        { @"\u201d", @"\"" },  { @"\u201e", @"\"" }, { @"\u2026", @"..." },
+        { @"\u2032", @"'" },   { @"\u2033", @"\"" },
+    };
     NSString *result = self;
-    result = [result stringByReplacingOccurrencesOfString:@"\u2010"
-                                               withString:@"-"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2011"
-                                               withString:@"-"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2012"
-                                               withString:@"-"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2013"
-                                               withString:@"-"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2014"
-                                               withString:@"-"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2015"
-                                               withString:@"-"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2017"
-                                               withString:@"_"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2018"
-                                               withString:@"\'"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2019"
-                                               withString:@"\'"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u201a"
-                                               withString:@","];
-    result = [result stringByReplacingOccurrencesOfString:@"\u201b"
-                                               withString:@"\'"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u201c"
-                                               withString:@"\""];
-    result = [result stringByReplacingOccurrencesOfString:@"\u201d"
-                                               withString:@"\""];
-    result = [result stringByReplacingOccurrencesOfString:@"\u201e"
-                                               withString:@"\""];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2026"
-                                               withString:@"..."];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2032"
-                                               withString:@"\'"];
-    result = [result stringByReplacingOccurrencesOfString:@"\u2033"
-                                               withString:@"\""];
-    result = [result stringByReplacingOccurrencesOfString:@"“"
-                                               withString:@"\""];
-    result = [result stringByReplacingOccurrencesOfString:@"”"
-                                               withString:@"\""];
+    for (size_t i = 0; i < sizeof(replacements) / sizeof(replacements[0]); i++)
+        result = [result stringByReplacingOccurrencesOfString:replacements[i][0]
+                                                   withString:replacements[i][1]];
     return result;
 }
 
@@ -121,6 +97,15 @@
                                          withTemplate:@"\n"];
 }
 
+// Titles longer than 40 characters are cut to 39 plus an ellipsis
+static NSString *SPTruncatedTitle(NSString *title) {
+    if (title.length <= 40)
+        return title;
+    // Cut at index 39, or before it if that would split a composed character
+    NSRange keep = NSMakeRange(0, [title rangeOfComposedCharacterSequenceAtIndex:39].location);
+    return [[title substringWithRange:keep] stringByAppendingString:@"…"];
+}
+
 + (NSString *)stringWithSummaryOfGames:(NSArray<Game*> *)games {
 
     if (!games || games.count == 0)
@@ -128,12 +113,7 @@
     Metadata *metadata = games.firstObject.metadata;
     if (metadata == nil)
         return nil;
-    NSString *gameString = metadata.title;
-    if (gameString.length > 40) {
-        gameString = [gameString substringToIndex:39];
-        gameString = [NSString stringWithFormat:@"%@…", gameString];
-    }
-    gameString = [NSString stringWithFormat:@"\"%@\"", gameString];
+    NSString *gameString = [NSString stringWithFormat:@"\"%@\"", SPTruncatedTitle(metadata.title)];
 
     NSUInteger number = games.count - 1;
 
@@ -141,11 +121,7 @@
         return gameString;
 
     if (number == 1) {
-        NSString *gameString2 = games[1].metadata.title;
-        if (gameString2.length > 40) {
-            gameString2 = [gameString2 substringToIndex:39];
-            gameString2 = [NSString stringWithFormat:@"%@…", gameString2];
-        }
+        NSString *gameString2 = SPTruncatedTitle(games[1].metadata.title);
         return [NSString stringWithFormat:@"%@ and \"%@\"", gameString, gameString2];
     }
 

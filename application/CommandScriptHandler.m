@@ -14,6 +14,8 @@
 
 #import "CommandScriptHandler.h"
 
+#import "DebugLog.h"
+
 extern NSArray *gDocFileTypes;
 extern NSArray *gSaveFileTypes;
 
@@ -41,6 +43,33 @@ static void SPReportScriptProblem(NSString *message, NSString *informativeText) 
     [alert runModal];
 }
 
+// Asks the user to confirm, with a "Do not show this message again" box
+// whose state is kept under suppressionKey. Returns YES to go ahead.
+static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *message, NSString *informativeText) {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+
+    if ([defaults boolForKey:suppressionKey] || SPRunningUnderTests()) {
+        NSLog(@"%@ suppressed", suppressionKey);
+        return YES;
+    }
+
+    NSAlert *anAlert = [[NSAlert alloc] init];
+    anAlert.messageText = message;
+    anAlert.informativeText = informativeText;
+    anAlert.showsSuppressionButton = YES; // Uses default checkbox title
+
+    [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
+    [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+
+    NSInteger choice = [anAlert runModal];
+
+    if (anAlert.suppressionButton.state == NSOnState) {
+        // Suppress this alert from now on
+        [defaults setBool:YES forKey:suppressionKey];
+    }
+    return choice != NSAlertSecondButtonReturn;
+}
+
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
@@ -57,7 +86,9 @@ static void SPReportScriptProblem(NSString *message, NSString *informativeText) 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeObject:_commandString forKey:@"commandString"];
     [encoder encodeObject:_commandArray forKey:@"commandArray"];
-    [encoder encodeInteger:(NSInteger)_commandIndex - 1 forKey:@"commandIndex"];
+    // Step back one line so that the command in progress is sent again
+    // after an autorestore. (Unsigned: don't step back from 0.)
+    [encoder encodeInteger:_commandIndex ? (NSInteger)_commandIndex - 1 : 0 forKey:@"commandIndex"];
     [encoder encodeInteger:_lastCommandWindow forKey:@"lastCommandWindow"];
     [encoder encodeInteger:(NSInteger)_lastCommandType forKey:@"lastCommandType"];
     [encoder encodeObject:_untypedCharacters forKey:@"untypedCharacters"];
@@ -215,92 +246,45 @@ static void SPReportScriptProblem(NSString *message, NSString *informativeText) 
         return;
     }
 
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    if ([defaults boolForKey:@"CommandScriptAlertSuppression"] || SPRunningUnderTests()) {
-        NSLog(@"Command script alert suppressed");
-    } else {
-        NSAlert *anAlert = [[NSAlert alloc] init];
-        anAlert.messageText = NSLocalizedString(@"Run command script?", nil);
-
-        anAlert.informativeText = [NSString stringWithFormat:@"Do you want to run the command script %@ with this game?", filename.lastPathComponent];
-        anAlert.showsSuppressionButton = YES; // Uses default checkbox title
-
-        [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-        [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-        NSInteger choice = [anAlert runModal];
-
-        if (anAlert.suppressionButton.state == NSOnState) {
-            // Suppress this alert from now on
-            [defaults setBool:YES forKey:@"CommandScriptAlertSuppression"];
-        }
-        if (choice == NSAlertSecondButtonReturn) {
-            return;
-        }
-    }
+    if (!SPConfirmUnlessSuppressed(@"CommandScriptAlertSuppression",
+                                   NSLocalizedString(@"Run command script?", nil),
+                                   [NSString stringWithFormat:NSLocalizedString(@"Do you want to run the command script %@ with this game?", nil), filename.lastPathComponent]))
+        return;
 
     [self startCommandScript:string inWindow:win];
 }
 
-- (nullable GlkWindow *)findGlkWindowWithInput {
-    GlkWindow *foundWin = nil;
+- (nullable GlkWindow *)windowWithLineRequest {
     for (GlkWindow *win in _glkctl.gwindows.allValues) {
-        if ([win hasLineRequest]) {
-            foundWin = win;
-            break;
-        }
+        if ([win hasLineRequest])
+            return win;
     }
-    if (!foundWin) {
-        // Found no window with line input request
-        for (GlkWindow *win in _glkctl.gwindows.allValues) {
-            if ([win hasCharRequest]) {
-                foundWin = win;
-                // Found window with char input request
-                break;
-            }
-        }
+    return nil;
+}
+
+// A window with a line request, or failing that one with a char request.
+- (nullable GlkWindow *)findGlkWindowWithInput {
+    GlkWindow *foundWin = [self windowWithLineRequest];
+    if (foundWin)
+        return foundWin;
+    for (GlkWindow *win in _glkctl.gwindows.allValues) {
+        if ([win hasCharRequest])
+            return win;
     }
-    return foundWin;
+    return nil;
 }
 
 - (void)restoreFromSaveFile:(NSString *)filename {
-    GlkWindow *win = nil;
-    for (GlkWindow *foundwin in _glkctl.gwindows.allValues) {
-        if ([foundwin hasLineRequest]) {
-            win = foundwin;
-            break;
-        }
-    }
+    GlkWindow *win = [self windowWithLineRequest];
     if (!win) {
         SPReportScriptProblem(NSLocalizedString(@"No prompt.", nil),
                               NSLocalizedString(@"Cannot find an input prompt to restore this save from.", nil));
         return;
     }
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-    if ([defaults boolForKey:@"SaveFileAlertSuppression"] || SPRunningUnderTests()) {
-        NSLog(@"Save file alert suppressed");
-    } else {
-        NSAlert *anAlert = [[NSAlert alloc] init];
-        anAlert.messageText = NSLocalizedString(@"Restore from save file?", nil);
-
-        anAlert.informativeText = [NSString stringWithFormat:@"Do you want to restore this game from the save file %@?", filename.lastPathComponent];
-        anAlert.showsSuppressionButton = YES; // Uses default checkbox title
-
-        [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-        [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-        NSInteger choice = [anAlert runModal];
-
-        if (anAlert.suppressionButton.state == NSOnState) {
-            // Suppress this alert from now on
-            [defaults setBool:YES forKey:@"SaveFileAlertSuppression"];
-        }
-        if (choice == NSAlertSecondButtonReturn) {
-            return;
-        }
-    }
+    if (!SPConfirmUnlessSuppressed(@"SaveFileAlertSuppression",
+                                   NSLocalizedString(@"Restore from save file?", nil),
+                                   [NSString stringWithFormat:NSLocalizedString(@"Do you want to restore this game from the save file %@?", nil), filename.lastPathComponent]))
+        return;
     _glkctl.pendingSaveFilePath = filename;
     [win sendCommandLine:@"restore"];
 }

@@ -17,6 +17,5 @@
 @property (NS_NONATOMIC_IOSONLY, getter=isThisWeek, readonly) BOOL thisWeek;
 
 - (NSDate *) dateByAddingDays: (NSInteger) dDays;
-- (NSDate *) dateBySubtractingDays: (NSInteger) dDays;
 
 @end

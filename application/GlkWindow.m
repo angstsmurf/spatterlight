@@ -193,6 +193,11 @@
 // instead of recreating it on every print operation.
 - (NSMutableDictionary *)getCurrentAttributesForStyle:(NSUInteger)stylevalue {
 
+    if (stylevalue >= styles.count)
+        stylevalue = style_Normal;
+    if (stylevalue >= styles.count)
+        return nil;
+
     if ([styles[stylevalue] isEqual:[NSNull null]]) {
         if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
             styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;

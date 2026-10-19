@@ -25,20 +25,11 @@
     return nil;
 }
 
-+ (NSBitmapImageRep *)repFromNeoURL:(NSURL *)url {
-    const char *filename = url.fileSystemRepresentation;
-
-    z_image *zimg = get_neo_picture(filename);
-
-    if (zimg == NULL) {
-        end_neo_graphics();
+// Wraps the RGB pixels of a decoded picture. The z_image itself still
+// belongs to the decoder, which the caller ends afterwards.
+static NSBitmapImageRep *SPRepFromZImage(z_image *zimg) {
+    if (zimg == NULL || zimg->width < 1 || zimg->height < 1)
         return nil;
-    }
-
-    if(zimg->width < 1 || zimg->height < 1) {
-        end_neo_graphics();
-        return nil;
-    }
 
     // 3 bytes (rgb, no alpha) for each pixel
     NSUInteger bytesPerPixel = 3;
@@ -47,13 +38,13 @@
 
     NSUInteger bytesPerRow = (NSUInteger)(zimg->width * bytesPerPixel);
 
-    // TODO: better colorspace for NEO files?
+    // TODO: better colorspace for NEO and MG1 files?
     CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
 
     NSData *data =
     [NSData dataWithBytes:zimg->data length:(NSUInteger)(zimg->width * zimg->height * bytesPerPixel)];
 
-    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData((CFDataRef)data);
+    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
 
     CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
 
@@ -66,6 +57,14 @@
 
     CFRelease(deviceColorSpace);
     CFRelease(cgDataProvider);
+
+    return rep;
+}
+
++ (NSBitmapImageRep *)repFromNeoURL:(NSURL *)url {
+    const char *filename = url.fileSystemRepresentation;
+
+    NSBitmapImageRep *rep = SPRepFromZImage(get_neo_picture(filename));
 
     end_neo_graphics();
 
@@ -92,40 +91,7 @@
     z_image *zimg = get_mg1_picture(pictureNumberArray[0]);
     free(pictureNumberArray);
 
-    if (zimg == NULL) {
-        end_mg1_graphics();
-        return nil;
-    }
-
-    if(zimg->width < 1 || zimg->height < 1) {
-        end_mg1_graphics();
-        return nil;
-    }
-
-    // 3 bytes (rgb, no alpha) for each pixel
-    NSUInteger bytesPerPixel = 3;
-    NSUInteger bitsPerComponent = (NSUInteger)zimg->bits_per_sample;
-    NSUInteger bitsPerPixel = bytesPerPixel * bitsPerComponent;
-
-    NSUInteger bytesPerRow = (NSUInteger)(zimg->width * bytesPerPixel);
-
-    // TODO: better colorspace for MG1 files?
-    CGColorSpaceRef deviceColorSpace = CGColorSpaceCreateDeviceRGB();
-    NSData *data =
-    [NSData dataWithBytes:zimg->data length:(NSUInteger)(zimg->width * zimg->height * bytesPerPixel)];
-    CGDataProviderRef cgDataProvider = CGDataProviderCreateWithCFData((CFDataRef)data);
-    
-    CGImageRef img = CGImageCreate(zimg->width, zimg->height, bitsPerComponent, bitsPerPixel, bytesPerRow, deviceColorSpace, kCGBitmapByteOrderDefault, cgDataProvider, nil, NO, kCGRenderingIntentDefault);
-
-    NSBitmapImageRep *rep = nil;
-    if (img) {
-        rep = [[NSBitmapImageRep alloc]
-               initWithCGImage:img];
-        CFRelease(img);
-    }
-
-    CFRelease(deviceColorSpace);
-    CFRelease(cgDataProvider);
+    NSBitmapImageRep *rep = SPRepFromZImage(zimg);
 
     end_mg1_graphics();
 

@@ -1,5 +1,5 @@
 //
-//  NSManagedObject+safeSave.m
+//  NSManagedObjectContext+safeSave.m
 //  Spatterlight
 //
 //  Created by Petter Sjölund on 2020-10-27.
@@ -7,6 +7,7 @@
 //
 
 #import "NSManagedObjectContext+safeSave.h"
+#import "DebugLog.h"
 
 @implementation NSManagedObjectContext (safeSave)
 

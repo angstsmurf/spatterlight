@@ -29,7 +29,7 @@
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
     fprintf(stderr, "%s\n",                                                    \
-            [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+            [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
 #endif
 
 @interface AppDelegate () <NSWindowDelegate, NSWindowRestoration> {
@@ -242,11 +242,10 @@ PasteboardFilePasteLocation;
         window = appDelegate.helpLicenseWindow.window;
     } else if ([identifier isEqualToString:@"preferences"]) {
         window = appDelegate.prefctl.window;
-    } else {
-        NSString *firstLetters = [identifier substringToIndex:7];
+    } else if ([identifier hasPrefix:@"infoWin"] || [identifier hasPrefix:@"gameWin"]) {
         NSString *hashTag = [identifier substringFromIndex:7];
 
-        if ([firstLetters isEqualToString:@"infoWin"]) {
+        if ([identifier hasPrefix:@"infoWin"]) {
             InfoController *infoctl =
             [[InfoController alloc] initWithHash:hashTag];
             infoctl.libcontroller = appDelegate.libctl.tableViewController;
@@ -257,7 +256,7 @@ PasteboardFilePasteLocation;
             [NSString stringWithFormat:@"infoWin%@", hashTag];
             (appDelegate.libctl.tableViewController.infoWindows)[hashTag] = infoctl;
             window = infoctl.window;
-        } else if ([firstLetters isEqualToString:@"gameWin"]) {
+        } else {
             window = [appDelegate.libctl.tableViewController.gameLauncher playGameWithHash:hashTag restorationHandler:[completionHandler copy]];
             if (window)
                 return;
@@ -317,10 +316,9 @@ PasteboardFilePasteLocation;
         }
     }
 
-    NSURL *directory =
-    [NSURL fileURLWithPath:[[NSUserDefaults standardUserDefaults]
-                            objectForKey:@"GameDirectory"]
-               isDirectory:YES];
+    NSString *directoryPath = [[NSUserDefaults standardUserDefaults] stringForKey:@"GameDirectory"];
+    NSURL *directory = directoryPath.length ?
+    [NSURL fileURLWithPath:directoryPath isDirectory:YES] : nil;
 
     NSOpenPanel *panel = [NSOpenPanel openPanel];
     NSMutableArray *allowedTypes = gGameFileTypes.mutableCopy;
@@ -385,12 +383,17 @@ PasteboardFilePasteLocation;
 - (BOOL)applicationOpenUntitledFile:(NSApplication *)theApp {
     NSLog(@"appdel: applicationOpenUntitledFile");
 
+    return [self showLibraryOrOpenDocument];
+}
+
+// Shows the library if the user prefers it, otherwise the Open panel.
+// Returns YES if the library was shown.
+- (BOOL)showLibraryOrOpenDocument {
     if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
         [self showLibrary:nil];
         return YES;
-    } else {
-        [self openDocument:nil];
     }
+    [self openDocument:nil];
     return NO;
 }
 
@@ -412,7 +415,10 @@ continueUserActivity:(NSUserActivity *)userActivity
         }
 
         NSURL *uri = [NSURL URLWithString:searchableItemIdentifier];
-        NSManagedObjectID *objectID = [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri];
+        NSManagedObjectID *objectID = uri ? [context.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri] : nil;
+        if (!objectID) {
+            return NO;
+        }
 
         id object = [context objectWithID:objectID];
 
@@ -588,13 +594,8 @@ continueUserActivity:(NSUserActivity *)userActivity
         for (NSWindow *win in app.windows)
             if (win.visible)
                 visibleWindows = YES;
-        if (!visibleWindows) {
-            if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
-                [self showLibrary:nil];
-            } else {
-                [self openDocument:nil];
-            }
-        }
+        if (!visibleWindows)
+            [self showLibraryOrOpenDocument];
     });
 }
 

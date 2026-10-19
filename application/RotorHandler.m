@@ -22,6 +22,39 @@
 
 #include "glk.h"
 
+#import "DebugLog.h"
+
+
+// Moves one step from current in the given direction. With no current
+// item, starts at the first or last one. Returns NSNotFound past either end.
+static NSUInteger SPRotorStep(NSUInteger current, NSUInteger count, NSAccessibilityCustomRotorSearchDirection direction) {
+    BOOL next = (direction == NSAccessibilityCustomRotorSearchDirectionNext);
+    BOOL previous = (direction == NSAccessibilityCustomRotorSearchDirectionPrevious);
+    if (count == 0)
+        return NSNotFound;
+    if (current == NSNotFound) {
+        if (next)
+            return 0;
+        if (previous)
+            return count - 1;
+        return NSNotFound;
+    }
+    if (previous)
+        return current == 0 ? NSNotFound : current - 1;
+    if (next)
+        return current + 1 >= count ? NSNotFound : current + 1;
+    return current;
+}
+
+// Trimmed from rotor item labels
+static NSCharacterSet *SPRotorLabelTrimSet(void) {
+    static NSCharacterSet *charset;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        charset = [NSCharacterSet characterSetWithCharactersInString:@"\u00A0 >\n_"];
+    });
+    return charset;
+}
 
 @implementation RotorHandler
 
@@ -56,7 +89,7 @@
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSTextView *bestMatch = nil;
-    NSRange bestMatchRange;
+    NSRange bestMatchRange = NSMakeRange(NSNotFound, 0);
 
     if (searchString.length) {
         BOOL searchFound = NO;
@@ -102,9 +135,7 @@
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
-    NSLog(@"linksRotor: currentItem: %@", searchParameters.currentItem);
     NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
-    NSLog(@"linksRotor: direction: %ld", direction);
     NSString *filterText = searchParameters.filterString;
     NSRange currentRange = currentItemResult.targetRange;
 
@@ -116,7 +147,10 @@
 
     NSArray *allWindows = glkctl.gwindows.allValues;
     if (glkctl.gameID == kGameIsAColderLight && allWindows.count == 5) {
-        allWindows = @[glkctl.gwindows[@(3)], glkctl.gwindows[@(4)], glkctl.gwindows[@(0)], glkctl.gwindows[@(1)]];
+        // Reading order for A Colder Light's layout
+        GlkWindow *w3 = glkctl.gwindows[@(3)], *w4 = glkctl.gwindows[@(4)], *w0 = glkctl.gwindows[@(0)], *w1 = glkctl.gwindows[@(1)];
+        if (w3 && w4 && w0 && w1)
+            allWindows = @[w3, w4, w0, w1];
     }
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
@@ -141,36 +175,11 @@
 
     currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
 
-    NSLog(@"linksRotor: %ld links in list. currentItemIndex: %ld", children.count, currentItemIndex);
-
     if (children.count == 0) {
-        NSLog(@"linksRotor: searchResult nil because no valid links found");
         return nil;
     }
 
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex--;
-            }
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1)
-                currentItemIndex = NSNotFound;
-            else
-                currentItemIndex++;
-        }
-    }
-
-    NSLog(@"linksRotor: currentItemIndex adjusted by search direction:%ld", currentItemIndex);
+    currentItemIndex = SPRotorStep(currentItemIndex, children.count, direction);
 
     if (currentItemIndex != NSNotFound) {
         NSRange textRange = children[currentItemIndex].rangeValue;
@@ -179,20 +188,17 @@
         NSString *string = ((NSTextView *)targetElement).textStorage.string;
         NSRange allText = NSMakeRange(0, string.length);
         textRange = NSIntersectionRange(allText, textRange);
-        unichar firstChar = [string characterAtIndex:textRange.location];
+        unichar firstChar = textRange.location < string.length ? [string characterAtIndex:textRange.location] : 0;
         if (glkctl.gameID == kGameIsAColderLight && firstChar == '<' && textRange.length == 1) {
             searchResult.customLabel = NSLocalizedString(@"Previous Menu", nil);
         } else if (firstChar == NSAttachmentCharacter) {
             NSDictionary *attrs = [((NSTextView *)targetElement).textStorage attributesAtIndex:textRange.location effectiveRange:nil];
-            searchResult.customLabel = [NSString stringWithFormat:@"Image with link I.D. %@", attrs[NSLinkAttributeName]];
+            searchResult.customLabel = [NSString stringWithFormat:NSLocalizedString(@"Image with link I.D. %@", nil), attrs[NSLinkAttributeName]];
         } else {
             searchResult.customLabel = [string substringWithRange:textRange];
         }
         searchResult.targetRange = textRange;
-
-        NSLog(@"searchResult.targetRange: %@", NSStringFromRange(searchResult.targetRange));
     }
-    NSLog(@"linksRotor searchResult:%@", searchResult);
     return searchResult;
 }
 
@@ -226,8 +232,7 @@
         return (NSComparisonResult)NSOrderedSame;
     }];
 
-    NSString *charSetString = @"\u00A0 >\n_";
-    NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
+    NSCharacterSet *charset = SPRotorLabelTrimSet();
 
     for (GlkWindow *win in allWindows) {
         if (![win isKindOfClass:[GlkGraphicsWindow class]]) {
@@ -260,28 +265,7 @@
 
     NSUInteger currentItemIndex = [children indexOfObject:currentItemResult.targetElement];
 
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex--;
-            }
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex++;
-            }
-        }
-    }
+    currentItemIndex = SPRotorStep(currentItemIndex, children.count, direction);
 
     if (currentItemIndex == NSNotFound) {
         return nil;
@@ -390,28 +374,7 @@
         }
     }
 
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex--;
-            }
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex++;
-            }
-        }
-    }
+    currentItemIndex = SPRotorStep(currentItemIndex, children.count, direction);
 
     if (currentItemIndex == NSNotFound) { // Reached end of list
         return nil;
@@ -419,7 +382,7 @@
 
     id targetImage = children[currentItemIndex];
 
-    NSString *label = @"image";
+    NSString *label = NSLocalizedString(@"image", nil);
 
     if (targetImage) {
         if ([targetImage isKindOfClass:[NSValue class]]) {
@@ -491,28 +454,7 @@
 
     NSUInteger currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
 
-    if (currentItemIndex == NSNotFound) {
-        // Find the start or end element.
-        if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            currentItemIndex = 0;
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            currentItemIndex = children.count - 1;
-        }
-    } else {
-        if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-            if (currentItemIndex == 0) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex--;
-            }
-        } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-            if (currentItemIndex == children.count - 1) {
-                currentItemIndex = NSNotFound;
-            } else {
-                currentItemIndex++;
-            }
-        }
-    }
+    currentItemIndex = SPRotorStep(currentItemIndex, children.count, direction);
 
     if (currentItemIndex == NSNotFound) {
         return nil;
@@ -526,16 +468,14 @@
         NSRange allText = NSMakeRange(0, largest.textview.string.length);
         searchResult.targetRange = NSIntersectionRange(allText, textRange);
         // By adding a custom label, all ranges are reliably listed in the rotor
-        NSString *charSetString = @"\u00A0 >\n_";
-        NSCharacterSet *charset = [NSCharacterSet characterSetWithCharactersInString:charSetString];
-        NSString *string = strings[currentItemIndex];
-        string = [string stringByTrimmingCharactersInSet:charset];
+        NSString *string = [strings[currentItemIndex] stringByTrimmingCharactersInSet:SPRotorLabelTrimSet()];
         // Strip command line if the speak command setting is off
         if (!_glkctl.theme.vOSpeakCommand && !_glkctl.showingInfocomV6Menu) {
             NSUInteger promptIndex = searchResult.targetRange.location;
             if (promptIndex != 0)
                 promptIndex--;
-            if ([largest.textview.string characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [largest.textview.string characterAtIndex:promptIndex - 1] == '>')) {
+            NSString *text = largest.textview.string;
+            if (promptIndex < text.length && ([text characterAtIndex:promptIndex] == '>' || (promptIndex > 0 && [text characterAtIndex:promptIndex - 1] == '>'))) {
                 NSRange foundRange = [string rangeOfString:@"\n"];
                 if (foundRange.location != NSNotFound) {
                     string = [string substringFromIndex:foundRange.location];

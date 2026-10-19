@@ -6,7 +6,31 @@
 #include "glk.h"
 #include "protocol.h"
 
+#include <errno.h>
 #include <unistd.h>
+
+#import "DebugLog.h"
+
+_Static_assert(sizeof(struct settings_struct) <= 4096,
+               "settings_struct must fit in the writeEvent: buffer");
+
+// Writes all of buf, retrying on EINTR and short writes. Gives up quietly
+// on any other error (EPIPE when the interpreter has gone away).
+static BOOL writeAll(int fd, const void *buf, size_t len) {
+    const char *p = buf;
+    while (len) {
+        ssize_t n = write(fd, p, len);
+        if (n < 0) {
+            if (errno == EINTR)
+                continue;
+            NSLog(@"GlkEvent: write failed: %s", strerror(errno));
+            return NO;
+        }
+        p += n;
+        len -= (size_t)n;
+    }
+    return YES;
+}
 
 @interface GlkEvent () <NSSecureCoding> {
     NSInteger win;
@@ -222,11 +246,11 @@ unsigned chartokeycode(unsigned ch) {
 }
 
 - (void)writeEvent:(int)fd {
-    struct message reply;
+    // Zeroed so that unused fields (a4/a5 for most events) and struct
+    // padding don't send stack garbage to the interpreter.
+    struct message reply = {0};
     char buf[4096];
     struct settings_struct *settings = (void*)buf;
-
-    reply.len = 0;
 
     if (ln) {
         reply.len = ln.length * 2;
@@ -247,6 +271,7 @@ unsigned chartokeycode(unsigned ch) {
     }
 
     if (_type == EVTARRANGE) {
+        memset(settings, 0, sizeof(struct settings_struct));
 
         settings->screen_width = (int)_val1;
         settings->screen_height = (int)_val2;
@@ -285,9 +310,8 @@ unsigned chartokeycode(unsigned ch) {
         reply.len = sizeof(struct settings_struct);
     }
 
-    write(fd, &reply, sizeof(struct message));
-    if (reply.len)
-        write(fd, buf, (size_t)reply.len);
+    if (writeAll(fd, &reply, sizeof(struct message)) && reply.len)
+        writeAll(fd, buf, (size_t)reply.len);
 }
 
 @end

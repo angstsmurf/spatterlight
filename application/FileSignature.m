@@ -8,6 +8,7 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "FileSignature.h"
+#import "DebugLog.h"
 
 @implementation FileSignature
 
