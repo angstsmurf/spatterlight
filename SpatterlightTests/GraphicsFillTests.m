@@ -17,6 +17,7 @@
 #import "BuiltInThemes.h"
 #import "CoreDataManager.h"
 #import "NSColor+integer.h"
+#import "SubImage.h"
 
 #include "glk.h"
 #include "protocol.h"
@@ -98,6 +99,44 @@ static const NSInteger kHeight = 30;
     }
     CGContextRelease(readback);
     return colors;
+}
+
+// One point of the window's image as 0xAARRGGBB (premultiplied), sampled at
+// the centre of its device pixels. y counts from the top, as in Glk.
+- (uint32_t)pixelOfWindow:(GlkGraphicsWindow *)win x:(NSInteger)x y:(NSInteger)y {
+    NSImage *image = win.image;
+    CGImageRef cgImage = [image CGImageForProposedRect:NULL context:nil hints:nil];
+    XCTAssert(cgImage != NULL);
+    size_t pixelsWide = CGImageGetWidth(cgImage);
+    size_t pixelsHigh = CGImageGetHeight(cgImage);
+    CGFloat scale = (CGFloat)pixelsWide / image.size.width;
+    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
+    CGContextRef readback = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, 8, 0, space,
+                                                  kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
+    CGColorSpaceRelease(space);
+    CGContextSetBlendMode(readback, kCGBlendModeCopy);
+    CGContextDrawImage(readback, CGRectMake(0, 0, pixelsWide, pixelsHigh), cgImage);
+    const uint32_t *pixels = CGBitmapContextGetData(readback);
+    size_t rowPixels = CGBitmapContextGetBytesPerRow(readback) / sizeof(uint32_t);
+    size_t px = (size_t)(((CGFloat)x + 0.5) * scale);
+    size_t py = (size_t)(((CGFloat)y + 0.5) * scale);
+    uint32_t pixel = pixels[py * rowPixels + px];
+    CGContextRelease(readback);
+    return pixel;
+}
+
+- (NSImage *)solidImageOfSize:(NSSize)size red:(CGFloat)r green:(CGFloat)g blue:(CGFloat)b {
+    return [NSImage imageWithSize:size flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
+        [[NSColor colorWithDeviceRed:r green:g blue:b alpha:1] setFill];
+        NSRectFill(dstRect);
+        return YES;
+    }];
+}
+
+- (NSArray<SubImage *> *)subImagesOfWindow:(GlkGraphicsWindow *)win {
+    return [win.accessibilityChildren filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
+        return [object isKindOfClass:[SubImage class]];
+    }]];
 }
 
 // The Glk model: start from the background, paint each rect in order.
@@ -267,6 +306,108 @@ static const NSInteger kHeight = 30;
     [self assertWindow:restored matches:[self expectedColorsForRects:rects count:2
                                                           background:0xFFFFFF
                                                         defaultColor:0]];
+}
+
+// Resizing keeps the old contents anchored at the top left, as Glk
+// coordinates are, and paints the new area in the background.
+- (void)testResizeKeepsContentsAtTopLeft {
+    GlkGraphicsWindow *win = [self makeWindow];
+    struct fillrect rects[] = {
+        { 0xFF0000, 0, 0, 5, 5 },
+        { 0x00FF00, 35, 25, 5, 5 },
+    };
+    [win fillRects:rects count:2];
+
+    win.frame = NSMakeRect(0, 0, kWidth + 20, kHeight + 20);
+    XCTAssertEqualObjects([NSValue valueWithSize:win.image.size],
+                          [NSValue valueWithSize:NSMakeSize(kWidth + 20, kHeight + 20)]);
+    [self assertWindow:win matches:[self expectedColorsForRects:rects count:2
+                                                     background:0xFFFFFF
+                                                   defaultColor:0]];
+    XCTAssertEqual([self pixelOfWindow:win x:kWidth + 10 y:kHeight + 10], 0xFFFFFFFFu);
+}
+
+// A transparent window is resized like any other: same contents at the top
+// left, and the new area stays clear rather than the canvas keeping its old
+// size.
+- (void)testTransparentResizeKeepsContentsAndLeavesNewAreaClear {
+    GlkGraphicsWindow *win = [self makeWindow];
+    [win makeTransparent];
+    [win clear];
+    XCTAssertEqual([self pixelOfWindow:win x:20 y:15], 0u);
+    struct fillrect rects[] = { { 0x0000FF, 2, 2, 6, 6 } };
+    [win fillRects:rects count:1];
+
+    win.frame = NSMakeRect(0, 0, kWidth + 20, kHeight + 20);
+    XCTAssertEqualObjects([NSValue valueWithSize:win.image.size],
+                          [NSValue valueWithSize:NSMakeSize(kWidth + 20, kHeight + 20)]);
+    XCTAssertEqual([self pixelOfWindow:win x:4 y:4], 0xFF0000FFu);
+    XCTAssertEqual([self pixelOfWindow:win x:20 y:15], 0u);
+    XCTAssertEqual([self pixelOfWindow:win x:kWidth + 10 y:kHeight + 10], 0u);
+}
+
+// Described images stay with the pixels they describe when the window is
+// resized, and a later draw over them still prunes them.
+- (void)testResizeMovesSubImagesWithContents {
+    // No "Image" placeholder once the described one is pruned.
+    self.theme.vOSpeakImages = kVOImageWithDescriptionOnly;
+    GlkGraphicsWindow *win = [self makeWindow];
+    NSImage *red = [self solidImageOfSize:NSMakeSize(10, 10) red:1 green:0 blue:0];
+    red.accessibilityDescription = @"red square";
+    [win drawImage:red val1:5 val2:5 width:10 height:10 imagerule:0 maxwidth:0 style:style_Normal];
+
+    win.frame = NSMakeRect(0, 0, kWidth, kHeight + 20);
+    NSArray<SubImage *> *images = [self subImagesOfWindow:win];
+    XCTAssertEqual(images.count, 1u);
+    // Glk (5, 5, 10, 10) in a 50-point-high window, bottom-left origin.
+    XCTAssertTrue(NSEqualRects(images.firstObject.frameRect, NSMakeRect(5, 35, 10, 10)));
+
+    struct fillrect cover[] = { { 0x000000, 0, 0, 20, 20 } };
+    [win fillRects:cover count:1];
+    XCTAssertEqual([self subImagesOfWindow:win].count, 0u);
+}
+
+// glk_image_draw_scaled_ext: WidthRatio is a fraction of the window width,
+// AspectRatio a multiple of the height the width implies.
+- (void)testImageRuleWidthRatioAndAspectRatio {
+    GlkGraphicsWindow *win = [self makeWindow];
+    NSImage *red = [self solidImageOfSize:NSMakeSize(10, 5) red:1 green:0 blue:0];
+    // Half the 40-point width = 20 wide; aspect 1:2 at 1.0 = 10 high.
+    [win drawImage:red val1:0 val2:0 width:0x8000 height:0x10000
+         imagerule:imagerule_WidthRatio | imagerule_AspectRatio maxwidth:0 style:style_Normal];
+
+    struct fillrect model[] = { { 0xFF0000, 0, 0, 20, 10 } };
+    [self assertWindow:win matches:[self expectedColorsForRects:model count:1
+                                                     background:0xFFFFFF
+                                                   defaultColor:0]];
+}
+
+// Autosave archives the whole window: the described images come back with
+// the window as their accessibility parent.
+- (void)testWindowArchiveRestoresSubImages {
+    GlkGraphicsWindow *win = [self makeWindow];
+    NSImage *red = [self solidImageOfSize:NSMakeSize(10, 10) red:1 green:0 blue:0];
+    red.accessibilityDescription = @"red square";
+    [win drawImage:red val1:5 val2:5 width:10 height:10 imagerule:0 maxwidth:0 style:style_Normal];
+    NSString *uuid = [self subImagesOfWindow:win].firstObject.uuid;
+    XCTAssertNotNil(uuid);
+
+    NSError *error = nil;
+    NSData *archive = [NSKeyedArchiver archivedDataWithRootObject:win requiringSecureCoding:NO error:&error];
+    XCTAssertNil(error);
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:archive error:&error];
+    XCTAssertNil(error);
+    unarchiver.requiresSecureCoding = NO;
+    GlkGraphicsWindow *restored = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+    [unarchiver finishDecoding];
+    XCTAssertNotNil(restored);
+
+    NSArray<SubImage *> *images = [self subImagesOfWindow:restored];
+    XCTAssertEqual(images.count, 1u);
+    XCTAssertEqualObjects(images.firstObject.uuid, uuid);
+    XCTAssertEqualObjects(images.firstObject.accessibilityLabel, @"red square");
+    XCTAssertEqualObjects(images.firstObject.accessibilityRole, NSAccessibilityImageRole);
+    XCTAssertEqual(images.firstObject.accessibilityParent, restored);
 }
 
 @end

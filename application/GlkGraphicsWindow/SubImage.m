@@ -6,7 +6,6 @@
 //
 
 #import "SubImage.h"
-#import "GlkGraphicsWindow.h"
 
 @implementation SubImage
 
@@ -14,20 +13,33 @@
     return YES;
 }
 
++ (instancetype)imageWithLabel:(NSString *)label parent:(id)parent frame:(NSRect)frameRect {
+    SubImage *image = [SubImage new];
+    image.accessibilityLabel = label;
+    image.accessibilityParent = parent;
+    image.frameRect = frameRect;
+    return image;
+}
+
 - (instancetype)init {
     self = [super init];
     if (self) {
         _uuid = [[NSUUID UUID] UUIDString];
+        self.accessibilityRole = NSAccessibilityImageRole;
     }
     return self;
 }
 
+// The parent is not archived; the window that decodes us sets it.
 - (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
+    self = [self init];
     if (self) {
         self.accessibilityLabel = [decoder decodeObjectOfClass:[NSString class] forKey:@"accessibilityLabel"];
         _frameRect = [decoder decodeRectForKey:@"frameRect"];
-        _uuid = [decoder decodeObjectForKey:@"UUID"];
+        // The rotor finds images by uuid, so keep the fresh one if none was saved.
+        NSString *uuid = [decoder decodeObjectOfClass:[NSString class] forKey:@"UUID"];
+        if (uuid.length)
+            _uuid = uuid;
     }
     return self;
 }
@@ -39,14 +51,14 @@
 }
 
 - (void)setAccessibilityFocused:(BOOL)accessibilityFocused {
-    if (accessibilityFocused) {
-        NSRect bounds = NSAccessibilityFrameInView(self.accessibilityParent, _frameRect);
-        self.accessibilityFrame = bounds;
-        GlkGraphicsWindow *parent = (GlkGraphicsWindow *)self.accessibilityParent;
-        if (parent) {
-            [parent becomeFirstResponder];
-        }
-    }
+    [super setAccessibilityFocused:accessibilityFocused];
+    if (!accessibilityFocused)
+        return;
+    NSView *parent = self.accessibilityParent;
+    if (!parent)
+        return;
+    self.accessibilityFrame = NSAccessibilityFrameInView(parent, _frameRect);
+    [parent becomeFirstResponder];
 }
 
 @end

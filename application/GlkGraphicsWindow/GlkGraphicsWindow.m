@@ -20,7 +20,7 @@
 #ifdef DEBUG
 #define NSLog(FORMAT, ...)                                                     \
     fprintf(stderr, "%s\n",                                                    \
-            [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String]);
+            [[NSString stringWithFormat:FORMAT, ##__VA_ARGS__] UTF8String])
 #endif
 
 // The window's contents live in a bitmap context we own rather than in an
@@ -37,11 +37,16 @@
 // device pixels (point size x backing scale), with the CTM scaled so AppKit
 // drawing works in points, bottom-left origin, as it did with NSImage
 // lockFocus (hence florpCoords).
-@interface GlkGraphicsWindow () <NSSecureCoding> {
+@interface GlkGraphicsWindow () {
     BOOL mouse_request;
     BOOL transparent;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
+    // Stands in for the window's contents when VoiceOver should speak all
+    // images and none of what was drawn came with a description. Never in
+    // subImages, so it is not archived or pruned, and its uuid stays stable.
+    SubImage *placeholderImage;
+    NSOperationQueue *promiseQueue; // writes dragged-out PNGs, made on first use
 
     CGContextRef canvas;
     NSSize canvasSize;      // in points
@@ -49,14 +54,51 @@
     NSImage *cachedImage;   // snapshot of canvas, until the next change
 }
 
-@property NSOperationQueue *workQueue;
-
 @end
 
 // Colors reach setBgColor: from requests as signed ints, so zcolor_Default
 // arrives as -1 and zcolor_Current as -2, and from glui32 paths unsigned.
 static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     return value == (NSInteger)zcolor || value == (NSInteger)(int32_t)zcolor;
+}
+
+// Glk 0.7.6 glk_image_draw_scaled_ext(): resolve the scaling rule once,
+// against the window width at draw time. The spec explicitly says
+// imagerule_WidthRatio does not dynamically resize in graphics windows, and
+// maxwidth is ignored here. With no rule (glk_image_draw and
+// glk_image_draw_scaled), a zero width or height means the image's own.
+static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
+                                 NSUInteger imagerule, CGFloat winwidth) {
+    if (imagerule) {
+        switch (imagerule & imagerule_WidthMask) {
+            case imagerule_WidthFixed:
+                break;
+            case imagerule_WidthRatio:
+                w = (NSInteger)(winwidth * (CGFloat)w / 65536.0);
+                break;
+            default: /* imagerule_WidthOrig */
+                w = (NSInteger)srcsize.width;
+                break;
+        }
+        switch (imagerule & imagerule_HeightMask) {
+            case imagerule_HeightFixed:
+                break;
+            case imagerule_AspectRatio:
+                if (srcsize.width > 0)
+                    h = (NSInteger)((CGFloat)w * (srcsize.height / srcsize.width)
+                                    * (CGFloat)h / 65536.0);
+                break;
+            default: /* imagerule_HeightOrig */
+                h = (NSInteger)srcsize.height;
+                break;
+        }
+    } else {
+        if (w == 0)
+            w = (NSInteger)srcsize.width;
+        if (h == 0)
+            h = (NSInteger)srcsize.height;
+    }
+    return NSMakeSize((CGFloat)w, (CGFloat)h);
 }
 
 @implementation GlkGraphicsWindow
@@ -72,9 +114,6 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
     if (self) {
         bgnd = 0xFFFFFF; // White
 
-        mouse_request = NO;
-        transparent = NO;
-        _showingImage = NO;
         subImages = [NSMutableArray new];
         dirtyRects = [NSMutableArray new];
     }
@@ -91,7 +130,13 @@ static BOOL SPIsZColor(NSInteger value, glui32 zcolor) {
         mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
-        subImages =  [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"subImages"];
+        subImages = [[decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SubImage class], nil]
+                                             forKey:@"subImages"] mutableCopy] ?: [NSMutableArray new];
+        // Older versions stored the "Image" placeholder among the real images.
+        if (subImages.count == 1 && [subImages.firstObject.accessibilityLabel isEqualToString:NSLocalizedString(@"Image", nil)])
+            [subImages removeAllObjects];
+        for (SubImage *subImage in subImages)
+            subImage.accessibilityParent = self;
         dirtyRects = [NSMutableArray new];
         [self markWholeWindowDirty];
     }
@@ -231,9 +276,13 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 // repainting. Every site that changes what is on screen appends one and
 // sets the flag together, so flushDisplay (called for every window on
 // every interpreter update) does nothing for a window nobody drew into.
-- (void)markWholeWindowDirty {
-    [dirtyRects addObject:@(self.bounds)];
+- (void)markDirtyRect:(NSRect)rect {
+    [dirtyRects addObject:@(rect)];
     dirty = YES;
+}
+
+- (void)markWholeWindowDirty {
+    [self markDirtyRect:self.bounds];
 }
 
 - (void)setBgColor:(NSInteger)bc {
@@ -270,20 +319,15 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
                width:(NSInteger)ceil(canvasSize.width)
               height:(NSInteger)ceil(canvasSize.height)];
     _showingImage = NO;
-    if (subImages)
-        [subImages removeAllObjects];
-    dirtyRects = [NSMutableArray new];
-    [dirtyRects addObject:@(self.bounds)];
-    dirty = YES;
+    [subImages removeAllObjects];
+    // Everything is repainted, so any rects queued before are moot.
+    [dirtyRects removeAllObjects];
+    [self markWholeWindowDirty];
 }
 
+// Graphics windows have no text, so only the background colour applies.
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
     [self setBgColor:bg];
-}
-
-- (NSMutableAttributedString *)applyZColorsAndThenReverse:(NSMutableAttributedString *)attStr {
-    NSLog(@"GlkGraphicsWindow %ld ERROR: setZcolor not supported in graphics window!", self.name);
-    return nil;
 }
 
 - (void)drawRect:(NSRect)rect {
@@ -306,28 +350,48 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     if (frame.size.width == 0 || frame.size.height == 0)
         return;
 
-    // First we store the current contents
-    NSImage *oldimage = self.image ?: [[NSImage alloc] initWithSize:NSZeroSize];
+    [self rebuildCanvasWithSize:frame.size];
+}
 
-    // Then we create a new image, filling it with background color
-    if (!transparent) {
-        [self makeCanvasWithSize:frame.size];
+// A window dragged to a screen of another scale gets a canvas at the new one.
+- (void)viewDidChangeBackingProperties {
+    [super viewDidChangeBackingProperties];
+    if (canvas && [self currentBackingScale] != canvasScale)
+        [self rebuildCanvasWithSize:canvasSize];
+}
+
+// Make a new canvas of `size` points, in the background colour (left clear
+// if the window is transparent), with the old contents kept at the top left,
+// where Glk coordinates are anchored. The accessibility images move with
+// them; those now wholly outside the window are dropped.
+- (void)rebuildCanvasWithSize:(NSSize)size {
+    NSImage *oldimage = self.image;
+    CGFloat heightChange = size.height - canvasSize.height;
+
+    [self makeCanvasWithSize:size];
+    if (!transparent)
         [self fillPixels:SPPixelFromRGB(bgnd)
                        x:0
                        y:0
-                   width:(NSInteger)ceil(frame.size.width)
-                  height:(NSInteger)ceil(frame.size.height)];
+                   width:(NSInteger)ceil(size.width)
+                  height:(NSInteger)ceil(size.height)];
+
+    if (oldimage) {
+        NSSize oldsize = oldimage.size;
+        [self drawInCanvas:^{
+            [oldimage drawInRect:NSMakeRect(0, size.height - oldsize.height, oldsize.width, oldsize.height)
+                        fromRect:NSZeroRect
+                       operation:NSCompositingOperationSourceOver
+                        fraction:1.0];
+        }];
     }
 
-    // The we draw the old contents over it
-    [self drawImage:oldimage
-               val1:0
-               val2:0
-              width:(NSInteger)oldimage.size.width
-             height:(NSInteger)oldimage.size.height
-          imagerule:0
-           maxwidth:0
-              style:style_Normal];
+    NSRect bounds = NSMakeRect(0, 0, size.width, size.height);
+    for (SubImage *subImage in subImages.copy) {
+        subImage.frameRect = NSOffsetRect(subImage.frameRect, 0, heightChange);
+        if (!NSIntersectsRect(subImage.frameRect, bounds))
+            [subImages removeObject:subImage];
+    }
 
     [self markWholeWindowDirty];
 }
@@ -373,10 +437,9 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 
     if (minX <= maxX) {
         NSRect unionRect = [self florpCoords:NSMakeRect(minX, minY, maxX - minX, maxY - minY)];
-        [dirtyRects addObject:@(unionRect)];
+        [self markDirtyRect:unionRect];
         [self pruneSubimagesInRect:unionRect];
     }
-    dirty = YES;
     _showingImage = YES;
     free(alignedCopy);
 }
@@ -391,6 +454,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     dirty = NO;
 }
 
+// Glk rect (top-left origin) -> canvas/AppKit rect (bottom-left origin).
 - (NSRect)florpCoords:(NSRect)r {
     NSRect res = r;
     res.origin.y = canvasSize.height - res.origin.y - res.size.height;
@@ -414,42 +478,8 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
             return;
     }
 
-    if (imagerule) {
-        // Glk 0.7.6 glk_image_draw_scaled_ext(): resolve the scaling rule
-        // once, against the window width at draw time. The spec explicitly
-        // says imagerule_WidthRatio does not dynamically resize in graphics
-        // windows, and maxwidth is ignored here.
-        CGFloat winwidth = canvasSize.width;
-        switch (imagerule & imagerule_WidthMask) {
-            case imagerule_WidthFixed:
-                break;
-            case imagerule_WidthRatio:
-                w = (NSInteger)(winwidth * (CGFloat)w / 65536.0);
-                break;
-            default: /* imagerule_WidthOrig */
-                w = (NSInteger)srcsize.width;
-                break;
-        }
-        switch (imagerule & imagerule_HeightMask) {
-            case imagerule_HeightFixed:
-                break;
-            case imagerule_AspectRatio:
-                if (srcsize.width > 0)
-                    h = (NSInteger)((CGFloat)w * (srcsize.height / srcsize.width)
-                                    * (CGFloat)h / 65536.0);
-                break;
-            default: /* imagerule_HeightOrig */
-                h = (NSInteger)srcsize.height;
-                break;
-        }
-    } else {
-        if (w == 0)
-            w = (NSInteger)srcsize.width;
-        if (h == 0)
-            h = (NSInteger)srcsize.height;
-    }
-
-    NSRect florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, (CGFloat)w, (CGFloat)h)];
+    NSSize drawsize = SPResolveImageSize(srcsize, w, h, imagerule, canvasSize.width);
+    NSRect florpedRect = [self florpCoords:NSMakeRect((CGFloat)x, (CGFloat)y, drawsize.width, drawsize.height)];
 
     @autoreleasepool {
         [self drawInCanvas:^{
@@ -464,19 +494,12 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     }
 
     _showingImage = YES;
-    dirty = YES;
-    [dirtyRects addObject:@(florpedRect)];
+    [self markDirtyRect:florpedRect];
 
     [self pruneSubimagesInRect:florpedRect];
 
     if (src.accessibilityDescription.length) {
-        SubImage *subImage = [SubImage new];
-        subImage.accessibilityLabel = src.accessibilityDescription;
-        subImage.accessibilityParent = self;
-        subImage.accessibilityRole = NSAccessibilityImageRole;
-        subImage.frameRect = florpedRect;
-
-        [subImages addObject:subImage];
+        [subImages addObject:[SubImage imageWithLabel:src.accessibilityDescription parent:self frame:florpedRect]];
         self.accessibilityLabel = subImages.firstObject.accessibilityLabel;
     }
 }
@@ -489,15 +512,28 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     mouse_request = NO;
 }
 
+// Glk point: top-left origin.
+- (void)sendMouseEventAtPoint:(NSPoint)point {
+    [self.glkctl markLastSeen];
+    GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:point forWindow:self.name];
+    [self.glkctl queueEvent:gev];
+    mouse_request = NO;
+}
+
 - (void)mouseDown:(NSEvent *)theEvent {
+    if (!self.window)
+        return;
+
     NSDate *mouseTime = [NSDate date];
     
-    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView: nil];
+    NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
     
     NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
     NSTimeInterval timeout = NSEventDurationForever;
     
-    CGFloat dragThreshold = 0.3;
+    // How far (in points) the mouse must move before a press becomes an image
+    // drag, so a click that wobbles a pixel still reaches the game as a click.
+    CGFloat dragThreshold = 3;
 
     [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
 
@@ -514,13 +550,8 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
                 // rose) were randomly lost. The interpreter classifies
                 // single vs. double clicks itself from event timing, so we
                 // just deliver each click.
-                if (mouse_request) {
-                    [self.glkctl markLastSeen];
-                    location.y = self.frame.size.height - location.y;
-                    GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:location forWindow:self.name];
-                    [self.glkctl queueEvent:gev];
-                    mouse_request = NO;
-                }
+                if (mouse_request)
+                    [self sendMouseEventAtPoint:NSMakePoint(location.x, self.frame.size.height - location.y)];
             }
         } else if (event.type == NSEventTypeLeftMouseDragged) {
             NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
@@ -529,6 +560,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
                 
                 NSDraggingItem *dragItem;
                 
+                // The pre-10.14 path is still live: release builds deploy to 10.13.
                 if (@available(macOS 10.14, *)) {
                     MyFilePromiseProvider *provider = [[MyFilePromiseProvider alloc] initWithFileType: NSPasteboardTypePNG delegate:self];
                     
@@ -577,20 +609,20 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
         for (win in (self.glkctl.gwindows).allValues) {
             if (win != self && win.wantsFocus) {
                 NSLog(@"GlkGraphicsWindow: Passing on keypress");
-                [win keyDown:evt];
                 [win grabFocus];
+                [win keyDown:evt];
                 return;
             }
         }
 
-    if (char_request && ch != keycode_Unknown) {
-        [self.glkctl markLastSeen];
+    if (char_request && ch != keycode_Unknown)
+        [self sendCharEvent:ch];
+}
 
-        GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-        [self.glkctl queueEvent:gev];
-        char_request = NO;
-        return;
-    }
+// A key the player pressed (as opposed to one from a command script).
+- (void)sendCharEvent:(unsigned)ch {
+    [self.glkctl markLastSeen];
+    [self sendKeypress:ch];
 }
 
 - (void)sendKeypress:(unsigned)ch {
@@ -608,37 +640,30 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
                              char_request ? @", waiting for a key press" : @""];
 }
 
+// The images VoiceOver should offer, given the speak-images preference.
 - (NSArray <SubImage *> *)images {
-    if (self.theme.vOSpeakImages == kVOImageNone)
+    kVOImagePrefsType mode = self.theme.vOSpeakImages;
+    if (mode == kVOImageNone)
         return @[];
     if (subImages.count) {
-        if (subImages.count == 1 && self.theme.vOSpeakImages != kVOImageAll && [subImages.firstObject.accessibilityLabel isEqualToString:@"Image"]) {
-            [subImages removeAllObjects];
-            return @[];
-        }
-        if (self.theme.vOSpeakImages == kVOImageWithDescriptionOnly) {
+        if (mode == kVOImageWithDescriptionOnly) {
             return [subImages filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(id object, NSDictionary *bindings) {
                 return ((SubImage *)object).accessibilityLabel.length > 0;
             }]];
-        } else {
-            return subImages;
         }
-    } else if (self.theme.vOSpeakImages == kVOImageAll && _showingImage) {
-        return @[ [self createDummySubImage] ];
+        return subImages.copy;
     }
-
+    if (mode == kVOImageAll && _showingImage)
+        return @[ self.placeholderSubImage ];
     return @[];
 }
 
-- (SubImage *)createDummySubImage {
-    SubImage *dummy = [SubImage new];
-    dummy.accessibilityLabel = NSLocalizedString(@"Image", nil);
-    dummy.accessibilityParent = self;
-    dummy.accessibilityRole = NSAccessibilityImageRole;
-    dummy.frameRect = self.bounds;
-    self.accessibilityLabel = dummy.accessibilityLabel;
-    [subImages addObject:dummy];
-    return dummy;
+- (SubImage *)placeholderSubImage {
+    if (!placeholderImage)
+        placeholderImage = [SubImage imageWithLabel:NSLocalizedString(@"Image", nil) parent:self frame:self.bounds];
+    placeholderImage.frameRect = self.bounds;
+    self.accessibilityLabel = placeholderImage.accessibilityLabel;
+    return placeholderImage;
 }
 
 - (NSArray *)accessibilityCustomActions {
@@ -663,34 +688,21 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 }
 
 - (void)accessibilityClick:(id)sender {
-    if (mouse_request) {
-        NSPoint p;
-        p.x = self.frame.size.width / 2;
-        p.y = self.frame.size.height / 2;
-        GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:p forWindow:self.name];
-        [self.glkctl queueEvent:gev];
-        mouse_request = NO;
-    } else if (char_request) {
-        [self.glkctl markLastSeen];
-        GlkEvent *gev = [[GlkEvent alloc] initCharEvent:' ' forWindow:self.name];
-        [self.glkctl queueEvent:gev];
-        char_request = NO;
-        return;
-    }
+    if (mouse_request)
+        [self sendMouseEventAtPoint:NSMakePoint(self.frame.size.width / 2, self.frame.size.height / 2)];
+    else if (char_request)
+        [self sendCharEvent:' '];
 }
 
 - (NSArray *)accessibilityChildren {
-    NSArray *children = super.accessibilityChildren;
+    NSArray<SubImage *> *images = subImages;
+    if (images.count == 0 && self.theme.vOSpeakImages == kVOImageAll && _showingImage)
+        images = @[ self.placeholderSubImage ];
 
-    if (subImages.count == 0 && self.theme.vOSpeakImages == kVOImageAll && _showingImage) {
-        [self createDummySubImage];
-    }
-
-    for (SubImage *si in subImages) {
-        children = [children arrayByAddingObject:si];
-        NSRect bounds = NSAccessibilityFrameInView(self, si.frameRect);
-        si.accessibilityFrame = bounds;
-    }
+    NSMutableArray *children = [NSMutableArray arrayWithArray:super.accessibilityChildren];
+    for (SubImage *si in images)
+        si.accessibilityFrame = NSAccessibilityFrameInView(self, si.frameRect);
+    [children addObjectsFromArray:images];
 
     return children;
 }
@@ -714,6 +726,9 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     CGFloat intersectionarea = intersection.size.height * intersection.size.width;
 
     CGFloat oldrectarea = oldrect.size.height * oldrect.size.width;
+    // A degenerate image has nothing left to cover; let any overlapping draw prune it.
+    if (oldrectarea <= 0)
+        return YES;
 
     if ((oldrectarea - intersectionarea) / oldrectarea > 0.5)
         return NO;
@@ -726,6 +741,12 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 - (NSDragOperation)draggingSession:(NSDraggingSession *)session sourceOperationMaskForDraggingContext:(NSDraggingContext)context
 {
     return NSDragOperationCopy;
+}
+
+// Base name for a dragged-out PNG: the game's file name, or "image".
+- (NSString *)imageBaseFileName {
+    NSString *baseFileName = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
+    return baseFileName.length ? baseFileName : @"image";
 }
 
 // For pre-10.14
@@ -754,11 +775,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
         }
 
         // Here, we build the file destination using the receivers destination URL
-        NSString *baseFileName = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
-
-        if (!baseFileName.length)
-            baseFileName = @"image";
-
+        NSString *baseFileName = self.imageBaseFileName;
         NSString *fileName = [baseFileName stringByAppendingPathExtension:@"png"];
 
         NSURL *destinationFileURL = [destinationFolderURL URLByAppendingPathComponent:fileName isDirectory:NO];
@@ -790,11 +807,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 
 - (NSString *)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider
                   fileNameForType:(NSString *)fileType {
-    NSString *fileName = [self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension stringByAppendingPathExtension:@"png"];
-    if (!fileName.length)
-        fileName = @"image.png";
-
-    return fileName;
+    return [self.imageBaseFileName stringByAppendingPathExtension:@"png"];
 }
 
 - (void)filePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider
@@ -815,7 +828,11 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 }
 
 - (NSOperationQueue *)operationQueueForFilePromiseProvider:(NSFilePromiseProvider *)filePromiseProvider {
-    return self.workQueue;
+    if (!promiseQueue) {
+        promiseQueue = [NSOperationQueue new];
+        promiseQueue.qualityOfService = NSQualityOfServiceUserInitiated;
+    }
+    return promiseQueue;
 }
 
 - (nullable NSData *)pngData {
@@ -831,27 +848,14 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];
 }
 
-@synthesize workQueue = _workQueue;
-
-- (NSOperationQueue *)workQueue {
-    if (_workQueue == nil) {
-        _workQueue = [NSOperationQueue new];
-        _workQueue.qualityOfService = NSQualityOfServiceUserInitiated;
-    }
-    return _workQueue;
-}
-
-- (void)setWorkQueue:(NSOperationQueue *)workQueue {
-    _workQueue = workQueue;
-}
-
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     if (menuItem.action == @selector(saveAsRTF:)) return NO;
     return YES;
 }
 
+// GlkController's saveAsRTF: can pick any window, and the GlkWindow version
+// assumes a text view, so there is nothing to save here.
 - (IBAction)saveAsRTF:(id)sender {
-    NSLog(@"saveAsRTF in graphics windows not supported");
 }
 
 @end

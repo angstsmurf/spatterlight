@@ -907,7 +907,9 @@
     NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
     NSTimeInterval timeout = NSEventDurationForever;
 
-    CGFloat dragThreshold = 0.3;
+    // How far (in points) the mouse must move before a press becomes an image
+    // drag, so a click that wobbles a pixel is still handled as a click.
+    CGFloat dragThreshold = 3;
 
     [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
 
