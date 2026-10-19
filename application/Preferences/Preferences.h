@@ -46,7 +46,7 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 #pragma mark Action menu
 
-- (void)restoreThemeSelection:(id)sender;
+- (void)restoreThemeSelection:(Theme *)aTheme;
 
 + (void)zoomIn;
 + (void)zoomOut;
@@ -147,7 +147,6 @@ extern NSNotificationName const kColorModeChangedNotification;
 @property (weak) IBOutlet NSPopUpButton *comprehendGraphicsPopup;
 @property (weak) IBOutlet NSPopUpButton *z6GraphicsPopup;
 @property (weak) IBOutlet NSButton *z6ColorizeCheckBox;
-@property (weak) IBOutlet NSButton *z6Sim16ColoursCheckBox;
 
 @property (weak) IBOutlet NSButton *btnNoHacks;
 @property (weak) IBOutlet NSButton *btnDeterminism;
@@ -178,7 +177,7 @@ extern NSNotificationName const kColorModeChangedNotification;
 @property (weak) IBOutlet NSButton *scottAdamsFlickerCheckbox;
 @property (weak) IBOutlet NSButton *zMachineNoErrWinCheckbox;
 
-@property DummyTextView *dummyTextView;
+@property (nonatomic, readonly) DummyTextView *dummyTextView;
 
 - (void)changeAttributes:(id)sender;
 - (void)changeDocumentBackgroundColor:(id)sender;

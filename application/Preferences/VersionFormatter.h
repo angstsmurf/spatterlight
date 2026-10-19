@@ -1,9 +1,8 @@
 //
 //  VersionFormatter.h
-//  Yazmin
+//  Spatterlight
 //
-//  Created by David Schweinsberg on 7/11/19.
-//  Copyright © 2019 David Schweinsberg. All rights reserved.
+//  Originally from Yazmin by David Schweinsberg (2019).
 //
 
 #import <Foundation/Foundation.h>

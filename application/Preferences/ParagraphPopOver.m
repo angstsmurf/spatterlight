@@ -71,23 +71,23 @@
 }
 
 - (void)refreshAlignmentButtons {
-    _btnAlignmentLeft.state = NSOffState;
-    _btnAlignmentRight.state = NSOffState;
-    _btnAlignmentCenter.state = NSOffState;
-    _btnAlignmentJustified.state = NSOffState;
+    _btnAlignmentLeft.state = NSControlStateValueOff;
+    _btnAlignmentRight.state = NSControlStateValueOff;
+    _btnAlignmentCenter.state = NSControlStateValueOff;
+    _btnAlignmentJustified.state = NSControlStateValueOff;
 
     switch (_para.alignment) {
         case NSTextAlignmentRight:
-            _btnAlignmentRight.state = NSOnState;
+            _btnAlignmentRight.state = NSControlStateValueOn;
             break;
         case NSTextAlignmentCenter:
-            _btnAlignmentCenter.state = NSOnState;
+            _btnAlignmentCenter.state = NSControlStateValueOn;
             break;
         case NSTextAlignmentJustified:
-            _btnAlignmentJustified.state = NSOnState;
+            _btnAlignmentJustified.state = NSControlStateValueOn;
             break;
         default:
-            _btnAlignmentLeft.state = NSOnState;
+            _btnAlignmentLeft.state = NSControlStateValueOn;
             break;
     }
 }
@@ -99,10 +99,17 @@
 // Baseline offset and character spacing are not NSParagraphStyle properties,
 // so the methods that change those pass their modified attribute dictionary here
 - (void)saveNonParagraphChange:(NSMutableDictionary *)attDict {
-    Theme *theme = [[Preferences instance] cloneThemeIfNotEditable];
     GlkStyle *style = _style;
-    NSUInteger stylevalue = (NSUInteger)((NSNumber *)(style.attributeDict)[@"GlkStyle"]).integerValue;
-    NSString *styleName = [style testGridStyle] ? gGridStyleNames[stylevalue] : gBufferStyleNames[stylevalue];
+    // Without a valid GlkStyle index we can't find the matching style in the
+    // cloned theme, and index 0 would silently edit the wrong style
+    NSNumber *styleNumber = style.attributeDict[@"GlkStyle"];
+    NSArray *styleNames = [style testGridStyle] ? gGridStyleNames : gBufferStyleNames;
+    if (!styleNumber || styleNumber.integerValue < 0 || (NSUInteger)styleNumber.integerValue >= styleNames.count) {
+        NSLog(@"ParagraphPopOver: style has no valid GlkStyle index: %@", styleNumber);
+        return;
+    }
+    NSString *styleName = styleNames[(NSUInteger)styleNumber.integerValue];
+    Theme *theme = [[Preferences instance] cloneThemeIfNotEditable];
     _style = [theme valueForKey:styleName];
     style = _style;
     attDict[NSParagraphStyleAttributeName] = _para.copy;
@@ -116,9 +123,22 @@
 }
 
 - (IBAction)changeAlignment:(id)sender {
-    if ([sender tag] == _para.alignment)
+    // Map by button rather than by tag: the NSTextAlignment values of Right
+    // and Center differ between x86_64 and arm64
+    NSTextAlignment alignment;
+    if (sender == _btnAlignmentLeft)
+        alignment = NSTextAlignmentLeft;
+    else if (sender == _btnAlignmentRight)
+        alignment = NSTextAlignmentRight;
+    else if (sender == _btnAlignmentCenter)
+        alignment = NSTextAlignmentCenter;
+    else if (sender == _btnAlignmentJustified)
+        alignment = NSTextAlignmentJustified;
+    else
         return;
-    _para.alignment = [sender tag];
+    if (alignment == _para.alignment)
+        return;
+    _para.alignment = alignment;
     [self saveChange];
     [self refreshAlignmentButtons];
 }

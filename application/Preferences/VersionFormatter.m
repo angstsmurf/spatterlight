@@ -1,3 +1,10 @@
+//
+//  VersionFormatter.m
+//  Spatterlight
+//
+//  Restricts the Z-machine interpreter version field to a single
+//  uppercase letter. Lowercase input is uppercased.
+//
 // Custom formatter adapted from code by Jonathan Mitchell
 // See
 // https://stackoverflow.com/questions/827014/how-to-limit-nstextfield-text-length-and-keep-it-always-upper-case
@@ -65,6 +72,8 @@
             }
         }
         NSRange newRange = [proposedString rangeOfCharacterFromSet:uppercaseSet];
+        if (newRange.location == NSNotFound)
+            return NO;
         proposedString = [proposedString substringFromIndex:newRange.location];
     }
 
@@ -78,7 +87,10 @@
 
         // If a range is selected then characters in that range will be removed
         // so adjust the insert length accordingly
-        insertLength += origSelRange.length;
+        insertLength += (NSInteger)origSelRange.length;
+        // Only possible if the field already held more than one character
+        if (insertLength < 0)
+            insertLength = 0;
 
         // Get the string components
         NSString *prefix = [origString substringToIndex:origSelRange.location];
@@ -120,6 +132,8 @@
     if ((*partialStringPtr).length > 1) {
         *partialStringPtr = (*partialStringPtr).uppercaseString;
         NSRange newRange = [*partialStringPtr rangeOfCharacterFromSet:uppercaseSet];
+        if (newRange.location == NSNotFound)
+            return NO;
         newRange.length = 1;
         *partialStringPtr = [*partialStringPtr substringWithRange:newRange];
         *proposedSelRangePtr = NSMakeRange(0, 1);

@@ -46,7 +46,7 @@
     scrollview.backgroundColor = _sampleTextView.backgroundColor;
     scrollview.hasHorizontalScroller = NO;
     scrollview.hasVerticalScroller = YES;
-    scrollview.verticalScroller.alphaValue = 100;
+    scrollview.verticalScroller.alphaValue = 1;
     scrollview.autohidesScrollers = YES;
 }
 
