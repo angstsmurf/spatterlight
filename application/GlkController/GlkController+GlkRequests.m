@@ -1317,13 +1317,9 @@ static NSString *stringFromPayload(char *buf, size_t len) {
         case PURGEIMG:
             if (req->len) {
                 buf[req->len] = 0;
-                [self.imageHandler purgeImage:req->a1
-                              withReplacement:@(buf)
-                                         size:(NSUInteger)req->a2];
+                [self.imageHandler purgeImage:req->a1 withReplacement:@(buf)];
             } else {
-                [self.imageHandler purgeImage:req->a1
-                              withReplacement:nil
-                                         size:0];
+                [self.imageHandler purgeImage:req->a1 withReplacement:nil];
             }
             break;
 

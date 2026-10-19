@@ -41,9 +41,8 @@ NS_ASSUME_NONNULL_BEGIN
                          size:(NSUInteger)size;
 // Forgets picture resno. With a replacement, the whole file at path (a
 // temporary file the handler then owns and deletes when this picture is
-// purged again) becomes picture resno and current; size is ignored.
-- (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)path
-              size:(NSUInteger)size;
+// purged again) becomes picture resno and current.
+- (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)path;
 
 #pragma mark Lookups: these leave the last image alone
 

@@ -23,6 +23,8 @@ bundle.
 - A PURGEIMG replacement is read whole. Bocfel passes the size of the pixels,
   and its TIFF keeps the IFD after them, so the old read was always short and
   only the `initWithContentsOfFile:` fallback decoded it (twice the reading).
+  The size field went with it: `win_purgeimage()` takes no length and
+  PURGEIMG sends 0 in a2.
 - A purge deletes only files the handler owns (PURGEIMG replacements), not
   any non-Blorb file. A purged LOADIMAGE `PIC3`, or a Hugo resource file,
   used to be deleted.
@@ -50,8 +52,6 @@ bundle.
 
 ## Needs a decision
 
-- **Purge size.** The PURGEIMG size is now ignored. Bocfel is the only
-  sender; the protocol field could carry the file length or be dropped.
 - **Temp files at the end of a session.** The last replacement under each
   number is never purged, so its TIFF stays in Bocfel's temp folder. Deleting
   owned files in `dealloc` would fix it; check with an autorestore first

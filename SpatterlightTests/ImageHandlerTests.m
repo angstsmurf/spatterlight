@@ -49,8 +49,7 @@ static void put32(NSMutableData *d, uint32_t v) {
 }
 
 // An RGBA TIFF laid out the way terps/bocfel/z6/writetiff.cpp writes one:
-// header, pixels, then the IFD and its per-channel arrays. The pixel byte
-// count is what Bocfel passes as the size of a PURGEIMG replacement.
+// header, pixels, then the IFD and its per-channel arrays.
 static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
     const uint32_t pixels = (uint32_t)width * height * 4;
     const uint32_t header = 8, entries = 15, ifd = 2 + entries * 12 + 4, array = 8;
@@ -183,8 +182,8 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
 
 #pragma mark Purging
 
-// Bocfel's replacement size counts only the pixels; the IFD comes after
-// them, so the whole file has to be read.
+// The IFD of a Bocfel TIFF comes after the pixels, so a replacement that
+// decodes was read whole.
 - (void)testPurgeReplacementReadsTheWholeFile {
     NSData *tiff = BocfelTIFF(12, 7);
     XCTAssertFalse([NSBitmapImageRep imageRepsWithData:[tiff subdataWithRange:NSMakeRange(0, 12 * 7 * 4)]].count,
@@ -192,7 +191,7 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
 
     ImageHandler *handler = [ImageHandler new];
     NSString *path = [self write:tiff named:@"r1.tiff"];
-    [handler purgeImage:600 withReplacement:path size:12 * 7 * 4];
+    [handler purgeImage:600 withReplacement:path];
     XCTAssertEqual(handler.lastimageresno, 600);
     XCTAssertEqual(handler.lastimage.size.width, 12);
     XCTAssertEqual(handler.lastimage.size.height, 7);
@@ -205,13 +204,13 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
     ImageHandler *handler = [ImageHandler new];
     NSString *first = [self write:BocfelTIFF(4, 4) named:@"r1.tiff"];
     NSString *second = [self write:BocfelTIFF(8, 2) named:@"r2.tiff"];
-    [handler purgeImage:600 withReplacement:first size:64];
-    [handler purgeImage:600 withReplacement:second size:64];
+    [handler purgeImage:600 withReplacement:first];
+    [handler purgeImage:600 withReplacement:second];
     XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:first]);
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:second]);
     XCTAssertEqual(handler.lastimage.size.width, 8);
 
-    [handler purgeImage:600 withReplacement:nil size:0];
+    [handler purgeImage:600 withReplacement:nil];
     XCTAssertFalse([[NSFileManager defaultManager] fileExistsAtPath:second]);
     XCTAssertNil(handler.lastimage);
     XCTAssertEqual(handler.lastimageresno, -1);
@@ -224,12 +223,12 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
     ImageHandler *handler = [ImageHandler new];
     NSString *path = [self writePNGNamed:@"PIC3" width:10 height:20];
     [self load:3 path:path into:handler];
-    [handler purgeImage:3 withReplacement:nil size:0];
+    [handler purgeImage:3 withReplacement:nil];
     XCTAssertTrue([[NSFileManager defaultManager] fileExistsAtPath:path]);
     XCTAssertFalse([handler handleFindImageNumber:3]);
 
     // A purge of a picture never declared is harmless.
-    [handler purgeImage:4 withReplacement:nil size:0];
+    [handler purgeImage:4 withReplacement:nil];
 }
 
 #pragma mark Resources

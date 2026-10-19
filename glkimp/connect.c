@@ -923,7 +923,7 @@ int win_canprint(glui32 val)
     return wmsg.a1;
 }
 
-void win_purgeimage(glui32 resno, const char *filename, int reslen)
+void win_purgeimage(glui32 resno, const char *filename)
 {
     win_flush();
 
@@ -931,7 +931,7 @@ void win_purgeimage(glui32 resno, const char *filename, int reslen)
     {
         size_t len = filename ? strlen(filename) : 0;
         if (len)
-            sendmsg(PURGEIMG, resno, reslen, 0, 0, 0, len, filename);
+            sendmsg(PURGEIMG, resno, 0, 0, 0, 0, len, filename);
         else
             sendmsg(PURGEIMG, resno, 0, 0, 0, 0, 0, NULL);
     }

@@ -303,7 +303,7 @@ bool purge_image(glui32 picnum, const uint8_t *data, size_t size, int width) {
         return false;
 
     write_to_tiff(filename, data, size, width);
-    win_purgeimage(picnum, filename.c_str(), (int)size);
+    win_purgeimage(picnum, filename.c_str());
     return true;
 }
 

@@ -215,7 +215,7 @@ class Tracer(glkdrive.Driver):
             rest = repr(payload.decode("utf-16-le", "replace"))
         elif cmd in (glkdrive.PURGEIMG, glkdrive.LOADIMAGE):
             path = payload.decode("utf-8", "replace").rstrip("\0")
-            # a2 of PURGEIMG is the pixel buffer size; the name is temporary.
+            # The name of a PURGEIMG file is temporary.
             rest = ""
             if path:
                 digest, data = file_digest(path)
@@ -233,6 +233,9 @@ class Tracer(glkdrive.Driver):
                     os.unlink(path)
                 except OSError:
                     pass
+            if cmd == glkdrive.PURGEIMG:
+                # Only a1 carries anything.
+                args = "%d" % a1
             if cmd == glkdrive.LOADIMAGE:
                 # a3 is a resource length; the payload length rides in a
                 # field the path length would otherwise leak into.

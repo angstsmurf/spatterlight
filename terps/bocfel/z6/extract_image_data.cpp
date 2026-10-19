@@ -494,7 +494,7 @@ int extract_images_from_blorb(ImageStruct **image_list)
             glui32 image_width = 0, image_height = 0;
             // Make the window process purge any cached images
             // (to make switching between graphics formats on-the-fly work)
-            win_purgeimage(resource_id, 0, 0);
+            win_purgeimage(resource_id, nullptr);
             // Read the size from the resource itself where we can. Asking Glk
             // only works while graphics are enabled, and the games lay out
             // their windows from these sizes whether or not anything is drawn.

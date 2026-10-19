@@ -233,7 +233,7 @@ Interpreter: bocfel
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=-1 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=160 a2=256000 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=160 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=1 a2=0 a3=0 len=0
@@ -762,7 +762,7 @@ Interpreter: bocfel
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=45 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=45 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
@@ -1159,7 +1159,7 @@ The air was warm, but the cool north wind at our backs reminded us that winter w
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=1 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=1 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=362
@@ -1537,7 +1537,7 @@ We entered the provisioner's shop, and introduced ourselves to the proprietor, a
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=42 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=42 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=270
@@ -2213,7 +2213,7 @@ Praxix expressed a keen interest in the map, and Webba obliged him by taking the
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=43 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=43 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=266
@@ -4328,7 +4328,7 @@ Perhaps for refreshment, perhaps for news from abroad, or perhaps just to relax 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=116 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=116 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -4986,7 +4986,7 @@ It took Esher just a few moments to become restless, and he soon slipped away fr
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=161 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=161 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1290
@@ -5935,7 +5935,7 @@ It was mid-afternoon when we left Lavos, heading south. The road, which soon nar
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=2 a2=55440 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=2 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -7812,7 +7812,7 @@ Although Minar had cautioned us against taking this route, Bergon chose to proce
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=3 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=3 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=982
@@ -11115,7 +11115,7 @@ The winding canyon floor climbed ever higher toward the eastern mountains, and b
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=5 a2=57276 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=5 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=380
@@ -11485,7 +11485,7 @@ Praxix then called for the others, who hurried to our side.
 
 Of the group, only Praxix was genuinely pleased by our discovery, though he was mystified as to just how it had happened. "Perhaps it was something I said," he offered, shrugging.
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=6 a2=43068 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=6 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -12881,7 +12881,7 @@ Slowly and cautiously, we passed through the gate and into the darkness. As if o
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=52 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=52 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -13538,7 +13538,7 @@ Reaching toward our weapons, we moved forward at a snail's pace; the sounds grew
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=22 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=22 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1136
@@ -15888,7 +15888,7 @@ Hurth led us down the passage, and we soon came to a wide arch leading to an imp
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=24 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=24 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -16254,7 +16254,7 @@ With Hurth in the lead, we continued into the dark caverns. After an hour's marc
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=61 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=61 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -18087,7 +18087,7 @@ Bergon agreed that there was nothing we could do but get ourselves into more tro
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=83 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=83 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -19539,7 +19539,7 @@ Hurth approached the door and spoke a Dwarvish command of opening. The massive d
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=53 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=53 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -20292,7 +20292,7 @@ Praxix raised his arm before him, and from his crooked forefinger shot a small b
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=23 a2=53192 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=23 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1886
@@ -21264,7 +21264,7 @@ At the landing was a passage, and this we followed until we came finally to a fo
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=63 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=63 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -21833,7 +21833,7 @@ We moved silently down the passage, and found the meaning of the glowing cavern 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=30 a2=54936 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=30 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -23844,7 +23844,7 @@ Esher rushed to help, but finding Hurth's wounds beyond his talents, he turned a
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=32 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=32 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1280
@@ -24949,7 +24949,7 @@ After climbing for a few hours more, we arrived at the junction of two stairways
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=25 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=25 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -25315,7 +25315,7 @@ The left stair rose in tighter and tighter spirals, the air thinning as we went.
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=26 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=26 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -27867,7 +27867,7 @@ We continued climbing up the narrow stairs, and finally climbed through the heav
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=62 a2=68544 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=62 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=850
@@ -29594,7 +29594,7 @@ After another long climb, the stairs ended blindly. Praxix approached the blank 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=28 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=28 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -30774,7 +30774,7 @@ We awoke with the sun, and could see now where we had come. We were on a ridge a
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=50 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=50 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -31609,7 +31609,7 @@ It was a short walk to the next hill; before us sat a ramshackle hut, its batter
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=33 a2=56896 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=33 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -32002,7 +32002,7 @@ Then, staring straight into Bergon's eyes, he said, "You come from the far plain
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=34 a2=57404 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=34 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -34003,7 +34003,7 @@ Descending from the high plain, we headed toward the near shore of the lake. Nea
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=51 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=51 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -37433,7 +37433,7 @@ The sun was high in the sky; no sign, not even the rainbow, remained as testamen
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=56 a2=55500 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=56 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1062
@@ -37967,7 +37967,7 @@ Having little alternative, we packed our things and moved along the shore, comin
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=58 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=58 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -38345,7 +38345,7 @@ Following the side of the warm spring into the cave, we passed through caverns w
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=73 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=73 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -38722,7 +38722,7 @@ A narrow path now led beside the gently flowing spring, and this we followed unt
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=64 a2=55372 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=64 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -39106,7 +39106,7 @@ I had just about reached the limit of my descent, when I came to the end of the 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=36 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=36 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -39462,7 +39462,7 @@ And as I approached my sleeping friend, I could hear someone approach from anoth
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=38 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=38 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -39927,7 +39927,7 @@ And as I approached my sleeping friend, I could hear someone approach from anoth
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=39 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=39 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=888
@@ -40283,7 +40283,7 @@ With a good deal of apprehension, I ventured through the doorway and into a hall
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=143 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=143 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -40639,9 +40639,9 @@ The lefthand path led to a good-sized chamber in the middle of which sat a large
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=140 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=140 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=PURGEIMG a1=141 a2=15096 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=141 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -42082,9 +42082,9 @@ The ornate path led to a beautifully appointed chamber in which hundreds of jewe
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=144 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=144 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=PURGEIMG a1=145 a2=15980 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=145 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -45485,9 +45485,9 @@ As I dove into the water, I was filled with amazement that the torch I was carry
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=146 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=146 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=PURGEIMG a1=147 a2=10720 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=147 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -47231,7 +47231,7 @@ Now conscious and regaining his strength, I managed to help Bergon back to the p
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=162 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=162 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -47631,7 +47631,7 @@ The morning was still and hazy, and we started toward the forest with great eage
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=7 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=7 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1156
@@ -48071,7 +48071,7 @@ It was agreed that we split up the group in search of the elusive westflake root
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=9 a2=56320 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=9 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -49484,7 +49484,7 @@ Bergon, sensing his peril, tried to move back, but the trees had closed in behin
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=94 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=94 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -49841,7 +49841,7 @@ He had entered the glade and was moving swiftly through the knee-high grasses an
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=14 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=14 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -50547,7 +50547,7 @@ He had entered the glade and was moving swiftly through the knee-high grasses an
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=15 a2=55500 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=15 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=448
@@ -50916,7 +50916,7 @@ Praxix tried to lower himself down gracefully, but having nothing with which to 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=16 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=16 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=226
@@ -51638,9 +51638,9 @@ Moving quickly and scanning the ground for any sign of westflake, I chose to fol
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=11 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=11 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=PURGEIMG a1=12 a2=18304 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=12 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -51997,7 +51997,7 @@ I gasped, stumbling backward onto the ground, and twisted my ankle. She was grot
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=13 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=13 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -53662,7 +53662,7 @@ We arrived a short time later; Minar appeared lifeless, though he was breathing 
 [MSG] cmd=FINDIMAGE a1=7 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=PURGEIMG a1=8 a2=49692 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=8 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=3262
@@ -59310,7 +59310,7 @@ This time, we went down the path to the right, but the results were discouraging
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=17 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=17 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=578
@@ -60128,7 +60128,7 @@ I looked up, and was amazed to see the trees filled with what seemed to be hammo
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=47 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=47 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=756
@@ -60524,7 +60524,7 @@ Minar reacted quickly. "We must help these Elves, if it is at all within our pow
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=48 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=48 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -61282,7 +61282,7 @@ Minar reacted quickly. "We must help these Elves, if it is at all within our pow
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=49 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=49 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=3976
@@ -61308,7 +61308,7 @@ Thanking N'dar, we prepared to leave. V'ren was saddened, but said nothing as sh
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=40 a2=55000 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=40 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -63231,7 +63231,7 @@ The next day, we started toward the mountains upon a well-travelled path. By mid
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=19 a2=55500 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=19 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -64940,7 +64940,7 @@ I suppose it was only a hunch, but Praxix decided to cast his glow spell on the 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=20 a2=53136 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=20 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=3994
@@ -64968,7 +64968,7 @@ Leading us to his hearth, he sat us in a semi-circle around the blazing fire and
 
 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=21 a2=39984 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=21 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1224
@@ -65901,7 +65901,7 @@ We made quick progress down the arrow-straight road and soon came upon a steep s
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=67 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=67 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -66819,7 +66819,7 @@ The stair became steeper as we descended, and it was hours before we came to the
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=68 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=68 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -67208,7 +67208,7 @@ We marched quickly down the path as it began a wide curve toward the right.  Sud
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=69 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=69 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -68427,7 +68427,7 @@ The righthand path led to a gate fashioned with formidable iron bars. There was 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=159 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=159 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -70591,7 +70591,7 @@ We decided to find a way through the orcs position, but were not quite certain h
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=70 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=70 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=958
@@ -72221,7 +72221,7 @@ It was only moments before the orcs were racing down the road in Praxix' directi
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=72 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=72 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=916
@@ -73315,7 +73315,7 @@ On the one hand, it would be a simple matter to dispatch the orcs one at a time 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=74 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=74 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -74320,7 +74320,7 @@ The water ran swiftly through this underground flume, and we were tossed and buf
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=77 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=77 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=0 a2=0 a3=0 len=0
@@ -76297,7 +76297,7 @@ A wide path followed the raging river upstream, and we followed it until we came
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=78 a2=57720 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=78 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -77088,7 +77088,7 @@ The passage twisted and wound its way through the rock until we came to a small,
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=80 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=80 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -77875,7 +77875,7 @@ As quietly as we could, we squeezed our way through the cleft and soon came upon
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=84 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=84 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -82309,7 +82309,7 @@ We each spun around, but we were as alone as before. Just then, the giggling tur
 
 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=85 a2=46228 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=85 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=530
@@ -84950,7 +84950,7 @@ The right-hand path led to a wide vestibule with paths leading both left and rig
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=86 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=86 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -86479,7 +86479,7 @@ Taking out our rope, we securely tied one end around Hurth's waist, and slowly l
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=87 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=87 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=358
@@ -87060,7 +87060,7 @@ Taking out our rope, we securely tied one end around Hurth's waist, and slowly l
 [TEXT]  
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=88 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=88 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1202
@@ -88653,7 +88653,7 @@ Our chosen path led through a richly carved vestibule, at the end of which sat a
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=89 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=89 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -89045,7 +89045,7 @@ The iron key was a perfect fit for the lock. We were soon inside a tall, rounded
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=90 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=90 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -90604,7 +90604,7 @@ Carefully, Praxix mixed the reagent with an equal amount of fire essence, and wa
 [TEXT] 
 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=91 a2=35552 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=91 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1612
@@ -91181,7 +91181,7 @@ Hurth took a tentative step forward and touched the polished stone with his hand
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=92 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=92 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=832
@@ -93888,7 +93888,7 @@ The gnarled trees were soon too thick to penetrate, and Bergon finally unsheathe
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=10 a2=58164 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=10 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=3140
@@ -94310,7 +94310,7 @@ Gathering together, we soon learned that Praxix was missing from our ranks. "Pra
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=93 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=93 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2774
@@ -95366,7 +95366,7 @@ The path snaked and wound its way toward the west, ending at the side of a river
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=95 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=95 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -97193,7 +97193,7 @@ But no sooner had Praxix started to think about where to proceed next, the groun
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=148 a2=55944 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=148 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -97557,7 +97557,7 @@ A narrow doorway led Praxix into a small, closetlike chamber. On one wall, a lar
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=149 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=149 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -98213,15 +98213,15 @@ A narrow doorway led Praxix into a small, closetlike chamber. On one wall, a lar
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=150 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=150 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=153 a2=15340 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=153 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=151 a2=15340 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=151 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=514
@@ -98571,7 +98571,7 @@ The passage led onward and around a corner until it reached a protective railing
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=157 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=157 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -99910,7 +99910,7 @@ The passageway ended abruptly before him at the site of yet another railing and 
 [MSG] cmd=FINDIMAGE a1=157 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=PURGEIMG a1=158 a2=16536 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=158 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=230
@@ -101200,7 +101200,7 @@ Slowly, Praxix twisted the dial on the left until its pointer was aimed directly
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=156 a2=15340 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=156 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -105787,7 +105787,7 @@ Slowly, Praxix twisted the dial on the left until its pointer was aimed directly
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=155 a2=15340 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=155 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
@@ -109808,7 +109808,7 @@ Leaving the vicinity of the mill, Praxix re-entered the forest, taking a more ea
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=96 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=96 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -110523,7 +110523,7 @@ What remained of an ancient castle lay before him and he walked eagerly into wha
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=97 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=97 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -111239,7 +111239,7 @@ Climbing down the darkened stairway, Praxix soon reached the level below, a dung
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=99 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=99 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -111596,7 +111596,7 @@ Disappointed at having found nothing of interest, Praxix climbed the crumbling s
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=98 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=98 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2614
@@ -112479,7 +112479,7 @@ The chamber was bare, save the rusted manacles hanging from the walls, but in th
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=100 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=100 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -113925,7 +113925,7 @@ Carefully, Praxix mixed the reagent with an equal amount of fire essence, and wa
 [TEXT] 
 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=101 a2=41360 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=101 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1686
@@ -116954,7 +116954,7 @@ Gladdened by our success in reviving our stricken friend, we continued in the di
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=102 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=102 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -117662,7 +117662,7 @@ Subtlety of movement not being among their strengths, it was a simple matter to 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=103 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=103 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -119027,7 +119027,7 @@ It took quite a while, but I finally found Bergon, bound and gagged inside a ten
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=104 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=104 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -119573,7 +119573,7 @@ In truth, he had already done extremely well; the Stone was his. All that was le
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=163 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=163 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=202
@@ -120098,7 +120098,7 @@ It was a simple matter to locate the southern route that led to Zan, and by the 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=109 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=109 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1302
@@ -122797,7 +122797,7 @@ Praxix came to a quick decision, mixing equal parts of air essence and water ess
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=110 a2=56896 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=110 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=442
@@ -123184,7 +123184,7 @@ The fog had now completely cleared, and we could see no trace of the dark shadow
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=164 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=164 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1828
@@ -126725,7 +126725,7 @@ It was nearly twilight when we reached the outskirts of Zan. Many homes were sca
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=113 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=113 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -127119,7 +127119,7 @@ We entered the curio shop, just as the proprietor was preparing to close up for 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=114 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=114 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -127999,7 +127999,7 @@ The shop was large, and filled with a vast assortment of artifacts; it would hav
 [TEXT] 
 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=115 a2=31496 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=115 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2612
@@ -131255,7 +131255,7 @@ Pleasantly surprised that our arrival had not attracted undue attention, we sat 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=117 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=117 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1250
@@ -133343,7 +133343,7 @@ Rather than divulging our true purpose, Bergon simply told the harbormaster that
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=121 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=121 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -134415,7 +134415,7 @@ Finally, Bergon spoke. "Excuse us, sir," he said, and the wizened man at the whe
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=123 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=123 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -135573,7 +135573,7 @@ We entered the inn through swinging doors. Inside, an old man, his long, stringy
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=119 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=119 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -137145,7 +137145,7 @@ And with that, he walked back to his front office and began snoring loudly. Outs
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=128 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=128 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -138745,7 +138745,7 @@ If it was Praxix' goal to get the sheriff's attention, he certainly did so by ca
 
 "What's going on here?" he boomed.
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=129 a2=55880 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=129 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -139416,7 +139416,7 @@ We were welcomed aboard by Captain Calfon, who, surprisingly sober, informed us 
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=131 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=131 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -139808,7 +139808,7 @@ And so we settled in; Bergon with the captain, the rest of us exploring one part
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=133 a2=55056 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=133 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2210
@@ -139826,7 +139826,7 @@ It was hours later that the storm abated, but we rode it out without harm. The d
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=136 a2=56388 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=136 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2
@@ -141638,7 +141638,7 @@ Using my fix on the island as a reference, Praxix cast his wind spell into the a
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=111 a2=55000 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=111 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2726
@@ -144328,7 +144328,7 @@ We stepped off the boat, and onto the shore. The sky was a brilliant blue, and n
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SETREVERSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PURGEIMG a1=138 a2=54064 a3=0 len=113
+[MSG] cmd=PURGEIMG a1=138 a2=0 a3=0 len=113
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
 [MSG] cmd=SETREVERSE a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=2310

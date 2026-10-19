@@ -168,7 +168,7 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     [self selectImageNumber:resno];
 }
 
-- (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)replacementPath size:(NSUInteger)replacementSize {
+- (void)purgeImage:(NSInteger)resno withReplacement:(nullable NSString *)replacementPath {
     if (resno < 0)
         return;
 
@@ -187,8 +187,6 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
     if (!replacementPath)
         return;
 
-    // Read the whole file: Bocfel passes the size of the pixels it wrote,
-    // which is shorter than the TIFF that holds them.
     ImageResource *replacement = [[ImageResource alloc] initWithFilename:replacementPath offset:0 length:0];
     replacement.ownsFile = YES;
     _resources[@(resno)] = replacement;
