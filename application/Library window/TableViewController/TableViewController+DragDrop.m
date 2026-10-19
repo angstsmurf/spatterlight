@@ -68,7 +68,7 @@
     self.undoGroupingCount++;
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+     postNotification:[NSNotification notificationWithName:SpatterlightStopIndexingNotification object:nil]];
 
     NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
     childContext.undoManager = nil;

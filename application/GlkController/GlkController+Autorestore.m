@@ -14,6 +14,7 @@
 #import "GlkTextGridWindow.h"
 #import "GlkGraphicsWindow.h"
 #import "Theme.h"
+#import "Fetches.h"
 #import "Game.h"
 #import "Metadata.h"
 #import "Preferences.h"
@@ -84,22 +85,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
 }
 
 - (Theme *)findThemeByName:(NSString *)name {
-    if (!name || name.length == 0)
-        return nil;
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    NSManagedObjectContext *context = libcontroller.managedObjectContext;
-    Theme *foundTheme = nil;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        foundTheme = fetchedObjects[0];
-    } else {
-        if (error != nil)
-            NSLog(@"GlkController findThemeByName: %@", error);
-    }
-    return foundTheme;
+    return [Fetches findTheme:name inContext:libcontroller.managedObjectContext];
 }
 
 #pragma mark Autorestore at launch

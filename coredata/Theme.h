@@ -163,6 +163,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) Interpreter *interpreter;
 @property (nullable, nonatomic, retain) Theme *lightTheme;
 
+//! \c name if no theme has it (case-insensitively), else "name 2", "name 3"…
++ (NSString *)unusedNameBasedOn:(NSString *)name inContext:(NSManagedObjectContext *)context;
+
+//! An editable copy with copies of the styles, named as the original: the
+//! caller gives it a name of its own.
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
 - (void)copyAttributesFrom:(Theme *)theme;
 - (void)populateStyles;

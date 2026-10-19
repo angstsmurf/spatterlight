@@ -143,7 +143,7 @@
     [self migrateOutdatedIfids];
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
+     postNotification:[NSNotification notificationWithName:SpatterlightStartIndexingNotification object:nil]];
 
     [self updateTableViews];
 
@@ -326,7 +326,7 @@
         }
 
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
+         postNotification:[NSNotification notificationWithName:SpatterlightStartIndexingNotification object:nil]];
 
         [weakSelf.managedObjectContext performBlock:^{
             while (weakSelf.undoGroupingCount > 0) {

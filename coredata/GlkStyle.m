@@ -54,6 +54,8 @@
 	// Loop through all attributes and assign them to the clone
     NSMutableDictionary *dict = [self.attributeDict mutableCopy];
 
+    // The dictionary may hold an NSMutableParagraphStyle: give the clone its
+    // own, or a later edit of one style's paragraph would show in both.
     NSParagraphStyle *paragraphStyle = [dict[NSParagraphStyleAttributeName] copy];
     dict[NSParagraphStyleAttributeName] = paragraphStyle;
 

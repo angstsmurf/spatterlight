@@ -762,11 +762,8 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     if (!self.theme.editable) {
         Theme *clonedTheme = self.theme.clone;
         clonedTheme.editable = YES;
-        NSString *name = [self.theme.name stringByAppendingString:@" (modified)"];
-        NSUInteger counter = 2;
-        while ([_arrayController findThemeByName:name]) {
-            name = [NSString stringWithFormat:@"%@ (modified) %ld", self.theme.name, counter++];
-        }
+        NSString *name = [Theme unusedNameBasedOn:[self.theme.name stringByAppendingString:@" (modified)"]
+                                         inContext:self.managedObjectContext];
         clonedTheme.name = name;
         [self changeThemeName:name];
         _btnRemove.enabled = YES;

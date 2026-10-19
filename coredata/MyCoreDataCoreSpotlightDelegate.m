@@ -18,6 +18,29 @@
 
 @implementation MyCoreDataCoreSpotlightDelegate
 
+// The coordinator initializer and the start/stop calls are missing from SDKs
+// up to 11.3, which the old-macOS build still uses.
++ (instancetype)exporterForStoreWithDescription:(NSPersistentStoreDescription *)description
+                                    coordinator:(NSPersistentStoreCoordinator *)coordinator {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
+    return [[self alloc] initForStoreWithDescription:description coordinator:coordinator];
+#else
+    return [[self alloc] initForStoreWithDescription:description model:coordinator.managedObjectModel];
+#endif
+}
+
+- (void)startIndexing {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
+    [self startSpotlightIndexing];
+#endif
+}
+
+- (void)stopIndexing {
+#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
+    [self stopSpotlightIndexing];
+#endif
+}
+
 /* CoreSpotlight domain identifer; default is the store's identifier */
 - (NSString *)domainIdentifier {
     return @"net.ccxvii.spatterlight";

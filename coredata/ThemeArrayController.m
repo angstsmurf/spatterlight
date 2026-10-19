@@ -15,12 +15,7 @@
 - (id)newObject {
     Theme *newObj = [super newObject];
     [newObj copyAttributesFrom:self.selectedTheme];
-    NSString *name = @"New theme";
-    NSUInteger counter = 2;
-    while ([self findThemeByName:name]) {
-        name = [NSString stringWithFormat:@"New theme %ld", counter++];
-    }
-    newObj.name = name;
+    newObj.name = [Theme unusedNameBasedOn:@"New theme" inContext:self.managedObjectContext];
     newObj.defaultParent = self.selectedTheme;
     return newObj;
 }

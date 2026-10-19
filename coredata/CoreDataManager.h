@@ -8,6 +8,11 @@
 
 #import <Cocoa/Cocoa.h>
 
+//! Posted (object nil) around bulk library changes, to pause and resume the
+//! Spotlight exporter.
+extern NSNotificationName const SpatterlightStartIndexingNotification;
+extern NSNotificationName const SpatterlightStopIndexingNotification;
+
 @interface CoreDataManager : NSObject
 
 @property (readonly, strong, nonatomic) NSManagedObjectModel *managedObjectModel;

@@ -6,6 +6,9 @@
 //
 //
 
+#include <pwd.h>
+#include <unistd.h>
+
 #import "CoreDataManager.h"
 #import "MyCoreDataCoreSpotlightDelegate.h"
 #import "FolderAccess.h"
@@ -25,6 +28,9 @@
 
 @end
 
+NSNotificationName const SpatterlightStartIndexingNotification = @"StartIndexing";
+NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
+
 @implementation CoreDataManager
 
 - (instancetype)initWithModelName:(NSString *)aModelName {
@@ -33,11 +39,11 @@
         modelName = aModelName;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(startIndexing:)
-                                                     name:@"StartIndexing"
+                                                     name:SpatterlightStartIndexingNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(stopIndexing:)
-                                                     name:@"StopIndexing"
+                                                     name:SpatterlightStopIndexingNotification
                                                    object:nil];
     }
     return self;
@@ -371,11 +377,8 @@
         // opening it without would make Core Data open it read-only.
         [description setOption:@YES forKey:NSPersistentHistoryTrackingKey];
         if (!runningTests) {
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-            _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description coordinator:_persistentContainer.persistentStoreCoordinator];
-#else
-            _spotlightDelegate = [[MyCoreDataCoreSpotlightDelegate alloc] initForStoreWithDescription:description model:_persistentContainer.managedObjectModel];
-#endif
+            _spotlightDelegate = [MyCoreDataCoreSpotlightDelegate exporterForStoreWithDescription:description
+                                                                                     coordinator:_persistentContainer.persistentStoreCoordinator];
             [description setOption:_spotlightDelegate forKey:NSCoreDataCoreSpotlightExporter];
         }
         [description setOption:@YES forKey:NSPersistentStoreRemoteChangeNotificationPostOptionKey];
@@ -475,17 +478,16 @@
     return _mainManagedObjectContext;
 }
 
-// Returns the directory the application uses to store the Core Data store file. This code uses a directory named "Spatterlight" in the user's Application Support directory.
-// In a sandboxed app, the system will always return the path to the Application Support directory
-// in ~/Library/Group Containers, so we use this hack to get the one we want instead.
-
+// The folder of the store from before Spatterlight moved its library into the
+// group container: Application Support/Spatterlight in the user's real home.
+// NSHomeDirectory() is the sandbox container in a sandboxed app, so ask the
+// password database instead.
 - (NSURL *)applicationFilesDirectory
 {
-    NSString *homeString = NSHomeDirectory();
-    NSArray *pathComponents = homeString.pathComponents;
-    pathComponents = [pathComponents subarrayWithRange:NSMakeRange(0, 3)];
-    homeString = [[NSString pathWithComponents:pathComponents] stringByAppendingString:@"/Library/Application Support/Spatterlight/"];
-    return [NSURL fileURLWithPath:homeString isDirectory:YES];
+    const struct passwd *pw = getpwuid(getuid());
+    NSString *home = pw && pw->pw_dir ? @(pw->pw_dir) : NSHomeDirectory();
+    NSString *path = [home stringByAppendingPathComponent:@"Library/Application Support/Spatterlight"];
+    return [NSURL fileURLWithPath:path isDirectory:YES];
 }
 
 // One-time repair for stores migrated by an early version of
@@ -574,23 +576,13 @@
 }
 
 - (void)startIndexing:(NSNotification *)notification {
-    if (@available(macOS 10.15, *)) {
-        if (!_spotlightDelegate)
-            return;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-        [_spotlightDelegate startSpotlightIndexing];
-#endif
-    }
+    if (@available(macOS 10.15, *))
+        [_spotlightDelegate startIndexing];
 }
 
 - (void)stopIndexing:(NSNotification *)notification {
-    if (@available(macOS 10.15, *)) {
-        if (!_spotlightDelegate)
-            return;
-#if __MAC_OS_X_VERSION_MAX_ALLOWED > 110300
-        [_spotlightDelegate stopSpotlightIndexing];
-#endif
-    }
+    if (@available(macOS 10.15, *))
+        [_spotlightDelegate stopIndexing];
 }
 
 @end

@@ -345,7 +345,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
     TableViewController * __weak weakSelf = self;
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+     postNotification:[NSNotification notificationWithName:SpatterlightStopIndexingNotification object:nil]];
 
     [childContext performBlock:^{
         TableViewController *strongSelf = weakSelf;
@@ -401,7 +401,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
         }
 
         [[NSNotificationCenter defaultCenter]
-         postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
+         postNotification:[NSNotification notificationWithName:SpatterlightStartIndexingNotification object:nil]];
     }];
 }
 

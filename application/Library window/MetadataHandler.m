@@ -478,7 +478,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     TableViewController *tvc = self.tableViewController;
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+     postNotification:[NSNotification notificationWithName:SpatterlightStopIndexingNotification object:nil]];
 
     tvc.downloadWasCancelled = NO;
 
@@ -488,7 +488,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     }];
 
     [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"StopIndexing" object:nil]];
+     postNotification:[NSNotification notificationWithName:SpatterlightStopIndexingNotification object:nil]];
 
     tvc.downloadWasCancelled = NO;
 
