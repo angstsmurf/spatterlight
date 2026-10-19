@@ -7,55 +7,16 @@
 
 #import <Foundation/Foundation.h>
 
-@class GlkSoundChannel, GlkController, SoundHandler;
+#import "SoundResource.h"
+
+@class GlkSoundChannel, GlkController;
 
 typedef uint32_t glui32;
 typedef int32_t glsi32;
 
-
-typedef NS_ENUM(NSInteger, GlkSoundBlorbFormatType) {
-	GlkSoundBlorbFormatNone,
-    GlkSoundBlorbFormatMod,
-	GlkSoundBlorbFormatOggVorbis,
-	GlkSoundBlorbFormatFORM,
-	GlkSoundBlorbFormatAIFF,
-	GlkSoundBlorbFormatMP3,
-	GlkSoundBlorbFormatWave,
-	GlkSoundBlorbFormatMIDI,
-};
-
 #define MAXSND 32
 
 NS_ASSUME_NONNULL_BEGIN
-
-@interface SoundFile : NSObject
-
-- (instancetype)initWithPath:(NSString *)path;
-- (void)resolveBookmark;
-
-@property (nullable) NSData *bookmark;
-@property (nullable) NSURL *URL;
-@property (weak) SoundHandler *handler;
-
-@end
-
-
-@interface SoundResource : NSObject
-
-- (instancetype)initWithFilename:(NSString *)filename offset:(NSUInteger)offset length:(NSUInteger)length;
-
-@property (NS_NONATOMIC_IOSONLY, readonly) BOOL load;
-
-@property (copy, nullable) NSData *data;
-@property (strong, nullable) SoundFile *soundFile;
-@property NSString *filename;
-@property NSUInteger offset;
-@property NSUInteger length;
-@property GlkSoundBlorbFormatType type;
-+ (GlkSoundBlorbFormatType)detectSoundFormatFromData:(NSData*)data;
-
-@end
-
 
 @interface SoundHandler : NSObject
 

@@ -17,11 +17,7 @@
 #import "SoundHandler.h"
 #import "GlkSoundChannel.h"
 #import "MIDIChannel.h"
-
-@interface SoundHandler (Testing)
-+ (NSMutableData *)WAVDataWithSampleCount:(uint32_t)nSamples sampleRate:(uint32_t)sampleRate;
-+ (nullable NSData *)spectrumBeepWAVWithFrequency:(int)frequency duration:(int)millisecs;
-@end
+#import "SpectrumBeeper.h"
 
 @interface GlkSoundChannel (Testing)
 - (glui32)remainingFadeDuration;
@@ -230,7 +226,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
 #pragma mark Beeper
 
 - (void)testWAVHeader {
-    NSData *wav = [SoundHandler WAVDataWithSampleCount:100 sampleRate:44100];
+    NSData *wav = [SpectrumBeeper WAVDataWithSampleCount:100 sampleRate:44100];
     XCTAssertEqual(wav.length, 44U + 200U);
     const uint8_t *p = wav.bytes;
     XCTAssertEqual(memcmp(p, "RIFF", 4), 0);
@@ -259,7 +255,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     const int frequencies[] = { 100, 261, 440, 1000, 2000, 4000, 8000 };
     for (size_t f = 0; f < sizeof frequencies / sizeof *frequencies; f++) {
         const int frequency = frequencies[f];
-        NSData *wav = [SoundHandler spectrumBeepWAVWithFrequency:frequency duration:1000];
+        NSData *wav = [SpectrumBeeper WAVWithFrequency:frequency duration:1000];
         XCTAssertEqual(wav.length, 44U + 44100U * 2U);
         const int16_t *samples = (const int16_t *)((const uint8_t *)wav.bytes + 44);
         int changes = 0;
@@ -271,8 +267,8 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
 }
 
 - (void)testEmptyBeepIsNil {
-    XCTAssertNil([SoundHandler spectrumBeepWAVWithFrequency:0 duration:100]);
-    XCTAssertNil([SoundHandler spectrumBeepWAVWithFrequency:440 duration:0]);
+    XCTAssertNil([SpectrumBeeper WAVWithFrequency:0 duration:100]);
+    XCTAssertNil([SpectrumBeeper WAVWithFrequency:440 duration:0]);
 }
 
 @end
