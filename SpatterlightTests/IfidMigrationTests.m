@@ -39,6 +39,12 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
 
 @end
 
+static NSString *BabelIfid(NSString *path) {
+    NSString *ifid = nil;
+    [GameImporter identifyFile:path format:NULL ifid:&ifid];
+    return ifid;
+}
+
 @implementation IfidMigrationTests
 
 - (void)setUp {
@@ -179,7 +185,7 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
 // the file. The new one is what babel says about the file now.
 - (void)testQuestGameGetsPrefixedIfidFromFile {
     NSString *path = [self writeData:[self questFile] to:@"loose/test.asl"];
-    NSString *newIfid = [TableViewController ifidFromFile:path];
+    NSString *newIfid = BabelIfid(path);
     XCTAssertTrue([newIfid hasPrefix:@"QUEST-"], @"babel says %@", newIfid);
     XCTAssertEqual(newIfid.length, 38u);
     NSString *oldIfid = [newIfid substringFromIndex:6];
@@ -351,7 +357,7 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
 // follow the IFID.
 - (void)testIdentityMarkerFollowsIfid {
     NSString *path = [self writeData:[self questFile] to:@"Quest/Migration test/test.asl"];
-    NSString *newIfid = [TableViewController ifidFromFile:path];
+    NSString *newIfid = BabelIfid(path);
     NSString *oldIfid = [newIfid substringFromIndex:6];
     NSURL *marker = [self.root URLByAppendingPathComponent:
                      [@"Quest/Migration test/" stringByAppendingString:kMarkerFilename]];
@@ -371,7 +377,7 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
 // A marker that names something else is not ours to rewrite.
 - (void)testForeignIdentityMarkerIsLeftAlone {
     NSString *path = [self writeData:[self questFile] to:@"Quest/Other/test.asl"];
-    NSString *newIfid = [TableViewController ifidFromFile:path];
+    NSString *newIfid = BabelIfid(path);
     NSString *oldIfid = [newIfid substringFromIndex:6];
     NSURL *marker = [self.root URLByAppendingPathComponent:
                      [@"Quest/Other/" stringByAppendingString:kMarkerFilename]];

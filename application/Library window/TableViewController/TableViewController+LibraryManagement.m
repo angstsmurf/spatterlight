@@ -31,46 +31,17 @@
 #import "CoreDataManager.h"
 #import "InfoController.h"
 
-#include "babel_handler.h"
-#include "ifiction.h"
-#include "treaty.h"
 
 @implementation TableViewController (LibraryManagement)
 
-+ (NSString *)ifidFromFile:(NSString *)path {
-    NSString *result = @"";
-    if (!path.length)
-        return result;
-    void *context = get_babel_ctx();
-    if (context == NULL) {
-        return result;
-    }
-
-    int rv = 0;
-    char buf[TREATY_MINIMUM_EXTENT];
-
-    char *format = babel_init_ctx((char *)path.fileSystemRepresentation, context);
-    if (format && babel_get_authoritative_ctx(context)) {
-        rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
-    }
-
-    babel_release_ctx(context);
-    free(context);
-
-    if (rv <= 0) {
-        return result;
-    }
-
-    result = @(buf);
-    if (!result.length)
-        return @"";
-    else
-        return result;
+- (NSSet<NSString *> *)runningHashTags {
+    NSAssert(NSThread.isMainThread, @"gameSessions is main-thread state");
+    return [NSSet setWithArray:self.gameSessions.allKeys];
 }
 
-- (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context {
+- (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context sparing:(NSSet<NSString *> *)runningHashTags {
     // Don't delete games that are playing
-    if (game.hashTag.length && self.gameSessions[game.hashTag]) {
+    if (game.hashTag.length && [runningHashTags containsObject:game.hashTag]) {
         return;
     }
     NSSet *ifids = game.metadata.ifids.copy;
@@ -84,12 +55,25 @@
 }
 
 
-- (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context {
+// The order in which games sharing a hashTag are ranked when all but one are
+// pruned: the survivor is the most recently played game (falling back to
+// visible, earliest-added for never-played duplicates).
+static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
+    return @[
+        // Most recently played first; nil (never played) sorts last under descending.
+        [NSSortDescriptor sortDescriptorWithKey:@"lastPlayed" ascending:NO],
+        [NSSortDescriptor sortDescriptorWithKey:@"hidden" ascending:YES],
+        [NSSortDescriptor sortDescriptorWithKey:@"added" ascending:YES]
+    ];
+}
+
+- (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context sparing:(NSSet<NSString *> *)runningHashTags {
     if (!hashTag.length)
         return;
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [Game fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@",hashTag];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag ==[c] %@",hashTag];
+    fetchRequest.sortDescriptors = duplicateSurvivorOrder();
 
     NSArray<Game *> *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {
@@ -100,7 +84,7 @@
         Game *first = fetchedObjects.firstObject;
         for (Game *game in fetchedObjects) {
             if (game != first) {
-                [self deleteGameMetaAndIfid:game inContext:context];
+                [self deleteGameMetaAndIfid:game inContext:context sparing:runningHashTags];
             }
         }
     }
@@ -108,20 +92,15 @@
 
 // Single grouped pass over *every* Game (including hidden ones) that prunes
 // any games sharing a hashTag, keeping one survivor per hash. The fetch is
-// sorted so the survivor of each group is the most recently played game
-// (falling back to visible, earliest-added for never-played duplicates).
-// deleteGameMetaAndIfid: refuses to delete a game that is currently playing,
-// so an active session is never affected.
-- (void)pruneDuplicateGamesInContext:(NSManagedObjectContext *)context {
+// sorted by duplicateSurvivorOrder() within each hash group.
+// Games whose hashTag is in runningHashTags (currently playing) are never
+// deleted, so an active session is never affected.
+- (void)pruneDuplicateGamesInContext:(NSManagedObjectContext *)context sparing:(NSSet<NSString *> *)runningHashTags {
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [Game fetchRequest];
-    fetchRequest.sortDescriptors = @[
-        [NSSortDescriptor sortDescriptorWithKey:@"hashTag" ascending:YES selector:@selector(caseInsensitiveCompare:)],
-        // Most recently played first; nil (never played) sorts last under descending.
-        [NSSortDescriptor sortDescriptorWithKey:@"lastPlayed" ascending:NO],
-        [NSSortDescriptor sortDescriptorWithKey:@"hidden" ascending:YES],
-        [NSSortDescriptor sortDescriptorWithKey:@"added" ascending:YES]
-    ];
+    fetchRequest.sortDescriptors = [@[
+        [NSSortDescriptor sortDescriptorWithKey:@"hashTag" ascending:YES selector:@selector(caseInsensitiveCompare:)]]
+                                    arrayByAddingObjectsFromArray:duplicateSurvivorOrder()];
 
     NSArray<Game *> *games = [context executeFetchRequest:fetchRequest error:&error];
     if (!games) {
@@ -140,7 +119,7 @@
         }
         if (survivorHash && [hash caseInsensitiveCompare:survivorHash] == NSOrderedSame) {
             // Same hash as the survivor we already kept: this is a duplicate.
-            [self deleteGameMetaAndIfid:game inContext:context];
+            [self deleteGameMetaAndIfid:game inContext:context sparing:runningHashTags];
             pruned++;
         } else {
             // First game of a new hash group: keep it as the survivor.
@@ -358,6 +337,11 @@
     NSManagedObjectContext *childContext = self.coreDataManager.privateChildManagedObjectContext;
     childContext.undoManager = nil;
 
+    // gameTableModel and gameSessions are main-thread state: snapshot them
+    // here rather than reading them from the child context's queue.
+    NSArray<NSManagedObjectID *> *gameIDs = [self.gameTableModel valueForKey:@"objectID"];
+    NSSet<NSString *> *running = self.runningHashTags;
+
     TableViewController * __weak weakSelf = self;
 
     [[NSNotificationCenter defaultCenter]
@@ -369,66 +353,88 @@
             return;
         // Prune duplicate games (same hashTag) across the whole library before
         // the per-game verification loop below, which only walks visible games.
-        [strongSelf pruneDuplicateGamesInContext:childContext];
+        [strongSelf pruneDuplicateGamesInContext:childContext sparing:running];
 
         BOOL deleteMissing = [[NSUserDefaults standardUserDefaults] boolForKey:@"DeleteMissing"];
-        NSArray *gameTableCopy = strongSelf.gameTableModel.copy;
-        for (Game *gameInMain in gameTableCopy) {
+        NSMutableDictionary<NSManagedObjectID *, NSString *> *unhashed = [NSMutableDictionary new];
+        for (NSManagedObjectID *gameID in gameIDs) {
             if (strongSelf.verifyIsCancelled) {
                 strongSelf.verifyIsCancelled = NO;
                 return;
             }
-            Game *game = [childContext objectWithID:gameInMain.objectID];
-            if (game && !game.isDeleted) {
-                NSURL *gameURL = game.urlForBookmark;
+            Game *game = (Game *)[childContext existingObjectWithID:gameID error:NULL];
+            if (!game || game.isDeleted)
+                continue;
 
-                NSString *path = nil;
+            NSURL *gameURL = game.urlForBookmark;
+            NSString *path = gameURL ? gameURL.path : game.path;
 
-                if (gameURL) {
-                    path = gameURL.path;
+            // Check if the game is playable
+            NSString *terp = gExtMap[path.pathExtension.lowercaseString];
+            if (!terp)
+                terp = gFormatMap[game.detectedFormat];
+            if (!terp) {
+                [strongSelf deleteGameMetaAndIfid:game inContext:childContext sparing:running];
+                continue;
+            }
+
+            if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
+                if (deleteMissing) {
+                    [strongSelf deleteGameMetaAndIfid:game inContext:childContext sparing:running];
                 } else {
-                    path = game.path;
+                    game.found = NO;
                 }
-
-                // Check if the game is playable
-                NSString *terp = gExtMap[path.pathExtension.lowercaseString];
-                if (!terp)
-                    terp = gFormatMap[game.detectedFormat];
-                if (!terp) {
-                    [strongSelf deleteGameMetaAndIfid:game inContext:childContext];
-                }
-
-                if (![[NSFileManager defaultManager] fileExistsAtPath:path]) {
-                    if (deleteMissing) {
-                        [strongSelf deleteGameMetaAndIfid:game inContext:childContext];
-                    } else {
-                        game.found = NO;
-                    }
-                } else {
-                    game.found = YES;
-
-                    if (!game.hashTag.length) {
-                        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:path isDirectory:NO] andThenRunBlock:^{
-                            NSString *ifid = [TableViewController ifidFromFile:path];
-                            if (![ifid isEqualToString:game.ifid]) {
-                                BOOL hidden = game.hidden;
-                                [strongSelf deleteGameMetaAndIfid:game inContext:childContext];
-                                GameImporter *importer = [[GameImporter alloc] initWithTableViewController:strongSelf];
-                                [importer importGame:path inContext:childContext reportFailure:NO hide:hidden];
-                            } else {
-                                game.hashTag = [path signatureFromFile];
-                                game.metadata.hashTag = game.hashTag;
-                            }
-                            [strongSelf deleteIfDuplicate:game.hashTag inContext:childContext];
-                        }];
-                    }
-                }
+            } else {
+                game.found = YES;
+                if (!game.hashTag.length)
+                    unhashed[gameID] = path;
             }
         }
         [childContext safeSave];
 
+        // Hashing a game may need the user to grant access to its folder,
+        // which puts up an open panel: that has to happen on the main thread.
+        if (unhashed.count) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [weakSelf hashGames:unhashed inContext:childContext];
+            });
+        }
+
         [[NSNotificationCenter defaultCenter]
          postNotification:[NSNotification notificationWithName:@"StartIndexing" object:nil]];
+    }];
+}
+
+//! Gives the games in `paths` (game objectID → file path) the hashTag they
+//! are missing, asking for folder access first where needed. A game whose
+//! file now has a different IFID is re-imported instead.
+- (void)hashGames:(NSDictionary<NSManagedObjectID *, NSString *> *)paths inContext:(NSManagedObjectContext *)childContext {
+    TableViewController * __weak weakSelf = self;
+    [paths enumerateKeysAndObjectsUsingBlock:^(NSManagedObjectID *gameID, NSString *path, BOOL *stop) {
+        [FolderAccess askForAccessToURL:[NSURL fileURLWithPath:path isDirectory:NO] andThenRunBlock:^{
+            TableViewController *strongSelf = weakSelf;
+            if (!strongSelf)
+                return;
+            NSSet<NSString *> *running = strongSelf.runningHashTags;
+            [childContext performBlock:^{
+                Game *game = (Game *)[childContext existingObjectWithID:gameID error:NULL];
+                if (!game || game.isDeleted || game.hashTag.length)
+                    return;
+                NSString *ifid = nil;
+                [GameImporter identifyFile:path format:NULL ifid:&ifid];
+                if (![ifid isEqualToString:game.ifid]) {
+                    BOOL hidden = game.hidden;
+                    [strongSelf deleteGameMetaAndIfid:game inContext:childContext sparing:running];
+                    GameImporter *importer = [[GameImporter alloc] initWithTableViewController:strongSelf];
+                    [importer importGame:path inContext:childContext reportFailure:NO hide:hidden];
+                } else {
+                    game.hashTag = [path signatureFromFile];
+                    game.metadata.hashTag = game.hashTag;
+                    [strongSelf deleteIfDuplicate:game.hashTag inContext:childContext sparing:running];
+                }
+                [childContext safeSave];
+            }];
+        }];
     }];
 }
 
@@ -476,7 +482,8 @@
         [self.verifyTimer invalidate];
     self.verifyIsCancelled = NO;
     NSInteger minutes = [[NSUserDefaults standardUserDefaults] integerForKey:@"RecheckFrequency"];
-    NSTimeInterval seconds = (CGFloat)minutes * 60;
+    // A zero or negative frequency would make the timer fire continuously
+    NSTimeInterval seconds = (NSTimeInterval)MAX(minutes, 1) * 60;
     self.verifyTimer = [NSTimer scheduledTimerWithTimeInterval:seconds
                                                    target:self
                                                  selector:@selector(verifyInBackground:)
@@ -486,8 +493,8 @@
 }
 
 - (void)stopVerifyTimer {
-    if (self.verifyTimer)
-        [self.verifyTimer invalidate];
+    [self.verifyTimer invalidate];
+    self.verifyTimer = nil;
     self.verifyIsCancelled = YES;
 }
 

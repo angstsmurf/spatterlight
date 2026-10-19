@@ -357,6 +357,10 @@
 }
 
 - (void)copy:(id)sender {
+    if (!_image) {
+        NSBeep();
+        return;
+    }
     NSPasteboard *pb = [NSPasteboard generalPasteboard];
     [pb clearContents];
     [pb writeObjects:@[_image]];
@@ -395,12 +399,15 @@
     NSArray *objects = [pb readObjectsForClasses:@[[NSURL class], [NSImage class]] options:nil];
 
     Game *game = [self gameFromObjectID];
-    NSData *imgData1 = (NSData *)game.metadata.cover.data;
+    // The cover is stored as PNG or JPEG data, so it can't be compared with
+    // a pasted NSImage byte for byte: compare both decoded to TIFF instead.
+    NSData *coverData = (NSData *)game.metadata.cover.data;
+    NSData *imgData1 = coverData ? [[NSImage alloc] initWithData:coverData].TIFFRepresentation : nil;
 
     for (id item in objects) {
         if ([item isKindOfClass:[NSImage class]]) {
             NSData *imgData2 = ((NSImage *)item).TIFFRepresentation;
-            if ([imgData1 isEqual:imgData2]) {
+            if (imgData1 && [imgData1 isEqualToData:imgData2]) {
                 NSBeep();
                 return;
             }
@@ -417,7 +424,7 @@
                 if ([objects2.firstObject isKindOfClass:[NSImage class]]) {
                     NSImage *image = (NSImage *)objects2.firstObject;
                     NSData *imgData2 = image.TIFFRepresentation;
-                    if ([imgData1 isEqual:imgData2]) {
+                    if (imgData1 && [imgData1 isEqualToData:imgData2]) {
                         NSBeep();
                         return;
                     }
@@ -556,7 +563,7 @@
 - (IBAction)toggleFilter:(id)sender {
     Game *game = [self gameFromObjectID];
     game.metadata.cover.interpolation = (game.metadata.cover.interpolation == kTrilinear) ? kNearestNeighbor : kTrilinear;
-    self.layer.magnificationFilter = (game.metadata.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
+    imageLayer.magnificationFilter = (game.metadata.cover.interpolation == kNearestNeighbor) ? kCAFilterNearest : kCAFilterTrilinear;
 }
 
 - (IBAction)saveImage:(id)sender {
@@ -685,7 +692,8 @@
     NSDictionary<NSPasteboardReadingOptionKey, id> *searchOptions = @{ NSPasteboardURLReadingFileURLsOnlyKey: @YES,
                                                                        NSPasteboardURLReadingContentsConformToTypesKey:imageTypes };
 
-    NSDraggingItemEnumerationOptions options = NSDraggingItemEnumerationClearNonenumeratedImages | NSDraggingItemEnumerationConcurrent;
+    // Not concurrent: the block reaches Core Data through replaceCoverImage:
+    NSDraggingItemEnumerationOptions options = NSDraggingItemEnumerationClearNonenumeratedImages;
     [draggingInfo enumerateDraggingItemsWithOptions:options forView:nil classes:supportedClasses searchOptions:searchOptions usingBlock:^(NSDraggingItem * _Nonnull draggingItem, NSInteger idx, BOOL * _Nonnull stop) {
         if ([draggingItem.item isKindOfClass:[NSFilePromiseReceiver class]] ) {
             NSFilePromiseReceiver *filePromiseReceiver = (NSFilePromiseReceiver *)draggingItem.item;
@@ -752,7 +760,7 @@
     Metadata *metadata = game.metadata;
 
     Image *oldImageObj = [ImageView findImageObjectWithURL:URLPath inContext:game.managedObjectContext];
-    if (oldImageObj && [oldImageObj.data isEqualTo:imageData]) {
+    if (oldImageObj && [(NSData *)oldImageObj.data isEqualToData:imageData]) {
         Image *oldCover = metadata.cover;
         metadata.cover = oldImageObj;
         //If the Image object becomes an orphan, delete it from the Core Data store
@@ -764,23 +772,17 @@
     NSData *gameData = (NSData *)game.metadata.cover.data;
     NSString *gamePath = game.path;
 
-    if ([URLPath isEqualToString:@"pasteboard"] ||
-        [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData]) {
-        dontAsk = YES;
-    }
-
     NSData __block *data = imageData;
-    BOOL __block askFlag = dontAsk;
     [self.workQueue addOperationWithBlock:^{
         if (data.length > MAX_SPATTERLIGHT_IMAGE_FILE_SIZE)
             data = [data reduceImageDimensionsTo:NSMakeSize(2048, 2048)];
 
-        if ([URLPath isEqualToString:@"pasteboard"] ||
-            [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData]) {
-            askFlag = YES;
-        }
+        // Hashing for compareByFileNames: is slow, so it is done here rather
+        // than on the main thread.
+        BOOL replaceWithoutAsking = dontAsk || [URLPath isEqualToString:@"pasteboard"] ||
+        [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData];
 
-        if (askFlag) {
+        if (replaceWithoutAsking) {
             [metadata.managedObjectContext performBlockAndWait:^{
                 metadata.coverArtURL = URLPath;
                 metadata.coverArtDescription = nil;
@@ -862,10 +864,6 @@
     return _workQueue;
 }
 
-- (void)setWorkQueue:(NSOperationQueue *)workQueue {
-    _workQueue = workQueue;
-}
-
 @synthesize destinationURL = _destinationURL;
 
 - (NSURL *)destinationURL {
@@ -878,10 +876,6 @@
         }
     }
     return _destinationURL;
-}
-
-- (void)setDestinationURL:(NSURL *)destinationURL {
-    _destinationURL = destinationURL;
 }
 
 #pragma mark Dragging source stuff
@@ -951,10 +945,6 @@
             }
         }
     }];
-}
-
-- (void)superMouseDown:(NSEvent*)event {
-    [super mouseDown:event];
 }
 
 // For pre-10.14
@@ -1050,10 +1040,10 @@
     return self.workQueue;
 }
 
-- (NSData *)pngData {
-    if (!self.image)
-        NSLog(@"No image?");
+- (nullable NSData *)pngData {
     NSBitmapImageRep *bitmaprep = self.image.bitmapImageRepresentation;
+    if (!bitmaprep)
+        return nil;
 
     NSDictionary *props = @{ NSImageInterlaced: @(NO) };
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypePNG properties:props];

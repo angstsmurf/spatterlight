@@ -20,7 +20,6 @@
 
 #import "NSString+Categories.h"
 #import "NSData+Categories.h"
-#import "OSImageHashing.h"
 #import "Preferences.h"
 #import "Constants.h"
 
@@ -37,7 +36,6 @@
 #import "FolderAccess.h"
 #import "NSManagedObjectContext+safeSave.h"
 #import "ImageCompareViewController.h"
-#import "ComparisonOperation.h"
 #import "LibraryOrganizer.h"
 
 extern NSArray *gGameFileTypes;
@@ -81,9 +79,15 @@ static NSString *AGTIfidForPath(NSString *path) {
     //search-filtered view, so an active search that matches nothing would
     //otherwise leave select nil and skip selectGamesWithHashes: entirely
     //(which is also what clears a search bar hiding the imported game).
+    //Count in the import context (we are usually on its queue), not the
+    //main one.
+    NSManagedObjectContext *importContext = options[@"context"];
     NSFetchRequest *countRequest = [NSFetchRequest fetchRequestWithEntityName:@"Game"];
     countRequest.predicate = [NSPredicate predicateWithFormat:@"hidden == NO"];
-    NSUInteger libraryCount = [_tableViewController.managedObjectContext countForFetchRequest:countRequest error:NULL];
+    NSUInteger __block libraryCount = 0;
+    [importContext performBlockAndWait:^{
+        libraryCount = [importContext countForFetchRequest:countRequest error:NULL];
+    }];
     if (libraryCount != NSNotFound && libraryCount > 0)
         select = [NSMutableArray arrayWithCapacity:urls.count];
 
@@ -231,28 +235,74 @@ static NSString *AGTIfidForPath(NSString *path) {
         // no cover image or if it has the Inform 7 placeholder image.
         if (lookForImages && (game.metadata.cover.data == nil || [(NSData *)game.metadata.cover.data isPlaceHolderImage]))
             [self lookForImagesForGame:game];
-    } else {
-//        NSLog(@"libctl: addFile: File %@ not added!", url.path);
     }
     return lastOperation;
 }
 
-void freeContext(void **ctx) {
-    babel_release_ctx(*ctx);
-    free(*ctx);
-    *ctx = nil;
+void ReportImportFailure(NSString *title, NSString *info) {
+    void (^show)(void) = ^{
+        NSAlert *alert = [[NSAlert alloc] init];
+        alert.messageText = title;
+        alert.informativeText = info;
+        [alert runModal];
+    };
+    if (NSThread.isMainThread)
+        show();
+    else
+        dispatch_async(dispatch_get_main_queue(), show);
+}
+
++ (BabelIdentifyResult)identifyFile:(NSString *)path format:(NSString **)outFormat ifid:(NSString **)outIfid {
+    if (outFormat)
+        *outFormat = nil;
+    if (outIfid)
+        *outIfid = nil;
+    if (!path.length)
+        return kBabelUnknownFormat;
+
+    void *ctx = get_babel_ctx();
+    if (!ctx)
+        return kBabelUnknownFormat;
+
+    char pathBuf[PATH_MAX];
+    strlcpy(pathBuf, path.fileSystemRepresentation, sizeof(pathBuf));
+    char *format = babel_init_ctx(pathBuf, ctx);
+    if (!format || !babel_get_authoritative_ctx(ctx)) {
+        babel_release_ctx(ctx);
+        free(ctx);
+        return kBabelUnknownFormat;
+    }
+
+    // Skip any qualifier babel puts before the format name
+    char *space = strchr(format, ' ');
+    if (outFormat)
+        *outFormat = @(space ? space + 1 : format);
+
+    char buf[TREATY_MINIMUM_EXTENT];
+    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
+    babel_release_ctx(ctx);
+    free(ctx);
+
+    if (rv <= 0)
+        return kBabelNoIfid;
+
+    char *comma = strchr(buf, ',');
+    if (comma)
+        *comma = 0;
+    if (!buf[0])
+        return kBabelNoIfid;
+
+    if (outIfid)
+        *outIfid = @(buf);
+    return kBabelIdentified;
 }
 
 - (nullable Game *)importGame:(NSString*)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide {
-    char buf[TREATY_MINIMUM_EXTENT];
     Metadata __block *metadata;
     Game __block *game;
     Blorb __block *blorb = nil;
     NSString *ifid;
     NSString *formatStr = nil;
-    char *format = NULL;
-    char *s;
-    int rv;
 
     NSString *extension = path.pathExtension.lowercaseString;
 
@@ -268,19 +318,14 @@ void freeContext(void **ctx) {
         ifid = AGTIfidForPath(path);
         if (!ifid) {
             if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Could not read game.", nil);
-                    alert.informativeText = NSLocalizedString(@"This file could not be read as an AGT game.", nil);
-                    [alert runModal];
-                });
+                ReportImportFailure(NSLocalizedString(@"Could not read game.", nil),
+                                    NSLocalizedString(@"This file could not be read as an AGT game.", nil));
             } else {
                 NSLog(@"This file could not be read as an AGT game.");
             }
             return nil;
         }
         formatStr = @"agt";
-        format = (char *)"agt";
         directAGT = YES;
     }
 
@@ -298,12 +343,8 @@ void freeContext(void **ctx) {
             }
 
         if (report) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension];
-                [alert runModal];
-            });
+            ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
+                                [NSString stringWithFormat:NSLocalizedString(@"Can not recognize the file extension \".%@\"", nil), path.pathExtension]);
         }
         return nil;
     }
@@ -315,14 +356,8 @@ void freeContext(void **ctx) {
         BlorbResource *executable = [blorb resourcesForUsage:ExecutableResource].firstObject;
         if (!executable) {
             if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Not a game.", nil);
-                    alert.informativeText = NSLocalizedString(@"No executable chunk found in Blorb file.", nil);
-                    [alert runModal];
-                });
-//            } else {
-//                NSLog(@"No executable chunk found in Blorb file.");
+                ReportImportFailure(NSLocalizedString(@"Not a game.", nil),
+                                    NSLocalizedString(@"No executable chunk found in Blorb file.", nil));
             }
             return nil;
         }
@@ -334,47 +369,22 @@ void freeContext(void **ctx) {
     }
 
     if (!directAGT) {
-        void *ctx = get_babel_ctx();
-        char pathBuf[PATH_MAX];
-        strlcpy(pathBuf, path.fileSystemRepresentation, sizeof(pathBuf));
-        format = babel_init_ctx(pathBuf, ctx);
-        if (!format || !babel_get_authoritative_ctx(ctx)) {
-            freeContext(&ctx);
-            if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                    alert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
-                    [alert runModal];
-                });
-            }
-            return nil;
+        switch ([GameImporter identifyFile:path format:&formatStr ifid:&ifid]) {
+            case kBabelIdentified:
+                break;
+            case kBabelUnknownFormat:
+                if (report)
+                    ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
+                                        NSLocalizedString(@"Babel can not identify the file format.", nil));
+                return nil;
+            case kBabelNoIfid:
+                if (report)
+                    ReportImportFailure(NSLocalizedString(@"Fatal error.", nil),
+                                        NSLocalizedString(@"Can not compute IFID from the file.", nil));
+                else
+                    NSLog(@"Babel can not compute IFID from the file.");
+                return nil;
         }
-
-        s = strchr(format, ' ');
-        if (s) format = s+1;
-
-        formatStr = @(format);
-
-        rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, ctx);
-        freeContext(&ctx);
-        if (rv <= 0) {
-            if (report) {
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Fatal error.", nil);
-                    alert.informativeText = NSLocalizedString(@"Can not compute IFID from the file.", nil);
-                    [alert runModal];
-                });
-            } else {
-                NSLog(@"Babel can not compute IFID from the file.");
-            }
-            return nil;
-        }
-
-        s = strchr(buf, ',');
-        if (s) *s = 0;
-        ifid = @(buf);
     }
 
     NSString *terp = gExtMap[path.pathExtension.lowercaseString];
@@ -415,25 +425,10 @@ void freeContext(void **ctx) {
 
     if (!terp || (extensionIsAmbiguous && !formatMatchesExtension)) {
         if (report) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSAlert *alert = [[NSAlert alloc] init];
-                alert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-                alert.informativeText = NSLocalizedString(@"Not a supported format.", nil);
-                [alert runModal];
-            });
-//        } else {
-//            NSLog(@"%@: Recognized extension (%@) but unknown file format.", path.lastPathComponent, extension);
+            ReportImportFailure(NSLocalizedString(@"Unknown file format.", nil),
+                                NSLocalizedString(@"Not a supported format.", nil));
         }
         return nil;
-    }
-
-//    NSLog(@"GameImporter: import game %@ (%@)", path, formatStr);
-
-    if (ifid == nil) {
-        // If this happens, it means the Babel tool did not
-        // work as it should. It detected the game but returned
-        // an invalid IFID.
-        NSLog(@"Error! Ifid nil! buf:%s (%x%x%x%x)", buf, buf[0], buf[1], buf[2], buf[3]);
     }
 
     NSData __block *blockdata = fileData;
@@ -455,16 +450,12 @@ void freeContext(void **ctx) {
         }
 
         if (!game) {
-//            NSLog(@"importGame: Creating new Game object for game with hash %@", hash);
             game = (Game *) [NSEntityDescription
                              insertNewObjectForEntityForName:@"Game"
                              inManagedObjectContext:context];
-        } else {
-//            NSLog(@"importGame: Game with hash %@ already exists in library (%@)", hash, path.lastPathComponent);
         }
 
         if (!metadata) {
-//            NSLog(@"GameImporter importGame: Creating new Metadata object for game with hash %@", hash);
             metadata = (Metadata *) [NSEntityDescription
                                      insertNewObjectForEntityForName:@"Metadata"
                                      inManagedObjectContext:context];
@@ -499,8 +490,6 @@ void freeContext(void **ctx) {
         game.added = [NSDate date];
         game.hidden = hide;
         game.ifid = ifid;
-        // Not @(format): for a file babel identified, that pointed into
-        // the babel context, which is gone by now.
         game.detectedFormat = formatStr;
         game.hashTag = hash;
         metadata.hashTag = hash;
@@ -510,9 +499,7 @@ void freeContext(void **ctx) {
             if (imageData) {
                 metadata.coverArtURL = path;
                 [IFDBDownloader insertImageData:imageData inMetadataID:metadata.objectID context:context];
-                //                    NSLog(@"Extracted cover image from blorb for game %@", metadata.title);
             }
-            //                else NSLog(@"Found no image in blorb file %@", path);
         }
 
         game.metadata = metadata;
@@ -525,7 +512,6 @@ void freeContext(void **ctx) {
             game.serialString = [path oldSignatureFromFile];
         }
         blorb = nil;
-//        NSLog(@"GameImporter importGame: Title: %@ Hash:%@", game.metadata.title, game.hashTag);
 
         // If the user asked us to keep games organised, copy this newly
         // imported game into the central library folder and re-point its
@@ -594,8 +580,11 @@ void freeContext(void **ctx) {
         }
         if (!found) {
             BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
-            if (zcode)
-                data = [blorb dataForResource:zcode];
+            // Without an executable chunk there is no Z-code header to read:
+            // don't fall back to reading the IFF container as one.
+            if (!zcode)
+                return;
+            data = [blorb dataForResource:zcode];
         }
     }
     if (!found) {
@@ -617,14 +606,17 @@ int32_t shortAtPointer(const void *data) {
     (((const unsigned char *)data)[1]);
 }
 
-static inline uint16_t word(uint8_t *memory, uint32_t addr)
+static inline uint16_t word(const uint8_t *memory, uint32_t addr)
 {
     return (uint16_t)((memory[addr] << 8) | memory[addr + 1]);
 }
 
 - (BOOL)checkZcode:(NSString *)file {
     NSData *mem = [NSData dataWithContentsOfFile:file];
-    uint8_t *memory = (uint8_t *)mem.bytes;
+    // A Z-code header is 64 bytes
+    if (mem.length < 64)
+        return NO;
+    const uint8_t *memory = mem.bytes;
 
     uint16_t dictionary = word(memory, 0x08);
     uint32_t static_start = word(memory, 0x0e);
@@ -652,7 +644,6 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
 }
 
 - (void)lookForImagesForGame:(Game *)game {
-    //    NSLog(@"lookForImagesForGame %@", game.metadata.title);
     NSFileManager *filemgr = [NSFileManager defaultManager];
     NSURL *dirUrl = [NSURL fileURLWithPath:(game.path).stringByDeletingLastPathComponent isDirectory:YES];
     // First check if there are other games in this folder
@@ -763,7 +754,8 @@ static inline uint16_t word(uint8_t *memory, uint32_t addr)
             }
         }
 
-        if (!imageData)
+        // imageData holds the last candidate even when none was usable
+        if (!chosenURL)
             return;
 
         game.metadata.coverArtURL = chosenURL.path;
@@ -1013,12 +1005,7 @@ static NSString *UpdatedIfidWithoutFile(NSString *ifid, NSString *format) {
         if (path.length) {
             NSURL *granted = [FolderAccess grantAccessToFile:[NSURL fileURLWithPath:path isDirectory:NO]];
             if ([fm isReadableFileAtPath:path]) {
-                NSString *fromFile = [TableViewController ifidFromFile:path];
-                NSRange comma = [fromFile rangeOfString:@","];
-                if (comma.location != NSNotFound)
-                    fromFile = [fromFile substringToIndex:comma.location];
-                if (fromFile.length)
-                    newIfid = fromFile;
+                [GameImporter identifyFile:path format:NULL ifid:&newIfid];
             }
             if (granted)
                 [FolderAccess releaseBookmark:granted];

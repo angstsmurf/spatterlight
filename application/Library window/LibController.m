@@ -2,8 +2,6 @@
  *
  */
 
-#import <BlorbFramework/Blorb.h>
-
 #import "AppDelegate.h"
 #import "CoreDataManager.h"
 #import "Game.h"
@@ -90,14 +88,6 @@
 
 - (NSDragOperation)draggingEntered:sender {
     return [self.tableViewController draggingEntered:sender];
-}
-
-- (void)draggingExited:sender {
-    // unhighlight window
-}
-
-- (BOOL)prepareForDragOperation:sender {
-    return [self.tableViewController prepareForDragOperation:sender];
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {

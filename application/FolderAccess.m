@@ -205,15 +205,29 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
     return nil;
 }
 
-+ (NSString *)bookmarkPath {
-    // bookmarks saved in group directory
++ (NSURL *)sharedContainerURL {
     NSString *groupIdentifier =
     [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
+    NSURL *container = groupIdentifier.length ?
+    [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] : nil;
+    if (container)
+        return container;
 
-    NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
+    NSError *error = nil;
+    NSURL *appSupport = [[NSFileManager defaultManager]
+                         URLForDirectory:NSApplicationSupportDirectory
+                         inDomain:NSUserDomainMask
+                         appropriateForURL:nil
+                         create:YES
+                         error:&error];
+    if (!appSupport)
+        NSLog(@"sharedContainerURL: Could not find Application Support directory! %@", error);
+    return [appSupport URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
+}
 
-    url = [url URLByAppendingPathComponent:@"Bookmarks.dict" isDirectory:NO];
-    return url.path;
++ (NSString *)bookmarkPath {
+    // bookmarks saved in group directory
+    return [[FolderAccess sharedContainerURL] URLByAppendingPathComponent:@"Bookmarks.dict" isDirectory:NO].path;
 }
 
 + (void)loadBookmarks {

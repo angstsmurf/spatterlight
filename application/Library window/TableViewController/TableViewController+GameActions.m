@@ -10,6 +10,7 @@
 #import "TableViewController+LibraryManagement.h"
 #import "TableViewController+DragDrop.h"
 #import "TableViewController+InfoWindows.h"
+#import "TableViewController+TableDelegate.h"
 
 #import "LibHelperTableView.h"
 #import "LibController.h"
@@ -27,8 +28,6 @@
 
 #import "GameLauncher.h"
 #import "MetadataHandler.h"
-#import "FolderAccess.h"
-#import "MissingFilesFinder.h"
 
 @implementation TableViewController (GameActions)
 
@@ -42,23 +41,13 @@
     else
         rowidx = self.gameTableView.selectedRow;
 
-    if (rowidx >= 0) {
-        [self.gameLauncher playGame:self.gameTableModel[(NSUInteger)rowidx] restorationHandler:nil];
-    }
+    Game *game = [self gameForRow:rowidx];
+    if (game)
+        [self.gameLauncher playGame:game restorationHandler:nil];
 }
 
 - (IBAction)revealGameInFinder:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    // If we clicked outside selected rows, only reveal game in clicked row
-    if (self.gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    NSUInteger i;
-    for (i = rows.firstIndex; i != NSNotFound;
-         i = [rows indexGreaterThanIndex:i]) {
-        Game *game = self.gameTableModel[i];
+    for (Game *game in self.targetGames) {
         NSURL *url = game.urlForBookmark;
         if (![[NSFileManager defaultManager] fileExistsAtPath:url.path]) {
             game.found = NO;
@@ -75,27 +64,16 @@
         NSBeep();
         return;
     }
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
 
-    // If we clicked outside selected rows, only delete game in clicked row
-    if (self.gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
+    NSMutableArray<Game *> *running = [NSMutableArray new];
 
-    NSMutableArray __block *running = [NSMutableArray new];
-    Game __block *game;
-
-    TableViewController * __weak weakSelf = self;
-
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        game = weakSelf.gameTableModel[idx];
-        if (weakSelf.gameSessions[game.hashTag] == nil) {
-            [weakSelf.managedObjectContext deleteObject:game];
+    for (Game *game in self.targetGames) {
+        if (self.gameSessions[game.hashTag] == nil) {
+            [self.managedObjectContext deleteObject:game];
         } else {
             [running addObject:game];
         }
-    }];
+    }
 
     NSUInteger count = running.count;
     if (count) {
@@ -121,47 +99,25 @@
 }
 
 - (IBAction)openIfdb:(id)sender {
-
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    if ((self.gameTableView.clickedRow != -1) && ![self.gameTableView isRowSelected:self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    Game __block *game;
-    NSString __block *urlString;
-
-    TableViewController * __weak weakSelf = self;
-
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        game = weakSelf.gameTableModel[idx];
-        if (game.metadata.tuid)
+    for (Game *game in self.targetGames) {
+        NSString *urlString;
+        if (game.metadata.tuid.length)
             urlString = [@"https://ifdb.tads.org/viewgame?id=" stringByAppendingString:game.metadata.tuid];
-        else
+        else if (game.ifid.length)
             urlString = [@"https://ifdb.tads.org/viewgame?ifid=" stringByAppendingString:game.ifid];
+        else
+            continue;
         [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString: urlString]];
-    }];
-}
-
-- (IBAction)download:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    if ((self.gameTableView.clickedRow != -1) && ![self.gameTableView isRowSelected:self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    if (rows.count > 0)
-    {
-        [self.metadataHandler downloadMetadataForGames:[self.gameTableModel objectsAtIndexes:rows]];
     }
 }
 
+- (IBAction)download:(id)sender {
+    NSArray<Game *> *games = self.targetGames;
+    if (games.count > 0)
+        [self.metadataHandler downloadMetadataForGames:games];
+}
+
 - (IBAction)applyTheme:(id)sender {
-
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    if ((self.gameTableView.clickedRow != -1) && ![self.gameTableView isRowSelected:self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
     NSString *name = ((NSMenuItem *)sender).title;
 
     Theme *theme = [Fetches findTheme:name inContext:self.managedObjectContext];
@@ -171,7 +127,7 @@
         return;
     }
 
-    NSSet *games = [NSSet setWithArray:[self.gameTableModel objectsAtIndexes:rows]];
+    NSSet *games = [NSSet setWithArray:self.targetGames];
     [theme addGames:games];
 
     Preferences *prefwin = [Preferences instance];
@@ -190,12 +146,9 @@
 }
 
 - (IBAction)selectSameTheme:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    if ((self.gameTableView.clickedRow != -1) && ![self.gameTableView isRowSelected:self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    Game *selectedGame = self.gameTableModel[rows.firstIndex];
+    Game *selectedGame = self.targetGames.firstObject;
+    if (!selectedGame)
+        return;
 
     NSSet *gamesWithTheme = selectedGame.theme.games;
 
@@ -207,85 +160,36 @@
 }
 
 - (IBAction)deleteSaves:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-    TableViewController * __weak weakSelf = self;
-
-    // If we clicked outside selected rows, only show info for clicked row
-    if (self.gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        Game *game = weakSelf.gameTableModel[idx];
-        GlkController *gctl = weakSelf.gameSessions[game.hashTag];
+    for (Game *game in self.targetGames) {
+        GlkController *gctl = self.gameSessions[game.hashTag];
 
         if (!gctl) {
             gctl = [[GlkController alloc] init];
         }
         [gctl deleteAutosaveFilesForGame:game];
-    }];
+    }
+}
+
+//! Like (1) or dislike (2) the games, or clear it if all of them already
+//! have that value.
+- (void)toggleLike:(int32_t)value forGames:(NSArray<Game *> *)games {
+    BOOL allSet = YES;
+    for (Game *game in games) {
+        if (game.like != value) {
+            allSet = NO;
+            break;
+        }
+    }
+    for (Game *game in games)
+        game.like = allSet ? 0 : value;
 }
 
 - (IBAction)like:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-    TableViewController * __weak weakSelf = self;
-
-    // If we clicked outside selected rows, only show info for clicked row
-    if (self.gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    __block NSUInteger count = 0;
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        Game *game = weakSelf.gameTableModel[idx];
-        if (game.like == 1)
-            count++;
-    }];
-
-    BOOL allLiked = (count == rows.count);
-
-    // If all are liked: unlike all. If only some or none are liked: like all
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        Game *game = weakSelf.gameTableModel[idx];
-        if (allLiked)
-            game.like = 0;
-        else
-            game.like = 1;
-    }];
+    [self toggleLike:1 forGames:self.targetGames];
 }
 
 - (IBAction)dislike:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-    TableViewController * __weak weakSelf = self;
-
-    // If we clicked outside selected rows, only show info for clicked row
-    if (self.gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    __block NSUInteger count = 0;
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        Game *game = weakSelf.gameTableModel[idx];
-        if (game.like == 2)
-            count++;
-    }];
-
-    BOOL allDisliked = (count == rows.count);
-
-    // If all are disliked: undislike all. If only some or none are disliked: dislike all
-
-    [rows
-     enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-        Game *game = weakSelf.gameTableModel[idx];
-        if (allDisliked)
-            game.like = 0;
-        else
-            game.like = 2;
-    }];
+    [self toggleLike:2 forGames:self.targetGames];
 }
 
 - (IBAction)cancel:(id)sender {
@@ -303,42 +207,35 @@
 - (void)rebuildThemesSubmenu {
 
     self.enabledThemeItem = nil;
-    NSMenu *themesMenu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Apply Theme", nil)];
-
-    themesMenu.showsStateColumn = YES;
 
     NSFetchRequest *fetchRequest = [Theme fetchRequest];
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"editable" ascending:YES], [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES selector:@selector(localizedStandardCompare:)]];
     NSError *error = nil;
 
-    NSArray *themes = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray<Theme *> *themes = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
     if (themes == nil) {
         NSLog(@"Problem! %@",error);
     }
 
-    NSMenu *themesMenu2 = themesMenu.copy;
+    // One menu for the contextual menu, one for the main menu
+    NSMenu *(^makeMenu)(void) = ^{
+        NSMenu *menu = [[NSMenu alloc] initWithTitle:NSLocalizedString(@"Apply Theme", nil)];
+        menu.showsStateColumn = YES;
+        for (Theme *theme in themes)
+            [menu addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
+        return menu;
+    };
 
-    for (Theme *theme in themes) {
-        [themesMenu addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
-        [themesMenu2 addItemWithTitle:theme.name action:@selector(applyTheme:) keyEquivalent:@""];
-    }
-
-    self.themesSubMenu.submenu = themesMenu;
-    self.mainThemesSubMenu.submenu = themesMenu2;
+    self.themesSubMenu.submenu = makeMenu();
+    self.mainThemesSubMenu.submenu = makeMenu();
 }
 
 #pragma mark Menu validation
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
     SEL action = menuItem.action;
-    NSInteger count = self.gameTableView.numberOfSelectedRows;
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    if (self.gameTableView.clickedRow != -1 &&
-        (![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])) {
-        count = 1;
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-    }
+    NSArray<Game *> *selection = self.targetGames;
+    NSUInteger count = selection.count;
 
     if (count == 0 &&
         (action == @selector(delete:) ||
@@ -363,24 +260,24 @@
 
         if (self.enabledThemeItem != nil) {
             for (NSMenuItem *item in self.themesSubMenu.submenu.itemArray) {
-                item.state = NSOffState;
+                item.state = NSControlStateValueOff;
             }
             for (NSMenuItem *item in self.mainThemesSubMenu.submenu.itemArray) {
-                item.state = NSOffState;
+                item.state = NSControlStateValueOff;
             }
             self.enabledThemeItem = nil;
         }
 
         if (count > 0 && count < 10000) {
-            NSMutableSet<NSString *> __block *themeNamesToSelect = [NSMutableSet new];
-            [rows enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
-                NSString *name = self.gameTableModel[idx].theme.name;
+            NSMutableSet<NSString *> *themeNamesToSelect = [NSMutableSet new];
+            for (Game *game in selection) {
+                NSString *name = game.theme.name;
                 if (name)
                     [themeNamesToSelect addObject:name];
-            }];
-            NSControlStateValue state = NSOnState;
+            }
+            NSControlStateValue state = NSControlStateValueOn;
             if (themeNamesToSelect.count > 1)
-                state = NSMixedState;
+                state = NSControlStateValueMixed;
             for (NSString *name in themeNamesToSelect) {
                 self.enabledThemeItem = [self.mainThemesSubMenu.submenu itemWithTitle:name];
                 if (self.enabledThemeItem)
@@ -393,18 +290,14 @@
     }
 
     if (action == @selector(performFindPanelAction:)) {
-        if (menuItem.tag == NSTextFinderActionShowFindInterface)
-            return YES;
-        else
-            return NO;
+        return (menuItem.tag == NSTextFinderActionShowFindInterface);
     }
 
     if (action == @selector(addGamesToLibrary:))
         return !self.currentlyAddingGames;
 
-    if (action == @selector(showGameInfo:)
-        || action == @selector(reset:))
-        return (count > 0 && count < 20);
+    if (action == @selector(showGameInfo:))
+        return (count > 0 && count <= kMaxInfoWindowsAtOnce);
 
     if (action == @selector(revealGameInFinder:))
         return count > 0 && count < 10;
@@ -414,21 +307,14 @@
 
     if (action == @selector(selectSameTheme:)) {
         // Check if all selected games use the same theme
-        NSArray *selection = [self.gameTableModel objectsAtIndexes:rows];
-        Theme *selectionTheme = nil;
+        Theme *selectionTheme = selection.firstObject.theme;
         for (Game *game in selection) {
-            if (selectionTheme == nil) {
-                selectionTheme = game.theme;
-            } else {
-                if (game.theme != selectionTheme) {
-                    return NO;
-                }
-            }
+            if (game.theme != selectionTheme)
+                return NO;
         }
     }
 
     if (action == @selector(deleteSaves:)) {
-        NSArray *selection = [self.gameTableModel objectsAtIndexes:rows];
         for (Game *game in selection) {
             if (game.autosaved) return YES;
         }
@@ -436,37 +322,22 @@
     }
 
     if (action == @selector(like:) || action == @selector(dislike:)) {
-        BOOL like = (action == @selector(like:));
-        NSArray *selection = [self.gameTableModel objectsAtIndexes:rows];
-        int likecount[3] = { 0,0,0 };
+        int32_t value = (action == @selector(like:)) ? 1 : 2;
+        NSUInteger matching = 0;
         for (Game *game in selection) {
-            likecount[game.like]++;
+            if (game.like == value)
+                matching++;
         }
-        if (like) {
-            if (likecount[1] > 0) {
-                menuItem.title = NSLocalizedString(@"Liked", nil);
-                if (likecount[0] > 0 || likecount[2] > 0) {
-                    menuItem.state = NSMixedState;
-                } else {
-                    menuItem.state = NSOnState;
-                }
-            } else {
-                menuItem.title = NSLocalizedString(@"Like", nil);
-                menuItem.state = NSOffState;
-            }
-        } else {
-            if (likecount[2] > 0) {
-                menuItem.title = NSLocalizedString(@"Disliked", nil);
-                if (likecount[0] > 0 || likecount[1] > 0) {
-                    menuItem.state = NSMixedState;
-                } else {
-                    menuItem.state = NSOnState;
-                }
-            } else {
-                menuItem.title = NSLocalizedString(@"Dislike", nil);
-                menuItem.state = NSOffState;
-            }
-        }
+        if (value == 1)
+            menuItem.title = matching ? NSLocalizedString(@"Liked", nil) : NSLocalizedString(@"Like", nil);
+        else
+            menuItem.title = matching ? NSLocalizedString(@"Disliked", nil) : NSLocalizedString(@"Dislike", nil);
+        if (matching == 0)
+            menuItem.state = NSControlStateValueOff;
+        else if (matching == count)
+            menuItem.state = NSControlStateValueOn;
+        else
+            menuItem.state = NSControlStateValueMixed;
     }
     return YES;
 }
@@ -475,7 +346,7 @@
     BOOL enable = YES;
     NSUInteger count = self.selectedGames.count;
     if ([item.itemIdentifier isEqual:@"showInfo"] ) {
-        return (count > 0 && count < 20);
+        return (count > 0 && count <= kMaxInfoWindowsAtOnce);
     } else if ([item.itemIdentifier isEqual:@"playGame"]) {
         enable = (count == 1);
     } else if ([item.itemIdentifier isEqual:@"addToLibrary"]) {

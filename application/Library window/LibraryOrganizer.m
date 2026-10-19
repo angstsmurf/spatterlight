@@ -49,24 +49,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     // Store the library in the shared app-group container so the QuickLook and
     // Thumbnailer extensions - separate sandboxed processes that share the group
     // but each have their own private container - can reach the game files.
-    // Mirrors FolderAccess +bookmarkPath, which keeps its shared data here too.
-    NSString *groupIdentifier =
-    [NSBundle.mainBundle objectForInfoDictionaryKey:@"GroupIdentifier"];
-    NSURL *container = groupIdentifier.length ?
-    [NSFileManager.defaultManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] : nil;
-
-    if (!container) {
-        // No group container available (e.g. missing entitlement): fall back to
-        // the app's own Application Support, mirroring TableViewController.homepath.
-        NSURL *appSupport =
-        [NSFileManager.defaultManager URLForDirectory:NSApplicationSupportDirectory
-                                             inDomain:NSUserDomainMask
-                                    appropriateForURL:nil
-                                               create:YES
-                                                error:NULL];
-        container = [appSupport URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
-    }
-    return [container URLByAppendingPathComponent:@"Library" isDirectory:YES];
+    return [[FolderAccess sharedContainerURL] URLByAppendingPathComponent:@"Library" isDirectory:YES];
 }
 
 - (nullable NSURL *)customLibraryURL {
@@ -397,19 +380,11 @@ static const NSInteger kMaxDuplicateDirs = 20;
 
     NSURL *destFile = [destDir URLByAppendingPathComponent:sourceURL.lastPathComponent].URLByStandardizingPath;
 
-    // Record the named group folder the game landed in, so a format-derived
-    // group like "Z-code games" becomes a real group on the game itself. A game
-    // filed under "Ungrouped" (unknown format / no usable name) keeps no group.
-    NSString *groupName = [self groupNameForGame:game];
-    if (![groupName isEqualToString:@"Ungrouped"] &&
-        ![game.group isEqualToString:groupName])
-        game.group = groupName;
-
-    [self writeIdentityForGame:game inDirectory:destDir];
-
     // Already where it belongs.
-    if ([destFile.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString])
+    if ([destFile.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString]) {
+        [self recordGroupAndIdentityOfGame:game inDirectory:destDir];
         return YES;
+    }
 
     NSURL *sourceDir = sourceURL.URLByDeletingLastPathComponent;
 
@@ -440,9 +415,12 @@ static const NSInteger kMaxDuplicateDirs = 20;
             if (shared && ![self file:item belongsWithGameFile:sourceURL])
                 continue;
             NSURL *target = [destDir URLByAppendingPathComponent:item.lastPathComponent];
-            if ([target checkResourceIsReachableAndReturnError:NULL])
-                [fm removeItemAtURL:target error:NULL];
-            [fm moveItemAtURL:item toURL:target error:NULL];
+            if ([target checkResourceIsReachableAndReturnError:NULL] &&
+                ![fm removeItemAtURL:target error:NULL])
+                continue;
+            if (![fm moveItemAtURL:item toURL:target error:outError] &&
+                [item.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString])
+                return NO;
         }
         // Remove the old folder, but only once it is verifiably empty:
         // removeItemAtURL: deletes recursively, so it must never see a folder
@@ -462,8 +440,22 @@ static const NSInteger kMaxDuplicateDirs = 20;
             return NO;
     }
 
+    [self recordGroupAndIdentityOfGame:game inDirectory:destDir];
     [game bookmarkForPath:destFile.path];
     return YES;
+}
+
+/// Record the named group folder the game landed in, so a format-derived
+/// group like "Z-code games" becomes a real group on the game itself. A game
+/// filed under "Ungrouped" (unknown format / no usable name) keeps no group.
+/// Also (re)writes the folder's identity marker.
+- (void)recordGroupAndIdentityOfGame:(Game *)game inDirectory:(NSURL *)destDir {
+    NSString *groupName = [self groupNameForGame:game];
+    if (![groupName isEqualToString:@"Ungrouped"] &&
+        ![game.group isEqualToString:groupName])
+        game.group = groupName;
+
+    [self writeIdentityForGame:game inDirectory:destDir];
 }
 
 // The "disk set" key for a multi-disk game file, or nil if the name does not

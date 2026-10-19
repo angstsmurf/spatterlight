@@ -10,33 +10,29 @@
 #import "GameLauncher.h"
 
 #import "TableViewController.h"
+#import "LibHelperTableView.h"
 #import "TableViewController+Internal.h"
 #import "TableViewController+TableDelegate.h"
 #import "TableViewController+LibraryManagement.h"
 
-#import "LibHelperTableView.h"
 #import "AppDelegate.h"
 #import "LibController.h"
-#import "InfoController.h"
 #import "GlkController.h"
 #import "GlkController+Autorestore.h"
 #import "Preferences.h"
 #import "Constants.h"
 
 #import "NSString+Categories.h"
+#import "FileSignature.h"
 
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-#import "Ifid.h"
 #import "Fetches.h"
 
 #import "GameImporter.h"
-#import "MissingFilesFinder.h"
 #import "CommandScriptHandler.h"
-#import "FolderAccess.h"
 
-#import "CoreDataManager.h"
 #import "OpenGameOperation.h"
 
 @implementation GameLauncher
@@ -190,8 +186,8 @@
                 [blockgctl.slowReadAlert.window close];
                 blockgctl.slowReadAlert = nil;
 
-                if (hashTag.length == 0) {
-                    hashTag = game.path.signatureFromFile;
+                if (hashTag.length == 0 && newData.length) {
+                    hashTag = [FileSignature signatureFromData:newData];
                 }
 
                 if (newData.length == 0 || hashTag.length == 0) {
@@ -228,7 +224,8 @@
         [weakTVC.openGameQueue addOperation:operation];
 
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (gctl.gameData == nil && !systemWindowRestoration) {
+            // The operation is finished once it has delivered data or failed
+            if (gctl.gameData == nil && !operation.isFinished && !systemWindowRestoration) {
                 gctl.slowReadAlert = [[NSAlert alloc] init];
                 NSAlert __weak *alert = gctl.slowReadAlert;
                 alert.messageText =

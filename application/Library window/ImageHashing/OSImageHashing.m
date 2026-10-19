@@ -15,7 +15,6 @@
 
 
 static const SInt64 OSHashTypeError = -1;
-//static const NSUInteger OSPHashImageSideInPixels = 32;
 #define OSPHashImageSideInPixels 32
 
 @implementation OSImageHashing

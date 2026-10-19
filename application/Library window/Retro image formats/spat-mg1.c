@@ -47,9 +47,6 @@
  */
 
 
-#ifndef mg1_c_INCLUDED
-#define mg1_c_INCLUDED
-
 #include <stdlib.h>
 #include <string.h>
 #include <inttypes.h>
@@ -537,5 +534,3 @@ z_image *get_mg1_picture(int picture_number)
     output_image = image;
     return output_image;
 }
-
-#endif /* mg1_c_INCLUDED */

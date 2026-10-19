@@ -25,6 +25,7 @@
 @implementation SideViewController
 
 - (void)viewDidLoad {
+    [super viewDidLoad];
 
     needsUpdate = YES;
     selectedGames = @[];
@@ -50,6 +51,11 @@
 
 - (void)viewDidAppear {
     [super viewDidAppear];
+    // viewDidAppear runs again whenever the library window is reopened:
+    // remove first so that the observer is never registered twice.
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextObjectsDidChangeNotification
+                                                  object:self.managedObjectContext];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
                                                  name:NSManagedObjectContextObjectsDidChangeNotification
@@ -57,6 +63,11 @@
 }
 
 - (void)splitViewDidResizeSubviews:(NSNotification *)notification {
+    // We observe every split view in the app (game windows have none, but
+    // panels might): only react to the one we are in.
+    NSView *splitView = notification.object;
+    if (![splitView isKindOfClass:[NSView class]] || ![self.view isDescendantOf:splitView])
+        return;
 
     if (selectedGames.count == 0 || selectedGames.count > 1)
         return;

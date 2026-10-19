@@ -21,7 +21,6 @@ void greyscale_pixels_rgba_32_32(const unsigned char *pixels, double result[_Non
 
 void fast_dct_rgba_32_32(const double pixels[_Nonnull 32][32], double result[_Nonnull 32][32]);
 
-double avg_greyscale_value_rgba_8_8(const unsigned char *pixels);
 double fast_avg_no_first_el_rgba_8_8(const double pixels[_Nonnull 32][32]);
 
 #pragma mark - Perceptual Hashes

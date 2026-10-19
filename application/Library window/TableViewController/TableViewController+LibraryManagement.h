@@ -11,7 +11,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface TableViewController (LibraryManagement)
 
-+ (NSString *)ifidFromFile:(NSString *)path;
 
 - (IBAction)deleteLibrary:(id)sender;
 - (IBAction)pruneLibrary:(id)sender;
@@ -25,9 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopVerifyTimer;
 
 - (void)lookForMissingFile:(Game *)game;
-- (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context;
-- (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context;
-- (void)pruneDuplicateGamesInContext:(NSManagedObjectContext *)context;
+//! The hashTags of the games being played, which the methods below never
+//! delete. Main thread only: snapshot it before going to a child context.
+@property (readonly) NSSet<NSString *> *runningHashTags;
+
+- (void)deleteGameMetaAndIfid:(Game *)game inContext:(NSManagedObjectContext *)context sparing:(NSSet<NSString *> *)runningHashTags;
+- (void)deleteIfDuplicate:(NSString *)hashTag inContext:(NSManagedObjectContext *)context sparing:(NSSet<NSString *> *)runningHashTags;
+- (void)pruneDuplicateGamesInContext:(NSManagedObjectContext *)context sparing:(NSSet<NSString *> *)runningHashTags;
 
 @end
 NS_ASSUME_NONNULL_END

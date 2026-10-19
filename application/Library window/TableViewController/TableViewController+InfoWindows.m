@@ -7,6 +7,7 @@
 
 #import "TableViewController+InfoWindows.h"
 #import "TableViewController+Internal.h"
+#import "TableViewController+TableDelegate.h"
 
 #import "LibHelperTableView.h"
 #import "AppDelegate.h"
@@ -22,23 +23,11 @@
 #pragma mark Game info windows
 
 - (IBAction)showGameInfo:(id)sender {
-    NSIndexSet *rows = self.gameTableView.selectedRowIndexes;
-
-    // If we clicked outside selected rows, only show info for clicked row
-    if (self.gameTableView.clickedRow != -1 &&
-        ![rows containsIndex:(NSUInteger)self.gameTableView.clickedRow])
-        rows = [NSIndexSet indexSetWithIndex:(NSUInteger)self.gameTableView.clickedRow];
-
-    NSUInteger i;
-    NSUInteger counter = 0;
-    for (i = rows.firstIndex; i != NSNotFound;
-         i = [rows indexGreaterThanIndex:i]) {
-        Game *game = self.gameTableModel[i];
+    NSArray<Game *> *games = self.targetGames;
+    if (games.count > kMaxInfoWindowsAtOnce)
+        games = [games subarrayWithRange:NSMakeRange(0, kMaxInfoWindowsAtOnce)];
+    for (Game *game in games)
         [self showInfoForGame:game toggle:![sender isKindOfClass:[NSMenuItem class]]];
-        // Don't open more than 20 info windows at once
-        if (counter++ > 20)
-            break;
-    }
 }
 
 - (void)showInfoForGame:(Game *)game toggle:(BOOL)toggle {
@@ -83,40 +72,35 @@
     }
 }
 
-- (void)closeAndOpenNextAbove:(InfoController *)infocontroller {
+//! Closes the info window and opens one for the game the given number of
+//! rows away (-1 above, 1 below), selecting its row.
+- (void)closeInfoWindow:(InfoController *)infocontroller andOpenNextWithOffset:(NSInteger)offset {
     NSUInteger index = [self.gameTableModel indexOfObject:infocontroller.game];
-    if (index != NSNotFound && index > 0) {
-        [self.gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index - 1] byExtendingSelection:NO];
-        [infocontroller.window performClose:nil];
-        [self showInfoForGame:self.gameTableModel[index - 1] toggle:NO];
-        [self.gameTableView scrollRowToVisible:(NSInteger)index - 1];
+    if (index != NSNotFound) {
+        NSInteger next = (NSInteger)index + offset;
+        Game *game = [self gameForRow:next];
+        if (game) {
+            [self.gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)next] byExtendingSelection:NO];
+            [infocontroller.window performClose:nil];
+            [self showInfoForGame:game toggle:NO];
+            [self.gameTableView scrollRowToVisible:next];
+        }
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
         [InfoController closeStrayInfoWindows];
     });
+}
+
+- (void)closeAndOpenNextAbove:(InfoController *)infocontroller {
+    [self closeInfoWindow:infocontroller andOpenNextWithOffset:-1];
 }
 
 - (void)closeAndOpenNextBelow:(InfoController *)infocontroller {
-    NSUInteger index = [self.gameTableModel indexOfObject:infocontroller.game];
-    if (index != NSNotFound && index < self.gameTableModel.count - 1) {
-        [self.gameTableView selectRowIndexes:[NSIndexSet indexSetWithIndex:index + 1] byExtendingSelection:NO];
-        [infocontroller.window performClose:nil];
-        [self showInfoForGame:self.gameTableModel[index + 1] toggle:NO];
-        [self.gameTableView scrollRowToVisible:(NSInteger)index + 1];
-    }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void) {
-        [InfoController closeStrayInfoWindows];
-    });
+    [self closeInfoWindow:infocontroller andOpenNextWithOffset:1];
 }
 
 - (void)releaseInfoController:(InfoController *)infoctl {
-    NSString *key = nil;
-    for (InfoController *controller in self.infoWindows.allValues)
-        if (controller == infoctl) {
-            NSArray *temp = [self.infoWindows allKeysForObject:controller];
-            key = temp[0];
-            break;
-        }
+    NSString *key = [self.infoWindows allKeysForObject:infoctl].firstObject;
     if (key) {
         infoctl.window.delegate = nil;
         [self.infoWindows removeObjectForKey:key];

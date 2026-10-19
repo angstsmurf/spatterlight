@@ -8,14 +8,11 @@
 #import "MetadataHandler.h"
 
 #import "TableViewController.h"
+#import "LibHelperTableView.h"
 #import "TableViewController+Internal.h"
 #import "TableViewController+TableDelegate.h"
 
-#import "LibHelperTableView.h"
-#import "LibController.h"
 #import "GameLauncher.h"
-#import "AppDelegate.h"
-#import "Preferences.h"
 #import "Constants.h"
 
 #import "NSString+Categories.h"
@@ -33,8 +30,6 @@
 #import "IFIdentification.h"
 #import "IFDBDownloader.h"
 
-#import "GameImporter.h"
-#import "NotificationBezel.h"
 #import "CoreDataManager.h"
 
 enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
@@ -167,7 +162,6 @@ typedef NS_ENUM(int32_t, kImportResult) {
     NSString __block *msg = @"There were no library matches for the games in the iFiction file.";
     NSString __block *msg2;
 
-    NSLog(@"storyDict.count: %ld indirectDict.count: %ld", storyDict.count, indirectDict.count);
 
     TableViewController *tvc = self.tableViewController;
     NSManagedObjectContext *childContext = tvc.coreDataManager.privateChildManagedObjectContext;
@@ -175,9 +169,17 @@ typedef NS_ENUM(int32_t, kImportResult) {
     childContext.mergePolicy = NSMergeByPropertyStoreTrumpMergePolicy;
 
     [childContext performBlockAndWait:^{
+        // The keys are Game URIs from before the user was asked: a game may
+        // have been deleted since, and a malformed URI gives a nil ID.
+        Game *(^gameForURI)(NSString *, NSManagedObjectID **) = ^Game *(NSString *identifier, NSManagedObjectID **objectID) {
+            NSURL *uri = [NSURL URLWithString:identifier];
+            *objectID = uri ? [childContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:uri] : nil;
+            return *objectID ? (Game *)[childContext existingObjectWithID:*objectID error:NULL] : nil;
+        };
+
         for (NSString *identifier in storyDict.allKeys) {
-            NSManagedObjectID *objectID = [childContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
-            Game *result = [childContext objectWithID:objectID];
+            NSManagedObjectID *objectID;
+            Game *result = gameForURI(identifier, &objectID);
             if (result) {
                 games = [games setByAddingObject:result];
                 gameIDs = [gameIDs setByAddingObject:objectID];
@@ -185,8 +187,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
         }
 
         for (NSString *identifier in indirectDict.allKeys) {
-            NSManagedObjectID *objectID = [childContext.persistentStoreCoordinator managedObjectIDForURIRepresentation:[NSURL URLWithString:identifier]];
-            Game *result = [childContext objectWithID:objectID];
+            NSManagedObjectID *objectID;
+            Game *result = gameForURI(identifier, &objectID);
             if (result && ![games containsObject:result]) {
                 indirectGames = [indirectGames setByAddingObject:result];
                 indirectGameIDs = [indirectGameIDs setByAddingObject:objectID];
@@ -258,7 +260,6 @@ typedef NS_ENUM(int32_t, kImportResult) {
 }
 
 - (void)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context {
-    NSLog(@"libctl: importMetadataFromFile %@", filename);
 
     NSData *data = [NSData dataWithContentsOfFile:filename];
     if (!data)
@@ -273,25 +274,13 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
 #pragma mark - Metadata Export
 
-static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
-    NSString *val;
-    const char *tagname;
-    const char *s;
-
-    val = [info valueForKey:key];
-    if (!val)
-        return;
-
-    // "description" is a reserved word in core data,
-    // so we use "blurb" internally. We change this back
-    // to "description" in XML output.
-    if ([key isEqualToString:@"blurb"])
-        key = @"description";
-
-    NSLog(@"write_xml_text: key:%@ val:%@", key, val);
-
-    tagname = key.UTF8String;
-    s = [NSString stringWithFormat:@"%@", val].UTF8String;
+//! Writes <tagname>text</tagname>, with &, < and > escaped and runs of
+//! newlines turned into <br/>.
+static void write_xml_element(FILE *fp, NSString *key, NSString *text) {
+    const char *tagname = key.UTF8String;
+    const char *s = text.UTF8String;
+    if (!s)
+        s = "";
 
     fprintf(fp, "<%s>", tagname);
     while (*s) {
@@ -313,11 +302,24 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
     fprintf(fp, "</%s>\n", tagname);
 }
 
+static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
+    id val = [info valueForKey:key];
+    if (!val)
+        return;
+
+    // "description" is a reserved word in core data,
+    // so we use "blurb" internally. We change this back
+    // to "description" in XML output.
+    if ([key isEqualToString:@"blurb"])
+        key = @"description";
+
+    write_xml_element(fp, key, [NSString stringWithFormat:@"%@", val]);
+}
+
 - (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what context:(NSManagedObjectContext *)context {
     NSEnumerator *enumerator;
     Metadata *meta;
 
-    NSLog(@"libctl: exportMetadataToFile %@", filename);
 
     FILE *fp;
 
@@ -368,7 +370,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         fprintf(fp, "<identification>\n");
         for (Ifid *ifid in meta.ifids) {
-            fprintf(fp, "<ifid>%s</ifid>\n", ifid.ifidString.UTF8String);
+            write_xml_element(fp, @"ifid", ifid.ifidString);
         }
         write_xml_text(fp, meta, @"format");
         write_xml_text(fp, meta, @"bafn");
@@ -410,7 +412,7 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
             fprintf(fp, "<format>%s</format>\n", type.UTF8String);
             fprintf(fp, "<height>%ld</height>\n", (NSInteger)image.size.height);
             fprintf(fp, "<width>%ld</width>\n", (NSInteger)image.size.width);
-            fprintf(fp, "<description>%s</description>\n", description.UTF8String);
+            write_xml_element(fp, @"description", description);
             fprintf(fp, "</cover>\n");
         }
         fprintf(fp, "</story>\n\n");

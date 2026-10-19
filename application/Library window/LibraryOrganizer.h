@@ -67,7 +67,7 @@ extern NSString * const kOrganiseDirBookmarkKey;
 - (void)updateIdentityMarkerForGame:(Game *)game previousIdentity:(NSString *)oldIdentity;
 
 /// Organise every non-hidden game. Runs asynchronously on `context`'s queue,
-/// granting source access per game, saving as it goes. `completion` is called
+/// granting source access per game, and saves once at the end. `completion` is called
 /// on the main queue with the number of games moved into the library.
 - (void)organiseAllGamesInContext:(NSManagedObjectContext *)context
                        completion:(nullable void (^)(NSUInteger organisedCount))completion;

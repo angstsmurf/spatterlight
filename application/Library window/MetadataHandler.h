@@ -25,9 +25,6 @@ NS_ASSUME_NONNULL_BEGIN
 // Import from file
 - (void)importMetadataFromFile:(NSString *)filename inContext:(NSManagedObjectContext *)context;
 
-// Export to file
-- (BOOL)exportMetadataToFile:(NSString *)filename what:(NSInteger)what context:(NSManagedObjectContext *)context;
-
 // XML parsing (class method kept for external callers)
 + (nonnull NSDictionary<NSString *, IFStory *> *)importMetadataFromXML:(NSData *)mdbuf indirectMatches:(NSDictionary<NSString *, IFStory *> * _Nullable __autoreleasing *_Nullable)indirectDict inContext:(NSManagedObjectContext *)context;
 

@@ -11,8 +11,6 @@
 
 #import "OSCategories.h"
 
-#import <libkern/OSAtomic.h>
-
 #define OS_ALIGN(x, multiple) ({ __typeof__(x) m = (multiple) - 1; ((x) + m) & ~m; })
 
 #pragma mark - NSData Category

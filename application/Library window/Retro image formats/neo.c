@@ -40,9 +40,6 @@
  * 
  */
 
-#ifndef neo_c_INCLUDED
-#define neo_c_INCLUDED
-
 #include "neo.h"
 #include <stdio.h>
 
@@ -55,7 +52,6 @@ struct neo_color {
   uint8_t blue;
 };
 
-static FILE *neo_file = NULL;
 uint8_t * imgPic = NULL;
 z_image *neo_zimage = NULL;
 
@@ -72,16 +68,21 @@ z_image * get_neo_picture(const char *neo_filename)
     unsigned int      uW0, uW1, uW2, uW3;
     unsigned int      uBit;
 
-    if ((neo_file = fopen(neo_filename, "rb"))
-        == NULL)
+    FILE *neo_file = fopen(neo_filename, "rb");
+    if (neo_file == NULL)
         return NULL;
 
     // Load 32128 bytes:
     iLoadSize = (int)fread(bNeoPic, 1, 32128, neo_file);
+    fclose(neo_file);
 
     if (iLoadSize != 32128) {
         return NULL;
     }
+
+    // Only low resolution (320x200, 16 colours) pictures are supported
+    if (bNeoPic[2] != 0 || bNeoPic[3] != 0)
+        return NULL;
 
     if (imgPic != NULL)
         free(imgPic);
@@ -90,7 +91,7 @@ z_image * get_neo_picture(const char *neo_filename)
     if (!imgPic)
         return NULL;
 
-    // Skip two words (Flag byte=0, assume resolution=0)
+    // Skip two words (Flag byte=0, resolution=0 checked above)
     // Extract the palette from the next 16 words, and
     // convert into a temporary array of TColor:
     for (iN=0; iN<16; ++iN)
@@ -148,7 +149,7 @@ z_image * get_neo_picture(const char *neo_filename)
         free(neo_zimage);
 
     if ((neo_zimage = (z_image*)malloc(sizeof(z_image))) == NULL)
-    { free(imgPic); return NULL; }
+    { free(imgPic); imgPic = NULL; return NULL; }
 
     neo_zimage->bits_per_sample = 8;
     neo_zimage->width = 320;
@@ -163,9 +164,6 @@ z_image * get_neo_picture(const char *neo_filename)
 
 int end_neo_graphics(void)
 {
-    if (neo_file != NULL)
-        fclose(neo_file);
-
     if (imgPic != NULL) {
         free(imgPic);
         imgPic = NULL;
@@ -178,6 +176,4 @@ int end_neo_graphics(void)
 
     return 0;
 }
-
-#endif /* neo_c_INCLUDED */
 

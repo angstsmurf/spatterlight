@@ -19,7 +19,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface LibController : NSWindowController <NSDraggingDestination, NSWindowDelegate, NSToolbarDelegate, NSSearchFieldDelegate>
 
-@property (strong) CoreDataManager * _Nullable coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext * _Nullable managedObjectContext;
 
 @property (nonatomic, strong) TableViewController * _Nullable tableViewController;

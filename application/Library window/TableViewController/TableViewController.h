@@ -9,13 +9,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class Metadata, GlkController, InfoController, Game, Theme, SplitViewController, LibController, CoreDataManager, IFStory, MetadataHandler, GameLauncher, LibHelperTableView;
+@class Metadata, GlkController, InfoController, Game, Theme, LibController, CoreDataManager, IFStory, MetadataHandler, GameLauncher, LibHelperTableView;
 
 @interface TableViewController : NSViewController <NSDraggingDestination, NSSplitViewDelegate, NSTableViewDelegate, NSTableViewDataSource>
 
 @property (nonatomic) LibController *windowController;
-
-@property SplitViewController *splitViewController;
 
 @property NSURL *homepath;
 

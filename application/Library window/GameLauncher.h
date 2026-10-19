@@ -22,11 +22,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (nullable NSWindow *)playGameWithHash:(NSString *)hash restorationHandler:(void (^)(NSWindow *, NSError *))completionHandler;
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path;
-- (NSWindow *)selectAndPlayGame:(Game *)game;
+- (nullable NSWindow *)selectAndPlayGame:(Game *)game;
 
 - (nullable Game *)importGame:(NSString *)path inContext:(NSManagedObjectContext *)context reportFailure:(BOOL)report hide:(BOOL)hide;
 
-- (nullable GlkController *)activeGlkController;
 - (BOOL)hasActiveGames;
 
 - (void)runCommandsFromFile:(NSString *)filename;

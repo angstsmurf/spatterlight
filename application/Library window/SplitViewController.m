@@ -6,7 +6,6 @@
 //
 
 #import "SplitViewController.h"
-#import "SideInfoView.h"
 #import "SideViewController.h"
 
 @implementation SplitViewController

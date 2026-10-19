@@ -12,7 +12,23 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef NS_ENUM(NSInteger, BabelIdentifyResult) {
+    kBabelIdentified,
+    kBabelUnknownFormat,
+    kBabelNoIfid,
+};
+
+/// Shows a modal alert about a file that could not be imported or identified.
+/// Can be called from any thread; off the main thread the alert is shown
+/// asynchronously.
+void ReportImportFailure(NSString *title, NSString *info);
+
 @interface GameImporter : NSObject
+
+/// Asks babel for the format (e.g. "zcode", "glulx") and IFID of the file at
+/// `path`. A file with several IFIDs gives the first one. `format` is set
+/// whenever babel recognised the file, even if no IFID could be computed.
++ (BabelIdentifyResult)identifyFile:(NSString *)path format:(NSString * _Nullable * _Nullable)format ifid:(NSString * _Nullable * _Nullable)ifid;
 
 - (instancetype)initWithTableViewController:(TableViewController *)libController;
 

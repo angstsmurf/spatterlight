@@ -10,13 +10,13 @@
 #import "NSString+Categories.h"
 #import "TableViewController.h"
 #import "GameLauncher.h"
+#import "GameImporter.h"
 
 #import "FolderAccess.h"
 #import "Constants.h"
 
 #import "MissingFilesFinder.h"
 
-#include "babel_handler.h"
 
 extern NSArray *gGameFileTypes;
 
@@ -81,47 +81,6 @@ extern NSArray *gGameFileTypes;
     }
 }
 
-- (NSString *)ifidFromFile:(NSString *)path {
-    return [self ifidFromFile:path reportFailure:NO];
-}
-
-- (NSString *)ifidFromFile:(NSString *)path reportFailure:(BOOL)reportFailure {
-    void *context = get_babel_ctx();
-    char *format = babel_init_ctx((char*)path.UTF8String, context);
-    if (!format || !babel_get_authoritative_ctx(context))
-    {
-        if (reportFailure) {
-            NSAlert *anAlert = [[NSAlert alloc] init];
-            anAlert.messageText = NSLocalizedString(@"Unknown file format.", nil);
-            anAlert.informativeText = NSLocalizedString(@"Babel can not identify the file format.", nil);
-            [anAlert runModal];
-        }
-        babel_release_ctx(context);
-        free(context);
-        return nil;
-    }
-
-    char buf[TREATY_MINIMUM_EXTENT];
-
-    int rv = babel_treaty_ctx(GET_STORY_FILE_IFID_SEL, buf, sizeof buf, context);
-    if (rv <= 0)
-    {
-        if (reportFailure) {
-            NSAlert *anAlert = [[NSAlert alloc] init];
-            anAlert.messageText = NSLocalizedString(@"Fatal error.", nil);
-            anAlert.informativeText = NSLocalizedString(@"Can not compute IFID from the file.", nil);
-            [anAlert runModal];
-        }
-        babel_release_ctx(context);
-        free(context);
-        return nil;
-    }
-
-    babel_release_ctx(context);
-    free(context);
-    return @(buf);
-}
-
 - (void)lookForMoreMissingFilesInFolder:(NSString *)directory context:(NSManagedObjectContext *)context {
 
     NSError *error = nil;
@@ -143,7 +102,7 @@ extern NSArray *gGameFileTypes;
     for (NSURL *url in contentsOfDir) {
         NSString *name = nil;
         [url getResourceValue:&name forKey:NSURLNameKey error:nil];
-        NSString *extension = name.pathExtension;
+        NSString *extension = name.pathExtension.lowercaseString;
         if (extension.length && [gGameFileTypes indexOfObject:extension] != NSNotFound) {
             NSString *filename = url.lastPathComponent;
             if (filename.length) {
@@ -255,8 +214,11 @@ extern NSArray *gGameFileTypes;
             BOOL match;
             if (candidate.hashTag.length)
                 match = [path.signatureFromFile isEqualToString:candidate.hashTag];
-            else
-                match = [[self ifidFromFile:path] isEqualToString:candidate.ifid];
+            else {
+                NSString *ifid = nil;
+                [GameImporter identifyFile:path format:NULL ifid:&ifid];
+                match = [ifid isEqualToString:candidate.ifid];
+            }
             if (!match)
                 filenames[path] = nil;
         }

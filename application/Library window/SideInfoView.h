@@ -16,16 +16,12 @@
 
 @property (readonly) ImageView *imageView;
 
-@property (weak) NSString *string;
 @property NSButton *downloadButton;
-
-@property BOOL animatingScroll;
 
 - (instancetype)initWithFrame:(NSRect)frameRect;
 - (void)updateSideViewWithGame:(Game *)somegame;
 - (void)updateSideViewWithString:(NSString *)string;
 - (void)deselectImage;
-- (void)updateTitle;
 
 
 @end

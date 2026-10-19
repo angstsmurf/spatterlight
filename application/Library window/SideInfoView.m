@@ -22,10 +22,6 @@
     NSBox *topSpacer;
 
     NSTextField *titleField;
-    NSTextField *headlineField;
-    NSTextField *authorField;
-    NSTextField *blurbField;
-    NSTextField *ifidField;
 
     NSString *longestWord;
 
@@ -33,7 +29,6 @@
 
     NSSet<NSPasteboardType> *acceptableTypes;
     NSSet<NSPasteboardType> *nonURLTypes;
-    BOOL isReceivingDrag;
 }
 @end
 
@@ -225,7 +220,6 @@
     Metadata *somedata = somegame.metadata;
 
     if (somedata.blurb.length == 0 && somedata.author.length == 0 && somedata.headline.length == 0 && somedata.cover == nil) {
-        ifidField.stringValue = somegame.ifid;
         _game = somegame;
         [self updateSideViewWithString:somedata.title];
         return;
@@ -369,7 +363,6 @@
         if (somedata.title.length > 9)
         {
             font = [NSFont fontWithDescriptor:descriptor size:30];
-            //NSLog(@"Long title (length = %lu), smaller text.", agame.metadata.title.length);
         }
         else
         {
@@ -382,15 +375,12 @@
         {
             if (word.length > longestWord.length) longestWord = word;
         }
-        //NSLog (@"Longest word: %@", longestWord);
 
         // The magic number -24 means 10 points of margin and two points of textfield border on each side.
         if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
         {
-            //            NSLog(@"Font too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
             font = [font fontToFitWidth:superViewWidth - 24 sampleText:longestWord];
         }
-        //        NSLog(@"Font not too large! Width %f, max allowed %f", [longestWord sizeWithAttributes:@{NSFontAttributeName:font}].width,  superViewWidth - 24);
 
         spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
 
@@ -461,13 +451,6 @@
         font = [NSFont fontWithDescriptor:descriptor size:16.f];
 
         lastView = [self addSubViewWithtext:(somedata.headline).lowercaseString andFont:font andSpaceBefore:4 andLastView:lastView];
-
-        headlineField = (NSTextField *)lastView;
-    }
-    else
-    {
-        //        NSLog(@"No headline");
-        headlineField = nil;
     }
 
     if (somedata.author)
@@ -475,13 +458,6 @@
         font = [NSFont fontWithName:@"Gentium Plus Italic" size:14.f];
 
         lastView = [self addSubViewWithtext:somedata.author andFont:font andSpaceBefore:25 andLastView:lastView];
-
-        authorField = (NSTextField *)lastView;
-    }
-    else
-    {
-//        NSLog(@"No author");
-        authorField = nil;
     }
 
     if (somedata.blurb)
@@ -489,14 +465,6 @@
         font = [NSFont fontWithName:@"Gentium Plus" size:14.f];
 
         lastView = [self addSubViewWithtext:somedata.blurb andFont:font andSpaceBefore:23 andLastView:lastView];
-
-        blurbField = (NSTextField *)lastView;
-
-    }
-    else
-    {
-//        NSLog(@"No blurb.");
-        blurbField = nil;
     }
 
     NSLayoutConstraint *bottomPinConstraint = [NSLayoutConstraint constraintWithItem:self
@@ -525,31 +493,9 @@
             newOrigin.y = -55;
             [clipView setBoundsOrigin:newOrigin];
         }
-
-//        [self performSelector:@selector(fixScroll:) withObject:@(clipView.bounds.origin.y) afterDelay:2];
     }
 
     _game = somegame;
-}
-
-- (void)updateTitle {
-    NSMutableAttributedString *titleString = titleField.attributedStringValue.mutableCopy;
-    NSDictionary *attributes = [titleString attributesAtIndex:0 effectiveRange:nil];
-    NSClipView *clipView = (NSClipView *)self.superview;
-
-    CGFloat superViewWidth = clipView.frame.size.width - 24.0;
-
-    NSFont *font = attributes[NSFontAttributeName];
-
-    if ([longestWord sizeWithAttributes:attributes].width > superViewWidth)
-    {
-        font = [font fontToFitWidth:superViewWidth sampleText:longestWord];
-    } else {
-        return;
-    }
-
-    [titleString addAttribute:NSFontAttributeName value:font range:NSMakeRange(0, titleString.length)];
-    titleField.attributedStringValue = titleString;
 }
 
 - (void)updateSideViewWithString:(NSString *)aString {

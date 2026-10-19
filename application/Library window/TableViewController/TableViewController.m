@@ -23,9 +23,9 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "Fetches.h"
+#import "FolderAccess.h"
 
 #import "InfoController.h"
-#import "SplitViewController.h"
 #import "CoreDataManager.h"
 
 #import "MetadataHandler.h"
@@ -67,31 +67,7 @@
     _ifictionMatches = [[NSMutableDictionary alloc] init];
     _ifictionPartialMatches = [[NSMutableDictionary alloc] init];
 
-    // Home lives in the shared app-group container so the QuickLook/Thumbnailer
-    // extensions - separate sandboxed processes sharing the group - can reach the
-    // files stored under it. Mirrors FolderAccess +bookmarkPath and
-    // LibraryOrganizer -defaultLibraryRootURL.
-    NSString *groupIdentifier =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
-    _homepath = groupIdentifier.length ?
-    [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier] : nil;
-
-    if (!_homepath) {
-        // No group container (e.g. missing entitlement): fall back to the app's
-        // own Application Support/Spatterlight folder.
-        NSError *error;
-        NSURL *appSuppDir = [[NSFileManager defaultManager]
-                             URLForDirectory:NSApplicationSupportDirectory
-                             inDomain:NSUserDomainMask
-                             appropriateForURL:nil
-                             create:YES
-                             error:&error];
-        if (error)
-            NSLog(@"libctl: Could not find Application Support directory! %@",
-                  error);
-
-        _homepath = [NSURL URLWithString:@"Spatterlight" relativeToURL:appSuppDir];
-    }
+    _homepath = [FolderAccess sharedContainerURL];
 
     NSString *key;
     NSSortDescriptor *sortDescriptor;
@@ -119,42 +95,24 @@
     NSRect frame = _gameTableView.headerView.frame;
     frame.size.height = 23;
     _gameTableView.headerView.frame = frame;
-
-    if (@available(macOS 11.0, *)) {
-        NSArray *games = [Fetches fetchObjects:@"Game" predicate:@"hidden == NO" inContext:self.managedObjectContext];
-        if (games.count == 0)
-            self.view.window.subtitle = @"No games";
-        else if (games.count == 1)
-            self.view.window.subtitle = @"1 game";
-        self.view.window.subtitle = [NSString stringWithFormat:@"%ld games", games.count];
-    }
 }
 
 - (void)viewDidAppear {
     [super viewDidAppear];
 
-    // Set up a dictionary to match language codes to languages
-    _englishUSLocale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    NSArray *ISOLanguageCodes = [NSLocale ISOLanguageCodes];
-    NSMutableDictionary *mutablelanguageCodes = [NSMutableDictionary dictionaryWithCapacity:ISOLanguageCodes.count];
-    NSString *languageWord;
-    for (NSString *languageCode in ISOLanguageCodes) {
-        languageWord = [_englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode];
-        if (languageWord) {
-            mutablelanguageCodes[[_englishUSLocale displayNameForKey:NSLocaleLanguageCode value:languageCode].lowercaseString] = languageCode;
-        }
+    // The window is not up yet in viewDidLoad
+    [self updateWindowSubtitle];
+
+    // viewDidAppear runs again each time the library window is reopened
+    // after being closed. Everything up to the table refresh below must only
+    // happen once, or observers would fire twice, the verify timer would be
+    // restarted and the one-time migrations re-run.
+    if (_didAppear) {
+        [self updateTableViews];
+        [self postSideViewUpdate];
+        return;
     }
-
-    _languageCodes = mutablelanguageCodes;
-
-    _forgiveness = @{
-        @"" : @(0),
-        @"Cruel" : @(1),
-        @"Nasty" : @(2),
-        @"Tough" : @(3),
-        @"Polite" : @(4),
-        @"Merciful" : @(5)
-    };
+    _didAppear = YES;
 
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(noteManagedObjectContextDidChange:)
@@ -202,19 +160,23 @@
             }
         }
     }
-    NSArray<Game *> *selected = _selectedGames;
-    if (selected.count > 2)
-        selected = @[_selectedGames[0], _selectedGames[1]];
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
+    [self postSideViewUpdate];
 
-    [InfoController closeStrayInfoWindows];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
-        [InfoController closeStrayInfoWindows];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^(void) {
+    // Restored info windows can turn up a while after launch
+    for (int64_t seconds = 0; seconds <= 2; seconds++)
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, seconds * (int64_t)NSEC_PER_SEC), dispatch_get_main_queue(), ^{
             [InfoController closeStrayInfoWindows];
         });
-    });
+}
+
+//! Tells the side view to show the selection: the selected game, or a
+//! comparison of the first two when more than one is selected.
+- (void)postSideViewUpdate {
+    NSArray<Game *> *selected = _selectedGames ?: @[];
+    if (selected.count > 2)
+        selected = [selected subarrayWithRange:NSMakeRange(0, 2)];
+    [[NSNotificationCenter defaultCenter]
+     postNotification:[NSNotification notificationWithName:@"UpdateSideView" object:selected]];
 }
 
 //! The UI tests launch the app with SPATTERLIGHT_TEST_ADD_GAMES, a
@@ -318,6 +280,8 @@
     return _downloadQueue;
 }
 
+// Serial: IFDBDownloader queues ComparisonOperations here, so that only one
+// "replace the cover image?" prompt is up at a time.
 - (NSOperationQueue *)alertQueue {
     if (_alertQueue == nil) {
         _alertQueue = [NSOperationQueue new];
@@ -376,20 +340,13 @@
 }
 
 - (void)performFindPanelAction:(id<NSValidatedUserInterfaceItem>)sender {
-    NSLog(@"performFindPanelAction sender class %@", NSStringFromClass([(id)sender class]));
     [self.windowController.searchField selectText:self];
 }
 
 #pragma mark - Release Controller
 
 - (void)releaseGlkControllerSoon:(GlkController *)glkctl {
-    NSString *key = nil;
-    for (GlkController *controller in _gameSessions.allValues)
-        if (controller == glkctl) {
-            NSArray *temp = [_gameSessions allKeysForObject:controller];
-            key = temp[0];
-            break;
-        }
+    NSString *key = [_gameSessions allKeysForObject:glkctl].firstObject;
     if (key) {
         glkctl.window.delegate = nil;
         [_gameSessions removeObjectForKey:key];

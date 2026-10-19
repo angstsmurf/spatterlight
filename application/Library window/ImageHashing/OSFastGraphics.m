@@ -108,7 +108,7 @@ inline void greyscale_pixels_rgba_32_32(const unsigned char *pixels, double resu
 
 #pragma mark - Fast DCT
 
-#define INLINE_DCT_SUM(I, U, J, V) (sum += CO1[I][U] * CO2[J][V] * pixels[I][J])
+#define INLINE_DCT_SUM(I, U, J, V) (sum += CO[I][U] * CO[J][V] * pixels[I][J])
 
 #define UNROLL_DCT_J(I, U, V)    \
     INLINE_DCT_SUM(I, U, 0, V);  \
@@ -182,8 +182,7 @@ inline void fast_dct_rgba_32_32(const double pixels[32][32], double result[32][3
 {
     static const int N = 32;
     static double c[32] = {0};
-    static double CO1[32][32] = {{0}};
-    static double CO2[32][32] = {{0}};
+    static double CO[32][32] = {{0}};
     static double CV[32][32] = {{0}};
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -193,8 +192,7 @@ inline void fast_dct_rgba_32_32(const double pixels[32][32], double result[32][3
       }
       for (int i = 0; i < N; i++) {
           for (int j = 0; j < N; j++) {
-              CO1[i][j] = cos(((2 * i + 1.0) / (2.0 * (double)N)) * j * M_PI);
-              CO2[i][j] = cos(((2 * i + 1.0) / (2.0 * (double)N)) * j * M_PI);
+              CO[i][j] = cos(((2 * i + 1.0) / (2.0 * (double)N)) * j * M_PI);
               CV[i][j] = (c[i] * c[j]) / sqrt(2.0 * N);
           }
       }

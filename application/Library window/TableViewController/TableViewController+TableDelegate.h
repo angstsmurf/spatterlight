@@ -22,6 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)selectGamesWithHashes:(NSArray *)hashes scroll:(BOOL)shouldscroll clearSearchIfHidden:(BOOL)clearSearch;
 - (NSRect)rectForLineWithHash:(NSString *)hashTag;
 
+- (void)updateWindowSubtitle;
+
+//! The game in a row of the table, or nil when there is no such row
+- (nullable Game *)gameForRow:(NSInteger)row;
+- (nullable Game *)gameForView:(NSView *)view;
+//! The rows a menu action applies to: the clicked row, if the user
+//! right-clicked outside the selection, otherwise the selected rows.
+@property (readonly) NSIndexSet *targetRowIndexes;
+@property (readonly) NSArray<Game *> *targetGames;
+
 - (nullable NSString *)imageNameForGame:(Game *)game description:(NSString * _Nullable __autoreleasing * _Nullable)description;
 
 - (void)mouseOverChangedFromRow:(NSInteger)lastRow toRow:(NSInteger)currentRow;
@@ -29,6 +39,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notification;
 
-NS_ASSUME_NONNULL_END
-
 @end
+
+NS_ASSUME_NONNULL_END

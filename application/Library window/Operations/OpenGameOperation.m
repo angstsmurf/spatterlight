@@ -5,8 +5,6 @@
 //  Created by Administrator on 2024-11-24.
 //
 
-#import "GlkController.h"
-#import "Game.h"
 #import "OpenGameOperation.h"
 #import "FolderAccess.h"
 
@@ -105,6 +103,8 @@ typedef NS_ENUM(NSUInteger, OperationState) {
     NSError __block *blockerror = nil;
 
     NSFileCoordinator *coordinator = [NSFileCoordinator new];
+    // Lets -cancel interrupt a read that is waiting on another file presenter
+    self.coordinator = coordinator;
 
     [coordinator coordinateReadingItemAtURL:_fileURL options:NSFileCoordinatorReadingWithoutChanges error:&blockerror byAccessor:^(NSURL * _Nonnull newURL) {
 
@@ -115,10 +115,8 @@ typedef NS_ENUM(NSUInteger, OperationState) {
         /*
          don't run completionHandler if cancelled
          */
-        if (strongSelf.cancelled) {
-            strongSelf.state = kFinished;
+        if (strongSelf.cancelled)
             return;
-        }
 
         NSError *fileAccessError = nil;
         NSData *fileData = [NSData dataWithContentsOfURL:newURL options:0 error:&fileAccessError];
@@ -171,15 +169,18 @@ typedef NS_ENUM(NSUInteger, OperationState) {
                 strongSelf.completionHandler(fileData, newURL);
             }
         }
-        /*
-         set the operation state to finished once
-         the file read operation is completed or have error
-         */
-        strongSelf.state = kFinished;
     }];
 
     if (blockerror != nil)
         NSLog(@"Error: %@", blockerror);
+
+    /*
+     coordinateReadingItemAtURL: is synchronous: by now the accessor has
+     run, or never will (coordination failed or was cancelled), so the
+     operation is finished either way.
+     */
+    self.coordinator = nil;
+    self.state = kFinished;
 }
 
 -(void)cancel {

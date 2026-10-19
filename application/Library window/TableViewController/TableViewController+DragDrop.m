@@ -10,7 +10,6 @@
 
 #import "Constants.h"
 
-#import "NSManagedObjectContext+safeSave.h"
 
 #import "GameImporter.h"
 #import "FolderAccess.h"
@@ -97,8 +96,6 @@
 #pragma mark Drag-n-drop destination handler
 
 - (NSDragOperation)draggingEntered:sender {
-    extern NSString *terp_for_filename(NSString * path);
-
     NSFileManager *mgr = [NSFileManager defaultManager];
     BOOL isdir;
     NSUInteger i;
@@ -115,7 +112,7 @@
             if ([gGameFileTypes
                  containsObject:path.pathExtension.lowercaseString])
                 return NSDragOperationCopy;
-            if ([path.pathExtension isEqualToString:@"iFiction"])
+            if ([path.pathExtension.lowercaseString isEqualToString:@"ifiction"])
                 return NSDragOperationCopy;
             if ([mgr fileExistsAtPath:path isDirectory:&isdir])
                 if (isdir)
@@ -124,14 +121,6 @@
     }
 
     return NSDragOperationNone;
-}
-
-- (void)draggingExited:sender {
-    // unhighlight window
-}
-
-- (BOOL)prepareForDragOperation:sender {
-    return YES;
 }
 
 - (BOOL)performDragOperation:(id<NSDraggingInfo>)sender {

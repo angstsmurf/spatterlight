@@ -7,7 +7,6 @@
 #import "TableViewController+InfoWindows.h"
 #import "TableViewController+TableDelegate.h"
 #import "CoreDataManager.h"
-#import "IFDBDownloader.h"
 #import "ImageView.h"
 
 #import "Game.h"
@@ -47,6 +46,11 @@
 - (void)keyDown:(NSEvent *)event {
     InfoController *infocontroller = (InfoController *)self.window.delegate;
 
+    // Dead keys and some modifier combinations give no characters
+    if (!event.characters.length) {
+        [super keyDown:event];
+        return;
+    }
     unichar code = [event.characters characterAtIndex:0];
 
     switch (code) {
@@ -328,17 +332,16 @@
     } else self.window.title = NSLocalizedString(@"Game Info", nil);
 
     if (_meta) {
-        if (_meta.title.length)
-            _titleField.stringValue = _meta.title;
-        if (_meta.author.length)
-            authorField.stringValue = _meta.author;
-        if (_meta.headline.length)
-            headlineField.stringValue = _meta.headline;
+        // Clear fields whose value was removed since the last update
+        _titleField.stringValue = _meta.title ?: @"";
+        authorField.stringValue = _meta.author ?: @"";
+        headlineField.stringValue = _meta.headline ?: @"";
         if (_meta.blurb.length) {
             [self adjustDescriptionHeight];
+        } else {
+            descriptionText.stringValue = @"";
         }
-        if (_game.ifid.length)
-            ifidField.stringValue = _game.ifid;
+        ifidField.stringValue = _game.ifid ?: @"";
     }
 }
 
@@ -648,18 +651,6 @@
         if (libctrl.infoWindows && blockHash.length && libctrl.infoWindows[blockHash])
             [libctrl.infoWindows removeObjectForKey:blockHash];
     }];
-}
-
-+ (CABasicAnimation *)fadeOutAnimation {
-    CABasicAnimation *fadeOutAnimation = [CABasicAnimation animationWithKeyPath:@"opacity"];
-    fadeOutAnimation.fromValue = @1.0f;
-    fadeOutAnimation.toValue = @0.0f;
-    fadeOutAnimation.additive = NO;
-    fadeOutAnimation.removedOnCompletion = NO;
-    fadeOutAnimation.beginTime = 0.0;
-    fadeOutAnimation.duration = .2;
-    fadeOutAnimation.fillMode = kCAFillModeForwards;
-    return fadeOutAnimation;
 }
 
 + (void)closeStrayInfoWindows {
