@@ -14,30 +14,20 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BureaucracyForm : NSObject
 
 @property(weak) GlkController *glkctl;
-@property NSAttributedString *attrStr;
-@property NSArray<NSValue *> *fields;
-@property NSArray<NSString *> *fieldstrings;
-@property NSString *titlestring;
 @property NSUInteger selectedField;
-@property NSUInteger lastField;
-@property NSUInteger lastCharacterPos;
-@property NSRange infoFieldRange;
-@property NSString *lastInfoString;
 
 @property BOOL haveSpokenForm;
 @property BOOL dontSpeakField;
 @property BOOL haveSpokenInstructions;
-@property BOOL speakingError;
-@property BOOL didNotMove;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 
-@property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger findCurrentField;
-
-@property (NS_NONATOMIC_IOSONLY, getter=isForm, readonly) BOOL form;
+// Looks for one of the Bureaucracy forms in the grid window. If one is
+// found, stores its fields, finds the current field and adds it to the
+// window's moves. Returns NO if no form is showing.
+- (BOOL)detectForm;
 - (void)movedFromField;
 - (void)speakCurrentField;
-- (void)deferredSpeakCurrentField:(id)sender;
 - (void)speakError;
 - (NSString *)fieldStringWithTitle:(BOOL)useTitle andIndex:(BOOL)useIndex andTotal:(BOOL)useTotal;
 

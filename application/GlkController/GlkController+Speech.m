@@ -126,7 +126,7 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
             if (!self.form) {
                 self.form = [[BureaucracyForm alloc] initWithGlkController:self];
             }
-            if (![self.form isForm]) {
+            if (![self.form detectForm]) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:self.form];
                 self.form.glkctl = nil;
                 self.form = nil;
