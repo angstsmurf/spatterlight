@@ -15,6 +15,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nullable) NSImage *image;
 @property (readonly, nullable) NSData *pngData;
+// The image written to a temporary PNG file, for receivers that want a file
+// URL rather than a file promise.
+@property (readonly, nullable) NSURL *temporaryFileURL;
 // The view the current drag started from.
 @property (weak, readonly, nullable) NSView *sourceView;
 // Where the PNG file is written on 10.14+. Main queue if nil.

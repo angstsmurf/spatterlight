@@ -13,7 +13,8 @@
 
 - (NSArray<NSPasteboardType> *)writableTypesForPasteboard:(NSPasteboard *)pasteboard {
     NSMutableArray<NSPasteboardType> *types = [super writableTypesForPasteboard:pasteboard].mutableCopy;
-    NSArray *myTypes = @[NSPasteboardTypePNG];
+    // A file URL too, for receivers that don't take file promises (Terminal).
+    NSArray *myTypes = @[NSPasteboardTypePNG, NSPasteboardTypeFileURL];
 
     [types addObjectsFromArray:myTypes];
 
@@ -24,6 +25,10 @@
     if ([type isEqual: NSPasteboardTypePNG]) {
         return 0;
     }
+    // Only write the file if a receiver asks for it.
+    if ([type isEqual: NSPasteboardTypeFileURL]) {
+        return NSPasteboardWritingPromised;
+    }
     return [super writingOptionsForType: type pasteboard: pasteboard];
 }
 
@@ -31,6 +36,9 @@
 
     if ([type isEqual: NSPasteboardTypePNG]) {
         return ((ImageDragSource *)self.delegate).pngData;
+    }
+    if ([type isEqual: NSPasteboardTypeFileURL]) {
+        return [((ImageDragSource *)self.delegate).temporaryFileURL pasteboardPropertyListForType:NSPasteboardTypeFileURL];
     }
 
     return [super pasteboardPropertyListForType: type];

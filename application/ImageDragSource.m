@@ -10,6 +10,7 @@
 
 @interface ImageDragSource () {
     NSString *baseFilename;
+    NSURL *temporaryFileURL;
 }
 @end
 
@@ -29,7 +30,7 @@
     } else {
         NSPasteboardItem *pasteboardItem = [NSPasteboardItem new];
 
-        [pasteboardItem setDataProvider:self forTypes:@[NSPasteboardTypePNG, PasteboardFileURLPromise, PasteboardFilePromiseContent]];
+        [pasteboardItem setDataProvider:self forTypes:@[NSPasteboardTypePNG, NSPasteboardTypeFileURL, PasteboardFileURLPromise, PasteboardFilePromiseContent]];
 
         // Create the dragging item for the drag operation
         dragItem = [[NSDraggingItem alloc] initWithPasteboardWriter:pasteboardItem];
@@ -38,6 +39,7 @@
     _image = image;
     _sourceView = source;
     baseFilename = filename.length ? filename : @"image";
+    temporaryFileURL = nil;
 
     [dragItem setDraggingFrame:frame contents:image];
     return [source beginDraggingSessionWithItems:@[dragItem] event:event source:self];
@@ -76,6 +78,10 @@
     if ([type isEqualToString:NSPasteboardTypePNG]) {
         // set data for PNG type on the pasteboard as requested
         [pasteboard setData:[self pngData] forType:NSPasteboardTypePNG];
+    } else if ([type isEqualToString:NSPasteboardTypeFileURL]) {
+        NSURL *url = self.temporaryFileURL;
+        if (url)
+            [item setString:url.absoluteString forType:NSPasteboardTypeFileURL];
     } else if ([type isEqualToString:PasteboardFilePromiseContent]) {
         // The receiver will send this asking for the content type for the drop, to figure out
         // whether it wants to/is able to accept the file type.
@@ -120,6 +126,55 @@
         // And finally, tell the receiver where we wrote our file
         if (destinationFileURL.path.length > 0)
             [pasteboard setString:destinationFileURL.path forType:PasteboardFileURLPromise];
+    }
+}
+
+// A PNG file holding the image, for receivers that take file URLs but not
+// file promises, such as Terminal (which pastes the path). Written when first
+// asked for. In the sandboxed release this is inside the app's container,
+// the only place it may write, so Terminal can read it but macOS 14+ may ask
+// once whether Terminal may access data from other apps.
+//
+// The file must outlive the drag, since the receiver may read it much later
+// (Claude Code in Terminal reads it when the prompt is sent), so each drag
+// only removes the folders of drags more than a day old.
+- (nullable NSURL *)temporaryFileURL {
+    if (temporaryFileURL)
+        return temporaryFileURL;
+    NSData *data = self.pngData;
+    if (!data)
+        return nil;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSURL *parent = [[NSURL fileURLWithPath:NSTemporaryDirectory() isDirectory:YES]
+                     URLByAppendingPathComponent:@"Dragged images" isDirectory:YES];
+    [ImageDragSource removeFoldersOlderThanADayIn:parent];
+    NSURL *folder = [parent URLByAppendingPathComponent:[NSUUID UUID].UUIDString isDirectory:YES];
+    NSError *error = nil;
+    if (![fileManager createDirectoryAtURL:folder withIntermediateDirectories:YES attributes:nil error:&error]) {
+        NSLog(@"ImageDragSource: could not create %@: %@", folder.path, error);
+        return nil;
+    }
+    NSURL *url = [folder URLByAppendingPathComponent:[baseFilename stringByAppendingPathExtension:@"png"] isDirectory:NO];
+    if (![data writeToURL:url options:NSDataWritingAtomic error:&error]) {
+        NSLog(@"ImageDragSource: could not write %@: %@", url.path, error);
+        return nil;
+    }
+    temporaryFileURL = url;
+    return url;
+}
+
++ (void)removeFoldersOlderThanADayIn:(NSURL *)parent {
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    NSDate *cutoff = [NSDate dateWithTimeIntervalSinceNow:-24 * 60 * 60];
+    NSArray<NSURL *> *folders = [fileManager contentsOfDirectoryAtURL:parent
+                                           includingPropertiesForKeys:@[NSURLCreationDateKey]
+                                                              options:NSDirectoryEnumerationSkipsHiddenFiles
+                                                                error:nil];
+    for (NSURL *folder in folders) {
+        NSDate *created = nil;
+        [folder getResourceValue:&created forKey:NSURLCreationDateKey error:nil];
+        if (created && [created compare:cutoff] == NSOrderedAscending)
+            [fileManager removeItemAtURL:folder error:nil];
     }
 }
 

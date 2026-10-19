@@ -693,6 +693,12 @@
         supportedClasses = [supportedClasses arrayByAddingObject:[NSFilePromiseReceiver class]];
     }
 
+    // Images dragged from inside the app also carry a temporary file URL
+    // (for Terminal). Take the image itself, so the temporary path is not
+    // stored as the cover's source and the cover is replaced without asking.
+    if ([draggingInfo.draggingSource isKindOfClass:[ImageDragSource class]])
+        supportedClasses = @[[NSImage class]];
+
     NSDictionary<NSPasteboardReadingOptionKey, id> *searchOptions = @{ NSPasteboardURLReadingFileURLsOnlyKey: @YES,
                                                                        NSPasteboardURLReadingContentsConformToTypesKey:imageTypes };
 
