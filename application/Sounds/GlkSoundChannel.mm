@@ -16,7 +16,7 @@ static const AudioObjectPropertyAddress kDefaultOutputDeviceAddress = {
 
 class CFDataInputSource final: public SFB::InputSource {
 public:
-    CFDataInputSource(CFDataRef bytes, bool copyBytes = true);
+    explicit CFDataInputSource(CFDataRef bytes);
     virtual ~CFDataInputSource() = default;
 
 private:
@@ -44,7 +44,7 @@ private:
     }
 
     virtual bool _SeekToOffset(SInt64 offset) {
-        if (offset > CFDataGetLength(_data)) {
+        if (offset < 0 || offset > CFDataGetLength(_data)) {
             return false;
         }
 
@@ -58,18 +58,33 @@ private:
 };
 
 
-static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyBytes, CFErrorRef *error = nullptr) {
-#pragma unused(error)
-
+/* SFB's own CreateWithMemory either copies the bytes or borrows them without
+   keeping them alive; this one retains the CFData for as long as a decoder
+   (which SFB may free late, on its collector queue) can read from it. */
+static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes) {
     if(nullptr == bytes || 0 >= CFDataGetLength(bytes))
         return nullptr;
 
-    return SFB::InputSource::unique_ptr(new CFDataInputSource(bytes, copyBytes));
+    return SFB::InputSource::unique_ptr(new CFDataInputSource(bytes));
+}
+
+static float FloatVolumeClamped(float vol) {
+    return vol < 0 ? 0 : (vol > 1 ? 1 : vol);
+}
+
+/* Glk allows volumes above 0x10000; the output cannot amplify, so they play
+   at full volume. */
+static float FloatVolumeFromGlk(glui32 glk_volume) {
+    return FloatVolumeClamped((float)glk_volume / GLK_MAXVOLUME);
+}
+
+static glui32 GlkVolumeFromFloat(float vol) {
+    return (glui32)lroundf(FloatVolumeClamped(vol) * GLK_MAXVOLUME);
 }
 
 @interface GlkSoundChannel () {
 @private
-    SFB::Audio::Player    *_player;        // The player instance
+    std::unique_ptr<SFB::Audio::Player> _player;
     SInt64 _pendingFrame;                  // Where a deserialized channel resumes
     BOOL _resumeEnqueued;                  // A decoder is queued at that position
     AudioObjectPropertyListenerBlock _defaultDeviceListener;
@@ -82,12 +97,10 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 - (instancetype)initWithHandler:(SoundHandler*)handler name:(int)channelname volume:(glui32)vol {
     if (self = [super init]) {
         _handler = handler;
-        loop = 0;
-        notify = 0;
         _name = channelname;
 
         _status = GlkSoundChannelStatusIdle;
-        volume = (float)vol / GLK_MAXVOLUME;
+        volume = FloatVolumeFromGlk(vol);
         resid = -1;
         loop = 0;
         notify = 0;
@@ -95,6 +108,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
         volume_notify = 0;
         volume_timeout = 0;
+        volume_tick = 0;
         target_volume = 0;
         volume_delta = 0;
         timer = nil;
@@ -110,7 +124,9 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 }
 
 - (BOOL)playSoundInternal:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
-    _status = GlkSoundChannelStatusSound;
+    /* Idle until the new sound is actually under way: every early return below
+       leaves nothing playing. */
+    _status = GlkSoundChannelStatusIdle;
     _nowPlayingDuration = 0;
     _nowPlayingLooping = NO;
 
@@ -138,36 +154,42 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     resid = snd;
     loop = areps;
 
-    mimeString = [SoundHandler MIMETypeFromFormatType:type];
+    NSString *mimeString = [SoundHandler MIMETypeFromFormatType:type];
 
-    if (!mimeString) {
-        NSLog(@"schannel_play_ext: unknown resource type (%ld).", type);
+    if (!mimeString)
+        return NO;
+
+    auto decoder = SFB::Audio::Decoder::CreateForInputSource(CreateWithCFData((__bridge CFDataRef)buf), (__bridge CFStringRef)mimeString);
+    if (!decoder) {
+        NSLog(@"GlkSoundChannel: No decoder for sound %d (format:%@)", snd, mimeString);
         return NO;
     }
-
-    auto decoder = SFB::Audio::Decoder::CreateForInputSource(CreateWithCFData((__bridge CFDataRef)buf, false), (__bridge CFStringRef)mimeString);
 
     // CoreAudio's AudioFileOpenWithCallbacks autosniff can fail on streams
     // supplied via callbacks (e.g. ID3-prefixed MP3) because there is no
     // file extension to consult. Hand the decoder an explicit AudioFileTypeID
     // hint derived from the format we already detected.
-    if (decoder) {
-        AudioFileTypeID hint = 0;
-        switch (type) {
-            case GlkSoundBlorbFormatMP3:  hint = kAudioFileMP3Type;  break;
-            case GlkSoundBlorbFormatWave: hint = kAudioFileWAVEType; break;
-            case GlkSoundBlorbFormatAIFF: hint = kAudioFileAIFFType; break;
-            case GlkSoundBlorbFormatFORM: hint = kAudioFileAIFCType; break;
-            // kAudioFileMIDIType doesn't exist; MIDI handled by separate decoder
-            case GlkSoundBlorbFormatMIDI: break;
-            default: break;
-        }
-        if (hint)
-            decoder->SetFileTypeHint(hint);
+    AudioFileTypeID hint = 0;
+    switch (type) {
+        case GlkSoundBlorbFormatMP3:  hint = kAudioFileMP3Type;  break;
+        case GlkSoundBlorbFormatWave: hint = kAudioFileWAVEType; break;
+        case GlkSoundBlorbFormatFORM: hint = kAudioFileAIFCType; break;
+        // kAudioFileMIDIType doesn't exist; MIDI handled by separate decoder
+        default: break;
+    }
+    if (hint)
+        decoder->SetFileTypeHint(hint);
+
+    CFErrorRef error = nullptr;
+    if (!decoder->Open(&error)) {
+        NSLog(@"GlkSoundChannel: Could not open decoder (format:%@) %@", mimeString, error);
+        if (error)
+            CFRelease(error);
+        return NO;
     }
 
     if (!_player) {
-        _player = new SFB::Audio::Player();
+        _player.reset(new SFB::Audio::Player());
         [self startFollowingDefaultOutputDevice];
     }
 
@@ -194,9 +216,6 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
     if (areps == -1)
         areps = (glsi32)(SFB_INFINITE_LOOP + 1);
-    CFErrorRef error = nullptr;
-    if (!decoder->Open(&error))
-        NSLog(@"GlkSoundChannel: Could not open decoder (format:%@) %@", mimeString, error);
     SInt64 frames = decoder->GetTotalFrames();
     Float64 sampleRate = decoder->GetFormat().mSampleRate;
     if (frames > 0 && sampleRate > 0)
@@ -225,9 +244,11 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
                 _pendingFrame = lastFrame;
         }
         CFErrorRef seekError = nullptr;
-        if (!loopableRegionDecoder->Open(&seekError))
+        if (!loopableRegionDecoder->Open(&seekError)) {
             NSLog(@"GlkSoundChannel: Could not open decoder to resume at frame %lld %@", _pendingFrame, seekError);
-        else if (loopableRegionDecoder->SupportsSeeking())
+            if (seekError)
+                CFRelease(seekError);
+        } else if (loopableRegionDecoder->SupportsSeeking())
             resumed = (loopableRegionDecoder->SeekToFrame(_pendingFrame) == _pendingFrame);
     }
 
@@ -245,6 +266,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         _player->Play(loopableRegionDecoder);
     }
 
+    _status = GlkSoundChannelStatusSound;
     return YES;
 }
 
@@ -276,9 +298,11 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     if (result != kAudioHardwareNoError || defaultDevice == kAudioDeviceUnknown)
         return;
 
-    auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
+    SFB::Audio::CoreAudioOutput *output = [self coreAudioOutput];
+    if (!output)
+        return;
     AudioDeviceID currentDevice = kAudioDeviceUnknown;
-    if (output.GetDeviceID(currentDevice) && currentDevice == defaultDevice)
+    if (output->GetDeviceID(currentDevice) && currentDevice == defaultDevice)
         return;
 
     /* The output unit will not change device while it is running. A player
@@ -287,15 +311,28 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     bool wasPlaying = _player->IsPlaying();
     if (wasPlaying)
         _player->Pause();
-    if (!output.SetDeviceID(defaultDevice))
+    if (!output->SetDeviceID(defaultDevice))
         NSLog(@"GlkSoundChannel: Could not move channel %d to output device %u", _name, (unsigned)defaultDevice);
     if (wasPlaying)
         _player->Play();
 }
 
+/* The player's output, or null if it is not a CoreAudio one (the only kind
+   this channel creates, but the player API does not promise it). */
+- (SFB::Audio::CoreAudioOutput *)coreAudioOutput {
+    if (!_player)
+        return nullptr;
+    return dynamic_cast<SFB::Audio::CoreAudioOutput *>(&_player->GetOutput());
+}
+
 - (void)dealloc {
+    [timer invalidate];
     if (_defaultDeviceListener)
         AudioObjectRemovePropertyListenerBlock(kAudioObjectSystemObject, &kDefaultOutputDeviceAddress, dispatch_get_main_queue(), _defaultDeviceListener);
+    if (_player) {
+        _player->SetRenderingFinishedBlock(nullptr);
+        _player.reset();
+    }
 }
 
 - (BOOL)claimsNowPlaying {
@@ -304,7 +341,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 }
 
 - (BOOL)isPaused {
-    return paused != 0;
+    return paused;
 }
 
 - (void)stop {
@@ -334,6 +371,10 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     if (!paused)
         return;
     paused = NO;
+    /* Nor is there anything to resume on a channel that was paused with no
+       sound in it, or whose sound has since run to its end. */
+    if (_status == GlkSoundChannelStatusIdle)
+        return;
     BOOL result;
     if (_resumeEnqueued && _player) {
         // A decoder seeked to the archived position is waiting in the queue.
@@ -363,23 +404,29 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 /** Start a fade timer */
 - (void)init_fade:(glui32)glk_volume duration:(glui32)duration notify:(glui32)notification {
     volume_notify = notification;
-    target_volume = (float)glk_volume / GLK_MAXVOLUME;
+    target_volume = FloatVolumeFromGlk(glk_volume);
 
     volume_delta = (target_volume - volume) / (float)FADE_GRANULARITY;
 
     volume_timeout = FADE_GRANULARITY;
+    volume_tick = ceil(duration / (NSTimeInterval)FADE_GRANULARITY) / 1000.0;
 
     if (timer)
         [timer invalidate];
 
-    timer = [NSTimer scheduledTimerWithTimeInterval:ceil(duration / (NSTimeInterval)FADE_GRANULARITY) / 1000.0 target:self selector:@selector(volumeTimerCallback:) userInfo:nil repeats:YES];
+    timer = [NSTimer scheduledTimerWithTimeInterval:volume_tick target:self selector:@selector(volumeTimerCallback:) userInfo:nil repeats:YES];
+}
+
+/* What is left of a fade in progress, in milliseconds. Autosaves made before the
+   tick length was archived do not know it; give those the 10 ms tick of a one
+   second fade. */
+- (glui32)remainingFadeDuration {
+    NSTimeInterval tick = volume_tick > 0 ? volume_tick : 0.01;
+    return (glui32)lround(volume_timeout * tick * 1000.0);
 }
 
 - (void)volumeTimerCallback:(NSTimer *)aTimer {
-    volume += volume_delta;
-
-    if (volume < 0)
-        volume = 0;
+    volume = FloatVolumeClamped(volume + volume_delta);
 
     volume_timeout--;
 
@@ -410,7 +457,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
 - (void) setVolume:(glui32)glk_volume duration:(glui32)duration notification:(glui32)notification {
     if (!duration) {
-        volume = (float)glk_volume / GLK_MAXVOLUME;
+        volume = FloatVolumeFromGlk(glk_volume);
         [self setVolume];
     } else {
         [self init_fade:glk_volume duration:duration notify:notification];
@@ -418,10 +465,9 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 }
 
 - (void)setVolume {
-    if (!_player)
-        return;
-    auto& output = dynamic_cast<SFB::Audio::CoreAudioOutput&>(_player->GetOutput());
-    output.SetVolume((float)volume);
+    SFB::Audio::CoreAudioOutput *output = [self coreAudioOutput];
+    if (output)
+        output->SetVolume(volume);
 }
 
 
@@ -437,7 +483,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         return;
     }
 
-    if (paused == YES) {
+    if (paused) {
         [self pause];
     }
 
@@ -446,16 +492,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         NSLog(@"restartInternal: failed to restart sound %d.", resid);
 
     if (volume_timeout > 0) {
-
-        glui32 duration = (volume_timeout * FADE_GRANULARITY);
-
-        float float_volume = target_volume;
-        glui32 glk_target_volume = GLK_MAXVOLUME;
-
-        if (float_volume < FLOAT_MAX_VOLUME)
-            glk_target_volume = (glui32)(float_volume * GLK_MAXVOLUME);
-
-        [self setVolume:glk_target_volume duration:duration notification:volume_notify];
+        [self setVolume:GlkVolumeFromFloat(target_volume) duration:[self remainingFadeDuration] notification:volume_notify];
 
         if (!timer) {
             NSLog(@"restartInternal: failed to create volume change timer.");
@@ -474,15 +511,14 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         [timer invalidate];
 
     glui32 duration = 0;
-    glui32 glk_target_volume = (glui32)(volume * GLK_MAXVOLUME);
+    glui32 glk_target_volume = GlkVolumeFromFloat(volume);
 
     if (volume_timeout > 0) {
-        float float_volume = target_volume;
-        duration = (volume_timeout * FADE_GRANULARITY);
-        if (float_volume < FLOAT_MAX_VOLUME)
-            glk_target_volume = (glui32)(float_volume * GLK_MAXVOLUME);
-        else
-            glk_target_volume = GLK_MAXVOLUME;
+        duration = [self remainingFadeDuration];
+        /* The new channel starts out at full volume: put it where this one is
+           before it fades on to the target. */
+        [otherChannel setVolume:glk_target_volume duration:0 notification:0];
+        glk_target_volume = GlkVolumeFromFloat(target_volume);
     }
 
     [otherChannel setVolume:glk_target_volume duration:duration notification:volume_notify];
@@ -503,11 +539,12 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
         volume = (float)[decoder decodeDoubleForKey:@"volume"];
         loop = [decoder decodeIntForKey:@"loop"];
         notify = (glui32)[decoder decodeIntForKey:@"notify"];
-        paused = (glui32)[decoder decodeIntForKey:@"paused"];
+        paused = ([decoder decodeIntForKey:@"paused"] != 0);
 
         /* for volume fades */
         volume_notify = (glui32)[decoder decodeInt32ForKey:@"volume_notify"];
         volume_timeout = (glui32)[decoder decodeIntForKey:@"volume_timeout"];
+        volume_tick = [decoder decodeDoubleForKey:@"volume_tick"];
         target_volume = (float)[decoder decodeDoubleForKey:@"target_volume"];
         volume_delta = (float)[decoder decodeDoubleForKey:@"volume_delta"];
 
@@ -528,6 +565,7 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
     /* for volume fades */
     [encoder encodeInt:(int)volume_notify forKey:@"volume_notify"];
     [encoder encodeInt:(int)volume_timeout forKey:@"volume_timeout"];
+    [encoder encodeDouble:volume_tick forKey:@"volume_tick"];
     [encoder encodeDouble:target_volume forKey:@"target_volume"];
     [encoder encodeDouble:volume_delta forKey:@"volume_delta"];
 
@@ -546,12 +584,8 @@ static SFB::InputSource::unique_ptr CreateWithCFData(CFDataRef bytes, bool copyB
 
 @end
 
-CFDataInputSource::CFDataInputSource(CFDataRef bytes, bool copyBytes): SFB::InputSource(), _pos(0) {
-    if (copyBytes) {
-        _data = SFB::CFWrapper<CFDataRef>(CFDataCreateCopy(kCFAllocatorDefault, bytes), true);
-    } else {
-        _data = SFB::CFWrapper<CFDataRef>((CFDataRef)CFRetain(bytes), true);
-    }
+CFDataInputSource::CFDataInputSource(CFDataRef bytes): SFB::InputSource(), _pos(0) {
+    _data = SFB::CFWrapper<CFDataRef>((CFDataRef)CFRetain(bytes), true);
 }
 
 SInt64 CFDataInputSource::_Read(void *buffer, SInt64 byteCount) {

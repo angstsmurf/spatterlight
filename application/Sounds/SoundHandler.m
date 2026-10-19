@@ -1,5 +1,5 @@
 //
-//  SoundHandler.mm
+//  SoundHandler.m
 //  Spatterlight
 //
 //  Created by Administrator on 2021-01-24.
@@ -51,33 +51,48 @@
 }
 
 - (void)resolveBookmark {
+    if (!_bookmark)
+        return;
     BOOL bookmarkIsStale = NO;
     NSError *error = nil;
-    _URL = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:&bookmarkIsStale error:&error];
-    if (bookmarkIsStale) {
-        _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
-                   includingResourceValuesForKeys:nil
-                                    relativeToURL:nil
-                                            error:&error];
+    NSURL *resolved = [NSURL URLByResolvingBookmarkData:_bookmark options:NSURLBookmarkResolutionWithoutUI relativeToURL:nil bookmarkDataIsStale:&bookmarkIsStale error:&error];
+    if (resolved) {
+        _URL = resolved;
+        if (bookmarkIsStale)
+            [self refreshBookmark];
+        return;
     }
-    if (error) {
-        NSLog(@"Soundfile resolveBookmark: %@", error);
-        if (error.code == 4) {
-            NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
-                                               fromBookmarkData:_bookmark];
-            NSString *oldfilename = values[NSURLPathKey];
-            oldfilename = oldfilename.lastPathComponent;
-            NSString *newPath =
-            [(_handler.glkctl.gamefile).stringByDeletingLastPathComponent stringByAppendingPathComponent:oldfilename];
-            if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
-                _URL = [NSURL fileURLWithPath:newPath isDirectory:NO];
-                _bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
-                           includingResourceValuesForKeys:nil
-                                            relativeToURL:nil
-                                                    error:&error];
-            }
-        }
+
+    NSLog(@"Soundfile resolveBookmark: %@", error);
+    if (error.code != NSFileNoSuchFileError)
+        return;
+
+    /* The file has gone from where it was. Look for one of the same name next
+       to the game file, which is where a moved game takes its Blorb along. */
+    NSDictionary *values = [NSURL resourceValuesForKeys:@[NSURLPathKey]
+                                       fromBookmarkData:_bookmark];
+    NSString *oldfilename = [values[NSURLPathKey] lastPathComponent];
+    NSString *gamefile = _handler.glkctl.gamefile;
+    if (!oldfilename.length || !gamefile.length)
+        return;
+    NSString *newPath =
+    [gamefile.stringByDeletingLastPathComponent stringByAppendingPathComponent:oldfilename];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
+        _URL = [NSURL fileURLWithPath:newPath isDirectory:NO];
+        [self refreshBookmark];
     }
+}
+
+- (void)refreshBookmark {
+    NSError *error = nil;
+    NSData *bookmark = [_URL bookmarkDataWithOptions:NSURLBookmarkCreationSuitableForBookmarkFile
+                      includingResourceValuesForKeys:nil
+                                       relativeToURL:nil
+                                               error:&error];
+    if (bookmark)
+        _bookmark = bookmark;
+    else
+        NSLog(@"Soundfile error when refreshing bookmark %@: %@", _URL.path, error);
 }
 
 @end
@@ -102,9 +117,9 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     if (self = [super init]) {
         _filename = [decoder decodeObjectOfClass:[NSString class] forKey:@"filename"];
-        _length = (size_t)[decoder decodeIntForKey:@"length"];
-        _offset = (size_t)[decoder decodeIntForKey:@"offset"];
-        _type = (GlkSoundBlorbFormatType)[decoder decodeIntForKey:@"type"];
+        _length = (NSUInteger)[decoder decodeIntegerForKey:@"length"];
+        _offset = (NSUInteger)[decoder decodeIntegerForKey:@"offset"];
+        _type = (GlkSoundBlorbFormatType)[decoder decodeIntegerForKey:@"type"];
     }
     return self;
 }
@@ -117,94 +132,110 @@
 }
 
 -(BOOL)load {
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:NULL];
+    if (!_soundFile.URL)
+        [_soundFile resolveBookmark];
+    NSError *error = nil;
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:&error];
     if (!fileHandle) {
         [_soundFile resolveBookmark];
-        fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:NULL];
-        if (!fileHandle)
+        fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:&error];
+        if (!fileHandle) {
+            NSLog(@"Could not open sound file %@: %@", _soundFile.URL.path, error);
             return NO;
+        }
     }
-    [fileHandle seekToFileOffset:_offset];
-    _data = [fileHandle readDataOfLength:_length];
-    if (!_data) {
-        NSLog(@"Could not read sound resource from file %@, length %ld, offset %ld\n", _soundFile.URL.path, _length, _offset);
+
+    NSData *data = nil;
+    if (@available(macOS 10.15, *)) {
+        if ([fileHandle seekToOffset:_offset error:&error])
+            data = [fileHandle readDataUpToLength:_length error:&error];
+        [fileHandle closeAndReturnError:nil];
+    } else {
+        @try {
+            [fileHandle seekToFileOffset:_offset];
+            data = [fileHandle readDataOfLength:_length];
+        } @catch (NSException *exception) {
+            NSLog(@"SoundResource load: %@", exception);
+        }
+        [fileHandle closeFile];
+    }
+
+    if (data.length != _length) {
+        NSLog(@"Could not read sound resource from file %@, length %lu, offset %lu (got %lu bytes) %@", _soundFile.URL.path, (unsigned long)_length, (unsigned long)_offset, (unsigned long)data.length, error ?: @"");
         return NO;
     }
 
     if (!_type) {
-        _type = [self detect_sound_format];
+        _type = [SoundResource detectSoundFormatFromData:data];
         if (!_type) {
             NSLog(@"Unknown format");
             return NO;
         }
     }
 
+    _data = data;
     return YES;
 }
 
-+ (GlkSoundBlorbFormatType)detectSoundFormatFromData:(NSData*)_data {
-    const char *buf = (const char *)_data.bytes;
-    const NSUInteger _length = _data.length;
-    char str[30];
-    if (_length > 29) {
-        strncpy(str, buf, 29);
-        str[29]='\0';
-    } else {
-        strncpy(str, buf, _length);
-        str[_length - 1]='\0';
-    }
+/* Sniff the format from the data. MP3 has no reliable magic of its own, so
+   anything not recognised is taken to be MP3; only empty data is None. */
++ (GlkSoundBlorbFormatType)detectSoundFormatFromData:(NSData*)data {
+    const char *buf = (const char *)data.bytes;
+    const NSUInteger length = data.length;
+
+    if (length == 0)
+        return GlkSoundBlorbFormatNone;
+
     /* AIFF */
-    if (_length > 4 && !memcmp(buf, "FORM", 4))
+    if (length >= 4 && !memcmp(buf, "FORM", 4))
         return GlkSoundBlorbFormatFORM;
 
     /* WAVE */
-    if (_length > 4 && !memcmp(buf, "WAVE", 4))
+    if (length >= 4 && !memcmp(buf, "WAVE", 4))
         return GlkSoundBlorbFormatWave;
 
-    if (_length > 4 && !memcmp(buf, "RIFF", 4))
+    if (length >= 4 && !memcmp(buf, "RIFF", 4))
         return GlkSoundBlorbFormatWave;
 
     /* midi */
-    if (_length > 4 && !memcmp(buf, "MThd", 4))
+    if (length >= 4 && !memcmp(buf, "MThd", 4))
         return GlkSoundBlorbFormatMIDI;
 
     /* s3m */
-    if (_length > 0x30 && !memcmp(buf + 0x2c, "SCRM", 4))
+    if (length >= 0x30 && !memcmp(buf + 0x2c, "SCRM", 4))
         return GlkSoundBlorbFormatMod;
 
     /* XM */
-    if (_length > 20 && !memcmp(buf, "Extended Module: ", 17))
+    if (length >= 17 && !memcmp(buf, "Extended Module: ", 17))
         return GlkSoundBlorbFormatMod;
 
     /* MOD */
-    if (_length > 1084) {
-        char resname[5];
-        memcpy(resname, (buf) + 1080, 4);
-        resname[4] = '\0';
-        if (!strncmp(resname+1, "CHN", 3) ||        /* 4CHN, 6CHN, 8CHN */
-            !strncmp(resname+2, "CN", 2) ||         /* 16CN, 32CN */
-            !strncmp(resname, "M.K.", 4) || !strncmp(resname, "M!K!", 4) ||
-            !strncmp(resname, "FLT4", 4) || !strncmp(resname, "CD81", 4) ||
-            !strncmp(resname, "OKTA", 4) || !strncmp(resname, "    ", 4))
+    if (length >= 1084) {
+        const char *resname = buf + 1080;
+        if (!memcmp(resname+1, "CHN", 3) ||        /* 4CHN, 6CHN, 8CHN */
+            !memcmp(resname+2, "CN", 2) ||         /* 16CN, 32CN */
+            !memcmp(resname, "M.K.", 4) || !memcmp(resname, "M!K!", 4) ||
+            !memcmp(resname, "FLT4", 4) || !memcmp(resname, "CD81", 4) ||
+            !memcmp(resname, "OKTA", 4) || !memcmp(resname, "    ", 4))
             return GlkSoundBlorbFormatMod;
     }
 
     /* ogg */
-    if (_length > 4 && !memcmp(buf, "OggS", 4))
+    if (length >= 4 && !memcmp(buf, "OggS", 4))
         return GlkSoundBlorbFormatOggVorbis;
 
     return GlkSoundBlorbFormatMP3;
 }
 
-- (GlkSoundBlorbFormatType)detect_sound_format {
-    return [[self class] detectSoundFormatFromData:_data];
-}
-
 @end
 
 @interface SoundHandler () <NSSoundDelegate>
-/* Synthesised ZX Spectrum BEEP tones, held strongly while they play. */
+/* Synthesised ZX Spectrum BEEP tones, held strongly while they play or wait
+ * their turn. */
 @property (strong, nullable) NSMutableArray<NSSound *> *beepSounds;
+/* Bumped by -stopBeeps, so that notes still waiting to start can tell that
+ * the tune they belonged to has been cancelled. */
+@property (nonatomic) NSUInteger beepGeneration;
 /* Absolute time (NSDate referenceDate epoch, in seconds) at which the next
  * queued BEEP should start. Used to chain a tune's notes back-to-back without
  * blocking the interpreter. */
@@ -213,6 +244,7 @@
  * device ahead of the first real tone, held strongly while it plays. See
  * primeBeepAudio. */
 @property (strong, nullable) NSSound *beepPrimeSound;
+@property (nonatomic) BOOL beepAudioPrimed;
 @end
 
 @implementation SoundHandler
@@ -221,7 +253,6 @@
     self = [super init];
     if (self) {
         _resources = [NSMutableDictionary new];
-        _sfbplayers = [NSMutableDictionary new];
         _glkchannels = [NSMutableDictionary new];
         _files = [NSMutableDictionary new];
         _lastsoundresno = -1;
@@ -236,16 +267,24 @@
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super init];
     if (self) {
-        _files = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"files"];
+        /* A missing or undecodable key leaves an empty store rather than nil:
+           messages to a nil dictionary would silently drop every new sound
+           and channel for the rest of the session. */
+        _files = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSString class], [SoundFile class], nil] forKey:@"files"];
+        if (!_files)
+            _files = [NSMutableDictionary new];
         for (SoundFile *file in _files.allValues)
             file.handler = self;
         _resources = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [SoundResource class], nil] forKey:@"resources"];
-        if (_resources)
-            for (SoundResource *res in _resources.allValues) {
-                res.soundFile = _files[res.filename];
-            }
-        _glkchannels = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [GlkSoundChannel class], nil] forKey:@"gchannels"];
-        _lastsoundresno = [decoder decodeIntForKey:@"lastsoundresno"];
+        if (!_resources)
+            _resources = [NSMutableDictionary new];
+        for (SoundResource *res in _resources.allValues) {
+            res.soundFile = _files[res.filename];
+        }
+        _glkchannels = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [GlkSoundChannel class], [MIDIChannel class], nil] forKey:@"gchannels"];
+        if (!_glkchannels)
+            _glkchannels = [NSMutableDictionary new];
+        _lastsoundresno = [decoder containsValueForKey:@"lastsoundresno"] ? [decoder decodeIntForKey:@"lastsoundresno"] : -1;
     }
     return self;
 }
@@ -258,10 +297,16 @@
 }
 
 - (BOOL)soundIsLoaded:(glsi32)soundId {
+    return _resources[@(soundId)].data != nil;
+}
+
+/* The resource for a sound, read in from its file if it has not been yet, or
+   nil if there is no such sound or it cannot be read. */
+- (nullable SoundResource *)loadedResourceForSound:(glsi32)soundId {
     SoundResource *resource = _resources[@(soundId)];
-    if (resource)
-        return (resource.data != nil);
-    return NO;
+    if (resource && !resource.data)
+        [resource load];
+    return resource.data ? resource : nil;
 }
 
 + (NSString *)MIMETypeFromFormatType:(GlkSoundBlorbFormatType)format {
@@ -298,17 +343,8 @@
 #pragma mark Glk request calls from GlkController
 
 - (BOOL)handleFindSoundNumber:(glsi32)resno {
-    BOOL result = [self soundIsLoaded:resno];
-
-    if (!result) {
-        [_resources[@(resno)] load];
-        result = [self soundIsLoaded:resno];
-    }
-    if (!result)
-        _lastsoundresno = -1;
-    else
-        _lastsoundresno = resno;
-
+    BOOL result = ([self loadedResourceForSound:resno] != nil);
+    _lastsoundresno = result ? resno : -1;
     return result;
 }
 
@@ -325,7 +361,7 @@
     [self setSoundID:resno filename:path length:length offset:offset];
 }
 
-- (void)setSoundID:(NSInteger)snd filename:(nullable NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset {
+- (void)setSoundID:(NSInteger)snd filename:(NSString *)filename length:(NSUInteger)length offset:(NSUInteger)offset {
 
     SoundResource *res = _resources[@(snd)];
 
@@ -337,17 +373,14 @@
     }
 
     res.length = length;
-
-    if (filename != nil)
-    {
-        res.soundFile = _files[filename];
-        if (!res.soundFile) {
-            res.soundFile = [[SoundFile alloc] initWithPath:filename];
-            res.soundFile.handler = self;
-            _files[filename] = res.soundFile;
-        }
-    } else return;
     res.offset = offset;
+
+    res.soundFile = _files[filename];
+    if (!res.soundFile) {
+        res.soundFile = [[SoundFile alloc] initWithPath:filename];
+        res.soundFile.handler = self;
+        _files[filename] = res.soundFile;
+    }
     [res load];
 }
 
@@ -367,64 +400,52 @@
 }
 
 - (void)handleDeleteChannel:(int)channel {
-    if (_glkchannels[@(channel)]) {
-        [_glkchannels[@(channel)] stop];
-        _glkchannels[@(channel)] = nil;
-    }
+    [_glkchannels[@(channel)] stop];
+    _glkchannels[@(channel)] = nil;
 }
 
 - (void)handleSetVolume:(glui32)volume channel:(int)channel duration:(glui32)duration notify:(glui32)notify {
-    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
-    if (glkchan) {
-        [glkchan setVolume:volume duration:duration notification:notify];
-    }
+    [_glkchannels[@(channel)] setVolume:volume duration:duration notification:notify];
+}
+
+/* MIDI and sampled sound are played by different channel classes. Swap the
+   channel for one of the class the sound needs, carrying its state across. */
+- (GlkSoundChannel *)channel:(GlkSoundChannel *)glkchan ofClass:(Class)channelClass {
+    if ([glkchan isMemberOfClass:channelClass])
+        return glkchan;
+    int channel = glkchan.name;
+    GlkSoundChannel *replacement = [[channelClass alloc] initWithHandler:self
+                                                                    name:channel
+                                                                  volume:GLK_MAXVOLUME];
+    _glkchannels[@(channel)] = replacement;
+    [glkchan copyValues:replacement];
+    return replacement;
 }
 
 - (void)handlePlaySoundOnChannel:(int)channel repeats:(glsi32)repeats notify:(glui32)notify {
-    if (_lastsoundresno != -1) {
-        GlkSoundChannel *glkchan = _glkchannels[@(channel)];
-        if (glkchan) {
-            if (_resources[@(_lastsoundresno)].type == GlkSoundBlorbFormatMIDI) {
-                if (![glkchan isKindOfClass:[MIDIChannel class]]) {
-                    _glkchannels[@(channel)] = [[MIDIChannel alloc] initWithHandler:self
-                                                                               name:channel volume:GLK_MAXVOLUME];
-                    [glkchan copyValues:_glkchannels[@(channel)]];
-                    glkchan = _glkchannels[@(channel)];
-                }
-            } else if ([glkchan isKindOfClass:[MIDIChannel class]]) {
-                _glkchannels[@(channel)] = [[GlkSoundChannel alloc] initWithHandler:self
-                                                                               name:channel volume:GLK_MAXVOLUME];
-                [glkchan copyValues:_glkchannels[@(channel)]];
-                glkchan = _glkchannels[@(channel)];
-            }
+    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
+    if (_lastsoundresno == -1 || !glkchan)
+        return;
 
-            BOOL result = [glkchan playSound:_lastsoundresno countOfRepeats:repeats notification:notify];
-            if (!result) {
-                NSLog(@"handlePlaySoundOnChannel: failed to play sound %d on channel %d.", _lastsoundresno, channel);
-            }
-        }
+    BOOL isMIDI = (_resources[@(_lastsoundresno)].type == GlkSoundBlorbFormatMIDI);
+    glkchan = [self channel:glkchan ofClass:isMIDI ? [MIDIChannel class] : [GlkSoundChannel class]];
+
+    BOOL result = [glkchan playSound:_lastsoundresno countOfRepeats:repeats notification:notify];
+    if (!result) {
+        NSLog(@"handlePlaySoundOnChannel: failed to play sound %d on channel %d.", _lastsoundresno, channel);
     }
 }
 
 - (void)handleStopSoundOnChannel:(int)channel {
-    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
-    if (glkchan) {
-        [glkchan stop];
-    }
+    [_glkchannels[@(channel)] stop];
 }
 
 - (void)handlePauseOnChannel:(int)channel {
-    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
-    if (glkchan) {
-        [glkchan pause];
-    }
+    [_glkchannels[@(channel)] pause];
 }
 
 - (void)handleUnpauseOnChannel:(int)channel {
-    GlkSoundChannel *glkchan = _glkchannels[@(channel)];
-    if (glkchan) {
-        [glkchan unpause];
-    }
+    [_glkchannels[@(channel)] unpause];
 }
 
 - (void)restartAll {
@@ -438,6 +459,7 @@
     for (GlkSoundChannel* chan in _glkchannels.allValues) {
         [chan stop];
     }
+    [self stopBeeps];
     [[NowPlayingCoordinator shared] clearForHandler:self];
 }
 
@@ -447,23 +469,32 @@
     [[NowPlayingCoordinator shared] refreshForHandler:self];
 }
 
-- (void)pauseEligibleNowPlayingChannels {
+- (NSArray<GlkSoundChannel *> *)eligibleNowPlayingChannels {
+    NSMutableArray<GlkSoundChannel *> *eligible = [NSMutableArray new];
     for (GlkSoundChannel *chan in _glkchannels.allValues) {
-        if (chan.claimsNowPlaying && !chan.isPaused)
+        if (chan.claimsNowPlaying)
+            [eligible addObject:chan];
+    }
+    return eligible;
+}
+
+- (void)pauseEligibleNowPlayingChannels {
+    for (GlkSoundChannel *chan in self.eligibleNowPlayingChannels) {
+        if (!chan.isPaused)
             [chan pause];
     }
 }
 
 - (void)unpauseEligibleNowPlayingChannels {
-    for (GlkSoundChannel *chan in _glkchannels.allValues) {
-        if (chan.claimsNowPlaying && chan.isPaused)
+    for (GlkSoundChannel *chan in self.eligibleNowPlayingChannels) {
+        if (chan.isPaused)
             [chan unpause];
     }
 }
 
 - (BOOL)hasPlayingEligibleNowPlayingChannel {
-    for (GlkSoundChannel *chan in _glkchannels.allValues) {
-        if (chan.claimsNowPlaying && !chan.isPaused)
+    for (GlkSoundChannel *chan in self.eligibleNowPlayingChannels) {
+        if (!chan.isPaused)
             return YES;
     }
     return NO;
@@ -482,26 +513,16 @@
 }
 
 -(GlkSoundBlorbFormatType)loadSoundResourceFromSound:(glsi32)snd data:(NSData *__autoreleasing*)buf {
-
-    GlkSoundBlorbFormatType type = GlkSoundBlorbFormatNone;
-    SoundResource *resource = _resources[@(snd)];
-
-    if (resource)
-    {
-        if (!resource.data)
-        {
-            [resource load];
-            if (!resource.data)
-                return GlkSoundBlorbFormatNone;
-        }
-        *buf = resource.data;
-        type = resource.type;
-    }
-
-    return type;
+    SoundResource *resource = [self loadedResourceForSound:snd];
+    if (!resource)
+        return GlkSoundBlorbFormatNone;
+    *buf = resource.data;
+    return resource.type;
 }
 
 #pragma mark ZX Spectrum BEEP synthesis
+
+static const NSUInteger kWAVHeaderSize = 44;
 
 /* Synthesise a square wave at the given frequency for the given number of
  * milliseconds and queue it for playback. ZX Spectrum BEEPs are raw square
@@ -522,29 +543,14 @@
     uint32_t nSamples = (uint32_t)((uint64_t)sampleRate * (uint32_t)millisecs / 1000);
     if (nSamples == 0)
         return;
-    uint32_t dataBytes = nSamples * sizeof(int16_t);
 
-    NSMutableData *wav = [NSMutableData dataWithLength:44 + dataBytes];
-    uint8_t *p = wav.mutableBytes;
-
-    uint32_t riffSize = 36 + dataBytes, fmtSize = 16, byteRate = sampleRate * 2;
-    uint16_t pcm = 1, channels = 1, blockAlign = 2, bits = 16;
-    memcpy(p,      "RIFF", 4);  memcpy(p + 4,  &riffSize, 4);
-    memcpy(p + 8,  "WAVE", 4);  memcpy(p + 12, "fmt ", 4);
-    memcpy(p + 16, &fmtSize, 4);
-    memcpy(p + 20, &pcm, 2);    memcpy(p + 22, &channels, 2);
-    memcpy(p + 24, &sampleRate, 4);
-    memcpy(p + 28, &byteRate, 4);
-    memcpy(p + 32, &blockAlign, 2);
-    memcpy(p + 34, &bits, 2);
-    memcpy(p + 36, "data", 4);  memcpy(p + 40, &dataBytes, 4);
-
-    int16_t *samples = (int16_t *)(p + 44);
-    uint32_t halfPeriod = sampleRate / (uint32_t)(frequency * 2);
-    if (halfPeriod < 1)
-        halfPeriod = 1;
+    NSMutableData *wav = [SoundHandler WAVDataWithSampleCount:nSamples sampleRate:sampleRate];
+    int16_t *samples = (int16_t *)((uint8_t *)wav.mutableBytes + kWAVHeaderSize);
+    /* Which half-period each sample falls in, counted exactly rather than with
+     * a whole number of samples per half-period, which would put a 4000 Hz
+     * tone at 4410 Hz. */
     for (uint32_t i = 0; i < nSamples; i++)
-        samples[i] = ((i / halfPeriod) & 1) ? -amplitude : amplitude;
+        samples[i] = (((uint64_t)i * (uint64_t)frequency * 2 / sampleRate) & 1) ? -amplitude : amplitude;
 
     NSSound *sound = [[NSSound alloc] initWithData:wav];
     if (!sound)
@@ -573,12 +579,50 @@
         [sound play];
     } else {
         __weak SoundHandler *weakSelf = self;
+        NSUInteger generation = self.beepGeneration;
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)),
                        dispatch_get_main_queue(), ^{
-            if (weakSelf)
+            SoundHandler *strongSelf = weakSelf;
+            if (strongSelf && strongSelf.beepGeneration == generation)
                 [sound play];
         });
     }
+}
+
+/* Silence the beeper: the note sounding now and every note queued after it.
+ * Called when the game stops, so a tune does not outlive its window. */
+- (void)stopBeeps {
+    self.beepGeneration++;
+    self.nextBeepTime = 0;
+    NSArray<NSSound *> *sounds = self.beepSounds;
+    self.beepSounds = nil;
+    for (NSSound *sound in sounds) {
+        sound.delegate = nil;
+        [sound stop];
+    }
+}
+
+/* A mono 16-bit PCM WAV file of nSamples zero (silent) samples, to be filled
+ * in after the header. (Both x86_64 and arm64 macOS are little-endian, so the
+ * header fields are written in native byte order.) */
++ (NSMutableData *)WAVDataWithSampleCount:(uint32_t)nSamples sampleRate:(uint32_t)sampleRate {
+    uint32_t dataBytes = nSamples * sizeof(int16_t);
+
+    NSMutableData *wav = [NSMutableData dataWithLength:kWAVHeaderSize + dataBytes];
+    uint8_t *p = wav.mutableBytes;
+
+    uint32_t riffSize = 36 + dataBytes, fmtSize = 16, byteRate = sampleRate * 2;
+    uint16_t pcm = 1, channels = 1, blockAlign = 2, bits = 16;
+    memcpy(p,      "RIFF", 4);  memcpy(p + 4,  &riffSize, 4);
+    memcpy(p + 8,  "WAVE", 4);  memcpy(p + 12, "fmt ", 4);
+    memcpy(p + 16, &fmtSize, 4);
+    memcpy(p + 20, &pcm, 2);    memcpy(p + 22, &channels, 2);
+    memcpy(p + 24, &sampleRate, 4);
+    memcpy(p + 28, &byteRate, 4);
+    memcpy(p + 32, &blockAlign, 2);
+    memcpy(p + 34, &bits, 2);
+    memcpy(p + 36, "data", 4);  memcpy(p + 40, &dataBytes, 4);
+    return wav;
 }
 
 /* Warm up the CoreAudio output device ahead of the first real BEEP.
@@ -594,39 +638,28 @@
  *
  * Called from -[GlkController runTerp...]; harmless for games that never beep. */
 - (void)primeBeepAudio {
-    if (self.beepPrimeSound)
+    if (self.beepAudioPrimed)
         return;
+    self.beepAudioPrimed = YES;
 
     const uint32_t sampleRate = 44100;
     const uint32_t millisecs = 300;
-    uint32_t nSamples = sampleRate * millisecs / 1000;
-    uint32_t dataBytes = nSamples * sizeof(int16_t);
-
-    NSMutableData *wav = [NSMutableData dataWithLength:44 + dataBytes];
-    uint8_t *p = wav.mutableBytes;
-
-    uint32_t riffSize = 36 + dataBytes, fmtSize = 16, byteRate = sampleRate * 2;
-    uint16_t pcm = 1, channels = 1, blockAlign = 2, bits = 16;
-    memcpy(p,      "RIFF", 4);  memcpy(p + 4,  &riffSize, 4);
-    memcpy(p + 8,  "WAVE", 4);  memcpy(p + 12, "fmt ", 4);
-    memcpy(p + 16, &fmtSize, 4);
-    memcpy(p + 20, &pcm, 2);    memcpy(p + 22, &channels, 2);
-    memcpy(p + 24, &sampleRate, 4);
-    memcpy(p + 28, &byteRate, 4);
-    memcpy(p + 32, &blockAlign, 2);
-    memcpy(p + 34, &bits, 2);
-    memcpy(p + 36, "data", 4);  memcpy(p + 40, &dataBytes, 4);
     /* sample data left as zeroes: silence */
+    NSMutableData *wav = [SoundHandler WAVDataWithSampleCount:sampleRate * millisecs / 1000 sampleRate:sampleRate];
 
     NSSound *sound = [[NSSound alloc] initWithData:wav];
     if (!sound)
         return;
+    sound.delegate = self;
     self.beepPrimeSound = sound;
     [sound play];
 }
 
 - (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)finished {
-    [self.beepSounds removeObject:sound];
+    if (sound == self.beepPrimeSound)
+        self.beepPrimeSound = nil;
+    else
+        [self.beepSounds removeObject:sound];
 }
 
 @end

@@ -8,7 +8,6 @@
 #import <AudioToolbox/AudioToolbox.h>
 
 #import "MIDIPlayer.h"
-#import "SoundHandler.h"
 
 
 @interface MIDIPlayer() {
@@ -25,6 +24,10 @@
     MusicSequence sequence;
     MusicTimeStamp pausedTime;
     BOOL hasPausedTime;
+
+    /* Called at the end-of-sequence user event. Held here, and handed to the
+       sequence unretained: the sequence never outlives -stop. */
+    void (^endCallback)(void);
 }
 
 @end
@@ -376,7 +379,7 @@ static void ChaseSynthState(MusicSequence sequence, MusicTimeStamp beats, AudioU
     if (hasPausedTime)
         return pausedTime;
     MusicTimeStamp now = 0;
-    if (MusicPlayerGetTime(player, &now) != noErr)
+    if (!player || MusicPlayerGetTime(player, &now) != noErr)
         return 0;
     return now;
 }
@@ -421,6 +424,8 @@ static void ChaseSynthState(MusicSequence sequence, MusicTimeStamp beats, AudioU
 }
 
 - (void)play {
+    if (!player)
+        return;
     [self startGraph];
     if (hasPausedTime) {
         MusicPlayerSetTime(player, pausedTime);
@@ -433,6 +438,8 @@ static void ChaseSynthState(MusicSequence sequence, MusicTimeStamp beats, AudioU
     /* Pausing something that is not playing must not throw away the point it is
        waiting to resume from: a channel restored from an autosave holds one before
        it has ever been started. */
+    if (!player)
+        return;
     Boolean isPlaying = false;
     if (MusicPlayerIsPlaying(player, &isPlaying) == noErr && !isPlaying) {
         [self stopGraph];
@@ -445,17 +452,38 @@ static void ChaseSynthState(MusicSequence sequence, MusicTimeStamp beats, AudioU
     [self stopGraph];
 }
 
+/* Tear everything down. The player is unusable afterwards, and a second call
+   does nothing. */
 - (void)stop {
-    MusicPlayerStop(player);
-    DisposeMusicPlayer(player);
-    DisposeMusicSequence(sequence);
+    if (player) {
+        MusicPlayerStop(player);
+        DisposeMusicPlayer(player);
+        player = NULL;
+    }
+    if (sequence) {
+        DisposeMusicSequence(sequence);
+        sequence = NULL;
+    }
     [self stopGraph];
-    DisposeAUGraph(graph);
+    if (graph) {
+        DisposeAUGraph(graph);
+        graph = NULL;
+        sampleUnit = NULL;
+        ioUnit = NULL;
+        mixerUnit = NULL;
+    }
+    endCallback = nil;
+}
+
+- (void)dealloc {
+    [self stop];
 }
 
 static void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat);
 
 - (void)addCallback:(void (^)(void))block {
+    if (!sequence)
+        return;
     MusicTrack track = NULL;
     MusicTimeStamp trackLen = 0;
     UInt32 trackLenLen = sizeof(trackLen);
@@ -468,7 +496,8 @@ static void userCallback (void *inClientData, MusicSequence inSequence, MusicTra
     //Put new user event at the end of the track
     MusicTrackNewUserEvent(track, trackLen, &userData);
     //Set a callback for when User Events occur
-    MusicSequenceSetUserCallback(sequence, userCallback, (void * _Nullable)CFBridgingRetain(block));
+    endCallback = [block copy];
+    MusicSequenceSetUserCallback(sequence, userCallback, (__bridge void *)endCallback);
 }
 
 static void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat) {

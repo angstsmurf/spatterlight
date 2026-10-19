@@ -7,7 +7,6 @@ typedef int32_t glsi32;
 
 #define FADE_GRANULARITY 100
 #define GLK_MAXVOLUME 0x10000
-#define FLOAT_MAX_VOLUME 1.0
 
 typedef NS_ENUM(NSInteger, GlkSoundChannelStatus) {
     GlkSoundChannelStatusIdle,
@@ -17,15 +16,14 @@ typedef NS_ENUM(NSInteger, GlkSoundChannelStatus) {
 @interface GlkSoundChannel : NSObject <NSSecureCoding> {
     glsi32 loop;
     glui32 notify;
-    glui32 paused;
+    BOOL paused;
 
     glsi32 resid; /* for notifies */
 
-    NSString *mimeString;
-
     /* for volume fades */
     glui32 volume_notify;
-    glui32 volume_timeout;
+    glui32 volume_timeout; /* ticks left */
+    NSTimeInterval volume_tick; /* seconds per tick */
     float target_volume;
     float volume;
     float volume_delta;

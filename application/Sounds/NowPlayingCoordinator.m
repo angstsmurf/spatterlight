@@ -87,9 +87,7 @@
     NSTimeInterval duration = 0;
     BOOL looping = NO;
 
-    for (GlkSoundChannel *chan in handler.glkchannels.allValues) {
-        if (!chan.claimsNowPlaying)
-            continue;
+    for (GlkSoundChannel *chan in handler.eligibleNowPlayingChannels) {
         if (chan.isPaused)
             anyPaused = YES;
         else

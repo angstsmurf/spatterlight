@@ -60,7 +60,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SoundHandler : NSObject
 
 @property (strong) NSMutableDictionary <NSNumber *, SoundResource *> *resources;
-@property (strong) NSMutableDictionary *sfbplayers;
 @property (strong) NSMutableDictionary <NSNumber *, GlkSoundChannel *> *glkchannels;
 @property (strong) NSMutableDictionary <NSString *, SoundFile *> *files;
 @property glsi32 lastsoundresno;
@@ -74,6 +73,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)stopAllAndCleanUp;
 
 - (void)nowPlayingStateDidChange;
+/// Channels holding music-like sound (see GlkSoundChannel.claimsNowPlaying).
+@property (readonly) NSArray<GlkSoundChannel *> *eligibleNowPlayingChannels;
 - (void)pauseEligibleNowPlayingChannels;
 - (void)unpauseEligibleNowPlayingChannels;
 - (BOOL)hasPlayingEligibleNowPlayingChannel;

@@ -5,7 +5,7 @@
 @interface MIDIChannel () {
 
 @private
-    MIDIPlayer    *_player;        // The player instance
+    MIDIPlayer *_midiPlayer;	   // The player instance
     double _pendingPosition;       // Where a deserialized channel resumes, in beats
 }
 
@@ -14,7 +14,8 @@
 @implementation MIDIChannel
 
 - (BOOL)playSoundInternal:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
-    self.status = GlkSoundChannelStatusSound;
+    /* Idle until the new sound is actually under way, as in GlkSoundChannel. */
+    self.status = GlkSoundChannelStatusIdle;
     self.nowPlayingDuration = 0;
     self.nowPlayingLooping = NO;
 
@@ -22,9 +23,9 @@
     GlkSoundBlorbFormatType type;
 
     /* stop previous noise. -stop leaves the player unusable, so let go of it. */
-    if (_player) {
-        [_player stop];
-        _player = nil;
+    if (_midiPlayer) {
+        [_midiPlayer stop];
+        _midiPlayer = nil;
     }
 
     if (areps == 0 || snd == -1)
@@ -44,51 +45,51 @@
     resid = snd;
     loop = areps;
 
-    _player = [[MIDIPlayer alloc] initWithData:dat];
+    _midiPlayer = [[MIDIPlayer alloc] initWithData:dat];
 
-    [_player setVolume:volume];
+    [_midiPlayer setVolume:volume];
 
-    self.nowPlayingDuration = _player.duration;
+    self.nowPlayingDuration = _midiPlayer.duration;
     self.nowPlayingLooping = (areps == -1);
 
     if (areps != -1) {
         MIDIChannel __weak *weakSelf = self;
-        SoundHandler *blockHandler = self.handler;
         glui32 blocknotify = notify;
         glsi32 blockresid = resid;
-        [_player addCallback:(^(void){
+        [_midiPlayer addCallback:(^(void){
             dispatch_async(dispatch_get_main_queue(), ^{
                 MIDIChannel *strongSelf = weakSelf;
                 if (strongSelf && --strongSelf->loop < 1) {
                     strongSelf.status = GlkSoundChannelStatusIdle;
-                    [blockHandler nowPlayingStateDidChange];
+                    [strongSelf.handler nowPlayingStateDidChange];
                     if (blocknotify)
-                        [blockHandler handleSoundNotification:blocknotify withSound:blockresid];
+                        [strongSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
                 }
             });
         })];
     }
 
-    [_player loop:areps];
+    [_midiPlayer loop:areps];
 
     /* Picking up where an autosave left off. Consume the position either way: a
        later replay of this sound is a fresh start, not a resume. */
     if (_pendingPosition > 0) {
-        [_player seekToPosition:_pendingPosition];
+        [_midiPlayer seekToPosition:_pendingPosition];
         _pendingPosition = 0;
     }
 
     if (!paused)
-        [_player play];
+        [_midiPlayer play];
 
+    self.status = GlkSoundChannelStatusSound;
     return YES;
 }
 
 - (void)stop {
     paused = NO;
-    if (_player) {
-        [_player stop];
-        _player = nil;
+    if (_midiPlayer) {
+        [_midiPlayer stop];
+        _midiPlayer = nil;
     }
     _pendingPosition = 0;
     [self cleanup];
@@ -98,8 +99,8 @@
 - (void)pause {
     paused = YES;
     [self.handler nowPlayingStateDidChange];
-    if (_player)
-        [_player pause];
+    if (_midiPlayer)
+        [_midiPlayer pause];
 }
 
 - (void)unpause {
@@ -107,24 +108,22 @@
     if (!paused)
         return;
     paused = NO;
-    if (!_player) {
+    if (self.status == GlkSoundChannelStatusIdle)
+        return;
+    if (!_midiPlayer) {
         BOOL result = [self playSound:resid countOfRepeats:loop notification:notify];
         if (!result)
             NSLog(@"MIDIChannel: Failed to unpause sound %d", resid);
     } else {
-        [_player play];
+        [_midiPlayer play];
         [self.handler nowPlayingStateDidChange];
     }
 }
 
 - (void)setVolume {
-    if (!_player)
+    if (!_midiPlayer)
         return;
-    [_player setVolume:volume];
-}
-
-+ (BOOL) supportsSecureCoding {
-    return YES;
+    [_midiPlayer setVolume:volume];
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -141,7 +140,7 @@
        player there is a restored position that has not been handed to one yet. */
     double position = 0;
     if (self.status != GlkSoundChannelStatusIdle)
-        position = _player ? _player.position : _pendingPosition;
+        position = _midiPlayer ? _midiPlayer.position : _pendingPosition;
     [encoder encodeDouble:position forKey:@"midiPosition"];
 }
 

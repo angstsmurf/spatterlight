@@ -9,7 +9,6 @@
 
 @interface MIDIPlayer : NSObject
 
-@property (nonatomic) double progress;
 /// Sequence length in seconds (longest track), or 0 if unknown.
 @property (nonatomic, readonly) NSTimeInterval duration;
 /// Playback position in beats: where the player is now, or where a paused or
