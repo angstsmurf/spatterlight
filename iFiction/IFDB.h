@@ -6,8 +6,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class Metadata;
-
 NS_ASSUME_NONNULL_BEGIN
 
 //! The namespace of the <ifdb> element in IFDB's iFiction feed
@@ -21,7 +19,6 @@ extern NSString * const kIFDBXMLNamespace;
 + (nullable NSURL *)viewGameURLForTUID:(nullable NSString *)tuid IFID:(nullable NSString *)ifid iFiction:(BOOL)iFiction;
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element;
-- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @property (nullable) NSString *tuid;
 @property (nullable) NSString *coverArtURL;

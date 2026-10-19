@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class IFIdentification, IFBibliographic, IFCoverDescription, IFDB, Metadata;
+@class IFIdentification, IFBibliographic, IFCoverDescription, IFDB;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -20,7 +20,6 @@ NS_ASSUME_NONNULL_BEGIN
 //! Returns nil if the story has neither an <identification> nor a
 //! legacy Zoom <id> element
 - (nullable instancetype)initWithXMLElement:(NSXMLElement *)element;
-- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @end
 

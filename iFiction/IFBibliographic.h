@@ -6,8 +6,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class Metadata;
-
 NS_ASSUME_NONNULL_BEGIN
 
 //! Returns the language code for the contents of an iFiction <language>
@@ -17,7 +15,6 @@ NSString *IFLanguageCodeFromString(NSString *raw, NSString * _Nullable * _Nullab
 @interface IFBibliographic : NSObject
 
 - (instancetype)initWithXMLElement:(NSXMLElement *)element;
-- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @property(nullable) NSString *title;
 @property(nullable) NSString *author;

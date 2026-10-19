@@ -9,11 +9,10 @@
 #import "DebugLog.h"
 
 #import "IFBibliographic.h"
-#import "Metadata.h"
 #import "NSString+Categories.h"
 
-// Indexed by Metadata.forgivenessNumeric. Must match the forgiveness pop-up
-// in the library window.
+// The values stored in Metadata.forgivenessNumeric. Must match the
+// forgiveness pop-up in the library window.
 static NSDictionary<NSString *, NSNumber *> *ForgivenessLevels(void) {
     static NSDictionary<NSString *, NSNumber *> *levels;
     static dispatch_once_t once;
@@ -176,37 +175,6 @@ static NSString *BlurbFromDescriptionElement(NSXMLElement *element) {
     }
     _firstPublishedDate = date;
     _firstPublished = [yearFormatter stringFromDate:date];
-}
-
-- (void)addInfoToMetadata:(Metadata *)metadata {
-    if (_title.length)
-        metadata.title = _title;
-    if (_author.length)
-        metadata.author = _author;
-    if (_language.length)
-        metadata.language = _language;
-    if (_languageAsWord.length)
-        metadata.languageAsWord = _languageAsWord;
-    if (_headline.length)
-        metadata.headline = _headline;
-    if (_blurb.length)
-        metadata.blurb = _blurb;
-    if (_firstPublished.length)
-        metadata.firstpublished = _firstPublished;
-    if (_firstPublishedDate)
-        metadata.firstpublishedDate = _firstPublishedDate;
-    if (_genre.length)
-        metadata.genre = _genre;
-    if (_group.length)
-        metadata.group = _group;
-    if (_series.length)
-        metadata.series = _series;
-    if (_seriesnumber.length)
-        metadata.seriesnumber = _seriesnumber;
-    if (_forgiveness.length)
-        metadata.forgiveness = _forgiveness;
-    if (_forgivenessNumeric)
-        metadata.forgivenessNumeric = _forgivenessNumeric;
 }
 
 @end

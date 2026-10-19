@@ -28,6 +28,7 @@
 #include "babel_handler.h"
 #import "IFictionMetadata.h"
 #import "IFStory.h"
+#import "Metadata+IFiction.h"
 
 #import "TableViewController.h"
 #import "TableViewController+TableDelegate.h"
@@ -531,7 +532,8 @@ void ReportImportFailure(NSString *title, NSString *info) {
 
 + (void)importInfoFromXML:(NSData *)mdbuf intoMetadata:(Metadata * _Nonnull)metadata {
     IFStory *story = [[IFictionMetadata alloc] initWithData:mdbuf].firstStory;
-    [story addInfoToMetadata:metadata];
+    if (story)
+        [metadata addInfoFromStory:story];
 }
 
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {

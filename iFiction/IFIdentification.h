@@ -6,8 +6,6 @@
 
 #import <Foundation/Foundation.h>
 
-@class Metadata;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface IFIdentification : NSObject
@@ -18,8 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 //! Returns nil if the element contains no <ifid>
 - (nullable instancetype)initWithXMLElement:(NSXMLElement *)element;
-+ (void)addIfids:(NSSet<NSString *> *)ifids toMetadata:(Metadata *)metadata;
-- (void)addInfoToMetadata:(Metadata *)metadata;
 
 @end
 

@@ -1132,6 +1132,7 @@
 		C3FE98DA261B2CA900152AB6 /* RotorHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FE98D9261B2CA900152AB6 /* RotorHandler.m */; };
 		C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */ = {isa = PBXBuildFile; fileRef = C3FEF0B92E6B752600276383 /* Fetches.m */; };
 		A779492B7BDFEE8953B25EED /* CoverImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F7E770FC98130124C99BD8C /* CoverImageStore.m */; };
+		8E86FCA2EE8EF71E0B0444C0 /* Metadata+IFiction.m in Sources */ = {isa = PBXBuildFile; fileRef = 64D568D17D27B3007CAB9688 /* Metadata+IFiction.m */; };
 		C3FFF80227E52E19000C481A /* restorestate.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FFF80127E52E19000C481A /* restorestate.c */; };
 		C5A3C0D64B99E81E7639FE6A /* scvars.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9255CEEB5304EB4E1088A443 /* scvars.cpp */; };
 		C5E84B5FD2E5F0F4CBF5F172 /* question-script.cc in Sources */ = {isa = PBXBuildFile; fileRef = 187C9F883FBC372D4B34BBDE /* question-script.cc */; };
@@ -4013,6 +4014,8 @@
 		C3FEF0B92E6B752600276383 /* Fetches.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetches.m; sourceTree = "<group>"; };
 		03150D01535CEDEC5529A745 /* CoverImageStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageStore.h; sourceTree = "<group>"; };
 		4F7E770FC98130124C99BD8C /* CoverImageStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageStore.m; sourceTree = "<group>"; };
+		C94AF7693EB174B03385C2F7 /* Metadata+IFiction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Metadata+IFiction.h"; sourceTree = "<group>"; };
+		64D568D17D27B3007CAB9688 /* Metadata+IFiction.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Metadata+IFiction.m"; sourceTree = "<group>"; };
 		C3FFF7FF27E52E19000C481A /* restorestate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = restorestate.h; sourceTree = "<group>"; };
 		C3FFF80127E52E19000C481A /* restorestate.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = restorestate.c; sourceTree = "<group>"; };
 		C94FA27EE915B77190069612 /* actions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = actions.c; sourceTree = "<group>"; usesTabs = 0; };
@@ -4712,6 +4715,8 @@
 				C3FEF0B92E6B752600276383 /* Fetches.m */,
 				03150D01535CEDEC5529A745 /* CoverImageStore.h */,
 				4F7E770FC98130124C99BD8C /* CoverImageStore.m */,
+				C94AF7693EB174B03385C2F7 /* Metadata+IFiction.h */,
+				64D568D17D27B3007CAB9688 /* Metadata+IFiction.m */,
 			);
 			name = coredata;
 			path = ../coredata;
@@ -8899,6 +8904,7 @@
 				C353F04626264242006D17E3 /* SubImage.m in Sources */,
 				C3FEF0BA2E6B752600276383 /* Fetches.m in Sources */,
 				A779492B7BDFEE8953B25EED /* CoverImageStore.m in Sources */,
+				8E86FCA2EE8EF71E0B0444C0 /* Metadata+IFiction.m in Sources */,
 				C338CF432F71BD4200BCBD18 /* LibHelperTableView.m in Sources */,
 				961CCEF609F23A0000528FF9 /* GlkTextGridWindow.m in Sources */,
 				C36DFEDF29AA2F6800EC83A6 /* PreviewController.m in Sources */,

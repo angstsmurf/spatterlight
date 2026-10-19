@@ -3,8 +3,9 @@
 //  SpatterlightTests
 //
 //  Tests for the iFiction XML parsers in "iFiction/" (IFictionMetadata,
-//  IFStory, IFIdentification, IFZoomID, IFBibliographic, IFDB) and for the
-//  cover bookkeeping in +[CoverImageStore insertImageData:inMetadataID:context:].
+//  IFStory, IFIdentification, IFZoomID, IFBibliographic, IFDB), for copying
+//  their results into Core Data (Metadata+IFiction), and for the cover
+//  bookkeeping in +[CoverImageStore insertImageData:inMetadataID:context:].
 //  Everything runs on an in-memory store; nothing touches the network.
 //
 
@@ -21,6 +22,7 @@
 #import "CoverImageStore.h"
 #import "Game.h"
 #import "Metadata.h"
+#import "Metadata+IFiction.h"
 #import "Ifid.h"
 #import "Image.h"
 
@@ -128,7 +130,7 @@ static IFBibliographic *Biblio(NSString *children) {
     XCTAssertEqualObjects(story.ifdb.starRating, @"4");
 
     Metadata *metadata = [self newMetadata];
-    [story addInfoToMetadata:metadata];
+    [metadata addInfoFromStory:story];
     XCTAssertEqualObjects([metadata.ifids valueForKey:@"ifidString"], expected);
     XCTAssertEqualObjects(metadata.title, @"Foo & Bar");
     XCTAssertEqualObjects(metadata.author, @"A. Writer");
@@ -138,7 +140,7 @@ static IFBibliographic *Biblio(NSString *children) {
     XCTAssertEqualObjects(metadata.coverArtDescription, @"A cover");
 
     // Applying the same story twice does not duplicate the IFIDs
-    [story addInfoToMetadata:metadata];
+    [metadata addInfoFromStory:story];
     XCTAssertEqual(metadata.ifids.count, 2u);
 }
 
@@ -216,7 +218,7 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
     XCTAssertEqualObjects(biblio.firstPublished, @"1987");
 
     Metadata *metadata = [self newMetadata];
-    [biblio addInfoToMetadata:metadata];
+    [metadata addInfoFromBibliographic:biblio];
     XCTAssertEqualObjects(metadata.headline, @"An Interactive Fiction");
     XCTAssertEqualObjects(metadata.firstpublished, @"1987");
     XCTAssertNotNil(metadata.firstpublishedDate);
@@ -283,7 +285,7 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
     XCTAssertEqualObjects(biblio.forgivenessNumeric, @4);
 
     Metadata *metadata = [self newMetadata];
-    [biblio addInfoToMetadata:metadata];
+    [metadata addInfoFromBibliographic:biblio];
     XCTAssertEqualObjects(metadata.forgiveness, @"Polite");
     XCTAssertEqualObjects(metadata.forgivenessNumeric, @4);
 
@@ -316,13 +318,12 @@ static NSXMLElement *ZoomID(NSString *serial, NSString *release, NSString *check
     XCTAssertNil([IFDB viewGameURLForTUID:nil IFID:@"" iFiction:NO]);
 }
 
-#pragma mark - IFIdentification
+#pragma mark - Metadata+IFiction
 
 - (void)testAddIfidsSkipsDuplicatesAndPlaceholders {
     Metadata *metadata = [self newMetadata];
     [metadata createIfid:@"EXISTING"];
-    [IFIdentification addIfids:[NSSet setWithArray:@[ @"EXISTING", @"NEW", @"DUMMYmanySelected", @"DUMMYnoneSelected" ]]
-                    toMetadata:metadata];
+    [metadata addIfidStrings:[NSSet setWithArray:@[ @"EXISTING", @"NEW", @"DUMMYmanySelected", @"DUMMYnoneSelected" ]]];
     NSSet *expected = [NSSet setWithArray:@[ @"EXISTING", @"NEW" ]];
     XCTAssertEqualObjects([metadata.ifids valueForKey:@"ifidString"], expected);
 }

@@ -14,6 +14,7 @@
 #import "IFStory.h"
 #import "IFDB.h"
 #import "Metadata.h"
+#import "Metadata+IFiction.h"
 #import "Image.h"
 #import "Game.h"
 #import "Ifid.h"
@@ -152,7 +153,7 @@ typedef void (^DownloadHandler)(NSData * _Nullable, NSURLResponse * _Nullable, N
         // In image-only mode, a record with a cover URL counts as found
         // even if we already have that cover and nothing is downloaded.
         if (!imageOnly) {
-            [story addInfoToMetadata:metadata];
+            [metadata addInfoFromStory:story];
             found = YES;
         } else if (coverArtURL.length) {
             found = YES;

@@ -27,6 +27,7 @@
 
 #import "IFictionMetadata.h"
 #import "IFStory.h"
+#import "Metadata+IFiction.h"
 #import "IFIdentification.h"
 #import "IFDBDownloader.h"
 
@@ -141,7 +142,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
             for (NSManagedObjectID *gameID in gameIDs) {
                 IFStory *story = stories[gameID.URIRepresentation.absoluteString];
                 Game *game = [childContext objectWithID:gameID];
-                [story addInfoToMetadata:game.metadata];
+                if (story)
+                    [game.metadata addInfoFromStory:story];
                 game.metadata.source = @(kExternal);
                 game.metadata.lastModified = [NSDate date];
             }

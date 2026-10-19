@@ -14,7 +14,6 @@
 #import "IFBibliographic.h"
 #import "IFCoverDescription.h"
 #import "IFDB.h"
-#import "Metadata.h"
 
 @implementation IFStory
 
@@ -58,14 +57,6 @@
             _coverDescription = [[IFCoverDescription alloc] initWithXMLElement:coverElement];
     }
     return self;
-}
-
-- (void)addInfoToMetadata:(Metadata *)metadata {
-    [_identification addInfoToMetadata:metadata];
-    [_bibliographic addInfoToMetadata:metadata];
-    [_ifdb addInfoToMetadata:metadata];
-    if (_coverDescription.coverArtDescription.length)
-        metadata.coverArtDescription = _coverDescription.coverArtDescription;
 }
 
 @end

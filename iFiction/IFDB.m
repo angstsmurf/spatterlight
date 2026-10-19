@@ -5,7 +5,6 @@
 //
 
 #import "IFDB.h"
-#import "Metadata.h"
 
 NSString * const kIFDBXMLNamespace = @"http://ifdb.org/api/xmlns";
 
@@ -47,15 +46,6 @@ static NSString *URLFromCoverArtElement(NSXMLElement *element) {
         }
     }
     return self;
-}
-
-- (void)addInfoToMetadata:(Metadata *)metadata {
-    if (_tuid.length)
-        metadata.tuid = _tuid;
-    if (_starRating.length)
-        metadata.starRating = _starRating;
-    if (_coverArtURL.length)
-        metadata.coverArtURL = _coverArtURL;
 }
 
 @end
