@@ -12,13 +12,115 @@
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"
-#import "GlkGraphicsWindow.h"
 #import "Game.h"
 #import "Theme.h"
 #import "InfocomV6MenuHandler.h"
 
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
+
+// Larger windows are not searched for menus.
+static const NSUInteger kMaxGridTextLength = 10000;
+static const NSUInteger kMaxBufferTextLength = 4000;
+// A cluster of more lines than this is not a menu.
+static const NSUInteger kMaxMenuLines = 25;
+
+static const NSTimeInterval kFirstSpeakDelay = 1.5;
+static const NSTimeInterval kInstructionsDelay = 5;
+
+// The text view of a grid or buffer window, nil for any other window.
+static NSTextView *TextViewOf(GlkWindow *win) {
+    if ([win isKindOfClass:[GlkTextGridWindow class]])
+        return ((GlkTextGridWindow *)win).textview;
+    if ([win isKindOfClass:[GlkTextBufferWindow class]])
+        return ((GlkTextBufferWindow *)win).textview;
+    return nil;
+}
+
+// Selection marker at the start of a menu line: ">", "*" or "•".
+static NSRegularExpression *SelectionMarkerRegex(void) {
+    static NSRegularExpression *regex;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"^\\s*[>\\*•](?: |)" options:0 error:nil];
+    });
+    return regex;
+}
+
+// The graphic selection indicator in Beyond Zork menus.
+static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
+    static NSRegularExpression *regex;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"X[O-W]{13}Y" options:0 error:nil];
+    });
+    return regex;
+}
+
+// A bracketed key name followed by white space, such as "Enter] ".
+static NSRegularExpression *BracketedWordRegex(void) {
+    static NSRegularExpression *regex;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        regex = [NSRegularExpression regularExpressionWithPattern:@"\\w+]\\s" options:0 error:nil];
+    });
+    return regex;
+}
+
+// The number of leading spaces (and, if countGreaterThan, '>' characters) in
+// range, never counting its last character.
+static NSInteger LeadingSpaces(NSString *string, NSRange range, BOOL countGreaterThan) {
+    range = NSIntersectionRange(NSMakeRange(0, string.length), range);
+    if (range.length == 0)
+        return 0;
+    NSUInteger spaces = 0;
+    unichar c = [string characterAtIndex:range.location];
+    while ((c == ' ' || c == 0xa0 || (countGreaterThan && c == '>')) && NSLocationInRange(range.location + spaces + 1, range)) {
+        spaces++;
+        c = [string characterAtIndex:range.location + spaces];
+    }
+    return (NSInteger)spaces;
+}
+
+// The index of the only color in colors that occurs exactly once, or
+// NSNotFound if none or several do.
+static NSUInteger UniqueColorIndex(NSArray *colors) {
+    NSCountedSet *colorsSet = [[NSCountedSet alloc] initWithArray:colors];
+    NSUInteger guess = NSNotFound;
+    for (id color in colorsSet) {
+        if ([colorsSet countForObject:color] == 1) {
+            if (guess != NSNotFound)
+                return NSNotFound;
+            guess = [colors indexOfObject:color];
+        }
+    }
+    return guess;
+}
+
+@interface ZMenu ()
+
+// viewStrings holds the eligible texts from every Glk window,
+// one NSString per window
+@property NSMutableArray<NSString *> *viewStrings;
+
+// Menu lines stored as NSValue objects holding NSRanges
+// (referring to the string in attrStr)
+@property NSMutableArray<NSValue *> *lines;
+
+// attrStr is an attributed string containing the text of all menu lines,
+// excluding the menu commands. This is the string that the NSRanges
+// in the "lines" array above refer to
+@property NSAttributedString *attrStr;
+
+@property NSDictionary<NSString *, NSString *> *menuCommands;
+@property NSArray<NSString *> *menuKeys;
+@property NSUInteger selectedLine;
+@property BOOL recheckNeeded;
+@property BOOL isTads3;
+@property NSString *lastSpokenString;
+@property NSUInteger lastNumberOfItems;
+
+@end
 
 @implementation ZMenu
 
@@ -30,7 +132,7 @@
     return self;
 }
 
-- (BOOL)isMenu {
+- (BOOL)detectMenu {
     GlkController *glkctl = _glkctl;
     if (glkctl.gameID == kGameIsJuniorArithmancer) {
         return NO;
@@ -63,12 +165,9 @@
         return NO;
     }
 
-    //This should be checked in convertToLines instead
-    NSUInteger maxLines = 25;
-
     // Check if the number of lines are within bounds
-    if (_lines.count > maxLines) {
-        NSLog(@"Too many lines (%ld). Not in a menu", _lines.count);
+    if (_lines.count > kMaxMenuLines) {
+        NSLog(@"Too many lines (%lu). Not in a menu", _lines.count);
         return NO;
     }
 
@@ -155,8 +254,8 @@
     // as seen in Vespers.
     // We assume this to be the case if the first has no leading spaces
     // but the next line has.
-    if (_lines.count > 2 && ![self leftMarginInRange:_lines.firstObject andString:_attrStr.string] &&
-        [self leftMarginInRange:_lines[1] andString:_attrStr.string]) {
+    if (_lines.count > 2 && !LeadingSpaces(_attrStr.string, _lines[0].rangeValue, YES) &&
+        LeadingSpaces(_attrStr.string, _lines[1].rangeValue, YES)) {
         [_lines removeObjectAtIndex:0];
     }
 
@@ -235,7 +334,7 @@
     NSDictionary *attrs = [_attrStr attributesAtIndex:0 effectiveRange:nil];
     NSColor *originalColor = attrs[NSBackgroundColorAttributeName];
     if (!originalColor)
-        originalColor = ((GlkTextBufferWindow *)((NSTextStorage *)_attrStr).delegate).textview.backgroundColor;
+        originalColor = TextViewOf(((NSTextStorage *)_attrStr).delegate).backgroundColor;
     [_attrStr
      enumerateAttribute:NSBackgroundColorAttributeName
      inRange:allText
@@ -280,22 +379,21 @@
 
         for (NSValue *rangeVal in _lines) {
             NSRange range = rangeVal.rangeValue;
-            NSUInteger spaces = (NSUInteger)[self initialSpacesInRange:rangeVal];
+            NSUInteger spaces = (NSUInteger)LeadingSpaces(_attrStr.string, range, NO);
             range = NSMakeRange(range.location + spaces, range.length - spaces);
             range = NSIntersectionRange(allText, range);
+            if (range.location >= _attrStr.length) {
+                [foregroundColors addObject:[NSNull null]];
+                [backgroundColors addObject:[NSNull null]];
+                continue;
+            }
             NSDictionary *attrDict = [_attrStr attributesAtIndex:range.location effectiveRange:nil];
 
             NSColor *lineForeground = attrDict[NSForegroundColorAttributeName];
-            if (lineForeground == nil)
-                [foregroundColors addObject:[NSNull null]];
-            else
-                [foregroundColors addObject:lineForeground];
+            [foregroundColors addObject:lineForeground ?: [NSNull null]];
 
             NSColor *lineBackground = attrDict[NSBackgroundColorAttributeName];
-            if (lineBackground == nil)
-                [backgroundColors addObject:[NSNull null]];
-            else
-                [backgroundColors addObject:lineBackground];
+            [backgroundColors addObject:lineBackground ?: [NSNull null]];
 
             // TADS 3 menus lines usually begin with a ">" which is made invisible in non-selected lines
             // by giving the text and background the same color.
@@ -305,36 +403,12 @@
                 return [_lines indexOfObject:rangeVal];
             }
         }
-        NSCountedSet *colorsSet = [[NSCountedSet alloc] initWithArray:foregroundColors];
 
-        for (NSColor *color in colorsSet) {
-            if ([colorsSet countForObject:color] == 1)  {
-                if (guess == NSNotFound) {
-                    guess = [foregroundColors indexOfObject:color];
-                    //Found unique foreground color
-                } else {
-                    guess = NSNotFound;
-                    break;
-                }
-            }
-        }
+        guess = UniqueColorIndex(foregroundColors);
 
         // If no match, look for a unique background color
-        if (guess == NSNotFound) {
-            colorsSet = [[NSCountedSet alloc] initWithArray:backgroundColors];
-
-            for (NSColor *color in colorsSet) {
-                if ([colorsSet countForObject:color] == 1)  {
-                    if (guess == NSNotFound) {
-                        guess = [backgroundColors indexOfObject:color];
-                        //Found unique background color
-                    } else {
-                        guess = NSNotFound;
-                        break;
-                    }
-                }
-            }
-        }
+        if (guess == NSNotFound)
+            guess = UniqueColorIndex(backgroundColors);
     }
 
     return guess;
@@ -347,58 +421,55 @@
     NSArray *menuLines = @[];
     // Add the string of every Glk Window to an array
     _viewStrings = [[NSMutableArray alloc] init];
-    NSString *viewString;
     GlkWindow *viewWithCluster;
-    GlkController *glkctl = _glkctl;
-    BOOL isHugo = [glkctl.game.detectedFormat isEqualToString:@"hugo"];
-    for (GlkWindow *view in glkctl.gwindows.allValues) {
-        if ([view isKindOfClass:[GlkTextGridWindow class]] || [view isKindOfClass:[GlkTextBufferWindow class]]) {
-            viewString = ((GlkTextBufferWindow *)view).textview.string;
-        } else {
-            viewString = nil;
-        }
-        NSUInteger maxLength;
-        if ([view isKindOfClass:[GlkTextGridWindow class]]) {
-            maxLength = 10000;
-        } else {
-            maxLength = 4000;
-        }
+    for (GlkWindow *view in _glkctl.gwindows.allValues) {
+        NSString *viewString = TextViewOf(view).string;
+        NSUInteger maxLength = [view isKindOfClass:[GlkTextGridWindow class]] ? kMaxGridTextLength : kMaxBufferTextLength;
         if (viewString.length > 0 && viewString.length < maxLength && view.frame.size.height > 0) {
             [_viewStrings addObject:viewString];
-            NSArray *lines = viewString.lineRanges;
-            NSUInteger line = 0;
-            NSArray *currentCluster;
-            NSArray *lastCluster = @[];
-            do {
-                currentCluster = [self findClusterInString:viewString andLines:lines startingWithCharacter:startChar atIndex:line];
-
-                // Some games have a blank line as a divider in the middle of
-                // the menu, so look for additional clusters and add these if found.
-                if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
-                    ABS([self leftMarginInRange:currentCluster.firstObject andString:viewString] -
-                        [self leftMarginInRange:lastCluster.lastObject andString:viewString]) < 3 ) {
-                    if (!isHugo) {
-                        lastCluster = [lastCluster arrayByAddingObject:lines[line]];
-                    }
-                    currentCluster =
-                    [lastCluster arrayByAddingObjectsFromArray:currentCluster];
-                }
-
-                if (currentCluster.count > menuLines.count) {
-                    menuLines = currentCluster;
-                    viewWithCluster = view;
-                }
-                line = [lines indexOfObject:currentCluster.lastObject] + 1;
-                lastCluster = currentCluster;
-            } while (currentCluster.count);
+            NSArray *cluster = [self largestClusterInString:viewString lines:viewString.lineRanges startingWithCharacter:startChar];
+            if (cluster.count > menuLines.count) {
+                menuLines = cluster;
+                viewWithCluster = view;
+            }
         }
     }
     if (menuLines.count) {
-        NSTextStorage *textStorage = ((GlkTextBufferWindow *)viewWithCluster).textview.textStorage;
+        NSTextStorage *textStorage = TextViewOf(viewWithCluster).textStorage;
         if (!textStorage)
             textStorage = [[NSTextStorage alloc] init];
         _attrStr = textStorage;
     }
+    return menuLines;
+}
+
+- (NSArray *)largestClusterInString:(NSString *)string lines:(NSArray<NSValue *> *)lines startingWithCharacter:(unichar)startChar {
+    BOOL isHugo = [_glkctl.game.detectedFormat isEqualToString:@"hugo"];
+    NSArray *menuLines = @[];
+    NSUInteger line = 0;
+    NSArray *currentCluster;
+    NSArray *lastCluster = @[];
+    do {
+        currentCluster = [self findClusterInString:string andLines:lines startingWithCharacter:startChar atIndex:line];
+
+        // Some games have a blank line as a divider in the middle of
+        // the menu, so look for additional clusters and add these if found.
+        if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
+            ABS(LeadingSpaces(string, [currentCluster.firstObject rangeValue], YES) -
+                LeadingSpaces(string, [lastCluster.lastObject rangeValue], YES)) < 3 ) {
+            if (!isHugo) {
+                lastCluster = [lastCluster arrayByAddingObject:lines[line]];
+            }
+            currentCluster =
+            [lastCluster arrayByAddingObjectsFromArray:currentCluster];
+        }
+
+        if (currentCluster.count > menuLines.count) {
+            menuLines = currentCluster;
+        }
+        line = [lines indexOfObject:currentCluster.lastObject] + 1;
+        lastCluster = currentCluster;
+    } while (currentCluster.count);
     return menuLines;
 }
 
@@ -428,15 +499,12 @@
     return menulines;
 }
 
-// FIXME this is a lot of ugly code duplication
 - (NSArray *)recheckClusterStartingWithCharacter:(unichar)startChar {
 
     NSString *string = _attrStr.string;
     NSMutableArray<NSValue *> *lines = _lines.mutableCopy;
 
     NSUInteger startIndex = NSMaxRange(lines.lastObject.rangeValue);
-
-    NSArray *menuLines = @[];
 
     // Re-add lines after detected cluster
     for (NSUInteger index = startIndex; index < string.length;) {
@@ -446,45 +514,14 @@
     }
 
     // Strip trailing blank lines
-    BOOL lastLineBlank;
-    do {
-        lastLineBlank = [string rangeIsEmpty:lines.lastObject];
-        if (lastLineBlank) {
-            [lines removeLastObject];
-        }
-    } while (lastLineBlank);
+    while (lines.count && [string rangeIsEmpty:lines.lastObject])
+        [lines removeLastObject];
 
-    NSUInteger line = 0;
-    NSArray *currentCluster;
-    NSArray *lastCluster = @[];
-
-    do {
-        currentCluster = [self findClusterInString:string andLines:lines startingWithCharacter:startChar atIndex:line];
-
-        // Some games have a blank lines as a dividers in the middle of
-        // the menu, so look for additional clusters and add these if found.
-        if (currentCluster.count && lastCluster.count && [lines indexOfObject:lastCluster.lastObject] == line - 1 &&
-            ABS([self leftMarginInRange:currentCluster.firstObject andString:string] -
-                [self leftMarginInRange:lastCluster.lastObject andString:string]) < 3 ) {
-            if (![_glkctl.game.detectedFormat isEqualToString:@"hugo"]) {
-                lastCluster = [lastCluster arrayByAddingObject:lines[line]];
-            }
-            currentCluster =
-            [lastCluster arrayByAddingObjectsFromArray:currentCluster];
-        }
-
-        if (currentCluster.count > menuLines.count) {
-            menuLines = currentCluster;
-        }
-        line = [lines indexOfObject:currentCluster.lastObject] + 1;
-        lastCluster = currentCluster;
-    } while (currentCluster.count);
-
-    return menuLines;
+    return [self largestClusterInString:string lines:lines startingWithCharacter:startChar];
 }
 
 - (unichar)firstCharacterInArray:(NSArray<NSValue *> *)array andIndex:(NSUInteger)index andString:(NSString *)string {
-    if (index > array.count - 1)
+    if (index >= array.count)
         return '\0';
     NSRange range = array[index].rangeValue;
     NSRange allText = NSMakeRange(0, string.length);
@@ -522,46 +559,15 @@
     return substring;
 }
 
-// Returns the length of any prefix consisting of space characters (including '>')
-- (NSInteger)leftMarginInRange:(NSValue *)rangeValue andString:(NSString *)string {
-    NSRange range = rangeValue.rangeValue;
-    NSRange allText = NSMakeRange(0, string.length);
-    range = NSIntersectionRange(allText, range);
-    NSUInteger spaces = 0;
-    unichar c = [string characterAtIndex:range.location];
-    while ((c == ' ' || c == 0xa0 || c == '>') && NSLocationInRange(range.location + spaces + 1, range)) {
-        spaces++;
-        c = [string characterAtIndex:range.location + spaces];
-    }
-    return (NSInteger)spaces;
-}
-
-// This does the same as the method above but does not
-// count ">" as a space
-- (NSInteger)initialSpacesInRange:(NSValue *)rangeValue {
-    NSRange range = rangeValue.rangeValue;
-    NSString *string = _attrStr.string;
-    NSRange allText = NSMakeRange(0, string.length);
-    range = NSIntersectionRange(allText, range);
-    NSUInteger spaces = 0;
-    unichar c = [string characterAtIndex:range.location];
-    while ((c == ' ' || c == 0xa0) && NSLocationInRange(range.location + spaces + 1, range)) {
-        spaces++;
-        c = [string characterAtIndex:range.location + spaces];
-    }
-    return (NSInteger)spaces;
-}
-
 - (NSDictionary *)extractMenuCommandsUsingRegex:(NSString *)regexString {
     NSMutableDictionary *menuDict = [[NSMutableDictionary alloc] init];
     NSMutableArray *keys = [[NSMutableArray alloc] init];
-    NSError *error = NULL;
     NSRegularExpression *regex =
     [NSRegularExpression regularExpressionWithPattern:regexString
                                               options:0
-                                                error:&error];
+                                                error:nil];
     for (NSString *string in _viewStrings) {
-        if ([string isNotEqualTo:[NSNull null]] && string.length) {
+        if (string.length) {
             NSArray *matches =
             [regex matchesInString:string
                            options:0
@@ -575,8 +581,9 @@
                 NSString *value = [string substringWithRange:valueRange];
 
                 if (key.length) {
+                    if (!menuDict[key])
+                        [keys addObject:key];
                     menuDict[key] = value;
-                    [keys addObject:key];
                 }
             }
             if (matches.count) {
@@ -597,7 +604,7 @@
                     if (lastOverlap < _lines.count - 1) {
                         _recheckNeeded = YES;
                         _lines.array = [_lines subarrayWithRange:NSMakeRange(lastOverlap + 1, _lines.count - lastOverlap - 1)];
-                        while ([string rangeIsEmpty:_lines.firstObject] && _lines.count)
+                        while (_lines.count && [string rangeIsEmpty:_lines.firstObject])
                             [_lines removeObjectAtIndex:0];
                     }
                 }
@@ -614,16 +621,19 @@
 
 - (BOOL)checkForThaumistryMenu {
     if (_glkctl.gwindows.count == 3) {
-        GlkTextBufferWindow *hidden = nil;
-        GlkTextBufferWindow *title = nil;
-        GlkTextBufferWindow *menu = nil;
-        for (GlkTextBufferWindow *view in _glkctl.gwindows.allValues) {
-            if (view.textview.textStorage == _attrStr) {
+        GlkWindow *hidden = nil;
+        GlkWindow *title = nil;
+        GlkWindow *menu = nil;
+        for (GlkWindow *view in _glkctl.gwindows.allValues) {
+            NSTextView *textview = TextViewOf(view);
+            if (!textview)
+                continue;
+            if (textview.textStorage == _attrStr) {
                 menu = view;
             } else if (view.frame.size.height == 0) {
                 hidden = view;
             } else {
-                NSString *string = view.textview.textStorage.string;
+                NSString *string = textview.textStorage.string;
                 NSRange allText = NSMakeRange(0, string.length);
                 NSRange firstLine = [string lineRangeForRange:NSMakeRange(0, 0)];
                 if (NSEqualRanges(allText, firstLine))
@@ -639,7 +649,7 @@
 
 - (void)speakSelectedLine {
     if (!_haveSpokenMenu) {
-        [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:1.5];
+        [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:kFirstSpeakDelay];
     } else {
         [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0];
     }
@@ -669,7 +679,7 @@
 
         // Speak the instructions after 5 seconds, which is assumed to be long enough
         // to not interrupt the speaking of the selected line
-        [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:5];
+        [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:kInstructionsDelay];
 
         // If we have chosen Quit from the Beyond Zork start menu,
         // this makes sure that the text "Are you sure you want
@@ -723,11 +733,7 @@
     selectedLineRange = NSIntersectionRange(allText, selectedLineRange);
     NSString *menuItemString = [_attrStr.string substringWithRange:selectedLineRange];
 
-    NSRegularExpression *trimRegEx =
-    [NSRegularExpression regularExpressionWithPattern:@"^\\s*[>\\*•](?: |)"
-                                              options:0
-                                                error:nil];
-    menuItemString = [trimRegEx stringByReplacingMatchesInString:menuItemString
+    menuItemString = [SelectionMarkerRegex() stringByReplacingMatchesInString:menuItemString
                                                          options:0
                                                            range:NSMakeRange(0, menuItemString.length)
                                                     withTemplate:@""];
@@ -744,10 +750,10 @@
     }
 
     if (useIndex) {
-        NSString *indexString = [NSString stringWithFormat:@".\nMenu item %ld", _selectedLine + 1];
+        NSString *indexString = [NSString stringWithFormat:@".\nMenu item %lu", _selectedLine + 1];
         if (useTotal) {
             indexString = [indexString stringByAppendingString:
-                           [NSString stringWithFormat:@" of %ld", _lines.count]];
+                           [NSString stringWithFormat:@" of %lu", _lines.count]];
         }
         indexString = [indexString stringByAppendingString:@".\n"];
         menuItemString = [menuItemString stringByAppendingString:indexString];
@@ -761,14 +767,7 @@
 }
 
 - (void)speakInstructions:(id)sender {
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityLow),
-        NSAccessibilityAnnouncementKey : [self constructMenuInstructionString]
-    };
-
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                _glkctl.window,
-                                                NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
+    [_glkctl announce:[self constructMenuInstructionString] priority:NSAccessibilityPriorityLow];
 }
 
 - (void)speakString:(NSString *)string {
@@ -777,11 +776,7 @@
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
     if (_glkctl.gameID == kGameIsBeyondZork) {
         // Delete graphic indicator
-        NSRegularExpression *trimRegEx =
-        [NSRegularExpression regularExpressionWithPattern:@"X[O-W]{13}Y"
-                                                  options:0
-                                                    error:nil];
-        string = [trimRegEx stringByReplacingMatchesInString:string
+        string = [BeyondZorkIndicatorRegex() stringByReplacingMatchesInString:string
                                                      options:0
                                                        range:NSMakeRange(0, string.length)
                                                 withTemplate:@""];
@@ -814,13 +809,8 @@
             // First the entire word "Enter] "
             // It might be overkill to use a regex here,
             NSString *valueString = (NSString *)_menuCommands[key];
-            NSError *error;
-            NSRegularExpression *noBrackets =
-            [NSRegularExpression regularExpressionWithPattern:@"\\w+]\\s"
-                                                      options:0
-                                                        error:&error];
             valueString =
-            [noBrackets stringByReplacingMatchesInString:valueString
+            [BracketedWordRegex() stringByReplacingMatchesInString:valueString
                                                  options:0
                                                    range:NSMakeRange(0, valueString.length)
                                             withTemplate:@""];
@@ -838,20 +828,19 @@
 
 - (NSString *)constructMenuTitleString {
     NSString *string = @"";
-    GlkTextBufferWindow *topWindow = nil;
-    NSUInteger topPos = NSNotFound;
-    // Find upper window
-    for (GlkTextBufferWindow *view in _glkctl.gwindows.allValues) {
-        if ([view isKindOfClass:[GlkGraphicsWindow class]])
-            continue;
-        if (view.textview.textStorage.length && view.frame.size.height > 0) {
-            if (view.frame.origin.y < (CGFloat)topPos) {
-                topWindow = view;
-                topPos = (NSUInteger)view.frame.origin.y;
+    NSTextView *topTextView = nil;
+    CGFloat topPos = CGFLOAT_MAX;
+    // Find upper window. The game view is flipped, so it has the smallest y.
+    for (GlkWindow *view in _glkctl.gwindows.allValues) {
+        NSTextView *textview = TextViewOf(view);
+        if (textview.textStorage.length && view.frame.size.height > 0) {
+            if (view.frame.origin.y < topPos) {
+                topTextView = textview;
+                topPos = view.frame.origin.y;
             }
         }
     }
-    string = topWindow.textview.textStorage.string;
+    string = topTextView.textStorage.string;
     string = [string componentsSeparatedByString:@"\n"].firstObject;
 
     string = [string stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];

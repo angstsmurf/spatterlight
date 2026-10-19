@@ -115,7 +115,7 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
         if (!self.zmenu) {
             self.zmenu = [[ZMenu alloc] initWithGlkController:self];
         }
-        if (![self.zmenu isMenu]) {
+        if (![self.zmenu detectMenu]) {
             [NSObject cancelPreviousPerformRequestsWithTarget:self.zmenu];
             self.zmenu.glkctl = nil;
             self.zmenu = nil;
