@@ -72,7 +72,11 @@ static void deep_babel_ifiction(char stopped)
 
         ep=strtok(buffer, ",");
     }
-    else ep="-";
+    else
+    {
+        buffer[0]=0;
+        ep="-";
+    }
     i=babel_treaty(GET_STORY_FILE_METADATA_EXTENT_SEL,NULL,0);
     if (i<=0)
     {
