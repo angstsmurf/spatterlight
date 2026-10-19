@@ -446,113 +446,133 @@ sortDescriptorsDidChange:(NSArray *)oldDescriptors {
     return name;
 }
 
+//! Bold header text for the sort column, small for the like column
+- (void)updateHeaderFontOfColumn:(NSTableColumn *)column {
+    NSMutableAttributedString *headerAttrStr = column.headerCell.attributedStringValue.mutableCopy;
+
+    if (!headerAttrStr.length)
+        return;
+
+    NSMutableDictionary *attributes = [headerAttrStr attributesAtIndex:0 effectiveRange:nil].mutableCopy;
+    NSFont *font = nil;
+    if ([self.gameSortColumn isEqualToString:column.identifier]) {
+        font = [NSFont systemFontOfSize:12 weight:NSFontWeightBold];
+    } else {
+        font = [NSFont systemFontOfSize:12];
+    }
+
+    if ([column.identifier isEqual:@"like"])
+        font = [NSFont systemFontOfSize:10];
+
+    attributes[NSFontAttributeName] = font;
+    column.headerCell.attributedStringValue = [[NSAttributedString alloc] initWithString:headerAttrStr.string attributes:attributes];
+}
+
+- (void)configureFoundCell:(NSTableCellView *)cellView game:(Game *)game {
+    if (game.found && game.hashTag.length == 0) {
+        game.hashTag = [game.path signatureFromFile];
+        if (game.hashTag.length)
+            game.metadata.hashTag = game.hashTag;
+    }
+    NSString *description;
+    NSString *name = [self imageNameForGame:game description:&description];
+    cellView.imageView.image = symbolImage(name, description);
+    cellView.imageView.accessibilityLabel = description;
+}
+
+//! The heart of a game that is neither liked nor disliked shows only under
+//! the mouse.
+static NSImage *hoverLikeImage(BOOL hovered) {
+    return hovered ? symbolImage(@"heart", NSLocalizedString(@"Like", nil)) : nil;
+}
+
+- (void)configureLikeCell:(LikeCellView *)likeCellView game:(Game *)game row:(NSInteger)row {
+    switch (game.like) {
+        case 2:
+            likeCellView.likeButton.image = symbolImage(@"heart.slash.fill", NSLocalizedString(@"Disliked", nil));
+            likeCellView.toolTip = NSLocalizedString(@"Disliked", nil);
+            likeCellView.accessibilityLabel = NSLocalizedString(@"Disliked", nil);
+            break;
+        case 1:
+            likeCellView.likeButton.image = symbolImage(@"heart.fill", NSLocalizedString(@"Liked", nil));
+            likeCellView.toolTip = NSLocalizedString(@"Liked", nil);
+            likeCellView.accessibilityLabel = NSLocalizedString(@"Liked", nil);
+            break;
+        default:
+            likeCellView.likeButton.image = hoverLikeImage(row == self.gameTableView.mouseOverRow);
+            likeCellView.toolTip = NSLocalizedString(@"Like", nil);
+            likeCellView.accessibilityLabel = NSLocalizedString(@"Not liked", nil);
+            break;
+    }
+}
+
+- (void)configureForgivenessCell:(ForgivenessCellView *)forgivenessCell metadata:(Metadata *)meta {
+    NSInteger value = meta.forgivenessNumeric.integerValue;
+    if (value < 0 || value > 5)
+        value = 0;
+    NSPopUpButton *popUp = forgivenessCell.popUpButton;
+    NSMenuItem *none = popUp.menu.itemArray[0];
+    if (value == 0) {
+        [popUp selectItem:none];
+        none.state = NSControlStateValueOn;
+        if (@available(macOS 10.14, *)) {
+            popUp.title = @"";
+        } else {
+            none.title = @"  ";
+            popUp.title = @"  ";
+        }
+    } else {
+        [popUp selectItem:[popUp.menu itemWithTag:value]];
+        popUp.title = meta.forgiveness;
+    }
+    popUp.cell.bordered = NO;
+}
+
+- (void)configureRatingCell:(RatingsCellView *)indicatorCell metadata:(Metadata *)meta isMyRating:(BOOL)isMy row:(NSInteger)row {
+    NSInteger value;
+    NSLevelIndicator *indicator = indicatorCell.rating;
+
+    if (!isMy) {
+        value = meta.starRating.integerValue;
+        ((MyIndicator *)indicator).tableView = self.gameTableView;
+    } else {
+        value = meta.myRating.integerValue;
+    }
+
+    if (value > 0 || (isMy && row == self.gameTableView.mouseOverRow)) {
+        indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAlways;
+    } else {
+        indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityWhileEditing;
+    }
+    indicator.objectValue = @(value);
+}
+
 - (nullable NSView *)tableView:(NSTableView*)tableView viewForTableColumn:(nullable NSTableColumn *)column row:(NSInteger)row {
 
     NSTableCellView *cellView = [tableView makeViewWithIdentifier:column.identifier owner:self];
 
-    if (tableView == self.gameTableView) {
-        if ((NSUInteger)row >= self.gameTableModel.count) return nil;
+    if (tableView != self.gameTableView)
+        return cellView;
 
-        NSMutableAttributedString *headerAttrStr = column.headerCell.attributedStringValue.mutableCopy;
+    if ((NSUInteger)row >= self.gameTableModel.count) return nil;
 
-        if (headerAttrStr.length) {
-            NSMutableDictionary *attributes = [headerAttrStr attributesAtIndex:0 effectiveRange:nil].mutableCopy;
-            NSFont *font = nil;
-            if ([self.gameSortColumn isEqualToString:column.identifier]) {
-                font = [NSFont systemFontOfSize:12 weight:NSFontWeightBold];
-            } else {
-                font = [NSFont systemFontOfSize:12];
-            }
-            
-            if ([column.identifier isEqual:@"like"])
-                font = [NSFont systemFontOfSize:10];
+    [self updateHeaderFontOfColumn:column];
 
-            attributes[NSFontAttributeName] = font;
-            column.headerCell.attributedStringValue = [[NSAttributedString alloc] initWithString:headerAttrStr.string attributes:attributes];
-        }
+    Game *game = self.gameTableModel[(NSUInteger)row];
+    Metadata *meta = game.metadata;
 
-        Game *game = self.gameTableModel[(NSUInteger)row];
-        Metadata *meta = game.metadata;
+    NSString *identifier = column.identifier;
 
-        NSString *identifier = column.identifier;
-
-        if ([identifier isEqual:@"found"]) {
-            if (game.found && game.hashTag.length == 0) {
-                game.hashTag = [game.path signatureFromFile];
-                if (game.hashTag.length)
-                    game.metadata.hashTag = game.hashTag;
-            }
-            NSString *description;
-            NSString *name = [self imageNameForGame:game description:&description];
-            cellView.imageView.image = symbolImage(name, description);
-            cellView.imageView.accessibilityLabel = description;
-            return cellView;
-        } else if ([identifier isEqual:@"like"]) {
-            LikeCellView *likeCellView = (LikeCellView *)cellView;
-            switch (game.like) {
-                case 2:
-                    likeCellView.likeButton.image = symbolImage(@"heart.slash.fill", NSLocalizedString(@"Disliked", nil));
-                    likeCellView.toolTip = NSLocalizedString(@"Disliked", nil);
-                    likeCellView.accessibilityLabel = NSLocalizedString(@"Disliked", nil);
-                    break;
-                case 1:
-                    likeCellView.likeButton.image = symbolImage(@"heart.fill", NSLocalizedString(@"Liked", nil));
-                    likeCellView.toolTip = NSLocalizedString(@"Liked", nil);
-                    likeCellView.accessibilityLabel = NSLocalizedString(@"Liked", nil);
-                    break;
-                default:
-                    likeCellView.likeButton.image = (row == self.gameTableView.mouseOverRow) ? symbolImage(@"heart", NSLocalizedString(@"Like", nil)) : nil;
-                    likeCellView.toolTip = NSLocalizedString(@"Like", nil);
-                    likeCellView.accessibilityLabel = NSLocalizedString(@"Not liked", nil);
-                    break;
-            }
-            return likeCellView;
-        } else if ([identifier isEqual:@"forgivenessNumeric"]) {
-            ForgivenessCellView *forgivenessCell = (ForgivenessCellView *)cellView;
-            NSInteger value = meta.forgivenessNumeric.integerValue;
-            if (value < 0 || value > 5)
-                value = 0;
-            NSPopUpButton *popUp = forgivenessCell.popUpButton;
-            NSMenuItem *none = popUp.menu.itemArray[0];
-            if (value == 0) {
-                [popUp selectItem:none];
-                none.state = NSControlStateValueOn;
-                if (@available(macOS 10.14, *)) {
-                    popUp.title = @"";
-                } else {
-                    none.title = @"  ";
-                    popUp.title = @"  ";
-                }
-            } else {
-                [popUp selectItem:[popUp.menu itemWithTag:value]];
-                popUp.title = meta.forgiveness;
-            }
-            popUp.cell.bordered = NO;
-            return forgivenessCell;
-        } else if ([identifier isEqual:@"starRating"] ||
-                   [identifier isEqual:@"myRating"]) {
-            NSInteger value;
-            BOOL isMy = [identifier isEqual:@"myRating"];
-
-            RatingsCellView *indicatorCell = (RatingsCellView *)cellView;
-            NSLevelIndicator *indicator = indicatorCell.rating;
-
-            if (!isMy) {
-                value = meta.starRating.integerValue;
-                ((MyIndicator *)indicator).tableView = self.gameTableView;
-            } else {
-                value = meta.myRating.integerValue;
-            }
-
-            if (value > 0 || (isMy && row == self.gameTableView.mouseOverRow)) {
-                indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAlways;
-            } else {
-                indicator.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityWhileEditing;
-            }
-            indicator.objectValue = @(value);
-            return indicatorCell;
-        }
-
+    if ([identifier isEqual:@"found"]) {
+        [self configureFoundCell:cellView game:game];
+    } else if ([identifier isEqual:@"like"]) {
+        [self configureLikeCell:(LikeCellView *)cellView game:game row:row];
+    } else if ([identifier isEqual:@"forgivenessNumeric"]) {
+        [self configureForgivenessCell:(ForgivenessCellView *)cellView metadata:meta];
+    } else if ([identifier isEqual:@"starRating"] ||
+               [identifier isEqual:@"myRating"]) {
+        [self configureRatingCell:(RatingsCellView *)cellView metadata:meta isMyRating:[identifier isEqual:@"myRating"] row:row];
+    } else {
         if ([identifier isEqual:@"format"] && !game.detectedFormat)
             game.detectedFormat = meta.format;
         cellView.textField.stringValue = [self stringForGame:game columnIdentifier:identifier] ?: @"";
@@ -799,55 +819,32 @@ static NSString *forgivenessName(NSInteger value) {
 
 #pragma mark Mouse over
 
+//! Shows or hides the empty-rating placeholder and the like heart of a
+//! row, for a game that has neither.
+- (void)setHovered:(BOOL)hovered row:(NSInteger)row likeColumn:(NSInteger)likeColumnIdx myRatingColumn:(NSInteger)myRatingColumnIdx {
+    Game *game = [self gameForRow:row];
+    if (!game)
+        return;
+
+    if (myRatingColumnIdx > -1 && game.metadata.myRating == nil) {
+        RatingsCellView *rating = [self.gameTableView viewAtColumn:myRatingColumnIdx row:row makeIfNecessary:NO];
+        rating.rating.placeholderVisibility = hovered ? NSLevelIndicatorPlaceholderVisibilityAlways : NSLevelIndicatorPlaceholderVisibilityWhileEditing;
+        rating.needsDisplay = YES;
+    }
+
+    if (likeColumnIdx > -1 && game.like == 0) {
+        LikeCellView *like = [self.gameTableView viewAtColumn:likeColumnIdx row:row makeIfNecessary:NO];
+        like.likeButton.image = hoverLikeImage(hovered);
+        like.needsDisplay = YES;
+    }
+}
+
 - (void)mouseOverChangedFromRow:(NSInteger)lastRow toRow:(NSInteger)currentRow {
-    NSInteger likeColumnIdx = -1;
-    NSInteger myRatingColumnIdx = -1;
+    NSInteger likeColumnIdx = [self.gameTableView columnWithIdentifier:@"like"];
+    NSInteger myRatingColumnIdx = [self.gameTableView columnWithIdentifier:@"myRating"];
 
-    NSInteger index = 0;
-
-    for (NSTableColumn *column in self.gameTableView.tableColumns) {
-        if (myRatingColumnIdx == -1 && [column.identifier isEqual:@"myRating"]) {
-            myRatingColumnIdx = index;
-        } else if (likeColumnIdx == -1 && [column.identifier isEqual:@"like"]) {
-            likeColumnIdx = index;
-        }
-
-        index++;
-    }
-
-    RatingsCellView *rating;
-    Game *game;
-
-    game = [self gameForRow:lastRow];
-    if (game) {
-        if (myRatingColumnIdx > -1 && game.metadata.myRating == nil) {
-            rating = [self.gameTableView viewAtColumn:myRatingColumnIdx row:lastRow makeIfNecessary:NO];
-            rating.rating.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityWhileEditing;
-            rating.needsDisplay = YES;
-        }
-
-        if (likeColumnIdx > -1 && game.like == 0) {
-            LikeCellView *like = [self.gameTableView viewAtColumn:likeColumnIdx row:lastRow makeIfNecessary:NO];
-            like.likeButton.image = nil;
-            like.needsDisplay = YES;
-        }
-    }
-
-    game = [self gameForRow:currentRow];
-    if (game) {
-        if (myRatingColumnIdx > -1 && game.metadata.myRating == nil) {
-            rating = [self.gameTableView viewAtColumn:myRatingColumnIdx row:currentRow makeIfNecessary:NO];
-            rating.rating.placeholderVisibility = NSLevelIndicatorPlaceholderVisibilityAlways;
-            rating.needsDisplay = YES;
-        }
-
-
-        if (likeColumnIdx > -1 && game.like == 0) {
-            LikeCellView *like = [self.gameTableView viewAtColumn:likeColumnIdx row:currentRow makeIfNecessary:NO];
-            like.likeButton.image = symbolImage(@"heart", NSLocalizedString(@"Like", nil));
-            like.needsDisplay = YES;
-        }
-    }
+    [self setHovered:NO row:lastRow likeColumn:likeColumnIdx myRatingColumn:myRatingColumnIdx];
+    [self setHovered:YES row:currentRow likeColumn:likeColumnIdx myRatingColumn:myRatingColumnIdx];
 }
 
 #pragma mark Column sizing
