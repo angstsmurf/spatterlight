@@ -35,11 +35,11 @@
 
 enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 
-typedef NS_ENUM(int32_t, kImportResult) {
+typedef NS_ENUM(int32_t, MetadataImportResult) {
     kImportResultNoneFound,
     kImportResultExactMatchesOnly,
     kImportResultPartialMatchesOnly,
-    kImportExactAndPartialMatchesBoth
+    kImportResultExactAndPartialMatches
 };
 
 @implementation MetadataHandler
@@ -154,12 +154,12 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
 - (void)askAboutImportingMetadata:(NSDictionary<NSString *, IFStory *> *)storyDict indirectMatches:(NSDictionary<NSString *, IFStory *> *)indirectDict {
 
-    kImportResult __block importResult = kImportResultNoneFound;
+    MetadataImportResult __block importResult = kImportResultNoneFound;
 
-    NSSet<Game *> __block *games = [[NSSet alloc] init];
-    NSSet<Game *> __block *indirectGames = [[NSSet alloc] init];
-    NSSet<NSManagedObjectID *> __block *gameIDs = [[NSSet alloc] init];
-    NSSet<NSManagedObjectID *> __block *indirectGameIDs = [[NSSet alloc] init];
+    NSMutableSet<Game *> *games = [NSMutableSet new];
+    NSMutableSet<Game *> *indirectGames = [NSMutableSet new];
+    NSMutableSet<NSManagedObjectID *> *gameIDs = [NSMutableSet new];
+    NSMutableSet<NSManagedObjectID *> *indirectGameIDs = [NSMutableSet new];
 
     NSString __block *msg = @"There were no library matches for the games in the iFiction file.";
     NSString __block *msg2;
@@ -183,8 +183,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
             NSManagedObjectID *objectID;
             Game *result = gameForURI(identifier, &objectID);
             if (result) {
-                games = [games setByAddingObject:result];
-                gameIDs = [gameIDs setByAddingObject:objectID];
+                [games addObject:result];
+                [gameIDs addObject:objectID];
             }
         }
 
@@ -192,8 +192,8 @@ typedef NS_ENUM(int32_t, kImportResult) {
             NSManagedObjectID *objectID;
             Game *result = gameForURI(identifier, &objectID);
             if (result && ![games containsObject:result]) {
-                indirectGames = [indirectGames setByAddingObject:result];
-                indirectGameIDs = [indirectGameIDs setByAddingObject:objectID];
+                [indirectGames addObject:result];
+                [indirectGameIDs addObject:objectID];
             }
         }
 
@@ -207,11 +207,11 @@ typedef NS_ENUM(int32_t, kImportResult) {
 
         if (indirectGames.count > 0) {
             if (importResult == kImportResultExactMatchesOnly)
-                importResult = kImportExactAndPartialMatchesBoth;
+                importResult = kImportResultExactAndPartialMatches;
             else
                 importResult = kImportResultPartialMatchesOnly;
 
-            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@%@.", importResult == kImportExactAndPartialMatchesBoth ? @"Also f" : @"F", indirectGames.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:indirectGames.allObjects], importResult == kImportExactAndPartialMatchesBoth ? @"" : @" in iFiction file"];
+            msg2 = [NSString stringWithFormat:@"%@ound partial match%@ for %@%@.", importResult == kImportResultExactAndPartialMatches ? @"Also f" : @"F", indirectGames.count > 1 ? @"es" : @"", [NSString stringWithSummaryOfGames:indirectGames.allObjects], importResult == kImportResultExactAndPartialMatches ? @"" : @" in iFiction file"];
         } else if (indirectDict.count) {
             NSLog(@"askAboutImportingMetadata: None of the %ld indirect matches found in database (or they were also exact matches)", indirectDict.count);
         }
@@ -239,13 +239,13 @@ typedef NS_ENUM(int32_t, kImportResult) {
                 return;
             if (result == NSAlertFirstButtonReturn) {
                 if (importResult == kImportResultExactMatchesOnly ||
-                    importResult == kImportExactAndPartialMatchesBoth) {
+                    importResult == kImportResultExactAndPartialMatches) {
                     [weakSelf addInfoToMetadata:gameIDs fromStories:storyDict];
                 } else if (importResult == kImportResultPartialMatchesOnly) {
                     [weakSelf addInfoToMetadata:indirectGameIDs fromStories:indirectDict];
                 }
             }
-            if (importResult == kImportExactAndPartialMatchesBoth) {
+            if (importResult == kImportResultExactAndPartialMatches) {
                 NSAlert *alert2 = [[NSAlert alloc] init];
                 alert2.messageText = NSLocalizedString(msg2, nil);
                 [alert2 addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
@@ -437,16 +437,17 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     NSFetchRequest *fetchRequest = [Game fetchRequest];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hasDownloaded = YES"];
+    fetchRequest.fetchLimit = 1;
 
-    fetchedObjects = [ctx executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
+    NSUInteger downloadedCount = [ctx countForFetchRequest:fetchRequest error:&error];
+    if (downloadedCount == NSNotFound) {
         NSLog(@"askToDownload: Could not fetch Game entities: %@",error);
         return;
     }
 
-    if (fetchedObjects.count == 0)
+    if (downloadedCount == 0)
     {
-        fetchRequest.entity = [NSEntityDescription entityForName:@"Game" inManagedObjectContext:ctx];
+        fetchRequest.fetchLimit = 0;
         fetchRequest.predicate = nil;
         fetchRequest.includesPropertyValues = NO;
         fetchedObjects = [ctx executeFetchRequest:fetchRequest error:&error];
@@ -486,11 +487,6 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
         [tvc.managedObjectContext.undoManager beginUndoGrouping];
         tvc.undoGroupingCount++;
     }];
-
-    [[NSNotificationCenter defaultCenter]
-     postNotification:[NSNotification notificationWithName:SpatterlightStopIndexingNotification object:nil]];
-
-    tvc.downloadWasCancelled = NO;
 
     [tvc beginImporting];
 
