@@ -10,25 +10,14 @@
 #import "Game.h"
 #import "Metadata.h"
 #import "Image.h"
-#import "TableViewController.h"
 #import "ImageView.h"
 #import "NSFont+Categories.h"
 
-
-#import "DebugLog.h"
-
 @interface SideInfoView ()
 {
-    NSBox *topSpacer;
-
     NSTextField *titleField;
 
-    NSString *longestWord;
-
     CGFloat totalHeight;
-
-    NSSet<NSPasteboardType> *acceptableTypes;
-    NSSet<NSPasteboardType> *nonURLTypes;
 }
 @end
 
@@ -41,10 +30,7 @@
 - (instancetype)initWithFrame:(NSRect)frameRect {
     self = [super initWithFrame:frameRect];
     if (self) {
-        nonURLTypes = [NSSet setWithObjects:NSPasteboardTypeTIFF, NSPasteboardTypePNG, nil];
-        acceptableTypes = [NSSet setWithObject:NSPasteboardTypeURL];
-        acceptableTypes = [acceptableTypes setByAddingObjectsFromSet:nonURLTypes];
-        [self registerForDraggedTypes:acceptableTypes.allObjects];
+        [self registerForDraggedTypes:ImageView.acceptableDragTypes.allObjects];
 
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(windowDidResignKey:)
@@ -147,68 +133,19 @@
     [textField setContentCompressionResistancePriority:25 forOrientation:NSLayoutConstraintOrientationHorizontal];
     [textField setContentCompressionResistancePriority:25 forOrientation:NSLayoutConstraintOrientationVertical];
 
-    NSLayoutConstraint *xPosConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                      relatedBy:NSLayoutRelationEqual
-                                                                         toItem:self
-                                                                      attribute:NSLayoutAttributeLeading
-                                                                     multiplier:1.0
-                                                                       constant:10];
-
-    NSLayoutConstraint *yPosConstraint;
-
-    if (lastView)
-    {
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:lastView
-                                                      attribute:NSLayoutAttributeBottom
-                                                     multiplier:1.0
-                                                       constant:space];
-    }
-    else
-    {
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeTop
-                                                     multiplier:1.0
-                                                       constant:space];
-    }
-
-    NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                       attribute:NSLayoutAttributeWidth
-                                                                       relatedBy:NSLayoutRelationEqual
-                                                                          toItem:self
-                                                                       attribute:NSLayoutAttributeWidth
-                                                                      multiplier:1.0
-                                                                        constant:-20];
-
-    NSLayoutConstraint *rightMarginConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                             attribute:NSLayoutAttributeTrailing
-                                                                             relatedBy:NSLayoutRelationEqual
-                                                                                toItem:self
-                                                                             attribute:NSLayoutAttributeTrailing
-                                                                            multiplier:1.0
-                                                                              constant:-10];
-
     textField.attributedStringValue = attrString;
 
     [self addSubview:textField];
 
-    [self addConstraints:@[ xPosConstraint, yPosConstraint, widthConstraint, rightMarginConstraint ]];
+    NSLayoutYAxisAnchor *above = lastView ? ((NSView *)lastView).bottomAnchor : self.topAnchor;
 
-    NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:textField
-                                                                        attribute:NSLayoutAttributeHeight
-                                                                        relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                                           toItem:nil
-                                                                        attribute:NSLayoutAttributeNotAnAttribute
-                                                                       multiplier:1.0
-                                                                         constant: contentRect.size.height + 1];
-
-    [self addConstraint:heightConstraint];
+    [NSLayoutConstraint activateConstraints:@[
+        [textField.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:10],
+        [textField.topAnchor constraintEqualToAnchor:above constant:space],
+        [textField.widthAnchor constraintEqualToAnchor:self.widthAnchor constant:-20],
+        [textField.trailingAnchor constraintEqualToAnchor:self.trailingAnchor constant:-10],
+        [textField.heightAnchor constraintGreaterThanOrEqualToConstant:contentRect.size.height + 1]
+    ]];
 
     totalHeight += NSHeight(textField.bounds) + space;
 
@@ -225,232 +162,48 @@
         return;
     }
 
+    if (!somedata.title) { // Every game will have a title unless something is broken
+        NSLog(@"Error! No title!");
+    }
+
     totalHeight = 0;
-
-    NSLayoutConstraint *xPosConstraint;
-    NSLayoutConstraint *yPosConstraint;
-    NSLayoutConstraint *widthConstraint;
-    NSLayoutConstraint *heightConstraint;
-    NSLayoutConstraint *topSpacerYConstraint;
-
-    NSFont *font;
-    CGFloat spaceBefore;
-    NSView *lastView;
-
-    self.translatesAutoresizingMaskIntoConstraints = NO;
 
     NSClipView *clipView = [SideInfoView addTopConstraintsToView:self];
 
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:200]];
+    [self.widthAnchor constraintGreaterThanOrEqualToConstant:200].active = YES;
 
     CGFloat superViewWidth = clipView.frame.size.width;
 
-    NSImage *theImage = nil;
-    if (somedata.cover.data) {
-        theImage = [[NSImage alloc] initWithData:(NSData *)somedata.cover.data];
-        if (theImage == nil && [somedata.coverArtURL isEqualToString:somedata.cover.originalURL]) {
-            [somedata.cover.managedObjectContext deleteObject:somedata.cover];
-            somedata.coverArtURL = nil;
-        }
-    }
+    NSView *lastView;
+    NSLayoutConstraint *topSpacerYConstraint = nil;
+
+    NSImage *theImage = [SideInfoView coverImageForMetadata:somedata];
     if (theImage) {
-        CGFloat ratio = theImage.size.width / theImage.size.height;
-
-        _imageView = [[ImageView alloc] initWithGame:somegame image:theImage];
-        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
-        _imageView.frame = NSMakeRect(0,0, superViewWidth, superViewWidth / ratio);
-        _imageView.intrinsic = NSMakeSize(NSViewNoIntrinsicMetric, _imageView.frame.size.height);
-
-        [self addSubview:_imageView];
-
-        xPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                      attribute:NSLayoutAttributeLeading
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeLeading
-                                                     multiplier:1.0
-                                                       constant:0];
-
-        yPosConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeTop
-                                                     multiplier:1.0
-                                                       constant:0];
-
-        widthConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                          toItem:self
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1.0
-                                                        constant:0];
-
-        widthConstraint.priority = 500;
-
-        heightConstraint = [NSLayoutConstraint constraintWithItem:_imageView
-                                                        attribute:NSLayoutAttributeHeight
-                                                        relatedBy:NSLayoutRelationLessThanOrEqual
-                                                           toItem:_imageView
-                                                        attribute:NSLayoutAttributeWidth
-                                                       multiplier:(1 / ratio)
-                                                         constant:0];
-
-        heightConstraint.priority = 499;
-
-        [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
-
-        lastView = _imageView;
+        lastView = [self addImageViewForGame:somegame image:theImage width:superViewWidth];
     } else {
         _imageView = nil;
-        // No image
-        topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 0)];
-        topSpacer.boxType = NSBoxSeparator;
-
-
-        [self addSubview:topSpacer];
-
-        topSpacer.frame = NSMakeRect(0,0, superViewWidth, 1);
-
-        topSpacer.translatesAutoresizingMaskIntoConstraints = NO;
-
-
-        xPosConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                      attribute:NSLayoutAttributeLeading
-                                                      relatedBy:NSLayoutRelationEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeLeading
-                                                     multiplier:1.0
-                                                       constant:0];
-
-        topSpacerYConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                      attribute:NSLayoutAttributeTop
-                                                      relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                         toItem:self
-                                                      attribute:NSLayoutAttributeTop
-                                                     multiplier:1.0
-                                                       constant:clipView.frame.size.height/4];
-
-        widthConstraint = [NSLayoutConstraint constraintWithItem:topSpacer
-                                                       attribute:NSLayoutAttributeWidth
-                                                       relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                          toItem:self
-                                                       attribute:NSLayoutAttributeWidth
-                                                      multiplier:1.0
-                                                        constant:0];
-
-
-        [self addConstraint:xPosConstraint];
-        [self addConstraint:topSpacerYConstraint];
-        [self addConstraint:widthConstraint];
-
+        NSBox *topSpacer = [self addTopSpacerWithWidth:superViewWidth];
+        topSpacerYConstraint = [topSpacer.topAnchor constraintGreaterThanOrEqualToAnchor:self.topAnchor constant:clipView.frame.size.height/4];
+        topSpacerYConstraint.active = YES;
         lastView = topSpacer;
     }
 
-    if (somedata.title) // Every game will have a title unless something is broken
-    {
-
-        font = [NSFont fontWithName:@"Playfair Display Black" size:30];
-
-        NSFontDescriptor *descriptor = font.fontDescriptor;
-
-        NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kNumberCaseType),
-                             NSFontFeatureSelectorIdentifierKey : @(kUpperCaseNumbersSelector)}];
-
-        descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
-
-        if (somedata.title.length > 9)
-        {
-            font = [NSFont fontWithDescriptor:descriptor size:30];
-        }
-        else
-        {
-            font = [NSFont fontWithDescriptor:descriptor size:50];
-        }
-
-        longestWord = @"";
-
-        for (NSString *word in [somedata.title componentsSeparatedByString:@" "])
-        {
-            if (word.length > longestWord.length) longestWord = word;
-        }
-
-        // The magic number -24 means 10 points of margin and two points of textfield border on each side.
-        if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > superViewWidth - 24)
-        {
-            font = [font fontToFitWidth:superViewWidth - 24 sampleText:longestWord];
-        }
-
-        spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
-
-        lastView = [self addSubViewWithtext:somedata.title andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
-
-        titleField = (NSTextField *)lastView;
-    }
-    else
-    {
-        NSLog(@"Error! No title!");
+    if (!somedata.title) {
         titleField = nil;
         return;
     }
 
-    NSBox *divider = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, superViewWidth, 1)];
+    NSFont *font = [SideInfoView titleFontForTitle:somedata.title width:superViewWidth - 24];
 
-    divider.boxType = NSBoxSeparator;
-    divider.translatesAutoresizingMaskIntoConstraints = NO;
+    CGFloat spaceBefore = [@"X" sizeWithAttributes:@{NSFontAttributeName:font}].height * 0.7;
 
-    xPosConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                  attribute:NSLayoutAttributeLeading
-                                                  relatedBy:NSLayoutRelationEqual
-                                                     toItem:self
-                                                  attribute:NSLayoutAttributeLeading
-                                                 multiplier:1.0
-                                                   constant:0];
+    titleField = [self addSubViewWithtext:somedata.title andFont:font andSpaceBefore:spaceBefore andLastView:lastView];
 
-    yPosConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                  attribute:NSLayoutAttributeTop
-                                                  relatedBy:NSLayoutRelationEqual
-                                                     toItem:lastView
-                                                  attribute:NSLayoutAttributeBottom
-                                                 multiplier:1.0
-                                                   constant:spaceBefore * 0.9];
-
-    widthConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                   attribute:NSLayoutAttributeWidth
-                                                   relatedBy:NSLayoutRelationEqual
-                                                      toItem:self
-                                                   attribute:NSLayoutAttributeWidth
-                                                  multiplier:1.0
-                                                    constant:0];
-
-    heightConstraint = [NSLayoutConstraint constraintWithItem:divider
-                                                    attribute:NSLayoutAttributeHeight
-                                                    relatedBy:NSLayoutRelationEqual
-                                                       toItem:nil
-                                                    attribute:NSLayoutAttributeNotAnAttribute
-                                                   multiplier:1.0
-                                                     constant:1];
-
-    [self addSubview:divider];
-    [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
-
-    lastView = divider;
+    lastView = [self addDividerBelow:titleField space:spaceBefore * 0.9 width:superViewWidth];
 
     if (somedata.headline)
     {
-        //font = [NSFont fontWithName:@"Playfair Display Regular" size:13];
-        font = [NSFont fontWithName:@"HoeflerText-Regular" size:16];
-
-        NSFontDescriptor *descriptor = font.fontDescriptor;
-
-        NSArray *array = @[@{ NSFontFeatureTypeIdentifierKey : @(kLetterCaseType),
-                              NSFontFeatureSelectorIdentifierKey : @(kSmallCapsSelector)}];
-
-        descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
-        font = [NSFont fontWithDescriptor:descriptor size:16.f];
-
-        lastView = [self addSubViewWithtext:(somedata.headline).lowercaseString andFont:font andSpaceBefore:4 andLastView:lastView];
+        lastView = [self addSubViewWithtext:(somedata.headline).lowercaseString andFont:[SideInfoView headlineFont] andSpaceBefore:4 andLastView:lastView];
     }
 
     if (somedata.author)
@@ -467,14 +220,7 @@
         lastView = [self addSubViewWithtext:somedata.blurb andFont:font andSpaceBefore:23 andLastView:lastView];
     }
 
-    NSLayoutConstraint *bottomPinConstraint = [NSLayoutConstraint constraintWithItem:self
-                                                                           attribute:NSLayoutAttributeBottom
-                                                                           relatedBy:NSLayoutRelationEqual
-                                                                              toItem:lastView
-                                                                           attribute:NSLayoutAttributeBottom
-                                                                          multiplier:1.0
-                                                                            constant:0];
-    [self addConstraint:bottomPinConstraint];
+    [self.bottomAnchor constraintEqualToAnchor:lastView.bottomAnchor].active = YES;
 
     if (somedata.cover.data == nil) {
         CGFloat windowHeight = ((NSView *)self.window.contentView).frame.size.height;
@@ -498,6 +244,123 @@
     _game = somegame;
 }
 
+// The cover image of metadata, or nil. A cover that can't be decoded
+// and came from the cover art URL is deleted.
++ (NSImage *)coverImageForMetadata:(Metadata *)metadata {
+    if (!metadata.cover.data)
+        return nil;
+    NSImage *image = [[NSImage alloc] initWithData:(NSData *)metadata.cover.data];
+    if (image == nil && [metadata.coverArtURL isEqualToString:metadata.cover.originalURL]) {
+        [metadata.cover.managedObjectContext deleteObject:metadata.cover];
+        metadata.coverArtURL = nil;
+    }
+    return image;
+}
+
+- (ImageView *)addImageViewForGame:(Game *)game image:(NSImage *)image width:(CGFloat)width {
+    CGFloat ratio = image.size.width / image.size.height;
+
+    _imageView = [[ImageView alloc] initWithGame:game image:image];
+    _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+    _imageView.frame = NSMakeRect(0,0, width, width / ratio);
+    _imageView.intrinsic = NSMakeSize(NSViewNoIntrinsicMetric, _imageView.frame.size.height);
+
+    [self addSubview:_imageView];
+
+    NSLayoutConstraint *widthConstraint = [_imageView.widthAnchor constraintGreaterThanOrEqualToAnchor:self.widthAnchor];
+    widthConstraint.priority = 500;
+
+    NSLayoutConstraint *heightConstraint = [_imageView.heightAnchor constraintLessThanOrEqualToAnchor:_imageView.widthAnchor multiplier:(1 / ratio)];
+    heightConstraint.priority = 499;
+
+    [NSLayoutConstraint activateConstraints:@[
+        [_imageView.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [_imageView.topAnchor constraintEqualToAnchor:self.topAnchor],
+        widthConstraint,
+        heightConstraint
+    ]];
+
+    return _imageView;
+}
+
+// A separator line in place of a missing cover image. The caller
+// positions it vertically.
+- (NSBox *)addTopSpacerWithWidth:(CGFloat)width {
+    NSBox *topSpacer = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, width, 1)];
+    topSpacer.boxType = NSBoxSeparator;
+    topSpacer.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self addSubview:topSpacer];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [topSpacer.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [topSpacer.widthAnchor constraintGreaterThanOrEqualToAnchor:self.widthAnchor]
+    ]];
+
+    return topSpacer;
+}
+
+- (NSBox *)addDividerBelow:(NSView *)lastView space:(CGFloat)space width:(CGFloat)width {
+    NSBox *divider = [[NSBox alloc] initWithFrame:NSMakeRect(0, 0, width, 1)];
+
+    divider.boxType = NSBoxSeparator;
+    divider.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [self addSubview:divider];
+
+    [NSLayoutConstraint activateConstraints:@[
+        [divider.leadingAnchor constraintEqualToAnchor:self.leadingAnchor],
+        [divider.topAnchor constraintEqualToAnchor:lastView.bottomAnchor constant:space],
+        [divider.widthAnchor constraintEqualToAnchor:self.widthAnchor],
+        [divider.heightAnchor constraintEqualToConstant:1]
+    ]];
+
+    return divider;
+}
+
+// Playfair Display Black with upper-case numbers, large for short titles,
+// shrunk if needed so that the longest word fits in maxWidth.
++ (NSFont *)titleFontForTitle:(NSString *)title width:(CGFloat)maxWidth {
+    NSFont *font = [NSFont fontWithName:@"Playfair Display Black" size:30];
+
+    NSFontDescriptor *descriptor = font.fontDescriptor;
+
+    NSArray *array = @[@{NSFontFeatureTypeIdentifierKey : @(kNumberCaseType),
+                         NSFontFeatureSelectorIdentifierKey : @(kUpperCaseNumbersSelector)}];
+
+    descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
+
+    font = [NSFont fontWithDescriptor:descriptor size:(title.length > 9) ? 30 : 50];
+
+    NSString *longestWord = @"";
+
+    for (NSString *word in [title componentsSeparatedByString:@" "])
+    {
+        if (word.length > longestWord.length) longestWord = word;
+    }
+
+    // The caller's magic number -24 means 10 points of margin and two points of textfield border on each side.
+    if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > maxWidth)
+    {
+        font = [font fontToFitWidth:maxWidth sampleText:longestWord];
+    }
+
+    return font;
+}
+
+// Hoefler Text in small caps
++ (NSFont *)headlineFont {
+    NSFont *font = [NSFont fontWithName:@"HoeflerText-Regular" size:16];
+
+    NSFontDescriptor *descriptor = font.fontDescriptor;
+
+    NSArray *array = @[@{ NSFontFeatureTypeIdentifierKey : @(kLetterCaseType),
+                          NSFontFeatureSelectorIdentifierKey : @(kSmallCapsSelector)}];
+
+    descriptor = [descriptor fontDescriptorByAddingAttributes:@{NSFontFeatureSettingsAttribute : array}];
+    return [NSFont fontWithDescriptor:descriptor size:16.f];
+}
+
 - (void)updateSideViewWithString:(NSString *)aString {
     NSFont *font;
 
@@ -505,19 +368,14 @@
 
     NSClipView *clipView = [SideInfoView addTopConstraintsToView:self];
 
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:self
-                                                     attribute:NSLayoutAttributeBottom
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:clipView
-                                                     attribute:NSLayoutAttributeBottom
-                                                    multiplier:1.0
-                                                      constant:0]];
+    [self.bottomAnchor constraintEqualToAnchor:clipView.bottomAnchor].active = YES;
+
     if (!aString)
         return;
 
     [titleField removeFromSuperview];
 
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:self attribute:NSLayoutAttributeWidth relatedBy:NSLayoutRelationGreaterThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:0 constant:200]];
+    [self.widthAnchor constraintGreaterThanOrEqualToConstant:200].active = YES;
 
     NSMutableParagraphStyle *para = [[NSMutableParagraphStyle alloc] init];
 
@@ -552,37 +410,12 @@
 
     [self addSubview:titleField];
 
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
-                                                     attribute:NSLayoutAttributeLeading
-                                                     relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeLeading
-                                                    multiplier:1.0
-                                                      constant:0]];
-
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
-                                                     attribute:NSLayoutAttributeTrailing
-                                                     relatedBy:NSLayoutRelationGreaterThanOrEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeTrailing
-                                                    multiplier:1.0
-                                                      constant:0]];
-
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
-                                                     attribute:NSLayoutAttributeCenterY
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeCenterY
-                                                    multiplier:1.0
-                                                      constant:-20]];
-
-    [self addConstraint:[NSLayoutConstraint constraintWithItem:titleField
-                                                     attribute:NSLayoutAttributeCenterX
-                                                     relatedBy:NSLayoutRelationEqual
-                                                        toItem:self
-                                                     attribute:NSLayoutAttributeCenterX
-                                                    multiplier:1.0
-                                                      constant:0]];
+    [NSLayoutConstraint activateConstraints:@[
+        [titleField.leadingAnchor constraintGreaterThanOrEqualToAnchor:self.leadingAnchor],
+        [titleField.trailingAnchor constraintGreaterThanOrEqualToAnchor:self.trailingAnchor],
+        [titleField.centerYAnchor constraintEqualToAnchor:self.centerYAnchor constant:-20],
+        [titleField.centerXAnchor constraintEqualToAnchor:self.centerXAnchor]
+    ]];
 
     [titleField setContentCompressionResistancePriority:20 forOrientation:NSLayoutConstraintOrientationHorizontal];
 
@@ -597,13 +430,7 @@
             // stay in position when resizing the side view
             _downloadButton.translatesAutoresizingMaskIntoConstraints = NO;
 
-            NSLayoutConstraint *xPosConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeCenterX
-                                                   relatedBy:NSLayoutRelationEqual
-                                                      toItem:self
-                                                   attribute:NSLayoutAttributeCenterX
-                                                  multiplier:1
-                                                    constant:0];
-
+            // Anchors can't express a multiplier on a position
             NSLayoutConstraint *yPosConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeCenterY
                                                    relatedBy:NSLayoutRelationEqual
                                                       toItem:self
@@ -611,22 +438,12 @@
                                                   multiplier:1.07
                                                     constant:25];
 
-            NSLayoutConstraint *widthConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeWidth
-                                                   relatedBy:NSLayoutRelationEqual
-                                                      toItem:nil
-                                                   attribute:NSLayoutAttributeNotAnAttribute
-                                                  multiplier:1.0
-                                                    constant:25];
-
-            NSLayoutConstraint *heightConstraint = [NSLayoutConstraint constraintWithItem:_downloadButton attribute:NSLayoutAttributeHeight
-                                                   relatedBy:NSLayoutRelationEqual
-                                                      toItem:nil
-                                                   attribute:NSLayoutAttributeNotAnAttribute
-                                                  multiplier:1.0
-                                                    constant:25];
-
-
-            [self addConstraints:@[xPosConstraint, yPosConstraint, widthConstraint, heightConstraint]];
+            [NSLayoutConstraint activateConstraints:@[
+                [_downloadButton.centerXAnchor constraintEqualToAnchor:self.centerXAnchor],
+                yPosConstraint,
+                [_downloadButton.widthAnchor constraintEqualToConstant:25],
+                [_downloadButton.heightAnchor constraintEqualToConstant:25]
+            ]];
         }
     } else {
         [_downloadButton removeFromSuperview];
@@ -639,29 +456,12 @@
 
     NSClipView *clipView = (NSClipView *)view.superview;
 
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                         attribute:NSLayoutAttributeLeading
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:clipView
-                                                         attribute:NSLayoutAttributeLeading
-                                                        multiplier:1.0
-                                                          constant:0]];
+    [NSLayoutConstraint activateConstraints:@[
+        [view.leadingAnchor constraintEqualToAnchor:clipView.leadingAnchor],
+        [view.trailingAnchor constraintEqualToAnchor:clipView.trailingAnchor],
+        [view.topAnchor constraintEqualToAnchor:clipView.topAnchor]
+    ]];
 
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                         attribute:NSLayoutAttributeTrailing
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:clipView
-                                                         attribute:NSLayoutAttributeTrailing
-                                                        multiplier:1.0
-                                                          constant:0]];
-
-    [clipView addConstraint:[NSLayoutConstraint constraintWithItem:view
-                                                         attribute:NSLayoutAttributeTop
-                                                         relatedBy:NSLayoutRelationEqual
-                                                            toItem:clipView
-                                                         attribute:NSLayoutAttributeTop
-                                                        multiplier:1.0
-                                                          constant:0]];
     return clipView;
 }
 
