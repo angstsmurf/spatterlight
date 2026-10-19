@@ -535,22 +535,9 @@ static const NSUInteger kWAVHeaderSize = 44;
  * previous one ends, so a tune plays in rhythm while the interpreter continues
  * to print text and accept input. */
 - (void)playSpectrumBeepFrequency:(int)frequency duration:(int)millisecs {
-    if (frequency <= 0 || millisecs <= 0)
+    NSData *wav = [SoundHandler spectrumBeepWAVWithFrequency:frequency duration:millisecs];
+    if (!wav)
         return;
-
-    const uint32_t sampleRate = 44100;
-    const int16_t amplitude = 7000;
-    uint32_t nSamples = (uint32_t)((uint64_t)sampleRate * (uint32_t)millisecs / 1000);
-    if (nSamples == 0)
-        return;
-
-    NSMutableData *wav = [SoundHandler WAVDataWithSampleCount:nSamples sampleRate:sampleRate];
-    int16_t *samples = (int16_t *)((uint8_t *)wav.mutableBytes + kWAVHeaderSize);
-    /* Which half-period each sample falls in, counted exactly rather than with
-     * a whole number of samples per half-period, which would put a 4000 Hz
-     * tone at 4410 Hz. */
-    for (uint32_t i = 0; i < nSamples; i++)
-        samples[i] = (((uint64_t)i * (uint64_t)frequency * 2 / sampleRate) & 1) ? -amplitude : amplitude;
 
     NSSound *sound = [[NSSound alloc] initWithData:wav];
     if (!sound)
@@ -587,6 +574,27 @@ static const NSUInteger kWAVHeaderSize = 44;
                 [sound play];
         });
     }
+}
+
+/* The square wave for one BEEP as a WAV file, or nil if it would be empty. */
++ (nullable NSData *)spectrumBeepWAVWithFrequency:(int)frequency duration:(int)millisecs {
+    if (frequency <= 0 || millisecs <= 0)
+        return nil;
+
+    const uint32_t sampleRate = 44100;
+    const int16_t amplitude = 7000;
+    uint32_t nSamples = (uint32_t)((uint64_t)sampleRate * (uint32_t)millisecs / 1000);
+    if (nSamples == 0)
+        return nil;
+
+    NSMutableData *wav = [SoundHandler WAVDataWithSampleCount:nSamples sampleRate:sampleRate];
+    int16_t *samples = (int16_t *)((uint8_t *)wav.mutableBytes + kWAVHeaderSize);
+    /* Which half-period each sample falls in, counted exactly rather than with
+     * a whole number of samples per half-period, which would put a 4000 Hz
+     * tone at 4410 Hz. */
+    for (uint32_t i = 0; i < nSamples; i++)
+        samples[i] = (((uint64_t)i * (uint64_t)frequency * 2 / sampleRate) & 1) ? -amplitude : amplitude;
+    return wav;
 }
 
 /* Silence the beeper: the note sounding now and every note queued after it.
