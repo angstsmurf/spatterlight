@@ -30,6 +30,7 @@
 
 #import "CoreDataManager.h"
 #import "InfoController.h"
+#import "NSAlert+Spatterlight.h"
 
 
 @implementation TableViewController (LibraryManagement)
@@ -131,11 +132,9 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 }
 
 - (IBAction)deleteLibrary:(id)sender {
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:NSLocalizedString(@"Do you really want to delete the library?", nil)];
-    [alert setInformativeText:NSLocalizedString(@"This will empty your game list and delete all metadata. The original game files will not be affected.", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Delete Library", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to delete the library?", nil)
+                                          info:NSLocalizedString(@"This will empty your game list and delete all metadata. The original game files will not be affected.", nil)
+                                       buttons:@[NSLocalizedString(@"Delete Library", nil), NSLocalizedString(@"Cancel", nil)]];
     if (self.gameSessions.count) {
         alert.accessoryView = self.forceQuitView;
         self.forceQuitCheckBox.state = NSControlStateValueOff;
@@ -227,11 +226,9 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 
 - (IBAction)pruneLibrary:(id)sender {
 
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = NSLocalizedString(@"Do you really want to prune the library?", nil);
-    alert.informativeText = NSLocalizedString(@"Pruning will delete the information about games that are not in the library at the moment.", nil);
-    [alert addButtonWithTitle:NSLocalizedString(@"Prune", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to prune the library?", nil)
+                                          info:NSLocalizedString(@"Pruning will delete the information about games that are not in the library at the moment.", nil)
+                                       buttons:@[NSLocalizedString(@"Prune", nil), NSLocalizedString(@"Cancel", nil)]];
 
     NSModalResponse choice = [alert runModal];
 

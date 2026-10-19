@@ -8,14 +8,11 @@
 //  clipped to the window, in top-left-origin window coordinates.
 //
 
-#import <XCTest/XCTest.h>
-#import <CoreData/CoreData.h>
+#import "GlkControllerTestCase.h"
 
 #import "GlkController.h"
 #import "GlkGraphicsWindow.h"
 #import "Theme.h"
-#import "BuiltInThemes.h"
-#import "CoreDataManager.h"
 #import "NSColor+integer.h"
 #import "SubImage.h"
 
@@ -25,11 +22,8 @@
 static const NSInteger kWidth = 40;
 static const NSInteger kHeight = 30;
 
-@interface GraphicsFillTests : XCTestCase
+@interface GraphicsFillTests : GlkControllerTestCase
 
-@property (nonatomic, strong) CoreDataManager *coreDataManager;
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) Theme *theme;
 // Windows hold their controller weakly, so the test keeps it alive.
 @property (nonatomic, strong) GlkController *controller;
 
@@ -37,23 +31,8 @@ static const NSInteger kHeight = 30;
 
 @implementation GraphicsFillTests
 
-- (void)setUp {
-    [super setUp];
-
-    // In-memory store, so the real library's Default theme is never touched.
-    self.coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
-    self.context = self.coreDataManager.mainManagedObjectContext;
-    XCTAssertNotNil(self.context);
-
-    self.theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
-    XCTAssertNotNil(self.theme);
-}
-
 - (void)tearDown {
     self.controller = nil;
-    self.theme = nil;
-    self.context = nil;
-    self.coreDataManager = nil;
     [super tearDown];
 }
 
@@ -70,40 +49,12 @@ static const NSInteger kHeight = 30;
     return win;
 }
 
-// Read the window's image back as 0x00RRGGBB values, one per point, sampling
-// the centre of each point's device pixels. Row 0 is the top, as in Glk.
-- (NSArray<NSNumber *> *)pointColorsOfWindow:(GlkGraphicsWindow *)win {
-    NSImage *image = win.image;
-    CGImageRef cgImage = [image CGImageForProposedRect:NULL context:nil hints:nil];
-    XCTAssert(cgImage != NULL);
-    size_t pixelsWide = CGImageGetWidth(cgImage);
-    size_t pixelsHigh = CGImageGetHeight(cgImage);
-    CGFloat scale = (CGFloat)pixelsWide / image.size.width;
-
-    // Copy into a context of the canvas's own format, so no conversion happens.
-    CGColorSpaceRef space = CGColorSpaceCreateDeviceRGB();
-    CGContextRef readback = CGBitmapContextCreate(NULL, pixelsWide, pixelsHigh, 8, 0, space,
-                                                  kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Little);
-    CGColorSpaceRelease(space);
-    CGContextDrawImage(readback, CGRectMake(0, 0, pixelsWide, pixelsHigh), cgImage);
-    const uint32_t *pixels = CGBitmapContextGetData(readback);
-    size_t rowPixels = CGBitmapContextGetBytesPerRow(readback) / sizeof(uint32_t);
-
-    NSMutableArray<NSNumber *> *colors = [NSMutableArray arrayWithCapacity:kWidth * kHeight];
-    for (NSInteger y = 0; y < kHeight; y++) {
-        for (NSInteger x = 0; x < kWidth; x++) {
-            size_t px = (size_t)(((CGFloat)x + 0.5) * scale);
-            size_t py = (size_t)(((CGFloat)y + 0.5) * scale);
-            [colors addObject:@(pixels[py * rowPixels + px] & 0xFFFFFF)];
-        }
-    }
-    CGContextRelease(readback);
-    return colors;
-}
-
-// One point of the window's image as 0xAARRGGBB (premultiplied), sampled at
-// the centre of its device pixels. y counts from the top, as in Glk.
-- (uint32_t)pixelOfWindow:(GlkGraphicsWindow *)win x:(NSInteger)x y:(NSInteger)y {
+// Copies the window's image into a context of the canvas's own format, so no
+// conversion happens, and hands block its pixels as 0xAARRGGBB (premultiplied)
+// and a function returning the one at the centre of a point's device pixels.
+// y counts from the top, as in Glk.
+- (void)readPixelsOfWindow:(GlkGraphicsWindow *)win
+                     using:(void (^)(uint32_t (^pixelAt)(NSInteger x, NSInteger y)))block {
     NSImage *image = win.image;
     CGImageRef cgImage = [image CGImageForProposedRect:NULL context:nil hints:nil];
     XCTAssert(cgImage != NULL);
@@ -118,10 +69,31 @@ static const NSInteger kHeight = 30;
     CGContextDrawImage(readback, CGRectMake(0, 0, pixelsWide, pixelsHigh), cgImage);
     const uint32_t *pixels = CGBitmapContextGetData(readback);
     size_t rowPixels = CGBitmapContextGetBytesPerRow(readback) / sizeof(uint32_t);
-    size_t px = (size_t)(((CGFloat)x + 0.5) * scale);
-    size_t py = (size_t)(((CGFloat)y + 0.5) * scale);
-    uint32_t pixel = pixels[py * rowPixels + px];
+    block(^uint32_t(NSInteger x, NSInteger y) {
+        size_t px = (size_t)(((CGFloat)x + 0.5) * scale);
+        size_t py = (size_t)(((CGFloat)y + 0.5) * scale);
+        return pixels[py * rowPixels + px];
+    });
     CGContextRelease(readback);
+}
+
+// The window's image as 0x00RRGGBB values, one per point.
+- (NSArray<NSNumber *> *)pointColorsOfWindow:(GlkGraphicsWindow *)win {
+    NSMutableArray<NSNumber *> *colors = [NSMutableArray arrayWithCapacity:kWidth * kHeight];
+    [self readPixelsOfWindow:win using:^(uint32_t (^pixelAt)(NSInteger, NSInteger)) {
+        for (NSInteger y = 0; y < kHeight; y++)
+            for (NSInteger x = 0; x < kWidth; x++)
+                [colors addObject:@(pixelAt(x, y) & 0xFFFFFF)];
+    }];
+    return colors;
+}
+
+// One point of the window's image as 0xAARRGGBB (premultiplied).
+- (uint32_t)pixelOfWindow:(GlkGraphicsWindow *)win x:(NSInteger)x y:(NSInteger)y {
+    __block uint32_t pixel = 0;
+    [self readPixelsOfWindow:win using:^(uint32_t (^pixelAt)(NSInteger, NSInteger)) {
+        pixel = pixelAt(x, y);
+    }];
     return pixel;
 }
 
@@ -254,11 +226,7 @@ static const NSInteger kHeight = 30;
     struct fillrect first[] = { { 0x00FF00, 0, 0, 40, 30 } };
     [win fillRects:first count:1];
 
-    NSImage *red = [NSImage imageWithSize:NSMakeSize(10, 10) flipped:NO drawingHandler:^BOOL(NSRect dstRect) {
-        [[NSColor colorWithDeviceRed:1 green:0 blue:0 alpha:1] setFill];
-        NSRectFill(dstRect);
-        return YES;
-    }];
+    NSImage *red = [self solidImageOfSize:NSMakeSize(10, 10) red:1 green:0 blue:0];
     [win drawImage:red val1:5 val2:5 width:10 height:10 imagerule:0 maxwidth:0 style:style_Normal];
 
     struct fillrect last[] = { { 0x0000FF, 10, 10, 10, 10 } };

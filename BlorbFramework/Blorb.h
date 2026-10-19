@@ -41,6 +41,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nullable) NSString *ifidFromIFhd;
 
 + (BOOL)isBlorbURL:(nullable NSURL *)url;
+
+// Reads and parses the file at url. Returns nil if it can't be read, is too
+// short, or the parser throws, so a malformed file only means "no Blorb".
++ (nullable instancetype)blorbAtURL:(nullable NSURL *)url;
+// The cover image of the Blorb at url, or nil if url has no Blorb extension
+// or blorbAtURL: fails.
++ (nullable NSData *)coverImageDataAtURL:(nullable NSURL *)url;
 // Checks for a FORM IFRS header.
 + (BOOL)isBlorbData:(NSData *)data;
 

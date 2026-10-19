@@ -94,10 +94,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     if (searchString.length) {
         BOOL searchFound = NO;
         GlkController *glkctl = _glkctl;
-        NSArray<GlkWindow *> *allWindows = glkctl.gwindows.allValues;
-        if (glkctl.quoteBoxes.count)
-            allWindows = [allWindows arrayByAddingObject:glkctl.quoteBoxes.lastObject];
-        for (GlkWindow *view in allWindows) {
+        for (GlkWindow *view in glkctl.windowsIncludingQuoteBox) {
             if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
                 NSString *contentString = ((GlkTextGridWindow *)view).textview.string;
 
@@ -214,12 +211,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     NSMutableArray *strings = [[NSMutableArray alloc] init];
     
     GlkController *glkctl = _glkctl;
-    NSArray *allWindows = glkctl.gwindows.allValues;
-
-    if (glkctl.quoteBoxes.count)
-        allWindows = [allWindows arrayByAddingObject:glkctl.quoteBoxes.lastObject];
-
-    allWindows = [allWindows sortedArrayUsingComparator:
+    NSArray *allWindows = [glkctl.windowsIncludingQuoteBox sortedArrayUsingComparator:
                   ^NSComparisonResult(NSView * obj1, NSView * obj2){
         CGFloat y1 = obj1.frame.origin.y;
         CGFloat y2 = obj2.frame.origin.y;

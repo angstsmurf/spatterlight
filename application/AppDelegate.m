@@ -24,6 +24,7 @@
 #import "Theme.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 // Debug builds log to stderr without the NSLog timestamp prefix.
 #ifdef DEBUG
@@ -531,22 +532,12 @@ continueUserActivity:(NSUserActivity *)userActivity
                            @"\n(There are also %ld autorestorable games running.)",
                        restorable];
 
-            NSAlert *anAlert = [[NSAlert alloc] init];
-            anAlert.messageText = NSLocalizedString(@"Do you really want to quit?", nil);
+            NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you really want to quit?", nil)
+                                                    info:msg
+                                                 buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]];
+            [anAlert showSuppressionButtonWithTitle:nil];
 
-            anAlert.informativeText = msg;
-            anAlert.showsSuppressionButton = YES; // Uses default checkbox title
-
-            [anAlert addButtonWithTitle:NSLocalizedString(@"Quit", nil)];
-            [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-            NSInteger choice = [anAlert runModal];
-
-            if (anAlert.suppressionButton.state == NSOnState) {
-                // Suppress this alert from now on
-                [defaults setBool:YES forKey:@"TerminationAlertSuppression"];
-            }
-            if (choice == NSAlertSecondButtonReturn) {
+            if ([anAlert runModalSuppressingWithKey:@"TerminationAlertSuppression"] == NSAlertSecondButtonReturn) {
                 return NSTerminateCancel;
             }
         }

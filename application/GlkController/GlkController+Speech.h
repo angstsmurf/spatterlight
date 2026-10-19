@@ -37,6 +37,8 @@
 // window while Journey is the current game.
 @property (NS_NONATOMIC_IOSONLY, readonly) NSWindow *announcementWindow;
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkWindow *largestWithMoves;
+// Every Glk window plus the quote box currently shown, if any.
+@property (NS_NONATOMIC_IOSONLY, readonly) NSArray<GlkWindow *> *windowsIncludingQuoteBox;
 
 // Custom rotors
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *createCustomRotors;

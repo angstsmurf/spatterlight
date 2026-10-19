@@ -255,6 +255,10 @@
     return [parts componentsJoinedByString:@"\n\n"];
 }
 
+- (NSString *)speakableString {
+    return _quoteboxColumns.count ? self.deinterleavedQuoteboxString : textstorage.string;
+}
+
 // Split a quote box's attributed string (rows separated by newlines) into one
 // attributed string per row, dropping the newlines.
 - (NSArray<NSAttributedString *> *)quoteBoxRowsOfString:(NSAttributedString *)string {

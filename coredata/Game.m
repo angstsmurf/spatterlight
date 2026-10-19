@@ -39,6 +39,10 @@
 @dynamic metadata;
 @dynamic theme;
 
+- (nullable NSString *)fileBaseName {
+    return self.path.lastPathComponent.stringByDeletingPathExtension;
+}
+
 - (nullable NSURL *)urlForBookmark {
     BOOL bookmarkIsStale = NO;
     NSError* theError = nil;

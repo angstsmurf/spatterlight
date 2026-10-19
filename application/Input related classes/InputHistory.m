@@ -7,6 +7,7 @@
 
 #import "InputHistory.h"
 #import <AppKit/AppKit.h>
+#import "SPAccessibility.h"
 
 #define HISTORYLEN 100
 
@@ -120,21 +121,7 @@
 }
 
 - (void)speakString:(NSString *)string {
-    if (!string || string.length == 0)
-        return;
-
-    NSDictionary *announcementInfo = @{
-        NSAccessibilityPriorityKey : @(NSAccessibilityPriorityHigh),
-        NSAccessibilityAnnouncementKey : string
-    };
-
-    NSWindow *mainWin = NSApp.mainWindow;
-
-    if (mainWin) {
-        NSAccessibilityPostNotificationWithUserInfo(
-                                                    mainWin,
-                                                    NSAccessibilityAnnouncementRequestedNotification, announcementInfo);
-    }
+    SPAnnounce(string, NSAccessibilityPriorityHigh, nil);
 }
 
 - (BOOL)empty {

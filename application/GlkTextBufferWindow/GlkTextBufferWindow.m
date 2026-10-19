@@ -110,10 +110,7 @@
         _textview.textContainerInset = NSMakeSize((CGFloat)marginX, (CGFloat)marginY);
         _textview.insertionPointColor = styles[style_Normal][NSForegroundColorAttributeName];
 
-        NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-        linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.bufLinkStyle);
-        linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-        _textview.linkTextAttributes = linkAttributes;
+        [self updateLinkTextAttributesOf:_textview];
 
         [_textview enableCaret:nil];
 
@@ -125,7 +122,7 @@
         if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
-        underlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
+        underlineLinks = (self.themeLinkStyle != NSUnderlineStyleNone);
         [self recalcBackground];
         scrollAdjustTimeStamp = [NSDate distantPast];
     }

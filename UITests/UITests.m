@@ -45,31 +45,35 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-/// Waits for the element to exist using XCTWaiter to avoid priority inversion
-/// between User-interactive QoS test thread and Default QoS accessibility thread.
-+ (BOOL)waitForElement:(XCUIElement *)element toExistWithTimeout:(NSTimeInterval)timeout {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true"];
+/// Waits for the element to match predicateFormat (which takes no arguments),
+/// using XCTWaiter to avoid priority inversion between the User-interactive
+/// QoS test thread and the Default QoS accessibility thread.
++ (BOOL)waitForElement:(XCUIElement *)element matching:(NSString *)predicateFormat timeout:(NSTimeInterval)timeout {
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:predicateFormat argumentArray:nil];
     XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
     return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+}
+
++ (BOOL)waitForElement:(XCUIElement *)element toExistWithTimeout:(NSTimeInterval)timeout {
+    return [self waitForElement:element matching:@"exists == true" timeout:timeout];
 }
 
 - (BOOL)waitForElement:(XCUIElement *)element toExistWithTimeout:(NSTimeInterval)timeout {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
-    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+    return [UITests waitForElement:element toExistWithTimeout:timeout];
 }
 
-/// Waits for the element to be both existing and hittable, avoiding priority inversion.
 + (BOOL)waitForElement:(XCUIElement *)element toBeHittableWithTimeout:(NSTimeInterval)timeout {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true AND hittable == true"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
-    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+    return [self waitForElement:element matching:@"exists == true AND hittable == true" timeout:timeout];
 }
 
 - (BOOL)waitForElement:(XCUIElement *)element toBeHittableWithTimeout:(NSTimeInterval)timeout {
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"exists == true AND hittable == true"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:element];
-    return [XCTWaiter waitForExpectations:@[expectation] timeout:timeout] == XCTWaiterResultCompleted;
+    return [UITests waitForElement:element toBeHittableWithTimeout:timeout];
+}
+
+/// The text view of the window's index'th scroll view.
++ (XCUIElement *)textViewOfWindow:(XCUIElement *)window scrollViewIndex:(NSUInteger)index {
+    XCUIElement *scrollView = [window.scrollViews elementBoundByIndex:index];
+    return [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
 }
 
 + (NSURL *)tempDir {
@@ -131,32 +135,31 @@
     [sheet typeKey:XCUIKeyboardKeyEnter modifierFlags:XCUIKeyModifierNone];
 }
 
-+ (NSString *)transcriptFromFile:(NSString *)fileName {
-    NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
-
-    url = [url URLByAppendingPathComponent:fileName isDirectory:NO];
-
+// Read errors are logged; the comparison that follows fails on the nil.
++ (NSString *)stringAtURL:(NSURL *)url {
     NSError *error = nil;
-    NSString *comparison = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-
+    NSString *string = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
     if (error)
         NSLog(@"Error: %@", error);
+    return string;
+}
 
-    return comparison;
++ (NSAttributedString *)rtfAtURL:(NSURL *)url {
+    NSError *error = nil;
+    NSAttributedString *string = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
+    if (error)
+        NSLog(@"Error: %@", error);
+    return string;
+}
+
++ (NSString *)transcriptFromFile:(NSString *)fileName {
+    NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
+    return [UITests stringAtURL:[url URLByAppendingPathComponent:fileName isDirectory:NO]];
 }
 
 + (NSAttributedString *)attributedTranscriptFromFile:(NSString *)fileName {
     NSURL *url = [UITests transcriptWithFormat:@"Plain Text"];
-
-    url = [url URLByAppendingPathComponent:fileName isDirectory:NO];
-
-    NSError *error = nil;
-    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    return comparison;
+    return [UITests rtfAtURL:[url URLByAppendingPathComponent:fileName isDirectory:NO]];
 }
 
 + (NSURL *)transcriptWithFormat:(NSString *)format {
@@ -262,12 +265,24 @@
     NSURL *url = [testBundle URLForResource:name
                               withExtension:@"txt"
                                subdirectory:nil];
+    return [UITests stringAtURL:url];
+}
 
-    NSError *error = nil;
-    NSString *facit = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-    return facit;
+// The transcript saved as fileName in directory, compared with the
+// "Transcript of <facitName>" in the test bundle.
+- (void)assertTranscriptIn:(NSURL *)directory named:(NSString *)fileName equalsFacitFor:(NSString *)facitName {
+    NSString *transcript = [UITests stringAtURL:[directory URLByAppendingPathComponent:fileName isDirectory:NO]];
+    XCTAssert([transcript isEqualToString:[self comparisonTranscriptFor:facitName]]);
+}
+
+// The same for a Rich Text transcript, compared with "<facitName>.rtf".
+- (void)assertRTFTranscriptIn:(NSURL *)directory named:(NSString *)fileName equalsFacitFor:(NSString *)facitName {
+    NSURL *url = [testBundle URLForResource:facitName
+                              withExtension:@"rtf"
+                               subdirectory:nil];
+    NSAttributedString *facit = [UITests rtfAtURL:url];
+    NSAttributedString *comparison = [UITests rtfAtURL:[directory URLByAppendingPathComponent:fileName isDirectory:NO]];
+    XCTAssert([comparison isEqual:facit]);
 }
 
 //- (void)testTetrisAutorestore {
@@ -625,9 +640,7 @@
 
     // Close the game window and wait for it to disappear.
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
-    NSPredicate *gone = [NSPredicate predicateWithFormat:@"exists == false"];
-    XCTNSPredicateExpectation *closed = [[XCTNSPredicateExpectation alloc] initWithPredicate:gone object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[closed] timeout:5], XCTWaiterResultCompleted,
+    XCTAssertTrue([UITests waitForElement:textView matching:@"exists == false" timeout:5],
                    @"Game window did not close");
 
     // Replay the selected game, autorestoring from autosave, and wait for the
@@ -672,10 +685,7 @@
     [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
     // Wait for initial text to show
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Not a game.'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'Not a game.'" timeout:5]);
 
     XCUIElement *statusLine = [gameWindow.staticTexts elementBoundByIndex:0];
 
@@ -821,10 +831,7 @@
     [textView typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
     // Wait for initial text to show
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Adjust your volume.'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'Adjust your volume.'" timeout:5]);
 
     [textView typeText:@"y\r"];
     [textView typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
@@ -850,13 +857,8 @@
     NSURL *url = [testBundle URLForResource:@"Transparent command script"
                               withExtension:@"txt"
                                subdirectory:nil];
-    NSError *error = nil;
+    NSString *commandScript = [UITests stringAtURL:url];
 
-    NSString *commandScript = [[NSString alloc] initWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-    
     NSArray<NSString *> *commandArray = [commandScript componentsSeparatedByString:@"\n"];
     for (NSString *command in commandArray) {
         NSLog(@"Command: %@", command);
@@ -870,18 +872,7 @@
         [gamesTable typeKey:@"p" modifierFlags:XCUIKeyModifierCommand];
     }
 
-    error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of Transparent.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    NSString *facit = [self comparisonTranscriptFor:@"Transparent"];
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of Transparent.txt" equalsFacitFor:@"Transparent"];
 }
 
 - (void)testTADS3 {
@@ -899,16 +890,12 @@
     [self playGame:@"Elysium.t3"];
 
     XCUIElement *gameWindow = app.windows[@"The Elysium Enigma"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Zoom"];
 
     // Wait for initial text to show
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'The Elysium Enigma by Eric Eve; version 2.03 (2007-03-05)'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'The Elysium Enigma by Eric Eve; version 2.03 (2007-03-05)'" timeout:5]);
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeText:@"script\r"];
@@ -917,24 +904,11 @@
 
     [self openCommandScript:@"The Elysium Enigma"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"The Elysium Enigma"];
-
     XCUIElement *textView2 = [gameWindow.textViews elementBoundByIndex:1];
 
-    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '30/422'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS '30/422'" timeout:80]);
 
-    NSError *error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of The Elysium Enigma.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of The Elysium Enigma.txt" equalsFacitFor:@"The Elysium Enigma"];
 }
 
 - (void)testTADS2 {
@@ -943,8 +917,7 @@
     [self playGame:@"tildeath.gam"];
 
     XCUIElement *gameWindow = app.windows[@"tildeath.gam"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
 
@@ -955,22 +928,9 @@
 
     [self openCommandScript:@"Till Death Makes a Monk-Fish out of Me"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Till Death Makes a Monk-Fish out of Me"];
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value ENDSWITH 'Please enter RESTORE, RESTART, QUIT, UNDO or AMUSING:  >'" timeout:80]);
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Please enter RESTORE, RESTART, QUIT, UNDO or AMUSING:  >'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tildeath.gam.txt" isDirectory:NO];
-
-    NSError *error = nil;
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of tildeath.gam.txt" equalsFacitFor:@"Till Death Makes a Monk-Fish out of Me"];
 }
 
 - (void)testAlan2 {
@@ -991,9 +951,7 @@
 
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '140 moves'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS '140 moves'" timeout:80]);
 
     NSString *transcript = [UITests transcriptFromFile:@"bugged.txt"];
 
@@ -1017,9 +975,7 @@
 
     XCUIElement *textView = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '175 moves'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS '175 moves'" timeout:80]);
 
     NSString *transcript = [UITests transcriptFromFile:@"00 Wyldkynd Project.txt"];
 
@@ -1038,16 +994,11 @@
     XCUIElement *staticText = [gameWindow.staticTexts elementBoundByIndex:0];
 
     // Wait for initial text to show
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'One of these four'"];
-
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:staticText];
-
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:staticText matching:@"value CONTAINS 'One of these four'" timeout:5]);
 
     [gameWindow typeKey:@" " modifierFlags:XCUIKeyModifierNone];
 
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:1];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:1];
 
     [textView typeText:@"script\r"];
 
@@ -1055,24 +1006,11 @@
 
     [self openCommandScript:@"Guilty Bastards"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Guilty Bastards"];
-
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '2:10 p.m.'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS '2:10 p.m.'" timeout:80]);
 
-    NSError *error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of Guilty Bastards.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of Guilty Bastards.txt" equalsFacitFor:@"Guilty Bastards"];
 }
 
 - (void)testAdvSys {
@@ -1081,8 +1019,7 @@
     [self playGame:@"onehand.dat"];
 
     XCUIElement *gameWindow = app.windows[@"onehand.dat"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"DOSBox"];
 
@@ -1091,9 +1028,7 @@
 
     NSString *facit = [self comparisonTranscriptFor:@"The Sound of One Hand Clapping"];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Do you want to try again? '"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value ENDSWITH 'Do you want to try again? '" timeout:80]);
 
     NSString *transcript = [UITests transcriptFromFile:@"onehand.txt"];
 
@@ -1108,62 +1043,41 @@
     XCUIElement *gameWindow = app.windows[@"Shades of Gray"];
     if (!gameWindow.exists)
         gameWindow = app.windows[@"AGT-03201-0000E16C.agx"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
     [textView click];
 
     // Wait for initial text to show
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'or <other> to start the game'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value ENDSWITH 'or <other> to start the game'" timeout:5]);
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
-    predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You wake painfully,'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value BEGINSWITH 'You wake painfully,'" timeout:5]);
 
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
     [textView typeKey:XCUIKeyboardKeyDownArrow modifierFlags:XCUIKeyModifierCommand];
 
-    predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH 'You are running through a dark and dreadful wood.'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:5], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value BEGINSWITH 'You are running through a dark and dreadful wood.'" timeout:5]);
     [textView typeText:@"glk script on\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
 
     [self openCommandScript:@"Shades of Gray"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Shades of Gray"];
-
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Moves: 654'"];
-    expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS 'Moves: 654'" timeout:80]);
 
     [textView typeText:@"glk script off\r"];
 
-    NSError *error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of AGT-03201-0000E16C.agx.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of AGT-03201-0000E16C.agx.txt" equalsFacitFor:@"Shades of Gray"];
 }
 
 - (void)testLevel9 {
@@ -1172,8 +1086,7 @@
     [self playGame:@"Q.L9"];
 
     XCUIElement *gameWindow = app.windows[@"Q.L9"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
     XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
@@ -1184,24 +1097,11 @@
 
     [self openCommandScript:@"Level 9"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Level 9"];
-
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value ENDSWITH 'Which do you want to do, RESTART or RESTORE? '"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value ENDSWITH 'Which do you want to do, RESTART or RESTORE? '" timeout:80]);
 
     [textView typeText:@"glk script off\r"];
 
-    NSError *error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of Q.l9.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of Q.l9.txt" equalsFacitFor:@"Level 9"];
 }
 
 - (void)testMagnetic {
@@ -1210,8 +1110,7 @@
     [self playGame:@"mag.mag"];
 
     XCUIElement *gameWindow = app.windows[@"mag.mag"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
     XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
@@ -1222,26 +1121,13 @@
 
     [self openCommandScript:@"Magnetic"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Magnetic"];
-
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS '350/344'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
-
-    NSError *error = nil;
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS '350/344'" timeout:80]);
 
     [textView typeText:@"glk script off\r"];
 
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of mag.mag.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of mag.mag.txt" equalsFacitFor:@"Magnetic"];
 }
 
 - (void)testAdrift {
@@ -1250,8 +1136,7 @@
     [self playGame:@"Hamper.taf"];
 
     XCUIElement *gameWindow = app.windows[@"To Hell in a Hamper"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
 
@@ -1267,13 +1152,9 @@
 
     [self openCommandScript:@"To Hell in a Hamper"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"To Hell in a Hamper"];
-
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'ALTITUDE - 37,000 FEET'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS 'ALTITUDE - 37,000 FEET'" timeout:80]);
 
     [textView click];
 
@@ -1288,16 +1169,7 @@
     [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
     [textView typeText:@"glk script off\r"];
 
-    NSError *error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of Hamper.taf.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of Hamper.taf.txt" equalsFacitFor:@"To Hell in a Hamper"];
 }
 
 - (void)testAdriftPKGirl {
@@ -1306,8 +1178,7 @@
     [self playGame:@"the_pk_girl.taf"];
 
     XCUIElement *gameWindow = app.windows[@"The PK Girl"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
 
@@ -1318,9 +1189,7 @@
     // for the large game to finish loading, then submit a dummy line (a lone
     // space, which the game discards) to advance to the game proper before
     // turning the transcript on.
-    NSPredicate *loaded = [NSPredicate predicateWithFormat:@"value CONTAINS 'Press Enter to begin'"];
-    XCTNSPredicateExpectation *loadedExpectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:loaded object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[loadedExpectation] timeout:30], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'Press Enter to begin'" timeout:30]);
 
     [textView typeText:@" \r"];
     [textView typeText:@" glk script on\r"];
@@ -1329,28 +1198,15 @@
 
     [self openCommandScript:@"The PK Girl"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"The PK Girl"];
-
     // The command script plays through the Chapter 1 kidnapping and into
     // Chapter 3, ending at the "Front of Monika's House" room. Waiting for that
     // (distinctive, end-only) room name tells us the whole script has finished.
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'Front of Monika'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:180], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'Front of Monika'" timeout:180]);
 
     [textView click];
     [textView typeText:@"glk script off\r"];
 
-    NSError *error = nil;
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of The PK Girl.txt" isDirectory:NO];
-
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of The PK Girl.txt" equalsFacitFor:@"The PK Girl"];
 }
 
 - (void)testCzech {
@@ -1374,25 +1230,8 @@
     [app typeKey:@"w" modifierFlags:XCUIKeyModifierCommand];
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
-    NSURL *url = [testBundle URLForResource:@"Transcript of CZECH"
-                              withExtension:@"rtf"
-                               subdirectory:nil];
-
-    NSError *error = nil;
-    NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-
     NSURL *transcriptURL = [UITests transcriptWithFormat:@"Rich Text Format"];
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"czech.z5 (finished).rtf" isDirectory:NO];
-
-    error = nil;
-    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:transcriptURL options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([comparison isEqual:facit]);
+    [self assertRTFTranscriptIn:transcriptURL named:@"czech.z5 (finished).rtf" equalsFacitFor:@"Transcript of CZECH"];
 }
 
 - (void)testPraxix {
@@ -1404,38 +1243,20 @@
     [app typeKey:@"r" modifierFlags:XCUIKeyModifierCommand | XCUIKeyModifierOption];
 
     XCUIElement *gameWindow = app.windows[@"praxix.z5"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
     XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
     [textView typeText:@"all\n"];
 
-    NSURL *url;
+    NSString *facitName;
 
     if (@available(macOS 12.0, *)) {
-        url = [testBundle URLForResource:@"Transcript of Praxix"
-                           withExtension:@"rtf"
-                            subdirectory:nil];
+        facitName = @"Transcript of Praxix";
     } else {
-        url = [testBundle URLForResource:@"Transcript of Praxix old"
-                           withExtension:@"rtf"
-                            subdirectory:nil];
+        facitName = @"Transcript of Praxix old";
     }
 
-    NSError *error = nil;
-    NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-
     NSURL *transcriptURL = [UITests transcriptWithFormat:@"Rich Text Format"];
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"praxix.rtf" isDirectory:NO];
-
-    error = nil;
-    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:transcriptURL options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([comparison isEqual:facit]);
+    [self assertRTFTranscriptIn:transcriptURL named:@"praxix.rtf" equalsFacitFor:facitName];
 }
 
 - (void)testTerpEtude {
@@ -1456,33 +1277,16 @@
     [gameWindow click];
     [self openCommandScript:@"TerpEtude"];
 
-    NSURL *url;
+    NSString *facitName;
 
     if (@available(macOS 12.0, *)) {
-        url = [testBundle URLForResource:@"Transcript of TerpEtude"
-                           withExtension:@"rtf"
-                            subdirectory:nil];
+        facitName = @"Transcript of TerpEtude";
     } else {
-        url = [testBundle URLForResource:@"Transcript of TerpEtude old"
-                           withExtension:@"rtf"
-                            subdirectory:nil];
+        facitName = @"Transcript of TerpEtude old";
     }
 
-    NSError *error = nil;
-    NSAttributedString *facit = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-
     NSURL *transcriptURL = [UITests transcriptWithFormat:@"Rich Text Format"];
-
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"etude.rtf" isDirectory:NO];
-
-    error = nil;
-    NSAttributedString *comparison = [[NSAttributedString alloc] initWithURL:transcriptURL options:@{NSDocumentTypeDocumentAttribute:NSRTFTextDocumentType} documentAttributes:nil error:&error];
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([comparison isEqual:facit]);
+    [self assertRTFTranscriptIn:transcriptURL named:@"etude.rtf" equalsFacitFor:facitName];
 }
 
 - (void)testJacl {
@@ -1491,8 +1295,7 @@
     [self playGame:@"grail.j2"];
 
     XCUIElement *gameWindow = app.windows[@"grail.j2"];
-    XCUIElement *scrollView = [gameWindow.scrollViews elementBoundByIndex:0];
-    XCUIElement *textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
+    XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
 
@@ -1504,24 +1307,12 @@
 
     [self openCommandScript:@"Unholy Grail"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"Unholy Grail"];
-
     gameWindow = app.windows[@"grail.j2 (finished)"];
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value BEGINSWITH ' Game Over '"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView2];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:80], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value BEGINSWITH ' Game Over '" timeout:80]);
 
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of grail.j2.txt" isDirectory:NO];
-
-    NSError *error = nil;
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of grail.j2.txt" equalsFacitFor:@"Unholy Grail"];
 }
 
 - (void)testScott {
@@ -1541,23 +1332,11 @@
 
     [self openCommandScript:@"ScottFree"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"adv01"];
-
     gameWindow = app.windows[@"adv01.dat (finished)"];
     textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'transcript off'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:25], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'transcript off'" timeout:25]);
 
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of adv01.dat.txt" isDirectory:NO];
-
-    NSError *error = nil;
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of adv01.dat.txt" equalsFacitFor:@"adv01"];
 }
 
 - (void)testTaylor {
@@ -1579,23 +1358,11 @@
 
     [self openCommandScript:@"TaylorMade"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"tot"];
-
     gameWindow = app.windows[@"tot.tay"];
     textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:25], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'TRANSCRIPT OFF'" timeout:25]);
 
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of tot.tay.txt" isDirectory:NO];
-
-    NSError *error = nil;
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of tot.tay.txt" equalsFacitFor:@"tot"];
 }
 
 - (void)testPlus {
@@ -1616,23 +1383,11 @@
     [textView click];
     [self openCommandScript:@"Plus"];
 
-    NSString *facit = [self comparisonTranscriptFor:@"SPL13P"];
-
     gameWindow = app.windows[@"SPL13P.plus"];
     textView = [scrollView childrenMatchingType:XCUIElementTypeTextView].element;
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"value CONTAINS 'TRANSCRIPT OFF'"];
-    XCTNSPredicateExpectation *expectation = [[XCTNSPredicateExpectation alloc] initWithPredicate:predicate object:textView];
-    XCTAssertEqual([XCTWaiter waitForExpectations:@[expectation] timeout:25], XCTWaiterResultCompleted);
+    XCTAssertTrue([UITests waitForElement:textView matching:@"value CONTAINS 'TRANSCRIPT OFF'" timeout:25]);
 
-    transcriptURL = [transcriptURL URLByAppendingPathComponent:@"Transcript of SPL13P.plus.txt" isDirectory:NO];
-
-    NSError *error = nil;
-    NSString *transcript = [NSString stringWithContentsOfURL:transcriptURL encoding:NSUTF8StringEncoding error:&error];
-
-    if (error)
-        NSLog(@"Error: %@", error);
-
-    XCTAssert([transcript isEqualToString:facit]);
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of SPL13P.plus.txt" equalsFacitFor:@"SPL13P"];
 }
 
 

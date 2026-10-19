@@ -11,8 +11,10 @@
 #import "TableViewController+LibraryManagement.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
+#import "Fetches.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation Preferences (Themes)
 
@@ -68,57 +70,29 @@
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:kColorModeChangedNotification object:nil]];
 }
 
+// The first theme with the boolean attribute flag set, which is then marked
+// hardLightOrDark. Clears flag on any other theme, as only one may have it.
+- (nullable Theme *)onlyThemeWithFlag:(NSString *)flag {
+    NSString *predicate = [flag stringByAppendingString:@" == YES"];
+    NSArray<Theme *> *fetchedObjects = [Fetches fetchObjects:@"Theme" predicate:predicate inContext:_managedObjectContext];
+    Theme *theme = fetchedObjects.firstObject;
+    for (Theme *wrong in fetchedObjects) {
+        if (wrong != theme)
+            [wrong setValue:@NO forKey:flag];
+    }
+    theme.hardLightOrDark = YES;
+    return theme;
+}
+
 - (void)findDarkAndLightThemes {
     _darkTheme = nil;
     _lightTheme = nil;
     _lightOverrideActive = NO;
     _darkOverrideActive = NO;
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardDark == YES"];
-    NSError *error = nil;
-    NSArray *fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    _darkTheme = [self onlyThemeWithFlag:@"hardDark"];
+    _lightTheme = [self onlyThemeWithFlag:@"hardLight"];
 
-    if (fetchedObjects && fetchedObjects.count) {
-        _darkTheme = fetchedObjects[0];
-        _darkTheme.hardLightOrDark = YES;
-        if (fetchedObjects.count > 1) {
-            for (Theme *wrong in fetchedObjects) {
-                if (wrong != _darkTheme)
-                    wrong.hardDark = NO;
-            }
-        }
-    } else {
-        if (error != nil) {
-            NSLog(@"NO darkTheme: %@", error);
-        }
-        _darkTheme = nil;
-    }
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLight == YES"];
-    error = nil;
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        _lightTheme = fetchedObjects[0];
-        _lightTheme.hardLightOrDark = YES;
-        if (fetchedObjects.count > 1) {
-            for (Theme *wrong in fetchedObjects) {
-                if (wrong != _lightTheme) {
-                    wrong.hardLight = NO;
-                }
-            }
-
-        }
-    } else {
-        if (error != nil) {
-            NSLog(@"NO lightTheme: %@", error);
-        }
-        _lightTheme = nil;
-    }
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hardLightOrDark == YES"];
-    error = nil;
-    fetchedObjects = [_managedObjectContext executeFetchRequest:fetchRequest error:&error];
+    NSArray<Theme *> *fetchedObjects = [Fetches fetchObjects:@"Theme" predicate:@"hardLightOrDark == YES" inContext:_managedObjectContext];
     for (Theme *wrong in fetchedObjects) {
         if (!wrong.hardDark && !wrong.hardLight)
             wrong.hardLightOrDark = NO;
@@ -285,12 +259,8 @@
 
         if (!_lightOverrideActive && !_darkOverrideActive) {
             if (_oneThemeForAll) {
-                NSFetchRequest *fetchRequest = [Game fetchRequest];
-                NSArray *fetchedObjects;
-                NSError *error;
-                fetchRequest.includesPropertyValues = NO;
-                fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-                [self.theme addGames:[NSSet setWithArray:fetchedObjects]];
+                NSArray *games = [Fetches fetchAllGamesAsFaultsInContext:self.managedObjectContext];
+                [self.theme addGames:[NSSet setWithArray:games]];
             } else if (_currentGame) {
                 _currentGame.theme = self.theme;
             }
@@ -337,12 +307,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)showDuplicateThemeNameAlert:(NSText *)fieldEditor theme:(Theme *)renamed {
-    NSAlert *anAlert = [[NSAlert alloc] init];
-    anAlert.messageText =
-    [NSString stringWithFormat:NSLocalizedString(@"The theme name \"%@\" is already in use.", nil), fieldEditor.string];
-    anAlert.informativeText = NSLocalizedString(@"Please enter another name.", nil);
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Discard Change", nil)];
+    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The theme name \"%@\" is already in use.", nil), fieldEditor.string]
+                                            info:NSLocalizedString(@"Please enter another name.", nil)
+                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Discard Change", nil)]];
 
     [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
         if (result == NSAlertSecondButtonReturn) {
@@ -412,25 +379,15 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)showUseForAllAlert:(NSArray *)games {
-    NSAlert *anAlert = [[NSAlert alloc] init];
-    anAlert.messageText =
-    [NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOfGames:games], (games.count == 1) ? @"has" : @"have"];
-    anAlert.informativeText = [NSString stringWithFormat:@"Would you like to use theme %@ for all games?", self.theme.name];
-    anAlert.showsSuppressionButton = YES;
-    anAlert.suppressionButton.title = NSLocalizedString(@"Do not show again.", nil);
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOfGames:games], (games.count == 1) ? @"has" : @"have"]
+                                            info:[NSString stringWithFormat:@"Would you like to use theme %@ for all games?", self.theme.name]
+                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
+    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", nil)];
 
     Preferences * __weak weakSelf = self;
-    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result){
-
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *alertSuppressionKey = @"UseForAllAlertSuppression";
-
-        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-            // Suppress this alert from now on
-            [defaults setBool:YES forKey:alertSuppressionKey];
-        }
+    [anAlert beginSheetModalForWindow:self.window
+                   suppressingWithKey:@"UseForAllAlertSuppression"
+                    completionHandler:^(NSInteger result) {
         if (result == NSAlertFirstButtonReturn) {
             weakSelf.oneThemeForAll = YES;
         } else {
@@ -531,15 +488,9 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)deleteUserThemes:(id)sender {
     ThemeArrayController *arrayController = _arrayController;
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    NSArray *fetchedObjects;
-    NSError *error;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable == YES"];
-    fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects == nil || fetchedObjects.count == 0) {
+    NSArray<Theme *> *fetchedObjects = [Fetches fetchUserThemesInContext:self.managedObjectContext];
+    if (fetchedObjects.count == 0)
         return;
-    }
 
     // The current theme may be one of the deleted ones. Pick a built-in theme
     // to take its place before deleting: a deleted theme loses its context,

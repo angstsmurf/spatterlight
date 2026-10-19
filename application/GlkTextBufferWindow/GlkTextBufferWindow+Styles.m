@@ -81,12 +81,18 @@
 // (NSNull where the theme has none). When doStyles is on, game-provided style
 // hints are applied on top of the theme defaults; otherwise, raw theme
 // attributes are used directly.
+- (GlkStyle *)themeStyle:(NSUInteger)style {
+    return [self.theme valueForKey:gBufferStyleNames[style]];
+}
+
+- (int32_t)themeLinkStyle {
+    return self.theme.bufLinkStyle;
+}
+
 - (NSMutableArray *)buildStyles {
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
-        GlkStyle *style = [self.theme valueForKey:gBufferStyleNames[i]];
-        NSDictionary *attributes = self.theme.doStyles ?
-            [style attributesWithHints:self.styleHints[i]] : style.attributeDict;
+        NSDictionary *attributes = [self themeAttributesForStyle:i];
         if (attributes) {
             [newstyles addObject:[self styleAttributesWithLanguage:attributes]];
         } else {
@@ -111,17 +117,7 @@
     }
 
     // Preferences has changed, so first we must redo the styles library
-    BOOL different = NO;
-    if (usingStyles != self.theme.doStyles) {
-        different = YES;
-        usingStyles = self.theme.doStyles;
-    }
-
-    BOOL newUnderlineLinks = (self.theme.bufLinkStyle != NSUnderlineStyleNone);
-    if (underlineLinks != newUnderlineLinks) {
-        different = YES;
-        underlineLinks = newUnderlineLinks;
-    }
+    BOOL different = [self syncStyleFlagsWithTheme];
 
     NSMutableArray *newstyles = [self buildStyles];
     if (!different && ![newstyles isEqualToArray:styles])
@@ -238,11 +234,7 @@
 
     if (self.glkctl.isAlive) {
         if (different) {
-            // Set style for hyperlinks
-            NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-            linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.bufLinkStyle);
-            linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-            _textview.linkTextAttributes = linkAttributes;
+            [self updateLinkTextAttributesOf:_textview];
 
             [self showInsertionPoint];
             lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;

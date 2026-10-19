@@ -15,9 +15,12 @@
 #import "CommandScriptHandler.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 extern NSArray *gDocFileTypes;
 extern NSArray *gSaveFileTypes;
+
+NSNotificationName const GlkCommandScriptDidCompleteNotification = @"GlkCommandScriptDidComplete";
 
 @implementation CommandScriptHandler
 
@@ -53,21 +56,11 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
         return YES;
     }
 
-    NSAlert *anAlert = [[NSAlert alloc] init];
-    anAlert.messageText = message;
-    anAlert.informativeText = informativeText;
-    anAlert.showsSuppressionButton = YES; // Uses default checkbox title
-
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-    NSInteger choice = [anAlert runModal];
-
-    if (anAlert.suppressionButton.state == NSOnState) {
-        // Suppress this alert from now on
-        [defaults setBool:YES forKey:suppressionKey];
-    }
-    return choice != NSAlertSecondButtonReturn;
+    NSAlert *anAlert = [NSAlert alertWithMessage:message
+                                            info:informativeText
+                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
+    [anAlert showSuppressionButtonWithTitle:nil];
+    return [anAlert runModalSuppressingWithKey:suppressionKey] != NSAlertSecondButtonReturn;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {
@@ -123,7 +116,7 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
             _glkctl.commandScriptRunning = NO;
 
             // Post notification that command script has completed
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"GlkCommandScriptDidComplete"
+            [[NSNotificationCenter defaultCenter] postNotificationName:GlkCommandScriptDidCompleteNotification
                                                                 object:self
                                                               userInfo:nil];
         }

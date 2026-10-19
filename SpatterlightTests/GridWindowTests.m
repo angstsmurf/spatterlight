@@ -13,8 +13,7 @@
 //  interpreter like the one in QuoteBoxTests.
 //
 
-#import <XCTest/XCTest.h>
-#import <CoreData/CoreData.h>
+#import "GlkControllerTestCase.h"
 
 #import "GlkController.h"
 #import "GlkController_Private.h"
@@ -27,7 +26,6 @@
 #import "Theme.h"
 #import "Game.h"
 #import "BuiltInThemes.h"
-#import "CoreDataManager.h"
 
 #include "glk.h"
 #include "protocol.h"
@@ -36,106 +34,17 @@
 static const int kGrid = 0;
 static const unichar kNBSP = 0xa0;
 
-@interface GridWindowTests : XCTestCase
-
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) Theme *theme;
-@property (nonatomic, strong) Game *game;
-// GlkWindow.glkctl and GlkController.game are weak, so the test owns these.
-@property (nonatomic, strong) NSMutableArray<GlkController *> *controllers;
-
+@interface GridWindowTests : GlkControllerTestCase
 @end
 
 @implementation GridWindowTests
 
 - (void)setUp {
     [super setUp];
-
-    // Always an in-memory store: createDefaultThemeInContext with
-    // forceRebuild would rewrite the real library's Default theme.
-    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
-
-    self.theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
-    XCTAssertNotNil(self.theme);
-
-    self.game = [NSEntityDescription insertNewObjectForEntityForName:@"Game"
-                                              inManagedObjectContext:self.context];
-    self.game.ifid = @"ZCODE-1-261019-0000";
-    self.game.theme = self.theme;
-
-    self.controllers = [NSMutableArray array];
-}
-
-- (void)tearDown {
-    for (GlkController *ctl in self.controllers) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:ctl];
-        for (GlkWindow *win in ctl.gwindows.allValues)
-            [NSObject cancelPreviousPerformRequestsWithTarget:win];
-    }
-    self.controllers = nil;
-    self.game = nil;
-    self.theme = nil;
-    self.context = nil;
-    [super tearDown];
+    [self makeGameWithIfid:@"ZCODE-1-261019-0000" theme:self.theme];
 }
 
 #pragma mark - A grid without an interpreter
-
-// A GlkController wired the way runTerp wires one, minus the interpreter
-// process. It gets a window (never shown) because setFrame: will not lay out
-// a grid without a screen to measure it against.
-- (GlkController *)makeController {
-    GlkController *ctl = [[GlkController alloc] init];
-    ctl.theme = self.theme;
-    [ctl setValue:self.game forKey:@"game"];
-
-    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
-    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
-        [nullarray addObject:[NSNull null]];
-
-    ctl.gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    ctl.bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
-        [ctl.gridStyleHints addObject:[nullarray mutableCopy]];
-        [ctl.bufferStyleHints addObject:[nullarray mutableCopy]];
-    }
-
-    ctl.gwindows = [NSMutableDictionary dictionary];
-    ctl.windowsToBeAdded = [NSMutableArray array];
-    ctl.windowsToBeRemoved = [NSMutableArray array];
-    ctl.queue = [NSMutableArray array];
-    ctl->sendfh = [NSFileHandle fileHandleWithNullDevice];
-
-    ctl.window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 800, 600)
-                                             styleMask:NSWindowStyleMaskTitled
-                                               backing:NSBackingStoreBuffered
-                                                 defer:YES];
-    XCTAssertNotNil(ctl.window.screen, @"the test needs a screen to lay out text grids");
-    ctl.gameView = [[GlkHelperView alloc] initWithFrame:ctl.window.contentView.bounds];
-    [ctl.window.contentView addSubview:ctl.gameView];
-
-    [self.controllers addObject:ctl];
-    return ctl;
-}
-
-- (int)send:(int)cmd to:(GlkController *)ctl a1:(int)a1 a2:(int)a2 a3:(int)a3 {
-    struct message request = { .cmd = cmd, .a1 = a1, .a2 = a2, .a3 = a3 };
-    struct message reply = { 0 };
-    unichar buffer[1] = { 0 };
-    [ctl handleRequest:&request reply:&reply buffer:(char *)buffer];
-    return reply.a1;
-}
 
 // The frame SIZWIN would give a grid of this many cells.
 - (NSRect)frameForColumns:(NSUInteger)columns rows:(NSUInteger)rows {

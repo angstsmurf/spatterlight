@@ -16,6 +16,7 @@
 #import "Constants.h"
 
 #import "MissingFilesFinder.h"
+#import "NSAlert+Spatterlight.h"
 
 
 extern NSArray *gGameFileTypes;
@@ -240,12 +241,10 @@ extern NSArray *gGameFileTypes;
         NSArray *matchedIfids = filenames.allValues;
 
         if (filenames.count > 0) {
-            NSAlert *alert = [[NSAlert alloc] init];
+            NSAlert *alert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids], (matchedIfids.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)]
+                                                  info:[NSString stringWithFormat:NSLocalizedString(@"Do you want to update %@ as well?", nil), (matchedIfids.count > 1) ? @"them" : @"it"]
+                                               buttons:@[NSLocalizedString(@"Yes", nil), NSLocalizedString(@"Cancel", nil)]];
             alert.alertStyle = NSAlertStyleInformational;
-            alert.messageText = [NSString stringWithFormat:NSLocalizedString(@"%@ %@ also in this folder.", nil), [NSString stringWithSummaryOfGames:matchedIfids], (matchedIfids.count > 1) ? NSLocalizedString(@"are", nil) : NSLocalizedString(@"is", nil)];
-            alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Do you want to update %@ as well?", nil), (matchedIfids.count > 1) ? @"them" : @"it"];
-            [alert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
-            [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
             NSModalResponse choice = [alert runModal];
             if (choice == NSAlertFirstButtonReturn) {

@@ -332,20 +332,8 @@
 
     font = [NSFont fontWithDescriptor:descriptor size:(title.length > 9) ? 30 : 50];
 
-    NSString *longestWord = @"";
-
-    for (NSString *word in [title componentsSeparatedByString:@" "])
-    {
-        if (word.length > longestWord.length) longestWord = word;
-    }
-
     // The caller's magic number -24 means 10 points of margin and two points of textfield border on each side.
-    if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:font }].width > maxWidth)
-    {
-        font = [font fontToFitWidth:maxWidth sampleText:longestWord];
-    }
-
-    return font;
+    return [font fontFittingLongestWordOf:title inWidth:maxWidth];
 }
 
 // Hoefler Text in small caps

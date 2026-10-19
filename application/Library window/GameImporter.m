@@ -757,10 +757,9 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
     if ([imgExtension isEqualToString:@"neo"])
         return [NSData imageDataFromNeoURL:url];
 
-    NSData *imageData = [NSData dataWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:NULL];
     if ([imgExtension isEqualToString:@"blb"] || [imgExtension isEqualToString:@"blorb"])
-        return [[Blorb alloc] initWithData:imageData].coverImageData;
-    return imageData;
+        return [Blorb coverImageDataAtURL:url];
+    return [NSData dataWithContentsOfURL:url options:NSDataReadingMappedIfSafe error:NULL];
 }
 
 - (void)lookForImagesForGame:(Game *)game {

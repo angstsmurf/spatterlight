@@ -21,7 +21,12 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context;
 + (nullable NSArray<Game *> *)fetchGamesForIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
 + (nullable NSSet<Metadata *> *)fetchMetadataForIfid:(NSString *)ifid inContext:(NSManagedObjectContext *)context;
+//! Case-insensitive exact match (no wildcards).
 + (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context;
+//! Every Game as a fault (no property values loaded), for setting relationships.
++ (NSArray<Game *> *)fetchAllGamesAsFaultsInContext:(NSManagedObjectContext *)context;
+//! The themes the user made (editable == YES).
++ (NSArray<Theme *> *)fetchUserThemesInContext:(NSManagedObjectContext *)context;
 
 @end
 

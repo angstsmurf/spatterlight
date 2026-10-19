@@ -14,6 +14,7 @@
 #import "Image.h"
 #import "Metadata.h"
 #import "NSString+Categories.h"
+#import "ReadOnlyStore.h"
 
 @implementation ThumbnailProvider
 
@@ -26,17 +27,9 @@
     if (self != [ThumbnailProvider class])
         return;
 
-    NSArray<NSArray *> *requiredCategoryMethods = @[
+    [ReadOnlyStore checkCategoryMethods:@[
         @[NSString.class, @"signatureFromFile", @"NSString+Categories.m"]
-    ];
-
-    for (NSArray *entry in requiredCategoryMethods) {
-        Class cls = entry[0];
-        if (![cls instancesRespondToSelector:NSSelectorFromString(entry[1])]) {
-            NSLog(@"Thumbnailer: -[%@ %@] is missing. Is %@ in the SpatterlightThumbnailer target?", cls, entry[1], entry[2]);
-            NSAssert(NO, @"-[%@ %@] is missing. Add %@ to the SpatterlightThumbnailer target.", cls, entry[1], entry[2]);
-        }
-    }
+    ] target:@"SpatterlightThumbnailer"];
 }
 
 #pragma mark - Core Data stack
@@ -46,29 +39,7 @@
 - (NSPersistentContainer *)persistentContainer {
     @synchronized (self) {
         if (_persistentContainer == nil) {
-            _persistentContainer = [[NSPersistentContainer alloc] initWithName:@"Spatterlight"];
-
-            NSString *groupIdentifier =
-            [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
-
-            NSURL *url = [[NSFileManager defaultManager] containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
-
-            url = [url URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
-
-            NSPersistentStoreDescription *description = [[NSPersistentStoreDescription alloc] initWithURL:url];
-
-            description.readOnly = YES;
-            description.shouldMigrateStoreAutomatically = NO;
-
-            _persistentContainer.persistentStoreDescriptions = @[ description ];
-
-            NSLog(@"persistentContainer url path:%@", url.path);
-
-            [_persistentContainer loadPersistentStoresWithCompletionHandler:^(NSPersistentStoreDescription *aDescription, NSError *error) {
-                if (error != nil) {
-                    NSLog(@"SpatterlightThumbnailer: Failed to load Core Data stack: %@", error);
-                }
-            }];
+            _persistentContainer = [ReadOnlyStore persistentContainerWithLogName:@"SpatterlightThumbnailer"];
         }
     }
     return _persistentContainer;
@@ -86,19 +57,9 @@
     NSError *error;
 
     // Blorb parsing doesn't touch Core Data, so keep it outside the
-    // context's perform block. A malformed file should only mean no
-    // embedded cover, so fall back to the database lookup on exceptions.
-    @try {
-        if ([Blorb isBlorbURL:url]) {
-            NSData *blorbData = [NSData dataWithContentsOfURL:url];
-            Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
-            if (blorb)
-                imgdata = [blorb coverImageData];
-        }
-    } @catch (NSException *exception) {
-        NSLog(@"SpatterlightThumbnailer: Exception parsing Blorb file %@: %@", url.path, exception);
-        imgdata = nil;
-    }
+    // context's perform block. A malformed file only means no embedded
+    // cover, and we fall back to the database lookup.
+    imgdata = [Blorb coverImageDataAtURL:url];
 
     NSManagedObjectContext *context = self.persistentContainer.newBackgroundContext;
 
@@ -114,31 +75,12 @@
 
         if (!imgdata) {
 
-            NSArray *fetchedObjects;
-
-            NSFetchRequest *fetchRequest = [Game fetchRequest];
-            fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path like[c] %@", url.path];
-
-            fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
-            if (fetchedObjects == nil) {
-                NSLog(@"ThumbnailProvider: %@",blockerror);
+            Game *game = [ReadOnlyStore gameForURL:url inContext:context hashTag:NULL error:&blockerror];
+            if (blockerror) {
                 handler(nil, blockerror);
                 return;
             }
-
-            if (!fetchedObjects.count) {
-                NSString *hashTag = url.path.signatureFromFile;
-                if (hashTag.length) {
-                    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag like[c] %@", hashTag];
-                    fetchedObjects = [context executeFetchRequest:fetchRequest error:&blockerror];
-                }
-            }
-
-            if (fetchedObjects.count) {
-                Game *game = fetchedObjects[0];
-                if (!imgdata && game.metadata.cover.data)
-                    imgdata = (NSData *)game.metadata.cover.data;
-            }
+            imgdata = (NSData *)game.metadata.cover.data;
         }
 
         if (!imgdata || imgdata.length == 0) {

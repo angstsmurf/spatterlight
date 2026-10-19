@@ -21,8 +21,7 @@
 //  contract, in both directions of the doStyles switch.
 //
 
-#import <XCTest/XCTest.h>
-#import <CoreData/CoreData.h>
+#import "GlkControllerTestCase.h"
 
 #import "GlkController.h"
 #import "GlkWindow.h"
@@ -31,7 +30,6 @@
 #import "Theme.h"
 #import "GlkStyle.h"
 #import "BuiltInThemes.h"
-#import "CoreDataManager.h"
 #import "NSColor+integer.h"
 
 #include "glk.h"
@@ -45,64 +43,21 @@
                          result:(NSInteger *)result;
 @end
 
-@interface StyleMeasureTests : XCTestCase
-
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) Theme *theme;
-
+@interface StyleMeasureTests : GlkControllerTestCase
 @end
 
 @implementation StyleMeasureTests
 
 - (void)setUp {
     [super setUp];
-
-    // Always an in-memory store: createDefaultThemeInContext with
-    // forceRebuild would rewrite the real library's Default theme.
-    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
-
-    self.theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
-    XCTAssertNotNil(self.theme);
     self.theme.doStyles = YES;
-}
-
-- (void)tearDown {
-    self.theme = nil;
-    self.context = nil;
-    [super tearDown];
 }
 
 #pragma mark - Helpers
 
-// A GlkController wired the way runTerp wires one, minus the interpreter
-// process: theme set, and empty style_NUMSTYLES x stylehint_NUMHINTS hint
-// matrices for both window types.
+// The style hint matrices are all a style measure needs.
 - (GlkController *)makeController {
-    GlkController *ctl = [[GlkController alloc] init];
-    ctl.theme = self.theme;
-
-    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
-    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
-        [nullarray addObject:[NSNull null]];
-
-    ctl.gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    ctl.bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
-        [ctl.gridStyleHints addObject:[nullarray mutableCopy]];
-        [ctl.bufferStyleHints addObject:[nullarray mutableCopy]];
-    }
-    return ctl;
+    return [self makeBareControllerWithTheme:self.theme];
 }
 
 - (NSInteger)measureWindow:(GlkWindow *)win

@@ -7,18 +7,9 @@
 #import "BufferTextView.h"
 
 #import "DebugLog.h"
+#import "NSView+Categories.h"
 
 @implementation GlkTextBufferWindow (Hyperlinks)
-
-// Begin listening for hyperlink click events from the interpreter.
-- (void)initHyperlink {
-    hyper_request = YES;
-}
-
-// Stop listening for hyperlink click events.
-- (void)cancelHyperlink {
-    hyper_request = NO;
-}
 
 // A hyperlink was clicked somewhere in the game window. If our line prompt is
 // scrolled out of view, watch what the interpreter does with the click: a
@@ -60,9 +51,7 @@
     if (hyper_request) {
         [self.glkctl markLastSeen];
 
-        NSPoint p = [_textview convertPoint:theEvent.locationInWindow fromView:nil];
-        p.x -= _textview.textContainerInset.width;
-        p.y -= _textview.textContainerInset.height;
+        NSPoint p = [_textview containerPointForEvent:theEvent];
 
         NSUInteger linkid = [container findHyperlinkAt:p];
         if (linkid) {

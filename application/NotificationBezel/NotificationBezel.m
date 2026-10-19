@@ -8,6 +8,7 @@
 #import "NotificationBezel.h"
 #import "BezelWindow.h"
 #import "BezelContentView.h"
+#import "SPAccessibility.h"
 
 static const CGFloat kStandardBezelSize = 200;
 static const CGFloat kCoverBezelSize = 300;
@@ -171,14 +172,7 @@ static BOOL bezelOnScreen = NO;
 }
 
 - (void)speakString:(NSString *)string {
-    NSWindow *mainWin = NSApp.mainWindow;
-    if (!mainWin)
-        return;
-
-    NSAccessibilityPostNotificationWithUserInfo(mainWin,
-                                                NSAccessibilityAnnouncementRequestedNotification,
-                                                @{ NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
-                                                   NSAccessibilityAnnouncementKey: string });
+    SPAnnounce(string, NSAccessibilityPriorityHigh, nil);
 }
 
 @end

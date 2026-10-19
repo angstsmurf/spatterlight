@@ -16,6 +16,11 @@ typedef NS_ENUM(NSUInteger, kLastCommandType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+// Posted when a command script runs out of commands (object: the
+// CommandScriptHandler) or the interpreter stops (object: the GlkController).
+// The tests wait for it.
+extern NSNotificationName const GlkCommandScriptDidCompleteNotification;
+
 @interface CommandScriptHandler : NSObject
 
 @property (weak) GlkController *glkctl;

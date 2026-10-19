@@ -11,6 +11,7 @@
 #include "glkimp.h"
 
 #import "DebugLog.h"
+#import "NSView+Categories.h"
 
 // If s[i] is a prompt — a '>' at the start of a line — return the index
 // where the typed command begins: just past the '>' and an optional single
@@ -234,16 +235,6 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     lastSpokenString = @"";
 }
 
-// Cancel any pending Z-machine menu or form announcement timers, so they
-// don't talk over what we are about to speak.
-- (void)cancelPendingMenuAnnouncements {
-    GlkController *glkctl = self.glkctl;
-    if (glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
-    if (glkctl.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
-}
-
 // Speak the latest move text via VoiceOver. Cancels any pending Z-machine
 // menu or form timers first. Prepends quote box text if one is visible.
 // When called automatically by GlkController (sender == glkctl), deduplicates
@@ -256,13 +247,7 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     NSString *str = [self lastMoveString];
 
     if (glkctl.quoteBoxes.count) {
-        GlkTextGridWindow *box = glkctl.quoteBoxes.lastObject;
-
-        // A merged side-by-side box stores its text interleaved row by row (see
-        // mergeSideBySideQuoteBoxAtColumn:); use the de-interleaved columns so
-        // the two are read one after the other rather than alternating.
-        NSString *boxStr = box.quoteboxColumns.count ? box.deinterleavedQuoteboxString : box.textview.string;
-        str = [boxStr stringByAppendingString:str];
+        str = [glkctl.quoteBoxes.lastObject.speakableString stringByAppendingString:str];
         str = [@"QUOTE: \n\n" stringByAppendingString:str];
     }
 
@@ -288,41 +273,15 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     [glkctl speakString:str];
 }
 
-// Navigate backward through move history and speak the previous move.
-// Announces "At first move" when already at the beginning.
-- (void)speakPrevious {
-    if (!self.moveRanges.count)
-        return;
-    NSString *prefix = @"";
-    if (moveRangeIndex > 0) {
-        moveRangeIndex--;
-    } else {
-        prefix = @"At first move.\n";
-        moveRangeIndex = 0;
-    }
-    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakStringNow:str];
-}
-
-// Navigate forward through move history and speak the next move.
-// Announces "At last move" when already at the end.
+// Bring the move ranges up to date first: the last move may still be
+// growing.
 - (void)speakNext {
     [self setLastMove];
-    if (!self.moveRanges.count) {
-        return;
-    }
+    [super speakNext];
+}
 
-    NSString *prefix = @"";
-
-    if (moveRangeIndex < self.moveRanges.count - 1) {
-        moveRangeIndex++;
-    } else {
-        prefix = @"At last move.\n";
-        moveRangeIndex = self.moveRanges.count - 1;
-    }
-
-    NSString *str = [prefix stringByAppendingString:[self stringFromRangeVal:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakStringNow:str];
+- (NSString *)speakableStringForMoveRange:(NSValue *)range {
+    return [self stringFromRangeVal:range];
 }
 
 // Speak the entire text content of this buffer window. Used when the
@@ -370,7 +329,7 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 - (NSArray <NSValue *> *)links {
     NSRange allText = NSMakeRange(0, textstorage.length);
     if (self.moveRanges.count < 2)
-        return [self linksInRange:allText];
+        return [_textview linkRangesInRange:allText];
     NSMutableArray <NSValue *> *links = [[NSMutableArray alloc] init];
 
     // Make sure that no text after last moveRange slips through
@@ -378,34 +337,18 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     NSRange stubRange = NSMakeRange(NSMaxRange(lastMoveRange), textstorage.length);
     stubRange = NSIntersectionRange(allText, stubRange);
     if (stubRange.length) {
-        [links addObjectsFromArray:[self linksInRange:stubRange]];
+        [links addObjectsFromArray:[_textview linkRangesInRange:stubRange]];
     }
 
     for (NSValue *rangeVal in [self.moveRanges reverseObjectEnumerator])
     {
         // Print some info
-        [links addObjectsFromArray:[self linksInRange:rangeVal.rangeValue]];
+        [links addObjectsFromArray:[_textview linkRangesInRange:rangeVal.rangeValue]];
         if (links.count > 15)
             break;
     }
     if (links.count > 15)
         [links removeObjectsInRange:NSMakeRange(15, links.count - 15)];
-    return links;
-}
-
-// Find all NSLinkAttributeName ranges within the given text range.
-- (NSArray <NSValue *> *)linksInRange:(NSRange)range {
-    NSMutableArray <NSValue *> __block *links = [[NSMutableArray alloc] init];
-    [textstorage
-     enumerateAttribute:NSLinkAttributeName
-     inRange:range
-     options:0
-     usingBlock:^(id value, NSRange subrange, BOOL *stop) {
-        if (!value) {
-            return;
-        }
-        [links addObject:[NSValue valueWithRange:subrange]];
-    }];
     return links;
 }
 

@@ -49,9 +49,7 @@
 
         [self restoreScrollBarStyle];
 
-        line_request = [decoder decodeBoolForKey:@"line_request"];
         _textview.editable = NO;
-        hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
 
         echo_toggle_pending = [decoder decodeBoolForKey:@"echo_toggle_pending"];
         echo = [decoder decodeBoolForKey:@"echo"];
@@ -105,8 +103,6 @@
     [encoder encodeObject:_textview forKey:@"textview"];
     NSValue *rangeVal = [NSValue valueWithRange:_textview.selectedRange];
     [encoder encodeObject:rangeVal forKey:@"selectedRange"];
-    [encoder encodeBool:line_request forKey:@"line_request"];
-    [encoder encodeBool:hyper_request forKey:@"hyper_request"];
     [encoder encodeBool:echo_toggle_pending forKey:@"echo_toggle_pending"];
     [encoder encodeBool:echo forKey:@"echo"];
     [encoder encodeInteger:(NSInteger)fence forKey:@"fence"];

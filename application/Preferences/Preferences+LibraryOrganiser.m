@@ -9,6 +9,7 @@
 #import "TableViewController+TableDelegate.h"
 #import "TableViewController+LibraryManagement.h"
 #import "Theme.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation Preferences (LibraryOrganiser)
 
@@ -114,11 +115,9 @@
     if (!libcontroller)
         return;
 
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = NSLocalizedString(@"Organise all games now?", nil);
-    alert.informativeText = NSLocalizedString(@"Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.", nil);
-    [alert addButtonWithTitle:NSLocalizedString(@"Organise", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Organise all games now?", nil)
+                                          info:NSLocalizedString(@"Every game in your library will be copied into the central library folder, arranged by group and title. This may take a while for a large library.", nil)
+                                       buttons:@[NSLocalizedString(@"Organise", nil), NSLocalizedString(@"Cancel", nil)]];
 
     Preferences * __weak weakSelf = self;
     [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {
@@ -129,11 +128,9 @@
         context.undoManager = nil;
         [[LibraryOrganizer sharedOrganizer] organiseAllGamesInContext:context completion:^(NSUInteger organisedCount) {
             [libcontroller.coreDataManager saveChanges];
-            NSAlert *done = [[NSAlert alloc] init];
-            done.messageText = NSLocalizedString(@"Finished organising games.", nil);
-            done.informativeText = [NSString stringWithFormat:
-                NSLocalizedString(@"%lu games are now in the library folder.", nil),
-                (unsigned long)organisedCount];
+            NSAlert *done = [NSAlert alertWithMessage:NSLocalizedString(@"Finished organising games.", nil)
+                                                 info:[NSString stringWithFormat: NSLocalizedString(@"%lu games are now in the library folder.", nil), (unsigned long)organisedCount]
+                                              buttons:nil];
             [done beginSheetModalForWindow:weakSelf.window completionHandler:nil];
         }];
     }];

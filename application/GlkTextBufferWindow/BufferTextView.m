@@ -10,6 +10,7 @@
 #import "GlkController.h"
 #import "GlkController+Speech.h"
 #import "MarginContainer.h"
+#import "NSView+Categories.h"
 #import "MarginImage.h"
 #import "CommandScriptHandler.h"
 #import "Preferences.h"
@@ -76,57 +77,29 @@
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
-    NSDate *mouseTime = [NSDate date];
-
     [self temporarilyHideCaret];
-    NSPoint __block location = [self convertPoint:theEvent.locationInWindow fromView:nil];
-    NSPoint adjustedPoint = location;
-    adjustedPoint.x -= self.textContainerInset.width;
-    adjustedPoint.y -= self.textContainerInset.height;
+    NSPoint adjustedPoint = [self containerPointForEvent:theEvent];
 
     MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:adjustedPoint];
     if (!marginImage) {
         [self forwardMouseDown:theEvent];
     } else {
+        [self trackClickOrDragFromEvent:theEvent click:^(NSEvent *upEvent) {
+            [self forwardMouseDown:theEvent];
+        } drag:^(NSEvent *dragEvent) {
+            GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
+            NSRect bounds = marginImage.bounds;
+            bounds.origin.x += self.textContainerInset.width;
+            bounds.origin.y += self.textContainerInset.height;
 
-        NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
-        NSTimeInterval timeout = NSEventDurationForever;
-
-        CGFloat dragThreshold = 0.3;
-
-        [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
-
-            if (!event) { return; }
-
-            if (event.type == NSEventTypeLeftMouseUp) {
-                *stop = YES;
-                if (mouseTime.timeIntervalSinceNow > -0.5) {
-                    [self forwardMouseDown:theEvent];
-                }
-            } else if (event.type == NSEventTypeLeftMouseDragged) {
-                NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
-                if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
-                    *stop = YES;
-
-                    GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
-                    NSString *filename = delegate.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
-
-                    NSRect bounds = marginImage.bounds;
-                    bounds.origin.x += self.textContainerInset.width;
-                    bounds.origin.y += self.textContainerInset.height;
-
-                    [marginImage dragMarginImageFrom:self event:event filename:filename rect:bounds];
-                }
-            }
+            [marginImage dragMarginImageFrom:self event:dragEvent filename:delegate.glkctl.game.fileBaseName rect:bounds];
         }];
     }
 }
 
 // Change mouse cursor when over margin images
 - (void)mouseMoved:(NSEvent *)event {
-    NSPoint point = [self convertPoint:event.locationInWindow fromView:nil];
-    point.x -= self.textContainerInset.width;
-    point.y -= self.textContainerInset.height;
+    NSPoint point = [self containerPointForEvent:event];
     MarginImage *marginImage = [(MarginContainer *)self.textContainer marginImageAt:point];
     if (marginImage) {
         [marginImage cursorUpdate];

@@ -27,9 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSMutableAttributedString *bufferTextstorage; // Buffer for text not yet committed to textstorage
 
     // --- Input state ---
-    BOOL line_request;                  // YES when the interpreter is waiting for a line of text
-    BOOL hyper_request;                 // YES when the interpreter is waiting for a hyperlink click
-
     BOOL echo_toggle_pending;           // If YES, line echo behavior will be inverted
                                         // starting from the next line event
     BOOL echo;                          // If NO, line input text will be deleted when entered

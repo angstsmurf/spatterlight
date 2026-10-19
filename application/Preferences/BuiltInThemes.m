@@ -7,6 +7,7 @@
 
 #import "BuiltInThemes.h"
 #import "Theme.h"
+#import "Fetches.h"
 #import "GlkStyle.h"
 #import "NSColor+integer.h"
 
@@ -778,22 +779,11 @@ typedef struct {
 
 + (Theme *)findOrCreateTheme:(NSString *)themeName inContext:(NSManagedObjectContext *)context alreadyExists:(BOOL *)existsFlagPointer {
 
-    NSError *error = nil;
-    *existsFlagPointer = NO;
-
     // First, check if it already exists
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", themeName];
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects && fetchedObjects.count) {
-        *existsFlagPointer = YES;
-        return fetchedObjects[0];
-    } else if (error != nil) {
-        NSLog(@"BuiltInThemes findOrCreateTheme: %@", error);
-        return nil;
-    }
+    Theme *existing = [Fetches findTheme:themeName inContext:context];
+    *existsFlagPointer = (existing != nil);
+    if (existing)
+        return existing;
 
     Theme *newTheme = (Theme *) [NSEntityDescription
                                  insertNewObjectForEntityForName:@"Theme"

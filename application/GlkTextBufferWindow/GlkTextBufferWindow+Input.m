@@ -29,29 +29,12 @@
 // - Buffer keystrokes if no input request is pending
 - (void)keyDown:(NSEvent *)evt {
     NSString *str = evt.characters;
-    unsigned ch = keycode_Unknown;
-    if (str.length)
-        ch = chartokeycode([str characterAtIndex:str.length - 1]);
-
+    unsigned ch = [GlkWindow keycodeForEvent:evt mapNumericPad:YES];
     NSUInteger flags = evt.modifierFlags;
-
-    if ((flags & NSEventModifierFlagNumericPad) && ch >= '0' && ch <= '9')
-        ch = keycode_Pad0 - (ch - '0');
-
-    GlkWindow *win;
-
     GlkController *glkctl = self.glkctl;
-    // pass on this key press to another GlkWindow if we are not expecting one
-    if (!self.wantsFocus) {
-        for (win in (glkctl.gwindows).allValues) {
-            if (win != self && win.wantsFocus) {
-                NSLog(@"GlkTextBufferWindow %ld: Passing on keypress to %@ %ld", self.name, win.class, win.name);
-                [win grabFocus];
-                [win keyDown:evt];
-                return;
-            }
-        }
-    }
+
+    if ([self forwardKeyDownToFocusedWindow:evt])
+        return;
 
     linkClickPending = NO;
 
@@ -271,11 +254,7 @@
 // Send a single character event to the interpreter and end the char request.
 - (void)sendKeypress:(unsigned)ch {
     [self.glkctl markLastSeen];
-
-    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-    [self.glkctl queueEvent:gev];
-
-    char_request = NO;
+    [super sendKeypress:ch];
     _textview.editable = NO;
 }
 
@@ -411,12 +390,8 @@
         [_textview resetTextFinder];
     }
 
-    if (!cx.length) {
-        if ([history empty])
-            [self.glkctl speakStringNow:@"No commands entered"];
-        else
-            [self.glkctl speakStringNow:NSLocalizedString(@"Start of command history", nil)];
-    }
+    if (!cx.length)
+        [self announceHistoryEdgeForward:NO];
 }
 
 // Replace the current input with the next command from history.
@@ -430,12 +405,8 @@
         [_textview resetTextFinder];
     }
 
-    if (!cx.length) {
-        if ([history empty])
-            [self.glkctl speakStringNow:@"No commands entered"];
-        else
-            [self.glkctl speakStringNow:NSLocalizedString(@"End of command history", nil)];
-    }
+    if (!cx.length)
+        [self announceHistoryEdgeForward:YES];
 }
 
 #pragma mark NSTextView customization

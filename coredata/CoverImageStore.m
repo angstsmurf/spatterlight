@@ -100,7 +100,7 @@
 
     NSError *error = nil;
     NSFetchRequest *fetchRequest = [Image fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL like[c] %@",imgurl];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL ==[c] %@", imgurl];
 
     NSArray<Image *> *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
     if (fetchedObjects == nil) {

@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		78D199127B254117B4B1AE6D /* NSAlert+Spatterlight.m in Sources */ = {isa = PBXBuildFile; fileRef = A84FCA68DDFF405DAE9AA890 /* NSAlert+Spatterlight.m */; };
+		D5F95EED61434E89B5F972F7 /* ReadOnlyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 705C0AA1A89E4997A9817049 /* ReadOnlyStore.m */; };
+		2BD1253406F840AF9A5607A6 /* ReadOnlyStore.m in Sources */ = {isa = PBXBuildFile; fileRef = 705C0AA1A89E4997A9817049 /* ReadOnlyStore.m */; };
 		040F0D9817CA3BD3B7123771 /* question-script-flow.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D5927FF11BBFF213B0CC9 /* question-script-flow.cc */; };
 		044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */; };
 		04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 270E6B209A9E09002DAFC06D /* os_glk_output.cpp */; };
@@ -3539,7 +3542,9 @@
 		C35C54022676613800294FE7 /* NSFont+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSFont+Categories.h"; sourceTree = "<group>"; };
 		C35C54032676613800294FE7 /* NSFont+Categories.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = "NSFont+Categories.m"; sourceTree = "<group>"; };
 		7E91B054998441D190A9189D /* NSView+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+Categories.h"; sourceTree = "<group>"; };
+		E978B32B3EA14090B6B0D397 /* NSAlert+Spatterlight.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSAlert+Spatterlight.h"; sourceTree = "<group>"; };
 		2D0828655AE94F68BE83A03E /* NSView+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+Categories.m"; sourceTree = "<group>"; };
+		A84FCA68DDFF405DAE9AA890 /* NSAlert+Spatterlight.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSAlert+Spatterlight.m"; sourceTree = "<group>"; };
 		07278A76862045EE1F210609 /* FindableTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FindableTextView.h; sourceTree = "<group>"; };
 		E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindableTextView.m; sourceTree = "<group>"; };
 		C35CB31B285DD7BF00601E97 /* animations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = animations.h; sourceTree = "<group>"; };
@@ -3744,6 +3749,7 @@
 		C3AD648D261769DB008614C5 /* MarginImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MarginImage.h; sourceTree = "<group>"; };
 		C3AD648E261769DB008614C5 /* MarginImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MarginImage.m; sourceTree = "<group>"; };
 		406BED8480304BF1B610D5FA /* ImageDragSource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageDragSource.h; sourceTree = "<group>"; };
+		CE458E5875C5424DAC2578F2 /* SPAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAccessibility.h; sourceTree = "<group>"; };
 		50966F36FE2F44509985FE86 /* ImageDragSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDragSource.m; sourceTree = "<group>"; };
 		C3AD64DC26176DC5008614C5 /* GridTextView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GridTextView.h; sourceTree = "<group>"; };
 		C3AD64DD26176DC5008614C5 /* GridTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GridTextView.m; sourceTree = "<group>"; };
@@ -4044,7 +4050,9 @@
 		C3FE98D8261B2CA900152AB6 /* RotorHandler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RotorHandler.h; sourceTree = "<group>"; };
 		C3FE98D9261B2CA900152AB6 /* RotorHandler.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RotorHandler.m; sourceTree = "<group>"; };
 		C3FEF0B82E6B752600276383 /* Fetches.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Fetches.h; sourceTree = "<group>"; };
+		55EB070086164E1D8AC570D7 /* ReadOnlyStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadOnlyStore.h; sourceTree = "<group>"; };
 		C3FEF0B92E6B752600276383 /* Fetches.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Fetches.m; sourceTree = "<group>"; };
+		705C0AA1A89E4997A9817049 /* ReadOnlyStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadOnlyStore.m; sourceTree = "<group>"; };
 		03150D01535CEDEC5529A745 /* CoverImageStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CoverImageStore.h; sourceTree = "<group>"; };
 		4F7E770FC98130124C99BD8C /* CoverImageStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageStore.m; sourceTree = "<group>"; };
 		C94AF7693EB174B03385C2F7 /* Metadata+IFiction.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Metadata+IFiction.h"; sourceTree = "<group>"; };
@@ -4575,10 +4583,13 @@
 				C35C54022676613800294FE7 /* NSFont+Categories.h */,
 				C35C54032676613800294FE7 /* NSFont+Categories.m */,
 				7E91B054998441D190A9189D /* NSView+Categories.h */,
+				E978B32B3EA14090B6B0D397 /* NSAlert+Spatterlight.h */,
 				2D0828655AE94F68BE83A03E /* NSView+Categories.m */,
+				A84FCA68DDFF405DAE9AA890 /* NSAlert+Spatterlight.m */,
 				07278A76862045EE1F210609 /* FindableTextView.h */,
 				E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */,
 				406BED8480304BF1B610D5FA /* ImageDragSource.h */,
+				CE458E5875C5424DAC2578F2 /* SPAccessibility.h */,
 				50966F36FE2F44509985FE86 /* ImageDragSource.m */,
 				C3B4443C2728CC5D006B29BD /* NSManagedObjectContext+safeSave.h */,
 				C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */,
@@ -4741,7 +4752,9 @@
 				C308E68C2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.h */,
 				C308E68D2991F503003631C3 /* MyCoreDataCoreSpotlightDelegate.m */,
 				C3FEF0B82E6B752600276383 /* Fetches.h */,
+				55EB070086164E1D8AC570D7 /* ReadOnlyStore.h */,
 				C3FEF0B92E6B752600276383 /* Fetches.m */,
+				705C0AA1A89E4997A9817049 /* ReadOnlyStore.m */,
 				03150D01535CEDEC5529A745 /* CoverImageStore.h */,
 				4F7E770FC98130124C99BD8C /* CoverImageStore.m */,
 				C94AF7693EB174B03385C2F7 /* Metadata+IFiction.h */,
@@ -8915,6 +8928,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78D199127B254117B4B1AE6D /* NSAlert+Spatterlight.m in Sources */,
 				C396E28A2F814ED500B6308A /* messagenames.c in Sources */,
 				C3CB504C2662606600A95BE2 /* CoverImageHandler.m in Sources */,
 				C3F9D88B2675FCF70076EAFB /* OSImageHashing.m in Sources */,
@@ -9471,6 +9485,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2BD1253406F840AF9A5607A6 /* ReadOnlyStore.m in Sources */,
 				C309884825CB1AD300750F72 /* Game.m in Sources */,
 				C309886225CB1ADF00750F72 /* Image.m in Sources */,
 				C309882E25CB1ACD00750F72 /* Metadata.m in Sources */,
@@ -9636,6 +9651,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5F95EED61434E89B5F972F7 /* ReadOnlyStore.m in Sources */,
 				C322718C25CC224F0083BD5B /* Game.m in Sources */,
 				C32271C025CC22590083BD5B /* Image.m in Sources */,
 				C32271A625CC22530083BD5B /* Metadata.m in Sources */,

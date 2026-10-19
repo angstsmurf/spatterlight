@@ -34,6 +34,9 @@
 @property (nonatomic) NSArray *quoteboxAXChildren;
 // De-interleaved text (left column, then right column) for the speech helpers.
 @property (nonatomic, readonly) NSString *deinterleavedQuoteboxString;
+// The window's text for speech: the de-interleaved columns of a merged
+// side-by-side quote box, otherwise the plain text.
+@property (nonatomic, readonly) NSString *speakableString;
 
 - (void)quotebox:(NSUInteger)linesToSkip;
 - (void)quoteboxAdjustSize:(id)sender;

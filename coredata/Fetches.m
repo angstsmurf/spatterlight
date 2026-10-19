@@ -14,55 +14,35 @@
 
 @implementation Fetches
 
+// Runs request and returns the first match. A failed fetch and more than
+// one match are logged (prefixed with caller): the callers look up keys that
+// should be unique.
++ (nullable id)firstResultOfFetch:(NSFetchRequest *)request
+                        inContext:(NSManagedObjectContext *)context
+                           caller:(NSString *)caller {
+    NSError *error = nil;
+    NSArray *fetchedObjects = [context executeFetchRequest:request error:&error];
+    if (fetchedObjects == nil)
+        NSLog(@"%@: %@", caller, error);
+    else if (fetchedObjects.count > 1)
+        NSLog(@"%@: Found more than one match (%ld) for %@", caller, fetchedObjects.count, request.predicate);
+    return fetchedObjects.firstObject;
+}
+
 + (nullable Metadata *)fetchMetadataForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
     if (!hash.length)
         return nil;
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
     NSFetchRequest *fetchRequest = [Metadata fetchRequest];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag ==[c] %@",hash];
-
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"fetchMetadataForHash: %@",error);
-    }
-
-    if (fetchedObjects.count > 1) {
-        NSLog(@"fetchMetadataForHash: Found more than one has object with hashTag %@",hash);
-    } else if (fetchedObjects.count == 0) {
-        return nil;
-    }
-
-    return (Metadata *)fetchedObjects[0];
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag ==[c] %@", hash];
+    return [self firstResultOfFetch:fetchRequest inContext:context caller:@"fetchMetadataForHash"];
 }
 
 + (nullable Game *)fetchGameForHash:(NSString *)hash inContext:(NSManagedObjectContext *)context {
     if (!hash.length)
         return nil;
-    NSError *error = nil;
-    NSArray *fetchedObjects;
-
     NSFetchRequest *fetchRequest = [Game fetchRequest];
-
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag ==[c] %@",hash];
-
-    fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"Problem! %@",error);
-    }
-
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"Found more than one entry (%ld) with hashTag %@", fetchedObjects.count, hash);
-    }
-    else if (fetchedObjects.count == 0)
-    {
-        return nil;
-    }
-
-    return fetchedObjects.firstObject;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"hashTag ==[c] %@", hash];
+    return [self firstResultOfFetch:fetchRequest inContext:context caller:@"fetchGameForHash"];
 }
 
 + (NSArray *)fetchObjects:(NSString *)entityName predicate:(nullable NSString *)predicate inContext:(NSManagedObjectContext *)context {
@@ -126,28 +106,25 @@
 }
 
 + (nullable Theme *)findTheme:(NSString *)name inContext:(NSManagedObjectContext *)context {
-
     if (!name.length)
         return nil;
-    NSError *error = nil;
-
     NSFetchRequest *fetchRequest = [Theme fetchRequest];
-
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name ==[c] %@", name];
+    return [self firstResultOfFetch:fetchRequest inContext:context caller:@"findTheme"];
+}
 
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil) {
-        NSLog(@"findTheme: inContext: %@",error);
-    }
++ (NSArray<Game *> *)fetchAllGamesAsFaultsInContext:(NSManagedObjectContext *)context {
+    NSFetchRequest *fetchRequest = [Game fetchRequest];
+    fetchRequest.includesPropertyValues = NO;
+    NSError *error = nil;
+    NSArray<Game *> *games = [context executeFetchRequest:fetchRequest error:&error];
+    if (!games)
+        NSLog(@"fetchAllGamesAsFaultsInContext: %@", error);
+    return games ?: @[];
+}
 
-    if (fetchedObjects.count > 1)
-    {
-        NSLog(@"findTheme: inContext: Found more than one Theme object with name %@ (total %ld)",name, fetchedObjects.count);
-    } else if (fetchedObjects.count == 0) {
-        return nil;
-    }
-
-    return fetchedObjects[0];
++ (NSArray<Theme *> *)fetchUserThemesInContext:(NSManagedObjectContext *)context {
+    return [self fetchObjects:@"Theme" predicate:@"editable == YES" inContext:context];
 }
 
 @end

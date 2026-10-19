@@ -15,6 +15,18 @@
 // This is really only necessary on 10.7, which can't give exact character width for fonts,
 // but I think it give slightly better results (less gaps) on recent systems as well.
 
+- (NSFont *)fontFittingLongestWordOf:(NSString *)text inWidth:(CGFloat)width {
+    NSString *longestWord = @"";
+
+    for (NSString *word in [text componentsSeparatedByString:@" "]) {
+        if (word.length > longestWord.length) longestWord = word;
+    }
+
+    if ([longestWord sizeWithAttributes:@{ NSFontAttributeName:self }].width > width)
+        return [self fontToFitWidth:width sampleText:longestWord];
+    return self;
+}
+
 - (NSFont *)fontToFitWidth:(CGFloat)desiredWidth sampleText:(NSString *)text {
     {
         if (!text.length || desiredWidth < 2) {

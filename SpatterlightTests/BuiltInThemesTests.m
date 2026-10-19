@@ -24,6 +24,7 @@
 
 @interface BuiltInThemesTests : XCTestCase
 
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
 @end
@@ -35,22 +36,14 @@
 
     // Always an in-memory store: forceRebuild would rewrite the real
     // library's built-in themes.
-    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
+    self.coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
+    self.context = self.coreDataManager.mainManagedObjectContext;
+    XCTAssertNotNil(self.context);
 }
 
 - (void)tearDown {
     self.context = nil;
+    self.coreDataManager = nil;
     [super tearDown];
 }
 

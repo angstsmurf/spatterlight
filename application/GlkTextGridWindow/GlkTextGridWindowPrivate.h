@@ -29,9 +29,6 @@
     NSUInteger rows, cols;
     NSUInteger xpos, ypos;
     NSUInteger maxInputLength;
-    BOOL line_request;
-    BOOL hyper_request;
-    BOOL mouse_request;
     BOOL transparent;
     NSInteger terminator;
     // The text of the deferredInitLine: request still waiting, if any, so a

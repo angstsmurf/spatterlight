@@ -8,6 +8,7 @@
 #import <XCTest/XCTest.h>
 #import <CoreData/CoreData.h>
 
+#import "CoreDataManager.h"
 #import "GlkController.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -16,8 +17,7 @@
 @interface AppSupportDirTests : XCTestCase
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) NSManagedObjectModel *model;
-@property (nonatomic, strong) NSPersistentStoreCoordinator *coordinator;
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, copy) NSString *tempFilePath;
 @property (nonatomic, copy) NSString *createdDir;
 
@@ -28,25 +28,9 @@
 - (void)setUp {
     [super setUp];
 
-    // Load the managed object model from the main bundle
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    XCTAssertNotNil(modelURL, @"Could not find Spatterlight.momd in main bundle");
-
-    _model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    XCTAssertNotNil(_model, @"Could not load managed object model");
-
-    // Create an in-memory persistent store
-    _coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:_model];
-    NSError *error = nil;
-    [_coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                               configuration:nil
-                                         URL:nil
-                                     options:nil
-                                       error:&error];
-    XCTAssertNil(error, @"Failed to add in-memory store: %@", error);
-
-    _context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    _context.persistentStoreCoordinator = _coordinator;
+    _coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
+    _context = _coreDataManager.mainManagedObjectContext;
+    XCTAssertNotNil(_context);
 
     // Create a temporary file with enough bytes for signatureFromFile (needs >= 64 bytes)
     NSString *tempDir = NSTemporaryDirectory();
@@ -72,8 +56,7 @@
     }
 
     _context = nil;
-    _coordinator = nil;
-    _model = nil;
+    _coreDataManager = nil;
 
     [super tearDown];
 }

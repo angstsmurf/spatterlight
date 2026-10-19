@@ -8,24 +8,19 @@
 #import "GlkTextGridWindowPrivate.h"
 #import "GlkController.h"
 #import "GlkController+Speech.h"
+#import "GridTextView.h"
 #import "NSString+Categories.h"
 #import "ZMenu.h"
 #import "BureaucracyForm.h"
+#import "NSView+Categories.h"
 
 @implementation GlkTextGridWindow (Speech)
 
 #pragma mark Accessibility
 
 - (void)speakStatus {
-    GlkController *glkctl = self.glkctl;
-    if (glkctl.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
-    if (glkctl.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
-    // A merged side-by-side quote box stores its text interleaved; speak the two
-    // columns one after the other instead.
-    NSString *status = _quoteboxColumns.count ? self.deinterleavedQuoteboxString : textstorage.string;
-    [glkctl speakStringNow:status];
+    [self cancelPendingMenuAnnouncements];
+    [self.glkctl speakStringNow:self.speakableString];
 }
 
 - (BOOL)setLastMove {
@@ -51,52 +46,12 @@
     [self.glkctl speakStringNow:str];
 }
 
-- (void)speakPrevious {
-    if (!self.moveRanges.count)
-        return;
-    NSString *prefix = @"";
-    if (moveRangeIndex > 0) {
-        moveRangeIndex--;
-    } else {
-        prefix = @"At first move.\n";
-        moveRangeIndex = 0;
-    }
-    NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRangeValue:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakStringNow:str];
-}
-
-- (void)speakNext {
-    if (!self.moveRanges.count)
-    {
-        return;
-    }
-
-    NSString *prefix = @"";
-
-    if (moveRangeIndex < self.moveRanges.count - 1) {
-        moveRangeIndex++;
-    } else {
-        prefix = @"At last move.\n";
-        moveRangeIndex = self.moveRanges.count - 1;
-    }
-
-    NSString *str = [prefix stringByAppendingString:[textstorage.string substringWithRangeValue:self.moveRanges[moveRangeIndex]]];
-    [self.glkctl speakStringNow:str];
+- (NSString *)speakableStringForMoveRange:(NSValue *)range {
+    return [textstorage.string substringWithRangeValue:range];
 }
 
 - (NSArray *)links {
-    NSMutableArray<NSValue *> __block *links = [[NSMutableArray alloc] init];
-    [textstorage
-     enumerateAttribute:NSLinkAttributeName
-     inRange:NSMakeRange(0, textstorage.length)
-     options:0
-     usingBlock:^(id value, NSRange range, BOOL *stop) {
-         if (!value) {
-             return;
-         }
-         [links addObject:[NSValue valueWithRange:range]];
-     }];
-    return links;
+    return [_textview linkRangesInRange:NSMakeRange(0, textstorage.length)];
 }
 
 @end

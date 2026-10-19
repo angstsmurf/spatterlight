@@ -40,6 +40,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nullable, nonatomic, retain) Theme *theme;
 
 @property (readonly, copy, nullable) NSURL *urlForBookmark;
+// The game file's name without directory or extension, used to name
+// dragged images.
+@property (readonly, copy, nullable) NSString *fileBaseName;
 - (void) bookmarkForPath: (NSString *)path;
 
 @end

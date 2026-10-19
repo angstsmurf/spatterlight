@@ -14,23 +14,32 @@
 #import "Theme.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation Preferences (Settings)
 
 #pragma mark User actions
 
-- (void)changeBooleanAttribute:(NSString *)attribute fromButton:(NSButton *)button {
-    if (((NSNumber *)[self.theme valueForKey:attribute]).intValue == button.state)
-        return;
+// Sets the theme attribute, on a clone if the theme is not editable, unless
+// it already has this value. Returns the theme changed, or nil.
+- (nullable Theme *)changeThemeValue:(id)value forKey:(NSString *)attribute {
+    if ([[self.theme valueForKey:attribute] isEqual:value])
+        return nil;
     Theme *themeToChange = [self cloneThemeIfNotEditable];
-    [themeToChange setValue:@(button.state) forKey:attribute];
+    [themeToChange setValue:value forKey:attribute];
+    return themeToChange;
+}
+
+- (void)changeBooleanAttribute:(NSString *)attribute fromButton:(NSButton *)button {
+    [self changeThemeValue:@(button.state) forKey:attribute];
 }
 
 - (void)changeMenuAttribute:(NSString *)attribute fromPopUp:(NSPopUpButton *)button {
-    if (((NSNumber *)[self.theme valueForKey:attribute]).intValue == button.selectedTag)
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    [themeToChange setValue:@(button.selectedTag) forKey:attribute];
+    [self changeThemeValue:@(button.selectedTag) forKey:attribute];
+}
+
+- (void)changeDefaultsBool:(NSString *)key fromButton:(NSButton *)button {
+    [[NSUserDefaults standardUserDefaults] setBool:(button.state == NSControlStateValueOn) forKey:key];
 }
 
 - (IBAction)changeDefaultSize:(id)sender {
@@ -208,18 +217,13 @@
 }
 
 - (IBAction)changeVOMenuMenu:(id)sender {
-    if (self.theme.vOSpeakMenu == (int)[sender selectedTag])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakMenu = (int)[sender selectedTag];
+    [self changeMenuAttribute:@"vOSpeakMenu" fromPopUp:sender];
 }
 
 - (IBAction)changeVOImageMenu:(id)sender {
-    if (self.theme.vOSpeakImages == (int)[sender selectedTag])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.vOSpeakImages = (int)[sender selectedTag];
+    [self changeMenuAttribute:@"vOSpeakImages" fromPopUp:sender];
 }
+
 - (IBAction)changeVODelaySlider:(id)sender {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     _vODelaySlider.doubleValue = [sender doubleValue];
@@ -258,18 +262,14 @@
 
 - (IBAction)changeBeepHighMenu:(id)sender {
     NSString *title = [self playBeepFromMenu:sender];
-    if (!title || [self.theme.beepHigh isEqualToString:title])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.beepHigh = title;
+    if (title)
+        [self changeThemeValue:title forKey:@"beepHigh"];
 }
 
 - (IBAction)changeBeepLowMenu:(id)sender {
     NSString *title = [self playBeepFromMenu:sender];
-    if (!title || [self.theme.beepLow isEqualToString:title])
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.beepLow = title;
+    if (title)
+        [self changeThemeValue:title forKey:@"beepLow"];
 }
 
 - (IBAction)changeZterpMenu:(id)sender {
@@ -281,23 +281,17 @@
 }
 
 - (IBAction)changeZVersion:(id)sender {
-    if ([self.theme.zMachineLetter isEqualToString:[sender stringValue]]) {
-        return;
-    }
     if ([sender stringValue].length == 0) {
         _zVersionTextField.stringValue = self.theme.zMachineLetter;
         return;
     }
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.zMachineLetter = [sender stringValue];
+    [self changeThemeValue:[sender stringValue] forKey:@"zMachineLetter"];
 }
 
 - (IBAction)changeBZVerticalAdjustment:(id)sender {
-    if (self.theme.bZAdjustment == [sender integerValue]) {
+    Theme *themeToChange = [self changeThemeValue:@([sender intValue]) forKey:@"bZAdjustment"];
+    if (!themeToChange)
         return;
-    }
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.bZAdjustment = [sender intValue];
     _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
     _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
 }
@@ -415,10 +409,8 @@
 }
 
 - (IBAction)changeNoHacks:(id)sender {
-    if (self.theme.nohacks == ([sender state] == NSControlStateValueOff))
-        return;
-    Theme *themeToChange = [self cloneThemeIfNotEditable];
-    themeToChange.nohacks = ([sender state] == NSControlStateValueOff);
+    // The check box is "Enable hacks".
+    [self changeThemeValue:@([sender state] == NSControlStateValueOff) forKey:@"nohacks"];
 }
 
 - (IBAction)changeErrorHandlingPopup:(id)sender {
@@ -432,7 +424,7 @@
 #pragma mark Global menu
 
 - (IBAction)changeShowBezel:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSControlStateValueOn) forKey:@"ShowBezels"];
+    [self changeDefaultsBool:@"ShowBezels" fromButton:sender];
 }
 
 - (IBAction)changeImageReplacePopup:(NSPopUpButton *)sender {
@@ -440,15 +432,15 @@
 }
 
 - (IBAction)changeShowLibrary:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSControlStateValueOn) forKey:@"ShowLibrary"];
+    [self changeDefaultsBool:@"ShowLibrary" fromButton:sender];
 }
 
 - (IBAction)changeAddToLibrary:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSControlStateValueOn) forKey:@"AddToLibrary"];
+    [self changeDefaultsBool:@"AddToLibrary" fromButton:sender];
 }
 
 - (IBAction)changeCheckMissing:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSControlStateValueOn) forKey:@"RecheckForMissing"];
+    [self changeDefaultsBool:@"RecheckForMissing" fromButton:sender];
     _recheckFrequencyTextfield.enabled = ([sender state] == NSControlStateValueOn);
     if (_recheckMissingCheckbox.state == NSControlStateValueOn) {
         [_libcontroller startVerifyTimer];
@@ -465,7 +457,7 @@
 }
 
 - (IBAction)changeSaveToGameDir:(id)sender {
-    [[NSUserDefaults standardUserDefaults] setBool:([sender state] == NSControlStateValueOn) forKey:@"SaveInGameDirectory"];
+    [self changeDefaultsBool:@"SaveInGameDirectory" fromButton:sender];
 }
 
 #pragma mark End of Global menu
@@ -489,32 +481,19 @@
 }
 
 - (void)showOverwriteStylesAlert:(NSArray *)styles {
-    NSAlert *anAlert = [[NSAlert alloc] init];
-    anAlert.messageText =
-    [NSString stringWithFormat:@"This theme uses %ld custom %@.", styles.count, (styles.count == 1) ? @"style" : @"styles"];
-    if (styles.count == 1)
-        anAlert.informativeText = NSLocalizedString(@"Do you want to replace it with an autogenerated style?", nil);
-    else
-        anAlert.informativeText = NSLocalizedString(@"Do you want to replace them with autogenerated styles?", nil);
-
-    anAlert.showsSuppressionButton = YES;
-    anAlert.suppressionButton.title = NSLocalizedString(@"Do not show again.", nil);
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSString *info = (styles.count == 1) ?
+        NSLocalizedString(@"Do you want to replace it with an autogenerated style?", nil) :
+        NSLocalizedString(@"Do you want to replace them with autogenerated styles?", nil);
+    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:@"This theme uses %ld custom %@.", styles.count, (styles.count == 1) ? @"style" : @"styles"]
+                                            info:info
+                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
+    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", nil)];
 
     Preferences * __weak weakSelf = self;
 
-    [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
-
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-
-        NSString *alertSuppressionKey = @"OverwriteStylesAlertSuppression";
-
-        if (anAlert.suppressionButton.state == NSControlStateValueOn) {
-            // Suppress this alert from now on
-            [defaults setBool:YES forKey:alertSuppressionKey];
-        }
-
+    [anAlert beginSheetModalForWindow:self.window
+                   suppressingWithKey:@"OverwriteStylesAlertSuppression"
+                    completionHandler:^(NSInteger result) {
         if (result == NSAlertFirstButtonReturn) {
             [weakSelf overWriteStyles];
         }

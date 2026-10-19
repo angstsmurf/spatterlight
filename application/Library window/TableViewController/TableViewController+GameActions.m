@@ -29,6 +29,7 @@
 
 #import "GameLauncher.h"
 #import "MetadataHandler.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation TableViewController (GameActions)
 
@@ -78,15 +79,11 @@
 
     NSUInteger count = running.count;
     if (count) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        [alert setMessageText:NSLocalizedString(@"Are you sure?", nil)];
-        alert.informativeText = [NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"];
-        [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
-        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
+                                              info:[NSString stringWithFormat:@"%@ %@ currently in use. Do you want to close and delete %@?", [NSString stringWithSummaryOfGames:running], (count == 1) ? @"is" : @"are", (count == 1) ? @"it" : @"them"]
+                                           buttons:@[NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil)]];
 
-        NSInteger choice = [alert runModal];
-
-        if (choice == NSAlertFirstButtonReturn) {
+        if ([alert runModal] == NSAlertFirstButtonReturn) {
             for (Game *toDelete in running) {
                 [self.gameSessions[toDelete.hashTag].window close];
                 [self.managedObjectContext deleteObject:toDelete];

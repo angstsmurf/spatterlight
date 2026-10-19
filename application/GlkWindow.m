@@ -1,8 +1,9 @@
 #import "GlkWindow.h"
 #import "GlkController.h"
 #import "GlkController+Speech.h"
+#import "GlkController+InterpreterGlue.h"
+#import "GlkEvent.h"
 #import "GlkTextGridWindow.h"
-#import "GlkTextBufferWindow.h"
 
 #import "Constants.h"
 #import "GlkStyle.h"
@@ -89,6 +90,9 @@
         _pendingTerminators = [decoder decodeObjectOfClass:[NSMutableDictionary class] forKey:@"pendingTerminators"];
         _terminatorsPending = [decoder decodeBoolForKey:@"terminatorsPending"];
         char_request = [decoder decodeBoolForKey:@"char_request"];
+        line_request = [decoder decodeBoolForKey:@"line_request"];
+        hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
+        mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         _styleHints = [decoder decodeObjectOfClass:[NSArray class] forKey:@"styleHints"];
         styles = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"styles"];
         currentZColor =  [decoder decodeObjectOfClass:[ZColor class] forKey:@"currentZColor"];
@@ -114,6 +118,9 @@
     [encoder encodeObject:_pendingTerminators forKey:@"pendingTerminators"];
     [encoder encodeBool:_terminatorsPending forKey:@"terminatorsPending"];
     [encoder encodeBool:char_request forKey:@"char_request"];
+    [encoder encodeBool:line_request forKey:@"line_request"];
+    [encoder encodeBool:hyper_request forKey:@"hyper_request"];
+    [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeObject:_styleHints forKey:@"styleHints"];
     [encoder encodeObject:styles forKey:@"styles"];
     [encoder encodeObject:currentZColor forKey:@"currentZColor"];
@@ -172,18 +179,55 @@
     return dict;
 }
 
+- (GlkStyle *)themeStyle:(NSUInteger)style {
+    return nil;
+}
+
+- (NSColor *)themeBackground {
+    return self.theme.bufferBackground;
+}
+
+- (NSDictionary *)themeAttributesForStyle:(NSUInteger)style {
+    GlkStyle *glkStyle = [self themeStyle:style];
+    if (self.theme.doStyles)
+        return [glkStyle attributesWithHints:self.styleHints[style]];
+    return glkStyle.attributeDict;
+}
+
+- (int32_t)themeLinkStyle {
+    return NSUnderlineStyleNone;
+}
+
+- (BOOL)syncStyleFlagsWithTheme {
+    BOOL different = NO;
+
+    if (usingStyles != self.theme.doStyles) {
+        different = YES;
+        usingStyles = self.theme.doStyles;
+    }
+
+    BOOL newUnderlineLinks = (self.themeLinkStyle != NSUnderlineStyleNone);
+    if (underlineLinks != newUnderlineLinks) {
+        different = YES;
+        underlineLinks = newUnderlineLinks;
+    }
+
+    return different;
+}
+
+- (void)updateLinkTextAttributesOf:(NSTextView *)textView {
+    NSMutableDictionary *linkAttributes = [textView.linkTextAttributes mutableCopy];
+    linkAttributes[NSUnderlineStyleAttributeName] = @(self.themeLinkStyle);
+    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+    textView.linkTextAttributes = linkAttributes;
+}
+
 - (NSDictionary *)baseAttributesForStyle:(NSUInteger)stylevalue {
     if (stylevalue >= style_NUMSTYLES)
         return nil;
 
     if (styles.count <= stylevalue || [styles[stylevalue] isEqual:[NSNull null]]) {
-        if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
-            return ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
-        }
-        if ([self isKindOfClass:[GlkTextGridWindow class]]) {
-            return ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
-        }
-        return nil;
+        return [self themeStyle:stylevalue].attributeDict;
     }
 
     return styles[stylevalue];
@@ -199,13 +243,10 @@
         return nil;
 
     if ([styles[stylevalue] isEqual:[NSNull null]]) {
-        if ([self isKindOfClass:[GlkTextBufferWindow class]]) {
-            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gBufferStyleNames[stylevalue]]).attributeDict;
-        } else if ([self isKindOfClass:[GlkTextGridWindow class]]) {
-            styles[stylevalue] = ((GlkStyle *)[self.theme valueForKey:gGridStyleNames[stylevalue]]).attributeDict;
-        } else {
+        GlkStyle *themeStyle = [self themeStyle:stylevalue];
+        if (!themeStyle)
             return nil;
-        }
+        styles[stylevalue] = themeStyle.attributeDict;
     }
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];
@@ -230,7 +271,7 @@
         attributes[@"ReverseVideo"] = @(YES);
         if (!self.theme.doStyles || [hintsForStyle[stylehint_ReverseColor] isNotEqualTo:@(1)]) {
             // Current style has stylehint_ReverseColor unset, so we reverse colors
-            attributes = [self reversedAttributes:attributes background:[self isKindOfClass:[GlkTextGridWindow class]] ? self.theme.gridBackground : self.theme.bufferBackground];
+            attributes = [self reversedAttributes:attributes background:self.themeBackground];
         }
     }
 
@@ -262,6 +303,30 @@
         NSAccessibilityPostNotification(
                                         self, NSAccessibilityFocusedUIElementChangedNotification);
     }
+}
+
++ (unsigned)keycodeForEvent:(NSEvent *)evt mapNumericPad:(BOOL)mapNumericPad {
+    NSString *str = evt.characters;
+    unsigned ch = keycode_Unknown;
+    if (str.length)
+        ch = chartokeycode([str characterAtIndex:str.length - 1]);
+    if (mapNumericPad && (evt.modifierFlags & NSEventModifierFlagNumericPad) && ch >= '0' && ch <= '9')
+        ch = keycode_Pad0 - (ch - '0');
+    return ch;
+}
+
+- (BOOL)forwardKeyDownToFocusedWindow:(NSEvent *)evt {
+    if (self.wantsFocus)
+        return NO;
+    for (GlkWindow *win in self.glkctl.gwindows.allValues) {
+        if (win != self && win.wantsFocus) {
+            NSLog(@"%@ %ld: Passing on keypress to %@ %ld", self.class, self.name, win.class, win.name);
+            [win grabFocus];
+            [win keyDown:evt];
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (void)flushDisplay {
@@ -339,18 +404,19 @@
 }
 
 - (void)initMouse {
-    NSLog(@"mouse input in %@ not implemented", [self class]);
+    mouse_request = YES;
 }
 
 - (void)cancelMouse {
+    mouse_request = NO;
 }
 
 - (void)initHyperlink {
-    NSLog(@"hyperlink input in %@ not implemented", [self class]);
+    hyper_request = YES;
 }
 
 - (void)cancelHyperlink {
-    NSLog(@"hyperlink input in %@ not implemented", [self class]);
+    hyper_request = NO;
 }
 
 - (void)setZColorText:(NSInteger)fg background:(NSInteger)bg {
@@ -376,11 +442,7 @@
         return attStr;
 
     GlkWindow * __weak weakSelf = self;
-    NSColor *blockBgCol;
-    if ([self isKindOfClass:[GlkTextGridWindow class]])
-        blockBgCol = self.theme.gridBackground;
-    else
-        blockBgCol = self.theme.bufferBackground;
+    NSColor *blockBgCol = self.themeBackground;
 
     if (self.theme.doStyles) {
         [attStr
@@ -450,11 +512,7 @@
     NSUInteger textstoragelength = attStr.length;
 
     GlkWindow * __weak weakSelf = self;
-    NSColor *blockBgCol;
-    if ([self isKindOfClass:[GlkTextGridWindow class]])
-        blockBgCol = self.theme.gridBackground;
-    else
-        blockBgCol = self.theme.bufferBackground;
+    NSColor *blockBgCol = self.themeBackground;
 
     [attStr
      enumerateAttribute:@"ReverseVideo"
@@ -494,8 +552,11 @@
     NSLog(@"sendCommandLine in %@ not implemented", [self class]);
 }
 
+// Queue a character event and end the char request.
 - (void)sendKeypress:(unsigned)ch {
-    NSLog(@"sendKeypress in %@ not implemented", [self class]);
+    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
+    [self.glkctl queueEvent:gev];
+    char_request = NO;
 }
 
 
@@ -755,10 +816,57 @@
 }
 
 - (void)speakPrevious {
-    NSLog(@"speakPrevious in %@ not implemented", [self class]);
+    if (!self.moveRanges.count)
+        return;
+    NSString *prefix = @"";
+    if (moveRangeIndex > 0) {
+        moveRangeIndex--;
+    } else {
+        prefix = @"At first move.\n";
+        moveRangeIndex = 0;
+    }
+    NSString *str = [prefix stringByAppendingString:[self speakableStringForMoveRange:self.moveRanges[moveRangeIndex]]];
+    [self.glkctl speakStringNow:str];
 }
+
 - (void)speakNext {
-    NSLog(@"speakNext in %@ not implemented", [self class]);
+    if (!self.moveRanges.count)
+        return;
+    NSString *prefix = @"";
+    if (moveRangeIndex < self.moveRanges.count - 1) {
+        moveRangeIndex++;
+    } else {
+        prefix = @"At last move.\n";
+        moveRangeIndex = self.moveRanges.count - 1;
+    }
+    NSString *str = [prefix stringByAppendingString:[self speakableStringForMoveRange:self.moveRanges[moveRangeIndex]]];
+    [self.glkctl speakStringNow:str];
+}
+
+- (NSString *)speakableStringForMoveRange:(NSValue *)range {
+    NSLog(@"speakableStringForMoveRange in %@ not implemented", [self class]);
+    return @"";
+}
+
+- (void)announceHistoryEdgeForward:(BOOL)forward {
+    NSString *message;
+    if ([history empty])
+        message = NSLocalizedString(@"No commands entered", nil);
+    else if (forward)
+        message = NSLocalizedString(@"End of command history", nil);
+    else
+        message = NSLocalizedString(@"Start of command history", nil);
+    [self.glkctl speakStringNow:message];
+}
+
+// Cancel any pending Z-machine menu or form announcement timers, so they
+// don't talk over what we are about to speak.
+- (void)cancelPendingMenuAnnouncements {
+    GlkController *glkctl = self.glkctl;
+    if (glkctl.zmenu)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.zmenu];
+    if (glkctl.form)
+        [NSObject cancelPreviousPerformRequestsWithTarget:glkctl.form];
 }
 
 - (void)speakStatus {

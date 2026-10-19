@@ -12,6 +12,7 @@
 #import "Theme.h"
 #import "Game.h"
 #import "ImageDragSource.h"
+#import "NSView+Categories.h"
 
 #import "DebugLog.h"
 
@@ -37,7 +38,6 @@
 // drawing works in points, bottom-left origin, as it did with NSImage
 // lockFocus (hence florpCoords).
 @interface GlkGraphicsWindow () {
-    BOOL mouse_request;
     BOOL transparent;
     NSMutableArray <NSValue *> *dirtyRects;
     NSMutableArray <SubImage *> *subImages;
@@ -126,7 +126,6 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
         // Archived as an NSImage, as before the bitmap canvas, so old and new
         // autosaves read the same way.
         self.image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
-        mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
         subImages = [[decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SubImage class], nil]
@@ -146,7 +145,6 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
     [super encodeWithCoder:encoder];
     [encoder encodeObject:self.image forKey:@"image"];
     [encoder encodeObject:subImages forKey:@"subImages"];
-    [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
 }
@@ -503,14 +501,6 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     }
 }
 
-- (void)initMouse {
-    mouse_request = YES;
-}
-
-- (void)cancelMouse {
-    mouse_request = NO;
-}
-
 // Glk point: top-left origin.
 - (void)sendMouseEventAtPoint:(NSPoint)point {
     [self.glkctl markLastSeen];
@@ -523,55 +513,33 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     if (!self.window)
         return;
 
-    NSDate *mouseTime = [NSDate date];
-    
     NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
-    
-    NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
-    NSTimeInterval timeout = NSEventDurationForever;
-    
-    // How far (in points) the mouse must move before a press becomes an image
-    // drag, so a click that wobbles a pixel still reaches the game as a click.
-    CGFloat dragThreshold = 3;
 
-    [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
-
-        if (!event) { return; }
-        
-        if (event.type == NSEventTypeLeftMouseUp) {
-            *stop = YES;
-            if (mouseTime.timeIntervalSinceNow > -0.5) {
-                // Forward every click, not just clickCount == 1. macOS
-                // coalesces two quick clicks at the same spot into a
-                // double-click and reports clickCount == 2 on the second
-                // press; filtering on == 1 silently dropped it, so rapid
-                // same-target clicks (e.g. navigating the Zork Zero compass
-                // rose) were randomly lost. The interpreter classifies
-                // single vs. double clicks itself from event timing, so we
-                // just deliver each click.
-                if (mouse_request)
-                    [self sendMouseEventAtPoint:NSMakePoint(location.x, self.frame.size.height - location.y)];
-            }
-        } else if (event.type == NSEventTypeLeftMouseDragged) {
-            NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
-            if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
-                *stop = YES;
-                
-                NSImage *image = self.image;
-                if (!image)
-                    return;
-                if (!dragSource) {
-                    dragSource = [ImageDragSource new];
-                    dragSource.operationQueue = [NSOperationQueue new];
-                    dragSource.operationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
-                }
-                [dragSource dragImage:image
-                                 from:self
-                                event:event
-                             filename:self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension
-                                frame:self.bounds];
-            }
+    [self trackClickOrDragFromEvent:theEvent click:^(NSEvent *upEvent) {
+        // Forward every click, not just clickCount == 1. macOS
+        // coalesces two quick clicks at the same spot into a
+        // double-click and reports clickCount == 2 on the second
+        // press; filtering on == 1 silently dropped it, so rapid
+        // same-target clicks (e.g. navigating the Zork Zero compass
+        // rose) were randomly lost. The interpreter classifies
+        // single vs. double clicks itself from event timing, so we
+        // just deliver each click.
+        if (self->mouse_request)
+            [self sendMouseEventAtPoint:NSMakePoint(location.x, self.frame.size.height - location.y)];
+    } drag:^(NSEvent *dragEvent) {
+        NSImage *image = self.image;
+        if (!image)
+            return;
+        if (!self->dragSource) {
+            self->dragSource = [ImageDragSource new];
+            self->dragSource.operationQueue = [NSOperationQueue new];
+            self->dragSource.operationQueue.qualityOfService = NSQualityOfServiceUserInitiated;
         }
+        [self->dragSource dragImage:image
+                               from:self
+                              event:dragEvent
+                           filename:self.glkctl.game.fileBaseName
+                              frame:self.bounds];
     }];
 }
 
@@ -592,22 +560,10 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 }
 
 - (void)keyDown:(NSEvent *)evt {
-    NSString *str = evt.characters;
-    unsigned ch = keycode_Unknown;
-    if (str.length)
-        ch = chartokeycode([str characterAtIndex:str.length - 1]);
+    unsigned ch = [GlkWindow keycodeForEvent:evt mapNumericPad:NO];
 
-    GlkWindow *win;
-    // pass on this key press to another GlkWindow if we are not expecting one
-    if (!self.wantsFocus)
-        for (win in (self.glkctl.gwindows).allValues) {
-            if (win != self && win.wantsFocus) {
-                NSLog(@"GlkGraphicsWindow: Passing on keypress");
-                [win grabFocus];
-                [win keyDown:evt];
-                return;
-            }
-        }
+    if ([self forwardKeyDownToFocusedWindow:evt])
+        return;
 
     if (char_request && ch != keycode_Unknown)
         [self sendCharEvent:ch];
@@ -617,12 +573,6 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 - (void)sendCharEvent:(unsigned)ch {
     [self.glkctl markLastSeen];
     [self sendKeypress:ch];
-}
-
-- (void)sendKeypress:(unsigned)ch {
-    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-    [self.glkctl queueEvent:gev];
-    char_request = NO;
 }
 
 #pragma mark Accessibility

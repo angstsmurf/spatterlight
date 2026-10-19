@@ -18,18 +18,11 @@
 #import "GlkStyle.h"
 #import "ZColor.h"
 #import "NSColor+integer.h"
+#import "NSView+Categories.h"
 
 @implementation GlkTextGridWindow (Input)
 
 #pragma mark Hyperlinks
-
-- (void)initHyperlink {
-    hyper_request = YES;
-}
-
-- (void)cancelHyperlink {
-    hyper_request = NO;
-}
 
 - (BOOL)textView:(NSTextView *)textView clickedOnLink:(id)link atIndex:(NSUInteger)charIndex {
     if (!hyper_request) {
@@ -52,14 +45,6 @@
 
 #pragma mark Mouse input
 
-- (void)initMouse {
-    mouse_request = YES;
-}
-
-- (void)cancelMouse {
-    mouse_request = NO;
-}
-
 // Queues a mouse event for the cell at column, row and ends the mouse request,
 // if the cell is on the grid.
 - (BOOL)sendMouseEventAtColumn:(CGFloat)column row:(CGFloat)row {
@@ -74,13 +59,8 @@
 
 - (BOOL)myMouseDown:(NSEvent *)theEvent {
     if (mouse_request) {
-        NSPoint point, point_in_window;
-        point_in_window = theEvent.locationInWindow;
-
-        point_in_window = [_textview convertPoint:point_in_window fromView:nil];
-
-        point_in_window.x -= _textview.textContainerInset.width;
-        point_in_window.y -= _textview.textContainerInset.height;
+        NSPoint point;
+        NSPoint point_in_window = [_textview containerPointForEvent:theEvent];
 
         NSUInteger charIndex =
         [_textview.layoutManager characterIndexForPoint:point_in_window
@@ -129,30 +109,13 @@
 }
 
 - (void)keyDown:(NSEvent *)evt {
-    NSString *str = evt.characters;
-    unsigned ch = keycode_Unknown;
-    if (str.length)
-        ch = chartokeycode([str characterAtIndex:str.length-1]);
-
+    GlkController *glkctl = self.glkctl;
+    // Bureaucracy's forms read keypad digits as plain digits
+    unsigned ch = [GlkWindow keycodeForEvent:evt mapNumericPad:glkctl.gameID != kGameIsBureaucracy];
     NSUInteger flags = evt.modifierFlags;
 
-    GlkController *glkctl = self.glkctl;
-
-    if ((flags & NSEventModifierFlagNumericPad) && glkctl.gameID != kGameIsBureaucracy && ch >= '0' && ch <= '9')
-        ch = keycode_Pad0 - (ch - '0');
-
-    GlkWindow *win;
-    // pass on this key press to another GlkWindow if we are not expecting one
-    if (!self.wantsFocus) {
-        for (win in (glkctl.gwindows).allValues) {
-            if (win != self && win.wantsFocus) {
-                [win grabFocus];
-                NSLog(@"GlkTextGridWindow %ld: Passing on keypress to %@ %ld", self.name, win.class, win.name);
-                [win keyDown:evt];
-                return;
-            }
-        }
-    }
+    if ([self forwardKeyDownToFocusedWindow:evt])
+        return;
 
     // Stupid hack for Swedish keyboard
     if (char_request && glkctl.gameID == kGameIsBureaucracy && evt.keyCode == 30)
@@ -234,9 +197,7 @@
 }
 
 - (void)sendKeypress:(unsigned)ch {
-    GlkEvent *gev = [[GlkEvent alloc] initCharEvent:ch forWindow:self.name];
-    [self.glkctl queueEvent:gev];
-    char_request = NO;
+    [super sendKeypress:ch];
     _textview.editable = NO;
 }
 
@@ -412,12 +373,8 @@
         self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
     }
 
-    if (!cx.length) {
-        if ([history empty])
-            [self.glkctl speakStringNow:@"No commands entered"];
-        else
-            [self.glkctl speakStringNow:NSLocalizedString(@"Start of command history", nil)];
-    }
+    if (!cx.length)
+        [self announceHistoryEdgeForward:NO];
 }
 
 - (void)travelForwardInHistory {
@@ -429,12 +386,8 @@
         self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
     }
 
-    if (!cx.length) {
-        if ([history empty])
-            [self.glkctl speakStringNow:@"No commands entered"];
-        else
-            [self.glkctl speakStringNow:NSLocalizedString(@"End of command history", nil)];
-    }
+    if (!cx.length)
+        [self announceHistoryEdgeForward:YES];
 }
 
 @end

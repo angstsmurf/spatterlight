@@ -448,7 +448,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
     // Observe command script completion notification
     __block id scriptObserver = [[NSNotificationCenter defaultCenter] 
-        addObserverForName:@"GlkCommandScriptDidComplete"
+        addObserverForName:GlkCommandScriptDidCompleteNotification
                     object:nil
                      queue:[NSOperationQueue mainQueue]
                 usingBlock:^(NSNotification *note) {
@@ -632,7 +632,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
     // Observe command script completion notification
     __block id scriptObserver = [[NSNotificationCenter defaultCenter]
-                                 addObserverForName:@"GlkCommandScriptDidComplete"
+                                 addObserverForName:GlkCommandScriptDidCompleteNotification
                                  object:nil
                                  queue:[NSOperationQueue mainQueue]
                                  usingBlock:^(NSNotification *note) {
@@ -2482,15 +2482,13 @@ static NSData *blorbFakeImage(char fill) {
 // of the shared test store, so this repair test can't disturb (or be disturbed
 // by) other tests.
 - (NSManagedObjectContext *)freshInMemoryContext {
-    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    XCTAssertNotNil(model, @"Spatterlight model should load from the app bundle");
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType configuration:nil URL:nil options:nil error:&error];
-    XCTAssertNil(error, @"in-memory store should be created: %@", error);
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    context.persistentStoreCoordinator = coordinator;
+    CoreDataManager *manager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
+    NSManagedObjectContext *context = manager.mainManagedObjectContext;
+    XCTAssertNotNil(context, @"in-memory store should be created");
+    // The context holds on to its coordinator but not to the container.
+    [self addTeardownBlock:^{
+        (void)manager;
+    }];
     return context;
 }
 

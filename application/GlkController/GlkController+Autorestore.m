@@ -34,6 +34,7 @@
 #import "NSColor+integer.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 NSString * const kAutosaveTerpFile = @"autosave.plist";
 NSString * const kAutosaveTerpBakFile = @"autosave-bak.plist";
@@ -1179,14 +1180,10 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
 
     self.mustBeQuiet = YES;
 
-    NSAlert *anAlert = [[NSAlert alloc] init];
-    anAlert.messageText =
-    NSLocalizedString(@"This game was automatically restored from a previous session.", nil);
-    anAlert.informativeText = NSLocalizedString(@"Would you like to start over instead?", nil);
-    anAlert.showsSuppressionButton = YES;
-    anAlert.suppressionButton.title = NSLocalizedString(@"Remember this choice.", nil);
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Continue", nil)];
-    [anAlert addButtonWithTitle:NSLocalizedString(@"Restart", nil)];
+    NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"This game was automatically restored from a previous session.", nil)
+                                            info:NSLocalizedString(@"Would you like to start over instead?", nil)
+                                         buttons:@[NSLocalizedString(@"Continue", nil), NSLocalizedString(@"Restart", nil)]];
+    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Remember this choice.", nil)];
 
     GlkController * __weak weakSelf = self;
 

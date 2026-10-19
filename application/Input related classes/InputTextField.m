@@ -17,10 +17,7 @@
 @implementation MyFieldEditor
 
 - (void)keyDown:(NSEvent *)evt {
-    NSString *str = evt.characters;
-    unsigned ch = keycode_Unknown;
-    if (str.length)
-        ch = chartokeycode([str characterAtIndex:str.length - 1]);
+    unsigned ch = [GlkWindow keycodeForEvent:evt mapNumericPad:NO];
     GlkWindow *glkWin = (GlkWindow *)((NSTextField *)self.delegate).delegate;
     if ([glkWin.currentTerminators[@(ch)] isEqual:@(YES)] || [glkWin hasCharRequest] || ((ch == keycode_Up || ch == keycode_Down) && ![glkWin hasCharRequest]))
         [glkWin keyDown:evt];

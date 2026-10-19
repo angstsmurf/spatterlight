@@ -32,6 +32,7 @@
 #import "IFDBDownloader.h"
 
 #import "CoreDataManager.h"
+#import "NSAlert+Spatterlight.h"
 
 enum { X_EDITED, X_LIBRARY, X_DATABASE }; // export selections
 
@@ -457,11 +458,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
         [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"HasAskedToDownload"];
 
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"Do you want to download game info from IFDB in the background?", nil);
-        alert.informativeText = NSLocalizedString(@"This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.", nil);
-        [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-        [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to download game info from IFDB in the background?", nil)
+                                              info:NSLocalizedString(@"This will only be done once. You can do this later by selecting games in the library and choosing Download Info from the contextual menu.", nil)
+                                           buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
 
         MetadataHandler * __weak weakSelf = self;
         [alert beginSheetModalForWindow:win completionHandler:^(NSModalResponse result) {

@@ -55,6 +55,7 @@
 #import "DebugLog.h"
 
 #import "GlkController_Private.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation GlkController
 
@@ -937,13 +938,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         NSLog(@"windowShouldClose: Window close alert suppressed");
         return YES;
     }
-    alert = [[NSAlert alloc] init];
-    alert.messageText = NSLocalizedString(@"Do you want to abandon the game?", nil);
-    alert.informativeText = NSLocalizedString(@"Any unsaved progress will be lost.", nil);
-    alert.showsSuppressionButton = YES; // Uses default checkbox title
-
-    [alert addButtonWithTitle:NSLocalizedString(@"Close", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    alert = [NSAlert alertWithMessage:NSLocalizedString(@"Do you want to abandon the game?", nil)
+                                 info:NSLocalizedString(@"Any unsaved progress will be lost.", nil)
+                              buttons:@[NSLocalizedString(@"Close", nil), NSLocalizedString(@"Cancel", nil)]];
+    // Only a Close is remembered: ticking the box and cancelling keeps asking.
+    [alert showSuppressionButtonWithTitle:nil];
 
     _mustBeQuiet = YES;
 

@@ -29,8 +29,7 @@
 //  and the window sizes it would ask for (SIZWIN) are stood in for.
 //
 
-#import <XCTest/XCTest.h>
-#import <CoreData/CoreData.h>
+#import "GlkControllerTestCase.h"
 
 #import "GlkController.h"
 #import "GlkController_Private.h"
@@ -45,7 +44,6 @@
 #import "Game.h"
 #import "GlkStyle.h"
 #import "BuiltInThemes.h"
-#import "CoreDataManager.h"
 
 #include "glk.h"
 #include "protocol.h"
@@ -68,14 +66,7 @@ static const int kStatus = 1;
 
 static const unichar kNBSP = 0xa0;
 
-@interface QuoteBoxTests : XCTestCase
-
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) Theme *theme;
-@property (nonatomic, strong) Game *game;
-// GlkWindow.glkctl and GlkController.game are weak, so the test owns these.
-@property (nonatomic, strong) NSMutableArray<GlkController *> *controllers;
-
+@interface QuoteBoxTests : GlkControllerTestCase
 @end
 
 @implementation QuoteBoxTests
@@ -83,23 +74,6 @@ static const unichar kNBSP = 0xa0;
 - (void)setUp {
     [super setUp];
 
-    // Always an in-memory store: createDefaultThemeInContext with
-    // forceRebuild would rewrite the real library's Default theme.
-    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
-
-    self.theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
-    XCTAssertNotNil(self.theme);
     self.theme.quoteBox = YES;
 
     // The default grid font is one of those that collapse rows of spaces. If
@@ -107,80 +81,10 @@ static const unichar kNBSP = 0xa0;
     // no longer prove anything about the workaround.
     XCTAssertEqualObjects(self.theme.gridNormal.font.familyName, @"Source Code Pro");
 
-    self.game = [NSEntityDescription insertNewObjectForEntityForName:@"Game"
-                                              inManagedObjectContext:self.context];
-    self.game.ifid = @"ZCODE-1-261004-0000";
-    self.game.theme = self.theme;
-
-    self.controllers = [NSMutableArray array];
-}
-
-- (void)tearDown {
-    for (GlkController *ctl in self.controllers) {
-        [NSObject cancelPreviousPerformRequestsWithTarget:ctl];
-        for (GlkTextGridWindow *box in ctl.quoteBoxes)
-            [NSObject cancelPreviousPerformRequestsWithTarget:box];
-    }
-    self.controllers = nil;
-    self.game = nil;
-    self.theme = nil;
-    self.context = nil;
-    [super tearDown];
-}
-
-#pragma mark - A controller without an interpreter
-
-// A GlkController wired the way runTerp wires one, minus the interpreter
-// process. It gets a window (never shown) because GlkTextGridWindow's
-// setFrame: will not lay out a grid without a screen to measure it against,
-// and events meant for the interpreter go to /dev/null.
-- (GlkController *)makeController {
-    GlkController *ctl = [[GlkController alloc] init];
-    ctl.theme = self.theme;
-    [ctl setValue:self.game forKey:@"game"];
-
-    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
-    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
-        [nullarray addObject:[NSNull null]];
-
-    ctl.gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    ctl.bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
-        [ctl.gridStyleHints addObject:[nullarray mutableCopy]];
-        [ctl.bufferStyleHints addObject:[nullarray mutableCopy]];
-    }
-
-    ctl.gwindows = [NSMutableDictionary dictionary];
-    ctl.windowsToBeAdded = [NSMutableArray array];
-    ctl.windowsToBeRemoved = [NSMutableArray array];
-    ctl.queue = [NSMutableArray array];
-    ctl->sendfh = [NSFileHandle fileHandleWithNullDevice];
-
-    ctl.window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 800, 600)
-                                             styleMask:NSWindowStyleMaskTitled
-                                               backing:NSBackingStoreBuffered
-                                                 defer:YES];
-    XCTAssertNotNil(ctl.window.screen, @"the test needs a screen to lay out text grids");
-    ctl.gameView = [[GlkHelperView alloc] initWithFrame:ctl.window.contentView.bounds];
-    [ctl.window.contentView addSubview:ctl.gameView];
-
-    [self.controllers addObject:ctl];
-    return ctl;
+    [self makeGameWithIfid:@"ZCODE-1-261004-0000" theme:self.theme];
 }
 
 #pragma mark - Requests, as the interpreter sends them
-
-- (int)send:(int)cmd to:(GlkController *)ctl a1:(int)a1 a2:(int)a2 a3:(int)a3 text:(NSString *)text {
-    struct message request = { .cmd = cmd, .a1 = a1, .a2 = a2, .a3 = a3 };
-    struct message reply = { 0 };
-    NSMutableData *buffer = [NSMutableData dataWithLength:(text.length + 1) * sizeof(unichar)];
-    if (text.length) {
-        [text getCharacters:buffer.mutableBytes range:NSMakeRange(0, text.length)];
-        request.len = text.length * sizeof(unichar);
-    }
-    [ctl handleRequest:&request reply:&reply buffer:buffer.mutableBytes];
-    return reply.a1;
-}
 
 - (void)print:(NSString *)text style:(int)style window:(int)window in:(GlkController *)ctl {
     [self send:PRINT to:ctl a1:window a2:style a3:0 text:text];
@@ -192,11 +96,6 @@ static const unichar kNBSP = 0xa0;
 
 - (void)setReverse:(BOOL)reverse in:(GlkController *)ctl {
     [self send:SETREVERSE to:ctl a1:kStatus a2:reverse a3:0 text:nil];
-}
-
-// The interpreter asks for the next event: the end of a turn.
-- (void)nextEventIn:(GlkController *)ctl {
-    [self send:NEXTEVENT to:ctl a1:1 a2:0 a3:0 text:nil];
 }
 
 - (NSString *)spaces:(NSUInteger)count {

@@ -13,6 +13,7 @@
 #import "ZMenu.h"
 #import "BureaucracyForm.h"
 #import "JourneyMenuHandler.h"
+#import "SPAccessibility.h"
 
 #import "DebugLog.h"
 
@@ -220,12 +221,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     GlkWindow *largest = (array.count == 1) ? array.firstObject : largestByFrameArea(array);
     if (largest) {
         if ([largest isKindOfClass:[GlkTextGridWindow class]] && self.quoteBoxes.count) {
-            GlkTextGridWindow *box = self.quoteBoxes.lastObject;
-
-            // A merged side-by-side box stores its text interleaved row by row
-            // (see mergeSideBySideQuoteBoxAtColumn:); speak the two columns one
-            // after the other instead of alternating between them.
-            NSString *str = box.quoteboxColumns.count ? box.deinterleavedQuoteboxString : box.textview.string;
+            NSString *str = self.quoteBoxes.lastObject.speakableString;
             if (str.length) {
                 str = [@"QUOTE: \n\n" stringByAppendingString:str];
                 [self speakString:str];
@@ -383,13 +379,10 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
 }
 
 // The text a window contributes to the spoken status, or nil for windows with
-// no text (e.g. graphics windows). Grid windows with a merged side-by-side
-// quote box store their text interleaved, so de-interleave it here.
+// no text (e.g. graphics windows).
 - (nullable NSString *)speakableStringForWindow:(nullable GlkWindow *)win {
-    if ([win isKindOfClass:[GlkTextGridWindow class]]) {
-        GlkTextGridWindow *grid = (GlkTextGridWindow *)win;
-        return grid.quoteboxColumns.count ? grid.deinterleavedQuoteboxString : grid.textview.string;
-    }
+    if ([win isKindOfClass:[GlkTextGridWindow class]])
+        return ((GlkTextGridWindow *)win).speakableString;
     if ([win isKindOfClass:[GlkTextBufferWindow class]]) {
         return ((GlkTextBufferWindow *)win).textview.string;
     }
@@ -459,12 +452,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
 - (void)announce:(NSString *)string priority:(NSAccessibilityPriorityLevel)priority {
     if (string.length == 0)
         return;
-    NSAccessibilityPostNotificationWithUserInfo(
-                                                self.announcementWindow,
-                                                NSAccessibilityAnnouncementRequestedNotification,
-                                                @{NSAccessibilityPriorityKey: @(priority),
-                                                  NSAccessibilityAnnouncementKey: string
-                                                });
+    SPAnnounce(string, priority, self.announcementWindow);
 }
 
 - (GlkWindow *)largestWithMoves {
@@ -488,10 +476,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     }
 
     if (!windowsWithMoves.count) {
-        NSMutableArray *allWindows = self.gwindows.allValues.mutableCopy;
-        if (self.quoteBoxes.count)
-            [allWindows addObject:self.quoteBoxes.lastObject];
-        for (GlkWindow *view in allWindows) {
+        for (GlkWindow *view in self.windowsIncludingQuoteBox) {
             if ([self speakableStringForWindow:view].length > 0)
                 [windowsWithMoves addObject:view];
         }
@@ -502,6 +487,15 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     }
 
     return largestByFrameArea(windowsWithMoves);
+}
+
+// Every Glk window plus the quote box currently shown, if any. Quote boxes
+// are not Glk windows, so they are not in gwindows.
+- (NSArray<GlkWindow *> *)windowsIncludingQuoteBox {
+    NSArray<GlkWindow *> *windows = self.gwindows.allValues;
+    if (self.quoteBoxes.count)
+        windows = [windows arrayByAddingObject:self.quoteBoxes.lastObject];
+    return windows;
 }
 
 #pragma mark Custom rotors

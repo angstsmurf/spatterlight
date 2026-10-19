@@ -24,9 +24,11 @@
 #import "Metadata+IFiction.h"
 #import "Ifid.h"
 #import "Image.h"
+#import "CoreDataManager.h"
 
 @interface IFictionParserTests : XCTestCase
 
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 
 @end
@@ -35,26 +37,14 @@
 
 - (void)setUp {
     [super setUp];
-    NSURL *modelURL = [[NSBundle bundleForClass:[Game class]] URLForResource:@"Spatterlight"
-                                                               withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    XCTAssertNotNil(model, @"Could not load Core Data model");
-    NSPersistentStoreCoordinator *coordinator =
-    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc]
-                    initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
+    self.coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
+    self.context = self.coreDataManager.mainManagedObjectContext;
+    XCTAssertNotNil(self.context);
 }
 
 - (void)tearDown {
     self.context = nil;
+    self.coreDataManager = nil;
     [super tearDown];
 }
 

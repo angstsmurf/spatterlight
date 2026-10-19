@@ -22,6 +22,7 @@
 #import "TableViewController+LibraryManagement.h"
 #import "Theme.h"
 #import "ThemeArrayController.h"
+#import "Fetches.h"
 
 #import "PreferencesPrivate.h"
 
@@ -64,13 +65,8 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
 
     NSManagedObjectContext *managedObjectContext = coreDataManager.mainManagedObjectContext;
 
-    NSFetchRequest *fetchRequest = [Theme fetchRequest];
-    NSArray *fetchedObjects;
-    NSError *error;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", name];
-    fetchedObjects = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-    if (fetchedObjects == nil || fetchedObjects.count == 0) {
+    Theme *savedTheme = [Fetches findTheme:name inContext:managedObjectContext];
+    if (!savedTheme) {
         NSLog(@"Preference readDefaults: Error! Saved theme %@ not found. Creating new default theme!", name);
         self.theme = [BuiltInThemes createThemeFromDefaultsPlistInContext:managedObjectContext];
         if (!self.theme)
@@ -78,7 +74,7 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
         if (!self.theme) {
             NSLog(@"Preference readDefaults: Error! Could not create default theme!");
         }
-    } else self.theme = fetchedObjects[0];
+    } else self.theme = savedTheme;
 
     // Rebuild default themes the first time a new Spatterlight version is run (or the preferences are deleted.)
     // Rebuilding is so quick that this may be overkill. Perhaps we should just rebuild on every run?
@@ -652,18 +648,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         // populated _managedObjectContext. A nil context here silently returns
         // a nil theme, which is what we are trying to recover from.
         NSManagedObjectContext *context = self.managedObjectContext;
-        NSFetchRequest *fetchRequest = [Theme fetchRequest];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name like[c] %@", @"Default"];
-        NSError *error = nil;
-        NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-
-        if (fetchedObjects && fetchedObjects.count) {
-            _defaultTheme = fetchedObjects[0];
-        } else {
-            if (error != nil)
-                NSLog(@"Preferences defaultTheme: %@", error);
+        _defaultTheme = [Fetches findTheme:@"Default" inContext:context];
+        if (!_defaultTheme)
             _defaultTheme = [BuiltInThemes createDefaultThemeInContext:context forceRebuild:NO];
-        }
     }
     return _defaultTheme;
 }
@@ -704,11 +691,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     _themesHeader.stringValue = [self themeScopeTitle];
     if (oneThemeForAll) {
         _btnOneThemeForAll.state = NSControlStateValueOn;
-        NSFetchRequest *fetchRequest = [Game fetchRequest];
-        NSError *error = nil;
-        fetchRequest.includesPropertyValues = NO;
-        NSArray *fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-        self.theme.games = [NSSet setWithArray:fetchedObjects];
+        self.theme.games = [NSSet setWithArray:[Fetches fetchAllGamesAsFaultsInContext:self.managedObjectContext]];
     } else {
         _btnOneThemeForAll.state = NSControlStateValueOff;
     }
@@ -728,16 +711,8 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
             return NO;
         }
     } else if (action == @selector(deleteUserThemes:)) {
-        NSFetchRequest *fetchRequest = [Theme fetchRequest];
-        NSArray *fetchedObjects;
-        NSError *error;
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"editable == YES"];
-        fetchRequest.includesPropertyValues = NO;
-        fetchedObjects = [self.managedObjectContext executeFetchRequest:fetchRequest error:&error];
-
-        if (fetchedObjects == nil || fetchedObjects.count == 0) {
+        if ([Fetches fetchUserThemesInContext:self.managedObjectContext].count == 0)
             return NO;
-        }
     } else if (action == @selector(editNewEntry:)) {
         return [self themeForMenuCommand:menuItem].editable;
 

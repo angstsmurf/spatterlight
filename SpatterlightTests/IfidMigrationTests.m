@@ -18,6 +18,8 @@
 #import "Metadata.h"
 #import "Ifid.h"
 #import "NSString+Categories.h"
+#import "CoreDataManager.h"
+#import "XCTestCase+TemporaryDirectory.h"
 
 static NSString *const kMarkerFilename = @".spatterlightIdentity";
 
@@ -29,6 +31,7 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
 
 @interface IfidMigrationTests : XCTestCase
 
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, strong) GameImporter *importer;
 @property (nonatomic, strong) NSURL *root;
@@ -50,33 +53,13 @@ static NSString *BabelIfid(NSString *path) {
     [super setUp];
 
     // In-memory Core Data stack for Game/Metadata objects.
-    NSURL *modelURL = [[NSBundle bundleForClass:[Game class]] URLForResource:@"Spatterlight"
-                                                               withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    XCTAssertNotNil(model, @"Could not load Core Data model");
-    NSPersistentStoreCoordinator *coordinator =
-    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc]
-                    initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
+    self.coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
+    self.context = self.coreDataManager.mainManagedObjectContext;
+    XCTAssertNotNil(self.context);
 
     // A fresh temporary folder for every test. It doubles as the library
     // root of the shared organiser, which is the one the migration uses.
-    NSString *dirName = [@"IfidMigrationTests-" stringByAppendingString:NSUUID.UUID.UUIDString];
-    self.root = [NSURL fileURLWithPath:
-                 [NSTemporaryDirectory() stringByAppendingPathComponent:dirName]
-                           isDirectory:YES].URLByResolvingSymlinksInPath;
-    [NSFileManager.defaultManager createDirectoryAtURL:self.root
-                           withIntermediateDirectories:YES
-                                            attributes:nil
-                                                 error:NULL];
+    self.root = [self makeTemporaryDirectory];
 
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
     self.savedBookmarkDefault = [defaults dataForKey:kOrganiseDirBookmarkKey];
@@ -103,23 +86,16 @@ static NSString *BabelIfid(NSString *path) {
         [defaults removeObjectForKey:kOutdatedIfidMigrationDone];
     [LibraryOrganizer sharedOrganizer].accessedCustomURL = self.savedOrganizerURL;
 
-    [NSFileManager.defaultManager removeItemAtURL:self.root error:NULL];
     self.importer = nil;
     self.context = nil;
+    self.coreDataManager = nil;
     [super tearDown];
 }
 
 #pragma mark - Helpers
 
 - (NSString *)writeData:(NSData *)data to:(NSString *)relativePath {
-    NSURL *url = [self.root URLByAppendingPathComponent:relativePath];
-    [NSFileManager.defaultManager createDirectoryAtURL:url.URLByDeletingLastPathComponent
-                           withIntermediateDirectories:YES
-                                            attributes:nil
-                                                 error:NULL];
-    XCTAssertTrue([data writeToURL:url atomically:YES],
-                  @"Could not write fixture %@", relativePath);
-    return url.path;
+    return [self writeData:data to:relativePath in:self.root].path;
 }
 
 // A minimal Quest 4 source file with no id of its own.

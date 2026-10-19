@@ -18,6 +18,7 @@
 
 #import "NSImage+Categories.h"
 #import "NSData+Categories.h"
+#import "NSView+Categories.h"
 #import "ImageCompareViewController.h"
 #import "IFDBDownloader.h"
 #import "CoverImageStore.h"
@@ -32,6 +33,7 @@
 #import "OSImageHashing.h"
 
 #import "Preferences.h"
+#import "NSAlert+Spatterlight.h"
 
 #define FILTERTAG ((NSInteger) 100)
 #define DESCRIPTIONTAG ((NSInteger) 200)
@@ -390,12 +392,10 @@
         NSBeep();
         return;
     }
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = NSLocalizedString(@"Are you sure?", nil);
-    alert.informativeText = NSLocalizedString(@"Do you want to delete this cover image?", nil);
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
+                                          info:NSLocalizedString(@"Do you want to delete this cover image?", nil)
+                                       buttons:@[NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil)]];
     alert.icon = _image;
-    [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
 
     if ([alert runModal] == NSAlertFirstButtonReturn)
         [self removeCover];
@@ -488,7 +488,7 @@
         ImageView *strongSelf = weakSelf;
         if (!strongSelf)
             return;
-        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+        Blorb *blorb = [Blorb blorbAtURL:url];
         NSData *data = blorb.coverImageData;
         BOOL success = NO;
         if (data) {
@@ -737,7 +737,7 @@
     if ([Blorb isBlorbURL:url]) {
         // Only accept blorbs with image data but no executable chunk
         // (because it would be confusing to treat game files as image files)
-        Blorb *blorb = [[Blorb alloc] initWithData:[NSData dataWithContentsOfURL:url]];
+        Blorb *blorb = [Blorb blorbAtURL:url];
         if ([blorb findResourceOfUsage:ExecutableResource] == nil) {
             data = blorb.coverImageData;
             if (data) {
@@ -775,7 +775,7 @@
     Game *game = [self gameFromObjectID];
     Metadata *metadata = game.metadata;
 
-    Image *oldImageObj = [ImageView findImageObjectWithURL:URLPath inContext:game.managedObjectContext];
+    Image *oldImageObj = [CoverImageStore fetchImageForURL:URLPath inContext:game.managedObjectContext];
     if (oldImageObj && [(NSData *)oldImageObj.data isEqualToData:imageData]) {
         Image *oldCover = metadata.cover;
         metadata.cover = oldImageObj;
@@ -823,25 +823,6 @@
         [CoverImageStore insertImageData:data inMetadataID:metadata.objectID context:context];
         [ImageView setUserEditedForMetadata:metadata];
     }];
-}
-
-+ (nullable Image *)findImageObjectWithURL:(NSString *)path inContext:(NSManagedObjectContext *)context {
-
-    NSFetchRequest *fetchRequest = [Image fetchRequest];
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"originalURL = %@", path];
-
-    NSError *error = nil;
-    NSArray *fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-    if (fetchedObjects == nil || error) {
-        NSLog(@"findImageObjectWithURL error: %@",error);
-        return nil;
-    }
-
-    if (!fetchedObjects.count) {
-        return nil;
-    }
-
-    return fetchedObjects.firstObject;
 }
 
 - (BOOL)compareByFileNames:(NSString *)path data:(NSData *)data gamePath:(NSString *)gamePath gameData:(NSData *)gameData {
@@ -905,49 +886,22 @@
 
 - (void)mouseDown:(NSEvent *)theEvent {
 
-    NSDate *mouseTime = [NSDate date];
-
-    NSPoint location = [self convertPoint:theEvent.locationInWindow fromView: nil];
-
-    NSEventMask eventMask = NSEventMaskLeftMouseDown | NSEventMaskLeftMouseDragged | NSEventMaskLeftMouseUp;
-    NSTimeInterval timeout = NSEventDurationForever;
-
-    // How far (in points) the mouse must move before a press becomes an image
-    // drag, so a click that wobbles a pixel is still handled as a click.
-    CGFloat dragThreshold = 3;
-
-    [self.window trackEventsMatchingMask:eventMask timeout:timeout mode:NSEventTrackingRunLoopMode handler:^(NSEvent * _Nullable event, BOOL * _Nonnull stop) {
-
-        if (!event) { return; }
-
-        if (event.type == NSEventTypeLeftMouseUp) {
-            *stop = YES;
-            if (mouseTime.timeIntervalSinceNow > -0.5) {
-                [self myMouseDown:event];
-            }
-        } else if (event.type == NSEventTypeLeftMouseDragged) {
-            NSPoint movedLocation = [self convertPoint:event.locationInWindow fromView: nil];
-            if (ABS(movedLocation.x - location.x) > dragThreshold || ABS(movedLocation.y - location.y) > dragThreshold) {
-                *stop = YES;
-
-                if (_isPlaceholder)
-                    return;
-
-                if (!_image)
-                    return;
-                if (!dragSource) {
-                    dragSource = [ImageDragSource new];
-                    dragSource.operationQueue = self.workQueue;
-                }
-                NSDraggingSession *session =
-                    [dragSource dragImage:_image
-                                     from:self
-                                    event:event
-                                 filename:[self gameFromObjectID].path.lastPathComponent.stringByDeletingPathExtension
-                                    frame:self.bounds];
-                _numberForSelfSourcedDrag = session.draggingSequenceNumber;
-            }
+    [self trackClickOrDragFromEvent:theEvent click:^(NSEvent *upEvent) {
+        [self myMouseDown:upEvent];
+    } drag:^(NSEvent *dragEvent) {
+        if (self->_isPlaceholder || !self->_image)
+            return;
+        if (!self->dragSource) {
+            self->dragSource = [ImageDragSource new];
+            self->dragSource.operationQueue = self.workQueue;
         }
+        NSDraggingSession *session =
+            [self->dragSource dragImage:self->_image
+                                   from:self
+                                  event:dragEvent
+                               filename:[self gameFromObjectID].fileBaseName
+                                  frame:self.bounds];
+        self->_numberForSelfSourcedDrag = session.draggingSequenceNumber;
     }];
 }
 

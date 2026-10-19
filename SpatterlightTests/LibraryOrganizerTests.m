@@ -14,6 +14,8 @@
 #import "LibraryOrganizer.h"
 #import "Game.h"
 #import "Metadata.h"
+#import "CoreDataManager.h"
+#import "XCTestCase+TemporaryDirectory.h"
 
 // The marker filename used by LibraryOrganizer (kept in sync by the tests
 // that assert on it below).
@@ -27,6 +29,7 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
 
 @interface LibraryOrganizerTests : XCTestCase
 
+@property (nonatomic, strong) CoreDataManager *coreDataManager;
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, strong) LibraryOrganizer *organizer;
 @property (nonatomic, strong) NSURL *root;
@@ -40,32 +43,12 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
     [super setUp];
 
     // In-memory Core Data stack for Game/Metadata objects.
-    NSURL *modelURL = [[NSBundle bundleForClass:[Game class]] URLForResource:@"Spatterlight"
-                                                               withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    XCTAssertNotNil(model, @"Could not load Core Data model");
-    NSPersistentStoreCoordinator *coordinator =
-    [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc]
-                    initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
+    self.coreDataManager = [[CoreDataManager alloc] initInMemoryWithModelName:@"Spatterlight"];
+    self.context = self.coreDataManager.mainManagedObjectContext;
+    XCTAssertNotNil(self.context);
 
     // A fresh temporary library root for every test.
-    NSString *dirName = [@"LibraryOrganizerTests-" stringByAppendingString:NSUUID.UUID.UUIDString];
-    self.root = [NSURL fileURLWithPath:
-                 [NSTemporaryDirectory() stringByAppendingPathComponent:dirName]
-                           isDirectory:YES];
-    [NSFileManager.defaultManager createDirectoryAtURL:self.root
-                           withIntermediateDirectories:YES
-                                            attributes:nil
-                                                 error:NULL];
+    self.root = [self makeTemporaryDirectory];
 
     // Point a private organiser instance at the temp root. customLibraryURL
     // requires some bookmark data in defaults before it consults the cached
@@ -85,26 +68,18 @@ static NSString *const kMarkerFilename = @".spatterlightIdentity";
     else
         [NSUserDefaults.standardUserDefaults removeObjectForKey:kOrganiseDirBookmarkKey];
 
-    [NSFileManager.defaultManager removeItemAtURL:self.root error:NULL];
     self.organizer = nil;
     self.context = nil;
+    self.coreDataManager = nil;
     [super tearDown];
 }
 
 #pragma mark - Helpers
 
 - (NSURL *)writeFile:(NSString *)relativePath contents:(NSString *)contents {
-    NSURL *url = [self.root URLByAppendingPathComponent:relativePath];
-    [NSFileManager.defaultManager createDirectoryAtURL:url.URLByDeletingLastPathComponent
-                           withIntermediateDirectories:YES
-                                            attributes:nil
-                                                 error:NULL];
-    XCTAssertTrue([contents writeToURL:url
-                            atomically:YES
-                              encoding:NSUTF8StringEncoding
-                                 error:NULL],
-                  @"Could not write fixture %@", relativePath);
-    return url;
+    return [self writeData:[contents dataUsingEncoding:NSUTF8StringEncoding]
+                        to:relativePath
+                        in:self.root];
 }
 
 - (Game *)makeGameWithTitle:(NSString *)title

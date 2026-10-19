@@ -24,6 +24,8 @@
 #import "TableViewController+TableDelegate.h"
 #import "JourneyMenuHandler.h"
 #import "GlkStyle.h"
+#import "CommandScriptHandler.h"
+#import "SPAccessibility.h"
 
 #include "protocol.h"
 #include "messagenames.h"
@@ -147,12 +149,8 @@ static NSString *signalToName(NSTask *task) {
         [bezel showGameOver];
 
         runOnMainAfterDelay(1, ^{
-            NSAccessibilityPostNotificationWithUserInfo(
-                                                        NSApp.mainWindow,
-                                                        NSAccessibilityAnnouncementRequestedNotification,
-                                                        @{NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh),
-                                                          NSAccessibilityAnnouncementKey: [NSString stringWithFormat:@"%@ has finished.", self.game.metadata.title]
-                                                        });
+            SPAnnounce([NSString stringWithFormat:@"%@ has finished.", self.game.metadata.title],
+                       NSAccessibilityPriorityHigh, nil);
         });
     }
 
@@ -164,7 +162,7 @@ static NSString *signalToName(NSTask *task) {
     [self closeLogFile];
 
     // Post notification that command script has completed
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"GlkCommandScriptDidComplete"
+    [[NSNotificationCenter defaultCenter] postNotificationName:GlkCommandScriptDidCompleteNotification
                                                         object:self
                                                       userInfo:nil];
 

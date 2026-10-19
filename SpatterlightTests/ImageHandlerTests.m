@@ -13,6 +13,8 @@
 
 #import "ImageHandler.h"
 #import "ImageResource.h"
+#import "XCTestCase+TemporaryDirectory.h"
+#import "NSBitmapImageRep+TestImages.h"
 
 @interface ImageHandlerTests : XCTestCase
 @property NSURL *directory;
@@ -21,13 +23,7 @@
 @implementation ImageHandlerTests
 
 - (void)setUp {
-    _directory = [[NSFileManager defaultManager].temporaryDirectory
-                  URLByAppendingPathComponent:[NSUUID UUID].UUIDString isDirectory:YES];
-    [[NSFileManager defaultManager] createDirectoryAtURL:_directory withIntermediateDirectories:YES attributes:nil error:NULL];
-}
-
-- (void)tearDown {
-    [[NSFileManager defaultManager] removeItemAtURL:_directory error:NULL];
+    _directory = [self makeTemporaryDirectory];
 }
 
 #pragma mark Helpers
@@ -94,7 +90,7 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
 }
 
 - (NSString *)writePNGNamed:(NSString *)name width:(NSInteger)width height:(NSInteger)height {
-    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:width pixelsHigh:height bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSDeviceRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+    NSBitmapImageRep *rep = [NSBitmapImageRep blankRGBAWithWidth:width height:height];
     return [self write:[rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}] named:name];
 }
 
@@ -288,7 +284,7 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
     NSDictionary *gif = @{ (__bridge NSString *)kCGImagePropertyGIFDictionary :
                                @{ (__bridge NSString *)kCGImagePropertyGIFLoopCount : @2 } };
     CGImageDestinationSetProperties(destination, (__bridge CFDictionaryRef)gif);
-    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL pixelsWide:4 pixelsHigh:4 bitsPerSample:8 samplesPerPixel:4 hasAlpha:YES isPlanar:NO colorSpaceName:NSDeviceRGBColorSpace bytesPerRow:0 bitsPerPixel:0];
+    NSBitmapImageRep *rep = [NSBitmapImageRep blankRGBAWithWidth:4 height:4];
     for (NSNumber *delay in delays) {
         NSDictionary *frame = @{ (__bridge NSString *)kCGImagePropertyGIFDictionary :
                                      @{ (__bridge NSString *)kCGImagePropertyGIFDelayTime : delay,

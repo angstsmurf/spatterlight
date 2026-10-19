@@ -97,6 +97,32 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
   return pathExtension && [extensions containsObject:pathExtension];
 }
 
++ (nullable instancetype)blorbAtURL:(nullable NSURL *)url {
+  if (!url)
+    return nil;
+  @try {
+    NSData *data = [NSData dataWithContentsOfURL:url
+                                         options:NSDataReadingMappedIfSafe
+                                           error:NULL];
+    return [[self alloc] initWithData:data];
+  } @catch (NSException *exception) {
+    NSLog(@"Blorb: exception parsing %@: %@", url.path, exception);
+    return nil;
+  }
+}
+
++ (nullable NSData *)coverImageDataAtURL:(nullable NSURL *)url {
+  if (![self isBlorbURL:url])
+    return nil;
+  Blorb *blorb = [self blorbAtURL:url];
+  @try {
+    return blorb.coverImageData;
+  } @catch (NSException *exception) {
+    NSLog(@"Blorb: exception reading the cover of %@: %@", url.path, exception);
+    return nil;
+  }
+}
+
 + (BOOL)isBlorbData:(nonnull NSData *)data {
   return isForm(data.bytes, data.length, 'I', 'F', 'R', 'S');
 }

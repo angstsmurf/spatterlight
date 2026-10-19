@@ -298,8 +298,7 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
     _textview.selectedRange = NSMakeRange(0, 0);
     if ([cell isKindOfClass:[MyAttachmentCell class]]) {
         MyAttachmentCell *attachment = (MyAttachmentCell *)cell;
-        NSString *filename = self.glkctl.game.path.lastPathComponent.stringByDeletingPathExtension;
-        [attachment dragTextAttachmentFrom:view event:event filename:filename inRect:rect];
+        [attachment dragTextAttachmentFrom:view event:event filename:self.glkctl.game.fileBaseName inRect:rect];
     }
 }
 

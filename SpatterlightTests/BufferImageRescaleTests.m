@@ -18,8 +18,7 @@
 //  directory standing in for the game's pictures.
 //
 
-#import <XCTest/XCTest.h>
-#import <CoreData/CoreData.h>
+#import "GlkControllerTestCase.h"
 #import <ImageIO/ImageIO.h>
 
 #import "GlkController.h"
@@ -34,7 +33,8 @@
 #import "Theme.h"
 #import "Game.h"
 #import "BuiltInThemes.h"
-#import "CoreDataManager.h"
+#import "XCTestCase+TemporaryDirectory.h"
+#import "NSBitmapImageRep+TestImages.h"
 
 #include "glk.h"
 #include "protocol.h"
@@ -51,13 +51,8 @@ static const NSSize kPictureSize = { 20, 10 };
 static const NSSize kAnimatedSize = { 16, 12 };
 static const NSSize kDecoySize = { 30, 30 };
 
-@interface BufferImageRescaleTests : XCTestCase
+@interface BufferImageRescaleTests : GlkControllerTestCase
 
-@property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, strong) Theme *theme;
-@property (nonatomic, strong) Game *game;
-// GlkWindow.glkctl and GlkController.game are weak, so the test owns these.
-@property (nonatomic, strong) NSMutableArray<GlkController *> *controllers;
 @property (nonatomic, strong) NSURL *imageDirectory;
 
 @end
@@ -66,87 +61,18 @@ static const NSSize kDecoySize = { 30, 30 };
 
 - (void)setUp {
     [super setUp];
+    [self makeGameWithIfid:@"ZCODE-1-261008-0000" theme:self.theme];
 
-    // Always an in-memory store: createDefaultThemeInContext with
-    // forceRebuild would rewrite the real library's Default theme.
-    NSURL *modelURL = [[NSBundle bundleForClass:[CoreDataManager class]] URLForResource:@"Spatterlight" withExtension:@"momd"];
-    NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    NSPersistentStoreCoordinator *coordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:model];
-    NSError *error = nil;
-    [coordinator addPersistentStoreWithType:NSInMemoryStoreType
-                              configuration:nil
-                                        URL:nil
-                                    options:nil
-                                      error:&error];
-    XCTAssertNil(error);
-    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.context.persistentStoreCoordinator = coordinator;
-
-    self.theme = [BuiltInThemes createDefaultThemeInContext:self.context forceRebuild:YES];
-    XCTAssertNotNil(self.theme);
-
-    self.game = [NSEntityDescription insertNewObjectForEntityForName:@"Game"
-                                              inManagedObjectContext:self.context];
-    self.game.ifid = @"ZCODE-1-261008-0000";
-    self.game.theme = self.theme;
-
-    self.controllers = [NSMutableArray array];
-
-    self.imageDirectory = [[NSURL fileURLWithPath:NSTemporaryDirectory()]
-                           URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
-    [[NSFileManager defaultManager] createDirectoryAtURL:self.imageDirectory
-                             withIntermediateDirectories:YES
-                                              attributes:nil
-                                                   error:&error];
-    XCTAssertNil(error);
-}
-
-- (void)tearDown {
-    for (GlkController *ctl in self.controllers)
-        [NSObject cancelPreviousPerformRequestsWithTarget:ctl];
-    self.controllers = nil;
-    self.game = nil;
-    self.theme = nil;
-    self.context = nil;
-    [[NSFileManager defaultManager] removeItemAtURL:self.imageDirectory error:NULL];
-    [super tearDown];
+    self.imageDirectory = [self makeTemporaryDirectory];
 }
 
 #pragma mark - A controller without an interpreter
 
-// A GlkController wired the way runTerp wires one, minus the interpreter
-// process. Events meant for the interpreter go to /dev/null.
+// A controller without an interpreter, with an image handler to load the
+// pictures into.
 - (GlkController *)makeController {
-    GlkController *ctl = [[GlkController alloc] init];
-    ctl.theme = self.theme;
-    [ctl setValue:self.game forKey:@"game"];
+    GlkController *ctl = [super makeController];
     ctl.imageHandler = [ImageHandler new];
-
-    NSMutableArray *nullarray = [NSMutableArray arrayWithCapacity:stylehint_NUMHINTS];
-    for (NSInteger i = 0; i < stylehint_NUMHINTS; i++)
-        [nullarray addObject:[NSNull null]];
-
-    ctl.gridStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    ctl.bufferStyleHints = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
-    for (NSInteger i = 0; i < style_NUMSTYLES; i++) {
-        [ctl.gridStyleHints addObject:[nullarray mutableCopy]];
-        [ctl.bufferStyleHints addObject:[nullarray mutableCopy]];
-    }
-
-    ctl.gwindows = [NSMutableDictionary dictionary];
-    ctl.windowsToBeAdded = [NSMutableArray array];
-    ctl.windowsToBeRemoved = [NSMutableArray array];
-    ctl.queue = [NSMutableArray array];
-    ctl->sendfh = [NSFileHandle fileHandleWithNullDevice];
-
-    ctl.window = [[NSWindow alloc] initWithContentRect:NSMakeRect(0, 0, 800, 600)
-                                             styleMask:NSWindowStyleMaskTitled
-                                               backing:NSBackingStoreBuffered
-                                                 defer:YES];
-    ctl.gameView = [[GlkHelperView alloc] initWithFrame:ctl.window.contentView.bounds];
-    [ctl.window.contentView addSubview:ctl.gameView];
-
-    [self.controllers addObject:ctl];
     return ctl;
 }
 
@@ -193,17 +119,6 @@ static const NSSize kDecoySize = { 30, 30 };
 }
 
 #pragma mark - Requests, as the interpreter sends them
-
-- (struct message)send:(int)cmd to:(GlkController *)ctl a1:(int)a1 a2:(int)a2 a3:(int)a3 data:(NSData *)data {
-    struct message request = { .cmd = cmd, .a1 = a1, .a2 = a2, .a3 = a3, .len = data.length };
-    struct message reply = { 0 };
-    // Room for the terminator the request handlers write after the payload.
-    NSMutableData *buffer = [NSMutableData dataWithLength:data.length + sizeof(unichar)];
-    if (data.length)
-        memcpy(buffer.mutableBytes, data.bytes, data.length);
-    [ctl handleRequest:&request reply:&reply buffer:buffer.mutableBytes];
-    return reply;
-}
 
 - (void)print:(NSString *)text in:(GlkController *)ctl {
     [self send:PRINT to:ctl a1:kStory a2:style_Normal a3:0
@@ -452,16 +367,8 @@ static const NSSize kDecoySize = { 30, 30 };
 
 // The gray level at the middle of image, drawn the way a cell draws it.
 - (CGFloat)grayDrawnBy:(NSImage *)image {
-    NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithBitmapDataPlanes:NULL
-                                                                    pixelsWide:(NSInteger)kAnimatedSize.width
-                                                                    pixelsHigh:(NSInteger)kAnimatedSize.height
-                                                                 bitsPerSample:8
-                                                               samplesPerPixel:4
-                                                                      hasAlpha:YES
-                                                                      isPlanar:NO
-                                                                colorSpaceName:NSDeviceRGBColorSpace
-                                                                   bytesPerRow:0
-                                                                  bitsPerPixel:0];
+    NSBitmapImageRep *rep = [NSBitmapImageRep blankRGBAWithWidth:(NSInteger)kAnimatedSize.width
+                                                              height:(NSInteger)kAnimatedSize.height];
     [NSGraphicsContext saveGraphicsState];
     NSGraphicsContext.currentContext = [NSGraphicsContext graphicsContextWithBitmapImageRep:rep];
     [image drawInRect:NSMakeRect(0, 0, kAnimatedSize.width, kAnimatedSize.height)

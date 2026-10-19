@@ -22,21 +22,16 @@
 
 #pragma mark Colors and styles
 
-// The attributes of a grid style in the current theme: with the game's style
-// hints applied if the theme does styles, and as the theme has them if not.
-- (NSDictionary *)themeAttributesForStyle:(NSUInteger)style {
-    GlkStyle *glkStyle = [self.theme valueForKey:gGridStyleNames[style]];
-    if (self.theme.doStyles)
-        return [glkStyle attributesWithHints:self.styleHints[style]];
-    return glkStyle.attributeDict;
+- (GlkStyle *)themeStyle:(NSUInteger)style {
+    return [self.theme valueForKey:gGridStyleNames[style]];
 }
 
-// Links are drawn in the Normal style's colour, underlined as the theme says.
-- (void)updateLinkTextAttributes {
-    NSMutableDictionary *linkAttributes = [_textview.linkTextAttributes mutableCopy];
-    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
-    linkAttributes[NSUnderlineStyleAttributeName] = @(self.theme.gridLinkStyle);
-    _textview.linkTextAttributes = linkAttributes;
+- (NSColor *)themeBackground {
+    return self.theme.gridBackground;
+}
+
+- (int32_t)themeLinkStyle {
+    return self.theme.gridLinkStyle;
 }
 
 - (void)prefsDidChange {
@@ -50,17 +45,7 @@
         [self adjustBZTerminators:self.currentTerminators];
     }
 
-    BOOL different = NO;
-
-    if (usingStyles != self.theme.doStyles) {
-        different = YES;
-        usingStyles = self.theme.doStyles;
-    }
-
-    if (underlineLinks != (self.theme.gridLinkStyle != NSUnderlineStyleNone)) {
-        different = YES;
-        underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
-    }
+    BOOL different = [self syncStyleFlagsWithTheme];
 
     NSMutableArray *newstyles = [NSMutableArray arrayWithCapacity:style_NUMSTYLES];
     for (NSUInteger i = 0; i < style_NUMSTYLES; i++) {
@@ -126,7 +111,7 @@
         // Now we can replace the text storage
         [textstorage setAttributedString:_bufferTextStorage];
 
-        [self updateLinkTextAttributes];
+        [self updateLinkTextAttributesOf:_textview];
 
         if (NSMaxRange(selectedRange) <= textstorage.length)
             _textview.selectedRange = selectedRange;

@@ -111,7 +111,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
             NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
         _textview.backgroundColor = self.theme.gridBackground;
 
-        [self updateLinkTextAttributes];
+        [self updateLinkTextAttributesOf:_textview];
 
         _textview.editable = NO;
         _textview.usesFontPanel = NO;
@@ -125,7 +125,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         if (self.glkctl.usesFont3)
             [self createBeyondZorkStyle];
 
-        underlineLinks = (self.theme.gridLinkStyle != NSUnderlineStyleNone);
+        underlineLinks = (self.themeLinkStyle != NSUnderlineStyleNone);
     }
     return self;
 }
@@ -147,10 +147,6 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         scrollview.documentView = _textview;
         scrollview.accessibilityElement = NO;
         container = _textview.textContainer;
-
-        line_request = [decoder decodeBoolForKey:@"line_request"];
-        hyper_request = [decoder decodeBoolForKey:@"hyper_request"];
-        mouse_request = [decoder decodeBoolForKey:@"mouse_request"];
 
         rows = (NSUInteger)[decoder decodeIntegerForKey:@"rows"];
         cols = (NSUInteger)[decoder decodeIntegerForKey:@"cols"];
@@ -189,9 +185,6 @@ static const CGFloat kUnlimitedTextSize = 10000000;
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
     [encoder encodeObject:_textview forKey:@"_textview"];
-    [encoder encodeBool:line_request forKey:@"line_request"];
-    [encoder encodeBool:hyper_request forKey:@"hyper_request"];
-    [encoder encodeBool:mouse_request forKey:@"mouse_request"];
     [encoder encodeInteger:(NSInteger)rows forKey:@"rows"];
     [encoder encodeInteger:(NSInteger)cols forKey:@"cols"];
     [encoder encodeInteger:(NSInteger)xpos forKey:@"xpos"];
