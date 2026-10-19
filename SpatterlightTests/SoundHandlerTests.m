@@ -24,6 +24,25 @@
 - (void)volumeTimerCallback:(NSTimer *)aTimer;
 @end
 
+/// Records sound notifications instead of queueing Glk events, and keeps out
+/// of the system Now Playing session.
+@interface RecordingSoundHandler : SoundHandler
+@property NSMutableArray<NSArray<NSNumber *> *> *soundNotifications;
+@property (nullable) void (^onSoundNotification)(void);
+@end
+
+@implementation RecordingSoundHandler
+- (void)handleSoundNotification:(glui32)notify withSound:(glsi32)sound {
+    if (!_soundNotifications)
+        _soundNotifications = [NSMutableArray new];
+    [_soundNotifications addObject:@[@(notify), @(sound)]];
+    if (_onSoundNotification)
+        _onSoundNotification();
+}
+- (void)nowPlayingStateDidChange {
+}
+@end
+
 @interface SoundHandlerTests : XCTestCase
 @end
 
@@ -252,6 +271,111 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
 - (void)testVolumeAboveGlkMaximumIsFull {
     GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x30000];
     XCTAssertEqualWithAccuracy([[chan valueForKey:@"volume"] floatValue], 1.0f, 0.0001f);
+}
+
+#pragma mark Playback through the handler
+
+/// A format 0 MIDI file with one quarter-second note.
+static NSData *TinyMIDI(void) {
+    static const uint8_t bytes[] = {
+        'M', 'T', 'h', 'd', 0, 0, 0, 6, 0, 0, 0, 1, 0x01, 0xE0,
+        'M', 'T', 'r', 'k', 0, 0, 0, 13,
+        0x00, 0x90, 60, 64,
+        0x83, 0x60, 0x80, 60, 0,
+        0x00, 0xFF, 0x2F, 0x00,
+    };
+    return [NSData dataWithBytes:bytes length:sizeof bytes];
+}
+
+- (NSString *)writeSound:(NSData *)data named:(NSString *)name {
+    NSString *path = [NSTemporaryDirectory() stringByAppendingPathComponent:
+                      [NSString stringWithFormat:@"SoundHandlerTests-%@-%@", NSUUID.UUID.UUIDString, name]];
+    XCTAssertTrue([data writeToFile:path atomically:YES]);
+    [self addTeardownBlock:^{
+        [NSFileManager.defaultManager removeItemAtPath:path error:nil];
+    }];
+    return path;
+}
+
+- (void)loadSound:(glsi32)resno data:(NSData *)data named:(NSString *)name into:(SoundHandler *)handler {
+    [handler handleLoadSoundNumber:resno from:[self writeSound:data named:name] offset:0 length:data.length];
+    XCTAssertTrue([handler handleFindSoundNumber:resno]);
+}
+
+/// Wait until `handler` has seen `count` sound notifications.
+- (void)waitForNotifications:(NSUInteger)count from:(RecordingSoundHandler *)handler {
+    XCTestExpectation *seen = [self expectationWithDescription:@"sound notifications"];
+    __weak RecordingSoundHandler *weakHandler = handler;
+    void (^check)(void) = ^{
+        if (weakHandler.soundNotifications.count == count) {
+            weakHandler.onSoundNotification = nil;
+            [seen fulfill];
+        }
+    };
+    handler.onSoundNotification = check;
+    if (handler.soundNotifications.count == count)
+        check();
+    [self waitForExpectations:@[seen] timeout:5];
+}
+
+/// Volume 0 throughout, so the tests make no sound.
+- (void)testSampledSoundNotifiesAfterLastRepeat {
+    RecordingSoundHandler *handler = [RecordingSoundHandler new];
+    int name = [handler handleNewSoundChannel:0];
+    [self loadSound:5 data:[SpectrumBeeper WAVWithFrequency:440 duration:50] named:@"beep.wav" into:handler];
+    [handler handlePlaySoundOnChannel:name repeats:3 notify:9];
+    GlkSoundChannel *chan = handler.glkchannels[@(name)];
+    XCTAssertEqual(chan.status, GlkSoundChannelStatusSound);
+    [self waitForNotifications:1 from:handler];
+    XCTAssertEqualObjects(handler.soundNotifications, (@[@[@9, @5]]));
+    XCTAssertEqual(chan.status, GlkSoundChannelStatusIdle);
+    [handler stopAllAndCleanUp];
+}
+
+- (void)testOneChannelPlaysMIDIThenSampled {
+    RecordingSoundHandler *handler = [RecordingSoundHandler new];
+    int name = [handler handleNewSoundChannel:0];
+    GlkSoundChannel *chan = handler.glkchannels[@(name)];
+
+    [self loadSound:1 data:TinyMIDI() named:@"note.mid" into:handler];
+    [handler handlePlaySoundOnChannel:name repeats:1 notify:1];
+    XCTAssertEqual(chan.status, GlkSoundChannelStatusSound);
+    [self waitForNotifications:1 from:handler];
+
+    [self loadSound:2 data:[SpectrumBeeper WAVWithFrequency:440 duration:50] named:@"beep.wav" into:handler];
+    [handler handlePlaySoundOnChannel:name repeats:1 notify:2];
+    [self waitForNotifications:2 from:handler];
+
+    XCTAssertEqual(handler.glkchannels[@(name)], chan, @"the channel is not swapped for another");
+    XCTAssertEqualObjects(handler.soundNotifications, (@[@[@1, @1], @[@2, @2]]));
+    [handler stopAllAndCleanUp];
+}
+
+/// A sound started on a paused channel, autosaved and restored, waits for
+/// the unpause and then plays to its end.
+- (void)testPausedSoundSurvivesAutosave {
+    RecordingSoundHandler *handler = [RecordingSoundHandler new];
+    int name = [handler handleNewSoundChannel:0];
+    [self loadSound:4 data:[SpectrumBeeper WAVWithFrequency:440 duration:50] named:@"beep.wav" into:handler];
+    [handler handlePauseOnChannel:name];
+    [handler handlePlaySoundOnChannel:name repeats:1 notify:7];
+
+    RecordingSoundHandler *restored = [self roundTrip:handler ofClass:[RecordingSoundHandler class]];
+    [handler stopAllAndCleanUp];
+    XCTAssertNotNil(restored);
+    [restored restartAll];
+    GlkSoundChannel *chan = restored.glkchannels[@(name)];
+    XCTAssertTrue(chan.isPaused);
+    XCTAssertEqual(chan.status, GlkSoundChannelStatusSound);
+
+    [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.3]];
+    XCTAssertEqual(restored.soundNotifications.count, 0U, @"nothing plays while paused");
+
+    [restored handleUnpauseOnChannel:name];
+    [self waitForNotifications:1 from:restored];
+    XCTAssertEqualObjects(restored.soundNotifications, (@[@[@7, @4]]));
+    XCTAssertEqual(handler.soundNotifications.count, 0U, @"the stopped original stays quiet");
+    [restored stopAllAndCleanUp];
 }
 
 #pragma mark Backends
