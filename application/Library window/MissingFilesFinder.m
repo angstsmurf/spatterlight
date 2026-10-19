@@ -22,6 +22,34 @@ extern NSArray *gGameFileTypes;
 
 @implementation MissingFilesFinder
 
+//! Looks for the old file under an ancestor folder it shares with the folder
+//! the user found a game in. Starting from the file's innermost folder, each
+//! folder name is looked up among the components of @c directory; if the file
+//! exists at the same relative path below the matching folder, that path is
+//! returned. Folders are compared by whole name, so "Games" does not match
+//! "MyGames".
++ (nullable NSString *)pathForFile:(NSString *)oldPath underCommonAncestorWith:(NSString *)directory {
+    NSArray<NSString *> *fileComponents = oldPath.pathComponents;
+    NSArray<NSString *> *directoryComponents = directory.pathComponents;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+
+    // The last component is the file name itself. Index 0 is the root "/".
+    for (NSInteger i = (NSInteger)fileComponents.count - 2; i > 0; i--) {
+        NSString *component = fileComponents[(NSUInteger)i];
+        NSUInteger j = [directoryComponents indexOfObject:component];
+        if (j == NSNotFound || j == 0)
+            continue;
+
+        NSArray<NSString *> *beginning = [directoryComponents subarrayWithRange:NSMakeRange(0, j)];
+        NSArray<NSString *> *end = [fileComponents subarrayWithRange:NSMakeRange((NSUInteger)i, fileComponents.count - (NSUInteger)i)];
+        NSString *newPath = [NSString pathWithComponents:[beginning arrayByAddingObjectsFromArray:end]];
+
+        if ([fileManager fileExistsAtPath:newPath])
+            return newPath;
+    }
+    return nil;
+}
+
 - (void)lookForMissingFile:(Game *)game libController:(TableViewController *)libController {
     NSAlert *alert = [[NSAlert alloc] init];
     alert.messageText = NSLocalizedString(@"Cannot find the file.", nil);
@@ -99,19 +127,27 @@ extern NSArray *gGameFileTypes;
                                includingPropertiesForKeys:@[NSURLNameKey]
                                                   options:NSDirectoryEnumerationSkipsHiddenFiles
                                                     error:nil];
+    NSMutableArray<NSPredicate *> *filenamePredicates = [NSMutableArray new];
     for (NSURL *url in contentsOfDir) {
         NSString *name = nil;
         [url getResourceValue:&name forKey:NSURLNameKey error:nil];
         NSString *extension = name.pathExtension.lowercaseString;
         if (extension.length && [gGameFileTypes indexOfObject:extension] != NSNotFound) {
             NSString *filename = url.lastPathComponent;
-            if (filename.length) {
-                fetchRequest.predicate = [NSPredicate predicateWithFormat:@"path ENDSWITH[c] %@",filename];
-                fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
-                for (Game *game in fetchedObjects) {
-                    [game urlForBookmark];
-                }
-            }
+            if (filename.length)
+                [filenamePredicates addObject:[NSPredicate predicateWithFormat:@"path ENDSWITH[c] %@", filename]];
+        }
+    }
+
+    // One fetch per batch of file names rather than one per file. The
+    // batches keep the SQL expression well below SQLite's depth limit.
+    const NSUInteger batchSize = 100;
+    for (NSUInteger start = 0; start < filenamePredicates.count; start += batchSize) {
+        NSRange range = NSMakeRange(start, MIN(batchSize, filenamePredicates.count - start));
+        fetchRequest.predicate = [NSCompoundPredicate orPredicateWithSubpredicates:[filenamePredicates subarrayWithRange:range]];
+        fetchedObjects = [context executeFetchRequest:fetchRequest error:&error];
+        for (Game *game in fetchedObjects) {
+            [game urlForBookmark];
         }
     }
 
@@ -160,38 +196,16 @@ extern NSArray *gGameFileTypes;
         } else {
             // If the missing game is not in the current directory, we check for a
             // common ancestor directory
-            NSArray<NSString *> *pathComponents = (filename.stringByDeletingLastPathComponent).pathComponents;
-
-            NSEnumerator *enumerator = [pathComponents reverseObjectEnumerator];
-            NSString *component;
-            NSRange foundRange, rangeInFileName;
-            while (component = [enumerator nextObject]) {
-                foundRange = [directory rangeOfString:component];
-                if (foundRange.location == NSNotFound || foundRange.location == 0)
-                    continue;
-
-                rangeInFileName = [filename rangeOfString:component];
-                if (rangeInFileName.location == NSNotFound)
-                    continue;
-
-                NSString *newPathBeginning = [directory substringToIndex:foundRange.location - 1];
-                NSString *newPathEnd = [filename substringFromIndex:rangeInFileName.location];
-                NSString *newPath = [newPathBeginning stringByAppendingPathComponent:newPathEnd];
-
-                if ([[NSFileManager defaultManager] fileExistsAtPath:newPath]) {
-                    filenames[newPath] = game;
-                    break;
-                }
-            }
+            NSString *newPath = [MissingFilesFinder pathForFile:filename underCommonAncestorWith:directory];
+            if (newPath)
+                filenames[newPath] = game;
         }
     }
 
     if (!filenames.count)
         return;
 
-    NSArray<NSString *> __block *matchedPaths = filenames.allKeys;
-
-    matchedPaths = [matchedPaths sortedArrayUsingComparator:
+    NSArray<NSString *> *matchedPaths = [filenames.allKeys sortedArrayUsingComparator:
                   ^NSComparisonResult(NSString * obj1, NSString * obj2){
         NSUInteger l1 = ((NSString *)obj1).length;
         NSUInteger l2 = ((NSString *)obj2).length;
