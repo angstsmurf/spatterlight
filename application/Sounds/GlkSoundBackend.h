@@ -12,8 +12,6 @@
 
 #import "SoundResource.h"
 
-typedef int32_t glsi32;
-
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol GlkSoundBackend <NSObject>

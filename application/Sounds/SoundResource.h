@@ -11,15 +11,24 @@
 
 @class SoundHandler;
 
+/* The Glk integer types, for the sound code; glk.h has the same. */
+typedef uint32_t glui32;
+typedef int32_t glsi32;
+
+/* Archived as raw values: never reorder. */
 typedef NS_ENUM(NSInteger, GlkSoundBlorbFormatType) {
-	GlkSoundBlorbFormatNone,
+    GlkSoundBlorbFormatNone,
+    /* Any tracker module DUMB reads: MOD, S3M, XM or IT. */
     GlkSoundBlorbFormatMod,
-	GlkSoundBlorbFormatOggVorbis,
-	GlkSoundBlorbFormatFORM,
-	GlkSoundBlorbFormatAIFF,
-	GlkSoundBlorbFormatMP3,
-	GlkSoundBlorbFormatWave,
-	GlkSoundBlorbFormatMIDI,
+    GlkSoundBlorbFormatOggVorbis,
+    /* AIFF, which is an IFF FORM. */
+    GlkSoundBlorbFormatFORM,
+    /* Never produced (sniffing reports AIFF as FORM); kept so that the
+       values after it keep their numbers. */
+    GlkSoundBlorbFormatAIFF,
+    GlkSoundBlorbFormatMP3,
+    GlkSoundBlorbFormatWave,
+    GlkSoundBlorbFormatMIDI,
 };
 
 NS_ASSUME_NONNULL_BEGIN

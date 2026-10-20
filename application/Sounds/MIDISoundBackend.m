@@ -28,6 +28,8 @@
         return NO;
 
     _midiPlayer = [[MIDIPlayer alloc] initWithData:data];
+    if (!_midiPlayer)
+        return NO;
     [_midiPlayer setVolume:volume];
 
     if (repeats != -1) {
@@ -52,8 +54,10 @@
     if (position > 0)
         [_midiPlayer seekToPosition:position];
 
-    if (!paused)
-        [_midiPlayer play];
+    if (!paused && ![_midiPlayer play]) {
+        [self stop];
+        return NO;
+    }
     return YES;
 }
 
@@ -68,10 +72,7 @@
 }
 
 - (BOOL)resume {
-    if (!_midiPlayer)
-        return NO;
-    [_midiPlayer play];
-    return YES;
+    return [_midiPlayer play];
 }
 
 - (void)setVolume:(float)volume {

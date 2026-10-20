@@ -19,6 +19,8 @@
 #import "Metadata.h"
 #import "Image.h"
 
+static const int kMaxSoundChannels = 32;
+
 @interface SoundHandler ()
 @property (strong, nonatomic) SpectrumBeeper *beeper;
 @end
@@ -162,11 +164,11 @@
 
 - (int)handleNewSoundChannel:(glui32)volume {
     int i;
-    for (i = 0; i < MAXSND; i++)
+    for (i = 0; i < kMaxSoundChannels; i++)
         if (_glkchannels[@(i)] == nil)
             break;
 
-    if (i == MAXSND)
+    if (i == kMaxSoundChannels)
         return -1;
 
     _glkchannels[@(i)] = [[GlkSoundChannel alloc] initWithHandler:self

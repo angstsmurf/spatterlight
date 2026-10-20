@@ -33,21 +33,32 @@
 
 @end
 
+/* Logs a failed Core Audio call. Returns YES if it succeeded. */
+static BOOL Succeeded(OSStatus status, const char *call) {
+    if (status != noErr)
+        NSLog(@"MIDIPlayer: %s failed (%d)", call, (int)status);
+    return status == noErr;
+}
+
 @implementation MIDIPlayer
 
 - (instancetype)initWithData:(NSData *)data {
     if (self = [super init]) {
         hasPausedTime = NO;
         pausedTime = 0;
-        [self createGraph];
-        [self startGraph];
-        [self loadData:data];
+        if (![self createGraph] || ![self startGraph] || ![self loadData:data]) {
+            [self stop];
+            return nil;
+        }
     }
     return self;
 }
 
-- (void)createGraph {
-    NewAUGraph(&graph);
+- (BOOL)createGraph {
+    if (!Succeeded(NewAUGraph(&graph), "NewAUGraph")) {
+        graph = NULL;
+        return NO;
+    }
 
     AudioComponentDescription sampleDesc = {};
     sampleDesc.componentType            = kAudioUnitType_MusicDevice;
@@ -55,7 +66,8 @@
     sampleDesc.componentManufacturer    = kAudioUnitManufacturer_Apple;
     sampleDesc.componentFlags           = 0;
     sampleDesc.componentFlagsMask       = 0;
-    AUGraphAddNode(graph, &sampleDesc, &sampleNode);
+    if (!Succeeded(AUGraphAddNode(graph, &sampleDesc, &sampleNode), "AUGraphAddNode (synth)"))
+        return NO;
 
     AudioComponentDescription ioUnitDesc;
     ioUnitDesc.componentType            = kAudioUnitType_Output;
@@ -63,7 +75,8 @@
     ioUnitDesc.componentManufacturer    = kAudioUnitManufacturer_Apple;
     ioUnitDesc.componentFlags           = 0;
     ioUnitDesc.componentFlagsMask       = 0;
-    AUGraphAddNode(graph, &ioUnitDesc, &ioNode);
+    if (!Succeeded(AUGraphAddNode(graph, &ioUnitDesc, &ioNode), "AUGraphAddNode (output)"))
+        return NO;
 
     // A description of the mixer unit
     AudioComponentDescription mixerDescription;
@@ -73,18 +86,18 @@
     mixerDescription.componentFlags = 0;
     mixerDescription.componentFlagsMask = 0;
 
-    AUGraphAddNode(graph, &mixerDescription, &mixerNode);
-    AUGraphOpen(graph);
-    AUGraphNodeInfo(graph, sampleNode, NULL, &sampleUnit);
-    AUGraphNodeInfo(graph, ioNode, NULL, &ioUnit);
-    AUGraphNodeInfo(graph, mixerNode, NULL, &mixerUnit);
-
-    AUGraphConnectNodeInput(graph, sampleNode, 0, mixerNode, 0);
-    AUGraphConnectNodeInput(graph, mixerNode, 0, ioNode, 0);
+    if (!Succeeded(AUGraphAddNode(graph, &mixerDescription, &mixerNode), "AUGraphAddNode (mixer)") ||
+        !Succeeded(AUGraphOpen(graph), "AUGraphOpen") ||
+        !Succeeded(AUGraphNodeInfo(graph, sampleNode, NULL, &sampleUnit), "AUGraphNodeInfo (synth)") ||
+        !Succeeded(AUGraphNodeInfo(graph, ioNode, NULL, &ioUnit), "AUGraphNodeInfo (output)") ||
+        !Succeeded(AUGraphNodeInfo(graph, mixerNode, NULL, &mixerUnit), "AUGraphNodeInfo (mixer)") ||
+        !Succeeded(AUGraphConnectNodeInput(graph, sampleNode, 0, mixerNode, 0), "AUGraphConnectNodeInput (synth)") ||
+        !Succeeded(AUGraphConnectNodeInput(graph, mixerNode, 0, ioNode, 0), "AUGraphConnectNodeInput (mixer)"))
+        return NO;
 
     [self setVolume:1.0];
 
-    AUGraphInitialize(graph);
+    return Succeeded(AUGraphInitialize(graph), "AUGraphInitialize");
 }
 
 - (void)setVolume:(CGFloat)volume {
@@ -95,36 +108,41 @@
         AudioUnitSetParameter(mixerUnit, kMultiChannelMixerParam_Volume, scopes[i], 0, (AudioUnitParameterValue)volume, 0);
 }
 
-- (void)startGraph {
-    if (graph) {
-        Boolean isRunning;
-        AUGraphIsRunning(graph, &isRunning);
-        if (!isRunning) {
-            AUGraphStart(graph);
-        }
-    }
+- (BOOL)startGraph {
+    if (!graph)
+        return NO;
+    Boolean isRunning = false;
+    if (Succeeded(AUGraphIsRunning(graph, &isRunning), "AUGraphIsRunning") && isRunning)
+        return YES;
+    return Succeeded(AUGraphStart(graph), "AUGraphStart");
 }
 
 - (void)stopGraph {
     if (graph) {
-        Boolean isRunning;
-        AUGraphIsRunning (graph, &isRunning);
-        if (isRunning) {
-            AUGraphStop(graph);
-        }
+        Boolean isRunning = false;
+        if (AUGraphIsRunning(graph, &isRunning) == noErr && isRunning)
+            Succeeded(AUGraphStop(graph), "AUGraphStop");
     }
 }
 
-- (void)loadData:(NSData *)data {
-    NewMusicSequence(&sequence);
-    MusicSequenceFileLoadData (sequence, (__bridge CFDataRef _Nonnull)(data), kMusicSequenceFile_MIDIType, kMusicSequenceLoadSMF_ChannelsToTracks);
-    MusicSequenceSetAUGraph(sequence, graph);
+- (BOOL)loadData:(NSData *)data {
+    if (!Succeeded(NewMusicSequence(&sequence), "NewMusicSequence")) {
+        sequence = NULL;
+        return NO;
+    }
+    if (!Succeeded(MusicSequenceFileLoadData(sequence, (__bridge CFDataRef)data, kMusicSequenceFile_MIDIType, kMusicSequenceLoadSMF_ChannelsToTracks), "MusicSequenceFileLoadData") ||
+        !Succeeded(MusicSequenceSetAUGraph(sequence, graph), "MusicSequenceSetAUGraph"))
+        return NO;
 
     MIDISequenceTrimLeadingSilence(sequence);
 
-    NewMusicPlayer(&player);
-    MusicPlayerSetSequence(player, sequence);
-    MusicPlayerPreroll(player);
+    if (!Succeeded(NewMusicPlayer(&player), "NewMusicPlayer")) {
+        player = NULL;
+        return NO;
+    }
+    if (!Succeeded(MusicPlayerSetSequence(player, sequence), "MusicPlayerSetSequence"))
+        return NO;
+    Succeeded(MusicPlayerPreroll(player), "MusicPlayerPreroll");
 
     _duration = 0;
     MusicTimeStamp longest = MIDISequenceLength(sequence);
@@ -133,6 +151,7 @@
         if (MusicSequenceGetSecondsForBeats(sequence, longest, &seconds) == noErr)
             _duration = (NSTimeInterval)seconds;
     }
+    return YES;
 }
 
 - (double)position {
@@ -183,15 +202,14 @@
     });
 }
 
-- (void)play {
-    if (!player)
-        return;
-    [self startGraph];
+- (BOOL)play {
+    if (!player || ![self startGraph])
+        return NO;
     if (hasPausedTime) {
-        MusicPlayerSetTime(player, pausedTime);
+        Succeeded(MusicPlayerSetTime(player, pausedTime), "MusicPlayerSetTime");
         hasPausedTime = NO;
     }
-    MusicPlayerStart(player);
+    return Succeeded(MusicPlayerStart(player), "MusicPlayerStart");
 }
 
 - (void)pause {
@@ -208,7 +226,7 @@
 
     pausedTime = 0;
     hasPausedTime = (MusicPlayerGetTime(player, &pausedTime) == noErr);
-    MusicPlayerStop(player);
+    Succeeded(MusicPlayerStop(player), "MusicPlayerStop");
     [self stopGraph];
 }
 
@@ -248,16 +266,18 @@ static void userCallback (void *inClientData, MusicSequence inSequence, MusicTra
     MusicTimeStamp trackLen = 0;
     UInt32 trackLenLen = sizeof(trackLen);
     //Get main track
-    MusicSequenceGetIndTrack(sequence, 0, &track);
+    if (!Succeeded(MusicSequenceGetIndTrack(sequence, 0, &track), "MusicSequenceGetIndTrack"))
+        return;
     //Get length of track
     MusicTrackGetProperty(track, kSequenceTrackProperty_TrackLength, &trackLen, &trackLenLen);
     //Create UserData for User Event with any data
     static const MusicEventUserData userData = {1, {0x09}};
     //Put new user event at the end of the track
-    MusicTrackNewUserEvent(track, trackLen, &userData);
+    if (!Succeeded(MusicTrackNewUserEvent(track, trackLen, &userData), "MusicTrackNewUserEvent"))
+        return;
     //Set a callback for when User Events occur
     endCallback = [block copy];
-    MusicSequenceSetUserCallback(sequence, userCallback, (__bridge void *)endCallback);
+    Succeeded(MusicSequenceSetUserCallback(sequence, userCallback, (__bridge void *)endCallback), "MusicSequenceSetUserCallback");
 }
 
 static void userCallback (void *inClientData, MusicSequence inSequence, MusicTrack inTrack, MusicTimeStamp inEventTime, const MusicEventUserData *inEventData, MusicTimeStamp inStartSliceBeat, MusicTimeStamp inEndSliceBeat) {

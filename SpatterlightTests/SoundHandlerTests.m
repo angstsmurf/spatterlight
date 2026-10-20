@@ -22,7 +22,7 @@
 
 @interface GlkSoundChannel (Testing)
 - (glui32)remainingFadeDuration;
-- (void)volumeTimerCallback:(NSTimer *)aTimer;
+- (void)fadeOneStep;
 @end
 
 /// Records sound notifications instead of queueing Glk events, and keeps out
@@ -41,6 +41,35 @@
         _onSoundNotification();
 }
 - (void)nowPlayingStateDidChange {
+}
+@end
+
+/// Writes a channel the way builds before 2026-10-20 did, with -encodeInt:
+/// and -encodeInteger: for the 32-bit values.
+@interface OldStyleChannelArchive : NSObject <NSSecureCoding>
+@end
+
+@implementation OldStyleChannelArchive
++ (BOOL)supportsSecureCoding {
+    return YES;
+}
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    return [super init];
+}
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    [encoder encodeInt:5 forKey:@"name"];
+    [encoder encodeInt:9 forKey:@"resid"];
+    [encoder encodeInteger:1 forKey:@"status"];
+    [encoder encodeDouble:0.75 forKey:@"volume"];
+    [encoder encodeInt:-1 forKey:@"loop"];
+    [encoder encodeInt:(int)0x80000001U forKey:@"notify"];
+    [encoder encodeInt:1 forKey:@"paused"];
+    [encoder encodeInt:(int)0xFFFFFFFEU forKey:@"volume_notify"];
+    [encoder encodeInt:40 forKey:@"volume_timeout"];
+    [encoder encodeDouble:0.02 forKey:@"volume_tick"];
+    [encoder encodeDouble:0.25 forKey:@"target_volume"];
+    [encoder encodeDouble:-0.005 forKey:@"volume_delta"];
+    [encoder encodeInt64:1234 forKey:@"frame"];
 }
 @end
 
@@ -115,6 +144,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     XCTAssertEqual(Detect(DataWithPrefix("M.K.", 4, 1080, 1084)), GlkSoundBlorbFormatMod);
     XCTAssertEqual(Detect(DataWithPrefix("8CHN", 4, 1080, 2000)), GlkSoundBlorbFormatMod);
     XCTAssertEqual(Detect(DataWithPrefix("32CN", 4, 1080, 2000)), GlkSoundBlorbFormatMod);
+    XCTAssertEqual(Detect(DataWithPrefix("IMPM", 4, 0, 200)), GlkSoundBlorbFormatMod);
 }
 
 - (void)testDetectGarbageIsMP3 {
@@ -176,9 +206,9 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     GlkSoundChannel *chan = handler.glkchannels[@(name)];
 
     XCTAssertFalse([chan playSound:42 countOfRepeats:1 notification:0], @"there is no sound 42");
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusIdle);
+    XCTAssertFalse(chan.isPlaying);
     XCTAssertFalse([chan playSound:-1 countOfRepeats:1 notification:0]);
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusIdle);
+    XCTAssertFalse(chan.isPlaying);
     XCTAssertFalse(chan.claimsNowPlaying);
 }
 
@@ -191,7 +221,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     XCTAssertTrue(chan.isPaused);
     [chan unpause];
     XCTAssertFalse(chan.isPaused);
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusIdle);
+    XCTAssertFalse(chan.isPlaying);
 }
 
 #pragma mark Fades
@@ -201,7 +231,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x10000];
     [chan setVolume:0 duration:1000 notification:0];
     for (int i = 0; i < 50; i++)
-        [chan volumeTimerCallback:nil];
+        [chan fadeOneStep];
     return chan;
 }
 
@@ -220,9 +250,42 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     XCTAssertEqualWithAccuracy([[copy valueForKey:@"volume"] floatValue], 0.5f, 0.001f);
 }
 
+- (void)testFadeTimerRunsToTarget {
+    GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x10000];
+    [chan setVolume:0x8000 duration:100 notification:0];
+    NSPredicate *done = [NSPredicate predicateWithBlock:^BOOL(GlkSoundChannel *c, NSDictionary *bindings) {
+        return [[c valueForKey:@"fadeStepsLeft"] unsignedIntValue] == 0;
+    }];
+    [self waitForExpectations:@[[self expectationForPredicate:done evaluatedWithObject:chan handler:nil]] timeout:5];
+    XCTAssertEqualWithAccuracy([[chan valueForKey:@"volume"] floatValue], 0.5f, 0.0001f);
+    XCTAssertNil([chan valueForKey:@"fadeTimer"], @"a finished fade cancels its timer");
+}
+
+- (void)testStopCancelsFade {
+    GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x10000];
+    [chan setVolume:0 duration:100000 notification:0];
+    XCTAssertNotNil([chan valueForKey:@"fadeTimer"]);
+    [chan stop];
+    XCTAssertNil([chan valueForKey:@"fadeTimer"]);
+}
+
+/// The fade timer holds the channel weakly, so a channel let go mid-fade is
+/// freed rather than kept alive until the fade ends.
+- (void)testFadeDoesNotKeepChannelAlive {
+    GlkSoundChannel __weak *weakChan = nil;
+    @autoreleasepool {
+        GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x10000];
+        [chan setVolume:0 duration:1000 notification:0];
+        weakChan = chan;
+    }
+    XCTAssertNil(weakChan);
+    // Let any step already queued run against the freed channel.
+    [NSRunLoop.mainRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.05]];
+}
+
 - (void)testFadeFromOldAutosaveAssumesOneSecond {
     GlkSoundChannel *chan = [self decodeEmptyArchiveAs:[GlkSoundChannel class]];
-    [chan setValue:@25 forKey:@"volume_timeout"];
+    [chan setValue:@25 forKey:@"fadeStepsLeft"];
     XCTAssertEqual(chan.remainingFadeDuration, 250U);
 }
 
@@ -230,7 +293,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
 /// holds for a channel just deserialized.
 - (GlkSoundChannel *)playingChannelAt:(double)position MIDI:(BOOL)midi {
     GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:3 volume:0x10000];
-    chan.status = GlkSoundChannelStatusSound;
+    chan.playing = YES;
     [chan setValue:@(midi) forKey:@"soundIsMIDI"];
     [chan setValue:@(position) forKey:@"resumePosition"];
     [chan setValue:@4 forKey:@"loop"];
@@ -250,7 +313,26 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
     XCTAssertEqualWithAccuracy([[copy valueForKey:@"resumePosition"] doubleValue], 12.5, 0.0001);
     XCTAssertTrue([[copy valueForKey:@"soundIsMIDI"] boolValue]);
     XCTAssertEqual([[copy valueForKey:@"loop"] intValue], 4);
-    XCTAssertEqual(copy.status, GlkSoundChannelStatusSound);
+    XCTAssertTrue(copy.isPlaying);
+}
+
+- (void)testOldStyleChannelArchiveDecodes {
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
+    [archiver setClassName:@"GlkSoundChannel" forClass:[OldStyleChannelArchive class]];
+    [archiver encodeObject:[OldStyleChannelArchive new] forKey:NSKeyedArchiveRootObjectKey];
+    [archiver finishEncoding];
+    NSError *error = nil;
+    GlkSoundChannel *chan = [NSKeyedUnarchiver unarchivedObjectOfClass:[GlkSoundChannel class] fromData:archiver.encodedData error:&error];
+    XCTAssertNotNil(chan, @"%@", error);
+    XCTAssertEqual(chan.name, 5);
+    XCTAssertTrue(chan.isPlaying);
+    XCTAssertTrue(chan.isPaused);
+    XCTAssertEqual([[chan valueForKey:@"resid"] intValue], 9);
+    XCTAssertEqual([[chan valueForKey:@"loop"] intValue], -1);
+    XCTAssertEqual([[chan valueForKey:@"notify"] unsignedIntValue], 0x80000001U);
+    XCTAssertEqual([[chan valueForKey:@"fadeNotify"] unsignedIntValue], 0xFFFFFFFEU);
+    XCTAssertEqual(chan.remainingFadeDuration, 800U);
+    XCTAssertEqualWithAccuracy([[chan valueForKey:@"resumePosition"] doubleValue], 1234, 0.0001);
 }
 
 - (void)testSampledChannelArchivesFrame {
@@ -264,7 +346,7 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
 
 - (void)testIdleChannelArchivesNoPosition {
     GlkSoundChannel *chan = [self playingChannelAt:500 MIDI:NO];
-    chan.status = GlkSoundChannelStatusIdle;
+    chan.playing = NO;
     GlkSoundChannel *copy = [self roundTrip:chan ofClass:[GlkSoundChannel class]];
     XCTAssertEqualWithAccuracy([[copy valueForKey:@"resumePosition"] doubleValue], 0, 0.0001);
 }
@@ -326,10 +408,10 @@ static NSData *TinyMIDI(void) {
     [self loadSound:5 data:[SpectrumBeeper WAVWithFrequency:440 duration:50] named:@"beep.wav" into:handler];
     [handler handlePlaySoundOnChannel:name repeats:3 notify:9];
     GlkSoundChannel *chan = handler.glkchannels[@(name)];
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusSound);
+    XCTAssertTrue(chan.isPlaying);
     [self waitForNotifications:1 from:handler];
     XCTAssertEqualObjects(handler.soundNotifications, (@[@[@9, @5]]));
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusIdle);
+    XCTAssertFalse(chan.isPlaying);
     [handler stopAllAndCleanUp];
 }
 
@@ -340,7 +422,7 @@ static NSData *TinyMIDI(void) {
 
     [self loadSound:1 data:TinyMIDI() named:@"note.mid" into:handler];
     [handler handlePlaySoundOnChannel:name repeats:1 notify:1];
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusSound);
+    XCTAssertTrue(chan.isPlaying);
     [self waitForNotifications:1 from:handler];
 
     [self loadSound:2 data:[SpectrumBeeper WAVWithFrequency:440 duration:50] named:@"beep.wav" into:handler];
@@ -367,7 +449,7 @@ static NSData *TinyMIDI(void) {
     [restored restartAll];
     GlkSoundChannel *chan = restored.glkchannels[@(name)];
     XCTAssertTrue(chan.isPaused);
-    XCTAssertEqual(chan.status, GlkSoundChannelStatusSound);
+    XCTAssertTrue(chan.isPlaying);
 
     [[NSRunLoop currentRunLoop] runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.3]];
     XCTAssertEqual(restored.soundNotifications.count, 0U, @"nothing plays while paused");
@@ -424,6 +506,16 @@ static NSData *UnevenTracksMIDI(void) {
 /// The sequence ends with its longest track, not with the first.
 - (void)testMIDIFinishesWithLongestTrack {
     XCTAssertGreaterThan([self secondsToFinishMIDI:UnevenTracksMIDI() repeats:1], 1.4);
+}
+
+/// Bytes that are not a MIDI file fail to play instead of leaving a player
+/// with no sequence.
+- (void)testMIDIBackendRejectsBadData {
+    MIDISoundBackend *backend = [MIDISoundBackend new];
+    NSData *junk = DataWithPrefix("MThd", 4, 0, 64);
+    XCTAssertFalse([backend playData:junk format:GlkSoundBlorbFormatMIDI repeats:1 position:0 paused:NO volume:0 finished:nil]);
+    XCTAssertFalse([backend resume]);
+    XCTAssertEqual(backend.duration, 0);
 }
 
 #pragma mark Backends

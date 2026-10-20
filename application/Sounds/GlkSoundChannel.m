@@ -3,6 +3,10 @@
 #import "SFBSoundBackend.h"
 #import "MIDISoundBackend.h"
 
+/* A fade is this many volume steps, however long it lasts. */
+static const glui32 kFadeSteps = 100;
+static const glui32 kGlkMaxVolume = 0x10000;
+
 static float FloatVolumeClamped(float vol) {
     return vol < 0 ? 0 : (vol > 1 ? 1 : vol);
 }
@@ -10,11 +14,11 @@ static float FloatVolumeClamped(float vol) {
 /* Glk allows volumes above 0x10000; the output cannot amplify, so they play
    at full volume. */
 static float FloatVolumeFromGlk(glui32 glk_volume) {
-    return FloatVolumeClamped((float)glk_volume / GLK_MAXVOLUME);
+    return FloatVolumeClamped((float)glk_volume / kGlkMaxVolume);
 }
 
 static glui32 GlkVolumeFromFloat(float vol) {
-    return (glui32)lroundf(FloatVolumeClamped(vol) * GLK_MAXVOLUME);
+    return (glui32)lroundf(FloatVolumeClamped(vol) * kGlkMaxVolume);
 }
 
 @interface GlkSoundChannel () {
@@ -24,14 +28,17 @@ static glui32 GlkVolumeFromFloat(float vol) {
 
     glsi32 resid; /* for notifies */
 
-    /* for volume fades */
-    glui32 volume_notify;
-    glui32 volume_timeout; /* ticks left */
-    NSTimeInterval volume_tick; /* seconds per tick */
-    float target_volume;
     float volume;
-    float volume_delta;
-    NSTimer *timer;
+
+    /* A fade in progress: fadeStepsLeft is 0 when there is none. */
+    glui32 fadeNotify;
+    glui32 fadeStepsLeft;
+    NSTimeInterval fadeStepInterval; /* seconds */
+    float fadeTarget;
+    float fadeStep;
+    /* Fires on the main queue, and holds the channel weakly: a channel that
+       goes away cancels it in -dealloc. */
+    dispatch_source_t fadeTimer;
 
     id<GlkSoundBackend> _backend;
     /* Where a deserialized channel resumes, in the units of the backend that
@@ -48,7 +55,6 @@ static glui32 GlkVolumeFromFloat(float vol) {
         _handler = handler;
         _name = channelname;
 
-        _status = GlkSoundChannelStatusIdle;
         volume = FloatVolumeFromGlk(vol);
         resid = -1;
     }
@@ -65,7 +71,7 @@ static glui32 GlkVolumeFromFloat(float vol) {
 - (BOOL)playSoundInternal:(glsi32)snd countOfRepeats:(glsi32)areps notification:(glui32)anot {
     /* Idle until the new sound is actually under way: every early return below
        leaves nothing playing. */
-    _status = GlkSoundChannelStatusIdle;
+    _playing = NO;
     _nowPlayingDuration = 0;
     _nowPlayingLooping = NO;
 
@@ -102,7 +108,7 @@ static glui32 GlkVolumeFromFloat(float vol) {
         GlkSoundChannel *strongSelf = weakSelf;
         if (!strongSelf)
             return;
-        strongSelf.status = GlkSoundChannelStatusIdle;
+        strongSelf.playing = NO;
         [strongSelf.handler nowPlayingStateDidChange];
         if (blocknotify)
             [strongSelf.handler handleSoundNotification:blocknotify withSound:blockresid];
@@ -120,18 +126,17 @@ static glui32 GlkVolumeFromFloat(float vol) {
 
     _nowPlayingDuration = _backend.duration;
     _nowPlayingLooping = (areps == -1);
-    _status = GlkSoundChannelStatusSound;
+    _playing = YES;
     return YES;
 }
 
 - (void)dealloc {
-    [timer invalidate];
+    [self cancelFadeTimer];
     [_backend stop];
 }
 
 - (BOOL)claimsNowPlaying {
-    return _status != GlkSoundChannelStatusIdle &&
-           (_nowPlayingLooping || _nowPlayingDuration > 5.0);
+    return _playing && (_nowPlayingLooping || _nowPlayingDuration > 5.0);
 }
 
 - (BOOL)isPaused {
@@ -162,7 +167,7 @@ static glui32 GlkVolumeFromFloat(float vol) {
     paused = NO;
     /* Nor is there anything to resume on a channel that was paused with no
        sound in it, or whose sound has since run to its end. */
-    if (_status == GlkSoundChannelStatusIdle)
+    if (!_playing)
         return;
     if ([_backend resume]) {
         [_handler nowPlayingStateDidChange];
@@ -179,61 +184,58 @@ static glui32 GlkVolumeFromFloat(float vol) {
 }
 
 - (void)cleanup {
-    _status = GlkSoundChannelStatusIdle;
-    if (timer)
-        [timer invalidate];
-    timer = nil;
+    _playing = NO;
+    [self cancelFadeTimer];
     resid = -1;
 }
 
-/** Start a fade timer */
-- (void)init_fade:(glui32)glk_volume duration:(glui32)duration notify:(glui32)notification {
-    volume_notify = notification;
-    target_volume = FloatVolumeFromGlk(glk_volume);
+- (void)cancelFadeTimer {
+    if (fadeTimer)
+        dispatch_source_cancel(fadeTimer);
+    fadeTimer = nil;
+}
 
-    volume_delta = (target_volume - volume) / (float)FADE_GRANULARITY;
+- (void)startFadeTo:(glui32)glk_volume duration:(glui32)duration notify:(glui32)notification {
+    fadeNotify = notification;
+    fadeTarget = FloatVolumeFromGlk(glk_volume);
+    fadeStep = (fadeTarget - volume) / (float)kFadeSteps;
+    fadeStepsLeft = kFadeSteps;
+    fadeStepInterval = ceil(duration / (NSTimeInterval)kFadeSteps) / 1000.0;
 
-    volume_timeout = FADE_GRANULARITY;
-    volume_tick = ceil(duration / (NSTimeInterval)FADE_GRANULARITY) / 1000.0;
-
-    if (timer)
-        [timer invalidate];
-
-    timer = [NSTimer scheduledTimerWithTimeInterval:volume_tick target:self selector:@selector(volumeTimerCallback:) userInfo:nil repeats:YES];
+    [self cancelFadeTimer];
+    fadeTimer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_main_queue());
+    uint64_t interval = (uint64_t)(fadeStepInterval * NSEC_PER_SEC);
+    dispatch_source_set_timer(fadeTimer, dispatch_time(DISPATCH_TIME_NOW, (int64_t)interval), interval, NSEC_PER_MSEC);
+    GlkSoundChannel __weak *weakSelf = self;
+    dispatch_source_set_event_handler(fadeTimer, ^{
+        [weakSelf fadeOneStep];
+    });
+    dispatch_resume(fadeTimer);
 }
 
 /* What is left of a fade in progress, in milliseconds. Autosaves made before the
-   tick length was archived do not know it; give those the 10 ms tick of a one
+   step length was archived do not know it; give those the 10 ms step of a one
    second fade. */
 - (glui32)remainingFadeDuration {
-    NSTimeInterval tick = volume_tick > 0 ? volume_tick : 0.01;
-    return (glui32)lround(volume_timeout * tick * 1000.0);
+    NSTimeInterval interval = fadeStepInterval > 0 ? fadeStepInterval : 0.01;
+    return (glui32)lround(fadeStepsLeft * interval * 1000.0);
 }
 
-- (void)volumeTimerCallback:(NSTimer *)aTimer {
-    volume = FloatVolumeClamped(volume + volume_delta);
+- (void)fadeOneStep {
+    if (fadeStepsLeft == 0)
+        return;
+    volume = FloatVolumeClamped(volume + fadeStep);
+    fadeStepsLeft--;
 
-    volume_timeout--;
-
-    /* If the timer has fired FADE_GRANULARITY times, kill it */
-    if (volume_timeout <= 0) {
-        if (volume_notify) {
-            glui32 notification = volume_notify;
+    if (fadeStepsLeft == 0) {
+        [self cancelFadeTimer];
+        volume = fadeTarget;
+        if (fadeNotify) {
+            glui32 notification = fadeNotify;
             SoundHandler *handler = _handler;
             dispatch_async(dispatch_get_main_queue(), ^{
                 [handler handleVolumeNotification:notification];
             });
-        }
-
-        if (!timer) {
-            NSLog(@"volumeTimerCallback: invalid timer.");
-            timer = aTimer;
-        }
-        [timer invalidate];
-        timer = nil;
-
-        if (volume != target_volume) {
-            volume = target_volume;
         }
     }
 
@@ -245,7 +247,7 @@ static glui32 GlkVolumeFromFloat(float vol) {
         volume = FloatVolumeFromGlk(glk_volume);
         [self setVolume];
     } else {
-        [self init_fade:glk_volume duration:duration notify:notification];
+        [self startFadeTo:glk_volume duration:duration notify:notification];
     }
 }
 
@@ -262,9 +264,8 @@ static glui32 GlkVolumeFromFloat(float vol) {
  */
 - (void)restartInternal {
 
-    if (_status == GlkSoundChannelStatusIdle) {
+    if (!_playing)
         return;
-    }
 
     if (paused) {
         [self pause];
@@ -274,14 +275,8 @@ static glui32 GlkVolumeFromFloat(float vol) {
     if (!result)
         NSLog(@"restartInternal: failed to restart sound %d.", resid);
 
-    if (volume_timeout > 0) {
-        [self setVolume:GlkVolumeFromFloat(target_volume) duration:[self remainingFadeDuration] notification:volume_notify];
-
-        if (!timer) {
-            NSLog(@"restartInternal: failed to create volume change timer.");
-        }
-    }
-    return;
+    if (fadeStepsLeft > 0)
+        [self setVolume:GlkVolumeFromFloat(fadeTarget) duration:[self remainingFadeDuration] notification:fadeNotify];
 }
 
 + (BOOL) supportsSecureCoding {
@@ -299,21 +294,24 @@ static glui32 GlkVolumeFromFloat(float vol) {
     self = [super init];
 
     if (self) {
-        _name = [decoder decodeIntForKey:@"name"];
-
-        resid = (glsi32)[decoder decodeIntForKey:@"resid"]; /* for notifies */
-        _status = (GlkSoundChannelStatus)[decoder decodeIntegerForKey:@"status"];
+        /* The Glk values are 32-bit. Older autosaves wrote some of them with
+           -encodeInt: or -encodeInteger:, which a keyed archive stores the
+           same way, so they read back alike. */
+        _name = [decoder decodeInt32ForKey:@"name"];
+        resid = [decoder decodeInt32ForKey:@"resid"]; /* for notifies */
+        /* Archived as the old GlkSoundChannelStatus: 0 idle, 1 sound. */
+        _playing = ([decoder decodeIntegerForKey:@"status"] != 0);
         volume = (float)[decoder decodeDoubleForKey:@"volume"];
-        loop = [decoder decodeIntForKey:@"loop"];
-        notify = (glui32)[decoder decodeIntForKey:@"notify"];
-        paused = ([decoder decodeIntForKey:@"paused"] != 0);
+        loop = [decoder decodeInt32ForKey:@"loop"];
+        notify = (glui32)[decoder decodeInt32ForKey:@"notify"];
+        paused = ([decoder decodeInt32ForKey:@"paused"] != 0);
 
         /* for volume fades */
-        volume_notify = (glui32)[decoder decodeInt32ForKey:@"volume_notify"];
-        volume_timeout = (glui32)[decoder decodeIntForKey:@"volume_timeout"];
-        volume_tick = [decoder decodeDoubleForKey:@"volume_tick"];
-        target_volume = (float)[decoder decodeDoubleForKey:@"target_volume"];
-        volume_delta = (float)[decoder decodeDoubleForKey:@"volume_delta"];
+        fadeNotify = (glui32)[decoder decodeInt32ForKey:@"volume_notify"];
+        fadeStepsLeft = (glui32)[decoder decodeInt32ForKey:@"volume_timeout"];
+        fadeStepInterval = [decoder decodeDoubleForKey:@"volume_tick"];
+        fadeTarget = (float)[decoder decodeDoubleForKey:@"target_volume"];
+        fadeStep = (float)[decoder decodeDoubleForKey:@"volume_delta"];
 
         /* Only a channel playing MIDI has a MIDI position, in beats; any other
            sound's position is a frame. */
@@ -333,26 +331,26 @@ static glui32 GlkVolumeFromFloat(float vol) {
        deserialized with. */
     double position = 0;
     glsi32 repeats = loop;
-    if (_status != GlkSoundChannelStatusIdle) {
+    if (_playing) {
         position = _backend ? _backend.resumePosition : _resumePosition;
         if (_backend)
             repeats = _backend.resumeRepeats;
     }
 
-    [encoder encodeInt:_name forKey:@"name"];
-    [encoder encodeInt:resid forKey:@"resid"];
-    [encoder encodeInteger:_status forKey:@"status"];
+    [encoder encodeInt32:_name forKey:@"name"];
+    [encoder encodeInt32:resid forKey:@"resid"];
+    [encoder encodeInteger:_playing ? 1 : 0 forKey:@"status"];
     [encoder encodeDouble:volume forKey:@"volume"];
-    [encoder encodeInt:repeats forKey:@"loop"];
-    [encoder encodeInt:(int)notify forKey:@"notify"];
-    [encoder encodeInt:(int)paused forKey:@"paused"];
+    [encoder encodeInt32:repeats forKey:@"loop"];
+    [encoder encodeInt32:(int32_t)notify forKey:@"notify"];
+    [encoder encodeInt32:paused ? 1 : 0 forKey:@"paused"];
 
-    /* for volume fades */
-    [encoder encodeInt:(int)volume_notify forKey:@"volume_notify"];
-    [encoder encodeInt:(int)volume_timeout forKey:@"volume_timeout"];
-    [encoder encodeDouble:volume_tick forKey:@"volume_tick"];
-    [encoder encodeDouble:target_volume forKey:@"target_volume"];
-    [encoder encodeDouble:volume_delta forKey:@"volume_delta"];
+    /* for volume fades, under the names of the old ivars */
+    [encoder encodeInt32:(int32_t)fadeNotify forKey:@"volume_notify"];
+    [encoder encodeInt32:(int32_t)fadeStepsLeft forKey:@"volume_timeout"];
+    [encoder encodeDouble:fadeStepInterval forKey:@"volume_tick"];
+    [encoder encodeDouble:fadeTarget forKey:@"target_volume"];
+    [encoder encodeDouble:fadeStep forKey:@"volume_delta"];
 
     if (_soundIsMIDI) {
         [encoder encodeInt64:0 forKey:@"frame"];

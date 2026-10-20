@@ -1,30 +1,23 @@
 #import <Foundation/Foundation.h>
 
+#import "SoundResource.h"
+
 @class SoundHandler;
 
-typedef uint32_t glui32;
-typedef int32_t glsi32;
-
-#define FADE_GRANULARITY 100
-#define GLK_MAXVOLUME 0x10000
-
 NS_ASSUME_NONNULL_BEGIN
-
-typedef NS_ENUM(NSInteger, GlkSoundChannelStatus) {
-    GlkSoundChannelStatusIdle,
-    GlkSoundChannelStatusSound
-};
 
 /// A Glk sound channel. It plays each sound through the backend its format
 /// needs (see GlkSoundBackend.h), and keeps what Glk can see across them.
 @interface GlkSoundChannel : NSObject <NSSecureCoding>
 
-@property GlkSoundChannelStatus status;
+/// YES from a successful play until the sound ends or is stopped. Paused
+/// sounds are still playing.
+@property (getter=isPlaying) BOOL playing;
 @property int name;
 @property (weak, nullable) SoundHandler *handler;
 
 /// YES while this channel holds a music-like sound (looping or >5s).
-/// Derived from status, nowPlayingLooping and nowPlayingDuration.
+/// Derived from playing, nowPlayingLooping and nowPlayingDuration.
 @property (readonly) BOOL claimsNowPlaying;
 /// Decoded length in seconds (0 if unknown). Not multiplied by repeats.
 @property NSTimeInterval nowPlayingDuration;

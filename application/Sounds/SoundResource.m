@@ -160,7 +160,7 @@
     if (length == 0)
         return GlkSoundBlorbFormatNone;
 
-    /* AIFF */
+    /* AIFF (IFF) */
     if (length >= 4 && !memcmp(buf, "FORM", 4))
         return GlkSoundBlorbFormatFORM;
 
@@ -193,6 +193,10 @@
             !memcmp(resname, "OKTA", 4) || !memcmp(resname, "    ", 4))
             return GlkSoundBlorbFormatMod;
     }
+
+    /* IT */
+    if (length >= 4 && !memcmp(buf, "IMPM", 4))
+        return GlkSoundBlorbFormatMod;
 
     /* ogg */
     if (length >= 4 && !memcmp(buf, "OggS", 4))

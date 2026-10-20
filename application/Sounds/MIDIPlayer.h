@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface MIDIPlayer : NSObject
 
 /// Sequence length in seconds (longest track), or 0 if unknown.
@@ -15,9 +17,11 @@
 /// seeked player will resume.
 @property (nonatomic, readonly) double position;
 
-- (instancetype)initWithData:(NSData *)data;
+/// nil if the audio graph cannot be set up or the data is not a MIDI file.
+- (nullable instancetype)initWithData:(NSData *)data;
 
-- (void)play;
+/// Returns NO if playback could not be started.
+- (BOOL)play;
 - (void)stop;
 - (void)pause;
 - (void)setVolume:(CGFloat)volume;
@@ -29,3 +33,5 @@
 - (void)addCallback:(void (^)(void))block;
 
 @end
+
+NS_ASSUME_NONNULL_END

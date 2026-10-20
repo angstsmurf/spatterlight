@@ -11,11 +11,6 @@
 
 @class GlkSoundChannel, GlkController;
 
-typedef uint32_t glui32;
-typedef int32_t glsi32;
-
-#define MAXSND 32
-
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SoundHandler : NSObject
