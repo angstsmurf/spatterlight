@@ -9,19 +9,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// Ask VoiceOver to speak string, posted from window, or from the main window
-// when window is nil. Does nothing for an empty string or when there is no
-// window to post from.
+// Ask VoiceOver to speak string, posted from window, or when window is nil
+// from the main window, the key window (a panel such as Preferences can be
+// key with no main window), or failing those the application itself. Does
+// nothing for an empty string.
 static inline void SPAnnounce(NSString * _Nullable string,
                               NSAccessibilityPriorityLevel priority,
                               NSWindow * _Nullable window) {
     if (string.length == 0)
         return;
-    if (!window)
-        window = NSApp.mainWindow;
-    if (!window)
+    id element = window ?: NSApp.mainWindow ?: NSApp.keyWindow ?: (id)NSApp;
+    if (!element)
         return;
-    NSAccessibilityPostNotificationWithUserInfo(window,
+    NSAccessibilityPostNotificationWithUserInfo(element,
                                                 NSAccessibilityAnnouncementRequestedNotification,
                                                 @{ NSAccessibilityPriorityKey: @(priority),
                                                    NSAccessibilityAnnouncementKey: string });
