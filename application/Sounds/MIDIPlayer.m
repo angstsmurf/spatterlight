@@ -54,6 +54,9 @@ static BOOL Succeeded(OSStatus status, const char *call) {
     return self;
 }
 
+/* Every player builds its own synth graph. Reusing one would save the
+   20-30 ms (97 ms the first time) of setting it up, but the synth would keep
+   the previous sound's programs and controllers. */
 - (BOOL)createGraph {
     if (!Succeeded(NewAUGraph(&graph), "NewAUGraph")) {
         graph = NULL;
