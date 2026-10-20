@@ -715,6 +715,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
     if (self.shouldSpeakNewText) {
         self.turns++;
+        self.turnsThisSession++;
     }
 
     self.numberOfPrintsAndClears += self.printsAndClearsThisTurn;

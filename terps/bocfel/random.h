@@ -13,8 +13,8 @@ void random_read_rand(IO &io);
 void zrandom();
 
 #ifdef SPATTERLIGHT
-uint32_t zterp_rand();
-void seed_random(uint32_t seed);
+uint32_t random_autosave_state(bool *predictable);
+void random_autorestore_state(uint32_t state, bool predictable);
 #endif
 
 #endif

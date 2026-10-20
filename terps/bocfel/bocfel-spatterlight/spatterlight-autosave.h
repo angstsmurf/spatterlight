@@ -76,8 +76,8 @@ typedef struct library_state_data_struct {
     int queued_sound;
     int sound_channel_tag;
     int music_channel_tag;
-    long last_random_seed;
-    int random_calls_count;
+    uint32_t random_state;
+    bool random_predictable;
     int queued_volume;
 
     V6ScreenMode screenmode;

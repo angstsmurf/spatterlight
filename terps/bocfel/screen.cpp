@@ -51,9 +51,6 @@ extern "C" {
 #include "v6_specific.h"
 #include "v6_shared.hpp"
 
-extern long last_random_seed;
-extern int random_calls_count;
-
 static bool internal_read_char_hack = false;
 #endif
 
@@ -7904,8 +7901,7 @@ void stash_library_state(library_state_data *dat)
         } else {
             dat->blorbfiletag = 0;
         }
-        dat->last_random_seed = last_random_seed;
-        dat->random_calls_count = random_calls_count;
+        dat->random_state = random_autosave_state(&dat->random_predictable);
         dat->screenmode = screenmode;
         dat->current_picture = current_picture;
         dat->hints_depth = (int)hints_depth;
@@ -8010,10 +8006,7 @@ void recover_library_state(library_state_data *dat)
             glk_request_mouse_event(upperwin->id);
         }
 
-        seed_random((uint32_t)last_random_seed);
-        random_calls_count = 0;
-        for (int i = 0; i < dat->random_calls_count; i++)
-            zterp_rand();
+        random_autorestore_state(dat->random_state, dat->random_predictable);
 
         screenmode = dat->screenmode;
         current_picture = dat->current_picture;

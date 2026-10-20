@@ -96,7 +96,10 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property NSColor *bgcolor;
 
 @property NSInteger eventcount;
+// Turns played in the game, carried over by autorestore.
 @property NSInteger turns;
+// Turns since this launch, not autosaved.
+@property NSInteger turnsThisSession;
 
 // To fix scrolling in the Adrian Mole games
 @property BOOL shouldScrollOnCharEvent;

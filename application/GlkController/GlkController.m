@@ -203,6 +203,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     shouldRestoreUI = NO;
     _eventcount = 0;
     _turns = 0;
+    _turnsThisSession = 0;
     _hasAutoSaved = NO;
 
     // Track the last arrange event values sent to the interpreter. This allows
@@ -904,7 +905,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             _mustBeQuiet = NO;
         }
 
-        if (_journeyMenuHandler && [_journeyMenuHandler updateOnBecameKey:!_shouldShowAutorestoreAlert || _turns > 1]) {
+        if (_journeyMenuHandler && [_journeyMenuHandler updateOnBecameKey:!_shouldShowAutorestoreAlert || _turnsThisSession > 1]) {
             return;
         }
 

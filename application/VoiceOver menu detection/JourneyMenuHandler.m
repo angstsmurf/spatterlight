@@ -507,7 +507,7 @@ static NSString * const kCancelTitle = @"[cancel]";
 #pragma mark - Showing dialogs
 
 - (void)flushDisplay {
-    if (self.hasPendingDialog && _glkctl.turns > 1) {
+    if (self.hasPendingDialog && _glkctl.turnsThisSession > 1) {
         [self recreateDialog];
     }
 }

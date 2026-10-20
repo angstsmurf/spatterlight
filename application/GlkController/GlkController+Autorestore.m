@@ -429,6 +429,9 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     // window, before it has opened the real ones), and swapping in the
     // archived hints would throw away the ones set so far.
     if (!restoreUIOnly) {
+        // Before the windows are adopted: postRestoreAdjustments: stamps
+        // their last new text with it.
+        self.turns = restoredControllerLate.turns;
         if (restoredController.bufferStyleHints)
             self.bufferStyleHints = restoredController.bufferStyleHints;
         if (restoredController.gridStyleHints)

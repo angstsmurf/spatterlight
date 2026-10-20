@@ -181,8 +181,8 @@ static void spatterlight_library_archive(TempLibrary *library, NSCoder *encoder)
     [encoder encodeInt32:(int32_t)library_state.sound_channel_tag forKey:@"bocfel_sound_channel_tag"];
     [encoder encodeInt32:(int32_t)library_state.music_channel_tag forKey:@"bocfel_music_channel_tag"];
     [encoder encodeInt32:(int32_t)library_state.queued_volume forKey:@"bocfel_queued_volume"];
-    [encoder encodeInt64:(int64_t)library_state.last_random_seed forKey:@"bocfel_last_random_seed"];
-    [encoder encodeInt32:(int32_t)library_state.random_calls_count forKey:@"bocfel_random_calls_count"];
+    [encoder encodeInt64:library_state.random_state forKey:@"bocfel_random_state"];
+    [encoder encodeBool:library_state.random_predictable forKey:@"bocfel_random_predictable"];
 
     [encoder encodeInt32:(int32_t)library_state.screenmode forKey:@"bocfel_screenmode"];
     [encoder encodeInt32:(int32_t)library_state.selected_journey_line forKey:@"bocfel_selected_journey_line"];
@@ -260,8 +260,8 @@ static void spatterlight_library_unarchive(TempLibrary *library, NSCoder *decode
     library_state.sound_channel_tag = [decoder decodeInt32ForKey:@"bocfel_sound_channel_tag"];
     library_state.music_channel_tag = [decoder decodeInt32ForKey:@"bocfel_music_channel_tag"];
     library_state.queued_volume = [decoder decodeInt32ForKey:@"bocfel_queued_volume"];
-    library_state.last_random_seed = [decoder decodeInt64ForKey:@"bocfel_last_random_seed"];
-    library_state.random_calls_count = [decoder decodeInt32ForKey:@"bocfel_random_calls_count"];
+    library_state.random_state = (uint32_t)[decoder decodeInt64ForKey:@"bocfel_random_state"];
+    library_state.random_predictable = [decoder decodeBoolForKey:@"bocfel_random_predictable"];
 
     library_state.screenmode = (V6ScreenMode)[decoder decodeInt32ForKey:@"bocfel_screenmode"];
     library_state.selected_journey_line = [decoder decodeInt32ForKey:@"bocfel_selected_journey_line"];
