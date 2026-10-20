@@ -6,12 +6,14 @@
 //  PrefsWindow.xib over an in-memory store: restoring a selection before the
 //  themes array controller has fetched, and editing a built-in theme making
 //  exactly one clone however the edits and run loop passes interleave.
+//  Also the edits that clone: changeBooleanAttribute: and +scale:.
 //
 
 #import <XCTest/XCTest.h>
 #import <CoreData/CoreData.h>
 
 #import "Theme.h"
+#import "GlkStyle.h"
 #import "BuiltInThemes.h"
 #import "CoreDataManager.h"
 #import "ThemeArrayController.h"
@@ -23,6 +25,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, strong) Theme *builtInTheme;
 @property (nonatomic, strong) Theme *savedTheme;
+@property (nonatomic, strong) Preferences *savedInstance;
 @property (nonatomic, strong) Preferences *prefs;
 @property (nonatomic, strong) NSArray *topLevelObjects;
 
@@ -44,6 +47,7 @@
 
     self.savedTheme = Preferences.theme;
     Preferences.theme = self.builtInTheme;
+    self.savedInstance = Preferences.instance;
 
     // The nib binds the themes array controller to the owner's context,
     // which is the app's store unless it is set first
@@ -65,6 +69,7 @@
     // Let any deferred selection finish before the panel goes away
     [self spinFor:0.2];
     Preferences.theme = self.savedTheme;
+    Preferences.instance = self.savedInstance;
     self.prefs = nil;
     self.topLevelObjects = nil;
     self.builtInTheme = nil;
@@ -163,6 +168,120 @@
     [self assertOneCloneSelected];
     [self toggle:@"btnEnableSound"];
     [self spinFor:0.3];
+    [self assertOneCloneSelected];
+}
+
+#pragma mark - Edits that clone
+
+- (void)testBooleanAttributeClonesOnlyOnChange {
+    [self selectBuiltInTheme];
+    BOOL doStyles = self.builtInTheme.doStyles;
+    NSButton *button = [NSButton checkboxWithTitle:@"doStyles" target:nil action:nil];
+
+    // The value the theme already has: no clone
+    button.state = doStyles ? NSControlStateValueOn : NSControlStateValueOff;
+    [self.prefs changeBooleanAttribute:@"doStyles" fromButton:button];
+    XCTAssertEqual([self clonesOf:self.builtInTheme].count, 0u);
+    XCTAssertEqual(Preferences.theme, self.builtInTheme);
+
+    button.state = doStyles ? NSControlStateValueOff : NSControlStateValueOn;
+    [self.prefs changeBooleanAttribute:@"doStyles" fromButton:button];
+    [self assertOneCloneSelected];
+    XCTAssertEqual(Preferences.theme.doStyles, !doStyles);
+    XCTAssertEqual(self.builtInTheme.doStyles, doStyles);
+
+    // The clone is editable, so changed in place
+    button.state = doStyles ? NSControlStateValueOn : NSControlStateValueOff;
+    [self.prefs changeBooleanAttribute:@"doStyles" fromButton:button];
+    [self assertOneCloneSelected];
+    XCTAssertEqual(Preferences.theme.doStyles, doStyles);
+}
+
+- (NSParagraphStyle *)paragraphStyleOf:(GlkStyle *)style {
+    return style.attributeDict[NSParagraphStyleAttributeName];
+}
+
+- (void)assertParagraphStyle:(NSParagraphStyle *)scaled is:(CGFloat)factor times:(NSParagraphStyle *)original {
+    XCTAssertNotNil(scaled);
+    XCTAssertEqualWithAccuracy(scaled.lineSpacing, original.lineSpacing * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.paragraphSpacing, original.paragraphSpacing * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.paragraphSpacingBefore, original.paragraphSpacingBefore * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.headIndent, original.headIndent * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.tailIndent, original.tailIndent * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.firstLineHeadIndent, original.firstLineHeadIndent * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.maximumLineHeight, original.maximumLineHeight * factor, 0.001);
+    XCTAssertEqualWithAccuracy(scaled.minimumLineHeight, original.minimumLineHeight * factor, 0.001);
+}
+
+- (void)testScaleClonesAndScalesEveryLength {
+    // +scale: clones through the shared instance
+    Preferences.instance = self.prefs;
+    [self selectBuiltInTheme];
+    CGFloat gridSize = self.builtInTheme.gridNormal.font.pointSize;
+    CGFloat bufferSize = self.builtInTheme.bufferNormal.font.pointSize;
+    NSParagraphStyle *bufferPara = [self paragraphStyleOf:self.builtInTheme.bufferNormal];
+    XCTAssertNotNil(bufferPara);
+
+    [Preferences scale:2];
+    [self assertOneCloneSelected];
+    Theme *clone = Preferences.theme;
+    XCTAssertEqual(clone.gridNormal.font.pointSize, gridSize * 2);
+    XCTAssertEqual(clone.bufferNormal.font.pointSize, bufferSize * 2);
+    [self assertParagraphStyle:[self paragraphStyleOf:clone.bufferNormal] is:2 times:bufferPara];
+    // The cell size follows the font
+    XCTAssertEqual(clone.cellHeight, clone.gridNormal.cellSize.height);
+    XCTAssertEqual(self.builtInTheme.gridNormal.font.pointSize, gridSize);
+
+    // User styles (populateStyles regenerates the others): one with kerning,
+    // a baseline offset and a paragraph style, one with none of them
+    NSMutableParagraphStyle *para = [NSMutableParagraphStyle new];
+    para.lineSpacing = 1;
+    para.paragraphSpacing = 2;
+    para.paragraphSpacingBefore = 3;
+    para.headIndent = 4;
+    para.tailIndent = -5;
+    para.firstLineHeadIndent = 6;
+    para.minimumLineHeight = 7;
+    para.maximumLineHeight = 8;
+    GlkStyle *emph = clone.bufEmph;
+    emph.autogenerated = NO;
+    emph.attributeDict = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size:20],
+                            NSKernAttributeName: @(1.5),
+                            NSBaselineOffsetAttributeName: @(-3),
+                            NSParagraphStyleAttributeName: para };
+    GlkStyle *alert = clone.bufAlert;
+    alert.autogenerated = NO;
+    alert.attributeDict = @{ NSFontAttributeName: [NSFont fontWithName:@"Helvetica" size:10] };
+
+    // A negative factor counts as positive; the editable clone is scaled in place
+    [Preferences scale:-0.5];
+    [self assertOneCloneSelected];
+    XCTAssertEqual(Preferences.theme, clone);
+    XCTAssertEqual(clone.gridNormal.font.pointSize, gridSize);
+    XCTAssertEqual(clone.bufEmph, emph);
+    XCTAssertEqual(emph.font.pointSize, 10);
+    XCTAssertEqualWithAccuracy([emph.attributeDict[NSKernAttributeName] doubleValue], 0.75, 0.001);
+    XCTAssertEqualWithAccuracy([emph.attributeDict[NSBaselineOffsetAttributeName] doubleValue], -1.5, 0.001);
+    [self assertParagraphStyle:[self paragraphStyleOf:emph] is:0.5 times:para];
+    XCTAssertEqual(clone.bufAlert, alert);
+    XCTAssertEqual(alert.font.pointSize, 5);
+    XCTAssertNil([self paragraphStyleOf:alert]);
+    XCTAssertNil(alert.attributeDict[NSKernAttributeName]);
+}
+
+// Actual size is the grid font size of the root of the clone's parent chain
+- (void)testZoomToActualSizeReturnsToTheRootSize {
+    Preferences.instance = self.prefs;
+    [self selectBuiltInTheme];
+    CGFloat gridSize = self.builtInTheme.gridNormal.font.pointSize;
+    [Preferences zoomIn];
+    [Preferences zoomIn];
+    [self assertOneCloneSelected];
+    XCTAssertEqualWithAccuracy(Preferences.theme.gridNormal.font.pointSize, gridSize + 2, 0.001);
+    [Preferences zoomToActualSize];
+    XCTAssertEqualWithAccuracy(Preferences.theme.gridNormal.font.pointSize, gridSize, 0.001);
+    [Preferences zoomOut];
+    XCTAssertEqualWithAccuracy(Preferences.theme.gridNormal.font.pointSize, gridSize - 1, 0.001);
     [self assertOneCloneSelected];
 }
 
