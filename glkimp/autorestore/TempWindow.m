@@ -78,10 +78,8 @@
 
         //We use tags instead of pointers here
 
-        _next = _prev = _parent = 0;
+        _prev = _parent = 0;
 
-        if (win->next)
-            _next = (win->next)->tag;
         if (win->prev)
             _prev = (win->prev)->tag;
         if (win->parent)
@@ -157,7 +155,6 @@
     _peer = [decoder decodeInt32ForKey:@"peer"];
 
     _prev = [decoder decodeInt32ForKey:@"prev"];
-    _next = [decoder decodeInt32ForKey:@"next"];
 
     x0 = [decoder decodeInt32ForKey:@"x0"];
     y0 = [decoder decodeInt32ForKey:@"y0"];
@@ -225,7 +222,6 @@
     [encoder encodeInt32:_peer forKey:@"peer"];
 
     [encoder encodeInt32:_prev forKey:@"prev"];
-    [encoder encodeInt32:_next forKey:@"next"];
 
     // disprock is handled by the app
 

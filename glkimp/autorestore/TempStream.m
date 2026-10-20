@@ -95,10 +95,8 @@
         if (_type == strtype_Memory && !unicode && ubuf)
             NSLog(@"TempStream initiWithCStruct: memory stream %d is not unicode, but has ubuf", str->tag);
         
-        _next = _prev = 0;
+        _prev = 0;
         
-        if (str->next)
-            _next = (str->next)->tag;
         if (str->prev)
             _prev = (str->prev)->tag;
         
@@ -124,7 +122,6 @@
     _rock = [decoder decodeInt32ForKey:@"rock"];
 
     _prev = [decoder decodeInt32ForKey:@"prev"];
-    _next = [decoder decodeInt32ForKey:@"next"];
 
     wintag = [decoder decodeInt32ForKey:@"wintag"];
 
@@ -193,7 +190,6 @@
 	[encoder encodeInt32:_rock forKey:@"rock"];
 
     [encoder encodeInt32:_prev forKey:@"prev"];
-    [encoder encodeInt32:_next forKey:@"next"];
 
     if (_type == strtype_Window)
         [encoder encodeInt32:wintag forKey:@"wintag"];
@@ -249,15 +245,8 @@
                     NSLog(@"encodeWithCoder: uni array of stream %d has elemsize %d; not saving its contents", _tag, elemsize);
                 }
             }
-            else {
-                [encoder encodeInt64:0 forKey:@"ubuf"];
-                [encoder encodeInt32:0 forKey:@"ubufptr"];
-                [encoder encodeInt32:0 forKey:@"ubufeof"];
-                [encoder encodeInt32:0 forKey:@"ubufend"];
-                [encoder encodeBytes:0 length:0 forKey:@"ubufdata"];
-                if (buflen)
-                    NSLog(@"Encoding unicode stream %d with buflen %lu but no ubuf!", _tag, (unsigned long)buflen);
-            }
+            else if (buflen)
+                NSLog(@"Encoding unicode stream %d with buflen %lu but no ubuf!", _tag, (unsigned long)buflen);
         }
     }
     else if (_type == strtype_Resource) {
@@ -266,17 +255,6 @@
             [encoder encodeInt32:(int32_t)(bufeof - buf) forKey:@"bufeof"];
             [encoder encodeInt32:(int32_t)(bufend - buf) forKey:@"bufend"];
         }
-    }
-    else {
-        [encoder encodeInt64:0 forKey:@"buf"];
-        [encoder encodeInt32:0 forKey:@"bufptr"];
-        [encoder encodeInt32:0 forKey:@"bufeof"];
-        [encoder encodeInt32:0 forKey:@"bufend"];
-
-        [encoder encodeInt64:0 forKey:@"ubuf"];
-        [encoder encodeInt32:0 forKey:@"ubufptr"];
-        [encoder encodeInt32:0 forKey:@"ubufeof"];
-        [encoder encodeInt32:0 forKey:@"ubufend"];
     }
 
     offsetinfile = 0;

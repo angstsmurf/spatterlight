@@ -23,7 +23,6 @@
 @property glui32 echostreamtag;
 
 @property glui32 prev;
-@property glui32 next;
 
 - (instancetype) initWithCStruct:(window_t *)win;
 - (void) updateRegisterArray;

@@ -44,32 +44,6 @@ static BOOL writeAll(int fd, const void *buf, size_t len) {
 
 @implementation GlkEvent
 
-+ (BOOL) supportsSecureCoding {
-    return YES;
-}
-
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (self) {
-    _type = [decoder decodeIntegerForKey:@"type"];
-    win = [decoder decodeIntegerForKey:@"win"];
-    _val1 = [decoder decodeIntegerForKey:@"val1"];
-    _val2 = [decoder decodeIntegerForKey:@"val2"];
-    ln = [decoder decodeObjectOfClass:[NSString class] forKey:@"ln"];
-    _forced = [decoder decodeBoolForKey:@"forced"];
-    }
-    return self;
-}
-
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeInteger:_type forKey:@"type"];
-    [encoder encodeInteger:win forKey:@"win"];
-    [encoder encodeInteger:_val1 forKey:@"val1"];
-    [encoder encodeInteger:_val2 forKey:@"val2"];
-    [encoder encodeObject:ln forKey:@"ln"];
-    [encoder encodeBool:_forced forKey:@"forced"];
-}
-
 unsigned chartokeycode(unsigned ch) {
     switch (ch) {
     case '\n':

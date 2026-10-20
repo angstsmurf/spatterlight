@@ -15,7 +15,6 @@ implementation of the Glk API by Andrew Plotkin
 @property glui32 rock;
 @property glui32 peer;
 @property glui32 prev;
-@property glui32 next;
 
 - (instancetype) initWithCStruct:(channel_t *)chan;
 - (void) copyToCStruct:(channel_t *)chan;

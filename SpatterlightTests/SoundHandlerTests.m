@@ -69,7 +69,6 @@
     [encoder encodeInt:40 forKey:@"volume_timeout"];
     [encoder encodeDouble:0.02 forKey:@"volume_tick"];
     [encoder encodeDouble:0.25 forKey:@"target_volume"];
-    [encoder encodeDouble:-0.005 forKey:@"volume_delta"];
     [encoder encodeInt64:1234 forKey:@"frame"];
 }
 @end

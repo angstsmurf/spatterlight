@@ -31,10 +31,8 @@
         _filetype = ref->filetype;
         _textmode = ref->textmode;
 
-        _next = _prev = 0;
+        _prev = 0;
 
-        if (ref->next)
-            _next = ref->next->tag;
         if (ref->prev)
             _prev = ref->prev->tag;
     }
@@ -48,7 +46,6 @@
 	_rock = [decoder decodeInt32ForKey:@"rock"];
 
     _prev = [decoder decodeInt32ForKey:@"prev"];
-    _next = [decoder decodeInt32ForKey:@"next"];
 
     URL = gli_decode_file_url(decoder, NO);
     _filetype = [decoder decodeInt32ForKey:@"filetype"];
@@ -62,7 +59,6 @@
 	[encoder encodeInt32:_rock forKey:@"rock"];
 
     [encoder encodeInt32:_prev forKey:@"prev"];
-    [encoder encodeInt32:_next forKey:@"next"];
 
     gli_encode_file_url(encoder, URL);
 	[encoder encodeInt32:_filetype forKey:@"filetype"];

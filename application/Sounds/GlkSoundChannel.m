@@ -311,7 +311,6 @@ static glui32 GlkVolumeFromFloat(float vol) {
         fadeStepsLeft = (glui32)[decoder decodeInt32ForKey:@"volume_timeout"];
         fadeStepInterval = [decoder decodeDoubleForKey:@"volume_tick"];
         fadeTarget = (float)[decoder decodeDoubleForKey:@"target_volume"];
-        fadeStep = (float)[decoder decodeDoubleForKey:@"volume_delta"];
 
         /* Only a channel playing MIDI has a MIDI position, in beats; any other
            sound's position is a frame. */
@@ -350,14 +349,11 @@ static glui32 GlkVolumeFromFloat(float vol) {
     [encoder encodeInt32:(int32_t)fadeStepsLeft forKey:@"volume_timeout"];
     [encoder encodeDouble:fadeStepInterval forKey:@"volume_tick"];
     [encoder encodeDouble:fadeTarget forKey:@"target_volume"];
-    [encoder encodeDouble:fadeStep forKey:@"volume_delta"];
 
-    if (_soundIsMIDI) {
-        [encoder encodeInt64:0 forKey:@"frame"];
+    if (_soundIsMIDI)
         [encoder encodeDouble:position forKey:@"midiPosition"];
-    } else {
+    else
         [encoder encodeInt64:(int64_t)position forKey:@"frame"];
-    }
 }
 
 @end

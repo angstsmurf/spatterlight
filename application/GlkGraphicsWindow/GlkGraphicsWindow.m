@@ -129,9 +129,6 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
             // The PNG is in device pixels; the canvas wants its point size.
             image.size = [decoder decodeSizeForKey:@"canvasSize"];
             self.image = image;
-        } else {
-            // Autosaves from before the PNG archive hold an NSImage.
-            self.image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
         }
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
@@ -156,8 +153,6 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
     if (png) {
         [encoder encodeObject:png forKey:@"canvasPNG"];
         [encoder encodeSize:canvasSize forKey:@"canvasSize"];
-    } else {
-        [encoder encodeObject:self.image forKey:@"image"];
     }
     [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:transparent forKey:@"transparent"];

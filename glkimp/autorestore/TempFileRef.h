@@ -15,7 +15,6 @@
 @property int textmode;
 @property int filetype;
 @property glui32 prev;
-@property glui32 next;
 
 - (instancetype) initWithCStruct:(fileref_t *)ref;
 - (void) copyToCStruct:(fileref_t *)ref;

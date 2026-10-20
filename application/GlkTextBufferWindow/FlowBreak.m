@@ -36,7 +36,7 @@
     self = [super init];
     if (self) {
         _pos = (NSUInteger)[decoder decodeIntegerForKey:@"pos"];
-        _bounds = [decoder decodeRectForKey:@"bounds"];
+        _bounds = NSZeroRect;
         recalc = YES;
     }
     return self;
@@ -44,7 +44,6 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [encoder encodeInteger:(NSInteger)_pos forKey:@"pos"];
-    [encoder encodeRect:_bounds forKey:@"bounds"];
 }
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {

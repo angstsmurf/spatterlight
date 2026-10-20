@@ -7,7 +7,7 @@
 
 #import "InputHistory.h"
 
-// Ring size of the archived format: HISTORYLEN - 1 lines plus the edit line.
+// At most HISTORYLEN - 1 lines, plus the edit line.
 #define HISTORYLEN 100
 
 @interface InputHistory () {
@@ -35,54 +35,34 @@
     return self;
 }
 
-// The archive keeps the format of the old ring buffer, so that autosaves
-// work in both directions: "history" holds HISTORYLEN slots indexed
-// modulo HISTORYLEN, the lines run from "historyfirst" up to (not
-// including) "historypresent", and the slot at "historypresent" holds the
-// edit line. Older versions could write inconsistent states (historyfirst
-// == HISTORYLEN, or a ring that had lost slots), so nothing is trusted:
-// lines are collected as far as they exist, and anything else gives an
-// empty history.
+// "history" holds the lines, oldest first, followed by the edit line, and
+// "historypos" the position in them. Anything malformed gives an empty
+// history.
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [self init];
     if (self) {
-        NSArray *ring = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [NSString class], nil] forKey:@"history"];
-        if (![ring isKindOfClass:[NSArray class]])
+        NSArray *lines = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [NSString class], nil] forKey:@"history"];
+        if (![lines isKindOfClass:[NSArray class]] || !lines.count)
             return self;
-        for (id line in ring)
+        for (id line in lines)
             if (![line isKindOfClass:[NSString class]])
                 return self;
 
-        NSUInteger count = MIN(ring.count, HISTORYLEN);
-        NSUInteger first = (NSUInteger)[decoder decodeIntegerForKey:@"historyfirst"] % HISTORYLEN;
-        NSUInteger present = (NSUInteger)[decoder decodeIntegerForKey:@"historypresent"] % HISTORYLEN;
-        NSUInteger oldpos = (NSUInteger)[decoder decodeIntegerForKey:@"historypos"] % HISTORYLEN;
-
-        pos = NSNotFound;
-        for (NSUInteger i = first, steps = 0; i != present && steps < HISTORYLEN; i = (i + 1) % HISTORYLEN, steps++) {
-            if (i >= count)
-                continue;
-            if (i == oldpos)
-                pos = entries.count;
-            [entries addObject:ring[i]];
-        }
-        if (entries.count >= HISTORYLEN)
-            [entries removeObjectsInRange:NSMakeRange(0, entries.count - HISTORYLEN + 1)];
-        if (pos >= entries.count)
-            pos = entries.count;
-        if (present < count)
-            editLine = ring[present];
+        NSUInteger count = lines.count - 1;
+        NSUInteger start = count >= HISTORYLEN ? count - HISTORYLEN + 1 : 0;
+        [entries addObjectsFromArray:[lines subarrayWithRange:NSMakeRange(start, count - start)]];
+        editLine = lines.lastObject;
+        NSInteger oldpos = [decoder decodeIntegerForKey:@"historypos"] - (NSInteger)start;
+        pos = (oldpos < 0 || (NSUInteger)oldpos > entries.count) ? entries.count : (NSUInteger)oldpos;
     }
     return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
-    NSMutableArray *ring = [entries mutableCopy];
-    [ring addObject:editLine];
-    [encoder encodeObject:ring forKey:@"history"];
+    NSMutableArray *lines = [entries mutableCopy];
+    [lines addObject:editLine];
+    [encoder encodeObject:lines forKey:@"history"];
     [encoder encodeInteger:(NSInteger)pos forKey:@"historypos"];
-    [encoder encodeInteger:0 forKey:@"historyfirst"];
-    [encoder encodeInteger:(NSInteger)entries.count forKey:@"historypresent"];
 }
 
 - (void)reset {

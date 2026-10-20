@@ -6,7 +6,7 @@
 
 unsigned chartokeycode(unsigned ch);
 
-@interface GlkEvent : NSObject <NSSecureCoding>
+@interface GlkEvent : NSObject
 
 - (instancetype)initPrefsEventForTheme:(Theme *)theme;
 - (instancetype)initCharEvent:(unsigned)v forWindow:(NSInteger)name;

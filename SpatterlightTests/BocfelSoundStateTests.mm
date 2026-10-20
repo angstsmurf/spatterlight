@@ -144,7 +144,6 @@ bool is_game(Game game) { return false; }
 
     memset(&dat, 0, sizeof dat);
     stash_library_sound_state(&dat);
-    XCTAssertEqual(dat.autosave_version, 1);
     XCTAssertEqual(dat.sound_channel_tag, 4712, @"stash did not record the effects channel's tag");
 
     XCTAssertEqual(dat.music_channel_tag, 4713, @"stash did not record the music channel's tag");

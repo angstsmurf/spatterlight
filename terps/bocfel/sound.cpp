@@ -406,7 +406,6 @@ void stash_library_sound_state(library_state_data *dat)
     auto channel = channels.at(Channels::Effects);
     auto music = channels.at(Channels::Music);
 
-    dat->autosave_version = 1;
     dat->routine = channel->routine;
     // The queued sound is optional now; 0 means "nothing queued" in the
     // library state, as it did when Queued::number was a plain field.
@@ -449,8 +448,7 @@ void recover_library_sound_state(library_state_data *dat)
     }
     channel->routine = dat->routine;
     if (dat->queued_sound != 0) {
-        uint8_t volume = dat->autosave_version > 0 ? dat->queued_volume : 8;
-        channel->queued = Channel::Queued{static_cast<uint16_t>(dat->queued_sound), volume};
+        channel->queued = Channel::Queued{static_cast<uint16_t>(dat->queued_sound), static_cast<uint8_t>(dat->queued_volume)};
     } else {
         channel->queued.reset();
     }

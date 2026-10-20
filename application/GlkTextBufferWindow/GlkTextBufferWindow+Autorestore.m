@@ -131,7 +131,6 @@
 
     [encoder encodeBool:_pendingScroll forKey:@"pendingScroll"];
     [encoder encodeBool:_pendingClear forKey:@"pendingClear"];
-    [encoder encodeBool:_pendingScrollRestore forKey:@"pendingScrollRestore"];
 
     if (line_request && textstorage.length > fence) {
         NSAttributedString *input = [textstorage attributedSubstringFromRange:self.editableRange];

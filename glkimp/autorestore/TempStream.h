@@ -16,7 +16,6 @@
 @property glui32 rock;
 @property FILE *file;
 @property glui32 prev;
-@property glui32 next;
 
 - (instancetype) initWithCStruct:(stream_t *)str;
 - (void) copyToCStruct:(stream_t *)str;

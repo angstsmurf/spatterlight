@@ -19,10 +19,8 @@
         _rock = chan->rock;
         _tag = chan->tag;
         _peer = chan->peer;
-        _next = _prev = 0;
+        _prev = 0;
 
-        if (chan->next)
-            _next = (chan->next)->tag;
         if (chan->prev)
             _prev = (chan->prev)->tag;
     }
@@ -37,7 +35,6 @@
     _peer = [decoder decodeInt32ForKey:@"peer"];
 
     _prev = [decoder decodeInt32ForKey:@"prev"];
-    _next = [decoder decodeInt32ForKey:@"next"];
     }
     return self;
 }
@@ -48,7 +45,6 @@
     [encoder encodeInt32:_peer forKey:@"peer"];
 
     [encoder encodeInt32:_prev forKey:@"prev"];
-    [encoder encodeInt32:_next forKey:@"next"];
 
 }
 

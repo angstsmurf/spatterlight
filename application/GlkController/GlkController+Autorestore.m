@@ -1070,8 +1070,6 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
         self.bufferStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"bufferStyleHints"];
         self.gridStyleHints = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"gridStyleHints"];
 
-        self.queue = [decoder decodeObjectOfClass:[NSMutableArray class] forKey:@"queue"];
-
         self.firstResponderView = [decoder decodeIntegerForKey:@"firstResponder"];
         self.inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
@@ -1127,7 +1125,6 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     [encoder encodeRect:self.windowPreFullscreenFrame
                  forKey:@"windowPreFullscreenFrame"];
 
-    [encoder encodeObject:self.queue forKey:@"queue"];
     NSInteger firstResponderView = -1;
 
     NSResponder *firstResponder = self.window.firstResponder;

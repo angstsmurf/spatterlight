@@ -80,8 +80,6 @@ typedef struct library_state_data_struct {
     int random_calls_count;
     int queued_volume;
 
-    int autosave_version;
-
     V6ScreenMode screenmode;
 
     int selected_journey_line;

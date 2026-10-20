@@ -2,8 +2,8 @@
 //  InputHistoryTests.m
 //  SpatterlightTests
 //
-//  Command history travel, its archive format (shared with autosaves
-//  written by older versions) and the input field length formatter.
+//  Command history travel, its archive format and the input field
+//  length formatter.
 //
 
 #import <XCTest/XCTest.h>
@@ -109,53 +109,32 @@ static InputHistory *RoundTrip(id<NSSecureCoding> object) {
     XCTAssertNil([copy travelForward]);
 }
 
-// An archive in the old ring format, as written by older versions.
-static NSData *LegacyArchive(NSArray *ring, NSInteger pos, NSInteger first, NSInteger present) {
+static InputHistory *Decode(NSArray *lines, NSInteger pos) {
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:YES];
-    [archiver encodeObject:ring forKey:@"history"];
+    [archiver encodeObject:lines forKey:@"history"];
     [archiver encodeInteger:pos forKey:@"historypos"];
-    [archiver encodeInteger:first forKey:@"historyfirst"];
-    [archiver encodeInteger:present forKey:@"historypresent"];
     [archiver finishEncoding];
-    return archiver.encodedData;
-}
-
-static InputHistory *DecodeLegacy(NSData *data) {
     NSError *error = nil;
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:archiver.encodedData error:&error];
     return [[InputHistory alloc] initWithCoder:unarchiver];
 }
 
-- (void)testLegacyWrappedRing {
-    // A full ring: slots 0..99, oldest at 43, edit slot at 42.
-    NSMutableArray *ring = [NSMutableArray new];
-    for (NSUInteger i = 0; i < HISTORYLEN; i++)
-        [ring addObject:[NSString stringWithFormat:@"slot %lu", i]];
-    InputHistory *history = DecodeLegacy(LegacyArchive(ring, 42, 43, 42));
+- (void)testMalformedArchivesAreRepaired {
+    // Too many lines: the newest are kept.
+    NSMutableArray *lines = [NSMutableArray new];
+    for (NSUInteger i = 0; i < HISTORYLEN + 10; i++)
+        [lines addObject:[NSString stringWithFormat:@"line %lu", i]];
+    InputHistory *history = Decode(lines, 500);
     XCTAssertEqual(history.count, HISTORYLEN - 1);
     NSArray *back = WalkBack(history, @"");
-    XCTAssertEqualObjects(back.firstObject, @"slot 41");
-    XCTAssertEqualObjects(back.lastObject, @"slot 43");
-}
-
-- (void)testLegacyBrokenStatesAreRepaired {
-    NSMutableArray *ring = [NSMutableArray new];
-    for (NSUInteger i = 0; i < HISTORYLEN; i++)
-        [ring addObject:[NSString stringWithFormat:@"slot %lu", i]];
-    // historyfirst == HISTORYLEN, from the old off-by-one wrap.
-    InputHistory *history = DecodeLegacy(LegacyArchive(ring, 99, 100, 99));
-    XCTAssertEqual(WalkBack(history, @"").count, HISTORYLEN - 1);
-
-    // A ring that lost slots, with indices past its end.
-    NSArray *shrunk = [ring subarrayWithRange:NSMakeRange(0, 90)];
-    history = DecodeLegacy(LegacyArchive(shrunk, 95, 96, 95));
-    XCTAssertEqual(WalkBack(history, @"").count, 90U);
+    XCTAssertEqualObjects(back.firstObject, @"line 108");
+    XCTAssertEqualObjects(back.lastObject, @"line 10");
 
     // Garbage.
-    history = DecodeLegacy(LegacyArchive(@[@1, @"a"], 0, 0, 1));
+    history = Decode(@[@1, @"a"], 0);
     XCTAssertTrue(history.isEmpty);
     XCTAssertNil([history travelBackward:@""]);
-    history = DecodeLegacy(LegacyArchive(@[], 7, 3, 5));
+    history = Decode(@[], 7);
     XCTAssertTrue(history.isEmpty);
 }
 
