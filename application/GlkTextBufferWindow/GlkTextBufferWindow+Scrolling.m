@@ -964,12 +964,13 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 
         // When a low margin image pads the frame, scroll no further than
         // puts the last line of text, where the input caret is, at the top
-        // of the viewport.
+        // of the viewport. Also when the window is there already, or a
+        // second scroll to the bottom would carry the caret out of view.
         CGFloat padding = blockTextView.bottomPadding;
         if (padding > 0) {
             CGFloat lastLineTop = NSMaxY(blockTextView.frame) - padding
                 - blockTextView.textContainerInset.height - self.theme.bufferCellHeight;
-            if (bottom > lastLineTop && lastLineTop > currentPosition)
+            if (bottom > lastLineTop && lastLineTop >= currentPosition)
                 bottom = lastLineTop;
         }
 
