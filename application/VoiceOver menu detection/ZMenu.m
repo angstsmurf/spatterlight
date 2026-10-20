@@ -96,15 +96,18 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
     return YES;
 }
 
-- (NSUInteger)findSelectedLine {
-    if (_glkctl.showingInfocomV6Menu) {
-        return _glkctl.infocomV6MenuHandler.selectedLine;
-    }
-    return [_detection findSelectedLine];
+// The menu to speak: an Infocom V6 menu reported by the interpreter, if one
+// is showing, or else the text menu found by detectMenu.
+- (id<VoiceOverMenu>)currentMenu {
+    if (_glkctl.showingInfocomV6Menu)
+        return _glkctl.infocomV6MenuHandler;
+    return self;
 }
 
+#pragma mark Speech
+
 - (void)speakSelectedLine {
-    if (!_haveSpokenMenu) {
+    if (!self.currentMenu.haveSpokenMenu) {
         [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:kFirstSpeakDelay];
     } else {
         [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0];
@@ -112,115 +115,53 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
 }
 
 -(void)deferredSpeakSelectedLine:(id)sender {
-    _selectedLine = [self findSelectedLine];
-    if (_selectedLine == NSNotFound)
+    id<VoiceOverMenu> menu = self.currentMenu;
+    if ([menu findSelectedLine] == NSNotFound)
         return;
-    NSString *selectedLineString;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
     // We use the number of menu lines as a proxy to see if we have just switched to a new menu
-    if (_lastNumberOfItems && _lastNumberOfItems != _detection.lines.count && !_glkctl.showingInfocomV6Menu)
-        _haveSpokenMenu = NO;
-    _lastNumberOfItems = _detection.lines.count;
+    if (menu == self) {
+        if (_lastNumberOfItems && _lastNumberOfItems != _detection.lines.count)
+            _haveSpokenMenu = NO;
+        _lastNumberOfItems = _detection.lines.count;
+    }
+
+    if (!menu.haveSpokenMenu) {
+        menu.haveSpokenMenu = YES;
+        [self speakString:[menu menuLineStringWithTitle:YES index:YES total:YES instructions:YES]];
+        return;
+    }
 
     GlkController *glkctl = _glkctl;
-    if (!_haveSpokenMenu) {
-        _haveSpokenMenu = YES;
-        [self speakString:[self menuLineStringWithTitle:YES index:YES total:YES instructions:YES]];
-        return;
-    } else if (sender == glkctl) {
-        selectedLineString = [self menuLineStringWithIndex:YES total:YES instructions:YES];
-    } else {
-        selectedLineString = [self menuLineStringWithIndex:(glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
+    NSString *selectedLineString = [menu menuLineStringWithTitle:NO index:(glkctl.theme.vOSpeakMenu >= kVOMenuIndex) total:(glkctl.theme.vOSpeakMenu == kVOMenuTotal) instructions:NO];
 
-        // Speak the instructions after 5 seconds, which is assumed to be long enough
-        // to not interrupt the speaking of the selected line
-        [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:kInstructionsDelay];
+    // Speak the instructions after 5 seconds, which is assumed to be long enough
+    // to not interrupt the speaking of the selected line
+    [self performSelector:@selector(speakInstructions:) withObject:nil afterDelay:kInstructionsDelay];
 
-        // If we have chosen Quit from the Beyond Zork start menu,
-        // this makes sure that the text "Are you sure you want
-        // to leave the story now?" is spoken instead of the selected
-        // menu line (which is still just "Quit".)
-        if (glkctl.gameID == kGameIsBeyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
-            for (GlkWindow *view in glkctl.gwindows.allValues) {
-                if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
-                    GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)view;
-                    NSString *string = bufWin.textview.string;
-                    if ([string rangeOfString:@"Are you sure you want to leave the story now?"].location != NSNotFound) {
-                        [bufWin performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
-                        return;
-                    }
+    // If we have chosen Quit from the Beyond Zork start menu,
+    // this makes sure that the text "Are you sure you want
+    // to leave the story now?" is spoken instead of the selected
+    // menu line (which is still just "Quit".)
+    if (glkctl.gameID == kGameIsBeyondZork && _lastSpokenString && [selectedLineString isEqualToString:_lastSpokenString]) {
+        for (GlkWindow *view in glkctl.gwindows.allValues) {
+            if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
+                GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)view;
+                NSString *string = bufWin.textview.string;
+                if ([string rangeOfString:@"Are you sure you want to leave the story now?"].location != NSNotFound) {
+                    [bufWin performSelector:@selector(repeatLastMove:) withObject:nil afterDelay:0.1];
+                    return;
                 }
             }
         }
-        _lastSpokenString = selectedLineString;
     }
+    _lastSpokenString = selectedLineString;
     [self speakString:selectedLineString];
 }
 
-- (NSString *)menuLineStringWithTitle:(BOOL)useTitle index:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
-
-    if (_glkctl.showingInfocomV6Menu) {
-        return [_glkctl.infocomV6MenuHandler menuLineStringWithTitle:useTitle index:useIndex total:useTotal instructions:useInstructions];
-    }
-
-    NSString *menuLineString = [self menuLineStringWithIndex:useIndex total:useTotal instructions:useInstructions];
-    if (useTitle) {
-        NSString *titleString = [ZMenuDetector titleForMenu:_detection inWindows:[self windowTexts]];
-        if (titleString.length) {
-            titleString = [NSString stringWithFormat:@"We are in a menu, \"%@.\"\n", titleString];
-        } else {
-            titleString = @"We are in a menu.\n";
-        }
-        menuLineString = [titleString stringByAppendingString:menuLineString];
-    }
-    return menuLineString;
-}
-
-
-- (NSString *)menuLineStringWithIndex:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
-
-    if (_glkctl.showingInfocomV6Menu) {
-        return [_glkctl.infocomV6MenuHandler menuLineStringWithTitle:NO index:useIndex total:useTotal instructions:useInstructions];
-    }
-
-    NSString *menuItemString = [_detection stringForLine:_selectedLine];
-
-    menuItemString = [SelectionMarkerRegex() stringByReplacingMatchesInString:menuItemString
-                                                         options:0
-                                                           range:NSMakeRange(0, menuItemString.length)
-                                                    withTemplate:@""];
-    NSString *trimmedString = [menuItemString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    if (trimmedString.length == 0)
-        menuItemString = @"Empty line.";
-
-    // Add pre-loaded input field text to Beyond Zork definitions menu
-    if (_glkctl.gameID == kGameIsBeyondZork) {
-        id delegate = ((NSTextStorage *)_detection.text).delegate;
-        if ([delegate isKindOfClass:[GlkTextGridWindow class]] && ((GlkTextGridWindow *)delegate).input) {
-            menuItemString = [menuItemString stringByAppendingString:((GlkTextGridWindow *)delegate).enteredTextSoFar];
-        }
-    }
-
-    if (useIndex) {
-        NSString *indexString = [NSString stringWithFormat:@".\nMenu item %lu", _selectedLine + 1];
-        if (useTotal) {
-            indexString = [indexString stringByAppendingString:
-                           [NSString stringWithFormat:@" of %lu", _detection.lines.count]];
-        }
-        indexString = [indexString stringByAppendingString:@".\n"];
-        menuItemString = [menuItemString stringByAppendingString:indexString];
-    }
-
-    if (useInstructions) {
-        menuItemString = [menuItemString stringByAppendingString:[self constructMenuInstructionString]];
-    }
-
-    return menuItemString;
-}
-
 - (void)speakInstructions:(id)sender {
-    [_glkctl announce:[self constructMenuInstructionString] priority:NSAccessibilityPriorityLow];
+    [_glkctl announce:[self.currentMenu instructionString] priority:NSAccessibilityPriorityLow];
 }
 
 - (void)speakString:(NSString *)string {
@@ -239,10 +180,49 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
     [_glkctl speakStringNow:string];
 }
 
-- (NSString *)constructMenuInstructionString {
-    if (_glkctl.showingInfocomV6Menu) {
-        return [_glkctl.infocomV6MenuHandler constructMenuInstructionString];
+#pragma mark VoiceOverMenu
+
+- (NSUInteger)findSelectedLine {
+    _selectedLine = [_detection findSelectedLine];
+    return _selectedLine;
+}
+
+- (NSString *)menuLineStringWithTitle:(BOOL)useTitle index:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
+    NSString *menuItemString = [_detection stringForLine:_selectedLine] ?: @"";
+
+    menuItemString = [SelectionMarkerRegex() stringByReplacingMatchesInString:menuItemString
+                                                         options:0
+                                                           range:NSMakeRange(0, menuItemString.length)
+                                                    withTemplate:@""];
+    NSString *trimmedString = [menuItemString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmedString.length == 0)
+        menuItemString = @"Empty line.";
+
+    // Add pre-loaded input field text to Beyond Zork definitions menu
+    if (_glkctl.gameID == kGameIsBeyondZork) {
+        id delegate = ((NSTextStorage *)_detection.text).delegate;
+        if ([delegate isKindOfClass:[GlkTextGridWindow class]] && ((GlkTextGridWindow *)delegate).input) {
+            menuItemString = [menuItemString stringByAppendingString:((GlkTextGridWindow *)delegate).enteredTextSoFar];
+        }
     }
+
+    if (useIndex) {
+        menuItemString = [menuItemString stringByAppendingString:VoiceOverMenuIndexString(@"Menu item", _selectedLine, _detection.lines.count, useTotal)];
+    }
+
+    if (useInstructions) {
+        menuItemString = [menuItemString stringByAppendingString:[self instructionString]];
+    }
+
+    if (useTitle) {
+        NSString *title = [ZMenuDetector titleForMenu:_detection inWindows:[self windowTexts]];
+        menuItemString = [VoiceOverMenuTitleString(@"We are in a menu", title) stringByAppendingString:menuItemString];
+    }
+
+    return menuItemString;
+}
+
+- (NSString *)instructionString {
     return [ZMenuDetector instructionsForMenu:_detection];
 }
 

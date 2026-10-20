@@ -7,11 +7,16 @@
 
 #import <Foundation/Foundation.h>
 
+#import "VoiceOverMenu.h"
+
 @class GlkController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ZMenu : NSObject
+// Speaks the menu showing in a game: an Infocom V6 menu if the interpreter
+// reports one, or else a menu found in the text of the game's windows. For
+// the latter, ZMenu is itself the VoiceOverMenu.
+@interface ZMenu : NSObject <VoiceOverMenu>
 
 @property(weak) GlkController *glkctl;
 @property BOOL haveSpokenMenu;
@@ -22,8 +27,6 @@ NS_ASSUME_NONNULL_BEGIN
 // lines, commands and selected line. Returns NO if there is no menu.
 - (BOOL)detectMenu;
 - (void)speakSelectedLine;
-
-- (NSString *)menuLineStringWithTitle:(BOOL)title index:(BOOL)index total:(BOOL)total instructions:(BOOL)instructions;
 
 @end
 

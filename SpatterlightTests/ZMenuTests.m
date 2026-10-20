@@ -15,6 +15,8 @@
 #import "GlkController.h"
 #import "GlkController_Private.h"
 #import "GlkController+GlkRequests.h"
+#import "GlkController+Speech.h"
+#import "InfocomV6MenuHandler.h"
 #import "GlkWindow.h"
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
@@ -231,6 +233,27 @@ static NSDictionary *Highlight(void) {
 
 - (void)testJuniorArithmancerHasNoMenus {
     XCTAssertNil([self detect:@[[self grid:[self text:self.informMenu highlight:@[@"  Credits"]]]] game:kGameIsJuniorArithmancer format:@"glulx"]);
+}
+
+// An Infocom V6 menu reported by the interpreter is spoken instead of any
+// menu in the window text, and keeps its own "spoken" flag.
+- (void)testInfocomV6MenuTakesPrecedence {
+    GlkController *ctl = [self controllerForGame:kGameIsGeneric format:@"zcode" windows:@[[self buffer:[self text:self.informMenu highlight:@[@"  Credits"]]]]];
+    InfocomV6MenuHandler *handler = ctl.infocomV6MenuHandler;
+    [handler handleMenuItemOfType:kV6MenuTypeTopic index:0 total:1 text:(char *)"Hints" length:5];
+    ZMenu *menu = [[ZMenu alloc] initWithGlkController:ctl];
+    ctl.zmenu = menu;
+    XCTAssertTrue([menu detectMenu]);
+    XCTAssertEqual(ctl.currentMenu, (id<VoiceOverMenu>)handler);
+    XCTAssertEqualObjects([ctl.currentMenu menuLineStringWithTitle:NO index:YES total:YES instructions:NO], @"Hints.\nMenu item 1 of 1.\n");
+
+    [handler handleMenuItemOfType:kV6MenuSelectionChanged index:0 total:0 text:NULL length:0];
+    XCTAssertTrue(handler.haveSpokenMenu);
+    XCTAssertFalse(menu.haveSpokenMenu);
+
+    [handler handleMenuItemOfType:kV6MenuExited index:0 total:0 text:NULL length:0];
+    XCTAssertFalse(ctl.showingInfocomV6Menu);
+    XCTAssertEqual(ctl.currentMenu, (id<VoiceOverMenu>)menu);
 }
 
 #pragma mark - Per-game rules

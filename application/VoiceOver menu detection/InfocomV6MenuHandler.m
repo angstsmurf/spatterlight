@@ -7,7 +7,6 @@
 
 #import "GlkController.h"
 #import "GlkController+Speech.h"
-#import "ZMenu.h"
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
 #import "NSString+Categories.h"
@@ -54,10 +53,9 @@
     hasUpdatedMoveRanges = NO;
 
     if (type == kV6MenuSelectionChanged) {
-        _delegate.zmenu.haveSpokenMenu = YES;
+        _haveSpokenMenu = YES;
         return;
     } else if (type == kV6MenuExited) {
-        _delegate.zmenu.haveSpokenMenu = NO;
         _delegate.infocomV6MenuHandler = nil;
         return;
     }
@@ -118,7 +116,11 @@
     }
 }
 
-- (NSString *)constructMenuInstructionString {
+- (NSUInteger)findSelectedLine {
+    return _selectedLine;
+}
+
+- (NSString *)instructionString {
     NSString *instructionString = @"";
 
     if (hintDepth == kV6MenuTypeShogun) {
@@ -163,56 +165,34 @@
 
 - (NSString *)menuLineStringWithTitle:(BOOL)useTitle index:(BOOL)useIndex total:(BOOL)useTotal instructions:(BOOL)useInstructions {
 
-    _delegate.zmenu.haveSpokenMenu = YES;
     NSString *menuLineString = @"";
 
     if (_menuItems.count) {
         if (_selectedLine >= _menuItems.count) {
             _selectedLine = _menuItems.count - 1;
         }
-        menuLineString = [menuLineString stringByAppendingString:_menuItems[_selectedLine]];
+        menuLineString = _menuItems[_selectedLine];
     }
 
-    NSString *menuItemString = @"Menu item";
-    NSString *weAreInAMenuString = @"We are in a menu";
-
-    if (hintDepth == kV6MenuTypeHint) {
-        menuItemString = @"Hint";
-        weAreInAMenuString = @"Showing hints for";
-    }
+    BOOL isHint = (hintDepth == kV6MenuTypeHint);
 
     if (useIndex) {
-        NSString *indexString;
-
-        if (hintDepth == kV6MenuTypeHint && _menuItems.count == 0) {
-            indexString = [NSString stringWithFormat:@"%lu hint%@ available", _numberOfItems, _numberOfItems == 1 ? @"" : @"s"];
+        if (isHint && _menuItems.count == 0) {
+            menuLineString = [menuLineString stringByAppendingFormat:@"%lu hint%@ available.\n", _numberOfItems, _numberOfItems == 1 ? @"" : @"s"];
         } else {
             if (_numberOfItems && _selectedLine >= _numberOfItems) {
                 _selectedLine = _numberOfItems - 1;
             }
-            indexString = [NSString stringWithFormat:@".\n%@ %lu", menuItemString, _selectedLine + 1];
-            if (useTotal) {
-                indexString = [indexString stringByAppendingString:
-                               [NSString stringWithFormat:@" of %lu", _numberOfItems]];
-            }
+            menuLineString = [menuLineString stringByAppendingString:VoiceOverMenuIndexString(isHint ? @"Hint" : @"Menu item", _selectedLine, _numberOfItems, useTotal)];
         }
-
-        indexString = [indexString stringByAppendingString:@".\n"];
-        menuLineString = [menuLineString stringByAppendingString:indexString];
     }
 
     if (useInstructions) {
-        menuLineString = [menuLineString stringByAppendingString:[self constructMenuInstructionString]];
+        menuLineString = [menuLineString stringByAppendingString:[self instructionString]];
     }
 
     if (useTitle) {
-        NSString *titleString = _title;
-        if (titleString.length) {
-            titleString = [NSString stringWithFormat:@"%@, \"%@.\"\n", weAreInAMenuString, titleString];
-        } else {
-            titleString = @"We are in a menu.\n";
-        }
-        menuLineString = [titleString stringByAppendingString:menuLineString];
+        menuLineString = [VoiceOverMenuTitleString(isHint ? @"Showing hints for" : @"We are in a menu", _title) stringByAppendingString:menuLineString];
     }
 
     return menuLineString;

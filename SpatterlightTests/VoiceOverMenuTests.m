@@ -128,9 +128,25 @@
     XCTAssertEqualObjects(line, @"We are in a menu.\n.\nMenu item 1 of 0.\n");
 }
 
+- (void)testHintsWithoutTextGiveACount {
+    [self send:kV6MenuTitle index:0 total:kV6MenuTypeHint text:"How do I get in?"];
+    [self send:kV6MenuTypeHint index:0 total:3 text:NULL];
+    NSString *line = [self.handler menuLineStringWithTitle:YES index:YES total:YES instructions:NO];
+    XCTAssertEqualObjects(line, @"Showing hints for, \"How do I get in?.\"\n3 hints available.\n");
+}
+
+// Only a selection change, not building a line, marks the menu spoken.
+- (void)testSelectionChangeMarksTheMenuSpoken {
+    [self send:kV6MenuTypeTopic index:0 total:2 text:"The Start"];
+    (void)[self.handler menuLineStringWithTitle:YES index:YES total:YES instructions:YES];
+    XCTAssertFalse(self.handler.haveSpokenMenu);
+    [self send:kV6MenuSelectionChanged index:0 total:0 text:NULL];
+    XCTAssertTrue(self.handler.haveSpokenMenu);
+}
+
 - (void)testHintInstructions {
     [self send:kV6MenuTypeHint index:0 total:3 text:"First hint"];
-    XCTAssertEqualObjects([self.handler constructMenuInstructionString], @"M for hint menu. Return for a hint. Q to resume story. ");
+    XCTAssertEqualObjects([self.handler instructionString], @"M for hint menu. Return for a hint. Q to resume story. ");
 }
 
 @end

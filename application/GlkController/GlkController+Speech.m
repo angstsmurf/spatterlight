@@ -148,6 +148,14 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
     return (_infocomV6MenuHandler != nil);
 }
 
+- (id<VoiceOverMenu>)currentMenu {
+    if (!self.zmenu)
+        return nil;
+    if (self.showingInfocomV6Menu)
+        return _infocomV6MenuHandler;
+    return self.zmenu;
+}
+
 #pragma mark Speak new text
 
 // How long (seconds) the UI must be free of layout churn before we let a
@@ -251,9 +259,10 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
 
 // If sender == self, never announce "No last move to speak!"
 - (IBAction)speakMostRecent:(id)sender {
-    if (self.zmenu) {
-        NSString *menuString = [self.zmenu menuLineStringWithTitle:YES index:YES total:YES instructions:YES];
-        self.zmenu.haveSpokenMenu = YES;
+    id<VoiceOverMenu> menu = self.currentMenu;
+    if (menu) {
+        NSString *menuString = [menu menuLineStringWithTitle:YES index:YES total:YES instructions:YES];
+        menu.haveSpokenMenu = YES;
         [self speakString:menuString];
         return;
     } else if (self.form) {

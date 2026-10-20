@@ -1,4 +1,5 @@
 #import "GlkController.h"
+#import "VoiceOverMenu.h"
 
 @interface GlkController (Speech)
 
@@ -10,6 +11,8 @@
 // ZMenu
 - (void)checkZMenuAndSpeak:(BOOL)speak;
 - (BOOL)showingInfocomV6Menu;
+// The menu ZMenu is speaking, if any: the Infocom V6 menu handler or zmenu.
+@property (NS_NONATOMIC_IOSONLY, readonly) id<VoiceOverMenu> currentMenu;
 
 // Speak new text
 - (void)speakNewText;
