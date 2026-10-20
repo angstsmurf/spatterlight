@@ -38,7 +38,10 @@
     // A clone of a non-editable theme that restoreThemeSelection: has not
     // selected in the themes table yet.
     __weak Theme *pendingSelectionTheme;
-    NSUInteger restoreSelectionAttempts;
+    // The theme restoreThemeSelection: selects once the themes array
+    // controller has fetched its content
+    __weak Theme *themeAwaitingTable;
+    BOOL observingArrangedThemes;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
     NSView *currentPanel;

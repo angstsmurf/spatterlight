@@ -176,6 +176,45 @@
 
 #pragma mark Themes Table View Magic
 
+static void *kArrangedThemesContext = &kArrangedThemesContext;
+
+- (void)waitForThemesTableToSelect:(Theme *)theme {
+    themeAwaitingTable = theme;
+    if (!observingArrangedThemes) {
+        [_arrayController addObserver:self forKeyPath:@"arrangedObjects" options:0 context:kArrangedThemesContext];
+        observingArrangedThemes = YES;
+    }
+}
+
+- (void)stopWaitingForThemesTable {
+    themeAwaitingTable = nil;
+    if (observingArrangedThemes) {
+        [_arrayController removeObserver:self forKeyPath:@"arrangedObjects" context:kArrangedThemesContext];
+        observingArrangedThemes = NO;
+    }
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
+    if (context != kArrangedThemesContext) {
+        [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
+        return;
+    }
+    if (![_arrayController.arrangedObjects count])
+        return;
+    Theme *theme = themeAwaitingTable;
+    [self stopWaitingForThemesTable];
+    if (!theme)
+        return;
+    // Not from inside the array controller's change notification: select
+    // once the fetch and the table reload are done. A clone made in the
+    // meantime wins, or selecting the original would make the next change
+    // clone it again.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        Theme *pending = self->pendingSelectionTheme;
+        [self restoreThemeSelection:pending ?: theme];
+    });
+}
+
 - (void)restoreThemeSelection:(Theme *)sender {
     ThemeArrayController *arrayController = _arrayController;
     // A theme cloned outside of event handling, such as in an alert
@@ -191,19 +230,15 @@
     }
     NSArray *themes = arrayController.arrangedObjects;
     if (!themes.count && sender) {
-        // windowDidLoad calls us 0.1 seconds after the nib loads, which is not
-        // always long enough for the themes array controller to have fetched its
-        // content. Wait for it instead of giving up: the old code cleared
-        // self.theme here, and the next game launch then aborted the app in
-        // changeCurrentGlkController:.
-        if (restoreSelectionAttempts++ < 20) {
-            [self performSelector:@selector(restoreThemeSelection:) withObject:sender afterDelay:0.1];
-            return;
-        }
-        NSLog(@"Preferences restoreThemeSelection: themes table still empty, giving up");
+        // The array controller fetches its content in a later run loop pass
+        // than the nib load, so the table can still be empty here. Select the
+        // theme when the content arrives instead of giving up: the old code
+        // cleared self.theme here, and the next game launch then aborted the
+        // app in changeCurrentGlkController:.
+        [self waitForThemesTableToSelect:sender];
         return;
     }
-    restoreSelectionAttempts = 0;
+    [self stopWaitingForThemesTable];
     if (![themes containsObject:sender]) {
         // Fall back to the last theme in the table, but never leave self.theme
         // nil: everything downstream (changeCurrentGlkController: in particular)

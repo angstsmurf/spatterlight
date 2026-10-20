@@ -13,6 +13,7 @@
 - (void)findDarkAndLightThemes;
 - (void)noteManagedObjectContextDidChange:(NSNotification *)notify;
 - (void)restoreThemeSelection:(Theme *)sender;
+- (void)stopWaitingForThemesTable;
 - (void)changeThemeName:(NSString *)name;
 - (BOOL)notDuplicate:(NSString *)string;
 - (BOOL)notDuplicate:(NSString *)string exceptTheme:(Theme *)exception;

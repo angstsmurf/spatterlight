@@ -201,6 +201,10 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     self.theme.bufferCellHeight = cellsize.height;
 }
 
+- (void)dealloc {
+    [self stopWaitingForThemesTable];
+}
+
 - (void)windowDidLoad {
     [super windowDidLoad];
 
@@ -232,7 +236,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     [self setUpWindowHeight];
     [self showSelectedPanelOfToolbar:toolbar];
 
-    [self performSelector:@selector(restoreThemeSelection:) withObject:self.theme afterDelay:0.1];
+    [self restoreThemeSelection:self.theme];
 
     self.windowFrameAutosaveName = @"PrefsPanel";
     themesTableView.autosaveName = @"ThemesTable";
