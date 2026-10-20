@@ -41,10 +41,6 @@ extern NSString * const kOrganiseDirBookmarkKey;
 /// The resolved custom library folder, or nil when the default is in use.
 - (nullable NSURL *)customLibraryURL;
 
-/// The library root actually in effect (custom folder if configured, else the
-/// default app-group location). Optionally creates it. Returns nil on failure.
-- (nullable NSURL *)libraryRootURLCreatingIfNeeded:(BOOL)create;
-
 /// Store (or clear, when `url` is nil) a custom library location. The location
 /// is kept as a security-scoped bookmark.
 - (BOOL)setCustomLibraryURL:(nullable NSURL *)url error:(NSError **)error;

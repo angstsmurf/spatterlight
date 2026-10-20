@@ -22,10 +22,35 @@ static NSString * const kIdentityFilename = @".spatterlightIdentity";
 // finding a free game folder in a group.
 static const NSInteger kMaxDuplicateDirs = 20;
 
+// File paths on the default (case-insensitive) volume compare equal
+// regardless of case.
+static BOOL PathsEqual(NSString *a, NSString *b) {
+    return [a.lowercaseString isEqualToString:b.lowercaseString];
+}
+
+static NSError *OrganiserError(NSInteger code, NSString *description) {
+    return [NSError errorWithDomain:NSCocoaErrorDomain
+                               code:code
+                           userInfo:@{ NSLocalizedDescriptionKey: description }];
+}
+
+// Creates `dir` with any missing parents. YES if it exists afterwards.
+static BOOL CreateDirectory(NSURL *dir, NSError **outError) {
+    return [NSFileManager.defaultManager createDirectoryAtURL:dir
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:outError] ||
+        [dir checkResourceIsReachableAndReturnError:NULL];
+}
+
 @interface LibraryOrganizer ()
 // Kept alive so a custom (security-scoped) library folder stays accessible for
 // the life of the app once resolved.
 @property (nonatomic) NSURL *accessedCustomURL;
+
+/// The library root actually in effect (custom folder if configured, else the
+/// default app-group location). Optionally creates it. Returns nil on failure.
+- (nullable NSURL *)libraryRootURLCreatingIfNeeded:(BOOL)create;
 @end
 
 @implementation LibraryOrganizer
@@ -92,11 +117,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     NSURL *root = self.customLibraryURL ?: self.defaultLibraryRootURL;
     if (create) {
         NSError *error = nil;
-        if (![NSFileManager.defaultManager createDirectoryAtURL:root
-                                    withIntermediateDirectories:YES
-                                                     attributes:nil
-                                                          error:&error] &&
-            ![root checkResourceIsReachableAndReturnError:NULL]) {
+        if (!CreateDirectory(root, &error)) {
             NSLog(@"LibraryOrganizer: could not create library root %@: %@", root.path, error);
             return nil;
         }
@@ -230,14 +251,19 @@ static const NSInteger kMaxDuplicateDirs = 20;
     return nil;
 }
 
+// The identity stored in `dir`'s marker file, or nil if it has none.
+- (nullable NSString *)storedIdentityInDirectory:(NSURL *)dir {
+    NSURL *idFile = [dir URLByAppendingPathComponent:kIdentityFilename];
+    return [NSString stringWithContentsOfURL:idFile
+                                    encoding:NSUTF8StringEncoding
+                                       error:NULL];
+}
+
 // YES if `dir` carries an identity marker naming this very game, i.e. it is a
 // game folder the organiser created for `game`. The library root, group
 // folders and the user's own folders never carry a marker.
 - (BOOL)directory:(NSURL *)dir isOwnedByGame:(Game *)game {
-    NSURL *idFile = [dir URLByAppendingPathComponent:kIdentityFilename];
-    NSString *stored = [NSString stringWithContentsOfURL:idFile
-                                               encoding:NSUTF8StringEncoding
-                                                  error:NULL];
+    NSString *stored = [self storedIdentityInDirectory:dir];
     if (!stored.length)
         return NO;                // someone else's (or an unmarked) folder
     NSString *mine = [self identityForGame:game];
@@ -254,7 +280,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     NSURL *existing = [dir URLByAppendingPathComponent:sourceURL.lastPathComponent].URLByStandardizingPath;
     if (![existing checkResourceIsReachableAndReturnError:NULL])
         return NO;
-    if ([existing.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString])
+    if (PathsEqual(existing.path, sourceURL.path))
         return NO;                // the game's own file
     NSString *theirs = existing.path.signatureFromFile;
     NSString *mine = sourceURL.path.signatureFromFile;
@@ -296,33 +322,19 @@ static const NSInteger kMaxDuplicateDirs = 20;
                                     file:(NSURL *)sourceURL
                                underRoot:(NSURL *)root
                                   create:(BOOL)create {
-    NSFileManager *fm = NSFileManager.defaultManager;
-
     NSString *group = [self groupNameForGame:game];
     NSString *title = [self titleNameForGame:game];
 
     NSURL *groupDir = [root URLByAppendingPathComponent:group isDirectory:YES];
-    if (create && ![fm createDirectoryAtURL:groupDir
-                withIntermediateDirectories:YES
-                                 attributes:nil
-                                      error:NULL] &&
-        ![groupDir checkResourceIsReachableAndReturnError:NULL]) {
+    if (create && !CreateDirectory(groupDir, NULL))
         return nil;
-    }
 
     for (NSInteger n = 0; n < kMaxDuplicateDirs; n++) {
         NSString *name = n == 0 ? title : [NSString stringWithFormat:@"%@ %ld", title, (long)n];
         NSURL *candidate = [groupDir URLByAppendingPathComponent:name isDirectory:YES];
         if ([self directory:candidate isAvailableForGame:game file:sourceURL]) {
-            if (create && ![candidate checkResourceIsReachableAndReturnError:NULL]) {
-                if (![fm createDirectoryAtURL:candidate
-                  withIntermediateDirectories:YES
-                                   attributes:nil
-                                        error:NULL] &&
-                    ![candidate checkResourceIsReachableAndReturnError:NULL]) {
-                    return nil;
-                }
-            }
+            if (create && !CreateDirectory(candidate, NULL))
+                return nil;
             return candidate;
         }
     }
@@ -349,10 +361,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     }
     if (!sourcePath.length || ![fm fileExistsAtPath:sourcePath]) {
         if (outError)
-            *outError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                            code:NSFileNoSuchFileError
-                                        userInfo:@{ NSLocalizedDescriptionKey:
-                                                        @"The game file could not be found." }];
+            *outError = OrganiserError(NSFileNoSuchFileError, @"The game file could not be found.");
         return NO;
     }
 
@@ -361,27 +370,21 @@ static const NSInteger kMaxDuplicateDirs = 20;
     NSURL *root = [self libraryRootURLCreatingIfNeeded:YES];
     if (!root) {
         if (outError)
-            *outError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                            code:NSFileWriteUnknownError
-                                        userInfo:@{ NSLocalizedDescriptionKey:
-                                                        @"The library folder could not be created." }];
+            *outError = OrganiserError(NSFileWriteUnknownError, @"The library folder could not be created.");
         return NO;
     }
 
     NSURL *destDir = [self gameDirectoryForGame:game file:sourceURL underRoot:root create:YES];
     if (!destDir) {
         if (outError)
-            *outError = [NSError errorWithDomain:NSCocoaErrorDomain
-                                            code:NSFileWriteUnknownError
-                                        userInfo:@{ NSLocalizedDescriptionKey:
-                                                        @"No free folder for this game in the library." }];
+            *outError = OrganiserError(NSFileWriteUnknownError, @"No free folder for this game in the library.");
         return NO;
     }
 
     NSURL *destFile = [destDir URLByAppendingPathComponent:sourceURL.lastPathComponent].URLByStandardizingPath;
 
     // Already where it belongs.
-    if ([destFile.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString]) {
+    if (PathsEqual(destFile.path, sourceURL.path)) {
         [self recordGroupAndIdentityOfGame:game inDirectory:destDir];
         return YES;
     }
@@ -395,7 +398,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     // the library at a folder that already holds their games) fails this test
     // and takes the copying path below, which never touches the originals.
     BOOL sourceIsOwnGameDir = [self url:sourceURL isInsideRoot:root] &&
-        ![sourceDir.path.lowercaseString isEqualToString:destDir.path.lowercaseString] &&
+        !PathsEqual(sourceDir.path, destDir.path) &&
         ![self url:destDir isInsideRoot:sourceDir] &&
         [self directory:sourceDir isOwnedByGame:game];
 
@@ -419,7 +422,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
                 ![fm removeItemAtURL:target error:NULL])
                 continue;
             if (![fm moveItemAtURL:item toURL:target error:outError] &&
-                [item.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString])
+                PathsEqual(item.path, sourceURL.path))
                 return NO;
         }
         // Remove the old folder, but only once it is verifiably empty:
@@ -494,8 +497,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
 - (BOOL)file:(NSURL *)item belongsWithGameFile:(NSURL *)sourceURL {
     NSString *name = item.lastPathComponent;
     NSString *mainName = sourceURL.lastPathComponent;
-    if ([name.stringByDeletingPathExtension.lowercaseString
-         isEqualToString:mainName.stringByDeletingPathExtension.lowercaseString])
+    if (PathsEqual(name.stringByDeletingPathExtension, mainName.stringByDeletingPathExtension))
         return YES;               // also covers the main file itself
     NSString *diskSetKey = [self diskSetKeyForFilename:mainName];
     return diskSetKey && [diskSetKey isEqualToString:[self diskSetKeyForFilename:name]];
@@ -516,8 +518,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
         if (other == game || other.isDeleted)
             continue;
         NSURL *otherURL = [NSURL fileURLWithPath:other.path isDirectory:NO].URLByStandardizingPath;
-        if (![otherURL.URLByDeletingLastPathComponent.path.lowercaseString
-              isEqualToString:dirPath.lowercaseString])
+        if (!PathsEqual(otherURL.URLByDeletingLastPathComponent.path, dirPath))
             continue;             // in a subfolder
         if (![self file:otherURL belongsWithGameFile:sourceURL])
             return YES;
@@ -545,7 +546,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
         [item getResourceValue:&isDir forKey:NSURLIsDirectoryKey error:NULL];
         if (isDir.boolValue)
             continue;
-        BOOL isMain = [item.path.lowercaseString isEqualToString:sourceURL.path.lowercaseString];
+        BOOL isMain = PathsEqual(item.path, sourceURL.path);
         if (!isMain && ![self file:item belongsWithGameFile:sourceURL])
             continue;
 
@@ -601,11 +602,7 @@ static const NSInteger kMaxDuplicateDirs = 20;
     if (!root || ![self url:current isInsideRoot:root])
         return;
     NSURL *dir = current.URLByDeletingLastPathComponent;
-    NSURL *idFile = [dir URLByAppendingPathComponent:kIdentityFilename];
-    NSString *stored = [NSString stringWithContentsOfURL:idFile
-                                               encoding:NSUTF8StringEncoding
-                                                  error:NULL];
-    if ([stored isEqualToString:oldIdentity])
+    if ([[self storedIdentityInDirectory:dir] isEqualToString:oldIdentity])
         [self writeIdentityForGame:game inDirectory:dir];
 }
 
