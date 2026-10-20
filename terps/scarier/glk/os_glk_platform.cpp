@@ -144,6 +144,8 @@ glkunix_argumentlist_t glkunix_arguments[] = {
   {(char *) "-c", glkunix_arg_NoValue,
    (char *) "-c         Start in the game's own Adrift colours"},
 #endif
+  {(char *) "-m", glkunix_arg_NoValue,
+   (char *) "-m         Start with the map showing (or set SCR_MAP_ENABLED)"},
   {(char *) "-r", glkunix_arg_ValueFollows,
    (char *) "-r FILE    Restore from FILE on starting the game"},
   {(char *) "", glkunix_arg_ValueCanFollow,
@@ -211,6 +213,11 @@ glkunix_startup_code (glkunix_startup_t * data)
           continue;
         }
 #endif
+      if (strcmp (argv[argv_index], "-m") == 0)
+        {
+          gsc_map_startup = TRUE;
+          continue;
+        }
       if (strcmp (argv[argv_index], "-r") == 0)
         {
           restore_from = argv[++argv_index];
@@ -273,6 +280,8 @@ glkunix_startup_code (glkunix_startup_t * data)
   else
     trace_flags = 0;
   enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != nullptr);
+  if (getenv ("SCR_MAP_ENABLED") != nullptr)
+    gsc_map_startup = TRUE;
 #if defined (SPATTERLIGHT)
   stable_random = gli_determinism;
 #else
@@ -380,6 +389,8 @@ winglk_startup_code (const char *cmdline)
   else
     trace_flags = 0;
   enable_debugger = (getenv ("SCR_DEBUGGER_ENABLED") != nullptr);
+  if (getenv ("SCR_MAP_ENABLED") != nullptr)
+    gsc_map_startup = TRUE;
   stable_random = (getenv ("SCR_STABLE_RANDOM_ENABLED") != nullptr);
   locale = getenv ("SCR_LOCALE");
 

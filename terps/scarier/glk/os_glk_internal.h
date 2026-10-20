@@ -423,6 +423,7 @@ extern map_t *gsc_map;
 extern int gsc_map_shown;
 extern int gsc_map_want;
 extern int gsc_map_at_top;
+extern int gsc_map_startup;
 extern int gsc_map_taken;
 extern int gsc_map_zoom;
 extern map_camera_t gsc_map_cam;

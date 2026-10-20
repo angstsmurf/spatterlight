@@ -114,6 +114,20 @@ Press any key
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
 [TEXT] To Hell in a Hamper | J. J. Guest
+[MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=281 a3=0 len=3372
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
@@ -141,6 +155,8 @@ Press any key
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
 [TEXT] To Hell in a Hamper | J. J. Guest
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
@@ -178,6 +194,8 @@ Press any key
 [MSG] cmd=MOVETO a1=1 a2=1 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=66
 [TEXT] To Hell in a Hamper | J. J. Guest
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
@@ -208,6 +226,8 @@ I am in the basket of the balloon, high, though not high enough above the foothi
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -231,6 +251,8 @@ Hubert is a man of prodigious girth, pasty and unhealthy looking with slicked do
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -254,6 +276,8 @@ Hubert habitually wears this huge black overcoat. It seems to have been designed
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -277,6 +301,8 @@ A large pocket that seems not to have been part of the coat's original design.  
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -300,6 +326,8 @@ Before Hubert has time to react, I snatch the rubber mallet from the side pocket
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -323,6 +351,8 @@ I open the sewing kit, finding inside a pair of sharp scissors, a ball of yarn a
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -346,6 +376,8 @@ I take the pair of sharp scissors from the sewing kit.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -369,6 +401,8 @@ I take the needle from the sewing kit.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -392,6 +426,8 @@ I take the ball of yarn from the sewing kit.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -415,6 +451,8 @@ A small pocket on the front of the overcoat.  The corner of a handkerchief can b
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -438,6 +476,8 @@ I take hold of the corner of the handkerchief and tug, whereupon, like some infe
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -463,6 +503,8 @@ With a deft movement of the wrist I succeed in cutting through the tough thread 
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -486,6 +528,8 @@ I take the boomerang.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -509,6 +553,8 @@ I hurl the boomerang at Hubert's hat, in the time honoured tradition of the Aust
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,300 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -538,6 +584,8 @@ The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -561,6 +609,8 @@ I pick up the cuckoo clock. 'Put that down at once!' cries Hubert.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -589,6 +639,8 @@ The balance between the weight of the balloon and the lift provided by the gas i
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -612,6 +664,8 @@ I pick up the shapeless felt hat. 'If you damage that,' says Hubert, 'I shall te
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -638,6 +692,8 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -661,6 +717,8 @@ I pick up the toy donkey. 'Leave that alone!' cries Hubert.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 12,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -687,6 +745,8 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 13,300 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -710,6 +770,8 @@ I pick up the large framed painting.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 13,300 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -738,6 +800,8 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -761,6 +825,8 @@ I take the ear-trumpet.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -784,6 +850,8 @@ Hubert habitually wears this huge black overcoat. It seems to have been designed
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -807,6 +875,8 @@ A small pocket in the lining of Hubert's overcoat. The inside pocket contains a 
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -830,6 +900,8 @@ I reach inside Hubert's overcoat and retrieve the lighter. 'Stop! Thief!' yells 
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -853,6 +925,8 @@ I reach inside Hubert's overcoat and retrieve the hatchet from his inside pocket
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -876,6 +950,8 @@ Hubert's overcoat is lined with coarse tartan material.  There is a conspicuous 
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -899,6 +975,8 @@ I lunge with the scissors, slashing a large rent in the tartan fabric. A colourf
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -922,6 +1000,8 @@ I pick up the Ting dynasty vase. 'Leave that alone!' cries Hubert.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -947,6 +1027,8 @@ I hit the vase with the mallet. It shatters most obligingly, revealing a tiny ke
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -970,6 +1052,8 @@ I take the tiny metal key.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -996,6 +1080,8 @@ The balance between the weight of the balloon and the lift provided by the gas i
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1019,6 +1105,8 @@ This is by far the largest example of a carpetbag I have ever seen! It must cont
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1046,6 +1134,8 @@ I unlock the carpetbag with the tiny metal key, tossing the padlock over the sid
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1069,6 +1159,8 @@ I gingerly remove the pair of underpants from the carpetbag.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1095,6 +1187,8 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1118,6 +1212,8 @@ I take the trombone from the carpetbag.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1141,6 +1237,8 @@ I drop the trombone.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1164,6 +1262,8 @@ I drop the hatchet.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1187,6 +1287,8 @@ I carefully lift the Egyptian mummy from the carpetbag and heave it over my shou
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1210,6 +1312,8 @@ I take the carpetbag.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,600 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1236,6 +1340,8 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 14,700 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1270,6 +1376,8 @@ Unburdening the balloon of this large, heavy object causes a sudden and immediat
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 15,700 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1293,6 +1401,8 @@ I take the boomerang.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 15,700 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1319,6 +1429,8 @@ The balance between the weight of the balloon and the lift provided by the gas i
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1342,6 +1454,8 @@ I take the smudge stick.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1372,6 +1486,8 @@ Red hot embers fly from the smudge stick...
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1398,6 +1514,8 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1421,6 +1539,8 @@ I take the trombone.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1444,6 +1564,8 @@ I put the ear-trumpet in the Saint Bernard's ear.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1467,6 +1589,8 @@ The trombone emits an almost inaudible squeak. I fear there may be something wro
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1494,6 +1618,8 @@ I bash Hubert over the head with the trombone, whereupon a
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1517,6 +1643,8 @@ I take the cricket ball.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,100 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1540,6 +1668,8 @@ I place the trombone to my lips and blow. It emits a few strangulated notes. The
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 16,300 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1566,6 +1696,8 @@ Unburdening the balloon of this large, heavy object causes a sudden and immediat
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,300 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1592,6 +1724,8 @@ The balance between the weight of the balloon and the lift provided by the gas i
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,800 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1615,6 +1749,8 @@ Fortunately I was taught to sew by the overbearing nuns who educated me in that 
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,800 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1638,6 +1774,8 @@ I take the hatchet.
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 17,800 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1672,6 +1810,8 @@ Unburdening the balloon of this quite large and heavy object causes a sudden and
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 18,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1695,6 +1835,8 @@ I wait 'til her back is turned, and swiftly tie the parachute to her apron strin
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 18,500 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1727,6 +1869,8 @@ I have just one chance. Unless I speedily descend, ALL IS LOST!
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 37,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1750,6 +1894,8 @@ Press any key
 [MSG] cmd=MOVETO a1=1 a2=57 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=44
 [TEXT] ALTITUDE - 37,000 FEET
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=INITCHAR a1=0 a2=0 a3=0 len=0
 
 === Session ended ===

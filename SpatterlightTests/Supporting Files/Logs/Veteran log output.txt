@@ -74,6 +74,20 @@ This room is empty apart from a bench along one wall. You can only head north.  
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=229 a3=0 len=2748
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -102,6 +116,8 @@ This room is empty apart from a bench along one wall. You can only head north.  
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -130,6 +146,8 @@ This room is empty apart from a bench along one wall. You can only head north.  
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -154,6 +172,8 @@ You pick up the bag.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -178,6 +198,8 @@ You open the bag.  A crowbar is inside the bag.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -206,6 +228,8 @@ You open the bag.  A crowbar is inside the bag.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -229,6 +253,8 @@ You take a crowbar from the bag.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -259,6 +285,9 @@ This corridor extends to the west. To the south is your locker room. To the nort
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=443 a3=0 len=5316
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -289,6 +318,9 @@ The Youth is preening himself in front of a mirror. Near him are the gifts from 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=675 a3=0 len=8100
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -317,6 +349,8 @@ The Youth is preening himself in front of a mirror. Near him are the gifts from 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -345,6 +379,8 @@ The Youth is preening himself in front of a mirror. Near him are the gifts from 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -373,6 +409,8 @@ The Youth is preening himself in front of a mirror. Near him are the gifts from 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -401,6 +439,8 @@ The Youth is preening himself in front of a mirror. Near him are the gifts from 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -424,6 +464,8 @@ You pick up the teddy bear.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -454,6 +496,9 @@ This corridor extends to the west. To the south is your locker room. To the nort
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=478 a3=0 len=5736
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -484,6 +529,9 @@ This corridor extends to locker rooms in the east and west. To the south is the 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=874 a3=0 len=10488
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -514,6 +562,9 @@ The ring has been set up earlier and is surrounded by empty chairs, waiting for 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=704 a3=0 len=8448
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -542,6 +593,8 @@ The ring has been set up earlier and is surrounded by empty chairs, waiting for 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -570,6 +623,8 @@ The ring has been set up earlier and is surrounded by empty chairs, waiting for 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -593,6 +648,8 @@ You see a bag of tacks and a ladder under the ring.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -621,6 +678,8 @@ You see a bag of tacks and a ladder under the ring.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -644,6 +703,8 @@ You pick up the bag of tacks.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -672,6 +733,8 @@ You pick up the bag of tacks.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -695,6 +758,8 @@ You pick up the ladder.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -725,6 +790,9 @@ This corridor extends to locker rooms in the east and west. To the south is the 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=699 a3=0 len=8388
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -755,6 +823,9 @@ This corridor extends to the east. To the north is the Monster's locker room. To
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=924 a3=0 len=11088
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -785,6 +856,9 @@ The Monster is here, sitting on the floor brooding, in preparation for his title
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=843 a3=0 len=10116
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -813,6 +887,8 @@ The Monster is here, sitting on the floor brooding, in preparation for his title
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -841,6 +917,8 @@ The Monster is here, sitting on the floor brooding, in preparation for his title
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -869,6 +947,8 @@ The Monster is here, sitting on the floor brooding, in preparation for his title
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -892,6 +972,8 @@ The Monster grabs the teddy bear from you and hugs it to himself. Maybe he does 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -915,6 +997,8 @@ You take advantage of the distraction to hit the Monster over the head with the 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -943,6 +1027,8 @@ You take advantage of the distraction to hit the Monster over the head with the 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -966,6 +1052,8 @@ You take the bottle of acid from the unconscious Monster.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -996,6 +1084,9 @@ This corridor extends to the east. To the north is the Monster's locker room. To
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=840 a3=0 len=10080
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1026,6 +1117,9 @@ The High Flyer is here practicing his aerial maneuvers before the tournament on 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=982 a3=0 len=11784
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1054,6 +1148,8 @@ The High Flyer is here practicing his aerial maneuvers before the tournament on 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1082,6 +1178,8 @@ The High Flyer is here practicing his aerial maneuvers before the tournament on 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1110,6 +1208,8 @@ The High Flyer is here practicing his aerial maneuvers before the tournament on 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1133,6 +1233,8 @@ The High Flyer thanks you because he can now practice his moves from higher up. 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1156,6 +1258,8 @@ The High Flyer lands on the tacks and screams out in agony as they tear into him
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1179,6 +1283,8 @@ You walk over to the High Flyer and remove his mask. He screams out and tries to
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1202,6 +1308,8 @@ You put on the jet mask.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1232,6 +1340,9 @@ This corridor extends to the east. To the north is the Monster's locker room. To
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=977 a3=0 len=11724
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1262,6 +1373,9 @@ This corridor extends to locker rooms in the east and west. To the south is the 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1670 a3=0 len=20040
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1292,6 +1406,9 @@ This corridor extends to the west. To the south is your locker room. To the nort
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1351 a3=0 len=16212
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1322,6 +1439,9 @@ The Youth is preening himself in front of a mirror. Near him are the gifts from 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=840 a3=0 len=10080
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0

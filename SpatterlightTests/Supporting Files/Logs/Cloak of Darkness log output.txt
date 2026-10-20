@@ -64,6 +64,20 @@ Hurrying through the rainswept November night, you're glad to see the bright lig
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=345 a3=0 len=4140
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -88,6 +102,9 @@ The walls of this small room were clearly once lined with hooks, though now only
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=420 a3=0 len=5040
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -111,6 +128,8 @@ You hang the cloak on the hook.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 1
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -135,6 +154,9 @@ You are standing in a spacious hall, splendidly decorated in red and gold, with 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 1
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=397 a3=0 len=4764
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -159,6 +181,9 @@ The bar, much rougher than you'd have guessed after the opulence of the foyer to
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 1
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=521 a3=0 len=6252
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0

@@ -94,6 +94,11 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     _originalCloseAlertSuppression = [defaults boolForKey:kCloseAlertSuppressionKey];
     [defaults setBool:YES forKey:kCloseAlertSuppressionKey];
 
+    // Interpreters inherit the app's environment. Start Scarier with its map
+    // showing, rather than as the player last left it in each game, so the
+    // ADRIFT logs don't depend on the machine and do cover the map.
+    setenv("SCR_MAP_ENABLED", "1", 1);
+
     // Set up an in-memory Core Data stack for testing
     [self setUpInMemoryCoreDataStack];
 
@@ -129,6 +134,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LogInterpreterOutput"];
     [[NSUserDefaults standardUserDefaults] setBool:_originalCloseAlertSuppression forKey:kCloseAlertSuppressionKey];
+    unsetenv("SCR_MAP_ENABLED");
 
     [super tearDown];
 }

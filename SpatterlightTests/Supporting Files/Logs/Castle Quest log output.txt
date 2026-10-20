@@ -66,6 +66,20 @@ You are outside the castle. The castle entrance is to the north. The small rock 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=266 a3=0 len=3192
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -90,6 +104,9 @@ You are in the castle's main hallway. There are doors in the north, east and wes
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=476 a3=0 len=5712
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -114,6 +131,9 @@ This is the castle kitchen. In the middle of the room stands a stove. There are 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=647 a3=0 len=7764
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -138,6 +158,9 @@ This is King Thingalot's private study. In the middle of the room stand a bronze
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=836 a3=0 len=10032
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -161,6 +184,9 @@ The green button has been pressed. Well done - that was something you had to do.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 10
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=45 a3=0 len=540
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -185,6 +211,9 @@ This is the castle kitchen. In the middle of the room stands a stove. There are 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 10
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=594 a3=0 len=7128
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -209,6 +238,9 @@ You are in the castle's main hallway. There are doors in the north, east and wes
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 10
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=391 a3=0 len=4692
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -233,6 +265,9 @@ You now stand in the castle dining room. A large table stands in the middle of t
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 10
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=823 a3=0 len=9876
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -257,6 +292,9 @@ You are in the castle gallery. However, there is only one painting here. There a
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 10
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1277 a3=0 len=15324
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -281,6 +319,9 @@ You now stand in the Brass Hall. To the east, a heavy iron portcullis blocks the
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 10
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1296 a3=0 len=15552
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -304,6 +345,9 @@ As you pull the blue lever, the heavy iron portcullis slowly rises into the ceil
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=193 a3=0 len=2316
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -328,6 +372,9 @@ This room is circular. There are doors in the north, south and east doors. The B
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=787 a3=0 len=9444
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -352,6 +399,9 @@ You are now standing on a balcony outside the castle. There are two floorplates 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=701 a3=0 len=8412
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -375,6 +425,9 @@ When you stand on the red floorplate, it sinks into the floor. Well done - that 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=233 a3=0 len=2796
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -399,6 +452,9 @@ This room is circular. There are doors in the north, south and east doors. The B
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=721 a3=0 len=8652
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -423,6 +479,9 @@ This is the puzzle room. As you enter, the door slams shut behind you and locks 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=210 a3=0 len=2520
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -447,6 +506,9 @@ This is the treasure room. Sitting on the ground is a treasure chest. It's open 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 40
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=200 a3=0 len=2400
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0

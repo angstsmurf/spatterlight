@@ -48,6 +48,9 @@ int gsc_map_want = FALSE;
    hiding and re-showing the map does not move it, and it is remembered with
    the visibility (gsc_map_pref_write) so neither does restarting. */
 int gsc_map_at_top = FALSE;
+/* Set by "-m" or SCR_MAP_ENABLED: start every game with the map showing,
+   whatever the player last chose or the game shipped (gsc_map_pref_read). */
+int gsc_map_startup = FALSE;
 /* Set when the game defines a MAP command of its own (Lost Coastlines has a
    sea chart): the game's command wins, and the pane is reached with the
    "glk map" escape instead. */
@@ -869,9 +872,9 @@ gsc_map_pref_ref (void)
  * as a choice.  (A third byte, left by the removed "glk map colour", is
  * ignored.)
  *
- * Determinism (testing) mode reads every game as never said, so that a
+ * The "-m" switch (gsc_map_startup) reads as shown for every game, so that a
  * scripted run opens the same panes whatever the player chose before.  The
- * choice is still written, and counts again once the mode is off.
+ * player's choice is still written.
  */
 int
 gsc_map_pref_read (int *at_top)
@@ -882,10 +885,8 @@ gsc_map_pref_read (int *at_top)
   if (at_top != nullptr)
     *at_top = -1;
 
-#if defined(SPATTERLIGHT)
-  if (gli_determinism)
-    return -1;
-#endif
+  if (gsc_map_startup)
+    return 1;
 
   fileref = gsc_map_pref_ref ();
   if (fileref == nullptr)

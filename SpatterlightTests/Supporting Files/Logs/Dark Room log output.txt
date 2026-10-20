@@ -61,6 +61,18 @@ There is a dark cave here.  Also here is a lantern.  An exit leads in.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 0
+[MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=254 a3=0 len=3048
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -90,6 +102,8 @@ There is a dark cave here.  Also here is a lantern.  An exit leads in.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 1
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -113,6 +127,8 @@ Ok, you pick up the lantern.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 2
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -143,6 +159,9 @@ The cave is quite spooky.  There is a button on the wall.  An exit leads out.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 3
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=416 a3=0 len=4992
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -172,6 +191,8 @@ The cave is quite spooky.  There is a button on the wall.  An exit leads out.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 4
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=6
 [TEXT] 
 > 
@@ -198,6 +219,8 @@ Would you like to restart, restore a saved game, quit or undo the last command?
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Moves: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=96
 [TEXT] 
 Please enter RESTART, RESTORE, UNDO or QUIT.

@@ -69,6 +69,20 @@ Interpreter: scarier
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
+[REPLY] cmd=1 a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
+[MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=7 len=0
+[REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
+[MSG] cmd=STYLEMEASURE a1=0 a2=0 a3=8 len=0
+[REPLY] cmd=1 a1=1 a2=16777215 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=222 a3=0 len=2664
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -92,6 +106,8 @@ You pick up the library card.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -116,6 +132,9 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=556 a3=0 len=6672
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -140,6 +159,9 @@ Akron Public Library is a small community library, with a relatively limited sel
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 0
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=835 a3=0 len=10020
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -163,6 +185,8 @@ The librarian looks at your card, and nods. Immediately, someone else comes in a
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -186,6 +210,8 @@ You take a thick book from the return cart.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -209,6 +235,8 @@ You take a thin book from the return cart.
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -233,6 +261,9 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=645 a3=0 len=7740
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -257,6 +288,9 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1114 a3=0 len=13368
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -281,6 +315,9 @@ You stand just outside what was formerly some kind of men's clothing store. All 
 [MSG] cmd=MOVETO a1=1 a2=71 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=16
 [TEXT] Score: 5
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1035 a3=0 len=12420
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -304,6 +341,8 @@ You drop Great Expectations onto the floor, and stand up on top. Now you can see
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -327,6 +366,8 @@ You pick up the small brass key.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -350,6 +391,9 @@ You put the key into the door, and it fits easily. The door is now unlocked, and
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=40 a3=0 len=480
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -374,6 +418,9 @@ This is a deserted men's clothing store. Empty racks are all around you - there 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1589 a3=0 len=19068
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -397,6 +444,8 @@ You pick up the spiffy tuxedo.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -420,6 +469,8 @@ You remove the grubby sweatshirt.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -443,6 +494,8 @@ You remove the pair of ragged jeans.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 15
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -466,6 +519,8 @@ You put the tuxedo on. Boy, do you look good.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -490,6 +545,9 @@ You stand just outside what was formerly some kind of men's clothing store. All 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=623 a3=0 len=7476
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -514,6 +572,9 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1035 a3=0 len=12420
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -538,6 +599,9 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=598 a3=0 len=7176
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -562,6 +626,9 @@ Garbanzo Street makes a sharp curve to the left here, just managing to stay insi
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1362 a3=0 len=16344
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -586,6 +653,9 @@ There is next to nothing here. Some trash has been tossed into this area, but mo
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1035 a3=0 len=12420
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -609,6 +679,8 @@ You pick up the surveyor's stake.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -633,6 +705,9 @@ Garbanzo Street makes a sharp curve to the left here, just managing to stay insi
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1030 a3=0 len=12360
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -657,6 +732,9 @@ You have blundered into a cornfield. Oh my. It looks like this is another one of
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=928 a3=0 len=11136
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -681,6 +759,9 @@ Wow! You made it all the way through the maze! I'm so impressed! This is a clear
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 20
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=887 a3=0 len=10644
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -704,6 +785,8 @@ You drive the surveyor's stake right through Elizabeth Dole's heart. She screams
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -727,6 +810,8 @@ You pick up the small passcard.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -751,6 +836,9 @@ You have blundered into a cornfield. Oh my. It looks like this is another one of
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=884 a3=0 len=10608
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -775,6 +863,9 @@ Garbanzo Street makes a sharp curve to the left here, just managing to stay insi
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1529 a3=0 len=18348
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -799,6 +890,9 @@ This is Garbanzo Street, in the south end of Akron. It stretches as far as the e
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1769 a3=0 len=21228
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -823,6 +917,9 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1745 a3=0 len=20940
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -847,6 +944,9 @@ This is the lobby of the Johnson automotive plant, employer of nearly everybody 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 30
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1239 a3=0 len=14868
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -870,6 +970,9 @@ The clerk looks at your passcard warily. "I'm not sure I should... oh well, go o
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=201 a3=0 len=2412
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -894,6 +997,9 @@ Machines clang all around you. Workers bustle in every direction. Noise is shatt
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1662 a3=0 len=19944
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -917,6 +1023,8 @@ You pick up the wedding ring.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -940,6 +1048,8 @@ You put on the wedding ring.
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -964,6 +1074,9 @@ This is the lobby of the Johnson automotive plant, employer of nearly everybody 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=2067 a3=0 len=24804
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -988,6 +1101,9 @@ This is the western end of Garbanzo Street, extending into the industrial distri
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1349 a3=0 len=16188
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1012,6 +1128,9 @@ Garbanzo Street becomes Kumquat Avenue here, as we enter the Smallwood Green sub
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1932 a3=0 len=23184
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1036,6 +1155,9 @@ Kumquat Avenue reaches a dead end here. Interestingly, there is a police car par
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=1173 a3=0 len=14076
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1060,6 +1182,9 @@ You stand on the doorstep outside 37 Kumquat Avenue.  Officer Stanley Peters, of
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 35
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=FILLRECT a1=2 a2=724 a3=0 len=8688
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
@@ -1083,6 +1208,8 @@ Officer Peters looks at the Treatise on Crippled Shareware. "Wow!" he exclaims. 
 [MSG] cmd=MOVETO a1=1 a2=70 a3=0 len=0
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=18
 [TEXT] Score: 45
+[MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
+[MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=2
 [TEXT] >
 [MSG] cmd=SETECHO a1=0 a2=0 a3=0 len=0
