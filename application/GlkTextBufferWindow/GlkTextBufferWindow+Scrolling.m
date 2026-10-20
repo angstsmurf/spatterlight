@@ -507,7 +507,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 - (void)storeScrollOffset {
     if (_pendingScrollRestore)
         return;
-    if (self.scrolledToBottom) {
+    if (self.atBottomScrollTarget) {
         lastAtBottom = YES;
         lastAtTop = NO;
     } else {
@@ -823,6 +823,34 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 
     return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) <
             2 + _textview.textContainerInset.height + _textview.bottomPadding);
+}
+
+// Stricter than scrolledToBottom, which counts the bottom margin and the
+// whole bottomPadding below the text as "at the bottom" so that typing
+// doesn't scroll down to a low margin image. That is too loose for storing
+// the scroll position: a window scrolled up to cut the image off at the
+// bottom would come back scrolled all the way down. This asks whether the window sits where
+// scrollToBottomAnimated: would put it: the end of the frame, or, when the
+// padding is taller than that allows, the last line of text at the top.
+- (BOOL)atBottomScrollTarget {
+    NSView *clipView = scrollview.contentView;
+
+    if (!clipView || NSHeight(clipView.bounds) == 0) {
+        return YES;
+    }
+
+    CGFloat insetHeight = _textview.textContainerInset.height;
+    CGFloat padding = _textview.bottomPadding;
+    if (padding > 0) {
+        CGFloat lastLineTop = NSHeight(_textview.bounds) - padding
+            - insetHeight - self.theme.bufferCellHeight;
+        if (NSMinY(clipView.bounds) >= lastLineTop - 2)
+            return YES;
+    }
+
+    // No allowance for the bottom margin either: a window scrolled partway
+    // into it should come back there, not at the very end.
+    return (NSHeight(_textview.bounds) - NSMaxY(clipView.bounds) < 2);
 }
 
 // Scroll to the very bottom of the text content. Call sites that surface
