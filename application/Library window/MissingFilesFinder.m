@@ -52,12 +52,9 @@ extern NSArray *gGameFileTypes;
 }
 
 - (void)lookForMissingFile:(Game *)game libController:(TableViewController *)libController {
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = NSLocalizedString(@"Cannot find the file.", nil);
-    alert.informativeText = [NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title];
-    [alert addButtonWithTitle:NSLocalizedString(@"Look for game", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Delete game", nil)];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Cannot find the file.", nil)
+                                          info:[NSString stringWithFormat: NSLocalizedString(@"The game file for \"%@\" could not be found at its original location. Do you want to look for it?", nil), game.metadata.title]
+                                       buttons:@[ NSLocalizedString(@"Look for game", nil), NSLocalizedString(@"Cancel", nil), NSLocalizedString(@"Delete game", nil) ]];
 
     NSModalResponse choice = [alert runModal];
 
@@ -90,12 +87,10 @@ extern NSArray *gGameFileTypes;
                     NSString *parentDirectory = newPath.stringByDeletingLastPathComponent;
                     [self lookForMoreMissingFilesInFolder:parentDirectory context:game.managedObjectContext];
                 } else {
-                    NSAlert *anAlert = [[NSAlert alloc] init];
+                    NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(@"Not a match.", nil)
+                                                            info:[NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", nil), game.metadata.title]
+                                                         buttons:@[ NSLocalizedString(@"Yes", nil), NSLocalizedString(@"Cancel", nil) ]];
                     anAlert.alertStyle = NSAlertStyleInformational;
-                    anAlert.messageText = NSLocalizedString(@"Not a match.", nil);
-                    anAlert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"This file does not match the game \"%@.\"\nDo you want to replace it anyway?", nil), game.metadata.title];
-                    [anAlert addButtonWithTitle:NSLocalizedString(@"Yes", nil)];
-                    [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
                     NSInteger response = [anAlert runModal];
                     if (response == NSAlertFirstButtonReturn) {
                         if ([libController.gameLauncher importGame:newPath inContext:game.managedObjectContext reportFailure:YES hide:NO]) {

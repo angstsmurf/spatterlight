@@ -21,6 +21,7 @@
 #import "GlkTextBufferWindow.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation GlkController (MenuItems)
 
@@ -78,11 +79,9 @@ static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NS
 }
 
 - (IBAction)deleteGame:(id)sender {
-    NSAlert *alert = [[NSAlert alloc] init];
-    [alert setMessageText:NSLocalizedString(@"Are you sure?", nil)];
-    alert.informativeText = NSLocalizedString(@"Do you want to close this game and delete it from the library?", nil);
-    [alert addButtonWithTitle:NSLocalizedString(@"Delete", nil)];
-    [alert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
+    NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"Are you sure?", nil)
+                                          info:NSLocalizedString(@"Do you want to close this game and delete it from the library?", nil)
+                                       buttons:@[ NSLocalizedString(@"Delete", nil), NSLocalizedString(@"Cancel", nil) ]];
 
     NSInteger choice = [alert runModal];
 

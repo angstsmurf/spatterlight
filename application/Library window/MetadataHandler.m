@@ -226,14 +226,10 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
     MetadataHandler * __weak weakSelf = self;
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSAlert *anAlert = [[NSAlert alloc] init];
-        [anAlert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-        anAlert.messageText = NSLocalizedString(msg, nil);
-
-        if (importResult != kImportResultNoneFound) {
-            [anAlert addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-            anAlert.informativeText = NSLocalizedString(@"Would you like to replace existing information?", nil);
-        }
+        BOOL found = (importResult != kImportResultNoneFound);
+        NSAlert *anAlert = [NSAlert alertWithMessage:NSLocalizedString(msg, nil)
+                                                info:found ? NSLocalizedString(@"Would you like to replace existing information?", nil) : nil
+                                             buttons:found ? @[ NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil) ] : @[ NSLocalizedString(@"Okay", nil) ]];
 
         [anAlert beginSheetModalForWindow:tvc.view.window completionHandler:^(NSModalResponse result){
             if (importResult == kImportResultNoneFound)
@@ -247,11 +243,9 @@ typedef NS_ENUM(int32_t, MetadataImportResult) {
                 }
             }
             if (importResult == kImportResultExactAndPartialMatches) {
-                NSAlert *alert2 = [[NSAlert alloc] init];
-                alert2.messageText = NSLocalizedString(msg2, nil);
-                [alert2 addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-                [alert2 addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-                alert2.informativeText = anAlert.informativeText;
+                NSAlert *alert2 = [NSAlert alertWithMessage:NSLocalizedString(msg2, nil)
+                                                       info:anAlert.informativeText
+                                                    buttons:@[ NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil) ]];
                 [alert2 beginSheetModalForWindow:tvc.view.window completionHandler:^(NSModalResponse result2){
                     if (result2 == NSAlertFirstButtonReturn) {
                         [weakSelf addInfoToMetadata:indirectGameIDs fromStories:indirectDict];
@@ -359,10 +353,9 @@ static void write_xml_text(FILE *fp, Metadata *info, NSString *key) {
 
     if (metadata.count == 0) {
         fclose(fp);
-        NSAlert *alert = [NSAlert new];
-        alert.messageText = NSLocalizedString(@"No metadata found", nil);
-        alert.informativeText = NSLocalizedString(@"No matching metadata to export was found in the library.", nil);
-        [alert runModal];
+        [[NSAlert alertWithMessage:NSLocalizedString(@"No metadata found", nil)
+                              info:NSLocalizedString(@"No matching metadata to export was found in the library.", nil)
+                           buttons:nil] runModal];
         return NO;
     }
 

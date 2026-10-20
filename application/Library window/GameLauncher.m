@@ -34,6 +34,7 @@
 #import "CommandScriptHandler.h"
 
 #import "OpenGameOperation.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation GameLauncher
 
@@ -130,11 +131,9 @@
         NSLog(@"Error getting Trash path: %@", error);
     if (trashUrl && [path hasPrefix:[trashUrl.path stringByAppendingString:@"/"]]) {
         if (!systemWindowRestoration) {
-            NSAlert *alert = [[NSAlert alloc] init];
-            alert.messageText = NSLocalizedString(@"This game is in Trash.", nil);
-            alert.informativeText = NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil);
-            [alert addButtonWithTitle:NSLocalizedString(@"Okay", nil)];
-            [alert addButtonWithTitle:NSLocalizedString(@"Delete entry", nil)];
+            NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"This game is in Trash.", nil)
+                                                  info:NSLocalizedString(@"You won't be able to play the game until you move the file out of there.", nil)
+                                               buttons:@[ NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Delete entry", nil) ]];
             NSInteger choice = [alert runModal];
             if (choice == NSAlertSecondButtonReturn) {
                 [game.managedObjectContext deleteObject:game];
@@ -153,10 +152,9 @@
         terp = gFormatMap[game.detectedFormat];
 
     if (!terp) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"Cannot play the file.", nil);
-        alert.informativeText = NSLocalizedString(@"The game is not in a recognized file format; cannot find a suitable interpreter.", nil);
-        [alert runModal];
+        [[NSAlert alertWithMessage:NSLocalizedString(@"Cannot play the file.", nil)
+                              info:NSLocalizedString(@"The game is not in a recognized file format; cannot find a suitable interpreter.", nil)
+                           buttons:nil] runModal];
         return nil;
     }
 
@@ -191,10 +189,9 @@
                 }
 
                 if (newData.length == 0 || hashTag.length == 0) {
-                    NSAlert *alert = [[NSAlert alloc] init];
-                    alert.messageText = NSLocalizedString(@"Failed to open the game.", nil);
-                    alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", nil), newURL.lastPathComponent];
-                    [alert runModal];
+                    [[NSAlert alertWithMessage:NSLocalizedString(@"Failed to open the game.", nil)
+                                          info:[NSString stringWithFormat:NSLocalizedString(@"File access to \"%@\" was not permitted.", nil), newURL.lastPathComponent]
+                                       buttons:nil] runModal];
                 } else {
                     game.hashTag = hashTag;
                     weakTVC.gameSessions[hashTag] = blockgctl;
@@ -226,11 +223,10 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             // The operation is finished once it has delivered data or failed
             if (gctl.gameData == nil && !operation.isFinished && !systemWindowRestoration) {
-                gctl.slowReadAlert = [[NSAlert alloc] init];
+                gctl.slowReadAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The game \"%@\" is taking a long time to load.", nil), blockGame.metadata.title]
+                                                          info:nil
+                                                       buttons:@[ NSLocalizedString(@"Cancel loading", nil) ]];
                 NSAlert __weak *alert = gctl.slowReadAlert;
-                alert.messageText =
-                [NSString stringWithFormat:NSLocalizedString(@"The game \"%@\" is taking a long time to load.", nil), blockGame.metadata.title];
-                [alert addButtonWithTitle:NSLocalizedString(@"Cancel loading", nil)];
 
                 [alert beginSheetModalForWindow:gctl.window completionHandler:^(NSModalResponse result){
                     if (result == NSAlertFirstButtonReturn) {

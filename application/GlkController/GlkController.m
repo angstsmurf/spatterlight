@@ -871,8 +871,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 }
 
 - (void)showGameFileGoneAlert {
-    NSAlert *anAlert = [[NSAlert alloc] init];
-    anAlert.messageText = [NSString stringWithFormat:NSLocalizedString(@"The game file \"%@\" is no longer accessible. This game will now close.", nil), self.gamefile.lastPathComponent];
+    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:NSLocalizedString(@"The game file \"%@\" is no longer accessible. This game will now close.", nil), self.gamefile.lastPathComponent]
+                                            info:nil
+                                         buttons:nil];
 
     [anAlert beginSheetModalForWindow:self.window completionHandler:^(NSInteger result) {
         runOnMainAfterDelay(0.1, ^{

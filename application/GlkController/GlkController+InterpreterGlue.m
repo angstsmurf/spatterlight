@@ -32,6 +32,7 @@
 #include "glkimp.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 @implementation GlkController (InterpreterGlue)
 
@@ -135,14 +136,14 @@ static NSString *signalToName(NSTask *task) {
     [task waitUntilExit];
 
     if (task.terminationStatus != 0) {
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"The game has unexpectedly terminated.", nil);
-        alert.informativeText = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
+        NSString *info = [NSString stringWithFormat:NSLocalizedString(@"Error code: %@.", nil), signalToName(task)];
         if (self.pendingErrorMessage && self.errorTimeStamp.timeIntervalSinceNow > -3)
-            alert.informativeText = self.pendingErrorMessage;
+            info = self.pendingErrorMessage;
         self.pendingErrorMessage = nil;
         self.mustBeQuiet = YES;
-        [alert addButtonWithTitle:NSLocalizedString(@"Oops", nil)];
+        NSAlert *alert = [NSAlert alertWithMessage:NSLocalizedString(@"The game has unexpectedly terminated.", nil)
+                                              info:info
+                                           buttons:@[ NSLocalizedString(@"Oops", nil) ]];
         [alert beginSheetModalForWindow:self.window completionHandler:^(NSModalResponse returnCode) {}];
     } else {
         NotificationBezel *bezel = [[NotificationBezel alloc] initWithScreen:self.window.screen];

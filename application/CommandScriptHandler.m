@@ -40,10 +40,7 @@ static void SPReportScriptProblem(NSString *message, NSString *informativeText) 
         NSLog(@"CommandScriptHandler: %@ %@", message, informativeText);
         return;
     }
-    NSAlert *alert = [[NSAlert alloc] init];
-    alert.messageText = message;
-    alert.informativeText = informativeText;
-    [alert runModal];
+    [[NSAlert alertWithMessage:message info:informativeText buttons:nil] runModal];
 }
 
 // Asks the user to confirm, with a "Do not show this message again" box

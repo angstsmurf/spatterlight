@@ -34,6 +34,7 @@
 #include "protocol.h"
 
 #import "DebugLog.h"
+#import "NSAlert+Spatterlight.h"
 
 // Answer a file prompt: OKAY carrying the chosen path, or an empty payload
 // if the user cancelled (path is NULL or "").
@@ -558,10 +559,7 @@ static NSString *stringFromPayload(char *buf, size_t len) {
     }
     self.pendingErrorMessage = nil;
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = NSLocalizedString(@"ERROR", nil);
-        alert.informativeText = str;
-        [alert runModal];
+        [[NSAlert alertWithMessage:NSLocalizedString(@"ERROR", nil) info:str buttons:nil] runModal];
     });
 }
 

@@ -40,6 +40,7 @@
 #import "NSManagedObjectContext+safeSave.h"
 #import "ImageCompareViewController.h"
 #import "LibraryOrganizer.h"
+#import "NSAlert+Spatterlight.h"
 
 extern NSArray *gGameFileTypes;
 
@@ -244,10 +245,7 @@ extern char *agt_copy_ifid_for_file(const char *path);
 
 void ReportImportFailure(NSString *title, NSString *info) {
     void (^show)(void) = ^{
-        NSAlert *alert = [[NSAlert alloc] init];
-        alert.messageText = title;
-        alert.informativeText = info;
-        [alert runModal];
+        [[NSAlert alertWithMessage:title info:info buttons:nil] runModal];
     };
     if (NSThread.isMainThread)
         show();
