@@ -12,6 +12,7 @@
 #import "GlkStyle.h"
 #import "LibraryOrganizer.h"
 #import "Metadata.h"
+#import "NSAlert+Spatterlight.h"
 #import "NotificationBezel.h"
 #import "NSColor+integer.h"
 #import "NSString+Categories.h"
@@ -429,7 +430,8 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
 // Picks the theme to show: falls back to the current game's theme, then the
 // default theme. Returns NO, after rebuilding the built-in themes, if it has
-// no grid colour even after populateStyles.
+// no grid colour even after populateStyles. Also repairs values the panes
+// cannot show, so that the update<Pane>Pane methods only read the theme.
 - (BOOL)prepareThemeForPanel {
     // A deleted theme has no context to create styles in, so populateStyles
     // below would crash on it.
@@ -446,6 +448,12 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         NSLog(@"Preferences prepareThemeForPanel: Something is very wrong");
         [BuiltInThemes createBuiltInThemesInContext:_managedObjectContext forceRebuild:YES];
         return NO;
+    }
+    if (self.theme.borderColor == nil)
+        self.theme.borderColor = self.theme.bufferBackground;
+    // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
+    if (self.theme.zMachineTerp < 1 || self.theme.zMachineTerp > 11) {
+        self.theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
     }
     return YES;
 }
@@ -500,8 +508,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     _btnAutoBorderColor.state = self.theme.borderBehavior == kAutomatic ? NSControlStateValueOn : NSControlStateValueOff;
     _borderColorWell.enabled = (self.theme.borderBehavior == kUserOverride);
-    if (self.theme.borderColor == nil)
-        self.theme.borderColor = self.theme.bufferBackground;
 
     _btnUnderlineLinksGrid.state = (self.theme.gridLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
     _btnUnderlineLinksBuffer.state = (self.theme.bufLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
@@ -535,10 +541,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     [_beepHighMenu selectItemWithTitle:beepHigh];
     [_beepLowMenu selectItemWithTitle:beepLow];
-    // Due to a bug in earlier versions, theme.zMachineTerp might be 0.
-    if (self.theme.zMachineTerp < 1 || self.theme.zMachineTerp > 11) {
-        self.theme.zMachineTerp = 6; // Interpreter 6 means IBM PC.
-    }
     [_zterpMenu selectItemWithTag:self.theme.zMachineTerp];
     [_bZArrowsMenu selectItemWithTag:self.theme.bZTerminator];
 
@@ -590,7 +592,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
         if (_timerTextField.doubleValue != floor(1000.0 / self.theme.minTimer)) {
             _timerTextField.doubleValue = floor(1000.0 / (CGFloat)self.theme.minTimer);
         }
-        _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:@"%ld per second", _timerSlider.integerValue];
+        _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:NSLocalizedString(@"%ld per second", nil), _timerSlider.integerValue];
     }
 }
 
@@ -616,10 +618,25 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (NSString *)secondsAccessibilityString {
     CGFloat fractional = _vODelaySlider.doubleValue - (CGFloat)_vODelaySlider.integerValue;
     if (fractional < 0.05 || fractional > 0.95) {
-        return [NSString stringWithFormat:@"%ld seconds", (long)round(_vODelaySlider.doubleValue)];
+        return [NSString stringWithFormat:NSLocalizedString(@"%ld seconds", nil), (long)round(_vODelaySlider.doubleValue)];
     } else {
-        return [NSString stringWithFormat:@"%.1f seconds", _vODelaySlider.doubleValue];
+        return [NSString stringWithFormat:NSLocalizedString(@"%.1f seconds", nil), _vODelaySlider.doubleValue];
     }
+}
+
+- (void)showOkayCancelAlertWithMessage:(NSString *)message
+                                  info:(NSString *)info
+                        suppressionKey:(NSString *)suppressionKey
+                               handler:(void (^)(BOOL okay))handler {
+    NSAlert *anAlert = [NSAlert alertWithMessage:message
+                                            info:info
+                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
+    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", nil)];
+    [anAlert beginSheetModalForWindow:self.window
+                   suppressingWithKey:suppressionKey
+                    completionHandler:^(NSInteger result) {
+        handler(result == NSAlertFirstButtonReturn);
+    }];
 }
 
 - (GlkStyle *)selectedStyle {

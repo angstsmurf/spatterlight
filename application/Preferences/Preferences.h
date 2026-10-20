@@ -32,7 +32,7 @@ extern NSNotificationName const kDefaultSizeChangedNotification;
 extern NSNotificationName const kBorderChangedNotification;
 extern NSNotificationName const kColorModeChangedNotification;
 
-@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, ThemeArrayController, TableViewController, DummyTextView, ParagraphPopOver, NSPersistentContainer;
+@class Theme, Game, CoreDataManager, GlkHelperView, GlkController, GlkTextBufferWindow, TableViewController, DummyTextView, NSPersistentContainer;
 
 @interface Preferences : NSWindowController <NSWindowDelegate, NSControlTextEditingDelegate, NSToolbarDelegate>
 
@@ -40,11 +40,7 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme *cloneThemeIfNotEditable;
 
-#pragma mark Themes menu
-
-@property (strong) IBOutlet NSButton *btnAdjustSize;
-
-#pragma mark Action menu
+#pragma mark Themes
 
 - (void)restoreThemeSelection:(Theme *)aTheme;
 
@@ -69,9 +65,6 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 + (kModeType)currentSystemMode;
 
-@property BOOL previewShown;
-@property (strong) IBOutlet NSView *sampleTextBorderView;
-
 @property (nonatomic) Theme *defaultTheme ;
 @property Theme *darkTheme;
 @property Theme *lightTheme;
@@ -88,113 +81,14 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 @property BOOL inMagnification;
 
-@property (weak) IBOutlet ThemeArrayController *arrayController;
-@property (weak) IBOutlet NSScrollView *scrollView;
-
-@property (weak) IBOutlet NSTextFieldCell *themesHeader;
-@property (weak) IBOutlet NSTextFieldCell *detailsHeader;
-@property (weak) IBOutlet NSTextFieldCell *miscHeader;
-@property (weak) IBOutlet NSTextFieldCell *vOHeader;
-@property (weak) IBOutlet NSTextFieldCell *zcodeHeader;
-@property (weak) IBOutlet NSTextFieldCell *stylesHeader;
-
-@property (weak) IBOutlet NSButton *btnOneThemeForAll;
-
-@property (weak) IBOutlet NSPopUpButton *actionButton;
-
-@property (weak) IBOutlet NSButton *btnAdd;
-@property (weak) IBOutlet NSButton *btnRemove;
-@property (weak) IBOutlet NSBox *divider;
-
-@property (strong) IBOutlet NSMenuItem *lightModeMenuItem;
-@property (strong) IBOutlet NSMenuItem *darkModeMenuItem;
-
-@property (weak) IBOutlet NSButton *btnOverwriteStyles;
-@property (weak) IBOutlet NSButton *swapGridColBtn;
-@property (weak) IBOutlet NSButton *swapBufColBtn;
-
-@property (weak) IBOutlet NSPopUpButton *vOMenuButton;
-@property (weak) IBOutlet NSPopUpButton *vOImagesButton;
-@property (weak) IBOutlet NSButton *btnVOSpeakCommands;
-@property (weak) IBOutlet NSSlider *vODelaySlider;
-@property (weak) IBOutlet NSButton *vODelayCheckbox;
-@property (weak) IBOutlet NSTextField *vODelayTextField;
-
-@property (weak) IBOutlet NSPopUpButton *beepHighMenu;
-@property (weak) IBOutlet NSPopUpButton *beepLowMenu;
-@property (weak) IBOutlet NSPopUpButton *zterpMenu;
-@property (weak) IBOutlet NSPopUpButton *bZArrowsMenu;
-@property (weak) IBOutlet NSTextField *zVersionTextField;
-@property (weak) IBOutlet NSTextField *bZVerticalTextField;
-@property (weak) IBOutlet NSStepper *bZVerticalStepper;
-
-@property (weak) IBOutlet NSButton *btnAutosave;
-@property (weak) IBOutlet NSButton *btnSmoothScroll;
-@property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
-
-@property (weak) IBOutlet NSTextField *scrollbackLimitTextField;
-@property (weak) IBOutlet NSStepper *scrollbackLimitStepper;
-@property (weak) IBOutlet NSTextField *scrollbackUnitLabel;
-
-@property (weak) IBOutlet NSSlider *timerSlider;
-@property (weak) IBOutlet NSTextField *timerTextField;
-
-@property (weak) IBOutlet NSMenuItem *standardZArrowsMenuItem;
-@property (weak) IBOutlet NSMenuItem *compromiseZArrowsMenuItem;
-@property (weak) IBOutlet NSMenuItem *strictZArrowsMenuItem;
-@property (weak) IBOutlet NSPopUpButton *windowTypePopup;
-@property (weak) IBOutlet NSPopUpButton *styleNamePopup;
-@property (weak) IBOutlet NSButton *quoteBoxCheckBox;
-
-@property (weak) IBOutlet NSPopUpButton *comprehendGraphicsPopup;
-@property (weak) IBOutlet NSPopUpButton *z6GraphicsPopup;
-@property (weak) IBOutlet NSButton *z6ColorizeCheckBox;
-
-@property (weak) IBOutlet NSButton *btnNoHacks;
-@property (weak) IBOutlet NSButton *btnDeterminism;
-@property (weak) IBOutlet NSPopUpButton *errorHandlingPopup;
-@property (weak) IBOutlet NSPopUpButton *imageReplacePopup;
-@property (weak) IBOutlet NSPopUpButton *coverImagePopup;
-
-@property (weak) IBOutlet NSButton *btnAutoBorderColor;
+// Outlets used outside the Preferences implementation
 @property (weak) IBOutlet NSColorWell *borderColorWell;
-@property (weak) IBOutlet NSButton *btnShowBezels;
-
-@property (weak) IBOutlet NSButton *btnUnderlineLinksGrid;
-@property (weak) IBOutlet NSButton *btnUnderlineLinksBuffer;
-
-@property (weak) IBOutlet NSButton *libraryAtStartCheckbox;
 @property (weak) IBOutlet NSButton *addToLibraryCheckbox;
-@property (weak) IBOutlet NSButton *recheckMissingCheckbox;
-@property (weak) IBOutlet NSTextField *recheckFrequencyTextfield;
-@property (weak) IBOutlet NSButton *saveInGameDirCheckbox;
-@property (weak) IBOutlet NSButton *keepOrganisedCheckbox;
 
-@property (weak) IBOutlet NSPopUpButton *palettePopup;
-@property (weak) IBOutlet NSPopUpButton *inventoryPopup;
-@property (weak) IBOutlet NSButton *delaysCheckbox;
-@property (weak) IBOutlet NSButton *slowDrawCheckbox;
-@property (weak) IBOutlet NSButton *hardDarkCheckbox;
-@property (weak) IBOutlet NSButton *hardLightCheckbox;
-@property (weak) IBOutlet NSButton *scottAdamsFlickerCheckbox;
-@property (weak) IBOutlet NSButton *zMachineNoErrWinCheckbox;
-
+// The text view the font panel targets while the panel edits a theme style
 @property (nonatomic, readonly) DummyTextView *dummyTextView;
 
 - (void)changeAttributes:(id)sender;
 - (void)changeDocumentBackgroundColor:(id)sender;
-
-@property (strong) IBOutlet NSPopover *marginsPopover;
-
-@property (weak) IBOutlet NSTextField *marginHorizontalGridTextField;
-@property (weak) IBOutlet NSStepper *marginHorizontalGridStepper;
-@property (weak) IBOutlet NSTextField *marginVerticalGridTextField;
-@property (weak) IBOutlet NSStepper *marginVerticalGridStepper;
-@property (weak) IBOutlet NSTextField *marginHorizontalBufferTextField;
-@property (weak) IBOutlet NSStepper *marginHorizontalBufferStepper;
-@property (weak) IBOutlet NSTextField *marginVerticalBufferTextField;
-@property (weak) IBOutlet NSStepper *marginVerticalBufferStepper;
-
-@property ParagraphPopOver *paragraphPopover;
 
 @end

@@ -26,7 +26,7 @@
 #import "GlkGraphicsWindow.h"
 #import "MarginContainer.h"
 #import "MarginImage.h"
-#import "Preferences.h"
+#import "PreferencesPrivate.h"
 #import <BlorbFramework/BlorbFramework.h>
 #import <BlorbFramework/BlorbFramework-Swift.h>
 #include "glk.h"

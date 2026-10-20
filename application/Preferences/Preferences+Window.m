@@ -181,8 +181,6 @@
 
     NSToolbarItemIdentifier toolbarItemIdentifier = [state decodeObjectOfClass:[NSString class] forKey:@"selectedItemIdentifier"];
     if (toolbarItemIdentifier) {
-        self.window.toolbar.selectedItemIdentifier = toolbarItemIdentifier;
-
         for (NSToolbarItem *item in self.window.toolbar.items) {
             if ([item.itemIdentifier isEqual:toolbarItemIdentifier]) {
                 restoredItem = item;
@@ -190,6 +188,22 @@
             }
         }
     }
+
+    // A saved state from an older version may name a panel that no longer
+    // exists, or have only a preview height: keep the panel that is shown.
+    if (!restoredItem) {
+        for (NSToolbarItem *item in self.window.toolbar.items) {
+            if ([item.itemIdentifier isEqual:self.window.toolbar.selectedItemIdentifier]) {
+                restoredItem = item;
+                break;
+            }
+        }
+    }
+    if (!restoredItem)
+        restoredItem = self.window.toolbar.items.firstObject;
+    toolbarItemIdentifier = restoredItem.itemIdentifier;
+    if (toolbarItemIdentifier)
+        self.window.toolbar.selectedItemIdentifier = toolbarItemIdentifier;
 
     NSNumber *previewHeightNumber = (NSNumber *)[state decodeObjectOfClass:[NSNumber class] forKey:@"previewHeight"];
     if (previewHeightNumber) {
@@ -199,7 +213,7 @@
         restoredPreviewHeight = 0;
     }
 
-    if (restoredItem || previewHeightNumber) {
+    if (restoredItem && itemIdentifierToViewDict[toolbarItemIdentifier]) {
         currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
         defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
         CGFloat blockHeight = defaultWindowHeight;
@@ -227,6 +241,7 @@
 
 #pragma mark Toolbar
 
+// label and tooltip are already localised
 - (NSToolbarItem *)toolbarItemWithImage:(NSString *)imageName label:(NSString *)label tooltip:(NSString *)tooltip identifier:(NSToolbarItemIdentifier)identifier {
     NSToolbarItem *toolbarItem = [[NSToolbarItem alloc] initWithItemIdentifier:identifier];
     NSImage *image = nil;
@@ -238,14 +253,14 @@
         image = [image imageWithSymbolConfiguration:config];
     } else {
         image = [NSImage imageNamed:imageName];
-        image.accessibilityDescription = NSLocalizedString(tooltip, nil);
+        image.accessibilityDescription = tooltip;
     }
 
     toolbarItem.image = image;
     toolbarItem.action = @selector(switchToPanel:);
     toolbarItem.target = self;
-    toolbarItem.label = NSLocalizedString(label, nil);
-    toolbarItem.toolTip = NSLocalizedString(tooltip, nil);
+    toolbarItem.label = label;
+    toolbarItem.toolTip = tooltip;
     return toolbarItem;
 }
 
@@ -253,27 +268,27 @@
     NSToolbarItem *toolbarItem = nil;
 
     if (itemIdentifier == themesPanel) {
-        return [self toolbarItemWithImage:@"paintbrush" label:@"Themes" tooltip:@"Select and organize themes" identifier:itemIdentifier];
+        return [self toolbarItemWithImage:@"paintbrush" label:NSLocalizedString(@"Themes", nil) tooltip:NSLocalizedString(@"Select and organize themes", nil) identifier:itemIdentifier];
     } else if (itemIdentifier == stylesPanel) {
         if (@available(macOS 11.0, *)) {
-            return [self toolbarItemWithImage:@"butterfly" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+            return [self toolbarItemWithImage:@"butterfly" label:NSLocalizedString(@"Glk Styles", nil) tooltip:NSLocalizedString(@"Glk style settings", nil) identifier:itemIdentifier];
         } else {
-            return [self toolbarItemWithImage:@"butterfly.square" label:@"Glk Styles" tooltip:@"Glk style settings" identifier:itemIdentifier];
+            return [self toolbarItemWithImage:@"butterfly.square" label:NSLocalizedString(@"Glk Styles", nil) tooltip:NSLocalizedString(@"Glk style settings", nil) identifier:itemIdentifier];
         }
     } else if (itemIdentifier == presentationPanel) {
-        return [self toolbarItemWithImage:@"theatermask.and.paintbrush" label:@"Details" tooltip:@"Presentation settings not covered by Glk styles" identifier:itemIdentifier];
+        return [self toolbarItemWithImage:@"theatermask.and.paintbrush" label:NSLocalizedString(@"Details", nil) tooltip:NSLocalizedString(@"Presentation settings not covered by Glk styles", nil) identifier:itemIdentifier];
     } else if (itemIdentifier == formatPanel) {
-        return [self toolbarItemWithImage:@"compass.drawing" label:@"Format" tooltip:@"Format-specific settings" identifier:itemIdentifier];
+        return [self toolbarItemWithImage:@"compass.drawing" label:NSLocalizedString(@"Format", nil) tooltip:NSLocalizedString(@"Format-specific settings", nil) identifier:itemIdentifier];
     } else if (itemIdentifier == voiceOverPanel) {
         if (@available(macOS 11.0, *)) {
-            return [self toolbarItemWithImage:@"voiceover" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+            return [self toolbarItemWithImage:@"voiceover" label:NSLocalizedString(@"VoiceOver", nil) tooltip:NSLocalizedString(@"Text-to-speech settings", nil) identifier:itemIdentifier];
         } else {
-            return [self toolbarItemWithImage:@"voiceover.square" label:@"VoiceOver" tooltip:@"Text-to-speech settings" identifier:itemIdentifier];
+            return [self toolbarItemWithImage:@"voiceover.square" label:NSLocalizedString(@"VoiceOver", nil) tooltip:NSLocalizedString(@"Text-to-speech settings", nil) identifier:itemIdentifier];
         }
     } else if (itemIdentifier == miscPanel) {
-        return [self toolbarItemWithImage:@"gearshape" label:@"Misc" tooltip:@"Miscellaneous settings" identifier:itemIdentifier];
+        return [self toolbarItemWithImage:@"gearshape" label:NSLocalizedString(@"Misc", nil) tooltip:NSLocalizedString(@"Miscellaneous settings", nil) identifier:itemIdentifier];
     } else if (itemIdentifier == globalPanel) {
-        return [self toolbarItemWithImage:@"globe" label:@"Global" tooltip:@"Settings that apply to all themes" identifier:itemIdentifier];
+        return [self toolbarItemWithImage:@"globe" label:NSLocalizedString(@"Global", nil) tooltip:NSLocalizedString(@"Settings that apply to all themes", nil) identifier:itemIdentifier];
     }
     return toolbarItem;
 }

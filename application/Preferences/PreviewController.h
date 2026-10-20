@@ -7,17 +7,17 @@
 
 #import <Cocoa/Cocoa.h>
 
-@class Theme, PreviewTextView;
+@class Theme;
 
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PreviewController : NSViewController
 
 @property (weak) Theme *theme;
-@property (strong) IBOutlet PreviewTextView *sampleTextView;
-
 @property (weak) IBOutlet NSLayoutConstraint *textHeight;
-@property (strong) IBOutlet NSLayoutConstraint *previewHeightConstraint;
+
+/// The sample text the preview shows for a theme. Needs no view.
++ (NSAttributedString *)attributedPreviewForTheme:(Theme *)theme;
 
 - (CGFloat)calculateHeight;
 - (void)updatePreviewText;

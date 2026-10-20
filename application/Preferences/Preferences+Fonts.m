@@ -118,52 +118,32 @@ NSString *fontToString(NSFont *font) {
 
 #pragma mark Font panel
 
+// The name of the style a font button edits. The buffer font is the default.
+- (NSString *)styleNameForFontButton:(id)button {
+    if (button == btnGridFont)
+        return @"gridNormal";
+    if (button == btnAnyFont)
+        return [self selectedStyleName];
+    return @"bufferNormal";
+}
+
+// Whether the style a font button edits is shown on the grid background
+- (BOOL)fontButtonUsesGridBackground:(id)button {
+    return button == btnGridFont ||
+    (button == btnAnyFont && _windowTypePopup.selectedTag == wintype_TextGrid);
+}
+
 - (IBAction)showFontPanel:(id)sender {
     selectedFontButton = sender;
-    NSFont *selectedFont = nil;
-    NSColor *selectedFontColor = nil;
-    NSColor *selectedDocumentColor = nil;
-    GlkStyle *selectedStyle = nil;
+    GlkStyle *selectedStyle = [self.theme valueForKey:[self styleNameForFontButton:sender]];
+    NSFont *selectedFont = selectedStyle.font;
+    NSColor *selectedDocumentColor = [self fontButtonUsesGridBackground:sender] ?
+    self.theme.gridBackground : self.theme.bufferBackground;
 
-    selectedFont = self.theme.bufferNormal.font;
-    selectedFontColor = self.theme.bufferNormal.color;
-    selectedDocumentColor = self.theme.bufferBackground;
-    selectedStyle = self.theme.bufferNormal;
-
-    if (sender == btnGridFont) {
-        selectedFont = self.theme.gridNormal.font;
-        selectedFontColor = self.theme.gridNormal.color;
-        selectedDocumentColor = self.theme.gridBackground;
-        selectedStyle = self.theme.gridNormal;
-    }
-    if (sender == btnAnyFont) {
-        selectedStyle = [self selectedStyle];
-        selectedFont = selectedStyle.font;
-        selectedFontColor = selectedStyle.color;
-        NSInteger windowType = _windowTypePopup.selectedTag;
-        selectedDocumentColor = (windowType == wintype_TextGrid) ?
-        self.theme.gridBackground : self.theme.bufferBackground;
-    }
-
-    NSDictionary *attConvDict = @{ NSForegroundColorAttributeName: @"NSColor",
-                                   NSUnderlineStyleAttributeName: @"NSUnderline",
-                                   NSUnderlineColorAttributeName: @"NSUnderlineColor",
-                                   NSStrikethroughStyleAttributeName: @"NSStrikethrough",
-                                   NSStrikethroughColorAttributeName: @"NSStrikethroughColor",
-                                   NSShadowAttributeName: @"NSShadow",
-                                   NSLigatureAttributeName: @"NSLigature",
-                                   NSFontAttributeName: @"NSFont" };
-
-    NSMutableDictionary *attr = [NSMutableDictionary new];
-    NSDictionary *oldAttr = selectedStyle.attributeDict;
-    for (NSString *key in oldAttr.allKeys) {
-        NSString *newKey = attConvDict[key];
-        if (!newKey)
-            newKey = key;
-        attr[newKey] = oldAttr[key];
-    }
-    attr[@"NSColor"] = selectedFontColor;
-    attr[@"Font"] = selectedFont;
+    // The style attributes already use the font panel keys
+    NSMutableDictionary *attr = selectedStyle.attributeDict.mutableCopy ?: [NSMutableDictionary new];
+    attr[NSForegroundColorAttributeName] = selectedStyle.color;
+    attr[NSFontAttributeName] = selectedFont;
     attr[@"NSDocumentBackgroundColor"] = selectedDocumentColor;
 
     [self.dummyTextView updateTextWithAttributes:selectedStyle.attributeDict];
@@ -199,17 +179,10 @@ NSString *fontToString(NSFont *font) {
 
     // Convert from the style's current font, so that a font panel change of
     // only family, face or size keeps the other two
-    NSString *styleName = @"bufferNormal";
-    NSButton *fontButton = btnBufferFont;
-    if (selectedFontButton == btnGridFont) {
-        styleName = @"gridNormal";
-        fontButton = btnGridFont;
-    } else if (selectedFontButton == btnAnyFont) {
-        styleName = [self selectedStyleName];
-        fontButton = btnAnyFont;
-    } else if (selectedFontButton != btnBufferFont) {
+    NSButton *fontButton = selectedFontButton;
+    if (fontButton != btnBufferFont && fontButton != btnGridFont && fontButton != btnAnyFont)
         return;
-    }
+    NSString *styleName = [self styleNameForFontButton:fontButton];
 
     GlkStyle *style = [self.theme valueForKey:styleName];
     NSFont *newFont = [fontManager convertFont:style.font ?: [NSFont systemFontOfSize:12]];
@@ -238,11 +211,8 @@ NSString *fontToString(NSFont *font) {
 
     NSFontManager *fontManager = [NSFontManager sharedFontManager];
 
-    GlkStyle *style = self.theme.bufferNormal;
-    if (selectedFontButton == btnGridFont)
-        style = self.theme.gridNormal;
-    else if (selectedFontButton == btnAnyFont)
-        style = [self selectedStyle];
+    NSString *styleName = [self styleNameForFontButton:selectedFontButton];
+    GlkStyle *style = [self.theme valueForKey:styleName];
 
     if (style) {
         NSDictionary *attDict = [self.dummyTextView.textStorage attributesAtIndex:0 effectiveRange:nil];
@@ -251,13 +221,7 @@ NSString *fontToString(NSFont *font) {
         [fontManager setSelectedAttributes:attDict isMultiple:NO];
 
         Theme *themeToChange = [self cloneThemeIfNotEditable];
-        if (selectedFontButton == btnBufferFont)
-            style = themeToChange.bufferNormal;
-        else if (selectedFontButton == btnGridFont)
-            style = themeToChange.gridNormal;
-        else if (selectedFontButton == btnAnyFont) {
-            style = [themeToChange valueForKey:[self selectedStyleName]];
-        }
+        style = [themeToChange valueForKey:styleName];
         style.attributeDict = attDict;
         style.autogenerated = NO;
     }
@@ -291,21 +255,7 @@ NSString *fontToString(NSFont *font) {
         sender = self.dummyTextView.sender;
     }
 
-    GlkStyle *style = self.theme.bufferNormal;
-    if (selectedFontButton == btnGridFont)
-        style = self.theme.gridNormal;
-    else if (selectedFontButton == btnAnyFont)
-        style = [self selectedStyle];
-
-    NSColorWell *colorWell = nil;
-    if (style == self.theme.gridNormal)
-        colorWell = clrGridBg;
-    else if (style == self.theme.bufferNormal)
-        colorWell = clrBufferBg;
-    else if (style == [self selectedStyle]) {
-        NSInteger windowType = _windowTypePopup.selectedTag;
-        colorWell = (windowType == wintype_TextGrid) ? clrGridBg : clrBufferBg;
-    }
+    NSColorWell *colorWell = [self fontButtonUsesGridBackground:selectedFontButton] ? clrGridBg : clrBufferBg;
     colorWell.color = [sender color];
     [self changeColor:colorWell];
 }

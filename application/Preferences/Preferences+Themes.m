@@ -104,15 +104,15 @@
     }
 }
 
-- (IBAction)useInLightMode:(id)sender {
-    if (_lightModeMenuItem.state == NSControlStateValueOn) {
-        _hardLightCheckbox.state = NSControlStateValueOff;
-    } else {
-        _hardLightCheckbox.state = NSControlStateValueOn;
-    }
-    [self changeHardLightTheme:_hardLightCheckbox];
-    if (!self.theme.hardLight) {
-        //We switched off the light theme override. Current game (or all) gets this theme applied
+// The Use in light/dark mode menu items toggle the matching checkbox
+- (void)toggleUseInMode:(kModeType)mode {
+    BOOL dark = (mode == kDarkMode);
+    NSMenuItem *menuItem = dark ? _darkModeMenuItem : _lightModeMenuItem;
+    NSButton *checkbox = dark ? _hardDarkCheckbox : _hardLightCheckbox;
+    checkbox.state = (menuItem.state == NSControlStateValueOn) ? NSControlStateValueOff : NSControlStateValueOn;
+    [self changeHardThemeForMode:mode];
+    if (!(dark ? self.theme.hardDark : self.theme.hardLight)) {
+        // We switched off the override. Current game (or all) gets this theme applied
         if (_oneThemeForAll) {
             self.oneThemeForAll = YES;
         } else if (_currentGame) {
@@ -121,21 +121,12 @@
     }
 }
 
+- (IBAction)useInLightMode:(id)sender {
+    [self toggleUseInMode:kLightMode];
+}
+
 - (IBAction)useInDarkMode:(id)sender {
-    if (_darkModeMenuItem.state == NSControlStateValueOn) {
-        _hardDarkCheckbox.state = NSControlStateValueOff;
-    } else {
-        _hardDarkCheckbox.state = NSControlStateValueOn;
-    }
-    [self changeHardDarkTheme:_hardDarkCheckbox];
-    if (!self.theme.hardDark) {
-        // We switched off the dark theme override. Current game (or all) gets this theme applied
-        if (_oneThemeForAll) {
-            self.oneThemeForAll = YES;
-        } else if (_currentGame) {
-            [self.theme addGames:[NSSet setWithObject:_currentGame]];
-        }
-    }
+    [self toggleUseInMode:kDarkMode];
 }
 
 - (IBAction)clearLightDarkOverrides:(id)sender {
@@ -274,7 +265,7 @@
 
 - (void)changeThemeName:(NSString *)name {
     [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
-    NSString *themeString = [NSString stringWithFormat:@"Settings for theme %@", name];
+    NSString *themeString = [NSString stringWithFormat:NSLocalizedString(@"Settings for theme %@", nil), name];
     _detailsHeader.stringValue = themeString;
     _miscHeader.stringValue = themeString;
     _stylesHeader.stringValue = themeString;
@@ -379,16 +370,17 @@ textShouldEndEditing:(NSText *)fieldEditor {
 }
 
 - (void)showUseForAllAlert:(NSArray *)games {
-    NSAlert *anAlert = [NSAlert alertWithMessage:[NSString stringWithFormat:@"%@ %@ individual theme settings.", [NSString stringWithSummaryOfGames:games], (games.count == 1) ? @"has" : @"have"]
-                                            info:[NSString stringWithFormat:@"Would you like to use theme %@ for all games?", self.theme.name]
-                                         buttons:@[NSLocalizedString(@"Okay", nil), NSLocalizedString(@"Cancel", nil)]];
-    [anAlert showSuppressionButtonWithTitle:NSLocalizedString(@"Do not show again.", nil)];
+    NSString *format = (games.count == 1) ? NSLocalizedString(@"%@ has individual theme settings.", nil) :
+    NSLocalizedString(@"%@ have individual theme settings.", nil);
+    NSString *message = [NSString stringWithFormat:format, [NSString stringWithSummaryOfGames:games]];
+    NSString *info = [NSString stringWithFormat:NSLocalizedString(@"Would you like to use theme %@ for all games?", nil), self.theme.name];
 
     Preferences * __weak weakSelf = self;
-    [anAlert beginSheetModalForWindow:self.window
-                   suppressingWithKey:@"UseForAllAlertSuppression"
-                    completionHandler:^(NSInteger result) {
-        if (result == NSAlertFirstButtonReturn) {
+    [self showOkayCancelAlertWithMessage:message
+                                    info:info
+                          suppressionKey:@"UseForAllAlertSuppression"
+                                 handler:^(BOOL okay) {
+        if (okay) {
             weakSelf.oneThemeForAll = YES;
         } else {
             weakSelf.btnOneThemeForAll.state = NSControlStateValueOff;
@@ -401,15 +393,16 @@ textShouldEndEditing:(NSText *)fieldEditor {
     if (_darkOverrideActive) return NSLocalizedString(@"Dark theme override active", nil);
 
     if (_oneThemeForAll) return NSLocalizedString(@"Theme setting for all games", nil);
-    if (_currentGame == nil) {
+    if (_currentGame == nil)
         return NSLocalizedString(@"No game is currently running", nil);
-    } else {
-        if (!_currentGame.metadata.title.length)
-            _currentGame.metadata.title = _currentGame.path.lastPathComponent;
-        if (!_currentGame.metadata.title.length)
-            return NSLocalizedString(@"Error: Current game has no metadata!", nil);
-        return [NSLocalizedString(@"Theme setting for game ", nil) stringByAppendingString:_currentGame.metadata.title];
-    }
+
+    // Show the file name of a game without a title, but leave its metadata alone
+    NSString *title = _currentGame.metadata.title;
+    if (!title.length)
+        title = _currentGame.path.lastPathComponent;
+    if (!title.length)
+        return NSLocalizedString(@"Error: Current game has no metadata!", nil);
+    return [NSString stringWithFormat:NSLocalizedString(@"Theme setting for game %@", nil), title];
 }
 
 - (IBAction)changeAdjustSize:(id)sender {
@@ -568,37 +561,47 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
-- (IBAction)changeHardDarkTheme:(id)sender {
+// Applies the Use in light/dark mode checkbox of mode to the selected theme.
+// Switching one on switches the other off and takes the mode from the theme
+// that had it.
+- (void)changeHardThemeForMode:(kModeType)mode {
+    BOOL dark = (mode == kDarkMode);
+    NSButton *checkbox = dark ? _hardDarkCheckbox : _hardLightCheckbox;
+    NSButton *otherCheckbox = dark ? _hardLightCheckbox : _hardDarkCheckbox;
+    NSString *key = dark ? @"hardDark" : @"hardLight";
+    NSString *otherKey = dark ? @"hardLight" : @"hardDark";
+    Theme * __strong *modeTheme = dark ? &_darkTheme : &_lightTheme;
+    Theme * __strong *otherModeTheme = dark ? &_lightTheme : &_darkTheme;
+    BOOL modeOverrideActive = dark ? _darkOverrideActive : _lightOverrideActive;
+    BOOL otherOverrideActive = dark ? _lightOverrideActive : _darkOverrideActive;
+
+    Theme *theme = self.theme;
     BOOL lightOrDarkWasRemoved = NO;
-    self.theme.hardDark = (_hardDarkCheckbox.state == NSControlStateValueOn);
-    if (self.theme.hardDark) {
-        // The Use in dark mode checkbox was switched on.
-        // Switch off the other one
-        _hardLightCheckbox.state = NSControlStateValueOff;
-        // If this was the light theme, nil it
-        if (_lightTheme == self.theme) {
-            _lightTheme = nil;
-            if (_lightOverrideActive) {
+    BOOL on = (checkbox.state == NSControlStateValueOn);
+    [theme setValue:@(on) forKey:key];
+    if (on) {
+        otherCheckbox.state = NSControlStateValueOff;
+        // If this was the theme of the other mode, nil it
+        if (*otherModeTheme == theme) {
+            *otherModeTheme = nil;
+            if (otherOverrideActive)
                 lightOrDarkWasRemoved = YES;
-            }
         }
-        self.theme.hardLight = NO;
-        if (_darkTheme && _darkTheme != self.theme) {
-            // Reset any previous dark theme
-            _darkTheme.hardDark = NO;
-            _darkTheme.hardLightOrDark = NO;
+        [theme setValue:@NO forKey:otherKey];
+        if (*modeTheme && *modeTheme != theme) {
+            // Reset any previous theme of this mode
+            [*modeTheme setValue:@NO forKey:key];
+            (*modeTheme).hardLightOrDark = NO;
         }
-        self.theme.hardLightOrDark = YES;
-        _darkTheme = self.theme;
+        theme.hardLightOrDark = YES;
+        *modeTheme = theme;
     } else {
-        // The use in dark mode checkbox was switched off
-        // This means that both checkboxes are off
-        self.theme.hardLightOrDark = NO;
-        if (_darkTheme == self.theme) {
-            _darkTheme = nil;
-            if (_darkOverrideActive) {
+        // The checkbox was switched off, so both checkboxes are off
+        theme.hardLightOrDark = NO;
+        if (*modeTheme == theme) {
+            *modeTheme = nil;
+            if (modeOverrideActive)
                 lightOrDarkWasRemoved = YES;
-            }
         }
     }
 
@@ -609,45 +612,12 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
 }
 
-- (IBAction)changeHardLightTheme:(id)sender {
-    BOOL lightOrDarkWasRemoved = NO;
-    self.theme.hardLight = (_hardLightCheckbox.state == NSControlStateValueOn);
-    if (self.theme.hardLight) {
-        // The Use in light mode checkbox was switched on
-        // Switch off the other one
-        _hardDarkCheckbox.state = NSControlStateValueOff;
-        // If this was the dark theme, nil it
-        self.theme.hardDark = NO;
-        if (_darkTheme == self.theme) {
-            if (_darkOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-            _darkTheme = nil;
-        }
-        if (_lightTheme && _lightTheme != self.theme) {
-            // Reset any previous light theme
-            _lightTheme.hardLight = NO;
-            _lightTheme.hardLightOrDark = NO;
-        }
-        self.theme.hardLightOrDark = YES;
-        _lightTheme = self.theme;
-    } else {
-        // The use in light mode checkbox was switched off
-        // This means that both checkboxes are off
-        self.theme.hardLightOrDark = NO;
-        if (_lightTheme == self.theme) {
-            _lightTheme = nil;
-            if (_lightOverrideActive) {
-                lightOrDarkWasRemoved = YES;
-            }
-        }
-    }
+- (IBAction)changeHardDarkTheme:(id)sender {
+    [self changeHardThemeForMode:kDarkMode];
+}
 
-    if (lightOrDarkWasRemoved) {
-        [self lightOrDarkOverrideWasRemoved];
-    } else {
-        [self noteColorModeChanged:nil];
-    }
+- (IBAction)changeHardLightTheme:(id)sender {
+    [self changeHardThemeForMode:kLightMode];
 }
 
 @end

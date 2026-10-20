@@ -86,6 +86,14 @@ typedef struct {
     [BuiltInThemes createAutomapThemeInContext:context forceRebuild:force];
 }
 
+// A missing defaults key gives a nil name, which fontWithName:size: must not get.
+// The callers fall back to another font when this returns nil.
+static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
+    if (![name isKindOfClass:[NSString class]] || !name.length)
+        return nil;
+    return [NSFont fontWithName:name size:size];
+}
+
 // Imports the pre-themes preferences once, for a user with no saved theme
 // (see Preferences readDefaults). Old settings is then the user's to edit or
 // delete, so it is never rebuilt: a forced rebuild of the built-in themes
@@ -136,7 +144,7 @@ typedef struct {
     if (defaultTheme.gridNormal.font.pointSize != size)
         foundDifference = YES;
 
-    oldTheme.gridNormal.font = [NSFont fontWithName:name size:size];
+    oldTheme.gridNormal.font = fontNamedInDefaults(name, size);
 
     if (!oldTheme.gridNormal.font) {
         NSLog(@"pref: failed to create grid font '%@'", name);
@@ -156,7 +164,7 @@ typedef struct {
     if (defaultTheme.bufferNormal.font.pointSize != size)
         foundDifference = YES;
 
-    oldTheme.bufferNormal.font = [NSFont fontWithName:name size:size];
+    oldTheme.bufferNormal.font = fontNamedInDefaults(name, size);
     if (!oldTheme.bufferNormal.font) {
         NSLog(@"pref: failed to create buffer font '%@'", name);
         oldTheme.bufferNormal.font = [NSFont userFontOfSize:0];
@@ -173,7 +181,7 @@ typedef struct {
     if (defaultTheme.bufInput.font.pointSize != size)
         foundDifference = YES;
 
-    oldTheme.bufInput.font = [NSFont fontWithName:name size:size];
+    oldTheme.bufInput.font = fontNamedInDefaults(name, size);
 
     NSFont *bufbold = [BuiltInThemes boldVersionOf:oldTheme.bufferNormal.font];
 
