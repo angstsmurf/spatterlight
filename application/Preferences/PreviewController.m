@@ -87,7 +87,7 @@
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:[_sampleTextView.textStorage copy]];
     CGFloat textWidth = _sampleTextView.frame.size.width;
     NSTextContainer *textContainer = [[NSTextContainer alloc]
-                                      initWithContainerSize:NSMakeSize(textWidth, FLT_MAX)];
+                                      initWithContainerSize:NSMakeSize(textWidth, CGFLOAT_MAX)];
 
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
     [layoutManager addTextContainer:textContainer];

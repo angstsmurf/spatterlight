@@ -27,7 +27,17 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)enableCaret:(nullable id)sender;
 
 @property BOOL shouldDrawCaret;
+// Extra height below the text that keeps a low margin image inside the
+// frame. Worked out from the margin images in setFrameSize:, so only the
+// archive and the view-swap code should set it directly.
 @property CGFloat bottomPadding;
+
+// Re-work out bottomPadding from the current margin image bounds and resize
+// to match. Call once layout has settled, before scrolling.
+- (void)updateBottomPadding;
+// The same, deferred to the next run loop pass, and only if the padding is
+// out of date. Safe to call while drawing.
+- (void)bottomPaddingNeedsUpdate;
 
 @end
 

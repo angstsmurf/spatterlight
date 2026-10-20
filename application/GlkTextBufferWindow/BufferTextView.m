@@ -19,6 +19,7 @@
 
 @interface BufferTextView () <NSSecureCoding> {
     NSTimer *caretTimer;
+    BOOL bottomPaddingUpdatePending;
 }
 @end
 
@@ -131,8 +132,51 @@
 }
 
 - (void)setFrameSize:(NSSize)newSize {
-    newSize.height += _bottomPadding;
+    // The layout manager passes the height of the text. A caller that re-sets
+    // the current frame (autoresizing, updateBottomPadding) passes the height
+    // with the padding already added, so take it off again, or the padding
+    // would pile up, or stay behind once the image no longer needs it.
+    CGFloat textHeight = newSize.height;
+    if (_bottomPadding > 0 && textHeight == NSHeight(self.frame))
+        textHeight -= _bottomPadding;
+
+    _bottomPadding = [self paddingForTextHeight:textHeight];
+    newSize.height = textHeight + _bottomPadding;
     [super setFrameSize:newSize];
+}
+
+// How far the lowest margin image (plus the bottom margin) reaches below
+// text of the given height.
+- (CGFloat)paddingForTextHeight:(CGFloat)textHeight {
+    MarginContainer *marginContainer = (MarginContainer *)self.textContainer;
+    if (![marginContainer isKindOfClass:[MarginContainer class]] || !marginContainer.hasMarginImages)
+        return 0;
+    CGFloat imagesBottom = marginContainer.marginImagesBottom;
+    if (imagesBottom <= 0)
+        return 0;
+    CGFloat needed = imagesBottom + self.textContainerOrigin.y + self.textContainerInset.height;
+    return MAX(0, needed - textHeight);
+}
+
+- (void)updateBottomPadding {
+    bottomPaddingUpdatePending = NO;
+    NSSize size = self.frame.size;
+    CGFloat textHeight = size.height - _bottomPadding;
+    if (fabs([self paddingForTextHeight:textHeight] - _bottomPadding) < 0.5)
+        return;
+    [self setFrameSize:size];
+}
+
+- (void)bottomPaddingNeedsUpdate {
+    if (bottomPaddingUpdatePending)
+        return;
+    CGFloat textHeight = NSHeight(self.frame) - _bottomPadding;
+    if (fabs([self paddingForTextHeight:textHeight] - _bottomPadding) < 0.5)
+        return;
+    bottomPaddingUpdatePending = YES;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self updateBottomPadding];
+    });
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {

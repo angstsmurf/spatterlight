@@ -226,6 +226,7 @@
             cell.accessibilityLabel = cell.customA11yLabel;
         }
     }
+    [_textview updateBottomPadding];
 
     [self startImageAnimations];
 

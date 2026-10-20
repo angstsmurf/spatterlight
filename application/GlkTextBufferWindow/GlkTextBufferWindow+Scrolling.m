@@ -30,6 +30,9 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 
 - (void)layoutManager:(NSLayoutManager *)layoutManager didCompleteLayoutForTextContainer:(NSTextContainer *)textContainer atEnd:(BOOL)layoutFinishedFlag {
     if (layoutFinishedFlag == YES && layoutManager == layoutmanager && textContainer == container) {
+        // Margin image bounds are current now, so settle the padding for a
+        // low image before any scroll target is read from the frame.
+        [_textview updateBottomPadding];
         if (scrollAdjustTimeStamp.timeIntervalSinceNow > -1 && !self.glkctl.ignoreResizes && !self.inLiveResize && !_pendingScroll) {
             if (!scrolling) {
                 [self restoreScroll:self];
@@ -592,10 +595,10 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     // Measure the text through the layout manager, not the textview frame,
     // as reallyPerformScroll does. The frame is doubly unreliable here: it
     // holds the 10,000,000-pt minSize sentinel until a layout pass lands,
-    // and it includes any bottomPadding MarginContainer added for a low
-    // margin image — padding that makes a fitting document look overflowing,
-    // so we would fall through to the lastAtBottom branch below and scroll a
-    // window that should not scroll at all. An autorestored window is the
+    // and its bottomPadding for a low margin image may not be settled yet.
+    // (documentBottom does count a margin image that hangs below the text,
+    // so a window whose image doesn't fit is not taken for one that fits.)
+    // An autorestored window is the
     // worst case for the frame test, because its decoded layout manager
     // comes back with background layout disabled (NSLayoutManager does not
     // archive that flag), so its frame is even less likely to have settled
@@ -931,6 +934,17 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
             }
         }
 
+        // When a low margin image pads the frame, scroll no further than
+        // puts the last line of text, where the input caret is, at the top
+        // of the viewport.
+        CGFloat padding = blockTextView.bottomPadding;
+        if (padding > 0) {
+            CGFloat lastLineTop = NSMaxY(blockTextView.frame) - padding
+                - blockTextView.textContainerInset.height - self.theme.bufferCellHeight;
+            if (bottom > lastLineTop && lastLineTop > currentPosition)
+                bottom = lastLineTop;
+        }
+
         [self scrollToPosition:bottom animate:animate];
     });
 }
@@ -981,15 +995,16 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     return (diff < self.theme.bufferCellHeight);
 }
 
-// The y coordinate of the bottom of the last laid-out line, in textview
-// coordinates, or a negative value when it cannot be measured cheaply.
+// The y coordinate of the bottom of the last laid-out line (or of the lowest
+// margin image, if that is lower), in textview coordinates, or a negative
+// value when it cannot be measured cheaply.
 //
 // Measures the text through the layout manager rather than taking the
 // textview frame, which is not a usable stand-in for the document height: it
 // carries the 10,000,000-pt minSize sentinel until a layout pass lands on it
-// (see configureBufferTextView) and it includes the bottomPadding
-// MarginContainer adds for low margin images, so a document can measure as
-// taller than the viewport in both directions of error.
+// (see configureBufferTextView) and its bottomPadding for low margin images
+// may lag behind the image bounds. The lowest margin image is counted here
+// directly.
 - (CGFloat)documentBottom {
     if (!textstorage.length)
         return 0;
@@ -1006,7 +1021,12 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     // Line fragment rects are in text container coordinates; the container
     // sits textContainerOrigin.y below the top of the textview, so that much
     // has to be added to put the result in view coordinates.
-    return NSMaxY(lastLine) + _textview.textContainerOrigin.y;
+    CGFloat bottom = NSMaxY(lastLine);
+    // A margin image can reach below the last line of text.
+    CGFloat imagesBottom = container.marginImagesBottom;
+    if (imagesBottom > bottom)
+        bottom = imagesBottom;
+    return bottom + _textview.textContainerOrigin.y;
 }
 
 // Is the whole document visible once the window is scrolled to the top,

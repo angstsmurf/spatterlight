@@ -139,8 +139,15 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
     // Prevent unbounded buffer growth for games that print enormous amounts.
     // See kOutputBufferHardCap; this is separate from the committed-text
     // scrollback trim in trimScrollbackIfNeeded:.
-    if (bufferTextstorage.length > kOutputBufferHardCap)
-        bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(kOutputBufferHardCapTrim, bufferTextstorage.length - kOutputBufferHardCapTrim)].mutableCopy;
+    if (bufferTextstorage.length > kOutputBufferHardCap) {
+        // Don't cut a surrogate pair or a composed character in two: if the
+        // cut falls inside one, drop all of it.
+        NSUInteger cut = kOutputBufferHardCapTrim;
+        NSRange composed = [bufferTextstorage.string rangeOfComposedCharacterSequenceAtIndex:cut];
+        if (composed.location < cut)
+            cut = NSMaxRange(composed);
+        bufferTextstorage = [bufferTextstorage attributedSubstringFromRange:NSMakeRange(cut, bufferTextstorage.length - cut)].mutableCopy;
+    }
 
     if (line_request)
         NSLog(@"Printing to text buffer window during line request");

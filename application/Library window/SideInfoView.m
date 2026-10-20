@@ -111,7 +111,7 @@
 
     [attrString addAttribute:NSForegroundColorAttributeName value:[NSColor textColor] range:NSMakeRange(0, text.length)] ;
 
-    CGRect contentRect = [attrString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, FLT_MAX) options:NSStringDrawingUsesLineFragmentOrigin];
+    CGRect contentRect = [attrString boundingRectWithSize:CGSizeMake(self.frame.size.width - 24, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin];
     // I guess the magic number -24 here means that the text field inner width differs 4 points from the outer width. 2-point border?
 
     NSTextField *textField = [[NSTextField alloc] initWithFrame:contentRect];

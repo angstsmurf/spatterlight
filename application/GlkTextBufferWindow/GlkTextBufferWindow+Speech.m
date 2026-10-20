@@ -179,6 +179,10 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 // string if the "speak command" preference is off.
 - (NSString *)stringFromRangeVal:(NSValue *)val {
     NSRange range = val.rangeValue;
+    // The accessibility string is nil for a range that runs past the end,
+    // so clip a stale move range to the text that is left.
+    if (range.location < textstorage.length && NSMaxRange(range) > textstorage.length)
+        range.length = textstorage.length - range.location;
     NSAttributedString *attStr = [_textview accessibilityAttributedStringForRange:range];
     NSMutableString *string = attStr.string.mutableCopy;
 
@@ -188,8 +192,9 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
         NSUInteger offset = 0;
         for (NSNumber *num in keys) {
             NSUInteger index = num.unsignedIntegerValue - range.location + offset;
-            // The accessibility string should be index-aligned with the
-            // textstorage range, but don't throw if it is not.
+            // The accessibility string is index-aligned with the textstorage
+            // range (attachments, surrogate pairs and composed characters
+            // included), but don't throw if it is not.
             if (index > string.length)
                 break;
             MyAttachmentCell *cell = (MyAttachmentCell *)((NSTextAttachment *)attachments[num]).attachmentCell;

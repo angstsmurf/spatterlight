@@ -436,7 +436,6 @@ static const CGFloat kMinLineFragmentWidth = 50;
     NSSize inset = textview.textContainerInset;
     NSSize size;
     NSRect bounds;
-    CGFloat extendneeded = 0;
 
     for (MarginImage *image in _marginImages.reverseObjectEnumerator) {
         bounds = image.bounds;
@@ -444,24 +443,6 @@ static const CGFloat kMinLineFragmentWidth = 50;
         if (!NSIsEmptyRect(bounds)) {
             bounds.origin.x += inset.width;
             bounds.origin.y += inset.height;
-
-            // Check if we need to add padding to increase textview height to
-            // accommodate for low image
-            CGFloat bottom = NSMaxY(bounds);
-            if (textview.frame.size.height < bottom) {
-                textview.bottomPadding =
-                bottom - textview.frame.size.height + inset.height;
-                extendneeded = textview.bottomPadding;
-                [textview setFrameSize:textview.frame.size];
-            }
-            // Check if padding is still needed
-            else if (textview.frame.size.height - textview.bottomPadding <
-                     bottom) {
-                bottom =
-                bottom - textview.frame.size.height + inset.height;
-                if (extendneeded < bottom)
-                    extendneeded = bottom;
-            }
 
             if ([textview needsToDrawRect:bounds]) {
                 size = image.image.size;
@@ -476,8 +457,11 @@ static const CGFloat kMinLineFragmentWidth = 50;
         }
     }
 
-    // Remove bottom padding if it is not needed any more
-    textview.bottomPadding = extendneeded;
+    // The padding for a low image is normally settled when layout completes,
+    // before any scrolling is worked out. Image bounds can also change in a
+    // layout pass that does not reach the end of the container, so catch
+    // that here. The frame can't be resized in the middle of drawing.
+    [textview bottomPaddingNeedsUpdate];
 }
 
 - (NSUInteger)findHyperlinkAt:(NSPoint)point {
@@ -529,6 +513,16 @@ static const CGFloat kMinLineFragmentWidth = 50;
 
 - (BOOL)hasMarginImages {
     return (_marginImages.count > 0);
+}
+
+- (CGFloat)marginImagesBottom {
+    CGFloat bottom = 0;
+    for (MarginImage *image in _marginImages) {
+        NSRect bounds = image.bounds;
+        if (!NSIsEmptyRect(bounds) && NSMaxY(bounds) > bottom)
+            bottom = NSMaxY(bounds);
+    }
+    return bottom;
 }
 
 @end
