@@ -6,7 +6,11 @@
 - The VoiceOver menus of the Infocom Z6 games read accented letters correctly, instead of decoding the game's Latin-1 text as something else.
 - In *Journey*, VoiceOver no longer capitalises names wrongly ("AnnA" for "Anna"), the menus come back correctly when the game is autorestored, an empty menu title no longer crashes, and rebuilding the dialog no longer drops a character.
 - In *Bureaucracy*, the VoiceOver form reading is fixed, and an instruction waiting to be spoken survives an error message.
-- A menu read by VoiceOver no longer speaks the instruction for a key twice.
+- A menu read by VoiceOver no longer speaks the instruction for a key twice. Reading the menus of *The Unforgotten* with VoiceOver no longer crashes, and the *Journey* dialog no longer shows the last move twice.
+- Random events continue the same way after an autorestore: the random number generator is saved exactly, where it used to be re-seeded from the new session.
+
+### Scarier (Adrift)
+- Some Adrift 4.0 games have ALRs written for the older take wording, which the 4.0 runner never prints. Scarier now keeps the older wording when a game's ALRs quote it (a deliberate deviation), so Hubert's retorts in *To Hell in a Hamper* appear, and the "already got" replacements in *Cursed* and a dozen other games fire. An ALR that contains itself is printed once.
 
 ### Plus
 - The versions of the *X-Men* SAGA database other than the original can now be added to the library, as they now get an IFID of their own.
@@ -33,6 +37,17 @@
 - Images replaced by a game are read in full, and purging pictures no longer deletes picture files that belong to the game. Placeholder rectangles in a Blorb file are kept, a picture that fails to load no longer leaves the previous one showing, and the temporary files of replaced pictures are deleted once decoded.
 - JPEG pictures with Exif data are recognised. VoiceOver rotor fixes, among them in *A Colder Light*.
 - In text buffer windows, turning echo on and off works, clicks on hyperlinks are only sent when the game is waiting for one, a margin picture keeps its link when rescaled, and clearing the scrollback is fixed. Fixes a crash when dragging a picture that has no bitmap and one in *Dead Cities*. The VoiceOver labels of pictures and the input history are localised.
+- The background scrollback trim is removed. It was on by default, but dropped margin pictures and flow breaks and could lose text printed while it ran. The scrollback is now only trimmed while you are at the bottom.
+- Line input after a prompt that ends with a newline, such as "Name?", starts on the next line instead of at the end of the prompt. Text printed after a game takes back part of its output is no longer paged past unread, and auto-scrolling no longer stops there.
+- A margin picture at the bottom of a text buffer window no longer leaves blank space below the text or makes typing jump, scrolling to the bottom keeps the input caret on screen, and a window scrolled up from the bottom comes back where it was after an autorestore.
+- Up-arrow in the command history stops at the oldest command again after the first hundred or so. Typing in a grid window no longer goes wrong when the text is over the length limit, splits accented characters or refuses deletions.
+- A merged quote box, such as the side-by-side quotes in *Trinity*, is restored in the right place, and the turn count is kept across an autorestore.
+- Graphics window autosaves are far smaller (a *Journey* autosave went from 6.2 MB to 30 KB), and VoiceOver no longer names a picture that has been cleared away.
+- Impulse Tracker (IT) music is recognised instead of being taken for MP3, a fading sound no longer keeps its channel alive, and MIDI music that can't be started is reported to the game as failed instead of silently doing nothing.
+- Announcements made with no game window open, such as "1 alert reset" in the Preferences window, are no longer lost.
+- When Download Info changes a game's title while its title cell is open for editing, the old title is no longer written back and marked as edited by you. The status icons in the library's found column are a fixed 14×14, which may make them show up on macOS 10.13.
+- Comparing a downloaded cover with the one a game already has uses Vision feature prints on macOS 10.15 and later, so re-encoded or resized copies of the same picture are recognised.
+- In Preferences, the "Game specific hacks" check box is now "Disable game-specific hacks", the selected theme is restored as soon as the theme list loads, and editing a built-in theme straight after opening the window makes only one copy of it. The Show Info toolbar label is the same on all macOS versions.
 - In text grid windows, such as status lines, making the window narrower no longer leaves the last character of each row behind, and line input in an empty grid window no longer crashes. VoiceOver says "End of command history", not "Start", when stepping past the newest command, and a selection that ends at the last character is kept when the game is autorestored.
 
 ## Release 1.5.5
