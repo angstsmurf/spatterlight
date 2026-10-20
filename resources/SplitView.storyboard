@@ -146,7 +146,6 @@
                         </constraints>
                     </customView>
                     <connections>
-                        <outlet property="clipView" destination="67R-an-UfZ" id="IoE-3m-aPr"/>
                         <outlet property="leftScrollView" destination="3eh-en-Vcc" id="I9U-oT-Ynz"/>
                         <outlet property="scrollViewTopPin" destination="neb-rW-ZVD" id="clv-Xl-NSI"/>
                         <outlet property="sideIfid" destination="wOX-LD-GxP" id="fYJ-2L-LEs"/>
