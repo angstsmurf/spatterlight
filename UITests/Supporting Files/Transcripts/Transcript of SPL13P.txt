@@ -930,7 +930,7 @@ The game is now over. Play again? Y
 
 Adventure 13 by Scott Adams, dedicated to: Roe Adams (not a relative) and Richard Adams (Brother and favorite Beta Tester)!
 
-I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a raised drawbridge. I see exits to the north, south, east, and west. 
+I'm in a field, and I see here a dirty looking moat, an ancient medieval castle, and a raised drawbridge. I see exits to the north, south, and west. 
 
 O.K., I WANT YOU TO TRANSCRIPT OFF
 

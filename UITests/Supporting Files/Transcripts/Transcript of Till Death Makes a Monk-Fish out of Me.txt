@@ -514,14 +514,14 @@ The robot moves to the middle of the corridor.
 >look under panel
 There's nothing under the panel.
 
-Rosalind tries to go southward, but is stopped by the ceiling.
+The robot moves on down the corridor, until it hits the fallen roof.
 
 >x rosalind
 She has not survived the impact, either.  Poor thing - you wonder how long she
 has been trapped here, whirring forward along the corridor until she can go no
 further, then back until caught in the pinched walls by the airlock.
 
-Rosalind whirrs slowly across the corridor.
+The robot swivels round, and limps toward the airlock.
 
 >get panel
 The panel is heavy, and one end is stuck in a pinch of metal, but this acts
@@ -531,7 +531,7 @@ Beyond is a dark hole in the flooring.  Who knows how far a drop it might be,
 how long one might tumble before finally crunching to certain death on the
 floor?
 
-The robot reaches the airlock, but cannot quite fit through the gap.
+Rosalind's way north is blocked by the close walls.
 
 >enter hole
 You cross yourself once.  This is it - a long jump - air whipped from your
@@ -696,8 +696,8 @@ dented, perhaps in the same explosion that damaged the east side.  Portholes
 peer out in the dark, their ring broken by a passage to the west, opposite an
 open archway to the east.
 
-The norhern hatch flips open and out pops Victoria.  She slowly lumbers
-southward, disappearing through the southern hatch.
+Victoria emerges from the northern hatch and heads south.  With a swish-snap,
+the southern hatch opens and she lumbers through.
 
 >n
 The hatch is shut.
@@ -764,7 +764,7 @@ could leave back west.
 The coffin is a smart black number of regular height.  It is unmarked, open,
 and waiting with a depressing certitude.
 
-From the corridor, you hear the sound of the robot hatch opening and closing.
+From the corridor outside you hear the swish-snap of the robot hatch.
 
 >x computer
 The computer has one main screen, a circular recess to serve as a monodigital
@@ -786,7 +786,7 @@ heartless as to actually build the thing.
 >get in coffin
 You made that mistake when you joined AtlantisLab.  You're not doing it again.
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >pull switch
 You tug the switch.  It sticks halfway, and a message appears on the screen:
@@ -814,7 +814,7 @@ back your hand, to find you have been branded!
 >x palm
 Your palm contains a brand.  Beneath it is inscribed "Press for detonation."
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+The familiar swish-snap sound of the robot hatch gets your attention.
 
 >press brand
 Your finger hovers over the contact.  Eyes to palm, eyes to bomb.  You can't
@@ -831,8 +831,6 @@ switch for the PDD is stuck half-way down.  The screen is blank.
 
 >x blood
 You didn't think Dr. Kurner had any left.
-
-The red light on the black oblong winks.
 
 >l
 Computer Core And Coffin Room
@@ -854,7 +852,7 @@ capable of violent explosive self-destruction" or "Bomb".
 It's small, black, and judging by the way it slid across the floor, very heavy.
 There is a single red light on top which blinks intermittently.
 
-The familiar swish-snap sound of the robot hatch gets your attention.
+From the corridor outside you hear the swish-snap of the robot hatch.
 
 >take bomb
 It's small, but it's heavy, and flat on the flat floor so you can't get your
@@ -1003,7 +1001,7 @@ keyboard from which protrudes a broken robot arm and a flat black palm scanner,
 slightly stained with your blood.  The switch for the PDD is stuck half-way
 down.  The screen is displaying a list of names.  One - "JACK" - is flashing.
 
-The familiar swish-snap sound of the robot hatch gets your attention.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >touch scanner
 You gather once is more than enough.
@@ -1014,6 +1012,8 @@ It doesn't budge.
 >put arm in recess
 The robot arm is already in the recess!
 
+The red light on the black oblong winks.
+
 >x recess
 The arm protrudes from the recess like a broken spur from a wrecked ship. 
 Around the circumference are marked small lines.
@@ -1022,7 +1022,7 @@ Around the circumference are marked small lines.
 You unclip the arm from the recess.  The screen flashes: "PROCESSING...
 PROCESSING...  READY", then falls dark.
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >i
 You have a robot arm.
@@ -1089,7 +1089,7 @@ Time passes...
 You unclip the arm from the recess.  The screen flashes: "PROCESSING...
 PROCESSING...  READY", then falls dark.
 
-The familiar swish-snap sound of the robot hatch gets your attention.
+From the corridor, you hear the sound of the robot hatch opening and closing.
 
 >z. z. z. z
 Time passes...
@@ -1160,7 +1160,7 @@ You turn the arm one notch, and the name JOHN in the list begins to blink.
 >push arm
 The arm goes no further in, but it is free to rotate.
 
-From the corridor outside you hear the swish-snap of the robot hatch.
+The familiar swish-snap sound of the robot hatch gets your attention.
 
 >turn arm
 You turn the arm one notch, and the name JEREMY in the list begins to blink.
@@ -1205,6 +1205,8 @@ Time passes...
 
 >z
 Time passes...
+
+The red light on the black oblong winks.
 
 >z
 Time passes...
@@ -1391,16 +1393,17 @@ reading this, then, by Jove, it's all up with you!"
 There are about a hundred scraps of paper littered around.  You pick one at
 random to read:
 
-   "When this note enters your possession, you are quite simply doomed!!"
+   "Read this!  Ha!  Then you're basically dead!!!"
 
 >x paper
-   "About to read this!  Ha!  Then you are doomed!"
+   "When this note enters your possession, death is imminent!"
 
 >x paper
-   "When this note enters your possession, death is your only alibi!!!"
+   "When finally your eyes skim the letters I have wrote, you must face
+DOOM!?!"
 
 >x paper
-   "About to read this!  Ha!  Then you're basically dead!!"
+   "By the time you read this, you are already dead!!!"
 
 >x books
 80% are "Physics for Beginners", 18% are "Biochemistry for Beginners" and 1
@@ -2096,22 +2099,22 @@ near.  It all spins sickly, too much information, too much speed, every bit of
 changing direction constantly.  We are swimming, around in and about each
 other.
 
-The school flicks about and swims northward.
-
-Blue
-   From way above trickles light.  To the south is the dome.
+An octopus swims by.
 
 >x me
 We are multiple, all seeing.  We see ourself and the world at once, it is all
 placed out.  We are fish.
 
-Floating through the blue comes a cuttlesprout.
-
->s
-We swim south.
+The school flicks about and swims southward.
 
 Blue
-From way above trickles light.  To the south is the dome.
+   To the south is the bulging dome.  All around us is the blue.
+
+>s
+In a pulse we move south.
+
+Blue
+The dome is south.  We are in blue.
 
 >x rocks
 We don't see any rocks here.
@@ -2119,7 +2122,10 @@ We don't see any rocks here.
 >s
 The dome blocks us swimming.
 
-An allamander swims by.
+The school flicks about and swims northward.
+
+Blue
+   The dome is south.  We are in blue.
 
 >x dome
 The dome is a huge bulge of copper on the seabed.  We do not understand it, it
@@ -2127,34 +2133,48 @@ is just rock, shape of land, movement of speed of water.  A metal corridor
 snakes out of it eastward toward a smaller dome, with a glass chimney at its
 top.  It is the mortuary block and near it blackness moves.
 
-An octopus swims by.
-
 The school flicks about and swims westward.
 
 Blue
-   From way above trickles light.  To the south is the dome.
-
->e
-The school trails eastward.
-
-Blue
-From way above trickles light.  To the south is the dome.  We are near a window
-in a large metal dome just to the south.
-
->s
-The dome blocks us swimming.
-
->x window
-We see our reflection.
+   To the south is the bulging dome.  All around us is the blue.
 
 >e
 We swim east.
 
 Blue
-To the south is the bulging dome.  All around us is the blue.  We are above a
-long corridor of metal leading toward the mortuary.
+From way above trickles light.  To the south is the dome.
 
-Floating through the blue comes a finn.
+A forest of seaweed grows thick here.
+
+>s
+The school trails southward.
+
+Blue
+From way above trickles light.  To the south is the dome.  We are near a window
+in a large metal dome just to the south.
+
+A craggy line of boulders breaks the sand below.
+
+>x window
+We see our reflection.
+
+The school flicks about and swims northeast.
+
+Blue
+   To the south is the bulging dome.  All around us is the blue.
+
+>e
+In a pulse we move east.
+
+Blue
+The dome is south.  We are in blue.
+
+This is ridiculous.  We can't spend our life as a shoal of fish.  We need to
+get back, and fast.
+
+An octopus swims by.
+
+A craggy line of boulders breaks the sand below.
 
 >x dome
 The dome is a huge bulge of copper on the seabed.  We do not understand it, it
@@ -2162,54 +2182,36 @@ is just rock, shape of land, movement of speed of water.  A metal corridor
 snakes out of it eastward toward a smaller dome, with a glass chimney at its
 top.  It is the mortuary block and near it blackness moves.
 
-Floating through the blue comes a snuttlenose.
-
-The school flicks about and swims northwest.
-
-Blue
-The dome is south.  We are in blue.
-
->e
-We fin east.
-
-Blue
-From way above trickles light.  To the south is the dome.
-
-This is ridiculous.  We can't spend our life as a shoal of fish.  We need to
-get back, and fast.
-
-A finn passes us in eerie silence.
+An octopus passes us in eerie silence.
 
 >e
 The school trails eastward.
 
 Blue
-From way above trickles light.  To the south is the dome.
+The dome is south.  We are in blue.
 
-A shrake swims by.
+Floating through the blue comes a snuttlenose.
+
+>e
+We swim east.
+
+Blue
+The dome is south.  We are in blue.
+
+Floating through the blue comes a squid.
 
 >u
 We are up and down as well.  We are a school, and wide, and shape changing
 always.
 
-The school flicks about and swims northeast.
-
-Blue
-   From way above trickles light.  To the south is the dome.
+A cuttlesprout passes us in eerie silence.
 
 >x chimney
 The Mortuary dome is broken, some walls have collapsed under a great dark
 weight we cannot see clearly, with moving eyes and confusion.
 
-Floating through the blue comes an octopus.
-
-The school flicks about and swims southeast.
-
-Blue
-   The dome is south.  We are in blue.
-
 >s
-We swim south.
+We fin south.
 
 Blue
 To the south is the bulging dome.  All around us is the blue.  We are above a

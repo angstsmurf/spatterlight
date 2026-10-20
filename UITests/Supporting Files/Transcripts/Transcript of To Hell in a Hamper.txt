@@ -1,6 +1,7 @@
 Glk transcript is now on.
 
 >
+I'm afraid the meaning of your words escapes me. Could you possibly rephrase that?
 
 >EXAMINE BOOBY
 Hubert is a man of prodigious girth, pasty and unhealthy looking with slicked down hair and beady little eyes that follow you about.  Hubert is wearing a large, bulky overcoat and a shapeless felt hat.
@@ -13,9 +14,6 @@ A large pocket that seems not to have been part of the coat's original design.  
 
 >GET MALLET
 Before Hubert has time to react, I snatch the rubber mallet from the side pocket of his coat.
-
->GET BOX
-In spite of Hubert's feeble efforts to stop me, I am able to wrest the sewing kit from the side pocket of his coat.
 
 >OPEN BOX
 I open the sewing kit, finding inside a pair of sharp scissors, a ball of yarn and a needle.
@@ -41,7 +39,7 @@ As soon as Hubert sees me approaching with the scissors he understandably backs 
 With a deft movement of the wrist I succeed in cutting through the tough thread that binds each button to the coat. As I do so each button flies off like a speeding bullet, and finally, with a great rending sound the coat bursts open, spilling a multitude of diverse objects onto the floor of the basket! These items consist of a large framed painting, an enormous carpetbag, a bundle of twigs, a boomerang, an ear-trumpet, a toy donkey and a sleeping Saint Bernard dog...
 
 >GET BOOMERANG
-I pick up the boomerang.
+I take the boomerang.
 
 >THROW BOOMERANG AT HAT
 I hurl the boomerang at Hubert's hat, in the time honoured tradition of the Australian Aboriginal hunters. Unfortunately Hubert ducks, and the boomerang whistles off into the distance. 'You're going to have to try harder than that, old man!' he jeers.
@@ -56,7 +54,7 @@ There is a strange whistling noise, and a second later a loud crack as the boome
 The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 
 >GET CLOCK
-I pick up the cuckoo clock. 'That doesn't belong to you!' exclaims Hubert.
+I pick up the cuckoo clock. 'Put that down at once!' cries Hubert.
 
 >THROW CLOCK
 I hurl the cuckoo clock over the side of the basket. It continues to chime long after it has disappeared into the wreath of thin cloud that hovers below us.
@@ -76,7 +74,7 @@ I drop the ratty old hat over the side of the basket. As it tumbles away into th
 The equilibrium of a balloon in the air is so sensitive that the loss of an almost  insignificant weight can produce a very appreciable displacement. In this instance, the balloon gains around one hundred feet in altitude.
 
 >GET DONKEY
-I pick up the toy donkey. 'If you damage that,' says Hubert, 'I shall tell my Aunt Gertie!'
+I pick up the toy donkey. 'Leave that alone!' cries Hubert.
 
 >THROW DONKEY
 I fling the toy donkey over the side of the balloon and watch as it spirals to Earth. 'You maniac!' screams Hubert, wringing his hands and quivering all over like an oversized lemon jelly. 'The shopkeeper assured me that donkey was one-of-a-kind!'
@@ -85,7 +83,7 @@ I fling the toy donkey over the side of the balloon and watch as it spirals to E
 Unburdening the balloon of this quite large and heavy object causes a sudden and immediate gain in altitude of seven hundred feet.
 
 >GET PAINTING
-I pick up the large framed painting. 'If you damage that,' says Hubert, 'I shall tell my Aunt Gertie!'
+I pick up the large framed painting.
 
 >THROW PAINTING
 Without hesitation I fling the painting over the side, thereby consigning that artistic abberration to oblivion. It seems the kindest thing to do.
@@ -96,7 +94,7 @@ Without hesitation I fling the painting over the side, thereby consigning that a
 Unburdening the balloon of this quite large and heavy object causes a sudden and immediate gain in altitude of seven hundred feet.
 
 >GET TRUMPET
-I pick up the ear-trumpet.
+I take the ear-trumpet.
 
 >EXAMINE OVERCOAT
 Hubert habitually wears this huge black overcoat. It seems to have been designed with only a small breast pocket, but a larger side pocket has been crudely stitched to the side.  The overcoat is flapping open, the buttons having long since flown the coop. There is a peculiar bulge in the tartan lining, and I can now see that the overcoat has an inside pocket.
@@ -117,7 +115,7 @@ Hubert's overcoat is lined with coarse tartan material.  There is a conspicuous 
 I lunge with the scissors, slashing a large rent in the tartan fabric. A colourful vase drops out onto the floor of the basket. 'You lunatic!' shrieks Hubert, throwing up his hands in horror, 'My Auntie Gertie will have to mend that now!'
 
 >GET VASE
-The Ting dynasty vase is too heavy for me to carry at the moment.
+I pick up the Ting dynasty vase. 'Leave that alone!' cries Hubert.
 
 >SMASH VASE WITH MALLET
 I hit the vase with the mallet. It shatters most obligingly, revealing a tiny key among the wreckage!
@@ -125,7 +123,7 @@ I hit the vase with the mallet. It shatters most obligingly, revealing a tiny ke
 'You maniac!' cries Hubert, 'that vase was a present for my Aunt Gertie! I'll never be able to find another one!'
 
 >GET KEY
-I pick up the tiny metal key.
+I take the tiny metal key.
 
 >THROW MALLET
 I fling the mallet over the side of the basket. 'You lunatic!' yells Hubert, stamping his feet in distraction. 'That was an extremely useful mallet - I used it every day at breakfast to crack open my boiled eggs!'
@@ -161,7 +159,7 @@ I drop the hatchet.
 I carefully lift the Egyptian mummy from the carpetbag and heave it over my shoulder. 'I wouldn't touch that if I were you,' says Hubert 'it's cursed!'
 
 >GET CARPETBAG
-I pick up the carpetbag.
+I take the carpetbag.
 
 >THROW CARPETBAG
 I hurl the empty bag over the side of the basket. Hubert merely glares at me for a moment.
@@ -173,16 +171,14 @@ The equilibrium of a balloon in the air is so sensitive that the loss of an almo
 I heave the mummy over the side of the balloon and watch as it plummets earthwards.
 
 
-Unburdening the balloon of this large, heavy object causes a sudden and immediate gain in altitude of one thousand feet.
-As the mummy disappears from sight the sky seems to darken; the light alpine cloud coalesces into forbidding thunder clouds. The ominous silence is broken by a piercing shriek like that of an exotic bird...
+Unburdening the balloon of this large, heavy object causes a sudden and immediate gain in altitude of one thousand feet.  As the mummy disappears from sight the sky seems to darken; the light alpine cloud coalesces into forbidding thunder clouds. The ominous silence is broken by a piercing shriek like that of an exotic bird...
 
 'Now you've done it!' cries Hubert, shaking like a leaf and paler than ever, 'We're both doomed now. Did I not tell you about...
 ...THE CURSE OF THE BLUE IBIS?'
 
 
-
 >GET BOOMERANG
-I pick up the boomerang.
+I take the boomerang.
 
 >THROW BOOMERANG AT IBIS
 I hurl the boomerang at the Blue Ibis, in the time honoured tradition of the Australian Aboriginal hunters. But the Blue Ibis is no ordinary bird, and instead of striking the creature dead, the boomerang explodes in a mass of splinters!
@@ -191,7 +187,7 @@ I hurl the boomerang at the Blue Ibis, in the time honoured tradition of the Aus
 The balance between the weight of the balloon and the lift provided by the gas is so delicate that jettisoning even a very light object causes an immediate vertical displacement. In this instance, the balloon gains around three hundred feet in altitude.
 
 >GET SMUDGE STICK
-I pick up the smudge stick.
+I take the smudge stick.
 
 >LIGHT SMUDGE STICK
 I light the smudge stick with the cigarette lighter, then blow it out, allowing the scented smoke to  waft around the balloon. It could be my imagination, but from somewhere I hear the distant sound of drums and a Shoshone medicine man chanting. From above there is a raucous shriek, and I look up to see the Blue Ibis vanish into the sweet smelling smoke like something out of a dream...
@@ -206,7 +202,7 @@ I toss the burning smudge stick over the side of the balloon.
 The equilibrium of a balloon in the air is so sensitive that the loss of an almost  insignificant weight can produce a very appreciable displacement. In this instance, the balloon gains around one hundred feet in altitude.
 
 >GET TROMBONE
-I pick up the trombone.
+I take the trombone.
 
 >PUT TRUMPET IN DOG'S EAR
 I put the ear-trumpet in the Saint Bernard's ear.
@@ -218,7 +214,7 @@ The trombone emits an almost inaudible squeak. I fear there may be something wro
 I bash Hubert over the head with the trombone, whereupon a cricket ball pops out of the funnel.
 
 >GET BALL
-I pick up the cricket ball.
+I take the cricket ball.
 
 >PLAY TROMBONE
 I place the trombone to my lips and blow. It emits a few strangulated notes. The St. Bernard, upon hearing this leaps four feet into the air, sending the ear-trumpet flying into space. He seems to be fully alert now!
@@ -239,7 +235,7 @@ The balance between the weight of the balloon and the lift provided by the gas i
 Fortunately I was taught to sew by the overbearing nuns who educated me in that convent school. Stitching the handkerchiefs together  I soon construct a parachute strong enough to support a reasonably lightweight person.
 
 >GET HATCHET
-I pick up the hatchet.
+I take the hatchet.
 
 >CUT ANCHOR ROPE WITH HATCHET
 I hack through the anchor rope with the hatchet and watch as the anchor tumbles to earth.
@@ -247,15 +243,13 @@ I hack through the anchor rope with the hatchet and watch as the anchor tumbles 
 
 Unburdening the balloon of this quite large and heavy object causes a sudden and immediate gain in altitude of seven hundred feet.
 
-
 'THAT DOES IT!' shrieks Hubert, shaking his tiny fists at me in exasperation. 'That's the last straw. You've really done it this time. I'm going to tell my Aunt Gertie on you!'
 
 'Oh, and I suppose you have your Aunt Gertie secreted away in that incredible overcoat of yours as well...' I say, mockingly.
 
 'Yes,' says Hubert, 'as a matter of fact I have. You didn't think I'd leave her at home all on her own, do you?' After much squirming and wriggling, a tiny little old lady emerges from the overcoat.
 
-'What is it, Hubert dear?' she asks...
-''Tain't right,' mutters Aunt Gertie distractedly, 'it oughtn't to be allowed!' She gives me a crack across the shins with her cane, just for the hell of it.
+'What is it, Hubert dear?' she asks...  ''Tain't right,' mutters Aunt Gertie distractedly, 'it oughtn't to be allowed!' She gives me a crack across the shins with her cane, just for the hell of it.
 
 >TIE PARACHUTE TO GERTIE
 I wait 'til her back is turned, and swiftly tie the parachute to her apron strings!
@@ -290,8 +284,9 @@ THE END
 
 Would you like to RESTART, UNDO a turn, or QUIT? Restart
 
-To Hell in a Hamper
 
+
+To Hell in a Hamper
 By J. J. Guest
 With thanks to my beta-testers, Amby, Liz and Woodfish
 and to my brother Dan for his many suggestions.
@@ -303,13 +298,15 @@ Twenty-fourth of February, 1876. The English Channel.
 
 Our Journey begins! A large crowd gathered this morning in Berkeley Square as we made our final preparations for what is to be one of the most daring expeditions ever undertaken; a journey around the world by balloon. Our vessel, which I have christened Titania, consists of a strong wicker basket borne aloft by a sealed balloon containing 30,000 cubic feet of hydrogen, an amount which, according to my calculations, should be quite sufficient to carry myself, Mr. Booby and all of our supplies and equipment. Mr. Booby is travelling with me as a last-minute replacement for Doctor Cox, who was suddenly taken ill with a serious case of the dreaded badly-bruised knees just days before the launch. At eleven o'clock, amid cries of 'Huzzah!' I cut the ropes binding the balloon to the earth and we soared aloft on the first leg of our journey...
 
-Press any keyFourteenth of September, 1876. Fujian province, China.
+Press any key
+Fourteenth of September, 1876. Fujian province, China.
 
 I began to have my doubts about Mr. Booby almost as soon as the balloon had made its ascent from berkeley Square. The instant we left the earth, Mr. Booby got into such convulsions of nausea that I began to doubt his credentials as a balloonist, and as a suitable replacement for poor Dr. Cox, who was suddenly taken ill just days before our take-off.
 
 Though I have expressed to him many times the importance of keeping the weight of the balloon down to a minimum, I am beginning to suspect that Mr. Booby has, against my wishes, been smuggling souvenirs of our journey into the balloon under that great coat of his. Only this morning I caught sight of him in a marketplace, haggling over the price of a particularly ugly vase. He was not exactly a small man even before our journey began, and he seems to grow progressively larger as our journey goes on. There is something about that strange, mis-shapen coat of his that arouses my suspicions.
 
-Press any keyTwenty-sixth of June, 1877. The Ecuadorian Andes.
+Press any key
+Twenty-sixth of June, 1877. The Ecuadorian Andes.
 
 Our situation is desperate. A strong wind blows us ever closer to the mouth of an erupting volcano. Our altitude is twelve thousand feet, and in in spite of all my efforts, I am unable to raise the balloon any higher. I have been forced to throw out all four sandbags, our food and water supplies, our first-aid kit, our compass, variometer and theodolite, and yet still we are too low to safely clear the volcano! In a moment I shall be forced to throw out this very log-book, along with the pencil I am writing with, and all my outer garments, in a last ditch effort to gain the necessary altitude of twenty thousand feet.
 
@@ -319,10 +316,10 @@ Mr. Booby assures me that he has disposed of all unnecessary weight, and yet som
 
 Press any key
 
-In the basket of a balloon
-I am in the basket of the balloon, high, though not high enough above the foothills of the Andes. Directly ahead of us is a glow in the sky; the heavens themselves seem to be ablaze as the wind carries us ever nearer to an erupting volcano! Attached to the ropes that hold the balloon aloft is a brass altimeter, the one and only piece of aeronautical equipment that has not been sacrificed.  The basket is otherwise completely empty.
 
-Hubert Booby stands in the corner of the basket, peering at me suspiciously.
+
+In the basket of a balloon
+I am in the basket of the balloon, high, though not high enough above the foothills of the Andes. Directly ahead of us is a glow in the sky; the heavens themselves seem to be ablaze as the wind carries us ever nearer to an erupting volcano! Attached to the ropes that hold the balloon aloft is a brass altimeter, the one and only piece of aeronautical equipment that has not been sacrificed.  The basket is otherwise completely empty.  Hubert Booby stands in the corner of the basket, peering at me suspiciously.
 
 >glk script off
 

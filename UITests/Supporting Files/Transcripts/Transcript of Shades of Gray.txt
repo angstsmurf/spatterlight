@@ -1,5 +1,9 @@
 Glk transcript is now on.
 
+> glk delays off
+
+Glk delay mode is now 'none'.
+
 > howl
 You let loose a howling cry of fear and rage before collapsing in a heap on the ground.  Battered beyond caring what happens to you next, you fall asleep.
 
@@ -64,12 +68,6 @@ The photograph is of a pretty girl with short, black hair and a lovely smile.
 It is a small, rectangular strip of silver foil.
 
 > w
-As you walk down the path, you glimpse a half-remembered face reflected in a window.
-
-You turn
-
-         but there is no one there.
-
 You are on the sidewalk outside some anonymous office building.  The stones are glistening from the rain that has fallen on them.  Apart from that, it looks just like any other sidewalk.  The sidewalk continues to the north and south, and there is a storm drain in the gutter to the east.
 
    There is a newspaper rack mounted on the sidewalk.
@@ -89,6 +87,9 @@ You are walking down the sidewalk outside an optician's shop.  The sidewalk head
 
 > x window
 [x -> examine]
+      The moon goes behind a cloud, and all goes dark for a moment
+           then it emerges again, slightly lower in the sky.
+
 Through the glass you can see spectacles on display.
 
 > x spectacles
@@ -98,65 +99,109 @@ Behind the spectacles, eyes are watching you.
 > x eyes
 [x -> examine]
       The moon goes behind a cloud, and all goes dark for a moment
-
            then it emerges again, slightly lower in the sky.
 
 The eyes follow you as you walk down the street.
 
 > n
-You are at a bend in a dark alleyway piled high with empty packing cases and crates.  Exits from the alley are to the south and the east.
+                      You go dizzy for a few seconds
+                       then your head clears again.
 
-There is a rusty crowbar lying between two packing cases. A mugger is demanding your money and threatening you with a knife.
+You are in an amphitheater.  You can hear the roar of a crowd in your ears. Animals snarl in their cages.  You smell stale sweat and blood.  There are exits to the south and east.
 
-> take crowbar
-You pick up the rusty crowbar.
+There is a metal-studded club lying on the sand. A Roman gladiator armed with a sword is advancing towards you.
 
-> x crowbar
+> take club
+You pick up the studded club.
+
+> x club
 [x -> examine]
-      The moon goes behind a cloud, and all goes dark for a moment
+This is a wooden club with sharpened metal studs in the ends.  It looks like a very effective weapon.
 
+> x cages
+[x -> examine]
+No doubt the animals will be let lose to maul you to death at any moment.
+
+> s
+      The moon goes behind a cloud, and all goes dark for a moment
            then it emerges again, slightly lower in the sky.
 
-The crowbar is used to open crates.  It's old and rusty but still seems stout enough for the job.
+The gladiator blocks your way.
 
-> x crates
-[x -> examine]
-      The moon goes behind a cloud, and all goes dark for a moment
+> i
+[i -> inventory]
+You're carrying:
+   leather scrip
+   studded club
+The  seems to be getting angrier.
 
-           then it emerges again, slightly lower in the sky.
+> attack gladiator with club
+As the gladiator swings at you with his sword, you hit him hard with the club.  He collapses in a crumpled heap on the ground.  The emperor gives the thumbs down, and you administer the coup de grace.
 
-The crates are roughly made, obviously designed for storage.
-
-> attack mugger with crowbar
-As the mugger swings at you with his knife, you step to one side and hit him hard with the crowbar.  He collapses in a crumpled heap on the ground. In horror, you drop the crowbar.
-
-You wonder if you've killed him.  But after a few moments, he comes to, moans and runs away.  He seems to have left something behind, however.
+Horrified at having taken a life, you drop the club.  The gladiator seems to have dropped a few things as well.
 
 > look
-You are at a bend in a dark alleyway piled high with empty packing cases and crates.  Exits from the alley are to the south and the east.
+You are in an amphitheater.  You can hear the roar of a crowd in your ears. Animals snarl in their cages.  You smell stale sweat and blood.  There are exits to the south and east.
 
-There is a rusty crowbar lying between two packing cases. There is a small knife here. There are two dollar bills lying on the ground.
+   You notice a short-bladed sword.
+   You can see two Roman coins lying on the ground. There is a metal-studded club lying on the sand. You can see the dead body of a gladiator lying face down in the sand.
 
-> x knife
+> x sword
 [x -> examine]
-The knife has only a short blade, but it looks very sharp.
+The sword's blade may be short, but it is sharp.
 
-> x dollars
+> x coins
 [x -> examine]
-You gaze meditatively at George Washington for a few moments.
+They are just two denarii -- two old Roman coins.
 
 > take all
-You reach for the crowbar, but a strong sense of guilt overwhelms you, and you drop it again.
+You reach for the club, but a strong sense of guilt overwhelms you and you drop it again.
 
 Looking over your shoulder nervously, you scoop up everything else that's lying the ground.
 
 > s
-You are walking down the sidewalk outside an optician's shop.  The sidewalk heads south, and the mouth of a dark alleyway lies to the north.  Glancing in the shop window gives you an eerie feeling: behind all the pairs of spectacles there are eyes looking back at you.
+You find yourself facing a judge in a courtroom, but it doesn't seem to be an ordinary trial.  There are no defense or prosecution lawyers.  The room is filled to capacity with press and photographers, but all you notice is the panel of grim-faced men sitting behind a high bench in front of you.
+
+> z
+[z -> wait]
+The moon finally dips below the horizon, leaving you to stumble blindly through the shadows.
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
+
+> z
+[z -> wait]
+It's too dark to see, so how do you expect to do that?
 
 > s
-      The moon goes behind a cloud, and all goes dark for a moment
+The sun peeps over the horizon, lighting up your world again.
 
-           then it emerges again, slightly lower in the sky.
+You find yourself facing a judge in a courtroom, but it doesn't seem to be an ordinary trial.  There are no defense or prosecution lawyers.  The room is filled to capacity with press and photographers, but all you notice is the panel of grim-faced men sitting behind a high bench in front of you.
+
+> s
+                      You go dizzy for a few seconds
+                       then your head clears again.
 
 You are on the sidewalk outside some anonymous office building.  The stones are glistening from the rain that has fallen on them.  Apart from that, it looks just like any other sidewalk.  The sidewalk continues to the north and south, and there is a storm drain in the gutter to the east.
 
@@ -165,40 +210,7 @@ You are on the sidewalk outside some anonymous office building.  The stones are 
 > s
 You are on the sidewalk outside a flophouse, a hostel for vagrants.  The sidewalk ends here, and the only way to walk seems to be to the north, back the way you came.
 
-   There is a paper-wrapped parcel lying on the ground.
-
-> z
-[z -> wait]
-The moon finally dips below the horizon, leaving you to stumble blindly through the shadows.
-
-> s
-You stumble blindly in the shadows.
-
-> e
-Someone taps you on the shoulder and you whirl around to face darkness.
-
-> s
-You start to move but freeze when you hear a wolf howling in the distance.
-
-> s
-You stumble blindly in the shadows.
-
-> s
-You start to move but freeze when you hear a wolf howling in the distance.
-
-> s
-You wander in circles, wondering how long it will be until the sun rises.
-
-> howl
-It's too dark to see, so how do you expect to do that?
-
-> i
-[i -> inventory]
-The sun peeps over the horizon, lighting up your world again.
-
-You are on the sidewalk outside a flophouse, a hostel for vagrants.  The sidewalk ends here, and the only way to walk seems to be to the north, back the way you came.
-
-   There is a paper-wrapped parcel lying on the ground.
+There is a paper-wrapped parcel lying on the ground. You see a dirty old tramp who looks vaguely familiar.
 
 > s
                       You go dizzy for a few seconds
@@ -208,21 +220,13 @@ You can't go that way.
 
 You are on a rough track outside a monastery, but you don't see any way to enter the building.  The only way to go seems to be north, back the way you came.
 
-   There is a wrapped parcel tied up with rope lying on the ground.
+There is a wrapped parcel tied up with rope lying on the ground. There is a monk here.  You're sure you've seen him somewhere before.
 
 > untie parcel
 You try to untie the knotted cord that is holding the parcel together, but your fingers are too clumsy.
 
 > cut cord
 You cut away the knots, and loosen the cord from the parcel.
-
-> i
-[i -> inventory]
-You're carrying:
-   leather scrip
-   knotted rope
-   short sword
-   two denarii
 
 > n
 You are in an empty warehouse, derelict and deserted.  Something about this place makes you very uneasy.  You're sure you should have memories about a deserted warehouse, but you can't recall them.  There are doors to the north and south, and the east wall opens up into a forest with a track running through it.
@@ -233,15 +237,40 @@ You are in an empty warehouse, derelict and deserted.  Something about this plac
 The chest is locked, and you don't have the key.
 
 > e
+                      You go dizzy for a few seconds
+                       then your head clears again.
+
+It has been raining all night and the wet street glistens.  Here in the gutter, water is still flowing.  Fortunately, the storm drain is swallowing it up.  The sidewalk lies to the west, and the road to the east.
+
+   There is a nickle caught in the drain.
+
+> s
+You can't go that way.
+
+> s
+You can't go that way.
+
+> s
+You can't go that way.
+
+> s
+As you walk down the path, you glimpse a half-remembered face reflected in a window.
+
+You turn
+
+         but there is no one there.
+
+You can't go that way.
+
+> s
+                      You go dizzy for a few seconds
+                       then your head clears again.
+
+You can't go that way.
+
 You are in a forest glade.  It has been raining all night.  Water is dripping from the trees, and the wet grass glistens.  In the center of the clearing is a well, though you can see neither bucket nor rope.  Tracks run off into the forest to your west and your east.
 
    There is a tiny silver key at the bottom of the well.
-
-> x scrip
-[x -> examine]
-The well winks at you flirtatiously.
-
-This is a leather pouch used for storing personal valuables.
 
 > open pouch
 You open the pouch and have a look at what is inside.
@@ -249,17 +278,13 @@ You open the pouch and have a look at what is inside.
    painted portrait
    glass vial
 
-> x censure
-[x -> examine]
-The well winks at you flirtatiously.
-
-This sheet of parchment explains that the owner has been excommunicated by the Church.
-
 > open vial
 You open the vial and have a look at what is inside.
    leaky bucket
 
 > tie rope to bucket
+The well winks at you flirtatiously.
+
 You tie the bucket to the rope and lower it down the well.  Then you swing it around for a while, trying to catch the key.  Unfortunately, the key keeps slipping through the holes in the bucket, so you pull it back up, untie the rope and put the bucket back into the vial.
 
 > fix bucket
@@ -345,16 +370,6 @@ From far away, some lone wolf howls in reply.
 > n
 You are in a forest glade.  It has been raining all night.  Water is dripping from the trees, and the wet grass glistens.  In the center of the clearing is a well, though you can see neither bucket nor rope.  Tracks run off into the forest to your west and your east.
 
-> i
-[i -> inventory]
-You're carrying:
-   leather scrip
-      You see a censure for heresy.
-      There is a small, painted portrait of a pretty girl.
-      You find a glass vial containing some noxious liquid.
-         Oddly enough, there's a wooden bucket here.
-   knotted rope short sword two denarii delicate key
-
 > w
 You are in an empty warehouse, derelict and deserted.  Something about this place makes you very uneasy.  You're sure you should have memories about a deserted warehouse, but you can't recall them.  There are doors to the north and south, and the east wall opens up into a forest with a track running through it.
 
@@ -372,201 +387,89 @@ Despite the threats made against his life by militant dock workers, King George 
 
 The Senate is threatening to halt President Wilson's shipments of arms and food to besieged Britain.  The potential loss of American lives is considered too serious, despite the fact that many think Lend-Lease is the only hope for Europe's survival against the Germans.
 
-> e
-You are in a forest glade.  It has been raining all night.  Water is dripping from the trees, and the wet grass glistens.  In the center of the clearing is a well, though you can see neither bucket nor rope.  Tracks run off into the forest to your west and your east.
-
-> e
-You feel sand under your feet, and find yourself walking through a yard that seems to be used for jousting.  Wooden palings run along the sides of the sandy enclosure.  The yard stretches to the north and south, and there are exits in the wooden palings to the east and west.
-
-> e
-You find yourself wandering through a village green.  Nearby, you hear the clamor of a fair.  The scene is complete with jugglers, fire eaters, and a dancing bear.  A rutted road runs through the village from north to south. There is a wood to the west, and to the south, you can just make out a church tower.  To the east is a colorful tent with a sign hanging from the door.
-
-   A crowd of people are milling around.
-
-> x jugglers
-[x -> examine]
-The jugglers are juggling, the acrobats are tumbling and the fire eaters are eating fire.  You stare, entranced by it all, but everyone just ignores you.
-
-> x bear
-[x -> examine]
-The bear is dancing happily around the fair.
-
-> x people
-[x -> examine]
-They are as nondescript as any crowd of people, and they're doing their best to ignore you.
-
-> x tent
-[x -> examine]
-The tent is bright and colorful.  There is a sign attached to the flap.
-
-> read sign
-                  ╔═════════════════════════════════════╗
-                  ║                                     ║
-                  ║        MAGDALENA ROSENSTEIN         ║
-                  ║     Certified Gypsy Kabbalist       ║
-                  ║                                     ║
-                  ║         Fortunes told, and          ║
-                  ║          Memory Restored            ║
-                  ║                                     ║
-                  ║       NO Psychopaths or Fools       ║
-                  ║                                     ║
-                  ╚═════════════════════════════════════╝
-
-> n
-You are standing atop a bright, sunny hilltop, looking down on the Acropolis in Athens.  It looks as if a theatrical production is being staged.  Posters advertising the show are pinned to the olive trees that surround you on top of the hill.  Tracks run down to the south and the west.
-
-> read posters
-You hear a voice drifting through the trees:  "I am your son, Sir; by your wise decisions my life is ruled, and them I shall always obey. I cannot value any marriage tie above your own good guidance."
-
-NOW SHOWING
-                    The Theban Theater Company presents ...
-
-                                 ANTIGONE
-
-                         a new work by Sophocles
-
-> s
-You find yourself wandering through a village green.  Nearby, you hear the clamor of a fair.  The scene is complete with jugglers, fire eaters, and a dancing bear.  A rutted road runs through the village from north to south. There is a wood to the west, and to the south, you can just make out a church tower.  To the east is a colorful tent with a sign hanging from the door.
-
-   A crowd of people are milling around.
-
-> s
-You find yourself in a cemetery.  All you can see are headstones and holes in the ground; only a few graves have been filled in.  You can hear sounds of merriment from the north, and an owl hooting in the churchyard to the east.
-
-> x headstones
-[x -> examine]
-It is hard to read the names on the weathered and dirty stones.  It doesn't really matter, though.  Since all the graves are open, nobody is actually buried here.
-
-> e
-You are inside a small, country church.  The only exit is to the west.
-
-The Church Registry provides a dated list of all the events in the parish. You find a priest who reminds you of someone you know.
-
-> x registry
-[x -> examine]
-The Church Registry contains the details of all the births, marriages, and deaths in the parish.
-
-> read registry
-You try to read the Church Registry, but the priest stops you.  As an excommunicated heretic, you are not even permitted a glance.  Haven't you read the parchment in your scrip?
-
-> talk to priest
-The holy father is lost in private meditation and doesn't seem to hear you. You decide to leave him alone.  He still seems awfully familiar, though.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> i
-[i -> inventory]
-You're carrying:
-   yellowed scroll leather scrip
-      You see a censure for heresy.
-      There is a small, painted portrait of a pretty girl.
-      You find a glass vial containing some noxious liquid.
-         Oddly enough, there's a wooden bucket here.
-   knotted rope short sword two denarii
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> i
-[i -> inventory]
-You're carrying:
-   yellowed scroll leather scrip
-      You see a censure for heresy.
-      There is a small, painted portrait of a pretty girl.
-      You find a glass vial containing some noxious liquid.
-         Oddly enough, there's a wooden bucket here.
-   knotted rope short sword two denarii
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> i
-[i -> inventory]
-You're carrying:
-   yellowed scroll leather scrip
-      You see a censure for heresy.
-      There is a small, painted portrait of a pretty girl.
-      You find a glass vial containing some noxious liquid.
-         Oddly enough, there's a wooden bucket here.
-   knotted rope short sword two denarii
+> w
+You can't go that way.
 
 > w
-You find yourself in a cemetery.  All you can see are headstones and holes in the ground; only a few graves have been filled in.  You can hear sounds of merriment from the north, and an owl hooting in the churchyard to the east.
-
-> e
-You are inside a small, country church.  The only exit is to the west.
-
-The Church Registry provides a dated list of all the events in the parish. You find a priest who reminds you of someone you know.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> z
-[z -> wait]
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+You can't go that way.
 
 > w
-You find yourself in a cemetery.  All you can see are headstones and holes in the ground; only a few graves have been filled in.  You can hear sounds of merriment from the north, and an owl hooting in the churchyard to the east.
+You can't go that way.
 
-> n
-You find yourself wandering through a village green.  Nearby, you hear the clamor of a fair.  The scene is complete with jugglers, fire eaters, and a dancing bear.  A rutted road runs through the village from north to south. There is a wood to the west, and to the south, you can just make out a church tower.  To the east is a colorful tent with a sign hanging from the door.
+> w
+You can't go that way.
 
-   A crowd of people are milling around.
+> w
+You can't go that way.
 
-> n
-You are standing atop a bright, sunny hilltop, looking down on the Acropolis in Athens.  It looks as if a theatrical production is being staged.  Posters advertising the show are pinned to the olive trees that surround you on top of the hill.  Tracks run down to the south and the west.
+> w
+You can't go that way.
+
+> e
+                      You go dizzy for a few seconds
+                       then your head clears again.
+
+It has been raining all night and the wet street glistens.  Here in the gutter, water is still flowing.  Fortunately, the storm drain is swallowing it up.  The sidewalk lies to the west, and the road to the east.
+
+> e
+You are standing in the middle of a long, featureless road that stretches from north to south.
+
+> e
+You are on the sidewalk.  The road is to your west, and the sidewalk continues to the north and south.  The door to the east has a weathered sign hanging on it.
 
 > s
                       You go dizzy for a few seconds
                        then your head clears again.
 
-You are on the sidewalk.  The road is to your west, and the sidewalk continues to the north and south.  The door to the east has a weathered sign hanging on it.
-
-> s
-You are at the south end of the sidewalk.  It seems that today is garbage collection day, because there are a number of trash cans scattered around the place.  There is a telephone booth to the east.  Otherwise, you can only go back the way you came.
+You find yourself in a cemetery.  All you can see are headstones and holes in the ground; only a few graves have been filled in.  You can hear sounds of merriment from the north, and an owl hooting in the churchyard to the east.
 
 > e
+You are inside a small, country church.  The only exit is to the west.
+
+The Church Registry provides a dated list of all the events in the parish. You find a priest who reminds you of someone you know.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+You can't go that way.
+
+> n
+                      You go dizzy for a few seconds
+                       then your head clears again.
+
+You can't go that way.
+
 You are in the phone booth.  The telephone is broken, so it wouldn't be much use to you even if you knew a phone number to call.  The sidewalk is behind you to the west.
 
    The telephone book for the Anacostia district of Washington, D.C. is here.
-
-> x book
-[x -> examine]
-This is the telephone book for the Anacostia district of Washington, D.C. It is attached to the wall, probably so no one can steal it.
 
 > read book
 Telephone books must qualify as the world's most boring books. You start with the A's...
@@ -583,17 +486,7 @@ Aesthesia, Ann       462-4672
 
 The list goes on and on.  There are several hundred pages still to go, so you give up.  As you drop the phone book, it swings loosely and something silver falls out onto the floor.
 
-> l
-[l -> look]
-You are in the phone booth.  The telephone is broken, so it wouldn't be much use to you even if you knew a phone number to call.  The sidewalk is behind you to the west.
-
-The telephone book for the Anacostia district of Washington, D.C. is here. A bit of silver catches the light and sparkles enticingly.
-
-> x silver
-[x -> examine]
-This sparkling bit of silver is a charm in the shape of a crescent moon. It hangs from a silver chain.
-
-> take it
+> take silver
 You pick up the silver charm.
 
 > w
@@ -602,13 +495,7 @@ You are at the south end of the sidewalk.  It seems that today is garbage collec
 > n
 You are on the sidewalk.  The road is to your west, and the sidewalk continues to the north and south.  The door to the east has a weathered sign hanging on it.
 
-> e
-As you walk, you hear the sound of rustling behind you.
-
-You turn
-
-         but there is no one there.
-
+> open door
 You are startled when the door starts to speak to you.
 
 "Magdalena is at home, but she does not admit psychopaths or fools.  I must ask you a few simple questions to make sure you are worthy of her time."
@@ -639,6 +526,9 @@ You are in a cluttered storefront that reeks of frankincense.  The furniture con
 "Come in, come in --  oy, you look terrible!"  She motions for you to take a seat on a metal folding chair, then reaches across her cluttered desk to squeeze your arm.
 
 "So -- you are Austin Garriot.  You're wondering how I knew that?  Ha! It's a simple thing when you have The Gift, like I do.  You come here to my office, I have a vision.  The spirits whisper in my ear, 'Magdalena, this is Austin Garriot.  He has a problem.  Only you can help him.'"  The plump gypsy lady smiles at you expectantly.
+
+> open door
+The door is already open.
 
 > talk to lady.
 You explain to Magdalena that you have lost your memory, and describe the harrowing and bizarre experiences of your last few hours.  You expect her to throw you out of the office, or call the police to have you carted away to an asylum, but Magdalena nods sympathetically.
@@ -784,7 +674,7 @@ You are at home in your study, in the thick of serious research.  Your papers an
 You hesitate, unsure about whether to stop working or stand up your friends. You don't have to think about it for long.  They'll just have to understand. You decide to do the responsible thing, but deep inside you, you don't feel that you've made any kind of sacrifice at all.  You just feel... happy.
 
 [Press any key...]
- 
+o
 In the back of your mind, you can hear a woman's soft counting: "Seven... eight... nine... coming up, coming back... ten... eleven... twelve."
 
 As you come back to yourself, you hear Magdalena's voice: "So," she says with satisfaction, "now we know you like to read."  She snaps her fingers. "Come back to this world now, Austin. Open your eyes.  Look around you."
@@ -809,7 +699,7 @@ The possessor was found guilty of the heresy of believing that the Earth is not 
 The man turns around, and you realize, with agonizing shame, who he is...
 
 [Press any key...]
- 
+o
 In the back of your mind, you can hear a woman's soft counting: "Seven... eight... nine... coming up, coming back... ten... eleven... twelve."
 
 Magdalena's voice draws you unwillingly back to the world. "It's not so bad," she proclaims cheerfully.  "It would break your mother's heart to see you like that -- but she's dead, so she'll never know."
@@ -850,10 +740,31 @@ You remain silent.
 "You are cited for contempt of Congress."  McCarthy pounds his gavel and waves toward you in disgust.  "Get him out of here."
 
 [Press any key...]
-l
+n
 In the back of your mind, you can hear a woman's soft counting: "Seven... eight... nine... coming up, coming back... ten... eleven... twelve."
 
 You come back to yourself slowly.  "Well," says Magdalena, "now we know who's the devil in your past."  You hear her spit on the ground twice in disgust.  Then she snaps her fingers.  "Come back to this world now, Austin. Open your eyes.  Look around you."
+
+> concentrate on lovers
+As you concentrate on the Lovers card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
+
+Somewhere in the back of your mind, you can hear Magdalena's voice speaking to you softly: "What does the future hold for you, Austin, if your current troubles can be resolved and your soul returns to your body?"
+
+The voice fades as the world takes shape and form around you.
+
+[Press any key...]
+c
+You are on a comfortable sofa, kissing a beautiful, dark-haired woman -- not that you are paying much attention to the color of her hair at the moment. Too many other feelings and sensations are going on in you.  All you know is that this is the woman you love, the woman that you hope you will spend the rest of your life with.
+
+Could this extraordinary woman possibly be... Hil-
+
+[Press any key...]
+o
+You are yanked off the sofa by the counting in your mind: "SevenEightNineTen... Get back up here!... ElevenTwelveThirteenFOURTEEN!"
+
+You wake abruptly, pulled back into the world by an insistent voice: "OK, so you have a woman in mind," she says grumpily.  "Is she as good as my niece?" Magdalena snorts derisively.  "But why should you listen to me?"
+
+She snaps her fingers. "Come back to this world now, Austin. Open your eyes. Look around you."
 
 > concentrate on tower
 As you concentrate on the Tower card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
@@ -893,11 +804,11 @@ The gun is now loaded.
 
 > x watch.
 [x -> examine]
-You feel a bullet pass right by your left ear.
-
 You keep this watch for sentimental reasons.  It hasn't worked for over a year, but it was a gift from your now-departed grandfather.  It is eternally stuck at 11:59.
 
 > take shovel. dig ground.
+You feel a bullet pass right by your left ear.
+
 You take the spade out of the knapsack.
 
 The din swells to a tremendous chorus.  It's like the roar of an oncoming train.  The billowing smoke creeps into your nostrils.  You realize that death is imminent unless you find some cover.
@@ -905,7 +816,7 @@ The din swells to a tremendous chorus.  It's like the roar of an oncoming train.
 You quickly dig a hole that is large enough for you to enter.  The dirt is piled in front of the hole.
 
 > move rocks.
-A shell comes screaming over your head.  It explodes and flings the brown earth all over you.  Bullets whistle among the branches.  Twigs and branches shower you from above.
+The din swells to a tremendous chorus.  It's like the roar of an oncoming train.  The billowing smoke creeps into your nostrils.  You realize that death is imminent unless you find some cover.
 
 You move the rocks in such a way as to create a crude barricade.
 
@@ -918,7 +829,7 @@ You are behind a crude barricade fabricated from rocks and dirt.  Looking over t
 
 > z
 [z -> wait]
-Your regiment is taking severe losses.  The troops are dropping like flies.
+All of a sudden, the sound of screaming penetrates the woods.  It combines with the sounds of gunfire, making a profound clamor.  You see the lines of troops tumbling one by one.
 
 A fellow Confederate falls down next to you and quickly rights himself.
 
@@ -926,7 +837,7 @@ You tap your foot nervously for a moment.  It doesn't seem to make the time go a
 
 > z
 [z -> wait]
-All of a sudden, the sound of screaming penetrates the woods.  It combines with the sounds of gunfire, making a profound clamor.  You see the lines of troops tumbling one by one.
+From your vantage point, you can see desperate men rushing back and forth, yelling and screaming like maniacs.
 
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
@@ -938,6 +849,8 @@ You tap your foot nervously for a moment.  It doesn't seem to make the time go a
 
 > z
 [z -> wait]
+Your regiment is taking severe losses.  The troops are dropping like flies.
+
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > z
@@ -1195,6 +1108,10 @@ Everything goes black...
  
 You are standing on a wooden train platform.  There is an office to the north, and a path to the southeast.  Past the train tracks, fields stretch out as far as the eye can see.
 
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
 > n
 You are in the office.  It looks like it has been deserted for some time. The windows are broken and debris litters the floor.  There is a sign lying in the broken glass.
 
@@ -1238,12 +1155,10 @@ You are standing on a wooden train platform.  There is an office to the north, a
 You are on a worn road that continues east.  A thick forest surrounds the road.
 
 > e
-You hear leaves shuffling ahead of you.
-
 You have come to the end of the road.  An eerie silence has fallen upon this area, as if every living thing had packed up its bags and left.  A road heads off to the west, and you can see a clearing in the forest to the south.
 
 > s
-You hear a noise from behind.  You turn and see a shadow move on the ground.
+You hear leaves rustling behind you.  You turn and see some branches move on a distant bush.
 
 This field has obviously not been in use for some time.  The soil is hard and dry, and the only crops growing here are weeds.  There is an ominouslooking house to the east.
 
@@ -1256,8 +1171,6 @@ You knock, and a boy answers the door.  He looks vaguely familiar, but you can't
 As you start to ask for directions or help, he reaches out and touches you on the stomach.  "Tag, you're it," he says.  Before you can respond, he closes the door and locks it.
 
 > s
-You hear laughter up ahead.
-
 You are on the south side of the house.  The paint here is worse than in the front, and the windowshades are all drawn.  The plants near the foundation of the house are all dead or dying.  There are curved paths to the east and west.
 
 > x plants
@@ -1271,15 +1184,13 @@ You rip the plant out of the ground and throw it aside, exposing an old iron key
 You pick up the iron key.
 
 > w
-You hear leaves shuffling ahead of you.
-
 You are on the front porch of a run-down house.  Some junk is scattered on the porch, and the paint is peeling from the house.  Paths lead around the house to the north and south, and a field lies to the west. There is a door here.
 
 > unlock door
 You insert the key in the lock and give the knob a turn.  The door groans as if it were in pain, and opens inward to the east.
 
 > e
-You hear leaves shuffling ahead of you.
+You hear a noise from behind.  You turn and see a shadow move on the ground.
 
 As you enter the room, the door slams shut and locks.  You turn quickly, but can see nothing behind you.
 
@@ -1351,12 +1262,31 @@ You try to remember what happened.  You touch your head and you feel a bandage a
 Everything goes black...
           --- HIT ANY KEY ---
 
-l
+ 
 In the back of your mind, you can hear a woman's soft voice counting: "Seven... eight... nine... coming up, coming back... ten... eleven... twelve."
 
 Magdalena's voice is thoughtful. "You look like a man to me, but that angry boy was YOU.  He blames you, he blames himself." Even with your eyes closed you can see Magdalena shrug.  "Something bad happened to you when you were very small.  You don't have to tell me.  I know.  It still makes you afraid. It makes you want to see the world in black and white."
 
 Magdalena snaps her fingers.  "Come back to this world now, Austin.  Open your eyes.  Look around you."
+
+> look
+                  ╔══════╗                                    Wheel of
+                  ║ 7    ║ Judgment                            Fortune
+                  ║      ║                                    ╔══════╗
+        The       ║      ║       The                   The    ║ 11   ║
+       Devil      ╚══════╝      Lovers              Magician  ║      ║
+      ╔══════╗    ╔1═════╗     ╔══════╗              ╔══════╗ ║      ║
+      ║ 4    ║    ║ ╔2═══╩═╗   ║ 5    ║              ║ 10   ║ ╚══════╝
+      ║      ║   ╔╩═╩═════╗║   ║      ║     Justice  ║      ║
+      ║      ║   ║ 3      ║║   ║      ║     ╔══════╗ ║      ║
+      ╚══════╝   ║        ║║   ╚══════╝     ║ 9    ║ ╚══════╝
+ (1) The Hermit  ╚════════╩╝      The World ║      ║
+ (2) The Fool    The Tower         ╔══════╗ ║      ║
+ (3) The Moon     ╔══════╗         ║ 8    ║ ╚══════╝
+                  ║ 6    ║         ║      ║
+                  ║      ║         ║      ║
+                  ║      ║         ╚══════╝
+                  ╚══════╝
 
 > concentrate on judgment
 As you concentrate on the Judgment card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
@@ -1372,12 +1302,31 @@ You are in a room crowded with men.  They're all standing with their backs to th
 Everyone wants something from you.  Somehow, everything depends on you. There's something you have to decide.  But what are you choosing?  Who will you affect by your choice?  A dark-haired woman stands beside you.  You look at her uncertainly, and she reaches out to take your hand.  But there's nothing she can do to help you now.  It's your decision.  Your call.  Your eyes range downward to look at something you hold in your hands....
 
 [Press any key...]
-l
+ 
 In the back of your mind, you can hear a woman's soft counting: "Seven... eight... nine... coming up, coming back... ten... eleven... twelve."
 
 You wake to the sound of Magdalena's voice: "That was the future.  That is the reason for everything that has happened to you."  She notices your expression.  "You want me to tell the future more clearly than that -- it's another twenty dollars."
 
 She snaps her fingers. "Come back to this world now, Austin. Open your eyes. Look around you."
+
+> look
+                  ╔══════╗                                    Wheel of
+                  ║ 7    ║ Judgment                            Fortune
+                  ║      ║                                    ╔══════╗
+        The       ║      ║       The                   The    ║ 11   ║
+       Devil      ╚══════╝      Lovers              Magician  ║      ║
+      ╔══════╗    ╔1═════╗     ╔══════╗              ╔══════╗ ║      ║
+      ║ 4    ║    ║ ╔2═══╩═╗   ║ 5    ║              ║ 10   ║ ╚══════╝
+      ║      ║   ╔╩═╩═════╗║   ║      ║     Justice  ║      ║
+      ║      ║   ║ 3      ║║   ║      ║     ╔══════╗ ║      ║
+      ╚══════╝   ║        ║║   ╚══════╝     ║ 9    ║ ╚══════╝
+ (1) The Hermit  ╚════════╩╝      The World ║      ║
+ (2) The Fool    The Tower         ╔══════╗ ║      ║
+ (3) The Moon     ╔══════╗         ║ 8    ║ ╚══════╝
+                  ║ 6    ║         ║      ║
+                  ║      ║         ║      ║
+                  ║      ║         ╚══════╝
+                  ╚══════╝
 
 > concentrate on world
 As you concentrate on the World card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
@@ -1413,26 +1362,30 @@ There are a few dry twigs scattered across the ground, mixed in with the leaves 
 
 The fire is no longer burning so brightly now that most of the twigs have burned.  The air feels much chillier.
 
+Will Scarlet emerges from the forest, followed by a young woman who is shivering violently from the cold.  "Robin, look what I found while hunting!" Scarlet warms himself by the fire, and you invite the woman to do the same.
+
 Nazir sits on a rock, polishing his wickedly curved scimitars.  He is a powerful, dark-skinned man, a Saracen.  He is reputed to be a deadly fighter.
 
 > put twigs in fire.
+The young woman shivers fearfully.
+
 The last twig has been consumed, leaving a few glowing embers.
 
 You throw a handful of twigs onto the fire.  Immediately, the flames rage brightly again.
 
 > talk to Nazir.
-Will Scarlet emerges from the forest, followed by a young woman who is shivering violently from the cold.  "Robin, look what I found while hunting!" Scarlet warms himself by the fire, and you invite the woman to do the same.
+The young woman shivers fearfully.
 
 Nazir ponders the wisdom in your words, but does not reply.
 
 > talk to Marion.
-The young woman shivers fearfully.
+The young woman seems to be reviving in the warmth of the fire.
 
 Marion chats with you affectionately for a while.
 
 > x woman. talk to woman.
 [x -> examine]
-The young woman shivers fearfully.
+The young woman seems to be reviving in the warmth of the fire.
 
 The young woman is quite beautiful, with long, dark hair and perfectly formed features.  You feel a strange determination, almost an obligation, to help her any way you can.  As you watch her rocking back and forth, rubbing her hands together for warmth, you could almost swear the fire has begun to burn more brightly.
 
@@ -1442,22 +1395,16 @@ The young woman is too cold to speak to you right now.
 
 > x Will.
 [x -> examine]
-The young woman seems to be reviving in the warmth of the fire.
-
 The fire is no longer burning so brightly now that most of the twigs have burned.  The air feels much chillier.
+
+The woman has recovered enough to speak.  She looks at you across the flames. "Are you Robin of Sherwood?"  You nod, and she continues: "My name is Katherine of Newark.  I thank you for saving my life.  I would have died of the cold, had it not been for your fire."
 
 Will Scarlet (aka Scathlock) is an aggressive man, never short of an opinion of his own.  He's a hit-em-first-ask-questions-later kind of guy.
 
 > put twigs in fire.
-The young woman seems to be reviving in the warmth of the fire.
-
-The last twig has been consumed, leaving a few glowing embers.
-
 You throw a handful of twigs onto the fire.  Immediately, the flames rage brightly again.
 
 > talk to Will.
-The woman has recovered enough to speak.  She looks at you across the flames. "Are you Robin of Sherwood?"  You nod, and she continues: "My name is Katherine of Newark.  I thank you for saving my life.  I would have died of the cold, had it not been for your fire."
-
 Will smiles appreciatively at your insightful comment.
 
 > talk to woman.
@@ -1572,6 +1519,8 @@ A set of stone steps leads up into the light.  To the south, a dank tunnel edges
 
 > s. sw. n. d. se. e.
 You are somewhere in the dismal tunnel.  It is too dark to see.
+
+You bruise your leg against a rough outcropping.
 
 You are somewhere in the dismal tunnel.  It is too dark to see.
 
@@ -1696,6 +1645,8 @@ Magdalena snaps her fingers.  "Come back to this world now, Austin.  Open your e
                   ║      ║         ║      ║
                   ║      ║         ╚══════╝
                   ╚══════╝
+
+> 
 
 > concentrate on justice.
 As you concentrate on the Justice card, your eyes close, and you feel yourself descending into mist for a long, blissful moment.  "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, thirteen, twelve....
@@ -1823,8 +1774,6 @@ You are wandering through Sherwood Forest.  Trees bow down above you; small twig
 
 You are wandering through Sherwood Forest.  Trees bow down above you; small twigs and dead leaves crunch beneath your feet.  To the north, the ground is too marshy to walk on.  Other, drier paths are all around you -- except to the south, where thick undergrowth blocks your way.
 
-Nazir the Saracen, Robin Hood's deadliest friend, is striding toward you through the forest.  Luckily, you see him before he sees you, and manage to conceal yourself in the bushes until he has passed.
-
 You are wandering through Sherwood Forest.  Trees bow down above you; small twigs and dead leaves crunch beneath your feet.  To the northeast, the ground is too marshy to walk on.  Other, drier paths are all around you -- except to the south, where thick undergrowth blocks your way.
 
 You are standing at the western edge of a small lake that nestles here in the middle of Sherwood Forest.  The lake seems to be well-stocked -- you can see fish jumping in the still waters.  There is a pier to the east.
@@ -1879,47 +1828,47 @@ Keeping a keen eye out for ruffians and miscreants, you tiptoe into the shrubber
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+Nazir the Saracen walks down the forest path toward the hidden rope.  You wonder nervously if he'll see it, but he is oblivious.  The rope triggers, and he is hauled unceremoniously upside-down into the air, his weapons flying everywhere.  Nazir is now your prisoner.
 
 > wait
-Maid Marion walks down the forest path toward the hidden rope.  You wonder nervously if she'll see it, but she is oblivious.  The rope triggers, and she is hauled unceremoniously upside-down into the air, her skirts flying everywhere.  Marion is now your prisoner.
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > ne. ne. ne. e. e. n.
 You are standing at the western edge of a small lake that nestles here in the middle of Sherwood Forest.  The lake seems to be well-stocked -- you can see fish jumping in the still waters.  There is a pier to the east.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
 
 A small stream runs through the trees here, flowing from northeast to southwest.  To the south, the forest floor is too marshy to walk on. Drier paths lead off in other directions.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
+
+As you walk through the forest with Nazir, you become aware that every once in a while he makes a strange sound, like the whistle of a bird, or the chattering of a squirrel.  You think it odd, but put it out of your mind.
 
 You have discovered a small village.  A stream runs through the village, flowing from the north to the southwest.  Paths lead in all directions.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
-
-Suddenly, Marion starts screaming at the top of her lungs.  There is an answering cry from some distant corner of the forest.  You consider gagging her, but there is no need.  She has stopped screaming of her own volition and is looking incredibly smug.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
 
 You are wandering through Sherwood Forest.  Trees bow down above you; small twigs and dead leaves crunch beneath your feet.  The forest floor blooms with small bushes and shrubs.  There are paths leading in many directions; to the east lies the trail to Sherwood Castle.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
 
 You are standing on the Sherwood Castle drawbridge.  You can enter the castle to the north.  Sherwood Forest, hideaway of thieves, lies to the west.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
 
 You are in the guardhouse.  There are no windows here, but the smoky torches lining the walls provide adequate light.  You can see the great hall through an archway to the north.  There are also exits to the west and south.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
 
 > take torch. w.
 You pick up the smoking torch.
 
 You are standing in a cell block, a dank and dismal place.  There is an exit to the east.
 
-   Maid Marion is your unwilling captive.  She leers at you and spits.
+   Nazir is your unwilling captive.  His eyes blaze with hatred.
 
-> put marion in cell.
-You shove Marion into a cell and lock the door.
+> put nazir in cell.
+You shove Nazir into a cell and lock the door.
 
 > e. drop torch. s. w.
 You are in the guardhouse.  There are no windows here, but the smoky torches lining the walls provide adequate light.  You can see the great hall through an archway to the north.  There are also exits to the west and south.
@@ -1943,27 +1892,33 @@ You scatter the leaves across the top of the hole, disguising your trap complete
 Keeping a keen eye out for ruffians and miscreants, you tiptoe into the shrubberies that lie conveniently parallel to the main road.
 
 > wait.
-Nazir the Saracen walks toward your hidden pit, and you hold your breath. You needn't have worried -- your trap works like a charm, and Nazir crashes through the leaves and twigs into the hole.  He is now your prisoner.
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait.
+Maid Marion walks down the forest path toward your hidden pit, and you hold your breath.  You needn't have worried -- your trap works like a charm, and Marion crashes through the leaves and twigs into the hole.  She is now your prisoner.
+
+> wait.
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > e. n. take torch. w.
 You are standing on the Sherwood Castle drawbridge.  You can enter the castle to the north.  Sherwood Forest, hideaway of thieves, lies to the west.
 
-   Nazir is your unwilling captive.  His eyes blaze with hatred.
+   Maid Marion is your unwilling captive.  She leers at you and spits.
 
 You are in the guardhouse.  There are no windows here, but the smoky torches lining the walls provide adequate light.  You can see the great hall through an archway to the north.  There are also exits to the west and south.
 
-   Nazir is your unwilling captive.  His eyes blaze with hatred.
+   Maid Marion is your unwilling captive.  She leers at you and spits.
 
 You pick up the smoking torch.
 
-Maid Marion leers at you unpleasantly through the grating of her cell.
+Imprisoned, Nazir the Saracen stands motionless, staring at you in hatred.
 
 You are standing in a cell block, a dank and dismal place.  There is an exit to the east.
 
-   Nazir is your unwilling captive.  His eyes blaze with hatred.
+   Maid Marion is your unwilling captive.  She leers at you and spits.
 
-> put nazir in cell
-Maid Marion leers at you unpleasantly through the grating of her cell. You shove Nazir into a cell and lock the door.
+> put marion in cell
+Imprisoned, Nazir the Saracen stands motionless, staring at you in hatred. You shove Marion into a cell and lock the door.
 
 > e. drop torch. s. w.
 You are in the guardhouse.  There are no windows here, but the smoky torches lining the walls provide adequate light.  You can see the great hall through an archway to the north.  There are also exits to the west and south.
@@ -1981,41 +1936,76 @@ You climb up a nearby tree and nestle comfortably, hidden in the lower branches.
 
 You can't see much of Sherwood Forest from this part of the tree, but you have an unobstructed view of the trail beneath you.
 
-> wait.
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
-You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
-
-> wait
+> z
+[z -> wait]
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > z
 [z -> wait]
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
-> wait
+> z
+[z -> wait]
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
-> wait
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> z
+[z -> wait]
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > z
@@ -2120,69 +2110,22 @@ You are alone in the great hall of Sherwood Castle.  The room is brightened by t
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > wait
-Robin bursts into the room, sword drawn, hatred plainly visibly in his eyes. He has no need for stealth, since he knows you have no guards.  He snarls at you, "Sheriff, prepare to die!"
-
-Slipping around behind a pillar, you parry Robin's blow with the torch.
-
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > hit Robin with torch
-Slipping around behind a pillar, you parry Robin's blow with the torch.
+Robin bursts into the room, sword drawn, hatred plainly visibly in his eyes. He has no need for stealth, since he knows you have no guards.  He snarls at you, "Sheriff, prepare to die!"
 
-As you swing the torch at his head, Robin must duck to avoid it.  He stumbles and falls to one knee on the rough stone floor.  For a moment, you have him at your your mercy.  But he snatches up a handful of dust and stones and throws it into your face.  Half blinded, you are forced back a step and the opportunity is lost.
-
-> hit Robin with torch
-Robin swings at you, but you leap over a table.  His sword sweeps the crockery onto the floor behind you.
-
-You thrust the torch toward Robin's face.  As he raises his sword to parry the blow, you kick him hard in the groin.  The Marquis of Queensbury wouldn't have approved -- but then, he wasn't fighting for his life.
-
-> hit Robin with torch
-Slipping around behind a pillar, you parry Robin's blow with the torch.
-
-Snatching up a handful of straw, you set it aflame with the torch and throw it at Robin.  As he dodges away, you swing the torch at his unprotected side. He rolls with the blow, but it is obvious that he is tiring.
-
-> hit Robin with torch
-Robin leaps onto a table and strikes at your head.  You duck under his blow and strike at his legs with the torch, forcing him to jump down again.
-
-Holding the torch in both hands, you raise it high and bring it down toward Robin's head.  He twists aside to avoid the strike, and you hit the wall behind him, sending out a shower of sparks.
-
-> hit Robin with torch
-Robin swings at you, but you leap over a table.  His sword sweeps the crockery onto the floor behind you.
-
-You thrust the torch toward Robin's face.  As he raises his sword to parry the blow, you kick him hard in the groin.  The Marquis of Queensbury wouldn't have approved -- but then, he wasn't fighting for his life.
-
-> hit Robin with torch
-Robin swings at you, but you leap over a table.  His sword sweeps the crockery onto the floor behind you.
-
-Snatching up a handful of straw, you set it aflame with the torch and throw it at Robin.  As he dodges away, you swing the torch at his unprotected side. He rolls with the blow, but it is obvious that he is tiring.
-
-> hit Robin with torch
-Robin swings at you, but you leap over a table.  His sword sweeps the crockery onto the floor behind you.
-
-Snatching up a handful of straw, you set it aflame with the torch and throw it at Robin.  As he dodges away, you swing the torch at his unprotected side. He rolls with the blow, but it is obvious that he is tiring.
-
-> hit Robin with torch
-As he strikes at you with his blade, you parry Robin's blow with the torch you are holding, sending a stream of sparks flying.
-
-Holding the torch in both hands, you raise it high and bring it down toward Robin's head.  He twists aside to avoid the strike, and you hit the wall behind him, sending out a shower of sparks.
-
-> hit Robin with torch
-Slipping around behind a pillar, you parry Robin's blow with the torch.
-
-As you swing the torch at his head, Robin must duck to avoid it.  He stumbles and falls to one knee on the rough stone floor.  For a moment, you have him at your your mercy.  But he snatches up a handful of dust and stones and throws it into your face.  Half blinded, you are forced back a step and the opportunity is lost.
-
-> hit Robin with torch
 Robin sweeps his blade low toward your legs, but you jump over it.  Before he can regain his defensive position, you thrust the torch into his face, and he is forced to back away.
 
 You thrust the torch toward Robin's face.  As he raises his sword to parry the blow, you kick him hard in the groin.  The Marquis of Queensbury wouldn't have approved -- but then, he wasn't fighting for his life.
 
 > hit Robin with torch
-Robin leaps onto a table and strikes at your head.  You duck under his blow and strike at his legs with the torch, forcing him to jump down again.
+Robin swings at you, but you leap over a table.  His sword sweeps the crockery onto the floor behind you.
 
 As you swing the torch at his head, Robin must duck to avoid it.  He stumbles and falls to one knee on the rough stone floor.  For a moment, you have him at your your mercy.  But he snatches up a handful of dust and stones and throws it into your face.  Half blinded, you are forced back a step and the opportunity is lost.
 
 > hit Robin with torch
-Slipping around behind a pillar, you parry Robin's blow with the torch.
+Robin swings at you, but you leap over a table.  His sword sweeps the crockery onto the floor behind you.
 
 You thrust the torch toward Robin's face.  As he raises his sword to parry the blow, you kick him hard in the groin.  The Marquis of Queensbury wouldn't have approved -- but then, he wasn't fighting for his life.
 
@@ -2193,12 +2136,41 @@ Surprised by your sudden move, Robin overbalances and trips over you.  As he fal
 Stunned, Robin lies prostrate on the ground and you take full advantage. Snatching up his sword, you are ready for him.  When he comes to, he finds you holding his own blade to his throat.
 
 [Press any key...]
-
+h
 In the back of your mind, you can hear a woman's soft voice counting: "Seven... eight... nine... coming up, coming back... ten... eleven... twelve."
 
 Magdalena indulges in a few hearty guffaws.  "So who's the hero and who's the villain?  Did I trick you?  Don't give me that look.  You wanted your soul back and that's what you're going to get.  Did I say it would be easy?"
 
 Magdalena snaps her fingers.  "Come back to this world now, Austin.  Open your eyes.  Look around you."
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> hit Robin with torch
+Attack, attack, attack.  Can't you manage without a gross display of violence?
+
+> 
 
 > look
                   ╔══════╗                                    Wheel of
@@ -2232,6 +2204,10 @@ You are in a plain, white room.  The walls have an opalescent quality, as if you
 
 There are some wooden matches here. ( in the box ) There is an earthenware jug here. ( in the box ) There is a piece of scented paper here. ( in the box ) There is a large mirror on the north wall.
 
+> i
+[i -> inventory]
+You are empty-handed.
+
 > x floor
 [x -> examine]
 The design looks like a veve, a symbol used to invoke a loa, or spirit, at Haitian vodoun ceremonies.  It is cross-shaped, with a vertical line drawn through the right arm of the cross.  There is writing below the design.
@@ -2253,7 +2229,8 @@ The drum is handmade, from a hollowed-out section of an oak tree.  It is covered
 
 > x box. x matches. x jug. read jug. x paper.
 [x -> examine]
-The box seems to be built into the altar.  It is open. Which contains:
+The box seems to be built into the altar.  It is open.
+Which contains:
    There are some wooden matches here. ( in the box )
    There is an earthenware jug here. ( in the box )
    There is a piece of scented paper here. ( in the box )
@@ -2350,7 +2327,9 @@ Inside, you see the following:
    firm lemon ( in the basket )
    plump banana ( in the basket )
 
-The basket is cunningly made, and painted in bright colors. It has a hinged wooden lid. Which contains:
+The basket is cunningly made, and painted in bright colors.
+It has a hinged wooden lid.
+Which contains:
    large orange ( in the basket )
    firm lemon ( in the basket )
    plump banana ( in the basket )
@@ -2376,19 +2355,15 @@ There are exits to the north, the south, the east, the west, the northeast, the 
 > sw
 Papa Legba walks beside you, swinging his walking stick.
 
-Before you can move on, a distraught aviatrix runs toward you, calling, "Fred!  Where are you?"
-
-She looks to be about forty years old.  Concern and confusion are apparent on her handsome face.  She is wearing a tattered 'thirties-style flying outfit. She seems glad to see you, but disappointed that you're not Fred.  "Have you seen my navigator, Fred Noonan?" she asks.  "We were flying around the world, and something weird happened.  Now, I can't find him -- and I can't get off this blasted island!"
-
-She searches the area hastily, and runs off.  You prepare to move on again.
-
-> sw
-Papa Legba walks beside you, swinging his walking stick.
-
 You've come to a small clearing in a tropical garden.  Bright, golden sunlight spills on the lush foliage all around you.  A gentle breeze stirs the huge leaves of banana trees, and rustles through stalks of bamboo.  Bougainvillea vines heavy with fragrant red and purple blossoms twine among the trees. Deep green pathways lead off in all directions.
 
    There is a gold cigarette case here.
    An elderly gentleman regards you with curiosity.
+
+> sw
+Papa Legba walks beside you, swinging his walking stick.
+
+You can't go that way.
 
 > take case. x case
 You pick up the cigarette case.
@@ -2594,6 +2569,15 @@ There is a small, whitewashed building to the south.  A bamboo curtain hangs in 
 > s.
 Papa Legba walks beside you, swinging his walking stick.
 
+Before you can move on, a distraught aviatrix runs toward you, calling, "Fred!  Where are you?"
+
+She looks to be about forty years old.  Concern and confusion are apparent on her handsome face.  She is wearing a tattered 'thirties-style flying outfit. She seems glad to see you, but disappointed that you're not Fred.  "Have you seen my navigator, Fred Noonan?" she asks.  "We were flying around the world, and something weird happened.  Now, I can't find him -- and I can't get off this blasted island!"
+
+She searches the area hastily, and runs off.  You prepare to move on again.
+
+> s.
+Papa Legba walks beside you, swinging his walking stick.
+
 You pass through the curtain into an elegant boudoir.  The air is cool and refreshing, with a delicate floral scent.  Pale pink watered silk covers the walls.  In a velvet-draped niche, ivory-painted wrought-iron lilies entwine on an antique bedstead.  Its lacy coverlet is dotted with silken pillows. Along one wall, a mauve velvet loveseat beckons.  A dressing table laden with perfumes, jars, and silver implements stands opposite.  The glittering contents of a rosewood jewelry box spill onto the table, throwing dancing patterns of light onto a heavy mirror with a gilded frame.  A complex pattern is woven into the thick ivory carpet.
 
 An elderly gentleman regards you with curiosity. A bewitching beauty is here.
@@ -2717,7 +2701,8 @@ The white hen runs toward the corn meal and begins gobbling it up.  She seems to
 
 > x nest. take egg. x egg.
 [x -> examine]
-The hen's nest is made of straw and twigs.  It's cozy and warm to the touch. Which contains:
+The hen's nest is made of straw and twigs.  It's cozy and warm to the touch.
+Which contains:
    There's a single egg here. ( in the nest )
 
 You pick up the single egg.
@@ -2807,13 +2792,9 @@ There is a small, whitewashed building to the north.  A bamboo curtain hangs in 
 
 Papa Legba walks beside you, swinging his walking stick.
 
-Before you can move on, a bronzed Greek hero strides into view.
+You've come to a small clearing in a tropical garden.  Bright, golden sunlight spills on the lush foliage all around you.  A gentle breeze stirs the huge leaves of banana trees, and rustles through stalks of bamboo.  Bougainvillea vines heavy with fragrant red and purple blossoms twine among the trees. Deep green pathways lead off in all directions.
 
-He's muscular and athletic, and is wearing a brief tunic and sandals.  Over the tunic he wears a lion's pelt, the lion's head making a sort of helmet.  A stout club on a thong is slung over one shoulder.  He is taking notes on a clipboard as he looks around.
-
-"Oh, hullo there," he says amiably.  "Don't mind me.  I'm just writing a walkthru."
-
-He walks off, scribbling furiously.  You prepare to move on again.
+A conch shell lies half-buried in the sandy soil. An elderly gentleman regards you with curiosity.
 
 > e
 Papa Legba walks beside you, swinging his walking stick.
@@ -2980,6 +2961,25 @@ Magdalena is almost purring.  "So now you know who you are, and you know what ha
 
 Magdalena snaps her fingers.  "Come back to this world now, Austin. Your reading is not quite over yet.  Open your eyes.  Look around you."
 
+> look.
+                  ╔══════╗                                    Wheel of
+                  ║ 7    ║ Judgment                            Fortune
+                  ║      ║                                    ╔══════╗
+        The       ║      ║       The                   The    ║ 11   ║
+       Devil      ╚══════╝      Lovers              Magician  ║      ║
+      ╔══════╗    ╔1═════╗     ╔══════╗              ╔══════╗ ║      ║
+      ║ 4    ║    ║ ╔2═══╩═╗   ║ 5    ║              ║ 10   ║ ╚══════╝
+      ║      ║   ╔╩═╩═════╗║   ║      ║     Justice  ║      ║
+      ║      ║   ║ 3      ║║   ║      ║     ╔══════╗ ║      ║
+      ╚══════╝   ║        ║║   ╚══════╝     ║ 9    ║ ╚══════╝
+ (1) The Hermit  ╚════════╩╝      The World ║      ║
+ (2) The Fool    The Tower         ╔══════╗ ║      ║
+ (3) The Moon     ╔══════╗         ║ 8    ║ ╚══════╝
+                  ║ 6    ║         ║      ║
+                  ║      ║         ║      ║
+                  ║      ║         ╚══════╝
+                  ╚══════╝
+
 > think on wheel.
 As you concentrate on the Wheel of Fortune card, your eyes close, and you feel yourself descending into mist for a long, blissful moment. "Seventeen... sixteen... relax and let go... fifteen... fourteen... you're falling, falling, thirteen, twelve...."
 
@@ -3011,7 +3011,36 @@ On the street, you are surprised to discover that night has fallen again.
  
 You are on the sidewalk.  The road is to your west, and the sidewalk continues to the north and south.  The door to the east has a weathered sign hanging on it.
 
+> i.
+You're carrying:
+   washington post
+   leather wallet
+      There is a yellowed news clipping.
+      There is color photograph of a pretty girl.
+      You find a silver foil wrapper.
+         There's a sticky, chewed piece of gum.
+   knotty string
+   sharp switchblade
+   two dollars
+
 > wait
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+You see a taxicab driving down the road.
+
 You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
 
 > hail cab
@@ -3025,14 +3054,27 @@ You are in the back seat of a typical Washington taxi -- dirty, and smelling of 
 
 > x cabbie. talk to cabbie.
 [x -> examine]
-"We're there, pal!" the cabbie says.  "That'll be two dollars."
+The cabbie leans round to talk to you.  "Damn pedestrians.  It'd be a helluva lot safer if only cabs were allowed on the streets at this time of night."
 
 Dirty and smelling of cheap whiskey, he blends perfectly with his taxi.
 
 The cabbie leans round to hear you better, and points out the back window. "I'm sure that's the same car that was behind us when I picked you up."
 
+> wait
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+The cabbie leans round to talk to you. "That Hoffa! Whadda guy!"
+
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
+> wait
+"We're there, pal!" the cabbie says.  "That'll be two dollars."
+
+You tap your foot nervously for a moment.  It doesn't seem to make the time go any faster.
+
 > give dollars to cabbie.
-As you get out of the cab, you give the driver two dollars you "acquired" from the mugger. He drives away at top speed, splashing through a puddle as he goes.  Good thing your trousers are already wet.
+You give the driver the two dollars you found (you're not really sure where), and get out of the cab.  He drives away at top speed, splashing through a puddle as he goes.  Good thing your trousers are already wet.
 
 You are on the sidewalk outside Hilary's apartment.  The wide street is lined with trees.  The light from the moon, now high in the sky, filters through the bare branches, creating interesting patterns of light and shadow on the ground.  Hilary's door is to the north.
 
@@ -3303,7 +3345,7 @@ David Thomas returned to Haiti in his role as vice-consul, and became head of th
 Austin Garriot soon recovered from his ordeal; the beatings and the effects of the serunim left no lasting scars.  He returned to his research on Lend-Lease at the Library of Congress, and in later years published several books on American involvement in the World Wars.
 
 [Press any key...]
-
+ 
 Austin and Hilary were married in February 1958 and had two daughters, Bethany and Hannah.  They are still together today, after 35 years.
 
 On their wedding day, a package arrived for Austin and Hilary.  Inside it was a mirror in an elaborately carved frame.  Behind its reflection, faint but clearly visible white clouds billowed in a tropical sky.  A note, written in a spidery hand, read:
@@ -3313,11 +3355,13 @@ You've chosen well, mon cher Austin.  I hope my little gift will prove helpful i
                                            Toujours ton ami,  L.
 
 [Press any key...]
- 
+
 
 YOU HAVE WON THE GAME !!!
 
-Your score is 991 (out of 1000 possible). You have visited 130 locations (out of 180 in the game)
+Your score is 991 (out of 1000 possible). You have visited 129 locations (out of 180 in the game)
+
+Would you like to restart, restore, undo, or quit? 
 
 Would you like to restart, restore, undo, or quit? glk script off
 

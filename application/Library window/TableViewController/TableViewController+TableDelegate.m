@@ -575,7 +575,10 @@ static NSImage *hoverLikeImage(BOOL hovered) {
     } else {
         if ([identifier isEqual:@"format"] && !game.detectedFormat)
             game.detectedFormat = meta.format;
-        cellView.textField.stringValue = [self stringForGame:game columnIdentifier:identifier] ?: @"";
+        NSString *string = [self stringForGame:game columnIdentifier:identifier] ?: @"";
+        // Kept so endedEditing: can tell an edit from text left unchanged
+        cellView.objectValue = string;
+        cellView.textField.stringValue = string;
     }
     return cellView;
 }
@@ -702,6 +705,17 @@ static NSString *forgivenessName(NSInteger value) {
         NSString *key = self.gameTableView.tableColumns[(NSUInteger)col].identifier;
         BOOL isGroup = [key isEqualToString:@"group"];
         NSString *oldval = isGroup ? game.group : [meta valueForKey:key];
+
+        // Text the user didn't change is not an edit, even if the stored
+        // value has changed under the open cell (Download Info)
+        NSTableCellView *cellView = (NSTableCellView *)textField.superview;
+        NSString *shownValue = [cellView isKindOfClass:[NSTableCellView class]] ? cellView.objectValue : nil;
+        if ([shownValue isKindOfClass:[NSString class]] && [textField.stringValue isEqualToString:shownValue]) {
+            NSInteger row = [self.gameTableView rowForView:sender];
+            if (row >= 0)
+                [self.gameTableView reloadDataForRowIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)row] columnIndexes:[NSIndexSet indexSetWithIndex:(NSUInteger)col]];
+            return;
+        }
 
         NSString *value = [textField.stringValue stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         if (value.length == 0)

@@ -1077,6 +1077,7 @@
                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                         <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                     </textFieldCell>
+                    <accessibility identifier="scrollbackLimitField"/>
                     <connections>
                         <action selector="changeScrollbackLimit:" target="-2" id="Sc5-Ac-tf5"/>
                     </connections>

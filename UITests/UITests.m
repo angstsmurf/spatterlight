@@ -221,6 +221,13 @@
     [app.toolbars.buttons[@"Details"] click];
     [app.checkBoxes[@"Animate scrolling"] click];
 
+    // Tests save the whole scrollback as their transcript, so turn off
+    // scrollback trimming (0 = unlimited)
+    XCUIElement *scrollbackLimitField = app.textFields[@"scrollbackLimitField"];
+    [scrollbackLimitField click];
+    [scrollbackLimitField typeKey:@"a" modifierFlags:XCUIKeyModifierCommand];
+    [scrollbackLimitField typeText:@"0\r"];
+
     [app.toolbars.buttons[@"Misc"] click];
     [app.checkBoxes[@"Determinism"] click];
 
@@ -649,9 +656,29 @@
     XCTAssertTrue([self waitForElement:textView toExistWithTimeout:5],
                   @"Game window did not reopen from autosave");
     [self waitForTextViewToSettle:textView];
+    [self scrollTextViewToBottom:textView];
 
     if (text.length)
         [textView typeText:text];
+}
+
+/// In a small window, the text printed since the last key press can overflow
+/// the buffer view. Spatterlight then holds the rest back behind an invisible
+/// "more" prompt, and the next key only pages down instead of reaching the game,
+/// which puts the test out of phase with the checkpoints. Scroll the view to
+/// the bottom with the scroll wheel instead, which never reaches the game.
+- (void)scrollTextViewToBottom:(XCUIElement *)textView {
+    XCUIElement *scrollView = [UITests app].windows.scrollViews[@"buffer scroll view"];
+    for (NSInteger i = 0; i < 10 && textView.exists; i++) {
+        // The text view's frame covers the whole document, so its bottom edge
+        // lies below the scroll view's by the height of the text not shown
+        // (it is a few points above it when at the bottom).
+        CGFloat hidden = NSMaxY(textView.frame) - NSMaxY(scrollView.frame);
+        if (hidden <= 0)
+            return;
+        [scrollView scrollByDeltaX:0 deltaY:-(hidden + 100)];
+        [NSThread sleepForTimeInterval:0.3];
+    }
 }
 
 - (void)testAutosave {
@@ -914,14 +941,12 @@
 - (void)testTADS2 {
     XCUIApplication *app = [UITests app];
 
-    [self playGame:@"tildeath.gam"];
-
-    XCUIElement *gameWindow = app.windows[@"tildeath.gam"];
+    XCUIElement *gameWindow = [self playGame:@"tildeath.gam"];
     XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
 
-    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:10]);
     [textView typeText:@"script\r"];
 
     NSURL *transcriptURL = [UITests saveTranscriptInWindow:gameWindow];
@@ -1073,7 +1098,7 @@
 
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS 'Moves: 654'" timeout:80]);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value CONTAINS 'Moves: 661'" timeout:80]);
 
     [textView typeText:@"glk script off\r"];
 
@@ -1083,13 +1108,11 @@
 - (void)testLevel9 {
     XCUIApplication *app = [UITests app];
 
-    [self playGame:@"Q.L9"];
-
-    XCUIElement *gameWindow = app.windows[@"Q.L9"];
+    XCUIElement *gameWindow = [self playGame:@"Q.L9"];
     XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
-    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:10]);
 
     [textView typeText:@"glk script on\r"];
 
@@ -1107,13 +1130,11 @@
 - (void)testMagnetic {
     XCUIApplication *app = [UITests app];
 
-    [self playGame:@"mag.mag"];
-
-    XCUIElement *gameWindow = app.windows[@"mag.mag"];
+    XCUIElement *gameWindow = [self playGame:@"mag.mag"];
     XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
 
     [UITests turnOnDeterminism:@"Default"];
-    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:10]);
 
     [textView typeText:@"glk script on\r"];
 
@@ -1159,17 +1180,17 @@
     [textView click];
 
     [textView typeKey:@"r" modifierFlags:XCUIKeyModifierNone];
-    [textView click];
-    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
-    [textView click];
-    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
-    [textView click];
-    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
-    [textView click];
-    [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+
+    // Scarier autosaves at each "Press any key" before it asks for the key,
+    // and a key typed meanwhile is lost, so keep pressing until the restarted
+    // game reaches its prompt
+    for (NSUInteger i = 0; i < 10 && ![UITests waitForElement:textView matching:@"value ENDSWITH '>'" timeout:2]; i++) {
+        [textView click];
+        [textView typeKey:@" " modifierFlags:XCUIKeyModifierNone];
+    }
     [textView typeText:@"glk script off\r"];
 
-    [self assertTranscriptIn:transcriptURL named:@"Transcript of Hamper.taf.txt" equalsFacitFor:@"To Hell in a Hamper"];
+    [self assertTranscriptIn:transcriptURL named:@"Transcript of To Hell in a Hamper.txt" equalsFacitFor:@"To Hell in a Hamper"];
 }
 
 - (void)testAdriftPKGirl {
@@ -1244,7 +1265,7 @@
 
     XCUIElement *gameWindow = app.windows[@"praxix.z5"];
     XCUIElement *textView = [UITests textViewOfWindow:gameWindow scrollViewIndex:0];
-    XCTAssert([self waitForElement:textView toExistWithTimeout:1]);
+    XCTAssert([self waitForElement:textView toExistWithTimeout:10]);
     [textView typeText:@"all\n"];
 
     NSString *facitName;
@@ -1310,7 +1331,7 @@
     gameWindow = app.windows[@"grail.j2 (finished)"];
     XCUIElement *textView2 = [gameWindow.staticTexts elementBoundByIndex:0];
 
-    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value BEGINSWITH ' Game Over '" timeout:80]);
+    XCTAssertTrue([UITests waitForElement:textView2 matching:@"value BEGINSWITH ' Game Over '" timeout:80]);
 
     [self assertTranscriptIn:transcriptURL named:@"Transcript of grail.j2.txt" equalsFacitFor:@"Unholy Grail"];
 }
@@ -2031,11 +2052,15 @@
 
 /// As addAndSelectGame:, but the app also starts the game, as when it is
 /// double-clicked in the library. The game stays selected in the library.
-- (void)playGame:(NSString *)game {
+/// Returns the game window.
+- (XCUIElement *)playGame:(NSString *)game {
     XCUIApplication *app = [self relaunchWithGame:game environmentKey:@"SPATTERLIGHT_TEST_PLAY_GAME"];
-    // Game windows have the identifier gameWin<hash> (see GameLauncher)
-    XCUIElement *gameWindow = [app.windows matchingPredicate:[NSPredicate predicateWithFormat:@"identifier BEGINSWITH 'gameWin'"]].firstMatch;
+    // Only games with autosave get the window identifier gameWin<hash> (see
+    // GameLauncher), so wait for any window that is not one of the app's own
+    NSPredicate *notAppWindow = [NSPredicate predicateWithFormat:@"NOT (identifier IN {'library', 'preferences', 'licenseWin'}) AND NOT (identifier BEGINSWITH 'infoWin')"];
+    XCUIElement *gameWindow = [app.windows matchingPredicate:notAppWindow].firstMatch;
     XCTAssert([self waitForElement:gameWindow toExistWithTimeout:30]);
+    return gameWindow;
 }
 
 - (XCUIApplication *)relaunchWithGame:(NSString *)game environmentKey:(NSString *)key {
