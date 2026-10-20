@@ -211,6 +211,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     [self setUpZArrowsMenuItems];
     [self setUpBeepMenus];
     [self setUpThemeState];
+    [self setUpSimpleSettings];
 
     Preferences.instance = self;
 
@@ -413,6 +414,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     if (![self prepareThemeForPanel])
         return;
 
+    [self updateSimpleSettings];
     [self updateThemesPane];
     [self updateStylesPane];
     [self updatePresentationPane];
@@ -500,21 +502,13 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     txtBorder.intValue = self.theme.border;
 
-    btnSmartQuotes.state = self.theme.smartQuotes;
     btnSpaceFormat.state = (self.theme.spaceFormat == TAG_SPACES_ONE);
-
-    btnEnableGraphics.state = self.theme.doGraphics;
-    btnEnableSound.state = self.theme.doSound;
 
     _btnAutoBorderColor.state = self.theme.borderBehavior == kAutomatic ? NSControlStateValueOn : NSControlStateValueOff;
     _borderColorWell.enabled = (self.theme.borderBehavior == kUserOverride);
 
     _btnUnderlineLinksGrid.state = (self.theme.gridLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
     _btnUnderlineLinksBuffer.state = (self.theme.bufLinkStyle == NSUnderlineStyleNone) ? NSControlStateValueOff : NSControlStateValueOn;
-
-    _btnSmoothScroll.state = self.theme.smoothScroll;
-
-    [_coverImagePopup selectItemWithTag:self.theme.coverArtStyle];
 
     NSInteger scrollbackLimit = (NSInteger)[GlkTextBufferWindow clampScrollbackLimit:self.theme.scrollbackLimit];
     _scrollbackLimitTextField.integerValue = scrollbackLimit;
@@ -541,33 +535,14 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     [_beepHighMenu selectItemWithTitle:beepHigh];
     [_beepLowMenu selectItemWithTitle:beepLow];
-    [_zterpMenu selectItemWithTag:self.theme.zMachineTerp];
-    [_bZArrowsMenu selectItemWithTag:self.theme.bZTerminator];
 
     _zVersionTextField.stringValue = self.theme.zMachineLetter;
 
     _bZVerticalTextField.integerValue = self.theme.bZAdjustment;
     _bZVerticalStepper.integerValue = self.theme.bZAdjustment;
-
-    [_comprehendGraphicsPopup selectItemWithTag:self.theme.comprehendGraphicsType];
-    [_z6GraphicsPopup selectItemWithTag:self.theme.z6GraphicsType];
-    _z6ColorizeCheckBox.state = self.theme.z6Colorize1Bit ? NSControlStateValueOn : NSControlStateValueOff;
-    _quoteBoxCheckBox.state = self.theme.quoteBox ? NSControlStateValueOn : NSControlStateValueOff;
-
-    _zMachineNoErrWinCheckbox.state = self.theme.zMachineNoErrWin ? NSControlStateValueOn : NSControlStateValueOff;
-
-    [_palettePopup selectItemWithTag:self.theme.sAPalette];
-    [_inventoryPopup selectItemWithTag:self.theme.sAInventory];
-    _delaysCheckbox.state = self.theme.sADelays;
-    _slowDrawCheckbox.state = self.theme.slowDrawing;
-
-    _scottAdamsFlickerCheckbox.state = self.theme.flicker;
 }
 
 - (void)updateVoiceOverPane {
-    _btnVOSpeakCommands.state = self.theme.vOSpeakCommand;
-    [_vOMenuButton selectItemWithTag:self.theme.vOSpeakMenu];
-    [_vOImagesButton selectItemWithTag:self.theme.vOSpeakImages];
     _vODelaySlider.doubleValue = self.theme.vOHackDelay;
     _vODelayTextField.doubleValue = self.theme.vOHackDelay;
     _vODelayTextField.enabled = self.theme.vODelayOn;
@@ -578,12 +553,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
 - (void)updateMiscPane {
     _btnAutosave.state = self.theme.autosave;
-    _btnAutosaveOnTimer.state = self.theme.autosaveOnTimer;
     _btnAutosaveOnTimer.enabled = self.theme.autosave ? YES : NO;
-    [_errorHandlingPopup selectItemWithTag:self.theme.errorHandling];
-
-    _btnDeterminism.state = self.theme.determinism;
-    _btnNoHacks.state = self.theme.nohacks ? NSControlStateValueOff : NSControlStateValueOn;
 
     if (self.theme.minTimer != 0) {
         if (_timerSlider.doubleValue != floor(1000.0 / self.theme.minTimer)) {
@@ -600,14 +570,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (void)updateGlobalPane {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    [_imageReplacePopup selectItemWithTag:[defaults integerForKey:@"ImageReplacement"]];
-
-    _saveInGameDirCheckbox.state = [defaults boolForKey:@"SaveInGameDirectory"] ? NSControlStateValueOn : NSControlStateValueOff;
-
-    _btnShowBezels.state = [defaults boolForKey:@"ShowBezels"] ? NSControlStateValueOn : NSControlStateValueOff;
-
-    _libraryAtStartCheckbox.state = [defaults boolForKey:@"ShowLibrary"] ? NSControlStateValueOn : NSControlStateValueOff;
-    _addToLibraryCheckbox.state = [defaults boolForKey:@"AddToLibrary"] ? NSControlStateValueOn : NSControlStateValueOff;
     _recheckMissingCheckbox.state = [defaults boolForKey:@"RecheckForMissing"] ? NSControlStateValueOn : NSControlStateValueOff;
     _recheckFrequencyTextfield.stringValue = [defaults stringForKey:@"RecheckFrequency"];
     _recheckFrequencyTextfield.enabled = _recheckMissingCheckbox.state ? YES : NO;

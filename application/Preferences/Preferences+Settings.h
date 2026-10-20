@@ -7,8 +7,15 @@
 
 @interface Preferences (Settings)
 
+// Outlet names of the controls that changeSimpleSetting: handles, with the
+// theme attribute or user defaults key each one stores
+@property (class, readonly) NSDictionary<NSString *, NSString *> *simpleSettingKeys;
+
+- (void)setUpSimpleSettings;
+- (void)updateSimpleSettings;
+- (IBAction)changeSimpleSetting:(NSControl *)sender;
+
 - (void)changeBooleanAttribute:(NSString *)attribute fromButton:(NSButton *)button;
-- (void)changeMenuAttribute:(NSString *)attribute fromPopUp:(NSPopUpButton *)button;
 - (void)changeBorderColor:(NSColor *)color;
 - (void)changeMarginAttribute:(NSString *)attribute fromControl:(id)sender
                     textField:(NSTextField *)textField stepper:(NSStepper *)stepper;

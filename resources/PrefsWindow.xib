@@ -824,9 +824,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeEnableGraphics:" target="-2" id="xT1-qX-m4I"/>
-                    </connections>
                 </button>
                 <textField toolTip="Default height in lines." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" tag="13" translatesAutoresizingMaskIntoConstraints="NO" id="tjH-43-p1e">
                     <rect key="frame" x="200" y="305" width="35" height="18"/>
@@ -875,9 +872,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeEnableSound:" target="-2" id="ldr-Mp-DF4"/>
-                    </connections>
                 </button>
                 <button toolTip="Convert straight quotes to curly in output text." tag="40" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Twh-3N-orY">
                     <rect key="frame" x="198" y="383" width="108" height="18"/>
@@ -886,9 +880,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeSmartQuotes:" target="-2" id="2GB-tS-fef"/>
-                    </connections>
                 </button>
                 <colorWell fixedFrame="YES" enabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zaZ-UF-Nnq" userLabel="Border Color Well">
                     <rect key="frame" x="197" y="247" width="44" height="22"/>
@@ -991,9 +982,6 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <connections>
-                        <action selector="changeShowCoverImage:" target="-2" id="Sw0-vi-ps2"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="70i-Hz-vdK">
                     <rect key="frame" x="88" y="160" width="105" height="16"/>
@@ -1051,9 +1039,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeSmoothScroll:" target="-2" id="hDJ-JB-eY1"/>
-                    </connections>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Sc1-La-be1">
                     <rect key="frame" x="24" y="47" width="170" height="16"/>
@@ -1156,9 +1141,6 @@
                         </menu>
                     </popUpButtonCell>
                     <accessibility identifier="arrowKeysPopup"/>
-                    <connections>
-                        <action selector="changeBZArrowsMenu:" target="-2" id="xRI-nl-C4k"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cyE-31-4p4">
                     <rect key="frame" x="80" y="415" width="117" height="16"/>
@@ -1357,9 +1339,6 @@
                         </menu>
                     </popUpButtonCell>
                     <accessibility identifier="systemPopup"/>
-                    <connections>
-                        <action selector="changeZterpMenu:" target="-2" id="v21-z4-0yo"/>
-                    </connections>
                 </popUpButton>
                 <textField toolTip="Version letter used by Z-code interpreters. Games will sometimes print this, otherwise it has no effect." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6B5-IO-e9W">
                     <rect key="frame" x="408" y="349" width="25" height="21"/>
@@ -1405,9 +1384,6 @@
                         </menu>
                     </popUpButtonCell>
                     <accessibility identifier="graphicsPopup"/>
-                    <connections>
-                        <action selector="changez6GraphicsMenu:" target="-2" id="F49-dT-7eB"/>
-                    </connections>
                 </popUpButton>
                 <textField toolTip="Adjust the graphic font height to avoid gaps and make diagonal lines smoother. Useful in Beyond Zork." focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9mZ-cN-L2R">
                     <rect key="frame" x="195" y="291" width="178" height="16"/>
@@ -1454,9 +1430,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changez6ColorizeCheckBox:" target="-2" id="xK0-Wa-uNY"/>
-                    </connections>
                 </button>
                 <button toolTip="When this is off, some error messages will be printed to a separate error window." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="r1L-CL-umy">
                     <rect key="frame" x="197" y="268" width="202" height="18"/>
@@ -1465,9 +1438,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeNoErrWinCheckBox:" target="-2" id="OKp-Bq-ogn"/>
-                    </connections>
                 </button>
                 <button toolTip="Show quote boxes as floating, fading windows." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FC7-pa-Rgw">
                     <rect key="frame" x="198" y="246" width="140" height="18"/>
@@ -1476,9 +1446,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeQuoteBoxCheckBox:" target="-2" id="0m7-xK-Qcv"/>
-                    </connections>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OOm-Ik-6b4">
                     <rect key="frame" x="-2" y="208" width="564" height="16"/>
@@ -1515,9 +1482,6 @@
                         </menu>
                     </popUpButtonCell>
                     <accessibility identifier="PalettePopup"/>
-                    <connections>
-                        <action selector="changeScottAdamsPalette:" target="-2" id="Wao-wl-ayF"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="N2z-zF-leq">
                     <rect key="frame" x="42" y="149" width="155" height="16"/>
@@ -1542,9 +1506,6 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <connections>
-                        <action selector="changeScottAdamsInventory:" target="-2" id="Wss-H3-l50"/>
-                    </connections>
                 </popUpButton>
                 <button toolTip="Some games pause for dramatic effect. Turn it off here." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0SI-L5-3sn">
                     <rect key="frame" x="198" y="558" width="67" height="18"/>
@@ -1553,9 +1514,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeScottAdamsDelay:" target="-2" id="Mfd-cg-vXv"/>
-                    </connections>
                 </button>
                 <button toolTip="Slow down vector graphics drawing to simulate the look on the original machines." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cFf-OI-7lG">
                     <rect key="frame" x="198" y="536" width="149" height="18"/>
@@ -1564,9 +1522,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeScottAdamsSlowDraw:" target="-2" id="FeH-NG-bF5"/>
-                    </connections>
                 </button>
                 <button toolTip="The room description will flicker at certain places like some original interpreters." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kFW-u2-bVp">
                     <rect key="frame" x="198" y="115" width="66" height="18"/>
@@ -1575,9 +1530,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeScottAdamsFlicker:" target="-2" id="6XG-67-FQa"/>
-                    </connections>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nHC-7s-Yor">
                     <rect key="frame" x="-2" y="76" width="564" height="16"/>
@@ -1610,9 +1562,6 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <connections>
-                        <action selector="changeComprehendGraphicsMenu:" target="-2" id="eLn-8G-Sqv"/>
-                    </connections>
                 </popUpButton>
             </subviews>
             <point key="canvasLocation" x="493" y="963.5"/>
@@ -1637,9 +1586,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeVOSpeakCommands:" target="-2" id="tWC-bp-Xz2"/>
-                    </connections>
                 </button>
                 <slider toolTip="How long to wait until interrupting VoiceOver." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is5-dA-QbR">
                     <rect key="frame" x="48" y="51" width="464" height="28"/>
@@ -1668,9 +1614,6 @@
                         </menu>
                     </popUpButtonCell>
                     <accessibility identifier="speakMenuLinesPopup"/>
-                    <connections>
-                        <action selector="changeVOMenuMenu:" target="-2" id="7C6-In-Klf"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1X2-RH-n3I" userLabel="Speak images">
                     <rect key="frame" x="101" y="184" width="93" height="16"/>
@@ -1696,9 +1639,6 @@
                         </menu>
                     </popUpButtonCell>
                     <accessibility identifier="speakImagesPopup"/>
-                    <connections>
-                        <action selector="changeVOImageMenu:" target="-2" id="Agu-8v-QM1"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VFV-9j-Ijl">
                     <rect key="frame" x="80" y="212" width="114" height="16"/>
@@ -1824,9 +1764,6 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <connections>
-                        <action selector="changeErrorHandlingPopup:" target="-2" id="mEQ-YV-2U5"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XjX-tj-Ll1">
                     <rect key="frame" x="102" y="103" width="93" height="18"/>
@@ -1845,9 +1782,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeAutosaveOnTimer:" target="-2" id="Lyk-DK-MH3"/>
-                    </connections>
                 </button>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ei3-xT-DTP">
                     <rect key="frame" x="374" y="182" width="72" height="16"/>
@@ -1928,16 +1862,13 @@
                     </textFieldCell>
                 </textField>
                 <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="oSL-gf-gET">
-                    <rect key="frame" x="198" y="65" width="152" height="18"/>
+                    <rect key="frame" x="198" y="65" width="210" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <string key="toolTip">Detect which game is running and change behavior to avoid known bugs. Turning this off is useful for debugging, but will  disable some game-specific settings and functions.</string>
-                    <buttonCell key="cell" type="check" title="Game specific hacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="zGt-lq-6r6">
+                    <string key="toolTip">Do not detect which game is running or change behavior to avoid its known bugs. Useful for debugging, but disables some game-specific settings and functions.</string>
+                    <buttonCell key="cell" type="check" title="Disable game-specific hacks" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="zGt-lq-6r6">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeNoHacks:" target="-2" id="tkf-xa-J2Y"/>
-                    </connections>
                 </button>
                 <button toolTip="Make random functions always return the same numbers in the same order. Useful for debugging." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KMF-vt-Jom">
                     <rect key="frame" x="198" y="41" width="103" height="18"/>
@@ -1946,9 +1877,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeDeterminism:" target="-2" id="PcV-Zy-8Jr"/>
-                    </connections>
                 </button>
                 <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MVJ-4j-e2V">
                     <rect key="frame" x="48" y="148" width="464" height="28"/>
@@ -1982,9 +1910,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeSaveToGameDir:" target="-2" id="HAF-05-MWg"/>
-                    </connections>
                 </button>
                 <button toolTip="Whether to show fading alerts such as Game Over." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pEQ-Lz-dz3">
                     <rect key="frame" x="196" y="247" width="174" height="18"/>
@@ -1993,9 +1918,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeShowBezel:" target="-2" id="I6P-mf-sbS"/>
-                    </connections>
                 </button>
                 <popUpButton toolTip="Whether to replace any existing cover images when downloading new metadata." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vrL-ME-hbi" userLabel="Image replacement popup">
                     <rect key="frame" x="196" y="70" width="226" height="25"/>
@@ -2011,9 +1933,6 @@
                             </items>
                         </menu>
                     </popUpButtonCell>
-                    <connections>
-                        <action selector="changeImageReplacePopup:" target="-2" id="gAe-gW-9jE"/>
-                    </connections>
                 </popUpButton>
                 <textField focusRingType="none" horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Vkd-E3-2Pd">
                     <rect key="frame" x="58" y="77" width="135" height="16"/>
@@ -2031,9 +1950,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeShowLibrary:" target="-2" id="W7A-AN-Pkw"/>
-                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7v6-uP-5dQ">
                     <rect key="frame" x="196" y="198" width="237" height="18"/>
@@ -2043,9 +1959,6 @@
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
-                    <connections>
-                        <action selector="changeAddToLibrary:" target="-2" id="bmO-Dq-pUn"/>
-                    </connections>
                 </button>
                 <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nbr-Od-Iwa">
                     <rect key="frame" x="196" y="174" width="216" height="18"/>

@@ -15,7 +15,112 @@
 
 #import "DebugLog.h"
 
+typedef NS_ENUM(NSUInteger, kSettingStore) {
+    kThemeSetting,
+    kDefaultsSetting
+};
+
+// Controls that store one value under one key and do nothing else: a check
+// box whether it is on, a pop-up button its selected tag. setUpSimpleSettings
+// makes changeSimpleSetting: their action, and updateSimpleSettings shows the
+// stored values. Settings with side effects or a different mapping (styles,
+// space format, autosave, VoiceOver delay, missing-file check) keep their own
+// actions.
+static const struct {
+    __unsafe_unretained NSString *control; // outlet name
+    __unsafe_unretained NSString *key;
+    kSettingStore store;
+} simpleSettings[] = {
+    // Presentation
+    { @"btnSmartQuotes", @"smartQuotes", kThemeSetting },
+    { @"btnEnableGraphics", @"doGraphics", kThemeSetting },
+    { @"btnEnableSound", @"doSound", kThemeSetting },
+    { @"btnSmoothScroll", @"smoothScroll", kThemeSetting },
+    { @"coverImagePopup", @"coverArtStyle", kThemeSetting },
+
+    // Details
+    { @"zterpMenu", @"zMachineTerp", kThemeSetting },
+    { @"bZArrowsMenu", @"bZTerminator", kThemeSetting },
+    { @"quoteBoxCheckBox", @"quoteBox", kThemeSetting },
+    { @"zMachineNoErrWinCheckbox", @"zMachineNoErrWin", kThemeSetting },
+    { @"comprehendGraphicsPopup", @"comprehendGraphicsType", kThemeSetting },
+    { @"z6GraphicsPopup", @"z6GraphicsType", kThemeSetting },
+    { @"z6ColorizeCheckBox", @"z6Colorize1Bit", kThemeSetting },
+    { @"palettePopup", @"sAPalette", kThemeSetting },
+    { @"inventoryPopup", @"sAInventory", kThemeSetting },
+    { @"delaysCheckbox", @"sADelays", kThemeSetting },
+    { @"slowDrawCheckbox", @"slowDrawing", kThemeSetting },
+    { @"scottAdamsFlickerCheckbox", @"flicker", kThemeSetting },
+
+    // VoiceOver
+    { @"btnVOSpeakCommands", @"vOSpeakCommand", kThemeSetting },
+    { @"vOMenuButton", @"vOSpeakMenu", kThemeSetting },
+    { @"vOImagesButton", @"vOSpeakImages", kThemeSetting },
+
+    // Misc
+    { @"btnAutosaveOnTimer", @"autosaveOnTimer", kThemeSetting },
+    { @"errorHandlingPopup", @"errorHandling", kThemeSetting },
+    { @"btnDeterminism", @"determinism", kThemeSetting },
+    { @"btnNoHacks", @"nohacks", kThemeSetting },
+
+    // Global
+    { @"imageReplacePopup", @"ImageReplacement", kDefaultsSetting },
+    { @"saveInGameDirCheckbox", @"SaveInGameDirectory", kDefaultsSetting },
+    { @"btnShowBezels", @"ShowBezels", kDefaultsSetting },
+    { @"libraryAtStartCheckbox", @"ShowLibrary", kDefaultsSetting },
+    { @"addToLibraryCheckbox", @"AddToLibrary", kDefaultsSetting },
+};
+
+static const NSUInteger simpleSettingsCount = sizeof(simpleSettings) / sizeof(simpleSettings[0]);
+
 @implementation Preferences (Settings)
+
+#pragma mark Simple settings
+
++ (NSDictionary<NSString *, NSString *> *)simpleSettingKeys {
+    NSMutableDictionary *keys = [NSMutableDictionary dictionaryWithCapacity:simpleSettingsCount];
+    for (NSUInteger i = 0; i < simpleSettingsCount; i++)
+        keys[simpleSettings[i].control] = simpleSettings[i].key;
+    return keys;
+}
+
+- (void)setUpSimpleSettings {
+    for (NSUInteger i = 0; i < simpleSettingsCount; i++) {
+        NSControl *control = [self valueForKey:simpleSettings[i].control];
+        control.target = self;
+        control.action = @selector(changeSimpleSetting:);
+    }
+}
+
+- (void)updateSimpleSettings {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    for (NSUInteger i = 0; i < simpleSettingsCount; i++) {
+        NSString *key = simpleSettings[i].key;
+        id value = (simpleSettings[i].store == kThemeSetting) ? [self.theme valueForKey:key] : [defaults objectForKey:key];
+        NSControl *control = [self valueForKey:simpleSettings[i].control];
+        if ([control isKindOfClass:[NSPopUpButton class]])
+            [(NSPopUpButton *)control selectItemWithTag:[value integerValue]];
+        else
+            ((NSButton *)control).state = [value boolValue] ? NSControlStateValueOn : NSControlStateValueOff;
+    }
+}
+
+- (IBAction)changeSimpleSetting:(NSControl *)sender {
+    for (NSUInteger i = 0; i < simpleSettingsCount; i++) {
+        if ([self valueForKey:simpleSettings[i].control] != sender)
+            continue;
+        NSNumber *value;
+        if ([sender isKindOfClass:[NSPopUpButton class]])
+            value = @(((NSPopUpButton *)sender).selectedTag);
+        else
+            value = @(((NSButton *)sender).state == NSControlStateValueOn);
+        if (simpleSettings[i].store == kThemeSetting)
+            [self changeThemeValue:value forKey:simpleSettings[i].key];
+        else
+            [[NSUserDefaults standardUserDefaults] setObject:value forKey:simpleSettings[i].key];
+        return;
+    }
+}
 
 #pragma mark User actions
 
@@ -31,10 +136,6 @@
 
 - (void)changeBooleanAttribute:(NSString *)attribute fromButton:(NSButton *)button {
     [self changeThemeValue:@(button.state) forKey:attribute];
-}
-
-- (void)changeMenuAttribute:(NSString *)attribute fromPopUp:(NSPopUpButton *)button {
-    [self changeThemeValue:@(button.selectedTag) forKey:attribute];
 }
 
 - (void)changeDefaultsBool:(NSString *)key fromButton:(NSButton *)button {
@@ -88,20 +189,8 @@
     [Preferences rebuildTextAttributes];
 }
 
-- (IBAction)changeSmartQuotes:(id)sender {
-    [self changeBooleanAttribute:@"smartQuotes" fromButton:sender];
-}
-
 - (IBAction)changeSpaceFormatting:(id)sender {
     [self changeBooleanAttribute:@"spaceFormat" fromButton:sender];
-}
-
-- (IBAction)changeEnableGraphics:(id)sender {
-    [self changeBooleanAttribute:@"doGraphics" fromButton:sender];
-}
-
-- (IBAction)changeEnableSound:(id)sender {
-    [self changeBooleanAttribute:@"doSound" fromButton:sender];
 }
 
 - (IBAction)changeEnableStyles:(id)sender {
@@ -211,18 +300,6 @@
 
 #pragma mark VoiceOver menu
 
-- (IBAction)changeVOSpeakCommands:(id)sender {
-    [self changeBooleanAttribute:@"vOSpeakCommand" fromButton:sender];
-}
-
-- (IBAction)changeVOMenuMenu:(id)sender {
-    [self changeMenuAttribute:@"vOSpeakMenu" fromPopUp:sender];
-}
-
-- (IBAction)changeVOImageMenu:(id)sender {
-    [self changeMenuAttribute:@"vOSpeakImages" fromPopUp:sender];
-}
-
 - (IBAction)changeVODelaySlider:(id)sender {
     Theme *themeToChange = [self cloneThemeIfNotEditable];
     _vODelaySlider.doubleValue = [sender doubleValue];
@@ -271,14 +348,6 @@
         [self changeThemeValue:title forKey:@"beepLow"];
 }
 
-- (IBAction)changeZterpMenu:(id)sender {
-    [self changeMenuAttribute:@"zMachineTerp" fromPopUp:sender];
-}
-
-- (IBAction)changeBZArrowsMenu:(id)sender {
-    [self changeMenuAttribute:@"bZTerminator" fromPopUp:sender];
-}
-
 - (IBAction)changeZVersion:(id)sender {
     if ([sender stringValue].length == 0) {
         _zVersionTextField.stringValue = self.theme.zMachineLetter;
@@ -293,51 +362,6 @@
         return;
     _bZVerticalStepper.integerValue = themeToChange.bZAdjustment;
     _bZVerticalTextField.integerValue = themeToChange.bZAdjustment;
-}
-
-- (IBAction)changeQuoteBoxCheckBox:(id)sender {
-    [self changeBooleanAttribute:@"quoteBox" fromButton:sender];
-}
-
-- (IBAction)changeNoErrWinCheckBox:(id)sender {
-    [self changeBooleanAttribute:@"zMachineNoErrWin" fromButton:sender];
-}
-
-#pragma mark Comprehend
-
-- (IBAction)changeComprehendGraphicsMenu:(id)sender {
-    [self changeMenuAttribute:@"comprehendGraphicsType" fromPopUp:sender];
-}
-
-#pragma mark Z Machine version 6 stuff
-
-- (IBAction)changez6GraphicsMenu:(id)sender {
-    [self changeMenuAttribute:@"z6GraphicsType" fromPopUp:sender];
-}
-
-- (IBAction)changez6ColorizeCheckBox:(id)sender {
-    [self changeBooleanAttribute:@"z6Colorize1Bit" fromButton:sender];
-}
-
-#pragma mark Scott Adams menu
-
-- (IBAction)changeScottAdamsPalette:(id)sender {
-    [self changeMenuAttribute:@"sAPalette" fromPopUp:sender];
-}
-
-- (IBAction)changeScottAdamsInventory:(id)sender {
-    [self changeMenuAttribute:@"sAInventory" fromPopUp:sender];
-}
-
-- (IBAction)changeScottAdamsDelay:(id)sender {
-    [self changeBooleanAttribute:@"sADelays" fromButton:sender];
-}
-
-- (IBAction)changeScottAdamsSlowDraw:(id)sender {
-    [self changeBooleanAttribute:@"slowDrawing" fromButton:sender];
-}
-- (IBAction)changeScottAdamsFlicker:(id)sender {
-    [self changeBooleanAttribute:@"flicker" fromButton:sender];
 }
 
 #pragma mark Misc menu
@@ -356,10 +380,6 @@
     NotificationBezel *notification = [[NotificationBezel alloc] initWithScreen:self.window.screen];
     [notification showStandardWithText:(counter == 1) ? NSLocalizedString(@"1 alert reset", nil) :
      [NSString stringWithFormat:NSLocalizedString(@"%ld alerts reset", nil), counter]];
-}
-
-- (IBAction)changeSmoothScroll:(id)sender {
-    [self changeBooleanAttribute:@"smoothScroll" fromButton:sender];
 }
 
 // The buffer scrollback limit is a per-theme setting, stored in the theme's
@@ -384,10 +404,6 @@
     _scrollbackUnitLabel.stringValue = (value == 0) ? NSLocalizedString(@"= unlimited", nil) : NSLocalizedString(@"characters", nil);
 }
 
-- (IBAction)changeAutosaveOnTimer:(id)sender {
-    [self changeBooleanAttribute:@"autosaveOnTimer" fromButton:sender];
-}
-
 - (IBAction)changeAutosave:(id)sender {
     [self changeBooleanAttribute:@"autosave" fromButton:sender];
     _btnAutosaveOnTimer.enabled = ([sender state] == NSControlStateValueOn);
@@ -404,40 +420,7 @@
     _timerSlider.accessibilityValueDescription = [NSString stringWithFormat:NSLocalizedString(@"%ld per second", nil), _timerSlider.integerValue];
 }
 
-- (IBAction)changeDeterminism:(id)sender {
-    [self changeBooleanAttribute:@"determinism" fromButton:sender];
-}
-
-- (IBAction)changeNoHacks:(id)sender {
-    // The check box is "Enable hacks".
-    [self changeThemeValue:@([sender state] == NSControlStateValueOff) forKey:@"nohacks"];
-}
-
-- (IBAction)changeErrorHandlingPopup:(id)sender {
-    [self changeMenuAttribute:@"errorHandling" fromPopUp:sender];
-}
-
-- (IBAction)changeShowCoverImage:(id)sender {
-    [self changeMenuAttribute:@"coverArtStyle" fromPopUp:sender];
-}
-
 #pragma mark Global menu
-
-- (IBAction)changeShowBezel:(id)sender {
-    [self changeDefaultsBool:@"ShowBezels" fromButton:sender];
-}
-
-- (IBAction)changeImageReplacePopup:(NSPopUpButton *)sender {
-    [[NSUserDefaults standardUserDefaults] setInteger:sender.selectedTag forKey:@"ImageReplacement"];
-}
-
-- (IBAction)changeShowLibrary:(id)sender {
-    [self changeDefaultsBool:@"ShowLibrary" fromButton:sender];
-}
-
-- (IBAction)changeAddToLibrary:(id)sender {
-    [self changeDefaultsBool:@"AddToLibrary" fromButton:sender];
-}
 
 - (IBAction)changeCheckMissing:(id)sender {
     [self changeDefaultsBool:@"RecheckForMissing" fromButton:sender];
@@ -454,10 +437,6 @@
     NSInteger minutes = MAX(1, (NSInteger)round([sender doubleValue]));
     [[NSUserDefaults standardUserDefaults] setInteger:minutes forKey:@"RecheckFrequency"];
     _recheckFrequencyTextfield.integerValue = minutes;
-}
-
-- (IBAction)changeSaveToGameDir:(id)sender {
-    [self changeDefaultsBool:@"SaveInGameDirectory" fromButton:sender];
 }
 
 #pragma mark End of Global menu
