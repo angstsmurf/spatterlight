@@ -284,6 +284,16 @@
     if ([self applyPendingEchoDeleteIfValid])
         _lastchar = textstorage.length ? [textstorage.string characterAtIndex:textstorage.length - 1] : '\n';
 
+    // printToWindow holds a trailing newline back so that a window waiting
+    // for a key has no blank line at the bottom. Input starts after it,
+    // though: left held back, the input would join the line above, and the
+    // newline would land after it when the next text is printed.
+    if (storedNewline) {
+        [textstorage appendAttributedString:storedNewline];
+        storedNewline = nil;
+        _lastchar = '\n';
+    }
+
     if (_lastchar == '>' && self.theme.spaceFormat) {
         [self printToWindow:@" " style:style_Normal];
         _lastchar = ' ';

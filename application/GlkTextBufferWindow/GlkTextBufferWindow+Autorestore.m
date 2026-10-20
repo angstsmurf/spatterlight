@@ -150,7 +150,12 @@
 - (void)postRestoreAdjustments:(GlkWindow *)win {
     GlkTextBufferWindow *restoredWin = (GlkTextBufferWindow *)win;
 
-    // No idea where these spurious storedNewlines come from
+    // A newline held back by printToWindow belongs before the input, and
+    // initLine: now puts it there. An autosave from before that change can
+    // still hold one with a line request, and the restored input already
+    // sits on the line above it, so drop it rather than have it land after
+    // the input as a blank line. (The command script case came in with the
+    // line request one, in ba2147745, to tidy autorestores during a script.)
     if (line_request || self.glkctl.commandScriptRunning)
         storedNewline = nil;
 
