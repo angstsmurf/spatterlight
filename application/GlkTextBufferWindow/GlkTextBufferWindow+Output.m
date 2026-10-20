@@ -274,6 +274,28 @@ static const NSUInteger kOutputBufferHardCapTrim = 25000;
         if (_printPositionOnInput > newLength)
             _printPositionOnInput = newLength;
         _lastchar = newLength ? [textstorage.string characterAtIndex:newLength - 1] : '\n';
+        // The same goes for the read boundary, which is a y-coordinate.
+        // Left below the shortened text it would count the text printed
+        // next, up to the old boundary, as read, and the auto-scroll would
+        // page past it; and while nothing has been printed yet,
+        // reallyPerformScroll would take it for a restarted game and stop
+        // auto-scrolling until the next keypress.
+        if (rewrapLastseenChar != NSNotFound && rewrapLastseenChar >= newLength)
+            rewrapLastseenChar = newLength ? newLength - 1 : NSNotFound;
+        if (_lastseen > 0) {
+            NSRange glyphs = [layoutmanager glyphRangeForTextContainer:container];
+            NSInteger docBottom = 0;
+            if (glyphs.length) {
+                NSRect lastLine = [layoutmanager
+                                   lineFragmentRectForGlyphAtIndex:NSMaxRange(glyphs) - 1
+                                   effectiveRange:nil];
+                docBottom = (NSInteger)ceil(NSMaxY(lastLine));
+            }
+            if (_lastseen > docBottom)
+                _lastseen = docBottom;
+            if (docHeightAtLastSeen > (CGFloat)docBottom)
+                docHeightAtLastSeen = (CGFloat)docBottom;
+        }
         // Clip the VoiceOver move ranges too, or speaking the last move
         // would ask for characters that are gone.
         NSMutableArray<NSValue *> *clipped = [[NSMutableArray alloc] initWithCapacity:self.moveRanges.count];
