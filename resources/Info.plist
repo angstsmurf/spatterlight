@@ -592,7 +592,7 @@
 		<dict>
 			<key>CFBundleTypeExtensions</key>
 			<array>
-				<string>tzx</string>
+				<string>tap</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
 			<string>LegacyIcon</string>

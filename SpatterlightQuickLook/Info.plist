@@ -63,6 +63,14 @@
 				<string>public.plus</string>
 				<string>public.tay</string>
 				<string>public.woz</string>
+				<string>public.quest5</string>
+				<string>public.acx</string>
+				<string>public.z80</string>
+				<string>public.tzx</string>
+				<string>public.tap</string>
+				<string>public.d64</string>
+				<string>public.t64</string>
+				<string>public.dsk</string>
 			</array>
 			<key>QLSupportsSearchableItems</key>
 			<true/>

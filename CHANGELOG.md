@@ -16,6 +16,7 @@
 - The versions of the *X-Men* SAGA database other than the original can now be added to the library, as they now get an IFID of their own.
 
 ### General
+- Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.
 - Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.
 - The story name stored in a Blorb file is read correctly, where it used to come out empty for the Infocom Blorbs, and the cover picture is chosen the same way everywhere. A Blorb whose cover entry names a picture that isn't there falls back to the first picture.
 - Data downloaded from IFDB no longer overwrites the headline with the year; the year goes to the first-published date. The forgiveness rating is stored, dates in odd formats are understood, and the language is stored as a code, so "French, English (fr, en)" becomes "fr". Covers downloaded from IFDB are saved straight away, and Open in IFDB works for games without an IFID. Spatterlight no longer accepts an untrusted certificate when talking to IFDB.

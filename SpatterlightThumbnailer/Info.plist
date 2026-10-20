@@ -46,7 +46,7 @@
 				<string>public.agt</string>
 				<string>public.magnetic</string>
 				<string>public.level9</string>
-				<string>public.dat</string>
+				<!-- No public.dat here: the thumbnail agent refuses the "dat" extension and silently drops every type listed after it. -->
 				<string>public.sna</string>
 				<string>public.ddollardollar</string>
 				<string>public.quest</string>
@@ -59,6 +59,14 @@
 				<string>public.plus</string>
 				<string>public.tay</string>
 				<string>public.woz</string>
+				<string>public.quest5</string>
+				<string>public.acx</string>
+				<string>public.z80</string>
+				<string>public.tzx</string>
+				<string>public.tap</string>
+				<string>public.d64</string>
+				<string>public.t64</string>
+				<string>public.dsk</string>
 			</array>
 			<key>QLThumbnailMinimumDimension</key>
 			<integer>0</integer>
