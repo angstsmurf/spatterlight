@@ -47,6 +47,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL testGridStyle;
 - (NSMutableDictionary<NSAttributedStringKey, id> *)attributesWithHints:(NSArray *)hints;
 
+//! Edits a mutable copy of attributeDict and stores it back once, so several
+//! changes cost one KVO notification and one transformer encode. Does nothing
+//! if the style has no attribute dictionary yet.
+- (void)updateAttributes:(void (NS_NOESCAPE ^)(NSMutableDictionary<NSAttributedStringKey, id> *attributes))block;
+//! The same for the paragraph style, starting from the default one if the
+//! style has none.
+- (void)updateParagraphStyle:(void (NS_NOESCAPE ^)(NSMutableParagraphStyle *paragraphStyle))block;
+
 @property NSInteger index;
 @property (nullable, strong, nonatomic) NSFont *font;
 @property (nullable, strong, nonatomic) NSColor *color;

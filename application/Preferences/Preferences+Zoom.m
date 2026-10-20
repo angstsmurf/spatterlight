@@ -49,41 +49,38 @@
 
     [Preferences.instance cloneThemeIfNotEditable];
 
-    CGFloat fontSize;
-
     for (GlkStyle *style in self.theme.allStyles) {
-        fontSize = style.font.pointSize;
-        fontSize *= scalefactor;
-        if (fontSize > 0) {
-            style.font = [NSFont fontWithDescriptor:style.font.fontDescriptor
-                                               size:fontSize];
-        }
-        NSMutableDictionary *dict = style.attributeDict.mutableCopy;
-        if (dict[NSKernAttributeName]) {
-            CGFloat newValue = ((NSNumber *)dict[NSKernAttributeName]).doubleValue * scalefactor;
-            dict[NSKernAttributeName] = @(newValue);
-        }
-        if (dict[NSBaselineOffsetAttributeName]) {
-            CGFloat newValue = ((NSNumber *)dict[NSBaselineOffsetAttributeName]).doubleValue * scalefactor;
-            dict[NSBaselineOffsetAttributeName] = @(newValue);
-        }
-        NSMutableParagraphStyle *para = ((NSParagraphStyle *)dict[NSParagraphStyleAttributeName]).mutableCopy;
-        if (!para) {
-            style.attributeDict = dict;
-            continue;
-        }
-        para.lineSpacing = para.lineSpacing * scalefactor;
-        para.paragraphSpacing = para.paragraphSpacing * scalefactor;
-        para.paragraphSpacingBefore = para.paragraphSpacingBefore * scalefactor;
-        para.headIndent = para.headIndent * scalefactor;
-        para.tailIndent = para.tailIndent * scalefactor;
-        para.firstLineHeadIndent = para.firstLineHeadIndent * scalefactor;
-        para.maximumLineHeight = para.maximumLineHeight * scalefactor;
-        para.minimumLineHeight = para.minimumLineHeight * scalefactor;
+        [style updateAttributes:^(NSMutableDictionary *dict) {
+            NSFont *font = dict[NSFontAttributeName];
+            CGFloat fontSize = font.pointSize * scalefactor;
+            if (fontSize > 0) {
+                NSFont *scaled = [NSFont fontWithDescriptor:font.fontDescriptor
+                                                       size:fontSize];
+                if (scaled)
+                    dict[NSFontAttributeName] = scaled;
+            }
+            if (dict[NSKernAttributeName]) {
+                CGFloat newValue = ((NSNumber *)dict[NSKernAttributeName]).doubleValue * scalefactor;
+                dict[NSKernAttributeName] = @(newValue);
+            }
+            if (dict[NSBaselineOffsetAttributeName]) {
+                CGFloat newValue = ((NSNumber *)dict[NSBaselineOffsetAttributeName]).doubleValue * scalefactor;
+                dict[NSBaselineOffsetAttributeName] = @(newValue);
+            }
+            NSMutableParagraphStyle *para = ((NSParagraphStyle *)dict[NSParagraphStyleAttributeName]).mutableCopy;
+            if (!para)
+                return;
+            para.lineSpacing = para.lineSpacing * scalefactor;
+            para.paragraphSpacing = para.paragraphSpacing * scalefactor;
+            para.paragraphSpacingBefore = para.paragraphSpacingBefore * scalefactor;
+            para.headIndent = para.headIndent * scalefactor;
+            para.tailIndent = para.tailIndent * scalefactor;
+            para.firstLineHeadIndent = para.firstLineHeadIndent * scalefactor;
+            para.maximumLineHeight = para.maximumLineHeight * scalefactor;
+            para.minimumLineHeight = para.minimumLineHeight * scalefactor;
 
-        dict[NSParagraphStyleAttributeName] = para;
-
-        style.attributeDict = dict;
+            dict[NSParagraphStyleAttributeName] = para;
+        }];
     }
 
     [Preferences rebuildTextAttributes];

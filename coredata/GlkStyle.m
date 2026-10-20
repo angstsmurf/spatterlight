@@ -338,9 +338,9 @@
         NSLog(@"GlkStyle setFont called with bad Font!");
         return;
     }
-    NSMutableDictionary *mutableDict = [self.attributeDict mutableCopy];
-    mutableDict[NSFontAttributeName] = font;
-    self.attributeDict = mutableDict;
+    [self updateAttributes:^(NSMutableDictionary *attributes) {
+        attributes[NSFontAttributeName] = font;
+    }];
 }
 
 
@@ -349,9 +349,9 @@
 }
 
 - (void)setColor:(NSColor *)color {
-    NSMutableDictionary *mutableDict = [self.attributeDict mutableCopy];
-    mutableDict[NSForegroundColorAttributeName] = color;
-    self.attributeDict = mutableDict;
+    [self updateAttributes:^(NSMutableDictionary *attributes) {
+        attributes[NSForegroundColorAttributeName] = color;
+    }];
 }
 
 
@@ -365,9 +365,9 @@
 }
 
 - (void)setIndex:(NSInteger)i {
-    NSMutableDictionary *dict = [self.attributeDict mutableCopy];
-    dict[@"GlkStyle"] = @(i);
-    self.attributeDict = dict;
+    [self updateAttributes:^(NSMutableDictionary *attributes) {
+        attributes[@"GlkStyle"] = @(i);
+    }];
 }
 
 - (CGFloat)lineSpacing {
@@ -375,15 +375,29 @@
 }
 
 - (void)setLineSpacing:(CGFloat)lineSpacing {
-    NSMutableDictionary *dict = [self.attributeDict mutableCopy];
-    NSMutableParagraphStyle *paraStyle = [dict[NSParagraphStyleAttributeName] mutableCopy];
-    if (!paraStyle) {
-        paraStyle = [[NSMutableParagraphStyle alloc] init];
-        paraStyle.paragraphStyle = [NSParagraphStyle defaultParagraphStyle];
-    }
-    paraStyle.lineSpacing = lineSpacing;
-    dict[NSParagraphStyleAttributeName] = paraStyle;
-    self.attributeDict = dict;
+    [self updateParagraphStyle:^(NSMutableParagraphStyle *paragraphStyle) {
+        paragraphStyle.lineSpacing = lineSpacing;
+    }];
+}
+
+- (void)updateAttributes:(void (NS_NOESCAPE ^)(NSMutableDictionary<NSAttributedStringKey, id> *attributes))block {
+    NSMutableDictionary *attributes = [self.attributeDict mutableCopy];
+    if (!attributes)
+        return;
+    block(attributes);
+    self.attributeDict = attributes;
+}
+
+- (void)updateParagraphStyle:(void (NS_NOESCAPE ^)(NSMutableParagraphStyle *paragraphStyle))block {
+    [self updateAttributes:^(NSMutableDictionary *attributes) {
+        NSMutableParagraphStyle *paragraphStyle = [attributes[NSParagraphStyleAttributeName] mutableCopy];
+        if (!paragraphStyle) {
+            paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+            paragraphStyle.paragraphStyle = [NSParagraphStyle defaultParagraphStyle];
+        }
+        block(paragraphStyle);
+        attributes[NSParagraphStyleAttributeName] = paragraphStyle;
+    }];
 }
 
 @end

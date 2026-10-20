@@ -243,6 +243,7 @@
 		7C0BA9071DBE485B9EF6FDA1 /* ImageDragSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 50966F36FE2F44509985FE86 /* ImageDragSource.m */; };
 		7C959AB571C19322DCCCF5E1 /* q3ext_builtin.cc in Sources */ = {isa = PBXBuildFile; fileRef = A96F706FE94CA20FD7525B14 /* q3ext_builtin.cc */; };
 		7D5ABCD8F5861F219231D00A /* question-script-output.cc in Sources */ = {isa = PBXBuildFile; fileRef = 2AC08EBD1C9A6678B44650AA /* question-script-output.cc */; };
+		7DCEF002A6931FB7ADE20CA5 /* StoreLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B60CE788FBE005816FEEF3 /* StoreLocation.m */; };
 		82B91BC2CE925F300A49E6FD /* question-vars.cc in Sources */ = {isa = PBXBuildFile; fileRef = 37866468D5231E111EE74225 /* question-vars.cc */; };
 		839AE40E479A4A7CBE84ADFE /* GlkTextBufferWindow+Scrolling.m in Sources */ = {isa = PBXBuildFile; fileRef = 3CAFE1FFF4524978B2BA7678 /* GlkTextBufferWindow+Scrolling.m */; };
 		83BC8563C42D67BAC7BBC310 /* question-session.cc in Sources */ = {isa = PBXBuildFile; fileRef = A92950C009BF4A39CF12625D /* question-session.cc */; };
@@ -576,6 +577,7 @@
 		B51A85C69CAF0AA4B0AAEE02 /* Preferences+Window.m in Sources */ = {isa = PBXBuildFile; fileRef = CDB3C52F25A477F66F28EF44 /* Preferences+Window.m */; };
 		B68248355BAFECF536CB7329 /* a5text.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9DAF981FA6279F5D391398AE /* a5text.cpp */; };
 		B7145202EAC047AD8BB455D0 /* GlkTextBufferWindow+Output.m in Sources */ = {isa = PBXBuildFile; fileRef = 5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */; };
+		B7B27649C7275E1AE7D9B8A7 /* ProgressiveMigrator.m in Sources */ = {isa = PBXBuildFile; fileRef = D9EC564387759B626FCD3240 /* ProgressiveMigrator.m */; };
 		B847ADA7B973D9E50739F0B8 /* IFBibliographic.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673D8239FFB0900FB24C0 /* IFBibliographic.m */; };
 		BAE5D0B96DE2FDFB24101CA7 /* aslxglk-output.cc in Sources */ = {isa = PBXBuildFile; fileRef = 76732421C4AE8B4191C21838 /* aslxglk-output.cc */; };
 		BBBC23C9E382F679DA0A656B /* zx_title.c in Sources */ = {isa = PBXBuildFile; fileRef = C3FACE0200000000DEAD0010 /* zx_title.c */; };
@@ -1895,6 +1897,7 @@
 		2AC08EBD1C9A6678B44650AA /* question-script-output.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-script-output.cc"; sourceTree = "<group>"; };
 		2D0828655AE94F68BE83A03E /* NSView+Categories.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSView+Categories.m"; sourceTree = "<group>"; };
 		2D626D3DC2CE12D4995306C4 /* Preferences+Settings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Settings.m"; sourceTree = "<group>"; };
+		326843A48C09338487BB136E /* ProgressiveMigrator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ProgressiveMigrator.h; sourceTree = "<group>"; };
 		3417FEEFEC53266474A8E4B7 /* os_glk_a5_display.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_a5_display.cpp; sourceTree = "<group>"; };
 		354E0DA34FEE295A007FA44C /* Preferences+Themes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Themes.m"; sourceTree = "<group>"; };
 		35ED2D8503E0A05EAEF77255 /* DummyTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DummyTextView.h; sourceTree = "<group>"; };
@@ -1921,6 +1924,7 @@
 		4F7E770FC98130124C99BD8C /* CoverImageStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CoverImageStore.m; sourceTree = "<group>"; };
 		50966F36FE2F44509985FE86 /* ImageDragSource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageDragSource.m; sourceTree = "<group>"; };
 		52BC9E13114A2817CC148C01 /* Preferences+Window.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Preferences+Window.h"; sourceTree = "<group>"; };
+		53B60CE788FBE005816FEEF3 /* StoreLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = StoreLocation.m; sourceTree = "<group>"; };
 		541F8346135F0995045B7BD0 /* a5blorb.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = a5blorb.cpp; sourceTree = "<group>"; };
 		55368B5B272BF1C500740A0A /* question */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = question; sourceTree = BUILT_PRODUCTS_DIR; };
 		55368B5D272BF24700740A0A /* question-util.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-util.cc"; sourceTree = "<group>"; };
@@ -4055,6 +4059,8 @@
 		D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Styles.m"; sourceTree = "<group>"; };
 		D1B13C2DFC21B7BA82330573 /* Preferences+Zoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Zoom.m"; sourceTree = "<group>"; };
 		D3B6C0A12E9F4A0000DEB06A /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
+		D899D63E82B244F8D63393CA /* StoreLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreLocation.h; sourceTree = "<group>"; };
+		D9EC564387759B626FCD3240 /* ProgressiveMigrator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressiveMigrator.m; sourceTree = "<group>"; };
 		DDDABED429B7D5BC9CFF3976 /* standardlib_builtin.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = standardlib_builtin.cc; sourceTree = "<group>"; };
 		E220FDEDCD8D1B5AE9EA51D2 /* scexpr.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scexpr.cpp; sourceTree = "<group>"; };
 		E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = FindableTextView.m; sourceTree = "<group>"; };
@@ -4731,6 +4737,10 @@
 				6DD7679B23E45FB7003B605C /* ThemeArrayController.m */,
 				C3DBCEB026E810F30011ABF8 /* CoreDataManager.h */,
 				6D76353522C4F113000873F3 /* CoreDataManager.m */,
+				326843A48C09338487BB136E /* ProgressiveMigrator.h */,
+				D9EC564387759B626FCD3240 /* ProgressiveMigrator.m */,
+				D899D63E82B244F8D63393CA /* StoreLocation.h */,
+				53B60CE788FBE005816FEEF3 /* StoreLocation.m */,
 				C3DB14582E8418BB00837F69 /* MappingModels */,
 				C3A72FD82E8281FA00A840EC /* IfidToHashMigrationPolicy.h */,
 				C3A72FD92E8281FA00A840EC /* IfidToHashMigrationPolicy.m */,
@@ -8994,6 +9004,8 @@
 				C32419CD262DFFA300366AAE /* BuiltInThemes.m in Sources */,
 				C338CF472F71BDC600BCBD18 /* MetadataHandler.m in Sources */,
 				6D76353622C4F113000873F3 /* CoreDataManager.m in Sources */,
+				B7B27649C7275E1AE7D9B8A7 /* ProgressiveMigrator.m in Sources */,
+				7DCEF002A6931FB7ADE20CA5 /* StoreLocation.m in Sources */,
 				6D7673E8239FFC6C00FB24C0 /* IFBibliographic.m in Sources */,
 				C3B9EB4B25FA29F4002A406E /* AttributeDictionaryTransformer.m in Sources */,
 				6D7673EA239FFC6C00FB24C0 /* IFDB.m in Sources */,

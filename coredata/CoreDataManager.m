@@ -6,12 +6,10 @@
 //
 //
 
-#include <pwd.h>
-#include <unistd.h>
-
 #import "CoreDataManager.h"
 #import "MyCoreDataCoreSpotlightDelegate.h"
-#import "FolderAccess.h"
+#import "ProgressiveMigrator.h"
+#import "StoreLocation.h"
 #import "AppDelegate.h"
 #import "Game.h"
 #import "Metadata.h"
@@ -92,146 +90,6 @@ NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
     return _managedObjectModel;
 }
 
-// Every versioned model inside the .momd, used as the candidate set when
-// looking for the next migration hop.
-- (NSArray<NSManagedObjectModel *> *)allModelVersions {
-    NSMutableArray<NSManagedObjectModel *> *models = [NSMutableArray array];
-    NSURL *momdURL = [[NSBundle mainBundle] URLForResource:modelName withExtension:@"momd"];
-    if (!momdURL)
-        return models;
-    NSArray<NSURL *> *contents = [[NSFileManager defaultManager] contentsOfDirectoryAtURL:momdURL
-                                                              includingPropertiesForKeys:nil
-                                                                                 options:0
-                                                                                   error:NULL];
-    for (NSURL *url in contents) {
-        if ([url.pathExtension isEqualToString:@"mom"]) {
-            NSManagedObjectModel *model = [[NSManagedObjectModel alloc] initWithContentsOfURL:url];
-            if (model)
-                [models addObject:model];
-        }
-    }
-    return models;
-}
-
-// Progressively (step by step) migrate the store at sourceURL up to finalModel,
-// chaining through intermediate model versions instead of doing a single
-// source->destination hop. At each step we prefer an explicit (custom) mapping
-// model to any later version - this is what lets the IfidToHashMigrationPolicy
-// run when an old store passes through "Spatterlight 15" - and otherwise infer
-// a mapping straight to the final model. Each step migrates into a temporary
-// store which then atomically replaces the original, so a failure never
-// corrupts the source store. Returns YES if the store ends up compatible with
-// finalModel (including the no-op case where it already was), NO on failure.
-- (BOOL)progressivelyMigrateStoreAtURL:(NSURL *)sourceURL
-                                ofType:(NSString *)type
-                               toModel:(NSManagedObjectModel *)finalModel
-                                 error:(NSError * __autoreleasing *)error {
-    NSArray<NSBundle *> *bundles = @[[NSBundle mainBundle]];
-    NSArray<NSManagedObjectModel *> *allModels = [self allModelVersions];
-    // A correct chain can never need more hops than there are model versions.
-    NSUInteger maxSteps = allModels.count + 1;
-
-    // Our real store is opened with persistent history tracking enabled. Once a
-    // store has been opened with NSPersistentHistoryTrackingKey, every later
-    // open must pass it too, or Core Data forces the store into read-only mode
-    // (and logs a fault). The migrated temp store inherits that marker from the
-    // source, so the migrate/replace operations below must carry the option as
-    // well to stay consistent.
-    NSDictionary *storeOptions = @{ NSPersistentHistoryTrackingKey: @YES };
-
-    for (NSUInteger step = 0; step < maxSteps; step++) {
-        NSDictionary *metadata = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:type
-                                                                                            URL:sourceURL
-                                                                                        options:nil
-                                                                                          error:NULL];
-        // No store at this URL yet (fresh install): nothing to migrate.
-        if (!metadata)
-            return YES;
-
-        // Already at the final model: done.
-        if ([finalModel isConfiguration:nil compatibleWithStoreMetadata:metadata])
-            return YES;
-
-        // Find the model that matches the existing store.
-        NSManagedObjectModel *sourceModel = [NSManagedObjectModel mergedModelFromBundles:bundles
-                                                                       forStoreMetadata:metadata];
-        if (!sourceModel) {
-            if (error)
-                *error = [NSError errorWithDomain:@"net.ccxvii.spatterlight.migration"
-                                             code:1
-                                         userInfo:@{NSLocalizedDescriptionKey: @"No bundled model matches the existing store; cannot migrate it."}];
-            return NO;
-        }
-
-        // Pick the next hop: an explicit custom mapping to any later version if
-        // one exists, otherwise an inferred mapping straight to the final model.
-        NSManagedObjectModel *destinationModel = nil;
-        NSMappingModel *mappingModel = nil;
-        NSDictionary *sourceHashes = sourceModel.entityVersionHashesByName;
-        for (NSManagedObjectModel *candidate in allModels) {
-            if ([candidate.entityVersionHashesByName isEqualToDictionary:sourceHashes])
-                continue; // same model as the source
-            NSMappingModel *explicit = [NSMappingModel mappingModelFromBundles:bundles
-                                                               forSourceModel:sourceModel
-                                                            destinationModel:candidate];
-            if (explicit) {
-                destinationModel = candidate;
-                mappingModel = explicit;
-                break;
-            }
-        }
-        if (!mappingModel) {
-            destinationModel = finalModel;
-            mappingModel = [NSMappingModel inferredMappingModelForSourceModel:sourceModel
-                                                            destinationModel:finalModel
-                                                                       error:error];
-            if (!mappingModel)
-                return NO;
-        }
-
-        // Migrate source -> destination into a temporary store.
-        NSMigrationManager *manager = [[NSMigrationManager alloc] initWithSourceModel:sourceModel
-                                                                    destinationModel:destinationModel];
-        NSURL *tempURL = [[sourceURL URLByDeletingLastPathComponent]
-                          URLByAppendingPathComponent:[NSString stringWithFormat:@"migration-%@.storedata",
-                                                       [[NSProcessInfo processInfo] globallyUniqueString]]];
-        if (![manager migrateStoreFromURL:sourceURL
-                                     type:type
-                                  options:storeOptions
-                         withMappingModel:mappingModel
-                         toDestinationURL:tempURL
-                          destinationType:type
-                       destinationOptions:storeOptions
-                                    error:error]) {
-            [[[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:destinationModel]
-             destroyPersistentStoreAtURL:tempURL withType:type options:nil error:NULL];
-            return NO;
-        }
-
-        // Atomically replace the original store with the migrated one.
-        NSPersistentStoreCoordinator *replacer = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:destinationModel];
-        NSError *replaceError = nil;
-        BOOL replaced = [replacer replacePersistentStoreAtURL:sourceURL
-                                          destinationOptions:storeOptions
-                                  withPersistentStoreFromURL:tempURL
-                                               sourceOptions:storeOptions
-                                                   storeType:type
-                                                       error:&replaceError];
-        [replacer destroyPersistentStoreAtURL:tempURL withType:type options:nil error:NULL];
-        if (!replaced) {
-            if (error)
-                *error = replaceError;
-            return NO;
-        }
-    }
-
-    if (error)
-        *error = [NSError errorWithDomain:@"net.ccxvii.spatterlight.migration"
-                                     code:2
-                                 userInfo:@{NSLocalizedDescriptionKey: @"Migration did not reach the current model within the expected number of steps."}];
-    return NO;
-}
-
 + (nullable NSURL *)testStoreURL {
     static NSURL *url = nil;
     static dispatch_once_t once;
@@ -253,76 +111,6 @@ NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
     return url;
 }
 
-- (NSURL *)storeURLNeedMigrate:(BOOL *)needMigrate groupURL:(NSURL * __autoreleasing *)groupURL{
-
-    NSURL *testStoreURL = [CoreDataManager testStoreURL];
-    if (testStoreURL) {
-        *needMigrate = NO;
-        *groupURL = testStoreURL;
-        return testStoreURL;
-    }
-
-    NSURL *oldURL = [[self applicationFilesDirectory] URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
-
-    NSURL *applicationFilesDirectory;
-    NSFileManager *fileManager = [NSFileManager defaultManager];
-
-    NSString *teamPrefix =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"TeamPrefix"];
-    NSString *groupIdentifier =
-    [[NSBundle mainBundle] objectForInfoDictionaryKey:@"GroupIdentifier"];
-
-    if (teamPrefix.length) {
-        applicationFilesDirectory = [fileManager containerURLForSecurityApplicationGroupIdentifier:groupIdentifier];
-    } else {
-        applicationFilesDirectory = [[fileManager URLForDirectory:NSApplicationSupportDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:YES error:nil] URLByAppendingPathComponent:@"Spatterlight" isDirectory:YES];
-    }
-
-    NSError *error = nil;
-
-    NSDictionary *properties = [applicationFilesDirectory resourceValuesForKeys:@[NSURLIsDirectoryKey] error:&error];
-
-    if (!properties) {
-        BOOL ok = NO;
-        if (error.code == NSFileReadNoSuchFileError) {
-            ok = [fileManager createDirectoryAtPath:applicationFilesDirectory.path withIntermediateDirectories:YES attributes:nil error:&error];
-        }
-        if (!ok) {
-            [NSApp presentError:error];
-            NSLog(@"Error: %@", error);
-            return nil;
-        }
-    } else {
-        if (![properties[NSURLIsDirectoryKey] boolValue]) {
-            NSString *failureDescription = [NSString stringWithFormat:@"Expected a folder to store application data, found a file (%@).", applicationFilesDirectory.path];
-
-            NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-            [dict setValue:failureDescription forKey:NSLocalizedDescriptionKey];
-            error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileWriteFileExistsError userInfo:dict];
-
-            [NSApp presentError:error];
-            return nil;
-        }
-    }
-
-    *groupURL = [applicationFilesDirectory URLByAppendingPathComponent:@"Spatterlight.storedata" isDirectory:NO];
-
-    NSURL *targetURL = *groupURL;
-
-    if ([fileManager fileExistsAtPath:(*groupURL).path]) {
-        // The Core Data store already exists where we want it
-        *needMigrate = NO;
-    } else if ([fileManager fileExistsAtPath:oldURL.path]) {
-        // No group container Core Data store exists, but there
-        // is one in the non-sandboxed Application Support directory,
-        // so we try to migrate it.
-        targetURL = oldURL;
-        *needMigrate = YES;
-    }
-
-    return targetURL;
-}
-
 - (NSPersistentContainer *)persistentContainer
 {
     if (_persistentContainer) {
@@ -332,18 +120,10 @@ NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
     if (inMemory)
         return [self inMemoryPersistentContainer];
 
-    NSURL *groupURL = nil;
-    BOOL needMigrate = NO;
-
-    NSURL *targetURL = [self storeURLNeedMigrate:&needMigrate groupURL:&groupURL];
-
-    if (needMigrate) {
-        [FolderAccess askForAccessToURL:targetURL andThenRunBlock:^{}];
-        if (![[NSFileManager defaultManager] isReadableFileAtPath:targetURL.path]) {
-            needMigrate = NO;
-            targetURL = groupURL;
-        }
-    }
+    StoreLocation *location = [StoreLocation currentLocation];
+    if (!location)
+        return nil;
+    NSURL *targetURL = location.storeURL;
 
     _persistentContainer = [[NSPersistentContainer alloc] initWithName:modelName
                                                      managedObjectModel:self.managedObjectModel];
@@ -353,10 +133,11 @@ NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
     // runs at "Spatterlight 15") get a chance to run. Best effort: on failure we
     // fall through to the container's own automatic/inferred migration below.
     NSError *migrationError = nil;
-    if (![self progressivelyMigrateStoreAtURL:targetURL
-                                       ofType:NSSQLiteStoreType
-                                      toModel:_persistentContainer.managedObjectModel
-                                        error:&migrationError]) {
+    if (![ProgressiveMigrator migrateStoreAtURL:targetURL
+                                         ofType:NSSQLiteStoreType
+                                        toModel:_persistentContainer.managedObjectModel
+                                      modelName:modelName
+                                          error:&migrationError]) {
         NSLog(@"Progressive migration of %@ did not complete: %@. Falling back to automatic migration.", targetURL.path, migrationError);
     }
 
@@ -408,7 +189,8 @@ NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
         blockContainer.viewContext.automaticallyMergesChangesFromParent = YES;
 
         // If needed, migrate to a group store.
-        if (needMigrate) {
+        if (location.needsMove) {
+            NSURL *groupURL = location.destinationURL;
             error = nil;
             NSPersistentStoreCoordinator *coordinator = blockContainer.persistentStoreCoordinator;
             NSPersistentStore *store = [coordinator persistentStoreForURL:targetURL];
@@ -476,18 +258,6 @@ NSNotificationName const SpatterlightStopIndexingNotification = @"StopIndexing";
     _mainManagedObjectContext = self.persistentContainer.viewContext;
 
     return _mainManagedObjectContext;
-}
-
-// The folder of the store from before Spatterlight moved its library into the
-// group container: Application Support/Spatterlight in the user's real home.
-// NSHomeDirectory() is the sandbox container in a sandboxed app, so ask the
-// password database instead.
-- (NSURL *)applicationFilesDirectory
-{
-    const struct passwd *pw = getpwuid(getuid());
-    NSString *home = pw && pw->pw_dir ? @(pw->pw_dir) : NSHomeDirectory();
-    NSString *path = [home stringByAppendingPathComponent:@"Library/Application Support/Spatterlight"];
-    return [NSURL fileURLWithPath:path isDirectory:YES];
 }
 
 // One-time repair for stores migrated by an early version of

@@ -19,6 +19,7 @@
 #import "Metadata.h"
 #import "CoreDataManager.h"
 #import "Fetches.h"
+#import "ProgressiveMigrator.h"
 #import "NSString+Categories.h"
 #import "BuiltInThemes.h"
 #import "GlkTextBufferWindow.h"
@@ -44,14 +45,6 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     };
     [data appendBytes:bytes length:4];
 }
-
-// Expose the private progressive-migration entry point for testing.
-@interface CoreDataManager (ProgressiveMigrationTesting)
-- (BOOL)progressivelyMigrateStoreAtURL:(NSURL *)sourceURL
-                                ofType:(NSString *)type
-                               toModel:(NSManagedObjectModel *)finalModel
-                                 error:(NSError * __autoreleasing *)error;
-@end
 
 @interface GameImportXCTests : XCTestCase
 
@@ -2124,9 +2117,8 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     XCTAssertFalse([finalModel isConfiguration:nil compatibleWithStoreMetadata:preMetaDict]);
 
     // Run the real progressive migration.
-    CoreDataManager *cdm = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
     NSError *migErr = nil;
-    BOOL ok = [cdm progressivelyMigrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel error:&migErr];
+    BOOL ok = [ProgressiveMigrator migrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel modelName:@"Spatterlight" error:&migErr];
     XCTAssertTrue(ok, @"progressive migration failed: %@", migErr);
 
     // It must now be at the current model.
@@ -2229,9 +2221,8 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     XCTAssertTrue([v16 isConfiguration:nil compatibleWithStoreMetadata:preMetaDict]);
     XCTAssertFalse([finalModel isConfiguration:nil compatibleWithStoreMetadata:preMetaDict]);
 
-    CoreDataManager *cdm = [[CoreDataManager alloc] initWithModelName:@"Spatterlight"];
     NSError *migErr = nil;
-    XCTAssertTrue([cdm progressivelyMigrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel error:&migErr],
+    XCTAssertTrue([ProgressiveMigrator migrateStoreAtURL:tmpStore ofType:NSSQLiteStoreType toModel:finalModel modelName:@"Spatterlight" error:&migErr],
                   @"migration failed: %@", migErr);
 
     NSDictionary *postMetaDict = [NSPersistentStoreCoordinator metadataForPersistentStoreOfType:NSSQLiteStoreType URL:tmpStore options:nil error:NULL];
