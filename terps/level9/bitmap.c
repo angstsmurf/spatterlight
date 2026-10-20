@@ -406,14 +406,14 @@ Colour bitmap_pc1_colour(int i)
 L9BOOL bitmap_pc1_decode(char* file, int x, int y)
 {
 	L9BYTE* data = NULL;
-	int i, xi, yi, max_x, max_y;
+	int i, xi, yi, max_x, max_y, width;
 
 	L9UINT32 size;
 	data = bitmap_load(file,&size);
 	if (data == NULL)
 		return FALSE;
 
-	max_x = data[2]+data[3]*256;
+	max_x = width = data[2]+data[3]*256;
 	max_y = data[4]+data[5]*256;
 	if (max_x > MAX_BITMAP_WIDTH || max_y > MAX_BITMAP_HEIGHT)
 	{
@@ -443,7 +443,7 @@ L9BOOL bitmap_pc1_decode(char* file, int x, int y)
 		for (xi = 0; xi < max_x; xi++)
 		{
 			bitmap->bitmap[(bitmap->width*(y+yi))+(x+xi)] =
-				(data[23+((yi*max_x)/2)+(xi/2)]>>((1-(xi&1))*4)) & 0x0f;
+				(data[23+((yi*width)/2)+(xi/2)]>>((1-(xi&1))*4)) & 0x0f;
 		}
 	}
 
@@ -607,7 +607,7 @@ L9BOOL bitmap_pc1_decode(char* file, int x, int y)
 L9BOOL bitmap_pc2_decode(char* file, int x, int y)
 {
 	L9BYTE* data = NULL;
-	int i, xi, yi, max_x, max_y;
+	int i, xi, yi, max_x, max_y, width;
 
 	L9BYTE theNewPixel, theNewPixelIndex;
 	L9BYTE theBufferBitCounter, theNewPixelIndexSelector, theBufferBitStripCount;
@@ -619,7 +619,7 @@ L9BOOL bitmap_pc2_decode(char* file, int x, int y)
 	if (data == NULL)
 		return FALSE;
 
-	max_x = data[37]+data[36]*256;
+	max_x = width = data[37]+data[36]*256;
 	max_y = data[39]+data[38]*256;
 	if (max_x > MAX_BITMAP_WIDTH || max_y > MAX_BITMAP_HEIGHT)
 	{
@@ -658,7 +658,9 @@ L9BOOL bitmap_pc2_decode(char* file, int x, int y)
 
 	for (yi = 0; yi < max_y; yi++)
 	{
-		for (xi = 0; xi < max_x; xi++)
+		/* decode the whole row to keep the bit stream in step,
+		   even where the picture is clipped */
+		for (xi = 0; xi < width; xi++)
 		{
 			theNewPixelIndexSelector = (theBitStreamBuffer & 0x00FF);
 			if (theNewPixelIndexSelector != 0xFF)
@@ -728,7 +730,8 @@ L9BOOL bitmap_pc2_decode(char* file, int x, int y)
 			/* extract the nex pixel from the table */
 			theNewPixel = (data+42)[theNewPixel];
 			/* store new pixel in the bitmap */
-			bitmap->bitmap[(bitmap->width*(y+yi))+(x+xi)] = theNewPixel;
+			if (xi < max_x)
+				bitmap->bitmap[(bitmap->width*(y+yi))+(x+xi)] = theNewPixel;
 		}
 	}
 
@@ -844,15 +847,15 @@ Colour bitmap_amiga_colour(int i1, int i2)
 L9BOOL bitmap_amiga_decode(char* file, int x, int y)
 {
 	L9BYTE* data = NULL;
-	int i, xi, yi, max_x, max_y, p, b;
+	int i, xi, yi, max_x, max_y, width, height, p, b;
 
 	L9UINT32 size;
 	data = bitmap_load(file,&size);
 	if (data == NULL)
 		return FALSE;
 
-	max_x = (((((data[64]<<8)|data[65])<<8)|data[66])<<8)|data[67];
-	max_y = (((((data[68]<<8)|data[69])<<8)|data[70])<<8)|data[71];
+	max_x = width = (((((data[64]<<8)|data[65])<<8)|data[66])<<8)|data[67];
+	max_y = height = (((((data[68]<<8)|data[69])<<8)|data[70])<<8)|data[71];
 	if (max_x > MAX_BITMAP_WIDTH || max_y > MAX_BITMAP_HEIGHT)
 	{
 		free(data);
@@ -882,7 +885,7 @@ L9BOOL bitmap_amiga_decode(char* file, int x, int y)
 		{
 			p = 0;
 			for (b = 0; b < 5; b++)
-				p |= ((data[72+(max_x/8)*(max_y*b+yi)+xi/8]>>(7-(xi%8)))&1)<<b;
+				p |= ((data[72+(width/8)*(height*b+yi)+xi/8]>>(7-(xi%8)))&1)<<b;
 			bitmap->bitmap[(bitmap->width*(y+yi))+(x+xi)] = p;
 		}
 	}
@@ -976,14 +979,14 @@ BitmapType bitmap_noext_type(char* file)
 L9BOOL bitmap_mac_decode(char* file, int x, int y)
 {
 	L9BYTE* data = NULL;
-	int xi, yi, max_x, max_y;
+	int xi, yi, max_x, max_y, width;
 
 	L9UINT32 size;
 	data = bitmap_load(file,&size);
 	if (data == NULL)
 		return FALSE;
 
-	max_x = data[3]+data[2]*256;
+	max_x = width = data[3]+data[2]*256;
 	max_y = data[7]+data[6]*256;
 	if (max_x > MAX_BITMAP_WIDTH || max_y > MAX_BITMAP_HEIGHT)
 	{
@@ -1016,7 +1019,7 @@ L9BOOL bitmap_mac_decode(char* file, int x, int y)
 		for (xi = 0; xi < max_x; xi++)
 		{
 			bitmap->bitmap[(bitmap->width*(y+yi))+(x+xi)] = 
-				(data[10+(max_x/8)*yi+xi/8]>>(7-(xi%8)))&1;
+				(data[10+(width/8)*yi+xi/8]>>(7-(xi%8)))&1;
 		}
 	}
 

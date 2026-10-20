@@ -129,6 +129,9 @@ FILE* scriptfile=NULL;
 L9BOOL Cheating=FALSE;
 int CheatWord;
 GameState CheatWorkspace;
+/* the state at the last input, so a failed restore can undo the command */
+GameState InputWorkspace;
+L9UINT16 InputSeed;
 
 int reflectflag,scale,gintcolour,option;
 int l9textmode=0,drawx=0,drawy=0,screencalled=0,showtitle=1;
@@ -142,6 +145,8 @@ int GfxScaleStack[GFXSTACKSIZE];
 int GfxScaleStackPos=0;
 
 char lastchar='.';
+/* 1 after a dictionary word, so the next word gets a space (INT.S mdtmode) */
+int mdtmode=0;
 char lastactualchar=0;
 int d5;
 
@@ -154,7 +159,9 @@ int unpackd3;
 
 L9BYTE exitreversaltable[20]= {0x00,0x04,0x06,0x07,0x01,0x08,0x02,0x03,0x05,0x0a,0x09,0x0c,0x0b,0x0d,0x0e,0x0f,0xff,0xff,0xff,0xff};
 
-L9UINT16 gnostack[128];
+/* 127 (position, hi position) pairs, as INT.S gnostack */
+#define GNOSTACKSIZE 254
+L9UINT16 gnostack[GNOSTACKSIZE];
 L9BYTE gnoscratch[32];
 int object,gnosp,numobjectfound,searchdepth,inithisearchpos;
 
@@ -177,6 +184,7 @@ int L9V1Game = -1;
 
 /* Prototypes */
 L9BOOL LoadGame2(char *filename,char *picname);
+void StopGame(void);
 int getlongcode(void);
 L9BOOL GetWordV2(char *buff,int Word);
 L9BOOL GetWordV3(char *buff,int Word);
@@ -384,8 +392,6 @@ void printautocase(int d0)
 
 void displaywordref(L9UINT16 Off)
 {
-	static int mdtmode=0;
-
 	wordcase=0;
 	d5=(Off>>12)&7;
 	Off&=0xfff;
@@ -497,7 +503,8 @@ void printmessage(int Msg)
 		}
 		Msg--;
 	}
-	if (Msg<0 || *Msgptr & 128) return;
+	/* LM01: past the end of the table prints nothing */
+	if (Msg<0 || Msgptr>endmd || *Msgptr & 128) return;
 
 	len=getmdlength(&Msgptr);
 	if (len==0) return;
@@ -2579,9 +2586,6 @@ L9BOOL intinitialise(char*filename,char*picname)
 			fclose(f);
 		}
 	}
-	screencalled=0;
-	l9textmode=0;
-
 #ifdef FULLSCAN
 	FullScan(startfile,FileSize);
 #endif
@@ -2879,6 +2883,9 @@ void drivercalcchecksum(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - calcchecksum");
 #endif
+
+	/* not implemented, so return zero (DRIVER.DOC) */
+	*a6 = 0;
 }
 
 void driveroswrch(L9BYTE* a6)
@@ -2886,6 +2893,11 @@ void driveroswrch(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - driveroswrch");
 #endif
+
+	/* the original prints straight to the screen, without the
+	   wrap buffer; control codes such as paging are dropped */
+	if (*a6 == 0x0d || (*a6 >= 0x20 && *a6 < 0x7f))
+		os_printchar(lastactualchar = *a6);
 }
 
 void driverosrdch(L9BYTE* a6)
@@ -2908,6 +2920,9 @@ void driversavefile(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - driversavefile");
 #endif
+
+	/* not implemented, so return zero (DRIVER.DOC) */
+	*a6 = 0;
 }
 
 void driverloadfile(L9BYTE* a6)
@@ -2915,6 +2930,9 @@ void driverloadfile(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - driverloadfile");
 #endif
+
+	/* not implemented, so return zero (DRIVER.DOC) */
+	*a6 = 0;
 }
 
 void settext(L9BYTE* a6)
@@ -2936,6 +2954,9 @@ void driverinputline(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - driverinputline");
 #endif
+
+	/* not implemented, so return zero (DRIVER.DOC) */
+	*a6 = 0;
 }
 
 void returntogem(L9BYTE* a6)
@@ -2943,6 +2964,8 @@ void returntogem(L9BYTE* a6)
 #ifdef L9DEBUG
 	printf("driver - returntogem");
 #endif
+
+	StopGame();
 }
 
 void lensdisplay(L9BYTE* a6)
@@ -2970,7 +2993,8 @@ void driver14(L9BYTE *a6)
 	printf("driver - call 14");
 #endif
 
-	*a6 = 0;
+	/* getclock: no clock, so a zero 32-bit value (DRIVER.DOC) */
+	memset(a6, 0, 4);
 }
 
 void showbitmap(L9BYTE *a6)
@@ -3185,6 +3209,24 @@ L9BOOL CheckFile(GameState *gs)
 	return FALSE;
 }
 
+/* Remember the state when the A-code asks for input */
+void keepinputstate(void)
+{
+	memmove(&InputWorkspace,&workspace,sizeof(GameState));
+	InputWorkspace.codeptr=codeptr-acodeptr;
+	InputSeed=randomseed;
+}
+
+/* A failed restore puts back the state from before the command, which the
+   A-code may already have changed (Ingrid's Back zeroes thispart), and asks
+   for input again. The original restarts the A-code instead (INT.S restore). */
+void rewindtoinput(void)
+{
+	memmove(&workspace,&InputWorkspace,sizeof(GameState));
+	codeptr=acodeptr+workspace.codeptr;
+	randomseed=InputSeed;
+}
+
 void NormalRestore(void)
 {
 	GameState temp;
@@ -3216,9 +3258,14 @@ void NormalRestore(void)
 		else
 		{
 			printstring("\rSorry, unrecognised format. Unable to restore\r");
+			rewindtoinput();
 		}
 	}
-	else printstring("\rUnable to restore game.\r");
+	else
+	{
+		printstring("\rUnable to restore game.\r");
+		rewindtoinput();
+	}
 }
 
 void restore(void)
@@ -3614,8 +3661,6 @@ L9BOOL IsInputChar(char c)
 {
 	if (c=='-' || c=='\'')
 		return TRUE;
-	if ((L9GameType>=L9_V3) && (c=='.' || c==','))
-		return TRUE;
 	return isalnum(c);
 }
 
@@ -3634,7 +3679,9 @@ L9BOOL corruptinginput(void)
 		{
 			/* flush */
 			os_flush();
+			/* wrapreset */
 			lastchar=lastactualchar='.';
+			mdtmode=0;
 			/* get input */
 			if (!scriptinput(ibuff,IBUFFSIZE))
 			{
@@ -3644,10 +3691,11 @@ L9BOOL corruptinginput(void)
 			if (CheckHash())
 				return FALSE;
 
-			/* check for invalid chars */
+			/* Punctuation reaches the game as single-character entries
+			   (INT.S ip05), so only unprintable chars become spaces */
 			for (iptr=ibuff;*iptr!=0;iptr++)
 			{
-				if (!IsInputChar(*iptr))
+				if ((unsigned char)*iptr<0x20 || (unsigned char)*iptr>0x7e)
 					*iptr=' ';
 			}
 
@@ -3733,10 +3781,14 @@ L9BOOL corruptinginput(void)
 	d1--;
 	do
 	{
+		int word;
+
 		d1++;
+		word=d1;
 		if (unpackword())
 		{/* ip21b */
 			if (abrevword==-1) break; /* goto ip22 */
+			word=abrevword;
 		}
 		else
 		{
@@ -3755,16 +3807,21 @@ L9BOOL corruptinginput(void)
 			if (d2!=0x20)
 			{/* ip17 */
 				if (abrevword==-1) continue;
+				word=abrevword;
 			}
 			else if (d0!=0 && abrevword!=-1) break;
-			else if (d0!=0 && d6<3)
+			else if (d0!=0 && d6<4)
 			{
+				/* fewer than 4 letters (abrev equ 4) is an abbreviation
+				   only if no later word also starts with them */
 				abrevword=d1;
 				continue;
 			}
 		}
 		/*ip18b */
-		findmsgequiv(d1);
+		/* the abbreviated word itself, as aint.asm (the 68000 passes
+		   the word after it) */
+		findmsgequiv(word);
 
 		abrevword=-1;
 		if (list9ptr!=list9startptr)
@@ -3944,6 +4001,7 @@ void input(void)
 	   are called out of line */
 
 	codeptr--;
+	keepinputstate();
 	if (L9GameType<=L9_V2)
 	{
 		int wordcount;
@@ -4634,6 +4692,16 @@ void show_picture(int pic)
 
 	if (picturedata)
 	{
+		L9BYTE *a5;
+
+		/* runsub: draw nothing, not even the frame, if the picture
+		   doesn't exist (GINT.S) */
+		if (!findsub(pic,&a5))
+		{
+			gfxa5 = NULL;
+			return;
+		}
+
 		/* Some games don't call the screen() opcode before drawing
 		   graphics, so here graphics are enabled if necessary. */
 		if ((screencalled == 0) && (l9textmode == 0))
@@ -4660,8 +4728,7 @@ void show_picture(int pic)
 		GfxA5StackPos=0;
 		GfxScaleStackPos=0;
 		absrunsub(0);
-		if (!findsub(pic,&gfxa5))
-			gfxa5 = NULL;
+		gfxa5 = a5;
 	}
 }
 
@@ -4733,7 +4800,7 @@ void getnextobject(void)
 		if ((d3 | d4)==0)
 		{
 			/* initgetobjsp */
-			gnosp=128;
+			gnosp=GNOSTACKSIZE;
 			searchdepth=0;
 			initgetobj();
 			break;
@@ -4760,8 +4827,11 @@ void getnextobject(void)
 				}
 				/* gnofound */
 				numobjectfound++;
-				gnostack[--gnosp]=object;
-				gnostack[--gnosp]=0x1f;
+				if (gnosp>=2)
+				{
+					gnostack[--gnosp]=object;
+					gnostack[--gnosp]=0x1f;
+				}
 
 				*hisearchposvar=d3;
 				*searchposvar=d4;
@@ -4780,7 +4850,7 @@ void getnextobject(void)
 		/* gnoloop */
 			do
 			{
-				if (gnoscratch[d3])
+				if (gnoscratch[d3] && gnosp>=2)
 				{
 					gnostack[--gnosp]=d4;
 					gnostack[--gnosp]=d3;
@@ -4788,7 +4858,7 @@ void getnextobject(void)
 			} while (++d3<0x1f);
 		}
 	/* gnonewlevel */
-		if (gnosp!=128)
+		if (gnosp!=GNOSTACKSIZE)
 		{
 			d3=gnostack[gnosp++];
 			d4=gnostack[gnosp++];
@@ -5051,6 +5121,7 @@ L9BOOL LoadGame2(char *filename,char *picname)
 /*	if (!checksumgamedata()) return FALSE; */
 
 	codeptr=acodeptr;
+	keepinputstate();
 	if (constseed > 0)
 		randomseed=constseed;
 	else
@@ -5062,11 +5133,15 @@ L9BOOL LoadGame2(char *filename,char *picname)
 L9BOOL LoadGame(char *filename,char *picname)
 {
 	L9BOOL ret=LoadGame2(filename,picname);
+	/* chaining keeps the screen mode (INT.S intinitialise2) */
+	screencalled=0;
+	l9textmode=0;
 	showtitle=1;
 	clearworkspace();
 	workspace.stackptr=0;
 	/* need to clear listarea as well */
 	memset((L9BYTE*) workspace.listarea,0,LISTAREASIZE);
+	keepinputstate();
 	return ret;
 }
 
