@@ -560,6 +560,15 @@
     char_request = NO;
 }
 
+// Queue a mouse event at `point`, in the window's Glk coordinates (pixels
+// for graphics windows, cells for grids), and end the mouse request.
+- (void)sendMouseEventAtPoint:(NSPoint)point {
+    [self.glkctl markLastSeen];
+    GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:point forWindow:self.name];
+    [self.glkctl queueEvent:gev];
+    mouse_request = NO;
+}
+
 
 - (NSArray *)links {
     NSLog(@"links in %@ not implemented", [self class]);

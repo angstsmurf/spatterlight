@@ -137,6 +137,7 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 - (void)sendCommandLine:(NSString *)command;
 - (void)sendKeypress:(unsigned)ch;
+- (void)sendMouseEventAtPoint:(NSPoint)point;
 
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *links;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray *images;

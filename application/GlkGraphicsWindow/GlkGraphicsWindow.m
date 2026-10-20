@@ -1,7 +1,6 @@
 #import "Constants.h"
 #import "glk.h"
 #import "protocol.h"
-#import "GlkEvent.h"
 #import "GlkGraphicsWindow.h"
 #import "GlkController.h"
 #import "GlkController+BorderColor.h"
@@ -51,6 +50,7 @@
     NSSize canvasSize;      // in points
     CGFloat canvasScale;    // device pixels per point
     NSImage *cachedImage;   // snapshot of canvas, until the next change
+    NSData *cachedPNG;      // the same as PNG, for archiving
 }
 
 @end
@@ -123,9 +123,16 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
 - (instancetype)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     if (self) {
-        // Archived as an NSImage, as before the bitmap canvas, so old and new
-        // autosaves read the same way.
-        self.image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
+        NSData *png = [decoder decodeObjectOfClass:[NSData class] forKey:@"canvasPNG"];
+        if (png) {
+            NSImage *image = [[NSImage alloc] initWithData:png];
+            // The PNG is in device pixels; the canvas wants its point size.
+            image.size = [decoder decodeSizeForKey:@"canvasSize"];
+            self.image = image;
+        } else {
+            // Autosaves from before the PNG archive hold an NSImage.
+            self.image = [decoder decodeObjectOfClass:[NSImage class] forKey:@"image"];
+        }
         transparent = [decoder decodeBoolForKey:@"transparent"];
         _showingImage = [decoder decodeBoolForKey:@"showingImage"];
         subImages = [[decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSMutableArray class], [SubImage class], nil]
@@ -143,7 +150,15 @@ static NSSize SPResolveImageSize(NSSize srcsize, NSInteger w, NSInteger h,
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     [super encodeWithCoder:encoder];
-    [encoder encodeObject:self.image forKey:@"image"];
+    // As PNG, not an NSImage: that is an uncompressed TIFF, 6 MB per
+    // autosave for a Journey window, where the PNG is 30 KB.
+    NSData *png = self.canvasPNG;
+    if (png) {
+        [encoder encodeObject:png forKey:@"canvasPNG"];
+        [encoder encodeSize:canvasSize forKey:@"canvasSize"];
+    } else {
+        [encoder encodeObject:self.image forKey:@"image"];
+    }
     [encoder encodeObject:subImages forKey:@"subImages"];
     [encoder encodeBool:transparent forKey:@"transparent"];
     [encoder encodeBool:_showingImage forKey:@"showingImage"];
@@ -171,7 +186,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 - (void)makeCanvasWithSize:(NSSize)size {
     CGContextRelease(canvas);
     canvas = NULL;
-    cachedImage = nil;
+    [self canvasWillChange];
     canvasSize = NSZeroSize;
 
     if (size.width < 1 || size.height < 1)
@@ -193,11 +208,17 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     canvasSize = size;
 }
 
+// Drop the snapshots of the canvas, which no longer match it.
+- (void)canvasWillChange {
+    cachedImage = nil;
+    cachedPNG = nil;
+}
+
 // Run AppKit drawing code against the canvas, in points.
 - (void)drawInCanvas:(void (^)(void))drawing {
     if (!canvas)
         return;
-    cachedImage = nil;
+    [self canvasWillChange];
     [NSGraphicsContext saveGraphicsState];
     NSGraphicsContext.currentContext = [NSGraphicsContext graphicsContextWithCGContext:canvas flipped:NO];
     drawing();
@@ -223,7 +244,7 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     if (x0 >= x1 || y0 >= y1)
         return;
 
-    cachedImage = nil;
+    [self canvasWillChange];
     size_t rowPixels = CGBitmapContextGetBytesPerRow(canvas) / sizeof(uint32_t);
     uint32_t *row = (uint32_t *)CGBitmapContextGetData(canvas) + (size_t)y0 * rowPixels + (size_t)x0;
     size_t runBytes = (size_t)(x1 - x0) * sizeof(uint32_t);
@@ -245,6 +266,22 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
         CGImageRelease(cgImage);
     }
     return cachedImage;
+}
+
+// The canvas pixels as PNG. Encoding a large window takes some 20 ms, so
+// the result is kept, and an autosave of an unchanged window is free.
+- (NSData *)canvasPNG {
+    if (!canvas)
+        return nil;
+    if (!cachedPNG) {
+        CGImageRef cgImage = CGBitmapContextCreateImage(canvas);
+        if (!cgImage)
+            return nil;
+        NSBitmapImageRep *rep = [[NSBitmapImageRep alloc] initWithCGImage:cgImage];
+        CGImageRelease(cgImage);
+        cachedPNG = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+    }
+    return cachedPNG;
 }
 
 - (void)setImage:(NSImage *)image {
@@ -495,18 +532,8 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
 
     [self pruneSubimagesInRect:florpedRect];
 
-    if (src.accessibilityDescription.length) {
+    if (src.accessibilityDescription.length)
         [subImages addObject:[SubImage imageWithLabel:src.accessibilityDescription parent:self frame:florpedRect]];
-        self.accessibilityLabel = subImages.firstObject.accessibilityLabel;
-    }
-}
-
-// Glk point: top-left origin.
-- (void)sendMouseEventAtPoint:(NSPoint)point {
-    [self.glkctl markLastSeen];
-    GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:point forWindow:self.name];
-    [self.glkctl queueEvent:gev];
-    mouse_request = NO;
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {
@@ -606,8 +633,17 @@ static inline uint32_t SPPixelFromRGB(NSInteger rgb) {
     if (!placeholderImage)
         placeholderImage = [SubImage imageWithLabel:NSLocalizedString(@"Image", nil) parent:self frame:self.bounds];
     placeholderImage.frameRect = self.bounds;
-    self.accessibilityLabel = placeholderImage.accessibilityLabel;
     return placeholderImage;
+}
+
+// Worked out on each request, so it follows clears and prunes: the oldest
+// described image still on show, else "Image" when the placeholder is.
+- (NSString *)accessibilityLabel {
+    if (subImages.count)
+        return subImages.firstObject.accessibilityLabel;
+    if (self.theme.vOSpeakImages == kVOImageAll && _showingImage)
+        return NSLocalizedString(@"Image", nil);
+    return nil;
 }
 
 - (NSArray *)accessibilityCustomActions {

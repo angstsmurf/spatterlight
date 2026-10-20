@@ -38,6 +38,19 @@ static const NSInteger kHeight = 30;
 
 #pragma mark - Helpers
 
+// Through NSKeyedArchiver and back, as autosave and autorestore do.
+- (GlkGraphicsWindow *)archivedAndRestored:(GlkGraphicsWindow *)win {
+    NSError *error = nil;
+    NSData *archive = [NSKeyedArchiver archivedDataWithRootObject:win requiringSecureCoding:NO error:&error];
+    XCTAssertNil(error);
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:archive error:&error];
+    XCTAssertNil(error);
+    unarchiver.requiresSecureCoding = NO;
+    GlkGraphicsWindow *restored = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
+    [unarchiver finishDecoding];
+    return restored;
+}
+
 - (GlkGraphicsWindow *)makeWindow {
     if (!self.controller) {
         self.controller = [[GlkController alloc] init];
@@ -335,6 +348,27 @@ static const NSInteger kHeight = 30;
     XCTAssertEqual([self subImagesOfWindow:win].count, 0u);
 }
 
+// The window's label follows the described images still on show, and falls
+// back to the "Image" placeholder, or nothing, when they are gone.
+- (void)testAccessibilityLabelFollowsImages {
+    self.theme.vOSpeakImages = kVOImageAll;
+    GlkGraphicsWindow *win = [self makeWindow];
+    XCTAssertNil(win.accessibilityLabel);
+
+    NSImage *red = [self solidImageOfSize:NSMakeSize(10, 10) red:1 green:0 blue:0];
+    red.accessibilityDescription = @"red square";
+    [win drawImage:red val1:5 val2:5 width:10 height:10 imagerule:0 maxwidth:0 style:style_Normal];
+    XCTAssertEqualObjects(win.accessibilityLabel, @"red square");
+
+    struct fillrect cover[] = { { 0x000000, 0, 0, 20, 20 } };
+    [win fillRects:cover count:1];
+    XCTAssertEqualObjects(win.accessibilityLabel, NSLocalizedString(@"Image", nil));
+
+    [win drawImage:red val1:5 val2:5 width:10 height:10 imagerule:0 maxwidth:0 style:style_Normal];
+    [win clear];
+    XCTAssertNil(win.accessibilityLabel);
+}
+
 // glk_image_draw_scaled_ext: WidthRatio is a fraction of the window width,
 // AspectRatio a multiple of the height the width implies.
 - (void)testImageRuleWidthRatioAndAspectRatio {
@@ -360,14 +394,7 @@ static const NSInteger kHeight = 30;
     NSString *uuid = [self subImagesOfWindow:win].firstObject.uuid;
     XCTAssertNotNil(uuid);
 
-    NSError *error = nil;
-    NSData *archive = [NSKeyedArchiver archivedDataWithRootObject:win requiringSecureCoding:NO error:&error];
-    XCTAssertNil(error);
-    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:archive error:&error];
-    XCTAssertNil(error);
-    unarchiver.requiresSecureCoding = NO;
-    GlkGraphicsWindow *restored = [unarchiver decodeObjectForKey:NSKeyedArchiveRootObjectKey];
-    [unarchiver finishDecoding];
+    GlkGraphicsWindow *restored = [self archivedAndRestored:win];
     XCTAssertNotNil(restored);
 
     NSArray<SubImage *> *images = [self subImagesOfWindow:restored];
@@ -376,6 +403,24 @@ static const NSInteger kHeight = 30;
     XCTAssertEqualObjects(images.firstObject.accessibilityLabel, @"red square");
     XCTAssertEqualObjects(images.firstObject.accessibilityRole, NSAccessibilityImageRole);
     XCTAssertEqual(images.firstObject.accessibilityParent, restored);
+}
+
+// The whole window, as an autosave stores it: the canvas goes through PNG
+// and comes back pixel for pixel at its point size.
+- (void)testWindowArchiveKeepsCanvasPixels {
+    GlkGraphicsWindow *win = [self makeWindow];
+    struct fillrect rects[] = {
+        { 0xFF8800, 3, 4, 17, 9 },
+        { 0x0088FF, 20, 15, 15, 10 },
+        { 0x123456, 0, 29, 40, 1 },
+    };
+    [win fillRects:rects count:3];
+
+    GlkGraphicsWindow *restored = [self archivedAndRestored:win];
+    XCTAssertTrue(NSEqualSizes(restored.image.size, NSMakeSize(kWidth, kHeight)));
+    [self assertWindow:restored matches:[self expectedColorsForRects:rects count:3
+                                                          background:0xFFFFFF
+                                                        defaultColor:0]];
 }
 
 @end

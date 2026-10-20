@@ -50,10 +50,7 @@
 - (BOOL)sendMouseEventAtColumn:(CGFloat)column row:(CGFloat)row {
     if (column < 0 || row < 0 || column >= (CGFloat)cols || row >= (CGFloat)rows)
         return NO;
-    [self.glkctl markLastSeen];
-    GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:NSMakePoint(column, row) forWindow:self.name];
-    [self.glkctl queueEvent:gev];
-    mouse_request = NO;
+    [self sendMouseEventAtPoint:NSMakePoint(column, row)];
     return YES;
 }
 
