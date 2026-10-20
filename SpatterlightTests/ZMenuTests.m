@@ -17,6 +17,7 @@
 #import "GlkController+GlkRequests.h"
 #import "GlkController+Speech.h"
 #import "InfocomV6MenuHandler.h"
+#import "BureaucracyForm.h"
 #import "GlkWindow.h"
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
@@ -254,6 +255,30 @@ static NSDictionary *Highlight(void) {
     [handler handleMenuItemOfType:kV6MenuExited index:0 total:0 text:NULL length:0];
     XCTAssertFalse(ctl.showingInfocomV6Menu);
     XCTAssertEqual(ctl.currentMenu, (id<VoiceOverMenu>)menu);
+}
+
+// Detecting a Bureaucracy form only reads the window; the caller adds the
+// current field to the moves.
+- (void)testBureaucracyFormDetectionLeavesTheMovesAlone {
+    NSMutableAttributedString *text = [NSMutableAttributedString new];
+    NSArray *runs = @[@"  ", @"|", @" ", @"  DEPOSIT SLIP  ", @" ", @"|", @" ", @"|", @"Please fill in the form", @"\n"];
+    NSArray *colors = @[NSColor.blackColor, NSColor.whiteColor];
+    [runs enumerateObjectsUsingBlock:^(NSString *run, NSUInteger i, BOOL *stop) {
+        [text appendAttributedString:[[NSAttributedString alloc] initWithString:run attributes:@{NSBackgroundColorAttributeName : colors[i % 2]}]];
+    }];
+    [text appendAttributedString:[[NSAttributedString alloc] initWithString:@"Last name: \nFirst name: \nMiddle initial: \nAmount of deposit: $ \nFrom illegal activity? (y/n): \nIf yes, which one: "]];
+    GlkController *ctl = [self controllerForGame:kGameIsBureaucracy format:@"zcode" windows:@[[self grid:text]]];
+    GlkTextGridWindow *grid = (GlkTextGridWindow *)ctl.gwindows[@0];
+    grid.moveRanges = nil;
+
+    BureaucracyForm *form = [[BureaucracyForm alloc] initWithGlkController:ctl];
+    XCTAssertTrue([form detectForm]);
+    XCTAssertTrue([form detectForm]);
+    XCTAssertEqual(grid.moveRanges.count, 0u);
+
+    [form addCurrentFieldToMoves];
+    [form addCurrentFieldToMoves];
+    XCTAssertEqual(grid.moveRanges.count, 1u);
 }
 
 #pragma mark - Per-game rules

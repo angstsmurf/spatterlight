@@ -131,8 +131,10 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
                 [NSObject cancelPreviousPerformRequestsWithTarget:self.form];
                 self.form.glkctl = nil;
                 self.form = nil;
-            } else if (speak) {
-                [self.form speakCurrentField];
+            } else {
+                [self.form addCurrentFieldToMoves];
+                if (speak)
+                    [self.form speakCurrentField];
             }
         }
     }

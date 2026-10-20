@@ -95,7 +95,6 @@ static NSDictionary<NSString *, NSArray<NSString *> *> *FormFields(void) {
                     NSUInteger currentField = [self findCurrentField];
                     if (currentField != NSNotFound)
                         _selectedField = currentField;
-                    [self addMove];
                     return YES;
                 }
             }
@@ -216,11 +215,11 @@ static NSDictionary<NSString *, NSArray<NSString *> *> *FormFields(void) {
         _selectedField = foundField;
         _dontSpeakField = NO;
         _glkctl.shouldCheckForMenu = YES;
-        [self addMove];
+        [self addCurrentFieldToMoves];
     }
 }
 
-- (void)addMove {
+- (void)addCurrentFieldToMoves {
     GlkTextGridWindow *win = self.gridWindow;
     if (win.moveRanges == nil)
         win.moveRanges = [[NSMutableArray alloc] init];
