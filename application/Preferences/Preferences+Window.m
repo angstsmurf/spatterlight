@@ -219,6 +219,12 @@
         defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
         CGFloat blockHeight = defaultWindowHeight;
         [self switchToPanel:restoredItem resizePreview:YES];
+        // Must outlast the 0.3 s resize animation that windowDidLoad starts
+        // (showSelectedPanelOfToolbar). The switch above usually returns at
+        // once because that panel is already shown, so it can't be chained
+        // to it: resizing straight away races that animation, whose
+        // completion hides the preview, and leaves the window height and
+        // _previewShown out of step.
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             [self resizeWindowToHeight:previewHeightNumber.floatValue + blockHeight animate:YES];
         });
