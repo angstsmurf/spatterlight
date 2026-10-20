@@ -173,6 +173,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
         _quoteboxSize = ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"quoteboxSize"]).sizeValue;
         _quoteboxAddedOnPAC = [decoder decodeIntegerForKey:@"quoteboxAddedOnTurn"];
         _quoteboxVerticalOffset = (NSUInteger)[decoder decodeIntegerForKey:@"quoteboxVerticalOffset"];
+        _quoteboxColumn = (NSUInteger)[decoder decodeIntegerForKey:@"quoteboxColumn"];
         // De-interleaved columns of a merged side-by-side quote box, so a
         // restored box still reads as two separate blocks in VoiceOver rather
         // than interleaving the two columns line by line.
@@ -210,6 +211,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     [encoder encodeObject:@(_quoteboxSize) forKey:@"quoteboxSize"];
     [encoder encodeInteger:_quoteboxAddedOnPAC forKey:@"quoteboxAddedOnTurn"];
     [encoder encodeInteger:(NSInteger)_quoteboxVerticalOffset forKey:@"quoteboxVerticalOffset"];
+    [encoder encodeInteger:(NSInteger)_quoteboxColumn forKey:@"quoteboxColumn"];
     [encoder encodeObject:_quoteboxColumns forKey:@"quoteboxColumns"];
 }
 

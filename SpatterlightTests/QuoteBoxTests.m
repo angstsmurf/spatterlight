@@ -470,6 +470,136 @@ static const unichar kNBSP = 0xa0;
     [self assertBox:box fadesOutIn:ctl];
 }
 
+#pragma mark - Two boxes side by side
+
+// Trinity's Clarke/Lebling pair: two boxes at columns 9 and 49, drawn with two
+// back-to-back SPLIT cycles in the same turn. The right one is a row taller.
+static const NSUInteger kLeftColumn = 9;
+static const NSUInteger kRightColumn = 49;
+static const NSUInteger kSideBoxWidth = 22;
+
+- (NSArray<NSString *> *)leftQuote {
+    return @[@" Any sufficiently", @" advanced magic", @" -- Clarke"];
+}
+
+- (NSArray<NSString *> *)rightQuote {
+    return @[@" Any sufficiently", @" advanced technology", @" is indistinguishable", @" -- Lebling"];
+}
+
+- (void)drawBoxAtColumn:(NSUInteger)column lines:(NSArray<NSString *> *)lines in:(GlkController *)ctl {
+    [self sizeStatusTo:kBoxFirstRow + lines.count + 1 in:ctl];
+    [self setReverse:YES in:ctl];
+    for (NSUInteger i = 0; i < lines.count; i++) {
+        int row = (int)(kBoxFirstRow + i);
+        [self moveToColumn:(int)column row:row in:ctl];
+        [self print:[self spaces:kSideBoxWidth] style:style_Normal window:kStatus in:ctl];
+        [self moveToColumn:(int)column row:row in:ctl];
+        [self print:lines[i] style:style_Normal window:kStatus in:ctl];
+    }
+    [self setReverse:NO in:ctl];
+    [self send:QUOTEBOX to:ctl a1:kStatus a2:(int)kLinesToSkip a3:0 text:nil];
+    [self sizeStatusTo:1 in:ctl];
+}
+
+// Returns the single merged box.
+- (GlkTextGridWindow *)showSideBySideBoxesIn:(GlkController *)ctl {
+    [self print:@"box\n" style:style_Input window:kStory in:ctl];
+    [self drawBoxAtColumn:kLeftColumn lines:self.leftQuote in:ctl];
+    [self drawBoxAtColumn:kRightColumn lines:self.rightQuote in:ctl];
+    [self moveToColumn:0 row:0 in:ctl];
+    [self print:@"\n>" style:style_Normal window:kStory in:ctl];
+
+    XCTAssertEqual(ctl.quoteBoxes.count, 1UL, @"the second box should be merged into the first");
+    return ctl.quoteBoxes.lastObject;
+}
+
+- (NSString *)padded:(NSString *)line to:(NSUInteger)width {
+    return [line stringByPaddingToLength:width withString:@" " startingAtIndex:0];
+}
+
+// One wide box from the left edge of the left box to the right edge of the
+// right one, the gap between them see-through, each column's text kept apart
+// for VoiceOver and speech.
+- (void)assertIsMergedBox:(GlkTextGridWindow *)box {
+    XCTAssertEqual(box.quoteboxColumn, kLeftColumn);
+    XCTAssertEqual((NSUInteger)box.quoteboxSize.width, kRightColumn + kSideBoxWidth - kLeftColumn);
+    XCTAssertEqual((NSUInteger)box.quoteboxSize.height, self.rightQuote.count);
+
+    NSArray<NSString *> *rows = [self rowsOf:box];
+    XCTAssertEqual(rows.count, self.rightQuote.count);
+    NSString *gap = [self spaces:kRightColumn - kLeftColumn - kSideBoxWidth];
+    for (NSUInteger i = 0; i < MIN(rows.count, self.rightQuote.count); i++) {
+        NSString *left = i < self.leftQuote.count ? self.leftQuote[i] : @"";
+        NSString *expected = [NSString stringWithFormat:@"%@%@%@",
+                              [self padded:left to:kSideBoxWidth], gap,
+                              [self padded:self.rightQuote[i] to:kSideBoxWidth]];
+        XCTAssertEqualObjects(rows[i], expected, @"row %lu", i);
+    }
+
+    // The gap carries no background; the boxes do.
+    NSTextStorage *storage = box.textview.textStorage;
+    XCTAssertNotNil([storage attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]);
+    XCTAssertNil([storage attribute:NSBackgroundColorAttributeName atIndex:kSideBoxWidth effectiveRange:NULL]);
+    NSUInteger lastRow = (self.rightQuote.count - 1) * ((NSUInteger)box.quoteboxSize.width + 1);
+    XCTAssertNil([storage attribute:NSBackgroundColorAttributeName atIndex:lastRow effectiveRange:NULL],
+                 @"the missing last row of the left box is padding");
+
+    NSArray *columns = @[
+        @{ @"value": @" Any sufficiently\n advanced magic\n -- Clarke",
+           @"offset": @0,
+           @"width": @(kSideBoxWidth) },
+        @{ @"value": @" Any sufficiently\n advanced technology\n is indistinguishable\n -- Lebling",
+           @"offset": @(kRightColumn - kLeftColumn),
+           @"width": @(kSideBoxWidth) }
+    ];
+    XCTAssertEqualObjects(box.quoteboxColumns, columns);
+    XCTAssertEqualObjects(box.speakableString,
+                          ([NSString stringWithFormat:@"%@\n\n%@", columns[0][@"value"], columns[1][@"value"]]));
+}
+
+- (void)testSideBySideBoxesAreMerged {
+    GlkController *ctl = [self makeController];
+    [self startGameIn:ctl];
+    GlkTextGridWindow *box = [self showSideBySideBoxesIn:ctl];
+    [self assertIsMergedBox:box];
+    [self nextEventIn:ctl];
+    [self waitForBoxToAppear:box];
+    [self assertIsMergedBox:box];
+}
+
+// A box from an earlier turn is never merged into: the next one replaces it.
+- (void)testBoxOnTheNextTurnIsNotMerged {
+    GlkController *ctl = [self makeController];
+    [self startGameIn:ctl];
+    [self print:@"box\n" style:style_Input window:kStory in:ctl];
+    [self drawBoxAtColumn:kLeftColumn lines:self.leftQuote in:ctl];
+    GlkTextGridWindow *first = ctl.quoteBoxes.lastObject;
+    [self nextEventIn:ctl];
+    [self waitForBoxToAppear:first];
+
+    [self print:@"box\n" style:style_Input window:kStory in:ctl];
+    [self drawBoxAtColumn:kRightColumn lines:self.rightQuote in:ctl];
+    GlkTextGridWindow *second = ctl.quoteBoxes.lastObject;
+    XCTAssertNotEqual(first, second);
+    XCTAssertEqual(second.quoteboxColumn, kRightColumn);
+    XCTAssertEqual((NSUInteger)second.quoteboxSize.width, kSideBoxWidth);
+    XCTAssertNil(second.quoteboxColumns);
+}
+
+// The de-interleaved columns are archived with the box.
+- (void)testSideBySideBoxesSurviveAutorestore {
+    GlkController *ctl = [self makeController];
+    [self startGameIn:ctl];
+    [self showSideBySideBoxesIn:ctl];
+
+    GlkController *relaunched = [self quitAndRelaunch:ctl];
+
+    XCTAssertEqual(relaunched.quoteBoxes.count, 1UL);
+    GlkTextGridWindow *restoredBox = relaunched.quoteBoxes.lastObject;
+    [self waitForBoxToAppear:restoredBox];
+    [self assertIsMergedBox:restoredBox];
+}
+
 #pragma mark - Autorestore
 
 // Quit with a quotation on screen and relaunch: the box is adopted by the new
