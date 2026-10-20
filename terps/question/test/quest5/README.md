@@ -18,13 +18,13 @@ to live in `quest5/TODO-quest5.md` is in the git history of that file.
   loader and runtime tests open them by name; a few are for driving by hand
   (see below).
 - `goldens/` — the answer keys, `<Game>.cmd` (the frozen command script) plus
-  `<Game>.txt` (the QuestViva transcript it produces), 373 games. Both halves
+  `<Game>.txt` (the QuestViva transcript it produces), 374 games. Both halves
   are committed; the `.cmd` is what everything replays, so a diff here is a
   change in what "real Quest does".
 - `harness/` — the native harnesses, plus `harness/oracle/`, the QuestViva
   driver that produces the goldens. Binaries build in `harness/` and are
   gitignored.
-- `games/` — the `.quest` corpus: 377 game files, 373 of them wired to a
+- `games/` — the `.quest` corpus: 377 game files, 374 of them wired to a
   golden, the rest duplicate releases and games with no route yet.
   **Untracked** (`../.gitignore`), like `quest4/games/` — third-party game
   data is never committed. The oracle scripts use it automatically when it is
@@ -40,7 +40,7 @@ to live in `quest5/TODO-quest5.md` is in the git history of that file.
 - `downloaded/` — the same arrangement for the third-party walkthrough
   documents `extract_walkthrough.py` reads, falling back to
   `~/Downloads/Quest 5 walkthroughs` (or set `WALKS=`). Only the
-  extractor-driven corpus rows need them (27 of 373); every other row is
+  extractor-driven corpus rows need them (27 of 374); every other row is
   driven by a curated script in `harness/oracle/overrides/`, which is
   committed.
 
@@ -345,11 +345,11 @@ source or a live run; reverse one only with a golden that shows why.
 
 1. `make check` from `../`: loader, runtime and link-parser tests plus the
    Quest 4 fixtures. Corpus-free.
-2. `make replays`: 366 passed, 7 failed with exactly the diffs in the table
+2. `make replays`: 367 passed, 7 failed with exactly the diffs in the table
    above. An eighth row, or a new line inside one of the seven, is a
    regression.
 3. `harness/oracle/check_golden.sh` when a golden changes or the oracle
-   is rebuilt: 373/373, else the oracle moved and the native sweep is
+   is rebuilt: 374/374, else the oracle moved and the native sweep is
    measuring against a stale baseline.
 4. `make asan` for anything touching the runtime or the loader; the corpus
    has been clean under ASan/UBSan since the engine landed.

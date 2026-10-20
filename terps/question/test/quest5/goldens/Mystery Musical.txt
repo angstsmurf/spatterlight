@@ -1,0 +1,176 @@
+ game.
+Escape from Cowellville - A Mystery Musical
+
+This is the moment I have been waiting for my whole life. It's make or break and with 8 words Simon could change my life.
+
+Please make it "Yes" Simon.
+
+Please say, "Congratulations, you are through to the Live Finals".
+
+You are about to leave when Simon calls you back. He tells you that if you complete his game, he will give you a second chance...
+Press any key to start the game...
+You are in a Marcus Collins Room.
+You can see a Little Mix.
+You can go east.
+> look
+> look
+You are in a Marcus Collins Room.
+You can see a Little Mix.
+You can go east.
+> x little mix
+> x little mix
+Little Mix won the X-Factor in 2011
+> speak to little mix
+> speak to little mix
+
+Hi we are Little Mix. To get out of the room you need a special key in the shape of a musical instrument
+
+We will give you this key if you can guess what the musical instrument is.
+
+You have 2 minutes to ask us as many questions as you want. You type them in the blank box below.
+
+You must always start with the words "Ask Little Mix about ....." eg Ask Little Mix about its size
+Little Mix will not give you Yes or No answers!
+
+After 2 minutes we will ask you for your guess. Good luck!
+> ask little mix about size
+> ask little mix about size
+This instrument is quite large and heavy. There are lots of different types.
+> ask little mix about famous
+> ask little mix about famous
+Ringo Starr is the most famous person to play this instrument. What about using it in an orchestra?
+> ask little mix about made
+> ask little mix about made
+It is made of wood with metal grips and a plastic surface. Does anyone well known play it?
+> ask little mix about sound
+> ask little mix about sound
+Here is the sound it plays
+Your time is up. Please type in the name of the musical instrument in the box below.
+> drums
+Congratulations, you are correct. They are drums.
+Little Mix drops the key into your hand. You can now use it to unlock the door.
+
+Type in "Use Drum key"
+> use drum key
+> use drum key
+The Olly Murs Room is now open. Use the Compass to move to the new room
+> e
+> e
+You are in a Olly Murs Room.
+You can see a Joe McElderry.
+You can go west or southeast.
+> speak to joe mcelderry
+> speak to joe mcelderry
+
+Hi I am Jo McElderry. To get out of the room you need a special key in the shape of a musical instrument
+
+I will give you this key if you can guess what the musical instrument is.
+
+You have 2 minutes to ask me as many questions as you want. You type them in the blank box below.
+
+You must always start with the words "Ask Joe McElderry about ....." eg Ask Joe McElderry about its size
+Joe McElderry will not give you Yes or No answers!
+
+After 2 minutes I will ask you for your guess. Good luck!
+> ask joe mcelderry about size
+> ask joe mcelderry about size
+He does not reply.
+Your time is up. Please type in the name of the musical instrument in the box below.
+> double bass
+Congratulations, you are correct. It is a double bass.
+Joe McElderry drops the key into your hand. You can now use it to unlock the door.
+
+Type in "Use Double bass key"
+> use double bass key
+> use double bass key
+The Susan Boyle Room is now open. Use the Compass to move to the new room
+> se
+> se
+You are in a Susan Boyle Room.
+You can see a Diversity.
+You can go northwest or northeast.
+> speak to diversity
+> speak to diversity
+
+Hi we are Diversity. To get out of the room you need a special key in the shape of a musical instrument
+
+We will give you this key if you can guess what the musical instrument is.
+
+You have 2 minutes to ask us as many questions as you want. You type them in the blank box below.
+
+You must always start with the words "Ask Diversity about ....." eg Ask Diversity about its size
+Diversity will not give you Yes or No answers!
+
+After 2 minutes we will ask you for your guess. Good luck!
+Your time is up. Please type in the name of the musical instrument in the box below.
+> piano
+Congratulations, you are correct. It is a piano.
+Diversity drops the key into your hand. You can now use it to unlock the door.
+
+Type in "Use piano key"
+> use piano key
+> use piano key
+The JLS Room is now open. Use the Compass to move to the new room
+> ne
+> ne
+You are in a JLS Room.
+You can see a Alexandra Burke.
+You can go southwest or north.
+> speak to alexandra burke
+> speak to alexandra burke
+
+Hi I am Alexandra Burke. To get out of the room you need a special key in the shape of a musical instrument
+
+I will give you this key if you can guess what the musical instrument is.
+
+You have 2 minutes to ask me as many questions as you want. You type them in the blank box below.
+
+You must always start with the words "Ask Alexandra Burke about ....." eg Ask Alexandra Burke about its size
+Alexandra Burke will not give you Yes or No answers!
+
+After 2 minutes I will ask you for your guess. Good luck!
+Your time is up. Please type in the name of the musical instrument in the box below.
+> flute
+Congratulations, you are correct. It is a flute.
+Alexandra Burke drops the key into your hand. You can now use it to unlock the door.
+
+Type in "Use flute key"
+> use flute key
+> use flute key
+The One Direction Room is now open. Use the Compass to move to the new room
+> n
+> n
+You are in a One Direction Room.
+You can see a Matt Cardle.
+You can go south or west.
+> speak to matt cardle
+> speak to matt cardle
+
+Hi I am Matt Cardle. To get out of the room you need a special key in the shape of a musical instrument
+
+I will give you this key if you can guess what the musical instrument is.
+
+You have 2 minutes to ask me as many questions as you want. You type them in the blank box below.
+
+You must always start with the words "Ask Matt Cardle about ....." eg Ask Matt Cardle about its size
+Matt Cardle will not give you Yes or No answers!
+
+After 2 minutes I will ask you for your guess. Good luck!
+Your time is up. Please type in the name of the musical instrument in the box below.
+> violin
+Congratulations, you are correct. It is a violin.
+Matt Cardle drops the key into your hand. You can now use it to unlock the door.
+
+Type in "Use violin key"
+> use violin key
+> use violin key
+The Louis Walsh Room is now open. Use the Compass to move to the new room
+> w
+> w
+You are in a Louis Walsh Room.
+You can go east.
+> look
+> look
+You are in a Louis Walsh Room.
+You can go east.
+[state=Running]

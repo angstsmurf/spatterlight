@@ -23,6 +23,10 @@ using QuestViva.Engine.GameLoader;
 // `wait` / `DoPause` "press any key" prompts are auto-continued (they consume
 // no script line), matching WalkthroughRunner.
 //
+// A prompt that a TIMER script blocks on (`Ask(...)`, `GetInput()`, a blocking
+// menu) is answered with the next script line while the tick is still running,
+// as a browser player answers it by typing into the box; see TickSettled.
+//
 // Leniency for human-authored walkthroughs (which lack the menu:/answer:
 // prefixes): while a menu or question is pending, a bare line is resolved as a
 // menu key / option number / yes-no answer.
@@ -95,6 +99,7 @@ var clockSecs = 0;
 var live = args.Length >= 2 && args[1] == "-";
 IEnumerable<string> ScriptLines()
 {
+    if (args.Length < 2) yield break;
     if (!live) { foreach (var l in File.ReadLines(args[1])) yield return l; yield break; }
     string? l2;
     while ((l2 = Console.In.ReadLine()) != null) yield return l2;
@@ -141,6 +146,10 @@ world.PrintText += Emit;                 // legacy output path (ASL < v540)
 var fatalField = typeof(WorldModel).GetField("_scriptErrorsFatal",
     System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
 bool BreakerFired() => fatalField != null && (bool)fatalField.GetValue(world)!;
+// Set while `get input`/`GetInput()` waits for the next command line.
+var commandOverrideField = typeof(WorldModel).GetField("_commandOverride",
+    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+bool CommandOverride() => commandOverrideField != null && (bool)commandOverrideField.GetValue(world)!;
 
 TaskScheduler.UnobservedTaskException += (_, e) =>
     Console.Error.WriteLine("[unobserved] " + e.Exception.GetBaseException().Message);
@@ -171,6 +180,13 @@ Console.Error.WriteLine($"[diag] version={world.Version} objects={world.Objects.
     $"hasStartGame={world.Elements.ContainsKey(ElementType.Function, "StartGame")} " +
     $"errors={(world.Errors == null ? 0 : world.Errors.Count)}");
 
+// One enumerator for the whole run: the step loop reads it, and so does
+// TickSettled when a timer script stops on a prompt (which can happen inside
+// Begin's own timer drain, before the step loop starts).
+var script = ScriptLines().GetEnumerator();
+var stepCount = 0;
+var scriptExhausted = true;
+
 // Begin() completes when the opening turn suspends (finished, or blocked on a
 // prompt). No polling needed — the suspend TCS is the real settle signal.
 await world.Begin();
@@ -178,13 +194,12 @@ await AutoAdvance();
 await SettleClock(false);
 Console.Error.WriteLine($"[diag] after begin: emits={emitCount} state={world.State} clock={clockSecs}");
 
-var stepCount = 0;
-var scriptExhausted = true;
 if (args.Length >= 2)
 {
     var liveSent = 0;
-    foreach (var raw in ScriptLines())
+    while (script.MoveNext())
     {
+        var raw = script.Current;
         if (world.State == GameState.Finished) { scriptExhausted = false; break; }
         var cmd = raw.Trim();
         if (cmd.Length == 0 || cmd.StartsWith('#')) continue;
@@ -319,18 +334,66 @@ async Task AutoAdvance()
 // timer that hits a synchronous `play sound` (Mt. Underlook's c4: `play sound
 // ("4.mp3", true, false)`) would otherwise await a FinishWait nobody can call --
 // the browser's audio-ended callback has no headless counterpart.
+//
+// A timer script can also stop on a prompt that needs player text: Mystery
+// Musical's opening `Ask("Do you want to play?")` runs in a SetTimeout, and each
+// room's quiz timer calls `GetInput()`. A browser player answers those while the
+// tick is still in flight (the JS interval's Tick call is fire-and-forget), so
+// do the same: once the tick has stalled with a prompt open, take the next
+// script line as the answer. The stall threshold keeps this off the ordinary
+// non-blocking `show menu`, whose timer script runs to the end and leaves the
+// menu for the next step to answer, exactly as before.
 async Task TickSettled(int secs)
 {
     var tick = world.Tick(secs);
+    var answers = new List<Task>();
     var idle = 0;
     while (!tick.IsCompleted)
     {
         if (player.IsWaiting)      { player.IsWaiting = false;  await world.FinishWait(); idle = 0; }
         else if (player.IsPausing) { player.IsPausing = false;  await world.FinishPause(); idle = 0; }
-        else if (++idle > 5000) throw new Exception("timer script suspended on something other than a wait/pause");
+        else if (idle >= 20 && TimerPromptOpen() && NextAnswerLine() is { } answer)
+        {
+            answers.Add(AnswerTimerPrompt(answer));
+            idle = 0;
+        }
+        else if (++idle > 5000) throw new Exception("timer script suspended on something other than a wait, a pause or a prompt the script answers");
         else await Task.Delay(1);
     }
     await tick;
+    await Task.WhenAll(answers);
+}
+
+bool TimerPromptOpen() =>
+    player.PendingQuestion != null || player.PendingMenu != null || CommandOverride();
+
+// The next command line of the script, counted as a step like any other.
+string? NextAnswerLine()
+{
+    while (script.MoveNext())
+    {
+        var line = script.Current.Trim();
+        if (line.Length == 0 || line.StartsWith('#')) continue;
+        stepCount++;
+        return line;
+    }
+    return null;
+}
+
+Task AnswerTimerPrompt(string answer)
+{
+    if (player.PendingQuestion != null)
+    {
+        player.PendingQuestion = null;
+        return world.SetQuestionResponse(ParseYesNo(answer));
+    }
+    if (player.PendingMenu is { } menu)
+    {
+        player.PendingMenu = null;
+        return world.SetMenuResponse(ResolveMenuKey(menu, answer));
+    }
+    if (echoCommands) Line("> " + answer);
+    return world.SendCommand(answer);
 }
 
 // Let real time pass after a step, under whichever model the script chose.

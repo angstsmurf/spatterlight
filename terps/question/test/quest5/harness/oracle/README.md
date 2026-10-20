@@ -402,8 +402,17 @@ Every clock advance goes through `TickSettled`: `WorldModel.Tick` awaits each du
 timer script to completion, and a timer that runs a synchronous `play sound(...,
 true, ...)` (Mt. Underlook's intercom timers) parks on a `FinishWait` that only the
 browser's audio-ended callback would send. `TickSettled` answers those waits and
-pauses while the tick is in flight, and throws if the script suspends on anything
-else for 5 s.
+pauses while the tick is in flight. A timer script can also stop on a prompt that
+needs player text: Mystery Musical's opening `Ask("Do you want to play?")` runs in
+a `SetTimeout`, and each room's quiz timer calls `GetInput()`. A browser player
+answers those while the tick is still running (the JS interval's `Tick` call is
+fire-and-forget), so once the tick has stalled for 20 ms with a question, a menu
+or a `get input` open, `TickSettled` takes the next script line as the answer:
+`SetQuestionResponse`, `SetMenuResponse`, or `SendCommand` for `get input`
+(echoed as `> line`, like any command). A non-blocking `show menu` in a timer
+script never reaches the threshold, because the script runs to the end and the
+next step answers the menu as before. `TickSettled` throws if the script
+suspends on anything else for 5 s.
 
 ### Synchronous sounds: `play sound (…, true, …)`
 

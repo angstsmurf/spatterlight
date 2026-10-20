@@ -1,6 +1,6 @@
 # Quest 5+ games without a full walkthrough script
 
-Status as of 2026-10-21: 377 game files in `games/`, 373 `corpus.tsv` rows, every
+Status as of 2026-10-21: 377 game files in `games/`, 374 `corpus.tsv` rows, every
 row with a golden. The list counts a game as done when its script reaches a win,
 or the game's authored ending, or the furthest state a game with no ending or a
 broken ending can reach. Everything else is listed here, numbered straight through.
@@ -8,9 +8,7 @@ The per-game reasons come from `harness/oracle/overrides/README.md`.
 
 ## A. No script at all (game file present, no corpus row)
 
-Each one loads and answers `look` in `aslx_replay`. Nothing more has been checked.
-
-2. Mystery Musical. Every room is a 130 s real-time quiz whose timer calls `GetInput()`, and the intro's `Ask()` also runs inside a timer tick; the oracle driver (`TickSettled`) can't answer a prompt raised mid-tick, so it aborts.
+None left (Mystery Musical, the last one, was wired on 2026-10-21).
 
 Alternate builds (Thyme ASL 600, Signos.aslx, What Once Was.aslx) are wired as `(ASL 600 build)` / `(aslx build)` rows; the aslx ones use local symlinks in `games/`.
 
