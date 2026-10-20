@@ -192,15 +192,18 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="BoZ-SA-3gD">
-                                                                    <rect key="frame" x="13" y="0.0" width="0.0" height="42"/>
-                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageAlignment="right" imageScaling="proportionallyDown" id="2FP-6p-kNF"/>
+                                                                    <rect key="frame" x="6" y="14" width="14" height="14"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="2FP-6p-kNF"/>
                                                                     <color key="contentTintColor" name="customBlackOrWhite"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="14" id="sTw-14-aW1"/>
+                                                                        <constraint firstAttribute="height" constant="14" id="sTh-14-aH1"/>
+                                                                    </constraints>
                                                                 </imageView>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstItem="BoZ-SA-3gD" firstAttribute="centerX" secondItem="D47-RF-8C1" secondAttribute="centerX" id="Yp8-sk-xme"/>
-                                                                <constraint firstItem="BoZ-SA-3gD" firstAttribute="height" secondItem="D47-RF-8C1" secondAttribute="height" id="jVG-Kg-QWt"/>
-                                                                <constraint firstItem="BoZ-SA-3gD" firstAttribute="top" secondItem="D47-RF-8C1" secondAttribute="top" id="yEu-01-FWv"/>
+                                                                <constraint firstItem="BoZ-SA-3gD" firstAttribute="centerY" secondItem="D47-RF-8C1" secondAttribute="centerY" id="sTc-Yc-aC1"/>
                                                             </constraints>
                                                             <connections>
                                                                 <outlet property="imageView" destination="BoZ-SA-3gD" id="OjH-TV-9oO"/>
