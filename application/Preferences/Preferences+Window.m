@@ -148,10 +148,11 @@
     [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:kShowThemePreviewKey];
     _previewController.view.hidden = !_previewShown;
 
+    // Scroll after the layout pass that showing or hiding the preview triggers
     PreviewController *blockPrevCtrl = _previewController;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.01 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            [blockPrevCtrl scrollToTop];
-        });
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [blockPrevCtrl scrollToTop];
+    });
 }
 
 #pragma mark -
