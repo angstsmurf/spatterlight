@@ -122,6 +122,22 @@
     return candidate;
 }
 
+- (nullable Theme *)ancestor {
+    NSRange modifiedRange = [self.name rangeOfString:@" (modified)"];
+    if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
+        NSString *baseName = [self.name substringToIndex:modifiedRange.location];
+        Theme *named = [Fetches findTheme:baseName inContext:self.managedObjectContext];
+        if (named != nil)
+            return named;
+    }
+    Theme *root = self.defaultParent;
+    while (root.defaultParent != nil)
+        root = root.defaultParent;
+    if (root == nil)
+        NSLog(@"Found no ancestor theme!");
+    return root;
+}
+
 - (Theme *)clone {
 	//create new object in data store
 	Theme *cloned = [NSEntityDescription

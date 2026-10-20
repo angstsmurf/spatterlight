@@ -485,7 +485,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     }
     Theme *ancestor = themeToRemove.defaultParent;
     if (!ancestor)
-        ancestor = [self findAncestorThemeOf:themeToRemove];
+        ancestor = themeToRemove.ancestor;
     NSSet *orphanedGames = themeToRemove.games;
     NSSet *orphanedThemes = themeToRemove.defaultChild;
     NSUInteger row = arrayController.selectionIndex;
@@ -525,7 +525,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     // and updatePrefsPanel would crash trying to give it new styles.
     Theme *survivor = self.theme;
     if (survivor.editable) {
-        survivor = [self findAncestorThemeOf:survivor];
+        survivor = survivor.ancestor;
         if (!survivor || survivor.editable)
             survivor = self.defaultTheme;
     }
@@ -534,7 +534,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
     for (Theme *t in fetchedObjects) {
         if (t.games.count || t.defaultChild.count) {
-            Theme *ancestor = [self findAncestorThemeOf:t];
+            Theme *ancestor = t.ancestor;
             if (ancestor && !ancestor.editable) {
                 [ancestor addGames:t.games];
                 [ancestor addDefaultChild:t.defaultChild];
@@ -556,27 +556,6 @@ textShouldEndEditing:(NSText *)fieldEditor {
     [survivor addGames:orphanedGames];
     arrayController.selectedObjects = @[survivor];
     [self findDarkAndLightThemes];
-}
-
-- (nullable Theme *)findAncestorThemeOf:(Theme *)t {
-    NSRange modifiedRange = [t.name rangeOfString:@" (modified)"];
-    NSString *baseName = @"";
-    if (modifiedRange.location != NSNotFound && modifiedRange.location > 1) {
-        baseName = [t.name substringToIndex:modifiedRange.location];
-        Theme *newTheme = [_arrayController findThemeByName:baseName];
-        if (newTheme != nil) {
-            return newTheme;
-        }
-    }
-    if (t.defaultParent != nil) {
-        Theme *t2 = t;
-        while (t2.defaultParent != nil) {
-            t2 = t2.defaultParent;
-        }
-        return t2;
-    }
-    NSLog(@"Found no ancestor theme!");
-    return nil;
 }
 
 - (IBAction)editNewEntry:(id)sender {

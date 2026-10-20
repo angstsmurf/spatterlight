@@ -22,6 +22,5 @@
 - (Theme *)themeForMenuCommand:(id)sender;
 - (void)showUseForAllAlert:(NSArray *)games;
 - (NSString *)themeScopeTitle;
-- (Theme *)findAncestorThemeOf:(Theme *)t;
 
 @end

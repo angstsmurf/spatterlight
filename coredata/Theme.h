@@ -165,6 +165,11 @@ NS_ASSUME_NONNULL_BEGIN
 //! \c name if no theme has it (case-insensitively), else "name 2", "name 3"…
 + (NSString *)unusedNameBasedOn:(NSString *)name inContext:(NSManagedObjectContext *)context;
 
+//! The theme this one was cloned from at the start: the theme named as this
+//! one before " (modified)", if there is one, else the root of the
+//! \c defaultParent chain, else nil.
+@property (NS_NONATOMIC_IOSONLY, readonly, nullable) Theme *ancestor;
+
 //! An editable copy with copies of the styles, named as the original: the
 //! caller gives it a name of its own.
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) Theme * _Nonnull clone;
