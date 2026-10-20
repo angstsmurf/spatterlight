@@ -27,6 +27,7 @@
 #import "MarginContainer.h"
 #import "MarginImage.h"
 #import "PreferencesPrivate.h"
+#import "Constants.h"
 #import <BlorbFramework/BlorbFramework.h>
 #import <BlorbFramework/BlorbFramework-Swift.h>
 #include "glk.h"
@@ -90,8 +91,8 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     // "abandon the game?" sheet instead: the window stays open after the
     // test and the interpreter log is never finished.
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _originalCloseAlertSuppression = [defaults boolForKey:@"CloseAlertSuppression"];
-    [defaults setBool:YES forKey:@"CloseAlertSuppression"];
+    _originalCloseAlertSuppression = [defaults boolForKey:kCloseAlertSuppressionKey];
+    [defaults setBool:YES forKey:kCloseAlertSuppressionKey];
 
     // Set up an in-memory Core Data stack for testing
     [self setUpInMemoryCoreDataStack];
@@ -127,7 +128,7 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
     self.coreDataManager = nil;
 
     [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"LogInterpreterOutput"];
-    [[NSUserDefaults standardUserDefaults] setBool:_originalCloseAlertSuppression forKey:@"CloseAlertSuppression"];
+    [[NSUserDefaults standardUserDefaults] setBool:_originalCloseAlertSuppression forKey:kCloseAlertSuppressionKey];
 
     [super tearDown];
 }

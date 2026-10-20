@@ -56,6 +56,34 @@ NSPasteboardType PasteboardFileURLPromise,
 PasteboardFilePromiseContent,
 PasteboardFilePasteLocation;
 
+NSString * const kShowThemePreviewKey = @"ShowThemePreview";
+NSString * const kThemeNameKey = @"themeName";
+NSString * const kSelectedStyleKey = @"SelectedStyle";
+NSString * const kSelectedGlkWindowTypeKey = @"SelectedGlkWindowType";
+NSString * const kRecheckFrequencyKey = @"RecheckFrequency";
+NSString * const kRecheckForMissingKey = @"RecheckForMissing";
+NSString * const kOneThemeForAllKey = @"OneThemeForAll";
+NSString * const kLastThemesRebuildKey = @"LastThemesRebuild";
+NSString * const kAdjustSizeKey = @"AdjustSize";
+NSString * const kImageReplacementKey = @"ImageReplacement";
+NSString * const kSaveInGameDirectoryKey = @"SaveInGameDirectory";
+NSString * const kShowBezelsKey = @"ShowBezels";
+NSString * const kShowLibraryKey = @"ShowLibrary";
+NSString * const kAddToLibraryKey = @"AddToLibrary";
+NSString * const kTerminationAlertSuppressionKey = @"TerminationAlertSuppression";
+NSString * const kUseForAllAlertSuppressionKey = @"UseForAllAlertSuppression";
+NSString * const kOverwriteStylesAlertSuppressionKey = @"OverwriteStylesAlertSuppression";
+NSString * const kAutorestoreAlertSuppressionKey = @"AutorestoreAlertSuppression";
+NSString * const kCloseAlertSuppressionKey = @"CloseAlertSuppression";
+NSString * const kCommandScriptAlertSuppressionKey = @"CommandScriptAlertSuppression";
+NSString * const kSaveFileAlertSuppressionKey = @"SaveFileAlertSuppression";
+NSString * const kImageComparisonSuppressionKey = @"ImageComparisonSuppression";
+NSString * const kVerifyAlertSuppressionKey = @"VerifyAlertSuppression";
+
+NSArray<NSString *> *AlertSuppressionKeys(void) {
+    return @[ kTerminationAlertSuppressionKey, kUseForAllAlertSuppressionKey, kOverwriteStylesAlertSuppressionKey, kAutorestoreAlertSuppressionKey, kCloseAlertSuppressionKey, kCommandScriptAlertSuppressionKey, kSaveFileAlertSuppressionKey, kImageComparisonSuppressionKey, kVerifyAlertSuppressionKey ];
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
 
@@ -334,14 +362,14 @@ PasteboardFilePasteLocation;
     panel.accessoryView = _tableViewController.addToLibraryCheckBox;
     NSButton *addToLibraryCheckBox = (NSButton *)panel.accessoryView;
     addToLibraryCheckBox.state = [[NSUserDefaults standardUserDefaults]
-                      boolForKey:@"AddToLibrary"];
+                      boolForKey:kAddToLibraryKey];
 
     [panel beginWithCompletionHandler:^(NSInteger result) {
         NSButton *blockAddToLibraryCheckBox = (NSButton*)panel.accessoryView;
         if (result == NSModalResponseOK) {
             BOOL addToLibrary = (blockAddToLibraryCheckBox.state == NSOnState); ;
             [[NSUserDefaults standardUserDefaults]
-             setBool:addToLibrary forKey:@"AddToLibrary"];
+             setBool:addToLibrary forKey:kAddToLibraryKey];
             [Preferences instance].addToLibraryCheckbox.state = blockAddToLibraryCheckBox.state;
 
             NSURL *theDoc = panel.URLs.firstObject;
@@ -390,7 +418,7 @@ PasteboardFilePasteLocation;
 // Shows the library if the user prefers it, otherwise the Open panel.
 // Returns YES if the library was shown.
 - (BOOL)showLibraryOrOpenDocument {
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"ShowLibrary"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kShowLibraryKey]) {
         [self showLibrary:nil];
         return YES;
     }
@@ -515,7 +543,7 @@ continueUserActivity:(NSUserActivity *)userActivity
         }
     }
 
-    if ([defaults boolForKey:@"TerminationAlertSuppression"]) {
+    if ([defaults boolForKey:kTerminationAlertSuppressionKey]) {
         NSLog(@"Termination alert suppressed");
     } else {
         if (alive > 0) {
@@ -537,7 +565,7 @@ continueUserActivity:(NSUserActivity *)userActivity
                                                  buttons:@[NSLocalizedString(@"Quit", nil), NSLocalizedString(@"Cancel", nil)]];
             [anAlert showSuppressionButtonWithTitle:nil];
 
-            if ([anAlert runModalSuppressingWithKey:@"TerminationAlertSuppression"] == NSAlertSecondButtonReturn) {
+            if ([anAlert runModalSuppressingWithKey:kTerminationAlertSuppressionKey] == NSAlertSecondButtonReturn) {
                 return NSTerminateCancel;
             }
         }

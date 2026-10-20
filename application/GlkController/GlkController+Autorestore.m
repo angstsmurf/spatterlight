@@ -35,6 +35,7 @@
 
 #import "DebugLog.h"
 #import "NSAlert+Spatterlight.h"
+#import "Constants.h"
 
 NSString * const kAutosaveTerpFile = @"autosave.plist";
 NSString * const kAutosaveTerpBakFile = @"autosave-bak.plist";
@@ -282,7 +283,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     if (self.theme.autosave == NO)
         return NO;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    if ([defaults boolForKey:@"AutorestoreAlertSuppression"]) {
+    if ([defaults boolForKey:kAutorestoreAlertSuppressionKey]) {
         // Autorestore alert suppressed
         if (![defaults boolForKey:@"AlwaysAutorestore"]) {
             // The user has checked "Remember this choice" when
@@ -1163,7 +1164,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
 
 - (void)showAutorestoreAlert:(id)userInfo {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *alertSuppressionKey = @"AutorestoreAlertSuppression";
+    NSString *alertSuppressionKey = kAutorestoreAlertSuppressionKey;
     NSString *alwaysAutorestoreKey = @"AlwaysAutorestore";
 
     if ([defaults boolForKey:alertSuppressionKey] == YES)

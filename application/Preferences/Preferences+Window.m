@@ -145,7 +145,7 @@
 - (void)windowDidEndLiveResize:(id)sender {
     _previewShown = (NSHeight(self.window.frame) > defaultWindowHeight);
 
-    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
+    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:kShowThemePreviewKey];
     _previewController.view.hidden = !_previewShown;
 
     PreviewController *blockPrevCtrl = _previewController;
@@ -236,7 +236,7 @@
         _previewShown = YES;
         [self resizeWindowToHeight:[self calculateWindowHeightWithPreview] animate:YES];
     }
-    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:@"ShowThemePreview"];
+    [[NSUserDefaults standardUserDefaults] setBool:_previewShown forKey:kShowThemePreviewKey];
 }
 
 #pragma mark Toolbar

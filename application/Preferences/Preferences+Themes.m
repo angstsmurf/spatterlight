@@ -299,7 +299,7 @@ static void *kArrangedThemesContext = &kArrangedThemesContext;
 }
 
 - (void)changeThemeName:(NSString *)name {
-    [[NSUserDefaults standardUserDefaults] setObject:name forKey:@"themeName"];
+    [[NSUserDefaults standardUserDefaults] setObject:name forKey:kThemeNameKey];
     NSString *themeString = [NSString stringWithFormat:NSLocalizedString(@"Settings for theme %@", nil), name];
     _detailsHeader.stringValue = themeString;
     _miscHeader.stringValue = themeString;
@@ -378,7 +378,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)clickedOneThemeForAll:(id)sender {
     if ([sender state] == NSControlStateValueOn) {
-        if (![[NSUserDefaults standardUserDefaults] boolForKey:@"UseForAllAlertSuppression"]) {
+        if (![[NSUserDefaults standardUserDefaults] boolForKey:kUseForAllAlertSuppressionKey]) {
             NSFetchRequest *fetchRequest = [Game fetchRequest];
             NSError *error = nil;
             fetchRequest.includesPropertyValues = NO;
@@ -413,7 +413,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
     Preferences * __weak weakSelf = self;
     [self showOkayCancelAlertWithMessage:message
                                     info:info
-                          suppressionKey:@"UseForAllAlertSuppression"
+                          suppressionKey:kUseForAllAlertSuppressionKey
                                  handler:^(BOOL okay) {
         if (okay) {
             weakSelf.oneThemeForAll = YES;
@@ -442,7 +442,7 @@ textShouldEndEditing:(NSText *)fieldEditor {
 
 - (IBAction)changeAdjustSize:(id)sender {
     _adjustSize = (BOOL)[sender state];
-    [[NSUserDefaults standardUserDefaults] setBool:_adjustSize forKey:@"AdjustSize"];
+    [[NSUserDefaults standardUserDefaults] setBool:_adjustSize forKey:kAdjustSizeKey];
 }
 
 - (IBAction)addTheme:(id)sender {

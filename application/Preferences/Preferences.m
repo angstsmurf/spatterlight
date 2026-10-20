@@ -57,7 +57,7 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
 
 + (void)readDefaults {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *name = [defaults objectForKey:@"themeName"];
+    NSString *name = [defaults objectForKey:kThemeNameKey];
 
     if (!name)
         name = @"Old settings";
@@ -82,11 +82,11 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
     BOOL forceRebuild = NO;
     NSString *appBuildString = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"];
 
-    NSString *lastThemesRebuild = [defaults objectForKey:@"LastThemesRebuild"];
+    NSString *lastThemesRebuild = [defaults objectForKey:kLastThemesRebuildKey];
 
     if (![lastThemesRebuild isEqualToString:appBuildString]) {
         forceRebuild = YES;
-        [defaults setObject:appBuildString forKey:@"LastThemesRebuild"];
+        [defaults setObject:appBuildString forKey:kLastThemesRebuildKey];
     }
 
     // We may or may not have created the Default and Old themes already above.
@@ -225,7 +225,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     NSToolbar *toolbar = [self setUpToolbar];
 
-    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowThemePreview"];
+    _previewShown = [[NSUserDefaults standardUserDefaults] boolForKey:kShowThemePreviewKey];
 
     // The tool menu is also the contextual menu of the themes table, where
     // it applies to the clicked theme. Skip the hidden pull-down title item.
@@ -312,10 +312,10 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
     }
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    _oneThemeForAll = [defaults boolForKey:@"OneThemeForAll"];
+    _oneThemeForAll = [defaults boolForKey:kOneThemeForAllKey];
     _themesHeader.stringValue = [self themeScopeTitle];
 
-    _adjustSize = [defaults boolForKey:@"AdjustSize"];
+    _adjustSize = [defaults boolForKey:kAdjustSizeKey];
 }
 
 - (void)setUpScrollView {
@@ -491,9 +491,9 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [_windowTypePopup selectItemWithTag:
-     [defaults integerForKey:@"SelectedGlkWindowType"]];
+     [defaults integerForKey:kSelectedGlkWindowTypeKey]];
     [_styleNamePopup selectItemWithTag:
-     [defaults integerForKey:@"SelectedStyle"]];
+     [defaults integerForKey:kSelectedStyleKey]];
 
     GlkStyle *selectedStyle = [self selectedStyle];
     clrAnyFg.color = selectedStyle.color;
@@ -574,8 +574,8 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 - (void)updateGlobalPane {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    _recheckMissingCheckbox.state = [defaults boolForKey:@"RecheckForMissing"] ? NSControlStateValueOn : NSControlStateValueOff;
-    _recheckFrequencyTextfield.stringValue = [defaults stringForKey:@"RecheckFrequency"];
+    _recheckMissingCheckbox.state = [defaults boolForKey:kRecheckForMissingKey] ? NSControlStateValueOn : NSControlStateValueOff;
+    _recheckFrequencyTextfield.stringValue = [defaults stringForKey:kRecheckFrequencyKey];
     _recheckFrequencyTextfield.enabled = _recheckMissingCheckbox.state ? YES : NO;
 
     [self updateLibraryOrganiserControls];
@@ -670,7 +670,7 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
 - (void)setOneThemeForAll:(BOOL)oneThemeForAll {
     _oneThemeForAll = oneThemeForAll;
-    [[NSUserDefaults standardUserDefaults] setBool:_oneThemeForAll forKey:@"OneThemeForAll"];
+    [[NSUserDefaults standardUserDefaults] setBool:_oneThemeForAll forKey:kOneThemeForAllKey];
     _themesHeader.stringValue = [self themeScopeTitle];
     if (oneThemeForAll) {
         _btnOneThemeForAll.state = NSControlStateValueOn;

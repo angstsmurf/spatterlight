@@ -9,6 +9,7 @@
 #import "BezelWindow.h"
 #import "BezelContentView.h"
 #import "SPAccessibility.h"
+#import "Constants.h"
 
 static const CGFloat kStandardBezelSize = 200;
 static const CGFloat kCoverBezelSize = 300;
@@ -27,7 +28,7 @@ static const CGFloat kFadeDuration = 0.25;
 }
 
 + (BOOL)bezelsEnabled {
-    return [[NSUserDefaults standardUserDefaults] boolForKey:@"ShowBezels"];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:kShowBezelsKey];
 }
 
 - (void)showStandardWithText:(NSString *)text {

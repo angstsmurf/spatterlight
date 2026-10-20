@@ -122,7 +122,7 @@ static void playSoundNamed(NSString *name) {
     self.commandScriptHandler = nil;
     NSURL *directory;
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
-    if ([defaults boolForKey:@"SaveInGameDirectory"]) {
+    if ([defaults boolForKey:kSaveInGameDirectoryKey]) {
         if (!self.saveDir) {
             directory = [[self.game urlForBookmark] URLByDeletingLastPathComponent];
         } else {
@@ -203,7 +203,7 @@ static void playSoundNamed(NSString *name) {
 
         if (result == NSModalResponseOK) {
             NSURL *theFile = panel.URL;
-            if ([defaults boolForKey:@"SaveInGameDirectory"]) {
+            if ([defaults boolForKey:kSaveInGameDirectoryKey]) {
                 self.saveDir = theFile.URLByDeletingLastPathComponent;
             }
             [defaults

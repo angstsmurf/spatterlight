@@ -16,6 +16,7 @@
 
 #import "DebugLog.h"
 #import "NSAlert+Spatterlight.h"
+#import "Constants.h"
 
 extern NSArray *gDocFileTypes;
 extern NSArray *gSaveFileTypes;
@@ -236,7 +237,7 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
         return;
     }
 
-    if (!SPConfirmUnlessSuppressed(@"CommandScriptAlertSuppression",
+    if (!SPConfirmUnlessSuppressed(kCommandScriptAlertSuppressionKey,
                                    NSLocalizedString(@"Run command script?", nil),
                                    [NSString stringWithFormat:NSLocalizedString(@"Do you want to run the command script %@ with this game?", nil), filename.lastPathComponent]))
         return;
@@ -271,7 +272,7 @@ static BOOL SPConfirmUnlessSuppressed(NSString *suppressionKey, NSString *messag
                               NSLocalizedString(@"Cannot find an input prompt to restore this save from.", nil));
         return;
     }
-    if (!SPConfirmUnlessSuppressed(@"SaveFileAlertSuppression",
+    if (!SPConfirmUnlessSuppressed(kSaveFileAlertSuppressionKey,
                                    NSLocalizedString(@"Restore from save file?", nil),
                                    [NSString stringWithFormat:NSLocalizedString(@"Do you want to restore this game from the save file %@?", nil), filename.lastPathComponent]))
         return;

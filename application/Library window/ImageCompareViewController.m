@@ -17,6 +17,7 @@
 #import "Preferences.h"
 
 #import "ImageSimilarity.h"
+#import "Constants.h"
 
 @interface ImageCompareViewController ()
 
@@ -42,13 +43,13 @@
 
     if (!force) {
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[defaults integerForKey:@"ImageReplacement"];
+        kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[defaults integerForKey:kImageReplacementKey];
         if (source == kImageComparisonDownloaded) {
             if (userSetting == kNeverReplace)
                 return kImageComparisonResultB;
             if (userSetting == kAlwaysReplace)
                 return kImageComparisonResultA;
-        } else if (source == kImageComparisonLocalFile && [defaults boolForKey:@"ImageComparisonSuppression"]) {
+        } else if (source == kImageComparisonLocalFile && [defaults boolForKey:kImageComparisonSuppressionKey]) {
             return kImageComparisonResultA;
         }
     }
@@ -95,11 +96,11 @@
 
     if (checkbox.state == NSControlStateValueOn) {
         if (source == kImageComparisonDownloaded) {
-            [defaults setInteger:(choice == NSAlertFirstButtonReturn) ? kAlwaysReplace : kNeverReplace forKey:@"ImageReplacement"];
+            [defaults setInteger:(choice == NSAlertFirstButtonReturn) ? kAlwaysReplace : kNeverReplace forKey:kImageReplacementKey];
             if (Preferences.instance)
                 [Preferences.instance updatePrefsPanel];
         } else {
-            [defaults setBool:YES forKey: @"ImageComparisonSuppression"];
+            [defaults setBool:YES forKey: kImageComparisonSuppressionKey];
         }
     }
     return choice;

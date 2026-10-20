@@ -561,7 +561,7 @@ void ReportImportFailure(NSString *title, NSString *info) {
 - (void)updateImageFromBlorb:(Blorb *)blorb inGame:(Game *)game {
     if (blorb) {
         NSData *newImageData = blorb.coverImageData;
-        kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[[NSUserDefaults standardUserDefaults] integerForKey:@"ImageReplacement"];
+        kImageReplacementPrefsType userSetting = (kImageReplacementPrefsType)[[NSUserDefaults standardUserDefaults] integerForKey:kImageReplacementKey];
         if (newImageData && ![newImageData isPlaceHolderImage] &&
             (userSetting == kAlwaysReplace || ![_tableViewController.lastImageComparisonData isEqual:newImageData])) {
             NSData *oldImageData = (NSData *)game.metadata.cover.data;

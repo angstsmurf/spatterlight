@@ -130,7 +130,7 @@
 
     [self verifyInBackground:nil];
 
-    if ([[NSUserDefaults standardUserDefaults] boolForKey:@"RecheckForMissing"]) {
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kRecheckForMissingKey]) {
         [self startVerifyTimer];
     }
 

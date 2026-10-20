@@ -243,7 +243,7 @@
 #pragma mark - Import and Play
 
 - (nullable NSWindow *)importAndPlayGame:(NSString *)path {
-    BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:@"AddToLibrary"];
+    BOOL hide = ![[NSUserDefaults standardUserDefaults] boolForKey:kAddToLibraryKey];
     Game *game = [self importGame:path inContext:self.tableViewController.managedObjectContext reportFailure:YES hide:hide];
     if (game) {
         return [self selectAndPlayGame:game];

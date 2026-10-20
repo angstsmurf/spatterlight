@@ -15,6 +15,7 @@
 #import "BuiltInThemes.h"
 #import "CoreDataManager.h"
 #import "PreferencesPrivate.h"
+#import "Constants.h"
 
 @interface PreferencesSimpleSettingsTests : XCTestCase
 
@@ -164,6 +165,17 @@
             XCTAssertEqual(Preferences.theme, self.editableTheme, @"%@ replaced the theme", outlet);
         }
     }];
+}
+
+// The table needs compile-time constants, so it spells out the keys that the
+// rest of the app reads through the Constants.h names
+- (void)testSharedDefaultsKeysMatchTheConstants {
+    NSDictionary<NSString *, NSString *> *keys = Preferences.simpleSettingKeys;
+    XCTAssertEqualObjects(keys[@"imageReplacePopup"], kImageReplacementKey);
+    XCTAssertEqualObjects(keys[@"saveInGameDirCheckbox"], kSaveInGameDirectoryKey);
+    XCTAssertEqualObjects(keys[@"btnShowBezels"], kShowBezelsKey);
+    XCTAssertEqualObjects(keys[@"libraryAtStartCheckbox"], kShowLibraryKey);
+    XCTAssertEqualObjects(keys[@"addToLibraryCheckbox"], kAddToLibraryKey);
 }
 
 // A sender that is not in the table changes nothing

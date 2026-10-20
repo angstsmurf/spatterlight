@@ -294,7 +294,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
 - (NSModalResponse)verifyAlert {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 
-    if ([defaults boolForKey:@"VerifyAlertSuppression"])
+    if ([defaults boolForKey:kVerifyAlertSuppressionKey])
         return NSAlertFirstButtonReturn;
 
     NSAlert *alert = [NSAlert new];
@@ -304,8 +304,8 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
     alert.suppressionButton.title = NSLocalizedString(@"Remember these choices", nil);
 
     self.verifyDeleteMissingCheckbox.state = [defaults boolForKey:@"DeleteMissing"];
-    self.verifyReCheckbox.state = [defaults boolForKey:@"RecheckForMissing"];
-    self.verifyFrequencyTextField.integerValue = [defaults integerForKey:@"RecheckFrequency"];
+    self.verifyReCheckbox.state = [defaults boolForKey:kRecheckForMissingKey];
+    self.verifyFrequencyTextField.integerValue = [defaults integerForKey:kRecheckFrequencyKey];
 
     alert.accessoryView = self.verifyView;
     [alert addButtonWithTitle:NSLocalizedString(@"Check", nil)];
@@ -313,14 +313,14 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
     NSModalResponse choice = [alert runModal];
 
     if (choice == NSAlertFirstButtonReturn) {
-        [defaults setBool:alert.suppressionButton.state == NSControlStateValueOn forKey:@"VerifyAlertSuppression"];
-        [defaults setBool:self.verifyReCheckbox.state == NSControlStateValueOn forKey:@"RecheckForMissing"];
+        [defaults setBool:alert.suppressionButton.state == NSControlStateValueOn forKey:kVerifyAlertSuppressionKey];
+        [defaults setBool:self.verifyReCheckbox.state == NSControlStateValueOn forKey:kRecheckForMissingKey];
         if (self.verifyReCheckbox.state)
             [self startVerifyTimer];
         else
             [self stopVerifyTimer];
         [defaults setBool:self.verifyDeleteMissingCheckbox.state == NSControlStateValueOn forKey:@"DeleteMissing"];
-        [defaults setInteger:self.verifyFrequencyTextField.integerValue forKey:@"RecheckFrequency"];
+        [defaults setInteger:self.verifyFrequencyTextField.integerValue forKey:kRecheckFrequencyKey];
     }
     return choice;
 }
@@ -478,7 +478,7 @@ static NSArray<NSSortDescriptor *> *duplicateSurvivorOrder(void) {
     if (self.verifyTimer)
         [self.verifyTimer invalidate];
     self.verifyIsCancelled = NO;
-    NSInteger minutes = [[NSUserDefaults standardUserDefaults] integerForKey:@"RecheckFrequency"];
+    NSInteger minutes = [[NSUserDefaults standardUserDefaults] integerForKey:kRecheckFrequencyKey];
     // A zero or negative frequency would make the timer fire continuously
     NSTimeInterval seconds = (NSTimeInterval)MAX(minutes, 1) * 60;
     self.verifyTimer = [NSTimer scheduledTimerWithTimeInterval:seconds

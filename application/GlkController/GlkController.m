@@ -935,7 +935,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     }
 
     if ([[NSUserDefaults standardUserDefaults]
-         boolForKey:@"CloseAlertSuppression"]) {
+         boolForKey:kCloseAlertSuppressionKey]) {
         NSLog(@"windowShouldClose: Window close alert suppressed");
         return YES;
     }
@@ -954,7 +954,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
                 // Suppress this alert from now on
                 [[NSUserDefaults standardUserDefaults]
                  setBool:YES
-                 forKey:@"CloseAlertSuppression"];
+                 forKey:kCloseAlertSuppressionKey];
             }
             [self close];
         }
@@ -1457,7 +1457,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // frame to accommodate the new border while keeping the content area stable.
 // Only applies in windowed mode when "Adjust window size" is enabled.
 - (void)noteBorderChanged:(NSNotification *)notify {
-    if (notify.object != _theme || self.isInSystemFullscreen || ![[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"])
+    if (notify.object != _theme || self.isInSystemFullscreen || ![[NSUserDefaults standardUserDefaults] boolForKey:kAdjustSizeKey])
         return;
     [Preferences instance].inMagnification = YES;
     _movingBorder = YES;
@@ -1559,12 +1559,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
 
-    if (![defaults boolForKey:@"SaveInGameDirectory"]) {
+    if (![defaults boolForKey:kSaveInGameDirectoryKey]) {
         self.saveDir = nil;
     }
 
     _shouldStoreScrollOffset = NO;
-    if ([defaults boolForKey:@"AdjustSize"] && !autorestoring) {
+    if ([defaults boolForKey:kAdjustSizeKey] && !autorestoring) {
         if (lastTheme != theme && !NSEqualSizes(lastSizeInChars, NSZeroSize)) { // Theme changed
             NSSize newContentSize = [self charCellsToContentSize:lastSizeInChars];
             CGFloat borders = theme.border * 2;
@@ -1692,7 +1692,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     NSSize sizeAfterZoom;
     if ([Preferences instance].inMagnification) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"AdjustSize"] == NO)
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:kAdjustSizeKey] == NO)
             return;
         if (lastSizeInChars.width == 0) {
             sizeAfterZoom = [self defaultContentSize];

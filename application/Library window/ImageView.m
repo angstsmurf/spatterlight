@@ -34,6 +34,7 @@
 
 #import "Preferences.h"
 #import "NSAlert+Spatterlight.h"
+#import "Constants.h"
 
 #define FILTERTAG ((NSInteger) 100)
 #define DESCRIPTIONTAG ((NSInteger) 200)
@@ -525,7 +526,7 @@
     NSOperationQueue *queue = self.workQueue;
 
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSInteger setting = [defaults integerForKey:@"ImageReplacement"];
+    NSInteger setting = [defaults integerForKey:kImageReplacementKey];
 
     BOOL reportFailure = (game.metadata.ifids.count <= 1 || game.metadata.tuid.length);
 
