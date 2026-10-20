@@ -131,11 +131,11 @@
     } else if (line_request && (ch == keycode_Up ||
                                 // Use Home to travel backward in history when Beyond Zork eats up arrow
                                 (self.mayEatArrowKeys && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_Home))) {
-        [self travelBackwardInHistory];
+        [self travelInHistoryForward:NO];
     } else if (line_request && (ch == keycode_Down ||
                                 // Use End to travel forward in history when Beyond Zork eats down arrow
                                 (self.mayEatArrowKeys && self.theme.bZTerminator != kBZArrowsSwapped && ch == keycode_End))) {
-        [self travelForwardInHistory];
+        [self travelInHistoryForward:YES];
     } else if (line_request && ch == keycode_PageUp &&
                fence == textstorage.length) {
         CGFloat oldPosition = scrollview.contentView.bounds.origin.y;
@@ -387,36 +387,16 @@
 
 #pragma mark Command history
 
-// Replace the current input with the previous command from history.
-// Announces via VoiceOver if at the start of history or history is empty.
-- (void)travelBackwardInHistory {
+- (NSString *)historyInputText {
     [self flushDisplay];
-    NSString *cx = [history travelBackwardInHistory:[self currentInputText]];
-
-    if (cx) {
-        [textstorage
-         replaceCharactersInRange:self.editableRange
-         withString:cx];
-        [_textview resetTextFinder];
-    }
-
-    if (!cx.length)
-        [self announceHistoryEdgeForward:NO];
+    return [self currentInputText];
 }
 
-// Replace the current input with the next command from history.
-- (void)travelForwardInHistory {
-    NSString *cx = [history travelForwardInHistory];
-    if (cx) {
-        [self flushDisplay];
-        [textstorage
-         replaceCharactersInRange:self.editableRange
-         withString:cx];
-        [_textview resetTextFinder];
-    }
-
-    if (!cx.length)
-        [self announceHistoryEdgeForward:YES];
+- (void)replaceInputWithHistoryEntry:(NSString *)entry {
+    [textstorage
+     replaceCharactersInRange:self.editableRange
+     withString:entry];
+    [_textview resetTextFinder];
 }
 
 #pragma mark NSTextView customization

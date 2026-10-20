@@ -149,8 +149,14 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 // The text of a move, as speakPrevious and speakNext speak it.
 - (NSString *)speakableStringForMoveRange:(NSValue *)range;
 - (void)speakStatus;
-// Speak "No commands entered", or that history travel hit its start
+// Put the previous (or next) history line into the input and speak it, or
+// speak "No commands entered", or that history travel hit its start
 // (backward) or end (forward).
+- (void)travelInHistoryForward:(BOOL)forward;
+// Overridden by windows that take line input: the text being edited, or nil
+// when there is no input to travel in.
+@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *historyInputText;
+- (void)replaceInputWithHistoryEntry:(NSString *)entry;
 - (void)announceHistoryEdgeForward:(BOOL)forward;
 // Cancel pending Z-machine menu or form announcements before speaking.
 - (void)cancelPendingMenuAnnouncements;

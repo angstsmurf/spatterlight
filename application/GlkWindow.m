@@ -11,6 +11,7 @@
 #import "InputHistory.h"
 #import "MarginImage.h"
 #import "MyAttachmentCell.h"
+#import "SPAccessibility.h"
 #import "Theme.h"
 #import "ZColor.h"
 
@@ -848,9 +849,38 @@
     return @"";
 }
 
+#pragma mark Command history
+
+- (void)travelInHistoryForward:(BOOL)forward {
+    NSString *input = self.historyInputText;
+    if (!input)
+        return;
+    NSString *entry = forward ? [history travelForward] : [history travelBackward:input];
+    if (entry)
+        [self replaceInputWithHistoryEntry:entry];
+
+    if (entry.length) {
+        // Post on the next run loop pass, after AppKit has reported the
+        // input text change, so the announcement is the last thing said.
+        dispatch_async(dispatch_get_main_queue(), ^{
+            SPAnnounce(entry, NSAccessibilityPriorityHigh, nil);
+        });
+    } else {
+        [self announceHistoryEdgeForward:forward];
+    }
+}
+
+- (NSString *)historyInputText {
+    return nil;
+}
+
+- (void)replaceInputWithHistoryEntry:(NSString *)entry {
+    NSLog(@"replaceInputWithHistoryEntry in %@ not implemented", [self class]);
+}
+
 - (void)announceHistoryEdgeForward:(BOOL)forward {
     NSString *message;
-    if ([history empty])
+    if (history.isEmpty)
         message = NSLocalizedString(@"No commands entered", nil);
     else if (forward)
         message = NSLocalizedString(@"End of command history", nil);

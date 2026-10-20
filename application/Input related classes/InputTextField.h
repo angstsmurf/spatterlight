@@ -5,9 +5,7 @@
 //  Created by Administrator on 2020-10-24.
 //
 
-#import <Foundation/Foundation.h>
-
-#import "GlkWindow.h"
+#import <Cocoa/Cocoa.h>
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -15,9 +13,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+// Limits the input to maxLength UTF-16 units (0 allows nothing), truncating
+// pasted text. Archived with the field, as a subview of the grid window's
+// text view.
 @interface MyTextFormatter : NSFormatter
 
-- (instancetype)initWithMaxLength:(NSUInteger)maxLength;
+- (instancetype)initWithMaxLength:(NSUInteger)maxLength NS_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder *)coder NS_DESIGNATED_INITIALIZER;
 
 @property NSUInteger maxLength;
 

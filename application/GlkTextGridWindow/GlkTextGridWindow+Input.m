@@ -181,12 +181,12 @@
             [self.window makeFirstResponder:self.input];
 
             if (ch == keycode_Up) {
-                [self travelBackwardInHistory];
+                [self travelInHistoryForward:NO];
                 return;
             }
 
             if (ch == keycode_Down) {
-                [self travelForwardInHistory];
+                [self travelInHistoryForward:YES];
                 return;
             }
 
@@ -262,10 +262,6 @@
                                      attributes:firstCharDict];
 
     self.input.attributedStringValue = attString;
-
-    MyTextFormatter *inputFormatter =
-    [[MyTextFormatter alloc] initWithMaxLength:maxLength];
-    self.input.formatter = inputFormatter;
 
     [_textview addSubview:self.input];
 
@@ -364,30 +360,15 @@
 
 #pragma mark Command history
 
-- (void)travelBackwardInHistory {
+- (NSString *)historyInputText {
     if (!self.input)
-        return;
-    NSString *cx = [history travelBackwardInHistory:self.input.stringValue ?: @""];
-    if (cx) {
-        self.input.stringValue = cx;
-        self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
-    }
-
-    if (!cx.length)
-        [self announceHistoryEdgeForward:NO];
+        return nil;
+    return self.input.stringValue ?: @"";
 }
 
-- (void)travelForwardInHistory {
-    if (!self.input)
-        return;
-    NSString *cx = [history travelForwardInHistory];
-    if (cx) {
-        self.input.stringValue = cx;
-        self.input.fieldEditor.selectedRange = NSMakeRange(cx.length, 0);
-    }
-
-    if (!cx.length)
-        [self announceHistoryEdgeForward:YES];
+- (void)replaceInputWithHistoryEntry:(NSString *)entry {
+    self.input.stringValue = entry;
+    self.input.fieldEditor.selectedRange = NSMakeRange(entry.length, 0);
 }
 
 @end
