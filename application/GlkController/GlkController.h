@@ -103,6 +103,9 @@ typedef enum kMinimumWindowSize : NSUInteger {
 
 @property NSString *oldThemeName;
 
+// The whole game file, read into the heap for the session. Blorb pictures
+// are subdata views on it, not copies. Not mapped: a mapped file that is
+// replaced or truncated during play crashes with SIGBUS on the next touch.
 @property NSData *gameData;
 @property NSURL *gameFileURL;
 @property NSAlert *slowReadAlert;

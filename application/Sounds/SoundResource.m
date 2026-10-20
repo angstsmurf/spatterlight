@@ -7,6 +7,7 @@
 
 #import "SoundHandler.h"
 #import "GlkController.h"
+#import "NSData+Categories.h"
 
 @implementation SoundFile : NSObject
 
@@ -127,29 +128,10 @@
     if (!_soundFile.URL)
         [_soundFile resolveBookmark];
     NSError *error = nil;
-    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:&error];
-    if (!fileHandle) {
+    NSData *data = [NSData dataFromFileURL:_soundFile.URL offset:_offset length:_length error:&error];
+    if (!data) {
         [_soundFile resolveBookmark];
-        fileHandle = [NSFileHandle fileHandleForReadingFromURL:_soundFile.URL error:&error];
-        if (!fileHandle) {
-            NSLog(@"Could not open sound file %@: %@", _soundFile.URL.path, error);
-            return NO;
-        }
-    }
-
-    NSData *data = nil;
-    if (@available(macOS 10.15, *)) {
-        if ([fileHandle seekToOffset:_offset error:&error])
-            data = [fileHandle readDataUpToLength:_length error:&error];
-        [fileHandle closeAndReturnError:nil];
-    } else {
-        @try {
-            [fileHandle seekToFileOffset:_offset];
-            data = [fileHandle readDataOfLength:_length];
-        } @catch (NSException *exception) {
-            NSLog(@"SoundResource load: %@", exception);
-        }
-        [fileHandle closeFile];
+        data = [NSData dataFromFileURL:_soundFile.URL offset:_offset length:_length error:&error];
     }
 
     if (data.length != _length) {

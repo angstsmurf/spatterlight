@@ -5,6 +5,7 @@
 
 #import "ImageResource.h"
 #import "DebugLog.h"
+#import "NSData+Categories.h"
 
 @implementation ImageResource
 
@@ -28,25 +29,8 @@
 - (BOOL)loadWithError:(NSError * __autoreleasing *)outError {
     NSError *error = nil;
     NSData *data = nil;
-    NSFileHandle *fileHandle = nil;
     if (_filename.length)
-        fileHandle = [NSFileHandle fileHandleForReadingFromURL:[NSURL fileURLWithPath:_filename isDirectory:NO] error:&error];
-    if (fileHandle) {
-        if (@available(macOS 10.15, *)) {
-            if ([fileHandle seekToOffset:_offset error:&error])
-                data = _length ? [fileHandle readDataUpToLength:_length error:&error]
-                               : [fileHandle readDataToEndOfFileAndReturnError:&error];
-            [fileHandle closeAndReturnError:nil];
-        } else {
-            @try {
-                [fileHandle seekToFileOffset:_offset];
-                data = _length ? [fileHandle readDataOfLength:_length] : [fileHandle readDataToEndOfFile];
-            } @catch (NSException *exception) {
-                NSLog(@"ImageResource load: %@", exception);
-            }
-            [fileHandle closeFile];
-        }
-    }
+        data = [NSData dataFromFileURL:[NSURL fileURLWithPath:_filename isDirectory:NO] offset:_offset length:_length error:&error];
 
     if (data.length == 0) {
         NSString *message = [NSString stringWithFormat:@"Could not read image resource from file %@, length %lu, offset %lu", _filename, (unsigned long)_length, (unsigned long)_offset];

@@ -83,4 +83,33 @@
     return [NSBitmapImageRep representationOfImageRepsInArray:@[bitmaprep] usingType:NSBitmapImageFileTypeJPEG properties:props];
 }
 
++ (nullable NSData *)dataFromFileURL:(NSURL *)url offset:(NSUInteger)offset length:(NSUInteger)length error:(NSError * __autoreleasing *)outError {
+    NSError *error = nil;
+    NSData *data = nil;
+    NSFileHandle *fileHandle = [NSFileHandle fileHandleForReadingFromURL:url error:&error];
+    if (fileHandle) {
+        if (@available(macOS 10.15, *)) {
+            if ([fileHandle seekToOffset:offset error:&error])
+                data = length ? [fileHandle readDataUpToLength:length error:&error]
+                              : [fileHandle readDataToEndOfFileAndReturnError:&error];
+            [fileHandle closeAndReturnError:nil];
+        } else {
+            @try {
+                [fileHandle seekToFileOffset:offset];
+                data = length ? [fileHandle readDataOfLength:length] : [fileHandle readDataToEndOfFile];
+            } @catch (NSException *exception) {
+                error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError
+                                        userInfo:@{ NSLocalizedDescriptionKey: exception.reason ?: exception.name }];
+            }
+            [fileHandle closeFile];
+        }
+    }
+    if (data.length == 0) {
+        if (outError)
+            *outError = error ?: [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:nil];
+        return nil;
+    }
+    return data;
+}
+
 @end

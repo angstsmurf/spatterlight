@@ -26,6 +26,11 @@ NS_ASSUME_NONNULL_BEGIN
 + (nullable NSData *)imageDataFromNeoURL:(NSURL *)url;
 + (nullable NSData *)imageDataFromMG1URL:(NSURL *)url;
 
+// Reads length bytes at offset in a file, or everything from offset to the
+// end if length is 0. The result can be short. Returns nil, and sets
+// outError, if the file cannot be opened or nothing is read.
++ (nullable NSData *)dataFromFileURL:(NSURL *)url offset:(NSUInteger)offset length:(NSUInteger)length error:(NSError **)outError;
+
 @end
 
 NS_ASSUME_NONNULL_END
