@@ -868,6 +868,10 @@ gsc_map_pref_ref (void)
  * hold only the first byte, so a missing byte reads as never said rather than
  * as a choice.  (A third byte, left by the removed "glk map colour", is
  * ignored.)
+ *
+ * Determinism (testing) mode reads every game as never said, so that a
+ * scripted run opens the same panes whatever the player chose before.  The
+ * choice is still written, and counts again once the mode is off.
  */
 int
 gsc_map_pref_read (int *at_top)
@@ -877,6 +881,11 @@ gsc_map_pref_read (int *at_top)
 
   if (at_top != nullptr)
     *at_top = -1;
+
+#if defined(SPATTERLIGHT)
+  if (gli_determinism)
+    return -1;
+#endif
 
   fileref = gsc_map_pref_ref ();
   if (fileref == nullptr)

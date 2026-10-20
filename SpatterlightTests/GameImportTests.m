@@ -315,15 +315,21 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
 // by a hash of its absolute path, which for a test game lies inside this
 // checkout's DerivedData folder. Replace those numbers (bit 30 set, bit 31
 // clear) with a placeholder so a facit isn't tied to one machine. Blorb
-// resource numbers are small and are left alone.
+// resource numbers are small and are left alone. LOADIMAGE and LOADSOUND
+// carry the path of the file to load, so their payload length is replaced too.
 + (NSString *)normalizedProtocolLog:(NSString *)log {
     static NSRegularExpression *regex;
+    static NSRegularExpression *loadRegex;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
         regex = [NSRegularExpression
                  regularExpressionWithPattern:@"^(\\[MSG\\] cmd=(?:FINDIMAGE|LOADIMAGE|PURGEIMG|FINDSOUND|LOADSOUND) a1=)(\\d+)"
                  options:NSRegularExpressionAnchorsMatchLines
                  error:nil];
+        loadRegex = [NSRegularExpression
+                     regularExpressionWithPattern:@"^(\\[MSG\\] cmd=(?:LOADIMAGE|LOADSOUND) .* len=)\\d+$"
+                     options:NSRegularExpressionAnchorsMatchLines
+                     error:nil];
     });
 
     NSMutableString *result = [log mutableCopy];
@@ -335,6 +341,9 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
         if (number >= 0x40000000LL && number <= 0x7fffffffLL)
             [result replaceCharactersInRange:numberRange withString:@"<fileresource>"];
     }
+    [loadRegex replaceMatchesInString:result options:0
+                                range:NSMakeRange(0, result.length)
+                         withTemplate:@"$1<path>"];
     return result;
 }
 
@@ -679,6 +688,15 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                 NSLog(@"Error: %@", error);
             XCTAssertNil(error, @"There should be no error");
             XCTAssert(log.length > 0, @"Log file should contain text");
+
+            // Set GAME_IMPORT_LOG_DUMP=<dir> to keep the log, for diffing
+            // against the facit or replacing it
+            NSString *dumpDir = NSProcessInfo.processInfo.environment[@"GAME_IMPORT_LOG_DUMP"];
+            if (dumpDir.length && log.length) {
+                NSString *dumpName = [NSString stringWithFormat:@"%@ log output.txt", scriptName];
+                [log writeToFile:[dumpDir stringByAppendingPathComponent:dumpName]
+                      atomically:YES encoding:NSUTF8StringEncoding error:nil];
+            }
 
             NSString *facit = [GameImportXCTests comparisonLogFor:scriptName];
             XCTAssert(facit.length > 0, @"Comparison file should contain text");
