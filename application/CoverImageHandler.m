@@ -40,6 +40,23 @@
 @end
 
 
+// Timings, in seconds. The values are tuned by hand and hard to test, so
+// change them with care.
+// The cover image fades in when shown, and out when a key is pressed. The
+// background window starts fading out after a delay.
+static const NSTimeInterval kCoverFadeInDuration = 0.2;
+static const NSTimeInterval kCoverFadeOutDuration = 0.5;
+static const NSTimeInterval kBackgroundFadeDelay = 0.3;
+static const NSTimeInterval kBackgroundFadeDuration = 0.3;
+// The "logo" style: the image shows up a moment after the interpreter has
+// started, stays for a while, fades out, and its window is removed after
+// the animation has finished.
+static const NSTimeInterval kLogoShowDelay = 0.2;
+static const NSTimeInterval kLogoHoldDuration = 1.5;
+static const NSTimeInterval kLogoFadeDuration = 0.5;
+static const NSTimeInterval kLogoAnimationDuration = 3;
+static const NSTimeInterval kLogoRemoveDelay = 4;
+
 static NSWindow *SPBorderlessWindow(NSRect contentRect) {
     return [[NSWindow alloc] initWithContentRect:contentRect
                                        styleMask:NSWindowStyleMaskBorderless
@@ -183,19 +200,21 @@ static CABasicAnimation *SPOpacityAnimation(float from, float to, CFTimeInterval
         [glkctl.borderView addSubview:glkctl.gameView];
         [glkctl adjustContentView];
 
-        CABasicAnimation *fadeOutAnimation = SPOpacityAnimation(1, 0, 0.0, 0.5);
+        CABasicAnimation *fadeOutAnimation = SPOpacityAnimation(1, 0, 0.0, kCoverFadeOutDuration);
 
         glkctl.showingCoverImage = NO;
         // FIXME: Just fork the interpreter NSTask here instead
         glkctl.borderView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         glkctl.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 
+        // The ordering of this restart and the fades below is fragile, and
+        // the full-screen cases can only be tested by hand.
         [glkctl performSelector:@selector(deferredRestart:) withObject:nil afterDelay:0.0];
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBackgroundFadeDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             [NSAnimationContext
              runAnimationGroup:^(NSAnimationContext *context) {
-                context.duration = 0.3;
+                context.duration = kBackgroundFadeDuration;
                 [backgroundColorWin animator].alphaValue = 0;
             } completionHandler:^{
                 [backgroundColorWin orderOut:nil];
@@ -204,7 +223,7 @@ static CABasicAnimation *SPOpacityAnimation(float from, float to, CFTimeInterval
 
         [NSAnimationContext
          runAnimationGroup:^(NSAnimationContext *context) {
-            context.duration = 0.5;
+            context.duration = kCoverFadeOutDuration;
             context.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
             [imageWindow.contentView.layer addAnimation:fadeOutAnimation forKey:nil];
         } completionHandler:^{
@@ -302,14 +321,14 @@ static CABasicAnimation *SPOpacityAnimation(float from, float to, CFTimeInterval
 
     [window makeFirstResponder:_imageView];
 
-    CABasicAnimation *fadeInAnimation = SPOpacityAnimation(0, 1, 0.0, 0.2);
+    CABasicAnimation *fadeInAnimation = SPOpacityAnimation(0, 1, 0.0, kCoverFadeInDuration);
 
     [_imageView.layer addAnimation:fadeInAnimation forKey:nil];
 }
 
 - (void)showLogoAndFade {
     [_glkctl forkInterpreterTask];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kLogoShowDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
 
         NSWindow *fadeWindow = [self fadeWindow];
 
@@ -334,13 +353,13 @@ static CABasicAnimation *SPOpacityAnimation(float from, float to, CFTimeInterval
         layer.opacity = 1;
         [self.glkctl.window addChildWindow:fadeWindow ordered:NSWindowAbove];
 
-        CABasicAnimation *fadeOutAnimation = SPOpacityAnimation(1, 0, 1.5, 0.5);
+        CABasicAnimation *fadeOutAnimation = SPOpacityAnimation(1, 0, kLogoHoldDuration, kLogoFadeDuration);
 
         CFTimeInterval addTime = [layer convertTime:CACurrentMediaTime() fromLayer:nil];
         CAAnimationGroup *group = [CAAnimationGroup animation];
         group.animations = @[fadeOutAnimation];
         group.beginTime = addTime;
-        group.duration = 3;
+        group.duration = kLogoAnimationDuration;
         group.removedOnCompletion = NO;
         group.fillMode = kCAFillModeForwards;
 
@@ -348,7 +367,7 @@ static CABasicAnimation *SPOpacityAnimation(float from, float to, CFTimeInterval
 
         GlkController *blockController = self.glkctl;
 
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kLogoRemoveDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
             [fadeWindow orderOut:nil];
             // Why do these need to be reset here?
             blockController.gameView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;

@@ -5,11 +5,6 @@
 //  Created by Administrator on 2021-06-02.
 //
 
-#include "zimage.h"
-#include "spat-mg1.h"
-#include "neo.h"
-
-
 #import "NSImage+Categories.h"
 
 @implementation NSImage (Categories)

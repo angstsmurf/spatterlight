@@ -12,6 +12,8 @@
 @interface NSColor (integer)
 
 + (NSColor *)colorFromInteger:(NSInteger)c;
+// Only used to migrate colours from the old NSUserDefaults format
+// (BuiltInThemes.m). Keep it for that.
 + (NSColor *)colorFromData:(NSData *)data;
 
 @property (NS_NONATOMIC_IOSONLY, readonly) NSInteger integerColor;

@@ -11,6 +11,9 @@
 
 #import "DebugLog.h"
 
+// What writeEvent: sends is struct message and struct settings_struct from
+// protocol.h, read by the interpreter processes (glkimp). Change the wire
+// format only together with protocol.h.
 _Static_assert(sizeof(struct settings_struct) <= 4096,
                "settings_struct must fit in the writeEvent: buffer");
 

@@ -29,6 +29,8 @@ static const CGFloat kUnlimitedTextSize = 10000000;
 @implementation GlkTextGridWindow
 
 @synthesize bufferTextStorage = _bufferTextStorage;
+// GlkWindow implements -textview (nil), so it is not auto-synthesized here.
+@synthesize textview = _textview;
 
 + (BOOL) supportsSecureCoding {
     return YES;

@@ -5,8 +5,9 @@
 //  Created by Administrator on 2021-09-15.
 //
 
+#import <Cocoa/Cocoa.h>
+
 #import "FolderAccess.h"
-#import "Constants.h"
 #import "DebugLog.h"
 
 
@@ -22,7 +23,7 @@
 
 @implementation FolderAccess
 
-NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
+static NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
 
 + (BOOL) supportsSecureCoding {
     return YES;
@@ -315,7 +316,7 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
 
 - (void)resetCountIfNotReadable:(NSURL *)url {
     if (accessCount != 0 && [FolderAccess needsPermissionForURL:url]) {
-        NSLog(@"Secure url %@: Access count was %ld but path was not readable!", url.path, accessCount);
+        NSLog(@"Secure url %@: Access count was %ld but path was not readable!", url.path, (long)accessCount);
         accessCount = 0;
     }
 }
@@ -329,7 +330,7 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
     } else {
         url = controlURL;
         if ([FolderAccess needsPermissionForURL:url]) {
-            NSLog(@"askToAccess: already accessing %@ (accessCount = %ld) but the file there is NOT readable!", url.path, accessCount);
+            NSLog(@"askToAccess: already accessing %@ (accessCount = %ld) but the file there is NOT readable!", url.path, (long)accessCount);
         }
     }
     accessCount++;
@@ -384,7 +385,9 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
     [storedAccess askToEndAccess:url];
 }
 
+// Logs only, so release builds skip the loop too.
 + (void)listActiveSecurityBookmarks {
+#ifdef DEBUG
     NSLog(@"Active security bookmarks:");
     BOOL found = NO;
     for (NSURL *key in globalBookmarks.allKeys) {
@@ -396,6 +399,7 @@ NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
     }
     if (!found)
         NSLog(@"None");
+#endif
 }
 
 @end

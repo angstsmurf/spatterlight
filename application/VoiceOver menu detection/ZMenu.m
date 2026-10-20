@@ -20,15 +20,6 @@
 static const NSTimeInterval kFirstSpeakDelay = 1.5;
 static const NSTimeInterval kInstructionsDelay = 5;
 
-// The text view of a grid or buffer window, nil for any other window.
-static NSTextView *TextViewOf(GlkWindow *win) {
-    if ([win isKindOfClass:[GlkTextGridWindow class]])
-        return ((GlkTextGridWindow *)win).textview;
-    if ([win isKindOfClass:[GlkTextBufferWindow class]])
-        return ((GlkTextBufferWindow *)win).textview;
-    return nil;
-}
-
 // Selection marker at the start of a menu line: ">", "*" or "•".
 static NSRegularExpression *SelectionMarkerRegex(void) {
     static NSRegularExpression *regex;
@@ -73,7 +64,7 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
 - (NSArray<ZMenuWindowText *> *)windowTexts {
     NSMutableArray<ZMenuWindowText *> *windows = [NSMutableArray new];
     for (GlkWindow *view in _glkctl.gwindows.allValues) {
-        NSTextView *textview = TextViewOf(view);
+        NSTextView *textview = view.textview;
         [windows addObject:[[ZMenuWindowText alloc] initWithText:textview.textStorage
                                                           isGrid:[view isKindOfClass:[GlkTextGridWindow class]]
                                                            frame:view.frame

@@ -56,6 +56,13 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     return charset;
 }
 
+// A result for a range of a text view's text, clamped to the text.
+static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textView, NSRange range) {
+    NSAccessibilityCustomRotorItemResult *result = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:textView];
+    result.targetRange = NSIntersectionRange(NSMakeRange(0, textView.string.length), range);
+    return result;
+}
+
 @implementation RotorHandler
 
 // The principle: Generate a list on-the-fly of all available elements, find the item that matches the parameters and return it as a NSAccessibilityCustomRotorItemResult with correct metadata.
@@ -96,7 +103,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
         GlkController *glkctl = _glkctl;
         for (GlkWindow *view in glkctl.windowsIncludingQuoteBox) {
             if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
-                NSString *contentString = ((GlkTextGridWindow *)view).textview.string;
+                NSString *contentString = view.textview.string;
 
                 NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(0, contentString.length) locale:nil];
 
@@ -109,13 +116,13 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
                     searchFound = (resultRange.location >= NSMaxRange(fromRange));
                 }
                 if (searchFound) {
-                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:((GlkTextGridWindow *)view).textview];
+                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:view.textview];
                     searchResult.targetRange = resultRange;
                     return searchResult;
                 }
 
                 bestMatchRange = resultRange;
-                bestMatch = ((GlkTextGridWindow *)view).textview;
+                bestMatch = view.textview;
             }
         }
     }
@@ -151,11 +158,11 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     }
     for (GlkWindow *view in allWindows) {
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
-            id targetTextView = ((GlkTextBufferWindow *)view).textview;
+            NSTextView *targetTextView = view.textview;
             NSArray<NSValue *> *links = view.links;
 
             if (filterText.length && links.count) {
-                NSString __block *text = ((NSTextView *)targetTextView).string;
+                NSString __block *text = targetTextView.string;
                 links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSValue *object, NSDictionary *unused) {
                     NSRange range = object.rangeValue;
                     NSString *subString = [text substringWithRange:range];
@@ -179,22 +186,19 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     currentItemIndex = SPRotorStep(currentItemIndex, children.count, direction);
 
     if (currentItemIndex != NSNotFound) {
-        NSRange textRange = children[currentItemIndex].rangeValue;
-        id targetElement = linkTargetViews[currentItemIndex];
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetElement];
-        NSString *string = ((NSTextView *)targetElement).textStorage.string;
-        NSRange allText = NSMakeRange(0, string.length);
-        textRange = NSIntersectionRange(allText, textRange);
+        NSTextView *targetElement = linkTargetViews[currentItemIndex];
+        searchResult = SPTextRangeResult(targetElement, children[currentItemIndex].rangeValue);
+        NSRange textRange = searchResult.targetRange;
+        NSString *string = targetElement.textStorage.string;
         unichar firstChar = textRange.location < string.length ? [string characterAtIndex:textRange.location] : 0;
         if (glkctl.gameID == kGameIsAColderLight && firstChar == '<' && textRange.length == 1) {
             searchResult.customLabel = NSLocalizedString(@"Previous Menu", nil);
         } else if (firstChar == NSAttachmentCharacter) {
-            NSDictionary *attrs = [((NSTextView *)targetElement).textStorage attributesAtIndex:textRange.location effectiveRange:nil];
+            NSDictionary *attrs = [targetElement.textStorage attributesAtIndex:textRange.location effectiveRange:nil];
             searchResult.customLabel = [NSString stringWithFormat:NSLocalizedString(@"Image with link I.D. %@", nil), attrs[NSLinkAttributeName]];
         } else {
             searchResult.customLabel = [string substringWithRange:textRange];
         }
-        searchResult.targetRange = textRange;
     }
     return searchResult;
 }
@@ -266,18 +270,19 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     NSTextView *targetWindow = children[currentItemIndex];
 
     if (targetWindow) {
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement: targetWindow];
-        searchResult.customLabel = strings[currentItemIndex];
         if (![targetWindow isKindOfClass:[GlkGraphicsWindow class]]) {
-            NSRange allText = NSMakeRange(0, targetWindow.string.length);
+            NSRange range = NSMakeRange(0, targetWindow.string.length);
             NSArray<NSValue *> *moveRanges = ((GlkWindow *)targetWindow.delegate).moveRanges;
-            if (moveRanges && moveRanges.count) {
+            if (moveRanges.count) {
                 if ([targetWindow.delegate isKindOfClass:[GlkTextBufferWindow class]])
                     [(GlkTextBufferWindow *)targetWindow.delegate forceLayout];
-                NSRange range = moveRanges.lastObject.rangeValue;
-                searchResult.targetRange = NSIntersectionRange(allText, range);
-            } else searchResult.targetRange = allText;
+                range = moveRanges.lastObject.rangeValue;
+            }
+            searchResult = SPTextRangeResult(targetWindow, range);
+        } else {
+            searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetWindow];
         }
+        searchResult.customLabel = strings[currentItemIndex];
     }
     return searchResult;
 }
@@ -310,7 +315,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
                     if ([object isKindOfClass:[SubImage class]]) {
                         label = ((SubImage *)object).accessibilityLabel;
                     } else if ([object isKindOfClass:[NSValue class]]) {
-                        NSTextStorage *txtstorage = ((GlkTextBufferWindow *)view).textview.textStorage;
+                        NSTextStorage *txtstorage = view.textview.textStorage;
                         NSTextAttachment *attachment = [txtstorage attribute:NSAttachmentAttributeName atIndex:((NSValue *)object).rangeValue.location effectiveRange:nil];
                         MyAttachmentCell *cell = (MyAttachmentCell *)attachment.attachmentCell;
                         label = cell.customA11yLabel;
@@ -325,7 +330,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
             id object = [NSNull null];
             while (targetViews.count < children.count) {
                 if ([view isKindOfClass:[GlkTextBufferWindow class]])
-                    object = ((GlkTextBufferWindow *)view).textview;
+                    object = view.textview;
                 [targetViews addObject:object];
             }
         }
@@ -390,12 +395,9 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
             if (cell.isMargin) {
                 range.length++;
             }
-            NSRange allText = NSMakeRange(0, view.string.length);
-            range = NSIntersectionRange(range, allText);
-            searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:view];
-            searchResult.targetRange = range;
+            searchResult = SPTextRangeResult(view, range);
             label = cell.customA11yLabel;
-            cell.pos = range.location;
+            cell.pos = searchResult.targetRange.location;
         } else {
             searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:targetImage];
             label = ((SubImage *)targetImage).accessibilityLabel;
@@ -455,10 +457,7 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     NSValue *targetRangeValue = children[currentItemIndex];
 
     if (targetRangeValue) {
-        NSRange textRange = targetRangeValue.rangeValue;
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:largest.textview];
-        NSRange allText = NSMakeRange(0, largest.textview.string.length);
-        searchResult.targetRange = NSIntersectionRange(allText, textRange);
+        searchResult = SPTextRangeResult(largest.textview, targetRangeValue.rangeValue);
         // By adding a custom label, all ranges are reliably listed in the rotor
         NSString *string = [strings[currentItemIndex] stringByTrimmingCharactersInSet:SPRotorLabelTrimSet()];
         // Strip command line if the speak command setting is off

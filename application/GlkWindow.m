@@ -340,12 +340,23 @@
     return NO;
 }
 
+// The methods below that call this are overridden by the window types that
+// support them. A game that asks the wrong kind of window for something only
+// gets this log line.
+- (void)subclassResponsibility:(SEL)selector {
+    NSLog(@"%@ in %@ not implemented", NSStringFromSelector(selector), [self class]);
+}
+
+- (NSTextView *)textview {
+    return nil;
+}
+
 - (void)setBgColor:(NSInteger)bc {
-    NSLog(@"set background color in %@ not allowed", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)fillRects:(struct fillrect *)rects count:(NSInteger)n {
-    NSLog(@"fillrect in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)drawImage:(NSImage *)buf
@@ -356,15 +367,15 @@
         imagerule:(NSUInteger)imagerule
          maxwidth:(NSUInteger)maxwidth
             style:(NSUInteger)style {
-    NSLog(@"drawimage in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)flowBreak {
-    NSLog(@"flowbreak in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)makeTransparent {
-    NSLog(@"makeTransparent in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)markLastSeen {
@@ -373,24 +384,24 @@
 }
 
 - (void)clear {
-    NSLog(@"clear in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)putString:(NSString *)buf style:(NSUInteger)style {
-    NSLog(@"print in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (NSUInteger)unputString:(NSString *)buf {
-    NSLog(@"unprint in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
     return 0;
 }
 
 - (void)moveToColumn:(NSUInteger)x row:(NSUInteger)y {
-    NSLog(@"move cursor in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)initLine:(NSString *)buf maxLength:(NSUInteger)maxLength {
-    NSLog(@"line input in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (NSString *)cancelLine {
@@ -398,7 +409,7 @@
 }
 
 - (void)initChar {
-    NSLog(@"char input in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)cancelChar {
@@ -537,7 +548,7 @@
 }
 
 - (void)postRestoreAdjustments:(GlkWindow *)win {
-    NSLog(@"postRestoreAdjustments in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (BOOL)hasCharRequest {
@@ -545,12 +556,12 @@
 }
 
 - (BOOL)hasLineRequest {
-    NSLog(@"hasLineRequest in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
     return NO;
 }
 
 - (void)sendCommandLine:(NSString *)command {
-    NSLog(@"sendCommandLine in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 // Queue a character event and end the char request.
@@ -571,12 +582,12 @@
 
 
 - (NSArray *)links {
-    NSLog(@"links in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
     return @[];
 }
 
 - (NSArray *)images {
-    NSLog(@"images in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
     return @[];
 }
 
@@ -639,7 +650,7 @@
 
     panel.nameFieldStringValue = newName;
 
-    NSTextView *localTextView = (NSTextView *)((GlkTextGridWindow *)self).textview;
+    NSTextView *localTextView = self.textview;
     NSAttributedString *localTextStorage = localTextView.textStorage;
 
     panel.accessoryView = [self saveScrollbackAccessoryViewHasImages:localTextStorage.containsAttachments];
@@ -822,7 +833,7 @@
 #pragma mark Accessibility
 
 - (void)repeatLastMove:(id)sender {
-    NSLog(@"repeatLastMove in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)speakPrevious {
@@ -854,7 +865,7 @@
 }
 
 - (NSString *)speakableStringForMoveRange:(NSValue *)range {
-    NSLog(@"speakableStringForMoveRange in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
     return @"";
 }
 
@@ -884,7 +895,7 @@
 }
 
 - (void)replaceInputWithHistoryEntry:(NSString *)entry {
-    NSLog(@"replaceInputWithHistoryEntry in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (void)announceHistoryEdgeForward:(BOOL)forward {
@@ -909,17 +920,17 @@
 }
 
 - (void)speakStatus {
-    NSLog(@"speakStatus in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 
 - (BOOL)setLastMove {
-    NSLog(@"setLastMove in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
     return NO;
 }
 
 - (void)recalcBackground {
-    NSLog(@"recalcBackground in %@ not implemented", [self class]);
+    [self subclassResponsibility:_cmd];
 }
 
 - (NSArray *)accessibilityCustomRotors  {

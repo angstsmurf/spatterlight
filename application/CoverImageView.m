@@ -8,13 +8,7 @@
 #import "CoverImageView.h"
 #import "GlkController.h"
 #import "CoverImageHandler.h"
-#import "Theme.h"
 #import "Game.h"
-#import "Metadata.h"
-#import "Image.h"
-
-#import <QuartzCore/QuartzCore.h>
-
 
 @implementation CoverImageView
 

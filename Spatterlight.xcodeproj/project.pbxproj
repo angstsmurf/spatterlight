@@ -306,6 +306,7 @@
 		961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDA09F239E700528FF9 /* GlkEvent.m */; };
 		961CCEF009F23A0000528FF9 /* GlkGraphicsWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */; };
 		961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEDE09F239E700528FF9 /* AppDelegate.m */; };
+		72F8EEDA511621757DF05EF3 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = E0953A2D6AD3809883E4CBC0 /* Constants.m */; };
 		961CCEF209F23A0000528FF9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE009F239E700528FF9 /* main.m */; };
 		961CCEF409F23A0000528FF9 /* Preferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE409F239E700528FF9 /* Preferences.m */; };
 		961CCEF509F23A0000528FF9 /* GlkTextBufferWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 961CCEE609F239E700528FF9 /* GlkTextBufferWindow.m */; };
@@ -2556,7 +2557,7 @@
 		961CCEDC09F239E700528FF9 /* GlkGraphicsWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GlkGraphicsWindow.m; sourceTree = "<group>"; };
 		961CCEDD09F239E700528FF9 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		961CCEDE09F239E700528FF9 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		961CCEDF09F239E700528FF9 /* main.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = main.h; sourceTree = "<group>"; };
+		E0953A2D6AD3809883E4CBC0 /* Constants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		961CCEE009F239E700528FF9 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		961CCEE309F239E700528FF9 /* Preferences.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Preferences.h; sourceTree = "<group>"; };
 		961CCEE409F239E700528FF9 /* Preferences.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Preferences.m; sourceTree = "<group>"; };
@@ -5220,12 +5221,12 @@
 				6D212739246BDC5B00D775A8 /* Categories */,
 				C334C47A269C708700B00A2F /* Constants.h */,
 				D3B6C0A12E9F4A0000DEB06A /* DebugLog.h */,
-				961CCEDF09F239E700528FF9 /* main.h */,
 				961CCEE009F239E700528FF9 /* main.m */,
 				C3C684DF26137B44002F1436 /* Images */,
 				C31186F225BD514B00739D7B /* Sounds */,
 				961CCEDD09F239E700528FF9 /* AppDelegate.h */,
 				961CCEDE09F239E700528FF9 /* AppDelegate.m */,
+				E0953A2D6AD3809883E4CBC0 /* Constants.m */,
 				C3241A00262E029800366AAE /* Preferences */,
 				C3241A1B262E256A00366AAE /* Library window */,
 				961CCED909F239E700528FF9 /* GlkEvent.h */,
@@ -8957,6 +8958,7 @@
 				E2AEA9E172F7E63DEE86D349 /* Preferences+LibraryOrganiser.m in Sources */,
 				C9A43CAC60A7163252C04BE6 /* Preferences+Settings.m in Sources */,
 				961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */,
+				72F8EEDA511621757DF05EF3 /* Constants.m in Sources */,
 				96A9C0F00A07AE17001B5B9B /* LibController.m in Sources */,
 				C3CF369B2660207E004D0F7B /* neo.c in Sources */,
 				C3CF3695265FA461004D0F7B /* CoverImageView.m in Sources */,

@@ -1,7 +1,5 @@
 #import <Cocoa/Cocoa.h>
 
-@class FolderAccess;
-
 extern NSArray *gGameFileTypes;
 extern NSArray *gDocFileTypes;
 extern NSArray *gSaveFileTypes;
@@ -14,7 +12,6 @@ PasteboardFilePasteLocation;
 
 extern NSDictionary *gExtMap;
 extern NSDictionary *gFormatMap;
-extern NSMutableDictionary<NSURL *, FolderAccess *> *globalBookmarks;
 
 // NSUserDefaults keys used in more than one place. Defaults.plist has the
 // default values of most of them.
@@ -45,3 +42,7 @@ extern NSString * const kSaveFileAlertSuppressionKey;
 extern NSString * const kImageComparisonSuppressionKey;
 extern NSString * const kVerifyAlertSuppressionKey;
 extern NSArray<NSString *> *AlertSuppressionKeys(void);
+
+// Fills in the arrays, dictionaries and pasteboard types above. Called once,
+// by AppDelegate -awakeFromNib.
+extern void InitializeConstants(void);

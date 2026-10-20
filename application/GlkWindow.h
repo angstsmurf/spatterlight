@@ -54,6 +54,9 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 
 @property InputTextField *input;
 
+/// The text view of a grid or buffer window, nil for a graphics window.
+@property (readonly) NSTextView *textview;
+
 // A list of ranges of previous moves
 @property NSMutableArray<NSValue *> *moveRanges;
 

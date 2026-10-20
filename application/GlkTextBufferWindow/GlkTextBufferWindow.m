@@ -26,6 +26,9 @@
 
 @implementation GlkTextBufferWindow
 
+// GlkWindow implements -textview (nil), so it is not auto-synthesized here.
+@synthesize textview = _textview;
+
 // These readonly properties are computed by getters in the category files
 // (+Scrolling and +Input), so no ivars must be synthesized for them here.
 @dynamic scrolledToBottom, editableRange, numberOfColumns, numberOfLines;
