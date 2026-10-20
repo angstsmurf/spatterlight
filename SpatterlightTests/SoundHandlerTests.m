@@ -19,6 +19,7 @@
 #import "SpectrumBeeper.h"
 #import "SFBSoundBackend.h"
 #import "MIDISoundBackend.h"
+#import "NowPlayingCoordinator.h"
 
 @interface GlkSoundChannel (Testing)
 - (glui32)remainingFadeDuration;
@@ -71,6 +72,14 @@
     [encoder encodeDouble:-0.005 forKey:@"volume_delta"];
     [encoder encodeInt64:1234 forKey:@"frame"];
 }
+@end
+
+/// Stands in for MPNowPlayingInfoCenter.
+@interface FakeNowPlayingInfoCenter : NSObject <NowPlayingInfoCenter>
+@end
+
+@implementation FakeNowPlayingInfoCenter
+@synthesize nowPlayingInfo, playbackState;
 @end
 
 @interface SoundHandlerTests : XCTestCase
@@ -354,6 +363,104 @@ static GlkSoundBlorbFormatType Detect(NSData *data) {
 - (void)testVolumeAboveGlkMaximumIsFull {
     GlkSoundChannel *chan = [[GlkSoundChannel alloc] initWithHandler:nil name:0 volume:0x30000];
     XCTAssertEqualWithAccuracy([[chan valueForKey:@"volume"] floatValue], 1.0f, 0.0001f);
+}
+
+#pragma mark Now Playing arbitration
+
+/// A channel on `handler` that looks like it is playing a sound of
+/// `seconds`, or looping.
+- (GlkSoundChannel *)channelOn:(SoundHandler *)handler seconds:(NSTimeInterval)seconds looping:(BOOL)looping {
+    int name = [handler handleNewSoundChannel:0x10000];
+    GlkSoundChannel *chan = handler.glkchannels[@(name)];
+    chan.playing = YES;
+    chan.nowPlayingDuration = seconds;
+    chan.nowPlayingLooping = looping;
+    return chan;
+}
+
+- (void)testShortSoundDoesNotClaimNowPlaying {
+    FakeNowPlayingInfoCenter *center = [FakeNowPlayingInfoCenter new];
+    NowPlayingCoordinator *coordinator = [[NowPlayingCoordinator alloc] initWithInfoCenter:center];
+    RecordingSoundHandler *handler = [RecordingSoundHandler new];
+    [self channelOn:handler seconds:1 looping:NO];
+    [coordinator refreshForHandler:handler];
+    XCTAssertNil(center.nowPlayingInfo);
+    XCTAssertNil(coordinator.activeHandler);
+}
+
+- (void)testLongSoundClaimsWithDuration {
+    FakeNowPlayingInfoCenter *center = [FakeNowPlayingInfoCenter new];
+    NowPlayingCoordinator *coordinator = [[NowPlayingCoordinator alloc] initWithInfoCenter:center];
+    RecordingSoundHandler *handler = [RecordingSoundHandler new];
+    GlkSoundChannel *chan = [self channelOn:handler seconds:34 looping:NO];
+    [coordinator refreshForHandler:handler];
+    XCTAssertEqual(coordinator.activeHandler, handler);
+    XCTAssertEqualObjects(center.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration], @34);
+    XCTAssertEqualObjects(center.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate], @1.0);
+    XCTAssertEqual(center.playbackState, MPNowPlayingPlaybackStatePlaying);
+
+    [chan pause];
+    [coordinator refreshForHandler:handler];
+    XCTAssertEqualObjects(center.nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate], @0.0);
+    XCTAssertEqual(center.playbackState, MPNowPlayingPlaybackStatePaused);
+
+    [chan stop];
+    [coordinator refreshForHandler:handler];
+    XCTAssertNil(center.nowPlayingInfo);
+    XCTAssertEqual(center.playbackState, MPNowPlayingPlaybackStateStopped);
+    XCTAssertNil(coordinator.activeHandler);
+}
+
+/// A loop has no length to show, however short one pass is.
+- (void)testLoopingSoundClaimsWithoutDuration {
+    FakeNowPlayingInfoCenter *center = [FakeNowPlayingInfoCenter new];
+    NowPlayingCoordinator *coordinator = [[NowPlayingCoordinator alloc] initWithInfoCenter:center];
+    RecordingSoundHandler *handler = [RecordingSoundHandler new];
+    [self channelOn:handler seconds:2 looping:YES];
+    [coordinator refreshForHandler:handler];
+    XCTAssertNotNil(center.nowPlayingInfo);
+    XCTAssertNil(center.nowPlayingInfo[MPMediaItemPropertyPlaybackDuration]);
+}
+
+/// Game A plays music, game B takes over, A stops: B keeps the session.
+- (void)testSecondGameKeepsSessionWhenFirstStops {
+    FakeNowPlayingInfoCenter *center = [FakeNowPlayingInfoCenter new];
+    NowPlayingCoordinator *coordinator = [[NowPlayingCoordinator alloc] initWithInfoCenter:center];
+    RecordingSoundHandler *a = [RecordingSoundHandler new];
+    RecordingSoundHandler *b = [RecordingSoundHandler new];
+    GlkSoundChannel *chanA = [self channelOn:a seconds:0 looping:YES];
+    [coordinator refreshForHandler:a];
+    [self channelOn:b seconds:0 looping:YES];
+    [coordinator refreshForHandler:b];
+    XCTAssertEqual(coordinator.activeHandler, b);
+
+    [chanA stop];
+    [coordinator refreshForHandler:a];
+    XCTAssertEqual(coordinator.activeHandler, b);
+    XCTAssertNotNil(center.nowPlayingInfo);
+    XCTAssertEqual(center.playbackState, MPNowPlayingPlaybackStatePlaying);
+
+    [coordinator clearForHandler:a];
+    XCTAssertNotNil(center.nowPlayingInfo, @"only the owner clears the session");
+    [coordinator clearForHandler:b];
+    XCTAssertNil(center.nowPlayingInfo);
+}
+
+/// The owner going away (window closed) lets anyone clear the session.
+- (void)testSessionOfFreedHandlerCanBeCleared {
+    FakeNowPlayingInfoCenter *center = [FakeNowPlayingInfoCenter new];
+    NowPlayingCoordinator *coordinator = [[NowPlayingCoordinator alloc] initWithInfoCenter:center];
+    @autoreleasepool {
+        RecordingSoundHandler *a = [RecordingSoundHandler new];
+        [self channelOn:a seconds:0 looping:YES];
+        [coordinator refreshForHandler:a];
+        XCTAssertNotNil(coordinator.activeHandler);
+        [a.glkchannels.allValues makeObjectsPerformSelector:@selector(stop)];
+    }
+    XCTAssertNil(coordinator.activeHandler);
+    RecordingSoundHandler *other = [RecordingSoundHandler new];
+    [coordinator clearForHandler:other];
+    XCTAssertNil(center.nowPlayingInfo);
 }
 
 #pragma mark Playback through the handler

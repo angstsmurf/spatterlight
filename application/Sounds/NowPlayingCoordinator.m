@@ -6,14 +6,16 @@
 #import "NowPlayingCoordinator.h"
 
 #import <AppKit/AppKit.h>
-#import <MediaPlayer/MediaPlayer.h>
 
 #import "SoundHandler.h"
 #import "GlkSoundChannel.h"
 
+@interface MPNowPlayingInfoCenter (NowPlayingCoordinator) <NowPlayingInfoCenter>
+@end
+
 @interface NowPlayingCoordinator ()
-/// The SoundHandler that currently owns system Now Playing.
 @property (weak, nullable) SoundHandler *activeHandler;
+@property (readonly) id<NowPlayingInfoCenter> infoCenter;
 /// The last cover decoded, and the data it was decoded from, so that a
 /// pause or a new sound does not decode the same image again.
 @property (nullable) NSData *artworkData;
@@ -22,11 +24,18 @@
 
 @implementation NowPlayingCoordinator
 
+- (instancetype)initWithInfoCenter:(id<NowPlayingInfoCenter>)infoCenter {
+    self = [super init];
+    if (self)
+        _infoCenter = infoCenter;
+    return self;
+}
+
 + (NowPlayingCoordinator *)shared {
     static NowPlayingCoordinator *shared;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        shared = [NowPlayingCoordinator new];
+        shared = [[NowPlayingCoordinator alloc] initWithInfoCenter:[MPNowPlayingInfoCenter defaultCenter]];
         [shared setupRemoteCommands];
     });
     return shared;
@@ -76,9 +85,8 @@
         return;
 
     self.activeHandler = nil;
-    MPNowPlayingInfoCenter *infoCenter = [MPNowPlayingInfoCenter defaultCenter];
-    infoCenter.nowPlayingInfo = nil;
-    infoCenter.playbackState = MPNowPlayingPlaybackStateStopped;
+    _infoCenter.nowPlayingInfo = nil;
+    _infoCenter.playbackState = MPNowPlayingPlaybackStateStopped;
 }
 
 - (nullable MPMediaItemArtwork *)artworkForData:(nullable NSData *)data {
@@ -140,9 +148,8 @@
 
     info[MPNowPlayingInfoPropertyPlaybackRate] = anyPlaying ? @1.0 : @0.0;
 
-    MPNowPlayingInfoCenter *infoCenter = [MPNowPlayingInfoCenter defaultCenter];
-    infoCenter.nowPlayingInfo = info;
-    infoCenter.playbackState = anyPlaying ? MPNowPlayingPlaybackStatePlaying
+    _infoCenter.nowPlayingInfo = info;
+    _infoCenter.playbackState = anyPlaying ? MPNowPlayingPlaybackStatePlaying
                                           : MPNowPlayingPlaybackStatePaused;
 }
 
