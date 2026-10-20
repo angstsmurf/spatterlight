@@ -1,0 +1,174 @@
+This is a simple game for adults, written from a male perspective. Be warned!
+
+Go play "Strip dice" with Elisha and her three friends. You win if they are all naked before you. Try talking to them as you play ("talk to elisha", etc.); it does not affect the outcome, but it is more sociable, and the list of topics will get bigger as the game progresses. Type "help" if you are stuck.
+
+Press any key to start...
+ The First Floor Corridor.
+You can go north.
+The corridor goes from east to west, with sixteen rooms of either, and a staircase at either end. But only one door is important. You're stood outside room 13, Elisha's room, and really, where else would you want to to go?
+> look
+> look
+ The First Floor Corridor.
+You can go north.
+The corridor goes from east to west, with sixteen rooms of either, and a staircase at either end. But only one door is important. You're stood outside room 13, Elisha's room, and really, where else would you want to to go?
+> x me
+> x me
+You are a tall, slim guy who should probably work out more. You are majoring in Chemistry. You are wearing boxers, jeans, a white tee-shirt, and sneakers.
+> n
+> n
+ Elisha's Room.
+You can see Elisha, Sung Hi and Brooke.
+Elisha's room is typical of all the rooms in Wandsworth Hall. There is a window to the north, a desk and a wardrobe on the east wall, a bed on the west wall. The door is to the south, but you are not about to go that way, are you? The walls are painted a dull green, the ceiling is white. Above the desk, a large poster of One Direction.
+
+'Hi,' say the three girls.
+
+'You ready to play Strip Dice?' asks Elisha. Boy does she look hot. Strip Dice... With Elisha... Hell yes. 'It's easy. You roll some 10-sided dice. Anyone who rolls a one on any dice automatically loses. If no one rolls a one, whoever gets the lowest score loses. You can choose to roll from 1 to 4 dice. Whoever loses takes off an item of clothing.' By your calculation, Elisha is only wearing three things. 'So whenever you're ready, roll some dice.'
+> look
+> look
+ Elisha's Room.
+You can see Elisha, Sung Hi and Brooke.
+Elisha's room is typical of all the rooms in Wandsworth Hall. There is a window to the north, a desk and a wardrobe on the east wall, a bed on the west wall. The door is to the south, but you are not about to go that way, are you? The walls are painted a dull green, the ceiling is white. Above the desk, a large poster of One Direction.
+> x elisha
+> x elisha
+Elisha is a cute blonde, with fun eyes, and a slim figure. She is majoring in Biology and is wearing tight denim shorts and a red halter.
+> talk to elisha
+> talk to elisha
+Talk about?
+ - Elisha
+'Hey, I'm doing fine, thanks.'
+> x wardrobe
+> x wardrobe
+The wardrobe is made of white painted wood, and has a mirror on the two doors. There are two drawers at the bottom.
+> open wardrobe
+> open wardrobe
+You open it.
+> x clothes
+> x clothes
+You can see dresses, tops, skirts. Not really your style, but they probably look good on Elisha.
+> roll 1
+> roll 1
+You roll: 7, a total of 7. Brooke rolls: 7, 9, a total of 16. Sung Hi decides to roll 2 dice: 1, 8, so she loses. Elisha decides to roll just one die: 4, a total of 4.
+
+Sung Hi kicks off her left shoe.
+> roll 2
+> roll 2
+You roll: 9, 1, so you lose. Brooke rolls one die: 4, a total of 4. Sung Hi rolls one die: 2, a total of 2. Elisha rolls one die: 8, a total of 8.
+
+'You lost,' says Elisha. 'Time to strip!'
+> strip
+> strip
+You take off your left sneaker.
+> roll 2
+> roll 2
+You roll: 8, 4, a total of 12. Brooke rolls: 5, 3, 3, a total of 11. Sung Hi picks up 3 dice to roll: 4, 9, 7, a total of 20. Elisha picks up 3 dice to roll: 2, 5, 6, a total of 13.
+
+Brooke takes off her left sneaker.
+> roll 3
+> roll 3
+You roll: 4, 2, 8, a total of 14. Brooke decides to roll 4 dice: 4, 10, 9, 6, a total of 29. Sung Hi rolls: 7, 6, 4, 8, a total of 25. Elisha rolls: 1, 6, 3, 7, so she loses.
+
+Elisha wiggles her hips as she slips out of her tight denim shorts.
+> roll 3
+> roll 3
+You roll: 5, 3, 3, a total of 11. Brooke decides to roll 3 dice: 6, 1, 9, so she loses. Sung Hi decides to roll just one die: 8, a total of 8. Elisha picks up one die to roll: 8, a total of 8.
+
+Brooke takes off her right sneaker.
+> roll 4
+> roll 4
+You roll: 4, 9, 7, 2, a total of 22. Brooke picks up 4 dice to roll: 4, 7, 5, 7, a total of 23. Sung Hi decides to roll 4 dice: 5, 6, 6, 9, a total of 26. Elisha picks up 4 dice to roll: 5, 2, 7, 7, a total of 21.
+
+Elisha unfastened her red halter, pulling it off to bare her firm breasts. 'Do you like them?' she asks,  mischievously.
+> roll 4
+> roll 4
+You roll: 5, 6, 4, 10, a total of 25. Brooke rolls: 3, 9, 6, 7, a total of 25. Sung Hi picks up 4 dice to roll: 7, 7, 2, 2, a total of 18. Elisha decides to roll 4 dice: 3, 9, 3, 8, a total of 23.
+
+Sung Hi kicks off her right shoe off.
+> roll 1
+> roll 1
+You roll: 9, a total of 9. Brooke rolls: 7, 3, 6, a total of 16. Sung Hi picks up 3 dice to roll: 3, 2, 4, a total of 9. Elisha rolls: 3, 2, 3, a total of 8.
+
+'Oh, no!' exclaims Elisha, with mock horror, as she slips her red thong down her legs. She is naked!
+> roll 1
+> roll 1
+You roll: 6, a total of 6. Brooke picks up 2 dice to roll: 3, 6, a total of 9. Sung Hi picks up 2 dice to roll: 1, 4, so she loses. Elisha picks up one die to roll: 3, a total of 3.
+
+Sung Hi pulls down her tight jeans and kicks them into the pile with her shoes. You notice she has a great pair of legs.
+> roll 4
+> roll 4
+You roll: 7, 6, 4, 8, a total of 25. Brooke rolls: 2, 8, 10, 4, a total of 24. Sung Hi rolls: 5, 6, 3, 9, a total of 23. Elisha picks up 4 dice to roll: 9, 6, 8, 9, a total of 32.
+
+After a moment's hesitation, Sung Hi pulls off her white vest-top. Cool, she is not wearing a bra - her chest is bared.
+> roll 1
+> roll 1
+You roll: 1, so you lose. Brooke rolls one die: 9, a total of 9. Sung Hi decides to roll just one die: 4, a total of 4. Elisha decides to roll just one die: 10, a total of 10.
+
+'You lost again,' says Elisha gleefully.
+> strip
+> strip
+You take off your right sneaker.
+> roll 3
+> roll 3
+You roll: 6, 3, 7, a total of 16. Brooke decides to roll 4 dice: 4, 3, 3, 5, a total of 15. Sung Hi rolls: 10, 2, 8, 5, a total of 25. Elisha rolls: 5, 4, 7, 3, a total of 19.
+
+Brooke unfastens the belt on her leggings, and drops it to he floor. Well that was a disappointment, but neither of the other girls are wearing a belt.
+> roll 2
+> roll 2
+You roll: 6, 1, so you lose. Brooke picks up one die to roll: 9, a total of 9. Sung Hi decides to roll just one die: 7, a total of 7. Elisha picks up one die to roll: 5, a total of 5.
+
+'Oo, you lost again,' says Elisha, grinning. 'How awful!'
+> strip
+> strip
+You take off your tee-shirt, kind of wishing you had a better six-pack.
+> roll 4
+> roll 4
+You roll: 9, 8, 8, 4, a total of 29. Brooke picks up 4 dice to roll: 8, 7, 2, 4, a total of 21. Sung Hi decides to roll 4 dice: 10, 5, 1, 6, so she loses. Elisha rolls one die: 6, a total of 6.
+
+Pouting, Sung Hi slowly pulls down her pink thong. She is naked!
+> roll 1
+> roll 1
+You roll: 7, a total of 7. Brooke decides to roll 2 dice: 8, 7, a total of 15. Sung Hi picks up 2 dice to roll: 4, 2, a total of 6. Elisha rolls: 9, 7, a total of 16.
+
+'As you're already naked,' said Elisha, 'I think you should do a lap dance.'
+'With him?'
+'Well, duh!'
+Sung Hi spends five minutes gyrating around you, as you struggle to keep your hands off her naked body.
+> roll 3
+> roll 3
+You roll: 5, 7, 5, a total of 17. Brooke rolls: 10, 6, 9, 1, so she loses. Sung Hi picks up one die to roll: 10, a total of 10. Elisha picks up one die to roll: 5, a total of 5.
+
+A little nervously, Brooke pulls off her black tee-shirt, to reveal her bra.
+> roll 1
+> roll 1
+You roll: 6, a total of 6. Brooke decides to roll 2 dice: 9, 9, a total of 18. Sung Hi picks up 2 dice to roll: 9, 5, a total of 14. Elisha rolls: 1, 1, so she loses.
+
+Elisha spends five minutes gyrating around you, as you struggle to keep your hands off her naked body.
+> roll 4
+> roll 4
+You roll: 6, 9, 5, 2, a total of 22. Brooke decides to roll 4 dice: 2, 7, 10, 10, a total of 29. Sung Hi decides to roll 4 dice: 6, 6, 10, 5, a total of 27. Elisha picks up 4 dice to roll: 7, 3, 2, 9, a total of 21.
+
+Elisha spends five minutes gyrating around you, as you struggle to keep your hands off her naked body.
+> roll 2
+> roll 2
+You roll: 7, 7, a total of 14. Brooke rolls: 9, 4, 6, 8, a total of 27. Sung Hi decides to roll 4 dice: 2, 6, 5, 1, so she loses. Elisha picks up one die to roll: 4, a total of 4.
+
+Sung Hi spends five minutes gyrating around you, as you struggle to keep your hands off her naked body.
+> roll 3
+> roll 3
+You roll: 3, 9, 6, a total of 18. Brooke decides to roll 4 dice: 1, 8, 2, 2, so she loses. Sung Hi decides to roll just one die: 9, a total of 9. Elisha rolls one die: 2, a total of 2.
+
+Slowly, Brooke pulls down her purple leggings, and put them with the rest of her clothes.
+> roll 2
+> roll 2
+You roll: 7, 7, a total of 14. Brooke picks up 4 dice to roll: 8, 1, 5, 3, so she loses. Sung Hi picks up one die to roll: 7, a total of 7. Elisha rolls one die: 10, a total of 10.
+
+Brooke scowled as she takes off her bra, to expose her wonderful breasts.
+> roll 4
+> roll 4
+You roll: 7, 2, 2, 3, a total of 14. Brooke picks up 4 dice to roll: 6, 10, 8, 1, so she loses. Sung Hi picks up one die to roll: 1, so she loses. Elisha picks up one die to roll: 5, a total of 5.
+
+'Oh, shit...' mutters Brooke as she reluctantly pulls down her black thong. She looks great naked!
+Hey, you got all the girls naked, and you are still not naked yourself!
+You win Strip Dice!
+
+Sung Hi spends five minutes gyrating around you, as you struggle to keep your hands off her naked body.
+[state=Finished]
