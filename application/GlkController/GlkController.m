@@ -1526,14 +1526,10 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     [self identifyGameUnlessNoHacks:theme];
 
     if (theme.vOSpeakMenu == kVOMenuNone) { // "Check for menu" was switched off
-        if (_zmenu) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:_zmenu];
-            _zmenu = nil;
-        }
-        if (_form) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:_form];
-            _form = nil;
-        }
+        VoiceOverHelperDetach(_zmenu);
+        _zmenu = nil;
+        VoiceOverHelperDetach(_form);
+        _form = nil;
     } else if (lastVOSpeakMenu == kVOMenuNone && theme.vOSpeakMenu != kVOMenuNone) { // "Check for menu" was switched on
         [self checkZMenuAndSpeak:NO];
     }

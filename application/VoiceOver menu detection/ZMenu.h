@@ -16,9 +16,9 @@ NS_ASSUME_NONNULL_BEGIN
 // Speaks the menu showing in a game: an Infocom V6 menu if the interpreter
 // reports one, or else a menu found in the text of the game's windows. For
 // the latter, ZMenu is itself the VoiceOverMenu.
-@interface ZMenu : NSObject <VoiceOverMenu>
+@interface ZMenu : NSObject <VoiceOverMenu, VoiceOverHelper>
 
-@property(weak) GlkController *glkctl;
+@property(weak, nullable) GlkController *glkctl;
 @property BOOL haveSpokenMenu;
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;

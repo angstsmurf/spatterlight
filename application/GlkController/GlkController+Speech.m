@@ -117,8 +117,7 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
             self.zmenu = [[ZMenu alloc] initWithGlkController:self];
         }
         if (![self.zmenu detectMenu]) {
-            [NSObject cancelPreviousPerformRequestsWithTarget:self.zmenu];
-            self.zmenu.glkctl = nil;
+            VoiceOverHelperDetach(self.zmenu);
             self.zmenu = nil;
         }
 
@@ -128,8 +127,7 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
                 self.form = [[BureaucracyForm alloc] initWithGlkController:self];
             }
             if (![self.form detectForm]) {
-                [NSObject cancelPreviousPerformRequestsWithTarget:self.form];
-                self.form.glkctl = nil;
+                VoiceOverHelperDetach(self.form);
                 self.form = nil;
             } else {
                 [self.form addCurrentFieldToMoves];
@@ -252,7 +250,9 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
             });
         }
     } else {
+        VoiceOverHelperDetach(self.zmenu);
         self.zmenu = nil;
+        VoiceOverHelperDetach(self.form);
         self.form = nil;
     }
 }
@@ -321,10 +321,8 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
 - (IBAction)speakStatus:(id)sender {
     // The grid status path normally cancels any pending menu/form speech; do the
     // same here since we no longer route through -[GlkTextGridWindow speakStatus].
-    if (self.zmenu)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.zmenu];
-    if (self.form)
-        [NSObject cancelPreviousPerformRequestsWithTarget:self.form];
+    [self.zmenu cancelPendingSpeech];
+    [self.form cancelPendingSpeech];
 
     // The main text/input window is read by the "speak move" actions, not here.
     GlkWindow *mainWindow = self.largestWithMoves;

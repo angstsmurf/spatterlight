@@ -106,6 +106,10 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
 
 #pragma mark Speech
 
+- (void)cancelPendingSpeech {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
 - (void)speakSelectedLine {
     if (!self.currentMenu.haveSpokenMenu) {
         [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:kFirstSpeakDelay];
@@ -118,7 +122,7 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
     id<VoiceOverMenu> menu = self.currentMenu;
     if ([menu findSelectedLine] == NSNotFound)
         return;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelPendingSpeech];
 
     // We use the number of menu lines as a proxy to see if we have just switched to a new menu
     if (menu == self) {
@@ -167,7 +171,7 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
 - (void)speakString:(NSString *)string {
     if (!string || string.length == 0)
         return;
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelPendingSpeech];
     if (_glkctl.gameID == kGameIsBeyondZork) {
         // Delete graphic indicator
         string = [BeyondZorkIndicatorRegex() stringByReplacingMatchesInString:string

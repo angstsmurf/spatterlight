@@ -15,7 +15,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface InfocomV6MenuHandler : NSObject <VoiceOverMenu>
+@interface InfocomV6MenuHandler : NSObject <VoiceOverMenu, VoiceOverHelper>
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl;
 
@@ -23,7 +23,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)updateMoveRanges:(GlkTextBufferWindow *)window;
 
-@property (weak) GlkController *glkctl;
+@property (weak, nullable) GlkController *glkctl;
 
 @property (readonly) NSUInteger selectedLine;
 @property BOOL haveSpokenMenu;

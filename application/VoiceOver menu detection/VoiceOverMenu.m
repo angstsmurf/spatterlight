@@ -5,6 +5,11 @@
 
 #import "VoiceOverMenu.h"
 
+void VoiceOverHelperDetach(id<VoiceOverHelper> helper) {
+    [helper cancelPendingSpeech];
+    helper.glkctl = nil;
+}
+
 NSString *VoiceOverMenuIndexString(NSString *noun, NSUInteger index, NSUInteger total, BOOL useTotal) {
     NSString *string = [NSString stringWithFormat:@".\n%@ %lu", noun, index + 1];
     if (useTotal)

@@ -36,6 +36,10 @@
     return self;
 }
 
+// ZMenu does the speaking for V6 menus; nothing is scheduled here.
+- (void)cancelPendingSpeech {
+}
+
 + (NSString *)makeDefinitionStringVerbose:(NSString *)string {
     if (string.length == 0)
         return string;

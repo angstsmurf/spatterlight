@@ -38,6 +38,9 @@ static NSString * const kCancelTitle = @"[cancel]";
 
 @property (nonatomic) NSMenuItem *membersMenu;
 @property (nonatomic) NSMenuItem *partyMenu;
+// Bumped by cancelPendingSpeech; a deferred announcement made under an
+// older value is dropped.
+@property NSUInteger speechGeneration;
 
 @end
 
@@ -55,6 +58,21 @@ static NSString * const kCancelTitle = @"[cancel]";
         _dialogClosedTimestamp = [NSDate distantPast];
     }
     return self;
+}
+
+- (void)cancelPendingSpeech {
+    _speechGeneration++;
+}
+
+// Runs block after delay unless cancelPendingSpeech is called before then.
+- (void)afterDelay:(NSTimeInterval)delay speak:(void (^)(GlkController *glkctl))block {
+    NSUInteger generation = _speechGeneration;
+    JourneyMenuHandler __weak *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        JourneyMenuHandler *strongSelf = weakSelf;
+        if (strongSelf.glkctl && strongSelf.speechGeneration == generation)
+            block(strongSelf.glkctl);
+    });
 }
 
 - (JourneyDialogPresenter *)presenter {
@@ -618,9 +636,9 @@ static NSString * const kCancelTitle = @"[cancel]";
 
         case JourneyDialogTypeMultipleChoice: {
             if (self.dialogClosedRecently && [text hasPrefix:@"Musings:"]) {
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakMusingsDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [weakSelf.glkctl speakMostRecent:nil];
-                });
+                [self afterDelay:kSpeakMusingsDelay speak:^(GlkController *glkctl) {
+                    [glkctl speakMostRecent:nil];
+                }];
             }
 
             NSMutableArray<NSString *> *titles = [NSMutableArray new];
@@ -648,10 +666,9 @@ static NSString * const kCancelTitle = @"[cancel]";
     [_glkctl markLastSeen];
     [self dialogEnded];
 
-    JourneyMenuHandler __weak *weakSelf = self;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakEnteredTextDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakSelf.glkctl announce:enteredText priority:NSAccessibilityPriorityHigh];
-    });
+    [self afterDelay:kSpeakEnteredTextDelay speak:^(GlkController *glkctl) {
+        [glkctl announce:enteredText priority:NSAccessibilityPriorityHigh];
+    }];
 }
 
 // Clicks the dialog item with the chosen title, or the last one

@@ -231,6 +231,10 @@ static NSDictionary<NSString *, NSArray<NSString *> *> *FormFields(void) {
     [moves addObject:val];
 }
 
+- (void)cancelPendingSpeech {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+}
+
 - (void)speakCurrentField {
     if (_dontSpeakField == YES) {
         _dontSpeakField = NO;
@@ -266,7 +270,7 @@ static NSDictionary<NSString *, NSArray<NSString *> *> *FormFields(void) {
              [self fieldStringWithIndex:(theme.vOSpeakMenu >= kVOMenuIndex) andTotal:(theme.vOSpeakMenu == kVOMenuTotal)]];
     }
 
-    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+    [self cancelPendingSpeech];
     [_glkctl speakStringNow:selectedFieldString];
     // Rescheduled after every field, so it comes once the player has
     // stayed in a field for a while.

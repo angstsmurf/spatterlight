@@ -10,6 +10,7 @@
 - (IBAction)openIfdb:(id)sender;
 - (IBAction)download:(id)sender;
 - (IBAction)applyTheme:(id)sender;
+// The Journey menu items are archived with these selector names: keep them.
 - (void)journeyPartyAction:(id)sender;
 - (void)journeyMemberVerbAction:(id)sender;
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem;

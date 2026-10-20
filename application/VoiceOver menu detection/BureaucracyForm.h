@@ -7,13 +7,15 @@
 
 #import <Foundation/Foundation.h>
 
+#import "VoiceOverMenu.h"
+
 @class GlkController;
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface BureaucracyForm : NSObject
+@interface BureaucracyForm : NSObject <VoiceOverHelper>
 
-@property(weak) GlkController *glkctl;
+@property(weak, nullable) GlkController *glkctl;
 @property NSUInteger selectedField;
 
 @property BOOL haveSpokenForm;

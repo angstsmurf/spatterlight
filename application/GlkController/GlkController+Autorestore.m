@@ -1235,6 +1235,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
      object: readfh];
 
     self.commandScriptHandler = nil;
+    VoiceOverHelperDetach(_journeyMenuHandler);
     _journeyMenuHandler = nil;
 
     // Stop the interpreter
@@ -1275,15 +1276,10 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
         [win removeFromSuperview];
     }
 
-    if (self.form) {
-        self.form.glkctl = nil;
-        self.form = nil;
-    }
-
-    if (self.zmenu) {
-        self.zmenu.glkctl = nil;
-        self.zmenu = nil;
-    }
+    VoiceOverHelperDetach(self.form);
+    self.form = nil;
+    VoiceOverHelperDetach(self.zmenu);
+    self.zmenu = nil;
 
     readfh = nil;
     sendfh = nil;

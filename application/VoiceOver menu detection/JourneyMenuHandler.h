@@ -12,6 +12,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "VoiceOverMenu.h"
+
 #include "glkimp.h"
 
 @class GlkController, JourneyMenuItem, GlkTextGridWindow, GlkTextBufferWindow;
@@ -26,7 +28,7 @@ typedef NS_ENUM(NSInteger, JourneyDialogType) {
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface JourneyMenuHandler : NSObject
+@interface JourneyMenuHandler : NSObject <VoiceOverHelper>
 
 - (instancetype)initWithGlkController:(GlkController *)glkctl gridWindow:(nullable GlkTextGridWindow *)gridWindow bufferWindow:(nullable GlkTextBufferWindow *)bufferWindow;
 
@@ -60,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 // is not shown.
 @property BOOL skipNextDialog;
 
-@property (weak) GlkController *glkctl;
+@property (weak, nullable) GlkController *glkctl;
 @property (weak, nullable) GlkTextGridWindow *textGridWindow;
 @property (weak, nullable) GlkTextBufferWindow *textBufferWindow;
 
