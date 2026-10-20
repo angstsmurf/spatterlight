@@ -761,6 +761,7 @@
 		C338CF472F71BDC600BCBD18 /* MetadataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF462F71BDC600BCBD18 /* MetadataHandler.m */; };
 		C338CF4A2F71BE1000BCBD18 /* GameLauncher.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF492F71BE1000BCBD18 /* GameLauncher.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
+		5A1D0C0E7E3F4B2C9D8A0001 /* ZMenuDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D0C0E7E3F4B2C9D8A0002 /* ZMenuDetector.m */; };
 		C33BC7132EEEFA500086C18C /* taylordraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30AC87C2EE9318800E1EE85 /* taylordraw.c */; };
 		C33BC7142EEEFA500086C18C /* irmak.c in Sources */ = {isa = PBXBuildFile; fileRef = C359A2D42EE5AF670079F9EA /* irmak.c */; };
 		C33BC7152EEEFA500086C18C /* aiukpalette.c in Sources */ = {isa = PBXBuildFile; fileRef = C31F05272EED8793002A6EC0 /* aiukpalette.c */; };
@@ -3508,6 +3509,8 @@
 		C338CF492F71BE1000BCBD18 /* GameLauncher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameLauncher.m; sourceTree = "<group>"; };
 		C33B4502257E84500017EA26 /* ZMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMenu.m; sourceTree = "<group>"; };
 		C33B4503257E84500017EA26 /* ZMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMenu.h; sourceTree = "<group>"; };
+		5A1D0C0E7E3F4B2C9D8A0002 /* ZMenuDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMenuDetector.m; sourceTree = "<group>"; };
+		5A1D0C0E7E3F4B2C9D8A0003 /* ZMenuDetector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZMenuDetector.h; sourceTree = "<group>"; };
 		C33BC70E2EEEF9650086C18C /* libaiukgraphics.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libaiukgraphics.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C33F052310C440E0341FEDD2 /* GlkTextGridWindow+Speech.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "GlkTextGridWindow+Speech.m"; sourceTree = "<group>"; };
 		C341A49D272B265100A46ED4 /* ComparisonOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ComparisonOperation.h; sourceTree = "<group>"; };
@@ -6450,6 +6453,8 @@
 			children = (
 				C33B4503257E84500017EA26 /* ZMenu.h */,
 				C33B4502257E84500017EA26 /* ZMenu.m */,
+				5A1D0C0E7E3F4B2C9D8A0003 /* ZMenuDetector.h */,
+				5A1D0C0E7E3F4B2C9D8A0002 /* ZMenuDetector.m */,
 				C3F1078B259256AC00C9EC82 /* BureaucracyForm.h */,
 				C3F1078C259256AC00C9EC82 /* BureaucracyForm.m */,
 				C384A68C2C6F480B0081FC50 /* JourneyMenuHandler.h */,
@@ -9036,6 +9041,7 @@
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
+				5A1D0C0E7E3F4B2C9D8A0001 /* ZMenuDetector.m in Sources */,
 				C3C2053C268D304500DB7AE0 /* NotificationBezel.m in Sources */,
 				C3075513265C2D2E00931D5B /* NSData+Categories.m in Sources */,
 				C3AD642526176737008614C5 /* BufferTextView.m in Sources */,
