@@ -128,17 +128,10 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 // afterwards, and a script is an automated playthrough, so neither disturbs a
 // reader.
 - (void)trimScrollbackIfNeeded:(BOOL)wasAtBottom {
-    if (!wasAtBottom && !self.glkctl.commandScriptRunning) {
-        // Scrolled up / paging: a synchronous front trim would force an O(N)
-        // relayout and blank the view mid-read. When opted in, and once the
-        // buffer has grown well past the limit, hand off to a background trim
-        // that rebuilds a trimmed, pre-laid-out text system off the main thread
-        // and swaps it in with the scroll position preserved.
-        NSUInteger limit = self.scrollbackLimit;
-        if (limit != 0 && textstorage.length > MAX(limit * 2, [GlkTextBufferWindow scrollbackTrimThresholdForLimit:limit]))
-            [self scheduleBackgroundTrimToLimit:limit];
+    // While the user reads further up, the text grows untrimmed; the first
+    // flush after they are back at the bottom trims it.
+    if (!wasAtBottom && !self.glkctl.commandScriptRunning)
         return;
-    }
 
     NSUInteger limit = self.scrollbackLimit;
     if (limit == 0)
@@ -210,24 +203,11 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
                                            effectiveRange:NULL].origin.y;
 }
 
-// Carry the per-window state of the live text view over to the one that
-// replaces it after a background trim. configureBufferTextView: sets up
-// everything else; anything set on _textview at run time belongs here.
-- (void)carryTextViewStateFrom:(BufferTextView *)oldView to:(BufferTextView *)newView {
-    newView.textContainerInset  = oldView.textContainerInset;
-    newView.backgroundColor     = oldView.backgroundColor;
-    newView.insertionPointColor = oldView.insertionPointColor;
-    newView.linkTextAttributes  = oldView.linkTextAttributes;
-    newView.shouldDrawCaret     = oldView.shouldDrawCaret;
-    newView.bottomPadding       = oldView.bottomPadding;
-    newView.editable            = oldView.editable;
-}
-
 // Shift every cached absolute offset to account for a front trim of `cut`
 // characters (which removed `removedHeight` points of laid-out text). fence,
 // lastVisible and printPositionOnInput are character indices; _lastseen is a
 // y-coordinate; moveRanges are character ranges (dropped if fully trimmed,
-// clamped if they straddle the cut). Shared by the inline and background trims.
+// clamped if they straddle the cut).
 - (void)shiftCachedOffsetsAfterTrimOf:(NSUInteger)cut removedHeight:(CGFloat)removedHeight {
     fence = (fence > cut) ? fence - cut : 0;
     lastVisible = (lastVisible > cut) ? lastVisible - cut : 0;
@@ -263,169 +243,6 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     }
     self.moveRanges = shifted;
     moveRangeIndex = shifted.count;
-}
-
-// Trim the scrollback without blocking the main thread, so it can run while the
-// user has paged or scrolled up to read. We build a trimmed, fully-laid-out
-// text system on a background thread and swap it in instantly, then restore the
-// scroll position by character anchor (cheap, since the new system is already
-// laid out). The live view keeps showing the old content until the swap, so
-// there is no blank. Opt-in (BufferBackgroundTrim) and conservatively gated; it
-// degrades gracefully - if it can't run, the buffer simply stays large.
-- (void)scheduleBackgroundTrimToLimit:(NSUInteger)limit {
-    if (backgroundLayoutInProgress)
-        return;
-    if (![NSUserDefaults.standardUserDefaults boolForKey:@"BufferBackgroundTrim"])
-        return;
-
-    // Choose the cut on the main thread, bounded so the removed region is
-    // entirely above the visible area (never trim what the user can see).
-    NSUInteger safeLimit = line_request ? fence : textstorage.length;
-    NSRect visibleRect = scrollview.documentVisibleRect;
-    if (NSHeight(visibleRect) >= 1) {
-        NSUInteger firstVisibleChar =
-            [layoutmanager characterIndexForPoint:NSMakePoint(NSMinX(visibleRect), NSMinY(visibleRect))
-                                  inTextContainer:container
-         fractionOfDistanceBetweenInsertionPoints:nil];
-        if (firstVisibleChar < safeLimit)
-            safeLimit = firstVisibleChar;
-    }
-    NSUInteger cut = [GlkTextBufferWindow scrollbackCutPointForString:textstorage.string
-                                                          targetKeep:[GlkTextBufferWindow scrollbackKeepForLimit:limit]
-                                                           safeLimit:safeLimit];
-    if (cut == 0)
-        return;
-
-    // Record the scroll anchor (bottom-of-viewport character + sub-line offset)
-    // so we can restore the exact position in the trimmed system after the swap.
-    [self storeScrollOffset];
-    if (lastAtBottom || lastAtTop)
-        return; // not actually parked in the middle; let the inline path handle it
-
-    CGFloat removedHeight = [self heightAboveTrimCut:cut];
-    CGFloat anchorOffset = lastScrollOffset;
-
-    backgroundLayoutInProgress = YES;
-    NSUInteger generation = ++backgroundLayoutGeneration;
-
-    // Snapshot the *trimmed* text and the container to lay out off-thread.
-    NSMutableAttributedString *trimmedText = [textstorage mutableCopy];
-    [trimmedText deleteCharactersInRange:NSMakeRange(0, cut)];
-    NSData *containerArchive =
-        [NSKeyedArchiver archivedDataWithRootObject:container
-                              requiringSecureCoding:YES
-                                              error:nil];
-    NSSize containerSize = container.size;
-    CGFloat lineFragmentPadding = container.lineFragmentPadding;
-
-    dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0), ^{
-        @autoreleasepool {
-            NSTextStorage *bgStorage =
-                [[NSTextStorage alloc] initWithAttributedString:trimmedText];
-
-            NSLayoutManager *bgLayoutManager = [[NSLayoutManager alloc] init];
-            bgLayoutManager.allowsNonContiguousLayout = NO;
-            bgLayoutManager.backgroundLayoutEnabled = NO; // synchronous layout
-            [bgStorage addLayoutManager:bgLayoutManager];
-
-            NSError *error = nil;
-            MarginContainer *bgContainer =
-                [NSKeyedUnarchiver unarchivedObjectOfClass:[MarginContainer class]
-                                                  fromData:containerArchive
-                                                     error:&error];
-            if (!bgContainer)
-                bgContainer = [[MarginContainer alloc] initWithContainerSize:containerSize];
-            bgContainer.size = containerSize;
-            bgContainer.lineFragmentPadding = lineFragmentPadding;
-            bgContainer.widthTracksTextView  = YES;
-            bgContainer.heightTracksTextView = NO;
-            [bgLayoutManager addTextContainer:bgContainer];
-
-            // Match the container's images/breaks to the trimmed text.
-            [bgContainer shiftAnchorsAfterTrimOf:cut];
-
-            [bgLayoutManager ensureLayoutForTextContainer:bgContainer];
-
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (generation != self->backgroundLayoutGeneration) {
-                    self->backgroundLayoutInProgress = NO;
-                    return; // text changed while we worked; discard
-                }
-
-                BufferTextView *newTextView =
-                    [[BufferTextView alloc] initWithFrame:NSMakeRect(0, 0, 0, 10000000)
-                                            textContainer:bgContainer];
-                [self configureBufferTextView:newTextView];
-                // The text is unchanged since the snapshot (the generation
-                // check above), so the live view's state still applies.
-                BufferTextView *oldTextView = self.textview;
-                [self carryTextViewStateFrom:oldTextView to:newTextView];
-                NSRange selection = oldTextView.selectedRange;
-                newTextView.delegate = self;
-                bgStorage.delegate   = self;
-                bgLayoutManager.delegate = self;
-                bgContainer.textView = newTextView;
-
-                // Reconnect margin-image attachment cells to the (unarchived,
-                // trimmed) MarginImage objects, re-deriving positions from the
-                // trimmed text.
-                NSMutableDictionary<NSString *, MarginImage *> *imgsByUUID =
-                    [[NSMutableDictionary alloc] initWithCapacity:bgContainer.marginImages.count];
-                for (MarginImage *img in bgContainer.marginImages) {
-                    img.container = bgContainer;
-                    img.accessibilityParent = newTextView;
-                    if (img.uuid)
-                        imgsByUUID[img.uuid] = img;
-                }
-                [bgStorage enumerateAttribute:NSAttachmentAttributeName
-                                      inRange:NSMakeRange(0, bgStorage.length)
-                                      options:0
-                                   usingBlock:^(NSTextAttachment *att, NSRange range, BOOL *stop) {
-                    MyAttachmentCell *cell = (MyAttachmentCell *)att.attachmentCell;
-                    if (!cell) return;
-                    cell.pos = range.location;
-                    if (cell.marginImgUUID) {
-                        MarginImage *img = imgsByUUID[cell.marginImgUUID];
-                        if (img) {
-                            cell.marginImage = img;
-                            img.pos = range.location;
-                            img.bounds = [img boundsWithLayout:bgLayoutManager];
-                            cell.accessibilityLabel = cell.customA11yLabel;
-                        }
-                    }
-                }];
-
-                BOOL wasFirstResponder = (self.window.firstResponder == oldTextView);
-
-                self->scrollview.documentView = newTextView;
-                self->textstorage   = bgStorage;
-                self->layoutmanager = bgLayoutManager;
-                self->container     = bgContainer;
-                self.textview       = newTextView;
-
-                // Shift every cached offset to account for the trim.
-                [self shiftCachedOffsetsAfterTrimOf:cut removedHeight:removedHeight];
-
-                // Shift and restore the text selection.
-                NSUInteger selLoc = (selection.location > cut) ? selection.location - cut : 0;
-                if (selLoc + selection.length <= bgStorage.length)
-                    newTextView.selectedRange = NSMakeRange(selLoc, selection.length);
-
-                [newTextView enableCaret:nil];
-                if (wasFirstResponder)
-                    [self.window makeFirstResponder:newTextView];
-
-                // Restore the scroll position by character anchor in the
-                // already-laid-out new system (lastVisible was shifted above).
-                BOOL savedPause = self->pauseScrolling;
-                self->pauseScrolling = NO;
-                [self scrollToCharacter:self->lastVisible withOffset:anchorOffset animate:NO];
-                self->pauseScrolling = savedPause;
-
-                self->backgroundLayoutInProgress = NO;
-            });
-        }
-    });
 }
 
 // Record the Y-coordinate of the last visible line of text. This is

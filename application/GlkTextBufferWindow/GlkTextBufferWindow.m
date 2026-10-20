@@ -130,10 +130,8 @@
     return self;
 }
 
-// Apply the standard BufferTextView configuration shared by the initial text
-// view built in init and the replacement built during a background scrollback
-// trim. Keeping it in one place stops the two construction paths from drifting
-// apart. Instance-specific properties (frame, insets, colors, delegate,
+// Apply the standard BufferTextView configuration to the text view built in
+// init. Instance-specific properties (frame, insets, colors, delegate,
 // editable) are set by the caller.
 - (void)configureBufferTextView:(BufferTextView *)textView {
     textView.minSize = NSMakeSize(1, 10000000);
@@ -381,7 +379,6 @@
     if (_pendingClear) {
         [self reallyClear];
         [textstorage setAttributedString:bufferTextstorage];
-        backgroundLayoutGeneration++;
         // A window clear starts a fresh page, so the viewport belongs at the
         // top. AppKit only auto-clamps the scroll origin back to the top when
         // the new content is shorter than the viewport; without this reset an
@@ -395,7 +392,6 @@
             [self scrollToTop];
     } else if (bufferTextstorage.length) {
         [self coalescePendingEchoDeleteWithAppend:bufferTextstorage];
-        backgroundLayoutGeneration++;
     }
 
     bufferTextstorage = [[NSMutableAttributedString alloc] init];

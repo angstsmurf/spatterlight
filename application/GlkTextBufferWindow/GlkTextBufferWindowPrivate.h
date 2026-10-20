@@ -87,10 +87,6 @@ NS_ASSUME_NONNULL_BEGIN
     NSRange lastSpokenRange;           // Range of text last spoken to avoid repeating
     NSString *lastSpokenString;        // Text content last spoken
 
-    // --- Background layout ---
-    BOOL backgroundLayoutInProgress;   // YES while a background layout pass is running
-    NSUInteger backgroundLayoutGeneration; // Incremented when text changes, to discard stale results
-
     // --- Animated images ---
     NSTimer *imageAnimationTimer;      // One-shot, rescheduled by each tick; nil when the
                                        // buffer holds no animated images

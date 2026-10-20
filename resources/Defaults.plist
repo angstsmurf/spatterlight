@@ -1,7 +1,6 @@
 {
 	HasConvertedLibrary = NO;
 	AdjustSize = YES;
-	BufferBackgroundTrim = YES;
 	OneThemeForAll = YES;
 	ShowThemePreview = NO;
 	ShowSidebar = NO;

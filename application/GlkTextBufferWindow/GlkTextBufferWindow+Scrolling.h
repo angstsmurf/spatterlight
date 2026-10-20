@@ -4,7 +4,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 /*
  * Scrolling: deferred auto-scroll and its pagination caps, scroll position
- * store/restore, and the rolling scrollback trim (inline and background).
+ * store/restore, and the rolling scrollback trim.
  */
 
 @interface GlkTextBufferWindow (Scrolling)
