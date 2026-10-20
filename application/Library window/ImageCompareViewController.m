@@ -20,6 +20,11 @@
 
 @interface ImageCompareViewController ()
 
+@property (weak) IBOutlet NSImageView *leftImage;
+@property (weak) IBOutlet NSImageView *rightImage;
+
+@property (weak) IBOutlet NSButton *imageSelectDialogSuppressionButton;
+
 @end
 
 @implementation ImageCompareViewController

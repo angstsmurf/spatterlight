@@ -21,12 +21,29 @@
 
 #import "DebugLog.h"
 
+@interface InfoPanel ()
+@property BOOL disableConstrainedWindow;
+@end
+
 @implementation InfoPanel
 
 - (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen *)screen {
     return (_disableConstrainedWindow ? frameRect : [super constrainFrameRect:frameRect toScreen:screen]);
 }
 
+@end
+
+@interface InfoController () {
+    IBOutlet NSTextField *authorField;
+    IBOutlet NSTextField *headlineField;
+    IBOutlet NSTextField *ifidField;
+    IBOutlet NSTextField *descriptionText;
+    IBOutlet ImageView *imageView;
+
+    NSWindowController *snapshotController;
+}
+@property BOOL downArrowWhileInAnimation;
+@property BOOL upArrowWhileInAnimation;
 @end
 
 @interface HelperView : NSView
@@ -86,17 +103,6 @@
     }
 }
 
-@end
-
-@interface InfoController () {
-    IBOutlet NSTextField *authorField;
-    IBOutlet NSTextField *headlineField;
-    IBOutlet NSTextField *ifidField;
-    IBOutlet NSTextField *descriptionText;
-    IBOutlet ImageView *imageView;
-
-    NSWindowController *snapshotController;
-}
 @end
 
 @implementation InfoController

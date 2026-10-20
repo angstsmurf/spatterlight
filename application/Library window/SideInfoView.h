@@ -16,12 +16,9 @@
 
 @property (readonly) ImageView *imageView;
 
-@property NSButton *downloadButton;
-
 - (instancetype)initWithFrame:(NSRect)frameRect;
 - (void)updateSideViewWithGame:(Game *)somegame;
 - (void)updateSideViewWithString:(NSString *)string;
-- (void)deselectImage;
 
 
 @end

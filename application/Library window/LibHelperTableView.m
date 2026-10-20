@@ -6,23 +6,25 @@
 //
 
 #import "LibHelperTableView.h"
-#import "TableViewController.h"
-#import "TableViewController+InfoWindows.h"
-#import "TableViewController+TableDelegate.h"
 
 @interface LibHelperTableView () {
     NSTrackingArea *trackingArea;
     BOOL mouseOverView;
     NSInteger lastOverRow;
 }
+@property (readwrite) NSInteger mouseOverRow;
 @end
 
 @implementation LibHelperTableView
 
+- (id<LibHelperTableViewDelegate>)helperDelegate {
+    return (id<LibHelperTableViewDelegate>)self.delegate;
+}
+
 -(BOOL)becomeFirstResponder {
     BOOL flag = [super becomeFirstResponder];
     if (flag) {
-        [(TableViewController *)self.delegate enableClickToRenameAfterDelay];
+        [self.helperDelegate enableClickToRenameAfterDelay];
     }
     return flag;
 }
@@ -35,7 +37,7 @@
 - (void)keyDown:(NSEvent *)event {
     NSString *pressed = event.characters;
     if ([pressed isEqualToString:@" "])
-        [(TableViewController *)self.delegate showGameInfo:nil];
+        [self.helperDelegate showGameInfo:nil];
     else
         [super keyDown:event];
 }
@@ -59,7 +61,7 @@
         if (lastOverRow == _mouseOverRow)
             return;
         else {
-            [(TableViewController *)self.delegate mouseOverChangedFromRow:lastOverRow toRow:_mouseOverRow];
+            [self.helperDelegate mouseOverChangedFromRow:lastOverRow toRow:_mouseOverRow];
             lastOverRow = _mouseOverRow;
         }
     }
@@ -67,7 +69,7 @@
 
 - (void)mouseExited:(NSEvent *)theEvent {
     mouseOverView = NO;
-    [(TableViewController *)self.delegate mouseOverChangedFromRow:lastOverRow toRow:-1];
+    [self.helperDelegate mouseOverChangedFromRow:lastOverRow toRow:-1];
     _mouseOverRow = -1;
     lastOverRow = -1;
 }

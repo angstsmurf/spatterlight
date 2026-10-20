@@ -19,6 +19,7 @@
 
     CGFloat totalHeight;
 }
+@property NSButton *downloadButton;
 @end
 
 @implementation SideInfoView

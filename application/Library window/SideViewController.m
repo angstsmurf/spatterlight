@@ -19,6 +19,7 @@
     BOOL needsUpdate;
     NSArray<Game *> *selectedGames;
 }
+@property (weak) Game *currentSideView;
 
 @end
 

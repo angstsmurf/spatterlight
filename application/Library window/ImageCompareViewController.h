@@ -22,11 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface ImageCompareViewController : NSViewController
 
-@property (weak) IBOutlet NSImageView *leftImage;
-@property (weak) IBOutlet NSImageView *rightImage;
-
-@property (weak) IBOutlet NSButton *imageSelectDialogSuppressionButton;
-
 + (kImageComparisonResult)chooseImageA:(NSData *)imageA orB:(nullable NSData *)imageB source:(kImageComparisonSource)source force:(BOOL)force;
 
 - (BOOL)userWantsImage:(NSData *)imageA ratherThanImage:(NSData *)imageB source:(kImageComparisonSource)type force:(BOOL)force;

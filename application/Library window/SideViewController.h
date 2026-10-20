@@ -16,7 +16,6 @@ NS_ASSUME_NONNULL_BEGIN
 @property (weak) IBOutlet NSTextField *sideIfid;
 @property (weak) IBOutlet NSScrollView *leftScrollView;
 
-@property (weak) Game *currentSideView;
 @property (nonatomic, weak) NSManagedObjectContext *managedObjectContext;
 @property (strong) IBOutlet NSLayoutConstraint *scrollViewTopPin;
 

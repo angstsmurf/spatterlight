@@ -9,9 +9,6 @@
 @class Game, Metadata, TableViewController, CoreDataManager;
 
 @interface InfoPanel : NSWindow
-
-@property BOOL disableConstrainedWindow;
-
 @end
 
 @interface InfoController : NSWindowController <NSWindowDelegate, NSTextFieldDelegate, NSTextViewDelegate>
@@ -25,8 +22,6 @@
 @property Metadata *meta;
 
 @property BOOL inAnimation;
-@property BOOL downArrowWhileInAnimation;
-@property BOOL upArrowWhileInAnimation;
 
 @property BOOL inDeletion;
 
@@ -37,8 +32,6 @@
 
 - (void)animateIn:(NSRect)frame;
 - (void)hideWindow;
-
-- (void)updateImage;
 
 + (void)closeStrayInfoWindows;
 

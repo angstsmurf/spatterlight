@@ -7,11 +7,13 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "LibHelperTableView.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @class Metadata, GlkController, InfoController, Game, Theme, LibController, CoreDataManager, IFStory, MetadataHandler, GameLauncher, LibHelperTableView;
 
-@interface TableViewController : NSViewController <NSDraggingDestination, NSSplitViewDelegate, NSTableViewDelegate, NSTableViewDataSource>
+@interface TableViewController : NSViewController <NSDraggingDestination, NSSplitViewDelegate, LibHelperTableViewDelegate, NSTableViewDataSource>
 
 @property (nonatomic) LibController *windowController;
 
