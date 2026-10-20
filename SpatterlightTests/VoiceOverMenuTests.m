@@ -11,7 +11,7 @@
 #import <Cocoa/Cocoa.h>
 
 #import "InfocomV6MenuHandler.h"
-#import "JourneyMenuHandler.h"
+#import "JourneyMenuHandler_Private.h"
 #import "JourneyMenuItem.h"
 #import "JourneyTextFormatter.h"
 #import "BureaucracyForm.h"
@@ -64,7 +64,7 @@
 
 - (void)setUp {
     // No controller: speaking goes to nil, which is all these tests need.
-    self.handler = [[InfocomV6MenuHandler alloc] initWithDelegate:(GlkController *)nil];
+    self.handler = [[InfocomV6MenuHandler alloc] initWithGlkController:(GlkController *)nil];
 }
 
 - (void)send:(InfocomV6MenuType)type index:(NSUInteger)index total:(NSUInteger)total text:(nullable const char *)text {
@@ -248,13 +248,13 @@
 // A27/A29: the dialog items were decoded as a dictionary and the tag
 // counter was not archived. Archived the way autorestore does it.
 - (void)testHandlerRoundTripKeepsDialogItemsAndTags {
-    JourneyMenuHandler *handler = [[JourneyMenuHandler alloc] initWithDelegate:(GlkController *)nil gridWindow:(GlkTextGridWindow *)nil bufferWindow:(GlkTextBufferWindow *)nil];
+    JourneyMenuHandler *handler = [[JourneyMenuHandler alloc] initWithGlkController:(GlkController *)nil gridWindow:(GlkTextGridWindow *)nil bufferWindow:(GlkTextBufferWindow *)nil];
     NSMutableArray *dialog = [@[[[JourneyMenuItem alloc] initWithTitle:@"Proceed" column:1 line:0 tag:0],
                                 [[JourneyMenuItem alloc] initWithTitle:@"[cancel]" column:2 line:0 tag:1]] mutableCopy];
-    [handler setValue:dialog forKey:@"journeyDialogMenuItems"];
+    [handler setValue:dialog forKey:@"dialogMenuItems"];
     JourneyMenuItem *verb = [[JourneyMenuItem alloc] initWithTitle:@"Lore" column:3 line:1 tag:4];
     verb.actor = @"Praxix";
-    [handler setValue:[@{@4 : verb} mutableCopy] forKey:@"journeyVerbMenuItems"];
+    [handler setValue:[@{@4 : verb} mutableCopy] forKey:@"verbMenuItems"];
     [handler setValue:@5 forKey:@"tagCounter"];
 
     NSError *error = nil;
@@ -266,10 +266,10 @@
     [unarchiver finishDecoding];
     XCTAssertNotNil(copy);
 
-    NSArray<JourneyMenuItem *> *items = [copy valueForKey:@"journeyDialogMenuItems"];
+    NSArray<JourneyMenuItem *> *items = [copy valueForKey:@"dialogMenuItems"];
     XCTAssertTrue([items isKindOfClass:[NSMutableArray class]]);
     XCTAssertEqualObjects([items valueForKey:@"title"], (@[@"Proceed", @"[cancel]"]));
-    NSDictionary<NSNumber *, JourneyMenuItem *> *verbs = [copy valueForKey:@"journeyVerbMenuItems"];
+    NSDictionary<NSNumber *, JourneyMenuItem *> *verbs = [copy valueForKey:@"verbMenuItems"];
     XCTAssertEqualObjects(verbs[@4].actor, @"Praxix");
     XCTAssertEqualObjects([copy valueForKey:@"tagCounter"], @5);
 }
@@ -290,9 +290,84 @@
     [unarchiver finishDecoding];
     XCTAssertTrue([copy isKindOfClass:[JourneyMenuHandler class]]);
 
-    NSDictionary<NSNumber *, JourneyMenuItem *> *verbs = [copy valueForKey:@"journeyVerbMenuItems"];
+    NSDictionary<NSNumber *, JourneyMenuItem *> *verbs = [copy valueForKey:@"verbMenuItems"];
     XCTAssertEqual(verbs.count, 2u);
     XCTAssertEqualObjects([copy valueForKey:@"tagCounter"], @10);
+}
+
+- (JourneyMenuHandler *)roundTrip:(JourneyMenuHandler *)handler {
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:handler requiringSecureCoding:NO error:&error];
+    XCTAssertNotNil(data, @"%@", error);
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:data error:&error];
+    unarchiver.requiresSecureCoding = NO;
+    JourneyMenuHandler *copy = [unarchiver decodeObjectOfClass:[JourneyMenuHandler class] forKey:NSKeyedArchiveRootObjectKey];
+    [unarchiver finishDecoding];
+    return copy;
+}
+
+- (JourneyMenuHandler *)newHandler {
+    return [[JourneyMenuHandler alloc] initWithGlkController:(GlkController *)nil gridWindow:nil bufferWindow:nil];
+}
+
+// The dialog state is archived as the old shouldShowDialog flag, so a
+// dialog that was showing comes back as one to show again.
+- (void)testShowingDialogIsArchivedAsShouldShowDialog {
+    JourneyMenuHandler *handler = [self newHandler];
+    [handler prepareDialogWithText:@"Praxix, Cast elevation at:" type:JourneyDialogTypeMultipleChoice];
+    handler.dialogState = JourneyDialogStateShowing;
+    handler.dialogIncludesLastMove = YES;
+
+    JourneyMenuHandler *copy = [self roundTrip:handler];
+    XCTAssertEqual(copy.dialogState, JourneyDialogStateRestored);
+    XCTAssertTrue(copy.hasPendingDialog);
+    XCTAssertEqual(copy.dialogType, JourneyDialogTypeMultipleChoice);
+    XCTAssertEqualObjects(copy.dialogText, @"Praxix, Cast elevation at:");
+    XCTAssertTrue(copy.restoredDialogIncludesLastMove);
+    XCTAssertTrue(copy.startNewPartyMenu);
+    XCTAssertTrue(copy.startNewMembersMenu);
+
+    handler.dialogState = JourneyDialogStateIdle;
+    XCTAssertEqual([self roundTrip:handler].dialogState, JourneyDialogStateIdle);
+}
+
+// A restored question survives the menus being rebuilt; a pending one
+// doesn't. Choosing a menu item answers either.
+- (void)testRestoredDialogSurvivesCancelUntilAMenuItemIsChosen {
+    JourneyMenuHandler *handler = [self newHandler];
+    handler.dialogState = JourneyDialogStateRestored;
+    [handler cancelPendingDialog];
+    XCTAssertEqual(handler.dialogState, JourneyDialogStateRestored);
+    [handler sendMouseEventForMenuItem:nil];
+    XCTAssertEqual(handler.dialogState, JourneyDialogStateIdle);
+
+    [handler prepareDialogWithText:@"Please Select One:" type:JourneyDialogTypeMultipleChoice];
+    XCTAssertEqual(handler.dialogState, JourneyDialogStatePending);
+    [handler cancelPendingDialog];
+    XCTAssertEqual(handler.dialogState, JourneyDialogStateIdle);
+}
+
+// A dialog on screen stays until it is answered.
+- (void)testShowingDialogIgnoresNewQuestionsAndCancels {
+    JourneyMenuHandler *handler = [self newHandler];
+    handler.dialogState = JourneyDialogStateShowing;
+    [handler prepareDialogWithText:@"Bergon says..." type:JourneyDialogTypeTextEntryElvish];
+    XCTAssertEqual(handler.dialogState, JourneyDialogStateShowing);
+    XCTAssertEqualObjects(handler.dialogText, @"Bergon says...");
+    [handler cancelPendingDialog];
+    [handler sendMouseEventForMenuItem:nil];
+    XCTAssertEqual(handler.dialogState, JourneyDialogStateShowing);
+    XCTAssertFalse(handler.hasPendingDialog);
+    XCTAssertFalse([handler shouldRecreateDialog]);
+}
+
+// A restored question becomes pending at the first chance to show it,
+// even without VoiceOver, so that later menus can drop it.
+- (void)testRestoredDialogBecomesPendingWhenItCouldBeShown {
+    JourneyMenuHandler *handler = [self newHandler];
+    handler.dialogState = JourneyDialogStateRestored;
+    XCTAssertFalse([handler shouldRecreateDialog]);
+    XCTAssertEqual(handler.dialogState, JourneyDialogStatePending);
 }
 
 @end

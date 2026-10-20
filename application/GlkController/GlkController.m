@@ -920,7 +920,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (void)windowDidResignKey:(NSNotification *)notification {
     _mustBeQuiet = YES;
     [_journeyMenuHandler captureMembersMenu];
-    [_journeyMenuHandler hideJourneyMenus];
+    [_journeyMenuHandler hideMenus];
 }
 
 // Intercept the window close request. If the game is still running and
@@ -1005,7 +1005,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
     if (_journeyMenuHandler) {
         [_journeyMenuHandler captureMembersMenu];
-        [self.journeyMenuHandler hideJourneyMenus];
+        [self.journeyMenuHandler hideMenus];
     }
 
     if (_theme.autosave == NO) {
@@ -1117,7 +1117,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             if (!_zmenu && !_form) {
                 CGFloat delay = 0.2;
                 // We need a longer delay if we just closed a dialog
-                if (_journeyMenuHandler && [_journeyMenuHandler.journeyDialogClosedTimestamp timeIntervalSinceNow] > -1)
+                if (_journeyMenuHandler.dialogClosedRecently)
                     delay = 1;
                 [self scheduleSpeakNewTextAfterDelay:delay];
             }
@@ -1753,14 +1753,14 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             }
         if (gridwindow == nil || bufferwindow == nil)
             return nil;
-        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithDelegate:self gridWindow:gridwindow bufferWindow:bufferwindow];
+        _journeyMenuHandler = [[JourneyMenuHandler alloc] initWithGlkController:self gridWindow:gridwindow bufferWindow:bufferwindow];
     }
     return _journeyMenuHandler;
 }
 
 - (nullable InfocomV6MenuHandler *)infocomV6MenuHandler {
     if (_infocomV6MenuHandler == nil) {
-        _infocomV6MenuHandler = [[InfocomV6MenuHandler alloc] initWithDelegate:self];
+        _infocomV6MenuHandler = [[InfocomV6MenuHandler alloc] initWithGlkController:self];
     }
     return _infocomV6MenuHandler;
 }

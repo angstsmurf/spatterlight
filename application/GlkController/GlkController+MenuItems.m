@@ -95,11 +95,11 @@ static void setLikeMenuItem(NSMenuItem *menuItem, BOOL on, NSString *onTitle, NS
 }
 
 - (void)journeyPartyAction:(id)sender {
-    [self.journeyMenuHandler journeyPartyAction:sender];
+    [self.journeyMenuHandler partyAction:sender];
 }
 
 - (void)journeyMemberVerbAction:(id)sender {
-    [self.journeyMenuHandler journeyMemberVerbAction:sender];
+    [self.journeyMenuHandler memberVerbAction:sender];
 }
 
 - (BOOL)validateMenuItem:(NSMenuItem *)menuItem {

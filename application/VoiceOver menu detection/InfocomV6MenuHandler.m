@@ -27,10 +27,10 @@
 
 @implementation InfocomV6MenuHandler
 
-- (instancetype)initWithDelegate:(GlkController *)delegate {
+- (instancetype)initWithGlkController:(GlkController *)glkctl {
     self = [super init];
     if (self) {
-        self.delegate = delegate;
+        self.glkctl = glkctl;
         hintDepth = kV6MenuNone;
     }
     return self;
@@ -56,7 +56,7 @@
         _haveSpokenMenu = YES;
         return;
     } else if (type == kV6MenuExited) {
-        _delegate.infocomV6MenuHandler = nil;
+        _glkctl.infocomV6MenuHandler = nil;
         return;
     }
 
@@ -103,11 +103,11 @@
                 if (str.length == 0)
                     return;
                 NSString *deleted = [str substringFromIndex:str.length - 1];
-                [_delegate speakString:[NSString stringWithFormat:@"Delete %@", deleted]];
+                [_glkctl speakString:[NSString stringWithFormat:@"Delete %@", deleted]];
                 str = [str substringToIndex:str.length - 1];
             } else {
                 NSString *added = [NSString stringWithCharacters:&c length:1];
-                [_delegate speakString:added];
+                [_glkctl speakString:added];
                 str = [str stringByAppendingString:added];
             }
 

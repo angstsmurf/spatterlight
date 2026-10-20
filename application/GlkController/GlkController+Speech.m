@@ -61,15 +61,15 @@ static GlkWindow *largestByFrameArea(NSArray<GlkWindow *> *windows) {
         if (self.voiceOverActive) { // VoiceOver was switched on
             // Don't speak or change menus unless we are the top game
             if ([Preferences.instance currentGame] == self.game && !dead) {
-                [self.journeyMenuHandler showJourneyMenus];
-                if (self.journeyMenuHandler.shouldShowDialog) {
+                [self.journeyMenuHandler showMenus];
+                if (self.journeyMenuHandler.hasPendingDialog) {
                     [self.journeyMenuHandler recreateDialog];
                 } else {
                     [self speakOnBecomingKey];
                 }
             }
         } else { // VoiceOver was switched off
-            [self.journeyMenuHandler hideJourneyMenus];
+            [self.journeyMenuHandler hideMenus];
         }
         // We send an event to make the interpreter aware of the new VoiceOver status.
         [self sendArrangeEventWithFrame:self.gameView.frame force:YES];

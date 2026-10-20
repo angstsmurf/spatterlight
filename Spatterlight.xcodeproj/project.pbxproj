@@ -761,6 +761,8 @@
 		C338CF472F71BDC600BCBD18 /* MetadataHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF462F71BDC600BCBD18 /* MetadataHandler.m */; };
 		C338CF4A2F71BE1000BCBD18 /* GameLauncher.m in Sources */ = {isa = PBXBuildFile; fileRef = C338CF492F71BE1000BCBD18 /* GameLauncher.m */; };
 		C33B4504257E84500017EA26 /* ZMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = C33B4502257E84500017EA26 /* ZMenu.m */; };
+		5A1D0C0E7E3F4B2C9D8A0021 /* JourneyDialogPresenter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D0C0E7E3F4B2C9D8A0022 /* JourneyDialogPresenter.m */; };
+		5A1D0C0E7E3F4B2C9D8A0024 /* JourneyMenuHandler+Coding.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D0C0E7E3F4B2C9D8A0025 /* JourneyMenuHandler+Coding.m */; };
 		5A1D0C0E7E3F4B2C9D8A0011 /* VoiceOverMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D0C0E7E3F4B2C9D8A0012 /* VoiceOverMenu.m */; };
 		5A1D0C0E7E3F4B2C9D8A0001 /* ZMenuDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1D0C0E7E3F4B2C9D8A0002 /* ZMenuDetector.m */; };
 		C33BC7132EEEFA500086C18C /* taylordraw.c in Sources */ = {isa = PBXBuildFile; fileRef = C30AC87C2EE9318800E1EE85 /* taylordraw.c */; };
@@ -3510,6 +3512,10 @@
 		C338CF492F71BE1000BCBD18 /* GameLauncher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameLauncher.m; sourceTree = "<group>"; };
 		C33B4502257E84500017EA26 /* ZMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZMenu.m; sourceTree = "<group>"; };
 		C33B4503257E84500017EA26 /* ZMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZMenu.h; sourceTree = "<group>"; };
+		5A1D0C0E7E3F4B2C9D8A0022 /* JourneyDialogPresenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JourneyDialogPresenter.m; sourceTree = "<group>"; };
+		5A1D0C0E7E3F4B2C9D8A0023 /* JourneyDialogPresenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JourneyDialogPresenter.h; sourceTree = "<group>"; };
+		5A1D0C0E7E3F4B2C9D8A0025 /* JourneyMenuHandler+Coding.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "JourneyMenuHandler+Coding.m"; sourceTree = "<group>"; };
+		5A1D0C0E7E3F4B2C9D8A0026 /* JourneyMenuHandler_Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JourneyMenuHandler_Private.h; sourceTree = "<group>"; };
 		5A1D0C0E7E3F4B2C9D8A0012 /* VoiceOverMenu.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VoiceOverMenu.m; sourceTree = "<group>"; };
 		5A1D0C0E7E3F4B2C9D8A0013 /* VoiceOverMenu.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VoiceOverMenu.h; sourceTree = "<group>"; };
 		5A1D0C0E7E3F4B2C9D8A0002 /* ZMenuDetector.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZMenuDetector.m; sourceTree = "<group>"; };
@@ -6456,6 +6462,10 @@
 			children = (
 				C33B4503257E84500017EA26 /* ZMenu.h */,
 				C33B4502257E84500017EA26 /* ZMenu.m */,
+				5A1D0C0E7E3F4B2C9D8A0023 /* JourneyDialogPresenter.h */,
+				5A1D0C0E7E3F4B2C9D8A0022 /* JourneyDialogPresenter.m */,
+				5A1D0C0E7E3F4B2C9D8A0025 /* JourneyMenuHandler+Coding.m */,
+				5A1D0C0E7E3F4B2C9D8A0026 /* JourneyMenuHandler_Private.h */,
 				5A1D0C0E7E3F4B2C9D8A0013 /* VoiceOverMenu.h */,
 				5A1D0C0E7E3F4B2C9D8A0012 /* VoiceOverMenu.m */,
 				5A1D0C0E7E3F4B2C9D8A0003 /* ZMenuDetector.h */,
@@ -9046,6 +9056,8 @@
 				C3B9EB6825FA3AEF002A406E /* ColorTransformer.m in Sources */,
 				C3AD64DE26176DC5008614C5 /* GridTextView.m in Sources */,
 				C33B4504257E84500017EA26 /* ZMenu.m in Sources */,
+				5A1D0C0E7E3F4B2C9D8A0021 /* JourneyDialogPresenter.m in Sources */,
+				5A1D0C0E7E3F4B2C9D8A0024 /* JourneyMenuHandler+Coding.m in Sources */,
 				5A1D0C0E7E3F4B2C9D8A0011 /* VoiceOverMenu.m in Sources */,
 				5A1D0C0E7E3F4B2C9D8A0001 /* ZMenuDetector.m in Sources */,
 				C3C2053C268D304500DB7AE0 /* NotificationBezel.m in Sources */,

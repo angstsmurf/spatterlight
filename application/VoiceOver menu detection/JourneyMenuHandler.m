@@ -8,22 +8,20 @@
 #import "AppDelegate.h"
 #import "GlkController.h"
 #import "GlkController+InterpreterGlue.h"
+#import "GlkController+MenuItems.h"
 #import "GlkController+Speech.h"
 #import "GlkTextGridWindow.h"
 #import "GlkTextBufferWindow.h"
 #import "BufferTextView.h"
 #import "GlkEvent.h"
-#import "JourneyMenuHandler.h"
+#import "JourneyDialogPresenter.h"
+#import "JourneyMenuHandler_Private.h"
 #import "JourneyMenuItem.h"
-#import "JourneyTextFormatter.h"
 #import "NSString+Categories.h"
 #import "DebugLog.h"
 
-// The longest text the text entry dialogs send, and the field limits
-// for elvish and for the main character's name.
+// The longest text the text entry dialogs send.
 static const NSUInteger kMaxEnteredTextLength = 40;
-static const NSUInteger kElvishMaxLength = 13;
-static const NSUInteger kNameMaxLength = 8;
 // The last move text prepended to a recreated dialog is cut to this.
 static const NSUInteger kMaxLastMoveLength = 500;
 
@@ -33,131 +31,56 @@ static const NSTimeInterval kBecameKeyDelay = 0.1;
 static const NSTimeInterval kSpeakMusingsDelay = 1;
 static const NSTimeInterval kSpeakEnteredTextDelay = 2;
 
-@interface JourneyMenuHandler () {
-    BOOL shouldStartNewJourneyPartyMenu;
-    BOOL shouldStartNewJourneyMembersMenu;
-    BOOL shouldStartNewJourneyDialogMenu;
-    NSInteger tagCounter;
-}
+// The last item of a menu that is a question.
+static NSString * const kCancelTitle = @"[cancel]";
 
-@property NSPopUpButton *journeyPopupButton;
-@property NSTextField *journeyTextField;
+@interface JourneyMenuHandler ()
 
-// These must be arrays, because a dictionary won't stay sorted
-// in the order items are added to it
-@property NSMutableArray<JourneyMenuItem *> *journeyDialogMenuItems;
-@property NSMutableArray<JourneyMenuItem *> *journeyPartyMenuItems;
-
-// We need this in order to know when to dispaly a new dialog.
-// If we didn't show dialogs, we could have compared to the actual menu instead
-@property NSMutableArray<JourneyMenuItem *> *journeyLastPartyMenuItems;
-
-@property NSMutableDictionary<NSNumber *,JourneyMenuItem *> *journeyVerbMenuItems;
-@property NSMutableArray<JourneyMenuItem *> *journeyGlueStrings;
-
-@property (nonatomic) NSMenuItem *journeyMembersMenu;
-@property (nonatomic) NSMenuItem *journeyPartyMenu;
-
-@property NSMutableArray<NSMenuItem *> *capturedMembersMenu;
-
-@property BOOL reallyShowingDialog;
-@property BOOL restoredShowingDialog;
-@property BOOL lastDialogAddedMove;
-@property BOOL restoredDialogAddedMove;
-
-@property kJourneyDialogType storedDialogType;
-@property NSString *storedDialogText;
+@property (nonatomic) NSMenuItem *membersMenu;
+@property (nonatomic) NSMenuItem *partyMenu;
 
 @end
 
 @implementation JourneyMenuHandler
 
-- (instancetype)initWithDelegate:(GlkController *)delegate gridWindow:(GlkTextGridWindow *)gridwindow bufferWindow:(GlkTextBufferWindow *)bufferwindow {
+- (instancetype)initWithGlkController:(GlkController *)glkctl gridWindow:(GlkTextGridWindow *)gridWindow bufferWindow:(GlkTextBufferWindow *)bufferWindow {
     self = [super init];
     if (self) {
-        shouldStartNewJourneyPartyMenu = YES;
-        shouldStartNewJourneyMembersMenu = YES;
-        shouldStartNewJourneyDialogMenu = YES;
-        self.delegate = delegate;
-        self.textGridWindow = gridwindow;
-        self.textBufferWindow = bufferwindow;
-        self.journeyDialogClosedTimestamp = [NSDate distantPast];
+        _startNewPartyMenu = YES;
+        _startNewMembersMenu = YES;
+        _startNewDialogMenu = YES;
+        _glkctl = glkctl;
+        _textGridWindow = gridWindow;
+        _textBufferWindow = bufferWindow;
+        _dialogClosedTimestamp = [NSDate distantPast];
     }
     return self;
 }
 
-- (instancetype)initWithCoder:(NSCoder *)decoder {
-    self = [super init];
-    if (self) {
-        NSSet *itemArray = [NSSet setWithObjects:[NSMutableArray class], [JourneyMenuItem class], nil];
-        NSSet *itemDictionary = [NSSet setWithObjects:[NSMutableDictionary class], [NSNumber class], [JourneyMenuItem class], nil];
-        NSSet *menuItemArray = [NSSet setWithObjects:[NSMutableArray class], [NSMenuItem class], nil];
-
-        self.journeyDialogMenuItems = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyDialogMenuItems"] mutableCopy];
-        self.journeyVerbMenuItems = [[decoder decodeObjectOfClasses:itemDictionary forKey:@"journeyVerbMenuItems"] mutableCopy];
-        self.journeyPartyMenuItems = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyPartyMenuItems"] mutableCopy];
-        self.journeyLastPartyMenuItems = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyLastPartyMenuItems"] mutableCopy];
-        self.journeyGlueStrings = [[decoder decodeObjectOfClasses:itemArray forKey:@"journeyGlueStrings"] mutableCopy];
-        self.capturedMembersMenu = [[decoder decodeObjectOfClasses:menuItemArray forKey:@"capturedMembersMenu"] mutableCopy];
-        // Older autosaves have no tag counter. Start above every restored
-        // verb tag, so that new verbs don't replace restored ones.
-        if ([decoder containsValueForKey:@"tagCounter"]) {
-            tagCounter = [decoder decodeIntegerForKey:@"tagCounter"];
-        } else {
-            for (NSNumber *tag in _journeyVerbMenuItems)
-                tagCounter = MAX(tagCounter, tag.integerValue + 1);
-        }
-        self.gridTextWinName = [decoder decodeIntegerForKey:@"gridTextWinName"];
-        self.bufferTextWinName = [decoder decodeIntegerForKey:@"bufferTextWinName"];
-        self.shouldShowDialog = [decoder decodeBoolForKey:@"shouldShowDialog"];
-        _restoredShowingDialog = self.shouldShowDialog;
-        self.lastDialogAddedMove = [decoder decodeBoolForKey:@"lastDialogAddedMove"];
-        self.restoredDialogAddedMove = self.lastDialogAddedMove;
-        self.storedDialogType = (kJourneyDialogType)[decoder decodeIntegerForKey:@"storedDialogType"];
-        self.storedDialogText = [decoder decodeObjectOfClass:[NSString class] forKey:@"storedDialogText"];
-        self->shouldStartNewJourneyDialogMenu = [decoder decodeBoolForKey:@"shouldStartNewJourneyDialogMenu"];
-        self.journeyDialogClosedTimestamp = [NSDate distantPast];
-    }
-    return self;
+- (JourneyDialogPresenter *)presenter {
+    if (_presenter == nil)
+        _presenter = [JourneyDialogPresenter new];
+    return _presenter;
 }
 
-- (void)encodeWithCoder:(NSCoder *)encoder {
-    [encoder encodeObject:_journeyDialogMenuItems forKey:@"journeyDialogMenuItems"];
+#pragma mark - Menus
 
-    [encoder encodeObject:_journeyVerbMenuItems forKey:@"journeyVerbMenuItems"];
-    [encoder encodeObject:_journeyPartyMenuItems forKey:@"journeyPartyMenuItems"];
-    [encoder encodeObject:_journeyLastPartyMenuItems forKey:@"journeyLastPartyMenuItems"];
-
-    [encoder encodeObject:_journeyGlueStrings forKey:@"journeyGlueStrings"];
-    [encoder encodeObject:_capturedMembersMenu forKey:@"capturedMembersMenu"];
-
-    [encoder encodeInteger:_textGridWindow.name forKey:@"gridTextWinName"];
-    [encoder encodeInteger:_textBufferWindow.name forKey:@"bufferTextWinName"];
-
-    [encoder encodeBool:shouldStartNewJourneyDialogMenu forKey:@"shouldStartNewJourneyDialogMenu"];
-    [encoder encodeBool:_shouldShowDialog forKey:@"shouldShowDialog"];
-    [encoder encodeBool:_lastDialogAddedMove forKey:@"lastDialogAddedMove"];
-    [encoder encodeInteger:_storedDialogType forKey:@"storedDialogType"];
-    [encoder encodeObject:_storedDialogText forKey:@"storedDialogText"];
-    [encoder encodeInteger:tagCounter forKey:@"tagCounter"];
+- (NSMenuItem *)partyMenu {
+    if (_partyMenu == nil) {
+        _partyMenu = ((AppDelegate *)NSApplication.sharedApplication.delegate).journeyPartyMenuItem;
+    }
+    return _partyMenu;
 }
 
-- (NSMenuItem *)journeyPartyMenu {
-    if (_journeyPartyMenu == nil) {
-        _journeyPartyMenu = ((AppDelegate *)NSApplication.sharedApplication.delegate).journeyPartyMenuItem;
+- (NSMenuItem *)membersMenu {
+    if (_membersMenu == nil) {
+        _membersMenu = ((AppDelegate *)NSApplication.sharedApplication.delegate).journeyIndividualCommandsMenuItem;
     }
-    return _journeyPartyMenu;
-}
-
-- (NSMenuItem *)journeyMembersMenu {
-    if (_journeyMembersMenu == nil) {
-        _journeyMembersMenu = ((AppDelegate *)NSApplication.sharedApplication.delegate).journeyIndividualCommandsMenuItem;
-    }
-    return _journeyMembersMenu;
+    return _membersMenu;
 }
 
 - (BOOL)membersMenuMatchesArray {
-    NSArray<NSMenuItem *> *itemArray = self.journeyMembersMenu.submenu.itemArray;
+    NSArray<NSMenuItem *> *itemArray = self.membersMenu.submenu.itemArray;
     if (itemArray.count != _capturedMembersMenu.count)
         return NO;
 
@@ -180,72 +103,339 @@ static const NSTimeInterval kSpeakEnteredTextDelay = 2;
 }
 
 - (void)rebuildPartySubmenu {
-    NSMenu *submenu = self.journeyPartyMenu.submenu;
+    NSMenu *submenu = self.partyMenu.submenu;
     [submenu removeAllItems];
-    for (JourneyMenuItem *item in _journeyPartyMenuItems) {
+    for (JourneyMenuItem *item in _partyMenuItems) {
         NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:item.title action:@selector(journeyPartyAction:) keyEquivalent:@""];
         menuItem.tag = item.tag;
         [submenu addItem:menuItem];
     }
 }
 
-// The party member whose verbs are on the given line, or nil.
-- (nullable NSString *)actorOnLine:(NSUInteger)line {
-    for (JourneyMenuItem *verb in _journeyVerbMenuItems.allValues) {
+// The verb on the given line, or nil.
+- (nullable JourneyMenuItem *)verbOnLine:(NSUInteger)line {
+    for (JourneyMenuItem *verb in _verbMenuItems.allValues) {
         if (verb.line == line)
-            return verb.actor;
+            return verb;
     }
     return nil;
 }
 
-- (BOOL)dialogClosedRecently {
-    return [_journeyDialogClosedTimestamp timeIntervalSinceNow] > -kRecentlyClosedInterval;
+// Whether the party menu is the one last shown as a dialog.
+- (BOOL)partyIsEqualToLast {
+    if (_lastPartyMenuItems.count == 0 || _lastPartyMenuItems.count != _partyMenuItems.count) {
+        return NO;
+    }
+    for (NSUInteger i = 0; i < _lastPartyMenuItems.count; i++) {
+        if (![_lastPartyMenuItems[i].title isEqualToString:_partyMenuItems[i].title]) {
+            return NO;
+        }
+    }
+    return YES;
 }
 
-- (void)recreateJourneyMenus {
-    if (![self partyIsEqualToLast] && _journeyPartyMenuItems.count) {
-        shouldStartNewJourneyPartyMenu = YES;
+- (void)recreateMenus {
+    if (![self partyIsEqualToLast] && _partyMenuItems.count) {
+        _startNewPartyMenu = YES;
         [self rebuildPartySubmenu];
     }
 
     if (![self membersMenuMatchesArray] && _capturedMembersMenu.count) {
-        [self.journeyMembersMenu.submenu removeAllItems];
+        [self.membersMenu.submenu removeAllItems];
         for (NSMenuItem *item in _capturedMembersMenu)
-            [_journeyMembersMenu.submenu addItem:item];
+            [_membersMenu.submenu addItem:item];
     }
 
-    [self showJourneyMenus];
+    [self showMenus];
 
-    shouldStartNewJourneyMembersMenu = YES;
-    shouldStartNewJourneyPartyMenu = YES;
+    _startNewMembersMenu = YES;
+    _startNewPartyMenu = YES;
 }
 
-- (void)journeyPartyAction:(id)sender {
+- (void)captureMembersMenu {
+    _capturedMembersMenu = [self.membersMenu.submenu.itemArray mutableCopy];
+}
+
+- (void)deleteAllMenus {
+    [self.partyMenu.submenu removeAllItems];
+    _partyMenuItems = [NSMutableArray<JourneyMenuItem *> new];
+    _startNewPartyMenu = YES;
+    _startNewDialogMenu = YES;
+    self.partyMenu.hidden = YES;
+    [self cancelPendingDialog];
+    _dialogMenuItems = [NSMutableArray<JourneyMenuItem *> new];
+    _dialogClosedTimestamp = [NSDate date];
+    [self deleteMembersMenu];
+}
+
+// Needed in order to hide the Individual Commands menu at game end
+// Does this only happen after the game ends?
+- (void)deleteMembersMenu {
+    [self.membersMenu.submenu removeAllItems];
+    _verbMenuItems = [NSMutableDictionary<NSNumber *,JourneyMenuItem *> new];
+    _glueStrings = [NSMutableArray<JourneyMenuItem *> new];
+    _capturedMembersMenu = [NSMutableArray<NSMenuItem *> new];
+    _startNewMembersMenu = YES;
+    self.membersMenu.hidden = YES;
+}
+
+- (void)hideMenus {
+    self.membersMenu.hidden = YES;
+    self.partyMenu.hidden = YES;
+}
+
+- (void)showMenus {
+    if (!_glkctl.voiceOverActive || _glkctl.gameID != kGameIsJourney || !_glkctl.isAlive)
+        return;
+
+    self.membersMenu.hidden = (self.membersMenu.submenu.itemArray.count == 0);
+
+    if (self.partyMenu.submenu.itemArray.count == 0 && _partyMenuItems.count)
+        [self rebuildPartySubmenu];
+
+    self.partyMenu.hidden = (self.partyMenu.submenu.itemArray.count == 0);
+}
+
+- (void)revealMenu:(NSMenuItem *)menu {
+    if (_glkctl.voiceOverActive)
+        menu.hidden = NO;
+}
+
+#pragma mark - Menu items from the interpreter
+
+- (void)handleMenuItemOfType:(JourneyMenuType)type column:(NSUInteger)column line:(NSUInteger)line stopflag:(BOOL)stopflag text:(char *)buf length:(NSUInteger)len {
+
+    if (_glkctl.gameID != kGameIsJourney)
+        return;
+
+    switch (type) {
+        case kJMenuTypeDeleteAll:
+            [self deleteAllMenus];
+            return;
+        case kJMenuTypeDeleteMembers:
+            [self deleteMembersMenu];
+            return;
+        case kJMenuTypeTextEntry:
+            // stopflag is the elvish flag here.
+            [self addTextEntryOnLine:line elvish:stopflag];
+            return;
+        default:
+            break;
+    }
+
+    NSString *str = [NSString stringWithLatin1Bytes:buf length:len];
+
+    // A menu that doesn't end in "[cancel]" is a plain menu, not a
+    // question, so a question waiting to be shown is dropped.
+    if (stopflag && ![str isEqualToString:kCancelTitle]) {
+        [self cancelPendingDialog];
+    }
+
+    JourneyMenuItem *item = [[JourneyMenuItem alloc] initWithTitle:str column:column line:line tag:_tagCounter++];
+
+    switch (type) {
+        case kJMenuTypeParty:
+            [self addPartyItem:item last:stopflag];
+            break;
+        case kJMenuTypeMembers:
+            [self addMember:item last:stopflag];
+            break;
+        case kJMenuTypeVerbs:
+            [self addVerb:item];
+            break;
+        case kJMenuTypeGlue:
+            [self addGlueString:item];
+            break;
+        case kJMenuTypeObjects:
+            [self addObject:item last:stopflag];
+            break;
+        default:
+            NSLog(@"handleMenuItemOfType: Unhandled menu type %d", type);
+            break;
+    }
+}
+
+// The game asks for the main character's name, or for some text from a
+// party member (the "elvish" text).
+- (void)addTextEntryOnLine:(NSUInteger)line elvish:(BOOL)elvish {
+    NSString *text;
+    if (elvish) {
+        NSString *actor = [self verbOnLine:line].actor;
+        if (actor == nil)
+            return;
+        text = [actor stringByAppendingString:@" says..."];
+    } else {
+        text = @"Please enter a new name for the main character:";
+    }
+    [self prepareDialogWithText:text type:elvish ? JourneyDialogTypeTextEntryElvish : JourneyDialogTypeTextEntry];
+}
+
+// The party commands. A party menu that ends in "[cancel]" is a question,
+// asked as a dialog unless it is the same one as last time.
+- (void)addPartyItem:(JourneyMenuItem *)item last:(BOOL)last {
+    if (self.partyMenu == nil) {
+        NSLog(@"Error! No Journey Party menu");
+        return;
+    }
+
+    if (_startNewPartyMenu) {
+        [self.partyMenu.submenu removeAllItems];
+        _partyMenuItems = [NSMutableArray new];
+    }
+
+    [_partyMenuItems addObject:item];
+
+    _startNewPartyMenu = last;
+    if (!last)
+        return;
+
+    if ([item.title isEqualToString:kCancelTitle]) {
+        if ([self partyIsEqualToLast] || _skipNextDialog) {
+            [self revealMenu:self.partyMenu];
+            _startNewPartyMenu = YES;
+            _skipNextDialog = NO;
+            return;
+        }
+        _dialogMenuItems = [_partyMenuItems mutableCopy];
+        _lastPartyMenuItems = [_partyMenuItems mutableCopy];
+        [self prepareDialogWithText:@"Please Select One:" type:JourneyDialogTypeMultipleChoice];
+    } else {
+        _lastPartyMenuItems = [NSMutableArray new];
+        [self rebuildPartySubmenu];
+        [self revealMenu:self.partyMenu];
+    }
+}
+
+// A party member, the title of a submenu of verbs.
+- (void)addMember:(JourneyMenuItem *)item last:(BOOL)last {
+    if (self.membersMenu == nil) {
+        NSLog(@"Error! No Individual Commands menu");
+        return;
+    }
+
+    if (_startNewMembersMenu) {
+        [self.membersMenu.submenu removeAllItems];
+        _verbMenuItems = [NSMutableDictionary<NSNumber *,JourneyMenuItem *> new];
+    }
+    // The action of an archived menu item is kept by name. Nothing
+    // implements this one, so a member without verbs is disabled.
+    SEL dummyAction = NSSelectorFromString(@"journeyMemberDummyAction:");
+    [self.membersMenu.submenu addItem:[[NSMenuItem alloc] initWithTitle:item.title action:dummyAction keyEquivalent:@""]];
+    _startNewMembersMenu = last;
+
+    [self revealMenu:self.membersMenu];
+}
+
+// A verb of the party member added last.
+- (void)addVerb:(JourneyMenuItem *)item {
+    if (self.membersMenu == nil) {
+        NSLog(@"handleMenuItemOfType: No Individual Commands menu");
+        return;
+    }
+
+    NSMenuItem *member = self.membersMenu.submenu.itemArray.lastObject;
+    if (member == nil) {
+        NSLog(@"handleMenuItemOfType: verb \"%@\" before any party member", item.title);
+        return;
+    }
+    member.action = @selector(journeyPartyAction:);
+    if (!member.submenu)
+        member.submenu = [[NSMenu alloc] initWithTitle:@""];
+    NSMenuItem *menuItem = [[NSMenuItem alloc] initWithTitle:item.title action:@selector(journeyMemberVerbAction:) keyEquivalent:@""];
+    menuItem.tag = item.tag;
+    // Bracketed verbs are labels.
+    if ([item.title hasPrefix:@"["])
+        menuItem.action = nil;
+    [member.submenu addItem:menuItem];
+    item.actor = member.title;
+    _verbMenuItems[@(item.tag)] = item;
+
+    [self revealMenu:self.membersMenu];
+}
+
+// The words of a question about objects, such as "Cast", "elevation" and
+// "at". They come before the objects.
+- (void)addGlueString:(JourneyMenuItem *)item {
+    if (_startNewDialogMenu) {
+        _glueStrings = [NSMutableArray new];
+        _dialogMenuItems = [NSMutableArray new];
+        _startNewDialogMenu = NO;
+    }
+    [_glueStrings addObject:item];
+}
+
+// The objects a question is about. The last one makes the question,
+// asked by the party member whose verb is on the line of the first glue
+// word. A question with one object and "[cancel]" is a yes-or-no one.
+- (void)addObject:(JourneyMenuItem *)item last:(BOOL)last {
+    [_dialogMenuItems addObject:item];
+    _startNewDialogMenu = last;
+    if (!last || self.membersMenu == nil || _glueStrings.count == 0)
+        return;
+
+    NSUInteger actorLine = _glueStrings.firstObject.line;
+
+    // Hack for final game action,
+    // where the verb is not lined up with the actor.
+    if (actorLine == 2 && [_glueStrings.firstObject.title isEqualToString:@"Mix"])
+        actorLine = 4;
+
+    // No verb on the line (the Musings dialog) is fine, but a verb
+    // without an actor is not.
+    JourneyMenuItem *verb = [self verbOnLine:actorLine];
+    NSString *actor = verb ? verb.actor : @"";
+    if (actor == nil)
+        return;
+
+    NSMutableArray<NSString *> *words = [NSMutableArray new];
+    if (actor.length)
+        [words addObject:[actor stringByAppendingString:@","]];
+    for (JourneyMenuItem *glueString in _glueStrings)
+        [words addObject:glueString.title];
+    NSString *text = [words componentsJoinedByString:@" "];
+
+    if (_dialogMenuItems.count <= 2) {
+        // Musings dialog hack
+        if (_verbMenuItems.count == 0)
+            text = [text stringByAppendingString:@":"];
+        text = [text stringByAppendingFormat:@" %@", _dialogMenuItems.firstObject.title];
+        [self prepareDialogWithText:text type:JourneyDialogTypeSingleChoice];
+    } else {
+        text = [text stringByAppendingString:@":"];
+        [self prepareDialogWithText:text type:JourneyDialogTypeMultipleChoice];
+    }
+    _glueStrings = [NSMutableArray new];
+}
+
+#pragma mark - Choosing
+
+- (void)partyAction:(id)sender {
     NSMenuItem *senderItem = (NSMenuItem *)sender;
-    for (JourneyMenuItem *item in _journeyPartyMenuItems) {
+    for (JourneyMenuItem *item in _partyMenuItems) {
         if ([item.title isEqualToString:senderItem.title]) {
-            [self sendCorrespondingMouseEventForMenuItem:item];
+            [self sendMouseEventForMenuItem:item];
             return;
         }
     }
 }
 
-- (void)journeyMemberDummyAction:(id)sender {}
-
-- (void)journeyMemberVerbAction:(id)sender {
+- (void)memberVerbAction:(id)sender {
     NSMenuItem *senderItem = (NSMenuItem *)sender;
-    JourneyMenuItem *item = _journeyVerbMenuItems[@(senderItem.tag)];
+    JourneyMenuItem *item = _verbMenuItems[@(senderItem.tag)];
     if (!item)
-        NSLog(@"Error! Verb menu item %@ not found!", senderItem.title);
+        NSLog(@"Error! Verb menu item %@ not found!", senderItem.title);
     else
-        [self sendCorrespondingMouseEventForMenuItem:item];
+        [self sendMouseEventForMenuItem:item];
 }
 
+// Clicks the grid where the item is. This answers any question waiting
+// to be shown.
+- (void)sendMouseEventForMenuItem:(JourneyMenuItem *)item {
+    if (_dialogState != JourneyDialogStateShowing)
+        _dialogState = JourneyDialogStateIdle;
 
-- (void)sendCorrespondingMouseEventForMenuItem:(JourneyMenuItem *)item {
-    _restoredShowingDialog = NO;
     if (item == nil) {
-        NSLog(@"sendCorrespondingMouseEventForMenuItem: no menu item");
+        NSLog(@"sendMouseEventForMenuItem: no menu item");
         return;
     }
 
@@ -254,550 +444,230 @@ static const NSTimeInterval kSpeakEnteredTextDelay = 2;
     NSPoint point;
     if (![item getClickPoint:&point inGridOfSize:[_textGridWindow currentSizeInChars] bordered:bordered]) {
         NSLog(@"Mouse click out of bounds at %@, not sent", NSStringFromPoint(point));
-        [self showJourneyMenus];
-        _shouldShowDialog = NO;
+        [self showMenus];
         return;
     }
 
-    [_delegate markLastSeen];
+    [_glkctl markLastSeen];
     GlkEvent *gev = [[GlkEvent alloc] initMouseEvent:point forWindow:_textGridWindow.name];
-    [self showJourneyMenus];
-    [self.delegate queueEvent:gev];
-    _shouldShowDialog = NO;
+    [self showMenus];
+    [_glkctl queueEvent:gev];
 }
 
-- (nullable NSAlert *)journeyAlertWithText:(NSString *)text {
-    if (_shouldShowDialog || _reallyShowingDialog) {
-        return nil;
-    }
+#pragma mark - Dialog state
 
-    _skipNextDialog = NO;
-
-    _shouldShowDialog = YES;
-    _storedDialogText = text;
-
-    if (!self.delegate.voiceOverActive) {
-        [self hideJourneyMenus];
-        return nil;
-    }
-
-    NSAlert *journeyDialog = [NSAlert new];
-
-    journeyDialog.messageText = text;
-    _reallyShowingDialog = YES;
-    return journeyDialog;
+- (BOOL)dialogClosedRecently {
+    return [_dialogClosedTimestamp timeIntervalSinceNow] > -kRecentlyClosedInterval;
 }
 
-- (void)prepareAlertWithText:(NSString *)text type:(kJourneyDialogType)type {
-    if (!_reallyShowingDialog) {
-        _journeyDialogClosedTimestamp = [NSDate distantPast];
-    }
-    _storedDialogText = text;
-    _storedDialogType = type;
-    _shouldShowDialog = YES;
+- (BOOL)hasPendingDialog {
+    return _dialogState == JourneyDialogStatePending || _dialogState == JourneyDialogStateRestored;
 }
 
+- (void)cancelPendingDialog {
+    if (_dialogState == JourneyDialogStatePending)
+        _dialogState = JourneyDialogStateIdle;
+}
 
-// Shows modal dialog with text field and OK button.
-// The "elvish" flag is a shorthand for all text entry that is not player name change.
-- (void)displayAlertWithTextEntry:(NSString *)messageText elvish:(BOOL)elvish {
-    if (elvish)
-        _storedDialogType = kJourneyDialogTextEntryElvish;
-    else
-        _storedDialogType = kJourneyDialogTextEntry;
-
-    NSAlert *journeyDialog = [self journeyAlertWithText:messageText];
-    if (!journeyDialog)
+// A question to show at the next display update. A dialog on screen
+// stays as it is.
+- (void)prepareDialogWithText:(NSString *)text type:(JourneyDialogType)type {
+    _dialogText = text;
+    _dialogType = type;
+    if (_dialogState == JourneyDialogStateShowing)
         return;
-
-    journeyDialog.accessoryView = [self textEntryAccessoryViewElvish:elvish];
-
-    JourneyMenuHandler __weak *weakSelf = self;
-    journeyDialog.window.initialFirstResponder = _journeyTextField;
-
-    [journeyDialog beginSheetModalForWindow:self.delegate.window completionHandler:^(NSInteger result) {
-        JourneyMenuHandler *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-        NSString *enteredText = strongSelf.journeyTextField.stringValue;
-        NSUInteger length = MIN(enteredText.length, kMaxEnteredTextLength);
-        for (NSUInteger i = 0; i < length; i++) {
-            unsigned keyPress = [enteredText characterAtIndex:i];
-            keyPress = chartokeycode(keyPress);
-            [strongSelf.textGridWindow sendKeypress:keyPress];
-        }
-        [strongSelf.textGridWindow sendKeypress:keycode_Return];
-        [strongSelf.delegate markLastSeen];
-        [strongSelf dialogEnded];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakEnteredTextDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.delegate announce:enteredText priority:NSAccessibilityPriorityHigh];
-        });
-    }];
-}
-
-// Show a modal dialog with a single choice and OK and Cancel buttons
-- (void)displayAlertWithText:(NSString *)messageText {
-    _storedDialogType = kJourneyDialogSingleChoice;
-    NSAlert *journeyDialog = [self journeyAlertWithText:messageText];
-    if (!journeyDialog)
-        return;
-
-    [journeyDialog addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [journeyDialog addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-    JourneyMenuHandler __weak *weakSelf = self;
-
-    [journeyDialog beginSheetModalForWindow:self.delegate.window completionHandler:^(NSInteger result){
-        if (result == NSAlertFirstButtonReturn) {
-            [weakSelf sendCorrespondingMouseEventForMenuItem:weakSelf.journeyDialogMenuItems.firstObject];
-        } else {
-            [weakSelf sendCorrespondingMouseEventForMenuItem:weakSelf.journeyDialogMenuItems.lastObject];
-        }
-        [weakSelf dialogEnded];
-    }];
-}
-
-// Show a modal dialog with message text and popup menu multiple choice + OK and Cancel buttons
-- (void)displayPopupMenuWithMessageText:(NSString *)messageText {
-    _storedDialogType = kJourneyDialogMultipleChoice;
-    NSAlert *journeyDialog = [self journeyAlertWithText:messageText];
-    if (!journeyDialog)
-        return;
-
-    if (self.dialogClosedRecently && [messageText hasPrefix:@"Musings:"]) {
-        JourneyMenuHandler __weak *weakSelf = self;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakMusingsDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [weakSelf.delegate speakMostRecent:nil];
-        });
-    }
-
-    NSMutableArray *strings = [NSMutableArray new];
-    for (JourneyMenuItem *dialogMenuItem in _journeyDialogMenuItems) {
-        if (![dialogMenuItem.title isEqualToString:@"[cancel]"])
-            [strings addObject:dialogMenuItem.title];
-    }
-    NSView *accessoryView = [self objectMenuAccessoryViewWithStrings:strings];
-
-    [journeyDialog addButtonWithTitle:NSLocalizedString(@"OK", nil)];
-    [journeyDialog addButtonWithTitle:NSLocalizedString(@"Cancel", nil)];
-
-    journeyDialog.accessoryView = accessoryView;
-    journeyDialog.window.initialFirstResponder = _journeyPopupButton;
-
-    JourneyMenuHandler __weak *weakSelf = self;
-
-    [journeyDialog beginSheetModalForWindow:self.delegate.window completionHandler:^(NSInteger result){
-        if (result == NSAlertFirstButtonReturn) {
-            NSMenuItem *selectedItem = weakSelf.journeyPopupButton.selectedItem;
-            for (JourneyMenuItem *dialogMenuItem in weakSelf.journeyDialogMenuItems) {
-                if ([dialogMenuItem.title isEqualToString:selectedItem.title]) {
-                    [weakSelf sendCorrespondingMouseEventForMenuItem:dialogMenuItem];
-                    break;
-                }
-            }
-        } else {
-            [weakSelf sendCorrespondingMouseEventForMenuItem: weakSelf.journeyDialogMenuItems.lastObject];
-        }
-        [weakSelf dialogEnded];
-    }];
+    _dialogClosedTimestamp = [NSDate distantPast];
+    _dialogState = JourneyDialogStatePending;
 }
 
 - (void)dialogEnded {
-    _journeyDialogClosedTimestamp = [NSDate date];
-    _reallyShowingDialog = NO;
-    shouldStartNewJourneyDialogMenu = YES;
+    _dialogClosedTimestamp = [NSDate date];
+    _dialogState = JourneyDialogStateIdle;
+    _startNewDialogMenu = YES;
 }
 
-- (NSView *)textEntryAccessoryViewElvish:(BOOL)elvish {
+#pragma mark - Showing dialogs
 
-    NSView  *accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 100, 32.0)];
-
-    _journeyTextField = [[NSTextField alloc] initWithFrame:NSMakeRect(0.0, 10.0, 100, 22.0)];
-
-    JourneyTextFormatter *formatter = [[JourneyTextFormatter alloc] initWithMaxLength:(elvish ? kElvishMaxLength : kNameMaxLength) elvish:elvish];
-
-    _journeyTextField.formatter = formatter;
-
-    [accessoryView addSubview:_journeyTextField];
-
-    return accessoryView;
-}
-
-- (NSView *)objectMenuAccessoryViewWithStrings:(NSArray<NSString *> *)buttonItems {
-
-    NSView  *accessoryView = [[NSView alloc] initWithFrame:NSMakeRect(0.0, 0.0, 100, 32.0)];
-
-    _journeyPopupButton = [[NSPopUpButton alloc] initWithFrame:NSMakeRect(0.0, 10.0, 100, 22.0) pullsDown:NO];
-    [_journeyPopupButton addItemsWithTitles:buttonItems];
-
-    [accessoryView addSubview:_journeyPopupButton];
-
-    return accessoryView;
-}
-
-// We must keep a copy of the _journeyPartyMenuItems arrays in order to know when to display a new dialog
-- (BOOL)partyIsEqualToLast {
-    if (_journeyLastPartyMenuItems.count == 0 || _journeyLastPartyMenuItems.count != _journeyPartyMenuItems.count) {
-        return NO;
+- (void)flushDisplay {
+    if (self.hasPendingDialog && _glkctl.turns > 1) {
+        [self recreateDialog];
     }
-    for (NSUInteger i = 0; i < _journeyLastPartyMenuItems.count; i++) {
-        if (![_journeyLastPartyMenuItems[i].title isEqualToString:_journeyPartyMenuItems[i].title]) {
-            return NO;
-        }
-    }
-    return YES;
-}
-
-- (void)deleteAllJourneyMenus {
-    [self.journeyPartyMenu.submenu removeAllItems];
-    _journeyPartyMenuItems = [NSMutableArray<JourneyMenuItem *> new];
-    shouldStartNewJourneyPartyMenu = YES;
-    shouldStartNewJourneyDialogMenu = YES;
-    self.journeyPartyMenu.hidden = YES;
-    _shouldShowDialog = NO;
-    _journeyDialogMenuItems = [NSMutableArray<JourneyMenuItem *> new];
-    _journeyDialogClosedTimestamp = [NSDate date];
-    [self deleteMembersMenu];
-}
-
-// Needed in order to hide the Individual Commands menu at game end
-// Does this only happen after the game ends?
-- (void)deleteMembersMenu {
-    [self.journeyMembersMenu.submenu removeAllItems];
-    _journeyVerbMenuItems = [NSMutableDictionary<NSNumber *,JourneyMenuItem *> new];
-    _journeyGlueStrings = [NSMutableArray<JourneyMenuItem *> new];
-    _capturedMembersMenu = [NSMutableArray<NSMenuItem *> new];
-    shouldStartNewJourneyMembersMenu = YES;
-    self.journeyMembersMenu.hidden = YES;
-}
-
-- (void)hideJourneyMenus {
-    self.journeyMembersMenu.hidden = YES;
-    self.journeyPartyMenu.hidden = YES;
-}
-
-- (void)showJourneyMenus {
-    if (!_delegate.voiceOverActive || _delegate.gameID != kGameIsJourney || !_delegate.isAlive)
-        return;
-
-    self.journeyMembersMenu.hidden = (self.journeyMembersMenu.submenu.itemArray.count == 0);
-
-    if (self.journeyPartyMenu.submenu.itemArray.count == 0 && _journeyPartyMenuItems.count)
-        [self rebuildPartySubmenu];
-
-    self.journeyPartyMenu.hidden = (self.journeyPartyMenu.submenu.itemArray.count == 0);
-}
-
-- (void)handleMenuItemOfType:(JourneyMenuType)type column:(NSUInteger)column line:(NSUInteger)line stopflag:(BOOL)stopflag text:(char *)buf length:(NSUInteger)len {
-
-    if (_delegate.gameID != kGameIsJourney)
-        return;
-
-#pragma mark DeleteAll
-
-    if (type == kJMenuTypeDeleteAll) {
-        [self deleteAllJourneyMenus];
-        return;
-    } else if (type == kJMenuTypeDeleteMembers) {
-        [self deleteMembersMenu];
-        return;
-    }
-
-#pragma mark TextEntry
-
-    if (type == kJMenuTypeTextEntry) {
-        BOOL elvish = stopflag;
-        NSString *messageText;
-        if (elvish) {
-            messageText = [self actorOnLine:line];
-            if (messageText == nil)
-                return;
-            messageText = [messageText stringByAppendingString:@" says..."];
-        } else {
-            messageText = @"Please enter a new name for the main character:";
-        }
-        [self prepareAlertWithText:messageText type:elvish ? kJourneyDialogTextEntryElvish : kJourneyDialogTextEntry];
-        return;
-    }
-
-    NSString *str = [NSString stringWithLatin1Bytes:buf length:len];
-
-    BOOL stringIsCancel = [str isEqualToString:@"[cancel]"];
-
-    // If string it not "[cancel]", we will update the menu rather than
-    // showing a dialog
-    if (stopflag && !stringIsCancel) {
-        _shouldShowDialog = NO;
-    }
-
-    JourneyMenuItem *item = [[JourneyMenuItem alloc] initWithTitle:str column:column line:line tag:tagCounter++];
-
-#pragma mark Party
-
-    switch (type) {
-
-        case kJMenuTypeParty:
-            if (self.journeyPartyMenu == nil) {
-                NSLog(@"Error! No Journey Party menu");
-                return;
-            }
-
-            if (shouldStartNewJourneyPartyMenu) {
-                [self.journeyPartyMenu.submenu removeAllItems];
-                _journeyPartyMenuItems = [NSMutableArray new];
-            }
-
-            [_journeyPartyMenuItems addObject:item];
-
-            shouldStartNewJourneyPartyMenu = stopflag;
-            if (stopflag) {
-                if (stringIsCancel) {
-                    if ([self partyIsEqualToLast] || _skipNextDialog) {
-                        if (_delegate.voiceOverActive) {
-                            self.journeyPartyMenu.hidden = NO;
-                        }
-                        shouldStartNewJourneyPartyMenu = YES;
-                        _skipNextDialog = NO;
-                        return;
-                    }
-                    _journeyDialogMenuItems = [_journeyPartyMenuItems mutableCopy];
-                    _journeyLastPartyMenuItems = [_journeyPartyMenuItems mutableCopy];
-                    _shouldShowDialog = NO;
-                    [self prepareAlertWithText:@"Please Select One:" type:kJourneyDialogMultipleChoice];
-                    return;
-                } else {
-                    _journeyLastPartyMenuItems = [NSMutableArray new];
-                    [self rebuildPartySubmenu];
-                    if (_delegate.voiceOverActive) {
-                        self.journeyPartyMenu.hidden = NO;
-                    }
-                }
-            }
-            break;
-#pragma mark Members
-        case kJMenuTypeMembers:
-            if (self.journeyMembersMenu == nil) {
-                NSLog(@"Error! No Individual Commands menu");
-                return;
-            }
-
-            if (shouldStartNewJourneyMembersMenu) {
-                [self.journeyMembersMenu.submenu removeAllItems];
-                _journeyVerbMenuItems = [NSMutableDictionary<NSNumber *,JourneyMenuItem *> new];
-            }
-            [self.journeyMembersMenu.submenu addItem:[[NSMenuItem alloc] initWithTitle:str action:@selector(journeyMemberDummyAction:) keyEquivalent:@""]];
-            shouldStartNewJourneyMembersMenu = stopflag;
-
-            if (_delegate.voiceOverActive) {
-                self.journeyMembersMenu.hidden = NO;
-            }
-            break;
-#pragma mark Verbs
-
-        case kJMenuTypeVerbs:
-            if (self.journeyMembersMenu) {
-                NSMenuItem *last = self.journeyMembersMenu.submenu.itemArray.lastObject;
-                if (last == nil) {
-                    NSLog(@"handleMenuItemOfType: verb \"%@\" before any party member", str);
-                    return;
-                }
-                last.action = @selector(journeyPartyAction:);
-                if (!last.submenu)
-                    last.submenu = [[NSMenu alloc] initWithTitle:@""];
-                NSMenuItem *menuItemToAdd = [[NSMenuItem alloc] initWithTitle:str action:@selector(journeyMemberVerbAction:) keyEquivalent:@""];
-                menuItemToAdd.tag = item.tag;
-                if ([str hasPrefix:@"["])
-                    menuItemToAdd.action = nil;
-                [last.submenu addItem:menuItemToAdd];
-                item.actor = last.title;
-                _journeyVerbMenuItems[@(item.tag)] = item;
-                if (_delegate.voiceOverActive) {
-                    self.journeyMembersMenu.hidden = NO;
-                }
-            } else {
-                NSLog(@"handleMenuItemOfType: No Individual Commands menu");
-            }
-            break;
-
-#pragma mark Glue
-
-        case kJMenuTypeGlue:
-            if (shouldStartNewJourneyDialogMenu) {
-                _journeyGlueStrings = [NSMutableArray new];
-                _journeyDialogMenuItems = [NSMutableArray new];
-                shouldStartNewJourneyDialogMenu = NO;
-            }
-            [_journeyGlueStrings addObject:item];
-            break;
-
-#pragma mark Objects
-
-        case kJMenuTypeObjects:
-            [_journeyDialogMenuItems addObject:item];
-            shouldStartNewJourneyDialogMenu = stopflag;
-            if (stopflag) {
-                if (self.journeyMembersMenu == nil || _journeyGlueStrings.count == 0)
-                    return;
-
-                NSUInteger actorline = _journeyGlueStrings.firstObject.line;
-
-                // Hack for final game action,
-                // where the verb is not lined up with the actor.
-                if (actorline == 2 && [_journeyGlueStrings.firstObject.title isEqualToString:@"Mix"])
-                    actorline = 4;
-
-                // No actor (the Musings dialog) is fine, but an actor
-                // without a name is not.
-                NSString *messageText = @"";
-                for (JourneyMenuItem *verb in _journeyVerbMenuItems.allValues) {
-                    if (verb.line == actorline) {
-                        messageText = verb.actor;
-                        break;
-                    }
-                }
-                if (messageText == nil)
-                    return;
-
-                if (messageText.length)
-                    messageText = [messageText stringByAppendingString:@","];
-
-                for (JourneyMenuItem *glueString in _journeyGlueStrings) {
-                    if (messageText.length)
-                        messageText = [messageText stringByAppendingString:@" "];
-                    messageText = [messageText stringByAppendingString:glueString.title];
-                }
-
-                _shouldShowDialog = NO;
-
-                if (_journeyDialogMenuItems.count <= 2) {
-
-                    // Musings dialog hack
-                    if (_journeyVerbMenuItems.count == 0) {
-                        messageText = [messageText stringByAppendingString:@":"];
-                    }
-                    messageText = [messageText stringByAppendingString:@" "];
-                    messageText = [messageText stringByAppendingString:_journeyDialogMenuItems.firstObject.title];
-                    [self prepareAlertWithText:messageText type:kJourneyDialogSingleChoice];
-                } else {
-                    messageText = [messageText stringByAppendingString:@":"];
-                    [self prepareAlertWithText:messageText type:kJourneyDialogMultipleChoice];
-                }
-                _journeyGlueStrings = [NSMutableArray new];
-            }
-            break;
-        default:
-            NSLog(@"handleMenuItemOfType: Unhandled switch case!");
-            break;
-    }
-}
-
-- (void)captureMembersMenu {
-    _capturedMembersMenu = [self.journeyMembersMenu.submenu.itemArray mutableCopy];
-}
-
-- (void)recreateDialog {
-    [self showJourneyMenus];
-
-    if (_reallyShowingDialog || self.dialogClosedRecently || _delegate.mustBeQuiet || _delegate.shouldShowAutorestoreAlert) {
-        return;
-    }
-
-    if (_restoredShowingDialog) {
-        _shouldShowDialog = YES;
-    }
-    _restoredShowingDialog = NO;
-
-    if (!_delegate.voiceOverActive || !_shouldShowDialog || _delegate.gameID != kGameIsJourney) {
-        return;
-    }
-
-    [_textBufferWindow setLastMove];
-    _lastDialogAddedMove = (_textBufferWindow.lastNewTextOnTurn == _delegate.turns);
-
-    // Whether the current move has printed text
-    // that we should add to the dialog
-    // (to make VoiceOver read it to the player)
-    if (_restoredDialogAddedMove) {
-        _lastDialogAddedMove = YES;
-    }
-    _restoredDialogAddedMove = NO;
-
-    _shouldShowDialog = NO;
-
-    if (_textBufferWindow.lastNewTextOnTurn == _delegate.turns || _lastDialogAddedMove) {
-        NSString *lastMoveString = [_textBufferWindow.lastMoveString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        if (lastMoveString.length == 0) {
-            lastMoveString = _textBufferWindow.textview.string;
-        }
-        if (lastMoveString.length > kMaxLastMoveLength) {
-            NSRange lastNewLine = [lastMoveString rangeOfString:@"\n" options:NSBackwardsSearch];
-            if (lastNewLine.location == NSNotFound)
-                lastMoveString = [lastMoveString substringFromIndex:lastMoveString.length - kMaxLastMoveLength];
-            else
-                lastMoveString = [lastMoveString substringFromIndex:lastNewLine.location + 1];
-        }
-
-        _storedDialogText = [NSString stringWithFormat:@"\"%@\"\n\n%@",  lastMoveString, _storedDialogText];
-    }
-
-    JourneyMenuHandler __weak *weakSelf = self;
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kRecreateDialogDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        JourneyMenuHandler *strongSelf = weakSelf;
-        if (!strongSelf)
-            return;
-        switch (strongSelf.storedDialogType) {
-            case kJourneyDialogTextEntry:
-                [strongSelf displayAlertWithTextEntry:strongSelf.storedDialogText elvish:NO];
-                break;
-            case kJourneyDialogTextEntryElvish:
-                [strongSelf displayAlertWithTextEntry:strongSelf.storedDialogText elvish:YES];
-                break;
-            case kJourneyDialogSingleChoice:
-                [strongSelf displayAlertWithText:strongSelf.storedDialogText];
-                break;
-            case kJourneyDialogMultipleChoice:
-                [strongSelf displayPopupMenuWithMessageText:strongSelf.storedDialogText];
-                break;
-        }
-    });
 }
 
 - (BOOL)updateOnBecameKey:(BOOL)shouldRecreateDialog {
-    if (_delegate.gameID != kGameIsJourney) {
-        [self hideJourneyMenus];
-    } else {
-        if (!_textGridWindow)
-            _textGridWindow =
-            (GlkTextGridWindow *)_delegate.gwindows[@(_gridTextWinName)];
-        if (!_textBufferWindow)
-            _textBufferWindow =
-            (GlkTextBufferWindow *)_delegate.gwindows[@(_bufferTextWinName)];
-        if (![_textGridWindow isKindOfClass:[GlkTextGridWindow class]])
-            _textGridWindow = nil;
-        if (![_textBufferWindow isKindOfClass:[GlkTextBufferWindow class]])
-            _textBufferWindow = nil;
-        if (_textGridWindow == nil || _textBufferWindow == nil)
-            return NO;
-        [self recreateJourneyMenus];
-        if (_delegate.mustBeQuiet) {
-            _journeyDialogClosedTimestamp = [NSDate date];
-        }
-        if (shouldRecreateDialog) {
-            JourneyMenuHandler __weak *weakSelf = self;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBecameKeyDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                [weakSelf recreateDialog];
-            });
-            return YES;
-        }
+    if (_glkctl.gameID != kGameIsJourney) {
+        [self hideMenus];
+        return NO;
     }
-    return NO;
+
+    if (!_textGridWindow)
+        _textGridWindow = (GlkTextGridWindow *)_glkctl.gwindows[@(_gridTextWinName)];
+    if (!_textBufferWindow)
+        _textBufferWindow = (GlkTextBufferWindow *)_glkctl.gwindows[@(_bufferTextWinName)];
+    if (![_textGridWindow isKindOfClass:[GlkTextGridWindow class]])
+        _textGridWindow = nil;
+    if (![_textBufferWindow isKindOfClass:[GlkTextBufferWindow class]])
+        _textBufferWindow = nil;
+    if (_textGridWindow == nil || _textBufferWindow == nil)
+        return NO;
+
+    [self recreateMenus];
+    if (_glkctl.mustBeQuiet) {
+        _dialogClosedTimestamp = [NSDate date];
+    }
+    if (!shouldRecreateDialog)
+        return NO;
+
+    JourneyMenuHandler __weak *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kBecameKeyDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf recreateDialog];
+    });
+    return YES;
 }
 
-- (void)flushDisplay {
-    if (_shouldShowDialog && _delegate.turns > 1) {
-        [self recreateDialog];
+- (void)recreateDialog {
+    [self showMenus];
+
+    if (![self shouldRecreateDialog])
+        return;
+
+    // Idle until it shows, so that only a new question stops it.
+    _dialogState = JourneyDialogStateIdle;
+    NSString *text = [self dialogTextByPrependingLastMove];
+
+    JourneyMenuHandler __weak *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kRecreateDialogDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf presentStoredDialogWithText:text];
+    });
+}
+
+// Whether the question waiting can be shown now. A restored one becomes
+// pending once nothing else is in the way, even if VoiceOver is off.
+- (BOOL)shouldRecreateDialog {
+    if (_dialogState == JourneyDialogStateShowing || self.dialogClosedRecently || _glkctl.mustBeQuiet || _glkctl.shouldShowAutorestoreAlert) {
+        return NO;
     }
+
+    if (_dialogState == JourneyDialogStateRestored)
+        _dialogState = JourneyDialogStatePending;
+
+    return _glkctl.voiceOverActive && _dialogState == JourneyDialogStatePending && _glkctl.gameID == kGameIsJourney;
+}
+
+// The question, preceded by the text the last move printed, if any, so
+// that VoiceOver reads that too.
+- (NSString *)dialogTextByPrependingLastMove {
+    [_textBufferWindow setLastMove];
+    _dialogIncludesLastMove = (_textBufferWindow.lastNewTextOnTurn == _glkctl.turns) || _restoredDialogIncludesLastMove;
+    _restoredDialogIncludesLastMove = NO;
+
+    NSString *text = _dialogText ?: @"";
+    if (!_dialogIncludesLastMove)
+        return text;
+
+    NSString *lastMoveString = [_textBufferWindow.lastMoveString stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (lastMoveString.length == 0) {
+        lastMoveString = _textBufferWindow.textview.string ?: @"";
+    }
+    if (lastMoveString.length > kMaxLastMoveLength) {
+        NSRange lastNewLine = [lastMoveString rangeOfString:@"\n" options:NSBackwardsSearch];
+        if (lastNewLine.location == NSNotFound)
+            lastMoveString = [lastMoveString substringFromIndex:lastMoveString.length - kMaxLastMoveLength];
+        else
+            lastMoveString = [lastMoveString substringFromIndex:lastNewLine.location + 1];
+    }
+
+    return [NSString stringWithFormat:@"\"%@\"\n\n%@", lastMoveString, text];
+}
+
+- (void)presentStoredDialogWithText:(NSString *)text {
+    // A new question came while this one waited.
+    if (_dialogState != JourneyDialogStateIdle)
+        return;
+
+    _skipNextDialog = NO;
+
+    if (!_glkctl.voiceOverActive) {
+        _dialogState = JourneyDialogStatePending;
+        [self hideMenus];
+        return;
+    }
+
+    _dialogState = JourneyDialogStateShowing;
+
+    NSWindow *window = _glkctl.window;
+    JourneyMenuHandler __weak *weakSelf = self;
+
+    switch (_dialogType) {
+        case JourneyDialogTypeTextEntry:
+        case JourneyDialogTypeTextEntryElvish: {
+            [self.presenter presentTextEntryWithText:text elvish:(_dialogType == JourneyDialogTypeTextEntryElvish) forWindow:window completion:^(NSString *enteredText) {
+                [weakSelf sendEnteredText:enteredText];
+            }];
+            break;
+        }
+
+        case JourneyDialogTypeSingleChoice: {
+            [self.presenter presentConfirmationWithText:text forWindow:window completion:^(BOOL confirmed) {
+                JourneyMenuHandler *strongSelf = weakSelf;
+                [strongSelf sendMouseEventForMenuItem:confirmed ? strongSelf.dialogMenuItems.firstObject : strongSelf.dialogMenuItems.lastObject];
+                [strongSelf dialogEnded];
+            }];
+            break;
+        }
+
+        case JourneyDialogTypeMultipleChoice: {
+            if (self.dialogClosedRecently && [text hasPrefix:@"Musings:"]) {
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakMusingsDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [weakSelf.glkctl speakMostRecent:nil];
+                });
+            }
+
+            NSMutableArray<NSString *> *titles = [NSMutableArray new];
+            for (JourneyMenuItem *dialogMenuItem in _dialogMenuItems) {
+                if (![dialogMenuItem.title isEqualToString:kCancelTitle])
+                    [titles addObject:dialogMenuItem.title];
+            }
+
+            [self.presenter presentChoiceWithText:text titles:titles forWindow:window completion:^(NSString *chosenTitle) {
+                [weakSelf sendChoice:chosenTitle];
+            }];
+            break;
+        }
+    }
+}
+
+// Types the text into the grid window, ending with Return.
+- (void)sendEnteredText:(NSString *)enteredText {
+    NSUInteger length = MIN(enteredText.length, kMaxEnteredTextLength);
+    for (NSUInteger i = 0; i < length; i++) {
+        unsigned keyPress = chartokeycode([enteredText characterAtIndex:i]);
+        [_textGridWindow sendKeypress:keyPress];
+    }
+    [_textGridWindow sendKeypress:keycode_Return];
+    [_glkctl markLastSeen];
+    [self dialogEnded];
+
+    JourneyMenuHandler __weak *weakSelf = self;
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kSpeakEnteredTextDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakSelf.glkctl announce:enteredText priority:NSAccessibilityPriorityHigh];
+    });
+}
+
+// Clicks the dialog item with the chosen title, or the last one
+// ("[cancel]") if there is none.
+- (void)sendChoice:(nullable NSString *)chosenTitle {
+    if (chosenTitle == nil) {
+        [self sendMouseEventForMenuItem:_dialogMenuItems.lastObject];
+    } else {
+        for (JourneyMenuItem *dialogMenuItem in _dialogMenuItems) {
+            if ([dialogMenuItem.title isEqualToString:chosenTitle]) {
+                [self sendMouseEventForMenuItem:dialogMenuItem];
+                break;
+            }
+        }
+    }
+    [self dialogEnded];
 }
 
 @end

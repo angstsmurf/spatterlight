@@ -17,13 +17,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface InfocomV6MenuHandler : NSObject <VoiceOverMenu>
 
-- (instancetype)initWithDelegate:(GlkController *)delegate;
+- (instancetype)initWithGlkController:(GlkController *)glkctl;
 
 - (void)handleMenuItemOfType:(InfocomV6MenuType)type index:(NSUInteger)index total:(NSUInteger)total text:(char *)buf length:(NSUInteger)len;
 
 - (void)updateMoveRanges:(GlkTextBufferWindow *)window;
 
-@property (weak) GlkController *delegate;
+@property (weak) GlkController *glkctl;
 
 @property (readonly) NSUInteger selectedLine;
 @property BOOL haveSpokenMenu;

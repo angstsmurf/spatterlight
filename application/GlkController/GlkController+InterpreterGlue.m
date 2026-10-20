@@ -155,7 +155,7 @@ static NSString *signalToName(NSTask *task) {
         });
     }
 
-    [self.journeyMenuHandler deleteAllJourneyMenus];
+    [self.journeyMenuHandler deleteAllMenus];
 
     for (GlkWindow *win in self.gwindows.allValues)
         [win terpDidStop];

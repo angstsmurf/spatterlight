@@ -599,11 +599,11 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
         return;
     self.journeyMenuHandler = restoredController.journeyMenuHandler;
     restoredController.journeyMenuHandler = nil;
-    self.journeyMenuHandler.delegate = self;
+    self.journeyMenuHandler.glkctl = self;
     self.journeyMenuHandler.textGridWindow = (GlkTextGridWindow *)self.gwindows[@(self.journeyMenuHandler.gridTextWinName)];
     self.journeyMenuHandler.textBufferWindow = (GlkTextBufferWindow *)self.gwindows[@(self.journeyMenuHandler.bufferTextWinName)];
 
-    [self.journeyMenuHandler showJourneyMenus];
+    [self.journeyMenuHandler showMenus];
 }
 
 // Restore scroll positions etc., focus the window that had it, and resend
@@ -1089,7 +1089,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
 
         self.journeyMenuHandler = [decoder decodeObjectOfClass:[JourneyMenuHandler class] forKey:@"journeyMenuHandler"];
         if (self.journeyMenuHandler)
-            self.journeyMenuHandler.delegate = self;
+            self.journeyMenuHandler.glkctl = self;
         restoredController = nil;
     }
     return self;
