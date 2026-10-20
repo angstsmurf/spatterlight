@@ -913,6 +913,8 @@ struct lib_take_t
 
   scr_bool try_game_commands (void);
   scr_bool count_fits_390 (void);
+  scr_bool alr_wants_pick_up (void);
+  lib_print_item_t alr_already_got_printer (void);
   void print_taken (scr_int parent);
   void acquire (void);
   void report_over_capacity (void);
@@ -1089,6 +1091,100 @@ lib_take_t::count_fits_390 (void)
   return TRUE;
 }
 
+/*
+ * TRUE if the game has an ALR written against the pre-4.0 wording of the
+ * single take now being printed -- "I pick up the cuckoo clock." -- so the
+ * line should come out in that wording for the ALR to fire.  A game written
+ * under 3.9 and saved as 4.0 keeps ALRs the 4.0 Runner never matches again,
+ * since it says "I take" instead.  To Hell in a Hamper (4.00, but a Spring
+ * Comp 2003 entry) is the case: its "I pick up the X." ALRs append Hubert's
+ * retorts, and the "I pick up the Egyptian mummy." one rewrites the line, and
+ * run400 shows none of them (runner_transcripts/to_hell_in_a_hamper.txt:
+ * "I take the cuckoo clock.").  Scarier lets them fire (deviation policy).
+ * The other 4.0 games with "pick up" ALRs carry a matching "take" ALR as
+ * well, so the 4.0 wording reaches their rewrite either way.
+ */
+scr_bool
+lib_take_t::alr_wants_pick_up (void)
+{
+  if (list.size () != 1)
+    return FALSE;
+
+  std::string line = lib_select_response (game, "You pick up ", "I pick up ",
+                                          "%player% pick up ");
+  line += lib_definite_object_name (gs_get_bundle (game), list[0]);
+  line += '.';
+  return pf_alr_mentions (gs_get_bundle (game), line.c_str ());
+}
+
+/*
+ * The printer to word the held-object refusal "You've already got the note!"
+ * with, the pre-4.0 way, when the game has an ALR written against that
+ * wording and none against the 4.0 single-take one, "You are already
+ * carrying the note."; nullptr to keep the 4.0 wording.  The case is the
+ * Hamper one above, for the other half of a take.  Cursed (4.00) has some
+ * 105 "You've already got an axe!" -> "You are already holding the axe."
+ * ALRs, several of which also tidy a name ("barrel<3>"), and a dozen 4.0
+ * games (iachini, ONNAFA, Lair of the Vampire, dusk, ...) carry the stock
+ * "You've already got" -> "You already have".  run400 says "already
+ * carrying" to a single-named take, so none of them ever fire there
+ * (runner_transcripts/iachini.txt `get discs`, onnafa_full_patched.txt `get
+ * cake`).  Scarier lets them fire (deviation policy).
+ *
+ * An ALR either quotes the whole sentence or starts with the "'ve already
+ * got" prefix itself.  Cursed's quote the raw Prefix & " " & Short, the
+ * pre-3.9 printer's name ("an axe", run380 43E03E), so that one is tried
+ * after the 3.9 composed name; the prefix alone gets the composed name, as
+ * a 4.0 game's multi-take refusal does.  A game with any ALR over the 4.0
+ * sentence's "carrying" keeps the 4.0 wording: Bandera, El ascensor and
+ * Vardock Bates rewrite "already carrying" too, and Cursed's own "carrying
+ * the note." -> "carrying the note from Princess Tevona." was written for
+ * 4.0 (runner_transcripts/cursed.txt).
+ */
+lib_print_item_t
+lib_take_t::alr_already_got_printer (void)
+{
+  const scr_prop_setref_t bundle = gs_get_bundle (game);
+  scr_vartype_t vt_key[3];
+
+  if (list.size () != 1)
+    return nullptr;
+
+  std::string carrying = lib_select_response (game, "You are already carrying ",
+                                              "I am already carrying ",
+                                              "%player% is already carrying ");
+  const size_t verb = carrying.find ("carrying");
+  if (pf_alr_mentions (bundle, carrying.substr (0, carrying.length () - 1)
+                                       .c_str ()))
+    return nullptr;
+  const std::string definite = lib_definite_object_name (bundle, list[0]);
+  carrying += definite + '.';
+  if (pf_alr_rewrites_span (bundle, carrying.c_str (), verb + 1,
+                            verb + strlen ("carrying")))
+    return nullptr;
+
+  const std::string got = lib_select_response (game, "You've already got ",
+                                               "I've already got ",
+                                               "%player%'ve already got ");
+  std::string raw;
+
+  vt_key[0].string = "Objects";
+  vt_key[1].integer = list[0];
+  vt_key[2].string = "Prefix";
+  raw = prop_get_string (bundle, "S<-sis", vt_key);
+  vt_key[2].string = "Short";
+  raw = raw + ' ' + prop_get_string (bundle, "S<-sis", vt_key);
+
+  if (pf_alr_mentions (bundle, (got + definite + '!').c_str ()))
+    return lib_print_object_np;
+  if (pf_alr_mentions (bundle, (got + raw + '!').c_str ()))
+    return lib_print_object_raw;
+  if (pf_alr_rewrites_span (bundle, (got + definite + '!').c_str (), 1,
+                            got.length () - 1))
+    return lib_print_object_np;
+  return nullptr;
+}
+
 /* Print the line for the objects in list, just taken from PARENT, or from
    the room if PARENT is -1. */
 void
@@ -1164,7 +1260,7 @@ lib_take_t::print_taken (scr_int parent)
    */
   if (parent == -1)
     pf_buffer_string (filter,
-                      lib_is_version_400 (game)
+                      lib_is_version_400 (game) && !alr_wants_pick_up ()
                       ? lib_select_response (game,
                                              "You take ",
                                              "I take ",
@@ -1557,7 +1653,10 @@ lib_take_t::report_held (void)
    * run380: single-named `take parchment` while holding it answers
    * "You've already got half of a parchment!".
    */
-  if (lib_is_version_400 (game)
+  const lib_print_item_t already_got
+    = lib_is_version_400 (game) ? alr_already_got_printer () : nullptr;
+
+  if (lib_is_version_400 (game) && !already_got
       && ((lib_take_single_named && list.size () == 1)
           || (lib_take_and_pieces_400 && !list.empty ())))
     {
@@ -1583,7 +1682,8 @@ lib_take_t::report_held (void)
                                           "You've already got ",
                                           "I've already got ",
                                           "%player%'ve already got ",
-                                          lib_object_printer_390 (game));
+                                          already_got ? already_got
+                                          : lib_object_printer_390 (game));
 }
 
 /* Report the named objects the player is wearing. */

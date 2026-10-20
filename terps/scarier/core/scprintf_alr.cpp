@@ -369,8 +369,8 @@ pf_alr_mentions (scr_prop_setref_t bundle, const scr_char *text)
  * ever, and the Runner really would overflow its stack on one.  No game in
  * the corpus has such a pair, so these caps are guards, not a model.  The
  * walk is deterministic, so re-entering an ALR already on the recursion path
- * would repeat that path for ever: that ALR's replacement is spliced in
- * unfiltered instead (the path is pf.alr.on_path, one mark per cache slot).
+ * would repeat that path for ever: that ALR's original is left as it stands
+ * instead (the path is pf.alr.on_path, one mark per cache slot).
  * The depth and size caps bound what is left -- long acyclic chains, and
  * replacements that multiply on each level (A -> "B B", B -> "C C", ...),
  * which would otherwise double the text per level.
@@ -494,15 +494,27 @@ pf_alr_walk (const scr_char *string, std::string &out, scr_var_setref_t vars,
           if (out.compare (entry.replacement) == 0)
             return;
 
-          /* 44C76F: the replacement is itself filtered before it is spliced. */
+          /*
+           * Re-entering an ALR already on the recursion path: the brake above
+           * misses when the replacement names a variable, since the text has
+           * been interpolated and the replacement has not, and run400 would
+           * recurse until its stack gave out.  Leave the original literal
+           * instead, which is the one expansion the brake means to allow,
+           * and go on to the shorter ALRs.  To Hell in a Hamper's "I pick
+           * up the cuckoo clock." -> "I pick up the cuckoo clock.
+           * [HUBERT_RETORT1=%random_var1%]" needs that, and its
+           * "[HUBERT_RETORT1=4]" -> Hubert's retort after it.
+           */
           if (pf.alr.on_path[index_])
-            expansion.assign (entry.replacement);
-          else
             {
-              pf.alr.on_path[index_] = TRUE;
-              pf_alr_walk (entry.replacement, expansion, vars, TRUE, depth + 1);
-              pf.alr.on_path[index_] = FALSE;
+              position++;
+              continue;
             }
+
+          /* 44C76F: the replacement is itself filtered before it is spliced. */
+          pf.alr.on_path[index_] = TRUE;
+          pf_alr_walk (entry.replacement, expansion, vars, TRUE, depth + 1);
+          pf.alr.on_path[index_] = FALSE;
         }
       else
         expansion.assign (entry.replacement);

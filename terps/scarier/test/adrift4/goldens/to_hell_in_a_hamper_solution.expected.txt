@@ -120,7 +120,7 @@ carpetbag, a bundle of twigs, a boomerang, an ear-trumpet, a toy donkey and a
 sleeping Saint Bernard dog...
 
 > get painting
-I take the large framed painting.
+I pick up the large framed painting.
 
 > throw painting
 Without hesitation I fling the painting over the side, thereby consigning
@@ -134,7 +134,7 @@ Unburdening the balloon of this quite large and heavy object causes a sudden
 and immediate gain in altitude of seven hundred feet.
 
 > get donkey
-I take the toy donkey.
+I pick up the toy donkey. 'That doesn't belong to you!' exclaims Hubert.
 
 > throw donkey
 I fling the toy donkey over the side of the balloon and watch as it spirals
@@ -174,7 +174,7 @@ Hubert, throwing up his hands in horror, 'My Auntie Gertie will have to mend
 that now!'
 
 > get vase
-I take the Ting dynasty vase.
+I pick up the Ting dynasty vase. 'Put that down at once!' cries Hubert.
 
 > shake vase
 It rattles!
@@ -270,7 +270,7 @@ begins to chime...
 The clock chimes five times. 'CUCKOO! CUCKOO! CUCKOO! CUCKOO! CUCKOO!'
 
 > get clock
-I take the cuckoo clock.
+I pick up the cuckoo clock. 'That doesn't belong to you!' exclaims Hubert.
 
 > throw clock
 I hurl the cuckoo clock over the side of the basket. It continues to chime

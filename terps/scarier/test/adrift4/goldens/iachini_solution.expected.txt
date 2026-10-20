@@ -349,7 +349,7 @@ You take the box of acidic tablets and the jug of basic discs from the sturdy
 shelves.
 
 > get discs
-You are already carrying the jug of basic discs.
+You already have the jug of basic discs!
 
 > move chest
 With much grunting and sweating, you manage to shove the massive tool chest

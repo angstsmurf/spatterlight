@@ -3361,7 +3361,7 @@ Exits lie: east
   Rancid the butler, Bill the guard, Ben the guard and Toto are here.
 
 > get cake
-You are already carrying the little jam cake.
+   But you already have the little jam cake!
 
 > east
    You move east.

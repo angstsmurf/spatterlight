@@ -2657,6 +2657,15 @@ in 4.0 `x <npc>` and a nothing-found examine are ADMINISTRATIVE -- no turn count
 NPC walk, no event tick.  `x me`, `x <object>`, `look`, `i` are normal turns.
 Scarier: game->is_admin (sclibrar examine_npc/examine_other, 4.0 only).
 Re-blessed 2026-08-29: `x hubert` no longer ticks, so the events/RNG after it shift by one turn.
+Re-blessed 2026-10-20, deliberate deviation: Hubert's retorts fire.  The game is
+4.00 but its ALRs were written against 3.9's take line ("I pick up the cuckoo
+clock." -> "... [HUBERT_RETORT1=%random_var1%]", then "[HUBERT_RETORT1=4]" ->
+"'That doesn't belong to you!' exclaims Hubert."), so run400, which says "I take
+the cuckoo clock.", never shows them (runner_transcripts/to_hell_in_a_hamper.txt).
+A 4.0 single take now keeps the 3.9 wording when an ALR quotes it
+(lib_take_t::alr_wants_pick_up), and the recursive ALR walk leaves a
+self-containing original literal inside its own expansion instead of splicing it
+again (pf_alr_walk), so each retort prints once.  The TADS 2 port keeps them too.
 ```
 
 ## lost_solution.txt
@@ -5985,6 +5994,12 @@ both sides.  The other live corpus commands are Lair of the Vampire's `drop
 `{your/%NewPlayer%'s}` is dead in the real Runner, the marker being
 lower-cased while the variable's Name is not.  All three goldens unmoved.
 2026-09-27 re-blessed, lenient task matching (deliberate deviation): `put sheet in dryer` reaches T18 again.
+Re-blessed 2026-10-20, deliberate deviation: T55 `get discs` (held) is the game's
+ALR of the pre-4.0 refusal, "You already have the jug of basic discs!", where
+run400 says "You are already carrying the jug of basic discs." and the
+"You've already got" -> "You already have" ALR never fires.  A 4.0 single take
+of a held object keeps the pre-4.0 wording when an ALR quotes it and none
+rewrites the 4.0 one (lib_take_t::alr_already_got_printer).
 ```
 
 ## relojero_solution.txt
@@ -11667,6 +11682,10 @@ cake".  The Kitchen `get all` then takes the cake with the rest (the later
 `get cake` is "You are already carrying"), `give cake to mabel` is +3 and
 `give rose to murphy` +5: closing narrator "your score turned out at 216".
 Scarier only.
+Re-blessed 2026-10-20, deliberate deviation: `get cake` (held) is the game's ALR
+of the pre-4.0 refusal, "   But you already have the little jam cake!", not
+run400's "You are already carrying the little jam cake."; see
+lib_take_t::alr_already_got_printer and iachini_solution.txt.
 ```
 
 ## melancholy1_solution.txt
