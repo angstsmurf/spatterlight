@@ -101,6 +101,14 @@
     CGFloat newPrevHeightConstant = NSHeight(winrect) - defaultWindowHeight;
     CGFloat newTextHeightConstant = MIN(newPrevHeightConstant, [_previewController calculateHeight]);
 
+    // Nothing to animate while the window is off screen (nib load, state
+    // restoration), and a synchronous resize leaves no animation in flight
+    // for a later resize to race.
+    if (!prefsPanel.visible)
+        animate = NO;
+
+    NSUInteger generation = ++resizeGeneration;
+
     if (!animate) {
         _previewHeightConstraint.constant = newPrevHeightConstant;
         _previewController.textHeight.constant = newTextHeightConstant;
@@ -108,6 +116,7 @@
         if (shouldHideOnCompletion)
             _previewController.view.hidden = YES;
     } else {
+        Preferences * __weak weakSelf = self;
         [NSAnimationContext
          runAnimationGroup:^(NSAnimationContext *context) {
             context.duration = 0.3;
@@ -117,8 +126,10 @@
             [_previewHeightConstraint.animator setConstant:newPrevHeightConstant];
             [_previewController.textHeight.animator setConstant:newTextHeightConstant];
         } completionHandler:^{
-            if (shouldHideOnCompletion) {
-                self.previewController.view.hidden = YES;
+            Preferences *strongSelf = weakSelf;
+            // A newer resize decides whether the preview is shown
+            if (strongSelf && shouldHideOnCompletion && strongSelf->resizeGeneration == generation) {
+                strongSelf.previewController.view.hidden = YES;
             }
         }];
     }
@@ -217,17 +228,11 @@
     if (restoredItem && itemIdentifierToViewDict[toolbarItemIdentifier]) {
         currentPanel = itemIdentifierToViewDict[toolbarItemIdentifier];
         defaultWindowHeight = ceil(NSHeight([self.window frameRectForContentRect:NSMakeRect(0, 0, kDefaultPrefWindowWidth, NSHeight(currentPanel.frame))]));
-        CGFloat blockHeight = defaultWindowHeight;
         [self switchToPanel:restoredItem resizePreview:YES];
-        // Must outlast the 0.3 s resize animation that windowDidLoad starts
-        // (showSelectedPanelOfToolbar). The switch above usually returns at
-        // once because that panel is already shown, so it can't be chained
-        // to it: resizing straight away races that animation, whose
-        // completion hides the preview, and leaves the window height and
-        // _previewShown out of step.
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^(void){
-            [self resizeWindowToHeight:previewHeightNumber.floatValue + blockHeight animate:YES];
-        });
+        // The window is still off screen here, so the switch above and the
+        // one in windowDidLoad resized synchronously and left no animation
+        // running for this resize to race. It is synchronous too.
+        [self resizeWindowToHeight:previewHeightNumber.floatValue + defaultWindowHeight animate:YES];
     }
 }
 
@@ -370,6 +375,17 @@
     _belowHeightConstraint.constant = currentPanelHeight;
 
     PreviewController* blockPrevCtrl = _previewController;
+
+    // While the window is off screen (nib load, state restoration) there is
+    // nothing to animate, and resizing synchronously leaves no animation
+    // in flight for the restoration's own resize to race.
+    if (!window.visible) {
+        [window setFrame:newFrame display:YES];
+        _bottomConstraint.active = YES;
+        window.initialFirstResponder = preferencePane;
+        [blockPrevCtrl scrollToTop];
+        return;
+    }
 
     Preferences * __weak weakSelf = self;
 

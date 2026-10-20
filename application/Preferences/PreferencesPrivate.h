@@ -44,6 +44,9 @@
     BOOL observingArrangedThemes;
     CGFloat defaultWindowHeight;
     CGFloat restoredPreviewHeight;
+    // Bumped by every resizeWindowToHeight:animate:, so that the completion
+    // of a superseded animation does not hide the preview
+    NSUInteger resizeGeneration;
     NSView *currentPanel;
 
     NSDictionary *catalinaSoundsToBigSur;
