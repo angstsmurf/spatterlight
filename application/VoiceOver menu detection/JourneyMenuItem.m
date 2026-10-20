@@ -7,6 +7,12 @@
 
 #import "JourneyMenuItem.h"
 
+// The bottom rows of the grid window hold the menus, in five equal columns
+// after the name column. Columns run from 0 (party commands) to 4.
+static const NSInteger kMenuColumns = 5;
+static const NSInteger kMenuRows = 5;
+static const NSInteger kClickInset = 2;
+
 @implementation JourneyMenuItem
 
 + (BOOL) supportsSecureCoding {
@@ -22,6 +28,25 @@
         self.tag = tag;
     }
     return self;
+}
+
+- (BOOL)getClickPoint:(NSPoint *)point inGridOfSize:(NSSize)gridSize bordered:(BOOL)bordered {
+    NSInteger width = (NSInteger)gridSize.width;
+    NSInteger height = (NSInteger)gridSize.height;
+
+    NSInteger x = kClickInset;
+    if (_column >= 1) {
+        NSInteger commandWidth = width / kMenuColumns;
+        NSInteger nameWidth = width % kMenuColumns;
+        x = nameWidth + commandWidth * (NSInteger)_column + kClickInset;
+    }
+
+    NSInteger y = height - kMenuRows + (NSInteger)_line;
+    if (bordered)
+        y--;
+
+    *point = NSMakePoint((CGFloat)x, (CGFloat)y);
+    return x >= 0 && y >= 0 && x < width && y < height;
 }
 
 - (instancetype)initWithCoder:(NSCoder *)decoder {

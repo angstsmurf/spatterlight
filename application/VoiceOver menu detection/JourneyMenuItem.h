@@ -23,6 +23,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (instancetype)initWithTitle:(NSString *)title column:(NSUInteger)column line:(NSUInteger)line tag:(NSInteger)tag;
 
+// The grid cell a click on this item goes to, in a grid window of gridSize
+// characters. bordered is YES when the grid has a border (the Amiga look),
+// which moves the menus up a line. Returns NO if the cell is outside the
+// grid, which no menu the interpreter sends reaches unless the grid is
+// smaller than 15 × 5.
+- (BOOL)getClickPoint:(NSPoint *)point inGridOfSize:(NSSize)gridSize bordered:(BOOL)bordered;
+
 @end
 
 NS_ASSUME_NONNULL_END

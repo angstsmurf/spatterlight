@@ -204,6 +204,27 @@
 
 @end
 
+// Archives the way JourneyMenuHandler did before tagCounter was added.
+@interface OldJourneyMenuHandlerArchive : NSObject <NSCoding>
+@end
+
+@implementation OldJourneyMenuHandlerArchive
+
+- (instancetype)initWithCoder:(NSCoder *)decoder {
+    return [super init];
+}
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    JourneyMenuItem *lore = [[JourneyMenuItem alloc] initWithTitle:@"Lore" column:3 line:1 tag:3];
+    lore.actor = @"Praxix";
+    JourneyMenuItem *bergon = [[JourneyMenuItem alloc] initWithTitle:@"Bergon" column:2 line:2 tag:9];
+    bergon.actor = @"Bergon";
+    [encoder encodeObject:[@{@3 : lore, @9 : bergon} mutableCopy] forKey:@"journeyVerbMenuItems"];
+    [encoder encodeBool:NO forKey:@"shouldShowDialog"];
+}
+
+@end
+
 @interface JourneyCodingTests : XCTestCase
 @end
 
@@ -251,6 +272,76 @@
     NSDictionary<NSNumber *, JourneyMenuItem *> *verbs = [copy valueForKey:@"journeyVerbMenuItems"];
     XCTAssertEqualObjects(verbs[@4].actor, @"Praxix");
     XCTAssertEqualObjects([copy valueForKey:@"tagCounter"], @5);
+}
+
+// Autosaves from before tagCounter was archived start new tags above the
+// highest restored verb tag, so that new verbs don't replace restored ones.
+- (void)testOldArchiveWithoutTagCounterStartsAboveRestoredVerbs {
+    NSError *error = nil;
+    NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initRequiringSecureCoding:NO];
+    [archiver setClassName:@"JourneyMenuHandler" forClass:[OldJourneyMenuHandlerArchive class]];
+    [archiver encodeObject:[OldJourneyMenuHandlerArchive new] forKey:NSKeyedArchiveRootObjectKey];
+    [archiver finishEncoding];
+
+    NSKeyedUnarchiver *unarchiver = [[NSKeyedUnarchiver alloc] initForReadingFromData:archiver.encodedData error:&error];
+    XCTAssertNotNil(unarchiver, @"%@", error);
+    unarchiver.requiresSecureCoding = NO;
+    JourneyMenuHandler *copy = [unarchiver decodeObjectOfClass:[JourneyMenuHandler class] forKey:NSKeyedArchiveRootObjectKey];
+    [unarchiver finishDecoding];
+    XCTAssertTrue([copy isKindOfClass:[JourneyMenuHandler class]]);
+
+    NSDictionary<NSNumber *, JourneyMenuItem *> *verbs = [copy valueForKey:@"journeyVerbMenuItems"];
+    XCTAssertEqual(verbs.count, 2u);
+    XCTAssertEqualObjects([copy valueForKey:@"tagCounter"], @10);
+}
+
+@end
+
+#pragma mark - Journey click geometry
+
+@interface JourneyClickTests : XCTestCase
+@end
+
+@implementation JourneyClickTests
+
+- (NSPoint)clickAtColumn:(NSUInteger)column line:(NSUInteger)line inGrid:(NSSize)size bordered:(BOOL)bordered inBounds:(BOOL *)inBounds {
+    JourneyMenuItem *item = [[JourneyMenuItem alloc] initWithTitle:@"Proceed" column:column line:line tag:0];
+    NSPoint point = NSZeroPoint;
+    *inBounds = [item getClickPoint:&point inGridOfSize:size bordered:bordered];
+    return point;
+}
+
+// The party commands are in column 0, the rest in five equal columns
+// starting after width % 5.
+- (void)testColumnsAndLines {
+    BOOL inBounds = NO;
+    NSPoint point = [self clickAtColumn:0 line:0 inGrid:NSMakeSize(82, 25) bordered:NO inBounds:&inBounds];
+    XCTAssertTrue(inBounds);
+    XCTAssertTrue(NSEqualPoints(point, NSMakePoint(2, 20)));
+
+    point = [self clickAtColumn:4 line:4 inGrid:NSMakeSize(82, 25) bordered:NO inBounds:&inBounds];
+    XCTAssertTrue(inBounds);
+    XCTAssertTrue(NSEqualPoints(point, NSMakePoint(2 + 16 * 4 + 2, 24)));
+}
+
+- (void)testBorderMovesTheMenusUpALine {
+    BOOL inBounds = NO;
+    NSPoint point = [self clickAtColumn:2 line:4 inGrid:NSMakeSize(80, 25) bordered:YES inBounds:&inBounds];
+    XCTAssertTrue(inBounds);
+    XCTAssertTrue(NSEqualPoints(point, NSMakePoint(16 * 2 + 2, 23)));
+}
+
+// Column 4 reaches the right edge only in a grid narrower than 15.
+- (void)testNarrowAndShortGridsAreOutOfBounds {
+    BOOL inBounds = YES;
+    [self clickAtColumn:4 line:0 inGrid:NSMakeSize(15, 25) bordered:NO inBounds:&inBounds];
+    XCTAssertTrue(inBounds);
+    [self clickAtColumn:4 line:0 inGrid:NSMakeSize(14, 25) bordered:NO inBounds:&inBounds];
+    XCTAssertFalse(inBounds);
+    [self clickAtColumn:0 line:0 inGrid:NSMakeSize(80, 4) bordered:NO inBounds:&inBounds];
+    XCTAssertFalse(inBounds);
+    [self clickAtColumn:0 line:0 inGrid:NSZeroSize bordered:NO inBounds:&inBounds];
+    XCTAssertFalse(inBounds);
 }
 
 @end

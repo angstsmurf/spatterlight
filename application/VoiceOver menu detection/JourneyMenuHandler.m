@@ -27,12 +27,6 @@ static const NSUInteger kNameMaxLength = 8;
 // The last move text prepended to a recreated dialog is cut to this.
 static const NSUInteger kMaxLastMoveLength = 500;
 
-// Click geometry: the bottom rows of the grid window hold the menus, in
-// five equal columns after the name column.
-static const NSUInteger kMenuColumns = 5;
-static const NSUInteger kMenuRows = 5;
-static const NSUInteger kClickInset = 2;
-
 static const NSTimeInterval kRecentlyClosedInterval = 1;
 static const NSTimeInterval kRecreateDialogDelay = 0.5;
 static const NSTimeInterval kBecameKeyDelay = 0.1;
@@ -255,32 +249,14 @@ static const NSTimeInterval kSpeakEnteredTextDelay = 2;
         return;
     }
 
-    NSUInteger x = 0;
-    NSSize winsize = [_textGridWindow currentSizeInChars];
-
-    if (item.column < 1) {
-        x = kClickInset;
-    } else {
-        NSUInteger commandWidth = (NSUInteger)winsize.width / kMenuColumns;
-        NSUInteger nameWidth = (NSUInteger)winsize.width % kMenuColumns;
-
-        x = nameWidth + commandWidth * (item.column) + kClickInset;
-    }
-
-    NSUInteger y = (NSUInteger)winsize.height - kMenuRows + item.line;
-
-    // Check if we are in border mode (i.e. if interpreter is set to Amiga)
-    unichar c = [_textGridWindow characterAtPoint:NSZeroPoint];
-    if (c == '/') {
-        // We seem to have a border
-        y--;
-    }
-
-    NSPoint point = NSMakePoint((CGFloat)x, (CGFloat)y);
-
-    if (x >= (NSUInteger)winsize.width || y >= (NSUInteger)winsize.height) {
-        // Still sent, as it always has been.
-        NSLog(@"Mouse click out of bounds at %@", NSStringFromPoint(point));
+    // A grid with a border (the Amiga look) has a '/' in the corner.
+    BOOL bordered = ([_textGridWindow characterAtPoint:NSZeroPoint] == '/');
+    NSPoint point;
+    if (![item getClickPoint:&point inGridOfSize:[_textGridWindow currentSizeInChars] bordered:bordered]) {
+        NSLog(@"Mouse click out of bounds at %@, not sent", NSStringFromPoint(point));
+        [self showJourneyMenus];
+        _shouldShowDialog = NO;
+        return;
     }
 
     [_delegate markLastSeen];
