@@ -152,7 +152,7 @@ L9BYTE* list9ptr;
 
 int unpackd3;
 
-L9BYTE exitreversaltable[20]= {0x00,0x04,0x06,0x07,0x01,0x08,0x02,0x03,0x05,0x0a,0x09,0x0c,0x0b,0xff,0xff,0x0f,0xff,0xff,0xff,0xff};
+L9BYTE exitreversaltable[20]= {0x00,0x04,0x06,0x07,0x01,0x08,0x02,0x03,0x05,0x0a,0x09,0x0c,0x0b,0x0d,0x0e,0x0f,0xff,0xff,0xff,0xff};
 
 L9UINT16 gnostack[128];
 L9BYTE gnoscratch[32];
@@ -327,7 +327,7 @@ void printchar(char c)
 
 	if (c&128)
 		lastchar=(c&=0x7f);
-	else if (c!=0x20 && c!=0x0d && (c<'\"' || c>='.'))
+	else if (c!=0x20 && c!=0x0d && (c<'\"' || c>')'))
 	{
 		if (lastchar=='!' || lastchar=='?' || lastchar=='.') c=toupper(c);
 		lastchar=c;
@@ -3480,17 +3480,14 @@ void checknumber(void)
 {
 	if (*obuff>=0x30 && *obuff<0x3a)
 	{
-		if (L9GameType==L9_V4)
-		{
-			*list9ptr=1;
-			L9SETWORD(list9ptr+1,readdecimal(obuff));
-			L9SETWORD(list9ptr+3,0);
-		}
-		else
-		{
-			L9SETDWORD(list9ptr,readdecimal(obuff));
-			L9SETWORD(list9ptr+4,0);
-		}
+		/* 1 marks a number, followed by its low three bytes (INT.S ip22,
+		   from 6-87 on). Every V3 and V4 parser tests for the 1. */
+		L9UINT32 n=readdecimal(obuff);
+		list9ptr[0]=1;
+		list9ptr[1]=n&0xff;
+		list9ptr[2]=(n>>8)&0xff;
+		list9ptr[3]=(n>>16)&0xff;
+		L9SETWORD(list9ptr+4,0);
 	}
 	else
 	{
@@ -4024,11 +4021,9 @@ void exit1(L9BYTE *d4,L9BYTE *d5,L9BYTE d6,L9BYTE d7)
 		do
 		{
 			d0=*a0;
-			if (L9GameType==L9_V4)
-			{
-				if ((d0==0) && (*(a0+1)==0))
-					goto notfn4;
-			}
+			/* all-zero entry marks a short exit table (INT.S, mike 8/8/87) */
+			if ((d0==0) && (*(a0+1)==0))
+				goto notfn4;
 			a0+=2;
 		}
 		while ((d0&0x80)==0 || --d1);
