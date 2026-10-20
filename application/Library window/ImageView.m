@@ -30,7 +30,7 @@
 #import "NotificationBezel.h"
 #import "FolderAccess.h"
 
-#import "OSImageHashing.h"
+#import "ImageSimilarity.h"
 
 #import "Preferences.h"
 #import "NSAlert+Spatterlight.h"
@@ -794,7 +794,7 @@
         if (data.length > MAX_SPATTERLIGHT_IMAGE_FILE_SIZE)
             data = [data reduceImageDimensionsTo:NSMakeSize(2048, 2048)];
 
-        // Hashing for compareByFileNames: is slow, so it is done here rather
+        // Comparing the images for compareByFileNames: is slow, so it is done here rather
         // than on the main thread.
         BOOL replaceWithoutAsking = dontAsk || [URLPath isEqualToString:@"pasteboard"] ||
         [self compareByFileNames:URLPath data:imageData gamePath:gamePath gameData:gameData];
@@ -840,15 +840,7 @@
         fileBaseName = [fileBaseName substringToIndex:gameBaseName.length];
     }
 
-    if ([gameBaseName isEqualToString:fileBaseName]) {
-        SInt64 distance = [[OSImageHashing sharedInstance] hashDistance:gameData to:data];
-        NSLog(@"distance: %lld", distance);
-        if (distance < 11) {
-            return YES;
-        }
-    }
-
-    return NO;
+    return [gameBaseName isEqualToString:fileBaseName] && [ImageSimilarity imageData:gameData looksLike:data];
 }
 
 @synthesize workQueue = _workQueue;

@@ -16,7 +16,7 @@
 #import "ImageCompareViewController.h"
 #import "Preferences.h"
 
-#import "OSImageHashing.h"
+#import "ImageSimilarity.h"
 
 @interface ImageCompareViewController ()
 
@@ -35,13 +35,8 @@
     if (!imageA.length || [imageA isPlaceHolderImage])
         return kImageComparisonResultB;
 
-    if([imageA isEqualToData:imageB]) {
+    if ([ImageSimilarity imageData:imageA looksLike:imageB]) {
         NSLog(@"The images are the same");
-        return kImageComparisonResultB;
-    }
-
-    if ([[OSImageHashing sharedInstance] compareImageData:imageA to:imageB]) {
-        NSLog(@"The images are the same according to OSImageHashing");
         return kImageComparisonResultB;
     }
 
