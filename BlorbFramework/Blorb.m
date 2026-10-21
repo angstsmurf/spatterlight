@@ -13,7 +13,6 @@
 #import "BlorbResource.h"
 #import "FileSignature.h"
 #include "iff.h"
-#import <BlorbFramework/BlorbFramework-Swift.h>
 
 // FORM header: 'FORM', length, 'IFRS'.
 static const NSUInteger kFormHeaderLength = 12;
@@ -91,7 +90,9 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
   static NSSet<NSString *> *extensions;
   static dispatch_once_t onceToken;
   dispatch_once(&onceToken, ^{
-    extensions = [NSSet setWithArray:@[@"zblorb", @"blorb", @"blb", @"gblorb", @"zlb"]];
+    // The Blorb spec's suffixes (section 14.1), including the three-letter
+    // forms blb, zlb and glb.
+    extensions = [NSSet setWithArray:@[@"blorb", @"zblorb", @"gblorb", @"blb", @"zlb", @"glb"]];
   });
   NSString *pathExtension = url.pathExtension.lowercaseString;
   return pathExtension && [extensions containsObject:pathExtension];
@@ -219,7 +220,7 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
 // Game Identifier Chunk. These values only make sense in a Z-code game; see
 // the comment on releaseNumber in Blorb.h.
 - (void)parseIFhd:(nullable NSData *)payload {
-  BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
+  BlorbResource *resource = [self findResourceOfUsage:BlorbUsageExecutable];
   if (resource && ![resource.chunkType isEqualToString:FourCCString(kZCOD)])
     return;
   IFhdInfo info;
@@ -253,7 +254,7 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
     if (!descData)
       break;
     offset += 12 + textLength;
-    byKey[[NSString stringWithFormat:@"%u.%u", usage, number]].descriptiontext =
+    byKey[[NSString stringWithFormat:@"%u.%u", usage, number]].descriptionText =
         [[NSString alloc] initWithData:descData encoding:NSUTF8StringEncoding];
   }
 }
@@ -284,7 +285,7 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
   return [self payloadOfChunkAtOffset:resource.start expectedID:0];
 }
 
-- (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage {
+- (NSArray<BlorbResource *> *)resourcesForUsage:(BlorbUsage)usage {
   NSMutableArray<BlorbResource *> *array = [NSMutableArray array];
   for (BlorbResource *resource in _resources) {
     if (resource.usage == usage)
@@ -293,7 +294,7 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
   return array;
 }
 
-- (nullable BlorbResource *)findResourceOfUsage:(FourCharCode)usage {
+- (nullable BlorbResource *)findResourceOfUsage:(BlorbUsage)usage {
   for (BlorbResource *resource in _resources) {
     if (resource.usage == usage)
       return resource;
@@ -302,12 +303,12 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
 }
 
 - (nullable NSData *)zcodeData {
-  BlorbResource *resource = [self findResourceOfUsage:ExecutableResource];
+  BlorbResource *resource = [self findResourceOfUsage:BlorbUsageExecutable];
   return resource ? [self payloadOfChunkAtOffset:resource.start expectedID:kZCOD] : nil;
 }
 
 - (nullable NSData *)pictureData {
-  BlorbResource *resource = [self findResourceOfUsage:PictureResource];
+  BlorbResource *resource = [self findResourceOfUsage:BlorbUsagePicture];
   return resource ? [self dataForResource:resource] : nil;
 }
 
@@ -322,7 +323,7 @@ static BOOL IsBoringCoverImage(NSData *imageData) {
     return;
   _coverImageResolved = YES;
 
-  NSArray<BlorbResource *> *images = [self resourcesForUsage:PictureResource];
+  NSArray<BlorbResource *> *images = [self resourcesForUsage:BlorbUsagePicture];
   if (_hasFrontispiece) {
     for (BlorbResource *res in images) {
       if (res.number == _frontispiece) {

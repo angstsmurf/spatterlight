@@ -1177,26 +1177,17 @@
     NSString __block *title = nil;
     NSString *ifid = nil;
     if (data) {
-        const unsigned char *bytes = data.bytes;
-        NSUInteger dataLength = data.length;
-        uint32_t chunkID, length;
-        IFhdInfo info;
-        if ((isForm(bytes, dataLength, 'I', 'F', 'Z', 'S') || isForm(bytes, dataLength, 'B', 'F', 'Z', 'S')) &&
-            chunkHeaderAt(bytes, dataLength, 12, &chunkID, &length) && chunkID == IFFID('I', 'F', 'h', 'd') &&
-            length <= dataLength - 20 && parseIFhd(bytes + 20, length, &info)) {
+        QuetzalHeader header;
+        if (parseQuetzalHeader(data.bytes, data.length, &header)) {
             // Game Identifier Chunk
-            NSUInteger releaseNumber = info.release;
-            NSUInteger checksum = info.checksum;
-            NSString *serialNum = [[NSString alloc] initWithBytes:info.serial length:6 encoding:NSASCIIStringEncoding];
+            NSUInteger releaseNumber = header.ifhd.release;
+            NSUInteger checksum = header.ifhd.checksum;
+            NSString *serialNum = [[NSString alloc] initWithBytes:header.ifhd.serial length:6 encoding:NSASCIIStringEncoding];
 
             // See if we can find a path to the game file as well
             NSString __block *path = nil;
-            NSUInteger next = 20 + paddedLength(length);
-            if (chunkHeaderAt(bytes, dataLength, next, &chunkID, &length) &&
-                chunkID == IFFID('I', 'n', 't', 'D') &&
-                length >= 12 && length <= dataLength - next - 8) {
-                // Found IntD chunk! The path follows its 12-byte header.
-                NSData *pathData = [data subdataWithRange:NSMakeRange(next + 20, length - 12)];
+            if (header.pathOffset) {
+                NSData *pathData = [data subdataWithRange:NSMakeRange(header.pathOffset, header.pathLength)];
                 path = [[NSString alloc] initWithData:pathData encoding:NSASCIIStringEncoding];
             }
 

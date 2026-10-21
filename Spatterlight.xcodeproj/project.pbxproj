@@ -64,7 +64,7 @@
 		55368B78272BF24700740A0A /* question-runner.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B70272BF24700740A0A /* question-runner.cc */; };
 		55368B79272BF27D00740A0A /* question in Copy Interpreter Files */ = {isa = PBXBuildFile; fileRef = 55368B5B272BF1C500740A0A /* question */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		559BE460270F7BD800B93F2C /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0D9223262CA008C9CB7 /* Cocoa.framework */; };
-		55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55A01EDC2B189325003D7C18 /* BlorbResource.swift */; };
+		55A01EDD2B189325003D7C18 /* BlorbResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 55A01EDC2B189325003D7C18 /* BlorbResource.m */; };
 		55A01EE02B1898E9003D7C18 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D79B0DE223262CA008C9CB7 /* Foundation.framework */; };
 		579385CB51D49A52A9389561 /* sclibrar_talk.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000013 /* sclibrar_talk.cpp */; };
 		58DD36D7B76BB2FAEB33D5B9 /* sclibrar_meta.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000003 /* sclibrar_meta.cpp */; };
@@ -1954,7 +1954,7 @@
 		5543540277974C1585C839AB /* os_glk_status.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_status.cpp; sourceTree = "<group>"; };
 		55A01EDA2B188142003D7C18 /* md5.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = md5.h; sourceTree = "<group>"; };
 		55A01EDB2B188178003D7C18 /* sha2.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sha2.h; sourceTree = "<group>"; };
-		55A01EDC2B189325003D7C18 /* BlorbResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlorbResource.swift; sourceTree = "<group>"; };
+		55A01EDC2B189325003D7C18 /* BlorbResource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlorbResource.m; sourceTree = "<group>"; };
 		55EB070086164E1D8AC570D7 /* ReadOnlyStore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReadOnlyStore.h; sourceTree = "<group>"; };
 		590D911A50D862B9538A05DA /* question-panes.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-panes.cc"; sourceTree = "<group>"; };
 		5988597D3F5747EF835AACB3 /* GlkTextBufferWindow+Output.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Output.m"; sourceTree = "<group>"; };
@@ -7368,7 +7368,7 @@
 				C3C1807C25C70F2F0040AE79 /* Blorb.h */,
 				C3C1807B25C70F2F0040AE79 /* Blorb.m */,
 				C3C1807A25C70F2F0040AE79 /* BlorbResource.h */,
-				55A01EDC2B189325003D7C18 /* BlorbResource.swift */,
+				55A01EDC2B189325003D7C18 /* BlorbResource.m */,
 				C3F53C5C271BB8BE00538393 /* BlorbFramework.h */,
 				C3F53C5D271BB8BE00538393 /* BlorbFramework.docc */,
 			);
@@ -9844,7 +9844,7 @@
 				C3123A822F6A117400A87289 /* FileSignature.m in Sources */,
 				C3123A7F2F6A103D00A87289 /* NSString+Categories.m in Sources */,
 				C3F53C64271BB93300538393 /* iff.c in Sources */,
-				55A01EDD2B189325003D7C18 /* BlorbResource.swift in Sources */,
+				55A01EDD2B189325003D7C18 /* BlorbResource.m in Sources */,
 				C3F53C65271BB94C00538393 /* Blorb.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -13071,7 +13071,6 @@
 		C3F53C60271BB8BE00538393 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -13126,9 +13125,6 @@
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
@@ -13136,7 +13132,6 @@
 		C3F53C61271BB8BE00538393 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				APPLICATION_EXTENSION_API_ONLY = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -13186,8 +13181,6 @@
 				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
