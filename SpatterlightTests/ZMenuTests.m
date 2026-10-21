@@ -421,6 +421,34 @@ static NSDictionary *Highlight(void) {
     XCTAssertEqual(menu.selectedLine, 0u);
 }
 
+// An adv3 menu: the header banner is fixed-width, so it is a grid,
+// with its key help padded to the right edge. The items are in a buffer.
+- (nullable ZMenu *)adv3MenuWithHeaderType:(glui32)type {
+    NSString *pad = [@"" stringByPaddingToLength:50 withString:@" " startingAtIndex:0];
+    NSString *header = [NSString stringWithFormat:@"Hints%@Q=Quit P=Previous Menu\n%@  U=Up D=Down ENTER=Select\n", pad, pad];
+    NSString *plain = @"> What am I meant to be doing here?\n> How do I get out?\n> Who is the woman?\n";
+    NSMutableAttributedString *items = [[self text:plain] mutableCopy];
+    [items addAttributes:@{ NSBackgroundColorAttributeName : NSColor.whiteColor, NSForegroundColorAttributeName : NSColor.whiteColor } range:NSMakeRange(0, items.length)];
+    [items addAttribute:NSForegroundColorAttributeName value:NSColor.blackColor range:[plain rangeOfString:@"> How do I get out?"]];
+    NSArray *windows = @[[self window:type text:[self text:header] frame:NSMakeRect(0, 0, 600, 40)],
+                         [self buffer:items]];
+    return [self detect:windows game:kGameIsGeneric format:@"tads3"];
+}
+
+- (void)testTads3MenuWithGridHeader {
+    ZMenu *menu = [self adv3MenuWithHeaderType:wintype_TextGrid];
+    XCTAssertNotNil(menu);
+    XCTAssertEqualObjects([self linesOf:menu], (@[@"> What am I meant to be doing here?", @"> How do I get out?", @"> Who is the woman?"]));
+    XCTAssertEqual(menu.selectedLine, 1u);
+    XCTAssertEqualObjects([self fullLineOf:menu], @"We are in a menu.\nHow do I get out?\n.\nMenu item 2 of 3.\nQ: \"Quit\".\nP: \"Previous Menu\".\nU: \"Up\".\nD: \"Down\".\nEnter: \"Select\".\n");
+}
+
+// The same menu as before the header became a grid.
+- (void)testTads3MenuGridHeaderMatchesBufferHeader {
+    XCTAssertEqualObjects([self fullLineOf:[self adv3MenuWithHeaderType:wintype_TextGrid]],
+                          [self fullLineOf:[self adv3MenuWithHeaderType:wintype_TextBuffer]]);
+}
+
 // Bullets, no instructions, and three windows: a one-line title, the menu
 // and a hidden one.
 - (void)testThaumistry {

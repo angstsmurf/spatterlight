@@ -48,6 +48,7 @@ typedef struct os_banner_s
     glui32 size;                    /* glk window size */
     glui32 type;                    /* glk window type */
     glui32 status;                  /* glk status style */
+    glui32 repad;                   /* text banner shown as a grid */
 
     glui32 cheight;                 /* glk char height */
     glui32 cwidth;                  /* glk char width */
@@ -76,9 +77,14 @@ typedef struct banner_contents_s
     glui32 style;                   /* stored contents style */
     glui32 newline;                 /* stored newline */
     glui32 move, x, y;              /* stored cursor position */
+    glui32 width;                   /* banner width when written */
 
     char *chars;
     glui32 len;
+
+    char *shown;                    /* chars re-padded to a new width */
+    glui32 shownlen;
+    int shift;                      /* byte offset of shown from chars */
 }
 banner_contents_t;
 
@@ -95,6 +101,10 @@ extern glui32 statusfg;
 extern glui32 statusbg;
 
 void banner_contents_display(contentid_t contents);
+void banner_contents_repad(osbanid_t banner);
+
+extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
+                             glui32 *out, glui32 outlen);
 
 /* Implementation-specific functions for managing banner windows */
 /*
@@ -126,6 +136,7 @@ osbanid_t os_banner_init(void)
     instance->size = 0;
     instance->type = 0;
     instance->status = 0;
+    instance->repad = 0;
 
     instance->cheight = 0;
     instance->cwidth = 0;
@@ -143,7 +154,8 @@ osbanid_t os_banner_init(void)
 }
 
 osbanid_t os_banner_insert(osbanid_t parent, glui32 operation, osbanid_t other,
-                           glui32 method, glui32 size, glui32 type, glui32 status)
+                           glui32 method, glui32 size, glui32 type, glui32 status,
+                           glui32 repad)
 {
     if (!parent || !(parent->valid))
         return 0;
@@ -221,6 +233,7 @@ osbanid_t os_banner_insert(osbanid_t parent, glui32 operation, osbanid_t other,
     baby->size = size;
     baby->type = type;
     baby->status = status;
+    baby->repad = repad;
 
     return baby;
 }
@@ -324,6 +337,7 @@ void os_banners_open(osbanid_t banner)
             os_banner_styles_apply(banner);
             banner->win = glk_window_open(banner->parent->win, banner->method,
                                           banner->size, banner->type, banner->id);
+            banner_contents_repad(banner);
             banner_contents_display(banner->contents);
         }
         os_banners_open(banner->children);
@@ -365,9 +379,14 @@ contentid_t banner_contents_init(void)
     instance->move = 0;
     instance->x = 0;
     instance->y = 0;
+    instance->width = 0;
 
     instance->chars = 0;
     instance->len = 0;
+
+    instance->shown = 0;
+    instance->shownlen = 0;
+    instance->shift = 0;
 
     return instance;
 }
@@ -393,7 +412,8 @@ void banner_contents_display(contentid_t contents)
         return;
 
     winid_t win = contents->banner->win;
-    glui32 len = contents->len;
+    char *chars = contents->shown ? contents->shown : contents->chars;
+    glui32 len = contents->shown ? contents->shownlen : contents->len;
 
     glk_set_window(win);
 
@@ -403,7 +423,7 @@ void banner_contents_display(contentid_t contents)
         os_put_buffer((unsigned char *)&ch, 1);
     }
     
-    if (len && (contents->chars[len-1] == '\n'))
+    if (len && (chars[len-1] == '\n'))
     {
         len --;
         contents->banner->newline = 1;
@@ -422,9 +442,208 @@ void banner_contents_display(contentid_t contents)
     }
 
     glk_set_style(contents->style);
-    os_put_buffer((unsigned char *)contents->chars, len);
+    os_put_buffer((unsigned char *)chars, len);
     glk_set_window(mainwin);
     banner_contents_display(contents->next);
+}
+
+/*
+ *   A text banner shown as a grid holds lines the VM padded with spaces to
+ *   the width at the time of writing, e.g. the right-aligned score on the
+ *   status line. When the grid is reopened at another width, grow or shrink
+ *   the longest run of spaces on each such line, so that it lines up with
+ *   the new right edge instead of falling off it until the game redraws.
+ */
+
+static glui32 banner_text_columns(const char *txt, glui32 len)
+{
+    if (!len)
+        return 0;
+
+    glui32 *out = malloc(sizeof(glui32) * len);
+    if (!out)
+        return len;
+
+    glui32 cols = os_parse_chars((unsigned char *)txt, len, out, len);
+    free(out);
+
+    /* os_put_buffer() prints the raw bytes when parsing fails */
+    return cols ? cols : len;
+}
+
+static void banner_contents_adjust(contentid_t contents, glui32 pos, int adj)
+{
+    if (!contents->shown)
+    {
+        contents->shown = malloc(contents->len + 1);
+        if (!contents->shown)
+            return;
+        memcpy(contents->shown, contents->chars, contents->len + 1);
+        contents->shownlen = contents->len;
+        contents->shift = 0;
+    }
+
+    pos += contents->shift;
+
+    if (adj > 0)
+    {
+        char *grown = realloc(contents->shown, contents->shownlen + adj + 1);
+        if (!grown)
+            return;
+        contents->shown = grown;
+        memmove(grown + pos + adj, grown + pos, contents->shownlen - pos + 1);
+        memset(grown + pos, ' ', adj);
+    }
+    else
+    {
+        memmove(contents->shown + pos, contents->shown + pos - adj,
+                contents->shownlen - pos + adj + 1);
+    }
+
+    contents->shownlen += adj;
+    contents->shift += adj;
+}
+
+typedef struct banner_line_s
+{
+    glui32 width;                   /* banner width when the line was written */
+    glui32 cols;                    /* columns so far */
+    contentid_t run;                /* longest run of spaces */
+    glui32 runpos, runlen, runcol;
+    contentid_t cur;                /* run of spaces being scanned */
+    glui32 curpos, curlen, curcol;
+}
+banner_line_t;
+
+static void banner_line_end(banner_line_t *line, glui32 width)
+{
+    /* a right-aligned tab pads the line to one short of the full width */
+    if (line->run && line->width && line->width != width
+        && line->cols + 1 == line->width)
+    {
+        int adj = (int)width - (int)line->width;
+        int keep = line->runcol ? 1 : 0;
+        if ((int)line->runlen + adj < keep)
+            adj = keep - (int)line->runlen;
+        if (adj)
+            banner_contents_adjust(line->run, line->runpos, adj);
+    }
+
+    memset(line, 0, sizeof(*line));
+}
+
+void banner_contents_repad(osbanid_t banner)
+{
+    contentid_t contents;
+    glui32 width, height;
+    banner_line_t line;
+
+    for (contents = banner->contents; contents; contents = contents->next)
+    {
+        if (contents->shown)
+            free(contents->shown);
+        contents->shown = 0;
+        contents->shownlen = 0;
+        contents->shift = 0;
+    }
+
+    if (!banner->repad || !banner->win)
+        return;
+
+    glk_window_get_size(banner->win, &width, &height);
+
+    memset(&line, 0, sizeof(line));
+    line.width = banner->contents ? banner->contents->width : 0;
+
+    for (contents = banner->contents; contents; contents = contents->next)
+    {
+        glui32 len = contents->len;
+        glui32 seg = 0;
+        glui32 i;
+
+        /* the same breaks banner_contents_display() makes */
+        if (contents->newline || contents->move)
+        {
+            banner_line_end(&line, width);
+            line.width = contents->width;
+        }
+
+        if (len && contents->chars[len-1] == '\n')
+            len --;
+
+        line.cur = 0;
+
+        for (i = 0; i < len; i++)
+        {
+            char ch = contents->chars[i];
+
+            if (ch != ' ' && ch != '\n')
+                continue;
+
+            line.cols += banner_text_columns(contents->chars + seg, i - seg);
+            seg = i + 1;
+
+            if (ch == '\n')
+            {
+                banner_line_end(&line, width);
+                line.width = contents->width;
+                continue;
+            }
+
+            if (!line.cur || line.curpos + line.curlen != i)
+            {
+                line.cur = contents;
+                line.curpos = i;
+                line.curlen = 0;
+                line.curcol = line.cols;
+            }
+            line.curlen ++;
+            line.cols ++;
+
+            if (line.curlen >= line.runlen)
+            {
+                line.run = line.cur;
+                line.runpos = line.curpos;
+                line.runlen = line.curlen;
+                line.runcol = line.curcol;
+            }
+        }
+
+        line.cols += banner_text_columns(contents->chars + seg, len - seg);
+    }
+
+    banner_line_end(&line, width);
+}
+
+/* the number of grid rows the contents reach down to */
+static glui32 banner_contents_rows(contentid_t contents)
+{
+    glui32 row = 0;
+    glui32 rows = 0;
+
+    for (; contents; contents = contents->next)
+    {
+        glui32 len = contents->len;
+        glui32 i;
+
+        if (contents->newline)
+            row ++;
+        if (contents->move)
+            row = contents->y;
+
+        if (len && contents->chars[len-1] == '\n')
+            len --;
+
+        for (i = 0; i < len; i++)
+        {
+            if (contents->chars[i] == '\n')
+                row ++;
+            else if (row + 1 > rows)
+                rows = row + 1;
+        }
+    }
+
+    return rows;
 }
 
 void banner_contents_clear(contentid_t contents)
@@ -436,6 +655,9 @@ void banner_contents_clear(contentid_t contents)
 
     if (contents->chars)
         free(contents->chars);
+
+    if (contents->shown)
+        free(contents->shown);
 
     free(contents);
 }
@@ -452,6 +674,10 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
     glui32 gwinsize = siz;
     glui32 gwintype = 0;
     glui32 gstatus = (style & OS_BANNER_STYLE_TAB_ALIGN);
+    glui32 gscroll = (style & (OS_BANNER_STYLE_VSCROLL |
+                               OS_BANNER_STYLE_AUTO_VSCROLL |
+                               OS_BANNER_STYLE_MOREMODE));
+    glui32 grepad = 0;
 
     if (gparent && !(gparent->valid))
         return 0;
@@ -469,7 +695,22 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
 
     switch (wintype)
     {
-        case OS_BANNER_TYPE_TEXT: gwintype = wintype_TextBuffer; break;
+        case OS_BANNER_TYPE_TEXT:
+            /*
+             *   The VM lays out a tab-aligned banner in fixed-width columns
+             *   itself, so unless it needs to scroll, show it in a grid
+             *   window, which measures and styles it as one.
+             */
+            if (gstatus && !gscroll)
+            {
+                gwintype = wintype_TextGrid;
+                grepad = 1;
+            }
+            else
+            {
+                gwintype = wintype_TextBuffer;
+            }
+            break;
         case OS_BANNER_TYPE_TEXTGRID: gwintype = wintype_TextGrid; break;
         default: gwintype = wintype_TextGrid; break;
     }
@@ -490,7 +731,8 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
         default: gwinmeth |= winmethod_Fixed; break;
     }
 
-    gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus);
+    gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus,
+                               grepad);
 
     if (gbanner)
     {
@@ -546,6 +788,13 @@ void os_banner_size_to_contents(void *banner_handle)
         os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
     }
 #endif /* SPATTERLIGHT */
+
+    if (banner->repad)
+    {
+        glui32 rows = banner_contents_rows(banner->contents);
+        if (rows && !(rows == banner->size && (banner->method & winmethod_Fixed)))
+            os_banner_set_size(banner, rows, OS_BANNER_SIZE_ABS, 0);
+    }
 }
 
 void os_banner_delete(void *banner_handle)
@@ -703,6 +952,12 @@ void os_banner_disp(void *banner_handle, const char *txt, size_t len)
     update->move = banner->move;
     update->x = banner->x;
     update->y = banner->y;
+
+    if (banner->repad)
+    {
+        glk_window_get_size(banner->win, &(banner->cwidth), &(banner->cheight));
+        update->width = banner->cwidth;
+    }
 
     banner_contents_insert(update, txt, len);
     banner_contents_display(update);
