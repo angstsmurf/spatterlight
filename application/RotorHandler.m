@@ -450,8 +450,10 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     // newest move grows while the game prints more of it, so for that one
     // the range may be stale; then match on where the move starts, or the
     // rotor would start over at the newest item instead of stepping on.
+    // VoiceOver also passes the element its cursor is on as the current
+    // item, with an empty range; that must not match a move either way.
     NSUInteger currentItemIndex = NSNotFound;
-    if (searchParameters.currentItem) {
+    if (searchParameters.currentItem && currentRange.length > 0) {
         currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
         if (currentItemIndex == NSNotFound) {
             currentItemIndex = [children indexOfObjectPassingTest:^BOOL(NSValue *value, NSUInteger idx, BOOL *stop) {
