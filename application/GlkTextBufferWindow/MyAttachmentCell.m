@@ -7,6 +7,7 @@
 
 #import "MyAttachmentCell.h"
 #import "MarginImage.h"
+#import "MarginContainer.h"
 #import "ImageHandler.h"
 #import "ImageDragSource.h"
 #include "glk.h"
@@ -174,15 +175,26 @@
 // for rule cells; for legacy cells the image size, proportionally reduced
 // when wider than the window (the 0.7.6 behaviour change for plain
 // glk_image_draw/glk_image_draw_scaled in buffer windows).
-- (NSSize)displaySizeForWidth:(CGFloat)availwidth {
-    if (_imagerule)
-        return [MyAttachmentCell resolveImageRule:_imagerule
-                                            width:_ruleWidth
-                                           height:_ruleHeight
-                                         maxwidth:_ruleMaxWidth
-                                          natural:_naturalSize
-                                        available:availwidth];
+//
+// The window zoom multiplies every size the game gave in pixels (and the
+// natural size), but not sizes relative to the window width. Resolving
+// against the width divided by the zoom and multiplying the result does
+// exactly that.
+- (NSSize)displaySizeForWidth:(CGFloat)availwidth zoom:(CGFloat)zoom {
+    if (zoom <= 0)
+        zoom = 1;
+    if (_imagerule) {
+        NSSize size = [MyAttachmentCell resolveImageRule:_imagerule
+                                                   width:_ruleWidth
+                                                  height:_ruleHeight
+                                                maxwidth:_ruleMaxWidth
+                                                 natural:_naturalSize
+                                               available:availwidth / zoom];
+        return NSMakeSize(size.width * zoom, size.height * zoom);
+    }
     NSSize size = self.image.size;
+    size.width *= zoom;
+    size.height *= zoom;
     if (availwidth > 1 && size.width > availwidth) {
         size.height = size.height * availwidth / size.width;
         size.width = availwidth;
@@ -253,7 +265,10 @@
     // Resolve the display size against the current wrap width, every layout
     // pass, so rule-scaled (and oversized legacy) images track resizes.
     CGFloat availwidth = lineFrag.size.width - 2 * textContainer.lineFragmentPadding;
-    NSSize size = [self displaySizeForWidth:availwidth];
+    CGFloat zoom = 1;
+    if ([textContainer isKindOfClass:[MarginContainer class]])
+        zoom = ((MarginContainer *)textContainer).zoomFactor;
+    NSSize size = [self displaySizeForWidth:availwidth zoom:zoom];
     if (!NSEqualSizes(size, lastDisplaySize)) {
         lastDisplaySize = size;
     }

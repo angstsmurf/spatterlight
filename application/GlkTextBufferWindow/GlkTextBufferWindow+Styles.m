@@ -119,6 +119,8 @@
     // Preferences has changed, so first we must redo the styles library
     BOOL different = [self syncStyleFlagsWithTheme];
 
+    container.zoomFactor = self.zoomFactor;
+
     NSMutableArray *newstyles = [self buildStyles];
     if (!different && ![newstyles isEqualToArray:styles])
         different = YES;
@@ -237,7 +239,7 @@
             [self updateLinkTextAttributesOf:_textview];
 
             [self showInsertionPoint];
-            lastLineheight = self.theme.bufferNormal.font.boundingRectForFont.size.height;
+            lastLineheight = [self zoomedFont:self.theme.bufferNormal.font].boundingRectForFont.size.height;
             [self recalcBackground];
             if ([container hasMarginImages])
                 [container performSelector:@selector(invalidateLayout:) withObject:nil afterDelay:0.2];
@@ -305,7 +307,7 @@
     para.lineSpacing = 0;
     para.paragraphSpacing = 0;
     para.paragraphSpacingBefore = 0;
-    para.maximumLineHeight = [layoutmanager defaultLineHeightForFont:self.theme.bufferNormal.font];
+    para.maximumLineHeight = [layoutmanager defaultLineHeightForFont:[self zoomedFont:self.theme.bufferNormal.font]];
     beyondZorkStyle[NSParagraphStyleAttributeName] = para;
     beyondZorkStyle[NSKernAttributeName] = @(-2);
 

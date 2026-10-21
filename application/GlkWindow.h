@@ -108,6 +108,19 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 /// The attributes of a style in the current theme: with the game's style
 /// hints applied if the theme does styles, and as the theme has them if not.
 - (NSDictionary *)themeAttributesForStyle:(NSUInteger)style;
+
+/// The game window's zoom (GlkController zoomFactor), 1 without a controller.
+@property (readonly) CGFloat zoomFactor;
+/// The attributes with every size multiplied by the zoom.
+- (NSDictionary *)zoomedAttributes:(NSDictionary *)attributes;
+/// The font at the zoomed point size.
+- (NSFont *)zoomedFont:(NSFont *)font;
+/// The theme's character cell sizes at the current zoom. Use these, not the
+/// theme's own, for layout.
+@property (readonly) CGFloat cellWidth;
+@property (readonly) CGFloat cellHeight;
+@property (readonly) CGFloat bufferCellWidth;
+@property (readonly) CGFloat bufferCellHeight;
 /// The theme's link underline style for this kind of window: none here,
 /// overridden by the text grid and buffer windows.
 @property (readonly) int32_t themeLinkStyle;

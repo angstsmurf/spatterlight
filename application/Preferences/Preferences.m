@@ -149,7 +149,6 @@ NSNotificationName const kColorModeChangedNotification = @"ColorModeChanged";
 // Backing storage of the class properties. Only the accessors below use it.
 static Theme *sTheme = nil;
 static Preferences *sInstance = nil;
-static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
 + (Theme *)theme {
     return sTheme;
@@ -165,14 +164,6 @@ static kZoomDirectionType sZoomDirection = ZOOMRESET;
 
 - (void)setTheme:(Theme *)aTheme {
     sTheme = aTheme;
-}
-
-+ (kZoomDirectionType)zoomDirection {
-    return sZoomDirection;
-}
-
-+ (void)setZoomDirection:(kZoomDirectionType)zoomDirection {
-    sZoomDirection = zoomDirection;
 }
 
 + (Theme *)currentTheme {

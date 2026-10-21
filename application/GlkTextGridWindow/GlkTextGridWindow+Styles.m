@@ -365,7 +365,8 @@
 #pragma mark Beyond Zork graphical font
 
 - (void)createBeyondZorkStyle {
-    CGFloat pointSize = self.theme.gridNormal.font.pointSize;
+    NSFont *normalFont = [self zoomedFont:self.theme.gridNormal.font];
+    CGFloat pointSize = normalFont.pointSize;
     NSFont *zorkFont = [NSFont fontWithName:@"FreeFont3" size:pointSize];
 
     if (!zorkFont) {
@@ -377,11 +378,11 @@
     NSString *normalTextSample = [self sampleStringWithString:@"The horizon is lost in the glare of morning upon the Great Sea. "];
     NSString *zorkTextSample = [self sampleStringWithString:@"/''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''0 "];
 
-    CGFloat desiredWidth = [self.theme.gridNormal.font widthForPointSize:pointSize sampleText:normalTextSample];
+    CGFloat desiredWidth = [normalFont widthForPointSize:pointSize sampleText:normalTextSample];
     zorkFont = [zorkFont fontToFitWidth:desiredWidth sampleText:zorkTextSample];
     // Then we switch off anything that may cause gaps in the default BlockQuote style font
     NSMutableDictionary *beyondZorkStyle = [styles[style_Normal] mutableCopy];
-    NSString *normalFontName = self.theme.gridNormal.font.fontName;
+    NSString *normalFontName = normalFont.fontName;
     BOOL isMonaco = ([normalFontName isEqualToString:@"Monaco"]);
 
     beyondZorkStyle[@"GlkStyle"] = @(style_BlockQuote);
@@ -393,7 +394,7 @@
     // This is where things usually go wrong, i.e. the result is too short or too tall
     NSAffineTransform *transform = [[NSAffineTransform alloc] init];
     [transform scaleBy:zorkFont.pointSize];
-    CGFloat yscale = (self.theme.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
+    CGFloat yscale = (self.cellHeight + 0.5 + 0.1 * self.theme.bZAdjustment) / zorkFont.boundingRectForFont.size.height;
     if (isMonaco && self.glkctl.gameID == kGameIsJourney)
         yscale *= 1.2;
     [transform scaleXBy:1 yBy:yscale];

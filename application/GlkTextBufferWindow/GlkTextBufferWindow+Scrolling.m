@@ -353,7 +353,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     [layoutmanager lineFragmentRectForGlyphAtIndex:lastVisible
                                     effectiveRange:nil withoutAdditionalLayout:YES];
 
-    lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.theme.bufferCellHeight;
+    lastScrollOffset = (NSMaxY(visibleRect) - NSMaxY(lastRect)) / self.bufferCellHeight;
 
     if (isnan(lastScrollOffset) || isinf(lastScrollOffset))
         lastScrollOffset = 0;
@@ -488,7 +488,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
 // If the target character is very close to the top, scrolls to top instead.
 - (void)scrollToCharacter:(NSUInteger)character withOffset:(CGFloat)offset animate:(BOOL)animate {
 
-    CGFloat charHeight = self.theme.bufferCellHeight;
+    CGFloat charHeight = self.bufferCellHeight;
     if (pauseScrolling)
         return;
 
@@ -587,7 +587,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         // it here so the IF branch behaves consistently.
         CGFloat currentPos = scrollview.contentView.bounds.origin.y;
         CGFloat viewportHeight = NSHeight(scrollview.contentView.bounds);
-        CGFloat lineHeight = self.theme.bufferCellHeight;
+        CGFloat lineHeight = self.bufferCellHeight;
         CGFloat advance = viewportHeight - lineHeight;
         if (advance < lineHeight) advance = viewportHeight;
         // Pace the advance from the read boundary, not from the raw scroll
@@ -660,7 +660,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
     CGFloat padding = _textview.bottomPadding;
     if (padding > 0) {
         CGFloat lastLineTop = NSHeight(_textview.bounds) - padding
-            - insetHeight - self.theme.bufferCellHeight;
+            - insetHeight - self.bufferCellHeight;
         if (NSMinY(clipView.bounds) >= lastLineTop - 2)
             return YES;
     }
@@ -720,7 +720,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
             // down" convention, which gives the reader a continuity anchor
             // instead of cutting off mid-paragraph) so it behaves like one
             // "more"-page step instead of a jump-to-end.
-            CGFloat lineHeight = self.theme.bufferCellHeight;
+            CGFloat lineHeight = self.bufferCellHeight;
             CGFloat advance = viewportHeight - lineHeight;
             if (advance < lineHeight) advance = viewportHeight;
             // As in reallyPerformScroll's paginate branch: pace from the
@@ -786,7 +786,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         CGFloat padding = blockTextView.bottomPadding;
         if (padding > 0) {
             CGFloat lastLineTop = NSMaxY(blockTextView.frame) - padding
-                - blockTextView.textContainerInset.height - self.theme.bufferCellHeight;
+                - blockTextView.textContainerInset.height - self.bufferCellHeight;
             if (bottom > lastLineTop && lastLineTop >= currentPosition)
                 bottom = lastLineTop;
         }
@@ -838,7 +838,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         return NO;
     }
     CGFloat diff = clipView.bounds.origin.y - _textview.textContainerInset.height;
-    return (diff < self.theme.bufferCellHeight);
+    return (diff < self.bufferCellHeight);
 }
 
 // The y coordinate of the bottom of the last laid-out line (or of the lowest

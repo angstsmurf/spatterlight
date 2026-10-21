@@ -20,6 +20,10 @@ NS_ASSUME_NONNULL_BEGIN
 @interface MarginContainer : NSTextContainer <NSSecureCoding>
 
 @property NSMutableArray<MarginImage *> *marginImages;
+// The game window's zoom: margin images, and inline images in the text, are
+// drawn this much larger than their pixel size. Changing it lays the images
+// out again. Never 0.
+@property (nonatomic) CGFloat zoomFactor;
 
 - (instancetype)initWithContainerSize:(NSSize)size;
 - (void)clearImages;

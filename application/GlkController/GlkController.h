@@ -86,6 +86,27 @@ typedef enum kMinimumWindowSize : NSUInteger {
 @property(readonly) NSString *terpname;
 @property (weak) Theme *theme;
 
+// The window's zoom (View > Zoom In/Out): a factor on every font size and
+// length in the theme's styles, and on the size of images in buffer
+// windows. The theme itself is left alone. Archived with the autosave and
+// also kept on the game, for a fresh start. Never 0.
+@property (nonatomic) CGFloat zoomFactor;
+
+// The theme's character cell sizes at the current zoom. The windows lay out,
+// and the interpreter sizes its windows, by these rather than by the theme's
+// own cellWidth etc.
+@property (readonly) CGFloat cellWidth;
+@property (readonly) CGFloat cellHeight;
+@property (readonly) CGFloat bufferCellWidth;
+@property (readonly) CGFloat bufferCellHeight;
+
+// Restyle every window at this zoom, resizing the window to keep its size in
+// character cells if "Adjust window size" is on. What the zoom menu items do.
+- (void)applyZoomFactor:(CGFloat)factor;
+- (IBAction)zoomIn:(id)sender;
+- (IBAction)zoomOut:(id)sender;
+- (IBAction)zoomToActualSize:(id)sender;
+
 @property(strong, nonatomic) NSString *appSupportDir;
 @property(strong, nonatomic) NSString *autosaveFileGUI;
 @property(strong, nonatomic) NSString *autosaveFileTerp;

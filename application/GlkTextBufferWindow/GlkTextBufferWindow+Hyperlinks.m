@@ -89,6 +89,8 @@
         GlkEvent *gev = [[GlkEvent alloc] initArrangeWidth:(NSInteger)glkctl.gameView.frame.size.width
                                                     height:(NSInteger)glkctl.gameView.frame.size.height
                                                      theme:glkctl.theme
+                                              gridCellSize:NSMakeSize(glkctl.cellWidth, glkctl.cellHeight)
+                                            bufferCellSize:NSMakeSize(glkctl.bufferCellWidth, glkctl.bufferCellHeight)
                                                      force:YES];
         [glkctl queueEvent:gev];
     }

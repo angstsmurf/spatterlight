@@ -39,6 +39,8 @@ static BOOL writeAll(int fd, const void *buf, size_t len) {
     NSInteger win;
     NSString *ln;
     Theme *theme;
+    NSSize gridCellSize;
+    NSSize bufferCellSize;
 }
 @end
 
@@ -158,13 +160,25 @@ unsigned chartokeycode(unsigned ch) {
 
 - (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)aTheme force:(BOOL)forceFlag
 {
+    return [self initArrangeWidth:aw
+                           height:ah
+                            theme:aTheme
+                     gridCellSize:NSMakeSize(aTheme.cellWidth, aTheme.cellHeight)
+                   bufferCellSize:NSMakeSize(aTheme.bufferCellWidth, aTheme.bufferCellHeight)
+                            force:forceFlag];
+}
+
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)aTheme gridCellSize:(NSSize)gridCell bufferCellSize:(NSSize)bufferCell force:(BOOL)forceFlag
+{
     self = [super init];
     if (self) {
         _type = EVTARRANGE;
         _val1 = aw;
         _val2 = ah;
         theme = aTheme;
-      _forced = forceFlag;
+        gridCellSize = gridCell;
+        bufferCellSize = bufferCell;
+        _forced = forceFlag;
     }
     return self;
 }
@@ -257,10 +271,10 @@ unsigned chartokeycode(unsigned ch) {
         settings->buffer_margin_y = (int)theme.bufferMarginY;
         settings->grid_margin_x = (int)theme.gridMarginX;
         settings->grid_margin_y =(int)theme.gridMarginY;
-        settings->cell_width = (float)theme.cellWidth;
-        settings->cell_height = (float)theme.cellHeight;
-        settings->buffer_cell_width = (float)theme.bufferCellWidth;
-        settings->buffer_cell_height = (float)theme.bufferCellHeight;
+        settings->cell_width = (float)gridCellSize.width;
+        settings->cell_height = (float)gridCellSize.height;
+        settings->buffer_cell_width = (float)bufferCellSize.width;
+        settings->buffer_cell_height = (float)bufferCellSize.height;
         settings->buffer_foreground = (int)theme.bufferNormal.color.integerColor;
         settings->buffer_background = (int)theme.bufferBackground.integerColor;
         settings->grid_foreground = (int)theme.gridNormal.color.integerColor;

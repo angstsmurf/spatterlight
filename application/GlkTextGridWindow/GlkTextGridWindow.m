@@ -364,7 +364,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     _textview.textContainerInset =
     NSMakeSize(self.theme.gridMarginX, self.theme.gridMarginY);
 
-    if (self.theme.cellWidth == 0 || self.theme.cellHeight == 0) {
+    if (self.cellWidth == 0 || self.cellHeight == 0) {
         return;
     }
 
@@ -372,14 +372,14 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     if (margins > frame.size.width)
         margins = 0;
     NSUInteger newcols = (NSUInteger)round((frame.size.width - margins) /
-                                           self.theme.cellWidth);
+                                           self.cellWidth);
 
     CGFloat containerInsetHeight = _textview.textContainerInset.height * 2;
     if (containerInsetHeight > frame.size.height)
         containerInsetHeight = 0;
     NSUInteger newrows = (NSUInteger)round((frame.size.height
                                             - containerInsetHeight) /
-                                           self.theme.cellHeight);
+                                           self.cellHeight);
 
     if (newrows == 0 && frame.size.height > 0)
         newrows = 1;
@@ -391,7 +391,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     // to prevent the lower line from being cut off.
     if (newrows == 1 && glkctl.gameID == kGameIsCurses && glkctl.quoteBoxes.count && glkctl.turns > 0) {
         newrows = 2;
-        frame.size.height += self.theme.cellHeight;
+        frame.size.height += self.cellHeight;
         self.pendingFrame = frame;
     }
 
@@ -410,7 +410,7 @@ static const CGFloat kUnlimitedTextSize = 10000000;
 
         [self rememberSelectionCell:_restoredSelection.location];
 
-        if ((CGFloat)newcols * self.theme.cellWidth > screensize.width || (CGFloat)newrows * self.theme.cellHeight > screensize.height) {
+        if ((CGFloat)newcols * self.cellWidth > screensize.width || (CGFloat)newrows * self.cellHeight > screensize.height) {
             return;
         }
 

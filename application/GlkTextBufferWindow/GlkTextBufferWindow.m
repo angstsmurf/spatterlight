@@ -60,7 +60,7 @@
 
         // We use lastLineheight to restore scroll position with sub-character size precision
         // after a resize
-        lastLineheight = self.theme.bufferCellHeight;
+        lastLineheight = self.bufferCellHeight;
         rewrapLastseenChar = NSNotFound;
 
         history = [[InputHistory alloc] init];
@@ -106,6 +106,7 @@
         // not its height (so the text view grows vertically as text is added).
         container.widthTracksTextView = YES;
         container.heightTracksTextView = NO;
+        container.zoomFactor = self.zoomFactor;
 
         _textview.delegate = self;
         textstorage.delegate = self;

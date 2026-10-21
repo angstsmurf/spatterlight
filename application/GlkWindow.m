@@ -190,9 +190,77 @@
 
 - (NSDictionary *)themeAttributesForStyle:(NSUInteger)style {
     GlkStyle *glkStyle = [self themeStyle:style];
+    NSDictionary *attributes;
     if (self.theme.doStyles)
-        return [glkStyle attributesWithHints:self.styleHints[style]];
-    return glkStyle.attributeDict;
+        attributes = [glkStyle attributesWithHints:self.styleHints[style]];
+    else
+        attributes = glkStyle.attributeDict;
+    return [self zoomedAttributes:attributes];
+}
+
+#pragma mark Zoom
+
+- (CGFloat)zoomFactor {
+    CGFloat factor = self.glkctl.zoomFactor;
+    return factor > 0 ? factor : 1;
+}
+
+- (NSDictionary *)zoomedAttributes:(NSDictionary *)attributes {
+    CGFloat factor = self.zoomFactor;
+    if (attributes == nil || factor == 1)
+        return attributes;
+    return [GlkStyle attributes:attributes scaledBy:factor];
+}
+
+- (NSFont *)zoomedFont:(NSFont *)font {
+    CGFloat factor = self.zoomFactor;
+    if (font == nil || factor == 1)
+        return font;
+    return [NSFont fontWithDescriptor:font.fontDescriptor size:font.pointSize * factor] ?: font;
+}
+
+// The window's theme's cell sizes at the current zoom. The controller caches
+// them for its own theme, but a window can briefly have another (while an
+// autorestore swaps themes), and then measures its own.
+- (NSSize)zoomedCellSizeForStyle:(GlkStyle *)style unzoomed:(NSSize)unzoomed {
+    CGFloat factor = self.zoomFactor;
+    NSDictionary *attributes = style.attributeDict;
+    if (factor == 1 || attributes == nil)
+        return unzoomed;
+    return [GlkStyle cellSizeForAttributes:[GlkStyle attributes:attributes scaledBy:factor]];
+}
+
+- (BOOL)sharesControllerTheme {
+    GlkController *glkctl = self.glkctl;
+    return glkctl && glkctl.theme == self.theme;
+}
+
+- (CGFloat)cellWidth {
+    if (self.sharesControllerTheme)
+        return self.glkctl.cellWidth;
+    Theme *theme = self.theme;
+    return [self zoomedCellSizeForStyle:theme.gridNormal unzoomed:NSMakeSize(theme.cellWidth, theme.cellHeight)].width;
+}
+
+- (CGFloat)cellHeight {
+    if (self.sharesControllerTheme)
+        return self.glkctl.cellHeight;
+    Theme *theme = self.theme;
+    return [self zoomedCellSizeForStyle:theme.gridNormal unzoomed:NSMakeSize(theme.cellWidth, theme.cellHeight)].height;
+}
+
+- (CGFloat)bufferCellWidth {
+    if (self.sharesControllerTheme)
+        return self.glkctl.bufferCellWidth;
+    Theme *theme = self.theme;
+    return [self zoomedCellSizeForStyle:theme.bufferNormal unzoomed:NSMakeSize(theme.bufferCellWidth, theme.bufferCellHeight)].width;
+}
+
+- (CGFloat)bufferCellHeight {
+    if (self.sharesControllerTheme)
+        return self.glkctl.bufferCellHeight;
+    Theme *theme = self.theme;
+    return [self zoomedCellSizeForStyle:theme.bufferNormal unzoomed:NSMakeSize(theme.bufferCellWidth, theme.bufferCellHeight)].height;
 }
 
 - (int32_t)themeLinkStyle {
@@ -228,7 +296,7 @@
         return nil;
 
     if (styles.count <= stylevalue || [styles[stylevalue] isEqual:[NSNull null]]) {
-        return [self themeStyle:stylevalue].attributeDict;
+        return [self zoomedAttributes:[self themeStyle:stylevalue].attributeDict];
     }
 
     return styles[stylevalue];
@@ -247,7 +315,7 @@
         GlkStyle *themeStyle = [self themeStyle:stylevalue];
         if (!themeStyle)
             return nil;
-        styles[stylevalue] = themeStyle.attributeDict;
+        styles[stylevalue] = [self zoomedAttributes:themeStyle.attributeDict];
     }
 
     NSMutableDictionary *attributes = [styles[stylevalue] mutableCopy];

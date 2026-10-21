@@ -199,9 +199,9 @@ static NSString *signalToName(NSTask *task) {
             @"height" : @(gevent.val2),
             @"bufferMargin" : @(theme.bufferMarginX),
             @"gridMargin" : @(theme.gridMarginX),
-            @"charWidth" : @(theme.cellWidth),
-            @"lineHeight" : @(theme.cellHeight),
-            @"leading" : @(((NSParagraphStyle *)(theme.gridNormal.attributeDict)[NSParagraphStyleAttributeName]).lineSpacing)
+            @"charWidth" : @(self.cellWidth),
+            @"lineHeight" : @(self.cellHeight),
+            @"leading" : @(((NSParagraphStyle *)(theme.gridNormal.attributeDict)[NSParagraphStyleAttributeName]).lineSpacing * self.zoomFactor)
         };
 
         if (!gevent.forced && [lastArrangeValues isEqualToDictionary:newArrangeValues]) {

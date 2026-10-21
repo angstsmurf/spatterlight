@@ -205,6 +205,7 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     _turns = 0;
     _turnsThisSession = 0;
     _hasAutoSaved = NO;
+    _zoomFactor = game.zoomFactor > 0 ? game.zoomFactor : 1;
 
     // Track the last arrange event values sent to the interpreter. This allows
     // us to avoid sending duplicate arrange events when nothing has changed.
@@ -1324,9 +1325,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     NSSize size;
     Theme *theme = _theme;
     // Width = (cell width × columns) + margins on both sides (grid margin + border + 5px padding)
-    size.width = round(theme.cellWidth * theme.defaultCols + (theme.gridMarginX + theme.border + 5.0) * 2.0);
+    size.width = round(self.cellWidth * theme.defaultCols + (theme.gridMarginX + theme.border + 5.0) * 2.0);
     // Height = (cell height × rows) + margins on both sides (grid margin + border)
-    size.height = round(theme.cellHeight * theme.defaultRows + (theme.gridMarginY + theme.border) * 2.0);
+    size.height = round(self.cellHeight * theme.defaultRows + (theme.gridMarginY + theme.border) * 2.0);
     return size;
 }
 
@@ -1416,8 +1417,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (NSSize)charCellsToContentSize:(NSSize)cells {
     NSSize size;
     Theme *theme = _theme;
-    size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
-    size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    size.width = round(self.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
+    size.height = round(self.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
     // Defensive: the cell metrics come from the theme's font measurements,
     // and a non-finite height here would end up in the window frame.
     if (isnan(size.height) || isinf(size.height)) {
@@ -1441,6 +1442,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         cellHeight = 18.0;
         gridMarginX = 5;
         gridMarginY = 0;
+    } else if (_theme) {
+        cellWidth = self.cellWidth;
+        cellHeight = self.cellHeight;
+        gridMarginX = theme.gridMarginX + 5;
+        gridMarginY = theme.gridMarginY;
     } else {
         cellWidth = theme.cellWidth;
         cellHeight = theme.cellHeight;
@@ -1484,6 +1490,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     GlkEvent *gevent = [[GlkEvent alloc] initArrangeWidth:(NSInteger)frame.size.width
                                                    height:(NSInteger)frame.size.height
                                                     theme:_theme
+                                             gridCellSize:NSMakeSize(self.cellWidth, self.cellHeight)
+                                           bufferCellSize:NSMakeSize(self.bufferCellWidth, self.bufferCellHeight)
                                                     force:force];
     [self queueEvent:gevent];
 }
@@ -1655,70 +1663,143 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 
 #pragma mark Zoom
 
-// Zoom actions (Cmd+Plus, Cmd+Minus, Cmd+0) scale the font size and
-// optionally resize the window to maintain the same number of character cells.
-// Disabled when showing cover art in fullscreen to prevent layout issues.
-- (void)performZoom:(void (^)(void))zoom {
-    if (_showingCoverImage && _inFullscreen)
-        return;
-    Preferences *prefs = [Preferences instance];
-    prefs.inMagnification = YES;
-    zoom();
-    [prefs updatePanelAfterZoom];
+// The zoomed point size of the grid Normal style is kept between these
+static const CGFloat kMinimumZoomedPointSize = 6;
+static const CGFloat kMaximumZoomedPointSize = 200;
+
+@synthesize zoomFactor = _zoomFactor;
+
+// A controller that has not run a game yet (or was decoded from an
+// autosave without the key) has no factor stored; treat it as 1.
+- (CGFloat)zoomFactor {
+    return _zoomFactor > 0 ? _zoomFactor : 1;
 }
 
+- (void)setZoomFactor:(CGFloat)zoomFactor {
+    if (zoomFactor <= 0)
+        zoomFactor = 1;
+    _zoomFactor = zoomFactor;
+    _game.zoomFactor = zoomFactor;
+}
+
+// Zoom In and Zoom Out (Cmd+Plus, Cmd+Minus) step the grid Normal font one
+// point up or down, and every other size with it. Actual Size (Cmd+0) goes
+// back to the theme's own sizes.
 - (IBAction)zoomIn:(id)sender {
-    [self performZoom:^{ [Preferences zoomIn]; }];
+    CGFloat pointSize = _theme.gridNormal.font.pointSize;
+    if (pointSize <= 0)
+        return;
+    CGFloat zoomedSize = pointSize * self.zoomFactor;
+    if (zoomedSize < kMaximumZoomedPointSize)
+        [self applyZoomFactor:MIN(zoomedSize + 1, kMaximumZoomedPointSize) / pointSize];
 }
 
 - (IBAction)zoomOut:(id)sender {
-    [self performZoom:^{ [Preferences zoomOut]; }];
+    CGFloat pointSize = _theme.gridNormal.font.pointSize;
+    if (pointSize <= 0)
+        return;
+    CGFloat zoomedSize = pointSize * self.zoomFactor;
+    if (zoomedSize > kMinimumZoomedPointSize)
+        [self applyZoomFactor:MAX(zoomedSize - 1, kMinimumZoomedPointSize) / pointSize];
 }
 
 - (IBAction)zoomToActualSize:(id)sender {
-    [self performZoom:^{ [Preferences zoomToActualSize]; }];
+    [self applyZoomFactor:1];
 }
 
-// Respond to changes in the default character cell size (triggered by zoom or
-// theme font changes). Resizes the window to match the new dimensions while
-// preventing paradoxical size changes (shrinking when zooming in, etc.).
+// Restyle every window at the new zoom and, if "Adjust window size" is on,
+// resize the window to keep the same number of character cells. Disabled
+// when showing cover art in fullscreen to prevent layout issues.
+- (void)applyZoomFactor:(CGFloat)factor {
+    if (_showingCoverImage && _inFullscreen)
+        return;
+    if (factor <= 0 || fabs(factor - self.zoomFactor) < 0.0001)
+        return;
+
+    NSSize sizeInChars = lastSizeInChars;
+    self.zoomFactor = factor;
+
+    // Keeps the grid windows from dropping rows while the window catches up
+    [Preferences instance].inMagnification = YES;
+
+    if ([[NSUserDefaults standardUserDefaults] boolForKey:kAdjustSizeKey] &&
+        !NSEqualSizes(sizeInChars, NSZeroSize)) {
+        [self zoomContentToSize:[self charCellsToContentSize:sizeInChars]];
+    }
+
+    [self notePreferencesChanged:[NSNotification notificationWithName:kPreferencesChangedNotification object:nil]];
+}
+
+// Measure the theme's Normal styles at the current zoom, unless the cache
+// already holds them. The cache is keyed by the theme's own cell sizes too,
+// so it is redone when the theme's fonts change.
+- (void)updateZoomedCellMetrics {
+    Theme *theme = _theme;
+    NSSize gridSource = NSMakeSize(theme.cellWidth, theme.cellHeight);
+    NSSize bufferSource = NSMakeSize(theme.bufferCellWidth, theme.bufferCellHeight);
+    if (zoomedMetricsTheme == theme && zoomedMetricsFactor == self.zoomFactor &&
+        NSEqualSizes(zoomedMetricsGridSource, gridSource) &&
+        NSEqualSizes(zoomedMetricsBufferSource, bufferSource))
+        return;
+
+    zoomedMetricsTheme = theme;
+    zoomedMetricsFactor = self.zoomFactor;
+    zoomedMetricsGridSource = gridSource;
+    zoomedMetricsBufferSource = bufferSource;
+
+    NSDictionary *gridAttributes = theme.gridNormal.attributeDict;
+    NSDictionary *bufferAttributes = theme.bufferNormal.attributeDict;
+    // Font metrics and line heights don't scale exactly, so measure afresh
+    zoomedGridCell = gridAttributes ? [GlkStyle cellSizeForAttributes:[GlkStyle attributes:gridAttributes scaledBy:self.zoomFactor]] : gridSource;
+    zoomedBufferCell = bufferAttributes ? [GlkStyle cellSizeForAttributes:[GlkStyle attributes:bufferAttributes scaledBy:self.zoomFactor]] : bufferSource;
+}
+
+- (CGFloat)cellWidth {
+    if (self.zoomFactor == 1)
+        return _theme.cellWidth;
+    [self updateZoomedCellMetrics];
+    return zoomedGridCell.width;
+}
+
+- (CGFloat)cellHeight {
+    if (self.zoomFactor == 1)
+        return _theme.cellHeight;
+    [self updateZoomedCellMetrics];
+    return zoomedGridCell.height;
+}
+
+- (CGFloat)bufferCellWidth {
+    if (self.zoomFactor == 1)
+        return _theme.bufferCellWidth;
+    [self updateZoomedCellMetrics];
+    return zoomedBufferCell.width;
+}
+
+- (CGFloat)bufferCellHeight {
+    if (self.zoomFactor == 1)
+        return _theme.bufferCellHeight;
+    [self updateZoomedCellMetrics];
+    return zoomedBufferCell.height;
+}
+
+// Respond to changes in the theme's default size in columns and rows (the
+// Preferences window text fields) by resizing the window to it.
 - (void)noteDefaultSizeChanged:(NSNotification *)notification {
 
     if (notification.object != _game.theme)
         return;
 
-    NSSize sizeAfterZoom;
-    if ([Preferences instance].inMagnification) {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:kAdjustSizeKey] == NO)
-            return;
-        if (lastSizeInChars.width == 0) {
-            sizeAfterZoom = [self defaultContentSize];
-        } else {
-            sizeAfterZoom = [self charCellsToContentSize:lastSizeInChars];
-            sizeAfterZoom.width += _theme.border * 2;
-            sizeAfterZoom.height += _theme.border * 2;
-        }
-    } else {
-        sizeAfterZoom = [self defaultContentSize];
-    }
+    NSSize newSize = [self defaultContentSize];
     NSRect oldframe = _gameView.frame;
-
-    // Prevent the window from shrinking when zooming in or growing when
-    // zooming out, which might otherwise happen at edge cases
-    if ((sizeAfterZoom.width < oldframe.size.width && Preferences.zoomDirection == ZOOMIN) ||
-        (sizeAfterZoom.width > oldframe.size.width && Preferences.zoomDirection == ZOOMOUT)) {
-        NSLog(@"noteDefaultSizeChanged: This would change the size in the wrong direction, so skip");
-        return;
-    }
 
     if (!self.isInSystemFullscreen) {
 
-        NSRect winrect = [self windowFrameForContentSize:sizeAfterZoom screenHeightMargin:1];
+        NSRect winrect = [self windowFrameForContentSize:newSize screenHeightMargin:1];
         [self.window setFrame:winrect display:NO animate:NO];
     } else {
         CGFloat borders = _theme.border * 2;
         NSRect newframe = NSMakeRect(oldframe.origin.x, oldframe.origin.y,
-                                     sizeAfterZoom.width - borders,
+                                     newSize.width - borders,
                                      NSHeight(_borderView.frame) - borders);
 
         if (NSWidth(newframe) > NSWidth(_borderView.frame) - borders)

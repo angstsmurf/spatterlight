@@ -91,13 +91,14 @@ static const NSUInteger kMaxMarginImages = 200;
         // Margin images are laid out by the MarginContainer, not the cell:
         // resolve the rule once against the current content width. (The
         // spec's dynamic behaviour is buffer-inline-specific; maxwidth
-        // still bounds the initial size.)
+        // still bounds the initial size.) Against the unzoomed width, as
+        // the container draws the image at the zoom.
         NSSize resolved = [MyAttachmentCell resolveImageRule:imagerule
                                                        width:(NSUInteger)w
                                                       height:(NSUInteger)h
                                                     maxwidth:maxwidth
                                                      natural:natural
-                                                   available:scrollview.contentView.frame.size.width];
+                                                   available:scrollview.contentView.frame.size.width / self.zoomFactor];
         w = (NSInteger)resolved.width;
         h = (NSInteger)resolved.height;
         imagerule = 0;

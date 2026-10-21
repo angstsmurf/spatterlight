@@ -315,7 +315,7 @@
     }
     NSTextView *textView = quoteboxParent.documentView;
     GlkTextBufferWindow *bufWin = (GlkTextBufferWindow *)textView.delegate;
-    NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.theme.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.theme.cellHeight));
+    NSSize boxSize = NSMakeSize(ceil(self.theme.gridMarginX * 2 + (_quoteboxSize.width + 1) * self.cellWidth), ceil(self.theme.gridMarginY * 2 + _quoteboxSize.height * self.cellHeight));
 
     // The buffer window defers its frame changes until it is flushed, and
     // nothing is flushed while we are autorestoring. Centre the box in the
@@ -328,14 +328,14 @@
     frame.origin.x = ceil((bufWinWidth - boxSize.width) / 2);
     // When the grid and buffer cells are the same width, the box goes two
     // cells left of centre, except in Trinity.
-    if (glkctl.gameID != kGameIsTrinity && self.theme.cellWidth == self.theme.bufferCellWidth)
-        frame.origin.x -= 2 * self.theme.cellWidth;
+    if (glkctl.gameID != kGameIsTrinity && self.cellWidth == self.bufferCellWidth)
+        frame.origin.x -= 2 * self.cellWidth;
 
     NSUInteger rowsDown = _quoteboxVerticalOffset;
     // Curses has a two-row status line.
     if (glkctl.gameID == kGameIsCurses)
         rowsDown += 2;
-    frame.origin.y = ceil(quoteboxParent.contentView.frame.origin.y + rowsDown * self.theme.cellHeight);
+    frame.origin.y = ceil(quoteboxParent.contentView.frame.origin.y + rowsDown * self.cellHeight);
 
     // Push down buffer window text with newlines if the quote box covers text the player has not read yet.
     if (bufWin.moveRanges.count < 2 && (!bufWin.moveRanges || NSMaxRange(bufWin.moveRanges.lastObject.rangeValue) >= bufWin.textview.string.length)) {
@@ -347,7 +347,7 @@
             CGFloat diff = rect.origin.y - NSMaxY(frame);
             if (diff < 0) {
                 diff = -diff;
-                NSUInteger newlines = (NSUInteger)ceil(diff / self.theme.bufferCellHeight) + 1;
+                NSUInteger newlines = (NSUInteger)ceil(diff / self.bufferCellHeight) + 1;
                 [bufWin padWithNewlines:newlines];
             }
         }
