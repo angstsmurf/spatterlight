@@ -47,51 +47,78 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
         return YES;
     }
 
+    // Only text the game has been sent, or has printed, belongs to a move.
+    // The line the player is still typing (everything after the fence of an
+    // open line request) can be edited or erased before it is sent, and a
+    // line sent with echo off stays on screen until the next output deletes
+    // it (pendingEchoDeleteRange). Every update cycle fires setLastMove
+    // (a timer event, a window resize), and a move recorded over such text
+    // ended inside the command: the next move then began mid-word ("x
+    // Closed." instead of "close mailbox Closed."), or, once the line had
+    // shrunk, the move ran past the end of the text and the whole
+    // transcript was recorded over again as one move. Issue #26.
+    if (line_request && fence < maxlength)
+        maxlength = fence;
+    if (pendingEchoDeleteRange.length && pendingEchoDeleteRange.location < maxlength)
+        maxlength = pendingEchoDeleteRange.location;
+    if (!maxlength)
+        return NO;
+
     NSRange allText = NSMakeRange(0, maxlength);
     NSRange currentMove = allText;
 
+    // Text was removed from under the end of the last move (a retracted
+    // line, a restored input replaced, an autosave from before the cap
+    // above). Clip the move to what is left, or drop it if nothing is, and
+    // chain on from there rather than record the whole text over again.
+    while (self.moveRanges.lastObject &&
+           NSMaxRange(self.moveRanges.lastObject.rangeValue) > maxlength) {
+        NSRange overshoot = self.moveRanges.lastObject.rangeValue;
+        if (overshoot.location < maxlength) {
+            self.moveRanges[self.moveRanges.count - 1] =
+                [NSValue valueWithRange:NSMakeRange(overshoot.location,
+                                                   maxlength - overshoot.location)];
+        } else {
+            [self.moveRanges removeLastObject];
+        }
+    }
+    if (moveRangeIndex > self.moveRanges.count)
+        moveRangeIndex = self.moveRanges.count;
+
     if (self.moveRanges.lastObject) {
         NSRange lastMove = self.moveRanges.lastObject.rangeValue;
-        if (NSMaxRange(lastMove) > maxlength) {
-            // Removing last move object
-            // (because it goes past the end)
-            [self.moveRanges removeLastObject];
-        } else if (lastMove.length == maxlength) {
+        if (lastMove.length == maxlength) {
             return NO;
+        } else if (lastMove.location == _printPositionOnInput && lastMove.length != maxlength - _printPositionOnInput) {
+            // Removing last move object (because it does not go all
+            // the way to the end)
+            [self.moveRanges removeLastObject];
+            currentMove = NSMakeRange(_printPositionOnInput, maxlength - _printPositionOnInput);
         } else {
-            // lastMove ends within the text here, so a lastMove starting at
-            // _printPositionOnInput means _printPositionOnInput <= maxlength.
-            if (lastMove.location == _printPositionOnInput && lastMove.length != maxlength - _printPositionOnInput) {
-                // Removing last move object (because it does not go all
-                // the way to the end)
-                [self.moveRanges removeLastObject];
-                currentMove = NSMakeRange(_printPositionOnInput, maxlength - _printPositionOnInput);
-            } else {
-                NSUInteger chainedStart = NSMaxRange(lastMove);
-                // A restore (and other full-screen reprints) dumps a block of
-                // text that belongs to no command, sometimes spread over several
-                // flushes. If a setLastMove fired mid-flush, the previous move's
-                // end — and thus this chained start — can land in the middle of a
-                // word, which puts every following command "out of phase". A move
-                // never legitimately begins mid-word (commands start just after a
-                // "> " prompt), so when we detect that, snap forward to the next
-                // prompt and extend the previous move to absorb the reprint.
-                NSString *text = textstorage.string;
-                if (chainedStart > 0 && chainedStart < maxlength &&
-                    [[NSCharacterSet alphanumericCharacterSet]
-                        characterIsMember:[text characterAtIndex:chainedStart - 1]]) {
-                    NSUInteger snapped = [self commandStartForwardFrom:chainedStart
-                                                                  upTo:maxlength
-                                                              inString:text];
-                    if (snapped != NSNotFound && snapped > chainedStart) {
-                        self.moveRanges[self.moveRanges.count - 1] =
-                            [NSValue valueWithRange:NSMakeRange(lastMove.location,
-                                                               snapped - lastMove.location)];
-                        chainedStart = snapped;
-                    }
+            NSUInteger chainedStart = NSMaxRange(lastMove);
+            // A restore (and other full-screen reprints) dumps a block of
+            // text that belongs to no command, sometimes spread over several
+            // flushes. If a setLastMove fired mid-flush, the previous move's
+            // end — and thus this chained start — can land in the middle of a
+            // word, which puts every following command "out of phase". A move
+            // never legitimately begins mid-word (commands start just after a
+            // "> " prompt), so when we detect that, snap forward to the next
+            // prompt and extend the previous move to absorb the reprint.
+            NSString *text = textstorage.string;
+            if (chainedStart > 0 && chainedStart < maxlength &&
+                [[NSCharacterSet alphanumericCharacterSet]
+                    characterIsMember:[text characterAtIndex:chainedStart - 1]]) {
+                NSUInteger snapped = [self commandStartForwardFrom:chainedStart
+                                                              upTo:maxlength
+                                                          inString:text];
+                if (snapped != NSNotFound && snapped > chainedStart) {
+                    self.moveRanges[self.moveRanges.count - 1] =
+                        [NSValue valueWithRange:NSMakeRange(lastMove.location,
+                                                           snapped - lastMove.location)];
+                    chainedStart = snapped;
                 }
-                currentMove = NSMakeRange(chainedStart, maxlength - chainedStart);
             }
+            currentMove = NSMakeRange(chainedStart, maxlength - chainedStart);
         }
     }
 

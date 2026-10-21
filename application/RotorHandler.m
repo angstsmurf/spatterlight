@@ -446,7 +446,19 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
 
     children = mutableChildren;
 
-    NSUInteger currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
+    // VoiceOver hands back the range it showed for the current item. The
+    // newest move grows while the game prints more of it, so for that one
+    // the range may be stale; then match on where the move starts, or the
+    // rotor would start over at the newest item instead of stepping on.
+    NSUInteger currentItemIndex = NSNotFound;
+    if (searchParameters.currentItem) {
+        currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
+        if (currentItemIndex == NSNotFound) {
+            currentItemIndex = [children indexOfObjectPassingTest:^BOOL(NSValue *value, NSUInteger idx, BOOL *stop) {
+                return value.rangeValue.location == currentRange.location;
+            }];
+        }
+    }
 
     currentItemIndex = SPRotorStep(currentItemIndex, children.count, direction);
 
