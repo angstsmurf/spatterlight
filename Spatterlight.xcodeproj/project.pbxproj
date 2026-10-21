@@ -10101,8 +10101,14 @@
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Spatterlight;
+				INFOPLIST_KEY_GCSupportsGameMode = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Spatterlight saves and loads savegames in the Documents folder by default.";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				INSTALL_PATH = /Applications;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
@@ -10158,8 +10164,14 @@
 				GCC_WARN_SHADOW = YES;
 				GCC_WARN_SIGN_COMPARE = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
+				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = resources/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Spatterlight;
+				INFOPLIST_KEY_GCSupportsGameMode = NO;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.adventure-games";
+				INFOPLIST_KEY_NSDocumentsFolderUsageDescription = "Spatterlight saves and loads savegames in the Documents folder by default.";
+				INFOPLIST_KEY_NSMainNibFile = MainMenu;
+				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				INSTALL_PATH = /Applications;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"@loader_path/../Frameworks",
