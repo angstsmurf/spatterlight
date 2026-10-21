@@ -28,7 +28,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly) NSUInteger checkSum;
 @property(readonly, nullable) NSString *serialNumber;
 
-// Text chunks keyed by chunk ID: ANNO, AUTH, "(c) " and SNam.
+/// Text chunks keyed by chunk ID: ANNO, AUTH, "(c) " and SNam.
 @property(readonly) NSDictionary<NSString *, NSString *> *optionalChunks;
 
 // The image returned by coverImageData, and whether it was picked from the
@@ -36,28 +36,28 @@ NS_ASSUME_NONNULL_BEGIN
 @property(readonly, nullable) NSData *coverImageData;
 @property(readonly) BOOL fakeFrontispiece;
 
-// ZCODE-release-serial[-checksum], or nil if there is no IFhd chunk.
+/// ZCODE-release-serial[-checksum], or nil if there is no IFhd chunk.
 @property(readonly, nullable) NSString *ifidFromIFhd;
 
 + (BOOL)isBlorbURL:(nullable NSURL *)url;
 
-// Reads and parses the file at url. Returns nil if it can't be read, is too
-// short, or the parser throws, so a malformed file only means "no Blorb".
+/// Reads and parses the file at url. Returns nil if it can't be read, is too
+/// short, or the parser throws, so a malformed file only means "no Blorb".
 + (nullable instancetype)blorbAtURL:(nullable NSURL *)url;
-// The cover image of the Blorb at url, or nil if url has no Blorb extension
-// or blorbAtURL: fails.
+/// The cover image of the Blorb at url, or nil if url has no Blorb extension
+/// or ``blorbAtURL:`` fails.
 + (nullable NSData *)coverImageDataAtURL:(nullable NSURL *)url;
-// Checks for a FORM IFRS header.
+/// Checks for a FORM IFRS header.
 + (BOOL)isBlorbData:(NSData *)data;
 
-// The Treaty of Babel IFID for a Z-code game, as built from its IFhd or
-// story file header fields. Shared with the Quetzal save code.
+/// The Treaty of Babel IFID for a Z-code game, as built from its IFhd or
+/// story file header fields. Shared with the Quetzal save code.
 + (NSString *)zcodeIFIDWithRelease:(NSUInteger)release
                             serial:(NSString *)serial
                           checksum:(NSUInteger)checksum;
 
-// Returns nil for data too short to hold a FORM header and a chunk. Does not
-// check that the FORM type is IFRS; use isBlorbData: for that.
+/// Returns `nil` for data too short to hold a FORM header and a chunk. Does not
+/// check that the FORM type is IFRS; use ``isBlorbData:`` for that.
 - (nullable instancetype)initWithData:(nullable NSData *)data NS_DESIGNATED_INITIALIZER;
 - (instancetype)init __attribute__((unavailable));
 
