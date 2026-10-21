@@ -398,6 +398,12 @@ whatever is still pending). It is for a DrainTimers script with one short window
 patient player could never hit, such as The Quest for the Golden Egg's widow, who
 sings for 10 s and has to be accompanied while she does.
 
+`clock:manual` stops the clock instead: typed commands cost nothing and nothing
+drains, so time moves only on `tick:N`. It is for a window where the player has to
+make several moves inside one second, as in What Dragons Need's roof fight, where
+Elizabeth's specials blast one cell of a 3x3 grid and then another a second later,
+two king moves apart. `clock:0` returns to DrainTimers afterwards.
+
 Every clock advance goes through `TickSettled`: `WorldModel.Tick` awaits each due
 timer script to completion, and a timer that runs a synchronous `play sound(...,
 true, ...)` (Mt. Underlook's intercom timers) parks on a `FinishWait` that only the

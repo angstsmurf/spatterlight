@@ -264,7 +264,12 @@ if (args.Length >= 2)
             // runs the typing clock, `clock:0` returns to DrainTimers. For a
             // DrainTimers script with one short real-time window (a song that
             // stops after 10 s) that the header would impose on every step.
-            if (int.TryParse(cmd[6..].Trim(), out var ncs) && ncs >= 0)
+            // `clock:manual` stops the clock: commands cost nothing and
+            // nothing drains, so only `tick:N` moves time -- for a dodging
+            // window where a player makes several moves inside one second.
+            if (cmd[6..].Trim() == "manual")
+                clockSecs = -1;
+            else if (int.TryParse(cmd[6..].Trim(), out var ncs) && ncs >= 0)
                 clockSecs = ncs;
         }
         else if (cmd.StartsWith("tick:"))
@@ -418,6 +423,7 @@ Task AnswerTimerPrompt(string answer)
 async Task SettleClock(bool typed)
 {
     if (clockSecs == 0) { await DrainTimers(); return; }
+    if (clockSecs < 0) return;  // clock:manual -- only tick:N advances time
     if (!typed || world.State == GameState.Finished) return;
     pendingTick = 0;
     await TickSettled(clockSecs);

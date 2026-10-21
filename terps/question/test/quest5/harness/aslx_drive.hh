@@ -351,9 +351,12 @@ public:
             } else if (cmd.compare(0, 6, "clock:") == 0) {
                 // qvh clock:N — switch the real-time model from this step on:
                 // N > 0 runs the typing clock, clock:0 returns to DrainTimers.
+                // clock:manual stops the clock (commands cost nothing, nothing
+                // drains): only tick:N moves time.
                 char *end = nullptr;
                 long cs = std::strtol(cmd.c_str() + 6, &end, 10);
-                if (end != cmd.c_str() + 6 && cs >= 0) clock_secs = (int)cs;
+                if (cmd.compare(6, std::string::npos, "manual") == 0) clock_secs = -1;
+                else if (end != cmd.c_str() + 6 && cs >= 0) clock_secs = (int)cs;
             } else if (cmd.compare(0, 5, "tick:") == 0) {
                 // qvh tick:N — deterministic real-time advance: tick the game
                 // clock by exactly N seconds, firing due AUTHORED timers (the
@@ -445,6 +448,7 @@ private:
     // save:/assert:/tick: bookkeeping.
     void settle_clock(bool typed) {
         if (clock_secs == 0) { drain_timers(); return; }
+        if (clock_secs < 0) return;  // clock:manual
         if (!typed || w.finished) return;
         in.tick(clock_secs);
         auto_advance();
