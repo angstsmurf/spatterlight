@@ -68,3 +68,26 @@ bool parseIFhd(const void *payload, size_t len, IFhdInfo *out) {
   out->checksum = unpackShort(p + 8);
   return true;
 }
+
+bool parseQuetzalHeader(const void *data, size_t len, QuetzalHeader *out) {
+  if (!isForm(data, len, 'I', 'F', 'Z', 'S') &&
+      !isForm(data, len, 'B', 'F', 'Z', 'S'))
+    return false;
+  uint32_t chunkID, length;
+  if (!chunkHeaderAt(data, len, 12, &chunkID, &length) ||
+      chunkID != IFFID('I', 'F', 'h', 'd') || length > len - 20 ||
+      !parseIFhd((const char *)data + 20, length, &out->ifhd))
+    return false;
+
+  out->pathOffset = 0;
+  out->pathLength = 0;
+  // The IntD payload is a 12-byte header followed by the path.
+  size_t next = 20 + paddedLength(length);
+  if (chunkHeaderAt(data, len, next, &chunkID, &length) &&
+      chunkID == IFFID('I', 'n', 't', 'D') && length >= 12 &&
+      length <= len - next - 8) {
+    out->pathOffset = next + 20;
+    out->pathLength = length - 12;
+  }
+  return true;
+}

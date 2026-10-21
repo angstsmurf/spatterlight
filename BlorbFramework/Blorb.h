@@ -10,10 +10,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <BlorbFramework/BlorbResource.h>
 
 NS_ASSUME_NONNULL_BEGIN
-
-@class BlorbResource;
 
 @interface Blorb : NSObject
 
@@ -63,8 +62,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init __attribute__((unavailable));
 
 - (nullable NSData *)dataForResource:(BlorbResource *)resource;
-- (NSArray<BlorbResource *> *)resourcesForUsage:(FourCharCode)usage;
-- (nullable BlorbResource *)findResourceOfUsage:(FourCharCode)usage;
+- (NSArray<BlorbResource *> *)resourcesForUsage:(BlorbUsage)usage;
+- (nullable BlorbResource *)findResourceOfUsage:(BlorbUsage)usage;
 
 @end
 
