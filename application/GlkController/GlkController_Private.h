@@ -86,6 +86,9 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     NSSize lastSizeInChars;
     Theme *lastTheme;
 
+    // Trackpad magnification accumulated since the last pinch zoom step
+    CGFloat pinchMagnification;
+
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
 

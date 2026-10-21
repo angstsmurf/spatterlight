@@ -1679,6 +1679,29 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     [self performZoom:^{ [Preferences zoomToActualSize]; }];
 }
 
+// A trackpad pinch steps the font size like Zoom In / Zoom Out, one step each
+// time the accumulated magnification passes a threshold. Every step rebuilds
+// the theme and re-lays out the windows, so scaling continuously with each
+// gesture event would be far too slow.
+static const CGFloat kPinchZoomStep = 0.08;
+
+- (void)magnifyWithEvent:(NSEvent *)event {
+    if (event.phase == NSEventPhaseBegan)
+        pinchMagnification = 0;
+
+    pinchMagnification += event.magnification;
+    if (pinchMagnification >= kPinchZoomStep) {
+        pinchMagnification = 0;
+        [self zoomIn:nil];
+    } else if (pinchMagnification <= -kPinchZoomStep) {
+        pinchMagnification = 0;
+        [self zoomOut:nil];
+    }
+
+    if (event.phase & (NSEventPhaseEnded | NSEventPhaseCancelled))
+        pinchMagnification = 0;
+}
+
 // Respond to changes in the default character cell size (triggered by zoom or
 // theme font changes). Resizes the window to match the new dimensions while
 // preventing paradoxical size changes (shrinking when zooming in, etc.).
