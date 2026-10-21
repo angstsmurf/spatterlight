@@ -200,7 +200,7 @@ namespace {
 #pragma mark Creation/Destruction
 
 SFB::Audio::Player::Player()
-	: mRingBuffer(new RingBuffer), mRingBufferCapacity(RING_BUFFER_CAPACITY_FRAMES), mRingBufferWriteChunkSize(RING_BUFFER_WRITE_CHUNK_SIZE_FRAMES), mFlags(0), mQueue(nullptr), mFramesDecoded(0), mFramesRendered(0), mOutput(new CoreAudioOutput), mDecoderErrorBlock(nullptr), mFormatMismatchBlock(nullptr), mErrorBlock(nullptr)
+	: mRingBuffer(new RingBuffer), mRingBufferCapacity(RING_BUFFER_CAPACITY_FRAMES), mRingBufferWriteChunkSize(RING_BUFFER_WRITE_CHUNK_SIZE_FRAMES), mFlags(0), mStopCounter(0), mDecoding(false), mQueue(nullptr), mFramesDecoded(0), mFramesRendered(0), mOutput(new CoreAudioOutput), mDecoderErrorBlock(nullptr), mFormatMismatchBlock(nullptr), mErrorBlock(nullptr)
 {
 	memset(&mDecoderEventBlocks, 0, sizeof(mDecoderEventBlocks));
 	memset(&mRenderEventBlocks, 0, sizeof(mRenderEventBlocks));
@@ -234,27 +234,7 @@ SFB::Audio::Player::Player()
 	dispatch_source_set_timer(mCollector, DISPATCH_TIME_NOW, 5 * NSEC_PER_SEC, 1 * NSEC_PER_SEC);
 
 	dispatch_source_set_event_handler(mCollector, ^{
-		for(UInt32 bufferIndex = 0; bufferIndex < kActiveDecoderArraySize; ++bufferIndex) {
-			DecoderStateData *decoderState = mActiveDecoders[bufferIndex].load();
-
-			if(nullptr == decoderState)
-				continue;
-
-			auto flags = decoderState->mFlags.load();
-
-			if(!(eDecoderStateDataFlagDecodingFinished & flags) || !(eDecoderStateDataFlagRenderingFinished & flags))
-				continue;
-
-			bool swapSucceeded = mActiveDecoders[bufferIndex].compare_exchange_strong(decoderState, nullptr);
-
-			if(swapSucceeded) {
-//                const char *decoderString = CFStringGetCStringPtr( CreateDisplayNameForURL(decoderState->mDecoder->GetURL()), kCFStringEncodingMacRoman);
-//				NSLog("Collecting decoder: \"%s\"", decoderString);
-                NSLog("Collecting decoder");
-				delete decoderState;
-				decoderState = nullptr;
-			}
-		}
+		CollectFinishedDecoders();
 	});
 
 	// Start collecting
@@ -378,6 +358,9 @@ bool SFB::Audio::Player::Stop()
 
 		StopActiveDecoders();
 
+		// A decoder the decoding thread has taken from the queue but not yet made active is dropped when it sees this
+		mStopCounter.fetch_add(1);
+
 		if(!mOutput->Reset()) {
 			result = false;
 			return;
@@ -389,6 +372,13 @@ bool SFB::Audio::Player::Stop()
 
 		mFlags.fetch_or(eAudioPlayerFlagRingBufferNeedsReset);
 	});
+
+	// Wait until the decoding thread is done with the decoders just stopped. Until then it may still be
+	// writing to the ring buffer, which Enqueue() (and so Play()) reallocates as soon as no decoder is
+	// active: a write into the buffer that was freed, or not yet allocated again, crashed in
+	// RingBuffer::WriteAudio(). This must happen outside mQueue, which the decoding thread takes to
+	// make a decoder active and to start the output.
+	WaitForDecodingToStop();
 
 	return result;
 }
@@ -808,15 +798,7 @@ bool SFB::Audio::Player::SkipToNextTrack()
 
 //	NSLog("Skipping \"%{public}@\"", (CFStringRef)CFString(CreateDisplayNameForURL(currentDecoderState->mDecoder->GetURL())));
 
-	if(mOutput->IsRunning()) {
-		mFlags.fetch_or(eAudioPlayerFlagRequestMute);
-
-		// The rendering thread will clear eAudioPlayerFlagRequestMute when the current render cycle completes
-		while(eAudioPlayerFlagRequestMute & mFlags.load())
-			mSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 10));
-	}
-	else
-		mFlags.fetch_or(eAudioPlayerFlagMuteOutput);
+	MuteOutputForUnsafeOperation();
 
 	currentDecoderState->mFlags.fetch_or(eDecoderStateDataFlagStopDecoding);
 
@@ -890,7 +872,9 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 		// ========================================
 		// Lock the queue and remove the head element that contains the next decoder to use
 		__block Decoder::unique_ptr decoder;
+		__block unsigned stopCounter = 0;
 		dispatch_sync(mQueue, ^{
+			stopCounter = mStopCounter.load();
 			if(!mDecoderQueue.empty()) {
 				auto iter = std::begin(mDecoderQueue);
 				decoder = std::move(*iter);
@@ -939,6 +923,12 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 			}
 		}
 
+		// A Stop() since the decoder was taken from the queue means it is not wanted any more
+		if(decoderState && stopCounter != mStopCounter.load()) {
+			delete decoderState;
+			decoderState = nullptr;
+		}
+
 		// ========================================
 		// Ensure the decoder's format is compatible with the ring buffer
 		if(decoderState) {
@@ -976,9 +966,15 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 					mFlags.fetch_or(eAudioPlayerFlagFormatMismatch);
 
 					// Wait for the currently rendering decoder to finish
-					// The rendering thread will clear eAudioPlayerFlagFormatMismatch when the current render cycle completes
-					while(eAudioPlayerFlagFormatMismatch & mFlags.load())
+					// The rendering thread will clear eAudioPlayerFlagFormatMismatch (and mute the output) when it has
+					// If the output stops meanwhile (Pause() or Stop() on another thread) it never will, so mute here
+					while((eAudioPlayerFlagFormatMismatch & mFlags.load()) && mOutput->IsRunning())
 						mSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 100));
+
+					if(eAudioPlayerFlagFormatMismatch & mFlags.load()) {
+						mFlags.fetch_or(eAudioPlayerFlagMuteOutput);
+						mFlags.fetch_and(~eAudioPlayerFlagFormatMismatch);
+					}
 				}
 
 				if(mFormatMismatchBlock)
@@ -999,18 +995,34 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 
 		// ========================================
 		// Append the decoder state to the list of active decoders
+		// On mQueue so that this is atomic with respect to Stop(): either Stop() finds the decoder active and
+		// flags it, or the Stop() is noticed here and the decoder dropped. With mDecoding set, Stop() waits
+		// until this thread has finished writing to the ring buffer.
 		if(decoderState) {
-			for(UInt32 bufferIndex = 0; bufferIndex < kActiveDecoderArraySize; ++bufferIndex) {
-				auto current = mActiveDecoders[bufferIndex].load();
+			dispatch_sync(mQueue, ^{
+				if(stopCounter != mStopCounter.load()) {
+					delete decoderState;
+					decoderState = nullptr;
+					return;
+				}
 
-				if(nullptr != current)
-					continue;
+				// The collector only runs every few seconds; a burst of short sounds fills every slot before
+				// then. A decoder that gets no slot could never be stopped, so collect now rather than wait.
+				bool registered = RegisterDecoderState(decoderState);
+				if(!registered) {
+					CollectFinishedDecoders();
+					registered = RegisterDecoderState(decoderState);
+				}
 
-				if(mActiveDecoders[bufferIndex].compare_exchange_strong(current, decoderState))
-					break;
-				else
-					NSLog("compare_exchange_strong() failed");
-			}
+				if(!registered) {
+					NSLog("No free decoder slot, dropping decoder");
+					delete decoderState;
+					decoderState = nullptr;
+					return;
+				}
+
+				mDecoding.store(true);
+			});
 		}
 
 		// ========================================
@@ -1057,6 +1069,9 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 
 					decoderState->mFlags.fetch_or(eDecoderStateDataFlagDecodingFinished | eDecoderStateDataFlagRenderingFinished);
 					decoderState = nullptr;
+
+					mDecoding.store(false);
+					mDecodingStoppedSemaphore.Signal();
 
 					continue;
 				}
@@ -1110,21 +1125,17 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 				// Fill the ring buffer with as much data as possible
 				for(;;) {
 
+					// Stop at once when asked to: Stop() is waiting to let the ring buffer be reallocated
+					if((eAudioPlayerFlagStopDecoding & mFlags.load()) || (eDecoderStateDataFlagStopDecoding & decoderState->mFlags.load()))
+						break;
+
 					// Reset the ring buffer if required
 					if(eAudioPlayerFlagRingBufferNeedsReset & mFlags.load()) {
 
 						mFlags.fetch_and(~eAudioPlayerFlagRingBufferNeedsReset);
 
 						// Ensure output is muted before performing operations that aren't thread safe
-						if(mOutput->IsRunning()) {
-							mFlags.fetch_or(eAudioPlayerFlagRequestMute);
-
-							// The rendering thread will clear eAudioPlayerFlagRequestMute when the current render cycle completes
-							while(eAudioPlayerFlagRequestMute & mFlags.load())
-								mSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 100));
-						}
-						else
-							mFlags.fetch_or(eAudioPlayerFlagMuteOutput);
+						MuteOutputForUnsafeOperation();
 
 						// Reset the converter to flush any buffers
 						if(audioConverter) {
@@ -1153,15 +1164,7 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 							NSLog("Seeking to frame %lld", frameToSeek);
 
 							// Ensure output is muted before performing operations that aren't thread safe
-							if(mOutput->IsRunning()) {
-								mFlags.fetch_or(eAudioPlayerFlagRequestMute);
-
-								// The rendering thread will clear eAudioPlayerFlagRequestMute when the current render cycle completes
-								while(eAudioPlayerFlagRequestMute & mFlags.load())
-									mSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 100));
-							}
-							else
-								mFlags.fetch_or(eAudioPlayerFlagMuteOutput);
+							MuteOutputForUnsafeOperation();
 
 							SInt64 newFrame = decoderState->mDecoder->SeekToFrame(frameToSeek);
 
@@ -1304,6 +1307,10 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 					NSLog("AudioConverterDispose failed: %d", result);
 				audioConverter = nullptr;
 			}
+
+			// Nothing writes to the ring buffer any more; Stop() may be waiting for this
+			mDecoding.store(false);
+			mDecodingStoppedSemaphore.Signal();
 		}
 
 		// Wait for another thread to wake us, or for the timeout to happen
@@ -1384,6 +1391,77 @@ void SFB::Audio::Player::StopActiveDecoders()
 
 		decoderState->mFlags.fetch_or(eDecoderStateDataFlagRenderingFinished);
 	}
+}
+
+bool SFB::Audio::Player::RegisterDecoderState(DecoderStateData *decoderState)
+{
+	for(UInt32 bufferIndex = 0; bufferIndex < kActiveDecoderArraySize; ++bufferIndex) {
+		auto current = mActiveDecoders[bufferIndex].load();
+
+		if(nullptr != current)
+			continue;
+
+		if(mActiveDecoders[bufferIndex].compare_exchange_strong(current, decoderState))
+			return true;
+		else
+			NSLog("compare_exchange_strong() failed");
+	}
+
+	return false;
+}
+
+void SFB::Audio::Player::CollectFinishedDecoders()
+{
+	for(UInt32 bufferIndex = 0; bufferIndex < kActiveDecoderArraySize; ++bufferIndex) {
+		DecoderStateData *decoderState = mActiveDecoders[bufferIndex].load();
+
+		if(nullptr == decoderState)
+			continue;
+
+		auto flags = decoderState->mFlags.load();
+
+		if(!(eDecoderStateDataFlagDecodingFinished & flags) || !(eDecoderStateDataFlagRenderingFinished & flags))
+			continue;
+
+		bool swapSucceeded = mActiveDecoders[bufferIndex].compare_exchange_strong(decoderState, nullptr);
+
+		if(swapSucceeded) {
+//			const char *decoderString = CFStringGetCStringPtr( CreateDisplayNameForURL(decoderState->mDecoder->GetURL()), kCFStringEncodingMacRoman);
+//			NSLog("Collecting decoder: \"%s\"", decoderString);
+			NSLog("Collecting decoder");
+			delete decoderState;
+			decoderState = nullptr;
+		}
+	}
+}
+
+void SFB::Audio::Player::WaitForDecodingToStop()
+{
+	// Bounded in time, so that a decoder stuck in a read can not hang the caller for good. The semaphore
+	// is signalled whether or not anyone waits, so stale signals may make a wait return at once; that
+	// is why this is not a bounded number of waits.
+	const dispatch_time_t deadline = dispatch_time(DISPATCH_TIME_NOW, 2 * NSEC_PER_SEC);
+	while(mDecoding.load() && dispatch_time(DISPATCH_TIME_NOW, 0) < deadline)
+		mDecodingStoppedSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 100));
+
+	if(mDecoding.load())
+		NSLog("Decoding thread did not stop in time");
+}
+
+void SFB::Audio::Player::MuteOutputForUnsafeOperation()
+{
+	// A running output mutes itself at the end of its current render cycle and clears the request.
+	// If it is not running, or stops while we wait (Pause() or Stop() on another thread), there is
+	// no render cycle to do that, so do it here or the wait never ends.
+	if(mOutput->IsRunning()) {
+		mFlags.fetch_or(eAudioPlayerFlagRequestMute);
+
+		while((eAudioPlayerFlagRequestMute & mFlags.load()) && mOutput->IsRunning())
+			mSemaphore.TimedWait(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC / 100));
+	}
+
+	mFlags.fetch_or(eAudioPlayerFlagMuteOutput);
+	mFlags.fetch_and(~eAudioPlayerFlagRequestMute);
 }
 
 bool SFB::Audio::Player::SetupOutputAndRingBufferForDecoder(Decoder& decoder)

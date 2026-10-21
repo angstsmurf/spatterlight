@@ -482,6 +482,10 @@ namespace SFB {
 			// ========================================
 			// Other Utilities
 			void StopActiveDecoders();
+			bool RegisterDecoderState(DecoderStateData *decoderState);
+			void CollectFinishedDecoders();
+			void WaitForDecodingToStop();
+			void MuteOutputForUnsafeOperation();
 
 			DecoderStateData * GetCurrentDecoderState() const;
 			DecoderStateData * GetDecoderStateStartingAfterTimeStamp(SInt64 timeStamp) const;
@@ -495,6 +499,8 @@ namespace SFB {
 			std::atomic_uint						mRingBufferWriteChunkSize;
 
 			std::atomic_uint						mFlags;
+			std::atomic_uint						mStopCounter;		// Bumped by Stop(), so the decoding thread drops a decoder taken from the queue before it
+			std::atomic_bool						mDecoding;			// The decoding thread is writing to the ring buffer
 
 			std::vector<Decoder::unique_ptr>		mDecoderQueue;
 			std::atomic<DecoderStateData *>			mActiveDecoders [kActiveDecoderArraySize];
@@ -504,6 +510,7 @@ namespace SFB {
 
 			std::thread								mDecoderThread;
 			Semaphore								mDecoderSemaphore;
+			Semaphore								mDecodingStoppedSemaphore;
 
 			dispatch_source_t						mCollector;
 
