@@ -50,6 +50,7 @@ static const CGFloat kMinLineFragmentWidth = 50;
     if (self) {
         layoutCharIndex = NSNotFound;
         layoutParagraphEnd = NSNotFound;
+        _zoomFactor = 1;
         _marginImages = [[NSMutableArray alloc] init];
         flowbreaks = [[NSMutableArray alloc] init];
     }
@@ -71,6 +72,10 @@ static const CGFloat kMinLineFragmentWidth = 50;
         }
         NSArray *breaks = [decoder decodeObjectOfClasses:[NSSet setWithObjects:[NSArray class], [FlowBreak class], nil] forKey:@"flowbreaks"];
         flowbreaks = breaks ? breaks.mutableCopy : [[NSMutableArray alloc] init];
+        // 0 (archived before there was a zoom) becomes 1
+        _zoomFactor = [decoder decodeDoubleForKey:@"zoomFactor"];
+        if (_zoomFactor <= 0)
+            _zoomFactor = 1;
     }
 
     return self;
@@ -80,6 +85,22 @@ static const CGFloat kMinLineFragmentWidth = 50;
     [super encodeWithCoder:encoder];
     [encoder encodeObject:_marginImages forKey:@"marginImages"];
     [encoder encodeObject:flowbreaks forKey:@"flowbreaks"];
+    [encoder encodeDouble:_zoomFactor forKey:@"zoomFactor"];
+}
+
+- (void)setZoomFactor:(CGFloat)zoomFactor {
+    if (zoomFactor <= 0)
+        zoomFactor = 1;
+    if (zoomFactor == _zoomFactor)
+        return;
+    _zoomFactor = zoomFactor;
+    // The inline images get new cell frames from a full re-layout
+    [self invalidateLayout:nil];
+    NSLayoutManager *layout = self.layoutManager;
+    NSUInteger length = layout.textStorage.length;
+    if (length)
+        [layout invalidateLayoutForCharacterRange:NSMakeRange(0, length)
+                             actualCharacterRange:NULL];
 }
 
 - (void)clearImages {

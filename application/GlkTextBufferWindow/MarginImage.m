@@ -78,7 +78,11 @@
 
 - (NSRect)boundsWithLayout:(NSLayoutManager *)layout {
     NSRect theline;
-    NSSize size = _image.size;
+    // Drawn at the window zoom
+    CGFloat zoom = _container.zoomFactor;
+    if (zoom <= 0)
+        zoom = 1;
+    NSSize size = NSMakeSize(_image.size.width * zoom, _image.size.height * zoom);
 
     if (recalc) {
         recalc = NO; /* don't infiniloop in here, settle for the first result */

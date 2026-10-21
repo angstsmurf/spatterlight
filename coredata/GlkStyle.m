@@ -69,14 +69,18 @@
     if (!self.attributeDict)
         [self createDefaultAttributeDictionary];
 
-    NSSize size = [@"W" sizeWithAttributes:self.attributeDict];
+    return [GlkStyle cellSizeForAttributes:self.attributeDict];
+}
+
++ (NSSize)cellSizeForAttributes:(NSDictionary *)attributes {
+    NSSize size = [@"W" sizeWithAttributes:attributes];
 
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
 
     // By measuring line height in this way we include
     // line spacing and baseline offset
 
-    NSTextStorage *textstorage = [[NSTextStorage alloc] initWithString:@"ÅWQyjgq\nÅWQyjgq" attributes:self.attributeDict];
+    NSTextStorage *textstorage = [[NSTextStorage alloc] initWithString:@"ÅWQyjgq\nÅWQyjgq" attributes:attributes];
 
     [textstorage addLayoutManager:layoutManager];
 
@@ -89,6 +93,42 @@
     NSRect frag = [layoutManager lineFragmentUsedRectForGlyphAtIndex:0 effectiveRange:nil];
     size.height = frag.size.height;
     return size;
+}
+
++ (NSMutableDictionary *)attributes:(NSDictionary *)attributes scaledBy:(CGFloat)factor {
+    NSMutableDictionary *dict = [attributes mutableCopy];
+    factor = fabs(factor);
+
+    NSFont *font = dict[NSFontAttributeName];
+    CGFloat fontSize = font.pointSize * factor;
+    if (fontSize > 0) {
+        NSFont *scaled = [NSFont fontWithDescriptor:font.fontDescriptor
+                                               size:fontSize];
+        if (scaled)
+            dict[NSFontAttributeName] = scaled;
+    }
+    if (dict[NSKernAttributeName]) {
+        CGFloat newValue = ((NSNumber *)dict[NSKernAttributeName]).doubleValue * factor;
+        dict[NSKernAttributeName] = @(newValue);
+    }
+    if (dict[NSBaselineOffsetAttributeName]) {
+        CGFloat newValue = ((NSNumber *)dict[NSBaselineOffsetAttributeName]).doubleValue * factor;
+        dict[NSBaselineOffsetAttributeName] = @(newValue);
+    }
+    NSMutableParagraphStyle *para = ((NSParagraphStyle *)dict[NSParagraphStyleAttributeName]).mutableCopy;
+    if (!para)
+        return dict;
+    para.lineSpacing = para.lineSpacing * factor;
+    para.paragraphSpacing = para.paragraphSpacing * factor;
+    para.paragraphSpacingBefore = para.paragraphSpacingBefore * factor;
+    para.headIndent = para.headIndent * factor;
+    para.tailIndent = para.tailIndent * factor;
+    para.firstLineHeadIndent = para.firstLineHeadIndent * factor;
+    para.maximumLineHeight = para.maximumLineHeight * factor;
+    para.minimumLineHeight = para.minimumLineHeight * factor;
+
+    dict[NSParagraphStyleAttributeName] = para;
+    return dict;
 }
 
 -(void)createDefaultAttributeDictionary {

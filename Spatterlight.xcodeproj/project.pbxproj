@@ -51,7 +51,6 @@
 		4EAB7698371D1978C7BD2F97 /* IFDB.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D7673DC239FFB0900FB24C0 /* IFDB.m */; };
 		4F7696813E6D67E87447EF24 /* FindableTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = E59E5CF7C24A2CFA7A4D7407 /* FindableTextView.m */; };
 		5070568329EDB20AF0D8E419 /* sclibrar_misc.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000012 /* sclibrar_misc.cpp */; };
-		54B4C7D432304D7F1D85CE91 /* Preferences+Zoom.m in Sources */ = {isa = PBXBuildFile; fileRef = D1B13C2DFC21B7BA82330573 /* Preferences+Zoom.m */; };
 		55368B56272BF1C500740A0A /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
 		55368B57272BF1C500740A0A /* libglkmain.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCEB709F2396500528FF9 /* libglkmain.a */; };
 		55368B71272BF24700740A0A /* question-util.cc in Sources */ = {isa = PBXBuildFile; fileRef = 55368B5D272BF24700740A0A /* question-util.cc */; };
@@ -2007,7 +2006,6 @@
 		5C1B1A000000000000000112 /* os_glk_platform.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_platform.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000114 /* scrun_match_run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match_run.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000116 /* scrun_match_refusal.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match_refusal.cpp; sourceTree = "<group>"; };
-		61B9E932C2CED2870A3B8E4A /* Preferences+Zoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Preferences+Zoom.h"; sourceTree = "<group>"; };
 		61C07B573024065000388340 /* NowPlayingCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowPlayingCoordinator.h; sourceTree = "<group>"; };
 		61C07B593024065800388340 /* NowPlayingCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NowPlayingCoordinator.m; sourceTree = "<group>"; };
 		621D71B0003145CA87C1B340 /* GlkTextBufferWindow+Autorestore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Autorestore.m"; sourceTree = "<group>"; };
@@ -3924,6 +3922,7 @@
 		C3D8817E29A1BAE50085C383 /* Transcript of TerpEtude old.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Transcript of TerpEtude old.rtf"; sourceTree = "<group>"; };
 		C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 16.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 17.xcdatamodel"; sourceTree = "<group>"; };
+		C3DA001820261021006D0E16 /* Spatterlight 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 18.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_dhgr.cpp; sourceTree = "<group>"; };
 		C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_dhgr.h; sourceTree = "<group>"; };
 		C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_pcjr.cpp; sourceTree = "<group>"; };
@@ -4069,7 +4068,6 @@
 		CE458E5875C5424DAC2578F2 /* SPAccessibility.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SPAccessibility.h; sourceTree = "<group>"; };
 		CFA9E6AA5E9249D05BF4D194 /* scresour.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scresour.cpp; sourceTree = "<group>"; };
 		D0B95D758B2C4064A2203E24 /* GlkTextBufferWindow+Styles.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GlkTextBufferWindow+Styles.m"; sourceTree = "<group>"; };
-		D1B13C2DFC21B7BA82330573 /* Preferences+Zoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Preferences+Zoom.m"; sourceTree = "<group>"; };
 		D3B6C0A12E9F4A0000DEB06A /* DebugLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebugLog.h; sourceTree = "<group>"; };
 		D899D63E82B244F8D63393CA /* StoreLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = StoreLocation.h; sourceTree = "<group>"; };
 		D9EC564387759B626FCD3240 /* ProgressiveMigrator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ProgressiveMigrator.m; sourceTree = "<group>"; };
@@ -6744,8 +6742,6 @@
 				CDB3C52F25A477F66F28EF44 /* Preferences+Window.m */,
 				6EE96E592613DA62EFFEFD36 /* Preferences+Fonts.h */,
 				4253FB14C74A7E9B9A3C47D5 /* Preferences+Fonts.m */,
-				61B9E932C2CED2870A3B8E4A /* Preferences+Zoom.h */,
-				D1B13C2DFC21B7BA82330573 /* Preferences+Zoom.m */,
 				F22580B4159ECF8F0733D9BE /* Preferences+LibraryOrganiser.h */,
 				CD4C303069701B3358BB5FA4 /* Preferences+LibraryOrganiser.m */,
 				6E18CA696B6702EDB040AF80 /* Preferences+Settings.h */,
@@ -8954,7 +8950,6 @@
 				C10D8E4EC194E823CA88CD90 /* Preferences+Themes.m in Sources */,
 				B51A85C69CAF0AA4B0AAEE02 /* Preferences+Window.m in Sources */,
 				679B3E7FEC3994F0A1AD5425 /* Preferences+Fonts.m in Sources */,
-				54B4C7D432304D7F1D85CE91 /* Preferences+Zoom.m in Sources */,
 				E2AEA9E172F7E63DEE86D349 /* Preferences+LibraryOrganiser.m in Sources */,
 				C9A43CAC60A7163252C04BE6 /* Preferences+Settings.m in Sources */,
 				961CCEF109F23A0000528FF9 /* AppDelegate.m in Sources */,
@@ -13589,6 +13584,7 @@
 			isa = XCVersionGroup;
 			children = (
 				C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */,
+				C3DA001820261021006D0E16 /* Spatterlight 18.xcdatamodel */,
 				C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */,
 				C3A4136E2DF986FC00AAEFEE /* Spatterlight 15.xcdatamodel */,
 				C300775E2E869FA900C32069 /* Spatterlight 14_ 2.xcdatamodel */,
@@ -13609,7 +13605,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */;
+			currentVersion = C3DA001820261021006D0E16 /* Spatterlight 18.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -3,7 +3,6 @@
 #import "Preferences+Themes.h"
 #import "Preferences+Window.h"
 #import "Preferences+Fonts.h"
-#import "Preferences+Zoom.h"
 #import "Preferences+LibraryOrganiser.h"
 #import "Preferences+Settings.h"
 
@@ -131,7 +130,6 @@
 @property (class) Theme *theme;
 @property Theme *theme;
 
-@property (class, readwrite) kZoomDirectionType zoomDirection;
 @property (class, readwrite) Preferences *instance;
 
 @property (strong) IBOutlet PreviewController *previewController;

@@ -36,6 +36,7 @@
 @dynamic releaseNumber;
 @dynamic serialString;
 @dynamic version;
+@dynamic zoomFactor;
 @dynamic metadata;
 @dynamic theme;
 

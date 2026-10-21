@@ -4,12 +4,6 @@
 
 #import <AppKit/AppKit.h>
 
-typedef NS_ENUM(NSUInteger, kZoomDirectionType) {
-    ZOOMRESET,
-    ZOOMIN,
-    ZOOMOUT
-};
-
 typedef enum kDefaultPrefWindowSize : NSUInteger {
     kDefaultPrefWindowWidth = 560
 } kDefaultPrefWindowSize;
@@ -44,15 +38,7 @@ extern NSNotificationName const kColorModeChangedNotification;
 
 - (void)restoreThemeSelection:(Theme *)aTheme;
 
-+ (void)zoomIn;
-+ (void)zoomOut;
-+ (void)zoomToActualSize;
-+ (void)scale:(CGFloat)scalefactor;
-- (void)updatePanelAfterZoom;
-
 #pragma mark Global accessors
-
-@property (class, readonly) kZoomDirectionType zoomDirection;
 
 // The theme the panel shows and edits; the default theme if there is none
 @property (class, readonly) Theme *currentTheme;

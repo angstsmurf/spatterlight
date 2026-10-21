@@ -438,6 +438,9 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
             self.gridStyleHints = restoredController.gridStyleHints;
     }
 
+    // The archived windows were styled at this zoom
+    self.zoomFactor = restoredControllerLate.zoomFactor;
+
     // Restore frame size
     self.gameView.frame = restoredControllerLate.storedGameViewFrame;
 
@@ -1077,6 +1080,8 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
         self.inFullscreen = [decoder decodeBoolForKey:@"fullscreen"];
 
         self.turns = [decoder decodeIntegerForKey:@"turns"];
+        // 0 (archived before there was a zoom factor) becomes 1
+        self.zoomFactor = [decoder decodeDoubleForKey:@"zoomFactor"];
         self.numberOfPrintsAndClears = [decoder decodeIntegerForKey:@"printsAndClears"];
         self.printsAndClearsThisTurn = [decoder decodeIntegerForKey:@"printsAndClearsThisTurn"];
 
@@ -1150,6 +1155,7 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     [encoder encodeBool:self.isInSystemFullscreen forKey:@"fullscreen"];
 
     [encoder encodeInteger:self.turns forKey:@"turns"];
+    [encoder encodeDouble:self.zoomFactor forKey:@"zoomFactor"];
     [encoder encodeInteger:self.numberOfPrintsAndClears forKey:@"printsAndClears"];
     [encoder encodeInteger:self.printsAndClearsThisTurn forKey:@"printsAndClearsThisTurn"];
 

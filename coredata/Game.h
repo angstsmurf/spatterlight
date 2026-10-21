@@ -36,6 +36,9 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t releaseNumber;
 @property (nullable, nonatomic, copy) NSString *serialString;
 @property (nullable, nonatomic, copy) NSString *version;
+// The game window's zoom (View > Zoom In/Out), kept between sessions.
+// 1 is the theme's own size.
+@property (nonatomic) double zoomFactor;
 @property (nullable, nonatomic, retain) Metadata *metadata;
 @property (nullable, nonatomic, retain) Theme *theme;
 

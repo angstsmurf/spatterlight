@@ -39,7 +39,7 @@
         return;
     if (frame.size.height < self.frame.size.height && frame.size.height > 0) {
         Theme *theme = self.gridWindow.theme;
-        if (frame.size.height < theme.cellHeight + 2 * theme.gridMarginY)
+        if (frame.size.height < self.gridWindow.cellHeight + 2 * theme.gridMarginY)
             return;
     }
     super.frame = frame;
@@ -72,8 +72,8 @@
 - (NSArray *)buildQuoteboxAXChildren {
     GlkTextGridWindow *delegate = self.gridWindow;
     Theme *theme = delegate.theme;
-    CGFloat cellW = theme.cellWidth;
-    CGFloat cellH = theme.cellHeight;
+    CGFloat cellW = delegate.cellWidth;
+    CGFloat cellH = delegate.cellHeight;
     CGFloat marginX = theme.gridMarginX;
     CGFloat marginY = theme.gridMarginY;
     CGFloat height = delegate.quoteboxSize.height * cellH;

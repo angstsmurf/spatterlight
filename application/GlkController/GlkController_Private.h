@@ -86,6 +86,14 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     NSSize lastSizeInChars;
     Theme *lastTheme;
 
+    // Cache for the zoomed cell metrics, and what they were measured from
+    __weak Theme *zoomedMetricsTheme;
+    CGFloat zoomedMetricsFactor;
+    NSSize zoomedMetricsGridSource;
+    NSSize zoomedMetricsBufferSource;
+    NSSize zoomedGridCell;
+    NSSize zoomedBufferCell;
+
     // To fix scrolling in the Adrian Mole games
     NSInteger lastRequest;
 

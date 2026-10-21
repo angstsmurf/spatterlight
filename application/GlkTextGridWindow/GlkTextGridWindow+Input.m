@@ -67,7 +67,7 @@
         point.y = (CGFloat)[self rowOfIndex:charIndex];
         point.x = (CGFloat)[self columnOfIndex:charIndex];
         if (point.x >= (CGFloat)cols)
-            point.x = point_in_window.x / self.theme.cellWidth;
+            point.x = point_in_window.x / self.cellWidth;
         return [self sendMouseEventAtColumn:point.x row:point.y];
     }
     return NO;
@@ -225,8 +225,8 @@
 
     CGFloat x0 = (NSMinX(bounds) + mx + container.lineFragmentPadding / 2);
     CGFloat y0 = (NSMinY(bounds) + my);
-    CGFloat lineHeight = self.theme.cellHeight;
-    CGFloat charWidth = self.theme.cellWidth;
+    CGFloat lineHeight = self.cellHeight;
+    CGFloat charWidth = self.cellWidth;
 
     // Input below the grid goes on the last row.
     if (rows && ypos >= rows)
@@ -242,7 +242,7 @@
     self.input.action = @selector(typedEnter:);
     self.input.target = self;
     self.input.delegate = self;
-    self.input.font = self.theme.gridInput.font;
+    self.input.font = [self zoomedFont:self.theme.gridInput.font];
     NSDictionary *firstCharDict = nil;
     if (_bufferTextStorage.length)
         firstCharDict = [_bufferTextStorage attributesAtIndex:0 effectiveRange:nil];

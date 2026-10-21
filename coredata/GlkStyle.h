@@ -43,6 +43,13 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) GlkStyle *clone;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSSize cellSize;
+//! The size of one character cell in text with these attributes: the width
+//! of a "W" and the height of a laid-out line, line spacing included.
++ (NSSize)cellSizeForAttributes:(NSDictionary<NSAttributedStringKey, id> *)attributes;
+//! A copy of the attributes with the font size and every length (kerning,
+//! baseline offset, paragraph spacing, indents, line heights) multiplied
+//! by factor. The game window zoom.
++ (NSMutableDictionary<NSAttributedStringKey, id> *)attributes:(NSDictionary<NSAttributedStringKey, id> *)attributes scaledBy:(CGFloat)factor;
 - (void)createDefaultAttributeDictionary;
 @property (NS_NONATOMIC_IOSONLY, readonly) BOOL testGridStyle;
 - (NSMutableDictionary<NSAttributedStringKey, id> *)attributesWithHints:(NSArray *)hints;

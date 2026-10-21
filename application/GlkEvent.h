@@ -14,6 +14,9 @@ unsigned chartokeycode(unsigned ch);
 - (instancetype)initMouseEvent:(NSPoint)v forWindow:(NSInteger)name;
 - (instancetype)initTimerEvent;
 - (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)theme force:(BOOL)forceFlag;
+// The cell sizes are sent instead of the theme's own: the game window's
+// zoomed ones (GlkController cellWidth etc.)
+- (instancetype)initArrangeWidth:(NSInteger)aw height:(NSInteger)ah theme:(Theme *)theme gridCellSize:(NSSize)gridCell bufferCellSize:(NSSize)bufferCell force:(BOOL)forceFlag;
 - (instancetype)initRedrawEvent;
 - (instancetype)initQuitEvent;
 - (instancetype)initAutosaveEvent;
