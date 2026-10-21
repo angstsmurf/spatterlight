@@ -12,8 +12,13 @@
 #import "GlkController.h"
 #import "GlkController+Speech.h"
 #import "CommandScriptHandler.h"
+#import "NSView+Categories.h"
 
-@implementation MyFieldEditor
+@implementation MyFieldEditor {
+    NSRect caretShapeRect;
+    NSColor *caretShapeColor;
+    BOOL caretShapeOn;
+}
 
 // Our delegate is the InputTextField, whose delegate is the GlkWindow.
 // AppKit may hand this editor to another field while it is not installed
@@ -44,6 +49,26 @@
 
 - (void)mouseMoved:(NSEvent *)event {
     [[NSCursor IBeamCursor] set];
+}
+
+- (void)drawRect:(NSRect)rect {
+    [super drawRect:rect];
+    if (caretShapeOn && self.shouldDrawInsertionPoint && NSIntersectsRect(rect, caretShapeRect))
+        [self drawCaretShapeInRect:caretShapeRect color:caretShapeColor];
+}
+
+// Caret shape spike (issue #39). AppKit calls this from the blink timer,
+// outside drawRect:, so remember the state and draw the shape there.
+- (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
+    if (!NSTextView.drawsCaretShape) {
+        [super drawInsertionPointInRect:rect color:color turnedOn:flag];
+        return;
+    }
+    [self setNeedsDisplayInRect:caretShapeRect avoidAdditionalLayout:YES];
+    caretShapeRect = [self caretShapeRectForCaretRect:rect];
+    caretShapeColor = color;
+    caretShapeOn = flag;
+    [self setNeedsDisplayInRect:caretShapeRect avoidAdditionalLayout:YES];
 }
 
 - (BOOL)isAccessibilityElement {
@@ -124,6 +149,11 @@
     if (_fieldEditor == nil) {
         _fieldEditor = [[MyFieldEditor alloc] init];
         _fieldEditor.fieldEditor = YES;
+        // A plain init makes a TextKit 2 view, which never calls
+        // drawInsertionPointInRect:. Asking for the layout manager switches
+        // it to TextKit 1.
+        if (NSTextView.drawsCaretShape)
+            (void)_fieldEditor.layoutManager;
         _fieldEditor.accessibilityLabel = NSLocalizedString(@"input", nil);
     }
     return _fieldEditor;

@@ -68,4 +68,85 @@
     return links;
 }
 
+typedef NS_ENUM(NSInteger, CaretShape) {
+    kCaretLine,
+    kCaretBlock,
+    kCaretUnderline,
+};
+
+static CaretShape caretShape(void) {
+    static CaretShape shape;
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        const char *env = getenv("SPATTERLIGHT_CARET");
+        if (env && !strcmp(env, "block"))
+            shape = kCaretBlock;
+        else if (env && !strcmp(env, "underline"))
+            shape = kCaretUnderline;
+    });
+    return shape;
+}
+
++ (BOOL)drawsCaretShape {
+    return caretShape() != kCaretLine;
+}
+
+- (NSRect)caretShapeRectForCaretRect:(NSRect)caretRect {
+    NSRect rect = caretRect;
+    NSString *string = self.string;
+    NSUInteger index = self.selectedRange.location;
+    NSLayoutManager *layoutManager = self.layoutManager;
+    CGFloat width = 0;
+    if (index < string.length && [string characterAtIndex:index] != '\n') {
+        NSRange glyphs = [layoutManager glyphRangeForCharacterRange:NSMakeRange(index, 1) actualCharacterRange:NULL];
+        width = [layoutManager boundingRectForGlyphRange:glyphs inTextContainer:self.textContainer].size.width;
+    }
+    if (width < 1) {
+        NSFont *font = self.typingAttributes[NSFontAttributeName] ?: self.font;
+        width = [@"0" sizeWithAttributes:@{ NSFontAttributeName: font ?: [NSFont userFixedPitchFontOfSize:0] }].width;
+    }
+    rect.size.width = ceil(width);
+
+    NSTextContainer *container = self.textContainer;
+    CGFloat left = self.textContainerOrigin.x + container.lineFragmentPadding;
+    CGFloat right = self.textContainerOrigin.x + container.size.width - container.lineFragmentPadding;
+    if (NSMaxX(rect) > right + 1) {
+        rect.origin.x = left;
+        rect.origin.y += rect.size.height;
+    }
+
+    if (caretShape() == kCaretUnderline) {
+        CGFloat thickness = MAX(2, round(rect.size.height / 8));
+        rect.origin.y = NSMaxY(rect) - thickness;
+        rect.size.height = thickness;
+    }
+    return rect;
+}
+
+- (void)drawCaretShapeInRect:(NSRect)shapeRect color:(NSColor *)color {
+    [NSGraphicsContext saveGraphicsState];
+    NSRectClip(shapeRect);
+    [color set];
+    NSRectFill(shapeRect);
+
+    // Redraw the character under a block in the background colour.
+    NSString *string = self.string;
+    NSUInteger index = self.selectedRange.location;
+    if (caretShape() == kCaretBlock && index < string.length && [string characterAtIndex:index] != '\n') {
+        NSLayoutManager *layoutManager = self.layoutManager;
+        NSUInteger glyph = [layoutManager glyphIndexForCharacterAtIndex:index];
+        NSRect fragment = [layoutManager lineFragmentRectForGlyphAtIndex:glyph effectiveRange:NULL];
+        NSPoint location = [layoutManager locationForGlyphAtIndex:glyph];
+        NSPoint origin = self.textContainerOrigin;
+        NSMutableDictionary *attributes = [[self.textStorage attributesAtIndex:index effectiveRange:NULL] mutableCopy];
+        NSColor *background = attributes[NSBackgroundColorAttributeName] ?: self.backgroundColor;
+        attributes[NSForegroundColorAttributeName] = background;
+        [attributes removeObjectForKey:NSBackgroundColorAttributeName];
+        NSAttributedString *character = [[NSAttributedString alloc] initWithString:[string substringWithRange:NSMakeRange(index, 1)] attributes:attributes];
+        // Without NSStringDrawingUsesLineFragmentOrigin the rect origin is the baseline.
+        [character drawWithRect:NSMakeRect(origin.x + fragment.origin.x + location.x, origin.y + fragment.origin.y + location.y, 0, 0) options:0];
+    }
+    [NSGraphicsContext restoreGraphicsState];
+}
+
 @end
