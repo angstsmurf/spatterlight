@@ -15,6 +15,14 @@
 ### Plus
 - The versions of the *X-Men* SAGA database other than the original can now be added to the library, as they now get an IFID of their own.
 
+### Level9
+- Typing a number works in every game: WAIT 25 failed in *Lancelot*, *Scapeghost* and *Ingrid's Back*, because the number was not stored the way the games expect. As in the original interpreter, a number on its own is refused by the older games.
+- A failed RESTORE goes back to the state before the command, so a game that prepares for the restore first, as *Ingrid's Back* does, no longer carries on into the wrong part when the restore fails.
+- Punctuation typed in a command reaches the game instead of being turned into spaces, and abbreviated words are resolved the way the original interpreter resolves them: fewer than four letters only count as an abbreviation when no later word starts the same way.
+- Games detected as version 3 no longer list nonsense exits read from past the end of their exit table. Text after "!" is no longer wrongly capitalised, so *Ingrid's Back* prints "copyright" in lower case, as the original does.
+- Pictures that are clipped to the window are decoded correctly in the PC, Atari ST, Amiga and Macintosh formats, where the rows used to drift, and a missing picture draws nothing, not even its frame. A game that chains to its next part stays in text-only mode.
+- A message number past the end of the message table prints nothing instead of memory garbage, the object search can no longer overflow its stack, and the driver calls the interpreter doesn't implement answer the way the Level 9 driver documentation specifies, so a game's call to return to the operating system ends the game.
+
 ### General
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.
 - Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.
@@ -48,7 +56,7 @@
 - Announcements made with no game window open, such as "1 alert reset" in the Preferences window, are no longer lost.
 - When Download Info changes a game's title while its title cell is open for editing, the old title is no longer written back and marked as edited by you. The status icons in the library's found column are a fixed 14×14, which may make them show up on macOS 10.13.
 - Comparing a downloaded cover with the one a game already has uses Vision feature prints on macOS 10.15 and later, so re-encoded or resized copies of the same picture are recognised.
-- In Preferences, the "Game specific hacks" check box is now "Disable game-specific hacks", the selected theme is restored as soon as the theme list loads, and editing a built-in theme straight after opening the window makes only one copy of it. The Show Info toolbar label is the same on all macOS versions.
+- In Preferences, the "Game specific hacks" check box is now "Disable game-specific hacks", the selected theme is restored as soon as the theme list loads, and editing a built-in theme straight after opening the window makes only one copy of it. The window reopened at launch is the right size from the start, instead of resizing itself a moment after it appears, and switching panels quickly no longer hides the preview. The Show Info toolbar label is the same on all macOS versions.
 - In text grid windows, such as status lines, making the window narrower no longer leaves the last character of each row behind, and line input in an empty grid window no longer crashes. VoiceOver says "End of command history", not "Start", when stepping past the newest command, and a selection that ends at the last character is kept when the game is autorestored.
 
 ## Release 1.5.5
