@@ -39,6 +39,18 @@ NS_ASSUME_NONNULL_BEGIN
 // out of date. Safe to call while drawing.
 - (void)bottomPaddingNeedsUpdate;
 
+
+// Issue #80 prototype, "focus" mode: the move element reported as the
+// focused UI element while VoiceOver is parked on the latest move. Cleared
+// as soon as the player types.
+@property (nullable, weak) id voFocusedMoveElement;
+// Issue #80 prototype, "value" mode: AXValue is the latest move only.
+@property BOOL voValueIsLastMove;
+
+// Issue #80 prototype: the text view's accessible attributed string for a
+// range of the full text, whatever part of it VoiceOver is shown.
+- (NSAttributedString *)accessibilityAttributedStringForFullTextRange:(NSRange)range;
+
 @end
 
 NS_ASSUME_NONNULL_END
