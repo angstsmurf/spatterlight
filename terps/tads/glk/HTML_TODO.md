@@ -699,14 +699,41 @@ QTads's `qtadssound.cc`. `oshtml.c` parses the tag into an `ossound_tag`.
 Glk has no tables, and many of these games use tables for layout: `border=0
 width=100%`, side-by-side image and text, menus, and score sheets.
 
-- [ ] **First pass: linearise.**
-  - `<tr>` → paragraph break.
-  - `<td>`/`<th>` → separated by an em space or tab; `th` is bold.
-  - `align` → justification only when a row has a single cell.
-  - Drop `cellpadding`, `cellspacing`, `width` and `height`.
-  - Show `bgcolor` (9 games) as the zcolors background of the cell's text.
-
-  This keeps all the text readable, in reading order.
+- [x] **First pass: linearise.** Done in `oshtml.c`. All the text stays
+  readable, in reading order.
+  - `<table>` is a block. Each row is a line, broken at `<tr>`, which
+    closes a row or cell left open; so does `<td>` with the cell before it.
+    `<td>`/`<th>` outside a table are ignored, as before.
+  - Cells are separated by a gap of three spaces, which takes the place of
+    any spaces the cell before ends with. `th` is bold.
+  - **Empty cells before a cell** (the menu library's `<td width=x> </td>`,
+    in TADS 2 and adv3 `MenuBody`) turn the gap into an indent of four
+    spaces for every line of the cell, through the parser's left indent.
+    "Empty" means the row has shown nothing yet: no text, image or newline,
+    so a cell after an `<hr>` cell is not indented (*Rematch*).
+  - **`align`.** On a row or on its first cell, `center` (and on the first
+    cell, `right`) centres the line, and `left` stops the centring. The `align` of later cells is ignored,
+    except that `right` is a right `<TAB>` to the end of the line where a
+    `<TAB>` can align right (TADS 3, and TADS 2 banners). That puts *Arrival*'s
+    score at the right of its status line. `align` on `<table>` is ignored.
+  - Dropped: `cellpadding`, `cellspacing`, `width`, `height`, `valign`,
+    `colspan`, `rowspan`, `border` and `background`.
+  - A cell's, row's or table's `bgcolor` (*Beet*, *Darksong*)
+    is the zcolors background of the text, and the text gets black or white
+    on it, as with `<body bgcolor>`. A theme colour (`bgcolor='bgcolor'`,
+    `statusbg`) is ignored, since the window shows it already.
+- [x] **Corpus check.** 41 games changed traces, all of them games with
+  tables, and no err files changed. The walkthroughs end as before.
+  - The verb lists of *Barons_plot*, *camp*, *CotD*, *HorizonsDC*, the
+    *SD* games and others have a line per row and a centred bold heading.
+  - The menus of *Ground*, *HOLD*, *School* and *1893* have a line per
+    item, indented.
+  - *Arrival*'s status line shows its compass rose as three lines.
+  - Accepted: rows or cells that start with `<br>` or `\b` now give more
+    blank lines than before. *Threnody*'s status line is one line taller,
+    because its turn count and its "Turns" label are in different rows.
+  - In TADS 3, a row of only empty cells can print a blank line, because of
+    the formatter's rule about the spaces of a tab.
 - [ ] **Possible later work: real tables.** AppKit has `NSTextTable` and
   `NSTextTableBlock` in paragraph styles, and a Spatterlight extension
   (begin table, cell, end table) could pass the structure through. It only

@@ -98,6 +98,8 @@ extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
 #define AREAS_MAX   48          /* <AREA>s of a map, and links in a row */
 #define MAPNAME_MAX 32
 #define LABEL_MAX   80
+#define CELL_GAP    3           /* the spaces between table cells */
+#define CELL_INDENT 2           /* after empty cells, in steps of two spaces */
 
 enum token { TOK_TEXT, TOK_TAG, TOK_ENTITY };
 
@@ -132,6 +134,8 @@ typedef struct elem
     enum list_kind list;
     int nitem;
     int nobr;
+    int table;
+    int ncell;
 } elem;
 
 struct oshtml_parser
@@ -184,6 +188,9 @@ struct oshtml_parser
     enum list_kind list;
     int nitem;                  /* the list's items so far */
     int nobr;                   /* inside <nobr> */
+    int table;                  /* the <TABLE>s we're inside */
+    int ncell;                  /* the cells of the row so far */
+    int row_shown;              /* the row has put something out */
 
     /*
      *   TADS 2: a <BANNER>, whose text waits for its </BANNER>, and whether
@@ -432,6 +439,7 @@ static void emit(parser *p, glui32 c, color col)
         {
             p->hold[p->nhold] = c;
             p->hold_color[p->nhold++] = col;
+            p->row_shown = 1;
             return;
         }
     }
@@ -451,6 +459,7 @@ static void emit_now(parser *p, glui32 c, color col)
     if (p->outlen == OUT_MAX)
         flush_out(p);
     p->out[p->outlen++] = c;
+    p->row_shown = 1;
 }
 
 static int is_quote(glui32 c)
@@ -506,7 +515,7 @@ static void start_line(parser *p)
 {
     color c = cur_color(p);
     int center = c.attr & OSSTY_CENTER;
-    int n;
+    int n, shown;
 
     if (p->line_open && center == p->line_center)
         return;
@@ -527,11 +536,13 @@ static void start_line(parser *p)
         }
         return;
     }
+    shown = p->row_shown;
     for (n = 2 * p->indent ; n > 0 ; --n)
     {
         emit_now(p, 0xA0, c);
         ++p->col;
     }
+    p->row_shown = shown;
 }
 
 /* print a visible character */
@@ -657,6 +668,7 @@ static void put_newline(parser *p)
     p->lastchar = 0;
     p->line_open = 0;
     ++p->nl_count;
+    p->row_shown = 1;
     sync_color(p);
 }
 
@@ -1253,10 +1265,17 @@ static const char *const heading_tags[] =
 static const char *const p_stops[] =
 {
     "blockquote", "bq", "ul", "ol", "dl", "dd", "center", "div",
-    "h1", "h2", "h3", "h4", "h5", "h6", "banner", 0
+    "h1", "h2", "h3", "h4", "h5", "h6", "banner",
+    "table", "tr", "td", "th", 0
 };
 static const char *const dd_stops[] =
-    { "blockquote", "bq", "ul", "ol", "dl", "banner", 0 };
+{
+    "blockquote", "bq", "ul", "ol", "dl", "banner",
+    "table", "tr", "td", "th", 0
+};
+
+/* and those that a row doesn't */
+static const char *const tr_stops[] = { "table", 0 };
 
 /* open a tag, keeping the state to go back to at its end tag */
 static void push_elem(parser *p, const glui32 *name, size_t len)
@@ -1283,6 +1302,8 @@ static void push_elem(parser *p, const glui32 *name, size_t len)
     e->list = p->list;
     e->nitem = p->nitem;
     e->nobr = p->nobr;
+    e->table = p->table;
+    e->ncell = p->ncell;
 }
 
 /* close the open tag at 'i', and those inside it */
@@ -1295,6 +1316,8 @@ static void restore_elem(parser *p, int i)
     p->list = e->list;
     p->nitem = e->nitem;
     p->nobr = e->nobr;
+    p->table = e->table;
+    p->ncell = e->ncell;
     p->nelems = i;
 }
 
@@ -1329,6 +1352,36 @@ static void close_elem(parser *p, const char *name, const char *const *stops)
         for (s = stops ; *s ; ++s)
             if (strcmp(n, *s) == 0)
                 return;
+    }
+}
+
+/* a right-aligned cell: a right <TAB> to the end of the line */
+static void right_cell(parser *p)
+{
+    expand_tab(p, 1);
+    add_pending(p, ' ');
+    p->tab_align = TAB_RIGHT;
+    p->tab_lead = p->npending;
+    p->tab_start = p->col + (int)p->npending;
+    p->tab_to = -1;
+    p->tab_color = cur_color(p);
+}
+
+/* close the open cell of the innermost <TABLE>, if it has one */
+static void close_cell(parser *p)
+{
+    int i;
+
+    for (i = p->nelems ; i > 0 ; --i)
+    {
+        const char *n = p->elems[i - 1].name;
+        if (strcmp(n, "td") == 0 || strcmp(n, "th") == 0)
+        {
+            restore_elem(p, i - 1);
+            return;
+        }
+        if (strcmp(n, "tr") == 0 || strcmp(n, "table") == 0)
+            return;
     }
 }
 
@@ -1424,12 +1477,12 @@ static int to_int(const glui32 *v, size_t len)
 }
 
 /*
- *   <BODY>: the window background.  A colour of the game's own behind the
- *   theme's text colour could hide the text, so the text gets black or
- *   white, whichever shows.  Black is 1/1/1: osglk_set_text_color takes 0
- *   on a transparent background for the theme's colour (Hill Ridge).
+ *   A colour of the game's own behind the theme's text colour could hide
+ *   the text, so the text gets black or white, whichever shows.  Black is
+ *   1/1/1: osglk_set_text_color takes 0 on a transparent background for the
+ *   theme's colour (Hill Ridge).
  */
-static void set_body(parser *p, os_color_t bg)
+static void contrast_text(parser *p, os_color_t bg)
 {
     if (!os_color_is_param(bg) && os_color_is_param(p->cur.fg))
     {
@@ -1438,6 +1491,12 @@ static void set_body(parser *p, os_color_t bg)
         p->cur.fg = lum >= 128000 ? os_rgb_color(1, 1, 1)
             : os_rgb_color(255, 255, 255);
     }
+}
+
+/* <BODY>: the window background */
+static void set_body(parser *p, os_color_t bg)
+{
+    contrast_text(p, bg);
     p->text = p->cur.fg;
     if (bg != p->screen)
     {
@@ -1578,6 +1637,7 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
         p->nl_count = 0;
         p->lastchar = 0xFFFC;
     }
+    p->row_shown = 1;
     return 1;
 }
 
@@ -1812,6 +1872,11 @@ static void do_tag(parser *p)
     int map_ok = 0, area_ok = 0; /* <map>, <area> */
     size_t mapname = 0, mapnamelen = 0, usemap = 0, usemaplen = 0;
     int nohref = 0;
+    int cell_ok = 0, cell = 0;  /* <table>, <tr>, <td>; 1 for a <td> */
+    int cell_first = 0;         /* the row's first cell */
+    int cell_align = -1;        /* ALIGN: 0 left, 1 centred, 2 right */
+    int cell_bg_ok = 0;
+    os_color_t cell_bg = OS_COLOR_P_TRANSPARENT;
     int tab_to = -1;
     enum tab_align tab_align = TAB_NONE;
     glui32 tab_dp = 0;
@@ -1969,6 +2034,62 @@ static void do_tag(parser *p)
         }
         else if (!p->ignore && TAG("dd"))
             pop_elem(p, t + name, namelen);
+    }
+    else if (TAG("table"))
+    {
+        /* a block, whose rows are lines */
+        if (p->ignore)
+            ;
+        else if (end)
+        {
+            if (p->table)
+            {
+                pop_elem(p, t + name, namelen);
+                line_break(p);
+            }
+        }
+        else
+        {
+            line_break(p);
+            push_elem(p, t + name, namelen);
+            ++p->table;
+            p->ncell = 0;
+            p->row_shown = 0;
+            cell_ok = 1;
+        }
+    }
+    else if (TAG("tr"))
+    {
+        /* a row ends the row before it, which may not have been closed */
+        if (!p->ignore && p->table)
+        {
+            close_cell(p);
+            close_elem(p, "tr", tr_stops);
+            line_break(p);
+            if (!end)
+            {
+                push_elem(p, t + name, namelen);
+                p->ncell = 0;
+                p->row_shown = 0;
+                cell_ok = 1;
+            }
+        }
+    }
+    else if (TAG("td") || TAG("th"))
+    {
+        /* so does a cell */
+        if (!p->ignore && p->table)
+        {
+            close_cell(p);
+            if (!end)
+            {
+                cell_first = p->ncell++ == 0;
+                push_elem(p, t + name, namelen);
+                if (TAG("th"))
+                    p->cur.attr |= OSSTY_BOLD;
+                cell_ok = cell = 1;
+            }
+        }
     }
     else if (TAG("nobr"))
     {
@@ -2344,6 +2465,13 @@ static void do_tag(parser *p)
         else if (align_ok && ATTR("align"))
             align = tag_is(t + v, vlen, "center")
                 || tag_is(t + v, vlen, "right");
+        else if (cell_ok && ATTR("align") && !tag_is(t + name, namelen, "table"))
+            cell_align = tag_is(t + v, vlen, "center") ? 1
+                : tag_is(t + v, vlen, "right") ? 2
+                : tag_is(t + v, vlen, "left") ? 0 : -1;
+        else if (cell_ok && ATTR("bgcolor"))
+            cell_bg_ok = parse_color(t + v, vlen, &cell_bg)
+                && !os_color_is_param(cell_bg);
         else if (face_ok && ATTR("face"))
             face = face_combo(t + v, vlen);
         else if (color_ok && ATTR("color"))
@@ -2475,6 +2603,58 @@ static void do_tag(parser *p)
             p->cur.attr |= OSSTY_CENTER;
         else if (align == 0)
             p->cur.attr &= ~OSSTY_CENTER;
+    }
+
+    /*
+     *   <TABLE>, <TR> and <TD>: each row is a line, and a cell goes on it
+     *   after a gap, so empty cells before a cell leave the gap as an
+     *   indent.  Only the first cell's ALIGN centres the row.  Where a <TAB>
+     *   can align right, a right-aligned cell goes at the end of the line,
+     *   as on a status line.  Only a cell's own colour is a background: a
+     *   theme colour is what the window shows already.
+     */
+    if (cell_bg_ok)
+    {
+        p->cur.bg = cell_bg;
+        contrast_text(p, cell_bg);
+    }
+    if (!cell && cell_align >= 0)
+    {
+        if (cell_align)
+            p->cur.attr |= OSSTY_CENTER;
+        else
+            p->cur.attr &= ~OSSTY_CENTER;
+    }
+    if (cell && !cell_first && !p->row_shown
+        && !(cur_color(p).attr & OSSTY_CENTER))
+    {
+        /* after empty cells, the gap indents each line of the cell */
+        p->npending = 0;
+        if (p->line_open)
+            put_tab(p, 2 * CELL_INDENT, 0);
+        p->indent += CELL_INDENT;
+    }
+    else if (cell && !cell_first && p->line_open)
+    {
+        /* the gap takes the place of the spaces the cell before ends with */
+        p->npending = 0;
+        p->cur.attr = (p->cur.attr & ~OSSTY_CENTER) | p->line_center;
+        if (cell_align == 2 && !p->line_center && (tads3 || p->in_banner))
+            right_cell(p);
+        else
+            put_tab(p, CELL_GAP, 0);
+    }
+    else if (cell && !cell_first && cell_align == 2
+             && !(p->cur.attr & OSSTY_CENTER) && (tads3 || p->in_banner))
+        right_cell(p);
+    else if (cell)
+    {
+        if (cell_align > 0)
+            p->cur.attr |= OSSTY_CENTER;
+        else if (cell_align == 0)
+            p->cur.attr &= ~OSSTY_CENTER;
+        if (!cell_first)
+            put_tab(p, CELL_GAP, 0);
     }
 
     /* TADS 3: what's left of the <TAB> */
