@@ -48,8 +48,8 @@ Not covered:
 
 ## Decisions from the heglk refactor (2026-10)
 
-These came out of the read-through in the former `heglk/TODO.md`, and are
-recorded here so they are not reopened by accident.
+These came out of the read-throughs in the former `heglk/TODO.md` (two
+passes), and are recorded here so they are not reopened by accident.
 
 - `hugo_handlearrange` checks whether anything changed and returns early,
   but its pixel clause can never hold (`heglk_get_linelength()` leaves two
@@ -62,9 +62,25 @@ recorded here so they are not reopened by accident.
   sound, which share no state). The window code, the per-game hacks and
   `hugo_displaypicture` share about 80 file statics. Splitting them would
   turn those into externs. Gather the state into a struct first.
-- The Future Boy picture size ranges in `heglk_detect_fb_graphics` stay as
+- The Future Boy picture size ranges in `heglk_note_future_boy_picture` stay as
   commented literals. Each range is used once, and the names would only
   repeat the comments.
 - The three lists of tracked window indices (the recycler's exclusions in
   `heglk_new_wincontext`, and the resets in `hugo_unmapcleared` and
   `hugo_clearfullscreen`) differ on purpose. They are not one array.
+- `menutop` is set at the first menu and never reset. A clear of the menu
+  window looked as if it reset it, but that branch could never run and was
+  removed. The traces don't show a game that needs a reset.
+- The menu state (`mono`, `inmenu`, `menuwin`, `menutop`) is documented in
+  one comment above `menutop` and not put in a struct, because the variables
+  are set from too many places for a struct to help.
+- `heglk_find_window_edge` does not skip cleared windows or the caller's
+  own window. Callers that care check the result. Changing this would change
+  layout.
+- No formatter run: there is no `.clang-format`, and reformatting the whole
+  file would bury blame. Fix indentation where code is touched.
+- The window-context recycling path has no trace of its own, because games
+  never use 256 contexts. To exercise it, build with
+  `OTHER_CFLAGS='$(inherited) -DMAXWINS=8'` (ASan on) and run the suite.
+  In 2026-10 that recycled contexts in 13 cases and ran out in 5, with no
+  new sanitizer reports. The output differs from the goldens, as expected.
