@@ -1333,20 +1333,25 @@ void LoadGame(void)
 
 	defseg = gameseg;
 
-	if (game_version < HEVERSION)
+	/* Pre-v2.0 files (written as 1, so 10 here) have a shorter header:
+	   the table and routine addresses read below would be wrong. */
+	if (game_version < 20)
 	{
 #if defined (DEBUGGER)
 		hugo_cleanup_screen();
 		hugo_clearfullscreen();
 #endif
-		snprintf(line, 1025, "Hugo Compiler v%d.%d or later required.\n", HEVERSION, HEREVISION);
-		if (game_version>0)
+		snprintf(line, 1025, "Hugo Compiler v2.0 or later required.\n");
+		if (game_version>0 && gamefile[0])
 			snprintf(line+strlen(line), 1025, "File \"%s\" is v%d.%d.\n", gamefile, game_version/10, game_version%10);
+		else if (game_version>0)	/* Glk doesn't set gamefile */
+			snprintf(line+strlen(line), 1025, "This file is v%d.%d.\n", game_version/10, game_version%10);
 
 #if defined (DEBUGGER_PRINTFATALERROR)
 		DEBUGGER_PRINTFATALERROR(line);
 #else
-		printf("%s", line);
+		/* Not printf: a Glk port has no stdout to show it */
+		PRINTFATALERROR(line);
 #endif
 		hugo_closefiles();
 		hugo_blockfree(mem);
@@ -1365,7 +1370,8 @@ void LoadGame(void)
 #if defined (DEBUGGER_PRINTFATALERROR)
 		DEBUGGER_PRINTFATALERROR(line);
 #else
-		printf("%s", line);
+		/* Not printf: a Glk port has no stdout to show it */
+		PRINTFATALERROR(line);
 #endif
 		hugo_closefiles();
 		hugo_blockfree(mem);
