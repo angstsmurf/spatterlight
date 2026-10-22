@@ -249,6 +249,20 @@ static int hugo_convert_key(int n)
  * Waits for 1/n seconds.  Returns false if waiting is unsupported.
  */
 
+/* The pixel height of ROWS lines of a grid window, margins included. */
+static float rows_to_height(int rows)
+{
+    return rows * gcellh + 2 * ggridmarginy;
+}
+
+/* glk_select(), handling any window rearrangement on the way. */
+static void heglk_select(event_t *ev)
+{
+    glk_select(ev);
+    if (ev->type == evtype_Arrange)
+        hugo_handlearrange();
+}
+
 int hugo_timewait(int n)
 {
     glui32 millisecs;
@@ -270,9 +284,7 @@ int hugo_timewait(int n)
     glk_request_timer_events(millisecs);
     while (ev.type != evtype_Timer)
     {
-        glk_select(&ev);
-        if (ev.type == evtype_Arrange)
-            hugo_handlearrange();
+        heglk_select(&ev);
         if (ev.type == evtype_CharInput)
         {
             keypress = hugo_convert_key(ev.val1);
@@ -812,11 +824,7 @@ void hugo_getline(char *prompt)
     glk_request_line_event(wins[curwin].win, buffer, MAXBUFFER, 0);
 
     while (ev.type != evtype_LineInput)
-    {
-        glk_select(&ev);
-        if (ev.type == evtype_Arrange)
-            hugo_handlearrange();
-    }
+        heglk_select(&ev);
 
     /* The line we have received in commandbuf is not null-terminated */
     buffer[ev.val1] = '\0';    /* i.e., the length */
@@ -840,36 +848,14 @@ void hugo_getline(char *prompt)
  * waiting for a keystroke may not be such a hot idea.
  */
 
-int hugo_waitforkey(void)
+/* Ask WIN for a key, and outside menus for a click or hyperlink as well.
+   Returns false if WIN can't take a key. */
+static int heglk_request_input(window_t *win)
 {
-    event_t ev = {0};
-
-    window_t *win;
-
-    LOG("hugo_waitforKey\n");
-
-    if (keypress)
-    {
-        int oldkeypress = keypress;
-        keypress = 0;
-        return oldkeypress;
-    }
-
-    /* Ignore calls where there's been no recent display, unless a key has
-       already been waited for since the last one: a game that pauses in a
-       loop until it gets a key it wants (the hint screens of Future Boy!)
-       would otherwise spin there for ever, never asking Glk for a key. */
-    if (!just_displayed_something && !inmenu && !waited_since_display)
-        return 0;
-
-    just_displayed_something = false;
-    waited_since_display = true;
-
     int event_requested = 0;
 
-    win = wins[curwin].win;
     if (win) {
-             if (win->type == wintype_Graphics || win->type == wintype_TextGrid || win->type == wintype_TextBuffer) {
+        if (win->type == wintype_Graphics || win->type == wintype_TextGrid || win->type == wintype_TextBuffer) {
             if (!win->char_request) {
                 glk_request_char_event(win);
                 LOG("requested char event in win %d\n", win->peer);
@@ -899,6 +885,52 @@ int hugo_waitforkey(void)
         }
     }
 
+    return event_requested;
+}
+
+static void heglk_cancel_all_requests(void)
+{
+    for (window_t *win = glk_window_iterate(NULL, NULL); win; win = glk_window_iterate(win, NULL))
+    {
+        if (win->mouse_request)
+        {
+            glk_cancel_mouse_event(win);
+        }
+        if (win->char_request)
+        {
+            glk_cancel_char_event(win);
+        }
+        if (win->hyper_request)
+        {
+            glk_cancel_hyperlink_event(win);
+        }
+    }
+}
+
+int hugo_waitforkey(void)
+{
+    event_t ev = {0};
+
+    LOG("hugo_waitforKey\n");
+
+    if (keypress)
+    {
+        int oldkeypress = keypress;
+        keypress = 0;
+        return oldkeypress;
+    }
+
+    /* Ignore calls where there's been no recent display, unless a key has
+       already been waited for since the last one: a game that pauses in a
+       loop until it gets a key it wants (the hint screens of Future Boy!)
+       would otherwise spin there for ever, never asking Glk for a key. */
+    if (!just_displayed_something && !inmenu && !waited_since_display)
+        return 0;
+
+    just_displayed_something = false;
+    waited_since_display = true;
+
+    int event_requested = heglk_request_input(wins[curwin].win);
 
     if (!event_requested)
     {
@@ -916,11 +948,7 @@ int hugo_waitforkey(void)
     }
 
     while (ev.type != evtype_CharInput && ev.type != evtype_MouseInput && ev.type != evtype_Hyperlink)
-    {
-        glk_select(&ev);
-        if (ev.type == evtype_Arrange)
-            hugo_handlearrange();
-    }
+        heglk_select(&ev);
 
     if (ev.type == evtype_MouseInput) {
         // It's a mouse click.
@@ -942,21 +970,7 @@ int hugo_waitforkey(void)
     display_pointer_x = currentpos;
     display_pointer_y = currentline;
 
-    for (win = glk_window_iterate(NULL, NULL); win; win = glk_window_iterate(win, NULL))
-    {
-        if (win->mouse_request)
-        {
-            glk_cancel_mouse_event(win);
-        }
-        if (win->char_request)
-        {
-            glk_cancel_char_event(win);
-        }
-        if (win->hyper_request)
-        {
-            glk_cancel_hyperlink_event(win);
-        }
-    }
+    heglk_cancel_all_requests();
 
     /* Convert Glk special keycodes: */
     return hugo_convert_key (ev.val1);
@@ -1272,12 +1286,17 @@ static void hugo_unmapcleared(void)
 
 static void hugo_handlearrange(void)
 {
-    if (heglk_get_linelength() == screenwidth_in_chars && heglk_get_screenheight() == screenheight_in_chars && gcellw * screenwidth_in_chars + ggridmarginx * 2 == gscreenw) {
+    int width = heglk_get_linelength();
+    int height = heglk_get_screenheight();
+
+    /* The pixel test never holds, as heglk_get_linelength() leaves two
+       columns spare, so in practice this never returns early. */
+    if (width == screenwidth_in_chars && height == screenheight_in_chars && gcellw * screenwidth_in_chars + ggridmarginx * 2 == gscreenw) {
         return;
     }
 
-    screenwidth_in_chars = heglk_get_linelength();
-    screenheight_in_chars = heglk_get_screenheight();
+    screenwidth_in_chars = width;
+    screenheight_in_chars = height;
 
     if (menuwin)
     {
@@ -1290,7 +1309,7 @@ static void hugo_handlearrange(void)
     {
         if (!menuwin)
         {
-            wins[statuswin].y1 = ggridmarginy * 2 + wins[statuswin].b * gcellh;
+            wins[statuswin].y1 = rows_to_height(wins[statuswin].b);
         }
         wins[statuswin].x1 = gscreenw;
         win_sizewin(wins[statuswin].win->peer, wins[statuswin].x0, wins[statuswin].y0, wins[statuswin].x1, wins[statuswin].y1);
@@ -1423,7 +1442,7 @@ static int heglk_push_down_main_window_to(int y)
 
     int minimal_mainwin_height = gbuffermarginy * 2 + gbufcellh * 3;
     if (wins[mainwin].win && wins[mainwin].win->type == wintype_TextGrid)
-        minimal_mainwin_height = ggridmarginy * 2 + gcellh * 3;
+        minimal_mainwin_height = rows_to_height(3);
     if (gscreenh <  minimal_mainwin_height)
         minimal_mainwin_height = gscreenh / 2;
     if (gscreenh - y < minimal_mainwin_height)
@@ -1521,7 +1540,7 @@ static void heglk_ensure_menu(void)
     second_image_row = 0;
     curwin = menuwin;
 
-    wins[menuwin].y0 = (menutop - 1 - (menutop > 2)) * gcellh + 2 * ggridmarginy;
+    wins[menuwin].y0 = rows_to_height(menutop - 1 - (menutop > 2));
     wins[menuwin].y1 = gscreenh;
 
     if (statuswin == menuwin)
@@ -1669,7 +1688,7 @@ static int heglk_id_future_boy_images(int left, int top, int right, int bottom, 
 static void heglk_adjust_single_future_boy_image(int type, int i, int alignment, int should_draw) {
 
     int x0, y0, x1, y1;
-    int upper_bound = gcellh + ggridmarginy * 2;
+    int upper_bound = rows_to_height(1);
     int lower_bound = (screenheight_in_chars / 2) * gcellh;
     int compass_height = gscreenh * 0.12;
 
@@ -1883,12 +1902,12 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     x0 = 0;
     y0 = 0;
     x1 = gscreenw;
-    y1 = bottom * gcellh + 2 * ggridmarginy;
+    y1 = rows_to_height(bottom);
 
     switch (type) {
         case ISSTATUS:
             bottom = heglk_adjust_pre_v24_status_when_setting_window(bottom);
-            y1 = bottom * gcellh + 2 * ggridmarginy;
+            y1 = rows_to_height(bottom);
             if (!below_status && mainwin)
                 below_status = mainwin;
             if (below_status)
