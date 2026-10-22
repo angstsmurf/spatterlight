@@ -131,17 +131,27 @@ static int second_image_row = 0; // Typically a border image or line below the i
 static int guilty_bastards_graphics_win = 0;
 static int guilty_bastards_aux_win = 0;
 
-#define FB_ALIGNMENT_LEFT 0
-#define FB_ALIGNMENT_RIGHT 1
+/* Future Boy! */
+enum { FB_ALIGNMENT_LEFT, FB_ALIGNMENT_RIGHT };
 
-#define FB_IMAGE_MAIN 0
-#define FB_IMAGE_SUB_1 1
-#define FB_IMAGE_SUB_2 2
-#define FB_IMAGE_COMPASS 3
-#define FB_IMAGE_LINE 4
-#define FB_STATUS 5
-#define FB_MAIN 6
-#define FB_IMAGE_UNKNOWN 99
+/* The kinds of window heglk_id_future_boy_images() recognises */
+enum {
+    FB_IMAGE_MAIN,
+    FB_IMAGE_SUB_1,
+    FB_IMAGE_SUB_2,
+    FB_IMAGE_COMPASS,
+    FB_IMAGE_LINE,
+    FB_STATUS,
+    FB_MAIN,
+    FB_IMAGE_UNKNOWN = 99
+};
+
+/* Resource lengths of particular pictures */
+#define FB_TITLE_RESLEN 17211         /* the title screen */
+#define FB_SECOND_ROW_RESLEN 14236    /* the image starting the second row */
+
+/* Is TYPE one of the picture windows (main, subs, compass, line)? */
+#define FB_IS_IMAGE(type) ((type) != FB_IMAGE_UNKNOWN && (type) != FB_MAIN && (type) != FB_STATUS)
 
 static int future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
 static int future_boy_line = 0;
@@ -195,7 +205,7 @@ static int heglk_find_attached_at_top(int top);
 static int heglk_find_attached_to_left(int left);
 static void heglk_adjust_guilty_bastards_windows(void);
 static void heglk_adjust_future_boy_windows(void);
-static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight);
+static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight, int *alignment);
 
 #define MAXRES 1024
 
@@ -320,6 +330,53 @@ void hugo_closefiles(void)
     /* Glk closes all files at glk_exit() */
 }
 
+/* The black room description window on the right half of the screen in
+   Guilty Bastards, which must survive clears and cursor moves. */
+static int is_gb_room_description_window(int i)
+{
+    return isguiltybastards && wins[i].l >= screenwidth_in_chars / 2 && wins[i].halfscreenwidth;
+}
+
+/* Games that need special handling, recognised by the start of the title
+   they set or, for games that set none, by their file name. */
+struct heglk_game {
+    const char *prefix;
+    int *flag;
+};
+
+static const struct heglk_game games_by_title[] = {
+    { "Hugo Tetris", &istetris },
+    { "CRYPTOZOOKEEPER", &isczk },
+    { "Future Boy!", &isfutureboy },
+    { "ENCELADUS", &isenceladus },
+    { "NECROTIC DRIFT", &isnecrotic },
+    { "FALLACY OF DAWN", &isfallacy },
+    { "The Clockwork Boy 2", &iscwb2 },
+    { "World Builder", &isworldbuilder },
+    { "The Next Day", &isnextday },
+    { "A CRIMSON", &iscrimson },
+    { "Guilty Bastards", &isguiltybastards },
+    { "Tales of the Traveling", &istraveling },
+};
+
+static const struct heglk_game games_by_filename[] = {
+    { "colossal.hex", &iscolossal },
+    { "htgessay.hex", &ishtg },
+    { "marjorie.hex", &ismarjorie },
+};
+
+static void heglk_identify_game(const struct heglk_game *games, size_t count, const char *name)
+{
+    for (size_t i = 0; i < count; i++)
+    {
+        if (!strncmp(name, games[i].prefix, strlen(games[i].prefix)))
+        {
+            *games[i].flag = true;
+            return;
+        }
+    }
+}
+
 void hugo_setgametitle(char *t)
 {
     if (!strncmp(t, "NOT READY YET", 13))
@@ -327,31 +384,7 @@ void hugo_setgametitle(char *t)
 
     garglk_set_story_title(t);
 
-    if (!strncmp(t, "Hugo Tetris", 11)) {
-        istetris = true;
-    } else if (!strncmp(t, "CRYPTOZOOKEEPER", 15)) {
-        isczk = true;
-    } else if (!strncmp(t, "Future Boy!", 11)) {
-        isfutureboy = true;
-    } else if (!strncmp(t, "ENCELADUS", 9)) {
-        isenceladus = true;
-    } else if (!strncmp(t, "NECROTIC DRIFT", 14)) {
-        isnecrotic = true;
-    } else if (!strncmp(t, "FALLACY OF DAWN", 15)) {
-        isfallacy = true;
-    } else if (!strncmp(t, "The Clockwork Boy 2", 19)) {
-        iscwb2 = true;
-    } else if (!strncmp(t, "World Builder", 13)) {
-        isworldbuilder = true;
-    } else if (!strncmp(t, "The Next Day", 12)) {
-        isnextday = true;
-    } else if (!strncmp(t, "A CRIMSON", 9)) {
-        iscrimson = true;
-    } else if (!strncmp(t, "Guilty Bastards", 15)) {
-        isguiltybastards = true;
-    } else if (!strncmp(t, "Tales of the Traveling", 22)) {
-        istraveling = true;
-    }
+    heglk_identify_game(games_by_title, sizeof games_by_title / sizeof *games_by_title, t);
 }
 
 int hugo_hasvideo(void)
@@ -750,16 +783,7 @@ void hugo_init_screen(void)
 
     win_setbgnd(-1, 0);
 
-    if (!strncmp(gli_story_name, "colossal.hex", 12))
-    {
-        iscolossal = true;
-    } else if (!strncmp(gli_story_name, "htgessay.hex", 12))
-    {
-        ishtg = true;
-    } else if (!strncmp(gli_story_name, "marjorie.hex", 12))
-    {
-        ismarjorie = true;
-    }
+    heglk_identify_game(games_by_filename, sizeof games_by_filename / sizeof *games_by_filename, gli_story_name);
 }
 
 void hugo_cleanup_screen(void)
@@ -1110,7 +1134,7 @@ static int isfullscreen(const struct winctx *ctx)
 static int heglk_clear_future_boy_type(int type, int not_this) {
     if (!isfutureboy)
         return 0;
-    if (type == FB_IMAGE_UNKNOWN || type == FB_MAIN || type == FB_STATUS || type == FB_IMAGE_LINE)
+    if (!FB_IS_IMAGE(type) || type == FB_IMAGE_LINE)
         return 0;
     int result = 0;
 
@@ -1118,7 +1142,7 @@ static int heglk_clear_future_boy_type(int type, int not_this) {
     {
         if (i == not_this)
             continue;
-        else if (heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation,  wins[i].screenheight_at_creation) == type) {
+        else if (heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation,  wins[i].screenheight_at_creation, &future_boy_graphics_alignment) == type) {
             heglk_unmap_and_mark_clear(i);
             heglk_clear_filename(i);
             result = 1;
@@ -1155,7 +1179,7 @@ void hugo_clearwindow(void)
     LOG("hugo_clearwindow %d: l:%d t:%d r:%d b:%d\n",curwin, l, t, r, b);
 
     if (isfutureboy) {
-        int type = heglk_id_future_boy_images(l, t, r, b, screenwidth_in_chars, screenheight_in_chars);
+        int type = heglk_id_future_boy_images(l, t, r, b, screenwidth_in_chars, screenheight_in_chars, &future_boy_graphics_alignment);
         if (heglk_clear_future_boy_type(type, -1))
             return;
     }
@@ -1238,7 +1262,7 @@ void hugo_clearwindow(void)
 
     // Hack to keep black room description window from
     // being deleted at the first turn of Guilty Bastards
-    if (isguiltybastards && wins[curwin].l >= screenwidth_in_chars / 2 && wins[curwin].halfscreenwidth)
+    if (is_gb_room_description_window(curwin))
     {
         wins[curwin].clear = 0;
     }
@@ -1620,7 +1644,9 @@ static void heglk_adjust_guilty_bastards_windows(void)
     heglk_sizeifexists(guilty_bastards_aux_win);
 }
 
-static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight) {
+/* Classify a Future Boy! window by its place on the screen. For the image
+   types, also store in *ALIGNMENT the side of the screen the text goes. */
+static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight, int *alignment) {
 
     if (right >= HUGO_INFINITE)
         right = screenwidth;
@@ -1649,30 +1675,30 @@ static int heglk_id_future_boy_images(int left, int top, int right, int bottom, 
     if (width < screenwidth && width >= screenwidth / 2) {
         //This is the main image
         if (left != 1) {
-            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
-        } else future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+            *alignment = FB_ALIGNMENT_RIGHT;
+        } else *alignment = FB_ALIGNMENT_LEFT;
         return FB_IMAGE_MAIN;
     }
 
     if (width <= screenwidth / 4 && height > screenheight * 0.15) {
         if (right == screenwidth || left == 1) {
             if (left == 1) {
-                future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
-            } else future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+                *alignment = FB_ALIGNMENT_RIGHT;
+            } else *alignment = FB_ALIGNMENT_LEFT;
             return FB_IMAGE_SUB_2;
         }
 
         if (left < horizontalmiddle && left != 1) {
-            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
-        } else future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+            *alignment = FB_ALIGNMENT_RIGHT;
+        } else *alignment = FB_ALIGNMENT_LEFT;
         return FB_IMAGE_SUB_1;
     }
 
     if (top == 2 && width <= (screenwidth / 4) && height <= screenheight * 0.15) {
         if (left < 3) {
-            future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
+            *alignment = FB_ALIGNMENT_RIGHT;
         } else {
-            future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
+            *alignment = FB_ALIGNMENT_LEFT;
         }
         return FB_IMAGE_COMPASS;
     }
@@ -1792,7 +1818,7 @@ static void heglk_adjust_future_boy_windows(void) {
     {
         if (wins[i].clear)
             continue;
-        type = heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation, wins[i].screenheight_at_creation);
+        type = heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation, wins[i].screenheight_at_creation, &future_boy_graphics_alignment);
 
         heglk_sizeifexists(i);
         heglk_adjust_single_future_boy_image(type, i, future_boy_graphics_alignment, 1);
@@ -2187,7 +2213,7 @@ void hugo_settextpos(int x, int y)
     {
         // Hack to keep black room description window from
         // being deleted at the first turn of Guilty Bastards
-        if (isguiltybastards && wins[curwin].l >= screenwidth_in_chars / 2 && wins[curwin].halfscreenwidth)
+        if (is_gb_room_description_window(curwin))
         {
             LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
             return;
@@ -2595,9 +2621,8 @@ int hugo_hasgraphics(void)
 static int heglk_detect_fb_graphics(int width, int height) {
     if (!isfutureboy)
         return FB_IMAGE_UNKNOWN;
-    int alignment = future_boy_graphics_alignment;
-    int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars);
-    future_boy_graphics_alignment = alignment;
+    int unused_alignment;
+    int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars, &unused_alignment);
     if (width > 400 && width < 450 && height > 250 && height < 300) {
         if (wins[curwin].l < 3)
             future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
@@ -2621,7 +2646,7 @@ static int heglk_detect_fb_graphics(int width, int height) {
     } else {
         LOG("Future Boy unknown image kind: width:%d height:%d\n", width, height);
     }
-   if (type != FB_IMAGE_UNKNOWN && type != FB_MAIN && type != FB_STATUS) {
+    if (FB_IS_IMAGE(type)) {
         heglk_clear_future_boy_type(type, curwin);
     }
     return type;
@@ -2676,7 +2701,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         if (ishtg && (reslength == 3501 || reslength == 4117))
             showing_author_photo = true;
 
-        if (isfutureboy && reslength == 17211)
+        if (isfutureboy && reslength == FB_TITLE_RESLEN)
             showing_futureboy_title = true;
         else
             showing_futureboy_title = false;
@@ -2701,7 +2726,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             x1 = gscreenw;
         int y1 = wins[curwin].y1;
 
-        if (reslength == 14236 && isfutureboy)
+        if (reslength == FB_SECOND_ROW_RESLEN && isfutureboy)
         {
             // Without this, everything breaks when restoring Future boy
             second_image_row = curwin;
