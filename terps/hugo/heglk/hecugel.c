@@ -31,6 +31,7 @@
 #define LOG(...) ((void)0)
 #endif
 
+/* These evaluate their arguments twice, so don't pass function calls. */
 #ifndef ABS
 #define ABS(a) ((a) < 0 ? -(a) : (a))
 #endif
@@ -84,7 +85,12 @@
 // to check against.
 #define HUGO_INFINITE (0x7000)
 
+/* Window contexts. Games use a few dozen at most, so the recycling path in
+   heglk_new_wincontext() is only reached when building with a small
+   -DMAXWINS (the trace suite passes with 8). */
+#ifndef MAXWINS
 #define MAXWINS 256
+#endif
 
 enum { ISSTATUS, ISAUX, ISMAIN };
 
@@ -535,7 +541,10 @@ static const int hugo_rgb[16] = {
     0xff0000, 0xff00ff, 0xffff00, 0xffffff,
 };
 
-int hugo_color(int c)
+/* Colour C as an RGB value for context I. A default colour that is also
+ * I's own default becomes zcolor_Default (see below), so the result depends
+ * on the window as well as on C. */
+static int heglk_color_for(int i, int c)
 {
     int converted = 0;
     /* Color-setting functions should always pass the color through
@@ -549,7 +558,7 @@ int hugo_color(int c)
         case DEF_SLFCOLOR:     converted = gsfgcol; break;
         case DEF_SLBGCOLOR:     converted = gsbgcol; break;
         case 20:    /* match foreground (guarded against recursing for ever) */
-            converted = fcolor == 20 ? 0 : hugo_color(fcolor); break;
+            converted = fcolor == 20 ? 0 : heglk_color_for(i, fcolor); break;
         default:
             if (c >= 0 && c < 16)
                 converted = hugo_rgb[c];
@@ -562,23 +571,23 @@ int hugo_color(int c)
        light/dark switch. A default text color used to be passed as a default
        only when the background was a default too; with a custom background it
        was fixed at gfgcol/gsfgcol, and that text kept the old side's color. */
-    if (wins[curwin].win || (statuswin && curwin == statuswin))
+    if (wins[i].win || (statuswin && i == statuswin))
     {
-        if (curwin == statuswin || wins[curwin].win->type == wintype_TextGrid)
+        if (i == statuswin || wins[i].win->type == wintype_TextGrid)
         {
-            if (c == DEF_SLFCOLOR && wins[curwin].fg == DEF_SLFCOLOR)
+            if (c == DEF_SLFCOLOR && wins[i].fg == DEF_SLFCOLOR)
             {
                 return zcolor_Default;
             }
-            if (c == DEF_SLBGCOLOR && wins[curwin].bg == DEF_SLBGCOLOR) {
+            if (c == DEF_SLBGCOLOR && wins[i].bg == DEF_SLBGCOLOR) {
                 return zcolor_Default;
             }
         } else {
-            if (c == DEF_FCOLOR && wins[curwin].fg == DEF_FCOLOR)
+            if (c == DEF_FCOLOR && wins[i].fg == DEF_FCOLOR)
             {
                 return zcolor_Default;
             }
-            if (c == DEF_BGCOLOR && wins[curwin].bg == DEF_BGCOLOR)
+            if (c == DEF_BGCOLOR && wins[i].bg == DEF_BGCOLOR)
             {
                 return zcolor_Default;
             }
@@ -586,6 +595,11 @@ int hugo_color(int c)
     }
 
     return converted;
+}
+
+int hugo_color(int c)
+{
+    return heglk_color_for(curwin, c);
 }
 
 void hugo_settextcolor(int c)
@@ -895,7 +909,18 @@ int hugo_waitforkey(void)
     /* Ignore calls where there's been no recent display, unless a key has
        already been waited for since the last one: a game that pauses in a
        loop until it gets a key it wants (the hint screens of Future Boy!)
-       would otherwise spin there for ever, never asking Glk for a key. */
+       would otherwise spin there for ever, never asking Glk for a key.
+
+         just_displayed_something  inmenu  waited_since_display  result
+         (keypress pending)           -       -                   that key
+         false                      false   false                 0, no wait
+         true                         -       -                   wait
+         -                          true      -                   wait
+         -                            -     true                  wait
+
+       just_displayed_something is set by printing and pictures and cleared
+       here; waited_since_display is set here and cleared by printing,
+       pictures and clearing a window or the screen. */
     if (!just_displayed_something && !inmenu && !waited_since_display)
         return 0;
 
@@ -984,7 +1009,7 @@ static void heglk_set_window_bg(int i)
 {
     wins[i].papercolor = wins[i].bg;
     lastbg = -1;
-    win_setbgnd(wins[i].win->peer, hugo_color(wins[i].bg));
+    win_setbgnd(wins[i].win->peer, heglk_color_for(i, wins[i].bg));
 }
 
 /* Drop any Glk window and heap data belonging to a window context,
@@ -1626,7 +1651,7 @@ static void heglk_adjust_guilty_bastards_windows(void)
     }
 
     if (wins[guilty_bastards_graphics_win].win)
-        glk_window_set_background_color(wins[guilty_bastards_graphics_win].win, hugo_color(wins[guilty_bastards_graphics_win].bg));
+        glk_window_set_background_color(wins[guilty_bastards_graphics_win].win, heglk_color_for(guilty_bastards_graphics_win, wins[guilty_bastards_graphics_win].bg));
 
     heglk_sizeifexists(guilty_bastards_graphics_win);
     heglk_sizeifexists(guilty_bastards_aux_win);
@@ -1783,7 +1808,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment)
     wins[i].win = gli_new_window(wintype_Graphics, 0);
 
     heglk_sizeifexists(i);
-    win_fillrect(wins[i].win->peer, hugo_color(wins[i].bg), 0, 0, abs(x1-x0), abs(y1-y0));
+    win_fillrect(wins[i].win->peer, heglk_color_for(i, wins[i].bg), 0, 0, abs(x1-x0), abs(y1-y0));
     win_drawimage(wins[i].win->peer, xoff, yoff, origwidth, origheight, 0, 0);
 }
 
