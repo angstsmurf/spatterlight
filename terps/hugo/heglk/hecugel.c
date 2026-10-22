@@ -163,6 +163,7 @@ static int showing_futureboy_title = false;
 static int keypress = 0;
 
 static int just_displayed_something = false;
+static int waited_since_display = false;
 static int lowest_printed_position_in_status = 0;
 static int in_arrange_event = false;
 static int in_valid_window = false;
@@ -897,11 +898,15 @@ int hugo_waitforkey(void)
         return oldkeypress;
     }
 
-    /* Ignore calls where there's been no recent display. */
-    if (!just_displayed_something && !inmenu)
+    /* Ignore calls where there's been no recent display, unless a key has
+       already been waited for since the last one: a game that pauses in a
+       loop until it gets a key it wants (the hint screens of Future Boy!)
+       would otherwise spin there for ever, never asking Glk for a key. */
+    if (!just_displayed_something && !inmenu && !waited_since_display)
         return 0;
 
     just_displayed_something = false;
+    waited_since_display = true;
 
     int event_requested = 0;
 
@@ -1068,6 +1073,9 @@ void hugo_clearfullscreen(void)
 
     LOG("hugo_clearfullscreen\n");
 
+    /* What a key was waited for on is gone: a pause on the empty screen is
+       skipped again (see hugo_waitforkey). */
+    waited_since_display = false;
     nlbufwin = 0;
     nlbufcnt = 0;
 
@@ -1136,6 +1144,8 @@ int heglk_clear_future_boy_type(int type, int not_this) {
 
 void hugo_clearwindow(void)
 {
+    waited_since_display = false;
+
     if (menuwin) {
         return;
     }
@@ -2625,6 +2635,7 @@ void hugo_print(char *a)
     }
 
     just_displayed_something = true;
+    waited_since_display = false;
 }
 
 void hugo_font(int f)
@@ -2970,6 +2981,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
 
     glk_stream_close(infile, NULL);
     just_displayed_something = true;
+    waited_since_display = false;
     return true;
 }
 
