@@ -1,0 +1,143 @@
+# Moonbase -- from https://plover.net/~davidw/sol/m/moonb02.html (My walkthrough and map)
+x me
+i
+x ray gun
+take it
+x console
+x green button
+read it
+read red button
+push red button
+n
+x console
+x ring
+x curtain
+read curtain
+w
+x plaque
+jump
+n
+x exoskeleton
+x battery
+x screwdriver
+x ladder
+x tools
+take all but exo
+put battery in exo
+s
+drop ladder
+climb ladder
+read plaque
+w
+n
+x desk
+open drawer
+x key
+take it
+x video case
+x trailer
+open case
+x video
+take it
+x slip
+take slip
+read slip
+x manual
+read it
+s
+s
+x body
+x locker
+x top bunk
+x bottom bunk
+unlock locker with key
+open locker
+x notebook
+read notebook
+n
+w
+x glint
+take gear
+x it
+x seats
+x screen
+u
+x player
+x buttons
+read green button
+read red button
+put tape in player
+put gear in projector
+push green button
+d
+watch movie
+u
+push red button
+d
+e
+e
+s
+x dial
+x controls
+read green button
+read red button
+# FIXME (placeholder)
+read slip
+# FIXME (placeholder)
+turn dial to NUMBER
+eat slip
+w
+x spacesuit
+x yellow tank
+read yellow gauge
+x blue tank
+read blue gauge
+take blue tank
+drop it
+put yellow tank in suit
+wear suit
+e
+push red button
+s
+x rock
+take it
+s
+x dust
+x boulders
+x trail
+x car
+s
+x junk
+x wrench
+take it
+x crater
+x hatch
+x trail
+x boulder
+x crevass
+se
+x eggs
+x skeleton
+x green tank
+read green gauge
+break eggs
+n
+n
+n
+n
+push green button
+remove suit
+drop it
+n
+n
+put battery in exo
+wear exo
+save
+n
+kill creature with suit
+look
+s
+s
+e
+push green button
+e

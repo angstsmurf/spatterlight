@@ -1,0 +1,419 @@
+# The White Bull -- from https://plover.net/~davidw/sol/w/white12.html (My walkthrough and maps)
+about
+credits
+x me
+i
+x hat
+x Julia
+x Nikolaides
+x wheel
+x Fawn
+x Leo
+x island
+x luggage
+x engine
+x cabin
+w
+catch rope
+take my pack
+s
+s
+s
+open pack
+x meadow
+s
+x bull
+x temple
+x figures
+read inscription
+ask Julia about inscription
+ask Julia about bull
+ask Julia about columns
+tell Julia about warrior
+x canteen
+x flashlight
+w
+x statue
+x Poseidon
+x trident
+x altar
+x shadow
+x plate
+x lines
+search shadow
+take bowl
+x it
+look in it
+close it
+e
+tell Julia about Poseidon
+ask her about Leo
+ask her about Fawn
+n
+w
+w
+x glint
+take ring
+x stairs
+u
+e
+x oracle
+greet her
+x stool
+x fissure
+x fumes
+give ring to her
+w
+d
+s
+e
+n
+w
+x pool
+taste pool
+x girl
+x eyes
+x shift
+ask girl about herself
+ask her about pool
+ask her about labyrinth
+nw
+ask Leo about village
+x huts
+x shack
+x window
+x flower
+look in box
+x bell
+x door
+knock on door
+s
+ask man about himself
+ask man about island
+ask man about temple
+take feather
+ask man about bull
+ask man about Poseidon
+ask man about girl
+ask man about dangers
+ask man about warrior
+ask man about maze
+ask man about table
+ask man about Daedalus
+look under canvas
+show feather to man
+ask man about Icarus
+ask man about red flower
+ask man about Minos
+ask man about Pasiphae
+ask man about oracle
+look under table
+x twine
+take twine
+n
+ask Leo about old man
+sw
+w
+x plank
+x huts
+x paths
+tie twine to plank
+w
+x ashes
+search ashes
+take skull
+x it
+search ashes
+take coins
+x coins
+search ashes
+e
+untie twine
+e
+e
+e
+x stick
+take it
+tell Fawn about temple
+tell Fawn about bull
+ask Fawn about Tarot
+w
+s
+s
+s
+n
+n
+take luggage
+e
+take disk
+x it
+x blocks
+e
+x summit
+s
+x sea
+x crevice
+g
+listen to crevice
+take flashlight
+turn it on
+point it into crevice
+x something
+put stick in crevice
+turn off flashlight
+x scroll
+n
+n
+ne
+x shell
+take it
+sw
+w
+w
+se
+ring bell
+show shell
+again
+show skull
+give lyre
+give twine
+x lyre
+play lyre
+e
+z
+z
+ask man about sea
+ask man about shell
+ask man about minotaur
+z
+z
+z
+z
+i
+s
+s
+ask Julia about gorgons
+ask Julia about device
+open pack
+show shield to Julia
+show scroll to Julia
+show lyre to Julia
+show coins to Juila
+show bell to Julia
+w
+x plate
+d
+turn on flashlight
+search walls
+u
+x statue
+ask Julia about statue
+take trident
+e
+x lake
+x moon
+e
+x birds
+hit shield
+Leo, hit shield with trident
+e
+x trees
+x ashes
+e
+x door
+x figures
+ask Julia about door
+ask Julia about figures
+x scroll
+push snake
+push scorpion
+push sword
+open door
+e
+play lyre
+x dog
+x torches
+e
+e
+x Icarus
+greet him
+break chain
+x panel
+ask Icarus about panel
+x feathers
+ask Icarus about feathers
+give feather to Icarus
+give bowl to Icarus
+se
+w
+e
+take wax
+g
+g
+g
+give wax to Julia
+give wax to Leo
+put wax in my ears
+se
+x shapes
+x trees
+x vines
+s
+x scroll
+sw
+s
+x river
+x clouds
+x tower
+x wheel
+turn wheel
+z
+z
+z
+z
+z
+z
+x boat
+x ferryman
+give coins to him
+enter boat
+ask ferryman about river
+ask him about labyrinth
+ask him about Daedalus
+z
+z
+z
+out
+s
+open bowl
+s
+x scroll
+w
+x building
+w
+close bowl
+s
+x scroll
+e
+e
+x disk
+stand on disk
+touch disk
+out
+n
+x cyclops
+x pelt
+x club
+ask Julia about cyclops
+s
+w
+x cobras
+e
+s
+x lava
+n
+e
+x sand
+x water
+x gravel
+ask Julia about sand
+ask Julia about gravel
+walk on gravel
+e
+x guards
+x sarcophagi
+talk to guards
+g
+g
+g
+hit warriors
+g
+w
+walk on gravel
+walk on gravel
+take sword
+x it
+e
+s
+s
+x gears
+x teeth
+x catwalk
+x pendulums
+put sword in gears
+take teeth
+x teeth
+ask Julia about teeth
+s
+x catwalks
+x ramp
+s
+x skeleton
+x ramp
+x door
+open door
+n
+Julia, stand on ramp
+Leo, stand on ramp
+s
+w
+e
+e
+x ramp
+put pin in hole
+n
+Julia, follow me
+Leo, follow me
+s
+e
+s
+x minotaur
+x Fawn
+x Leo
+x armor
+ask Fawn about Fawn
+ask Fawn about armor
+ask Fawn about disk
+ask Fawn about minotaur
+ask Fawn about bull
+ask Fawn about Leo
+ask Fawn about Gorgons
+ask Fawn about curtain
+x trident
+take trident
+w
+w
+n
+x skeleton
+s
+e
+e
+s
+x tables
+x diners
+x music
+x food
+x gorgons
+x snakes
+x centaur
+x cloth
+take cloth
+n
+x lout
+open canteen
+n
+wave red
+wave red
+wave red
+open armor
+open armor with trident
+take all
+e
+ring bell
+e
+dig dirt
+drop teeth
+ne
+e
+put disk in sea
+x Leo

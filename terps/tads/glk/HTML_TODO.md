@@ -148,7 +148,8 @@ follows the spec and has none of Spatterlight's extensions. In practice:
   across 235 games can't be seen.
   - Done as `test/run_traces.py`. It keeps no goldens: run it on the old
     build and the new one, then `--compare`. `--corpus xtads` runs the
-    1343 xtads test games, and `--walk DIR` runs walkthrough scripts.
+    1343 xtads test games, and `--walk` types the walkthroughs in
+    `htmltads/goldens`.
 
 ## Step 1: 11 styles chosen per game
 

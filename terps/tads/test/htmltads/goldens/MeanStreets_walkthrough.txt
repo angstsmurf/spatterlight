@@ -1,0 +1,296 @@
+# Mean Streets -- from https://plover.net/~davidw/sol/m/means15.html (My map and walkthrough)
+x sofa
+x table
+x tv
+x fridge
+open fridge
+take bourbon
+x it
+close fridge
+s
+take trunk key
+x sink
+x toilet
+n
+e
+x bed
+x photo
+x bookcase
+x trunk
+unlock trunk with key
+drop key
+open trunk
+take cash
+x it
+w
+n
+w
+x dumpster
+open it
+x broken bottle
+w
+x Marla
+ask Marla about Marla
+ask Marla about landlord
+ask Marla about me
+w
+n
+nw
+x mailbox
+open it
+take red key
+unlock door with it
+drop red key
+enter door
+x golf club
+take it
+wield it
+w
+x rucksack
+take it
+open it
+x grapefruit
+put it in sack
+x fridge
+open it
+x milk
+put it in sack
+close fridge
+e
+s
+se
+s
+w
+w
+x newspaper
+buy it
+read newspaper
+e
+e
+e
+e
+e
+i
+save
+n
+x crackhead
+kill crackhead
+x switchblade
+w
+x desk
+open drawer
+take chip
+drop it
+x it
+e
+u
+x boxes
+open box
+x notepad
+read it
+xyzzy
+x me
+d
+s
+w
+w
+w
+n
+ne
+x mailbox
+open it
+x envelope
+open it
+x mat
+look under mat
+x green key
+unlock door with green key
+drop green key
+enter door
+w
+x knife
+take it
+drop club
+x fridge
+open it
+x cheese
+x sausage
+put cheese in rucksack
+put sausage in rucksack
+wield knife
+e
+n
+x thug
+kill thug
+xyzzy
+look
+x duster
+take it
+drop knife
+x desk
+open drawer
+take cabinet key
+unlock cabinet with key
+drop key
+x cabinet
+open it
+take document
+read it
+x laptop
+read email
+x painting
+x basket
+wield duster
+e
+x Samson
+ask samson about me
+ask samson about document
+look
+x body
+x pistol
+x toilet
+x sink
+w
+s
+s
+sw
+s
+e
+s
+sw
+w
+x Ramon
+x cocaine
+save
+ask Ramon about briefcase
+kill Ramon
+wield pipe
+xyzzy
+kill Sal
+kill Ernesto
+drop duster
+take briefcase
+x it
+e
+ne
+s
+w
+s
+x sandwich
+put it in rucksack
+wield pipe
+save
+n
+n
+x thug
+kill thug
+xyzzy
+look
+x desk
+open drawer
+take all from drawer
+x chest key
+x keycard
+x cupboard key
+x cupboard
+unlock it with cupboard key
+drop cupboard key
+open cupboard
+x wine
+put wine in rucksack
+x shotgun
+s
+d
+x drain
+open it
+x clump
+x chest
+unlock chest with chest key
+drop chest key
+open chest
+x chainsaw
+take it
+drop pipe
+u
+e
+n
+n
+n
+e
+u
+e
+x intestine
+x skull
+w
+n
+x diary
+read it
+wield chainsaw
+save
+n
+x killer
+kill killer
+xyzzy
+x machete
+s
+s
+d
+w
+s
+w
+s
+x door
+unlock door with keycard
+enter door
+x locker
+unlock locker with keycard
+open locker
+take ledger
+read it
+n
+n
+sw
+n
+x chief
+x desk
+x burger
+put burger in rucksack
+x plant
+ask chief about me
+ask chief about chief
+ask chief about marla
+ask chief about andrew
+ask chief about ledger
+x chief
+kill chief
+xyzzy
+take paper
+read it
+s
+x Ella
+ask Ella about Ella
+ask Ella about me
+ask Ella about chief
+x evidence key
+w
+x box
+unlock box with evidence key
+drop evidence key
+open box
+x Old Painless
+x mousetrap
+drop chainsaw
+take painless
+wield it
+e
+ne
+nw
+n
+save
+w
+x DA
+ask DA about me
+ask DA about chief
+ask DA about note
+x big
+kill big

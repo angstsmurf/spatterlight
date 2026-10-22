@@ -1,0 +1,194 @@
+# The Coast House -- from https://plover.net/~davidw/sol/c/coast01.html (My walkthrough and map)
+credits
+i
+x key
+x house
+x stairs
+x weeds
+x street
+x pier
+nw
+n
+x shed
+x puddle
+w
+s
+sw
+x mud
+x porch
+e
+x box
+open box
+x panel
+turn on panel
+w
+se
+ne
+w
+x chair
+x door
+unlock door with key
+open door
+w
+turn on air conditioner
+x it
+x tv
+turn on tv
+x chair
+x cushion
+x closet
+open it
+x bag
+take it
+look in bag
+x small key
+x keyrack
+w
+x calendar
+read it
+x fridge
+open fridge
+x meat
+close fridge
+w
+x first
+x second
+x third
+x fourth
+n
+x commode
+x sink
+s
+s
+x bed
+look under bed
+g
+x carpet
+x dresser
+open it
+x wings
+take wings
+read tag
+x jacket
+x nightstand
+x photo
+n
+e
+e
+e
+e
+e
+n
+w
+x placard
+read it
+x memorial
+read it
+e
+s
+e
+read sign
+w
+s
+e
+x man
+x sign
+read sign
+x shrimp
+ask man about grandma
+ask man about grandpa
+ask man about war
+ask man about mom
+ask man about shrimp
+ask man about town
+ask man about tour
+ask man about pier
+ask man about Clyde
+ask man about Claude
+ask man about mansion
+w
+s
+e
+x tires
+x boots
+take boots
+w
+s
+s
+x mirage
+w
+x gates
+x marker
+read it
+w
+open gates
+w
+x mausoleum
+read it
+x flags
+w
+x grandma's headstone
+read it
+x grandpa's headstone
+read it
+x cover
+x crevice
+look in crevice
+x skeleton
+x locket
+take locket
+e
+e
+e
+n
+n
+n
+n
+w
+nw
+n
+wear boots
+w
+unlock shed with small key
+open shed
+w
+x tacklebox
+take it
+open it
+x hook
+x kit
+read it
+x cap
+read cap
+repair wings with kit
+e
+e
+s
+se
+e
+s
+e
+ask man about boots
+ask man about cap
+give cap to man
+w
+n
+e
+drop all but wings
+inflate wings
+wear wings
+e
+jump
+x poles
+x boat
+look in boat
+take hook
+w
+remove wings
+w
+s
+s
+w
+w
+w
+take locket with boat hook

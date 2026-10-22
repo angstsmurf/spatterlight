@@ -1,0 +1,237 @@
+# On the Farm -- from https://plover.net/~davidw/sol/o/onfar99.html (My walkthrough and map)
+yes
+x Grandpa
+x chair
+x bin
+look in it
+take magazine
+x it
+read it
+A > B > C > D > Q
+give magazine to Grandpa
+x planks
+x door
+x stains
+x handrail
+x chime
+n
+hug Grandma
+x Grandma
+ask Grandma about Grandma
+ask Grandma about Grandpa
+ask Grandma about birthday
+kiss Grandma
+ask Grandma about mother
+ask Grandma about farm
+ask Grandma about me
+x lamp
+ask Grandma about lamp
+ask Grandma about knitting
+no
+ask Grandma about house
+ask Grandma about screen door
+x sofa
+u
+x picture
+w
+take dentures
+x them
+x bed
+x stand
+e
+e
+x mattress
+x window
+x bear
+hug bear
+x bear
+take diary
+x it
+read it
+N > N > N > N > N > N > Q
+put bear and diary on shelf
+x books
+x stuffing
+w
+d
+w
+x table
+x chairs
+x rug
+e
+e
+x basin
+take it
+x knives
+x stove
+open it
+x fire
+pour water on fire
+x stove
+take log
+x log
+x grass
+x chrysanthemums
+x geraniums
+drop log
+n
+ask Grandpa about screen door
+ask Grandpa about spring
+open door
+take spring
+close door
+s
+take log
+w
+x carrot
+x beet
+x spinach
+x onion
+n
+x blocks
+e
+x shaft
+x clutch
+x control arm
+x lever
+x generator
+x gauge
+x wires
+x shelf
+e
+x outhouse
+read board
+take outhouse
+undo
+n
+x bees
+x battery
+x weeds
+x cover
+put log in hive
+take battery
+w
+x hay
+search hay
+x needle
+w
+x barn
+x door
+x runner
+n
+x rope
+take it
+untie rope
+untie rope with needle
+x rope
+cut rope with dentures
+wear dentures
+bite rope
+remove dentures
+take rope
+x rope
+x ladder
+u
+x door
+open door
+x farmhouse
+x windmill
+x fields
+close door
+x vane
+x arrow
+x rose
+x stand
+pull tail
+x picture
+x arrowhead
+x nickel
+x card
+read card
+close stand
+d
+s
+s
+e
+put battery on shelf
+connect red to positive
+connect black to negative
+connect spring to lever
+push lever
+z
+z
+z
+z
+pull lever
+take battery
+w
+w
+x sign
+x ladder
+x stalls
+x button
+x shelf
+x wires
+push button
+x slits
+look through slits
+put battery on shelf
+connect red to positive
+connect black to negative
+push button
+d
+take hook
+x manure
+u
+x hook
+x shoes
+e
+n
+w
+x tree
+x river
+x wildflowers
+tie rope to hook
+throw hook at branch
+climb rope
+S
+smell susans
+take susans
+e
+J
+x river
+x stone
+x moss
+x shoes
+fill basin
+x clean water
+e
+x grass
+x mud
+e
+take all
+e
+n
+yes
+give dentures to Grandpa
+ask Grandpa about bees
+ask Grandpa about haystack
+ask Grandpa about tractor
+ask Grandpa about windmill
+ask Grandpa about barn
+ask Grandpa about loft
+ask Grandpa about vane
+yes
+ask Grandpa about mom
+ask Grandpa about dad
+ask Grandpa about river
+give needle to Grandma
+ask Grandma about soup
+ask Grandma about garden
+ask Grandma about chime
+ask Grandma about teddy bear
+ask Grandma about rug
+n
+e
+pour water into pot
+SPACE

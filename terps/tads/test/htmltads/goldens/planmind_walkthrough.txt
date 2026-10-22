@@ -1,0 +1,355 @@
+# Planet of the Infinite Minds -- from https://plover.net/~davidw/sol/p/plane00.html (My walkthrough and maps)
+x me
+i
+x sun
+x children
+x midgets
+n
+x gypsy
+x caravan
+e
+sit on chair
+x key
+x envelope
+x photograph
+z
+z
+stand
+take all from mantlepiece
+open envelope
+read letter
+create key
+create library
+x table
+x crystal ball
+n
+x bed
+x things
+open curtains
+open window
+smell bed
+look
+x journal
+read it
+s
+e
+x TV
+x VCR
+x counter
+x panel
+x regular video
+read it
+x large video
+take regular
+put it in VCR
+push play
+z
+z
+z
+z
+x charms
+z
+x horn
+push eject
+take large video
+put it in VCR
+x display
+push play
+push play
+push play
+look
+x wearing
+take wearing
+wear wearing
+push rewind
+x display
+push play
+z
+x leader
+ask man about cards
+show photograph to him
+stand
+s
+e
+push fast
+g
+x display
+push play
+x point
+take point
+create library
+south
+s
+x bookshelves
+x Bill
+x counter
+x table
+x chair
+x book
+take book
+read it
+ask Bill about Erwin
+put book on table
+out
+create mind
+west
+w
+x Einstein
+ask him about science
+ask him about Erwin
+ask him about point
+out
+s
+ask Bill about CleftValet
+read large book
+x sheet
+take it
+read it
+put large book on table
+out
+create mind of CleftValet
+out
+w
+put photo in envelope
+put clipping in envelope
+close envelope
+put envelope on mantle
+e
+push play
+w
+x Dr
+ask Dr about point
+g
+g
+g
+g
+g
+ask Dr about tome
+ask Dr about BetteDavisEye
+ask Dr about crystal balls
+out
+drop all
+drop nothing
+wear wearing
+out
+w
+meditate on ball
+x pyramid
+n
+x constellations
+x cards
+take cards
+e
+x sand
+x undergrowth
+s
+x cube
+x water
+x creatures
+s
+x things
+w
+x clouds
+x Mason
+ask Mason about Mason
+listen to Mason
+g
+g
+g
+g
+g
+w
+x mind
+n
+drop point
+look
+x universe
+wear time
+take cards
+n
+x saint
+x gate
+x pit
+x sphere
+ask saint about gates
+put cards in pit
+take cards
+se
+take pyramid
+w
+s
+drop pyramid
+s
+take sphere
+ne
+se
+s
+se
+drop sphere
+ne
+take cards
+sw
+meditate on sphere
+x camera
+x counter
+take camera
+x mirrors
+out
+take sphere
+nw
+drop sphere
+take cube
+meditate on sphere
+drop cube
+out
+take sphere
+se
+drop sphere
+meditate on sphere
+take cube
+out
+drop cube
+take cards
+push button
+z
+z
+z
+take photo
+s
+push button
+z
+z
+z
+take photo
+nw
+push button
+z
+z
+z
+take photo
+w
+show red to Omni
+show blue to Omni
+show green to Omni
+drop camera
+x card
+out
+i
+x key
+unlock door with key
+open door
+w
+n
+take whistle
+x it
+play C
+play G
+play F
+z
+x charms
+x MacFlecknoe
+ask MacFlecknoe about Medvidev
+x planet
+x land
+x structure
+x chimney
+x portrait
+x paneling
+x carpet
+x chair
+x lounge
+x fireplace
+e
+x wall
+x paint
+w
+n
+x lavatory
+x basin
+open lavatory
+x turd
+flush lavatory
+s
+w
+n
+x oven
+open oven
+x dish
+e
+x bench
+x stains
+x dough
+w
+s
+u
+x man
+x desk
+x papers
+x door
+n
+n
+sleep
+stand
+s
+d
+answer phone
+sleep
+open front door
+n
+take newspaper
+x it
+read it
+x crossword
+s
+close front door
+w
+x settee
+search settee
+x coin
+e
+u
+n
+x desk
+open drawer
+x pen
+take it
+do crossword
+d
+e
+e
+drink paint
+x box
+open box
+eat cereal
+w
+n
+defecate
+look in lavatory
+take turd
+s
+w
+n
+e
+take dough
+w
+put dough in dish
+close oven
+push button
+z
+z
+z
+z
+z
+z
+z
+z
+z
+push button
+open oven
+x dish
+x pie
+take pie
+s
+u
+polish turd
+eat pie

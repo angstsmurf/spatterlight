@@ -1,0 +1,430 @@
+# Berrost's Challenge -- from https://plover.net/~davidw/sol/b/berro08.html (My walkthrough and map)
+about
+x me
+i
+x list
+read list
+x murals
+ne
+x crow
+x villagers
+n
+x fountain
+x statue
+x water
+search water
+n
+x Grappler
+x sign
+e
+x Silas
+x sign
+read sign
+x trophies
+x bar
+x jerky
+read placard
+talk to Silas
+1
+d
+1
+1
+1
+1
+2
+1
+x
+d
+thumbwrestle Silas
+take shot glass
+w
+n
+x bush
+x berries
+w
+x golem
+x wheel
+x pile
+x sacks
+x crossbeam
+x pole
+x broom
+eat pile
+x ladder
+u
+x ledge
+x vent
+x table
+look under table
+take tube
+crawl under table
+x gloves
+take gloves
+d
+save
+z
+take broom
+u
+snag tube with broom
+g
+g
+g
+d
+drop broom
+z
+z
+z
+z
+z
+z
+take broom
+u
+snag tube with broom
+g
+g
+d
+drop broom
+x hands
+open tube
+take scroll
+read scroll
+e
+s
+s
+s
+s
+e
+x weeds
+x well
+x rope
+x winch
+turn crank
+x bucket
+x sludge
+search sludge
+x ring
+wear ring
+jump
+x hands
+ne
+x dog
+x bones
+x doghouse
+x house
+x sillboxes
+x dirt
+x chain
+sw
+w
+n
+n
+wash hands
+search water
+s
+w
+x herbalist
+x pouches
+x plants
+x pipe
+talk to herbalist
+2
+2
+2
+x
+n
+w
+x tower
+s
+x cot
+x crack
+look in crack
+look under cot
+x weeds
+pull weeds
+x trunk
+x washbasin
+x table
+x chair
+x cushion
+x window
+look through window
+x ladder
+u
+x road
+x village
+x platform
+x mount
+x ballista
+x bolt
+x seat
+x captain
+x armor
+x sword
+talk to captain
+1
+1
+2
+x
+d
+n
+e
+s
+talk to herbalist
+2
+2
+x
+eat jerky
+e
+e
+x nail
+take nail
+x forge
+x coals
+x products
+x scraps
+search scraps
+wear gloves
+search scraps
+x shield
+x axe
+x sword
+x shovel
+x scrape
+x barrel
+look in barrel
+search barrel
+x Gonddol
+x apron
+x Gonddol's gloves
+x anvil
+talk to Gonddol
+1
+n
+e
+n
+x sign
+read sign
+x bucket
+x brush
+x tank
+push tank
+look behind tank
+take rock
+x rock
+drop rock
+push tank
+x vegetation
+x cave
+x tools
+x shelf
+n
+x webs
+x minecart
+x track
+x axle
+put shield on axle
+drop shield
+look in cart
+take helmet
+x it
+push button
+pull brake
+x wheels
+s
+put helmet on tray
+x spigot
+clean spigot
+unclog spigot
+x handle
+turn handle
+take helmet
+wear it
+i
+drop shot glass, gloves, tube, nail
+take bucket
+take brush
+s
+w
+w
+n
+n
+pick berries
+w
+u
+drop bucket
+open it
+dip brush in paint
+paint vent
+drop brush
+put berries on ledge
+d
+e
+s
+s
+w
+w
+s
+u
+talk to captain
+1
+1
+z
+d
+n
+x crow
+pour potion on crow
+take crow
+e
+e
+s
+s
+e
+ne
+give crow to dog
+search bones
+x hands
+open tube
+take scroll
+read scroll
+drop tube
+sw
+turn crank
+push button
+jump in well
+z
+z
+z
+take cork tube
+climb rope
+push button
+x hands
+open cork
+take scroll
+read scroll
+drop cork
+w
+n
+n
+n
+w
+x vendors
+x sweetbreads
+x pies
+x stews
+x corn
+x pit
+w
+x wheel
+x saw
+x wrench
+x jug
+x hammer
+x tin
+x teamster
+x horses
+x wagon
+x elm
+x stable
+x gate
+talk to teamster
+1
+x
+talk to teamster
+1
+1
+1
+x
+take tin
+e
+e
+s
+search water
+e
+n
+talk to Silas
+2
+1
+x
+eat jerky
+s
+e
+n
+n
+put grease on axle
+put shield on axle
+enter cart
+push button
+pull lever
+push lever
+out
+take tube
+take list
+x hands
+open tube
+take scroll
+read scroll
+drop tube
+n
+w
+s
+push button
+put shot glass on tray
+turn handle
+take glass
+pour oil on thumb
+drop glass
+s
+w
+n
+thumbwrestle Silas
+d
+push button
+look
+x stones
+x casks
+x rack
+x chest
+open chest
+u
+push button
+talk to Silas
+3
+x
+w
+n
+w
+take spice
+e
+s
+e
+wrestle Silas
+throw spice at Silas
+pin Silas
+talk to Silas
+2
+x
+x key
+push button
+d
+unlock chest with key
+open chest
+take ivory tube
+x hands
+u
+push button
+s
+w
+wash hands
+open tube
+take scroll
+read scroll
+drop tube
+s
+sw
+x Berrost
+talk to Berrost
+1
+1
+1
+1
+quit

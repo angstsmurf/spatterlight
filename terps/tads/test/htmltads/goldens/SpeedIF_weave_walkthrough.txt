@@ -1,0 +1,11 @@
+# Weaving a Basket (or Something) -- from https://plover.net/~davidw/sol/w/weavi01.html (My walkthrough and map)
+x kit
+x components
+x book
+x junk
+search junk
+x glue
+x tape
+glue components
+tape basket
+s

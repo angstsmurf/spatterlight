@@ -1,0 +1,18 @@
+# (untitled) -- from https://plover.net/~davidw/sol/u/untit99a.html (My walkthrough and map)
+i
+x knife
+n
+x sign
+x tub
+x onions
+take onions
+s
+up
+hug Julianne
+kiss Julianne
+x Julianne
+x tower
+ask Julianne about me
+ask Julianne about love
+ask Julianne about Nostradamus
+cut onion

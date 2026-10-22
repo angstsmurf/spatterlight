@@ -1,0 +1,123 @@
+# 1893: A World's Fair Mystery -- from https://plover.net/~davidw/sol/1893.html (My solution and map)
+east
+northeast
+tell Carl about Bob
+tell Carl about Delbras
+wait in line
+# FIXME (note: (repeat until you reach the teller))
+wait
+give bill to teller
+take doughnut
+pour coffee
+drink cup
+examine funnel
+put clump in funnel
+put basket on hook
+flip switch
+turn crank
+pull thin lever
+turn crank
+pull short lever
+flip switch
+take basket
+look in basket
+put chunks on tray
+step on foot pedal
+take diamond
+drop hose
+put hose on pipe
+take nozzle
+n
+e
+put nozzle in canal
+w
+s
+turn on pump
+show crime scene note to Carl
+n
+w
+w
+s
+x belt
+open case
+take belt
+n
+e
+e
+s
+put belt in basin
+d
+x body
+close eyes
+take wet note
+read it
+x diamond
+take it
+u
+open gate
+in
+close gate
+# FIXME (note: (continue to
+repeat showing the flag to the bull over and over and over again. Eventually,
+the bull becomes so exhausted, it rams into the pen's wall.))
+show flag to bull
+# FIXME (note: (continue to
+repeat showing the flag to the bull over and over and over again. Eventually,
+the bull becomes so exhausted, it rams into the pen's wall.))
+g
+take diamond
+open gate
+out
+north
+push owl
+push vulture
+push mouth
+push marks
+push woman
+take diamond
+turn cup clockwise
+again
+again
+turn cup counterclockwise
+again
+turn cup clockwise
+again
+turn cup counterclockwise
+put earthquake totem in bear
+put chief's totem in dogfish
+put owl totem in man
+put raven totem in beaver
+shoot Bob with gun
+wait
+ask Bob about Delbras
+shoot Bob with gun
+w
+w
+w
+w
+give banana to ape
+take puppet
+take banana peel
+give banana to ape
+south
+push Harvey
+push yellow button
+turn knob
+turn wind dial to 2
+push thin lever
+turn wind dial to 0
+turn neb dial to 1
+pull stages lever
+again
+turn neb dial to 2
+pull stages lever
+again
+turn neb dial to 3
+flip red switch
+# FIXME (note: (Repeat waiting while the Boy investigates the statue.
+He will report that the fuse is inside the statue, and that there are three buttons: a circle, a square, and a triangle.
+He says that you'll have to tell him which buttons to push.))
+wait
+boy, push
+boy, push
+boy, push

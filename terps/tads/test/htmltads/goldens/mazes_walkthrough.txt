@@ -1,0 +1,1435 @@
+# Nothing But Mazes -- from https://plover.net/~davidw/sol/n/nothi19.html (My walkthrough and maps for full version)
+x me
+i
+listen
+touch floor
+open container
+yell
+search container
+z
+x me
+x table
+x guards
+x green jacket
+1
+1
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+# FIXME (placeholder)
+t
+# FIXME (placeholder)
+>> NUMBER
+about
+t
+>> 1
+# FIXME (placeholder)
+NUMBER
+t
+>> 1
+t
+>> 1
+t
+>> 1
+t
+>> 1
+t
+>> 1
+t
+>> 2
+t
+>> 3
+t
+>> 3
+t
+>> 3
+t
+>> 3 >> 1
+t
+>> 3 >> 2
+t
+>> 3 >> 5
+t
+>> 3 >> 6
+t
+>> 3 >> 7
+t
+>> 3 >> 8
+t
+>> 3 >> 9
+t >> 4 >> 1
+t >> 4 >> 2
+t >> 4 >> 3
+t >> 4 >> 4
+x Vicki
+x Diane
+x pants
+x bed
+x door
+x dispenser
+use dispenser
+1
+0
+take cube
+x cube
+eat cube
+t
+>> 3
+use dispenser
+2
+1
+2
+3
+5
+x box
+x mazes.m
+x mazes.exe
+run winnability
+put all in box
+run m9compiler
+run winnability
+take all from box
+drop all
+put mazes.m in box
+exit
+t >> 1
+t >> 2
+t >> 3
+lie on top bunk
+sleep
+yes
+x me
+i
+x ocean
+x butterfly
+x daiquiri
+take it
+drink daiquiri
+x glass
+x chair
+stand
+x sand
+dig sand
+n
+w
+x device
+take it
+use device
+play game
+yes
+1
+x Sheila
+t >> 1
+t >> 1
+t >> 2
+t >> 2
+t >> 2
+t >> 2
+t >> 4 >> 1
+t >> 4 >> 2
+t >> 4 >> 3
+t >> 4 >> 4
+t >> 4 >> 5
+t >> 4 >> 6
+t >> 4 >> 7
+t >> 4 >> 8
+t >> 4 >> 9
+t >> 5 >> 1
+t >> 5 >> 2
+t >> 5 >> 3
+t >> 5 >> 4
+t >> 5 >> 5
+t >> 5 >> 6
+look
+x mailbox
+open it
+read leaflet
+e
+x hole
+d
+yes
+n
+n
+n
+x hole
+d
+x statue
+push button
+say egress
+say shellac
+say cobra
+say atop
+say pate
+say egret
+say tooth
+say houri
+say ibis
+say sail
+say lava
+say aplomb
+say body
+say year
+say ravioli
+say iron
+say neat
+say tooth
+push button
+n
+w
+d
+x sign
+SN
+GW
+GN
+SL
+LR
+CI
+GH
+TG
+BJ
+NG
+CM
+GQ
+GA
+CG
+CF
+TD
+NE
+BF
+ML
+MR
+EH
+MA
+DZ
+TN
+LY
+EG
+SD
+SS
+ET
+ER
+DJ
+SO
+KE
+TZ
+BI
+RW
+UG
+CD
+AO
+NA
+BW
+ZW
+ZM
+MW
+MZ
+SZ
+ZA
+LS
+d
+n
+n
+d
+n
+se
+n
+ne
+n
+ne
+w
+w
+se
+w
+n
+sw
+n
+w
+w
+n
+n
+n
+n
+w
+ne
+se
+s
+e
+ne
+nw
+n
+d
+w
+e
+s
+e
+d
+x sign
+nw
+e
+w
+s
+w
+n
+n
+se
+ne
+w
+s
+w
+se
+w
+w
+n
+n
+se
+n
+w
+se
+ne
+w
+s
+w
+n
+e
+sw
+n
+n
+se
+s
+e
+n
+nw
+e
+sw
+sw
+e
+n
+nw
+e
+n
+s
+e
+n
+nw
+w
+s
+ne
+ne
+s
+s
+w
+e
+ne
+n
+e
+se
+se
+w
+nw
+ne
+s
+w
+n
+se
+e
+ne
+e
+w
+se
+se
+w
+s
+e
+n
+n
+w
+s
+se
+e
+ne
+nw
+sw
+sw
+n
+sw
+sw
+nw
+e
+s
+sw
+e
+n
+w
+n
+n
+e
+s
+nw
+w
+s
+s
+nw
+sw
+n
+e
+s
+s
+w
+w
+w
+ne
+se
+nw
+w
+e
+nw
+e
+se
+se
+sw
+sw
+nw
+n
+e
+s
+e
+s
+w
+ne
+n
+w
+sw
+e
+e
+s
+e
+s
+n
+s
+w
+n
+n
+se
+se
+se
+n
+n
+n
+sw
+s
+w
+n
+n
+w
+s
+ne
+e
+s
+e
+ne
+s
+w
+w
+nw
+nw
+sw
+se
+ne
+n
+nw
+nw
+s
+ne
+ne
+s
+e
+se
+sw
+nw
+sw
+xyzzy
+undo
+se
+sw
+n
+se
+e
+n
+w
+xyzzy
+xyzzy
+se
+s
+w
+e
+nw
+w
+n
+nw
+e
+xyzzy
+undo
+n
+se
+w
+n
+se
+ne
+se
+w
+n
+e
+sw
+se
+ne
+xyzzy
+s
+xyzzy
+w
+w
+n
+e
+e
+s
+s
+e
+d
+x sign
+e
+e
+n
+w
+u
+w
+d
+n
+w
+w
+s
+s
+e
+n
+u
+n
+n
+d
+w
+n
+e
+e
+e
+e
+s
+s
+w
+u
+n
+d
+w
+u
+s
+u
+x chest
+open chest
+s
+n
+w
+d
+x alligator
+e
+x bee
+sw
+x crab
+se
+x dolphin
+se
+x elephant
+w
+x frog
+ne
+x giraffe
+nw
+x hummingbird
+ne
+x iguana
+se
+x jellyfish
+ne
+x kangaroo
+s
+x ladybug
+se
+x monkey
+s
+x newt
+nw
+x octopus
+sw
+x penguin
+e
+x quail
+s
+x ray
+w
+x seahorse
+sw
+x turtle
+s
+x urchin
+nw
+x vulture
+ne
+x walrus
+se
+x Xerces
+se
+x yak
+e
+x zebra
+d
+s
+w
+d
+x sign
+BC
+SO
+SI
+NY
+DR
+CH
+CO
+NL
+TM
+SL
+ZC
+AG
+JL
+CL
+MC
+GN
+QR
+HD
+TL
+PB
+MR
+DF
+MX
+GR
+OX
+VR
+CP
+TB
+CM
+YC
+QN
+x hole
+d
+n
+x rocks
+x cracks
+d
+n
+sw
+n
+sw
+w
+n
+ne
+w
+n
+ne
+s
+ne
+s
+e
+s
+ne
+s
+sw
+s
+se
+ne
+w
+n
+e
+n
+n
+n
+n
+ne
+w
+w
+n
+e
+n
+n
+w
+sw
+w
+n
+e
+x hole
+d
+n
+w
+x drawings
+d
+x statue
+push button
+say throw
+say wasabi
+say iris
+say stout
+say toasty
+say yell
+say loci
+say illicit
+say toast
+say total
+say little
+say equip
+say panda
+say access
+say sass
+say saga
+say aging
+say glee
+say egress
+push button
+e
+n
+x stone
+d
+x sign
+w
+w
+n
+e
+u
+n
+n
+d
+n
+w
+s
+s
+e
+e
+s
+u
+e
+d
+s
+e
+n
+n
+w
+u
+n
+d
+e
+n
+w
+w
+s
+u
+s
+u
+open chest
+e
+n
+d
+x sign
+s
+nw
+n
+w
+se
+n
+se
+se
+se
+nw
+e
+nw
+s
+sw
+n
+se
+w
+n
+n
+se
+e
+s
+nw
+ne
+nw
+sw
+sw
+se
+n
+n
+n
+ne
+nw
+n
+se
+n
+w
+w
+s
+ne
+n
+s
+e
+s
+nw
+nw
+n
+e
+s
+e
+n
+w
+se
+w
+s
+sw
+nw
+ne
+s
+e
+e
+s
+e
+n
+nw
+nw
+e
+s
+sw
+sw
+s
+e
+n
+n
+sw
+w
+s
+w
+w
+ne
+se
+s
+e
+nw
+e
+se
+n
+w
+s
+nw
+w
+s
+e
+n
+s
+nw
+s
+w
+n
+n
+e
+se
+n
+e
+s
+s
+nw
+sw
+n
+e
+e
+sw
+w
+n
+n
+se
+e
+sw
+nw
+n
+ne
+se
+s
+s
+w
+n
+se
+ne
+se
+w
+ne
+w
+w
+e
+s
+se
+s
+se
+ne
+s
+w
+sw
+e
+n
+w
+sw
+w
+n
+e
+s
+w
+e
+nw
+w
+s
+nw
+s
+sw
+n
+sw
+s
+e
+sw
+n
+e
+se
+ne
+w
+se
+sw
+se
+w
+w
+nw
+e
+e
+e
+s
+w
+ne
+sw
+sw
+ne
+e
+xyzzy
+sw
+s
+w
+nw
+ne
+s
+s
+sw
+sw
+e
+n
+se
+w
+e
+n
+n
+w
+w
+xyzzy
+s
+s
+nw
+s
+se
+e
+xyzzy
+sw
+nw
+s
+w
+ne
+nw
+e
+xyzzy
+e
+n
+w
+s
+e
+w
+sw
+s
+ne
+s
+e
+save
+d
+# FIXME (placeholder)
+PLAY-AS-APPROPRIATE-UNTIL-YOU-WIN
+..
+possessions identified? y
+..
+bot's attributes? y
+..
+bot's conduct? y
+SPACE
+0
+1
+1
+1
+1
+1
+1 –to– 5
+1 –to– 5
+1 –to– 4
+4
+1
+1
+1
+1
+1 >> 1 >> 1 >> 1 >> 1 >> 1
+1 >> 1 >> 1 >> 1 >> 1 >> 1
+1 >> 1 >> 1 >> 1 >> 1
+1 >> 1 >> 1 >> 1 >> 1
+1 >> 1 >> 2 >> 1 >> 2 >> 2
+2
+1
+1
+2
+2
+2
+2
+1 >> 1 >> 1 >> 1 >> 1 >> 1 >> 1
+SPACE
+SPACE
+save
+achievements
+s
+e
+n
+n
+n
+n
+light explosive
+throw explosive at Neton
+shoot Neton with silenced
+shoot Ovan
+save
+x black pedestal
+x SHOTGUN
+x navy pedestal
+x phaser
+x green pedestal
+x maroon pedestal
+x handgun
+x teal pedestal
+x laser
+x purple pedestal
+x dispensing machine
+x olive pedestal
+x crystal
+x silver pedestal
+x particle gun
+x gray pedestal
+x xenite
+x blue pedestal
+x ary ung
+x lime pedestal
+x pulse gun
+x red pedestal
+x electric pistol
+x aqua pedestal
+x silenced pistol
+x fuchsia pedestal
+x disrupter
+x yellow pedestal
+x launcher
+read graffiti
+x white pedestal
+x T-removing gun
+take ary ung
+take T-removing gun
+shoot SHOTGUN with ary
+undo
+shoot SHOTGUN with T
+x Shogun
+shoot black pedestal with T
+undo
+shoot Phaser with ary
+shoot laser with ary
+x machine
+push button
+x minnow
+x drain
+push button
+shoot trout with ary
+push button
+shoot tetra with T
+undo
+shoot tetra with ary
+push button
+shoot seahorse with ary
+undo
+x seahorse
+push button
+shoot char with ary
+push button
+shoot perch with ary
+push button
+shoot sturgeon with T
+push button
+shoot chub with ary
+push button
+shoot bream with ary
+push button
+shoot lungfish with ary
+undo
+x lungfish
+push button
+shoot tuna with ary
+push button
+shoot gar with ary
+push button
+shoot eel with ary
+push button
+shoot tarpon with ary
+push button
+shoot oto with T
+push button
+shoot particle gun with ary
+undo
+shoot particle with T
+x paricle gun
+shoot paricle with ary
+undo
+shoot electric with ary
+put silenced on aqua
+shoot silenced with ary
+shoot disrupter with ary
+undo
+x launcher
+type on keypad
+31569
+123456789
+undo
+shoot west platform with ary
+undo
+shoot east platform with ary
+undo
+shoot west platform with T
+undo
+shoot east platform with T
+undo
+s
+x Ovan
+x yellow jacket
+x Ovan's icepick
+shoot Ovan with ary
+undo
+s
+x Neton
+x green jacket
+x Neton's icepick
+shoot Neton with T
+s
+x young guard
+x young uniform
+x young cannon
+x old guard
+x old uniform
+x old cannon
+x assistant
+x beige jacket
+x dagger
+x stairs
+shoot stairs with ary
+undo
+s
+x sign
+x apparatus
+x small button
+x drain
+shoot drain with ary
+x nadir
+shoot nadir with ary
+s
+x table
+x door
+x chair
+x first chair
+shoot table with t
+undo
+shoot door with ary
+undo
+n
+w
+x sign
+n
+x couch
+x arm
+x window
+shoot arm with ary
+undo
+shoot arm with T
+undo
+s
+s
+x mirror
+x toilet
+shoot toilet with T
+shoot oile with ary
+shoot mirror with ary
+undo
+n
+w
+s
+x table
+x chair
+x fridge
+x freezer
+x cupboard
+open cupboard
+x beets
+shoot beets with T
+undo
+x Aeros
+taste Aeros
+close Aeros
+x syrup
+shoot syrup with ary
+x yams
+shoot yams with ary
+x oil
+taste oil
+close oil
+put oil in cupboard
+shoot oil with ary
+undo
+shoot oil with T
+shoot oil with ary
+x bitters
+shoot bitters with T
+undo
+taste bitters
+close bitters
+x K
+shoot K with ary
+x cape
+shoot cape with ary
+taste K
+close K
+x salt
+shoot salt with ary
+undo
+shoot salt with T
+undo
+taste salt
+open freezer
+x bar
+shoot bar with ary
+x bear
+shoot bear with ary
+x tots
+shoot tots with T
+undo
+open fridge
+x upper shelf
+shoot it with ary
+undo
+x upper drawer
+shoot it with ary
+undo
+x lemon
+taste it
+shoot lemon with ary
+x melon
+taste it
+shoot it with ary
+x roast
+shoot roast with ary
+undo
+shoot roast with T
+shoot roas with ary
+undo
+undo
+x milk
+shoot milk with ary
+x milk
+shoot milk with ary
+x Pepsi
+shoot Pepsi with T
+undo
+shoot Pepsi with ary
+shoot pipes with T
+undo
+shoot pipes with ary
+drink Pepsi
+drop tall bottle
+shoot tall bottle with ary
+undo
+shoot tall bottle with T
+undo
+x taco
+shoot taco with ary
+x coat
+shoot coat with ary
+x chowder
+shoot it with ary
+undo
+x noodle soup
+shoot it with ary
+undo
+x minestrone
+shoot it with ary
+undo
+shoot minestrone with T
+shoot minesrone with ary
+undo
+undo
+x steak
+shoot steak with ary
+x stake
+shoot stake with T
+undo
+undo
+undo
+shoot steak with T
+shoot seak with ary
+x sake
+drink sake
+x round flask
+drop it
+shoot round flask with ary
+undo
+x brats
+shoot brats with T
+x bras
+shoot bras with ary
+undo
+x mutton
+shoot mutton with T
+undo
+x torte
+shoot torte with ary
+undo
+shoot torte with T
+x ore
+shoot ore with ary
+x truffles
+shoot truffles with T
+x Ruffles
+x carrot cake
+shoot it with ary
+x cracker
+shoot it with ary
+take all
+take all from upper shelf
+take it
+take all from lower shelf
+take it
+take all from upper drawer
+close it
+take it
+take all from lower drawer
+close it
+take it
+look in fridge
+take certificate
+read it
+shoot fridge with ary
+x egg
+shoot egg with ary
+undo
+take egg
+n
+n
+n
+e
+x Neton's desk
+open Neton's drawer
+x journals
+read journals
+g
+x stapler
+x Neton's computer
+x Ovan's desk
+x junk
+open Ovan's drawer
+x papers
+x keycard
+read papers
+x office shelves
+x books
+read books
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+x files
+x devices
+close door
+shoot files with ary
+shoot stapler with ary
+x plaster
+shoot plaster with T
+shoot plaser with ary
+x pearls
+take pearls
+drop keycard
+shoot keycard with ary
+x dry
+shoot dry with ary
+take keycard
+w
+s
+s
+w
+unlock south door with keycard
+s
+t
+>> 1 >> 2
+n
+n
+n
+n
+achievements
+credits
+making
+feelies
+trailer

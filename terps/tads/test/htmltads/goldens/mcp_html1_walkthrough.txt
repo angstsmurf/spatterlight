@@ -1,0 +1,13 @@
+# Glacial Rift of the Dick Cavett -- from https://plover.net/~davidw/sol/sp/sp_cc.html#mcp (My walkthrough and map)
+about
+x me
+i
+x blue page
+e
+x Dick
+talk to Dick
+g
+x ghost
+talk to ghost
+talk to Dick
+g

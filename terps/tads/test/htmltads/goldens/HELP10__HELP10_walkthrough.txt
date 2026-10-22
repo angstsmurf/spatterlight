@@ -1,0 +1,731 @@
+# Adventures of Helpfulman -- from https://plover.net/~davidw/sol/a/adven99.html (My walkthrough and maps)
+about
+commands
+x me
+i
+x belt
+x buckle
+x handbook
+read it
+x smoke
+x blood
+x acid
+look up belt
+look up buckle
+look up smoke
+look up blood
+look up acid
+push buckle
+take buckle
+push buckle
+x blade
+push buckle
+put buckle on belt
+x table
+x napkin
+take it
+open it
+x knife
+x fork
+x patrons
+x hologram
+x beam
+x carpet
+nw
+x professor
+ask him about vulnerabilities
+ask him about strengths
+ask him about cape
+ask him about food
+ask him about convulsions
+x paintings
+x pillars
+stand
+w
+ask waitress about spoon
+x waitress
+x spoon
+x window
+e
+sw
+se
+x speakers
+x suns
+ne
+e
+x bar
+x box of cigars
+x bartender
+x mirror
+x stools
+x glasses
+n
+x TV
+x coin
+take coin
+turn handle
+pry coin with spoon
+take coin
+s
+s
+x board
+se
+x button
+s
+x rail
+u
+n
+w s
+x clerk
+x phone
+e
+x toys
+x dust
+w
+sw
+x telescope
+ne
+ask clerk about telescope
+g
+g
+sw
+save
+put coin in slot
+look in telescope
+x foot
+x footprints
+x ball
+x gleaming
+x concrete wall
+put coin in slot
+x lot
+x street
+x dumpster
+x bumper
+ne
+n
+e
+s
+d
+n
+nw
+e
+x door
+x mens
+x womens
+x painting
+x plant
+ne
+enter last stall
+x toilet
+enter last stall
+put acid in toilet
+enter last
+flush toilet
+change
+x me
+x door
+exits
+w
+s
+w
+se
+s
+u
+n
+n
+x sign
+u
+w
+jump
+z
+z
+z
+z
+z
+z
+z
+look
+x sludge
+w
+x rungs
+u
+x crushed cone
+take it
+x gate
+s
+s
+x shop
+x sign
+x window
+s
+s
+e
+x sand
+x boy
+ask boy about castle
+x couple
+ask boy about couple
+n
+x porch
+enter hole
+take house key
+w
+e
+unlock door with house key
+n
+x table
+w
+e
+x table
+x rope
+untie rope
+take rope
+w
+s
+close door
+lock door with house key
+w
+w
+n
+x door
+x mailbox
+s
+close door
+e
+x card
+take it
+x table
+x TV
+x rug
+turn on TV
+turn off TV
+x recliner
+x pocket
+take all from pocket
+x envelope
+x order form
+x remote
+put form in envelope
+lick envelope
+close envelope
+s
+x table
+x stove
+x fridge
+x microwave
+n
+w
+w
+x bed
+x door
+open closet
+enter it
+n
+open bathroom
+enter it
+x shower
+x sink
+x toilet
+n
+e
+n
+put envelope in mailbox
+close mailbox
+x citation
+w
+w
+w
+x sign
+s
+x floor
+x tables
+x mess
+x can
+ask Fred about mess
+clean mess
+x quarter
+x case
+x clippings
+x hook
+x door
+x barrels
+ask Fred about hook
+ask Fred about pond
+s
+n
+nw
+n
+n
+w
+x garbage
+x cat
+x fence
+x dumpster
+open dumpster
+scare cat
+open dumpster
+x Ratman
+ask Ratman about superhero
+ask Ratman about mansion
+ask Ratman about cat
+e
+n
+e
+x fence
+x sculpture
+s
+x statue
+x pedestal
+push fish
+pull fish
+push fish
+pull fish
+push fish
+pull fish
+take fish
+n
+e
+x workers
+x manhole
+ask workers about manhole
+ask workers about map
+ask workers about flashlight
+x bulldozer
+x compartment
+d
+turn on flashlight
+x map
+n
+e
+e
+s
+n
+e
+i
+se
+x sign
+read it
+e
+x trees
+x grass
+x flowers
+s
+x pond
+x cat
+x trees
+x tree
+pull tree
+z
+z
+s
+x pond
+x photographer
+ask photographer about pond
+save
+put fish in pond
+show fish to photographer
+x photo
+n
+w
+x grass
+x table
+n
+w
+w
+w
+s
+s
+s
+se
+s
+show photo to Fred
+open case
+take hook
+close case
+s
+x register
+hit register
+take fish
+x it
+look in fish
+take small key
+close register
+unlock door with small key
+open door
+s
+x barrel
+move barrel
+search barrel
+look in barrel
+look behind barrel
+x weights
+n
+n
+n
+nw
+w
+s
+s
+w
+put weights on belt
+s
+d
+d
+s
+take hipwaders
+n
+u
+u
+remove weights
+x hipwaders
+n
+e
+n
+n
+wear waders
+enter shop
+x case
+x rack
+x Reggie
+x headphones
+s
+x clothes
+x lamps
+x beanbag
+search clothes
+x vest
+n
+n
+remove waders
+n
+w
+n
+x lady
+ask lady about street
+help lady
+wear vest
+help lady
+pull tape
+tear tape
+put tape on vest
+help lady
+e
+e
+x sign
+s
+take tract
+x it
+read it
+x archways
+n
+e
+s
+s
+s
+se
+e
+e
+n
+open mailbox
+take package
+x it
+open it
+x food
+take food
+w
+w
+w
+nw
+w
+n
+n
+n
+n
+n
+w
+x fence
+n
+x gate
+s
+w
+x bushes
+x mansion
+x tree
+x branch
+tie rope to hook
+tie rope to branch
+u
+n
+d
+x mansion
+n
+d
+x door
+eat food
+hit door
+n
+n
+w
+w
+w
+x meat
+take paper
+read it
+e
+e
+e
+n
+x button
+x mirror
+touch mirror
+push button
+z
+push button
+w
+x door
+x dot
+w
+touch dot
+e
+push button
+turn it
+w
+w
+w
+x shower
+open curtain
+x body
+x pool
+x shower
+x monitor
+x probes
+x computer
+read it
+g
+g
+g
+g
+g
+x phone
+dial 411
+u
+x cook
+scare cook
+drop smoke
+s
+x fridge
+pull pull
+x me
+stand
+look
+take planner
+x it
+read it
+w
+n
+w
+w
+w
+nw
+n
+n
+n
+e
+e
+n
+e
+ne
+x deer
+x benches
+w
+sw
+x gems
+x diamonds
+x jeweler
+ask jeweler about diamonds
+e
+s
+e
+e
+x ATM
+put card in ATM
+type 5879
+type 4
+type 1
+take card
+take bill
+x it
+w
+w
+n
+sw
+buy diamonds
+e
+s
+w
+w
+w
+w
+w
+w
+s
+s
+s
+s
+s
+s
+search sludge
+x earrings
+put diamonds in earrings
+n
+n
+n
+n
+w
+nw
+x door
+x window
+knock
+knock on window
+w
+x carpet
+x chandeliers
+x table
+x lamp
+x paneling
+se
+x manager
+x TV
+x desk
+x drawer
+chew blood
+take apartment key
+nw
+n
+w
+read sign
+w
+e
+u
+e
+x door
+knock on door
+unlock door with apartment key
+e
+x magazine
+read it
+take it
+x furniture
+x table
+x sofa
+x dogear
+open dogear
+x hole
+look behind hole
+x back
+enter back
+x colorful wall
+x plastic
+read colorful wall
+x landfill
+remove buckle
+push buckle
+cut plastic with blade
+push buckle
+put buckle on belt
+exits
+e
+x comic book
+take it
+read it
+x wastebasket
+x Jaws
+x Psycho
+x puddle
+x architecture
+w
+x office
+x posters
+x sidewalk
+n
+x creature
+n
+s
+w
+x litter
+n
+e
+x light
+x frail door
+x sign
+e
+x curtain
+e
+w
+s
+x curtain
+n
+w
+s
+x props
+x sword
+x mask
+x desk
+push desk
+x portal
+exits
+s
+w
+z
+d
+z
+z
+z
+z
+z
+z
+z
+z
+z
+get on platform
+z
+ask Aquagirl about Pemper
+ask Aquagirl about plan
+ask Aquagirl about portal
+ask Aquagirl about platform
+x Aquagirl
+Aquagirl, follow me
+z
+d
+s
+s
+z
+z
+z
+z
+z
+z
+get on platform
+z
+x square
+e
+e
+z
+x desk
+x books
+x book
+x control
+take it
+s
+put control in slot
+s
+take control
+s
+s
+s
+s
+s
+s
+s
+throw control into the sea

@@ -34,6 +34,16 @@ The pins matter because TADS games get re-released in place on the IF Archive.
 The old build moves to `games/tads/old/` under a new name and the new build
 takes over the old name, so a URL alone does not identify a build.
 
+## Walkthroughs
+
+`htmltads/goldens/<stem>_walkthrough.txt` holds command scripts for 45 of
+the corpus games, one command per line. `<stem>` is the census path with `/`
+as `__` and without `.gam`/`.t3`. They were derived from the solutions on
+David Welbourn's Key & Compass (`plover.net/~davidw/sol`); the first line of
+each script names its page. `run_traces.py --walk` types them in place of
+the default script. No expected transcripts are stored: compare the traces
+of two builds instead.
+
 ## What counts as an HTML TADS game
 
 A game is in the corpus if it falls into at least one of these categories (the

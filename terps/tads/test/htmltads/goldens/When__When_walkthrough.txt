@@ -1,0 +1,380 @@
+# When the Millennium Made Marvelous Moves -- from https://plover.net/~davidw/sol/w/whenm24.html (My walkthrough and maps)
+SPACE
+1 –to– 4
+1 –to– 4
+1 –to– 4
+SPACE
+x Jo
+x me
+i
+x money
+x bed
+x sofa
+x TV
+x recorder
+x cable
+turn on TV
+turn off TV
+x table
+x clock
+take it
+time
+x window
+e
+time
+x posters
+x door
+e
+n
+x switch
+turn on switch
+x toilet
+x cistern
+x shower
+x head
+x fan
+x walls
+x mould
+remove mould
+x duck
+take it
+squeeze it
+take paper
+unroll it
+read it
+drop duck and paper
+turn off switch
+s
+w
+sleep
+e
+e
+x moon
+x buildings
+x door
+x mailbox
+open it
+x letters
+s
+x lantern
+x hospital
+x store
+s
+x DIY
+s
+x park
+x banner
+w
+x fountain
+x birds
+x water
+x bench
+x bin
+take newspaper
+read it
+drop it
+e
+e
+x car
+x lights
+x wheels
+x rims
+x windshield
+x layer
+x bonnet
+x boot
+x supermarket
+x gate
+e
+x carts
+s
+x body
+x sweater
+x topknot
+x hair
+x officers
+talk to officers
+x waste bin
+x surrounding wall
+x building
+x windows
+n
+w
+n
+x garage
+n
+x store
+x can
+n
+x block B
+x banner
+x stairs
+d
+x train
+x LCD
+read it
+x graffiti
+read it
+u
+w
+SPACE
+1 –to– 4
+SPACE
+SPACE
+w
+w
+wind clock
+sleep
+time
+e
+e
+s
+s
+s
+e
+e
+x gang
+x masks
+x checkstand
+x people
+x carts
+x shelves
+x CDs
+x DVDs
+x tapes
+x sticker
+read it
+x button
+x detectors
+s
+talk to Jo
+ask when theives
+ask what options
+ask if called police
+n
+z
+z
+z
+x Jo
+x police
+talk to police
+look
+x bag
+take bag
+open bag
+take copy
+x it
+w
+w
+1 –to– 4
+1 –to– 4
+SPACE
+SPACE
+n
+n
+n
+w
+w
+put tape in recorder
+watch tape
+SPACE
+take tape
+e
+e
+e
+s
+e
+x checkstand
+2
+x shelves
+x drinks
+buy drinks
+take drinks
+x woman
+x magazine
+talk to woman
+ask if scared
+ask if news
+ask her about van
+ask her about magazine
+w
+z
+z
+z
+1
+1
+SPACE
+look
+x table
+x file
+x curtains
+x legs
+x card
+read card
+x officer
+x beard
+talk to officer
+ask if news
+ask what he will do
+ask about beard
+w
+s
+w
+take firecracker
+x it
+read it
+e
+e
+e
+s
+n
+z
+z
+w
+w
+SPACE
+1 –to– 4
+1 –to– 4
+SPACE
+n
+n
+n
+w
+w
+put tape in recorder
+drink drink
+watch tape
+take tape
+e
+e
+s
+s
+x beggar
+give money to beggar
+x ticket
+w
+x shelves
+x spray
+buy spray
+take spray
+x man
+x shirt
+x cigarette
+ask man about Iron Maiden
+ask man for lighter
+x lighter
+x clock
+e
+e
+e
+x cars
+x Nissan
+x Audi
+x Ford
+x Chrysler
+x parts
+x lights
+x lifts
+take spanner
+x it
+w
+w
+n
+n
+w
+w
+x Vega
+z
+e
+e
+e
+s
+s
+s
+e
+s
+n
+z
+z
+w
+w
+SPACE
+1 –to– 4
+1 –to– 4
+SPACE
+SPACE
+n
+n
+n
+w
+w
+put tape in recorder
+drink drink
+watch tape
+SPACE
+take tape
+e
+e
+e
+SPACE
+x boss
+x dress
+take key
+x it
+look
+x bed
+x report
+read it
+x plaque
+read it
+stand
+e
+x corridors
+x doors
+x stairs
+x signs
+read signs
+smell scent
+e
+e
+s
+s
+save
+unlock gate with key
+se
+put firecracker in bin
+light firecracker
+SPACE
+x newspaper
+amusing
+unlock gate with key
+se
+nw
+w
+n
+n
+n
+w
+SPACE
+x newspaper
+amusing
+e
+spray detector
+SPACE
+x exams
+amusing
+unscrew wheels
+SPACE
+x exams
+amusing
+unlock gate with key
+se
+nw
+n
+n
+n
+d
+enter train
+SPACE
+x newspaper
+amusing

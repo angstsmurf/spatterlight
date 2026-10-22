@@ -1,0 +1,223 @@
+# The Cruise -- from https://plover.net/~davidw/sol/c/cruis01.html (My walkthrough and maps)
+i
+open wallet
+e
+give pass to collector
+x key
+x wallet
+x clothes
+x shirt
+x shorts
+x suitcase
+e
+x trees
+x painting
+x carpet
+d
+s
+unlock door with key
+s
+x note
+x bed
+x nightstand
+open drawer
+drop suitcase
+open it
+x pajamas
+x goggles
+x swimsuit
+x laundry
+s
+x toilet
+x shower
+x sink
+x roll
+n
+n
+n
+u
+e
+sit
+x man
+x detector
+ask man about crystals
+ask man about beer
+ask man about bartender
+ask man about magic
+ask man about robe
+stand
+n
+x machine
+read notice
+w
+x games
+x Pacman
+w
+x clerk
+read sign
+x ship pamphlet
+x itinerary
+n
+s
+s
+se
+x price list
+x box
+buy box
+take box
+unlock box with wooden key
+open it
+x orange crystal
+take it
+n
+u
+s
+yes
+d
+d
+s
+s
+drop all but room key
+wear swimsuit and goggles
+n
+n
+u
+u
+u
+sw
+u
+dive
+d
+take green crystal
+u
+u
+u
+e
+d
+d
+d
+s
+s
+drop swimsuit and goggles
+wear clothes
+take wallet and orange crystal
+s
+put paper in toilet
+flush toilet
+n
+n
+e
+n
+n
+w
+x janitor
+s
+ask janitor about plunger
+tell janitor about toilet
+yes
+yes
+yes
+s
+take purple crystal
+n
+e
+s
+s
+s
+w
+n
+u
+u
+nw
+u
+u
+u
+u
+u
+se
+ne
+sw
+s
+yes
+d
+d
+s
+s
+drop all but room key and wallet
+wear pajamas
+get in bed
+sleep
+n
+n
+u
+u
+s
+yes
+s
+yes
+s
+yes
+d
+ne
+turn dial to 87
+play slot
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+g
+x money
+sw
+s
+buy gear
+take gear
+buy net
+take net
+n
+d
+s
+s
+drop all
+wear swimsuit and goggles
+take net, gear
+n
+n
+u
+u
+u
+wear gear
+w
+d
+d
+d
+catch fish
+u
+u
+u
+e
+eat fish

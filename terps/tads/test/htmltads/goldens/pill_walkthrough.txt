@@ -1,0 +1,355 @@
+# A Sugared Pill -- from https://plover.net/~davidw/sol/sugarpill.html (My walkthrough and map)
+i
+x bear
+x hitman
+x bin
+search bin
+x bag
+open it
+x lighter
+take it
+burn bear with lighter
+throw bear at hitman
+x hitman
+x gun
+x door
+x rubbish
+search hitman
+x card
+n
+n
+x car
+in
+verbose
+x wallet
+x money
+x credit cards
+x membership cards
+put business card in wallet
+x car
+x wheel
+x door
+x stib
+x controls
+x ignition
+x key
+x fob button
+out
+x car
+x exhaust
+x boot
+x door
+x shops
+climb car
+push fob button
+open boot
+look in it
+close boot
+push button
+w
+x club
+x shutters
+open shutters
+w
+e
+e
+n
+x rubbish
+n
+x doors
+x shutters
+x windows
+x bars
+x bar
+take it
+x bar
+s
+s
+w
+in
+drive
+click Dr
+Bamber's
+out
+x drunk
+x bottle
+talk to drunk
+g
+g
+x building
+x front door
+open it
+x plaques
+x steps
+x hotel
+w
+e
+s
+x gary
+talk to gary
+1
+x room key
+u
+e
+x door
+unlock it with room key
+s
+x bed
+x table
+open drawer
+x remote
+take it
+x tv
+push standby
+change channel
+g
+g
+g
+g
+drop remote
+look behind tv
+x cable
+take it
+x tv
+x cable
+x wardrobe
+x hangers
+take hanger
+x hanger
+drop remote
+drop cable
+n
+w
+d
+talk to gary
+1
+g
+2
+g
+3
+g
+4
+x desk
+look behind it
+x paperweight
+u
+w
+x hose
+take it
+e
+d
+w
+x table
+x cups
+x crisps
+x posters
+read poster
+g
+g
+g
+x lockers
+x locker
+x gap
+x lock
+put hanger in gap
+lift hanger
+look in locker
+x swipe card
+take it
+d
+x machine
+push start
+x kegs
+x boxes
+move boxes
+x bricks
+hit bricks
+put bar in paperweight
+x hammer
+hit bricks with hammer
+n
+light lighter
+nw
+ne
+x board
+hit board with hammer
+n
+x door
+push switch
+x bookcase
+x books
+read book
+g
+g
+x door
+open door
+x photo
+x certificates
+x chair
+x desk
+open top drawer
+open middle
+x flyer
+read it
+open bottom
+x newspaper
+take it
+read it
+s
+light lighter
+sw
+se
+s
+u
+e
+e
+x woman
+x table
+x bottle
+x cans
+x bar
+x beer
+x optics
+x whisky
+take beer
+take optics
+take whisky
+talk to woman
+g
+g
+take bottle
+give newspaper to liz
+talk to liz
+2
+ask liz about bottle
+ask liz about herself
+x door
+x slot
+put swipe card in slot
+s
+x cooker
+x fridge
+x table
+take booklet
+x it
+read it
+drop booklet
+x kit
+open it
+x oxygen
+take it
+n
+w
+n
+give gin to tam
+x small key
+s
+w
+d
+n
+light lighter
+nw
+ne
+n
+unlock top drawer with small key
+open it
+x papers
+read papers
+s
+light lighter
+sw
+se
+s
+u
+e
+e
+talk to liz
+w
+n
+in
+drop swipe card
+drop hotel key
+drive
+click Little France
+out
+x door
+e
+climb car
+w
+x hole
+look in hole
+x weir
+x bamber
+put nozzle in hole
+e
+d
+put hose on exhaust
+in
+turn on engine
+talk to Weir
+talk to weir
+push fob button
+open boot
+look in boot
+x bamber
+search bamber
+x petition
+read it
+close boot
+push fob button
+n
+x door
+weir, open door
+s
+se
+x guard
+s
+talk to guard
+1
+g
+2
+g
+3
+g
+4
+weir, talk to guard
+x monitors
+x switches
+x red button
+push it
+w
+u
+s
+x stand
+x case
+open case
+take folder
+x it
+se
+x tables
+x rubbish
+search it
+x magazine
+read it
+nw
+sw
+w
+x shelves
+x books
+search shelves
+x report
+read report
+g
+g
+g
+e
+ne
+se
+u
+x clerk
+wake clerk
+talk to clerk
+read report
+g
+put petition in folder
+give folder to clerk

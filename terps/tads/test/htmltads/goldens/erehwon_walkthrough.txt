@@ -1,0 +1,499 @@
+# Erehwon -- from https://plover.net/~davidw/sol/e/erehw99.html (My walkthrough and maps)
+commands
+note 1
+note 2
+note 3
+x me
+i
+x baggage
+x light
+x buildings
+e
+e
+s
+x Stanley
+x counter
+x jukebox
+listen to jukebox
+g
+g
+g
+g
+g
+g
+x door
+x window
+x tables
+x blue chair
+x red chair
+x Smurf
+x gang
+x game
+ask Smurf about game
+ask Smurf about dice
+look under table
+x die
+ask Accrington about himself
+ask him about me
+ask him about baggage
+ask him about my name
+ask him about jukebox
+ask him about CD
+ask him about Smurf
+ask him about dice
+ask him about Erehwon
+ask him about Armpit
+ask him about coffee
+ask him for coffee
+s
+x junk
+x helmet
+wear it
+x record
+take it
+x magazine
+read it
+drop it
+x bladder
+x pump
+inflate bladder with pump
+drop pump
+x compass
+take it
+x trap
+x coathanger
+take it
+n
+show record to Accrington
+drop it
+n
+e
+x sign
+w
+n
+x bridge
+x equations
+x sign
+x bag
+take bag
+s
+w
+w
+n
+x ferret
+x forest
+n
+x bog
+s
+s
+s
+s
+x sign
+x sun
+x desert
+n
+n
+w
+w
+nw
+smell
+x card
+take it
+x machine
+x keypad
+note 4
+x slot
+x screen
+x green button
+x help button
+x receptacle
+push help
+x wall
+x graffiti
+read it
+se
+w
+s
+x windows
+x exhibits
+x plaque
+read it
+note 5
+x gap
+look in gap
+x duality card
+x game
+x pegs
+x peg 1
+n
+w
+x suburbs
+w
+e
+e
+e
+e
+e
+e
+s
+ask Accrington about maze
+ask him about Hamilton
+ask him about ghost
+ask him about bird
+ask him about plague
+ask him about bridge
+ask him about desert
+ask him about horse
+ask him about number
+ask him about Srinivasa
+n
+w
+w
+s
+s
+s
+x sign
+x compass
+forward
+x doubloon
+forward
+x sign
+back
+right
+fo
+g
+g
+g
+g
+g
+g
+g
+left
+x sign
+fo
+x six die
+take it
+x sign
+n
+n
+x light
+x shops
+e
+e
+x coffee house
+e
+x sign
+w
+n
+x bridge
+x sign
+x maze
+x deck
+take it
+x ace
+x ace of hearts
+x ten of clubs
+s
+w
+w
+n
+n
+n
+listen
+x Bird
+ask bird about bird
+take Bird
+feed seed to Bird
+s
+s
+s
+w
+w
+nw
+x machine
+put ATM card in slot
+type 1729 on keypad
+se
+w
+x museum
+w
+x suburbs
+w
+e
+e
+e
+e
+s
+s
+s
+fo
+ri
+fo
+g
+g
+g
+g
+g
+g
+g
+ri
+x sign
+fo
+n
+n
+e
+e
+s
+Bird, attack Smurf
+n
+n
+n
+x walls
+ne
+n
+w
+s
+ne
+n
+n
+e
+e
+s
+s
+w
+n
+n
+nw
+sw
+s
+s
+se
+s
+s
+s
+w
+w
+s
+s
+s
+fo
+fo
+drop Bird
+x guilt
+x wormhole
+enter wormhole
+x sign
+note 6
+note 7
+note 8
+n
+x slits
+x staircase
+u
+x book
+read it
+note 9
+x box
+x arms
+open box
+close box
+take box
+u
+d
+d
+s
+ne
+n
+n
+x paper
+se
+x doorframe
+e
+x doorframe
+x notice
+read small print
+x keypad
+note 10
+se
+x door
+x notice
+x phone
+say "hello"
+w
+w
+x bloodchuck
+x fountain
+x monkeys
+x water
+x gravel
+x rim
+sit on rim
+say "hello"
+say "Cedric"
+ask Portnoy about password
+x vision
+stand
+e
+e
+say "fast and bulbous"
+e
+x nickel
+x door
+x trees
+x oak
+x alder
+x elm
+x araucaria
+x construction
+e
+x sign
+ne
+n
+x CD
+take it
+x hole
+x grenade
+bend wire
+take grenade with wire
+s
+sw
+w
+say "fast and bulbous"
+e
+face west
+take pin
+throw grenade west
+w
+x door
+say "sorry"
+w
+w
+w
+w
+sw
+w
+fo
+drop box
+ri
+fo
+g
+g
+g
+g
+g
+g
+g
+take box
+x it
+open it
+take four-sided
+fo
+g
+g
+g
+g
+g
+g
+g
+g
+left
+x sign
+fo
+n
+n
+e
+e
+s
+give CD to Stanley
+take key
+note 11
+n
+w
+w
+s
+s
+s
+fo
+fo
+fo
+d
+unlock door with key
+n
+x console
+x switch
+put key in slot
+turn it
+push intervene
+take glove
+x it
+push next
+push intervene
+take key
+s
+u
+w
+fo
+drop glove
+ri
+fo
+g
+g
+g
+g
+g
+g
+g
+wear glove
+left
+fo
+ne
+e
+e
+e
+e
+e
+e
+x paving
+se
+s
+x bench
+x rod
+x knife
+x pond
+sit on bench
+fish
+z
+x herring
+take it
+x trout
+take it
+x bass
+take it
+n
+nw
+w
+w
+w
+nw
+remember numbers
+type 1729 on keypad
+w
+e
+nw
+put duality card in slot
+remember numbers
+# FIXME (placeholder)
+type interesting-number on keypad
+put twelve die in receptacle
+push green button
+take all from receptacle
+i
+x pang
+se
+e
+e
+e
+e
+s
+give dice to Smurf
+n

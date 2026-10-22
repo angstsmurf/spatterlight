@@ -1,0 +1,116 @@
+# Six Stories -- from https://plover.net/~davidw/sol/s/sixst99.html (My walkthrough and map)
+Please choose an option: s
+i
+x shirt
+x sweater
+x jacket
+x jeans
+x boots
+x specs
+x watch
+x gloves
+x toque
+look in jeans
+x house keys
+x wallet
+open wallet
+x license
+x loonie
+x bill
+x quarter
+take car key
+look
+take phone
+x lever
+x handbrake
+x gearshift
+x steering lever
+x glove compartment
+open it
+take flashlight
+x tape
+x papers
+close compartment
+put wallet and house keys in jeans pocket
+put cell phone in jacket pocket
+close jacket
+out
+close car
+x car
+x snow
+x trees
+unlock trunk
+open trunk
+x spare tire
+close trunk
+u
+u
+u
+x gap
+in
+x shack
+x plywood
+x bell
+in
+close outer door
+x lamp
+x table
+x fireplace
+x chair
+x box
+x mouse
+x compasses
+x robot
+x monkey
+x pocketwatch
+in
+turn on flashlight
+x oven
+open it
+x sink
+x cupboard
+open it
+turn off flashlight
+out
+sit on chair
+sleep
+forward
+left
+right
+sit
+yes
+x mouse
+x my teacup
+x teapot
+x Fugit
+x stone
+x Alethea
+x wineglass
+x monkey
+drink tea
+x canteen
+x Taro
+x needle
+x leaf
+open canteen
+pour water into wineglass
+put leaf on water
+rub needle on stone
+put needle on leaf
+stand
+n
+n
+enter blue door
+x pond
+x lantern
+nw
+in
+n
+in
+e
+x ring
+x house
+in
+enter car
+put car key in ignition
+turn car key

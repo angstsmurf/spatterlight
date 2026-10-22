@@ -1,0 +1,45 @@
+# The Tenyaka Memorial of Vegreville -- from https://plover.net/~davidw/sol/t/tenya03.html (My walkthrough and map)
+about
+x me
+i
+x handbook
+x litatyn
+look it up
+x povilnyn
+look it up
+x shvydyky
+look it up
+x strashnyn
+look it up
+x egg
+x plinth
+x door
+x plaque
+read it
+open door
+enter door
+x po
+look up moryas
+summon litatyn
+z
+u
+x laa laa
+look up hodynnyk
+summon povilnyn
+z
+u
+x dipsy
+look up horadin
+summon shvydyky
+z
+u
+x tinky
+look up vohonder
+summon strashnyn
+z
+u
+x button
+read it
+push it
+about
+quit

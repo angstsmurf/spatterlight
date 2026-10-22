@@ -1,0 +1,14 @@
+# A Gummi Bear's Night Out -- from https://plover.net/~davidw/sol/sp/hlwn02.html#rc (My walkthrough and map)
+x me
+d
+x candy
+z
+u
+z
+x worm
+kill worm
+xyzzy
+x kinder
+hit kinder
+x plane
+enter plane

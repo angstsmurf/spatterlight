@@ -1,0 +1,20 @@
+# Zymurgy -- from https://plover.net/~davidw/sol/z/zymur02.html (My walkthrough and map)
+x me
+x sugar
+eat sugar
+u
+x bacillus
+eat sugar
+u
+x contaminant
+d
+d
+d
+x bacillus
+eat sugar
+d
+x bacillus
+z
+z
+z
+z

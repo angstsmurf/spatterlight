@@ -1,0 +1,30 @@
+# Screw the Boston Tea Party -- from https://plover.net/~davidw/sol/s/screw01.html (My walkthrough and map)
+x me
+i
+x money
+w
+x cob
+x baby
+x monkey
+x corkscrew
+drop money
+take cob
+e
+e
+x Gustav
+n
+give cob to Gustav
+w
+w
+take corkscrew
+e
+e
+n
+Gustav, e
+e
+d
+x hull
+x crate
+open crate
+x tea
+screw hull with corkscrew

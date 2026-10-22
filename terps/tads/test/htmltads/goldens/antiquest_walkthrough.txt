@@ -1,0 +1,55 @@
+# Antiquest -- from https://plover.net/~davidw/sol/a/antiq17.html (My walkthrough and map)
+help
+credits
+x bed
+take bed
+x me
+i
+x gown
+u
+u
+u
+x robot
+hit robot
+clean room
+w
+s
+x panel
+talk to panel
+w
+s
+hit panel
+w
+s
+search panel
+w
+s
+e
+w
+z
+e
+x cable
+yell
+w
+n
+x machine
+enter it
+close it
+w
+n
+x snail
+eat snail
+w
+s
+x porthole
+x TV
+turn TV
+e
+e
+x exoskeleton
+wear it
+take bed
+move fighter to 1
+# FIXME (placeholder)
+hit NUMBER
+restart

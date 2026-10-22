@@ -1,0 +1,29 @@
+# The Lion in Winter -- from https://plover.net/~davidw/sol/l/lioni99.html (My walkthrough and map)
+x spear
+take it
+x cows
+x cow
+n
+take cow
+n
+x grass
+x tree
+x tracks
+e
+x bridge
+x ravine
+e
+drop cow
+w
+drop cow
+put cow in tree
+x cow
+e
+e
+x cow
+x lions
+kill lions
+get on cow
+hit cow
+hit cow
+SPACE

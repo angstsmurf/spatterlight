@@ -1,0 +1,977 @@
+# Lydia's Heart -- from https://plover.net/~davidw/sol/l/lydia07.html (My walkthrough and maps)
+x me
+i
+x clothes
+time
+x bed
+x bed near door
+x white dress
+x bed near bathroom
+x painting
+x dresser
+open top
+x Caroline's clothes
+close top
+open middle
+x other clothes
+close middle
+open bottom
+close it
+s
+x Caroline's suitcase
+x my suitcase
+n
+e
+x hoops
+take hoop
+e
+x Rev
+ask Rev about himself
+ask Rev about picnic
+ask Rev about aunt
+ask Rev about resort
+ask Rev about God
+s
+e
+w
+x painting
+w
+x sink
+e
+e
+s
+x trees
+x swamp
+e
+x fence
+x stone
+x carvings
+x ghost
+ask ghost about ghost
+x grass
+x residue
+e
+x rabbits
+x fence
+x grass
+w
+w
+w
+x shed
+x door
+x lock
+sw
+x window
+x bucket
+turn bucket over
+stand on bucket
+x window
+x dock
+get off bucket
+take it
+n
+n
+x incinerator
+look in it
+x ashes
+search ashes
+x cabins
+x tree
+climb tree
+x window
+e
+x man
+x laptop
+d
+w
+x shovel
+take it
+x sack
+take it
+put all in sack
+x junk
+x weeds
+x thicket
+x shack
+x window
+look in window
+x screen
+ne
+x man
+x van
+ask man about himself
+ask him about Beauregard
+ask him about picnic
+ask him about van
+ask him about aunt
+ask him about Rev
+ask him about resort
+ask him about shack
+get in van
+search van
+x flashlight
+out
+w
+n
+knock on back door
+ask Tyrone about house
+ask him about maid
+nw
+x dog
+x collar
+x leash
+x doors
+x house
+n
+x sign
+x bushes
+w
+x barrel
+w
+x gap
+x possum
+x flies
+w
+x gate
+x pigs
+x boys
+ask boys about themselves
+ask boys about compass
+ask boys about resort
+e
+e
+e
+e
+x roof
+x pole
+climb pole
+e
+x bayou
+w
+s
+x Honey
+x longue
+x magazine
+x straw purse
+s
+x key
+unlock cabin one with key
+e
+x clothing
+x magazines
+x dresser
+open top
+x jacket
+take it
+wear it
+x jacket
+put jacket in sack
+s
+e
+open mirror
+x lotion
+x bottle
+put bottle in sack
+take lotion
+w
+w
+n
+give lotion to Honey
+ask Honey about herself
+ask Honey about Tyrone
+ask Honey about resort
+ask Honey about picnic
+ask Honey about Beauregard
+ask Honey about aunt
+ask Honey about Rev
+ask Honey about ghost
+x porch
+x railing
+x wasps
+x hedge
+x flowers
+smell flowers
+w
+x Phelps
+x couch
+x front door
+greet Phelps
+ask him about picnic
+ask him about himself
+ask him about resort
+ask him about swamp
+ask him about boat shed
+ask him about Honey
+ask him about wasps
+ask him about Tyrone
+ask him about dog
+w
+sw
+ask Tyrone about boys
+ask him about Honey
+ask him about dog
+ask him about incinerator
+nw
+n
+w
+w
+take possum with shovel
+e
+e
+s
+give possum to dog
+pet dog
+unclip leash
+tell dog about rabbits
+open doors
+e
+x workbench
+x vise
+x rafters
+x windows
+u
+open door
+d
+turn on flashlight
+e
+x clutter
+x trunk
+open it
+straighten hoop
+unlock trunk with hoop
+open trunk
+take all from trunk
+s
+x dirt
+x beams
+s
+open trapdoor
+n
+n
+w
+turn off flashlight
+x locket
+open it
+x snapshot
+x photos
+put all in sack
+w
+se
+s
+s
+e
+e
+show locket to ghost
+ask her about herself
+ask her about Jake
+show photos to her
+ask her about Phelps
+ask her about demon
+ask her about altar
+ask her about swamp
+ask her about map
+ask her about boats
+ask her about resort
+ask her about picnic
+ask her about Tyrone
+ask her about locket
+ask her about heart
+x carvings
+put all in sack
+w
+w
+n
+n
+nw
+x SUV
+open SUV
+se
+ask Tyrone about SUV
+e
+s
+s
+w
+x Hank
+ask Hank about resort
+ask Hank about SUV
+ask Hank about himself
+x puddle
+e
+s
+look
+fill bucket
+w
+n
+pour water in incinerator
+search ashes
+x map
+n
+knock on back door
+n
+x Luisa
+x peas
+x stove
+x kettle
+x table
+x sink
+x fridge
+x cupboard
+open cupboard
+ask Luisa about herself
+ask her about house
+ask her about Phelps
+ask her about picnic
+ask her about resort
+ask her about Tyrone
+ask her about swamp
+ask her about ghost
+n
+x door
+unlock it
+x onions
+x shelves
+search shelves
+x hatch
+open it
+move shelves
+s
+e
+x table
+x chairs
+x bracelet
+put bracelet in sack
+n
+x clock
+x table
+x telephone
+take handset
+call 911
+hang up
+n
+x furniture
+x fireplace
+x poker
+x tongs
+put poker and tongs in sack
+x books
+x Carr
+read it
+put it in sack
+x large book
+read it
+put large book in sack
+s
+w
+x papers
+x desk
+x window
+x table
+x device
+x mirrors
+x platform
+turn it
+e
+u
+x wallpaper
+x baseboard
+x grime
+n
+x crow
+x window
+x bed
+w
+x metal door
+open it
+x spider
+x web
+kill spider
+e
+s
+s
+x cradle
+rock cradle
+x grate
+look through grate
+x table
+x merry
+x base
+x keyhole
+x clown
+x window
+n
+w
+x ironing board
+x window seat
+open it
+take all from it
+x object
+x brass key
+x door
+x peephole
+s
+unlock door with brass key
+n
+x tub
+x sink
+x mirror
+take it
+s
+u
+x bed
+x dresser
+x doll
+x blouse
+x skirt
+take skirt
+open dresser
+put all in sack
+d
+e
+d
+e
+e
+s
+w
+x valise
+x lock
+set lock to IXTLOC
+open valise
+x figurine
+take it
+take figurine with tongs
+put it in sack
+close valise
+set lock to ABACAB
+e
+s
+e
+x bible
+read it
+g
+g
+put bible on door bed
+s
+take floorboard
+x black figurine
+take it with tongs
+put it in sack
+put floorboard on hole
+n
+w
+s
+e
+ask David about himself
+ask him about resort
+ask him about picnic
+ask him about altar
+ask him about figurines
+ask him for figurine
+take white figurine with tongs
+put it in sack
+ask David about map
+show map to David
+ask him about Phelps
+ask him about Tyrone
+w
+n
+w
+ask aunt about Carr
+show Carr to aunt
+w
+x candle
+put it in sack
+e
+s
+open aunt suitcase
+hit it with poker
+open it
+take red figurine with tongs
+put it in sack
+put tongs, map, poker in sack
+n
+e
+n
+n
+ask Honey about CD
+take yellow figurine with tongs
+put it in sack
+put tongs in sack
+z
+z
+z
+z
+z
+z
+z
+z
+z
+sw
+nw
+e
+u
+drop sack
+take green figurine with tongs
+d
+put figurine in vise
+close vise
+u
+take black figurine with tongs
+d
+put figurine in vise
+close vise
+u
+take white figurine with tongs
+d
+put figurine in vise
+close vise
+u
+take red figurine with tongs
+d
+put figurine in vise
+close vise
+u
+take yellow figurine with tongs
+d
+put figurine in vise
+close vise
+u
+take sack
+e
+move shelves
+open hatch
+enter cavity
+put tongs in sack
+drop sack
+in
+x rope
+x hook
+pull rope
+tie rope to hook
+out
+x bed
+x dresser
+x stuff
+take screwdriver
+look through peephole
+e
+x table
+x dagger
+x figurine
+x grate
+x slab
+x carving
+unscrew grate with screwdriver
+take dagger
+w
+in
+untie rope
+d
+out
+take sack
+s
+open oven
+take toast
+x it
+close oven
+e
+n
+u
+n
+open window
+crumble toast
+w
+crumble toast
+z
+move web
+x circles
+take dark fuse
+x object
+put new fuse in fuse box
+e
+s
+s
+unscrew grate with screwdriver
+put poker in grate
+put brass key in keyhole
+turn brass key
+look
+touch clown
+x clown
+greet clown
+ask clown about himself
+give jacket to clown
+give scarf to clown
+ask clown about girl
+z
+n
+d
+w
+put mirror in clip
+put bracelet on platform
+turn arrow to sun
+put all in sack
+e
+s
+w
+n
+wear bracelet and locket
+drop sack
+in
+u
+tie rope to hook
+out
+e
+hit dagger with poker
+take dagger
+put poker in grate
+touch carving
+e
+x southwest slab
+e
+x bridge
+x chasm
+e
+s
+x men
+n
+e
+n
+w
+x figure
+turn it
+e
+s
+e
+e
+x figure
+turn it
+w
+w
+n
+e
+e
+n
+w
+x figure
+turn it
+e
+s
+w
+w
+n
+x figure
+turn it
+s
+e
+e
+s
+e
+x figure
+turn it
+w
+n
+n
+e
+x throne
+sit on it
+x frieze
+stand
+drop dagger
+w
+w
+turn figure
+e
+s
+s
+e
+turn figure
+w
+n
+w
+w
+s
+w
+n
+x door
+n
+x mats
+x cabinet
+x circle
+turn circle to jug
+turn it to dagger
+turn it to snake
+turn it to sun
+turn it to jaguar
+open cabinet
+x helmet
+wear it
+x cape
+wear it
+x staff
+take it
+s
+s
+wave staff
+n
+n
+put staff in cabinet
+take mat
+x it
+n
+x trees
+x pillars
+d
+x fruit tree
+shake it
+take fruit
+x it
+u
+s
+s
+e
+x monkey
+give fruit to monkey
+x pool
+x benches
+n
+x pillars
+x statue
+x cube
+n
+n
+x sand
+x scorpions
+x pedestals
+x jewels
+x jewel
+point to jewel
+s
+s
+s
+e
+x people
+x hovels
+w
+s
+x bones
+x skeleton
+drop mat
+put skeleton on mat
+roll mat
+take mat
+n
+w
+n
+put helmet in cabinet
+drop mat
+put cape in cabinet
+take mat
+s
+s
+w
+w
+touch southwest slab
+sw
+drop mat
+w
+unlock door
+look through peephole
+unlock door
+in
+untie rope
+d
+out
+take sack
+put ruby, bracelet, locket in sack
+s
+s
+s
+s
+e
+e
+give ruby to Lydia
+w
+w
+nw
+unscrew mesh with screwdriver
+in
+x mask
+x eyes
+squeeze candle
+put wax on eyes
+x table
+x pole
+take it
+look under bed
+open box
+tie line to hook
+put pole, box, screwdriver in sack
+s
+ne
+n
+fill kettle
+put it on stove
+turn on stove
+open cupboard
+take all from it
+open envelope
+pour mix in mug
+take kettle
+pour water in mug
+turn off stove
+put kettle on stove
+open pill bottle
+put pill in mug
+put glass, bottle, spoon, envelope in sack
+e
+n
+e
+give mug to Phelps
+e
+nw
+take pole
+fish
+put all in sack
+se
+sw
+n
+e
+n
+u
+w
+ask Luisa about doll
+ask her about clown
+ask her about Jessie
+s
+e
+take figurine with tongs
+put it in sack
+take mat
+w
+n
+close door
+e
+s
+put poker in sack
+turn brass key
+touch clown
+drop mat
+unroll it
+give skeleton to clown
+x coin
+put it in sack
+n
+d
+s
+w
+n
+w
+close door
+d
+take figurine with tongs
+put it in vise
+close vise
+x map
+w
+n
+w
+w
+w
+show coin to boys
+x compass
+put all in sack
+e
+e
+e
+s
+se
+s
+s
+e
+e
+olly olly oxen free
+show map to Lydia
+show compass to Lydia
+show shiny key to her
+w
+w
+unlock door with shiny key
+s
+x rowboat
+x motorboat
+s
+n
+n
+n
+u
+e
+e
+s
+take laptop
+n
+move bed
+open trapdoor
+d
+turn on flashlight
+open laptop
+turn it on
+close trapdoor
+n
+n
+search clutter
+enter hole
+search hole
+x pouch
+out
+s
+s
+u
+n
+n
+w
+u
+e
+d
+w
+n
+w
+w
+s
+move twigs
+w
+move twigs
+w
+move twigs
+w
+move twigs
+w
+move twigs
+w
+e
+search junk
+take hose
+se
+s
+open pouch
+give leaf to Lydia
+eat leaf
+s
+e
+x power boat
+x controls
+x motor
+open gas cap
+put hose in pipe
+suck hose
+w
+n
+sw
+x mechanism
+x tab
+put poker in tab
+turn tab
+ne
+s
+w
+put oars in oarlock
+row rowboat

@@ -9,7 +9,7 @@ images, links, sounds -- to OUT/<game>.trace.  No goldens are stored: take a
 baseline from the unchanged build, then compare.
 
     run_traces.py --out DIR [--compare DIR] [--build DIR] [-j N]
-                  [--corpus NAME] [--script FILE] [--walk DIR]
+                  [--corpus NAME] [--script FILE] [--walk]
                   [substring ...]
 
   --out DIR      where the traces go (created; must not exist yet)
@@ -24,9 +24,10 @@ baseline from the unchanged build, then compare.
                  or xtads (the .gam and .t3 files in
                  xtads/games.manifest.tsv, the TADS test suites)
   --script FILE  the commands to type, one per line (default: SCRIPT below)
-  --walk DIR     for a game with a command script DIR/<stem>.txt (the
-                 census path with "/" as "__" and without .gam/.t3), type
-                 that instead; the other games get the default script
+  --walk         for a game with a walkthrough in
+                 CORPUS/goldens/<stem>_walkthrough.txt (the census path
+                 with "/" as "__" and without .gam/.t3), type that
+                 instead; the other games get the default script
   --timeout S    seconds before a game is killed (default 60)
   substring      only the games whose census path contains one of these
 
@@ -140,7 +141,8 @@ def script_for(path, walk, default):
         stem = re.sub(r"\.(gam|t3)$", "", path.replace("/", "__"),
                       flags=re.I)
         try:
-            with open(os.path.join(walk, stem + ".txt"),
+            with open(os.path.join(CORPUS, "goldens",
+                                   stem + "_walkthrough.txt"),
                       encoding="utf-8") as f:
                 return v6trace.load_script(f.read())
         except FileNotFoundError:
@@ -211,7 +213,7 @@ def main():
     argv = sys.argv[1:]
     out = baseline = None
     build = os.path.join(REPO, "build", "Debug")
-    jobs, timeout, script, walk = 8, 60.0, SCRIPT, None
+    jobs, timeout, script, walk = 8, 60.0, SCRIPT, False
     filters = []
     while argv:
         opt = argv.pop(0)
@@ -234,7 +236,7 @@ def main():
             with open(argv.pop(0), encoding="utf-8") as f:
                 script = v6trace.load_script(f.read())
         elif opt == "--walk":
-            walk = os.path.abspath(argv.pop(0))
+            walk = True
         elif opt.startswith("-"):
             sys.exit("unknown option " + opt)
         else:

@@ -1,0 +1,28 @@
+# Fun and Games -- from https://plover.net/~davidw/sol/f/funga00.html (My walkthrough and map)
+x me
+i
+x Gameboy
+x crate
+x window
+x toys
+x ball
+x junk
+x block
+read block
+x man
+push crate
+x man
+x window
+take man
+push man
+look
+x board
+take board
+put board on ball
+put body on board
+jump on board
+s
+x junk
+x chair
+put body in chair
+push chair

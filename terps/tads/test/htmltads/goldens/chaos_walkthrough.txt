@@ -1,0 +1,69 @@
+# Chaos -- from https://plover.net/~davidw/sol/c/chaos99.html (My walkthrough and map)
+footnote 1
+footnote 2
+x controls
+x hammock
+i
+x list
+yes
+x machines
+s
+x runner-bot
+footnote 3
+take runner-bot
+x pet-bot
+s
+x battery
+x control-bot
+x wheel
+x block
+take block
+drop block
+put runner in wheel
+runner, run
+w
+take all
+x head
+x headset
+x gear
+x toolbox
+x crowbar
+x screwdriver
+e
+attach head to control-bot
+push button
+n
+pry pet with screwdriver
+footnote 4
+put new gear in pet
+screw screw with screwdriver
+w
+e
+e
+x marbles
+take marbles
+w
+put marbles in pet
+xyzzy
+d
+u
+s
+s
+n
+wear headset
+s
+x ducks
+x city
+u
+d
+d
+pull branch
+u
+remove headset
+d
+u
+n
+turn on autopilot
+touch touchpad
+push gear release
+y

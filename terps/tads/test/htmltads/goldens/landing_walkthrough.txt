@@ -1,0 +1,14 @@
+# The Landing -- from https://plover.net/~davidw/sol/l/landi98.html (My walkthrough and maps)
+x hen
+x glint
+x oval
+x truck
+take hen
+xyzzy
+x saucer
+x black opening
+x blob
+x stalk
+x organs
+z
+notes

@@ -1,0 +1,147 @@
+# Journey from an Islet -- from https://plover.net/~davidw/sol/j/journ01.html (My walkthrough and map)
+verbose
+x me
+i
+e
+z
+z
+x snow
+search snow
+e
+e
+x hut
+x door
+x window
+open door
+x ocean
+x meadow
+x trees
+take door
+in
+x spade
+take it
+x shears
+take it
+x bed
+x wheel
+spin wheel
+out
+w
+w
+dig snow with spade
+x pipes
+take pipes
+x birds
+x bird
+x red
+play pipes
+play A
+sw
+x crags
+x shadows
+w
+x trees
+x forest
+w
+x trees
+x debris
+search debris
+x rock
+climb tree
+w
+x sea
+x bush
+x berries
+take berries
+eat berry
+take berry
+g
+g
+g
+g
+g
+e
+e
+e
+ne
+e
+e
+n
+x flowers
+x grass
+x trees
+x bushes
+nw
+x sheep
+give berry to sheep
+shear sheep
+x brooks
+x trees
+x flowers
+se
+s
+in
+spin wool
+x yarn
+out
+sw
+x band
+take band
+x snake
+x sand
+n
+x spring
+drink water
+x cliff
+x bush
+take leaves
+cut leaves with rock
+x broad leaf
+split leaf
+x string
+s
+ask snake about snake
+ask snake about desert
+ask snake about mountain
+ask snake about me
+ask snake about flax
+ask snake about wool
+ask snake about pipes
+ask snake about hut
+ask snake about berry
+ask snake about sheep
+ask snake about birds
+ask snake about power
+ask snake about escape
+ask snake about travel
+kill snake
+ask snake about help
+ask snake about innocence
+ne
+w
+w
+cut yarn with shears
+g
+g
+g
+play G
+play F
+play E
+play D
+play C
+play B
+play A
+x moon
+give string to red bird
+give yarn to magenta
+give yarn to blue
+give yarn to cyan
+give yarn to green
+give yarn to yellow
+play A
+play B
+play C
+play D
+play E
+play F
+play G

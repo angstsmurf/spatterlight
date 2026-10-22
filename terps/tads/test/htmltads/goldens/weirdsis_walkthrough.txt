@@ -1,0 +1,47 @@
+# The Weird Sister -- from https://plover.net/~davidw/sol/w/weird02.html (My walkthrough and map)
+about
+xyzzy
+x me
+x scale
+take it
+s
+x body
+search body
+x grease
+take grease
+n
+n
+x cauldron
+look in it
+x list
+read list
+take list
+n
+x stone
+look under stone
+x toad
+take toad
+x root
+take root
+s
+w
+x can
+read can
+take can
+w
+x Jew
+take liver
+x Turk
+take nose
+x Tartar
+take lips
+e
+e
+put can in pot
+put toad in pot
+put scale in pot
+put root in pot
+put liver in pot
+put nose in pot
+put lips in pot
+put grease in pot

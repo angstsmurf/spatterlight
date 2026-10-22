@@ -1,0 +1,99 @@
+# The End Means Escape -- from https://plover.net/~davidw/sol/e/endme00.html (My walkthrough and maps)
+about
+x me
+i
+x door
+x finish
+x wood cracks
+x frame
+x hinges
+x knob
+x keyhole
+x balloon
+x table
+x table legs
+x book
+x book
+x cover
+x leather cracks
+x letters
+read letters
+x pages
+x scissors
+x blades
+x note
+x emperor
+x numbers
+x corners
+x lamp
+x pedestal
+x shade
+x bulb
+x enamel
+x floor
+x carpet
+x scuffs
+x ceiling
+x walls
+x gray paint
+balloon, rub carpet
+balloon, take bill
+ask bill about scissors
+ask scissors about book
+enter book
+i
+drop remains
+drop for
+drop nothing
+take hard
+take turn
+push remains
+push remains
+pull comes
+pull comes
+pull you
+pull you
+x hills
+x fields
+x plateau
+x old man
+x woman
+x young man
+x mark
+talk to young man
+remove shirt
+x tattoo
+x dragon
+take gown
+x cut
+pull staples
+take woman
+pull staples with woman
+drop woman
+open cut
+x me
+i
+x weight
+x breath
+x doubt
+down right
+up right
+down right
+up right
+right
+down
+right
+up
+down right
+up
+win
+x sun
+x blackness
+x line
+x force
+break force
+? cancel
+z
+z
+z
+z

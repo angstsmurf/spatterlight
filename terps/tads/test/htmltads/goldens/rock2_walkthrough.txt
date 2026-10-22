@@ -1,0 +1,12 @@
+# Your mind is gone, it must be brought, you have some rock candy. -- from https://plover.net/~davidw/sol/y/yourm99.html (My walkthrough and map)
+x me
+x corn
+take corn
+eat corn
+x tooth
+x door
+open door
+enter tooth
+x vessels
+x nerves
+touch nerves

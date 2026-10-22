@@ -1,0 +1,29 @@
+# Leatherworld -- from https://plover.net/~davidw/sol/l/leath01a.html (My walkthrough and map)
+u
+x can
+take it
+u
+x iron
+take it
+u
+x knife
+take it
+d
+d
+d
+take candle
+d
+x milk
+take it
+x fortune
+take it
+u
+u
+u
+u
+u
+spray can
+cut me with knife
+put blood in milk
+drink milk
+z

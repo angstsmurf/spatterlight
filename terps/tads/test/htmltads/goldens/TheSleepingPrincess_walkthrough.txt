@@ -1,0 +1,81 @@
+# The Sleeping Princess -- from https://plover.net/~davidw/sol/s/sleep08a.html (My walkthrough and map)
+about
+ENTER
+i
+x bucket
+x mop
+x bed
+x princess
+x gown
+x slippers
+x portrait
+wake princess
+move princess
+yell
+mop floor
+x coin
+take bucket
+s
+x east door
+x boards
+x nails
+x floor
+mop floor
+take bucket
+s
+x floor
+mop floor
+take bucket
+e
+w
+x sign
+x man
+x treadmills
+yes
+ask willy about himself
+ask willy about hobbies
+ask willy about coin collection
+ask willy about cost of training
+show coin to willy
+x plate
+ask willy about plate
+eat mushrooms
+x barbells
+ask willy about barbells
+ask willy about treadmills
+ask willy about princess
+ask willy about witch
+mop floor
+take bucket
+e
+n
+pull boards
+e
+x dust
+mop floor
+x bed
+x dresser
+open drawer
+take journal
+x it
+read it
+x key
+x trapdoor
+unlock trapdoor with key
+drop all
+d
+x book
+take it
+read it
+drop book
+x tube
+x goo
+x table
+x sofa
+push sofa
+stand on sofa
+u
+w
+n
+abracadabra kalamazoo
+credits

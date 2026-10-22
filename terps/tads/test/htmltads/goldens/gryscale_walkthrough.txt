@@ -1,0 +1,151 @@
+# Grayscale -- from https://plover.net/~davidw/sol/g/grays01.html (My walkthrough and maps)
+info
+n
+w
+x parchment
+take it
+read it
+x window
+n
+n
+n
+e
+e
+n
+x knife
+take it
+e
+s
+e
+x stairs
+s
+s
+open drawer
+x key
+take it
+w
+nw
+ask woman about herself
+ask woman about name
+ask alanna about fire and ice
+ask alanna about alanna
+ask alanna about daniel
+ask alanna about house
+ask alanna about testers
+ask alanna about box
+ask alanna about parchment
+ask alanna about key
+nw
+nw
+s
+s
+s
+e
+unlock door with key
+e
+x bookcase
+x bible
+take it
+x heart
+take it
+x staircase
+take it
+n
+n
+e
+e
+x bull
+x opal
+take it
+e
+e
+e
+e
+e
+x lion
+x ruby
+take it
+w
+w
+w
+n
+n
+x eagle
+x topaz
+take it
+s
+s
+s
+s
+x man
+x emerald
+take it
+x rolled paper
+read it
+x mask
+take mask
+n
+n
+w
+w
+w
+w
+n
+u
+w
+s
+open south door
+x face
+put mask on face
+s
+put topaz in north hole
+put emerald in south hole
+put opal in west hole
+put ruby in east hole
+x compartment
+x black jar
+take it
+n
+e
+d
+w
+w
+w
+w
+s
+unlock french with knife
+w
+x bonsai
+x snail
+home
+x glass
+x south wall
+s
+sw
+x oak
+x words
+s
+e
+take clear jar
+put black jar on pillar
+open clear jar
+w
+n
+ne
+n
+e
+n
+se
+se
+d
+put jar on pillar
+n
+x door
+x keypad
+x table
+x note
+read note
+type "home" on keypad
+n
+x vortex
+d
