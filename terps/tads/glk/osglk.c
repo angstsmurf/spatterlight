@@ -97,15 +97,15 @@ int os_get_sysinfo(int code, void *param, long *result)
             return TRUE;
 
         /*
-         *   oshtml.c draws <IMG> pictures in TADS 2 games.  MNG has no
-         *   Glk decoder.
+         *   oshtml.c draws <IMG> pictures, in the main window and in
+         *   banners of both kinds.  MNG has no Glk decoder.
          */
         case SYSINFO_JPEG:
         case SYSINFO_PNG:
         case SYSINFO_PNG_TRANS:
         case SYSINFO_PNG_ALPHA:
         case SYSINFO_PREF_IMAGES:
-            *result = !oshtml_is_tads3() && glk_gestalt(gestalt_Graphics, 0)
+            *result = glk_gestalt(gestalt_Graphics, 0)
                 && glk_gestalt(gestalt_DrawImage, wintype_TextBuffer);
             return TRUE;
 

@@ -335,7 +335,7 @@ static void main_set_link(void *ctx, glui32 link)
 static const oshtml_sink main_sink =
 {
     main_put, main_set_attr, main_set_color, main_set_screen_color,
-    main_width, main_centers, main_window, main_set_link
+    main_width, main_centers, main_window, main_set_link, NULL
 };
 
 static parser fmt =
@@ -1566,25 +1566,63 @@ static size_t url_utf8(const glui32 *src, size_t srclen,
  *   shown instead.  A picture in the line counts as a character on it; one
  *   in a margin is beside the text, and leaves the line alone.
  */
+void oshtml_draw_image(winid_t win, const oshtml_image *img)
+{
+    glui32 id = img->id, align = img->align, iw, ih;
+    glui32 w = img->width_pct ? 0 : img->width;
+    glui32 h = img->height_pct ? 0 : img->height;
+
+    if (img->width_pct && img->width
+        && glk_gestalt(gestalt_DrawImageScale, wintype_TextBuffer))
+    {
+        /* a share of the window's width, the height to match */
+        glk_image_draw_scaled_ext(win, id, align, 0,
+                                  img->width * 0x10000 / 100, 0x10000,
+                                  imagerule_WidthRatio
+                                  | imagerule_AspectRatio, 0);
+    }
+    else if (w || h)
+    {
+        /* pixels; with only one of them, the other keeps the shape */
+        if ((!w || !h) && glk_image_get_info(id, &iw, &ih) && iw && ih)
+        {
+            if (!w)
+                w = iw * h / ih;
+            else
+                h = ih * w / iw;
+        }
+        if (w && h)
+            glk_image_draw_scaled(win, id, align, 0, w, h);
+        else
+            glk_image_draw(win, id, align, 0);
+    }
+    else
+        glk_image_draw(win, id, align, 0);
+}
+
 static int put_image(parser *p, const glui32 *src, size_t srclen,
                      glui32 align, img_size w, img_size h)
 {
     char name[512];
     size_t n;
-    winid_t win;
-    glui32 id, iw, ih;
+    oshtml_image img;
     int inline_img = align != imagealign_MarginLeft
         && align != imagealign_MarginRight;
 
     if (p->dst || srclen == 0 || !glk_gestalt(gestalt_Graphics, 0)
         || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)
-        || !p->sink->window(p->ctx))
+        || !(p->sink->image || p->sink->window(p->ctx)))
         return 0;
 
     n = url_utf8(src, srclen, name, sizeof(name));
-    id = n ? osres_find(name, n, giblorb_ID_Pict) : 0;
-    if (id == 0)
+    img.id = n ? osres_find(name, n, giblorb_ID_Pict) : 0;
+    if (img.id == 0)
         return 0;
+    img.align = align;
+    img.width = w.num;
+    img.width_pct = w.pct;
+    img.height = h.num;
+    img.height_pct = h.pct;
 
     if (inline_img)
     {
@@ -1595,39 +1633,16 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
     }
     flush_out(p);
 
-    /* and asking for the window again puts out what the sink holds back */
-    win = p->sink->window(p->ctx);
-
-    if (w.pct && glk_gestalt(gestalt_DrawImageScale, wintype_TextBuffer))
+    if (p->sink->image)
     {
-        /* a share of the window's width, the height to match */
-        glk_image_draw_scaled_ext(win, id, align, 0,
-                                  w.num * 0x10000 / 100, 0x10000,
-                                  imagerule_WidthRatio
-                                  | imagerule_AspectRatio, 0);
-    }
-    else if ((w.num && !w.pct) || (h.num && !h.pct))
-    {
-        /* pixels; with only one of them, the other keeps the shape */
-        if (w.pct)
-            w.num = 0;
-        if (h.pct)
-            h.num = 0;
-        if ((!w.num || !h.num) && glk_image_get_info(id, &iw, &ih)
-            && iw && ih)
-        {
-            if (!w.num)
-                w.num = iw * h.num / ih;
-            else
-                h.num = ih * w.num / iw;
-        }
-        if (w.num && h.num)
-            glk_image_draw_scaled(win, id, align, 0, w.num, h.num);
-        else
-            glk_image_draw(win, id, align, 0);
+        if (!p->sink->image(p->ctx, &img))
+            return 0;
     }
     else
-        glk_image_draw(win, id, align, 0);
+    {
+        /* asking for the window again puts out what the sink holds back */
+        oshtml_draw_image(p->sink->window(p->ctx), &img);
+    }
 
     if (inline_img)
     {

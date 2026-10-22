@@ -13,6 +13,22 @@ extern "C" {
 
 #include "glk.h"
 
+/*
+ *   An <IMG> picture: the resource (osres_find), its Glk alignment, and its
+ *   size, in pixels or with '_pct' set in per cent of the window; 0 if the
+ *   tag doesn't give it
+ */
+typedef struct oshtml_image
+{
+    glui32 id;
+    glui32 align;
+    glui32 width, height;
+    int width_pct, height_pct;
+} oshtml_image;
+
+/* Draw it in a text-buffer window */
+void oshtml_draw_image(winid_t win, const oshtml_image *img);
+
 /* Where a parser's text goes: the main window, or a banner */
 typedef struct oshtml_sink
 {
@@ -41,6 +57,14 @@ typedef struct oshtml_sink
 
     /* the text from now on is the link with this number, or none if 0 */
     void (*set_link)(void *ctx, glui32 link);
+
+    /*
+     *   A sink whose window() is null can still show pictures with this,
+     *   keeping them with its text to be drawn again (the banners of the
+     *   API).  It returns false if it can't, and the ALT text is shown.
+     *   Null in the other sinks.
+     */
+    int (*image)(void *ctx, const oshtml_image *img);
 } oshtml_sink;
 
 /*

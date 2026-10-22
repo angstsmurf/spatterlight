@@ -94,6 +94,9 @@ typedef struct banner_contents_s
 
     char *chars;
     glui32 len;
+
+    int has_image;                  /* HTML mode: a picture, not text */
+    oshtml_image image;
 }
 banner_contents_t;
 
@@ -399,6 +402,7 @@ contentid_t banner_contents_init(void)
 
     instance->chars = 0;
     instance->len = 0;
+    instance->has_image = 0;
 
     return instance;
 }
@@ -455,7 +459,10 @@ void banner_contents_display(contentid_t contents)
     glk_set_style(contents->style);
     if (contents->link)
         glk_set_hyperlink(contents->link);
-    os_put_buffer((unsigned char *)contents->chars, len);
+    if (contents->has_image)
+        oshtml_draw_image(win, &contents->image);
+    else
+        os_put_buffer((unsigned char *)contents->chars, len);
     if (contents->link)
         glk_set_hyperlink(0);
     glk_set_window(mainwin);
@@ -739,11 +746,12 @@ void os_banner_disp(void *banner_handle, const char *txt, size_t len)
         banner_disp(banner, txt, len);
 }
 
-static void banner_disp(osbanid_t banner, const char *txt, size_t len)
+/* the contents so far, with a new chunk after them */
+static contentid_t banner_contents_add(osbanid_t banner)
 {
     contentid_t update = banner_contents_init();
     if (!update)
-        return;
+        return 0;
     update->banner = banner;
 
     if (!(banner->contents))
@@ -764,6 +772,14 @@ static void banner_disp(osbanid_t banner, const char *txt, size_t len)
     update->move = banner->move;
     update->x = banner->x;
     update->y = banner->y;
+    return update;
+}
+
+static void banner_disp(osbanid_t banner, const char *txt, size_t len)
+{
+    contentid_t update = banner_contents_add(banner);
+    if (!update)
+        return;
 
     banner_contents_insert(update, txt, len);
     banner_contents_display(update);
@@ -989,8 +1005,9 @@ static void html_set_link(void *ctx, glui32 link)
 }
 
 /*
- *   A banner's contents are kept as text, and written again when it's
- *   redrawn, which a picture wouldn't survive: it shows its ALT text
+ *   A banner's contents are kept, and written again when it's redrawn, so
+ *   it has no window to draw in directly: its pictures are kept with the
+ *   text (html_image).  Nor does it play sounds, as in HTML TADS.
  */
 static winid_t html_window(void *ctx)
 {
@@ -998,10 +1015,26 @@ static winid_t html_window(void *ctx)
     return NULL;
 }
 
+static int html_image(void *ctx, const oshtml_image *img)
+{
+    osbanid_t banner = ctx;
+    contentid_t update;
+
+    if (!banner->valid || !banner->win || banner->type != wintype_TextBuffer)
+        return 0;
+    update = banner_contents_add(banner);
+    if (!update)
+        return 0;
+    update->has_image = 1;
+    update->image = *img;
+    banner_contents_display(update);
+    return 1;
+}
+
 static const oshtml_sink html_sink =
 {
     html_put, html_set_attr, html_set_color, html_set_screen_color,
-    html_width, html_centers, html_window, html_set_link
+    html_width, html_centers, html_window, html_set_link, html_image
 };
 
 /* a request is used up by its click: osglk.c asks again before each wait */
@@ -1238,7 +1271,7 @@ static void tag_set_link(void *ctx, glui32 link)
 static const oshtml_sink tag_sink =
 {
     tag_put, tag_set_attr, tag_set_color, tag_set_screen_color,
-    tag_width, tag_centers, tag_window, tag_set_link
+    tag_width, tag_centers, tag_window, tag_set_link, NULL
 };
 
 static tagban_t *tag_find(const char *id)

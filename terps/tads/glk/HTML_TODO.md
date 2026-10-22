@@ -564,8 +564,13 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
     image's aspect.
   - An inline image starts a line like text does: a paragraph's pending
     newline comes before it, so *1893*'s title has one more blank line.
-  - Not checked yet: *Drool* (pictures in later rooms) and *According to
-    Cain*, which is TADS 3 and so still told there are no images.
+  - Not checked yet: *Drool* (pictures in later rooms).
+  - TADS 3 is told about JPEG and PNG as well. Six games in the corpus
+    now draw pictures: *Edge of Chaos* (its title and start screens),
+    *According to Cain* (which now asks "Do you want graphics?"),
+    *homeopen*, *Macrocosm*, *mazes* and *Prince Quisborne* (whose left
+    banner, sized to its picture, grows from 26 to 202 px in the
+    harness).
   - `align=left`/`right` (38 games) → `imagealign_MarginLeft`/`Right`.
   - `align=top`/`middle`/`bottom` or none → `InlineUp`/`InlineCenter`/
     `InlineDown`.
@@ -577,8 +582,13 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
 - [x] `alt` (16 games): print it when the image is missing or images are
   turned off. This is what the text mode does today.
 - [x] Images in banners: the same code, because tag banners are text-buffer
-  windows. Banners from the TADS 3 banner API, grid banners and the hidden
-  `measure` banner print the `alt` text instead.
+  windows. A banner from the TADS 3 banner API keeps its contents to
+  write them again when it's redrawn, so the parser hands it the picture
+  (the sink's `image`), which it keeps as a chunk of those contents and
+  draws with `oshtml_draw_image`. Grid banners and the hidden `measure`
+  banner print the `alt` text instead.
+  - A centred `<TAB>` before a picture pads it as if the picture were one
+    character wide (*Edge of Chaos*, *1893*).
   - [ ] A banner without a height must size to its contents, image
     included: use `glk_image_get_info` for the image height and convert it
     to lines with `glk_style_measure`.
@@ -707,7 +717,8 @@ QTads's `qtadssound.cc`. `oshtml.c` parses the tag into an `ossound_tag`.
   no window to play for.
 - [x] **Without `gestalt_Sound2`**, `SYSINFO_WAV`/`MIDI`/`MPEG*`/`OGG`/
   `PREF_SOUNDS`/`PREF_MUSIC` and the fade answers are 0. As with images,
-  these are TADS 2 only. TADS 3 answers HTML now but not yet sound.
+  these are TADS 2 only. TADS 3 answers HTML and images now, but not
+  yet sound.
 - [x] **Corpus check.** 16 games changed traces, and in all of them the only
   changes are sound calls and the timer arming. The one exception is *Six
   Stories*: it sees sound support and takes its sound path, which skips
