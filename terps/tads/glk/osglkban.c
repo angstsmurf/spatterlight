@@ -967,7 +967,7 @@ static winid_t html_window(void *ctx)
 static const oshtml_sink html_sink =
 {
     html_put, html_set_attr, html_set_color, html_set_screen_color,
-    html_width, html_centers, html_window
+    html_width, html_centers, html_window, NULL
 };
 
 void os_banner_flush(void *banner_handle)
@@ -1166,10 +1166,17 @@ static winid_t tag_window(void *ctx)
     return tb->win;
 }
 
+static void tag_set_link(void *ctx, glui32 link)
+{
+    tagban_t *tb = ctx;
+    if (tb->win && !tb->measure)
+        glk_set_hyperlink_stream(glk_window_get_stream(tb->win), link);
+}
+
 static const oshtml_sink tag_sink =
 {
     tag_put, tag_set_attr, tag_set_color, tag_set_screen_color,
-    tag_width, tag_centers, tag_window
+    tag_width, tag_centers, tag_window, tag_set_link
 };
 
 static tagban_t *tag_find(const char *id)
@@ -1364,6 +1371,15 @@ int osglk_tag_banner_done(void *ctx)
         return 1;
     }
     return 0;
+}
+
+void osglk_tag_banner_request_links(void)
+{
+    tagban_t *tb;
+
+    for (tb = tagbans ; tb ; tb = tb->next)
+        if (tb->win && !tb->measure)
+            glk_request_hyperlink_event(tb->win);
 }
 
 void osglk_tag_banner_remove(const char *id)

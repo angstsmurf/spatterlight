@@ -405,6 +405,19 @@ class Tracer(glkdrive.Driver):
                 self.note("mouse %d,%d in %d" % (spec[0], spec[1], peer))
                 self.reply(glkdrive.EVTMOUSE, peer, spec[0], spec[1])
                 return True
+            if kind in ("link", "click") and self.link_peer is not None:
+                if kind == "click":
+                    hit = self.find_link(spec)
+                    if hit is None:
+                        self.note("%s dropped: no such link on screen" % head)
+                        continue
+                    peer, val = hit
+                elif ":" in spec:
+                    peer, val = (int(x) for x in spec.split(":", 1))
+                else:
+                    peer, val = self.link_peer, int(spec)
+                self.click(peer, val)
+                return True
             if kind == "key" and self.char_peer is not None:
                 code = ord(spec) if len(spec) == 1 else int(spec)
                 peer, self.char_peer = self.char_peer, None

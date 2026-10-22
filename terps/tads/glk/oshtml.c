@@ -77,6 +77,7 @@ extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
 
 /* the longest tag and entity name we keep; the rest is skipped */
 #define TAG_MAX     1024
+#define LINK_MAX    256
 #define ENTITY_MAX  9           /* as TADS 2 has it: "thetasym" fits */
 #define PENDING_MAX 256
 #define OUT_MAX     256
@@ -98,6 +99,7 @@ typedef struct color
 {
     int attr;
     os_color_t fg, bg;
+    int link;                   /* osglk_link_add's number, or 0 */
 } color;
 
 /* the innermost list */
@@ -291,10 +293,16 @@ static winid_t main_window(void *ctx)
     return mainwin;
 }
 
+static void main_set_link(void *ctx, glui32 link)
+{
+    (void)ctx;
+    glk_set_hyperlink(link);
+}
+
 static const oshtml_sink main_sink =
 {
     main_put, main_set_attr, main_set_color, main_set_screen_color,
-    main_width, main_centers, main_window
+    main_width, main_centers, main_window, main_set_link
 };
 
 static parser fmt =
@@ -313,7 +321,8 @@ static parser fmt =
 
 static int same_color(const color *a, const color *b)
 {
-    return a->attr == b->attr && a->fg == b->fg && a->bg == b->bg;
+    return a->attr == b->attr && a->fg == b->fg && a->bg == b->bg
+        && a->link == b->link;
 }
 
 static void flush_out(parser *p)
@@ -352,6 +361,11 @@ static void send_color(parser *p, const color *c)
     {
         flush_out(p);
         p->sink->set_color(p->ctx, s.fg, s.bg);
+    }
+    if (s.link != p->sent.link && p->sink->set_link)
+    {
+        flush_out(p);
+        p->sink->set_link(p->ctx, (glui32)s.link);
     }
     p->sent = s;
 }
@@ -1546,6 +1560,9 @@ static void do_tag(parser *p)
     int heading = 0;
     int tab = 0;                /* TADS 3: <tab> */
     int ban = 0, ban_remove = 0; /* TADS 2: <banner>, and REMOVE(ALL) */
+    int link_ok = 0;            /* <a> */
+    size_t href = 0, hreflen = 0;
+    int have_href = 0, link_flags = 0;
     int tab_to = -1;
     enum tab_align tab_align = TAB_NONE;
     glui32 tab_dp = 0;
@@ -1728,6 +1745,18 @@ static void do_tag(parser *p)
         else
             put_tab(p, 0, 4);
     }
+    else if (TAG("a"))
+    {
+        if (p->ignore)
+            ;
+        else if (end)
+            pop_elem(p, t + name, namelen);
+        else
+        {
+            push_elem(p, t + name, namelen);
+            link_ok = 1;
+        }
+    }
     else if (TAG("img"))
         img = !p->ignore && !end;
     else if (TAG("sound"))
@@ -1874,7 +1903,7 @@ static void do_tag(parser *p)
                 if (i < len)
                     ++i;
             }
-            else if (tads3 || p->in_banner || ban || img)
+            else if (tads3 || p->in_banner || ban || img || link_ok)
             {
                 /* up to a space, as HTML TADS reads it */
                 for (v = i ; i < len && !is_space(t[i]) ; ++i)
@@ -1894,7 +1923,19 @@ static void do_tag(parser *p)
         }
 
 #define ATTR(s) tag_is(t + an, anlen, s)
-        if (ban && ATTR("id"))
+        if (link_ok && ATTR("href"))
+        {
+            href = v;
+            hreflen = vlen;
+            have_href = 1;
+        }
+        else if (link_ok && ATTR("noenter"))
+            link_flags |= OSLINK_NOENTER;
+        else if (link_ok && ATTR("append"))
+            link_flags |= OSLINK_APPEND;
+        else if (link_ok && ATTR("plain"))
+            link_flags |= OSLINK_PLAIN;
+        else if (ban && ATTR("id"))
         {
             size_t k;
             for (k = 0 ; k < vlen && k < OSHTML_BANNER_ID - 1 ; ++k)
@@ -2039,6 +2080,24 @@ static void do_tag(parser *p)
 
     if (body)
         set_body(p, body_bg);
+
+    /* <A HREF>: the command is the href; an <A NAME> is no link */
+    if (link_ok && have_href && !p->dst)
+    {
+        char buf[LINK_MAX];
+        size_t k, n = 0;
+
+        for (k = 0 ; k < hreflen && n < sizeof(buf) - 1 ; ++k)
+        {
+            glui32 c = t[href + k];
+            if (c == '&' && k + 4 < hreflen
+                && tag_is(t + href + k, 5, "&amp;"))
+                k += 4;
+            buf[n++] = c < 256 ? (char)c : '?';
+        }
+        buf[n] = '\0';
+        p->cur.link = (int)osglk_link_add(buf, link_flags);
+    }
 
     /* the banner is whitespace in the text around it */
     if (ban)
@@ -2464,10 +2523,22 @@ size_t oshtml_print_status(const char *str, size_t len,
     return p->dstlen;
 }
 
+/* the OS layer's own text isn't part of a link */
+static void drop_link(parser *p)
+{
+    if (p->sent.link && p->sink->set_link)
+    {
+        flush_out(p);
+        p->sink->set_link(p->ctx, 0);
+        p->sent.link = 0;
+    }
+}
+
 void oshtml_put_plain(const char *str, size_t len)
 {
     show_held(&fmt);
     oshtml_flush();
+    drop_link(&fmt);
 
     /*
      *   TADS 3 would show the spaces it holds at the end of the line only
@@ -2494,6 +2565,7 @@ void oshtml_input(void)
     print_pending(&fmt);
     fmt.buffered = 0;
     flush_out(&fmt);
+    drop_link(&fmt);
 }
 
 void oshtml_input_done(void)

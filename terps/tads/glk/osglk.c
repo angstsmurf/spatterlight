@@ -67,6 +67,8 @@ glui32 statusbg;
  *   code is not known, this function should return FALSE.  If the code is
  *   known, the function should fill in *result and return TRUE.
  */
+static int osglk_links_ok(void);
+
 int os_get_sysinfo(int code, void *param, long *result)
 {
     switch (code)
@@ -107,13 +109,16 @@ int os_get_sysinfo(int code, void *param, long *result)
                 && glk_gestalt(gestalt_DrawImage, wintype_TextBuffer);
             return TRUE;
 
+        case SYSINFO_PREF_LINKS:
+            *result = !oshtml_is_tads3() && osglk_links_ok();
+            return TRUE;
+
         case SYSINFO_WAV:
         case SYSINFO_MIDI:
         case SYSINFO_WAV_MIDI_OVL:
         case SYSINFO_WAV_OVL:
         case SYSINFO_PREF_SOUNDS:
         case SYSINFO_PREF_MUSIC:
-        case SYSINFO_PREF_LINKS:
         case SYSINFO_MPEG:
         case SYSINFO_MPEG1:
         case SYSINFO_MPEG2:
@@ -709,30 +714,142 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
     return OS_AFE_SUCCESS;
 }
 
-#ifdef GLK_TIMERS
+/* ------------------------------------------------------------------------ */
 /*
- *   Sleep (os_sleep_ms) on a Glk timer.  The window shows what the game
- *   drew only once we wait for an event, so a slideshow paced with sleeps
- *   would otherwise show nothing but its last picture.  No input is in
- *   progress, so the timer is ours.
+ *   Hyperlinks (<A HREF>).  The links of every window share one table, so a
+ *   link in a status line that is drawn every turn is added only once.
  */
-void osglk_sleep_ms(unsigned long ms)
-{
-    event_t event;
 
-    if (ms == 0)
-        return;
-    glk_request_timer_events((glui32)ms);
-    do
-    {
-        glk_select(&event);
-        if (event.type == evtype_Arrange)
-            redraw_windows();
-    }
-    while (event.type != evtype_Timer);
-    glk_request_timer_events(0);
+#define LINKS_MAX 8192
+
+typedef struct link_s
+{
+    char *href;
+    int flags;
+} link_t;
+
+static link_t *links = NULL;
+static glui32 nlinks = 0, links_cap = 0;
+
+static int osglk_links_ok(void)
+{
+    static int ok = -1;
+
+    if (ok < 0)
+        ok = glk_gestalt(gestalt_Hyperlinks, 0)
+            && glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
+    return ok;
 }
+
+/* an href with a scheme is for the browser, not a command */
+static int is_url(const char *s)
+{
+    static const char *const schemes[] =
+        { "http:", "https:", "ftp:", "news:", "mailto:", "telnet:", 0 };
+    int i;
+
+    for (i = 0 ; schemes[i] ; ++i)
+        if (strncasecmp(s, schemes[i], strlen(schemes[i])) == 0)
+            return 1;
+    return 0;
+}
+
+glui32 osglk_link_add(const char *href, int flags)
+{
+    glui32 i;
+
+    if (!osglk_links_ok() || (flags & OSLINK_PLAIN) || is_url(href))
+        return 0;
+    flags &= ~OSLINK_PLAIN;
+    for (i = 0 ; i < nlinks ; ++i)
+        if (links[i].flags == flags && strcmp(links[i].href, href) == 0)
+            return i + 1;
+    if (nlinks == LINKS_MAX)
+        return 0;
+    if (nlinks == links_cap)
+    {
+        glui32 cap = links_cap ? links_cap * 2 : 64;
+        link_t *grown = realloc(links, cap * sizeof(link_t));
+        if (!grown)
+            return 0;
+        links = grown;
+        links_cap = cap;
+    }
+    links[nlinks].href = strdup(href);
+    if (!links[nlinks].href)
+        return 0;
+    links[nlinks].flags = flags;
+    return ++nlinks;
+}
+
+static const link_t *link_get(glui32 n)
+{
+    return n >= 1 && n <= nlinks ? &links[n - 1] : NULL;
+}
+
+/* a request is used up by its click, so ask again before each wait */
+static void request_links(void)
+{
+    if (!nlinks)
+        return;
+    osglk_tag_banner_request_links();
+    if (mainwin)
+        glk_request_hyperlink_event(mainwin);
+}
+
+#ifdef GLK_MODULE_LINE_ECHO
+#define LINK_ECHO(on) glk_set_echo_line_event(mainwin, (on))
+#else
+#define LINK_ECHO(on) ((void)0)
 #endif
+
+/*
+ *   A link was clicked while a line was being read.  The href becomes the
+ *   player's command, as in HTML TADS: if the link is "plain", the line is
+ *   complete and 'buf' holds it (returns 1).  If it is "noenter" or
+ *   "append", the line goes on, with the href added to the command line
+ *   (returns 0), and so does a click we ignore.
+ */
+static int line_link(const event_t *click, unsigned char *buf, size_t buflen,
+                     int echo_after)
+{
+    const link_t *l = link_get(click->val1);
+    event_t typed;
+    size_t len;
+
+    if (!l)
+        return 0;
+
+    /* the typed text isn't echoed: it's either dropped or shown again */
+    LINK_ECHO(0);
+    typed.type = evtype_None;
+    glk_cancel_line_event(mainwin, &typed);
+    if (typed.type != evtype_LineInput)
+    {
+        LINK_ECHO(echo_after);
+        return 0;
+    }
+    os_fill_buffer(buf, typed.val1);
+
+    if (l->flags & (OSLINK_NOENTER | OSLINK_APPEND))
+    {
+        len = (l->flags & OSLINK_APPEND) ? strlen((char *)buf) : 0;
+        strncpy((char *)buf + len, l->href, buflen - 1 - len);
+        buf[buflen - 1] = '\0';
+        os_get_buffer(buf, buflen, strlen((char *)buf));
+        LINK_ECHO(echo_after);
+        return 0;
+    }
+
+    strncpy((char *)buf, l->href, buflen - 1);
+    buf[buflen - 1] = '\0';
+    glk_set_style(style_Input);
+    oshtml_put_plain((char *)buf, strlen((char *)buf));
+    oshtml_put_plain("\n", 1);
+    glk_set_style(style_Normal);
+    LINK_ECHO(echo_after);
+    return 1;
+}
 
 /*
  *   Read a string of input.  Fills in the buffer with a null-terminated
@@ -744,8 +861,10 @@ void osglk_sleep_ms(unsigned long ms)
 unsigned char *os_gets(unsigned char *buf, size_t buflen)
 {
     event_t event;
+    int linked = 0;
 
     oshtml_input();
+    request_links();
     os_get_buffer(buf, buflen, 0);
 
     do
@@ -754,11 +873,21 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
         osglk_not_idle();
         if (event.type == evtype_Arrange)
             redraw_windows();
+        else if (event.type == evtype_Hyperlink)
+        {
+            if (line_link(&event, buf, buflen, 1))
+            {
+                linked = 1;
+                event.type = evtype_LineInput;
+            }
+            else
+                request_links();
+        }
     }
     while (event.type != evtype_LineInput);
 
     oshtml_input_done();
-    return os_fill_buffer(buf, event.val1);
+    return linked ? buf : os_fill_buffer(buf, event.val1);
 }
 
 #ifdef GLK_TIMERS
@@ -865,6 +994,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     int timer = use_timeout ? timeout_in_milliseconds : 0;
     int timeout = 0;
     int initlen = 0;
+    int linked = 0;
     event_t event;
 
     /* restore saved buffer contents */
@@ -886,6 +1016,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     }
 
     oshtml_input();
+    request_links();
     os_get_buffer(buf, bufl, initlen);
 
     do
@@ -899,10 +1030,20 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
             timer_fired();
             glk_cancel_line_event(mainwin, &event);
         }
+        else if (event.type == evtype_Hyperlink)
+        {
+            if (line_link(&event, buf, bufl, timer ? 0 : 1))
+            {
+                linked = 1;
+                event.type = evtype_LineInput;
+            }
+            else
+                request_links();
+        }
     }
     while (event.type != evtype_LineInput);
 
-    unsigned char *res = os_fill_buffer(buf, event.val1);
+    unsigned char *res = linked ? buf : os_fill_buffer(buf, event.val1);
 
     /* stop timer and turn on line echo */
     if (timer)
@@ -912,7 +1053,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     }
 
     /* save or print buffer contents */
-    if (res && timer)
+    if (res && timer && !linked)
     {
         if (timeout)
         {
@@ -1049,13 +1190,25 @@ static int bufchar = 0;
 static int waitchar = 0;
 static int timechar = 0;
 
+/*
+ *   os_get_event wants a click on a link as an event of its own: 'linkevt'
+ *   says there was one, and 'linkhref' is its href.  Anywhere else a click
+ *   counts as a key.
+ */
+static int want_href = 0;
+static int linkevt = 0;
+static char linkhref[256];
+
 static int getglkchar(void)
 {
     event_t event;
+    const link_t *l;
 
     timechar = 0;
+    linkevt = 0;
 
     oshtml_input();
+    request_links();
     glk_request_char_event(mainwin);
 
     do
@@ -1064,6 +1217,21 @@ static int getglkchar(void)
         osglk_not_idle();
         if (event.type == evtype_Arrange)
             redraw_windows();
+        else if (event.type == evtype_Hyperlink && (l = link_get(event.val1)))
+        {
+            if (want_href)
+            {
+                snprintf(linkhref, sizeof(linkhref), "%s", l->href);
+                linkevt = 1;
+            }
+            else
+            {
+                event.type = evtype_CharInput;
+                event.val1 = ' ';
+            }
+        }
+        else if (event.type == evtype_Hyperlink)
+            request_links();
         else if (event.type == evtype_Timer)
         {
 #ifdef GLK_TIMERS
@@ -1072,11 +1240,12 @@ static int getglkchar(void)
             timechar = 1;
         }
     }
-    while (event.type != evtype_CharInput && event.type != evtype_Timer);
+    while (event.type != evtype_CharInput && event.type != evtype_Timer
+           && !linkevt);
 
     glk_cancel_char_event(mainwin);
 
-    return timechar ? 0 : event.val1;
+    return timechar || linkevt ? 0 : event.val1;
 }
 
 int os_getc(void)
@@ -1174,10 +1343,12 @@ int os_get_event(unsigned long timeout_in_milliseconds, int use_timeout,
         return OS_EVT_NOTIMEOUT;
 #endif
 
-    /* get a key */
+    /* get a key, or a click on a link */
+    want_href = 1;
     info->key[0] = os_getc_raw();
-    if (info->key[0] == 0 && timechar == 0)
+    if (info->key[0] == 0 && timechar == 0 && !linkevt)
         info->key[1] = os_getc_raw();
+    want_href = 0;
 
 #ifdef GLK_TIMERS
     /* stop timer */
@@ -1186,6 +1357,12 @@ int os_get_event(unsigned long timeout_in_milliseconds, int use_timeout,
 #endif
 
     /* return the event */
+    if (linkevt)
+    {
+        linkevt = 0;
+        snprintf(info->href, sizeof(info->href), "%s", linkhref);
+        return OS_EVT_HREF;
+    }
     return timechar ? OS_EVT_TIMEOUT : OS_EVT_KEY;
 }
 

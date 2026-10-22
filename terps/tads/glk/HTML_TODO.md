@@ -475,50 +475,51 @@ Both engines already handle links: they expect an `OS_EVT_HREF` event
 ~470). The missing part is the Glk side in `osglk.c`, which returns only
 `OS_EVT_KEY` and `OS_EVT_TIMEOUT` today.
 
-- [ ] `<a href=…>` → `glk_set_hyperlink(n)` with a per-window table from n to
-  href, and `glk_request_hyperlink_event` on every window that has links.
-  - Link values must be nonzero, because 0 ends a link.
-  - Give a repeated href the same n, so a status line that is redrawn every
-    turn doesn't grow the table. Clear a window's table when the window is
-    cleared or closed.
-  - Request hyperlink events on the main window, the banners and grid
-    windows. A request is used up by its event, so request again after
-    each click.
-  - `<a name=…>` without `href` is an anchor, not a link: print the text
-    plainly.
-  - Check `gestalt_Hyperlinks` and `gestalt_HyperlinkInput` once. Without
-    them, print every link as plain text.
-- [ ] **Command links** (65 games: `href=north`, `go west`, `look`, …). On a
-  click, the href becomes the player's command, as in HTML TADS. Glk can't
-  insert text into a pending line request, so:
-  - Cancel the line request with `glk_cancel_line_event`, which also gives
-    us whatever the player had typed so far.
-  - Plain link: submit the href as the line. Line echo is off for our input
-    (the timer code already uses `glk_set_echo_line_event`), so print the
-    href in `style_Input` followed by a newline. The transcript then reads as
-    if the player had typed it.
-  - `noenter`: request line input again, prefilled with the href through
-    `initlen`.
-  - `append`: same, but prefill the typed text plus the href.
-  - During `os_waitkey`, `os_getc_raw` or a MORE prompt, a click counts as
-    a key press. Cancel the char request first.
-- [ ] **Every wait loop handles `evtype_Hyperlink`.** In `osglk.c` that is the
-  line-input loop (~753–775, which today handles only Arrange, Timer and
-  LineInput), `os_waitkey`/`os_getc_raw`, the MORE prompt, and
-  `os_get_event` (~1017).
-  - `os_get_event` returns `OS_EVT_HREF` with the href copied into
-    `info->href`, cut to 255 bytes. Games that run their own event loop
-    (menus, hint systems) read clicks this way.
+**Status.** Links work in the main window, tag banners and the status line,
+in both engines (`osglk_link_add`, `line_link` and `getglkchar` in `osglk.c`;
+the `<a>` tag in `oshtml.c`). In the corpus traces 32 of the 235 games, and
+32 of the 1343 xtads games, now set links; no other trace line changed.
+`test/run_traces.py` can click them: a script line `link:N` or `click:TEXT`
+(`bocfel/test/v6trace.py`). *Golden Skull*'s "north" link types `north`.
+
+- [x] `<a href=…>` → `glk_set_hyperlink(n)`. The link `n` is a field of the
+  parser's colour state, so it follows the tag stack and `</a>` restores it.
+  - One table for all windows, not one per window: a repeated href (and
+    option set) gets the same `n`, so a status line redrawn every turn adds
+    nothing. It is never cleared; it stops growing at 8192 links, and the
+    later ones are plain text.
+  - `glk_request_hyperlink_event` goes to the banners and then the main
+    window before every line or key wait, and again after each click we
+    don't end the wait with. (The window asked last is the one a harness's
+    `link:N` clicks in.)
+  - `<a name=…>` has no href and so makes no link. `plain` makes none either
+    (see below). Without `gestalt_Hyperlinks` and `gestalt_HyperlinkInput`
+    every link is plain text.
+  - The OS layer's own text (echoed input, the MORE prompt) is never part of
+    a link: `oshtml_input` and `oshtml_put_plain` end it.
+  - `SYSINFO_PREF_LINKS` is 1 for TADS 2 when links work. TADS 3 still
+    answers text mode.
+- [x] **Command links.** `line_link` cancels the line request (with echo off,
+  so the typed text isn't shown), then:
+  - plain link: the href is the line. It is echoed in `style_Input` with a
+    newline, as if typed;
+  - `noenter`: the line is requested again with the href as its start;
+  - `append`: the same, after the text typed so far.
+  - A click on a link we don't know, or with no line request, is ignored.
+- [x] **Every wait loop handles `evtype_Hyperlink`**: `os_gets`,
+  `os_gets_timeout` and `getglkchar` (so `os_getc`, `os_waitc`, the MORE
+  prompt and `os_get_event`). In a key wait a click counts as a space.
+  `os_get_event` returns `OS_EVT_HREF`, with the href cut to 255 bytes.
+  Not tried on a game that runs its own event loop.
 - [ ] Image-map links in Step 5 use the same table and event path, so they
-  come after this step.
+  can be done now.
 - [ ] **URL links** (52 games: `news:`, `mailto:`, `http:`, mostly in about
-  text). Open them through the app, behind the user's link setting, and
-  report `LINKS_HTTP`, `LINKS_MAILTO` and `LINKS_NEWS` accordingly.
-- [ ] `plain` (26 games): no link styling. Glk has no way to ask for an
-  unstyled link, so print the text without `glk_set_hyperlink`. Most
-  `plain` links are in status-line or menu banners, where a click is
-  rarely needed. Revisit if a game depends on one.
-- [ ] `title`, `target`: ignore.
+  text). For now they are plain text (`is_url`). Open them through the app,
+  behind the user's link setting, and report `LINKS_HTTP`, `LINKS_MAILTO`
+  and `LINKS_NEWS` accordingly.
+- [x] `plain` (26 games): no link, so the text is printed without
+  `glk_set_hyperlink`. Revisit if a game depends on one.
+- [x] `title`, `target`: ignored. (`hidden` too: that link still works.)
 
 ## Step 5: Images (`<img>`, 119 games; JPEG 76, PNG 37, MNG 2)
 

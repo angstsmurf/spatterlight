@@ -36,7 +36,24 @@ typedef struct oshtml_sink
      *   pictures can't be drawn there (and their ALT text is shown)
      */
     winid_t (*window)(void *ctx);
+
+    /* the text from now on is the link with this number, or none if 0 */
+    void (*set_link)(void *ctx, glui32 link);
 } oshtml_sink;
+
+/*
+ *   The links of <A HREF> (osglk.c).  The numbers are the same in every
+ *   window, and a repeated href gets the same one.
+ */
+#define OSLINK_NOENTER 1        /* put the href on the command line */
+#define OSLINK_APPEND 2         /* ...after what's there */
+#define OSLINK_PLAIN 4          /* no link at all */
+
+/* The number for an href, or 0 if it is shown as plain text */
+glui32 osglk_link_add(const char *href, int flags);
+
+/* Ask for link clicks in the windows that have links */
+void osglk_tag_banner_request_links(void);
 
 typedef struct oshtml_parser oshtml_parser;
 
