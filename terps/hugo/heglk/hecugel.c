@@ -162,21 +162,27 @@ static int menutop = 0;
 static int inmenu = false;
 static int mono = false;
 
-static int iscolossal = false;
-static int iscrimson = false;
-static int iscwb2 = false;
-static int isczk = false;
-static int isenceladus = false;
-static int isfallacy = false;
-static int isfutureboy = false;
-static int isguiltybastards = false;
-static int ishtg = false;
-static int ismarjorie = false;
-static int isnecrotic = false;
-static int isnextday = false;
-static int istetris = false;
-static int istraveling = false;
-static int isworldbuilder = false;
+/* Games that need special handling, see heglk_identify_game() */
+enum heglk_game_id {
+    GAME_OTHER,
+    GAME_COLOSSAL,        /* Colossal Cave */
+    GAME_CRIMSON,         /* A Crimson Spring */
+    GAME_CWB2,            /* The Clockwork Boy 2 */
+    GAME_CZK,             /* Cryptozookeeper */
+    GAME_ENCELADUS,
+    GAME_FALLACY,         /* Fallacy of Dawn */
+    GAME_FUTURE_BOY,      /* Future Boy! */
+    GAME_GUILTY_BASTARDS,
+    GAME_HTG,             /* Haunting the Ghosts */
+    GAME_MARJORIE,        /* Will The Real Marjorie Hopkirk Please Stand Up? */
+    GAME_NECROTIC,        /* Necrotic Drift */
+    GAME_NEXTDAY,         /* The Next Day */
+    GAME_TETRIS,          /* Hugo Tetris */
+    GAME_TRAVELING,       /* Tales of the Traveling Swordsman */
+    GAME_WORLDBUILDER,    /* World Builder */
+};
+
+static enum heglk_game_id current_game = GAME_OTHER;
 
 static int showing_author_photo = false;
 static int showing_futureboy_title = false;
@@ -294,7 +300,7 @@ int hugo_timewait(int n)
     }
     glk_request_timer_events(0);
 
-    if (!istetris && wins[curwin].win && wins[curwin].win->char_request)
+    if (current_game != GAME_TETRIS && wins[curwin].win && wins[curwin].win->char_request)
         glk_cancel_char_event(wins[curwin].win);
 
     return true;
@@ -356,35 +362,62 @@ static int heglk_image_id(int offset, int length)
    Guilty Bastards, which must survive clears and cursor moves. */
 static int is_gb_room_description_window(int i)
 {
-    return isguiltybastards && wins[i].l >= screenwidth_in_chars / 2 && wins[i].halfscreenwidth;
+    return current_game == GAME_GUILTY_BASTARDS && wins[i].l >= screenwidth_in_chars / 2 && wins[i].halfscreenwidth;
+}
+
+/* Cryptozookeeper's main menu needs its pictures in windows of their own,
+   which take the mouse clicks, and Enceladus, Necrotic Drift and Fallacy of
+   Dawn look better with pictures in their own windows, vertically centred.
+   Other games may get a picture inline in the main window when it is placed
+   where the main window's text is going (see hugo_displaypicture). */
+static int heglk_game_allows_inline_pictures(void)
+{
+    switch (current_game)
+    {
+        case GAME_CZK:
+        case GAME_ENCELADUS:
+        case GAME_NECROTIC:
+        case GAME_FALLACY:
+            return false;
+        default:
+            return true;
+    }
+}
+
+/* Haunting the Ghosts and World Builder print their regular game text in
+   the fixed-width font, so a fixed-width font in a buffer window is ignored
+   there: the text stays proportional and wraps. */
+static int heglk_game_ignores_fixed_font_in_buffer(void)
+{
+    return current_game == GAME_HTG || current_game == GAME_WORLDBUILDER;
 }
 
 /* Games that need special handling, recognised by the start of the title
    they set or, for games that set none, by their file name. */
 struct heglk_game {
     const char *prefix;
-    int *flag;
+    enum heglk_game_id id;
 };
 
 static const struct heglk_game games_by_title[] = {
-    { "Hugo Tetris", &istetris },
-    { "CRYPTOZOOKEEPER", &isczk },
-    { "Future Boy!", &isfutureboy },
-    { "ENCELADUS", &isenceladus },
-    { "NECROTIC DRIFT", &isnecrotic },
-    { "FALLACY OF DAWN", &isfallacy },
-    { "The Clockwork Boy 2", &iscwb2 },
-    { "World Builder", &isworldbuilder },
-    { "The Next Day", &isnextday },
-    { "A CRIMSON", &iscrimson },
-    { "Guilty Bastards", &isguiltybastards },
-    { "Tales of the Traveling", &istraveling },
+    { "Hugo Tetris", GAME_TETRIS },
+    { "CRYPTOZOOKEEPER", GAME_CZK },
+    { "Future Boy!", GAME_FUTURE_BOY },
+    { "ENCELADUS", GAME_ENCELADUS },
+    { "NECROTIC DRIFT", GAME_NECROTIC },
+    { "FALLACY OF DAWN", GAME_FALLACY },
+    { "The Clockwork Boy 2", GAME_CWB2 },
+    { "World Builder", GAME_WORLDBUILDER },
+    { "The Next Day", GAME_NEXTDAY },
+    { "A CRIMSON", GAME_CRIMSON },
+    { "Guilty Bastards", GAME_GUILTY_BASTARDS },
+    { "Tales of the Traveling", GAME_TRAVELING },
 };
 
 static const struct heglk_game games_by_filename[] = {
-    { "colossal.hex", &iscolossal },
-    { "htgessay.hex", &ishtg },
-    { "marjorie.hex", &ismarjorie },
+    { "colossal.hex", GAME_COLOSSAL },
+    { "htgessay.hex", GAME_HTG },
+    { "marjorie.hex", GAME_MARJORIE },
 };
 
 static void heglk_identify_game(const struct heglk_game *games, size_t count, const char *name)
@@ -393,7 +426,7 @@ static void heglk_identify_game(const struct heglk_game *games, size_t count, co
     {
         if (!strncmp(name, games[i].prefix, strlen(games[i].prefix)))
         {
-            *games[i].flag = true;
+            current_game = games[i].id;
             return;
         }
     }
@@ -1001,7 +1034,7 @@ static int isfullscreen(const struct winctx *ctx)
 }
 
 static int heglk_clear_future_boy_type(int type, int not_this) {
-    if (!isfutureboy)
+    if (current_game != GAME_FUTURE_BOY)
         return 0;
     if (!FB_IS_IMAGE(type) || type == FB_IMAGE_LINE)
         return 0;
@@ -1047,7 +1080,7 @@ void hugo_clearwindow(void)
 
     LOG("hugo_clearwindow %d: l:%d t:%d r:%d b:%d\n",curwin, l, t, r, b);
 
-    if (isfutureboy) {
+    if (current_game == GAME_FUTURE_BOY) {
         int type = heglk_id_future_boy_images(l, t, r, b, screenwidth_in_chars, screenheight_in_chars, &future_boy_graphics_alignment);
         if (heglk_clear_future_boy_type(type, -1))
             return;
@@ -1130,7 +1163,7 @@ void hugo_clearwindow(void)
         heglk_set_window_bg(curwin);
 
     // Hack to keep black room description window from
-    // being deleted at the first turn of Guilty Bastards
+    // being deleted at the first turn of Guilty Bastards (trace: guilty-*)
     if (is_gb_room_description_window(curwin))
     {
         wins[curwin].clear = 0;
@@ -1181,7 +1214,7 @@ static void hugo_unmapcleared(void)
    Bastards it is the room description, which sits below the status line. */
 static void heglk_rearrange_half_screen(int i)
 {
-    if (isguiltybastards && i != statuswin)
+    if (current_game == GAME_GUILTY_BASTARDS && i != statuswin)
         below_status = i;
     else if (wins[i].peggedtoright)
         wins[i].x0 = gscreenw / 2;
@@ -1243,9 +1276,9 @@ static void hugo_handlearrange(void)
                 int oldx1 = wins[i].x1;
                 int oldy1 = wins[i].y1;
 
-                if (wins[i].halfscreenwidth && !isfutureboy)
+                if (wins[i].halfscreenwidth && current_game != GAME_FUTURE_BOY)
                     heglk_rearrange_half_screen(i);
-                if (isczk && wins[i].isaux)
+                if (current_game == GAME_CZK && wins[i].isaux)
                     heglk_rearrange_czk_aux(i);
 
                 if (wins[i].x0 != oldx0 || wins[i].y0 != oldy0 || wins[i].x1 != oldx1 || wins[i].y1 != oldy1)
@@ -1362,7 +1395,7 @@ static int heglk_push_down_main_window_to(int y)
     if (second_image_row && wins[second_image_row].y1)
         y = MIN(y, wins[second_image_row].y1);
 
-    if (isguiltybastards && y - wins[mainwin].y0 > gcellh * 10)
+    if (current_game == GAME_GUILTY_BASTARDS && y - wins[mainwin].y0 > gcellh * 10)
         return wins[mainwin].y0;
 
     int minimal_mainwin_height = gbuffermarginy * 2 + gbufcellh * 3;
@@ -1493,8 +1526,8 @@ static void heglk_ensure_menu(void)
     glk_set_window(wins[menuwin].win);
 
     // Hack to remove leftover lines at menu bottom
-    // in Clockwork Boy 2 and The Next Day
-    if (!in_arrange_event && (iscwb2 || isnextday))
+    // in Clockwork Boy 2 and The Next Day (traces: cb2-*, nextday-*)
+    if (!in_arrange_event && (current_game == GAME_CWB2 || current_game == GAME_NEXTDAY))
     {
         glk_window_clear(wins[menuwin].win);
     }
@@ -1503,7 +1536,7 @@ static void heglk_ensure_menu(void)
 
 static void heglk_adjust_guilty_bastards_windows(void)
 {
-    if (!(isguiltybastards && guilty_bastards_graphics_win && guilty_bastards_aux_win && statuswin && mainwin))
+    if (!(current_game == GAME_GUILTY_BASTARDS && guilty_bastards_graphics_win && guilty_bastards_aux_win && statuswin && mainwin))
         return;
 
     for (int i = 1; i < nwins; i ++)
@@ -1700,7 +1733,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
 }
 
 static void heglk_adjust_future_boy_windows(void) {
-    if (!isfutureboy)
+    if (current_game != GAME_FUTURE_BOY)
         return;
     int type;
     for (int i = 1; i < nwins; i ++)
@@ -1787,7 +1820,7 @@ static void heglk_place_aux(struct heglk_geometry *g)
     if (gscreenw - g->x1 < 3 * gcellw || g->right > screenwidth_in_chars - 1)
         g->x1 = gscreenw;
 
-    if (ABS((g->right - g->left) - (screenwidth_in_chars / 2)) < 2 && !isfutureboy)
+    if (ABS((g->right - g->left) - (screenwidth_in_chars / 2)) < 2 && current_game != GAME_FUTURE_BOY)
     {
         g->x1 = g->x0 + gscreenw / 2;
         g->halfscreenwidth = true;
@@ -1795,8 +1828,8 @@ static void heglk_place_aux(struct heglk_geometry *g)
         LOG("Detected that aux window is supposed to be half screen width. Stretching it out.\n");
 
         // Hack to keep black room description window from
-        // being deleted at the first turn of Guilty Bastards
-        if (isguiltybastards && curwin)
+        // being deleted at the first turn of Guilty Bastards (trace: guilty-*)
+        if (current_game == GAME_GUILTY_BASTARDS && curwin)
         {
             if (g->left == 1)
             {
@@ -2078,7 +2111,7 @@ void hugo_settextpos(int x, int y)
     {
         if ((wins[curwin].win->type == wintype_TextGrid && !menuwin) || wins[curwin].win->type == wintype_Graphics) {
             LOG("  moved to line %d in grid window. unmap.\n", y);
-            if (isfutureboy && wins[curwin].win->type == wintype_Graphics) {
+            if (current_game == GAME_FUTURE_BOY && wins[curwin].win->type == wintype_Graphics) {
                 heglk_unmap_window(curwin);
                 hugo_mapcurwin();
                 return;
@@ -2090,7 +2123,7 @@ void hugo_settextpos(int x, int y)
     else if (wins[curwin].win->type == wintype_TextBuffer)
     {
         // Hack to keep black room description window from
-        // being deleted at the first turn of Guilty Bastards
+        // being deleted at the first turn of Guilty Bastards (trace: guilty-*)
         if (is_gb_room_description_window(curwin))
         {
             LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
@@ -2112,11 +2145,11 @@ void hugo_settextpos(int x, int y)
             return;
         }
 
-        if (isfutureboy)
+        if (current_game == GAME_FUTURE_BOY)
             return;
 
         LOG("  move in buffer window. unmap.\n");
-        if (!wins[curwin].clear && !wins[curwin].isaux && !isfutureboy)
+        if (!wins[curwin].clear && !wins[curwin].isaux)
             hugo_waitforkey();
         heglk_unmap_window(curwin);
     }
@@ -2154,12 +2187,14 @@ static void hugo_mapcurwin(void)
          && (currentline > HUGO_INFINITE || !mono)) || // We are in a standard, main textbuffer window
 
         // Hack to give fixed-width font in Haunting the Ghosts menu proper word wrapping
-        (ishtg && currentline == 1 && statuswin && curwin != statuswin && wins[curwin].fg == 7 && wins[curwin].bg == 0) ||
+        // (trace: htgessay-*)
+        (current_game == GAME_HTG && currentline == 1 && statuswin && curwin != statuswin && wins[curwin].fg == 7 && wins[curwin].bg == 0) ||
 
         // Hack to give fixed-width font in World Builder menu proper word wrapping
         // (Haunting the Ghosts and World Builder use a fixed-width style for the regular game text,
         // so the usual trick of checking for a fixed-with font doesn't work)
-        (isworldbuilder && currentline == 1 && statuswin && curwin != statuswin && !menuwin) ||
+        // (trace: worldbuilder-*)
+        (current_game == GAME_WORLDBUILDER && currentline == 1 && statuswin && curwin != statuswin && !menuwin) ||
 
         (!mono && inwindow && wins[curwin].l > 5))  // We are in a right-aligned aux textbuffer window
     {
@@ -2173,13 +2208,13 @@ static void hugo_mapcurwin(void)
             glk_stylehint_clear(wintype_TextBuffer, style_Input, stylehint_TextColor);
 
         // Make input readable on the opening screen of Will The Real Marjorie Hopkirk Please Stand Up?
-        if (ismarjorie && wins[curwin].fg == DEF_FCOLOR && gfgcol == 0 && wins[curwin].bg == 0)
+        if (current_game == GAME_MARJORIE && wins[curwin].fg == DEF_FCOLOR && gfgcol == 0 && wins[curwin].bg == 0)
         {
             glk_stylehint_set(wintype_TextBuffer, style_Input, stylehint_TextColor, hugo_color(HUGO_WHITE));
         }
 
         wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
-        if (isczk && !mono && inwindow && wins[curwin].l > 5 && wins[mainwin].y0 > wins[curwin].y1)
+        if (current_game == GAME_CZK && !mono && inwindow && wins[curwin].l > 5 && wins[mainwin].y0 > wins[curwin].y1)
         {
                 wins[curwin].y1 = wins[mainwin].y0;
         }
@@ -2205,7 +2240,7 @@ static void hugo_mapcurwin(void)
         }
 
         // Make all grid windows in Tetris transparent
-        if (istetris) {
+        if (current_game == GAME_TETRIS) {
             win_maketransparent(wins[curwin].win->peer);
         }
 
@@ -2304,11 +2339,13 @@ static void heglk_adjust_pre_v24_status_when_printing(void)
         heglk_sizeifexists(statuswin);
         glk_window_move_cursor(wins[statuswin].win, currentpos, currentline - 1);
         lowest_printed_position_in_status = currentline - 1 +
-        // Hack to make Colossal Cave status bar grow when needed
+        // Hack to make Colossal Cave status bar grow when needed: on a
+        // narrow screen its status line takes two lines (trace: colossal-size-*)
         (screenwidth_in_chars < MAX_STATUS_CHARS && !inmenu);
     }
 
-    // Hack to make Colossal Cave status bar shrink when needed
+    // Hack to make Colossal Cave status bar shrink back to one line
+    // when the screen is wide again or a menu is shown
     if (lowest_printed_position_in_status > 1 && (screenwidth_in_chars > MAX_STATUS_CHARS || inmenu))
         lowest_printed_position_in_status = 1;
 }
@@ -2385,7 +2422,7 @@ void hugo_print(char *a)
     /* printing to a window that is showing graphics... unmap */
     if (wins[curwin].win && wins[curwin].win->type == wintype_Graphics)
     {
-        if (isfutureboy && (a[0] == ' ' || a[0] == '\r' || a[0] == '\n'))
+        if (current_game == GAME_FUTURE_BOY && (a[0] == ' ' || a[0] == '\r' || a[0] == '\n'))
             return;
         LOG("  unmap graphics window %d for printing\n", curwin);
         if (!wins[curwin].clear )
@@ -2438,7 +2475,7 @@ void hugo_print(char *a)
         lastfg = wins[curwin].fg;
         lastbg = wins[curwin].bg;
 
-        if (istetris && a[0] == 'B' && mono)
+        if (current_game == GAME_TETRIS && a[0] == 'B' && mono)
         {
             win_moveto(wins[curwin].win->peer, currentpos, currentline - 2);
             glk_put_string("Score:");
@@ -2475,14 +2512,15 @@ void hugo_font(int f)
 
     if (! ( f & PROP_FONT ) )
     {
-        if ((ishtg || isworldbuilder) && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer)
+        if (heglk_game_ignores_fixed_font_in_buffer() && wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer)
         {
             return;
         }
         curstyle = style_Preformatted;
         mono = true;
 
-        // Hack to avoid extra line breaks in Captain Speedo intro boxes
+        // Hack to avoid extra line breaks in the boxed intro text of
+        // Captain Speedo (trace: speedo-*); not specific to that game
         if (inwindow && wins[curwin].l > 2 && wins[curwin].t > 2 && wins[curwin].win && wins[curwin].win->type == wintype_TextGrid)
         {
             glk_window_move_cursor(wins[curwin].win, currentpos, currentline - 1);
@@ -2497,7 +2535,7 @@ int hugo_hasgraphics(void)
 
 
 static int heglk_detect_fb_graphics(int width, int height) {
-    if (!isfutureboy)
+    if (current_game != GAME_FUTURE_BOY)
         return FB_IMAGE_UNKNOWN;
     int unused_alignment;
     int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars, &unused_alignment);
@@ -2546,7 +2584,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             }
         }
 
-        if (isfutureboy)
+        if (current_game == GAME_FUTURE_BOY)
             below_status = 0;
 
         if (curwin == below_status && statuswin)
@@ -2575,16 +2613,17 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         origwidth = width;
         origheight = height;
 
-        if (ishtg && (reslength == 3501 || reslength == 4117))
+        if (current_game == GAME_HTG && (reslength == 3501 || reslength == 4117))
             showing_author_photo = true;
 
-        if (isfutureboy && reslength == FB_TITLE_RESLEN)
+        if (current_game == GAME_FUTURE_BOY && reslength == FB_TITLE_RESLEN)
             showing_futureboy_title = true;
         else
             showing_futureboy_title = false;
 
         // Hack to clear old picture in A Crimson Spring after restore
-        if (iscrimson) {
+        // (trace: scourge-*)
+        if (current_game == GAME_CRIMSON) {
             for (int i = 1; i < nwins; i++) {
                 if (wins[i].win && wins[i].win->type == wintype_Graphics) {
                     wins[i].clear = 1;
@@ -2603,7 +2642,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             x1 = gscreenw;
         int y1 = wins[curwin].y1;
 
-        if (reslength == FB_SECOND_ROW_RESLEN && isfutureboy)
+        if (reslength == FB_SECOND_ROW_RESLEN && current_game == GAME_FUTURE_BOY)
         {
             // Without this, everything breaks when restoring Future boy
             second_image_row = curwin;
@@ -2636,7 +2675,8 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         }
 
         // Hack to center the title mugshot gallery in Guilty Bastards
-        if (isguiltybastards && wins[curwin].r - wins[curwin].l < screenwidth_in_chars / 4) {
+        // (trace: guilty-*)
+        if (current_game == GAME_GUILTY_BASTARDS && wins[curwin].r - wins[curwin].l < screenwidth_in_chars / 4) {
             int diff = ggridmarginx + gcellw;
             x0 += diff;
             x1 += diff;
@@ -2690,11 +2730,9 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
               // and current window bottom edge is less than two
               // characters
 
-              || istraveling)
+              || current_game == GAME_TRAVELING)
 
-             && !isczk && !isenceladus && !isnecrotic && !isfallacy)) {
-            // In Cryptozookeeper, this breaks the main menu. Enceladus simply looks better
-            // with images in their own windows, vertically centered.
+             && heglk_game_allows_inline_pictures())) {
 
             // Scale down again to buffer margins
             x0 = wins[mainwin].x0 + gbuffermarginx;
@@ -2766,7 +2804,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
 
             /* Avoid clear background behind images in Guilty Bastards */
             /* Can happen after changing settings */
-            if (isguiltybastards)
+            if (current_game == GAME_GUILTY_BASTARDS)
                 glk_window_set_background_color(wins[curwin].win, color);
             else
                 win_maketransparent(wins[curwin].win->peer);
