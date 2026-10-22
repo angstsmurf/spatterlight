@@ -927,6 +927,32 @@ static void select_event(event_t *event)
     }
 }
 
+#ifdef GLK_TIMERS
+/*
+ *   Sleep (os_sleep_ms) on a Glk timer.  The window shows what the game
+ *   drew only once we wait for an event, so a slideshow paced with sleeps
+ *   would otherwise show nothing but its last picture.  No input is in
+ *   progress, so the timer is ours; a click on a link is dropped, and the
+ *   links are asked for again at the next input.
+ */
+void osglk_sleep_ms(unsigned long ms)
+{
+    event_t event;
+
+    if (ms == 0)
+        return;
+    request_timer((glui32)ms);
+    do
+    {
+        select_event(&event);
+        if (event.type == evtype_Arrange)
+            redraw_windows();
+    }
+    while (event.type != evtype_Timer);
+    request_timer(0);
+}
+#endif
+
 /*
  *   Read a string of input.  Fills in the buffer with a null-terminated
  *   string containing a line of text read from the standard input.  The
