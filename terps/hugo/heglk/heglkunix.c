@@ -20,29 +20,19 @@
 
 static winid_t errorwin = NULL;
 
-static void glkunix_startup_error (char *fmt, ...)
-#ifdef __GNUC__
-__attribute__ ((format (printf, 1, 2)))
-#endif
-;
+static void glkunix_startup_error (const char *fmt, ...)
+  __attribute__ ((format (printf, 1, 2)));
 
 glkunix_argumentlist_t glkunix_arguments[] = {
   { "", glkunix_arg_ValueFollows, "filename: The game file to load." },
   { NULL, glkunix_arg_End, NULL }
 };
 
-/*
- * Using sprintf() to build an error string would be easier, of course, but
- * that is subject to buffer overflow at runtime. This still uses sprintf(),
- * but in a more controlled fashion. (Yes, I know it's probably overkill.)
- */
-
 static void
-glkunix_startup_error (char *fmt, ...)
+glkunix_startup_error (const char *fmt, ...)
 {
   va_list ap;
-  char int_buf[20]; /* Hopefully big enough */
-  char *p;
+  char buf[1024];
 
   if (errorwin == NULL)
     {
@@ -51,50 +41,24 @@ glkunix_startup_error (char *fmt, ...)
 	return;
     }
 
-  glk_set_window (errorwin);
-
   va_start (ap, fmt);
-  for (p = fmt; *p; p++)
-    {
-      if (*p == '%')
-	{
-	  switch (*++p)
-	    {
-	    case '%':
-	      glk_put_char ('%');
-	      break;
-
-	    case 's':
-	      glk_put_string (va_arg (ap, char *));
-	      break;
-
-	    case 'd':
-	      snprintf (int_buf, sizeof(int_buf), "%d", va_arg (ap, int));
-	      glk_put_string (int_buf);
-	      break;
-
-	    default:
-	      break;
-	    }
-	}
-      else
-	glk_put_char (*p);
-    }
+  vsnprintf (buf, sizeof buf, fmt, ap);
   va_end (ap);
+
+  glk_set_window (errorwin);
+  glk_put_string (buf);
 }
-  
+
 int
 glkunix_startup_code (glkunix_startup_t *data)
 {
   char *base_name;
 
-#if defined(GARGLK) || defined(SPATTERLIGHT)
   garglk_set_program_name("Hugo 3.1");
   garglk_set_program_info(
 	"Hugo 3.1 by Kent Tessman\n"
 	"Graphics support by Simon Baldwin\n"
 	"Sound support by Tor Andersson\n");
-#endif
 
   if (data->argc != 2)
     {
@@ -104,12 +68,10 @@ glkunix_startup_code (glkunix_startup_t *data)
       return FALSE;
     }
 
-#if defined(GARGLK) || defined(SPATTERLIGHT)
-    char *s;
-    s = strrchr(data->argv[1], '/');
-    if (!s) s = strrchr(data->argv[1], '\\');
-    garglk_set_story_name(s ? s + 1 : data->argv[1]);
-#endif
+  base_name = strrchr (data->argv[1], '/');
+  if (!base_name)
+    base_name = strrchr (data->argv[1], '\\');
+  garglk_set_story_name (base_name ? base_name + 1 : data->argv[1]);
 
   glkunix_set_base_file(data->argv[1]);
   game = glkunix_stream_open_pathname (data->argv[1], 0, 0);
