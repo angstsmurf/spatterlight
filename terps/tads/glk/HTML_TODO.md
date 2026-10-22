@@ -301,27 +301,47 @@ All of this is plain Glk, so it works the same on Gargoyle.
   - The main window's bold and italic go through the table
     (`osstyles_style`), which gives the same three styles as before, so
     the only change in the traces is the hints.
-- [ ] **HTML parser state.** A tag stack holding:
+- [x] **HTML parser state.** A tag stack (`oshtml.c` `elem`) holding:
   - bold, italic (also set by underline), fixed, Input
   - alignment: left, or centre (right counts as centre)
-  - the colour stack
+  - colours, indent, list kind and item count
 
-  On each text run, look up the state's slot in the per-game table from
-  the scan.
-- [ ] **Centring is per paragraph.** `<center>`, `<p align>`, `<div
-  align>` and `<hN align>` switch the style at the start of a paragraph.
-  A change in the middle of a line forces a line break first; HTML TADS
-  does the same, because alignment is a block property.
-- [ ] **Text mode as well.** `os_set_text_attr` (`osglk.c:404`) and
-  `os_banner_set_attr` go through the same mapping. That makes `<strong>`
-  bold (`OS_ATTR_STRONG` is 0 today) and fixes the banner bug where text
-  can't be bold and coloured at once (`os_banner_set_attr` and the colour
-  code share one style field). Setting the hints before each banner opens
-  ends the close-and-reopen of every banner in `osglkban.c:300-343`.
-- [ ] **Check with `glk_style_distinguish`** whether the library tells the
-  centred styles apart from their uncentred twins. If it doesn't, centre
-  by padding with spaces to the `glk_window_get_size` width, the way `vmconhmp.cpp` (~line 705) pads
-  `<tab align=center>` in text mode.
+  An end tag restores the state from before its start tag, and closes the
+  tags left open inside it. On each text run, `osstyles_style` looks up
+  the combination's slot in the per-game table from the scan.
+  - Clearing the main window closes every open tag, as HTML TADS's
+    `CHtmlParser::clear_page` does. *1893* leaves a `<div align=center>`
+    open, which otherwise centred the rest of the game.
+- [x] **Centring is per paragraph.** `<center>`, `<p align>`, `<div
+  align>` and `<hN align>` are blocks: each starts a new line, and its
+  lines get the centred combination. HTML TADS does the same, because
+  alignment is a block property (`CHtmlTagCENTER` is a `<div>`).
+  - An unclosed `<center>` centres everything after it, including the
+    prompt and the input, as in HTML TADS (*School*).
+- [x] **Text mode, for the main window.** `os_set_text_attr` goes through
+  the parser (`oshtml_set_os_attr`), so the formatter's attributes join
+  the tag bits, and `OS_ATTR_STRONG`, `OS_ATTR_EM` and `OS_ATTR_HILITE`
+  are no longer 0.
+  - [ ] Banners: `os_banner_set_attr` still maps only bold and italic and
+    shares one style field with the colour code, so banner text can't be
+    bold and coloured at once. Setting the hints before each banner opens
+    would end the close-and-reopen of every banner in
+    `osglkban.c:300-343`. This waits for Step 3.
+- [x] **Is the centred style centred?** `glk_style_distinguish` doesn't
+  answer this (glkimp always says no), so the parser asks
+  `glk_style_measure(stylehint_Justification)` once per combination
+  (`main_centers`, cached until the windows are rearranged). If the style
+  isn't centred, the parser pads the line with spaces to the window width,
+  the way `vmconhmp.cpp` (~line 705) pads `<tab align=center>` in text
+  mode.
+  - glkimp passes the measure to the app for buffer windows (grid
+    windows are always LeftFlush), and the app reports the style's
+    paragraph alignment (`handleStyleMeasureOnWin`, tested in
+    `StyleMeasureTests`). With the theme's "use game styles" switch off,
+    the hints don't apply, so the measure says LeftFlush and lines are
+    padded.
+  - `glkdrive.py` answers the measure from the hints the game set, as the
+    app does, so the traces show the centred styles too.
 - [x] **Theme switch.** With the theme's "use game styles" switch
   (`doStyles`) off, Spatterlight ignores the hints, and the 11 styles look
   however the theme has them. That's the user's choice and needs no code.
@@ -342,7 +362,7 @@ re-resolution and autosave.
 | `font size` | 106 | Ignored. |
 | `font face` | 63 (plus `TADS-Input` in most games) | `TADS-Input` → `style_Input`. `TADS-Typewriter` and Courier-like names → fixed. Everything else is ignored. |
 | `font color`, `bgcolor` | 85 | `garglk_set_zcolors`, already per span. Add the HTML colour names and `#rrggbb`. TADS's parameterised colours (`text`, `bgcolor`, `statustext`, `statusbg`, `link`, `hlink`, `alink`, `input`) become theme colours or `zcolor_Default`. Keep a colour stack so `</font>` restores the previous colour. |
-| `body bgcolor`, `text` | 125 (outside the status line) | The window background via `win_setbgnd` and the default foreground for that window. Fix `os_set_text_color` passing the TADS status mode as a window id (`osglk.c` `curwin`). |
+| `body bgcolor`, `text` | 125 (outside the status line) | ✅ The window background via `win_setbgnd` on the main window, and the default foreground for that window, which outlasts clearing it. A `<body>` without `text` against a literal `bgcolor` gets black or white text by the background's brightness. HTML TADS resets whatever `<body>` omits to the defaults. ✅ `os_set_text_color` no longer passes the TADS status mode as a window id (`curwin`), which repainted the whole window with each span's background. |
 | `h1`-`h4` (+`align`) | 31, 29, 55, 6 | Bold with blank lines around. `align=center` → centred bold (`style_Header`). |
 | `center`, `p align`, `div align` | 159, 11, 8 | The centred styles in Step 1; `align=right` counts as centred. |
 | `blockquote`, `bq` | 24, 5 | A blank line around, and one indent level (leading spaces, see Step 1). Not `style_BlockQuote`, which is used for centring. |
@@ -356,6 +376,29 @@ re-resolution and autosave.
 | `tab` | 218 (mostly the status line) | In grid windows, port the TADS 3 tab-stop code: `align=right/center`, `to`/`id`, `indent`, `multiple` (4 games). In buffer windows, use spaces or a tab character; true tab stops are not available. |
 | `title` | 78 | `garglk_set_story_title`, as now. |
 | `aboutbox` | 93 | Suppress the contents, as now. Possible extra: keep the text and show it in Spatterlight's game info panel. |
+
+**Status.** Everything in the table is in `oshtml.c`, except:
+
+- [ ] `<ol type>` and `start`: every list is numbered 1, 2, 3. The
+  corpus's few `<ol>` are all plain.
+- [ ] `br clear`: waits for images (Step 5).
+- [ ] `tab` in grid windows: waits for the status line in Step 3.
+- [ ] Banners' own text formatting: still the old look until Step 3.
+- [ ] The `systemInfo` change: reporting HTML makes adv.t put its status
+  line in a `<banner>`, which only works once Step 3's tag banners do.
+
+Notes from the corpus traces:
+
+- Text that HTML TADS centres is now centred: titles, *When*'s time
+  headings and *Lydia's Heart*'s credits. *journey*'s second visit to the
+  mountaintop puts `<TAB MULTIPLE=4>` before a `<center><img>` block, so
+  its tab is on the image's line, not the paragraph's, as in HTML TADS.
+- `<P>` no longer stacks: `text<P><P>` leaves one blank line, not two
+  (*vegrevil*, *moonbase*, *HELP10*).
+- An explicit `<P>` in HTML TADS is half a line of space, and the implicit
+  break of a block (`<div>`, `<center>`, a list) is none, apart from the
+  block's own margins. Both are a whole blank line or a plain line break
+  here.
 
 ## Step 3: Banners (59 games with custom banners; the status line in almost all)
 

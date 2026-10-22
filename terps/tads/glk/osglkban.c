@@ -920,9 +920,10 @@ static void html_put(void *ctx, const glui32 *buf, size_t len)
     free(out);
 }
 
-static void html_set_attr(void *ctx, int attr)
+static void html_set_attr(void *ctx, int combo)
 {
-    banner_set_attr(ctx, attr);
+    banner_set_attr(ctx, ((combo & OSSTY_BOLD) ? OS_ATTR_BOLD : 0)
+                    | ((combo & OSSTY_ITALIC) ? OS_ATTR_ITALIC : 0));
 }
 
 static void html_set_color(void *ctx, os_color_t fg, os_color_t bg)
@@ -940,10 +941,18 @@ static int html_width(void *ctx)
     return os_banner_get_charwidth(ctx);
 }
 
+/* banners keep their old look until they have the style table */
+static int html_centers(void *ctx, int combo)
+{
+    (void)ctx;
+    (void)combo;
+    return 1;
+}
+
 static const oshtml_sink html_sink =
 {
     html_put, html_set_attr, html_set_color, html_set_screen_color,
-    html_width
+    html_width, html_centers
 };
 
 void os_banner_flush(void *banner_handle)

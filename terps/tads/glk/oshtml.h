@@ -17,10 +17,19 @@ extern "C" {
 typedef struct oshtml_sink
 {
     void (*put)(void *ctx, const glui32 *buf, size_t len);
-    void (*set_attr)(void *ctx, int attr);
+
+    /* the text's combination of OSSTY_* bits (osstyles.h) */
+    void (*set_attr)(void *ctx, int combo);
     void (*set_color)(void *ctx, os_color_t fg, os_color_t bg);
     void (*set_screen_color)(void *ctx, os_color_t color);
     int (*width)(void *ctx);
+
+    /*
+     *   Does the window show this combination, which has OSSTY_CENTER,
+     *   centred?  If not, the parser centres the line with spaces, and
+     *   gives the sink the combination without OSSTY_CENTER.
+     */
+    int (*centers)(void *ctx, int combo);
 } oshtml_sink;
 
 typedef struct oshtml_parser oshtml_parser;
@@ -89,6 +98,9 @@ void oshtml_set_os_attr(int attr);
 
 /* The formatter's text colours (os_set_text_color) */
 void oshtml_set_os_color(os_color_t fg, os_color_t bg);
+
+/* The windows were rearranged, or the theme changed */
+void oshtml_arrange(void);
 
 /* os_set_text_color itself (osglk.c) */
 void osglk_set_text_color(os_color_t fg, os_color_t bg);

@@ -46,8 +46,13 @@ glui32 glk_style_measure(winid_t win, glui32 styl, glui32 hint, glui32 *result)
             return TRUE;
             
         case stylehint_Justification:
-            *result = stylehint_just_LeftFlush;
-            return TRUE;
+            /* a grid's lines aren't paragraphs */
+            if (win->type == wintype_TextGrid)
+            {
+                *result = stylehint_just_LeftFlush;
+                return TRUE;
+            }
+            return win_style_measure(win->peer, styl, hint, result);
 
         default:
             res = win_style_measure(win->peer, styl, hint, result);

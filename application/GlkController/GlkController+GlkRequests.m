@@ -410,6 +410,30 @@ static void playSoundNamed(NSString *name) {
         }
     }
 
+    if (hint == stylehint_Justification) {
+        // A grid's lines aren't paragraphs, so they are never aligned
+        if (![gwindow isKindOfClass:[GlkTextBufferWindow class]]) {
+            *result = stylehint_just_LeftFlush;
+            return YES;
+        }
+        NSParagraphStyle *para = attributes[NSParagraphStyleAttributeName];
+        switch (para.alignment) {
+            case NSTextAlignmentCenter:
+                *result = stylehint_just_Centered;
+                break;
+            case NSTextAlignmentRight:
+                *result = stylehint_just_RightFlush;
+                break;
+            case NSTextAlignmentJustified:
+                *result = stylehint_just_LeftRight;
+                break;
+            default:
+                *result = stylehint_just_LeftFlush;
+                break;
+        }
+        return YES;
+    }
+
     if ([gwindow getStyleVal:style hint:hint value:result])
         return YES;
 

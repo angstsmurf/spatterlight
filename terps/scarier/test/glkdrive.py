@@ -145,6 +145,8 @@ class Driver:
         self.spans = []                 # [peer, style, text] runs
         self.zcolors = []               # (span index, peer, fg, bg) SETZCOLORs
         self.log = []
+        self.hints = {}                 # (wintype, style, hint) -> value
+        self.win_hints = {}             # peer -> its type's hints at NEWWIN
 
     def reply(self, cmd, a1=0, a2=0, a3=0, a4=0, a5=0, payload=b""):
         self.p.stdin.write(MSG.pack(cmd, a1, a2, a3, a4, a5, len(payload)))
@@ -238,13 +240,28 @@ class Driver:
             # val=0 means the terp has taken over line-input echo; the
             # library must then keep its own copy out of the echo stream.
             self.log.append("SETECHO peer=%d val=%d" % (a1, a2))
+        elif cmd == STYLEHINT or cmd == CLEARHINT:
+            # as the app does it: wintype_AllTypes (0) sets both kinds
+            for wt in ((3, 4) if a1 == 0 else (a1,)):
+                if cmd == STYLEHINT:
+                    self.hints[(wt, a2, a3)] = a4
+                else:
+                    self.hints.pop((wt, a2, a3), None)
         elif cmd == NEWWIN:
             self.log.append("NEWWIN type=%d peer=%d" % (a1, a2))
+            # a window takes the hints in effect when it opens
+            self.win_hints[a2] = {(st, h): v for (wt, st, h), v
+                                  in self.hints.items() if wt == a1}
             self.reply(OKAY, a2)        # echo the expected peer
         elif cmd == DELWIN:
             self.log.append("DELWIN peer=%d" % a1)
         elif cmd == STYLEMEASURE:
-            self.reply(OKAY, 0, 0)
+            # Justification (2) from the hints, as the app measures it;
+            # the rest are unknown
+            if a3 == 2:
+                self.reply(OKAY, 1, self.win_hints.get(a1, {}).get((a2, 2), 0))
+            else:
+                self.reply(OKAY, 0, 0)
         elif cmd == UNPRINT:
             self.reply(OKAY, 0)
         elif cmd == FINDIMAGE:

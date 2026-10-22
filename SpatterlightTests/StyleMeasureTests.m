@@ -446,4 +446,39 @@
                       @"fixture: theme User1 should not already be bold, or the test proves nothing");
 }
 
+// TADS centres <center> text with a Justification hint when the measure says
+// the style is centred, and pads it with spaces otherwise: the measure must
+// report the paragraph alignment the window really uses.
+- (void)testMeasureReflectsJustificationHint {
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_User1][stylehint_Justification] = @(stylehint_just_Centered);
+    ctl.bufferStyleHints[style_User2][stylehint_Justification] = @(stylehint_just_RightFlush);
+
+    GlkTextBufferWindow *win = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User1 hint:stylehint_Justification],
+                   stylehint_just_Centered);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_User2 hint:stylehint_Justification],
+                   stylehint_just_RightFlush);
+    XCTAssertEqual([self measureWindow:win controller:ctl style:style_Normal hint:stylehint_Justification],
+                   stylehint_just_LeftFlush);
+}
+
+// Unused hints don't centre anything, and grid lines are never aligned.
+- (void)testMeasureJustificationWithStylesDisabledOrInGrid {
+    self.theme.doStyles = NO;
+
+    GlkController *ctl = [self makeController];
+    ctl.bufferStyleHints[style_User1][stylehint_Justification] = @(stylehint_just_Centered);
+    ctl.gridStyleHints[style_User1][stylehint_Justification] = @(stylehint_just_Centered);
+
+    GlkTextBufferWindow *buf = [[GlkTextBufferWindow alloc] initWithGlkController:ctl name:1];
+    GlkTextGridWindow *grid = [[GlkTextGridWindow alloc] initWithGlkController:ctl name:2];
+
+    XCTAssertEqual([self measureWindow:buf controller:ctl style:style_User1 hint:stylehint_Justification],
+                   stylehint_just_LeftFlush);
+    XCTAssertEqual([self measureWindow:grid controller:ctl style:style_User1 hint:stylehint_Justification],
+                   stylehint_just_LeftFlush);
+}
+
 @end

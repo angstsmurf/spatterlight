@@ -441,6 +441,7 @@ void os_end_html(void)
 
 static void redraw_windows(void)
 {
+    oshtml_arrange();
     os_status_redraw();
     os_banners_redraw();
 }
@@ -559,10 +560,6 @@ void osglk_set_text_color(os_color_t fg, os_color_t bg)
             break;
     }
 
-    if (changedbg) {
-        win_setbgnd(curwin, (glui32)bg);
-    }
-
     if (changedfg && changedbg) {
         garglk_set_zcolors( (glui32)fg, (glui32)bg);
     } else if (changedfg) {
@@ -589,7 +586,13 @@ void osglk_set_text_color(os_color_t fg, os_color_t bg)
  */
 void os_set_screen_color(os_color_t color)
 {
-    win_setbgnd(-1, (glui32)color);
+    /* the parameter colours (text background, transparent...) are the
+       theme's background */
+    if (os_color_is_param(color))
+        color = zcolor_Default;
+
+    if (mainwin)
+        win_setbgnd(mainwin->peer, (glui32)color);
 }
 
 /*

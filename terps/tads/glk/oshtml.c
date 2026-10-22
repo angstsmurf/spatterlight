@@ -10,21 +10,34 @@
  * <TAB MULTIPLE=4> and &#nnn; for its special spaces.  This file parses
  * that markup.
  *
- * For now it does what the formatter's own text-mode filter (tads2/output.c,
- * tads3/vmconhmp.cpp) did when the formatter was built without HTML, so
- * games look as they did, with one difference: entities come out as
- * Unicode instead of ASCII approximations.  In particular:
+ * Whitespace and line breaks work as in the formatter's own text-mode filter
+ * (tads2/output.c, tads3/vmconhmp.cpp), and the tags work as in HTML TADS
+ * (htmltads/htmlprs.cpp, htmltags.cpp), as far as a Glk text buffer can
+ * show them:
  *
  *   - whitespace is collapsed, and dropped at the start of a line and before
  *     a line break, as the formatter does it for plain text; TADS 2 doubles
  *     it after . ? ! and : (looking back past quotes and closing brackets);
- *   - <br>, <p>, <tab>, <hr>, <pre> and <q> do what the text-mode filter
- *     does, and <b>, <i>, <em> and <strong> set OS_ATTR_BOLD,
- *     OS_ATTR_ITALIC, OS_ATTR_EM and OS_ATTR_STRONG;
- *   - in TADS 3, <font color bgcolor> and <body text> set the text colours
- *     and <body bgcolor> the window's, the end tags of <b> <i> <em> <strong>
- *     and <font> restore what was in effect at the start tag, and <tab>
- *     takes ID, TO, ALIGN, DP, INDENT and MULTIPLE;
+ *   - each open tag goes on a stack with the state from before it, so an
+ *     end tag restores what its start tag changed, and an end tag closes
+ *     the tags left open inside it; clearing the window closes them all,
+ *     as HTML TADS's clear_page does;
+ *   - text is bold, italic, fixed, Input and centred in any combination
+ *     (OSSTY_*), and osstyles.c picks a Glk style for each one; <b>, <i>,
+ *     <tt>, <font face>, <hN> and the formatter's own attributes set the
+ *     bits;
+ *   - <center>, <hN align>, <p align> and <div align> are blocks: they
+ *     start a new line, and centre their lines.  If the window doesn't
+ *     centre the style (by its Justification hint), the line is padded
+ *     with spaces instead;
+ *   - <p> and the other blocks leave one blank line between them, however
+ *     many ask for one, as HTML TADS's add_line_spacing does;
+ *   - <blockquote>, <ul>, <ol> and <dl> indent with spaces, and list items
+ *     start with a bullet or a number; <hr> is a rule of box-drawing
+ *     characters; <pre> keeps its whitespace; <q> gives curly quotes;
+ *   - <font color bgcolor> and <body text> set the text colours, and <body
+ *     bgcolor> the window's;
+ *   - in TADS 3, <tab> takes ID, TO, ALIGN, DP, INDENT and MULTIPLE;
  *   - the ALT text of <img> and <sound> is printed;
  *   - <title> sets the window title, and nothing inside <title> or
  *     <aboutbox> (or in TADS 3, <banner>) is shown;
@@ -44,6 +57,7 @@
  * character set is guessed from the same text as before.
  */
 
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -62,7 +76,8 @@ extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
 #define OUT_MAX     256
 #define TITLE_MAX   256
 #define HOLD_MAX    1024        /* text after a right, center or decimal tab */
-#define COLORS_MAX  25          /* as CVFMT_CLRSTK_MAX */
+#define ELEMS_MAX   64          /* open tags we keep */
+#define ELEM_NAME   12
 #define TABS_MAX    64          /* <TAB ID> stops */
 #define TABID_MAX   32
 
@@ -71,12 +86,27 @@ enum token { TOK_TEXT, TOK_TAG, TOK_ENTITY };
 /* <TAB ALIGN> */
 enum tab_align { TAB_NONE, TAB_LEFT, TAB_RIGHT, TAB_CENTER, TAB_DECIMAL };
 
-/* text attributes and colours, as the TADS 3 formatter's vmcon_color_t */
+/* text attributes, as OSSTY_* bits, and colours */
 typedef struct color
 {
     int attr;
     os_color_t fg, bg;
 } color;
+
+/* the innermost list */
+enum list_kind { LIST_NONE, LIST_UL, LIST_OL };
+
+/* an open tag, and the state from before its start tag */
+typedef struct elem
+{
+    char name[ELEM_NAME];
+    color cur;
+    int indent;
+    enum list_kind list;
+    int nitem;
+    int nobr;
+    int banner;
+} elem;
 
 struct oshtml_parser
 {
@@ -117,20 +147,49 @@ struct oshtml_parser
     glui32 titlebuf[TITLE_MAX];
     size_t titlelen;
 
-    /* TADS 2: the formatter's attributes, and those from <b> <i> etc. */
+    /* the formatter's attributes (os_set_text_attr), as OSSTY_* bits */
     int os_attr;
-    int tag_attr;
 
-    /* TADS 3: the text colours in effect, and the start tags' */
+    /* the attributes and colours from the tags in effect */
     color cur;
-    color stack[COLORS_MAX];
-    int nstack;
+
+    /* the block state from the tags in effect */
+    int indent;                 /* left indent, in steps of two spaces */
+    enum list_kind list;
+    int nitem;                  /* the list's items so far */
+    int nobr;                   /* inside <nobr> */
+    int banner;                 /* TADS 2: inside <banner> */
+
+    /* the open tags */
+    elem elems[ELEMS_MAX];
+    int nelems;
+
+    /*
+     *   the line: newlines since the last visible character, whether
+     *   anything visible is on it, and if so, whether it's centred
+     */
+    int nl_count;
+    int line_open;
+    int line_center;
+
+    /* whether the window centres each combination: 0 unknown, 1, -1 */
+    signed char centers[OSSTY_COMBOS];
 
     /* the attributes and colours the sink has */
     color sent;
 
-    /* TADS 3: a right, center or decimal <TAB>, and the text after it */
+    /* the window background the sink has, from <BODY BGCOLOR> */
+    os_color_t screen;
+
+    /* the text colour from <BODY>, which outlasts clearing the window */
+    os_color_t text;
+
+    /*
+     *   TADS 3: a right, center or decimal <TAB>, and the text after it;
+     *   or a centred line, which the window doesn't centre (center_hold)
+     */
     enum tab_align tab_align;
+    int center_hold;
     int tab_start;              /* the column of the <TAB> */
     int tab_to;                 /* the column of its TO, or -1 */
     size_t tab_lead;            /* the pending spaces before it */
@@ -157,6 +216,8 @@ typedef struct oshtml_parser parser;
 
 static int tads3 = 0;
 
+extern winid_t mainwin;
+
 static int is_space(glui32 c);
 
 /* ------------------------------------------------------------------------ */
@@ -170,11 +231,10 @@ static void main_put(void *ctx, const glui32 *buf, size_t len)
     glk_put_buffer_uni((glui32 *)buf, (glui32)len);
 }
 
-static void main_set_attr(void *ctx, int attr)
+static void main_set_attr(void *ctx, int combo)
 {
     (void)ctx;
-    glk_set_style(osstyles_style(((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
-                                 | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0)));
+    glk_set_style(osstyles_style(combo));
 }
 
 static void main_set_color(void *ctx, os_color_t fg, os_color_t bg)
@@ -195,13 +255,32 @@ static int main_width(void *ctx)
     return G_os_linewidth;
 }
 
+/* the style's Justification hint, if the library tells us */
+static int main_centers(void *ctx, int combo)
+{
+    glui32 just;
+
+    (void)ctx;
+    return mainwin
+        && glk_style_measure(mainwin, osstyles_style(combo),
+                             stylehint_Justification, &just)
+        && just == stylehint_just_Centered;
+}
+
 static const oshtml_sink main_sink =
 {
     main_put, main_set_attr, main_set_color, main_set_screen_color,
-    main_width
+    main_width, main_centers
 };
 
-static parser fmt = { &main_sink };
+static parser fmt =
+{
+    .sink = &main_sink,
+    .cur = { 0, OS_COLOR_P_TEXT, OS_COLOR_P_TRANSPARENT },
+    .sent = { 0, OS_COLOR_P_TEXT, OS_COLOR_P_TRANSPARENT },
+    .screen = OS_COLOR_P_TEXTBG,
+    .text = OS_COLOR_P_TEXT
+};
 
 /* ------------------------------------------------------------------------ */
 /*
@@ -220,34 +299,49 @@ static void flush_out(parser *p)
     p->outlen = 0;
 }
 
-/* give the sink these attributes and colours, where they're new to it */
+/* does the window show this combination centred? */
+static int centers(parser *p, int combo)
+{
+    signed char *known = &p->centers[combo & (OSSTY_COMBOS - 1)];
+
+    if (*known == 0)
+        *known = p->sink->centers(p->ctx, combo) ? 1 : -1;
+    return *known > 0;
+}
+
+/*
+ *   give the sink these attributes and colours, where they're new to it;
+ *   centring it can't show is ours to do (start_line)
+ */
 static void send_color(parser *p, const color *c)
 {
-    if (c->attr != p->sent.attr)
+    color s = *c;
+
+    if ((s.attr & OSSTY_CENTER) && !centers(p, s.attr))
+        s.attr &= ~OSSTY_CENTER;
+    if (s.attr != p->sent.attr)
     {
         flush_out(p);
-        p->sink->set_attr(p->ctx, c->attr);
+        p->sink->set_attr(p->ctx, s.attr);
     }
-    if (c->fg != p->sent.fg || c->bg != p->sent.bg)
+    if (s.fg != p->sent.fg || s.bg != p->sent.bg)
     {
         flush_out(p);
-        p->sink->set_color(p->ctx, c->fg, c->bg);
+        p->sink->set_color(p->ctx, s.fg, s.bg);
     }
-    p->sent = *c;
+    p->sent = s;
 }
 
 static color cur_color(parser *p)
 {
-    color c;
+    color c = p->cur;
 
-    if (tads3)
-        return p->cur;
-    c.attr = p->os_attr | p->tag_attr;
-    c.fg = c.bg = 0;
+    c.attr |= p->os_attr;
     return c;
 }
 
 static void expand_tab(parser *p, int allow_anon);
+static void line_break(parser *p);
 
 /*
  *   The TADS 3 formatter brings the window up to date with the current
@@ -336,9 +430,50 @@ static void add_pending(parser *p, glui32 c)
     add_pending_quoted(p, c, 0);
 }
 
+/*
+ *   Before a visible character.  Centring belongs to the whole line, as
+ *   alignment belongs to a paragraph in HTML TADS: a change of it ends the
+ *   line.  A new line gets the indent, or if it's centred and the window
+ *   won't centre it, the text is held back, as after a <TAB ALIGN=CENTER>,
+ *   to be padded with spaces when the line ends.
+ */
+static void start_line(parser *p)
+{
+    color c = cur_color(p);
+    int center = c.attr & OSSTY_CENTER;
+    int n;
+
+    if (p->line_open && center == p->line_center)
+        return;
+    if (p->line_open)
+        line_break(p);
+    p->line_open = 1;
+    p->line_center = center;
+    if (center)
+    {
+        if (!centers(p, c.attr) && p->tab_align == TAB_NONE)
+        {
+            p->tab_align = TAB_CENTER;
+            p->center_hold = 1;
+            p->tab_lead = p->npending;
+            p->tab_start = p->col + (int)p->npending;
+            p->tab_to = -1;
+            p->tab_color = c;
+        }
+        return;
+    }
+    for (n = 2 * p->indent ; n > 0 ; --n)
+    {
+        emit_now(p, 0xA0, c);
+        ++p->col;
+    }
+}
+
 /* print a visible character */
 static void put_visible(parser *p, glui32 c)
 {
+    if (!p->dst)
+        start_line(p);
     print_pending(p);
 
     /*
@@ -352,6 +487,7 @@ static void put_visible(parser *p, glui32 c)
     ++p->col;
     p->buffered = 1;
     p->just_nl = 0;
+    p->nl_count = 0;
     if (!is_quote(c))
         p->lastchar = c;
 }
@@ -404,6 +540,7 @@ static void expand_tab(parser *p, int allow_anon)
     }
 
     p->tab_align = TAB_NONE;
+    p->center_hold = 0;
     lead = p->tab_lead < p->npending ? p->tab_lead : p->npending;
     p->tab_lead = 0;
     n = p->nhold;
@@ -446,10 +583,14 @@ static void expand_tab(parser *p, int allow_anon)
 /* end the line, in the style of the text before it */
 static void put_newline(parser *p)
 {
+    if (p->center_hold)
+        expand_tab(p, 1);
     p->npending = 0;
     emit(p, '\n', p->sent);
     p->col = 0;
     p->lastchar = 0;
+    p->line_open = 0;
+    ++p->nl_count;
     sync_color(p);
 }
 
@@ -482,6 +623,14 @@ static void blank_line(parser *p)
 {
     line_break(p);
     put_newline(p);
+}
+
+/* the space between blocks: a blank line, unless there is one already */
+static void para_break(parser *p)
+{
+    line_break(p);
+    if (p->nl_count == 1)
+        put_newline(p);
 }
 
 /*
@@ -527,6 +676,13 @@ static void put_space(parser *p)
     if (p->npending != 0)
         return;
 
+    /* <nobr>: a space that holds the words on either side together */
+    if (p->nobr)
+    {
+        if (p->lastchar != 0xA0)
+            put_visible(p, 0xA0);
+        return;
+    }
 
     /* ...except after the end of a sentence, in TADS 2 */
     add_pending(p, ' ');
@@ -950,7 +1106,7 @@ static void set_title(parser *p)
 
 /* the tag in p->tag, between '<' and '>' */
 
-/* TADS 3: the colour in a COLOR, BGCOLOR or TEXT attribute */
+/* the colour in a COLOR, BGCOLOR or TEXT attribute */
 static const struct { const char *name; os_color_t color; } colors[] =
 {
     { "black",   os_rgb_color(0x00, 0x00, 0x00) },
@@ -1009,21 +1165,163 @@ static int parse_color(const glui32 *v, size_t len, os_color_t *out)
     return 0;
 }
 
-static void push_color(parser *p)
+static int name_in(const glui32 *name, size_t len, const char *const *list)
 {
-    /* a lost end tag: take everything down a level */
-    if (p->nstack == COLORS_MAX)
-    {
-        memmove(p->stack, p->stack + 1, (COLORS_MAX - 1) * sizeof(color));
-        --p->nstack;
-    }
-    p->stack[p->nstack++] = p->cur;
+    for ( ; *list ; ++list)
+        if (tag_is(name, len, *list))
+            return 1;
+    return 0;
 }
 
-static void pop_color(parser *p)
+static const char *const bold_tags[] = { "b", "strong", 0 };
+static const char *const italic_tags[] =
+    { "i", "em", "u", "cite", "var", "dfn", "address", 0 };
+static const char *const fixed_tags[] =
+    { "tt", "code", "kbd", "samp", "listing", "xmp", 0 };
+static const char *const heading_tags[] =
+    { "h1", "h2", "h3", "h4", "h5", "h6", 0 };
+
+/* the blocks that an open <p> or <dd> doesn't reach out of */
+static const char *const p_stops[] =
 {
-    if (p->nstack != 0)
-        p->cur = p->stack[--p->nstack];
+    "blockquote", "bq", "ul", "ol", "dl", "dd", "center", "div",
+    "h1", "h2", "h3", "h4", "h5", "h6", "banner", 0
+};
+static const char *const dd_stops[] =
+    { "blockquote", "bq", "ul", "ol", "dl", "banner", 0 };
+
+/* open a tag, keeping the state to go back to at its end tag */
+static void push_elem(parser *p, const glui32 *name, size_t len)
+{
+    elem *e;
+    size_t k;
+
+    if (len >= ELEM_NAME)
+        return;
+
+    /* a lost end tag: take everything down a level */
+    if (p->nelems == ELEMS_MAX)
+    {
+        memmove(p->elems, p->elems + 1, (ELEMS_MAX - 1) * sizeof(elem));
+        --p->nelems;
+    }
+    e = &p->elems[p->nelems++];
+    for (k = 0 ; k < len ; ++k)
+        e->name[k] = (char)(name[k] >= 'A' && name[k] <= 'Z'
+                            ? name[k] + ('a' - 'A') : name[k]);
+    e->name[len] = '\0';
+    e->cur = p->cur;
+    e->indent = p->indent;
+    e->list = p->list;
+    e->nitem = p->nitem;
+    e->nobr = p->nobr;
+    e->banner = p->banner;
+}
+
+/* close the open tag at 'i', and those inside it */
+static void restore_elem(parser *p, int i)
+{
+    const elem *e = &p->elems[i];
+
+    p->cur = e->cur;
+    p->indent = e->indent;
+    p->list = e->list;
+    p->nitem = e->nitem;
+    p->nobr = e->nobr;
+    p->banner = e->banner;
+    p->nelems = i;
+}
+
+/* an end tag closes its start tag, if it has one */
+static int pop_elem(parser *p, const glui32 *name, size_t len)
+{
+    int i;
+
+    for (i = p->nelems ; i > 0 ; --i)
+        if (tag_is(name, len, p->elems[i - 1].name))
+        {
+            restore_elem(p, i - 1);
+            return 1;
+        }
+    return 0;
+}
+
+/* close an open 'name', unless one of 'stops' is open inside it */
+static void close_elem(parser *p, const char *name, const char *const *stops)
+{
+    int i;
+    const char *const *s;
+
+    for (i = p->nelems ; i > 0 ; --i)
+    {
+        const char *n = p->elems[i - 1].name;
+        if (strcmp(n, name) == 0)
+        {
+            restore_elem(p, i - 1);
+            return;
+        }
+        for (s = stops ; *s ; ++s)
+            if (strcmp(n, *s) == 0)
+                return;
+    }
+}
+
+/* does the value contain 'sub', ignoring case? */
+static int value_has(const glui32 *v, size_t len, const char *sub)
+{
+    size_t n = strlen(sub), i, k;
+
+    for (i = 0 ; i + n <= len ; ++i)
+    {
+        for (k = 0 ; k < n ; ++k)
+        {
+            glui32 c = v[i + k];
+            if (c >= 'A' && c <= 'Z')
+                c += 'a' - 'A';
+            if (c != (unsigned char)sub[k])
+                break;
+        }
+        if (k == n)
+            return 1;
+    }
+    return 0;
+}
+
+/*
+ *   the combination for a FACE, as osstyles.c counts it: the TADS-Input
+ *   font, a fixed one, or neither
+ */
+static int face_combo(const glui32 *v, size_t len)
+{
+    static const char *const mono[] =
+        { "typewriter", "courier", "mono", "fixed", "console", 0 };
+    const char *const *m;
+
+    if (value_has(v, len, "input"))
+        return OSSTY_INPUT;
+    for (m = mono ; *m ; ++m)
+        if (value_has(v, len, *m))
+            return OSSTY_FIXED;
+    return 0;
+}
+
+/* an <li>: "•", or the item's number, after the list's indent */
+static void put_bullet(parser *p)
+{
+    char num[16];
+    char *c;
+
+    line_break(p);
+    ++p->nitem;
+    if (p->list == LIST_OL)
+    {
+        sprintf(num, "%d.", p->nitem);
+        for (c = num ; *c ; ++c)
+            put_visible(p, (unsigned char)*c);
+    }
+    else
+        put_visible(p, 0x2022);
+    add_pending(p, ' ');
 }
 
 /* TADS 3: the stop of a <TAB ID>, made if 'create'; the ids ignore case */
@@ -1059,6 +1357,30 @@ static int to_int(const glui32 *v, size_t len)
     return n;
 }
 
+/*
+ *   <BODY>: the window background.  A colour of the game's own behind the
+ *   theme's text colour could hide the text, so the text gets black or
+ *   white, whichever shows.  Black is 1/1/1: osglk_set_text_color takes 0
+ *   on a transparent background for the theme's colour (Hill Ridge).
+ */
+static void set_body(parser *p, os_color_t bg)
+{
+    if (!os_color_is_param(bg) && os_color_is_param(p->cur.fg))
+    {
+        unsigned long lum = 299 * ((bg >> 16) & 0xFF)
+            + 587 * ((bg >> 8) & 0xFF) + 114 * (bg & 0xFF);
+        p->cur.fg = lum >= 128000 ? os_rgb_color(1, 1, 1)
+            : os_rgb_color(255, 255, 255);
+    }
+    p->text = p->cur.fg;
+    if (bg != p->screen)
+    {
+        flush_out(p);
+        p->sink->set_screen_color(p->ctx, bg);
+        p->screen = bg;
+    }
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
@@ -1067,7 +1389,12 @@ static void do_tag(parser *p)
     int end = 0;
     int br = 0;                 /* 1: line break, 2: blank line */
     int alt_ok = 0;
-    int color_ok = 0, body = 0; /* TADS 3: <font>, <body> */
+    int color_ok = 0, body = 0; /* <font>, <body> */
+    os_color_t body_bg = OS_COLOR_P_TEXTBG;
+    int face_ok = 0, face = -1; /* <font FACE> */
+    int align_ok = 0;           /* <p>, <div>, <hN>: 1 to open the tag */
+    int align = -1;             /* their ALIGN: 0 left, 1 centred */
+    int heading = 0;
     int tab = 0;                /* TADS 3: <tab> */
     int tab_to = -1;
     enum tab_align tab_align = TAB_NONE;
@@ -1088,35 +1415,156 @@ static void do_tag(parser *p)
     namelen = i - name;
 
 #define TAG(s) tag_is(t + name, namelen, s)
+#define TAG_IN(l) name_in(t + name, namelen, l)
     if (TAG("br"))
     {
         if (!p->ignore)
             br = (tads3 ? p->buffered
                   : p->col != 0 || p->npending != 0) ? 1 : 2;
     }
-    else if (TAG("b") || TAG("i") || TAG("em") || TAG("strong"))
+    else if (TAG_IN(bold_tags) || TAG_IN(italic_tags) || TAG_IN(fixed_tags))
     {
-        int attr = TAG("b") ? OS_ATTR_BOLD
-            : TAG("i") ? OS_ATTR_ITALIC
-            : TAG("em") ? OS_ATTR_EM : OS_ATTR_STRONG;
         if (p->ignore)
             ;
-        else if (tads3 && !end)
-        {
-            push_color(p);
-            p->cur.attr |= attr;
-        }
-        else if (tads3)
-            pop_color(p);
-        else if (!end)
-            p->tag_attr |= attr;
+        else if (end)
+            pop_elem(p, t + name, namelen);
         else
-            p->tag_attr &= ~attr;
+        {
+            push_elem(p, t + name, namelen);
+            if (TAG_IN(bold_tags))
+                p->cur.attr |= OSSTY_BOLD;
+            else if (TAG_IN(italic_tags))
+                p->cur.attr |= OSSTY_ITALIC;
+            else
+                p->cur.attr = (p->cur.attr & ~OSSTY_INPUT) | OSSTY_FIXED;
+        }
     }
     else if (TAG("p"))
     {
         if (!p->ignore)
-            blank_line(p);
+        {
+            close_elem(p, "p", p_stops);
+            /* HTML TADS keeps the larger spacing (add_line_spacing) */
+            para_break(p);
+            align_ok = !end;
+        }
+    }
+    else if (TAG("div"))
+    {
+        if (!p->ignore)
+        {
+            line_break(p);
+            if (end)
+                pop_elem(p, t + name, namelen);
+            else
+                align_ok = 1;
+        }
+    }
+    else if (TAG_IN(heading_tags))
+    {
+        if (p->ignore)
+            ;
+        else if (end)
+        {
+            pop_elem(p, t + name, namelen);
+            para_break(p);
+        }
+        else
+        {
+            para_break(p);
+            align_ok = heading = 1;
+        }
+    }
+    else if (TAG("center"))
+    {
+        /* a block, like <div> */
+        if (p->ignore)
+            ;
+        else if (end)
+        {
+            line_break(p);
+            pop_elem(p, t + name, namelen);
+        }
+        else
+        {
+            line_break(p);
+            push_elem(p, t + name, namelen);
+            p->cur.attr |= OSSTY_CENTER;
+        }
+    }
+    else if (TAG("blockquote") || TAG("bq"))
+    {
+        if (!p->ignore)
+        {
+            if (end)
+                pop_elem(p, t + name, namelen);
+            para_break(p);
+            if (!end)
+            {
+                push_elem(p, t + name, namelen);
+                ++p->indent;
+            }
+        }
+    }
+    else if (TAG("ul") || TAG("ol") || TAG("dl"))
+    {
+        /* a list in a list goes on from the line of its item */
+        if (p->ignore)
+            ;
+        else if (end)
+        {
+            pop_elem(p, t + name, namelen);
+            if (p->list != LIST_NONE)
+                line_break(p);
+            else
+                para_break(p);
+        }
+        else
+        {
+            if (p->list != LIST_NONE)
+                line_break(p);
+            else
+                para_break(p);
+            push_elem(p, t + name, namelen);
+            if (!TAG("dl"))
+            {
+                ++p->indent;
+                p->list = TAG("ol") ? LIST_OL : LIST_UL;
+                p->nitem = 0;
+            }
+        }
+    }
+    else if (TAG("li"))
+    {
+        if (!p->ignore && !end)
+            put_bullet(p);
+    }
+    else if (TAG("dt") || TAG("dd") || TAG("lh"))
+    {
+        if (!p->ignore && !end)
+        {
+            close_elem(p, "dd", dd_stops);
+            line_break(p);
+            if (TAG("dd"))
+            {
+                push_elem(p, t + name, namelen);
+                ++p->indent;
+            }
+        }
+        else if (!p->ignore && TAG("dd"))
+            pop_elem(p, t + name, namelen);
+    }
+    else if (TAG("nobr"))
+    {
+        if (p->ignore)
+            ;
+        else if (end)
+            pop_elem(p, t + name, namelen);
+        else
+        {
+            push_elem(p, t + name, namelen);
+            p->nobr = 1;
+        }
     }
     else if (TAG("tab"))
     {
@@ -1132,29 +1580,37 @@ static void do_tag(parser *p)
     }
     else if (TAG("img") || TAG("sound"))
         alt_ok = 1;
-    else if (tads3 && TAG("font"))
+    else if (TAG("font"))
     {
         if (p->ignore)
             ;
         else if (!end)
         {
-            color_ok = 1;
-            push_color(p);
+            color_ok = face_ok = 1;
+            push_elem(p, t + name, namelen);
         }
         else
-            pop_color(p);
+            pop_elem(p, t + name, namelen);
     }
-    else if (tads3 && TAG("body"))
-        body = !p->ignore && !end;
+    else if (TAG("body"))
+    {
+        /* as in HTML TADS, what a <BODY> leaves out is the default */
+        body = !p->ignore && !end && !p->banner;
+        if (body)
+        {
+            p->cur.fg = OS_COLOR_P_TEXT;
+            body_bg = OS_COLOR_P_TEXTBG;
+        }
+    }
     else if (TAG("hr"))
     {
         if (!p->ignore)
         {
             int n;
-            line_break(p);
-            for (n = p->sink->width(p->ctx) - 1 ; n > 0 ; --n)
-                put_visible(p, tads3 ? '-' : '_');
-            blank_line(p);
+            para_break(p);
+            for (n = p->sink->width(p->ctx) - 1 - 2 * p->indent ; n > 0 ; --n)
+                put_visible(p, 0x2500);
+            para_break(p);
         }
     }
     else if (TAG("q"))
@@ -1199,6 +1655,19 @@ static void do_tag(parser *p)
         else
             ++p->ignore;
     }
+    else if (TAG("banner"))
+    {
+        /* TADS 2 shows a banner's text in line, but not its <body> */
+        if (p->ignore)
+            ;
+        else if (end)
+            pop_elem(p, t + name, namelen);
+        else
+        {
+            push_elem(p, t + name, namelen);
+            p->banner = 1;
+        }
+    }
     else if (TAG("pre"))
     {
         if (!end)
@@ -1206,12 +1675,23 @@ static void do_tag(parser *p)
         blank_line(p);
         if (end && p->pre > 0)
             --p->pre;
+        if (p->ignore)
+            ;
+        else if (end)
+            pop_elem(p, t + name, namelen);
+        else
+        {
+            push_elem(p, t + name, namelen);
+            p->cur.attr = (p->cur.attr & ~OSSTY_INPUT) | OSSTY_FIXED;
+        }
     }
+#undef TAG_IN
 #undef TAG
 
     /*
-     *   attributes: HEIGHT of <br>, ALT of <img> and <sound>, and in TADS 3,
-     *   those of <font>, <body> and <tab>
+     *   attributes: HEIGHT of <br>, ALT of <img> and <sound>, those of
+     *   <font> and <body>, ALIGN of <p>, <div> and <hN>, and in TADS 3,
+     *   those of <tab>
      */
     while (i < len)
     {
@@ -1280,6 +1760,11 @@ static void do_tag(parser *p)
             for (k = v ; k < v + vlen ; ++k)
                 put_html_text(p, t[k]);
         }
+        else if (align_ok && ATTR("align"))
+            align = tag_is(t + v, vlen, "center")
+                || tag_is(t + v, vlen, "right");
+        else if (face_ok && ATTR("face"))
+            face = face_combo(t + v, vlen);
         else if (color_ok && ATTR("color"))
             parse_color(t + v, vlen, &p->cur.fg);
         else if (color_ok && ATTR("bgcolor"))
@@ -1287,14 +1772,7 @@ static void do_tag(parser *p)
         else if (body && ATTR("text"))
             parse_color(t + v, vlen, &p->cur.fg);
         else if (body && ATTR("bgcolor"))
-        {
-            os_color_t bg;
-            if (parse_color(t + v, vlen, &bg))
-            {
-                flush_out(p);
-                p->sink->set_screen_color(p->ctx, bg);
-            }
-        }
+            parse_color(t + v, vlen, &body_bg);
         else if (tab && ATTR("id"))
         {
             int k = find_tab(p, t + v, vlen, 1);
@@ -1338,10 +1816,30 @@ static void do_tag(parser *p)
 #undef ATTR
     }
 
+    if (body)
+        set_body(p, body_bg);
+
     if (br == 1)
         line_break(p);
     else if (br == 2)
         blank_line(p);
+
+    /*
+     *   <font FACE>, and the tags that ALIGN opens: a <p> only with it, as
+     *   a <p> is seldom closed
+     */
+    if (face >= 0)
+        p->cur.attr = (p->cur.attr & ~(OSSTY_FIXED | OSSTY_INPUT)) | face;
+    if (align_ok && (align >= 0 || !tag_is(t + name, namelen, "p")))
+    {
+        push_elem(p, t + name, namelen);
+        if (heading)
+            p->cur.attr |= OSSTY_BOLD;
+        if (align == 1)
+            p->cur.attr |= OSSTY_CENTER;
+        else if (align == 0)
+            p->cur.attr &= ~OSSTY_CENTER;
+    }
 
     /* TADS 3: what's left of the <TAB> */
     if (!tab)
@@ -1364,7 +1862,7 @@ static void do_tag(parser *p)
         p->tab_start = p->col + (int)p->npending;
         p->tab_to = tab_to;
         p->tab_dp = (tab_align == TAB_DECIMAL && tab_dp == 0) ? '.' : tab_dp;
-        p->tab_color = p->cur;
+        p->tab_color = cur_color(p);
     }
 }
 
@@ -1453,19 +1951,22 @@ static void feed_bytes(parser *p, const char *str, size_t len)
  *   Interface
  */
 
-static void init_colors(parser *p)
-{
-    p->cur.attr = 0;
-    p->cur.fg = OS_COLOR_P_TEXT;
-    p->cur.bg = OS_COLOR_P_TRANSPARENT;
-    p->sent = p->cur;
-}
-
 void oshtml_set_tads3(int on)
 {
     tads3 = on;
-    if (tads3)
-        init_colors(&fmt);
+}
+
+static int os_combo(int attr)
+{
+    return ((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
+        | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0);
+}
+
+/* show the text of a centred line that we pad, as if the line ended */
+static void show_held(parser *p)
+{
+    if (p->center_hold)
+        expand_tab(p, 1);
 }
 
 oshtml_parser *oshtml_new(const oshtml_sink *sink, void *ctx)
@@ -1477,7 +1978,11 @@ oshtml_parser *oshtml_new(const oshtml_sink *sink, void *ctx)
     p->sink = sink;
     p->ctx = ctx;
     p->html = 1;
-    init_colors(p);
+    p->cur.fg = OS_COLOR_P_TEXT;
+    p->cur.bg = OS_COLOR_P_TRANSPARENT;
+    p->sent = p->cur;
+    p->screen = OS_COLOR_P_TEXTBG;
+    p->text = OS_COLOR_P_TEXT;
     return p;
 }
 
@@ -1495,7 +2000,9 @@ void oshtml_write(oshtml_parser *p, const char *str, size_t len)
 /* the formatter flushed a line without ending it: show what it holds */
 void oshtml_flush_parser(oshtml_parser *p)
 {
-    expand_tab(p, 0);
+    /* a centred line we pad waits for its end */
+    if (!p->center_hold)
+        expand_tab(p, 0);
 
     /*
      *   TADS 3 doesn't show the spaces at the end of the line until more
@@ -1510,15 +2017,32 @@ void oshtml_flush_parser(oshtml_parser *p)
 }
 
 /* the window was cleared */
+/*
+ *   HTML TADS clears the page by closing every tag (clear_page in
+ *   htmlprs.cpp), which ends a <DIV> or <CENTER> a game left open
+ */
+static void close_all(parser *p)
+{
+    if (p->nelems)
+        restore_elem(p, 0);
+    p->cur.attr = 0;
+    p->cur.fg = p->text;
+    p->cur.bg = OS_COLOR_P_TRANSPARENT;
+}
+
 void oshtml_clear(oshtml_parser *p)
 {
     p->tab_align = TAB_NONE;
+    p->center_hold = 0;
     p->nhold = 0;
     p->npending = 0;
     p->col = 0;
     p->lastchar = 0;
     p->buffered = 0;
     p->just_nl = 0;
+    p->nl_count = 0;
+    p->line_open = 0;
+    close_all(p);
 }
 
 void oshtml_clear_main(void)
@@ -1526,11 +2050,13 @@ void oshtml_clear_main(void)
     /* the TADS 3 formatter empties its buffers; TADS 2's goes on */
     if (tads3)
         oshtml_clear(&fmt);
+    else
+        close_all(&fmt);
 }
 
 void oshtml_set_attr(oshtml_parser *p, int attr)
 {
-    p->cur.attr = attr;
+    p->os_attr = os_combo(attr);
 }
 
 void oshtml_set_color(oshtml_parser *p, os_color_t fg, os_color_t bg)
@@ -1547,6 +2073,7 @@ void oshtml_start(void)
 void oshtml_end(void)
 {
     /* the formatter flushed the line without ending it */
+    show_held(&fmt);
     oshtml_flush_parser(&fmt);
     fmt.html = 0;
 }
@@ -1561,6 +2088,8 @@ size_t oshtml_print_status(const char *str, size_t len,
 {
     parser *p = &fmt;
 
+    /* a centred line held for the main window stays there */
+    show_held(p);
     p->dst = out;
     p->dstlen = 0;
     p->dstmax = max;
@@ -1571,6 +2100,7 @@ size_t oshtml_print_status(const char *str, size_t len,
 
 void oshtml_put_plain(const char *str, size_t len)
 {
+    show_held(&fmt);
     oshtml_flush();
 
     /*
@@ -1581,6 +2111,9 @@ void oshtml_put_plain(const char *str, size_t len)
     if (tads3)
         fmt.npending = 0;
     os_put_buffer((unsigned char *)str, len);
+
+    /* the caller may set the style around this */
+    fmt.sent.attr = -1;
 }
 
 void oshtml_flush(void)
@@ -1591,6 +2124,7 @@ void oshtml_flush(void)
 void oshtml_input(void)
 {
     /* the formatter shows the spaces at the end of the line before input */
+    show_held(&fmt);
     print_pending(&fmt);
     fmt.buffered = 0;
     flush_out(&fmt);
@@ -1606,29 +2140,31 @@ void oshtml_input_done(void)
         fmt.col = 0;
         fmt.lastchar = 0;
         fmt.just_nl = 1;
+        fmt.nl_count = 1;
+        fmt.line_open = 0;
     }
 }
 
 void oshtml_set_os_attr(int attr)
 {
+    color c;
+
+    oshtml_set_attr(&fmt, attr);
     if (tads3)
-    {
-        oshtml_set_attr(&fmt, attr);
         return;
-    }
-    fmt.os_attr = attr;
+
+    /* TADS 2 doesn't sync the window when it flushes */
+    c = cur_color(&fmt);
+    send_color(&fmt, &c);
     flush_out(&fmt);
-    fmt.sink->set_attr(fmt.ctx, fmt.os_attr | fmt.tag_attr);
-    fmt.sent.attr = fmt.os_attr | fmt.tag_attr;
 }
 
 void oshtml_set_os_color(os_color_t fg, os_color_t bg)
 {
-    if (tads3)
-    {
-        oshtml_set_color(&fmt, fg, bg);
-        return;
-    }
-    flush_out(&fmt);
-    osglk_set_text_color(fg, bg);
+    oshtml_set_color(&fmt, fg, bg);
+}
+
+void oshtml_arrange(void)
+{
+    memset(fmt.centers, 0, sizeof(fmt.centers));
 }
