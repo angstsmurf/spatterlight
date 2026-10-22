@@ -266,6 +266,8 @@ void os_printz(const char *str)
 
 void os_print(const char *str, size_t len)
 {
+    osglk_not_idle();
+
     if (curwin == 0 && str)
         os_put_buffer((unsigned char *)str, len);
 
@@ -641,6 +643,7 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
     do
     {
         glk_select(&event);
+        osglk_not_idle();
         if (event.type == evtype_Arrange)
             redraw_windows();
     }
@@ -758,6 +761,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     do
     {
         glk_select(&event);
+        osglk_not_idle();
         if (event.type == evtype_Arrange)
             redraw_windows();
         else if (event.type == evtype_Timer && (timeout = 1))
@@ -921,6 +925,7 @@ static int getglkchar(void)
     do
     {
         glk_select(&event);
+        osglk_not_idle();
         if (event.type == evtype_Arrange)
             redraw_windows();
         else if (event.type == evtype_Timer)
