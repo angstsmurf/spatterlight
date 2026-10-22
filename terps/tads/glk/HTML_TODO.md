@@ -442,6 +442,12 @@ Notes from the corpus traces:
 
   Re-opening a banner id **replaces** its contents. This fixes TADS 2's
   current fault of printing status-line contents inline in the main text.
+- [x] **A clear screen removes the tag banners** (`oscls`), as HTML TADS's
+  `start_new_page` does (`remove_all_banners`; API banners stay). Without
+  this, a full-height title or menu banner (*1893*'s `middle` at 100%, the
+  menu libraries of *Arrival*, *HOLD*, *School*, *Ground*, *ecdysis*,
+  *futzmutz*) stayed over the main window for good: the main window had no
+  height, so the game seemed to ignore Enter.
 - [x] **The status line** (`id=StatusLine`, `<tab align=right>`) goes to a
   grid window, with `body bgcolor=statusbg text=statustext` as theme status
   colours.

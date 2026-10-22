@@ -488,10 +488,14 @@ static void redraw_windows(void)
     os_banners_redraw();
 }
 
-/* clear the screen */
+/*
+ *   Clear the screen.  As HTML TADS starts a new page, the windows of
+ *   <BANNER> tags go too (not those of the banner API).
+ */
 void oscls(void)
 {
     oshtml_clear_main();
+    osglk_tag_banner_remove(NULL);
     glk_window_clear(mainwin);
 }
 
