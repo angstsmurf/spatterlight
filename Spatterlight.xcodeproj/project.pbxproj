@@ -181,6 +181,7 @@
 		6DC6213D23A26078002DEF3B /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		6DC6214023A26078002DEF3B /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		6DC79A832455AD4800CD9989 /* hecugel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79A822455AD4800CD9989 /* hecugel.c */; };
+		F27E88D5E944AF849CE40D3F /* hecugel_sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 5EB0FAA543D593C040A81574 /* hecugel_sound.c */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		6DCFFC2722BCD1BB0035FA99 /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
@@ -2054,6 +2055,7 @@
 		6DC6213E23A26078002DEF3B /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = coredata/Image.h; sourceTree = SOURCE_ROOT; };
 		6DC6213F23A26078002DEF3B /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Image.m; path = coredata/Image.m; sourceTree = SOURCE_ROOT; };
 		6DC79A822455AD4800CD9989 /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel.c; path = heglk/hecugel.c; sourceTree = "<group>"; };
+		5EB0FAA543D593C040A81574 /* hecugel_sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel_sound.c; path = heglk/hecugel_sound.c; sourceTree = "<group>"; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
@@ -4960,6 +4962,7 @@
 				965032A909F29EE20083E64E /* hebuffer.c */,
 				965032AB09F29EE20083E64E /* heexpr.c */,
 				6DC79A822455AD4800CD9989 /* hecugel.c */,
+				5EB0FAA543D593C040A81574 /* hecugel_sound.c */,
 				965032AD09F29EE20083E64E /* heglkunix.c */,
 				965032AF09F29EE20083E64E /* hemisc.c */,
 				965032B009F29EE20083E64E /* heobject.c */,
@@ -8397,6 +8400,7 @@
 			files = (
 				965038CB09F2D3300083E64E /* he.c in Sources */,
 				6DC79A832455AD4800CD9989 /* hecugel.c in Sources */,
+				F27E88D5E944AF849CE40D3F /* hecugel_sound.c in Sources */,
 				965038D009F2D3300083E64E /* heglkunix.c in Sources */,
 				965038CE09F2D3300083E64E /* heexpr.c in Sources */,
 				965038D109F2D3300083E64E /* hemisc.c in Sources */,
