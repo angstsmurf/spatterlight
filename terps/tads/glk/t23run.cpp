@@ -29,6 +29,7 @@
 
 #include "os.h"
 #include "oshtml.h"
+#include "osres.h"
 #include "osstyles.h"
 #include <string.h>
 
@@ -96,7 +97,8 @@ static int main_t2(int argc, char **argv)
 
 
     /* invoke the tads 2 main entrypoint */
-    stat = os0main2(argc, argv, trdmain, "", 0, 0);
+    /* the appctx hears where the game's resources are (osres.c) */
+    stat = os0main2(argc, argv, trdmain, "", 0, osres_t2_appctx());
 
     /* done with the break handler */
     os_instbrk(0);
@@ -110,13 +112,52 @@ static int main_t2(int argc, char **argv)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   The T3 host interface, which also tells osres.c where the game's
+ *   resources are
+ */
+class CVmHostIfcGlk: public CVmHostIfcStdio
+{
+public:
+    CVmHostIfcGlk(const char *argv0) : CVmHostIfcStdio(argv0) { }
+
+    virtual void set_image_name(const char *fname)
+    {
+        CVmHostIfcStdio::set_image_name(fname);
+        osres_set_file(0, fname);
+    }
+
+    virtual int add_resfile(const char *fname)
+    {
+        int fileno = CVmHostIfcStdio::add_resfile(fname);
+        osres_set_file(fileno, fname);
+        return fileno;
+    }
+
+    virtual void add_resource(unsigned long ofs, unsigned long siz,
+                              const char *resname, size_t resnamelen,
+                              int fileno)
+    {
+        CVmHostIfcStdio::add_resource(ofs, siz, resname, resnamelen, fileno);
+        osres_add(fileno, ofs, siz, resname, resnamelen);
+    }
+
+    virtual void add_resource(const char *fname, size_t fnamelen,
+                              const char *resname, size_t resnamelen)
+    {
+        CVmHostIfcStdio::add_resource(fname, fnamelen, resname, resnamelen);
+        osres_add_link(fname, fnamelen, resname, resnamelen);
+    }
+};
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Invoke the T3 VM with the given command-line arguments
  */
 static int main_t3(int argc, char **argv)
 {
     CVmMainClientConsole clientifc;
     int stat;
-    CVmHostIfc *hostifc = new CVmHostIfcStdio(argv[0]);
+    CVmHostIfc *hostifc = new CVmHostIfcGlk(argv[0]);
 
 #ifdef GARGLK
     garglk_set_program_name("TADS " T3VM_VSN_STRING);

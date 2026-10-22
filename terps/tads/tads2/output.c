@@ -2787,8 +2787,13 @@ static int outformatlen_stream(out_stream_info *stream,
                     stream->html_pre_level -= 1;
             }
 
-            /* copy the last character after the tag to the stream */
-            outchar_stream(stream, c);
+            /*
+             *   copy the last character after the tag to the stream; a
+             *   string can end in the tag's name ("<FONT", with the
+             *   attributes in the next string), and the end isn't one
+             */
+            if (c != '\0')
+                outchar_stream(stream, c);
         }
         else
         {

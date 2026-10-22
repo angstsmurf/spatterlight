@@ -30,7 +30,8 @@ Other gaps in the current build:
 - `os_set_text_attr` can only express bold, italic and bold+italic
   (`osglk.c:404`).
 - No game resources are reachable from TADS 2. `t23run.cpp` passes a NULL
-  `appctx`, so the HTMLRES entries and the `.rsN` files are skipped.
+  `appctx`, so the HTMLRES entries and the `.rsN` files are skipped. (Fixed
+  in Step 0.)
 - TADS 3 can find resources: `G_host_ifc->find_resource()` returns an open
   file positioned at the resource, and `.3rN` files are loaded too.
 - `glk/` contains no calls to images, sound channels or hyperlinks.
@@ -112,17 +113,32 @@ follows the spec and has none of Spatterlight's extensions. In practice:
   - [x] Set `SYSINFO_HTML=1` and `INTERP_CLASS=ICLASS_HTML`, for TADS 2
     (`osglk.c`, with Step 3). TADS 3 still answers text mode: adv3's
     banner API path goes through `osglkban.c` as before.
-  - Report `JPEG`, `PNG`, `PNG_TRANS`, `PNG_ALPHA`, `WAV`, `MIDI`, `OGG`,
-    `MPEG`, `MPEG1`-`3`, `WAV_MIDI_OVL`, `WAV_OVL` and `AUDIO_FADE` from the
-    matching `glk_gestalt` results.
-  - Report `PREF_IMAGES`, `PREF_SOUNDS`, `PREF_MUSIC` and `PREF_LINKS` from
-    Spatterlight's settings.
+  - [x] `JPEG`, `PNG`, `PNG_TRANS`, `PNG_ALPHA` and `PREF_IMAGES` (TADS 2,
+    with Step 5): 1 when `gestalt_Graphics` and `gestalt_DrawImage` for
+    text-buffer windows are. TADS 3 still answers 0, like `SYSINFO_HTML`.
+    Turning this on changed *Arrival*, *bbn*, *Beet*, *Ground*, *landing*
+    and *Six*, which take their picture paths.
+  - Report `WAV`, `MIDI`, `OGG`, `MPEG`, `MPEG1`-`3`, `WAV_MIDI_OVL`,
+    `WAV_OVL` and `AUDIO_FADE` from the matching `glk_gestalt` results.
+  - Report `PREF_SOUNDS`, `PREF_MUSIC` and `PREF_LINKS` from Spatterlight's
+    settings.
   - Report `LINKS_*` once links work.
   - Report `MNG*` as 1 (Step 5 converts MNG to GIF).
   - ⚠️ This changes library behaviour. adv.t switches its status line to a
     `<banner>`, and adv3 picks between the banner API, `<banner>` tags and
     plain text. Run the corpus before and after.
-- [ ] **Resources.**
+- [x] **Resources.** Done in `glk/osres.c`.
+  - TADS 2 passes `osres_t2_appctx()` to `os0main2`; its callbacks fill a
+    name → (file, offset, length) table from the HTMLRES entries and the
+    `.rs0`-`.rs9` files. TADS 3 does the same through `CVmHostIfcGlk`
+    (`t23run.cpp`), a host interface that records the resources as the
+    loader adds them. `t23run.cpp` is built with `-fno-rtti`, like the
+    tads3 library, or the subclass doesn't link.
+  - `osres_find` looks in the table, then the debug build's links, then
+    for a loose file in the game's folder, matched case-insensitively.
+    Paths with `..`, `:` or a leading `/` are refused. `resExists()` now
+    works in TADS 2 as well (`osres_exists`).
+  - The notes below are what the code does.
   - TADS 2: pass a real `appctx` to `os0main2` with `add_resource` and
     `add_resfile` callbacks. Keep a name → (file, offset, length) table for
     the HTMLRES entries and for each `.rs0`-`.rs9` file.
@@ -391,7 +407,7 @@ re-resolution and autosave.
 
 - [ ] `<ol type>` and `start`: every list is numbered 1, 2, 3. The
   corpus's few `<ol>` are all plain.
-- [ ] `br clear`: waits for images (Step 5).
+- [x] `br clear`: `glk_window_flow_break`, with Step 5.
 - [x] `tab` in grid windows: done with the status line in Step 3.
 - [x] Banners' own text formatting: tag banners use the same parser.
 - [x] The `systemInfo` change (TADS 2), with Step 3's tag banners.
@@ -506,9 +522,22 @@ Both engines already handle links: they expect an `OS_EVT_HREF` event
 
 ## Step 5: Images (`<img>`, 119 games; JPEG 76, PNG 37, MNG 2)
 
-- [ ] `src` → resource lookup (Step 0) → `glk_image_draw` /
+**Status.** `<img>` and `<br clear>` are done (`put_image` in `oshtml.c`).
+In the corpus traces, 63 games now load and draw pictures: 158 resources
+loaded and 625 images drawn over the short script. Among them are *1893*
+(inline and in a banner), *Arrival* (from `arrival.rs0`; "x fridge" draws
+its picture), the loose files of *Ecdysis* and *SDA*, and *Threnody*'s menu
+pointer, which used to be `[X]`. The xtads traces are unchanged.
+
+- [x] `src` → resource lookup (Step 0) → `glk_image_draw` /
   `glk_image_draw_scaled` in the current text-buffer window, which is the
   main window or a banner.
+  - A missing dimension is scaled from `glk_image_get_info`, keeping the
+    image's aspect.
+  - An inline image starts a line like text does: a paragraph's pending
+    newline comes before it, so *1893*'s title has one more blank line.
+  - Not checked yet: *Drool* (pictures in later rooms) and *According to
+    Cain*, which is TADS 3 and so still told there are no images.
   - `align=left`/`right` (38 games) → `imagealign_MarginLeft`/`Right`.
   - `align=top`/`middle`/`bottom` or none → `InlineUp`/`InlineCenter`/
     `InlineDown`.
@@ -516,16 +545,24 @@ Both engines already handle links: they expect an `OS_EVT_HREF` event
     against the window size, using `glk_image_draw_scaled_ext` the way
     Question does.
   - `hspace`/`vspace`/`border`: ignore at first. Most values are 0.
-- [ ] `br clear=left/right/all` → `glk_window_flow_break`.
-- [ ] `alt` (16 games): print it when the image is missing or images are
+- [x] `br clear=left/right/all` → `glk_window_flow_break`.
+- [x] `alt` (16 games): print it when the image is missing or images are
   turned off. This is what the text mode does today.
-- [ ] Images in banners: the same code, because tag banners are text-buffer
-  windows. A banner without a height must size to its contents, image
-  included: use `glk_image_get_info` for the image height and convert it to
-  lines with `glk_style_measure`.
-- [ ] Percentage sizes are computed once, when the image is drawn. Glk
-  can't rescale an image that's already drawn when the window is resized,
-  so accept that rather than redrawing.
+- [x] Images in banners: the same code, because tag banners are text-buffer
+  windows. Banners from the TADS 3 banner API, grid banners and the hidden
+  `measure` banner print the `alt` text instead.
+  - [ ] A banner without a height must size to its contents, image
+    included: use `glk_image_get_info` for the image height and convert it
+    to lines with `glk_style_measure`.
+- [x] Percentage sizes are computed once, when the image is drawn, with
+  `glk_image_draw_scaled_ext` and `imagerule_WidthRatio` (when
+  `gestalt_DrawImageScale` is there). Glk can't rescale an image that's
+  already drawn when the window is resized, so accept that rather than
+  redrawing.
+- A fix in `tads2/output.c` came with this: a string that ends inside a tag
+  name (*Arrival* prints `<FONT` and its attributes separately) wrote a NUL
+  into the line buffer. That cut the status-line banner short, its
+  `</BANNER>` never came, and every later reply went into the banner.
 - [ ] `usemap` with `<map>`/`<area>` (8 games, among them Arrival, Golden
   Skull, Helpfulman and Six Stories). Glk can't make parts of an image
   clickable. Instead, print the areas as a row of command links under the

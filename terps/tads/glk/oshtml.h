@@ -30,6 +30,12 @@ typedef struct oshtml_sink
      *   gives the sink the combination without OSSTY_CENTER.
      */
     int (*centers)(void *ctx, int combo);
+
+    /*
+     *   The text-buffer window to draw <IMG> pictures in, or null if the
+     *   pictures can't be drawn there (and their ALT text is shown)
+     */
+    winid_t (*window)(void *ctx);
 } oshtml_sink;
 
 typedef struct oshtml_parser oshtml_parser;

@@ -954,10 +954,20 @@ static int html_centers(void *ctx, int combo)
     return 1;
 }
 
+/*
+ *   A banner's contents are kept as text, and written again when it's
+ *   redrawn, which a picture wouldn't survive: it shows its ALT text
+ */
+static winid_t html_window(void *ctx)
+{
+    (void)ctx;
+    return NULL;
+}
+
 static const oshtml_sink html_sink =
 {
     html_put, html_set_attr, html_set_color, html_set_screen_color,
-    html_width, html_centers
+    html_width, html_centers, html_window
 };
 
 void os_banner_flush(void *banner_handle)
@@ -1146,10 +1156,20 @@ static int tag_centers(void *ctx, int combo)
         && just == stylehint_just_Centered;
 }
 
+/* pictures go in a text-buffer banner, once it's writing for real */
+static winid_t tag_window(void *ctx)
+{
+    tagban_t *tb = ctx;
+
+    if (tb->type != wintype_TextBuffer || tb->measure)
+        return NULL;
+    return tb->win;
+}
+
 static const oshtml_sink tag_sink =
 {
     tag_put, tag_set_attr, tag_set_color, tag_set_screen_color,
-    tag_width, tag_centers
+    tag_width, tag_centers, tag_window
 };
 
 static tagban_t *tag_find(const char *id)

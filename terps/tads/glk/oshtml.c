@@ -69,6 +69,8 @@
 #include "glk.h"
 #include "oshtml.h"
 #include "osstyles.h"
+#include "osres.h"
+#include "gi_blorb.h"
 
 extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
                              glui32 *out, glui32 outlen);
@@ -283,10 +285,16 @@ static int main_centers(void *ctx, int combo)
         && just == stylehint_just_Centered;
 }
 
+static winid_t main_window(void *ctx)
+{
+    (void)ctx;
+    return mainwin;
+}
+
 static const oshtml_sink main_sink =
 {
     main_put, main_set_attr, main_set_color, main_set_screen_color,
-    main_width, main_centers
+    main_width, main_centers, main_window
 };
 
 static parser fmt =
@@ -1395,6 +1403,129 @@ static void set_body(parser *p, os_color_t bg)
     }
 }
 
+/* <BR CLEAR>: the next text goes below the pictures in the margins */
+static void flow_break(parser *p)
+{
+    winid_t win = p->dst ? NULL : p->sink->window(p->ctx);
+
+    flush_out(p);
+    if (win)
+        glk_window_flow_break(win);
+}
+
+/* an <IMG> size: pixels, or with 'pct' set, per cent of the window */
+typedef struct img_size
+{
+    glui32 num;
+    int pct;
+} img_size;
+
+static void parse_img_size(const glui32 *v, size_t len, img_size *out)
+{
+    int n;
+
+    out->pct = len != 0 && v[len - 1] == '%';
+    n = to_int(v, out->pct ? len - 1 : len);
+    out->num = n > 0 ? (glui32)n : 0;
+}
+
+/*
+ *   Draw an <IMG>: return false if it can't be, and its ALT text is to be
+ *   shown instead.  A picture in the line counts as a character on it; one
+ *   in a margin is beside the text, and leaves the line alone.
+ */
+static int put_image(parser *p, const glui32 *src, size_t srclen,
+                     glui32 align, img_size w, img_size h)
+{
+    char name[512];
+    size_t i, n = 0;
+    winid_t win;
+    glui32 id, iw, ih;
+    int inline_img = align != imagealign_MarginLeft
+        && align != imagealign_MarginRight;
+
+    if (p->dst || srclen == 0)
+        return 0;
+    win = p->sink->window(p->ctx);
+    if (!win || !glk_gestalt(gestalt_Graphics, 0)
+        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+        return 0;
+
+    /* the name, in UTF-8 */
+    for (i = 0 ; i < srclen ; ++i)
+    {
+        glui32 c = src[i];
+        if (n + 4 >= sizeof(name))
+            return 0;
+        if (c < 0x80)
+            name[n++] = (char)c;
+        else if (c < 0x800)
+        {
+            name[n++] = (char)(0xC0 | (c >> 6));
+            name[n++] = (char)(0x80 | (c & 0x3F));
+        }
+        else
+        {
+            name[n++] = (char)(0xE0 | ((c >> 12) & 0x0F));
+            name[n++] = (char)(0x80 | ((c >> 6) & 0x3F));
+            name[n++] = (char)(0x80 | (c & 0x3F));
+        }
+    }
+    id = osres_find(name, n, giblorb_ID_Pict);
+    if (id == 0)
+        return 0;
+
+    if (inline_img)
+    {
+        /* text held back for a <TAB> comes first */
+        expand_tab(p, 1);
+        start_line(p);
+        print_pending(p);
+    }
+    flush_out(p);
+
+    if (w.pct && glk_gestalt(gestalt_DrawImageScale, wintype_TextBuffer))
+    {
+        /* a share of the window's width, the height to match */
+        glk_image_draw_scaled_ext(win, id, align, 0,
+                                  w.num * 0x10000 / 100, 0x10000,
+                                  imagerule_WidthRatio
+                                  | imagerule_AspectRatio, 0);
+    }
+    else if ((w.num && !w.pct) || (h.num && !h.pct))
+    {
+        /* pixels; with only one of them, the other keeps the shape */
+        if (w.pct)
+            w.num = 0;
+        if (h.pct)
+            h.num = 0;
+        if ((!w.num || !h.num) && glk_image_get_info(id, &iw, &ih)
+            && iw && ih)
+        {
+            if (!w.num)
+                w.num = iw * h.num / ih;
+            else
+                h.num = ih * w.num / iw;
+        }
+        if (w.num && h.num)
+            glk_image_draw_scaled(win, id, align, 0, w.num, h.num);
+        else
+            glk_image_draw(win, id, align, 0);
+    }
+    else
+        glk_image_draw(win, id, align, 0);
+
+    if (inline_img)
+    {
+        ++p->col;
+        p->buffered = 1;
+        p->just_nl = 0;
+        p->nl_count = 0;
+        p->lastchar = 0xFFFC;
+    }
+    return 1;
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
@@ -1403,6 +1534,10 @@ static void do_tag(parser *p)
     int end = 0;
     int br = 0;                 /* 1: line break, 2: blank line */
     int alt_ok = 0;
+    int img = 0, clear = 0;     /* <img>, <br CLEAR> */
+    size_t src = 0, srclen = 0, alt = 0, altlen = 0;
+    glui32 img_align = imagealign_InlineUp;
+    img_size img_w = { 0, 0 }, img_h = { 0, 0 };
     int color_ok = 0, body = 0; /* <font>, <body> */
     os_color_t body_bg = OS_COLOR_P_TEXTBG;
     int face_ok = 0, face = -1; /* <font FACE> */
@@ -1593,7 +1728,9 @@ static void do_tag(parser *p)
         else
             put_tab(p, 0, 4);
     }
-    else if (TAG("img") || TAG("sound"))
+    else if (TAG("img"))
+        img = !p->ignore && !end;
+    else if (TAG("sound"))
         alt_ok = 1;
     else if (TAG("font"))
     {
@@ -1737,7 +1874,7 @@ static void do_tag(parser *p)
                 if (i < len)
                     ++i;
             }
-            else if (tads3 || p->in_banner || ban)
+            else if (tads3 || p->in_banner || ban || img)
             {
                 /* up to a space, as HTML TADS reads it */
                 for (v = i ; i < len && !is_space(t[i]) ; ++i)
@@ -1809,6 +1946,35 @@ static void do_tag(parser *p)
                 for ( ; ht > 0 ; --ht)
                     blank_line(p);
         }
+        else if (br && ATTR("clear"))
+            clear = 1;
+        else if (img && ATTR("src"))
+        {
+            src = v;
+            srclen = vlen;
+        }
+        else if (img && ATTR("alt"))
+        {
+            alt = v;
+            altlen = vlen;
+        }
+        else if (img && ATTR("align"))
+        {
+            if (tag_is(t + v, vlen, "left"))
+                img_align = imagealign_MarginLeft;
+            else if (tag_is(t + v, vlen, "right"))
+                img_align = imagealign_MarginRight;
+            else if (tag_is(t + v, vlen, "top"))
+                img_align = imagealign_InlineDown;
+            else if (tag_is(t + v, vlen, "middle"))
+                img_align = imagealign_InlineCenter;
+            else
+                img_align = imagealign_InlineUp;
+        }
+        else if (img && ATTR("width"))
+            parse_img_size(t + v, vlen, &img_w);
+        else if (img && ATTR("height"))
+            parse_img_size(t + v, vlen, &img_h);
         else if (alt_ok && !p->ignore && ATTR("alt"))
         {
             size_t k;
@@ -1893,6 +2059,16 @@ static void do_tag(parser *p)
         line_break(p);
     else if (br == 2)
         blank_line(p);
+    if (clear)
+        flow_break(p);
+
+    /* the picture, or if it can't be shown, its ALT text */
+    if (img && !put_image(p, t + src, srclen, img_align, img_w, img_h))
+    {
+        size_t k;
+        for (k = alt ; k < alt + altlen ; ++k)
+            put_html_text(p, t[k]);
+    }
 
     /*
      *   <font FACE>, and the tags that ALIGN opens: a <p> only with it, as

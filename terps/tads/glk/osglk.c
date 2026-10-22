@@ -94,13 +94,23 @@ int os_get_sysinfo(int code, void *param, long *result)
             *result = !oshtml_is_tads3();
             return TRUE;
 
+        /*
+         *   oshtml.c draws <IMG> pictures in TADS 2 games.  MNG has no
+         *   Glk decoder.
+         */
         case SYSINFO_JPEG:
         case SYSINFO_PNG:
+        case SYSINFO_PNG_TRANS:
+        case SYSINFO_PNG_ALPHA:
+        case SYSINFO_PREF_IMAGES:
+            *result = !oshtml_is_tads3() && glk_gestalt(gestalt_Graphics, 0)
+                && glk_gestalt(gestalt_DrawImage, wintype_TextBuffer);
+            return TRUE;
+
         case SYSINFO_WAV:
         case SYSINFO_MIDI:
         case SYSINFO_WAV_MIDI_OVL:
         case SYSINFO_WAV_OVL:
-        case SYSINFO_PREF_IMAGES:
         case SYSINFO_PREF_SOUNDS:
         case SYSINFO_PREF_MUSIC:
         case SYSINFO_PREF_LINKS:
@@ -113,8 +123,6 @@ int os_get_sysinfo(int code, void *param, long *result)
         case SYSINFO_LINKS_NEWS:
         case SYSINFO_LINKS_MAILTO:
         case SYSINFO_LINKS_TELNET:
-        case SYSINFO_PNG_TRANS:
-        case SYSINFO_PNG_ALPHA:
         case SYSINFO_OGG:
             *result = 0;
             return TRUE;
