@@ -39,6 +39,8 @@
 #define MAX(a,b) ((a) > (b) ? (a) : (b))
 #endif
 
+#define SWAP_INT(a,b) do { int swap_tmp = (a); (a) = (b); (b) = swap_tmp; } while (0)
+
 
 // Defined Hugo colors
 #define HUGO_BLACK (0)
@@ -1248,6 +1250,24 @@ static void hugo_handlearrange(void)
     heglk_adjust_guilty_bastards_windows();
 }
 
+/* Fresh state for a context just returned by heglk_new_wincontext().
+   The position and the size at creation are set by the caller. */
+static void heglk_init_wincontext(int i, int type)
+{
+    int status = (type == ISSTATUS);
+
+    wins[i].win = NULL;
+    wins[i].clear = 1;
+    wins[i].wasmoved = false;
+    wins[i].filename = NULL;
+    wins[i].fg = status ? DEF_SLFCOLOR : DEF_FCOLOR;
+    if (screen_bg != -1)
+        wins[i].bg = screen_bg;
+    else
+        wins[i].bg = status ? DEF_SLBGCOLOR : DEF_BGCOLOR;
+    wins[i].papercolor = wins[i].bg;
+}
+
 static void heglk_sizeifexists(int i)
 {
     if (wins[i].win)
@@ -1257,18 +1277,9 @@ static void heglk_sizeifexists(int i)
             wins[i].x0 = 0;
         }
         if (wins[i].y0 > wins[i].y1)
-        {
-            int temp = wins[i].y0;
-            wins[i].y0 = wins[i].y1;
-            wins[i].y1 = temp;
-        }
-
+            SWAP_INT(wins[i].y0, wins[i].y1);
         if (wins[i].x0 > wins[i].x1)
-        {
-            int temp = wins[i].x0;
-            wins[i].x0 = wins[i].x1;
-            wins[i].x1 = temp;
-        }
+            SWAP_INT(wins[i].x0, wins[i].x1);
 
         if (wins[i].y0 == wins[i].y1)
         {
@@ -1951,36 +1962,12 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         /* ... create a new window context if no suitable exists... */
         curwin = heglk_new_wincontext();
         LOG("Created new window context %d\n", curwin);
-        wins[curwin].win = NULL;
-        wins[curwin].clear = 1;
-        wins[curwin].fg = DEF_FCOLOR;
-        wins[curwin].wasmoved = false;
-
-        wins[curwin].screenwidth_at_creation = screenwidth_in_chars;
-        wins[curwin].screenheight_at_creation = screenheight_in_chars;
-        wins[curwin].filename = NULL;
-
-        if (screen_bg != -1)
-            wins[curwin].bg = screen_bg;
-        else
-            wins[curwin].bg = DEF_BGCOLOR;
+        heglk_init_wincontext(curwin, type);
 
         if (type == ISMAIN)
-        {
             mainwin = curwin;
-        }
         else if (type == ISSTATUS)
-        {
             statuswin = curwin;
-            wins[curwin].fg = DEF_SLFCOLOR;
-            if (screen_bg != -1)
-            {
-                wins[curwin].bg = screen_bg;
-            } else {
-                wins[curwin].bg = DEF_SLBGCOLOR;
-            }
-        }
-        wins[curwin].papercolor = wins[curwin].bg;
         lastbg = -1;
     }
 
