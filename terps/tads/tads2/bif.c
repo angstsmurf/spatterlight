@@ -1770,8 +1770,8 @@ void biftim(bifcxdef *ctx, int argc)
         os_tzset();
 
         /* get the local time information */
-        timer = time(NULL);
-        tblock = localtime(&timer);
+        timer = os_time(NULL);
+        tblock = os_localtime(&timer);
 
         /* adjust values for return format */
         tblock->tm_year += 1900;

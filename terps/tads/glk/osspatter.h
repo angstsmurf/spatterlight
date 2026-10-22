@@ -54,8 +54,7 @@ unsigned char *os_fill_buffer (unsigned char *buf, size_t len);
 
 /*
  *   The TADS 2 formatter passes HTML markup through to os_print, for
- *   oshtml.c to translate.  Games are still told this is a text
- *   interpreter: define OS_REPORT_HTML to tell them otherwise.
+ *   oshtml.c to translate
  */
 #define USE_HTML
 
@@ -72,11 +71,22 @@ unsigned char *os_fill_buffer (unsigned char *buf, size_t len);
 
 int os_vasprintf(char **bufptr, const char *fmt, va_list ap);
 
-/* The game read input or wrote text: it isn't stuck (os_break, osmisc.c) */
-void osglk_not_idle(void);
+/*
+ *   The clock, which under the determinism testing theme is a virtual one
+ *   (osmisc.c): the time of day, local time (UTC under that theme), and the
+ *   millisecond timer
+ */
+#define os_time_t        time_t
+#define os_gmtime(t)     gmtime(t)
+#define os_localtime(t)  osglk_localtime(t)
+#define os_time(t)       osglk_time(t)
 
-/* os_sleep_ms on a Glk timer, so what was drawn is shown (osglk.c) */
-void osglk_sleep_ms(unsigned long ms);
+time_t osglk_time(time_t *t);
+struct tm *osglk_localtime(const time_t *t);
+int osglk_vclock(void);
+long osglk_vclock_ms(void);
+void osglk_vclock_advance(unsigned long ms);
+void osglk_vclock_time_ns(time_t *seconds, long *nanoseconds);
 
 #ifdef __cplusplus
 }

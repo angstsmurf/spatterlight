@@ -23,6 +23,11 @@
 
 /* osansi4.c -- glk banner interface */
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <strings.h>
+
 #include "os.h"
 #include "glk.h"
 #include "oshtml.h"
@@ -978,4 +983,384 @@ void os_banner_end_html(void *banner_handle)
     oshtml_flush_parser(banner->html);
     oshtml_delete(banner->html);
     banner->html = 0;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   TADS 2's <BANNER> tags (oshtml.c).  Each id has a window of its own in
+ *   the main window's space, opened when the banner first has text, and
+ *   newer banners sit inside older ones, as HTML TADS adds each one last.
+ *   The status line (id StatusLine) is a text grid and the others are text
+ *   buffers.  A banner's text replaces what it showed, and a banner with no
+ *   size, or 'previous' on its first showing, takes the size of its text.
+ */
+
+/* HTML TADS sizes banners in pixels: a line, and a column */
+#define TAG_PIX_LINE 16
+#define TAG_PIX_COL  8
+
+typedef struct tagban_s
+{
+    char id[OSHTML_BANNER_ID];
+    winid_t win;
+    glui32 type;
+    glui32 method;
+    glui32 size;
+
+    int fit;                        /* size the window to the text */
+    int measure;                    /* this pass only counts the text */
+    int bg;                         /* the window has a <BODY BGCOLOR> */
+
+    /* the text so far: lines, the longest, and newlines not yet shown */
+    int lines;
+    int col, maxcol;
+    int nl;
+
+    struct tagban_s *next;
+}
+tagban_t;
+
+static tagban_t *tagbans = NULL;
+
+static int tag_vertical(glui32 method)
+{
+    glui32 dir = method & winmethod_DirMask;
+    return dir == winmethod_Left || dir == winmethod_Right;
+}
+
+/* a grid has a column of margin on each side */
+static int tag_margin(tagban_t *tb)
+{
+    return tb->type == wintype_TextGrid ? 1 : 0;
+}
+
+static int tag_width(void *ctx)
+{
+    tagban_t *tb = ctx;
+    glui32 wid = 0;
+
+    if (!tb->win)
+        return 0;
+
+    /* while we measure a banner at the side, its lines may be any length */
+    if (tb->measure && tag_vertical(tb->method))
+    {
+        if (mainwin)
+            glk_window_get_size(mainwin, &wid, NULL);
+        return (int)wid;
+    }
+
+    glk_window_get_size(tb->win, &wid, NULL);
+#ifdef SPATTERLIGHT
+    if (tb->type == wintype_TextBuffer)
+        wid = (glui32)win_cols(tb->win->peer);
+#endif /* SPATTERLIGHT */
+    return (int)wid - 2 * tag_margin(tb);
+}
+
+static void tag_put(void *ctx, const glui32 *buf, size_t len)
+{
+    tagban_t *tb = ctx;
+    strid_t str = tb->win ? glk_window_get_stream(tb->win) : NULL;
+    int wid = tb->type == wintype_TextGrid ? tag_width(tb) : 0;
+    size_t i;
+
+    for (i = 0 ; i < len ; ++i)
+    {
+        glui32 c = buf[i];
+
+        /* the newlines wait for more text, so the last line isn't blank */
+        if (c == '\n')
+        {
+            ++tb->nl;
+            continue;
+        }
+        if (tb->lines == 0)
+            tb->lines = 1;
+        for ( ; tb->nl > 0 ; --tb->nl)
+        {
+            ++tb->lines;
+            tb->col = 0;
+            if (str && !tb->measure)
+                glk_put_char_stream_uni(str, '\n');
+        }
+
+        /* a grid wraps a line that's too long */
+        if (wid > 0 && tb->col >= wid)
+        {
+            ++tb->lines;
+            tb->col = 0;
+            if (str && !tb->measure)
+                glk_put_char_stream_uni(str, '\n');
+        }
+        if (tb->col == 0 && tag_margin(tb) && str && !tb->measure)
+            glk_put_char_stream_uni(str, ' ');
+        if (str && !tb->measure)
+            glk_put_char_stream_uni(str, c);
+        if (++tb->col > tb->maxcol)
+            tb->maxcol = tb->col;
+    }
+}
+
+static void tag_set_attr(void *ctx, int combo)
+{
+    tagban_t *tb = ctx;
+    if (tb->win)
+        glk_set_style_stream(glk_window_get_stream(tb->win),
+                             osstyles_style(combo));
+}
+
+/* the parameter colours are the window's own, from the theme */
+static glui32 tag_color(os_color_t color)
+{
+    return os_color_is_param(color) ? zcolor_Default : (glui32)color;
+}
+
+static void tag_set_color(void *ctx, os_color_t fg, os_color_t bg)
+{
+    tagban_t *tb = ctx;
+    if (tb->win)
+        garglk_set_zcolors_stream(glk_window_get_stream(tb->win),
+                                  tag_color(fg), tag_color(bg));
+}
+
+static void tag_set_screen_color(void *ctx, os_color_t color)
+{
+    tagban_t *tb = ctx;
+    if (!tb->win || tb->measure)
+        return;
+#ifdef SPATTERLIGHT
+    win_setbgnd(tb->win->peer, tag_color(color));
+#endif /* SPATTERLIGHT */
+    tb->bg = !os_color_is_param(color);
+}
+
+static int tag_centers(void *ctx, int combo)
+{
+    tagban_t *tb = ctx;
+    glui32 just;
+
+    return tb->win
+        && glk_style_measure(tb->win, osstyles_style(combo),
+                             stylehint_Justification, &just)
+        && just == stylehint_just_Centered;
+}
+
+static const oshtml_sink tag_sink =
+{
+    tag_put, tag_set_attr, tag_set_color, tag_set_screen_color,
+    tag_width, tag_centers
+};
+
+static tagban_t *tag_find(const char *id)
+{
+    tagban_t *tb;
+
+    /* HTML TADS matches the ids exactly */
+    for (tb = tagbans ; tb ; tb = tb->next)
+        if (strcmp(tb->id, id) == 0)
+            return tb;
+    return NULL;
+}
+
+static void tag_open_window(tagban_t *tb)
+{
+    int s, c;
+
+    if (tb->type == wintype_TextGrid)
+    {
+        /* the grid shows bold and italic in the main window's styles */
+        for (s = 0 ; s < style_NUMSTYLES ; ++s)
+            if ((c = osstyles_combo(s)) > 0)
+            {
+                glk_stylehint_set(wintype_TextGrid, s, stylehint_Weight,
+                                  (c & OSSTY_BOLD) ? 1 : 0);
+                glk_stylehint_set(wintype_TextGrid, s, stylehint_Oblique,
+                                  (c & OSSTY_ITALIC) ? 1 : 0);
+            }
+        glk_stylehint_clear(wintype_TextGrid, style_User1,
+                            stylehint_ReverseColor);
+    }
+
+    tb->win = glk_window_open(mainwin, tb->method, tb->size, tb->type, 0);
+
+    if (tb->type == wintype_TextGrid)
+        for (s = 0 ; s < style_NUMSTYLES ; ++s)
+            if (osstyles_combo(s) > 0)
+            {
+                glk_stylehint_clear(wintype_TextGrid, s, stylehint_Weight);
+                glk_stylehint_clear(wintype_TextGrid, s, stylehint_Oblique);
+            }
+}
+
+/* the size of a banner fitted to its text */
+static glui32 tag_fitted(tagban_t *tb)
+{
+    if (tag_vertical(tb->method))
+        return tb->maxcol ? (glui32)tb->maxcol + 2 : 0;
+#ifdef SPATTERLIGHT
+    if (tb->type == wintype_TextBuffer && tb->win && !tb->measure)
+        return (glui32)win_lines(tb->win->peer);
+#endif /* SPATTERLIGHT */
+    return (glui32)tb->lines;
+}
+
+static void tag_resize(tagban_t *tb, glui32 size)
+{
+    if (size == tb->size || !tb->win)
+        return;
+    tb->size = size;
+    glk_window_set_arrangement(glk_window_get_parent(tb->win),
+                               tb->method, size, tb->win);
+}
+
+void *osglk_tag_banner_open(const oshtml_banner *ban,
+                            const oshtml_sink **sink)
+{
+    tagban_t *tb = tag_find(ban->id);
+    int isnew = tb == NULL || tb->win == NULL;
+    glui32 method, size, type;
+    int num, units, vertical;
+
+    *sink = &tag_sink;
+    if (!mainwin)
+        return NULL;
+
+    if (!tb)
+    {
+        tb = calloc(1, sizeof(tagban_t));
+        if (!tb)
+            return NULL;
+        snprintf(tb->id, sizeof(tb->id), "%s", ban->id);
+        tb->next = tagbans;
+        tagbans = tb;
+    }
+
+    type = strcasecmp(ban->id, "statusline") == 0
+        ? wintype_TextGrid : wintype_TextBuffer;
+
+    switch (ban->align)
+    {
+        case OS_BANNER_ALIGN_BOTTOM: method = winmethod_Below; break;
+        case OS_BANNER_ALIGN_LEFT:   method = winmethod_Left;  break;
+        case OS_BANNER_ALIGN_RIGHT:  method = winmethod_Right; break;
+        default:                     method = winmethod_Above; break;
+    }
+    method |= ban->border ? winmethod_Border : winmethod_NoBorder;
+    vertical = tag_vertical(method);
+    num = vertical ? ban->width : ban->height;
+    units = vertical ? ban->width_units : ban->height_units;
+
+    /* the size; one we take from the text starts out as it was */
+    tb->fit = 0;
+    size = tb->size;
+    if (units == OSHTML_SIZE_PREV && !isnew
+        && tag_vertical(tb->method) == vertical)
+        method |= tb->method & winmethod_DivisionMask;
+    else if (units == OSHTML_SIZE_PCT)
+    {
+        method |= winmethod_Proportional;
+        size = num > 100 ? 100 : (glui32)num;
+    }
+    else if (units == OSHTML_SIZE_PIX)
+    {
+        int per = vertical ? TAG_PIX_COL : TAG_PIX_LINE;
+        method |= winmethod_Fixed;
+        size = num <= 0 ? 0 : num < per ? 1 : (glui32)(num / per);
+    }
+    else
+    {
+        method |= winmethod_Fixed;
+        if (isnew || (tb->method & winmethod_DivisionMask) != winmethod_Fixed)
+            size = 1;
+        tb->fit = 1;
+    }
+
+    /* a window can't turn into another kind, or to the other axis */
+    if (tb->win && (type != tb->type
+                    || tag_vertical(tb->method) != vertical))
+    {
+        glk_window_close(tb->win, NULL);
+        tb->win = NULL;
+    }
+    tb->type = type;
+
+    if (!tb->win)
+    {
+        tb->method = method;
+        tb->size = size;
+        tag_open_window(tb);
+        if (!tb->win)
+            return NULL;
+
+        /* the status line of text mode makes way for this one */
+        if (type == wintype_TextGrid && statuswin)
+        {
+            glk_window_close(statuswin, NULL);
+            statuswin = NULL;
+        }
+    }
+    else
+    {
+        if (method != tb->method || size != tb->size)
+        {
+            tb->method = method;
+            tb->size = size;
+            glk_window_set_arrangement(glk_window_get_parent(tb->win),
+                                       method, size, tb->win);
+        }
+        glk_window_clear(tb->win);
+    }
+
+    /* the default colours, unless the text has a <BODY> */
+    if (tb->bg)
+    {
+#ifdef SPATTERLIGHT
+        win_setbgnd(tb->win->peer, zcolor_Default);
+#endif /* SPATTERLIGHT */
+        tb->bg = 0;
+    }
+    garglk_set_zcolors_stream(glk_window_get_stream(tb->win),
+                              zcolor_Default, zcolor_Default);
+    glk_set_style_stream(glk_window_get_stream(tb->win), style_Normal);
+
+    /* a grid can't keep lines below its last, so it counts them first */
+    tb->measure = tb->fit && type == wintype_TextGrid;
+    tb->lines = tb->col = tb->maxcol = tb->nl = 0;
+    return tb;
+}
+
+int osglk_tag_banner_done(void *ctx)
+{
+    tagban_t *tb = ctx;
+
+    if (tb->fit)
+        tag_resize(tb, tag_fitted(tb));
+    tb->lines = tb->col = tb->maxcol = tb->nl = 0;
+    if (tb->measure)
+    {
+        /* now the text again, for real */
+        tb->measure = 0;
+        return 1;
+    }
+    return 0;
+}
+
+void osglk_tag_banner_remove(const char *id)
+{
+    tagban_t **link = &tagbans;
+
+    while (*link)
+    {
+        tagban_t *tb = *link;
+        if (id && strcmp(tb->id, id) != 0)
+        {
+            link = &tb->next;
+            continue;
+        }
+        *link = tb->next;
+        if (tb->win)
+            glk_window_close(tb->win, NULL);
+        free(tb);
+    }
 }

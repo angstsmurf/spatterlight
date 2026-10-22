@@ -36,9 +36,11 @@ trace line, so a change in how the interpreter splits its output into print
 calls does not show as a difference.  Everything else is one line per
 message.
 
-The games in NOISY show the real time or wait on real-time timers, so their
-traces differ from run to run; --compare lists them apart and does not count
-them.
+The fake app runs the interpreter in Spatterlight's determinism testing
+mode, so the traces are the same from run to run: the random numbers come
+from a fixed seed, and the clock is a virtual one (glk/osportable.cc), which
+reads noon on 1 January 2000 UTC and moves only as the game reads it, sleeps
+or waits on a timer.
 
 The games are not in the repository: fetch them with fetch_games.sh.
 """
@@ -65,12 +67,6 @@ CORPUS = os.path.join(HERE, "htmltads")
 # v6trace.Tracer.feed_key).
 SCRIPT = ["look", "inventory", "examine me", "about", "help", "wait",
           "score"]
-
-NOISY = {
-    "six/six.gam": "the status line shows the time of day",
-    "space.t3": "real-time key timeouts during the intro",
-    "landing.gam": "chooses some messages by the clock (\"take hen\")",
-}
 
 
 # the list of games in each corpus, relative to the corpus folder
@@ -198,10 +194,6 @@ def compare(out, baseline, paths):
                     old, new, "old/" + stem + ext, "new/" + stem + ext))
         if what:
             changed.append((path, what))
-    noisy = [c for c in changed if c[0] in NOISY]
-    changed = [c for c in changed if c[0] not in NOISY]
-    for path, what in noisy:
-        print("noisy   %s (%s): %s" % (path, ", ".join(what), NOISY[path]))
     for path, what in changed:
         print("CHANGED %s (%s)" % (path, ", ".join(what)))
     print("%d of %d games changed" % (len(changed), len(paths)))

@@ -37,10 +37,14 @@
  *     characters; <pre> keeps its whitespace; <q> gives curly quotes;
  *   - <font color bgcolor> and <body text> set the text colours, and <body
  *     bgcolor> the window's;
- *   - in TADS 3, <tab> takes ID, TO, ALIGN, DP, INDENT and MULTIPLE;
+ *   - in TADS 3 and in TADS 2's banners, <tab> takes ID, TO, ALIGN, DP,
+ *     INDENT and MULTIPLE;
  *   - the ALT text of <img> and <sound> is printed;
  *   - <title> sets the window title, and nothing inside <title> or
  *     <aboutbox> (or in TADS 3, <banner>) is shown;
+ *   - in TADS 2, the text of a <banner> is kept until its </banner>, and
+ *     then replaces what the banner's window had (osglkban.c), through a
+ *     parser of the banner's own;
  *   - every other tag is dropped and its contents shown.
  *
  * In TADS 2, the main window and the status line share one parser, as they
@@ -80,6 +84,7 @@ extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
 #define ELEM_NAME   12
 #define TABS_MAX    64          /* <TAB ID> stops */
 #define TABID_MAX   32
+#define BANNER_MAX  65536       /* the text of a <BANNER> we keep */
 
 enum token { TOK_TEXT, TOK_TAG, TOK_ENTITY };
 
@@ -105,7 +110,6 @@ typedef struct elem
     enum list_kind list;
     int nitem;
     int nobr;
-    int banner;
 } elem;
 
 struct oshtml_parser
@@ -158,7 +162,19 @@ struct oshtml_parser
     enum list_kind list;
     int nitem;                  /* the list's items so far */
     int nobr;                   /* inside <nobr> */
-    int banner;                 /* TADS 2: inside <banner> */
+
+    /*
+     *   TADS 2: a <BANNER>, whose text waits for its </BANNER>, and whether
+     *   we're inside the tag of the text (and inside quotes in it)
+     */
+    int in_banner;              /* this is the banner's own parser */
+    int bancap;                 /* reading the banner's text */
+    oshtml_banner ban;
+    glui32 *bantext;
+    size_t banlen, banmax;
+    size_t bantag;              /* where the tag began */
+    int bantag_open;
+    glui32 banquote;
 
     /* the open tags */
     elem elems[ELEMS_MAX];
@@ -1215,7 +1231,6 @@ static void push_elem(parser *p, const glui32 *name, size_t len)
     e->list = p->list;
     e->nitem = p->nitem;
     e->nobr = p->nobr;
-    e->banner = p->banner;
 }
 
 /* close the open tag at 'i', and those inside it */
@@ -1228,7 +1243,6 @@ static void restore_elem(parser *p, int i)
     p->list = e->list;
     p->nitem = e->nitem;
     p->nobr = e->nobr;
-    p->banner = e->banner;
     p->nelems = i;
 }
 
@@ -1396,6 +1410,7 @@ static void do_tag(parser *p)
     int align = -1;             /* their ALIGN: 0 left, 1 centred */
     int heading = 0;
     int tab = 0;                /* TADS 3: <tab> */
+    int ban = 0, ban_remove = 0; /* TADS 2: <banner>, and REMOVE(ALL) */
     int tab_to = -1;
     enum tab_align tab_align = TAB_NONE;
     glui32 tab_dp = 0;
@@ -1570,7 +1585,7 @@ static void do_tag(parser *p)
     {
         if (p->ignore)
             ;
-        else if (tads3)
+        else if (tads3 || p->in_banner)
         {
             expand_tab(p, 1);
             tab = 1;
@@ -1595,7 +1610,7 @@ static void do_tag(parser *p)
     else if (TAG("body"))
     {
         /* as in HTML TADS, what a <BODY> leaves out is the default */
-        body = !p->ignore && !end && !p->banner;
+        body = !p->ignore && !end;
         if (body)
         {
             p->cur.fg = OS_COLOR_P_TEXT;
@@ -1657,15 +1672,12 @@ static void do_tag(parser *p)
     }
     else if (TAG("banner"))
     {
-        /* TADS 2 shows a banner's text in line, but not its <body> */
-        if (p->ignore)
-            ;
-        else if (end)
-            pop_elem(p, t + name, namelen);
-        else
+        /* TADS 2: the text waits for its </BANNER>; a stray one is dropped */
+        if (!p->ignore && !end && !p->in_banner)
         {
-            push_elem(p, t + name, namelen);
-            p->banner = 1;
+            ban = 1;
+            memset(&p->ban, 0, sizeof(p->ban));
+            p->ban.align = OS_BANNER_ALIGN_TOP;
         }
     }
     else if (TAG("pre"))
@@ -1690,8 +1702,8 @@ static void do_tag(parser *p)
 
     /*
      *   attributes: HEIGHT of <br>, ALT of <img> and <sound>, those of
-     *   <font> and <body>, ALIGN of <p>, <div> and <hN>, and in TADS 3,
-     *   those of <tab>
+     *   <font> and <body>, ALIGN of <p>, <div> and <hN>, in TADS 3 and in
+     *   banners, those of <tab>, and those of TADS 2's <banner>
      */
     while (i < len)
     {
@@ -1725,9 +1737,9 @@ static void do_tag(parser *p)
                 if (i < len)
                     ++i;
             }
-            else if (tads3)
+            else if (tads3 || p->in_banner || ban)
             {
-                /* up to a space */
+                /* up to a space, as HTML TADS reads it */
                 for (v = i ; i < len && !is_space(t[i]) ; ++i)
                     ;
                 vlen = i - v;
@@ -1745,7 +1757,50 @@ static void do_tag(parser *p)
         }
 
 #define ATTR(s) tag_is(t + an, anlen, s)
-        if (br && ATTR("height"))
+        if (ban && ATTR("id"))
+        {
+            size_t k;
+            for (k = 0 ; k < vlen && k < OSHTML_BANNER_ID - 1 ; ++k)
+                p->ban.id[k] = t[v + k] < 0x80 ? (char)t[v + k] : '?';
+            p->ban.id[k] = '\0';
+        }
+        else if (ban && (ATTR("height") || ATTR("width")))
+        {
+            int *num = ATTR("height") ? &p->ban.height : &p->ban.width;
+            int *units = ATTR("height")
+                ? &p->ban.height_units : &p->ban.width_units;
+
+            /* a value HTML TADS can't read is 0 */
+            *num = 0;
+            *units = OSHTML_SIZE_PIX;
+            if (tag_is(t + v, vlen, "previous"))
+                *units = OSHTML_SIZE_PREV;
+            else if (vlen != 0 && t[v + vlen - 1] == '%')
+            {
+                *units = OSHTML_SIZE_PCT;
+                *num = to_int(t + v, vlen - 1);
+            }
+            else
+                *num = to_int(t + v, vlen);
+        }
+        else if (ban && ATTR("align"))
+        {
+            if (tag_is(t + v, vlen, "top"))
+                p->ban.align = OS_BANNER_ALIGN_TOP;
+            else if (tag_is(t + v, vlen, "bottom"))
+                p->ban.align = OS_BANNER_ALIGN_BOTTOM;
+            else if (tag_is(t + v, vlen, "left"))
+                p->ban.align = OS_BANNER_ALIGN_LEFT;
+            else if (tag_is(t + v, vlen, "right"))
+                p->ban.align = OS_BANNER_ALIGN_RIGHT;
+        }
+        else if (ban && ATTR("border"))
+            p->ban.border = 1;
+        else if (ban && ATTR("remove"))
+            ban_remove |= 1;
+        else if (ban && ATTR("removeall"))
+            ban_remove |= 2;
+        else if (br && ATTR("height"))
         {
             int ht = to_int(t + v, vlen);
             if (ht == 0)
@@ -1819,6 +1874,21 @@ static void do_tag(parser *p)
     if (body)
         set_body(p, body_bg);
 
+    /* the banner is whitespace in the text around it */
+    if (ban)
+    {
+        put_html_text(p, ' ');
+        if (ban_remove)
+            osglk_tag_banner_remove((ban_remove & 2) ? 0 : p->ban.id);
+        else
+        {
+            p->bancap = 1;
+            p->banlen = 0;
+            p->bantag_open = 0;
+            p->banquote = 0;
+        }
+    }
+
     if (br == 1)
         line_break(p);
     else if (br == 2)
@@ -1887,11 +1957,120 @@ static void tag_char(parser *p, glui32 c)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   TADS 2's <BANNER>: its text, up to the </BANNER>, goes through a parser
+ *   of its own into the banner's window, replacing what was there; as in
+ *   HTML TADS, a banner with nothing but whitespace in it is left alone
+ */
+
+static void end_banner(parser *p)
+{
+    size_t i = 0, k;
+
+    p->bancap = 0;
+    while (i < p->banlen && is_space(p->bantext[i]))
+        ++i;
+    if (i < p->banlen)
+    {
+        const oshtml_sink *sink;
+        void *ctx = osglk_tag_banner_open(&p->ban, &sink);
+
+        if (ctx)
+        {
+            do
+            {
+                parser *b = oshtml_new(sink, ctx);
+                if (!b)
+                    break;
+                b->in_banner = 1;
+                for (k = i ; k < p->banlen ; ++k)
+                    feed(b, p->bantext[k]);
+                expand_tab(b, 1);
+                flush_out(b);
+                oshtml_delete(b);
+            } while (osglk_tag_banner_done(ctx));
+        }
+    }
+    p->banlen = 0;
+    put_html_text(p, ' ');
+}
+
+/* is the tag in p->tag "</banner>"? */
+static int is_banner_end(parser *p)
+{
+    const glui32 *t = p->tag;
+    size_t len = p->taglen, i = 0, name;
+
+    while (i < len && is_space(t[i]))
+        ++i;
+    if (i == len || (t[i] != '/' && t[i] != '\\'))
+        return 0;
+    for (++i ; i < len && is_space(t[i]) ; ++i)
+        ;
+    for (name = i ; i < len && !is_space(t[i]) ; ++i)
+        ;
+    return tag_is(t + name, i - name, "banner");
+}
+
+static void banner_char(parser *p, glui32 c)
+{
+    /* the tags in the text, to find the </BANNER> */
+    if (!p->bantag_open)
+    {
+        if (c == '<')
+        {
+            p->bantag_open = 1;
+            p->bantag = p->banlen;
+            p->banquote = 0;
+            p->taglen = 0;
+        }
+    }
+    else if (p->banquote)
+    {
+        if (c == p->banquote)
+            p->banquote = 0;
+    }
+    else if (c == '"' || c == '\'')
+        p->banquote = c;
+    else if (c == '>')
+    {
+        p->bantag_open = 0;
+        if (is_banner_end(p))
+        {
+            p->banlen = p->bantag;
+            end_banner(p);
+            return;
+        }
+    }
+    else if (p->taglen < TAG_MAX)
+        p->tag[p->taglen++] = c;
+
+    if (p->banlen == p->banmax && p->banmax < BANNER_MAX)
+    {
+        size_t n = p->banmax ? p->banmax * 2 : 256;
+        glui32 *nb = realloc(p->bantext, n * sizeof(glui32));
+        if (nb)
+        {
+            p->bantext = nb;
+            p->banmax = n;
+        }
+    }
+    if (p->banlen < p->banmax)
+        p->bantext[p->banlen++] = c;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   The tokenizer
  */
 
 static void feed(parser *p, glui32 c)
 {
+    if (p->bancap)
+    {
+        banner_char(p, c);
+        return;
+    }
+
     switch (p->state)
     {
     case TOK_TAG:
@@ -1956,6 +2135,16 @@ void oshtml_set_tads3(int on)
     tads3 = on;
 }
 
+int oshtml_is_tads3(void)
+{
+    return tads3;
+}
+
+int oshtml_is_html(void)
+{
+    return fmt.html;
+}
+
 static int os_combo(int attr)
 {
     return ((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
@@ -1988,6 +2177,7 @@ oshtml_parser *oshtml_new(const oshtml_sink *sink, void *ctx)
 
 void oshtml_delete(oshtml_parser *p)
 {
+    free(p->bantext);
     free(p);
 }
 

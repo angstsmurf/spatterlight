@@ -17,6 +17,12 @@ extern void safe_strcpy(char *dst, size_t dstlen, const char *src);
 int
 os_get_zoneinfo_key( char *buf, size_t buflen )
 {
+#ifdef SPATTERLIGHT
+    /* the virtual clock is in UTC: see os_get_timezone_info() */
+    if (osglk_vclock())
+        return FALSE;
+#endif
+
     /* First, try the TZ environment variable.  This is used on nearly
      * all Unix-alikes for a per-process timezone setting, although
      * it will only contain a zoneinfo key in newer versions.  There
@@ -279,6 +285,15 @@ os_get_zoneinfo_key( char *buf, size_t buflen )
 int
 os_get_timezone_info( struct os_tzinfo_t *info )
 {
+#ifdef SPATTERLIGHT
+    if (osglk_vclock())
+    {
+        memset(info, 0, sizeof(*info));
+        safe_strcpy(info->std_abbr, sizeof(info->std_abbr), "UTC");
+        return TRUE;
+    }
+#endif
+
     /* try parsing environment variable TZ as a POSIX timezone string */
     const char *tz = getenv("TZ");
     if (tz != 0 && oss_parse_posix_tz(info, tz, strlen(tz), TRUE))

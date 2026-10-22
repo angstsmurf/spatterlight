@@ -102,8 +102,46 @@ void oshtml_set_os_color(os_color_t fg, os_color_t bg);
 /* The windows were rearranged, or the theme changed */
 void oshtml_arrange(void);
 
+/* TADS 3 rules, and whether HTML mode is on in the main window */
+int oshtml_is_tads3(void);
+int oshtml_is_html(void);
+
 /* os_set_text_color itself (osglk.c) */
 void osglk_set_text_color(os_color_t fg, os_color_t bg);
+
+/*
+ *   TADS 2's <BANNER> tags, which oshtml.c reads and osglkban.c shows.  A
+ *   size is in pixels or per cent, or 'previous' (the banner's size so
+ *   far), or not given (the size of its contents).
+ */
+enum { OSHTML_SIZE_NONE, OSHTML_SIZE_PREV, OSHTML_SIZE_PIX, OSHTML_SIZE_PCT };
+
+#define OSHTML_BANNER_ID 64
+
+typedef struct oshtml_banner
+{
+    char id[OSHTML_BANNER_ID];
+    int align;                  /* OS_BANNER_ALIGN_xxx */
+    int border;
+    int height, height_units;
+    int width, width_units;
+} oshtml_banner;
+
+/*
+ *   Make the banner's window ready for its new contents, which replace the
+ *   old: return the sink for them, or null if there's no window
+ */
+void *osglk_tag_banner_open(const oshtml_banner *ban,
+                            const oshtml_sink **sink);
+
+/*
+ *   The contents are written: size the window to them, if it asked.  Returns
+ *   nonzero if that pass only measured them, and they're to be written again.
+ */
+int osglk_tag_banner_done(void *ctx);
+
+/* <BANNER REMOVE>, or with 'id' null, <BANNER REMOVEALL> */
+void osglk_tag_banner_remove(const char *id);
 
 #ifdef __cplusplus
 }

@@ -81,21 +81,18 @@ int os_get_sysinfo(int code, void *param, long *result)
             *result = SYSINFO_TXC_RGB;
             return TRUE;
 
-#ifdef OS_REPORT_HTML
+        /*
+         *   TADS 2 games get HTML: adv.t then puts its status line in a
+         *   <BANNER>, which oshtml.c and osglkban.c show.  TADS 3 games
+         *   stay with text mode until adv3's HTML paths are checked.
+         */
         case SYSINFO_INTERP_CLASS:
-            *result = SYSINFO_ICLASS_HTML;
+            *result = oshtml_is_tads3() ? SYSINFO_ICLASS_TEXTGUI
+                : SYSINFO_ICLASS_HTML;
             return TRUE;
         case SYSINFO_HTML:
-            *result = 1;
+            *result = !oshtml_is_tads3();
             return TRUE;
-#else
-        case SYSINFO_INTERP_CLASS:
-            *result = SYSINFO_ICLASS_TEXTGUI;
-            return TRUE;
-        case SYSINFO_HTML:
-            *result = 0;
-            return TRUE;
-#endif
 
         case SYSINFO_JPEG:
         case SYSINFO_PNG:
@@ -273,6 +270,28 @@ void os_printz(const char *str)
     os_print(str, strlen(str));
 }
 
+/*
+ *   Open the status line of text mode, if it isn't open; in HTML mode, only
+ *   for text that isn't all spaces ('text' null: in any case)
+ */
+static void open_statuswin(const glui32 *text, size_t len)
+{
+    size_t i;
+
+    if (statuswin)
+        return;
+    if (text && oshtml_is_html())
+    {
+        for (i = 0 ; i < len && (text[i] == ' ' || text[i] == '\n') ; ++i)
+            ;
+        if (i == len)
+            return;
+    }
+    glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+    statuswin = glk_window_open(mainwin, winmethod_Above | winmethod_Fixed, 1,
+                                wintype_TextGrid, 0);
+}
+
 void os_print(const char *str, size_t len)
 {
     osglk_not_idle();
@@ -303,6 +322,7 @@ void os_print(const char *str, size_t len)
         /* if that leaves anything, update the statusline */
         if (rem != 0)
         {
+            open_statuswin(p, rem);
             max = sizeof(lbuf) / sizeof(lbuf[0]) - lbuflen - 1;
             if (rem > max)
                 rem = max;
@@ -340,14 +360,9 @@ void os_status(int stat)
 
     if (stat == 1)
     {
-        if (statuswin == NULL)
-        {
-            glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
-
-            statuswin = glk_window_open(mainwin,
-                                        winmethod_Above | winmethod_Fixed, 1,
-                                        wintype_TextGrid, 0);
-        }
+        /* in HTML mode, the status line is usually a <BANNER> instead */
+        if (!oshtml_is_html())
+            open_statuswin(NULL, 0);
         lbuflen = 0;
     }
 }
@@ -738,6 +753,26 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
     return os_fill_buffer(buf, event.val1);
 }
 
+#ifdef GLK_TIMERS
+/*
+ *   The timer, which under the determinism testing theme moves the virtual
+ *   clock (osmisc.c) on by its interval each time it fires
+ */
+static glui32 timer_interval;
+
+static void request_timer(glui32 ms)
+{
+    timer_interval = ms;
+    glk_request_timer_events(ms);
+}
+
+static void timer_fired(void)
+{
+    if (osglk_vclock())
+        osglk_vclock_advance(timer_interval);
+}
+#endif
+
 /*
  *   Read a string of input with an optional timeout.  This behaves like
  *   os_gets(), in that it allows the user to edit a line of text (ideally
@@ -838,7 +873,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     /* start timer and turn off line echo */
     if (timer)
     {
-        glk_request_timer_events(timer);
+        request_timer(timer);
         glk_set_echo_line_event(mainwin, 0);
     }
 
@@ -852,7 +887,10 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
         if (event.type == evtype_Arrange)
             redraw_windows();
         else if (event.type == evtype_Timer && (timeout = 1))
+        {
+            timer_fired();
             glk_cancel_line_event(mainwin, &event);
+        }
     }
     while (event.type != evtype_LineInput);
 
@@ -861,7 +899,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     /* stop timer and turn on line echo */
     if (timer)
     {
-        glk_request_timer_events(0);
+        request_timer(0);
         glk_set_echo_line_event(mainwin, 1);
     }
 
@@ -1019,7 +1057,12 @@ static int getglkchar(void)
         if (event.type == evtype_Arrange)
             redraw_windows();
         else if (event.type == evtype_Timer)
+        {
+#ifdef GLK_TIMERS
+            timer_fired();
+#endif
             timechar = 1;
+        }
     }
     while (event.type != evtype_CharInput && event.type != evtype_Timer);
 
@@ -1116,7 +1159,7 @@ int os_get_event(unsigned long timeout_in_milliseconds, int use_timeout,
     /* start timer */
     int timer = use_timeout ? timeout_in_milliseconds : 0;
     if (timer)
-        glk_request_timer_events(timer);
+        request_timer(timer);
 #else
     /* we can't handle timeouts */
     if (use_timeout)
@@ -1131,7 +1174,7 @@ int os_get_event(unsigned long timeout_in_milliseconds, int use_timeout,
 #ifdef GLK_TIMERS
     /* stop timer */
     if (timer)
-        glk_request_timer_events(0);
+        request_timer(0);
 #endif
 
     /* return the event */

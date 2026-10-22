@@ -109,7 +109,9 @@ follows the spec and has none of Spatterlight's extensions. In practice:
   entity table as TADS 3 and output with `glk_put_char_uni`. This fixes the
   ASCII-only entities in TADS 2 even in text mode.
 - [ ] **Answer `systemInfo` honestly.**
-  - Set `SYSINFO_HTML=1` and `INTERP_CLASS=ICLASS_HTML`.
+  - [x] Set `SYSINFO_HTML=1` and `INTERP_CLASS=ICLASS_HTML`, for TADS 2
+    (`osglk.c`, with Step 3). TADS 3 still answers text mode: adv3's
+    banner API path goes through `osglkban.c` as before.
   - Report `JPEG`, `PNG`, `PNG_TRANS`, `PNG_ALPHA`, `WAV`, `MIDI`, `OGG`,
     `MPEG`, `MPEG1`-`3`, `WAV_MIDI_OVL`, `WAV_OVL` and `AUDIO_FADE` from the
     matching `glk_gestalt` results.
@@ -150,6 +152,14 @@ follows the spec and has none of Spatterlight's extensions. In practice:
     build and the new one, then `--compare`. `--corpus xtads` runs the
     1343 xtads test games, and `--walk` types the walkthroughs in
     `htmltads/goldens`.
+  - The fake app runs in determinism (testing) mode: the RNG has a fixed
+    seed, and a virtual clock (`osportable.cc`) reads noon on 1 Jan 2000
+    UTC and moves only when the game reads it (1 ms a read), sleeps, or
+    waits on a timer. Two runs over the whole corpus and xtads give the
+    same traces, so there is no list of noisy games to skip.
+  - The fake app answers every `BANNERLINES` with 24, so a banner sized to
+    its contents comes out 24 lines tall in the traces (*1893*'s banners
+    fill the window). The real app counts the lines.
 
 ## Step 1: 11 styles chosen per game
 
@@ -382,10 +392,9 @@ re-resolution and autosave.
 - [ ] `<ol type>` and `start`: every list is numbered 1, 2, 3. The
   corpus's few `<ol>` are all plain.
 - [ ] `br clear`: waits for images (Step 5).
-- [ ] `tab` in grid windows: waits for the status line in Step 3.
-- [ ] Banners' own text formatting: still the old look until Step 3.
-- [ ] The `systemInfo` change: reporting HTML makes adv.t put its status
-  line in a `<banner>`, which only works once Step 3's tag banners do.
+- [x] `tab` in grid windows: done with the status line in Step 3.
+- [x] Banners' own text formatting: tag banners use the same parser.
+- [x] The `systemInfo` change (TADS 2), with Step 3's tag banners.
 
 Notes from the corpus traces:
 
@@ -402,7 +411,7 @@ Notes from the corpus traces:
 
 ## Step 3: Banners (59 games with custom banners; the status line in almost all)
 
-- [ ] **Tag banners.** `<banner id=… height=… width=… align=… border remove
+- [x] **Tag banners.** `<banner id=… height=… width=… align=… border remove
   removeall>` maps onto the TADS 3 banner machinery already in `osglkban.c`:
   - one Glk window per id
   - `align` top/bottom/left/right → `winmethod_Above`/`Below`/`Left`/`Right`
@@ -411,20 +420,33 @@ Notes from the corpus traces:
   - no height → size to contents with `win_lines`
   - pixel sizes → convert through the font metrics from `glk_style_measure`
     instead of treating pixels as character counts (an existing bug in
-    `osglkban.c:486-528`)
+    `osglkban.c:486-528`). Done for now with fixed 8×16 pixels a cell
+    (`TAG_PIX_COL`, `TAG_PIX_LINE`); the TADS 3 banner API still has the
+    old bug.
 
   Re-opening a banner id **replaces** its contents. This fixes TADS 2's
   current fault of printing status-line contents inline in the main text.
-- [ ] **The status line** (`id=StatusLine`, `<tab align=right>`) goes to a
+- [x] **The status line** (`id=StatusLine`, `<tab align=right>`) goes to a
   grid window, with `body bgcolor=statusbg text=statustext` as theme status
   colours.
-- [ ] `border` → `winmethod_Border` vs `NoBorder`.
-- [ ] Ids seen in the corpus include `MenuTitle`/`MenuBody` (menu libraries),
+- [x] `border` → `winmethod_Border` vs `NoBorder`.
+- [x] Ids seen in the corpus include `MenuTitle`/`MenuBody` (menu libraries),
   `credits`, `intro`, `left`/`right`/`middle`, `convmenu` and `story`.
   These are text-buffer banners that need styles, links and images like the
   main window.
 - [ ] Fix `os_banner_set_screen_color` so it isn't overwritten on reopen
-  (`osglkban.c:236`). Most of this goes away with Step 1.
+  (`osglkban.c:236`). Most of this goes away with Step 1. (TADS 3 banner
+  API only; tag banners keep their colour.)
+
+Notes from the corpus traces:
+
+- *Six* (`six.gam`) hangs in HTML mode if a one-letter word (`n`, `e`) is
+  typed at the death prompt. The game's own loop (decompiled with
+  FictitiousFrode's `tads2.pl`) reuses the variable holding the answer's
+  length, and with `systemInfo` reporting HTML it never reads input again.
+  HTML TADS would hang the same way: it is the game's bug.
+- Before HTML is switched on, adv.t opens the text-mode status line, which
+  is closed again when the `StatusLine` banner first appears.
 
 ## Step 4: Hyperlinks (`<a>`, 91 games)
 

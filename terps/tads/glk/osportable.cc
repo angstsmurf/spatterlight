@@ -82,6 +82,64 @@
 #define T3_LOG_FILE 0
 #endif /* SPATTERLIGHT */
 
+#ifdef SPATTERLIGHT
+extern "C" glui32 gli_determinism;
+
+/* <time.h> finds tads3/test/data/time.h, in the target's header paths */
+extern "C" {
+time_t time(time_t *);
+struct tm *gmtime(const time_t *);
+struct tm *localtime(const time_t *);
+}
+
+/*
+ *   The clock under the determinism testing theme: the time of day is fixed
+ *   at noon on 1 January 2000, in UTC, and the millisecond timer starts at 0
+ *   and goes forward a millisecond each time it's read (so a loop waiting
+ *   for it ends), and by the length of every sleep and timer event, so a
+ *   game sees the same times on every run.
+ */
+#define VCLOCK_EPOCH 946728000
+
+static unsigned long vclock_ms;
+
+int osglk_vclock(void)
+{
+    return gli_determinism != 0;
+}
+
+long osglk_vclock_ms(void)
+{
+    return (long)++vclock_ms;
+}
+
+void osglk_vclock_advance(unsigned long ms)
+{
+    vclock_ms += ms;
+}
+
+void osglk_vclock_time_ns(time_t *seconds, long *nanoseconds)
+{
+    unsigned long ms = ++vclock_ms;
+    *seconds = VCLOCK_EPOCH + ms / 1000;
+    *nanoseconds = (long)(ms % 1000) * 1000000;
+}
+
+time_t osglk_time(time_t *t)
+{
+    time_t now = gli_determinism ? VCLOCK_EPOCH + vclock_ms / 1000 : time(0);
+    if (t)
+        *t = now;
+    return now;
+}
+
+struct tm *osglk_localtime(const time_t *t)
+{
+    return gli_determinism ? gmtime(t) : localtime(t);
+}
+
+#endif /* SPATTERLIGHT */
+
 /* Safe strcpy.
  * (Copied from tads2/msdos/osdos.c)
  */
@@ -825,6 +883,11 @@ os_get_sys_clock_ms( void )
     struct timezone bogus = {0, 0};
     struct timeval currTime;
 
+#ifdef SPATTERLIGHT
+    if (osglk_vclock())
+        return osglk_vclock_ms();
+#endif
+
     if (not initialized) {
         gettimeofday(&zeroPoint, &bogus);
         initialized = true;
@@ -842,6 +905,13 @@ os_get_sys_clock_ms( void )
 void
 os_time_ns( os_time_t *seconds, long *nanoseconds )
 {
+#ifdef SPATTERLIGHT
+    if (osglk_vclock()) {
+        osglk_vclock_time_ns(seconds, nanoseconds);
+        return;
+    }
+#endif
+
     // get the time
     struct timezone bogus = {0, 0};
     struct timeval currTime;
