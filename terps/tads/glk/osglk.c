@@ -85,16 +85,15 @@ int os_get_sysinfo(int code, void *param, long *result)
             return TRUE;
 
         /*
-         *   TADS 2 games get HTML: adv.t then puts its status line in a
-         *   <BANNER>, which oshtml.c and osglkban.c show.  TADS 3 games
-         *   stay with text mode until adv3's HTML paths are checked.
+         *   Games get HTML: adv.t then puts its status line in a <BANNER>,
+         *   which oshtml.c and osglkban.c show, and adv3 (which keeps to
+         *   the banner API) writes its links, such as a menu's Exit
          */
         case SYSINFO_INTERP_CLASS:
-            *result = oshtml_is_tads3() ? SYSINFO_ICLASS_TEXTGUI
-                : SYSINFO_ICLASS_HTML;
+            *result = SYSINFO_ICLASS_HTML;
             return TRUE;
         case SYSINFO_HTML:
-            *result = !oshtml_is_tads3();
+            *result = 1;
             return TRUE;
 
         /*
@@ -111,7 +110,7 @@ int os_get_sysinfo(int code, void *param, long *result)
             return TRUE;
 
         case SYSINFO_PREF_LINKS:
-            *result = !oshtml_is_tads3() && osglk_links_ok();
+            *result = osglk_links_ok();
             return TRUE;
 
         /*
@@ -155,6 +154,35 @@ int os_get_sysinfo(int code, void *param, long *result)
 /* ------------------------------------------------------------------------ */
 
 /*
+ *   The colours of the main window and of a text grid, which the banners
+ *   take.  They follow the theme, so we measure them again when it changes
+ *   (an arrange event); without a status line, on a grid opened for it.
+ */
+static void measure_colors(void)
+{
+    winid_t grid = statuswin;
+
+    if (!glk_style_measure(mainwin, style_Normal, stylehint_TextColor, &mainfg))
+        mainfg = 0;
+
+    if (!glk_style_measure(mainwin, style_Normal, stylehint_BackColor, &mainbg))
+        mainbg = 0;
+
+    if (!grid)
+        grid = glk_window_open(mainwin, winmethod_Above | winmethod_Fixed, 1,
+                               wintype_TextGrid, 0);
+
+    if (!glk_style_measure(grid, style_Normal, stylehint_TextColor, &statusfg))
+        statusfg = 0;
+
+    if (!glk_style_measure(grid, style_Normal, stylehint_BackColor, &statusbg))
+        statusbg = 0;
+
+    if (grid != statuswin)
+        glk_window_close(grid, 0);
+}
+
+/*
  *   Initialize.  This should be called during program startup to
  *   initialize the OS layer and check OS-specific command-line arguments.
  *
@@ -180,28 +208,7 @@ int os_init(int *argc, char *argv[], const char *prompt,
         glk_exit();
     }
 
-    /* get default colors for main window */
-    if (!glk_style_measure(mainwin, style_Normal, stylehint_TextColor, &mainfg))
-        mainfg = 0;
-
-    if (!glk_style_measure(mainwin, style_Normal, stylehint_BackColor, &mainbg))
-        mainbg = 0;
-
-    /* get default colors for status window */
-    statuswin = glk_window_open(mainwin,
-            winmethod_Above | winmethod_Fixed, 1,
-            wintype_TextGrid, 0);
-
-    if (!glk_style_measure(statuswin, style_Normal, stylehint_TextColor, &statusfg))
-        statusfg = 0;
-
-    if (!glk_style_measure(statuswin, style_Normal, stylehint_BackColor, &statusbg))
-        statusbg = 0;
-
-    /* close statuswin; reopened on request */
-    glk_window_close(statuswin, 0);
-
-    statuswin = NULL;
+    measure_colors();
 
     glk_set_window(mainwin);
 
@@ -483,6 +490,7 @@ void os_end_html(void)
 
 static void redraw_windows(void)
 {
+    measure_colors();
     oshtml_arrange();
     os_status_redraw();
     os_banners_redraw();
@@ -811,6 +819,7 @@ static void request_links(void)
     if (!nlinks)
         return;
     osglk_tag_banner_request_links();
+    osglk_api_banner_request_links();
     if (mainwin)
         glk_request_hyperlink_event(mainwin);
 }

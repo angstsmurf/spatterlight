@@ -56,6 +56,7 @@ glui32 osglk_link_add(const char *href, int flags);
 
 /* Ask for link clicks in the windows that have links */
 void osglk_tag_banner_request_links(void);
+void osglk_api_banner_request_links(void);
 
 typedef struct oshtml_parser oshtml_parser;
 

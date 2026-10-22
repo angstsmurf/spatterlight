@@ -67,9 +67,11 @@ typedef struct os_banner_s
     glui32 fgcustom;                /* custom colors */
     glui32 bgcustom;
     glui32 bgtrans;
+    glui32 bgscreen;                /* the game set bgcolor */
 
     contentid_t contents;           /* window contents */
     glui32 style;                   /* active Glk style value */
+    glui32 link;                    /* active hyperlink (HTML mode) */
     glui32 newline;                 /* active newline */
     glui32 move, x, y;              /* active cursor position */
 
@@ -86,6 +88,7 @@ typedef struct banner_contents_s
     contentid_t next;               /* next set of contents */
 
     glui32 style;                   /* stored contents style */
+    glui32 link;                    /* stored hyperlink */
     glui32 newline;                 /* stored newline */
     glui32 move, x, y;              /* stored cursor position */
 
@@ -142,8 +145,11 @@ osbanid_t os_banner_init(void)
     instance->cheight = 0;
     instance->cwidth = 0;
 
+    instance->bgscreen = 0;
+
     instance->contents = 0;
     instance->style = style_Normal;
+    instance->link = 0;
     instance->newline = 0;
     instance->move = 0;
     instance->x = 0;
@@ -244,10 +250,16 @@ void os_banner_styles_apply (osbanid_t banner)
         return;
 
     glui32 propval = banner->status ? 0 : (banner->type == wintype_TextGrid ? 0 : 1);
-    glui32 bgcustom = banner->bgtrans ? banner->bgcolor : banner->bgcustom;
 
-    banner->fgcolor = gsbgcol;
-    banner->bgcolor = gsfgcol;
+    /*
+     *   The theme's colours, which osglk.c measures again when it changes:
+     *   a status banner is a reversed grid, like the status line
+     */
+    banner->fgcolor = banner->status ? statusbg : mainfg;
+    if (!banner->bgscreen)
+        banner->bgcolor = banner->status ? statusfg : mainbg;
+
+    glui32 bgcustom = banner->bgtrans ? banner->bgcolor : banner->bgcustom;
 
     /* banners keep the plain styles; os_banner_styles_reset puts ours back */
     osstyles_clear_hints(banner->type);
@@ -379,6 +391,7 @@ contentid_t banner_contents_init(void)
     instance->next = 0;
 
     instance->style = style_Normal;
+    instance->link = 0;
     instance->newline = 0;
     instance->move = 0;
     instance->x = 0;
@@ -440,7 +453,11 @@ void banner_contents_display(contentid_t contents)
     }
 
     glk_set_style(contents->style);
+    if (contents->link)
+        glk_set_hyperlink(contents->link);
     os_put_buffer((unsigned char *)contents->chars, len);
+    if (contents->link)
+        glk_set_hyperlink(0);
     glk_set_window(mainwin);
     banner_contents_display(contents->next);
 }
@@ -701,6 +718,7 @@ void os_banner_clear(void *banner_handle)
     banner->contents = 0;
     if (banner->html)
         oshtml_clear(banner->html);
+    banner->link = 0;
     banner->newline = 0;
     banner->move = 0;
     banner->x = 0;
@@ -741,6 +759,7 @@ static void banner_disp(osbanid_t banner, const char *txt, size_t len)
     }
 
     update->style = banner->style;
+    update->link = banner->link;
     update->newline = banner->newline;
     update->move = banner->move;
     update->x = banner->x;
@@ -897,7 +916,15 @@ void os_banner_set_screen_color(void *banner_handle, os_color_t color)
         return;
 
     if (!(os_color_is_param(color)))
+    {
         banner->bgcolor = color;
+        banner->bgscreen = 1;
+    }
+    else
+    {
+        /* the theme's own colours, as near as we come to the param */
+        banner->bgscreen = 0;
+    }
 
     os_banners_redraw();
 }
@@ -954,6 +981,13 @@ static int html_centers(void *ctx, int combo)
     return 1;
 }
 
+/* a link goes with the text, which keeps it when the banner is redrawn */
+static void html_set_link(void *ctx, glui32 link)
+{
+    osbanid_t banner = ctx;
+    banner->link = link;
+}
+
 /*
  *   A banner's contents are kept as text, and written again when it's
  *   redrawn, which a picture wouldn't survive: it shows its ALT text
@@ -967,8 +1001,26 @@ static winid_t html_window(void *ctx)
 static const oshtml_sink html_sink =
 {
     html_put, html_set_attr, html_set_color, html_set_screen_color,
-    html_width, html_centers, html_window, NULL
+    html_width, html_centers, html_window, html_set_link
 };
+
+/* a request is used up by its click: osglk.c asks again before each wait */
+static void banners_request_links(osbanid_t banner)
+{
+    for ( ; banner ; banner = banner->next)
+    {
+        if (banner->valid && banner->html && banner->win
+            && banner->win != mainwin)
+            glk_request_hyperlink_event(banner->win);
+        banners_request_links(banner->children);
+    }
+}
+
+void osglk_api_banner_request_links(void)
+{
+    if (os_banners)
+        banners_request_links(os_banners->children);
+}
 
 void os_banner_flush(void *banner_handle)
 {

@@ -111,11 +111,15 @@ follows the spec and has none of Spatterlight's extensions. In practice:
   ASCII-only entities in TADS 2 even in text mode.
 - [ ] **Answer `systemInfo` honestly.**
   - [x] Set `SYSINFO_HTML=1` and `INTERP_CLASS=ICLASS_HTML`, for TADS 2
-    (`osglk.c`, with Step 3). TADS 3 still answers text mode: adv3's
-    banner API path goes through `osglkban.c` as before.
+    (`osglk.c`, with Step 3), and later for TADS 3 too. adv3's
+    `checkHtmlMode()` asks for the HTML class, and `aHrefAlt` writes a
+    link only in HTML mode: without it a menu had no Exit link
+    (*Thaumistry*'s hints). adv3's banners still go through the banner API
+    (`osglkban.c`).
   - [x] `JPEG`, `PNG`, `PNG_TRANS`, `PNG_ALPHA` and `PREF_IMAGES` (TADS 2,
     with Step 5): 1 when `gestalt_Graphics` and `gestalt_DrawImage` for
-    text-buffer windows are. TADS 3 still answers 0, like `SYSINFO_HTML`.
+    text-buffer windows are. TADS 3 still answers 0. Turning it on needs
+    its own corpus run.
     Turning this on changed *Arrival*, *bbn*, *Beet*, *Ground*, *landing*
     and *Six*, which take their picture paths.
   - Report `WAV`, `MIDI`, `OGG`, `MPEG`, `MPEG1`-`3`, `WAV_MIDI_OVL`,
@@ -456,9 +460,16 @@ Notes from the corpus traces:
   `credits`, `intro`, `left`/`right`/`middle`, `convmenu` and `story`.
   These are text-buffer banners that need styles, links and images like the
   main window.
-- [ ] Fix `os_banner_set_screen_color` so it isn't overwritten on reopen
-  (`osglkban.c:236`). Most of this goes away with Step 1. (TADS 3 banner
-  API only; tag banners keep their colour.)
+- [x] `os_banner_set_screen_color` is no longer overwritten on reopen
+  (`bgscreen` in `osglkban.c`). The banner colours no longer come from
+  glkimp's `gsfgcol`/`gsbgcol`, which made every banner a reversed grid, so
+  that *Thaumistry*'s whole hint screen was grey. They come from
+  `measure_colors` (`osglk.c`), which takes style measures of the main
+  window and a grid. It runs at start and on every redraw, so a theme change
+  carries over. A status banner is a reversed grid (fg = grid bg,
+  bg = grid fg), as the text-mode status line is; any other banner has the
+  main window's colours. The harness answers every measure with 0, so its
+  traces show colour 0. Check colours in the app.
 
 Notes from the corpus traces:
 
@@ -481,9 +492,11 @@ Both engines already handle links: they expect an `OS_EVT_HREF` event
 ~470). The missing part is the Glk side in `osglk.c`, which returns only
 `OS_EVT_KEY` and `OS_EVT_TIMEOUT` today.
 
-**Status.** Links work in the main window, tag banners and the status line,
-in both engines (`osglk_link_add`, `line_link` and `getglkchar` in `osglk.c`;
-the `<a>` tag in `oshtml.c`). In the corpus traces 32 of the 235 games, and
+**Status.** Links work in the main window, tag banners, TADS 3 API banners
+and the status line, in both engines (`osglk_link_add`, `line_link` and
+`getglkchar` in `osglk.c`; the `<a>` tag in `oshtml.c`). API banners keep the
+link in each content chunk, so a redraw restores it
+(`html_set_link`/`osglk_api_banner_request_links` in `osglkban.c`). In the corpus traces 32 of the 235 games, and
 32 of the 1343 xtads games, now set links; no other trace line changed.
 `test/run_traces.py` can click them: a script line `link:N` or `click:TEXT`
 (`bocfel/test/v6trace.py`). *Golden Skull*'s "north" link types `north`.
@@ -503,8 +516,14 @@ the `<a>` tag in `oshtml.c`). In the corpus traces 32 of the 235 games, and
     every link is plain text.
   - The OS layer's own text (echoed input, the MORE prompt) is never part of
     a link: `oshtml_input` and `oshtml_put_plain` end it.
-  - `SYSINFO_PREF_LINKS` is 1 for TADS 2 when links work. TADS 3 still
-    answers text mode.
+  - `SYSINFO_PREF_LINKS` is 1 when links work, in both engines. Making TADS
+    3 answer HTML changed 29 of the 235 corpus traces, all TADS 3 games:
+    - the status line gained links (room name, score);
+    - `<.statusscore>` is now italic;
+    - *When* opens its banners as text buffers, not grids;
+    - *mazes.t3* no longer gets stuck and plays its whole script.
+
+    In xtads, 7 of the 1343 traces changed outside the colour hints.
 - [x] **Command links.** `line_link` cancels the line request (with echo off,
   so the typed text isn't shown), then:
   - plain link: the href is the line. It is echoed in `style_Input` with a
@@ -524,6 +543,9 @@ the `<a>` tag in `oshtml.c`). In the corpus traces 32 of the 235 games, and
   and `LINKS_NEWS` accordingly.
 - [x] `plain` (26 games): no link, so the text is printed without
   `glk_set_hyperlink`. Revisit if a game depends on one.
+  - [ ] adv3's menus (`menusys.t`) write their entries as `<a plain href>`,
+    so those can't be clicked yet. QTads makes them links that look like
+    plain text.
 - [x] `title`, `target`: ignored. (`hidden` too: that link still works.)
 
 ## Step 5: Images (`<img>`, 119 games; JPEG 76, PNG 37, MNG 2)
@@ -685,7 +707,7 @@ QTads's `qtadssound.cc`. `oshtml.c` parses the tag into an `ossound_tag`.
   no window to play for.
 - [x] **Without `gestalt_Sound2`**, `SYSINFO_WAV`/`MIDI`/`MPEG*`/`OGG`/
   `PREF_SOUNDS`/`PREF_MUSIC` and the fade answers are 0. As with images,
-  these are TADS 2 only, because TADS 3 runs in text mode.
+  these are TADS 2 only. TADS 3 answers HTML now but not yet sound.
 - [x] **Corpus check.** 16 games changed traces, and in all of them the only
   changes are sound calls and the timer arming. The one exception is *Six
   Stories*: it sees sound support and takes its sound path, which skips
