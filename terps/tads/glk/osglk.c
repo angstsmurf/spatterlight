@@ -98,13 +98,19 @@ int os_get_sysinfo(int code, void *param, long *result)
 
         /*
          *   oshtml.c draws <IMG> pictures, in the main window and in
-         *   banners of both kinds.  MNG has no Glk decoder.
+         *   banners of both kinds.  Glk has no MNG, and no gestalt for it,
+         *   but the Spatterlight app turns an MNG into a GIF it animates.
          */
         case SYSINFO_JPEG:
         case SYSINFO_PNG:
         case SYSINFO_PNG_TRANS:
         case SYSINFO_PNG_ALPHA:
         case SYSINFO_PREF_IMAGES:
+#ifdef SPATTERLIGHT
+        case SYSINFO_MNG:
+        case SYSINFO_MNG_TRANS:
+        case SYSINFO_MNG_ALPHA:
+#endif
             *result = glk_gestalt(gestalt_Graphics, 0)
                 && glk_gestalt(gestalt_DrawImage, wintype_TextBuffer);
             return TRUE;

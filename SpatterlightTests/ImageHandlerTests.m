@@ -5,14 +5,15 @@
 //  application/Images on its own, without a game: the "last image" that
 //  FINDIMAGE, LOADIMAGE and PURGEIMG leave for a draw request, lookups that
 //  must not change it, Blorb Rect placeholders, PURGEIMG replacements as
-//  Bocfel writes them (and which files the handler deletes, and when), and the frame
-//  timing of an animated GIF.
+//  Bocfel writes them (and which files the handler deletes, and when), the frame
+//  timing of an animated GIF, and MNG animations, which become GIFs.
 //
 
 #import <XCTest/XCTest.h>
 
 #import "ImageHandler.h"
 #import "ImageResource.h"
+#import "MNGConverter.h"
 #import "XCTestCase+TemporaryDirectory.h"
 #import "NSBitmapImageRep+TestImages.h"
 
@@ -87,6 +88,72 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
         for (int i = 0; i < 4; i++)
             put16(d, arrays[a]);
     return d;
+}
+
+// A PNG chunk: length, type, body and the CRC of type and body.
+static void putChunk(NSMutableData *d, const char *type, NSData *body) {
+    put32(d, (uint32_t)body.length);
+    NSMutableData *crcd = [NSMutableData dataWithBytes:type length:4];
+    [crcd appendData:body];
+    uint32_t crc = 0xffffffff;
+    const uint8_t *p = crcd.bytes;
+    for (NSUInteger i = 0; i < crcd.length; i++) {
+        crc ^= p[i];
+        for (int k = 0; k < 8; k++)
+            crc = (crc >> 1) ^ (0xedb88320 & (0 - (crc & 1)));
+    }
+    [d appendBytes:type length:4];
+    [d appendData:body];
+    put32(d, ~crc);
+}
+
+static NSData *bytes(NSArray<NSNumber *> *values) {
+    NSMutableData *d = [NSMutableData data];
+    for (NSNumber *v in values) {
+        uint8_t b = v.unsignedCharValue;
+        [d appendBytes:&b length:1];
+    }
+    return d;
+}
+
+static NSData *be32s(NSArray<NSNumber *> *values) {
+    NSMutableData *d = [NSMutableData data];
+    for (NSNumber *v in values)
+        put32(d, v.unsignedIntValue);
+    return d;
+}
+
+// An MNG with the signature and an MHDR, for chunks to be added to.
+static NSMutableData *MNGStart(uint32_t width, uint32_t height, uint32_t ticksPerSecond) {
+    const uint8_t signature[8] = { 0x8a, 'M', 'N', 'G', '\r', '\n', 0x1a, '\n' };
+    NSMutableData *d = [NSMutableData dataWithBytes:signature length:8];
+    NSMutableData *mhdr = [be32s(@[@(width), @(height), @(ticksPerSecond)]) mutableCopy];
+    [mhdr appendData:[NSMutableData dataWithLength:16]];
+    putChunk(d, "MHDR", mhdr);
+    return d;
+}
+
+typedef enum { kRed, kGreen, kBlue } Primary;
+
+// A PNG of one opaque primary colour, embedded without its signature.
+static void putPNG(NSMutableData *d, NSInteger width, NSInteger height, Primary primary) {
+    NSBitmapImageRep *rep = [NSBitmapImageRep blankRGBAWithWidth:width height:height];
+    for (NSInteger y = 0; y < height; y++) {
+        uint8_t *row = rep.bitmapData + y * rep.bytesPerRow;
+        for (NSInteger x = 0; x < width; x++) {
+            row[4 * x + primary] = 0xff;
+            row[4 * x + 3] = 0xff;
+        }
+    }
+    NSData *png = [rep representationUsingType:NSBitmapImageFileTypePNG properties:@{}];
+    [d appendData:[png subdataWithRange:NSMakeRange(8, png.length - 8)]];
+}
+
+// The colour at x, y of a frame; GIF quantizing and the colour space
+// conversion leave it a little off.
+static NSColor *frameColor(NSBitmapImageRep *rep, NSUInteger frame, NSInteger x, NSInteger y) {
+    [rep setProperty:NSImageCurrentFrame withValue:@(frame)];
+    return [[rep colorAtX:x y:y] colorUsingColorSpace:NSColorSpace.deviceRGBColorSpace];
 }
 
 - (NSString *)writePNGNamed:(NSString *)name width:(NSInteger)width height:(NSInteger)height {
@@ -315,6 +382,112 @@ static NSData *BocfelTIFF(uint16_t width, uint16_t height) {
 
     XCTAssertEqual([animation imageForFrame:1], animation.image);
     XCTAssertNil([animation imageForFrame:3]);
+}
+
+#pragma mark MNG
+
+// Macrocosm's kind: frames on a black background, each after a FRAM with
+// its delay in ticks, and a TERM.
+- (void)testMNGBecomesAnimatedGIF {
+    NSMutableData *mng = MNGStart(8, 6, 10);
+    // Show the last frame when done.
+    putChunk(mng, "TERM", bytes(@[@0]));
+    putChunk(mng, "BACK", bytes(@[@0, @0, @0, @0, @0, @0]));
+    // Mode 4, delay 5 ticks, which becomes the default.
+    putChunk(mng, "FRAM", bytes(@[@4, @0, @2, @0, @0, @0, @0, @0, @0, @5]));
+    putPNG(mng, 8, 6, kRed);
+    // This subframe only: 2 ticks.
+    putChunk(mng, "FRAM", bytes(@[@0, @0, @1, @0, @0, @0, @0, @0, @0, @2]));
+    putPNG(mng, 8, 6, kGreen);
+    putChunk(mng, "FRAM", bytes(@[@0]));
+    putPNG(mng, 8, 6, kBlue);
+    putChunk(mng, "MEND", [NSData data]);
+
+    ImageHandler *handler = [ImageHandler new];
+    [self load:9 path:[self write:mng named:@"anim.mng"] into:handler];
+    XCTAssertEqual(handler.lastimage.size.width, 8);
+    XCTAssertEqual(handler.lastimage.size.height, 6);
+    ImageAnimation *animation = [handler animationForImageNumber:9];
+    XCTAssertEqual(animation.frameCount, 3);
+    XCTAssertEqualWithAccuracy(animation.duration, 0.5 + 0.2 + 0.5, 0.001);
+    XCTAssertEqual(animation.loopCount, 1, @"a TERM with no repeat plays once");
+    // The picture is a GIF from now on.
+    NSData *gif = [handler dataForImageNumber:9];
+    XCTAssertEqual(memcmp(gif.bytes, "GIF8", 4), 0);
+
+    NSBitmapImageRep *rep = (NSBitmapImageRep *)handler.lastimage.representations[0];
+    XCTAssertEqualWithAccuracy(frameColor(rep, 0, 3, 3).redComponent, 1, 0.05);
+    XCTAssertEqualWithAccuracy(frameColor(rep, 1, 3, 3).greenComponent, 1, 0.05);
+    XCTAssertEqualWithAccuracy(frameColor(rep, 2, 3, 3).blueComponent, 1, 0.05);
+}
+
+- (void)testMNGTermRepeats {
+    for (NSNumber *iterations in @[@3, @0x7fffffff]) {
+        NSMutableData *mng = MNGStart(4, 4, 10);
+        NSMutableData *term = [bytes(@[@3, @0]) mutableCopy];
+        [term appendData:be32s(@[@0, iterations])];
+        putChunk(mng, "TERM", term);
+        putPNG(mng, 4, 4, kRed);
+        putPNG(mng, 4, 4, kGreen);
+        putChunk(mng, "MEND", [NSData data]);
+        ImageResource *resource = [[ImageResource alloc] initWithFilename:@"" offset:0 data:mng];
+        ImageAnimation *animation = [ImageAnimation animationForImage:[resource createImage]];
+        XCTAssertEqual(animation.frameCount, 2);
+        // One tick each, by default.
+        XCTAssertEqualWithAccuracy(animation.duration, 0.2, 0.001);
+        XCTAssertEqual(animation.loopCount, iterations.unsignedIntValue == 3 ? 3 : 0);
+    }
+}
+
+// Antiquest's kind: images placed by DEFI, each its own frame on top of
+// the last, and a LOOP with an iteration count of 0, which is done zero
+// times.
+- (void)testMNGDefiPlacesLayersAndZeroLoopIsSkipped {
+    NSMutableData *mng = MNGStart(8, 6, 4);
+    NSMutableData *defi = [bytes(@[@0, @1, @0, @0]) mutableCopy];
+    [defi appendData:be32s(@[@4, @2])];
+    putChunk(mng, "DEFI", defi);
+    putPNG(mng, 4, 4, kRed);
+    putChunk(mng, "LOOP", bytes(@[@0, @0, @0, @0, @0, @6]));
+    putChunk(mng, "SHOW", bytes(@[@0, @1, @0, @1, @6]));
+    putPNG(mng, 8, 6, kGreen);
+    putChunk(mng, "ENDL", bytes(@[@0]));
+    putChunk(mng, "DEFI", bytes(@[@0, @2]));
+    putPNG(mng, 2, 2, kBlue);
+    putChunk(mng, "MEND", [NSData data]);
+
+    ImageResource *resource = [[ImageResource alloc] initWithFilename:@"" offset:0 data:mng];
+    NSImage *image = [resource createImage];
+    ImageAnimation *animation = [ImageAnimation animationForImage:image];
+    XCTAssertEqual(animation.frameCount, 2);
+    XCTAssertEqualWithAccuracy(animation.duration, 0.5, 0.001);
+
+    NSBitmapImageRep *rep = (NSBitmapImageRep *)image.representations[0];
+    XCTAssertEqualWithAccuracy(frameColor(rep, 0, 5, 3).redComponent, 1, 0.05, @"placed at 4,2");
+    XCTAssertEqualWithAccuracy(frameColor(rep, 0, 1, 1).alphaComponent, 0, 0.05, @"no BACK: clear");
+    XCTAssertEqualWithAccuracy(frameColor(rep, 1, 1, 1).blueComponent, 1, 0.05);
+    XCTAssertEqualWithAccuracy(frameColor(rep, 1, 5, 3).redComponent, 1, 0.05, @"over the last frame");
+}
+
+// A chunk the converter does not read ends the animation, so what came
+// before still shows; with nothing before it, there is no picture.
+- (void)testMNGStopsAtUnsupportedChunk {
+    NSMutableData *mng = MNGStart(4, 4, 10);
+    putPNG(mng, 4, 4, kRed);
+    putChunk(mng, "CLON", bytes(@[@0, @1, @0, @2]));
+    putPNG(mng, 4, 4, kGreen);
+    putChunk(mng, "MEND", [NSData data]);
+    ImageResource *resource = [[ImageResource alloc] initWithFilename:@"" offset:0 data:mng];
+    NSImage *image = [resource createImage];
+    XCTAssertEqual(image.size.width, 4);
+    XCTAssertNil([ImageAnimation animationForImage:image]);
+
+    NSMutableData *empty = MNGStart(4, 4, 10);
+    putChunk(empty, "CLON", bytes(@[@0, @1, @0, @2]));
+    putChunk(empty, "MEND", [NSData data]);
+    XCTAssertNil([[[ImageResource alloc] initWithFilename:@"" offset:0 data:empty] createImage]);
+    XCTAssertNil(MNGConvertToGIF(MNGStart(0, 4, 10)));
+    XCTAssertFalse(MNGIsMNGData([NSData dataWithBytes:"\x89PNG\r\n\x1a\n" length:8]));
 }
 
 @end

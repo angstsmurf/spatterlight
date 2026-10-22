@@ -6,6 +6,7 @@
 #import "ImageResource.h"
 #import "DebugLog.h"
 #import "NSData+Categories.h"
+#import "MNGConverter.h"
 
 @implementation ImageResource
 
@@ -67,6 +68,14 @@ static const NSUInteger kPlaceholderLength = 8;
         return nil;
     if (_data.length == kPlaceholderLength)
         return [self placeholderImage];
+    // HTML TADS animations. The GIF takes the MNG's place, so it is made
+    // only once, however often the image cache lets the picture go.
+    if (MNGIsMNGData(_data)) {
+        NSData *gif = MNGConvertToGIF(_data);
+        if (!gif)
+            return nil;
+        _data = gif;
+    }
 
     NSArray<NSImageRep *> *reps = [NSBitmapImageRep imageRepsWithData:_data];
     if (reps.count == 0 && _filename.length && _offset == 0) {

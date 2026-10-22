@@ -679,45 +679,48 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   it. `window()` now puts out the held newlines first (`tag_window`).
 - [ ] `body background` (14 games): a tiled background image. Skip it, or
   later draw it as the window background through a small extension.
-- [ ] **MNG → animated GIF, in the app.** Spatterlight already animates GIFs
-  in buffer windows (`Images/ImageAnimation.m`), so convert MNG data when
-  it's loaded, in `ImageHandler`, wherever the data starts with the MNG
-  signature. Terps don't change, and the image keeps its resource number.
+- [x] **MNG → animated GIF, in the app.** Spatterlight already animates GIFs
+  in buffer windows (`Images/ImageAnimation.m`). `Images/MNGConverter.m`
+  turns MNG data into a GIF when `ImageResource` first decodes it, and the
+  GIF then replaces the MNG bytes, so a picture the image cache drops is
+  not converted again. Terps don't change, and the image keeps its resource
+  number.
   - **Which games:** *Macrocosm* has 4 MNGs (`zDAT_025/030/035/049.mng`)
-    and *Antiquest* has 1 (`res/images/intro.mng`). *White Rose* names an
-    `.mng`, but it is the "light" text-only build of *British Fox and the
-    Nationalist Conspiracy* and has no media.
-  - **The files are simple.** There is no delta coding and no JNG:
-    - *Macrocosm*: 34–157 full 400×434 RGBA PNG frames, each followed by a
-      `FRAM` with the frame delay in ticks at 100 ticks/s, and a `TERM`
-      that plays the sequence once and stays on the last frame.
-    - *Antiquest*: 12 paletted PNGs with `tRNS`, each positioned by a
-      `DEFI` on a 600×200 canvas, played in a `LOOP`/`ENDL` with `SHOW` at
-      3 ticks/s.
-  - **The converter:**
-    1. Walk the chunks. Each `IHDR`…`IEND` run, with the PNG signature
-       added, is a standalone PNG.
-    2. Composite it at the `DEFI` offset onto an `MHDR`-sized canvas.
-    3. Take the frame delay from `FRAM` and the loop count from
-       `TERM`/`LOOP`.
-    4. Write the result with `CGImageDestination` as a GIF
-       (`kCGImagePropertyGIFDelayTime`, `kCGImagePropertyGIFLoopCount`).
-
-    `SHOW` ranges and the other `FRAM` modes can wait until a game needs
-    them.
-  - **The prototype works.** It was a Swift script, not in the repo.
-    - All 5 files convert in 0.04–0.42 s.
-    - The resulting GIFs are 19–470 KB; the MNGs are 0.6–7 MB.
-    - `NSImageFrameCount` sees every frame, so `ImageAnimation` plays them
-      as they are.
-    - Frames compared by eye match the lossless APNG output. The frames are
-      opaque on black, so GIF's 1-bit alpha loses nothing here.
-    - APNG works through the same path, if a later game needs real alpha.
-  - **The terp:** report `SYSINFO_MNG`, `SYSINFO_MNG_TRANS` and
-    `SYSINFO_MNG_ALPHA` as 1 in the Spatterlight build. Glk has no gestalt
-    for this, so it's a build-time answer.
-  - **Without an animation** (images off, or the conversion fails), show
-    the first frame, or the `alt` text.
+    and *Antiquest* has 1 (`res/images/intro.mng`). Both draw them without
+    asking `systemInfo`. *White Rose* names an `.mng`, but it is the "light"
+    text-only build of *British Fox and the Nationalist Conspiracy* and has
+    no media.
+  - **What the converter reads**, by the MNG 1.0 spec: the `MHDR` canvas and
+    ticks per second; each `IHDR`…`IEND` run as a standalone PNG; `DEFI`
+    placement and `do_not_show`; `BACK`; `FRAM` framing modes 1–4 and
+    delays (a delay is for the subframe the `FRAM` starts); `LOOP`/`ENDL`;
+    and `TERM` (repeat n times, or forever). Any other critical chunk
+    (`SHOW`, `CLON`, delta images, JNG…) ends the animation where it is, so
+    at worst the first frame shows. If not even that decodes, the picture
+    fails and its `alt` text is printed.
+  - **The files:**
+    - *Macrocosm*: 34–157 full 400×434 RGBA frames, each after a mode-4
+      `FRAM` with its delay at 100 ticks/s, on a black `BACK`. `TERM`
+      repeats once, so they play once and stay on the last frame ("Press
+      any key to continue…").
+    - *Antiquest*: 12 paletted PNGs, each its own frame at 3 ticks/s, so
+      the ship flies in and the title stays. The `LOOP` after them has an
+      iteration count of 0 (its sixth byte, 6, is the termination
+      condition), and the spec says such a loop is done zero times, so its
+      `SHOW` cycle never runs.
+  - **Results:** the 5 files convert in 0.04–0.5 s, to GIFs of 19–470 KB
+    (the MNGs are 0.6–7 MB). `ImageAnimation` reads the frame counts, the
+    delays and the loop count as written. The frames are opaque on black,
+    so GIF's 1-bit alpha loses nothing.
+  - **Tests:** four MNG cases in `SpatterlightTests/ImageHandlerTests.m`
+    (FRAM delays and colours, TERM repeats, DEFI placement with a skipped
+    zero loop, and stopping at an unknown chunk).
+  - **The terp:** `SYSINFO_MNG`, `SYSINFO_MNG_TRANS` and `SYSINFO_MNG_ALPHA`
+    have the PNG answer in the Spatterlight build (`#ifdef SPATTERLIGHT`).
+    Glk has no gestalt for this, so it's a build-time answer. No corpus
+    trace changes.
+  - **Not checked in the app window yet:** that *Macrocosm*'s and
+    *Antiquest*'s pictures play there.
 
 ## Step 6: Sound (`<sound>`, 53 games; WAV 26, MP3 22, MIDI 9, Ogg 4)
 

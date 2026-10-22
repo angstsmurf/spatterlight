@@ -1017,6 +1017,7 @@
 		C3D1A00526EE4E75006F430E /* SFBSoundBackend.mm in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00226EE4E75006F430E /* SFBSoundBackend.mm */; };
 		C3D1A00626EE4E75006F430E /* MIDISoundBackend.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */; };
 		C3D1A0062F4B000100A1B2C3 /* ImageResource.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A0052F4B000100A1B2C3 /* ImageResource.m */; };
+		C3D1A00C2F4B000100A1B2C3 /* MNGConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00B2F4B000100A1B2C3 /* MNGConverter.m */; };
 		C3D1A00926EE4E75006F430E /* MIDISequenceUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D1A00826EE4E75006F430E /* MIDISequenceUtils.m */; };
 		C3D219E325FAD0820066AC4E /* InsecureValueTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D219E225FAD0820066AC4E /* InsecureValueTransformer.m */; };
 		C3D571A827D8F5E9008FB786 /* libglkimp.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 961CCE7B09F237E700528FF9 /* libglkimp.dylib */; };
@@ -3612,6 +3613,8 @@
 		C3D1A00426EE4E75006F430E /* MIDISoundBackend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDISoundBackend.m; sourceTree = "<group>"; };
 		C3D1A0042F4B000100A1B2C3 /* ImageResource.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImageResource.h; sourceTree = "<group>"; };
 		C3D1A0052F4B000100A1B2C3 /* ImageResource.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImageResource.m; sourceTree = "<group>"; };
+		C3D1A00A2F4B000100A1B2C3 /* MNGConverter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNGConverter.h; sourceTree = "<group>"; };
+		C3D1A00B2F4B000100A1B2C3 /* MNGConverter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MNGConverter.m; sourceTree = "<group>"; };
 		C3D1A00726EE4E75006F430E /* MIDISequenceUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MIDISequenceUtils.h; sourceTree = "<group>"; };
 		C3D1A00826EE4E75006F430E /* MIDISequenceUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MIDISequenceUtils.m; sourceTree = "<group>"; };
 		C3D219E125FAD0820066AC4E /* InsecureValueTransformer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = InsecureValueTransformer.h; sourceTree = "<group>"; };
@@ -6513,6 +6516,8 @@
 				C3D1A0022F4B000100A1B2C3 /* ImageAnimation.m */,
 				C3D1A0042F4B000100A1B2C3 /* ImageResource.h */,
 				C3D1A0052F4B000100A1B2C3 /* ImageResource.m */,
+				C3D1A00A2F4B000100A1B2C3 /* MNGConverter.h */,
+				C3D1A00B2F4B000100A1B2C3 /* MNGConverter.m */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -8274,6 +8279,7 @@
 				C3C684E226137DC6002F1436 /* ImageHandler.m in Sources */,
 				C3D1A0032F4B000100A1B2C3 /* ImageAnimation.m in Sources */,
 				C3D1A0062F4B000100A1B2C3 /* ImageResource.m in Sources */,
+				C3D1A00C2F4B000100A1B2C3 /* MNGConverter.m in Sources */,
 				96FBD8F70A0950EA002F6087 /* InfoController.m in Sources */,
 				C39147442974C41D00692B9E /* SideViewController.m in Sources */,
 				961CCEEF09F23A0000528FF9 /* GlkEvent.m in Sources */,
