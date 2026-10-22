@@ -419,86 +419,74 @@ static int loadres(HUGO_FILE infile, int reslen)
     return index;
 }
 
-static void initsound(void)
+/* The music or sample channel, created on first use. NULL if Glk can't
+   play that kind of sound. */
+static schanid_t heglk_channel(int music)
 {
-    if (!glk_gestalt(gestalt_Sound, 0))
-        return;
-    schannel = glk_schannel_create(0);
+    schanid_t *chan = music ? &mchannel : &schannel;
+    if (!*chan && glk_gestalt(gestalt_Sound, 0)
+        && (!music || glk_gestalt(gestalt_SoundMusic, 0)))
+        *chan = glk_schannel_create(0);
+    return *chan;
 }
 
-static void initmusic(void)
+static int heglk_play(schanid_t chan, HUGO_FILE infile, long reslen, char loop_flag)
 {
-    if (!glk_gestalt(gestalt_Sound, 0) || !glk_gestalt(gestalt_SoundMusic, 0))
-        return;
-    mchannel = glk_schannel_create(0);
+    if (chan)
+    {
+        int index = loadres(infile, reslen);
+        if (index < 0)
+        {
+            glk_stream_close(infile, NULL);
+            return false;
+        }
+        glk_schannel_play_ext(chan, index, loop_flag ? -1 : 1, 0);
+    }
+
+    glk_stream_close(infile, NULL);
+    return true;
+}
+
+static void heglk_set_volume(schanid_t chan, int vol)
+{
+    if (chan)
+        glk_schannel_set_volume(chan, (vol * 0x10000) / 100);
+}
+
+static void heglk_stop(schanid_t chan)
+{
+    if (chan)
+        glk_schannel_stop(chan);
 }
 
 int hugo_playmusic(HUGO_FILE infile, long reslen, char loop_flag)
 {
-    int index;
-
-    if (!mchannel)
-        initmusic();
-    if (mchannel)
-    {
-        index = loadres(infile, reslen);
-        if (index < 0)
-        {
-            glk_stream_close(infile, NULL);
-            return false;
-        }
-        glk_schannel_play_ext(mchannel, index, loop_flag ? -1 : 1, 0);
-    }
-
-    glk_stream_close(infile, NULL);
-    return true;
+    return heglk_play(heglk_channel(true), infile, reslen, loop_flag);
 }
 
 void hugo_musicvolume(int vol)
 {
-    if (!mchannel) initmusic();
-    if (!mchannel) return;
-    glk_schannel_set_volume(mchannel, (vol * 0x10000) / 100);
+    heglk_set_volume(heglk_channel(true), vol);
 }
 
 void hugo_stopmusic(void)
 {
-    if (!mchannel) initmusic();
-    if (!mchannel) return;
-    glk_schannel_stop(mchannel);
+    heglk_stop(heglk_channel(true));
 }
 
 int hugo_playsample(HUGO_FILE infile, long reslen, char loop_flag)
 {
-    int index;
-
-    if (schannel)
-    {
-        index = loadres(infile, reslen);
-        if (index < 0)
-        {
-            glk_stream_close(infile, NULL);
-            return false;
-        }
-        glk_schannel_play_ext(schannel, index, loop_flag ? -1 : 1, 0);
-    }
-
-    glk_stream_close(infile, NULL);
-    return true;
+    return heglk_play(heglk_channel(false), infile, reslen, loop_flag);
 }
 
 void hugo_samplevolume(int vol)
 {
-    if (!schannel) initsound();
-    if (!schannel) return;
-    glk_schannel_set_volume(schannel, (vol * 0x10000) / 100);
+    heglk_set_volume(heglk_channel(false), vol);
 }
 
 void hugo_stopsample(void)
 {
-    if (!schannel) initsound();
-    if (!schannel) return;
-    glk_schannel_stop(schannel);
+    heglk_stop(heglk_channel(false));
 }
 
 /*
