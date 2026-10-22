@@ -66,7 +66,7 @@ follows the spec and has none of Spatterlight's extensions. In practice:
 
 ## Step 0: Plumbing (needed by everything else)
 
-- [ ] **Get the raw markup out of both engines.**
+- [x] **Get the raw markup out of both engines.**
   - TADS 2: build `output.c` with `USE_HTML` defined, so `html_target` is
     TRUE. After `\H+`, tags and entities then pass through to `os_printz`
     unmodified. Games without `\H+` keep their current text-mode
@@ -79,7 +79,7 @@ follows the spec and has none of Spatterlight's extensions. In practice:
   - Both formatters now emit their own markup, so the parser must handle it:
     newlines become `<BR HEIGHT=0>`, `\ ` becomes `&nbsp;`, and TADS 2's
     `\(`/`\)` become `<B>`/`</B>`.
-- [ ] **A shared markup parser, `glk/oshtml.c`.** It takes the byte stream
+- [x] **A shared markup parser, `glk/oshtml.c`.** It takes the byte stream
   from `os_printz` and `os_banner_disp` and produces Glk calls.
   - Tokenise tags, attributes and entities, which can be split across print
     calls.
@@ -88,7 +88,24 @@ follows the spec and has none of Spatterlight's extensions. In practice:
     Once markup passes through, the new parser must reproduce whatever of
     these the games need. The `<tab>` logic in `vmconhmp.cpp:609-923` can be
     ported for grid windows.
-- [ ] **Entities as Unicode for both engines.** Route TADS 2 through the same
+  - Done for TADS 3 as well: `<tab>` (align, `to`/`id`, `indent`,
+    `multiple`) is ported, and the formatter's column, trailing-space,
+    `<br>` and blank-line rules are reproduced, so the main window prints
+    what the text-mode console printed. The differences that remain are
+    intended:
+    - The formatter no longer flushes at `<br>`, so text can reach Glk later
+      than before. A reply can now come after a status-line redraw
+      (*Teachers Pet*, *Chaos*), and `<body bgcolor>` after a clear is
+      applied at the next flush (*Macrocosm*). `<title>` timing moves too.
+    - Text banners always let Glk wrap. The old code made the formatter
+      wrap banners that used tab styles (*Macrocosm*, *Lydia's Heart*,
+      *White Bull* status lines).
+    - Text mode treated `<TAB MULTIPLE=n>` as `<TAB INDENT=n>`
+      (`vmconhmp.cpp:1240`). It is now a tab to the next stop, using the
+      formatter's `\t` arithmetic: the stop is where `(column + 1) % n`
+      is 0. HTML TADS may count from column 0 instead; that is unchecked.
+    - Entities that the text-mode parser broke are now decoded.
+- [x] **Entities as Unicode for both engines.** Route TADS 2 through the same
   entity table as TADS 3 and output with `glk_put_char_uni`. This fixes the
   ASCII-only entities in TADS 2 even in text mode.
 - [ ] **Answer `systemInfo` honestly.**
@@ -124,11 +141,14 @@ follows the spec and has none of Spatterlight's extensions. In practice:
     GIF, so treat them like any other image if NSImage reads them.
   - Resource names are URL-style paths: decode `%xx`, ignore case, and
     accept `\` or `/` as the separator.
-- [ ] **A Glk trace harness for regression tests.** Use a recording Glk,
+- [x] **A Glk trace harness for regression tests.** Use a recording Glk,
   like the Bocfel v6 trace suite, that logs styles, colours, images, links,
   sounds and windows. Give it a script that runs the first turns of each
   corpus game and diffs the logs against goldens. Without this, regressions
   across 235 games can't be seen.
+  - Done as `test/run_traces.py`. It keeps no goldens: run it on the old
+    build and the new one, then `--compare`. `--corpus xtads` runs the
+    1343 xtads test games, and `--walk DIR` runs walkthrough scripts.
 
 ## Step 1: 11 styles chosen per game
 

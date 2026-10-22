@@ -967,7 +967,7 @@
 		C3B3779D1ECBA3CA006432BE /* vmtmpfil.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3779C1ECBA3CA006432BE /* vmtmpfil.cpp */; };
 		C3B3779F1ECBA3DD006432BE /* vmtz.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B3779E1ECBA3DD006432BE /* vmtz.cpp */; };
 		C3B377A11ECBA3E8006432BE /* vmtzobj.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A01ECBA3E8006432BE /* vmtzobj.cpp */; };
-		C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A61ECBA4D5006432BE /* vmconnom.cpp */; };
+		C3B377A71ECBA4D5006432BE /* vmconhtm.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3B377A21ECBA41B006432BE /* vmconhtm.cpp */; };
 		C3B4443F2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m in Sources */ = {isa = PBXBuildFile; fileRef = C3B4443E2728CC5D006B29BD /* NSManagedObjectContext+safeSave.m */; };
 		C3B6100827DA0C080012FB97 /* graphics.c in Sources */ = {isa = PBXBuildFile; fileRef = C3B6100427DA07E90012FB97 /* graphics.c */; };
 		C3B69695300471950008D4C0 /* The PK Girl command script.txt in Resources */ = {isa = PBXBuildFile; fileRef = C3B69694300471940008D4C0 /* The PK Girl command script.txt */; };
@@ -8730,7 +8730,7 @@
 				96FE87A309F3A19D00D41D78 /* vmcfgmem.cpp in Sources */,
 				96FE87A409F3A19D00D41D78 /* vmcoll.cpp in Sources */,
 				96FE87A509F3A19D00D41D78 /* vmconhmp.cpp in Sources */,
-				C3B377A71ECBA4D5006432BE /* vmconnom.cpp in Sources */,
+				C3B377A71ECBA4D5006432BE /* vmconhtm.cpp in Sources */,
 				96FE87A709F3A19D00D41D78 /* vmconsol.cpp in Sources */,
 				96FE87A809F3A19D00D41D78 /* vmcrc.cpp in Sources */,
 				96FE87A909F3A19D00D41D78 /* vmcset.cpp in Sources */,

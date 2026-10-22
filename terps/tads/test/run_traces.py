@@ -9,7 +9,8 @@ images, links, sounds -- to OUT/<game>.trace.  No goldens are stored: take a
 baseline from the unchanged build, then compare.
 
     run_traces.py --out DIR [--compare DIR] [--build DIR] [-j N]
-                  [--script FILE] [--walk DIR] [substring ...]
+                  [--corpus NAME] [--script FILE] [--walk DIR]
+                  [substring ...]
 
   --out DIR      where the traces go (created; must not exist yet)
   --compare DIR  a baseline from an earlier run: list the games whose trace
@@ -19,6 +20,9 @@ baseline from the unchanged build, then compare.
                  are copied into OUT/app first, so the next build can start
                  while a run is going
   -j N           games run in parallel (default 8)
+  --corpus NAME  htmltads (the default: the games in htmltads/CENSUS.tsv)
+                 or xtads (the .gam and .t3 files in
+                 xtads/games.manifest.tsv, the TADS test suites)
   --script FILE  the commands to type, one per line (default: SCRIPT below)
   --walk DIR     for a game with a command script DIR/<stem>.txt (the
                  census path with "/" as "__" and without .gam/.t3), type
@@ -68,14 +72,21 @@ NOISY = {
 }
 
 
+# the list of games in each corpus, relative to the corpus folder
+LISTS = {"htmltads": "CENSUS.tsv", "xtads": "games.manifest.tsv"}
+
+
 def games(filters):
-    """Census paths (relative to htmltads/games), in census order."""
+    """Paths relative to CORPUS/games, in the order of the list."""
     out = []
-    with open(os.path.join(CORPUS, "CENSUS.tsv"), encoding="utf-8") as f:
+    name = LISTS[os.path.basename(CORPUS)]
+    with open(os.path.join(CORPUS, name), encoding="utf-8") as f:
         for line in f:
             if line.startswith("#") or not line.strip():
                 continue
             path = line.split("\t", 1)[0]
+            if not re.search(r"\.(gam|t3)$", path, re.I):
+                continue
             if not filters or any(s in path for s in filters):
                 out.append(path)
     return out
@@ -196,6 +207,7 @@ def compare(out, baseline, paths):
 
 
 def main():
+    global CORPUS
     argv = sys.argv[1:]
     out = baseline = None
     build = os.path.join(REPO, "build", "Debug")
@@ -211,6 +223,11 @@ def main():
             build = os.path.abspath(argv.pop(0))
         elif opt == "-j":
             jobs = int(argv.pop(0))
+        elif opt == "--corpus":
+            name = argv.pop(0)
+            if name not in LISTS:
+                sys.exit("unknown corpus " + name)
+            CORPUS = os.path.join(HERE, name)
         elif opt == "--timeout":
             timeout = float(argv.pop(0))
         elif opt == "--script":

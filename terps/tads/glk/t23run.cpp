@@ -28,6 +28,7 @@
 #include <stdio.h>
 
 #include "os.h"
+#include "oshtml.h"
 #include <string.h>
 
 /* tads 2 headers */
@@ -130,6 +131,7 @@ static int main_t3(int argc, char **argv)
      *   us a filename to run, so pass in null for the prompt and filename
      *   buffer.  
      */
+    oshtml_set_tads3(1);
     os_init(&argc, argv, 0, 0, 0);
 
     /* invoke the basic entrypoint */

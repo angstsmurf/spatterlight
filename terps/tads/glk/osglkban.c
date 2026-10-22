@@ -25,6 +25,10 @@
 
 #include "os.h"
 #include "glk.h"
+#include "oshtml.h"
+
+extern glui32 os_prepare_chars(glui32 *buf, glui32 buflen,
+                               unsigned char *out, glui32 outlen);
 
 #ifdef SPATTERLIGHT
 #include "glkimp.h"                 /* for-size to-contents hack */
@@ -64,6 +68,8 @@ typedef struct os_banner_s
     glui32 move, x, y;              /* active cursor position */
 
     winid_t win;                    /* glk window object */
+
+    oshtml_parser *html;            /* HTML mode: the markup parser */
 }
 os_banner_t;
 
@@ -138,6 +144,7 @@ osbanid_t os_banner_init(void)
     instance->y = 0;
 
     instance->win = 0;
+    instance->html = 0;
 
     return instance;
 }
@@ -575,6 +582,9 @@ void os_banner_delete(void *banner_handle)
 
     banner_contents_clear(banner->contents);
 
+    if (banner->html)
+        oshtml_delete(banner->html);
+
     free(banner);
 }
 
@@ -593,7 +603,8 @@ int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
     // populating *info left the caller reading an uninitialized info.os_line_wrap
     // off the stack, which flipped the banner's line-wrap mode (and hence the
     // per-character BANNERCOLS query storm) nondeterministically between runs.
-    // Returning FALSE makes the caller fall back to os_line_wrap = FALSE.
+    // Returning FALSE makes the caller fall back to its own os_line_wrap
+    // (TRUE for a text banner: see CVmConsoleBanner in vmconsol.cpp).
     if (!banner || !banner->valid || !banner->win)
         return FALSE;
 
@@ -628,7 +639,8 @@ int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
     info->pix_width = 0;
     info->pix_height = 0;
 
-    info->os_line_wrap = gstyletab ? 0 : (gwintype == wintype_TextBuffer);
+    /* in HTML mode, oshtml.c does the formatter's work: tags take no room */
+    info->os_line_wrap = (gwintype == wintype_TextBuffer);
 
     return 1;
 }
@@ -676,11 +688,15 @@ void os_banner_clear(void *banner_handle)
 
     banner_contents_clear(banner->contents);
     banner->contents = 0;
+    if (banner->html)
+        oshtml_clear(banner->html);
     banner->newline = 0;
     banner->move = 0;
     banner->x = 0;
     banner->y = 0;
 }
+
+static void banner_disp(osbanid_t banner, const char *txt, size_t len);
 
 void os_banner_disp(void *banner_handle, const char *txt, size_t len)
 {
@@ -688,6 +704,14 @@ void os_banner_disp(void *banner_handle, const char *txt, size_t len)
     if (!banner || !banner->valid || !banner->win)
         return;
 
+    if (banner->html)
+        oshtml_write(banner->html, txt, len);
+    else
+        banner_disp(banner, txt, len);
+}
+
+static void banner_disp(osbanid_t banner, const char *txt, size_t len)
+{
     contentid_t update = banner_contents_init();
     if (!update)
         return;
@@ -729,12 +753,23 @@ void os_banner_goto(void *banner_handle, int row, int col)
     }
 }
 
+static void banner_set_attr(osbanid_t banner, int attr);
+static void banner_set_color(osbanid_t banner, os_color_t fg, os_color_t bg);
+
 void os_banner_set_attr(void *banner_handle, int attr)
 {
     osbanid_t banner = banner_handle;
     if (!banner || !banner->valid)
         return;
 
+    if (banner->html)
+        oshtml_set_attr(banner->html, attr);
+    else
+        banner_set_attr(banner, attr);
+}
+
+static void banner_set_attr(osbanid_t banner, int attr)
+{
     if (attr & OS_ATTR_BOLD && attr & OS_ATTR_ITALIC)
         banner->style = style_Alert;
     else if (attr & OS_ATTR_BOLD)
@@ -751,6 +786,14 @@ void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
     if (!banner || !banner->valid)
         return;
 
+    if (banner->html)
+        oshtml_set_color(banner->html, fg, bg);
+    else
+        banner_set_color(banner, fg, bg);
+}
+
+static void banner_set_color(osbanid_t banner, os_color_t fg, os_color_t bg)
+{
     glui32 reversed = 0;
     glui32 normal = 0;
     glui32 transparent = 0;
@@ -848,6 +891,76 @@ void os_banner_set_screen_color(void *banner_handle, os_color_t color)
     os_banners_redraw();
 }
 
-void os_banner_flush(void *banner_handle) {}
-void os_banner_start_html(void *banner_handle) {}
-void os_banner_end_html(void *banner_handle) {}
+/* ------------------------------------------------------------------------ */
+/*
+ *   HTML mode: a text-buffer banner's formatter writes HTML markup, which
+ *   goes through a parser of the banner's own (oshtml.c)
+ */
+
+static void html_put(void *ctx, const glui32 *buf, size_t len)
+{
+    osbanid_t banner = ctx;
+    unsigned char *out;
+    glui32 n;
+
+    if (len == 0 || !banner->valid || !banner->win)
+        return;
+    /* back to the game's character set, as os_banner_disp takes it */
+    out = malloc(len * 4 + 1);
+    if (!out)
+        return;
+    n = os_prepare_chars((glui32 *)buf, (glui32)len, out, (glui32)len * 4);
+    banner_disp(banner, (char *)out, n);
+    free(out);
+}
+
+static void html_set_attr(void *ctx, int attr)
+{
+    banner_set_attr(ctx, attr);
+}
+
+static void html_set_color(void *ctx, os_color_t fg, os_color_t bg)
+{
+    banner_set_color(ctx, fg, bg);
+}
+
+static void html_set_screen_color(void *ctx, os_color_t color)
+{
+    os_banner_set_screen_color(ctx, color);
+}
+
+static int html_width(void *ctx)
+{
+    return os_banner_get_charwidth(ctx);
+}
+
+static const oshtml_sink html_sink =
+{
+    html_put, html_set_attr, html_set_color, html_set_screen_color,
+    html_width
+};
+
+void os_banner_flush(void *banner_handle)
+{
+    osbanid_t banner = banner_handle;
+    if (banner && banner->valid && banner->html)
+        oshtml_flush_parser(banner->html);
+}
+
+void os_banner_start_html(void *banner_handle)
+{
+    osbanid_t banner = banner_handle;
+    if (!banner || !banner->valid || banner->html)
+        return;
+    banner->html = oshtml_new(&html_sink, banner);
+}
+
+void os_banner_end_html(void *banner_handle)
+{
+    osbanid_t banner = banner_handle;
+    if (!banner || !banner->valid || !banner->html)
+        return;
+    oshtml_flush_parser(banner->html);
+    oshtml_delete(banner->html);
+    banner->html = 0;
+}

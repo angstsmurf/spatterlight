@@ -4,30 +4,41 @@
  * mode with \H+, its tags and entities reach os_print unmodified, along with
  * markup of the formatter's own: <BR HEIGHT=0> after each newline, <BR> for
  * a blank line, <TAB MULTIPLE=4> for \t, &nbsp; for "\ " and <B>/</B> for
- * \( and \).  This file parses that markup.
+ * \( and \).  The TADS 3 formatter is built from vmconhtm.cpp, so it is in
+ * HTML mode from the start, in the main window and in every text-buffer
+ * banner, and writes markup of the same kind: <BR HEIGHT=0>, <BR>,
+ * <TAB MULTIPLE=4> and &#nnn; for its special spaces.  This file parses
+ * that markup.
  *
- * For now it does what the formatter's own text-mode filter
- * (tads2/output.c) did when the formatter was built without USE_HTML, so
+ * For now it does what the formatter's own text-mode filter (tads2/output.c,
+ * tads3/vmconhmp.cpp) did when the formatter was built without HTML, so
  * games look as they did, with one difference: entities come out as
  * Unicode instead of ASCII approximations.  In particular:
  *
- *   - whitespace is collapsed, dropped at the start of a line and before a
- *     line break, and doubled after . ? ! and : (looking back past quotes
- *     and closing brackets), as the formatter does it for plain text;
+ *   - whitespace is collapsed, and dropped at the start of a line and before
+ *     a line break, as the formatter does it for plain text; TADS 2 doubles
+ *     it after . ? ! and : (looking back past quotes and closing brackets);
  *   - <br>, <p>, <tab>, <hr>, <pre> and <q> do what the text-mode filter
  *     does, and <b>, <i>, <em> and <strong> set OS_ATTR_BOLD,
  *     OS_ATTR_ITALIC, OS_ATTR_EM and OS_ATTR_STRONG;
+ *   - in TADS 3, <font color bgcolor> and <body text> set the text colours
+ *     and <body bgcolor> the window's, the end tags of <b> <i> <em> <strong>
+ *     and <font> restore what was in effect at the start tag, and <tab>
+ *     takes ID, TO, ALIGN, DP, INDENT and MULTIPLE;
  *   - the ALT text of <img> and <sound> is printed;
  *   - <title> sets the window title, and nothing inside <title> or
- *     <aboutbox> is shown;
+ *     <aboutbox> (or in TADS 3, <banner>) is shown;
  *   - every other tag is dropped and its contents shown.
  *
- * The main window and the status line share one parser, as they shared the
- * formatter's text-mode filter: the status line's closing newline puts the
- * main window's text at the start of a line too, so the formatter's newline
- * after a command doesn't make a blank line, and a <b> left open in one is
- * closed in the other.  Text the formatter writes while the status line is
- * hidden (os_status(2)) goes through the parser too, and is thrown away.
+ * In TADS 2, the main window and the status line share one parser, as they
+ * shared the formatter's text-mode filter: the status line's closing
+ * newline puts the main window's text at the start of a line too, so the
+ * formatter's newline after a command doesn't make a blank line, and a <b>
+ * left open in one is closed in the other.  Text the formatter writes while
+ * the status line is hidden (os_status(2)) goes through the parser too, and
+ * is thrown away.  In TADS 3, each text-buffer banner has a parser of its
+ * own (osglkban.c), as it has a formatter of its own.
+ *
  * Text reaches the parser in Unicode: each os_print chunk is decoded with
  * os_parse_chars first, exactly as os_put_buffer decoded it, so the
  * character set is guessed from the same text as before.
@@ -49,11 +60,29 @@ extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
 #define PENDING_MAX 256
 #define OUT_MAX     256
 #define TITLE_MAX   256
+#define HOLD_MAX    1024        /* text after a right, center or decimal tab */
+#define COLORS_MAX  25          /* as CVFMT_CLRSTK_MAX */
+#define TABS_MAX    64          /* <TAB ID> stops */
+#define TABID_MAX   32
 
 enum token { TOK_TEXT, TOK_TAG, TOK_ENTITY };
 
-typedef struct parser
+/* <TAB ALIGN> */
+enum tab_align { TAB_NONE, TAB_LEFT, TAB_RIGHT, TAB_CENTER, TAB_DECIMAL };
+
+/* text attributes and colours, as the TADS 3 formatter's vmcon_color_t */
+typedef struct color
 {
+    int attr;
+    os_color_t fg, bg;
+} color;
+
+struct oshtml_parser
+{
+    /* where the text goes */
+    const oshtml_sink *sink;
+    void *ctx;
+
     /* tokenizer */
     enum token state;
     glui32 tag[TAG_MAX];
@@ -66,10 +95,20 @@ typedef struct parser
     int col;                    /* characters printed on this line */
     glui32 lastchar;            /* the last one, quotes and ) ] } aside */
     glui32 pending[PENDING_MAX]; /* spaces not yet printed... */
-    int pending_attr[PENDING_MAX]; /* ...and their attributes */
+    color pending_color[PENDING_MAX]; /* ...their attributes... */
+    char pending_quoted[PENDING_MAX]; /* ...and which are quoted */
     size_t npending;
 
+    /*
+     *   TADS 3: whether the formatter has text in its buffer, which it
+     *   keeps until a flush (and it keeps the trailing spaces even then),
+     *   and whether its last flush ended a line
+     */
+    int buffered;
+    int just_nl;
+
     /* tag state */
+    int html;                   /* \H+ is on */
     int ignore;                 /* inside <title> or <aboutbox> */
     int title;                  /* inside <title> */
     int pre;                    /* inside <pre> */
@@ -77,40 +116,62 @@ typedef struct parser
     glui32 titlebuf[TITLE_MAX];
     size_t titlelen;
 
+    /* TADS 2: the formatter's attributes, and those from <b> <i> etc. */
+    int os_attr;
+    int tag_attr;
+
+    /* TADS 3: the text colours in effect, and the start tags' */
+    color cur;
+    color stack[COLORS_MAX];
+    int nstack;
+
+    /* the attributes and colours the sink has */
+    color sent;
+
+    /* TADS 3: a right, center or decimal <TAB>, and the text after it */
+    enum tab_align tab_align;
+    int tab_start;              /* the column of the <TAB> */
+    int tab_to;                 /* the column of its TO, or -1 */
+    size_t tab_lead;            /* the pending spaces before it */
+    glui32 tab_dp;
+    color tab_color;
+    glui32 hold[HOLD_MAX];
+    color hold_color[HOLD_MAX];
+    size_t nhold;
+
+    /* TADS 3: <TAB ID> stops */
+    struct { glui32 id[TABID_MAX]; size_t len; int col; } tabs[TABS_MAX];
+    int ntabs;
+
     /*
-     *   output: Glk calls for the main window, or 'dst' while
-     *   oshtml_print_status is running
+     *   output: the sink, or 'dst' while oshtml_print_status is running
      */
     glui32 out[OUT_MAX];
     size_t outlen;
     glui32 *dst;
     size_t dstlen, dstmax;
-} parser;
+};
 
-static parser fmt;
+typedef struct oshtml_parser parser;
 
-/* \H+ is on */
-static int html_mode = 0;
+static int tads3 = 0;
 
-/* the formatter's attributes, from os_set_text_attr */
-static int os_attr = 0;
-
-/* OS_ATTR_xxx from <b> <i> <em> <strong> */
-static int tag_attr = 0;
-
-/* the attributes of the main window's current Glk style */
-static int glk_attr = 0;
-
-static void put_char(parser *p, glui32 c);
 static int is_space(glui32 c);
 
 /* ------------------------------------------------------------------------ */
 /*
- *   Output
+ *   The main window
  */
 
-static void apply_style(int attr)
+static void main_put(void *ctx, const glui32 *buf, size_t len)
 {
+    (void)ctx;
+    glk_put_buffer_uni((glui32 *)buf, (glui32)len);
+}
+
+static void main_set_attr(void *ctx, int attr)
+{
+    (void)ctx;
     if (attr & OS_ATTR_BOLD && attr & OS_ATTR_ITALIC)
         glk_set_style(style_Alert);
     else if (attr & OS_ATTR_BOLD)
@@ -119,18 +180,112 @@ static void apply_style(int attr)
         glk_set_style(style_Emphasized);
     else
         glk_set_style(style_Normal);
-    glk_attr = attr;
+}
+
+static void main_set_color(void *ctx, os_color_t fg, os_color_t bg)
+{
+    (void)ctx;
+    osglk_set_text_color(fg, bg);
+}
+
+static void main_set_screen_color(void *ctx, os_color_t color)
+{
+    (void)ctx;
+    os_set_screen_color(color);
+}
+
+static int main_width(void *ctx)
+{
+    (void)ctx;
+    return G_os_linewidth;
+}
+
+static const oshtml_sink main_sink =
+{
+    main_put, main_set_attr, main_set_color, main_set_screen_color,
+    main_width
+};
+
+static parser fmt = { &main_sink };
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Output
+ */
+
+static int same_color(const color *a, const color *b)
+{
+    return a->attr == b->attr && a->fg == b->fg && a->bg == b->bg;
 }
 
 static void flush_out(parser *p)
 {
     if (p->outlen)
-        glk_put_buffer_uni(p->out, (glui32)p->outlen);
+        p->sink->put(p->ctx, p->out, p->outlen);
     p->outlen = 0;
 }
 
+/* give the sink these attributes and colours, where they're new to it */
+static void send_color(parser *p, const color *c)
+{
+    if (c->attr != p->sent.attr)
+    {
+        flush_out(p);
+        p->sink->set_attr(p->ctx, c->attr);
+    }
+    if (c->fg != p->sent.fg || c->bg != p->sent.bg)
+    {
+        flush_out(p);
+        p->sink->set_color(p->ctx, c->fg, c->bg);
+    }
+    p->sent = *c;
+}
+
+static color cur_color(parser *p)
+{
+    color c;
+
+    if (tads3)
+        return p->cur;
+    c.attr = p->os_attr | p->tag_attr;
+    c.fg = c.bg = 0;
+    return c;
+}
+
+static void expand_tab(parser *p, int allow_anon);
+
+/*
+ *   The TADS 3 formatter brings the window up to date with the current
+ *   attributes and colours whenever it flushes, even with no text to show
+ *   in them
+ */
+static void sync_color(parser *p)
+{
+    if (tads3 && !p->dst && p->tab_align == TAB_NONE)
+        send_color(p, &p->cur);
+}
+
 /* print one character with the given attributes */
-static void emit(parser *p, glui32 c, int attr)
+static void emit_now(parser *p, glui32 c, color col);
+
+static void emit(parser *p, glui32 c, color col)
+{
+    if (p->tab_align != TAB_NONE && !p->dst)
+    {
+        if (p->nhold == HOLD_MAX)
+            expand_tab(p, 0);
+        else
+        {
+            p->hold[p->nhold] = c;
+            p->hold_color[p->nhold++] = col;
+            return;
+        }
+    }
+    emit_now(p, c, col);
+}
+
+/* the same, not held back after a <TAB> */
+static void emit_now(parser *p, glui32 c, color col)
 {
     if (p->dst)
     {
@@ -138,20 +293,10 @@ static void emit(parser *p, glui32 c, int attr)
             p->dst[p->dstlen++] = c;
         return;
     }
-    if (attr != glk_attr)
-    {
-        flush_out(p);
-        apply_style(attr);
-    }
+    send_color(p, &col);
     if (p->outlen == OUT_MAX)
         flush_out(p);
     p->out[p->outlen++] = c;
-}
-
-static int cur_attr(parser *p)
-{
-    (void)p;
-    return os_attr | tag_attr;
 }
 
 static int is_quote(glui32 c)
@@ -165,58 +310,176 @@ static void print_pending(parser *p)
 {
     size_t i;
 
+    /* the spaces before a <TAB> go before its own */
     for (i = 0 ; i < p->npending ; ++i)
-        emit(p, p->pending[i], p->pending_attr[i]);
+        if (i < p->tab_lead)
+            emit_now(p, p->pending[i], p->pending_color[i]);
+        else
+            emit(p, p->pending[i], p->pending_color[i]);
+    p->tab_lead = 0;
     if (p->npending)
     {
         p->col += (int)p->npending;
         p->lastchar = ' ';
+        p->just_nl = 0;
     }
     p->npending = 0;
 }
 
-static void add_pending(parser *p, glui32 c)
+static void add_pending_quoted(parser *p, glui32 c, int quoted)
 {
     if (p->npending == PENDING_MAX)
         print_pending(p);
+    p->buffered = 1;
     p->pending[p->npending] = c;
-    p->pending_attr[p->npending++] = cur_attr(p);
+    p->pending_quoted[p->npending] = (char)quoted;
+    p->pending_color[p->npending++] = cur_color(p);
+}
+
+static void add_pending(parser *p, glui32 c)
+{
+    add_pending_quoted(p, c, 0);
 }
 
 /* print a visible character */
 static void put_visible(parser *p, glui32 c)
 {
     print_pending(p);
-    emit(p, c, cur_attr(p));
+
+    /*
+     *   TADS 3: a character that would reach the end of the formatter's
+     *   buffer flushes it, and the column starts over (which matters only
+     *   to the tabs on lines thousands of characters long)
+     */
+    if (tads3 && p->col + 1 >= OS_MAXWIDTH)
+        p->col = 0;
+    emit(p, c, cur_color(p));
     ++p->col;
+    p->buffered = 1;
+    p->just_nl = 0;
     if (!is_quote(c))
         p->lastchar = c;
+}
+
+/*
+ *   TADS 3: the text after a right, center or decimal <TAB> is held back
+ *   until the next <TAB> or the end of the line.  Now put enough spaces in
+ *   front of it, in the colours in effect at the <TAB>, to align it, and
+ *   print it.  A <TAB> without TO aligns at the end of the line, which the
+ *   formatter doesn't know before the line ends (allow_anon).
+ */
+static void expand_tab(parser *p, int allow_anon)
+{
+    int linecol = p->col + (int)p->npending;
+    int spaces = 0, txtlen, start, i;
+    size_t n, k, lead;
+
+    switch (p->tab_align)
+    {
+    case TAB_NONE:
+    case TAB_LEFT:
+        return;
+
+    case TAB_RIGHT:
+        if (p->tab_to >= 0)
+            spaces = p->tab_to - linecol;
+        else if (allow_anon)
+            spaces = p->sink->width(p->ctx) - 1 - linecol;
+        break;
+
+    case TAB_CENTER:
+        txtlen = linecol - p->tab_start;
+        if (p->tab_to >= 0)
+        {
+            start = p->tab_to - txtlen / 2;
+            spaces = start - p->tab_start;
+        }
+        else if (allow_anon)
+            spaces = ((p->sink->width(p->ctx) - p->tab_start) - txtlen) / 2;
+        break;
+
+    case TAB_DECIMAL:
+        i = p->tab_start;
+        for (k = 0 ; k < p->nhold && p->hold[k] != p->tab_dp ; ++k)
+            ++i;
+        if (k == p->nhold)
+            i += (int)p->npending;
+        spaces = p->tab_to - i;
+        break;
+    }
+
+    p->tab_align = TAB_NONE;
+    lead = p->tab_lead < p->npending ? p->tab_lead : p->npending;
+    p->tab_lead = 0;
+    n = p->nhold;
+    p->nhold = 0;
+    if (n == 0 && spaces > 0)
+    {
+        /*
+         *   nothing after the tab but spaces: they all go at the end of the
+         *   line, and the formatter would trim them
+         */
+        glui32 c[PENDING_MAX];
+        color col[PENDING_MAX];
+        char quoted[PENDING_MAX];
+        size_t np = p->npending - lead;
+        color cur = p->cur;
+
+        memcpy(c, p->pending + lead, np * sizeof(glui32));
+        memcpy(col, p->pending_color + lead, np * sizeof(color));
+        memcpy(quoted, p->pending_quoted + lead, np);
+        p->npending = lead;
+        p->cur = p->tab_color;
+        for (i = 0 ; i < spaces ; ++i)
+            add_pending_quoted(p, ' ', 1);
+        p->cur = cur;
+        for (k = 0 ; k < np ; ++k)
+        {
+            add_pending_quoted(p, c[k], quoted[k]);
+            p->pending_color[p->npending - 1] = col[k];
+        }
+        return;
+    }
+    for (i = 0 ; i < spaces ; ++i)
+        emit(p, ' ', p->tab_color);
+    if (spaces > 0)
+        p->col += spaces;
+    for (k = 0 ; k < n ; ++k)
+        emit(p, p->hold[k], p->hold_color[k]);
 }
 
 /* end the line, in the style of the text before it */
 static void put_newline(parser *p)
 {
     p->npending = 0;
-    emit(p, '\n', glk_attr);
+    emit(p, '\n', p->sent);
     p->col = 0;
     p->lastchar = 0;
+    sync_color(p);
 }
 
 /*
  *   The formatter's flush with a newline: drop the trailing spaces, and end
- *   the line unless nothing is on it (in <pre>, end it anyway).  Then the
- *   formatter brings the style up to date.
+ *   the line unless nothing is on it (in <pre>, end it anyway).  The TADS 3
+ *   formatter counts the spaces of a tab as being on the line, unless its
+ *   last flush ended a line.  Then the formatter brings the style up to
+ *   date.
  */
 static void line_break(parser *p)
 {
+    color c;
+    int spaces;
+
+    expand_tab(p, 1);
+    spaces = tads3 && p->npending != 0 && !p->just_nl;
     p->npending = 0;
-    if (p->col != 0 || p->pre)
+    if (p->col != 0 || p->pre || spaces)
         put_newline(p);
-    if (!p->dst && cur_attr(p) != glk_attr)
-    {
-        flush_out(p);
-        apply_style(cur_attr(p));
-    }
+    p->buffered = 0;
+    p->just_nl = 1;
+    c = cur_color(p);
+    if (!p->dst && !same_color(&c, &p->sent))
+        send_color(p, &c);
 }
 
 /* the formatter's blank line: a line break, then a newline */
@@ -226,16 +489,30 @@ static void blank_line(parser *p)
     put_newline(p);
 }
 
-/* a tab: spaces to the next multiple of 4, as the formatter's \t */
-static void put_tab(parser *p)
+/*
+ *   a tab: spaces to the next multiple of 'multiple', or 'indent' spaces,
+ *   as the formatter's \t and <TAB INDENT>
+ */
+static void put_tab(parser *p, int indent, int multiple)
 {
     int linecol = p->col + (int)p->npending;
 
+    if (indent > 0)
+    {
+        for ( ; indent > 0 && linecol < OS_MAXWIDTH ; --indent, ++linecol)
+            add_pending(p, ' ');
+        return;
+    }
+    if (multiple <= 0)
+        return;
     do
     {
+        if (tads3 && linecol >= OS_MAXWIDTH)
+            break;
         add_pending(p, ' ');
         ++linecol;
-    } while (((linecol + 1) & 3) != 0 && linecol < OS_MAXWIDTH);
+    } while ((linecol + 1) % multiple != 0
+             && (tads3 || linecol < OS_MAXWIDTH));
 }
 
 /* an ordinary space in HTML mode */
@@ -245,7 +522,7 @@ static void put_space(parser *p)
 
     if (p->pre)
     {
-        add_pending(p, ' ');
+        add_pending_quoted(p, ' ', 1);
         return;
     }
 
@@ -255,11 +532,25 @@ static void put_space(parser *p)
     if (p->npending != 0)
         return;
 
-    /* ...except after the end of a sentence */
+
+    /* ...except after the end of a sentence, in TADS 2 */
     add_pending(p, ' ');
     prev = p->lastchar;
-    if (prev == '.' || prev == '?' || prev == '!' || prev == ':')
+    if (!tads3 && (prev == '.' || prev == '?' || prev == '!' || prev == ':'))
         add_pending(p, ' ');
+}
+
+/*
+ *   TADS 3: a space that doesn't combine with others, 'wid' columns wide.
+ *   It takes the place of an ordinary space before it, and isn't dropped at
+ *   the start of a line, but is at the end.
+ */
+static void put_quoted_space(parser *p, int wid)
+{
+    if (p->npending != 0 && !p->pending_quoted[p->npending - 1])
+        --p->npending;
+    for ( ; wid > 0 ; --wid)
+        add_pending_quoted(p, ' ', 1);
 }
 
 /* text, in HTML mode, with the markup taken out */
@@ -298,11 +589,50 @@ static void put_html_text(parser *p, glui32 c)
 
     case 0xA0:
         /* a non-breaking space, the formatter's quoted space */
-        add_pending(p, ' ');
+        if (tads3)
+            put_visible(p, ' ');
+        else
+            add_pending(p, ' ');
         break;
 
     default:
-        put_visible(p, c);
+        if (!tads3)
+        {
+            put_visible(p, c);
+            break;
+        }
+
+        /* the TADS 3 formatter's special spaces, as it renders them */
+        switch (c)
+        {
+        case 0x00AD:            /* soft hyphen */
+        case 0xFEFF:            /* zero-width non-breaking space */
+        case 0x200B:            /* zero-width space */
+        case 0x200A:            /* hair space */
+        case 0x2008:            /* punctuation space */
+            break;
+
+        case 0x0015:            /* the formatter's quoted space */
+        case 0x2005:            /* four-per-em space */
+        case 0x2006:            /* six-per-em space */
+        case 0x2007:            /* figure space */
+        case 0x2009:            /* thin space */
+            put_quoted_space(p, 1);
+            break;
+
+        case 0x2002:            /* en space */
+        case 0x2004:            /* three-per-em space */
+            put_quoted_space(p, 2);
+            break;
+
+        case 0x2003:            /* em space */
+            put_quoted_space(p, 3);
+            break;
+
+        default:
+            put_visible(p, c);
+            break;
+        }
         break;
     }
 }
@@ -624,6 +954,117 @@ static void set_title(parser *p)
 }
 
 /* the tag in p->tag, between '<' and '>' */
+
+/* TADS 3: the colour in a COLOR, BGCOLOR or TEXT attribute */
+static const struct { const char *name; os_color_t color; } colors[] =
+{
+    { "black",   os_rgb_color(0x00, 0x00, 0x00) },
+    { "white",   os_rgb_color(0xFF, 0xFF, 0xFF) },
+    { "red",     os_rgb_color(0xFF, 0x00, 0x00) },
+    { "blue",    os_rgb_color(0x00, 0x00, 0xFF) },
+    { "green",   os_rgb_color(0x00, 0x80, 0x00) },
+    { "yellow",  os_rgb_color(0xFF, 0xFF, 0x00) },
+    { "cyan",    os_rgb_color(0x00, 0xFF, 0xFF) },
+    { "aqua",    os_rgb_color(0x00, 0xFF, 0xFF) },
+    { "magenta", os_rgb_color(0xFF, 0x00, 0xFF) },
+    { "silver",  os_rgb_color(0xC0, 0xC0, 0xC0) },
+    { "gray",    os_rgb_color(0x80, 0x80, 0x80) },
+    { "maroon",  os_rgb_color(0x80, 0x00, 0x00) },
+    { "purple",  os_rgb_color(0x80, 0x00, 0x80) },
+    { "fuchsia", os_rgb_color(0xFF, 0x00, 0xFF) },
+    { "lime",    os_rgb_color(0x00, 0xFF, 0x00) },
+    { "olive",   os_rgb_color(0x80, 0x80, 0x00) },
+    { "navy",    os_rgb_color(0x00, 0x00, 0x80) },
+    { "teal",    os_rgb_color(0x00, 0x80, 0x80) },
+    { "text",       OS_COLOR_P_TEXT },
+    { "bgcolor",    OS_COLOR_P_TEXTBG },
+    { "statustext", OS_COLOR_P_STATUSLINE },
+    { "statusbg",   OS_COLOR_P_STATUSBG },
+    { "input",      OS_COLOR_P_INPUT },
+};
+
+static int parse_color(const glui32 *v, size_t len, os_color_t *out)
+{
+    size_t i;
+
+    if (len != 0 && v[0] == '#')
+    {
+        unsigned long val = 0;
+        for (i = 1 ; i < len ; ++i)
+        {
+            glui32 c = v[i];
+            if (c >= '0' && c <= '9')
+                val = val * 16 + (c - '0');
+            else if (c >= 'a' && c <= 'f')
+                val = val * 16 + (c - 'a' + 10);
+            else if (c >= 'A' && c <= 'F')
+                val = val * 16 + (c - 'A' + 10);
+            else
+                break;
+        }
+        *out = (os_color_t)(val & 0x00FFFFFF);
+        return 1;
+    }
+    for (i = 0 ; i < sizeof(colors) / sizeof(colors[0]) ; ++i)
+        if (tag_is(v, len, colors[i].name))
+        {
+            *out = colors[i].color;
+            return 1;
+        }
+    return 0;
+}
+
+static void push_color(parser *p)
+{
+    /* a lost end tag: take everything down a level */
+    if (p->nstack == COLORS_MAX)
+    {
+        memmove(p->stack, p->stack + 1, (COLORS_MAX - 1) * sizeof(color));
+        --p->nstack;
+    }
+    p->stack[p->nstack++] = p->cur;
+}
+
+static void pop_color(parser *p)
+{
+    if (p->nstack != 0)
+        p->cur = p->stack[--p->nstack];
+}
+
+/* TADS 3: the stop of a <TAB ID>, made if 'create'; the ids ignore case */
+static int find_tab(parser *p, const glui32 *id, size_t len, int create)
+{
+    glui32 folded[TABID_MAX];
+    size_t k;
+    int i;
+
+    if (len > TABID_MAX)
+        len = TABID_MAX;
+    for (k = 0 ; k < len ; ++k)
+        folded[k] = id[k] >= 'A' && id[k] <= 'Z' ? id[k] + ('a' - 'A') : id[k];
+    for (i = 0 ; i < p->ntabs ; ++i)
+        if (p->tabs[i].len == len
+            && memcmp(p->tabs[i].id, folded, len * sizeof(glui32)) == 0)
+            return i;
+    if (!create || p->ntabs == TABS_MAX)
+        return -1;
+    memcpy(p->tabs[i].id, folded, len * sizeof(glui32));
+    p->tabs[i].len = len;
+    p->tabs[i].col = 0;
+    return p->ntabs++;
+}
+
+static int to_int(const glui32 *v, size_t len)
+{
+    int n = 0;
+    size_t k;
+
+    for (k = 0 ; k < len && v[k] >= '0' && v[k] <= '9' ; ++k)
+        n = n * 10 + (int)(v[k] - '0');
+    return n;
+}
+
+/* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
     const glui32 *t = p->tag;
@@ -631,6 +1072,11 @@ static void do_tag(parser *p)
     int end = 0;
     int br = 0;                 /* 1: line break, 2: blank line */
     int alt_ok = 0;
+    int color_ok = 0, body = 0; /* TADS 3: <font>, <body> */
+    int tab = 0;                /* TADS 3: <tab> */
+    int tab_to = -1;
+    enum tab_align tab_align = TAB_NONE;
+    glui32 tab_dp = 0;
 
     /* the name: "<b>", "</b>", "< / b >" */
     while (i < len && is_space(t[i]))
@@ -650,7 +1096,8 @@ static void do_tag(parser *p)
     if (TAG("br"))
     {
         if (!p->ignore)
-            br = (p->col != 0 || p->npending != 0) ? 1 : 2;
+            br = (tads3 ? p->buffered
+                  : p->col != 0 || p->npending != 0) ? 1 : 2;
     }
     else if (TAG("b") || TAG("i") || TAG("em") || TAG("strong"))
     {
@@ -659,10 +1106,17 @@ static void do_tag(parser *p)
             : TAG("em") ? OS_ATTR_EM : OS_ATTR_STRONG;
         if (p->ignore)
             ;
+        else if (tads3 && !end)
+        {
+            push_color(p);
+            p->cur.attr |= attr;
+        }
+        else if (tads3)
+            pop_color(p);
         else if (!end)
-            tag_attr |= attr;
+            p->tag_attr |= attr;
         else
-            tag_attr &= ~attr;
+            p->tag_attr &= ~attr;
     }
     else if (TAG("p"))
     {
@@ -671,19 +1125,40 @@ static void do_tag(parser *p)
     }
     else if (TAG("tab"))
     {
-        if (!p->ignore)
-            put_tab(p);
+        if (p->ignore)
+            ;
+        else if (tads3)
+        {
+            expand_tab(p, 1);
+            tab = 1;
+        }
+        else
+            put_tab(p, 0, 4);
     }
     else if (TAG("img") || TAG("sound"))
         alt_ok = 1;
+    else if (tads3 && TAG("font"))
+    {
+        if (p->ignore)
+            ;
+        else if (!end)
+        {
+            color_ok = 1;
+            push_color(p);
+        }
+        else
+            pop_color(p);
+    }
+    else if (tads3 && TAG("body"))
+        body = !p->ignore && !end;
     else if (TAG("hr"))
     {
         if (!p->ignore)
         {
             int n;
             line_break(p);
-            for (n = G_os_linewidth - 1 ; n > 0 ; --n)
-                put_visible(p, '_');
+            for (n = p->sink->width(p->ctx) - 1 ; n > 0 ; --n)
+                put_visible(p, tads3 ? '-' : '_');
             blank_line(p);
         }
     }
@@ -719,7 +1194,7 @@ static void do_tag(parser *p)
             ++p->title;
         }
     }
-    else if (TAG("aboutbox"))
+    else if (TAG("aboutbox") || (tads3 && TAG("banner")))
     {
         if (end)
         {
@@ -739,7 +1214,10 @@ static void do_tag(parser *p)
     }
 #undef TAG
 
-    /* attributes: HEIGHT of <br>, ALT of <img> and <sound> */
+    /*
+     *   attributes: HEIGHT of <br>, ALT of <img> and <sound>, and in TADS 3,
+     *   those of <font>, <body> and <tab>
+     */
     while (i < len)
     {
         size_t an, anlen, v = 0, vlen = 0;
@@ -772,6 +1250,13 @@ static void do_tag(parser *p)
                 if (i < len)
                     ++i;
             }
+            else if (tads3)
+            {
+                /* up to a space */
+                for (v = i ; i < len && !is_space(t[i]) ; ++i)
+                    ;
+                vlen = i - v;
+            }
             else
             {
                 /* the first character, then letters and digits */
@@ -784,30 +1269,108 @@ static void do_tag(parser *p)
             }
         }
 
-        if (br && tag_is(t + an, anlen, "height"))
+#define ATTR(s) tag_is(t + an, anlen, s)
+        if (br && ATTR("height"))
         {
-            int ht = 0;
-            size_t k;
-            for (k = v ; k < v + vlen && t[k] >= '0' && t[k] <= '9' ; ++k)
-                ht = ht * 10 + (int)(t[k] - '0');
+            int ht = to_int(t + v, vlen);
             if (ht == 0)
                 br = 1;
             else if (ht > 1)
                 for ( ; ht > 0 ; --ht)
                     blank_line(p);
         }
-        else if (alt_ok && !p->ignore && tag_is(t + an, anlen, "alt"))
+        else if (alt_ok && !p->ignore && ATTR("alt"))
         {
             size_t k;
             for (k = v ; k < v + vlen ; ++k)
                 put_html_text(p, t[k]);
         }
+        else if (color_ok && ATTR("color"))
+            parse_color(t + v, vlen, &p->cur.fg);
+        else if (color_ok && ATTR("bgcolor"))
+            parse_color(t + v, vlen, &p->cur.bg);
+        else if (body && ATTR("text"))
+            parse_color(t + v, vlen, &p->cur.fg);
+        else if (body && ATTR("bgcolor"))
+        {
+            os_color_t bg;
+            if (parse_color(t + v, vlen, &bg))
+            {
+                flush_out(p);
+                p->sink->set_screen_color(p->ctx, bg);
+            }
+        }
+        else if (tab && ATTR("id"))
+        {
+            int k = find_tab(p, t + v, vlen, 1);
+            if (k >= 0)
+                p->tabs[k].col = p->col + (int)p->npending;
+            tab = 0;
+        }
+        else if (tab && ATTR("to"))
+        {
+            int k = find_tab(p, t + v, vlen, 0);
+            if (k >= 0)
+                tab_to = p->tabs[k].col;
+            else
+                tab = 0;
+        }
+        else if (tab && ATTR("indent"))
+        {
+            put_tab(p, to_int(t + v, vlen), 0);
+            tab = 0;
+        }
+        else if (tab && ATTR("multiple"))
+        {
+            put_tab(p, 0, to_int(t + v, vlen));
+            tab = 0;
+        }
+        else if (tab && ATTR("align"))
+        {
+            if (tag_is(t + v, vlen, "left"))
+                tab_align = TAB_LEFT;
+            else if (tag_is(t + v, vlen, "right"))
+                tab_align = TAB_RIGHT;
+            else if (tag_is(t + v, vlen, "center"))
+                tab_align = TAB_CENTER;
+            else if (tag_is(t + v, vlen, "decimal"))
+                tab_align = TAB_DECIMAL;
+            else
+                tab = 0;
+        }
+        else if (tab && ATTR("dp"))
+            tab_dp = vlen ? t[v] : 0;
+#undef ATTR
     }
 
     if (br == 1)
         line_break(p);
     else if (br == 2)
         blank_line(p);
+
+    /* TADS 3: what's left of the <TAB> */
+    if (!tab)
+        ;
+    else if (tab_to < 0 && tab_align == TAB_NONE)
+        put_tab(p, 0, 4);
+    else if (tab_to < 0 && tab_align != TAB_RIGHT && tab_align != TAB_CENTER)
+        ;
+    else if (tab_align == TAB_LEFT || tab_align == TAB_NONE)
+        put_tab(p, tab_to - (p->col + (int)p->npending), 0);
+    else
+    {
+        /*
+         *   the spaces go in when we know how much text follows, after
+         *   those before the <TAB>, which the formatter would trim if
+         *   nothing follows
+         */
+        p->tab_align = tab_align;
+        p->tab_lead = p->npending;
+        p->tab_start = p->col + (int)p->npending;
+        p->tab_to = tab_to;
+        p->tab_dp = (tab_align == TAB_DECIMAL && tab_dp == 0) ? '.' : tab_dp;
+        p->tab_color = p->cur;
+    }
 }
 
 static void tag_char(parser *p, glui32 c)
@@ -850,7 +1413,7 @@ static void feed(parser *p, glui32 c)
         break;
     }
 
-    if (!html_mode)
+    if (!p->html)
         put_plain_text(p, c);
     else if (c == '<')
     {
@@ -895,23 +1458,107 @@ static void feed_bytes(parser *p, const char *str, size_t len)
  *   Interface
  */
 
+static void init_colors(parser *p)
+{
+    p->cur.attr = 0;
+    p->cur.fg = OS_COLOR_P_TEXT;
+    p->cur.bg = OS_COLOR_P_TRANSPARENT;
+    p->sent = p->cur;
+}
+
+void oshtml_set_tads3(int on)
+{
+    tads3 = on;
+    if (tads3)
+        init_colors(&fmt);
+}
+
+oshtml_parser *oshtml_new(const oshtml_sink *sink, void *ctx)
+{
+    parser *p = calloc(1, sizeof(parser));
+
+    if (!p)
+        return 0;
+    p->sink = sink;
+    p->ctx = ctx;
+    p->html = 1;
+    init_colors(p);
+    return p;
+}
+
+void oshtml_delete(oshtml_parser *p)
+{
+    free(p);
+}
+
+void oshtml_write(oshtml_parser *p, const char *str, size_t len)
+{
+    feed_bytes(p, str, len);
+    flush_out(p);
+}
+
+/* the formatter flushed a line without ending it: show what it holds */
+void oshtml_flush_parser(oshtml_parser *p)
+{
+    expand_tab(p, 0);
+
+    /*
+     *   TADS 3 doesn't show the spaces at the end of the line until more
+     *   text follows them; the formatter trims them itself, but not its
+     *   special spaces, which reach us as &#nnn;
+     */
+    if (!tads3)
+        print_pending(p);
+    p->buffered = p->npending != 0;
+    sync_color(p);
+    flush_out(p);
+}
+
+/* the window was cleared */
+void oshtml_clear(oshtml_parser *p)
+{
+    p->tab_align = TAB_NONE;
+    p->nhold = 0;
+    p->npending = 0;
+    p->col = 0;
+    p->lastchar = 0;
+    p->buffered = 0;
+    p->just_nl = 0;
+}
+
+void oshtml_clear_main(void)
+{
+    /* the TADS 3 formatter empties its buffers; TADS 2's goes on */
+    if (tads3)
+        oshtml_clear(&fmt);
+}
+
+void oshtml_set_attr(oshtml_parser *p, int attr)
+{
+    p->cur.attr = attr;
+}
+
+void oshtml_set_color(oshtml_parser *p, os_color_t fg, os_color_t bg)
+{
+    p->cur.fg = fg;
+    p->cur.bg = bg;
+}
+
 void oshtml_start(void)
 {
-    html_mode = 1;
+    fmt.html = 1;
 }
 
 void oshtml_end(void)
 {
     /* the formatter flushed the line without ending it */
-    print_pending(&fmt);
-    flush_out(&fmt);
-    html_mode = 0;
+    oshtml_flush_parser(&fmt);
+    fmt.html = 0;
 }
 
 void oshtml_print_main(const char *str, size_t len)
 {
-    feed_bytes(&fmt, str, len);
-    flush_out(&fmt);
+    oshtml_write(&fmt, str, len);
 }
 
 size_t oshtml_print_status(const char *str, size_t len,
@@ -930,19 +1577,63 @@ size_t oshtml_print_status(const char *str, size_t len,
 void oshtml_put_plain(const char *str, size_t len)
 {
     oshtml_flush();
+
+    /*
+     *   TADS 3 would show the spaces it holds at the end of the line only
+     *   if more text followed on that line: after the MORE prompt, nothing
+     *   does
+     */
+    if (tads3)
+        fmt.npending = 0;
     os_put_buffer((unsigned char *)str, len);
 }
 
-/* the formatter flushed a line without ending it: show what it holds */
 void oshtml_flush(void)
 {
+    oshtml_flush_parser(&fmt);
+}
+
+void oshtml_input(void)
+{
+    /* the formatter shows the spaces at the end of the line before input */
     print_pending(&fmt);
+    fmt.buffered = 0;
     flush_out(&fmt);
+}
+
+void oshtml_input_done(void)
+{
+    /* the line input echoed a newline: TADS 3 starts over at column 0 */
+    if (tads3)
+    {
+        fmt.npending = 0;
+        fmt.buffered = 0;
+        fmt.col = 0;
+        fmt.lastchar = 0;
+        fmt.just_nl = 1;
+    }
 }
 
 void oshtml_set_os_attr(int attr)
 {
-    os_attr = attr;
+    if (tads3)
+    {
+        oshtml_set_attr(&fmt, attr);
+        return;
+    }
+    fmt.os_attr = attr;
     flush_out(&fmt);
-    apply_style(os_attr | tag_attr);
+    fmt.sink->set_attr(fmt.ctx, fmt.os_attr | fmt.tag_attr);
+    fmt.sent.attr = fmt.os_attr | fmt.tag_attr;
+}
+
+void oshtml_set_os_color(os_color_t fg, os_color_t bg)
+{
+    if (tads3)
+    {
+        oshtml_set_color(&fmt, fg, bg);
+        return;
+    }
+    flush_out(&fmt);
+    osglk_set_text_color(fg, bg);
 }

@@ -445,6 +445,7 @@ static void redraw_windows(void)
 /* clear the screen */
 void oscls(void)
 {
+    oshtml_clear_main();
     glk_window_clear(mainwin);
 }
 
@@ -480,6 +481,12 @@ void os_set_text_attr(int attr)
  *   implementation should use the best available approximation.
  */
 void os_set_text_color(os_color_t fg, os_color_t bg)
+{
+    oshtml_set_os_color(fg, bg);
+}
+
+/* os_set_text_color, once the HTML parser has caught up */
+void osglk_set_text_color(os_color_t fg, os_color_t bg)
 {
 //    fprintf(stderr, "os_set_text_color fg:%lu (%lx), bg:%lu (%lx)\n", fg, fg, bg, bg);
 
@@ -709,6 +716,7 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
 {
     event_t event;
 
+    oshtml_input();
     os_get_buffer(buf, buflen, 0);
 
     do
@@ -720,6 +728,7 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
     }
     while (event.type != evtype_LineInput);
 
+    oshtml_input_done();
     return os_fill_buffer(buf, event.val1);
 }
 
@@ -827,6 +836,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
         glk_set_echo_line_event(mainwin, 0);
     }
 
+    oshtml_input();
     os_get_buffer(buf, bufl, initlen);
 
     do
@@ -867,6 +877,8 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
         }
     }
 
+    if (!timeout)
+        oshtml_input_done();
     return timeout ? OS_EVT_TIMEOUT : res ? OS_EVT_LINE : OS_EVT_EOF;
 #else
     return OS_EVT_NOTIMEOUT;
@@ -991,6 +1003,7 @@ static int getglkchar(void)
 
     timechar = 0;
 
+    oshtml_input();
     glk_request_char_event(mainwin);
 
     do

@@ -5,7 +5,45 @@
 
 #include <stddef.h>
 
+#include "os.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "glk.h"
+
+/* Where a parser's text goes: the main window, or a banner */
+typedef struct oshtml_sink
+{
+    void (*put)(void *ctx, const glui32 *buf, size_t len);
+    void (*set_attr)(void *ctx, int attr);
+    void (*set_color)(void *ctx, os_color_t fg, os_color_t bg);
+    void (*set_screen_color)(void *ctx, os_color_t color);
+    int (*width)(void *ctx);
+} oshtml_sink;
+
+typedef struct oshtml_parser oshtml_parser;
+
+/* TADS 3 rules (t23run.cpp), before os_init */
+void oshtml_set_tads3(int on);
+
+/* A parser of a TADS 3 banner's own, in HTML mode */
+oshtml_parser *oshtml_new(const oshtml_sink *sink, void *ctx);
+void oshtml_delete(oshtml_parser *p);
+
+/* Write text, in the game's character set */
+void oshtml_write(oshtml_parser *p, const char *str, size_t len);
+
+/* The formatter flushed the line without ending it */
+void oshtml_flush_parser(oshtml_parser *p);
+
+/* The window was cleared */
+void oshtml_clear(oshtml_parser *p);
+
+/* TADS 3: the formatter's own attributes and colours */
+void oshtml_set_attr(oshtml_parser *p, int attr);
+void oshtml_set_color(oshtml_parser *p, os_color_t fg, os_color_t bg);
 
 /* The engine's \H+ and \H- (os_start_html, os_end_html) */
 void oshtml_start(void);
@@ -32,12 +70,31 @@ size_t oshtml_print_status(const char *str, size_t len,
 void oshtml_put_plain(const char *str, size_t len);
 
 /*
- *   os_flush in the main window: show the spaces held back at the end of
- *   the line
+ *   os_flush in the main window: in TADS 2, show the spaces held back at the
+ *   end of the line
  */
 void oshtml_flush(void);
 
+/* The main window was cleared */
+void oshtml_clear_main(void);
+
+/* Input is about to be read in the main window */
+void oshtml_input(void);
+
+/* a line of input was read, and a newline echoed */
+void oshtml_input_done(void);
+
 /* The formatter's text attributes (os_set_text_attr) */
 void oshtml_set_os_attr(int attr);
+
+/* The formatter's text colours (os_set_text_color) */
+void oshtml_set_os_color(os_color_t fg, os_color_t bg);
+
+/* os_set_text_color itself (osglk.c) */
+void osglk_set_text_color(os_color_t fg, os_color_t bg);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* OSHTML_H */
