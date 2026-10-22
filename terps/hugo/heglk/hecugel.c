@@ -1696,15 +1696,193 @@ static void heglk_adjust_future_boy_windows(void) {
     }
 }
 
+/* Where hugo_settextwindow() puts a window: the Hugo rectangle (in
+   characters, possibly adjusted), the Glk one (in pixels), and what the
+   placement found out on the way. */
+struct heglk_geometry {
+    int left, top, right, bottom;
+    int x0, y0, x1, y1;
+    int new_below_status;
+    int new_second_image_row;
+    int halfscreenwidth;
+    int peggedtoright;
+};
+
+/* A window along the top of the screen: the status line. */
+static void heglk_place_status(struct heglk_geometry *g)
+{
+    g->bottom = heglk_adjust_pre_v24_status_when_setting_window(g->bottom);
+    g->y1 = rows_to_height(g->bottom);
+    if (!below_status && mainwin)
+        below_status = mainwin;
+    if (below_status)
+    {
+        wins[below_status].y0 = g->y1;
+        if (wins[below_status].y1 < g->y1)
+            wins[below_status].y1 = g->y1;
+        if (below_status == mainwin)
+        {
+            wins[below_status].t = g->bottom + 1;
+        }
+        heglk_sizeifexists(below_status);
+    }
+    if (curwin)
+    {
+        if (curwin == mainwin)
+        {
+            curwin = 0;
+        }
+    }
+    if (statuswin)
+    {
+        curwin = statuswin;
+        if (wins[statuswin].win)
+            glk_window_clear(wins[statuswin].win);
+    }
+    g->right = screenwidth_in_chars + 2;
+}
+
+/* Any other window that does not reach the bottom of the screen. */
+static void heglk_place_aux(struct heglk_geometry *g)
+{
+    if (curwin)
+    {
+        if (!wins[curwin].isaux)
+        {
+            LOG("Setting window detected as aux, but reused window is not aux!?\n");
+            if (curwin == mainwin)
+            {
+                LOG("  It was actually mainwin\n");
+            }
+            if (curwin == statuswin)
+            {
+                LOG("  It was actually statuswin\n");
+            }
+            wins[curwin].isaux = true;
+        }
+    }
+
+    g->x0 = (g->left - 1) * gcellw;
+    g->y0 = (g->top - 1) * gcellh;
+    g->x1 = g->right * gcellw;
+
+    if (gscreenw - g->x1 < 3 * gcellw || g->right > screenwidth_in_chars - 1)
+        g->x1 = gscreenw;
+
+    if (ABS((g->right - g->left) - (screenwidth_in_chars / 2)) < 2 && !isfutureboy)
+    {
+        g->x1 = g->x0 + gscreenw / 2;
+        g->halfscreenwidth = true;
+
+        LOG("Detected that aux window is supposed to be half screen width. Stretching it out.\n");
+
+        // Hack to keep black room description window from
+        // being deleted at the first turn of Guilty Bastards
+        if (isguiltybastards && curwin)
+        {
+            if (g->left == 1)
+            {
+                guilty_bastards_graphics_win = curwin;
+            }
+            else
+            {
+                guilty_bastards_aux_win = curwin;
+                hugo_mapcurwin();
+                wins[curwin].clear = 0;
+                g->x0 = gscreenw / 2;
+                g->x1 = gscreenw;
+                g->peggedtoright = 1;
+            }
+        }
+    }
+
+    if (ABS(g->right - screenwidth_in_chars) < 2 && !heglk_find_attached_to_left(g->left))
+    {
+        int diff = gscreenw - g->x1;
+        g->x1 = gscreenw;
+        g->x0 += diff;
+        g->peggedtoright = true;
+    }
+
+    /* A height of 1 and a height of 0 will both
+     be considered 1 character high */
+    g->y1 = g->y0 + gcellh * (g->bottom - g->top);
+    if (g->y1 == g->y0)
+        g->y1 += gcellh;
+
+    if (statuswin && ABS(g->top - wins[statuswin].b) < 2)
+    {
+        g->new_below_status = true;
+    } else if (!statuswin && g->top <= 2) {
+        g->new_below_status = true;
+        int diff = 2 * ggridmarginy + gcellh + gcellh * (screenwidth_in_chars < MAX_STATUS_CHARS) - g->y0;
+        g->y0 += diff;
+        g->y1 += diff;
+    } else {
+        int attop = heglk_find_attached_at_top(g->top);
+        if (!second_image_row && attop && (attop == below_status || wins[attop].t == wins[below_status].t))
+        {
+            g->new_second_image_row = true;
+        }
+    }
+}
+
+/* The window that reaches the bottom: the main text window. */
+static void heglk_place_main(struct heglk_geometry *g)
+{
+    if (curwin)
+    {
+        if (curwin == statuswin)
+        {
+            curwin = 0;
+        }
+    }
+    if (mainwin)
+    {
+        curwin = mainwin;
+    }
+    g->y1 = gscreenh;
+    if (statuswin && !wins[statuswin].clear && (below_status || second_image_row))
+    {
+        if (g->top == 1 && below_status && below_status != mainwin)
+        {
+                wins[below_status].clear = 1;
+                below_status = mainwin;
+        }
+        int above_main = heglk_find_attached_at_top(g->top);
+
+        if (!above_main) {
+            above_main = heglk_find_attached_at_top(wins[mainwin].t);
+            if (!above_main) {
+                if (second_image_row)
+                {
+                    above_main = second_image_row;
+                } else if (statuswin)
+                {
+                    above_main = statuswin;
+                }
+            }
+        }
+
+        if (above_main && above_main != mainwin)
+        {
+            g->y0 = heglk_push_down_main_window_to(wins[above_main].y1);
+        } else {
+            g->y0 = heglk_push_down_main_window_to(wins[statuswin].y1);
+        }
+    }
+
+    if (!statuswin && !below_status && !second_image_row)
+    {
+        g->new_below_status = true;
+    }
+}
+
 void hugo_settextwindow(int left, int top, int right, int bottom)
 {
-    int x0, y0, x1, y1;
+    struct heglk_geometry g;
     int type = ISMAIN;
-    int new_below_status = false;
-    int new_second_image_row = false;
     int matches = 0;
-    int halfscreenwidth = false;
-    int peggedtoright = false;
 
     int i;
 
@@ -1716,9 +1894,7 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     if (bottom < top)
     {
         LOG("hugo_settextwindow: negative height. Reversing top and bottom.\n");
-        int temp = top;
-        top = bottom;
-        bottom = temp;
+        SWAP_INT(top, bottom);
     }
 
     if (menuwin)
@@ -1793,177 +1969,17 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         type = ISSTATUS;
     }
 
-    x0 = 0;
-    y0 = 0;
-    x1 = gscreenw;
-    y1 = rows_to_height(bottom);
+    g = (struct heglk_geometry) {
+        .left = left, .top = top, .right = right, .bottom = bottom,
+        .x0 = 0, .y0 = 0, .x1 = gscreenw, .y1 = rows_to_height(bottom),
+    };
 
-    switch (type) {
-        case ISSTATUS:
-            bottom = heglk_adjust_pre_v24_status_when_setting_window(bottom);
-            y1 = rows_to_height(bottom);
-            if (!below_status && mainwin)
-                below_status = mainwin;
-            if (below_status)
-            {
-                wins[below_status].y0 = y1;
-                if (wins[below_status].y1 < y1)
-                    wins[below_status].y1 = y1;
-                if (below_status == mainwin)
-                {
-                    wins[below_status].t = bottom + 1;
-                }
-                heglk_sizeifexists(below_status);
-            }
-            if (curwin)
-            {
-                if (curwin == mainwin)
-                {
-                    curwin = 0;
-                }
-            }
-            if (statuswin)
-            {
-                curwin = statuswin;
-                if (wins[statuswin].win)
-                    glk_window_clear(wins[statuswin].win);
-            }
-            right = screenwidth_in_chars + 2;
-            break;
-        case ISAUX:
-            if (curwin)
-            {
-                if (!wins[curwin].isaux)
-                {
-                    LOG("Setting window detected as aux, but reused window is not aux!?\n");
-                    if (curwin == mainwin)
-                    {
-                        LOG("  It was actually mainwin\n");
-                    }
-                    if (curwin == statuswin)
-                    {
-                        LOG("  It was actually statuswin\n");
-                    }
-                    wins[curwin].isaux = true;
-                }
-            }
-
-            x0 = (left - 1) * gcellw;
-            y0 = (top - 1) * gcellh;;
-            x1 = right * gcellw;
-
-            if (gscreenw - x1 < 3 * gcellw || right > screenwidth_in_chars - 1)
-                x1 = gscreenw;
-
-            if (ABS((right - left) - (screenwidth_in_chars / 2)) < 2 && !isfutureboy)
-            {
-                x1 = x0 + gscreenw / 2;
-                halfscreenwidth = true;
-
-                LOG("Detected that aux window is supposed to be half screen width. Stretching it out.\n");
-
-                // Hack to keep black room description window from
-                // being deleted at the first turn of Guilty Bastards
-                if (isguiltybastards && curwin)
-                {
-                    if (left == 1)
-                    {
-                        guilty_bastards_graphics_win = curwin;
-                    }
-                    else
-                    {
-                        guilty_bastards_aux_win = curwin;
-                        hugo_mapcurwin();
-                        wins[curwin].clear = 0;
-                        x0 = gscreenw / 2;
-                        x1 = gscreenw;
-                        peggedtoright = 1;
-                    }
-                }
-            }
-
-            if (ABS(right - screenwidth_in_chars) < 2 && !heglk_find_attached_to_left(left))
-            {
-                int diff = gscreenw - x1;
-                x1 = gscreenw;
-                x0 += diff;
-                peggedtoright = true;
-            }
-
-            /* A height of 1 and a height of 0 will both
-             be considered 1 character high */
-            y1 = y0 + gcellh * (bottom - top);
-            if (y1 == y0)
-                y1 += gcellh;
-
-            if (statuswin && ABS(top - wins[statuswin].b) < 2)
-            {
-                new_below_status = true;
-            } else if (!statuswin && top <= 2) {
-                new_below_status = true;
-                int diff = 2 * ggridmarginy + gcellh + gcellh * (screenwidth_in_chars < MAX_STATUS_CHARS) - y0;
-                y0 += diff;
-                y1 += diff;
-            } else {
-                int attop = heglk_find_attached_at_top(top);
-                if (!second_image_row && attop && (attop == below_status || wins[attop].t == wins[below_status].t))
-                {
-                    new_second_image_row = true;
-                }
-            }
-            break;
-        case ISMAIN:
-            if (curwin)
-            {
-                if (curwin == statuswin)
-                {
-                    curwin = 0;
-                }
-            }
-            if (mainwin)
-            {
-                curwin = mainwin;
-            }
-            y1 = gscreenh;
-            if (statuswin && !wins[statuswin].clear && (below_status || second_image_row))
-            {
-                if (top == 1 && below_status && below_status != mainwin)
-                {
-                        wins[below_status].clear = 1;
-                        below_status = mainwin;
-                }
-                int above_main = heglk_find_attached_at_top(top);
-
-                if (!above_main) {
-                    above_main = heglk_find_attached_at_top(wins[mainwin].t);
-                    if (!above_main) {
-                        if (second_image_row)
-                        {
-                            above_main = second_image_row;
-                        } else if (statuswin)
-                        {
-                            above_main = statuswin;
-                        }
-                    }
-                }
-
-                if (above_main && above_main != mainwin)
-                {
-                    y0 = heglk_push_down_main_window_to(wins[above_main].y1);
-                } else {
-                    y0 = heglk_push_down_main_window_to(wins[statuswin].y1);
-                }
-            }
-
-            if (!statuswin && !below_status && !second_image_row)
-            {
-                new_below_status = true;
-            }
-            break;
-        default:
-            LOG("Unhandled switch case!\n");
-            break;
-    }
+    if (type == ISSTATUS)
+        heglk_place_status(&g);
+    else if (type == ISAUX)
+        heglk_place_aux(&g);
+    else
+        heglk_place_main(&g);
 
     if (!curwin)
     {
@@ -1980,40 +1996,40 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     }
 
     wins[curwin].isaux = (type == ISAUX);
-    wins[curwin].peggedtoright = peggedtoright;
-    wins[curwin].halfscreenwidth = halfscreenwidth;
+    wins[curwin].peggedtoright = g.peggedtoright;
+    wins[curwin].halfscreenwidth = g.halfscreenwidth;
 
-    if (new_below_status)
+    if (g.new_below_status)
     {
         below_status = curwin;
         if (statuswin)
         {
-            y0 = wins[statuswin].y1;
+            g.y0 = wins[statuswin].y1;
         }
     }
 
-    if (new_second_image_row)
+    if (g.new_second_image_row)
     {
         second_image_row = curwin;
-        y1 = heglk_push_down_main_window_to(y1);
+        g.y1 = heglk_push_down_main_window_to(g.y1);
     }
 
-    if (y1 > gscreenh)
-        y1 = gscreenh;
-    if (x1 > gscreenw)
-        x1 = gscreenw;
+    if (g.y1 > gscreenh)
+        g.y1 = gscreenh;
+    if (g.x1 > gscreenw)
+        g.x1 = gscreenw;
 
     // If we reuse the context,
-    // most of these should will have the right value already...
+    // most of these will have the right value already...
 
-    wins[curwin].l = left;
-    wins[curwin].t = top;
-    wins[curwin].r = right;
-    wins[curwin].b = bottom;
-    wins[curwin].x0 = x0;
-    wins[curwin].y0 = y0;
-    wins[curwin].x1 = x1;
-    wins[curwin].y1 = y1;
+    wins[curwin].l = g.left;
+    wins[curwin].t = g.top;
+    wins[curwin].r = g.right;
+    wins[curwin].b = g.bottom;
+    wins[curwin].x0 = g.x0;
+    wins[curwin].y0 = g.y0;
+    wins[curwin].x1 = g.x1;
+    wins[curwin].y1 = g.y1;
     wins[curwin].screenwidth_at_creation = screenwidth_in_chars;
     wins[curwin].screenheight_at_creation = screenheight_in_chars;
 
