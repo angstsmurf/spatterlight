@@ -3351,7 +3351,6 @@
 		C39D803C26BDFA3F00500E1C /* Transcript of Transparent.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of Transparent.txt"; sourceTree = "<group>"; };
 		C39DE25F1ECB76A100CE5B70 /* glk.c */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.c; name = glk.c; path = terps/level9/Glk/glk.c; sourceTree = SOURCE_ROOT; tabWidth = 2; };
 		C39DE2611ECB76C400CE5B70 /* bitmap.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = bitmap.c; path = terps/level9/bitmap.c; sourceTree = SOURCE_ROOT; usesTabs = 1; };
-		C39DE2631ECB799500CE5B70 /* heglk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = heglk.c; path = heglk/heglk.c; sourceTree = "<group>"; };
 		C3A199802999D94000D27500 /* TaylorMade command script.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "TaylorMade command script.txt"; sourceTree = "<group>"; };
 		C3A199832999DB5600D27500 /* Transcript of tot.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Transcript of tot.txt"; sourceTree = "<group>"; };
 		C3A199872999E4C500D27500 /* Plus command script.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "Plus command script.txt"; sourceTree = "<group>"; };
@@ -4960,7 +4959,6 @@
 				965032A809F29EE20083E64E /* he.c */,
 				965032A909F29EE20083E64E /* hebuffer.c */,
 				965032AB09F29EE20083E64E /* heexpr.c */,
-				C39DE2631ECB799500CE5B70 /* heglk.c */,
 				6DC79A822455AD4800CD9989 /* hecugel.c */,
 				965032AD09F29EE20083E64E /* heglkunix.c */,
 				965032AF09F29EE20083E64E /* hemisc.c */,
