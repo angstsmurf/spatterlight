@@ -133,7 +133,10 @@ static int guilty_bastards_graphics_win = 0;
 static int guilty_bastards_aux_win = 0;
 
 /* Future Boy! */
-enum { FB_ALIGNMENT_LEFT, FB_ALIGNMENT_RIGHT };
+
+/* The side of the screen the main picture is on; the sub pictures and the
+   compass go on the other side */
+enum { FB_ALIGNMENT_NONE = -1, FB_ALIGNMENT_LEFT, FB_ALIGNMENT_RIGHT };
 
 /* The kinds of window heglk_id_future_boy_images() recognises */
 enum {
@@ -150,6 +153,21 @@ enum {
 /* Resource lengths of particular pictures */
 #define FB_TITLE_RESLEN 17211         /* the title screen */
 #define FB_SECOND_ROW_RESLEN 14236    /* the image starting the second row */
+
+/* A narrow window up to this fraction of the screen (in Hugo rows) high is
+   the compass; a taller one is a sub picture. */
+#define FB_COMPASS_MAX_ROWS 0.15
+
+/* Where the pictures go, as fractions of the screen in pixels */
+#define FB_MAIN_PICTURE_WIDTH 0.53
+#define FB_SUB_PICTURE_WIDTH 0.21
+#define FB_COMPASS_HEIGHT 0.12
+
+/* What heglk_id_future_boy_images() makes of a window */
+struct fb_id {
+    int type;
+    int alignment;    /* for the picture types but the line, else NONE */
+};
 
 /* Is TYPE one of the picture windows (main, subs, compass, line)? */
 #define FB_IS_IMAGE(type) ((type) != FB_IMAGE_UNKNOWN && (type) != FB_MAIN && (type) != FB_STATUS)
@@ -212,7 +230,8 @@ static int heglk_find_attached_at_top(int top);
 static int heglk_find_attached_to_left(int left);
 static void heglk_adjust_guilty_bastards_windows(void);
 static void heglk_adjust_future_boy_windows(void);
-static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight, int *alignment);
+static int heglk_future_boy_type(int left, int top, int right, int bottom, int screenwidth, int screenheight);
+static int heglk_future_boy_window_type(int i);
 
 /* glk_main
  *
@@ -1053,7 +1072,7 @@ static int heglk_clear_future_boy_type(int type, int not_this) {
     {
         if (i == not_this)
             continue;
-        else if (heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation,  wins[i].screenheight_at_creation, &future_boy_graphics_alignment) == type) {
+        else if (heglk_future_boy_window_type(i) == type) {
             heglk_unmap_and_mark_clear(i);
             heglk_clear_filename(i);
             result = 1;
@@ -1090,7 +1109,7 @@ void hugo_clearwindow(void)
     LOG("hugo_clearwindow %d: l:%d t:%d r:%d b:%d\n",curwin, l, t, r, b);
 
     if (current_game == GAME_FUTURE_BOY) {
-        int type = heglk_id_future_boy_images(l, t, r, b, screenwidth_in_chars, screenheight_in_chars, &future_boy_graphics_alignment);
+        int type = heglk_future_boy_type(l, t, r, b, screenwidth_in_chars, screenheight_in_chars);
         if (heglk_clear_future_boy_type(type, -1))
             return;
     }
@@ -1543,6 +1562,11 @@ static void heglk_ensure_menu(void)
     glk_window_move_cursor(wins[menuwin].win, 0, 0);
 }
 
+/* Guilty Bastards: the picture on the left half below the status line, the
+   room description beside it, and the main window below both. Called after
+   any window is set and after an arrange event; like
+   heglk_adjust_future_boy_windows(), it sizes the Glk windows it moves
+   itself, after the generic code has placed them. */
 static void heglk_adjust_guilty_bastards_windows(void)
 {
     if (!(current_game == GAME_GUILTY_BASTARDS && guilty_bastards_graphics_win && guilty_bastards_aux_win && statuswin && mainwin))
@@ -1561,9 +1585,16 @@ static void heglk_adjust_guilty_bastards_windows(void)
     wins[guilty_bastards_graphics_win].y0 = wins[statuswin].y1;
     wins[guilty_bastards_graphics_win].y1 += diff;
 
+    /* If the picture window's width no longer suits the screen (it was set
+       on a wider one, or is under a third of this one), give it a bottom
+       edge of half the screen *width*: the room pictures are landscape and
+       fill the left half, so that is a little more than they need. Taken
+       from the width on purpose; it fires on most resizes. */
     if (gscreenw < wins[guilty_bastards_graphics_win].x1 || gscreenw > wins[guilty_bastards_graphics_win].x1 * 3)
         wins[guilty_bastards_graphics_win].y1 = gscreenw / 2;
 
+    /* Leave room for the main window: y1 + y0 is the bottom edge plus as
+       much again as the status line takes */
     if (gscreenh < wins[guilty_bastards_graphics_win].y1 + wins[guilty_bastards_graphics_win].y0)
         wins[guilty_bastards_graphics_win].y1 = gscreenh / 2;
 
@@ -1587,9 +1618,16 @@ static void heglk_adjust_guilty_bastards_windows(void)
     heglk_sizeifexists(guilty_bastards_aux_win);
 }
 
-/* Classify a Future Boy! window by its place on the screen. For the image
-   types, also store in *ALIGNMENT the side of the screen the text goes. */
-static int heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight, int *alignment) {
+static int fb_alignment(int main_picture_on_right)
+{
+    return main_picture_on_right ? FB_ALIGNMENT_RIGHT : FB_ALIGNMENT_LEFT;
+}
+
+/* Classify a Future Boy! window by its place on a screen of SCREENWIDTH x
+   SCREENHEIGHT characters, and for a picture, the side the main picture
+   is on. */
+static struct fb_id heglk_id_future_boy_images(int left, int top, int right, int bottom, int screenwidth, int screenheight) {
+    struct fb_id id = { FB_IMAGE_UNKNOWN, FB_ALIGNMENT_NONE };
 
     if (right >= HUGO_INFINITE)
         right = screenwidth;
@@ -1597,71 +1635,64 @@ static int heglk_id_future_boy_images(int left, int top, int right, int bottom, 
     int width = right - left;
     int height = bottom - top;
 
-    int verticalmiddle = screenheight / 2;
-    int horizontalmiddle = screenwidth / 2;
-
     if (bottom >= HUGO_INFINITE) {
-        return FB_MAIN;
-    }
-
-    if (top > 3 && top == bottom && left == 1 && right == screenwidth) {
-        return FB_IMAGE_LINE;
-    }
-
-    if (top > verticalmiddle) {
-        if (bottom >= HUGO_INFINITE) {
-            return FB_MAIN;
-        }
-        return FB_IMAGE_UNKNOWN;
-    }
-
-    if (width < screenwidth && width >= screenwidth / 2) {
-        //This is the main image
-        if (left != 1) {
-            *alignment = FB_ALIGNMENT_RIGHT;
-        } else *alignment = FB_ALIGNMENT_LEFT;
-        return FB_IMAGE_MAIN;
-    }
-
-    if (width <= screenwidth / 4 && height > screenheight * 0.15) {
+        id.type = FB_MAIN;
+    } else if (top > 3 && top == bottom && left == 1 && right == screenwidth) {
+        id.type = FB_IMAGE_LINE;
+    } else if (top > screenheight / 2) {
+        LOG("Did not recognize this as a Future boy image.\n");
+    } else if (width < screenwidth && width >= screenwidth / 2) {
+        id.type = FB_IMAGE_MAIN;
+        id.alignment = fb_alignment(left != 1);
+    } else if (width <= screenwidth / 4 && height > screenheight * FB_COMPASS_MAX_ROWS) {
+        /* A sub picture: against the edge of the screen, or between the
+           main picture and that edge */
         if (right == screenwidth || left == 1) {
-            if (left == 1) {
-                *alignment = FB_ALIGNMENT_RIGHT;
-            } else *alignment = FB_ALIGNMENT_LEFT;
-            return FB_IMAGE_SUB_2;
-        }
-
-        if (left < horizontalmiddle && left != 1) {
-            *alignment = FB_ALIGNMENT_RIGHT;
-        } else *alignment = FB_ALIGNMENT_LEFT;
-        return FB_IMAGE_SUB_1;
-    }
-
-    if (top == 2 && width <= (screenwidth / 4) && height <= screenheight * 0.15) {
-        if (left < 3) {
-            *alignment = FB_ALIGNMENT_RIGHT;
+            id.type = FB_IMAGE_SUB_2;
+            id.alignment = fb_alignment(left == 1);
         } else {
-            *alignment = FB_ALIGNMENT_LEFT;
+            id.type = FB_IMAGE_SUB_1;
+            id.alignment = fb_alignment(left < screenwidth / 2);
         }
-        return FB_IMAGE_COMPASS;
+    } else if (top == 2 && width <= screenwidth / 4 && height <= screenheight * FB_COMPASS_MAX_ROWS) {
+        id.type = FB_IMAGE_COMPASS;
+        id.alignment = fb_alignment(left < 3);
+    } else if (top == 1 && bottom < 3) {
+        id.type = FB_STATUS;
+    } else {
+        LOG("Did not recognize this as a Future boy image.\n");
     }
 
-    if (top == 1 && bottom < 3) {
-        return FB_STATUS;
-    }
-
-    LOG("Did not recognize this as a Future boy image.\n");
-    return FB_IMAGE_UNKNOWN;
+    return id;
 }
 
-static void heglk_adjust_single_future_boy_image(int type, int i, int alignment, int should_draw) {
+/* The type of a Future Boy! window with this Hugo rectangle on a screen of
+   SCREENWIDTH x SCREENHEIGHT characters. The side of the main picture
+   that a picture type tells is kept in future_boy_graphics_alignment. */
+static int heglk_future_boy_type(int left, int top, int right, int bottom, int screenwidth, int screenheight)
+{
+    struct fb_id id = heglk_id_future_boy_images(left, top, right, bottom, screenwidth, screenheight);
+    if (id.alignment != FB_ALIGNMENT_NONE)
+        future_boy_graphics_alignment = id.alignment;
+    return id.type;
+}
+
+/* The same for window context I, on the screen it was set on */
+static int heglk_future_boy_window_type(int i)
+{
+    return heglk_future_boy_type(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation, wins[i].screenheight_at_creation);
+}
+
+/* Place Future Boy! window context I of TYPE in the layout for the current
+   screen size, and draw its picture again. */
+static void heglk_adjust_single_future_boy_image(int type, int i, int alignment) {
 
     int x0, y0, x1, y1;
     int upper_bound = rows_to_height(1);
     int lower_bound = (screenheight_in_chars / 2) * gcellh;
-    int compass_height = gscreenh * 0.12;
+    int compass_height = gscreenh * FB_COMPASS_HEIGHT;
 
-    int large_image_edge = gscreenw * 0.53;
+    int large_image_edge = gscreenw * FB_MAIN_PICTURE_WIDTH;
 
     x0 = 0;
     x1 = gscreenw;
@@ -1675,10 +1706,10 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
         case FB_IMAGE_SUB_1:
             y1 = lower_bound - compass_height;
             x0 = large_image_edge + gcellw;
-            x1 = x0 + gscreenw * 0.21;
+            x1 = x0 + gscreenw * FB_SUB_PICTURE_WIDTH;
             break;
         case FB_IMAGE_SUB_2:
-            x0 = x1 - gscreenw * 0.21;
+            x0 = x1 - gscreenw * FB_SUB_PICTURE_WIDTH;
             y0 = upper_bound + compass_height;
             break;
         case FB_IMAGE_LINE:
@@ -1690,7 +1721,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
             break;
         case FB_IMAGE_COMPASS:
             y1 = y0 + compass_height;
-            x0 = x1 - gscreenw * 0.21;
+            x0 = x1 - gscreenw * FB_SUB_PICTURE_WIDTH;
             break;
         case FB_STATUS:
             y0 = 0;
@@ -1705,6 +1736,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
             return;
     }
 
+    /* The layout above has the main picture on the left: mirror it */
     if (alignment == FB_ALIGNMENT_RIGHT) {
         int temp = x0;
         x0 = gscreenw - x1;
@@ -1717,7 +1749,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
     wins[i].y1 = y1;
     wins[i].clear = 0;
 
-    if (type == FB_STATUS || type == FB_MAIN || !should_draw)
+    if (type == FB_STATUS || type == FB_MAIN)
         return;
 
     if (wins[i].filename == NULL) {
@@ -1741,6 +1773,8 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
     win_drawimage(wins[i].win->peer, xoff, yoff, origwidth, origheight, 0, 0);
 }
 
+/* Future Boy!: lay out every window in use for the current screen size
+   and draw its picture again. Called after an arrange event. */
 static void heglk_adjust_future_boy_windows(void) {
     if (current_game != GAME_FUTURE_BOY)
         return;
@@ -1749,10 +1783,10 @@ static void heglk_adjust_future_boy_windows(void) {
     {
         if (wins[i].clear)
             continue;
-        type = heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation, wins[i].screenheight_at_creation, &future_boy_graphics_alignment);
+        type = heglk_future_boy_window_type(i);
 
         heglk_sizeifexists(i);
-        heglk_adjust_single_future_boy_image(type, i, future_boy_graphics_alignment, 1);
+        heglk_adjust_single_future_boy_image(type, i, future_boy_graphics_alignment);
     }
 }
 
@@ -2549,8 +2583,7 @@ int hugo_hasgraphics(void)
 static void heglk_note_future_boy_picture(int width, int height) {
     if (current_game != GAME_FUTURE_BOY)
         return;
-    int unused_alignment;
-    int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars, &unused_alignment);
+    int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars).type;
     if (width > 400 && width < 450 && height > 250 && height < 300) {
         // Main image
         if (wins[curwin].l < 3)
