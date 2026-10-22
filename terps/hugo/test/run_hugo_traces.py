@@ -32,6 +32,7 @@ import concurrent.futures
 import os
 import re
 import shutil
+import struct
 import sys
 import tempfile
 
@@ -115,9 +116,53 @@ SIZES = ["arrange:1000x700", "arrange:480x360", "arrange:1440x900",
          "arrange:320x240", "arrange:800x600"]
 
 
+def picture_size(data):
+    """(width, height) from a JPEG or PNG header, or (0, 0)."""
+    if data[:8] == b"\x89PNG\r\n\x1a\n" and len(data) >= 24:
+        return struct.unpack(">II", data[16:24])
+    if data[:2] != b"\xff\xd8":
+        return 0, 0
+    pos = 2
+    while pos + 9 <= len(data):
+        if data[pos] != 0xff:
+            pos += 1
+            continue
+        marker = data[pos + 1]
+        if marker in (0xff, 0x01) or 0xd0 <= marker <= 0xd9:
+            pos += 2 if marker != 0xff else 1
+            continue
+        if 0xc0 <= marker <= 0xcf and marker not in (0xc4, 0xc8, 0xcc):
+            height, width = struct.unpack(">HH", data[pos + 5:pos + 9])
+            return width, height
+        pos += 2 + struct.unpack(">H", data[pos + 2:pos + 4])[0]
+    return 0, 0
+
+
 class Tracer(v6trace.Tracer):
     """A sound reaches the app as a file name; trace what is in the file,
-    as for a picture."""
+    as for a picture.  SIZEIMAGE is answered with the size of the picture
+    last loaded, as the app does, so that the scaling and placing of
+    pictures in hecugel.c is exercised (glkdrive answers 0 x 0, which
+    hugo_displaypicture gives up on)."""
+
+    last_size = (0, 0)
+
+    def dispatch(self, cmd, a1, a2, a3, a4, a5, payload):
+        if cmd == v6trace.glkdrive.LOADIMAGE:
+            path = payload.decode("utf-8", "replace").rstrip("\0")
+            try:
+                with open(path, "rb") as f:
+                    f.seek(a2)
+                    data = f.read(a3 if a3 else -1)
+            except OSError:
+                data = b""
+            self.last_size = picture_size(data)
+        elif cmd == v6trace.glkdrive.SIZEIMAGE:
+            self.trace.append(self.describe(cmd, a1, a2, a3, a4, a5, payload)
+                              + " -> %dx%d" % self.last_size)
+            self.reply(v6trace.glkdrive.OKAY, *self.last_size)
+            return
+        super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
 
     def describe(self, cmd, a1, a2, a3, a4, a5, payload):
         if cmd == v6trace.glkdrive.LOADSOUND:
