@@ -7,6 +7,8 @@
  * Build with -DHEGLK_DEBUG to send the LOG() trace to stderr.
  */
 
+#include <stdio.h>
+
 #include "heheader.h"
 #include "glk.h"
 #include "glkimp.h"
@@ -81,9 +83,6 @@
 // characters less. So we use this arbitrarily lower number
 // to check against.
 #define HUGO_INFINITE (0x7000)
-
-
-#include <stdio.h>
 
 #define MAXWINS 256
 
@@ -247,12 +246,9 @@ static int hugo_convert_key(int n)
     return n;
 }
 
-/* hugo_timewait
- * Waits for 1/n seconds.  Returns false if waiting is unsupported.
- */
-
-/* The pixel height of ROWS lines of a grid window, margins included. */
-static float rows_to_height(int rows)
+/* The pixel height of ROWS lines of a grid window, margins included,
+   rounded down. */
+static int rows_to_height(int rows)
 {
     return rows * gcellh + 2 * ggridmarginy;
 }
@@ -264,6 +260,10 @@ static void heglk_select(event_t *ev)
     if (ev->type == evtype_Arrange)
         hugo_handlearrange();
 }
+
+/* hugo_timewait
+ * Waits for 1/n seconds.  Returns false if waiting is unsupported.
+ */
 
 int hugo_timewait(int n)
 {
@@ -309,7 +309,7 @@ int hugo_timewait(int n)
 
 void *hugo_blockalloc(long num)
 {
-    return malloc(num * sizeof(char));
+    return malloc(num);
 }
 
 void hugo_blockfree(void *block)
@@ -317,9 +317,31 @@ void hugo_blockfree(void *block)
     free(block);
 }
 
+/* Engine calls with nothing to do under Glk */
+
 void hugo_closefiles(void)
 {
     /* Glk closes all files at glk_exit() */
+}
+
+void hugo_cleanup_screen(void)
+{
+    /* Glk windows go away with the process */
+}
+
+void hugo_scrollwindowup(void)
+{
+    /* Glk should look after this for us */
+}
+
+void PromptMore(void)
+{
+    /* Glk windows page their own output */
+}
+
+void hugo_stopvideo(void)
+{
+    /* No video: hugo_hasvideo() says false */
 }
 
 /* The id under which the GUI caches a picture: Hugo pictures have no
@@ -399,8 +421,6 @@ int hugo_playvideo(HUGO_FILE infile, long reslength,
     return true;
 }
 
-void hugo_stopvideo(void) {}
-
 /*
  * Return true if a keypress is waiting to be retrieved.
  */
@@ -408,12 +428,6 @@ void hugo_stopvideo(void) {}
 int hugo_iskeywaiting(void)
 {
     return keypress;
-}
-
-
-void hugo_scrollwindowup(void)
-{
-    /* Glk should look after this for us */
 }
 
 int hugo_getkey(void)
@@ -640,11 +654,6 @@ void hugo_init_screen(void)
     heglk_identify_game(games_by_filename, sizeof games_by_filename / sizeof *games_by_filename, gli_story_name);
 }
 
-void hugo_cleanup_screen(void)
-{
-    /* Does whatever has to be done to clean up the display pre-termination. */
-}
-
 static void heglk_record_physical(const struct winctx *ctx) {
     /* record position of the window */
     physical_windowleft = (ctx->l-1)*FIXEDCHARWIDTH;
@@ -720,16 +729,14 @@ void hugo_getline(char *prompt)
 }
 
 
-/* hugo_waitforkey
- *
- * Provided to be replaced by multitasking systems where cycling while
- * waiting for a keystroke may not be such a hot idea.
- */
-
-/* Ask WIN for a key, and outside menus for a click or hyperlink as well.
-   Returns false if WIN can't take a key. */
-static int heglk_request_input(window_t *win)
+/* Ask the Glk window of context I for a key, and outside menus for a click
+   or hyperlink as well. Returns false if there is no window to take a key.
+   A context asked for a click is marked clear, so that what is shown in it
+   is not waited on again before it is replaced (see hugo_print and
+   hugo_displaypicture). */
+static int heglk_request_input(int i)
 {
+    window_t *win = wins[i].win;
     int event_requested = 0;
 
     if (win) {
@@ -749,7 +756,7 @@ static int heglk_request_input(window_t *win)
                 {
                     glk_request_mouse_event(win);
                     LOG("requested mouse event in win %d\n", win->peer);
-                    wins[curwin].clear = true;
+                    wins[i].clear = true;
                 }
             }
             if (win->type == wintype_TextBuffer)
@@ -785,6 +792,12 @@ static void heglk_cancel_all_requests(void)
     }
 }
 
+/* hugo_waitforkey
+ *
+ * Provided to be replaced by multitasking systems where cycling while
+ * waiting for a keystroke may not be such a hot idea.
+ */
+
 int hugo_waitforkey(void)
 {
     event_t ev = {0};
@@ -808,7 +821,7 @@ int hugo_waitforkey(void)
     just_displayed_something = false;
     waited_since_display = true;
 
-    int event_requested = heglk_request_input(wins[curwin].win);
+    int event_requested = heglk_request_input(curwin);
 
     if (!event_requested)
     {
@@ -895,7 +908,7 @@ static void heglk_free_wincontext(int i)
         return;
 
     heglk_unmap_window(i);
-    free(wins[i].filename);
+    heglk_clear_filename(i);
 
     memset(&wins[i], 0, sizeof(struct winctx));
 }
@@ -1019,7 +1032,7 @@ void hugo_clearwindow(void)
         return;
     }
 
-    if (curwin == menuwin)
+    if (!curwin)
     {
         currentpos = 0;
         currentline = 1;
@@ -2407,8 +2420,8 @@ void hugo_print(char *a)
 
     wins[curwin].clear = 0;
 
-
-
+    /* The engine ends a line with "\r", then "\n" to scroll (hemisc.c).
+       Glk scrolls by itself, so a lone "\n" prints nothing. */
     if (a[0] == '\r')
     {
         hugo_printnl();
@@ -2466,7 +2479,7 @@ void hugo_font(int f)
         {
             return;
         }
-            curstyle = style_Preformatted;
+        curstyle = style_Preformatted;
         mono = true;
 
         // Hack to avoid extra line breaks in Captain Speedo intro boxes
@@ -2770,10 +2783,6 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
     just_displayed_something = true;
     waited_since_display = false;
     return true;
-}
-
-void PromptMore(void)
-{
 }
 
 void my_srandom(int seed)
