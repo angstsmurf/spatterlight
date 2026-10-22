@@ -444,7 +444,10 @@ Notes from the corpus traces:
   typed at the death prompt. The game's own loop (decompiled with
   FictitiousFrode's `tads2.pl`) reuses the variable holding the answer's
   length, and with `systemInfo` reporting HTML it never reads input again.
-  HTML TADS would hang the same way: it is the game's bug.
+  HTML TADS would hang the same way: it is the game's bug. A loop guard
+  (`os_break`, `osmisc.c`) now stops a TADS 2 game that runs 100 million
+  instructions without input or output, about five seconds, says so, and
+  undoes the turn.
 - Before HTML is switched on, adv.t opens the text-mode status line, which
   is closed again when the `StatusLine` banner first appears.
 

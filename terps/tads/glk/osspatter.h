@@ -73,7 +73,7 @@ int os_vasprintf(char **bufptr, const char *fmt, va_list ap);
 
 /*
  *   The clock, which under the determinism testing theme is a virtual one
- *   (osmisc.c): the time of day, local time (UTC under that theme), and the
+ *   (osportable.cc): the time of day, local time (UTC under that theme), and the
  *   millisecond timer
  */
 #define os_time_t        time_t
@@ -87,6 +87,9 @@ int osglk_vclock(void);
 long osglk_vclock_ms(void);
 void osglk_vclock_advance(unsigned long ms);
 void osglk_vclock_time_ns(time_t *seconds, long *nanoseconds);
+
+/* The game read input or wrote text: it isn't stuck (os_break, osmisc.c) */
+void osglk_not_idle(void);
 
 #ifdef __cplusplus
 }
