@@ -1268,6 +1268,24 @@ static void heglk_init_wincontext(int i, int type)
     wins[i].papercolor = wins[i].bg;
 }
 
+/* Shrinks *w x *h to fit a boxw x boxh box, keeping the aspect ratio,
+   and centres it. Images smaller than the box are not scaled up. */
+static void heglk_fit_image(int boxw, int boxh, glui32 *w, glui32 *h, int *xoff, int *yoff)
+{
+    float aspect = (float) *h / *w;
+
+    if (*w > boxw) {
+        *w = boxw;
+        *h = *w * aspect;
+    }
+    if (*h > boxh) {
+        *h = boxh;
+        *w = *h / aspect;
+    }
+    *xoff = (boxw - *w) / 2;
+    *yoff = (boxh - *h) / 2;
+}
+
 static void heglk_sizeifexists(int i)
 {
     if (wins[i].win)
@@ -1650,20 +1668,8 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
     glui32 origwidth, origheight;
     win_sizeimage(&origwidth, &origheight);
 
-    float aspect = (float) origheight / origwidth;
-    if (origwidth > x1 - x0) {
-        origwidth = x1 - x0;
-        origheight = origwidth * aspect;
-    }
-
-    if (origheight > y1 - y0)
-    {
-        origheight = y1 - y0;
-        origwidth = origheight / aspect;
-    }
-
-    int xoff = (x1 - x0 - origwidth) / 2;
-    int yoff = (y1 - y0 - origheight) / 2;
+    int xoff, yoff;
+    heglk_fit_image(x1 - x0, y1 - y0, &origwidth, &origheight, &xoff, &yoff);
 
     heglk_unmap_window(i);
     wins[i].win = gli_new_window(wintype_Graphics, 0);
@@ -2551,7 +2557,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         }
 
         LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
-        float aspect = (float) height / width;
+        float aspect = (float) height / width; /* for the inline case below */
 
         int x0 = (wins[curwin].l - 1) * gcellw;
         int y0 = wins[curwin].y0;
@@ -2608,11 +2614,6 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
             return false;
         }
 
-        if (width > x1 - x0) {
-            width = x1 - x0;
-            height = width * aspect;
-        }
-
         if (y1 == y0) {
             y1 = y0 + (wins[curwin].b - wins[curwin].t) * gcellh;
             if (y1 > gscreenh)
@@ -2621,16 +2622,11 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                 y0 = gscreenh - gcellh;
             }
         }
-        if (height > y1 - y0)
-        {
-            height = y1 - y0;
-            width = height / aspect;
-        }
+
+        int xoff, yoff;
+        heglk_fit_image(x1 - x0, y1 - y0, &width, &height, &xoff, &yoff);
 
         heglk_detect_fb_graphics(origwidth, origheight);
-
-        int xoff = ((x1 - x0) - width) / 2;
-        int yoff = ((y1 - y0) - height) / 2;
 
         LOG("hugo_displaypicture w=%d h=%d x offset: %d y offset: %d\n", width, height, xoff, yoff);
 
