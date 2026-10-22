@@ -1102,6 +1102,13 @@ typedef struct tagban_s
     glui32 method;
     glui32 size;
 
+    /*
+     *   A size in pixels belongs to a graphics window, as Glk measures a
+     *   split in its key window's units: 'win' fills all of it, and it is
+     *   the key of the split from the main window
+     */
+    winid_t gfx;
+
     int fit;                        /* size the window to the text */
     int measure;                    /* this pass only counts the text */
     int bg;                         /* the window has a <BODY BGCOLOR> */
@@ -1285,7 +1292,29 @@ static tagban_t *tag_find(const char *id)
     return NULL;
 }
 
-static void tag_open_window(tagban_t *tb)
+/* a size in pixels as characters, where there's no graphics window */
+static glui32 tag_pix_chars(int num, int vertical)
+{
+    int per = vertical ? TAG_PIX_COL : TAG_PIX_LINE;
+    return num <= 0 ? 0 : num < per ? 1 : (glui32)(num / per);
+}
+
+/* the window whose split from the main window gives the banner's size */
+static winid_t tag_key(tagban_t *tb)
+{
+    return tb->gfx ? tb->gfx : tb->win;
+}
+
+static void tag_close_window(tagban_t *tb)
+{
+    if (tb->win)
+        glk_window_close(tb->win, NULL);
+    if (tb->gfx)
+        glk_window_close(tb->gfx, NULL);
+    tb->win = tb->gfx = NULL;
+}
+
+static void tag_open_window(tagban_t *tb, int pixels)
 {
     int s, c;
 
@@ -1304,7 +1333,24 @@ static void tag_open_window(tagban_t *tb)
                             stylehint_ReverseColor);
     }
 
-    tb->win = glk_window_open(mainwin, tb->method, tb->size, tb->type, 0);
+    if (pixels)
+    {
+        tb->gfx = glk_window_open(mainwin, tb->method, tb->size,
+                                  wintype_Graphics, 0);
+        if (tb->gfx)
+            tb->win = glk_window_open(tb->gfx,
+                                      (tb->method & winmethod_DirMask)
+                                      | winmethod_Proportional
+                                      | winmethod_NoBorder,
+                                      100, tb->type, 0);
+        if (tb->gfx && !tb->win)
+        {
+            glk_window_close(tb->gfx, NULL);
+            tb->gfx = NULL;
+        }
+    }
+    else
+        tb->win = glk_window_open(mainwin, tb->method, tb->size, tb->type, 0);
 
     if (tb->type == wintype_TextGrid)
         for (s = 0 ; s < style_NUMSTYLES ; ++s)
@@ -1332,8 +1378,8 @@ static void tag_resize(tagban_t *tb, glui32 size)
     if (size == tb->size || !tb->win)
         return;
     tb->size = size;
-    glk_window_set_arrangement(glk_window_get_parent(tb->win),
-                               tb->method, size, tb->win);
+    glk_window_set_arrangement(glk_window_get_parent(tag_key(tb)),
+                               tb->method, size, tag_key(tb));
 }
 
 void *osglk_tag_banner_open(const oshtml_banner *ban,
@@ -1342,7 +1388,7 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     tagban_t *tb = tag_find(ban->id);
     int isnew = tb == NULL || tb->win == NULL;
     glui32 method, size, type;
-    int num, units, vertical;
+    int num, units, vertical, pixels;
 
     *sink = &tag_sink;
     if (!mainwin)
@@ -1376,19 +1422,29 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     /* the size; one we take from the text starts out as it was */
     tb->fit = 0;
     size = tb->size;
+    pixels = 0;
     if (units == OSHTML_SIZE_PREV && !isnew
         && tag_vertical(tb->method) == vertical)
+    {
         method |= tb->method & winmethod_DivisionMask;
+        pixels = tb->gfx != NULL;
+    }
     else if (units == OSHTML_SIZE_PCT)
     {
         method |= winmethod_Proportional;
         size = num > 100 ? 100 : (glui32)num;
     }
+    else if (units == OSHTML_SIZE_PIX && glk_gestalt(gestalt_Graphics, 0))
+    {
+        /* exactly, in a graphics window */
+        method |= winmethod_Fixed;
+        size = num <= 0 ? 0 : (glui32)num;
+        pixels = 1;
+    }
     else if (units == OSHTML_SIZE_PIX)
     {
-        int per = vertical ? TAG_PIX_COL : TAG_PIX_LINE;
         method |= winmethod_Fixed;
-        size = num <= 0 ? 0 : num < per ? 1 : (glui32)(num / per);
+        size = tag_pix_chars(num, vertical);
     }
     else
     {
@@ -1398,22 +1454,32 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         tb->fit = 1;
     }
 
-    /* a window can't turn into another kind, or to the other axis */
+    /*
+     *   a window can't turn into another kind, or to the other axis, or
+     *   take its size from a graphics window or stop
+     */
     if (tb->win && (type != tb->type
-                    || tag_vertical(tb->method) != vertical))
-    {
-        glk_window_close(tb->win, NULL);
-        tb->win = NULL;
-    }
+                    || tag_vertical(tb->method) != vertical
+                    || pixels != (tb->gfx != NULL)))
+        tag_close_window(tb);
     tb->type = type;
 
     if (!tb->win)
     {
         tb->method = method;
         tb->size = size;
-        tag_open_window(tb);
+        tag_open_window(tb, pixels);
         if (!tb->win)
-            return NULL;
+        {
+            if (!pixels)
+                return NULL;
+
+            /* no graphics window after all: the size in characters */
+            tb->size = tag_pix_chars(num, vertical);
+            tag_open_window(tb, 0);
+            if (!tb->win)
+                return NULL;
+        }
 
         /* the status line of text mode makes way for this one */
         if (type == wintype_TextGrid && statuswin)
@@ -1428,8 +1494,8 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         {
             tb->method = method;
             tb->size = size;
-            glk_window_set_arrangement(glk_window_get_parent(tb->win),
-                                       method, size, tb->win);
+            glk_window_set_arrangement(glk_window_get_parent(tag_key(tb)),
+                                       method, size, tag_key(tb));
         }
         glk_window_clear(tb->win);
     }
@@ -1490,8 +1556,7 @@ void osglk_tag_banner_remove(const char *id)
             continue;
         }
         *link = tb->next;
-        if (tb->win)
-            glk_window_close(tb->win, NULL);
+        tag_close_window(tb);
         free(tb);
     }
 }

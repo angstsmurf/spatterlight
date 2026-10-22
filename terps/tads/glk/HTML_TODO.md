@@ -438,11 +438,13 @@ Notes from the corpus traces:
   - `n%` → proportional
   - `height=previous` → keep the current size
   - no height → size to contents with `win_lines`
-  - pixel sizes → convert through the font metrics from `glk_style_measure`
-    instead of treating pixels as character counts (an existing bug in
-    `osglkban.c:486-528`). Done for now with fixed 8×16 pixels a cell
-    (`TAG_PIX_COL`, `TAG_PIX_LINE`); the TADS 3 banner API still has the
-    old bug.
+  - pixel sizes → exact. A graphics window is opened at that many pixels
+    (a fixed split keyed by a graphics window is measured in pixels) and
+    split by the banner's own window at 100%, so the graphics part is 0
+    wide. Without graphics, 8×16 pixels a cell (`TAG_PIX_COL`,
+    `TAG_PIX_LINE`). SD3's right banner is now 120 px, pill's bottom one
+    66 px. (The banner API has no pixel unit: `OS_BANNER_SIZE_ABS` is
+    character cells in a text banner.)
 
   Re-opening a banner id **replaces** its contents. This fixes TADS 2's
   current fault of printing status-line contents inline in the main text.
@@ -784,7 +786,8 @@ width=100%`, side-by-side image and text, menus, and score sheets.
 ## Not worth doing (or not possible in Glk)
 
 - Pixel-exact layout: `hspace`/`vspace`, cell padding, banner borders and
-  widths in pixels beyond the conversion to character cells.
+  table widths in pixels beyond the conversion to character cells (tag
+  banners' pixel sizes are exact).
 - `<body background>` tiling (until an extension
   exists), and image maps beyond the link-row fallback.
 - `<log>`/`<nolog>` (scripting already goes through Glk transcripts).
