@@ -627,6 +627,31 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
     return OS_AFE_SUCCESS;
 }
 
+#ifdef GLK_TIMERS
+/*
+ *   Sleep (os_sleep_ms) on a Glk timer.  The window shows what the game
+ *   drew only once we wait for an event, so a slideshow paced with sleeps
+ *   would otherwise show nothing but its last picture.  No input is in
+ *   progress, so the timer is ours.
+ */
+void osglk_sleep_ms(unsigned long ms)
+{
+    event_t event;
+
+    if (ms == 0)
+        return;
+    glk_request_timer_events((glui32)ms);
+    do
+    {
+        glk_select(&event);
+        if (event.type == evtype_Arrange)
+            redraw_windows();
+    }
+    while (event.type != evtype_Timer);
+    glk_request_timer_events(0);
+}
+#endif
+
 /*
  *   Read a string of input.  Fills in the buffer with a null-terminated
  *   string containing a line of text read from the standard input.  The
