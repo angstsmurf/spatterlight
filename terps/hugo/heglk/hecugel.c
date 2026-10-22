@@ -915,6 +915,15 @@ static void heglk_unmap_and_mark_clear(int i)
     wins[i].clear = 1;
 }
 
+/* Context I is about to lose what it shows. If that was not cleared since
+   it was printed or drawn, the player may not have seen it yet, so wait
+   for a key first. */
+static void heglk_pause_before_discard(int i)
+{
+    if (!wins[i].clear)
+        hugo_waitforkey();
+}
+
 /* Forget the picture last drawn in window context I. */
 static void heglk_clear_filename(int i)
 {
@@ -2149,8 +2158,8 @@ void hugo_settextpos(int x, int y)
             return;
 
         LOG("  move in buffer window. unmap.\n");
-        if (!wins[curwin].clear && !wins[curwin].isaux)
-            hugo_waitforkey();
+        if (!wins[curwin].isaux)
+            heglk_pause_before_discard(curwin);
         heglk_unmap_window(curwin);
     }
     else if (wins[curwin].win->type == wintype_TextGrid)
@@ -2425,8 +2434,7 @@ void hugo_print(char *a)
         if (current_game == GAME_FUTURE_BOY && (a[0] == ' ' || a[0] == '\r' || a[0] == '\n'))
             return;
         LOG("  unmap graphics window %d for printing\n", curwin);
-        if (!wins[curwin].clear )
-            hugo_waitforkey();
+        heglk_pause_before_discard(curwin);
         heglk_unmap_window(curwin);
     }
 
@@ -2534,29 +2542,33 @@ int hugo_hasgraphics(void)
 }
 
 
-static int heglk_detect_fb_graphics(int width, int height) {
+/* A Future Boy! picture of WIDTH x HEIGHT is being drawn in the current
+   window: recognise it by its size, note which side of the screen the
+   text goes and where the line under the pictures is, and take down the
+   windows showing an earlier picture of the same kind. */
+static void heglk_note_future_boy_picture(int width, int height) {
     if (current_game != GAME_FUTURE_BOY)
-        return FB_IMAGE_UNKNOWN;
+        return;
     int unused_alignment;
     int type = heglk_id_future_boy_images(wins[curwin].l, wins[curwin].t, wins[curwin].r, wins[curwin].b, screenwidth_in_chars, screenheight_in_chars, &unused_alignment);
     if (width > 400 && width < 450 && height > 250 && height < 300) {
+        // Main image
         if (wins[curwin].l < 3)
             future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
         else
             future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
-//        // Future Boy main image
         type = FB_IMAGE_MAIN;
     } else if (width > 170 && width < 180 && height > 180 && height < 190) {
-        // Future Boy sub image;
+        // Sub image: the window's place tells which one
     } else if (width > 120 && width < 140 && height > 50 && height < 70) {
-        //Compass image
+        // Compass image
         if (wins[curwin].l < 3)
             future_boy_graphics_alignment = FB_ALIGNMENT_RIGHT;
         else
             future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
         type = FB_IMAGE_COMPASS;
     } else if (width > 1020 && width < 1100 && height > 5 && height < 10) {
-        //Line image
+        // Line image
         future_boy_line = curwin;
         type = FB_IMAGE_LINE;
     } else {
@@ -2565,257 +2577,292 @@ static int heglk_detect_fb_graphics(int width, int height) {
     if (FB_IS_IMAGE(type)) {
         heglk_clear_future_boy_type(type, curwin);
     }
-    return type;
+}
+
+/* Remember in context I the picture just loaded, so that it can be drawn
+   again when the window is rebuilt (see heglk_adjust_single_future_boy_image). */
+static void heglk_remember_picture(int i, const char *filename, size_t offset, size_t length)
+{
+    heglk_clear_filename(i);
+    wins[i].filename = strdup(filename);
+    wins[i].offset = offset;
+    wins[i].length = length;
+}
+
+/* Where the main window's text is going: the pixel x of its cursor, if
+   it is a buffer window, or else 0. */
+static int heglk_main_text_x(void)
+{
+    if (!mainwin)
+        return 0;
+    struct winctx *main = &wins[mainwin];
+    if (!main->win || main->win->type != wintype_TextBuffer)
+        return 0;
+    LOG("  main x=%d y=%d\n", main->curx, main->cury);
+    return main->x0 + main->curx * gcellw;
+}
+
+/* Per-game notes taken from a picture's resource length, before it is
+   placed. */
+static void heglk_note_picture_quirks(long reslength)
+{
+    if (current_game == GAME_HTG && (reslength == 3501 || reslength == 4117))
+        showing_author_photo = true;
+
+    showing_futureboy_title = (current_game == GAME_FUTURE_BOY && reslength == FB_TITLE_RESLEN);
+
+    // Hack to clear old picture in A Crimson Spring after restore
+    // (trace: scourge-*)
+    if (current_game == GAME_CRIMSON) {
+        for (int i = 1; i < nwins; i++) {
+            if (wins[i].win && wins[i].win->type == wintype_Graphics) {
+                wins[i].clear = 1;
+            }
+        }
+    }
+
+    if (reslength == FB_SECOND_ROW_RESLEN && current_game == GAME_FUTURE_BOY)
+    {
+        // Without this, everything breaks when restoring Future boy
+        second_image_row = curwin;
+    }
+}
+
+/* The pixel rectangle for a picture in the current window: the window's
+   columns, its rows down to the second image row, stretched to the right
+   edge or to half the screen as the window is. */
+static void heglk_picture_rect(int *px0, int *py0, int *px1, int *py1)
+{
+    struct winctx *ctx = &wins[curwin];
+    int x0 = (ctx->l - 1) * gcellw;
+    int y0 = ctx->y0;
+    int winwidth = (ctx->r - ctx->l + 1) * gcellw + 1;
+    int x1 = x0 + winwidth;
+    if (x1 > gscreenw)
+        x1 = gscreenw;
+    int y1 = ctx->y1;
+
+    if (second_image_row && second_image_row != curwin && wins[second_image_row].y0 < y1)
+    {
+        y1 = wins[second_image_row].y0;
+    }
+
+    if (gscreenw - x1 < (gcellw * 2 + 2 * ggridmarginx) || ctx->peggedtoright || x1 > gscreenw)
+    {
+        if (x0 < ggridmarginx)
+        {
+            x0 = 0;
+        } else if (ctx->halfscreenwidth)
+        {
+            x0 = gscreenw / 2;
+        } else {
+            int diff = gscreenw - x1;
+            x0 += diff;
+        }
+        x1 = gscreenw;
+    }
+
+    if (ctx->halfscreenwidth && x0 < ggridmarginx)
+    {
+        x0 = 0;
+        x1 = gscreenw / 2 + 1;
+    }
+
+    // Hack to center the title mugshot gallery in Guilty Bastards
+    // (trace: guilty-*)
+    if (current_game == GAME_GUILTY_BASTARDS && ctx->r - ctx->l < screenwidth_in_chars / 4) {
+        int diff = ggridmarginx + gcellw;
+        x0 += diff;
+        x1 += diff;
+    }
+
+    if (y1 == y0) {
+        y1 = y0 + (ctx->b - ctx->t) * gcellh;
+        if (y1 > gscreenh)
+        {
+            y1 = gscreenh;
+            y0 = gscreenh - gcellh;
+        }
+    }
+
+    LOG("heglk_picture_rect curwin (%d) x0: %d y0: %d x1: %d y1: %d \n", curwin, x0, y0, x1, y1);
+
+    *px0 = x0;
+    *py0 = y0;
+    *px1 = x1;
+    *py1 = y1;
+}
+
+/* Should the picture go inline in the main window, rather than in a
+   graphics window of its own? It does when the window Hugo set for it
+   starts where the main window's text is going (MAIN_TEXT_X) and ends
+   where the main window does: the game is putting it in the text. */
+static int heglk_should_draw_inline(int main_text_x)
+{
+    if (!mainwin || !wins[mainwin].win || !heglk_game_allows_inline_pictures())
+        return false;
+    if (current_game == GAME_TRAVELING)
+        return true;
+
+    LOG("ABS(main_text_x - wins[curwin].x0) = %d  gbufcellw * 2 = %f\n", ABS(main_text_x - wins[curwin].x0), gbufcellw * 2);
+    LOG("ABS(wins[mainwin].y1 - wins[curwin].y1) = %d  gbufcellh * 2 = %f\n", ABS(wins[mainwin].y1 - wins[curwin].y1), gbufcellh * 2);
+
+    // The cursor position is inaccurate, as it is counted in grid cells
+    // while the main window is a buffer window, so allow two characters
+    // either way.
+    return ABS(main_text_x - wins[curwin].x0) < gbufcellw * 2
+        && ABS(wins[mainwin].y1 - wins[curwin].y1) < gbufcellh * 2;
+}
+
+/* Draw the picture (ORIGWIDTH wide unscaled, WIDTH x HEIGHT as fitted to
+   the current window) centred in a paragraph of its own in the main
+   window, scaled to fit inside the buffer margins, and drop the current
+   window, which it replaces. */
+static void heglk_draw_inline_picture(glui32 origwidth, float aspect, glui32 width, glui32 height)
+{
+    int x0 = wins[mainwin].x0 + gbuffermarginx;
+    int x1 = wins[mainwin].x1 - gbuffermarginx;
+
+    if (origwidth < x1 - x0) {
+        width = origwidth;
+        height = origwidth * aspect;
+    } else if (width > x1 - x0) {
+        width = x1 - x0;
+        height = width * aspect;
+    }
+
+    int linecount = height / gbufcellh + 1;
+    LOG("  PictureInText at line %d, window %d\n", linecount, mainwin);
+
+    nlbufcnt -= linecount;
+    if (nlbufcnt < 0)
+        nlbufcnt = 0;
+
+    hugo_flushnl();
+    glk_set_window(wins[mainwin].win);
+
+    glk_set_style(style_User1);
+    glk_put_char(' ');
+    glk_set_hyperlink(1);
+    win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height, 0, 0);
+    glk_set_hyperlink(0);
+    wins[mainwin].clear = 0;
+    glk_put_char('\n');
+    glk_set_style(style_Normal);
+
+    wins[curwin].clear = 1;
+    wins[curwin].y1 = 0;
+    wins[curwin].b = 0;
+
+    if (second_image_row)
+    {
+        wins[mainwin].y0 = wins[second_image_row].y1;
+    }
+}
+
+/* Replace the current window by a graphics window at X0,Y0-X1,Y1, filled
+   with its background colour, with the picture drawn WIDTH x HEIGHT at
+   XOFF,YOFF in it. */
+static void heglk_draw_picture_window(int x0, int y0, int x1, int y1, int xoff, int yoff, glui32 width, glui32 height)
+{
+    if (wins[curwin].win)
+    {
+        LOG("  unmap old window %d for graphics\n", curwin);
+        if (wins[curwin].win->type != wintype_Graphics)
+            heglk_pause_before_discard(curwin);
+        heglk_unmap_window(curwin);
+    }
+
+    LOG("  heglk_draw_picture_window %d: x0:%d y0:%d x1:%d y1:%d\n", curwin, x0 , y0, x1, y1);
+    wins[curwin].x0 = x0;
+    wins[curwin].y0 = y0;
+    wins[curwin].x1 = x1;
+    wins[curwin].y1 = y1;
+
+    wins[curwin].win = gli_new_window(wintype_Graphics, 0);
+    win_sizewin(wins[curwin].win->peer, x0, y0, x1, y1);
+
+    int color = hugo_color(wins[curwin].bg);
+
+    /* Avoid clear background behind images in Guilty Bastards */
+    /* Can happen after changing settings */
+    if (current_game == GAME_GUILTY_BASTARDS)
+        glk_window_set_background_color(wins[curwin].win, color);
+    else
+        win_maketransparent(wins[curwin].win->peer);
+
+    LOG("heglk_draw_picture_window: fill a rect with background color %x: width %d, height %d\n", color, abs(x1-x0), abs(y1-y0));
+    win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
+    LOG("heglk_draw_picture_window: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
+    win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height, 0, 0);
+    wins[curwin].clear = 0;
 }
 
 int hugo_displaypicture(HUGO_FILE infile, long reslength)
 {
-    glui32 width, height, origwidth, origheight;
-    int oldx = 0;
+    glui32 width, height;
 
-    if (hugo_hasgraphics())
+    if (!hugo_hasgraphics())
     {
-        if (mainwin)
-        {
-            struct winctx mainctx = wins[mainwin];
-            if (mainctx.win && mainctx.win->type == wintype_TextBuffer) {
-                LOG("  main x=%d y=%d\n", mainctx.curx, mainctx.cury);
-                oldx = mainctx.x0 + mainctx.curx * gcellw;
-            }
-        }
+        glk_stream_close(infile, NULL);
+        just_displayed_something = true;
+        waited_since_display = false;
+        return true;
+    }
 
-        if (current_game == GAME_FUTURE_BOY)
-            below_status = 0;
+    int main_text_x = heglk_main_text_x();
 
-        if (curwin == below_status && statuswin)
-        {
-            int diff = wins[statuswin].y1 - wins[curwin].y0;
-            if (diff) {
-                wins[curwin].y0 = wins[statuswin].y1;
-                if (diff > 0 && curwin != mainwin)
-                    wins[curwin].y1 = heglk_push_down_main_window_to(wins[curwin].y1 + diff);
-                heglk_sizeifexists(curwin);
-            }
-        }
+    if (current_game == GAME_FUTURE_BOY)
+        below_status = 0;
 
-        int file_offset = glk_stream_get_position(infile);
-        win_loadimage(heglk_image_id(file_offset, reslength), infile->filename, file_offset, reslength);
-        wins[curwin].offset = file_offset;
-        wins[curwin].length = reslength;
-        size_t length = strlen(infile->filename) + 1;
-        free(wins[curwin].filename);
-        wins[curwin].filename = malloc(length);
-        if (wins[curwin].filename)
-            memcpy(wins[curwin].filename, infile->filename, length);
-
-        win_sizeimage(&width, &height);
-
-        origwidth = width;
-        origheight = height;
-
-        if (current_game == GAME_HTG && (reslength == 3501 || reslength == 4117))
-            showing_author_photo = true;
-
-        if (current_game == GAME_FUTURE_BOY && reslength == FB_TITLE_RESLEN)
-            showing_futureboy_title = true;
-        else
-            showing_futureboy_title = false;
-
-        // Hack to clear old picture in A Crimson Spring after restore
-        // (trace: scourge-*)
-        if (current_game == GAME_CRIMSON) {
-            for (int i = 1; i < nwins; i++) {
-                if (wins[i].win && wins[i].win->type == wintype_Graphics) {
-                    wins[i].clear = 1;
-                }
-            }
-        }
-
-        LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
-        float aspect = (float) height / width; /* for the inline case below */
-
-        int x0 = (wins[curwin].l - 1) * gcellw;
-        int y0 = wins[curwin].y0;
-        int winwidth = (wins[curwin].r - wins[curwin].l + 1) * gcellw + 1;
-        int x1 = x0 + winwidth;
-        if (x1 > gscreenw)
-            x1 = gscreenw;
-        int y1 = wins[curwin].y1;
-
-        if (reslength == FB_SECOND_ROW_RESLEN && current_game == GAME_FUTURE_BOY)
-        {
-            // Without this, everything breaks when restoring Future boy
-            second_image_row = curwin;
-        }
-
-        if (second_image_row && second_image_row != curwin && wins[second_image_row].y0 < y1)
-        {
-            y1 = wins[second_image_row].y0;
-        }
-
-        if (gscreenw - x1 < (gcellw * 2 + 2 * ggridmarginx) || wins[curwin].peggedtoright || x1 > gscreenw)
-        {
-            if (x0 < ggridmarginx)
-            {
-                x0 = 0;
-            } else if (wins[curwin].halfscreenwidth)
-            {
-                x0 = gscreenw / 2;
-            } else {
-                int diff = gscreenw - x1;
-                x0 += diff;
-            }
-            x1 = gscreenw;
-        }
-
-        if (wins[curwin].halfscreenwidth && x0 < ggridmarginx)
-        {
-            x0 = 0;
-            x1 = gscreenw / 2 + 1;
-        }
-
-        // Hack to center the title mugshot gallery in Guilty Bastards
-        // (trace: guilty-*)
-        if (current_game == GAME_GUILTY_BASTARDS && wins[curwin].r - wins[curwin].l < screenwidth_in_chars / 4) {
-            int diff = ggridmarginx + gcellw;
-            x0 += diff;
-            x1 += diff;
-        }
-
-        LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d x1: %d y1: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
-
-        if (width < 1 || height < 1)
-        {
-            glk_stream_close(infile, NULL);
-            return false;
-        }
-
-        if (y1 == y0) {
-            y1 = y0 + (wins[curwin].b - wins[curwin].t) * gcellh;
-            if (y1 > gscreenh)
-            {
-                y1 = gscreenh;
-                y0 = gscreenh - gcellh;
-            }
-        }
-
-        int xoff, yoff;
-        heglk_fit_image(x1 - x0, y1 - y0, &width, &height, &xoff, &yoff);
-
-        heglk_detect_fb_graphics(origwidth, origheight);
-
-        LOG("hugo_displaypicture w=%d h=%d x offset: %d y offset: %d\n", width, height, xoff, yoff);
-
-        hugo_unmapcleared();
-
-        LOG("ABS(oldx - wins[curwin].x0) = %d  gcellw * 2 = %f\n", ABS(oldx - wins[curwin].x0),  gcellw * 2);
-        LOG("ABS(wins[mainwin].y1 - wins[curwin].y1) = %d  gbufcellh * 2 = %f\n", ABS(wins[mainwin].y1 - wins[curwin].y1),  gbufcellh * 2);
-
-        // Prints an inline image in the main text window instead of replacing it with a new graphics window.
-        // This will break any graphical menus that expect mouse input with correct coordinates,
-        // such as the main menu of Cryptozookeeper, so we'll need to check for that here.
-
-        if ((mainwin && wins[mainwin].win && // We have a main window with Glk counterpart
-
-             // The two lines below try to check if the main window current position and the
-             // current window, i.e. the window Hugo just set for this image,
-             // are close enough.
-
-             ((ABS(oldx - wins[curwin].x0) < gbufcellw * 2 && // The difference between main window last printed
-               // character position (inaccurate because it is a buffer
-               // window but the position is calculated using grid cellwidth)
-               // and current window left edge is less than two (grid) characters
-
-               ABS(wins[mainwin].y1 - wins[curwin].y1) < gbufcellh * 2)  // The difference betwee main window bottom edge
-              // and current window bottom edge is less than two
-              // characters
-
-              || current_game == GAME_TRAVELING)
-
-             && heglk_game_allows_inline_pictures())) {
-
-            // Scale down again to buffer margins
-            x0 = wins[mainwin].x0 + gbuffermarginx;
-            x1 = wins[mainwin].x1 - gbuffermarginx;
-
-            if (origwidth < x1 - x0) {
-                width = origwidth;
-                height = origwidth * aspect;
-            } else if (width > x1 - x0) {
-                width = x1 - x0;
-                height = width * aspect;
-            }
-
-            int linecount = height / gbufcellh + 1;
-            LOG("  PictureInText at line %d, window %d\n", linecount, mainwin);
-
-            nlbufcnt -= linecount;
-            if (nlbufcnt < 0)
-                nlbufcnt = 0;
-
-            hugo_flushnl();
-            glk_set_window(wins[mainwin].win);
-
-            // We use a centered style for the image and
-            // give it its own paragraph
-            glk_set_style(style_User1);
-            glk_put_char(' ');
-            glk_set_hyperlink(1);
-            win_drawimage(wins[mainwin].win->peer, imagealign_InlineUp, 0, width, height, 0, 0);
-            glk_set_hyperlink(0);
-            wins[mainwin].clear = 0;
-            glk_put_char('\n');
-            glk_set_style(style_Normal);
-
-            wins[curwin].clear = 1;
-            wins[curwin].y1 = 0;
-            wins[curwin].b = 0;
-
-            if (second_image_row)
-            {
-                wins[mainwin].y0 = wins[second_image_row].y1;
-            }
-        }
-        else
-        {
-            // Here we create a new graphic window instead
-            if (wins[curwin].win)
-            {
-                LOG("  unmap old window %d for graphics\n", curwin);
-                if (wins[curwin].win->type != wintype_Graphics && !wins[curwin].clear) {
-                    LOG("  pausing to let the player read the text in window %d before we delete it (and swap to graphics)\n", curwin);
-                    hugo_waitforkey();
-                }
-                heglk_unmap_window(curwin);
-            }
-
-            LOG("  hugo_displaypicture %d: x0:%d y0:%d x1:%d y1:%d\n", curwin, x0 , y0, x1, y1);
-            wins[curwin].x0 = x0;
-            wins[curwin].y0 = y0;
-            wins[curwin].x1 = x1;
-            wins[curwin].y1 = y1;
-
-            wins[curwin].win = gli_new_window(wintype_Graphics, 0);
-            win_sizewin(wins[curwin].win->peer,
-                        x0, y0,
-                        x1, y1);
-
-            int color = hugo_color(wins[curwin].bg);
-
-            /* Avoid clear background behind images in Guilty Bastards */
-            /* Can happen after changing settings */
-            if (current_game == GAME_GUILTY_BASTARDS)
-                glk_window_set_background_color(wins[curwin].win, color);
-            else
-                win_maketransparent(wins[curwin].win->peer);
-
-            LOG("hugo_displaypicture: fill a rect with background color %x: width %d, height %d\n", hugo_color(wins[curwin].bg), abs(x1-x0), abs(y1-y0));
-            win_fillrect(wins[curwin].win->peer, color, 0, 0, abs(x1-x0), abs(y1-y0));
-            LOG("hugo_displaypicture: draw image: x offset %d, y offset %d, width %d, height %d\n", xoff, yoff, width, height);
-            win_drawimage(wins[curwin].win->peer, xoff, yoff, width, height, 0, 0);
-            wins[curwin].clear = 0;
+    if (curwin == below_status && statuswin)
+    {
+        int diff = wins[statuswin].y1 - wins[curwin].y0;
+        if (diff) {
+            wins[curwin].y0 = wins[statuswin].y1;
+            if (diff > 0 && curwin != mainwin)
+                wins[curwin].y1 = heglk_push_down_main_window_to(wins[curwin].y1 + diff);
+            heglk_sizeifexists(curwin);
         }
     }
+
+    int file_offset = glk_stream_get_position(infile);
+    win_loadimage(heglk_image_id(file_offset, reslength), infile->filename, file_offset, reslength);
+    win_sizeimage(&width, &height);
+    LOG("hugo_displaypicture: original image size: width %d height %d , reslength: %ld\n", width, height, reslength);
+
+    if (width < 1 || height < 1)
+    {
+        glk_stream_close(infile, NULL);
+        return false;
+    }
+
+    heglk_remember_picture(curwin, infile->filename, file_offset, reslength);
+    heglk_note_picture_quirks(reslength);
+
+    glui32 origwidth = width;
+    glui32 origheight = height;
+    float aspect = (float) height / width; /* for the inline case */
+
+    int x0, y0, x1, y1;
+    heglk_picture_rect(&x0, &y0, &x1, &y1);
+
+    int xoff, yoff;
+    heglk_fit_image(x1 - x0, y1 - y0, &width, &height, &xoff, &yoff);
+
+    heglk_note_future_boy_picture(origwidth, origheight);
+
+    LOG("hugo_displaypicture w=%d h=%d x offset: %d y offset: %d\n", width, height, xoff, yoff);
+
+    hugo_unmapcleared();
+
+    // An inline picture would break graphical menus that expect mouse
+    // input at the right coordinates, such as the main menu of
+    // Cryptozookeeper; heglk_game_allows_inline_pictures() keeps those out.
+    if (heglk_should_draw_inline(main_text_x))
+        heglk_draw_inline_picture(origwidth, aspect, width, height);
+    else
+        heglk_draw_picture_window(x0, y0, x1, y1, xoff, yoff, width, height);
 
     glk_stream_close(infile, NULL);
     just_displayed_something = true;
