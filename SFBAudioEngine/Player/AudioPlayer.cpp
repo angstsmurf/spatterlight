@@ -859,6 +859,12 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 	pthread_setname_np("org.sbooth.AudioEngine.Decoder");
 
 	// ========================================
+	// Give the thread a QoS class. The main thread waits on semaphores this thread signals, and
+	// without one the waits are priority inversions that the system can not resolve
+	if(pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0))
+		NSLog("Couldn't set decoder thread QoS class");
+
+	// ========================================
 	// Make ourselves a high priority thread
 	if(!setThreadPolicy(DECODER_THREAD_IMPORTANCE))
 		NSLog("Couldn't set decoder thread importance");
