@@ -966,6 +966,8 @@ void hugo_clearfullscreen(void)
     below_status = 0;
     second_image_row = 0;
     future_boy_line = 0;
+    guilty_bastards_graphics_win = 0;
+    guilty_bastards_aux_win = 0;
 
     /* create initial fullscreen window */
     hugo_settextwindow(1, 1,
