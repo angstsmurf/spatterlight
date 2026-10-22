@@ -29,6 +29,10 @@ typedef struct oshtml_image
 /* Draw it in a text-buffer window */
 void oshtml_draw_image(winid_t win, const oshtml_image *img);
 
+/* and the size it's drawn at, in a window whose text is 'width' pixels */
+int oshtml_image_size(const oshtml_image *img, glui32 width,
+                      glui32 *w, glui32 *h);
+
 /* Where a parser's text goes: the main window, or a banner */
 typedef struct oshtml_sink
 {
@@ -61,8 +65,9 @@ typedef struct oshtml_sink
     /*
      *   A sink whose window() is null can still show pictures with this,
      *   keeping them with its text to be drawn again (the banners of the
-     *   API).  It returns false if it can't, and the ALT text is shown.
-     *   Null in the other sinks.
+     *   API); a tag banner draws them itself, to fit itself to them.  It
+     *   returns false if it can't, and the ALT text is shown.  With a null
+     *   picture it only answers whether it could.  Null in the main window.
      */
     int (*image)(void *ctx, const oshtml_image *img);
 } oshtml_sink;

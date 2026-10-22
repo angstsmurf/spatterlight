@@ -583,8 +583,7 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
     now draw pictures: *Edge of Chaos* (its title and start screens),
     *According to Cain* (which now asks "Do you want graphics?"),
     *homeopen*, *Macrocosm*, *mazes* and *Prince Quisborne* (whose left
-    banner, sized to its picture, grows from 26 to 202 px in the
-    harness).
+    banner is sized to its picture).
   - `align=left`/`right` (38 games) → `imagealign_MarginLeft`/`Right`.
   - `align=top`/`middle`/`bottom` or none → `InlineUp`/`InlineCenter`/
     `InlineDown`.
@@ -603,9 +602,39 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   banner print the `alt` text instead.
   - A centred `<TAB>` before a picture pads it as if the picture were one
     character wide (*Edge of Chaos*, *1893*).
-  - [ ] A banner without a height must size to its contents, image
-    included: use `glk_image_get_info` for the image height and convert it
-    to lines with `glk_style_measure`.
+  - [x] A banner without a height sizes to its contents, pictures
+    included. The app counts a line holding a picture as one line however
+    tall it is, and a picture in the margin not at all. So `picture_fit`
+    (`osglkban.c`) adds what's missing. It takes the size the picture is
+    drawn at (`oshtml_image_size`: `glk_image_get_info`, then the same
+    scaling as `oshtml_draw_image`) and turns it into lines and columns of
+    `gbufcellh`/`gbufcellw` (`glk_style_measure` has no line height).
+    - Inline: the tallest picture on a line adds its lines less one.
+      Margin: the banner reaches at least the line the picture starts on
+      plus its height.
+    - At the side: as wide as the widest line, pictures included, plus 2,
+      as a tag banner already was. `os_banner_size_to_contents` used to
+      give a side banner its line count as its width. That's why *Prince
+      Quisborne*'s left banner grew from 26 to 202 px in the harness. A
+      picture whose size isn't known leaves the width as it is.
+    - Tag banners get pictures through the sink's `image` too (`tag_image`),
+      to count them. With a null picture, `image` only answers whether it
+      could take one. That way a grid banner refuses before the parser
+      flushes the line, as before (*futzmutz*'s status line).
+    - A banner of size 0 now has a window, so it keeps its text and can be
+      fitted to it. Before, its text was lost:
+      - *banner_api* creates its banners at 0 and fits them, and they
+        never showed.
+      - *banner_api2* stopped with "invalid index operation" when it asked
+        about a size-0 grid; now it runs to the end.
+      - `os_banner_set_size` does nothing when the size hasn't changed, so
+        fitting every turn no longer closes and reopens every banner.
+    - Traces: no change to the main window's text except *banner_api2*'s
+      ending. The harness answers every picture size with 0x0. With a
+      driver answering 300x200, *Prince Quisborne*'s left banner and
+      *mazes*'s right banner are 330 px (38 columns plus 2). No game in
+      the corpus fits a tag banner to a picture; their picture banners
+      have sizes.
 - [x] Percentage sizes are computed once, when the image is drawn, with
   `glk_image_draw_scaled_ext` and `imagerule_WidthRatio` (when
   `gestalt_DrawImageScale` is there). Glk can't rescale an image that's

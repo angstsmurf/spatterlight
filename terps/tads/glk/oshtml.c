@@ -1600,6 +1600,41 @@ void oshtml_draw_image(winid_t win, const oshtml_image *img)
         glk_image_draw(win, id, align, 0);
 }
 
+/*
+ *   The size oshtml_draw_image draws a picture at, in pixels, in a window
+ *   whose text is width pixels across: false if it's not known, as for a
+ *   share of a width of 0
+ */
+int oshtml_image_size(const oshtml_image *img, glui32 width,
+                      glui32 *w, glui32 *h)
+{
+    glui32 iw, ih;
+
+    if (!glk_image_get_info(img->id, &iw, &ih) || !iw || !ih)
+        return 0;
+
+    if (img->width_pct && img->width
+        && glk_gestalt(gestalt_DrawImageScale, wintype_TextBuffer))
+    {
+        *w = width * img->width / 100;
+        *h = ih * *w / iw;
+        return *w != 0;
+    }
+
+    *w = img->width_pct ? 0 : img->width;
+    *h = img->height_pct ? 0 : img->height;
+    if (!*w && !*h)
+    {
+        *w = iw;
+        *h = ih;
+    }
+    else if (!*w)
+        *w = iw * *h / ih;
+    else if (!*h)
+        *h = ih * *w / iw;
+    return 1;
+}
+
 static int put_image(parser *p, const glui32 *src, size_t srclen,
                      glui32 align, img_size w, img_size h)
 {
@@ -1611,7 +1646,8 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
 
     if (p->dst || srclen == 0 || !glk_gestalt(gestalt_Graphics, 0)
         || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)
-        || !(p->sink->image || p->sink->window(p->ctx)))
+        || !(p->sink->image ? p->sink->image(p->ctx, NULL)
+             : p->sink->window(p->ctx) != NULL))
         return 0;
 
     n = url_utf8(src, srclen, name, sizeof(name));

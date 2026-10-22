@@ -37,6 +37,7 @@ extern glui32 os_prepare_chars(glui32 *buf, glui32 buflen,
                                unsigned char *out, glui32 outlen);
 
 #ifdef SPATTERLIGHT
+#include <math.h>
 #include "glkimp.h"                 /* for-size to-contents hack */
 #endif /* SPATTERLIGHT */
 
@@ -110,6 +111,81 @@ extern glui32 mainbg;
 
 extern glui32 statusfg;
 extern glui32 statusbg;
+
+#ifdef SPATTERLIGHT
+/*
+ *   What the pictures in a text-buffer banner add to the size it fits its
+ *   contents at.  The app counts a line with a picture in it as one line,
+ *   however tall the picture, and a picture in the margin not at all.
+ */
+typedef struct picture_fit_s
+{
+    int extra;                      /* lines the pictures make taller */
+    int row, row_extra;             /* the last picture's line, its extra */
+    int bottom;                     /* the line under the margin pictures */
+    int unknown;                    /* a picture whose size isn't known */
+}
+picture_fit;
+
+static void picture_fit_init(picture_fit *fit)
+{
+    fit->extra = 0;
+    fit->row = -1;
+    fit->row_extra = 0;
+    fit->bottom = 0;
+    fit->unknown = 0;
+}
+
+/*
+ *   a picture that starts on the given line (from 0): the columns it takes
+ *   up, at the size it's drawn at in the window
+ */
+static int picture_fit_add(picture_fit *fit, winid_t win,
+                           const oshtml_image *img, int line)
+{
+    glui32 w, h, width = 0;
+    int lines;
+
+    if (win->bbox.x1 > win->bbox.x0 + 2 * gbuffermarginx)
+        width = win->bbox.x1 - win->bbox.x0 - 2 * gbuffermarginx;
+    if (gbufcellw <= 0 || gbufcellh <= 0
+        || !oshtml_image_size(img, width, &w, &h))
+    {
+        fit->unknown = 1;
+        return 0;
+    }
+
+    lines = (int)ceilf(h / gbufcellh);
+    if (img->align == imagealign_MarginLeft
+        || img->align == imagealign_MarginRight)
+    {
+        if (line + lines > fit->bottom)
+            fit->bottom = line + lines;
+    }
+    else
+    {
+        /* the tallest picture on a line sets its height */
+        if (line != fit->row)
+        {
+            fit->row = line;
+            fit->row_extra = 0;
+        }
+        if (lines - 1 > fit->row_extra)
+        {
+            fit->extra += lines - 1 - fit->row_extra;
+            fit->row_extra = lines - 1;
+        }
+    }
+    return (int)ceilf(w / gbufcellw);
+}
+
+/* the lines a banner fits at, with the app's count of its text lines */
+static int picture_fit_lines(const picture_fit *fit, int lines)
+{
+    lines += fit->extra;
+    return lines > fit->bottom ? lines : fit->bottom;
+}
+#endif /* SPATTERLIGHT */
 
 void banner_contents_display(contentid_t contents);
 
@@ -386,7 +462,11 @@ void os_banners_open(osbanid_t banner)
 
     if (banner->valid)
     {
-        if (banner->size && banner->parent && banner->parent->win)
+        /*
+         *   a banner of no size has a window too, to keep its text, as a
+         *   banner fitted to its contents may be until it has some
+         */
+        if (banner->parent && banner->parent->win)
         {
             os_banner_styles_apply(banner);
             if (banner->type == wintype_TextGrid)
@@ -611,6 +691,10 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units, int is_advi
         default: gwinmeth |= winmethod_Fixed; break;
     }
 
+    /* fitting a banner to the same contents again changes nothing */
+    if (gwinmeth == banner->method && gwinsize == banner->size)
+        return;
+
     banner->method = gwinmeth;
     banner->size = gwinsize;
 
@@ -626,7 +710,58 @@ void os_banner_size_to_contents(void *banner_handle)
 #ifdef SPATTERLIGHT
     if (banner->type == wintype_TextBuffer)
     {
-        int size = win_lines(banner->win->peer);
+        picture_fit fit;
+        int line = 0, col = 0, maxcol = 0, nl = 0, size;
+        glui32 dir = banner->method & winmethod_DirMask;
+
+        /* the lines of the contents, as banner_contents_display writes them */
+        picture_fit_init(&fit);
+        for (contentid_t c = banner->contents; c; c = c->next)
+        {
+            for (glui32 i = 0; i < c->len; ++i)
+            {
+                unsigned char ch = (unsigned char)c->chars[i];
+
+                /* a newline waits for more, so the last one is never shown */
+                if (ch == '\n')
+                {
+                    ++nl;
+                    continue;
+                }
+                if (nl)
+                {
+                    line += nl;
+                    col = nl = 0;
+                }
+                /* a character, but not the rest of one in UTF-8 */
+                if ((ch & 0xC0) != 0x80 && ++col > maxcol)
+                    maxcol = col;
+            }
+            if (c->has_image)
+            {
+                if (nl)
+                {
+                    line += nl;
+                    col = nl = 0;
+                }
+                col += picture_fit_add(&fit, banner->win, &c->image, line);
+                if (col > maxcol)
+                    maxcol = col;
+            }
+        }
+
+        /*
+         *   at the side, as wide as the widest line, as for a tag banner;
+         *   a picture we can't measure leaves the width as it is
+         */
+        if (dir == winmethod_Left || dir == winmethod_Right)
+        {
+            if (fit.unknown)
+                return;
+            size = maxcol ? maxcol + 2 : 0;
+        }
+        else
+            size = picture_fit_lines(&fit, win_lines(banner->win->peer));
         os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
     }
 #endif /* SPATTERLIGHT */
@@ -993,6 +1128,8 @@ static int html_image(void *ctx, const oshtml_image *img)
 
     if (!banner->valid || !banner->win || banner->type != wintype_TextBuffer)
         return 0;
+    if (!img)
+        return 1;
     update = banner_contents_add(banner);
     if (!update)
         return 0;
@@ -1088,6 +1225,9 @@ typedef struct tagban_s
     int lines;
     int col, maxcol;
     int nl;
+#ifdef SPATTERLIGHT
+    picture_fit pictures;           /* and what its pictures add */
+#endif /* SPATTERLIGHT */
 
     struct tagban_s *next;
 }
@@ -1239,6 +1379,23 @@ static winid_t tag_window(void *ctx)
     return tb->win;
 }
 
+/* a picture is drawn there too, and the banner fitted to it */
+static int tag_image(void *ctx, const oshtml_image *img)
+{
+    tagban_t *tb = ctx;
+    winid_t win = tag_window(tb);
+
+    if (!win || !img)
+        return win != NULL;
+    oshtml_draw_image(win, img);
+#ifdef SPATTERLIGHT
+    tb->col += picture_fit_add(&tb->pictures, win, img, tb->lines - 1);
+    if (tb->col > tb->maxcol)
+        tb->maxcol = tb->col;
+#endif /* SPATTERLIGHT */
+    return 1;
+}
+
 static void tag_set_link(void *ctx, glui32 link)
 {
     tagban_t *tb = ctx;
@@ -1249,7 +1406,7 @@ static void tag_set_link(void *ctx, glui32 link)
 static const oshtml_sink tag_sink =
 {
     tag_put, tag_set_attr, tag_set_color, tag_set_screen_color,
-    tag_width, tag_centers, tag_window, tag_set_link, NULL
+    tag_width, tag_centers, tag_window, tag_set_link, tag_image
 };
 
 static tagban_t *tag_find(const char *id)
@@ -1316,11 +1473,16 @@ static void tag_open_window(tagban_t *tb, int pixels)
 /* the size of a banner fitted to its text */
 static glui32 tag_fitted(tagban_t *tb)
 {
+#ifdef SPATTERLIGHT
+    if (tag_vertical(tb->method) && tb->pictures.unknown)
+        return tb->size;
+#endif /* SPATTERLIGHT */
     if (tag_vertical(tb->method))
         return tb->maxcol ? (glui32)tb->maxcol + 2 : 0;
 #ifdef SPATTERLIGHT
     if (tb->type == wintype_TextBuffer && tb->win && !tb->measure)
-        return (glui32)win_lines(tb->win->peer);
+        return (glui32)picture_fit_lines(&tb->pictures,
+                                         win_lines(tb->win->peer));
 #endif /* SPATTERLIGHT */
     return (glui32)tb->lines;
 }
@@ -1467,6 +1629,9 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     /* a grid can't keep lines below its last, so it counts them first */
     tb->measure = tb->fit && type == wintype_TextGrid;
     tb->lines = tb->col = tb->maxcol = tb->nl = 0;
+#ifdef SPATTERLIGHT
+    picture_fit_init(&tb->pictures);
+#endif /* SPATTERLIGHT */
     return tb;
 }
 
@@ -1477,6 +1642,9 @@ int osglk_tag_banner_done(void *ctx)
     if (tb->fit)
         tag_resize(tb, tag_fitted(tb));
     tb->lines = tb->col = tb->maxcol = tb->nl = 0;
+#ifdef SPATTERLIGHT
+    picture_fit_init(&tb->pictures);
+#endif /* SPATTERLIGHT */
     if (tb->measure)
     {
         /* now the text again, for real */
