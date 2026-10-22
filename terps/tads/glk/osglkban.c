@@ -64,13 +64,11 @@ typedef struct os_banner_s
 
     glui32 fgcolor;                 /* foreground color */
     glui32 bgcolor;                 /* background color */
-    glui32 fgcustom;                /* custom colors */
-    glui32 bgcustom;
-    glui32 bgtrans;
     glui32 bgscreen;                /* the game set bgcolor */
 
     contentid_t contents;           /* window contents */
     glui32 style;                   /* active Glk style value */
+    os_color_t fg, bg;              /* active text colours, as the game set them */
     glui32 link;                    /* active hyperlink (HTML mode) */
     glui32 newline;                 /* active newline */
     glui32 move, x, y;              /* active cursor position */
@@ -88,6 +86,7 @@ typedef struct banner_contents_s
     contentid_t next;               /* next set of contents */
 
     glui32 style;                   /* stored contents style */
+    os_color_t fg, bg;              /* stored colours */
     glui32 link;                    /* stored hyperlink */
     glui32 newline;                 /* stored newline */
     glui32 move, x, y;              /* stored cursor position */
@@ -119,7 +118,6 @@ void banner_contents_display(contentid_t contents);
     os_banner_init();
     os_banner_insert();
     os_banner_styles_apply();
-    os_banner_styles_reset();
     os_banners_close();
     os_banners_open();
     os_banners_redraw();
@@ -148,10 +146,14 @@ osbanid_t os_banner_init(void)
     instance->cheight = 0;
     instance->cwidth = 0;
 
+    instance->fgcolor = 0;
+    instance->bgcolor = 0;
     instance->bgscreen = 0;
 
     instance->contents = 0;
     instance->style = style_Normal;
+    instance->fg = OS_COLOR_P_TEXT;
+    instance->bg = OS_COLOR_P_TRANSPARENT;
     instance->link = 0;
     instance->newline = 0;
     instance->move = 0;
@@ -247,87 +249,119 @@ osbanid_t os_banner_insert(osbanid_t parent, glui32 operation, osbanid_t other,
     return baby;
 }
 
+/*
+ *   The theme's colours, which osglk.c measures again when it changes: a
+ *   status banner is a reversed grid, like the status line
+ */
 void os_banner_styles_apply (osbanid_t banner)
 {
     if (!banner || !(banner->valid))
         return;
 
-    glui32 propval = banner->status ? 0 : (banner->type == wintype_TextGrid ? 0 : 1);
-
-    /*
-     *   The theme's colours, which osglk.c measures again when it changes:
-     *   a status banner is a reversed grid, like the status line
-     */
     banner->fgcolor = banner->status ? statusbg : mainfg;
     if (!banner->bgscreen)
         banner->bgcolor = banner->status ? statusfg : mainbg;
-
-    glui32 bgcustom = banner->bgtrans ? banner->bgcolor : banner->bgcustom;
-
-    /* banners keep the plain styles; os_banner_styles_reset puts ours back */
-    osstyles_clear_hints(banner->type);
-
-    /* font style: monospace for text grid and tab aligned buffers, else proportional */
-    glk_stylehint_set(banner->type, style_Alert, stylehint_Proportional, propval);
-    glk_stylehint_set(banner->type, style_Subheader, stylehint_Proportional, propval);
-    glk_stylehint_set(banner->type, style_Emphasized, stylehint_Proportional, propval);
-    glk_stylehint_set(banner->type, style_Normal, stylehint_Proportional, propval);
-    glk_stylehint_set(banner->type, style_User1, stylehint_Proportional, propval);
-    glk_stylehint_set(banner->type, style_User2, stylehint_Proportional, propval);
-    glk_stylehint_set(banner->type, style_BlockQuote, stylehint_Proportional, propval);
-
-    /* foreground color: user1 reverse, user2 custom, blockquote same as background, i.e. invisible */
-    glk_stylehint_set(banner->type, style_Alert, stylehint_TextColor, banner->fgcolor);
-    glk_stylehint_set(banner->type, style_Subheader, stylehint_TextColor, banner->fgcolor);
-    glk_stylehint_set(banner->type, style_Emphasized, stylehint_TextColor, banner->fgcolor);
-    glk_stylehint_set(banner->type, style_Normal, stylehint_TextColor, banner->fgcolor);
-    glk_stylehint_set(banner->type, style_User1, stylehint_TextColor, banner->bgcolor);
-    glk_stylehint_set(banner->type, style_User2, stylehint_TextColor, banner->fgcustom);
-    glk_stylehint_set(banner->type, style_BlockQuote, stylehint_TextColor, banner->bgcolor);
-
-    /* background color: user1 reverse, user2 custom, blockquote same as background, i.e. invisible */
-    glk_stylehint_set(banner->type, style_Alert, stylehint_BackColor, banner->bgcolor);
-    glk_stylehint_set(banner->type, style_Subheader, stylehint_BackColor, banner->bgcolor);
-    glk_stylehint_set(banner->type, style_Emphasized, stylehint_BackColor, banner->bgcolor);
-    glk_stylehint_set(banner->type, style_Normal, stylehint_BackColor, banner->bgcolor);
-    glk_stylehint_set(banner->type, style_User1, stylehint_BackColor, banner->fgcolor);
-    glk_stylehint_set(banner->type, style_User2, stylehint_BackColor, bgcustom);
-    glk_stylehint_set(banner->type, style_BlockQuote, stylehint_BackColor, banner->bgcolor);
 }
 
-void os_banner_styles_reset (void)
+/*
+ *   A banner shows the main window's styles (osstyles.c), whose hints text
+ *   buffers already have.  A grid gets their bold and italic just while a
+ *   banner's grid opens, as hints only reach the windows opened after them,
+ *   and not the reversed User1 of the text-mode status line.
+ */
+static void grid_hints_set(void)
 {
-    glk_stylehint_clear(wintype_AllTypes, style_Alert, stylehint_Proportional);
-    glk_stylehint_clear(wintype_AllTypes, style_Subheader, stylehint_Proportional);
-    glk_stylehint_clear(wintype_AllTypes, style_Emphasized, stylehint_Proportional);
-    glk_stylehint_clear(wintype_AllTypes, style_Normal, stylehint_Proportional);
-    glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_Proportional);
-    glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_Proportional);
-    glk_stylehint_clear(wintype_AllTypes, style_BlockQuote, stylehint_Proportional);
+    int s, c;
 
-    glk_stylehint_clear(wintype_AllTypes, style_Alert, stylehint_TextColor);
-    glk_stylehint_clear(wintype_AllTypes, style_Subheader, stylehint_TextColor);
-    glk_stylehint_clear(wintype_AllTypes, style_Emphasized, stylehint_TextColor);
-    glk_stylehint_clear(wintype_AllTypes, style_Normal, stylehint_TextColor);
-    glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_TextColor);
-    glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_TextColor);
-    glk_stylehint_clear(wintype_AllTypes, style_BlockQuote, stylehint_TextColor);
+    for (s = 0 ; s < style_NUMSTYLES ; ++s)
+        if ((c = osstyles_combo(s)) > 0)
+        {
+            glk_stylehint_set(wintype_TextGrid, s, stylehint_Weight,
+                              (c & OSSTY_BOLD) ? 1 : 0);
+            glk_stylehint_set(wintype_TextGrid, s, stylehint_Oblique,
+                              (c & OSSTY_ITALIC) ? 1 : 0);
+        }
+    glk_stylehint_clear(wintype_TextGrid, style_User1, stylehint_ReverseColor);
+}
 
-    glk_stylehint_clear(wintype_AllTypes, style_Alert, stylehint_BackColor);
-    glk_stylehint_clear(wintype_AllTypes, style_Subheader, stylehint_BackColor);
-    glk_stylehint_clear(wintype_AllTypes, style_Emphasized, stylehint_BackColor);
-    glk_stylehint_clear(wintype_AllTypes, style_Normal, stylehint_BackColor);
-    glk_stylehint_clear(wintype_AllTypes, style_User1, stylehint_BackColor);
-    glk_stylehint_clear(wintype_AllTypes, style_User2, stylehint_BackColor);
-    glk_stylehint_clear(wintype_AllTypes, style_BlockQuote, stylehint_BackColor);
+static void grid_hints_clear(void)
+{
+    int s;
 
+    for (s = 0 ; s < style_NUMSTYLES ; ++s)
+        if (osstyles_combo(s) > 0)
+        {
+            glk_stylehint_clear(wintype_TextGrid, s, stylehint_Weight);
+            glk_stylehint_clear(wintype_TextGrid, s, stylehint_Oblique);
+        }
+}
+
+/*
+ *   A tab-aligned text banner has its styles in fixed pitch, for its
+ *   columns, keeping their bold and italic
+ */
+static void fixed_hints_set(void)
+{
+    int s, c;
+
+    for (s = 0 ; s < style_NUMSTYLES ; ++s)
+        if ((c = osstyles_combo(s)) >= 0 && !(c & OSSTY_INPUT))
+            glk_stylehint_set(wintype_TextBuffer, s, stylehint_Proportional, 0);
+}
+
+/* back to the main window's (osstyles_set_hints) */
+static void fixed_hints_clear(void)
+{
+    int s, c;
+
+    for (s = 0 ; s < style_NUMSTYLES ; ++s)
+    {
+        if ((c = osstyles_combo(s)) < 0 || (c & OSSTY_INPUT))
+            continue;
+        if (s == style_Normal)
+            glk_stylehint_clear(wintype_TextBuffer, s, stylehint_Proportional);
+        else
+            glk_stylehint_set(wintype_TextBuffer, s, stylehint_Proportional,
+                              (c & OSSTY_FIXED) ? 0 : 1);
+    }
+}
+
+/*
+ *   A colour as a zcolor.  The parameter colours are the banner's own, and
+ *   the theme's where the banner has no colour of its own.
+ */
+static glui32 banner_zcolor(osbanid_t banner, os_color_t color, int isbg)
+{
+    int bglike, theme;
+
+    if (!os_color_is_param(color))
+        return (glui32)color;
+
+    bglike = color == OS_COLOR_P_TEXTBG || color == OS_COLOR_P_STATUSBG
+        || (isbg && color == OS_COLOR_P_TRANSPARENT);
+    if (bglike)
+        theme = isbg && !banner->status && !banner->bgscreen;
+    else
+        theme = !isbg && !banner->status;
+    if (theme)
+        return zcolor_Default;
+    return bglike ? banner->bgcolor : banner->fgcolor;
+}
+
+/* the colours of the text that has none of its own, in the window's stream */
+static void banner_default_zcolors(osbanid_t banner)
+{
+    garglk_set_zcolors_stream(glk_window_get_stream(banner->win),
+                              banner_zcolor(banner, OS_COLOR_P_TEXT, 0),
+                              banner_zcolor(banner, OS_COLOR_P_TRANSPARENT, 1));
+}
+
+static void banner_set_background(osbanid_t banner)
+{
 #ifdef SPATTERLIGHT
-    /* reset our default colors with a superfluous hint */
-    glk_stylehint_set(wintype_AllTypes, style_Normal, stylehint_TextColor, mainfg);
-    glk_stylehint_set(wintype_AllTypes, style_Normal, stylehint_BackColor, mainbg);
+    win_setbgnd(banner->win->peer,
+                banner_zcolor(banner, OS_COLOR_P_TRANSPARENT, 1));
 #endif /* SPATTERLIGHT */
-
-    osstyles_set_hints(wintype_TextBuffer);
 }
 
 void os_banners_close(osbanid_t banner)
@@ -355,9 +389,22 @@ void os_banners_open(osbanid_t banner)
         if (banner->size && banner->parent && banner->parent->win)
         {
             os_banner_styles_apply(banner);
+            if (banner->type == wintype_TextGrid)
+                grid_hints_set();
+            else if (banner->status)
+                fixed_hints_set();
             banner->win = glk_window_open(banner->parent->win, banner->method,
                                           banner->size, banner->type, banner->id);
-            banner_contents_display(banner->contents);
+            if (banner->type == wintype_TextGrid)
+                grid_hints_clear();
+            else if (banner->status)
+                fixed_hints_clear();
+            if (banner->win)
+            {
+                if (banner->status || banner->bgscreen)
+                    banner_set_background(banner);
+                banner_contents_display(banner->contents);
+            }
         }
         os_banners_open(banner->children);
     }
@@ -372,7 +419,6 @@ void os_banners_redraw()
 
     os_banners_close(os_banners);
     os_banners_open(os_banners);
-    os_banner_styles_reset();
 }
 
 /* Implementation-specific functions for managing banner contents */
@@ -394,6 +440,8 @@ contentid_t banner_contents_init(void)
     instance->next = 0;
 
     instance->style = style_Normal;
+    instance->fg = OS_COLOR_P_TEXT;
+    instance->bg = OS_COLOR_P_TRANSPARENT;
     instance->link = 0;
     instance->newline = 0;
     instance->move = 0;
@@ -457,6 +505,8 @@ void banner_contents_display(contentid_t contents)
     }
 
     glk_set_style(contents->style);
+    garglk_set_zcolors(banner_zcolor(contents->banner, contents->fg, 0),
+                       banner_zcolor(contents->banner, contents->bg, 1));
     if (contents->link)
         glk_set_hyperlink(contents->link);
     if (contents->has_image)
@@ -534,14 +584,6 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
 
     gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus);
 
-    if (gbanner)
-    {
-        gbanner->fgcolor = gstatus ? statusbg : mainfg;
-        gbanner->bgcolor = gstatus ? statusfg : mainbg;
-        gbanner->fgcustom = gbanner->fgcolor;
-        gbanner->bgcustom = gbanner->bgcolor;
-        gbanner->bgtrans = 1;
-    }
 
     os_banners_redraw();
 
@@ -717,8 +759,9 @@ void os_banner_clear(void *banner_handle)
 
     if (banner->win)
     {
-        winid_t win = banner->win;
-        glk_window_clear(win);
+        /* a cleared window takes the colours of the text, as in Z-code */
+        banner_default_zcolors(banner);
+        glk_window_clear(banner->win);
     }
 
     banner_contents_clear(banner->contents);
@@ -767,6 +810,8 @@ static contentid_t banner_contents_add(osbanid_t banner)
     }
 
     update->style = banner->style;
+    update->fg = banner->fg;
+    update->bg = banner->bg;
     update->link = banner->link;
     update->newline = banner->newline;
     update->move = banner->move;
@@ -816,14 +861,8 @@ void os_banner_set_attr(void *banner_handle, int attr)
 
 static void banner_set_attr(osbanid_t banner, int attr)
 {
-    if (attr & OS_ATTR_BOLD && attr & OS_ATTR_ITALIC)
-        banner->style = style_Alert;
-    else if (attr & OS_ATTR_BOLD)
-        banner->style = style_Subheader;
-    else if (attr & OS_ATTR_ITALIC)
-        banner->style = style_Emphasized;
-    else
-        banner->style = style_Normal;
+    banner->style = osstyles_style(((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
+                                   | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0));
 }
 
 void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
@@ -838,111 +877,40 @@ void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
         banner_set_color(banner, fg, bg);
 }
 
+/* the text from now on; each piece of the contents keeps its own */
 static void banner_set_color(osbanid_t banner, os_color_t fg, os_color_t bg)
 {
-    glui32 reversed = 0;
-    glui32 normal = 0;
-    glui32 transparent = 0;
-    glui32 invisible = 0;
-
-    /* evaluate parameters */
-
-    if (os_color_is_param(fg))
-    {
-        switch(fg)
-        {
-            case OS_COLOR_P_TEXTBG:
-                if (bg == OS_COLOR_P_TRANSPARENT) {
-                    invisible = 1;
-                    break;
-                }
-            case OS_COLOR_P_STATUSBG:
-                reversed = 1;
-                break;
-
-            case OS_COLOR_P_TEXT:
-            case OS_COLOR_P_STATUSLINE:
-            case OS_COLOR_P_INPUT:
-                normal = 1;
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    if (os_color_is_param(bg))
-    {
-        switch (bg)
-        {
-            case OS_COLOR_P_TRANSPARENT:
-                transparent = 1;
-                break;
-
-            default:
-                break;
-        }
-    }
-
-    /* choose a style */
-
-    if (normal && transparent)
-        banner->style = style_Normal;
-    else if (reversed)
-        banner->style = style_User1;
-    else if (invisible)
-        banner->style = style_BlockQuote;
-    else
-        banner->style = style_User2;
-
-    /* process our custom color */
-
-    if (banner->style == style_User2)
-    {
-        /* store current settings */
-        glui32 oldfg = banner->fgcustom;
-        glui32 oldbg = banner->bgcustom;
-        glui32 oldtr = banner->bgtrans;
-
-        /* reset custom color parameters */
-        banner->fgcustom = banner->fgcolor;
-        banner->bgcustom = banner->bgcolor;
-        banner->bgtrans = 1;
-
-        if (!normal)
-            banner->fgcustom = fg;
-
-        if (!transparent)
-        {
-            banner->bgcustom = bg;
-            banner->bgtrans = 0;
-        }
-
-        if (!(banner->fgcustom == oldfg
-            && banner->bgcustom == oldbg
-            && banner->bgtrans == oldtr))
-            os_banners_redraw();
-    }
+    banner->fg = fg;
+    banner->bg = bg;
 }
 
 void os_banner_set_screen_color(void *banner_handle, os_color_t color)
 {
     osbanid_t banner = banner_handle;
+    glui32 bgscreen;
+
     if (!banner || !banner->valid)
         return;
 
-    if (!(os_color_is_param(color)))
-    {
-        banner->bgcolor = color;
-        banner->bgscreen = 1;
-    }
-    else
-    {
-        /* the theme's own colours, as near as we come to the param */
-        banner->bgscreen = 0;
-    }
+    /* a parameter colour is the theme's own, as near as we come to it */
+    bgscreen = !os_color_is_param(color);
+    if (bgscreen == banner->bgscreen
+        && (!bgscreen || banner->bgcolor == (glui32)color))
+        return;
 
-    os_banners_redraw();
+    banner->bgscreen = bgscreen;
+    if (bgscreen)
+        banner->bgcolor = (glui32)color;
+    os_banner_styles_apply(banner);
+
+    /* the text with the screen's colour behind it takes the new one */
+    if (banner->win)
+    {
+        banner_default_zcolors(banner);
+        glk_window_clear(banner->win);
+        banner_set_background(banner);
+        banner_contents_display(banner->contents);
+    }
 }
 
 /* ------------------------------------------------------------------------ */
@@ -970,8 +938,8 @@ static void html_put(void *ctx, const glui32 *buf, size_t len)
 
 static void html_set_attr(void *ctx, int combo)
 {
-    banner_set_attr(ctx, ((combo & OSSTY_BOLD) ? OS_ATTR_BOLD : 0)
-                    | ((combo & OSSTY_ITALIC) ? OS_ATTR_ITALIC : 0));
+    osbanid_t banner = ctx;
+    banner->style = osstyles_style(combo);
 }
 
 static void html_set_color(void *ctx, os_color_t fg, os_color_t bg)
@@ -989,12 +957,15 @@ static int html_width(void *ctx)
     return os_banner_get_charwidth(ctx);
 }
 
-/* banners keep their old look until they have the style table */
 static int html_centers(void *ctx, int combo)
 {
-    (void)ctx;
-    (void)combo;
-    return 1;
+    osbanid_t banner = ctx;
+    glui32 just;
+
+    return banner->win
+        && glk_style_measure(banner->win, osstyles_style(combo),
+                             stylehint_Justification, &just)
+        && just == stylehint_just_Centered;
 }
 
 /* a link goes with the text, which keeps it when the banner is redrawn */
@@ -1316,22 +1287,8 @@ static void tag_close_window(tagban_t *tb)
 
 static void tag_open_window(tagban_t *tb, int pixels)
 {
-    int s, c;
-
     if (tb->type == wintype_TextGrid)
-    {
-        /* the grid shows bold and italic in the main window's styles */
-        for (s = 0 ; s < style_NUMSTYLES ; ++s)
-            if ((c = osstyles_combo(s)) > 0)
-            {
-                glk_stylehint_set(wintype_TextGrid, s, stylehint_Weight,
-                                  (c & OSSTY_BOLD) ? 1 : 0);
-                glk_stylehint_set(wintype_TextGrid, s, stylehint_Oblique,
-                                  (c & OSSTY_ITALIC) ? 1 : 0);
-            }
-        glk_stylehint_clear(wintype_TextGrid, style_User1,
-                            stylehint_ReverseColor);
-    }
+        grid_hints_set();
 
     if (pixels)
     {
@@ -1353,12 +1310,7 @@ static void tag_open_window(tagban_t *tb, int pixels)
         tb->win = glk_window_open(mainwin, tb->method, tb->size, tb->type, 0);
 
     if (tb->type == wintype_TextGrid)
-        for (s = 0 ; s < style_NUMSTYLES ; ++s)
-            if (osstyles_combo(s) > 0)
-            {
-                glk_stylehint_clear(wintype_TextGrid, s, stylehint_Weight);
-                glk_stylehint_clear(wintype_TextGrid, s, stylehint_Oblique);
-            }
+        grid_hints_clear();
 }
 
 /* the size of a banner fitted to its text */

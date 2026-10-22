@@ -325,9 +325,8 @@ All of this is plain Glk, so it works the same on Gargoyle.
   main window opens; `glk_main` (`t23run.cpp`) runs the scan just before.
   Hints set only for `wintype_AllTypes` would also centre text in grid
   windows, so they aren't.
-  - Banners keep their old look until Step 3: `os_banner_styles_apply`
-    clears our hints before a banner opens (it repurposes User1, User2 and
-    BlockQuote for colours), and `os_banner_styles_reset` puts them back.
+  - Banners use the same table, and their colours are zcolors (see the
+    Banners item below).
   - The main window's bold and italic go through the table
     (`osstyles_style`), which gives the same three styles as before, so
     the only change in the traces is the hints.
@@ -352,11 +351,24 @@ All of this is plain Glk, so it works the same on Gargoyle.
   the parser (`oshtml_set_os_attr`), so the formatter's attributes join
   the tag bits, and `OS_ATTR_STRONG`, `OS_ATTR_EM` and `OS_ATTR_HILITE`
   are no longer 0.
-  - [ ] Banners: `os_banner_set_attr` still maps only bold and italic and
-    shares one style field with the colour code, so banner text can't be
-    bold and coloured at once. Setting the hints before each banner opens
-    would end the close-and-reopen of every banner in
-    `osglkban.c:300-343`. This waits for Step 3.
+  - [x] Banners: API banners (`osglkban.c`) now use the per-game table, as
+    tag banners do. `os_banner_set_attr` and the HTML parser's attributes
+    go through `osstyles_style`, so banner text can be bold, centred or
+    fixed and coloured at once.
+    - Colours are zcolors on each stored piece of text (`banner_zcolor`).
+      A parameter colour is left to the theme where the theme draws that
+      window; in a status banner or after `os_banner_set_screen_color` it
+      is the measured colour. The screen colour is the window's background
+      (`win_setbgnd`).
+    - The hints stay set. A grid banner gets the bold and italic hints
+      while it opens (`grid_hints_set`), and a tab-aligned (status) text
+      banner gets `Proportional 0` on every slot (`fixed_hints_set`).
+      `os_banner_styles_reset` is gone, and a colour change no longer
+      closes and reopens every banner.
+    - Traces: no change to any text, in the walkthroughs or xtads. Styles
+      changed in 11 games. *When__When*'s map banner is in `<tt>` and is
+      now fixed-width, so the map lines up. *Macrocosm* and *mazes* get
+      their centred styles instead of the colour slots.
 - [x] **Is the centred style centred?** `glk_style_distinguish` doesn't
   answer this (glkimp always says no), so the parser asks
   `glk_style_measure(stylehint_Justification)` once per combination
