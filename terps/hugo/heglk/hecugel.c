@@ -1164,6 +1164,30 @@ static void hugo_unmapcleared(void)
     }
 }
 
+/* A half-screen-wide window keeps its half after a resize. In Guilty
+   Bastards it is the room description, which sits below the status line. */
+static void heglk_rearrange_half_screen(int i)
+{
+    if (isguiltybastards && i != statuswin)
+        below_status = i;
+    else if (wins[i].peggedtoright)
+        wins[i].x0 = gscreenw / 2;
+    else
+        wins[i].x1 = wins[i].x0 + gscreenw / 2;
+}
+
+/* Cryptozookeeper: an aux window sticks to the window on its left and
+   ends where the main window begins. */
+static void heglk_rearrange_czk_aux(int i)
+{
+    int toleft = heglk_find_attached_to_left(wins[i].l);
+    if (toleft)
+        wins[i].x0 = wins[toleft].x1;
+    wins[i].y1 = wins[mainwin].y0;
+    if (wins[i].win && wins[i].win->type == wintype_TextBuffer)
+        wins[i].x1 = gscreenw;
+}
+
 static void hugo_handlearrange(void)
 {
     int width = heglk_get_linelength();
@@ -1207,28 +1231,9 @@ static void hugo_handlearrange(void)
                 int oldy1 = wins[i].y1;
 
                 if (wins[i].halfscreenwidth && !isfutureboy)
-                {
-                    if (isguiltybastards && i != statuswin)
-                    {
-                        below_status = i;
-                    } else {
-                        if (wins[i].peggedtoright)
-                        {
-                            wins[i].x0 = gscreenw / 2;
-                        } else {
-                            wins[i].x1 = wins[i].x0 + gscreenw / 2;
-                        }
-                    }
-                }
+                    heglk_rearrange_half_screen(i);
                 if (isczk && wins[i].isaux)
-                {
-                    int toleft = heglk_find_attached_to_left(wins[i].l);
-                    if (toleft)
-                        wins[i].x0 = wins[toleft].x1;
-                    wins[i].y1 = wins[mainwin].y0;
-                    if (wins[i].win && wins[i].win->type == wintype_TextBuffer)
-                        wins[i].x1 = gscreenw;
-                }
+                    heglk_rearrange_czk_aux(i);
 
                 if (wins[i].x0 != oldx0 || wins[i].y0 != oldy0 || wins[i].x1 != oldx1 || wins[i].y1 != oldy1)
                 {
