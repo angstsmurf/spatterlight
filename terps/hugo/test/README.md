@@ -36,10 +36,13 @@ sound is traced by the digest of its bytes. The tracer answers `SIZEIMAGE`
 with the real JPEG/PNG size of the picture last loaded, so the code that
 fits and places pictures is exercised.
 
+Every game with special handling in `hecugel.c` has cases. A Crimson Spring
+is `scourge`. Its hack runs when a picture is drawn after a restore, and the
+generic walk saves and restores. Marjorie's hack is matched by file name, so
+the story must stay `marjorie.hex`.
+
 Not covered:
 
-- Marjorie and Crimson, which have hacks in `hecugel.c` but are not
-  in `GAMES`.
 - An arrange event that does not change the size. Spatterlight sends one
   after theme and margin changes.
 

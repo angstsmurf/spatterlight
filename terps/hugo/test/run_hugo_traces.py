@@ -59,7 +59,10 @@ GAMES = {
     "enceladus": (os.path.join(IFDOCS, "ENCELADUS by Robb Sherwin",
                                "enceladus.hex"), None),
     "tetris": (os.path.join(IFDOCS, "Hugo Tetris", "TETRIS.HEX"), None),
+    # A Crimson Spring
     "scourge": (os.path.join(VBOX, "scourge", "scourge.hex"), None),
+    "marjorie": (os.path.join(os.path.dirname(VBOX), "More hugo games",
+                              "12pack", "marjorie.hex"), None),
     "htgessay": (os.path.join(VBOX, "htgessay.hex"), None),
     "hugozork": (os.path.join(VBOX, "hugozork.hex"), None),
     "cb2": (os.path.join(VBOX, "cb2.hex"), None),
