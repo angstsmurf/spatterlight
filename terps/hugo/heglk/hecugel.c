@@ -975,6 +975,35 @@ int hugo_waitforkey(void)
 }
 
 
+/* Delete window context I's Glk window, if it has one. */
+static void heglk_unmap_window(int i)
+{
+    if (wins[i].win)
+        gli_delete_window(wins[i].win);
+    wins[i].win = NULL;
+}
+
+static void heglk_unmap_and_mark_clear(int i)
+{
+    heglk_unmap_window(i);
+    wins[i].clear = 1;
+}
+
+/* Forget the picture last drawn in window context I. */
+static void heglk_clear_filename(int i)
+{
+    free(wins[i].filename);
+    wins[i].filename = NULL;
+}
+
+/* Paint the Glk window of context I in its background colour. */
+static void heglk_set_window_bg(int i)
+{
+    wins[i].papercolor = wins[i].bg;
+    lastbg = -1;
+    win_setbgnd(wins[i].win->peer, hugo_color(wins[i].bg));
+}
+
 /* Drop any Glk window and heap data belonging to a window context,
  * and reset it so that it can be handed out again by
  * heglk_new_wincontext().
@@ -985,8 +1014,7 @@ static void heglk_free_wincontext(int i)
     if (i < 1 || i >= MAXWINS)
         return;
 
-    if (wins[i].win)
-        gli_delete_window(wins[i].win);
+    heglk_unmap_window(i);
     free(wins[i].filename);
 
     memset(&wins[i], 0, sizeof(struct winctx));
@@ -1089,14 +1117,8 @@ static int heglk_clear_future_boy_type(int type, int not_this) {
         if (i == not_this)
             continue;
         else if (heglk_id_future_boy_images(wins[i].l, wins[i].t, wins[i].r, wins[i].b, wins[i].screenwidth_at_creation,  wins[i].screenheight_at_creation) == type) {
-            wins[i].clear = 1;
-            if (wins[i].win)
-                gli_delete_window(wins[i].win);
-            wins[i].win = 0;
-            if (wins[i].filename != NULL) {
-                free(wins[i].filename);
-                wins[i].filename = NULL;
-            }
+            heglk_unmap_and_mark_clear(i);
+            heglk_clear_filename(i);
             result = 1;
         }
     }
@@ -1144,11 +1166,8 @@ void hugo_clearwindow(void)
 
     /* We delete the main window here in order to be able */
     /* to change input text color */
-    if (curwin == mainwin && wins[curwin].win && !showing_futureboy_title)
-    {
-        gli_delete_window(wins[curwin].win);
-        wins[curwin].win = 0;
-    }
+    if (curwin == mainwin && !showing_futureboy_title)
+        heglk_unmap_window(curwin);
 
     for (i = 1; i < nwins; i++)
     {
@@ -1165,9 +1184,7 @@ void hugo_clearwindow(void)
                 if (wins[curwin].win && hugo_color(wins[curwin].bg) != -1)
                 {
                     wins[i].bg = wins[curwin].bg;
-                    wins[i].papercolor = wins[curwin].bg;
-                    win_setbgnd(wins[i].win->peer, hugo_color(wins[i].bg));
-                    lastbg = -1;
+                    heglk_set_window_bg(i);
                 }
                 LOG("   cleared %d\n", i);
                 glk_window_clear(wins[i].win);
@@ -1177,8 +1194,7 @@ void hugo_clearwindow(void)
                     menuwin = 0;
                     menutop = 0;
                     below_status = 0;
-                    gli_delete_window(wins[i].win);
-                    wins[i].win = NULL;
+                    heglk_unmap_window(i);
                     curwin = statuswin;
                     if (wins[statuswin].win)
                     {
@@ -1216,11 +1232,7 @@ void hugo_clearwindow(void)
     }
 
     if (wins[curwin].win)
-    {
-        win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
-        wins[curwin].papercolor = wins[curwin].bg;
-        lastbg = -1;
-    }
+        heglk_set_window_bg(curwin);
 
     // Hack to keep black room description window from
     // being deleted at the first turn of Guilty Bastards
@@ -1249,12 +1261,8 @@ static void hugo_unmapcleared(void)
         if (i != curwin && wins[i].clear && wins[i].win)
         {
             LOG(" + unmap window %d\n", i);
-            gli_delete_window(wins[i].win);
-            wins[i].win = NULL;
-            if (wins[i].filename != NULL) {
-                free(wins[i].filename);
-                wins[i].filename = NULL;
-            }
+            heglk_unmap_window(i);
+            heglk_clear_filename(i);
             if (i == statuswin)
                 statuswin = 0;
             if (i == below_status)
@@ -1478,12 +1486,7 @@ static void heglk_ensure_menu(void)
     for (int i = 1; i < nwins; i++) {
         if (i != menuwin && i != statuswin)
         {
-            wins[i].clear = 1;
-            if (wins[i].win)
-            {
-                gli_delete_window(wins[i].win);
-                wins[i].win = NULL;
-            }
+            heglk_unmap_and_mark_clear(i);
         }
     }
 
@@ -1541,9 +1544,7 @@ static void heglk_ensure_menu(void)
     {
         wins[menuwin].fg = wins[statuswin].fg;
         wins[menuwin].bg = wins[statuswin].bg;
-        win_setbgnd(wins[menuwin].win->peer, hugo_color(wins[menuwin].bg));
-        wins[menuwin].papercolor = wins[menuwin].bg;
-        lastbg = -1;
+        heglk_set_window_bg(menuwin);
     } else {
         statuswin = heglk_new_wincontext();
     }
@@ -1577,9 +1578,7 @@ static void heglk_adjust_guilty_bastards_windows(void)
     {
         if (wins[i].win && wins[i].win->type == wintype_Graphics && i != guilty_bastards_graphics_win)
         {
-            gli_delete_window(wins[i].win);
-            wins[i].win = NULL;
-            wins[i].clear = 1;
+            heglk_unmap_and_mark_clear(i);
         }
     }
 
@@ -1747,11 +1746,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
 
     if (wins[i].filename == NULL) {
         LOG("Window %d (type %d) has no filename!\n", i, type);
-        wins[i].clear = 1;
-        if (wins[i].win) {
-            gli_delete_window(wins[i].win);
-            wins[i].win = NULL;
-        }
+        heglk_unmap_and_mark_clear(i);
         return;
     }
 
@@ -1774,9 +1769,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
     int xoff = (x1 - x0 - origwidth) / 2;
     int yoff = (y1 - y0 - origheight) / 2;
 
-    if (wins[i].win) {
-        gli_delete_window(wins[i].win);
-    }
+    heglk_unmap_window(i);
     wins[i].win = gli_new_window(wintype_Graphics, 0);
 
     heglk_sizeifexists(i);
@@ -2175,13 +2168,11 @@ void hugo_settextpos(int x, int y)
         if ((wins[curwin].win->type == wintype_TextGrid && !menuwin) || wins[curwin].win->type == wintype_Graphics) {
             LOG("  moved to line %d in grid window. unmap.\n", y);
             if (isfutureboy && wins[curwin].win->type == wintype_Graphics) {
-                gli_delete_window(wins[curwin].win);
-                wins[curwin].win = NULL;
+                heglk_unmap_window(curwin);
                 hugo_mapcurwin();
                 return;
             }
-            gli_delete_window(wins[curwin].win);
-            wins[curwin].win = NULL;
+            heglk_unmap_window(curwin);
         }
         return;
     }
@@ -2216,8 +2207,7 @@ void hugo_settextpos(int x, int y)
         LOG("  move in buffer window. unmap.\n");
         if (!wins[curwin].clear && !wins[curwin].isaux && !isfutureboy)
             hugo_waitforkey();
-        gli_delete_window(wins[curwin].win);
-        wins[curwin].win = NULL;
+        heglk_unmap_window(curwin);
     }
     else if (wins[curwin].win->type == wintype_TextGrid)
     {
@@ -2489,8 +2479,7 @@ void hugo_print(char *a)
         LOG("  unmap graphics window %d for printing\n", curwin);
         if (!wins[curwin].clear )
             hugo_waitforkey();
-        gli_delete_window(wins[curwin].win);
-        wins[curwin].win = 0;
+        heglk_unmap_window(curwin);
     }
 
     /* check if we are trying to print a menu in the main buffer window */
@@ -2857,8 +2846,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
                     LOG("  pausing to let the player read the text in window %d before we delete it (and swap to graphics)\n", curwin);
                     hugo_waitforkey();
                 }
-                gli_delete_window(wins[curwin].win);
-                wins[curwin].win = 0;
+                heglk_unmap_window(curwin);
             }
 
             LOG("  hugo_displaypicture %d: x0:%d y0:%d x1:%d y1:%d\n", curwin, x0 , y0, x1, y1);
