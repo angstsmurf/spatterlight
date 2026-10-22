@@ -717,8 +717,10 @@ QTads's `qtadssound.cc`. `oshtml.c` parses the tag into an `ossound_tag`.
   no window to play for.
 - [x] **Without `gestalt_Sound2`**, `SYSINFO_WAV`/`MIDI`/`MPEG*`/`OGG`/
   `PREF_SOUNDS`/`PREF_MUSIC` and the fade answers are 0. As with images,
-  these are TADS 2 only. TADS 3 answers HTML and images now, but not
-  yet sound.
+  these were TADS 2 only at first; TADS 3 gets them too now. In the
+  corpus, *According to Cain* and *Under the Cognomen of Edgar Allan Poe*
+  then ask "Do you want music?", and *Verla*'s status line gets its
+  SONIDO link.
 - [x] **Corpus check.** 16 games changed traces, and in all of them the only
   changes are sound calls and the timer arming. The one exception is *Six
   Stories*: it sees sound support and takes its sound path, which skips

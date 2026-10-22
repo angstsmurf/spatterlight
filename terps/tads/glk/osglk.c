@@ -114,8 +114,8 @@ int os_get_sysinfo(int code, void *param, long *result)
             return TRUE;
 
         /*
-         *   ossound.c plays <SOUND> in TADS 2 games, in all four formats,
-         *   any of them at once, and fades them all
+         *   ossound.c plays <SOUND>, in all four formats, any of them at
+         *   once, and fades them all
          */
         case SYSINFO_WAV:
         case SYSINFO_MIDI:
@@ -128,11 +128,11 @@ int os_get_sysinfo(int code, void *param, long *result)
         case SYSINFO_MPEG2:
         case SYSINFO_MPEG3:
         case SYSINFO_OGG:
-            *result = !oshtml_is_tads3() && glk_gestalt(gestalt_Sound2, 0);
+            *result = glk_gestalt(gestalt_Sound2, 0);
             return TRUE;
         case SYSINFO_AUDIO_FADE:
         case SYSINFO_AUDIO_CROSSFADE:
-            *result = !oshtml_is_tads3() && glk_gestalt(gestalt_Sound2, 0)
+            *result = glk_gestalt(gestalt_Sound2, 0)
                 ? SYSINFO_AUDIOFADE_MPEG | SYSINFO_AUDIOFADE_OGG
                   | SYSINFO_AUDIOFADE_WAV | SYSINFO_AUDIOFADE_MIDI : 0;
             return TRUE;
