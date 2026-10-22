@@ -39,7 +39,12 @@
  *     bgcolor> the window's;
  *   - in TADS 3 and in TADS 2's banners, <tab> takes ID, TO, ALIGN, DP,
  *     INDENT and MULTIPLE;
- *   - the ALT text of <img> and <sound> is printed;
+ *   - <a href> is a link (osglk.c), unless the href is a URL;
+ *   - <img> draws its picture where the window can show one, and prints
+ *     its ALT text where it can't; the ALT text of <sound> is printed;
+ *   - Glk can't make parts of a picture clickable, so the <area>s of an
+ *     <img usemap> are a row of links under the pictures, named by their
+ *     ALT text or else their hrefs (which are commands);
  *   - <title> sets the window title, and nothing inside <title> or
  *     <aboutbox> (or in TADS 3, <banner>) is shown;
  *   - in TADS 2, the text of a <banner> is kept until its </banner>, and
@@ -88,6 +93,10 @@ extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
 #define TABS_MAX    64          /* <TAB ID> stops */
 #define TABID_MAX   32
 #define BANNER_MAX  65536       /* the text of a <BANNER> we keep */
+#define MAPS_MAX    32          /* <MAP>s */
+#define AREAS_MAX   48          /* <AREA>s of a map, and links in a row */
+#define MAPNAME_MAX 32
+#define LABEL_MAX   80
 
 enum token { TOK_TEXT, TOK_TAG, TOK_ENTITY };
 
@@ -101,6 +110,14 @@ typedef struct color
     os_color_t fg, bg;
     int link;                   /* osglk_link_add's number, or 0 */
 } color;
+
+/* an <AREA> of an image map, as a link */
+typedef struct maplink
+{
+    glui32 link;
+    glui32 label[LABEL_MAX];
+    size_t len;
+} maplink;
 
 /* the innermost list */
 enum list_kind { LIST_NONE, LIST_UL, LIST_OL };
@@ -183,6 +200,14 @@ struct oshtml_parser
     /* the open tags */
     elem elems[ELEMS_MAX];
     int nelems;
+
+    /*
+     *   the <MAP> whose <AREA>s we're reading, and the links of the
+     *   pictures shown since the last text, which go under them
+     */
+    struct imagemap *map;
+    maplink maprow[AREAS_MAX];
+    int nmaprow;
 
     /*
      *   the line: newlines since the last visible character, whether
@@ -380,6 +405,7 @@ static color cur_color(parser *p)
 
 static void expand_tab(parser *p, int allow_anon);
 static void line_break(parser *p);
+static void put_maprow(parser *p);
 
 /*
  *   The TADS 3 formatter brings the window up to date with the current
@@ -510,6 +536,7 @@ static void start_line(parser *p)
 /* print a visible character */
 static void put_visible(parser *p, glui32 c)
 {
+    put_maprow(p);
     if (!p->dst)
         start_line(p);
     print_pending(p);
@@ -659,6 +686,7 @@ static void line_break(parser *p)
 /* the formatter's blank line: a line break, then a newline */
 static void blank_line(parser *p)
 {
+    put_maprow(p);
     line_break(p);
     put_newline(p);
 }
@@ -666,6 +694,7 @@ static void blank_line(parser *p)
 /* the space between blocks: a blank line, unless there is one already */
 static void para_break(parser *p)
 {
+    put_maprow(p);
     line_break(p);
     if (p->nl_count == 1)
         put_newline(p);
@@ -1420,9 +1449,10 @@ static void set_body(parser *p, os_color_t bg)
 /* <BR CLEAR>: the next text goes below the pictures in the margins */
 static void flow_break(parser *p)
 {
-    winid_t win = p->dst ? NULL : p->sink->window(p->ctx);
+    winid_t win;
 
     flush_out(p);
+    win = p->dst ? NULL : p->sink->window(p->ctx);
     if (win)
         glk_window_flow_break(win);
 }
@@ -1458,11 +1488,9 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
     int inline_img = align != imagealign_MarginLeft
         && align != imagealign_MarginRight;
 
-    if (p->dst || srclen == 0)
-        return 0;
-    win = p->sink->window(p->ctx);
-    if (!win || !glk_gestalt(gestalt_Graphics, 0)
-        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer))
+    if (p->dst || srclen == 0 || !glk_gestalt(gestalt_Graphics, 0)
+        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)
+        || !p->sink->window(p->ctx))
         return 0;
 
     /* the name, in UTF-8 */
@@ -1497,6 +1525,9 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
         print_pending(p);
     }
     flush_out(p);
+
+    /* and asking for the window again puts out what the sink holds back */
+    win = p->sink->window(p->ctx);
 
     if (w.pct && glk_gestalt(gestalt_DrawImageScale, wintype_TextBuffer))
     {
@@ -1540,6 +1571,153 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
     return 1;
 }
 
+/* the link for an HREF, with its &amp;s decoded; 0 if it's plain text */
+static glui32 href_link(const glui32 *v, size_t len, int flags)
+{
+    char buf[LINK_MAX];
+    size_t k, n = 0;
+
+    for (k = 0 ; k < len && n < sizeof(buf) - 1 ; ++k)
+    {
+        glui32 c = v[k];
+        if (c == '&' && k + 4 < len && tag_is(v + k, 5, "&amp;"))
+            k += 4;
+        buf[n++] = c < 256 ? (char)c : '?';
+    }
+    buf[n] = '\0';
+    return osglk_link_add(buf, flags);
+}
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   Image maps.  Glk can't make part of a picture a link, so the <AREA>s of
+ *   an <IMG USEMAP> are shown as a row of links under it, each named by its
+ *   ALT, or failing that its HREF, which is the command it types.  The maps
+ *   are kept for every window, as HTML TADS keeps them for the document, and
+ *   a <MAP> with a name we have replaces the old one.  In the corpus the
+ *   <MAP> always comes before its <IMG>.
+ *
+ *   A picture can be one tile of several (Golden Skull's compass is nine,
+ *   in rows with <BR> between them), so the row waits until the pictures
+ *   end: until the next text, paragraph or input, and leaves out the links
+ *   it has already.
+ */
+typedef struct imagemap
+{
+    glui32 name[MAPNAME_MAX];
+    size_t namelen;
+    int nareas;
+    maplink areas[AREAS_MAX];
+} imagemap;
+
+static imagemap maps[MAPS_MAX];
+static int nmaps, map_next;
+
+/* the map with this name ("#name" or "name"), made if 'create' */
+static imagemap *find_map(const glui32 *v, size_t len, int create)
+{
+    glui32 folded[MAPNAME_MAX];
+    imagemap *m;
+    size_t k;
+    int i;
+
+    if (len != 0 && v[0] == '#')
+        ++v, --len;
+    if (len == 0 || len > MAPNAME_MAX)
+        return NULL;
+    for (k = 0 ; k < len ; ++k)
+        folded[k] = v[k] >= 'A' && v[k] <= 'Z' ? v[k] + ('a' - 'A') : v[k];
+    for (i = 0 ; i < nmaps ; ++i)
+        if (maps[i].namelen == len
+            && memcmp(maps[i].name, folded, len * sizeof(glui32)) == 0)
+            return &maps[i];
+    if (!create)
+        return NULL;
+
+    /* when the table is full, the oldest map goes */
+    if (nmaps < MAPS_MAX)
+        m = &maps[nmaps++];
+    else
+    {
+        m = &maps[map_next];
+        map_next = (map_next + 1) % MAPS_MAX;
+    }
+    memcpy(m->name, folded, len * sizeof(glui32));
+    m->namelen = len;
+    return m;
+}
+
+/* an <AREA> of the map being read; a repeated link is left out */
+static void add_area(imagemap *m, glui32 link, const glui32 *label,
+                     size_t len)
+{
+    int i;
+
+    /* the label without the spaces around it */
+    while (len != 0 && is_space(*label))
+        ++label, --len;
+    while (len != 0 && is_space(label[len - 1]))
+        --len;
+    if (link == 0 || len == 0 || m->nareas == AREAS_MAX)
+        return;
+    for (i = 0 ; i < m->nareas ; ++i)
+        if (m->areas[i].link == link)
+            return;
+    if (len > LABEL_MAX)
+        len = LABEL_MAX;
+    m->areas[i].link = link;
+    memcpy(m->areas[i].label, label, len * sizeof(glui32));
+    m->areas[i].len = len;
+    ++m->nareas;
+}
+
+/* the links of an <IMG USEMAP>, for the row under the pictures */
+static void add_map_links(parser *p, const imagemap *m)
+{
+    int i, j;
+
+    if (p->dst)
+        return;
+    for (i = 0 ; i < m->nareas && p->nmaprow < AREAS_MAX ; ++i)
+    {
+        for (j = 0 ; j < p->nmaprow ; ++j)
+            if (p->maprow[j].link == m->areas[i].link)
+                break;
+        if (j == p->nmaprow)
+            p->maprow[p->nmaprow++] = m->areas[i];
+    }
+}
+
+/* the row of links under the pictures, on a line of its own */
+static void put_maprow(parser *p)
+{
+    int save = p->cur.link;
+    int i, n = p->nmaprow;
+    size_t k;
+
+    if (n == 0 || p->dst)
+        return;
+
+    /* the row's own text doesn't put it out again */
+    p->nmaprow = 0;
+    line_break(p);
+    for (i = 0 ; i < n ; ++i)
+    {
+        /* one space each side, even after a full stop in TADS 2 */
+        if (i != 0)
+        {
+            add_pending(p, ' ');
+            put_visible(p, 0x00B7);
+            add_pending(p, ' ');
+        }
+        p->cur.link = (int)p->maprow[i].link;
+        for (k = 0 ; k < p->maprow[i].len ; ++k)
+            put_html_text(p, p->maprow[i].label[k]);
+        p->cur.link = save;
+    }
+    line_break(p);
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
@@ -1563,6 +1741,9 @@ static void do_tag(parser *p)
     int link_ok = 0;            /* <a> */
     size_t href = 0, hreflen = 0;
     int have_href = 0, link_flags = 0;
+    int map_ok = 0, area_ok = 0; /* <map>, <area> */
+    size_t mapname = 0, mapnamelen = 0, usemap = 0, usemaplen = 0;
+    int nohref = 0;
     int tab_to = -1;
     enum tab_align tab_align = TAB_NONE;
     glui32 tab_dp = 0;
@@ -1759,6 +1940,13 @@ static void do_tag(parser *p)
     }
     else if (TAG("img"))
         img = !p->ignore && !end;
+    else if (TAG("map"))
+    {
+        p->map = NULL;
+        map_ok = !p->ignore && !end;
+    }
+    else if (TAG("area"))
+        area_ok = p->map && !end;
     else if (TAG("sound"))
         alt_ok = 1;
     else if (TAG("font"))
@@ -1903,7 +2091,8 @@ static void do_tag(parser *p)
                 if (i < len)
                     ++i;
             }
-            else if (tads3 || p->in_banner || ban || img || link_ok)
+            else if (tads3 || p->in_banner || ban || img || link_ok
+                     || map_ok || area_ok)
             {
                 /* up to a space, as HTML TADS reads it */
                 for (v = i ; i < len && !is_space(t[i]) ; ++i)
@@ -1935,6 +2124,29 @@ static void do_tag(parser *p)
             link_flags |= OSLINK_APPEND;
         else if (link_ok && ATTR("plain"))
             link_flags |= OSLINK_PLAIN;
+        else if (map_ok && ATTR("name"))
+        {
+            mapname = v;
+            mapnamelen = vlen;
+        }
+        else if (area_ok && ATTR("href"))
+        {
+            href = v;
+            hreflen = vlen;
+            have_href = 1;
+        }
+        else if (area_ok && ATTR("alt"))
+        {
+            alt = v;
+            altlen = vlen;
+        }
+        else if (area_ok && ATTR("nohref"))
+            nohref = 1;
+        else if (img && ATTR("usemap"))
+        {
+            usemap = v;
+            usemaplen = vlen;
+        }
         else if (ban && ATTR("id"))
         {
             size_t k;
@@ -2083,20 +2295,19 @@ static void do_tag(parser *p)
 
     /* <A HREF>: the command is the href; an <A NAME> is no link */
     if (link_ok && have_href && !p->dst)
-    {
-        char buf[LINK_MAX];
-        size_t k, n = 0;
+        p->cur.link = (int)href_link(t + href, hreflen, link_flags);
 
-        for (k = 0 ; k < hreflen && n < sizeof(buf) - 1 ; ++k)
-        {
-            glui32 c = t[href + k];
-            if (c == '&' && k + 4 < hreflen
-                && tag_is(t + href + k, 5, "&amp;"))
-                k += 4;
-            buf[n++] = c < 256 ? (char)c : '?';
-        }
-        buf[n] = '\0';
-        p->cur.link = (int)osglk_link_add(buf, link_flags);
+    /* <MAP NAME>, and its <AREA HREF>s */
+    if (map_ok && (p->map = find_map(t + mapname, mapnamelen, 1)) != NULL)
+        p->map->nareas = 0;
+    if (area_ok && have_href && !nohref)
+    {
+        if (altlen != 0)
+            add_area(p->map, href_link(t + href, hreflen, 0),
+                     t + alt, altlen);
+        else
+            add_area(p->map, href_link(t + href, hreflen, 0),
+                     t + href, hreflen);
     }
 
     /* the banner is whitespace in the text around it */
@@ -2127,6 +2338,12 @@ static void do_tag(parser *p)
         size_t k;
         for (k = alt ; k < alt + altlen ; ++k)
             put_html_text(p, t[k]);
+    }
+    if (img && usemaplen != 0)
+    {
+        const imagemap *m = find_map(t + usemap, usemaplen, 0);
+        if (m)
+            add_map_links(p, m);
     }
 
     /*
@@ -2219,6 +2436,7 @@ static void end_banner(parser *p)
                 b->in_banner = 1;
                 for (k = i ; k < p->banlen ; ++k)
                     feed(b, p->bantext[k]);
+                put_maprow(b);
                 expand_tab(b, 1);
                 flush_out(b);
                 oshtml_delete(b);
@@ -2450,6 +2668,7 @@ static void close_all(parser *p)
 {
     if (p->nelems)
         restore_elem(p, 0);
+    p->nmaprow = 0;
     p->cur.attr = 0;
     p->cur.fg = p->text;
     p->cur.bg = OS_COLOR_P_TRANSPARENT;
@@ -2499,6 +2718,7 @@ void oshtml_end(void)
 {
     /* the formatter flushed the line without ending it */
     show_held(&fmt);
+    put_maprow(&fmt);
     oshtml_flush_parser(&fmt);
     fmt.html = 0;
 }
@@ -2562,6 +2782,7 @@ void oshtml_input(void)
 {
     /* the formatter shows the spaces at the end of the line before input */
     show_held(&fmt);
+    put_maprow(&fmt);
     print_pending(&fmt);
     fmt.buffered = 0;
     flush_out(&fmt);

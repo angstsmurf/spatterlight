@@ -1068,6 +1068,20 @@ static int tag_width(void *ctx)
     return (int)wid - 2 * tag_margin(tb);
 }
 
+/* the newlines that wait for more text, now that some has come */
+static void tag_put_newlines(tagban_t *tb, strid_t str)
+{
+    if (tb->lines == 0)
+        tb->lines = 1;
+    for ( ; tb->nl > 0 ; --tb->nl)
+    {
+        ++tb->lines;
+        tb->col = 0;
+        if (str && !tb->measure)
+            glk_put_char_stream_uni(str, '\n');
+    }
+}
+
 static void tag_put(void *ctx, const glui32 *buf, size_t len)
 {
     tagban_t *tb = ctx;
@@ -1085,15 +1099,7 @@ static void tag_put(void *ctx, const glui32 *buf, size_t len)
             ++tb->nl;
             continue;
         }
-        if (tb->lines == 0)
-            tb->lines = 1;
-        for ( ; tb->nl > 0 ; --tb->nl)
-        {
-            ++tb->lines;
-            tb->col = 0;
-            if (str && !tb->measure)
-                glk_put_char_stream_uni(str, '\n');
-        }
+        tag_put_newlines(tb, str);
 
         /* a grid wraps a line that's too long */
         if (wid > 0 && tb->col >= wid)
@@ -1156,13 +1162,17 @@ static int tag_centers(void *ctx, int combo)
         && just == stylehint_just_Centered;
 }
 
-/* pictures go in a text-buffer banner, once it's writing for real */
+/*
+ *   pictures go in a text-buffer banner, once it's writing for real, after
+ *   the newlines that are waiting
+ */
 static winid_t tag_window(void *ctx)
 {
     tagban_t *tb = ctx;
 
-    if (tb->type != wintype_TextBuffer || tb->measure)
+    if (tb->type != wintype_TextBuffer || tb->measure || !tb->win)
         return NULL;
+    tag_put_newlines(tb, glk_window_get_stream(tb->win));
     return tb->win;
 }
 

@@ -511,8 +511,7 @@ the `<a>` tag in `oshtml.c`). In the corpus traces 32 of the 235 games, and
   prompt and `os_get_event`). In a key wait a click counts as a space.
   `os_get_event` returns `OS_EVT_HREF`, with the href cut to 255 bytes.
   Not tried on a game that runs its own event loop.
-- [ ] Image-map links in Step 5 use the same table and event path, so they
-  can be done now.
+- [x] Image-map links in Step 5 use the same table and event path.
 - [ ] **URL links** (52 games: `news:`, `mailto:`, `http:`, mostly in about
   text). For now they are plain text (`is_url`). Open them through the app,
   behind the user's link setting, and report `LINKS_HTTP`, `LINKS_MAILTO`
@@ -564,10 +563,39 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   name (*Arrival* prints `<FONT` and its attributes separately) wrote a NUL
   into the line buffer. That cut the status-line banner short, its
   `</BANNER>` never came, and every later reply went into the banner.
-- [ ] `usemap` with `<map>`/`<area>` (8 games, among them Arrival, Golden
+- [x] `usemap` with `<map>`/`<area>` (8 games, among them Arrival, Golden
   Skull, Helpfulman and Six Stories). Glk can't make parts of an image
-  clickable. Instead, print the areas as a row of command links under the
-  image; their hrefs are commands such as `goto bridge`, `look` or `save`.
+  clickable. Instead, the areas are printed as a row of command links under
+  the image, separated by ` · `; their hrefs are commands such as
+  `goto bridge`, `look` or `save`.
+  - In the corpus, the `<map>` always comes before its `<img>`, and no
+    `<area>` has ALT text, so the label is the href with its spaces trimmed.
+  - Maps are kept by name for the whole game (32 of them, recycled oldest
+    first), as a game may define a map once and use it in many banners.
+    `usemap` is matched with or without its `#`, ignoring case.
+  - Areas with `nohref`, URL hrefs or a repeated href are left out.
+  - A picture may be one tile of several: *Golden Skull*'s compass is nine,
+    each with a map of its own, in a table. So the row waits until the
+    pictures end, and is printed before the next visible text, paragraph
+    break or input, at the end of a TADS 2 banner, or at `\H-`. A plain
+    `<BR>` or the formatter's own flush doesn't print it. Each link is in
+    the row once. Clearing the window drops it.
+  - TADS 3 banners would print the row only at their next text, as they
+    have no input of their own. No TADS 3 game in the corpus uses maps.
+  - The row is shown when the picture can't be drawn and its ALT text is
+    printed instead, as the links are still useful.
+  - Checked in the traces: *ruinedRobots* gets "sit on chair · examine
+    mirror · turn on table lamp · put hand in fire · west", and *Six
+    Stories* gets its intro's choice, "Continue with Six Stories. · Skip the
+    introduction." *Golden Skull*'s `examine compass` (by a `--script`)
+    gives "press power button · northwest · north · … · southeast".
+    *Arrival*, *School* and *Helpfulman* build theirs only after particular
+    commands, which haven't been tried.
+- A fix in the banners came with this: `tag_put` holds a banner's newlines
+  back until more text comes, so its last line isn't blank, but a picture
+  went past them. The rows of pictures in *1893*'s room banner came out on
+  one line, and *Six*'s intro picture went on the line of the text before
+  it. `window()` now puts out the held newlines first (`tag_window`).
 - [ ] `body background` (14 games): a tiled background image. Skip it, or
   later draw it as the window background through a small extension.
 - [ ] **MNG → animated GIF, in the app.** Spatterlight already animates GIFs

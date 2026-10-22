@@ -33,7 +33,9 @@ typedef struct oshtml_sink
 
     /*
      *   The text-buffer window to draw <IMG> pictures in, or null if the
-     *   pictures can't be drawn there (and their ALT text is shown)
+     *   pictures can't be drawn there (and their ALT text is shown).  The
+     *   sink puts out anything it holds back, such as newlines waiting for
+     *   more text, as the picture goes after it.
      */
     winid_t (*window)(void *ctx);
 
