@@ -175,6 +175,31 @@ struct fb_id {
 static int future_boy_graphics_alignment = FB_ALIGNMENT_LEFT;
 static int future_boy_line = 0;
 
+/*
+ * Menu state. Hugo has no notion of a menu, so we guess from what the game
+ * prints. The variables involved:
+ *
+ *   mono      The game asked for a fixed-width font (hugo_font). Monospace
+ *             text in the main window is printed to a grid, not a buffer.
+ *   inmenu    We guess the game is showing a menu: set when a grid becomes
+ *             the main window (hugo_mapcurwin) or a fixed-width line starts
+ *             with '[' (hugo_print); cleared when line input is requested
+ *             outside a grid (hugo_getline) or a graphics window appears.
+ *             Affects only key input (waiting, mouse requests, the "*"
+ *             cursor) and the status-line layout.
+ *   menuwin   Non-zero while the status window is split into status + menu
+ *             (heglk_ensure_menu, entered from hugo_print or a full-screen
+ *             hugo_settextwindow). The menu grid becomes mainwin and
+ *             below_status. Cleared when the game opens a smaller window
+ *             (hugo_settextwindow) or clears the menu (hugo_clearwindow).
+ *   menutop   The screen row where the menu window starts; rows above it
+ *             go to the status window (hugo_settextpos). Reset with menuwin
+ *             in hugo_clearwindow.
+ *
+ * So: normal (menuwin == 0, inmenu false); probably a menu, still drawn in
+ * the ordinary windows (menuwin == 0, inmenu true); and split status + menu
+ * (menuwin != 0, inmenu usually true).
+ */
 static int menutop = 0;
 
 static int inmenu = false;
@@ -2133,6 +2158,45 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
     heglk_record_physical(&wins[curwin]);
 }
 
+/* A buffer window has no cursor to move, so a move in it means the game is
+ * about to redraw the window: discard it (after a pause if it has unread
+ * text), except in the cases below. */
+static void heglk_settextpos_in_buffer(void)
+{
+    // Hack to keep black room description window from
+    // being deleted at the first turn of Guilty Bastards (trace: guilty-*)
+    if (is_gb_room_description_window(curwin))
+    {
+        LOG(" move in buffer window, Guilty bastards.\n");
+        return;
+    }
+
+    // Haunting the Ghosts: the first move after the author photo puts
+    // the main window below the photo instead.
+    if (showing_author_photo)
+    {
+        int y1 = 0;
+        for (int i = 0; i < nwins; i++) {
+            if (!wins[i].clear && wins[i].win && wins[i].win->type == wintype_Graphics) {
+                y1 = wins[i].y1;
+                break;
+            }
+        }
+        wins[mainwin].y0 = y1 - gcellh;
+        heglk_sizeifexists(mainwin);
+        showing_author_photo = 0;
+        return;
+    }
+
+    if (current_game == GAME_FUTURE_BOY)
+        return;
+
+    LOG("  move in buffer window. unmap.\n");
+    if (!wins[curwin].isaux)
+        heglk_pause_before_discard(curwin);
+    heglk_unmap_window(curwin);
+}
+
 void hugo_settextpos(int x, int y)
 {
 
@@ -2152,49 +2216,20 @@ void hugo_settextpos(int x, int y)
 
     if (y >= HUGO_INFINITE)
     {
+        // Moving off-screen discards a grid or graphics window. Future Boy!
+        // gets a fresh one at once.
         if ((wins[curwin].win->type == wintype_TextGrid && !menuwin) || wins[curwin].win->type == wintype_Graphics) {
             LOG("  moved to line %d in grid window. unmap.\n", y);
-            if (current_game == GAME_FUTURE_BOY && wins[curwin].win->type == wintype_Graphics) {
-                heglk_unmap_window(curwin);
-                hugo_mapcurwin();
-                return;
-            }
+            int remap = (current_game == GAME_FUTURE_BOY && wins[curwin].win->type == wintype_Graphics);
             heglk_unmap_window(curwin);
+            if (remap)
+                hugo_mapcurwin();
         }
         return;
     }
     else if (wins[curwin].win->type == wintype_TextBuffer)
     {
-        // Hack to keep black room description window from
-        // being deleted at the first turn of Guilty Bastards (trace: guilty-*)
-        if (is_gb_room_description_window(curwin))
-        {
-            LOG(" move in buffer window, Guilty bastards. x:%d y:%d\n", x, y);
-            return;
-        }
-
-        if (showing_author_photo)
-        {
-            int y1 = 0;
-            for (int i = 0; i < nwins; i++) {
-                if (!wins[i].clear && wins[i].win && wins[i].win->type == wintype_Graphics) {
-                    y1 = wins[i].y1;
-                    break;
-                }
-            }
-            wins[mainwin].y0 = y1 - gcellh;
-            heglk_sizeifexists(mainwin);
-            showing_author_photo = 0;
-            return;
-        }
-
-        if (current_game == GAME_FUTURE_BOY)
-            return;
-
-        LOG("  move in buffer window. unmap.\n");
-        if (!wins[curwin].isaux)
-            heglk_pause_before_discard(curwin);
-        heglk_unmap_window(curwin);
+        heglk_settextpos_in_buffer();
     }
     else if (wins[curwin].win->type == wintype_TextGrid)
     {
@@ -2219,6 +2254,31 @@ void hugo_settextpos(int x, int y)
     }
 }
 
+/* A text window to the right of the left margin, opened by the game with
+ * "window" while not in monospace mode: a side panel of game text. */
+static int heglk_is_right_aux_window(void)
+{
+    return !mono && inwindow && wins[curwin].l > 5;
+}
+
+/* Whether wins[curwin] should become a text buffer rather than a grid. */
+static int heglk_wants_buffer_window(void)
+{
+    int is_main_text_window = (curwin == mainwin && (currentline > HUGO_INFINITE || !mono));
+
+    // A one-line menu header below the status line. Haunting the Ghosts
+    // and World Builder use a fixed-width style for the regular game text,
+    // so the usual check for a fixed-width font doesn't work; make the
+    // menu a buffer to get proper word wrapping.
+    int is_menu_header = (currentline == 1 && statuswin && curwin != statuswin);
+    // Hack (trace: htgessay-*)
+    int is_htg_menu = (current_game == GAME_HTG && is_menu_header && wins[curwin].fg == 7 && wins[curwin].bg == 0);
+    // Hack (trace: worldbuilder-*)
+    int is_worldbuilder_menu = (current_game == GAME_WORLDBUILDER && is_menu_header && !menuwin);
+
+    return is_main_text_window || is_htg_menu || is_worldbuilder_menu || heglk_is_right_aux_window();
+}
+
 /* Check if the current "context" wins[curwin] has a corresponding Glk Window object. If not, create one */
 static void hugo_mapcurwin(void)
 {
@@ -2226,20 +2286,7 @@ static void hugo_mapcurwin(void)
     if (!curwin || wins[curwin].win != NULL)
         return; // The current window context already has a corresponding Glk window
 
-    if ((curwin == mainwin
-         && (currentline > HUGO_INFINITE || !mono)) || // We are in a standard, main textbuffer window
-
-        // Hack to give fixed-width font in Haunting the Ghosts menu proper word wrapping
-        // (trace: htgessay-*)
-        (current_game == GAME_HTG && currentline == 1 && statuswin && curwin != statuswin && wins[curwin].fg == 7 && wins[curwin].bg == 0) ||
-
-        // Hack to give fixed-width font in World Builder menu proper word wrapping
-        // (Haunting the Ghosts and World Builder use a fixed-width style for the regular game text,
-        // so the usual trick of checking for a fixed-with font doesn't work)
-        // (trace: worldbuilder-*)
-        (current_game == GAME_WORLDBUILDER && currentline == 1 && statuswin && curwin != statuswin && !menuwin) ||
-
-        (!mono && inwindow && wins[curwin].l > 5))  // We are in a right-aligned aux textbuffer window
+    if (heglk_wants_buffer_window())
     {
         LOG(" * map win to buffer %d\n", curwin);
 
@@ -2257,7 +2304,7 @@ static void hugo_mapcurwin(void)
         }
 
         wins[curwin].win = gli_new_window(wintype_TextBuffer, 0);
-        if (current_game == GAME_CZK && !mono && inwindow && wins[curwin].l > 5 && wins[mainwin].y0 > wins[curwin].y1)
+        if (current_game == GAME_CZK && heglk_is_right_aux_window() && wins[mainwin].y0 > wins[curwin].y1)
         {
                 wins[curwin].y1 = wins[mainwin].y0;
         }
