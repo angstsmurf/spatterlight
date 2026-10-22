@@ -26,6 +26,7 @@
 #include "os.h"
 #include "glk.h"
 #include "oshtml.h"
+#include "osstyles.h"
 
 extern glui32 os_prepare_chars(glui32 *buf, glui32 buflen,
                                unsigned char *out, glui32 outlen);
@@ -243,6 +244,9 @@ void os_banner_styles_apply (osbanid_t banner)
     banner->fgcolor = gsbgcol;
     banner->bgcolor = gsfgcol;
 
+    /* banners keep the plain styles; os_banner_styles_reset puts ours back */
+    osstyles_clear_hints(banner->type);
+
     /* font style: monospace for text grid and tab aligned buffers, else proportional */
     glk_stylehint_set(banner->type, style_Alert, stylehint_Proportional, propval);
     glk_stylehint_set(banner->type, style_Subheader, stylehint_Proportional, propval);
@@ -302,6 +306,8 @@ void os_banner_styles_reset (void)
     glk_stylehint_set(wintype_AllTypes, style_Normal, stylehint_TextColor, mainfg);
     glk_stylehint_set(wintype_AllTypes, style_Normal, stylehint_BackColor, mainbg);
 #endif /* SPATTERLIGHT */
+
+    osstyles_set_hints(wintype_TextBuffer);
 }
 
 void os_banners_close(osbanid_t banner)

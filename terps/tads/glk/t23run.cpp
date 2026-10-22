@@ -29,6 +29,7 @@
 
 #include "os.h"
 #include "oshtml.h"
+#include "osstyles.h"
 #include <string.h>
 
 /* tads 2 headers */
@@ -247,6 +248,10 @@ void glk_main(void)
     engine_ver = vm_get_game_type(prog_arg, fname, sizeof(fname),
                                   defexts,
                                   sizeof(defexts)/sizeof(defexts[0]));
+
+    /* the styles must be chosen before os_init opens the first window */
+    if (engine_ver == VM_GGT_TADS2 || engine_ver == VM_GGT_TADS3)
+        osstyles_choose(fname);
 
     /* presume failure */
     stat = OSEXFAIL;

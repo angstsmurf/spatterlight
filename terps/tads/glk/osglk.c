@@ -29,6 +29,7 @@
 #include "glk.h"
 #include "glkimp.h"
 #include "oshtml.h"
+#include "osstyles.h"
 
 /* for version strings */
 #include "trd.h"
@@ -145,6 +146,8 @@ int os_get_sysinfo(int code, void *param, long *result)
 int os_init(int *argc, char *argv[], const char *prompt,
             char *buf, int bufsiz)
 {
+    /* hints only reach windows opened after them */
+    osstyles_set_hints(wintype_TextBuffer);
     mainwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
 
     if (!mainwin)

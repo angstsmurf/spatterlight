@@ -50,6 +50,7 @@
 #include "os.h"
 #include "glk.h"
 #include "oshtml.h"
+#include "osstyles.h"
 
 extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
                              glui32 *out, glui32 outlen);
@@ -172,14 +173,8 @@ static void main_put(void *ctx, const glui32 *buf, size_t len)
 static void main_set_attr(void *ctx, int attr)
 {
     (void)ctx;
-    if (attr & OS_ATTR_BOLD && attr & OS_ATTR_ITALIC)
-        glk_set_style(style_Alert);
-    else if (attr & OS_ATTR_BOLD)
-        glk_set_style(style_Subheader);
-    else if (attr & OS_ATTR_ITALIC)
-        glk_set_style(style_Emphasized);
-    else
-        glk_set_style(style_Normal);
+    glk_set_style(osstyles_style(((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
+                                 | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0)));
 }
 
 static void main_set_color(void *ctx, os_color_t fg, os_color_t bg)

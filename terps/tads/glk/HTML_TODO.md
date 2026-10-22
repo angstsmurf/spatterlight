@@ -194,7 +194,13 @@ in place by then.
 
 ### Scan the game at startup
 
-- [ ] **Read the game's strings straight from the file.** The scan doesn't
+Done in `glk/osstyles.c`. `test/check_styles.py` builds it on its own
+(`test/stylescan.c`) and checks its counts against a Python copy of
+`stylecount.py`'s rules on every game of both corpora; without the `\(`
+escapes, that copy matches `stylecount.py` itself on all 235 games. The
+scan takes at most 15 ms (*Prince Quisborne*), so nothing is cached.
+
+- [x] **Read the game's strings straight from the file.** The scan doesn't
   depend on interpreter state. Port `t2_scan`/`t3_scan` from
   `test/.work/bin/tadsscan.py` to C in a new `glk/osstyles.c`:
   - **TADS 2:** the text properties (types 1 and 2) of the `OBJ` section,
@@ -206,18 +212,20 @@ in place by then.
   - The scan reads the game file once and skips the HTMLRES and MRES
     media. Time it on the largest corpus games; if it's noticeable, cache
     the result by game hash.
-- [ ] **Follow the tags in each string**, the way `.work/bin/stylecount.py`
+- [x] **Follow the tags in each string**, the way `.work/bin/stylecount.py`
   does. On each run of visible text, count how often each reduced
   combination of bold, italic, fixed, Input and centred appears.
   - TADS 2's `\(`/`\)` escapes count as bold on and off.
   - Text-only games without `\H+` that use no tags give an empty count.
     They get the default table below, since all they can use is bold and
     italic through `os_set_text_attr`.
-- [ ] **Choose the 11 styles** from that count:
+- [x] **Choose the 11 styles** from that count:
   1. Normal is always plain and Input is always Input. Line input uses
      `style_Input`, so its slot is fixed.
   2. The other combinations are ranked by count, and the 9 most used get
-     a slot.
+     a slot. Bold, italic and bold italic are ranked even with a count of
+     0, since the formatter makes them without tags (`\(`, `os_set_text_attr`).
+     Ties go by combination number, so the choice is stable.
   3. Each combination goes to the slot whose meaning is closest, if that
      slot is free:
      - italic → Emphasized
@@ -231,31 +239,39 @@ in place by then.
      the unused natural slots.
   4. A combination with no slot falls back to the nearest one that has a
      slot, by dropping first bold on fixed or Input text, then italic, then
-     centring.
+     centring, then bold. Whatever is left with no slot is Normal.
   5. A slot that nothing uses keeps the theme's look, so it gets no hints.
-- [ ] **Default table, when the scan finds nothing.** This happens with an
+- [x] **Default table, when the scan finds nothing.** This happens with an
   unreadable or unknown file format and with plain text-mode games.
 
   | Glk style | Hints | Used for |
   |---|---|---|
   | Normal | (theme) | plain text |
-  | Emphasized | Oblique | `i`, `em`, `u`, `cite`, … |
-  | Subheader | Weight 1 | `b`, `strong`, `h1`-`h6` |
-  | Alert | Weight 1, Oblique | bold italic |
-  | Preformatted | (theme) | `tt`, `pre`, `code`, a typewriter `font face` |
+  | Emphasized | italic | `i`, `em`, `u`, `cite`, … |
+  | Subheader | bold | `b`, `strong`, `h1`-`h6` |
+  | Alert | bold italic | bold italic |
+  | Preformatted | fixed | `tt`, `pre`, `code`, a typewriter `font face` |
   | Input | (theme) | `font face=TADS-Input` |
-  | BlockQuote | Justification Centered | centred plain |
-  | Header | Justification Centered, Weight 1 | centred bold |
-  | User1 | Justification Centered, Oblique | centred italic |
-  | User2 | Justification Centered, Weight 1, Oblique | centred bold italic |
-  | Note | Justification Centered, Proportional 0 | centred fixed |
+  | BlockQuote | centred | centred plain |
+  | Header | centred bold | centred bold |
+  | User1 | centred italic | centred italic |
+  | User2 | centred bold italic | centred bold italic |
+  | Note | centred fixed | centred fixed |
+
+  Every slot in use but Normal and Input gets the same seven hints, so a
+  slot looks like its combination whatever the theme has: Weight 0/1,
+  Oblique 0/1, Justification LeftFlush/Centered, Proportional 1/0 (not
+  for Input combinations), Size 0, Indentation 0 and ParaIndentation 0.
 
 **Result on the corpus:**
 
 - With the default table, 19 games lose a combination: bold Input,
   bold/italic fixed, or centred fixed variants.
 - With the per-game choice, only *Plant* does, for a single passage of
-  centred bold fixed text.
+  centred bold fixed text. Counting `\(`/`\)` as bold (`stylecount.py`
+  doesn't), *Chancel of Death* does too: it gains bold fixed and bold
+  italic fixed, which push out centred bold and centred italic. No xtads
+  game loses one.
 - Right-aligned text still shows centred, since it's folded into
   centring.
 
@@ -270,18 +286,21 @@ in place by then.
 - A slot keeps the theme's look for every hint the game doesn't set. In
   Spatterlight that includes a theme's own Note or User1 font, size or
   colour. To keep a slot from looking unlike its combination, any slot the
-  table uses also sets `Size 0`, `Proportional` and `Indentation 0`.
-  Colour is left to the theme.
+  table uses also sets `Size 0`, `Proportional` and `Indentation 0`
+  (and `ParaIndentation 0`). Colour and font are left to the theme.
 
 All of this is plain Glk, so it works the same on Gargoyle.
 
-- [ ] **Hints.** Set them for `wintype_TextBuffer` before the main window
-  opens, and set them again before each text banner opens. Hints set only
-  for `wintype_AllTypes` would also centre text in grid windows, so don't
-  use that.
-  - Leave every hint the table doesn't name at the theme's value. Weight,
-    Oblique and Justification are the only hints the game sets, so the
-    user's fonts and sizes are kept.
+- [x] **Hints.** Set for `wintype_TextBuffer` in `os_init`, before the
+  main window opens; `glk_main` (`t23run.cpp`) runs the scan just before.
+  Hints set only for `wintype_AllTypes` would also centre text in grid
+  windows, so they aren't.
+  - Banners keep their old look until Step 3: `os_banner_styles_apply`
+    clears our hints before a banner opens (it repurposes User1, User2 and
+    BlockQuote for colours), and `os_banner_styles_reset` puts them back.
+  - The main window's bold and italic go through the table
+    (`osstyles_style`), which gives the same three styles as before, so
+    the only change in the traces is the hints.
 - [ ] **HTML parser state.** A tag stack holding:
   - bold, italic (also set by underline), fixed, Input
   - alignment: left, or centre (right counts as centre)
@@ -303,7 +322,7 @@ All of this is plain Glk, so it works the same on Gargoyle.
   centred styles apart from their uncentred twins. If it doesn't, centre
   by padding with spaces to the `glk_window_get_size` width, the way `vmconhmp.cpp` (~line 705) pads
   `<tab align=center>` in text mode.
-- [ ] **Theme switch.** With the theme's "use game styles" switch
+- [x] **Theme switch.** With the theme's "use game styles" switch
   (`doStyles`) off, Spatterlight ignores the hints, and the 11 styles look
   however the theme has them. That's the user's choice and needs no code.
 
