@@ -75,6 +75,7 @@
 #include "oshtml.h"
 #include "osstyles.h"
 #include "osres.h"
+#include "ossound.h"
 #include "gi_blorb.h"
 
 extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
@@ -1473,31 +1474,16 @@ static void parse_img_size(const glui32 *v, size_t len, img_size *out)
     out->num = n > 0 ? (glui32)n : 0;
 }
 
-/*
- *   Draw an <IMG>: return false if it can't be, and its ALT text is to be
- *   shown instead.  A picture in the line counts as a character on it; one
- *   in a margin is beside the text, and leaves the line alone.
- */
-static int put_image(parser *p, const glui32 *src, size_t srclen,
-                     glui32 align, img_size w, img_size h)
+/* a resource name in UTF-8, or 0 if it doesn't fit */
+static size_t url_utf8(const glui32 *src, size_t srclen,
+                       char *name, size_t size)
 {
-    char name[512];
     size_t i, n = 0;
-    winid_t win;
-    glui32 id, iw, ih;
-    int inline_img = align != imagealign_MarginLeft
-        && align != imagealign_MarginRight;
 
-    if (p->dst || srclen == 0 || !glk_gestalt(gestalt_Graphics, 0)
-        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)
-        || !p->sink->window(p->ctx))
-        return 0;
-
-    /* the name, in UTF-8 */
     for (i = 0 ; i < srclen ; ++i)
     {
         glui32 c = src[i];
-        if (n + 4 >= sizeof(name))
+        if (n + 4 >= size)
             return 0;
         if (c < 0x80)
             name[n++] = (char)c;
@@ -1513,7 +1499,31 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
             name[n++] = (char)(0x80 | (c & 0x3F));
         }
     }
-    id = osres_find(name, n, giblorb_ID_Pict);
+    return n;
+}
+
+/*
+ *   Draw an <IMG>: return false if it can't be, and its ALT text is to be
+ *   shown instead.  A picture in the line counts as a character on it; one
+ *   in a margin is beside the text, and leaves the line alone.
+ */
+static int put_image(parser *p, const glui32 *src, size_t srclen,
+                     glui32 align, img_size w, img_size h)
+{
+    char name[512];
+    size_t n;
+    winid_t win;
+    glui32 id, iw, ih;
+    int inline_img = align != imagealign_MarginLeft
+        && align != imagealign_MarginRight;
+
+    if (p->dst || srclen == 0 || !glk_gestalt(gestalt_Graphics, 0)
+        || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)
+        || !p->sink->window(p->ctx))
+        return 0;
+
+    n = url_utf8(src, srclen, name, sizeof(name));
+    id = n ? osres_find(name, n, giblorb_ID_Pict) : 0;
     if (id == 0)
         return 0;
 
@@ -1569,6 +1579,63 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
         p->lastchar = 0xFFFC;
     }
     return 1;
+}
+
+/* <SOUND LAYER> and <SOUND CANCEL=layer>; -1 if it's none of them */
+static int sound_layer(const glui32 *v, size_t len)
+{
+    if (tag_is(v, len, "foreground"))
+        return OSSND_FOREGROUND;
+    if (tag_is(v, len, "ambient"))
+        return OSSND_AMBIENT;
+    if (tag_is(v, len, "bgambient"))
+        return OSSND_BGAMBIENT;
+    if (tag_is(v, len, "background"))
+        return OSSND_BACKGROUND;
+    return -1;
+}
+
+/* <SOUND FADEIN|FADEOUT=[CROSSFADE,]seconds>, in milliseconds */
+static unsigned long sound_fade(const glui32 *v, size_t len, int *crossfade)
+{
+    unsigned long ms = 0, unit = 1000;
+    size_t k;
+
+    *crossfade = 0;
+    for (k = 0 ; k < len && v[k] != ',' ; ++k)
+        ;
+    if (k < len && tag_is(v, k, "crossfade"))
+    {
+        *crossfade = 1;
+        v += k + 1;
+        len -= k + 1;
+    }
+    for (k = 0 ; k < len && v[k] >= '0' && v[k] <= '9' ; ++k)
+        ms = ms * 10 + (v[k] - '0');
+    ms *= 1000;
+    if (k < len && v[k] == '.')
+        for (++k ; k < len && v[k] >= '0' && v[k] <= '9' && unit > 1 ; ++k)
+            ms += (v[k] - '0') * (unit /= 10);
+    return ms;
+}
+
+/*
+ *   Play, queue or cancel a <SOUND>: return false if it can't be, and its
+ *   ALT text is to be shown instead.  As in HTML TADS, sounds go in the
+ *   main window and in <BANNER>s, and not in the banners of the API.
+ */
+static int put_sound(parser *p, ossound_tag *tag,
+                     const glui32 *src, size_t srclen)
+{
+    char name[512];
+
+    if (p->dst || !p->sink->window(p->ctx))
+        return 0;
+    tag->srclen = url_utf8(src, srclen, name, sizeof(name));
+    tag->src = name;
+    if (!tag->cancel && tag->srclen == 0)
+        return 0;
+    return ossound_do_tag(tag);
 }
 
 /* the link for an HREF, with its &amp;s decoded; 0 if it's plain text */
@@ -1725,8 +1792,9 @@ static void do_tag(parser *p)
     size_t len = p->taglen, i = 0, name, namelen;
     int end = 0;
     int br = 0;                 /* 1: line break, 2: blank line */
-    int alt_ok = 0;
     int img = 0, clear = 0;     /* <img>, <br CLEAR> */
+    int snd = 0;                /* <sound> */
+    ossound_tag sndtag;
     size_t src = 0, srclen = 0, alt = 0, altlen = 0;
     glui32 img_align = imagealign_InlineUp;
     img_size img_w = { 0, 0 }, img_h = { 0, 0 };
@@ -1948,7 +2016,10 @@ static void do_tag(parser *p)
     else if (TAG("area"))
         area_ok = p->map && !end;
     else if (TAG("sound"))
-        alt_ok = 1;
+    {
+        snd = !p->ignore && !end;
+        ossound_tag_init(&sndtag);
+    }
     else if (TAG("font"))
     {
         if (p->ignore)
@@ -2055,7 +2126,7 @@ static void do_tag(parser *p)
 #undef TAG
 
     /*
-     *   attributes: HEIGHT of <br>, ALT of <img> and <sound>, those of
+     *   attributes: HEIGHT of <br>, those of <img> and <sound>, those of
      *   <font> and <body>, ALIGN of <p>, <div> and <hN>, in TADS 3 and in
      *   banners, those of <tab>, and those of TADS 2's <banner>
      */
@@ -2091,7 +2162,7 @@ static void do_tag(parser *p)
                 if (i < len)
                     ++i;
             }
-            else if (tads3 || p->in_banner || ban || img || link_ok
+            else if (tads3 || p->in_banner || ban || img || snd || link_ok
                      || map_ok || area_ok)
             {
                 /* up to a space, as HTML TADS reads it */
@@ -2228,12 +2299,48 @@ static void do_tag(parser *p)
             parse_img_size(t + v, vlen, &img_w);
         else if (img && ATTR("height"))
             parse_img_size(t + v, vlen, &img_h);
-        else if (alt_ok && !p->ignore && ATTR("alt"))
+        else if (snd && (ATTR("src") || ATTR("alt")))
         {
-            size_t k;
-            for (k = v ; k < v + vlen ; ++k)
-                put_html_text(p, t[k]);
+            if (ATTR("src"))
+            {
+                src = v;
+                srclen = vlen;
+            }
+            else
+            {
+                alt = v;
+                altlen = vlen;
+            }
         }
+        else if (snd && ATTR("layer"))
+            sndtag.layer = sound_layer(t + v, vlen);
+        else if (snd && ATTR("cancel"))
+        {
+            sndtag.cancel = 1;
+            sndtag.layer = sound_layer(t + v, vlen);
+        }
+        else if (snd && ATTR("interrupt"))
+            sndtag.interrupt = 1;
+        else if (snd && ATTR("repeat"))
+        {
+            sndtag.has_repeat = 1;
+            sndtag.repeat = tag_is(t + v, vlen, "loop")
+                ? 0 : to_int(t + v, vlen);
+        }
+        else if (snd && ATTR("random"))
+            sndtag.random = to_int(t + v, vlen);
+        else if (snd && ATTR("volume"))
+            sndtag.volume = to_int(t + v, vlen) > 100
+                ? 100 : to_int(t + v, vlen);
+        else if (snd && ATTR("fadein"))
+            sndtag.fadein = sound_fade(t + v, vlen, &sndtag.crossfade_in);
+        else if (snd && ATTR("fadeout"))
+            sndtag.fadeout = sound_fade(t + v, vlen, &sndtag.crossfade_out);
+        else if (snd && ATTR("sequence"))
+            sndtag.sequence = tag_is(t + v, vlen, "replace")
+                ? OSSND_SEQ_REPLACE : tag_is(t + v, vlen, "random")
+                ? OSSND_SEQ_RANDOM : tag_is(t + v, vlen, "cycle")
+                ? OSSND_SEQ_CYCLE : OSSND_SEQ_NONE;
         else if (align_ok && ATTR("align"))
             align = tag_is(t + v, vlen, "center")
                 || tag_is(t + v, vlen, "right");
@@ -2334,6 +2441,13 @@ static void do_tag(parser *p)
 
     /* the picture, or if it can't be shown, its ALT text */
     if (img && !put_image(p, t + src, srclen, img_align, img_w, img_h))
+    {
+        size_t k;
+        for (k = alt ; k < alt + altlen ; ++k)
+            put_html_text(p, t[k]);
+    }
+    /* the sound, or if it can't be played, its ALT text */
+    if (snd && !put_sound(p, &sndtag, t + src, srclen))
     {
         size_t k;
         for (k = alt ; k < alt + altlen ; ++k)

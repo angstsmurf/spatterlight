@@ -642,33 +642,57 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
 
 Spatterlight already plays all four formats.
 
-- [ ] One Glk channel per HTML TADS layer: `foreground`, `ambient`,
-  `bgambient` and `background`. Create them with
-  `glk_schannel_create_ext`.
-- [ ] `src`, `layer` (45 games), `cancel[=layer]` (21), `repeat=n|loop` (11)
-  → `glk_schannel_play_ext` with a repeat count, `glk_schannel_stop`.
-- [ ] HTML TADS queueing rules (see the `<SOUND>` section of the HTML TADS
-  reference, which isn't in this repo):
-  - A foreground sound interrupts only with `interrupt` (11 games);
-    otherwise it queues behind the current one.
-  - Background sounds queue.
-  - `ambient` with `random=n` (4 games) plays with a per-turn chance.
-  - `sequence=replace|random|cycle` applies only to looping sounds.
+Done in `glk/ossound.c`. It follows the queue rules of HTML TADS's
+`htmlsnd.cpp` and `htmltags.cpp` (`CHtmlSoundQueue`, `CHtmlTagSOUND`) and
+QTads's `qtadssound.cc`. `oshtml.c` parses the tag into an `ossound_tag`.
 
-  Implementing the queues needs `evtype_SoundNotify` handled by every
-  event wait in `osglk.c`: line input, `os_waitkey`, `os_get_event` with
-  timeout, and the MORE prompt. Today those waits only handle line, char
-  and arrange events. Pass a nonzero notify value to
-  `glk_schannel_play_ext` for each queued sound, so the end of a sound
-  starts the next one.
-- [ ] `volume` (5), `fadein`/`fadeout` (3) → `glk_schannel_set_volume_ext`
-  with a duration. Report `AUDIO_FADE`.
-- [ ] `alt`: print it when sound is off.
-- [ ] Check `gestalt_Sound2` and give up on layers that can't be created,
-  instead of failing. Without sound support, `SYSINFO_*` must report the
-  formats as 0 so the game knows.
-- [ ] Autosave: the layer queues must be restorable, or the sounds rebuilt
-  after a restore, the same way Scarier does it.
+- [x] **Four layers** (`foreground`, `ambient`, `bgambient`,
+  `background`), each with its own queue and two Glk channels. The channels
+  are made lazily with `glk_schannel_create_ext`. One channel plays the
+  queue; the other is for a sound fading out in the background.
+  - A sound with no `layer` goes where HTML TADS puts it: MIDI to
+    background, and WAV to foreground, or to ambient with `random`. An MP3
+    or Ogg with no layer is an error, and its `alt` text is shown.
+- [x] `src`, `layer` (45 games), `cancel[=layer]` (21), `repeat=n|loop` (11)
+  → `glk_schannel_play_ext` with a repeat count (`loop` is `0xFFFFFFFF`),
+  and `glk_schannel_stop`.
+- [x] **Queueing.**
+  - A sound starts when nothing ahead of it in its layer is playing.
+  - `interrupt` (11 games) cancels the layer first.
+  - `random=n` (4 games): each time the sound comes up in the queue, it
+    plays with an n% chance. While its layer is idle, it gets another chance
+    once a second. An ambient sound with `random` and no `repeat` loops.
+  - `sequence=replace|random|cycle` (no game in the corpus uses it).
+    `cycle` is the documented round robin; HTML TADS itself tests a LOOP
+    sequence that no tag sets.
+- [x] **Every wait handles the notify events.** `osglk.c` `select_event` is
+  used by `os_gets`, `os_gets_timeout` and `getglkchar`, which covers
+  waitkey, the MORE prompt and timed input. It gives `evtype_SoundNotify` and
+  `evtype_VolumeNotify` to `ossound_event` and goes on waiting.
+  - While a `random` sound waits and the game has no timer of its own, the
+    wait runs a 1 s Glk timer for it. The fake app never fires it, so the
+    traces only show `TIMER 1000`/`TIMER 0` around input.
+- [x] `volume` (5 games) and `fadein`/`fadeout` (3), including
+  `crossfade,n` → `glk_schannel_set_volume_ext` with a duration. Report
+  `AUDIO_FADE` and `AUDIO_CROSSFADE` for all four formats.
+- [x] `alt` is printed when the sound can't play: sound off, no resource, or
+  no window to play for.
+- [x] **Without `gestalt_Sound2`**, `SYSINFO_WAV`/`MIDI`/`MPEG*`/`OGG`/
+  `PREF_SOUNDS`/`PREF_MUSIC` and the fade answers are 0. As with images,
+  these are TADS 2 only, because TADS 3 runs in text mode.
+- [x] **Corpus check.** 16 games changed traces, and in all of them the only
+  changes are sound calls and the timer arming. The one exception is *Six
+  Stories*: it sees sound support and takes its sound path, which skips
+  the "this game has sound" notice and plays the theme. The walkthroughs end
+  as before.
+- **Glk can't do these, because they need the sound's length.** The sounds
+  end without the fade:
+  - a fade-out at the natural end of a sound;
+  - the cross-fade into a queued sound (`fadein=crossfade` without
+    `interrupt`).
+- **Autosave: does not apply yet.** TADS has no autosave in Spatterlight.
+  If it gets one, the layer queues must be saved with it, or the sounds
+  rebuilt after a restore, the way Scarier does it.
 
 ## Step 7: Tables (`<table>`, 92 games)
 

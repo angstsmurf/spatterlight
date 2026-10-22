@@ -30,6 +30,7 @@
 #include "glkimp.h"
 #include "oshtml.h"
 #include "osstyles.h"
+#include "ossound.h"
 
 /* for version strings */
 #include "trd.h"
@@ -113,6 +114,10 @@ int os_get_sysinfo(int code, void *param, long *result)
             *result = !oshtml_is_tads3() && osglk_links_ok();
             return TRUE;
 
+        /*
+         *   ossound.c plays <SOUND> in TADS 2 games, in all four formats,
+         *   any of them at once, and fades them all
+         */
         case SYSINFO_WAV:
         case SYSINFO_MIDI:
         case SYSINFO_WAV_MIDI_OVL:
@@ -123,12 +128,21 @@ int os_get_sysinfo(int code, void *param, long *result)
         case SYSINFO_MPEG1:
         case SYSINFO_MPEG2:
         case SYSINFO_MPEG3:
+        case SYSINFO_OGG:
+            *result = !oshtml_is_tads3() && glk_gestalt(gestalt_Sound2, 0);
+            return TRUE;
+        case SYSINFO_AUDIO_FADE:
+        case SYSINFO_AUDIO_CROSSFADE:
+            *result = !oshtml_is_tads3() && glk_gestalt(gestalt_Sound2, 0)
+                ? SYSINFO_AUDIOFADE_MPEG | SYSINFO_AUDIOFADE_OGG
+                  | SYSINFO_AUDIOFADE_WAV | SYSINFO_AUDIOFADE_MIDI : 0;
+            return TRUE;
+
         case SYSINFO_LINKS_HTTP:
         case SYSINFO_LINKS_FTP:
         case SYSINFO_LINKS_NEWS:
         case SYSINFO_LINKS_MAILTO:
         case SYSINFO_LINKS_TELNET:
-        case SYSINFO_OGG:
             *result = 0;
             return TRUE;
 
@@ -851,45 +865,6 @@ static int line_link(const event_t *click, unsigned char *buf, size_t buflen,
     return 1;
 }
 
-/*
- *   Read a string of input.  Fills in the buffer with a null-terminated
- *   string containing a line of text read from the standard input.  The
- *   returned string should NOT contain a trailing newline sequence.  On
- *   success, returns 'buf'; on failure, including end of file, returns a
- *   null pointer.
- */
-unsigned char *os_gets(unsigned char *buf, size_t buflen)
-{
-    event_t event;
-    int linked = 0;
-
-    oshtml_input();
-    request_links();
-    os_get_buffer(buf, buflen, 0);
-
-    do
-    {
-        glk_select(&event);
-        osglk_not_idle();
-        if (event.type == evtype_Arrange)
-            redraw_windows();
-        else if (event.type == evtype_Hyperlink)
-        {
-            if (line_link(&event, buf, buflen, 1))
-            {
-                linked = 1;
-                event.type = evtype_LineInput;
-            }
-            else
-                request_links();
-        }
-    }
-    while (event.type != evtype_LineInput);
-
-    oshtml_input_done();
-    return linked ? buf : os_fill_buffer(buf, event.val1);
-}
-
 #ifdef GLK_TIMERS
 /*
  *   The timer, which under the determinism testing theme moves the virtual
@@ -909,6 +884,82 @@ static void timer_fired(void)
         osglk_vclock_advance(timer_interval);
 }
 #endif
+
+/*
+ *   Wait for an event for the input in hand.  The ends of sounds and of
+ *   their fades are taken care of here (ossound.c), and so is a sound
+ *   waiting for its RANDOM chance, which has a one-second timer while the
+ *   wait has none of its own.
+ */
+static void select_event(event_t *event)
+{
+#ifdef GLK_TIMERS
+    int sound_timer = 0;
+#endif
+
+    for (;;)
+    {
+#ifdef GLK_TIMERS
+        if (!timer_interval && sound_timer != ossound_wants_timer())
+        {
+            sound_timer = !sound_timer;
+            glk_request_timer_events(sound_timer ? 1000 : 0);
+        }
+#endif
+        glk_select(event);
+        osglk_not_idle();
+        if (ossound_event(event))
+            continue;
+#ifdef GLK_TIMERS
+        if (event->type == evtype_Timer && sound_timer)
+        {
+            ossound_timer();
+            continue;
+        }
+        if (sound_timer)
+            glk_request_timer_events(0);
+#endif
+        return;
+    }
+}
+
+/*
+ *   Read a string of input.  Fills in the buffer with a null-terminated
+ *   string containing a line of text read from the standard input.  The
+ *   returned string should NOT contain a trailing newline sequence.  On
+ *   success, returns 'buf'; on failure, including end of file, returns a
+ *   null pointer.
+ */
+unsigned char *os_gets(unsigned char *buf, size_t buflen)
+{
+    event_t event;
+    int linked = 0;
+
+    oshtml_input();
+    request_links();
+    os_get_buffer(buf, buflen, 0);
+
+    do
+    {
+        select_event(&event);
+        if (event.type == evtype_Arrange)
+            redraw_windows();
+        else if (event.type == evtype_Hyperlink)
+        {
+            if (line_link(&event, buf, buflen, 1))
+            {
+                linked = 1;
+                event.type = evtype_LineInput;
+            }
+            else
+                request_links();
+        }
+    }
+    while (event.type != evtype_LineInput);
+
+    oshtml_input_done();
+    return linked ? buf : os_fill_buffer(buf, event.val1);
+}
 
 /*
  *   Read a string of input with an optional timeout.  This behaves like
@@ -1021,8 +1072,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
 
     do
     {
-        glk_select(&event);
-        osglk_not_idle();
+        select_event(&event);
         if (event.type == evtype_Arrange)
             redraw_windows();
         else if (event.type == evtype_Timer && (timeout = 1))
@@ -1213,8 +1263,7 @@ static int getglkchar(void)
 
     do
     {
-        glk_select(&event);
-        osglk_not_idle();
+        select_event(&event);
         if (event.type == evtype_Arrange)
             redraw_windows();
         else if (event.type == evtype_Hyperlink && (l = link_get(event.val1)))
