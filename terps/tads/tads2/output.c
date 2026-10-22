@@ -263,8 +263,11 @@ struct out_stream_info
     /* low-level display routine (va_list version) */
     void (*do_print)(out_stream_info *stream, const char *str);
     
-    /* current line position and output column */
-    uchar linepos;
+    /*
+     *   current line position and output column (markup passed through to
+     *   an HTML target takes no columns, so the position can run past 255)
+     */
+    int linepos;
     uchar linecol;
 
     /* number of lines on the screen (since last MORE prompt) */
@@ -330,6 +333,16 @@ struct out_stream_info
      *   from the output stream and convert it into normal text sequences. 
      */
     int html_target;
+
+    /*
+     *   Where we are in the markup passed through to an HTML target, so
+     *   that "\^" and "\v" leave tag and entity names alone and change
+     *   the first letter of the text after them.  html_in_tag is 0 outside
+     *   a tag, 1 inside one, or the quote character while inside a quoted
+     *   attribute value; html_in_entity is true after the '&' of an entity.
+     */
+    char html_in_tag;
+    int html_in_entity;
 
     /*
      *   Flag indicating that the target uses plain text.  If this flag is
@@ -477,6 +490,8 @@ static void out_state_init(out_stream_info *stream)
 
     /* assume that the underlying system is not HTML-enabled */
     stream->html_target = FALSE;
+    stream->html_in_tag = 0;
+    stream->html_in_entity = FALSE;
 
     /* presume this target accepts OS highlighting sequences */
     stream->plain_text_target = FALSE;
@@ -1191,11 +1206,13 @@ static void outflushn_stream(out_stream_info *stream, int nl)
          *   If we just output a newline, note it.  If we didn't just
          *   output a newline, but we did write out anything else, note
          *   that we're no longer at the start of a line on the underlying
-         *   output device.  
+         *   output device.  (Markup alone doesn't count: it takes no
+         *   columns.)
          */
         if (nl == 1)
             stream->just_did_nl = TRUE;
-        else if (stream->linebuf[stream->preview] != '\0')
+        else if (stream->linebuf[stream->preview] != '\0'
+                 && stream->linecol != 0)
             stream->just_did_nl = FALSE;
     }
 
@@ -1368,6 +1385,7 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
 {
     int  i;
     int  qspace;
+    int  markup;
     
     /* check for the special quoted space character */
     if (c == QSPACE)
@@ -1392,8 +1410,40 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
         qspace = 0;
     }
 
+    /* the characters of a tag passed through to an HTML target */
+    markup = (stream->html_in_tag != 0);
+
+    /* tag and entity names keep their case */
+    if (stream->html_in_tag)
+    {
+        if (stream->html_in_tag != 1)
+        {
+            if (c == stream->html_in_tag)
+                stream->html_in_tag = 1;
+        }
+        else if (c == '"' || c == '\'')
+            stream->html_in_tag = c;
+        else if (c == '>')
+            stream->html_in_tag = 0;
+    }
+    else if (stream->html_in_entity)
+    {
+        if (!outisal(c) && !outisdg(c) && c != '#')
+            stream->html_in_entity = FALSE;
+    }
+    else if (c == '&' && stream->html_target && stream->html_mode)
+        stream->html_in_entity = TRUE;
+    else if (c == '<' && stream->html_target && stream->html_mode)
+    {
+        /* markup of our own, such as outblank's <BR> */
+        stream->html_in_tag = 1;
+        markup = TRUE;
+    }
+
     /* check for the caps/nocaps flags */
-    if ((stream->capsflag || stream->allcapsflag) && outisal(c))
+    if (stream->html_in_tag || stream->html_in_entity)
+        ;
+    else if ((stream->capsflag || stream->allcapsflag) && outisal(c))
     {
         /* capsflag is set, so capitalize this character */
         if (outislo(c))
@@ -1444,6 +1494,21 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
          *   we're done - we don't want to actually display the character
          *   while capturing 
          */
+        return;
+    }
+
+    /*
+     *   Markup takes no room on the line, and its spaces are kept as they
+     *   are: a tag alone on a line isn't a line of text for outflushn's
+     *   newline, just as the text-only filter, which ate its tags, did not
+     *   count them.
+     */
+    if (markup)
+    {
+        if (stream->linepos + 1 >= MAXWIDTH)
+            outflushn_stream(stream, 0);
+        stream->attrbuf[stream->linepos] = stream->cur_attr;
+        stream->linebuf[stream->linepos++] = c;
         return;
     }
 
@@ -2424,6 +2489,17 @@ static int outformatlen_stream(out_stream_info *stream,
                     outchar_stream(stream, nextout(&s, &slen));
                     break;
                     
+                case '<':
+                    /* 
+                     *   an escaped '<' is text: keep an HTML target from
+                     *   reading it as the start of a tag 
+                     */
+                    if (stream->html_target && stream->html_mode)
+                        outstring_stream(stream, "&lt;");
+                    else
+                        outchar_stream(stream, c);
+                    break;
+
                 default:                 /* just pass invalid escapes as-is */
                     outchar_stream(stream, c);
                     break;
@@ -2697,6 +2773,7 @@ static int outformatlen_stream(out_stream_info *stream,
              */
             char tagbuf[50];
             int is_end_tag;
+            stream->html_in_tag = 1;
             c = read_tag(tagbuf, sizeof(tagbuf), &is_end_tag,
                          &s, &slen, stream);
 

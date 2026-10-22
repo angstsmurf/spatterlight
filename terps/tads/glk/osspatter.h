@@ -52,6 +52,13 @@ void os_put_buffer (unsigned char *buf, size_t len);
 void os_get_buffer (unsigned char *buf, size_t len, size_t init);
 unsigned char *os_fill_buffer (unsigned char *buf, size_t len);
 
+/*
+ *   The TADS 2 formatter passes HTML markup through to os_print, for
+ *   oshtml.c to translate.  Games are still told this is a text
+ *   interpreter: define OS_REPORT_HTML to tell them otherwise.
+ */
+#define USE_HTML
+
 #ifndef OS_MAXWIDTH
 #define OS_MAXWIDTH 2048
 #endif

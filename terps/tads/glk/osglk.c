@@ -28,16 +28,22 @@
 #include "os.h"
 #include "glk.h"
 #include "glkimp.h"
+#include "oshtml.h"
 
 /* for version strings */
 #include "trd.h"
 #include "vmvsn.h"
 
+extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
+                             glui32 *out, glui32 outlen);
+
 static void redraw_windows(void);
 static void os_status_redraw(void);
 extern void os_banners_redraw(void);
 
-static char lbuf[256], rbuf[256];
+static glui32 lbuf[256];
+static size_t lbuflen = 0;
+static char rbuf[256];
 static int curwin = 0;
 static int curattr = 0;
 
@@ -74,7 +80,7 @@ int os_get_sysinfo(int code, void *param, long *result)
             *result = SYSINFO_TXC_RGB;
             return TRUE;
 
-#ifdef USE_HTML
+#ifdef OS_REPORT_HTML
         case SYSINFO_INTERP_CLASS:
             *result = SYSINFO_ICLASS_HTML;
             return TRUE;
@@ -269,15 +275,24 @@ void os_print(const char *str, size_t len)
     osglk_not_idle();
 
     if (curwin == 0 && str)
-        os_put_buffer((unsigned char *)str, len);
+        oshtml_print_main(str, len);
+
+    if (curwin == 2 && str)
+    {
+        glui32 none;
+        oshtml_print_status(str, len, &none, 0);
+    }
 
     if (curwin == 1)
     {
-        const char *p;
-        size_t      rem, max;
+        glui32 buf[256];
+        const glui32 *p;
+        size_t rem, max;
+
+        rem = oshtml_print_status(str, len, buf, sizeof(buf) / sizeof(buf[0]));
 
         /* The string requires some fiddling for the status window */
-        for (p = str, rem = len ; rem != 0 && *p == '\n'; p++, --rem)
+        for (p = buf ; rem != 0 && *p == '\n'; p++, --rem)
             ;
         if (rem != 0 && p[rem-1] == '\n')
             --rem;
@@ -285,8 +300,11 @@ void os_print(const char *str, size_t len)
         /* if that leaves anything, update the statusline */
         if (rem != 0)
         {
-            max = sizeof(lbuf) - strlen(lbuf) - 1;
-            strncat(lbuf, p, rem > max ? max : rem);
+            max = sizeof(lbuf) / sizeof(lbuf[0]) - lbuflen - 1;
+            if (rem > max)
+                rem = max;
+            memcpy(lbuf + lbuflen, p, rem * sizeof(glui32));
+            lbuflen += rem;
             os_status_redraw();
         }
     }
@@ -327,7 +345,7 @@ void os_status(int stat)
                                         winmethod_Above | winmethod_Fixed, 1,
                                         wintype_TextGrid, 0);
         }
-        strcpy(lbuf, "");
+        lbuflen = 0;
     }
 }
 
@@ -359,28 +377,63 @@ void os_strsc(const char *p)
     os_status_redraw();
 }
 
+/* append to the status line being composed, up to 255 characters */
+static void status_add(glui32 *buf, size_t *len, const glui32 *s, size_t n)
+{
+    size_t max = 255 - *len;
+
+    if (n > max)
+        n = max;
+    memcpy(buf + *len, s, n * sizeof(glui32));
+    *len += n;
+}
+
+/* " left part, padded to the score   score " */
 static void os_status_redraw(void)
 {
-    char fmt[32];
-    char buf[256];
+    glui32 buf[256];
+    glui32 score[256];
+    glui32 space = ' ';
+    size_t len = 0, scorelen, n;
     glui32 wid;
-    glui32 div;
-    /*int i;*/
+    int div;
 
     if (!statuswin)
         return;
 
     glk_window_get_size(statuswin, &wid, NULL);
-    div = wid - strlen(rbuf) - 3;
+    div = (int)(wid - strlen(rbuf) - 3);
 
-    snprintf(fmt, sizeof(fmt), " %%%ds %%s ", - (int)div);
-    snprintf(buf, sizeof(buf), fmt, lbuf, rbuf);
+    scorelen = os_parse_chars((unsigned char *)rbuf, (glui32)strlen(rbuf),
+                              score, sizeof(score) / sizeof(score[0]));
+    if (scorelen == 0)
+        for ( ; rbuf[scorelen] != '\0' ; ++scorelen)
+            score[scorelen] = (unsigned char)rbuf[scorelen];
+
+    status_add(buf, &len, &space, 1);
+    status_add(buf, &len, lbuf, lbuflen);
+    for (n = lbuflen ; (int)n < div ; ++n)
+        status_add(buf, &len, &space, 1);
+    status_add(buf, &len, &space, 1);
+    status_add(buf, &len, score, scorelen);
+    status_add(buf, &len, &space, 1);
 
     glk_window_clear(statuswin);
     glk_set_window(statuswin);
     glk_set_style(style_User1);
-    os_put_buffer((unsigned char *)buf, strlen(buf));
+    glk_put_buffer_uni(buf, (glui32)len);
     glk_set_window(mainwin);
+}
+
+/* \H+ and \H- */
+void os_start_html(void)
+{
+    oshtml_start();
+}
+
+void os_end_html(void)
+{
+    oshtml_end();
 }
 
 static void redraw_windows(void)
@@ -406,14 +459,7 @@ void oscls(void)
 void os_set_text_attr(int attr)
 {
     curattr = attr;
-    if (curattr & OS_ATTR_BOLD && curattr & OS_ATTR_ITALIC)
-        glk_set_style(style_Alert);
-    else if (curattr & OS_ATTR_BOLD)
-        glk_set_style(style_Subheader);
-    else if (curattr & OS_ATTR_ITALIC)
-        glk_set_style(style_Emphasized);
-    else
-        glk_set_style(style_Normal);
+    oshtml_set_os_attr(attr);
 }
 
 /*
@@ -572,7 +618,7 @@ void os_set_title(const char *title)
  */
 void os_more_prompt()
 {
-    os_printz("\n\n\n");
+    oshtml_put_plain("\n\n\n", 3);
     os_waitc();
 }
 
@@ -815,8 +861,8 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
         else
         {
             glk_set_style(style_Input);
-            os_print((char *)buf, strlen((char *)buf));
-            os_print("\n", 1);
+            oshtml_put_plain((char *)buf, strlen((char *)buf));
+            oshtml_put_plain("\n", 1);
             glk_set_style(style_Normal);
         }
     }
@@ -854,8 +900,8 @@ void os_gets_cancel(int reset)
     if (timebuf)
     {
         glk_set_style(style_Input);
-        os_print(timebuf, strlen(timebuf));
-        os_print("\n", 1);
+        oshtml_put_plain(timebuf, strlen(timebuf));
+        oshtml_put_plain("\n", 1);
         glk_set_style(style_Normal);
 
         if (reset)

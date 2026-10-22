@@ -82,6 +82,7 @@ void os_gen_charmap_filename(char *filename, char *internal_id, char *argv0)
 #ifdef SPATTERLIGHT
 
 #include "glk.h"
+#include "oshtml.h"
 #include "randomness.h"
 extern glui32 gli_determinism;
 
@@ -174,6 +175,9 @@ void os_gen_rand_bytes(unsigned char *buf, size_t len)
 /* flush any buffered display output */
 void os_flush(void)
 {
+    /* the status line's held-back spaces stay with it */
+    if (os_get_status() == 0)
+        oshtml_flush();
 }
 
 /*

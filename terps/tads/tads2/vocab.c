@@ -900,16 +900,87 @@ static void vocerr_va_prep(voccxdef *ctx, struct vocerr_va_info *info,
  *   call.  va_start/va_end must be used twice to ensure that the argptr is
  *   property re-initialized for the call to this routine.  
  */
+/*
+ *   Make a format string from a parseError/parseErrorParam message that
+ *   can safely be given the arguments of the default message 'f'.  Each
+ *   %s, %d or %c in the game's message takes the conversion of the
+ *   corresponding argument in 'f' (parseErrorParam gets a %c argument as a
+ *   one-character string, so a game may well write %s for it), and any
+ *   other '%' -- a game format string such as "%you%", or a conversion
+ *   beyond the arguments there are -- is displayed literally.
+ */
+static void vocerr_safe_fmt(char *dst, const char *user, const char *f)
+{
+    const char *fp = f;
+
+    for ( ; *user != '\0' ; ++user)
+    {
+        char conv = 0;
+
+        if (*user != '%')
+        {
+            *dst++ = *user;
+            continue;
+        }
+
+        /* "%%" stays a single '%', as printf would have it */
+        if (user[1] == '%')
+        {
+            *dst++ = '%';
+            *dst++ = '%';
+            ++user;
+            continue;
+        }
+
+        /* find the next argument in the default message */
+        if (user[1] == 's' || user[1] == 'd' || user[1] == 'c')
+        {
+            for ( ; *fp != '\0' ; ++fp)
+            {
+                if (*fp == '%' && (fp[1] == 's' || fp[1] == 'd'
+                                   || fp[1] == 'c'))
+                {
+                    conv = fp[1];
+                    fp += 2;
+                    break;
+                }
+            }
+        }
+
+        if (conv != 0)
+        {
+            *dst++ = '%';
+            *dst++ = conv;
+            ++user;
+        }
+        else
+        {
+            *dst++ = '%';
+            *dst++ = '%';
+        }
+    }
+    *dst = '\0';
+}
+
 static void vocerr_va(voccxdef *ctx, struct vocerr_va_info *info,
                       int err, char *f, va_list argptr)
 {
     char *buf;
-    
+    char safe_fmt[2 * sizeof(info->user_msg)];
+    char *fmt = info->fmt;
+
     /* turn on output */
     (void)tioshow(ctx->voccxtio);
 
+    /* a message from the game must not take arguments that aren't there */
+    if (fmt != f)
+    {
+        vocerr_safe_fmt(safe_fmt, fmt, f);
+        fmt = safe_fmt;
+    }
+
     /* build the string to display */
-    if (os_vasprintf(&buf, info->fmt, argptr) >= 0)
+    if (os_vasprintf(&buf, fmt, argptr) >= 0)
     {
         /* display it */
         tioputs(ctx->voccxtio, buf);
