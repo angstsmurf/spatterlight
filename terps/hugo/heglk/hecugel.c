@@ -320,6 +320,14 @@ void hugo_closefiles(void)
     /* Glk closes all files at glk_exit() */
 }
 
+/* The id under which the GUI caches a picture: Hugo pictures have no
+   number, so use where the resource ends in its file. Pictures from two
+   resource files could collide, but games use one. */
+static int heglk_image_id(int offset, int length)
+{
+    return offset + length;
+}
+
 /* The black room description window on the right half of the screen in
    Guilty Bastards, which must survive clears and cursor moves. */
 static int is_gb_room_description_window(int i)
@@ -1640,7 +1648,7 @@ static void heglk_adjust_single_future_boy_image(int type, int i, int alignment,
         return;
     }
 
-    win_loadimage(wins[i].offset + wins[i].length, wins[i].filename, wins[i].offset, wins[i].length);
+    win_loadimage(heglk_image_id(wins[i].offset, wins[i].length), wins[i].filename, wins[i].offset, wins[i].length);
     glui32 origwidth, origheight;
     win_sizeimage(&origwidth, &origheight);
 
@@ -1694,11 +1702,8 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
 
     int i;
 
-    if (curwin >= 0)
-    {
-        wins[curwin].cury = currentline;    /* one-based */
-        wins[curwin].curx = currentpos;        /* zero-based */
-    }
+    wins[curwin].cury = currentline;    /* one-based */
+    wins[curwin].curx = currentpos;     /* zero-based */
 
     LOG("hugo_settextwindow %d %d %d %d\n", left, top, right, bottom);
 
@@ -2238,7 +2243,7 @@ static void hugo_flushnl(void)
 
 static void hugo_printnl(void)
 {
-    if (wins[curwin].win->type == wintype_TextBuffer)
+    if (wins[curwin].win && wins[curwin].win->type == wintype_TextBuffer)
     {
         if (nlbufwin != curwin) {
             hugo_flushnl();
@@ -2540,8 +2545,7 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         }
 
         int file_offset = glk_stream_get_position(infile);
-        int fake_image_id = file_offset + reslength;
-        win_loadimage(fake_image_id, infile->filename, file_offset, reslength);
+        win_loadimage(heglk_image_id(file_offset, reslength), infile->filename, file_offset, reslength);
         wins[curwin].offset = file_offset;
         wins[curwin].length = reslength;
         size_t length = strlen(infile->filename) + 1;
@@ -2625,7 +2629,10 @@ int hugo_displaypicture(HUGO_FILE infile, long reslength)
         LOG("hugo_displaypicture curwin (%d) x0: %d y0: %d x1: %d y1: %d \n", curwin, wins[curwin].x0, wins[curwin].y0, wins[curwin].x1, wins[curwin].y1);
 
         if (width < 1 || height < 1)
+        {
+            glk_stream_close(infile, NULL);
             return false;
+        }
 
         if (width > x1 - x0) {
             width = x1 - x0;
