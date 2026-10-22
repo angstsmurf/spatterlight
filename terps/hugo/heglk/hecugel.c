@@ -430,6 +430,14 @@ void hugo_settextmode(void)
 
 
 
+/* The 16 standard Hugo colours, HUGO_BLACK to HUGO_BRIGHT_WHITE */
+static const int hugo_rgb[16] = {
+    0x000000, 0x00007f, 0x007f00, 0x007f7f,
+    0x7f0000, 0x7f007f, 0x7f5f00, 0xcfcfcf,
+    0x3f3f3f, 0x0000ff, 0x00ff00, 0x00ffff,
+    0xff0000, 0xff00ff, 0xffff00, 0xffffff,
+};
+
 int hugo_color(int c)
 {
     int converted = 0;
@@ -443,26 +451,13 @@ int hugo_color(int c)
         case DEF_BGCOLOR:     converted = gbgcol; break;
         case DEF_SLFCOLOR:     converted = gsfgcol; break;
         case DEF_SLBGCOLOR:     converted = gsbgcol; break;
-        case 20:
-            converted = hugo_color(fcolor); break;    /* match foreground */
-        case HUGO_BLACK: converted = 0x000000;  break;
-        case HUGO_BLUE: converted = 0x00007f;  break;
-        case HUGO_GREEN: converted = 0x007f00;  break;
-        case HUGO_CYAN: converted = 0x007f7f;  break;
-        case HUGO_RED: converted = 0x7f0000;  break;
-        case HUGO_MAGENTA: converted = 0x7f007f;  break;
-        case HUGO_BROWN: converted = 0x7f5f00;  break;
-        case HUGO_WHITE: converted = 0xcfcfcf;  break;
-        case HUGO_DARK_GRAY: converted = 0x3f3f3f;  break;
-        case HUGO_LIGHT_BLUE: converted = 0x0000ff;  break;
-        case HUGO_LIGHT_GREEN: converted = 0x00ff00;  break;
-        case HUGO_LIGHT_CYAN: converted = 0x00ffff;  break;
-        case HUGO_LIGHT_RED: converted = 0xff0000;  break;
-        case HUGO_LIGHT_MAGENTA: converted = 0xff00ff;  break;
-        case HUGO_YELLOW: converted = 0xffff00;  break;
-        case HUGO_BRIGHT_WHITE: converted = 0xffffff; break;
+        case 20:    /* match foreground (guarded against recursing for ever) */
+            converted = fcolor == 20 ? 0 : hugo_color(fcolor); break;
         default:
-            LOG("Unmapped color %d\n", c);
+            if (c >= 0 && c < 16)
+                converted = hugo_rgb[c];
+            else
+                LOG("Unmapped color %d\n", c);
     }
 
     /* A window's own default colors go to the GUI as zcolor_Default, which it
@@ -536,17 +531,15 @@ int hugo_charwidth(char a)
      font and style.
      */
 
-    if (a==FORCED_SPACE)
-        return CHARWIDTH;         /* same as ' ' */
-
-    else if ((unsigned char)a >= ' ') /* alphanumeric characters */
-
-        return CHARWIDTH;         /* for non-proportional */
+    /* FORCED_SPACE is a control code that prints as ' ' */
+    if (a == FORCED_SPACE || (unsigned char)a >= ' ')
+        return CHARWIDTH;
 
     return 0;
 }
 
-int hugo_textwidth(char *a)
+/* The width of A in characters, skipping colour and font codes */
+static int heglk_textlen(char *a, int (*width)(char))
 {
     int i, slen, len = 0;
 
@@ -557,26 +550,20 @@ int hugo_textwidth(char *a)
         if (a[i]==COLOR_CHANGE) i+=2;
         else if (a[i]==FONT_CHANGE) i++;
         else
-            len += hugo_charwidth(a[i]);
+            len += width ? width(a[i]) : 1;
     }
 
     return len;
 }
 
+int hugo_textwidth(char *a)
+{
+    return heglk_textlen(a, hugo_charwidth);
+}
+
 int hugo_strlen(char *a)
 {
-    int i, slen, len = 0;
-
-    slen = (int)strlen(a);
-
-    for (i=0; i<slen; i++)
-    {
-        if (a[i]==COLOR_CHANGE) i+=2;
-        else if (a[i]==FONT_CHANGE) i++;
-        else len++;
-    }
-
-    return len;
+    return heglk_textlen(a, NULL);
 }
 
 /* heglk_get_linelength
