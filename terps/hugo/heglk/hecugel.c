@@ -108,7 +108,11 @@ struct winctx
     size_t length;
 };
 
-static struct winctx wins[MAXWINS]; // For simplicity, this starts at 1. Index 0 is not used.
+/* Contexts start at 1. wins[0] is a dummy that never gets a Glk window
+   (unless heglk_new_wincontext runs out), so curwin == 0 means "no window"
+   and code that reads wins[curwin] then sees win == NULL. Writes to its
+   cursor fields are harmless. */
+static struct winctx wins[MAXWINS];
 static int nwins = 0;
 static int curwin = 0;
 
@@ -193,8 +197,8 @@ static int future_boy_line = 0;
  *             below_status. Cleared when the game opens a smaller window
  *             (hugo_settextwindow) or clears the menu (hugo_clearwindow).
  *   menutop   The screen row where the menu window starts; rows above it
- *             go to the status window (hugo_settextpos). Reset with menuwin
- *             in hugo_clearwindow.
+ *             go to the status window (hugo_settextpos). Set at the first
+ *             menu and never reset.
  *
  * So: normal (menuwin == 0, inmenu false); probably a menu, still drawn in
  * the ordinary windows (menuwin == 0, inmenu true); and split status + menu
@@ -251,8 +255,8 @@ static void heglk_sizeifexists(int i);
 static void heglk_zcolor(void);
 static int heglk_push_down_main_window_to(int y);
 static void heglk_ensure_menu(void);
-static int heglk_find_attached_at_top(int top);
-static int heglk_find_attached_to_left(int left);
+enum heglk_edge { EDGE_BOTTOM, EDGE_RIGHT };
+static int heglk_find_window_edge(enum heglk_edge edge, int pos);
 static void heglk_adjust_guilty_bastards_windows(void);
 static void heglk_adjust_future_boy_windows(void);
 static int heglk_future_boy_type(int left, int top, int right, int bottom, int screenwidth, int screenheight);
@@ -1106,6 +1110,42 @@ static int heglk_clear_future_boy_type(int type, int not_this) {
     return result;
 }
 
+/* Clear context i, inside the window being cleared (curwin), and paint it
+ * in curwin's background colour. A cleared context is reused or unmapped
+ * by the next hugo_settextwindow (hugo_unmapcleared). */
+static void heglk_clear_context(int i)
+{
+    if (wins[i].win)
+    {
+        if (wins[curwin].win && hugo_color(wins[curwin].bg) != -1)
+        {
+            wins[i].bg = wins[curwin].bg;
+            heglk_set_window_bg(i);
+        }
+        LOG("   cleared %d\n", i);
+        glk_window_clear(wins[i].win);
+
+        // Find whatever now sits just below the status window.
+        if (i == below_status)
+        {
+            below_status = 0;
+            if (mainwin)
+            {
+                below_status = heglk_find_window_edge(EDGE_BOTTOM, wins[mainwin].t);
+                if (below_status == statuswin || wins[below_status].clear)
+                    below_status = 0;
+            }
+        }
+        if (i == second_image_row)
+            second_image_row = 0;
+    }
+
+    wins[i].clear = 1;
+    wins[i].curx = 0;
+    wins[i].cury = 0;
+    wins[i].isaux = 0;
+}
+
 /* Clear the currently defined window, move the cursor to the top-left
  * corner of the window.
  */
@@ -1160,55 +1200,7 @@ void hugo_clearwindow(void)
                     continue;
             } else future_boy_line = 0;
 
-            if (wins[i].win)
-            {
-                if (wins[curwin].win && hugo_color(wins[curwin].bg) != -1)
-                {
-                    wins[i].bg = wins[curwin].bg;
-                    heglk_set_window_bg(i);
-                }
-                LOG("   cleared %d\n", i);
-                glk_window_clear(wins[i].win);
-
-                if (i == menuwin)
-                {
-                    menuwin = 0;
-                    menutop = 0;
-                    below_status = 0;
-                    heglk_unmap_window(i);
-                    curwin = statuswin;
-                    if (wins[statuswin].win)
-                    {
-                        glk_set_window(wins[statuswin].win);
-                    }
-
-                }
-
-                if (i == below_status)
-                {
-                    below_status = 0;
-                    if (mainwin)
-                    {
-                        below_status = heglk_find_attached_at_top(wins[mainwin].t);
-                        if (below_status)
-                        {
-                            if (below_status == statuswin || wins[below_status].clear)
-                            {
-                                below_status = 0;
-                            }
-                        }
-                    }
-                }
-                if (i == second_image_row)
-                {
-                    second_image_row = 0;
-                }
-            }
-
-            wins[i].clear = 1;
-            wins[i].curx = 0;
-            wins[i].cury = 0;
-            wins[i].isaux = 0;
+            heglk_clear_context(i);
         }
     }
 
@@ -1233,6 +1225,11 @@ void hugo_clearwindow(void)
     currentline = 1;
 }
 
+/* Unmap every cleared window except the current one, and forget the roles
+ * they had. mainwin keeps its role: it is mapped again on the next print.
+ * menuwin is never cleared while set (hugo_clearwindow returns early, and
+ * leaving the menu resets menuwin first), and future_boy_line is reset by
+ * hugo_clearwindow. */
 static void hugo_unmapcleared(void)
 {
     int i;
@@ -1279,7 +1276,7 @@ static void heglk_rearrange_half_screen(int i)
    ends where the main window begins. */
 static void heglk_rearrange_czk_aux(int i)
 {
-    int toleft = heglk_find_attached_to_left(wins[i].l);
+    int toleft = heglk_find_window_edge(EDGE_RIGHT, wins[i].l);
     if (toleft)
         wins[i].x0 = wins[toleft].x1;
     wins[i].y1 = wins[mainwin].y0;
@@ -1470,25 +1467,17 @@ static int heglk_push_down_main_window_to(int y)
     return y;
 }
 
-static int heglk_find_attached_at_top(int top)
+/* The first window whose bottom (EDGE_BOTTOM) or right (EDGE_RIGHT) edge is
+ * within one cell of POS, i.e. the window just above or to the left of
+ * something starting at POS. Cleared windows and the caller's own window are
+ * not skipped; callers that care check the result. */
+static int heglk_find_window_edge(enum heglk_edge edge, int pos)
 {
     for (int i = 1; i < nwins; i++)
     {
-        if (ABS(wins[i].b - top) <= 1) {
-            LOG("Window %d (l:%d, t:%d, r:%d, b:%d) is attached to top\n", i, wins[i].l, wins[i].t, wins[i].r, wins[i].b);
-            return i;
-        }
-    }
-    return 0;
-}
-
-static int heglk_find_attached_to_left(int left)
-{
-    for (int i = 1; i < nwins; i++)
-    {
-        if (ABS(wins[i].r - left) <= 1)
-        {
-            LOG("Window %d (l:%d, t:%d, r:%d, b:%d) is attached to the left\n", i, wins[i].l, wins[i].t, wins[i].r, wins[i].b);
+        int e = (edge == EDGE_BOTTOM ? wins[i].b : wins[i].r);
+        if (ABS(e - pos) <= 1) {
+            LOG("Window %d (l:%d, t:%d, r:%d, b:%d) has its %s edge at %d\n", i, wins[i].l, wins[i].t, wins[i].r, wins[i].b, edge == EDGE_BOTTOM ? "bottom" : "right", pos);
             return i;
         }
     }
@@ -1915,7 +1904,7 @@ static void heglk_place_aux(struct heglk_geometry *g)
         }
     }
 
-    if (ABS(g->right - screenwidth_in_chars) < 2 && !heglk_find_attached_to_left(g->left))
+    if (ABS(g->right - screenwidth_in_chars) < 2 && !heglk_find_window_edge(EDGE_RIGHT, g->left))
     {
         int diff = gscreenw - g->x1;
         g->x1 = gscreenw;
@@ -1938,7 +1927,7 @@ static void heglk_place_aux(struct heglk_geometry *g)
         g->y0 += diff;
         g->y1 += diff;
     } else {
-        int attop = heglk_find_attached_at_top(g->top);
+        int attop = heglk_find_window_edge(EDGE_BOTTOM, g->top);
         if (!second_image_row && attop && (attop == below_status || wins[attop].t == wins[below_status].t))
         {
             g->new_second_image_row = true;
@@ -1968,10 +1957,10 @@ static void heglk_place_main(struct heglk_geometry *g)
                 wins[below_status].clear = 1;
                 below_status = mainwin;
         }
-        int above_main = heglk_find_attached_at_top(g->top);
+        int above_main = heglk_find_window_edge(EDGE_BOTTOM, g->top);
 
         if (!above_main) {
-            above_main = heglk_find_attached_at_top(wins[mainwin].t);
+            above_main = heglk_find_window_edge(EDGE_BOTTOM, wins[mainwin].t);
             if (!above_main) {
                 if (second_image_row)
                 {
@@ -2064,7 +2053,10 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
         && (game_version >= 24 || !inwindow))
     {
 
-        /* Glk-illegal floating window
+        /* Glk-illegal floating window: it ends above the previous text
+         * window, whose bottom physical_windowbottom still holds (set by
+         * heglk_record_physical, or by the engine when it restores the
+         * window after a window block).
          */
         if (bottom < physical_windowbottom/FIXEDLINEHEIGHT+1)
         {
