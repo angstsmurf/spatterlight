@@ -784,9 +784,8 @@ glui32 osglk_link_add(const char *href, int flags)
 {
     glui32 i;
 
-    if (!osglk_links_ok() || (flags & OSLINK_PLAIN) || is_url(href))
+    if (!osglk_links_ok() || is_url(href))
         return 0;
-    flags &= ~OSLINK_PLAIN;
     for (i = 0 ; i < nlinks ; ++i)
         if (links[i].flags == flags && strcmp(links[i].href, href) == 0)
             return i + 1;
@@ -832,7 +831,7 @@ static void request_links(void)
 
 /*
  *   A link was clicked while a line was being read.  The href becomes the
- *   player's command, as in HTML TADS: if the link is "plain", the line is
+ *   player's command, as in HTML TADS: for an ordinary link the line is
  *   complete and 'buf' holds it (returns 1).  If it is "noenter" or
  *   "append", the line goes on, with the href added to the command line
  *   (returns 0), and so does a click we ignore.

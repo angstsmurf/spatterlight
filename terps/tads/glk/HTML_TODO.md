@@ -511,8 +511,7 @@ link in each content chunk, so a redraw restores it
     window before every line or key wait, and again after each click we
     don't end the wait with. (The window asked last is the one a harness's
     `link:N` clicks in.)
-  - `<a name=…>` has no href and so makes no link. `plain` makes none either
-    (see below). Without `gestalt_Hyperlinks` and `gestalt_HyperlinkInput`
+  - `<a name=…>` has no href and so makes no link. Without `gestalt_Hyperlinks` and `gestalt_HyperlinkInput`
     every link is plain text.
   - The OS layer's own text (echoed input, the MORE prompt) is never part of
     a link: `oshtml_input` and `oshtml_put_plain` end it.
@@ -526,7 +525,7 @@ link in each content chunk, so a redraw restores it
     In xtads, 7 of the 1343 traces changed outside the colour hints.
 - [x] **Command links.** `line_link` cancels the line request (with echo off,
   so the typed text isn't shown), then:
-  - plain link: the href is the line. It is echoed in `style_Input` with a
+  - ordinary link: the href is the line. It is echoed in `style_Input` with a
     newline, as if typed;
   - `noenter`: the line is requested again with the href as its start;
   - `append`: the same, after the text typed so far.
@@ -541,11 +540,12 @@ link in each content chunk, so a redraw restores it
   text). For now they are plain text (`is_url`). Open them through the app,
   behind the user's link setting, and report `LINKS_HTTP`, `LINKS_MAILTO`
   and `LINKS_NEWS` accordingly.
-- [x] `plain` (26 games): no link, so the text is printed without
-  `glk_set_hyperlink`. Revisit if a game depends on one.
-  - [ ] adv3's menus (`menusys.t`) write their entries as `<a plain href>`,
-    so those can't be clicked yet. QTads makes them links that look like
-    plain text.
+- [x] `plain` (26 games) is ignored, so the link is an ordinary one. In HTML
+  TADS `plain` only drops the link's highlighting. Glk has no link without
+  its look, so these links look like the others. They were once left out,
+  but adv3 writes its menu entries (`menucon.t`, as in *Prom Dress*'s hints)
+  and the status line's exit list with `<a plain href>`. Clickable links
+  changed 33 corpus traces (walk endings unchanged) and 10 xtads ones.
 - [x] `title`, `target`: ignored. (`hidden` too: that link still works.)
 
 ## Step 5: Images (`<img>`, 119 games; JPEG 76, PNG 37, MNG 2)

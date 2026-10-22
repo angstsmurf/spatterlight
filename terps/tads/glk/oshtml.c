@@ -2314,8 +2314,6 @@ static void do_tag(parser *p)
             link_flags |= OSLINK_NOENTER;
         else if (link_ok && ATTR("append"))
             link_flags |= OSLINK_APPEND;
-        else if (link_ok && ATTR("plain"))
-            link_flags |= OSLINK_PLAIN;
         else if (map_ok && ATTR("name"))
         {
             mapname = v;

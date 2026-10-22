@@ -49,7 +49,6 @@ typedef struct oshtml_sink
  */
 #define OSLINK_NOENTER 1        /* put the href on the command line */
 #define OSLINK_APPEND 2         /* ...after what's there */
-#define OSLINK_PLAIN 4          /* no link at all */
 
 /* The number for an href, or 0 if it is shown as plain text */
 glui32 osglk_link_add(const char *href, int flags);
