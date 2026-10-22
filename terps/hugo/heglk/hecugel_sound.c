@@ -46,10 +46,12 @@ static int loadres(HUGO_FILE infile, int reslen)
         }
 
     /* Too many resources loaded... */
-    if (numres + 1 == MAXRES)
+    if (numres == MAXRES)
         return -1;
 
-    buf = malloc(reslen);
+    /* Only the start is needed, to find the RIFF header */
+    long buflen = reslen > 128 ? 128 : reslen;
+    buf = malloc(buflen);
     if (!buf)
         return -1;
 
@@ -58,7 +60,7 @@ static int loadres(HUGO_FILE infile, int reslen)
     resids[index] = offset;
     resfiles[index] = infile->filename ? strdup(infile->filename) : NULL;
 
-    glk_get_buffer_stream(infile, buf, reslen);
+    glk_get_buffer_stream(infile, buf, buflen);
 
     suboffset = 0;
 
