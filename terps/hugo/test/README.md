@@ -11,20 +11,22 @@ No goldens are stored, so a check compares two runs of the same tree:
     python3 -I run_hugo_traces.py --build $B --out after --compare before
 
 The last line of the output is `N changed, M new`. A pure refactor should give
-`0 changed`. If line numbers move in `hecugel.c`, the `.err` files of the
-cases that crash change with them: check `CHANGED ... .err` lines before
-trusting a count above 0.
+`0 changed`.
 
 A build with ASan and UBSan (`-enableAddressSanitizer YES
--enableUndefinedBehaviorSanitizer YES`) is the most useful one to trace. It
-reports these engine bugs on every run. They are not in heglk:
+-enableUndefinedBehaviorSanitizer YES`) is the most useful one to trace. A
+clean run has no sanitizer reports. Three engine bugs that used to show up
+were fixed in 2026-10:
 
-- AWARD.HEX: heap overflow in `PokeWord`, called from `MoveObj`
-  (`source/heobject.c:546`). Every award case aborts.
-- EAST.HEX: heap overflow in `RunRoutine` (`source/herun.c:1555`). Every
-  east case aborts.
-- `source/herun.c:2396`: signed overflow (`16777215 * 256`). Seen in the
-  distress and trading walks.
+- AWARD.HEX moves an object to "object" 2066 (there are 37).
+  `MoveObj` now leaves the new parent alone when it isn't an object, and
+  `GrandParent` stops at it. The award walk used to abort; now it
+  plays to the end.
+- EAST.HEX is a v1.0 file, whose header the engine cannot read. The
+  version check compared against `HEVERSION` (3) and let it through.
+  It now refuses files before v2.0 with an error dialog.
+- Saving split negative values into bytes with a signed overflow
+  (`SaveGameData`). It now masks. The bytes written are the same.
 
 horror2 stops early, probably because it needs data saved by part I.
 
