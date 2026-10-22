@@ -242,6 +242,11 @@ void os_nonstop_mode(int flag)
  */
 void os_sleep_ms(long delay_in_milliseconds)
 {
+#if defined SPATTERLIGHT && defined GLK_TIMERS
+    if (delay_in_milliseconds > 0)
+        osglk_sleep_ms((unsigned long)delay_in_milliseconds);
+    return;
+#endif
 #ifdef _WIN32
     Sleep(delay_in_milliseconds);
 #else
