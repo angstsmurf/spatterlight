@@ -209,9 +209,14 @@ void glk_main(void)
     he_main(0, NULL); /* no argc, argv */
 }
 
+/* Called by FatalError() just before it exits: show the error, which would
+   otherwise be lost with the process. ERR starts with a blank line. */
 void heglk_printfatalerror(char *err)
 {
-    LOG("hugo: %s\n", err);
+    while (*err == '\n')
+        err++;
+    fprintf(stderr, "hugo: %s", err);
+    win_showerror(err);
 }
 
 /* Convert Glk special keycodes: */
