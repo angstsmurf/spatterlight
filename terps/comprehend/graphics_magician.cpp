@@ -155,50 +155,20 @@ static inline bool valid_offset(uint16_t off) { return off <= GM_MAX_SCREEN_ADDR
 // progressively reveals (and onto which CM-panel overlays composite directly).
 static uint8_t s_slowScreen[A2_SCREEN_MEM_SIZE]; // progressively-revealed page
 
-// offset -> screen row (0..191), or 0xff for the inter-row gaps in the hi-res
-// address space; offset -> byte column (0..39), or 0xff in the gaps. Built once;
-// lets a reveal map a byte write back to its row (dirty band) and column (so the
-// CM panel columns can be excluded from the reveal -- see apple_apply_slow).
-static uint8_t s_rowOfOffset[A2_SCREEN_MEM_SIZE];
-static uint8_t s_colOfOffset[A2_SCREEN_MEM_SIZE];
-static bool s_rowTableInit = false;
-
-static void init_offset_tables() {
-	if (s_rowTableInit)
-		return;
-	memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
-	memset(s_colOfOffset, 0xff, sizeof(s_colOfOffset));
-	for (int row = 0; row < 192; row++) {
-		uint16_t base = gm_row_address(row);
-		for (int col = 0; col < 40; col++) {
-			s_rowOfOffset[base + col] = (uint8_t)row;
-			s_colOfOffset[base + col] = (uint8_t)col;
-		}
-	}
-	s_rowTableInit = true;
-}
-
-static int row_of_offset(uint16_t offset) {
-	init_offset_tables();
-	uint8_t r = s_rowOfOffset[offset];
-	return (r == 0xff) ? -1 : (int)r;        // -1 = inter-row gap, skip
-}
-
-static int col_of_offset(uint16_t offset) {
-	init_offset_tables();
-	uint8_t c = s_colOfOffset[offset];
-	return (c == 0xff) ? -1 : (int)c;        // -1 = inter-row gap, skip
-}
+// The reveal maps a byte write back to its row (dirty band) and column (so the CM
+// panel columns can be excluded from the reveal -- see apple_apply_slow) with
+// gm_row_of_offset / gm_col_of_offset; both give -1 in the inter-row gaps of the
+// hi-res address space.
 
 // Apply one recorded byte to the slow page; defined after the CM-panel state it
 // consults (forward-declared here for the policy).
 static bool apple_apply_slow(const SlowWriteOp &op);
 
 // Apple II hi-res page: one flat buffer, but rows are address-interleaved, so
-// the dirty band maps offsets through row_of_offset (not offset/stride).
+// the dirty band maps offsets through gm_row_of_offset (not offset/stride).
 struct AppleSlowPolicy {
 	bool apply(const SlowWriteOp &op) { return apple_apply_slow(op); }
-	int rowOf(const SlowWriteOp &op) const { return row_of_offset(op.offset); }
+	int rowOf(const SlowWriteOp &op) const { return gm_row_of_offset(op.offset); }
 	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
 		return ((int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
 			   b.value == a.value;
@@ -704,7 +674,7 @@ void gmOverlayCMPanel() {
 // (it is already correct on the final page). Mirrors DHGR's dhgr_apply_slow.
 static bool apple_apply_slow(const SlowWriteOp &op) {
 	if (s_cmPanelValid) {
-		int c = col_of_offset(op.offset);
+		int c = gm_col_of_offset(op.offset);
 		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
 			return false;
 	}

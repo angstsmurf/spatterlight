@@ -67,34 +67,10 @@ static uint8_t s_aux[A2_PAGE_SIZE];
 static uint8_t s_slowMain[A2_PAGE_SIZE]; // progressively-revealed pages
 static uint8_t s_slowAux[A2_PAGE_SIZE];
 
-// offset -> screen row (0..191), or 0xff for the inter-row gaps in the page
-// address space; offset -> byte column (0..39), or 0xff in the gaps. Built once;
-// lets a reveal map a byte write back to its row (dirty band) and column (so the
-// CM panel columns can be excluded from the reveal -- see dhgr_apply_slow).
-static uint8_t s_rowOfOffset[A2_PAGE_SIZE];
-static uint8_t s_colOfOffset[A2_PAGE_SIZE];
-static bool s_rowTableInit = false;
-
-static void init_offset_tables() {
-	if (s_rowTableInit)
-		return;
-	std::memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
-	std::memset(s_colOfOffset, 0xff, sizeof(s_colOfOffset));
-	for (int row = 0; row < 192; row++) {
-		uint16_t base = CALC(row);
-		for (int col = 0; col < 40; col++) {
-			s_rowOfOffset[base + col] = (uint8_t)row;
-			s_colOfOffset[base + col] = (uint8_t)col;
-		}
-	}
-	s_rowTableInit = true;
-}
-
-static int dhgr_row_of(uint16_t offset) {
-	init_offset_tables();
-	uint8_t r = s_rowOfOffset[offset];
-	return (r == 0xff) ? -1 : (int)r;        // -1 = inter-row gap, skip
-}
+// The reveal maps a byte write back to its row (dirty band) and column (so the CM
+// panel columns can be excluded from the reveal -- see dhgr_apply_slow) with
+// gm_row_of_offset / gm_col_of_offset; both give -1 in the inter-row gaps of the
+// page address space.
 
 // Apply one recorded byte to the matching slow page; defined after the CM-panel
 // state it consults (forward-declared here for the policy).
@@ -104,7 +80,7 @@ static bool dhgr_apply_slow(const SlowWriteOp &op);
 // page, and panel columns are skipped during the reveal.
 struct DhgrSlowPolicy {
 	bool apply(const SlowWriteOp &op) { return dhgr_apply_slow(op); }
-	int rowOf(const SlowWriteOp &op) const { return dhgr_row_of(op.offset); }
+	int rowOf(const SlowWriteOp &op) const { return gm_row_of_offset(op.offset); }
 	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
 		return (a.page == b.page &&
 				(int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
@@ -840,8 +816,7 @@ void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
 // survives the reveal (it is already correct on the final pages).
 static bool dhgr_apply_slow(const SlowWriteOp &op) {
 	if (s_cmPanelValid) {
-		init_offset_tables();
-		uint8_t c = s_colOfOffset[op.offset];
+		int c = gm_col_of_offset(op.offset);
 		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
 			return false;
 	}
