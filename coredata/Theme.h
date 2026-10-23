@@ -97,6 +97,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) double cellWidth;
 @property (nonatomic) kComprehendGraphicsPrefsType comprehendGraphicsType;
 @property (nonatomic) kCoverImagePrefsType coverArtStyle;
+@property (nonatomic) BOOL crtGlow;
+@property (nonatomic) BOOL crtScanlines;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;

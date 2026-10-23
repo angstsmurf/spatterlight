@@ -40,6 +40,8 @@
                 <outlet property="btnShowBezels" destination="pEQ-Lz-dz3" id="AIu-ee-eMw"/>
                 <outlet property="btnSmartQuotes" destination="Twh-3N-orY" id="cLS-jR-E8s"/>
                 <outlet property="btnSmoothScroll" destination="mgM-r8-mmm" id="nHX-Ov-2bt"/>
+                <outlet property="btnCRTGlow" destination="CrG-lo-w01" id="CrG-Ou-t01"/>
+                <outlet property="btnCRTScanlines" destination="CrS-ca-n01" id="CrS-Ou-t01"/>
                 <outlet property="btnSpaceFormat" destination="q9V-JA-J9c" id="fH2-y6-H2r"/>
                 <outlet property="btnUnderlineLinksBuffer" destination="Xjq-eM-ndI" id="VGS-8j-DTa"/>
                 <outlet property="btnUnderlineLinksGrid" destination="OFj-Nn-eRz" id="Y9E-ML-p7Q"/>
@@ -1037,6 +1039,22 @@
                     <rect key="frame" x="198" y="107" width="131" height="18"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <buttonCell key="cell" type="check" title="Animate scrolling" bezelStyle="regularSquare" imagePosition="left" alignment="left" state="on" inset="2" id="LJ9-B6-TDh">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button toolTip="Make bright text glow like phosphor on an old monitor. Not shown when Increase contrast or Reduce transparency is on." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CrG-lo-w01">
+                    <rect key="frame" x="358" y="433" width="120" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="CRT glow" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="CrG-ce-l01">
+                        <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                        <font key="font" metaFont="system"/>
+                    </buttonCell>
+                </button>
+                <button toolTip="Draw faint scanlines and darkened corners over the game, like an old monitor. Not shown when Increase contrast or Reduce transparency is on." fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CrS-ca-n01">
+                    <rect key="frame" x="358" y="411" width="120" height="18"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <buttonCell key="cell" type="check" title="CRT scanlines" bezelStyle="regularSquare" imagePosition="left" alignment="left" inset="2" id="CrS-ce-l01">
                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                         <font key="font" metaFont="system"/>
                     </buttonCell>
