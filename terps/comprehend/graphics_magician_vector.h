@@ -24,6 +24,7 @@
 
 #include <cstdint>  // uint8_t, uint16_t
 #include <cstdlib>  // abs
+#include <utility>  // std::swap
 
 namespace Glk {
 namespace Comprehend {
@@ -42,29 +43,30 @@ inline uint8_t gmvMirrorByte(uint8_t b) {
 // axis advances.  This exact formulation matters -- the symmetric two-axis
 // variant tie-breaks the other way on 45deg-ish lines, shifting a line (and the
 // fill it bounds) by one pixel.
+//
+// A y-major line is drawn by swapping x and y, walking it as x-major, and
+// swapping them back when plotting.  Lines with dx == dy stay x-major, as in
+// the original.
 template <typename Plot>
 inline void gmvDrawLine(int x0, int y0, int x1, int y1, Plot plot) {
-	plot(x0, y0);
+	const bool steep = abs(y1 - y0) > abs(x1 - x0);
+	if (steep) {
+		std::swap(x0, y0);
+		std::swap(x1, y1);
+	}
+	auto put = [&](int x, int y) { if (steep) plot(y, x); else plot(x, y); };
+
+	put(x0, y0);
 	const int dx = abs(x1 - x0), dy = abs(y1 - y0);
 	const int sx = (x0 < x1) ? 1 : -1;
 	const int sy = (y0 < y1) ? 1 : -1;
 	int x = x0, y = y0;
-	if (dx >= dy) {              // x is the major axis
-		int err = dy - dx;
-		for (int i = 0; i < dx; i++) {
-			x += sx;
-			if (err < 0) err += dy;
-			else { y += sy; err += dy - dx; }
-			plot(x, y);
-		}
-	} else {                     // y is the major axis
-		int err = dx - dy;
-		for (int i = 0; i < dy; i++) {
-			y += sy;
-			if (err < 0) err += dx;
-			else { x += sx; err += dx - dy; }
-			plot(x, y);
-		}
+	int err = dy - dx;
+	for (int i = 0; i < dx; i++) {
+		x += sx;
+		if (err < 0) err += dy;
+		else { y += sy; err += dy - dx; }
+		put(x, y);
 	}
 }
 
