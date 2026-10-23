@@ -287,30 +287,21 @@ static void compute_seed_span(a2_fill_ctx *ctx, uint8_t *left_edge, uint8_t *rig
 
 /*  Expand right from the seed point.
 
-    For each column to the right, rotate the screen byte right with carry
-    to find the boundary between set and unset low bits. The rotation count
-    determines the right edge, and the remaining upper bits determine
-    whether to keep expanding further right. */
+    In each column to the right, fill the run of set pixels starting at the
+    column's leftmost pixel (bit 0). The pixels after the run give the right
+    edge, and expansion continues only if the run covers the whole column. */
 static uint8_t fill_span_right(a2_fill_ctx *ctx, uint8_t right_edge, bool has_more) {
     while (has_more && ctx->column + 1 < APPLE2_SCREEN_COLS) {
         ctx->column++;
         if (!read_screen_byte(ctx, ctx->column)) break;
 
-        /* Rotate right with carry to find the first zero bit from the LSB.
-           Carry chain feeds 1-bits back in from the top as long as the LSB
-           keeps producing 1s. */
-        ctx->fill_mask = ctx->existing_byte;
-        bool carry = false;
-        bool lsb_set = true;
-        int remaining;
-        for (remaining = 8; remaining > 0 && lsb_set; remaining--) {
-            lsb_set = ctx->fill_mask & 1;
-            ctx->fill_mask = (ctx->fill_mask >> 1) | (carry << 7);
-            carry = lsb_set;
-        }
-        ctx->fill_mask >>= (remaining + 1);
-        has_more = (ctx->fill_mask & RIGHT_EXPAND_MASK) != 0;
-        right_edge = remaining;
+        uint8_t run = 0;
+        while (run < COL_BITS && (ctx->existing_byte & (1 << run)))
+            run++;
+
+        ctx->fill_mask = (1 << run) - 1;
+        right_edge = COL_BITS - run;
+        has_more = (run == COL_BITS);
 
         paint_column_pattern(ctx);
     }
@@ -318,31 +309,25 @@ static uint8_t fill_span_right(a2_fill_ctx *ctx, uint8_t right_edge, bool has_mo
 }
 
 /* Expand left from the seed point.
- 
-   Scans the screen byte at the column to the left, rotating bits left
-   to find the first zero bit from the MSB. If found, has_more is cleared
-   (stopping leftward expansion). */
+
+   In each column to the left, fill the run of set pixels ending at the
+   column's rightmost pixel (bit 6). If the run stops short of bit 0, the
+   pixels before it give the left edge and expansion stops. */
 static uint8_t fill_span_left(a2_fill_ctx *ctx, uint8_t left_edge, bool has_more) {
     while (has_more && ctx->column > 0) {
         ctx->column--;
         if (!read_screen_byte(ctx, ctx->column)) break;
 
-        /* Rotate left through the byte to find the first zero from the MSB */
-        ctx->fill_mask = ctx->existing_byte << 1;
-        bool carry = false;
-        bool msb_set = true;
-        int remaining;
-        for (remaining = COL_BITS - 1; remaining >= 0 && msb_set; remaining--) {
-            msb_set = ctx->fill_mask & 0x80;
-            ctx->fill_mask = (ctx->fill_mask << 1) | carry;
-            carry = msb_set;
-            if (!msb_set) {
-                ctx->fill_mask <<= remaining;
-                has_more = false;
-                left_edge = remaining;
-            }
+        uint8_t run = 0;
+        while (run < COL_BITS && (ctx->existing_byte & (0x40 >> run)))
+            run++;
+
+        ctx->fill_mask = (0x7f << (COL_BITS - run)) & 0x7f;
+        if (run < COL_BITS) {
+            left_edge = COL_BITS - 1 - run;
+            has_more = false;
         }
-        ctx->fill_mask = (ctx->fill_mask << 1) | msb_set;
+
         paint_column_pattern(ctx);
     }
     return left_edge;
