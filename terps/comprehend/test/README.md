@@ -71,9 +71,10 @@ are in `make test` since that pass.
 - **The PCjr fill tile**: row parity as the game has it, and the flood fill
   tests and paints with bytes 0 and 2 of the tile only. 228 of the 331 PCjr
   hashes were re-blessed for those two fixes against DOSBox-X captures.
-- **The Coveted Mirror panel share is conservative**: `cm_panel.h` holds the
-  pile-grain walk and the grain-fall state machine; page capture, overlay and
-  rebuild stay per renderer because one page and aux+main differ for real. The
+- **The Coveted Mirror panel share**: `cm_panel.h` holds the pile-grain walk,
+  the grain-fall state machine and `CMPanelStore<Planes>` (capture, overlay,
+  rebuild, reveal-skip), instantiated with 1 plane for hi-res and 2 for
+  aux+main; each renderer still owns its pages and its grain stamp. The
   `gmCMHourglass*` / `gmDhgrCMHourglass*` names stay for the stand-alone tests.
 - **Restart is one base function** with two hooks, `restartPrompt()` and
   `restartGame()`; `game_restart(true)` skips the prompt. Two changes fell out

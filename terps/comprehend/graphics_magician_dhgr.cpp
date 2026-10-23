@@ -498,44 +498,32 @@ static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 // source column indices match the standard page: the DHGR renderer doubles each
 // Apple column into the matching aux+main byte (logical cols 2c / 2c+1), so the
 // panel occupies the same byte columns 24..39 in both pages as it does standard.
-static uint8_t s_cmPanelAux[A2_PAGE_SIZE];
-static uint8_t s_cmPanelMain[A2_PAGE_SIZE];
-static bool s_cmPanelValid = false;
-static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
+static CMPanelStore<2> s_cmPanel;     // planes: 0 = aux, 1 = main
+
+// The live and slow plane pairs, in CMPanelStore's plane order.
+#define DHGR_LIVE_PLANES uint8_t *const live[2] = { s_aux, s_main }
+#define DHGR_SLOW_PLANES uint8_t *const slow[2] = { s_slowAux, s_slowMain }
 
 void gmDhgrCaptureCMPanel(int col0, int col1) {
-	std::memcpy(s_cmPanelAux,  s_aux,  A2_PAGE_SIZE);
-	std::memcpy(s_cmPanelMain, s_main, A2_PAGE_SIZE);
-	s_cmPanelCol0 = col0;
-	s_cmPanelCol1 = col1;
-	s_cmPanelValid = true;
+	DHGR_LIVE_PLANES;
+	s_cmPanel.capture(live, col0, col1);
 }
 
-bool gmDhgrCMPanelValid() { return s_cmPanelValid; }
-
-// Scratch state for gmDhgrBeginCMPanelRebuild()/gmDhgrEndCMPanelRebuild().
-static uint8_t s_cmRebuildSaveAux[A2_PAGE_SIZE], s_cmRebuildSaveMain[A2_PAGE_SIZE];
-static uint8_t s_cmRebuildSaveSlowAux[A2_PAGE_SIZE], s_cmRebuildSaveSlowMain[A2_PAGE_SIZE];
-static bool s_cmRebuildRecording = false;
+bool gmDhgrCMPanelValid() { return s_cmPanel.valid(); }
 
 void gmDhgrBeginCMPanelRebuild() {
-	std::memcpy(s_cmRebuildSaveAux,  s_aux,  A2_PAGE_SIZE);
-	std::memcpy(s_cmRebuildSaveMain, s_main, A2_PAGE_SIZE);
-	std::memcpy(s_cmRebuildSaveSlowAux,  s_slowAux,  A2_PAGE_SIZE);
-	std::memcpy(s_cmRebuildSaveSlowMain, s_slowMain, A2_PAGE_SIZE);
-	s_cmRebuildRecording = s_slow.recording();
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_cmPanel.beginRebuild(live, slow, s_slow.recording());
 	s_slow.setRecording(false);
 	std::memset(s_main, 0x00, A2_PAGE_SIZE);   // black panel background
 	std::memset(s_aux,  0x00, A2_PAGE_SIZE);
 }
 
 void gmDhgrEndCMPanelRebuild() {
-	gmDhgrCaptureCMPanel(24, 39);
-	std::memcpy(s_aux,  s_cmRebuildSaveAux,  A2_PAGE_SIZE);
-	std::memcpy(s_main, s_cmRebuildSaveMain, A2_PAGE_SIZE);
-	std::memcpy(s_slowAux,  s_cmRebuildSaveSlowAux,  A2_PAGE_SIZE);
-	std::memcpy(s_slowMain, s_cmRebuildSaveSlowMain, A2_PAGE_SIZE);
-	s_slow.setRecording(s_cmRebuildRecording);
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_slow.setRecording(s_cmPanel.endRebuild(live, slow));
 }
 
 // Panel-column helpers shared by the overlay / band-restore / grain-mirror paths.
@@ -543,26 +531,14 @@ void gmDhgrEndCMPanelRebuild() {
 // pages (rows y0..y1); cm_panel_final_to_slow mirrors the final pages' panel columns
 // (e.g. with freshly stamped grains) onto the slow pages only.
 static void cm_panel_to_pages(int y0, int y1) {
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			uint16_t a = (uint16_t)(base + col);
-			if (a >= A2_PAGE_SIZE) continue;
-			s_aux[a]  = s_slowAux[a]  = s_cmPanelAux[a];
-			s_main[a] = s_slowMain[a] = s_cmPanelMain[a];
-		}
-	}
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_cmPanel.toPages(live, slow, y0, y1);
 }
 static void cm_panel_final_to_slow(int y0, int y1) {
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			uint16_t a = (uint16_t)(base + col);
-			if (a >= A2_PAGE_SIZE) continue;
-			s_slowAux[a]  = s_aux[a];
-			s_slowMain[a] = s_main[a];
-		}
-	}
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_cmPanel.finalToSlow(live, slow, y0, y1);
 }
 
 // Copy the saved panel byte-columns onto both the final and the
@@ -570,7 +546,7 @@ static void cm_panel_final_to_slow(int y0, int y1) {
 // room's slow-draw reveal is still running (mirrors the standard renderer, which
 // writes the panel to s_screenmem and s_slowScreen alike).
 void gmDhgrOverlayCMPanel() {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	cm_panel_to_pages(0, DHGR_HEIGHT - 1);
 }
@@ -579,7 +555,7 @@ void gmDhgrOverlayCMPanel() {
 // per-grain positions the standard renderer uses (gmCMHourglassGrainPos), the
 // Apple x doubled onto the 560-wide pages. Call after gmDhgrOverlayCMPanel().
 void gmDhgrDrawCMHourglass(int sand) {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	if (sand < 0)
 		sand = 0;
@@ -613,7 +589,7 @@ static CMGrainFall s_dhgrCmFall;
 // Restore the saved static panel (no grains) for rows [y0,y1] onto both the final
 // and slow pages, wiping the previous frame's falling grain before the next.
 static void cmDhgrOverlayPanelBand(int y0, int y1) {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	if (y0 < 0)
 		y0 = 0;
@@ -786,11 +762,8 @@ void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
 // the panel off the slow pages. Skip panel-column ops so the overlaid panel
 // survives the reveal (it is already correct on the final pages).
 static bool dhgr_apply_slow(const SlowWriteOp &op) {
-	if (s_cmPanelValid) {
-		int c = gm_col_of_offset(op.offset);
-		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
-			return false;
-	}
+	if (s_cmPanel.skipsReveal(op.offset))
+		return false;
 	(op.page ? s_slowMain : s_slowAux)[op.offset] = op.value;
 	return true;
 }

@@ -564,9 +564,7 @@ const uint8_t *gmSlowPagePtr() { return s_slowScreen; }
 // Our room images are decoded straight from the disk and span the full width,
 // so after each in-game picture we re-composite the saved panel columns on top,
 // reproducing the original's always-present panel.
-static uint8_t s_cmPanel[A2_SCREEN_MEM_SIZE];
-static bool s_cmPanelValid = false;
-static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
+static CMPanelStore<1> s_cmPanel;
 
 // Per-turn grain-fall animation state. The original interpreter
 // (cm_per_turn_graphics_step $42f8) tracks the displayed grain count separately
@@ -579,50 +577,38 @@ static bool s_cmFallArmed = false;   // a single-grain drop is waiting to animat
 static CMGrainFall s_cmFall;         // the freed grain's trip down the neck (cm_panel.h)
 
 void gmCaptureCMPanel(int col0, int col1) {
-	memcpy(s_cmPanel, s_screenmem, A2_SCREEN_MEM_SIZE);
-	s_cmPanelCol0 = col0;
-	s_cmPanelCol1 = col1;
-	s_cmPanelValid = true;
+	uint8_t *const live[1] = { s_screenmem };
+	s_cmPanel.capture(live, col0, col1);
 }
 
-bool gmCMPanelValid() { return s_cmPanelValid; }
+bool gmCMPanelValid() { return s_cmPanel.valid(); }
 
-// Scratch state for gmBeginCMPanelRebuild()/gmEndCMPanelRebuild(): the live
-// pages and recording flag are stashed across the rebuild so it is invisible to
-// the picture currently being drawn.
-static uint8_t s_cmRebuildSaveScreen[A2_SCREEN_MEM_SIZE];
-static uint8_t s_cmRebuildSaveSlow[A2_SCREEN_MEM_SIZE];
-static bool s_cmRebuildRecording = false;
-
+// The rebuild stashes the live pages and recording flag so it is invisible to the
+// picture currently being drawn (see CMPanelStore).
 void gmBeginCMPanelRebuild() {
-	memcpy(s_cmRebuildSaveScreen, s_screenmem, A2_SCREEN_MEM_SIZE);
-	memcpy(s_cmRebuildSaveSlow, s_slowScreen, A2_SCREEN_MEM_SIZE);
-	s_cmRebuildRecording = s_slow.recording();
+	uint8_t *const live[1] = { s_screenmem };
+	uint8_t *const slow[1] = { s_slowScreen };
+	s_cmPanel.beginRebuild(live, slow, s_slow.recording());
 	s_slow.setRecording(false);
 	memset(s_screenmem, 0x00, A2_SCREEN_MEM_SIZE);   // black panel background
 }
 
 void gmEndCMPanelRebuild() {
-	gmCaptureCMPanel(24, 39);
-	memcpy(s_screenmem, s_cmRebuildSaveScreen, A2_SCREEN_MEM_SIZE);
-	memcpy(s_slowScreen, s_cmRebuildSaveSlow, A2_SCREEN_MEM_SIZE);
-	s_slow.setRecording(s_cmRebuildRecording);
+	uint8_t *const live[1] = { s_screenmem };
+	uint8_t *const slow[1] = { s_slowScreen };
+	s_slow.setRecording(s_cmPanel.endRebuild(live, slow));
 }
 
 // Copy the saved static panel columns onto rows [y0,y1] of both the final page
 // (s_screenmem) and the progressively-revealed page (s_slowScreen).
 static void cm_panel_to_pages(int y0, int y1) {
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = gm_row_address(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			s_screenmem[base + col]  = s_cmPanel[base + col];
-			s_slowScreen[base + col] = s_cmPanel[base + col];
-		}
-	}
+	uint8_t *const live[1] = { s_screenmem };
+	uint8_t *const slow[1] = { s_slowScreen };
+	s_cmPanel.toPages(live, slow, y0, y1);
 }
 
 void gmOverlayCMPanel() {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	cm_panel_to_pages(0, APPLE2_SCREEN_HEIGHT - 1);
 }
@@ -637,11 +623,8 @@ void gmOverlayCMPanel() {
 // s_slowScreen. Skip panel-column ops so the overlaid panel survives the reveal
 // (it is already correct on the final page). Mirrors DHGR's dhgr_apply_slow.
 static bool apple_apply_slow(const SlowWriteOp &op) {
-	if (s_cmPanelValid) {
-		int c = gm_col_of_offset(op.offset);
-		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
-			return false;
-	}
+	if (s_cmPanel.skipsReveal(op.offset))
+		return false;
 	s_slowScreen[op.offset] = op.value;
 	return true;
 }
@@ -708,7 +691,7 @@ static void cm_stamp_hourglass_pile(int sand) {
 // + bottom mound, with NO grains) for rows [y0,y1] onto both pages. Used to wipe
 // the previous animation frame's falling grain before drawing the next.
 static void cmOverlayPanelBand(int y0, int y1) {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	if (y0 < 0)
 		y0 = 0;
