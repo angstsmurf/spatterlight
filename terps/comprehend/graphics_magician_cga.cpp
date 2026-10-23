@@ -1260,7 +1260,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
 	case OPCODE_END:  // op0: end of image
 		return true;
 
-	case OPCODE_END2: // op7: 2-operand no-op in Talisman (not an end marker)
+	case OPCODE_OP7: // op7: 2-operand no-op in Talisman (not an end marker)
 		*ptr += 2;
 		break;
 

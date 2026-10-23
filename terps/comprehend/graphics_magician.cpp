@@ -434,7 +434,7 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 		*outptr = ptr;
 		return true;
 
-	case OPCODE_END2: // 7 -- Talisman: 2-operand no-op; older dialect: end
+	case OPCODE_OP7: // 7 -- Talisman: 2-operand no-op; older dialect: end
 		if (s_legacyFormat) {
 			*outptr = ptr;
 			return true;

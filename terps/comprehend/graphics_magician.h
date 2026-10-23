@@ -27,7 +27,9 @@ enum Opcode {
 	OPCODE_SET_SHAPE = 4,
 	OPCODE_TEXT_OUTLINE = 5,
 	OPCODE_SET_FILL_COLOR = 6,
-	OPCODE_END2 = 7,
+	OPCODE_OP7 = 7,          // 2-operand no-op in Talisman-era pictures, end of
+	                         // image in the older dialect, SET_PALETTE_SUBINDEX
+	                         // in the double hi-res interpreter
 	OPCODE_MOVE_TO = 8,
 	OPCODE_DRAW_BOX = 9,
 	OPCODE_DRAW_LINE = 10,

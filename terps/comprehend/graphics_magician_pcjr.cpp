@@ -370,7 +370,7 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, PcjrCtx *ctx) {
 	case OPCODE_END:  // op0
 		return true;
 
-	case OPCODE_END2: // op7: 2-operand no-op
+	case OPCODE_OP7: // op7: 2-operand no-op
 		*ptr += 2;
 		break;
 

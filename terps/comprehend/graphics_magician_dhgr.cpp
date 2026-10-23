@@ -740,7 +740,7 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		case OPCODE_SET_SHAPE: g_brush = par; break;
 		case OPCODE_TEXT_OUTLINE: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;
 		case OPCODE_SET_FILL_COLOR: set_fill_color(*p++); break;
-		case OPCODE_END2: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // op7: SET_PALETTE_SUBINDEX here
+		case OPCODE_OP7: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // op7: SET_PALETTE_SUBINDEX here
 		case OPCODE_MOVE_TO: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; posn(x << 1, y); } break;
 		case OPCODE_DRAW_BOX: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; uint16_t a = x << 1, b = y;
 			uint16_t x0 = (ZE1 << 8) | ZE0; uint8_t y0 = ZE2;
