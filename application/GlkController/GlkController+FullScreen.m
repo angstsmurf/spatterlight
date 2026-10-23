@@ -1,6 +1,6 @@
 #import "GlkController_Private.h"
 #import "GlkController+Autorestore.h"
-#import "GlkController+CRTEffects.h"
+#import "CRTEffects.h"
 
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"

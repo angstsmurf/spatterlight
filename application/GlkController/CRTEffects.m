@@ -1,7 +1,7 @@
 #import <CoreImage/CoreImage.h>
 #import <QuartzCore/QuartzCore.h>
 
-#import "GlkController+CRTEffects.h"
+#import "CRTEffects.h"
 
 #import "Theme.h"
 
@@ -50,12 +50,15 @@ static const CGFloat kVignetteAlpha = 0.4;
         }];
         scanlines = [NSColor colorWithPatternImage:tile];
     }
+    // Views no longer clip to their bounds by default (macOS 14), and both
+    // the dirty rect and the vignette can reach past them.
+    NSRect bounds = self.bounds;
+    NSRectClip(bounds);
     [scanlines set];
-    NSRectFillUsingOperation(dirtyRect, NSCompositingOperationSourceOver);
+    NSRectFillUsingOperation(NSIntersectionRect(dirtyRect, bounds), NSCompositingOperationSourceOver);
 
     // An elliptical vignette: a radial gradient in a unit circle, stretched
     // to the view, which reaches full strength in the corners.
-    NSRect bounds = self.bounds;
     NSGradient *vignette = [[NSGradient alloc] initWithColorsAndLocations:
                             [NSColor clearColor], 0.0,
                             [NSColor clearColor], 0.5,
@@ -74,8 +77,6 @@ static const CGFloat kVignetteAlpha = 0.4;
 
 @end
 
-@implementation GlkController (CRTEffects)
-
 // The effects are decoration, so they give way to the accessibility display
 // options that ask for a plainer screen.
 static BOOL accessibilityWantsPlainDisplay(void) {
@@ -84,27 +85,23 @@ static BOOL accessibilityWantsPlainDisplay(void) {
     || workspace.accessibilityDisplayShouldReduceTransparency;
 }
 
-- (void)updateCRTEffects {
-    BOOL plain = accessibilityWantsPlainDisplay();
-    [self updateCRTGlow:self.theme.crtGlow && !plain];
-    [self updateCRTScanlines:self.theme.crtScanlines && !plain];
-}
+@implementation NSView (CRTEffects)
 
 - (void)updateCRTGlow:(BOOL)on {
-    NSView *gameView = self.gameView;
+    on = on && !accessibilityWantsPlainDisplay();
     // Layer filters work in pixels, so the radius follows the screen.
     CGFloat scale = self.window.backingScaleFactor ?: 1;
     NSNumber *radius = @(kGlowRadius * scale);
 
     CIFilter *glow = nil;
-    for (CIFilter *filter in gameView.contentFilters)
+    for (CIFilter *filter in self.contentFilters)
         if ([filter.name isEqualToString:kCRTGlowFilterName])
             glow = filter;
     if (on && [[glow valueForKey:kCIInputRadiusKey] isEqual:radius])
         return;
     if (!on) {
         if (glow)
-            gameView.contentFilters = @[];
+            self.contentFilters = @[];
         return;
     }
 
@@ -113,14 +110,14 @@ static BOOL accessibilityWantsPlainDisplay(void) {
     bloom.name = kCRTGlowFilterName;
     [bloom setValue:radius forKey:kCIInputRadiusKey];
     [bloom setValue:@(kGlowIntensity) forKey:kCIInputIntensityKey];
-    gameView.layerUsesCoreImageFilters = YES;
-    gameView.contentFilters = @[bloom];
+    self.layerUsesCoreImageFilters = YES;
+    self.contentFilters = @[bloom];
 }
 
 - (void)updateCRTScanlines:(BOOL)on {
-    NSView *borderView = self.borderView;
+    on = on && !accessibilityWantsPlainDisplay();
     CRTOverlayView *overlay = nil;
-    for (NSView *view in borderView.subviews)
+    for (NSView *view in self.subviews)
         if ([view isKindOfClass:[CRTOverlayView class]])
             overlay = (CRTOverlayView *)view;
 
@@ -130,16 +127,25 @@ static BOOL accessibilityWantsPlainDisplay(void) {
     }
 
     if (!overlay) {
-        overlay = [[CRTOverlayView alloc] initWithFrame:borderView.bounds];
+        overlay = [[CRTOverlayView alloc] initWithFrame:self.bounds];
         overlay.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
     }
-    // Keep it frontmost: the game view is sometimes taken out of the border
-    // view and added back (see CoverImageHandler).
-    if (borderView.subviews.lastObject != overlay) {
+    // Keep it frontmost, also when subviews are added or taken out and added
+    // back later (see CoverImageHandler).
+    if (self.subviews.lastObject != overlay) {
         [overlay removeFromSuperview];
-        overlay.frame = borderView.bounds;
-        [borderView addSubview:overlay positioned:NSWindowAbove relativeTo:nil];
+        overlay.frame = self.bounds;
+        [self addSubview:overlay positioned:NSWindowAbove relativeTo:nil];
     }
+}
+
+@end
+
+@implementation GlkController (CRTEffects)
+
+- (void)updateCRTEffects {
+    [self.gameView updateCRTGlow:self.theme.crtGlow];
+    [self.borderView updateCRTScanlines:self.theme.crtScanlines];
 }
 
 - (void)noteAccessibilityDisplayOptionsChanged:(NSNotification *)notification {
