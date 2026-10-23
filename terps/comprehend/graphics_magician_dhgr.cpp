@@ -31,6 +31,7 @@
 #include "gm_hires.h"
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
+#include <cstdlib>
 #include <cstring>
 
 namespace Glk {
@@ -189,105 +190,84 @@ static void set_fill_color(uint8_t color) {
 	}
 }
 
-// ---- line subsystem (verbatim from the validated dhgr_line_port) --------------
-static uint8_t Z0b, Z0c, ZE0, ZE1, ZE2;
-static uint16_t rowbase;
-static uint8_t Z1c, Z1d, Z1b, Z1e, Z1446, Z18, Z19, Z1a;
-static uint8_t Z1490, Z148e, Z148f, Z1491, Z1492, Z1493, Z1494, Z1495, Z1496, Z1497, Z1445;
-static uint8_t Z1447 = 7;
-static const uint8_t setmask[8] = {1, 2, 4, 8, 16, 32, 64, 0xa6};
-static const uint8_t clrmask[8] = {0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x84};
-static const uint8_t ystep[8] = {1, 0xff, 1, 0xff, 1, 0xff, 1, 0xff};
-static const uint8_t xstep[8] = {0xff, 0xff, 1, 1, 0xfc, 0xfc, 4, 4};
+// ---- line subsystem -----------------------------------------------------------
+// Pen position: x doubled to the 560-wide raster (ZE1:ZE0), and y (ZE2).
+static uint8_t ZE0, ZE1, ZE2;
+static uint8_t Z1447 = 7;                      // pen colour (op2 SET_PEN_COLOR)
 static const uint8_t color4bit[8] = {0, 6, 9, 0xf, 0, 3, 0xc, 0};
-static const uint8_t off13bc[4] = {0, 7, 14, 21};
-static int hung = 0, usecolor = 0;
 
-static void rowaddr() { rowbase = CALC(ZE2); }
-static void posn(uint16_t xd, uint8_t y) {
-	ZE0 = xd & 0xff; ZE1 = xd >> 8; ZE2 = y; rowaddr();
-	Z0b = ZE0; Z0c = ZE1;
-	for (int c = 8; c; c--) { uint8_t cy = Z0b >> 7; Z0b = Z0b << 1; Z0c = (Z0c << 1) | cy; if (Z0c > 6) { Z0c -= 7; Z0b++; } }
-}
-static void plot() {
-	uint8_t col = Z0b >> 1; uint8_t *p = (Z0b & 1) ? s_main : s_aux; uint16_t a = rowbase + col;
+static void posn(uint16_t xd, uint8_t y) { ZE0 = xd & 0xff; ZE1 = xd >> 8; ZE2 = y; }
+
+// Set or clear one pixel of the 560-wide raster. Each run of 7 pixels is one
+// byte, alternating between the aux and main pages.
+static void plot_pixel(int x, uint8_t y, bool set) {
+	int group = x / 7;
+	uint8_t mask = (uint8_t)(1 << (x % 7));
+	uint8_t *p = (group & 1) ? s_main : s_aux;
+	uint16_t a = CALC(y) + (group >> 1);
 	if (a >= A2_PAGE_SIZE) return;
-	dhgr_put(p, a, Z1446 ? (uint8_t)(p[a] | setmask[Z0c]) : (uint8_t)(p[a] & clrmask[Z0c]));
+	dhgr_put(p, a, set ? (uint8_t)(p[a] | mask) : (uint8_t)(p[a] & ~mask));
 }
-static void plotColor() {
-	uint8_t sb = Z0b, sc = Z0c;
-	Z0b &= 0xfc;
-	uint8_t X = sb & 3;
-	uint8_t Yv = (uint8_t)((off13bc[X] + sc) & 0xfc);
-	uint8_t adv = Yv >> 3;
-	Z0b = adv | Z0b;
-	Z0c = (uint8_t)(Yv - off13bc[adv & 3]);
-	uint8_t a = color4bit[Z1447 & 7] << 4;
-	for (int i = 0; i < 4; i++) {
-		Z1446 = (a & 0x80) ? 1 : 0; a = (uint8_t)(a << 1);
-		plot();
-		Z0c++; if (Z0c >= 7) { Z0c = 0; Z0b++; }
+
+// Pens 4 (black) and 7 (white) draw single pixels. Every other pen is a colour,
+// drawn as its 4-bit pattern (leftmost pixel = bit 3) across the aligned group
+// of four pixels containing x.
+static bool pen_is_mono() { return Z1447 == 4 || Z1447 == 7; }
+static void plot_pen(int x, uint8_t y) {
+	if (pen_is_mono()) {
+		plot_pixel(x, y, Z1447 == 7);
+		return;
 	}
-	Z0b = sb; Z0c = sc;
+	uint8_t pattern = color4bit[Z1447 & 7];
+	x &= ~3;
+	for (int i = 0; i < 4; i++)
+		plot_pixel(x + i, y, pattern & (8 >> i));
 }
-static void doplot() { if (usecolor) plotColor(); else plot(); }
-static void stepA() { ZE2 += ystep[Z1e]; rowaddr(); }
-static void stepC() {
-	uint8_t v = (uint8_t)(Z0c + xstep[Z1e]);
-	if (v & 0x80) { Z0b--; Z0c = (uint8_t)((v & 7) - 1); return; }
-	Z0c = v;
-	if (Z0c < 7) return;
-	if (Z0c == 7) Z0c = 0xff; else Z0c = Z0c & 7;
-	Z0c = (uint8_t)(Z0c + 1); Z0b++;
-}
-static void linesetup() {
-	Z1493 = 0; Z1494 = 0;
-	for (int g = 0; g < 100000; g++) {
-		int diff = (int)Z148e - (int)Z1490;
-		if (diff < 0) { if (Z148f == 0) break; Z148f--; }
-		Z148e = (uint8_t)diff; Z1493++; if (Z1493 == 0) Z1494++;
-	}
-	Z1496 = Z148e; Z1495 = Z148e; Z1491 = Z1493; Z1492 = Z1494; Z1497 = (uint8_t)(Z1490 - Z1496);
-}
-static void stepB() {
-	Z1493 = Z1491; Z1494 = Z1492;
-	if (Z1495 == 0) { Z1495 = Z1496; return; }
-	int s = (int)Z1496 + (int)Z1495;
-	if (s > 0xff || (uint8_t)s >= Z1490) { Z1493++; if (Z1493 == 0) Z1494++; }
-	int v = (int)Z1495 - (int)Z1497; if (v < 0) v += Z1490; Z1495 = (uint8_t)v;
-}
+
+// op10 DRAW_LINE from the pen position to (x2d, y2), leaving the pen there.
+//
+// A port of the 6502 run-slice line: the longer axis is cut into one run per
+// step of the shorter axis, each run major / minor pixels long, with an
+// accumulator adding the remainder that decides which runs get an extra pixel.
+// Quirks of the original that are kept, as they decide which pixels are lit:
+//  - the axis lengths are counted in pixels (|d| + 1), and a tie is y-major;
+//  - a colour pen steps x by a whole 4-pixel group, from and to x aligned down
+//    to a multiple of 4, and leaves the pen at that aligned end x;
+//  - when the accumulator lands exactly on zero, the next run is not lengthened
+//    and the accumulator restarts at the remainder.
 static void line(uint16_t x2d, uint8_t y2) {
-	uint8_t p1 = x2d & 0xff, p2 = x2d >> 8, p3 = y2;
-	Z1e = 0;
-	int dx = (int)(((int)ZE1 << 8) | ZE0) - (int)(((int)p2 << 8) | p1);
-	Z1c = dx & 0xff; Z1d = (dx >> 8) & 0xff;
-	if (dx < 0) { Z1d = ~Z1d; Z1c = (uint8_t)(~Z1c + 1); if (Z1c == 0) Z1d++; Z1e |= 2; }
-	int dy = (int)p3 - (int)ZE2;
-	Z1b = dy & 0xff;
-	if (dy < 0) { Z1b = (uint8_t)(~Z1b + 1); Z1e |= 1; }
-	Z1b++; Z1c++; if (Z1c == 0) Z1d++;
-	Z1446 = Z1447 & 1; Z18 = p1; Z19 = p2; Z1a = p3;
-	usecolor = 0;
-	if (Z1447 != 4 && Z1447 != 7) {
-		usecolor = 1; Z1446 = 0xff;
-		ZE0 &= 0xfc; Z18 = p1 & 0xfc;
-		int dx2 = (int)(((int)ZE1 << 8) | ZE0) - (int)(((int)p2 << 8) | Z18);
-		Z1c = dx2 & 0xff; Z1d = (dx2 >> 8) & 0xff;
-		if (dx2 < 0) { Z1d = ~Z1d; Z1c = (uint8_t)(~Z1c + 1); if (Z1c == 0) Z1d++; }
-		uint16_t w = ((Z1d << 8) | Z1c) >> 2; Z1c = w & 0xff; Z1d = w >> 8;
-		Z1c++; if (Z1c == 0) Z1d++;
-		Z1e += 4;
+	const int group = pen_is_mono() ? 1 : 4;
+	if (group == 4)
+		x2d &= ~3;
+	int x = ((ZE1 << 8) | ZE0) & ~(group - 1);
+	int y = ZE2;
+	const int xstep = (x2d > x) ? group : -group;
+	const int ystep = (y2 < y) ? -1 : 1;
+
+	const int xcount = abs(x2d - x) / group + 1;
+	const int ycount = abs(y2 - y) + 1;
+	const bool steep = xcount <= ycount;
+	const int major = steep ? ycount : xcount;
+	const int minor = steep ? xcount : ycount;
+	const int q = major / minor, r = major % minor;
+
+	int run = q, acc = r;
+	for (int i = 0; i < minor; i++) {
+		for (int k = 0; k < run; k++) {
+			plot_pen(x, (uint8_t)y);
+			if (steep) y += ystep; else x += xstep;
+		}
+		if (steep) x += xstep; else y += ystep;
+
+		if (acc == 0) {
+			acc = r;
+			run = q;
+		} else {
+			run = q + (acc + r >= minor);
+			acc = (acc + r) % minor;
+		}
 	}
-	if (Z1d == 0 && Z1c <= Z1b) {
-		Z148f = 0; Z1490 = Z1c; Z148e = Z1b; linesetup(); int og = 0;
-		do { uint8_t c3 = 0; int ig = 0; do { doplot(); stepA(); c3++; if (++ig > 4000) { hung = 1; return; } } while (c3 != Z1493);
-			stepB(); stepC(); Z1c--; if (Z1c == 0xff) Z1d--; if (++og > 8000) { hung = 1; return; } } while (Z1d != 0 || Z1c != 0);
-	} else {
-		Z148e = Z1c; Z148f = Z1d; Z1490 = Z1b; linesetup(); int og = 0;
-		do { uint8_t c3 = 0; Z1445 = 0; int ig = 0; do { doplot(); stepC(); c3++; if (c3 == 0) Z1445++; if (++ig > 40000) { hung = 1; return; } } while (c3 != Z1493 || Z1445 != Z1494);
-			stepB(); stepA(); Z1b--; if (++og > 8000) { hung = 1; return; } } while (Z1b != 0);
-	}
-	posn(((Z19 << 8) | Z18), Z1a);
+	posn(x2d, y2);
 }
 
 // ---- op12 brush ($105A) -------------------------------------------------------
@@ -335,8 +315,7 @@ static int cir_d;                              // half-step parity counter ($000
 
 static void circle_point(int x, int y) {
 	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // FUN_0c35 bounds
-	posn((uint16_t)x, (uint8_t)y);
-	doplot();
+	plot_pen(x, (uint8_t)y);
 }
 static void circle_plot8() {
 	cir_d++;                                   // FUN_0bcb increments $000d first
@@ -364,8 +343,6 @@ static void draw_circle(uint8_t radius) {
 											   // $05..$17 around itself; here neither
 											   // C nor cy is mutated, so they double
 											   // as the saved position to restore.
-	usecolor = (Z1447 != 4 && Z1447 != 7) ? 1 : 0;
-	Z1446 = Z1447 & 1;
 	int r = radius, dvar = r >> 1, i = 0;
 	cir_d = 0;
 	cir_xRi = cir_xLi = C;
@@ -737,12 +714,11 @@ void gmDhgrResetScreen(bool white) {
 }
 
 void gmDhgrDrawImage(const uint8_t *data, size_t size) {
-	hung = 0;
 	// When not animating, keep the visible pages in step with the final pages so a
 	// later slow-drawn overlay (e.g. a moved object) composes onto the right
 	// background instead of a stale/blank page -- exactly what the standard hi-res
 	// renderer does at the end of gmDrawImage. A scope guard so it runs on every
-	// exit path, including the op0 END and `hung` early returns below.
+	// exit path, including the op0 END early return below.
 	struct SyncOnExit {
 		~SyncOnExit() { s_slow.syncIfNotRecording(); }
 	} syncOnExit;
@@ -803,7 +779,6 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 			} else if (par == 3) fill_rect();       // fill background with pattern
 			break;
 		}
-		if (hung) return;
 	}
 }
 
