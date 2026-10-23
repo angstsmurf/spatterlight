@@ -302,71 +302,53 @@ static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 
 // ---- op11 DRAW_CIRCLE ---------------------------------------------------------
 //
-// Faithful port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb + steps FUN_0b95/
-// FUN_0ba5). The centre is the current pen position (ZE0/ZE1 doubled x, ZE2 y).
+// Port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb). The centre is the current
+// pen position (ZE0/ZE1 doubled x, ZE2 y), which the circle leaves unchanged.
 // The x extents run to +-2*radius and x is advanced at DOUBLE resolution (a plot
 // between two single x steps) while y advances at single resolution, so the
 // outline is round on the 560-wide raster AND gap-free. This matters for fill
 // containment: the Talisman title's lamp-knob circle (op DRAW_CIRCLE r=4 @135,90)
 // must close, or the following fill=62 PAINT leaks out of the lamp into the sky.
-static int cir_xRi, cir_xLi, cir_xRo, cir_xLo; // inner/outer x right/left (doubled)
-static int cir_yBi, cir_yTi, cir_yBo, cir_yTo; // inner/outer y bottom/top
-static int cir_d;                              // half-step parity counter ($000d)
-
+//
+// The loop walks i up from 0 while r shrinks from the radius, as a midpoint
+// circle does. Each step plots the eight-way symmetric points (+-2i, +-r) and
+// (+-2r, +-i), then the same again half a step back, at the odd x in between.
 static void circle_point(int x, int y) {
 	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // FUN_0c35 bounds
 	plot_pen(x, (uint8_t)y);
 }
-static void circle_plot8() {
-	cir_d++;                                   // FUN_0bcb increments $000d first
-	circle_point(cir_xLi, cir_yTo);
-	circle_point(cir_xRi, cir_yTo);
-	circle_point(cir_xRi, cir_yBo);
-	circle_point(cir_xLi, cir_yBo);
-	circle_point(cir_xRo, cir_yTi);
-	circle_point(cir_xLo, cir_yTi);
-	circle_point(cir_xLo, cir_yBi);
-	circle_point(cir_xRo, cir_yBi);
-}
-static void circle_stepBA() {                  // FUN_0ba5: inner x only, maybe inner y
-	cir_xRi++; cir_xLi--;
-	if (!(cir_d & 1)) { cir_yBi++; cir_yTi--; }
-}
-static void circle_stepB() {                   // FUN_0b95: outer x, then FUN_0ba5
-	cir_xRo--; cir_xLo++;
-	circle_stepBA();
+// FUN_0bcb: plot (+-ax, +-ay) near the top and bottom, then (+-bx, +-by) near
+// the sides, in the original's order.
+static void circle_plot8(int cx, int cy, int ax, int ay, int bx, int by) {
+	circle_point(cx - ax, cy - ay);
+	circle_point(cx + ax, cy - ay);
+	circle_point(cx + ax, cy + ay);
+	circle_point(cx - ax, cy + ay);
+	circle_point(cx + bx, cy - by);
+	circle_point(cx - bx, cy - by);
+	circle_point(cx - bx, cy + by);
+	circle_point(cx + bx, cy + by);
 }
 static void draw_circle(uint8_t radius) {
 	if (radius == 0) return;
-	int C = (ZE1 << 8) | ZE0;                  // center x/y = pen position. The real
-	int cy = ZE2;                              // circle saves/restores zero-page
-											   // $05..$17 around itself; here neither
-											   // C nor cy is mutated, so they double
-											   // as the saved position to restore.
-	int r = radius, dvar = r >> 1, i = 0;
-	cir_d = 0;
-	cir_xRi = cir_xLi = C;
-	cir_xRo = C + 2 * r; cir_xLo = C - 2 * r;
-	cir_yTi = cy; cir_yBi = cy;
-	cir_yBo = cy + r; cir_yTo = cy - r;
-	// Loop provably terminates: r only decreases (borrow case) and i only increases
-	// until r < i. radius is a uint8_t, so this runs well under 256 iterations.
-	for (;;) {
-		circle_plot8();
-		if (r < i) break;
+	const int cx = (ZE1 << 8) | ZE0, cy = ZE2;
+	int r = radius, d = r >> 1;
+	for (int i = 0;; ) {
+		circle_plot8(cx, cy, 2 * i, r, 2 * r, i);
+		if (r < i)
+			break;
 		i++;
-		int tmp = dvar - i;
-		if (dvar >= i) {                       // no borrow: inner extents only
-			dvar = tmp;
-			circle_stepBA(); circle_plot8(); circle_stepBA();
-		} else {                               // borrow: step radius + outer extents in
+		// The half step: when r shrinks, the side points sit between the old
+		// and new 2r.
+		bool shrink = d < i;
+		if (shrink) {
 			r--;
-			dvar = tmp + r;
-			cir_yBo--; cir_yTo++;
-			circle_stepB(); circle_plot8(); circle_stepB();
+			d += r - i;
+		} else {
+			d -= i;
 		}
+		circle_plot8(cx, cy, 2 * i - 1, r, 2 * r + shrink, i - 1);
 	}
-	posn((uint16_t)C, (uint8_t)cy);            // restore pen position
 }
 
 // ---- op1/op3/op5 text glyphs --------------------------------------------------
