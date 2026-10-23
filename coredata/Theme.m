@@ -42,6 +42,8 @@
 @dynamic cellWidth;
 @dynamic comprehendGraphicsType;
 @dynamic coverArtStyle;
+@dynamic crtGlow;
+@dynamic crtScanlines;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;

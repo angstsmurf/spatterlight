@@ -3594,6 +3594,8 @@
 		C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 16.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 17.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA001820261026006D0E16 /* Spatterlight 18.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 18.xcdatamodel"; sourceTree = "<group>"; };
+		C3DA001820261023006D0E16 /* Spatterlight 18_crt.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 18_crt.xcdatamodel"; sourceTree = "<group>"; };
+		C3DA001920261026006D0E16 /* Spatterlight 19.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Spatterlight 19.xcdatamodel"; sourceTree = "<group>"; };
 		C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_dhgr.cpp; sourceTree = "<group>"; };
 		C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = graphics_magician_dhgr.h; sourceTree = "<group>"; };
 		C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = graphics_magician_pcjr.cpp; sourceTree = "<group>"; };
@@ -12677,6 +12679,8 @@
 		6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				C3DA001920261026006D0E16 /* Spatterlight 19.xcdatamodel */,
+				C3DA001820261023006D0E16 /* Spatterlight 18_crt.xcdatamodel */,
 				C3DA001820261026006D0E16 /* Spatterlight 18.xcdatamodel */,
 				C3DA001720261019006D0E16 /* Spatterlight 17.xcdatamodel */,
 				C3DA001620260619006D0E16 /* Spatterlight 16.xcdatamodel */,
@@ -12699,7 +12703,7 @@
 				6D21273A246C28D100D775A8 /* Spatterlight 2.xcdatamodel */,
 				6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */,
 			);
-			currentVersion = C3DA001820261026006D0E16 /* Spatterlight 18.xcdatamodel */;
+			currentVersion = C3DA001920261026006D0E16 /* Spatterlight 19.xcdatamodel */;
 			path = Spatterlight.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

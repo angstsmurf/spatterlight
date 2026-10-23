@@ -34,6 +34,7 @@
 
 #import "GlkController+Autorestore.h"
 #import "GlkController+BorderColor.h"
+#import "GlkController+CRTEffects.h"
 #import "GlkController+FullScreen.h"
 #import "GlkController+InterpreterGlue.h"
 #import "GlkController+GlkRequests.h"
@@ -343,6 +344,12 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         [[NSWorkspace sharedWorkspace] addObserver:self forKeyPath:@"voiceOverEnabled" options:(NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld) context:nil];
         observingVoiceOver = YES;
     }
+
+    [[NSWorkspace sharedWorkspace].notificationCenter
+     addObserver:self
+     selector:@selector(noteAccessibilityDisplayOptionsChanged:)
+     name:NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification
+     object:nil];
 
     NSNotificationCenter *notifications = [NSNotificationCenter defaultCenter];
 

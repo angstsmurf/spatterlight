@@ -183,6 +183,8 @@
 
 @property (weak) IBOutlet NSButton *btnAutosave;
 @property (weak) IBOutlet NSButton *btnSmoothScroll;
+@property (weak) IBOutlet NSButton *btnCRTGlow;
+@property (weak) IBOutlet NSButton *btnCRTScanlines;
 @property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
 
 @property (weak) IBOutlet NSTextField *scrollbackLimitTextField;

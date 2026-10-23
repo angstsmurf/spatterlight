@@ -36,6 +36,8 @@ static const struct {
     { @"btnEnableGraphics", @"doGraphics", kThemeSetting },
     { @"btnEnableSound", @"doSound", kThemeSetting },
     { @"btnSmoothScroll", @"smoothScroll", kThemeSetting },
+    { @"btnCRTGlow", @"crtGlow", kThemeSetting },
+    { @"btnCRTScanlines", @"crtScanlines", kThemeSetting },
     { @"coverImagePopup", @"coverArtStyle", kThemeSetting },
     { @"caretShapePopup", @"caretShape", kThemeSetting },
 
