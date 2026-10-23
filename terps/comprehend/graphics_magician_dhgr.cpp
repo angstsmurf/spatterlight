@@ -29,6 +29,7 @@
 #include "graphics_magician.h"
 #include "gm_artifact.h"
 #include "gm_hires.h"
+#include "gm_stream.h"         // shared opcode dispatcher
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstdlib>
@@ -698,146 +699,99 @@ void gmDhgrResetScreen(bool white) {
 	s_slow.clear();
 }
 
-void gmDhgrDrawImage(const uint8_t *data, size_t size) {
+// ---- Opcode interpreter -------------------------------------------------------
+// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
+// the double hi-res side of it.  Pen, text cursor, brush and fill bounds are the
+// file statics above, so a renderer object carries only the stream base for the
+// DHGR_WATCH trace.
+struct DhgrRenderer {
+	const uint8_t *base;
+
+	// Source x is doubled onto the 560-wide raster for every operand.
+	uint16_t scaleX(uint16_t x) const { return (uint16_t)(x << 1); }
+	int penX() const { return s_penX; }
+	int penY() const { return s_penY; }
+
+	void begin() {
+		// Restore the T5 default colour subindex FIRST, so the per-image init below
+		// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
+		// baseline. op7 overrides are per-image: the same streams render self-coloured
+		// under std-hires, where op7 is a no-op. Order matters -- set_fill_color(0x4d)
+		// reads s_subidx to build the default fill pattern used by fill_rect (the
+		// full-screen background many rooms paint), so it must see the defaults, not a
+		// previous room's patches (which turned e.g. the hill pink after the bazaar).
+		std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
+		s_penColor = 4; move_pen(140 * 2, 96); // per-image draw init (pen colour 4, centre)
+		set_fill_color(0x4d);             // default fill colour
+		// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
+		// (matches the standard renderer's ctx->fill_* defaults).
+		g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
+		g_brush = 5;                      // default shape; reset per image (matches the
+										  // std-hires init ctx.BRUSH=5). Without this an
+										  // item overlay inherits the room's last op4
+										  // SET_SHAPE, drawing its brushes with the wrong
+										  // shape so the fills find no seed (e.g. the
+										  // OO-Topos prison-cell bottle/food went the
+										  // colour of the floor/table beneath them).
+	}
 	// When not animating, keep the visible pages in step with the final pages so a
 	// later slow-drawn overlay (e.g. a moved object) composes onto the right
 	// background instead of a stale/blank page -- exactly what the standard hi-res
-	// renderer does at the end of gmDrawImage. A scope guard so it runs on every
-	// exit path, including the op0 END early return below.
-	struct SyncOnExit {
-		~SyncOnExit() { s_slow.syncIfNotRecording(); }
-	} syncOnExit;
-	// Restore the T5 default colour subindex FIRST, so the per-image init below
-	// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
-	// baseline. op7 overrides are per-image: the same streams render self-coloured
-	// under std-hires, where op7 is a no-op. Order matters -- set_fill_color(0x4d)
-	// reads s_subidx to build the default fill pattern used by fill_rect (the
-	// full-screen background many rooms paint), so it must see the defaults, not a
-	// previous room's patches (which turned e.g. the hill pink after the bazaar).
-	std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
-	s_penColor = 4; move_pen(140 * 2, 96); // per-image draw init (pen colour 4, centre)
-	set_fill_color(0x4d);             // default fill colour
-	// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
-	// (matches the standard renderer's ctx->fill_* defaults).
-	g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
-	g_brush = 5;                      // default shape; reset per image (matches the
-									  // std-hires init ctx.BRUSH=5). Without this an
-									  // item overlay inherits the room's last op4
-									  // SET_SHAPE, drawing its brushes with the wrong
-									  // shape so the fills find no seed (e.g. the
-									  // OO-Topos prison-cell bottle/food went the
-									  // colour of the floor/table beneath them).
-	const uint8_t *p = data, *e = data + size;
-	int guard = 0;
-	while (p < e && guard++ < 100000) {
-#ifdef DHGR_WATCH
-		s_dhgrOpTag = (int)(p - data);
-#endif
-		uint8_t op = *p++;
-        uint8_t par = op & 0xf;
-        op >>= 4;
-        uint16_t x;
+	// renderer does at the end of gmDrawImage.
+	void end() { s_slow.syncIfNotRecording(); }
 
-		switch (op) {
-        case OPCODE_END:
-            return;
-        case OPCODE_SET_TEXT_POS:
-            x = *p++ + (par & 1 ? 256 : 0);
-            s_textX = (uint16_t)(x << 1);
-            s_textY = *p++;
-            break;
-        case OPCODE_SET_PEN_COLOR:
-            s_penColor = par;
-            break;
-        case OPCODE_TEXT_CHAR:
-            dhgr_draw_glyph(s_textX, s_textY, *p++, true);
-            s_textX += 14;
-            break;
-        case OPCODE_SET_SHAPE:
-            g_brush = par;
-            break;
-        case OPCODE_TEXT_OUTLINE:
-            dhgr_draw_glyph(s_textX, s_textY, *p++, false);
-            s_textX += 14;
-            break;
-        case OPCODE_SET_FILL_COLOR:
-            set_fill_color(*p++);
-            break;
-        case OPCODE_OP7: {
-            uint8_t i = *p++;
-            uint8_t v = *p++;
-            s_subidx[i] = v;
-        }
-            break; // op7: SET_PALETTE_SUBINDEX here
-        case OPCODE_MOVE_TO: {
-            x = *p++ + (par & 1 ? 256 : 0);
-            uint8_t y = *p++;
-            move_pen(x << 1, y);
-        }
-            break;
-        case OPCODE_DRAW_BOX: {
-            x = *p++ + (par & 1 ? 256 : 0);
-            uint8_t y = *p++;
-            uint16_t a = x << 1, b = y;
-            uint16_t x0 = s_penX;
-            uint8_t y0 = s_penY;
-            line(x0, (uint8_t)b);
-            line(a, (uint8_t)b);
-            line(a, y0);
-            line(x0, y0);
-            move_pen(a, (uint8_t)b);
-        }
-            break;
-        case OPCODE_DRAW_LINE: {
-            x = *p++ + (par & 1 ? 256 : 0);
-            uint8_t y = *p++;
-            line(x << 1, y);
-        }
-            break;
-        case OPCODE_DRAW_CIRCLE:
-            draw_circle(*p++);
-            break;
-        case OPCODE_DRAW_SHAPE: {
-            x = *p++ + (par & 1 ? 256 : 0);
-            uint8_t y = *p++;
-            draw_brush(x << 1, y, g_brush);
-        }
-            break;
-        case OPCODE_DELAY: {
-            uint8_t units = *p++;
-            s_slow.recordDelay(units);
-        }
-            break;
-        case OPCODE_PAINT: {
-            x = *p++ + (par & 1 ? 256 : 0);
-            uint8_t y = *p++;
-            flood_fill(x << 1, y);
-        }
-            break;
-        case OPCODE_RESET: // sub-op in low nibble
-            switch (par) {
-                case 0: // RLE bitmap (Coveted Mirror)
-                    rle_bitmap_dhgr(&p, e);
-                    break;
-                case 1: // bounds = full screen
-                    g_fillLeft = 0;
-                    g_fillTop = 0;
-                    g_fillRight = 39;
-                    g_fillBottom = 0x9f;
-                    break;
-                case 2: // read 4 bounds bytes
-                    g_fillRight = *p++;
-                    g_fillLeft = *p++;
-                    g_fillBottom = *p++;
-                    g_fillTop = *p++;
-                    break;
-                default: // param 3: fill the rectangle with the current pattern
-                    fill_rect();
-                    break;
-            }
-            break;
-        }
-    }
+	void beforeOp(const uint8_t *p, const uint8_t *, uint8_t, uint8_t) {
+#ifdef DHGR_WATCH
+		s_dhgrOpTag = (int)(p - 1 - base);
+#else
+		(void)p;
+#endif
+	}
+	void afterOp(uint8_t, uint8_t) {}
+
+	void setTextPos(uint16_t x, uint8_t y) { s_textX = x; s_textY = y; }
+	void drawText(uint8_t ch, bool normal) { dhgr_draw_glyph(s_textX, s_textY, ch, normal); }
+	void advanceText() { s_textX += 14; }
+	void setPen(uint8_t param) { s_penColor = param; }
+	void setShape(uint8_t param) { g_brush = param; }
+	void setFill(uint8_t b) { set_fill_color(b); }
+	bool op7(uint8_t i, uint8_t v) { s_subidx[i] = v; return false; }  // SET_PALETTE_SUBINDEX
+	void moveTo(uint16_t x, uint8_t y) { move_pen(x, y); }
+	void lineTo(uint16_t x, uint8_t y) { line(x, y); }
+	void circle(uint8_t radius) { draw_circle(radius); }
+	void drawBrush(uint16_t x, uint8_t y) { draw_brush(x, y, g_brush); }
+	void delay(uint8_t units) { s_slow.recordDelay(units); }
+	void paint(uint16_t x, uint8_t y) { flood_fill(x, y); }
+
+	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
+		switch (param) {
+		case 0: // RLE bitmap (Coveted Mirror)
+			rle_bitmap_dhgr(&p, e);
+			break;
+		case 1: // bounds = full screen
+			g_fillLeft = 0;
+			g_fillTop = 0;
+			g_fillRight = 39;
+			g_fillBottom = 0x9f;
+			break;
+		case 2: // read 4 bounds bytes
+			g_fillRight = *p++;
+			g_fillLeft = *p++;
+			g_fillBottom = *p++;
+			g_fillTop = *p++;
+			break;
+		default: // param 3: fill the rectangle with the current pattern
+			fill_rect();
+			break;
+		}
+		return false;
+	}
+};
+
+void gmDhgrDrawImage(const uint8_t *data, size_t size) {
+	DhgrRenderer r;
+	r.base = data;
+	gmRunStream(r, data, size);
 }
 
 static void blit_pages(const uint8_t *aux, const uint8_t *main, uint32_t *out, int w, int h) {
