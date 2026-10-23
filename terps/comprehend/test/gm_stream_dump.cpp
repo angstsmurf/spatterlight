@@ -183,6 +183,57 @@ static const Bind kBind = { gmpcjrResetScreen, gmpcjrDrawImage, gmpcjrSetSlowDra
 	gmpcjrSlowConsumeDirty, gmpcjrBlitToSurface, gmpcjrBlitSlowToSurface, 280, 160 };
 #endif
 
+// ---- Coveted Mirror panel (Apple pair only) -------------------------------
+// Capture / overlay / rebuild / hourglass / grain fall, interleaved with the
+// drawing so the slow reveal's panel-column skipping and the page copies are
+// exercised too.  Everything it observes goes into g_cmHash.
+static uint64_t g_cmHash = 14695981039346656037ull;
+#if defined(GMD_APPLE) || defined(GMD_DHGR)
+#include "cm_panel.h"
+#if defined(GMD_APPLE)
+#define CM(name) gm##name
+#define CM_FALL(name) gmCMHourglass##name
+#else
+#define CM(name) gmDhgr##name
+#define CM_FALL(name) gmDhgrCMHourglass##name
+#endif
+static int s_cmSand = 40;
+static void cmMix(const void *p, size_t n) { g_cmHash = fnv(g_cmHash, p, n); }
+static void cmOps() {
+	switch (rn(7)) {
+	case 0: CM(CaptureCMPanel)(24, 39); break;
+	case 1: CM(OverlayCMPanel)(); break;
+	case 2: s_cmSand = rn(77); CM(DrawCMHourglass)(s_cmSand); break;
+	case 3: if (s_cmSand > 0) s_cmSand--; CM(DrawCMHourglass)(s_cmSand); break;
+	case 4: {
+		CM(BeginCMPanelRebuild)();
+		std::vector<uint8_t> t = makeStream(false, false, false);
+		t.resize(t.size() + 8, 0);
+		kBind.draw(t.data(), t.size() - 8);
+		CM(EndCMPanelRebuild)();
+		break;
+	}
+	case 5: {
+		bool armed = gmCMHourglassConsumeFallArmed();
+		cmMix(&armed, sizeof(armed));
+		if (armed) {
+			CM_FALL(FallBegin)();
+			for (int i = 0; i < 12 && CM_FALL(FallActive)(); i++) {
+				int y0 = -1, y1 = -1;
+				bool more = CM_FALL(FallStep)(&y0, &y1);
+				cmMix(&more, sizeof(more)); cmMix(&y0, sizeof(y0)); cmMix(&y1, sizeof(y1));
+				if (rn(9) == 0) { CM_FALL(FallAbort)(); break; }
+			}
+		}
+		break;
+	}
+	case 6: gmCMHourglassReset(); break;
+	}
+	bool valid = CM(CMPanelValid)();
+	cmMix(&valid, sizeof(valid));
+}
+#endif
+
 // ---- synthetic drawing tables ---------------------------------------------
 static void fillRandom(uint8_t *p, size_t n) {
 	for (size_t i = 0; i < n; i++) p[i] = (uint8_t)rnd();
@@ -267,6 +318,10 @@ static uint64_t hashBlit(uint64_t h, void (*blit)(uint32_t *, int, int), int w, 
 
 static void runCase(int idx, int variant, bool slow) {
 	const bool white = rn(2);
+#if defined(GMD_APPLE) || defined(GMD_DHGR)
+	gmCMHourglassReset();
+	g_cmHash = 14695981039346656037ull;
+#endif
 	kBind.reset(white);
 	kBind.setSlow(slow);
 	uint64_t slowHash = 14695981039346656037ull;
@@ -295,6 +350,11 @@ static void runCase(int idx, int variant, bool slow) {
 			for (size_t i = 0; i < size; i++) fprintf(stderr, " %02x", s[i]);
 			fprintf(stderr, "\n");
 		}
+#if defined(GMD_APPLE) || defined(GMD_DHGR)
+		if (!getenv("GMD_EXACT"))
+			for (int k = rn(3); k > 0; k--)
+				cmOps();
+#endif
 		if (getenv("GMD_EXACT")) {
 			uint8_t *exact = new uint8_t[size ? size : 1];
 			memcpy(exact, s.data(), size);
@@ -326,8 +386,9 @@ static void runCase(int idx, int variant, bool slow) {
 	fin = fnv(fin, gmDhgrMainPtr(), 0x2000);
 	fin = fnv(fin, gmDhgrAuxPtr(), 0x2000);
 #endif
-	printf("%d v%d s%d %016llx %016llx\n", idx, variant, slow ? 1 : 0,
-		   (unsigned long long)fin, (unsigned long long)slowHash);
+	printf("%d v%d s%d %016llx %016llx %016llx\n", idx, variant, slow ? 1 : 0,
+		   (unsigned long long)fin, (unsigned long long)slowHash,
+		   (unsigned long long)g_cmHash);
 }
 
 int main(int argc, char **argv) {
