@@ -476,8 +476,8 @@ struct AppleRenderer {
 		c.pat_odd = s_colorPatternSubindices[(uint8_t)(idx * 2 + 1)];
 	}
 	// Talisman: op7 is a 2-operand no-op; the older dialect ends the image on it.
-	bool op7(const uint8_t *&p) {
-		if (s_legacyFormat)
+	bool op7(const uint8_t *&p, const uint8_t *e) {
+		if (s_legacyFormat || !gmHave(p, e, 2))
 			return true;
 		p += 2;
 		return false;
@@ -508,6 +508,8 @@ struct AppleRenderer {
 			return true;
 		switch (param) {
 		case 0: { // RLE-compressed bitmap rectangle (The Coveted Mirror; $0a3f)
+			if (!gmHave(ptr, end, 4))
+				return true;
 			// Reads 4 bounds bytes exactly like sub-op 2, then streams raw
 			// hi-res page bytes column-major (top->bottom within a column,
 			// then the next column). A 0x80 byte escapes a run: the next two
@@ -551,6 +553,8 @@ struct AppleRenderer {
 			c.fill_right = 39; c.fill_bottom = 0x9f;
 			break;
 		case 2: // read 4 bytes of bounds
+			if (!gmHave(ptr, end, 4))
+				return true;
 			c.fill_right = *ptr++;
 			c.fill_left = *ptr++;
 			c.fill_bottom = *ptr++;

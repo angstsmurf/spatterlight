@@ -26,7 +26,7 @@
  *   void setPen(param);            op2
  *   void setShape(param);          op4
  *   void setFill(b);               op6
- *   bool op7(p);                   op7: consume its own operands from `p` (the
+ *   bool op7(p, end);              op7: consume its own operands from `p` (the
  *                                  legacy Apple dialect consumes none); return
  *                                  true to end the image
  *   void moveTo(x, y);             op8  (x scaled)
@@ -38,6 +38,12 @@
  *   void paint(x, y);              op14 (x scaled)
  *   bool opReset(param, p, end);   op15: consume its own operands from `p`;
  *                                  return true to end the image
+ *
+ * Truncated streams: an opcode whose operands run past `end` ends the image
+ * without being executed (the loop used to read the bytes beyond the buffer).
+ * The dispatcher checks the operand count of the opcodes it decodes itself
+ * (gmOperandBytes); op7() and opReset() own theirs and must return true when
+ * fewer than they need remain (gmHave).
  *
  *   void beforeOp(p, end, op, param);  trace hook, after the command byte is
  *                                  read (`p` points at its first operand)
@@ -66,6 +72,33 @@ inline void gmReadXY(const uint8_t *&p, uint8_t param, uint16_t &x, uint8_t &y) 
 	y = *p++;
 }
 
+// True when at least `n` bytes remain between `p` and `end`.
+inline bool gmHave(const uint8_t *p, const uint8_t *end, size_t n) {
+	return (size_t)(end - p) >= n;
+}
+
+// Operand bytes of the opcodes the dispatcher decodes itself.  op7 and op15 take
+// a renderer-specific number, so they report 0 here and check for themselves.
+inline size_t gmOperandBytes(uint8_t op) {
+	switch (op) {
+	case OPCODE_SET_TEXT_POS:
+	case OPCODE_MOVE_TO:
+	case OPCODE_DRAW_BOX:
+	case OPCODE_DRAW_LINE:
+	case OPCODE_DRAW_SHAPE:
+	case OPCODE_PAINT:
+		return 2;
+	case OPCODE_TEXT_CHAR:
+	case OPCODE_TEXT_OUTLINE:
+	case OPCODE_SET_FILL_COLOR:
+	case OPCODE_DRAW_CIRCLE:
+	case OPCODE_DELAY:
+		return 1;
+	default:
+		return 0;
+	}
+}
+
 template <class R>
 inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 	const uint8_t *p = data;
@@ -80,6 +113,8 @@ inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 		uint8_t y;
 		bool done = false;
 
+		if (!gmHave(p, e, gmOperandBytes(op)))
+			break;                       // truncated operands: stop, do not execute
 		r.beforeOp(p, e, op, param);
 		switch (op) {
 		case OPCODE_END:
@@ -87,7 +122,7 @@ inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 			break;
 
 		case OPCODE_OP7:
-			done = r.op7(p);
+			done = r.op7(p, e);
 			break;
 
 		case OPCODE_SET_TEXT_POS:

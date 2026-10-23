@@ -34,7 +34,10 @@ struct Mock {
 	void setPen(uint8_t p) { add("pen %d", p); }
 	void setShape(uint8_t p) { add("shape %d", p); }
 	void setFill(uint8_t b) { add("fill %d", b); }
-	bool op7(const uint8_t *&p) { int i = p[0], v = p[1]; p += 2; add("op7 %d,%d", i, v); return op7Ends; }
+	bool op7(const uint8_t *&p, const uint8_t *e) {
+		if (!gmHave(p, e, 2)) return true;
+		int i = p[0], v = p[1]; p += 2; add("op7 %d,%d", i, v); return op7Ends;
+	}
 	void moveTo(uint16_t x, uint8_t y) { add("move %d,%d", x, y); px = x; py = y; }
 	void lineTo(uint16_t x, uint8_t y) { add("line %d,%d", x, y); px = x; py = y; }
 	void circle(uint8_t r) { add("circle %d", r); }
@@ -104,6 +107,18 @@ int main() {
 		Mock n;
 		n.resetEnds = true;
 		check("reset-end", n, { 0xf1, 0x41 }, "begin;reset 1;end;");
+	}
+	{   // truncated operands end the image without executing the op, whichever op
+		Mock m;
+		check("trunc-xy", m, { 0x41, 0xa0, 0x10 }, "begin;shape 1;end;");
+		Mock n;
+		check("trunc-one", n, { 0x41, 0xb0 }, "begin;shape 1;end;");
+		Mock o;
+		check("trunc-text-pos-hi", o, { 0x11, 0x05 }, "begin;end;");
+		Mock q;
+		check("trunc-op7", q, { 0x41, 0x70, 0x01 }, "begin;shape 1;end;");
+		Mock t;
+		check("exact-ok", t, { 0xa0, 0x01, 0x02 }, "begin;line 1,2;end;");
 	}
 	{   // empty and runaway streams
 		Mock m;

@@ -3,7 +3,9 @@
 #   test/gm_stream_diff.sh <baseline-git-ref> [cases] [seed]
 # Builds test/gm_stream_dump.cpp once per renderer from <baseline-git-ref> (in a
 # temporary worktree) and once from the working tree, runs both and diffs the
-# output. Needs no game fixtures. Run from terps/comprehend.
+# output. Needs no game fixtures. Run from terps/comprehend.  Streams are never
+# truncated here (GMD_NO_TRUNCATE): well-formed input must render identically;
+# see test/gm_stream_exact.sh for the truncated-input check.
 set -e
 BASE=${1:?usage: $0 <baseline-git-ref> [cases] [seed]}
 CASES=${2:-300}
@@ -36,8 +38,8 @@ for r in APPLE DHGR CGA PCJR; do
 	esac
 	build "$OUT/base/$REL" GMD_$r "$OUT/base_$r" $srcs
 	build "$HERE" GMD_$r "$OUT/new_$r" $srcs
-	"$OUT/base_$r" "$CASES" "$SEED" > "$OUT/base_$r.txt"
-	"$OUT/new_$r"  "$CASES" "$SEED" > "$OUT/new_$r.txt"
+	GMD_NO_TRUNCATE=1 "$OUT/base_$r" "$CASES" "$SEED" > "$OUT/base_$r.txt"
+	GMD_NO_TRUNCATE=1 "$OUT/new_$r"  "$CASES" "$SEED" > "$OUT/new_$r.txt"
 	if cmp -s "$OUT/base_$r.txt" "$OUT/new_$r.txt"; then
 		echo "OK   $r ($(wc -l < "$OUT/new_$r.txt") cases)"
 	else

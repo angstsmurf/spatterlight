@@ -756,7 +756,9 @@ struct DhgrRenderer {
 	void setShape(uint8_t param) { g_brush = param; }
 	void setFill(uint8_t b) { set_fill_color(b); }
 	// SET_PALETTE_SUBINDEX
-	bool op7(const uint8_t *&p) {
+	bool op7(const uint8_t *&p, const uint8_t *e) {
+		if (!gmHave(p, e, 2))
+			return true;
 		const uint8_t i = *p++;
 		const uint8_t v = *p++;
 		s_subidx[i] = v;
@@ -781,6 +783,8 @@ struct DhgrRenderer {
 			g_fillBottom = 0x9f;
 			break;
 		case 2: // read 4 bounds bytes
+			if (!gmHave(p, e, 4))
+				return true;
 			g_fillRight = *p++;
 			g_fillLeft = *p++;
 			g_fillBottom = *p++;

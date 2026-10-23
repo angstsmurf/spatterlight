@@ -16,6 +16,19 @@
  *
  * Usage: gm_stream_dump [cases] [seed]     (default 300 cases, seed 1)
  * Run via test/gm_stream_diff.sh.
+ *
+ * Environment:
+ *   GMD_NO_TRUNCATE=1  never cut a stream short (the baseline comparison: a
+ *                      well-formed stream must render identically before and
+ *                      after a change; a truncated one may not -- it used to read
+ *                      past its buffer)
+ *   GMD_EXACT=1        hand each stream to the renderer in a heap block of
+ *                      EXACTLY its length, so AddressSanitizer flags any operand
+ *                      read past the end (test/gm_stream_exact.sh).  The Apple
+ *                      renderer is run without PAINT (and without its legacy
+ *                      variant): its flood fill reads past its own page on some
+ *                      streams, which is old behaviour and not about operands.
+ *   GMD_VERBOSE=1      print each stream's bytes to stderr
  */
 
 #include <cstdint>
@@ -96,6 +109,9 @@ static std::vector<uint8_t> makeStream(bool allowOp7, bool allowRle, bool allowO
 		case 11: s.push_back(0xb0); s.push_back((uint8_t)rn(40)); break;
 		case 13: s.push_back(0xd0); s.push_back((uint8_t)rn(20)); break;
 		case 14: {
+#if defined(GMD_APPLE)
+			if (getenv("GMD_EXACT")) break;     // Apple fill over-reads its page (see above)
+#endif
 			int px = cl * 7 + rn((cr - cl + 1) * 7), py = ct + rn(cb - ct + 1);
 			emitXY(s, 14, px, py);
 			break;
@@ -235,18 +251,33 @@ static void runCase(int idx, int variant, bool slow) {
 #else
 		const bool legacy = false;
 #endif
-		std::vector<uint8_t> s = makeStream(!legacy, !legacy, !legacy);
+		bool allowRle = !legacy;
+#if defined(GMD_APPLE)
+		if (getenv("GMD_EXACT"))
+			allowRle = false;     // leftover RLE bytes would run as ops, incl. PAINT
+#endif
+		std::vector<uint8_t> s = makeStream(!legacy, allowRle, !legacy);
 		// Pad so operand reads that run off a truncated tail stay inside the buffer.
 		size_t size = s.size();
-		if (rn(6) == 0 && size > 2)
-			size -= 1 + rn(2);                    // deliberate truncation
+		if (rn(6) == 0 && size > 2) {
+			const size_t cut = 1 + rn(2);          // deliberate truncation
+			if (!getenv("GMD_NO_TRUNCATE"))
+				size -= cut;
+		}
 		s.resize(s.size() + 8, 0);
 		if (getenv("GMD_VERBOSE")) {
 			fprintf(stderr, "case %d v%d s%d img%d:", idx, variant, slow ? 1 : 0, img);
 			for (size_t i = 0; i < size; i++) fprintf(stderr, " %02x", s[i]);
 			fprintf(stderr, "\n");
 		}
-		kBind.draw(s.data(), size);
+		if (getenv("GMD_EXACT")) {
+			uint8_t *exact = new uint8_t[size ? size : 1];
+			memcpy(exact, s.data(), size);
+			kBind.draw(exact, size);
+			delete[] exact;
+		} else {
+			kBind.draw(s.data(), size);
+		}
 	}
 	if (slow) {
 		int guard = 0;
@@ -283,6 +314,9 @@ int main(int argc, char **argv) {
 	for (int variant = 0; variant < 2; variant++) {
 #if defined(GMD_DHGR) || defined(GMD_PCJR)
 		if (variant == 1) break;
+#endif
+#if defined(GMD_APPLE)
+		if (variant == 1 && getenv("GMD_EXACT")) break;
 #endif
 		if (!installTables(variant)) {
 			fprintf(stderr, "table install failed\n");

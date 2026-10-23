@@ -1315,7 +1315,12 @@ struct CgaRenderer {
 	void setPen(uint8_t param) { pen_val = (param < 8) ? kPenTo2bpp[param] : 0; }
 	void setShape(uint8_t param) { brush = param; }
 	void setFill(uint8_t b) { fill_idx = b; }
-	bool op7(const uint8_t *&p) { p += 2; return false; }   // 2-operand no-op in Talisman
+	bool op7(const uint8_t *&p, const uint8_t *e) {   // 2-operand no-op in Talisman
+		if (!gmHave(p, e, 2))
+			return true;
+		p += 2;
+		return false;
+	}
 	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
 	void lineTo(uint16_t x, uint8_t y) {
 		draw_line(pen_x, pen_y, (int)x, (int)y, pen_val);
@@ -1348,7 +1353,7 @@ struct CgaRenderer {
 #endif
 	}
 
-	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *) {
+	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
 		if (s_v1) {
 			// v1 (PC_GRAPH.OVR 0x2de): op15 is flood-fill CLIP-RECT setup, not a
 			// rectangle paint.  param 0 = no-op; param 1 = reset the clip to the
@@ -1364,6 +1369,8 @@ struct CgaRenderer {
 				break;
 			default:
 				if (param >= 2) {
+					if (!gmHave(p, e, 4))
+						return true;
 					s_pfRightByte  = *p++;
 					s_pfLeftByte   = *p++;
 					s_pfBottomRow  = *p++;
@@ -1380,6 +1387,8 @@ struct CgaRenderer {
 			s_fill_right = 39; s_fill_bottom = 159;
 			break;
 		case 2: // read 4 bytes: right, left, bottom, top
+			if (!gmHave(p, e, 4))
+				return true;
 			s_fill_right  = *p++;
 			s_fill_left   = *p++;
 			s_fill_bottom = *p++;

@@ -387,7 +387,12 @@ struct PcjrRenderer {
 	void setPen(uint8_t param) { pen = (uint8_t)(param & 0xf); }
 	void setShape(uint8_t param) { brush = param; }
 	void setFill(uint8_t b) { fill_sel = b; }
-	bool op7(const uint8_t *&p) { p += 2; return false; }   // 2-operand no-op
+	bool op7(const uint8_t *&p, const uint8_t *e) {   // 2-operand no-op
+		if (!gmHave(p, e, 2))
+			return true;
+		p += 2;
+		return false;
+	}
 	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
 	void lineTo(uint16_t x, uint8_t y) {
 		draw_line(pen_x, pen_y, (int)x, (int)y, pen);
@@ -399,9 +404,12 @@ struct PcjrRenderer {
 	void delay(uint8_t units) { s_slow.recordDelay(units); }
 	void paint(uint16_t x, uint8_t y) { gmpcjr_flood_fill((int)x, (int)y, fill_sel); }
 	// op15 -- flood-fill clip setup (inert; consume operands)
-	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *) {
-		if (param >= 2)
+	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
+		if (param >= 2) {
+			if (!gmHave(p, e, 4))
+				return true;
 			p += 4;
+		}
 		return false;
 	}
 };
