@@ -26,7 +26,9 @@
  *   void setPen(param);            op2
  *   void setShape(param);          op4
  *   void setFill(b);               op6
- *   bool op7(i, v);                op7 operands; return true to end the image
+ *   bool op7(p);                   op7: consume its own operands from `p` (the
+ *                                  legacy Apple dialect consumes none); return
+ *                                  true to end the image
  *   void moveTo(x, y);             op8  (x scaled)
  *   void lineTo(x, y);             op10 and each DRAW_BOX edge: draw from the
  *                                  pen to (x,y), pen left at (x,y) (x scaled)
@@ -84,12 +86,9 @@ inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 			done = true;
 			break;
 
-		case OPCODE_OP7: {
-			const uint8_t i = *p++;
-			const uint8_t v = *p++;
-			done = r.op7(i, v);
+		case OPCODE_OP7:
+			done = r.op7(p);
 			break;
-		}
 
 		case OPCODE_SET_TEXT_POS:
 			gmReadXY(p, param, x, y);

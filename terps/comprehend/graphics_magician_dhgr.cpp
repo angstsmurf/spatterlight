@@ -755,7 +755,13 @@ struct DhgrRenderer {
 	void setPen(uint8_t param) { s_penColor = param; }
 	void setShape(uint8_t param) { g_brush = param; }
 	void setFill(uint8_t b) { set_fill_color(b); }
-	bool op7(uint8_t i, uint8_t v) { s_subidx[i] = v; return false; }  // SET_PALETTE_SUBINDEX
+	// SET_PALETTE_SUBINDEX
+	bool op7(const uint8_t *&p) {
+		const uint8_t i = *p++;
+		const uint8_t v = *p++;
+		s_subidx[i] = v;
+		return false;
+	}
 	void moveTo(uint16_t x, uint8_t y) { move_pen(x, y); }
 	void lineTo(uint16_t x, uint8_t y) { line(x, y); }
 	void circle(uint8_t radius) { draw_circle(radius); }

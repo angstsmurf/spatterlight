@@ -34,7 +34,7 @@ struct Mock {
 	void setPen(uint8_t p) { add("pen %d", p); }
 	void setShape(uint8_t p) { add("shape %d", p); }
 	void setFill(uint8_t b) { add("fill %d", b); }
-	bool op7(uint8_t i, uint8_t v) { add("op7 %d,%d", i, v); return op7Ends; }
+	bool op7(const uint8_t *&p) { int i = p[0], v = p[1]; p += 2; add("op7 %d,%d", i, v); return op7Ends; }
 	void moveTo(uint16_t x, uint8_t y) { add("move %d,%d", x, y); px = x; py = y; }
 	void lineTo(uint16_t x, uint8_t y) { add("line %d,%d", x, y); px = x; py = y; }
 	void circle(uint8_t r) { add("circle %d", r); }

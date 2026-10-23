@@ -387,7 +387,7 @@ struct PcjrRenderer {
 	void setPen(uint8_t param) { pen = (uint8_t)(param & 0xf); }
 	void setShape(uint8_t param) { brush = param; }
 	void setFill(uint8_t b) { fill_sel = b; }
-	bool op7(uint8_t, uint8_t) { return false; }   // 2-operand no-op
+	bool op7(const uint8_t *&p) { p += 2; return false; }   // 2-operand no-op
 	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
 	void lineTo(uint16_t x, uint8_t y) {
 		draw_line(pen_x, pen_y, (int)x, (int)y, pen);

@@ -1,5 +1,7 @@
 # TODO: one opcode dispatcher template for all four Graphics Magician renderers
 
+**Status (branch `gm-dispatcher`):** steps 0 to 6 are done. `gm_stream.h` holds `gmRunStream`, and all four renderers use it. Their output is byte-identical to the old interpreters in `test/gm_stream_diff.sh`. Remaining: step 7 (cleanup) is partly done, and step 8 (optional behaviour changes) is untouched. Differences from the plan below: `op7` is a `bool op7(const uint8_t *&p)` hook that consumes its own operands (the legacy Apple dialect must not read them), the trace hooks are `beforeOp`/`afterOp`, and the loop cap is 100000 for all four (CGA and PCjr used to stop at 99999).
+
 Follow-up to `TODO-graphics-magician-consolidation.md` (items A6 and B3). That file lists the duplication. This one is the step-by-step plan for the largest single piece: replacing the four hand-written opcode loops with one `gmRunStream<R>()`.
 
 Today's loops:

@@ -43,6 +43,7 @@
 #include "gm_vector.h"
 #include "gm_artifact.h"
 #include "slow_draw_page.h"     // shared progressive-reveal helper
+#include "gm_stream.h"          // shared opcode dispatcher
 #include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstring>
 
@@ -407,134 +408,104 @@ static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
 // per game via gmSetLegacyFormat().
 static bool s_legacyFormat = false;
 
-static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
-	const uint8_t *ptr = *outptr;
-	if (ptr >= end) return true;
+// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
+// the standard hi-res side of it.
+struct AppleRenderer {
+	a2_ctx c;
+
+	uint16_t scaleX(uint16_t x) const { return x; }
+	int penX() const { return c.gv.HGR_X; }
+	int penY() const { return c.gv.HGR_Y; }
+
+	void begin() {
+		// The op list is dropped by gmResetScreen() when a new page starts (room /
+		// dark / bright / title), NOT here: a scene is a room picture plus any item
+		// overlays, and the overlays must APPEND their bytes to the room's still-
+		// pending reveal so the whole composite is revealed in paint order. Clearing
+		// here would discard the room's not-yet-revealed bytes the moment the first
+		// item draws, leaving only the last picture animated on a blank page.
+		c = a2_ctx();
+		c.gv.screenmem = s_screenmem;
+		c.gv.write = gm_write_adapter;
+		c.gv.user = nullptr;
+		c.gv.pattern_data = s_patternData;
+		c.gv.brush_bitmaps = s_brushBitmaps;
+		gm_set_color(4, &c.gv);
+		gm_set_draw_position(140, 96, &c.gv);
+		// Default fill colour = idx $4d (the picture interpreter's init at $08a6),
+		// which FUN_0c92 maps to the $1132 even/odd sub-index pair.
+		c.pat_even = s_colorPatternSubindices[0x4d * 2];
+		c.pat_odd = s_colorPatternSubindices[0x4d * 2 + 1];
+		c.BRUSH = 5;
+		// Talisman clips fills to the picture rows (0..0x9f) and widens the rectangle
+		// via op15; the older dialect has no op15 and paints the whole screen, seeding
+		// its background fill in the bottom text rows (e.g. PAINT at y=191).
+		c.fill_left = 0; c.fill_top = 0; c.fill_right = 39;
+		c.fill_bottom = s_legacyFormat ? 0xbf : 0x9f;
+	}
+	// When not animating, keep the visible page in step with the final page so a
+	// later slow-drawn overlay composes onto the right background.
+	void end() { s_slow.syncIfNotRecording(); }
+
+	void beforeOp(const uint8_t *p, const uint8_t *end, uint8_t op, uint8_t) {
 #ifdef GM_TRACE
-	if (g_gmOnOp)
-		g_gmOnOp((int)(ptr - g_imgBase), ptr[0],
-			(ptr + 1 < end) ? ptr[1] : 0, (ptr + 2 < end) ? ptr[2] : 0,
-			ctx->gv.HGR_X, ctx->gv.HGR_Y);
-#endif
-	uint8_t opcode = *ptr++;
-	uint8_t param = opcode & 0xf;
-	opcode >>= 4;
-#ifdef GM_TRACE
-	{
+		if (g_gmOnOp)
+			g_gmOnOp((int)(p - 1 - g_imgBase), p[-1],
+				(p < end) ? p[0] : 0, (p + 1 < end) ? p[1] : 0,
+				c.gv.HGR_X, c.gv.HGR_Y);
 		// One tag per primitive (op >> 4), matching test/pixtest's opName order.
 		static const char kPrim[16] = {'.','t','p','c','s','o','f','.',
 									   'm','B','L','C','S','d','F','R'};
-		g_currentPrim = kPrim[opcode & 0xf];
-	}
+		g_currentPrim = kPrim[op & 0xf];
+#else
+		(void)p; (void)end; (void)op;
 #endif
-	uint16_t a, b;
+	}
+	void afterOp(uint8_t, uint8_t) {}
 
-	switch (opcode) {
-	case OPCODE_END: // 0 -- only op0 ends a Talisman image
-		*outptr = ptr;
-		return true;
-
-	case OPCODE_OP7: // 7 -- Talisman: 2-operand no-op; older dialect: end
-		if (s_legacyFormat) {
-			*outptr = ptr;
+	void setTextPos(uint16_t x, uint8_t y) { c.text_x = x; c.text_y = y; }
+	// op3 is solid (XOR) text, op5 pattern-blended text.
+	void drawText(uint8_t ch, bool normal) {
+		draw_text_glyph(c.text_x, c.text_y, ch, normal, c.pat_even, c.pat_odd);
+	}
+	void advanceText() { c.text_x += 7; }
+	void setPen(uint8_t param) { gm_set_color(param, &c.gv); }
+	void setShape(uint8_t param) { c.BRUSH = param; }
+	void setFill(uint8_t idx) {
+		c.pat_even = s_colorPatternSubindices[(uint8_t)(idx * 2)];
+		c.pat_odd = s_colorPatternSubindices[(uint8_t)(idx * 2 + 1)];
+	}
+	// Talisman: op7 is a 2-operand no-op; the older dialect ends the image on it.
+	bool op7(const uint8_t *&p) {
+		if (s_legacyFormat)
 			return true;
-		}
-		ptr += 2;
-		break;
-
-	case OPCODE_SET_TEXT_POS: // 1
-		ctx->text_x = (uint16_t)(*ptr++ + (param & 1 ? 256 : 0));
-		ctx->text_y = *ptr++;
-		break;
-
-	case OPCODE_SET_PEN_COLOR: // 2
-		gm_set_color(param, &ctx->gv);
-		break;
-
-	case OPCODE_TEXT_CHAR: // 3 -- solid (XOR) text
-		draw_text_glyph(ctx->text_x, ctx->text_y, *ptr++, true, ctx->pat_even, ctx->pat_odd);
-		ctx->text_x += 7;
-		break;
-
-	case OPCODE_TEXT_OUTLINE: // 5 -- pattern-blended text
-		draw_text_glyph(ctx->text_x, ctx->text_y, *ptr++, false, ctx->pat_even, ctx->pat_odd);
-		ctx->text_x += 7;
-		break;
-
-	case OPCODE_SET_SHAPE: // 4
-		ctx->BRUSH = param;
-		break;
-
-	case OPCODE_SET_FILL_COLOR: { // 6
-		uint8_t idx = *ptr++;
-		ctx->pat_even = s_colorPatternSubindices[(uint8_t)(idx * 2)];
-		ctx->pat_odd = s_colorPatternSubindices[(uint8_t)(idx * 2 + 1)];
-		break;
+		p += 2;
+		return false;
+	}
+	void moveTo(uint16_t x, uint8_t y) { gm_set_draw_position(x, y, &c.gv); }
+	void lineTo(uint16_t x, uint8_t y) { gm_draw_line(x, y, &c.gv); }
+	// op11: circle centred on the current pen position; op11 restores the centre
+	// afterwards ($0944->$0990).
+	void circle(uint8_t radius) {
+		uint16_t ccx = c.gv.HGR_X;
+		uint8_t ccy = c.gv.HGR_Y;
+		draw_circle(ccx, ccy, radius, &c);
+		gm_set_draw_position(ccx, ccy, &c.gv);
+	}
+	void drawBrush(uint16_t x, uint8_t y) {
+		gm_draw_brush(x, y, c.BRUSH, c.pat_even, c.pat_odd, &c.gv);
+	}
+	// Pause: no effect on the final page; paces the reveal.
+	void delay(uint8_t units) { s_slow.recordDelay(units); }
+	void paint(uint16_t x, uint8_t y) {
+		apple2_flood_fill(x, y, c.pat_even, c.pat_odd,
+			c.fill_left, c.fill_right, c.fill_top, c.fill_bottom);
 	}
 
-	case OPCODE_MOVE_TO: // 8
-		a = *ptr++ + (param & 1 ? 256 : 0);
-		b = *ptr++;
-		gm_set_draw_position(a, b, &ctx->gv);
-		break;
-
-	case OPCODE_DRAW_BOX: { // 9 -- rectangle, byte-faithful to op9 ($095b)
-		a = *ptr++ + (param & 1 ? 256 : 0);
-		b = *ptr++;
-		uint16_t x0 = ctx->gv.HGR_X;
-		uint8_t y0 = ctx->gv.HGR_Y;
-		// Four chained HLINEs around the rectangle (the four JSR $F53A calls).
-		gm_draw_line(x0, b, &ctx->gv);   // left edge   (x0,y0)->(x0,b)
-		gm_draw_line(a, b, &ctx->gv);    // bottom edge ->(a,b)
-		gm_draw_line(a, y0, &ctx->gv);   // right edge  ->(a,y0)
-		gm_draw_line(x0, y0, &ctx->gv);  // top edge    ->(x0,y0)
-		// op9 then falls through to $0990, which HPOSNs to the far corner, so the
-		// pen is left at (a,b) -- NOT the start corner. A following DRAW_LINE
-		// continues from there; omitting this shifted the next line by a few
-		// pixels (e.g. Talisman RA #1: 11 wrong bytes along one diagonal edge).
-		gm_set_draw_position(a, b, &ctx->gv);
-		break;
-	}
-
-	case OPCODE_DRAW_LINE: // 10
-		a = *ptr++ + (param & 1 ? 256 : 0);
-		b = *ptr++;
-		gm_draw_line(a, b, &ctx->gv);
-		break;
-
-	case OPCODE_DRAW_CIRCLE: { // 11 -- circle centred on the current pen position
-		uint8_t radius = *ptr++;
-		uint16_t ccx = ctx->gv.HGR_X;
-		uint8_t ccy = ctx->gv.HGR_Y;
-		draw_circle(ccx, ccy, radius, ctx);
-		gm_set_draw_position(ccx, ccy, &ctx->gv);   // op11 restores the centre ($0944->$0990)
-		break;
-	}
-
-	case OPCODE_DRAW_SHAPE: // 12
-		a = *ptr++ + (param & 1 ? 256 : 0);
-		b = *ptr++;
-		gm_draw_brush(a, b, ctx->BRUSH, ctx->pat_even, ctx->pat_odd, &ctx->gv);
-		break;
-
-	case OPCODE_DELAY: { // 13 -- pause (no effect on the final page; paces the reveal)
-		uint8_t units = *ptr++;
-		s_slow.recordDelay(units);
-		break;
-	}
-
-	case OPCODE_PAINT: // 14
-		a = *ptr++ + (param & 1 ? 256 : 0);
-		b = *ptr++;
-		apple2_flood_fill(a, b, ctx->pat_even, ctx->pat_odd,
-			ctx->fill_left, ctx->fill_right, ctx->fill_top, ctx->fill_bottom);
-		break;
-
-	case OPCODE_RESET: // 15 -- Talisman: sub-op in low nibble; older dialect: end
-		if (s_legacyFormat) {
-			*outptr = ptr;
+	// op15: Talisman sub-op in the low nibble; the older dialect ends the image.
+	bool opReset(uint8_t param, const uint8_t *&ptr, const uint8_t *end) {
+		if (s_legacyFormat)
 			return true;
-		}
 		switch (param) {
 		case 0: { // RLE-compressed bitmap rectangle (The Coveted Mirror; $0a3f)
 			// Reads 4 bounds bytes exactly like sub-op 2, then streams raw
@@ -547,8 +518,8 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 			uint8_t left   = *ptr++;
 			uint8_t bottom = *ptr++;
 			uint8_t top    = *ptr++;
-			ctx->fill_right = right; ctx->fill_left = left;
-			ctx->fill_bottom = bottom; ctx->fill_top = top;
+			c.fill_right = right; c.fill_left = left;
+			c.fill_bottom = bottom; c.fill_top = top;
 			int col = left, row = top;
 			bool done = false;
 			while (!done && ptr < end) {
@@ -576,24 +547,22 @@ static bool doImageOp(const uint8_t **outptr, const uint8_t *end, a2_ctx *ctx) {
 			break;
 		}
 		case 1: // bounds = full screen
-			ctx->fill_left = 0; ctx->fill_top = 0;
-			ctx->fill_right = 39; ctx->fill_bottom = 0x9f;
+			c.fill_left = 0; c.fill_top = 0;
+			c.fill_right = 39; c.fill_bottom = 0x9f;
 			break;
 		case 2: // read 4 bytes of bounds
-			ctx->fill_right = *ptr++;
-			ctx->fill_left = *ptr++;
-			ctx->fill_bottom = *ptr++;
-			ctx->fill_top = *ptr++;
+			c.fill_right = *ptr++;
+			c.fill_left = *ptr++;
+			c.fill_bottom = *ptr++;
+			c.fill_top = *ptr++;
 			break;
 		default: // param 3: fill the rectangle with the current pattern
-			fill_rect_pattern(ctx, ctx->pat_even, ctx->pat_odd);
+			fill_rect_pattern(&c, c.pat_even, c.pat_odd);
 			break;
 		}
-		break;
+		return false;
 	}
-	*outptr = ptr;
-	return false;
-}
+};
 
 // ---- Apple hi-res -> RGB --------------------------------------------------
 // The NTSC artifact-colour kernel (rotl4b / artifact_color_lut / apple2_palette
@@ -889,41 +858,8 @@ void gmDrawImage(const uint8_t *data, size_t size) {
 #ifdef GM_TRACE
 	g_imgBase = data;
 #endif
-	// The op list is dropped by gmResetScreen() when a new page starts (room /
-	// dark / bright / title), NOT here: a scene is a room picture plus any item
-	// overlays, and the overlays must APPEND their bytes to the room's still-
-	// pending reveal so the whole composite is revealed in paint order. Clearing
-	// here would discard the room's not-yet-revealed bytes the moment the first
-	// item draws, leaving only the last picture animated on a blank page.
-	a2_ctx ctx = {};
-	ctx.gv.screenmem = s_screenmem;
-	ctx.gv.write = gm_write_adapter;
-	ctx.gv.user = nullptr;
-	ctx.gv.pattern_data = s_patternData;
-	ctx.gv.brush_bitmaps = s_brushBitmaps;
-	gm_set_color(4, &ctx.gv);
-	gm_set_draw_position(140, 96, &ctx.gv);
-	// Default fill colour = idx $4d (the picture interpreter's init at $08a6),
-	// which FUN_0c92 maps to the $1132 even/odd sub-index pair.
-	ctx.pat_even = s_colorPatternSubindices[0x4d * 2];
-	ctx.pat_odd = s_colorPatternSubindices[0x4d * 2 + 1];
-	ctx.BRUSH = 5;
-	// Talisman clips fills to the picture rows (0..0x9f) and widens the rectangle
-	// via op15; the older dialect has no op15 and paints the whole screen, seeding
-	// its background fill in the bottom text rows (e.g. PAINT at y=191).
-	ctx.fill_left = 0; ctx.fill_top = 0; ctx.fill_right = 39;
-	ctx.fill_bottom = s_legacyFormat ? 0xbf : 0x9f;
-
-	const uint8_t *ptr = data;
-	const uint8_t *end = data + size;
-	bool done = false;
-	int guard = 0;
-	while (!done && ptr < end && guard++ < 100000)
-		done = doImageOp(&ptr, end, &ctx);
-
-	// When not animating, keep the visible page in step with the final page so a
-	// later slow-drawn overlay composes onto the right background.
-	s_slow.syncIfNotRecording();
+	AppleRenderer r;
+	gmRunStream(r, data, size);
 }
 
 void gmBlitToSurface(uint32_t *out, int w, int h) {

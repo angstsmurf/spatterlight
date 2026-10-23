@@ -1315,7 +1315,7 @@ struct CgaRenderer {
 	void setPen(uint8_t param) { pen_val = (param < 8) ? kPenTo2bpp[param] : 0; }
 	void setShape(uint8_t param) { brush = param; }
 	void setFill(uint8_t b) { fill_idx = b; }
-	bool op7(uint8_t, uint8_t) { return false; }   // 2-operand no-op in Talisman
+	bool op7(const uint8_t *&p) { p += 2; return false; }   // 2-operand no-op in Talisman
 	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
 	void lineTo(uint16_t x, uint8_t y) {
 		draw_line(pen_x, pen_y, (int)x, (int)y, pen_val);
