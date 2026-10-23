@@ -733,38 +733,111 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 #ifdef DHGR_WATCH
 		s_dhgrOpTag = (int)(p - data);
 #endif
-		uint8_t op = *p++; uint8_t par = op & 0xf; op >>= 4; uint16_t x;
+		uint8_t op = *p++;
+        uint8_t par = op & 0xf;
+        op >>= 4;
+        uint16_t x;
+
 		switch (op) {
-		case OPCODE_END: return;
-		case OPCODE_SET_TEXT_POS: { x = *p++ + (par & 1 ? 256 : 0);
-			s_textX = (uint16_t)(x << 1); s_textY = *p++; } break;
-		case OPCODE_SET_PEN_COLOR: s_penColor = par; break;
-		case OPCODE_TEXT_CHAR: dhgr_draw_glyph(s_textX, s_textY, *p++, true);  s_textX += 14; break;
-		case OPCODE_SET_SHAPE: g_brush = par; break;
-		case OPCODE_TEXT_OUTLINE: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;
-		case OPCODE_SET_FILL_COLOR: set_fill_color(*p++); break;
-		case OPCODE_OP7: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // op7: SET_PALETTE_SUBINDEX here
-		case OPCODE_MOVE_TO: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; move_pen(x << 1, y); } break;
-		case OPCODE_DRAW_BOX: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; uint16_t a = x << 1, b = y;
-			uint16_t x0 = s_penX; uint8_t y0 = s_penY;
-			line(x0, (uint8_t)b); line(a, (uint8_t)b); line(a, y0); line(x0, y0);
-			move_pen(a, (uint8_t)b); } break;
-		case OPCODE_DRAW_LINE: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;
-		case OPCODE_DRAW_CIRCLE: draw_circle(*p++); break;
-		case OPCODE_DRAW_SHAPE: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break;
-		case OPCODE_DELAY: { uint8_t units = *p++;
-			s_slow.recordDelay(units); } break;
-		case OPCODE_PAINT: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break;
-		case OPCODE_RESET: // sub-op in low nibble
-			if (par == 0) rle_bitmap_dhgr(&p, e);   // RLE bitmap (Coveted Mirror)
-			else if (par == 1) {                    // bounds = full screen
-				g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
-			} else if (par == 2) {                  // read 4 bounds bytes
-				g_fillRight = *p++; g_fillLeft = *p++; g_fillBottom = *p++; g_fillTop = *p++;
-			} else if (par == 3) fill_rect();       // fill background with pattern
-			break;
-		}
-	}
+        case OPCODE_END:
+            return;
+        case OPCODE_SET_TEXT_POS:
+            x = *p++ + (par & 1 ? 256 : 0);
+            s_textX = (uint16_t)(x << 1);
+            s_textY = *p++;
+            break;
+        case OPCODE_SET_PEN_COLOR:
+            s_penColor = par;
+            break;
+        case OPCODE_TEXT_CHAR:
+            dhgr_draw_glyph(s_textX, s_textY, *p++, true);
+            s_textX += 14;
+            break;
+        case OPCODE_SET_SHAPE:
+            g_brush = par;
+            break;
+        case OPCODE_TEXT_OUTLINE:
+            dhgr_draw_glyph(s_textX, s_textY, *p++, false);
+            s_textX += 14;
+            break;
+        case OPCODE_SET_FILL_COLOR:
+            set_fill_color(*p++);
+            break;
+        case OPCODE_OP7: {
+            uint8_t i = *p++;
+            uint8_t v = *p++;
+            s_subidx[i] = v;
+        }
+            break; // op7: SET_PALETTE_SUBINDEX here
+        case OPCODE_MOVE_TO: {
+            x = *p++ + (par & 1 ? 256 : 0);
+            uint8_t y = *p++;
+            move_pen(x << 1, y);
+        }
+            break;
+        case OPCODE_DRAW_BOX: {
+            x = *p++ + (par & 1 ? 256 : 0);
+            uint8_t y = *p++;
+            uint16_t a = x << 1, b = y;
+            uint16_t x0 = s_penX;
+            uint8_t y0 = s_penY;
+            line(x0, (uint8_t)b);
+            line(a, (uint8_t)b);
+            line(a, y0);
+            line(x0, y0);
+            move_pen(a, (uint8_t)b);
+        }
+            break;
+        case OPCODE_DRAW_LINE: {
+            x = *p++ + (par & 1 ? 256 : 0);
+            uint8_t y = *p++;
+            line(x << 1, y);
+        }
+            break;
+        case OPCODE_DRAW_CIRCLE:
+            draw_circle(*p++);
+            break;
+        case OPCODE_DRAW_SHAPE: {
+            x = *p++ + (par & 1 ? 256 : 0);
+            uint8_t y = *p++;
+            draw_brush(x << 1, y, g_brush);
+        }
+            break;
+        case OPCODE_DELAY: {
+            uint8_t units = *p++;
+            s_slow.recordDelay(units);
+        }
+            break;
+        case OPCODE_PAINT: {
+            x = *p++ + (par & 1 ? 256 : 0);
+            uint8_t y = *p++;
+            flood_fill(x << 1, y);
+        }
+            break;
+        case OPCODE_RESET: // sub-op in low nibble
+            switch (par) {
+                case 0: // RLE bitmap (Coveted Mirror)
+                    rle_bitmap_dhgr(&p, e);
+                    break;
+                case 1: // bounds = full screen
+                    g_fillLeft = 0;
+                    g_fillTop = 0;
+                    g_fillRight = 39;
+                    g_fillBottom = 0x9f;
+                    break;
+                case 2: // read 4 bounds bytes
+                    g_fillRight = *p++;
+                    g_fillLeft = *p++;
+                    g_fillBottom = *p++;
+                    g_fillTop = *p++;
+                    break;
+                default: // param 3: fill the rectangle with the current pattern
+                    fill_rect();
+                    break;
+            }
+            break;
+        }
+    }
 }
 
 static void blit_pages(const uint8_t *aux, const uint8_t *main, uint32_t *out, int w, int h) {

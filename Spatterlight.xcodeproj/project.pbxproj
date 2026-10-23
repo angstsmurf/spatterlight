@@ -181,7 +181,6 @@
 		6DC6213D23A26078002DEF3B /* Ifid.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213C23A26078002DEF3B /* Ifid.m */; };
 		6DC6214023A26078002DEF3B /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DC6213F23A26078002DEF3B /* Image.m */; };
 		6DC79A832455AD4800CD9989 /* hecugel.c in Sources */ = {isa = PBXBuildFile; fileRef = 6DC79A822455AD4800CD9989 /* hecugel.c */; };
-		F27E88D5E944AF849CE40D3F /* hecugel_sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 5EB0FAA543D593C040A81574 /* hecugel_sound.c */; };
 		6DCDD44C23104AC4006715DD /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 6DCDD44B23104AC4006715DD /* fonts */; };
 		6DCDF48A244CD97100EB5D3B /* Spatterlight.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 6DCDF488244CD97100EB5D3B /* Spatterlight.xcdatamodeld */; };
 		6DCFFC2722BCD1BB0035FA99 /* Fonts License.rtf in Copy Documentation Files */ = {isa = PBXBuildFile; fileRef = 6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */; };
@@ -1139,6 +1138,7 @@
 		EB9C3DB138A9783B89C8598F /* os_glk_a5.cpp in Sources */ = {isa = PBXBuildFile; fileRef = EDEB8DB195E94097A8C4FD1A /* os_glk_a5.cpp */; };
 		F003B9A431A26F5B18363EFC /* question-panes.cc in Sources */ = {isa = PBXBuildFile; fileRef = 590D911A50D862B9538A05DA /* question-panes.cc */; };
 		F1C1DC8B328A727F1723BE31 /* question-rooms.cc in Sources */ = {isa = PBXBuildFile; fileRef = B2AA4AA2C2B0729996055C32 /* question-rooms.cc */; };
+		F27E88D5E944AF849CE40D3F /* hecugel_sound.c in Sources */ = {isa = PBXBuildFile; fileRef = 5EB0FAA543D593C040A81574 /* hecugel_sound.c */; };
 		F346A70799DCE547CDEC5797 /* scrun_split.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 01E120DB9AF3E1E490C38748 /* scrun_split.cpp */; };
 		F472E875DFFA44EEBDBC9CB5 /* NSView+Categories.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D0828655AE94F68BE83A03E /* NSView+Categories.m */; };
 		F7A31CFACB95A62B9C116F67 /* scbattle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1B305C336D7D955664940307 /* scbattle.cpp */; };
@@ -1944,6 +1944,7 @@
 		5C1B1A000000000000000112 /* os_glk_platform.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_platform.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000114 /* scrun_match_run.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match_run.cpp; sourceTree = "<group>"; };
 		5C1B1A000000000000000116 /* scrun_match_refusal.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = scrun_match_refusal.cpp; sourceTree = "<group>"; };
+		5EB0FAA543D593C040A81574 /* hecugel_sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel_sound.c; path = heglk/hecugel_sound.c; sourceTree = "<group>"; };
 		61B9E932C2CED2870A3B8E4A /* Preferences+Zoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Preferences+Zoom.h"; sourceTree = "<group>"; };
 		61C07B573024065000388340 /* NowPlayingCoordinator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NowPlayingCoordinator.h; sourceTree = "<group>"; };
 		61C07B593024065800388340 /* NowPlayingCoordinator.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NowPlayingCoordinator.m; sourceTree = "<group>"; };
@@ -2055,7 +2056,6 @@
 		6DC6213E23A26078002DEF3B /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Image.h; path = coredata/Image.h; sourceTree = SOURCE_ROOT; };
 		6DC6213F23A26078002DEF3B /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Image.m; path = coredata/Image.m; sourceTree = SOURCE_ROOT; };
 		6DC79A822455AD4800CD9989 /* hecugel.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel.c; path = heglk/hecugel.c; sourceTree = "<group>"; };
-		5EB0FAA543D593C040A81574 /* hecugel_sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; name = hecugel_sound.c; path = heglk/hecugel_sound.c; sourceTree = "<group>"; };
 		6DCDD44B23104AC4006715DD /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		6DCDF489244CD97100EB5D3B /* Spatterlight.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Spatterlight.xcdatamodel; sourceTree = "<group>"; };
 		6DCFFC2022BCD1730035FA99 /* Fonts License.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = "Fonts License.rtf"; sourceTree = "<group>"; };
@@ -5923,16 +5923,16 @@
 				C314D7EC2FD6D1BA00EABA28 /* file_buf.cpp */,
 				C314D7EE2FD6D1BA00EABA28 /* game.h */,
 				C314D7EF2FD6D1BA00EABA28 /* game.cpp */,
-				C314D7F12FD6D1BA00EABA28 /* game_cc.h */,
-				C314D7F22FD6D1BA00EABA28 /* game_cc.cpp */,
 				C314D7F42FD6D1BA00EABA28 /* game_data.h */,
 				C314D7F52FD6D1BA00EABA28 /* game_data.cpp */,
+				C314D7FA2FD6D1BA00EABA28 /* game_opcodes.h */,
+				C314D7FB2FD6D1BA00EABA28 /* game_opcodes.cpp */,
+				C314D7F12FD6D1BA00EABA28 /* game_cc.h */,
+				C314D7F22FD6D1BA00EABA28 /* game_cc.cpp */,
 				C314D7F72FD6D1BA00EABA28 /* game_oo.h */,
 				C314D7F82FD6D1BA00EABA28 /* game_oo.cpp */,
 				CADE0002CADE0002CADE0002 /* game_cm.h */,
 				CADE0003CADE0003CADE0003 /* game_cm.cpp */,
-				C314D7FA2FD6D1BA00EABA28 /* game_opcodes.h */,
-				C314D7FB2FD6D1BA00EABA28 /* game_opcodes.cpp */,
 				C314D7FD2FD6D1BA00EABA28 /* game_tm.h */,
 				C314D7FE2FD6D1BA00EABA28 /* game_tm.cpp */,
 				C314D8002FD6D1BA00EABA28 /* game_tr1.h */,
@@ -5943,10 +5943,10 @@
 				C314D8082FD6D1BA00EABA28 /* glkstart.c */,
 				C3A3F3022FDA411200FB7D3C /* graphics_magician.h */,
 				C3A3F3002FDA410900FB7D3C /* graphics_magician.cpp */,
-				C3A3F4A82FDAACF800FB7D3C /* graphics_magician_cga.h */,
-				C3A3F4A52FDAACED00FB7D3C /* graphics_magician_cga.cpp */,
 				C3DA60020000000000FB7D3C /* graphics_magician_dhgr.h */,
 				C3DA60000000000000FB7D3C /* graphics_magician_dhgr.cpp */,
+				C3A3F4A82FDAACF800FB7D3C /* graphics_magician_cga.h */,
+				C3A3F4A52FDAACED00FB7D3C /* graphics_magician_cga.cpp */,
 				C3DA60050000000000FB7D3C /* graphics_magician_pcjr.h */,
 				C3DA60030000000000FB7D3C /* graphics_magician_pcjr.cpp */,
 				C3DA61010000000000FB7D3C /* gm_backend.h */,
