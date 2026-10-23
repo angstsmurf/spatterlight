@@ -34,7 +34,7 @@
 
 #import "GlkController+Autorestore.h"
 #import "GlkController+BorderColor.h"
-#import "GlkController+CRTEffects.h"
+#import "CRTEffects.h"
 #import "GlkController+FullScreen.h"
 #import "GlkController+InterpreterGlue.h"
 #import "GlkController+GlkRequests.h"

@@ -5,6 +5,7 @@
 //  Created by Administrator on 2023-02-25.
 //
 
+#import "CRTEffects.h"
 #import "Theme.h"
 #import "GlkStyle.h"
 
@@ -40,6 +41,7 @@
     [super viewDidLoad];
     self.view.wantsLayer = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePreferencesChanged:) name:kPreferencesChangedNotification object:nil];
+    [[NSWorkspace sharedWorkspace].notificationCenter addObserver:self selector:@selector(updateCRTEffects) name:NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification object:nil];
 }
 
 - (void)fixScrollBar {
@@ -91,7 +93,13 @@
     _textHeight.constant = NSHeight(_sampleTextView.frame);
     _sampleTextView.backgroundColor = _theme.bufferBackground;
     self.view.layer.backgroundColor = _theme.bufferBackground.CGColor;
+    [self updateCRTEffects];
     self.view.needsLayout = YES;
+}
+
+- (void)updateCRTEffects {
+    [self.view updateCRTGlow:_theme.crtGlow];
+    [self.view updateCRTScanlines:_theme.crtScanlines];
 }
 
 - (CGFloat)calculateHeight {
