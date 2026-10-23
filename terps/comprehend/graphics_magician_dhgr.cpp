@@ -177,7 +177,8 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 bool gmDhgrHaveDrawingTables() { return s_tablesInstalled; }
 
 // ---- op6 SET_FILL_COLOR (the $0D1A builder) -----------------------------------
-static uint8_t curEven[8], curOdd[8];
+// The current fill pattern: one byte per column (mod 8), on even and odd scanlines.
+static uint8_t s_fillPatternEven[8], s_fillPatternOdd[8];
 static uint8_t g_brush = 5;
 
 static void set_fill_color(uint8_t color) {
@@ -185,18 +186,20 @@ static void set_fill_color(uint8_t color) {
 	uint8_t b0 = s_subtbl[(2 * idx) & 0x1ff];
 	uint8_t b1 = s_subtbl[(2 * idx + 1) & 0x1ff];
 	for (int y = 0; y < 8; y++) {
-		curEven[y] = s_pattern[((b0 << 3) + y) & 0x7ff];
-		curOdd[y]  = s_pattern[((b1 << 3) + y) & 0x7ff];
+		s_fillPatternEven[y] = s_pattern[((b0 << 3) + y) & 0x7ff];
+		s_fillPatternOdd[y]  = s_pattern[((b1 << 3) + y) & 0x7ff];
 	}
 }
 
 // ---- line subsystem -----------------------------------------------------------
-// Pen position: x doubled to the 560-wide raster (ZE1:ZE0), and y (ZE2).
-static uint8_t ZE0, ZE1, ZE2;
-static uint8_t Z1447 = 7;                      // pen colour (op2 SET_PEN_COLOR)
-static const uint8_t color4bit[8] = {0, 6, 9, 0xf, 0, 3, 0xc, 0};
+// Pen position: x doubled to the 560-wide raster, and y.
+static uint16_t s_penX;
+static uint8_t s_penY;
+static uint8_t s_penColor = 7;                 // op2 SET_PEN_COLOR
+// The 4-pixel pattern each colour pen draws (see plot_pen).
+static const uint8_t PEN_COLOR_PATTERN[8] = {0, 6, 9, 0xf, 0, 3, 0xc, 0};
 
-static void posn(uint16_t xd, uint8_t y) { ZE0 = xd & 0xff; ZE1 = xd >> 8; ZE2 = y; }
+static void move_pen(uint16_t xd, uint8_t y) { s_penX = xd; s_penY = y; }
 
 // Set or clear one pixel of the 560-wide raster. Each run of 7 pixels is one
 // byte, alternating between the aux and main pages.
@@ -212,13 +215,13 @@ static void plot_pixel(int x, uint8_t y, bool set) {
 // Pens 4 (black) and 7 (white) draw single pixels. Every other pen is a colour,
 // drawn as its 4-bit pattern (leftmost pixel = bit 3) across the aligned group
 // of four pixels containing x.
-static bool pen_is_mono() { return Z1447 == 4 || Z1447 == 7; }
+static bool pen_is_mono() { return s_penColor == 4 || s_penColor == 7; }
 static void plot_pen(int x, uint8_t y) {
 	if (pen_is_mono()) {
-		plot_pixel(x, y, Z1447 == 7);
+		plot_pixel(x, y, s_penColor == 7);
 		return;
 	}
-	uint8_t pattern = color4bit[Z1447 & 7];
+	uint8_t pattern = PEN_COLOR_PATTERN[s_penColor & 7];
 	x &= ~3;
 	for (int i = 0; i < 4; i++)
 		plot_pixel(x + i, y, pattern & (8 >> i));
@@ -239,8 +242,8 @@ static void line(uint16_t x2d, uint8_t y2) {
 	const int group = pen_is_mono() ? 1 : 4;
 	if (group == 4)
 		x2d &= ~3;
-	int x = ((ZE1 << 8) | ZE0) & ~(group - 1);
-	int y = ZE2;
+	int x = s_penX & ~(group - 1);
+	int y = s_penY;
 	const int xstep = (x2d > x) ? group : -group;
 	const int ystep = (y2 < y) ? -1 : 1;
 
@@ -267,16 +270,16 @@ static void line(uint16_t x2d, uint8_t y2) {
 			acc = (acc + r) % minor;
 		}
 	}
-	posn(x2d, y2);
+	move_pen(x2d, y2);
 }
 
 // ---- op12 brush ($105A) -------------------------------------------------------
-static const uint8_t DHGR_DBL[16] = {0x00, 0x03, 0x0c, 0x0f, 0x30, 0x33, 0x3c, 0x3f,
+static const uint8_t DHGR_DOUBLE_BITS[16] = {0x00, 0x03, 0x0c, 0x0f, 0x30, 0x33, 0x3c, 0x3f,
 									 0xc0, 0xc3, 0xcc, 0xcf, 0xf0, 0xf3, 0xfc, 0xff};
 static void brush_blit_col(int row, int col, uint8_t bits) {
 	if (!bits) return;
 	uint16_t base = CALC(row);
-	const uint8_t *pat = (row & 1) ? curOdd : curEven;
+	const uint8_t *pat = (row & 1) ? s_fillPatternOdd : s_fillPatternEven;
 	uint8_t v3 = (uint8_t)((bits | 0x80) & pat[col & 7]);
 	uint8_t mask = (uint8_t)(bits ^ 0x7f);
 	int a = base + (col >> 1); if (a < 0 || a >= A2_PAGE_SIZE) return;
@@ -303,7 +306,7 @@ static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 // ---- op11 DRAW_CIRCLE ---------------------------------------------------------
 //
 // Port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb). The centre is the current
-// pen position (ZE0/ZE1 doubled x, ZE2 y), which the circle leaves unchanged.
+// pen position (s_penX, s_penY), which the circle leaves unchanged.
 // The x extents run to +-2*radius and x is advanced at DOUBLE resolution (a plot
 // between two single x steps) while y advances at single resolution, so the
 // outline is round on the 560-wide raster AND gap-free. This matters for fill
@@ -331,7 +334,7 @@ static void circle_plot8(int cx, int cy, int ax, int ay, int bx, int by) {
 }
 static void draw_circle(uint8_t radius) {
 	if (radius == 0) return;
-	const int cx = (ZE1 << 8) | ZE0, cy = ZE2;
+	const int cx = s_penX, cy = s_penY;
 	int r = radius, d = r >> 1;
 	for (int i = 0;; ) {
 		circle_plot8(cx, cy, 2 * i, r, 2 * r, i);
@@ -384,13 +387,13 @@ static void glyph_blit_half(int row, int col, uint8_t half, int bit, bool normal
 }
 
 // Expand one source byte into its DHGR nibble-doubled 14-bit pattern -- two 7-bit
-// halves (left = cbf, right = cc0 with carry) via DHGR_DBL (FUN_0c8d) -- and blit
+// halves (left = cbf, right = cc0 with carry) via DHGR_DOUBLE_BITS (FUN_0c8d) -- and blit
 // both across three columns at (row, col..col+2). The shared core of the op12 brush
 // blitter (normal=false) and the op3/op5 glyph blitter (FUN_0c60 -> FUN_108e). A
 // zero byte expands to two empty halves, i.e. a no-op.
 static void dhgr_blit_byte(int row, int col, uint8_t b, int bit, bool normal) {
 	if (row < 0 || row > 0xbf) return;
-	uint8_t cc0 = DHGR_DBL[b >> 4], lo = DHGR_DBL[b & 0xf];
+	uint8_t cc0 = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
 	uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
 	glyph_blit_half(row, col,     lo,  bit, normal);   // left half (cbf)
 	glyph_blit_half(row, col + 1, cc0, bit, normal);   // right half (+carry)
@@ -449,7 +452,7 @@ struct DhgrFillPage {
 		if (off >= A2_PAGE_SIZE) return;
 		dhgr_put(col & 1 ? s_main : s_aux, off, v);
 	}
-	uint8_t pattern(int col) const { return (oddRow ? curOdd : curEven)[col & 7]; }
+	uint8_t pattern(int col) const { return (oddRow ? s_fillPatternOdd : s_fillPatternEven)[col & 7]; }
 };
 
 static DhgrFillPage s_fillPage;
@@ -468,7 +471,7 @@ static void flood_fill(uint16_t x, uint8_t y) {
 static void fill_rect() {
 	for (int row = 0; row <= 0x9f; row++) {
 		uint16_t base = CALC(row);
-		const uint8_t *pat = (row & 1) ? curOdd : curEven;
+		const uint8_t *pat = (row & 1) ? s_fillPatternOdd : s_fillPatternEven;
 		for (int col = 0; col <= 0x4f; col++)
 			dhgr_put(col & 1 ? s_main : s_aux, (uint16_t)(base + (col >> 1)), pat[col & 7]);
 	}
@@ -481,7 +484,7 @@ static void fill_rect() {
 // a run (next two bytes are count and value, written count+1 times); it stops
 // the moment the bottom-right cell is written. The one difference is the write:
 // the 6502 <D> routine ($0a7b) splits each source byte through the nibble-
-// doubling table (DHGR_DBL) into a main + aux byte and stores both at the same
+// doubling table (DHGR_DOUBLE_BITS) into a main + aux byte and stores both at the same
 // page offset (logical DHGR columns 2*col / 2*col+1) -- the same expansion the
 // brush blitter above performs. Without this, op15/0 used to fall through doing
 // nothing AND consuming no operand bytes, so the bounds+RLE stream was misparsed
@@ -511,7 +514,7 @@ static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 		while (reps--) {
 			uint16_t off = (uint16_t)(CALC(row) + col);
 			if (row <= 0x9f && col < 40 && off < A2_PAGE_SIZE) {
-				uint8_t hi = DHGR_DBL[b >> 4], lo = DHGR_DBL[b & 0xf];
+				uint8_t hi = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
 				uint8_t mainByte = (uint8_t)((hi << 1) | (lo >> 7));
 				uint8_t auxByte = (uint8_t)(lo & 0x7f);
 				dhgr_put(s_aux, off, auxByte);
@@ -712,7 +715,7 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 	// full-screen background many rooms paint), so it must see the defaults, not a
 	// previous room's patches (which turned e.g. the hill pink after the bazaar).
 	std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
-	Z1447 = 4; posn(140 * 2, 96);     // per-image draw init (pen colour 4, centre)
+	s_penColor = 4; move_pen(140 * 2, 96); // per-image draw init (pen colour 4, centre)
 	set_fill_color(0x4d);             // default fill colour
 	// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
 	// (matches the standard renderer's ctx->fill_* defaults).
@@ -735,17 +738,17 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 		case OPCODE_END: return;
 		case OPCODE_SET_TEXT_POS: { x = *p++ + (par & 1 ? 256 : 0);
 			s_textX = (uint16_t)(x << 1); s_textY = *p++; } break;
-		case OPCODE_SET_PEN_COLOR: Z1447 = par; break;
+		case OPCODE_SET_PEN_COLOR: s_penColor = par; break;
 		case OPCODE_TEXT_CHAR: dhgr_draw_glyph(s_textX, s_textY, *p++, true);  s_textX += 14; break;
 		case OPCODE_SET_SHAPE: g_brush = par; break;
 		case OPCODE_TEXT_OUTLINE: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;
 		case OPCODE_SET_FILL_COLOR: set_fill_color(*p++); break;
 		case OPCODE_OP7: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // op7: SET_PALETTE_SUBINDEX here
-		case OPCODE_MOVE_TO: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; posn(x << 1, y); } break;
+		case OPCODE_MOVE_TO: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; move_pen(x << 1, y); } break;
 		case OPCODE_DRAW_BOX: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; uint16_t a = x << 1, b = y;
-			uint16_t x0 = (ZE1 << 8) | ZE0; uint8_t y0 = ZE2;
+			uint16_t x0 = s_penX; uint8_t y0 = s_penY;
 			line(x0, (uint8_t)b); line(a, (uint8_t)b); line(a, y0); line(x0, y0);
-			posn(a, (uint8_t)b); } break;
+			move_pen(a, (uint8_t)b); } break;
 		case OPCODE_DRAW_LINE: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;
 		case OPCODE_DRAW_CIRCLE: draw_circle(*p++); break;
 		case OPCODE_DRAW_SHAPE: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break;
