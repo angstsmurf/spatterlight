@@ -30,6 +30,7 @@
 #include "graphics_magician_pcjr.h"
 #include "graphics_magician.h"         // Opcode enum
 #include "graphics_magician_vector.h"  // shared line/circle rasterizers
+#include "gm_stream.h"                 // shared opcode dispatcher
 #include "slow_draw_page.h"            // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
@@ -348,132 +349,63 @@ static void draw_glyph(int x, int y, uint8_t ch, bool invert, uint8_t fill_sel) 
 // param 1 resets the clip to the window, param >=2 reads 4 bytes.  Inert for the
 // shipped corpus; we consume the bytes to keep the stream aligned.
 
-// ---- Drawing context ---------------------------------------------------------
-struct PcjrCtx {
+// ---- Opcode interpreter ------------------------------------------------------
+// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
+// the PCjr side of it.
+struct PcjrRenderer {
 	int16_t  pen_x, pen_y;
 	uint8_t  pen;       // pen colour index (0-15; & 7 selects colLow/colHigh)
 	uint8_t  brush;     // brush index 0-7
 	uint8_t  fill_sel;  // op6 selector byte
 	uint16_t text_x;
 	uint8_t  text_y;
+
+	uint16_t scaleX(uint16_t x) const { return x; }
+	int penX() const { return pen_x; }
+	int penY() const { return pen_y; }
+
+	void begin() {
+		// The op list is dropped by gmpcjrResetScreen() when a new page starts, NOT
+		// here: item overlays must APPEND to the room's still-pending reveal so the
+		// whole scene reveals in paint order (see gmDrawImage for the full rationale).
+		pen      = 0;
+		pen_x    = 140;   // per-image init (JR_GRAPH 0xa33): pen (140,6), brush 5
+		pen_y    = 6;
+		brush    = 5;
+		fill_sel = 0;
+		text_x   = 140; text_y = 96;
+	}
+	void end() { s_slow.syncIfNotRecording(); }
+
+	void setTextPos(uint16_t x, uint8_t y) { text_x = x; text_y = y; }
+	// op3 inverts (black on white); op5 takes the fill pattern.
+	void drawText(uint8_t ch, bool normal) { draw_glyph(text_x, text_y, ch, normal, fill_sel); }
+	void advanceText() { text_x += 8; }
+	void setPen(uint8_t param) { pen = (uint8_t)(param & 0xf); }
+	void setShape(uint8_t param) { brush = param; }
+	void setFill(uint8_t b) { fill_sel = b; }
+	bool op7(uint8_t, uint8_t) { return false; }   // 2-operand no-op
+	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
+	void lineTo(uint16_t x, uint8_t y) {
+		draw_line(pen_x, pen_y, (int)x, (int)y, pen);
+		pen_x = (int16_t)x; pen_y = (int16_t)y;
+	}
+	void circle(uint8_t radius) { draw_circle(pen_x, pen_y, radius, pen); }
+	// Brush stamp one px left of the stream coordinate, like CGA.
+	void drawBrush(uint16_t x, uint8_t y) { draw_brush((int)x - 1, (int)y, brush, fill_sel); }
+	void delay(uint8_t units) { s_slow.recordDelay(units); }
+	void paint(uint16_t x, uint8_t y) { gmpcjr_flood_fill((int)x, (int)y, fill_sel); }
+	// op15 -- flood-fill clip setup (inert; consume operands)
+	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *) {
+		if (param >= 2)
+			p += 4;
+		return false;
+	}
 };
 
-// ---- Opcode interpreter ------------------------------------------------------
-static bool doImageOp(const uint8_t **ptr, const uint8_t *end, PcjrCtx *ctx) {
-	if (*ptr >= end) return true;
-	const uint8_t op_byte = *(*ptr)++;
-	const uint8_t param   = op_byte & 0xf;
-	const uint8_t op      = op_byte >> 4;
-	uint16_t a, b;
-
-	switch (op) {
-	case OPCODE_END:  // op0
-		return true;
-
-	case OPCODE_OP7: // op7: 2-operand no-op
-		*ptr += 2;
-		break;
-
-	case OPCODE_SET_TEXT_POS: // op1
-		ctx->text_x = (uint16_t)(*(*ptr)++ + (param & 1 ? 256 : 0));
-		ctx->text_y = *(*ptr)++;
-		break;
-
-	case OPCODE_SET_PEN_COLOR: // op2
-		ctx->pen = (uint8_t)(param & 0xf);
-		break;
-
-	case OPCODE_TEXT_CHAR: // op3 -- invert (black on white)
-		draw_glyph(ctx->text_x, ctx->text_y, *(*ptr)++, true, ctx->fill_sel);
-		ctx->text_x += 8;
-		break;
-
-	case OPCODE_TEXT_OUTLINE: // op5 -- fill-pattern text
-		draw_glyph(ctx->text_x, ctx->text_y, *(*ptr)++, false, ctx->fill_sel);
-		ctx->text_x += 8;
-		break;
-
-	case OPCODE_SET_SHAPE: // op4
-		ctx->brush = param;
-		break;
-
-	case OPCODE_SET_FILL_COLOR: // op6
-		ctx->fill_sel = *(*ptr)++;
-		break;
-
-	case OPCODE_MOVE_TO: // op8
-		ctx->pen_x = (int16_t)(*(*ptr)++ + (param & 1 ? 256 : 0));
-		ctx->pen_y = (int16_t)*(*ptr)++;
-		break;
-
-	case OPCODE_DRAW_BOX: { // op9 -- four chained lines; pen left at far corner
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		const int x0 = ctx->pen_x, y0 = ctx->pen_y;
-		draw_line(x0, y0, x0, (int)b, ctx->pen);
-		draw_line(x0, (int)b, (int)a, (int)b, ctx->pen);
-		draw_line((int)a, (int)b, (int)a, y0, ctx->pen);
-		draw_line((int)a, y0, x0, y0, ctx->pen);
-		ctx->pen_x = (int16_t)a; ctx->pen_y = (int16_t)b;
-		break;
-	}
-
-	case OPCODE_DRAW_LINE: // op10
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		draw_line(ctx->pen_x, ctx->pen_y, (int)a, (int)b, ctx->pen);
-		ctx->pen_x = (int16_t)a; ctx->pen_y = (int16_t)b;
-		break;
-
-	case OPCODE_DRAW_CIRCLE: // op11
-		draw_circle(ctx->pen_x, ctx->pen_y, *(*ptr)++, ctx->pen);
-		break;
-
-	case OPCODE_DRAW_SHAPE: // op12 -- brush stamp (one px left, like CGA)
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		draw_brush((int)a - 1, (int)b, ctx->brush, ctx->fill_sel);
-		break;
-
-	case OPCODE_DELAY: { // op13 -- pacing hint
-		uint8_t units = *(*ptr)++;
-		s_slow.recordDelay(units);
-		break;
-	}
-
-	case OPCODE_PAINT: // op14 -- flood fill from seed point
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		gmpcjr_flood_fill((int)a, (int)b, ctx->fill_sel);
-		break;
-
-	case OPCODE_RESET: // op15 -- flood-fill clip setup (inert; consume operands)
-		if (param >= 2)
-			*ptr += 4;
-		break;
-	}
-	return false;
-}
-
 void gmpcjrDrawImage(const uint8_t *data, size_t size) {
-	// The op list is dropped by gmpcjrResetScreen() when a new page starts, NOT
-	// here: item overlays must APPEND to the room's still-pending reveal so the
-	// whole scene reveals in paint order (see gmDrawImage for the full rationale).
-	PcjrCtx ctx = {};
-	ctx.pen      = 0;
-	ctx.pen_x    = 140;   // per-image init (JR_GRAPH 0xa33): pen (140,6), brush 5
-	ctx.pen_y    = 6;
-	ctx.brush    = 5;
-	ctx.fill_sel = 0;
-	ctx.text_x   = 140; ctx.text_y = 96;
-
-	const uint8_t *ptr = data;
-	const uint8_t *end = data + size;
-	int guard = 0;
-	while (ptr < end && ++guard < 100000)
-		if (doImageOp(&ptr, end, &ctx)) break;
-
-	s_slow.syncIfNotRecording();
+	PcjrRenderer r;
+	gmRunStream(r, data, size);
 }
 
 // ---- 16-colour -> RGBA conversion --------------------------------------------

@@ -85,7 +85,7 @@ clean:
 
 # Headers the stand-alone renderer tests depend on beyond the renderer's own
 # .h: the header-only pieces the renderers share, and the test helpers.
-GM_SHARED_H   := gm_span_fill.h cm_panel.h slow_draw_page.h graphics_magician_vector.h
+GM_SHARED_H   := gm_span_fill.h cm_panel.h slow_draw_page.h graphics_magician_vector.h gm_stream.h
 PIC_FIXTURE_H := test/pic_fixture_test.h
 
 # --- Regression test: Apple II Talisman renderer vs golden MAME hi-res pages ---
@@ -153,7 +153,10 @@ test/test_dhgr_pics: test/test_dhgr_pics.cpp $(PIC_FIXTURE_H) graphics_magician_
 test/test_dhgr_determinism: test/test_dhgr_determinism.cpp $(PIC_FIXTURE_H) graphics_magician_dhgr.cpp graphics_magician_dhgr.h graphics_magician.cpp graphics_magician.h $(GM_SHARED_H) $(SAGADRAW_SRCS)
 	$(CXX) -std=c++14 -O0 -g -Wall -I. -I$(SAGADRAW_DIR) -o $@ test/test_dhgr_determinism.cpp graphics_magician_dhgr.cpp graphics_magician.cpp $(SAGADRAW_SRCS)
 
-TESTS := test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics \
+test/test_gm_stream: gm_stream.h graphics_magician.h test/test_gm_stream.cpp
+	$(CXX) -std=c++14 -O0 -g -Wall -I. -o $@ test/test_gm_stream.cpp
+
+TESTS := test/test_gm_stream test/test_talisman_pics test/test_gmcga_pics test/test_gmcgav1_pics \
          test/rgbacrc test/cmdhgrtest test/titledhgrtest test/cmhourglasstest \
          test/test_dhgr_pics test/test_dhgr_determinism test/test_gmpcjr_pics
 
