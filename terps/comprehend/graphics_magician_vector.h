@@ -80,6 +80,38 @@ inline bool gmvLoadCharsetGda(uint8_t dst[96 * 8], const uint8_t *gda, size_t si
 	return true;
 }
 
+// Brush stamp (op12).  Each brush is 32 bytes = four 8x8 quadrants, laid out in the
+// DOS data as Q0 upper-left (+0), Q1 lower-left (+8), Q2 upper-right (+16), Q3
+// lower-right (+24), and drawn left column first, top half then bottom half.  The
+// renderer's `blit(bytes8, px, py)` paints one quadrant.  (The Apple double hi-res
+// renderer lays its quadrants out differently and does not use this.)
+template <typename Blit>
+inline void gmvStampBrush(const uint8_t *bitmaps, int x, int y, uint8_t brush, Blit blit) {
+	if (brush >= 8) return;
+	const uint8_t *base = &bitmaps[brush * 32];
+	blit(base,      x,     y);       // Q0 upper-left
+	blit(base + 8,  x,     y + 8);   // Q1 lower-left
+	blit(base + 16, x + 8, y);       // Q2 upper-right
+	blit(base + 24, x + 8, y + 8);   // Q3 lower-right
+}
+
+// Text glyph (op3/op5).  `font` holds chars 32-127, 8 MSB-first bytes each (bit 7 =
+// leftmost pixel); characters outside that range draw nothing.  pixel(px, py) is
+// called for every set glyph pixel in row-major order and does the renderer's own
+// clipping and plot (XOR for op3, fill pattern for op5).
+template <typename Pixel>
+inline void gmvDrawGlyph(const uint8_t *font, int x, int y, uint8_t ch, Pixel pixel) {
+	if (ch < 32 || ch >= 128) return;
+	const uint8_t *glyph = &font[(ch - 32) * 8];
+	for (int row = 0; row < 8; row++) {
+		const uint8_t b = glyph[row];
+		if (!b) continue;
+		for (int p = 0; p < 8; p++)
+			if ((b >> (7 - p)) & 1)
+				pixel(x + p, y + row);
+	}
+}
+
 // Major-axis Bresenham (PicDrawLineBresenham @0x2c00): the longer axis is
 // stepped every pixel; the error term (minor - major) decides when the minor
 // axis advances.  This exact formulation matters -- the symmetric two-axis

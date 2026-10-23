@@ -294,12 +294,8 @@ static void blit_quadrant(const uint8_t *bytes8, int px, int py, uint8_t fill_se
 }
 
 static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_sel) {
-	if (brush >= 8) return;
-	const uint8_t *base = &s_brushBitmaps[brush * 32];
-	blit_quadrant(base,      x,     y,     fill_sel); // Q0 upper-left
-	blit_quadrant(base + 8,  x,     y + 8, fill_sel); // Q1 lower-left
-	blit_quadrant(base + 16, x + 8, y,     fill_sel); // Q2 upper-right
-	blit_quadrant(base + 24, x + 8, y + 8, fill_sel); // Q3 lower-right
+	gmvStampBrush(s_brushBitmaps, x, y, brush,
+				  [fill_sel](const uint8_t *q, int px, int py) { blit_quadrant(q, px, py, fill_sel); });
 }
 
 // ---- Text glyph (op3 / op5) --------------------------------------------------
@@ -309,19 +305,10 @@ static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_sel) {
 // letters.  op5 (TEXT_OUTLINE): each set pixel takes the fill-pattern colour.
 // Glyph bytes are MSB-first; the text cursor advances 8 px/char.
 static void draw_glyph(int x, int y, uint8_t ch, bool invert, uint8_t fill_sel) {
-	if (ch < 32 || ch >= 128) return;
-	const uint8_t *glyph = &s_fontGlyphs[(ch - 32) * 8];
-	for (int row = 0; row < 8; row++) {
-		const uint8_t b = glyph[row];
-		if (!b) continue;
-		const int py = y + row;
-		for (int p = 0; p < 8; p++) {
-			if (!((b >> (7 - p)) & 1)) continue;
-			const int px = x + p;
-			if (invert) write_pixel(px, py, (uint8_t)(read_pixel(px, py) ^ 0x0f));
-			else        write_pixel(px, py, fill_pixel(fill_sel, px, py));
-		}
-	}
+	gmvDrawGlyph(s_fontGlyphs, x, y, ch, [invert, fill_sel](int px, int py) {
+		if (invert) write_pixel(px, py, (uint8_t)(read_pixel(px, py) ^ 0x0f));
+		else        write_pixel(px, py, fill_pixel(fill_sel, px, py));
+	});
 }
 
 // ---- op15 fill-rectangle / clip ----------------------------------------------

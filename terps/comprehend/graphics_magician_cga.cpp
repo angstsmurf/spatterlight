@@ -1120,12 +1120,8 @@ static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
 // half then bottom half.  The 8-bit glyph bytes are bit-doubled to 8 pixels.
 
 static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_idx) {
-	if (brush >= 8) return;
-	const uint8_t *base = &s_brushBitmaps[brush * 32];
-	blit_col(base,      x,     y,     fill_idx); // Q0: upper-left
-	blit_col(base + 8,  x,     y + 8, fill_idx); // Q1: lower-left
-	blit_col(base + 16, x + 8, y,     fill_idx); // Q2: upper-right
-	blit_col(base + 24, x + 8, y + 8, fill_idx); // Q3: lower-right
+	gmvStampBrush(s_brushBitmaps, x, y, brush,
+				  [fill_idx](const uint8_t *q, int px, int py) { blit_col(q, px, py, fill_idx); });
 }
 
 // ---- Text glyph (op3 TEXT_CHAR / op5 TEXT_OUTLINE) --------------------------
@@ -1140,26 +1136,14 @@ static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_idx) {
 // Glyph encoding matches the brush encoding (bit 7 = leftmost pixel).
 // Text cursor advances 8 pixels per character.
 
-static void draw_glyph(int x, int y, uint8_t ch, bool normal,
-						uint8_t pen_val, uint8_t fill_sel) {
-	(void)pen_val;
-	if (ch < 32 || ch >= 128) return;
-	const uint8_t *glyph = &s_fontGlyphs[(ch - 32) * 8];
-	for (int row = 0; row < 8; row++) {
-		const uint8_t b = glyph[row];
-		if (!b) continue;
-		const int py = y + row;
-		if ((unsigned)py >= GMCGA_HEIGHT) continue;
-		for (int p = 0; p < 8; p++) {
-			if (!((b >> (7 - p)) & 1)) continue;
-			const int px = x + p;
-			if ((unsigned)px >= GMCGA_WIDTH) continue;
-			const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py, px >> 2);
-			const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
-									   : (fb >> ((px & 3) << 1)) & 0x3;
-			write_2bpp(px, py, pix);
-		}
-	}
+static void draw_glyph(int x, int y, uint8_t ch, bool normal, uint8_t fill_sel) {
+	gmvDrawGlyph(s_fontGlyphs, x, y, ch, [normal, fill_sel](int px, int py) {
+		if ((unsigned)py >= GMCGA_HEIGHT || (unsigned)px >= GMCGA_WIDTH) return;
+		const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py, px >> 2);
+		const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
+								   : (fb >> ((px & 3) << 1)) & 0x3;
+		write_2bpp(px, py, pix);
+	});
 }
 
 // ---- op15 fill rectangle (OPCODE_RESET) -------------------------------------
@@ -1287,7 +1271,7 @@ struct CgaRenderer {
 	void setTextPos(uint16_t x, uint8_t y) { text_x = x; text_y = y; }
 	// op3 is solid (inverting) text, op5 takes the fill pattern.
 	void drawText(uint8_t ch, bool normal) {
-		draw_glyph(text_x, text_y, ch, normal, pen_val, fill_idx);
+		draw_glyph(text_x, text_y, ch, normal, fill_idx);
 	}
 	void advanceText() { text_x += 8; }
 	void setPen(uint8_t param) { pen_val = (param < 8) ? kPenTo2bpp[param] : 0; }
