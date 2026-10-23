@@ -24,6 +24,9 @@
 
 #include <cstdint>  // uint8_t, uint16_t
 #include <cstdlib>  // abs
+#include <cstring>  // memcmp
+#include <cstddef>  // size_t
+#include <cstdint>  // SIZE_MAX
 #include <utility>  // std::swap
 
 namespace Glk {
@@ -36,6 +39,45 @@ inline uint8_t gmvMirrorByte(uint8_t b) {
 	b = (uint8_t)(((b & 0xcc) >> 2) | ((b & 0x33) << 2));
 	b = (uint8_t)(((b & 0xaa) >> 1) | ((b & 0x55) << 1));
 	return b;
+}
+
+// Locate the 8 brush bitmaps (8 x 32 bytes) in a NOVEL.EXE / NOVEL1.EXE image.
+// Brush 5 (the filled-circle default) is found by its distinctive left column and
+// the table starts 5 * 32 bytes before it.  On success *base is the file offset of
+// brush 0 and the whole 256-byte table lies inside the image.  Shared by the CGA
+// v1 loader and the PCjr loader: both read the same brushes out of the same EXE.
+inline bool gmvFindBrushTable(const uint8_t *exe, size_t size, size_t *base) {
+	static const uint8_t kBrush5Sig[] = {
+		0x00,0x03,0x1f,0x3f,0x3f,0x3f,0x7f,0x7f,
+		0x7f,0x7f,0x3f,0x3f,0x3f,0x1f,0x03,0x00,
+	};
+	size_t b5 = SIZE_MAX;
+	for (size_t i = 0; i + sizeof(kBrush5Sig) <= size; i++) {
+		if (memcmp(exe + i, kBrush5Sig, sizeof(kBrush5Sig)) == 0) {
+			b5 = i;
+			break;
+		}
+	}
+	if (b5 == SIZE_MAX || b5 < 5 * 32 || (b5 - 5 * 32) + 256 > size)
+		return false;
+	*base = b5 - 5 * 32;
+	return true;
+}
+
+// Load the in-picture op3/op5 font (96 glyphs, chars 32-127, 8 bytes each) from a
+// CHARSET.GDA image: version word 0x1100, then the glyphs at offset 4 stored
+// LSB-first (bit 0 = leftmost pixel).  Each byte is reversed into the MSB-first
+// order both renderers' draw_glyph expects.  Returns false (dst untouched) if the
+// image is too short or has the wrong version.
+inline bool gmvLoadCharsetGda(uint8_t dst[96 * 8], const uint8_t *gda, size_t size) {
+	if (!gda || size < 4 + 96 * 8)
+		return false;
+	const uint16_t version = (uint16_t)(gda[0] | (gda[1] << 8));
+	if (version != 0x1100)
+		return false;
+	for (int i = 0; i < 96 * 8; i++)
+		dst[i] = gmvMirrorByte(gda[4 + i]);
+	return true;
 }
 
 // Major-axis Bresenham (PicDrawLineBresenham @0x2c00): the longer axis is

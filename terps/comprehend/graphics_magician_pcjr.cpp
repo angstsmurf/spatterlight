@@ -92,23 +92,11 @@ bool gmpcjrInstallDrawingTables(const uint8_t *ovr, size_t ovrSize,
 	std::memset(s_fillSubindex, 0, sizeof(s_fillSubindex));
 	std::memcpy(s_fillSubindex, ovr + subOff, 108 * 2);
 
-	// Brush bitmaps live in NOVEL.EXE, byte-identical to the CGA renderer:
-	// locate brush 5 (the filled-circle default) by its distinctive left column
-	// and step back to brush 0.
-	static const uint8_t kBrush5Sig[] = {
-		0x00,0x03,0x1f,0x3f,0x3f,0x3f,0x7f,0x7f,
-		0x7f,0x7f,0x3f,0x3f,0x3f,0x1f,0x03,0x00,
-	};
-	size_t b5 = SIZE_MAX;
-	for (size_t i = 0; i + sizeof(kBrush5Sig) <= exeSize; i++) {
-		if (std::memcmp(exe + i, kBrush5Sig, sizeof(kBrush5Sig)) == 0) {
-			b5 = i;
-			break;
-		}
-	}
-	if (b5 == SIZE_MAX || b5 < 5 * 32 || (b5 - 5 * 32) + sizeof(s_brushBitmaps) > exeSize)
+	// Brush bitmaps live in NOVEL.EXE, byte-identical to the CGA renderer.
+	size_t brushBase;
+	if (!gmvFindBrushTable(exe, exeSize, &brushBase))
 		return false;
-	std::memcpy(s_brushBitmaps, exe + (b5 - 5 * 32), sizeof(s_brushBitmaps));
+	std::memcpy(s_brushBitmaps, exe + brushBase, sizeof(s_brushBitmaps));
 
 	// No embedded picture font (as in v1 CGA): op3/op5 glyphs come from
 	// CHARSET.GDA via gmpcjrSetFont().  Leave zeroed until then.
@@ -119,15 +107,7 @@ bool gmpcjrInstallDrawingTables(const uint8_t *ovr, size_t ovrSize,
 }
 
 bool gmpcjrSetFont(const uint8_t *charsetGda, size_t size) {
-	if (!charsetGda || size < 4 + 96 * 8)
-		return false;
-	const uint16_t version = (uint16_t)(charsetGda[0] | (charsetGda[1] << 8));
-	if (version != 0x1100)
-		return false;
-	for (int idx = 0; idx < 96; idx++)
-		for (int row = 0; row < 8; row++)
-			s_fontGlyphs[idx * 8 + row] = gmvMirrorByte(charsetGda[4 + idx * 8 + row]);
-	return true;
+	return gmvLoadCharsetGda(s_fontGlyphs, charsetGda, size);
 }
 
 // ---- 16-colour framebuffer ---------------------------------------------------

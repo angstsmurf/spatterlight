@@ -466,21 +466,8 @@ bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
 
 	// Brush table in NOVEL.EXE: locate brush 5 (filled circle), whose left
 	// column (bytes 0-7) is a distinctive run, then step back to brush 0.
-	static const uint8_t kBrush5Sig[] = {
-		0x00,0x03,0x1f,0x3f,0x3f,0x3f,0x7f,0x7f,
-		0x7f,0x7f,0x3f,0x3f,0x3f,0x1f,0x03,0x00,
-	};
-	size_t b5 = SIZE_MAX;
-	for (size_t i = 0; i + sizeof(kBrush5Sig) <= exeSize; i++) {
-		if (std::memcmp(exe + i, kBrush5Sig, sizeof(kBrush5Sig)) == 0) {
-			b5 = i;
-			break;
-		}
-	}
-	if (b5 == SIZE_MAX || b5 < 5 * 32)
-		return false;
-	const size_t brushBase = b5 - 5 * 32;
-	if (brushBase + sizeof(s_brushBitmaps) > exeSize)
+	size_t brushBase;
+	if (!gmvFindBrushTable(exe, exeSize, &brushBase))
 		return false;
 	installV1Tables(ovr + patBase, ovr + patBase + kPatBytes, exe + brushBase);
 	return true;
@@ -517,17 +504,9 @@ void gmcgaInstallBuiltinDrawingTables(bool v1) {
 }
 
 bool gmcgaSetV1Font(const uint8_t *charsetGda, size_t size) {
-	if (!charsetGda || size < 4 + 96 * 8)
-		return false;
-	const uint16_t version = (uint16_t)(charsetGda[0] | (charsetGda[1] << 8));
-	if (version != 0x1100)
-		return false;
-	// charset.gda is LSB-first (bit 0 = leftmost); draw_glyph reads MSB-first,
-	// so reverse each glyph byte as we copy it in.
-	for (int idx = 0; idx < 96; idx++)
-		for (int row = 0; row < 8; row++)
-			s_fontGlyphs[idx * 8 + row] = gmvMirrorByte(charsetGda[4 + idx * 8 + row]);
-	return true;
+	// charset.gda is LSB-first (bit 0 = leftmost); draw_glyph reads MSB-first, so
+	// the loader reverses each glyph byte as it copies it in.
+	return gmvLoadCharsetGda(s_fontGlyphs, charsetGda, size);
 }
 
 // ---- 2-bpp (CGA) framebuffer -------------------------------------------------

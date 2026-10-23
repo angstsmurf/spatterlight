@@ -209,8 +209,33 @@ static bool installTables(int variant) {
 	fillRandom(t5.data(), t5.size());
 	return gmDhgrInstallDrawingTables(t5.data(), t5.size());
 #elif defined(GMD_CGA)
-	gmcgaInstallBuiltinDrawingTables(variant == 1);
-	return true;
+	if (variant == 0) {
+		gmcgaInstallBuiltinDrawingTables(false);
+		return true;
+	}
+	{   // v1: synthetic PC_GRAPH.OVR + NOVEL.EXE + CHARSET.GDA through the real loaders
+		static const uint8_t kPatSig[] = {
+			0x00,0x00,0x00,0x00, 0xaa,0xaa,0xaa,0xaa,
+			0x55,0x55,0x55,0x55, 0xff,0xff,0xff,0xff,
+		};
+		static const uint8_t kBrush5Sig[] = {
+			0x00,0x03,0x1f,0x3f,0x3f,0x3f,0x7f,0x7f,
+			0x7f,0x7f,0x3f,0x3f,0x3f,0x1f,0x03,0x00,
+		};
+		std::vector<uint8_t> ovr(32 + 120 + 218 + 16);
+		fillRandom(ovr.data(), ovr.size());
+		memcpy(&ovr[32], kPatSig, sizeof(kPatSig));
+		for (int i = 0; i < 218; i++) ovr[32 + 120 + i] = (uint8_t)rn(30);
+		std::vector<uint8_t> exe(1024);
+		fillRandom(exe.data(), exe.size());
+		memcpy(&exe[300 + 5 * 32], kBrush5Sig, sizeof(kBrush5Sig));
+		if (!gmcgaInstallV1DrawingTables(ovr.data(), ovr.size(), exe.data(), exe.size()))
+			return false;
+		std::vector<uint8_t> gda(4 + 96 * 8);
+		fillRandom(gda.data(), gda.size());
+		gda[0] = 0x00; gda[1] = 0x11;
+		return gmcgaSetV1Font(gda.data(), gda.size());
+	}
 #else
 	static const uint8_t kSig[] = { 0x00, 0x20, 0x0f, 0xf0 };
 	static const uint8_t kBrush5Sig[] = {
