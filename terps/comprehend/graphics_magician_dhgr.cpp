@@ -732,27 +732,27 @@ void gmDhgrDrawImage(const uint8_t *data, size_t size) {
 #endif
 		uint8_t op = *p++; uint8_t par = op & 0xf; op >>= 4; uint16_t x;
 		switch (op) {
-		case 0: return;                                   // END
-		case 1: { x = *p++ + (par & 1 ? 256 : 0);         // SET_TEXT_POS
+		case OPCODE_END: return;
+		case OPCODE_SET_TEXT_POS: { x = *p++ + (par & 1 ? 256 : 0);
 			s_textX = (uint16_t)(x << 1); s_textY = *p++; } break;
-		case 2: Z1447 = par; break;                       // SET_PEN_COLOR
-		case 3: dhgr_draw_glyph(s_textX, s_textY, *p++, true);  s_textX += 14; break;  // TEXT_CHAR
-		case 4: g_brush = par; break;                     // SET_SHAPE
-		case 5: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;  // TEXT_OUTLINE
-		case 6: set_fill_color(*p++); break;              // SET_FILL_COLOR
-		case 7: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // SET_PALETTE_SUBINDEX
-		case 8: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; posn(x << 1, y); } break;  // MOVE_TO
-		case 9: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; uint16_t a = x << 1, b = y; // DRAW_BOX
+		case OPCODE_SET_PEN_COLOR: Z1447 = par; break;
+		case OPCODE_TEXT_CHAR: dhgr_draw_glyph(s_textX, s_textY, *p++, true);  s_textX += 14; break;
+		case OPCODE_SET_SHAPE: g_brush = par; break;
+		case OPCODE_TEXT_OUTLINE: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;
+		case OPCODE_SET_FILL_COLOR: set_fill_color(*p++); break;
+		case OPCODE_END2: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // op7: SET_PALETTE_SUBINDEX here
+		case OPCODE_MOVE_TO: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; posn(x << 1, y); } break;
+		case OPCODE_DRAW_BOX: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; uint16_t a = x << 1, b = y;
 			uint16_t x0 = (ZE1 << 8) | ZE0; uint8_t y0 = ZE2;
 			line(x0, (uint8_t)b); line(a, (uint8_t)b); line(a, y0); line(x0, y0);
 			posn(a, (uint8_t)b); } break;
-		case 10: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;  // DRAW_LINE
-		case 11: draw_circle(*p++); break;                // DRAW_CIRCLE
-		case 12: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break; // DRAW_SHAPE
-		case 13: { uint8_t units = *p++;                  // DELAY
+		case OPCODE_DRAW_LINE: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;
+		case OPCODE_DRAW_CIRCLE: draw_circle(*p++); break;
+		case OPCODE_DRAW_SHAPE: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break;
+		case OPCODE_DELAY: { uint8_t units = *p++;
 			s_slow.recordDelay(units); } break;
-		case 14: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break; // PAINT
-		case 15: // RESET (sub-op in low nibble)
+		case OPCODE_PAINT: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break;
+		case OPCODE_RESET: // sub-op in low nibble
 			if (par == 0) rle_bitmap_dhgr(&p, e);   // RLE bitmap (Coveted Mirror)
 			else if (par == 1) {                    // bounds = full screen
 				g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
