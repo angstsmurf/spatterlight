@@ -120,6 +120,40 @@ int main() {
 		Mock t;
 		check("exact-ok", t, { 0xa0, 0x01, 0x02 }, "begin;line 1,2;end;");
 	}
+	{   // fill bounds: operand order right,left,bottom,top; short read consumes nothing
+		GmFillBounds b;
+		b.reset(0x9f);
+		const uint8_t full[] = { 9, 2, 55, 35 };
+		const uint8_t *p = full;
+		bool ok = b.read(p, full + 4);
+		if (!ok || p != full + 4 || b.right != 9 || b.left != 2 || b.bottom != 55 || b.top != 35) {
+			printf("FAIL fill bounds read\n");
+			s_fail++;
+		}
+		GmFillBounds c;
+		c.reset(0x9f);
+		p = full;
+		if (c.read(p, full + 3) || p != full || c.right != 39 || c.bottom != 0x9f) {
+			printf("FAIL fill bounds short read\n");
+			s_fail++;
+		}
+	}
+	{   // RLE bitmap: column major, 0x80 escape = count+1 copies, stops at the last cell
+		GmFillBounds b = { 1, 2, 10, 11 };           // left 1, right 2, top 10, bottom 11
+		const uint8_t data[] = { 0x11, 0x80, 0x01, 0x22, 0x33, 0x99 };  // 0x11, 2x0x22, 0x33
+		const uint8_t *p = data;
+		std::string cells;
+		gmDecodeRleBitmap(b, p, data + sizeof(data), [&](int row, int col, uint8_t v) {
+			char buf[32];
+			snprintf(buf, sizeof(buf), "%d,%d=%02x;", row, col, v);
+			cells += buf;
+		});
+		const char *want = "10,1=11;11,1=22;10,2=22;11,2=33;";
+		if (cells != want || p != data + 5) {
+			printf("FAIL rle\n  got:  %s\n  want: %s (consumed %d, want 5)\n", cells.c_str(), want, (int)(p - data));
+			s_fail++;
+		}
+	}
 	{   // empty and runaway streams
 		Mock m;
 		check("empty", m, {}, "begin;end;");

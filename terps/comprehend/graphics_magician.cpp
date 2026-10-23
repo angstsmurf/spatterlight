@@ -217,7 +217,7 @@ typedef struct {
 	// set by op6 SET_FILL_COLOR; default (3,3) = white.
 	uint8_t pat_even, pat_odd;
 	// op15 fill rectangle bounds (column 0..39, row 0..191)
-	uint8_t fill_left, fill_right, fill_top, fill_bottom;
+	GmFillBounds fill;
 	// op1 text cursor; op3/op5 draw a glyph here and advance text_x by 7
 	uint16_t text_x;
 	uint8_t text_y;
@@ -359,10 +359,10 @@ static void draw_circle(uint16_t cx, uint8_t cy, uint8_t radius, a2_ctx *ctx) {
 // ---- op15 background rectangle fill (Talisman variant) ------------------------
 
 static void fill_rect_pattern(a2_ctx *ctx, uint8_t pat_even, uint8_t pat_odd) {
-	for (int row = ctx->fill_top; row <= ctx->fill_bottom && row < APPLE2_SCREEN_HEIGHT; row++) {
+	for (int row = ctx->fill.top; row <= ctx->fill.bottom && row < APPLE2_SCREEN_HEIGHT; row++) {
 		uint16_t base = gm_row_address(row);
 		uint8_t pat_base = ((row & 1) ? pat_odd : pat_even) * 4;
-		for (int col = ctx->fill_left; col <= ctx->fill_right && col < APPLE2_SCREEN_COLS; col++)
+		for (int col = ctx->fill.left; col <= ctx->fill.right && col < APPLE2_SCREEN_COLS; col++)
 			write_screen(base + col, s_patternData[(col & 3) | pat_base]);
 	}
 }
@@ -410,8 +410,7 @@ struct AppleRenderer {
 		// Talisman clips fills to the picture rows (0..0x9f) and widens the rectangle
 		// via op15; the older dialect has no op15 and paints the whole screen, seeding
 		// its background fill in the bottom text rows (e.g. PAINT at y=191).
-		c.fill_left = 0; c.fill_top = 0; c.fill_right = 39;
-		c.fill_bottom = s_legacyFormat ? 0xbf : 0x9f;
+		c.fill.reset(s_legacyFormat ? 0xbf : 0x9f);
 	}
 	// When not animating, keep the visible page in step with the final page so a
 	// later slow-drawn overlay composes onto the right background.
@@ -469,7 +468,7 @@ struct AppleRenderer {
 	void delay(uint8_t units) { s_slow.recordDelay(units); }
 	void paint(uint16_t x, uint8_t y) {
 		apple2_flood_fill(x, y, c.pat_even, c.pat_odd,
-			c.fill_left, c.fill_right, c.fill_top, c.fill_bottom);
+			c.fill.left, c.fill.right, c.fill.top, c.fill.bottom);
 	}
 
 	// op15: Talisman sub-op in the low nibble; the older dialect ends the image.
@@ -477,58 +476,23 @@ struct AppleRenderer {
 		if (s_legacyFormat)
 			return true;
 		switch (param) {
-		case 0: { // RLE-compressed bitmap rectangle (The Coveted Mirror; $0a3f)
-			if (!gmHave(ptr, end, 4))
+		case 0: // RLE-compressed bitmap rectangle (The Coveted Mirror; $0a3f)
+			// Reads 4 bounds bytes exactly like sub-op 2, then streams raw hi-res page
+			// bytes (see gmDecodeRleBitmap); the handler returns the moment the
+			// bottom-right cell is written, even mid-run ($0a6e).
+			if (!c.fill.read(ptr, end))
 				return true;
-			// Reads 4 bounds bytes exactly like sub-op 2, then streams raw
-			// hi-res page bytes column-major (top->bottom within a column,
-			// then the next column). A 0x80 byte escapes a run: the next two
-			// bytes are count and value, written count+1 times. The handler
-			// returns the moment the bottom-right cell is written, even
-			// mid-run ($0a6e).
-			uint8_t right  = *ptr++;
-			uint8_t left   = *ptr++;
-			uint8_t bottom = *ptr++;
-			uint8_t top    = *ptr++;
-			c.fill_right = right; c.fill_left = left;
-			c.fill_bottom = bottom; c.fill_top = top;
-			int col = left, row = top;
-			bool done = false;
-			while (!done && ptr < end) {
-				uint8_t b = *ptr++;
-				int reps = 1;
-				if (b == 0x80) {
-					if (ptr + 2 > end) break;
-					reps = *ptr++ + 1;
-					b = *ptr++;
-				}
-				while (reps--) {
-					if (row < APPLE2_SCREEN_HEIGHT && col < APPLE2_SCREEN_COLS)
-						write_screen(gm_row_address(row) + col, b);
-					if (row != bottom) {
-						row++;
-					} else if (col == right) {
-						done = true;
-						break;
-					} else {
-						col++;
-						row = top;
-					}
-				}
-			}
+			gmDecodeRleBitmap(c.fill, ptr, end, [](int row, int col, uint8_t v) {
+				if (row < APPLE2_SCREEN_HEIGHT && col < APPLE2_SCREEN_COLS)
+					write_screen(gm_row_address(row) + col, v);
+			});
 			break;
-		}
 		case 1: // bounds = full screen
-			c.fill_left = 0; c.fill_top = 0;
-			c.fill_right = 39; c.fill_bottom = 0x9f;
+			c.fill.reset(0x9f);
 			break;
 		case 2: // read 4 bytes of bounds
-			if (!gmHave(ptr, end, 4))
+			if (!c.fill.read(ptr, end))
 				return true;
-			c.fill_right = *ptr++;
-			c.fill_left = *ptr++;
-			c.fill_bottom = *ptr++;
-			c.fill_top = *ptr++;
 			break;
 		default: // param 3: fill the rectangle with the current pattern
 			fill_rect_pattern(&c, c.pat_even, c.pat_odd);

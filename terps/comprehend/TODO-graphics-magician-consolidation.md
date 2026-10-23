@@ -9,7 +9,7 @@ Some consolidation is already done and is not repeated here. Both Apple files us
 
 Line numbers below are for the tree at commit `c26123b`.
 
-**Done on branch `gm-dispatcher`:** A6/B3 (the shared dispatcher `gm_stream.h`, see `TODO-graphics-magician-dispatcher.md`) and B1 (`gmvFindBrushTable`, `gmvLoadCharsetGda` in `graphics_magician_vector.h`; the generic `gmvFindSignature` was left out because the other scans each carry their own bounds logic). Everything else below is still open.
+**Done on branch `gm-dispatcher`:** A6/B3 (the shared dispatcher `gm_stream.h`, see `TODO-graphics-magician-dispatcher.md`) A1 (`gm_row_of_offset`/`gm_col_of_offset` in `gm_hires.h`, replacing the two tables), A2 (`GmFillBounds`), A3 (`gmDecodeRleBitmap`) and B1 (`gmvFindBrushTable`, `gmvLoadCharsetGda` in `graphics_magician_vector.h`; the generic `gmvFindSignature` was left out because the other scans each carry their own bounds logic). Everything else below is still open.
 
 ## Ground rules for every step
 

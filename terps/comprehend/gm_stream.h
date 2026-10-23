@@ -99,6 +99,61 @@ inline size_t gmOperandBytes(uint8_t op) {
 	}
 }
 
+// The op15 fill-clip rectangle: source byte columns (0..39) and picture rows.
+// Set to the full picture by op15/1, read from the stream by op15/2 (and by the
+// op15/0 RLE bitmap, which reads its bounds the same way).  Every renderer that
+// has op15 keeps one; `bottom` resets to the renderer's own last picture row.
+struct GmFillBounds {
+	uint8_t left, right, top, bottom;
+
+	void reset(uint8_t bottomRow) { left = 0; right = 39; top = 0; bottom = bottomRow; }
+
+	// Four operand bytes, in stream order: right, left, bottom, top.  Returns false
+	// (nothing consumed) if fewer than four remain.
+	bool read(const uint8_t *&p, const uint8_t *end) {
+		if (!gmHave(p, end, 4))
+			return false;
+		right = *p++;
+		left = *p++;
+		bottom = *p++;
+		top = *p++;
+		return true;
+	}
+};
+
+// op15/0: stream a run-length-compressed bitmap into the rectangle `b`, column
+// major (top to bottom within a column, then the next column).  A 0x80 byte
+// escapes a run: the next two bytes are count and value, written count+1 times.
+// It stops the moment the bottom-right cell is written, even mid-run.  The
+// renderer supplies the cell write: write(row, col, byte).
+template <class Write>
+inline void gmDecodeRleBitmap(const GmFillBounds &b, const uint8_t *&p,
+							  const uint8_t *end, Write write) {
+	int col = b.left, row = b.top;
+	bool done = false;
+	while (!done && p < end) {
+		uint8_t v = *p++;
+		int reps = 1;
+		if (v == 0x80) {
+			if (p + 2 > end) break;
+			reps = *p++ + 1;
+			v = *p++;
+		}
+		while (reps--) {
+			write(row, col, v);
+			if (row != b.bottom) {
+				row++;
+			} else if (col == b.right) {
+				done = true;
+				break;
+			} else {
+				col++;
+				row = b.top;
+			}
+		}
+	}
+}
+
 template <class R>
 inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 	const uint8_t *p = data;

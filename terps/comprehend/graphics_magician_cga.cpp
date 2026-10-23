@@ -1169,13 +1169,12 @@ static void draw_glyph(int x, int y, uint8_t ch, bool normal,
 // authored for the Apple screen layout.  Convert columns to pixel range:
 // Apple column c covers pixels [c*7 .. c*7+6], so pixel_right = (c+1)*7 - 1.
 
-static uint8_t s_fill_left = 0, s_fill_right = 39;
-static uint8_t s_fill_top = 0, s_fill_bottom = 159;
+static GmFillBounds s_fill = { 0, 39, 0, 159 };
 
 static void fill_rect(uint8_t fill_idx) {
-	const int lp = s_fill_left * 7;
-	const int rp = (s_fill_right + 1) * 7 - 1;
-	for (int y = s_fill_top; y <= s_fill_bottom && y < GMCGA_HEIGHT; y++)
+	const int lp = s_fill.left * 7;
+	const int rp = (s_fill.right + 1) * 7 - 1;
+	for (int y = s_fill.top; y <= s_fill.bottom && y < GMCGA_HEIGHT; y++)
 		fill_hline(y, lp, rp, fill_idx);
 }
 
@@ -1238,7 +1237,7 @@ struct CgaRenderer {
 		fill_idx = 0;    // cold-start fill selector 0 -> solid white (0xff);
 						 // matches NOVEL.EXE's statically-zeroed [0x9d46]
 		text_x   = 140; text_y = 96;
-		s_fill_left = 0; s_fill_top = 0; s_fill_right = 39; s_fill_bottom = 159;
+		s_fill.reset(159);
 		// Flood-fill clip rectangle resets to the picture window before each image
 		// (native FUN_2556); op15 may then narrow it (v1 only).
 		s_pfLeftByte = 4; s_pfRightByte = PF_RIGHT_BYTE;
@@ -1348,12 +1347,13 @@ struct CgaRenderer {
 				break;
 			default:
 				if (param >= 2) {
-					if (!gmHave(p, e, 4))
+					GmFillBounds clip;
+					if (!clip.read(p, e))
 						return true;
-					s_pfRightByte  = *p++;
-					s_pfLeftByte   = *p++;
-					s_pfBottomRow  = *p++;
-					s_pfTopRow     = *p++;
+					s_pfRightByte  = clip.right;
+					s_pfLeftByte   = clip.left;
+					s_pfBottomRow  = clip.bottom;
+					s_pfTopRow     = clip.top;
 				}
 				break; // param 0: nothing
 			}
@@ -1362,16 +1362,11 @@ struct CgaRenderer {
 		// v2 / Apple Talisman: op15 is the fill-rectangle opcode.
 		switch (param) {
 		case 1: // set rect to full picture area
-			s_fill_left = 0; s_fill_top = 0;
-			s_fill_right = 39; s_fill_bottom = 159;
+			s_fill.reset(159);
 			break;
 		case 2: // read 4 bytes: right, left, bottom, top
-			if (!gmHave(p, e, 4))
+			if (!s_fill.read(p, e))
 				return true;
-			s_fill_right  = *p++;
-			s_fill_left   = *p++;
-			s_fill_bottom = *p++;
-			s_fill_top    = *p++;
 			break;
 		default: // param 0 / 3: fill the rect with the current pattern
 			fill_rect(fill_idx);

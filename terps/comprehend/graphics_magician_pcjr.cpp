@@ -386,9 +386,9 @@ struct PcjrRenderer {
 	// op15 -- flood-fill clip setup (inert; consume operands)
 	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
 		if (param >= 2) {
-			if (!gmHave(p, e, 4))
+			GmFillBounds clip;
+			if (!clip.read(p, e))
 				return true;
-			p += 4;
 		}
 		return false;
 	}

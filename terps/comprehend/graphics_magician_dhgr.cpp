@@ -393,7 +393,7 @@ static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
 // the flood fill to this rectangle, exactly as the standard renderer does
 // (ctx->fill_*): without it a room whose floor opens toward the right edge -- the
 // Coveted Mirror prison tower -- leaks the fill up and over the whole picture.
-static uint8_t g_fillLeft, g_fillRight, g_fillTop, g_fillBottom;
+static GmFillBounds g_fill;
 
 // The span-fill engine is shared with the standard hi-res renderer
 // (gm_span_fill.h); this is the double hi-res page it runs on: 80 columns
@@ -440,8 +440,8 @@ static void flood_fill(uint16_t x, uint8_t y) {
 	// (0..0x4f); a source byte column B spans DHGR columns 2B and 2B+1, so the
 	// byte-column bounds double (left -> 2*left, right -> 2*right+1). Rows are not
 	// doubled. Matches the standard renderer, which clips PAINT to ctx->fill_*.
-	s_spanFill.fill(x, y, (uint8_t)(2 * g_fillLeft), (uint8_t)(2 * g_fillRight + 1),
-					g_fillTop, g_fillBottom);
+	s_spanFill.fill(x, y, (uint8_t)(2 * g_fill.left), (uint8_t)(2 * g_fill.right + 1),
+					g_fill.top, g_fill.bottom);
 }
 
 // op15 sub-op 3: fill the clip rectangle with the current fill pattern.
@@ -468,46 +468,24 @@ static void fill_rect() {
 // as opcodes and the picture collapsed to the white reset page.
 static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 	const uint8_t *p = *pp;
-	if (p + 4 > end) { *pp = end; return; }
-	uint8_t right = *p++, left = *p++, bottom = *p++, top = *p++;
-	// The real CM op15/0 reads these four bytes through gm_op15_read_bounds
+	// The real CM op15/0 reads its four bounds bytes through gm_op15_read_bounds
 	// (cm_ram_raw.bin @0x0a17), which is the SAME routine op15/2 uses: it stores
 	// them as the fill-clip rectangle (left/right/top/bottom). A later PAINT flood
 	// is clipped to this rectangle. The cupboard-door overlay (OE idx0) relies on
 	// this -- its only op15 is this RLE bitmap (rows 97..135), and the following
 	// fill=62 PAINT must not leak below row 135 onto the floor. (Rooms like RA idx2
 	// re-open the bounds with an explicit op15/2 after their RLE, so this is safe.)
-	g_fillRight = right; g_fillLeft = left; g_fillBottom = bottom; g_fillTop = top;
-	int col = left, row = top;
-	bool done = false;
-	while (!done && p < end) {
-		uint8_t b = *p++;
-		int reps = 1;
-		if (b == 0x80) {
-			if (p + 2 > end) break;
-			reps = *p++ + 1;
-			b = *p++;
+	if (!g_fill.read(p, end)) { *pp = end; return; }
+	gmDecodeRleBitmap(g_fill, p, end, [](int row, int col, uint8_t b) {
+		uint16_t off = (uint16_t)(CALC(row) + col);
+		if (row <= 0x9f && col < 40 && off < A2_PAGE_SIZE) {
+			uint8_t hi = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
+			uint8_t mainByte = (uint8_t)((hi << 1) | (lo >> 7));
+			uint8_t auxByte = (uint8_t)(lo & 0x7f);
+			dhgr_put(s_aux, off, auxByte);
+			dhgr_put(s_main, off, mainByte);
 		}
-		while (reps--) {
-			uint16_t off = (uint16_t)(CALC(row) + col);
-			if (row <= 0x9f && col < 40 && off < A2_PAGE_SIZE) {
-				uint8_t hi = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
-				uint8_t mainByte = (uint8_t)((hi << 1) | (lo >> 7));
-				uint8_t auxByte = (uint8_t)(lo & 0x7f);
-				dhgr_put(s_aux, off, auxByte);
-				dhgr_put(s_main, off, mainByte);
-			}
-			if (row != bottom) {
-				row++;
-			} else if (col == right) {
-				done = true;
-				break;
-			} else {
-				col++;
-				row = top;
-			}
-		}
-	}
+	});
 	*pp = p;
 }
 
@@ -701,7 +679,7 @@ struct DhgrRenderer {
 		set_fill_color(0x4d);             // default fill colour
 		// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
 		// (matches the standard renderer's ctx->fill_* defaults).
-		g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
+		g_fill.reset(0x9f);
 		g_brush = 5;                      // default shape; reset per image (matches the
 										  // std-hires init ctx.BRUSH=5). Without this an
 										  // item overlay inherits the room's last op4
@@ -753,18 +731,11 @@ struct DhgrRenderer {
 			rle_bitmap_dhgr(&p, e);
 			break;
 		case 1: // bounds = full screen
-			g_fillLeft = 0;
-			g_fillTop = 0;
-			g_fillRight = 39;
-			g_fillBottom = 0x9f;
+			g_fill.reset(0x9f);
 			break;
 		case 2: // read 4 bounds bytes
-			if (!gmHave(p, e, 4))
+			if (!g_fill.read(p, e))
 				return true;
-			g_fillRight = *p++;
-			g_fillLeft = *p++;
-			g_fillBottom = *p++;
-			g_fillTop = *p++;
 			break;
 		default: // param 3: fill the rectangle with the current pattern
 			fill_rect();
