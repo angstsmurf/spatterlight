@@ -44,6 +44,7 @@
 #include "gm_artifact.h"
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_stream.h"          // shared opcode dispatcher
+#include "gm_blit.h"            // shared 560-colour row sampling
 #include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstring>
 
@@ -519,12 +520,7 @@ static void screenmem_to_rgba(const uint8_t *src, uint32_t *out, int w, int h) {
 		gm_compute_row_words(vram_row, words);
 		uint8_t colors560[560];
 		gm_render_line_colors(words, colors560);
-		for (int x = 0; x < w; x++) {
-			int sx = (x * 560) / w;
-			if (sx > 559) sx = 559;
-			uint32_t rgb = gm_apple2_palette[colors560[sx] & 0x0f];
-			out[row * w + x] = (rgb << 8) | 0xff;
-		}
+		gmSampleRow560(colors560, out + row * w, w, false);
 	}
 }
 

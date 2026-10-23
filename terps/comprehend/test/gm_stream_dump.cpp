@@ -380,6 +380,13 @@ static void runCase(int idx, int variant, bool slow) {
 		slowHash = hashBlit(slowHash, kBind.blitSlow, kBind.w, kBind.h);
 	}
 	uint64_t fin = hashBlit(14695981039346656037ull, kBind.blit, kBind.w, kBind.h);
+	// other surface widths: the sampling differs below, at and above the native 560
+	static const int kExtraW[] = { 140, 280, 561, 700 };
+	for (int i = 0; i < 4; i++) {
+		fin = hashBlit(fin, kBind.blit, kExtraW[i], kBind.h / 2 + 3);
+		if (slow)
+			fin = hashBlit(fin, kBind.blitSlow, kExtraW[i], kBind.h / 2 + 3);
+	}
 #if defined(GMD_APPLE)
 	fin = fnv(fin, gmPagePtr(), 0x2000);
 #elif defined(GMD_DHGR)

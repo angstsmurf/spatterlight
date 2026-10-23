@@ -9,7 +9,14 @@ Some consolidation is already done and is not repeated here. Both Apple files us
 
 Line numbers below are for the tree at commit `c26123b`.
 
-**Done on branch `gm-dispatcher`:** A6/B3 (the shared dispatcher `gm_stream.h`, see `TODO-graphics-magician-dispatcher.md`) A1 (`gm_row_of_offset`/`gm_col_of_offset` in `gm_hires.h`, replacing the two tables), A2 (`GmFillBounds`), A3 (`gmDecodeRleBitmap`), A4's panel store (`CMPanelStore<Planes>` in `cm_panel.h`: capture, rebuild, overlay and reveal-skip for one or two planes; the hourglass arm state and grain-position function are still defined in `graphics_magician.cpp`, so the DHGR file still links against it) B2 (`gmvStampBrush`, `gmvDrawGlyph`) and B1 (`gmvFindBrushTable`, `gmvLoadCharsetGda` in `graphics_magician_vector.h`; the generic `gmvFindSignature` was left out because the other scans each carry their own bounds logic). Everything else below is still open.
+**Done on branch `gm-dispatcher`:** A6/B3 (the shared dispatcher `gm_stream.h`, see `TODO-graphics-magician-dispatcher.md`) A1 (`gm_row_of_offset`/`gm_col_of_offset` in `gm_hires.h`, replacing the two tables), A2 (`GmFillBounds`), A3 (`gmDecodeRleBitmap`), A4's panel store (`CMPanelStore<Planes>` in `cm_panel.h`: capture, rebuild, overlay and reveal-skip for one or two planes; the hourglass arm state and grain-position function are still defined in `graphics_magician.cpp`, so the DHGR file still links against it) B2 (`gmvStampBrush`, `gmvDrawGlyph`) and B1 (`gmvFindBrushTable`, `gmvLoadCharsetGda` in `graphics_magician_vector.h`; the generic `gmvFindSignature` was left out because the other scans each carry their own bounds logic). A7's sampling half is done too (`gmSampleRow560` in `gm_blit.h`).
+
+**Not done, and why:**
+- **A5 (slow-draw policy template):** after A1 and A4 each policy is a row lookup, a one-line adjacency test and a call to `CMPanelStore::skipsReveal`; a template over the plane count would be longer than the two structs it replaces.
+- **A7 reset:** the two reset functions differ in background byte and plane count, three lines each.
+- **B4 (flat-page shell for CGA/PCjr):** about ten lines per file; the pixel extraction and palette in `blit_page` differ, so only the memsets and forwarders would be shared.
+- **Part C:** `gm_backend.h` already is the table of entry points the host calls through. The per-prefix functions remain because the stand-alone tests call them directly.
+- **Hourglass arm state:** still defined in `graphics_magician.cpp`, so `graphics_magician_dhgr.cpp` still links against it. Moving it into `cm_panel.h` is possible but would only change the link line.
 
 ## Ground rules for every step
 

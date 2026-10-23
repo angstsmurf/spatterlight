@@ -30,6 +30,7 @@
 #include "gm_artifact.h"
 #include "gm_hires.h"
 #include "gm_stream.h"         // shared opcode dispatcher
+#include "gm_blit.h"           // shared 560-colour row sampling
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
 #include <cstdlib>
@@ -734,13 +735,8 @@ static void blit_pages(const uint8_t *aux, const uint8_t *main, uint32_t *out, i
 		uint8_t colors560[560];
 		gm_compute_dhgr_row_words(aux + base, main + base, words);
 		gm_render_dhgr_line_colors(words, colors560);
-		// 560 native DHGR columns sampled down to the surface width w.
-		for (int xx = 0; xx < w; xx++) {
-			int sx = (w >= 560) ? xx : (xx * 560) / w;
-			if (sx > 559) sx = 559;
-			uint32_t rgb = gm_apple2_palette[colors560[sx] & 0x0f];
-			out[row * w + xx] = (rgb << 8) | 0xff;
-		}
+		// 560 native DHGR columns sampled down to the surface width w (1:1 when wider).
+		gmSampleRow560(colors560, out + row * w, w, true);
 	}
 }
 
