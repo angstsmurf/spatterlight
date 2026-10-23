@@ -37,6 +37,13 @@
  *   bool opReset(param, p, end);   op15: consume its own operands from `p`;
  *                                  return true to end the image
  *
+ *   void beforeOp(p, end, op, param);  trace hook, after the command byte is
+ *                                  read (`p` points at its first operand)
+ *   void afterOp(op, param);       trace hook, after every op that did not end
+ *                                  the image
+ *
+ * The two trace hooks are empty for a renderer that has no debug tracing.
+ *
  * Header-only so every renderer .cpp stays a self-contained translation unit
  * for the offline test harnesses.
  */
@@ -71,6 +78,7 @@ inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 		uint8_t y;
 		bool done = false;
 
+		r.beforeOp(p, e, op, param);
 		switch (op) {
 		case OPCODE_END:
 			done = true;
@@ -159,6 +167,7 @@ inline void gmRunStream(R &r, const uint8_t *data, size_t size) {
 		}
 		if (done)
 			break;
+		r.afterOp(op, param);
 	}
 	r.end();
 }

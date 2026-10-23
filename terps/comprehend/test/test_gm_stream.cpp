@@ -24,6 +24,8 @@ struct Mock {
 		log += buf;
 		log += ';';
 	}
+	void beforeOp(const uint8_t *, const uint8_t *, uint8_t, uint8_t) {}
+	void afterOp(uint8_t, uint8_t) {}
 	void begin() { log += "begin;"; }
 	void end() { log += "end;"; }
 	void setTextPos(uint16_t x, uint8_t y) { add("tpos %d,%d", x, y); }

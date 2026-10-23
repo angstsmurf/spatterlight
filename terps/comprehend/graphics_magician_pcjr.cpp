@@ -364,6 +364,9 @@ struct PcjrRenderer {
 	int penX() const { return pen_x; }
 	int penY() const { return pen_y; }
 
+	void beforeOp(const uint8_t *, const uint8_t *, uint8_t, uint8_t) {}
+	void afterOp(uint8_t, uint8_t) {}
+
 	void begin() {
 		// The op list is dropped by gmpcjrResetScreen() when a new page starts, NOT
 		// here: item overlays must APPEND to the room's still-pending reveal so the
