@@ -121,6 +121,9 @@
         self.allowsEditingTextAttributes = NO;
         self.bezeled = NO;
         self.drawsBackground = NO;
+        // The field sits on a grid line of game text; a focus ring around it
+        // is noise there, and it can cover an underline caret (issue #39).
+        self.focusRingType = NSFocusRingTypeNone;
         self.selectable = YES;
         self.cell.wraps = YES;
         self.cell.accessibilityLabel = NSLocalizedString(@"input text field cell", nil);
