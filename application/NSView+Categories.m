@@ -123,7 +123,15 @@ static CaretShape caretShape(void) {
     return rect;
 }
 
-- (void)drawCaretShapeInRect:(NSRect)shapeRect color:(NSColor *)color {
+- (NSRect)drawCaretShapeForCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect {
+    if (!flag) {
+        // Never seen on macOS 27, which erases the caret by redisplaying its
+        // rect instead. Redisplay the shape in case an older AppKit does.
+        [self setNeedsDisplayInRect:lastShapeRect avoidAdditionalLayout:YES];
+        return NSZeroRect;
+    }
+    NSRect shapeRect = [self caretShapeRectForCaretRect:caretRect];
+
     [NSGraphicsContext saveGraphicsState];
     NSRectClip(shapeRect);
     [color set];
@@ -147,6 +155,28 @@ static CaretShape caretShape(void) {
         [character drawWithRect:NSMakeRect(origin.x + fragment.origin.x + location.x, origin.y + fragment.origin.y + location.y, 0, 0) options:0];
     }
     [NSGraphicsContext restoreGraphicsState];
+
+    // When the caret moves, AppKit invalidates only its own 1-point-wide
+    // rects at the old and the new position, so the clip of this pass takes
+    // in the shape at the old position (widened below) but only a sliver of
+    // the one at the new. Invalidating now would wait for the next pass (the
+    // blink), so ask for a redisplay from the run loop. Once per caret
+    // position: the redisplay draws the shape in full and lands here again
+    // with the same rect, and a shape partly scrolled out of view does not
+    // ask forever.
+    NSRect cover = NSUnionRect(caretRect, shapeRect);
+    if (!NSEqualRects(cover, lastShapeRect)) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplayInRect:cover];
+        });
+    }
+    return cover;
+}
+
+- (NSRect)rect:(NSRect)rect widenedToCaretShape:(NSRect)lastShapeRect {
+    if (NSIntersectsRect(rect, lastShapeRect))
+        return NSUnionRect(rect, lastShapeRect);
+    return rect;
 }
 
 @end

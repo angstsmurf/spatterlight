@@ -16,8 +16,6 @@
 
 @implementation MyFieldEditor {
     NSRect caretShapeRect;
-    NSColor *caretShapeColor;
-    BOOL caretShapeOn;
 }
 
 // Our delegate is the InputTextField, whose delegate is the GlkWindow.
@@ -51,24 +49,19 @@
     [[NSCursor IBeamCursor] set];
 }
 
-- (void)drawRect:(NSRect)rect {
-    [super drawRect:rect];
-    if (caretShapeOn && self.shouldDrawInsertionPoint && NSIntersectsRect(rect, caretShapeRect))
-        [self drawCaretShapeInRect:caretShapeRect color:caretShapeColor];
-}
-
-// Caret shape spike (issue #39). AppKit calls this from the blink timer,
-// outside drawRect:, so remember the state and draw the shape there.
+// Caret shape spike (issue #39). See NSView+Categories.
 - (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
     if (!NSTextView.drawsCaretShape) {
         [super drawInsertionPointInRect:rect color:color turnedOn:flag];
         return;
     }
-    [self setNeedsDisplayInRect:caretShapeRect avoidAdditionalLayout:YES];
-    caretShapeRect = [self caretShapeRectForCaretRect:rect];
-    caretShapeColor = color;
-    caretShapeOn = flag;
-    [self setNeedsDisplayInRect:caretShapeRect avoidAdditionalLayout:YES];
+    caretShapeRect = [self drawCaretShapeForCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
+}
+
+- (void)setNeedsDisplayInRect:(NSRect)rect avoidAdditionalLayout:(BOOL)flag {
+    if (NSTextView.drawsCaretShape)
+        rect = [self rect:rect widenedToCaretShape:caretShapeRect];
+    [super setNeedsDisplayInRect:rect avoidAdditionalLayout:flag];
 }
 
 - (BOOL)isAccessibilityElement {
