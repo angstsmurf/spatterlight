@@ -434,7 +434,7 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
 
     for (NSValue *child in children) {
         NSRange range = child.rangeValue;
-        NSString *string = [largest.textview accessibilityAttributedStringForRange:range].string;
+        NSString *string = [largest.textview accessibilityAttributedStringForFullTextRange:range].string;
         if (filterText.length == 0 || [string localizedCaseInsensitiveContainsString:filterText]) {
             [strings addObject:string];
             [mutableChildren addObject:child];
@@ -452,6 +452,13 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     // rotor would start over at the newest item instead of stepping on.
     // VoiceOver also passes the element its cursor is on as the current
     // item, with an empty range; that must not match a move either way.
+    // Issue #80 prototype, "tail" modes: the results target the move
+    // elements instead of text ranges, so the current item is one of them.
+    if ([GlkTextBufferWindow voProtoTail]) {
+        NSRange elementRange = [largest moveRangeForAccessibilityElement:searchParameters.currentItem.targetElement];
+        if (elementRange.location != NSNotFound)
+            currentRange = elementRange;
+    }
     NSUInteger currentItemIndex = NSNotFound;
     if (searchParameters.currentItem && currentRange.length > 0) {
         currentItemIndex = [children indexOfObject:[NSValue valueWithRange:currentRange]];
@@ -490,6 +497,14 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
         if ([largest isKindOfClass:[GlkTextBufferWindow class]])
             [largest forceLayout];
         searchResult.customLabel = string;
+        if ([GlkTextBufferWindow voProtoTail]) {
+            id element = [largest moveAccessibilityElementForRange:targetRangeValue.rangeValue];
+            if (element) {
+                NSAccessibilityCustomRotorItemResult *elementResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:element];
+                elementResult.customLabel = string;
+                searchResult = elementResult;
+            }
+        }
     }
 
     return searchResult;

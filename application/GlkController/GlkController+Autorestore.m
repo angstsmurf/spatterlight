@@ -650,6 +650,15 @@ NSString * const kAutosaveGUILateFile = @"autosave-GUI-late.plist";
     self.restoredStylesStale = NO;
     self.shouldStoreScrollOffset = YES;
 
+    // Issue #80 prototype: arm the last move of the restored session as the
+    // focused element before the window is shown, so VoiceOver's first
+    // look at the window lands on it rather than on the whole text.
+    if ([GlkTextBufferWindow voProtoEnabled]) {
+        GlkWindow *mainWindow = self.largestWithMoves;
+        if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]])
+            [(GlkTextBufferWindow *)mainWindow armVoiceOverFocusedMoveElement];
+    }
+
     // Now we can actually show the window
     if (![self runWindowsRestorationHandler]) {
         [self showWindow:nil];

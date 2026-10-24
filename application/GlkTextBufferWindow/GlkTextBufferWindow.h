@@ -58,6 +58,22 @@ NS_ASSUME_NONNULL_BEGIN
 // Used by InfocomV6MenuHandler
 - (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings;
 
+// Prototype for issue #80: every move is an accessibility child of the text
+// view, so VoiceOver can land on the latest move instead of the whole text.
+// SPATTERLIGHT_VO_PROTO=1 in the environment turns it on.
++ (BOOL)voProtoEnabled;
++ (NSString *)voProtoMode;
+- (NSArray *)moveAccessibilityElements;
+- (NSRect)accessibilityFrameForMoveRange:(NSRange)range;
+// Move the VoiceOver cursor to the latest move. Returns NO if there is none.
+- (BOOL)moveVoiceOverCursorToLastMove;
+- (void)armVoiceOverFocusedMoveElement;
+// Rotor support in the "tail" modes: the move element covering a move
+// range, and the range of a move element ({NSNotFound, 0} for anything else).
+- (nullable id)moveAccessibilityElementForRange:(NSRange)range;
+- (NSRange)moveRangeForAccessibilityElement:(nullable id)element;
++ (BOOL)voProtoTail;
+
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfLines;

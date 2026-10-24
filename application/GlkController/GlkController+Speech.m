@@ -244,7 +244,18 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     if (self.voiceOverActive) {
         self.shouldCheckForMenu = YES;
         [self checkZMenuAndSpeak:NO];
-        if (self.theme.vODelayOn && !self.mustBeQuiet) {
+        if ([GlkTextBufferWindow voProtoEnabled]) {
+            // Issue #80 prototype: put the VoiceOver cursor on the latest
+            // move instead of announcing it after a delay.
+            GlkWindow *mainWindow = self.largestWithMoves;
+            if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && !self.currentMenu && !self.form) {
+                NSString *delayFile = [NSProcessInfo.processInfo.environment[@"SPATTERLIGHT_VO_PROTO_FILE"] stringByAppendingString:@".delay"];
+                CGFloat delay = [[NSString stringWithContentsOfFile:delayFile encoding:NSUTF8StringEncoding error:nil] doubleValue];
+                runOnMainAfterDelay(delay, ^{
+                    [(GlkTextBufferWindow *)mainWindow moveVoiceOverCursorToLastMove];
+                });
+            }
+        } else if (self.theme.vODelayOn && !self.mustBeQuiet) {
             runOnMainAfterDelay(0.5, ^{
                 [self speakMostRecentAfterDelay];
             });
