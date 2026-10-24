@@ -20,6 +20,9 @@
 @interface BufferTextView () <NSSecureCoding> {
     NSTimer *caretTimer;
     BOOL bottomPaddingUpdatePending;
+    NSRect caretShapeRect;
+    NSColor *caretShapeColor;
+    BOOL caretShapeOn;
 }
 @end
 
@@ -64,6 +67,22 @@
     NSImageInterpolationHigh;
     [super drawRect:rect];
     [(MarginContainer *)self.textContainer drawRect:rect];
+    if (caretShapeOn && self.shouldDrawInsertionPoint && NSIntersectsRect(rect, caretShapeRect))
+        [self drawCaretShapeInRect:caretShapeRect color:caretShapeColor];
+}
+
+// Caret shape spike (issue #39). AppKit calls this from the blink timer,
+// outside drawRect:, so remember the state and draw the shape there.
+- (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
+    if (!NSTextView.drawsCaretShape) {
+        [super drawInsertionPointInRect:rect color:color turnedOn:flag];
+        return;
+    }
+    [self setNeedsDisplayInRect:caretShapeRect avoidAdditionalLayout:YES];
+    caretShapeRect = [self caretShapeRectForCaretRect:rect];
+    caretShapeColor = color;
+    caretShapeOn = flag;
+    [self setNeedsDisplayInRect:caretShapeRect avoidAdditionalLayout:YES];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)event {
