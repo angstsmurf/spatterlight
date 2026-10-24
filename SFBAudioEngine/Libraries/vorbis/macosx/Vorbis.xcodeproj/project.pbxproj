@@ -97,6 +97,23 @@
 		C3FDA6D329AB7BB2005336BD /* libogg.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3FDA6D229AB7BB2005336BD /* libogg.a */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		9116C44B5E13EA5A45793D1F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79F9A49D893F13BE88D7E67 /* ogg.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C3FDA68129AB77FF005336BD;
+			remoteInfo = ogg;
+		};
+		148FD41A89C15B1BB8C4C741 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C79F9A49D893F13BE88D7E67 /* ogg.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = C3FDA68229AB77FF005336BD;
+			remoteInfo = ogg;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		730F23F0091827B100AB638C /* Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist; fileEncoding = 4; path = Info.plist; sourceTree = "<group>"; };
 		730F23F1091827B100AB638C /* Vorbis.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Vorbis.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -175,6 +192,7 @@
 		F5D8F65F03389C830112CE8F /* vorbisfile.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = vorbisfile.c; sourceTree = "<group>"; };
 		F5D8F66003389C830112CE8F /* window.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = window.c; sourceTree = "<group>"; };
 		F5D8F66103389C830112CE8F /* window.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = window.h; sourceTree = "<group>"; };
+		C79F9A49D893F13BE88D7E67 /* ogg.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ogg.xcodeproj; path = ../../ogg/ogg.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +243,7 @@
 		0867D691FE84028FC02AAC07 /* vorbis */ = {
 			isa = PBXGroup;
 			children = (
+				C79F9A49D893F13BE88D7E67 /* ogg.xcodeproj */,
 				F58520B70191D12B01A802FE /* Headers */,
 				F5D8F60803389C830112CE8F /* lib */,
 				089C1665FE841158C02AAC07 /* Resources */,
@@ -377,6 +396,14 @@
 			path = modes;
 			sourceTree = "<group>";
 		};
+		6F01CF7537C3F1DFCFFAA71D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				78A42C076C36332432C1B65D /* libogg.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -483,6 +510,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				8E1027D01D87227511DEEC5A /* PBXTargetDependency */,
 			);
 			name = "libvorbis (static)";
 			productName = vorbis;
@@ -543,6 +571,12 @@
 			mainGroup = 0867D691FE84028FC02AAC07 /* vorbis */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6F01CF7537C3F1DFCFFAA71D /* Products */;
+					ProjectRef = C79F9A49D893F13BE88D7E67 /* ogg.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				730F23A1091827B100AB638C /* Vorbis */,
@@ -552,6 +586,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		78A42C076C36332432C1B65D /* libogg.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libogg.a;
+			remoteRef = 148FD41A89C15B1BB8C4C741 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		730F23CD091827B100AB638C /* Resources */ = {
@@ -637,6 +681,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8E1027D01D87227511DEEC5A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ogg;
+			targetProxy = 9116C44B5E13EA5A45793D1F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		089C1666FE841158C02AAC07 /* InfoPlist.strings */ = {

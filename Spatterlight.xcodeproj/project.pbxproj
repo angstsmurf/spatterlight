@@ -1740,6 +1740,27 @@
 			remoteGlobalIDString = 961CCEB609F2396500528FF9;
 			remoteInfo = glkmain;
 		};
+		649CA3CFBF8A8A6E74F49CB7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C318F7552741AA10006D626A;
+			remoteInfo = jacl;
+		};
+		D4FE099E76B861B182D01C57 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 961CCE6009F2375A00528FF9 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C3F53C59271BB8BE00538393;
+			remoteInfo = BlorbFramework;
+		};
+		C4DA72CCFAE4B658A9DB2666 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C344B2B326E4D9AC004B0A8F /* SFBAudioEngine.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 32C212D41091116D00BA2493;
+			remoteInfo = SFBAudioEngine;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -7018,6 +7039,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				4EF562C22A604AF6504C6499 /* PBXTargetDependency */,
+				2ACF33414994C19C287E6416 /* PBXTargetDependency */,
+				AE36E769E2EE5B04C887B2AF /* PBXTargetDependency */,
 				C39D25782FD6FFC70015252F /* PBXTargetDependency */,
 				C314D7052FD6C23D00EABA28 /* PBXTargetDependency */,
 				C30E15E528BCDF040070C74D /* PBXTargetDependency */,
@@ -9521,6 +9545,21 @@
 			name = glkmain;
 			target = 961CCEB609F2396500528FF9 /* glkmain */;
 			targetProxy = E49ED9A97ECC26EB4CA67894 /* PBXContainerItemProxy */;
+		};
+		4EF562C22A604AF6504C6499 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C318F7552741AA10006D626A /* jacl */;
+			targetProxy = 649CA3CFBF8A8A6E74F49CB7 /* PBXContainerItemProxy */;
+		};
+		2ACF33414994C19C287E6416 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C3F53C59271BB8BE00538393 /* BlorbFramework */;
+			targetProxy = D4FE099E76B861B182D01C57 /* PBXContainerItemProxy */;
+		};
+		AE36E769E2EE5B04C887B2AF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SFBAudioEngine;
+			targetProxy = C4DA72CCFAE4B658A9DB2666 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
