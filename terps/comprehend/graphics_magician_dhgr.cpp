@@ -382,7 +382,7 @@ static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
 // Coveted Mirror prison tower -- leaks the fill up and over the whole picture.
 static GmFillBounds g_fill;
 
-// The span-fill engine is shared with the standard hi-res renderer
+// The span-fill engine is shared with the standard hi-res and CGA renderers
 // (gm_span_fill.h); this is the double hi-res page it runs on: 80 columns
 // alternating aux/main bytes, patterned from an 8-byte-wide dither selected by
 // row parity.

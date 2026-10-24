@@ -230,9 +230,9 @@ typedef struct {
 
 // ---- Flood fill ---------------------------------------------------------------
 //
-// op14 PAINT. The span-fill engine is shared with the double hi-res renderer
-// (gm_span_fill.h); this is the standard hi-res page it runs on: one byte per
-// column, patterned from a 4-byte-wide dither selected by row parity.
+// op14 PAINT. The span-fill engine is shared with the double hi-res and CGA
+// renderers (gm_span_fill.h); this is the standard hi-res page it runs on: one
+// byte per column, patterned from a 4-byte-wide dither selected by row parity.
 
 struct AppleFillPage {
 	static const bool kDropSinglePixelSpans = false;

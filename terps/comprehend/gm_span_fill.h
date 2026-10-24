@@ -78,7 +78,7 @@ public:
 
 		long guard = 0;
 		while (_head != _tail) {
-			if (++guard > 2000000)         // safety net against pathological input
+			if (++guard > kMaxSteps)       // safety net against pathological input
 				return;
 			if (_queue[_head].dir != GM_SPAN_DISABLED && walkParent() == STEP_ABORT)
 				return;
@@ -88,6 +88,7 @@ public:
 
 private:
 	enum { QUEUE_SIZE = 32, QUEUE_MASK = 0x1f };
+	enum { kMaxSteps = 2000000 };   // queue entries processed before giving up
 
 	struct Span {
 		int     left, right;   // inclusive pixel-coordinate edges
@@ -252,27 +253,29 @@ public:
 
 	// Paint the maximal run of set pixels through the seed `pos` on the current
 	// row, bounded by clear pixels or the clip edges.
-	void scanPaint(int pos, int &left, int &right) {
+	void scanPaint(int pos, int &left, int &right) const {
 		int col = colOf(pos);
-		_bit = static_cast<uint8_t>(bitOf(pos));
+		const uint8_t seed_bit = static_cast<uint8_t>(bitOf(pos));
+
+		// The boundary bits the two scans find. 0xff / 7 mean "none yet": the run
+		// continues into the next column.
+		uint8_t left_bit = 0xff;
+		uint8_t bit = 7;
 
 		// Seed byte: intersect the right-edge and left-edge masks so we paint only
 		// the run that actually touches the seed bit.
-		_edgeBit = 0xff;
 		uint8_t existing = _page.read(col);
-		uint8_t right_mask = rightEdgeMask(static_cast<uint8_t>(existing | rightMask(_bit)));
-		uint8_t left_input = static_cast<uint8_t>(leftMask(_bit) | existing);
-		_bit = 7;
-		uint8_t mask = static_cast<uint8_t>(leftEdgeMask(left_input) & right_mask);
+		uint8_t right_mask = rightEdgeMask(static_cast<uint8_t>(existing | rightMask(seed_bit)), left_bit);
+		uint8_t left_input = static_cast<uint8_t>(leftMask(seed_bit) | existing);
+		uint8_t mask = static_cast<uint8_t>(leftEdgeMask(left_input, bit) & right_mask);
 
 		// Walk left across whole columns, painting each, until a right-edge boundary
-		// turns up or we reach the clip edge.
-		uint8_t left_bit;
+		// turns up or we reach the clip edge (left_bit stays 0xff).
 		for (;;) {
 			blendByte(mask, col);
-			if (_edgeBit != 0xff) { left_bit = _edgeBit; break; }
-			if (--col < _clipLeft) { col++; left_bit = 0xff; break; }
-			mask = rightEdgeMask(_page.read(col));
+			if (left_bit != 0xff) break;
+			if (--col < _clipLeft) { col++; break; }
+			mask = rightEdgeMask(_page.read(col), left_bit);
 		}
 
 		// The left edge sits one pixel past the boundary bit.
@@ -285,14 +288,14 @@ public:
 		// the clip edge.
 		col = colOf(pos);
 		for (;;) {
-			if (_bit == 7 && col != _clipRight) {
+			if (bit == 7 && col != _clipRight) {
 				col++;
-				blendByte(leftEdgeMask(_page.read(col)), col);
+				blendByte(leftEdgeMask(_page.read(col), bit), col);
 				continue;
 			}
-			_bit--;
-			if (_bit & 0x80) { _bit = 6; col--; }
-			right = toPos(col, _bit);
+			bit--;
+			if (bit & 0x80) { bit = 6; col--; }
+			right = toPos(col, bit);
 			return;
 		}
 	}
@@ -311,7 +314,6 @@ private:
 	enum { BITS_PER_COL = 7 };
 
 	Page   &_page;
-	uint8_t _bit, _edgeBit;        // scanPaint / edge-mask scratch
 	uint8_t _clipLeft, _clipRight, _clipTop, _clipBottom;
 
 	static uint8_t bitMask(int i) {
@@ -332,38 +334,40 @@ private:
 	static int toPos(int col, int bit) { return col * BITS_PER_COL + bit; }
 
 	// Locate the right / left edge of a run of set bits within byte `p`, returning
-	// the paint mask and storing the boundary bit index (rightEdgeMask -> _edgeBit,
-	// leftEdgeMask -> _bit). When all seven bits are set the run continues past
-	// this byte (no edge here): return 0xff.
-	uint8_t rightEdgeMask(uint8_t p) {
+	// the paint mask and storing the boundary bit index in `edge`. When all seven
+	// bits are set the run continues past this byte (no edge here): return 0xff
+	// and leave `edge` alone, as the 6502 leaves its zero-page copy.
+	static uint8_t rightEdgeMask(uint8_t p, uint8_t &edge) {
 		if ((p & 0x7f) == 0x7f)
 			return 0xff;
-		_edgeBit = 7;
+		uint8_t i = 7;
 		uint8_t bit;
 		do {
-			_edgeBit--;
+			i--;
 			bit = static_cast<uint8_t>(p & 0x7f);
 			p = static_cast<uint8_t>(p << 1);
 		} while (bit >> 6);
-		return rightMask(_edgeBit);
+		edge = i;
+		return rightMask(i);
 	}
-	uint8_t leftEdgeMask(uint8_t p) {
+	static uint8_t leftEdgeMask(uint8_t p, uint8_t &edge) {
 		p &= 0x7f;
 		if (p == 0x7f)
 			return 0xff;
-		_bit = 0xff;
+		uint8_t i = 0xff;
 		uint8_t bit;
 		do {
-			_bit++;
+			i++;
 			bit = static_cast<uint8_t>(p & 1);
 			p = static_cast<uint8_t>(p >> 1);
 		} while (bit);
-		return leftMask(_bit);
+		edge = i;
+		return leftMask(i);
 	}
 
 	// Blend `mask` worth of the current fill pattern into screen column `col`,
 	// keeping the screen's existing pixels wherever the mask is clear.
-	void blendByte(uint8_t mask, int col) {
+	void blendByte(uint8_t mask, int col) const {
 		uint8_t kept = static_cast<uint8_t>((mask ^ _page.read(col)) & 0x7f);
 		uint8_t pattern = _page.pattern(col);
 		_page.write(col, static_cast<uint8_t>((pattern & mask) | kept));
