@@ -213,9 +213,11 @@ static inline uint8_t fill_pixel(uint8_t sel, int x, int y, bool wordFill = fals
 // circle code), this region matches the original; we then stamp the per-row-
 // parity dither pattern over it.  A standard scanline flood with a visited mask
 // (the dither can re-introduce white, so we must not rely on the colour alone)
-// reproduces the filled set; the original's exact span-queue traversal order
-// only affects sub-pixel dither self-limiting at boundaries, which is not
-// observable without hardware ground truth.
+// reproduces the filled set.  The original's exact span-queue traversal order
+// could in principle only affect dither self-limiting at boundaries, and the
+// DOSBox-X captures of the real JR_GRAPH.OVR path checked pixel for pixel by
+// test_gmpcjr_pics (73 pictures, see test/gmpcjr/README.md) show no such
+// difference.
 static uint8_t s_visited[PCJR_PIC_W * PCJR_PIC_H];
 
 static void gmpcjr_flood_fill(int seedx, int seedy, uint8_t sel) {

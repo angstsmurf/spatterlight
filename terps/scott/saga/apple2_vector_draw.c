@@ -312,7 +312,20 @@ static uint8_t fill_span_right(a2_fill_ctx *ctx, uint8_t right_edge, bool has_mo
 
    In each column to the left, fill the run of set pixels ending at the
    column's rightmost pixel (bit 6). If the run stops short of bit 0, the
-   pixels before it give the left edge and expansion stops. */
+   pixels before it give the left edge and expansion stops.
+
+   Note the asymmetry with fill_span_right: that one returns 7 - run, the
+   number of unfilled pixels, while this returns 6 - run, the bit index of
+   the first clear pixel, one less than the unfilled count. This is the
+   ROM's doing, not ours. In FLOOD_FILL ($9188 in the SAGA build, Ghidra
+   project PenguinDraw/adventureland.bin) both loops store the X register
+   when they hit a clear bit, but the rightward loop ($928f) counts X down
+   from 8 and the leftward loop ($92e9) from 7, after one extra ROL that
+   discards the palette bit. compute_seed_span, by contrast, stores an
+   unfilled count on both sides, as the ROM does for the seed column
+   ($920b and $9231). advance_seed_to_midpoint consumes the two edges with
+   the ROM's own 8-bit arithmetic, so the off-by-one is part of what makes
+   the midpoints land where the original's did. Keep all three in step. */
 static uint8_t fill_span_left(a2_fill_ctx *ctx, uint8_t left_edge, bool has_more) {
     while (has_more && ctx->column > 0) {
         ctx->column--;
