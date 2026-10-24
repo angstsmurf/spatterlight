@@ -134,8 +134,8 @@ extern const char *gsc_style_name (scr_int style);
 /*
  * The census: for each state the game's text uses, how many visible
  * characters it covers, in all and in the introduction.
- * gsc_style_census_a4() ranks the rows in the order the assignment hands out
- * styles.
+ * gsc_style_census_a4() and gsc_style_census_a5() rank the rows in the order
+ * the assignment hands out styles.
  */
 typedef struct
 {
@@ -151,6 +151,10 @@ typedef struct
 } gsc_style_census_t;
 
 extern void gsc_style_census_a4 (scr_game game, gsc_style_census_t *census);
+extern void gsc_style_census_a5 (const struct a5_xml_node_s *root,
+                                 const struct a5_xml_node_s *introduction,
+                                 const char *title,
+                                 gsc_style_census_t *census);
 extern void gsc_style_assign (const gsc_style_census_t *census,
                               gsc_style_table_t *table);
 

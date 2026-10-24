@@ -1,0 +1,41 @@
+HINT buffer User1 Justification 2
+HINT buffer User2 Justification 2
+HINT buffer User2 Weight 1
+HINT buffer Note Justification 3
+HINT buffer Subheader Justification 0
+HINT buffer Header Weight 0
+HINT buffer Header Oblique 0
+HINT buffer Header Proportional 1
+HINT buffer Header Justification 2
+HINT buffer Header Size 4
+HINT buffer Header Indentation 0
+HINT buffer Header ParaIndentation 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 2
+HINT buffer BlockQuote Size 6
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
+HINT grid User1 ReverseColor 1
+SPAN 0 Normal 'Loading game...\n'
+SPAN 0 Emphasized 'Death Shack'
+SPAN 0 Normal '\n\n\n'
+SPAN 0 User1 '\n'
+SPAN 0 BlockQuote 'DEA>\n\n'
+SPAN 0 Header 'Five minutes later...\n\n'
+SPAN 0 BlockQuote 'DEATH\nS\n\n'
+SPAN 0 Header 'Another five minutes later...\n\n\n'
+SPAN 0 BlockQuote 'DEATH\nSHACK\nBased on a true story.\n'
+SPAN 0 User1 "\nYou lurch forward over the limbs of dead rotting trees, pained breath escaping your lungs with each successive step taken deeper into the mists of the forest, a forest which seems to go on and on like this seemingly endless sentence. Blood trickles down your skin like a red liquid running down skin, a remnant from a wound you do not remember getting although it may have been from when you were stabbed a few minutes earlier by that hooded maniac who was now in pursuit. \n\nSuddenly, like a beacon of hope in a hopeless beacon-less world, a shack appears in front of you. A warm shack. An inviting shack. Surely it couldn't be the Death Shack™ you read about in the newspaper?"
+SPAN 0 Normal '\n\n\n'
+SPAN 0 Subheader 'Outside the Shack'
+SPAN 0 Normal "\nYou stand in front of a mysterious shack which is nestled like a baby in the branches of a massive gnarled oak. A few windows adorn its front but a layer of black paint coated on them prevents you from seeing inside. There's also a door, which are devices typically used to enter/exit structures like this.\n"
+SPAN 1 User1 '                                                                                                   Outside the ShackMoves: 0'
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n\n'
+SPAN 0 Subheader 'Outside the Shack'
+SPAN 0 Normal "\nYou stand in front of a mysterious shack which is nestled like a baby in the branches of a massive gnarled oak. A few windows adorn its front but a layer of black paint coated on them prevents you from seeing inside. There's also a door, which are devices typically used to enter/exit structures like this.\n"
+SPAN 1 User1 '                                                                                                   Outside the ShackMoves: 1'
+SPAN 0 Normal '\n> '

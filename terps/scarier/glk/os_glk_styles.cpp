@@ -30,6 +30,7 @@
 #include <string>
 
 #include "os_glk_styles.h"
+#include "adrift5/a5xml.h"
 
 /* The deepest <font> nesting the frontend tracks, as in os_glk_internal.h. */
 static const int GSC_STYLE_MAX_NESTING = 32;
@@ -509,12 +510,25 @@ gsc_style_rank_before (const gsc_style_census_row_t &a,
   return a.combo < b.combo;
 }
 
+static void
+gsc_style_census_finish (const gsc_style_walk_t &walk,
+                         gsc_style_census_t *census)
+{
+  std::map<gsc_style_combo_t, gsc_style_census_row_t>::const_iterator row;
+
+  census->rows.clear ();
+  for (row = walk.rows.begin (); row != walk.rows.end (); ++row)
+    census->rows.push_back (row->second);
+  std::sort (census->rows.begin (), census->rows.end (),
+             gsc_style_rank_before);
+  census->strings = walk.strings;
+}
+
 void
 gsc_style_census_a4 (scr_game game, gsc_style_census_t *census)
 {
   gsc_style_walk_t walk;
   scr_markup_sink_t sink;
-  std::map<gsc_style_combo_t, gsc_style_census_row_t>::const_iterator row;
 
   walk.reset ();
   walk.in_intro = FALSE;
@@ -525,13 +539,105 @@ gsc_style_census_a4 (scr_game game, gsc_style_census_t *census)
   sink.tag = gsc_style_walk_tag;
   sink.opaque = &walk;
   scr_game_scan_markup (game, &sink);
+  gsc_style_census_finish (walk, census);
+}
 
-  census->rows.clear ();
-  for (row = walk.rows.begin (); row != walk.rows.end (); ++row)
-    census->rows.push_back (row->second);
-  std::sort (census->rows.begin (), census->rows.end (),
-             gsc_style_rank_before);
-  census->strings = walk.strings;
+
+/*
+ * gsc_style_census_a5()
+ *
+ * The same census over an ADRIFT 5 adventure: every <Text> of every
+ * description in the file, each a string of its own (each is its own display
+ * commit, which ends its spans), those under the <Introduction> counting as
+ * introduction text.  So does the title, which the Runner prints as a <c>
+ * span ahead of the introduction.  The tags are the ones a5text_render.cpp
+ * turns into span marks; text inside expressions and functions is counted as
+ * it is written, there being no state to evaluate it in.
+ */
+static void
+gsc_style_walk_a5_string (gsc_style_walk_t *walk, const char *string,
+                          scr_bool in_intro)
+{
+  std::string run;
+  const char *cursor = string;
+
+  walk->reset ();
+  walk->in_intro = in_intro;
+  walk->strings++;
+  while (*cursor != '\0')
+    {
+      if (*cursor != '<')
+        {
+          run.push_back (*cursor++);
+          continue;
+        }
+
+      const char *end = strchr (cursor, '>');
+      if (end == nullptr)
+        break;
+      walk->text (run.c_str ());
+      run.clear ();
+
+      std::string tag (cursor + 1, end);
+      size_t index_;
+      for (index_ = 0; index_ < tag.size (); index_++)
+        tag[index_] = (char) tolower ((unsigned char) tag[index_]);
+      const size_t space = tag.find (' ');
+      const std::string name = tag.substr (0, space);
+      const std::string argument = space == std::string::npos
+                                   ? std::string () : tag.substr (space + 1);
+
+      static const struct
+      {
+        const char *name;
+        scr_int tag;
+      } tags[] = {
+        {"b", SCR_TAG_BOLD}, {"/b", SCR_TAG_ENDBOLD},
+        {"i", SCR_TAG_ITALICS}, {"/i", SCR_TAG_ENDITALICS},
+        {"u", SCR_TAG_UNDERLINE}, {"/u", SCR_TAG_ENDUNDERLINE},
+        {"c", SCR_TAG_COLOUR}, {"/c", SCR_TAG_ENDCOLOUR},
+        {"font", SCR_TAG_FONT}, {"/font", SCR_TAG_ENDFONT},
+        {"center", SCR_TAG_CENTER}, {"/center", SCR_TAG_ENDCENTER},
+        {"centre", SCR_TAG_CENTER}, {"/centre", SCR_TAG_ENDCENTER},
+        {"right", SCR_TAG_RIGHT}, {"/right", SCR_TAG_ENDRIGHT},
+      };
+      for (index_ = 0; index_ < sizeof (tags) / sizeof (tags[0]); index_++)
+        {
+          if (name == tags[index_].name)
+            walk->tag (tags[index_].tag, argument.c_str ());
+        }
+      cursor = end + 1;
+    }
+  walk->text (run.c_str ());
+}
+
+static void
+gsc_style_walk_a5_tree (gsc_style_walk_t *walk, const a5_xml_node_t *node,
+                        const a5_xml_node_t *introduction, scr_bool in_intro)
+{
+  const a5_xml_node_t *child;
+
+  in_intro = in_intro || node == introduction;
+  if (strcmp (node->name, "Text") == 0 && node->text[0] != '\0')
+    gsc_style_walk_a5_string (walk, node->text, in_intro);
+  for (child = node->first_child; child != nullptr; child = child->next)
+    gsc_style_walk_a5_tree (walk, child, introduction, in_intro);
+}
+
+void
+gsc_style_census_a5 (const a5_xml_node_t *root,
+                     const a5_xml_node_t *introduction, const char *title,
+                     gsc_style_census_t *census)
+{
+  gsc_style_walk_t walk;
+
+  walk.strings = 0;
+  if (title != nullptr && title[0] != '\0')
+    gsc_style_walk_a5_string (&walk, (std::string ("<c>") + title
+                                      + "</c>").c_str (), TRUE);
+  if (root != nullptr)
+    gsc_style_walk_a5_tree (&walk, root, introduction, FALSE);
+  gsc_style_census_finish (walk, census);
 }
 
 

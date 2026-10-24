@@ -19,8 +19,8 @@
 
 /*
  * styles_census: print the Glk style census and assignment the frontend
- * would make for each ADRIFT 4 game named (glk/os_glk_styles.cpp), without
- * running it.  One block per game:
+ * would make for each ADRIFT 4 or ADRIFT 5 game named
+ * (glk/os_glk_styles.cpp), without running it.  One block per game:
  *
  *   game <file> strings <n> combos <n> spares <used>/<free> overflow <n>
  *     <rank> <combo> chars <n> intro <n|-> -> <style>[*]
@@ -33,6 +33,7 @@
 #include <string.h>
 
 #include "core/scarier.h"
+#include "adrift5/a5model.h"
 #include "glk/os_glk_styles.h"
 
 /* The game is never interpreted, so there is no input to read.
@@ -50,6 +51,7 @@ report (const char *path, scr_bool summary_only)
 {
   FILE *stream = fopen (path, "rb");
   scr_game game;
+  a5_adventure_t *adventure = nullptr;
   gsc_style_census_t census;
   gsc_style_table_t table;
   size_t index_;
@@ -63,12 +65,18 @@ report (const char *path, scr_bool summary_only)
   game = scr_game_from_stream (stream);
   fclose (stream);
   if (!game)
+    adventure = a5model_load (path);
+  if (!game && !adventure)
     {
       printf ("game %s unloadable\n", path);
       return;
     }
 
-  gsc_style_census_a4 (game, &census);
+  if (game)
+    gsc_style_census_a4 (game, &census);
+  else
+    gsc_style_census_a5 (adventure->root, adventure->introduction,
+                         adventure->title, &census);
   gsc_style_assign (&census, &table);
 
   for (index_ = 0; index_ < GSC_STYLE_COUNT; index_++)
@@ -104,7 +112,10 @@ report (const char *path, scr_bool summary_only)
         }
     }
 
-  scr_free_game (game);
+  if (game)
+    scr_free_game (game);
+  else
+    a5model_free (adventure);
 }
 
 int

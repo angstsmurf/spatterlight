@@ -630,10 +630,11 @@ gsc_set_glk_style (void)
 
 /*
  * gsc_styles_census()
+ * gsc_styles_census_a5()
  * gsc_styles_table()
  *
  * Make the game's style assignment from its text, or today's fixed one with
- * no ADRIFT 4 game to scan, and return it.  Called before the hints are set,
+ * no game to scan, and return it.  Called before the hints are set,
  * which is before the main window opens.
  */
 void
@@ -648,6 +649,17 @@ gsc_styles_census (scr_game game)
     }
   else
     gsc_style_table_natural (&gsc_style_table);
+  gsc_style_table_ready = TRUE;
+}
+
+void
+gsc_styles_census_a5 (const a5_adventure_t *adventure)
+{
+  gsc_style_census_t census;
+
+  gsc_style_census_a5 (adventure->root, adventure->introduction,
+                       adventure->title, &census);
+  gsc_style_assign (&census, &gsc_style_table);
   gsc_style_table_ready = TRUE;
 }
 

@@ -507,7 +507,7 @@ $(EXPR_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(EXPR_HARNESS))
 	$(CXX) $^ $(LDLIBS) -o $@
 
 styles: $(STYLES_BIN)
-$(STYLES_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(STYLES_SRC) $(STYLES_HARNESS))
+$(STYLES_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(STYLES_SRC) $(A5_MODEL_SRC) $(STYLES_HARNESS))
 	$(CXX) $^ $(LDLIBS) -o $@
 
 # The style census and assignment of the fixtures in test/adrift4/styles/

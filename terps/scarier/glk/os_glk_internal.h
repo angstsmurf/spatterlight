@@ -313,6 +313,7 @@ extern void gsc_status_redraw (void);
 /* os_glk_output.cpp: output styles, colour, inline graphics, hints. */
 extern void gsc_reset_glk_style (void);
 extern void gsc_styles_census (scr_game game);
+extern void gsc_styles_census_a5 (const a5_adventure_t *adventure);
 extern const gsc_style_table_t *gsc_styles_table (void);
 extern void gsc_normal_char (char c);
 extern void gsc_normal_string (const char *message);

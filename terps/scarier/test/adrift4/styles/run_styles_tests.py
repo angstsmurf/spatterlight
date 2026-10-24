@@ -6,7 +6,9 @@ assignment glk/os_glk_styles.cpp makes for each fixture; this checks the other
 half, through the real Glk frontend: the style hints the terp sets before its
 windows open, and the style each span of the introduction and a LOOK lands
 in.  Each fixture's report (test/glkdrive.py --styles) is compared with
-<fixture>_glk_expected.txt.
+<fixture>_glk_expected.txt.  So is one ADRIFT 5 game from the corpus, Death
+Shack, whose centred title cards are <font size> spans (skipped when the
+corpus is not fetched: test/adrift5/games is a symlink).
 
 Like run_autosave_tests.py, whose terp staging it borrows, it needs the
 Spatterlight build of the terp: the headless harnesses compile no os_glk.
@@ -26,6 +28,8 @@ import run_autosave_tests as rat  # noqa: E402
 glkdrive = rat.glkdrive
 
 SCRIPT = ["look"]
+A5_GAMES = [("deathshack", os.path.join(os.path.dirname(os.path.dirname(HERE)),
+                                        "adrift5", "games", "DeathShack.taf"))]
 
 
 def report(terp, game, work):
@@ -74,9 +78,14 @@ def main():
             tempfile.TemporaryDirectory() as work:
         if terp is None:
             terp = rat.stage_default_terp(stage)
-        for game in sorted(glob.glob(os.path.join(HERE, "styles_*.taf"))):
-            name = os.path.splitext(os.path.basename(game))[0]
+        games = [(os.path.splitext(os.path.basename(game))[0], game)
+                 for game in sorted(glob.glob(os.path.join(HERE,
+                                                           "styles_*.taf")))]
+        for name, game in games + A5_GAMES:
             if pattern not in name:
+                continue
+            if not os.path.exists(game):
+                print("%-20s skipped (no %s)" % (name, game))
                 continue
             got, problems = report(terp, game, work)
             expected = os.path.join(HERE, name + "_glk_expected.txt")

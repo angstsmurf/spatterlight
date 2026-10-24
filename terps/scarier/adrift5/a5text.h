@@ -153,6 +153,9 @@
        pops symmetrically.  <c> writes the reserved token "input", since the
        colour it asks for is the adventure's InputColour rather than anything
        spelled out in the text; no Adrift colour name collides with it.
+       A <font> then appends ";size=<value>" and ";face=<value>" for its
+       size= and face= attributes, lowercased and unquoted, so the host can
+       style the span by them too; no colour token contains a ';'.
      - a <center>, <right>, <b>, <i>, or <u> span still open when a Display commit
        ends dies with that commit: the Runner renders each commit through its
        own Source2HTML parse, so an unclosed tag never bleeds into the next
