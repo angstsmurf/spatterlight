@@ -13,8 +13,9 @@
 extern "C" {
 #include "glk.h"
 #include "glkimp.h"
-#include "spatterlight-autosave.h"
 }
+
+#include "spatterlight-autosave.h"
 
 
 void shogun_update_on_resize(void);
@@ -25,7 +26,7 @@ void shogun_update_after_restart(void);
 
 void shogun_stash_state(library_state_data *dat);
 void shogun_recover_state(library_state_data *dat);
-bool shogun_autorestore_internal_read_char_hacks(void);
+void shogun_autorestore_internal_read_char_hacks(void);
 
 void SCENE_SELECT(void);
 void V_VERSION(void);

@@ -876,6 +876,11 @@ void arthur_update_after_restore(void) {
 // Performs a lighter UI rebuild after autorestore (app relaunch).
 // Re-applies foreground/background colors to all windows, reopens the
 // foreground graphics window, and triggers a window change event.
+// On restart, a blank status window may remain visible, so we hide it here.
+void arthur_update_after_restart(void) {
+    v6_define_window(&V6_STATUS_WINDOW, 0, 0, 0, 0);
+}
+
 void arthur_update_after_autorestore(void) {
     update_user_defined_colours();
     v6_set_window_colors_from_globals();

@@ -13,8 +13,9 @@
 extern "C" {
 #include "glk.h"
 #include "glkimp.h"
-#include "spatterlight-autosave.h"
 }
+
+#include "spatterlight-autosave.h"
 
 int journey_draw_picture(int pic, winid_t journey_window);
 
@@ -134,7 +135,7 @@ void journey_stash_state(library_state_data *dat);
 void journey_recover_state(library_state_data *dat);
 
 void journey_update_after_restore(void);
-bool journey_autorestore_internal_read_char_hacks(void);
+void journey_autorestore_internal_read_char_hacks(void);
 
 void journey_pre_save_hacks(void);
 void journey_post_save_hacks(void);

@@ -796,7 +796,13 @@
 		C36AD56A2F89378C00E65111 /* journey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635F2C6E1293000F90A8 /* journey.cpp */; };
 		C36AD56B2F89378C00E65111 /* shogun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ABCA522D553B8400BC4268 /* shogun.cpp */; };
 		C36AD56D2F89378C00E65111 /* v6_shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */; };
+		C3EB200B2F9A100000E65111 /* v6_definitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB200A2F9A100000E65111 /* v6_definitions.cpp */; };
+		C3EB201B2F9A100000E65111 /* v6_hints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB201A2F9A100000E65111 /* v6_hints.cpp */; };
 		C36AD56E2F89378C00E65111 /* entrypoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63552C6E1192000F90A8 /* entrypoints.cpp */; };
+		C3EB0B012F9A100000E65111 /* entrypoints_arthur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB0A012F9A100000E65111 /* entrypoints_arthur.cpp */; };
+		C3EB0B022F9A100000E65111 /* entrypoints_journey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB0A022F9A100000E65111 /* entrypoints_journey.cpp */; };
+		C3EB0B032F9A100000E65111 /* entrypoints_shogun.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB0A032F9A100000E65111 /* entrypoints_shogun.cpp */; };
+		C3EB0B042F9A100000E65111 /* entrypoints_zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB0A042F9A100000E65111 /* entrypoints_zorkzero.cpp */; };
 		C36AD56F2F89378C00E65111 /* extract_apple_2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635E2C6E1193000F90A8 /* extract_apple_2.cpp */; };
 		C36AD5702F89378C00E65111 /* extract_image_data.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635C2C6E1193000F90A8 /* extract_image_data.cpp */; };
 		C36AD5712F89378C00E65111 /* find_graphics_files.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63512C6E1192000F90A8 /* find_graphics_files.cpp */; };
@@ -912,6 +918,7 @@
 		C3A9FD3327A6E56C0032C068 /* scott_game_info.c in Sources */ = {isa = PBXBuildFile; fileRef = C3A9FD3227A6E56C0032C068 /* scott_game_info.c */; };
 		C3ABB26CA13CAD1E38F0F413 /* GlkTextGridWindow+Input.m in Sources */ = {isa = PBXBuildFile; fileRef = C325E4E614F4DDC07EC5FF12 /* GlkTextGridWindow+Input.m */; };
 		C3AC26602F8A43B800DBBDBD /* zorkzero.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C310487A2DB255570023B713 /* zorkzero.cpp */; };
+		C3EB100B2F9A100000E65111 /* zorkzero_minigames.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB100A2F9A100000E65111 /* zorkzero_minigames.cpp */; };
 		C3AD0E5F2FD6C1B600EABA28 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3AD0E602FD6C1B600EABA28 /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		C3AD63D42617648D008614C5 /* MyAttachmentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C3AD63D32617648D008614C5 /* MyAttachmentCell.m */; };
@@ -3010,6 +3017,8 @@
 		C3100F5C27972E850027D6FF /* hulk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = hulk.c; sourceTree = "<group>"; usesTabs = 0; };
 		C31048792DB255570023B713 /* zorkzero.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = zorkzero.hpp; sourceTree = "<group>"; };
 		C310487A2DB255570023B713 /* zorkzero.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zorkzero.cpp; sourceTree = "<group>"; };
+		C3EB100A2F9A100000E65111 /* zorkzero_minigames.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = zorkzero_minigames.cpp; sourceTree = "<group>"; };
+		C3EB101A2F9A100000E65111 /* zorkzero_internal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = zorkzero_internal.hpp; sourceTree = "<group>"; };
 		C3109FCB2798B19F00854ED0 /* parser.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3109FCC2798B19F00854ED0 /* parser.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = parser.c; sourceTree = "<group>"; usesTabs = 0; };
 		C311866725BD3B1800739D7B /* sound.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sound.c; sourceTree = "<group>"; };
@@ -3292,6 +3301,8 @@
 		C3824B792CAEF0A800D58EFC /* arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = arthur.cpp; sourceTree = "<group>"; };
 		C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_shared.hpp; sourceTree = "<group>"; };
 		C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_shared.cpp; sourceTree = "<group>"; };
+		C3EB200A2F9A100000E65111 /* v6_definitions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_definitions.cpp; sourceTree = "<group>"; };
+		C3EB201A2F9A100000E65111 /* v6_hints.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_hints.cpp; sourceTree = "<group>"; };
 		C3836ED42789B553004B5061 /* seas_of_blood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = seas_of_blood.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3836ED52789B553004B5061 /* seas_of_blood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = seas_of_blood.c; sourceTree = "<group>"; usesTabs = 0; };
 		C384A67A2C6EAF770081FC50 /* decompress_amiga.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decompress_amiga.hpp; sourceTree = "<group>"; };
@@ -3645,6 +3656,11 @@
 		C3ED63532C6E1192000F90A8 /* draw_png.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = draw_png.cpp; sourceTree = "<group>"; };
 		C3ED63542C6E1192000F90A8 /* entrypoints.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = entrypoints.hpp; sourceTree = "<group>"; };
 		C3ED63552C6E1192000F90A8 /* entrypoints.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entrypoints.cpp; sourceTree = "<group>"; };
+		C3EB0A012F9A100000E65111 /* entrypoints_arthur.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entrypoints_arthur.cpp; sourceTree = "<group>"; };
+		C3EB0A022F9A100000E65111 /* entrypoints_journey.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entrypoints_journey.cpp; sourceTree = "<group>"; };
+		C3EB0A032F9A100000E65111 /* entrypoints_shogun.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entrypoints_shogun.cpp; sourceTree = "<group>"; };
+		C3EB0A042F9A100000E65111 /* entrypoints_zorkzero.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entrypoints_zorkzero.cpp; sourceTree = "<group>"; };
+		C3EB0A052F9A100000E65111 /* entrypoints_internal.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = entrypoints_internal.hpp; sourceTree = "<group>"; };
 		C3ED63562C6E1192000F90A8 /* draw_png.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = draw_png.h; sourceTree = "<group>"; };
 		C3ED63572C6E1193000F90A8 /* draw_apple_2.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = draw_apple_2.cpp; sourceTree = "<group>"; };
 		C3ED63582C6E1193000F90A8 /* draw_image.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = draw_image.cpp; sourceTree = "<group>"; };
@@ -6548,10 +6564,19 @@
 				C3ABCA522D553B8400BC4268 /* shogun.cpp */,
 				C31048792DB255570023B713 /* zorkzero.hpp */,
 				C310487A2DB255570023B713 /* zorkzero.cpp */,
+				C3EB100A2F9A100000E65111 /* zorkzero_minigames.cpp */,
+				C3EB101A2F9A100000E65111 /* zorkzero_internal.hpp */,
 				C3824B7C2CAEF0F200D58EFC /* v6_shared.hpp */,
 				C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */,
+				C3EB200A2F9A100000E65111 /* v6_definitions.cpp */,
+				C3EB201A2F9A100000E65111 /* v6_hints.cpp */,
 				C3ED63542C6E1192000F90A8 /* entrypoints.hpp */,
 				C3ED63552C6E1192000F90A8 /* entrypoints.cpp */,
+				C3EB0A052F9A100000E65111 /* entrypoints_internal.hpp */,
+				C3EB0A012F9A100000E65111 /* entrypoints_arthur.cpp */,
+				C3EB0A022F9A100000E65111 /* entrypoints_journey.cpp */,
+				C3EB0A032F9A100000E65111 /* entrypoints_shogun.cpp */,
+				C3EB0A042F9A100000E65111 /* entrypoints_zorkzero.cpp */,
 				C3ED63502C6E1192000F90A8 /* extract_apple_2.h */,
 				C3ED635E2C6E1193000F90A8 /* extract_apple_2.cpp */,
 				C3ED635B2C6E1193000F90A8 /* extract_image_data.hpp */,
@@ -8075,12 +8100,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3AC26602F8A43B800DBBDBD /* zorkzero.cpp in Sources */,
+				C3EB100B2F9A100000E65111 /* zorkzero_minigames.cpp in Sources */,
 				C36AD6E22F893E7B00E65111 /* spatterlight-autosave.mm in Sources */,
 				C36AD5692F89378C00E65111 /* arthur.cpp in Sources */,
 				C36AD56A2F89378C00E65111 /* journey.cpp in Sources */,
 				C36AD56B2F89378C00E65111 /* shogun.cpp in Sources */,
 				C36AD56D2F89378C00E65111 /* v6_shared.cpp in Sources */,
+				C3EB200B2F9A100000E65111 /* v6_definitions.cpp in Sources */,
+				C3EB201B2F9A100000E65111 /* v6_hints.cpp in Sources */,
 				C36AD56E2F89378C00E65111 /* entrypoints.cpp in Sources */,
+				C3EB0B012F9A100000E65111 /* entrypoints_arthur.cpp in Sources */,
+				C3EB0B022F9A100000E65111 /* entrypoints_journey.cpp in Sources */,
+				C3EB0B032F9A100000E65111 /* entrypoints_shogun.cpp in Sources */,
+				C3EB0B042F9A100000E65111 /* entrypoints_zorkzero.cpp in Sources */,
 				C36AD56F2F89378C00E65111 /* extract_apple_2.cpp in Sources */,
 				C36AD5702F89378C00E65111 /* extract_image_data.cpp in Sources */,
 				C36AD5712F89378C00E65111 /* find_graphics_files.cpp in Sources */,

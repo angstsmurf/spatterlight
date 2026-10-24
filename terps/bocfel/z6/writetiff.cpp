@@ -10,7 +10,10 @@
 //  four per-channel arrays the IFD points to.
 //
 
+#include <cerrno>
+#include <cstdint>
 #include <cstdio>
+#include <cstring>
 
 #include "writetiff.hpp"
 
@@ -76,7 +79,7 @@ static void write_channel_array(FILE *fptr, uint16_t value) {
 //   - `width` is in pixels; height is derived as pixarraysize / (width * 4).
 // Writes nothing if the dimensions cannot be represented, and stops early
 // if the pixel write fails.
-void writetiff(FILE *fptr, const uint8_t *pixarray, uint32_t pixarraysize, int width) {
+static void writetiff(FILE *fptr, const uint8_t *pixarray, uint32_t pixarraysize, int width) {
 
     // The width and height are written as 16-bit SHORTs, so neither may
     // exceed 65535; bail rather than emit a truncated, malformed file. A
@@ -126,4 +129,21 @@ void writetiff(FILE *fptr, const uint8_t *pixarray, uint32_t pixarraysize, int w
     write_channel_array(fptr, 0);       // MinSampleValue
     write_channel_array(fptr, 0xff);    // MaxSampleValue
     write_channel_array(fptr, 1);       // SampleFormat: unsigned integer
+}
+
+void write_to_tiff(const std::string &path, const uint8_t *data, size_t size, uint32_t width) {
+    if (size > UINT32_MAX) {
+        fprintf(stderr, "write_to_tiff: buffer too large (%zu bytes)\n", size);
+        return;
+    }
+
+    FILE *fptr = fopen(path.c_str(), "wb");
+    if (fptr == nullptr) {
+        fprintf(stderr, "write_to_tiff: fopen(\"%s\") failed: %s\n", path.c_str(), strerror(errno));
+        return;
+    }
+
+    writetiff(fptr, data, (uint32_t)size, width);
+
+    fclose(fptr);
 }

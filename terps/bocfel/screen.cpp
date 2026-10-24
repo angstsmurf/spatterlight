@@ -3467,26 +3467,12 @@ void v6_restore_hacks(void) {
         v6_autorestore_hacks_needed = false;
         // reset bit 2 in LOWCORE FLAGS, no screen redraw needed
         store_word(0x10, word(0x10) & ~FLAGS2_REDRAW);
-        if (is_spatterlight_arthur) {
-            arthur_update_after_autorestore();
-        } else if (is_spatterlight_shogun) {
-            shogun_update_after_autorestore();
-        } else if (is_spatterlight_zork0) {
-            z0_update_after_autorestore();
-        }
+        v6_game().update_after_autorestore();
 #ifdef ZTERP_GLK_GRAPHICS
         redraw_mysterious();
 #endif
     } else {
-        if (is_spatterlight_journey) {
-            journey_update_after_restore();
-        } else if (is_spatterlight_arthur) {
-            arthur_update_after_restore();
-        } else if (is_spatterlight_shogun) {
-            shogun_update_after_restore();
-        } else if (is_spatterlight_zork0) {
-            z0_update_after_restore();
-        }
+        v6_game().update_after_restore();
     }
 }
 
@@ -4105,15 +4091,7 @@ void window_change()
                 win_setbgnd(V6_TEXT_BUFFER_WINDOW.id->peer, user_selected_background);
             }
 
-            if (is_spatterlight_arthur) {
-                arthur_update_on_resize();
-            } else if (is_spatterlight_journey) {
-                journey_update_on_resize();
-            } else if (is_spatterlight_shogun) {
-                shogun_update_on_resize();
-            } else if (is_spatterlight_zork0) {
-                z0_update_on_resize();
-            }
+            v6_game().update_on_resize();
             graphics_setting_changed = false;
         }
 #endif
@@ -5100,10 +5078,7 @@ void zread_char()
 
     if (internal_read_char_hack) {
         internal_read_char_hack = false;
-        if (is_spatterlight_journey)
-            journey_autorestore_internal_read_char_hacks();
-        else if (is_spatterlight_shogun)
-            shogun_autorestore_internal_read_char_hacks();
+        v6_game().autorestore_internal_read_char_hacks();
         store(0);
         dont_repeat_question_on_autorestore = false;
         return;
@@ -7506,15 +7481,7 @@ void init_screen(bool first_run)
                 bg = find_index_of_true_colour(user_selected_background);
             }
 
-            if (is_spatterlight_arthur) {
-                // On restart, a blank status window may remain visible,
-                // so we hide it here.
-                v6_define_window(upperwin, 0, 0, 0, 0);
-            } else if (is_spatterlight_shogun) {
-                shogun_update_after_restart();
-            } else if (is_spatterlight_zork0) {
-                z0_update_colors();
-            }
+            v6_game().update_after_restart();
         }
     } else {
         colours_are_default = true;
@@ -7933,15 +7900,7 @@ void stash_library_state(library_state_data *dat)
         dat->mysterious_canvas_length = static_cast<int>(canvas_runs.size());
 #endif
 
-        if (is_spatterlight_journey) {
-            journey_stash_state(dat);
-        } else if (is_spatterlight_arthur) {
-            arthur_stash_state(dat);
-        } else if (is_spatterlight_shogun) {
-            shogun_stash_state(dat);
-        } else if (is_spatterlight_zork0) {
-            z0_stash_state(dat);
-        }
+        v6_game().stash_state(dat);
 
         stash_library_sound_state(dat);
     }
@@ -8039,16 +7998,9 @@ void recover_library_state(library_state_data *dat)
         }
 #endif
 
-        if (is_spatterlight_journey) {
+        if (is_spatterlight_journey)
             journey_window = windows[3].id;
-            journey_recover_state(dat);
-        } else if (is_spatterlight_arthur) {
-            arthur_recover_state(dat);
-        } else if (is_spatterlight_shogun) {
-            shogun_recover_state(dat);
-        } else if (is_spatterlight_zork0) {
-            z0_recover_state(dat);
-        }
+        v6_game().recover_state(dat);
 
         recover_library_sound_state(dat);
         v6_autorestore_hacks_needed = true;

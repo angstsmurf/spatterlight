@@ -13,6 +13,8 @@ extern "C" {
 #include "glkimp.h"
 }
 
+#include "spatterlight-autosave.h"
+
 #include <cstdint>
 #include "screen.h"
 
