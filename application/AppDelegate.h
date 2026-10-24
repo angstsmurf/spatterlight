@@ -21,6 +21,7 @@
 - (IBAction)showLibrary:(id)sender;
 - (IBAction)showHelpFile:(id)sender;
 - (IBAction)pruneLibrary:(id)sender;
+- (IBAction)toggleVoiceOverTailMode:(id)sender;
 
 - (void)addToRecents:(NSArray *)URLs;
 

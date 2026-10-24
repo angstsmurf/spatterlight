@@ -23,8 +23,6 @@
 }
 @end
 
-static BOOL voProtoLog(void);
-
 @implementation BufferTextView
 
 + (BOOL) supportsSecureCoding {
@@ -58,8 +56,9 @@ static BOOL voProtoLog(void);
 }
 
 - (void)keyDown:(NSEvent *)evt {
-    if (![[GlkTextBufferWindow voProtoMode] isEqualToString:@"focushold"])
-        [self clearVoFocusedMoveElement];
+    // The player is typing: let VoiceOver track the text area again. No
+    // notification, so VoiceOver's cursor stays where it is.
+    self.voFocusedMoveElement = nil;
     [(GlkTextBufferWindow *)self.delegate keyDown:evt];
 }
 
@@ -313,8 +312,6 @@ static BOOL voProtoLog(void);
 // user scrolling up as much as a wheel or paging key is: tell the delegate,
 // so it can pause auto-scrolling while unattended output keeps arriving.
 - (void)scrollRangeToVisible:(NSRange)range {
-    if (voProtoLog())
-        NSLog(@"AX scrollRangeToVisible %@\n%@", NSStringFromRange(range), [NSThread.callStackSymbols subarrayWithRange:NSMakeRange(1, MIN(8, NSThread.callStackSymbols.count - 1))]);
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     CGFloat oldPosition = self.enclosingScrollView.contentView.bounds.origin.y;
     [super scrollRangeToVisible:range];
@@ -348,52 +345,17 @@ static BOOL voProtoLog(void);
     return super.accessibilityFocusedUIElement;
 }
 
-- (void)clearVoFocusedMoveElement {
-    if (self.voFocusedMoveElement) {
-        self.voFocusedMoveElement = nil;
-        // "focusquiet"/"focusarm": take the focus back without telling
-        // VoiceOver, so it keeps tracking the text area while the player types.
-        if ([[GlkTextBufferWindow voProtoMode] isEqualToString:@"focus"])
-            NSAccessibilityPostNotification(self, NSAccessibilityFocusedUIElementChangedNotification);
-    }
-    self.voValueIsLastMove = NO;
-}
+#pragma mark - Limit VoiceOver to Last Move
 
-// Prototype instrumentation: log which text APIs VoiceOver reads, when
-// SPATTERLIGHT_VO_PROTO_LOG is set.
-static BOOL voProtoLog(void) {
-    static BOOL on; static dispatch_once_t once;
-    dispatch_once(&once, ^{ on = NSProcessInfo.processInfo.environment[@"SPATTERLIGHT_VO_PROTO_LOG"] != nil; });
-    return on;
-}
-#define VOLOG(fmt, ...) do { if (voProtoLog()) NSLog(@"AX %s " fmt, __FUNCTION__, ##__VA_ARGS__); } while (0)
+// With the setting on, the text area tells VoiceOver that its text starts
+// where the last move starts, so landing on it reads the last move (and the
+// input line), and the scrollback stays where it is. Older moves are
+// reached through the move elements and the command history rotor. All
+// character indexes VoiceOver sees are offset by accessibilityTextOffset;
+// the methods below translate both ways.
 
-// Prototype instrumentation: who scrolls the text view while VoiceOver reads.
-- (void)viewDidMoveToSuperview {
-    [super viewDidMoveToSuperview];
-    if (!voProtoLog())
-        return;
-    NSClipView *clip = self.enclosingScrollView.contentView;
-    if (!clip)
-        return;
-    [NSNotificationCenter.defaultCenter addObserverForName:NSViewBoundsDidChangeNotification object:clip queue:nil usingBlock:^(NSNotification *note) {
-        NSArray *stack = NSThread.callStackSymbols;
-        NSLog(@"AX clip bounds now %@\n%@", NSStringFromRect(clip.bounds), [stack subarrayWithRange:NSMakeRange(0, MIN(14, stack.count))]);
-    }];
-}
-
-#pragma mark - "tail" modes: the accessible text starts at the last move
-
-// VoiceOver reads a text area from its first character whenever its cursor
-// lands on it, and scrolls there. In the "tail" modes the text area tells
-// VoiceOver that its text starts where the last move starts, so landing on
-// it reads the last move (and the input line), and the scrollback stays
-// where it is. Older moves are reached through the move elements and the
-// command history rotor. All character indexes VoiceOver sees are offset
-// by voTailOffset; the methods below translate both ways.
-
-- (NSUInteger)voTailOffset {
-    if (![GlkTextBufferWindow voProtoEnabled] || ![[GlkTextBufferWindow voProtoMode] containsString:@"tail"])
+- (NSUInteger)accessibilityTextOffset {
+    if (![GlkTextBufferWindow voiceOverTailMode])
         return 0;
     NSValue *last = ((GlkTextBufferWindow *)self.delegate).moveRanges.lastObject;
     if (!last)
@@ -419,7 +381,7 @@ static NSRange voToReal(NSRange virt, NSUInteger off) {
 
 // The line number of the first accessible character, in the full text.
 - (NSInteger)voTailLine {
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     return off ? [super accessibilityLineForIndex:(NSInteger)off] : 0;
 }
 
@@ -432,73 +394,58 @@ static NSRange voToReal(NSRange virt, NSUInteger off) {
 // text view's frame is the whole document, so it scrolled to the top.
 // Report the frame of the accessible tail instead.
 - (NSRect)accessibilityFrame {
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     if (!off)
         return super.accessibilityFrame;
     NSRect frame = [super accessibilityFrameForRange:NSMakeRange(off, self.textStorage.length - off)];
-    VOLOG("-> %@", NSStringFromRect(frame));
     return NSIsEmptyRect(frame) ? super.accessibilityFrame : frame;
 }
 
 - (NSString *)accessibilityStringForRange:(NSRange)range {
-    VOLOG("%@", NSStringFromRange(range));
-    return [super accessibilityStringForRange:voToReal(range, self.voTailOffset)];
+    return [super accessibilityStringForRange:voToReal(range, self.accessibilityTextOffset)];
 }
 - (NSAttributedString *)accessibilityAttributedStringForRange:(NSRange)range {
-    VOLOG("%@", NSStringFromRange(range));
-    return [super accessibilityAttributedStringForRange:voToReal(range, self.voTailOffset)];
+    return [super accessibilityAttributedStringForRange:voToReal(range, self.accessibilityTextOffset)];
 }
 - (NSData *)accessibilityRTFForRange:(NSRange)range {
-    VOLOG("%@", NSStringFromRange(range));
-    return [super accessibilityRTFForRange:voToReal(range, self.voTailOffset)];
+    return [super accessibilityRTFForRange:voToReal(range, self.accessibilityTextOffset)];
 }
 - (NSRange)accessibilityVisibleCharacterRange {
-    NSRange r = voToVirtual(super.accessibilityVisibleCharacterRange, self.voTailOffset);
-    VOLOG("-> %@", NSStringFromRange(r));
-    return r;
+    return voToVirtual(super.accessibilityVisibleCharacterRange, self.accessibilityTextOffset);
 }
 - (void)setAccessibilityVisibleCharacterRange:(NSRange)range {
-    VOLOG("%@", NSStringFromRange(range));
-    [super setAccessibilityVisibleCharacterRange:voToReal(range, self.voTailOffset)];
+    [super setAccessibilityVisibleCharacterRange:voToReal(range, self.accessibilityTextOffset)];
 }
 - (NSInteger)accessibilityNumberOfCharacters {
-    NSInteger n = super.accessibilityNumberOfCharacters - (NSInteger)self.voTailOffset;
-    VOLOG("-> %ld", (long)n);
+    NSInteger n = super.accessibilityNumberOfCharacters - (NSInteger)self.accessibilityTextOffset;
     return MAX(n, 0);
 }
 - (NSInteger)accessibilityLineForIndex:(NSInteger)index {
-    VOLOG("%ld", (long)index);
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     if (!off)
         return [super accessibilityLineForIndex:index];
     return MAX([super accessibilityLineForIndex:index + (NSInteger)off] - self.voTailLine, 0);
 }
 - (NSRange)accessibilityRangeForLine:(NSInteger)line {
-    VOLOG("%ld", (long)line);
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     if (!off)
         return [super accessibilityRangeForLine:line];
     return voToVirtual([super accessibilityRangeForLine:line + self.voTailLine], off);
 }
 - (NSInteger)accessibilityInsertionPointLineNumber {
     NSInteger n = super.accessibilityInsertionPointLineNumber;
-    if (self.voTailOffset)
+    if (self.accessibilityTextOffset)
         n = MAX(n - self.voTailLine, 0);
-    VOLOG("-> %ld", (long)n);
     return n;
 }
 - (NSRange)accessibilitySelectedTextRange {
-    NSRange r = voToVirtual(super.accessibilitySelectedTextRange, self.voTailOffset);
-    VOLOG("-> %@", NSStringFromRange(r));
-    return r;
+    return voToVirtual(super.accessibilitySelectedTextRange, self.accessibilityTextOffset);
 }
 - (void)setAccessibilitySelectedTextRange:(NSRange)range {
-    VOLOG("%@", NSStringFromRange(range));
-    [super setAccessibilitySelectedTextRange:voToReal(range, self.voTailOffset)];
+    [super setAccessibilitySelectedTextRange:voToReal(range, self.accessibilityTextOffset)];
 }
 - (NSArray<NSValue *> *)accessibilitySelectedTextRanges {
-    VOLOG("");
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     if (!off)
         return super.accessibilitySelectedTextRanges;
     NSMutableArray *ranges = [NSMutableArray new];
@@ -507,8 +454,7 @@ static NSRange voToReal(NSRange virt, NSUInteger off) {
     return ranges;
 }
 - (void)setAccessibilitySelectedTextRanges:(NSArray<NSValue *> *)ranges {
-    VOLOG("%@", ranges);
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     if (off) {
         NSMutableArray *real = [NSMutableArray new];
         for (NSValue *v in ranges)
@@ -518,45 +464,26 @@ static NSRange voToReal(NSRange virt, NSUInteger off) {
     [super setAccessibilitySelectedTextRanges:ranges];
 }
 - (NSRange)accessibilityRangeForIndex:(NSInteger)index {
-    VOLOG("%ld", (long)index);
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     return voToVirtual([super accessibilityRangeForIndex:index + (NSInteger)off], off);
 }
 - (NSRange)accessibilityRangeForPosition:(NSPoint)point {
-    VOLOG("%@", NSStringFromPoint(point));
-    return voToVirtual([super accessibilityRangeForPosition:point], self.voTailOffset);
+    return voToVirtual([super accessibilityRangeForPosition:point], self.accessibilityTextOffset);
 }
 - (NSRange)accessibilityStyleRangeForIndex:(NSInteger)index {
-    VOLOG("%ld", (long)index);
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     return voToVirtual([super accessibilityStyleRangeForIndex:index + (NSInteger)off], off);
 }
 - (NSRect)accessibilityFrameForRange:(NSRange)range {
-    VOLOG("%@", NSStringFromRange(range));
-    return [super accessibilityFrameForRange:voToReal(range, self.voTailOffset)];
-}
-- (NSString *)accessibilitySelectedText {
-    VOLOG("");
-    return super.accessibilitySelectedText;
+    return [super accessibilityFrameForRange:voToReal(range, self.accessibilityTextOffset)];
 }
 - (NSRange)accessibilitySharedCharacterRange {
-    VOLOG("");
-    return voToVirtual(super.accessibilitySharedCharacterRange, self.voTailOffset);
+    return voToVirtual(super.accessibilitySharedCharacterRange, self.accessibilityTextOffset);
 }
 
 - (id)accessibilityValue {
-    VOLOG("(flag %d)", self.voValueIsLastMove);
-    // "...value" modes: the text area's value is the last move, so VoiceOver
-    // reads that (and not "edit text" alone, or the whole buffer) when its
-    // cursor is moved onto the text area.
-    if (self.voValueIsLastMove ||
-        ([GlkTextBufferWindow voProtoEnabled] && [[GlkTextBufferWindow voProtoMode] hasSuffix:@"value"])) {
-        NSString *last = ((GlkTextBufferWindow *)self.delegate).lastMoveString;
-        if (last.length)
-            return last;
-    }
     id value = super.accessibilityValue;
-    NSUInteger off = self.voTailOffset;
+    NSUInteger off = self.accessibilityTextOffset;
     if (off && [value isKindOfClass:[NSString class]] && off <= ((NSString *)value).length)
         return [(NSString *)value substringFromIndex:off];
     return value;

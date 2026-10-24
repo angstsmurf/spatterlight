@@ -7,6 +7,7 @@
 #import "AppDelegate.h"
 #import "Constants.h"
 #import "GlkController.h"
+#import "GlkController+Speech.h"
 #import "Preferences.h"
 #import "CoreDataManager.h"
 #import "NSString+Categories.h"
@@ -217,6 +218,43 @@
 - (IBAction)pruneLibrary:(id)sender {
     [_libctl showWindow:sender];
     [_tableViewController pruneLibrary:sender];
+}
+
+#pragma mark -
+#pragma mark VoiceOver
+
+// Speech > Limit VoiceOver to Last Move (⌥⌘T). The setting is global and
+// persists; open game windows pick it up at once. See BufferTextView.h.
+- (IBAction)toggleVoiceOverTailMode:(id)sender {
+    NSUserDefaults *defaults = NSUserDefaults.standardUserDefaults;
+    BOOL on = ![defaults boolForKey:kVOTailModeKey];
+    [defaults setBool:on forKey:kVOTailModeKey];
+
+    GlkController *keyController = nil;
+    for (NSWindow *window in NSApp.windows) {
+        if ([window.delegate isKindOfClass:[GlkController class]]) {
+            [(GlkController *)window.delegate voiceOverTailModeChanged];
+            if (window.keyWindow)
+                keyController = (GlkController *)window.delegate;
+        }
+    }
+
+    // The key equivalent gives no feedback of its own, so say what changed.
+    NSString *message = on ? NSLocalizedString(@"VoiceOver now reads only the last move", nil)
+                           : NSLocalizedString(@"VoiceOver now reads all the game text", nil);
+    if (keyController) {
+        [keyController speakStringNow:message];
+    } else {
+        NSAccessibilityPostNotificationWithUserInfo(NSApp, NSAccessibilityAnnouncementRequestedNotification,
+                                                    @{NSAccessibilityAnnouncementKey: message,
+                                                      NSAccessibilityPriorityKey: @(NSAccessibilityPriorityHigh)});
+    }
+}
+
+- (BOOL)validateMenuItem:(NSMenuItem *)menuItem {
+    if (menuItem.action == @selector(toggleVoiceOverTailMode:))
+        menuItem.state = [NSUserDefaults.standardUserDefaults boolForKey:kVOTailModeKey] ? NSControlStateValueOn : NSControlStateValueOff;
+    return YES;
 }
 
 /*

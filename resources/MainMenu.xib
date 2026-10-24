@@ -268,6 +268,13 @@ CA
                                                 <action selector="speakStatus:" target="-1" id="541"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem isSeparatorItem="YES" id="vTm-sp-80a"/>
+                                        <menuItem title="Limit VoiceOver to Last Move" keyEquivalent="t" toolTip="Show VoiceOver only the text from the last move on, so that landing on the game text reads the latest move instead of everything from the start. Earlier moves stay available through the Command history rotor and the Speak Previous command." id="vTm-it-80b">
+                                            <modifierMask key="keyEquivalentModifierMask" option="YES" command="YES"/>
+                                            <connections>
+                                                <action selector="toggleVoiceOverTailMode:" target="-1" id="vTm-ac-80c"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>

@@ -920,6 +920,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // speech from interrupting whatever the user switched to.
 - (void)windowDidResignKey:(NSNotification *)notification {
     _mustBeQuiet = YES;
+    // Park VoiceOver on the last move again, so the next activation lands
+    // there, and start afresh on whether VoiceOver has read it (#80).
+    GlkWindow *mainWindow = self.largestWithMoves;
+    if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]])
+        [(GlkTextBufferWindow *)mainWindow armVoiceOverFocusedMoveElement];
     [_journeyMenuHandler captureMembersMenu];
     [_journeyMenuHandler hideMenus];
 }

@@ -8,6 +8,7 @@
 #import "InfocomV6MenuHandler.h"
 #import "MyAttachmentCell.h"
 #import "BufferTextView.h"
+#import "Constants.h"
 #include "glkimp.h"
 
 #import "DebugLog.h"
@@ -25,11 +26,11 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     return cmd;
 }
 
-#pragma mark - Per-move accessibility elements (issue #80 prototype)
+#pragma mark - Per-move accessibility elements (issue #80)
 
-// One of these per move. Value and frame are computed on demand: the last
-// move keeps growing while the game prints, and the text is laid out again
-// on every resize.
+// One of these per move, a static text child of the text view. Value and
+// frame are computed on demand: the last move keeps growing while the game
+// prints, and the text is laid out again on every resize.
 @interface MoveAXElement : NSAccessibilityElement
 @property NSRange range;
 @property (weak) GlkTextBufferWindow *bufferWindow;
@@ -47,17 +48,32 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     return NSAccessibilityStaticTextRole;
 }
 
-- (id)accessibilityValue {
-    self.valueRead = YES;
+// "move 3 of 11": computed on demand, the total grows with every move.
+- (NSString *)accessibilityRoleDescription {
+    NSArray *moves = self.bufferWindow.moveAccessibilityElements;
+    NSUInteger index = [moves indexOfObjectIdenticalTo:self];
+    if (index == NSNotFound)
+        return NSAccessibilityRoleDescription(NSAccessibilityStaticTextRole, nil);
+    return [NSString stringWithFormat:NSLocalizedString(@"move %lu of %lu", nil), (unsigned long)index + 1, (unsigned long)moves.count];
+}
+
+- (NSString *)moveString {
     return [self.bufferWindow speakableStringForMoveRange:[NSValue valueWithRange:self.range]];
 }
 
+// Reading the text, not merely measuring it, counts as VoiceOver having
+// landed here.
+- (id)accessibilityValue {
+    self.valueRead = YES;
+    return self.moveString;
+}
+
 - (NSInteger)accessibilityNumberOfCharacters {
-    return (NSInteger)[self.accessibilityValue length];
+    return (NSInteger)self.moveString.length;
 }
 
 - (NSRange)accessibilityVisibleCharacterRange {
-    return NSMakeRange(0, (NSUInteger)self.accessibilityNumberOfCharacters);
+    return NSMakeRange(0, self.moveString.length);
 }
 
 - (NSString *)accessibilityStringForRange:(NSRange)range {
@@ -103,13 +119,8 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 
 @implementation GlkTextBufferWindow (Speech)
 
-+ (BOOL)voProtoEnabled {
-    static BOOL enabled;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        enabled = [NSProcessInfo.processInfo.environment[@"SPATTERLIGHT_VO_PROTO"] boolValue];
-    });
-    return enabled;
++ (BOOL)voiceOverTailMode {
+    return [NSUserDefaults.standardUserDefaults boolForKey:kVOTailModeKey];
 }
 
 - (NSRect)accessibilityFrameForMoveRange:(NSRange)range {
@@ -128,8 +139,10 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 
 // Rebuilt whenever moveRanges has changed since the last call. Elements whose
 // range is unchanged are reused, so VoiceOver keeps its cursor on them.
+// Empty unless VoiceOver is running: other accessibility clients see the
+// text view as before.
 - (NSArray *)moveAccessibilityElements {
-    if (![GlkTextBufferWindow voProtoEnabled])
+    if (!self.glkctl.voiceOverActive)
         return @[];
     NSArray<NSValue *> *ranges = self.moveRanges.copy;
     if (moveAXElements && [ranges isEqualToArray:moveAXRanges])
@@ -145,7 +158,6 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
             el.range = val.rangeValue;
             el.bufferWindow = self;
             el.accessibilityParent = _textview;
-            el.accessibilityRoleDescription = [NSString stringWithFormat:@"move %lu of %lu", (unsigned long)i + 1, (unsigned long)ranges.count];
         }
         [elements addObject:el];
         i++;
@@ -153,21 +165,6 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     moveAXElements = elements;
     moveAXRanges = ranges;
     return moveAXElements;
-}
-
-// The mode is read from the file named by SPATTERLIGHT_VO_PROTO_FILE on every
-// call, so it can be switched without relaunching: one of "layout" (post
-// LayoutChanged on the text view), "layoutapp" (on the application), "focus"
-// (report the move as the focused element), "none".
-+ (NSString *)voProtoMode {
-    NSString *path = NSProcessInfo.processInfo.environment[@"SPATTERLIGHT_VO_PROTO_FILE"];
-    NSString *mode = path ? [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil] : nil;
-    mode = [mode stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceAndNewlineCharacterSet];
-    return mode.length ? mode : @"layout";
-}
-
-+ (BOOL)voProtoTail {
-    return [self voProtoEnabled] && [[self voProtoMode] containsString:@"tail"];
 }
 
 - (id)moveAccessibilityElementForRange:(NSRange)range {
@@ -183,55 +180,39 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     return NSMakeRange(NSNotFound, 0);
 }
 
-- (BOOL)moveVoiceOverCursorToLastMove {
-    [self setLastMove];
-    NSAccessibilityElement *el = self.moveAccessibilityElements.lastObject;
-    NSString *mode = [GlkTextBufferWindow voProtoMode];
-    NSLog(@"VO proto: mode %@, last move element %@ (%lu moves)", mode, el, (unsigned long)self.moveRanges.count);
-    _textview.voFocusedMoveElement = nil;
-    _textview.voValueIsLastMove = NO;
-    if (!el)
-        return NO;
-    if ([mode isEqualToString:@"layout"]) {
-        NSAccessibilityPostNotificationWithUserInfo(_textview, NSAccessibilityLayoutChangedNotification,
-                                                    @{NSAccessibilityUIElementsKey: @[el]});
-    } else if ([mode isEqualToString:@"layoutapp"]) {
-        NSAccessibilityPostNotificationWithUserInfo(NSApp, NSAccessibilityLayoutChangedNotification,
-                                                    @{NSAccessibilityUIElementsKey: @[el]});
-    } else if ([mode hasPrefix:@"focus"]) {
-        _textview.voFocusedMoveElement = el;
-        ((MoveAXElement *)el).valueRead = NO;
-        // Where to post the focus change: the element itself, or (mode
-        // contains "view"/"win"/"app") the text view, the window, the app.
-        if ([mode containsString:@"view"])
-            NSAccessibilityPostNotification(_textview, NSAccessibilityFocusedUIElementChangedNotification);
-        else if ([mode containsString:@"win"])
-            NSAccessibilityPostNotification(self.window, NSAccessibilityFocusedUIElementChangedNotification);
-        else if ([mode containsString:@"app"])
-            NSAccessibilityPostNotification(NSApp, NSAccessibilityFocusedUIElementChangedNotification);
-        else
-            NSAccessibilityPostNotification(el, NSAccessibilityFocusedUIElementChangedNotification);
-        // "announce": if VoiceOver has not read the element within 1.5 s,
-        // it landed elsewhere (status bar), so announce the move instead.
-        if ([mode containsString:@"announce"]) {
-            GlkController *ctl = self.glkctl;
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"VO proto: announce fallback, valueRead %d", ((MoveAXElement *)el).valueRead);
-                if (!((MoveAXElement *)el).valueRead) {
-                    [self resetLastSpokenString];
-                    [ctl speakMostRecent:ctl];
-                }
-            });
-        }
-    } else if ([mode isEqualToString:@"value"]) {
-        _textview.voValueIsLastMove = YES;
-        NSAccessibilityPostNotification(_textview, NSAccessibilityValueChangedNotification);
-    } else {
-        return NO;
-    }
-    return YES;
+// Report the last move as the focused element without telling VoiceOver.
+// VoiceOver asks for the focused element when the app or window is
+// activated, before windowDidBecomeKey: runs, so the element has to be in
+// place beforehand: after a move has been spoken, when the window resigns
+// key, and after autorestore. Posting the change at activation time races
+// VoiceOver's own query and loses.
+- (void)armVoiceOverFocusedMoveElement {
+    MoveAXElement *el = self.moveAccessibilityElements.lastObject;
+    el.valueRead = NO;
+    _textview.voFocusedMoveElement = el;
 }
 
+- (BOOL)voiceOverReadLastMove {
+    id el = _textview.voFocusedMoveElement;
+    return [el isKindOfClass:[MoveAXElement class]] && ((MoveAXElement *)el).valueRead;
+}
+
+// Arm the last move (bringing the move ranges up to date first: the last
+// move may still be growing) and tell VoiceOver that the focus changed.
+// The flag of whether VoiceOver has read the move is left alone: VoiceOver
+// may already have read it during this activation.
+- (BOOL)moveVoiceOverCursorToLastMove {
+    [self setLastMove];
+    MoveAXElement *el = self.moveAccessibilityElements.lastObject;
+    if (!el) {
+        _textview.voFocusedMoveElement = nil;
+        return NO;
+    }
+    if (_textview.voFocusedMoveElement != el)
+        [self armVoiceOverFocusedMoveElement];
+    NSAccessibilityPostNotification(el, NSAccessibilityFocusedUIElementChangedNotification);
+    return YES;
+}
 
 // Record the text range of the latest "move" (turn) for VoiceOver speech.
 // A move is the text output between two consecutive input prompts. The
@@ -514,18 +495,6 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
     // element, so the next app or window activation lands VoiceOver on it.
     if (sender == glkctl)
         [self armVoiceOverFocusedMoveElement];
-}
-
-// "focusarm": report the last move as the focused element without telling
-// VoiceOver (posting at activation time races VoiceOver's own focus query).
-// Called after a move has been spoken, and after autorestore, so the first
-// activation after a launch lands on the last move of the restored session.
-- (void)armVoiceOverFocusedMoveElement {
-    if (![GlkTextBufferWindow voProtoEnabled] ||
-        ![[GlkTextBufferWindow voProtoMode] hasPrefix:@"focusarm"])
-        return;
-    _textview.voFocusedMoveElement = self.moveAccessibilityElements.lastObject;
-    NSLog(@"VO proto: armed %@", _textview.voFocusedMoveElement);
 }
 
 // Bring the move ranges up to date first: the last move may still be

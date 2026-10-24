@@ -244,18 +244,12 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     if (self.voiceOverActive) {
         self.shouldCheckForMenu = YES;
         [self checkZMenuAndSpeak:NO];
-        if ([GlkTextBufferWindow voProtoEnabled]) {
-            // Issue #80 prototype: put the VoiceOver cursor on the latest
-            // move instead of announcing it after a delay.
-            GlkWindow *mainWindow = self.largestWithMoves;
-            if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && !self.currentMenu && !self.form) {
-                NSString *delayFile = [NSProcessInfo.processInfo.environment[@"SPATTERLIGHT_VO_PROTO_FILE"] stringByAppendingString:@".delay"];
-                CGFloat delay = [[NSString stringWithContentsOfFile:delayFile encoding:NSUTF8StringEncoding error:nil] doubleValue];
-                runOnMainAfterDelay(delay, ^{
-                    [(GlkTextBufferWindow *)mainWindow moveVoiceOverCursorToLastMove];
-                });
-            }
-        } else if (self.theme.vODelayOn && !self.mustBeQuiet) {
+        // Put the VoiceOver cursor on the latest move, so that activating
+        // the window speaks that move rather than the whole text (#80).
+        GlkWindow *mainWindow = self.largestWithMoves;
+        if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && !self.currentMenu && !self.form)
+            [(GlkTextBufferWindow *)mainWindow moveVoiceOverCursorToLastMove];
+        if (self.theme.vODelayOn && !self.mustBeQuiet) {
             runOnMainAfterDelay(0.5, ^{
                 [self speakMostRecentAfterDelay];
             });
@@ -266,6 +260,16 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         VoiceOverHelperDetach(self.form);
         self.form = nil;
     }
+}
+
+// Tell VoiceOver that the buffer windows' text changed, so it asks for the
+// new extent and frame, and park its cursor on the last move again.
+- (void)voiceOverTailModeChanged {
+    for (GlkTextBufferWindow *win in self.bufferWindows)
+        NSAccessibilityPostNotification(win.textview, NSAccessibilityValueChangedNotification);
+    GlkWindow *mainWindow = self.largestWithMoves;
+    if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]])
+        [(GlkTextBufferWindow *)mainWindow armVoiceOverFocusedMoveElement];
 }
 
 #pragma mark Speak previous moves
@@ -305,8 +309,14 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         [win resetLastSpokenString];
 
     CGFloat delay = self.theme.vOHackDelay;
-    shouldAddTitlePrefixToSpeech = (delay < 1);
     runOnMainAfterDelay(delay, ^{
+        // When VoiceOver's cursor landed on the move element at activation,
+        // it has read the move already, and announcing it again would only
+        // interrupt that.
+        GlkWindow *mainWindow = self.largestWithMoves;
+        if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && [(GlkTextBufferWindow *)mainWindow voiceOverReadLastMove])
+            return;
+        shouldAddTitlePrefixToSpeech = (delay < 1);
         [self speakMostRecent:self];
     });
 }

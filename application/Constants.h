@@ -27,6 +27,9 @@ extern NSString * const kAdjustSizeKey;
 extern NSString * const kImageReplacementKey;
 extern NSString * const kSaveInGameDirectoryKey;
 extern NSString * const kShowBezelsKey;
+// "Limit VoiceOver to Last Move" (Speech menu): the buffer text view's
+// accessible text starts at the last move. See BufferTextView.h.
+extern NSString * const kVOTailModeKey;
 extern NSString * const kShowLibraryKey;
 extern NSString * const kAddToLibraryKey;
 

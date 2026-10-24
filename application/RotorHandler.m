@@ -56,10 +56,35 @@ static NSCharacterSet *SPRotorLabelTrimSet(void) {
     return charset;
 }
 
-// A result for a range of a text view's text, clamped to the text.
+// With "Limit VoiceOver to Last Move" on, a buffer text view's accessible
+// text starts at this offset into its full text, and the ranges VoiceOver
+// sees and hands back are relative to it. Zero for everything else.
+static NSUInteger SPAccessibilityTextOffset(id element) {
+    if ([element isKindOfClass:[BufferTextView class]])
+        return ((BufferTextView *)element).accessibilityTextOffset;
+    return 0;
+}
+
+// The full-text range of the item VoiceOver hands back as the current one.
+static NSRange SPFullTextRange(NSAccessibilityCustomRotorItemResult *item) {
+    NSRange range = item.targetRange;
+    if (item && range.location != NSNotFound)
+        range.location += SPAccessibilityTextOffset(item.targetElement);
+    return range;
+}
+
+// A result for a range of a text view's full text, clamped to the text
+// VoiceOver can see, and expressed in VoiceOver's terms.
 static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textView, NSRange range) {
     NSAccessibilityCustomRotorItemResult *result = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:textView];
-    result.targetRange = NSIntersectionRange(NSMakeRange(0, textView.string.length), range);
+    NSUInteger offset = SPAccessibilityTextOffset(textView);
+    NSRange visible = NSMakeRange(offset, textView.string.length - offset);
+    range = NSIntersectionRange(visible, range);
+    if (range.length)
+        range.location -= offset;
+    else
+        range = NSMakeRange(0, 0);
+    result.targetRange = range;
     return result;
 }
 
@@ -76,7 +101,7 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
         NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
         return [self textSearchResultForString:searchParameters.filterString
-                                     fromRange:currentItemResult.targetRange
+                                     fromRange:SPFullTextRange(currentItemResult)
                                      direction:searchParameters.searchDirection];
     } else if ([rotor.label isEqualToString:NSLocalizedString(@"Command history", nil)]) {
         return [self commandHistoryRotor:rotor resultForSearchParameters:searchParameters];
@@ -104,8 +129,9 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
         for (GlkWindow *view in glkctl.windowsIncludingQuoteBox) {
             if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
                 NSString *contentString = view.textview.string;
+                NSUInteger offset = SPAccessibilityTextOffset(view.textview);
 
-                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(0, contentString.length) locale:nil];
+                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(offset, contentString.length - offset) locale:nil];
 
                 if (resultRange.location == NSNotFound)
                     continue;
@@ -115,21 +141,16 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
                 } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
                     searchFound = (resultRange.location >= NSMaxRange(fromRange));
                 }
-                if (searchFound) {
-                    searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:view.textview];
-                    searchResult.targetRange = resultRange;
-                    return searchResult;
-                }
+                if (searchFound)
+                    return SPTextRangeResult(view.textview, resultRange);
 
                 bestMatchRange = resultRange;
                 bestMatch = view.textview;
             }
         }
     }
-    if (bestMatch) {
-        searchResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:bestMatch];
-        searchResult.targetRange = bestMatchRange;
-    }
+    if (bestMatch)
+        searchResult = SPTextRangeResult(bestMatch, bestMatchRange);
     return searchResult;
 }
 
@@ -141,7 +162,7 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
     NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
     NSString *filterText = searchParameters.filterString;
-    NSRange currentRange = currentItemResult.targetRange;
+    NSRange currentRange = SPFullTextRange(currentItemResult);
 
     NSMutableArray<NSValue *> *children = [[NSMutableArray alloc] init];
     NSMutableArray *linkTargetViews = [[NSMutableArray alloc] init];
@@ -160,6 +181,14 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
         if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
             NSTextView *targetTextView = view.textview;
             NSArray<NSValue *> *links = view.links;
+
+            // Only links in the text VoiceOver can see (see SPTextRangeResult)
+            NSUInteger offset = SPAccessibilityTextOffset(targetTextView);
+            if (offset && links.count) {
+                links = [links filteredArrayUsingPredicate:[NSPredicate predicateWithBlock:^BOOL(NSValue *object, NSDictionary *unused) {
+                    return object.rangeValue.location >= offset;
+                }]];
+            }
 
             if (filterText.length && links.count) {
                 NSString __block *text = targetTextView.string;
@@ -187,8 +216,8 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
 
     if (currentItemIndex != NSNotFound) {
         NSTextView *targetElement = linkTargetViews[currentItemIndex];
-        searchResult = SPTextRangeResult(targetElement, children[currentItemIndex].rangeValue);
-        NSRange textRange = searchResult.targetRange;
+        NSRange textRange = children[currentItemIndex].rangeValue;
+        searchResult = SPTextRangeResult(targetElement, textRange);
         NSString *string = targetElement.textStorage.string;
         unichar firstChar = textRange.location < string.length ? [string characterAtIndex:textRange.location] : 0;
         if (glkctl.gameID == kGameIsAColderLight && firstChar == '<' && textRange.length == 1) {
@@ -417,7 +446,7 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     NSAccessibilityCustomRotorItemResult *searchResult = nil;
 
     NSAccessibilityCustomRotorSearchDirection direction = searchParameters.searchDirection;
-    NSRange currentRange = searchParameters.currentItem.targetRange;
+    NSRange currentRange = SPFullTextRange(searchParameters.currentItem);
 
     NSString *filterText = searchParameters.filterString;
 
@@ -452,9 +481,9 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     // rotor would start over at the newest item instead of stepping on.
     // VoiceOver also passes the element its cursor is on as the current
     // item, with an empty range; that must not match a move either way.
-    // Issue #80 prototype, "tail" modes: the results target the move
+    // With "Limit VoiceOver to Last Move" on, the results target the move
     // elements instead of text ranges, so the current item is one of them.
-    if ([GlkTextBufferWindow voProtoTail]) {
+    if ([GlkTextBufferWindow voiceOverTailMode]) {
         NSRange elementRange = [largest moveRangeForAccessibilityElement:searchParameters.currentItem.targetElement];
         if (elementRange.location != NSNotFound)
             currentRange = elementRange;
@@ -483,7 +512,7 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
         NSString *string = [strings[currentItemIndex] stringByTrimmingCharactersInSet:SPRotorLabelTrimSet()];
         // Strip command line if the speak command setting is off
         if (!_glkctl.theme.vOSpeakCommand && !_glkctl.showingInfocomV6Menu) {
-            NSUInteger promptIndex = searchResult.targetRange.location;
+            NSUInteger promptIndex = targetRangeValue.rangeValue.location;
             if (promptIndex != 0)
                 promptIndex--;
             NSString *text = largest.textview.string;
@@ -497,7 +526,9 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
         if ([largest isKindOfClass:[GlkTextBufferWindow class]])
             [largest forceLayout];
         searchResult.customLabel = string;
-        if ([GlkTextBufferWindow voProtoTail]) {
+        // Older moves are outside the text VoiceOver can see; the move
+        // elements cover them all.
+        if ([GlkTextBufferWindow voiceOverTailMode]) {
             id element = [largest moveAccessibilityElementForRange:targetRangeValue.rangeValue];
             if (element) {
                 NSAccessibilityCustomRotorItemResult *elementResult = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:element];

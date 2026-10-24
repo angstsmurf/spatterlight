@@ -33,6 +33,7 @@ NSString * const kAdjustSizeKey = @"AdjustSize";
 NSString * const kImageReplacementKey = @"ImageReplacement";
 NSString * const kSaveInGameDirectoryKey = @"SaveInGameDirectory";
 NSString * const kShowBezelsKey = @"ShowBezels";
+NSString * const kVOTailModeKey = @"VoiceOverTailMode";
 NSString * const kShowLibraryKey = @"ShowLibrary";
 NSString * const kAddToLibraryKey = @"AddToLibrary";
 NSString * const kTerminationAlertSuppressionKey = @"TerminationAlertSuppression";

@@ -150,16 +150,6 @@
             value = "30"
             isEnabled = "NO">
          </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "SPATTERLIGHT_VO_PROTO"
-            value = "1"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "SPATTERLIGHT_VO_PROTO_FILE"
-            value = "/Users/administrator/vo-mode"
-            isEnabled = "NO">
-         </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>
          <AdditionalOption
@@ -173,9 +163,6 @@
             isEnabled = "YES">
          </AdditionalOption>
       </AdditionalOptions>
-      <MetalAPIValidationSettings
-         isEnabled = "No">
-      </MetalAPIValidationSettings>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Debug"
