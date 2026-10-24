@@ -67,10 +67,18 @@ are in `make test` since that pass.
 - **Per-game quirks are data**: `game_traits.h/.cpp`, one `GameTraits` row per
   game. Only the id detection strings in `glk_main.cpp` and `apple2.cpp` still
   compare game ids.
-- **The hi-res and DHGR flood fill share `gm_span_fill.h`**, with the DHGR
-  single-pixel-span rule as the policy constant `kDropSinglePixelSpans`. That
-  rule is a real difference (the prison tower floor leak) and must not be
-  unified.
+- **The hi-res, DHGR and CGA flood fills share `gm_span_fill.h`.** The 6502
+  and 8086 interpreters walk the 32-entry span queue identically, so
+  `GmSpanFill<Geom>` holds that traversal and each renderer supplies a
+  geometry policy: `GmHiresSpanGeom<Page>` (7-pixel bytes, clip rectangle)
+  for both Apple renderers, `CgaFillGeom` (8-pixel 2-bpp words) for CGA. The
+  edge rules stay per platform as policy hooks and must not be unified: the
+  DHGR single-pixel-span rule `kDropSinglePixelSpans` (the prison tower floor
+  leak); the clip-row test in `acceptSpan` (Apple drops a span on the clip
+  row in its direction, CGA only stops down pushes at the bottom row and
+  queues a dead up span on row 0); and `kAbortOnOverflow` (CGA abandons the
+  fill when the queue fills, the 6502 wraps). The CGA native addresses for
+  each traversal step are listed above `CgaFillGeom`.
 - **The PCjr fill tile**: row parity as the game has it, and the flood fill
   tests and paints with bytes 0 and 2 of the tile only. 228 of the 331 PCjr
   hashes were re-blessed for those two fixes against DOSBox-X captures.
@@ -162,8 +170,9 @@ Left alone on purpose:
   stepper is shared, see above; the DHGR plot and half step are not).
 - The DHGR brush puts `+8` upper-right and `+16` lower-left, CGA/PCjr the
   reverse. Column-major DOS data; not a bug.
-- Flood fills: the CGA word-queue port, the PCjr visited-mask fill and the
-  Apple/DHGR span fill stay apart (see above and B5 in the comments).
+- Flood fills: the PCjr visited-mask fill is a different algorithm and stays
+  apart from the shared span fill (see above and the comment at
+  `gmpcjr_flood_fill`).
 - The Scott Adams copy in `terps/scott/saga/apple2_vector_draw.c` decodes a
   3-bit opcode (`& 0xe0`, real pictures carry `0x5x` meaning SET_SHAPE), uses
   a midpoint scanline fill and its own slow-draw op list, in C. It already

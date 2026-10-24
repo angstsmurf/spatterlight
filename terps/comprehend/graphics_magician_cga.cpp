@@ -46,6 +46,7 @@
 #include "graphics_magician.h"         // Opcode enum
 #include "graphics_magician_vector.h"  // shared line/circle rasterizers
 #include "gm_stream.h"                 // shared opcode dispatcher
+#include "gm_span_fill.h"              // shared op14 flood fill
 #include "slow_draw_page.h"            // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
@@ -761,25 +762,6 @@ static inline uint16_t pf_pattern_word(uint8_t sel, int y, int gb) {
 	return (uint16_t)((m << 8) | m);
 }
 
-// One entry of the span queue: the extent of a painted span (left and right
-// edge, both inclusive, as global pixel columns) on row `y`, to be re-scanned
-// one row up (`d` == 0) or down (`d` == 1).  `d` == 0xff marks an entry
-// retired by the overlap merge.  The native keeps each edge as a (byte, pixel)
-// pair in the LB/LP and RB/RP arrays.
-struct PfSpan {
-	int     l, r;
-	uint8_t y;        // Y
-	uint8_t d;        // DIR
-};
-
-// What the hunt over a parent extent does after a white pixel is handled.
-enum PfStep {
-	PF_ADVANCE,   // step the cursor on and keep hunting
-	PF_RETIRE,    // the parent entry is done
-	PF_NEWSPAN,   // (reconcile only) nothing queued covers the pixel: grow a span
-	PF_ABORT      // the queue overflowed: the whole fill stops
-};
-
 // FUN_29e1: scan the word in `A` from pixel 7 leftward for the first non-white
 // pixel.  On a hit, records its index in `*edge` and returns the "pixels right
 // of it" mask; if `A` is all white it is returned unchanged (and *edge keeps
@@ -863,133 +845,53 @@ static void pf_scan_paint(int y, int x, uint8_t sel, int *l, int *r) {
 	                                                     //  is left of the boundary
 }
 
-// The cursor and span edges are global pixel columns.  The native does all of
-// this in (even byte, pixel) pairs with 8-bit bytes; no wrap can occur because
-// the margins outside bytes 5..74 read black, so every column the fill ever
-// forms lies between 18 and 301.
+// The fill policy for gm_span_fill.h.  Positions are global pixel columns.  The
+// native does all of this in (even byte, pixel) pairs with 8-bit bytes; no wrap
+// can occur because the margins outside bytes 5..74 read black, so every column
+// the fill ever forms lies between 18 and 301 and the leftward scan needs no
+// clip.  The shared traversal is FUN_263b's queue loop; the native addresses of
+// its steps:
+//   seed must be white               265b
+//   seed run and its up/down pushes  266e / 2675 / 2679
+//   main queue loop, dead entries    267c / 2699
+//   walk over the parent extent      269e..26ee (FUN_29a0 per pixel)
+//   merge with a queued span         2700..27e2 (GmSpanFill::merge)
+//   paint a new run, overhangs       2808..28f2 (GmSpanFill::paintRun)
+//   push (FUN_2da0)                  queue at LB/LP/RB/RP/Y/DIR 0xb0d3..0xb173,
+//                                    head/tail 0xb0d1 / 0xb0d2, overflow [0xb193]
+struct CgaFillGeom {
+	// FUN_2da0 reports a full queue and the fill stops.
+	static const bool kAbortOnOverflow = true;
+
+	int     y;
+	uint8_t sel;
+
+	void setRow(int row) { y = row; }
+	bool isSet(int x) const { return pf_white(y, x); }
+	void scanPaint(int x, int &l, int &r) const { pf_scan_paint(y, x, sel, &l, &r); }
+
+	// Down pushes stop at the bottom row.  The up-push bound ([0x9d59] == 0,
+	// unsigned compare) never rejects, so spans on row 0 do push an up entry;
+	// its target row reads black here and the entry retires without effect, as
+	// on hardware.
+	bool acceptSpan(uint8_t row, int, int, uint8_t dir) const {
+		return dir == GM_SPAN_UP || row < s_pfBottomRow;
+	}
+
+	void notePush(uint8_t row, int l, int r, uint8_t dir, uint8_t head, uint8_t tail) const {
+		if (s_pfTrace)
+			fprintf(stderr, "PUSH y=%d l=%d r=%d d=%d h=%d t=%d\n",
+					row, l, r, dir, head, tail);
+	}
+};
+
 static void gmcga_flood_fill(int seed_x, int seed_y, uint8_t sel) {
 	if ((uint8_t)seed_y > s_pfBottomRow)                 // 263b
 		return;
-
-	int x = seed_x + 20;                                 // 24d1: + [0xb02d]; 264b
-	int y = seed_y;                                      //  splits this into B and P
-	if (!pf_white(y, x))                                 // 265b: seed must be white
-		return;
-
-	// 32-entry circular span queue (LB/LP/RB/RP/Y/DIR arrays at 0xb0d3..0xb173).
-	PfSpan q[32];
-	uint8_t head = 0, tail = 0;                          // 0xb0d1 / 0xb0d2
-	auto qnext = [](uint8_t i) { return (uint8_t)((i + 1) & 0x1f); };
-
-	// FUN_2da0: append span l..r of the current row going `dir` (0 = up,
-	// 1 = down).  Returns false when the queue overflows ([0xb193]), which
-	// aborts the fill.  The up-push bound ([0x9d59] == 0, unsigned compare)
-	// never rejects, so spans on row 0 do push an up entry; its target row
-	// reads black here and the entry retires without effect, as on hardware.
-	auto push = [&](int l, int r, uint8_t dir) -> bool {
-		const uint8_t yb = (uint8_t)y;
-		if (s_pfTrace)
-			fprintf(stderr, "PUSH y=%d l=%d r=%d d=%d h=%d t=%d\n",
-					yb, l, r, dir, head, tail);
-		if (dir != 0 && yb >= s_pfBottomRow)
-			return true;
-		q[tail] = PfSpan{ l, r, yb, dir };
-		tail = qnext(tail);
-		return tail != head;
-	};
-
-	// 2700: the cursor sits on a white pixel that is about to seed a span.
-	// Look for a queued span `other` on the same row, going the other way,
-	// whose extent contains the cursor.  If there is none the caller grows a
-	// new span (PF_NEWSPAN).  Otherwise `other` already covers this stretch:
-	// any part of it left of the parent extent is requeued on its own, and
-	// then either `other` ends inside the parent extent, so it is retired and
-	// the hunt resumes after it (PF_ADVANCE), or it sticks out to the right,
-	// so it is clipped to start after the parent extent and the parent is
-	// done (PF_RETIRE).
-	auto reconcile = [&](const PfSpan &parent) -> PfStep {
-		for (uint8_t E = qnext(head); E != tail; E = qnext(E)) {   // 2706
-			PfSpan &other = q[E];
-			if (other.y != (uint8_t)y)                   // 271a
-				continue;
-			if (other.d == parent.d)                     // 272a: opposite dir only
-				continue;
-			if (x > other.r || x < other.l)              // 2730 / 2748: not inside
-				continue;
-			// 275b: the seed is strictly inside `other`, and `other` sticks
-			// out left of the parent extent: requeue that remainder under its
-			// own direction.
-			if (x > other.l && parent.l - 1 > other.l)   // 2769
-				if (!push(other.l, parent.l - 2, other.d))   // 2781/278f/279e
-					return PF_ABORT;                     // 27a8
-			// 27b9: resume after `other`'s right edge, or split it around the
-			// parent.
-			if (other.r <= parent.r) {
-				other.d = 0xff;                          // 27d2: fully shadowed
-				x = other.r;
-				return PF_ADVANCE;
-			}
-			other.l = parent.r + 1;                      // 27e2: clip it to start
-			return PF_RETIRE;                            //  after the parent extent
-		}
-		return PF_NEWSPAN;                               // nothing overlaps
-	};
-
-	// 2808: grow and paint a fresh span around the cursor and queue it onward.
-	// Where the new span overhangs the parent extent by two or more pixels, on
-	// either side, that overhang is queued back the way we came.  A right
-	// overhang ends the parent (PF_RETIRE); otherwise the hunt continues after
-	// the new span (PF_ADVANCE).
-	auto new_span = [&](const PfSpan &parent) -> PfStep {
-		int l, r;
-		pf_scan_paint(y, x, sel, &l, &r);
-		if (!push(l, r, parent.d))                       // 2819: keep propagating
-			return PF_ABORT;                             // 2823
-		if (parent.l - 1 > l)                            // 2848: left overhang
-			if (!push(l, parent.l - 2, (uint8_t)(parent.d ^ 1)))   // 285f/286c
-				return PF_ABORT;
-		x = r;                                           // 287b: resume at right edge
-		if (parent.r + 1 < r) {                          // 28c3: right overhang
-			if (!push(parent.r + 2, r, (uint8_t)(parent.d ^ 1)))   // 28e0
-				return PF_ABORT;
-			return PF_RETIRE;                            // 28ef
-		}
-		return parent.r + 1 == r ? PF_RETIRE : PF_ADVANCE;   // ends exactly at +1 / 28f2
-	};
-
-	int l, r;
-	pf_scan_paint(y, x, sel, &l, &r);                    // 266e: seed row
-	push(l, r, 0);                                       // 2675
-	push(l, r, 1);                                       // 2679
-
-	long guard = 0;
-	while (head != tail && ++guard <= 1000000) {         // 267c: main queue loop
-		if (q[head].d == 0xff) {                         // 2699: dead entry
-			head = qnext(head);
-			continue;
-		}
-		const PfSpan &parent = q[head];
-		y = parent.y + (parent.d == 0 ? -1 : 1);         // 269e/269b: row above/below
-		x = parent.l;                                    // 26a3: start at parent left
-
-		// 26ba: hunt for white seeds across the parent extent, pixel by pixel.
-		PfStep step = PF_ADVANCE;
-		for (;;) {
-			if (pf_white(y, x)) {
-				step = reconcile(parent);
-				if (step == PF_NEWSPAN)
-					step = new_span(parent);
-				if (step != PF_ADVANCE)
-					break;
-			}
-			if (x == parent.r)                           // 26bf: extent exhausted
-				break;
-			x++;
-		}
-		if (step == PF_ABORT)
-			return;
-		head = qnext(head);                              // 26ee: retire the parent
-	}
+	CgaFillGeom geom = { 0, sel };
+	GmSpanFill<CgaFillGeom> fill(geom);
+	fill.fill(seed_x + 20, seed_y);                      // 24d1: + [0xb02d]; 264b
+	                                                     //  splits this into B and P
 }
 
 // ---- Line drawing (op10 DRAW_LINE / op9 DRAW_BOX) ----------------------------

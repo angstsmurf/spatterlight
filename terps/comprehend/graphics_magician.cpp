@@ -252,7 +252,7 @@ struct AppleFillPage {
 };
 
 static AppleFillPage s_fillPage;
-static GmSpanFill<AppleFillPage> s_spanFill(s_fillPage);
+static GmHiresSpanFill<AppleFillPage> s_spanFill(s_fillPage);
 
 // Flood-fill entry point: seed point (x,y), even/odd fill patterns and the clip
 // rectangle (columns left..right, rows top..bottom).

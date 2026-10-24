@@ -420,7 +420,7 @@ struct DhgrFillPage {
 };
 
 static DhgrFillPage s_fillPage;
-static GmSpanFill<DhgrFillPage> s_spanFill(s_fillPage);
+static GmHiresSpanFill<DhgrFillPage> s_spanFill(s_fillPage);
 
 static void flood_fill(uint16_t x, uint8_t y) {
 	// Clip to the op15 fill-bounds rectangle. The fill runs in DHGR columns
