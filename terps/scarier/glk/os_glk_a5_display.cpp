@@ -57,12 +57,13 @@ gsc_a5_draw_image (winid_t win, glui32 number)
  * gsc_a5_span_style()
  *
  * Pick the Glk style for a text span given its alignment and weight/oblique
- * nesting depths.  Glk styles don't combine, so alignment wins over character
- * styles: centered+bold keeps User2 (weight-hinted); right uses Note with no
- * bold/italic combo.  Unaligned bold+italic (or bold+underline) maps to Alert;
- * italic or underline alone to Emphasized; bold alone to Subheader (as the
- * ADRIFT 4 path does in gsc_set_glk_style).  Underline marks are distinct for
- * a future CSS path; for now they share italic's Glk styles.
+ * nesting depths, looked up in the style assignment the way the ADRIFT 4
+ * path's gsc_set_glk_style() does.  Glk styles don't combine, so alignment
+ * wins over character styles: centered+bold keeps User2 (weight-hinted);
+ * right uses Note with no bold/italic combo.  Unaligned bold+italic (or
+ * bold+underline) maps to Alert; italic or underline alone to Emphasized;
+ * bold alone to Subheader.  Underline marks are distinct for a future CSS
+ * path; for now they share italic's Glk styles.
  *
  * `input_colour` says the span's ink is the input colour (a <c> span, or the
  * game title, which the Runner Displays as one).  That ink only exists in
@@ -76,21 +77,15 @@ gsc_a5_span_style (int center_depth, int right_depth,
                    int bold_depth, int italic_depth, int underline_depth,
                    int input_colour)
 {
-  const int oblique = italic_depth > 0 || underline_depth > 0;
-
-  if (right_depth > 0)
-    return style_Note;
-  if (center_depth > 0)
-    return bold_depth > 0 ? style_User2 : style_User1;
-  if (bold_depth > 0 && oblique)
-    return style_Alert;
-  if (oblique)
-    return style_Emphasized;
-  if (bold_depth > 0)
-    return style_Subheader;
-  if (input_colour && !gsc_colour_visible ())
-    return style_Emphasized;
-  return style_Normal;
+  return gsc_style_lookup (gsc_styles_table (),
+                           gsc_style_combo (bold_depth > 0,
+                                            italic_depth > 0
+                                            || underline_depth > 0,
+                                            FALSE, center_depth > 0,
+                                            right_depth > 0,
+                                            input_colour
+                                            && !gsc_colour_visible (),
+                                            GSC_STYLE_DEFAULT_POINTS));
 }
 
 /*

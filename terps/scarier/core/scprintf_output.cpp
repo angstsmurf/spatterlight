@@ -33,7 +33,7 @@
  * +percent+ with < > %, then send to the OS-specific output functions.
  */
 static void
-pf_output_text (const scr_char *string)
+pf_output_text (const scr_char *string, const scr_markup_sink_t *sink)
 {
   scr_int index_;
   std::string buffer;
@@ -43,7 +43,7 @@ pf_output_text (const scr_char *string)
         || strstr (string, ENTITY_GREATERTHAN)
         || strstr (string, ENTITY_PERCENT)))
     {
-      if_print_string (string);
+      sink->text (string, sink->opaque);
       return;
     }
 
@@ -79,7 +79,7 @@ pf_output_text (const scr_char *string)
     }
 
   /* Print the rebuilt string. */
-  if_print_string (buffer.c_str ());
+  sink->text (buffer.c_str (), sink->opaque);
 }
 
 
@@ -89,7 +89,7 @@ pf_output_text (const scr_char *string)
  * Output an HTML-like tag element to the OS-specific tag handling function.
  */
 static void
-pf_output_tag (const scr_char *contents)
+pf_output_tag (const scr_char *contents, const scr_markup_sink_t *sink)
 {
   const scr_html_tags_t *entry;
   const scr_char *argument;
@@ -97,7 +97,7 @@ pf_output_tag (const scr_char *contents)
   /* For a simple <br> tag, just print out a newline. */
   if (scr_compare_word (contents, "br", 2))
     {
-      if_print_character ('\n');
+      sink->text ("\n", sink->opaque);
       return;
     }
 
@@ -141,7 +141,7 @@ pf_output_tag (const scr_char *contents)
   /* If not matched, output an unknown tag with contents as its argument. */
   if (!entry->name)
     {
-      if_print_tag (SCR_TAG_UNKNOWN, contents);
+      sink->tag (SCR_TAG_UNKNOWN, contents, sink->opaque);
       return;
     }
 
@@ -154,18 +154,21 @@ pf_output_tag (const scr_char *contents)
   argument += (entry->tag != SCR_TAG_BGCOLOUR) ? entry->length : 0;
   while (scr_isspace (argument[0]))
     argument++;
-  if_print_tag (entry->tag, argument);
+  sink->tag (entry->tag, argument, sink->opaque);
 }
 
 
 /*
- * pf_output_untagged()
+ * pf_dissect_markup()
  *
  * Break apart HTML-like string into normal text elements, and HTML-like
- * tags.
+ * tags, and hand each to the sink in order.  The printfilter's own output
+ * goes through here (pf_output_untagged() below); scr_game_scan_markup()
+ * sends a game's authored strings through it too, so a host tallying the
+ * markup sees the same tags and text the screen would.
  */
-static void
-pf_output_untagged (const scr_char *string)
+void
+pf_dissect_markup (const scr_char *string, const scr_markup_sink_t *sink)
 {
   scr_char *untagged, *contents, *cursor;
   const scr_char *marker;
@@ -180,7 +183,7 @@ pf_output_untagged (const scr_char *string)
            || strstr (string, ENTITY_GREATERTHAN)
            || strstr (string, ENTITY_PERCENT)))
     {
-      if_print_string (string);
+      sink->text (string, sink->opaque);
       return;
     }
 
@@ -201,7 +204,7 @@ pf_output_untagged (const scr_char *string)
       /* Handle characters up to the tag start; untagged text. */
       memcpy (untagged, marker, cursor - marker);
       untagged[cursor - marker] = NUL;
-      pf_output_text (untagged);
+      pf_output_text (untagged, sink);
 
       /* Catch and ignore completely empty tags. */
       if (cursor[1] == GREATERTHAN)
@@ -220,8 +223,10 @@ pf_output_untagged (const scr_char *string)
         {
           if (sscanf (cursor, "<%[^>]", contents) != 1)
             {
-              scr_error ("pf_output_untagged: mismatched '%c'\n", LESSTHAN);
-              if_print_character (LESSTHAN);
+              static const scr_char lessthan[] = {LESSTHAN, NUL};
+
+              scr_error ("pf_dissect_markup: mismatched '%c'\n", LESSTHAN);
+              sink->text (lessthan, sink->opaque);
               marker = cursor + 1;
               continue;
             }
@@ -229,13 +234,41 @@ pf_output_untagged (const scr_char *string)
 
       /* Output tag, and advance marker over the <...> tag. */
       if (!scr_strempty (contents))
-        pf_output_tag (contents);
+        pf_output_tag (contents, sink);
       marker = cursor + strlen (contents) + 1;
       marker += (marker[0] == GREATERTHAN) ? 1 : 0;
     }
 
   /* Output any remaining string text; the temporary buffer frees itself. */
-  pf_output_text (marker);
+  pf_output_text (marker, sink);
+}
+
+
+/*
+ * pf_output_untagged()
+ *
+ * Dissect the string straight to the interface's print calls.
+ */
+static void
+pf_output_print_text (const scr_char *text, void *)
+{
+  if_print_string (text);
+}
+
+static void
+pf_output_print_tag (scr_int tag, const scr_char *argument, void *)
+{
+  if_print_tag (tag, argument);
+}
+
+static void
+pf_output_untagged (const scr_char *string)
+{
+  static const scr_markup_sink_t sink = {
+    nullptr, pf_output_print_text, pf_output_print_tag, nullptr
+  };
+
+  pf_dissect_markup (string, &sink);
 }
 
 

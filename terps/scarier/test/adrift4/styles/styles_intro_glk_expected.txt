@@ -1,0 +1,61 @@
+HINT buffer Note Justification 3
+HINT buffer Subheader Justification 0
+HINT buffer Header Weight 0
+HINT buffer Header Oblique 0
+HINT buffer Header Proportional 1
+HINT buffer Header Justification 0
+HINT buffer Header Size -1
+HINT buffer Header Indentation 0
+HINT buffer Header ParaIndentation 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 0
+HINT buffer BlockQuote Size 1
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
+HINT buffer User1 Weight 0
+HINT buffer User1 Oblique 0
+HINT buffer User1 Proportional 1
+HINT buffer User1 Justification 2
+HINT buffer User1 Size 2
+HINT buffer User1 Indentation 0
+HINT buffer User1 ParaIndentation 0
+HINT buffer User2 Weight 0
+HINT buffer User2 Oblique 0
+HINT buffer User2 Proportional 1
+HINT buffer User2 Justification 2
+HINT buffer User2 Size 6
+HINT buffer User2 Indentation 0
+HINT buffer User2 ParaIndentation 0
+HINT grid User1 ReverseColor 1
+SPAN 0 Normal 'Loading game...\n'
+SPAN 1 User1 '                                                                                                   Study (styles fixture) | Scarier regression'
+SPAN 0 BlockQuote 'Study (styles fixture)'
+SPAN 0 Normal '\n\n'
+SPAN 0 User2 'The Big Title'
+SPAN 0 Normal '\n\n'
+SPAN 1 User1 '                                                                                                   Study (styles fixture) | Scarier regression'
+SPAN 0 Normal '\n'
+SPAN 0 User1 'by A. N. Author'
+SPAN 0 Normal '\n\n\n'
+SPAN 0 Header "Small print: this fixture is part of Scarier's test suite."
+SPAN 0 Normal '\n\nAnd so the story begins.\n\n\n'
+SPAN 0 Subheader 'Study'
+SPAN 0 Normal '\nA quiet study. The '
+SPAN 0 Subheader 'desk'
+SPAN 0 Normal ' and the '
+SPAN 0 Subheader 'chair'
+SPAN 0 Normal ' are the only furniture.\n\n'
+SPAN 1 User1 '                                                                                                   StudyScore: 0'
+SPAN 0 Normal '>'
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n\n'
+SPAN 0 Subheader 'Study'
+SPAN 0 Normal '\nA quiet study. The '
+SPAN 0 Subheader 'desk'
+SPAN 0 Normal ' and the '
+SPAN 0 Subheader 'chair'
+SPAN 0 Normal ' are the only furniture.\n\n'
+SPAN 1 User1 '                                                                                                   StudyScore: 0'
+SPAN 0 Normal '>'

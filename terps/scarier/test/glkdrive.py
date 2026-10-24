@@ -21,6 +21,11 @@ question/test compares the two.  Edit one, copy to the other.
                           Glk timer and "tick:N" entries have something to
                           deliver to
 
+      --styles            after the transcript, report the style hints the
+                          terp set (in order, CLEARHINTs included) and the
+                          printed text as runs of one window and one style,
+                          so a test can see which style each span landed in
+
 Script entries that are not typed lines:
 
   link:N         click hyperlink value N in the last window that requested
@@ -79,6 +84,20 @@ MSG = struct.Struct("<6iQ")   # int cmd, a1..a5; size_t len
  EVTTIMER, EVTHYPER, EVTSOUND, EVTVOLUME, EVTPREFS, EVTQUIT,
  EVTTEST) = range(72)
 
+STYLE_NAMES = ("Normal", "Emphasized", "Preformatted", "Header", "Subheader",
+               "Alert", "Note", "BlockQuote", "Input", "User1", "User2")
+HINT_NAMES = ("Indentation", "ParaIndentation", "Justification", "Size",
+              "Weight", "Oblique", "Proportional", "TextColor", "BackColor",
+              "ReverseColor")
+WINTYPE_NAMES = {0: "all", 1: "pair", 2: "blank", 3: "buffer", 4: "grid",
+                 5: "graphics"}
+
+
+def name_of(names, n):
+    if isinstance(names, dict):
+        return names.get(n, str(n))
+    return names[n] if 0 <= n < len(names) else str(n)
+
 def make_settings(determinism=1, sa_delays=0):
     return struct.pack(
         "<6i4f21i",
@@ -122,6 +141,8 @@ class Driver:
         self.next_chan = 1
         self.transcript = []            # decoded PRINT text, in order
         self.autosaves = []             # AUTOSAVE hashes seen
+        self.hints = []                 # STYLEHINT / CLEARHINT, in order
+        self.spans = []                 # [peer, style, text] runs
         self.log = []
 
     def reply(self, cmd, a1=0, a2=0, a3=0, a4=0, a5=0, payload=b""):
@@ -162,8 +183,22 @@ class Driver:
         elif cmd == PRINT:
             text = payload.decode("utf-16-le", "replace")
             self.transcript.append(text)
+            if self.spans and self.spans[-1][:2] == [a1, a2]:
+                self.spans[-1][2] += text
+            else:
+                self.spans.append([a1, a2, text])
             if self.open_link and self.open_link[0] == a1:
                 self.link_texts[-1][2] += text
+        elif cmd == STYLEHINT:
+            self.hints.append("HINT %s %s %s %d"
+                              % (name_of(WINTYPE_NAMES, a1),
+                                 name_of(STYLE_NAMES, a2),
+                                 name_of(HINT_NAMES, a3), a4))
+        elif cmd == CLEARHINT:
+            self.hints.append("CLEAR %s %s %s"
+                              % (name_of(WINTYPE_NAMES, a1),
+                                 name_of(STYLE_NAMES, a2),
+                                 name_of(HINT_NAMES, a3)))
         elif cmd == SETLINK:
             # a1 = window, a2 = link value (0 ends the linked run).
             if a2:
@@ -342,7 +377,7 @@ class Driver:
 
 def main():
     argv = sys.argv[1:]
-    savepath, determinism, sa_delays = None, 1, 0
+    savepath, determinism, sa_delays, styles = None, 1, 0, False
     while argv and argv[0].startswith("--"):
         opt = argv.pop(0)
         if opt == "--transcript":
@@ -351,6 +386,8 @@ def main():
             determinism = 0
         elif opt == "--timers":
             sa_delays = 1
+        elif opt == "--styles":
+            styles = True
         else:
             sys.exit("unknown option " + opt)
 
@@ -369,6 +406,12 @@ def main():
         print("LOG " + line)
     print("=== TRANSCRIPT ===")
     print("".join(d.transcript))
+    if styles:
+        print("=== STYLES ===")
+        for line in d.hints:
+            print(line)
+        for peer, style, text in d.spans:
+            print("SPAN %d %s %r" % (peer, name_of(STYLE_NAMES, style), text))
     if err.strip():
         print("=== STDERR ===")
         print(err[-2000:])

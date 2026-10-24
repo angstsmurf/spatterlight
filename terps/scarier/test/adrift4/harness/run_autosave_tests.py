@@ -54,6 +54,7 @@ Usage:
   -v           print the first differing command's output on a mismatch.
 """
 
+import difflib
 import os
 import pwd
 import shutil
@@ -110,7 +111,7 @@ class Session(glkdrive.Driver):
     def dispatch(self, cmd, a1, a2, a3, a4, a5, payload):
         if cmd == glkdrive.PRINT:
             self.events.append(("out", a1,
-                                payload.decode("utf-16-le", "replace")))
+                                payload.decode("utf-16-le", "replace"), a2))
         elif cmd == glkdrive.NEWWIN:
             self.newwin += 1
             self.wintypes[a2] = a1
@@ -165,30 +166,36 @@ class Session(glkdrive.Driver):
             closed += ev[0] == "delwin"
         return opened, closed
 
-    def flat(self, resumed=False):
+    def flat(self, resumed=False, styled=False):
         """(pre, text): everything printed, typed and pressed, in order, as
         one string -- the form a session closed at a "press a key" pause is
         compared in, since such a session ends, and the next one begins,
         partway through a command's output.  A resumed session's pre is what
         it printed before its first input (the autorestore's redraw, which is
-        not part of the game's output) and is left out of text."""
+        not part of the game's output) and is left out of text.  With
+        `styled`, every change of Glk style is marked in the text too."""
         pre, parts, win, started = [], [], None, not resumed
+        style = None
         for ev in self.events:
             if ev[0] == "quit":
                 break
             if ev[0] == "in":
                 parts.append("\n> %s\n" % ev[1])
-                started, win = True, None
+                started, win, style = True, None, None
             elif ev[0] == "key":
                 parts.append("[key %d]" % ev[1])
-                started, win = True, None
+                started, win, style = True, None, None
             elif ev[0] == "out":
                 if not started:
                     pre.append((ev[1], ev[2]))
                     continue
                 if ev[1] != win:
                     parts.append("\n{win %d}\n" % ev[1])
-                    win = ev[1]
+                    win, style = ev[1], None
+                if styled and ev[3] != style:
+                    parts.append("{%s}" % glkdrive.name_of(
+                        glkdrive.STYLE_NAMES, ev[3]))
+                    style = ev[3]
                 parts.append(ev[2])
         return pre, "".join(parts)
 
@@ -412,7 +419,8 @@ def case_pause_equivalence(terp, case, res, verbose):
         if control.leftover:
             res.fail("control: script not consumed, %d entries left (%r...)"
                      % (len(control.leftover), control.leftover[:3]))
-        _, want = control.flat()
+        styled = case.get("styled", False)
+        _, want = control.flat(styled=styled)
         for text in case.get("expect", []):
             if text not in want:
                 res.fail("control: never printed %r, so the case does not"
@@ -424,7 +432,12 @@ def case_pause_equivalence(terp, case, res, verbose):
             s = run_session(terp, game, part, sig, work)
             label = "session %d" % (index + 1)
             check_process(res, s, label)
-            pre, text = s.flat(resumed=index > 0)
+            pre, text = s.flat(resumed=index > 0, styled=styled)
+            if styled and s.hints != control.hints:
+                res.fail("%s: set different style hints" % label,
+                         "\n".join(difflib.unified_diff(
+                             control.hints, s.hints, "one session",
+                             label, lineterm="")))
             if index > 0:
                 printed = "".join(t for w, t in pre if w in bufwins).strip()
                 if printed:
@@ -767,6 +780,15 @@ def build_cases():
     pauses("waitkey-turn", game("zacksmackfoot.taf"),
            [[K] + zack, ["out"], [K], [K, "key:u", "look"], ["i"]],
            expect=["You have made it out of the aircraft"])
+
+    # The game-derived styles (glk/os_glk_styles.cpp) come from the game file
+    # alone, so a relaunch must set the same hints and print every span in
+    # the same style: closed at the intro's pause, before the 24pt title's
+    # byline, and at the first prompt.
+    intro = os.path.join(ADRIFT4, "styles", "styles_intro.taf")
+    pauses("styles-intro-pause", intro, [[], [K], ["look"]], styled=True,
+           expect=["{User2}The Big Title", "{User1}by A. N. Author",
+                   "{Subheader}desk"])
 
     cases.append(dict(kind=case_damaged_container, name="corrupt-container",
                       game=maze, damage="garbage",

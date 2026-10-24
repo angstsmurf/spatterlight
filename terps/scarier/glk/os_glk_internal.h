@@ -29,6 +29,8 @@
  *   os_glk_status.cpp      the status line
  *   os_glk_output.cpp      tags, fonts, colour mode, inline graphics, hints
  *   os_glk_symbols.cpp     symbol-font to Unicode tables
+ *   os_glk_styles.cpp      the style census and assignment (no Glk calls;
+ *                          its own header, os_glk_styles.h)
  *   os_glk_resources.cpp   ADRIFT <=4 sound/graphics, the title window
  *   os_glk_commands.cpp    the "glk" commands and their help
  *   os_glk_input.cpp       ADRIFT <=4 line input
@@ -99,6 +101,7 @@ extern "C" {
 #include "adrift5/a5run.h"
 #include "adrift5/a5state.h"
 #include "adrift5/a5text.h"          /* A5_MEDIA_* kinds */
+#include "os_glk_styles.h"           /* the game's style assignment */
 
 /*
  * True and false definitions -- usually defined in glkstart.h, but we need
@@ -309,6 +312,8 @@ extern void gsc_status_redraw (void);
 
 /* os_glk_output.cpp: output styles, colour, inline graphics, hints. */
 extern void gsc_reset_glk_style (void);
+extern void gsc_styles_census (scr_game game);
+extern const gsc_style_table_t *gsc_styles_table (void);
 extern void gsc_normal_char (char c);
 extern void gsc_normal_string (const char *message);
 extern void gsc_standout_char (char c);

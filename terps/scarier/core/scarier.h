@@ -184,6 +184,27 @@ extern scr_bool scr_game_scan_strings (scr_game game,
                                                            void *opaque),
                                        void *opaque);
 
+/*
+ * Send every authored string in the game through the same tag dissection the
+ * printfilter uses on output, for a host that wants to know which markup the
+ * game uses before it opens its windows.  For each string `begin` is called
+ * with the string's place in the game -- its property path, keys joined by
+ * '/' ("Header/StartupText" is the introduction, "Rooms/3/Long" a room
+ * description) -- then `text` and `tag` in order for its pieces, exactly as
+ * os_print_string() and os_print_tag() would receive them were it printed
+ * as it stands.  Nothing is filtered first: variables and ALRs stay as
+ * written.  `begin` may be NULL.
+ */
+typedef struct
+{
+  void (*begin) (const scr_char *path, void *opaque);
+  void (*text) (const scr_char *text, void *opaque);
+  void (*tag) (scr_int tag, const scr_char *argument, void *opaque);
+  void *opaque;
+} scr_markup_sink_t;
+extern void scr_game_scan_markup (scr_game game,
+                                  const scr_markup_sink_t *sink);
+
 typedef void *scr_game_hint;
 extern scr_game_hint scr_get_first_game_hint (scr_game game);
 extern scr_game_hint scr_get_next_game_hint (scr_game game, scr_game_hint hint);
