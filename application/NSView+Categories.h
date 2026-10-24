@@ -42,7 +42,18 @@ NS_ASSUME_NONNULL_BEGIN
 // waits to wrap. Needs TextKit 1.
 - (NSRect)caretShapeRectForCaretRect:(NSRect)caretRect;
 
-- (void)drawCaretShapeInRect:(NSRect)shapeRect color:(NSColor *)color;
+// For drawInsertionPointInRect:color:turnedOn:. AppKit calls that right
+// after drawRect:, in the same display pass, with the context still current
+// and clipped to what it invalidated, so the shape is drawn then and there.
+// Returns the rect the caret and the shape cover together, to keep for the
+// next call and for widening invalidations; NSZeroRect when turned off.
+- (NSRect)drawCaretShapeForCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect;
+
+// For setNeedsDisplayInRect:avoidAdditionalLayout:. AppKit blinks and moves
+// the caret by invalidating its own 1-point-wide rect, which would leave the
+// rest of the shape behind: widen the rect to the last drawn shape when it
+// touches it.
+- (NSRect)rect:(NSRect)rect widenedToCaretShape:(NSRect)lastShapeRect;
 
 @end
 
