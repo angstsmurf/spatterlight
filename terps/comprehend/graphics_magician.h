@@ -17,8 +17,8 @@ namespace Glk {
 namespace Comprehend {
 
 // Graphics Magician / Picture Painter vector opcode (high nibble of each
-// command byte). Shared by both picture renderers (pics.cpp and the Apple II
-// renderer in graphics_magician.cpp).
+// command byte). Shared by all the Graphics Magician renderers, which decode
+// the stream through the common dispatcher in gm_stream.h.
 enum Opcode {
 	OPCODE_END = 0,
 	OPCODE_SET_TEXT_POS = 1,

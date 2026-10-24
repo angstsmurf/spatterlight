@@ -34,3 +34,4 @@ images/
 *.page
 *.bin
 fixtures/
+test_gm_stream
