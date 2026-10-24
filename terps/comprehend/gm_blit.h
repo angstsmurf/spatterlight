@@ -21,8 +21,9 @@ namespace Comprehend {
 // column x directly (clamped to 559); otherwise column x*560/w.
 inline void gmSampleRow560(const uint8_t colors560[560], uint32_t *out, int w,
 						   bool oneToOneWhenWide) {
+	const bool direct = oneToOneWhenWide && w >= 560;
 	for (int x = 0; x < w; x++) {
-		int sx = (oneToOneWhenWide && w >= 560) ? x : (x * 560) / w;
+		int sx = direct ? x : (x * 560) / w;
 		if (sx > 559) sx = 559;
 		uint32_t rgb = gm_apple2_palette[colors560[sx] & 0x0f];
 		out[x] = (rgb << 8) | 0xff;

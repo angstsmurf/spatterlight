@@ -152,7 +152,7 @@ public:
 	}
 
 	bool endRebuild(Pages live, Pages slow) {
-		capture(live, 24, 39);
+		capture(live, kPanelCol0, kPanelCol1);
 		for (int i = 0; i < Planes; i++) {
 			memcpy(live[i], _saveLive[i], GM_HIRES_PAGE_SIZE);
 			memcpy(slow[i], _saveSlow[i], GM_HIRES_PAGE_SIZE);
@@ -163,29 +163,19 @@ public:
 	// Copy the saved panel columns onto rows [y0,y1] of both the final and the slow
 	// pages.
 	void toPages(Pages live, Pages slow, int y0, int y1) const {
-		for (int row = y0; row <= y1; row++) {
-			const int base = gm_row_address(row);
-			for (int col = _col0; col <= _col1; col++) {
-				const int a = base + col;
-				if (a >= GM_HIRES_PAGE_SIZE) continue;
-				for (int i = 0; i < Planes; i++)
-					live[i][a] = slow[i][a] = _panel[i][a];
-			}
-		}
+		forEachPanelByte(y0, y1, [&](int a) {
+			for (int i = 0; i < Planes; i++)
+				live[i][a] = slow[i][a] = _panel[i][a];
+		});
 	}
 
 	// Mirror the final pages' panel columns (e.g. with freshly stamped grains) onto
 	// the slow pages only.
 	void finalToSlow(Pages live, Pages slow, int y0, int y1) const {
-		for (int row = y0; row <= y1; row++) {
-			const int base = gm_row_address(row);
-			for (int col = _col0; col <= _col1; col++) {
-				const int a = base + col;
-				if (a >= GM_HIRES_PAGE_SIZE) continue;
-				for (int i = 0; i < Planes; i++)
-					slow[i][a] = live[i][a];
-			}
-		}
+		forEachPanelByte(y0, y1, [&](int a) {
+			for (int i = 0; i < Planes; i++)
+				slow[i][a] = live[i][a];
+		});
 	}
 
 	// True when a recorded write to page offset `offset` falls in the panel and so
@@ -200,11 +190,26 @@ public:
 	}
 
 private:
+	enum { kPanelCol0 = 24, kPanelCol1 = 39 };   // the panel's byte columns
+
+	// Call f(offset) for every page offset in the panel columns of rows [y0,y1].
+	template <class F>
+	void forEachPanelByte(int y0, int y1, F f) const {
+		for (int row = y0; row <= y1; row++) {
+			const int base = gm_row_address(row);
+			for (int col = _col0; col <= _col1; col++) {
+				const int a = base + col;
+				if (a < GM_HIRES_PAGE_SIZE)
+					f(a);
+			}
+		}
+	}
+
 	uint8_t _panel[Planes][GM_HIRES_PAGE_SIZE];
 	uint8_t _saveLive[Planes][GM_HIRES_PAGE_SIZE];
 	uint8_t _saveSlow[Planes][GM_HIRES_PAGE_SIZE];
 	bool _valid = false;
-	int _col0 = 24, _col1 = 39;
+	int _col0 = kPanelCol0, _col1 = kPanelCol1;
 	bool _saveRecording = false;
 };
 

@@ -2,7 +2,7 @@
  * interpreters.
  *
  * The game-picture fixtures are local-only, so a refactor of the opcode loops
- * (see TODO-graphics-magician-dispatcher.md) cannot rely on them.  This harness
+ * (test/README.md, the dispatcher pass) cannot rely on them.  This harness
  * instead renders deterministic pseudo-random but well-formed opcode streams
  * through ONE renderer with synthetic drawing tables, and prints a hash of the
  * final page, of every slow-draw reveal step and of every dirty band.  Build it

@@ -77,6 +77,16 @@ inline bool gmHave(const uint8_t *p, const uint8_t *end, size_t n) {
 	return (size_t)(end - p) >= n;
 }
 
+// op7 as the Talisman-era pictures use it: two operand bytes that mean nothing.
+// Skips them; returns true (end the image) when fewer than two remain.  The op7
+// hook of a renderer that gives the operands no meaning is just this.
+inline bool gmSkipOp7(const uint8_t *&p, const uint8_t *end) {
+	if (!gmHave(p, end, 2))
+		return true;
+	p += 2;
+	return false;
+}
+
 // Operand bytes of the opcodes the dispatcher decodes itself.  op7 and op15 take
 // a renderer-specific number, so they report 0 here and check for themselves.
 inline size_t gmOperandBytes(uint8_t op) {

@@ -22,11 +22,10 @@
 #ifndef COMPREHEND_GRAPHICS_MAGICIAN_VECTOR_H
 #define COMPREHEND_GRAPHICS_MAGICIAN_VECTOR_H
 
-#include <cstdint>  // uint8_t, uint16_t
+#include <cstdint>  // uint8_t, uint16_t, SIZE_MAX
 #include <cstdlib>  // abs
 #include <cstring>  // memcmp
 #include <cstddef>  // size_t
-#include <cstdint>  // SIZE_MAX
 #include <utility>  // std::swap
 
 namespace Glk {

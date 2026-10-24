@@ -1094,7 +1094,7 @@ static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
 			const uint8_t fb = fill_pattern(fill_sel, py, (phase + 3) & 3);
 			for (int pos = 0; pos < 4; pos++) {
 				if (((m[k] >> ((3 - pos) << 1)) & 0x3) == 0) continue;
-				const int x = (lb << 2) + pos;
+				const int x = lb * 4 + pos;   // lb can be -1 (brush stamped at x-1); no shift of a negative
 				if ((unsigned)x >= GMCGA_WIDTH) continue;
 				const uint8_t pix = (fb >> ((x & 3) << 1)) & 0x3;
 				write_2bpp(x, py, pix);
@@ -1277,12 +1277,7 @@ struct CgaRenderer {
 	void setPen(uint8_t param) { pen_val = (param < 8) ? kPenTo2bpp[param] : 0; }
 	void setShape(uint8_t param) { brush = param; }
 	void setFill(uint8_t b) { fill_idx = b; }
-	bool op7(const uint8_t *&p, const uint8_t *e) {   // 2-operand no-op in Talisman
-		if (!gmHave(p, e, 2))
-			return true;
-		p += 2;
-		return false;
-	}
+	bool op7(const uint8_t *&p, const uint8_t *e) { return gmSkipOp7(p, e); }   // 2-operand no-op in Talisman
 	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
 	void lineTo(uint16_t x, uint8_t y) {
 		draw_line(pen_x, pen_y, (int)x, (int)y, pen_val);

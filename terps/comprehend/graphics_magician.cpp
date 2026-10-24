@@ -254,12 +254,12 @@ static AppleFillPage s_fillPage;
 static GmSpanFill<AppleFillPage> s_spanFill(s_fillPage);
 
 // Flood-fill entry point: seed point (x,y), even/odd fill patterns and the clip
-// rectangle (left/right columns, top/bottom rows).
+// rectangle (columns left..right, rows top..bottom).
 static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t pat_even, uint8_t pat_odd,
-		uint8_t left, uint8_t right, uint8_t top, uint8_t bottom) {
+		const GmFillBounds &clip) {
 	s_fillPage.patEven = pat_even;
 	s_fillPage.patOdd  = pat_odd;
-	s_spanFill.fill(x, y, left, right, top, bottom);   // x == column*7 + bit
+	s_spanFill.fill(x, y, clip.left, clip.right, clip.top, clip.bottom);   // x == column*7 + bit
 }
 
 // ---- Text glyph drawing (op3 TEXT_CHAR / op5 TEXT_OUTLINE) ---------------------
@@ -446,12 +446,7 @@ struct AppleRenderer {
 		c.pat_odd = s_colorPatternSubindices[(uint8_t)(idx * 2 + 1)];
 	}
 	// Talisman: op7 is a 2-operand no-op; the older dialect ends the image on it.
-	bool op7(const uint8_t *&p, const uint8_t *e) {
-		if (s_legacyFormat || !gmHave(p, e, 2))
-			return true;
-		p += 2;
-		return false;
-	}
+	bool op7(const uint8_t *&p, const uint8_t *e) { return s_legacyFormat || gmSkipOp7(p, e); }
 	void moveTo(uint16_t x, uint8_t y) { gm_set_draw_position(x, y, &c.gv); }
 	void lineTo(uint16_t x, uint8_t y) { gm_draw_line(x, y, &c.gv); }
 	// op11: circle centred on the current pen position; op11 restores the centre
@@ -468,8 +463,7 @@ struct AppleRenderer {
 	// Pause: no effect on the final page; paces the reveal.
 	void delay(uint8_t units) { s_slow.recordDelay(units); }
 	void paint(uint16_t x, uint8_t y) {
-		apple2_flood_fill(x, y, c.pat_even, c.pat_odd,
-			c.fill.left, c.fill.right, c.fill.top, c.fill.bottom);
+		apple2_flood_fill(x, y, c.pat_even, c.pat_odd, c.fill);
 	}
 
 	// op15: Talisman sub-op in the low nibble; the older dialect ends the image.
