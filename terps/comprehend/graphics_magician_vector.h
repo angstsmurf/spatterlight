@@ -1,5 +1,6 @@
 /* graphics_magician_vector.h -- shared Graphics Magician pen-geometry
- * rasterizers (line + circle) for the CGA and PCjr renderers.
+ * rasterizers: line + circle for the CGA and PCjr renderers, and the 6502
+ * circle stepper for the Apple II hi-res and DHGR renderers.
  *
  * draw_line and draw_circle are byte-for-byte identical between
  * graphics_magician_cga.cpp and graphics_magician_pcjr.cpp: both are faithful
@@ -171,6 +172,56 @@ inline void gmvDrawCircle(int cx, int cy, int radius, Plot plot) {
 		if (r < i)                                       // 2be0: JL -> done
 			break;
 	}
+}
+
+// The eight-way symmetric plot of the Apple II circle loops (hi-res $0b4b..,
+// DHGR FUN_0bcb): (+-ax, +-ay) near the top and bottom, then (+-bx, +-by) near
+// the sides, in the original's order.
+template <class Plot>
+inline void gmvCirclePlot8(int cx, int cy, int ax, int ay, int bx, int by, Plot plot) {
+	plot(cx - ax, cy - ay);
+	plot(cx + ax, cy - ay);
+	plot(cx + ax, cy + ay);
+	plot(cx - ax, cy + ay);
+	plot(cx + bx, cy - by);
+	plot(cx - bx, cy - by);
+	plot(cx - bx, cy + by);
+	plot(cx + bx, cy + by);
+}
+
+// Midpoint circle stepper of the Apple II renderers: the hi-res op11 loop
+// ($0b92-$0be1) and the DHGR one (FUN_0aeb).  Both walk i up from 0 while r
+// shrinks from the radius, with the decision variable starting at radius / 2,
+// and plot an eight-way step at each (i, r): `step(i, r)`.  The DHGR loop also
+// plots between steps, at the odd x of its doubled raster, so after each
+// advance `half(i, r, shrink)` is called with the new (i, r) and whether r just
+// shrank.  The walk ends once r < i, after the half step of that advance, and
+// returns that (i, r).  The hi-res code tests there; the DHGR code tests one
+// full step later, so it plots one more step at the returned (i, r) itself.
+struct GmvCircleEnd { int i, r; };
+template <class Step, class Half>
+inline GmvCircleEnd gmvAppleCircleSteps(uint8_t radius, Step step, Half half) {
+	int r = radius, d = r >> 1;
+	if (radius == 0)
+		return { 0, r };
+	for (int i = 0;;) {
+		step(i, r);
+		i++;
+		const bool shrink = d < i;                        // $0b94: BCS
+		if (shrink) {
+			r--;
+			d += r - i;                                   // ADC r, carry clear
+		} else {
+			d -= i;
+		}
+		half(i, r, shrink);
+		if (r < i)                                       // CMP; BCC done
+			return { i, r };
+	}
+}
+template <class Step>
+inline GmvCircleEnd gmvAppleCircleSteps(uint8_t radius, Step step) {
+	return gmvAppleCircleSteps(radius, step, [](int, int, bool) {});
 }
 
 } // namespace Comprehend

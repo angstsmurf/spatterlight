@@ -113,7 +113,10 @@ bit 0 of `param` the x-high bit. They now share:
 - **`gm_blit.h`**: `gmSampleRow560`, the 560-colour row sampled to `w`.
 - **`graphics_magician_vector.h`**: `gmvFindBrushTable`, `gmvLoadCharsetGda`
   (loading), `gmvStampBrush`, `gmvDrawGlyph` (shells) beside the line, circle
-  and mirror primitives.
+  and mirror primitives, and `gmvAppleCircleSteps` / `gmvCirclePlot8`, the
+  6502 midpoint circle walk shared by the hi-res and DHGR `draw_circle`
+  (October 2026). Only the pixel plot, the DHGR half step and the DHGR
+  trailing repaint step (kept for the reveal order) stay per renderer.
 - **`gm_hires.h`** (in `common_sagadraw`): `gm_row_of_offset` /
   `gm_col_of_offset` replace the two offset tables.
 
@@ -154,8 +157,9 @@ Left alone on purpose:
   page shells (pixel extraction and palette differ in `blit_page`).
 - The hourglass arm state stays in `graphics_magician.cpp`, so the DHGR file
   links against it; moving it would only change the link line.
-- Circle, line, glyph and brush pixel work on Apple vs DHGR: different 6502
-  routines, and the Talisman lamp-knob fill depends on the DHGR circle.
+- Line, glyph and brush pixel work on Apple vs DHGR: different 6502 routines,
+  and the Talisman lamp-knob fill depends on the DHGR circle (the circle
+  stepper is shared, see above; the DHGR plot and half step are not).
 - The DHGR brush puts `+8` upper-right and `+16` lower-left, CGA/PCjr the
   reverse. Column-major DOS data; not a bug.
 - Flood fills: the CGA word-queue port, the PCjr visited-mask fill and the

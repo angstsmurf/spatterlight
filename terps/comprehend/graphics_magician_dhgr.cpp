@@ -33,6 +33,7 @@
 #include "gm_blit.h"           // shared 560-colour row sampling
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
+#include "graphics_magician_vector.h"  // shared circle stepper
 #include <cstdlib>
 #include <cstring>
 
@@ -291,45 +292,30 @@ static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 // containment: the Talisman title's lamp-knob circle (op DRAW_CIRCLE r=4 @135,90)
 // must close, or the following fill=62 PAINT leaks out of the lamp into the sky.
 //
-// The loop walks i up from 0 while r shrinks from the radius, as a midpoint
-// circle does. Each step plots the eight-way symmetric points (+-2i, +-r) and
-// (+-2r, +-i), then the same again half a step back, at the odd x in between.
+// The (i, r) walk is the shared 6502 stepper (gmvAppleCircleSteps). Each full
+// step plots the eight-way symmetric points (+-2i, +-r) and (+-2r, +-i); the
+// half step after each advance plots them again half a step back, at the odd
+// x in between. This loop tests r < i before a full step rather than after
+// the advance, so it plots one full step more than the hi-res one, at the
+// (i, r) the stepper ends on. That step only repaints pixels of the step
+// before it, for every radius, but it is kept so the slow-draw reveal
+// sequence is unchanged.
 static void circle_point(int x, int y) {
 	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // FUN_0c35 bounds
 	plot_pen(x, (uint8_t)y);
 }
-// FUN_0bcb: plot (+-ax, +-ay) near the top and bottom, then (+-bx, +-by) near
-// the sides, in the original's order.
-static void circle_plot8(int cx, int cy, int ax, int ay, int bx, int by) {
-	circle_point(cx - ax, cy - ay);
-	circle_point(cx + ax, cy - ay);
-	circle_point(cx + ax, cy + ay);
-	circle_point(cx - ax, cy + ay);
-	circle_point(cx + bx, cy - by);
-	circle_point(cx - bx, cy - by);
-	circle_point(cx - bx, cy + by);
-	circle_point(cx + bx, cy + by);
-}
 static void draw_circle(uint8_t radius) {
 	if (radius == 0) return;
 	const int cx = s_penX, cy = s_penY;
-	int r = radius, d = r >> 1;
-	for (int i = 0;; ) {
-		circle_plot8(cx, cy, 2 * i, r, 2 * r, i);
-		if (r < i)
-			break;
-		i++;
-		// The half step: when r shrinks, the side points sit between the old
-		// and new 2r.
-		bool shrink = d < i;
-		if (shrink) {
-			r--;
-			d += r - i;
-		} else {
-			d -= i;
-		}
-		circle_plot8(cx, cy, 2 * i - 1, r, 2 * r + shrink, i - 1);
-	}
+	auto full = [&](int i, int r) {
+		gmvCirclePlot8(cx, cy, 2 * i, r, 2 * r, i, circle_point);
+	};
+	const GmvCircleEnd e = gmvAppleCircleSteps(radius, full,
+		[&](int i, int r, bool shrink) {
+			// When r shrinks, the side points sit between the old and new 2r.
+			gmvCirclePlot8(cx, cy, 2 * i - 1, r, 2 * r + shrink, i - 1, circle_point);
+		});
+	full(e.i, e.r);
 }
 
 // ---- op1/op3/op5 text glyphs --------------------------------------------------

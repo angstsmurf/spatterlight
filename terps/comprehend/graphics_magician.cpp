@@ -46,6 +46,7 @@
 #include "gm_stream.h"          // shared opcode dispatcher
 #include "gm_blit.h"            // shared 560-colour row sampling
 #include "gm_span_fill.h"       // shared op14 flood fill
+#include "graphics_magician_vector.h"  // shared circle stepper
 #include <cstring>
 
 namespace Glk {
@@ -309,8 +310,9 @@ static void draw_text_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal,
 }
 
 // ---- Circle (op11) ----
-// A midpoint circle plotting 8 symmetric points per step via HPLOT (HPOSN +
-// plot). Only x in 0..279, y in 0..159.
+// The shared 6502 midpoint stepper (gmvAppleCircleSteps), plotting its eight
+// symmetric points per step via HPLOT (HPOSN + plot). Only x in 0..279,
+// y in 0..159.
 
 static void plot_circle_point(int x, int y, a2_ctx *ctx) {
 	if (x < 0 || x >= 280 || y < 0 || y >= APPLE2_SCREEN_HEIGHT - 32)
@@ -320,41 +322,10 @@ static void plot_circle_point(int x, int y, a2_ctx *ctx) {
 }
 
 static void draw_circle(uint16_t cx, uint8_t cy, uint8_t radius, a2_ctx *ctx) {
-	if (radius == 0)
-		return;
-	uint8_t r = radius;
-	uint8_t dvar = (uint8_t)(r >> 1);
-	uint8_t i = 0;
-	int xa = cx, xb = cx;
-	int xr = (int)cx + r, xl = (int)cx - r;
-	int yt = cy, yb = cy;
-	int yp = (int)cy + r, ym = (int)cy - r;
-
-	for (;;) {
-		plot_circle_point(xb, ym, ctx);
-		plot_circle_point(xa, ym, ctx);
-		plot_circle_point(xa, yp, ctx);
-		plot_circle_point(xb, yp, ctx);
-		plot_circle_point(xr, yb, ctx);
-		plot_circle_point(xl, yb, ctx);
-		plot_circle_point(xl, yt, ctx);
-		plot_circle_point(xr, yt, ctx);
-
-		i++;
-		uint8_t a = (uint8_t)(dvar - i);   // SBC dvar - i ($0b92)
-		if (dvar >= i) {                   // BCS ($0b94): carry set -> inner extents only
-			dvar = a;
-			if (r < i)                     // CMP $02,$04; BCC done
-				break;
-		} else {                           // carry clear (borrow): step radius in + outer extents
-			r--;
-			dvar = (uint8_t)(a + r);       // ADC $02 (carry clear)
-			if (r < i)
-				break;
-			yp--; ym++; xr--; xl++;        // $0ba2-$0bc1
-		}
-		xa++; xb--; yt++; yb--;            // $0bc2-$0be1 (always)
-	}
+	auto plot = [ctx](int x, int y) { plot_circle_point(x, y, ctx); };
+	gmvAppleCircleSteps(radius, [&](int i, int r) {
+		gmvCirclePlot8(cx, cy, i, r, r, i, plot);
+	});
 }
 
 // ---- op15 background rectangle fill (Talisman variant) ------------------------
