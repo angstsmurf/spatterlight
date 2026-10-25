@@ -23,6 +23,10 @@
 - Pictures that are clipped to the window are decoded correctly in the PC, Atari ST, Amiga and Macintosh formats, where the rows used to drift, and a missing picture draws nothing, not even its frame. A game that chains to its next part stays in text-only mode.
 - A message number past the end of the message table prints nothing instead of memory garbage, the object search can no longer overflow its stack, and the driver calls the interpreter doesn't implement answer the way the Level 9 driver documentation specifies, so a game's call to return to the operating system ends the game.
 
+### Question (Quest)
+- Quest 4 games get text styles from their own markup: before the window opens, Question counts the bold, italic, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large instead of as plain bold. A combination left without a style of its own falls back to the nearest one that has.
+- Underlined text prints in the italic style instead of in reverse video, which looked like a selection.
+
 ### General
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.
 - Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.

@@ -108,7 +108,8 @@ using questglk::echo_input_line;
 
 using questglk::fill_side_divider;
 
-using questglk::glk_style_for;
+using questglk::quest_style_for;
+using questglk::style_combo;
 
 using questglk::lower;
 

@@ -25,6 +25,7 @@
 #ifndef __QuestionRunner_hh
 #define __QuestionRunner_hh
 
+#include <functional>
 #include <vector>
 #include <string>
 #include <iostream>
@@ -38,6 +39,8 @@ typedef std::vector<vstring> v2string;
 
 enum question_justification { JUSTIFY_LEFT, JUSTIFY_RIGHT, JUSTIFY_CENTER };
 
+/* `size' is in points; 0 is the game's default size (`default fontsize',
+ * 10 unless the game says otherwise), which is what |s00 asks for. */
 struct QuestionFontStyle 
 {
   bool is_underlined, is_italic, is_bold;
@@ -46,7 +49,7 @@ struct QuestionFontStyle
   question_justification justify;
 
   QuestionFontStyle () : is_underlined(false), is_italic(false), is_bold(false), 
-		     color(""), font (""), size (10), justify (JUSTIFY_LEFT) {}
+		     color(""), font (""), size (0), justify (JUSTIFY_LEFT) {}
 };
 
 class QuestionFontStyleCompare
@@ -73,6 +76,22 @@ enum QuestionResult
     r_not_supported
   };
 
+/* What a formatting code asks of the printer besides a style change; see
+ * question_parse_format_code. */
+enum question_format_code
+  {
+    FMT_LITERAL,      /* not a code: the bar prints as itself */
+    FMT_STYLE,        /* the style changed */
+    FMT_CLEAR,        /* |c: end the line, clear, then the style */
+    FMT_NEWLINE,      /* |n */
+    FMT_WAIT,         /* |w: end the line and wait for a key */
+    FMT_NO_NEWLINE    /* |xn at the end: no closing newline */
+  };
+
+question_format_code question_parse_format_code (const std::string &s,
+						 std::string::size_type &i,
+						 QuestionFontStyle &style);
+
 /*  Callback object used to pass information from QuestionCore
  *  to the interface objects
  */
@@ -83,7 +102,7 @@ class QuestionInterface
 private:
   QuestionFontStyle cur_style;
   std::string default_font;
-  int default_size;
+  int default_size = 10;
   //string fgcolor, bgcolor;
 
 public:
@@ -135,6 +154,7 @@ public:
   virtual void set_background (const std::string &) = 0;
   void set_default_font_size (const std::string &s);
   void set_default_font (const std::string &s);
+  int get_default_font_size () const { return default_size; }
 
   /* Unsure what arguments this will take.
    * May also add animated, persistent, close image
@@ -293,6 +313,17 @@ public:
   virtual bool has_timers() { return false; }
   static QuestionRunner* get_runner(QuestionInterface *gi);
 };
+
+/* The style census: every run of text the game file can print, in the style
+ * the | codes give it, with whether it belongs to the title and
+ * introduction.  Reads the file through `gi' without printing anything, so
+ * a frontend can call it before its main window opens.  `default_size' gets
+ * the game's `default fontsize', 10 when it has none.  False when the file
+ * does not load. */
+typedef std::function<void (const QuestionFontStyle &, const std::string &,
+			    bool intro)> QuestionStyleSink;
+bool question_style_scan (QuestionInterface *gi, const std::string &filename,
+			  const QuestionStyleSink &sink, int &default_size);
 
 
 #endif

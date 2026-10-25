@@ -72,7 +72,69 @@ glui32 cancel_line_request (winid_t win);
 
 /* ------------------------------------------------------------------ style */
 
-glui32 glk_style_for (bool bold, bool italic, bool underlined);
+/* An attribute state: the low bits are flags, bits 8..15 the size as a
+ * signed step of two points from the game's default size, which is also the
+ * stylehint_Size value that draws it.  Underline shares the italic bit: Glk
+ * has no underline, and a style hinted Oblique 0 would draw it as plain. */
+typedef unsigned int StyleCombo;
+enum : StyleCombo {
+  COMBO_BOLD = 1 << 0,
+  COMBO_ITALIC = 1 << 1,
+  COMBO_MONOSPACED = 1 << 2,
+  COMBO_CENTER = 1 << 3,
+  COMBO_RIGHT = 1 << 4,
+  COMBO_FLAGS = (1 << 5) - 1,
+  COMBO_SIZE_SHIFT = 8,
+  COMBO_SIZE_MASK = 0xffu << COMBO_SIZE_SHIFT
+};
+enum { STYLE_MIN_STEP = -3, STYLE_MAX_STEP = 6, STYLE_COUNT = 11 };
+
+StyleCombo style_combo (bool bold, bool italic, bool underlined,
+                        bool monospaced, bool center, bool right,
+                        double points, double default_points);
+int style_combo_step (StyleCombo combo);
+std::string style_combo_describe (StyleCombo combo);
+const char *style_name (int style);
+
+/* Which state each of the eleven styles stands for.  A `natural` style keeps
+ * the look the frontend has always given it; the others are hinted from
+ * their combo. */
+struct StyleTable {
+  bool assigned[STYLE_COUNT];
+  bool natural[STYLE_COUNT];
+  StyleCombo combo[STYLE_COUNT];
+};
+
+/* For each state the game's text uses, how many visible characters it
+ * covers, in all and in the title and introduction. */
+struct StyleCensusRow {
+  StyleCombo combo;
+  unsigned long characters;
+  unsigned long intro_characters;
+};
+
+class StyleCensus {
+public:
+  void count (StyleCombo combo, const std::string &utf8, bool intro);
+  std::vector<StyleCensusRow> ranked () const;
+  bool empty () const { return rows_.empty (); }
+
+private:
+  std::vector<StyleCensusRow> rows_;
+};
+
+void style_table_natural (StyleTable &table);
+void style_assign (const std::vector<StyleCensusRow> &ranked,
+                   StyleTable &table);
+int style_lookup (const StyleTable &table, StyleCombo combo);
+
+/* The table quest_style_for looks up in, natural until a frontend installs
+ * the game's, and the hints that draw it: called before the text buffer
+ * windows open. */
+void style_install (const StyleTable &table);
+const StyleTable &style_installed ();
+void style_set_hints ();
+glui32 quest_style_for (StyleCombo combo);
 
 /* ----------------------------------------------------------------- banner */
 

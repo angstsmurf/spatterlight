@@ -42,7 +42,7 @@ void put_uni_string(const std::string &utf8)
 
 void apply_style()
 {
-    glk_set_style(glk_style_for(g_bold, g_italic, g_under));
+    glk_set_style(quest_style_for(style_combo(g_bold, g_italic, g_under, false, false, false, 0, 0)));
 }
 
 /* Value of attr="..." (or attr='...') inside a raw tag body, or "". */

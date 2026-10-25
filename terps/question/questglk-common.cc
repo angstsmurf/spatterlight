@@ -30,7 +30,9 @@
 
 #include "questglk-common.hh"
 
+#include <algorithm>
 #include <cctype>
+#include <cstdio>
 #include <cstdlib>
 #include <string>
 #include <vector>
@@ -229,22 +231,382 @@ echo_input_line (const std::string &line, bool utf8)
 
 /* ------------------------------------------------------------------ style */
 
-/* The Glk style standing in for a combination of bold, italic and underline.
- * Glk styles are defined before the window opens, so mid-game a frontend can
- * only pick the closest one: bold italic is Alert, italic Emphasized, bold
- * Subheader, and underline -- which loses to both -- User2. */
-glui32
-glk_style_for (bool bold, bool italic, bool underlined)
+/* Glk styles don't combine, so each run of text prints in the one style that
+ * stands for its whole attribute state.  Which states get a style of their
+ * own is decided per game, before the main window opens, the way Scarier
+ * does it (terps/scarier/glk/os_glk_styles.cpp): the frontend counts the
+ * states the game's text uses (a StyleCensus), the states the old fixed
+ * mapping already gave a home keep it, and the rest are handed the styles
+ * the game leaves free, hinted to look like the state they stand for.  Text
+ * in a state without a style falls back to the nearest state that has one,
+ * by dropping attributes, never adding them. */
+
+/* Two points to a step, truncating toward the default, so a point either
+ * side of it is still the default size; the clamp is the range a Size hint
+ * can sensibly ask for.  Alignment is one state; right wins over centre. */
+StyleCombo
+style_combo (bool bold, bool italic, bool underlined, bool monospaced,
+             bool center, bool right, double points, double default_points)
 {
-    if (bold && italic)
-        return style_Alert;
-    if (italic)
-        return style_Emphasized;
+    StyleCombo combo = 0;
     if (bold)
-        return style_Subheader;
-    if (underlined)
-        return style_User2;
+        combo |= COMBO_BOLD;
+    if (italic || underlined)
+        combo |= COMBO_ITALIC;
+    if (monospaced)
+        combo |= COMBO_MONOSPACED;
+    if (right)
+        combo |= COMBO_RIGHT;
+    else if (center)
+        combo |= COMBO_CENTER;
+
+    int step = (int) ((points - default_points) / 2);
+    step = std::max<int> (STYLE_MIN_STEP, std::min<int> (STYLE_MAX_STEP, step));
+    combo |= ((StyleCombo) step << COMBO_SIZE_SHIFT) & COMBO_SIZE_MASK;
+    return combo;
+}
+
+int
+style_combo_step (StyleCombo combo)
+{
+    return (signed char) ((combo & COMBO_SIZE_MASK) >> COMBO_SIZE_SHIFT);
+}
+
+/* The state spelled out for a report: "bold+centre size+3". */
+std::string
+style_combo_describe (StyleCombo combo)
+{
+    static const struct { StyleCombo bit; const char *name; } names[] = {
+        { COMBO_BOLD, "bold" }, { COMBO_ITALIC, "italic" },
+        { COMBO_MONOSPACED, "mono" }, { COMBO_CENTER, "centre" },
+        { COMBO_RIGHT, "right" }
+    };
+    std::string out;
+    for (const auto &n : names)
+        if (combo & n.bit)
+            out += (out.empty () ? "" : "+") + std::string (n.name);
+    int step = style_combo_step (combo);
+    if (step != 0) {
+        char buf[16];
+        snprintf (buf, sizeof buf, "%ssize%+d", out.empty () ? "" : " ", step);
+        out += buf;
+    }
+    return out.empty () ? "plain" : out;
+}
+
+const char *
+style_name (int style)
+{
+    static const char *const names[STYLE_COUNT] = {
+        "Normal", "Emphasized", "Preformatted", "Header", "Subheader", "Alert",
+        "Note", "BlockQuote", "Input", "User1", "User2"
+    };
+    return style >= 0 && style < STYLE_COUNT ? names[style] : "?";
+}
+
+/* Counted in visible characters, so one big title weighs what its words do
+ * rather than what its markup does. */
+void
+StyleCensus::count (StyleCombo combo, const std::string &utf8, bool intro)
+{
+    unsigned long visible = 0;
+    for (unsigned char c : utf8)
+        if ((c & 0xc0) != 0x80 && c != ' ' && c != '\t' && c != '\n' &&
+            c != '\r')
+            visible++;
+    if (visible == 0)
+        return;
+    for (StyleCensusRow &row : rows_)
+        if (row.combo == combo) {
+            row.characters += visible;
+            if (intro)
+                row.intro_characters += visible;
+            return;
+        }
+    rows_.push_back ({ combo, visible, intro ? visible : 0 });
+}
+
+/* The title and introduction are what a player sees first, so a character
+ * there counts twenty times; ties go to the simpler state, so a run of
+ * sized italic doesn't take a style ahead of the plain size. */
+static const unsigned long STYLE_INTRO_WEIGHT = 20;
+
+static unsigned long
+style_row_weight (const StyleCensusRow &row)
+{
+    return row.characters + STYLE_INTRO_WEIGHT * row.intro_characters;
+}
+
+static unsigned
+style_combo_bits (StyleCombo combo)
+{
+    unsigned bits = style_combo_step (combo) != 0;
+    for (combo &= COMBO_FLAGS; combo != 0; combo &= combo - 1)
+        bits++;
+    return bits;
+}
+
+std::vector<StyleCensusRow>
+StyleCensus::ranked () const
+{
+    std::vector<StyleCensusRow> rows = rows_;
+    std::sort (rows.begin (), rows.end (),
+               [] (const StyleCensusRow &a, const StyleCensusRow &b) {
+                   unsigned long aw = style_row_weight (a);
+                   unsigned long bw = style_row_weight (b);
+                   if (aw != bw)
+                       return aw > bw;
+                   unsigned abits = style_combo_bits (a.combo);
+                   unsigned bbits = style_combo_bits (b.combo);
+                   if (abits != bbits)
+                       return abits < bbits;
+                   return a.combo < b.combo;
+               });
+    return rows;
+}
+
+/* The assignment the old fixed mapping amounts to, with homes for the
+ * alignments it never printed. */
+void
+style_table_natural (StyleTable &table)
+{
+    static const struct { int style; StyleCombo combo; } naturals[] = {
+        { style_Normal, 0 },
+        { style_Emphasized, COMBO_ITALIC },
+        { style_Preformatted, COMBO_MONOSPACED },
+        { style_Subheader, COMBO_BOLD },
+        { style_Alert, COMBO_BOLD | COMBO_ITALIC },
+        { style_Note, COMBO_RIGHT },
+        { style_User1, COMBO_CENTER },
+        { style_User2, COMBO_CENTER | COMBO_BOLD }
+    };
+    for (int i = 0; i < STYLE_COUNT; i++) {
+        table.assigned[i] = false;
+        table.natural[i] = true;
+        table.combo[i] = 0;
+    }
+    for (const auto &n : naturals) {
+        table.assigned[n.style] = true;
+        table.combo[n.style] = n.combo;
+    }
+}
+
+static int
+style_find (const StyleTable &table, StyleCombo combo)
+{
+    for (int style = 0; style < STYLE_COUNT; style++)
+        if (table.assigned[style] && table.combo[style] == combo)
+            return style;
+    return -1;
+}
+
+/* A weight aligned text counts against the state it would evict. */
+static const unsigned long STYLE_ALIGNMENT_WEIGHT = 4;
+
+/* Start from the natural table, then give each ranked state without a style
+ * of its own the next spare: Header and BlockQuote, which neither frontend
+ * prints, then the natural styles whose state the game never shows.
+ * Emphasized, Preformatted and Subheader are never spares -- the frontends
+ * print their own notes, command lists and pane headings in them -- and
+ * Normal and Input are what they are.
+ *
+ * Handing out User1, User2 or Note can leave an alignment the game uses
+ * with no style at all (a game whose centred text is all bold and sized
+ * shows no plain centre), and losing the alignment moves text where losing
+ * a size or slant only restyles it.  So then the last state handed a spare
+ * gives it up to the plain alignment, provided the aligned text weighs at
+ * least a quarter of that state's. */
+void
+style_assign (const std::vector<StyleCensusRow> &ranked, StyleTable &table)
+{
+    static const int natural_spares[] = { style_User1, style_User2,
+                                          style_Note, style_Alert };
+    static const struct { StyleCombo combo; int style; } alignments[] = {
+        { COMBO_CENTER, style_User1 }, { COMBO_RIGHT, style_Note }
+    };
+
+    style_table_natural (table);
+
+    std::vector<int> spares = { style_Header, style_BlockQuote };
+    for (int style : natural_spares) {
+        bool used = false;
+        for (const StyleCensusRow &row : ranked)
+            if (row.combo == table.combo[style])
+                used = true;
+        if (!used)
+            spares.push_back (style);
+    }
+
+    size_t next = 0;
+    for (size_t i = 0; i < ranked.size () && next < spares.size (); i++) {
+        if (style_find (table, ranked[i].combo) >= 0)
+            continue;
+        int style = spares[next++];
+        table.assigned[style] = true;
+        table.natural[style] = false;
+        table.combo[style] = ranked[i].combo;
+    }
+
+    for (const auto &a : alignments) {
+        if (next == 0)
+            break;
+        int style;
+        for (style = 0; style < STYLE_COUNT; style++)
+            if (table.assigned[style] && (table.combo[style] & a.combo))
+                break;
+        if (style < STYLE_COUNT)
+            continue;
+        unsigned long aligned = 0, evicted = 0;
+        for (const StyleCensusRow &row : ranked) {
+            if (row.combo & a.combo)
+                aligned += style_row_weight (row);
+            if (row.combo == table.combo[spares[next - 1]])
+                evicted = style_row_weight (row);
+        }
+        if (aligned == 0 || STYLE_ALIGNMENT_WEIGHT * aligned < evicted)
+            continue;
+
+        /* The last state handed a spare loses it.  If the alignment's own
+         * natural style went to a state ranked above that one, the state
+         * moves to the freed spare and the natural style takes its old
+         * hints back. */
+        style = spares[--next];
+        for (size_t spare = 0; spare < next; spare++)
+            if (spares[spare] == a.style) {
+                table.combo[style] = table.combo[a.style];
+                spares[spare] = style;
+                spares[next] = a.style;
+                style = a.style;
+            }
+        table.combo[style] = a.combo;
+        table.natural[style] = style == a.style;
+    }
+}
+
+/* Each try drops attributes and none adds one, so text never shows an
+ * attribute it didn't ask for.  The tries go by what they cost: italic and
+ * bold one each, then the alignment, worth more than both together since
+ * losing it moves the text, then the face, worth more than all of those.
+ * Under each set of attributes the size steps toward the default, so a size
+ * the game uses a little of lands on a near size it uses more.  Normal is
+ * always assigned, so the walk ends there at the latest. */
+int
+style_lookup (const StyleTable &table, StyleCombo combo)
+{
+    static const struct { StyleCombo flags; unsigned cost; } drops[] = {
+        { COMBO_ITALIC, 1 }, { COMBO_BOLD, 1 },
+        { COMBO_CENTER | COMBO_RIGHT, 3 }, { COMBO_MONOSPACED, 6 }
+    };
+    static const size_t DROPS = sizeof drops / sizeof drops[0];
+    static const unsigned DROP_SETS = 1u << DROPS, MAX_COST = 11;
+    const StyleCombo flags = combo & COMBO_FLAGS;
+    const int size = style_combo_step (combo);
+
+    for (unsigned cost = 0; cost <= MAX_COST; cost++)
+        for (unsigned set = 0; set < DROP_SETS; set++) {
+            StyleCombo kept = flags;
+            unsigned set_cost = 0;
+            for (size_t i = 0; i < DROPS; i++)
+                if (set & (1u << i)) {
+                    kept &= ~drops[i].flags;
+                    set_cost += drops[i].cost;
+                }
+            if (set_cost != cost)
+                continue;
+            for (int step = size; ; step += (step < 0) - (step > 0)) {
+                int style = style_find (
+                    table, kept | (((StyleCombo) step << COMBO_SIZE_SHIFT) &
+                                   COMBO_SIZE_MASK));
+                if (style >= 0)
+                    return style;
+                if (step == 0)
+                    break;
+            }
+        }
     return style_Normal;
+}
+
+static StyleTable &
+installed_table ()
+{
+    static StyleTable table = [] {
+        StyleTable t;
+        style_table_natural (t);
+        return t;
+    } ();
+    return table;
+}
+
+void
+style_install (const StyleTable &table)
+{
+    installed_table () = table;
+}
+
+const StyleTable &
+style_installed ()
+{
+    return installed_table ();
+}
+
+/* The natural alignments get their justification; Header and Subheader are
+ * pinned left so a theme that centres them doesn't centre bold text.  A
+ * style the game's assignment took over gets every hint that shapes it, so
+ * nothing of the theme's own look for it (a centred Header, an indented
+ * BlockQuote) survives.  Size is relative to the style's own font, which in
+ * most themes is the normal one.  Hints apply per window type, so the
+ * buffer side panes see them too; they print only in Normal and Subheader,
+ * which keep their looks. */
+void
+style_set_hints ()
+{
+    const StyleTable &table = installed_table ();
+
+    if (table.natural[style_User1])
+        glk_stylehint_set (wintype_TextBuffer, style_User1,
+                           stylehint_Justification, stylehint_just_Centered);
+    if (table.natural[style_User2]) {
+        glk_stylehint_set (wintype_TextBuffer, style_User2,
+                           stylehint_Justification, stylehint_just_Centered);
+        glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+    }
+    if (table.natural[style_Note])
+        glk_stylehint_set (wintype_TextBuffer, style_Note,
+                           stylehint_Justification, stylehint_just_RightFlush);
+    if (table.natural[style_Header])
+        glk_stylehint_set (wintype_TextBuffer, style_Header,
+                           stylehint_Justification, stylehint_just_LeftFlush);
+    glk_stylehint_set (wintype_TextBuffer, style_Subheader,
+                       stylehint_Justification, stylehint_just_LeftFlush);
+
+    for (glui32 style = 0; style < style_NUMSTYLES; style++) {
+        if (table.natural[style])
+            continue;
+        StyleCombo combo = table.combo[style];
+        glk_stylehint_set (wintype_TextBuffer, style, stylehint_Weight,
+                           (combo & COMBO_BOLD) ? 1 : 0);
+        glk_stylehint_set (wintype_TextBuffer, style, stylehint_Oblique,
+                           (combo & COMBO_ITALIC) ? 1 : 0);
+        glk_stylehint_set (wintype_TextBuffer, style, stylehint_Proportional,
+                           (combo & COMBO_MONOSPACED) ? 0 : 1);
+        glk_stylehint_set (wintype_TextBuffer, style, stylehint_Justification,
+                           (combo & COMBO_CENTER) ? stylehint_just_Centered
+                           : (combo & COMBO_RIGHT) ? stylehint_just_RightFlush
+                           : stylehint_just_LeftFlush);
+        glk_stylehint_set (wintype_TextBuffer, style, stylehint_Size,
+                           (glsi32) style_combo_step (combo));
+        glk_stylehint_set (wintype_TextBuffer, style, stylehint_Indentation, 0);
+        glk_stylehint_set (wintype_TextBuffer, style,
+                           stylehint_ParaIndentation, 0);
+    }
+
+    glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
+}
+
+glui32
+quest_style_for (StyleCombo combo)
+{
+    return (glui32) style_lookup (installed_table (), combo);
 }
 
 /* ----------------------------------------------------------------- banner */

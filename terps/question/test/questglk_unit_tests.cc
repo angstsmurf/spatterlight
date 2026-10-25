@@ -51,9 +51,22 @@ int glkunix_startup_code(glkunix_startup_t *)
     return 1;
 }
 
+using questglk::COMBO_BOLD;
+using questglk::COMBO_CENTER;
+using questglk::COMBO_ITALIC;
+using questglk::COMBO_MONOSPACED;
+using questglk::COMBO_RIGHT;
+using questglk::StyleCensus;
+using questglk::StyleCombo;
+using questglk::StyleTable;
 using questglk::match_help_command;
 using questglk::match_sidebar_command;
 using questglk::match_status_command;
+using questglk::style_assign;
+using questglk::style_combo;
+using questglk::style_combo_describe;
+using questglk::style_combo_step;
+using questglk::style_lookup;
 using questglk::status_leaves_banner;
 using questglk::status_tail;
 using questglk::tail_chars;
@@ -212,6 +225,126 @@ test_match_sidebar_command ()
   check (match_sidebar_command ("") == 0, "an empty line is no command");
 }
 
+
+/* A state with `points' against a ten-point default, as Quest 4 has it. */
+StyleCombo
+q4 (bool bold, bool italic, bool center, int points)
+{
+  return style_combo (bold, italic, false, false, center, false, points, 10);
+}
+
+StyleTable
+assigned (const StyleCensus &census)
+{
+  StyleTable table;
+  style_assign (census.ranked (), table);
+  return table;
+}
+
+void
+test_style_combo ()
+{
+  check (style_combo (false, false, true, false, false, false, 12, 12)
+	 == COMBO_ITALIC, "underline shares the italic bit");
+  check (style_combo_step (q4 (false, false, false, 11)) == 0,
+	 "a point over the default is the default size");
+  check (style_combo_step (q4 (false, false, false, 20)) == 5,
+	 "two points to a step");
+  check (style_combo_step (q4 (false, false, false, 99)) == 6,
+	 "steps clamp at +6");
+  check (style_combo_step (q4 (false, false, false, 2)) == -3,
+	 "...and at -3");
+  check (style_combo_step (style_combo (false, false, false, false, false,
+					false, 12, 14)) == -1,
+	 "sizes are relative to the game's default");
+  check (style_combo (false, false, false, false, true, true, 12, 12)
+	 == COMBO_RIGHT, "right wins over centre");
+  check (style_combo_describe (q4 (true, false, true, 20))
+	 == "bold+centre size+5", "a state spelled out");
+  check (style_combo_describe (0) == "plain", "the plain state spelled out");
+}
+
+void
+test_style_assign ()
+{
+  /* Only what the old fixed mapping printed: every state keeps its home. */
+  StyleCensus plain;
+  plain.count (0, "Some body text.", false);
+  plain.count (COMBO_BOLD, "bold", false);
+  plain.count (COMBO_ITALIC, "italic", false);
+  plain.count (COMBO_BOLD | COMBO_ITALIC, "both", false);
+  StyleTable t = assigned (plain);
+  check (style_lookup (t, 0) == style_Normal, "plain is Normal");
+  check (style_lookup (t, COMBO_BOLD) == style_Subheader, "bold is Subheader");
+  check (style_lookup (t, COMBO_ITALIC) == style_Emphasized,
+	 "italic (and underline) is Emphasized");
+  check (style_lookup (t, COMBO_BOLD | COMBO_ITALIC) == style_Alert,
+	 "bold italic is Alert");
+  check (style_lookup (t, COMBO_MONOSPACED) == style_Preformatted,
+	 "monospaced is Preformatted");
+  bool all_natural = true;
+  for (int i = 0; i < questglk::STYLE_COUNT; i++)
+    all_natural = all_natural && t.natural[i];
+  check (all_natural, "nothing is re-hinted");
+
+  /* A |jc|s20|b title: Header takes it. */
+  StyleCensus title;
+  title.count (0, "Lots and lots of plain body text here.", false);
+  title.count (q4 (true, false, true, 20), "My Game", true);
+  t = assigned (title);
+  check (style_lookup (t, q4 (true, false, true, 20)) == style_Header,
+	 "the sized centred title gets the first spare");
+  check (!t.natural[style_Header], "...hinted from its state");
+  check (t.natural[style_User2] && style_lookup (t, COMBO_BOLD | COMBO_CENTER)
+				      == style_User2,
+	 "centred bold keeps User2");
+
+  /* Unseen states fall back by dropping attributes, never adding them. */
+  check (style_lookup (t, q4 (true, false, true, 16)) == style_User2,
+	 "a size with no style drops to the unsized state");
+  check (style_lookup (t, COMBO_ITALIC | COMBO_CENTER) == style_User1,
+	 "centred italic drops the italic before the alignment");
+  check (style_lookup (t, q4 (false, true, false, 20)) == style_Emphasized,
+	 "sized italic drops the size");
+  check (style_lookup (t, COMBO_MONOSPACED | COMBO_BOLD) == style_Preformatted,
+	 "monospaced bold drops the bold first");
+
+  /* The introduction outweighs body text twenty to one, so a short sized
+     title beats a longer sized aside for the last spare. */
+  StyleCensus overflow;
+  overflow.count (0, std::string (500, 'x'), false);
+  /* Eight sizes, each its own step (-2 to +6, skipping the default). */
+  const int sizes[] = { 6, 8, 12, 14, 16, 18, 20, 22 };
+  for (int points: sizes)
+    overflow.count (q4 (false, false, false, points),
+		    std::string (40 + points, 'y'), false);
+  overflow.count (q4 (true, true, false, 30), "Title", true);
+  t = assigned (overflow);
+  check (style_lookup (t, q4 (true, true, false, 30)) != style_Alert,
+	 "the intro state wins a slot of its own");
+  int sized = 0;
+  for (int points: sizes)
+    if (style_combo_step (t.combo[style_lookup (t, q4 (false, false, false,
+							   points))]) != 0)
+      sized++;
+  check (sized == 5, "six spares: the title and the five heaviest sizes");
+  check (style_lookup (t, q4 (false, false, false, 12)) == style_Normal,
+	 "the lightest sizes fall back to Normal");
+
+  /* Centred text that is all sized: User1 went out as a spare, so the
+     post-pass takes the last spare back for plain centre. */
+  StyleCensus centred;
+  centred.count (0, std::string (100, 'x'), false);
+  for (int points: sizes)
+    centred.count (q4 (false, false, false, points),
+		   std::string (30 + points, 'y'), false);
+  centred.count (q4 (false, true, true, 16), std::string (20, 'z'), false);
+  t = assigned (centred);
+  check (style_lookup (t, q4 (false, true, true, 16)) == style_User1,
+	 "centred text keeps its alignment when its home went spare");
+  check (t.natural[style_User1], "...on the natural User1");
+}
+
 }  /* namespace */
 
 void
@@ -229,6 +362,10 @@ glk_main (void)
 
   std::cout << "match_sidebar_command:\n";
   test_match_sidebar_command ();
+
+  std::cout << "styles:\n";
+  test_style_combo ();
+  test_style_assign ();
 
   std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
 	    << " failure" << (failures == 1 ? "" : "s") << ")\n";

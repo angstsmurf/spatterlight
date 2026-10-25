@@ -520,7 +520,6 @@ run_post_game_menu(QuestionRunner *gr)
 static void
 open_secondary_windows()
 {
-    glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
     bannerwin = glk_window_open(mainglkwin,
                                 winmethod_Above | winmethod_Fixed,
                                 1, wintype_TextGrid, 0);
@@ -613,6 +612,43 @@ boot_game(QuestionRunner *gr)
     return autorestored;
 }
 
+/* The attribute state of a Quest 4 style.  Quest 4 has no per-run font
+ * face (`font' is never set by a | code), so nothing is monospaced, and the
+ * colour is the frontend's business (set_foreground). */
+static StyleCombo
+style_combo_of(const QuestionFontStyle &style, int default_size)
+{
+    return style_combo(style.is_bold, style.is_italic, style.is_underlined,
+                       false, style.justify == JUSTIFY_CENTER,
+                       style.justify == JUSTIFY_RIGHT,
+                       style.size > 0 ? style.size : default_size,
+                       default_size);
+}
+
+/* Count the attribute states the game's text uses and hand out the styles
+ * for them, then set the hints that draw them, all before the first window
+ * opens.  A file that is no game, or no file, gets the natural table. */
+static void
+assign_game_styles(QuestionInterface *gi)
+{
+    StyleCensus census;
+    /* The scan reads `default fontsize' before it walks any text. */
+    int default_size = 10;
+    if (storyfilename && !file_starts_with_zip_magic(storyfilename))
+        question_style_scan(gi, storyfilename,
+                            [&](const QuestionFontStyle &style,
+                                const std::string &text, bool intro) {
+                                census.count(style_combo_of(style,
+                                                            default_size),
+                                             text, intro);
+                            },
+                            default_size);
+    StyleTable table;
+    style_assign(census.ranked(), table);
+    style_install(table);
+    style_set_hints();
+}
+
 /* Tell the host UI the game's title.  get_banner() returns
  * "<name>, v<version> | <author>"; pass just the leading name part. */
 static void
@@ -640,7 +676,9 @@ void glk_main(void)
         return;
     }
 
-    glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_ReverseColor, 1);
+    QuestionGlkInterface *gi = new QuestionGlkInterface();
+    assign_game_styles(gi);
+
     /* Open the main window. */
     mainglkwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
     if (!mainglkwin) {
@@ -675,7 +713,7 @@ void glk_main(void)
                         " timers.  If this game tries to use timers, then some"
                         " functionality may not work correctly.\n\n");
 
-    QuestionRunner *gr = QuestionRunner::get_runner(new QuestionGlkInterface());
+    QuestionRunner *gr = QuestionRunner::get_runner(gi);
     /* From here on, so that the startscript's own questions and waits (which
      * set_game runs, before the turn loop exists) refresh the status too. */
     g_live_runner = gr;
@@ -1369,14 +1407,15 @@ QuestionGlkInterface::print_newline ()
 }
 
 
+/* Glk styles are defined before the window opens, so here we can only pick
+ * the style the game's assignment (assign_game_styles) gave this state, or
+ * the nearest one it has. */
 QuestionResult
 QuestionGlkInterface::set_style (const QuestionFontStyle &style)
 {
-    // Glk styles are defined before the window opens, so at this point we can only
-    // pick the most suitable style, not define a new one.
     glk_set_style_stream(glk_window_get_stream(mainglkwin),
-			 glk_style_for (style.is_bold, style.is_italic,
-					style.is_underlined));
+			 quest_style_for(style_combo_of(style,
+							get_default_font_size())));
     return r_success;
 }
 

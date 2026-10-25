@@ -173,6 +173,121 @@ static bool parse_two_char_int (const string &s, int &rv)
   return true;
 }
 
+/* Reads the formatting code whose bar is at s[i] into `style', leaving `i'
+ * on the code's last character, and says what else the code asks of the
+ * printer.  Shared by print_formatted and the style census
+ * (question_style_scan), so the two cannot disagree about what a string
+ * looks like.  FMT_LITERAL leaves `i' and `style' alone: the bar is not a
+ * code after all and prints as itself. */
+question_format_code
+question_parse_format_code (const string &s, std::string::size_type &i,
+			    QuestionFontStyle &style)
+{
+  /* Quest tries the two-character codes, then the one-character ones, then
+   * |sNN, and if none matches it emits a literal "|" and carries on reading
+   * from the character right after the bar, which is then ordinary text
+   * (TextFormatter.cs:161-176).  This used to fall off the end of the
+   * switch with the index already past the code character, so the loop's
+   * own i++ ate it too: The Lazy Gun Cult's |K| sigil and |plaque| emphasis
+   * both lost two characters a bar, which ran the surrounding words
+   * together. */
+  std::string::size_type k = i + 1;
+
+  /* A bar with nothing after it is a code that matched nothing. */
+  if (k == s.length())
+    return FMT_LITERAL;
+
+  /* The | codes are case-sensitive: Quest's TextFormatter switches on the
+     raw one- and two-character code. */
+  switch (s[k])
+    {
+    case 'u': style.is_underlined = true; break;
+    case 'i': style.is_italic     = true; break;
+    case 'b': style.is_bold       = true; break;
+    case 'c':
+      /* The clearing "|c" is the one that is not "|cb", "|cr", "|cl", "|cy"
+       * or "|cg"; it is the bar and the "c" alone. */
+      if (k + 1 < s.length())
+	switch (s[k + 1])
+	  {
+	  case 'y': style.color = "#ffff00"; i = k + 1; return FMT_STYLE;
+	  case 'g': style.color = "#00ff00"; i = k + 1; return FMT_STYLE;
+	  case 'l': style.color = "#0000ff"; i = k + 1; return FMT_STYLE;
+	  case 'r': style.color = "#ff0000"; i = k + 1; return FMT_STYLE;
+	  case 'b': style.color = "";        i = k + 1; return FMT_STYLE;
+	  }
+      i = k;
+      return FMT_CLEAR;
+
+    case 's':
+      {
+	/* |sNN wants exactly two characters after the "s", and they have to
+	 * parse as a number: Quest reads them with int.TryParse, under a
+	 * guard that there are two of them (TextFormatter.cs:165-176).  A
+	 * malformed one -- Uranus opens with a stray |s9| -- is not a code,
+	 * and prints as itself.  Size 0 is the game's default size, which is
+	 * what |s00 goes back to. */
+	int newsize;
+	if (k + 2 >= s.length ()
+	    || !parse_two_char_int (s.substr (k + 1, 2), newsize))
+	  return FMT_LITERAL;
+	style.size = newsize > 0 ? newsize : 0;
+	i = k + 2;
+	return FMT_STYLE;
+      }
+
+    case 'j':
+      /* Same as |sNN: "j" on its own is not one of Quest's one-character
+       * codes, so a malformed |jX is a literal bar. */
+      if (k + 1 == s.length())
+	return FMT_LITERAL;
+      if (s[k + 1] == 'l') style.justify = JUSTIFY_LEFT;
+      else if (s[k + 1] == 'r') style.justify = JUSTIFY_RIGHT;
+      else if (s[k + 1] == 'c') style.justify = JUSTIFY_CENTER;
+      else
+	return FMT_LITERAL;
+      i = k + 1;
+      return FMT_STYLE;
+
+    case 'n':
+      i = k;
+      return FMT_NEWLINE;
+
+    case 'w':
+      i = k;
+      return FMT_WAIT;
+
+    case 'x':
+      if (k + 1 == s.length())
+	return FMT_LITERAL;
+      if (s[k + 1] == 'b')
+	style.is_bold = false;
+      else if (s[k + 1] == 'u')
+	style.is_underlined = false;
+      else if (s[k + 1] == 'i')
+	style.is_italic = false;
+      else if (s[k + 1] == 'n' && k + 2 == s.length())
+	{
+	  i = k + 1;
+	  return FMT_NO_NEWLINE;
+	}
+      else
+	/* xb, xi and xu are the only two-character x codes; |xn is read off
+	 * the end of the whole string before formatting starts
+	 * (TextFormatter.cs:29-33), so one in the middle is not a code
+	 * either. */
+	return FMT_LITERAL;
+      i = k + 1;
+      return FMT_STYLE;
+
+    default:
+      QUESTION_DBG << "p_f: Fallthrough " << s[k] << std::endl;
+      return FMT_LITERAL;
+    }
+  i = k;
+  return FMT_STYLE;
+}
+
 QuestionResult QuestionInterface::print_formatted (const string &s, bool with_newline)
 {
   std::string::size_type i, j;
@@ -198,106 +313,31 @@ QuestionResult QuestionInterface::print_formatted (const string &s, bool with_ne
       pending = true;
       if (s[i] == '|')
         {
-          // changed indicated whether cur_style has been changed
-          // and update_style should be called at the end.
-          // it is true unless cleared (by |n or |w).
-          bool changed = true;
-	  /* Set by any arm that turns out not to be a code after all.  Quest
-	   * tries the two-character codes, then the one-character ones, then
-	   * |sNN, and if none matches it emits a literal "|" and carries on
-	   * reading from the character right after the bar, which is then
-	   * ordinary text (TextFormatter.cs:161-176).  This used to fall off
-	   * the end of the switch with the index already past the code
-	   * character, so the loop's own i++ ate it too: The Lazy Gun Cult's
-	   * |K| sigil and |plaque| emphasis both lost two characters a bar,
-	   * which ran the surrounding words together. */
-	  bool literal_bar = false;
-          j = i;
-          i ++;
-          if (i == s.length())
+          switch (question_parse_format_code (s, i, cur_style))
             {
-	      /* A bar with nothing after it is a code that matched nothing. */
+            case FMT_LITERAL:
+	      /* The loop's i++ lands on the character after the bar, and
+	       * the text branch prints it. */
 	      print_normal ("|");
-              continue;
-            }
+	      continue;
 
-	  /* The | codes are case-sensitive: Quest's TextFormatter switches on
-	     the raw one- and two-character code. */
-          switch (s[i])
-            {
-            case 'u': cur_style.is_underlined = true; break;
-            case 'i': cur_style.is_italic     = true; break;
-            case 'b': cur_style.is_bold       = true; break;
-            case 'c':
-              i ++;
-
-	      /* The clearing "|c" -- the one that is not "|cb", "|cr", "|cl",
-	       * "|cy" or "|cg" -- flushes what has been printed so far before it
-	       * wipes, exactly as "|w" does above (V4Game.Part2.cs:6761-6784). */
-              if (i == s.length())
-		{ print_newline(); pending = false; clear_screen(); break; }
-
-              switch (s[i])
-                {
-                case 'y': cur_style.color = "#ffff00"; break;
-                case 'g': cur_style.color = "#00ff00"; break;
-                case 'l': cur_style.color = "#0000ff"; break;
-                case 'r': cur_style.color = "#ff0000"; break;
-                case 'b': cur_style.color = "";  break;
-
-                default:
-		  print_newline();
-		  pending = false;
-                  clear_screen();
-                  --i;
-                }
+            case FMT_STYLE:
               break;
 
-            case 's':
-	      {
-		/* |sNN wants exactly two characters after the "s", and they
-		 * have to parse as a number: Quest reads them with
-		 * int.TryParse, under a guard that there are two of them
-		 * (TextFormatter.cs:165-176).  A malformed one -- Uranus opens
-		 * with a stray |s9| -- is not a code, and prints as itself. */
-		int newsize;
-		if (i + 2 >= s.length ()
-		    || !parse_two_char_int (s.substr (i + 1, 2), newsize))
-		  {
-		    literal_bar = true;
-		    break;
-		  }
-		i += 2;
-		if (newsize > 0)
-		  cur_style.size = newsize;
-		else
-		  cur_style.size = default_size;
-	      }
-	      break;
-
-            case 'j':
-              i ++;
-
-              if (i == s.length() ||
-                  !(s[i] == 'l' || s[i] == 'c' || s[i] == 'r'))
-                {
-		  /* Same as |sNN: "j" on its own is not one of Quest's
-		   * one-character codes, so a malformed |jX is a literal
-		   * bar. */
-		  literal_bar = true;
-		  break;
-		}
-              if (s[i] == 'l') cur_style.justify = JUSTIFY_LEFT;
-              else if (s[i] == 'r') cur_style.justify = JUSTIFY_RIGHT;
-              else if (s[i] == 'c') cur_style.justify = JUSTIFY_CENTER;
+            case FMT_CLEAR:
+	      /* The clearing "|c" flushes what has been printed so far
+	       * before it wipes, exactly as "|w" does below
+	       * (V4Game.Part2.cs:6761-6784). */
+	      print_newline();
+	      pending = false;
+              clear_screen();
               break;
 
-            case 'n':
+            case FMT_NEWLINE:
               print_newline();
-              changed = false;
-              break;
+              continue;
 
-            case 'w':
+            case FMT_WAIT:
               /* The flush comes first and unconditionally: Quest's DoPrint runs
                * before DoWaitAsync, and it runs even with nothing accumulated,
                * so a string that opens with the code opens with a blank line. */
@@ -308,45 +348,13 @@ QuestionResult QuestionInterface::print_formatted (const string &s, bool with_ne
                * (see question_implementation::run_command). */
               if (runner != NULL)
                 runner->turn_suspended();
-              changed = false;
-              break;
+              continue;
 
-            case 'x':
-              i ++;
-
-	      if (i == s.length())
-		literal_bar = true;
-              else if (s[i] == 'b')
-                cur_style.is_bold = false;
-              else if (s[i] == 'u')
-                cur_style.is_underlined = false;
-              else if (s[i] == 'i')
-                cur_style.is_italic = false;
-              else if (s[i] == 'n' && i + 1 == s.length())
-                changed = with_newline = false;
-	      else
-		/* xb, xi and xu are the only two-character x codes; |xn is
-		 * read off the end of the whole string before formatting
-		 * starts (TextFormatter.cs:29-33), so one in the middle is not
-		 * a code either. */
-		literal_bar = true;
-              break;
-
-            default:
-              QUESTION_DBG << "p_f: Fallthrough " << s[i] << std::endl;
-              changed = false;
-	      literal_bar = true;
+            case FMT_NO_NEWLINE:
+              with_newline = false;
+              continue;
             }
-	  if (literal_bar)
-	    {
-	      print_normal ("|");
-	      /* Resume at the bar, so the loop's i++ lands on the character
-	       * after it and the text branch prints it. */
-	      i = j;
-	      continue;
-	    }
-          if (changed)
-            update_style();
+          update_style();
         }
       else
         {
@@ -364,7 +372,178 @@ QuestionResult QuestionInterface::print_formatted (const string &s, bool with_ne
 
 void QuestionInterface::set_default_font_size (const string &size)
 {
-  default_size = parse_int (size);
+  int n = parse_int (size);
+  if (n > 0)
+    default_size = n;
+}
+
+namespace {
+
+/* What question_style_scan walks the game with.  Which strings reach the
+ * screen is not knowable without running the game, so every <...> parameter
+ * counts; the ones that never print are mostly plain names, which only add
+ * to Normal's count, and Normal is always a style of its own. */
+struct StyleScan
+{
+  const QuestionFile &gf;
+  const QuestionStyleSink &sink;
+  std::set<const QuestionBlock *> intro;
+
+  void walk (const string &s, QuestionFontStyle &style, bool in_intro);
+  void walk_params (const string &line, bool in_intro);
+  void mark_intro (const string &type, const string &name,
+		   std::vector<const QuestionBlock *> &todo);
+};
+
+}
+
+void StyleScan::walk (const string &s, QuestionFontStyle &style, bool in_intro)
+{
+  std::string::size_type i, j;
+  for (i = 0; i < s.length (); i ++)
+    {
+      if (s[i] == '|')
+	{
+	  if (question_parse_format_code (s, i, style) == FMT_LITERAL)
+	    sink (style, "|", in_intro);
+	  continue;
+	}
+      for (j = i; i < s.length () && s[i] != '|'; i ++)
+	;
+      sink (style, s.substr (j, i - j), in_intro);
+      -- i;
+    }
+}
+
+/* Each string starts from the plain style.  The printer's style carries over
+ * from one string to the next, but a game that leaves a code open ends up
+ * styling whatever happens to print next, which no census can predict. */
+void StyleScan::walk_params (const string &line, bool in_intro)
+{
+  std::string::size_type open = 0, close;
+  while ((open = line.find ('<', open)) != string::npos
+	 && (close = line.find ('>', open + 1)) != string::npos)
+    {
+      QuestionFontStyle style;
+      walk (line.substr (open + 1, close - open - 1), style, in_intro);
+      open = close + 1;
+    }
+}
+
+void StyleScan::mark_intro (const string &type, const string &name,
+			    std::vector<const QuestionBlock *> &todo)
+{
+  const QuestionBlock *b = gf.find_by_name (type, name);
+  if (b != NULL && intro.insert (b).second)
+    todo.push_back (b);
+}
+
+bool question_style_scan (QuestionInterface *gi, const string &filename,
+			  const QuestionStyleSink &sink, int &default_size)
+{
+  QuestionFile gf = read_question_file (gi, filename);
+  default_size = 10;
+  if (gf.blocks.size () == 0)
+    return false;
+
+  StyleScan scan { gf, sink, {} };
+  std::string::size_type c1, c2;
+
+  /* The introduction: the startscript, whatever procedures and text blocks
+   * it reaches through `do' and `displaytext' (a braced startscript is one
+   * of those, deinlined at load), and the <intro> text Quest shows after
+   * it. */
+  const QuestionBlock *game = gf.find_by_name ("game", "game");
+  std::vector<const QuestionBlock *> todo;
+  scan.mark_intro ("text", "intro", todo);
+  if (game != NULL)
+    for (const string &line: game->data)
+      {
+	string tok = first_token (line, c1, c2);
+	if (ci_equal (tok, "default")
+	    && ci_equal (next_token (line, c1, c2), "fontsize")
+	    && is_param (tok = next_token (line, c1, c2)))
+	  {
+	    int n = parse_int (param_contents (tok));
+	    if (n > 0)
+	      default_size = n;
+	  }
+      }
+  for (size_t k = 0; ; k ++)
+    {
+      const std::vector<string> *lines;
+      if (k == 0)
+	{
+	  if (game == NULL)
+	    continue;
+	  lines = &game->data;
+	}
+      else if (k <= todo.size ())
+	lines = &todo[k - 1]->data;
+      else
+	break;
+      for (const string &line: *lines)
+	{
+	  if (k == 0 && !ci_equal (first_token (line, c1, c2), "startscript"))
+	    continue;
+	  for (const char *call: { "do <", "displaytext <" })
+	    {
+	      std::string::size_type at = 0;
+	      while ((at = line.find (call, at)) != string::npos)
+		{
+		  std::string::size_type open = at + strlen (call) - 1;
+		  std::string::size_type close = line.find ('>', open);
+		  if (close == string::npos)
+		    break;
+		  if (at == 0 || isspace ((unsigned char) line[at - 1]))
+		    scan.mark_intro (call[0] == 'd' && call[1] == 'o'
+				     ? "procedure" : "text",
+				     line.substr (open + 1, close - open - 1),
+				     todo);
+		  at = close;
+		}
+	    }
+	}
+    }
+
+  for (const QuestionBlock &b: gf.blocks)
+    {
+      const bool in_intro = scan.intro.count (&b) != 0;
+      if (b.blocktype == "synonyms")
+	continue;
+      if (b.blocktype == "text")
+	{
+	  /* displaytext prints the lines one at a time, and the style carries
+	   * from each to the next. */
+	  QuestionFontStyle style;
+	  for (const string &line: b.data)
+	    scan.walk (line, style, in_intro);
+	  continue;
+	}
+      for (size_t n = 0; n < b.data.size (); n ++)
+	{
+	  bool line_intro = in_intro;
+	  if (&b == game && n > 0)
+	    line_intro = ci_equal (first_token (b.data[n], c1, c2),
+				   "startscript");
+	  if (&b == game && n == 0)
+	    {
+	      /* The game's name heads the banner set_game prints in italic. */
+	      first_token (b.data[0], c1, c2);
+	      next_token (b.data[0], c1, c2);
+	      string tok = next_token (b.data[0], c1, c2);
+	      if (is_param (tok))
+		{
+		  QuestionFontStyle style;
+		  style.is_italic = true;
+		  scan.walk (param_contents (tok), style, true);
+		}
+	      continue;
+	    }
+	  scan.walk_params (b.data[n], line_intro);
+	}
+    }
+  return true;
 }
 
 void QuestionInterface::set_default_font (const string &font)
