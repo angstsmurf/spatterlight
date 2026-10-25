@@ -12,7 +12,7 @@ HINT buffer BlockQuote Size 2
 HINT buffer BlockQuote Indentation 0
 HINT buffer BlockQuote ParaIndentation 0
 HINT grid User1 ReverseColor 1
-SPAN 0 Subheader ' Press any key to continue. \n'
+SPAN 0 Subheader 'Press any key to continue. \n'
 SPAN 0 Normal 'You slowly open your eyes.\nAn '
 SPAN 0 Emphasized 'unclosed slant\n'
 SPAN 0 Normal 'and plain text after it.\nYou are in a Hall.\n'

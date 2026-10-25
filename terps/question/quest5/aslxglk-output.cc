@@ -31,16 +31,21 @@ namespace aslxglk {
  * text, unless a newline gets there first (see render_html_inner). */
 static bool g_break_owed = false;
 
+/* The last character put was a space, so a space in the game's text that
+ * follows it collapses into it (see render_html_inner). */
+static bool g_last_space = false;
+
 void put_uni_char(glui32 c)
 {
     if (g_break_owed) {
         if (c == ' ' || c == '\t')
             return;             /* the space after a block collapses too */
         g_break_owed = false;
-        if (c != '\n')
+        if (c != '\n' && !g_at_line_start)  /* not if the host broke it */
             put_uni_char('\n');
     }
     glk_put_char_uni(c);
+    g_last_space = c == ' ' || c == '\t';
     if (c == '\n')
         g_at_line_start = true;
     else if (c != ' ' && c != '\t')  /* indentation is not text */
@@ -670,8 +675,13 @@ void trim_out_log()
     }
 }
 
+/* The player opens each section as a <div>, and Core's ShowMenu opens one
+ * for its options: text the game left mid-line (spondre's OutputTextNoBr
+ * before its prompt menu) ends there. */
 void start_output_section(const std::string &name)
 {
+    if (!g_at_line_start)
+        g_break_owed = true;
     OutSection s;
     s.name = name;
     s.start = g_out_log.size();
@@ -684,6 +694,8 @@ void end_output_section(const std::string &name)
     for (size_t i = g_sections.size(); i-- > 0;)
         if (g_sections[i].name == name && g_sections[i].end == (size_t) -1) {
             g_sections[i].end = g_out_log.size();
+            if (!g_at_line_start)
+                g_break_owed = true;    /* the <div> closes */
             return;
         }
 }
@@ -784,6 +796,7 @@ void render_html_inner(const std::string &raw)
     std::vector<StylePush> anchors; /* open <a>s */
     std::vector<char> span_link;    /* did that <span> open a hyperlink? */
     std::vector<std::pair<std::string, StylePush>> blocks;  /* open blocks */
+    int pre = 0;                    /* open <pre>s keep their spaces */
     for (size_t i = 0; i < html.size();) {
         char ch = html[i];
         if (ch == '<') {
@@ -908,16 +921,34 @@ void render_html_inner(const std::string &raw)
                 /* the flag tags (b, i, u, tt...): counters, so a stray close
                  * undoes nothing it did not open */
                 closing ? pop_style(p) : push_style(p);
+                if (name == "pre")
+                    pre = closing ? std::max(pre - 1, 0) : pre + 1;
             }
             /* every other tag (table, ul...) is dropped: §4 says
              * best-effort subset, not a browser. */
         } else if (ch == '&') {
-            put_uni_char(decode_entity(html, i));
-        } else if (ch == '\r') {
+            glui32 c = decode_entity(html, i);
+            if (c == ' ' && g_break_owed) {
+                /* &nbsp; prints as a plain space, but it is text: the line
+                 * it starts keeps it (Core's "&nbsp;&bull;" menu options) */
+                g_break_owed = false;
+                if (!g_at_line_start)
+                    put_uni_char('\n');
+            }
+            put_uni_char(c);
+        } else if (ch == '\r' || ch == '\n') {
+            /* The player strips every raw line break from the text it is
+             * handed (Quest Viva's OutputText), so a game that wraps and
+             * indents its CDATA by hand (spondre) runs on as one paragraph. */
             i++;
+        } else if ((ch == ' ' || ch == '\t') && !pre) {
+            /* ...and the page collapses the rest of the whitespace: a run of
+             * it is one space, and none at all where a line starts. */
+            i++;
+            if (!g_at_line_start && !g_last_space)
+                put_uni_char(' ');
         } else {
-            /* UTF-8 sequence or plain char (raw newlines kept, as in the
-             * oracle transcripts). */
+            /* UTF-8 sequence or plain char. */
             put_uni_char(utf8_next_cp(html, i));
         }
     }
