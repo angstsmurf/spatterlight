@@ -32,6 +32,7 @@
 - A Quest 5 `show menu` no longer prints its caption twice, as the first line of Warriors' character questions ("Name: ...", "Your gender?") did: Quest Viva shows the second copy only in the popup, which goes away once it is answered.
 
 ### General
+- A hyperlink in a status line or other grid window keeps the colour of the text around it. It used to take the normal text colour, which made links invisible in a reverse-video status line. Clicking one now scrolls the story to the new text, as a click in the story window does.
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.
 - Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.
 - The story name stored in a Blorb file is read correctly, where it used to come out empty for the Infocom Blorbs, and the cover picture is chosen the same way everywhere. A Blorb whose cover entry names a picture that isn't there falls back to the first picture.
