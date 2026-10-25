@@ -1373,6 +1373,46 @@ static void test_parity_batch() {
     CHECK(sus.find("after") == std::string::npos);
     CHECK(sus.find("Error") == std::string::npos);
 
+    // -- a nested `on ready` left over by a suspended cascade runs from the
+    // host's drain_on_ready; a synchronous sound in THAT parks like every
+    // other entry point (the host never sees the unwind), and the parked
+    // tail resumes when the wait slot is next completed (Midnight's room
+    // entries under the hook-less smoke harness).
+    in.clear_output();
+    suspended = false;
+    try {
+        Context sc;
+        in.run_script("on ready {\n"
+                      "  on ready { msg (\"n1\")\n"
+                      "    play sound (\"a.mp3\", true, false)\n"
+                      "    msg (\"n1-tail\") }\n"
+                      "  on ready { msg (\"n2\")\n"
+                      "    play sound (\"b.mp3\", true, false)\n"
+                      "    msg (\"n2-tail\") }\n"
+                      "  msg (\"outer\")\n"
+                      "  play sound (\"c.mp3\", true, false)\n"
+                      "  msg (\"outer-tail\")\n"
+                      "}", sc);
+    } catch (const TurnSuspended &) {
+        suspended = true;
+    }
+    CHECK(suspended);
+    CHECK(in.has_pending_on_ready());  // n2 is still queued
+    bool drained = false;
+    try {
+        in.drain_on_ready();
+        drained = true;
+    } catch (const TurnSuspended &) {
+    }
+    CHECK(drained);
+    std::string dr = in.output();
+    CHECK(dr.find("n2") != std::string::npos);
+    CHECK(dr.find("n2-tail") == std::string::npos);
+    in.clear_output();
+    in.finish_wait();  // nothing pends: completes the parked sound's slot
+    CHECK(in.output().find("n2-tail") != std::string::npos);
+    CHECK(in.output().find("Error") == std::string::npos);
+
     // -- ...but with a play_sound host hook, a synchronous play runs through
     // the hook (which blocks until the sound ends) and the turn CONTINUES --
     // QuestViva's awaited wait slot, resolved by a UI that can finish a

@@ -1115,14 +1115,23 @@ void Interp::drain_on_ready() {
         }
         return;
     }
-    flush_deferred_on_ready_queue();
-    // Nested items should not linger with nothing running; drain defensively.
-    while (!nested_on_ready_.empty() && !world_.finished) {
-        auto item = nested_on_ready_.front();
-        nested_on_ready_.erase(nested_on_ready_.begin());
-        Context ctx = item.second;
-        run_callback_boundary(item.first, ctx);
-        if (script_errors_fatal_) break;
+    // A synchronous `play sound` in a drained callback (a room's firstenter,
+    // run from OnEnterRoom's nested `on ready`) parks the rest of it like
+    // every other entry point does; the host must never see the unwind.
+    // The remaining queue is left for the next drain.
+    try {
+        flush_deferred_on_ready_queue();
+        // Nested items should not linger with nothing running; drain
+        // defensively.
+        while (!nested_on_ready_.empty() && !world_.finished) {
+            auto item = nested_on_ready_.front();
+            nested_on_ready_.erase(nested_on_ready_.begin());
+            Context ctx = item.second;
+            run_callback_boundary(item.first, ctx);
+            if (script_errors_fatal_) break;
+        }
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
     }
 }
 
