@@ -23,9 +23,10 @@
  * (glk/os_glk_styles.cpp), without running it.  One block per game:
  *
  *   game <file> strings <n> combos <n> spares <used>/<free> overflow <n>
- *     <rank> <combo> chars <n> intro <n|-> -> <style>[*]
+ *     <rank> <combo> chars <n> intro <n|-> -> <style>{*|(<combo>)}
  *
- * '*' marks a state that has a style of its own rather than a fallback.
+ * '*' marks a state that has a style of its own; a fallback names the state
+ * the style it landed on stands for.
  * With -s, only the summary line is printed.
  */
 
@@ -98,17 +99,26 @@ report (const char *path, scr_bool summary_only)
         {
           const gsc_style_census_row_t &row = census.rows[index_];
           const scr_int style = gsc_style_lookup (&table, row.combo);
-          char name[64], intro[32];
+          char name[64], intro[32], landed[80];
 
           gsc_style_combo_describe (row.combo, name, sizeof (name));
+          if (table.combo[style] == row.combo)
+            snprintf (landed, sizeof (landed), "*");
+          else
+            {
+              char held[64];
+
+              gsc_style_combo_describe (table.combo[style], held,
+                                        sizeof (held));
+              snprintf (landed, sizeof (landed), " (%s)", held);
+            }
           if (row.intro_characters > 0)
             snprintf (intro, sizeof (intro), "%lu", row.intro_characters);
           else
             snprintf (intro, sizeof (intro), "-");
           printf ("  %2lu %-24s chars %7lu intro %5s -> %s%s\n",
                   (unsigned long) index_ + 1, name, row.characters, intro,
-                  gsc_style_name (style),
-                  table.combo[style] == row.combo ? "*" : "");
+                  gsc_style_name (style), landed);
         }
     }
 

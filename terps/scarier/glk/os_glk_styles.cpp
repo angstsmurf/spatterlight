@@ -220,40 +220,65 @@ scr_int
 gsc_style_lookup (const gsc_style_table_t *table, gsc_style_combo_t combo)
 {
   /*
-   * Each step drops attributes and none adds one, so text never shows an
-   * attribute it didn't ask for: first the size, a step at a time toward the
-   * default so a size the game uses a little of lands on a near size it uses
-   * more; then italic, then bold (before the alignment, so right-aligned bold
-   * stays right-aligned, as it is today), then the alignment, then the face.
-   * Normal is always assigned, so the walk ends there at the latest.
+   * Each try drops attributes and none adds one, so text never shows an
+   * attribute it didn't ask for.  The tries go by what they cost: italic and
+   * bold one each, then the alignment, worth more than both together since
+   * losing it moves the text where losing a slant or weight only restyles
+   * it, then the face, worth more than all of those.  On a tie italic goes
+   * before bold (so right-aligned bold stays right-aligned, as it is today).
+   * So centred bold italic with no style of its own lands on centred text
+   * before on bold italic, and centred italic with no centred style lands on
+   * italic, not on Normal.  Under each set of attributes the size goes a step
+   * at a time toward the default, so a size the game uses a little of lands
+   * on a near size it uses more.  Normal is always assigned, so the walk
+   * ends there at the latest.
    */
-  static const gsc_style_combo_t drops[] = {
-    GSC_COMBO_ITALIC, GSC_COMBO_BOLD, GSC_COMBO_CENTER | GSC_COMBO_RIGHT,
-    GSC_COMBO_MONOSPACED
+  static const struct
+  {
+    gsc_style_combo_t flags;
+    unsigned int cost;
+  } drops[] = {
+    {GSC_COMBO_ITALIC, 1}, {GSC_COMBO_BOLD, 1},
+    {GSC_COMBO_CENTER | GSC_COMBO_RIGHT, 3}, {GSC_COMBO_MONOSPACED, 6}
   };
+  static const size_t DROPS = sizeof (drops) / sizeof (drops[0]);
+  static const unsigned int DROP_SETS = 1u << DROPS, MAX_COST = 11;
   const gsc_style_combo_t flags = combo & GSC_COMBO_FLAGS;
+  const scr_int size = gsc_style_combo_step (combo);
+  unsigned int cost, set;
   scr_int step, style;
   size_t index_;
 
-  for (step = gsc_style_combo_step (combo); ; step += (step < 0) - (step > 0))
+  for (cost = 0; cost <= MAX_COST; cost++)
     {
-      style = gsc_style_find (table, flags
-                              | (((gsc_style_combo_t) step
-                                  << GSC_COMBO_SIZE_SHIFT)
-                                 & GSC_COMBO_SIZE_MASK));
-      if (style >= 0)
-        return style;
-      if (step == 0)
-        break;
-    }
+      for (set = 0; set < DROP_SETS; set++)
+        {
+          gsc_style_combo_t kept = flags;
+          unsigned int set_cost = 0;
 
-  combo = flags;
-  for (index_ = 0; index_ < sizeof (drops) / sizeof (drops[0]); index_++)
-    {
-      combo &= ~drops[index_];
-      style = gsc_style_find (table, combo);
-      if (style >= 0)
-        return style;
+          for (index_ = 0; index_ < DROPS; index_++)
+            {
+              if (set & (1u << index_))
+                {
+                  kept &= ~drops[index_].flags;
+                  set_cost += drops[index_].cost;
+                }
+            }
+          if (set_cost != cost)
+            continue;
+
+          for (step = size; ; step += (step < 0) - (step > 0))
+            {
+              style = gsc_style_find (table, kept
+                                      | (((gsc_style_combo_t) step
+                                          << GSC_COMBO_SIZE_SHIFT)
+                                         & GSC_COMBO_SIZE_MASK));
+              if (style >= 0)
+                return style;
+              if (step == 0)
+                break;
+            }
+        }
     }
   return GSC_STYLE_NORMAL;
 }
@@ -482,6 +507,12 @@ gsc_style_walk_tag (scr_int tag, const scr_char *argument, void *opaque)
  */
 static const unsigned long GSC_STYLE_INTRO_WEIGHT = 20;
 
+static unsigned long
+gsc_style_row_weight (const gsc_style_census_row_t &row)
+{
+  return row.characters + GSC_STYLE_INTRO_WEIGHT * row.intro_characters;
+}
+
 static unsigned int
 gsc_style_combo_bits (gsc_style_combo_t combo)
 {
@@ -496,10 +527,8 @@ static bool
 gsc_style_rank_before (const gsc_style_census_row_t &a,
                        const gsc_style_census_row_t &b)
 {
-  const unsigned long a_weight = a.characters
-                                 + GSC_STYLE_INTRO_WEIGHT * a.intro_characters;
-  const unsigned long b_weight = b.characters
-                                 + GSC_STYLE_INTRO_WEIGHT * b.intro_characters;
+  const unsigned long a_weight = gsc_style_row_weight (a);
+  const unsigned long b_weight = gsc_style_row_weight (b);
   const unsigned int a_bits = gsc_style_combo_bits (a.combo);
   const unsigned int b_bits = gsc_style_combo_bits (b.combo);
 
@@ -641,6 +670,9 @@ gsc_style_census_a5 (const a5_xml_node_t *root,
 }
 
 
+/* How many times its weight aligned text counts against an evicted state. */
+static const unsigned long GSC_STYLE_ALIGNMENT_WEIGHT = 4;
+
 /*
  * gsc_style_assign()
  *
@@ -650,6 +682,16 @@ gsc_style_census_a5 (const a5_xml_node_t *root,
  * whose state the game never shows.  Emphasized and Preformatted are never
  * spares -- the frontend prints its own notes in Emphasized -- and Normal
  * and Input are what they are.
+ *
+ * Handing out User1, User2 or Note can leave an alignment the game uses
+ * with no style at all -- a game whose centred text is all italic or sized
+ * shows no plain centre, so User1 goes to some size and its centred text
+ * then falls back to unaligned -- and losing the alignment moves text where
+ * losing a size or slant only restyles it.  So when that happens, the last
+ * state handed a spare gives it up to the plain alignment, which every
+ * aligned state can fall back to -- provided the aligned text weighs at
+ * least a quarter of that state's, so a few right-aligned words don't cost
+ * a sized body text its style.
  */
 void
 gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
@@ -659,6 +701,12 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
   static const scr_int natural_spares[] = {GSC_STYLE_USER1, GSC_STYLE_USER2,
                                            GSC_STYLE_NOTE, GSC_STYLE_ALERT,
                                            GSC_STYLE_SUBHEADER};
+  static const struct
+  {
+    gsc_style_combo_t combo;
+    scr_int style;
+  } alignments[] = {{GSC_COMBO_CENTER, GSC_STYLE_USER1},
+                    {GSC_COMBO_RIGHT, GSC_STYLE_NOTE}};
   std::vector<scr_int> spares;
   size_t index_, next;
 
@@ -695,5 +743,54 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
       table->assigned[style] = TRUE;
       table->natural[style] = FALSE;
       table->combo[style] = combo;
+    }
+
+  for (index_ = 0; index_ < sizeof (alignments) / sizeof (alignments[0]);
+       index_++)
+    {
+      const gsc_style_combo_t alignment = alignments[index_].combo;
+      const scr_int home = alignments[index_].style;
+      std::vector<gsc_style_census_row_t>::const_iterator row;
+      unsigned long aligned = 0, evicted = 0;
+      scr_int style;
+      size_t spare;
+
+      if (next == 0)
+        break;
+      for (style = 0; style < GSC_STYLE_COUNT; style++)
+        {
+          if (table->assigned[style] && (table->combo[style] & alignment))
+            break;
+        }
+      if (style < GSC_STYLE_COUNT)
+        continue;
+      for (row = census->rows.begin (); row != census->rows.end (); ++row)
+        {
+          if (row->combo & alignment)
+            aligned += gsc_style_row_weight (*row);
+          if (row->combo == table->combo[spares[next - 1]])
+            evicted = gsc_style_row_weight (*row);
+        }
+      if (aligned == 0 || GSC_STYLE_ALIGNMENT_WEIGHT * aligned < evicted)
+        continue;
+
+      /*
+       * The last state handed a spare loses it.  If the alignment's own
+       * natural style went to a state ranked above that one, the state moves
+       * to the freed spare and the natural style takes its old hints back.
+       */
+      style = spares[--next];
+      for (spare = 0; spare < next; spare++)
+        {
+          if (spares[spare] == home)
+            {
+              table->combo[style] = table->combo[home];
+              spares[spare] = style;
+              spares[next] = home;
+              style = home;
+            }
+        }
+      table->combo[style] = alignment;
+      table->natural[style] = style == home;
     }
 }

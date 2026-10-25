@@ -14,8 +14,13 @@ description carry the markup under test; LOOK reprints the room.
                          fallback is reached: a size steps toward 12 before
                          a flag is dropped, then italic, bold, the alignment
                          and the face go in that order
+    styles_aligned.taf   centred and right-aligned text that is all italic
+                         or sized, so no row has the plain alignment, and
+                         more sizes than spares: User1 and Note are handed
+                         out to sizes, then won back for the plain
+                         alignments so the aligned text stays aligned
 
-The census of all four is pinned in census_expected.txt (`make -f
+The census of all five is pinned in census_expected.txt (`make -f
 Makefile.headless styles-check`); what the Spatterlight build prints them
 in is checked by run_styles_tests.py.
 
@@ -23,7 +28,7 @@ The body is the positional 4.0 layout of harness/make_rich_text_taf.py, in
 the same SCARE-readable envelope: signature, eight header bytes, zlib body.
 
 Usage:
-    python3 make_styles_tafs.py           (writes the four beside this file)
+    python3 make_styles_tafs.py           (writes the five beside this file)
 """
 from pathlib import Path
 import zlib
@@ -82,6 +87,22 @@ FIXTURES = {
             "<font size=16><i>sixteen italic</i></font> ",
             "<font size=22><b>big bold</b></font> ",
             "<center><font size=14><i>ci14</i></font></center>",
+        ]),
+    ),
+    "styles_aligned": (
+        "The story begins.",
+        "Sized Room",
+        "".join([
+            "<center><font size=24><b><i>Title</i></b></font></center><br>",
+            "<center><i>centred</i></center><br>",
+            "<right><i>right</i></right><br>",
+            "<b>bold</b> <b><i>bold italic</i></b> ",
+            "<font size=10>ten point text, the most of any size</font> ",
+            "<font size=14>fourteen point text, less of it</font> ",
+            "<font size=16>sixteen point, less again</font> ",
+            "<font size=18>eighteen point text</font> ",
+            "<font size=20>twenty point text</font> ",
+            "<font size=22>twenty-two point</font>",
         ]),
     ),
 }
