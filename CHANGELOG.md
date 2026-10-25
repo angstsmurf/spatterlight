@@ -27,6 +27,7 @@
 - Quest 4 and Quest 5 games get text styles from their own markup: before the window opens, Question counts the bold, italic, size, alignment and (in Quest 5) monospaced combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large instead of as plain bold. A combination left without a style of its own falls back to the nearest one that has.
 - Quest 5 text now follows `font-size`, `font-family`, `text-align`, `<font>`, `<h1>` to `<h6>`, `<center>`, `<pre>`, `<code>` and `<tt>`, measured against the game's own font size, and the centred title and other `PrintCentered` text is centred.
 - Underlined text prints in the italic style instead of in reverse video, which looked like a selection.
+- A Quest 5 message that leaves a tag open, such as Warriors' `<b>...<b/>`, no longer turns the rest of the game's text bold: as in Quest Viva, the tag ends with its message.
 
 ### General
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.

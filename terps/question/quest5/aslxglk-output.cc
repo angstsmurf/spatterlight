@@ -721,6 +721,7 @@ void render_html_inner(const std::string &raw)
         qstr::ifind(raw, "<style", 0) != std::string::npos ||
         qstr::ifind(raw, "<script", 0) != std::string::npos
             ? strip_hidden_elements(raw) : raw;
+    const InlineStyle base = g_style;
     std::vector<StylePush> spans;   /* open <span>s */
     std::vector<StylePush> anchors; /* open <a>s */
     std::vector<char> span_link;    /* did that <span> open a hyperlink? */
@@ -835,8 +836,8 @@ void render_html_inner(const std::string &raw)
                     i = end;
                 }
             } else if (tag_style(name, tag, 0, p)) {
-                /* the flag tags (b, i, u, tt...): counters, so a close in a
-                 * later chunk still undoes them */
+                /* the flag tags (b, i, u, tt...): counters, so a stray close
+                 * undoes nothing it did not open */
                 closing ? pop_style(p) : push_style(p);
             }
             /* every other tag (table, ul...) is dropped: §4 says
@@ -851,17 +852,18 @@ void render_html_inner(const std::string &raw)
             put_uni_char(utf8_next_cp(html, i));
         }
     }
-    /* Unbalanced opens (rare, malformed game HTML): restore the base style,
-     * and close any hyperlink they left open -- a span can have opened one
+    /* The player appends each chunk as its own HTML fragment, and the browser
+     * closes whatever the fragment leaves open: Warriors' "<b> Press any key
+     * to continue. <b/>" opens bold twice and never closes it, yet the text
+     * after it is plain.  So a chunk hands back the style it started with,
+     * and closes any hyperlink it left open -- a span can have opened one
      * just as an anchor can, and a stray glk_set_hyperlink(0) is a no-op. */
-    while (!blocks.empty()) {
-        pop_style(blocks.back().second);
-        blocks.pop_back();
-    }
-    if (!spans.empty() || !anchors.empty()) {
-        g_style = InlineStyle();
-        if (g_hyperlinks)
-            glk_set_hyperlink(0);
+    if ((!spans.empty() || !anchors.empty()) && g_hyperlinks)
+        glk_set_hyperlink(0);
+    if (g_style.bold != base.bold || g_style.italic != base.italic ||
+        g_style.under != base.under || g_style.mono != base.mono ||
+        g_style.sizes != base.sizes || g_style.aligns != base.aligns) {
+        g_style = base;
         apply_style();
     }
 }
