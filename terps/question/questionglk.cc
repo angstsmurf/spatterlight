@@ -625,24 +625,48 @@ style_combo_of(const QuestionFontStyle &style, int default_size)
                        default_size);
 }
 
+/* Whether this launch restores an autosave: the restored windows carry their
+ * own colours, so detection has no say. */
+static bool
+autorestoring()
+{
+#ifdef SPATTERLIGHT
+    return question_autosave_exists();
+#else
+    return false;
+#endif
+}
+
 /* Count the attribute states the game's text uses and hand out the styles
  * for them, then set the hints that draw them, all before the first window
- * opens.  A file that is no game, or no file, gets the natural table. */
+ * opens.  A file that is no game, or no file, gets the natural table.  The
+ * same scan feeds the colour detection. */
 static void
 assign_game_styles(QuestionInterface *gi)
 {
     StyleCensus census;
+    questglk::ColourDetect &detect = questglk::g_colour_detect;
+    QuestionColourFacts facts;
     /* The scan reads `default fontsize' before it walks any text. */
     int default_size = 10;
-    if (storyfilename && !file_starts_with_zip_magic(storyfilename))
+    if (storyfilename && !file_starts_with_zip_magic(storyfilename)) {
         question_style_scan(gi, storyfilename,
                             [&](const QuestionFontStyle &style,
                                 const std::string &text, bool intro) {
                                 census.count(style_combo_of(style,
                                                             default_size),
                                              text, intro);
+                                if (!style.color.empty())
+                                    detect.span(questglk::css_colour(
+                                                    style.color), text);
                             },
-                            default_size);
+                            default_size, &facts);
+        detect.quest4_header(facts.background, facts.foreground);
+        for (const QuestionColourStatement &st : facts.statements)
+            detect.quest4_statement(st.background, st.value, st.block);
+        questglk::g_colour.background = detect.game_bg;
+        questglk::g_colour.foreground = detect.game_fg;
+    }
     StyleTable table;
     style_assign(census.ranked(), table);
     style_install(table);
@@ -687,6 +711,10 @@ void glk_main(void)
         return; 
     }
     glk_set_window(mainglkwin);
+    /* Coloured text is judged against the theme measured on it. */
+    if (storyfilename)
+        questglk::colour_detect_settle(mainglkwin, storyfilename,
+                                       autorestoring());
 
     if (!storyfilename) {
         glk_put_cstring("No game name or more than one game name given.\n"

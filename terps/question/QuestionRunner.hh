@@ -322,8 +322,24 @@ public:
  * does not load. */
 typedef std::function<void (const QuestionFontStyle &, const std::string &,
 			    bool intro)> QuestionStyleSink;
+/* What the scan finds of the game's colours, when asked: the `define game'
+ * background and foreground as written ("" for none), and every
+ * `background' and `foreground' statement in its scripts, which the scan
+ * cannot know whether they will run. */
+struct QuestionColourStatement
+{
+  bool background;
+  std::string value;
+  std::string block;
+};
+struct QuestionColourFacts
+{
+  std::string background, foreground;
+  std::vector<QuestionColourStatement> statements;
+};
 bool question_style_scan (QuestionInterface *gi, const std::string &filename,
-			  const QuestionStyleSink &sink, int &default_size);
+			  const QuestionStyleSink &sink, int &default_size,
+			  QuestionColourFacts *colours = nullptr);
 
 
 #endif

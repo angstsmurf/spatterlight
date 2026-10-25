@@ -211,7 +211,10 @@ question_parse_format_code (const string &s, std::string::size_type &i,
 	switch (s[k + 1])
 	  {
 	  case 'y': style.color = "#ffff00"; i = k + 1; return FMT_STYLE;
-	  case 'g': style.color = "#00ff00"; i = k + 1; return FMT_STYLE;
+	  /* "green" in the span Quest writes (TextFormatter.cs:99), which a
+	   * browser draws as CSS green; only the `foreground' statement's
+	   * table (GetHTMLColour) makes it #00ff00. */
+	  case 'g': style.color = "#008000"; i = k + 1; return FMT_STYLE;
 	  case 'l': style.color = "#0000ff"; i = k + 1; return FMT_STYLE;
 	  case 'r': style.color = "#ff0000"; i = k + 1; return FMT_STYLE;
 	  case 'b': style.color = "";        i = k + 1; return FMT_STYLE;
@@ -438,8 +441,39 @@ void StyleScan::mark_intro (const string &type, const string &name,
     todo.push_back (b);
 }
 
+/* The `background' and `foreground' statements of one script line, words
+ * of their own wherever they stand (`if ... then background <red>', a
+ * braced block).  Keywords are case-insensitive. */
+static void
+scan_colour_statements (const string &line, const string &block,
+			QuestionColourFacts &colours)
+{
+  string low = lcase (line);
+  for (const char *word: { "background", "foreground" })
+    {
+      const size_t len = strlen (word);
+      for (size_t at = 0; (at = low.find (word, at)) != string::npos;
+	   at += len)
+	{
+	  if (at > 0 && !isspace ((unsigned char) low[at - 1])
+	      && low[at - 1] != '{')
+	    continue;
+	  size_t open = low.find_first_not_of (" \t", at + len);
+	  if (open == string::npos || low[open] != '<')
+	    continue;
+	  size_t close = low.find ('>', open);
+	  if (close == string::npos)
+	    break;
+	  colours.statements.push_back
+	    ({ word[0] == 'b', line.substr (open + 1, close - open - 1),
+	       block });
+	}
+    }
+}
+
 bool question_style_scan (QuestionInterface *gi, const string &filename,
-			  const QuestionStyleSink &sink, int &default_size)
+			  const QuestionStyleSink &sink, int &default_size,
+			  QuestionColourFacts *colours)
 {
   QuestionFile gf = read_question_file (gi, filename);
   default_size = 10;
@@ -460,7 +494,15 @@ bool question_style_scan (QuestionInterface *gi, const string &filename,
     for (const string &line: game->data)
       {
 	string tok = first_token (line, c1, c2);
-	if (ci_equal (tok, "default")
+	if (colours != NULL && (ci_equal (tok, "background")
+				|| ci_equal (tok, "foreground")))
+	  {
+	    string col = next_token (line, c1, c2);
+	    if (is_param (col))
+	      (ci_equal (tok, "background") ? colours->background
+	       : colours->foreground) = param_contents (col);
+	  }
+	else if (ci_equal (tok, "default")
 	    && ci_equal (next_token (line, c1, c2), "fontsize")
 	    && is_param (tok = next_token (line, c1, c2)))
 	  {
@@ -541,6 +583,14 @@ bool question_style_scan (QuestionInterface *gi, const string &filename,
 	      continue;
 	    }
 	  scan.walk_params (b.data[n], line_intro);
+	  if (colours != NULL)
+	    {
+	      string first = first_token (b.data[n], c1, c2);
+	      if (!(&b == game && (ci_equal (first, "background")
+				   || ci_equal (first, "foreground"))))
+		scan_colour_statements (b.data[n],
+					b.blocktype + " " + b.name, *colours);
+	    }
 	}
     }
   return true;

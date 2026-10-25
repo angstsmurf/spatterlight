@@ -25,6 +25,7 @@
 #define QUESTION_QUESTGLK_COMMON_HH
 
 #include <string>
+#include <utility>
 #include <vector>
 
 extern "C" {
@@ -135,6 +136,98 @@ void style_install (const StyleTable &table);
 const StyleTable &style_installed ();
 void style_set_hints ();
 glui32 quest_style_for (StyleCombo combo);
+
+/* ----------------------------------------------------------------- colour */
+
+/* Whether this Glk library has the garglk_set_zcolors extension, and with it
+ * the game-colour mode.  Defined where Scarier defines GSC_HAVE_ZCOLORS; the
+ * CheapGlk builds (the smoke harness, every golden) compile the mode out. */
+#if defined(SPATTERLIGHT) || defined(GARGLK) \
+    || defined(GLK_MODULE_GARGLKTEXT)
+# define QUESTGLK_HAVE_ZCOLORS 1
+#endif
+
+/* "No colour": outside the 24-bit range an RGB colour occupies, and distinct
+ * from the zcolor_* sentinels at the top of the range. */
+const glui32 COLOUR_NONE = 0x01000000;
+
+glui32 css_colour (const std::string &spec);
+glui32 quest4_colour (const std::string &spec, glui32 default_rgb);
+bool colour_legible (glui32 fg, glui32 bg);
+
+/* The game's palette and whether it is in force.  The frontend fills in the
+ * palette from the game and decides `startup` before the first window
+ * opens. */
+struct ColourMode {
+  glui32 background = 0xFFFFFF;
+  glui32 foreground = 0x000000;
+  glui32 link = 0x0000FF;
+  bool on = false;               /* zcolors are being named */
+  bool startup = false;          /* on from the first window */
+  bool hints_preapplied = false; /* the open windows already have the hints */
+  glui32 main_fg = 0;            /* last foreground named on the main window */
+};
+extern ColourMode g_colour;
+
+glui32 measure_background (winid_t win);
+bool normal_measure (winid_t main, glui32 *fg, glui32 *bg);
+void normal_measure_reset ();
+bool colour_visible (winid_t main);
+void colour_set_normal_hints (bool on);
+void colour_startup_prepare ();
+void colour_apply (winid_t win, glui32 fg, winid_t main);
+void colour_repaint (winid_t win, bool on);
+
+/* The load-time verdict on whether a game was written for a page the theme
+ * cannot stand in for.  Each frontend feeds it what its scan finds; any rule
+ * that fires turns the mode on, and every firing is kept for the census dump
+ * (QUESTION_COLOUR_CENSUS=1).  `game_bg' is the background the game
+ * declares; coloured text is judged against the theme's background only once
+ * the rest is known, since measuring that needs a window. */
+struct ColourDetect {
+  struct Fired { std::string rule, detail; };
+  glui32 game_bg = 0xFFFFFF;
+  glui32 game_fg = 0x000000;
+  glui32 game_link = 0x0000FF;
+  glui32 theme_bg = COLOUR_NONE;
+  std::vector<Fired> fired;
+  std::vector<std::pair<glui32, std::string>> spans;
+
+  bool on () const { return !fired.empty (); }
+  void fire (const std::string &rule, const std::string &detail);
+  /* Quest 4: the `define game' colours, which set game_bg/game_fg, and a
+   * background/foreground statement found in `block'. */
+  void quest4_header (const std::string &bg, const std::string &fg);
+  void quest4_statement (bool background, const std::string &value,
+                         const std::string &block);
+  /* Quest 5: the game's resolved defaultbackground/foreground/
+   * linkforeground, which set game_bg/game_fg/game_link, and a colour call
+   * (SetBackgroundColour and kin) whose argument is `arg', found in `where'. */
+  void quest5_defaults (const std::string &bg, const std::string &fg,
+                        const std::string &link);
+  void quest5_call (const std::string &call, bool background,
+                    const std::string &arg, const std::string &where);
+  /* Text in colour `fg', the first sample of each colour kept. */
+  void span (glui32 fg, const std::string &text);
+  /* Whether judge () could still change the verdict (or the census wants
+   * it anyway), so the theme is worth measuring. */
+  bool needs_theme () const;
+  /* Fire for each colour that reads on the game's page and not on the
+   * theme's: a colour that was always unreadable asks for nothing. */
+  void judge (glui32 theme);
+  /* Print the verdict to stderr if QUESTION_COLOUR_CENSUS is set. */
+  void census (const char *game) const;
+};
+/* The frontend's detection: filled in by its scan before the first window
+ * opens (the header and statement rules are known then, so the hints can be
+ * published in time), and settled once the main window is open and the
+ * theme can be measured on it. */
+extern ColourDetect g_colour_detect;
+/* Judge the coloured text against the theme's Normal background, measured
+ * on `main' before any colour hint reaches it (QUESTION_COLOUR_THEME=#rrggbb
+ * stands in for a library that cannot measure), then dump the census.  Not
+ * on autorestore, whose windows bring their own colours back. */
+void colour_detect_settle (winid_t main, const char *game, bool autorestoring);
 
 /* ----------------------------------------------------------------- banner */
 

@@ -1136,6 +1136,14 @@ extern "C" void aslx_glk_main(const char *storyfile)
     if (!gwin)
         return;
     glk_set_window(gwin);
+#ifdef SPATTERLIGHT
+    bool autorestoring = question_autosave_exists();
+#else
+    bool autorestoring = false;
+#endif
+    /* Coloured text is judged against the theme measured on it. */
+    if (preloaded)
+        questglk::colour_detect_settle(gwin, storyfile, autorestoring);
 
     gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
                               wintype_TextGrid, 0);

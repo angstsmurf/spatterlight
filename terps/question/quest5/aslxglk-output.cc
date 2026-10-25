@@ -78,6 +78,8 @@ void InlineStyle::push(const StylePush &p)
         sizes.push_back(p.size);
     if (p.align)
         aligns.push_back(p.align);
+    if (p.colour != questglk::COLOUR_NONE)
+        colours.push_back(p.colour);
 }
 
 void InlineStyle::pop(const StylePush &p)
@@ -90,6 +92,8 @@ void InlineStyle::pop(const StylePush &p)
         sizes.pop_back();
     if (p.align && !aligns.empty())
         aligns.pop_back();
+    if (p.colour != questglk::COLOUR_NONE && !colours.empty())
+        colours.pop_back();
 }
 
 StyleCombo InlineStyle::combo(double default_points, int div_align) const
@@ -277,6 +281,8 @@ StylePush css_style(const std::string &css, double points)
             p.m = mono_family(value) && !g_default_mono;
         else if (key == "text-align")
             p.align = align_of(value);
+        else if (key == "color")
+            p.colour = questglk::css_colour(value);
     }
     return p;
 }
@@ -328,6 +334,9 @@ bool tag_style(const std::string &name, const std::string &tag, double points,
         std::string face = tag_attr(tag, "face");
         if (!face.empty())
             p.m = mono_family(face) && !g_default_mono;
+        /* The style attribute outranks the presentational one. */
+        if (p.colour == questglk::COLOUR_NONE)
+            p.colour = questglk::css_colour(tag_attr(tag, "color"));
     } else if (name == "center") {
         p.align = ALIGN_CENTER;
     } else if (name == "p" || name == "div") {
@@ -1075,6 +1084,8 @@ std::string game_string(const World &w, const char *name)
  * become; other {...} commands count the text after their last colon. */
 struct StyleScan {
     questglk::StyleCensus census;
+    questglk::ColourDetect &colours = questglk::g_colour_detect;
+    std::string where;          /* the element being walked, for the census */
 
     void html(const std::string &text, bool intro, int div_align = 0)
     {
@@ -1085,6 +1096,11 @@ struct StyleScan {
         StyleCombo run_combo = st.combo(g_default_points, div_align);
         auto flush = [&] {
             census.count(run_combo, run, intro);
+            /* Core's DbgMsg is its one coloured literal, and a debugging
+             * aid the game never shows. */
+            if (run.find_first_not_of(" \t\n") != std::string::npos &&
+                where != "DbgMsg")
+                colours.span(st.colour(), run);
             run.clear();
             run_combo = st.combo(g_default_points, div_align);
         };
@@ -1128,7 +1144,18 @@ struct StyleScan {
                     p.i = 1;
                 else if (text.compare(i, 3, "{u:") == 0)
                     p.u = 1;
-                if (p.b || p.i || p.u) {
+                size_t name_end = colon < end ? text.find(':', colon + 1)
+                                              : std::string::npos;
+                if ((text.compare(i, 8, "{colour:") == 0 ||
+                     text.compare(i, 7, "{color:") == 0) &&
+                    name_end < end) {
+                    /* {colour:name:text}: Core's span, coloured. */
+                    p.colour = questglk::css_colour(
+                        text.substr(colon + 1, name_end - colon - 1));
+                    flush();
+                    st.push(p);
+                    i = name_end + 1;
+                } else if (p.b || p.i || p.u) {
                     flush();
                     st.push(p);
                     run_combo = st.combo(g_default_points, div_align);
@@ -1168,6 +1195,8 @@ struct StyleScan {
                 line_start = i + 1;
                 continue;
             }
+            if (colour_call(code, i))
+                continue;
             if (code.compare(i, 11, "SetFontSize") == 0) {
                 size_t open = code.find_first_not_of(" \t(", i + 11);
                 if (open != std::string::npos &&
@@ -1204,6 +1233,45 @@ struct StyleScan {
                       "pt\">" + lit + "</span>";
             html(lit, intro, centred ? ALIGN_CENTER : div_align);
         }
+    }
+
+    /* A call at code[i] that changes the page colours in play: Core's
+     * functions, the JS they call, or the 5.0-era request.  The definitions
+     * of Core's own (SetBackgroundColour calls JS.setBackground) are not the
+     * game asking.  Moves `i' to the end of the call. */
+    bool colour_call(const std::string &code, size_t &i)
+    {
+        static const struct { const char *name; bool background; } calls[] = {
+            {"SetBackgroundColour", true}, {"SetForegroundColour", false},
+            {"JS.setBackground", true}, {"request (Background", true},
+            {"request(Background", true}, {"request (Foreground", false},
+            {"request(Foreground", false},
+        };
+        for (const auto &c : calls) {
+            size_t len = strlen(c.name);
+            if (code.compare(i, len, c.name) != 0 ||
+                (i > 0 && (isalnum((unsigned char) code[i - 1]) ||
+                           code[i - 1] == '.' || code[i - 1] == '_')))
+                continue;
+            size_t open = c.name[0] == 'r' ? i + len - 1
+                                           : code.find('(', i + len);
+            size_t close = code.find(')', i + len);
+            size_t nl = code.find('\n', i);
+            if (open == std::string::npos || close == std::string::npos ||
+                close > nl)
+                return false;
+            std::string arg = code.substr(open + 1, close - open - 1);
+            if (c.name[0] == 'r') {
+                size_t comma = arg.find(',');
+                arg = comma == std::string::npos ? "" : arg.substr(comma + 1);
+            }
+            if (where.compare(0, 3, "Set") != 0 ||
+                where.find("Colour") == std::string::npos)
+                colours.quest5_call(c.name, c.background, arg, where);
+            i = close;
+            return true;
+        }
+        return false;
     }
 
     void value(const Value &v, bool intro)
@@ -1245,10 +1313,16 @@ void assign_game_styles(World &w)
                                  game_string(w, "defaultfont"));
 
     StyleScan scan;
+    scan.colours.quest5_defaults(game_string(w, "defaultbackground"),
+                                 game_string(w, "defaultforeground"),
+                                 game_string(w, "defaultlinkforeground"));
     Element *game = w.find("game");
-    for (const auto &e : w.elements)
+    for (const auto &e : w.elements) {
+        scan.where = e->name;
         for (const auto &f : e->fields)
             scan.value(f.second, e.get() == game && f.first == "start");
+    }
+    scan.where = "templates";
     for (const auto &t : w.templates)
         scan.html(t.second, false);
     for (const auto &t : w.verb_templates)
@@ -1292,6 +1366,13 @@ void assign_game_styles(World &w)
         }
     questglk::style_install(table);
     questglk::style_set_hints();
+
+    /* The palette; colour_detect_settle judges the coloured text once the
+     * main window is open.  Core's own span colour is built by
+     * concatenation, so no literal of it reaches the scan. */
+    questglk::g_colour.background = scan.colours.game_bg;
+    questglk::g_colour.foreground = scan.colours.game_fg;
+    questglk::g_colour.link = scan.colours.game_link;
 }
 
 }  // namespace aslxglk

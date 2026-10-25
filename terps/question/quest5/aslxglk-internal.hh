@@ -564,7 +564,12 @@ void put_host_string(const char *s);   /* glk_put_string, tracked */
  * inherited) and `align` (0 inherited, else an ALIGN_ value) are pushed on
  * a stack and popped again. */
 enum { ALIGN_LEFT = 1, ALIGN_CENTER, ALIGN_RIGHT };
-struct StylePush { int b = 0, i = 0, u = 0, m = 0; double size = 0; int align = 0; };
+struct StylePush {
+    int b = 0, i = 0, u = 0, m = 0;
+    double size = 0;
+    int align = 0;
+    glui32 colour = questglk::COLOUR_NONE;  /* CSS color, else inherited */
+};
 
 /* The inline style at a point of the markup.  g_style is the printer's;
  * the style census walks its strings with one of its own. */
@@ -572,10 +577,13 @@ struct InlineStyle {
     int bold = 0, italic = 0, under = 0, mono = 0;
     std::vector<double> sizes;  /* open font sizes, innermost last */
     std::vector<int> aligns;    /* open block alignments, innermost last */
+    std::vector<glui32> colours;  /* open text colours, innermost last */
 
     void push(const StylePush &p);
     void pop(const StylePush &p);
     double points(double base) const { return sizes.empty() ? base : sizes.back(); }
+    glui32 colour() const
+    { return colours.empty() ? questglk::COLOUR_NONE : colours.back(); }
     /* `div_align` is the alignment outside every block (SetAlignment's). */
     StyleCombo combo(double default_points, int div_align) const;
 };
@@ -599,6 +607,7 @@ bool tag_style(const std::string &name, const std::string &tag, double points,
                StylePush &p);
 void push_style(const StylePush &p);
 void pop_style(const StylePush &p);
+/* Also scans for the game's colours, into questglk::g_colour_detect. */
 void assign_game_styles(World &w);
 
 std::string decode_entities(const std::string &s);

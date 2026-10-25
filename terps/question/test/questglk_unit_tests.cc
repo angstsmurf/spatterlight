@@ -59,6 +59,10 @@ using questglk::COMBO_RIGHT;
 using questglk::StyleCensus;
 using questglk::StyleCombo;
 using questglk::StyleTable;
+using questglk::COLOUR_NONE;
+using questglk::colour_legible;
+using questglk::css_colour;
+using questglk::quest4_colour;
 using questglk::match_help_command;
 using questglk::match_sidebar_command;
 using questglk::match_status_command;
@@ -377,6 +381,51 @@ test_style_assign ()
   check (t.natural[style_User1], "...on the natural User1");
 }
 
+void
+test_colour_parse ()
+{
+  check (css_colour ("White") == 0xffffff, "css: a keyword, any case");
+  check (css_colour (" DarkRed ") == 0x8b0000, "css: trimmed");
+  check (css_colour ("#803020") == 0x803020, "css: #rrggbb");
+  check (css_colour ("#f80") == 0xff8800, "css: #rgb doubles each digit");
+  check (css_colour ("rgb(255, 0, 128)") == 0xff0080, "css: rgb()");
+  check (css_colour ("rgb(100%,0%,0%)") == 0xff0000, "css: rgb() percentages");
+  check (css_colour ("803020") == COLOUR_NONE, "css: bare hex is no colour");
+  check (css_colour ("#8030") == COLOUR_NONE, "css: four digits are none");
+  check (css_colour ("inherit") == COLOUR_NONE, "css: inherit is none");
+  check (css_colour ("") == COLOUR_NONE, "css: empty is none");
+
+  check (quest4_colour ("", 0xffffff) == 0xffffff, "q4: empty is the default");
+  check (quest4_colour ("0", 0x000000) == 0x000000, "q4: 0 is the default");
+  check (quest4_colour ("Green", 0) == 0x00ff00,
+	 "q4: GetHTMLColour's green is #00ff00");
+  check (quest4_colour ("008040", 0) == 0x008040, "q4: bare hex");
+  check (quest4_colour ("#ff0080", 0) == 0xff0080, "q4: hex with #");
+  check (quest4_colour ("navy", 0) == COLOUR_NONE,
+	 "q4: a CSS name the table lacks is ignored");
+  check (quest4_colour ("\"you fail, mortal\"", 0) == COLOUR_NONE,
+	 "q4: prose is ignored");
+}
+
+void
+test_colour_legible ()
+{
+  const glui32 white = 0xffffff, black = 0;
+  for (const char *name : {"red", "green", "blue", "teal", "navy", "grey"})
+    check (colour_legible (css_colour (name), white),
+	   std::string (name) + " is legible on white");
+  for (const char *name : {"white", "silver", "yellow", "lime", "cyan",
+			   "orange", "pink"})
+    check (!colour_legible (css_colour (name), white),
+	   std::string (name) + " is not legible on white");
+  check (colour_legible (css_colour ("yellow"), black),
+	 "yellow is legible on black");
+  check (!colour_legible (css_colour ("navy"), black),
+	 "navy is not legible on black");
+  check (colour_legible (0xff0000, black) && colour_legible (0xff0000, white),
+	 "red reads on both");
+}
+
 }  /* namespace */
 
 void
@@ -398,6 +447,10 @@ glk_main (void)
   std::cout << "styles:\n";
   test_style_combo ();
   test_style_assign ();
+
+  std::cout << "colours:\n";
+  test_colour_parse ();
+  test_colour_legible ();
 
   std::cout << (failures ? "FAILED" : "all passed") << " (" << failures
 	    << " failure" << (failures == 1 ? "" : "s") << ")\n";
