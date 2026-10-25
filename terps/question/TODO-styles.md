@@ -241,10 +241,15 @@ and colours stay outside this plan.
       and Quest 5 block tags (Quest 5 Step 3), which change text and need
       new goldens if they are deliberate.
       *Done:* Quest 4 sweep pass=150; Quest 5 native replays 367 passed plus the 7 documented rows (these link only the engine).  The Glk frontend's own text, `aslxglk_smoke` over all 374 `.cmd` scripts, is byte-identical with the base commit.
-- [ ] `make autosave`: autosave during a sized title and after the first
+- [x] `make autosave`: autosave during a sized title and after the first
       command, restore both, check the next span's style. Also autosave
       across the load reorder in both engines, since the window creation
       order is what the autorestore matches on.
+      *Done:* `probe4-styles.asl` / `probe5-styles.aslx` and the cases
+      `q4-styles-wait`, `q4-styles`, `q5-styles-wait`, `q5-styles`; the
+      suite now marks every style change in the compared output, so all
+      its cases check styles.  There was no load reorder in the end (both
+      engines scan the file before the window opens and load as before).
 - [ ] Check a handful of games against the .NET / QuestViva oracle
       (`quest5-dotnet-groundtruth` notes) and the Quest 4.1.5 Wine harness
       for whether the sizes the scan found are what the originals draw.

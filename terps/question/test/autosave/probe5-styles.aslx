@@ -1,0 +1,40 @@
+<!--
+  Probe game for run_autosave_tests.py (Quest 5 half): the game-derived
+  styles across a relaunch.  Core prints the title centred at 260% and the
+  author at 140%; the start script pauses for a key under them.  The room
+  and `big` use bold, italic and 14-point text separately.  The style table
+  is built from a census of the game before the first window opens, on every
+  launch, so a relaunch (from the pause under the title or after a turn)
+  must print every span in the style the single session gave it.
+
+  Not a fixture: nothing globs this directory.
+-->
+<asl version="580">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="Autosave Styles Probe">
+    <gameid>a7c1f0c2-5a51-4c58-9d0e-3b1f6a2e9d12</gameid>
+    <version>1.0</version>
+    <author>A. Tester</author>
+    <firstpublished>2026</firstpublished>
+    <start type="script">
+      wait {
+        msg ("An ordinary introduction in the game's own size.")
+      }
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room" />
+    <alias>Hall</alias>
+    <description><![CDATA[A hall with <b>bold words</b> in it, and <span style="font-size:14pt">a larger sentence</span> after.  Then <i>italic</i> text.]]></description>
+    <object name="player">
+      <inherit name="editor_player" />
+    </object>
+  </object>
+  <command name="bigcmd">
+    <pattern>big</pattern>
+    <script><![CDATA[
+      msg ("Here is <span style=\"font-size:14pt\">a larger sentence</span> and <b>bold words</b> and <i>italic words</i>.")
+    ]]></script>
+  </command>
+</asl>

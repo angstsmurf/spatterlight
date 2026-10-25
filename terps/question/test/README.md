@@ -88,8 +88,8 @@ nothing before its first input. The autosave directory is the app's
 (`~/Library/Application Support/Spatterlight/Quest Files/Autosaves/`), under a
 `question-autosave-test-*` signature that is created and removed per case.
 
-The probe games in `autosave/` (`probe4.asl`, `probe5.aslx`; the `-intro` pair ask their questions from the start script) have one
-command per piece of state a relaunch has to carry. The cases:
+The probe games in `autosave/` (`probe4.asl`, `probe5.aslx`; the `-intro` pair ask their questions from the start script; the `-styles` pair print a centred sized title and pause under it) have one
+command per piece of state a relaunch has to carry. Every span in the compared output is prefixed with its Glk style's name where the style changes, so the styles are part of the equivalence. The cases:
 
 | | Quest 4 (`questionglk.cc`) | Quest 5 (`quest5/aslxglk.cc`) |
 | --- | --- | --- |
@@ -99,6 +99,7 @@ command per piece of state a relaunch has to carry. The cases:
 | undo history | `q4-undo` | `q5-undo`, `q5-which-undo`, `q5-which-undo-error` (after a replayed disambiguation turn) |
 | real-time timers | `q4-timer`, `q4-timer-midcycle` | `q5-timer`, `q5-timer-midcycle`, `q5-timeout` |
 | prompts the game can be closed on | `q4-question`, `q4-menu`, `q4-enter` (autosaved; the relaunch replays the turn back to the prompt), `q4-intro-gender` (the same for a question of the startscript) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-intro-menu`, `q5-intro-ask` (same), `q5-wait` (no autosave; the relaunch resumes at the turn prompt) |
+| game-derived styles | `q4-styles-wait` (closed on the pause under the title), `q4-styles` (after the first turn; the 14-point span must land on the same spare style) | `q5-styles-wait`, `q5-styles` (same, under Core's title) |
 | hyperlinks | `q4-pane-links` (fold, Take, Drop through the pane) | `q5-inline-link`, `q5-link-menu` (an object link's verb menu stays autosaved and reopens on relaunch) |
 | walkthroughs from `goldens/` | Bear Campsite, Mansion, Gathered in Darkness | Exit the Room, Bear's Epic Quest, ARC II |
 | damaged record | `q4-corrupt` (discarded, fresh boot), `q4-old-format` (the pre-unification container, likewise), `q4-bad-undo` (engine state restored, undo history ignored with a log line) | `q5-corrupt`, `q5-old-format` |
