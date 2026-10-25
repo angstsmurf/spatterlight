@@ -121,6 +121,17 @@ std::string aslx_encode_frontend(Interp &in, const RngStreams *turn_rngs)
     }
     /* SIDEBAR WIDE. */
     blob_num(b, side_pane_is_wide() ? 1 : 0);
+    /* The link bar: a game rewrites it when something changes, not every
+     * turn. */
+    blob_num(b, (long) g_link_bar.size());
+    for (const auto &entry : g_link_bar) {
+        blob_str(b, entry.first);
+        blob_num(b, (long) entry.second.size());
+        for (const BarLink &l : entry.second) {
+            blob_str(b, l.label);
+            blob_str(b, l.command);
+        }
+    }
     return b;
 }
 
@@ -195,6 +206,20 @@ bool aslx_recover_frontend(const std::string &blob)
         g_sections.push_back(s);
     }
     bool wide = r.num() != 0;
+    g_link_bar.clear();
+    long nbars = r.num();
+    for (long i = 0; i < nbars && r.ok; i++) {
+        std::string id = r.str();
+        std::vector<BarLink> links;
+        long nlinks = r.num();
+        for (long j = 0; j < nlinks && r.ok; j++) {
+            BarLink l;
+            l.label = r.str();
+            l.command = r.str();
+            links.push_back(l);
+        }
+        g_link_bar.emplace_back(id, std::move(links));
+    }
     if (!r.ok || !gwin)
         return false;
     /* The restored windows already have their sizes; this is for the pane's

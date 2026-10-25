@@ -320,6 +320,33 @@ inline std::string g_pane_expanded;
  * grow one per rendered cmdlink and never get near this. */
 inline const glui32 kPaneLinkBase = 0x40000000;
 
+/* A row of command links that a game draws into an element of its own page
+ * and keeps up to date through JS.eval("$('#id').html('...')") -- spondre's
+ * topic bar under the command line ("room   walls   bars ...").  The web
+ * player shows them because the element sits in the page; here they become
+ * extra lines of the banner, one hyperlink per command.  Kept per element id,
+ * in the order the ids first turned up: the first flows from the left, any
+ * later one (spondre's "end game") is right-aligned after it. */
+struct BarLink {
+    std::string label;      /* the span's text */
+    std::string command;    /* what clicking it sends */
+};
+
+inline std::vector<std::pair<std::string, std::vector<BarLink>>> g_link_bar;
+
+/* The commands of the bar links on screen, indexed by link value less
+ * kBannerLinkBase; rebuilt on every banner redraw. */
+inline std::vector<std::string> g_bar_commands;
+
+inline const glui32 kBannerLinkBase = 0x20000000;
+
+/* One laid-out bar link: cell column, banner line (0 = the first line under
+ * the room name), and the link it shows. */
+struct BarCell {
+    size_t x = 0, line = 0;
+    const BarLink *link = nullptr;
+};
+
 /* JS.updateStatus payload flattened for the banner ("Score: 3 | Health: 90%"),
  * shown right-aligned next to the room name like the classic runner. */
 inline std::string g_status_line;
@@ -651,11 +678,18 @@ void render_html_inner(const std::string &raw);
 bool take_custom_ui(const std::string &raw);
 void render_html(const std::string &raw);
 std::vector<std::string> custom_status_lines();
+std::vector<BarLink> command_spans(const std::string &html);
 
 std::string plain_text(const std::string &html, const char *brsep);
 Element *game_element(World &w);
 Element *object_field(Interp &in, Element *e, const char *attr);
 void update_banner(Interp &in);
+void set_link_bar(const std::string &id, const std::string &html);
+void draw_link_bar(winid_t banner, const std::string &room,
+                   const std::string &status);
+std::vector<BarCell> layout_link_bar(
+    const std::vector<std::pair<std::string, std::vector<BarLink>>> &bar,
+    size_t width, size_t *lines);
 
 void ensure_pane_open();
 void close_side_pane();
@@ -964,7 +998,7 @@ std::string utf8_from_u32(const std::u32string &s);
  * both engines share): an older blob has different fields, and an
  * autorestore that mis-parses is worse than one discarded for a fresh
  * start.  aslx_recover_frontend rejects anything that does not match. */
-inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 8";
+inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 9";
 
 std::string aslx_encode_frontend(Interp &in, const RngStreams *rngs = nullptr);
 bool aslx_recover_frontend(const std::string &blob);

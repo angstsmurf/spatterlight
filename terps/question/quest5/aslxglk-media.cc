@@ -499,7 +499,7 @@ void do_wait_ui(Interp &in)
         [](const event_t &e) {
             return (e.type == evtype_CharInput && e.win == gwin) ||
                    (e.type == evtype_Hyperlink &&
-                    (e.win == gwin || e.win == gobjwin));
+                    (e.win == gwin || e.win == gobjwin || e.win == gbanner));
         },
         [&] { handle_arrange(in); });
     glk_cancel_char_event(gwin);

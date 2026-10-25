@@ -55,10 +55,10 @@ std::string cap_first(const std::string &s)
     return aslx::utf8_case(s, true, true);
 }
 
-/* Arm / disarm hyperlink input on both clickable windows.  Every event loop
- * here wants the pair -- the main transcript's cmdlinks and the side pane's
- * object and compass links -- and a Glk that reports no hyperlink support
- * gets neither. */
+/* Arm / disarm hyperlink input on every clickable window.  Every event loop
+ * here wants them all -- the main transcript's cmdlinks, the side pane's
+ * object and compass links and the banner's link bar -- and a Glk that
+ * reports no hyperlink support gets none. */
 void request_hyperlinks()
 {
     if (!g_hyperlinks)
@@ -67,6 +67,8 @@ void request_hyperlinks()
     glk_request_hyperlink_event(gwin);
     if (gobjwin)
         glk_request_hyperlink_event(gobjwin);
+    if (gbanner)
+        glk_request_hyperlink_event(gbanner);
 }
 
 void cancel_hyperlinks()
@@ -77,6 +79,8 @@ void cancel_hyperlinks()
     glk_cancel_hyperlink_event(gwin);
     if (gobjwin)
         glk_cancel_hyperlink_event(gobjwin);
+    if (gbanner)
+        glk_cancel_hyperlink_event(gbanner);
 }
 
 #ifdef SPATTERLIGHT
@@ -394,8 +398,12 @@ void install_host_hooks(Interp &in, bool &restart_requested)
      * page yet is lost in the browser as well. */
     in.js_eval = [](const std::string &js) {
         std::string id, value;
-        if (g_cstatus.rows.empty() ||
-            !aslxform::parse_jquery_html(js, id, value))
+        if (!aslxform::parse_jquery_html(js, id, value))
+            return;
+        /* Command links written into an element of the game's own: the
+         * banner's link bar (see g_link_bar). */
+        set_link_bar(id, value);
+        if (g_cstatus.rows.empty())
             return;
         g_cstatus_vals[id] = plain_text(value);
         g_pane_dirty = true;
@@ -1050,6 +1058,8 @@ void reset_frontend_state()
     g_form_pending = false;
     g_cstatus = aslxform::StatusPanel();
     g_cstatus_vals.clear();
+    g_link_bar.clear();
+    g_bar_commands.clear();
 
     g_command_bar = true;
     g_panes_visible = true;

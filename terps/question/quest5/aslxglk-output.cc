@@ -496,6 +496,35 @@ std::string element_inner_text(const std::string &html, size_t pos,
     return trim(plain_text(inner, " "));
 }
 
+/* The plain command links in a scrap of game markup -- spans and anchors
+ * whose click runs a command (sendCommand, data-command) -- with their text,
+ * in document order.  Anything else a click could do (an ASLEvent, an object
+ * menu) is left out: the bar has no way to show it. */
+std::vector<BarLink> command_spans(const std::string &html)
+{
+    std::vector<BarLink> out;
+    for (size_t i = 0; i < html.size();) {
+        if (html[i] != '<') { i++; continue; }
+        size_t close = html.find('>', i);
+        if (close == std::string::npos)
+            break;
+        std::string tag = html.substr(i + 1, close - i - 1);
+        i = close + 1;
+        bool closing;
+        std::string name = tag_name(tag, closing);
+        if (closing || (name != "span" && name != "a"))
+            continue;
+        LinkAction act = link_action(tag);
+        std::string label = element_inner_text(html, i, name);
+        if (act.inner_text)
+            act.command = label;
+        if (act.command.empty() || !act.event_func.empty() || label.empty())
+            continue;
+        out.push_back({label, act.command});
+    }
+    return out;
+}
+
 /* The candidate files of the <audio> element whose opening tag `open_tag`
  * ends at `pos`, in document order: the element's own src, then every nested
  * <source src>.  *end is left just past the matching </audio> -- or at the end

@@ -70,6 +70,124 @@ Element *object_field(Interp &in, Element *e, const char *attr)
                                                   : nullptr;
 }
 
+/* Take the game's new markup for element `id`.  Only an element that has
+ * held command links counts as a bar: the first write with links in it adds
+ * the id, and later writes replace its links -- an emptied element (no links
+ * left) keeps its place in the order so a refill lands where it was. */
+void set_link_bar(const std::string &id, const std::string &html)
+{
+    std::vector<BarLink> links = command_spans(html);
+    for (auto &entry : g_link_bar)
+        if (entry.first == id) {
+            entry.second = std::move(links);
+            return;
+        }
+    if (!links.empty())
+        g_link_bar.emplace_back(id, std::move(links));
+}
+
+/* Lay the bar out for a banner `width` cells wide, from column 1 to one cell
+ * before the right edge like the room name and status, three blanks between
+ * links (the game's own &nbsp;&nbsp;&nbsp; separator).  The first element's
+ * links flow from the left, wrapping onto as many lines as they need; every
+ * later element's links go right-aligned on the last line, or on a line of
+ * their own when they do not fit beside it, and flow too when they are wider
+ * than the banner.  `*lines` gets the number of lines used. */
+std::vector<BarCell> layout_link_bar(
+    const std::vector<std::pair<std::string, std::vector<BarLink>>> &bar,
+    size_t width, size_t *lines)
+{
+    const size_t gap = 3, left = 1;
+    const size_t right = width > 2 ? width - 1 : left + 1;  /* one past the end */
+    std::vector<BarCell> cells;
+    size_t line = 0, x = left;      /* the first free column on `line` */
+    bool used = false;              /* `line` has a link on it */
+    for (size_t g = 0; g < bar.size(); g++) {
+        const std::vector<BarLink> &links = bar[g].second;
+        if (links.empty())
+            continue;
+        size_t total = 0;
+        for (const BarLink &l : links)
+            total += (total ? gap : 0) + utf8_cp_len(l.label);
+        size_t at = 0;              /* right-aligned start, or 0 to flow */
+        if (g > 0 && total <= right - left) {
+            at = right - total;
+            if (used && at < x + gap) {
+                line++;
+                used = false;
+            }
+        }
+        for (const BarLink &l : links) {
+            size_t w = utf8_cp_len(l.label);
+            size_t col;
+            if (at) {
+                col = at;
+                at += w + gap;
+            } else {
+                col = used ? x + gap : left;
+                if (used && col + w > right) {
+                    line++;
+                    col = left;
+                }
+            }
+            cells.push_back({col, line, &l});
+            x = col + w;
+            used = true;
+        }
+    }
+    *lines = cells.empty() ? 0 : line + 1;
+    return cells;
+}
+
+/* The banner proper (room name and status on the first line) and the game's
+ * link bar on the lines under it.  The banner window grows and shrinks to
+ * fit: the arrangement is only touched when the line count changes, and the
+ * Arrange event that follows redraws it at its new size. */
+void draw_link_bar(winid_t banner, const std::string &room,
+                   const std::string &status)
+{
+    if (!banner)
+        return;
+    glui32 width, height;
+    glk_window_get_size(banner, &width, &height);
+    size_t lines;
+    std::vector<BarCell> cells = layout_link_bar(g_link_bar, width, &lines);
+    if (height != lines + 1) {
+        winid_t parent = glk_window_get_parent(banner);
+        if (parent)
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                       (glui32) lines + 1, banner);
+        glk_window_get_size(banner, &width, &height);
+    }
+    draw_status_banner(banner, room, status, true);
+    g_bar_commands.clear();
+    if (cells.empty())
+        return;
+    strid_t s = glk_window_get_stream(banner);
+    glk_set_style_stream(s, style_User1);
+    for (glui32 y = 1; y < height; y++) {
+        glk_window_move_cursor(banner, 0, y);
+        for (glui32 i = 0; i < width; i++)
+            glk_put_char_stream(s, ' ');
+    }
+    for (const BarCell &c : cells) {
+        if (c.line + 1 >= height)
+            break;
+        glk_window_move_cursor(banner, (glui32) c.x, (glui32) c.line + 1);
+        if (g_hyperlinks) {
+            g_bar_commands.push_back(c.link->command);
+            glk_set_hyperlink_stream(
+                s, kBannerLinkBase + (glui32) g_bar_commands.size() - 1);
+        }
+        put_stream_utf8(s, c.link->label);
+        if (g_hyperlinks)
+            glk_set_hyperlink_stream(s, 0);
+    }
+    /* A redraw clears the window, and its hyperlink request with it. */
+    if (g_links_requested && g_hyperlinks)
+        glk_request_hyperlink_event(banner);
+}
+
 /* Current room: what Core last sent through JS.updateLocation
  * (CapFirst(GetDisplayName(game.pov.parent)) -- the reference player's
  * location bar).  Old v500-era games embed pre-JS libraries that never call
@@ -108,8 +226,7 @@ void update_banner(Interp &in)
                           g_status_in_pane);
     bool moved = in_pane != g_status_in_pane;
     g_status_in_pane = in_pane;
-    draw_status_banner(gbanner, g_room_name,
-                       in_pane ? std::string() : status, true);
+    draw_link_bar(gbanner, g_room_name, in_pane ? std::string() : status);
     if (moved) {
         /* The pane lists it from now on, or no longer does.  Not every
          * caller repaints the pane after the banner (a resize does not). */

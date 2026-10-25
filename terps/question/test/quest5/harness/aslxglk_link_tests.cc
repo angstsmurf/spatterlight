@@ -404,6 +404,68 @@ void test_status_panel()
 /* The record both engines write to autosave.glksave (questglk-common).  The
  * autosave suite exercises it through the app build; this is the format on
  * its own. */
+/* spondre's topic bar: UpdatePlayerUI rewrites #keywordPane with one span
+ * per topic, separated by inert &nbsp; spans. */
+void test_link_bar()
+{
+    std::vector<BarLink> links = command_spans(
+        "<span class=\"keywordExtra\">&nbsp;</span>"
+        "<span class=\"permanentKeyword keyword\" onclick=\"sendCommand("
+        "this.innerText || this.textContent)\">room</span>"
+        "<span class=\"keywordExtra\">&nbsp;&nbsp;&nbsp;</span>"
+        "<span style=\"opacity:0.5;\"class=\"temporaryKeyword keyword\" "
+        "onclick=\"sendCommand(this.innerText || this.textContent)\">left "
+        "bed</span>"
+        "<a onclick=\"sendCommand('north')\">N</a>"
+        "<a onclick=\"ASLEvent('Go','x')\">ev</a>");
+    check(links.size() == 3, "three command links, separators skipped");
+    check(links.size() == 3 && links[0].label == "room" &&
+              links[0].command == "room",
+          "innerText link sends its own text");
+    check(links.size() == 3 && links[1].command == "left bed",
+          "a two-word topic stays one link");
+    check(links.size() == 3 && links[2].label == "N" &&
+              links[2].command == "north",
+          "a literal sendCommand keeps its label apart from its command");
+
+    g_link_bar.clear();
+    set_link_bar("helpPane", "<span>&nbsp;</span>");
+    check(g_link_bar.empty(), "an element with no links is no bar");
+    set_link_bar("keywordPane", "<span onclick=\"sendCommand(this.innerText)\">"
+                                "room</span><span onclick=\"sendCommand("
+                                "this.innerText)\">walls</span>");
+    set_link_bar("helpPane", "<span onclick=\"sendCommand(this.innerText)\">"
+                             "end game</span>");
+    check(g_link_bar.size() == 2 && g_link_bar[0].first == "keywordPane",
+          "ids keep their first-seen order");
+
+    size_t lines = 0;
+    std::vector<BarCell> cells = layout_link_bar(g_link_bar, 40, &lines);
+    check(lines == 1 && cells.size() == 3, "a wide banner takes one line");
+    check(cells.size() == 3 && cells[0].x == 1 && cells[1].x == 8,
+          "left links flow from column 1, three blanks apart");
+    check(cells.size() == 3 && cells[2].x == 40 - 1 - 8,
+          "the later element is right-aligned");
+
+    cells = layout_link_bar(g_link_bar, 18, &lines);
+    check(lines == 2 && cells.size() == 3 && cells[2].line == 1 &&
+              cells[2].x == 18 - 1 - 8,
+          "a right group that does not fit goes to a line of its own");
+
+    cells = layout_link_bar(g_link_bar, 10, &lines);
+    check(lines == 3 && cells[1].line == 1 && cells[1].x == 1,
+          "left links wrap");
+
+    set_link_bar("keywordPane", "");
+    cells = layout_link_bar(g_link_bar, 40, &lines);
+    check(g_link_bar.size() == 2 && cells.size() == 1 && cells[0].line == 0,
+          "an emptied element keeps its slot and the rest close up");
+    set_link_bar("helpPane", "");
+    layout_link_bar(g_link_bar, 40, &lines);
+    check(lines == 0, "an empty bar takes no lines");
+    g_link_bar.clear();
+}
+
 void test_autosave_record()
 {
     questglk::AutosaveRecord rec, back;
@@ -468,6 +530,7 @@ void glk_main(void)
     test_form_rules();
     test_form_layout();
     test_status_panel();
+    test_link_bar();
 
     std::cout << "autosave record:\n";
     test_autosave_record();

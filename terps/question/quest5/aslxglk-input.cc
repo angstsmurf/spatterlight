@@ -330,6 +330,15 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
                     echo_input(act.command);
                 return {InEnd::Command, act.command};
             }
+            if (ev.win == gbanner && ev.val1 >= kBannerLinkBase &&
+                ev.val1 - kBannerLinkBase < g_bar_commands.size()) {
+                /* A link-bar word: its command, as if typed. */
+                std::string cmd = g_bar_commands[ev.val1 - kBannerLinkBase];
+                cancel_line();
+                if (g_manual_echo && echo)
+                    echo_input(cmd);
+                return {InEnd::Command, cmd};
+            }
             request_hyperlinks();
             break;
         case evtype_Timer: {
@@ -469,7 +478,7 @@ void read_keypress(Interp &in, bool resumed)
             return;
         }
         if (ev.type == evtype_Hyperlink &&
-            (ev.win == gwin || ev.win == gobjwin)) {
+            (ev.win == gwin || ev.win == gobjwin || ev.win == gbanner)) {
             glk_cancel_char_event(gwin);
             cancel_hyperlinks();
             hide_continue_link();
