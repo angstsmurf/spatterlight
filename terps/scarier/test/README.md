@@ -69,9 +69,11 @@ ranking for any game, `-s` one line per game).  What the Spatterlight
 build then prints them in, hints and the style of every span, is pinned by
 `adrift4/styles/run_styles_tests.py` against the `*_glk_expected.txt`
 beside it, and `styles-intro-pause` in the autosave suite checks that a
-session resumed in the intro sets the same hints.  Not yet checked: the
-sizes and faces the census finds against Runner screenshots, and the look
-in Gargoyle, whose fork build still needs `glk/os_glk_styles.cpp` added.
+session resumed in the intro sets the same hints.  The Gargoyle fork
+build has `glk/os_glk_styles.cpp` in its source list and was checked by
+eye; Gargoyle ignores the Size hints, so headings differ only in weight
+and alignment there.  Not yet checked: the sizes and faces the census
+finds against Runner screenshots.
 
 The autosave suite is the one thing outside `Makefile.headless`: the
 autosave code is compiled only into the Spatterlight build of the terp and
