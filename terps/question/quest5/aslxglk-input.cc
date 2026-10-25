@@ -512,19 +512,17 @@ void read_keypress(Interp &in, bool resumed)
 /* Present a MenuData and return the selected key, or false for cancel.
  * Shared by the script-command prompt (set_menu_response) and the
  * expression-form provider (menu_provider), which is why it does not touch
- * the pending slot itself. */
+ * the pending slot itself.  The caption is not drawn: both of those have
+ * already printed it to the transcript (PrintAsync), and the reference player
+ * shows it a second time only in the popup, which goes away once answered. */
 bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
 {
     /* Through in.print, not render_html: with a PromptBreak active (a menu
      * opened by a timer tick) the first output must retract the stale prompt
      * first, exactly like every other engine print. */
-    /* A v600+ game has already drawn the caption and the numbered options in
-     * the transcript itself (Interp::show_inline_prompt). */
+    /* A v600+ game has already drawn the numbered options in the transcript
+     * itself (Interp::show_inline_prompt). */
     if (!resumed && !in.inline_prompts()) {
-        if (!m.caption.empty()) {
-            in.print(m.caption);
-            put_host_string("\n");
-        }
         for (size_t i = 0; i < m.options.size(); i++) {
             char num[24];
             snprintf(num, sizeof num, "%zu: ", i + 1);
@@ -594,6 +592,11 @@ bool run_verb_menu(Interp &in, bool resumed, std::string &cmd)
     for (const std::string &v : g_pending_menu_verbs)
         m.options.push_back(std::make_pair(v, v));
 
+    /* No engine print precedes this menu, so its caption is drawn here. */
+    if (!resumed && !in.inline_prompts() && !m.caption.empty()) {
+        in.print(m.caption);
+        put_host_string("\n");
+    }
     std::string chosen;
     bool picked = run_menu_ui(in, m, chosen, resumed);
 
