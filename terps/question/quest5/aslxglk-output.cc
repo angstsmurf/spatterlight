@@ -27,11 +27,37 @@ namespace aslxglk {
 
 /* ---------------------------------------------------------------- output -- */
 
+/* A block tag closed mid-line: the line break it implies is owed to the next
+ * text, unless a newline gets there first (see render_html_inner). */
+static bool g_break_owed = false;
+
 void put_uni_char(glui32 c)
 {
+    if (g_break_owed) {
+        if (c == ' ' || c == '\t')
+            return;             /* the space after a block collapses too */
+        g_break_owed = false;
+        if (c != '\n')
+            put_uni_char('\n');
+    }
     glk_put_char_uni(c);
+    if (c == '\n')
+        g_at_line_start = true;
+    else if (c != ' ' && c != '\t')  /* indentation is not text */
+        g_at_line_start = false;
     if (g_tee)
         g_tee->push_back((char32_t) c);
+}
+
+/* What the host prints past the renderer: prompts, menus, notices. */
+void put_host_string(const char *s)
+{
+    glk_put_string((char *) s);
+    for (; *s; s++)
+        if (*s == '\n')
+            g_at_line_start = true;
+        else if (*s != ' ' && *s != '\t')
+            g_at_line_start = false;
 }
 
 void put_uni_string(const std::string &utf8)
@@ -676,6 +702,7 @@ void hide_output_section(const std::string &name)
     }
     if (!took)
         return;                 /* tail moved on: leave the transcript alone */
+    g_at_line_start = g_out_log[start].line_start;  /* the cursor is back there */
 
     /* Put back what followed the section.  Replaying through render_html
      * re-logs the chunks at their new positions and rebuilds their styles and
@@ -711,6 +738,8 @@ void clear_screen_ui()
     g_sections.clear();
     g_continue_shown.clear();   /* chrome died with the window */
     glk_window_clear(gwin);
+    g_at_line_start = true;
+    g_break_owed = false;
     g_clear_gen++;
 }
 
@@ -740,8 +769,17 @@ void render_html_inner(const std::string &raw)
             if (name == "br") {
                 put_uni_char('\n');     /* teed: see g_tee */
             } else if (tag_is_block(name)) {
-                /* The text stays as it was: only the style changes. */
+                /* A block begins and ends a line, but only the break the
+                 * markup does not already give is added: Core ends every
+                 * message with <br/> and nearly every block tag opens its
+                 * message, so the newline goes in only where text precedes
+                 * the open or follows the close on the same line (Hawk the
+                 * Hunter's "text<p>more", a heading run straight into its
+                 * paragraph).  <font> is inline: style only. */
+                const bool breaks = name != "font";
                 if (!closing) {
+                    if (breaks && !g_at_line_start)
+                        put_uni_char('\n');
                     tag_style(name, tag, g_style.points(g_default_points), p);
                     blocks.emplace_back(name, p);
                     push_style(p);
@@ -753,6 +791,8 @@ void render_html_inner(const std::string &raw)
                                 pop_style(blocks.back().second);
                                 blocks.pop_back();
                             }
+                            if (breaks && !g_at_line_start)
+                                g_break_owed = true;
                             break;
                         }
                 }
@@ -860,6 +900,10 @@ void render_html_inner(const std::string &raw)
      * just as an anchor can, and a stray glk_set_hyperlink(0) is a no-op. */
     if ((!spans.empty() || !anchors.empty()) && g_hyperlinks)
         glk_set_hyperlink(0);
+    /* A block closed at the chunk's end owes nothing: a message's own <br/>
+     * usually follows, and a block opening the next chunk breaks the line
+     * itself (spondre's spacer div after text with no <br/>). */
+    g_break_owed = false;
     if (g_style.bold != base.bold || g_style.italic != base.italic ||
         g_style.under != base.under || g_style.mono != base.mono ||
         g_style.sizes != base.sizes || g_style.aligns != base.aligns) {
@@ -900,6 +944,7 @@ void render_html(const std::string &raw)
         return;
     }
     OutChunk c;
+    c.line_start = g_at_line_start;
     std::u32string *saved = g_tee;   /* replay re-enters through here */
     g_tee = &c.text;
     const size_t images = g_images_drawn;

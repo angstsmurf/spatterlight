@@ -146,9 +146,9 @@ void flush_warnings(World &w, size_t &seen)
         seen = w.warnings.size();
     for (; seen < w.warnings.size(); seen++) {
         glk_set_style(style_Emphasized);
-        glk_put_string((char *) "[");
+        put_host_string("[");
         put_uni_string(w.warnings[seen]);
-        glk_put_string((char *) "]\n");
+        put_host_string("]\n");
         glk_set_style(style_Normal);
     }
 }
@@ -169,7 +169,7 @@ bool post_game_undo(Interp &in)
     /* A game stopped by the script-error breaker has not "ended" so much as
      * broken; rolling one turn back would just run into the same wall. */
     if (in.script_errors_fatal() || !in.undo_available()) {
-        glk_put_string((char *) NOTHING_TO_UNDO);
+        put_host_string(NOTHING_TO_UNDO);
         return false;
     }
     Context ctx;
@@ -201,7 +201,7 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
         case POSTGAME_RESTART:
             return SessionEnd::Restart;
         case POSTGAME_QUIT:
-            glk_put_string((char *) QUIT_FAREWELL);
+            put_host_string(QUIT_FAREWELL);
             return SessionEnd::Quit;
         default:
             post_game_menu_reprompt();
@@ -476,7 +476,7 @@ void install_host_hooks(Interp &in, bool &restart_requested)
         glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)) {
         in.show_picture = [](const std::string &filename) {
             if (draw_image_inline(filename))
-                glk_put_char('\n');
+                put_host_string("\n");
         };
         g_panel_last.clear();   /* a fresh session redraws its frame */
         in.set_panel_contents = panel_contents;
@@ -825,11 +825,11 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data,
         loaded ? std::move(preloaded) : std::make_unique<World>();
     World &w = *world;
     if (!loaded && !load_file(storyfile, w, core_dir_path())) {
-        glk_put_string((char *) "Sorry, this Quest 5 game could not be loaded:\n");
+        put_host_string("Sorry, this Quest 5 game could not be loaded:\n");
         for (const std::string &e : w.errors) {
-            glk_put_string((char *) "  ");
+            put_host_string("  ");
             put_uni_string(e);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
         return SessionEnd::Quit;
     }
@@ -889,9 +889,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data,
         if (!restored) {
             /* Should not happen -- the probe validated it -- but never boot
              * half-applied state silently. */
-            glk_put_string((char *) "Restore failed (");
+            put_host_string("Restore failed (");
             put_uni_string(err);
-            glk_put_string((char *) "); starting a new game.\n\n");
+            put_host_string("); starting a new game.\n\n");
             return SessionEnd::Restart;
         }
     }
@@ -919,7 +919,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data,
         /* synchronous `play sound` during boot: rest of Begin abandoned */
     }
     if (restored && !autorestored) {
-        glk_put_string((char *) "Loaded saved game\n");
+        put_host_string("Loaded saved game\n");
         update_banner(in);
     }
 #ifdef SPATTERLIGHT
@@ -996,7 +996,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data,
     if (in.script_errors_fatal() && !fatal_reported) {
         fatal_reported = true;
         glk_set_style(style_Emphasized);
-        glk_put_string((char *) "\n[The game has stopped because too many script"
+        put_host_string("\n[The game has stopped because too many script"
                                 " errors occurred.]\n");
         glk_set_style(style_Normal);
     }

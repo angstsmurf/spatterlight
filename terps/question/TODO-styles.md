@@ -214,10 +214,10 @@ and colours stay outside this plan.
       tag dispatch push and pop them for every tag the scan understands.
       `apply_style()` builds the combo and calls `quest_style_for`.
       *Done:* the style state is now `InlineStyle` (counters for the flags, stacks for size and alignment); `createNewDiv` (`SetAlignment`) sets the alignment of the text that follows.
-- [ ] `h1`-`h6` and `p` / `div` / `center` are block tags: emit the line
+- [x] `h1`-`h6` and `p` / `div` / `center` are block tags: emit the line
       break they imply before and after (QuestViva does), and set the
       alignment for the block.
-      *Partly done:* the alignment, size and weight of a block are set and undone at its close, but no line breaks are added, so the printed text is unchanged.  Adding them changes text in Spatterlight only, and is a separate decision.
+      *Done:* the alignment, size and weight of a block are set and undone at its close, and the line break is added only where the markup does not already give it: before an open that follows text on its line, and before the text that follows a close on the same line (`g_at_line_start`, kept by every writer to the main window, and the owed break in `put_uni_char`).  Core ends every message with `<br/>` and nearly every block tag opens its message, so those ~1,200 places print as before; whitespace does not count as text, since pretty-printed HTML indents its tags.  The corpus has 58 mid-line block tags in 11 games; the `aslxglk_smoke` sweep over the 374 `.cmd` scripts reaches them in All Visitors Welcome (the memos), Dream Pieces, Guttersnipe, L Too (the certificate), Pixie's Quest (the warning), Poppet, spondre (its paragraph gap is a 6pt `<div><br></div>` after text with no `<br/>`, which now prints as a blank line instead of nothing), and drops trailing spaces after a close in Now You See Me and Trapped in Tomorrow, Today!; everything else is byte-identical with the base commit.  `styles_q5sizes.aslx` pins a mid-line `<h2>`.  ZORK1_beta differs between two runs of the same binary under CheapGlk (real time), and Midnight aborts under it, before and after.
 
 ## Tests (both engines)
 

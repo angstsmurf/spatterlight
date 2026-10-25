@@ -505,12 +505,20 @@ bool timer_event_second(Interp &in);
  * match -- see g_out_log). */
 inline std::u32string *g_tee = nullptr;
 
+/* Does the main window's current line hold nothing yet?  Whitespace does not
+ * count: pretty-printed HTML indents its block tags, and a browser collapses
+ * that.  Kept by put_uni_char and by the host's own writers (put_host_string,
+ * the line-input echo), so a block tag knows whether the line break it
+ * implies is still owed. */
+inline bool g_at_line_start = true;
+
 /* Bumped by draw_image_inline; render_html compares it across a chunk to see
  * whether that chunk put an unmatchable attachment into the window. */
 inline size_t g_images_drawn = 0;
 
 void put_uni_char(glui32 c);
 void put_uni_string(const std::string &utf8);
+void put_host_string(const char *s);   /* glk_put_string, tracked */
 
 /* What one tag contributed to the inline style, so its close undoes it.
  * The flags are nesting counters, so tags may overlap; `size` (points, 0 =
@@ -596,6 +604,7 @@ struct OutChunk {
     std::string html;       /* raw payload, for replay through render_html */
     std::u32string text;    /* exactly what it wrote into the window */
     bool image = false;     /* drew an image: an attachment char we cannot match */
+    bool line_start = true; /* g_at_line_start when it began: restored by a retract */
 };
 
 inline std::vector<OutChunk> g_out_log;
@@ -727,7 +736,7 @@ struct PromptBreak {
          * a stray blank at the top of the cleared window. */
         if (g_clear_gen == clear_gen &&
             !unput_exact(u32_from_utf8(prompt)))
-            glk_put_char('\n');
+            put_host_string("\n");
         broke = true;
     }
     PromptBreak(Interp &i, const char *p) : in(i), prompt(p) {

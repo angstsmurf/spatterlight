@@ -32,7 +32,9 @@ HINT buffer BlockQuote Indentation 0
 HINT buffer BlockQuote ParaIndentation 0
 HINT grid User1 ReverseColor 1
 SPAN 0 Header 'The Heading'
-SPAN 0 Normal '\n'
+SPAN 0 Normal '\nBefore\n'
+SPAN 0 Header 'A heading mid-line'
+SPAN 0 Normal '\nafter\n'
 SPAN 0 User1 'A centred line\nAlso centred, in '
 SPAN 0 User2 'bold'
 SPAN 0 User1 '\n'

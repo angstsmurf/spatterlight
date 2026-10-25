@@ -30,6 +30,7 @@ namespace aslxglk {
 void echo_input(const std::string &line)
 {
     echo_input_line(line, true);
+    g_at_line_start = true;
 }
 
 /* Echo a host-owned metaverb (RESTORE, TRANSCRIPT) the way Core's
@@ -38,7 +39,7 @@ void echo_input(const std::string &line)
  * host-echoed. */
 void echo_metaverb(const std::string &cmd)
 {
-    glk_put_string((char *) "\n> ");
+    put_host_string("\n> ");
     echo_input(cmd);
 }
 
@@ -245,7 +246,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
     }
 #endif
     if (prompt && !on_screen)
-        glk_put_string((char *) prompt);
+        put_host_string(prompt);
     if (g_echo_control)
         glk_set_echo_line_event(gwin, 0);
 #ifdef SPATTERLIGHT
@@ -283,6 +284,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
                 std::string line = utf8_from_uni(buf, ev.val1);
                 if (g_manual_echo && echo)
                     echo_input(line);
+                g_at_line_start = true;     /* the echo ended the line */
                 return {InEnd::Line, line};
             }
             break;
@@ -360,7 +362,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
                 in.command_override() != entry_override)
                 return {InEnd::State, ""};
             if (reprompt)
-                glk_put_string((char *) prompt);
+                put_host_string(prompt);
 #ifdef SPATTERLIGHT
             /* The tick changed game state while the prompt was up; refresh
              * the autosave (it skips itself when the autosave-on-timer
@@ -521,13 +523,13 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
     if (!resumed && !in.inline_prompts()) {
         if (!m.caption.empty()) {
             in.print(m.caption);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
         for (size_t i = 0; i < m.options.size(); i++) {
             char num[24];
             snprintf(num, sizeof num, "%zu: ", i + 1);
             in.print(num + m.options[i].second);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
     }
     /* Resumed: the caption, the options AND the prompt are all still on the
@@ -573,7 +575,7 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
                 trail.commit();
                 return true;
             }
-        glk_put_string((char *) retry);
+        put_host_string(retry);
         trail.wrote(retry);
     }
 }
@@ -645,7 +647,7 @@ bool run_question_ui(Interp &in, const std::string &q, bool &answer,
             answer = yes;
             return true;
         }
-        glk_put_string((char *) retry);
+        put_host_string(retry);
         trail.wrote(retry);
     }
 }
@@ -944,7 +946,7 @@ bool do_restore_ui(std::string &data)
      * player or QuestViva imports here). restore_game auto-detects which. */
     if (!Interp::is_save_data(data.data(), data.size()) &&
         !Interp::is_native_save_data(data.data(), data.size())) {
-        glk_put_string((char *) "Sorry, that does not look like a saved game"
+        put_host_string("Sorry, that does not look like a saved game"
                                 " for this story.\n");
         return false;
     }
@@ -957,9 +959,9 @@ bool do_restore_ui(std::string &data)
         if (probe.restore_game(data, err))
             return true;
     }
-    glk_put_string((char *) "Sorry, that save cannot be restored (");
+    put_host_string("Sorry, that save cannot be restored (");
     put_uni_string(err);
-    glk_put_string((char *) ").\n");
+    put_host_string(").\n");
     return false;
 }
 
@@ -1002,7 +1004,7 @@ void hint_system_commands(const std::string &raw, bool parser_game)
      * the word is the game's answer, not a command. */
     if (!parser_game || lower(trim(raw)) != "help")
         return;
-    glk_put_string((char *)
+    put_host_string(
         "\n(Type #HELP for the SAVE, RESTORE, UNDO and other system"
         " commands.)\n");
 }
@@ -1073,7 +1075,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
     else if (want.rfind("a ", 0) == 0)   want = trim(want.substr(2));
 
     if (want.empty()) {
-        glk_put_string((char *) "Type VERBS followed by an object name, "
+        put_host_string("Type VERBS followed by an object name, "
                                 "e.g. VERBS lamp.\n");
         return true;
     }

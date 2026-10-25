@@ -28,6 +28,7 @@
 - Quest 5 text now follows `font-size`, `font-family`, `text-align`, `<font>`, `<h1>` to `<h6>`, `<center>`, `<pre>`, `<code>` and `<tt>`, measured against the game's own font size, and the centred title and other `PrintCentered` text is centred.
 - Underlined text prints in the italic style instead of in reverse video, which looked like a selection.
 - A Quest 5 message that leaves a tag open, such as Warriors' `<b>...<b/>`, no longer turns the rest of the game's text bold: as in Quest Viva, the tag ends with its message.
+- A Quest 5 heading, paragraph or centred block that starts or ends in the middle of a line now breaks the line, as a browser does, so the memos in *All Visitors Welcome* and the achievement certificate in *L Too* no longer run their lines together. A block that begins its message, which nearly all do, adds no blank line.
 
 ### General
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.

@@ -673,7 +673,7 @@ void panel_contents(const std::string &html)
         /* No band: the old inline draw, so a picture is at least seen. */
         if (draw_image_inline(src)) {
             g_panel_last = lower(src);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
         return;
     }
@@ -694,7 +694,7 @@ void panel_contents(const std::string &html)
         if (!gpanelwin) {       /* refused the split: fall back to inline */
             g_panel_id = 0;
             if (draw_image_inline(src))
-                glk_put_char('\n');
+                put_host_string("\n");
             return;
         }
         panel_set_background();

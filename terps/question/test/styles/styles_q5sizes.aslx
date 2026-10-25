@@ -2,8 +2,10 @@
      one step smaller (size-1).  A Courier span is monospaced, an <h2> is
      bold at 1.5em, and the PrintCentered line and the text between
      SetAlignment ("center") and SetAlignment ("left") are centred.  After
-     SetFontSize (18), Core's span prints the next line two steps up.  The
-     title is turned off. -->
+     SetFontSize (18), Core's span prints the next line two steps up.  A
+     heading in the middle of a line gets the line break it implies on
+     each side; one that opens its message gets none (the message's own
+     <br/> ends it).  The title is turned off. -->
 <asl version="580">
   <include ref="English.aslx"/>
   <include ref="Core.aslx"/>
@@ -14,6 +16,7 @@
     <defaultfontsize type="int">14</defaultfontsize>
     <start type="script"><![CDATA[
       msg ("<h2>The Heading</h2>")
+      msg ("Before<h2>A heading mid-line</h2> after")
       PrintCentered ("A centred line")
       SetAlignment ("center")
       msg ("Also centred, in <b>bold</b>")
