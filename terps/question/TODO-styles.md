@@ -250,9 +250,33 @@ and colours stay outside this plan.
       suite now marks every style change in the compared output, so all
       its cases check styles.  There was no load reorder in the end (both
       engines scan the file before the window opens and load as before).
-- [ ] Check a handful of games against the .NET / QuestViva oracle
+- [x] Check a handful of games against the .NET / QuestViva oracle
       (`quest5-dotnet-groundtruth` notes) and the Quest 4.1.5 Wine harness
       for whether the sizes the scan found are what the originals draw.
+      *Done:* Quest 5: `qvh` grew `QVH_RAW_HTML` (the markup the normalised
+      transcript strips), and A Christmas Game, Beyond The Gloom, Deeper and
+      Adventure were read beside the census (`ASLXGLK_STYLE_CENSUS=1`).
+      Core wraps every message in a span at `defaultfontsize` points and
+      prints the title at 260 %, the subtitle at 130 % and the author at
+      140 % of it inside `createNewDiv center`, which is what the scan
+      assumes, and the sizes agree to the point.  Two things it showed: a
+      size that is not a whole number of steps was truncated (15.6pt over 12
+      drew as 14pt, 19.6 over 14 as 18pt), so `style_combo` now takes the
+      nearest step (unit tests, `styles_q5sizes` re-blessed); and a game
+      whose own `StartGame` prints the title (Adventure: 260 / 110 / 130 %
+      with a `<font size="3">` inside) is not seen as the intro set, so its
+      subtitle and author take whatever the ranking gives them.  That is rare
+      (Adventure, Pixie's Quest in the corpus) and left alone.  Quest 4:
+      `probe9.asl` / `probe10.asl`, written up in `quest4/harness/oracle/
+      FINDINGS.md` under "Ground truth": `|sNN` is absolute points and
+      `|s00` returns to `default fontsize`, in play as in the startscript,
+      as the scan assumes.  `|jc` / `|jr` on a line of their own are honoured;
+      the same-line pair `|jcTitle|jl` is drawn left-aligned by the real
+      Quest (its 1999 changelog says so, `probe11.asl` confirms it), while
+      QuestViva and Question centre it.  The corpus's titles all put a
+      `|n` before the `|jl`, which the real Quest centres too; one joke
+      line in The Statue of Riddles is the only text the engines draw
+      differently, and Question keeps centring it (FINDINGS.md).
 - [x] Spatterlight with game styles off, and Gargoyle, must look as today
       except for underline moving off reverse video. If a reassigned spare
       (Header, BlockQuote) looks wrong for a centred title in the Gargoyle

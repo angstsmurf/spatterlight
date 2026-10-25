@@ -31,6 +31,7 @@
 #include "questglk-common.hh"
 
 #include <algorithm>
+#include <cmath>
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>
@@ -260,7 +261,12 @@ style_combo (bool bold, bool italic, bool underlined, bool monospaced,
     else if (center)
         combo |= COMBO_CENTER;
 
-    int step = (int) ((points - default_points) / 2);
+    /* The nearest step of two points; a size exactly between two steps
+     * (an odd Quest 4 size) takes the one nearer the default. */
+    double half_steps = (points - default_points) / 2;
+    int step = (int) (fabs (half_steps) + 0.5 - 1e-9);
+    if (half_steps < 0)
+      step = -step;
     step = std::max<int> (STYLE_MIN_STEP, std::min<int> (STYLE_MAX_STEP, step));
     combo |= ((StyleCombo) step << COMBO_SIZE_SHIFT) & COMBO_SIZE_MASK;
     return combo;

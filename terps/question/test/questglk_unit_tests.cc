@@ -250,6 +250,16 @@ test_style_combo ()
 	 "a point over the default is the default size");
   check (style_combo_step (q4 (false, false, false, 20)) == 5,
 	 "two points to a step");
+  check (style_combo_step (q4 (false, false, false, 13)) == 1,
+	 "a size between two steps takes the one nearer the default");
+  check (style_combo_step (q4 (false, false, false, 9)) == 0,
+	 "...in either direction");
+  check (style_combo_step (style_combo (false, false, false, false, false,
+					false, 15.6, 12)) == 2,
+	 "Quest 5's 130% of 12pt rounds to the nearest step, not down");
+  check (style_combo_step (style_combo (false, false, false, false, false,
+					false, 13.2, 12)) == 1,
+	 "...and 110% is a step up");
   check (style_combo_step (q4 (false, false, false, 99)) == 6,
 	 "steps clamp at +6");
   check (style_combo_step (q4 (false, false, false, 2)) == -3,

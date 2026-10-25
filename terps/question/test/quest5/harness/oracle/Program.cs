@@ -71,8 +71,19 @@ var errorCount = 0;
 // (set up right after `world` is created, below) — that is the only faithful
 // "did the breaker actually fire?" signal.
 
+// QVH_RAW_HTML=<file>: also append every HTML fragment the game emits, as
+// sent, one per line (and every other JS call the player receives, as a
+// `[js NAME ARG]` line) -- the markup the normalised transcript strips.
+var rawHtmlPath = Environment.GetEnvironmentVariable("QVH_RAW_HTML");
+void Raw(string line)
+{
+    if (!string.IsNullOrEmpty(rawHtmlPath))
+        File.AppendAllText(rawHtmlPath, line.Replace("\n", "\\n") + "\n");
+}
+
 void Emit(string html)
 {
+    Raw(html);
     var t = Strip(html);
     if (t.Length == 0) return;
     emitCount++;
@@ -166,7 +177,7 @@ TaskScheduler.UnobservedTaskException += (_, e) =>
 var pendingTick = 0;
 world.RequestNextTimerTick += s => pendingTick = s;
 
-var player = new HeadlessPlayer(Emit);
+var player = new HeadlessPlayer(Emit, Raw);
 if (!await world.Initialise(player))
 {
     Console.Error.WriteLine("[fatal] game failed to initialise");
@@ -503,7 +514,7 @@ static string Normalise(string s)
 
 // Every IPlayer member is a UI hook; a headless run no-ops all but the ones the
 // driver inspects (menu / question / wait / pause) and the text channels.
-class HeadlessPlayer(Action<string> emit) : IPlayer
+class HeadlessPlayer(Action<string> emit, Action<string>? js = null) : IPlayer
 {
     public MenuData? PendingMenu;
     public string? PendingQuestion;
@@ -524,6 +535,9 @@ class HeadlessPlayer(Action<string> emit) : IPlayer
     {
         if (function == "addText" && parameters is { Length: > 0 })
             emit(parameters[0]?.ToString() ?? "");
+        else
+            js?.Invoke("[js " + function + " " +
+                string.Join(" ", (parameters ?? []).Select(p => p?.ToString() ?? "")) + "]");
         return Task.CompletedTask;
     }
 

@@ -13,7 +13,7 @@ HINT buffer Alert Weight 0
 HINT buffer Alert Oblique 0
 HINT buffer Alert Proportional 1
 HINT buffer Alert Justification 2
-HINT buffer Alert Size 2
+HINT buffer Alert Size 3
 HINT buffer Alert Indentation 0
 HINT buffer Alert ParaIndentation 0
 HINT buffer Note Weight 0

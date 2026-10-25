@@ -50,6 +50,12 @@ dotnet bin/Release/net10.0/qvh.dll <game.quest|game.aslx> [command-script.txt]
 Transcript → stdout, diagnostics (`[diag] …`) → stderr. With no script it just
 prints the opening turn.
 
+`QVH_RAW_HTML=<file>` appends every HTML fragment the game emits, as sent, one
+per line, and every other JS call the player receives as a `[js NAME ARGS]`
+line: the markup the normalised transcript strips. It is how the Glk
+frontend's game-derived styles were checked against what Core really draws
+(`TODO-styles.md`).
+
 ### Command-script format
 
 Mirrors QuestViva's own `WalkthroughRunner` step format, so a game's built-in
