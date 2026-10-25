@@ -674,14 +674,62 @@ gsc_style_census_a5 (const a5_xml_node_t *root,
 static const unsigned long GSC_STYLE_ALIGNMENT_WEIGHT = 4;
 
 /*
+ * gsc_style_default_look()
+ * gsc_style_spare_mismatch()
+ *
+ * What a frontend that ignores hints draws a style in: Spatterlight with
+ * game styles off and Gargoyle's defaults agree that Header and Subheader
+ * are bold, Alert bold italic and the rest plain.  Size and alignment are
+ * lost either way.  The mismatch is how far a state drawn in a spare's
+ * default look is from itself; an attribute the look adds costs more than
+ * one it loses, as the fallback chain never adds one either.  A state
+ * above the default size that isn't bold wants a bold look all the same:
+ * drawn without its size, bigger text reads closest as bold, and the title
+ * every ADRIFT 4 game prints as 14pt text then keeps the bold it has always
+ * had where the hints don't apply.
+ */
+static gsc_style_combo_t
+gsc_style_default_look (scr_int style)
+{
+  switch (style)
+    {
+    case GSC_STYLE_HEADER:
+    case GSC_STYLE_SUBHEADER:
+      return GSC_COMBO_BOLD;
+    case GSC_STYLE_ALERT:
+      return GSC_COMBO_BOLD | GSC_COMBO_ITALIC;
+    default:
+      return 0;
+    }
+}
+
+static unsigned int
+gsc_style_spare_mismatch (scr_int style, gsc_style_combo_t combo)
+{
+  const gsc_style_combo_t look = gsc_style_default_look (style);
+  gsc_style_combo_t want = combo & (GSC_COMBO_BOLD | GSC_COMBO_ITALIC);
+
+  if (gsc_style_combo_step (combo) > 0)
+    want |= GSC_COMBO_BOLD;
+  return 2 * gsc_style_combo_bits (look & ~want)
+         + gsc_style_combo_bits (want & ~look);
+}
+
+
+/*
  * gsc_style_assign()
  *
  * Start from the natural table, then give each ranked state that has no
- * style of its own the next spare: Header and BlockQuote, which today's
- * precedence leaves to error text or doesn't use, then the natural styles
- * whose state the game never shows.  Emphasized and Preformatted are never
- * spares -- the frontend prints its own notes in Emphasized -- and Normal
- * and Input are what they are.
+ * style of its own a spare: Header and BlockQuote, which today's precedence
+ * leaves to error text or doesn't use, and the natural styles whose state
+ * the game never shows.  Emphasized and Preformatted are never spares -- the
+ * frontend prints its own notes in Emphasized -- and Normal and Input are
+ * what they are.
+ *
+ * Each state takes the spare whose default look is nearest its own, so a
+ * frontend that ignores the hints still draws a bold title bold (Header or
+ * Subheader) and a plain one plain (BlockQuote, User1...), losing only the
+ * centring and the size.  Ties go in the order above.
  *
  * Handing out User1, User2 or Note can leave an alignment the game uses
  * with no style at all -- a game whose centred text is all italic or sized
@@ -707,13 +755,13 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
     scr_int style;
   } alignments[] = {{GSC_COMBO_CENTER, GSC_STYLE_USER1},
                     {GSC_COMBO_RIGHT, GSC_STYLE_NOTE}};
-  std::vector<scr_int> spares;
-  size_t index_, next;
+  std::vector<scr_int> pool, handed;
+  size_t index_;
 
   gsc_style_table_natural (table);
 
-  spares.assign (fixed_spares,
-                 fixed_spares + sizeof (fixed_spares) / sizeof (fixed_spares[0]));
+  pool.assign (fixed_spares,
+               fixed_spares + sizeof (fixed_spares) / sizeof (fixed_spares[0]));
   for (index_ = 0;
        index_ < sizeof (natural_spares) / sizeof (natural_spares[0]); index_++)
     {
@@ -727,19 +775,29 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
             used = TRUE;
         }
       if (!used)
-        spares.push_back (style);
+        pool.push_back (style);
     }
 
-  next = 0;
-  for (index_ = 0; index_ < census->rows.size () && next < spares.size ();
-       index_++)
+  /* The spares handed out, in order. */
+  for (index_ = 0; index_ < census->rows.size () && !pool.empty (); index_++)
     {
       const gsc_style_combo_t combo = census->rows[index_].combo;
+      size_t best, candidate;
+      scr_int style;
 
       if (gsc_style_find (table, combo) >= 0)
         continue;
 
-      const scr_int style = spares[next++];
+      best = 0;
+      for (candidate = 1; candidate < pool.size (); candidate++)
+        {
+          if (gsc_style_spare_mismatch (pool[candidate], combo)
+              < gsc_style_spare_mismatch (pool[best], combo))
+            best = candidate;
+        }
+      style = pool[best];
+      pool.erase (pool.begin () + (long) best);
+      handed.push_back (style);
       table->assigned[style] = TRUE;
       table->natural[style] = FALSE;
       table->combo[style] = combo;
@@ -751,11 +809,11 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
       const gsc_style_combo_t alignment = alignments[index_].combo;
       const scr_int home = alignments[index_].style;
       std::vector<gsc_style_census_row_t>::const_iterator row;
+      std::vector<scr_int>::iterator earlier;
       unsigned long aligned = 0, evicted = 0;
       scr_int style;
-      size_t spare;
 
-      if (next == 0)
+      if (handed.empty ())
         break;
       for (style = 0; style < GSC_STYLE_COUNT; style++)
         {
@@ -768,7 +826,7 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
         {
           if (row->combo & alignment)
             aligned += gsc_style_row_weight (*row);
-          if (row->combo == table->combo[spares[next - 1]])
+          if (row->combo == table->combo[handed.back ()])
             evicted = gsc_style_row_weight (*row);
         }
       if (aligned == 0 || GSC_STYLE_ALIGNMENT_WEIGHT * aligned < evicted)
@@ -779,14 +837,14 @@ gsc_style_assign (const gsc_style_census_t *census, gsc_style_table_t *table)
        * natural style went to a state ranked above that one, the state moves
        * to the freed spare and the natural style takes its old hints back.
        */
-      style = spares[--next];
-      for (spare = 0; spare < next; spare++)
+      style = handed.back ();
+      handed.pop_back ();
+      for (earlier = handed.begin (); earlier != handed.end (); ++earlier)
         {
-          if (spares[spare] == home)
+          if (*earlier == home)
             {
               table->combo[style] = table->combo[home];
-              spares[spare] = style;
-              spares[next] = home;
+              *earlier = style;
               style = home;
             }
         }

@@ -4,14 +4,14 @@ HINT buffer Header Weight 0
 HINT buffer Header Oblique 0
 HINT buffer Header Proportional 1
 HINT buffer Header Justification 0
-HINT buffer Header Size -1
+HINT buffer Header Size 1
 HINT buffer Header Indentation 0
 HINT buffer Header ParaIndentation 0
 HINT buffer BlockQuote Weight 0
 HINT buffer BlockQuote Oblique 0
 HINT buffer BlockQuote Proportional 1
 HINT buffer BlockQuote Justification 0
-HINT buffer BlockQuote Size 1
+HINT buffer BlockQuote Size -1
 HINT buffer BlockQuote Indentation 0
 HINT buffer BlockQuote ParaIndentation 0
 HINT buffer User1 Weight 0
@@ -31,7 +31,7 @@ HINT buffer User2 ParaIndentation 0
 HINT grid User1 ReverseColor 1
 SPAN 0 Normal 'Loading game...\n'
 SPAN 1 User1 '                                                                                                   Study (styles fixture) | Scarier regression'
-SPAN 0 BlockQuote 'Study (styles fixture)'
+SPAN 0 Header 'Study (styles fixture)'
 SPAN 0 Normal '\n\n'
 SPAN 0 User2 'The Big Title'
 SPAN 0 Normal '\n\n'
@@ -39,7 +39,7 @@ SPAN 1 User1 '                                                                  
 SPAN 0 Normal '\n'
 SPAN 0 User1 'by A. N. Author'
 SPAN 0 Normal '\n\n\n'
-SPAN 0 Header "Small print: this fixture is part of Scarier's test suite."
+SPAN 0 BlockQuote "Small print: this fixture is part of Scarier's test suite."
 SPAN 0 Normal '\n\nAnd so the story begins.\n\n\n'
 SPAN 0 Subheader 'Study'
 SPAN 0 Normal '\nA quiet study. The '

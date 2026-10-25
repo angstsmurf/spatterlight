@@ -12,9 +12,9 @@ game test/adrift4/styles/styles_aligned.taf strings 10 combos 12 spares 3 overfl
   11 bold+italic+centre size+6 chars       5 intro     - -> User1 (centre)
   12 bold                     chars       4 intro     - -> Subheader*
 game test/adrift4/styles/styles_intro.taf strings 10 combos 6 spares 4 overflow 0
-   1 size-1                   chars      49 intro    49 -> Header*
+   1 size-1                   chars      49 intro    49 -> BlockQuote*
    2 plain                    chars     134 intro    20 -> Normal*
-   3 size+1                   chars      20 intro    20 -> BlockQuote*
+   3 size+1                   chars      20 intro    20 -> Header*
    4 centre size+2            chars      12 intro    12 -> User1*
    5 centre size+6            chars      11 intro    11 -> User2*
    6 bold                     chars       9 intro     - -> Subheader*
