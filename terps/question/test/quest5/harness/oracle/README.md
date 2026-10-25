@@ -54,7 +54,7 @@ prints the opening turn.
 per line, and every other JS call the player receives as a `[js NAME ARGS]`
 line: the markup the normalised transcript strips. It is how the Glk
 frontend's game-derived styles were checked against what Core really draws
-(`TODO-styles.md`).
+(see `test/styles/`).
 
 ### Command-script format
 

@@ -5242,7 +5242,7 @@ Quest V is the only one that includes the library, and it uses none of them.)
 
 ### Text sizes and justification (`probe9.asl`, `probe10.asl`)
 
-The game-derived styles (`TODO-styles.md`) read `|sNN` as a size in points,
+The game-derived styles (`test/styles/`) read `|sNN` as a size in points,
 `|s00` as a return to the game's `default fontsize` (10 when it is unset), and
 give Spatterlight a size hint in steps of two points.  `probe9.asl` prints
 `|jc|s20|bThe Great Title|xb|s00|jl`, a line at the default size, `|s14`,
