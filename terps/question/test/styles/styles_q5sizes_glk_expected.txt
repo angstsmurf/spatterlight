@@ -2,11 +2,11 @@ HINT buffer User1 Justification 2
 HINT buffer User2 Justification 2
 HINT buffer User2 Weight 1
 HINT buffer Subheader Justification 0
-HINT buffer Header Weight 0
+HINT buffer Header Weight 1
 HINT buffer Header Oblique 0
 HINT buffer Header Proportional 1
 HINT buffer Header Justification 0
-HINT buffer Header Size 2
+HINT buffer Header Size 3
 HINT buffer Header Indentation 0
 HINT buffer Header ParaIndentation 0
 HINT buffer Alert Weight 0
@@ -23,20 +23,20 @@ HINT buffer Note Justification 0
 HINT buffer Note Size -1
 HINT buffer Note Indentation 0
 HINT buffer Note ParaIndentation 0
-HINT buffer BlockQuote Weight 1
+HINT buffer BlockQuote Weight 0
 HINT buffer BlockQuote Oblique 0
 HINT buffer BlockQuote Proportional 1
 HINT buffer BlockQuote Justification 0
-HINT buffer BlockQuote Size 3
+HINT buffer BlockQuote Size 2
 HINT buffer BlockQuote Indentation 0
 HINT buffer BlockQuote ParaIndentation 0
 HINT grid User1 ReverseColor 1
-SPAN 0 BlockQuote 'The Heading'
+SPAN 0 Header 'The Heading'
 SPAN 0 Normal '\n'
 SPAN 0 User1 'A centred line\nAlso centred, in '
 SPAN 0 User2 'bold'
 SPAN 0 User1 '\n'
-SPAN 0 Header 'Raised to eighteen points'
+SPAN 0 BlockQuote 'Raised to eighteen points'
 SPAN 0 Normal '\nYou are in a Hall.\nA hall with '
 SPAN 0 Note 'small print'
 SPAN 0 Normal ', a '

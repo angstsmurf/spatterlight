@@ -403,12 +403,41 @@ style_find (const StyleTable &table, StyleCombo combo)
 /* A weight aligned text counts against the state it would evict. */
 static const unsigned long STYLE_ALIGNMENT_WEIGHT = 4;
 
+/* What a frontend that ignores hints draws a style in: Spatterlight with
+ * game styles off and Gargoyle's defaults agree that Header is bold, Alert
+ * bold italic and the rest plain.  Size and alignment are lost either way. */
+static StyleCombo
+style_default_look (int style)
+{
+    switch (style) {
+    case style_Header: return COMBO_BOLD;
+    case style_Alert: return COMBO_BOLD | COMBO_ITALIC;
+    default: return 0;
+    }
+}
+
+/* How far a state drawn in a spare's default look is from itself.  An
+ * attribute the look adds costs more than one it loses, as the fallback
+ * chain never adds one either. */
+static unsigned
+style_spare_mismatch (int style, StyleCombo combo)
+{
+    StyleCombo look = style_default_look (style);
+    StyleCombo want = combo & (COMBO_BOLD | COMBO_ITALIC);
+    return 2 * style_combo_bits (look & ~want) + style_combo_bits (want & ~look);
+}
+
 /* Start from the natural table, then give each ranked state without a style
- * of its own the next spare: Header and BlockQuote, which neither frontend
- * prints, then the natural styles whose state the game never shows.
- * Emphasized, Preformatted and Subheader are never spares -- the frontends
- * print their own notes, command lists and pane headings in them -- and
- * Normal and Input are what they are.
+ * of its own a spare: Header and BlockQuote, which neither frontend prints,
+ * and the natural styles whose state the game never shows.  Emphasized,
+ * Preformatted and Subheader are never spares -- the frontends print their
+ * own notes, command lists and pane headings in them -- and Normal and Input
+ * are what they are.
+ *
+ * Each state takes the spare whose default look is nearest its own, so a
+ * frontend that ignores the hints still draws a bold title bold (Header)
+ * and a plain one plain (BlockQuote, User1...), losing only the centring
+ * and the size.  Ties go in the order above.
  *
  * Handing out User1, User2 or Note can leave an alignment the game uses
  * with no style at all (a game whose centred text is all bold and sized
@@ -427,28 +456,36 @@ style_assign (const std::vector<StyleCensusRow> &ranked, StyleTable &table)
 
     style_table_natural (table);
 
-    std::vector<int> spares = { style_Header, style_BlockQuote };
+    std::vector<int> pool = { style_Header, style_BlockQuote };
     for (int style : natural_spares) {
         bool used = false;
         for (const StyleCensusRow &row : ranked)
             if (row.combo == table.combo[style])
                 used = true;
         if (!used)
-            spares.push_back (style);
+            pool.push_back (style);
     }
 
-    size_t next = 0;
-    for (size_t i = 0; i < ranked.size () && next < spares.size (); i++) {
+    /* The spares handed out, in order. */
+    std::vector<int> handed;
+    for (size_t i = 0; i < ranked.size () && !pool.empty (); i++) {
         if (style_find (table, ranked[i].combo) >= 0)
             continue;
-        int style = spares[next++];
+        size_t best = 0;
+        for (size_t p = 1; p < pool.size (); p++)
+            if (style_spare_mismatch (pool[p], ranked[i].combo)
+                < style_spare_mismatch (pool[best], ranked[i].combo))
+                best = p;
+        int style = pool[best];
+        pool.erase (pool.begin () + (long) best);
+        handed.push_back (style);
         table.assigned[style] = true;
         table.natural[style] = false;
         table.combo[style] = ranked[i].combo;
     }
 
     for (const auto &a : alignments) {
-        if (next == 0)
+        if (handed.empty ())
             break;
         int style;
         for (style = 0; style < STYLE_COUNT; style++)
@@ -460,7 +497,7 @@ style_assign (const std::vector<StyleCensusRow> &ranked, StyleTable &table)
         for (const StyleCensusRow &row : ranked) {
             if (row.combo & a.combo)
                 aligned += style_row_weight (row);
-            if (row.combo == table.combo[spares[next - 1]])
+            if (row.combo == table.combo[handed.back ()])
                 evicted = style_row_weight (row);
         }
         if (aligned == 0 || STYLE_ALIGNMENT_WEIGHT * aligned < evicted)
@@ -470,12 +507,12 @@ style_assign (const std::vector<StyleCensusRow> &ranked, StyleTable &table)
          * natural style went to a state ranked above that one, the state
          * moves to the freed spare and the natural style takes its old
          * hints back. */
-        style = spares[--next];
-        for (size_t spare = 0; spare < next; spare++)
-            if (spares[spare] == a.style) {
+        style = handed.back ();
+        handed.pop_back ();
+        for (int &earlier : handed)
+            if (earlier == a.style) {
                 table.combo[style] = table.combo[a.style];
-                spares[spare] = style;
-                spares[next] = a.style;
+                earlier = style;
                 style = a.style;
             }
         table.combo[style] = a.combo;

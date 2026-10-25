@@ -248,10 +248,18 @@ and colours stay outside this plan.
 - [ ] Check a handful of games against the .NET / QuestViva oracle
       (`quest5-dotnet-groundtruth` notes) and the Quest 4.1.5 Wine harness
       for whether the sizes the scan found are what the originals draw.
-- [ ] Spatterlight with game styles off, and Gargoyle, must look as today
+- [x] Spatterlight with game styles off, and Gargoyle, must look as today
       except for underline moving off reverse video. If a reassigned spare
       (Header, BlockQuote) looks wrong for a centred title in the Gargoyle
       theme, prefer User1 / User2 as spares ahead of them.
+      *Done:* checked with uranus.asl and A Christmas Game.quest.  Gargoyle
+      centres the titles and changes nothing else.  Spatterlight with styles
+      off ignores every hint and draws a style in the theme's default look
+      (Header bold, Alert bold italic, the other spares plain), so a fixed
+      spare order swapped bold and plain titles; `style_assign` now gives
+      each state the spare whose default look is nearest its own, and with
+      styles off only the centring and size are lost (a bold title on Header
+      is the theme's two points larger).
 
 ## Out of scope
 

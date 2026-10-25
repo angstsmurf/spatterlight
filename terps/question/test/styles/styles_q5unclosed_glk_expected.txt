@@ -2,14 +2,15 @@ HINT buffer User1 Justification 2
 HINT buffer User2 Justification 2
 HINT buffer User2 Weight 1
 HINT buffer Note Justification 3
+HINT buffer Header Justification 0
 HINT buffer Subheader Justification 0
-HINT buffer Header Weight 0
-HINT buffer Header Oblique 0
-HINT buffer Header Proportional 1
-HINT buffer Header Justification 2
-HINT buffer Header Size 2
-HINT buffer Header Indentation 0
-HINT buffer Header ParaIndentation 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 2
+HINT buffer BlockQuote Size 2
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
 HINT grid User1 ReverseColor 1
 SPAN 0 Subheader ' Press any key to continue. \n'
 SPAN 0 Normal 'You slowly open your eyes.\nAn '

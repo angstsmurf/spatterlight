@@ -299,6 +299,18 @@ test_style_assign ()
 				      == style_User2,
 	 "centred bold keeps User2");
 
+  /* A plain sized centred title: the spare that is plain by default, so a
+     frontend that ignores hints still draws it plain. */
+  StyleCensus plain_title;
+  plain_title.count (0, "Lots and lots of plain body text here.", false);
+  plain_title.count (q4 (false, false, true, 20), "My Game", true);
+  plain_title.count (q4 (true, false, true, 18), "A Studio", true);
+  t = assigned (plain_title);
+  check (style_lookup (t, q4 (false, false, true, 20)) == style_BlockQuote,
+	 "a plain title skips Header for BlockQuote");
+  check (style_lookup (t, q4 (true, false, true, 18)) == style_Header,
+	 "...and the bold one takes Header");
+
   /* Unseen states fall back by dropping attributes, never adding them. */
   check (style_lookup (t, q4 (true, false, true, 16)) == style_User2,
 	 "a size with no style drops to the unsized state");
@@ -320,8 +332,10 @@ test_style_assign ()
 		    std::string (40 + points, 'y'), false);
   overflow.count (q4 (true, true, false, 30), "Title", true);
   t = assigned (overflow);
-  check (style_lookup (t, q4 (true, true, false, 30)) != style_Alert,
-	 "the intro state wins a slot of its own");
+  check (t.combo[style_lookup (t, q4 (true, true, false, 30))]
+	 == q4 (true, true, false, 30), "the intro state wins a slot of its own");
+  check (style_lookup (t, q4 (true, true, false, 30)) == style_Alert,
+	 "...the spare whose default look is bold italic");
   int sized = 0;
   for (int points: sizes)
     if (style_combo_step (t.combo[style_lookup (t, q4 (false, false, false,
