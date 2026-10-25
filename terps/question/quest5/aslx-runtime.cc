@@ -1027,9 +1027,33 @@ void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
     try {
         try {
             run_callback_boundary(body, c);
+        } catch (TurnSuspended &outer) {
+            // The body parked on a synchronous `play sound`. Still run the
+            // nested items queued so far before rethrowing (the OnEnterRoom
+            // cascade must not strand arrival text behind a sound the host
+            // may never finish); the outer tail resumes at the next claim.
+            try {
+                run_nested_on_ready_queue();
+            } catch (TurnSuspended &inner) {
+                // A nested item parked too. Its continuation is not dropped:
+                // the one parked tail runs its remainder first, then the
+                // nested items not yet started (each inside its own script
+                // boundary, like run_nested_on_ready_queue would have), then
+                // the outer body's remainder.
+                std::vector<TurnSuspended::Frame> frames = std::move(inner.frames);
+                for (auto &item : nested_on_ready_) {
+                    frames.push_back(TurnSuspended::Frame{item.first, 0, Context{}});
+                    frames.push_back(TurnSuspended::Frame{nullptr, 0, item.second});
+                }
+                nested_on_ready_.clear();
+                for (auto &f : outer.frames)
+                    frames.push_back(std::move(f));
+                outer.frames = std::move(frames);
+            }
+            throw;
         } catch (...) {
-            // Still drain whatever nested items were queued before rethrowing
-            // (OnEnterRoom cascade must not strand arrival text).
+            // A real exception: drain the nested items it must not strand,
+            // then let it reach the enclosing boundary's report.
             try {
                 run_nested_on_ready_queue();
             } catch (...) {
