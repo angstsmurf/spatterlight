@@ -104,6 +104,8 @@ struct winctx
     int curx, cury;        /* last cursor position */
     int fg, bg;            /* text colors in this window */
     int papercolor;        /* background color of this window */
+    int colors_sent;       /* win has been sent the zcolors for sentfg/sentbg */
+    int sentfg, sentbg;
     int halfscreenwidth;   /* is this window supposed to be half screen width?*/
     int peggedtoright;     /* is this window supposed to be attached to right edge?*/
     int wasmoved;          /* was this window moved when the player adjusted window size?*/
@@ -128,8 +130,6 @@ static int screenheight_in_chars = 0;
 
 static int curstyle = style_Normal;
 
-static int lastfg = -1;
-static int lastbg = -1;
 static int screen_bg = -1;
 
 static int mainwin = 0;
@@ -557,8 +557,10 @@ void hugo_settextmode(void)
  * An explicit background is painted on the whole window with win_setbgnd
  * (heglk_set_window_bg, hugo_mapcurwin), and on the screen behind the
  * windows when the window fills it (hugo_clearwindow, which records it
- * in screen_bg for the contexts opened afterwards). lastfg/lastbg hold
- * the pair last sent, so hugo_print only sends zcolors on a change.
+ * in screen_bg for the contexts opened afterwards). A context remembers
+ * the pair its Glk window was last sent (colors_sent, sentfg, sentbg),
+ * so hugo_print only sends zcolors on a change; painting or mapping the
+ * window forgets them.
  */
 
 /* The 16 standard Hugo colours, HUGO_BLACK to HUGO_BRIGHT_WHITE */
@@ -600,8 +602,9 @@ static struct heglk_colorctx heglk_colorctx_of(int i)
 
 /* Colour index C as the GUI gets it, for the window CTX describes: a
  * default that the window treats as its own, and that is the colour set
- * in it, goes as zcolor_Default, the rest as RGB. Colour 20 follows the
- * engine's current text colour, fcolor. */
+ * in it, goes as zcolor_Default, the rest as RGB. Colour 20, match the
+ * foreground, is resolved by the setters below; it only arrives here from
+ * hugo_clearfullscreen, which passes the engine's own bgcolor. */
 static int heglk_rgb_of(const struct heglk_colorctx *ctx, int c)
 {
     int converted = 0;
@@ -698,18 +701,25 @@ static struct heglk_zcolors heglk_zcolors_of(const struct heglk_colorctx *ctx)
 
 void hugo_settextcolor(int c)
 {
-    if (curwin) {
-        wins[curwin].fg = c;
-    }
+    if (!curwin)
+        return;
+    if (c == 20)    /* match foreground: it already does */
+        return;
+    if (c < 0 || c > DEF_SLBGCOLOR)
+        c = DEF_FCOLOR;
+    wins[curwin].fg = c;
 }
 
 
 void hugo_setbackcolor(int c)
 {
-    if (curwin)
-    {
-        wins[curwin].bg = c;
-    }
+    if (!curwin)
+        return;
+    if (c == 20)    /* match foreground */
+        c = wins[curwin].fg;
+    if (c < 0 || c > DEF_SLBGCOLOR)
+        c = DEF_BGCOLOR;
+    wins[curwin].bg = c;
 }
 
 
@@ -1102,7 +1112,7 @@ static void heglk_clear_filename(int i)
 static void heglk_set_window_bg(int i)
 {
     wins[i].papercolor = wins[i].bg;
-    lastbg = -1;
+    wins[i].colors_sent = false;
     win_setbgnd(wins[i].win->peer, heglk_color_for(i, wins[i].bg));
 }
 
@@ -1488,6 +1498,7 @@ static void heglk_init_wincontext(int i, int type)
     else
         wins[i].bg = status ? DEF_SLBGCOLOR : DEF_BGCOLOR;
     wins[i].papercolor = wins[i].bg;
+    wins[i].colors_sent = false;
 }
 
 /* Shrinks *w x *h to fit a boxw x boxh box, keeping the aspect ratio,
@@ -2222,7 +2233,6 @@ void hugo_settextwindow(int left, int top, int right, int bottom)
             mainwin = curwin;
         else if (type == ISSTATUS)
             statuswin = curwin;
-        lastbg = -1;
     }
 
     wins[curwin].isaux = (type == ISAUX);
@@ -2460,7 +2470,7 @@ static void hugo_mapcurwin(void)
 
     LOG("hugo_mapcurwin %d, bg = %d (0x%x, %d)\n", curwin, wins[curwin].bg, hugo_color(wins[curwin].bg), hugo_color(wins[curwin].bg));
     wins[curwin].papercolor = wins[curwin].bg;
-    lastbg = -1;
+    wins[curwin].colors_sent = false;
     if (hugo_color(wins[curwin].bg) != -1) {
         win_setbgnd(wins[curwin].win->peer, hugo_color(wins[curwin].bg));
     }
@@ -2636,15 +2646,18 @@ void hugo_print(char *a)
     }
     else if (a[0] != '\n')
     {
-        if (!(wins[curwin].fg == lastfg && wins[curwin].bg == lastbg))
+        if (!wins[curwin].colors_sent
+            || wins[curwin].fg != wins[curwin].sentfg
+            || wins[curwin].bg != wins[curwin].sentbg)
         {
             heglk_zcolor();
         }
 
         hugo_flushnl();
 
-        lastfg = wins[curwin].fg;
-        lastbg = wins[curwin].bg;
+        wins[curwin].colors_sent = true;
+        wins[curwin].sentfg = wins[curwin].fg;
+        wins[curwin].sentbg = wins[curwin].bg;
 
         if (current_game == GAME_TETRIS && a[0] == 'B' && mono)
         {

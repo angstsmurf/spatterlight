@@ -86,3 +86,11 @@ passes), and are recorded here so they are not reopened by accident.
   `OTHER_CFLAGS='$(inherited) -DMAXWINS=8'` (ASan on) and run the suite.
   In 2026-10 that recycled contexts in 13 cases and ran out in 5, with no
   new sanitizer reports. The output differs from the goldens, as expected.
+- The colour memo is per window context (`colors_sent`, `sentfg`,
+  `sentbg`), not a global pair. The change dropped 3470 zcolor messages and
+  73 paper resets over 213 cases, so it could not be checked as 0 changed.
+  It was checked by replaying both runs: the GUI stores a window's zcolors
+  until the next zcolor message and does not reset them on clear
+  (`GlkWindow setZColorText:`), so every window had the same colour state
+  at every message in both runs. A scratch script did that replay; a
+  change to the colour code that alters traces needs the same check.
