@@ -1037,15 +1037,51 @@ bool handle_status_command(const std::string &raw)
     return true;
 }
 
-/* SIDEBAR WIDE / SIDEBAR NORMAL: double the pane's width, or put it back.
- * Shared with the classic runner. */
+/* SIDEBAR WIDE / SIDEBAR NORMAL: double the pane's width, or put it back
+ * (shared with the classic runner).  Either one, or a bare SIDEBAR, also
+ * shows the pane when the game has hidden it; SIDEBAR OFF hides it and
+ * SIDEBAR AUTO leaves it to the game again. */
 bool handle_sidebar_command(Interp &in, const std::string &raw)
 {
     int which = match_sidebar_command(raw);
     if (!which)
         return false;
     echo_metaverb_command(raw);
-    change_side_pane_width(which, g_use_objpane, gobjwin, gdivider);
+    const bool was_shown = panes_shown();
+    if (!g_use_objpane) {
+        put_host_string(which == kSidebarOff || which == kSidebarAuto
+                            ? "There is no sidebar to hide.\n"
+                            : "There is no sidebar to show.\n");
+        return true;
+    }
+    if (which == kSidebarOff) {
+        put_host_string(!was_shown ? "The sidebar is already hidden.\n"
+                                   : "The sidebar is now hidden.\n");
+        g_panes_override = -1;
+    } else if (which == kSidebarAuto) {
+        put_host_string(!g_panes_override
+                            ? "The game already decides when the sidebar is"
+                              " shown.\n"
+                            : g_panes_visible
+                            ? "The game decides when the sidebar is shown"
+                              " again.\n"
+                            : "The game decides when the sidebar is shown"
+                              " again, and it has hidden it.\n");
+        g_panes_override = 0;
+    } else {
+        g_panes_override = 1;
+        const char *shown = was_shown ? nullptr
+                            : g_panes_visible ? "The sidebar is shown again.\n"
+                            : "The sidebar is shown, though the game hides"
+                              " it.\n";
+        if (which == kSidebarOn)
+            put_host_string(shown ? shown : "The sidebar is already shown.\n");
+        else {
+            if (shown)
+                put_host_string(shown);
+            change_side_pane_width(which, true, gobjwin, gdivider);
+        }
+    }
     /* Written out again at its new width, the pane shows its top, rather
      * than wherever the rewrapped text happened to leave it scrolled. */
     g_pane_dirty = true;

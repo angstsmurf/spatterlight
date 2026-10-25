@@ -121,6 +121,9 @@ std::string aslx_encode_frontend(Interp &in, const RngStreams *turn_rngs)
     }
     /* SIDEBAR WIDE. */
     blob_num(b, side_pane_is_wide() ? 1 : 0);
+    /* SIDEBAR / SIDEBAR OFF.  JS.panesVisible needs no saving: Core's
+     * InitInterface sets it again from game.showpanes on a restore. */
+    blob_num(b, g_panes_override);
     /* The link bar: a game rewrites it when something changes, not every
      * turn. */
     blob_num(b, (long) g_link_bar.size());
@@ -206,6 +209,7 @@ bool aslx_recover_frontend(const std::string &blob)
         g_sections.push_back(s);
     }
     bool wide = r.num() != 0;
+    long pane_override = r.num();
     g_link_bar.clear();
     long nbars = r.num();
     for (long i = 0; i < nbars && r.ok; i++) {
@@ -225,6 +229,7 @@ bool aslx_recover_frontend(const std::string &blob)
     /* The restored windows already have their sizes; this is for the pane's
      * next opening. */
     set_side_pane_wide(wide, nullptr, nullptr);
+    g_panes_override = pane_override < 0 ? -1 : pane_override > 0 ? 1 : 0;
 
     /* The redraw paths dedup against "what is already on screen"; void
      * those keys so the post-restore repaints actually repaint. */

@@ -361,8 +361,8 @@ static bool
 handle_sidebar_command(const std::string &raw)
 {
     int which = match_sidebar_command(raw);
-    if (!which)
-        return false;
+    if (which != 1 && which != -1)
+        return false;   /* SIDEBAR ON/OFF/AUTO: a Quest 4 game never hides it */
     change_side_pane_width(which, g_use_objpane, objwin, gfxwin);
     /* Written out again at its new width, the pane shows its top, rather
      * than wherever the rewrapped text happened to leave it scrolled. */

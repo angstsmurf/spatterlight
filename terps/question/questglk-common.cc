@@ -941,7 +941,9 @@ set_side_pane_wide (bool wide, winid_t pane, winid_t divider)
 }
 
 /* SIDEBAR metaverb matching: +1 = make the pane wide, -1 = back to its
- * usual width, 0 = not a sidebar command (let it reach the game). */
+ * usual width, kSidebarOn/Off/Auto = show it, hide it, or leave it to the
+ * game (Quest 5 only: a Quest 4 game cannot hide its pane), 0 = not a
+ * sidebar command (let it reach the game). */
 int
 match_sidebar_command (const std::string &raw)
 {
@@ -952,6 +954,12 @@ match_sidebar_command (const std::string &raw)
         return 1;
     if (c == "sidebar normal" || c == "sidebar narrow")
         return -1;
+    if (c == "sidebar" || c == "sidebar on")
+        return kSidebarOn;
+    if (c == "sidebar off")
+        return kSidebarOff;
+    if (c == "sidebar auto")
+        return kSidebarAuto;
     return 0;
 }
 

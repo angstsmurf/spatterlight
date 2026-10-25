@@ -172,6 +172,7 @@ extern const char PANE_STATUS[];
 
 bool side_pane_is_wide ();
 void set_side_pane_wide (bool wide, winid_t pane, winid_t divider);
+enum { kSidebarOn = 2, kSidebarOff = 3, kSidebarAuto = 4 };
 int match_sidebar_command (const std::string &raw);
 void change_side_pane_width (int which, bool supported, winid_t pane,
                              winid_t divider);

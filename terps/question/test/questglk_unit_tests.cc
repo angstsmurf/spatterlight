@@ -219,8 +219,16 @@ test_match_sidebar_command ()
          "SIDEBAR NORMAL narrows");
   check (match_sidebar_command ("sidebar narrow") == -1,
          "SIDEBAR NARROW narrows");
-  check (match_sidebar_command ("sidebar") == 0,
-         "a bare SIDEBAR is the game's");
+  check (match_sidebar_command ("sidebar") == questglk::kSidebarOn,
+         "a bare SIDEBAR shows the pane");
+  check (match_sidebar_command ("sidebar on") == questglk::kSidebarOn,
+         "SIDEBAR ON shows the pane");
+  check (match_sidebar_command ("#SIDEBAR OFF") == questglk::kSidebarOff,
+         "SIDEBAR OFF hides the pane");
+  check (match_sidebar_command ("sidebar auto") == questglk::kSidebarAuto,
+         "SIDEBAR AUTO leaves the pane to the game");
+  check (match_sidebar_command ("sidebar sidebar") == 0,
+         "anything else after SIDEBAR is the game's");
   check (match_sidebar_command ("wide") == 0, "WIDE alone is the game's");
   check (match_sidebar_command ("") == 0, "an empty line is no command");
 }

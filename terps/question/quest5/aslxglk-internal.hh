@@ -120,6 +120,9 @@ using questglk::match_help_command;
 using questglk::match_restore_command;
 
 using questglk::match_sidebar_command;
+using questglk::kSidebarOn;
+using questglk::kSidebarOff;
+using questglk::kSidebarAuto;
 
 using questglk::match_status_command;
 
@@ -301,6 +304,15 @@ inline bool g_use_objpane = false;          /* host can split; probed at startup
  * cutscenes.  While false the pane stays closed no matter what the lists
  * hold, like the reference player hiding #gamePanes. */
 inline bool g_panes_visible = true;
+
+/* The player's say over the pane, which beats the game's: SIDEBAR (and
+ * SIDEBAR WIDE/NORMAL) shows it, SIDEBAR OFF hides it, SIDEBAR AUTO (0) hands
+ * it back to g_panes_visible. */
+inline int g_panes_override = 0;
+inline bool panes_shown()
+{
+    return g_panes_override ? g_panes_override > 0 : g_panes_visible;
+}
 
 inline std::vector<ListData> g_pane_inv, g_pane_places, g_pane_exits;
 
@@ -998,7 +1010,7 @@ std::string utf8_from_u32(const std::u32string &s);
  * both engines share): an older blob has different fields, and an
  * autorestore that mis-parses is worse than one discarded for a fresh
  * start.  aslx_recover_frontend rejects anything that does not match. */
-inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 9";
+inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 10";
 
 std::string aslx_encode_frontend(Interp &in, const RngStreams *rngs = nullptr);
 bool aslx_recover_frontend(const std::string &blob);

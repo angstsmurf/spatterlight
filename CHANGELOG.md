@@ -32,6 +32,7 @@
 - A Quest 5 `show menu` no longer prints its caption twice, as the first line of Warriors' character questions ("Name: ...", "Your gender?") did: Quest Viva shows the second copy only in the popup, which goes away once it is answered.
 - A Quest 5 game that draws its own bar of clickable words into the page, like the topics under the command line in *Spondre*, now gets them on extra lines of the status bar, where each word can be clicked. A game that hides the side pane used to lose them altogether.
 - Quest 5 text is spaced the way a web page spaces it: line breaks and indentation in the game's source no longer show, and a run of spaces counts as one. *Spondre*, which indents and hand-wraps its text, used to print every paragraph indented and broken mid-sentence.
+- SIDEBAR, SIDEBAR WIDE and SIDEBAR NORMAL now show a Quest 5 game's side pane even when the game hides it, and SIDEBAR OFF hides it. SIDEBAR AUTO gives the choice back to the game. The setting is kept in the autosave.
 
 ### General
 - A hyperlink in a status line or other grid window keeps the colour of the text around it. It used to take the normal text colour, which made links invisible in a reverse-video status line. Clicking one now scrolls the story to the new text, as a click in the story window does.

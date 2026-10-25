@@ -1063,6 +1063,7 @@ void reset_frontend_state()
 
     g_command_bar = true;
     g_panes_visible = true;
+    g_panes_override = 0;
     g_click_hook = false;
     g_js_events.clear();
 }

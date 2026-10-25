@@ -221,7 +221,7 @@ void update_banner(Interp &in)
     /* A status the banner has no room for goes to the pane, which opens for
      * it if need be -- unless the game has hidden its panes.  Asked on every
      * redraw: a resize and a new status both end up here. */
-    bool in_pane = g_use_objpane && g_panes_visible &&
+    bool in_pane = g_use_objpane && panes_shown() &&
         status_wants_pane(gbanner, g_room_name, status, true,
                           g_status_in_pane);
     bool moved = in_pane != g_status_in_pane;
@@ -298,10 +298,11 @@ void redraw_side_pane(Interp &in)
         return;
     g_pane_dirty = false;
 
-    /* The game hid the panes (JS.panesVisible(false)); the lists keep
-     * arriving -- QuestViva computes them regardless -- but the pane stays
-     * closed until the game shows them again. */
-    if (!g_panes_visible) {
+    /* The game hid the panes (JS.panesVisible(false)), or the player did
+     * (SIDEBAR OFF); the lists keep arriving -- QuestViva computes them
+     * regardless -- but the pane stays closed until it is shown again.  A
+     * player's SIDEBAR shows it whatever the game says. */
+    if (!panes_shown()) {
         close_side_pane();
         return;
     }
