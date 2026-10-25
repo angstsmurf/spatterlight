@@ -1,0 +1,27 @@
+HINT buffer User1 Justification 2
+HINT buffer User2 Justification 2
+HINT buffer User2 Weight 1
+HINT buffer Note Justification 3
+HINT buffer Subheader Justification 0
+HINT buffer Header Weight 0
+HINT buffer Header Oblique 0
+HINT buffer Header Proportional 1
+HINT buffer Header Justification 0
+HINT buffer Header Size 1
+HINT buffer Header Indentation 0
+HINT buffer Header ParaIndentation 0
+HINT grid User1 ReverseColor 1
+SPAN 0 Normal 'Loading game...\n'
+SPAN 1 User1 '                                                                                                   Plain Room (styles fixture) | Scarier regression'
+SPAN 0 Header 'Plain Room (styles fixture)'
+SPAN 0 Normal '\nA game with no markup in it at all.\n\n\n'
+SPAN 0 Subheader 'Plain Room'
+SPAN 0 Normal '\nA plain room, described in plain text. Nothing here is bold, slanted, centred or sized.\n\n'
+SPAN 1 User1 '                                                                                                   Plain RoomScore: 0'
+SPAN 0 Normal '>'
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n\n'
+SPAN 0 Subheader 'Plain Room'
+SPAN 0 Normal '\nA plain room, described in plain text. Nothing here is bold, slanted, centred or sized.\n\n'
+SPAN 1 User1 '                                                                                                   Plain RoomScore: 0'
+SPAN 0 Normal '>'

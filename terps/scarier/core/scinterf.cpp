@@ -1419,6 +1419,37 @@ scr_game_scan_strings (scr_game game,
 
 
 /*
+ * scr_game_scan_markup()
+ *
+ * Dissect every string in the property tree to the sink; see scarier.h.
+ */
+static void
+if_scan_markup_string (const scr_char *path, const scr_char *string,
+                       void *opaque)
+{
+  const scr_markup_sink_t *sink = (const scr_markup_sink_t *) opaque;
+
+  if (sink->begin)
+    sink->begin (path, sink->opaque);
+  pf_dissect_markup (string, sink);
+}
+
+void
+scr_game_scan_markup (scr_game game, const scr_markup_sink_t *sink)
+{
+  const scr_gameref_t game_ = (scr_gameref_t) game;
+
+  if (if_game_error (game_, "scr_game_scan_markup"))
+    return;
+  if (sink == nullptr || sink->text == nullptr || sink->tag == nullptr)
+    return;
+
+  prop_walk_strings (gs_get_bundle (game_), if_scan_markup_string,
+                     (void *) sink);
+}
+
+
+/*
  * if_hint_guarded()
  *
  * if_game_guarded() for the calls that take a hint as well: refuse an

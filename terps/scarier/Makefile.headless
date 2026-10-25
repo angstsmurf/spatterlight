@@ -125,6 +125,13 @@ QUIT_BIN     := test/adrift4/harness/quit_test_hl
 EXPR_HARNESS := test/adrift4/harness/expr_test.cpp
 EXPR_BIN     := test/adrift4/harness/expr_test_hl
 
+# The style census reports, per game, the Glk style assignment the Glk
+# frontend makes before its windows open (glk/os_glk_styles.cpp, which calls
+# no Glk and so links here with the engine alone).
+STYLES_SRC     := glk/os_glk_styles.cpp
+STYLES_HARNESS := test/adrift4/styles/styles_census.cpp
+STYLES_BIN     := test/adrift4/styles/styles_census
+
 # ADRIFT 5 (Phases 0-1): container + de-obfuscation + zlib inflate -> XML, then
 # an in-situ XML DOM parser -> typed object model.  Self-contained at the
 # "container edge" -- links no interpreter sources.
@@ -204,7 +211,7 @@ WHERE_PROBES := where_refusal where_refusal_1p where_refusal_3p
 # sound_400.taf in Spatterlight to hear them.
 SOUND_TAF  := test/adrift4/harness/sound_400.taf
 
-.PHONY: test quick suitebins unittest test-fd sanitize taf clean capacitytest capacitybless wheretest wherebless soundtest soundbless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5duptest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
+.PHONY: test quick suitebins unittest test-fd sanitize taf clean styles stylestest stylesbless capacitytest capacitybless wheretest wherebless soundtest soundbless scmap a5dump a5model a5text a5run a5map a5parsetest a5runtest a5walkthroughs a5walkthroughs-golden a5probetafs a5maptest a5distest a5walktest a5objtest a5savetest a5duptest a5sexprtest v4walkthroughs scprojregress gamescheck gamesfetch vendorcheck
 # ADRIFT 5 game files live in an untracked (gitignored) folder under test/ so the
 # harnesses can find them by a stable in-repo path; the games themselves are
 # copyrighted and not committed.  Override A5_GAMES_DIR / A5_BULLETS to relocate.
@@ -230,13 +237,13 @@ V4_GAMES_DIR ?= test/adrift4/games
 # which share nothing but read-only inputs, run side by side
 # (test/run_stages.sh), each stage's output printed whole and in the order
 # below as it finishes.  The run fails if any stage does.
-SUITE_STAGES := unittest vendorcheck capacitytest wheretest soundtest gamescheck a5runtest \
+SUITE_STAGES := unittest vendorcheck capacitytest wheretest soundtest stylestest gamescheck a5runtest \
                 v4walkthroughs a5maptest scprojregress a5walkthroughs-golden
 
 UNIT_BINS := $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5PARSE_BIN) \
              $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN)
 SUITE_BINS := $(UNIT_BINS) $(TAF) $(PREC_TAF) $(BADP_TAF) $(CAP_BIN) $(CAP_TAF) $(WHERE_TAF) $(SOUND_TAF) \
-              $(A5RUN_BIN) $(A5MAP_BIN) $(SCPROJ_BIN) \
+              $(A5RUN_BIN) $(A5MAP_BIN) $(SCPROJ_BIN) $(STYLES_BIN) \
               $(if $(wildcard $(V4_GAMES_DIR)),$(SCARE_BIN))
 
 test:
@@ -499,6 +506,27 @@ $(QUIT_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(QUIT_HARNESS))
 $(EXPR_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(EXPR_HARNESS))
 	$(CXX) $^ $(LDLIBS) -o $@
 
+styles: $(STYLES_BIN)
+$(STYLES_BIN): $(ENG_OBJ) $(call objs,$(OS_STUBS) $(STYLES_SRC) $(A5_MODEL_SRC) $(STYLES_HARNESS))
+	$(CXX) $^ $(LDLIBS) -o $@
+
+# The style census and assignment of the fixtures in test/adrift4/styles/
+# (made by make_styles_tafs.py there).  Regenerate with:
+#   make -f Makefile.headless stylesbless
+STYLES_TAFS := $(sort $(wildcard test/adrift4/styles/styles_*.taf))
+stylestest: $(STYLES_BIN)
+	@./$(STYLES_BIN) $(STYLES_TAFS) > /tmp/styles_census.got; \
+	if diff -u test/adrift4/styles/census_expected.txt /tmp/styles_census.got \
+	    > /tmp/styles_census.diff 2>&1; then \
+	  echo "styles census: PASS"; \
+	else \
+	  echo "styles census: FAIL"; cat /tmp/styles_census.diff; exit 1; \
+	fi
+
+stylesbless: $(STYLES_BIN)
+	@./$(STYLES_BIN) $(STYLES_TAFS) > test/adrift4/styles/census_expected.txt; \
+	echo "blessed test/adrift4/styles/census_expected.txt"
+
 # Build the ADRIFT 5 XML dumper.  Run it by hand on a game:
 #   make -f Makefile.headless a5dump
 #   ./test/adrift5/harness/a5dump path/to/game.blorb > game.xml
@@ -711,7 +739,7 @@ $(BADP_TAF): test/adrift4/harness/make_badparent_taf.py
 
 clean:
 	rm -rf $(OBJDIR)
-	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN) $(A5MAP_BIN) $(SCMAP_BIN) $(A5_RAND_OBJ) $(CAP_BIN) $(SCARE_BIN) $(SCPROJ_BIN)
+	rm -f $(BIN) $(PREC_BIN) $(BADP_BIN) $(CORRUPT_BIN) $(QUIT_BIN) $(EXPR_BIN) $(A5DUMP_BIN) $(A5MODEL_BIN) $(A5TEXT_BIN) $(A5RUN_BIN) $(A5PARSE_BIN) $(A5SEXPR_BIN) $(A5DIS_BIN) $(A5WALK_BIN) $(A5OBJ_BIN) $(A5SAVE_BIN) $(A5DUP_BIN) $(A5MAP_BIN) $(SCMAP_BIN) $(A5_RAND_OBJ) $(CAP_BIN) $(SCARE_BIN) $(SCPROJ_BIN) $(STYLES_BIN)
 	rm -f $(BIN)_san $(PREC_BIN)_san $(BADP_BIN)_san $(CORRUPT_BIN)_san $(QUIT_BIN)_san $(EXPR_BIN)_san $(A5PARSE_BIN)_san $(A5SEXPR_BIN)_san $(A5DIS_BIN)_san $(A5WALK_BIN)_san $(A5OBJ_BIN)_san $(A5SAVE_BIN)_san $(A5DUP_BIN)_san $(CAP_BIN)_san $(SAN_RAND_OBJ)
 
 -include $(shell find $(OBJDIR) -name '*.d' 2>/dev/null)

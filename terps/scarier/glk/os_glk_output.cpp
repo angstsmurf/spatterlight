@@ -91,10 +91,16 @@ static glui32 gsc_attribute_bold = 0,
               gsc_attribute_center = 0,
               gsc_attribute_right = 0;
 
-/* Notional default font size, and limit font sizes. */
-static const scr_int GSC_DEFAULT_FONT_SIZE = 12,
-                    GSC_MEDIUM_FONT_SIZE = 14,
-                    GSC_LARGE_FONT_SIZE = 16;
+/* Notional default font size. */
+static const scr_int GSC_DEFAULT_FONT_SIZE = GSC_STYLE_DEFAULT_POINTS;
+
+/*
+ * The game's style assignment (os_glk_styles.cpp): which attribute states
+ * have a Glk style of their own, made from the game's text before the main
+ * window opens, and hinted by gsc_hint_window_styles().
+ */
+static gsc_style_table_t gsc_style_table;
+static scr_bool gsc_style_table_ready = FALSE;
 
 /* Milliseconds per second and timeouts count for delay tags. */
 static const glui32 GSC_MILLISECONDS_PER_SECOND = 1000;
@@ -588,8 +594,7 @@ static void
 gsc_set_glk_style (void)
 {
   const gsc_font_size_t font = gsc_font_top ();
-  const scr_bool is_monospaced = font.is_monospaced;
-  const scr_int font_size = font.size;
+  gsc_style_combo_t combo;
 
   /*
    * In colour mode the Adrift colours ride alongside the Glk style: an
@@ -604,70 +609,66 @@ gsc_set_glk_style (void)
                     : GSC_COLOUR_NONE);
 
   /*
-   * Map the font and current attributes into a Glk style.  Because Glk styles
-   * aren't cumulative this has to be done by precedences.
+   * Map the font and current attributes into a Glk style.  Glk styles aren't
+   * cumulative, so the whole state is one combo, printed in the style the
+   * game's assignment gives it or, failing that, in the nearest one that has
+   * fewer attributes (see gsc_style_lookup()).  With colours off, <c>
+   * secondary-colour text keeps its old Emphasized stand-in so it stays
+   * visually distinct.
    */
-  if (is_monospaced)
+  combo = gsc_style_combo (gsc_attribute_bold > 0,
+                           gsc_attribute_italic > 0
+                           || gsc_attribute_underline > 0,
+                           font.is_monospaced,
+                           gsc_attribute_center > 0, gsc_attribute_right > 0,
+                           gsc_attribute_secondary_colour > 0
+                           && !gsc_colour_visible (),
+                           font.size);
+  glk_set_style (gsc_style_lookup (gsc_styles_table (), combo));
+}
+
+
+/*
+ * gsc_styles_census()
+ * gsc_styles_census_a5()
+ * gsc_styles_table()
+ *
+ * Make the game's style assignment from its text, or today's fixed one with
+ * no game to scan, and return it.  Called before the hints are set,
+ * which is before the main window opens.
+ */
+void
+gsc_styles_census (scr_game game)
+{
+  if (game)
     {
-      /*
-       * No matter the size or attributes, if monospaced use Preformatted
-       * style, as it's all we have.
-       */
-      glk_set_style (style_Preformatted);
-    }
-  else if (gsc_attribute_right > 0)
-    {
-      /* RightFlush-hinted style_Note; character styles are not combined. */
-      glk_set_style (style_Note);
-    }
-  else if (gsc_attribute_center > 0)
-    {
-      /*
-       * Centered sections use the two justification-hinted user styles set up
-       * before the main window opened: User1 for plain centered text, User2
-       * for centered bold (title lines are typically <center><b>..., and Glk
-       * styles don't combine, so bold gets its own centered style).
-       */
-      glk_set_style (gsc_attribute_bold > 0 ? style_User2 : style_User1);
+      gsc_style_census_t census;
+
+      gsc_style_census_a4 (game, &census);
+      gsc_style_assign (&census, &gsc_style_table);
     }
   else
-    {
-      /*
-       * For large and medium point sizes, use Header or Subheader styles
-       * respectively.
-       */
-      if (font_size >= GSC_LARGE_FONT_SIZE)
-        glk_set_style (style_Header);
-      else if (font_size >= GSC_MEDIUM_FONT_SIZE)
-        glk_set_style (style_Subheader);
-      else
-        {
-          /*
-           * For bold, use Subheader; for italics or underline, use Emphasized.
-           * With colours disabled, <c> secondary-colour text keeps its old
-           * Emphasized stand-in so it stays visually distinct; bold still
-           * wins over it, as it always has.
-           */
-          if (gsc_attribute_bold > 0
-              && (gsc_attribute_italic > 0 || gsc_attribute_underline > 0))
-            glk_set_style (style_Alert);
-          else if (gsc_attribute_bold > 0)
-            glk_set_style (style_Subheader);
-          else if (gsc_attribute_italic > 0
-                   || gsc_attribute_underline > 0
-                   || (gsc_attribute_secondary_colour > 0
-                       && !gsc_colour_visible ()))
-            glk_set_style (style_Emphasized);
-          else
-            {
-              /*
-               * There's nothing special about this text, so drop down to
-               * Normal style.
-               */
-              glk_set_style (style_Normal);
-            }
-        }
-    }
+    gsc_style_table_natural (&gsc_style_table);
+  gsc_style_table_ready = TRUE;
+}
+
+void
+gsc_styles_census_a5 (const a5_adventure_t *adventure)
+{
+  gsc_style_census_t census;
+
+  gsc_style_census_a5 (adventure->root, adventure->introduction,
+                       adventure->title, &census);
+  gsc_style_assign (&census, &gsc_style_table);
+  gsc_style_table_ready = TRUE;
+}
+
+const gsc_style_table_t *
+gsc_styles_table (void)
+{
+  if (!gsc_style_table_ready)
+    gsc_styles_census (nullptr);
+  return &gsc_style_table;
 }
 
 
@@ -700,12 +701,8 @@ gsc_handle_font_tag (const scr_char *argument)
       face = strstr (lower, "face=");
       if (face)
         {
-          /*
-           * There may be plenty of monospaced fonts, but we do only courier
-           * and terminal.
-           */
-          font.is_monospaced = strncmp (face, "face=\"courier\"", 14) == 0
-                               || strncmp (face, "face=\"terminal\"", 15) == 0;
+          /* Shared with the style census, os_glk_styles.cpp. */
+          font.is_monospaced = gsc_style_face_is_monospaced (face);
 
           /*
            * Symbol faces need their content translated to Unicode rather than
@@ -729,19 +726,7 @@ gsc_handle_font_tag (const scr_char *argument)
       /* Find the size= portion of the tag argument. */
       size = strstr (lower, "size=");
       if (size)
-        {
-          scr_uint value;
-
-          /* Deal with incremental and absolute sizes. */
-          if (strncmp (size, "size=+", 6) == 0
-              && sscanf (size, "size=+%lu", &value) == 1)
-            font.size += value;
-          else if (strncmp (size, "size=-", 6) == 0
-                   && sscanf (size, "size=-%lu", &value) == 1)
-            font.size -= value;
-          else if (sscanf (size, "size=%lu", &value) == 1)
-            font.size = value;
-        }
+        font.size = gsc_style_apply_font_size (size, font.size);
 
       /* Done with tag argument copy. */
       free (lower);
@@ -1326,7 +1311,13 @@ gsc_normal_char (char c)
 void
 gsc_header_string (const char *message)
 {
-  gsc_styled_string (style_Header, message);
+  /* Header may have been handed to one of the game's own states (a centred
+     italic epigraph, say); a heading of ours then takes the bold style. */
+  const gsc_style_table_t *table = gsc_styles_table ();
+
+  gsc_styled_string (table->natural[GSC_STYLE_HEADER]
+                     ? style_Header
+                     : gsc_style_lookup (table, GSC_COMBO_BOLD), message);
 }
 
 

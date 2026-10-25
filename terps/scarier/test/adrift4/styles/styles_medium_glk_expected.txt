@@ -1,0 +1,43 @@
+HINT buffer User1 Justification 2
+HINT buffer User2 Justification 2
+HINT buffer User2 Weight 1
+HINT buffer Note Justification 3
+HINT buffer Subheader Justification 0
+HINT buffer Header Weight 0
+HINT buffer Header Oblique 0
+HINT buffer Header Proportional 1
+HINT buffer Header Justification 0
+HINT buffer Header Size 1
+HINT buffer Header Indentation 0
+HINT buffer Header ParaIndentation 0
+HINT grid User1 ReverseColor 1
+SPAN 0 Normal 'Loading game...\n'
+SPAN 1 User1 '                                                                                                   Gallery (styles fixture) | Scarier regression'
+SPAN 0 Header 'Gallery (styles fixture)'
+SPAN 0 Normal '\nBold and medium-sized text, both in play.\n\n\n'
+SPAN 0 Subheader 'Gallery'
+SPAN 0 Normal '\n'
+SPAN 0 Subheader 'Bold words'
+SPAN 0 Normal ' and '
+SPAN 0 Header 'medium words'
+SPAN 0 Normal ' share this gallery, with '
+SPAN 0 Subheader 'more bold'
+SPAN 0 Normal ' and '
+SPAN 0 Header 'more medium text'
+SPAN 0 Normal ' after them.\n\n'
+SPAN 1 User1 '                                                                                                   GalleryScore: 0'
+SPAN 0 Normal '>'
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n\n'
+SPAN 0 Subheader 'Gallery'
+SPAN 0 Normal '\n'
+SPAN 0 Subheader 'Bold words'
+SPAN 0 Normal ' and '
+SPAN 0 Header 'medium words'
+SPAN 0 Normal ' share this gallery, with '
+SPAN 0 Subheader 'more bold'
+SPAN 0 Normal ' and '
+SPAN 0 Header 'more medium text'
+SPAN 0 Normal ' after them.\n\n'
+SPAN 1 User1 '                                                                                                   GalleryScore: 0'
+SPAN 0 Normal '>'

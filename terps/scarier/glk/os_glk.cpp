@@ -353,17 +353,22 @@ gsc_fatal (const char *string)
  *
  * Window prologue shared by the ADRIFT <=4 and ADRIFT 5 main loops.
  *
- * Style hints have to be set before the window they apply to is opened.
- * Centered text (<center>/<centre> sections) renders through two user styles
- * hinted for centered justification: User1 plain, User2 bold (Glk styles
- * don't combine, so <center><b> title lines need their own style).  Right-
- * aligned text (<right>) uses style_Note with RightFlush.  Italic uses
- * Emphasized (or Alert when combined with bold).  Libraries that ignore
- * justification hints show alignment styles as ordinary left-flush text.
- * User1 on the grid is the reverse-video status line.
+ * Style hints have to be set before the window they apply to is opened, so
+ * they come from the style assignment made from the game's text beforehand
+ * (gsc_styles_census()).  Its natural part is the fixed set this port has
+ * always used.  Centered text (<center>/<centre> sections) renders through
+ * two user styles hinted for centered justification: User1 plain, User2 bold
+ * (Glk styles don't combine, so <center><b> title lines need their own
+ * style).  Right-aligned text (<right>) uses style_Note with RightFlush.
+ * Italic uses Emphasized (or Alert when combined with bold).  Libraries that
+ * ignore justification hints show alignment styles as ordinary left-flush
+ * text.  User1 on the grid is the reverse-video status line.  Any of these a
+ * game leaves unused, and Header and BlockQuote, may be handed instead to an
+ * attribute state the game does use -- a big centred title, say -- and are
+ * then hinted from that state alone.
  *
  * Header and Subheader are hinted the other way, left-flush.  This port uses
- * them purely as stand-ins for a large <font size=...> and for <b> (see
+ * them purely as stand-ins for attribute states such as <b> (see
  * gsc_set_glk_style()) -- they never mean "this is a heading" -- but a library
  * is free to render Header as a centered heading, and some do (Spatterlight's
  * Zoom theme centers it).  Justification is a paragraph attribute, so a single
@@ -377,22 +382,79 @@ gsc_fatal (const char *string)
  * separately from the main window because the <=4 path prints its
  * "no game file" complaint in between.
  */
+static_assert (GSC_STYLE_NORMAL == style_Normal
+               && GSC_STYLE_EMPHASIZED == style_Emphasized
+               && GSC_STYLE_PREFORMATTED == style_Preformatted
+               && GSC_STYLE_HEADER == style_Header
+               && GSC_STYLE_SUBHEADER == style_Subheader
+               && GSC_STYLE_ALERT == style_Alert
+               && GSC_STYLE_NOTE == style_Note
+               && GSC_STYLE_BLOCKQUOTE == style_BlockQuote
+               && GSC_STYLE_INPUT == style_Input
+               && GSC_STYLE_USER1 == style_User1
+               && GSC_STYLE_USER2 == style_User2
+               && GSC_STYLE_COUNT == style_NUMSTYLES,
+               "os_glk_styles.h numbers the styles as glk.h does");
+
 void
 gsc_hint_window_styles (void)
 {
-  glk_stylehint_set (wintype_TextBuffer, style_User1,
-                     stylehint_Justification, stylehint_just_Centered);
-  glk_stylehint_set (wintype_TextBuffer, style_User2,
-                     stylehint_Justification, stylehint_just_Centered);
-  glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+  const gsc_style_table_t *table = gsc_styles_table ();
+  glui32 style;
 
-  glk_stylehint_set (wintype_TextBuffer, style_Note,
-                     stylehint_Justification, stylehint_just_RightFlush);
+  if (table->natural[style_User1])
+    glk_stylehint_set (wintype_TextBuffer, style_User1,
+                       stylehint_Justification, stylehint_just_Centered);
+  if (table->natural[style_User2])
+    {
+      glk_stylehint_set (wintype_TextBuffer, style_User2,
+                         stylehint_Justification, stylehint_just_Centered);
+      glk_stylehint_set (wintype_TextBuffer, style_User2, stylehint_Weight, 1);
+    }
 
-  glk_stylehint_set (wintype_TextBuffer, style_Header,
-                     stylehint_Justification, stylehint_just_LeftFlush);
-  glk_stylehint_set (wintype_TextBuffer, style_Subheader,
-                     stylehint_Justification, stylehint_just_LeftFlush);
+  if (table->natural[style_Note])
+    glk_stylehint_set (wintype_TextBuffer, style_Note,
+                       stylehint_Justification, stylehint_just_RightFlush);
+
+  if (table->natural[style_Header])
+    glk_stylehint_set (wintype_TextBuffer, style_Header,
+                       stylehint_Justification, stylehint_just_LeftFlush);
+  if (table->natural[style_Subheader])
+    glk_stylehint_set (wintype_TextBuffer, style_Subheader,
+                       stylehint_Justification, stylehint_just_LeftFlush);
+
+  /*
+   * A style the game's assignment took over (os_glk_styles.cpp) is hinted to
+   * look like the attribute state it now stands for, every hint that shapes
+   * it set, so nothing of the theme's own look for that style -- a centred
+   * Header, an indented BlockQuote -- survives into, say, a left-flush title
+   * in a bigger size.  Size is relative to the style's own font, which in
+   * most themes is the normal one.
+   */
+  for (style = 0; style < style_NUMSTYLES; style++)
+    {
+      gsc_style_combo_t combo;
+
+      if (table->natural[style])
+        continue;
+
+      combo = table->combo[style];
+      glk_stylehint_set (wintype_TextBuffer, style, stylehint_Weight,
+                         (combo & GSC_COMBO_BOLD) ? 1 : 0);
+      glk_stylehint_set (wintype_TextBuffer, style, stylehint_Oblique,
+                         (combo & GSC_COMBO_ITALIC) ? 1 : 0);
+      glk_stylehint_set (wintype_TextBuffer, style, stylehint_Proportional,
+                         (combo & GSC_COMBO_MONOSPACED) ? 0 : 1);
+      glk_stylehint_set (wintype_TextBuffer, style, stylehint_Justification,
+                         (combo & GSC_COMBO_CENTER) ? stylehint_just_Centered
+                         : (combo & GSC_COMBO_RIGHT) ? stylehint_just_RightFlush
+                         : stylehint_just_LeftFlush);
+      glk_stylehint_set (wintype_TextBuffer, style, stylehint_Size,
+                         (glsi32) gsc_style_combo_step (combo));
+      glk_stylehint_set (wintype_TextBuffer, style, stylehint_Indentation, 0);
+      glk_stylehint_set (wintype_TextBuffer, style,
+                         stylehint_ParaIndentation, 0);
+    }
 
   glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
 }
@@ -1498,6 +1560,9 @@ gsc_main (void)
       glk_exit ();
     }
 
+  /* The style assignment comes from the game's text, and the hints made from
+     it have to be in place before the main window opens. */
+  gsc_styles_census (gsc_game);
   gsc_hint_window_styles ();
 
   /* An autorestore adopts the archived windows below instead: opening any

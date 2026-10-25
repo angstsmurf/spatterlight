@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		040F0D9817CA3BD3B7123771 /* question-script-flow.cc in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D5927FF11BBFF213B0CC9 /* question-script-flow.cc */; };
 		044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */; };
+		5C1B1A000000000000000118 /* os_glk_styles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5C1B1A000000000000000119 /* os_glk_styles.cpp */; };
 		04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 270E6B209A9E09002DAFC06D /* os_glk_output.cpp */; };
 		08669A147249B2573251633E /* randomness.c in Sources */ = {isa = PBXBuildFile; fileRef = C35032EE2F37EF0900BD32A6 /* randomness.c */; };
 		0EDD73D8B95118DBBE9686BA /* actions.c in Sources */ = {isa = PBXBuildFile; fileRef = C94FA27EE915B77190069612 /* actions.c */; };
@@ -2223,6 +2224,8 @@
 		705C0AA1A89E4997A9817049 /* ReadOnlyStore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReadOnlyStore.m; sourceTree = "<group>"; };
 		733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_symbols.cpp; sourceTree = "<group>"; };
 		739C201E861B62158253BFCF /* os_glk_internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = os_glk_internal.h; sourceTree = "<group>"; };
+		5C1B1A000000000000000119 /* os_glk_styles.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = os_glk_styles.cpp; sourceTree = "<group>"; };
+		5C1B1A00000000000000011A /* os_glk_styles.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = os_glk_styles.h; sourceTree = "<group>"; };
 		76732421C4AE8B4191C21838 /* aslxglk-output.cc */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "aslxglk-output.cc"; sourceTree = "<group>"; };
 		7B6D5927FF11BBFF213B0CC9 /* question-script-flow.cc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = "question-script-flow.cc"; sourceTree = "<group>"; };
 		7E91B054998441D190A9189D /* NSView+Categories.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSView+Categories.h"; sourceTree = "<group>"; };
@@ -6750,6 +6753,8 @@
 				5543540277974C1585C839AB /* os_glk_status.cpp */,
 				270E6B209A9E09002DAFC06D /* os_glk_output.cpp */,
 				733FF2028F8BEC6069B1D4EC /* os_glk_symbols.cpp */,
+				5C1B1A000000000000000119 /* os_glk_styles.cpp */,
+				5C1B1A00000000000000011A /* os_glk_styles.h */,
 				68BFDF6EE2D60C0B53D4FF16 /* os_glk_resources.cpp */,
 				946A07640B121A5812CB92C3 /* os_glk_commands.cpp */,
 				2790AACA0CBC58CAF7F1BA95 /* os_glk_input.cpp */,
@@ -8031,6 +8036,7 @@
 				936D840A8647FDCCAD31E08D /* os_glk_status.cpp in Sources */,
 				04BCA64E9F41DD24ADEA66C9 /* os_glk_output.cpp in Sources */,
 				044229B12E3D4E51408AE5C7 /* os_glk_symbols.cpp in Sources */,
+				5C1B1A000000000000000118 /* os_glk_styles.cpp in Sources */,
 				3851145B2D9911FAC32FEA2C /* os_glk_resources.cpp in Sources */,
 				3E2E84B018DE10869B0A956E /* os_glk_commands.cpp in Sources */,
 				CACD7EACBA73D9E051991AD9 /* os_glk_input.cpp in Sources */,

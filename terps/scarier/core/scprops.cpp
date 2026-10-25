@@ -23,6 +23,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include <set>
+#include <string>
 #include <vector>
 
 #include "scarier.h"
@@ -1320,6 +1322,94 @@ prop_get_taf (scr_prop_setref_t bundle)
   assert (prop_is_valid (bundle));
 
   return bundle->taf;
+}
+
+
+/*
+ * prop_walk_strings()
+ *
+ * Visit every string leaf in the tree, in key order, with its path written as
+ * the keys joined by '/' ("Rooms/3/Long", "Header/StartupText").  A leaf does
+ * not record its own type, so a string is told by where it lives: every
+ * string the parser stores points into a TAF slab (one-line fields) or is an
+ * adopted orphan (multiline fields, and the strings fixups build).  Integers
+ * and booleans are small values that never land in either.  Empty strings
+ * are skipped, there being nothing in them to visit.
+ */
+namespace {
+
+struct prop_walk_t
+{
+  scr_prop_setref_t bundle;
+  std::set<const void *> orphans;
+  void (*visit) (const scr_char *, const scr_char *, void *);
+  void *opaque;
+  std::string path;
+
+  void node (scr_prop_noderef_t node);
+};
+
+} /* namespace */
+
+void
+prop_walk_t::node (scr_prop_noderef_t node)
+{
+  if (node == nullptr)
+    return;
+
+  if (node->child_list)
+    {
+      std::vector<scr_prop_noderef_t> children (
+          node->child_list, node->child_list + node->property.integer);
+      const size_t length = path.size ();
+      size_t index_;
+
+      /* String-keyed children are held in hash order; walk them by name. */
+      if (node->child_hashes)
+        qsort (children.data (), children.size (),
+               sizeof (children[0]), prop_compare_child_names);
+
+      for (index_ = 0; index_ < children.size (); index_++)
+        {
+          scr_prop_noderef_t child = children[index_];
+
+          if (child == nullptr)
+            continue;
+          if (!path.empty ())
+            path += '/';
+          if (node->child_hashes)
+            path += child->name.string;
+          else
+            path += std::to_string (child->name.integer);
+          prop_walk_t::node (child);
+          path.resize (length);
+        }
+    }
+  else
+    {
+      const scr_char *string = node->property.string;
+
+      if ((taf_debug_is_taf_string (bundle->taf, string)
+           || orphans.count (string) > 0)
+          && string[0] != NUL)
+        visit (path.c_str (), string, opaque);
+    }
+}
+
+void
+prop_walk_strings (scr_prop_setref_t bundle,
+                   void (*visit) (const scr_char *, const scr_char *, void *),
+                   void *opaque)
+{
+  prop_walk_t walk;
+
+  assert (prop_is_valid (bundle) && visit);
+
+  walk.bundle = bundle;
+  walk.orphans.insert (bundle->orphans.begin (), bundle->orphans.end ());
+  walk.visit = visit;
+  walk.opaque = opaque;
+  walk.node (bundle->root_node);
 }
 
 

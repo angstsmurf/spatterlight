@@ -1273,6 +1273,7 @@ gsc_a5_meta_perform (a5_run_t *&run)
 static void
 gsc_a5_main_setup (a5_run_t *&run, int autorestore)
 {
+  gsc_styles_census_a5 (gsc_a5_adv);
   gsc_hint_window_styles ();
 
   /* An autorestore adopts the archived windows further down instead: opening
