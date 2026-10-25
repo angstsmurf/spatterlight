@@ -156,15 +156,16 @@ os_stop_sound (void)
  * image, shown by the engine before the game's first turn.  A cover is shown
  * one of two ways, never half-way between them:
  *
- *   - a cover that fits comfortably in the main window (a wide banner) is
- *     drawn inline at the top of the story, like any other graphic -- the
+ *   - a wide banner that fits comfortably in the main window is drawn
+ *     inline at the top of the story, like any other graphic -- the
  *     redraw-after-clear in os_glk_output.cpp keeps it on screen when the
  *     intro opens with a <cls>, as "To Hell in a Hamper" does;
  *
- *   - a bigger one (SS Whore's portrait cover, say) becomes a title screen: a
- *     graphics window over the whole display, the image scaled to fit and
- *     centred, until the player presses a key or clicks.  The intro text,
- *     still buffered, then appears in the full-height main window.
+ *   - a taller one, or any portrait cover (SS Whore's, Yon Astounding
+ *     Castle's), becomes a title screen: a graphics window over the whole
+ *     display, the image scaled to fit and centred, until the player
+ *     presses a key or clicks.  The intro text, still buffered, then
+ *     appears in the full-height main window.
  *
  * An earlier version showed every cover in a pane above the main window while
  * the intro text ran beneath it, which left neither the picture nor the text
@@ -271,9 +272,13 @@ gsc_close_title_graphic (void)
  * gsc_title_fits_inline()
  *
  * Given the title window just opened over the display, decide whether the
- * cover would sit comfortably inline instead: no more than half the display's
- * height once a text buffer has narrowed it to the display's width (as
- * Spatterlight does; images narrower than that are drawn at their own size).
+ * cover would sit comfortably inline instead: a banner, wider than it is
+ * tall, that takes no more than half the display's height once a text
+ * buffer has narrowed it to the display's width (as Spatterlight does;
+ * images narrower than that are drawn at their own size).  A portrait cover
+ * is always a title screen, whatever the display's size: its height is the
+ * one a taller window would otherwise fit inline, and it reads as a book
+ * cover, not a heading.
  */
 static int
 gsc_title_fits_inline (void)
@@ -286,6 +291,8 @@ gsc_title_fits_inline (void)
   if (!glk_image_get_info (gsc_title_image, &img_width, &img_height)
       || img_width == 0 || img_height == 0)
     return TRUE;
+  if (img_height >= img_width)
+    return FALSE;
 
   inline_height = img_width > win_width
                   ? img_height * win_width / img_width : img_height;
