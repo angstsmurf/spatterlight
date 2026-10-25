@@ -533,6 +533,34 @@ void hugo_settextmode(void)
 
 
 
+/*
+ * COLOURS
+ *
+ * The engine passes hugo_settextcolor() and hugo_setbackcolor() an index:
+ * 0-15 are the Hugo palette, 16-19 the four defaults (text, background,
+ * statusline text, statusline background: the DEF_* names above) and 20
+ * means "match the foreground". A window context keeps the pair last set
+ * in it (fg, bg) and the colour it is painted in (papercolor), because
+ * the engine does not send the main window's colours again when a window
+ * block ends.
+ *
+ * Text is coloured with zcolors. A default that the window treats as its
+ * own, the main pair in a text buffer or the statusline pair in a grid or
+ * the status window, goes to the GUI as zcolor_Default, which it resolves
+ * against the theme when it draws, so that the text follows a light/dark
+ * switch. Everything else is sent as RGB: the palette, the defaults of
+ * the other kind of window, and any default in a context without a Glk
+ * window. heglk_rgb_of() makes that decision and heglk_zcolors_of() the
+ * pair for printing, both from a heglk_colorctx that describes the
+ * window, so the rules can be read without the window array.
+ *
+ * An explicit background is painted on the whole window with win_setbgnd
+ * (heglk_set_window_bg, hugo_mapcurwin), and on the screen behind the
+ * windows when the window fills it (hugo_clearwindow, which records it
+ * in screen_bg for the contexts opened afterwards). lastfg/lastbg hold
+ * the pair last sent, so hugo_print only sends zcolors on a change.
+ */
+
 /* The 16 standard Hugo colours, HUGO_BLACK to HUGO_BRIGHT_WHITE */
 static const int hugo_rgb[16] = {
     0x000000, 0x00007f, 0x007f00, 0x007f7f,
@@ -541,15 +569,42 @@ static const int hugo_rgb[16] = {
     0xff0000, 0xff00ff, 0xffff00, 0xffffff,
 };
 
-/* Colour C as an RGB value for context I. A default colour that is also
- * I's own default becomes zcolor_Default (see below), so the result depends
- * on the window as well as on C. */
-static int heglk_color_for(int i, int c)
+/* Which pair of defaults a window context treats as its own */
+enum heglk_defaults { DEFAULTS_NONE, DEFAULTS_MAIN, DEFAULTS_STATUS };
+
+/* What the colour rules need to know about a window context */
+struct heglk_colorctx
+{
+    enum heglk_defaults defaults;
+    glui32 wintype;        /* its Glk window type, 0 when unmapped */
+    int fg, bg;            /* the colours set in it */
+    int papercolor;        /* the colour it is painted in */
+};
+
+static struct heglk_colorctx heglk_colorctx_of(int i)
+{
+    struct heglk_colorctx ctx;
+
+    ctx.defaults = DEFAULTS_NONE;
+    ctx.wintype = 0;
+    if (wins[i].win || (statuswin && i == statuswin))
+        ctx.defaults = (i == statuswin || wins[i].win->type == wintype_TextGrid)
+                     ? DEFAULTS_STATUS : DEFAULTS_MAIN;
+    if (wins[i].win)
+        ctx.wintype = wins[i].win->type;
+    ctx.fg = wins[i].fg;
+    ctx.bg = wins[i].bg;
+    ctx.papercolor = wins[i].papercolor;
+    return ctx;
+}
+
+/* Colour index C as the GUI gets it, for the window CTX describes: a
+ * default that the window treats as its own, and that is the colour set
+ * in it, goes as zcolor_Default, the rest as RGB. Colour 20 follows the
+ * engine's current text colour, fcolor. */
+static int heglk_rgb_of(const struct heglk_colorctx *ctx, int c)
 {
     int converted = 0;
-    /* Color-setting functions should always pass the color through
-     hugo_color() in order to properly set default fore/background colors:
-     */
 
     switch (c)
     {
@@ -558,7 +613,7 @@ static int heglk_color_for(int i, int c)
         case DEF_SLFCOLOR:     converted = gsfgcol; break;
         case DEF_SLBGCOLOR:     converted = gsbgcol; break;
         case 20:    /* match foreground (guarded against recursing for ever) */
-            converted = fcolor == 20 ? 0 : heglk_color_for(i, fcolor); break;
+            converted = fcolor == 20 ? 0 : heglk_rgb_of(ctx, fcolor); break;
         default:
             if (c >= 0 && c < 16)
                 converted = hugo_rgb[c];
@@ -566,40 +621,79 @@ static int heglk_color_for(int i, int c)
                 LOG("Unmapped color %d\n", c);
     }
 
-    /* A window's own default colors go to the GUI as zcolor_Default, which it
-       resolves against the theme when it draws, so that text follows a
-       light/dark switch. A default text color used to be passed as a default
-       only when the background was a default too; with a custom background it
-       was fixed at gfgcol/gsfgcol, and that text kept the old side's color. */
-    if (wins[i].win || (statuswin && i == statuswin))
+    /* A default text color used to be passed as a default only when the
+       background was a default too; with a custom background it was fixed
+       at gfgcol/gsfgcol, and that text kept the old side's color after a
+       theme switch. */
+    switch (ctx->defaults)
     {
-        if (i == statuswin || wins[i].win->type == wintype_TextGrid)
-        {
-            if (c == DEF_SLFCOLOR && wins[i].fg == DEF_SLFCOLOR)
-            {
+        case DEFAULTS_STATUS:
+            if ((c == DEF_SLFCOLOR && ctx->fg == DEF_SLFCOLOR)
+                || (c == DEF_SLBGCOLOR && ctx->bg == DEF_SLBGCOLOR))
                 return zcolor_Default;
-            }
-            if (c == DEF_SLBGCOLOR && wins[i].bg == DEF_SLBGCOLOR) {
+            break;
+        case DEFAULTS_MAIN:
+            if ((c == DEF_FCOLOR && ctx->fg == DEF_FCOLOR)
+                || (c == DEF_BGCOLOR && ctx->bg == DEF_BGCOLOR))
                 return zcolor_Default;
-            }
-        } else {
-            if (c == DEF_FCOLOR && wins[i].fg == DEF_FCOLOR)
-            {
-                return zcolor_Default;
-            }
-            if (c == DEF_BGCOLOR && wins[i].bg == DEF_BGCOLOR)
-            {
-                return zcolor_Default;
-            }
-        }
+            break;
+        case DEFAULTS_NONE:
+            break;
     }
 
     return converted;
 }
 
+/* Colour C as the GUI gets it, for window context I */
+static int heglk_color_for(int i, int c)
+{
+    struct heglk_colorctx ctx = heglk_colorctx_of(i);
+    return heglk_rgb_of(&ctx, c);
+}
+
 int hugo_color(int c)
 {
     return heglk_color_for(curwin, c);
+}
+
+struct heglk_zcolors { int fg, bg; };
+
+/* The zcolor pair for printing in the window CTX describes */
+static struct heglk_zcolors heglk_zcolors_of(const struct heglk_colorctx *ctx)
+{
+    struct heglk_zcolors z;
+    int shown_fg, shown_bg;
+
+    z.fg = heglk_rgb_of(ctx, ctx->fg);
+    z.bg = heglk_rgb_of(ctx, ctx->bg);
+
+    /* What the text will look like, with a buffer's defaults resolved
+       against the theme */
+    shown_fg = z.fg;
+    shown_bg = z.bg;
+    if (ctx->wintype == wintype_TextBuffer)
+    {
+        if (shown_fg < 0)
+            shown_fg = gfgcol;
+        if (shown_bg < 0)
+            shown_bg = gbgcol;
+    }
+
+    /* The statusline default background on a grid painted in something
+       else is the statusline colour, not the paint */
+    if (ctx->wintype == wintype_TextGrid && ctx->bg == DEF_SLBGCOLOR
+        && ctx->papercolor != DEF_SLBGCOLOR)
+        z.bg = gsbgcol;
+
+    /* Both defaults: leave the stream's colours as they are */
+    if (z.fg == (int)zcolor_Default && z.bg == (int)zcolor_Default)
+        z.fg = z.bg = (int)zcolor_Current;
+
+    /* Black on black would vanish, so show it in white */
+    if (shown_fg == 0 && (shown_bg == 0 || (z.bg < 0 && ctx->papercolor == 0)))
+        z.fg = heglk_rgb_of(ctx, HUGO_WHITE);
+
+    return z;
 }
 
 void hugo_settextcolor(int c)
@@ -2457,56 +2551,27 @@ static void heglk_adjust_pre_v24_status_when_printing(void)
         lowest_printed_position_in_status = 1;
 }
 
+/* Send the current window the zcolors for its colours */
 static void heglk_zcolor(void)
 {
     if (!wins[curwin].win)
         return;
     glk_set_window(wins[curwin].win);
 
-    int fg = wins[curwin].fg;
-    int bg = wins[curwin].bg;
+    struct heglk_colorctx ctx = heglk_colorctx_of(curwin);
 
-    int glk_fgcolor = hugo_color(fg);
-    int glk_bgcolor = hugo_color(bg);
-
-    int fg_result = glk_fgcolor;
-    int bg_result = glk_bgcolor;
-
-    if (wins[curwin].win->type == wintype_TextBuffer) {
-        if (fg_result < 0)
-            fg_result = gfgcol;
-        if (bg_result < 0)
-            bg_result = gbgcol;
-
-        if (bg == DEF_BGCOLOR &&
-            ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
-        {
-            win_setbgnd(wins[curwin].win->peer, -1);
-            LOG("Trying to set window background back to default\n");
-        }
-    }
-
-    if (bg == DEF_SLBGCOLOR && wins[curwin].win->type == wintype_TextGrid) {
-        if ((currentpos == 0 && currentline == 1) || wins[curwin].clear)
-        {
-            win_setbgnd(wins[curwin].win->peer, -1);
-            LOG("Trying to set window background back to default\n");
-        }
-        if (wins[curwin].papercolor != DEF_SLBGCOLOR)
-            glk_bgcolor = gsbgcol;
-    }
-
-    if (glk_fgcolor == -1 && glk_bgcolor == -1)
+    /* At the top of a window whose background is back at its own default,
+       hand the paper back to the theme too */
+    int own_default_bg = (ctx.wintype == wintype_TextBuffer && ctx.bg == DEF_BGCOLOR)
+                      || (ctx.wintype == wintype_TextGrid && ctx.bg == DEF_SLBGCOLOR);
+    if (own_default_bg && ((currentpos == 0 && currentline == 1) || wins[curwin].clear))
     {
-        glk_fgcolor = glk_bgcolor = -2;
+        win_setbgnd(wins[curwin].win->peer, -1);
+        LOG("Trying to set window background back to default\n");
     }
 
-    if (fg_result == 0 && (bg_result == 0 || (glk_bgcolor < 0 && wins[curwin].papercolor == 0)))
-    {
-        glk_fgcolor = hugo_color(HUGO_WHITE);
-    }
-
-    garglk_set_zcolors(glk_fgcolor, glk_bgcolor) ;
+    struct heglk_zcolors z = heglk_zcolors_of(&ctx);
+    garglk_set_zcolors(z.fg, z.bg);
 }
 
 
