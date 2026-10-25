@@ -165,7 +165,10 @@ struct ColourMode {
   bool on = false;               /* zcolors are being named */
   bool startup = false;          /* on from the first window */
   bool hints_preapplied = false; /* the open windows already have the hints */
-  glui32 main_fg = 0;            /* last foreground named on the main window */
+  glui32 main_fg = COLOUR_NONE;  /* last foreground named on the main window */
+  glui32 hint_fg = COLOUR_NONE;  /* the Normal colours last published as hints */
+  glui32 hint_bg = COLOUR_NONE;
+  winid_t main_win = nullptr;    /* the frontend's main text window */
 };
 extern ColourMode g_colour;
 
@@ -177,6 +180,27 @@ void colour_set_normal_hints (bool on);
 void colour_startup_prepare ();
 void colour_apply (winid_t win, glui32 fg, winid_t main);
 void colour_repaint (winid_t win, bool on);
+/* The common head of a toggle: the flag, the hints and the measure cache.
+ * Returns whether the frontend has to rebuild its windows, which it then
+ * repaints and redraws itself. */
+bool colour_toggle_begin (bool on);
+/* A background the game sets in play (Quest 4's `background', Quest 5's
+ * SetBackgroundColour): kept for later spans and for a rebuild, and, while
+ * the mode is on, painted at once if `main_empty' says no text is lost by
+ * clearing.  `span_fg' is the colour the text being written is in. */
+void colour_set_background (glui32 bg, bool main_empty, glui32 span_fg);
+/* Named on a status grid after each clear: the palette inverted while it is
+ * showing, else the reverse-video User1 the theme draws.  End puts the main
+ * window's colours back, since Gargoyle's zcolors are global. */
+void colour_status_begin (strid_t stream);
+void colour_status_end ();
+
+/* COLOURS / COLORS metaverb: kColourOn, kColourOff, kColourReport, or 0 when
+ * it is not one (let it reach the game). */
+enum { kColourOn = 1, kColourOff = 2, kColourReport = 3 };
+int match_colour_command (const std::string &raw);
+/* Act on one and say what came of it; `set' is the frontend's toggle. */
+void run_colour_command (int which, void (*set) (bool on));
 
 /* The load-time verdict on whether a game was written for a page the theme
  * cannot stand in for.  Each frontend feeds it what its scan finds; any rule
@@ -354,6 +378,14 @@ struct BlobReader {
   std::string str ();
   bool at_end () const { return pos >= s.size (); }
 };
+
+/* The colour mode in a frontend blob: whether it is on and the palette the
+ * game has set in play.  Get puts it back, hints included, for the windows
+ * the restored session opens later; the frontend then sets main_win and
+ * calls colour_restored for the main window's text colour. */
+void colour_blob_put (std::string &b);
+void colour_blob_get (BlobReader &r);
+void colour_restored ();
 
 /* What autosave.glksave holds, whichever engine wrote it.
  *

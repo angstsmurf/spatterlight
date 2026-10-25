@@ -22,6 +22,7 @@
  * aslxglk-internal.hh). */
 
 #include "aslxglk-internal.hh"
+#include "aslxglk-map.hh"
 
 namespace aslxglk {
 
@@ -1098,6 +1099,80 @@ bool handle_transcript_command(const std::string &raw)
         return false;
     echo_metaverb_command(raw);
     toggle_transcript(on, gwin, &gtranscript);
+    return true;
+}
+
+/* The interpreter a COLOURS command came from: set_colour redraws the side
+ * pane and the banner from it.  Null at startup, before either is drawn. */
+static Interp *g_colour_interp = nullptr;
+
+#ifdef QUESTGLK_HAVE_ZCOLORS
+/* Close every window and open again the ones that were open, so that new
+ * Normal hints reach them: libraries snapshot hints when a window opens.
+ * The main window's text is lost, as in Scarier; the banner, the pane, the
+ * picture band and the map are drawn again from what they hold.  The bands
+ * open in a fixed order (picture, then map), whichever came first. */
+static void rebuild_windows()
+{
+    bool had_banner = gbanner != nullptr;
+    winid_t root = glk_window_get_root();
+    if (root)
+        glk_window_close(root, nullptr);
+    gwin = gbanner = gobjwin = gdivider = gformwin = nullptr;
+
+    gwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+    if (!gwin)
+        return;
+    glk_set_window(gwin);
+    if (had_banner)
+        gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
+                                  wintype_TextGrid, 0);
+    if (gtranscript)
+        glk_window_set_echo_stream(gwin, gtranscript);
+    questglk::g_colour.main_win = gwin;
+    panel_reopen();
+    grid_map_reopen();
+    g_pane_dirty = true;
+    if (g_links_requested)
+        request_hyperlinks();
+}
+
+/* Turn the game's colours on or off (TODO-colours.md, Step 4): Scarier's
+ * gsc_set_colour for this frontend's windows. */
+void set_colour(bool on)
+{
+    bool links = g_links_requested;
+    if (questglk::colour_toggle_begin(on))
+        rebuild_windows();
+    questglk::colour_repaint(gwin, on);
+    if (gbanner && !on)
+        garglk_set_zcolors_stream(glk_window_get_stream(gbanner),
+                                  zcolor_Default, zcolor_Default);
+    questglk::colour_apply(gwin, g_style.colour(), gwin);
+    g_main_written = false;
+    if (g_colour_interp) {
+        update_banner(*g_colour_interp);
+        redraw_side_pane(*g_colour_interp);
+    }
+    fill_pane_divider();
+    if (links && g_hyperlinks && gobjwin)
+        glk_request_hyperlink_event(gobjwin);
+}
+#else
+void set_colour(bool)
+{
+}
+#endif
+
+/* COLOURS ON / OFF: show the game's own colours, or the theme. */
+bool handle_colour_command(Interp &in, const std::string &raw)
+{
+    int which = questglk::match_colour_command(raw);
+    if (!which)
+        return false;
+    echo_metaverb_command(raw);
+    g_colour_interp = &in;
+    questglk::run_colour_command(which, set_colour);
     return true;
 }
 

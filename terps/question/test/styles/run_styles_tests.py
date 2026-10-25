@@ -3,8 +3,10 @@
 
 Each styles_*.asl (Quest 4) and styles_*.aslx (Quest 5) fixture is run
 through the real Glk frontend under test/glkdrive.py's fake app with a single
-LOOK.  The report is the style hints the terp sets before its windows open,
-then the style each span of output lands in; it is compared with
+LOOK, or the commands in <fixture>.script beside it.  The report is the style
+hints the terp sets before its windows open, then the style each span of
+output lands in and the colours (ZCOLOR) the colour mode names; it is
+compared with
 <fixture>_glk_expected.txt.  The unit tests (questglk_unit_tests) pin the
 assignment itself; this checks that the census reads the game and that the
 frontends print through the table.
@@ -30,21 +32,41 @@ glkdrive = rat.glkdrive
 SCRIPT = ["look"]
 
 
+def zcolor_name(c):
+    """A zcolor as the report prints it: #rrggbb, or what it stands for."""
+    c &= 0xFFFFFFFF
+    names = {0xFFFFFFFE: "Current", 0xFFFFFFFF: "Default"}
+    return names.get(c, "#%06x" % c)
+
+
 def report(terp, game, work):
     """The style report of one session: hints in order, then spans."""
     sig = "question-styles-test-" + os.path.basename(game)
     os.environ["SPATTERLIGHT_AUTOSAVE_SIGNATURE"] = sig
     os.environ.setdefault("ASLX_CORE", rat.ASLX_CORE)
     rat.clean_autosave(sig)
-    d = glkdrive.Driver(terp, game, work, list(SCRIPT))
+    script = list(SCRIPT)
+    side = os.path.splitext(game)[0] + ".script"
+    if os.path.exists(side):
+        with open(side) as f:
+            script = [ln.rstrip("\n") for ln in f if ln.strip()]
+    d = glkdrive.Driver(terp, game, work, script)
     try:
         rc, err = d.run()
     finally:
         rat.clean_autosave(sig)
     lines = list(d.hints)
-    lines += ["SPAN %d %s %r" % (peer, glkdrive.name_of(glkdrive.STYLE_NAMES,
-                                                         style), text)
-              for peer, style, text in d.spans]
+    zcolors = list(d.zcolors)
+    for i, span in enumerate(d.spans + [None]):
+        while zcolors and zcolors[0][0] == i:
+            _, zpeer, fg, bg = zcolors.pop(0)
+            lines.append("ZCOLOR %d %s %s" % (zpeer, zcolor_name(fg),
+                                               zcolor_name(bg)))
+        if span is None:
+            break
+        peer, style, text = span
+        lines.append("SPAN %d %s %r" % (
+            peer, glkdrive.name_of(glkdrive.STYLE_NAMES, style), text))
     problems = []
     if rc != 0:
         problems.append("exit %s" % rc)

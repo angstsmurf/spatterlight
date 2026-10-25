@@ -440,6 +440,9 @@ void redraw_side_pane(Interp &in)
  * way, so they all come here. */
 void handle_arrange(Interp &in)
 {
+    /* A theme change arrives as an arrange: measure the theme again before
+     * the banner judges whether the game's colours are showing. */
+    questglk::normal_measure_reset();
     update_banner(in);
     fill_pane_divider();
     grid_map_arrange();

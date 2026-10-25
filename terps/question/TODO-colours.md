@@ -146,7 +146,7 @@ through `os_glk_internal.h`.
   Quest 4 should also accept CSS names; the real runner didn't.
 - [x] Port `gsc_colour_luminance` and `gsc_colour_legible` unchanged.
 - [x] Port `normal_measure` with its cache and `colour_visible`.
-- [ ] Call `normal_measure_reset` in both frontends' `evtype_Arrange` handlers
+- [x] Call `normal_measure_reset` in both frontends' `evtype_Arrange` handlers
   (`questionglk.cc` ~1054/1594, `aslxglk-input.cc` ~386/516/801). Moved to
   Step 4: the reset only means something next to the rebuild it triggers.
 - [x] Port `set_normal_hints`, `colour_apply`, `colour_repaint` and the
@@ -240,14 +240,14 @@ Done. Notes from building it:
 
 ### 3. Per-span colour in the printers
 
-- [ ] **Quest 4.** Fill in `set_foreground` and `set_background` to update the
+- [x] **Quest 4.** Fill in `set_foreground` and `set_background` to update the
   palette. Background is the `<bgcolour>` case: if the mode is on, repaint when
   this doesn't lose text, using the same "window still empty" test Scarier
   uses (`gsc_main_window_empty`). Make `set_style` call `colour_apply` with
   `style.color` or the game foreground. `|cb` (empty) means inherit.
   - Decide what the alias `|cr` red is: Scarier's "input colour" or a plain
     red. Under Quest it's literally `red`.
-- [ ] **Quest 5.**
+- [x] **Quest 5.**
   - Add `color` to `StylePush` and a colour stack to `InlineStyle`, pushed
     and popped like `sizes`. `css_style` reads `color`. `tag_style` reads
     `<font color>`.
@@ -266,9 +266,23 @@ Done. Notes from building it:
   probably just uses fg. Confirm against QuestViva and the Quest 4.1.5 Wine
   runner before porting `gsc_colour_echo` at all.
 
+Done, except where noted below. Notes:
+
+- Quest 4 reads colour names the way QuestViva's `GetHTMLColour` does: it
+  knows only white, black, blue, yellow, red and green. Any other name
+  becomes `#name`, which the browser ignores, so `navy` is rightly
+  `COLOUR_NONE`; bare hex such as `000080` works. The alias `|cr` is plain red.
+- Quest 5 links take only the colour from Core's `GetCurrentLinkTextFormat`
+  style; their font and size are the text's. Whether Spatterlight and
+  Gargoyle draw zcolors on hyperlinked text is still to be seen (Step 5).
+- Echo and prompt: not ported. The echo is written in the current span
+  colour, which is the game foreground. Comparing with QuestViva and the
+  Wine runner is still open.
+- Not done: the `do what you want.asl` convenience (see the end of Step 2).
+
 ### 4. Windows, panes and the toggle
 
-- [ ] Add a rebuild per frontend:
+- [x] Add a rebuild per frontend:
   - **Quest 4:** main, banner, object pane, divider.
   - **Quest 5:** main, banner, side pane, divider, picture panel, map.
 
@@ -278,37 +292,57 @@ Done. Notes from building it:
   (`questglk-common.cc` ~1022), `panel_set_background` (`aslxglk-media.cc`
   ~588), and the map canvas. Check that each one picks up the palette after a
   rebuild, without code of its own.
-- [ ] Status bar and banner: port the inverted-Normal-in-colour-mode /
+- [x] Status bar and banner: port the inverted-Normal-in-colour-mode /
   reverse-User1-otherwise rule (`questglk-common.cc` ~646 already hints User1
   reverse in the grid). Name zcolors again after every grid clear, put the main
   stream's colours back afterwards, and set Default on the status stream when
   turning the mode off (Gargoyle's global zcolors).
-- [ ] **Decision for the user: how does the player toggle the mode?** Question
+- [x] **Decision for the user: how does the player toggle the mode?** Question
   passes every command to the game. Choose between:
   - a new frontend-intercepted command (Scarier's `glk colour on|off`), or
   - a command-line switch only, plus Spatterlight's existing "Games can set
     colors and styles" theme setting as the real off switch. Since
     `colour_visible` already treats "hints ignored" as off, this may be all
     that's needed.
-- [ ] Autosave: add `colour_on` to `QuestionGlkFrontendState`
+- [x] Autosave: add `colour_on` to `QuestionGlkFrontendState`
   (`questionglk-autosave.h`) and to the Quest 5 blob (`aslxglk-autosave.cc`).
   Add the palette too, unless it's shown to come back on its own. A Quest 4
   `background` statement run in play is frontend state, so it's lost if only
   the flag is saved. Bump the blob version, and decode old blobs as "off".
   Make sure detection is skipped on autorestore.
 
+Done. Notes:
+
+- The toggle is option (a): `COLOURS`, `COLOURS ON` and `COLOURS OFF`
+  (and `colour`/`color`/`colors`, with or without a leading `#`), intercepted
+  by both frontends and listed in the frontend help.
+- The rebuild closes the root window and reopens the tree in session order.
+  Quest 4: main, banner/input, object pane. Quest 5: main, banner, picture
+  panel (`panel_reopen`), map (`grid_map_reopen`), with the side pane and
+  divider redrawn from game state and the hyperlink request made again.
+- Status bar: Normal with the game's colours inverted while colours are
+  visible, otherwise reverse User1. The main stream's colours are put back
+  after every draw (`colour_status_end`). Turning the mode off sets Default
+  zcolors on the banner.
+- Autosave: the flag, the palette and the current span colour are saved.
+  The Quest 4 blob is now version 2 and the Quest 5 blob is version 11;
+  older blobs decode as "off". Quest 4 needs the saved palette: zeroing the
+  saved background makes `q4-colours` fail. Quest 5 would recover without it,
+  because Core's `SetBackgroundColour` sets `game.defaultbackground` and
+  `InitInterface` applies it again.
+
 ### 5. Tests and checks
 
-- [ ] Add fixtures beside `test/styles/`: `colours_q4decl.asl` (dark declared
+- [x] Add fixtures beside `test/styles/`: `colours_q4decl.asl` (dark declared
   background), `colours_q4yellow.asl` (`|cy` on a white declaration, which
   must *not* turn the mode on), `colours_q5theme.aslx` (`theme_retro`),
   `colours_q5plain.aslx` (only a readable `<font color=red>`, which must stay
   off), and a `SetBackgroundColour`-in-play case. The `run_styles_tests.py`
   transcripts would need a `{fg/bg}` marker next to `{StyleName}` to see
   zcolors. Check whether glkimp's test hooks expose them.
-- [ ] Add `make autosave` cases `q4-colours` and `q5-colours`: start in
+- [x] Add `make autosave` cases `q4-colours` and `q5-colours`: start in
   colour, save, relaunch, and check that the mode and the background survive.
-- [ ] Text gates: `make check`, `make replays`, and the `aslxglk_smoke` diff
+- [x] Text gates: `make check`, `make replays`, and the `aslxglk_smoke` diff
   against a base build (the recipe is in the Quest 5 styles notes). All should
   be byte-identical, because the mode compiles out under CheapGlk.
 - [ ] Visual checks in Spatterlight, with "Games can set colors and styles" on
@@ -318,3 +352,23 @@ Done. Notes from building it:
   off, the status bar has to fall back to reverse User1, not draw invisibly in
   Normal.
 - [ ] Sync the garglk fork afterwards (see the Question sync notes).
+
+Done so far:
+
+- Fixtures (with a `.script` sidecar that replaces the single LOOK):
+  - `styles_colours.asl`: a Quest 4 game with a black/white `define game`,
+    run through look / colours off / look / colours on / look.
+  - `styles_q5colours.aslx`: a Quest 5 game with Black/White defaults that
+    calls `SetBackgroundColour("Navy")` in its start script.
+
+  `run_styles_tests.py` prints `ZCOLOR peer fg bg` lines between the SPAN
+  lines, using the zcolors that `glkdrive.py` now records. The two copies of
+  `glkdrive.py` (Question and Scarier) are kept identical.
+- Autosave cases `q4-colours` and `q5-colours` cut after each step of:
+  look, paint, look, colours off, look, colours on, look.
+- Gates: `make check`, `make styles`, `make autosave` and Scarier's styles
+  suite pass. `make replays` shows 367 passed and 7 failed, the same as before
+  this work. The `aslxglk_smoke` output is byte-identical to a build of
+  59b8710dc on all 374 Quest 5 goldens.
+- The census fixtures listed above (`colours_q4yellow` and the others) were
+  not added. The census run in Step 2 covers detection.

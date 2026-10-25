@@ -32,6 +32,11 @@ extern "C" {
  * records its tag and autorestore re-attaches it. */
 extern winid_t gmapwin;
 
+/* Defined by the text frontend (aslxglk-output.cc): the game set its
+ * background colour (SetBackgroundColour, a CSS colour as written), which
+ * the colour mode paints the main window in. */
+void game_background_colour(const std::string &css);
+
 /* The grid_draw host hook: fold one engine paint command into the display
  * list (and open or close the pane on a ShowGrid). */
 void grid_map_command(const aslx::GridDraw &g);
@@ -40,6 +45,8 @@ void grid_map_command(const aslx::GridDraw &g);
 void redraw_grid_map();
 /* Arrange/Redraw events: the window was blanked, send everything again. */
 void grid_map_arrange();
+/* Open the map pane again after every window was closed, when it was shown. */
+void grid_map_reopen();
 /* Forget what is on screen, so the next redraw sends the whole surface (the
  * window is fresh, or no longer holds what was last blitted). */
 void gm_screen_drop();

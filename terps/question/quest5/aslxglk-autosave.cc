@@ -135,13 +135,17 @@ std::string aslx_encode_frontend(Interp &in, const RngStreams *turn_rngs)
             blob_str(b, l.command);
         }
     }
+    /* COLOURS ON / OFF and the palette the game set in play. */
+    questglk::colour_blob_put(b);
     return b;
 }
 
 bool aslx_recover_frontend(const std::string &blob)
 {
     BlobReader r{blob};
-    if (r.str() != kAslxBlobMagic)
+    std::string magic = r.str();
+    bool colour = magic == kAslxBlobMagic;
+    if (!colour && magic != kAslxBlobMagicNoColour)
         return false;
     gwin = gli_window_for_tag((int) r.num());
     gbanner = gli_window_for_tag((int) r.num());
@@ -224,8 +228,15 @@ bool aslx_recover_frontend(const std::string &blob)
         }
         g_link_bar.emplace_back(id, std::move(links));
     }
+    if (colour && r.ok)
+        questglk::colour_blob_get(r);
     if (!r.ok || !gwin)
         return false;
+    /* The restored main window holds the session's text, which a background
+     * the game sets again on the way in must not clear. */
+    g_main_written = true;
+    questglk::g_colour.main_win = gwin;
+    questglk::colour_restored();
     /* The restored windows already have their sizes; this is for the pane's
      * next opening. */
     set_side_pane_wide(wide, nullptr, nullptr);

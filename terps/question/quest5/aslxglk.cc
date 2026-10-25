@@ -760,6 +760,7 @@ static TurnEnd run_parser_prompt(Interp &in, std::string &restore_data,
         } else if (!handle_transcript_command(cmd) &&
                    !handle_help_command(cmd) &&
                    !handle_sidebar_command(in, cmd) &&
+                   !handle_colour_command(in, cmd) &&
                    /* Not under a `get input`: unlike the metaverbs
                     * above, STATUS is a plain word a game may well be
                     * waiting to hear as an answer. */
@@ -1131,19 +1132,30 @@ extern "C" void aslx_glk_main(const char *storyfile)
         preloaded.reset();
         questglk::style_set_hints();
     }
-
-    gwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
-    if (!gwin)
-        return;
-    glk_set_window(gwin);
 #ifdef SPATTERLIGHT
     bool autorestoring = question_autosave_exists();
 #else
     bool autorestoring = false;
 #endif
+    /* A game that asks for its colours in its own attributes gets them with
+     * the hints set before any window opens; one asking only through its
+     * coloured text is known once the theme is measured, below. */
+    questglk::g_colour.startup = preloaded &&
+                                 questglk::g_colour_detect.on() &&
+                                 !autorestoring;
+    questglk::colour_startup_prepare();
+
+    gwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+    if (!gwin)
+        return;
+    glk_set_window(gwin);
+    questglk::g_colour.main_win = gwin;
     /* Coloured text is judged against the theme measured on it. */
-    if (preloaded)
+    if (preloaded) {
         questglk::colour_detect_settle(gwin, storyfile, autorestoring);
+        if (questglk::g_colour_detect.on() && !autorestoring)
+            set_colour(true);
+    }
 
     gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
                               wintype_TextGrid, 0);

@@ -143,6 +143,7 @@ class Driver:
         self.autosaves = []             # AUTOSAVE hashes seen
         self.hints = []                 # STYLEHINT / CLEARHINT, in order
         self.spans = []                 # [peer, style, text] runs
+        self.zcolors = []               # (span index, peer, fg, bg) SETZCOLORs
         self.log = []
 
     def reply(self, cmd, a1=0, a2=0, a3=0, a4=0, a5=0, payload=b""):
@@ -183,7 +184,9 @@ class Driver:
         elif cmd == PRINT:
             text = payload.decode("utf-16-le", "replace")
             self.transcript.append(text)
-            if self.spans and self.spans[-1][:2] == [a1, a2]:
+            if (self.spans and self.spans[-1][:2] == [a1, a2] and
+                    not (self.zcolors and
+                         self.zcolors[-1][0] == len(self.spans))):
                 self.spans[-1][2] += text
             else:
                 self.spans.append([a1, a2, text])
@@ -199,6 +202,9 @@ class Driver:
                               % (name_of(WINTYPE_NAMES, a1),
                                  name_of(STYLE_NAMES, a2),
                                  name_of(HINT_NAMES, a3)))
+        elif cmd == SETZCOLOR:
+            # a1 = window, a2/a3 = fg/bg; the next text starts a new span.
+            self.zcolors.append((len(self.spans), a1, a2, a3))
         elif cmd == SETLINK:
             # a1 = window, a2 = link value (0 ends the linked run).
             if a2:

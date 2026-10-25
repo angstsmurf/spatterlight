@@ -22,6 +22,7 @@
  * aslxglk-internal.hh). */
 
 #include "aslxglk-internal.hh"
+#include "aslxglk-map.hh"
 
 namespace aslxglk {
 
@@ -50,6 +51,7 @@ void put_uni_char(glui32 c)
         g_at_line_start = true;
     else if (c != ' ' && c != '\t')  /* indentation is not text */
         g_at_line_start = false;
+    g_main_written = true;
     if (g_tee)
         g_tee->push_back((char32_t) c);
 }
@@ -58,6 +60,8 @@ void put_uni_char(glui32 c)
 void put_host_string(const char *s)
 {
     glk_put_string((char *) s);
+    if (*s)
+        g_main_written = true;
     for (; *s; s++)
         if (*s == '\n')
             g_at_line_start = true;
@@ -108,6 +112,11 @@ void apply_style()
 {
     glk_set_style(quest_style_for(g_style.combo(g_default_points,
                                                 g_div_align)));
+    /* The innermost colour, Core's own span colour (game.defaultforeground
+     * as it is when the text is written) among them.  Only the main
+     * window's text is the game's; the panes draw in the Normal hints. */
+    if (gwin && glk_stream_get_current() == glk_window_get_stream(gwin))
+        questglk::colour_apply(gwin, g_style.colour(), gwin);
 }
 
 /* Value of attr="..." (or attr='...') inside a raw tag body, or "". */
@@ -789,6 +798,7 @@ void clear_screen_ui()
     g_continue_shown.clear();   /* chrome died with the window */
     glk_window_clear(gwin);
     g_at_line_start = true;
+    g_main_written = false;
     g_break_owed = false;
     g_clear_gen++;
 }
@@ -876,6 +886,10 @@ void render_html_inner(const std::string &raw)
                 }
             } else if (name == "a") {
                 if (!closing) {
+                    /* Core's links carry GetCurrentLinkTextFormat: only the
+                     * colour is taken, its font and size being the text's. */
+                    p.colour = css_style(tag_attr(tag, "style"),
+                                         g_default_points).colour;
                     LinkAction act = link_action(tag);
                     if (act.inner_text)
                         act.command = element_inner_text(html, i, "a");
@@ -975,7 +989,8 @@ void render_html_inner(const std::string &raw)
     g_break_owed = false;
     if (g_style.bold != base.bold || g_style.italic != base.italic ||
         g_style.under != base.under || g_style.mono != base.mono ||
-        g_style.sizes != base.sizes || g_style.aligns != base.aligns) {
+        g_style.sizes != base.sizes || g_style.aligns != base.aligns ||
+        g_style.colours != base.colours) {
         g_style = base;
         apply_style();
     }
@@ -1376,3 +1391,10 @@ void assign_game_styles(World &w)
 }
 
 }  // namespace aslxglk
+
+void game_background_colour(const std::string &css)
+{
+    questglk::colour_set_background(questglk::css_colour(css),
+                                    !aslxglk::g_main_written,
+                                    aslxglk::g_style.colour());
+}

@@ -147,6 +147,9 @@ class Session(glkdrive.Driver):
             self.delwin += 1
         elif cmd == glkdrive.AUTOSAVE:
             self.events.append(("autosave",))
+        elif cmd == glkdrive.SETZCOLOR:
+            self.events.append(("zcolor", a1, a2 & 0xFFFFFFFF,
+                                a3 & 0xFFFFFFFF))
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
 
     def chunks(self):
@@ -158,22 +161,33 @@ class Session(glkdrive.Driver):
         the one before it in the chunk is prefixed with its style's name in
         braces, so a relaunch that lost the game-derived style hints (built
         from a census of the game before the first window opens) shows up
-        as a text difference.  A keypress ahead of every line and click opens
+        as a text difference; likewise each change of the colours the
+        colour mode names, as {fg/bg}.  A keypress ahead of every line and click opens
         a chunk of its own: it answers a pause the start script put up, or
         (self.continues) the pause the previous session was closed on, and
         that chunk is then the rest of that session's last one.  Nothing
         after EVTQUIT is kept."""
-        pre, chunks, cur, style = [], [], None, None
+        pre, chunks, cur, style, zc = [], [], None, None, None
         self.continues = False
         for ev in self.events:
             if ev[0] == "quit":
                 break
             if ev[0] == "in":
-                cur, style = ["> %s\n" % ev[1]], None
+                cur, style, zc = ["> %s\n" % ev[1]], None, None
                 chunks.append(cur)
             elif ev[0] == "click":
-                cur, style = ["[click peer %d link %d]\n" % (ev[1], ev[2])], None
+                cur, style, zc = ["[click peer %d link %d]\n"
+                                  % (ev[1], ev[2])], None, None
                 chunks.append(cur)
+            elif ev[0] == "zcolor" and ev[1] == self.main_peer:
+                # The game's colours (COLOURS ON), marked when they change.
+                if ev[2:] != zc:
+                    zc = ev[2:]
+                    mark = "{%s/%s}" % tuple(
+                        {0xFFFFFFFF: "default", 0xFFFFFFFE: "current"}
+                        .get(c, "#%06x" % c) for c in zc)
+                    if cur is not None:     # the first span repeats it
+                        cur.append(mark)
             elif ev[0] in ("key", "tick"):
                 mark = "[%s]" % " ".join(str(x) for x in ev)
                 if cur is None and ev[0] == "key":
@@ -618,9 +632,11 @@ def build_cases(stage):
     probe4 = os.path.join(HERE, "probe4.asl")
     probe4intro = os.path.join(HERE, "probe4-intro.asl")
     probe4styles = os.path.join(HERE, "probe4-styles.asl")
+    probe4colours = os.path.join(HERE, "probe4-colours.asl")
     probe5 = os.path.join(HERE, "probe5.aslx")
     probe5intro = os.path.join(HERE, "probe5-intro.aslx")
     probe5styles = os.path.join(HERE, "probe5-styles.aslx")
+    probe5colours = os.path.join(HERE, "probe5-colours.aslx")
     probe6 = probe5_as(stage, 600)
     probe53 = probe5_as(stage, 530)
 
@@ -710,6 +726,13 @@ def build_cases(stage):
                     "{Emphasized}italic"])
     equiv("q4-styles", probe4styles, ["look", "big", "look"], [1, 2],
           expect=["{BlockQuote}a larger sentence"])
+
+    # The colour mode: on from the start (cut 1), with a background set in
+    # play (cut 2), turned off by the player (cut 4) and on again (cut 6).
+    colours = ["look", "paint", "look", "colours off", "look", "colours on",
+               "look"]
+    equiv("q4-colours", probe4colours, colours, [1, 2, 3, 4, 5, 6],
+          expect=["{#ffff00/#000080}yellow"])
 
     # Pane hyperlinks: live after a relaunch (cut 1), and the unfolded verb
     # menu -- a re-save without a turn -- comes back unfolded (cut 2).
@@ -875,6 +898,10 @@ def build_cases(stage):
                     "{Emphasized}italic"])
     equiv("q5-styles", probe5styles, ["look", "big", "look"], [1, 2],
           expect=["{User2}a larger sentence"])
+
+    # The colour mode, as q4-colours.
+    equiv("q5-colours", probe5colours, colours, [1, 2, 3, 4, 5, 6],
+          expect=["{#ffff00/#000080}yellow"])
 
     for name, gamefile, sol in (
             ("q5-walk-exit-the-room", "Exit the Room.quest",

@@ -898,7 +898,7 @@ colour_visible (winid_t main)
     glui32 fg, bg;
     if (!normal_measure (main, &fg, &bg))
         return true;
-    return fg == g_colour.foreground && bg == g_colour.background;
+    return fg == g_colour.hint_fg && bg == g_colour.hint_bg;
 }
 
 /* Publish or withdraw the palette as Normal hints, for the windows opened
@@ -906,6 +906,8 @@ colour_visible (winid_t main)
 void
 colour_set_normal_hints (bool on)
 {
+    g_colour.hint_fg = on ? g_colour.foreground : COLOUR_NONE;
+    g_colour.hint_bg = on ? g_colour.background : COLOUR_NONE;
     for (glui32 type : {wintype_TextBuffer, wintype_TextGrid}) {
         if (on) {
             glk_stylehint_set (type, style_Normal, stylehint_TextColor,
@@ -976,6 +978,123 @@ colour_repaint ([[maybe_unused]] winid_t win, [[maybe_unused]] bool on)
         glk_window_clear (win);
         garglk_set_zcolors_stream (stream, zcolor_Default, zcolor_Default);
     }
+#endif
+}
+
+bool
+colour_toggle_begin (bool on)
+{
+    g_colour.on = on;
+    bool preapplied = g_colour.hints_preapplied && on;
+    if (!preapplied)
+        colour_set_normal_hints (on);
+    normal_measure_reset ();
+    bool rebuild = g_colour.main_win && !preapplied;
+    g_colour.hints_preapplied = false;
+    g_colour.main_fg = COLOUR_NONE;
+    return rebuild;
+}
+
+void
+colour_set_background (glui32 bg, bool main_empty, glui32 span_fg)
+{
+    if (bg == COLOUR_NONE)
+        return;
+    g_colour.background = bg;
+    if (!g_colour.on)
+        return;
+    if (main_empty)
+        colour_repaint (g_colour.main_win, true);
+    colour_apply (g_colour.main_win, span_fg, g_colour.main_win);
+}
+
+void
+colour_blob_put (std::string &b)
+{
+    blob_num (b, g_colour.on ? 1 : 0);
+    blob_num (b, (long) g_colour.background);
+    blob_num (b, (long) g_colour.foreground);
+    blob_num (b, (long) g_colour.link);
+    blob_num (b, (long) g_colour.main_fg);
+}
+
+void
+colour_blob_get (BlobReader &r)
+{
+    bool on = r.num () != 0;
+    g_colour.background = (glui32) r.num ();
+    g_colour.foreground = (glui32) r.num ();
+    g_colour.link = (glui32) r.num ();
+    g_colour.main_fg = (glui32) r.num ();
+    g_colour.on = on;
+    g_colour.startup = g_colour.hints_preapplied = false;
+    colour_set_normal_hints (on);
+    normal_measure_reset ();
+}
+
+void
+colour_restored ()
+{
+    colour_apply (g_colour.main_win, g_colour.main_fg, g_colour.main_win);
+}
+
+void
+colour_status_begin ([[maybe_unused]] strid_t stream)
+{
+#ifdef QUESTGLK_HAVE_ZCOLORS
+    if (colour_visible (g_colour.main_win)) {
+        glk_set_style_stream (stream, style_Normal);
+        garglk_set_zcolors_stream (stream, g_colour.background,
+                                   g_colour.foreground);
+        return;
+    }
+#endif
+    glk_set_style_stream (stream, style_User1);
+}
+
+void
+colour_status_end ()
+{
+    if (g_colour.on)
+        colour_apply (g_colour.main_win, g_colour.main_fg, g_colour.main_win);
+}
+
+int
+match_colour_command (const std::string &raw)
+{
+    std::string c = lower (trim (raw));
+    if (!c.empty () && c[0] == '#')
+        c.erase (0, 1);
+    for (const char *word : {"colours", "colors", "colour", "color"}) {
+        std::string w = word;
+        if (c == w)
+            return kColourReport;
+        if (c == w + " on")
+            return kColourOn;
+        if (c == w + " off")
+            return kColourOff;
+    }
+    return 0;
+}
+
+void
+run_colour_command ([[maybe_unused]] int which,
+                    [[maybe_unused]] void (*set) (bool on))
+{
+#ifdef QUESTGLK_HAVE_ZCOLORS
+    if (which != kColourReport && (which == kColourOn) != g_colour.on)
+        set (which == kColourOn);
+    if (g_colour.on)
+        glk_put_string ((char *) "\nThe game's own colours are on: text is"
+                        " drawn in the colours it was written for.  COLOURS"
+                        " OFF hands it back to the interpreter's theme.\n");
+    else
+        glk_put_string ((char *) "\nThe game's own colours are off: text"
+                        " follows the interpreter's theme.  COLOURS ON draws"
+                        " it in the colours the game asks for.\n");
+#else
+    glk_put_string ((char *) "\nThe game's own colours are not available"
+                    " with this interpreter.\n");
 #endif
 }
 
@@ -1168,15 +1287,13 @@ status_tail (const std::string &status, size_t avail, bool utf8)
  * `utf8` selects codepoint-aware writes and measurement (Quest 5 text is
  * UTF-8); byte mode passes classic Question text through verbatim (those games
  * are typically Latin-1). */
-void
-draw_status_banner (winid_t banner, const std::string &room,
-                    const std::string &status, bool utf8)
+static void
+draw_status_cells (winid_t banner, const std::string &room,
+                   const std::string &status, bool utf8)
 {
-    if (!banner)
-        return;
     glk_window_clear (banner);
     strid_t stream = glk_window_get_stream (banner);
-    glk_set_style_stream (stream, style_User1);
+    colour_status_begin (stream);
     glui32 width;
     glk_window_get_size (banner, &width, nullptr);
     for (glui32 i = 0; i < width; i++)
@@ -1213,6 +1330,17 @@ draw_status_banner (winid_t banner, const std::string &room,
         else
             glk_put_string_stream (stream, (char *) shown.c_str ());
     }
+}
+
+/* The banner, then the main window's colours put back. */
+void
+draw_status_banner (winid_t banner, const std::string &room,
+                    const std::string &status, bool utf8)
+{
+    if (!banner)
+        return;
+    draw_status_cells (banner, room, status, utf8);
+    colour_status_end ();
 }
 
 /* Where the status belongs: true for the side pane (under a "Status" header,
@@ -1379,6 +1507,8 @@ print_system_commands (const char *quit_rows, const char *oops_rows,
     glk_put_string ((char *)
         "  SIDEBAR WIDE      Make the pane beside the text wider.\n"
         "  SIDEBAR NORMAL    Give the pane its usual width back.\n"
+        "  COLOURS ON / OFF  Draw the text in the game's own colours, or in\n"
+        "                    the interpreter's theme.\n"
         "  HELP              Show the game's own in-game help.\n"
         "  #HELP             Show this list of system commands.\n");
     glk_set_style (style_Normal);

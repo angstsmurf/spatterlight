@@ -449,6 +449,17 @@ static void grid_map_show(int hpx)
     g_gm_dirty = true;
 }
 
+/* The window tree was closed and opened again (a COLOURS toggle): show the
+ * map again if it was shown, from the display list it kept. */
+void grid_map_reopen()
+{
+    gmapwin = nullptr;
+    if (g_gm_height > 0)
+        grid_map_show(g_gm_height);
+    g_gm_flush = true;
+    redraw_grid_map();
+}
+
 /* The grid_draw host hook: fold one engine paint command into the display
  * list.  Box/Label/Player activate their layer (grid.js activateLayer);
  * a Line carries no z of its own and lands on the current one. */
@@ -506,6 +517,9 @@ void grid_map_command(const GridDraw &g)
          * commands are authored against whatever this is, so guessing wrong
          * hides them (white-on-white exit lines). */
         glui32 c = gm_colour(g.fill, 0xFFFFFF);
+        /* The reference player tints the text panel too; that is the
+         * game's colours' business, and skips what a browser ignores. */
+        game_background_colour(g.fill);
         if (c == g_gm_canvas)
             return;
         g_gm_canvas = c;

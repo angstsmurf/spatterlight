@@ -550,6 +550,9 @@ inline std::u32string *g_tee = nullptr;
  * the line-input echo), so a block tag knows whether the line break it
  * implies is still owed. */
 inline bool g_at_line_start = true;
+/* Text has gone into the main window since it was last cleared, so a
+ * repaint (SetBackgroundColour with the game's colours on) would lose it. */
+inline bool g_main_written = false;
 
 /* Bumped by draw_image_inline; render_html compares it across a chunk to see
  * whether that chunk put an unmatchable attachment into the window. */
@@ -908,6 +911,8 @@ void hint_system_commands(const std::string &raw, bool parser_game);
 bool handle_status_command(const std::string &raw);
 bool handle_sidebar_command(Interp &in, const std::string &raw);
 bool handle_transcript_command(const std::string &raw);
+bool handle_colour_command(Interp &in, const std::string &raw);
+void set_colour(bool on);
 bool handle_verbs_command(Interp &in, const std::string &raw);
 
 std::string core_dir_path();
@@ -993,6 +998,7 @@ bool panel_band_available();
 void panel_set_background();
 void panel_close();
 void panel_relayout();
+void panel_reopen();
 void panel_arrange();
 void panel_contents(const std::string &html);
 void flush_warnings(World &w, size_t &seen);
@@ -1015,11 +1021,13 @@ using questglk::BlobReader;
 std::string utf8_from_u32(const std::u32string &s);
 
 /* The blob's format stamp, bumped on every layout change (most recently when
- * the undo history and the replay record left it for the autosave record
- * both engines share): an older blob has different fields, and an
- * autorestore that mis-parses is worse than one discarded for a fresh
- * start.  aslx_recover_frontend rejects anything that does not match. */
-inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 10";
+ * the colour mode was added at its end): an older blob has different
+ * fields, and an autorestore that mis-parses is worse than one discarded
+ * for a fresh start.  aslx_recover_frontend rejects anything that does not
+ * match, except the stamp before the colour mode, whose layout is the same
+ * up to it and which restores with the mode off. */
+inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 11";
+inline const char *const kAslxBlobMagicNoColour = "ASLXGLK-AUTOSAVE 10";
 
 std::string aslx_encode_frontend(Interp &in, const RngStreams *rngs = nullptr);
 bool aslx_recover_frontend(const std::string &blob);

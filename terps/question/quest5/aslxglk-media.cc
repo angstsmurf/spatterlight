@@ -656,6 +656,24 @@ void panel_arrange()
         panel_relayout();
 }
 
+/* The window tree was closed and opened again (a COLOURS toggle): open the
+ * band again if it was showing a picture. */
+void panel_reopen()
+{
+    gpanelwin = nullptr;
+    if (!g_panel_id)
+        return;
+    gpanelwin = glk_window_open(glk_window_get_root(),
+                                winmethod_Above | winmethod_Proportional,
+                                50, wintype_Graphics, 0);
+    if (!gpanelwin) {
+        g_panel_id = 0;
+        g_panel_last.clear();
+        return;
+    }
+    panel_relayout();
+}
+
 void panel_contents(const std::string &html)
 {
     std::string src = decode_entities(tag_attr(html, "src"));
