@@ -40,9 +40,39 @@ void put_uni_string(const std::string &utf8)
         put_uni_char(utf8_next_cp(utf8, i));
 }
 
+void InlineStyle::push(const StylePush &p)
+{
+    bold += p.b; italic += p.i; under += p.u; mono += p.m;
+    if (p.size > 0)
+        sizes.push_back(p.size);
+    if (p.align)
+        aligns.push_back(p.align);
+}
+
+void InlineStyle::pop(const StylePush &p)
+{
+    bold = std::max(bold - p.b, 0);
+    italic = std::max(italic - p.i, 0);
+    under = std::max(under - p.u, 0);
+    mono = std::max(mono - p.m, 0);
+    if (p.size > 0 && !sizes.empty())
+        sizes.pop_back();
+    if (p.align && !aligns.empty())
+        aligns.pop_back();
+}
+
+StyleCombo InlineStyle::combo(double default_points, int div_align) const
+{
+    int align = aligns.empty() ? div_align : aligns.back();
+    return style_combo(bold > 0, italic > 0, under > 0, mono > 0,
+                       align == ALIGN_CENTER, align == ALIGN_RIGHT,
+                       points(default_points), default_points);
+}
+
 void apply_style()
 {
-    glk_set_style(quest_style_for(style_combo(g_bold, g_italic, g_under, false, false, false, 0, 0)));
+    glk_set_style(quest_style_for(g_style.combo(g_default_points,
+                                                g_div_align)));
 }
 
 /* Value of attr="..." (or attr='...') inside a raw tag body, or "". */
@@ -115,35 +145,185 @@ bool tag_flag(const std::string &tag, const std::string &attr)
     return false;
 }
 
-/* Style contribution of a span-style CSS string ("font-weight:bold;..."). */
-StylePush css_style(const std::string &css)
+/* A CSS font-size (12pt, 16px, 1.5em, 130%, large, smaller) in points, with
+ * `points` the size it is relative to; 0 for anything else.  The keywords
+ * are the CSS absolute sizes around the browser's 12pt medium. */
+static double css_font_size(const std::string &value, double points)
+{
+    static const struct { const char *name; double pt; } keywords[] = {
+        {"xx-small", 7.2}, {"x-small", 9}, {"small", 10.67}, {"medium", 12},
+        {"large", 14.4}, {"x-large", 18}, {"xx-large", 24},
+    };
+    std::string v = trim(value);
+    for (const auto &k : keywords)
+        if (v == k.name)
+            return k.pt;
+    if (v == "smaller")
+        return points / 1.2;
+    if (v == "larger")
+        return points * 1.2;
+    char *end = nullptr;
+    double n = strtod(v.c_str(), &end);
+    if (end == v.c_str() || n <= 0)
+        return 0;
+    std::string unit = trim(end);
+    if (unit == "pt")
+        return n;
+    if (unit == "px")
+        return n * 0.75;
+    if (unit == "em" || unit == "rem")
+        return n * points;
+    if (unit == "%")
+        return n * points / 100;
+    return 0;
+}
+
+/* Whether a font-family list names a monospaced face anywhere in it, the
+ * way a browser would end up drawing one. */
+bool mono_family(const std::string &families)
+{
+    static const char *mono[] = {
+        "monospace", "courier", "courier new", "consolas", "monaco", "menlo",
+        "lucida console", "lucida sans typewriter", "andale mono", "fixedsys",
+        "dejavu sans mono", "source code pro", "ubuntu mono",
+    };
+    std::string f = lower(families);
+    for (size_t at = 0; at <= f.size();) {
+        size_t comma = f.find(',', at);
+        if (comma == std::string::npos)
+            comma = f.size();
+        std::string name = trim(f.substr(at, comma - at));
+        if (name.size() >= 2 && (name[0] == '\'' || name[0] == '"'))
+            name = name.substr(1, name.size() - 2);
+        for (const char *m : mono)
+            if (name == m)
+                return true;
+        at = comma + 1;
+    }
+    return false;
+}
+
+static int align_of(const std::string &value)
+{
+    std::string v = lower(trim(value));
+    if (v == "center" || v == "centre")
+        return ALIGN_CENTER;
+    if (v == "right")
+        return ALIGN_RIGHT;
+    if (v == "left" || v == "justify")
+        return ALIGN_LEFT;
+    return 0;
+}
+
+/* Style contribution of a style="..." CSS string, `points` being the size
+ * around it.  A face the game's own default is not counts as monospaced
+ * only when it is one and the default is not. */
+StylePush css_style(const std::string &css, double points)
 {
     StylePush p;
     std::string c = lower(css);
-    if (c.find("font-weight:bold") != std::string::npos ||
-        c.find("font-weight: bold") != std::string::npos)
-        p.b = 1;
-    if (c.find("font-style:italic") != std::string::npos ||
-        c.find("font-style: italic") != std::string::npos)
-        p.i = 1;
-    if (c.find("text-decoration:underline") != std::string::npos ||
-        c.find("text-decoration: underline") != std::string::npos)
-        p.u = 1;
+    for (size_t at = 0; at < c.size();) {
+        size_t semi = c.find(';', at);
+        if (semi == std::string::npos)
+            semi = c.size();
+        std::string decl = c.substr(at, semi - at);
+        at = semi + 1;
+        size_t colon = decl.find(':');
+        if (colon == std::string::npos)
+            continue;
+        std::string key = trim(decl.substr(0, colon));
+        std::string value = trim(decl.substr(colon + 1));
+        if (key == "font-weight")
+            p.b = value == "bold" || value == "bolder" ||
+                  atoi(value.c_str()) >= 600;
+        else if (key == "font-style")
+            p.i = value == "italic" || value == "oblique";
+        else if (key == "text-decoration")
+            p.u = value.find("underline") != std::string::npos;
+        else if (key == "font-size")
+            p.size = css_font_size(value, points);
+        else if (key == "font-family")
+            p.m = mono_family(value) && !g_default_mono;
+        else if (key == "text-align")
+            p.align = align_of(value);
+    }
     return p;
+}
+
+/* The block and font tags, whose style goes on a stack and is undone by the
+ * matching close, as opposed to the flag tags, whose close just counts down. */
+static bool tag_is_heading(const std::string &name)
+{
+    return name.size() == 2 && name[0] == 'h' && name[1] >= '1' &&
+           name[1] <= '6';
+}
+
+bool tag_is_block(const std::string &name)
+{
+    return name == "font" || name == "center" || name == "p" ||
+           name == "div" || tag_is_heading(name);
+}
+
+/* The style a formatting tag sets, given the size around it: what both the
+ * printer and the style census understand of HTML.  False for every other
+ * tag.  Headings are the browser's (bold, 2em down to 0.67em); legacy
+ * <font size> is the browser's table, in points. */
+bool tag_style(const std::string &name, const std::string &tag, double points,
+               StylePush &p)
+{
+    p = StylePush();
+    if (name == "b" || name == "strong") {
+        p.b = 1;
+    } else if (name == "i" || name == "em") {
+        p.i = 1;
+    } else if (name == "u") {
+        p.u = 1;
+    } else if (name == "tt" || name == "code" || name == "kbd" ||
+               name == "samp" || name == "pre") {
+        p.m = !g_default_mono;
+    } else if (name == "span") {
+        p = css_style(tag_attr(tag, "style"), points);
+    } else if (name == "font") {
+        p = css_style(tag_attr(tag, "style"), points);
+        static const double legacy[] = {7.5, 9.75, 12, 13.5, 18, 24, 36};
+        std::string size = trim(tag_attr(tag, "size"));
+        if (!size.empty()) {
+            int n = atoi(size.c_str());
+            if (size[0] == '+' || size[0] == '-')
+                n += 3;
+            if (n >= 1 || size[0] == '-')
+                p.size = legacy[std::min(std::max(n, 1), 7) - 1];
+        }
+        std::string face = tag_attr(tag, "face");
+        if (!face.empty())
+            p.m = mono_family(face) && !g_default_mono;
+    } else if (name == "center") {
+        p.align = ALIGN_CENTER;
+    } else if (name == "p" || name == "div") {
+        p = css_style(tag_attr(tag, "style"), points);
+        if (!p.align)
+            p.align = align_of(tag_attr(tag, "align"));
+    } else if (tag_is_heading(name)) {
+        static const double em[] = {2, 1.5, 1.17, 1, 0.83, 0.67};
+        p = css_style(tag_attr(tag, "style"), points);
+        p.b = 1;
+        if (p.size <= 0)
+            p.size = em[name[1] - '1'] * points;
+    } else {
+        return false;
+    }
+    return true;
 }
 
 void push_style(const StylePush &p)
 {
-    g_bold += p.b; g_italic += p.i; g_under += p.u;
+    g_style.push(p);
     apply_style();
 }
 
 void pop_style(const StylePush &p)
 {
-    g_bold -= p.b; g_italic -= p.i; g_under -= p.u;
-    if (g_bold < 0) g_bold = 0;
-    if (g_italic < 0) g_italic = 0;
-    if (g_under < 0) g_under = 0;
+    g_style.pop(p);
     apply_style();
 }
 
@@ -544,6 +724,7 @@ void render_html_inner(const std::string &raw)
     std::vector<StylePush> spans;   /* open <span>s */
     std::vector<StylePush> anchors; /* open <a>s */
     std::vector<char> span_link;    /* did that <span> open a hyperlink? */
+    std::vector<std::pair<std::string, StylePush>> blocks;  /* open blocks */
     for (size_t i = 0; i < html.size();) {
         char ch = html[i];
         if (ch == '<') {
@@ -554,20 +735,29 @@ void render_html_inner(const std::string &raw)
             bool closing;
             std::string name = tag_name(tag, closing);
 
+            StylePush p;
             if (name == "br") {
                 put_uni_char('\n');     /* teed: see g_tee */
-            } else if (name == "b" || name == "strong") {
-                StylePush p; p.b = 1;
-                closing ? pop_style(p) : push_style(p);
-            } else if (name == "i" || name == "em") {
-                StylePush p; p.i = 1;
-                closing ? pop_style(p) : push_style(p);
-            } else if (name == "u") {
-                StylePush p; p.u = 1;
-                closing ? pop_style(p) : push_style(p);
+            } else if (tag_is_block(name)) {
+                /* The text stays as it was: only the style changes. */
+                if (!closing) {
+                    tag_style(name, tag, g_style.points(g_default_points), p);
+                    blocks.emplace_back(name, p);
+                    push_style(p);
+                } else {
+                    for (size_t b = blocks.size(); b-- > 0;)
+                        if (blocks[b].first == name) {
+                            /* Closing an outer block closes those inside. */
+                            while (blocks.size() > b) {
+                                pop_style(blocks.back().second);
+                                blocks.pop_back();
+                            }
+                            break;
+                        }
+                }
             } else if (name == "span") {
                 if (!closing) {
-                    StylePush p = css_style(tag_attr(tag, "style"));
+                    tag_style(name, tag, g_style.points(g_default_points), p);
                     /* Games hang clicks off bare spans too (spondre's
                      * keywords), so a span carries a link action like an
                      * anchor does. */
@@ -597,7 +787,6 @@ void render_html_inner(const std::string &raw)
                     LinkAction act = link_action(tag);
                     if (act.inner_text)
                         act.command = element_inner_text(html, i, "a");
-                    StylePush p;
                     bool live = act.live();
                     if (live && g_hyperlinks) {
                         g_links.push_back(act);
@@ -645,8 +834,12 @@ void render_html_inner(const std::string &raw)
                         play_audio_inline(srcs, tag_flag(tag, "loop"));
                     i = end;
                 }
+            } else if (tag_style(name, tag, 0, p)) {
+                /* the flag tags (b, i, u, tt...): counters, so a close in a
+                 * later chunk still undoes them */
+                closing ? pop_style(p) : push_style(p);
             }
-            /* every other tag (font, div, table...) is dropped: §4 says
+            /* every other tag (table, ul...) is dropped: §4 says
              * best-effort subset, not a browser. */
         } else if (ch == '&') {
             put_uni_char(decode_entity(html, i));
@@ -661,8 +854,12 @@ void render_html_inner(const std::string &raw)
     /* Unbalanced opens (rare, malformed game HTML): restore the base style,
      * and close any hyperlink they left open -- a span can have opened one
      * just as an anchor can, and a stray glk_set_hyperlink(0) is a no-op. */
+    while (!blocks.empty()) {
+        pop_style(blocks.back().second);
+        blocks.pop_back();
+    }
     if (!spans.empty() || !anchors.empty()) {
-        g_bold = g_italic = g_under = 0;
+        g_style = InlineStyle();
         if (g_hyperlinks)
             glk_set_hyperlink(0);
         apply_style();
@@ -740,6 +937,254 @@ std::vector<std::string> custom_status_lines()
         out.push_back(r.label + " " + value);
     }
     return out;
+}
+
+/* ---------------------------------------------------------------- styles -- */
+
+namespace {
+
+/* One field of the game element, inherited types included (defaultgame
+ * gives defaultfontsize and defaultfont), or nullptr. */
+const Value *game_field(const World &w, const char *name)
+{
+    const Value *out = nullptr;
+    walk_inherited(w, w.find("game"), [&](Element *e) {
+        out = e->field(name);
+        return out != nullptr;
+    });
+    return out;
+}
+
+std::string game_string(const World &w, const char *name)
+{
+    const Value *v = game_field(w, name);
+    return v && v->type == Value::Type::String ? v->str : std::string();
+}
+
+/* The attribute states of the text a Quest 5 game can print, read from the
+ * loaded world without running it: every string attribute, template and
+ * string literal in a script, walked through the printer's own tag_style.
+ * The text processor's {b:...} {i:...} {u:...} count as the tags they
+ * become; other {...} commands count the text after their last colon. */
+struct StyleScan {
+    questglk::StyleCensus census;
+
+    void html(const std::string &text, bool intro, int div_align = 0)
+    {
+        InlineStyle st;
+        std::vector<std::pair<std::string, StylePush>> blocks;
+        std::vector<StylePush> braces;
+        std::string run;
+        StyleCombo run_combo = st.combo(g_default_points, div_align);
+        auto flush = [&] {
+            census.count(run_combo, run, intro);
+            run.clear();
+            run_combo = st.combo(g_default_points, div_align);
+        };
+        for (size_t i = 0; i < text.size();) {
+            char ch = text[i];
+            if (ch == '<') {
+                size_t close = text.find('>', i);
+                if (close == std::string::npos)
+                    break;
+                std::string tag = text.substr(i + 1, close - i - 1);
+                i = close + 1;
+                bool closing;
+                std::string name = tag_name(tag, closing);
+                StylePush p;
+                if (!tag_style(name, tag, st.points(g_default_points), p))
+                    continue;
+                flush();
+                if (!tag_is_block(name) && name != "span") {
+                    closing ? st.pop(p) : st.push(p);
+                } else if (!closing) {
+                    blocks.emplace_back(name, p);
+                    st.push(p);
+                } else {
+                    for (size_t b = blocks.size(); b-- > 0;)
+                        if (blocks[b].first == name) {
+                            while (blocks.size() > b) {
+                                st.pop(blocks.back().second);
+                                blocks.pop_back();
+                            }
+                            break;
+                        }
+                }
+                run_combo = st.combo(g_default_points, div_align);
+            } else if (ch == '{') {
+                size_t end = text.find('}', i);
+                size_t colon = text.find(':', i);
+                StylePush p;
+                if (text.compare(i, 3, "{b:") == 0)
+                    p.b = 1;
+                else if (text.compare(i, 3, "{i:") == 0)
+                    p.i = 1;
+                else if (text.compare(i, 3, "{u:") == 0)
+                    p.u = 1;
+                if (p.b || p.i || p.u) {
+                    flush();
+                    st.push(p);
+                    run_combo = st.combo(g_default_points, div_align);
+                    i += 3;
+                } else if (colon < end) {
+                    i = colon + 1;
+                } else {
+                    i = end == std::string::npos ? text.size() : end + 1;
+                    continue;               /* {=expr}: no text of its own */
+                }
+                braces.push_back(p);
+            } else if (ch == '}' && !braces.empty()) {
+                flush();
+                st.pop(braces.back());
+                braces.pop_back();
+                run_combo = st.combo(g_default_points, div_align);
+                i++;
+            } else {
+                run += ch;
+                i++;
+            }
+        }
+        flush();
+    }
+
+    /* The string literals of a script.  Those on a PrintCentered line, or
+     * between SetAlignment ("center") and the next SetAlignment, are
+     * centred; those after a SetFontSize (N) are at N points, the size
+     * Core's wrapping span then gives them. */
+    void script(const std::string &code, bool intro)
+    {
+        int div_align = 0;
+        long points = 0;
+        size_t line_start = 0;
+        for (size_t i = 0; i < code.size(); i++) {
+            if (code[i] == '\n') {
+                line_start = i + 1;
+                continue;
+            }
+            if (code.compare(i, 11, "SetFontSize") == 0) {
+                size_t open = code.find_first_not_of(" \t(", i + 11);
+                if (open != std::string::npos &&
+                    isdigit((unsigned char) code[open]))
+                    points = strtol(code.c_str() + open, nullptr, 10);
+                i += 10;
+                continue;
+            }
+            if (code.compare(i, 12, "SetAlignment") == 0) {
+                size_t q = code.find('"', i);
+                size_t nl = code.find('\n', i);
+                div_align = q < nl && code.compare(q + 1, 6, "center") == 0
+                                ? ALIGN_CENTER
+                          : q < nl && code.compare(q + 1, 5, "right") == 0
+                                ? ALIGN_RIGHT : 0;
+                i = q < nl ? code.find('"', q + 1) : i;
+                if (i == std::string::npos)
+                    return;
+                continue;
+            }
+            if (code[i] != '"')
+                continue;
+            std::string lit;
+            for (i++; i < code.size() && code[i] != '"'; i++) {
+                if (code[i] == '\\' && i + 1 < code.size())
+                    i++;
+                lit += code[i];
+            }
+            size_t nl = code.find('\n', line_start);
+            bool centred = code.substr(line_start, nl - line_start)
+                               .find("PrintCentered") != std::string::npos;
+            if (points > 0)
+                lit = "<span style=\"font-size:" + std::to_string(points) +
+                      "pt\">" + lit + "</span>";
+            html(lit, intro, centred ? ALIGN_CENTER : div_align);
+        }
+    }
+
+    void value(const Value &v, bool intro)
+    {
+        switch (v.type) {
+        case Value::Type::String:
+            html(v.str, intro);
+            break;
+        case Value::Type::Script:
+            script(v.str, intro);
+            break;
+        case Value::Type::StringList:
+            for (const Value &e : v.list())
+                value(e, intro);
+            break;
+        case Value::Type::StringDict:
+        case Value::Type::ScriptDict:
+            for (const Value::DictEntry &e : v.dict())
+                value(e.second, intro);
+            break;
+        default:
+            break;
+        }
+    }
+};
+
+}  // namespace
+
+/* Count the attribute states the game's text uses and hand out the styles
+ * for them, then set the hints that draw them, all before the first window
+ * opens.  The game's start script and Core's centred title (StartGame:
+ * the name at 260%, subtitle 130%, author 140%) are the introduction. */
+void assign_game_styles(World &w)
+{
+    if (const Value *v = game_field(w, "defaultfontsize"))
+        if (v->type == Value::Type::Int && v->integer > 0)
+            g_default_points = (double) v->integer;
+    g_default_mono = mono_family(game_string(w, "defaultwebfont") + "," +
+                                 game_string(w, "defaultfont"));
+
+    StyleScan scan;
+    Element *game = w.find("game");
+    for (const auto &e : w.elements)
+        for (const auto &f : e->fields)
+            scan.value(f.second, e.get() == game && f.first == "start");
+    for (const auto &t : w.templates)
+        scan.html(t.second, false);
+    for (const auto &t : w.verb_templates)
+        scan.html(t.second, false);
+    for (const auto &t : w.dynamic_templates)
+        scan.script(t.second, false);
+
+    const Value *show = game_field(w, "showtitle");
+    if (!show || show->type != Value::Type::Boolean || show->boolean) {
+        std::string by = "by";
+        for (const auto &t : w.templates)
+            if (t.first == "By")
+                by = t.second;
+        static const struct { const char *field, *size; bool by; } title[] = {
+            {"gamename", "260%", false}, {"subtitle", "130%", false},
+            {"author", "140%", true},
+        };
+        for (const auto &t : title) {
+            std::string text = game_string(w, t.field);
+            if (!text.empty())
+                scan.html(std::string("<span style=\"font-size:") + t.size +
+                              "\">" + (t.by ? by + " " : "") + text +
+                              "</span>",
+                          true, ALIGN_CENTER);
+        }
+    }
+
+    questglk::StyleTable table;
+    questglk::style_assign(scan.census.ranked(), table);
+    if (getenv("ASLXGLK_STYLE_CENSUS"))
+        for (const questglk::StyleCensusRow &r : scan.census.ranked()) {
+            int style = questglk::style_lookup(table, r.combo);
+            fprintf(stderr, "census %-24s %8lu chars %6lu intro -> %s",
+                    questglk::style_combo_describe(r.combo).c_str(),
+                    r.characters, r.intro_characters,
+                    questglk::style_name(style));
+            if (table.combo[style] != r.combo)
+                fprintf(stderr, " (%s)", questglk::style_combo_describe(
+                                             table.combo[style]).c_str());
+            fputc('\n', stderr);
+        }
+    questglk::style_install(table);
+    questglk::style_set_hints();
 }
 
 }  // namespace aslxglk

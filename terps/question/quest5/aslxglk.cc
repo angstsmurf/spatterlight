@@ -338,6 +338,15 @@ static void queue_js_event(const std::string &fn, const std::string &arg)
         g_click_hook = true;
         return;
     }
+    /* Core's SetAlignment: playercore.js starts a new div with that
+     * text-align, and PrintCentered prints into one. */
+    if (fn == "createNewDiv") {
+        std::string a = lower(trim(arg));
+        g_div_align = a == "center" ? ALIGN_CENTER
+                    : a == "right"  ? ALIGN_RIGHT : 0;
+        apply_style();
+        return;
+    }
     /* Spondre-style: the callback name rides in the call's last argument. */
     if (!arg.empty()) {
         g_js_events.push_back(std::make_pair(fn, arg));
@@ -808,10 +817,14 @@ static TurnEnd run_parser_prompt(Interp &in, std::string &restore_data,
 /* Run one full game session, booting fresh or from a validated snapshot
  * (which do_restore_ui already probe-applied). `restore_data` is consumed on
  * entry and re-filled when the session ends with a RESTORE. */
-SessionEnd run_session(const char *storyfile, std::string &restore_data)
+SessionEnd run_session(const char *storyfile, std::string &restore_data,
+                       std::unique_ptr<World> preloaded)
 {
-    World w;
-    if (!load_file(storyfile, w, core_dir_path())) {
+    bool loaded = preloaded != nullptr;
+    std::unique_ptr<World> world =
+        loaded ? std::move(preloaded) : std::make_unique<World>();
+    World &w = *world;
+    if (!loaded && !load_file(storyfile, w, core_dir_path())) {
         glk_put_string((char *) "Sorry, this Quest 5 game could not be loaded:\n");
         for (const std::string &e : w.errors) {
             glk_put_string((char *) "  ");
@@ -1011,7 +1024,8 @@ void reset_frontend_state()
 {
     stop_sound_ui();
     glk_window_clear(gwin);
-    g_bold = g_italic = g_under = 0;
+    g_style = InlineStyle();
+    g_div_align = 0;
     apply_style();
 
     g_links.clear();
@@ -1096,12 +1110,22 @@ extern "C" int aslx_is_quest5_file(const char *path)
 
 extern "C" void aslx_glk_main(const char *storyfile)
 {
+    /* The styles are hinted from the game's text before the first window
+     * opens, so the game is read here and handed to the first session.  If
+     * it does not load, that session reads it again and reports why. */
+    auto preloaded = std::make_unique<World>();
+    if (load_file(storyfile, *preloaded, core_dir_path())) {
+        assign_game_styles(*preloaded);
+    } else {
+        preloaded.reset();
+        questglk::style_set_hints();
+    }
+
     gwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
     if (!gwin)
         return;
     glk_set_window(gwin);
 
-    glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
     gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
                               wintype_TextGrid, 0);
 
@@ -1134,6 +1158,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
      * applies it on its way into the first session. */
     g_autorestore_pending = question_autosave_exists();
 #endif
-    while (run_session(storyfile, restore_data) != SessionEnd::Quit)
+    while (run_session(storyfile, restore_data, std::move(preloaded)) !=
+           SessionEnd::Quit)
         reset_frontend_state();
 }

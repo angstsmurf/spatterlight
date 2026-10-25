@@ -24,7 +24,8 @@
 - A message number past the end of the message table prints nothing instead of memory garbage, the object search can no longer overflow its stack, and the driver calls the interpreter doesn't implement answer the way the Level 9 driver documentation specifies, so a game's call to return to the operating system ends the game.
 
 ### Question (Quest)
-- Quest 4 games get text styles from their own markup: before the window opens, Question counts the bold, italic, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large instead of as plain bold. A combination left without a style of its own falls back to the nearest one that has.
+- Quest 4 and Quest 5 games get text styles from their own markup: before the window opens, Question counts the bold, italic, size, alignment and (in Quest 5) monospaced combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large instead of as plain bold. A combination left without a style of its own falls back to the nearest one that has.
+- Quest 5 text now follows `font-size`, `font-family`, `text-align`, `<font>`, `<h1>` to `<h6>`, `<center>`, `<pre>`, `<code>` and `<tt>`, measured against the game's own font size, and the centred title and other `PrintCentered` text is centred.
 - Underlined text prints in the italic style instead of in reverse video, which looked like a selection.
 
 ### General

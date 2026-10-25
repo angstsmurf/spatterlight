@@ -162,22 +162,24 @@ and colours stay outside this plan.
 
 ### Step 1: load before opening
 
-- [ ] In `aslx_glk_main`, move `load_file` out of `run_session` and ahead
+- [x] In `aslx_glk_main`, move `load_file` out of `run_session` and ahead
       of the `gwin` / `gbanner` opens, buffering load-time output the same
       way as Quest 4. `gbanner` is a grid and needs no change, but it is
       opened in the same block, so keep the relative order of the two
       opens for the autosave window-id matching in `autosave/`.
+      *Done:* not moved: `aslx_glk_main` loads the game into a `World` before any window opens, runs the census on it and hands it to the first `run_session`, so the file is still parsed once.  If that load fails, `run_session` loads again and prints the errors as before; restarts and restores reload as before.  The window order is unchanged.
 
 ### Step 2: scan the world model
 
-- [ ] `quest5/aslx-styles.cc`: walk `World::elements` and every `Value` of
+- [x] `quest5/aslx-styles.cc`: walk `World::elements` and every `Value` of
       string kind in `Element::fields`, plus `World::templates`,
       `dynamic_templates` and `verb_templates`, plus the `game` element's
       `description`, `subtitle`, `gameid` and `firstpublished` only for the
       title set (together with whatever the `start` script prints through
       a literal `msg ("...")`; a cheap regex over script text for `msg (`
       string literals is enough, no script execution).
-- [ ] Feed each string through an HTML tag walker shared with
+      *Done:* `assign_game_styles` at the end of `aslxglk-output.cc` (no new file, so no pbxproj change).  It walks every string, string list, dictionary and script field (every string literal in a script, not only `msg`) plus the three template lists.  The intro set is the `start` script and the title Core's StartGame prints when `showtitle` is on: the name centred at 260%, subtitle 130%, "by" author 140%.  Core is counted with the game; on its own it adds only plain, bold and italic text and 2 characters of its own title literal, so there is no library exclusion.  `ASLXGLK_STYLE_CENSUS=1` prints the rows and their styles to stderr.
+- [x] Feed each string through an HTML tag walker shared with
       `aslxglk-output.cc` (factor the tag dispatch and `css_style()` so the
       scan and the printer share one parser): `b strong i em u`, `span`
       and `font` with `style=` (`font-weight`, `font-style`,
@@ -189,48 +191,56 @@ and colours stay outside this plan.
       `code` (monospaced), `p style="text-align:..."`, `div align=`.
       Quest 5's `<br>` and `<img>` are already handled and do not affect
       the combo. Character counts per combo as before.
-- [ ] Default size: in QuestViva the `game` element's `defaultfontsize`
+      *Done:* the scan and the printer share `tag_style`, `css_style` and `tag_is_block`.  Headings use the browser defaults (2, 1.5, 1.17, 1, .83, .67 em): QuestViva's stylesheet sets no heading sizes.  The text processor's `{b:` `{i:` `{u:` count as their tags.  Scripts: a literal on a `PrintCentered` line or between `SetAlignment ("center")` and the next `SetAlignment` is centred.
+- [x] Default size: in QuestViva the `game` element's `defaultfontsize`
       (12 if unset) and `defaultfont` set the base font through CSS.
       Question reads neither today (no hit for `defaultfontsize` in
       `quest5/`), which is fine for text but matters here: a
       `<span style="font-size:12pt">` in a game with `defaultfontsize` 14
       is *smaller* than normal, so the scan reads the field and buckets
       against the game's default, not against 12.
-- [ ] `SetFontSize` / `SetFontName` are Quest 5 script functions that
+      *Done:* both the scan and the printer bucket against `defaultfontsize` (inherited, 12 if unset).  When `defaultfont` / `defaultwebfont` is itself monospaced, no `font-family` counts as mono.
+- [x] `SetFontSize` / `SetFontName` are Quest 5 script functions that
       change the default at runtime. Question does not implement them yet
       (no hit in `quest5/`); when it does, treat a runtime size change as a
       combo change for text printed after it, not as a re-hint, and have
       the scan count `SetFontSize (N)` literals in scripts as sizes the game
       uses.
+      *Done:* already so: Core's `SetFontSize` sets `game.defaultfontsize`, and Core wraps every message in a span at that size, so the printer sees a size change without any new code.  The scan counts the literals after a `SetFontSize (N)` in the same script at N points.  `SetFontName` is not followed.
 
 ### Step 3: print through the table
 
-- [ ] Extend `StylePush` with `size`, `mono` and `align`, and make the
+- [x] Extend `StylePush` with `size`, `mono` and `align`, and make the
       tag dispatch push and pop them for every tag the scan understands.
       `apply_style()` builds the combo and calls `quest_style_for`.
+      *Done:* the style state is now `InlineStyle` (counters for the flags, stacks for size and alignment); `createNewDiv` (`SetAlignment`) sets the alignment of the text that follows.
 - [ ] `h1`-`h6` and `p` / `div` / `center` are block tags: emit the line
       break they imply before and after (QuestViva does), and set the
       alignment for the block.
+      *Partly done:* the alignment, size and weight of a block are set and undone at its close, but no line breaks are added, so the printed text is unchanged.  Adding them changes text in Spatterlight only, and is a separate decision.
 
 ## Tests (both engines)
 
-- [ ] `test/glkdrive.py --styles`: the same report as Scarier's (hints set
+- [x] `test/glkdrive.py --styles`: the same report as Scarier's (hints set
       per style, style of every printed span). Keep the file byte-identical
       with `terps/scarier/test/glkdrive.py`; `make check` enforces it, so
       land the driver change in both trees in one commit.
+      *Done:* `Driver.hints` and `Driver.spans`, synced from scarier-styles with the Quest 4 step.
 - [x] Quest 4 fixtures under `test/quest4/fixtures/` (the `make check`
       games): a `|jc|s20` title, a game using `|b` and `|s14` separately in
       play, an overflow case, a no-markup case.
       *Done:* under `test/styles/` instead (`styles_*.asl`), run by `styles/run_styles_tests.py` / `make styles`, since they need the Spatterlight build.
-- [ ] Quest 5 fixtures under `test/quest5/`: `<h1>` title, `font-size`
+- [x] Quest 5 fixtures under `test/quest5/`: `<h1>` title, `font-size`
       spans, `defaultfontsize` 14 with a 12pt span, a `pre` block, an
       overflow case.
-- [ ] The Quest 4 sweep (`quest4/harness/run_walkthroughs.sh`, 150 games)
+      *Done:* in `test/styles/` beside the Quest 4 ones: `styles_q5title.aslx` (Core's title, `<b>` / `{b:}`, a 14pt span) and `styles_q5sizes.aslx` (`defaultfontsize` 14, a 12pt span, Courier and `<code>`, `<h2>`, `PrintCentered`, `SetAlignment`, `SetFontSize`).  The overflow case is the Quest 4 fixture's and the unit tests'; the assignment is shared.
+- [x] The Quest 4 sweep (`quest4/harness/run_walkthroughs.sh`, 150 games)
       and the Quest 5 native replays (`quest5/harness/run_replays.sh`) must
       produce identical text. Styles are not in the goldens; a text diff is
       the regression. Watch for Quest 4 alignment spacing (Quest 4 Step 3)
       and Quest 5 block tags (Quest 5 Step 3), which change text and need
       new goldens if they are deliberate.
+      *Done:* Quest 4 sweep pass=150; Quest 5 native replays 367 passed plus the 7 documented rows (these link only the engine).  The Glk frontend's own text, `aslxglk_smoke` over all 374 `.cmd` scripts, is byte-identical with the base commit.
 - [ ] `make autosave`: autosave during a sized title and after the first
       command, restore both, check the next span's style. Also autosave
       across the load reorder in both engines, since the window creation

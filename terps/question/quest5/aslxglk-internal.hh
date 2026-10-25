@@ -46,6 +46,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -110,6 +111,7 @@ using questglk::fill_side_divider;
 
 using questglk::quest_style_for;
 using questglk::style_combo;
+using questglk::StyleCombo;
 
 using questglk::lower;
 
@@ -510,20 +512,47 @@ inline size_t g_images_drawn = 0;
 void put_uni_char(glui32 c);
 void put_uni_string(const std::string &utf8);
 
-/* Current inline style, tracked as nesting counters so tags may overlap.
- * Mapped onto the closest Glk style, like the classic runner's set_style. */
-inline int g_bold = 0, g_italic = 0, g_under = 0;
+/* What one tag contributed to the inline style, so its close undoes it.
+ * The flags are nesting counters, so tags may overlap; `size` (points, 0 =
+ * inherited) and `align` (0 inherited, else an ALIGN_ value) are pushed on
+ * a stack and popped again. */
+enum { ALIGN_LEFT = 1, ALIGN_CENTER, ALIGN_RIGHT };
+struct StylePush { int b = 0, i = 0, u = 0, m = 0; double size = 0; int align = 0; };
+
+/* The inline style at a point of the markup.  g_style is the printer's;
+ * the style census walks its strings with one of its own. */
+struct InlineStyle {
+    int bold = 0, italic = 0, under = 0, mono = 0;
+    std::vector<double> sizes;  /* open font sizes, innermost last */
+    std::vector<int> aligns;    /* open block alignments, innermost last */
+
+    void push(const StylePush &p);
+    void pop(const StylePush &p);
+    double points(double base) const { return sizes.empty() ? base : sizes.back(); }
+    /* `div_align` is the alignment outside every block (SetAlignment's). */
+    StyleCombo combo(double default_points, int div_align) const;
+};
+
+inline InlineStyle g_style;
+/* Core's SetAlignment (JS.createNewDiv): the alignment of the div that the
+ * text after it goes into. */
+inline int g_div_align = 0;
+/* The game's defaultfontsize and whether its defaultfont is monospaced, the
+ * base the sizes and faces of its markup are measured against.  Set once,
+ * with the style hints, before the windows open. */
+inline double g_default_points = 12;
+inline bool g_default_mono = false;
 
 void apply_style();
 
-/* What one <span>/<a> contributed to the counters, so its close undoes it. */
-struct StylePush { int b = 0, i = 0, u = 0; };
-
 std::string tag_attr(const std::string &tag, const std::string &attr);
 bool tag_flag(const std::string &tag, const std::string &attr);
-StylePush css_style(const std::string &css);
+StylePush css_style(const std::string &css, double points);
+bool tag_style(const std::string &name, const std::string &tag, double points,
+               StylePush &p);
 void push_style(const StylePush &p);
 void pop_style(const StylePush &p);
+void assign_game_styles(World &w);
 
 std::string decode_entities(const std::string &s);
 
@@ -534,6 +563,8 @@ std::string decode_entities(const std::string &s);
 std::string plain_text(const std::string &html, const char *brsep = " ");
 
 std::string tag_name(const std::string &tag, bool &closing);
+bool mono_family(const std::string &families);
+bool tag_is_block(const std::string &name);
 std::string element_inner_text(const std::string &html, size_t pos,
                                const std::string &name);
 std::vector<std::string> audio_sources(const std::string &html, size_t pos,
@@ -970,7 +1001,8 @@ bool game_menu_pending(Interp &in);
 #endif /* SPATTERLIGHT */
 
 void install_host_hooks(Interp &in, bool &restart_requested);
-SessionEnd run_session(const char *storyfile, std::string &restore_data);
+SessionEnd run_session(const char *storyfile, std::string &restore_data,
+                       std::unique_ptr<World> preloaded = nullptr);
 void reset_frontend_state();
 
 }  // namespace aslxglk
