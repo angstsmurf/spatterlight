@@ -850,6 +850,45 @@ void new_page()
     g_clear_gen++;
 }
 
+/* An <iframe> showing a text file from the game: the browser draws the file
+ * in its frame as monospaced preformatted text, so it is printed the same
+ * way, on lines of its own.  Pixie's Quest builds its cat and ls commands on
+ * this.  Anything else a frame can show (a web page, a video) is dropped. */
+static void print_text_frame(const std::string &src)
+{
+    std::string data;
+    if (!qstr::ends_with(qstr::ascii_lower(src), ".txt") ||
+        !resource_bytes(src, data))
+        return;
+    if (data.compare(0, 3, "\xEF\xBB\xBF") == 0)
+        data.erase(0, 3);
+    /* The frame's own margins stand in for the blank lines around the text. */
+    size_t start = 0;
+    for (size_t k = 0; k < data.size() && qstr::is_space(data[k]); k++)
+        if (data[k] == '\n')
+            start = k + 1;
+    size_t end = data.size();
+    while (end > start && qstr::is_space(data[end - 1]))
+        end--;
+    data = data.substr(start, end - start);
+    if (data.empty())
+        return;
+
+    if (!g_at_line_start)
+        put_uni_char('\n');
+    g_break_owed = false;
+    StylePush p;
+    tag_style("pre", "", 0, p);
+    push_style(p);
+    for (size_t k = 0; k < data.size();) {
+        glui32 c = utf8_next_cp(data, k);
+        if (c != '\r')
+            put_uni_char(c);
+    }
+    pop_style(p);
+    put_uni_char('\n');
+}
+
 /* Render one HTML chunk (a JS.addText payload) into the main window. */
 void render_html_inner(const std::string &raw)
 {
@@ -986,6 +1025,18 @@ void render_html_inner(const std::string &raw)
                     if (tag_flag(tag, "autoplay"))
                         play_audio_inline(srcs, tag_flag(tag, "loop"));
                     i = end;
+                }
+            } else if (name == "iframe") {
+                /* A browser takes everything up to </iframe> as the frame's
+                 * fallback text, never shown -- and when the tag is never
+                 * closed (Pixie's Quest writes <iframe ... />, which HTML
+                 * reads as an open tag), the rest of the chunk with it. */
+                if (!closing) {
+                    print_text_frame(decode_entities(tag_attr(tag, "src")));
+                    size_t end = qstr::ifind(html, "</iframe", i);
+                    size_t gt = end == std::string::npos
+                                    ? end : html.find('>', end);
+                    i = gt == std::string::npos ? html.size() : gt + 1;
                 }
             } else if (tag_style(name, tag, 0, p)) {
                 /* the flag tags (b, i, u, tt...): counters, so a stray close
