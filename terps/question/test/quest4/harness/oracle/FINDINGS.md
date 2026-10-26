@@ -75,7 +75,9 @@ the same day, because matching Quest there means throwing away an answer the
 author wrote.  The object called by a pronoun (finding 81) is the third: in
 Quest it can never be referred to, so the verbs its author wrote for it can
 never fire.  The verb named with a trailing space (finding 82) is the fourth,
-for the same reason.  The trimmed-name deviation
+for the same reason.  QDK's `defaulttake` (finding 30) is the fifth: Quest's
+own editor writes a spelling Quest's engine reads as a badcommand redefinition,
+so every unparsed command answers with the game's take text.  The trimmed-name deviation
 (finding 37) is the same policy from the other end — kept because a corpus
 game is unplayable without it — and the `<ERROR>` compromise, the obeyed
 `outputoff <>` and the accepted `pause <>` are all divergences of Question's that
@@ -95,12 +97,12 @@ golden is derived, replayed and diffed under Quest's alias-only matching.
 | divergence | diff lines | games | first in |
 | --- | ---: | ---: | ---: |
 | desync: 37, Question trims a declared name | 338 | 1 | – |
+| deliberate: QDK `defaulttake` honoured | 44 | 2 | 2 |
 | deliberate: lone command pattern trimmed | 35 | 1 | 1 |
 | deliberate: pre-280 place fencepost | 6 | 1 | 1 |
-| unclassified | 6 | 2 | 2 |
+| 37, Question trims a declared name | 6 | 2 | 2 |
 | 62, pre-280 `look` name lookup | 4 | 1 | 1 |
 | `<ERROR>` not produced at load time (known) | 4 | 2 | 2 |
-| 37, Question trims a declared name | 2 | 1 | 1 |
 | room display: no pre-2.80 path | 1 | 1 | – |
 | 43, `property <obj; name=value>` true in Question | 1 | 1 | 1 |
 | 46, empty `place <>` dropped | 1 | 1 | 1 |
@@ -280,7 +282,7 @@ Question's generic verb dispatch needs a refusal: it is now a literal in
 * **`defaulttake` is spelled wrong.**  Quest's own name is `defaultake`
   (`V4Game.Part2.cs:1472`) — a typo in the VB6 original that Quest is stuck
   with.  A game writing the name Quest honours is invisible to Question, and vice
-  versa.
+  versa.  (Question now honours both spellings; see finding 30.)
 * **`defaultput` carries the wrong text.**  Quest's is `Done.`; Question's is
   `You can't put #quest.error.article# there.`, which is Quest's *CantPut*.
 * **`defaultwait` carries the wrong text**: `Time passes...` against Quest's
@@ -1320,11 +1322,22 @@ whole rewrite mechanism is invisible in question.)
 
 ### 30. The take-success error key is spelt `defaultake`, with one t
 
-**Fixed** with finding 4: `asl_error_index` (`question-runner.cc:1528`) reads
-the key under Quest's spelling, so `error <defaultake; ...>` reaches the
-take-success message and the five corpus games that write `defaulttake` redefine
-`badcommand` instead, exactly as they do in Quest.  `errornames.asl` is the
-fixture.
+**Fixed** with finding 4, **then deliberately un-reproduced** (2026-10-26).
+`asl_error_index` (`question-rooms.cc`) reads the key under Quest's spelling, so
+`error <defaultake; ...>` reaches the take-success message.  It first sent the
+five corpus games that write `defaulttake` to `badcommand` as well, exactly as
+Quest does, and that turned out to be the worse half of the bargain: QDK —
+Quest's own editor — writes the take-success line as `defaulttake` (Mansion is
+"Created with QDK 3.12", Briny Blue with QDK 4.1.5), so in Quest every one of
+those games answers *every command the parser cannot place* with its take
+text.  The Mansion says "You pick it up." to `glk`, `xyzzy` or `frobnicate`,
+and Certain Oscar says "You can't take that." to RETURN TO BED.  No author
+wanted that, so under the deviation policy Question reads `defaulttake` as
+`DefaultTake` too, and the game's own `badcommand` line survives.  The diff
+rides as ``deliberate: QDK `defaulttake` honoured``: Mitchell Quest's 42 take
+lines and Certain Oscar's 2 badcommand lines.  `errornames.asl` pins Quest's
+spelling and the unknown-name fallthrough; `defaulttake.asl` pins the
+deviation.
 
 What finding 4's spelling bullet costs, measured.  Quest's error-key table has
 the typo (`V4Game.Part2.cs:1472`), and QuestViva

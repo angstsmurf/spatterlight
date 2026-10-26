@@ -166,10 +166,13 @@ int asl_error_index (const string &name, int asl_version)
     return asl_version <= 280 ? PE_BadTake : PE_DefaultTake;
   if (name == "badexamine")
     return asl_version >= 310 ? PE_BadExamine : PE_BadCommand;
-  /* "defaulttake" -- the spelling Question's own call sites use -- is not a name
-   * Quest's switch knows; a game that writes it is redefining badcommand. */
+  /* "defaulttake" is not a name Quest's switch knows, so in Quest the line
+   * redefines badcommand and every unknown command answers with the game's
+   * take text.  QDK itself writes this spelling (The Mansion, Briny Blue and
+   * the rest are QDK games), so Question deliberately honours it as the
+   * take-success message -- FINDINGS.md, finding 30. */
   if (name == "defaulttake")
-    return PE_BadCommand;
+    return PE_DefaultTake;
   for (int i = 0; i < PE_COUNT; ++i)
     if (name == error_table[i].id)
       return i;

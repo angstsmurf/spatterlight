@@ -17,6 +17,8 @@ OUT = os.path.join(HERE, "out")
 
 # (bucket, side, regex).  side is '-' for a question-only line, '+' for a qv4-only
 # one; a hunk line matching any rule is credited to that bucket.
+DEFAULTTAKE = "deliberate: QDK `defaulttake` honoured"
+
 RULES = [
     # The two blanket "You are in ..." rules that used to sit here are gone
     # with finding 1: now that Question prints the stop, a rule matching every
@@ -83,7 +85,7 @@ RULES = [
     # section 13 restores it, and finding 76 makes Question run the removal as the
     # same nested command Quest runs, so nothing is left of it at all.
     ("take: no container-access gate", "+", r"^You can't take .* - inside closed .*\.$"),
-    ("error <defaultake> is spelt with one t", "+", r"^You pick .* up\.$"),
+    (DEFAULTTAKE, "+", r"^You pick .* up\.$"),
     # A rule for finding 33 -- Quest prints an unrecognised `|` code as a
     # literal bar and keeps reading from the next character, where Question dropped
     # both -- lived here, with its `eat_pipes` helper and a second rule in
@@ -409,6 +411,14 @@ NOSPEAK = {
                   "so this had to have come from a 7.",),
 }
 
+# The corpus games whose `error <defaulttake; ...>` line Quest takes for a
+# badcommand redefinition (finding 30) and whose replay feeds the parser a
+# command it cannot place: (the game's badcommand text, its defaulttake text).
+QDK_DEFAULTTAKE = {
+    "CertainOscar": ("Please try to express that in another way.",
+                     "You can't take that."),
+}
+
 # Finding 77's other two halves, both in Wizard and both about a container's
 # contents being somewhere Question does not think they are.  The room line is the
 # Tavern's: `add <Label; Bottle of sludge>' happens while the bottle is still
@@ -718,11 +728,19 @@ def classify(line, mates, in_inventory, others=(), prev="", cmd="",
     minus = same if side == "-" else others
     if any(p.startswith(m + ";") for p in mates for m in minus if m):
         return "tag value truncated at `;`"
-    # The Question half of finding 30: the game's own `error <defaulttake; ...>`
-    # text, whatever it says, against Quest's built-in "You pick it up."
+    # Finding 30, deliberately: Question reads QDK's `error <defaulttake; ...>`
+    # as the take-success message, which Quest's switch (spelt `defaultake`)
+    # does not.  On a take that is the game's text against Quest's built-in
+    # "You pick it up."; on a command the parser cannot place it is the game's
+    # badcommand text against the take text Quest overwrote badcommand with.
     if (side == "-" and cmd.lower().startswith(("> take", "> get", "> pick up"))
             and any(PICKUP.match(o) for o in others)):
-        return "error <defaultake> is spelt with one t"
+        return DEFAULTTAKE
+    if label in QDK_DEFAULTTAKE:
+        bad, take = QDK_DEFAULTTAKE[label]
+        if (side, text) in (("-", bad), ("+", take)) and \
+                (take if side == "-" else bad) in others:
+            return DEFAULTTAKE
     # Below ASL 2.80 ShowRoomInfoV2's place split drops the first character of
     # the destination name when the author wrote no space after the semicolon
     # (V4Game.Part2.cs:1988-1999).  Question splits properly ON PURPOSE -- the

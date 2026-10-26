@@ -106,7 +106,7 @@ You are not carrying anything.
 This a large and quietly white hospital room. Your bed seems to be the only one here, which is strange, considering the size of the room. The total whiteness of the room makes your eyes hurt.  The only non-white object in this room is an expensive looking TV set, which is mounted on the north wall, just infront of you. A window, located west to you,  is overlooking the hospital garden. To the east there is a door, which is locked. You are currently lying on the bed.
 
 > return to bed
-You can't take that.
+Please try to express that in another way.
 
 > look at bed
 It's a fairly large hospital bed. The sheets are white, and smell like a strange combination of lanolin and aspirin. You are in the bed.

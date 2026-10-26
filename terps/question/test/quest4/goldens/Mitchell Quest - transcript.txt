@@ -25,7 +25,7 @@ You can go south or west.
 You are in Mitchell's trusty Ford LTD. A patchwork quilt of smells assaults your senses.
 
 > take crowbar
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine empty schlitz can
 You squeeze and squeeze, but you can't get a single drop of beer out of the can. It's dryer than a covered bridge.
@@ -86,7 +86,7 @@ Pure Gold.......
 Tough Guy Tea............
 
 > take can o schlitz
-You pick it up.
+Consider it tooken......... er, I mean taken.
 That golden Mana from above is now within your grasp. All is well once again in the universe.
 
 > speak to can o schlitz
@@ -102,7 +102,7 @@ You stole it from Deaney's house.
 Life is good. Go ahead on.
 
 > take sammich
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > eat sammich
 You stuff the delicate sammich into your gaping maw. Within seconds it is mashed up into goo and swallowed down into your massive gullet.
@@ -144,7 +144,7 @@ You are in the front entranceway of Casa Deaney, home of your nemesis.
 The place seems pretty quiet. You hope Deaney is not home, as he is a better shot than you, and usually not as drunk.
 
 > take key
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine key
 Actually it's a nice key. My suggestion to you would be to NOT leave it in the Gun Room.
@@ -152,10 +152,10 @@ Actually it's a nice key. My suggestion to you would be to NOT leave it in the G
 That's all I'm saying.
 
 > take remote- lattice
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > take remote- front gates
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine locked door
 Door.... check.
@@ -206,7 +206,7 @@ What's with you, anyway?
 It's ammo for a .38, just like Mitchell (that's you) carries!
 
 > take .38 ammo
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine .38 ammo
 Just a few odd bullets left in the box........ let's hope that Deaney doesn't have hourdes of minions lurking around here. Damn, Andy Kaufman alone is going to take several shots to bring down.
@@ -235,10 +235,10 @@ Opening the small present reveals a pair of ladies underwear. French cut. Crotch
 Opening the big present reveals a 13 inch Goldstar television. Wow!
 
 > take panties
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > take goldstar
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine christmas tree
 Upon closer examination, you realize that the Christmas tree is actually..........
@@ -336,7 +336,7 @@ You are standing in Deaney's computer room. It's a mess, with piles of junk ever
 Digging through the piles of junk reveals many interesting items (yawn), but one strange looking rusty key seems more interesting than the rest of this crap.
 
 > take rusty key
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine computer
 Upon closer inspection you see that it's actually an old AMIGA computer running a popular old Public Domain game called "I Rescued Elvis from Communist Alien Jerks". It actually looks pretty cool.
@@ -384,7 +384,7 @@ She's a tall blonde drink of water, she's Linda Evans. And remember, this is a 1
 "oh, Hi Mitchell", she replies, "Look, I'm really stoned, I'd just like to lay here and read something trippy. Can't you find me something to read?"
 
 > take baby oil
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine mirror
 It's a large, reflective surface. When you look into it, it shows you a negative reflection of everything around it.
@@ -449,7 +449,7 @@ The chest does seem to have a keyhole in it.
 It's a Big Freakin' Hammer
 
 > take BFH
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > speak to BFH
 Stop. Hammer time.
@@ -506,7 +506,7 @@ You can go north, east or west.
 You are in a rough stone cavern. The rock almost gives off some kind of eerie glow that makes it possible to see where you are going. In the center of this large stone cavern is a large well made out of rough stones. The stones around the rim are so jagged and pointy that they resemble teeth.
 
 > take gold key
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine gold key
 There are initials on the key! The initials read "W.D."
@@ -521,7 +521,7 @@ You can go east.
 A large rough stone cavern (yeah, alot of them are like that down here in the stinky underworld beneath Deaney's house).
 
 > take coil of rope
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine coil of rope
 Oh crap, it's sort of old and starting to fray. If you make it to the end of this adventure without it snapping like a piece of linguini being tugged by 2 Saint Bernards, it'll be a miracle!
@@ -529,7 +529,7 @@ Oh crap, it's sort of old and starting to fray. If you make it to the end of thi
 I thought it was a good analogy, actually.
 
 > take torch stub
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > east
 You are in the Well Room.
@@ -587,7 +587,7 @@ This is the Master Bathroom, where Deaney could surround himself in luxury and c
 You try the gold key in the lock..... and it works!! Mama Mitchell would be so proud of you!!!
 
 > take matches
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine matches
 A matchbook from "The Smirking Honkey", Deaney's favorite 70s type bar and hangout.
@@ -826,7 +826,7 @@ You say, "Hey! You're one of those lousy MST3K bastards that ruined my career! M
 Crow runs away into the theater, and doing so drops a copy of a screenplay he was working on.
 
 > take screenplay
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine screenplay
 You flip through the pages of the screenplay and stop at a random section here and there. Each chapter has something to do with Peter Graves. Why, you don't know.
@@ -994,7 +994,7 @@ Hey, I love to read when I'm stoned, and this looks pretty trippy! Thanks Mitche
 Linda reaches for the screenplay and in doing so, drops a tiny key. She's too stoned to even notice.
 
 > take tiny key
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine tiny key
 It's a key! (oh, that's original)
@@ -1144,7 +1144,7 @@ You can go north or south.
 Wow. What a nice Torture Chamber! It's got it all. Man, Deaney has all the coolest stuff!
 
 > take harpoon gun
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine harpoon gun
 All things considered it's a pretty nice harpoon gun. It's one loaded harpoon seems to be very sharp, in exactly the same way that you aren't.
@@ -1159,7 +1159,7 @@ The nice part about this Iron Maiden was that it was made to fit any normal pers
 You haul off and smash the suggestion box to pieces (that's so like you, isn't it?) and  small piece of paper flutters to the ground.
 
 > take paper
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine paper
 It's a suggestion (surprise, surprise) that reads.......
@@ -1233,7 +1233,7 @@ You can go south or east.
 You are on a large firey plain. In all directions nothing but fire and ash can be seen. Needless to say, it's pretty toasty in here. The souls of the damned loom around you like a Mitchell family reunion party around a beer keg. To the East you see a large stone building with a large neon sign on it.
 
 > take mitchell's gun
-You pick it up.
+Consider it tooken......... er, I mean taken.
 
 > examine mitchell's gun
 It looks as if whoever took it didn't hurt it or anything, but it's not loaded anymore.

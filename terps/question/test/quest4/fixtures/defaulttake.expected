@@ -1,0 +1,16 @@
+
+Defaulttake
+
+You are in Hall.
+There is a rock here.
+The hall.
+
+> take rock
+You pocket it.
+
+> glk
+That doesn't work.
+
+> frobnicate the widget
+That doesn't work.
+[runner] turns=3 leftover=0 running=true

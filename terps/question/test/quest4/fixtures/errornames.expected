@@ -21,8 +21,8 @@ It looks ordinary enough.
 It looks ordinary enough.
 
 > go
-That spelling redefines badcommand.
+An unknown name redefines badcommand.
 
 > frobnicate the widget
-That spelling redefines badcommand.
+An unknown name redefines badcommand.
 [runner] turns=7 leftover=0 running=true
