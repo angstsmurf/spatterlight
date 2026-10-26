@@ -624,6 +624,29 @@ static std::vector<Patch> base_patches = {
 #include ZTERP_STATIC_PATCH_FILE
 #endif
 #ifdef SPATTERLIGHT
+    // Robot Finds Kitten attempts to sleep with the following:
+    //
+    // [ Func junk;
+    //     @aread junk 0 10 PauseFunc -> junk;
+    // ];
+    //
+    // However, since “junk” is a local variable with value 0 instead of a
+    // text buffer, this is asking to read from/write to address 0, which
+    // Bocfel rejects as a write to the header. Rewrite this instead to:
+    //
+    // @read_char 1 10 PauseFunc -> junk;
+    // @nop; ! This is for padding.
+    {
+        "Robot Finds Kitten", "130320", 7, 0x4a18,
+        {
+            {
+                0x4912, 8,
+                {0xe4, 0x94, 0x05, 0x00, 0x0a, 0x12, 0x5a, 0x05},
+                {0xf6, 0x53, 0x01, 0x0a, 0x12, 0x5a, 0x05, 0xb4},
+            },
+        }
+    },
+
     // The Blorb demo “The Spy Who Came In From The Garden” seems to
     // always be in a state of disrepair. One particular version appears
     // to work better than most, but for a bad call to @sound_effect:

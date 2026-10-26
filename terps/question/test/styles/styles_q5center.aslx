@@ -1,0 +1,26 @@
+<!-- A style attribute on <center>: the browser centres it only by default,
+     so its own colour and alignment win.  Pixie's Quest opens with a white,
+     justified warning on red, and later draws a black box whose text
+     inherits Core's black (the joke is that it cannot be read).  A span's
+     background is drawn too. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Center">
+    <gameid>5a1e0000-0000-0000-0000-00000000000a</gameid>
+    <version>1.0</version>
+    <defaultbackground>Red</defaultbackground>
+    <start type="script"><![CDATA[
+      msg ("<center style=\"text-align:justify;color:white;\"><h2>WARNING:</h2>White and justified.</center><center style=\"color:white\">White and centred.</center>")
+      msg ("<center style=\"background:black;border-radius:25px\"><h1>DON'T PANIC!!!</h1></center>")
+      msg ("<span style=\"background:#296231 url(x.png);color:white\">Green</span> and <span style=\"background:transparent\">red</span>.")
+      msg ("Black again.")]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <description>A pale hall.</description>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

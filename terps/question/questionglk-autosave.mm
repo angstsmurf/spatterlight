@@ -161,8 +161,10 @@ void question_autosave_restore_library_late(void)
 /* ---- Quest 4 (questionglk.cc / QuestionRunner) --------------------------- */
 
 /* The Quest 4 frontend's blob.  The stamp is bumped on every layout change;
- * frontend_decode rejects anything else. */
-static const char *const kFrontendBlobMagic = "QUESTIONGLK-AUTOSAVE 1";
+ * frontend_decode rejects anything else, except stamp 1, the same layout
+ * without the colour mode at its end, which restores with the mode off. */
+static const char *const kFrontendBlobMagic = "QUESTIONGLK-AUTOSAVE 2";
+static const char *const kFrontendBlobMagicNoColour = "QUESTIONGLK-AUTOSAVE 1";
 
 static std::string frontend_encode(const QuestionGlkFrontendState &st)
 {
@@ -181,13 +183,16 @@ static std::string frontend_encode(const QuestionGlkFrontendState &st)
     questglk::blob_num(b, st.rng_usenative);
     for (int i = 0; i < 4; i++)
         questglk::blob_num(b, (long)st.rng_state[i]);
+    questglk::colour_blob_put(b);
     return b;
 }
 
 static bool frontend_decode(const std::string &blob, QuestionGlkFrontendState *st)
 {
     questglk::BlobReader r{blob};
-    if (r.str() != kFrontendBlobMagic)
+    std::string magic = r.str();
+    bool colour = magic == kFrontendBlobMagic;
+    if (!colour && magic != kFrontendBlobMagicNoColour)
         return false;
     st->mainwintag = (int)r.num();
     st->inputwintag = (int)r.num();
@@ -202,6 +207,8 @@ static bool frontend_decode(const std::string &blob, QuestionGlkFrontendState *s
     st->rng_usenative = (int)r.num();
     for (int i = 0; i < 4; i++)
         st->rng_state[i] = (uint32_t)r.num();
+    if (colour && r.ok)
+        questglk::colour_blob_get(r);
     return r.ok;
 }
 

@@ -1,0 +1,25 @@
+<!-- A header the palette cannot be read from: Deeper declares the same
+     OldLace for defaultforeground and defaultbackground, then sets Maroon with
+     SetForegroundColour as it starts.  That only changes the attribute Core
+     prints its spans in, so the status row, the pane and the form follow it
+     too; the windows already open keep the hints they took. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Foreground">
+    <gameid>5a1e0000-0000-0000-0000-000000000005</gameid>
+    <version>1.0</version>
+    <defaultbackground>OldLace</defaultbackground>
+    <defaultforeground>OldLace</defaultforeground>
+    <start type="script"><![CDATA[
+      SetForegroundColour ("Maroon")
+      msg ("Maroon on old lace.")]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <description>A pale hall.</description>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

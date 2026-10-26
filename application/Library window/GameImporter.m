@@ -427,7 +427,7 @@ void ReportImportFailure(NSString *title, NSString *info) {
     Blorb *blorb = nil;
     if ([Blorb isBlorbURL:[NSURL fileURLWithPath:path isDirectory:NO]]) {
         blorb = [[Blorb alloc] initWithData:fileData];
-        BlorbResource *executable = [blorb resourcesForUsage:ExecutableResource].firstObject;
+        BlorbResource *executable = [blorb resourcesForUsage:BlorbUsageExecutable].firstObject;
         if (!executable) {
             if (report) {
                 ReportImportFailure(NSLocalizedString(@"Not a game.", nil),
@@ -601,7 +601,7 @@ static inline uint16_t word(const uint8_t *memory, uint32_t addr)
             game.releaseNumber = (int32_t)blorb.releaseNumber;
             return;
         }
-        BlorbResource *zcode = [blorb resourcesForUsage:ExecutableResource].firstObject;
+        BlorbResource *zcode = [blorb resourcesForUsage:BlorbUsageExecutable].firstObject;
         // Without an executable chunk there is no Z-code header to read:
         // don't fall back to reading the IFF container as one.
         if (!zcode)

@@ -495,7 +495,11 @@ int GrandParent(int obj)
 
 	defseg = objtable;
 	while ((nextobj = PeekWord(2 + obj*object_size + object_size-8)) != 0)
+	{
 		obj = nextobj;
+		/* A parent that isn't an object (see MoveObj) ends the chain */
+		if (obj>=objects) break;
+	}
 	defseg = gameseg;
 
 	return obj;
@@ -534,8 +538,10 @@ void MoveObj(int obj, int p)
 	PokeWord(objaddr + object_size-8, p);   /* new parent 		*/
 	PokeWord(objaddr + object_size-6, 0);   /* erase old sibling 	*/
 
-	/* Only operate on the new parent if it isn't object 0 */
-	if (p!=0)
+	/* Only operate on the new parent if it isn't object 0, or not an
+	   object at all (AWARD.HEX moves object 25 to 2066): that would write
+	   past the object table. */
+	if (p>0 && p<objects)
 	{
 
 		/* Object is sole child, or... */

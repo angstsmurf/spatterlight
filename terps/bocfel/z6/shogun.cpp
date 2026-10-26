@@ -1481,15 +1481,9 @@ void shogun_update_after_restart(void) {
 }
 
 // Handles edge cases when autorestoring into the middle of a read_char call.
-// Returns true if the autorestore should re-enter the interrupted input loop
-// (hints, menu, definitions, or the maze simplification prompt).
-bool shogun_autorestore_internal_read_char_hacks(void) {
-    if (screenmode == MODE_HINTS || screenmode == MODE_SHOGUN_MENU || screenmode == MODE_DEFINE) {
-        return true;
-    }
-    if (screenmode == MODE_NORMAL) { // We can assume that we are answering the maze simplification question;
+// In the normal screen mode that read_char can only be the maze
+// simplification question, which must not be asked a second time.
+void shogun_autorestore_internal_read_char_hacks(void) {
+    if (screenmode == MODE_NORMAL)
         dont_repeat_question_on_autorestore = true;
-        return true;
-    }
-    return false;
 }

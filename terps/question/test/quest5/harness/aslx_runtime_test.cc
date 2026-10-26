@@ -1373,6 +1373,107 @@ static void test_parity_batch() {
     CHECK(sus.find("after") == std::string::npos);
     CHECK(sus.find("Error") == std::string::npos);
 
+    // -- an `on ready` cascade that parks twice (Midnight's room entries with
+    // no sound hook): the outer body parks on a synchronous sound, the nested
+    // items queued so far still run during the unwind, and when one of THEM
+    // parks nothing is dropped -- its tail, the nested items not yet started
+    // and the outer tail become one continuation, parked by the turn
+    // boundary (here a timer tick) and resumed slot completion by slot
+    // completion.
+    run(in, "set (GetTimer(\"t1\"), \"enabled\", true)");
+    {
+        Context c1;
+        in.run_script("t1.script => {\n"
+                      "  on ready {\n"
+                      "    on ready { msg (\"n1\")\n"
+                      "      play sound (\"a.mp3\", true, false)\n"
+                      "      msg (\"n1-tail\") }\n"
+                      "    on ready { msg (\"n2\")\n"
+                      "      play sound (\"b.mp3\", true, false)\n"
+                      "      msg (\"n2-tail\") }\n"
+                      "    msg (\"outer\")\n"
+                      "    play sound (\"c.mp3\", true, false)\n"
+                      "    msg (\"outer-tail\")\n"
+                      "  }\n"
+                      "}", c1);
+    }
+    in.begin_timers();
+    in.clear_output();
+    in.tick(5);
+    std::string cas = in.output();
+    CHECK(cas.find("outer") != std::string::npos);
+    CHECK(cas.find("n1") != std::string::npos);
+    CHECK(cas.find("n1-tail") == std::string::npos);
+    CHECK(cas.find("n2") == std::string::npos);
+    CHECK(cas.find("outer-tail") == std::string::npos);
+    CHECK(!in.has_pending_on_ready());  // n2 travels with the continuation
+    in.drain_on_ready();                 // and a host drain is a no-op
+    CHECK_STR(in.output(), cas);
+    in.clear_output();
+    in.finish_wait();  // nothing pends: completes the parked sound's slot
+    cas = in.output();
+    CHECK(cas.find("n1-tail") != std::string::npos);
+    CHECK(cas.find("n2") != std::string::npos);
+    CHECK(cas.find("n2-tail") == std::string::npos);  // parked again
+    CHECK(cas.find("outer-tail") == std::string::npos);
+    in.clear_output();
+    in.finish_wait();
+    cas = in.output();
+    CHECK(cas.find("n2-tail") != std::string::npos);
+    CHECK(cas.find("outer-tail") != std::string::npos);
+    CHECK(cas.find("n2-tail") < cas.find("outer-tail"));
+    CHECK(cas.find("Error") == std::string::npos);
+    run(in, "set (GetTimer(\"t1\"), \"enabled\", false)");
+
+    // -- the same park, but the slot is claimed by a LATER synchronous sound
+    // from inside another `on ready` (Midnight: the next room's
+    // beforefirstenter while the previous room's cascade is still parked).
+    // The parked tail resumes inline under that running on-ready: n1's tail,
+    // then n2 as the next group -- which parks on its own sound, so the
+    // outer tail re-parks behind n2's; the claimer's own tail then queues
+    // behind both when its unwind lands at the tick boundary.
+    run(in, "set (GetTimer(\"t1\"), \"enabled\", true)");
+    in.clear_output();
+    in.tick(5);
+    cas = in.output();
+    CHECK(cas.find("outer") != std::string::npos);
+    CHECK(cas.find("n1") != std::string::npos);
+    CHECK(cas.find("n1-tail") == std::string::npos);
+    run(in, "set (GetTimer(\"t1\"), \"enabled\", false)");
+    run(in, "create timer (\"t2\")");
+    run(in, "set (GetTimer(\"t2\"), \"interval\", 5)");
+    {
+        Context c2;
+        in.run_script("t2.script => {\n"
+                      "  on ready { msg (\"next\")\n"
+                      "    play sound (\"d.mp3\", true, false)\n"
+                      "    msg (\"next-tail\") }\n"
+                      "}", c2);
+    }
+    run(in, "set (GetTimer(\"t2\"), \"enabled\", true)");
+    in.clear_output();
+    in.tick(5);
+    cas = in.output();
+    CHECK(cas.find("next") != std::string::npos);
+    CHECK(cas.find("n1-tail") != std::string::npos);
+    CHECK(cas.find("n2") != std::string::npos);
+    CHECK(cas.find("next") < cas.find("n1-tail"));
+    CHECK(cas.find("n1-tail") < cas.find("n2"));
+    CHECK(cas.find("n2-tail") == std::string::npos);
+    CHECK(cas.find("outer-tail") == std::string::npos);
+    CHECK(cas.find("next-tail") == std::string::npos);
+    CHECK(!in.has_pending_on_ready());
+    in.clear_output();
+    in.finish_wait();
+    cas = in.output();
+    CHECK(cas.find("n2-tail") != std::string::npos);
+    CHECK(cas.find("outer-tail") != std::string::npos);
+    CHECK(cas.find("next-tail") != std::string::npos);
+    CHECK(cas.find("n2-tail") < cas.find("outer-tail"));
+    CHECK(cas.find("outer-tail") < cas.find("next-tail"));
+    CHECK(cas.find("Error") == std::string::npos);
+    run(in, "set (GetTimer(\"t2\"), \"enabled\", false)");
+
     // -- ...but with a play_sound host hook, a synchronous play runs through
     // the hook (which blocks until the sound ends) and the turn CONTINUES --
     // QuestViva's awaited wait slot, resolved by a UI that can finish a

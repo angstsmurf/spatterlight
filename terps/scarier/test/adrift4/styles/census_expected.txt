@@ -1,0 +1,48 @@
+game test/adrift4/styles/styles_aligned.taf strings 10 combos 12 spares 3 overflow 6
+   1 size+1                   chars      50 intro    24 -> Header*
+   2 plain                    chars      92 intro    15 -> Normal*
+   3 size-1                   chars      29 intro     - -> BlockQuote*
+   4 size+2                   chars      22 intro     - -> User2*
+   5 size+3                   chars      17 intro     - -> User2 (size+2)
+   6 size+4                   chars      15 intro     - -> User2 (size+2)
+   7 size+5                   chars      15 intro     - -> User2 (size+2)
+   8 bold+italic              chars      10 intro     - -> Alert*
+   9 italic+centre            chars       7 intro     - -> User1 (centre)
+  10 italic+right             chars       5 intro     - -> Note (right)
+  11 bold+italic+centre size+6 chars       5 intro     - -> User1 (centre)
+  12 bold                     chars       4 intro     - -> Subheader*
+game test/adrift4/styles/styles_intro.taf strings 10 combos 6 spares 4 overflow 0
+   1 size-1                   chars      49 intro    49 -> BlockQuote*
+   2 plain                    chars     134 intro    20 -> Normal*
+   3 size+1                   chars      20 intro    20 -> Header*
+   4 centre size+2            chars      12 intro    12 -> User1*
+   5 centre size+6            chars      11 intro    11 -> User2*
+   6 bold                     chars       9 intro     - -> Subheader*
+game test/adrift4/styles/styles_medium.taf strings 10 combos 3 spares 1 overflow 0
+   1 plain                    chars     147 intro    35 -> Normal*
+   2 size+1                   chars      47 intro    22 -> Header*
+   3 bold                     chars      17 intro     - -> Subheader*
+game test/adrift4/styles/styles_overflow.taf strings 10 combos 20 spares 2 overflow 10
+   1 size+1                   chars      43 intro    26 -> Header*
+   2 italic+right             chars      24 intro    24 -> BlockQuote*
+   3 bold+centre size+4       chars       8 intro     8 -> User2 (bold+centre)
+   4 plain                    chars      79 intro     - -> Normal*
+   5 right                    chars      17 intro     - -> Note*
+   6 italic+centre            chars      17 intro     - -> User1 (centre)
+   7 size+2                   chars      16 intro     - -> Header (size+1)
+   8 mono                     chars      15 intro     - -> Preformatted*
+   9 centre                   chars      15 intro     - -> User1*
+  10 bold+centre              chars      15 intro     - -> User2*
+  11 italic                   chars      14 intro     - -> Emphasized*
+  12 bold+italic              chars      14 intro     - -> Alert*
+  13 italic size+2            chars      13 intro     - -> Emphasized (italic)
+  14 bold                     chars      12 intro     - -> Subheader*
+  15 bold+mono                chars      11 intro     - -> Preformatted (mono)
+  16 size+3                   chars      10 intro     - -> Header (size+1)
+  17 bold+right               chars       9 intro     - -> Note (right)
+  18 size-1                   chars       8 intro     - -> Normal (plain)
+  19 bold size+5              chars       7 intro     - -> Subheader (bold)
+  20 italic+centre size+1     chars       4 intro     - -> User1 (centre)
+game test/adrift4/styles/styles_plain.taf strings 10 combos 2 spares 1 overflow 0
+   1 plain                    chars     177 intro    27 -> Normal*
+   2 size+1                   chars      24 intro    24 -> Header*

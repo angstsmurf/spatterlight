@@ -12,8 +12,11 @@
 #import "GlkController.h"
 #import "GlkController+Speech.h"
 #import "CommandScriptHandler.h"
+#import "NSView+Categories.h"
 
-@implementation MyFieldEditor
+@implementation MyFieldEditor {
+    NSRect caretShapeRect;
+}
 
 // Our delegate is the InputTextField, whose delegate is the GlkWindow.
 // AppKit may hand this editor to another field while it is not installed
@@ -44,6 +47,19 @@
 
 - (void)mouseMoved:(NSEvent *)event {
     [[NSCursor IBeamCursor] set];
+}
+
+// The theme's caret shape (issue #39). See NSView+Categories.
+- (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
+    kCaretShapePrefsType shape = self.glkWindow.theme.caretShape;
+    caretShapeRect = [self drawCaretShape:shape forCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
+    if (shape == kCaretLine)
+        [super drawInsertionPointInRect:rect color:color turnedOn:flag];
+}
+
+- (void)setNeedsDisplayInRect:(NSRect)rect avoidAdditionalLayout:(BOOL)flag {
+    rect = [self rect:rect widenedToCaretShape:caretShapeRect];
+    [super setNeedsDisplayInRect:rect avoidAdditionalLayout:flag];
 }
 
 - (BOOL)isAccessibilityElement {
@@ -103,6 +119,9 @@
         self.allowsEditingTextAttributes = NO;
         self.bezeled = NO;
         self.drawsBackground = NO;
+        // The field sits on a grid line of game text; a focus ring around it
+        // is noise there, and it can cover an underline caret (issue #39).
+        self.focusRingType = NSFocusRingTypeNone;
         self.selectable = YES;
         self.cell.wraps = YES;
         self.cell.accessibilityLabel = NSLocalizedString(@"input text field cell", nil);
@@ -124,6 +143,10 @@
     if (_fieldEditor == nil) {
         _fieldEditor = [[MyFieldEditor alloc] init];
         _fieldEditor.fieldEditor = YES;
+        // A plain init makes a TextKit 2 view, which never calls
+        // drawInsertionPointInRect:, so it could not draw the theme's caret
+        // shape. Asking for the layout manager switches it to TextKit 1.
+        (void)_fieldEditor.layoutManager;
         _fieldEditor.accessibilityLabel = NSLocalizedString(@"input", nil);
     }
     return _fieldEditor;

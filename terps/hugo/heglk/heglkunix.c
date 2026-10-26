@@ -1,14 +1,7 @@
-/* glkstart.c: Unix-specific startup code -- sample file.
-    Designed by Andrew Plotkin <erkyrath@netcom.com>
-    http://www.eblong.com/zarf/glk/index.html
-
-    This is Unix startup code for the simplest possible kind of Glk
-    program -- no command-line arguments; no startup files; no nothing.
-
-    Remember, this is a sample file. You should copy it into the Glk
-    program you are compiling, and modify it to your needs. This should
-    *not* be compiled into the Glk library itself.
-*/
+/*
+ * heglkunix.c: Glk startup for the Spatterlight Hugo interpreter. Opens the
+ * story file named on the command line and names the program and the story.
+ */
 
 #include <stdio.h>
 #include <string.h>
@@ -18,111 +11,76 @@
 #include "glkstart.h"
 #include "heheader.h"
 
+#define HEGLK_STR2(x) #x
+#define HEGLK_STR(x) HEGLK_STR2(x)
+#define HEGLK_PROGRAM_NAME "Hugo " HEGLK_STR(HEVERSION) "." HEGLK_STR(HEREVISION)
+
 static winid_t errorwin = NULL;
 
-static void glkunix_startup_error (char *fmt, ...)
-#ifdef __GNUC__
-__attribute__ ((format (printf, 1, 2)))
-#endif
-;
+static void glkunix_startup_error(const char *fmt, ...)
+    __attribute__ ((format (printf, 1, 2)));
 
 glkunix_argumentlist_t glkunix_arguments[] = {
-  { "", glkunix_arg_ValueFollows, "filename: The game file to load." },
-  { NULL, glkunix_arg_End, NULL }
+    { "", glkunix_arg_ValueFollows, "filename: The game file to load." },
+    { NULL, glkunix_arg_End, NULL }
 };
 
-/*
- * Using sprintf() to build an error string would be easier, of course, but
- * that is subject to buffer overflow at runtime. This still uses sprintf(),
- * but in a more controlled fashion. (Yes, I know it's probably overkill.)
- */
-
-static void
-glkunix_startup_error (char *fmt, ...)
+static void glkunix_startup_error(const char *fmt, ...)
 {
-  va_list ap;
-  char int_buf[20]; /* Hopefully big enough */
-  char *p;
+    va_list ap;
+    char buf[1024];
 
-  if (errorwin == NULL)
+    if (errorwin == NULL)
     {
-      errorwin = glk_window_open (0, 0, 0, wintype_TextBuffer, 0);
-      if (errorwin == NULL)
-	return;
+        errorwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 0);
+        if (errorwin == NULL)
+            return;
     }
 
-  glk_set_window (errorwin);
+    va_start(ap, fmt);
+    vsnprintf(buf, sizeof buf, fmt, ap);
+    va_end(ap);
 
-  va_start (ap, fmt);
-  for (p = fmt; *p; p++)
-    {
-      if (*p == '%')
-	{
-	  switch (*++p)
-	    {
-	    case '%':
-	      glk_put_char ('%');
-	      break;
-
-	    case 's':
-	      glk_put_string (va_arg (ap, char *));
-	      break;
-
-	    case 'd':
-	      snprintf (int_buf, sizeof(int_buf), "%d", va_arg (ap, int));
-	      glk_put_string (int_buf);
-	      break;
-
-	    default:
-	      break;
-	    }
-	}
-      else
-	glk_put_char (*p);
-    }
-  va_end (ap);
+    glk_set_window(errorwin);
+    glk_put_string(buf);
 }
-  
-int
-glkunix_startup_code (glkunix_startup_t *data)
+
+/* The last component of PATH, which may use / or \ as separator. */
+static const char *basename_of(const char *path)
 {
-  char *base_name;
+    const char *base = strrchr(path, '/');
+    if (!base)
+        base = strrchr(path, '\\');
+    return base ? base + 1 : path;
+}
 
-#if defined(GARGLK) || defined(SPATTERLIGHT)
-  garglk_set_program_name("Hugo 3.1");
-  garglk_set_program_info(
-	"Hugo 3.1 by Kent Tessman\n"
-	"Graphics support by Simon Baldwin\n"
-	"Sound support by Tor Andersson\n");
-#endif
+int glkunix_startup_code(glkunix_startup_t *data)
+{
+    garglk_set_program_name(HEGLK_PROGRAM_NAME);
+    garglk_set_program_info(
+        HEGLK_PROGRAM_NAME " by Kent Tessman\n"
+        "Graphics support by Simon Baldwin\n"
+        "Sound support by Tor Andersson\n");
 
-  if (data->argc != 2)
+    if (data->argc != 2)
     {
-      base_name = strrchr (data->argv[0], '/');
-      base_name = (base_name != NULL) ? base_name + 1 : data->argv[0];
-      glkunix_startup_error ("Usage: %s game-file\n", base_name);
-      return FALSE;
+        glkunix_startup_error("Usage: %s game-file\n", basename_of(data->argv[0]));
+        return FALSE;
     }
 
-#if defined(GARGLK) || defined(SPATTERLIGHT)
-    char *s;
-    s = strrchr(data->argv[1], '/');
-    if (!s) s = strrchr(data->argv[1], '\\');
-    garglk_set_story_name(s ? s + 1 : data->argv[1]);
-#endif
+    garglk_set_story_name(basename_of(data->argv[1]));
 
-  glkunix_set_base_file(data->argv[1]);
-  game = glkunix_stream_open_pathname (data->argv[1], 0, 0);
-  if (game == NULL)
+    glkunix_set_base_file(data->argv[1]);
+    game = glkunix_stream_open_pathname(data->argv[1], 0, 0);
+    if (game == NULL)
     {
-      glkunix_startup_error ("Error: cannot open game file `%s'\n",
-			     data->argv[1]);
-      return FALSE;
+        glkunix_startup_error("Error: cannot open game file `%s'\n", data->argv[1]);
+        return FALSE;
     }
 
-  /* This should not happen, but handle it anyway. */
-  if (errorwin != NULL)
-    glk_window_close (errorwin, NULL);
+    /* This should not happen, but handle it anyway. */
+    if (errorwin != NULL)
+        glk_window_close(errorwin, NULL);
 
-  return TRUE;
+    return TRUE;
 }

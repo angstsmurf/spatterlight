@@ -65,6 +65,12 @@ unsigned char *os_fill_buffer (unsigned char *buf, size_t len);
 
 int os_vasprintf(char **bufptr, const char *fmt, va_list ap);
 
+/* The game read input or wrote text: it isn't stuck (os_break, osmisc.c) */
+void osglk_not_idle(void);
+
+/* os_sleep_ms on a Glk timer, so what was drawn is shown (osglk.c) */
+void osglk_sleep_ms(unsigned long ms);
+
 #ifdef __cplusplus
 }
 #endif

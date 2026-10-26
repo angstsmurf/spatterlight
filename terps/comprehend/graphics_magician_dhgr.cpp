@@ -29,8 +29,12 @@
 #include "graphics_magician.h"
 #include "gm_artifact.h"
 #include "gm_hires.h"
+#include "gm_stream.h"         // shared opcode dispatcher
+#include "gm_blit.h"           // shared 560-colour row sampling
 #include "slow_draw_page.h"     // shared progressive-reveal helper
 #include "gm_span_fill.h"       // shared op14 flood fill
+#include "graphics_magician_vector.h"  // shared circle stepper
+#include <cstdlib>
 #include <cstring>
 
 namespace Glk {
@@ -65,34 +69,10 @@ static uint8_t s_aux[A2_PAGE_SIZE];
 static uint8_t s_slowMain[A2_PAGE_SIZE]; // progressively-revealed pages
 static uint8_t s_slowAux[A2_PAGE_SIZE];
 
-// offset -> screen row (0..191), or 0xff for the inter-row gaps in the page
-// address space; offset -> byte column (0..39), or 0xff in the gaps. Built once;
-// lets a reveal map a byte write back to its row (dirty band) and column (so the
-// CM panel columns can be excluded from the reveal -- see dhgr_apply_slow).
-static uint8_t s_rowOfOffset[A2_PAGE_SIZE];
-static uint8_t s_colOfOffset[A2_PAGE_SIZE];
-static bool s_rowTableInit = false;
-
-static void init_offset_tables() {
-	if (s_rowTableInit)
-		return;
-	std::memset(s_rowOfOffset, 0xff, sizeof(s_rowOfOffset));
-	std::memset(s_colOfOffset, 0xff, sizeof(s_colOfOffset));
-	for (int row = 0; row < 192; row++) {
-		uint16_t base = CALC(row);
-		for (int col = 0; col < 40; col++) {
-			s_rowOfOffset[base + col] = (uint8_t)row;
-			s_colOfOffset[base + col] = (uint8_t)col;
-		}
-	}
-	s_rowTableInit = true;
-}
-
-static int dhgr_row_of(uint16_t offset) {
-	init_offset_tables();
-	uint8_t r = s_rowOfOffset[offset];
-	return (r == 0xff) ? -1 : (int)r;        // -1 = inter-row gap, skip
-}
+// The reveal maps a byte write back to its row (dirty band) and column (so the CM
+// panel columns can be excluded from the reveal -- see dhgr_apply_slow) with
+// gm_row_of_offset / gm_col_of_offset; both give -1 in the inter-row gaps of the
+// page address space.
 
 // Apply one recorded byte to the matching slow page; defined after the CM-panel
 // state it consults (forward-declared here for the policy).
@@ -102,7 +82,7 @@ static bool dhgr_apply_slow(const SlowWriteOp &op);
 // page, and panel columns are skipped during the reveal.
 struct DhgrSlowPolicy {
 	bool apply(const SlowWriteOp &op) { return dhgr_apply_slow(op); }
-	int rowOf(const SlowWriteOp &op) const { return dhgr_row_of(op.offset); }
+	int rowOf(const SlowWriteOp &op) const { return gm_row_of_offset(op.offset); }
 	bool adjacent(const SlowWriteOp &a, const SlowWriteOp &b) const {
 		return (a.page == b.page &&
 				(int)b.offset >= (int)a.offset - 1 && (int)b.offset <= (int)a.offset + 1) ||
@@ -176,7 +156,8 @@ bool gmDhgrInstallDrawingTables(const uint8_t *t5, size_t size) {
 bool gmDhgrHaveDrawingTables() { return s_tablesInstalled; }
 
 // ---- op6 SET_FILL_COLOR (the $0D1A builder) -----------------------------------
-static uint8_t curEven[8], curOdd[8];
+// The current fill pattern: one byte per column (mod 8), on even and odd scanlines.
+static uint8_t s_fillPatternEven[8], s_fillPatternOdd[8];
 static uint8_t g_brush = 5;
 
 static void set_fill_color(uint8_t color) {
@@ -184,119 +165,100 @@ static void set_fill_color(uint8_t color) {
 	uint8_t b0 = s_subtbl[(2 * idx) & 0x1ff];
 	uint8_t b1 = s_subtbl[(2 * idx + 1) & 0x1ff];
 	for (int y = 0; y < 8; y++) {
-		curEven[y] = s_pattern[((b0 << 3) + y) & 0x7ff];
-		curOdd[y]  = s_pattern[((b1 << 3) + y) & 0x7ff];
+		s_fillPatternEven[y] = s_pattern[((b0 << 3) + y) & 0x7ff];
+		s_fillPatternOdd[y]  = s_pattern[((b1 << 3) + y) & 0x7ff];
 	}
 }
 
-// ---- line subsystem (verbatim from the validated dhgr_line_port) --------------
-static uint8_t Z0b, Z0c, ZE0, ZE1, ZE2;
-static uint16_t rowbase;
-static uint8_t Z1c, Z1d, Z1b, Z1e, Z1446, Z18, Z19, Z1a;
-static uint8_t Z1490, Z148e, Z148f, Z1491, Z1492, Z1493, Z1494, Z1495, Z1496, Z1497, Z1445;
-static uint8_t Z1447 = 7;
-static const uint8_t setmask[8] = {1, 2, 4, 8, 16, 32, 64, 0xa6};
-static const uint8_t clrmask[8] = {0xfe, 0xfd, 0xfb, 0xf7, 0xef, 0xdf, 0xbf, 0x84};
-static const uint8_t ystep[8] = {1, 0xff, 1, 0xff, 1, 0xff, 1, 0xff};
-static const uint8_t xstep[8] = {0xff, 0xff, 1, 1, 0xfc, 0xfc, 4, 4};
-static const uint8_t color4bit[8] = {0, 6, 9, 0xf, 0, 3, 0xc, 0};
-static const uint8_t off13bc[4] = {0, 7, 14, 21};
-static int hung = 0, usecolor = 0;
+// ---- line subsystem -----------------------------------------------------------
+// Pen position: x doubled to the 560-wide raster, and y.
+static uint16_t s_penX;
+static uint8_t s_penY;
+static uint8_t s_penColor = 7;                 // op2 SET_PEN_COLOR
+// The 4-pixel pattern each colour pen draws (see plot_pen).
+static const uint8_t PEN_COLOR_PATTERN[8] = {0, 6, 9, 0xf, 0, 3, 0xc, 0};
 
-static void rowaddr() { rowbase = CALC(ZE2); }
-static void posn(uint16_t xd, uint8_t y) {
-	ZE0 = xd & 0xff; ZE1 = xd >> 8; ZE2 = y; rowaddr();
-	Z0b = ZE0; Z0c = ZE1;
-	for (int c = 8; c; c--) { uint8_t cy = Z0b >> 7; Z0b = Z0b << 1; Z0c = (Z0c << 1) | cy; if (Z0c > 6) { Z0c -= 7; Z0b++; } }
-}
-static void plot() {
-	uint8_t col = Z0b >> 1; uint8_t *p = (Z0b & 1) ? s_main : s_aux; uint16_t a = rowbase + col;
+static void move_pen(uint16_t xd, uint8_t y) { s_penX = xd; s_penY = y; }
+
+// Set or clear one pixel of the 560-wide raster. Each run of 7 pixels is one
+// byte, alternating between the aux and main pages.
+static void plot_pixel(int x, uint8_t y, bool set) {
+	int group = x / 7;
+	uint8_t mask = (uint8_t)(1 << (x % 7));
+	uint8_t *p = (group & 1) ? s_main : s_aux;
+	uint16_t a = CALC(y) + (group >> 1);
 	if (a >= A2_PAGE_SIZE) return;
-	dhgr_put(p, a, Z1446 ? (uint8_t)(p[a] | setmask[Z0c]) : (uint8_t)(p[a] & clrmask[Z0c]));
+	dhgr_put(p, a, set ? (uint8_t)(p[a] | mask) : (uint8_t)(p[a] & ~mask));
 }
-static void plotColor() {
-	uint8_t sb = Z0b, sc = Z0c;
-	Z0b &= 0xfc;
-	uint8_t X = sb & 3;
-	uint8_t Yv = (uint8_t)((off13bc[X] + sc) & 0xfc);
-	uint8_t adv = Yv >> 3;
-	Z0b = adv | Z0b;
-	Z0c = (uint8_t)(Yv - off13bc[adv & 3]);
-	uint8_t a = color4bit[Z1447 & 7] << 4;
-	for (int i = 0; i < 4; i++) {
-		Z1446 = (a & 0x80) ? 1 : 0; a = (uint8_t)(a << 1);
-		plot();
-		Z0c++; if (Z0c >= 7) { Z0c = 0; Z0b++; }
+
+// Pens 4 (black) and 7 (white) draw single pixels. Every other pen is a colour,
+// drawn as its 4-bit pattern (leftmost pixel = bit 3) across the aligned group
+// of four pixels containing x.
+static bool pen_is_mono() { return s_penColor == 4 || s_penColor == 7; }
+static void plot_pen(int x, uint8_t y) {
+	if (pen_is_mono()) {
+		plot_pixel(x, y, s_penColor == 7);
+		return;
 	}
-	Z0b = sb; Z0c = sc;
+	uint8_t pattern = PEN_COLOR_PATTERN[s_penColor & 7];
+	x &= ~3;
+	for (int i = 0; i < 4; i++)
+		plot_pixel(x + i, y, pattern & (8 >> i));
 }
-static void doplot() { if (usecolor) plotColor(); else plot(); }
-static void stepA() { ZE2 += ystep[Z1e]; rowaddr(); }
-static void stepC() {
-	uint8_t v = (uint8_t)(Z0c + xstep[Z1e]);
-	if (v & 0x80) { Z0b--; Z0c = (uint8_t)((v & 7) - 1); return; }
-	Z0c = v;
-	if (Z0c < 7) return;
-	if (Z0c == 7) Z0c = 0xff; else Z0c = Z0c & 7;
-	Z0c = (uint8_t)(Z0c + 1); Z0b++;
-}
-static void linesetup() {
-	Z1493 = 0; Z1494 = 0;
-	for (int g = 0; g < 100000; g++) {
-		int diff = (int)Z148e - (int)Z1490;
-		if (diff < 0) { if (Z148f == 0) break; Z148f--; }
-		Z148e = (uint8_t)diff; Z1493++; if (Z1493 == 0) Z1494++;
-	}
-	Z1496 = Z148e; Z1495 = Z148e; Z1491 = Z1493; Z1492 = Z1494; Z1497 = (uint8_t)(Z1490 - Z1496);
-}
-static void stepB() {
-	Z1493 = Z1491; Z1494 = Z1492;
-	if (Z1495 == 0) { Z1495 = Z1496; return; }
-	int s = (int)Z1496 + (int)Z1495;
-	if (s > 0xff || (uint8_t)s >= Z1490) { Z1493++; if (Z1493 == 0) Z1494++; }
-	int v = (int)Z1495 - (int)Z1497; if (v < 0) v += Z1490; Z1495 = (uint8_t)v;
-}
+
+// op10 DRAW_LINE from the pen position to (x2d, y2), leaving the pen there.
+//
+// A port of the 6502 run-slice line: the longer axis is cut into one run per
+// step of the shorter axis, each run major / minor pixels long, with an
+// accumulator adding the remainder that decides which runs get an extra pixel.
+// Quirks of the original that are kept, as they decide which pixels are lit:
+//  - the axis lengths are counted in pixels (|d| + 1), and a tie is y-major;
+//  - a colour pen steps x by a whole 4-pixel group, from and to x aligned down
+//    to a multiple of 4, and leaves the pen at that aligned end x;
+//  - when the accumulator lands exactly on zero, the next run is not lengthened
+//    and the accumulator restarts at the remainder.
 static void line(uint16_t x2d, uint8_t y2) {
-	uint8_t p1 = x2d & 0xff, p2 = x2d >> 8, p3 = y2;
-	Z1e = 0;
-	int dx = (int)(((int)ZE1 << 8) | ZE0) - (int)(((int)p2 << 8) | p1);
-	Z1c = dx & 0xff; Z1d = (dx >> 8) & 0xff;
-	if (dx < 0) { Z1d = ~Z1d; Z1c = (uint8_t)(~Z1c + 1); if (Z1c == 0) Z1d++; Z1e |= 2; }
-	int dy = (int)p3 - (int)ZE2;
-	Z1b = dy & 0xff;
-	if (dy < 0) { Z1b = (uint8_t)(~Z1b + 1); Z1e |= 1; }
-	Z1b++; Z1c++; if (Z1c == 0) Z1d++;
-	Z1446 = Z1447 & 1; Z18 = p1; Z19 = p2; Z1a = p3;
-	usecolor = 0;
-	if (Z1447 != 4 && Z1447 != 7) {
-		usecolor = 1; Z1446 = 0xff;
-		ZE0 &= 0xfc; Z18 = p1 & 0xfc;
-		int dx2 = (int)(((int)ZE1 << 8) | ZE0) - (int)(((int)p2 << 8) | Z18);
-		Z1c = dx2 & 0xff; Z1d = (dx2 >> 8) & 0xff;
-		if (dx2 < 0) { Z1d = ~Z1d; Z1c = (uint8_t)(~Z1c + 1); if (Z1c == 0) Z1d++; }
-		uint16_t w = ((Z1d << 8) | Z1c) >> 2; Z1c = w & 0xff; Z1d = w >> 8;
-		Z1c++; if (Z1c == 0) Z1d++;
-		Z1e += 4;
+	const int group = pen_is_mono() ? 1 : 4;
+	if (group == 4)
+		x2d &= ~3;
+	int x = s_penX & ~(group - 1);
+	int y = s_penY;
+	const int xstep = (x2d > x) ? group : -group;
+	const int ystep = (y2 < y) ? -1 : 1;
+
+	const int xcount = abs(x2d - x) / group + 1;
+	const int ycount = abs(y2 - y) + 1;
+	const bool steep = xcount <= ycount;
+	const int major = steep ? ycount : xcount;
+	const int minor = steep ? xcount : ycount;
+	const int q = major / minor, r = major % minor;
+
+	int run = q, acc = r;
+	for (int i = 0; i < minor; i++) {
+		for (int k = 0; k < run; k++) {
+			plot_pen(x, (uint8_t)y);
+			if (steep) y += ystep; else x += xstep;
+		}
+		if (steep) x += xstep; else y += ystep;
+
+		if (acc == 0) {
+			acc = r;
+			run = q;
+		} else {
+			run = q + (acc + r >= minor);
+			acc = (acc + r) % minor;
+		}
 	}
-	if (Z1d == 0 && Z1c <= Z1b) {
-		Z148f = 0; Z1490 = Z1c; Z148e = Z1b; linesetup(); int og = 0;
-		do { uint8_t c3 = 0; int ig = 0; do { doplot(); stepA(); c3++; if (++ig > 4000) { hung = 1; return; } } while (c3 != Z1493);
-			stepB(); stepC(); Z1c--; if (Z1c == 0xff) Z1d--; if (++og > 8000) { hung = 1; return; } } while (Z1d != 0 || Z1c != 0);
-	} else {
-		Z148e = Z1c; Z148f = Z1d; Z1490 = Z1b; linesetup(); int og = 0;
-		do { uint8_t c3 = 0; Z1445 = 0; int ig = 0; do { doplot(); stepC(); c3++; if (c3 == 0) Z1445++; if (++ig > 40000) { hung = 1; return; } } while (c3 != Z1493 || Z1445 != Z1494);
-			stepB(); stepA(); Z1b--; if (++og > 8000) { hung = 1; return; } } while (Z1b != 0);
-	}
-	posn(((Z19 << 8) | Z18), Z1a);
+	move_pen(x2d, y2);
 }
 
 // ---- op12 brush ($105A) -------------------------------------------------------
-static const uint8_t DHGR_DBL[16] = {0x00, 0x03, 0x0c, 0x0f, 0x30, 0x33, 0x3c, 0x3f,
+static const uint8_t DHGR_DOUBLE_BITS[16] = {0x00, 0x03, 0x0c, 0x0f, 0x30, 0x33, 0x3c, 0x3f,
 									 0xc0, 0xc3, 0xcc, 0xcf, 0xf0, 0xf3, 0xfc, 0xff};
 static void brush_blit_col(int row, int col, uint8_t bits) {
 	if (!bits) return;
 	uint16_t base = CALC(row);
-	const uint8_t *pat = (row & 1) ? curOdd : curEven;
+	const uint8_t *pat = (row & 1) ? s_fillPatternOdd : s_fillPatternEven;
 	uint8_t v3 = (uint8_t)((bits | 0x80) & pat[col & 7]);
 	uint8_t mask = (uint8_t)(bits ^ 0x7f);
 	int a = base + (col >> 1); if (a < 0 || a >= A2_PAGE_SIZE) return;
@@ -322,74 +284,38 @@ static void draw_brush(uint16_t x16, uint8_t y, uint8_t brush) {
 
 // ---- op11 DRAW_CIRCLE ---------------------------------------------------------
 //
-// Faithful port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb + steps FUN_0b95/
-// FUN_0ba5). The centre is the current pen position (ZE0/ZE1 doubled x, ZE2 y).
+// Port of the <D> circle (FUN_0aeb + plot8 FUN_0bcb). The centre is the current
+// pen position (s_penX, s_penY), which the circle leaves unchanged.
 // The x extents run to +-2*radius and x is advanced at DOUBLE resolution (a plot
 // between two single x steps) while y advances at single resolution, so the
 // outline is round on the 560-wide raster AND gap-free. This matters for fill
 // containment: the Talisman title's lamp-knob circle (op DRAW_CIRCLE r=4 @135,90)
 // must close, or the following fill=62 PAINT leaks out of the lamp into the sky.
-static int cir_xRi, cir_xLi, cir_xRo, cir_xLo; // inner/outer x right/left (doubled)
-static int cir_yBi, cir_yTi, cir_yBo, cir_yTo; // inner/outer y bottom/top
-static int cir_d;                              // half-step parity counter ($000d)
-
+//
+// The (i, r) walk is the shared 6502 stepper (gmvAppleCircleSteps). Each full
+// step plots the eight-way symmetric points (+-2i, +-r) and (+-2r, +-i); the
+// half step after each advance plots them again half a step back, at the odd
+// x in between. This loop tests r < i before a full step rather than after
+// the advance, so it plots one full step more than the hi-res one, at the
+// (i, r) the stepper ends on. That step only repaints pixels of the step
+// before it, for every radius, but it is kept so the slow-draw reveal
+// sequence is unchanged.
 static void circle_point(int x, int y) {
 	if (y < 0 || y > 0x9f || x < 0 || x >= 0x230) return;  // FUN_0c35 bounds
-	posn((uint16_t)x, (uint8_t)y);
-	doplot();
-}
-static void circle_plot8() {
-	cir_d++;                                   // FUN_0bcb increments $000d first
-	circle_point(cir_xLi, cir_yTo);
-	circle_point(cir_xRi, cir_yTo);
-	circle_point(cir_xRi, cir_yBo);
-	circle_point(cir_xLi, cir_yBo);
-	circle_point(cir_xRo, cir_yTi);
-	circle_point(cir_xLo, cir_yTi);
-	circle_point(cir_xLo, cir_yBi);
-	circle_point(cir_xRo, cir_yBi);
-}
-static void circle_stepBA() {                  // FUN_0ba5: inner x only, maybe inner y
-	cir_xRi++; cir_xLi--;
-	if (!(cir_d & 1)) { cir_yBi++; cir_yTi--; }
-}
-static void circle_stepB() {                   // FUN_0b95: outer x, then FUN_0ba5
-	cir_xRo--; cir_xLo++;
-	circle_stepBA();
+	plot_pen(x, (uint8_t)y);
 }
 static void draw_circle(uint8_t radius) {
 	if (radius == 0) return;
-	int C = (ZE1 << 8) | ZE0;                  // center x/y = pen position. The real
-	int cy = ZE2;                              // circle saves/restores zero-page
-											   // $05..$17 around itself; here neither
-											   // C nor cy is mutated, so they double
-											   // as the saved position to restore.
-	usecolor = (Z1447 != 4 && Z1447 != 7) ? 1 : 0;
-	Z1446 = Z1447 & 1;
-	int r = radius, dvar = r >> 1, i = 0;
-	cir_d = 0;
-	cir_xRi = cir_xLi = C;
-	cir_xRo = C + 2 * r; cir_xLo = C - 2 * r;
-	cir_yTi = cy; cir_yBi = cy;
-	cir_yBo = cy + r; cir_yTo = cy - r;
-	// Loop provably terminates: r only decreases (borrow case) and i only increases
-	// until r < i. radius is a uint8_t, so this runs well under 256 iterations.
-	for (;;) {
-		circle_plot8();
-		if (r < i) break;
-		i++;
-		int tmp = dvar - i;
-		if (dvar >= i) {                       // no borrow: inner extents only
-			dvar = tmp;
-			circle_stepBA(); circle_plot8(); circle_stepBA();
-		} else {                               // borrow: step radius + outer extents in
-			r--;
-			dvar = tmp + r;
-			cir_yBo--; cir_yTo++;
-			circle_stepB(); circle_plot8(); circle_stepB();
-		}
-	}
-	posn((uint16_t)C, (uint8_t)cy);            // restore pen position
+	const int cx = s_penX, cy = s_penY;
+	auto full = [&](int i, int r) {
+		gmvCirclePlot8(cx, cy, 2 * i, r, 2 * r, i, circle_point);
+	};
+	const GmvCircleEnd e = gmvAppleCircleSteps(radius, full,
+		[&](int i, int r, bool shrink) {
+			// When r shrinks, the side points sit between the old and new 2r.
+			gmvCirclePlot8(cx, cy, 2 * i - 1, r, 2 * r + shrink, i - 1, circle_point);
+		});
+	full(e.i, e.r);
 }
 
 // ---- op1/op3/op5 text glyphs --------------------------------------------------
@@ -425,13 +351,13 @@ static void glyph_blit_half(int row, int col, uint8_t half, int bit, bool normal
 }
 
 // Expand one source byte into its DHGR nibble-doubled 14-bit pattern -- two 7-bit
-// halves (left = cbf, right = cc0 with carry) via DHGR_DBL (FUN_0c8d) -- and blit
+// halves (left = cbf, right = cc0 with carry) via DHGR_DOUBLE_BITS (FUN_0c8d) -- and blit
 // both across three columns at (row, col..col+2). The shared core of the op12 brush
 // blitter (normal=false) and the op3/op5 glyph blitter (FUN_0c60 -> FUN_108e). A
 // zero byte expands to two empty halves, i.e. a no-op.
 static void dhgr_blit_byte(int row, int col, uint8_t b, int bit, bool normal) {
 	if (row < 0 || row > 0xbf) return;
-	uint8_t cc0 = DHGR_DBL[b >> 4], lo = DHGR_DBL[b & 0xf];
+	uint8_t cc0 = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
 	uint8_t cy = (uint8_t)(lo >> 7); lo = (uint8_t)(lo << 1); cc0 = (uint8_t)((cc0 << 1) | cy); lo >>= 1;
 	glyph_blit_half(row, col,     lo,  bit, normal);   // left half (cbf)
 	glyph_blit_half(row, col + 1, cc0, bit, normal);   // right half (+carry)
@@ -454,9 +380,9 @@ static void dhgr_draw_glyph(uint16_t x, uint8_t y, uint8_t ch, bool normal) {
 // the flood fill to this rectangle, exactly as the standard renderer does
 // (ctx->fill_*): without it a room whose floor opens toward the right edge -- the
 // Coveted Mirror prison tower -- leaks the fill up and over the whole picture.
-static uint8_t g_fillLeft, g_fillRight, g_fillTop, g_fillBottom;
+static GmFillBounds g_fill;
 
-// The span-fill engine is shared with the standard hi-res renderer
+// The span-fill engine is shared with the standard hi-res and CGA renderers
 // (gm_span_fill.h); this is the double hi-res page it runs on: 80 columns
 // alternating aux/main bytes, patterned from an 8-byte-wide dither selected by
 // row parity.
@@ -490,26 +416,26 @@ struct DhgrFillPage {
 		if (off >= A2_PAGE_SIZE) return;
 		dhgr_put(col & 1 ? s_main : s_aux, off, v);
 	}
-	uint8_t pattern(int col) const { return (oddRow ? curOdd : curEven)[col & 7]; }
+	uint8_t pattern(int col) const { return (oddRow ? s_fillPatternOdd : s_fillPatternEven)[col & 7]; }
 };
 
 static DhgrFillPage s_fillPage;
-static GmSpanFill<DhgrFillPage> s_spanFill(s_fillPage);
+static GmHiresSpanFill<DhgrFillPage> s_spanFill(s_fillPage);
 
 static void flood_fill(uint16_t x, uint8_t y) {
 	// Clip to the op15 fill-bounds rectangle. The fill runs in DHGR columns
 	// (0..0x4f); a source byte column B spans DHGR columns 2B and 2B+1, so the
 	// byte-column bounds double (left -> 2*left, right -> 2*right+1). Rows are not
 	// doubled. Matches the standard renderer, which clips PAINT to ctx->fill_*.
-	s_spanFill.fill(x, y, (uint8_t)(2 * g_fillLeft), (uint8_t)(2 * g_fillRight + 1),
-					g_fillTop, g_fillBottom);
+	s_spanFill.fill(x, y, (uint8_t)(2 * g_fill.left), (uint8_t)(2 * g_fill.right + 1),
+					g_fill.top, g_fill.bottom);
 }
 
 // op15 sub-op 3: fill the clip rectangle with the current fill pattern.
 static void fill_rect() {
 	for (int row = 0; row <= 0x9f; row++) {
 		uint16_t base = CALC(row);
-		const uint8_t *pat = (row & 1) ? curOdd : curEven;
+		const uint8_t *pat = (row & 1) ? s_fillPatternOdd : s_fillPatternEven;
 		for (int col = 0; col <= 0x4f; col++)
 			dhgr_put(col & 1 ? s_main : s_aux, (uint16_t)(base + (col >> 1)), pat[col & 7]);
 	}
@@ -522,53 +448,31 @@ static void fill_rect() {
 // a run (next two bytes are count and value, written count+1 times); it stops
 // the moment the bottom-right cell is written. The one difference is the write:
 // the 6502 <D> routine ($0a7b) splits each source byte through the nibble-
-// doubling table (DHGR_DBL) into a main + aux byte and stores both at the same
+// doubling table (DHGR_DOUBLE_BITS) into a main + aux byte and stores both at the same
 // page offset (logical DHGR columns 2*col / 2*col+1) -- the same expansion the
 // brush blitter above performs. Without this, op15/0 used to fall through doing
 // nothing AND consuming no operand bytes, so the bounds+RLE stream was misparsed
 // as opcodes and the picture collapsed to the white reset page.
 static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 	const uint8_t *p = *pp;
-	if (p + 4 > end) { *pp = end; return; }
-	uint8_t right = *p++, left = *p++, bottom = *p++, top = *p++;
-	// The real CM op15/0 reads these four bytes through gm_op15_read_bounds
+	// The real CM op15/0 reads its four bounds bytes through gm_op15_read_bounds
 	// (cm_ram_raw.bin @0x0a17), which is the SAME routine op15/2 uses: it stores
 	// them as the fill-clip rectangle (left/right/top/bottom). A later PAINT flood
 	// is clipped to this rectangle. The cupboard-door overlay (OE idx0) relies on
 	// this -- its only op15 is this RLE bitmap (rows 97..135), and the following
 	// fill=62 PAINT must not leak below row 135 onto the floor. (Rooms like RA idx2
 	// re-open the bounds with an explicit op15/2 after their RLE, so this is safe.)
-	g_fillRight = right; g_fillLeft = left; g_fillBottom = bottom; g_fillTop = top;
-	int col = left, row = top;
-	bool done = false;
-	while (!done && p < end) {
-		uint8_t b = *p++;
-		int reps = 1;
-		if (b == 0x80) {
-			if (p + 2 > end) break;
-			reps = *p++ + 1;
-			b = *p++;
+	if (!g_fill.read(p, end)) { *pp = end; return; }
+	gmDecodeRleBitmap(g_fill, p, end, [](int row, int col, uint8_t b) {
+		uint16_t off = (uint16_t)(CALC(row) + col);
+		if (row <= 0x9f && col < 40 && off < A2_PAGE_SIZE) {
+			uint8_t hi = DHGR_DOUBLE_BITS[b >> 4], lo = DHGR_DOUBLE_BITS[b & 0xf];
+			uint8_t mainByte = (uint8_t)((hi << 1) | (lo >> 7));
+			uint8_t auxByte = (uint8_t)(lo & 0x7f);
+			dhgr_put(s_aux, off, auxByte);
+			dhgr_put(s_main, off, mainByte);
 		}
-		while (reps--) {
-			uint16_t off = (uint16_t)(CALC(row) + col);
-			if (row <= 0x9f && col < 40 && off < A2_PAGE_SIZE) {
-				uint8_t hi = DHGR_DBL[b >> 4], lo = DHGR_DBL[b & 0xf];
-				uint8_t mainByte = (uint8_t)((hi << 1) | (lo >> 7));
-				uint8_t auxByte = (uint8_t)(lo & 0x7f);
-				dhgr_put(s_aux, off, auxByte);
-				dhgr_put(s_main, off, mainByte);
-			}
-			if (row != bottom) {
-				row++;
-			} else if (col == right) {
-				done = true;
-				break;
-			} else {
-				col++;
-				row = top;
-			}
-		}
-	}
+	});
 	*pp = p;
 }
 
@@ -581,44 +485,32 @@ static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 // source column indices match the standard page: the DHGR renderer doubles each
 // Apple column into the matching aux+main byte (logical cols 2c / 2c+1), so the
 // panel occupies the same byte columns 24..39 in both pages as it does standard.
-static uint8_t s_cmPanelAux[A2_PAGE_SIZE];
-static uint8_t s_cmPanelMain[A2_PAGE_SIZE];
-static bool s_cmPanelValid = false;
-static int s_cmPanelCol0 = 24, s_cmPanelCol1 = 39;
+static CMPanelStore<2> s_cmPanel;     // planes: 0 = aux, 1 = main
+
+// The live and slow plane pairs, in CMPanelStore's plane order.
+#define DHGR_LIVE_PLANES uint8_t *const live[2] = { s_aux, s_main }
+#define DHGR_SLOW_PLANES uint8_t *const slow[2] = { s_slowAux, s_slowMain }
 
 void gmDhgrCaptureCMPanel(int col0, int col1) {
-	std::memcpy(s_cmPanelAux,  s_aux,  A2_PAGE_SIZE);
-	std::memcpy(s_cmPanelMain, s_main, A2_PAGE_SIZE);
-	s_cmPanelCol0 = col0;
-	s_cmPanelCol1 = col1;
-	s_cmPanelValid = true;
+	DHGR_LIVE_PLANES;
+	s_cmPanel.capture(live, col0, col1);
 }
 
-bool gmDhgrCMPanelValid() { return s_cmPanelValid; }
-
-// Scratch state for gmDhgrBeginCMPanelRebuild()/gmDhgrEndCMPanelRebuild().
-static uint8_t s_cmRebuildSaveAux[A2_PAGE_SIZE], s_cmRebuildSaveMain[A2_PAGE_SIZE];
-static uint8_t s_cmRebuildSaveSlowAux[A2_PAGE_SIZE], s_cmRebuildSaveSlowMain[A2_PAGE_SIZE];
-static bool s_cmRebuildRecording = false;
+bool gmDhgrCMPanelValid() { return s_cmPanel.valid(); }
 
 void gmDhgrBeginCMPanelRebuild() {
-	std::memcpy(s_cmRebuildSaveAux,  s_aux,  A2_PAGE_SIZE);
-	std::memcpy(s_cmRebuildSaveMain, s_main, A2_PAGE_SIZE);
-	std::memcpy(s_cmRebuildSaveSlowAux,  s_slowAux,  A2_PAGE_SIZE);
-	std::memcpy(s_cmRebuildSaveSlowMain, s_slowMain, A2_PAGE_SIZE);
-	s_cmRebuildRecording = s_slow.recording();
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_cmPanel.beginRebuild(live, slow, s_slow.recording());
 	s_slow.setRecording(false);
 	std::memset(s_main, 0x00, A2_PAGE_SIZE);   // black panel background
 	std::memset(s_aux,  0x00, A2_PAGE_SIZE);
 }
 
 void gmDhgrEndCMPanelRebuild() {
-	gmDhgrCaptureCMPanel(24, 39);
-	std::memcpy(s_aux,  s_cmRebuildSaveAux,  A2_PAGE_SIZE);
-	std::memcpy(s_main, s_cmRebuildSaveMain, A2_PAGE_SIZE);
-	std::memcpy(s_slowAux,  s_cmRebuildSaveSlowAux,  A2_PAGE_SIZE);
-	std::memcpy(s_slowMain, s_cmRebuildSaveSlowMain, A2_PAGE_SIZE);
-	s_slow.setRecording(s_cmRebuildRecording);
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_slow.setRecording(s_cmPanel.endRebuild(live, slow));
 }
 
 // Panel-column helpers shared by the overlay / band-restore / grain-mirror paths.
@@ -626,26 +518,14 @@ void gmDhgrEndCMPanelRebuild() {
 // pages (rows y0..y1); cm_panel_final_to_slow mirrors the final pages' panel columns
 // (e.g. with freshly stamped grains) onto the slow pages only.
 static void cm_panel_to_pages(int y0, int y1) {
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			uint16_t a = (uint16_t)(base + col);
-			if (a >= A2_PAGE_SIZE) continue;
-			s_aux[a]  = s_slowAux[a]  = s_cmPanelAux[a];
-			s_main[a] = s_slowMain[a] = s_cmPanelMain[a];
-		}
-	}
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_cmPanel.toPages(live, slow, y0, y1);
 }
 static void cm_panel_final_to_slow(int y0, int y1) {
-	for (int row = y0; row <= y1; row++) {
-		uint16_t base = CALC(row);
-		for (int col = s_cmPanelCol0; col <= s_cmPanelCol1; col++) {
-			uint16_t a = (uint16_t)(base + col);
-			if (a >= A2_PAGE_SIZE) continue;
-			s_slowAux[a]  = s_aux[a];
-			s_slowMain[a] = s_main[a];
-		}
-	}
+	DHGR_LIVE_PLANES;
+	DHGR_SLOW_PLANES;
+	s_cmPanel.finalToSlow(live, slow, y0, y1);
 }
 
 // Copy the saved panel byte-columns onto both the final and the
@@ -653,7 +533,7 @@ static void cm_panel_final_to_slow(int y0, int y1) {
 // room's slow-draw reveal is still running (mirrors the standard renderer, which
 // writes the panel to s_screenmem and s_slowScreen alike).
 void gmDhgrOverlayCMPanel() {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	cm_panel_to_pages(0, DHGR_HEIGHT - 1);
 }
@@ -662,7 +542,7 @@ void gmDhgrOverlayCMPanel() {
 // per-grain positions the standard renderer uses (gmCMHourglassGrainPos), the
 // Apple x doubled onto the 560-wide pages. Call after gmDhgrOverlayCMPanel().
 void gmDhgrDrawCMHourglass(int sand) {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	if (sand < 0)
 		sand = 0;
@@ -696,7 +576,7 @@ static CMGrainFall s_dhgrCmFall;
 // Restore the saved static panel (no grains) for rows [y0,y1] onto both the final
 // and slow pages, wiping the previous frame's falling grain before the next.
 static void cmDhgrOverlayPanelBand(int y0, int y1) {
-	if (!s_cmPanelValid)
+	if (!s_cmPanel.valid())
 		return;
 	if (y0 < 0)
 		y0 = 0;
@@ -736,75 +616,102 @@ void gmDhgrResetScreen(bool white) {
 	s_slow.clear();
 }
 
-void gmDhgrDrawImage(const uint8_t *data, size_t size) {
-	hung = 0;
+// ---- Opcode interpreter -------------------------------------------------------
+// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
+// the double hi-res side of it.  Pen, text cursor, brush and fill bounds are the
+// file statics above, so a renderer object carries only the stream base for the
+// DHGR_WATCH trace.
+struct DhgrRenderer {
+	const uint8_t *base;
+
+	// Source x is doubled onto the 560-wide raster for every operand.
+	uint16_t scaleX(uint16_t x) const { return (uint16_t)(x << 1); }
+	int penX() const { return s_penX; }
+	int penY() const { return s_penY; }
+
+	void begin() {
+		// Restore the T5 default colour subindex FIRST, so the per-image init below
+		// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
+		// baseline. op7 overrides are per-image: the same streams render self-coloured
+		// under std-hires, where op7 is a no-op. Order matters -- set_fill_color(0x4d)
+		// reads s_subidx to build the default fill pattern used by fill_rect (the
+		// full-screen background many rooms paint), so it must see the defaults, not a
+		// previous room's patches (which turned e.g. the hill pink after the bazaar).
+		std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
+		s_penColor = 4; move_pen(140 * 2, 96); // per-image draw init (pen colour 4, centre)
+		set_fill_color(0x4d);             // default fill colour
+		// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
+		// (matches the standard renderer's ctx->fill_* defaults).
+		g_fill.reset(0x9f);
+		g_brush = 5;                      // default shape; reset per image (matches the
+										  // std-hires init ctx.BRUSH=5). Without this an
+										  // item overlay inherits the room's last op4
+										  // SET_SHAPE, drawing its brushes with the wrong
+										  // shape so the fills find no seed (e.g. the
+										  // OO-Topos prison-cell bottle/food went the
+										  // colour of the floor/table beneath them).
+	}
 	// When not animating, keep the visible pages in step with the final pages so a
 	// later slow-drawn overlay (e.g. a moved object) composes onto the right
 	// background instead of a stale/blank page -- exactly what the standard hi-res
-	// renderer does at the end of gmDrawImage. A scope guard so it runs on every
-	// exit path, including the op0 END and `hung` early returns below.
-	struct SyncOnExit {
-		~SyncOnExit() { s_slow.syncIfNotRecording(); }
-	} syncOnExit;
-	// Restore the T5 default colour subindex FIRST, so the per-image init below
-	// (and the image's own op7 SET_PALETTE_SUBINDEX commands) start from a clean
-	// baseline. op7 overrides are per-image: the same streams render self-coloured
-	// under std-hires, where op7 is a no-op. Order matters -- set_fill_color(0x4d)
-	// reads s_subidx to build the default fill pattern used by fill_rect (the
-	// full-screen background many rooms paint), so it must see the defaults, not a
-	// previous room's patches (which turned e.g. the hill pink after the bazaar).
-	std::memcpy(s_subidx, s_subidxDefault, sizeof(s_subidx));
-	Z1447 = 4; posn(140 * 2, 96);     // per-image draw init (pen colour 4, centre)
-	set_fill_color(0x4d);             // default fill colour
-	// Default PAINT clip = full screen, until an op15/1 or op15/2 narrows it
-	// (matches the standard renderer's ctx->fill_* defaults).
-	g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
-	g_brush = 5;                      // default shape; reset per image (matches the
-									  // std-hires init ctx.BRUSH=5). Without this an
-									  // item overlay inherits the room's last op4
-									  // SET_SHAPE, drawing its brushes with the wrong
-									  // shape so the fills find no seed (e.g. the
-									  // OO-Topos prison-cell bottle/food went the
-									  // colour of the floor/table beneath them).
-	const uint8_t *p = data, *e = data + size;
-	int guard = 0;
-	while (p < e && guard++ < 100000) {
+	// renderer does at the end of gmDrawImage.
+	void end() { s_slow.syncIfNotRecording(); }
+
+	void beforeOp(const uint8_t *p, const uint8_t *, uint8_t, uint8_t) {
 #ifdef DHGR_WATCH
-		s_dhgrOpTag = (int)(p - data);
+		s_dhgrOpTag = (int)(p - 1 - base);
+#else
+		(void)p;
 #endif
-		uint8_t op = *p++; uint8_t par = op & 0xf; op >>= 4; uint16_t x;
-		switch (op) {
-		case 0: return;                                   // END
-		case 1: { x = *p++ + (par & 1 ? 256 : 0);         // SET_TEXT_POS
-			s_textX = (uint16_t)(x << 1); s_textY = *p++; } break;
-		case 2: Z1447 = par; break;                       // SET_PEN_COLOR
-		case 3: dhgr_draw_glyph(s_textX, s_textY, *p++, true);  s_textX += 14; break;  // TEXT_CHAR
-		case 4: g_brush = par; break;                     // SET_SHAPE
-		case 5: dhgr_draw_glyph(s_textX, s_textY, *p++, false); s_textX += 14; break;  // TEXT_OUTLINE
-		case 6: set_fill_color(*p++); break;              // SET_FILL_COLOR
-		case 7: { uint8_t i = *p++; uint8_t v = *p++; s_subidx[i] = v; } break; // SET_PALETTE_SUBINDEX
-		case 8: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; posn(x << 1, y); } break;  // MOVE_TO
-		case 9: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; uint16_t a = x << 1, b = y; // DRAW_BOX
-			uint16_t x0 = (ZE1 << 8) | ZE0; uint8_t y0 = ZE2;
-			line(x0, (uint8_t)b); line(a, (uint8_t)b); line(a, y0); line(x0, y0);
-			posn(a, (uint8_t)b); } break;
-		case 10: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; line(x << 1, y); } break;  // DRAW_LINE
-		case 11: draw_circle(*p++); break;                // DRAW_CIRCLE
-		case 12: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; draw_brush(x << 1, y, g_brush); } break; // DRAW_SHAPE
-		case 13: { uint8_t units = *p++;                  // DELAY
-			s_slow.recordDelay(units); } break;
-		case 14: { x = *p++ + (par & 1 ? 256 : 0); uint8_t y = *p++; flood_fill(x << 1, y); } break; // PAINT
-		case 15: // RESET (sub-op in low nibble)
-			if (par == 0) rle_bitmap_dhgr(&p, e);   // RLE bitmap (Coveted Mirror)
-			else if (par == 1) {                    // bounds = full screen
-				g_fillLeft = 0; g_fillTop = 0; g_fillRight = 39; g_fillBottom = 0x9f;
-			} else if (par == 2) {                  // read 4 bounds bytes
-				g_fillRight = *p++; g_fillLeft = *p++; g_fillBottom = *p++; g_fillTop = *p++;
-			} else if (par == 3) fill_rect();       // fill background with pattern
+	}
+	void afterOp(uint8_t, uint8_t) {}
+
+	void setTextPos(uint16_t x, uint8_t y) { s_textX = x; s_textY = y; }
+	void drawText(uint8_t ch, bool normal) { dhgr_draw_glyph(s_textX, s_textY, ch, normal); }
+	void advanceText() { s_textX += 14; }
+	void setPen(uint8_t param) { s_penColor = param; }
+	void setShape(uint8_t param) { g_brush = param; }
+	void setFill(uint8_t b) { set_fill_color(b); }
+	// SET_PALETTE_SUBINDEX
+	bool op7(const uint8_t *&p, const uint8_t *e) {
+		if (!gmHave(p, e, 2))
+			return true;
+		const uint8_t i = *p++;
+		const uint8_t v = *p++;
+		s_subidx[i] = v;
+		return false;
+	}
+	void moveTo(uint16_t x, uint8_t y) { move_pen(x, y); }
+	void lineTo(uint16_t x, uint8_t y) { line(x, y); }
+	void circle(uint8_t radius) { draw_circle(radius); }
+	void drawBrush(uint16_t x, uint8_t y) { draw_brush(x, y, g_brush); }
+	void delay(uint8_t units) { s_slow.recordDelay(units); }
+	void paint(uint16_t x, uint8_t y) { flood_fill(x, y); }
+
+	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
+		switch (param) {
+		case 0: // RLE bitmap (Coveted Mirror)
+			rle_bitmap_dhgr(&p, e);
+			break;
+		case 1: // bounds = full screen
+			g_fill.reset(0x9f);
+			break;
+		case 2: // read 4 bounds bytes
+			if (!g_fill.read(p, e))
+				return true;
+			break;
+		default: // param 3: fill the rectangle with the current pattern
+			fill_rect();
 			break;
 		}
-		if (hung) return;
+		return false;
 	}
+};
+
+void gmDhgrDrawImage(const uint8_t *data, size_t size) {
+	DhgrRenderer r;
+	r.base = data;
+	gmRunStream(r, data, size);
 }
 
 static void blit_pages(const uint8_t *aux, const uint8_t *main, uint32_t *out, int w, int h) {
@@ -814,13 +721,8 @@ static void blit_pages(const uint8_t *aux, const uint8_t *main, uint32_t *out, i
 		uint8_t colors560[560];
 		gm_compute_dhgr_row_words(aux + base, main + base, words);
 		gm_render_dhgr_line_colors(words, colors560);
-		// 560 native DHGR columns sampled down to the surface width w.
-		for (int xx = 0; xx < w; xx++) {
-			int sx = (w >= 560) ? xx : (xx * 560) / w;
-			if (sx > 559) sx = 559;
-			uint32_t rgb = gm_apple2_palette[colors560[sx] & 0x0f];
-			out[row * w + xx] = (rgb << 8) | 0xff;
-		}
+		// 560 native DHGR columns sampled down to the surface width w (1:1 when wider).
+		gmSampleRow560(colors560, out + row * w, w, true);
 	}
 }
 
@@ -842,12 +744,8 @@ void gmDhgrBlitToSurface(uint32_t *out, int w, int h) {
 // the panel off the slow pages. Skip panel-column ops so the overlaid panel
 // survives the reveal (it is already correct on the final pages).
 static bool dhgr_apply_slow(const SlowWriteOp &op) {
-	if (s_cmPanelValid) {
-		init_offset_tables();
-		uint8_t c = s_colOfOffset[op.offset];
-		if (c >= s_cmPanelCol0 && c <= s_cmPanelCol1)
-			return false;
-	}
+	if (s_cmPanel.skipsReveal(op.offset))
+		return false;
 	(op.page ? s_slowMain : s_slowAux)[op.offset] = op.value;
 	return true;
 }

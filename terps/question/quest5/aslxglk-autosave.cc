@@ -121,13 +121,35 @@ std::string aslx_encode_frontend(Interp &in, const RngStreams *turn_rngs)
     }
     /* SIDEBAR WIDE. */
     blob_num(b, side_pane_is_wide() ? 1 : 0);
+    /* SIDEBAR / SIDEBAR OFF.  JS.panesVisible needs no saving: Core's
+     * InitInterface sets it again from game.showpanes on a restore. */
+    blob_num(b, g_panes_override);
+    /* The link bar: a game rewrites it when something changes, not every
+     * turn. */
+    blob_num(b, (long) g_link_bar.size());
+    for (const auto &entry : g_link_bar) {
+        blob_str(b, entry.first);
+        blob_num(b, (long) entry.second.size());
+        for (const BarLink &l : entry.second) {
+            blob_str(b, l.label);
+            blob_str(b, l.command);
+        }
+    }
+    /* COLOURS ON / OFF and the palette the game set in play. */
+    questglk::colour_blob_put(b);
+    /* The text panel's background over SetBackgroundColour's. */
+    blob_num(b, (long) g_panel_bg);
+    blob_num(b, (long) g_border_bg);
     return b;
 }
 
 bool aslx_recover_frontend(const std::string &blob)
 {
     BlobReader r{blob};
-    if (r.str() != kAslxBlobMagic)
+    std::string magic = r.str();
+    bool panel = magic == kAslxBlobMagic;
+    bool colour = panel || magic == kAslxBlobMagicNoPanel;
+    if (!colour && magic != kAslxBlobMagicNoColour)
         return false;
     gwin = gli_window_for_tag((int) r.num());
     gbanner = gli_window_for_tag((int) r.num());
@@ -195,11 +217,39 @@ bool aslx_recover_frontend(const std::string &blob)
         g_sections.push_back(s);
     }
     bool wide = r.num() != 0;
+    long pane_override = r.num();
+    g_link_bar.clear();
+    long nbars = r.num();
+    for (long i = 0; i < nbars && r.ok; i++) {
+        std::string id = r.str();
+        std::vector<BarLink> links;
+        long nlinks = r.num();
+        for (long j = 0; j < nlinks && r.ok; j++) {
+            BarLink l;
+            l.label = r.str();
+            l.command = r.str();
+            links.push_back(l);
+        }
+        g_link_bar.emplace_back(id, std::move(links));
+    }
+    if (colour && r.ok)
+        questglk::colour_blob_get(r);
+    g_panel_bg = questglk::COLOUR_NONE;
+    if (panel && r.ok) {
+        g_panel_bg = (glui32) r.num();
+        g_border_bg = (glui32) r.num();
+    }
     if (!r.ok || !gwin)
         return false;
+    /* The restored main window holds the session's text, which a background
+     * the game sets again on the way in must not clear. */
+    g_main_written = true;
+    questglk::g_colour.main_win = gwin;
+    questglk::colour_restored();
     /* The restored windows already have their sizes; this is for the pane's
      * next opening. */
     set_side_pane_wide(wide, nullptr, nullptr);
+    g_panes_override = pane_override < 0 ? -1 : pane_override > 0 ? 1 : 0;
 
     /* The redraw paths dedup against "what is already on screen"; void
      * those keys so the post-restore repaints actually repaint. */

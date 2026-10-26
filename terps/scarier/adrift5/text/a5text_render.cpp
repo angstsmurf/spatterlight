@@ -126,10 +126,10 @@ a5_emit_media (const std::string &tag, int is_img)
   }
 }
 
-/* The value of a <font> tag's colour= / color= attribute, lowercased and with
-   its quotes stripped; "" when the tag names no colour.  The attribute name is
-   matched only at a word boundary, so the bgcolour= of a <font bgcolour="...">
-   cannot be read as the text colour.  Whitespace is allowed on either side of
+/* The value of a <font> tag's attribute called one of NAMES, lowercased and
+   with its quotes stripped; "" when the tag has no such attribute.  The
+   attribute name is matched only at a word boundary, so the bgcolour= of a
+   <font bgcolour="..."> cannot be read as the text colour.  Whitespace is allowed on either side of
    the '=', because the Runner hands the tag to an HTML renderer and those
    allow it: Alyas of Starhollow rewrites the library movement message as
    "<font color = white>You move %PCase[%direction%]%.</font>", and without
@@ -138,15 +138,15 @@ a5_emit_media (const std::string &tag, int is_img)
    the payload of a mark-delimited span, which nothing downstream should have
    to treat as unbounded. */
 static std::string
-a5_font_colour (const std::string &tag)
+a5_font_attribute (const std::string &tag, const char *const *names,
+                   int count)
 {
-  static const char *const names[2] = { "colour", "color" };
   std::string low = tag;
 
   for (size_t k = 0; k < low.size (); k++)
     low[k] = (char) tolower ((unsigned char) low[k]);
 
-  for (int pass = 0; pass < 2; pass++)
+  for (int pass = 0; pass < count; pass++)
     {
       const std::string name = names[pass];
 
@@ -296,12 +296,33 @@ a5_render_colour (sb_t &sb, const char *name, const char *p,
      no colour -- it then inherits the enclosing colour, and its
      </font> still has a span to pop.  Headlessly both tags drop to
      A5_ALR_MARK below, so ground truth is unchanged. */
+  static const char *const colour[2] = { "colour", "color" };
+  static const char *const size[1] = { "size" };
+  static const char *const face[1] = { "face" };
+
   sb_putc (&sb, A5_COLOUR_MARK);
   if (name[0] == 'c')
     sb_puts (&sb, "input");
   else
-    sb_puts (&sb, a5_font_colour (std::string (p + 1, tagend))
-                    .c_str ());
+    {
+      /* Then the size= and face= the host styles the span by, as
+         ";size=+2" and ";face=courier" (a colour token has no ';'). */
+      const std::string body (p + 1, tagend);
+      const std::string points = a5_font_attribute (body, size, 1);
+      const std::string family = a5_font_attribute (body, face, 1);
+
+      sb_puts (&sb, a5_font_attribute (body, colour, 2).c_str ());
+      if (!points.empty ())
+        {
+          sb_puts (&sb, ";size=");
+          sb_puts (&sb, points.c_str ());
+        }
+      if (!family.empty ())
+        {
+          sb_puts (&sb, ";face=");
+          sb_puts (&sb, family.c_str ());
+        }
+    }
   sb_putc (&sb, A5_COLOUR_MARK);
 }
 

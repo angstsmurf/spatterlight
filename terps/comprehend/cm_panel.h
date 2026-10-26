@@ -14,6 +14,8 @@
 #define GLK_COMPREHEND_CM_PANEL_H
 
 #include <cstdint>
+#include <cstring>
+#include "gm_hires.h"
 
 namespace Glk {
 namespace Comprehend {
@@ -111,6 +113,104 @@ public:
 
 private:
 	int _frame = -1;   // active frame (0..kFrames); -1 idle
+};
+
+// The persistent right-hand panel (logo + hourglass frame), kept for one Apple II
+// renderer.  `Planes` is the number of byte planes that renderer's page has: 1 for
+// standard hi-res, 2 for double hi-res (aux and main).  The renderer owns its live
+// pages and its progressively-revealed ("slow") pages and hands them in as arrays
+// of plane pointers, so everything that is the same for one plane and for two --
+// capture by byte column, overlay onto the final and slow pages, the off-screen
+// rebuild and its save/restore, and the "skip the panel columns during a reveal"
+// test -- is written once here.
+template <int Planes>
+class CMPanelStore {
+public:
+	typedef uint8_t *const (&Pages)[Planes];
+
+	bool valid() const { return _valid; }
+
+	// Save the live pages' contents as the panel; its columns are [col0,col1].
+	void capture(Pages live, int col0, int col1) {
+		for (int i = 0; i < Planes; i++)
+			memcpy(_panel[i], live[i], GM_HIRES_PAGE_SIZE);
+		_col0 = col0;
+		_col1 = col1;
+		_valid = true;
+	}
+
+	// Rebuild bracket: stash the live and slow pages and the caller's recording
+	// flag so the rebuild is invisible to the picture being drawn.  The caller then
+	// turns recording off and clears the live pages.  endRebuild() captures columns
+	// 24..39 as the new panel, puts everything back and returns the saved flag.
+	void beginRebuild(Pages live, Pages slow, bool recording) {
+		for (int i = 0; i < Planes; i++) {
+			memcpy(_saveLive[i], live[i], GM_HIRES_PAGE_SIZE);
+			memcpy(_saveSlow[i], slow[i], GM_HIRES_PAGE_SIZE);
+		}
+		_saveRecording = recording;
+	}
+
+	bool endRebuild(Pages live, Pages slow) {
+		capture(live, kPanelCol0, kPanelCol1);
+		for (int i = 0; i < Planes; i++) {
+			memcpy(live[i], _saveLive[i], GM_HIRES_PAGE_SIZE);
+			memcpy(slow[i], _saveSlow[i], GM_HIRES_PAGE_SIZE);
+		}
+		return _saveRecording;
+	}
+
+	// Copy the saved panel columns onto rows [y0,y1] of both the final and the slow
+	// pages.
+	void toPages(Pages live, Pages slow, int y0, int y1) const {
+		forEachPanelByte(y0, y1, [&](int a) {
+			for (int i = 0; i < Planes; i++)
+				live[i][a] = slow[i][a] = _panel[i][a];
+		});
+	}
+
+	// Mirror the final pages' panel columns (e.g. with freshly stamped grains) onto
+	// the slow pages only.
+	void finalToSlow(Pages live, Pages slow, int y0, int y1) const {
+		forEachPanelByte(y0, y1, [&](int a) {
+			for (int i = 0; i < Planes; i++)
+				slow[i][a] = live[i][a];
+		});
+	}
+
+	// True when a recorded write to page offset `offset` falls in the panel and so
+	// must not be replayed onto the slow pages during a reveal (a full-width RLE
+	// room records writes across those columns too; replaying them would wipe the
+	// overlaid panel).
+	bool skipsReveal(unsigned offset) const {
+		if (!_valid)
+			return false;
+		const int c = gm_col_of_offset(offset);
+		return c >= _col0 && c <= _col1;
+	}
+
+private:
+	enum { kPanelCol0 = 24, kPanelCol1 = 39 };   // the panel's byte columns
+
+	// Call f(offset) for every page offset in the panel columns of rows [y0,y1].
+	template <class F>
+	void forEachPanelByte(int y0, int y1, F f) const {
+		for (int row = y0; row <= y1; row++) {
+			const int base = gm_row_address(row);
+			for (int col = _col0; col <= _col1; col++) {
+				const int a = base + col;
+				if (a < GM_HIRES_PAGE_SIZE)
+					f(a);
+			}
+		}
+	}
+
+	uint8_t _panel[Planes][GM_HIRES_PAGE_SIZE];
+	uint8_t _saveLive[Planes][GM_HIRES_PAGE_SIZE];
+	uint8_t _saveSlow[Planes][GM_HIRES_PAGE_SIZE];
+	bool _valid = false;
+	int _col0 = kPanelCol0, _col1 = kPanelCol1;
+	bool _saveRecording = false;
 };
 
 } // namespace Comprehend

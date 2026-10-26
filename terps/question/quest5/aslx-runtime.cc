@@ -1027,9 +1027,33 @@ void Interp::add_on_ready(const std::vector<Stmt> *body, const Context &ctx) {
     try {
         try {
             run_callback_boundary(body, c);
+        } catch (TurnSuspended &outer) {
+            // The body parked on a synchronous `play sound`. Still run the
+            // nested items queued so far before rethrowing (the OnEnterRoom
+            // cascade must not strand arrival text behind a sound the host
+            // may never finish); the outer tail resumes at the next claim.
+            try {
+                run_nested_on_ready_queue();
+            } catch (TurnSuspended &inner) {
+                // A nested item parked too. Its continuation is not dropped:
+                // the one parked tail runs its remainder first, then the
+                // nested items not yet started (each inside its own script
+                // boundary, like run_nested_on_ready_queue would have), then
+                // the outer body's remainder.
+                std::vector<TurnSuspended::Frame> frames = std::move(inner.frames);
+                for (auto &item : nested_on_ready_) {
+                    frames.push_back(TurnSuspended::Frame{item.first, 0, Context{}});
+                    frames.push_back(TurnSuspended::Frame{nullptr, 0, item.second});
+                }
+                nested_on_ready_.clear();
+                for (auto &f : outer.frames)
+                    frames.push_back(std::move(f));
+                outer.frames = std::move(frames);
+            }
+            throw;
         } catch (...) {
-            // Still drain whatever nested items were queued before rethrowing
-            // (OnEnterRoom cascade must not strand arrival text).
+            // A real exception: drain the nested items it must not strand,
+            // then let it reach the enclosing boundary's report.
             try {
                 run_nested_on_ready_queue();
             } catch (...) {
@@ -1115,14 +1139,23 @@ void Interp::drain_on_ready() {
         }
         return;
     }
-    flush_deferred_on_ready_queue();
-    // Nested items should not linger with nothing running; drain defensively.
-    while (!nested_on_ready_.empty() && !world_.finished) {
-        auto item = nested_on_ready_.front();
-        nested_on_ready_.erase(nested_on_ready_.begin());
-        Context ctx = item.second;
-        run_callback_boundary(item.first, ctx);
-        if (script_errors_fatal_) break;
+    // A synchronous `play sound` in a drained callback (a room's firstenter,
+    // run from OnEnterRoom's nested `on ready`) parks the rest of it like
+    // every other entry point does; the host must never see the unwind.
+    // The remaining queue is left for the next drain.
+    try {
+        flush_deferred_on_ready_queue();
+        // Nested items should not linger with nothing running; drain
+        // defensively.
+        while (!nested_on_ready_.empty() && !world_.finished) {
+            auto item = nested_on_ready_.front();
+            nested_on_ready_.erase(nested_on_ready_.begin());
+            Context ctx = item.second;
+            run_callback_boundary(item.first, ctx);
+            if (script_errors_fatal_) break;
+        }
+    } catch (TurnSuspended &ts) {
+        park_suspension(ts, /*owes_update=*/false, /*owes_endcb=*/0);
     }
 }
 
@@ -2989,6 +3022,8 @@ void Interp::exec_js_command(const std::string &fn, const ExprList &args,
         html += ">" + to_string(ev(0)) + " </span><br/>";
         textfx_text(html);
     }
+    else if (fn == "setCss" && args.size() >= 2 && set_css)
+        set_css(to_string(ev(0)), to_string(ev(1)));
     else if (fn == "StartOutputSection" && !args.empty() &&
              start_output_section)
         start_output_section(to_string(ev(0)));

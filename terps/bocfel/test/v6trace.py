@@ -434,9 +434,10 @@ def load_script(text):
     return [l.rstrip("\r") for l in lines if not l.startswith("# ")]
 
 
-def run(terp, story, home, script, timeout=120.0, **kw):
-    """(trace lines, exit status, stderr, script entries left)."""
-    t = Tracer(terp, story, home, script, **kw)
+def run(terp, story, home, script, timeout=120.0, tracer=None, **kw):
+    """(trace lines, exit status, stderr, script entries left).  TRACER is
+    the class to trace with, Tracer or a subclass of it."""
+    t = (tracer or Tracer)(terp, story, home, script, **kw)
     killed = []
     timer = threading.Timer(timeout, lambda: (killed.append(1), t.p.kill()))
     timer.start()

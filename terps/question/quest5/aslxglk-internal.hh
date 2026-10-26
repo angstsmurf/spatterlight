@@ -46,6 +46,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <memory>
 #include <set>
 #include <string>
 #include <vector>
@@ -108,7 +109,9 @@ using questglk::echo_input_line;
 
 using questglk::fill_side_divider;
 
-using questglk::glk_style_for;
+using questglk::quest_style_for;
+using questglk::style_combo;
+using questglk::StyleCombo;
 
 using questglk::lower;
 
@@ -117,6 +120,9 @@ using questglk::match_help_command;
 using questglk::match_restore_command;
 
 using questglk::match_sidebar_command;
+using questglk::kSidebarOn;
+using questglk::kSidebarOff;
+using questglk::kSidebarAuto;
 
 using questglk::match_status_command;
 
@@ -299,6 +305,15 @@ inline bool g_use_objpane = false;          /* host can split; probed at startup
  * hold, like the reference player hiding #gamePanes. */
 inline bool g_panes_visible = true;
 
+/* The player's say over the pane, which beats the game's: SIDEBAR (and
+ * SIDEBAR WIDE/NORMAL) shows it, SIDEBAR OFF hides it, SIDEBAR AUTO (0) hands
+ * it back to g_panes_visible. */
+inline int g_panes_override = 0;
+inline bool panes_shown()
+{
+    return g_panes_override ? g_panes_override > 0 : g_panes_visible;
+}
+
 inline std::vector<ListData> g_pane_inv, g_pane_places, g_pane_exits;
 
 inline bool g_pane_dirty = false;           /* lists changed since the last redraw */
@@ -316,6 +331,33 @@ inline std::string g_pane_expanded;
 /* Pane hyperlink values live above the main-window link ids, which only ever
  * grow one per rendered cmdlink and never get near this. */
 inline const glui32 kPaneLinkBase = 0x40000000;
+
+/* A row of command links that a game draws into an element of its own page
+ * and keeps up to date through JS.eval("$('#id').html('...')") -- spondre's
+ * topic bar under the command line ("room   walls   bars ...").  The web
+ * player shows them because the element sits in the page; here they become
+ * extra lines of the banner, one hyperlink per command.  Kept per element id,
+ * in the order the ids first turned up: the first flows from the left, any
+ * later one (spondre's "end game") is right-aligned after it. */
+struct BarLink {
+    std::string label;      /* the span's text */
+    std::string command;    /* what clicking it sends */
+};
+
+inline std::vector<std::pair<std::string, std::vector<BarLink>>> g_link_bar;
+
+/* The commands of the bar links on screen, indexed by link value less
+ * kBannerLinkBase; rebuilt on every banner redraw. */
+inline std::vector<std::string> g_bar_commands;
+
+inline const glui32 kBannerLinkBase = 0x20000000;
+
+/* One laid-out bar link: cell column, banner line (0 = the first line under
+ * the room name), and the link it shows. */
+struct BarCell {
+    size_t x = 0, line = 0;
+    const BarLink *link = nullptr;
+};
 
 /* JS.updateStatus payload flattened for the banner ("Score: 3 | Health: 90%"),
  * shown right-aligned next to the room name like the classic runner. */
@@ -502,27 +544,103 @@ bool timer_event_second(Interp &in);
  * match -- see g_out_log). */
 inline std::u32string *g_tee = nullptr;
 
+/* Does the main window's current line hold nothing yet?  Whitespace does not
+ * count: pretty-printed HTML indents its block tags, and a browser collapses
+ * that.  Kept by put_uni_char and by the host's own writers (put_host_string,
+ * the line-input echo), so a block tag knows whether the line break it
+ * implies is still owed. */
+inline bool g_at_line_start = true;
+/* Text has gone into the main window since it was last cleared, so a
+ * repaint (SetBackgroundColour with the game's colours on) would lose it. */
+inline bool g_main_written = false;
+
 /* Bumped by draw_image_inline; render_html compares it across a chunk to see
  * whether that chunk put an unmatchable attachment into the window. */
 inline size_t g_images_drawn = 0;
 
 void put_uni_char(glui32 c);
 void put_uni_string(const std::string &utf8);
+void put_host_string(const char *s);   /* glk_put_string, tracked */
 
-/* Current inline style, tracked as nesting counters so tags may overlap.
- * Mapped onto the closest Glk style, like the classic runner's set_style. */
-inline int g_bold = 0, g_italic = 0, g_under = 0;
+/* What one tag contributed to the inline style, so its close undoes it.
+ * The flags are nesting counters, so tags may overlap; `size` (points, 0 =
+ * inherited) and `align` (0 inherited, else an ALIGN_ value) are pushed on
+ * a stack and popped again. */
+enum { ALIGN_LEFT = 1, ALIGN_CENTER, ALIGN_RIGHT };
+struct StylePush {
+    int b = 0, i = 0, u = 0, m = 0;
+    double size = 0;
+    int align = 0;
+    glui32 colour = questglk::COLOUR_NONE;  /* CSS color, else inherited */
+    glui32 background = questglk::COLOUR_NONE;  /* CSS background colour */
+    int box = 0;  /* a block with a background: drawn left-aligned */
+};
+
+/* The inline style at a point of the markup.  g_style is the printer's;
+ * the style census walks its strings with one of its own. */
+struct InlineStyle {
+    int bold = 0, italic = 0, under = 0, mono = 0;
+    int boxes = 0;  /* open blocks with a background */
+    std::vector<double> sizes;  /* open font sizes, innermost last */
+    std::vector<int> aligns;    /* open block alignments, innermost last */
+    std::vector<glui32> colours;  /* open text colours, innermost last */
+    std::vector<glui32> backs;    /* open background colours, innermost last */
+
+    void push(const StylePush &p);
+    void pop(const StylePush &p);
+    double points(double base) const { return sizes.empty() ? base : sizes.back(); }
+    glui32 colour() const
+    { return colours.empty() ? questglk::COLOUR_NONE : colours.back(); }
+    glui32 background() const
+    { return backs.empty() ? questglk::COLOUR_NONE : backs.back(); }
+    /* `div_align` is the alignment outside every block (SetAlignment's). */
+    StyleCombo combo(double default_points, int div_align) const;
+};
+
+inline InlineStyle g_style;
+/* Core's SetAlignment (JS.createNewDiv): the alignment of the div that the
+ * text after it goes into. */
+inline int g_div_align = 0;
+/* The game's defaultfontsize and whether its defaultfont is monospaced, the
+ * base the sizes and faces of its markup are measured against.  Set once,
+ * with the style hints, before the windows open. */
+inline double g_default_points = 12;
+inline bool g_default_mono = false;
 
 void apply_style();
 
-/* What one <span>/<a> contributed to the counters, so its close undoes it. */
-struct StylePush { int b = 0, i = 0, u = 0; };
-
 std::string tag_attr(const std::string &tag, const std::string &attr);
 bool tag_flag(const std::string &tag, const std::string &attr);
-StylePush css_style(const std::string &css);
+StylePush css_style(const std::string &css, double points);
+bool tag_style(const std::string &name, const std::string &tag, double points,
+               StylePush &p);
 void push_style(const StylePush &p);
 void pop_style(const StylePush &p);
+/* Also scans for the game's colours, into questglk::g_colour_detect. */
+void assign_game_styles(World &w);
+/* The colour Core's links are in now (game.defaultlinkforeground, which
+ * SetLinkForegroundColour changes), or COLOUR_NONE. */
+glui32 game_link_colour(const World &w);
+/* Take game.defaultforeground as it is now into the palette, for what the
+ * frontend draws itself (the status rows, the pane, the character form).
+ * SetForegroundColour only changes the attribute; the reference player shows
+ * it because Core prints every span in it, and this frontend's spans follow
+ * suit.  Deeper declares OldLace on OldLace and sets Maroon as it starts. */
+void sync_game_foreground(const World &w);
+/* JS.setCss on the text panel.  QuestViva's setBackground paints
+ * #gameBorder, and #divOutput and #gameContent are transparent over it, so
+ * SetBackgroundColour is the text's background -- until the game gives one
+ * of those two a background of its own, which then shows instead (Pixie's
+ * Quest sets Black on Black and paints #divOutput white).  g_panel_bg is that
+ * colour, COLOUR_NONE while there is none; g_border_bg is the last
+ * SetBackgroundColour, which shows again if the panel's is taken away. */
+inline glui32 g_panel_bg = questglk::COLOUR_NONE;
+inline glui32 g_border_bg = questglk::COLOUR_NONE;
+/* The game's defaultbackground as the file has it: a new session's page. */
+inline glui32 g_start_bg = questglk::COLOUR_NONE;
+void game_panel_css(const std::string &selector, const std::string &css);
+/* Empty the main window for a new session, in the game's own background. */
+void new_page();
 
 std::string decode_entities(const std::string &s);
 
@@ -533,6 +651,8 @@ std::string decode_entities(const std::string &s);
 std::string plain_text(const std::string &html, const char *brsep = " ");
 
 std::string tag_name(const std::string &tag, bool &closing);
+bool mono_family(const std::string &families);
+bool tag_is_block(const std::string &name);
 std::string element_inner_text(const std::string &html, size_t pos,
                                const std::string &name);
 std::vector<std::string> audio_sources(const std::string &html, size_t pos,
@@ -564,6 +684,7 @@ struct OutChunk {
     std::string html;       /* raw payload, for replay through render_html */
     std::u32string text;    /* exactly what it wrote into the window */
     bool image = false;     /* drew an image: an attachment char we cannot match */
+    bool line_start = true; /* g_at_line_start when it began: restored by a retract */
 };
 
 inline std::vector<OutChunk> g_out_log;
@@ -610,11 +731,18 @@ void render_html_inner(const std::string &raw);
 bool take_custom_ui(const std::string &raw);
 void render_html(const std::string &raw);
 std::vector<std::string> custom_status_lines();
+std::vector<BarLink> command_spans(const std::string &html);
 
 std::string plain_text(const std::string &html, const char *brsep);
 Element *game_element(World &w);
 Element *object_field(Interp &in, Element *e, const char *attr);
 void update_banner(Interp &in);
+void set_link_bar(const std::string &id, const std::string &html);
+void draw_link_bar(winid_t banner, const std::string &room,
+                   const std::string &status);
+std::vector<BarCell> layout_link_bar(
+    const std::vector<std::pair<std::string, std::vector<BarLink>>> &bar,
+    size_t width, size_t *lines);
 
 void ensure_pane_open();
 void close_side_pane();
@@ -695,7 +823,7 @@ struct PromptBreak {
          * a stray blank at the top of the cleared window. */
         if (g_clear_gen == clear_gen &&
             !unput_exact(u32_from_utf8(prompt)))
-            glk_put_char('\n');
+            put_host_string("\n");
         broke = true;
     }
     PromptBreak(Interp &i, const char *p) : in(i), prompt(p) {
@@ -812,6 +940,8 @@ void hint_system_commands(const std::string &raw, bool parser_game);
 bool handle_status_command(const std::string &raw);
 bool handle_sidebar_command(Interp &in, const std::string &raw);
 bool handle_transcript_command(const std::string &raw);
+bool handle_colour_command(Interp &in, const std::string &raw);
+void set_colour(bool on);
 bool handle_verbs_command(Interp &in, const std::string &raw);
 
 std::string core_dir_path();
@@ -897,6 +1027,7 @@ bool panel_band_available();
 void panel_set_background();
 void panel_close();
 void panel_relayout();
+void panel_reopen();
 void panel_arrange();
 void panel_contents(const std::string &html);
 void flush_warnings(World &w, size_t &seen);
@@ -919,11 +1050,15 @@ using questglk::BlobReader;
 std::string utf8_from_u32(const std::u32string &s);
 
 /* The blob's format stamp, bumped on every layout change (most recently when
- * the undo history and the replay record left it for the autosave record
- * both engines share): an older blob has different fields, and an
- * autorestore that mis-parses is worse than one discarded for a fresh
- * start.  aslx_recover_frontend rejects anything that does not match. */
-inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 8";
+ * the text panel's background was added at its end): an older blob has
+ * different fields, and an autorestore that mis-parses is worse than one
+ * discarded for a fresh start.  aslx_recover_frontend rejects anything that
+ * does not match, except the two stamps before, whose layouts are the same
+ * up to where they end: 11 restores with no panel background, 10 with the
+ * colour mode off as well. */
+inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 12";
+inline const char *const kAslxBlobMagicNoPanel = "ASLXGLK-AUTOSAVE 11";
+inline const char *const kAslxBlobMagicNoColour = "ASLXGLK-AUTOSAVE 10";
 
 std::string aslx_encode_frontend(Interp &in, const RngStreams *rngs = nullptr);
 bool aslx_recover_frontend(const std::string &blob);
@@ -969,7 +1104,8 @@ bool game_menu_pending(Interp &in);
 #endif /* SPATTERLIGHT */
 
 void install_host_hooks(Interp &in, bool &restart_requested);
-SessionEnd run_session(const char *storyfile, std::string &restore_data);
+SessionEnd run_session(const char *storyfile, std::string &restore_data,
+                       std::unique_ptr<World> preloaded = nullptr);
 void reset_frontend_state();
 
 }  // namespace aslxglk

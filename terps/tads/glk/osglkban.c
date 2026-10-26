@@ -566,6 +566,13 @@ void os_banner_delete(void *banner_handle)
     if (banner->prev)
         banner->prev->next = banner->next;
 
+    /*
+     *   The children stay valid until the caller deletes them, but out of
+     *   sight, and mustn't point back at us once we're freed
+     */
+    for (osbanid_t child = banner->children; child; child = child->next)
+        child->parent = 0;
+
     banner_contents_clear(banner->contents);
 
     free(banner);

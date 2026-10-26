@@ -1,0 +1,23 @@
+<!-- Core's own title: StartGame prints the name centred at 260% and the
+     author at 140%.  Those are the heaviest states the natural table lacks,
+     so the name takes Header and the author line BlockQuote.  In play, <b>
+     and {b:} share Subheader and <i> and {i:} Emphasized; the game never
+     centres a plain line, so its 14pt span takes the spare User1. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Title">
+    <gameid>5a1e0000-0000-0000-0000-000000000001</gameid>
+    <version>1.0</version>
+    <author>A. Tester</author>
+    <start type="script"><![CDATA[
+      msg ("An ordinary introduction in the game's own size.")]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <description><![CDATA[A hall with <b>bold words</b> and {b:more bold}, <i>italic</i> and {i:more italic}, and <span style="font-size:14pt">a larger sentence</span> after.]]></description>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

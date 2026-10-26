@@ -242,6 +242,11 @@ void os_nonstop_mode(int flag)
  */
 void os_sleep_ms(long delay_in_milliseconds)
 {
+#if defined SPATTERLIGHT && defined GLK_TIMERS
+    if (delay_in_milliseconds > 0)
+        osglk_sleep_ms((unsigned long)delay_in_milliseconds);
+    return;
+#endif
 #ifdef _WIN32
     Sleep(delay_in_milliseconds);
 #else
@@ -377,9 +382,36 @@ void os_get_charmap(char *mapname, int charmap_id)
 #endif
 }
 
+#ifdef SPATTERLIGHT
+/*
+ *   A loop guard.  TADS 2 asks os_break after every 1000 p-code instructions.
+ *   A game that runs 100 million of them (about five seconds) without reading
+ *   input or writing text is taken to be stuck, and is stopped as if the
+ *   player had pressed break: the engine undoes the command.  (Six, given a
+ *   one-letter answer at its death prompt in HTML mode, loops forever without
+ *   asking again.)
+ */
+#define STUCK_BREAKS 100000
+static unsigned long idle_breaks;
+
+void osglk_not_idle(void)
+{
+    idle_breaks = 0;
+}
+#endif
+
 int os_break(void)
 {
-  return 0;
+#ifdef SPATTERLIGHT
+    if (++idle_breaks >= STUCK_BREAKS)
+    {
+        os_printz("\n[The game was stuck in a loop, so the last command "
+                  "has been cancelled.]\n");
+        idle_breaks = 0;
+        return 1;
+    }
+#endif
+    return 0;
 }
 
 /*

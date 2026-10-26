@@ -137,7 +137,7 @@ class Session(glkdrive.Driver):
     def dispatch(self, cmd, a1, a2, a3, a4, a5, payload):
         if cmd == glkdrive.PRINT:
             self.events.append(("out", a1,
-                                payload.decode("utf-16-le", "replace")))
+                                payload.decode("utf-16-le", "replace"), a2))
         elif cmd == glkdrive.INITLINE:
             if self.main_peer is None:
                 self.main_peer = a1
@@ -147,6 +147,9 @@ class Session(glkdrive.Driver):
             self.delwin += 1
         elif cmd == glkdrive.AUTOSAVE:
             self.events.append(("autosave",))
+        elif cmd == glkdrive.SETZCOLOR:
+            self.events.append(("zcolor", a1, a2 & 0xFFFFFFFF,
+                                a3 & 0xFFFFFFFF))
         super().dispatch(cmd, a1, a2, a3, a4, a5, payload)
 
     def chunks(self):
@@ -154,26 +157,41 @@ class Session(glkdrive.Driver):
         before the first input; each chunk is the main-window text printed
         from one input -- a typed line or a hyperlink click, either of which
         can start a relaunched session -- up to the next, with keypresses and
-        timer ticks inlined.  A keypress ahead of every line and click opens
+        timer ticks inlined.  Each span printed in a different style from
+        the one before it in the chunk is prefixed with its style's name in
+        braces, so a relaunch that lost the game-derived style hints (built
+        from a census of the game before the first window opens) shows up
+        as a text difference; likewise each change of the colours the
+        colour mode names, as {fg/bg}.  A keypress ahead of every line and click opens
         a chunk of its own: it answers a pause the start script put up, or
         (self.continues) the pause the previous session was closed on, and
         that chunk is then the rest of that session's last one.  Nothing
         after EVTQUIT is kept."""
-        pre, chunks, cur = [], [], None
+        pre, chunks, cur, style, zc = [], [], None, None, None
         self.continues = False
         for ev in self.events:
             if ev[0] == "quit":
                 break
             if ev[0] == "in":
-                cur = ["> %s\n" % ev[1]]
+                cur, style, zc = ["> %s\n" % ev[1]], None, None
                 chunks.append(cur)
             elif ev[0] == "click":
-                cur = ["[click peer %d link %d]\n" % (ev[1], ev[2])]
+                cur, style, zc = ["[click peer %d link %d]\n"
+                                  % (ev[1], ev[2])], None, None
                 chunks.append(cur)
+            elif ev[0] == "zcolor" and ev[1] == self.main_peer:
+                # The game's colours (COLOURS ON), marked when they change.
+                if ev[2:] != zc:
+                    zc = ev[2:]
+                    mark = "{%s/%s}" % tuple(
+                        {0xFFFFFFFF: "default", 0xFFFFFFFE: "current"}
+                        .get(c, "#%06x" % c) for c in zc)
+                    if cur is not None:     # the first span repeats it
+                        cur.append(mark)
             elif ev[0] in ("key", "tick"):
                 mark = "[%s]" % " ".join(str(x) for x in ev)
                 if cur is None and ev[0] == "key":
-                    cur = [mark]
+                    cur, style = [mark], None
                     chunks.append(cur)
                     self.continues = True
                 elif cur is not None:
@@ -181,10 +199,15 @@ class Session(glkdrive.Driver):
                 else:
                     pre.append(mark)
             elif ev[0] == "out" and ev[1] == self.main_peer:
+                text = ev[2]
+                if ev[3] != style:
+                    style = ev[3]
+                    text = "{%s}%s" % (glkdrive.name_of(glkdrive.STYLE_NAMES,
+                                                        style), text)
                 if cur is None:
-                    pre.append(ev[2])
+                    pre.append(text)
                 else:
-                    cur.append(ev[2])
+                    cur.append(text)
         return "".join(pre), ["".join(c) for c in chunks]
 
     def autosaved_since_last_input(self):
@@ -311,6 +334,20 @@ def check_relaunch(res, s, label):
                  pre[:400])
 
 
+def glue_chunks(head, tail):
+    """`tail` continues `head`'s command in a relaunched session.  Its first
+    span carries a style marker because the chunk started afresh; when that
+    is the style `head` ended in, the single session had no change there,
+    so the marker goes."""
+    last = head.rfind("{")
+    if last >= 0 and head.find("}", last) >= 0:
+        style = head[last:head.index("}", last) + 1]
+        key, sep, rest = tail.partition("]")
+        if sep and key.startswith("[key") and rest.startswith(style):
+            tail = key + sep + rest[len(style):]
+    return head + tail
+
+
 def compare_chunks(res, want, got, cuts, verbose):
     for n, (w, g) in enumerate(zip(want, got)):
         if w != g:
@@ -427,7 +464,7 @@ def case_pending_prompt(terp, case, res, verbose):
     if resume and c1 and c2 and s2.continues:
         # Closed under a keypress pause: session 2 opens with the key, and
         # what follows is the rest of the command session 1 was closed in.
-        c1, c2 = c1[:-1], [c1[-1] + c2[0]] + c2[1:]
+        c1, c2 = c1[:-1], [glue_chunks(c1[-1], c2[0])] + c2[1:]
     # Without resume the closing line's chunk (the prompt's own text) is
     # replaced by session 2's retyping of it.
     got = c1 + c2 if resume else c1[:-1] + c2
@@ -594,8 +631,12 @@ def build_cases(stage):
     cases = []
     probe4 = os.path.join(HERE, "probe4.asl")
     probe4intro = os.path.join(HERE, "probe4-intro.asl")
+    probe4styles = os.path.join(HERE, "probe4-styles.asl")
+    probe4colours = os.path.join(HERE, "probe4-colours.asl")
     probe5 = os.path.join(HERE, "probe5.aslx")
     probe5intro = os.path.join(HERE, "probe5-intro.aslx")
+    probe5styles = os.path.join(HERE, "probe5-styles.aslx")
+    probe5colours = os.path.join(HERE, "probe5-colours.aslx")
     probe6 = probe5_as(stage, 600)
     probe53 = probe5_as(stage, 530)
 
@@ -675,6 +716,23 @@ def build_cases(stage):
     # The pause ahead of them, with nothing typed at all.
     pending("q4-intro-wait", probe4intro, [], ["Ann", "2", "who"],
             resume=True, expect=["You are Ann, female, lucky number"])
+
+    # The game-derived styles: closed on the pause under the centred sized
+    # title, and after the first turn.  The room's 14-point span lands on a
+    # spare style, which only the census hands out, so its name in the chunk
+    # proves the relaunch rebuilt the table before it restored the window.
+    pending("q4-styles-wait", probe4styles, [], ["look", "big"], resume=True,
+            expect=["{Subheader}bold words", "{BlockQuote}a larger sentence",
+                    "{Emphasized}italic"])
+    equiv("q4-styles", probe4styles, ["look", "big", "look"], [1, 2],
+          expect=["{BlockQuote}a larger sentence"])
+
+    # The colour mode: on from the start (cut 1), with a background set in
+    # play (cut 2), turned off by the player (cut 4) and on again (cut 6).
+    colours = ["look", "paint", "look", "colours off", "look", "colours on",
+               "look"]
+    equiv("q4-colours", probe4colours, colours, [1, 2, 3, 4, 5, 6],
+          expect=["{#ffff00/#000080}yellow"])
 
     # Pane hyperlinks: live after a relaunch (cut 1), and the unfolded verb
     # menu -- a re-save without a turn -- comes back unfolded (cut 2).
@@ -832,6 +890,18 @@ def build_cases(stage):
     # The pause ahead of them, with nothing typed at all.
     pending("q5-intro-wait", probe5intro, [], ["Ann", "2", "yes", "who"],
             resume=True, expect=[who])
+
+    # The game-derived styles, as for Quest 4: closed on the pause under
+    # Core's centred title, and after the first turn.
+    pending("q5-styles-wait", probe5styles, [], ["look", "big"], resume=True,
+            expect=["{Subheader}bold words", "{User2}a larger sentence",
+                    "{Emphasized}italic"])
+    equiv("q5-styles", probe5styles, ["look", "big", "look"], [1, 2],
+          expect=["{User2}a larger sentence"])
+
+    # The colour mode, as q4-colours.
+    equiv("q5-colours", probe5colours, colours, [1, 2, 3, 4, 5, 6],
+          expect=["{#ffff00/#000080}yellow"])
 
     for name, gamefile, sol in (
             ("q5-walk-exit-the-room", "Exit the Room.quest",

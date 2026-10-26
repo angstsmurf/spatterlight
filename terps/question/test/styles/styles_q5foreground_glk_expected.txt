@@ -1,0 +1,73 @@
+HINT buffer User2 Justification 2
+HINT buffer User2 Weight 1
+HINT buffer Note Justification 3
+HINT buffer Header Justification 0
+HINT buffer Subheader Justification 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 2
+HINT buffer BlockQuote Size 6
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
+HINT buffer User1 Weight 0
+HINT buffer User1 Oblique 0
+HINT buffer User1 Proportional 1
+HINT buffer User1 Justification 2
+HINT buffer User1 Size 2
+HINT buffer User1 Indentation 0
+HINT buffer User1 ParaIndentation 0
+HINT grid User1 ReverseColor 1
+HINT buffer Normal TextColor 16643558
+HINT buffer Normal BackColor 16643558
+HINT grid Normal TextColor 16643558
+HINT grid Normal BackColor 16643558
+HINT buffer Normal TextColor 8388608
+HINT grid Normal TextColor 8388608
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 BlockQuote 'Styles Five Foreground'
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal 'Maroon on old lace.'
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal 'A pale hall.'
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 1 #fdf5e6 #800000
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #fdf5e6 #fdf5e6
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal 'A pale hall.'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal '\n'
+ZCOLOR 1 #fdf5e6 #800000
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #800000 #fdf5e6
+SPAN 0 Normal '\n> '

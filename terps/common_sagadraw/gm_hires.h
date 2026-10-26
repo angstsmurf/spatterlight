@@ -32,6 +32,18 @@ static inline int gm_row_from_offset(unsigned offset)
     return ((offset & 0x7f) / 40) * 64 + ((offset >> 7) & 7) * 8 + ((offset >> 10) & 7);
 }
 
+// Scanline and byte column (0..39) that page offset `offset` lies on, or -1 for
+// the 8 "screen hole" bytes at the end of each 128-byte block.
+static inline int gm_row_of_offset(unsigned offset)
+{
+    return (offset & 0x7f) < 120 ? gm_row_from_offset(offset) : -1;
+}
+
+static inline int gm_col_of_offset(unsigned offset)
+{
+    return (offset & 0x7f) < 120 ? (int)((offset & 0x7f) % 40) : -1;
+}
+
 #ifdef __cplusplus
 }
 #endif

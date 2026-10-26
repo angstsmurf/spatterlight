@@ -1,0 +1,127 @@
+HINT buffer User2 Justification 2
+HINT buffer User2 Weight 1
+HINT buffer Note Justification 3
+HINT buffer Header Justification 0
+HINT buffer Subheader Justification 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 2
+HINT buffer BlockQuote Size 6
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
+HINT buffer User1 Weight 0
+HINT buffer User1 Oblique 0
+HINT buffer User1 Proportional 1
+HINT buffer User1 Justification 2
+HINT buffer User1 Size 2
+HINT buffer User1 Indentation 0
+HINT buffer User1 ParaIndentation 0
+HINT grid User1 ReverseColor 1
+HINT buffer Normal TextColor 16777215
+HINT buffer Normal BackColor 0
+HINT grid Normal TextColor 16777215
+HINT grid Normal BackColor 0
+CLEAR buffer Normal TextColor
+CLEAR buffer Normal BackColor
+CLEAR grid Normal TextColor
+CLEAR grid Normal BackColor
+HINT buffer Normal TextColor 16777215
+HINT buffer Normal BackColor 128
+HINT grid Normal TextColor 16777215
+HINT grid Normal BackColor 128
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+SPAN 0 BlockQuote 'Styles Five Colours'
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+ZCOLOR 0 #ffffff #000000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000000
+SPAN 0 Normal 'White on black, then '
+ZCOLOR 0 #ffff00 #000000
+SPAN 0 Normal 'yellow'
+ZCOLOR 0 #ffffff #000000
+SPAN 0 Normal ' and back.'
+ZCOLOR 0 #ffffff #000000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'Now on navy.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'A dark hall.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 1 #000080 #ffffff
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'A dark hall.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 1 #000080 #ffffff
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'colours off'
+SPAN 0 Normal '\n'
+ZCOLOR 0 Default Default
+ZCOLOR 0 Default Default
+ZCOLOR 1 Default Default
+SPAN 1 User1 '                                                                                                   A Hall'
+SPAN 0 Normal "\nThe game's own colours are off: text follows the interpreter's theme.  COLOURS ON draws it in the colours the game asks for.\n"
+SPAN 1 User1 '                                                                                                   A Hall'
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\nYou are in a Hall.\nA dark hall.\n'
+SPAN 1 User1 '                                                                                                   A Hall'
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'colours on'
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+ZCOLOR 0 #ffffff #000080
+ZCOLOR 1 #000080 #ffffff
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal "\nThe game's own colours are on: text is drawn in the colours it was written for.  COLOURS OFF hands it back to the interpreter's theme.\n"
+ZCOLOR 1 #000080 #ffffff
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal 'A dark hall.'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n'
+ZCOLOR 1 #000080 #ffffff
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #ffffff #000080
+SPAN 0 Normal '\n> '

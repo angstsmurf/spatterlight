@@ -183,6 +183,8 @@
 
 @property (weak) IBOutlet NSButton *btnAutosave;
 @property (weak) IBOutlet NSButton *btnSmoothScroll;
+@property (weak) IBOutlet NSButton *btnCRTGlow;
+@property (weak) IBOutlet NSButton *btnCRTScanlines;
 @property (weak) IBOutlet NSButton *btnAutosaveOnTimer;
 
 @property (weak) IBOutlet NSTextField *scrollbackLimitTextField;
@@ -208,6 +210,7 @@
 @property (weak) IBOutlet NSPopUpButton *errorHandlingPopup;
 @property (weak) IBOutlet NSPopUpButton *imageReplacePopup;
 @property (weak) IBOutlet NSPopUpButton *coverImagePopup;
+@property (weak) IBOutlet NSPopUpButton *caretShapePopup;
 
 @property (weak) IBOutlet NSButton *btnAutoBorderColor;
 @property (weak) IBOutlet NSButton *btnShowBezels;

@@ -26,6 +26,7 @@
 #import "Theme.h"
 #import "Game.h"
 #import "BuiltInThemes.h"
+#import "NSColor+integer.h"
 
 #include "glk.h"
 #include "protocol.h"
@@ -131,6 +132,28 @@ static const unichar kNBSP = 0xa0;
     grid.frame = [self frameForColumns:8 rows:1];
     [grid flushDisplay];
     [self assertGrid:grid is:@[@"top"] width:8];
+}
+
+// The upper window of a Z-machine game closes by shrinking to zero height
+// (Bocfel close_upper_window). Glk's rule for a grid that shrinks is that
+// the vanished rows are thrown away, so it comes back blank.
+- (void)testCollapsingToNoRowsDropsTheText {
+    GlkTextGridWindow *grid = [self gridWithColumns:8 rows:2];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"status" style:style_Normal];
+    [grid flushDisplay];
+
+    NSRect collapsed = [self frameForColumns:8 rows:2];
+    collapsed.size.height = 0;
+    grid.frame = collapsed;
+    [grid flushDisplay];
+    XCTAssertEqual(grid.currentSizeInChars.height, 0.0);
+    [grid putString:@"lost" style:style_Normal];
+
+    grid.frame = [self frameForColumns:8 rows:2];
+    [grid flushDisplay];
+    [self assertGrid:grid is:@[@"", @""] width:8];
+    XCTAssertEqual(grid.indexOfPos, 0UL);
 }
 
 - (void)testClearBlanksTheGridAndHomesTheCursor {
@@ -356,6 +379,36 @@ static const unichar kNBSP = 0xa0;
     XCTAssertNotNil(reverse);
     XCTAssertNotEqualObjects(reverse, before);
     XCTAssertEqualObjects(grid.textview.backgroundColor, reverse);
+}
+
+// Hugo pads its status line to two or three cells short of the grid (see
+// checkForUglyBorder), and the grid may have been cleared while another zcolor
+// was current, as it is when Colossal Cave leaves its black-on-white help menu.
+// The colour that covers all but those cells still wins over the stale clear
+// colour, so no strip in the old colour shows at the end of the status line.
+- (void)testColourShortOfTheRightEdgeStillGivesTheBackgroundColour {
+    GlkTextGridWindow *grid = [self gridWithColumns:20 rows:2];
+    [grid setBgColor:0xffffff];
+    [grid setZColorText:0xffffff background:0x00007f];
+    for (NSUInteger row = 0; row < 2; row++) {
+        [grid moveToColumn:0 row:row];
+        [grid putString:[self row:@"At End Of Road" width:17] style:style_Normal];
+    }
+    [grid flushDisplay];
+    NSColor *blue = [grid.bufferTextStorage attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL];
+    XCTAssertEqualObjects(blue, [NSColor colorFromInteger:0x00007f]);
+    XCTAssertEqualObjects(grid.textview.backgroundColor, blue);
+}
+
+// A colour that stops further short than that is not the grid's background.
+- (void)testColourCoveringHalfARowDoesNotGiveTheBackgroundColour {
+    GlkTextGridWindow *grid = [self gridWithColumns:20 rows:1];
+    [grid setBgColor:0xffffff];
+    [grid setZColorText:0xffffff background:0x00007f];
+    [grid moveToColumn:0 row:0];
+    [grid putString:[self row:@"Status" width:12] style:style_Normal];
+    [grid flushDisplay];
+    XCTAssertEqualObjects(grid.textview.backgroundColor, [NSColor colorFromInteger:0xffffff]);
 }
 
 #pragma mark - Autorestore

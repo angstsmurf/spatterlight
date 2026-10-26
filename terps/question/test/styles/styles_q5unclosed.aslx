@@ -1,0 +1,25 @@
+<!-- A msg that leaves its tags open: Warriors writes "<b>...<b/>", which
+     opens bold twice and never closes it.  The player appends each msg as
+     its own HTML fragment and the browser closes what the fragment left
+     open, so the next msg is plain again.  Likewise an unclosed <i>. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Unclosed">
+    <gameid>5a1e0000-0000-0000-0000-000000000003</gameid>
+    <version>1.0</version>
+    <showtitle type="boolean">false</showtitle>
+    <start type="script"><![CDATA[
+      msg ("<b> Press any key to continue. <b/>")
+      msg ("You slowly open your eyes.")
+      msg ("An <i>unclosed slant")
+      msg ("and plain text after it.")
+    ]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

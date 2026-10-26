@@ -9,7 +9,6 @@
 #import "ImageResource.h"
 #import "DebugLog.h"
 #import <BlorbFramework/BlorbFramework.h>
-#import <BlorbFramework/BlorbFramework-Swift.h>
 
 // Byte budget for the decoded pictures the NSCache keeps alive. An NSImage
 // is cheap until it draws; after that its bitmap rep holds the decoded pixels
@@ -106,12 +105,12 @@ static const NSUInteger kImageCacheCostLimit = 256 * 1024 * 1024;
 
 - (void)cacheImagesFromBlorbData:(NSData *)blorbData path:(NSString *)path {
     Blorb *blorb = [[Blorb alloc] initWithData:blorbData];
-    for (BlorbResource *res in [blorb resourcesForUsage:PictureResource]) {
+    for (BlorbResource *res in [blorb resourcesForUsage:BlorbUsagePicture]) {
         NSData *data = [blorb dataForResource:res];
         if (!data)
             continue;
         _resources[@(res.number)] = [[ImageResource alloc] initWithFilename:path offset:res.start data:data];
-        _imageDescriptions[@(res.number)] = res.descriptiontext;
+        _imageDescriptions[@(res.number)] = res.descriptionText;
     }
 }
 

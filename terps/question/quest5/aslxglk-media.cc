@@ -499,7 +499,7 @@ void do_wait_ui(Interp &in)
         [](const event_t &e) {
             return (e.type == evtype_CharInput && e.win == gwin) ||
                    (e.type == evtype_Hyperlink &&
-                    (e.win == gwin || e.win == gobjwin));
+                    (e.win == gwin || e.win == gobjwin || e.win == gbanner));
         },
         [&] { handle_arrange(in); });
     glk_cancel_char_event(gwin);
@@ -656,6 +656,24 @@ void panel_arrange()
         panel_relayout();
 }
 
+/* The window tree was closed and opened again (a COLOURS toggle): open the
+ * band again if it was showing a picture. */
+void panel_reopen()
+{
+    gpanelwin = nullptr;
+    if (!g_panel_id)
+        return;
+    gpanelwin = glk_window_open(glk_window_get_root(),
+                                winmethod_Above | winmethod_Proportional,
+                                50, wintype_Graphics, 0);
+    if (!gpanelwin) {
+        g_panel_id = 0;
+        g_panel_last.clear();
+        return;
+    }
+    panel_relayout();
+}
+
 void panel_contents(const std::string &html)
 {
     std::string src = decode_entities(tag_attr(html, "src"));
@@ -673,7 +691,7 @@ void panel_contents(const std::string &html)
         /* No band: the old inline draw, so a picture is at least seen. */
         if (draw_image_inline(src)) {
             g_panel_last = lower(src);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
         return;
     }
@@ -694,7 +712,7 @@ void panel_contents(const std::string &html)
         if (!gpanelwin) {       /* refused the split: fall back to inline */
             g_panel_id = 0;
             if (draw_image_inline(src))
-                glk_put_char('\n');
+                put_host_string("\n");
             return;
         }
         panel_set_background();

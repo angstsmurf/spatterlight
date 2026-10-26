@@ -1,0 +1,36 @@
+<!-- A game set in 14pt: its own size is the plain state, so a 12pt span is
+     one step smaller (size-1).  A Courier span is monospaced, an <h2> is
+     bold at 1.5em, and the PrintCentered line and the text between
+     SetAlignment ("center") and SetAlignment ("left") are centred.  After
+     SetFontSize (18), Core's span prints the next line two steps up.  A
+     heading in the middle of a line gets the line break it implies on
+     each side; one that opens its message gets none (the message's own
+     <br/> ends it).  The title is turned off. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Sizes">
+    <gameid>5a1e0000-0000-0000-0000-000000000002</gameid>
+    <version>1.0</version>
+    <showtitle type="boolean">false</showtitle>
+    <defaultfontsize type="int">14</defaultfontsize>
+    <start type="script"><![CDATA[
+      msg ("<h2>The Heading</h2>")
+      msg ("Before<h2>A heading mid-line</h2> after")
+      PrintCentered ("A centred line")
+      SetAlignment ("center")
+      msg ("Also centred, in <b>bold</b>")
+      SetAlignment ("left")
+      SetFontSize (18)
+      msg ("Raised to eighteen points")
+      SetFontSize (14)
+    ]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <description><![CDATA[A hall with <span style="font-size:12pt">small print</span>, a <span style="font-family:Courier New,monospace">typed note</span> and <code>code</code>.]]></description>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

@@ -351,6 +351,16 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     self.pendingFrame = frame;
 
     if (frame.size.height == 0) {
+        // A grid that shrinks throws the vanished rows away (Glk 3.5.4),
+        // so one collapsed to no rows comes back blank: the buffer is
+        // rebuilt from the new size when the grid regrows, and until
+        // then putString: drops what is printed. The upper window of a
+        // Z-machine game closes this way (Bocfel close_upper_window).
+        if (_bufferTextStorage.length) {
+            _bufferTextStorage = [[NSMutableAttributedString alloc] initWithString:@""];
+            dirty = YES;
+        }
+        rows = cols = xpos = ypos = 0;
         return;
     }
 
@@ -507,11 +517,20 @@ static const CGFloat kUnlimitedTextSize = 10000000;
                                              _bufferTextStorage.length -
                                              desiredLength)];
 
+    // The newline carries no background colour: the text system paints a
+    // paragraph separator's background across the margin to the right of
+    // its row, and in the Normal style's colour that was a block at the end
+    // of every full-width row drawn in another colour (the status rows of a
+    // Quest game shown in its own palette). Without one, the row's margin is
+    // the window background, which checkForUglyBorder gives the dominant
+    // colour.
+    NSMutableDictionary *newlineDict = [attrDict mutableCopy];
+    [newlineDict removeObjectForKey:NSBackgroundColorAttributeName];
     NSAttributedString *newlinestring = [[NSAttributedString alloc]
                                          initWithString:@"\n"
-                                         attributes:attrDict];
+                                         attributes:newlineDict];
 
-    // Instert a newline character at the end of each line to avoid reflow
+    // Insert a newline character at the end of each line to avoid reflow
     // during live resize. (We carefully have to print around these in the
     // printToWindow method)
     for (NSUInteger r = cols; r < _bufferTextStorage.length; r += cols + 1) {

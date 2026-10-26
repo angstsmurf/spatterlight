@@ -111,6 +111,27 @@
 			remoteGlobalIDString = C3FDA68229AB77FF005336BD;
 			remoteInfo = ogg;
 		};
+		B8405D307E18F5431AB35920 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C34B271326EAC168001A1714 /* dumb.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = C3B854F726E7B136001059B8;
+			remoteInfo = dumb;
+		};
+		5FE816CCF0DF3C0BED668BAD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 738835E30B18F870005C7A69;
+			remoteInfo = "libvorbis (static)";
+		};
+		7BF2BE237915DD1DB5C205ED /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C3224D8726ECD2BA008D8B3F /* Vorbis.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 738836210B1905E5005C7A69;
+			remoteInfo = "libvorbisfile (static)";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -439,6 +460,9 @@
 			buildRules = (
 			);
 			dependencies = (
+				FDC043AB434ACCF5C0EB8CBE /* PBXTargetDependency */,
+				8AAD6642508AB10752FFCDD9 /* PBXTargetDependency */,
+				87B1C7CF198A9CDCE1B04333 /* PBXTargetDependency */,
 			);
 			name = SFBAudioEngine;
 			productName = Framework;
@@ -575,6 +599,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		FDC043AB434ACCF5C0EB8CBE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = dumb;
+			targetProxy = B8405D307E18F5431AB35920 /* PBXContainerItemProxy */;
+		};
+		8AAD6642508AB10752FFCDD9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libvorbis (static)";
+			targetProxy = 5FE816CCF0DF3C0BED668BAD /* PBXContainerItemProxy */;
+		};
+		87B1C7CF198A9CDCE1B04333 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "libvorbisfile (static)";
+			targetProxy = 7BF2BE237915DD1DB5C205ED /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		32C212D71091116D00BA2493 /* Debug */ = {

@@ -128,6 +128,9 @@ static strid_t inputwinstream = nullptr;
 static strid_t transcriptstr = nullptr;  /* open transcript file, or null */
 static bool g_manual_echo = false;       /* Glk line echo off; we echo input ourselves */
 static bool g_output_seen = false;       /* set when print_* actually writes to the window */
+static bool g_main_written = false;      /* the game has written to mainglkwin since it
+                                          * last cleared, so a repaint would lose text */
+static glui32 g_span_colour = COLOUR_NONE; /* `|c' colour of the text being written */
 static bool g_use_objpane = false;       /* host supports a side pane; objwin may be
                                           * momentarily closed (when empty) yet still "in use" */
 static bool g_hyperlinks = false;        /* host supports clickable hyperlinks in a
@@ -361,8 +364,8 @@ static bool
 handle_sidebar_command(const std::string &raw)
 {
     int which = match_sidebar_command(raw);
-    if (!which)
-        return false;
+    if (which != 1 && which != -1)
+        return false;   /* SIDEBAR ON/OFF/AUTO: a Quest 4 game never hides it */
     change_side_pane_width(which, g_use_objpane, objwin, gfxwin);
     /* Written out again at its new width, the pane shows its top, rather
      * than wherever the rewrapped text happened to leave it scrolled. */
@@ -392,6 +395,7 @@ handle_restart_command(const std::string &raw, QuestionRunner *gr)
         return false;
 
     glk_window_clear(mainglkwin);
+    g_main_written = false;
     gr->restart();
     return true;
 }
@@ -425,6 +429,8 @@ handle_help_command(const std::string &raw)
  * the game's own parser.  Both the typed-line and the clicked-hyperlink paths
  * come here, so the two cannot drift apart over which commands the frontend
  * claims. */
+static bool handle_colour_command(const std::string &raw);
+
 static void
 run_or_handle_command(const std::string &cmd, QuestionRunner *gr, bool &quitting)
 {
@@ -434,6 +440,7 @@ run_or_handle_command(const std::string &cmd, QuestionRunner *gr, bool &quitting
         handle_help_command(cmd) ||
         handle_status_command(cmd) ||
         handle_sidebar_command(cmd) ||
+        handle_colour_command(cmd) ||
         handle_quit_command(cmd, quitting))
         return;
 
@@ -506,6 +513,7 @@ run_post_game_menu(QuestionRunner *gr)
             break;
         case POSTGAME_RESTART:
             glk_window_clear(mainglkwin);
+            g_main_written = false;
             gr->restart();
             return true;
         default:                            /* QUIT */
@@ -518,9 +526,8 @@ run_post_game_menu(QuestionRunner *gr)
 /* Open the status bar and the separate input window (if asked for), and
  * probe what the host can do for the side pane, hyperlinks and line echo. */
 static void
-open_secondary_windows()
+open_banner_and_input()
 {
-    glk_stylehint_set (wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
     bannerwin = glk_window_open(mainglkwin,
                                 winmethod_Above | winmethod_Fixed,
                                 1, wintype_TextGrid, 0);
@@ -536,6 +543,12 @@ open_secondary_windows()
         inputwin = mainglkwin;
 
     inputwinstream = glk_window_get_stream(inputwin);
+}
+
+static void
+open_secondary_windows()
+{
+    open_banner_and_input();
 
     /* A right-hand pane listing the objects/characters in the current room
      * (and, later, menus).  Open it once to probe whether the host supports a
@@ -562,6 +575,75 @@ open_secondary_windows()
      * input echoes inline at the prompt.)  echo is toggled per request. */
     g_manual_echo = (inputwin == mainglkwin) &&
                     glk_gestalt(gestalt_LineInputEcho, 0);
+}
+
+#ifdef QUESTGLK_HAVE_ZCOLORS
+/* Close every window and open again the ones that were open, so that new
+ * Normal hints reach them: libraries snapshot hints when a window opens.
+ * The main window's text is lost, as in Scarier; the banner and the pane
+ * are drawn again from the game's state. */
+static void
+rebuild_windows()
+{
+    bool had_pane = objwin != nullptr;
+    winid_t root = glk_window_get_root();
+    if (root)
+        glk_window_close(root, nullptr);
+    bool had_banner = bannerwin != nullptr;
+    mainglkwin = inputwin = bannerwin = objwin = gfxwin = nullptr;
+
+    mainglkwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+    if (!mainglkwin)
+        return;
+    glk_set_window(mainglkwin);
+    if (had_banner)
+        open_banner_and_input();
+    else {
+        inputwin = mainglkwin;
+        inputwinstream = glk_window_get_stream(inputwin);
+    }
+    if (transcriptstr)
+        glk_window_set_echo_stream(mainglkwin, transcriptstr);
+    g_colour.main_win = mainglkwin;
+    if (had_pane && g_live_runner)
+        update_objwin(g_live_runner);
+}
+
+/* Turn the game's colours on or off (see test/README.md): Scarier's
+ * gsc_set_colour for this frontend's windows. */
+static void
+set_colour(bool on)
+{
+    if (colour_toggle_begin(on))
+        rebuild_windows();
+    colour_repaint(mainglkwin, on);
+    if (inputwin != mainglkwin)
+        colour_repaint(inputwin, on);
+    if (bannerwin && !on)
+        garglk_set_zcolors_stream(glk_window_get_stream(bannerwin),
+                                  zcolor_Default, zcolor_Default);
+    colour_apply(mainglkwin, g_span_colour, mainglkwin);
+    g_main_written = false;
+    if (bannerwin)
+        draw_banner();
+    fill_divider();
+}
+#else
+static void
+set_colour(bool)
+{
+}
+#endif
+
+/* Handle the COLOURS metaverb: show the game's own colours, or the theme. */
+static bool
+handle_colour_command(const std::string &raw)
+{
+    int which = match_colour_command(raw);
+    if (!which)
+        return false;
+    run_colour_command(which, set_colour);
+    return true;
 }
 
 /* Load the game and run its startscript.  When a Spatterlight autosave
@@ -613,6 +695,67 @@ boot_game(QuestionRunner *gr)
     return autorestored;
 }
 
+/* The attribute state of a Quest 4 style.  Quest 4 has no per-run font
+ * face (`font' is never set by a | code), so nothing is monospaced, and the
+ * colour is the frontend's business (set_foreground). */
+static StyleCombo
+style_combo_of(const QuestionFontStyle &style, int default_size)
+{
+    return style_combo(style.is_bold, style.is_italic, style.is_underlined,
+                       false, style.justify == JUSTIFY_CENTER,
+                       style.justify == JUSTIFY_RIGHT,
+                       style.size > 0 ? style.size : default_size,
+                       default_size);
+}
+
+/* Whether this launch restores an autosave: the restored windows carry their
+ * own colours, so detection has no say. */
+static bool
+autorestoring()
+{
+#ifdef SPATTERLIGHT
+    return question_autosave_exists();
+#else
+    return false;
+#endif
+}
+
+/* Count the attribute states the game's text uses and hand out the styles
+ * for them, then set the hints that draw them, all before the first window
+ * opens.  A file that is no game, or no file, gets the natural table.  The
+ * same scan feeds the colour detection. */
+static void
+assign_game_styles(QuestionInterface *gi)
+{
+    StyleCensus census;
+    questglk::ColourDetect &detect = questglk::g_colour_detect;
+    QuestionColourFacts facts;
+    /* The scan reads `default fontsize' before it walks any text. */
+    int default_size = 10;
+    if (storyfilename && !file_starts_with_zip_magic(storyfilename)) {
+        question_style_scan(gi, storyfilename,
+                            [&](const QuestionFontStyle &style,
+                                const std::string &text, bool intro) {
+                                census.count(style_combo_of(style,
+                                                            default_size),
+                                             text, intro);
+                                if (!style.color.empty())
+                                    detect.span(questglk::css_colour(
+                                                    style.color), text);
+                            },
+                            default_size, &facts);
+        detect.quest4_header(facts.background, facts.foreground);
+        for (const QuestionColourStatement &st : facts.statements)
+            detect.quest4_statement(st.background, st.value, st.block);
+        questglk::g_colour.background = detect.game_bg;
+        questglk::g_colour.foreground = detect.game_fg;
+    }
+    StyleTable table;
+    style_assign(census.ranked(), table);
+    style_install(table);
+    style_set_hints();
+}
+
 /* Tell the host UI the game's title.  get_banner() returns
  * "<name>, v<version> | <author>"; pass just the leading name part. */
 static void
@@ -640,7 +783,14 @@ void glk_main(void)
         return;
     }
 
-    glk_stylehint_set(wintype_TextBuffer, style_User2, stylehint_ReverseColor, 1);
+    QuestionGlkInterface *gi = new QuestionGlkInterface();
+    assign_game_styles(gi);
+    /* A game whose own declarations ask for its colours starts in them,
+     * the hints set before any window opens; one asking only through its
+     * coloured text is known once the theme is measured, below. */
+    g_colour.startup = g_colour_detect.on() && !autorestoring();
+    colour_startup_prepare();
+
     /* Open the main window. */
     mainglkwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
     if (!mainglkwin) {
@@ -649,6 +799,16 @@ void glk_main(void)
         return; 
     }
     glk_set_window(mainglkwin);
+    /* Coloured text is judged against the theme measured on it. */
+    g_colour.main_win = mainglkwin;
+    if (storyfilename) {
+        questglk::colour_detect_settle(mainglkwin, storyfilename,
+                                       autorestoring());
+#ifdef QUESTGLK_HAVE_ZCOLORS
+        if (g_colour_detect.on() && !autorestoring())
+            set_colour(true);
+#endif
+    }
 
     if (!storyfilename) {
         glk_put_cstring("No game name or more than one game name given.\n"
@@ -675,7 +835,7 @@ void glk_main(void)
                         " timers.  If this game tries to use timers, then some"
                         " functionality may not work correctly.\n\n");
 
-    QuestionRunner *gr = QuestionRunner::get_runner(new QuestionGlkInterface());
+    QuestionRunner *gr = QuestionRunner::get_runner(gi);
     /* From here on, so that the startscript's own questions and waits (which
      * set_game runs, before the turn loop exists) refresh the status too. */
     g_live_runner = gr;
@@ -987,6 +1147,7 @@ run_turn_loop(QuestionRunner *gr, bool &autorestored)
 
             case evtype_Arrange:
             case evtype_Redraw:
+                normal_measure_reset();     /* a theme change arrives as one */
                 draw_banner();
                 update_objwin(gr);
                 fill_divider();
@@ -1342,7 +1503,7 @@ QuestionGlkInterface::print_normal (const std::string &s)
       {
 	take_back_prompt();
 	glk_put_cstring(s.c_str());
-	g_output_seen = true;
+	g_output_seen = g_main_written = true;
       }
     return r_success;
 }
@@ -1358,7 +1519,7 @@ QuestionGlkInterface::print_newline ()
 	  {
 	    take_back_prompt();
 	    glk_put_cstring("\n");
-	    g_output_seen = true;
+	    g_output_seen = g_main_written = true;
 	  }
       }
     else
@@ -1369,28 +1530,41 @@ QuestionGlkInterface::print_newline ()
 }
 
 
+/* Glk styles are defined before the window opens, so here we can only pick
+ * the style the game's assignment (assign_game_styles) gave this state, or
+ * the nearest one it has. */
 QuestionResult
 QuestionGlkInterface::set_style (const QuestionFontStyle &style)
 {
-    // Glk styles are defined before the window opens, so at this point we can only
-    // pick the most suitable style, not define a new one.
     glk_set_style_stream(glk_window_get_stream(mainglkwin),
-			 glk_style_for (style.is_bold, style.is_italic,
-					style.is_underlined));
+			 quest_style_for(style_combo_of(style,
+							get_default_font_size())));
+    /* `|cb' (no colour) is the game's foreground. */
+    g_span_colour = style.color.empty() ? COLOUR_NONE
+                                        : css_colour(style.color);
+    colour_apply(mainglkwin, g_span_colour, mainglkwin);
     return r_success;
 }
 
-/* Quest's per-passage colour changes have nowhere to go: a Glk window's
- * colours come from stylehints fixed before it opens, and the host's theme
- * owns them anyway.  The text keeps the player's chosen colours. */
+/* `define game's colours and the foreground/background statements, read as
+ * Quest's GetHTMLColour reads them (white and black the defaults).  The
+ * foreground is the colour of the text after it that has no `|c' of its
+ * own; the background repaints the page when no text is lost by it. */
 void
-QuestionGlkInterface::set_foreground (const std::string &)
+QuestionGlkInterface::set_foreground (const std::string &col)
 {
+    glui32 c = quest4_colour(col, 0x000000);
+    if (c == COLOUR_NONE)
+        return;
+    colour_set_foreground(c);
+    colour_apply(mainglkwin, g_span_colour, mainglkwin);
 }
 
 void
-QuestionGlkInterface::set_background (const std::string &)
+QuestionGlkInterface::set_background (const std::string &col)
 {
+    colour_set_background(quest4_colour(col, 0xFFFFFF), !g_main_written,
+                          g_span_colour);
 }
 
 
@@ -1525,6 +1699,7 @@ QuestionGlkInterface::get_string ()
     /* The banner is a grid window, blanked by a resize; redraw it (and the
      * divider) as the command line and the keypress wait do. */
     if (ev.type == evtype_Arrange || ev.type == evtype_Redraw) {
+      normal_measure_reset();
       draw_banner();
       fill_divider();
     }
@@ -1791,6 +1966,11 @@ question_recover_frontend_state (const QuestionGlkFrontendState *st)
     question_soundchannel = gli_schan_for_tag(st->soundchanneltag);
     g_use_objpane = st->use_objpane != 0;
     g_objwin_expanded = st->objwin_expanded;
+    g_colour.main_win = mainglkwin;
+    colour_restored();
+    /* The restored main window holds the session's text, which a background
+     * the game sets again must not clear. */
+    g_main_written = true;
     /* The restored windows already have their sizes; this is for the pane's
      * next opening. */
     set_side_pane_wide(st->sidebar_wide != 0, nullptr, nullptr);

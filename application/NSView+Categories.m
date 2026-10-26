@@ -68,4 +68,102 @@
     return links;
 }
 
+- (NSRect)caretShapeRect:(kCaretShapePrefsType)shape forCaretRect:(NSRect)caretRect {
+    NSRect rect = caretRect;
+    NSString *string = self.string;
+    NSUInteger index = self.selectedRange.location;
+    NSLayoutManager *layoutManager = self.layoutManager;
+    CGFloat width = 0;
+    if (index < string.length && [string characterAtIndex:index] != '\n') {
+        NSRange glyphs = [layoutManager glyphRangeForCharacterRange:NSMakeRange(index, 1) actualCharacterRange:NULL];
+        width = [layoutManager boundingRectForGlyphRange:glyphs inTextContainer:self.textContainer].size.width;
+    }
+    if (width < 1) {
+        NSFont *font = self.typingAttributes[NSFontAttributeName] ?: self.font;
+        width = [@"0" sizeWithAttributes:@{ NSFontAttributeName: font ?: [NSFont userFixedPitchFontOfSize:0] }].width;
+    }
+    rect.size.width = ceil(width);
+
+    NSTextContainer *container = self.textContainer;
+    CGFloat left = self.textContainerOrigin.x + container.lineFragmentPadding;
+    CGFloat right = self.textContainerOrigin.x + container.size.width - container.lineFragmentPadding;
+    if (NSMaxX(rect) > right + 1) {
+        rect.origin.x = left;
+        rect.origin.y += rect.size.height;
+    }
+
+    if (shape == kCaretUnderline) {
+        CGFloat thickness = MAX(2, round(rect.size.height / 8));
+        rect.origin.y = NSMaxY(rect) - thickness;
+        rect.size.height = thickness;
+    }
+    return rect;
+}
+
+- (NSRect)drawCaretShape:(kCaretShapePrefsType)shape forCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect {
+    if (!flag) {
+        // Never seen on macOS 27, which erases the caret by redisplaying its
+        // rect instead. Redisplay the shape in case an older AppKit does.
+        [self setNeedsDisplayInRect:lastShapeRect avoidAdditionalLayout:YES];
+        return NSZeroRect;
+    }
+    if (shape != kCaretBlock && shape != kCaretUnderline) {
+        // The theme has just switched away from a block or underline: erase
+        // the last one, from the run loop for the reason given below.
+        if (!NSIsEmptyRect(lastShapeRect)) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setNeedsDisplayInRect:lastShapeRect];
+            });
+        }
+        return NSZeroRect;
+    }
+    NSRect shapeRect = [self caretShapeRect:shape forCaretRect:caretRect];
+
+    [NSGraphicsContext saveGraphicsState];
+    NSRectClip(shapeRect);
+    [color set];
+    NSRectFill(shapeRect);
+
+    // Redraw the character under a block in the background colour.
+    NSString *string = self.string;
+    NSUInteger index = self.selectedRange.location;
+    if (shape == kCaretBlock && index < string.length && [string characterAtIndex:index] != '\n') {
+        NSLayoutManager *layoutManager = self.layoutManager;
+        NSUInteger glyph = [layoutManager glyphIndexForCharacterAtIndex:index];
+        NSRect fragment = [layoutManager lineFragmentRectForGlyphAtIndex:glyph effectiveRange:NULL];
+        NSPoint location = [layoutManager locationForGlyphAtIndex:glyph];
+        NSPoint origin = self.textContainerOrigin;
+        NSMutableDictionary *attributes = [[self.textStorage attributesAtIndex:index effectiveRange:NULL] mutableCopy];
+        NSColor *background = attributes[NSBackgroundColorAttributeName] ?: self.backgroundColor;
+        attributes[NSForegroundColorAttributeName] = background;
+        [attributes removeObjectForKey:NSBackgroundColorAttributeName];
+        NSAttributedString *character = [[NSAttributedString alloc] initWithString:[string substringWithRange:NSMakeRange(index, 1)] attributes:attributes];
+        // Without NSStringDrawingUsesLineFragmentOrigin the rect origin is the baseline.
+        [character drawWithRect:NSMakeRect(origin.x + fragment.origin.x + location.x, origin.y + fragment.origin.y + location.y, 0, 0) options:0];
+    }
+    [NSGraphicsContext restoreGraphicsState];
+
+    // When the caret moves, AppKit invalidates only its own 1-point-wide
+    // rects at the old and the new position, so the clip of this pass takes
+    // in the shape at the old position (widened below) but only a sliver of
+    // the one at the new. Invalidating now would wait for the next pass (the
+    // blink), so ask for a redisplay from the run loop. Once per caret
+    // position: the redisplay draws the shape in full and lands here again
+    // with the same rect, and a shape partly scrolled out of view does not
+    // ask forever.
+    NSRect cover = NSUnionRect(caretRect, shapeRect);
+    if (!NSEqualRects(cover, lastShapeRect)) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplayInRect:cover];
+        });
+    }
+    return cover;
+}
+
+- (NSRect)rect:(NSRect)rect widenedToCaretShape:(NSRect)lastShapeRect {
+    if (NSIntersectsRect(rect, lastShapeRect))
+        return NSUnionRect(rect, lastShapeRect);
+    return rect;
+}
+
 @end

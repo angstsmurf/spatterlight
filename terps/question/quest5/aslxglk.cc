@@ -55,10 +55,10 @@ std::string cap_first(const std::string &s)
     return aslx::utf8_case(s, true, true);
 }
 
-/* Arm / disarm hyperlink input on both clickable windows.  Every event loop
- * here wants the pair -- the main transcript's cmdlinks and the side pane's
- * object and compass links -- and a Glk that reports no hyperlink support
- * gets neither. */
+/* Arm / disarm hyperlink input on every clickable window.  Every event loop
+ * here wants them all -- the main transcript's cmdlinks, the side pane's
+ * object and compass links and the banner's link bar -- and a Glk that
+ * reports no hyperlink support gets none. */
 void request_hyperlinks()
 {
     if (!g_hyperlinks)
@@ -67,6 +67,8 @@ void request_hyperlinks()
     glk_request_hyperlink_event(gwin);
     if (gobjwin)
         glk_request_hyperlink_event(gobjwin);
+    if (gbanner)
+        glk_request_hyperlink_event(gbanner);
 }
 
 void cancel_hyperlinks()
@@ -77,6 +79,8 @@ void cancel_hyperlinks()
     glk_cancel_hyperlink_event(gwin);
     if (gobjwin)
         glk_cancel_hyperlink_event(gobjwin);
+    if (gbanner)
+        glk_cancel_hyperlink_event(gbanner);
 }
 
 #ifdef SPATTERLIGHT
@@ -146,9 +150,9 @@ void flush_warnings(World &w, size_t &seen)
         seen = w.warnings.size();
     for (; seen < w.warnings.size(); seen++) {
         glk_set_style(style_Emphasized);
-        glk_put_string((char *) "[");
+        put_host_string("[");
         put_uni_string(w.warnings[seen]);
-        glk_put_string((char *) "]\n");
+        put_host_string("]\n");
         glk_set_style(style_Normal);
     }
 }
@@ -169,7 +173,7 @@ bool post_game_undo(Interp &in)
     /* A game stopped by the script-error breaker has not "ended" so much as
      * broken; rolling one turn back would just run into the same wall. */
     if (in.script_errors_fatal() || !in.undo_available()) {
-        glk_put_string((char *) NOTHING_TO_UNDO);
+        put_host_string(NOTHING_TO_UNDO);
         return false;
     }
     Context ctx;
@@ -201,7 +205,7 @@ SessionEnd post_game_menu(Interp &in, std::string &restore_data)
         case POSTGAME_RESTART:
             return SessionEnd::Restart;
         case POSTGAME_QUIT:
-            glk_put_string((char *) QUIT_FAREWELL);
+            put_host_string(QUIT_FAREWELL);
             return SessionEnd::Quit;
         default:
             post_game_menu_reprompt();
@@ -338,6 +342,15 @@ static void queue_js_event(const std::string &fn, const std::string &arg)
         g_click_hook = true;
         return;
     }
+    /* Core's SetAlignment: playercore.js starts a new div with that
+     * text-align, and PrintCentered prints into one. */
+    if (fn == "createNewDiv") {
+        std::string a = lower(trim(arg));
+        g_div_align = a == "center" ? ALIGN_CENTER
+                    : a == "right"  ? ALIGN_RIGHT : 0;
+        apply_style();
+        return;
+    }
     /* Spondre-style: the callback name rides in the call's last argument. */
     if (!arg.empty()) {
         g_js_events.push_back(std::make_pair(fn, arg));
@@ -385,12 +398,17 @@ void install_host_hooks(Interp &in, bool &restart_requested)
      * page yet is lost in the browser as well. */
     in.js_eval = [](const std::string &js) {
         std::string id, value;
-        if (g_cstatus.rows.empty() ||
-            !aslxform::parse_jquery_html(js, id, value))
+        if (!aslxform::parse_jquery_html(js, id, value))
+            return;
+        /* Command links written into an element of the game's own: the
+         * banner's link bar (see g_link_bar). */
+        set_link_bar(id, value);
+        if (g_cstatus.rows.empty())
             return;
         g_cstatus_vals[id] = plain_text(value);
         g_pane_dirty = true;
     };
+    in.set_css = game_panel_css;
     /* Pane lists (UpdateListsAsync): only subscribe when this Glk could open
      * a side pane at startup -- an unset hook skips the whole scope
      * computation, like QuestViva with no UpdateList listener.  The hook just
@@ -467,7 +485,7 @@ void install_host_hooks(Interp &in, bool &restart_requested)
         glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)) {
         in.show_picture = [](const std::string &filename) {
             if (draw_image_inline(filename))
-                glk_put_char('\n');
+                put_host_string("\n");
         };
         g_panel_last.clear();   /* a fresh session redraws its frame */
         in.set_panel_contents = panel_contents;
@@ -743,6 +761,7 @@ static TurnEnd run_parser_prompt(Interp &in, std::string &restore_data,
         } else if (!handle_transcript_command(cmd) &&
                    !handle_help_command(cmd) &&
                    !handle_sidebar_command(in, cmd) &&
+                   !handle_colour_command(in, cmd) &&
                    /* Not under a `get input`: unlike the metaverbs
                     * above, STATUS is a plain word a game may well be
                     * waiting to hear as an answer. */
@@ -808,15 +827,19 @@ static TurnEnd run_parser_prompt(Interp &in, std::string &restore_data,
 /* Run one full game session, booting fresh or from a validated snapshot
  * (which do_restore_ui already probe-applied). `restore_data` is consumed on
  * entry and re-filled when the session ends with a RESTORE. */
-SessionEnd run_session(const char *storyfile, std::string &restore_data)
+SessionEnd run_session(const char *storyfile, std::string &restore_data,
+                       std::unique_ptr<World> preloaded)
 {
-    World w;
-    if (!load_file(storyfile, w, core_dir_path())) {
-        glk_put_string((char *) "Sorry, this Quest 5 game could not be loaded:\n");
+    bool loaded = preloaded != nullptr;
+    std::unique_ptr<World> world =
+        loaded ? std::move(preloaded) : std::make_unique<World>();
+    World &w = *world;
+    if (!loaded && !load_file(storyfile, w, core_dir_path())) {
+        put_host_string("Sorry, this Quest 5 game could not be loaded:\n");
         for (const std::string &e : w.errors) {
-            glk_put_string((char *) "  ");
+            put_host_string("  ");
             put_uni_string(e);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
         return SessionEnd::Quit;
     }
@@ -876,9 +899,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         if (!restored) {
             /* Should not happen -- the probe validated it -- but never boot
              * half-applied state silently. */
-            glk_put_string((char *) "Restore failed (");
+            put_host_string("Restore failed (");
             put_uni_string(err);
-            glk_put_string((char *) "); starting a new game.\n\n");
+            put_host_string("); starting a new game.\n\n");
             return SessionEnd::Restart;
         }
     }
@@ -906,7 +929,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
         /* synchronous `play sound` during boot: rest of Begin abandoned */
     }
     if (restored && !autorestored) {
-        glk_put_string((char *) "Loaded saved game\n");
+        put_host_string("Loaded saved game\n");
         update_banner(in);
     }
 #ifdef SPATTERLIGHT
@@ -983,7 +1006,7 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
     if (in.script_errors_fatal() && !fatal_reported) {
         fatal_reported = true;
         glk_set_style(style_Emphasized);
-        glk_put_string((char *) "\n[The game has stopped because too many script"
+        put_host_string("\n[The game has stopped because too many script"
                                 " errors occurred.]\n");
         glk_set_style(style_Normal);
     }
@@ -1010,8 +1033,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data)
 void reset_frontend_state()
 {
     stop_sound_ui();
-    glk_window_clear(gwin);
-    g_bold = g_italic = g_under = 0;
+    g_style = InlineStyle();
+    g_div_align = 0;
+    new_page();
     apply_style();
 
     g_links.clear();
@@ -1036,9 +1060,12 @@ void reset_frontend_state()
     g_form_pending = false;
     g_cstatus = aslxform::StatusPanel();
     g_cstatus_vals.clear();
+    g_link_bar.clear();
+    g_bar_commands.clear();
 
     g_command_bar = true;
     g_panes_visible = true;
+    g_panes_override = 0;
     g_click_hook = false;
     g_js_events.clear();
 }
@@ -1096,12 +1123,41 @@ extern "C" int aslx_is_quest5_file(const char *path)
 
 extern "C" void aslx_glk_main(const char *storyfile)
 {
+    /* The styles are hinted from the game's text before the first window
+     * opens, so the game is read here and handed to the first session.  If
+     * it does not load, that session reads it again and reports why. */
+    auto preloaded = std::make_unique<World>();
+    if (load_file(storyfile, *preloaded, core_dir_path())) {
+        assign_game_styles(*preloaded);
+    } else {
+        preloaded.reset();
+        questglk::style_set_hints();
+    }
+#ifdef SPATTERLIGHT
+    bool autorestoring = question_autosave_exists();
+#else
+    bool autorestoring = false;
+#endif
+    /* A game that asks for its colours in its own attributes gets them with
+     * the hints set before any window opens; one asking only through its
+     * coloured text is known once the theme is measured, below. */
+    questglk::g_colour.startup = preloaded &&
+                                 questglk::g_colour_detect.on() &&
+                                 !autorestoring;
+    questglk::colour_startup_prepare();
+
     gwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
     if (!gwin)
         return;
     glk_set_window(gwin);
+    questglk::g_colour.main_win = gwin;
+    /* Coloured text is judged against the theme measured on it. */
+    if (preloaded) {
+        questglk::colour_detect_settle(gwin, storyfile, autorestoring);
+        if (questglk::g_colour_detect.on() && !autorestoring)
+            set_colour(true);
+    }
 
-    glk_stylehint_set(wintype_TextGrid, style_User1, stylehint_ReverseColor, 1);
     gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
                               wintype_TextGrid, 0);
 
@@ -1134,6 +1190,7 @@ extern "C" void aslx_glk_main(const char *storyfile)
      * applies it on its way into the first session. */
     g_autorestore_pending = question_autosave_exists();
 #endif
-    while (run_session(storyfile, restore_data) != SessionEnd::Quit)
+    while (run_session(storyfile, restore_data, std::move(preloaded)) !=
+           SessionEnd::Quit)
         reset_frontend_state();
 }

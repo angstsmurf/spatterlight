@@ -739,7 +739,7 @@
         // Only accept blorbs with image data but no executable chunk
         // (because it would be confusing to treat game files as image files)
         Blorb *blorb = [Blorb blorbAtURL:url];
-        if ([blorb findResourceOfUsage:ExecutableResource] == nil) {
+        if ([blorb findResourceOfUsage:BlorbUsageExecutable] == nil) {
             data = blorb.coverImageData;
             if (data) {
                 [self processImageData:data sourceUrl:url.path dontAsk:dontAsk];

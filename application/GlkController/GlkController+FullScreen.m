@@ -1,5 +1,6 @@
 #import "GlkController_Private.h"
 #import "GlkController+Autorestore.h"
+#import "CRTEffects.h"
 
 #import "GlkWindow.h"
 #import "GlkTextBufferWindow.h"
@@ -560,6 +561,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
 
     self.gameView.frame = frame;
+    [self updateCRTEffects];
 }
 
 - (NSRect)contentFrameForWindowed {

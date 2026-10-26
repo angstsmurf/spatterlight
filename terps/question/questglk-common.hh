@@ -25,6 +25,7 @@
 #define QUESTION_QUESTGLK_COMMON_HH
 
 #include <string>
+#include <utility>
 #include <vector>
 
 extern "C" {
@@ -72,11 +73,205 @@ glui32 cancel_line_request (winid_t win);
 
 /* ------------------------------------------------------------------ style */
 
-glui32 glk_style_for (bool bold, bool italic, bool underlined);
+/* An attribute state: the low bits are flags, bits 8..15 the size as a
+ * signed step of two points from the game's default size, which is also the
+ * stylehint_Size value that draws it.  Underline shares the italic bit: Glk
+ * has no underline, and a style hinted Oblique 0 would draw it as plain. */
+typedef unsigned int StyleCombo;
+enum : StyleCombo {
+  COMBO_BOLD = 1 << 0,
+  COMBO_ITALIC = 1 << 1,
+  COMBO_MONOSPACED = 1 << 2,
+  COMBO_CENTER = 1 << 3,
+  COMBO_RIGHT = 1 << 4,
+  COMBO_FLAGS = (1 << 5) - 1,
+  COMBO_SIZE_SHIFT = 8,
+  COMBO_SIZE_MASK = 0xffu << COMBO_SIZE_SHIFT
+};
+enum { STYLE_MIN_STEP = -3, STYLE_MAX_STEP = 6, STYLE_COUNT = 11 };
+
+StyleCombo style_combo (bool bold, bool italic, bool underlined,
+                        bool monospaced, bool center, bool right,
+                        double points, double default_points);
+int style_combo_step (StyleCombo combo);
+std::string style_combo_describe (StyleCombo combo);
+const char *style_name (int style);
+
+/* Which state each of the eleven styles stands for.  A `natural` style keeps
+ * the look the frontend has always given it; the others are hinted from
+ * their combo. */
+struct StyleTable {
+  bool assigned[STYLE_COUNT];
+  bool natural[STYLE_COUNT];
+  StyleCombo combo[STYLE_COUNT];
+};
+
+/* For each state the game's text uses, how many visible characters it
+ * covers, in all and in the title and introduction. */
+struct StyleCensusRow {
+  StyleCombo combo;
+  unsigned long characters;
+  unsigned long intro_characters;
+};
+
+class StyleCensus {
+public:
+  void count (StyleCombo combo, const std::string &utf8, bool intro);
+  std::vector<StyleCensusRow> ranked () const;
+  bool empty () const { return rows_.empty (); }
+
+private:
+  std::vector<StyleCensusRow> rows_;
+};
+
+void style_table_natural (StyleTable &table);
+void style_assign (const std::vector<StyleCensusRow> &ranked,
+                   StyleTable &table);
+int style_lookup (const StyleTable &table, StyleCombo combo);
+
+/* The table quest_style_for looks up in, natural until a frontend installs
+ * the game's, and the hints that draw it: called before the text buffer
+ * windows open. */
+void style_install (const StyleTable &table);
+const StyleTable &style_installed ();
+void style_set_hints ();
+glui32 quest_style_for (StyleCombo combo);
+
+/* ----------------------------------------------------------------- colour */
+
+/* Whether this Glk library has the garglk_set_zcolors extension, and with it
+ * the game-colour mode.  Defined where Scarier defines GSC_HAVE_ZCOLORS; the
+ * CheapGlk builds (the smoke harness, every golden) compile the mode out. */
+#if defined(SPATTERLIGHT) || defined(GARGLK) \
+    || defined(GLK_MODULE_GARGLKTEXT)
+# define QUESTGLK_HAVE_ZCOLORS 1
+#endif
+
+/* "No colour": outside the 24-bit range an RGB colour occupies, and distinct
+ * from the zcolor_* sentinels at the top of the range. */
+const glui32 COLOUR_NONE = 0x01000000;
+
+glui32 css_colour (const std::string &spec);
+glui32 quest4_colour (const std::string &spec, glui32 default_rgb);
+bool colour_legible (glui32 fg, glui32 bg);
+
+/* The game's palette and whether it is in force.  The frontend fills in the
+ * palette from the game and decides `startup` before the first window
+ * opens. */
+struct ColourMode {
+  glui32 background = 0xFFFFFF;
+  glui32 foreground = 0x000000;
+  glui32 link = 0x0000FF;
+  bool on = false;               /* zcolors are being named */
+  bool startup = false;          /* on from the first window */
+  bool hints_preapplied = false; /* the open windows already have the hints */
+  glui32 main_fg = COLOUR_NONE;  /* last foreground named on the main window */
+  glui32 hint_fg = COLOUR_NONE;  /* the Normal colours the windows opened with */
+  glui32 hint_bg = COLOUR_NONE;
+  winid_t main_win = nullptr;    /* the frontend's main text window */
+};
+extern ColourMode g_colour;
+
+glui32 measure_background (winid_t win);
+bool normal_measure (winid_t main, glui32 *fg, glui32 *bg);
+void normal_measure_reset ();
+bool colour_visible (winid_t main);
+void colour_set_normal_hints (bool on);
+void colour_startup_prepare ();
+void colour_apply (winid_t win, glui32 fg, winid_t main,
+                   glui32 bg = COLOUR_NONE);
+void colour_repaint (winid_t win, bool on);
+/* The common head of a toggle: the flag, the hints and the measure cache.
+ * Returns whether the frontend has to rebuild its windows, which it then
+ * repaints and redraws itself. */
+bool colour_toggle_begin (bool on);
+/* A background the game sets in play (Quest 4's `background', Quest 5's
+ * SetBackgroundColour): kept for later spans and for a rebuild, and, while
+ * the mode is on, painted at once if `main_empty' says no text is lost by
+ * clearing.  `span_fg' is the colour the text being written is in. */
+void colour_set_background (glui32 bg, bool main_empty, glui32 span_fg);
+/* A foreground the game sets in play (Quest 4's `foreground', Quest 5's
+ * game.defaultforeground, which Core prints its own spans in): the colour of
+ * later text with no colour of its own, of the status rows and of the panes.
+ * Published as the Normal TextColor hint for the windows opened from now on;
+ * the ones already open keep the snapshot they took, so hint_fg, which
+ * colour_visible measures the main window against, stays as it was. */
+void colour_set_foreground (glui32 fg);
+/* Named on a status grid after each clear: the palette inverted while it is
+ * showing, else the reverse-video User1 the theme draws.  End puts the main
+ * window's colours back, since Gargoyle's zcolors are global; it also ends a
+ * pane drawn through colour_apply. */
+void colour_status_begin (strid_t stream);
+void colour_status_end ();
+
+/* COLOURS / COLORS metaverb: kColourOn, kColourOff, kColourReport, or 0 when
+ * it is not one (let it reach the game). */
+enum { kColourOn = 1, kColourOff = 2, kColourReport = 3 };
+int match_colour_command (const std::string &raw);
+/* Act on one and say what came of it; `set' is the frontend's toggle. */
+void run_colour_command (int which, void (*set) (bool on));
+
+/* The load-time verdict on whether a game was written for a page the theme
+ * cannot stand in for.  Each frontend feeds it what its scan finds; any rule
+ * that fires turns the mode on, and every firing is kept for the census dump
+ * (QUESTION_COLOUR_CENSUS=1).  `game_bg' is the background the game
+ * declares; coloured text is judged against the theme's background only once
+ * the rest is known, since measuring that needs a window. */
+struct ColourDetect {
+  struct Fired { std::string rule, detail; };
+  glui32 game_bg = 0xFFFFFF;
+  glui32 game_fg = 0x000000;
+  glui32 game_link = 0x0000FF;
+  glui32 theme_bg = COLOUR_NONE;
+  std::vector<Fired> fired;
+  std::vector<std::pair<glui32, std::string>> spans;
+
+  bool on () const { return !fired.empty (); }
+  void fire (const std::string &rule, const std::string &detail);
+  /* Quest 4: the `define game' colours, which set game_bg/game_fg, and a
+   * background/foreground statement found in `block'. */
+  void quest4_header (const std::string &bg, const std::string &fg);
+  void quest4_statement (bool background, const std::string &value,
+                         const std::string &block);
+  /* Quest 5: the game's resolved defaultbackground/foreground/
+   * linkforeground, which set game_bg/game_fg/game_link, and a colour call
+   * (SetBackgroundColour and kin) whose argument is `arg', found in `where'. */
+  void quest5_defaults (const std::string &bg, const std::string &fg,
+                        const std::string &link);
+  void quest5_call (const std::string &call, bool background,
+                    const std::string &arg, const std::string &where);
+  /* Text in colour `fg', the first sample of each colour kept. */
+  void span (glui32 fg, const std::string &text);
+  /* Whether judge () could still change the verdict (or the census wants
+   * it anyway), so the theme is worth measuring. */
+  bool needs_theme () const;
+  /* Fire for each colour that reads on the game's page and not on the
+   * theme's: a colour that was always unreadable asks for nothing. */
+  void judge (glui32 theme);
+  /* Print the verdict to stderr if QUESTION_COLOUR_CENSUS is set. */
+  void census (const char *game) const;
+};
+/* The frontend's detection: filled in by its scan before the first window
+ * opens (the header and statement rules are known then, so the hints can be
+ * published in time), and settled once the main window is open and the
+ * theme can be measured on it. */
+extern ColourDetect g_colour_detect;
+/* Judge the coloured text against the theme's Normal background, measured
+ * on `main' before any colour hint reaches it (QUESTION_COLOUR_THEME=#rrggbb
+ * stands in for a library that cannot measure), then dump the census.  Not
+ * on autorestore, whose windows bring their own colours back. */
+void colour_detect_settle (winid_t main, const char *game, bool autorestoring);
 
 /* ----------------------------------------------------------------- banner */
 
 std::string status_tail (const std::string &status, size_t avail, bool utf8);
+/* Clear the banner and draw its first row (room name left, status right) in
+ * the status colours, leaving the banner's stream in them for whatever a
+ * frontend draws under that row; it ends with colour_status_end.  `banner'
+ * must be open. */
+void draw_status_row (winid_t banner, const std::string &room,
+                      const std::string &status, bool utf8);
+/* The row and the end in one, for a banner that is only that row. */
 void draw_status_banner (winid_t banner, const std::string &room,
                          const std::string &status, bool utf8);
 bool status_leaves_banner (size_t width, const std::string &room,
@@ -110,6 +305,7 @@ extern const char PANE_STATUS[];
 
 bool side_pane_is_wide ();
 void set_side_pane_wide (bool wide, winid_t pane, winid_t divider);
+enum { kSidebarOn = 2, kSidebarOff = 3, kSidebarAuto = 4 };
 int match_sidebar_command (const std::string &raw);
 void change_side_pane_width (int which, bool supported, winid_t pane,
                              winid_t divider);
@@ -198,6 +394,14 @@ struct BlobReader {
   std::string str ();
   bool at_end () const { return pos >= s.size (); }
 };
+
+/* The colour mode in a frontend blob: whether it is on and the palette the
+ * game has set in play.  Get puts it back, hints included, for the windows
+ * the restored session opens later; the frontend then sets main_win and
+ * calls colour_restored for the main window's text colour. */
+void colour_blob_put (std::string &b);
+void colour_blob_get (BlobReader &r);
+void colour_restored ();
 
 /* What autosave.glksave holds, whichever engine wrote it.
  *

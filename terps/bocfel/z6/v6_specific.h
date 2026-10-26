@@ -42,7 +42,7 @@ enum AnsiColour {
     TRANSPARENT_COLOUR = 15,    /* ZSpec 1.1 */
 };
 
-#define GLOBAL(X)   (header.globals + X * 2)
+#define GLOBAL(X)   (header.globals + (X) * 2)
 #define get_global(X)    word(GLOBAL(X))
 #define set_global(X, Y)    store_word(GLOBAL(X), Y)
 

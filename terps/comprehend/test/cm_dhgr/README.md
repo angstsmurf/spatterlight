@@ -28,7 +28,7 @@ throne room is `RB` image 1: `op15/2` (set bounds), `op15/3` (fill background),
 the 6502 `<D>` routine (`$0a7b`, traced live in MAME) reads 4 bounds bytes then
 streams raw page bytes column-major (top->bottom, then next column; `0x80`
 escapes a `count,value` run written `count+1` times), and splits each source
-byte through the nibble-doubling table `DHGR_DBL` into a main + aux byte stored
+byte through the nibble-doubling table `DHGR_DOUBLE_BITS` into a main + aux byte stored
 at the same page offset (logical DHGR columns `2*col` / `2*col+1`). Before the
 fix `gmDhgrDrawImage` ignored op15 par 0 *and consumed no operand bytes*, so the
 bounds+RLE stream was misparsed as opcodes and the picture went all white.

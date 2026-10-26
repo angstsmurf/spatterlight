@@ -37,7 +37,8 @@ docstring has the options.
   files for the rest.
 
 Not covered by either: the Apple II disk image extractor, `writetiff.cpp`
-and `mkdemo.py`. Those were checked with standalone builds, old output
+and `mkdemo.py` (the story-to-demo converter, in this folder). Those were
+checked with standalone builds, old output
 against new, on the files at hand.
 
 ## Bugs the suites caught
@@ -90,3 +91,64 @@ thing the traces show is on record:
   skips the remaining rows of a routine once one row has claimed it, so each
   hook function is hooked in one place, and the dump shows exactly those
   rows gone.
+- Z-string conversion (2026-10-24, by reading): `print_long_zstr_to_cstr()`
+  left the buffer untouched for a string shorter than two bytes, so callers
+  with a stack buffer (Journey's WCENTER, Shogun's menu messages) went on
+  to read uninitialised memory. It now writes an empty string.
+- Entrypoint finders (2026-10-24, `v6_epdump.py`): each `find_*_globals()`
+  walked the combined table of all four games, so a row of another game
+  with the same hook function also got an address: Zork Zero's "after
+  V-CREDITS alt" pattern matched inside Shogun and took the hook from
+  Shogun's own row (the same function, so no change in behaviour). With
+  one table per game the dump now labels Shogun's own row as hooked, and the
+  other games' rows are gone from it; the aggregates and memory checksums
+  did not change.
+- Headers (2026-10-24): the game headers and `v6_shared.hpp` included the
+  C++ header `spatterlight-autosave.h` inside `extern "C"`, which compiled
+  only because every includer had already pulled in `<optional>`. Every
+  z6 header now compiles on its own.
+
+## Code layout
+
+- `entrypoints.cpp` is the engine (pattern search, the claim rule, the
+  lookup index, the dump); each game's table and globals finder is in
+  `entrypoints_{arthur,journey,shogun,zorkzero}.cpp`, with the shared
+  declarations in `entrypoints_internal.hpp`. A row's hook function is
+  its identity: the finders and the claim rule compare `fn`, which is why
+  rows that only locate an address point at an empty dummy function.
+- The Zork Zero mini-games (Double Fanucci, Snarfem, Peggleboz, Tower of
+  Bozbar) are in `zorkzero_minigames.cpp`; `zorkzero_internal.hpp` holds the
+  few helpers the two files share.
+- The Definitions and Hints screens are in `v6_definitions.cpp` and
+  `v6_hints.cpp`; `v6_shared.cpp` keeps the rest of the shared UI and the
+  per-game hook tables. `v6_game()` returns the current game's
+  `V6GameHooks` (stash/recover state, after restore/autorestore/restart,
+  resize, the autorestore read_char hack), so `screen.cpp` makes one call
+  instead of an `is_spatterlight_*` chain. The chains left in
+  `v6_redraw_game_screen()` and `after_V_COLOR()` deliberately leave
+  Journey out.
+- Any `winid_t` kept outside `windows[]` is lost at autorestore and has to
+  be found again: by tag through the autosave (`stored_bufferwin`,
+  `z0_right_status_window`) or by rock (`v6_grid_window_with_rock()`, for
+  the opaque status window and the Fanucci command grid).
+
+Declined in the October 2026 passes; do not propose again without new
+evidence: rewriting the pattern tables as an `op()` builder or replacing
+the dummy hook functions with ids (a typo in a byte pattern silently
+disables a hook, and `fn` is the row identity); per-row accept or validate
+predicates (the one Zork Zero rejection stays in `find_entrypoints()`);
+splitting the long finders and the long UI functions (`V_DEFINE`,
+`DO_HINTS`, `z0_UPDATE_STATUS_LINE`, `DISPLAY_BORDER`, ...); per-game UI
+state structs and a shared-globals struct; `.h` to `.hpp` renames; an enum
+for the `is_spatterlight_*` flags (`is_game()` exists); new autosave fields
+(existing autosaves would break); a `screenmode` setter; a `v6_log()` /
+`warn_missing()` layer over the stderr messages; per-game `dump_state()`
+(debug only); splitting `shogun.cpp`, `journey.cpp` or `draw_image.cpp`
+further; a window-slot enum (the slot numbers are the games' own window
+numbers, reused on purpose); a `send_menu_item()` wrapper (the
+`win_menuitem()` arguments mean different things per message type); a
+shared autorestore recolouring helper (Zork Zero has to reset globals
+between the two calls); turning `get_global`/`set_global` into inline
+functions (`GLOBAL()` now parenthesises its argument); moving `ImageStruct`,
+the decompressors and the allocators to containers (touches every decoder,
+including the untested Apple II extractor).

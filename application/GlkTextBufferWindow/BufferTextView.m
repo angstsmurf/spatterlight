@@ -20,6 +20,7 @@
 @interface BufferTextView () <NSSecureCoding> {
     NSTimer *caretTimer;
     BOOL bottomPaddingUpdatePending;
+    NSRect caretShapeRect;
 }
 @end
 
@@ -67,6 +68,19 @@
     NSImageInterpolationHigh;
     [super drawRect:rect];
     [(MarginContainer *)self.textContainer drawRect:rect];
+}
+
+// The theme's caret shape (issue #39). See NSView+Categories.
+- (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
+    kCaretShapePrefsType shape = ((GlkTextBufferWindow *)self.delegate).theme.caretShape;
+    caretShapeRect = [self drawCaretShape:shape forCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
+    if (shape == kCaretLine)
+        [super drawInsertionPointInRect:rect color:color turnedOn:flag];
+}
+
+- (void)setNeedsDisplayInRect:(NSRect)rect avoidAdditionalLayout:(BOOL)flag {
+    rect = [self rect:rect widenedToCaretShape:caretShapeRect];
+    [super setNeedsDisplayInRect:rect avoidAdditionalLayout:flag];
 }
 
 - (BOOL)acceptsFirstMouse:(NSEvent *)event {

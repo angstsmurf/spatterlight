@@ -23,6 +23,8 @@
 
 /* osparse.c -- convert between character sets as needed */
 
+#include <ctype.h>
+
 #include "os.h"
 #include "glk.h"
 
@@ -97,6 +99,10 @@ glui32 is_macroman (unsigned char ch)
         case 0x9A:
             return 1;
 
+        /* bullet (a yen sign in CP1252) */
+        case 0xA5:
+            return 1;
+
         default:
             return 0;
     }
@@ -138,29 +144,45 @@ glui32 identify_chars (unsigned char *buf, glui32 buflen,
     glui32 count_cp1252 = 0;
     glui32 wordlen = 0;
     glui32 cyrilen = 0;
+    glui32 letters = 0;
     glui32 charmap = OS_UNKNOWN;
 
     while (pos < buflen)
     {
         val = buf[pos++];
 
-        count_macroman += is_macroman(val);
+        /*
+         *   A MacRoman dash starting a word, as in "the <D0>elvyn", is more
+         *   likely a CP1252 letter (an eth), so it doesn't count.
+         */
+        if (!((val == 0xD0 || val == 0xD1)
+              && (pos == 1 || buf[pos - 2] == 0x20)
+              && pos < buflen && isalpha(buf[pos])))
+            count_macroman += is_macroman(val);
         count_cp1252 += is_cp1252(val);
 
         if (val != 0x20)
         {
             wordlen++;
             cyrilen += is_cyrillic(val);
+            /* the Russian alphabet proper, not the rarer letters below it */
+            letters += (val >= 0xC0);
         }
         else
         {
-            if (wordlen == cyrilen)
+            /*
+             *   A word all of Cyrillic letters.  An empty word (two spaces
+             *   in a row) isn't one, nor is a word without a letter of the
+             *   alphabet proper, such as a row of bullets in MacRoman.
+             */
+            if (wordlen == cyrilen && letters != 0)
             {
                 charmap = OS_CP1251;
                 break;
             }
             wordlen = 0;
             cyrilen = 0;
+            letters = 0;
         }
     }
 

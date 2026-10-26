@@ -37,10 +37,13 @@
 @dynamic bufLinkStyle;
 @dynamic bZAdjustment;
 @dynamic bZTerminator;
+@dynamic caretShape;
 @dynamic cellHeight;
 @dynamic cellWidth;
 @dynamic comprehendGraphicsType;
 @dynamic coverArtStyle;
+@dynamic crtGlow;
+@dynamic crtScanlines;
 @dynamic dashes;
 @dynamic defaultCols;
 @dynamic defaultRows;
@@ -308,7 +311,7 @@
     self.doSound = YES;
     self.editable = NO;
 
-    self.minTimer = 5;
+    self.minTimer = 1;
     self.smoothScroll = YES;
     self.vOSpeakCommand = 1;
     self.vOSpeakImages = kVOImageWithDescriptionOnly;
@@ -327,6 +330,7 @@
     self.bufLinkColor = nil;
     self.gridLinkColor = nil;
     self.slowDrawing = YES;
+    self.sADelays = YES;
 }
 
 - (BOOL)hasCustomStyles {

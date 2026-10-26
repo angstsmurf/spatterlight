@@ -1,0 +1,79 @@
+HINT buffer Subheader Justification 0
+HINT buffer Header Weight 1
+HINT buffer Header Oblique 0
+HINT buffer Header Proportional 1
+HINT buffer Header Justification 2
+HINT buffer Header Size 5
+HINT buffer Header Indentation 0
+HINT buffer Header ParaIndentation 0
+HINT buffer Alert Weight 0
+HINT buffer Alert Oblique 0
+HINT buffer Alert Proportional 1
+HINT buffer Alert Justification 0
+HINT buffer Alert Size 6
+HINT buffer Alert Indentation 0
+HINT buffer Alert ParaIndentation 0
+HINT buffer Note Weight 0
+HINT buffer Note Oblique 0
+HINT buffer Note Proportional 1
+HINT buffer Note Justification 0
+HINT buffer Note Size -1
+HINT buffer Note Indentation 0
+HINT buffer Note ParaIndentation 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 0
+HINT buffer BlockQuote Size 4
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
+HINT buffer User1 Weight 0
+HINT buffer User1 Oblique 0
+HINT buffer User1 Proportional 1
+HINT buffer User1 Justification 0
+HINT buffer User1 Size 2
+HINT buffer User1 Indentation 0
+HINT buffer User1 ParaIndentation 0
+HINT buffer User2 Weight 0
+HINT buffer User2 Oblique 0
+HINT buffer User2 Proportional 1
+HINT buffer User2 Justification 0
+HINT buffer User2 Size 3
+HINT buffer User2 Indentation 0
+HINT buffer User2 ParaIndentation 0
+HINT grid User1 ReverseColor 1
+SPAN 0 Normal '\n'
+SPAN 0 Emphasized 'Styles Overflow'
+SPAN 0 Normal '\n\n'
+SPAN 0 Header 'Overflow'
+SPAN 0 Normal '\nYou are in Gallery.\n'
+SPAN 0 Note 'Six point, a short line.'
+SPAN 0 Normal ' '
+SPAN 0 Note 'Eight point text that runs on for a while longer.'
+SPAN 0 Normal ' Twelve. '
+SPAN 0 User1 'Fourteen point, which is written out at some length here.'
+SPAN 0 Normal ' '
+SPAN 0 User2 'Sixteen point text, also fairly long to weigh it up.'
+SPAN 0 Normal ' '
+SPAN 0 BlockQuote 'Eighteen point text that is the longest of them all, by quite some way, honestly.'
+SPAN 0 Normal ' '
+SPAN 0 Alert 'Twenty-two point text of medium length here.'
+SPAN 0 Normal '\n'
+SPAN 1 User1 '                                                                                                                                                                                                      Gallery'
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\nYou are in Gallery.\n'
+SPAN 0 Note 'Six point, a short line.'
+SPAN 0 Normal ' '
+SPAN 0 Note 'Eight point text that runs on for a while longer.'
+SPAN 0 Normal ' Twelve. '
+SPAN 0 User1 'Fourteen point, which is written out at some length here.'
+SPAN 0 Normal ' '
+SPAN 0 User2 'Sixteen point text, also fairly long to weigh it up.'
+SPAN 0 Normal ' '
+SPAN 0 BlockQuote 'Eighteen point text that is the longest of them all, by quite some way, honestly.'
+SPAN 0 Normal ' '
+SPAN 0 Alert 'Twenty-two point text of medium length here.'
+SPAN 0 Normal '\n'
+SPAN 1 User1 '                                                                                                   Gallery                                                                                                   Gallery'
+SPAN 0 Normal '\n> '

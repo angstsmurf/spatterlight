@@ -60,6 +60,21 @@ Runner-parity regressions.  Replays run with determinism on
 (`SCR_RNG=xoshiro`, `SCR_SEED`), which is what makes a golden repeatable
 and what ties it to the Runner transcript it was checked against.
 
+The game-derived styles (`glk/os_glk_styles.cpp`: a census of the text
+attribute states a game uses, and the Glk style each gets) have two
+halves.  `stylestest`, part of `quick`, pins the census and assignment of
+the fixtures in `adrift4/styles/` (`census_expected.txt`; `stylesbless`
+regenerates it, and `adrift4/styles/styles_census GAME` prints the
+ranking for any game, `-s` one line per game).  What the Spatterlight
+build then prints them in, hints and the style of every span, is pinned by
+`adrift4/styles/run_styles_tests.py` against the `*_glk_expected.txt`
+beside it, and `styles-intro-pause` in the autosave suite checks that a
+session resumed in the intro sets the same hints.  The Gargoyle fork
+build has `glk/os_glk_styles.cpp` in its source list and was checked by
+eye; Gargoyle ignores the Size hints, so headings differ only in weight
+and alignment there.  Not yet checked: the sizes and faces the census
+finds against Runner screenshots.
+
 The autosave suite is the one thing outside `Makefile.headless`: the
 autosave code is compiled only into the Spatterlight build of the terp and
 talks to `libglkimp`, so the suite drives `build/Debug/scarier` through

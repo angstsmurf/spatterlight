@@ -2346,8 +2346,8 @@ int SaveGameData(void)
 	/* Save variables */
 	for (c=0; c<MAXGLOBALS+MAXLOCALS; c++)
 	{
-		hbyte = (unsigned int)var[c] / 256;
-		lbyte = (unsigned int)var[c] - hbyte * 256;
+		hbyte = ((unsigned int)var[c] >> 8) & 0xff;
+		lbyte = (unsigned int)var[c] & 0xff;
 		if (fputc(lbyte, save)==EOF || fputc(hbyte, save)==EOF) goto SaveError;
 	}
 
@@ -2392,8 +2392,8 @@ int SaveGameData(void)
 	{
 		for (j=0; j<5; j++)
 		{
-			hbyte = (unsigned int)undostack[c][j] / 256;
-			lbyte = (unsigned int)undostack[c][j] - hbyte*256;
+			hbyte = ((unsigned int)undostack[c][j] >> 8) & 0xff;
+			lbyte = (unsigned int)undostack[c][j] & 0xff;
 			if (fputc(lbyte, save)==EOF || fputc(hbyte, save)==EOF)
 				goto SaveError;
 		}

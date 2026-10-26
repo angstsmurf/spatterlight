@@ -11,8 +11,9 @@
 extern "C" {
 #include "glk.h"
 #include "glkimp.h"
-#include "spatterlight-autosave.h"
 }
+
+#include "spatterlight-autosave.h"
 
 #include <cstdint>
 
@@ -45,6 +46,7 @@ void arthur_draw_room_image(int picnum);
 
 void arthur_update_after_restore(void);
 void arthur_update_after_autorestore(void);
+void arthur_update_after_restart(void);
 
 void arthur_sync_screenmode(void);
 

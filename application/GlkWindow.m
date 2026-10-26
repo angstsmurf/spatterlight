@@ -216,10 +216,13 @@
     return different;
 }
 
+// A link keeps the colour of the text it is in, and only gets the theme's
+// underline: the colour its style or the game's zcolors give it (a game's own
+// link colour, a reverse-video status line), not NSTextView's default blue.
 - (void)updateLinkTextAttributesOf:(NSTextView *)textView {
     NSMutableDictionary *linkAttributes = [textView.linkTextAttributes mutableCopy];
     linkAttributes[NSUnderlineStyleAttributeName] = @(self.themeLinkStyle);
-    linkAttributes[NSForegroundColorAttributeName] = styles[style_Normal][NSForegroundColorAttributeName];
+    [linkAttributes removeObjectForKey:NSForegroundColorAttributeName];
     textView.linkTextAttributes = linkAttributes;
 }
 

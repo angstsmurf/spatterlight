@@ -30,7 +30,6 @@
 #import "PreferencesPrivate.h"
 #import "Constants.h"
 #import <BlorbFramework/BlorbFramework.h>
-#import <BlorbFramework/BlorbFramework-Swift.h>
 #include "glk.h"
 
 // Little helpers for hand-assembling Blorb test fixtures.
@@ -2343,6 +2342,13 @@ static void blorbAppendBE32(NSMutableData *data, uint32_t value) {
                    @"a 12-byte non-IFRS FORM is not a Blorb");
 }
 
+- (void)testIsBlorbURL {
+    for (NSString *ext in @[@"blorb", @"BLB", @"zblorb", @"gblorb", @"zlb", @"glb"])
+        XCTAssertTrue([Blorb isBlorbURL:[NSURL fileURLWithPath:[@"/tmp/game" stringByAppendingPathExtension:ext]]], @"%@", ext);
+    XCTAssertFalse([Blorb isBlorbURL:[NSURL fileURLWithPath:@"/tmp/game.z5"]]);
+    XCTAssertFalse([Blorb isBlorbURL:nil]);
+}
+
 // Assemble a Blorb from Pict resources (number -> payload) and trailing
 // chunks (fourCC -> payload). Resources come first, in the order given, and
 // the chunks follow, padded to even lengths.
@@ -2490,6 +2496,75 @@ static NSData *blorbFakeImage(char fill) {
     XCTAssertEqual(info.checksum, 0x1234u);
     XCTAssertFalse(parseIFhd(ifhd, 9, &info));
     XCTAssertFalse(parseIFhd(NULL, 10, &info));
+}
+
+// A Quetzal save: FORM header of the given type, then the given chunks.
+static NSData *quetzalSave(const char *formType, NSArray<NSArray *> *chunks) {
+    NSMutableData *data = [NSMutableData data];
+    blorbAppendFourCC(data, "FORM");
+    blorbAppendBE32(data, 0);
+    blorbAppendFourCC(data, formType);
+    for (NSArray *chunk in chunks) {
+        NSData *payload = chunk[1];
+        blorbAppendFourCC(data, [chunk[0] UTF8String]);
+        blorbAppendBE32(data, (uint32_t)payload.length);
+        [data appendData:payload];
+        if (payload.length & 1)
+            [data appendBytes:"\0" length:1];
+    }
+    return data;
+}
+
+- (void)testQuetzalHeader {
+    // IFhd: release, serial, checksum and the 3-byte PC (odd, so padded).
+    const uint8_t ifhdBytes[13] = {0, 88, '8', '4', '0', '7', '2', '6', 0xAB, 0xCD, 0, 0, 0};
+    NSData *ifhd = [NSData dataWithBytes:ifhdBytes length:13];
+    NSMutableData *intd = [NSMutableData dataWithLength:12];
+    [intd appendData:[@"/Games/zork0.z6" dataUsingEncoding:NSASCIIStringEncoding]];
+
+    NSData *save = quetzalSave("IFZS", @[@[@"IFhd", ifhd], @[@"IntD", intd]]);
+    QuetzalHeader header;
+    XCTAssertTrue(parseQuetzalHeader(save.bytes, save.length, &header));
+    XCTAssertEqual(header.ifhd.release, 88u);
+    XCTAssertEqual(memcmp(header.ifhd.serial, "840726", 6), 0);
+    XCTAssertEqual(header.ifhd.checksum, 0xABCDu);
+    XCTAssertEqual(header.pathOffset, 12u + 8 + 14 + 8 + 12, @"the IntD path follows the padded IFhd");
+    NSData *path = [save subdataWithRange:NSMakeRange(header.pathOffset, header.pathLength)];
+    XCTAssertEqualObjects(path, [@"/Games/zork0.z6" dataUsingEncoding:NSASCIIStringEncoding]);
+
+    save = quetzalSave("BFZS", @[@[@"IFhd", ifhd]]);
+    XCTAssertTrue(parseQuetzalHeader(save.bytes, save.length, &header), @"Bocfel saves are accepted");
+    XCTAssertEqual(header.pathOffset, 0u, @"no IntD chunk");
+
+    save = quetzalSave("IFRS", @[@[@"IFhd", ifhd]]);
+    XCTAssertFalse(parseQuetzalHeader(save.bytes, save.length, &header), @"not a save");
+
+    save = quetzalSave("IFZS", @[@[@"CMem", ifhd], @[@"IFhd", ifhd]]);
+    XCTAssertFalse(parseQuetzalHeader(save.bytes, save.length, &header), @"IFhd must be the first chunk");
+
+    save = quetzalSave("IFZS", @[@[@"IFhd", [ifhd subdataWithRange:NSMakeRange(0, 9)]]]);
+    XCTAssertFalse(parseQuetzalHeader(save.bytes, save.length, &header), @"IFhd too short for its fields");
+
+    // Every truncation of a valid save must parse or fail, never over-read
+    // (run under ASan to catch one). The path goes once IntD is cut; only
+    // the final padding byte can go without losing it.
+    NSData *full = quetzalSave("IFZS", @[@[@"IFhd", ifhd], @[@"IntD", intd]]);
+    for (NSUInteger len = 0; len < full.length; len++) {
+        NSData *cut = [NSData dataWithBytes:full.bytes length:len];
+        BOOL ok = parseQuetzalHeader(cut.bytes, cut.length, &header);
+        XCTAssertEqual(ok, len >= 12 + 8 + 13, @"length %lu", (unsigned long)len);
+        if (ok)
+            XCTAssertEqual(header.pathOffset != 0, len == full.length - 1, @"length %lu", (unsigned long)len);
+    }
+
+    // A huge IntD length runs past the end: no path, but the IFhd is fine.
+    NSMutableData *huge = [quetzalSave("IFZS", @[@[@"IFhd", ifhd]]) mutableCopy];
+    blorbAppendFourCC(huge, "IntD");
+    blorbAppendBE32(huge, UINT32_MAX);
+    [huge appendData:intd];
+    XCTAssertTrue(parseQuetzalHeader(huge.bytes, huge.length, &header));
+    XCTAssertEqual(header.pathOffset, 0u);
+    XCTAssertFalse(parseQuetzalHeader(NULL, 100, &header));
 }
 
 #pragma mark - Crossed filename-title repair

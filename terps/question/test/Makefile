@@ -276,6 +276,12 @@ replays:
 autosave:
 	python3 autosave/run_autosave_tests.py --build
 
+# The game-derived style hints and the style of each span, through the real
+# Glk frontends (styles/*_glk_expected.txt).  Like autosave it needs the Xcode
+# build of the terp.
+styles:
+	python3 styles/run_styles_tests.py --build
+
 # glkdrive.py (the fake Spatterlight app the autosave suites drive the terps
 # with) is terp-agnostic and lives in both test trees so each stays
 # self-contained; the copies must not drift apart again.  Scarier's tree has
@@ -287,4 +293,4 @@ drivesync:
 	    exit 1; \
 	fi
 
-.PHONY: all syntax check asan clean gamescheck gamesfetch replays autosave drivesync
+.PHONY: all syntax check asan clean gamescheck gamesfetch replays autosave styles drivesync

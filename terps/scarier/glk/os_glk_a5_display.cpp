@@ -57,12 +57,13 @@ gsc_a5_draw_image (winid_t win, glui32 number)
  * gsc_a5_span_style()
  *
  * Pick the Glk style for a text span given its alignment and weight/oblique
- * nesting depths.  Glk styles don't combine, so alignment wins over character
- * styles: centered+bold keeps User2 (weight-hinted); right uses Note with no
- * bold/italic combo.  Unaligned bold+italic (or bold+underline) maps to Alert;
- * italic or underline alone to Emphasized; bold alone to Subheader (as the
- * ADRIFT 4 path does in gsc_set_glk_style).  Underline marks are distinct for
- * a future CSS path; for now they share italic's Glk styles.
+ * nesting depths, looked up in the style assignment the way the ADRIFT 4
+ * path's gsc_set_glk_style() does.  Glk styles don't combine, so alignment
+ * wins over character styles: centered+bold keeps User2 (weight-hinted);
+ * right uses Note with no bold/italic combo.  Unaligned bold+italic (or
+ * bold+underline) maps to Alert; italic or underline alone to Emphasized;
+ * bold alone to Subheader.  Underline marks are distinct for a future CSS
+ * path; for now they share italic's Glk styles.
  *
  * `input_colour` says the span's ink is the input colour (a <c> span, or the
  * game title, which the Runner Displays as one).  That ink only exists in
@@ -70,27 +71,24 @@ gsc_a5_draw_image (winid_t win, glui32 number)
  * the same stand-in gsc_set_glk_style() gives the ADRIFT 4 path -- rather
  * than coming out indistinguishable from body text.  Alignment and bold keep
  * their precedence over the stand-in, as they do there.
+ *
+ * `monospaced` and `points` are the face and size of the innermost <font>
+ * that set them, as the colour spans carry them (see colour_open).
  */
 static glui32
 gsc_a5_span_style (int center_depth, int right_depth,
                    int bold_depth, int italic_depth, int underline_depth,
-                   int input_colour)
+                   int input_colour, int monospaced, int points)
 {
-  const int oblique = italic_depth > 0 || underline_depth > 0;
-
-  if (right_depth > 0)
-    return style_Note;
-  if (center_depth > 0)
-    return bold_depth > 0 ? style_User2 : style_User1;
-  if (bold_depth > 0 && oblique)
-    return style_Alert;
-  if (oblique)
-    return style_Emphasized;
-  if (bold_depth > 0)
-    return style_Subheader;
-  if (input_colour && !gsc_colour_visible ())
-    return style_Emphasized;
-  return style_Normal;
+  return gsc_style_lookup (gsc_styles_table (),
+                           gsc_style_combo (bold_depth > 0,
+                                            italic_depth > 0
+                                            || underline_depth > 0,
+                                            monospaced, center_depth > 0,
+                                            right_depth > 0,
+                                            input_colour
+                                            && !gsc_colour_visible (),
+                                            points));
 }
 
 /*
@@ -192,6 +190,10 @@ struct gsc_a5_display_t
   int center_depth, right_depth, bold_depth, italic_depth, underline_depth;
   glui32 colour_stack[GSC_MAX_STYLE_NESTING];
   int colour_is_input[GSC_MAX_STYLE_NESTING];
+  /* The face and size in force inside each colour span: a <font> may set
+     either, and a <c> or a <font> that doesn't keeps the enclosing one. */
+  int monospaced_stack[GSC_MAX_STYLE_NESTING];
+  int points_stack[GSC_MAX_STYLE_NESTING];
   int colour_depth;
 
   /* The window a run of text is currently going to: the main story window, or
@@ -208,6 +210,7 @@ struct gsc_a5_display_t
   int saved_pauses;
   int silent;
 
+  glui32 style () const;
   void plain_run (const char *seg);
   void cls ();
   void window_open ();
@@ -224,6 +227,22 @@ struct gsc_a5_display_t
 };
 
 } /* namespace */
+
+/* The style for the spans open here. */
+glui32
+gsc_a5_display_t::style () const
+{
+  return gsc_a5_span_style (center_depth, right_depth, bold_depth,
+                            italic_depth, underline_depth,
+                            gsc_a5_colour_top_is_input (colour_stack,
+                                                        colour_is_input,
+                                                        colour_depth),
+                            colour_depth > 0
+                              ? monospaced_stack[colour_depth - 1] : FALSE,
+                            colour_depth > 0
+                              ? points_stack[colour_depth - 1]
+                              : GSC_STYLE_DEFAULT_POINTS);
+}
 
 /* Flush the plain text run before this mark (or before the end). */
 void
@@ -333,7 +352,7 @@ gsc_a5_display_t::commit ()
   center_depth = right_depth = bold_depth = italic_depth
     = underline_depth = 0;
   colour_depth = 0;
-  glk_set_style (gsc_a5_span_style (0, 0, 0, 0, 0, FALSE));
+  glk_set_style (style ());
   gsc_colour_apply (cur_window, GSC_COLOUR_NONE);
 }
 
@@ -343,13 +362,15 @@ gsc_a5_display_t::colour_open ()
   /* Colour span opens: \027<value>\027, the value being a colour name
      or hex triplet, the reserved token "input" for <c> (which the
      Runner draws in its input colour), or empty for a <font> tag with
-     no colour of its own. */
+     no colour of its own -- then, for a <font>, ";size=..." and
+     ";face=..." when it has them. */
   const char *e = strchr (p + 1, A5_COLOUR_MARK);
 
   if (e != nullptr)
     {
-      char token[32];
+      char token[96];
       size_t n = (size_t) (e - (p + 1));
+      char *part;
 
       if (n >= sizeof token)
         n = sizeof token - 1;
@@ -358,25 +379,41 @@ gsc_a5_display_t::colour_open ()
 
       if (colour_depth < GSC_MAX_STYLE_NESTING)
         {
+          int monospaced = colour_depth > 0
+                           ? monospaced_stack[colour_depth - 1] : FALSE;
+          int points = colour_depth > 0 ? points_stack[colour_depth - 1]
+                                        : GSC_STYLE_DEFAULT_POINTS;
+
+          for (part = strchr (token, ';'); part != nullptr;
+               part = strchr (part + 1, ';'))
+            {
+              *part = '\0';
+              if (strncmp (part + 1, "size=", 5) == 0)
+                points = gsc_style_apply_font_size (part + 1, points);
+              else if (strncmp (part + 1, "face=", 5) == 0)
+                {
+                  /* Quoted, the way the ADRIFT 4 path sees it. */
+                  char face[48];
+                  snprintf (face, sizeof face, "face=\"%.*s\"",
+                            (int) strcspn (part + 6, ";"), part + 6);
+                  monospaced = gsc_style_face_is_monospaced (face);
+                }
+            }
+
           const int is_input = strcmp (token, "input") == 0;
 
           colour_is_input[colour_depth] = is_input;
+          monospaced_stack[colour_depth] = monospaced;
+          points_stack[colour_depth] = points;
           colour_stack[colour_depth++]
             = is_input ? gsc_colour_input
                        : gsc_colour_lookup (token);
           gsc_colour_apply (cur_window,
                             gsc_a5_colour_top (colour_stack,
                                                colour_depth));
-          /* Colour spans carry a style too, for the colourless case
-             (see gsc_a5_span_style); with colours on this re-asserts
-             the style already in force. */
-          glk_set_style (gsc_a5_span_style (center_depth, right_depth,
-                                            bold_depth, italic_depth,
-                                            underline_depth,
-                                            gsc_a5_colour_top_is_input
-                                              (colour_stack,
-                                               colour_is_input,
-                                               colour_depth)));
+          /* Colour spans carry a style too: the colourless case of <c>
+             (see gsc_a5_span_style), and a <font>'s size and face. */
+          glk_set_style (style ());
         }
       p = e;
     }
@@ -389,12 +426,7 @@ gsc_a5_display_t::colour_close ()
     colour_depth--;
   gsc_colour_apply (cur_window,
                     gsc_a5_colour_top (colour_stack, colour_depth));
-  glk_set_style (gsc_a5_span_style (center_depth, right_depth,
-                                    bold_depth, italic_depth,
-                                    underline_depth,
-                                    gsc_a5_colour_top_is_input
-                                      (colour_stack, colour_is_input,
-                                       colour_depth)));
+  glk_set_style (style ());
 }
 
 void
@@ -427,12 +459,7 @@ gsc_a5_display_t::span ()
     underline_depth++;
   else if (*p == A5_ENDUNDERLINE_MARK && underline_depth > 0)
     underline_depth--;
-  glk_set_style (gsc_a5_span_style (center_depth, right_depth,
-                                    bold_depth, italic_depth,
-                                    underline_depth,
-                                    gsc_a5_colour_top_is_input
-                                      (colour_stack, colour_is_input,
-                                       colour_depth)));
+  glk_set_style (style ());
 }
 
 void

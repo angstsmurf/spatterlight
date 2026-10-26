@@ -302,7 +302,12 @@ startover:
         {
             if (err != ERR_RUNQUIT
                 && err != ERR_RUNRESTART
-                && !(err == ERR_RUNABRT && voc->voccxredo))
+                && !(err == ERR_RUNABRT && voc->voccxredo)
+#ifdef SPATTERLIGHT
+                /* the loop guard in os_break (osmisc.c) has said why */
+                && err != ERR_USRINT
+#endif
+                )
                 errclog(ec);
         }
         ERREND(ec);

@@ -7,7 +7,8 @@
 '  * the ASL name of PlayerError.DefaultTake is "defaultake", with one t;
 '  * an unrecognised name leaves currentError at 0, so the line silently
 '    redefines badcommand instead of being ignored -- which is what a game
-'    that spells it "defaulttake" actually gets;
+'    that spells it "defaulttake" gets in Quest (Question deliberately reads
+'    that spelling as defaultake instead; see defaulttake.asl);
 '  * the loop overwrites as it goes, so the LAST matching line wins, where
 '    Question returned on the first.
 '
@@ -20,10 +21,10 @@ define game <Errornames>
  asl-version <410>
  start <Hall>
 
- ' The correctly spelt name, and the misspelling Question used to honour.  The
- ' second line is an unknown name, so it redefines badcommand.
+ ' Quest's own spelling of the take-success name, and an unknown name, which
+ ' redefines badcommand.
  error <defaultake; You scoop up #quest.error.article#.>
- error <defaulttake; That spelling redefines badcommand.>
+ error <takesuccess; An unknown name redefines badcommand.>
 
  ' Last one wins.
  error <badgo; This badgo line is overwritten.>

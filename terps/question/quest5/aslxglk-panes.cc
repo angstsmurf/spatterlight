@@ -70,6 +70,130 @@ Element *object_field(Interp &in, Element *e, const char *attr)
                                                   : nullptr;
 }
 
+/* Take the game's new markup for element `id`.  Only an element that has
+ * held command links counts as a bar: the first write with links in it adds
+ * the id, and later writes replace its links -- an emptied element (no links
+ * left) keeps its place in the order so a refill lands where it was. */
+void set_link_bar(const std::string &id, const std::string &html)
+{
+    std::vector<BarLink> links = command_spans(html);
+    for (auto &entry : g_link_bar)
+        if (entry.first == id) {
+            entry.second = std::move(links);
+            return;
+        }
+    if (!links.empty())
+        g_link_bar.emplace_back(id, std::move(links));
+}
+
+/* Lay the bar out for a banner `width` cells wide, from column 1 to one cell
+ * before the right edge like the room name and status, three blanks between
+ * links (the game's own &nbsp;&nbsp;&nbsp; separator).  The first element's
+ * links flow from the left, wrapping onto as many lines as they need; every
+ * later element's links go right-aligned on the last line, or on a line of
+ * their own when they do not fit beside it, and flow too when they are wider
+ * than the banner.  `*lines` gets the number of lines used. */
+std::vector<BarCell> layout_link_bar(
+    const std::vector<std::pair<std::string, std::vector<BarLink>>> &bar,
+    size_t width, size_t *lines)
+{
+    const size_t gap = 3, left = 1;
+    const size_t right = width > 2 ? width - 1 : left + 1;  /* one past the end */
+    std::vector<BarCell> cells;
+    size_t line = 0, x = left;      /* the first free column on `line` */
+    bool used = false;              /* `line` has a link on it */
+    for (size_t g = 0; g < bar.size(); g++) {
+        const std::vector<BarLink> &links = bar[g].second;
+        if (links.empty())
+            continue;
+        size_t total = 0;
+        for (const BarLink &l : links)
+            total += (total ? gap : 0) + utf8_cp_len(l.label);
+        size_t at = 0;              /* right-aligned start, or 0 to flow */
+        if (g > 0 && total <= right - left) {
+            at = right - total;
+            if (used && at < x + gap) {
+                line++;
+                used = false;
+            }
+        }
+        for (const BarLink &l : links) {
+            size_t w = utf8_cp_len(l.label);
+            size_t col;
+            if (at) {
+                col = at;
+                at += w + gap;
+            } else {
+                col = used ? x + gap : left;
+                if (used && col + w > right) {
+                    line++;
+                    col = left;
+                }
+            }
+            cells.push_back({col, line, &l});
+            x = col + w;
+            used = true;
+        }
+    }
+    *lines = cells.empty() ? 0 : line + 1;
+    return cells;
+}
+
+/* The banner proper (room name and status on the first line) and the game's
+ * link bar on the lines under it.  The banner window grows and shrinks to
+ * fit: the arrangement is only touched when the line count changes, and the
+ * Arrange event that follows redraws it at its new size. */
+void draw_link_bar(winid_t banner, const std::string &room,
+                   const std::string &status)
+{
+    if (!banner)
+        return;
+    glui32 width, height;
+    glk_window_get_size(banner, &width, &height);
+    size_t lines;
+    std::vector<BarCell> cells = layout_link_bar(g_link_bar, width, &lines);
+    if (height != lines + 1) {
+        winid_t parent = glk_window_get_parent(banner);
+        if (parent)
+            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
+                                       (glui32) lines + 1, banner);
+        glk_window_get_size(banner, &width, &height);
+    }
+    /* The bar's rows are drawn in the status row's colours -- the theme's
+     * reverse video, or the game's palette inverted -- so the banner is one
+     * block; Spatterlight gives the grid's margins its dominant colour. */
+    questglk::draw_status_row(banner, room, status, true);
+    g_bar_commands.clear();
+    if (cells.empty()) {
+        questglk::colour_status_end();
+        return;
+    }
+    strid_t s = glk_window_get_stream(banner);
+    questglk::colour_status_begin(s);
+    for (glui32 y = 1; y < height; y++) {
+        glk_window_move_cursor(banner, 0, y);
+        for (glui32 i = 0; i < width; i++)
+            glk_put_char_stream(s, ' ');
+    }
+    for (const BarCell &c : cells) {
+        if (c.line + 1 >= height)
+            break;
+        glk_window_move_cursor(banner, (glui32) c.x, (glui32) c.line + 1);
+        if (g_hyperlinks) {
+            g_bar_commands.push_back(c.link->command);
+            glk_set_hyperlink_stream(
+                s, kBannerLinkBase + (glui32) g_bar_commands.size() - 1);
+        }
+        put_stream_utf8(s, c.link->label);
+        if (g_hyperlinks)
+            glk_set_hyperlink_stream(s, 0);
+    }
+    questglk::colour_status_end();
+    /* A redraw clears the window, and its hyperlink request with it. */
+    if (g_links_requested && g_hyperlinks)
+        glk_request_hyperlink_event(banner);
+}
+
 /* Current room: what Core last sent through JS.updateLocation
  * (CapFirst(GetDisplayName(game.pov.parent)) -- the reference player's
  * location bar).  Old v500-era games embed pre-JS libraries that never call
@@ -79,6 +203,7 @@ Element *object_field(Interp &in, Element *e, const char *attr)
 void update_banner(Interp &in)
 {
     World &w = in.world();
+    sync_game_foreground(w);
     std::string room = g_location_line;
     if (room.empty()) {
         Element *pl = object_field(in, game_element(w), "pov");
@@ -103,13 +228,12 @@ void update_banner(Interp &in)
     /* A status the banner has no room for goes to the pane, which opens for
      * it if need be -- unless the game has hidden its panes.  Asked on every
      * redraw: a resize and a new status both end up here. */
-    bool in_pane = g_use_objpane && g_panes_visible &&
+    bool in_pane = g_use_objpane && panes_shown() &&
         status_wants_pane(gbanner, g_room_name, status, true,
                           g_status_in_pane);
     bool moved = in_pane != g_status_in_pane;
     g_status_in_pane = in_pane;
-    draw_status_banner(gbanner, g_room_name,
-                       in_pane ? std::string() : status, true);
+    draw_link_bar(gbanner, g_room_name, in_pane ? std::string() : status);
     if (moved) {
         /* The pane lists it from now on, or no longer does.  Not every
          * caller repaints the pane after the banner (a resize does not). */
@@ -181,10 +305,11 @@ void redraw_side_pane(Interp &in)
         return;
     g_pane_dirty = false;
 
-    /* The game hid the panes (JS.panesVisible(false)); the lists keep
-     * arriving -- QuestViva computes them regardless -- but the pane stays
-     * closed until the game shows them again. */
-    if (!g_panes_visible) {
+    /* The game hid the panes (JS.panesVisible(false)), or the player did
+     * (SIDEBAR OFF); the lists keep arriving -- QuestViva computes them
+     * regardless -- but the pane stays closed until it is shown again.  A
+     * player's SIDEBAR shows it whatever the game says. */
+    if (!panes_shown()) {
         close_side_pane();
         return;
     }
@@ -221,6 +346,12 @@ void redraw_side_pane(Interp &in)
         return;
     }
 
+    /* The pane in the palette: the game's foreground as it is now over its
+     * background, which the clear paints the pane in (the reference player
+     * tints the whole game panel with SetBackgroundColour).  Nothing happens
+     * while the mode is off: the Normal hints are the theme's then. */
+    sync_game_foreground(in.world());
+    questglk::colour_apply(gobjwin, questglk::COLOUR_NONE, gwin);
     glk_window_clear(gobjwin);
     g_pane_links.clear();
     strid_t s = glk_window_get_stream(gobjwin);
@@ -312,6 +443,7 @@ void redraw_side_pane(Interp &in)
     section(template_text_or(w, "PlacesObjectsLabel", PANE_PLACES_OBJECTS),
             places, false);
     section(template_text_or(w, "CompassLabel", PANE_COMPASS), exits, true);
+    questglk::colour_status_end();      /* the main window's colours back */
     fill_pane_divider();
 }
 
@@ -322,6 +454,9 @@ void redraw_side_pane(Interp &in)
  * way, so they all come here. */
 void handle_arrange(Interp &in)
 {
+    /* A theme change arrives as an arrange: measure the theme again before
+     * the banner judges whether the game's colours are showing. */
+    questglk::normal_measure_reset();
     update_banner(in);
     fill_pane_divider();
     grid_map_arrange();

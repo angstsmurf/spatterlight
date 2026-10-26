@@ -1,0 +1,16 @@
+HINT buffer User1 Justification 2
+HINT buffer User2 Justification 2
+HINT buffer User2 Weight 1
+HINT buffer Note Justification 3
+HINT buffer Header Justification 0
+HINT buffer Subheader Justification 0
+HINT grid User1 ReverseColor 1
+SPAN 0 Normal '\n'
+SPAN 0 Emphasized 'Styles Plain'
+SPAN 0 Normal '\n\nNothing but plain text here.\nYou are in Room.\nA plain room, described plainly.\n'
+SPAN 1 User1 '                                                                                                                                                                                                      Room'
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\nYou are in Room.\nA plain room, described plainly.\n'
+SPAN 1 User1 '                                                                                                   Room                                                                                                   Room'
+SPAN 0 Normal '\n> '

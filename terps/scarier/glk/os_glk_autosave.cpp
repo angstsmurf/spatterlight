@@ -469,6 +469,9 @@ gsc_stash_frontend_state (ScarierGlkFrontendState *st)
   st->map_cy = gsc_map_cam.cy;
   st->map_page = gsc_map_cam.page;
   st->colour_on = gsc_colour_enabled;
+  st->colour_saved = 1;
+  st->colour_bg = gsc_colour_background;
+  st->colour_main_fg = gsc_colour_main_fg;
 
   /* Saving at a question asked partway through a turn: the generators as
      they stood when the turn began, which is where the relaunch runs it
@@ -554,6 +557,15 @@ gsc_recover_frontend_state (const ScarierGlkFrontendState *st)
      before this field existed decodes as 0, which is what those sessions
      restored as anyway.) */
   gsc_colour_enabled = st->colour_on;
+  /* And the colours the restored windows were last drawn in: an ADRIFT <=4
+     game's <bgcolour> is display state the engine's save does not hold, so
+     without this the text after a relaunch goes back to the starting black
+     in front of a window still painted in the game's colour. */
+  if (st->colour_saved)
+    {
+      gsc_colour_background = st->colour_bg;
+      gsc_colour_main_fg = st->colour_main_fg;
+    }
   /* A map that was wanted but still waiting for somewhere to draw was archived
      closed, and looks exactly like one the player shut; what the map would do
      from a standing start -- the stored preference, or failing that the

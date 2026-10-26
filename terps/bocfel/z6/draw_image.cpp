@@ -16,8 +16,6 @@ extern "C" {
 #include "glkimp.h"
 }
 #include <algorithm>
-#include <cerrno>
-#include <climits>
 #include <cmath>
 #include <cstdio>
 #include <cstring>
@@ -187,27 +185,6 @@ void ensure_pixmap(winid_t winid) {
         glk_window_set_background_color(winid, user_selected_background);
         pixmap.create(hw_screenwidth, kInitialPixmapRows);
     }
-}
-
-// Serialize an RGBA buffer to a TIFF file at `path`. Used to hand the
-// pixmap to the Glk image cache via a temp file. Silently no-ops if
-// `size` doesn't fit in the uint32_t TIFF row count; logs to stderr on
-// fopen failure with errno detail.
-static void write_to_tiff(const std::string &path, const uint8_t *data, size_t size, uint32_t width) {
-    if (size > UINT32_MAX) {
-        fprintf(stderr, "write_to_tiff: buffer too large (%zu bytes)\n", size);
-        return;
-    }
-
-    FILE *fptr = fopen(path.c_str(), "wb");
-    if (fptr == nullptr) {
-        fprintf(stderr, "write_to_tiff: fopen(\"%s\") failed: %s\n", path.c_str(), strerror(errno));
-        return;
-    }
-
-    writetiff(fptr, data, (uint32_t)size, width);
-
-    fclose(fptr);
 }
 
 // Color-table layout shared by the legacy-platform decoders.

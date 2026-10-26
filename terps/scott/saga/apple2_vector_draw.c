@@ -263,81 +263,45 @@ static bool scan_up_to_border(a2_fill_ctx *ctx)
     return true;
 }
 
-/* Compute the right edge of the fill mask for the current scanline.
-   Rotates the existing screen byte to determine
-   how many pixels on the right side of the seed column are already filled.
-   Sets ctx->fill_mask and returns the right edge pixel count. */
-static uint8_t compute_right_edge(a2_fill_ctx *ctx)
+/* Find the run of set bits around the seed pixel within the seed column's
+   byte. Sets ctx->fill_mask to that run and returns, via left_edge and
+   right_edge, how many of the byte's visible pixels lie outside it on each side.
+
+   The original 6502 code does this with a sequence of rotates through carry;
+   this gives the same results whenever the seed pixel is white, which is all
+   the caller ever passes in. */
+static void compute_seed_span(a2_fill_ctx *ctx, uint8_t *left_edge, uint8_t *right_edge)
 {
-    /* Simulate rotating left with carry (7 - ctx->pixel_offset) times */
-    uint16_t rotate_word = ctx->existing_byte << (7 - ctx->pixel_offset);
-    ctx->fill_mask = (rotate_word & 0xff) | (rotate_word >> 9);
+    uint8_t lo = ctx->pixel_offset;
+    uint8_t hi = ctx->pixel_offset;
 
-    /* If the rotation left some leading set bits, ensure fill_mask is extended appropriately */
-    uint8_t loop_byte = (rotate_word & 0x100) != 0;
-    int8_t remaining_bits;
-    for (remaining_bits = 6 - ctx->pixel_offset;
-         remaining_bits > 0 && loop_byte != 0; remaining_bits--) {
-        uint8_t carry = loop_byte << 7;
-        loop_byte = ctx->fill_mask & 1;
-        ctx->fill_mask = (ctx->fill_mask >> 1) | carry;
-    }
+    while (lo > 0 && (ctx->existing_byte & (1 << (lo - 1))))
+        lo--;
+    while (hi < COL_BITS - 1 && (ctx->existing_byte & (1 << (hi + 1))))
+        hi++;
 
-    /* Align the byte and remember the shift used */
-    ctx->fill_mask >>= remaining_bits;
-    return remaining_bits;
-}
-
-/* Compute the left edge of the fill mask for the current scanline.
-   Continues transforming ctx->fill_mask (set by compute_right_edge)
-   to determine how many pixels on the left are already filled.
- Sets ctx->fill_mask and returns the left edge pixel count. */
-static uint8_t compute_left_edge(a2_fill_ctx *ctx)
-{
-    /* Simulate rotating right with carry, (pixel_offset + 1) times */
-    uint16_t rotate_word = (ctx->fill_mask << 8) >> (ctx->pixel_offset + 1);
-    ctx->fill_mask = (rotate_word >> 8) | (rotate_word << 1);
-
-    /* If pixel_offset > 0, ensure fill_mask is extended appropriately */
-    uint8_t loop_byte = 1;
-    int8_t remaining_bits;
-    for (remaining_bits = ctx->pixel_offset;
-         remaining_bits > 0 && loop_byte != 0; remaining_bits--) {
-        loop_byte = ctx->fill_mask >> 7;
-        ctx->fill_mask = (ctx->fill_mask << 1) | 1;
-    }
-
-    /* Align the byte and remember the shift used */
-    ctx->fill_mask <<= remaining_bits;
-    return remaining_bits;
+    *left_edge = lo;
+    *right_edge = COL_BITS - 1 - hi;
+    ctx->fill_mask = (0x7f >> (COL_BITS - 1 - hi)) & (0xff << lo);
 }
 
 /*  Expand right from the seed point.
 
-    For each column to the right, rotate the screen byte right with carry
-    to find the boundary between set and unset low bits. The rotation count
-    determines the right edge, and the remaining upper bits determine
-    whether to keep expanding further right. */
+    In each column to the right, fill the run of set pixels starting at the
+    column's leftmost pixel (bit 0). The pixels after the run give the right
+    edge, and expansion continues only if the run covers the whole column. */
 static uint8_t fill_span_right(a2_fill_ctx *ctx, uint8_t right_edge, bool has_more) {
     while (has_more && ctx->column + 1 < APPLE2_SCREEN_COLS) {
         ctx->column++;
         if (!read_screen_byte(ctx, ctx->column)) break;
 
-        /* Rotate right with carry to find the first zero bit from the LSB.
-           Carry chain feeds 1-bits back in from the top as long as the LSB
-           keeps producing 1s. */
-        ctx->fill_mask = ctx->existing_byte;
-        bool carry = false;
-        bool lsb_set = true;
-        int remaining;
-        for (remaining = 8; remaining > 0 && lsb_set; remaining--) {
-            lsb_set = ctx->fill_mask & 1;
-            ctx->fill_mask = (ctx->fill_mask >> 1) | (carry << 7);
-            carry = lsb_set;
-        }
-        ctx->fill_mask >>= (remaining + 1);
-        has_more = (ctx->fill_mask & RIGHT_EXPAND_MASK) != 0;
-        right_edge = remaining;
+        uint8_t run = 0;
+        while (run < COL_BITS && (ctx->existing_byte & (1 << run)))
+            run++;
+
+        ctx->fill_mask = (1 << run) - 1;
+        right_edge = COL_BITS - run;
+        has_more = (run == COL_BITS);
 
         paint_column_pattern(ctx);
     }
@@ -345,31 +309,38 @@ static uint8_t fill_span_right(a2_fill_ctx *ctx, uint8_t right_edge, bool has_mo
 }
 
 /* Expand left from the seed point.
- 
-   Scans the screen byte at the column to the left, rotating bits left
-   to find the first zero bit from the MSB. If found, has_more is cleared
-   (stopping leftward expansion). */
+
+   In each column to the left, fill the run of set pixels ending at the
+   column's rightmost pixel (bit 6). If the run stops short of bit 0, the
+   pixels before it give the left edge and expansion stops.
+
+   Note the asymmetry with fill_span_right: that one returns 7 - run, the
+   number of unfilled pixels, while this returns 6 - run, the bit index of
+   the first clear pixel, one less than the unfilled count. This is the
+   ROM's doing, not ours. In FLOOD_FILL ($9188 in the SAGA build, Ghidra
+   project PenguinDraw/adventureland.bin) both loops store the X register
+   when they hit a clear bit, but the rightward loop ($928f) counts X down
+   from 8 and the leftward loop ($92e9) from 7, after one extra ROL that
+   discards the palette bit. compute_seed_span, by contrast, stores an
+   unfilled count on both sides, as the ROM does for the seed column
+   ($920b and $9231). advance_seed_to_midpoint consumes the two edges with
+   the ROM's own 8-bit arithmetic, so the off-by-one is part of what makes
+   the midpoints land where the original's did. Keep all three in step. */
 static uint8_t fill_span_left(a2_fill_ctx *ctx, uint8_t left_edge, bool has_more) {
     while (has_more && ctx->column > 0) {
         ctx->column--;
         if (!read_screen_byte(ctx, ctx->column)) break;
 
-        /* Rotate left through the byte to find the first zero from the MSB */
-        ctx->fill_mask = ctx->existing_byte << 1;
-        bool carry = false;
-        bool msb_set = true;
-        int remaining;
-        for (remaining = COL_BITS - 1; remaining >= 0 && msb_set; remaining--) {
-            msb_set = ctx->fill_mask & 0x80;
-            ctx->fill_mask = (ctx->fill_mask << 1) | carry;
-            carry = msb_set;
-            if (!msb_set) {
-                ctx->fill_mask <<= remaining;
-                has_more = false;
-                left_edge = remaining;
-            }
+        uint8_t run = 0;
+        while (run < COL_BITS && (ctx->existing_byte & (0x40 >> run)))
+            run++;
+
+        ctx->fill_mask = (0x7f << (COL_BITS - run)) & 0x7f;
+        if (run < COL_BITS) {
+            left_edge = COL_BITS - 1 - run;
+            has_more = false;
         }
-        ctx->fill_mask = (ctx->fill_mask << 1) | msb_set;
+
         paint_column_pattern(ctx);
     }
     return left_edge;
@@ -458,8 +429,7 @@ static void apple2_flood_fill(uint16_t x, uint8_t y, uint8_t color)
         select_pattern_for_scanline(&ctx);
 
         /* Work out fill mask and edge pixels for this scanline */
-        right_edge_pixels = compute_right_edge(&ctx);
-        left_edge_pixels = compute_left_edge(&ctx);
+        compute_seed_span(&ctx, &left_edge_pixels, &right_edge_pixels);
 
         bool has_more_left = (ctx.fill_mask & 1) != 0;
         bool has_more_right = (ctx.fill_mask & RIGHT_EXPAND_MASK) != 0;

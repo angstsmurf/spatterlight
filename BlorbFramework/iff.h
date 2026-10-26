@@ -60,6 +60,20 @@ typedef struct {
 // Parses an IFhd payload. Returns false if it is shorter than 10 bytes.
 bool parseIFhd(const void *payload, size_t len, IFhdInfo *out);
 
+// What identifies the game of a Quetzal save (FORM IFZS, or BFZS from
+// Bocfel): the IFhd chunk, which the spec puts first, and the story file
+// path from an IntD chunk directly after it, if there is one.
+typedef struct {
+  IFhdInfo ifhd;
+  size_t pathOffset; // Offset of the IntD path in the buffer; 0 if none.
+  size_t pathLength;
+} QuetzalHeader;
+
+// Returns false unless data holds a Quetzal FORM header followed by a
+// complete IFhd chunk of at least 10 bytes. An IntD chunk that is missing,
+// too short or runs past the end leaves pathOffset at 0.
+bool parseQuetzalHeader(const void *data, size_t len, QuetzalHeader *out);
+
 #ifdef __cplusplus
 } // extern "C"
 #endif //__cplusplus

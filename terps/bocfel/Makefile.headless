@@ -81,7 +81,8 @@ SRCS := \
     random.cpp screen.cpp sound.cpp stack.cpp stash.cpp unicode.cpp \
     util.cpp zoom.cpp zterp.cpp \
     headless_stubs.cpp headless_v6_stubs.cpp \
-    entrypoints.cpp
+    entrypoints.cpp entrypoints_arthur.cpp entrypoints_journey.cpp \
+    entrypoints_shogun.cpp entrypoints_zorkzero.cpp
 
 OBJS := $(addprefix $(OBJDIR)/,$(notdir $(SRCS:.cpp=.o)))
 

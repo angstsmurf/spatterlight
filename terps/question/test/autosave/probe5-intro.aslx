@@ -9,7 +9,7 @@
 
   Not a fixture: nothing globs this directory.
 -->
-<asl version="580">
+<asl version="600">
   <include ref="English.aslx" />
   <include ref="Core.aslx" />
   <game name="Autosave Intro Probe">

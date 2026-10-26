@@ -1,0 +1,25 @@
+<!-- The game's own colours in Quest 5: a dark default palette turns the mode
+     on from the first window, and SetBackgroundColour in play repaints the
+     page while nothing has been written to it yet, then only names the new
+     background for later text.  COLOURS OFF and ON rebuild the windows. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Colours">
+    <gameid>5a1e0000-0000-0000-0000-000000000004</gameid>
+    <version>1.0</version>
+    <defaultbackground>Black</defaultbackground>
+    <defaultforeground>White</defaultforeground>
+    <start type="script"><![CDATA[
+      msg ("White on black, then <font color=\"yellow\">yellow</font> and back.")
+      SetBackgroundColour ("Navy")
+      msg ("Now on navy.")]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <description>A dark hall.</description>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

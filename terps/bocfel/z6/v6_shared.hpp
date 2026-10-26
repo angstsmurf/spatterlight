@@ -11,12 +11,15 @@
 extern "C" {
 #include "glk.h"
 #include "glkimp.h"
-#include "spatterlight-autosave.h"
 }
+
+#include "spatterlight-autosave.h"
 
 #include <cstddef>
 #include <cstdint>
 #include <vector>
+
+#include "screen.h"
 
 void adjust_definitions_window(void);
 void redraw_hint_screen_on_resize(void);
@@ -50,6 +53,9 @@ bool v6_pictures_unseen(void);
 // Swaps in an opaque status window while graphics are off, and the
 // transparent one back when they are on. Call before sizing or printing.
 void v6_match_status_window_to_graphics_setting(Window *status);
+// The first text grid with this rock, or nullptr. For windows that live
+// outside windows[], whose pointers an autorestore does not bring back.
+winid_t v6_grid_window_with_rock(glui32 wanted);
 // Make the next @read_char return at once: used for the "press any key"
 // after a full-screen picture that was left out.
 void v6_skip_next_keypress(void);
@@ -57,6 +63,9 @@ void v6_skip_next_keypress(void);
 // Calls a game routine found by find_entrypoints(), which records them as
 // byte addresses.
 uint16_t call_routine(uint32_t address, std::vector<uint16_t> args = {});
+// Puts the game's normal screen back after the definitions or hints screen
+// has taken it over. (Arthur does this by itself.)
+void v6_redraw_game_screen(void);
 void v6_describe_fullscreen_image(const char *message);
 extern bool v6_skip_keypress;
 
@@ -111,6 +120,25 @@ private:
     size_t m_capacity;
     int m_length = 0;
 };
+
+// What screen.cpp asks of the game being played at the points where the
+// Z-machine's own state does not say enough: autosave and autorestore,
+// RESTORE, RESTART and a change of window size or graphics settings. A game
+// that has nothing to do at one of them has a no-op there.
+struct V6GameHooks {
+    void (*stash_state)(library_state_data *dat);
+    void (*recover_state)(library_state_data *dat);
+    void (*update_after_restore)(void);
+    void (*update_after_autorestore)(void);
+    void (*update_after_restart)(void);
+    void (*update_on_resize)(void);
+    // An autorestore came back inside a read_char call made by the
+    // interpreter itself (a menu, hints, definitions, a prompt).
+    void (*autorestore_internal_read_char_hacks)(void);
+};
+
+// The hooks of the current game, all no-ops if it is not one of the four.
+const V6GameHooks &v6_game(void);
 
 extern uint8_t fg_global_idx, bg_global_idx;
 

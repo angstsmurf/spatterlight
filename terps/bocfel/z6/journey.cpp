@@ -78,6 +78,9 @@ constexpr int TITLE_PICTURE = 160;
 constexpr int MAX_MENU_ITEMS = 10;
 constexpr int MAX_SUBMENU_ITEMS = 6;
 
+// DELETE-KEY in the game: the ASCII delete character, not ZSCII_DELETE (8)
+constexpr uint8_t kDeleteKey = 0x7f;
+
 
 // Global lookup tables mapping Z-machine global variable indices, routine
 // addresses, object numbers, and attribute/property numbers to symbolic names.
@@ -807,7 +810,7 @@ static uint16_t journey_read_keyboard_line(int x, int y, uint16_t table, int max
         if (global_font_3_flag) {
             garglk_set_reversevideo(0);
         }
-        if (character == 0x7f || character == ZSCII_BACKSPACE || character == ZSCII_LEFT) { // DELETE-KEY ,BACK-SPACE ,LEFT-ARROW
+        if (character == kDeleteKey || character == ZSCII_BACKSPACE || character == ZSCII_LEFT) { // DELETE-KEY ,BACK-SPACE ,LEFT-ARROW
             if (journey_input_length <= 0) {
                 journey_input_length = 0;
                 win_beep(1);
@@ -1895,38 +1898,35 @@ void journey_update_after_restore(void) {
 
 // Handles edge cases when autorestoring into the middle of a read_char call.
 // If we restored into the title slideshow, resets to the initial question so
-// the title image sequence replays. If we restored into active text input
-// (name or Elvish), returns true to signal the caller to re-enter the input loop.
-bool journey_autorestore_internal_read_char_hacks(void) {
+// the title image sequence replays.
+void journey_autorestore_internal_read_char_hacks(void) {
     update_screen_size();
     if (screenmode == MODE_SLIDESHOW) {
         if (jo.START_LOC != 0 && ja.SEEN != 0) {
             internal_clear_attr(jo.START_LOC, ja.SEEN);
         }
         screenmode = MODE_INITIAL_QUESTION;
-        return true;
     }
-
-    if (screenmode == MODE_NORMAL &&
-        (journey_current_input == INPUT_NAME ||
-         journey_current_input == INPUT_ELVISH)) {
-        return true;
-    }
-    return false;
 }
 
 // Temporarily sets Z-machine globals to values that Frotz expects when
 // reading Journey save files. Frotz assumes an 80x25 text-mode screen
 // with 8x16 character cells. These are restored by journey_post_save_hacks().
+constexpr uint16_t kFrotzCharWidth = 8;
+constexpr uint16_t kFrotzCharHeight = 16;
+constexpr uint16_t kFrotzColumnWidthPix = 14 * kFrotzCharWidth; // Name and command columns
+constexpr uint16_t kFrotzScreenLines = 25;
+constexpr uint16_t kFrotzScreenColumns = 80;
+
 void journey_pre_save_hacks(void) {
-    set_global(jg.CHRH, 0x08);
-    set_global(jg.CHRV, 0x10);
+    set_global(jg.CHRH, kFrotzCharWidth);
+    set_global(jg.CHRV, kFrotzCharHeight);
     if (jg.NAME_WIDTH_PIX != 0)
-        set_global(jg.NAME_WIDTH_PIX, 0x70);
+        set_global(jg.NAME_WIDTH_PIX, kFrotzColumnWidthPix);
     if (jg.COMMAND_WIDTH_PIX != 0)
-        set_global(jg.COMMAND_WIDTH_PIX, 0x70);
-    set_global(jg.SCREEN_HEIGHT, 0x19);
-    set_global(jg.SCREEN_WIDTH, 0x50);
+        set_global(jg.COMMAND_WIDTH_PIX, kFrotzColumnWidthPix);
+    set_global(jg.SCREEN_HEIGHT, kFrotzScreenLines);
+    set_global(jg.SCREEN_WIDTH, kFrotzScreenColumns);
 }
 
 // Restores Z-machine globals to their actual values after saving, undoing

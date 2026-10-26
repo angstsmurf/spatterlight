@@ -63,6 +63,13 @@ typedef NS_ENUM(int32_t, kComprehendGraphicsPrefsType) {
     kComprehendGraphicsLessColors,  // CGA (DOS v1) or standard hi-res (Apple II)
 };
 
+typedef NS_ENUM(int32_t, kCaretShapePrefsType) {
+    kCaretLine,      // the system's vertical line
+    kCaretBlock,     // a cell-wide block over the character after the caret
+    kCaretUnderline, // a cell-wide underline
+    kCaretNone,      // no caret
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface Theme : NSManagedObject
@@ -85,10 +92,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) int32_t bufLinkStyle;
 @property (nonatomic) int32_t bZAdjustment;
 @property (nonatomic) kBZArrowsPrefsType bZTerminator;
+@property (nonatomic) kCaretShapePrefsType caretShape;
 @property (nonatomic) double cellHeight;
 @property (nonatomic) double cellWidth;
 @property (nonatomic) kComprehendGraphicsPrefsType comprehendGraphicsType;
 @property (nonatomic) kCoverImagePrefsType coverArtStyle;
+@property (nonatomic) BOOL crtGlow;
+@property (nonatomic) BOOL crtScanlines;
 @property (nonatomic) int32_t dashes;
 @property (nonatomic) int32_t defaultCols;
 @property (nonatomic) int32_t defaultRows;

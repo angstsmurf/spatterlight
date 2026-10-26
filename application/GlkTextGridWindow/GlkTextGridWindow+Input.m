@@ -34,6 +34,7 @@
         return NO;
     }
 
+    [self.glkctl markLastSeen];
     GlkEvent *gev =
     [[GlkEvent alloc] initLinkEvent:((NSNumber *)link).unsignedIntegerValue
                           forWindow:self.name];

@@ -1,0 +1,37 @@
+<!--
+  Probe game for run_autosave_tests.py (Quest 5 half): the colour mode
+  across a relaunch.  The dark default palette turns it on from the first
+  window; `paint' calls SetBackgroundColour in play, which only the autosave
+  remembers.  COLOURS OFF and ON are the player's, and must survive a
+  relaunch too.
+
+  Not a fixture: nothing globs this directory.
+-->
+<asl version="580">
+  <include ref="English.aslx" />
+  <include ref="Core.aslx" />
+  <game name="Autosave Colours Probe">
+    <gameid>a7c1f0c2-5a51-4c58-9d0e-3b1f6a2e9d13</gameid>
+    <version>1.0</version>
+    <defaultbackground>Black</defaultbackground>
+    <defaultforeground>White</defaultforeground>
+    <start type="script"><![CDATA[
+      msg ("White on black, with <font color=\"yellow\">yellow</font> words.")]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room" />
+    <alias>Hall</alias>
+    <description><![CDATA[A dark hall, with <font color="yellow">yellow</font> words in it.]]></description>
+    <object name="player">
+      <inherit name="editor_player" />
+    </object>
+  </object>
+  <command name="paintcmd">
+    <pattern>paint</pattern>
+    <script><![CDATA[
+      SetBackgroundColour ("Navy")
+      msg ("The walls turn navy.")
+    ]]></script>
+  </command>
+</asl>

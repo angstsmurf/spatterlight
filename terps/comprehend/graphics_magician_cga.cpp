@@ -45,6 +45,8 @@
 #include "graphics_magician_cga.h"
 #include "graphics_magician.h"         // Opcode enum
 #include "graphics_magician_vector.h"  // shared line/circle rasterizers
+#include "gm_stream.h"                 // shared opcode dispatcher
+#include "gm_span_fill.h"              // shared op14 flood fill
 #include "slow_draw_page.h"            // shared progressive-reveal helper
 #include <cstdio>
 #include <cstdlib>
@@ -465,21 +467,8 @@ bool gmcgaInstallV1DrawingTables(const uint8_t *ovr, size_t ovrSize,
 
 	// Brush table in NOVEL.EXE: locate brush 5 (filled circle), whose left
 	// column (bytes 0-7) is a distinctive run, then step back to brush 0.
-	static const uint8_t kBrush5Sig[] = {
-		0x00,0x03,0x1f,0x3f,0x3f,0x3f,0x7f,0x7f,
-		0x7f,0x7f,0x3f,0x3f,0x3f,0x1f,0x03,0x00,
-	};
-	size_t b5 = SIZE_MAX;
-	for (size_t i = 0; i + sizeof(kBrush5Sig) <= exeSize; i++) {
-		if (std::memcmp(exe + i, kBrush5Sig, sizeof(kBrush5Sig)) == 0) {
-			b5 = i;
-			break;
-		}
-	}
-	if (b5 == SIZE_MAX || b5 < 5 * 32)
-		return false;
-	const size_t brushBase = b5 - 5 * 32;
-	if (brushBase + sizeof(s_brushBitmaps) > exeSize)
+	size_t brushBase;
+	if (!gmvFindBrushTable(exe, exeSize, &brushBase))
 		return false;
 	installV1Tables(ovr + patBase, ovr + patBase + kPatBytes, exe + brushBase);
 	return true;
@@ -516,17 +505,9 @@ void gmcgaInstallBuiltinDrawingTables(bool v1) {
 }
 
 bool gmcgaSetV1Font(const uint8_t *charsetGda, size_t size) {
-	if (!charsetGda || size < 4 + 96 * 8)
-		return false;
-	const uint16_t version = (uint16_t)(charsetGda[0] | (charsetGda[1] << 8));
-	if (version != 0x1100)
-		return false;
-	// charset.gda is LSB-first (bit 0 = leftmost); draw_glyph reads MSB-first,
-	// so reverse each glyph byte as we copy it in.
-	for (int idx = 0; idx < 96; idx++)
-		for (int row = 0; row < 8; row++)
-			s_fontGlyphs[idx * 8 + row] = gmvMirrorByte(charsetGda[4 + idx * 8 + row]);
-	return true;
+	// charset.gda is LSB-first (bit 0 = leftmost); draw_glyph reads MSB-first, so
+	// the loader reverses each glyph byte as it copies it in.
+	return gmvLoadCharsetGda(s_fontGlyphs, charsetGda, size);
 }
 
 // ---- 2-bpp (CGA) framebuffer -------------------------------------------------
@@ -689,8 +670,8 @@ static void fill_hline(int y, int l, int r, uint8_t sel) {
 //     freshly painted dither-black pixels self-limit later spans; reproducing
 //     that traversal order exactly is what makes the fill pixel-exact.
 //
-// Labels in the code below are the CS-relative addresses of the corresponding
-// native instructions.
+// The hex numbers in the comments below are the CS-relative addresses of the
+// corresponding native instructions.
 
 // Per-pixel 2-bit masks over the byteswapped (MSB-first) screen word, and the
 // "everything right of pixel i" / "everything left of pixel i" masks used to
@@ -714,11 +695,12 @@ static const uint16_t kPfLeftOf[8] = {
 // Flood-fill clip rectangle (native [0x9387]=left byte, [0x9388]=right byte,
 // [0x9389]=top row, [0x938a]=bottom row).  In the v1 games op15 (RESET) sets
 // these -- it is fill-clip setup, NOT a rectangle paint (PC_GRAPH.OVR 0x2de).
-// They default to the picture window so the flood fill is unbounded within it
-// even when op15 is never emitted (which is the case for the whole v1 corpus).
-static int s_pfLeftByte   = 5;
+// The fill consults only the right byte (2d5e) and the bottom row (263b and
+// the down-push test in FUN_2da0); the left byte and top row are stored by
+// op15 and read by nothing, so they are not kept here.  The two default to the
+// picture window so the flood fill is unbounded within it even when op15 is
+// never emitted (which is the case for the whole v1 corpus).
 static int s_pfRightByte  = PF_RIGHT_BYTE;
-static int s_pfTopRow     = 0;
 static int s_pfBottomRow  = PF_BOTTOM_ROW;
 
 static inline uint8_t mirror_2bpp_byte(uint8_t b) {
@@ -753,10 +735,12 @@ static void pf_put_word(int y, int gb, uint16_t w) {
 	}
 }
 
-// FUN_29a0: is the pixel at (byte `B`, pixel `P`) of row `y` white?
-static inline bool pf_white(int y, uint8_t B, uint8_t P) {
-	const uint16_t w = pf_get_word(y, B);
-	return (w & kPfPixMask[P]) == kPfPixMask[P];
+// FUN_29a0: is the pixel at global column `x` of row `y` white?  The native
+// addresses a pixel as an even byte B and a pixel P within that 16-bit word
+// (0x9d52 / 0x9d53); x == 4*B + P, and the fill below works in x throughout.
+static inline bool pf_white(int y, int x) {
+	const uint16_t w = pf_get_word(y, (x >> 3) * 2);
+	return (w & kPfPixMask[x & 7]) == kPfPixMask[x & 7];
 }
 
 // FUN_24a4 pattern fetch: the fill-pattern word for row `y` under selector
@@ -776,26 +760,6 @@ static inline uint16_t pf_pattern_word(uint8_t sel, int y, int gb) {
 	}
 	const uint8_t m = (sub < 76) ? s_fillTableRaw[sub] : 0x00;
 	return (uint16_t)((m << 8) | m);
-}
-
-// Fill cursor / span state ("registers" of the native fill).
-struct PfState {
-	int     y;        // 0x9d36 -- current row (transiently -1 / >159 at edges)
-	uint8_t B, P;     // 0x9d52 / 0x9d53 -- cursor byte (even) + pixel 0-7
-	uint8_t lB, lP;   // 0xb0d0 / 0xb1d4 -- span left edge during scan / push
-};
-
-// FUN_2df7: step the cursor one pixel left.
-static inline void pf_dec(PfState &s) {
-	if (s.P == 0) { s.P = 7; s.B = (uint8_t)(s.B - 2); }
-	else s.P--;
-}
-
-// Lexicographic compare of two (byte, pixel) positions.
-static inline int pf_cmp(uint8_t b1, uint8_t p1, uint8_t b2, uint8_t p2) {
-	if (b1 != b2) return b1 < b2 ? -1 : 1;
-	if (p1 != p2) return p1 < p2 ? -1 : 1;
-	return 0;
 }
 
 // FUN_29e1: scan the word in `A` from pixel 7 leftward for the first non-white
@@ -846,207 +810,88 @@ static inline void pf_paint_word(int y, int gb, uint8_t sel, uint16_t S, uint16_
 	pf_put_word(y, gb, (uint16_t)((pat & M) | (S ^ M)));
 }
 
-// FUN_2cd0: grow and paint the span around the seed in s.B/s.P on row s.y.
-// On return s.lB/s.lP hold the left edge and s.B/s.P the right edge (both
-// inclusive, first/last white pixel).  Painting is word-at-a-time, masked to
-// the white run found in each word.
-static void pf_scan_paint(PfState &s, uint8_t sel) {
-	int si = s.B;
-	s.lP = 0xff;                                         // 0xff = no left edge yet
-	uint16_t S = pf_get_word(s.y, si);
+// FUN_2cd0: grow and paint the span around the white seed at column `x` of
+// row `y`, a word at a time, each word masked to the white run found in it.
+// Returns the span's first and last white pixel in *l and *r.
+static void pf_scan_paint(int y, int x, uint8_t sel, int *l, int *r) {
+	int si = (x >> 3) * 2;                               // word holding the seed
+	uint8_t lP = 0xff;                                   // 0xff = no left edge yet
+	uint8_t rP = 8;                                      // 8 = open to the right
+	uint16_t S = pf_get_word(y, si);
 
 	// Seed word: find the nearest boundary on each side of the seed pixel (the
 	// far side blanked to white for each scan) and paint the run between them.
-	const uint8_t seedP = s.P;
-	const uint16_t mL = pf_scan_l((uint16_t)(S | kPfRightOf[seedP]), &s.lP); // [0xb1d0]
-	s.P = 8;                                             // 8 = open to the right
-	const uint16_t mR = pf_scan_r((uint16_t)(kPfLeftOf[seedP] | S), &s.P);
-	pf_paint_word(s.y, si, sel, S, (uint16_t)(mR & mL)); // 29be
+	const uint8_t seedP = (uint8_t)(x & 7);
+	const uint16_t mL = pf_scan_l((uint16_t)(S | kPfRightOf[seedP]), &lP); // [0xb1d0]
+	const uint16_t mR = pf_scan_r((uint16_t)(kPfLeftOf[seedP] | S), &rP);
+	pf_paint_word(y, si, sel, S, (uint16_t)(mR & mL));   // 29be
 
-	while (s.lP == 0xff) {                               // 2d1d: extend left
-		si -= 2;
-		S = pf_get_word(s.y, si);
-		const uint16_t M = pf_scan_l(S, &s.lP);
-		pf_paint_word(s.y, si, sel, S, M);
+	int li = si;
+	while (lP == 0xff) {                                 // 2d1d: extend left
+		li -= 2;
+		S = pf_get_word(y, li);
+		const uint16_t M = pf_scan_l(S, &lP);
+		pf_paint_word(y, li, sel, S, M);
 	}
-	{                                                    // 2d43: finalise left edge
-		int p = s.lP + 1;
-		if (p == 8) { p = 0; si += 2; }
-		s.lB = (uint8_t)si;
-		s.lP = (uint8_t)p;
-	}
-
-	si = s.B;                                            // 2d5e: extend right
-	while (s.P == 8 && si < s_pfRightByte) {
+	*l = li * 4 + lP + 1;                                // 2d43: first white pixel
+	                                                     //  is right of the boundary
+	while (rP == 8 && si < s_pfRightByte) {              // 2d5e: extend right
 		si += 2;
-		S = pf_get_word(s.y, si);
-		const uint16_t M = pf_scan_r(S, &s.P);
-		pf_paint_word(s.y, si, sel, S, M);
+		S = pf_get_word(y, si);
+		const uint16_t M = pf_scan_r(S, &rP);
+		pf_paint_word(y, si, sel, S, M);
 	}
-	if (s.P == 0) { s.P = 7; si -= 2; }                  // 2d88: last white pixel
-	else s.P--;
-	s.B = (uint8_t)si;
+	*r = si * 4 + rP - 1;                                // 2d88: last white pixel
+	                                                     //  is left of the boundary
 }
+
+// The fill policy for gm_span_fill.h.  Positions are global pixel columns.  The
+// native does all of this in (even byte, pixel) pairs with 8-bit bytes; no wrap
+// can occur because the margins outside bytes 5..74 read black, so every column
+// the fill ever forms lies between 18 and 301 and the leftward scan needs no
+// clip.  The shared traversal is FUN_263b's queue loop; the native addresses of
+// its steps:
+//   seed must be white               265b
+//   seed run and its up/down pushes  266e / 2675 / 2679
+//   main queue loop, dead entries    267c / 2699
+//   walk over the parent extent      269e..26ee (FUN_29a0 per pixel)
+//   merge with a queued span         2700..27e2 (GmSpanFill::merge)
+//   paint a new run, overhangs       2808..28f2 (GmSpanFill::paintRun)
+//   push (FUN_2da0)                  queue at LB/LP/RB/RP/Y/DIR 0xb0d3..0xb173,
+//                                    head/tail 0xb0d1 / 0xb0d2, overflow [0xb193]
+struct CgaFillGeom {
+	// FUN_2da0 reports a full queue and the fill stops.
+	static const bool kAbortOnOverflow = true;
+
+	int     y;
+	uint8_t sel;
+
+	void setRow(int row) { y = row; }
+	bool isSet(int x) const { return pf_white(y, x); }
+	void scanPaint(int x, int &l, int &r) const { pf_scan_paint(y, x, sel, &l, &r); }
+
+	// Down pushes stop at the bottom row.  The up-push bound ([0x9d59] == 0,
+	// unsigned compare) never rejects, so spans on row 0 do push an up entry;
+	// its target row reads black here and the entry retires without effect, as
+	// on hardware.
+	bool acceptSpan(uint8_t row, int, int, uint8_t dir) const {
+		return dir == GM_SPAN_UP || row < s_pfBottomRow;
+	}
+
+	void notePush(uint8_t row, int l, int r, uint8_t dir, uint8_t head, uint8_t tail) const {
+		if (s_pfTrace)
+			fprintf(stderr, "PUSH y=%d l=%d r=%d d=%d h=%d t=%d\n",
+					row, l, r, dir, head, tail);
+	}
+};
 
 static void gmcga_flood_fill(int seed_x, int seed_y, uint8_t sel) {
 	if ((uint8_t)seed_y > s_pfBottomRow)                 // 263b
 		return;
-
-	PfState s;
-	s.y = seed_y;
-	const int gx = seed_x + 20;                          // 24d1: + [0xb02d]
-	s.B = (uint8_t)(gx >> 2);
-	s.P = (uint8_t)(gx & 3);
-	if (s.B & 1) { s.P += 4; s.B--; }                    // 264b: word-align
-	s.lB = s.lP = 0;
-
-	if (!pf_white(s.y, s.B, s.P))                        // 265b: seed must be white
-		return;
-
-	// 32-entry circular span queue (LB/LP/RB/RP/Y/DIR arrays at 0xb0d3..0xb173).
-	uint8_t q_lb[32], q_lp[32], q_rb[32], q_rp[32], q_y[32], q_d[32];
-	uint8_t head = 0, tail = 0;                          // 0xb0d1 / 0xb0d2
-	bool overflow = false;                               // 0xb193
-
-	// FUN_2da0: append the current span going `dir` (0 = up, 1 = down).  The
-	// up-push bound ([0x9d59] == 0, unsigned compare) never rejects, so spans on
-	// row 0 do push an up entry; its (clamped) target row reads black here and
-	// the entry retires without effect, as on hardware.
-	auto push = [&](uint8_t dir) {
-		const uint8_t yb = (uint8_t)s.y;
-		if (s_pfTrace)
-			fprintf(stderr, "PUSH y=%d l=%d.%d r=%d.%d d=%d h=%d t=%d\n",
-					yb, s.lB, s.lP, s.B, s.P, dir, head, tail);
-		if (dir != 0 && yb >= s_pfBottomRow)
-			return;
-		q_y[tail] = yb;
-		q_lb[tail] = s.lB; q_lp[tail] = s.lP;
-		q_rb[tail] = s.B;  q_rp[tail] = s.P;
-		q_d[tail] = dir;
-		tail = (uint8_t)((tail + 1) & 0x1f);
-		if (tail == head)
-			overflow = true;                             // fill aborts
-	};
-
-	pf_scan_paint(s, sel);                               // 266e: seed row
-	push(0);                                             // 2675
-	push(1);                                             // 2679
-
-	long guard = 0;
-	for (;;) {                                           // 267c: main queue loop
-		if (head == tail || ++guard > 1000000)
-			return;
-		{
-			const uint8_t d = q_d[head];
-			if (d == 0xff) {                             // 2699: dead entry
-				head = (uint8_t)((head + 1) & 0x1f);
-				continue;
-			}
-			// 269e/269b: target row above or below the parent span's row.
-			s.y = (int)q_y[head] + (d == 0 ? -1 : 1);
-			s.B = q_lb[head];                            // 26a3: start at parent left
-			s.P = q_lp[head];
-		}
-
-	scan_26ba: // hunt for a white seed within the parent extent
-		if (pf_white(s.y, s.B, s.P))
-			goto found_2700;
-	advance_26bf:
-		if (s.B == q_rb[head] && s.P == q_rp[head])      // parent extent exhausted
-			goto retire_26ee;
-		s.P++;
-		if (s.P == 8) { s.P = 0; s.B = (uint8_t)(s.B + 2); }
-		goto scan_26ba;
-
-	found_2700: // before scanning, reconcile with other queued spans on this row
-		{
-			uint8_t E = head;
-			for (;;) {
-				E = (uint8_t)((E + 1) & 0x1f);           // 2706
-				if (E == tail)
-					goto newspan_2808;                   // nothing overlaps
-				if (q_y[E] != (uint8_t)s.y)              // 271a
-					continue;
-				if (q_d[E] == q_d[head])                 // 272a: opposite dir only
-					continue;
-				if (pf_cmp(s.B, s.P, q_rb[E], q_rp[E]) > 0)  // 2730: seed right of E
-					continue;
-				const int c = pf_cmp(s.B, s.P, q_lb[E], q_lp[E]); // 2748
-				if (c < 0)                               // seed left of E
-					continue;
-				if (c > 0) {
-					// 275b: seed strictly inside E.  If E sticks out left of the
-					// parent extent, requeue that remainder under E's direction.
-					s.B = q_lb[head]; s.P = q_lp[head];
-					pf_dec(s);                           // 2769: parent.left - 1
-					if (pf_cmp(s.B, s.P, q_lb[E], q_lp[E]) > 0) {
-						s.lB = q_lb[E]; s.lP = q_lp[E];  // 2781
-						pf_dec(s);                       // 278f: parent.left - 2
-						push(q_d[E]);                    // 279e
-						if (overflow)
-							return;                      // 27a8
-					}
-				}
-				// 27b9: resume after E's right edge, or split E around the parent.
-				s.B = q_rb[E];
-				if (pf_cmp(q_rb[E], q_rp[E], q_rb[head], q_rp[head]) <= 0) {
-					q_d[E] = 0xff;                       // 27d2: E fully shadowed
-					s.P = q_rp[E];
-					goto advance_26bf;
-				}
-				q_lb[E] = q_rb[head];                    // 27e2: clip E to start
-				{                                        //  after the parent extent
-					uint8_t p = (uint8_t)(q_rp[head] + 1);
-					if (p == 8) { p = 0; q_lb[E] = (uint8_t)(q_lb[E] + 2); }
-					q_lp[E] = p;
-				}
-				goto retire_26ee;
-			}
-		}
-
-	newspan_2808: // grow + paint a fresh span around the seed
-		{
-			pf_scan_paint(s, sel);
-			push(q_d[head]);                             // 2819: keep propagating
-			if (overflow)
-				return;                                  // 2823
-			const uint8_t savB = s.B, savP = s.P;        // 2828: save right edge
-
-			// 2834: left overhang -- if the new span reaches 2+ pixels left of
-			// the parent extent, push the overhang back the way we came.
-			s.B = q_lb[head]; s.P = q_lp[head];
-			pf_dec(s);                                   // 2848: parent.left - 1
-			if (pf_cmp(s.B, s.P, s.lB, s.lP) > 0) {
-				pf_dec(s);                               // 285f: parent.left - 2
-				push((uint8_t)(q_d[head] ^ 1));          // 286c
-				if (overflow)
-					return;
-			}
-			s.B = savB; s.P = savP;                      // 287b: restore right edge
-
-			// 288d: right overhang vs parent.right + 1.
-			s.lB = q_rb[head];
-			uint8_t p = (uint8_t)(q_rp[head] + 1);
-			if (p == 8) { p = 0; s.lB = (uint8_t)(s.lB + 2); }
-			s.lP = p;
-			const int c = pf_cmp(s.lB, s.lP, s.B, s.P);
-			if (c < 0) {                                 // 28c3: 2+ pixel overhang
-				p++;
-				if (p == 8) { p = 0; s.lB = (uint8_t)(s.lB + 2); }
-				s.lP = p;
-				push((uint8_t)(q_d[head] ^ 1));          // 28e0
-				if (overflow)
-					return;
-				goto retire_26ee;                        // 28ef
-			}
-			if (c == 0)                                  // ends exactly at +1
-				goto retire_26ee;
-			goto advance_26bf;                           // 28f2: keep hunting
-		}
-
-	retire_26ee:
-		head = (uint8_t)((head + 1) & 0x1f);
-	}
+	CgaFillGeom geom = { 0, sel };
+	GmSpanFill<CgaFillGeom> fill(geom);
+	fill.fill(seed_x + 20, seed_y);                      // 24d1: + [0xb02d]; 264b
+	                                                     //  splits this into B and P
 }
 
 // ---- Line drawing (op10 DRAW_LINE / op9 DRAW_BOX) ----------------------------
@@ -1114,7 +959,7 @@ static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
 			const uint8_t fb = fill_pattern(fill_sel, py, (phase + 3) & 3);
 			for (int pos = 0; pos < 4; pos++) {
 				if (((m[k] >> ((3 - pos) << 1)) & 0x3) == 0) continue;
-				const int x = (lb << 2) + pos;
+				const int x = lb * 4 + pos;   // lb can be -1 (brush stamped at x-1); no shift of a negative
 				if ((unsigned)x >= GMCGA_WIDTH) continue;
 				const uint8_t pix = (fb >> ((x & 3) << 1)) & 0x3;
 				write_2bpp(x, py, pix);
@@ -1140,12 +985,8 @@ static void blit_col(const uint8_t *bytes8, int px, int py, uint8_t fill_sel) {
 // half then bottom half.  The 8-bit glyph bytes are bit-doubled to 8 pixels.
 
 static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_idx) {
-	if (brush >= 8) return;
-	const uint8_t *base = &s_brushBitmaps[brush * 32];
-	blit_col(base,      x,     y,     fill_idx); // Q0: upper-left
-	blit_col(base + 8,  x,     y + 8, fill_idx); // Q1: lower-left
-	blit_col(base + 16, x + 8, y,     fill_idx); // Q2: upper-right
-	blit_col(base + 24, x + 8, y + 8, fill_idx); // Q3: lower-right
+	gmvStampBrush(s_brushBitmaps, x, y, brush,
+				  [fill_idx](const uint8_t *q, int px, int py) { blit_col(q, px, py, fill_idx); });
 }
 
 // ---- Text glyph (op3 TEXT_CHAR / op5 TEXT_OUTLINE) --------------------------
@@ -1160,26 +1001,14 @@ static void draw_brush(int x, int y, uint8_t brush, uint8_t fill_idx) {
 // Glyph encoding matches the brush encoding (bit 7 = leftmost pixel).
 // Text cursor advances 8 pixels per character.
 
-static void draw_glyph(int x, int y, uint8_t ch, bool normal,
-						uint8_t pen_val, uint8_t fill_sel) {
-	(void)pen_val;
-	if (ch < 32 || ch >= 128) return;
-	const uint8_t *glyph = &s_fontGlyphs[(ch - 32) * 8];
-	for (int row = 0; row < 8; row++) {
-		const uint8_t b = glyph[row];
-		if (!b) continue;
-		const int py = y + row;
-		if ((unsigned)py >= GMCGA_HEIGHT) continue;
-		for (int p = 0; p < 8; p++) {
-			if (!((b >> (7 - p)) & 1)) continue;
-			const int px = x + p;
-			if ((unsigned)px >= GMCGA_WIDTH) continue;
-			const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py, px >> 2);
-			const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
-									   : (fb >> ((px & 3) << 1)) & 0x3;
-			write_2bpp(px, py, pix);
-		}
-	}
+static void draw_glyph(int x, int y, uint8_t ch, bool normal, uint8_t fill_sel) {
+	gmvDrawGlyph(s_fontGlyphs, x, y, ch, [normal, fill_sel](int px, int py) {
+		if ((unsigned)py >= GMCGA_HEIGHT || (unsigned)px >= GMCGA_WIDTH) return;
+		const uint8_t fb = normal ? 0 : fill_pattern(fill_sel, py, px >> 2);
+		const uint8_t pix = normal ? (uint8_t)(read_2bpp(px, py) ^ 0x3)
+								   : (fb >> ((px & 3) << 1)) & 0x3;
+		write_2bpp(px, py, pix);
+	});
 }
 
 // ---- op15 fill rectangle (OPCODE_RESET) -------------------------------------
@@ -1189,13 +1018,12 @@ static void draw_glyph(int x, int y, uint8_t ch, bool normal,
 // authored for the Apple screen layout.  Convert columns to pixel range:
 // Apple column c covers pixels [c*7 .. c*7+6], so pixel_right = (c+1)*7 - 1.
 
-static uint8_t s_fill_left = 0, s_fill_right = 39;
-static uint8_t s_fill_top = 0, s_fill_bottom = 159;
+static GmFillBounds s_fill = { 0, 39, 0, 159 };
 
 static void fill_rect(uint8_t fill_idx) {
-	const int lp = s_fill_left * 7;
-	const int rp = (s_fill_right + 1) * 7 - 1;
-	for (int y = s_fill_top; y <= s_fill_bottom && y < GMCGA_HEIGHT; y++)
+	const int lp = s_fill.left * 7;
+	const int rp = (s_fill.right + 1) * 7 - 1;
+	for (int y = s_fill.top; y <= s_fill.bottom && y < GMCGA_HEIGHT; y++)
 		fill_hline(y, lp, rp, fill_idx);
 }
 
@@ -1225,188 +1053,65 @@ static void trace_dump_fill(const char *dir, int n, const char *suffix) {
 }
 #endif
 
-// ---- Drawing context ---------------------------------------------------------
+// ---- Opcode interpreter ------------------------------------------------------
+// The loop and operand decode are the shared gmRunStream (gm_stream.h); this is
+// the CGA side of it.
 
-struct GmcgaCtx {
+struct CgaRenderer {
 	int16_t  pen_x, pen_y;
-	uint8_t  pen_val;   // 2-bpp pixel value (0–3) for lines / op3 text
-	uint8_t  brush;     // brush index 0–7
+	uint8_t  pen_val;   // 2-bpp pixel value (0-3) for lines / op3 text
+	uint8_t  brush;     // brush index 0-7
 	uint8_t  fill_idx;  // SET_FILL_COLOR selector byte (-> subindex table)
 	uint16_t text_x;
 	uint8_t  text_y;
-};
 
-// ---- Opcode interpreter ------------------------------------------------------
+	uint16_t scaleX(uint16_t x) const { return x; }
+	int penX() const { return pen_x; }
+	int penY() const { return pen_y; }
 
-static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
-	if (*ptr >= end) return true;
-	const uint8_t op_byte = *(*ptr)++;
-	const uint8_t param   = op_byte & 0xf;
-	const uint8_t op      = op_byte >> 4;
-	uint16_t a, b;
+	void begin() {
+		// The op list is dropped by gmcgaResetScreen() when a new page starts (room /
+		// dark / bright / title), NOT here: a scene is a room picture plus any item
+		// overlays, and the overlays must APPEND their bytes to the room's still-
+		// pending reveal so the whole composite is revealed in paint order. Clearing
+		// here would discard the room's not-yet-revealed bytes the moment the first
+		// item draws, leaving only the last picture animated on a blank page.
+		pen_val  = 0;    // pen colour 4 (black) maps to 2-bpp 0
+		// The dispatcher init (NOVEL.EXE 0x1f56 / Transylvania 0x1e46) seeds the
+		// pen position with 0x8c,6; Transylvania's title stream draws its first
+		// line before any MOVE_TO, so this matters.
+		pen_x    = 140;
+		pen_y    = 6;
+		brush    = 5;    // default brush matches Apple renderer init
+		fill_idx = 0;    // cold-start fill selector 0 -> solid white (0xff);
+						 // matches NOVEL.EXE's statically-zeroed [0x9d46]
+		text_x   = 140; text_y = 96;
+		s_fill.reset(159);
+		// Flood-fill clip rectangle resets to the picture window before each image
+		// (native FUN_2556); op15 may then narrow it (v1 only).
+		s_pfRightByte = PF_RIGHT_BYTE; s_pfBottomRow = PF_BOTTOM_ROW;
+	}
+	// When not animating, keep the visible page in step with the final page so a
+	// later slow-drawn overlay composes onto the right background.
+	void end() { s_slow.syncIfNotRecording(); }
 
+	void beforeOp(const uint8_t *p, const uint8_t *end, uint8_t op, uint8_t param) {
 #ifdef GM_TRACE
-	if (getenv("GMCGA_OPLOG")) {
-		static int oc = 0;
-		fprintf(stderr, "OP #%d op=%u param=%u nextbytes=%02x %02x %02x\n",
-				++oc, op, param,
-				(*ptr < end) ? (*ptr)[0] : 0,
-				(*ptr + 1 < end) ? (*ptr)[1] : 0,
-				(*ptr + 2 < end) ? (*ptr)[2] : 0);
-	}
-#endif
-
-	switch (op) {
-	case OPCODE_END:  // op0: end of image
-		return true;
-
-	case OPCODE_END2: // op7: 2-operand no-op in Talisman (not an end marker)
-		*ptr += 2;
-		break;
-
-	case OPCODE_SET_TEXT_POS: // op1
-		ctx->text_x = (uint16_t)(*(*ptr)++ + (param & 1 ? 256 : 0));
-		ctx->text_y = *(*ptr)++;
-		break;
-
-	case OPCODE_SET_PEN_COLOR: // op2
-		ctx->pen_val = (param < 8) ? kPenTo2bpp[param] : 0;
-		break;
-
-	case OPCODE_TEXT_CHAR: // op3 -- solid text (pen colour)
-		draw_glyph(ctx->text_x, ctx->text_y, *(*ptr)++, true,
-				   ctx->pen_val, ctx->fill_idx);
-		ctx->text_x += 8;
-		break;
-
-	case OPCODE_TEXT_OUTLINE: // op5 -- fill-pattern text
-		draw_glyph(ctx->text_x, ctx->text_y, *(*ptr)++, false,
-				   ctx->pen_val, ctx->fill_idx);
-		ctx->text_x += 8;
-		break;
-
-	case OPCODE_SET_SHAPE: // op4
-		ctx->brush = param;
-		break;
-
-	case OPCODE_SET_FILL_COLOR: // op6
-		ctx->fill_idx = *(*ptr)++;
-		break;
-
-	case OPCODE_MOVE_TO: // op8
-		ctx->pen_x = (int16_t)(*(*ptr)++ + (param & 1 ? 256 : 0));
-		ctx->pen_y = (int16_t)*(*ptr)++;
-		break;
-
-	case OPCODE_DRAW_BOX: { // op9 -- four chained lines; pen left at far corner
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		const int x0 = ctx->pen_x, y0 = ctx->pen_y;
-		draw_line(x0, y0, x0, (int)b, ctx->pen_val);  // left edge  → (x0, b)
-		draw_line(x0, (int)b, (int)a, (int)b, ctx->pen_val); // bottom → (a, b)
-		draw_line((int)a, (int)b, (int)a, y0, ctx->pen_val); // right  → (a, y0)
-		draw_line((int)a, y0, x0, y0, ctx->pen_val);          // top    → (x0, y0)
-		ctx->pen_x = (int16_t)a; ctx->pen_y = (int16_t)b;    // pen at far corner
-		break;
-	}
-
-	case OPCODE_DRAW_LINE: // op10
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		draw_line(ctx->pen_x, ctx->pen_y, (int)a, (int)b, ctx->pen_val);
-		ctx->pen_x = (int16_t)a; ctx->pen_y = (int16_t)b;
-		break;
-
-	case OPCODE_DRAW_CIRCLE: // op11 -- centred on current pen; pen restored
-		draw_circle(ctx->pen_x, ctx->pen_y, *(*ptr)++, ctx->pen_val);
-		break;
-
-	case OPCODE_DRAW_SHAPE: // op12
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-		// PicStampBrushShape (0x2967) starts with DEC AX: brushes stamp one
-		// pixel left of the stream coordinate (text glyphs do not).
-		draw_brush((int)a - 1, (int)b, ctx->brush, ctx->fill_idx);
-		break;
-
-	case OPCODE_DELAY: { // op13 -- pacing hint; no effect on the final page
-		uint8_t units = *(*ptr)++;
-		s_slow.recordDelay(units);
-		break;
-	}
-
-	case OPCODE_PAINT: // op14 -- flood fill from seed point
-		a = *(*ptr)++ + (param & 1 ? 256 : 0);
-		b = *(*ptr)++;
-#ifdef GM_TRACE
-		// Debug aid: dump the framebuffer before AND after each fill for
-		// comparison against a DOSBox trace of the native interpreter.  The
-		// before-dumps confirm the canvas going into a fill matches; the
-		// after-dumps isolate whether a divergence is the fill itself (vs a
-		// later primitive).  See test/gmcgav1/compare_op14.py.
-		{
-			static int n = 0;
-			n++;
-			const char *td = getenv("GMCGA_TRACE_DIR");
-			const char *tf = getenv("GMCGA_TRACE_FILL");
-			s_pfTrace = tf && atoi(tf) == n;
-			s_pfWordSeq = 0;
-			trace_dump_fill(td, n, "");
-			gmcga_flood_fill((int)a, (int)b, ctx->fill_idx);
-			trace_dump_fill(td, n, "_after");
+		if (getenv("GMCGA_OPLOG")) {
+			static int oc = 0;
+			fprintf(stderr, "OP #%d op=%u param=%u nextbytes=%02x %02x %02x\n",
+					++oc, op, param,
+					(p < end) ? p[0] : 0,
+					(p + 1 < end) ? p[1] : 0,
+					(p + 2 < end) ? p[2] : 0);
 		}
 #else
-		gmcga_flood_fill((int)a, (int)b, ctx->fill_idx);
+		(void)p; (void)end; (void)op; (void)param;
 #endif
-		break;
-
-	case OPCODE_RESET: // op15
-		if (s_v1) {
-			// v1 (PC_GRAPH.OVR 0x2de): op15 is flood-fill CLIP-RECT setup, not a
-			// rectangle paint.  param 0 = no-op; param 1 = reset the clip to the
-			// window defaults; param >=2 = read 4 bytes into the clip rectangle
-			// ([0x9388] right byte, [0x9387] left byte, [0x938a] bottom row,
-			// [0x9389] top row).  No v1 picture in the corpus emits it, so this
-			// is faithful-but-inert today; the 4-byte consume keeps the stream
-			// pointer aligned for any picture that ever does.
-			switch (param) {
-			case 1:
-				s_pfLeftByte = 4; s_pfRightByte = PF_RIGHT_BYTE;
-				s_pfTopRow = 0;   s_pfBottomRow = PF_BOTTOM_ROW;
-				break;
-			default:
-				if (param >= 2) {
-					s_pfRightByte  = *(*ptr)++;
-					s_pfLeftByte   = *(*ptr)++;
-					s_pfBottomRow  = *(*ptr)++;
-					s_pfTopRow     = *(*ptr)++;
-				}
-				break; // param 0: nothing
-			}
-			break;
-		}
-		// v2 / Apple Talisman: op15 is the fill-rectangle opcode.
-		switch (param) {
-		case 1: // set rect to full picture area
-			s_fill_left = 0; s_fill_top = 0;
-			s_fill_right = 39; s_fill_bottom = 159;
-			break;
-		case 2: // read 4 bytes: right, left, bottom, top
-			s_fill_right  = *(*ptr)++;
-			s_fill_left   = *(*ptr)++;
-			s_fill_bottom = *(*ptr)++;
-			s_fill_top    = *(*ptr)++;
-			break;
-		default: // param 0 / 3: fill the rect with the current pattern
-			fill_rect(ctx->fill_idx);
-			break;
-		}
-		break;
 	}
-
+	void afterOp(uint8_t op, uint8_t param) {
 #ifdef GM_TRACE
-	// Debug: report which op first writes a watched pixel (GMCGA_WATCH="x,y").
-	{
+		// Debug: report which op first writes a watched pixel (GMCGA_WATCH="x,y").
 		static int opn = 0;
 		opn++;
 		if (const char *w = getenv("GMCGA_WATCH")) {
@@ -1417,49 +1122,104 @@ static bool doImageOp(const uint8_t **ptr, const uint8_t *end, GmcgaCtx *ctx) {
 				if (cur != last) {
 					fprintf(stderr, "WATCH op#%d op=%u param=%u fill_idx=%u "
 							"-> pixel(%d,%d) %d->%d\n",
-							opn, op, param, ctx->fill_idx, wx, wy, last, cur);
+							opn, op, param, fill_idx, wx, wy, last, cur);
 					last = cur;
 				}
 			}
 		}
-	}
+#else
+		(void)op; (void)param;
 #endif
-	return false;
-}
+	}
+
+	void setTextPos(uint16_t x, uint8_t y) { text_x = x; text_y = y; }
+	// op3 is solid (inverting) text, op5 takes the fill pattern.
+	void drawText(uint8_t ch, bool normal) {
+		draw_glyph(text_x, text_y, ch, normal, fill_idx);
+	}
+	void advanceText() { text_x += 8; }
+	void setPen(uint8_t param) { pen_val = (param < 8) ? kPenTo2bpp[param] : 0; }
+	void setShape(uint8_t param) { brush = param; }
+	void setFill(uint8_t b) { fill_idx = b; }
+	bool op7(const uint8_t *&p, const uint8_t *e) { return gmSkipOp7(p, e); }   // 2-operand no-op in Talisman
+	void moveTo(uint16_t x, uint8_t y) { pen_x = (int16_t)x; pen_y = (int16_t)y; }
+	void lineTo(uint16_t x, uint8_t y) {
+		draw_line(pen_x, pen_y, (int)x, (int)y, pen_val);
+		pen_x = (int16_t)x; pen_y = (int16_t)y;
+	}
+	void circle(uint8_t radius) { draw_circle(pen_x, pen_y, radius, pen_val); }
+	// PicStampBrushShape (0x2967) starts with DEC AX: brushes stamp one pixel left
+	// of the stream coordinate (text glyphs do not).
+	void drawBrush(uint16_t x, uint8_t y) { draw_brush((int)x - 1, (int)y, brush, fill_idx); }
+	void delay(uint8_t units) { s_slow.recordDelay(units); }   // pacing hint only
+
+	void paint(uint16_t x, uint8_t y) {
+#ifdef GM_TRACE
+		// Debug aid: dump the framebuffer before AND after each fill for
+		// comparison against a DOSBox trace of the native interpreter.  The
+		// before-dumps confirm the canvas going into a fill matches; the
+		// after-dumps isolate whether a divergence is the fill itself (vs a
+		// later primitive).  See test/gmcgav1/compare_op14.py.
+		static int n = 0;
+		n++;
+		const char *td = getenv("GMCGA_TRACE_DIR");
+		const char *tf = getenv("GMCGA_TRACE_FILL");
+		s_pfTrace = tf && atoi(tf) == n;
+		s_pfWordSeq = 0;
+		trace_dump_fill(td, n, "");
+		gmcga_flood_fill((int)x, (int)y, fill_idx);
+		trace_dump_fill(td, n, "_after");
+#else
+		gmcga_flood_fill((int)x, (int)y, fill_idx);
+#endif
+	}
+
+	bool opReset(uint8_t param, const uint8_t *&p, const uint8_t *e) {
+		if (s_v1) {
+			// v1 (PC_GRAPH.OVR 0x2de): op15 is flood-fill CLIP-RECT setup, not a
+			// rectangle paint.  param 0 = no-op; param 1 = reset the clip to the
+			// window defaults; param >=2 = read 4 bytes into the clip rectangle
+			// ([0x9388] right byte, [0x9387] left byte, [0x938a] bottom row,
+			// [0x9389] top row); only the right byte and bottom row matter to
+			// the fill.  No v1 picture in the corpus emits it, so this is
+			// faithful-but-inert today; the 4-byte consume keeps the stream
+			// pointer aligned for any picture that ever does.
+			switch (param) {
+			case 1:
+				s_pfRightByte = PF_RIGHT_BYTE; s_pfBottomRow = PF_BOTTOM_ROW;
+				break;
+			default:
+				if (param >= 2) {
+					GmFillBounds clip;
+					if (!clip.read(p, e))
+						return true;
+					s_pfRightByte  = clip.right;
+					s_pfBottomRow  = clip.bottom;
+				}
+				break; // param 0: nothing
+			}
+			return false;
+		}
+		// v2 / Apple Talisman: op15 is the fill-rectangle opcode.
+		switch (param) {
+		case 1: // set rect to full picture area
+			s_fill.reset(159);
+			break;
+		case 2: // read 4 bytes: right, left, bottom, top
+			if (!s_fill.read(p, e))
+				return true;
+			break;
+		default: // param 0 / 3: fill the rect with the current pattern
+			fill_rect(fill_idx);
+			break;
+		}
+		return false;
+	}
+};
 
 void gmcgaDrawImage(const uint8_t *data, size_t size) {
-	// The op list is dropped by gmcgaResetScreen() when a new page starts (room /
-	// dark / bright / title), NOT here: a scene is a room picture plus any item
-	// overlays, and the overlays must APPEND their bytes to the room's still-
-	// pending reveal so the whole composite is revealed in paint order. Clearing
-	// here would discard the room's not-yet-revealed bytes the moment the first
-	// item draws, leaving only the last picture animated on a blank page.
-	GmcgaCtx ctx = {};
-	ctx.pen_val  = 0;    // pen colour 4 (black) maps to 2-bpp 0
-	// The dispatcher init (NOVEL.EXE 0x1f56 / Transylvania 0x1e46) seeds the
-	// pen position with 0x8c,6; Transylvania's title stream draws its first
-	// line before any MOVE_TO, so this matters.
-	ctx.pen_x    = 140;
-	ctx.pen_y    = 6;
-	ctx.brush    = 5;    // default brush matches Apple renderer init
-	ctx.fill_idx = 0;    // cold-start fill selector 0 -> solid white (0xff);
-						 // matches NOVEL.EXE's statically-zeroed [0x9d46]
-	ctx.text_x   = 140; ctx.text_y = 96;
-	s_fill_left = 0; s_fill_top = 0; s_fill_right = 39; s_fill_bottom = 159;
-	// Flood-fill clip rectangle resets to the picture window before each image
-	// (native FUN_2556); op15 may then narrow it (v1 only).
-	s_pfLeftByte = 4; s_pfRightByte = PF_RIGHT_BYTE;
-	s_pfTopRow = 0;   s_pfBottomRow = PF_BOTTOM_ROW;
-
-	const uint8_t *ptr = data;
-	const uint8_t *end = data + size;
-	int guard = 0;
-	while (ptr < end && ++guard < 100000)
-		if (doImageOp(&ptr, end, &ctx)) break;
-
-	// When not animating, keep the visible page in step with the final page so a
-	// later slow-drawn overlay composes onto the right background.
-	s_slow.syncIfNotRecording();
+	CgaRenderer r;
+	gmRunStream(r, data, size);
 }
 
 // ---- 2-bpp → RGBA conversion -------------------------------------------------

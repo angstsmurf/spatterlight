@@ -22,6 +22,7 @@
  * aslxglk-internal.hh). */
 
 #include "aslxglk-internal.hh"
+#include "aslxglk-map.hh"
 
 namespace aslxglk {
 
@@ -30,6 +31,7 @@ namespace aslxglk {
 void echo_input(const std::string &line)
 {
     echo_input_line(line, true);
+    g_at_line_start = true;
 }
 
 /* Echo a host-owned metaverb (RESTORE, TRANSCRIPT) the way Core's
@@ -38,7 +40,7 @@ void echo_input(const std::string &line)
  * host-echoed. */
 void echo_metaverb(const std::string &cmd)
 {
-    glk_put_string((char *) "\n> ");
+    put_host_string("\n> ");
     echo_input(cmd);
 }
 
@@ -245,7 +247,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
     }
 #endif
     if (prompt && !on_screen)
-        glk_put_string((char *) prompt);
+        put_host_string(prompt);
     if (g_echo_control)
         glk_set_echo_line_event(gwin, 0);
 #ifdef SPATTERLIGHT
@@ -283,6 +285,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
                 std::string line = utf8_from_uni(buf, ev.val1);
                 if (g_manual_echo && echo)
                     echo_input(line);
+                g_at_line_start = true;     /* the echo ended the line */
                 return {InEnd::Line, line};
             }
             break;
@@ -328,6 +331,15 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
                     echo_input(act.command);
                 return {InEnd::Command, act.command};
             }
+            if (ev.win == gbanner && ev.val1 >= kBannerLinkBase &&
+                ev.val1 - kBannerLinkBase < g_bar_commands.size()) {
+                /* A link-bar word: its command, as if typed. */
+                std::string cmd = g_bar_commands[ev.val1 - kBannerLinkBase];
+                cancel_line();
+                if (g_manual_echo && echo)
+                    echo_input(cmd);
+                return {InEnd::Command, cmd};
+            }
             request_hyperlinks();
             break;
         case evtype_Timer: {
@@ -360,7 +372,7 @@ InResult read_line(Interp &in, bool echo, const char *prompt,
                 in.command_override() != entry_override)
                 return {InEnd::State, ""};
             if (reprompt)
-                glk_put_string((char *) prompt);
+                put_host_string(prompt);
 #ifdef SPATTERLIGHT
             /* The tick changed game state while the prompt was up; refresh
              * the autosave (it skips itself when the autosave-on-timer
@@ -402,6 +414,9 @@ void show_continue_link(Interp &in, bool on_screen)
     act.end_wait = true;
     StylePush p;
     p.b = 1;                    /* #endWaitLink { font-weight: bold } */
+    /* The page draws it in a.cmdlink's Blue whatever the game's colours; the
+     * game's own link colour stays readable on the game's page. */
+    p.colour = game_link_colour(in.world());
     if (g_hyperlinks) {
         g_links.push_back(act);
         glk_set_hyperlink((glui32) g_links.size());
@@ -467,7 +482,7 @@ void read_keypress(Interp &in, bool resumed)
             return;
         }
         if (ev.type == evtype_Hyperlink &&
-            (ev.win == gwin || ev.win == gobjwin)) {
+            (ev.win == gwin || ev.win == gobjwin || ev.win == gbanner)) {
             glk_cancel_char_event(gwin);
             cancel_hyperlinks();
             hide_continue_link();
@@ -510,24 +525,22 @@ void read_keypress(Interp &in, bool resumed)
 /* Present a MenuData and return the selected key, or false for cancel.
  * Shared by the script-command prompt (set_menu_response) and the
  * expression-form provider (menu_provider), which is why it does not touch
- * the pending slot itself. */
+ * the pending slot itself.  The caption is not drawn: both of those have
+ * already printed it to the transcript (PrintAsync), and the reference player
+ * shows it a second time only in the popup, which goes away once answered. */
 bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
 {
     /* Through in.print, not render_html: with a PromptBreak active (a menu
      * opened by a timer tick) the first output must retract the stale prompt
      * first, exactly like every other engine print. */
-    /* A v600+ game has already drawn the caption and the numbered options in
-     * the transcript itself (Interp::show_inline_prompt). */
+    /* A v600+ game has already drawn the numbered options in the transcript
+     * itself (Interp::show_inline_prompt). */
     if (!resumed && !in.inline_prompts()) {
-        if (!m.caption.empty()) {
-            in.print(m.caption);
-            glk_put_char('\n');
-        }
         for (size_t i = 0; i < m.options.size(); i++) {
             char num[24];
             snprintf(num, sizeof num, "%zu: ", i + 1);
             in.print(num + m.options[i].second);
-            glk_put_char('\n');
+            put_host_string("\n");
         }
     }
     /* Resumed: the caption, the options AND the prompt are all still on the
@@ -573,7 +586,7 @@ bool run_menu_ui(Interp &in, const MenuData &m, std::string &key, bool resumed)
                 trail.commit();
                 return true;
             }
-        glk_put_string((char *) retry);
+        put_host_string(retry);
         trail.wrote(retry);
     }
 }
@@ -592,6 +605,11 @@ bool run_verb_menu(Interp &in, bool resumed, std::string &cmd)
     for (const std::string &v : g_pending_menu_verbs)
         m.options.push_back(std::make_pair(v, v));
 
+    /* No engine print precedes this menu, so its caption is drawn here. */
+    if (!resumed && !in.inline_prompts() && !m.caption.empty()) {
+        in.print(m.caption);
+        put_host_string("\n");
+    }
     std::string chosen;
     bool picked = run_menu_ui(in, m, chosen, resumed);
 
@@ -645,7 +663,7 @@ bool run_question_ui(Interp &in, const std::string &q, bool &answer,
             answer = yes;
             return true;
         }
-        glk_put_string((char *) retry);
+        put_host_string(retry);
         trail.wrote(retry);
     }
 }
@@ -677,8 +695,15 @@ void draw_character_form(const aslxform::Layout &lay, bool links)
     for (const aslxform::Span &sp : lay.spans) {
         glk_window_move_cursor(gformwin, (glui32) std::max(sp.x, 0),
                                (glui32) sp.y);
-        glk_set_style_stream(s, sp.focused ? style_User1
-                                : sp.heading ? style_Subheader : style_Normal);
+        /* The focused control is marked as the status bar is: reverse
+         * video, or the game's palette inverted while it shows. */
+        if (sp.focused)
+            questglk::colour_status_begin(s);
+        else {
+            glk_set_style_stream(s, sp.heading ? style_Subheader
+                                               : style_Normal);
+            questglk::colour_apply(gformwin, questglk::COLOUR_NONE, gwin);
+        }
         if (sp.link && links)
             glk_set_hyperlink_stream(s, sp.link);
         put_stream_utf8(s, sp.text);
@@ -686,6 +711,7 @@ void draw_character_form(const aslxform::Layout &lay, bool links)
             glk_set_hyperlink_stream(s, 0);
     }
     glk_set_style_stream(s, style_Normal);
+    questglk::colour_status_end();
 }
 
 /* The dialog as a text grid above the story window: every control is a
@@ -742,6 +768,7 @@ bool run_character_grid(Interp &in, aslxform::CharacterForm &f)
         f.set_name(utf8_from_uni(buf, ev.val1));
     };
 
+    sync_game_foreground(in.world());
     redraw();
     bool char_req = false, link_req = false;
     for (;;) {
@@ -944,7 +971,7 @@ bool do_restore_ui(std::string &data)
      * player or QuestViva imports here). restore_game auto-detects which. */
     if (!Interp::is_save_data(data.data(), data.size()) &&
         !Interp::is_native_save_data(data.data(), data.size())) {
-        glk_put_string((char *) "Sorry, that does not look like a saved game"
+        put_host_string("Sorry, that does not look like a saved game"
                                 " for this story.\n");
         return false;
     }
@@ -957,9 +984,9 @@ bool do_restore_ui(std::string &data)
         if (probe.restore_game(data, err))
             return true;
     }
-    glk_put_string((char *) "Sorry, that save cannot be restored (");
+    put_host_string("Sorry, that save cannot be restored (");
     put_uni_string(err);
-    glk_put_string((char *) ").\n");
+    put_host_string(").\n");
     return false;
 }
 
@@ -1002,7 +1029,7 @@ void hint_system_commands(const std::string &raw, bool parser_game)
      * the word is the game's answer, not a command. */
     if (!parser_game || lower(trim(raw)) != "help")
         return;
-    glk_put_string((char *)
+    put_host_string(
         "\n(Type #HELP for the SAVE, RESTORE, UNDO and other system"
         " commands.)\n");
 }
@@ -1023,15 +1050,51 @@ bool handle_status_command(const std::string &raw)
     return true;
 }
 
-/* SIDEBAR WIDE / SIDEBAR NORMAL: double the pane's width, or put it back.
- * Shared with the classic runner. */
+/* SIDEBAR WIDE / SIDEBAR NORMAL: double the pane's width, or put it back
+ * (shared with the classic runner).  Either one, or a bare SIDEBAR, also
+ * shows the pane when the game has hidden it; SIDEBAR OFF hides it and
+ * SIDEBAR AUTO leaves it to the game again. */
 bool handle_sidebar_command(Interp &in, const std::string &raw)
 {
     int which = match_sidebar_command(raw);
     if (!which)
         return false;
     echo_metaverb_command(raw);
-    change_side_pane_width(which, g_use_objpane, gobjwin, gdivider);
+    const bool was_shown = panes_shown();
+    if (!g_use_objpane) {
+        put_host_string(which == kSidebarOff || which == kSidebarAuto
+                            ? "There is no sidebar to hide.\n"
+                            : "There is no sidebar to show.\n");
+        return true;
+    }
+    if (which == kSidebarOff) {
+        put_host_string(!was_shown ? "The sidebar is already hidden.\n"
+                                   : "The sidebar is now hidden.\n");
+        g_panes_override = -1;
+    } else if (which == kSidebarAuto) {
+        put_host_string(!g_panes_override
+                            ? "The game already decides when the sidebar is"
+                              " shown.\n"
+                            : g_panes_visible
+                            ? "The game decides when the sidebar is shown"
+                              " again.\n"
+                            : "The game decides when the sidebar is shown"
+                              " again, and it has hidden it.\n");
+        g_panes_override = 0;
+    } else {
+        g_panes_override = 1;
+        const char *shown = was_shown ? nullptr
+                            : g_panes_visible ? "The sidebar is shown again.\n"
+                            : "The sidebar is shown, though the game hides"
+                              " it.\n";
+        if (which == kSidebarOn)
+            put_host_string(shown ? shown : "The sidebar is already shown.\n");
+        else {
+            if (shown)
+                put_host_string(shown);
+            change_side_pane_width(which, true, gobjwin, gdivider);
+        }
+    }
     /* Written out again at its new width, the pane shows its top, rather
      * than wherever the rewrapped text happened to leave it scrolled. */
     g_pane_dirty = true;
@@ -1048,6 +1111,81 @@ bool handle_transcript_command(const std::string &raw)
         return false;
     echo_metaverb_command(raw);
     toggle_transcript(on, gwin, &gtranscript);
+    return true;
+}
+
+/* The interpreter a COLOURS command came from: set_colour redraws the side
+ * pane and the banner from it.  Null at startup, before either is drawn. */
+static Interp *g_colour_interp = nullptr;
+
+#ifdef QUESTGLK_HAVE_ZCOLORS
+/* Close every window and open again the ones that were open, so that new
+ * Normal hints reach them: libraries snapshot hints when a window opens.
+ * The main window's text is lost, as in Scarier; the banner, the pane, the
+ * picture band and the map are drawn again from what they hold.  The bands
+ * open in a fixed order (picture, then map), whichever came first. */
+static void rebuild_windows()
+{
+    bool had_banner = gbanner != nullptr;
+    winid_t root = glk_window_get_root();
+    if (root)
+        glk_window_close(root, nullptr);
+    gwin = gbanner = gobjwin = gdivider = gformwin = nullptr;
+
+    gwin = glk_window_open(0, 0, 0, wintype_TextBuffer, 1);
+    if (!gwin)
+        return;
+    glk_set_window(gwin);
+    if (had_banner)
+        gbanner = glk_window_open(gwin, winmethod_Above | winmethod_Fixed, 1,
+                                  wintype_TextGrid, 0);
+    if (gtranscript)
+        glk_window_set_echo_stream(gwin, gtranscript);
+    questglk::g_colour.main_win = gwin;
+    panel_reopen();
+    grid_map_reopen();
+    g_pane_dirty = true;
+    if (g_links_requested)
+        request_hyperlinks();
+}
+
+/* Turn the game's colours on or off (see test/README.md): Scarier's
+ * gsc_set_colour for this frontend's windows. */
+void set_colour(bool on)
+{
+    bool links = g_links_requested;
+    if (questglk::colour_toggle_begin(on))
+        rebuild_windows();
+    questglk::colour_repaint(gwin, on);
+    if (gbanner && !on)
+        garglk_set_zcolors_stream(glk_window_get_stream(gbanner),
+                                  zcolor_Default, zcolor_Default);
+    questglk::colour_apply(gwin, g_style.colour(), gwin,
+                           g_style.background());
+    g_main_written = false;
+    if (g_colour_interp) {
+        update_banner(*g_colour_interp);
+        redraw_side_pane(*g_colour_interp);
+    }
+    fill_pane_divider();
+    if (links && g_hyperlinks && gobjwin)
+        glk_request_hyperlink_event(gobjwin);
+}
+#else
+void set_colour(bool)
+{
+}
+#endif
+
+/* COLOURS ON / OFF: show the game's own colours, or the theme. */
+bool handle_colour_command(Interp &in, const std::string &raw)
+{
+    int which = questglk::match_colour_command(raw);
+    if (!which)
+        return false;
+    echo_metaverb_command(raw);
+    g_colour_interp = &in;
+    questglk::run_colour_command(which, set_colour);
     return true;
 }
 
@@ -1073,7 +1211,7 @@ bool handle_verbs_command(Interp &in, const std::string &raw)
     else if (want.rfind("a ", 0) == 0)   want = trim(want.substr(2));
 
     if (want.empty()) {
-        glk_put_string((char *) "Type VERBS followed by an object name, "
+        put_host_string("Type VERBS followed by an object name, "
                                 "e.g. VERBS lamp.\n");
         return true;
     }
