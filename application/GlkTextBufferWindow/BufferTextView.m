@@ -67,18 +67,16 @@
     [(MarginContainer *)self.textContainer drawRect:rect];
 }
 
-// Caret shape spike (issue #39). See NSView+Categories.
+// The theme's caret shape (issue #39). See NSView+Categories.
 - (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
-    if (!NSTextView.drawsCaretShape) {
+    kCaretShapePrefsType shape = ((GlkTextBufferWindow *)self.delegate).theme.caretShape;
+    caretShapeRect = [self drawCaretShape:shape forCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
+    if (shape == kCaretLine)
         [super drawInsertionPointInRect:rect color:color turnedOn:flag];
-        return;
-    }
-    caretShapeRect = [self drawCaretShapeForCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
 }
 
 - (void)setNeedsDisplayInRect:(NSRect)rect avoidAdditionalLayout:(BOOL)flag {
-    if (NSTextView.drawsCaretShape)
-        rect = [self rect:rect widenedToCaretShape:caretShapeRect];
+    rect = [self rect:rect widenedToCaretShape:caretShapeRect];
     [super setNeedsDisplayInRect:rect avoidAdditionalLayout:flag];
 }
 

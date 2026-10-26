@@ -68,30 +68,7 @@
     return links;
 }
 
-typedef NS_ENUM(NSInteger, CaretShape) {
-    kCaretLine,
-    kCaretBlock,
-    kCaretUnderline,
-};
-
-static CaretShape caretShape(void) {
-    static CaretShape shape;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        const char *env = getenv("SPATTERLIGHT_CARET");
-        if (env && !strcmp(env, "block"))
-            shape = kCaretBlock;
-        else if (env && !strcmp(env, "underline"))
-            shape = kCaretUnderline;
-    });
-    return shape;
-}
-
-+ (BOOL)drawsCaretShape {
-    return caretShape() != kCaretLine;
-}
-
-- (NSRect)caretShapeRectForCaretRect:(NSRect)caretRect {
+- (NSRect)caretShapeRect:(kCaretShapePrefsType)shape forCaretRect:(NSRect)caretRect {
     NSRect rect = caretRect;
     NSString *string = self.string;
     NSUInteger index = self.selectedRange.location;
@@ -115,7 +92,7 @@ static CaretShape caretShape(void) {
         rect.origin.y += rect.size.height;
     }
 
-    if (caretShape() == kCaretUnderline) {
+    if (shape == kCaretUnderline) {
         CGFloat thickness = MAX(2, round(rect.size.height / 8));
         rect.origin.y = NSMaxY(rect) - thickness;
         rect.size.height = thickness;
@@ -123,14 +100,24 @@ static CaretShape caretShape(void) {
     return rect;
 }
 
-- (NSRect)drawCaretShapeForCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect {
+- (NSRect)drawCaretShape:(kCaretShapePrefsType)shape forCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect {
     if (!flag) {
         // Never seen on macOS 27, which erases the caret by redisplaying its
         // rect instead. Redisplay the shape in case an older AppKit does.
         [self setNeedsDisplayInRect:lastShapeRect avoidAdditionalLayout:YES];
         return NSZeroRect;
     }
-    NSRect shapeRect = [self caretShapeRectForCaretRect:caretRect];
+    if (shape != kCaretBlock && shape != kCaretUnderline) {
+        // The theme has just switched away from a block or underline: erase
+        // the last one, from the run loop for the reason given below.
+        if (!NSIsEmptyRect(lastShapeRect)) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self setNeedsDisplayInRect:lastShapeRect];
+            });
+        }
+        return NSZeroRect;
+    }
+    NSRect shapeRect = [self caretShapeRect:shape forCaretRect:caretRect];
 
     [NSGraphicsContext saveGraphicsState];
     NSRectClip(shapeRect);
@@ -140,7 +127,7 @@ static CaretShape caretShape(void) {
     // Redraw the character under a block in the background colour.
     NSString *string = self.string;
     NSUInteger index = self.selectedRange.location;
-    if (caretShape() == kCaretBlock && index < string.length && [string characterAtIndex:index] != '\n') {
+    if (shape == kCaretBlock && index < string.length && [string characterAtIndex:index] != '\n') {
         NSLayoutManager *layoutManager = self.layoutManager;
         NSUInteger glyph = [layoutManager glyphIndexForCharacterAtIndex:index];
         NSRect fragment = [layoutManager lineFragmentRectForGlyphAtIndex:glyph effectiveRange:NULL];
