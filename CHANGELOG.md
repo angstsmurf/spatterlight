@@ -39,6 +39,7 @@
 
 ### General
 - A status line in a grid window that stops a few cells short of the right edge, as every Hugo status line does, no longer shows those cells in the colour of an earlier clear. After the help menu of *Colossal Cave*, the end of the blue status line used to be white until the next turn.
+- A grid window collapsed to no rows, as the upper window of a Z-machine game is when it closes, comes back blank when it regrows, as the Glk specification says it should. Bocfel no longer has to clear it itself.
 - A hyperlink in a status line or other grid window keeps the colour of the text around it. It used to take the normal text colour, which made links invisible in a reverse-video status line. Clicking one now scrolls the story to the new text, as a click in the story window does.
 - Quick Look previews and Finder thumbnails now cover every game type the library opens: Quest 5, Archetype, ZX Spectrum snapshots and tapes, Commodore 64 disk and tape images and Apple II disk images. Finder thumbnails were missing for most types, because macOS refuses the DAT type and dropped every type listed after it. The TAP tape type was registered under the wrong extension.
 - Quick Look and the Finder thumbnails no longer crash on a damaged Blorb file. The Quick Look preview of a Blorb keeps its paragraph breaks and shows characters such as `&amp;` decoded, and the preview of an iFiction file colours all its entities, is readable in dark mode, and says so when the file can't be parsed.

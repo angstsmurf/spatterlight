@@ -134,6 +134,28 @@ static const unichar kNBSP = 0xa0;
     [self assertGrid:grid is:@[@"top"] width:8];
 }
 
+// The upper window of a Z-machine game closes by shrinking to zero height
+// (Bocfel close_upper_window). Glk's rule for a grid that shrinks is that
+// the vanished rows are thrown away, so it comes back blank.
+- (void)testCollapsingToNoRowsDropsTheText {
+    GlkTextGridWindow *grid = [self gridWithColumns:8 rows:2];
+    [grid moveToColumn:0 row:0];
+    [grid putString:@"status" style:style_Normal];
+    [grid flushDisplay];
+
+    NSRect collapsed = [self frameForColumns:8 rows:2];
+    collapsed.size.height = 0;
+    grid.frame = collapsed;
+    [grid flushDisplay];
+    XCTAssertEqual(grid.currentSizeInChars.height, 0.0);
+    [grid putString:@"lost" style:style_Normal];
+
+    grid.frame = [self frameForColumns:8 rows:2];
+    [grid flushDisplay];
+    [self assertGrid:grid is:@[@"", @""] width:8];
+    XCTAssertEqual(grid.indexOfPos, 0UL);
+}
+
 - (void)testClearBlanksTheGridAndHomesTheCursor {
     GlkTextGridWindow *grid = [self gridWithColumns:10 rows:2];
     [grid moveToColumn:3 row:1];

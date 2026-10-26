@@ -2141,14 +2141,6 @@ static void resize_upper_window(uint32_t nlines, bool from_game)
 
     if (is_spatterlight_v6)
         return;
-
-    // Hack to clear upper window when its height is set to 0.
-    // This probably doesn't need to be here, but there is currently
-    // an incompatibility with Hugo if this is done in the common window code.
-    if(nlines == 0)
-    {
-        glk_window_clear(upperwin->id);
-    }
 #endif
 
     glui32 previous_height = upper_window_height;

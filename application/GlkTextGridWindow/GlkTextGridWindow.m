@@ -351,6 +351,16 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     self.pendingFrame = frame;
 
     if (frame.size.height == 0) {
+        // A grid that shrinks throws the vanished rows away (Glk 3.5.4),
+        // so one collapsed to no rows comes back blank: the buffer is
+        // rebuilt from the new size when the grid regrows, and until
+        // then putString: drops what is printed. The upper window of a
+        // Z-machine game closes this way (Bocfel close_upper_window).
+        if (_bufferTextStorage.length) {
+            _bufferTextStorage = [[NSMutableAttributedString alloc] initWithString:@""];
+            dirty = YES;
+        }
+        rows = cols = xpos = ypos = 0;
         return;
     }
 
