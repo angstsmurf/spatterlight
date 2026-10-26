@@ -60,10 +60,33 @@
         _printPositionOnInput = (NSUInteger)[decoder decodeIntegerForKey:@"printPositionOnInput"];
         _lastchar = (unichar)[decoder decodeIntegerForKey:@"lastchar"];
         _lastseen = [decoder decodeIntegerForKey:@"lastseen"];
+        _restoredInput = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"inputString"];
+
+        // Text past the fence with a line request pending is what the
+        // player had typed when the archive was taken: a terp that
+        // autosaves mid-request (Scarier up to 1.5.5 answered the
+        // quit-time autosave request that way) or the GUI's own
+        // preference-change autosave both write one. It goes back as
+        // restoredInput, which postRestoreAdjustments: appends after
+        // initLine: has set the new fence; left in the text, initLine:
+        // fences it in as game output, the input is appended behind it a
+        // second time, and the first characters cannot be deleted.
+        if (line_request && textstorage.length > fence) {
+            NSRange typed = NSMakeRange(fence, textstorage.length - fence);
+            if (!_restoredInput)
+                _restoredInput = [textstorage attributedSubstringFromRange:typed];
+            [textstorage deleteCharactersInRange:typed];
+        }
+
+        // The selection stays relative to the text with the input in it:
+        // postRestoreAdjustments: applies it after putting the input back.
         _restoredSelection =
         ((NSValue *)[decoder decodeObjectOfClass:[NSValue class] forKey:@"selectedRange"])
             .rangeValue;
-        _textview.selectedRange = _restoredSelection;
+        NSRange selection = _restoredSelection;
+        selection.location = MIN(selection.location, textstorage.length);
+        selection.length = MIN(selection.length, textstorage.length - selection.location);
+        _textview.selectedRange = selection;
 
         _restoredAtBottom = [decoder decodeBoolForKey:@"scrolledToBottom"];
         _restoredAtTop = [decoder decodeBoolForKey:@"scrolledToTop"];
@@ -84,7 +107,6 @@
 
         bufferTextstorage = [decoder decodeObjectOfClass:[NSMutableAttributedString class] forKey:@"bufferTextstorage"];
 
-        _restoredInput = [decoder decodeObjectOfClass:[NSAttributedString class] forKey:@"inputString"];
         _quoteBox = [decoder decodeObjectOfClass:[GlkTextGridWindow class] forKey:@"quoteBox"];
 
         [self destroyTextFinder];
