@@ -414,6 +414,9 @@ void show_continue_link(Interp &in, bool on_screen)
     act.end_wait = true;
     StylePush p;
     p.b = 1;                    /* #endWaitLink { font-weight: bold } */
+    /* The page draws it in a.cmdlink's Blue whatever the game's colours; the
+     * game's own link colour stays readable on the game's page. */
+    p.colour = game_link_colour(in.world());
     if (g_hyperlinks) {
         g_links.push_back(act);
         glk_set_hyperlink((glui32) g_links.size());

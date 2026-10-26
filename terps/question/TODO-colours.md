@@ -257,10 +257,21 @@ Done. Notes from building it:
     way it does in the browser.
   - Handle `SetBackgroundColour` (the `setBackground` JS case) in the text
     window as well as the map when the mode is on.
-- [ ] **Links.** Glk hyperlinks are drawn in the theme's link look. In colour
+- [x] **Links.** Glk hyperlinks are drawn in the theme's link look. In colour
   mode, colour `cmdlink` spans with `defaultlinkforeground`
   (`aslxglk-output.cc` ~851) through zcolors, if Spatterlight and Gargoyle
   respect zcolors on hyperlinked text. Check this before committing to it.
+  - Neither did. Spatterlight's buffer windows forced every link to Normal's
+    colour (`linkTextAttributes`); now a link keeps its run's colour, as grid
+    links already did. Gargoyle drew every link in `gli_link_color`, the last
+    foreground zcolor set anywhere; the fork's `attr_t::link_fg` now keeps a
+    link's own zcolor. Parking the link colour from the frontend instead
+    would have turned typed input, the caret and "more" that colour too,
+    since they read the same global.
+  - Core's `<a>` already carries `color:<defaultlinkforeground>`. The
+    frontend's own "Continue..." now takes `game_link_colour` (QuestViva
+    draws it in the page's Blue whatever the game's colours). Pane links
+    stay in the pane's text colour, like QuestViva's panes.
 - [ ] **Echo and prompt.** Quest has no separate input colour. Quest 5 colours
   `#txtCommandDiv` with `defaultforeground` (Core.aslx:177), so the echo
   probably just uses fg. Confirm against QuestViva and the Quest 4.1.5 Wine

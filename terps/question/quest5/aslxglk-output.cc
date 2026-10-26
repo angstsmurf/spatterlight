@@ -1390,6 +1390,11 @@ void assign_game_styles(World &w)
     questglk::g_colour.link = scan.colours.game_link;
 }
 
+glui32 game_link_colour(const World &w)
+{
+    return questglk::css_colour(game_string(w, "defaultlinkforeground"));
+}
+
 }  // namespace aslxglk
 
 void game_background_colour(const std::string &css)

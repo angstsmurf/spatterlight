@@ -612,6 +612,9 @@ void push_style(const StylePush &p);
 void pop_style(const StylePush &p);
 /* Also scans for the game's colours, into questglk::g_colour_detect. */
 void assign_game_styles(World &w);
+/* The colour Core's links are in now (game.defaultlinkforeground, which
+ * SetLinkForegroundColour changes), or COLOUR_NONE. */
+glui32 game_link_colour(const World &w);
 
 std::string decode_entities(const std::string &s);
 
