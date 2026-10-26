@@ -259,6 +259,7 @@ static int heglk_new_wincontext(void);
 static void hugo_flushnl(void);
 static void heglk_sizeifexists(int i);
 static void heglk_zcolor(void);
+static void heglk_set_window_bg(int i);
 static int heglk_push_down_main_window_to(int y);
 static void heglk_ensure_menu(void);
 enum heglk_edge { EDGE_BOTTOM, EDGE_RIGHT };
@@ -897,6 +898,16 @@ void hugo_getline(char *prompt)
         buffer[0] = '\0';
         return;
     }
+
+    /* The main window is painted only when it is cleared or mapped, so a
+     * background the game took up without either -- the colours a restored
+     * game sets again, after the save was made in others -- would stay
+     * behind the old paint, under every line from then on.  A screen that
+     * scrolls fills with the colour the prompt is drawn in; make the window
+     * catch up the same way when the game next asks for a command. */
+    if (curwin == mainwin && wins[curwin].win->type == wintype_TextBuffer
+        && wins[curwin].papercolor != wins[curwin].bg)
+        heglk_set_window_bg(curwin);
 
     glk_set_window(wins[curwin].win);
     /* Print prompt */
