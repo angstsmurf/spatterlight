@@ -1149,7 +1149,7 @@ static void rebuild_windows()
         request_hyperlinks();
 }
 
-/* Turn the game's colours on or off (TODO-colours.md, Step 4): Scarier's
+/* Turn the game's colours on or off (see test/README.md): Scarier's
  * gsc_set_colour for this frontend's windows. */
 void set_colour(bool on)
 {

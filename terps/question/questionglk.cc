@@ -609,7 +609,7 @@ rebuild_windows()
         update_objwin(g_live_runner);
 }
 
-/* Turn the game's colours on or off (TODO-colours.md, Step 4): Scarier's
+/* Turn the game's colours on or off (see test/README.md): Scarier's
  * gsc_set_colour for this frontend's windows. */
 static void
 set_colour(bool on)

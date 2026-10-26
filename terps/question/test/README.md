@@ -100,6 +100,7 @@ command per piece of state a relaunch has to carry. Every span in the compared o
 | real-time timers | `q4-timer`, `q4-timer-midcycle` | `q5-timer`, `q5-timer-midcycle`, `q5-timeout` |
 | prompts the game can be closed on | `q4-question`, `q4-menu`, `q4-enter` (autosaved; the relaunch replays the turn back to the prompt), `q4-intro-gender` (the same for a question of the startscript) | `q5-get-input`, `q5-show-menu`, `q5-ask`, `q5-intro-menu`, `q5-intro-ask` (same), `q5-wait` (no autosave; the relaunch resumes at the turn prompt) |
 | game-derived styles | `q4-styles-wait` (closed on the pause under the title), `q4-styles` (after the first turn; the 14-point span must land on the same spare style) | `q5-styles-wait`, `q5-styles` (same, under Core's title) |
+| game colours | `q4-colours` (a background changed in play and the COLOURS toggle survive) | `q5-colours` (same, through `SetBackgroundColour`) |
 | hyperlinks | `q4-pane-links` (fold, Take, Drop through the pane) | `q5-inline-link`, `q5-link-menu` (an object link's verb menu stays autosaved and reopens on relaunch) |
 | walkthroughs from `goldens/` | Bear Campsite, Mansion, Gathered in Darkness | Exit the Room, Bear's Epic Quest, ARC II |
 | damaged record | `q4-corrupt` (discarded, fresh boot), `q4-old-format` (the pre-unification container, likewise), `q4-bad-undo` (engine state restored, undo history ignored with a log line) | `q5-corrupt`, `q5-old-format` |
@@ -109,6 +110,29 @@ Restored transcripts are not re-sent as link runs, so a link clicked after a
 relaunch is addressed by number (`link:PEER:N`) rather than by text; see the
 `glkdrive.py` docstring for the script vocabulary (`tick:N`, `key:X`,
 `click:TEXT`, `link:N`).
+
+## Game colours
+
+A game's own colours (`../questglk-common.cc`: detection, the palette and the
+COLOURS toggle; the per-span colour in each frontend's printer) are pinned by
+`styles/run_styles_tests.py`, which prints a `ZCOLOR peer fg bg` line between
+the SPAN lines from the zcolors `glkdrive.py` records. `styles_colours.asl`
+and `styles_q5colours.aslx` play look / colours off / look / colours on / look
+through a `.script` sidecar; `styles_q5foreground`, `styles_q5center` and
+`styles_q5panel` cover a foreground set in play and the page and block
+backgrounds. The mode compiles out under CheapGlk, so `make check`, `make
+replays` and the `aslxglk_smoke` diff should not change when colour code does.
+
+Still open:
+
+- The echo and the prompt are written in the current span colour (the game
+  foreground). Quest 5 colours `#txtCommandDiv` with `defaultforeground`
+  (Core.aslx:177), so this is probably right, but it has not been compared with
+  QuestViva and the Quest 4.1.5 Wine runner, and Scarier's `gsc_colour_echo`
+  has not been ported.
+- `do what you want.asl` declares a black background and leaves the foreground
+  black. A convenience that swaps an unreadable declared foreground for the
+  theme's was considered and not built.
 
 ## Shared frontend helpers (`questglk_unit_tests.cc`)
 
