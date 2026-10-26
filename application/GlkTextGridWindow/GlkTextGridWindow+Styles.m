@@ -202,8 +202,13 @@
     // It is complicated by the fact that some games have a status line in reverse video, but leaves
     // a single character at the end non-reversed. Also, our setFrame implementation inserts newline
     // charaters at the end of every row, and those may not have the right background color. So we
-    // simply count the background color runs and check if one fills the window (which we fudge to
-    // mean "length of textstorage minus two colums".)
+    // simply count the background color runs and check if one fills the window, allowing for the
+    // newline and up to three cells per row: the Hugo front end tells the game that the screen is
+    // two columns narrower than the grid (heglk_get_linelength), and its integer division can lose
+    // one more against our rounding, so a Hugo status line stops short of the right edge by that
+    // much and those cells keep the colour of the last clear. Falling through to bgnd instead
+    // showed them in the zcolor that was current at the clear (the white of Colossal Cave's help
+    // menu at the end of its blue status line).
 
     NSAttributedString __block *blockTextStorage = _bufferTextStorage;
 
@@ -249,7 +254,7 @@
         // so also accept a color that fills most of the window as long as
         // it is the background of the first and last cell of every row,
         // which are the ones that border the margins.
-        if (longest < blockTextStorage.length - rows * 2 &&
+        if (longest < blockTextStorage.length - rows * 4 &&
             (longest < blockTextStorage.length / 2 ||
              ![self color:bgCol isAtRowEdgesOf:blockTextStorage]))
             bgCol = nil;
