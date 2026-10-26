@@ -166,7 +166,7 @@ struct ColourMode {
   bool startup = false;          /* on from the first window */
   bool hints_preapplied = false; /* the open windows already have the hints */
   glui32 main_fg = COLOUR_NONE;  /* last foreground named on the main window */
-  glui32 hint_fg = COLOUR_NONE;  /* the Normal colours last published as hints */
+  glui32 hint_fg = COLOUR_NONE;  /* the Normal colours the windows opened with */
   glui32 hint_bg = COLOUR_NONE;
   winid_t main_win = nullptr;    /* the frontend's main text window */
 };
@@ -189,9 +189,17 @@ bool colour_toggle_begin (bool on);
  * the mode is on, painted at once if `main_empty' says no text is lost by
  * clearing.  `span_fg' is the colour the text being written is in. */
 void colour_set_background (glui32 bg, bool main_empty, glui32 span_fg);
+/* A foreground the game sets in play (Quest 4's `foreground', Quest 5's
+ * game.defaultforeground, which Core prints its own spans in): the colour of
+ * later text with no colour of its own, of the status rows and of the panes.
+ * Published as the Normal TextColor hint for the windows opened from now on;
+ * the ones already open keep the snapshot they took, so hint_fg, which
+ * colour_visible measures the main window against, stays as it was. */
+void colour_set_foreground (glui32 fg);
 /* Named on a status grid after each clear: the palette inverted while it is
  * showing, else the reverse-video User1 the theme draws.  End puts the main
- * window's colours back, since Gargoyle's zcolors are global. */
+ * window's colours back, since Gargoyle's zcolors are global; it also ends a
+ * pane drawn through colour_apply. */
 void colour_status_begin (strid_t stream);
 void colour_status_end ();
 

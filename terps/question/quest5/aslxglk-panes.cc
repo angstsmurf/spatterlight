@@ -203,6 +203,7 @@ void draw_link_bar(winid_t banner, const std::string &room,
 void update_banner(Interp &in)
 {
     World &w = in.world();
+    sync_game_foreground(w);
     std::string room = g_location_line;
     if (room.empty()) {
         Element *pl = object_field(in, game_element(w), "pov");
@@ -345,6 +346,12 @@ void redraw_side_pane(Interp &in)
         return;
     }
 
+    /* The pane in the palette: the game's foreground as it is now over its
+     * background, which the clear paints the pane in (the reference player
+     * tints the whole game panel with SetBackgroundColour).  Nothing happens
+     * while the mode is off: the Normal hints are the theme's then. */
+    sync_game_foreground(in.world());
+    questglk::colour_apply(gobjwin, questglk::COLOUR_NONE, gwin);
     glk_window_clear(gobjwin);
     g_pane_links.clear();
     strid_t s = glk_window_get_stream(gobjwin);
@@ -436,6 +443,7 @@ void redraw_side_pane(Interp &in)
     section(template_text_or(w, "PlacesObjectsLabel", PANE_PLACES_OBJECTS),
             places, false);
     section(template_text_or(w, "CompassLabel", PANE_COMPASS), exits, true);
+    questglk::colour_status_end();      /* the main window's colours back */
     fill_pane_divider();
 }
 

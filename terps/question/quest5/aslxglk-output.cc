@@ -1395,6 +1395,12 @@ glui32 game_link_colour(const World &w)
     return questglk::css_colour(game_string(w, "defaultlinkforeground"));
 }
 
+void sync_game_foreground(const World &w)
+{
+    questglk::colour_set_foreground(
+        questglk::css_colour(game_string(w, "defaultforeground")));
+}
+
 }  // namespace aslxglk
 
 void game_background_colour(const std::string &css)

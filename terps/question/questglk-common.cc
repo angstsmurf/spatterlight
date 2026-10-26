@@ -1009,6 +1009,19 @@ colour_set_background (glui32 bg, bool main_empty, glui32 span_fg)
 }
 
 void
+colour_set_foreground (glui32 fg)
+{
+    if (fg == COLOUR_NONE || fg == g_colour.foreground)
+        return;
+    g_colour.foreground = fg;
+    if (g_colour.hint_fg == COLOUR_NONE)
+        return;
+    for (glui32 type : {wintype_TextBuffer, wintype_TextGrid})
+        glk_stylehint_set (type, style_Normal, stylehint_TextColor,
+                           (glsi32) fg);
+}
+
+void
 colour_blob_put (std::string &b)
 {
     blob_num (b, g_colour.on ? 1 : 0);

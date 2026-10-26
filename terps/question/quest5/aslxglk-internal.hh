@@ -615,6 +615,12 @@ void assign_game_styles(World &w);
 /* The colour Core's links are in now (game.defaultlinkforeground, which
  * SetLinkForegroundColour changes), or COLOUR_NONE. */
 glui32 game_link_colour(const World &w);
+/* Take game.defaultforeground as it is now into the palette, for what the
+ * frontend draws itself (the status rows, the pane, the character form).
+ * SetForegroundColour only changes the attribute; the reference player shows
+ * it because Core prints every span in it, and this frontend's spans follow
+ * suit.  Deeper declares OldLace on OldLace and sets Maroon as it starts. */
+void sync_game_foreground(const World &w);
 
 std::string decode_entities(const std::string &s);
 

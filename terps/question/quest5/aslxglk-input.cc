@@ -768,6 +768,7 @@ bool run_character_grid(Interp &in, aslxform::CharacterForm &f)
         f.set_name(utf8_from_uni(buf, ev.val1));
     };
 
+    sync_game_foreground(in.world());
     redraw();
     bool char_req = false, link_req = false;
     for (;;) {

@@ -1556,7 +1556,7 @@ QuestionGlkInterface::set_foreground (const std::string &col)
     glui32 c = quest4_colour(col, 0x000000);
     if (c == COLOUR_NONE)
         return;
-    g_colour.foreground = c;
+    colour_set_foreground(c);
     colour_apply(mainglkwin, g_span_colour, mainglkwin);
 }
 
