@@ -8,9 +8,11 @@
 - In *Bureaucracy*, the VoiceOver form reading is fixed, and an instruction waiting to be spoken survives an error message.
 - A menu read by VoiceOver no longer speaks the instruction for a key twice. Reading the menus of *The Unforgotten* with VoiceOver no longer crashes, and the *Journey* dialog no longer shows the last move twice.
 - Random events continue the same way after an autorestore: the random number generator is saved exactly, where it used to be re-seeded from the new session.
+- *Robot Finds Kitten* no longer crashes with "attempt to write to read-only address 0x1" during its ending animation (issue #87). The patch for it was dropped by mistake in the Bocfel 2.2 update.
 
 ### Scarier (Adrift)
 - Some Adrift 4.0 games have ALRs written for the older take wording, which the 4.0 runner never prints. Scarier now keeps the older wording when a game's ALRs quote it (a deliberate deviation), so Hubert's retorts in *To Hell in a Hamper* appear, and the "already got" replacements in *Cursed* and a dozen other games fire. An ALR that contains itself is printed once.
+- Adrift games get text styles from their own markup: before the window opens, Scarier counts the bold, italic, monospaced, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large, and the 14-point title every Adrift 4 game opens with is no longer bold. A combination left without a style of its own falls back to the nearest one that has. The look with "Games can set colors and styles" off is unchanged.
 
 ### Plus
 - The versions of the *X-Men* SAGA database other than the original can now be added to the library, as they now get an IFID of their own.
@@ -33,9 +35,23 @@
 - A Quest 5 game that draws its own bar of clickable words into the page, like the topics under the command line in *Spondre*, now gets them on extra lines of the status bar, where each word can be clicked. A game that hides the side pane used to lose them altogether.
 - Quest 5 text is spaced the way a web page spaces it: line breaks and indentation in the game's source no longer show, and a run of spaces counts as one. *Spondre*, which indents and hand-wraps its text, used to print every paragraph indented and broken mid-sentence.
 - SIDEBAR, SIDEBAR WIDE and SIDEBAR NORMAL now show a Quest 5 game's side pane even when the game hides it, and SIDEBAR OFF hides it. SIDEBAR AUTO gives the choice back to the game. The setting is kept in the autosave.
+- Quest 4 and Quest 5 games can be shown in their own colours. A game that declares a page or text colour of its own, repaints its background in play, or prints text in a colour that reads on its page but not on the theme's starts in its own colours: the page and the text in the colours the game asks for, the status bar in those colours inverted, and a Quest 5 side pane and link bar to match. A game written for Quest's plain white page keeps the theme. COLOURS ON and COLOURS OFF switch between the two, COLOURS says which is in effect, and the choice and the colours the game has set are kept in the autosave. *Deeper*, whose header gives the same colour for the text and the page before it sets maroon on beige as it starts, follows the colour it sets, so its character creation form is readable, and the clickable words under *Spondre*'s status bar are drawn in the status colours like the rest of the bar. The look with "Games can set colors and styles" off is unchanged.
 
 ### Hugo
+- A game that pauses in a loop until it gets the key it wants, as the hint screens of *Future Boy!* do, no longer spins forever at full CPU without ever asking for a key.
+- A fatal error in a game is shown in the window and printed to the terminal, where it used to just close the window.
+- Hugo files older than version 2.0, whose header is laid out differently, are refused instead of being run and read past their memory. A game that moves an object into something that isn't an object no longer writes past the object table, so the award ceremony in *Doom, Death, Destruction and All That* plays to the end.
+- Fixes a hang when a game asks for the foreground colour 20, resource lookups that could never use the last slot, and the *Guilty Bastards* windows being resized after a full-screen clear had given their slots to other windows.
 - A Hugo game is told the screen is one column narrower than it is, not two, so status lines, menus and centred text reach a cell closer to the right edge. A window that starts at the left edge and nearly spans the screen is stretched to the right edge instead of being shifted right.
+
+### TADS
+- A slideshow paced with timeDelay, such as the intro of *Six Stories*, shows every frame instead of jumping from the title to the last one.
+- TADS 3 error messages with string parameters were written past the end of their block, which garbled the messages or crashed. A deleted banner's child banners no longer point at their freed parent.
+- A TADS 2 game that is stuck in a loop, running for about five seconds without reading input or printing anything, is interrupted as if you had pressed break, and the turn is undone. *Six* does this when a one-letter word is typed at its death prompt in HTML mode.
+- The guess between MacRoman, Windows and Cyrillic text in older games is better: the bullets in the status line of *Ruined Robots* no longer turn into Cyrillic letters.
+
+### Comprehend
+- A picture whose drawing instructions end in the middle of an operation stops drawing there instead of reading past the end of the picture data. A double hi-res line that spans all 256 rows is drawn, where it used to scribble across the whole page.
 
 ### General
 - A status line in a grid window that stops a few cells short of the right edge, as every Hugo status line does, no longer shows those cells in the colour of an earlier clear. After the help menu of *Colossal Cave*, the end of the blue status line used to be white until the next turn.
@@ -76,6 +92,9 @@
 - Comparing a downloaded cover with the one a game already has uses Vision feature prints on macOS 10.15 and later, so re-encoded or resized copies of the same picture are recognised.
 - In Preferences, the "Game specific hacks" check box is now "Disable game-specific hacks", the selected theme is restored as soon as the theme list loads, and editing a built-in theme straight after opening the window makes only one copy of it. The window reopened at launch is the right size from the start, instead of resizing itself a moment after it appears, and switching panels quickly no longer hides the preview. The Show Info toolbar label is the same on all macOS versions.
 - In text grid windows, such as status lines, making the window narrower no longer leaves the last character of each row behind, and line input in an empty grid window no longer crashes. VoiceOver says "End of command history", not "Start", when stepping past the newest command, and a selection that ends at the last character is kept when the game is autorestored.
+- The VoiceOver command history rotor (issue #26) no longer records the line you are still typing as part of a move when a timer or a window resize fires, so the moves no longer start in the middle of a command, and the rotor no longer says "No items" when VoiceOver hands it an empty current item.
+- Sound decoding runs at the right thread priority, so the main thread no longer waits on it in a priority inversion that Xcode flagged as a hang risk.
+- Files ending in .glb are recognised as Blorbs, as the library already accepted them as games.
 
 ## Release 1.5.5
 
