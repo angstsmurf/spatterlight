@@ -533,11 +533,21 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     return zoomTheme;
 }
 
+// Scanlines, glow and an underline cursor, for the themes that imitate a PC
+// screen. Set before the early return, like resetCommonValues, so that
+// existing built-in themes get them too.
++ (void)applyCRTLookToTheme:(Theme *)theme {
+    theme.crtScanlines = YES;
+    theme.crtGlow = YES;
+    theme.caretShape = kCaretBlock;
+}
+
 + (Theme *)createDOSThemeInContext:(NSManagedObjectContext *)context forceRebuild:(BOOL)force {
     BOOL exists = NO;
     Theme *dosTheme = [BuiltInThemes findOrCreateTheme:@"MS-DOS" inContext:context alreadyExists:&exists];
 
     [dosTheme resetCommonValues];
+    [BuiltInThemes applyCRTLookToTheme:dosTheme];
 
     if (exists && !force)
         return dosTheme;
@@ -601,6 +611,7 @@ static NSFont *fontNamedInDefaults(NSString *name, CGFloat size) {
     Theme *dosBoxTheme = [BuiltInThemes findOrCreateTheme:@"DOSBox" inContext:context alreadyExists:&exists];
 
     [dosBoxTheme resetCommonValues];
+    [BuiltInThemes applyCRTLookToTheme:dosBoxTheme];
 
     if (exists && !force)
         return dosBoxTheme;

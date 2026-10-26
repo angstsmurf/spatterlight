@@ -192,6 +192,31 @@ static NSString *describeObject(NSManagedObject *object) {
     }
 }
 
+// The PC screen themes get scanlines, glow and an underline cursor, also
+// when they already exist, and the other themes none of them.
+- (void)testDOSThemesHaveTheCRTLook {
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
+    for (Theme *theme in [self allThemes]) {
+        if ([theme.name isEqualToString:@"MS-DOS"] || [theme.name isEqualToString:@"DOSBox"]) {
+            theme.crtScanlines = NO;
+            theme.crtGlow = NO;
+            theme.caretShape = kCaretLine;
+        }
+    }
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
+
+    NSUInteger found = 0;
+    for (Theme *theme in [self allThemes]) {
+        BOOL dos = [theme.name isEqualToString:@"MS-DOS"] || [theme.name isEqualToString:@"DOSBox"];
+        if (dos)
+            found++;
+        XCTAssertEqual(theme.crtScanlines, dos, @"%@", theme.name);
+        XCTAssertEqual(theme.crtGlow, dos, @"%@", theme.name);
+        XCTAssertEqual(theme.caretShape, dos ? kCaretUnderline : kCaretLine, @"%@", theme.name);
+    }
+    XCTAssertEqual(found, 2u);
+}
+
 // Old settings belongs to the user: a forced rebuild (every new app build,
 // or Rebuild Default Themes) re-imported it from the old defaults keys,
 // overwriting edits, and recreated it after it had been deleted.
