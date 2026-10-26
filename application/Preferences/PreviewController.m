@@ -42,6 +42,8 @@
     self.view.wantsLayer = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notePreferencesChanged:) name:kPreferencesChangedNotification object:nil];
     [[NSWorkspace sharedWorkspace].notificationCenter addObserver:self selector:@selector(updateCRTEffects) name:NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification object:nil];
+    // The glow radius is in pixels: set it again when a window changes screen.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCRTEffects) name:NSWindowDidChangeBackingPropertiesNotification object:nil];
 }
 
 - (void)fixScrollBar {

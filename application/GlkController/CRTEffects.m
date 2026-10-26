@@ -7,10 +7,10 @@
 
 static NSString * const kCRTGlowFilterName = @"crtGlow";
 
-// Bloom radius in points and strength. Small enough that text stays sharp,
-// big enough to see on a dark background.
-static const CGFloat kGlowRadius = 2.5;
-static const CGFloat kGlowIntensity = 0.7;
+// Bloom radius in points and strength: a tight, faint halo, so that the text
+// stays readable and a reverse-video block does not bleed.
+static const CGFloat kGlowRadius = 1.25;
+static const CGFloat kGlowIntensity = 0.4;
 
 // One dark scanline every kScanlinePeriod points.
 static const CGFloat kScanlinePeriod = 3;
@@ -40,6 +40,7 @@ static const CGFloat kVignetteAlpha = 0.4;
 
 - (void)drawRect:(NSRect)dirtyRect {
     static NSColor *scanlines = nil;
+    static NSGradient *vignette = nil;
     if (!scanlines) {
         NSImage *tile = [NSImage imageWithSize:NSMakeSize(1, kScanlinePeriod)
                                        flipped:NO
@@ -49,21 +50,26 @@ static const CGFloat kVignetteAlpha = 0.4;
             return YES;
         }];
         scanlines = [NSColor colorWithPatternImage:tile];
+        // An elliptical vignette: a radial gradient in a unit circle,
+        // stretched to the view, which reaches full strength in the corners.
+        vignette = [[NSGradient alloc] initWithColorsAndLocations:
+                    [NSColor clearColor], 0.0,
+                    [NSColor clearColor], 0.5,
+                    [NSColor colorWithWhite:0 alpha:kVignetteAlpha], 1.0,
+                    nil];
     }
     // Views no longer clip to their bounds by default (macOS 14), and both
     // the dirty rect and the vignette can reach past them.
     NSRect bounds = self.bounds;
     NSRectClip(bounds);
+    // A pattern repeats from the window's origin, so a window growing at the
+    // bottom would move the lines under the text. Repeat from the top left of
+    // the view instead, where the text starts.
+    NSRect frameInWindow = [self convertRect:bounds toView:nil];
+    [NSGraphicsContext.currentContext setPatternPhase:NSMakePoint(NSMinX(frameInWindow), NSMaxY(frameInWindow))];
     [scanlines set];
     NSRectFillUsingOperation(NSIntersectionRect(dirtyRect, bounds), NSCompositingOperationSourceOver);
 
-    // An elliptical vignette: a radial gradient in a unit circle, stretched
-    // to the view, which reaches full strength in the corners.
-    NSGradient *vignette = [[NSGradient alloc] initWithColorsAndLocations:
-                            [NSColor clearColor], 0.0,
-                            [NSColor clearColor], 0.5,
-                            [NSColor colorWithWhite:0 alpha:kVignetteAlpha], 1.0,
-                            nil];
     [NSGraphicsContext saveGraphicsState];
     NSAffineTransform *transform = [NSAffineTransform transform];
     [transform translateXBy:NSMidX(bounds) yBy:NSMidY(bounds)];
@@ -105,6 +111,9 @@ static BOOL accessibilityWantsPlainDisplay(void) {
         return;
     }
 
+    // Only Core Image's own filters work here: the window server renders
+    // the layer, so a CIFilter subclass of our own is never asked for its
+    // output image.
     CIFilter *bloom = [CIFilter filterWithName:@"CIBloom"];
     [bloom setDefaults];
     bloom.name = kCRTGlowFilterName;
@@ -149,6 +158,12 @@ static BOOL accessibilityWantsPlainDisplay(void) {
 }
 
 - (void)noteAccessibilityDisplayOptionsChanged:(NSNotification *)notification {
+    [self updateCRTEffects];
+}
+
+// NSWindowDelegate. The glow radius is in pixels, so it follows the window
+// between Retina and non-Retina screens.
+- (void)windowDidChangeBackingProperties:(NSNotification *)notification {
     [self updateCRTEffects];
 }
 

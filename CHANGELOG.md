@@ -95,6 +95,8 @@
 - The VoiceOver command history rotor (issue #26) no longer records the line you are still typing as part of a move when a timer or a window resize fires, so the moves no longer start in the middle of a command, and the rotor no longer says "No items" when VoiceOver hands it an empty current item.
 - Sound decoding runs at the right thread priority, so the main thread no longer waits on it in a priority inversion that Xcode flagged as a hang risk.
 - Files ending in .glb are recognised as Blorbs, as the library already accepted them as games.
+- Each theme can give the input caret a shape of its own: the usual line, a block or an underline, set with the new Cursor shape menu on the Details tab of Preferences (issue #39). The built-in MS-DOS and DOSBox themes use an underline.
+- A theme can ask for a retro CRT look (issue #6): a faint phosphor glow around the text, and scanlines with a darkened vignette over the window, set with the CRT glow and CRT scanlines check boxes on the Details tab. The MS-DOS and DOSBox themes have both on. The effects are drawn over the ordinary text views, so selection, links and VoiceOver work as before, they follow the window between Retina and other screens, and they are left out while the system Increase contrast or Reduce transparency options are on.
 
 ## Release 1.5.5
 

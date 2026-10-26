@@ -1,7 +1,7 @@
 #import "GlkController.h"
 
 // Optional retro "CRT" look, set per theme: a phosphor glow (a Core Image
-// bloom filter on a view) and scanlines with a vignette (a static overlay
+// filter on a view) and scanlines with a vignette (a static overlay
 // view on top of a view's subviews). Both are drawn over the ordinary text
 // views, so selection, hyperlinks and VoiceOver work as usual. They are left
 // out while the system "Increase contrast" or "Reduce transparency"
@@ -24,5 +24,8 @@
 
 // Observer for NSWorkspaceAccessibilityDisplayOptionsDidChangeNotification.
 - (void)noteAccessibilityDisplayOptionsChanged:(NSNotification *)notification;
+
+// NSWindowDelegate: the window moved to a screen with another scale.
+- (void)windowDidChangeBackingProperties:(NSNotification *)notification;
 
 @end
