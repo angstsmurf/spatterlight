@@ -34,6 +34,9 @@
 - Quest 5 text is spaced the way a web page spaces it: line breaks and indentation in the game's source no longer show, and a run of spaces counts as one. *Spondre*, which indents and hand-wraps its text, used to print every paragraph indented and broken mid-sentence.
 - SIDEBAR, SIDEBAR WIDE and SIDEBAR NORMAL now show a Quest 5 game's side pane even when the game hides it, and SIDEBAR OFF hides it. SIDEBAR AUTO gives the choice back to the game. The setting is kept in the autosave.
 
+### Hugo
+- A Hugo game is told the screen is one column narrower than it is, not two, so status lines, menus and centred text reach a cell closer to the right edge. A window that starts at the left edge and nearly spans the screen is stretched to the right edge instead of being shifted right.
+
 ### General
 - A status line in a grid window that stops a few cells short of the right edge, as every Hugo status line does, no longer shows those cells in the colour of an earlier clear. After the help menu of *Colossal Cave*, the end of the blue status line used to be white until the next turn.
 - A hyperlink in a status line or other grid window keeps the colour of the text around it. It used to take the normal text colour, which made links invisible in a reverse-video status line. Clicking one now scrolls the story to the new text, as a click in the story window does.

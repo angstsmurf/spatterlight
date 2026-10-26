@@ -54,8 +54,8 @@ These came out of the read-throughs in the former `heglk/TODO.md` (two
 passes), and are recorded here so they are not reopened by accident.
 
 - `hugo_handlearrange` checks whether anything changed and returns early,
-  but its pixel clause can never hold (`heglk_get_linelength()` leaves two
-  columns spare). So every arrange event redoes the whole layout. A check
+  but its pixel clause can never hold (`heglk_get_linelength()` leaves a
+  column spare). So every arrange event redoes the whole layout. A check
   that works gave 0 trace changes. It was still not kept: the same-size
   arrange after a theme change relies on the relayout to redraw backgrounds
   and Future Boy pictures, and the suite cannot see that. The cost is CPU
@@ -79,6 +79,13 @@ passes), and are recorded here so they are not reopened by accident.
 - `heglk_find_window_edge` does not skip cleared windows or the caller's
   own window. Callers that care check the result. Changing this would change
   layout.
+- `heglk_get_linelength` reports one column less than the grid has, not
+  two (changed 2026-10-26, 134 traces moved a cell). One column is the
+  wrapping guard the original heglk had; the second had no recorded reason
+  and made every status line stop two or three cells short of the edge. A
+  window that starts at column 1 and ends within a cell of the reported
+  width is stretched to the right edge, where the peg-to-right rule used to
+  shift it (speedo-size-600x1000).
 - No formatter run: there is no `.clang-format`, and reformatting the whole
   file would bury blame. Fix indentation where code is touched.
 - The window-context recycling path has no trace of its own, because games

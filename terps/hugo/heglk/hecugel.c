@@ -787,6 +787,12 @@ int hugo_strlen(char *a)
  * While the engine thinks that the linelength is 0x7fff,
  * this tells things like the display object the actual
  * length.  (Defined as ACTUAL_LINELENGTH in heheader.h.)
+ *
+ * One column less than the grid has: a line padded to the full
+ * width would end in the last cell and wrap. The grid rounds its
+ * column count where we floor, so the game's lines stop one or
+ * two cells short of the right edge; the GUI allows for that when
+ * it colours a status line (GlkTextGridWindow checkForUglyBorder).
  */
 
 int heglk_get_linelength(void)
@@ -795,7 +801,7 @@ int heglk_get_linelength(void)
     if (width < 0)
         width = 0;
     width = width / gcellw;
-    width -= 2; /* -2 to trigger automatic line wrapping */
+    width -= 1;
     if (width < 0)
         width = 0;
     return width;
@@ -1418,8 +1424,8 @@ static void hugo_handlearrange(void)
     int width = heglk_get_linelength();
     int height = heglk_get_screenheight();
 
-    /* The pixel test never holds, as heglk_get_linelength() leaves two
-       columns spare, so in practice this never returns early. */
+    /* The pixel test never holds, as heglk_get_linelength() leaves a
+       column spare, so in practice this never returns early. */
     if (width == screenwidth_in_chars && height == screenheight_in_chars && gcellw * screenwidth_in_chars + ggridmarginx * 2 == gscreenw) {
         return;
     }
@@ -1977,7 +1983,7 @@ static void heglk_place_status(struct heglk_geometry *g)
         if (wins[statuswin].win)
             glk_window_clear(wins[statuswin].win);
     }
-    g->right = screenwidth_in_chars + 2;
+    g->right = screenwidth_in_chars + 1;
 }
 
 /* Any other window that does not reach the bottom of the screen. */
@@ -2036,10 +2042,19 @@ static void heglk_place_aux(struct heglk_geometry *g)
 
     if (ABS(g->right - screenwidth_in_chars) < 2 && !heglk_find_window_edge(EDGE_RIGHT, g->left))
     {
-        int diff = gscreenw - g->x1;
-        g->x1 = gscreenw;
-        g->x0 += diff;
-        g->peggedtoright = true;
+        if (g->left == 1)
+        {
+            /* A window that starts at the left edge is stretched to the
+               right edge, never shifted (trace: speedo-size-600x1000). */
+            g->x1 = gscreenw;
+        }
+        else
+        {
+            int diff = gscreenw - g->x1;
+            g->x1 = gscreenw;
+            g->x0 += diff;
+            g->peggedtoright = true;
+        }
     }
 
     /* A height of 1 and a height of 0 will both
