@@ -208,6 +208,7 @@
 @property (weak) IBOutlet NSPopUpButton *errorHandlingPopup;
 @property (weak) IBOutlet NSPopUpButton *imageReplacePopup;
 @property (weak) IBOutlet NSPopUpButton *coverImagePopup;
+@property (weak) IBOutlet NSPopUpButton *caretShapePopup;
 
 @property (weak) IBOutlet NSButton *btnAutoBorderColor;
 @property (weak) IBOutlet NSButton *btnShowBezels;

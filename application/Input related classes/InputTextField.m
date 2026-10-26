@@ -49,18 +49,16 @@
     [[NSCursor IBeamCursor] set];
 }
 
-// Caret shape spike (issue #39). See NSView+Categories.
+// The theme's caret shape (issue #39). See NSView+Categories.
 - (void)drawInsertionPointInRect:(NSRect)rect color:(NSColor *)color turnedOn:(BOOL)flag {
-    if (!NSTextView.drawsCaretShape) {
+    kCaretShapePrefsType shape = self.glkWindow.theme.caretShape;
+    caretShapeRect = [self drawCaretShape:shape forCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
+    if (shape == kCaretLine)
         [super drawInsertionPointInRect:rect color:color turnedOn:flag];
-        return;
-    }
-    caretShapeRect = [self drawCaretShapeForCaretRect:rect color:color turnedOn:flag lastShapeRect:caretShapeRect];
 }
 
 - (void)setNeedsDisplayInRect:(NSRect)rect avoidAdditionalLayout:(BOOL)flag {
-    if (NSTextView.drawsCaretShape)
-        rect = [self rect:rect widenedToCaretShape:caretShapeRect];
+    rect = [self rect:rect widenedToCaretShape:caretShapeRect];
     [super setNeedsDisplayInRect:rect avoidAdditionalLayout:flag];
 }
 
@@ -146,10 +144,9 @@
         _fieldEditor = [[MyFieldEditor alloc] init];
         _fieldEditor.fieldEditor = YES;
         // A plain init makes a TextKit 2 view, which never calls
-        // drawInsertionPointInRect:. Asking for the layout manager switches
-        // it to TextKit 1.
-        if (NSTextView.drawsCaretShape)
-            (void)_fieldEditor.layoutManager;
+        // drawInsertionPointInRect:, so it could not draw the theme's caret
+        // shape. Asking for the layout manager switches it to TextKit 1.
+        (void)_fieldEditor.layoutManager;
         _fieldEditor.accessibilityLabel = NSLocalizedString(@"input", nil);
     }
     return _fieldEditor;

@@ -5,6 +5,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "Theme.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface NSView (Categories)
@@ -32,22 +34,22 @@ NS_ASSUME_NONNULL_BEGIN
 // The ranges of the NSLinkAttributeName runs within range of the text storage.
 - (NSArray<NSValue *> *)linkRangesInRange:(NSRange)range;
 
-// Caret shape spike (issue #39): SPATTERLIGHT_CARET=block or underline.
-// YES when the caret is drawn as a cell-wide shape rather than a line.
-@property (class, readonly) BOOL drawsCaretShape;
+// Caret shapes (issue #39), set per theme.
 
-// The cell-wide rect for a caret at caretRect: the width of the character
-// after the caret, or of a "0" at the end of a line. A caret that would stick
-// out past the right edge moves to the start of the next line, as a terminal
-// waits to wrap. Needs TextKit 1.
-- (NSRect)caretShapeRectForCaretRect:(NSRect)caretRect;
+// The cell-wide rect for a block or underline caret at caretRect: the width
+// of the character after the caret, or of a "0" at the end of a line. A caret
+// that would stick out past the right edge moves to the start of the next
+// line, as a terminal waits to wrap. Needs TextKit 1.
+- (NSRect)caretShapeRect:(kCaretShapePrefsType)shape forCaretRect:(NSRect)caretRect;
 
 // For drawInsertionPointInRect:color:turnedOn:. AppKit calls that right
 // after drawRect:, in the same display pass, with the context still current
-// and clipped to what it invalidated, so the shape is drawn then and there.
-// Returns the rect the caret and the shape cover together, to keep for the
-// next call and for widening invalidations; NSZeroRect when turned off.
-- (NSRect)drawCaretShapeForCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect;
+// and clipped to what it invalidated, so a block or underline is drawn then
+// and there. Returns the rect the caret and the shape cover together, to keep
+// for the next call and for widening invalidations; NSZeroRect when turned
+// off, and for a line or no caret, which draw nothing here. The caller draws
+// a line caret with super.
+- (NSRect)drawCaretShape:(kCaretShapePrefsType)shape forCaretRect:(NSRect)caretRect color:(NSColor *)color turnedOn:(BOOL)flag lastShapeRect:(NSRect)lastShapeRect;
 
 // For setNeedsDisplayInRect:avoidAdditionalLayout:. AppKit blinks and moves
 // the caret by invalidating its own 1-point-wide rect, which would leave the

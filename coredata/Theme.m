@@ -37,6 +37,7 @@
 @dynamic bufLinkStyle;
 @dynamic bZAdjustment;
 @dynamic bZTerminator;
+@dynamic caretShape;
 @dynamic cellHeight;
 @dynamic cellWidth;
 @dynamic comprehendGraphicsType;
