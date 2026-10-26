@@ -1,0 +1,114 @@
+HINT buffer User1 Justification 2
+HINT buffer Subheader Justification 0
+HINT buffer Header Weight 1
+HINT buffer Header Oblique 0
+HINT buffer Header Proportional 1
+HINT buffer Header Justification 0
+HINT buffer Header Size 6
+HINT buffer Header Indentation 0
+HINT buffer Header ParaIndentation 0
+HINT buffer Note Weight 0
+HINT buffer Note Oblique 0
+HINT buffer Note Proportional 1
+HINT buffer Note Justification 2
+HINT buffer Note Size 2
+HINT buffer Note Indentation 0
+HINT buffer Note ParaIndentation 0
+HINT buffer BlockQuote Weight 0
+HINT buffer BlockQuote Oblique 0
+HINT buffer BlockQuote Proportional 1
+HINT buffer BlockQuote Justification 2
+HINT buffer BlockQuote Size 6
+HINT buffer BlockQuote Indentation 0
+HINT buffer BlockQuote ParaIndentation 0
+HINT buffer User2 Weight 1
+HINT buffer User2 Oblique 0
+HINT buffer User2 Proportional 1
+HINT buffer User2 Justification 0
+HINT buffer User2 Size 3
+HINT buffer User2 Indentation 0
+HINT buffer User2 ParaIndentation 0
+HINT grid User1 ReverseColor 1
+HINT buffer Normal TextColor 0
+HINT buffer Normal BackColor 16711680
+HINT grid Normal TextColor 0
+HINT grid Normal BackColor 16711680
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 BlockQuote 'Styles Five Center'
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 User1 '\n'
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #ffffff #ff0000
+ZCOLOR 0 #ffffff #ff0000
+SPAN 0 User2 'WARNING:'
+ZCOLOR 0 #ffffff #ff0000
+SPAN 0 Normal '\nWhite and justified.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #ffffff #ff0000
+SPAN 0 User1 'White and centred.'
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #000000
+ZCOLOR 0 #000000 #000000
+SPAN 0 Header "DON'T PANIC!!!"
+ZCOLOR 0 #000000 #000000
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+ZCOLOR 0 #ffffff #296231
+SPAN 0 Normal 'Green'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal ' and '
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal 'red'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal 'Black again.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal 'A pale hall.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 1 #ff0000 #000000
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n> '
+SPAN 0 Input 'look'
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal 'You are in a Hall.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal 'A pale hall.'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n'
+ZCOLOR 1 #ff0000 #000000
+SPAN 1 Normal '                                                                                                   A Hall'
+ZCOLOR 0 #000000 #ff0000
+SPAN 0 Normal '\n> '

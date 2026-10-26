@@ -581,6 +581,12 @@ public:
     // .html('12/20')"); a host that draws the panel itself reads the values
     // off here.  Unset, the text is dropped as before.
     std::function<void(const std::string &js)> js_eval;
+    // Host hook for JS.setCss: the selector list and the declarations, as
+    // the game wrote them.  The reference player applies them to its DOM;
+    // a host picks out what has a meaning outside it (the text panel's
+    // background).  Unset, the call is ignored as before.
+    std::function<void(const std::string &selector, const std::string &css)>
+        set_css;
 
     // Host hook for `picture`. QuestViva's PictureScript has two paths: on
     // v540+ it PRINTS an <img src="..."> through Core's OutputText (the HTML

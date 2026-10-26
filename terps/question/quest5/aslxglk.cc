@@ -408,6 +408,7 @@ void install_host_hooks(Interp &in, bool &restart_requested)
         g_cstatus_vals[id] = plain_text(value);
         g_pane_dirty = true;
     };
+    in.set_css = game_panel_css;
     /* Pane lists (UpdateListsAsync): only subscribe when this Glk could open
      * a side pane at startup -- an unset hook skips the whole scope
      * computation, like QuestViva with no UpdateList listener.  The hook just
@@ -1032,9 +1033,9 @@ SessionEnd run_session(const char *storyfile, std::string &restore_data,
 void reset_frontend_state()
 {
     stop_sound_ui();
-    glk_window_clear(gwin);
     g_style = InlineStyle();
     g_div_align = 0;
+    new_page();
     apply_style();
 
     g_links.clear();

@@ -178,7 +178,8 @@ void normal_measure_reset ();
 bool colour_visible (winid_t main);
 void colour_set_normal_hints (bool on);
 void colour_startup_prepare ();
-void colour_apply (winid_t win, glui32 fg, winid_t main);
+void colour_apply (winid_t win, glui32 fg, winid_t main,
+                   glui32 bg = COLOUR_NONE);
 void colour_repaint (winid_t win, bool on);
 /* The common head of a toggle: the flag, the hints and the measure cache.
  * Returns whether the frontend has to rebuild its windows, which it then

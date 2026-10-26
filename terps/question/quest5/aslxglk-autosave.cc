@@ -137,6 +137,9 @@ std::string aslx_encode_frontend(Interp &in, const RngStreams *turn_rngs)
     }
     /* COLOURS ON / OFF and the palette the game set in play. */
     questglk::colour_blob_put(b);
+    /* The text panel's background over SetBackgroundColour's. */
+    blob_num(b, (long) g_panel_bg);
+    blob_num(b, (long) g_border_bg);
     return b;
 }
 
@@ -144,7 +147,8 @@ bool aslx_recover_frontend(const std::string &blob)
 {
     BlobReader r{blob};
     std::string magic = r.str();
-    bool colour = magic == kAslxBlobMagic;
+    bool panel = magic == kAslxBlobMagic;
+    bool colour = panel || magic == kAslxBlobMagicNoPanel;
     if (!colour && magic != kAslxBlobMagicNoColour)
         return false;
     gwin = gli_window_for_tag((int) r.num());
@@ -230,6 +234,11 @@ bool aslx_recover_frontend(const std::string &blob)
     }
     if (colour && r.ok)
         questglk::colour_blob_get(r);
+    g_panel_bg = questglk::COLOUR_NONE;
+    if (panel && r.ok) {
+        g_panel_bg = (glui32) r.num();
+        g_border_bg = (glui32) r.num();
+    }
     if (!r.ok || !gwin)
         return false;
     /* The restored main window holds the session's text, which a background

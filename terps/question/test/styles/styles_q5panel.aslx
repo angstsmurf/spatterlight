@@ -1,0 +1,31 @@
+<!-- The text panel's own background: SetBackgroundColour paints QuestViva's
+     #gameBorder, which shows through #divOutput until the game gives that a
+     background of its own.  Pixie's Quest sets Black on Black for its title
+     card and paints #divOutput white, so the text is black on white there,
+     and a later SetBackgroundColour does not show behind it.  Taking the
+     panel's background away shows the border's colour again. -->
+<asl version="580">
+  <include ref="English.aslx"/>
+  <include ref="Core.aslx"/>
+  <game name="Styles Five Panel">
+    <gameid>5a1e0000-0000-0000-0000-000000000009</gameid>
+    <version>1.0</version>
+    <start type="script"><![CDATA[
+      SetForegroundColour ("Black")
+      SetBackgroundColour ("Black")
+      JS.setCss ("#divOutput", "background:white")
+      msg ("Black on white.")
+      SetBackgroundColour ("Navy")
+      msg ("Still on white.")
+      JS.setCss ("#gameContent, #divOutput", "background-color:transparent")
+      SetForegroundColour ("White")
+      msg ("White on navy.")]]>
+    </start>
+  </game>
+  <object name="hall">
+    <inherit name="editor_room"/>
+    <alias>Hall</alias>
+    <description>A pale hall.</description>
+    <object name="player"><inherit name="editor_player"/></object>
+  </object>
+</asl>

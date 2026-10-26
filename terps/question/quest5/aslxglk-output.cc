@@ -78,12 +78,15 @@ void put_uni_string(const std::string &utf8)
 void InlineStyle::push(const StylePush &p)
 {
     bold += p.b; italic += p.i; under += p.u; mono += p.m;
+    boxes += p.box;
     if (p.size > 0)
         sizes.push_back(p.size);
     if (p.align)
         aligns.push_back(p.align);
     if (p.colour != questglk::COLOUR_NONE)
         colours.push_back(p.colour);
+    if (p.background != questglk::COLOUR_NONE)
+        backs.push_back(p.background);
 }
 
 void InlineStyle::pop(const StylePush &p)
@@ -92,17 +95,23 @@ void InlineStyle::pop(const StylePush &p)
     italic = std::max(italic - p.i, 0);
     under = std::max(under - p.u, 0);
     mono = std::max(mono - p.m, 0);
+    boxes = std::max(boxes - p.box, 0);
     if (p.size > 0 && !sizes.empty())
         sizes.pop_back();
     if (p.align && !aligns.empty())
         aligns.pop_back();
     if (p.colour != questglk::COLOUR_NONE && !colours.empty())
         colours.pop_back();
+    if (p.background != questglk::COLOUR_NONE && !backs.empty())
+        backs.pop_back();
 }
 
 StyleCombo InlineStyle::combo(double default_points, int div_align) const
 {
-    int align = aligns.empty() ? div_align : aligns.back();
+    /* A background only reaches the right margin from a line's end, so
+     * the lines of a coloured block start at the left one: a rectangle,
+     * where centred lines would leave a ragged gap before each. */
+    int align = boxes ? ALIGN_LEFT : aligns.empty() ? div_align : aligns.back();
     return style_combo(bold > 0, italic > 0, under > 0, mono > 0,
                        align == ALIGN_CENTER, align == ALIGN_RIGHT,
                        points(default_points), default_points);
@@ -116,7 +125,8 @@ void apply_style()
      * as it is when the text is written) among them.  Only the main
      * window's text is the game's; the panes draw in the Normal hints. */
     if (gwin && glk_stream_get_current() == glk_window_get_stream(gwin))
-        questglk::colour_apply(gwin, g_style.colour(), gwin);
+        questglk::colour_apply(gwin, g_style.colour(), gwin,
+                               g_style.background());
 }
 
 /* Value of attr="..." (or attr='...') inside a raw tag body, or "". */
@@ -259,6 +269,16 @@ static int align_of(const std::string &value)
     return 0;
 }
 
+/* The colour of a CSS background, or COLOUR_NONE for one that is none (an
+ * image, transparent): the shorthand's colour may lead a longer value. */
+static glui32 css_background(const std::string &value)
+{
+    glui32 c = questglk::css_colour(value);
+    if (c == questglk::COLOUR_NONE)
+        c = questglk::css_colour(value.substr(0, value.find(' ')));
+    return c;
+}
+
 /* Style contribution of a style="..." CSS string, `points` being the size
  * around it.  A face the game's own default is not counts as monospaced
  * only when it is one and the default is not. */
@@ -292,6 +312,8 @@ StylePush css_style(const std::string &css, double points)
             p.align = align_of(value);
         else if (key == "color")
             p.colour = questglk::css_colour(value);
+        else if (key == "background" || key == "background-color")
+            p.background = css_background(value);
     }
     return p;
 }
@@ -347,7 +369,11 @@ bool tag_style(const std::string &name, const std::string &tag, double points,
         if (p.colour == questglk::COLOUR_NONE)
             p.colour = questglk::css_colour(tag_attr(tag, "color"));
     } else if (name == "center") {
-        p.align = ALIGN_CENTER;
+        /* The browser's own centring is only a default: the style attribute
+         * outranks it (Pixie's Quest's justified white warning). */
+        p = css_style(tag_attr(tag, "style"), points);
+        if (!p.align)
+            p.align = ALIGN_CENTER;
     } else if (name == "p" || name == "div") {
         p = css_style(tag_attr(tag, "style"), points);
         if (!p.align)
@@ -361,6 +387,8 @@ bool tag_style(const std::string &name, const std::string &tag, double points,
     } else {
         return false;
     }
+    p.box = tag_is_block(name) && name != "font" &&
+            p.background != questglk::COLOUR_NONE;
     return true;
 }
 
@@ -797,6 +825,25 @@ void clear_screen_ui()
     g_sections.clear();
     g_continue_shown.clear();   /* chrome died with the window */
     glk_window_clear(gwin);
+    g_at_line_start = true;
+    g_main_written = false;
+    g_break_owed = false;
+    g_clear_gen++;
+}
+
+/* A RESTART or RESTORE is a fresh page in the reference player: the game's
+ * own background again, with no CSS of the last session's on it, and an
+ * empty window that InitInterface's background repaints.  (Pixie's Quest
+ * restored from its red warning screen stayed red.) */
+void new_page()
+{
+    questglk::g_colour.background = g_border_bg = g_start_bg;
+    g_panel_bg = questglk::COLOUR_NONE;
+#ifdef QUESTGLK_HAVE_ZCOLORS
+    questglk::colour_repaint(gwin, questglk::g_colour.on);
+#else
+    glk_window_clear(gwin);
+#endif
     g_at_line_start = true;
     g_main_written = false;
     g_break_owed = false;
@@ -1386,6 +1433,8 @@ void assign_game_styles(World &w)
      * main window is open.  Core's own span colour is built by
      * concatenation, so no literal of it reaches the scan. */
     questglk::g_colour.background = scan.colours.game_bg;
+    g_border_bg = g_start_bg = scan.colours.game_bg;
+    g_panel_bg = questglk::COLOUR_NONE;
     questglk::g_colour.foreground = scan.colours.game_fg;
     questglk::g_colour.link = scan.colours.game_link;
 }
@@ -1401,11 +1450,58 @@ void sync_game_foreground(const World &w)
         questglk::css_colour(game_string(w, "defaultforeground")));
 }
 
+static void show_background(glui32 bg)
+{
+    questglk::colour_set_background(bg, !g_main_written, g_style.colour());
+}
+
+void game_panel_css(const std::string &selector, const std::string &css)
+{
+    bool panel = false;
+    for (size_t at = 0; at <= selector.size();) {
+        size_t comma = std::min(selector.find(',', at), selector.size());
+        std::string sel = qstr::trim(selector.substr(at, comma - at));
+        panel |= sel == "#divOutput" || sel == "#gameContent";
+        at = comma + 1;
+    }
+    if (!panel)
+        return;
+    /* The last background declaration wins, as in the browser.  One that is
+     * no colour (an image, say) is not drawn and leaves the panel alone;
+     * transparent and its kin show the border's colour again. */
+    for (size_t at = 0; at < css.size();) {
+        size_t semi = std::min(css.find(';', at), css.size());
+        std::string decl = css.substr(at, semi - at);
+        at = semi + 1;
+        size_t colon = decl.find(':');
+        if (colon == std::string::npos)
+            continue;
+        std::string prop = qstr::ascii_lower(qstr::trim(decl.substr(0, colon)));
+        std::string value = qstr::ascii_lower(qstr::trim(decl.substr(colon + 1)));
+        if (prop != "background" && prop != "background-color")
+            continue;
+        if (value == "transparent" || value == "none" || value == "inherit" ||
+            value == "initial" || value == "unset") {
+            g_panel_bg = questglk::COLOUR_NONE;
+            show_background(g_border_bg);
+            continue;
+        }
+        glui32 c = css_background(value);
+        if (c == questglk::COLOUR_NONE)
+            continue;
+        g_panel_bg = c;
+        show_background(c);
+    }
+}
+
 }  // namespace aslxglk
 
 void game_background_colour(const std::string &css)
 {
-    questglk::colour_set_background(questglk::css_colour(css),
-                                    !aslxglk::g_main_written,
-                                    aslxglk::g_style.colour());
+    glui32 bg = questglk::css_colour(css);
+    if (bg == questglk::COLOUR_NONE)
+        return;
+    aslxglk::g_border_bg = bg;
+    if (aslxglk::g_panel_bg == questglk::COLOUR_NONE)
+        aslxglk::show_background(bg);
 }

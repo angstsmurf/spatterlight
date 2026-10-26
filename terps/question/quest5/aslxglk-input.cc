@@ -1160,7 +1160,8 @@ void set_colour(bool on)
     if (gbanner && !on)
         garglk_set_zcolors_stream(glk_window_get_stream(gbanner),
                                   zcolor_Default, zcolor_Default);
-    questglk::colour_apply(gwin, g_style.colour(), gwin);
+    questglk::colour_apply(gwin, g_style.colour(), gwin,
+                           g_style.background());
     g_main_written = false;
     if (g_colour_interp) {
         update_banner(*g_colour_interp);

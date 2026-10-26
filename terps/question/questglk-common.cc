@@ -936,11 +936,12 @@ colour_startup_prepare ()
 }
 
 /* Set the colours later text written to `win' comes out in: `fg', or the
- * game's foreground for COLOUR_NONE, over the game's background.  Does
- * nothing while the mode is off, so callers call it unconditionally. */
+ * game's foreground for COLOUR_NONE, over `bg', or the game's background for
+ * COLOUR_NONE.  Does nothing while the mode is off, so callers call it
+ * unconditionally. */
 void
 colour_apply ([[maybe_unused]] winid_t win, [[maybe_unused]] glui32 fg,
-              [[maybe_unused]] winid_t main)
+              [[maybe_unused]] winid_t main, [[maybe_unused]] glui32 bg)
 {
 #ifdef QUESTGLK_HAVE_ZCOLORS
     if (!g_colour.on || !win)
@@ -949,8 +950,9 @@ colour_apply ([[maybe_unused]] winid_t win, [[maybe_unused]] glui32 fg,
         fg = g_colour.foreground;
     if (win == main)
         g_colour.main_fg = fg;
-    garglk_set_zcolors_stream (glk_window_get_stream (win), fg,
-                               g_colour.background);
+    if (bg == COLOUR_NONE)
+        bg = g_colour.background;
+    garglk_set_zcolors_stream (glk_window_get_stream (win), fg, bg);
 #endif
 }
 

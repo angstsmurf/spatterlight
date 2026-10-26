@@ -572,21 +572,27 @@ struct StylePush {
     double size = 0;
     int align = 0;
     glui32 colour = questglk::COLOUR_NONE;  /* CSS color, else inherited */
+    glui32 background = questglk::COLOUR_NONE;  /* CSS background colour */
+    int box = 0;  /* a block with a background: drawn left-aligned */
 };
 
 /* The inline style at a point of the markup.  g_style is the printer's;
  * the style census walks its strings with one of its own. */
 struct InlineStyle {
     int bold = 0, italic = 0, under = 0, mono = 0;
+    int boxes = 0;  /* open blocks with a background */
     std::vector<double> sizes;  /* open font sizes, innermost last */
     std::vector<int> aligns;    /* open block alignments, innermost last */
     std::vector<glui32> colours;  /* open text colours, innermost last */
+    std::vector<glui32> backs;    /* open background colours, innermost last */
 
     void push(const StylePush &p);
     void pop(const StylePush &p);
     double points(double base) const { return sizes.empty() ? base : sizes.back(); }
     glui32 colour() const
     { return colours.empty() ? questglk::COLOUR_NONE : colours.back(); }
+    glui32 background() const
+    { return backs.empty() ? questglk::COLOUR_NONE : backs.back(); }
     /* `div_align` is the alignment outside every block (SetAlignment's). */
     StyleCombo combo(double default_points, int div_align) const;
 };
@@ -621,6 +627,20 @@ glui32 game_link_colour(const World &w);
  * it because Core prints every span in it, and this frontend's spans follow
  * suit.  Deeper declares OldLace on OldLace and sets Maroon as it starts. */
 void sync_game_foreground(const World &w);
+/* JS.setCss on the text panel.  QuestViva's setBackground paints
+ * #gameBorder, and #divOutput and #gameContent are transparent over it, so
+ * SetBackgroundColour is the text's background -- until the game gives one
+ * of those two a background of its own, which then shows instead (Pixie's
+ * Quest sets Black on Black and paints #divOutput white).  g_panel_bg is that
+ * colour, COLOUR_NONE while there is none; g_border_bg is the last
+ * SetBackgroundColour, which shows again if the panel's is taken away. */
+inline glui32 g_panel_bg = questglk::COLOUR_NONE;
+inline glui32 g_border_bg = questglk::COLOUR_NONE;
+/* The game's defaultbackground as the file has it: a new session's page. */
+inline glui32 g_start_bg = questglk::COLOUR_NONE;
+void game_panel_css(const std::string &selector, const std::string &css);
+/* Empty the main window for a new session, in the game's own background. */
+void new_page();
 
 std::string decode_entities(const std::string &s);
 
@@ -1030,12 +1050,14 @@ using questglk::BlobReader;
 std::string utf8_from_u32(const std::u32string &s);
 
 /* The blob's format stamp, bumped on every layout change (most recently when
- * the colour mode was added at its end): an older blob has different
- * fields, and an autorestore that mis-parses is worse than one discarded
- * for a fresh start.  aslx_recover_frontend rejects anything that does not
- * match, except the stamp before the colour mode, whose layout is the same
- * up to it and which restores with the mode off. */
-inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 11";
+ * the text panel's background was added at its end): an older blob has
+ * different fields, and an autorestore that mis-parses is worse than one
+ * discarded for a fresh start.  aslx_recover_frontend rejects anything that
+ * does not match, except the two stamps before, whose layouts are the same
+ * up to where they end: 11 restores with no panel background, 10 with the
+ * colour mode off as well. */
+inline const char *const kAslxBlobMagic = "ASLXGLK-AUTOSAVE 12";
+inline const char *const kAslxBlobMagicNoPanel = "ASLXGLK-AUTOSAVE 11";
 inline const char *const kAslxBlobMagicNoColour = "ASLXGLK-AUTOSAVE 10";
 
 std::string aslx_encode_frontend(Interp &in, const RngStreams *rngs = nullptr);

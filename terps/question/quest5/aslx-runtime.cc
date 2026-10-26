@@ -3022,6 +3022,8 @@ void Interp::exec_js_command(const std::string &fn, const ExprList &args,
         html += ">" + to_string(ev(0)) + " </span><br/>";
         textfx_text(html);
     }
+    else if (fn == "setCss" && args.size() >= 2 && set_css)
+        set_css(to_string(ev(0)), to_string(ev(1)));
     else if (fn == "StartOutputSection" && !args.empty() &&
              start_output_section)
         start_output_section(to_string(ev(0)));
