@@ -97,11 +97,13 @@ class Session(glkdrive.Driver):
         self.wintypes = {}
         self.newwin = 0
         self.delwin = 0
+        self.input_spans = []   # len(self.spans) at each line input
         super().__init__(*args, **kwargs)
 
     def reply(self, cmd, a1=0, a2=0, a3=0, a4=0, a5=0, payload=b""):
         if cmd == glkdrive.EVTLINE:
             self.events.append(("in", payload.decode("utf-16-le")))
+            self.input_spans.append(len(self.spans))
         elif cmd == glkdrive.EVTKEY:
             self.events.append(("key", a2))
         elif cmd == glkdrive.EVTQUIT:
@@ -572,6 +574,46 @@ def case_media_after_restore(terp, case, res, verbose):
         clean_autosave(sig)
 
 
+def case_colours_after_restore(terp, case, res, verbose):
+    """The colours "glk colour" draws in, across a relaunch.  The background
+    an ADRIFT <=4 game sets with <bgcolour> is no part of its saved state, and
+    the restored window comes back painted in it, so it has to cross in the
+    session section: every colour pair the relaunched session names, from its
+    first status redraw on, must be one the single session named for the same
+    commands -- not the starting black."""
+    sig = "scarier-autosave-test-" + case["name"]
+    game, first, second = case["game"], case["first"], case["second"]
+    with tempfile.TemporaryDirectory() as work:
+        clean_autosave(sig)
+        control = run_session(terp, game, first + second, sig, work)
+        clean_autosave(sig)
+        check_process(res, control, "control")
+        cut = control.input_spans[len(first)]
+        want = {z[1:] for z in control.zcolors if z[0] >= cut}
+        if not any(bg == case["bg"] for _, _, bg in want):
+            res.fail("control: never drew on %06x, so the case does not test"
+                     " what it says" % case["bg"], repr(sorted(want)))
+            return
+
+        for index, script in enumerate((first, second)):
+            s = run_session(terp, game, script, sig, work)
+            label = "session %d" % (index + 1)
+            check_process(res, s, label)
+            if index == 0 and not s.autosaved_last_prompt():
+                res.fail("%s: no autosave at the prompt it was closed on"
+                         % label)
+        clean_autosave(sig)
+
+    got = [z[1:] for z in s.zcolors]
+    stray = [z for z in got if z not in want]
+    if not got:
+        res.fail("session 2: named no colours at all")
+    elif stray:
+        res.fail("session 2: named colours the single session did not",
+                 "\n".join("peer %d fg %06x bg %06x" % z for z in stray)
+                 if verbose else None)
+
+
 def solution(name):
     """An ADRIFT 4 walkthrough.  os_ansi (harness/scare) skips a line whose
     first non-blank character is '#' -- the solution files carry prose
@@ -789,6 +831,15 @@ def build_cases():
     pauses("styles-intro-pause", intro, [[], [K], ["look"]], styled=True,
            expect=["{User2}The Big Title", "{User1}by A. N. Author",
                    "{Subheader}desk"])
+
+    # House sets a <bgcolour> per area that holds from turn to turn; the
+    # route stops on Bellview Road in the dark red.
+    cases.append(dict(kind=case_colours_after_restore,
+                      name="bgcolour-house-4.00", game=game("House.taf"),
+                      first=["glk colour on"]
+                      + solution("house_solution.txt")[:14],
+                      second=["look"], bg=0x550000,
+                      env={"SCR_SEED": "2", "SCR_SKIP_WAITKEY": "1"}))
 
     cases.append(dict(kind=case_damaged_container, name="corrupt-container",
                       game=maze, damage="garbage",
