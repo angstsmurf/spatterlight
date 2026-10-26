@@ -256,6 +256,13 @@ void colour_detect_settle (winid_t main, const char *game, bool autorestoring);
 /* ----------------------------------------------------------------- banner */
 
 std::string status_tail (const std::string &status, size_t avail, bool utf8);
+/* Clear the banner and draw its first row (room name left, status right) in
+ * the status colours, leaving the banner's stream in them for whatever a
+ * frontend draws under that row; it ends with colour_status_end.  `banner'
+ * must be open. */
+void draw_status_row (winid_t banner, const std::string &room,
+                      const std::string &status, bool utf8);
+/* The row and the end in one, for a banner that is only that row. */
 void draw_status_banner (winid_t banner, const std::string &room,
                          const std::string &status, bool utf8);
 bool status_leaves_banner (size_t width, const std::string &room,

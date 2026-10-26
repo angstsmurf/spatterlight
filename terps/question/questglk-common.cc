@@ -1287,13 +1287,14 @@ status_tail (const std::string &status, size_t avail, bool utf8)
  * `utf8` selects codepoint-aware writes and measurement (Quest 5 text is
  * UTF-8); byte mode passes classic Question text through verbatim (those games
  * are typically Latin-1). */
-static void
-draw_status_cells (winid_t banner, const std::string &room,
-                   const std::string &status, bool utf8)
+void
+draw_status_row (winid_t banner, const std::string &room,
+                 const std::string &status, bool utf8)
 {
-    glk_window_clear (banner);
+    /* The colours first, so the clear paints the banner in them. */
     strid_t stream = glk_window_get_stream (banner);
     colour_status_begin (stream);
+    glk_window_clear (banner);
     glui32 width;
     glk_window_get_size (banner, &width, nullptr);
     for (glui32 i = 0; i < width; i++)
@@ -1339,7 +1340,7 @@ draw_status_banner (winid_t banner, const std::string &room,
 {
     if (!banner)
         return;
-    draw_status_cells (banner, room, status, utf8);
+    draw_status_row (banner, room, status, utf8);
     colour_status_end ();
 }
 

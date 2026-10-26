@@ -695,8 +695,15 @@ void draw_character_form(const aslxform::Layout &lay, bool links)
     for (const aslxform::Span &sp : lay.spans) {
         glk_window_move_cursor(gformwin, (glui32) std::max(sp.x, 0),
                                (glui32) sp.y);
-        glk_set_style_stream(s, sp.focused ? style_User1
-                                : sp.heading ? style_Subheader : style_Normal);
+        /* The focused control is marked as the status bar is: reverse
+         * video, or the game's palette inverted while it shows. */
+        if (sp.focused)
+            questglk::colour_status_begin(s);
+        else {
+            glk_set_style_stream(s, sp.heading ? style_Subheader
+                                               : style_Normal);
+            questglk::colour_apply(gformwin, questglk::COLOUR_NONE, gwin);
+        }
         if (sp.link && links)
             glk_set_hyperlink_stream(s, sp.link);
         put_stream_utf8(s, sp.text);
@@ -704,6 +711,7 @@ void draw_character_form(const aslxform::Layout &lay, bool links)
             glk_set_hyperlink_stream(s, 0);
     }
     glk_set_style_stream(s, style_Normal);
+    questglk::colour_status_end();
 }
 
 /* The dialog as a text grid above the story window: every control is a

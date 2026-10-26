@@ -159,12 +159,17 @@ void draw_link_bar(winid_t banner, const std::string &room,
                                        (glui32) lines + 1, banner);
         glk_window_get_size(banner, &width, &height);
     }
-    draw_status_banner(banner, room, status, true);
+    /* The bar's rows are drawn in the status row's colours -- the theme's
+     * reverse video, or the game's palette inverted -- so the banner is one
+     * block; Spatterlight gives the grid's margins its dominant colour. */
+    questglk::draw_status_row(banner, room, status, true);
     g_bar_commands.clear();
-    if (cells.empty())
+    if (cells.empty()) {
+        questglk::colour_status_end();
         return;
+    }
     strid_t s = glk_window_get_stream(banner);
-    glk_set_style_stream(s, style_User1);
+    questglk::colour_status_begin(s);
     for (glui32 y = 1; y < height; y++) {
         glk_window_move_cursor(banner, 0, y);
         for (glui32 i = 0; i < width; i++)
@@ -183,6 +188,7 @@ void draw_link_bar(winid_t banner, const std::string &room,
         if (g_hyperlinks)
             glk_set_hyperlink_stream(s, 0);
     }
+    questglk::colour_status_end();
     /* A redraw clears the window, and its hyperlink request with it. */
     if (g_links_requested && g_hyperlinks)
         glk_request_hyperlink_event(banner);
