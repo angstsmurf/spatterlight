@@ -1643,8 +1643,8 @@ static void update_effects(DUMB_IT_SIGRENDERER *sigrenderer) {
             if (sigrenderer->sigdata->flags & IT_LINEAR_SLIDES) {
                 if (channel->toneporta && channel->destnote < 120) {
                     int currpitch =
-                        ((playing->note - 60) << 8) + playing->slide;
-                    int destpitch = (channel->destnote - 60) << 8;
+                        ((playing->note - 60) * 256) + playing->slide;
+                    int destpitch = (channel->destnote - 60) * 256;
                     if (currpitch > destpitch) {
                         currpitch -= channel->toneporta;
                         if (currpitch < destpitch) {
@@ -1658,7 +1658,7 @@ static void update_effects(DUMB_IT_SIGRENDERER *sigrenderer) {
                             channel->destnote = IT_NOTE_OFF;
                         }
                     }
-                    playing->slide = currpitch - ((playing->note - 60) << 8);
+                    playing->slide = currpitch - ((playing->note - 60) * 256);
                 }
             } else {
                 if (channel->toneporta && channel->destnote < 120) {
@@ -4495,7 +4495,7 @@ static void process_all_playing(DUMB_IT_SIGRENDERER *sigrenderer) {
             }
 
             if (sigdata->flags & IT_LINEAR_SLIDES) {
-                int currpitch = ((playing->note - 60) << 8) + playing->slide +
+                int currpitch = ((playing->note - 60) * 256) + playing->slide +
                                 vibrato_shift + playing->finetune;
 
                 /* We add a feature here, which is that of keeping the pitch
