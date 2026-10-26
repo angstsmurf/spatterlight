@@ -34,16 +34,6 @@
     return self.theme.gridLinkStyle;
 }
 
-// A grid link keeps the colour of the text it is in. Status lines are
-// usually reverse video, so the buffer windows' rule (links in the Normal
-// text colour) would draw them in the line's own background colour.
-- (void)updateLinkTextAttributesOf:(NSTextView *)textView {
-    NSMutableDictionary *linkAttributes = [textView.linkTextAttributes mutableCopy];
-    linkAttributes[NSUnderlineStyleAttributeName] = @(self.themeLinkStyle);
-    [linkAttributes removeObjectForKey:NSForegroundColorAttributeName];
-    textView.linkTextAttributes = linkAttributes;
-}
-
 - (void)prefsDidChange {
     NSRange selectedRange = _textview.selectedRange;
 
