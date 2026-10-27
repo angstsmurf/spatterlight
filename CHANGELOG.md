@@ -106,6 +106,7 @@
 - Each theme can give the input caret a shape of its own: the usual line, a block or an underline, set with the new Cursor shape menu on the Details tab of Preferences (issue #39). The built-in MS-DOS and DOSBox themes use an underline.
 - A theme can ask for a retro CRT look (issue #6): a faint phosphor glow around the text, and scanlines with a darkened vignette over the window, set with the CRT glow and CRT scanlines check boxes on the Details tab. The MS-DOS and DOSBox themes have both on. The effects are drawn over the ordinary text views, so selection, links and VoiceOver work as before, they follow the window between Retina and other screens, and they are left out while the system Increase contrast or Reduce transparency options are on.
 - Text typed at the prompt but not yet sent survives an autorestore with every character deletable. An autosave taken while the game was waiting for the line, as Scarier up to 1.5.5 wrote when the game was closed, kept the typed text in the window, and the new session fenced it in as game output before putting the typed text back behind it: the first few characters could not be deleted, and the input was there twice.
+- The command history survives an interpreter closing its story window and opening a new one in the same turn. Scarier does this when you type GLK COLOURS ON or GLK COLOURS OFF, and the Up arrow found no earlier commands afterwards.
 
 ## Release 1.5.5
 
