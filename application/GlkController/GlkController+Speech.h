@@ -27,6 +27,8 @@
 // Speak previous moves
 - (IBAction)speakMostRecent:(id)sender;
 - (void)speakMostRecentAfterDelay;
+// The "Limit VoiceOver to Last Move" setting was toggled.
+- (void)voiceOverTailModeChanged;
 - (IBAction)speakPrevious:(id)sender;
 - (IBAction)speakNext:(id)sender;
 - (IBAction)speakStatus:(id)sender;

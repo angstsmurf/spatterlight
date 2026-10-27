@@ -86,6 +86,8 @@ NS_ASSUME_NONNULL_BEGIN
     // --- VoiceOver speech tracking ---
     NSRange lastSpokenRange;           // Range of text last spoken to avoid repeating
     NSString *lastSpokenString;        // Text content last spoken
+    NSArray *moveAXElements;           // One AXStaticText child per move (issue #80)
+    NSArray<NSValue *> *moveAXRanges;  // The moveRanges the elements were built from
 
     // --- Animated images ---
     NSTimer *imageAnimationTimer;      // One-shot, rescheduled by each tick; nil when the

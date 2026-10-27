@@ -57,6 +57,9 @@
 }
 
 - (void)keyDown:(NSEvent *)evt {
+    // The player is typing: let VoiceOver track the text area again. No
+    // notification, so VoiceOver's cursor stays where it is.
+    self.voFocusedMoveElement = nil;
     [(GlkTextBufferWindow *)self.delegate keyDown:evt];
 }
 
@@ -349,6 +352,157 @@
     return YES;
 }
 
+- (id)accessibilityFocusedUIElement {
+    id el = self.voFocusedMoveElement;
+    if (el)
+        return el;
+    return super.accessibilityFocusedUIElement;
+}
+
+#pragma mark - Limit VoiceOver to Last Move
+
+// With the setting on, the text area tells VoiceOver that its text starts
+// where the last move starts, so landing on it reads the last move (and the
+// input line), and the scrollback stays where it is. Older moves are
+// reached through the move elements and the command history rotor. All
+// character indexes VoiceOver sees are offset by accessibilityTextOffset;
+// the methods below translate both ways.
+
+- (NSUInteger)accessibilityTextOffset {
+    if (![GlkTextBufferWindow voiceOverTailMode])
+        return 0;
+    NSValue *last = ((GlkTextBufferWindow *)self.delegate).moveRanges.lastObject;
+    if (!last)
+        return 0;
+    return MIN(last.rangeValue.location, self.textStorage.length);
+}
+
+static NSRange voToVirtual(NSRange real, NSUInteger off) {
+    if (real.location == NSNotFound || off == 0)
+        return real;
+    if (NSMaxRange(real) <= off)
+        return NSMakeRange(0, 0);
+    if (real.location < off)
+        return NSMakeRange(0, NSMaxRange(real) - off);
+    return NSMakeRange(real.location - off, real.length);
+}
+
+static NSRange voToReal(NSRange virt, NSUInteger off) {
+    if (virt.location == NSNotFound)
+        return virt;
+    return NSMakeRange(virt.location + off, virt.length);
+}
+
+// The line number of the first accessible character, in the full text.
+- (NSInteger)voTailLine {
+    NSUInteger off = self.accessibilityTextOffset;
+    return off ? [super accessibilityLineForIndex:(NSInteger)off] : 0;
+}
+
+// For our own callers, which work in full-text ranges.
+- (NSAttributedString *)accessibilityAttributedStringForFullTextRange:(NSRange)range {
+    return [super accessibilityAttributedStringForRange:range];
+}
+
+// VoiceOver scrolls its cursor's element into view by its frame, and the
+// text view's frame is the whole document, so it scrolled to the top.
+// Report the frame of the accessible tail instead.
+- (NSRect)accessibilityFrame {
+    NSUInteger off = self.accessibilityTextOffset;
+    if (!off)
+        return super.accessibilityFrame;
+    NSRect frame = [super accessibilityFrameForRange:NSMakeRange(off, self.textStorage.length - off)];
+    return NSIsEmptyRect(frame) ? super.accessibilityFrame : frame;
+}
+
+- (NSString *)accessibilityStringForRange:(NSRange)range {
+    return [super accessibilityStringForRange:voToReal(range, self.accessibilityTextOffset)];
+}
+- (NSAttributedString *)accessibilityAttributedStringForRange:(NSRange)range {
+    return [super accessibilityAttributedStringForRange:voToReal(range, self.accessibilityTextOffset)];
+}
+- (NSData *)accessibilityRTFForRange:(NSRange)range {
+    return [super accessibilityRTFForRange:voToReal(range, self.accessibilityTextOffset)];
+}
+- (NSRange)accessibilityVisibleCharacterRange {
+    return voToVirtual(super.accessibilityVisibleCharacterRange, self.accessibilityTextOffset);
+}
+- (void)setAccessibilityVisibleCharacterRange:(NSRange)range {
+    [super setAccessibilityVisibleCharacterRange:voToReal(range, self.accessibilityTextOffset)];
+}
+- (NSInteger)accessibilityNumberOfCharacters {
+    NSInteger n = super.accessibilityNumberOfCharacters - (NSInteger)self.accessibilityTextOffset;
+    return MAX(n, 0);
+}
+- (NSInteger)accessibilityLineForIndex:(NSInteger)index {
+    NSUInteger off = self.accessibilityTextOffset;
+    if (!off)
+        return [super accessibilityLineForIndex:index];
+    return MAX([super accessibilityLineForIndex:index + (NSInteger)off] - self.voTailLine, 0);
+}
+- (NSRange)accessibilityRangeForLine:(NSInteger)line {
+    NSUInteger off = self.accessibilityTextOffset;
+    if (!off)
+        return [super accessibilityRangeForLine:line];
+    return voToVirtual([super accessibilityRangeForLine:line + self.voTailLine], off);
+}
+- (NSInteger)accessibilityInsertionPointLineNumber {
+    NSInteger n = super.accessibilityInsertionPointLineNumber;
+    if (self.accessibilityTextOffset)
+        n = MAX(n - self.voTailLine, 0);
+    return n;
+}
+- (NSRange)accessibilitySelectedTextRange {
+    return voToVirtual(super.accessibilitySelectedTextRange, self.accessibilityTextOffset);
+}
+- (void)setAccessibilitySelectedTextRange:(NSRange)range {
+    [super setAccessibilitySelectedTextRange:voToReal(range, self.accessibilityTextOffset)];
+}
+- (NSArray<NSValue *> *)accessibilitySelectedTextRanges {
+    NSUInteger off = self.accessibilityTextOffset;
+    if (!off)
+        return super.accessibilitySelectedTextRanges;
+    NSMutableArray *ranges = [NSMutableArray new];
+    for (NSValue *v in super.accessibilitySelectedTextRanges)
+        [ranges addObject:[NSValue valueWithRange:voToVirtual(v.rangeValue, off)]];
+    return ranges;
+}
+- (void)setAccessibilitySelectedTextRanges:(NSArray<NSValue *> *)ranges {
+    NSUInteger off = self.accessibilityTextOffset;
+    if (off) {
+        NSMutableArray *real = [NSMutableArray new];
+        for (NSValue *v in ranges)
+            [real addObject:[NSValue valueWithRange:voToReal(v.rangeValue, off)]];
+        ranges = real;
+    }
+    [super setAccessibilitySelectedTextRanges:ranges];
+}
+- (NSRange)accessibilityRangeForIndex:(NSInteger)index {
+    NSUInteger off = self.accessibilityTextOffset;
+    return voToVirtual([super accessibilityRangeForIndex:index + (NSInteger)off], off);
+}
+- (NSRange)accessibilityRangeForPosition:(NSPoint)point {
+    return voToVirtual([super accessibilityRangeForPosition:point], self.accessibilityTextOffset);
+}
+- (NSRange)accessibilityStyleRangeForIndex:(NSInteger)index {
+    NSUInteger off = self.accessibilityTextOffset;
+    return voToVirtual([super accessibilityStyleRangeForIndex:index + (NSInteger)off], off);
+}
+- (NSRect)accessibilityFrameForRange:(NSRange)range {
+    return [super accessibilityFrameForRange:voToReal(range, self.accessibilityTextOffset)];
+}
+- (NSRange)accessibilitySharedCharacterRange {
+    return voToVirtual(super.accessibilitySharedCharacterRange, self.accessibilityTextOffset);
+}
+
+- (id)accessibilityValue {
+    id value = super.accessibilityValue;
+    NSUInteger off = self.accessibilityTextOffset;
+    if (off && [value isKindOfClass:[NSString class]] && off <= ((NSString *)value).length)
+        return [(NSString *)value substringFromIndex:off];
+    return value;
+}
+
 - (NSArray *)accessibilityCustomActions API_AVAILABLE(macos(10.13)) {
     GlkTextBufferWindow *delegate = (GlkTextBufferWindow *)self.delegate;
     NSArray *actions = (delegate.glkctl).accessibilityCustomActions;
@@ -362,6 +516,9 @@
 // Margin images compute their own accessibilityFrame on demand.
 - (NSArray *)accessibilityChildren {
     NSArray *children = super.accessibilityChildren;
+    NSArray *moves = ((GlkTextBufferWindow *)self.delegate).moveAccessibilityElements;
+    if (moves.count)
+        children = [children arrayByAddingObjectsFromArray:moves];
     NSArray<MarginImage *> *marginImages = ((MarginContainer *)self.textContainer).marginImages;
     if (marginImages.count)
         children = [children arrayByAddingObjectsFromArray:marginImages];

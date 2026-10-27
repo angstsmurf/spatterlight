@@ -39,6 +39,9 @@ Use this keyboard shortcut and the next to navigate back and forth through all v
 ### Speak Status
 (shortcut Alt + Command + Backspace)
 This one looks for a status window and reads its text if it finds one. It will then go on and read the text in all non-main windows. This is particularly useful for games that print the room description in a separate window, such as the Scott Adams games.
+### Limit VoiceOver to Last Move
+(shortcut Alt + Command + T)
+This is a setting rather than a command, and it is remembered between sessions. When it is on, the game text area only shows VoiceOver the text from the last move onwards, so that landing on it (when switching to a game window, or moving the VoiceOver cursor into the text) reads the latest move instead of the whole scrollback from the start of the game. Earlier moves are still available through the Command history rotor and the Speak Previous Move command. When it is off, VoiceOver sees all the game text, but each move is also an element of its own, and Spatterlight parks the VoiceOver cursor on the last move whenever a game window is activated.
 
 <a id='vo-rotors'></a>
 ## Custom rotors

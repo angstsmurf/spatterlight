@@ -39,6 +39,21 @@ NS_ASSUME_NONNULL_BEGIN
 // out of date. Safe to call while drawing.
 - (void)bottomPaddingNeedsUpdate;
 
+// VoiceOver (issue #80): the move element reported as the focused UI
+// element while VoiceOver is parked on the latest move. Cleared as soon as
+// the player types. See GlkTextBufferWindow armVoiceOverFocusedMoveElement.
+@property (nullable, weak) id voFocusedMoveElement;
+
+// "Limit VoiceOver to Last Move" (Speech menu, kVOTailModeKey): VoiceOver
+// reads a text area from its first character whenever its cursor lands on
+// it, and scrolls there. With the setting on, the accessible text starts
+// where the last move starts, so landing on the text view reads the last
+// move and the scrollback stays put. Every character index VoiceOver sees
+// is offset by accessibilityTextOffset; the full text stays available to
+// our own code through the ...ForFullTextRange: method.
+@property (readonly) NSUInteger accessibilityTextOffset;
+- (NSAttributedString *)accessibilityAttributedStringForFullTextRange:(NSRange)range;
+
 @end
 
 NS_ASSUME_NONNULL_END

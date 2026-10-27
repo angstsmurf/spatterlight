@@ -58,6 +58,24 @@ NS_ASSUME_NONNULL_BEGIN
 // Used by InfocomV6MenuHandler
 - (void)movesRangesFromV6Menu:(NSArray<NSString *> *)menuStrings;
 
+// VoiceOver (issue #80): every move is an accessibility child of the text
+// view, a static text, so VoiceOver can land on the latest move instead of
+// the whole text. Only built while VoiceOver is running.
+- (NSArray *)moveAccessibilityElements;
+- (NSRect)accessibilityFrameForMoveRange:(NSRange)range;
+// Report the last move as the text view's focused element, silently.
+- (void)armVoiceOverFocusedMoveElement;
+// Arm the last move and tell VoiceOver the focus changed. NO if no move.
+- (BOOL)moveVoiceOverCursorToLastMove;
+// Whether VoiceOver has read the armed move since it was armed.
+- (BOOL)voiceOverReadLastMove;
+// Rotor support: the move element covering a move range, and the range of
+// a move element ({NSNotFound, 0} for anything else).
+- (nullable id)moveAccessibilityElementForRange:(NSRange)range;
+- (NSRange)moveRangeForAccessibilityElement:(nullable id)element;
+// The "Limit VoiceOver to Last Move" setting (kVOTailModeKey).
++ (BOOL)voiceOverTailMode;
+
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfLines;
