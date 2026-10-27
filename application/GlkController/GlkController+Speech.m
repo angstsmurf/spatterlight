@@ -250,6 +250,8 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && !self.currentMenu && !self.form)
             [(GlkTextBufferWindow *)mainWindow moveVoiceOverCursorToLastMove];
         if (self.theme.vODelayOn && !self.mustBeQuiet) {
+            for (GlkTextBufferWindow *win in self.bufferWindows)
+                [win resetLastSpokenString];
             // VoiceOver fetches the text of the game window shortly after
             // landing on it. That fetch is the cue to announce the last move
             // (voiceOverFetchedBufferText); the timer below is the fallback
