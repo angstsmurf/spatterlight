@@ -16,6 +16,7 @@
 #import "GlkTextBufferWindow.h"
 #import "GlkTextGridWindow.h"
 #import "ImageHandler.h"
+#import "InputHistory.h"
 #import "Metadata.h"
 #import "Preferences.h"
 #import "SoundHandler.h"
@@ -262,6 +263,17 @@ static void playSoundNamed(NSString *name) {
     }
 
     GlkWindow *win = [(GlkWindow *)[windowClass alloc] initWithGlkController:self name:i];
+
+    // An interpreter that rebuilds its window tree mid-turn (Scarier toggling
+    // its colours, which only reach a window as stylehints at open) closes the
+    // story window and opens a new one before it next waits for input. Let the
+    // new window take over the closed one's command history, or the player
+    // would find Up arrow empty after a change of palette.
+    if (wintype == wintype_TextBuffer && historiesOfClosedWindows.count) {
+        [win adoptCommandHistory:historiesOfClosedWindows.firstObject];
+        [historiesOfClosedWindows removeObjectAtIndex:0];
+    }
+
     self.gwindows[@(i)] = win;
     [self.windowsToBeAdded addObject:win];
     return i;
@@ -685,6 +697,12 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 // should stop reading. A queued event is written here directly; otherwise
 // an OKAY reply is set up when the interpreter asked not to wait (a1 == 0).
 - (BOOL)handleNextEvent:(struct message *)req reply:(struct message *)ans {
+    // A history not taken up by the time the interpreter waits for input
+    // belonged to a window that is gone for good. A poll (a1 == 0) can come
+    // in the middle of a rebuild, so only a blocking wait ends the handover.
+    if (req->a1)
+        historiesOfClosedWindows = nil;
+
     if (self.windowsToRestore.count) {
         for (GlkWindow *win in self.windowsToRestore) {
             if (![win isKindOfClass:[GlkGraphicsWindow class]])
@@ -752,6 +770,11 @@ static NSString *stringFromPayload(char *buf, size_t len) {
 
 - (void)handleDeleteWindow:(GlkWindow *)reqWin name:(int)name {
     if (reqWin) {
+        if ([reqWin isKindOfClass:[GlkTextBufferWindow class]] && !reqWin.commandHistory.isEmpty) {
+            if (!historiesOfClosedWindows)
+                historiesOfClosedWindows = [[NSMutableArray alloc] init];
+            [historiesOfClosedWindows addObject:reqWin.commandHistory];
+        }
         [self.windowsToBeRemoved addObject:reqWin];
         [self.gwindows removeObjectForKey:@(name)];
         self.shouldCheckForMenu = YES;

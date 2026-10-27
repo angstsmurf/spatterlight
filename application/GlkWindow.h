@@ -157,6 +157,10 @@ typedef NS_ENUM(int32_t, kSaveTextFormatType) {
 // speak "No commands entered", or that history travel hit its start
 // (backward) or end (forward).
 - (void)travelInHistoryForward:(BOOL)forward;
+// The command history, so that a window the interpreter closes can hand it to
+// the window that replaces it.
+@property (NS_NONATOMIC_IOSONLY, readonly) InputHistory *commandHistory;
+- (void)adoptCommandHistory:(InputHistory *)commandHistory;
 // Overridden by windows that take line input: the text being edited, or nil
 // when there is no input to travel in.
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *historyInputText;

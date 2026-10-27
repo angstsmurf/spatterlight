@@ -893,6 +893,15 @@
     }
 }
 
+- (InputHistory *)commandHistory {
+    return history;
+}
+
+- (void)adoptCommandHistory:(InputHistory *)commandHistory {
+    history = commandHistory;
+    [history reset];
+}
+
 - (NSString *)historyInputText {
     return nil;
 }

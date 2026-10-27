@@ -11,7 +11,7 @@
 
 #include <sys/select.h>
 
-@class TableViewController, CommandScriptHandler, JourneyMenuHandler, GlkTextBufferWindow;
+@class TableViewController, CommandScriptHandler, JourneyMenuHandler, GlkTextBufferWindow, InputHistory;
 
 // Autoresizing masks for the game and border views.
 // Fill the superview:
@@ -79,6 +79,10 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     // Restored windows the interpreter closed before restoreUI adopted their
     // views, so restoreUI must leave them out.
     NSMutableSet<NSNumber *> *windowsClosedBeforeRestore;
+    // Command histories of buffer windows closed since the interpreter last
+    // waited for input, oldest first, for the buffer windows it opens to
+    // replace them (see handleNewWindowOfType:andName:).
+    NSMutableArray<InputHistory *> *historiesOfClosedWindows;
     NSMutableData *bufferedData;
 
     TableViewController *libcontroller;
