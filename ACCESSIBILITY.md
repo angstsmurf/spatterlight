@@ -15,7 +15,7 @@
 
 <a id='intro'></a>
 ## Introduction
-First of all, don't expect a smooth, predictable experience using VoiceOver. In particular, there is a tendency to read all the game text from the very beginning of the game, rather than just the latest move, which is what you would want most of the time. I've tried hard to fix this, but this is the best I can do.
+First of all, don't expect a smooth, predictable experience using VoiceOver. In particular, VoiceOver has a tendency to read all the game text from the very beginning of the game, rather than just the latest move, which is what you would want most of the time. Spatterlight now works around this in two ways: each move in the game text is an accessibility element of its own, and the VoiceOver cursor is parked on the latest move whenever a game window is activated, so switching to a game reads that move only. If VoiceOver still reads from the start when you move the cursor into the text, switch on the setting <a href="#limit">Limit VoiceOver to Last Move</a>, which hides everything but the latest move from VoiceOver.
 
 Also, to avoid annoying beeps, you may want to switch off Details > Animate scrolling when using VoiceOver. It is the checkbox at the bottom of the Details tab in the Settings window.
 
@@ -28,9 +28,9 @@ With that out of the way, here are the VoiceOver features of Spatterlight.
 
 These are mostly identical to those found in the Mac interpreter Zoom, if anyone is familiar with that. Note that they will only speak text currently on screen or in the scrollback buffer. If the user or the game clears the screen, all the previous commands are cleared as well.
 
-### Repat Last Move
+### Repeat Last Move
 (shortcut Alt + Command + left arrow)
-This is very useful for interrupting VoiceOver whenever it starts reading the game scrollback buffer all the way from the start of the game. Unfortunately, you will sometimes have to press it more than once before it works.
+This speaks the latest move again. It is also useful for interrupting VoiceOver whenever it starts reading the game scrollback buffer all the way from the start of the game. Unfortunately, you will sometimes have to press it more than once before it works.
 ### Speak Previous Move
 (shortcut Alt + Command + up arrow)
 Use this keyboard shortcut and the next to navigate back and forth through all visible previous moves.
@@ -39,28 +39,39 @@ Use this keyboard shortcut and the next to navigate back and forth through all v
 ### Speak Status
 (shortcut Alt + Command + Backspace)
 This one looks for a status window and reads its text if it finds one. It will then go on and read the text in all non-main windows. This is particularly useful for games that print the room description in a separate window, such as the Scott Adams games.
+<a id='limit'></a>
 ### Limit VoiceOver to Last Move
 (shortcut Alt + Command + T)
-This is a setting rather than a command, and it is remembered between sessions. When it is on, the game text area only shows VoiceOver the text from the last move onwards, so that landing on it (when switching to a game window, or moving the VoiceOver cursor into the text) reads the latest move instead of the whole scrollback from the start of the game. Earlier moves are still available through the Command history rotor and the Speak Previous Move command. When it is off, VoiceOver sees all the game text, but each move is also an element of its own, and Spatterlight parks the VoiceOver cursor on the last move whenever a game window is activated.
+This is a setting rather than a command. It is found in the Speech menu and is remembered between sessions. Toggling it announces the new state.
+
+When it is on, VoiceOver only sees the text from the last move onwards, so that when landing on the text view (for example when switching to a game window, or moving the VoiceOver cursor into the text) reads the latest move instead of scrolling to the top and reading the whole scrollback from the start. Earlier moves are still available in several ways:
+
+- The Command history rotor (VO + U) lists the moves themselves, and selecting one moves the VoiceOver cursor to it.
+- The Speak Previous Move and Speak Next Move commands read them.
+- VoiceOver's text search (VO + F) also searches the earlier moves. When the text is found in an earlier move, the VoiceOver cursor lands on that move and the found text is spoken.
+
+The Hyperlinks rotor, on the other hand, only lists the links VoiceOver can see: those in the last move, and those in the status line and any other windows. Links in earlier moves are not listed while the setting is on.
+
+When the setting is off, VoiceOver sees all the game text as usual, but each move is still an element of its own, and Spatterlight parks the VoiceOver cursor on the last move whenever a game window is activated.
 
 <a id='vo-rotors'></a>
 ## Custom rotors
 
-Custom VoiceOver rotors are activated by pressing VO + U, and then stepping through them with the left and right arrow keys. Their results can be filtered by typing any text. There is aso a free text search rotor, activated by VO + F.
+Custom VoiceOver rotors are activated by pressing VO + U, and then stepping through them with the left and right arrow keys. Their results can be filtered by typing any text. There is also a free text search rotor, activated by VO + F, which searches the text of all game windows, starting from the position of the VoiceOver cursor and wrapping around.
 
 ### Command history rotor
- Presents the last 50 commands as a list, with the most recent one at the top. Selecting a command in the list will select the corresponding text in the scrollback. If the game or the user clears the screen, the command history is cleared as well.
+ Presents the last 50 commands as a list, with the most recent one at the top. Selecting a command in the list will select the corresponding text in the scrollback, or, with Limit VoiceOver to Last Move on, move the VoiceOver cursor to that move. If the game or the user clears the screen, the command history is cleared as well.
   
 ### Glk Windows rotor
  The Glk screen model that Spatterlight uses has three different types of windows: scrolling text buffer windows, fixed-letter-width text grid windows, and graphics windows. This rotor lists all Glk buffer and grid windows shown by the game. It skips any graphics windows for the sake of simplicity, as some games add a lot of empty graphics windows for layout purposes.
  
 ### Hyperlinks rotor
- If the game displays hyperlinks, they will be listed here. If it doesn't, this rotor won't be available. It is similar in functionality to opening the built-in item chooser (VO + I) and filtering on “hyperlink”, but is hopefully a little more convenient. It tries to sort the links in an intuitive order. Of course, there is not a lot of games with hyperlinks supported yet, but at least *Dead Cities* should now be playable using only this rotor.
+ If the game displays hyperlinks, they will be listed here. If it doesn't, this rotor won't be available. It is similar in functionality to opening the built-in item chooser (VO + I) and filtering on “hyperlink”, but is hopefully a little more convenient. It tries to sort the links in an intuitive order. With Limit VoiceOver to Last Move on, only the links in the last move and in the other windows are listed.
 
 ### Images rotor
  This is probably mostly useful in games that provide image descriptions, and those are few and far between. At least *Anchorhead: the Illustrated Edition* and *Counterfeit Monkey* do. This rotor will not be available if the game has no images, or if the setting VoiceOver > Speak Images is set to None.
  
- If you Mac supports VoiceOver Recognition (and you have switched it on and installed its English language support) you can select an image with this rotor, and then get an autogenerated description with the VoiceOver Recognition shortcut (VO + shift + L), though this tends to not work flawlessly. You will ususally get a description of the on-screen text as well.
+ If your Mac supports VoiceOver Recognition (and you have switched it on and installed its English language support) you can select an image with this rotor, and then get an autogenerated description with the VoiceOver Recognition shortcut (VO + shift + L), though this tends to not work flawlessly. You will usually get a description of the on-screen text as well.
 
 <a id='menu-detect'></a>
 ## Menu detection
@@ -80,11 +91,11 @@ These are found on the VoiceOver tab in the Spatterlight Settings window.
 The verbosity when reading auto-detected menu lines. Select Don't detect menus to turn off this feature altogether.
 ### Speak images
 Whether to mention inline images in the text. If "All" is selected here, the word "Image" will be spoken when an image without description appears in the text. If "With images" is set, they won't be mentioned. Most games don't have images at all, and those that have very rarely provide image descriptions. *Anchorhead: the Illustrated Edition* and *Counterfeit Monkey* are two exceptions.
- If you Mac supports VoiceOver Recognition (and you have installed it and switched it on) you may get an autogenerated description of a selected image with the VoiceOver Recognition shortcut (VO + shift + L).
+ If your Mac supports VoiceOver Recognition (and you have installed it and switched it on) you may get an autogenerated description of a selected image with the VoiceOver Recognition shortcut (VO + shift + L).
 ### Speak commands
 If enabled, typed commands will be spoken after entering them. This also determines whether previous commands are included when navigating the command history.
 ### Interrupt VoiceOver when appropriate
-Whether Spatterlight should try to interrupt VoiceOver's automatic description of the text view. This only triggers when the game window becomes active (that is, when a game starts, when a system dialog or menu closes, or when the user navigates to a different window and back) or when VoiceOver is initially switched on. These are the situations in which VoiceOver by default will start reading the scrollback text all the way from the start. Setting the interruption delay to a longer value means that the interruption is more likely to actually happen, but you might have to listen to up to eight seconds of the beginning of the game again first.
+Whether Spatterlight should try to interrupt VoiceOver's automatic description of the text view. This only triggers when the game window becomes active (that is, when a game starts, when a system dialog or menu closes, or when the user navigates to a different window and back) or when VoiceOver is initially switched on. These are the situations in which VoiceOver wants to start reading the scrollback text all the way from the start. Spatterlight tries to park the VoiceOver cursor is parked on the last move when a game window is activated, but this will not work in all situations. Setting the interruption delay to a longer value means that the interruption is more likely to actually happen, but you might have to listen to up to eight seconds of the beginning of the game again first.
 
 <a id='journey'></a>
 ## Journey
@@ -107,9 +118,9 @@ Often these actions will lead to second-order submenus, for example to pick an o
 
 I made all this under the assumption that the standard macOS controls would be sufficiently accessible out-of-the-box, but they seem to have a few problems. It is possible that this all has to be re-done in a completely different way.
 
-The main problem is that VoiceOver really wants to read the start of the text buffer ("Our journey started on a day bright and clear …") instead of the results of the latest action. What seems to be happening is that, after selecting an action from a menu or a dialog, focus is returned to the game window, and this notifies VoiceOver that focus has moved to a new accessibility element, which has to be described. I haven't found a reliable way to prevent this.
+The main problem used to be that VoiceOver really wants to read the start of the text buffer ("Our journey started on a day bright and clear …") instead of the results of the latest action. What seems to be happening is that, after selecting an action from a menu or a dialog, focus is returned to the game window, and this notifies VoiceOver that focus has moved to a new accessibility element, which has to be described. Spatterlight now parks the VoiceOver cursor on the latest move when the game window is activated, which helps a lot, and switching on Limit VoiceOver to Last Move (Option + Command + T) hides the earlier text from VoiceOver altogether.
 
-Therefore, it is recommended to use the Speak Last Move shortcut (Option + Command + left arrow) to interrupt VoiceOver if it starts misbehaving. Sometimes it has to be pressed repeatedly in order to work.
+If VoiceOver still starts misbehaving, use the Repeat Last Move shortcut (Option + Command + left arrow) to interrupt it. Sometimes it has to be pressed repeatedly in order to work.
 
 The Command History Rotor (VO + U, see above), which lists all previous moves in the game, can also be useful here.
 
@@ -121,7 +132,7 @@ Here is a YouTube video with audio that demonstrates playing the start of the ga
 
 https://youtu.be/9jauDyUu6Ro
 
-You can't tell from the video which buttons are pressed, but you can hear what results (and problems) to expect. It may not be apparent, but at many places in the video I use the Speak Last Move shortcut, sometimes repeatedly, to force VoiceOver to start speaking the results of the latest action.
+You can't tell from the video which buttons are pressed, but you can hear what results (and problems) to expect. It may not be apparent, but at many places in the video I use the Repeat Last Move shortcut, sometimes repeatedly, to force VoiceOver to start speaking the results of the latest action.
 
 As an added bonus I created [a blorb file][blorb] where the placeholder image descriptions from the `dev-r46` prototype are added to every image, so that when you navigate the VoiceOver cursor to the graphics window, the image description will be read. These descriptions are usually not helpful and may not accurately describe the images, but some people might still enjoy them. Note that the blorb file has to be renamed to match the game file name, in order for the descriptions to work.
 
@@ -145,6 +156,6 @@ There is a graphical maze in *Shogun* that is difficult to navigate with a scree
 <a id='vo-utility'></a>
 ## VoiceOver Utility settings
 
-After some experimentation with the settings in the VoiceOver Utility, it seems that setting Verbosity > Speech > Text Area to “Custom” and unchecking “Content” might  prevent VoiceOver from reading the entire scrollback from the very start. Of course, this is not an ideal solution, as there are other situations where you *want* selected text areas to describe their contents when selected, such as when navigating the help windows and alert dialogs. Not to mention when using other apps. So you probably at least want to create a custom VoiceOver activity for Spatterlight with this verbosity setting. This can be done in VoiceOver Utility > Activities. (Select Spatterlight in "Automatically switch to this activitiy for:" > "Apps and Websites".)
+If Limit VoiceOver to Last Move is not enough: after some experimentation with the settings in the VoiceOver Utility, it seems that setting Verbosity > Speech > Text Area to “Custom” and unchecking “Content” might prevent VoiceOver from reading the entire scrollback from the very start. Of course, this is not an ideal solution, as there are other situations where you *want* selected text areas to describe their contents when selected, such as when navigating the help windows and alert dialogs. Not to mention when using other apps. So you probably at least want to create a custom VoiceOver activity for Spatterlight with this verbosity setting. This can be done in VoiceOver Utility > Activities. (Select Spatterlight in "Automatically switch to this activity for:" > "Apps and Websites".)
 
 You might also want to disable some other hints and announcements settings in the VoiceOver utility, such as "Speak instructions for using the item in the VoiceOver cursor" and set "Verbosity > Hints > When an item has custom actions" to "Do Nothing" (to get rid of "Actions available" announcements.)
