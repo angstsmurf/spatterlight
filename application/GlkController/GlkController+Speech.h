@@ -27,6 +27,9 @@
 // Speak previous moves
 - (IBAction)speakMostRecent:(id)sender;
 - (void)speakMostRecentAfterDelay;
+// A buffer window's text was fetched through accessibility, which is what
+// VoiceOver does right after landing on the window.
+- (void)voiceOverFetchedBufferText;
 // The "Limit VoiceOver to Last Move" setting was toggled.
 - (void)voiceOverTailModeChanged;
 - (IBAction)speakPrevious:(id)sender;

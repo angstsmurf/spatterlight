@@ -250,6 +250,11 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && !self.currentMenu && !self.form)
             [(GlkTextBufferWindow *)mainWindow moveVoiceOverCursorToLastMove];
         if (self.theme.vODelayOn && !self.mustBeQuiet) {
+            // VoiceOver fetches the text of the game window shortly after
+            // landing on it. That fetch is the cue to announce the last move
+            // (voiceOverFetchedBufferText); the timer below is the fallback
+            // for when no fetch comes.
+            self.voLandingState = VOLandingAwaitingFetch;
             runOnMainAfterDelay(0.5, ^{
                 [self speakMostRecentAfterDelay];
             });
@@ -304,19 +309,56 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     });
 }
 
+// Fallback for when VoiceOver never fetches the game text after the window
+// became key (no buffer window, or the fetch came before windowDidBecomeKey:):
+// announce the last move once the lag plus a margin for the fetch has passed,
+// unless the fetch-triggered announcement has taken over by then.
 - (void)speakMostRecentAfterDelay {
     for (GlkTextBufferWindow *win in self.bufferWindows)
         [win resetLastSpokenString];
 
-    CGFloat delay = self.theme.vOHackDelay;
-    runOnMainAfterDelay(delay, ^{
+    CGFloat lag = self.theme.vOHackDelay;
+    SPVOTRACE("fallback scheduled, lag %.2f", lag);
+    runOnMainAfterDelay(lag + 2.0, ^{
+        VOLandingState state = self.voLandingState;
+        self.voLandingState = VOLandingIdle;
+        if (state == VOLandingFetched) {
+            SPVOTRACE("fallback skipped: announced on fetch");
+            return;
+        }
         // When VoiceOver's cursor landed on the move element at activation,
         // it has read the move already, and announcing it again would only
         // interrupt that.
         GlkWindow *mainWindow = self.largestWithMoves;
-        if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && [(GlkTextBufferWindow *)mainWindow voiceOverReadLastMove])
+        BOOL readMove = [mainWindow isKindOfClass:[GlkTextBufferWindow class]] && [(GlkTextBufferWindow *)mainWindow voiceOverReadLastMove];
+        SPVOTRACE("fallback fired, move already read: %d", readMove);
+        if (readMove)
             return;
-        shouldAddTitlePrefixToSpeech = (delay < 1);
+        shouldAddTitlePrefixToSpeech = (lag < 1);
+        [self speakMostRecent:self];
+    });
+}
+
+// VoiceOver has just fetched a buffer window's text: it has landed on the
+// window and is about to describe it, and some seconds later it would read
+// the whole text from the start. Announcing the last move now, after the
+// lag the user chose, interrupts that description and cancels the reading.
+// With a lag of 0 the announcement cuts the description short at once.
+- (void)voiceOverFetchedBufferText {
+    if (self.voLandingState != VOLandingAwaitingFetch)
+        return;
+    self.voLandingState = VOLandingFetched;
+    CGFloat lag = self.theme.vOHackDelay;
+    SPVOTRACE("landing fetch, announcing after %.2f + 1.1", lag);
+    runOnMainAfterDelay(lag, ^{
+        if (self.mustBeQuiet)
+            return;
+        GlkWindow *mainWindow = self.largestWithMoves;
+        BOOL readMove = [mainWindow isKindOfClass:[GlkTextBufferWindow class]] && [(GlkTextBufferWindow *)mainWindow voiceOverReadLastMove];
+        SPVOTRACE("fetch-triggered fire, move already read: %d", readMove);
+        if (readMove)
+            return;
+        shouldAddTitlePrefixToSpeech = (lag < 1);
         [self speakMostRecent:self];
     });
 }
@@ -436,6 +478,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         return;
 
     if ([string isEqualToString: self.lastSpokenString] && self.speechTimeStamp.timeIntervalSinceNow > -3.0) {
+        SPVOTRACE("dropped as repeat within 3 s");
         return;
     }
 

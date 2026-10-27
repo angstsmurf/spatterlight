@@ -8,6 +8,7 @@
 #import "InfocomV6MenuHandler.h"
 #import "MyAttachmentCell.h"
 #import "BufferTextView.h"
+#import "SPAccessibility.h"
 #import "Constants.h"
 #include "glkimp.h"
 
@@ -36,6 +37,11 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 @property (weak) GlkTextBufferWindow *bufferWindow;
 // Set whenever VoiceOver reads the value: tells whether it landed here.
 @property BOOL valueRead;
+// The speakable string, built on first use and kept while the text length
+// is unchanged: VoiceOver reads the value dozens of times when it lands.
+// Dropped when the element is armed.
+@property (copy, nullable) NSString *cachedMoveString;
+@property NSUInteger cachedTextLength;
 @end
 
 @implementation MoveAXElement
@@ -58,7 +64,14 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 }
 
 - (NSString *)moveString {
-    return [self.bufferWindow speakableStringForMoveRange:[NSValue valueWithRange:self.range]];
+    GlkTextBufferWindow *win = self.bufferWindow;
+    NSUInteger length = win.textview.textStorage.length;
+    if (!self.cachedMoveString || self.cachedTextLength != length) {
+        SPVOTRACE("built for {%lu,%lu}", (unsigned long)self.range.location, (unsigned long)self.range.length);
+        self.cachedMoveString = [win speakableStringForMoveRange:[NSValue valueWithRange:self.range]];
+        self.cachedTextLength = length;
+    }
+    return self.cachedMoveString;
 }
 
 // Reading the text, not merely measuring it, counts as VoiceOver having
@@ -189,6 +202,7 @@ static NSUInteger commandStartAfterPromptAt(NSString *s, NSUInteger i, NSUIntege
 - (void)armVoiceOverFocusedMoveElement {
     MoveAXElement *el = self.moveAccessibilityElements.lastObject;
     el.valueRead = NO;
+    el.cachedMoveString = nil;
     _textview.voFocusedMoveElement = el;
 }
 

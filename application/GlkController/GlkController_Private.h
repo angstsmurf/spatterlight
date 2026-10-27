@@ -149,6 +149,17 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
 // interrupted by AppKit re-reading the focused window on each frame change.
 @property NSTimeInterval lastLayoutChurnTimestamp;
 
+// Where the Interrupt VoiceOver when appropriate announcement stands after
+// the window became key: waiting for VoiceOver to fetch the game text, or
+// that fetch has come and the announcement is scheduled or made. See
+// voiceOverFetchedBufferText and speakMostRecentAfterDelay.
+typedef NS_ENUM(NSInteger, VOLandingState) {
+    VOLandingIdle,
+    VOLandingAwaitingFetch,
+    VOLandingFetched
+};
+@property VOLandingState voLandingState;
+
 // Redeclare readonly properties as readwrite for category access
 @property(readwrite) NSRect storedWindowFrame;
 @property(readwrite) NSRect storedGameViewFrame;

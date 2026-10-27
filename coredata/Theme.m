@@ -317,7 +317,7 @@
     self.vOSpeakImages = kVOImageWithDescriptionOnly;
     self.vOSpeakMenu = kVOMenuTextOnly;
     self.vODelayOn = YES;
-    self.vOHackDelay = 4.0;
+    self.vOHackDelay = 0;
     self.zMachineLetter = @"S";
     self.zMachineTerp = 4; // Amiga
     self.nohacks = NO;

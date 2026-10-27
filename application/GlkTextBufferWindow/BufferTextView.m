@@ -496,6 +496,7 @@ static NSRange voToReal(NSRange virt, NSUInteger off) {
 }
 
 - (id)accessibilityValue {
+    [((GlkTextBufferWindow *)self.delegate).glkctl voiceOverFetchedBufferText];
     id value = super.accessibilityValue;
     NSUInteger off = self.accessibilityTextOffset;
     if (off && [value isKindOfClass:[NSString class]] && off <= ((NSString *)value).length)

@@ -1632,10 +1632,10 @@
                         <font key="font" metaFont="system"/>
                     </buttonCell>
                 </button>
-                <slider toolTip="How long to wait until interrupting VoiceOver." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is5-dA-QbR">
+                <slider toolTip="How long to let VoiceOver describe the window before the last move is announced. Zero interrupts it at once." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="is5-dA-QbR">
                     <rect key="frame" x="48" y="51" width="464" height="28"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <sliderCell key="cell" alignment="left" maxValue="8" doubleValue="4" tickMarkPosition="above" numberOfTickMarks="9" sliderType="linear" id="6uy-PU-lRD">
+                    <sliderCell key="cell" alignment="left" maxValue="8" doubleValue="0" tickMarkPosition="above" numberOfTickMarks="9" sliderType="linear" id="6uy-PU-lRD">
                         <font key="font" size="12" name="Helvetica"/>
                     </sliderCell>
                     <connections>

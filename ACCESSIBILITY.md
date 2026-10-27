@@ -95,9 +95,10 @@ Whether to mention inline images in the text. If "All" is selected here, the wor
 ### Speak commands
 If enabled, typed commands will be spoken after entering them. This also determines whether previous commands are included when navigating the command history.
 ### Interrupt VoiceOver when appropriate
-Whether Spatterlight should try to interrupt VoiceOver's automatic description of the text view. This only triggers when the game window becomes active (that is, when a game starts, when a system dialog or menu closes, or when the user navigates to a different window and back) or when VoiceOver is initially switched on. These are the situations in which VoiceOver wants to start reading the scrollback text all the way from the start. Spatterlight tries to park the VoiceOver cursor is parked on the last move when a game window is activated, but this will not work in all situations. Setting the interruption delay to a longer value means that the interruption is more likely to actually happen, but you might have to listen to up to eight seconds of the beginning of the game again first.
+Whether Spatterlight should announce the latest move when the game window becomes active (that is, when a game starts, when a system dialog or menu closes, or when the user navigates to a different window and back) or when VoiceOver is initially switched on. These are the situations in which VoiceOver describes the game window and then, some seconds later, wants to start reading the scrollback text all the way from the start. Spatterlight parks the VoiceOver cursor on the last move when a game window is activated, and when that works, VoiceOver reads the move itself and no announcement is made. Otherwise, the announcement is made when VoiceOver has fetched the game text for its description, which is what makes it land where it should regardless of how long VoiceOver takes to react, and the announcement cancels the reading of the whole text.
 
-<a id='journey'></a>
+The Interruption delay slider sets how long VoiceOver's own description of the window is allowed to go on before the move is announced. At zero, the default, the description is cut off almost at once. Set it higher if you want to hear the description ("Curses window, edit text, line 4") first.
+
 ## Journey
 
 Any version of *Journey* found at [the Obsessively Complete Infocom Catalog][obsess] should work, except the first one, the Z5 prototype named `journey-dev-r46-s880603.z5`.
@@ -124,7 +125,7 @@ If VoiceOver still starts misbehaving, use the Repeat Last Move shortcut (Option
 
 The Command History Rotor (VO + U, see above), which lists all previous moves in the game, can also be useful here.
 
-You can also try experimenting with the setting VoiceOver > Interruption delay. A longer delay is more likely to be successful, but you might have to listen to the beginning of the game narration for eight seconds every time.
+With Interrupt VoiceOver when appropriate on, the latest move is announced as soon as VoiceOver has fetched the game text for its description of the window, which cancels the reading of the whole text. The Interruption delay slider sets how much of that description you hear first. Zero, the default, cuts it off at once.
 
 For more tips, see <a href="#vo-utility">VoiceOver Utility settings</a> below.
 
