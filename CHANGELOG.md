@@ -3,23 +3,24 @@
 ## Unreleased
 
 ### Bocfel (Z-code)
-- The VoiceOver menus of the Infocom Z6 games read accented letters correctly, instead of decoding the game's Latin-1 text as something else.
+- The VoiceOver menus of the Infocom Z6 games read accented letters correctly.
 - In *Journey*, VoiceOver no longer capitalises names wrongly ("AnnA" for "Anna"), the menus come back correctly when the game is autorestored, an empty menu title no longer crashes, and rebuilding the dialog no longer drops a character.
 - In *Bureaucracy*, the VoiceOver form reading is fixed, and an instruction waiting to be spoken survives an error message.
 - A menu read by VoiceOver no longer speaks the instruction for a key twice. Reading the menus of *The Unforgotten* with VoiceOver no longer crashes, and the *Journey* dialog no longer shows the last move twice.
 - Random events continue the same way after an autorestore: the random number generator is saved exactly, where it used to be re-seeded from the new session.
-- *Robot Finds Kitten* no longer crashes with "attempt to write to read-only address 0x1" during its ending animation (issue #87). The patch for it was dropped by mistake in the Bocfel 2.2 update.
+- *Robot Finds Kitten* no longer crashes with "attempt to write to read-only address 0x1" during its ending animation (issue #87). The patch for it was dropped by mistake in the previous release.
 
 ### Scarier (Adrift)
-- Some Adrift 4.0 games have ALRs written for the older take wording, which the 4.0 runner never prints. Scarier now keeps the older wording when a game's ALRs quote it (a deliberate deviation), so Hubert's retorts in *To Hell in a Hamper* appear, and the "already got" replacements in *Cursed* and a dozen other games fire. An ALR that contains itself is printed once.
-- Adrift games get text styles from their own markup: before the window opens, Scarier counts the bold, italic, monospaced, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large, and the 14-point title every Adrift 4 game opens with is no longer bold. A combination left without a style of its own falls back to the nearest one that has. The look with "Games can set colors and styles" off is unchanged.
+- Some Adrift 4.0 games have ALRs (text substitutions) written for the older take wording, which the 4.0 runner never prints. Scarier now texts the older wording against a game's ALRs (a deliberate deviation from the original Adrift Runner), so Hubert's retorts in *To Hell in a Hamper* appear, and the "already got" replacements in *Cursed* and a dozen other games fire.
+- An ALR that contains its own replacement text is now only printed once.
+- Adrift games get more text styles from their own markup: before the window opens, Scarier counts the bold, italic, monospaced, size and alignment combinations the game's text uses and gives the most used ones Glk styles of their own, so a centred 20-point title prints centred and large, and the 14-point title every Adrift 4 game opens with is no longer bold. A combination left without a style of its own falls back to the nearest one that has. The look with "Games can set colors and styles" off is unchanged.
 - A game's background and text colour, as set by `<bgcolour>` and the like, are kept when the game is autorestored, where it used to come back in the default colours.
 
 ### Plus
-- The versions of the *X-Men* SAGA database other than the original can now be added to the library, as they now get an IFID of their own.
+- The IFID of the *X-Men* fragment is now properly calculated.
 
 ### Level9
-- Typing a number works in every game: WAIT 25 failed in *Lancelot*, *Scapeghost* and *Ingrid's Back*, because the number was not stored the way the games expect. As in the original interpreter, a number on its own is refused by the older games.
+- Typing a number works in every game: commands like WAIT 25 failed in *Lancelot*, *Scapeghost* and *Ingrid's Back*, because the number was not stored the way the games expect. As in the original interpreter, a number on its own is refused by the older games.
 - A failed RESTORE goes back to the state before the command, so a game that prepares for the restore first, as *Ingrid's Back* does, no longer carries on into the wrong part when the restore fails.
 - Punctuation typed in a command reaches the game instead of being turned into spaces, and abbreviated words are resolved the way the original interpreter resolves them: fewer than four letters only count as an abbreviation when no later word starts the same way.
 - Games detected as version 3 no longer list nonsense exits read from past the end of their exit table. Text after "!" is no longer wrongly capitalised, so *Ingrid's Back* prints "copyright" in lower case, as the original does.
@@ -86,9 +87,10 @@
 - Graphics windows with a transparent background resize correctly, edges no longer grow softer with each resize, and the window is redrawn when moved to a screen with a different resolution. A click no longer counts as a drag unless the mouse moves at least 3 points, and dragging a graphics window drags a picture of its contents.
 - A dragged picture can be dropped as a file, for example into Terminal.
 - Images replaced by a game are read in full, and purging pictures no longer deletes picture files that belong to the game. Placeholder rectangles in a Blorb file are kept, a picture that fails to load no longer leaves the previous one showing, and the temporary files of replaced pictures are deleted once decoded.
-- JPEG pictures with Exif data are recognised. VoiceOver rotor fixes, among them in *A Colder Light*.
+- JPEG pictures with Exif data are recognised.
+- VoiceOver rotor fixes.
 - In text buffer windows, turning echo on and off works, clicks on hyperlinks are only sent when the game is waiting for one, a margin picture keeps its link when rescaled, and clearing the scrollback is fixed. Fixes a crash when dragging a picture that has no bitmap and one in *Dead Cities*. The VoiceOver labels of pictures and the input history are localised.
-- The background scrollback trim is removed. It was on by default, but dropped margin pictures and flow breaks and could lose text printed while it ran. The scrollback is now only trimmed while you are at the bottom.
+- Scrollback trim no longer happens on a background thread. Also, only off-screen text is trimmed.
 - Line input after a prompt that ends with a newline, such as "Name?", starts on the next line instead of at the end of the prompt. Text printed after a game takes back part of its output is no longer paged past unread, and auto-scrolling no longer stops there.
 - A margin picture at the bottom of a text buffer window no longer leaves blank space below the text or makes typing jump, scrolling to the bottom keeps the input caret on screen, and a window scrolled up from the bottom comes back where it was after an autorestore.
 - Up-arrow in the command history stops at the oldest command again after the first hundred or so. Typing in a grid window no longer goes wrong when the text is over the length limit, splits accented characters or refuses deletions.
