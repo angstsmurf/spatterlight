@@ -88,6 +88,34 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     return result;
 }
 
+// How many times a string occurs in a range of a text.
+static NSUInteger SPOccurrences(NSString *text, NSString *searchString, NSRange range) {
+    NSUInteger count = 0;
+    for (;;) {
+        NSRange found = [text rangeOfString:searchString options:NSCaseInsensitiveSearch range:range locale:nil];
+        if (found.location == NSNotFound)
+            return count;
+        count++;
+        range.length = NSMaxRange(range) - NSMaxRange(found);
+        range.location = NSMaxRange(found);
+    }
+}
+
+// The nth occurrence (from 0) of a string in a range of a text, or the last
+// one there is, or NSNotFound when there is none.
+static NSRange SPNthOccurrence(NSString *text, NSString *searchString, NSRange range, NSUInteger n) {
+    NSRange result = NSMakeRange(NSNotFound, 0);
+    for (NSUInteger i = 0; i <= n; i++) {
+        NSRange found = [text rangeOfString:searchString options:NSCaseInsensitiveSearch range:range locale:nil];
+        if (found.location == NSNotFound)
+            break;
+        result = found;
+        range.length = NSMaxRange(range) - NSMaxRange(found);
+        range.location = NSMaxRange(found);
+    }
+    return result;
+}
+
 @implementation RotorHandler
 
 // The principle: Generate a list on-the-fly of all available elements, find the item that matches the parameters and return it as a NSAccessibilityCustomRotorItemResult with correct metadata.
@@ -99,9 +127,8 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
                       resultForSearchParameters:(NSAccessibilityCustomRotorSearchParameters *)searchParameters {
 
     if (rotor.type == NSAccessibilityCustomRotorTypeAny) {
-        NSAccessibilityCustomRotorItemResult *currentItemResult = searchParameters.currentItem;
         return [self textSearchResultForString:searchParameters.filterString
-                                     fromRange:SPFullTextRange(currentItemResult)
+                                      fromItem:searchParameters.currentItem
                                      direction:searchParameters.searchDirection];
     } else if ([rotor.label isEqualToString:NSLocalizedString(@"Command history", nil)]) {
         return [self commandHistoryRotor:rotor resultForSearchParameters:searchParameters];
@@ -116,42 +143,127 @@ static NSAccessibilityCustomRotorItemResult *SPTextRangeResult(NSTextView *textV
     return nil;
 }
 
-- (NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromRange:(NSRange)fromRange direction:(NSAccessibilityCustomRotorSearchDirection)direction {
+// VoiceOver's text search (VO-F). Finds the next (or previous) occurrence
+// of the search string on from the item VoiceOver's cursor is on, looking
+// through the other windows after that, and wraps round to the first (or
+// last) occurrence when there is none. Nil is only for no match at all:
+// VoiceOver then searches the elements on its own, and with "Limit
+// VoiceOver to Last Move" on that lands on whichever move element it reads
+// the string in, reported as the visible text.
+- (NSAccessibilityCustomRotorItemResult *)textSearchResultForString:(NSString *)searchString fromItem:(NSAccessibilityCustomRotorItemResult *)currentItem direction:(NSAccessibilityCustomRotorSearchDirection)direction {
 
-    NSAccessibilityCustomRotorItemResult *searchResult = nil;
+    if (!searchString.length)
+        return nil;
 
-    NSTextView *bestMatch = nil;
-    NSRange bestMatchRange = NSMakeRange(NSNotFound, 0);
+    NSMutableArray<GlkWindow *> *windows = [NSMutableArray new];
+    for (GlkWindow *view in _glkctl.windowsIncludingQuoteBox)
+        if (![view isKindOfClass:[GlkGraphicsWindow class]] && view.textview)
+            [windows addObject:view];
+    if (!windows.count)
+        return nil;
 
-    if (searchString.length) {
-        BOOL searchFound = NO;
-        GlkController *glkctl = _glkctl;
-        for (GlkWindow *view in glkctl.windowsIncludingQuoteBox) {
-            if (![view isKindOfClass:[GlkGraphicsWindow class]]) {
-                NSString *contentString = view.textview.string;
-                NSUInteger offset = SPAccessibilityTextOffset(view.textview);
-
-                NSRange resultRange = [contentString rangeOfString:searchString options:NSCaseInsensitiveSearch range:NSMakeRange(offset, contentString.length - offset) locale:nil];
-
-                if (resultRange.location == NSNotFound)
-                    continue;
-
-                if (direction == NSAccessibilityCustomRotorSearchDirectionPrevious) {
-                    searchFound = (resultRange.location < fromRange.location);
-                } else if (direction == NSAccessibilityCustomRotorSearchDirectionNext) {
-                    searchFound = (resultRange.location >= NSMaxRange(fromRange));
+    // Where the current item is: a range of a text view's full text, or,
+    // with "Limit VoiceOver to Last Move" on, a move element of a buffer
+    // window (older moves are only reachable that way).
+    NSUInteger currentIndex = NSNotFound;
+    NSRange fromRange = NSMakeRange(NSNotFound, 0);
+    id target = currentItem.targetElement;
+    for (NSUInteger i = 0; i < windows.count && target; i++) {
+        GlkWindow *view = windows[i];
+        if (view.textview == target) {
+            currentIndex = i;
+            fromRange = SPFullTextRange(currentItem);
+            break;
+        }
+        if ([view isKindOfClass:[GlkTextBufferWindow class]]) {
+            NSRange moveRange = [(GlkTextBufferWindow *)view moveRangeForAccessibilityElement:target];
+            if (moveRange.location != NSNotFound) {
+                currentIndex = i;
+                // The whole move when the cursor is just on the element,
+                // or a range of the move's spoken text (an earlier find),
+                // mapped back to the raw text by which occurrence it is
+                // (see textSearchResultForRange:ofString:inWindow:)
+                fromRange = moveRange;
+                NSRange itemRange = currentItem.targetRange;
+                NSString *moveString = [view speakableStringForMoveRange:[NSValue valueWithRange:moveRange]];
+                if (itemRange.length && itemRange.location != NSNotFound && NSMaxRange(itemRange) <= moveString.length) {
+                    NSUInteger n = SPOccurrences(moveString, searchString, NSMakeRange(0, itemRange.location));
+                    NSRange raw = SPNthOccurrence(view.textview.string, searchString, moveRange, n);
+                    if (raw.location != NSNotFound)
+                        fromRange = raw;
                 }
-                if (searchFound)
-                    return SPTextRangeResult(view.textview, resultRange);
-
-                bestMatchRange = resultRange;
-                bestMatch = view.textview;
+                break;
             }
         }
     }
-    if (bestMatch)
-        searchResult = SPTextRangeResult(bestMatch, bestMatchRange);
-    return searchResult;
+
+    BOOL backwards = (direction == NSAccessibilityCustomRotorSearchDirectionPrevious);
+    NSStringCompareOptions options = NSCaseInsensitiveSearch | (backwards ? NSBackwardsSearch : 0);
+
+    // The windows in search order, starting on from the current item and
+    // ending with a wrap back to the current window, searched whole
+    NSUInteger first = (currentIndex == NSNotFound) ? 0 : currentIndex;
+    NSUInteger rounds = windows.count + (currentIndex == NSNotFound ? 0 : 1);
+    for (NSUInteger n = 0; n < rounds; n++) {
+        NSUInteger i = backwards ? (first + windows.count - n % windows.count) % windows.count : (first + n) % windows.count;
+        GlkWindow *view = windows[i];
+        NSString *text = view.textview.string;
+        NSRange searchRange = NSMakeRange(0, text.length);
+        if (n == 0 && i == currentIndex && fromRange.location != NSNotFound) {
+            if (backwards) {
+                searchRange.length = MIN(fromRange.location, text.length);
+            } else {
+                searchRange.location = MIN(NSMaxRange(fromRange), text.length);
+                searchRange.length = text.length - searchRange.location;
+            }
+        }
+        NSRange match = [text rangeOfString:searchString options:options range:searchRange locale:nil];
+        if (match.location != NSNotFound)
+            return [self textSearchResultForRange:match ofString:searchString inWindow:view];
+    }
+    return nil;
+}
+
+// A result for a match in a window's full text: the text range when
+// VoiceOver can see it, otherwise (an older move, with "Limit VoiceOver to
+// Last Move" on) the same occurrence of the string in the text of the move
+// element that holds the match. VoiceOver's text search only takes text
+// ranges, so the result is a range of the element's text rather than the
+// element itself, as in the command history rotor.
+- (NSAccessibilityCustomRotorItemResult *)textSearchResultForRange:(NSRange)range ofString:(NSString *)searchString inWindow:(GlkWindow *)view {
+    NSTextView *textview = view.textview;
+    if (range.location >= SPAccessibilityTextOffset(textview) || ![view isKindOfClass:[GlkTextBufferWindow class]])
+        return SPTextRangeResult(textview, range);
+
+    GlkTextBufferWindow *bufferWindow = (GlkTextBufferWindow *)view;
+    id element = nil;
+    NSRange moveRange = NSMakeRange(NSNotFound, 0);
+    for (NSValue *value in bufferWindow.moveRanges) {
+        // The move holding the match, or else the first move after it
+        moveRange = value.rangeValue;
+        if (NSLocationInRange(range.location, moveRange) || moveRange.location > range.location) {
+            element = [bufferWindow moveAccessibilityElementForRange:moveRange];
+            break;
+        }
+    }
+    if (!element)
+        return SPTextRangeResult(textview, range);
+
+    // The move's text as VoiceOver reads it is not the raw text (image
+    // descriptions are added, the command line may be left out), so count
+    // which occurrence of the string the match is within the move and
+    // find that one in the spoken text.
+    NSUInteger n = 0;
+    if (NSLocationInRange(range.location, moveRange))
+        n = SPOccurrences(textview.string, searchString, NSMakeRange(moveRange.location, range.location - moveRange.location));
+    NSString *moveString = [bufferWindow speakableStringForMoveRange:[NSValue valueWithRange:moveRange]];
+    NSRange target = SPNthOccurrence(moveString, searchString, NSMakeRange(0, moveString.length), n);
+    if (target.location == NSNotFound)
+        target = NSMakeRange(0, 0);
+
+    NSAccessibilityCustomRotorItemResult *result = [[NSAccessibilityCustomRotorItemResult alloc] initWithTargetElement:element];
+    result.targetRange = target;
+    return result;
 }
 
 - (NSAccessibilityCustomRotorItemResult *)linksRotor:(NSAccessibilityCustomRotor *)rotor
