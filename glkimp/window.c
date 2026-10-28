@@ -632,6 +632,22 @@ glui32 glk_window_get_type(window_t *win)
     return win->type;
 }
 
+/*
+ *   Gargoyle's count of the lines in a text buffer, which TADS fits a
+ *   banner to: the app's, after it has wrapped them
+ */
+int garglk_tads_os_banner_size(window_t *win)
+{
+    if (!win)
+    {
+        gli_strict_warning("tads_os_banner_size: invalid ref");
+        return 0;
+    }
+    if (win->type != wintype_TextBuffer)
+        return 0;
+    return win_lines(win->peer);
+}
+
 strid_t glk_window_get_stream(window_t *win)
 {
     if (!win)

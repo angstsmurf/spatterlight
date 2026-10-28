@@ -111,7 +111,9 @@ void osglk_draw_side_picture(winid_t win, const oshtml_image *img,
  *   measures, or Gargoyle's extensions (osglk.c).  Without them the banners
  *   keep to characters.
  */
-#if defined(SPATTERLIGHT) || defined(GLK_MODULE_GARGLKWINSIZE)
+/* Gargoyle's window origins and cell sizes are in its overlay module */
+#if defined(SPATTERLIGHT) \
+    || (defined(GLK_MODULE_GARGLKWINSIZE) && defined(GLK_MODULE_GARGLKOVERLAY))
 #define OSGLK_PIXELS
 
 /* a window's width, inside a text buffer's margins */

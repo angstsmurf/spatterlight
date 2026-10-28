@@ -551,16 +551,11 @@ double osglk_px_cellh(void)
     return gbufcellh;
 }
 
-int osglk_px_lines(winid_t win)
-{
-    return win_lines(win->peer);
-}
-
 int osglk_px_text_height(winid_t win)
 {
     return win_text_height(win->peer);
 }
-#else /* GLK_MODULE_GARGLKWINSIZE */
+#else /* the GARGLKWINSIZE and GARGLKOVERLAY modules */
 glui32 osglk_px_width(winid_t win)
 {
     glui32 w = 0;
@@ -627,18 +622,22 @@ double osglk_px_cellh(void)
     return h;
 }
 
-int osglk_px_lines(winid_t win)
-{
-    return glk_window_get_type(win) == wintype_TextBuffer
-        ? garglk_tads_os_banner_size(win) : 0;
-}
-
 int osglk_px_text_height(winid_t win)
 {
     (void)win;
     return 0;
 }
 #endif /* SPATTERLIGHT */
+
+/*
+ *   the lines of a text buffer's text, wrapped as it shows them (Gargoyle
+ *   takes any window for a text buffer)
+ */
+int osglk_px_lines(winid_t win)
+{
+    return glk_window_get_type(win) == wintype_TextBuffer
+        ? garglk_tads_os_banner_size(win) : 0;
+}
 #endif /* OSGLK_PIXELS */
 
 void osglk_set_window_bg(winid_t win, glui32 color)
