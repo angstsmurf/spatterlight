@@ -131,6 +131,7 @@ typedef struct elem
     char name[ELEM_NAME];
     color cur;
     int indent;
+    int cell_indent;
     enum list_kind list;
     int nitem;
     int nobr;
@@ -185,12 +186,24 @@ struct oshtml_parser
 
     /* the block state from the tags in effect */
     int indent;                 /* left indent, in steps of two spaces */
+    int cell_indent;            /* the part of it empty cells left */
     enum list_kind list;
     int nitem;                  /* the list's items so far */
     int nobr;                   /* inside <nobr> */
     int table;                  /* the <TABLE>s we're inside */
     int ncell;                  /* the cells of the row so far */
     int row_shown;              /* the row has put something out */
+
+    /*
+     *   A row's first cell holds back its first character (cell_hold 2)
+     *   until we know whether the cell is just that one, a menu's ">" say.
+     *   Then it and the gap after it are fixed-pitch, like the indent of
+     *   the rows whose first cell is empty, so that the next cells line
+     *   up in a proportional font.
+     */
+    int cell_hold;              /* 1: in a first cell, 2: holding held_c */
+    glui32 held_c;
+    color held_color;
 
     /*
      *   the main window: a picture alone so far in a table cell, held back
@@ -378,8 +391,11 @@ static int same_color(const color *a, const color *b)
         && a->link == b->link;
 }
 
+static void release_held(parser *p, int fixed);
+
 static void flush_out(parser *p)
 {
+    release_held(p, 0);
     if (p->outlen)
         p->sink->put(p->ctx, p->out, p->outlen);
     p->outlen = 0;
@@ -467,6 +483,22 @@ static void emit(parser *p, glui32 c, color col)
     emit_now(p, c, col);
 }
 
+/*
+ *   put out the first cell's held character, fixed-pitch if the cell has
+ *   no more than it
+ */
+static void release_held(parser *p, int fixed)
+{
+    color col = p->held_color;
+
+    if (p->cell_hold != 2)
+        return;
+    p->cell_hold = 0;
+    if (fixed)
+        col.attr |= OSSTY_FIXED;
+    emit_now(p, p->held_c, col);
+}
+
 /* the same, not held back after a <TAB> */
 static void emit_now(parser *p, glui32 c, color col)
 {
@@ -476,6 +508,7 @@ static void emit_now(parser *p, glui32 c, color col)
             p->dst[p->dstlen++] = c;
         return;
     }
+    release_held(p, 0);
     send_color(p, &col);
     if (p->outlen == OUT_MAX)
         flush_out(p);
@@ -560,6 +593,8 @@ static void start_line(parser *p)
     shown = p->row_shown;
     for (n = 2 * p->indent ; n > 0 ; --n)
     {
+        if (n == 2 * p->cell_indent)
+            c.attr |= OSSTY_FIXED;
         emit_now(p, 0xA0, c);
         ++p->col;
     }
@@ -581,7 +616,21 @@ static void put_visible(parser *p, glui32 c)
      */
     if (tads3 && p->col + 1 >= OS_MAXWIDTH)
         p->col = 0;
-    emit(p, c, cur_color(p));
+    if (p->cell_hold == 1 && !p->dst && p->tab_align == TAB_NONE
+        && !p->line_center)
+    {
+        p->cell_hold = 2;
+        p->held_c = c;
+        p->held_color = cur_color(p);
+        p->row_shown = 1;
+    }
+    else
+    {
+        if (p->cell_hold == 2)
+            release_held(p, 0);
+        p->cell_hold = 0;
+        emit(p, c, cur_color(p));
+    }
     ++p->col;
     p->buffered = 1;
     p->just_nl = 0;
@@ -758,6 +807,16 @@ static void put_tab(parser *p, int indent, int multiple)
         ++linecol;
     } while ((linecol + 1) % multiple != 0
              && (tads3 || linecol < OS_MAXWIDTH));
+}
+
+/* 'n' spaces, fixed-pitch, to line up with a fixed-pitch cell */
+static void put_fixed_tab(parser *p, int n)
+{
+    size_t i = p->npending;
+
+    put_tab(p, n, 0);
+    for ( ; i < p->npending ; ++i)
+        p->pending_color[i].attr |= OSSTY_FIXED;
 }
 
 /* an ordinary space in HTML mode */
@@ -1330,6 +1389,7 @@ static void push_elem(parser *p, const glui32 *name, size_t len)
     e->name[len] = '\0';
     e->cur = p->cur;
     e->indent = p->indent;
+    e->cell_indent = p->cell_indent;
     e->list = p->list;
     e->nitem = p->nitem;
     e->nobr = p->nobr;
@@ -1344,6 +1404,7 @@ static void restore_elem(parser *p, int i)
 
     p->cur = e->cur;
     p->indent = e->indent;
+    p->cell_indent = e->cell_indent;
     p->list = e->list;
     p->nitem = e->nitem;
     p->nobr = e->nobr;
@@ -2057,6 +2118,7 @@ static void do_tag(parser *p)
     int nohref = 0;
     int cell_ok = 0, cell = 0;  /* <table>, <tr>, <td>; 1 for a <td> */
     int cell_first = 0;         /* the row's first cell */
+    int held_one = 0;           /* the first cell was one character */
     int cell_align = -1;        /* ALIGN: 0 left, 1 centred, 2 right */
     int cell_bg_ok = 0;
     os_color_t cell_bg = OS_COLOR_P_TRANSPARENT;
@@ -2232,12 +2294,16 @@ static void do_tag(parser *p)
         {
             if (p->table)
             {
+                release_held(p, 0);
+                p->cell_hold = 0;
                 pop_elem(p, t + name, namelen);
                 line_break(p);
             }
         }
         else
         {
+            release_held(p, 0);
+            p->cell_hold = 0;
             line_break(p);
             push_elem(p, t + name, namelen);
             ++p->table;
@@ -2252,6 +2318,8 @@ static void do_tag(parser *p)
         /* a row ends the row before it, which may not have been closed */
         if (!p->ignore && p->table)
         {
+            release_held(p, 0);
+            p->cell_hold = 0;
             close_cell(p);
             close_elem(p, "tr", tr_stops);
             line_break(p);
@@ -2274,6 +2342,10 @@ static void do_tag(parser *p)
             if (!end)
             {
                 cell_first = p->ncell++ == 0;
+                if (cell_first)
+                    release_held(p, 0);
+                held_one = !cell_first && p->cell_hold == 2;
+                p->cell_hold = cell_first ? 1 : held_one ? 2 : 0;
                 push_elem(p, t + name, namelen);
                 if (TAG("th"))
                     p->cur.attr |= OSSTY_BOLD;
@@ -2828,8 +2900,9 @@ static void do_tag(parser *p)
         /* after empty cells, the gap indents each line of the cell */
         p->npending = 0;
         if (p->line_open)
-            put_tab(p, 2 * CELL_INDENT, 0);
+            put_fixed_tab(p, 2 * CELL_INDENT);
         p->indent += CELL_INDENT;
+        p->cell_indent += CELL_INDENT;
     }
     else if (cell && !cell_first && p->line_open)
     {
@@ -2838,6 +2911,12 @@ static void do_tag(parser *p)
         p->cur.attr = (p->cur.attr & ~OSSTY_CENTER) | p->line_center;
         if (cell_align == 2 && !p->line_center && (tads3 || p->in_banner))
             right_cell(p);
+        else if (held_one && p->cell_hold == 2)
+        {
+            /* a first cell of one character, and its gap, are fixed-pitch */
+            release_held(p, 1);
+            put_fixed_tab(p, CELL_GAP);
+        }
         else
             put_tab(p, CELL_GAP, 0);
     }
@@ -2853,6 +2932,8 @@ static void do_tag(parser *p)
         if (!cell_first)
             put_tab(p, CELL_GAP, 0);
     }
+    if (held_one)
+        release_held(p, 0);
 
     /* TADS 3: what's left of the <TAB> */
     if (!tab)
@@ -3687,6 +3768,7 @@ void oshtml_clear(oshtml_parser *p)
     p->just_nl = 0;
     p->nl_count = 0;
     p->line_open = 0;
+    p->cell_hold = 0;
     close_all(p);
 }
 

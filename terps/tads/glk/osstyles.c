@@ -714,12 +714,13 @@ void osstyles_choose_counts(const unsigned long *counts)
     /*
      *   Plain text and Input have styles of their own.  Bold, italic and
      *   bold italic are always in, as the formatter can make them without
-     *   tags, but only win a style on their count.
+     *   tags, and so is fixed, which a table's marker column uses; but they
+     *   only win a style on their count.
      */
     for (i = 0 ; i < OSSTY_COMBOS ; ++i)
         if (i != 0 && i != OSSTY_INPUT
             && (counts[i] || i == OSSTY_BOLD || i == OSSTY_ITALIC
-                || i == (OSSTY_BOLD | OSSTY_ITALIC)))
+                || i == (OSSTY_BOLD | OSSTY_ITALIC) || i == OSSTY_FIXED))
             rank[n++] = i;
 
     /* most used first; ties by combination, so the choice is stable */
