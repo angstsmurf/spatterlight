@@ -44,6 +44,15 @@ each script names its page. `run_traces.py --walk` types them in place of
 the default script. No expected transcripts are stored: compare the traces
 of two builds instead.
 
+## Decompilers
+
+`sh test/fetch_decompilers.sh` downloads Fictitious Frode's `tads2.pl` and
+`tads3.pl` into `test/decompilers/` (untracked, at a pinned commit and
+checksum, as their repository has no licence). They show the HTML a game
+writes, which `strings` can't, as both formats mask their strings. Run them
+from a scratch directory, as they write their output there:
+`perl .../tads2.pl -m game.gam` gives `game.t`.
+
 ## What counts as an HTML TADS game
 
 A game is in the corpus if it falls into at least one of these categories (the
