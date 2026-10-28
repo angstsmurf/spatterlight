@@ -1092,6 +1092,40 @@ static int html_width(void *ctx)
     return os_banner_get_charwidth(ctx);
 }
 
+/*
+ *   Glk's width of a window counts characters as wide as its cells, but a
+ *   box-drawing character is an em wide, the font's size, and in a text
+ *   buffer that can be more than a cell: Helvetica 13's "W" is 12.3 wide.
+ *   So in Spatterlight no more of them than ems fit in the window's pixels.
+ *   (A font without the character may draw it narrower, from another.)
+ */
+int osglk_rule_width(winid_t win, int combo)
+{
+    glui32 wid = 0;
+#ifdef SPATTERLIGHT
+    glui32 em = 0;
+    int pixels = win->bbox.x1 - win->bbox.x0 - 2 * gbuffermarginx;
+#endif /* SPATTERLIGHT */
+
+    glk_window_get_size(win, &wid, NULL);
+#ifdef SPATTERLIGHT
+    if (glk_window_get_type(win) == wintype_TextBuffer
+        && glk_style_measure(win, osstyles_style(combo), stylehint_Size, &em)
+        && em > 0 && pixels / (int)em < (int)wid)
+        wid = pixels > 0 ? (glui32)(pixels / (int)em) : 0;
+#endif /* SPATTERLIGHT */
+    return (int)wid;
+}
+
+static int html_rule_width(void *ctx, int combo)
+{
+    osbanid_t banner = ctx;
+
+    if (!banner || !banner->valid || !banner->win)
+        return 0;
+    return osglk_rule_width(banner->win, combo);
+}
+
 static int html_centers(void *ctx, int combo)
 {
     osbanid_t banner = ctx;
@@ -1142,7 +1176,8 @@ static int html_image(void *ctx, const oshtml_image *img)
 static const oshtml_sink html_sink =
 {
     html_put, html_set_attr, html_set_color, html_set_screen_color,
-    html_width, html_centers, html_window, html_set_link, html_image
+    html_width, html_centers, html_window, html_set_link, html_image,
+    html_rule_width
 };
 
 /* a request is used up by its click: osglk.c asks again before each wait */
@@ -1227,6 +1262,28 @@ typedef struct tagban_s
     int nl;
 #ifdef SPATTERLIGHT
     picture_fit pictures;           /* and what its pictures add */
+
+    /*
+     *   A side banner in pixels too wide for the game window shrinks to
+     *   its pictures, if it has no text: the pixels it asked for, what it
+     *   shrank to, its widest picture and whether it has text
+     */
+    int px_asked;
+    glui32 px_shrunk;
+    glui32 px_widest;
+    int px_text;
+
+    /*
+     *   A table of pictures at the end of the text, in a graphics window
+     *   under it: the table, whether this showing had it, where it's drawn
+     *   and the banner's background
+     */
+    winid_t tblwin;
+    oshtml_pictable *tbl;
+    int tbl_used;
+    glui32 tbl_x, tbl_y;
+    glui32 tbl_text;                /* the pixels of the text above it */
+    glui32 screen;
 #endif /* SPATTERLIGHT */
 
     struct tagban_s *next;
@@ -1269,6 +1326,17 @@ static int tag_width(void *ctx)
         wid = (glui32)win_cols(tb->win->peer);
 #endif /* SPATTERLIGHT */
     return (int)wid - 2 * tag_margin(tb);
+}
+
+static int tag_rule_width(void *ctx, int combo)
+{
+    tagban_t *tb = ctx;
+
+    if (!tb->win)
+        return 0;
+    if (tb->measure && tag_vertical(tb->method))
+        return tag_width(ctx);
+    return osglk_rule_width(tb->win, combo) - 2 * tag_margin(tb);
 }
 
 /* the newlines that wait for more text, now that some has come */
@@ -1316,6 +1384,10 @@ static void tag_put(void *ctx, const glui32 *buf, size_t len)
             glk_put_char_stream_uni(str, ' ');
         if (str && !tb->measure)
             glk_put_char_stream_uni(str, c);
+#ifdef SPATTERLIGHT
+        if (c != ' ' && c != 0xA0)
+            tb->px_text = 1;
+#endif /* SPATTERLIGHT */
         if (++tb->col > tb->maxcol)
             tb->maxcol = tb->col;
     }
@@ -1350,6 +1422,7 @@ static void tag_set_screen_color(void *ctx, os_color_t color)
         return;
 #ifdef SPATTERLIGHT
     win_setbgnd(tb->win->peer, tag_color(color));
+    tb->screen = tag_color(color);
 #endif /* SPATTERLIGHT */
     tb->bg = !os_color_is_param(color);
 }
@@ -1379,6 +1452,43 @@ static winid_t tag_window(void *ctx)
     return tb->win;
 }
 
+#ifdef SPATTERLIGHT
+/*
+ *   the widest picture of a banner at the side; one as wide as the banner
+ *   asked to be only holds it open, as 1893's blank ones do
+ */
+static void tag_widest_add(tagban_t *tb, const oshtml_image *img)
+{
+    glui32 w, h;
+
+    if (!tb->gfx || !tag_vertical(tb->method))
+        return;
+    if (!img->width_pct && img->width && (int)img->width >= tb->px_asked)
+        return;
+    if (!oshtml_image_size(img, 0, &w, &h))
+        tb->px_text = 1;            /* we can't tell: leave it as it is */
+    else if (w > tb->px_widest)
+        tb->px_widest = w;
+}
+
+/*
+ *   the pixels a side banner gets: as it asked, unless that's more than a
+ *   quarter of the game window and it shows only pictures
+ */
+static glui32 tag_side_pixels(tagban_t *tb)
+{
+    winid_t root = glk_window_get_root();
+    glui32 asked = tb->px_asked > 0 ? (glui32)tb->px_asked : 0;
+    glui32 rootw = root ? (glui32)(root->bbox.x1 - root->bbox.x0) : 0;
+    glui32 w = tb->px_widest + 2 * gbuffermarginx;
+
+    if (tb->px_text || !tb->px_widest || !rootw
+        || asked * 4 <= rootw || w >= asked)
+        return asked;
+    return w;
+}
+#endif /* SPATTERLIGHT */
+
 /* a picture is drawn there too, and the banner fitted to it */
 static int tag_image(void *ctx, const oshtml_image *img)
 {
@@ -1389,6 +1499,7 @@ static int tag_image(void *ctx, const oshtml_image *img)
         return win != NULL;
     oshtml_draw_image(win, img);
 #ifdef SPATTERLIGHT
+    tag_widest_add(tb, img);
     tb->col += picture_fit_add(&tb->pictures, win, img, tb->lines - 1);
     if (tb->col > tb->maxcol)
         tb->maxcol = tb->col;
@@ -1406,7 +1517,8 @@ static void tag_set_link(void *ctx, glui32 link)
 static const oshtml_sink tag_sink =
 {
     tag_put, tag_set_attr, tag_set_color, tag_set_screen_color,
-    tag_width, tag_centers, tag_window, tag_set_link, tag_image
+    tag_width, tag_centers, tag_window, tag_set_link, tag_image,
+    tag_rule_width
 };
 
 static tagban_t *tag_find(const char *id)
@@ -1433,8 +1545,32 @@ static winid_t tag_key(tagban_t *tb)
     return tb->gfx ? tb->gfx : tb->win;
 }
 
+/*
+ *   the split of the key window from the main window: the splits of the
+ *   banner's own windows inside it have other keys
+ */
+static winid_t tag_split(tagban_t *tb)
+{
+    winid_t key = tag_key(tb), pair;
+
+    for (pair = glk_window_get_parent(key) ; pair ;
+         pair = glk_window_get_parent(pair))
+    {
+        winid_t k = NULL;
+        glk_window_get_arrangement(pair, NULL, NULL, &k);
+        if (k == key)
+            break;
+    }
+    return pair;
+}
+
 static void tag_close_window(tagban_t *tb)
 {
+#ifdef SPATTERLIGHT
+    if (tb->tblwin)
+        glk_window_close(tb->tblwin, NULL);
+    tb->tblwin = NULL;
+#endif /* SPATTERLIGHT */
     if (tb->win)
         glk_window_close(tb->win, NULL);
     if (tb->gfx)
@@ -1492,7 +1628,7 @@ static void tag_resize(tagban_t *tb, glui32 size)
     if (size == tb->size || !tb->win)
         return;
     tb->size = size;
-    glk_window_set_arrangement(glk_window_get_parent(tag_key(tb)),
+    glk_window_set_arrangement(tag_split(tb),
                                tb->method, size, tag_key(tb));
 }
 
@@ -1554,6 +1690,12 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         method |= winmethod_Fixed;
         size = num <= 0 ? 0 : (glui32)num;
         pixels = 1;
+#ifdef SPATTERLIGHT
+        /* as it shrank the last time, so it needn't grow first */
+        if (vertical && !isnew && tb->px_asked == num && tb->px_shrunk)
+            size = tb->px_shrunk;
+        tb->px_asked = vertical ? num : 0;
+#endif /* SPATTERLIGHT */
     }
     else if (units == OSHTML_SIZE_PIX)
     {
@@ -1608,7 +1750,7 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         {
             tb->method = method;
             tb->size = size;
-            glk_window_set_arrangement(glk_window_get_parent(tag_key(tb)),
+            glk_window_set_arrangement(tag_split(tb),
                                        method, size, tag_key(tb));
         }
         glk_window_clear(tb->win);
@@ -1631,8 +1773,125 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     tb->lines = tb->col = tb->maxcol = tb->nl = 0;
 #ifdef SPATTERLIGHT
     picture_fit_init(&tb->pictures);
+    tb->px_widest = 0;
+    tb->px_text = 0;
+    tb->tbl_used = 0;
+    tb->screen = zcolor_Default;
 #endif /* SPATTERLIGHT */
     return tb;
+}
+
+#ifdef SPATTERLIGHT
+static void tag_table_draw(tagban_t *tb)
+{
+    const oshtml_pictable *t = tb->tbl;
+    glui32 ww = 0, wh = 0;
+    int i;
+
+    if (!tb->tblwin || !t)
+        return;
+    win_setbgnd(tb->tblwin->peer, tb->screen);
+    glk_window_clear(tb->tblwin);
+    glk_window_get_size(tb->tblwin, &ww, &wh);
+    tb->tbl_x = !t->center ? (glui32)gbuffermarginx
+        : ww > t->width ? (ww - t->width) / 2 : 0;
+    tb->tbl_y = 0;
+    for (i = 0 ; i < t->ntiles ; ++i)
+    {
+        const oshtml_tile *tile = &t->tiles[i];
+        glk_image_draw_scaled(tb->tblwin, tile->img.id,
+                              (glsi32)(tb->tbl_x + tile->x),
+                              (glsi32)(tb->tbl_y + tile->y),
+                              tile->w, tile->h);
+    }
+}
+
+/*
+ *   the table window is as tall as the table, or what the text leaves of
+ *   the banner, so the table sits under the text as in HTML TADS
+ */
+static void tag_table_place(tagban_t *tb)
+{
+    glui32 h = tb->tbl->height, th = 0, wh = 0, total;
+    winid_t pair = glk_window_get_parent(tb->tblwin);
+
+    glk_window_get_size(tb->win, NULL, &th);
+    glk_window_get_size(tb->tblwin, NULL, &wh);
+    total = th + wh;
+    if (total > tb->tbl_text && total - tb->tbl_text > h)
+        h = total - tb->tbl_text;
+    if (pair)
+        glk_window_set_arrangement(pair, winmethod_Below | winmethod_Fixed
+                                   | winmethod_NoBorder, h, tb->tblwin);
+}
+#endif /* SPATTERLIGHT */
+
+int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t)
+{
+#ifdef SPATTERLIGHT
+    tagban_t *tb = ctx;
+
+    if (tb->fit || tb->measure || tb->type != wintype_TextBuffer || !tb->win
+        || !glk_gestalt(gestalt_DrawImage, wintype_Graphics))
+        return 0;
+    if (!tb->tbl && !(tb->tbl = malloc(sizeof(*tb->tbl))))
+        return 0;
+    if (!tb->tblwin)
+        tb->tblwin = glk_window_open(tb->win, winmethod_Below
+                                     | winmethod_Fixed | winmethod_NoBorder,
+                                     t->height, wintype_Graphics, 0);
+    if (!tb->tblwin)
+        return 0;
+    *tb->tbl = *t;
+    tb->tbl_used = 1;
+    return 1;
+#else
+    (void)ctx;
+    (void)t;
+    return 0;
+#endif /* SPATTERLIGHT */
+}
+
+glui32 osglk_tag_banner_click(winid_t win, glui32 x, glui32 y)
+{
+#ifdef SPATTERLIGHT
+    tagban_t *tb;
+    int i;
+
+    for (tb = tagbans ; tb ; tb = tb->next)
+        if (win && tb->tblwin == win && tb->tbl)
+            break;
+    if (!tb || x < tb->tbl_x || y < tb->tbl_y)
+        return 0;
+    x -= tb->tbl_x;
+    y -= tb->tbl_y;
+    for (i = 0 ; i < tb->tbl->ntiles ; ++i)
+    {
+        const oshtml_tile *tile = &tb->tbl->tiles[i];
+        if (tile->link && x >= tile->x && x < tile->x + tile->w
+            && y >= tile->y && y < tile->y + tile->h)
+            return tile->link;
+    }
+#else
+    (void)win;
+    (void)x;
+    (void)y;
+#endif /* SPATTERLIGHT */
+    return 0;
+}
+
+void osglk_tag_banner_redraw(void)
+{
+#ifdef SPATTERLIGHT
+    tagban_t *tb;
+
+    for (tb = tagbans ; tb ; tb = tb->next)
+        if (tb->tblwin && tb->tbl)
+        {
+            tag_table_place(tb);
+            tag_table_draw(tb);
+        }
+#endif /* SPATTERLIGHT */
 }
 
 int osglk_tag_banner_done(void *ctx)
@@ -1641,6 +1900,30 @@ int osglk_tag_banner_done(void *ctx)
 
     if (tb->fit)
         tag_resize(tb, tag_fitted(tb));
+#ifdef SPATTERLIGHT
+    else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
+    {
+        glui32 size = tag_side_pixels(tb);
+        tb->px_shrunk = size < (glui32)tb->px_asked ? size : 0;
+        tag_resize(tb, size);
+    }
+    if (tb->tblwin && !tb->measure)
+    {
+        if (tb->tbl_used)
+        {
+            tb->tbl_text = (glui32)picture_fit_lines(&tb->pictures,
+                                                     win_lines(tb->win->peer))
+                * (glui32)gbufcellh + 2 * (glui32)gbuffermarginy;
+            tag_table_place(tb);
+            tag_table_draw(tb);
+        }
+        else
+        {
+            glk_window_close(tb->tblwin, NULL);
+            tb->tblwin = NULL;
+        }
+    }
+#endif /* SPATTERLIGHT */
     tb->lines = tb->col = tb->maxcol = tb->nl = 0;
 #ifdef SPATTERLIGHT
     picture_fit_init(&tb->pictures);
@@ -1659,8 +1942,14 @@ void osglk_tag_banner_request_links(void)
     tagban_t *tb;
 
     for (tb = tagbans ; tb ; tb = tb->next)
+    {
         if (tb->win && !tb->measure)
             glk_request_hyperlink_event(tb->win);
+#ifdef SPATTERLIGHT
+        if (tb->tblwin)
+            glk_request_mouse_event(tb->tblwin);
+#endif /* SPATTERLIGHT */
+    }
 }
 
 void osglk_tag_banner_remove(const char *id)
@@ -1677,6 +1966,9 @@ void osglk_tag_banner_remove(const char *id)
         }
         *link = tb->next;
         tag_close_window(tb);
+#ifdef SPATTERLIGHT
+        free(tb->tbl);
+#endif /* SPATTERLIGHT */
         free(tb);
     }
 }

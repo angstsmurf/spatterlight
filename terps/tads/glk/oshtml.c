@@ -193,6 +193,17 @@ struct oshtml_parser
     int row_shown;              /* the row has put something out */
 
     /*
+     *   the main window: a picture alone so far in a table cell, held back
+     *   until we know whether it goes beside the page (hold_cell_picture);
+     *   cell_empty is set while nothing has come since the cell began
+     */
+    int cell_empty;
+    int cell_pic;               /* 1: a first cell's, 2: a last cell's */
+    oshtml_image cell_img;
+    int cell_pic_space;         /* a space came after it */
+    int side_left;              /* the row's first cell went beside it */
+
+    /*
      *   TADS 2: a <BANNER>, whose text waits for its </BANNER>, and whether
      *   we're inside the tag of the text (and inside quotes in it)
      */
@@ -320,6 +331,14 @@ static int main_centers(void *ctx, int combo)
         && just == stylehint_just_Centered;
 }
 
+static int main_rule_width(void *ctx, int combo)
+{
+    (void)ctx;
+    if (!mainwin)
+        return G_os_linewidth;
+    return osglk_rule_width(mainwin, combo);
+}
+
 static winid_t main_window(void *ctx)
 {
     (void)ctx;
@@ -335,7 +354,8 @@ static void main_set_link(void *ctx, glui32 link)
 static const oshtml_sink main_sink =
 {
     main_put, main_set_attr, main_set_color, main_set_screen_color,
-    main_width, main_centers, main_window, main_set_link, NULL
+    main_width, main_centers, main_window, main_set_link, NULL,
+    main_rule_width
 };
 
 static parser fmt =
@@ -414,6 +434,7 @@ static color cur_color(parser *p)
 static void expand_tab(parser *p, int allow_anon);
 static void line_break(parser *p);
 static void put_maprow(parser *p);
+static void release_cell_picture(parser *p);
 
 /*
  *   The TADS 3 formatter brings the window up to date with the current
@@ -802,6 +823,16 @@ static void put_html_text(parser *p, glui32 c)
             p->titlebuf[p->titlelen++] = c;
         return;
     }
+
+    /* a space waits with a picture held in a cell; anything else is text */
+    if (p->cell_pic && is_space(c))
+    {
+        p->cell_pic_space = 1;
+        return;
+    }
+    release_cell_picture(p);
+    if (!is_space(c))
+        p->cell_empty = 0;
 
     switch (c)
     {
@@ -1635,14 +1666,13 @@ int oshtml_image_size(const oshtml_image *img, glui32 width,
     return 1;
 }
 
-static int put_image(parser *p, const glui32 *src, size_t srclen,
-                     glui32 align, img_size w, img_size h)
+/* the picture of an <IMG>: false if there's none, or it can't be shown */
+static int find_image(parser *p, const glui32 *src, size_t srclen,
+                      glui32 align, img_size w, img_size h,
+                      oshtml_image *img)
 {
     char name[512];
     size_t n;
-    oshtml_image img;
-    int inline_img = align != imagealign_MarginLeft
-        && align != imagealign_MarginRight;
 
     if (p->dst || srclen == 0 || !glk_gestalt(gestalt_Graphics, 0)
         || !glk_gestalt(gestalt_DrawImage, wintype_TextBuffer)
@@ -1651,14 +1681,21 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
         return 0;
 
     n = url_utf8(src, srclen, name, sizeof(name));
-    img.id = n ? osres_find(name, n, giblorb_ID_Pict) : 0;
-    if (img.id == 0)
+    img->id = n ? osres_find(name, n, giblorb_ID_Pict) : 0;
+    if (img->id == 0)
         return 0;
-    img.align = align;
-    img.width = w.num;
-    img.width_pct = w.pct;
-    img.height = h.num;
-    img.height_pct = h.pct;
+    img->align = align;
+    img->width = w.num;
+    img->width_pct = w.pct;
+    img->height = h.num;
+    img->height_pct = h.pct;
+    return 1;
+}
+
+static int show_image(parser *p, const oshtml_image *img)
+{
+    int inline_img = img->align != imagealign_MarginLeft
+        && img->align != imagealign_MarginRight;
 
     if (inline_img)
     {
@@ -1671,13 +1708,13 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
 
     if (p->sink->image)
     {
-        if (!p->sink->image(p->ctx, &img))
+        if (!p->sink->image(p->ctx, img))
             return 0;
     }
     else
     {
         /* asking for the window again puts out what the sink holds back */
-        oshtml_draw_image(p->sink->window(p->ctx), &img);
+        oshtml_draw_image(p->sink->window(p->ctx), img);
     }
 
     if (inline_img)
@@ -1690,6 +1727,93 @@ static int put_image(parser *p, const glui32 *src, size_t srclen,
     }
     p->row_shown = 1;
     return 1;
+}
+
+/*
+ *   A picture alone so far in a cell of a table in the main window, which
+ *   may go beside the page, as the borders of 1893's pages do: a tall one
+ *   in a row's first cell, or one in its last cell after text.  It waits
+ *   for what follows: a tag that ends the cell goes on waiting, and the
+ *   next cell, row or the end of the table decides (cell_picture_tag).
+ *   Anything else puts it in the text after all (release_cell_picture).
+ */
+static int hold_cell_picture(parser *p, const oshtml_image *img)
+{
+    glui32 iw, ih;
+
+    if (p != &fmt || p->table != 1 || p->cur.link
+        || img->align == imagealign_MarginLeft
+        || img->align == imagealign_MarginRight
+        || !oshtml_image_size(img, 0, &iw, &ih))
+        return 0;
+
+    if (p->ncell == 1 && ih >= 2 * iw)
+        p->cell_pic = 1;
+    else if (p->ncell > 1 && p->row_shown)
+        p->cell_pic = 2;
+    else
+        return 0;
+    p->cell_img = *img;
+    p->cell_pic_space = 0;
+    return 1;
+}
+
+static void release_cell_picture(parser *p)
+{
+    if (!p->cell_pic)
+        return;
+    p->cell_pic = 0;
+    show_image(p, &p->cell_img);
+    if (p->cell_pic_space)
+        put_space(p);
+}
+
+/* a tag after the held picture: is it beside the page? */
+static void cell_picture_tag(parser *p, const glui32 *name, size_t len,
+                             int end)
+{
+    int cell = tag_is(name, len, "td") || tag_is(name, len, "th");
+    int right;
+
+    if (cell && end)
+        return;
+    if (cell)
+        right = 0;
+    else if (tag_is(name, len, "tr") || (end && tag_is(name, len, "table")))
+        right = 1;
+    else
+    {
+        release_cell_picture(p);
+        return;
+    }
+
+    if (p->cell_pic != (right ? 2 : 1)
+        || !osglk_side_picture(right, &p->cell_img))
+    {
+        release_cell_picture(p);
+        return;
+    }
+
+    /* the next cell is the row's first, as far as the text goes */
+    p->cell_pic = 0;
+    if (!right)
+    {
+        p->side_left = 1;
+        --p->ncell;
+    }
+}
+
+/* an <IMG>, 'alone' if first in its cell: false if it can't be shown */
+static int put_image(parser *p, const glui32 *src, size_t srclen,
+                     glui32 align, img_size w, img_size h, int alone)
+{
+    oshtml_image img;
+
+    if (!find_image(p, src, srclen, align, w, h, &img))
+        return 0;
+    if (alone && hold_cell_picture(p, &img))
+        return 1;
+    return show_image(p, &img);
 }
 
 /* <SOUND LAYER> and <SOUND CANCEL=layer>; -1 if it's none of them */
@@ -1931,6 +2055,7 @@ static void do_tag(parser *p)
     int tab_to = -1;
     enum tab_align tab_align = TAB_NONE;
     glui32 tab_dp = 0;
+    int cell_empty = p->cell_empty; /* nothing yet in the cell */
 
     /* the name: "<b>", "</b>", "< / b >" */
     while (i < len && is_space(t[i]))
@@ -1945,6 +2070,10 @@ static void do_tag(parser *p)
     for (name = i ; i < len && !is_space(t[i]) ; ++i)
         ;
     namelen = i - name;
+
+    p->cell_empty = 0;
+    if (p->cell_pic)
+        cell_picture_tag(p, t + name, namelen, end);
 
 #define TAG(s) tag_is(t + name, namelen, s)
 #define TAG_IN(l) name_in(t + name, namelen, l)
@@ -2106,6 +2235,7 @@ static void do_tag(parser *p)
             ++p->table;
             p->ncell = 0;
             p->row_shown = 0;
+            p->side_left = 0;
             cell_ok = 1;
         }
     }
@@ -2122,6 +2252,7 @@ static void do_tag(parser *p)
                 push_elem(p, t + name, namelen);
                 p->ncell = 0;
                 p->row_shown = 0;
+                p->side_left = 0;
                 cell_ok = 1;
             }
         }
@@ -2139,6 +2270,7 @@ static void do_tag(parser *p)
                 if (TAG("th"))
                     p->cur.attr |= OSSTY_BOLD;
                 cell_ok = cell = 1;
+                p->cell_empty = 1;
             }
         }
     }
@@ -2220,7 +2352,9 @@ static void do_tag(parser *p)
         {
             int n;
             para_break(p);
-            for (n = p->sink->width(p->ctx) - 1 - 2 * p->indent ; n > 0 ; --n)
+            n = p->sink->rule_width(p->ctx, cur_color(p).attr)
+                - 1 - 2 * p->indent;
+            for ( ; n > 0 ; --n)
                 put_visible(p, 0x2500);
             para_break(p);
         }
@@ -2617,7 +2751,8 @@ static void do_tag(parser *p)
         flow_break(p);
 
     /* the picture, or if it can't be shown, its ALT text */
-    if (img && !put_image(p, t + src, srclen, img_align, img_w, img_h))
+    if (img && !put_image(p, t + src, srclen, img_align, img_w, img_h,
+                          cell_empty && usemaplen == 0))
     {
         size_t k;
         for (k = alt ; k < alt + altlen ; ++k)
@@ -2662,6 +2797,11 @@ static void do_tag(parser *p)
      *   as on a status line.  Only a cell's own colour is a background: a
      *   theme colour is what the window shows already.
      */
+    if (cell && p->side_left && cell_align < 0)
+    {
+        /* beside a picture, the text isn't centred as the table is */
+        cell_align = 0;
+    }
     if (cell_bg_ok)
     {
         p->cur.bg = cell_bg;
@@ -2752,6 +2892,495 @@ static void tag_char(parser *p, glui32 c)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Picture tables.  A table shown as lines of text makes a jumble of one
+ *   whose cells hold only pictures: 1893's compass is nine tiles in a cell,
+ *   between cells of buttons, under its title in a table of its own.  Such
+ *   tables at the end of a tag banner are laid out in pixels instead, as
+ *   HTML TADS lays them out, and go under the banner's text as one picture,
+ *   its links clicked by where they are.
+ */
+
+#define PT_CELLS 24
+#define PT_LINES 8              /* lines in a cell */
+#define PT_SPACE 4              /* pixels for a space between two pictures */
+#define PT_TABLES 4             /* tables, one under another */
+
+typedef struct pt_cell
+{
+    int row, col, colspan;
+    int align;                  /* 0 left, 1 centred, 2 right */
+    int valign;                 /* 0 top, 1 middle, 2 bottom */
+    glui32 minh;                /* its HEIGHT */
+    int nlines;
+    int first[PT_LINES + 1];    /* the first tile of each line */
+    glui32 linew[PT_LINES], lineh[PT_LINES];
+    glui32 w, h;
+} pt_cell;
+
+/*
+ *   The tag at t[*i], a '<': the text between its brackets is t[*s..*e),
+ *   and *i moves past it.  False if it has no '>'.
+ */
+static int raw_tag(const glui32 *t, size_t len, size_t *i,
+                   size_t *s, size_t *e)
+{
+    size_t k;
+    glui32 quote = 0;
+
+    for (k = *i + 1 ; k < len && (quote || t[k] != '>') ; ++k)
+    {
+        if (quote && t[k] == quote)
+            quote = 0;
+        else if (!quote && (t[k] == '"' || t[k] == '\''))
+            quote = t[k];
+    }
+    if (k == len)
+        return 0;
+    *s = *i + 1;
+    *e = k;
+    *i = k + 1;
+    return 1;
+}
+
+/* the name of the tag in t[s..e), its length, and whether it's an end */
+static size_t raw_name(const glui32 *t, size_t s, size_t e,
+                       size_t *name, int *end)
+{
+    while (s < e && is_space(t[s]))
+        ++s;
+    *end = s < e && (t[s] == '/' || t[s] == '\\');
+    if (*end)
+        for (++s ; s < e && is_space(t[s]) ; ++s)
+            ;
+    for (*name = s ; s < e && !is_space(t[s]) ; ++s)
+        ;
+    return s - *name;
+}
+
+/*
+ *   The value of an attribute of the tag in t[s..e), read as do_tag reads
+ *   them in a banner: false if the tag hasn't got it
+ */
+static int raw_attr(const glui32 *t, size_t s, size_t e, const char *attr,
+                    size_t *v, size_t *vlen)
+{
+    size_t name;
+    int end;
+
+    s = raw_name(t, s, e, &name, &end);
+    s += name;
+    while (s < e)
+    {
+        size_t an, anlen;
+        glui32 c = t[s];
+
+        if (!is_alnum(c))
+        {
+            ++s;
+            continue;
+        }
+        for (an = s ; s < e && is_alnum(t[s]) ; ++s)
+            ;
+        anlen = s - an;
+        while (s < e && is_space(t[s]))
+            ++s;
+        *v = s;
+        *vlen = 0;
+        if (s < e && t[s] == '=')
+        {
+            for (++s ; s < e && is_space(t[s]) ; ++s)
+                ;
+            if (s < e && (t[s] == '"' || t[s] == '\''))
+            {
+                glui32 qu = t[s++];
+                for (*v = s ; s < e && t[s] != qu ; ++s)
+                    ;
+                *vlen = s - *v;
+                if (s < e)
+                    ++s;
+            }
+            else
+            {
+                for (*v = s ; s < e && !is_space(t[s]) ; ++s)
+                    ;
+                *vlen = s - *v;
+            }
+        }
+        if (tag_is(t + an, anlen, attr))
+            return 1;
+    }
+    return 0;
+}
+
+static int raw_int(const glui32 *t, size_t s, size_t e, const char *attr,
+                   int dflt)
+{
+    size_t v, vlen;
+    return raw_attr(t, s, e, attr, &v, &vlen) ? to_int(t + v, vlen) : dflt;
+}
+
+/*
+ *   Is the last thing in t[0..len) a table, or tables with only line breaks
+ *   between them, with only line breaks and the ends of elements after it?
+ *   Their text is t[*s..*e).
+ */
+static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
+{
+    size_t i = 0, ts, te, name, namelen;
+    int depth = 0, end, found = 0;
+
+    while (i < len)
+    {
+        size_t start = i;
+
+        if (t[i] != '<')
+        {
+            if (depth == 0 && !is_space(t[i]))
+                found = 0;
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (tag_is(t + name, namelen, "table"))
+        {
+            if (!end && depth++ == 0 && !found)
+                *s = start;
+            else if (end && depth > 0 && --depth == 0)
+            {
+                *e = i;
+                found = 1;
+            }
+        }
+        else if (depth == 0 && !end && !tag_is(t + name, namelen, "br"))
+            found = 0;
+    }
+    return found && depth == 0;
+}
+
+/*
+ *   Lay out the table in t[0..len) in pixels, adding its tiles to the
+ *   picture's, and count its links, whether a row has more than one cell,
+ *   and its size: false if it has anything but pictures, links and line
+ *   breaks in its cells
+ */
+static int pt_table(parser *p, const glui32 *t, size_t len,
+                    oshtml_pictable *pt, int *nlinks, int *wide,
+                    glui32 *width, glui32 *height)
+{
+    pt_cell cells[PT_CELLS], *c = NULL;
+    glui32 hs[OSHTML_TILES_MAX], vs[OSHTML_TILES_MAX];
+    glui32 colw[PT_CELLS], rowh[PT_CELLS], colx[PT_CELLS + 1];
+    glui32 rowy[PT_CELLS + 1];
+    int ncells = 0, row = -1, col = 0, ncols = 0, nrows, links = 0;
+    int space = 0, row_valign = 1, depth = 0, k, n;
+    glui32 link = 0, pad = 1, spacing = 2, border = 0;
+    size_t i = 0;
+
+    while (i < len)
+    {
+        size_t ts, te, name, namelen, v, vlen;
+        int end;
+
+        if (t[i] != '<')
+        {
+            if (!is_space(t[i]))
+                return 0;
+            space = c != NULL;
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+
+#define RAW(s) tag_is(t + name, namelen, s)
+#define RAWV(s) tag_is(t + v, vlen, s)
+        if (RAW("table"))
+        {
+            if (end)
+                --depth;
+            else if (depth++ != 0)
+                return 0;
+            else
+            {
+                pad = (glui32)raw_int(t, ts, te, "cellpadding", 1);
+                spacing = (glui32)raw_int(t, ts, te, "cellspacing", 2);
+                border = (glui32)raw_int(t, ts, te, "border", 0);
+            }
+        }
+        else if (RAW("tr"))
+        {
+            c = NULL;
+            if (!end)
+            {
+                ++row;
+                col = 0;
+                row_valign = 1;
+                if (raw_attr(t, ts, te, "valign", &v, &vlen))
+                    row_valign = RAWV("top") ? 0 : RAWV("bottom") ? 2 : 1;
+            }
+        }
+        else if (RAW("td"))
+        {
+            c = NULL;
+            if (end)
+                continue;
+            if (row < 0 || ncells == PT_CELLS)
+                return 0;
+            c = &cells[ncells++];
+            memset(c, 0, sizeof(*c));
+            c->row = row;
+            c->col = col;
+            c->colspan = raw_int(t, ts, te, "colspan", 1);
+            if (c->colspan < 1)
+                c->colspan = 1;
+            col += c->colspan;
+            if (col > PT_CELLS)
+                return 0;
+            if (col > ncols)
+                ncols = col;
+            if (raw_attr(t, ts, te, "align", &v, &vlen))
+                c->align = RAWV("center") ? 1 : RAWV("right") ? 2 : 0;
+            c->valign = row_valign;
+            if (raw_attr(t, ts, te, "valign", &v, &vlen))
+                c->valign = RAWV("top") ? 0 : RAWV("bottom") ? 2 : 1;
+            c->minh = (glui32)raw_int(t, ts, te, "height", 0);
+            c->nlines = 1;
+            c->first[0] = pt->ntiles;
+            space = 0;
+        }
+        else if (RAW("a"))
+        {
+            link = 0;
+            if (!end && raw_attr(t, ts, te, "href", &v, &vlen))
+            {
+                size_t fv, fvlen;
+                int flags = 0;
+                if (raw_attr(t, ts, te, "noenter", &fv, &fvlen))
+                    flags |= OSLINK_NOENTER;
+                if (raw_attr(t, ts, te, "append", &fv, &fvlen))
+                    flags |= OSLINK_APPEND;
+                link = href_link(t + v, vlen, flags);
+            }
+        }
+        else if (RAW("br"))
+        {
+            if (c)
+            {
+                if (c->nlines == PT_LINES)
+                    return 0;
+                c->first[c->nlines++] = pt->ntiles;
+            }
+            space = 0;
+        }
+        else if (RAW("img") && !end)
+        {
+            oshtml_tile *tile = &pt->tiles[pt->ntiles];
+            img_size w = { 0, 0 }, h = { 0, 0 };
+            size_t sv, svlen;
+            glui32 *lw, *lh;
+
+            /* not a picture that floats beside the text, or a map */
+            if (!c || pt->ntiles == OSHTML_TILES_MAX
+                || (raw_attr(t, ts, te, "align", &sv, &svlen)
+                    && (tag_is(t + sv, svlen, "left")
+                        || tag_is(t + sv, svlen, "right")))
+                || raw_attr(t, ts, te, "usemap", &sv, &svlen)
+                || raw_attr(t, ts, te, "ismap", &sv, &svlen)
+                || !raw_attr(t, ts, te, "src", &v, &vlen))
+                return 0;
+            if (raw_attr(t, ts, te, "width", &sv, &svlen))
+                parse_img_size(t + sv, svlen, &w);
+            if (raw_attr(t, ts, te, "height", &sv, &svlen))
+                parse_img_size(t + sv, svlen, &h);
+            if (w.pct || h.pct
+                || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h,
+                               &tile->img)
+                || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+                || tile->w == 0 || tile->h == 0)
+                return 0;
+            hs[pt->ntiles] = (glui32)raw_int(t, ts, te, "hspace", 0);
+            vs[pt->ntiles] = (glui32)raw_int(t, ts, te, "vspace", 0);
+
+            lw = &c->linew[c->nlines - 1];
+            lh = &c->lineh[c->nlines - 1];
+            tile->x = *lw + (space && *lw ? PT_SPACE : 0) + hs[pt->ntiles];
+            *lw = tile->x + tile->w + hs[pt->ntiles];
+            if (tile->h + 2 * vs[pt->ntiles] > *lh)
+                *lh = tile->h + 2 * vs[pt->ntiles];
+            tile->link = link;
+            if (link)
+                ++links;
+            ++pt->ntiles;
+            space = 0;
+        }
+        else
+            return 0;
+#undef RAWV
+#undef RAW
+    }
+
+    nrows = row + 1;
+    if (nrows > PT_CELLS)
+        return 0;
+
+    /* the cells' contents, and the columns' and rows' sizes around them */
+    memset(colw, 0, sizeof(colw));
+    memset(rowh, 0, sizeof(rowh));
+    for (n = 0 ; n < ncells ; ++n)
+    {
+        c = &cells[n];
+        c->first[c->nlines] = n + 1 < ncells ? cells[n + 1].first[0]
+            : pt->ntiles;
+        for (k = 0 ; k < c->nlines ; ++k)
+        {
+            if (c->linew[k] > c->w)
+                c->w = c->linew[k];
+            c->h += c->lineh[k];
+        }
+        if (c->colspan == 1 && c->w + 2 * pad > colw[c->col])
+            colw[c->col] = c->w + 2 * pad;
+        if (c->h + 2 * pad > rowh[c->row])
+            rowh[c->row] = c->h + 2 * pad;
+        if (c->minh > rowh[c->row])
+            rowh[c->row] = c->minh;
+    }
+    for (n = 0 ; n < ncells ; ++n)
+    {
+        glui32 have = 0, need;
+
+        c = &cells[n];
+        if (c->colspan == 1)
+            continue;
+        for (k = c->col ; k < c->col + c->colspan ; ++k)
+            have += colw[k];
+        have += spacing * (glui32)(c->colspan - 1);
+        need = c->w + 2 * pad;
+        if (need > have)
+            for (k = c->col ; k < c->col + c->colspan ; ++k)
+                colw[k] += (need - have + (glui32)c->colspan - 1)
+                    / (glui32)c->colspan;
+    }
+    colx[0] = border + spacing;
+    for (k = 0 ; k < ncols ; ++k)
+        colx[k + 1] = colx[k] + colw[k] + spacing;
+    rowy[0] = border + spacing;
+    for (k = 0 ; k < nrows ; ++k)
+        rowy[k + 1] = rowy[k] + rowh[k] + spacing;
+    *width = colx[ncols] + border;
+    *height = rowy[nrows] + border;
+
+    /* each line in its cell, each tile at the bottom of its line */
+    for (n = 0 ; n < ncells ; ++n)
+    {
+        glui32 cw, ch, y;
+
+        c = &cells[n];
+        k = c->col + c->colspan;
+        cw = colx[k] - spacing - colx[c->col];
+        ch = rowh[c->row];
+        y = rowy[c->row] + (c->valign == 0 ? pad
+                            : c->valign == 2 ? ch - pad - c->h
+                            : (ch - c->h) / 2);
+        for (k = 0 ; k < c->nlines ; ++k)
+        {
+            glui32 lw = c->linew[k], x;
+            int j;
+
+            x = colx[c->col] + (c->align == 0 ? pad
+                                : c->align == 2 ? cw - pad - lw
+                                : (cw - lw) / 2);
+            for (j = c->first[k] ; j < c->first[k + 1] ; ++j)
+            {
+                pt->tiles[j].x += x;
+                pt->tiles[j].y = y + c->lineh[k] - pt->tiles[j].h - vs[j];
+            }
+            y += c->lineh[k];
+        }
+    }
+    *nlinks += links;
+    *wide |= ncols > 1;
+    return 1;
+}
+
+/*
+ *   Lay out the tables in t[0..len) in pixels, one under another, as one
+ *   picture: 1893's title over its compass.  False if one can't be, or
+ *   none of it is a link, or none is a grid.
+ */
+static int build_pictable(parser *p, const glui32 *t, size_t len,
+                          oshtml_pictable *pt)
+{
+    int first[PT_TABLES + 1];
+    glui32 tw[PT_TABLES], th[PT_TABLES], y = 0;
+    int ntables = 0, links = 0, wide = 0, k, j;
+    size_t i = 0;
+
+    if (p->dst)
+        return 0;
+    pt->ntiles = 0;
+    pt->width = 0;
+    while (i < len)
+    {
+        size_t start = i, ts, te, name, namelen;
+        int end, depth;
+
+        /* only spaces and line breaks between them */
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (end || !tag_is(t + name, namelen, "table"))
+            continue;
+        for (depth = 1 ; depth && i < len ; )
+        {
+            if (t[i] != '<')
+                ++i;
+            else if (!raw_tag(t, len, &i, &ts, &te))
+                return 0;
+            else if (namelen = raw_name(t, ts, te, &name, &end),
+                     tag_is(t + name, namelen, "table"))
+                depth += end ? -1 : 1;
+        }
+        if (depth || ntables == PT_TABLES)
+            return 0;
+        first[ntables] = pt->ntiles;
+        if (!pt_table(p, t + start, i - start, pt, &links, &wide,
+                      &tw[ntables], &th[ntables]))
+            return 0;
+        if (tw[ntables] > pt->width)
+            pt->width = tw[ntables];
+        ++ntables;
+    }
+    first[ntables] = pt->ntiles;
+    if (pt->ntiles < 2 || links == 0 || !wide)
+        return 0;
+
+    /* each centred in the widest, if they're centred */
+    pt->center = (cur_color(p).attr & OSSTY_CENTER) != 0;
+    for (k = 0 ; k < ntables ; ++k)
+    {
+        glui32 x = pt->center ? (pt->width - tw[k]) / 2 : 0;
+
+        for (j = first[k] ; j < first[k + 1] ; ++j)
+        {
+            pt->tiles[j].x += x;
+            pt->tiles[j].y += y;
+        }
+        y += th[k];
+    }
+    pt->height = y;
+    return 1;
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   TADS 2's <BANNER>: its text, up to the </BANNER>, goes through a parser
  *   of its own into the banner's window, replacing what was there; as in
  *   HTML TADS, a banner with nothing but whitespace in it is left alone
@@ -2759,11 +3388,16 @@ static void tag_char(parser *p, glui32 c)
 
 static void end_banner(parser *p)
 {
-    size_t i = 0, k;
+    static oshtml_pictable pt;
+    size_t i = 0, k, ts = 0, te = 0;
+    int table;
 
     p->bancap = 0;
     while (i < p->banlen && is_space(p->bantext[i]))
         ++i;
+    table = find_pictable(p->bantext + i, p->banlen - i, &ts, &te);
+    ts += i;
+    te += i;
     if (i < p->banlen)
     {
         const oshtml_sink *sink;
@@ -2774,10 +3408,25 @@ static void end_banner(parser *p)
             do
             {
                 parser *b = oshtml_new(sink, ctx);
+                size_t from = i, stop = p->banlen;
+
                 if (!b)
                     break;
                 b->in_banner = 1;
-                for (k = i ; k < p->banlen ; ++k)
+                if (table)
+                {
+                    /* the text, then the table: the rest is only ends */
+                    for (k = i ; k < ts ; ++k)
+                        feed(b, p->bantext[k]);
+                    put_maprow(b);
+                    expand_tab(b, 1);
+                    flush_out(b);
+                    if (build_pictable(b, p->bantext + ts, te - ts, &pt)
+                        && osglk_tag_banner_table(ctx, &pt))
+                        stop = ts;
+                    from = ts;
+                }
+                for (k = from ; k < stop ; ++k)
                     feed(b, p->bantext[k]);
                 put_maprow(b);
                 expand_tab(b, 1);
@@ -3012,6 +3661,7 @@ static void close_all(parser *p)
     if (p->nelems)
         restore_elem(p, 0);
     p->nmaprow = 0;
+    p->cell_pic = p->cell_empty = p->side_left = 0;
     p->cur.attr = 0;
     p->cur.fg = p->text;
     p->cur.bg = OS_COLOR_P_TRANSPARENT;
@@ -3060,6 +3710,7 @@ void oshtml_start(void)
 void oshtml_end(void)
 {
     /* the formatter flushed the line without ending it */
+    release_cell_picture(&fmt);
     show_held(&fmt);
     put_maprow(&fmt);
     oshtml_flush_parser(&fmt);
@@ -3124,6 +3775,7 @@ void oshtml_flush(void)
 void oshtml_input(void)
 {
     /* the formatter shows the spaces at the end of the line before input */
+    release_cell_picture(&fmt);
     show_held(&fmt);
     put_maprow(&fmt);
     print_pending(&fmt);

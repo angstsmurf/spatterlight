@@ -494,22 +494,111 @@ void os_end_html(void)
     oshtml_end();
 }
 
+/* ------------------------------------------------------------------------ */
+/*
+ *   Pictures beside the page: the picture alone in a table's first or last
+ *   cell, which HTML TADS shows as a border down the side of the text
+ *   (1893).  Each goes in a graphics window at the main window's left or
+ *   right, as wide as the picture, until the page is cleared.
+ */
+static struct
+{
+    winid_t win;
+    oshtml_image img;
+} side_pics[2];
+
+/* the main window's background, which theirs matches */
+static glui32 main_bg = zcolor_Default;
+
+static void side_picture_draw(int right)
+{
+    winid_t win = side_pics[right].win;
+    glui32 ww, wh, w, h;
+
+    if (!win)
+        return;
+    win_setbgnd(win->peer, main_bg);
+    glk_window_clear(win);
+    glk_window_get_size(win, &ww, &wh);
+    if (!oshtml_image_size(&side_pics[right].img, ww, &w, &h) || !w || !h)
+        return;
+
+    /* the whole of it, if it's taller than the window */
+    if (wh && h > wh)
+    {
+        w = w * wh / h;
+        h = wh;
+    }
+    glk_image_draw_scaled(win, side_pics[right].img.id,
+                          (glsi32)(ww > w ? (ww - w) / 2 : 0), 0, w, h);
+}
+
+static void side_pictures_draw(void)
+{
+    side_picture_draw(0);
+    side_picture_draw(1);
+}
+
+int osglk_side_picture(int right, const oshtml_image *img)
+{
+    glui32 mw, w, h;
+    glui32 method = (right ? winmethod_Right : winmethod_Left)
+        | winmethod_Fixed | winmethod_NoBorder;
+
+    if (!mainwin || !glk_gestalt(gestalt_DrawImage, wintype_Graphics))
+        return 0;
+
+    /* not if it would leave the text too little room */
+    mw = (glui32)(mainwin->bbox.x1 - mainwin->bbox.x0);
+    if (!oshtml_image_size(img, mw, &w, &h) || !w || w * 4 > mw)
+        return 0;
+
+    right = right != 0;
+    if (side_pics[right].win)
+        glk_window_set_arrangement(glk_window_get_parent(side_pics[right].win),
+                                   method, w, side_pics[right].win);
+    else
+        side_pics[right].win = glk_window_open(mainwin, method, w,
+                                               wintype_Graphics, 0);
+    if (!side_pics[right].win)
+        return 0;
+    side_pics[right].img = *img;
+    side_picture_draw(right);
+    return 1;
+}
+
+static void side_pictures_remove(void)
+{
+    int i;
+
+    for (i = 0 ; i < 2 ; ++i)
+    {
+        if (side_pics[i].win)
+            glk_window_close(side_pics[i].win, NULL);
+        side_pics[i].win = NULL;
+    }
+}
+
 static void redraw_windows(void)
 {
     measure_colors();
     oshtml_arrange();
     os_status_redraw();
     os_banners_redraw();
+    side_pictures_draw();
+    osglk_tag_banner_redraw();
 }
 
 /*
  *   Clear the screen.  As HTML TADS starts a new page, the windows of
- *   <BANNER> tags go too (not those of the banner API).
+ *   <BANNER> tags go too (not those of the banner API), and so do the
+ *   pictures beside the page.
  */
 void oscls(void)
 {
     oshtml_clear_main();
     osglk_tag_banner_remove(NULL);
+    side_pictures_remove();
     glk_window_clear(mainwin);
 }
 
@@ -651,8 +740,10 @@ void os_set_screen_color(os_color_t color)
     if (os_color_is_param(color))
         color = zcolor_Default;
 
+    main_bg = (glui32)color;
     if (mainwin)
-        win_setbgnd(mainwin->peer, (glui32)color);
+        win_setbgnd(mainwin->peer, main_bg);
+    side_pictures_draw();
 }
 
 /*
@@ -928,6 +1019,27 @@ static void select_event(event_t *event)
         osglk_not_idle();
         if (ossound_event(event))
             continue;
+        if (event->type == evtype_Redraw)
+        {
+            side_pictures_draw();
+            osglk_tag_banner_redraw();
+            continue;
+        }
+
+        /* a click on a table of pictures is a click on its link */
+        if (event->type == evtype_MouseInput)
+        {
+            glui32 link = osglk_tag_banner_click(event->win, event->val1,
+                                                 event->val2);
+            if (!link)
+            {
+                glk_request_mouse_event(event->win);
+                continue;
+            }
+            event->type = evtype_Hyperlink;
+            event->val1 = link;
+            event->val2 = 0;
+        }
 #ifdef GLK_TIMERS
         if (event->type == evtype_Timer && sound_timer)
         {

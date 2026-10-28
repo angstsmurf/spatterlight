@@ -70,6 +70,13 @@ typedef struct oshtml_sink
      *   picture it only answers whether it could.  Null in the main window.
      */
     int (*image)(void *ctx, const oshtml_image *img);
+
+    /*
+     *   The characters of an <HR> in these attributes across the window
+     *   (osglk_rule_width).  width() counts the characters of text, to
+     *   centre it and fill it out with spaces.
+     */
+    int (*rule_width)(void *ctx, int combo);
 } oshtml_sink;
 
 /*
@@ -85,6 +92,48 @@ glui32 osglk_link_add(const char *href, int flags);
 /* Ask for link clicks in the windows that have links */
 void osglk_tag_banner_request_links(void);
 void osglk_api_banner_request_links(void);
+
+/*
+ *   Show the picture of a table's first or last cell beside the page, at
+ *   the main window's left or right (osglk.c): false if it can't be
+ */
+int osglk_side_picture(int right, const oshtml_image *img);
+
+/*
+ *   A table of nothing but pictures, laid out in pixels: each tile's place
+ *   in it, and the link it is, or 0
+ */
+#define OSHTML_TILES_MAX 48
+
+typedef struct oshtml_tile
+{
+    oshtml_image img;
+    glui32 x, y, w, h;
+    glui32 link;
+} oshtml_tile;
+
+typedef struct oshtml_pictable
+{
+    int ntiles;
+    oshtml_tile tiles[OSHTML_TILES_MAX];
+    glui32 width, height;
+    int center;                 /* centred across the window */
+} oshtml_pictable;
+
+/*
+ *   Show the table at the end of a tag banner under its text, as a picture
+ *   whose tiles can be clicked (osglkban.c): false if it can't be
+ */
+int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t);
+
+/* The link of a click in a window of such a table, or 0 */
+glui32 osglk_tag_banner_click(winid_t win, glui32 x, glui32 y);
+
+/* Draw the tables again, as the windows changed */
+void osglk_tag_banner_redraw(void);
+
+/* The box-drawing characters of a rule in this style across the window */
+int osglk_rule_width(winid_t win, int combo);
 
 typedef struct oshtml_parser oshtml_parser;
 
