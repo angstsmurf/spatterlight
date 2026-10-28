@@ -137,6 +137,8 @@ typedef struct elem
     int nobr;
     int table;
     int ncell;
+    int table_box;
+    int row_align;
 } elem;
 
 struct oshtml_parser
@@ -193,6 +195,8 @@ struct oshtml_parser
     int table;                  /* the <TABLE>s we're inside */
     int ncell;                  /* the cells of the row so far */
     int row_shown;              /* the row has put something out */
+    int table_box;              /* the <TABLE> has a WIDTH and BGCOLOR */
+    int row_align;              /* the <TR> has an ALIGN */
 
     /*
      *   A row's first cell holds back its first character (cell_hold 2)
@@ -1395,6 +1399,8 @@ static void push_elem(parser *p, const glui32 *name, size_t len)
     e->nobr = p->nobr;
     e->table = p->table;
     e->ncell = p->ncell;
+    e->table_box = p->table_box;
+    e->row_align = p->row_align;
 }
 
 /* close the open tag at 'i', and those inside it */
@@ -1410,6 +1416,8 @@ static void restore_elem(parser *p, int i)
     p->nobr = e->nobr;
     p->table = e->table;
     p->ncell = e->ncell;
+    p->table_box = e->table_box;
+    p->row_align = e->row_align;
     p->nelems = i;
 }
 
@@ -2120,6 +2128,8 @@ static void do_tag(parser *p)
     int cell_first = 0;         /* the row's first cell */
     int held_one = 0;           /* the first cell was one character */
     int cell_align = -1;        /* ALIGN: 0 left, 1 centred, 2 right */
+    int table_open = 0, row_open = 0;
+    int cell_width = 0;         /* a WIDTH */
     int cell_bg_ok = 0;
     os_color_t cell_bg = OS_COLOR_P_TRANSPARENT;
     int tab_to = -1;
@@ -2307,6 +2317,7 @@ static void do_tag(parser *p)
             line_break(p);
             push_elem(p, t + name, namelen);
             ++p->table;
+            table_open = 1;
             p->ncell = 0;
             p->row_shown = 0;
             p->side_left = 0;
@@ -2326,6 +2337,7 @@ static void do_tag(parser *p)
             if (!end)
             {
                 push_elem(p, t + name, namelen);
+                row_open = 1;
                 p->ncell = 0;
                 p->row_shown = 0;
                 p->side_left = 0;
@@ -2728,10 +2740,15 @@ static void do_tag(parser *p)
         else if (align_ok && ATTR("align"))
             align = tag_is(t + v, vlen, "center")
                 || tag_is(t + v, vlen, "right");
-        else if (cell_ok && ATTR("align") && !tag_is(t + name, namelen, "table"))
+        else if (cell_ok && ATTR("align") && table_open)
+            /* a centred table centres its rows; a left or right one floats */
+            cell_align = tag_is(t + v, vlen, "center") ? 1 : -1;
+        else if (cell_ok && ATTR("align"))
             cell_align = tag_is(t + v, vlen, "center") ? 1
                 : tag_is(t + v, vlen, "right") ? 2
                 : tag_is(t + v, vlen, "left") ? 0 : -1;
+        else if (cell_ok && ATTR("width"))
+            cell_width = 1;
         else if (cell_ok && ATTR("bgcolor"))
             cell_bg_ok = parse_color(t + v, vlen, &cell_bg)
                 && !os_color_is_param(cell_bg);
@@ -2877,9 +2894,24 @@ static void do_tag(parser *p)
      *   as on a status line.  Only a cell's own colour is a background: a
      *   theme colour is what the window shows already.
      */
+    if (table_open)
+        p->table_box = cell_width && cell_bg_ok;
+    if (row_open)
+        p->row_align = cell_align >= 0;
     if (cell && p->side_left && cell_align < 0)
     {
         /* beside a picture, the text isn't centred as the table is */
+        cell_align = 0;
+    }
+    else if (cell && cell_align < 0 && !p->row_align
+             && (p->table_box || (cell_width && cell_bg_ok)))
+    {
+        /*
+         *   nor in a coloured box of a set width: HTML TADS centres the box,
+         *   and the text starts at its left.  Centred lines would show the
+         *   box ragged.  Without a colour, centring the lines looks as the
+         *   centred box does.
+         */
         cell_align = 0;
     }
     if (cell_bg_ok)
@@ -2925,7 +2957,8 @@ static void do_tag(parser *p)
         right_cell(p);
     else if (cell)
     {
-        if (cell_align > 0)
+        /* a right-aligned first cell is as wide as its column */
+        if (cell_align == 1)
             p->cur.attr |= OSSTY_CENTER;
         else if (cell_align == 0)
             p->cur.attr &= ~OSSTY_CENTER;
