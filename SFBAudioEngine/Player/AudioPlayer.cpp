@@ -33,7 +33,6 @@
 // ========================================
 #define RING_BUFFER_CAPACITY_FRAMES				16384
 #define RING_BUFFER_WRITE_CHUNK_SIZE_FRAMES		2048
-#define DECODER_THREAD_IMPORTANCE				6
 
 namespace {
 
@@ -126,44 +125,6 @@ private:
 	{}
 
 };
-
-namespace {
-
-	// ========================================
-	// Set the calling thread's timesharing and importance
-	bool setThreadPolicy(integer_t importance)
-	{
-		// Turn off timesharing
-		thread_extended_policy_data_t extendedPolicy = {
-			.timeshare = false
-		};
-		kern_return_t error = thread_policy_set(mach_thread_self(),
-												THREAD_EXTENDED_POLICY,
-												(thread_policy_t)&extendedPolicy,
-												THREAD_EXTENDED_POLICY_COUNT);
-
-		if(KERN_SUCCESS != error) {
-			NSLog("Couldn't set thread's extended policy: %s", mach_error_string(error));
-			return false;
-		}
-
-		// Give the thread the specified importance
-		thread_precedence_policy_data_t precedencePolicy = {
-			.importance = importance
-		};
-		error = thread_policy_set(mach_thread_self(),
-								  THREAD_PRECEDENCE_POLICY,
-								  (thread_policy_t)&precedencePolicy,
-								  THREAD_PRECEDENCE_POLICY_COUNT);
-
-		if (error != KERN_SUCCESS) {
-			NSLog("Couldn't set thread's precedence policy: %s", mach_error_string(error));
-			return false;
-		}
-
-		return true;
-	}
-}
 
 namespace {
 
@@ -860,14 +821,10 @@ void * SFB::Audio::Player::DecoderThreadEntry()
 
 	// ========================================
 	// Give the thread a QoS class. The main thread waits on semaphores this thread signals, and
-	// without one the waits are priority inversions that the system can not resolve
+	// without one the waits are priority inversions that the system can not resolve. Do not also
+	// set a Mach thread policy here: a fixed-priority policy takes the thread out of QoS again
 	if(pthread_set_qos_class_self_np(QOS_CLASS_USER_INITIATED, 0))
 		NSLog("Couldn't set decoder thread QoS class");
-
-	// ========================================
-	// Make ourselves a high priority thread
-	if(!setThreadPolicy(DECODER_THREAD_IMPORTANCE))
-		NSLog("Couldn't set decoder thread importance");
 
 	int64_t decoderCounter = 0;
 
