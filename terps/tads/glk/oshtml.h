@@ -107,6 +107,44 @@ void osglk_draw_side_picture(winid_t win, const oshtml_image *img,
                              glui32 bg);
 
 /*
+ *   Pixels, which Glk gives only for graphics windows: Spatterlight's own
+ *   measures, or Gargoyle's extensions (osglk.c).  Without them the banners
+ *   keep to characters.
+ */
+#if defined(SPATTERLIGHT) || defined(GLK_MODULE_GARGLKWINSIZE)
+#define OSGLK_PIXELS
+
+/* a window's width, inside a text buffer's margins */
+glui32 osglk_px_width(winid_t win);
+
+/* the width of the whole game window */
+glui32 osglk_px_root_width(void);
+
+/* the margins of a text buffer */
+void osglk_px_margins(winid_t win, glui32 *x, glui32 *y);
+
+/* the character cell of a text buffer, as wide as its size counts */
+double osglk_px_cellw(void);
+double osglk_px_cellh(void);
+
+/* the lines a text buffer's text takes, a line of pictures counting one */
+int osglk_px_lines(winid_t win);
+
+/* the pixels its text takes, or 0 if we can't tell */
+int osglk_px_text_height(winid_t win);
+#endif
+
+/* a window's background, zcolor_Default for the theme's */
+void osglk_set_window_bg(winid_t win, glui32 color);
+
+/*
+ *   Text colours, with garglk_set_zcolors.  In Gargoyle a background is
+ *   the paper of every window, so there only the screen colour sets one.
+ */
+void osglk_zcolors(glui32 fg, glui32 bg);
+void osglk_zcolors_stream(strid_t str, glui32 fg, glui32 bg);
+
+/*
  *   A table of nothing but pictures, laid out in pixels: each tile's place
  *   in it, and the link it is, or 0.  An area of an image map is a tile
  *   with no picture of its own, a link on the picture under it.

@@ -431,9 +431,20 @@ glui32 osres_find(const char *name, size_t len, glui32 usage)
         const char *slash = strrchr(path, '/');
         size_t dirlen = slash ? (size_t)(slash - path) : 0;
 
+        struct stat st;
+
         if (!game_dir(dir, sizeof(dir)) || strlen(dir) != dirlen
             || strncmp(dir, path, dirlen) != 0)
             return 0;
+
+        /* a loose file is all of it, which the library needs the size of */
+        if (siz == 0)
+        {
+            if (stat(path, &st) != 0 || st.st_size <= 0
+                || st.st_size > 0x7fffffffL)
+                return 0;
+            siz = (unsigned long)st.st_size;
+        }
         return garglk_add_resource_from_file(usage, slash ? slash + 1 : path,
                                              (glui32)ofs, (glui32)siz);
     }

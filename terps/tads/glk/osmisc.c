@@ -79,10 +79,11 @@ void os_gen_charmap_filename(char *filename, char *internal_id, char *argv0)
  *   seed value 
  */
 
-#ifdef SPATTERLIGHT
-
 #include "glk.h"
 #include "oshtml.h"
+
+#ifdef SPATTERLIGHT
+
 #include "randomness.h"
 extern glui32 gli_determinism;
 
@@ -252,11 +253,11 @@ void os_sleep_ms(long delay_in_milliseconds)
         osglk_vclock_advance((unsigned long)delay_in_milliseconds);
         return;
     }
+#endif
 #ifdef GLK_TIMERS
     if (delay_in_milliseconds > 0)
         osglk_sleep_ms((unsigned long)delay_in_milliseconds);
     return;
-#endif
 #endif
 #ifdef _WIN32
     Sleep(delay_in_milliseconds);
@@ -393,7 +394,6 @@ void os_get_charmap(char *mapname, int charmap_id)
 #endif
 }
 
-#ifdef SPATTERLIGHT
 /*
  *   A loop guard.  TADS 2 asks os_break after every 1000 p-code instructions.
  *   A game that runs 100 million of them (about five seconds) without reading
@@ -409,11 +409,9 @@ void osglk_not_idle(void)
 {
     idle_breaks = 0;
 }
-#endif
 
 int os_break(void)
 {
-#ifdef SPATTERLIGHT
     if (++idle_breaks >= STUCK_BREAKS)
     {
         os_printz("\n[The game was stuck in a loop, so the last command "
@@ -421,7 +419,6 @@ int os_break(void)
         idle_breaks = 0;
         return 1;
     }
-#endif
     return 0;
 }
 

@@ -3919,7 +3919,7 @@ CVmConsoleBanner::CVmConsoleBanner(void *banner_handle, int win_type,
 
     /* get osifc-level information on the banner */
     /*
-     *   Spatterlight: a banner created at size zero has no window to ask
+     *   A banner created at size zero has no window to ask
      *   yet.  A text banner still wraps in the OS layer (glk/oshtml.c), as
      *   it must in HTML mode: the formatter would count tags as text, and
      *   could break a line inside one.

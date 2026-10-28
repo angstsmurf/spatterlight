@@ -27,7 +27,9 @@
 
 #include "os.h"
 #include "glk.h"
+#ifdef SPATTERLIGHT
 #include "glkimp.h"
+#endif
 #include "oshtml.h"
 #include "osstyles.h"
 #include "ossound.h"
@@ -511,6 +513,178 @@ void os_end_html(void)
 
 /* ------------------------------------------------------------------------ */
 /*
+ *   Pixels and colours beyond the Glk API (oshtml.h)
+ */
+#ifdef OSGLK_PIXELS
+#ifdef SPATTERLIGHT
+glui32 osglk_px_width(winid_t win)
+{
+    int w = win->bbox.x1 - win->bbox.x0;
+
+    if (glk_window_get_type(win) == wintype_TextBuffer)
+        w -= 2 * gbuffermarginx;
+    return w > 0 ? (glui32)w : 0;
+}
+
+glui32 osglk_px_root_width(void)
+{
+    winid_t root = glk_window_get_root();
+    return root ? (glui32)(root->bbox.x1 - root->bbox.x0) : 0;
+}
+
+void osglk_px_margins(winid_t win, glui32 *x, glui32 *y)
+{
+    (void)win;
+    if (x)
+        *x = (glui32)gbuffermarginx;
+    if (y)
+        *y = (glui32)gbuffermarginy;
+}
+
+double osglk_px_cellw(void)
+{
+    return gbufcellw;
+}
+
+double osglk_px_cellh(void)
+{
+    return gbufcellh;
+}
+
+int osglk_px_lines(winid_t win)
+{
+    return win_lines(win->peer);
+}
+
+int osglk_px_text_height(winid_t win)
+{
+    return win_text_height(win->peer);
+}
+#else /* GLK_MODULE_GARGLKWINSIZE */
+glui32 osglk_px_width(winid_t win)
+{
+    glui32 w = 0;
+
+    if (glk_window_get_type(win) == wintype_Graphics)
+        glk_window_get_size(win, &w, NULL);
+    else
+        garglk_window_get_size_pixels(win, &w, NULL);
+    return w;
+}
+
+/* a graphics window of no height across the top is as wide as it is */
+glui32 osglk_px_root_width(void)
+{
+    winid_t root = glk_window_get_root(), probe;
+    glui32 w = 0;
+
+    if (!root)
+        return 0;
+    probe = glk_window_open(root, winmethod_Above | winmethod_Fixed
+                            | winmethod_NoBorder, 0, wintype_Graphics, 0);
+    if (!probe)
+        return 0;
+    glk_window_get_size(probe, &w, NULL);
+    glk_window_close(probe, NULL);
+    return w;
+}
+
+/*
+ *   a text buffer's origin is inside its margins, and that of a graphics
+ *   window of no size at its top left corner is the corner
+ */
+void osglk_px_margins(winid_t win, glui32 *x, glui32 *y)
+{
+    glsi32 tx = 0, ty = 0, gx = 0, gy = 0;
+    winid_t probe = NULL;
+
+    if (win && glk_window_get_type(win) == wintype_TextBuffer)
+        probe = glk_window_open(win, winmethod_Above | winmethod_Fixed
+                                | winmethod_NoBorder, 0, wintype_Graphics, 0);
+    if (probe)
+    {
+        garglk_window_get_origin_pixels(win, &tx, &ty);
+        garglk_window_get_origin_pixels(probe, &gx, &gy);
+        glk_window_close(probe, NULL);
+    }
+    if (x)
+        *x = tx > gx ? (glui32)(tx - gx) : 0;
+    if (y)
+        *y = ty > gy ? (glui32)(ty - gy) : 0;
+}
+
+double osglk_px_cellw(void)
+{
+    double w = 0;
+    garglk_get_cell_size_pixels(&w, NULL);
+    return w;
+}
+
+double osglk_px_cellh(void)
+{
+    double h = 0;
+    garglk_get_cell_size_pixels(NULL, &h);
+    return h;
+}
+
+int osglk_px_lines(winid_t win)
+{
+    return glk_window_get_type(win) == wintype_TextBuffer
+        ? garglk_tads_os_banner_size(win) : 0;
+}
+
+int osglk_px_text_height(winid_t win)
+{
+    (void)win;
+    return 0;
+}
+#endif /* SPATTERLIGHT */
+#endif /* OSGLK_PIXELS */
+
+void osglk_set_window_bg(winid_t win, glui32 color)
+{
+#ifdef SPATTERLIGHT
+    win_setbgnd(win->peer, color);
+#else
+    if (glk_window_get_type(win) == wintype_Graphics)
+        glk_window_set_background_color(win, color == zcolor_Default
+                                        ? mainbg : color);
+#ifdef GARGLK
+    /* Gargoyle's paper is the main window's, that of every window */
+    else if (win == mainwin)
+        garglk_set_zcolors_stream(glk_window_get_stream(win),
+                                  zcolor_Current, color);
+#endif /* GARGLK */
+#endif /* SPATTERLIGHT */
+}
+
+/* the main window's background, which the side pictures' match */
+static glui32 main_bg = zcolor_Default;
+
+void osglk_zcolors(glui32 fg, glui32 bg)
+{
+    osglk_zcolors_stream(glk_stream_get_current(), fg, bg);
+}
+
+void osglk_zcolors_stream(strid_t str, glui32 fg, glui32 bg)
+{
+#ifndef SPATTERLIGHT
+    /*
+     *   Gargoyle's colours are the last ones set in any window: a
+     *   background is every window's paper, and a text colour that of all
+     *   text without one of its own.  So only the main window's text has a
+     *   colour, and only the screen colour sets a background (which a
+     *   default one mustn't undo)
+     */
+    if (!str || !mainwin || str != glk_window_get_stream(mainwin))
+        return;
+    bg = main_bg == zcolor_Default ? zcolor_Default : zcolor_Current;
+#endif
+    garglk_set_zcolors_stream(str, fg, bg);
+}
+
+/* ------------------------------------------------------------------------ */
+/*
  *   Pictures beside the page: the picture alone in a table's first or last
  *   cell, which HTML TADS shows as a border down the side of the text
  *   (1893).  Each goes in a graphics window at the main window's left or
@@ -522,15 +696,13 @@ static struct
     oshtml_image img;
 } side_pics[2];
 
-/* the main window's background, which theirs matches */
-static glui32 main_bg = zcolor_Default;
 
 void osglk_draw_side_picture(winid_t win, const oshtml_image *img,
                              glui32 bg)
 {
     glui32 ww, wh, w, h;
 
-    win_setbgnd(win->peer, bg);
+    osglk_set_window_bg(win, bg);
     glk_window_clear(win);
     glk_window_get_size(win, &ww, &wh);
     if (!oshtml_image_size(img, ww, &w, &h) || !w || !h)
@@ -569,7 +741,15 @@ int osglk_side_picture(int right, const oshtml_image *img)
         return 0;
 
     /* not if it would leave the text too little room */
-    mw = (glui32)(mainwin->bbox.x1 - mainwin->bbox.x0);
+#ifdef OSGLK_PIXELS
+    {
+        glui32 mx = 0;
+        osglk_px_margins(mainwin, &mx, NULL);
+        mw = osglk_px_width(mainwin) + 2 * mx;
+    }
+#else
+    mw = 0;
+#endif
     if (!oshtml_image_size(img, mw, &w, &h) || !w || w * 4 > mw)
         return 0;
 
@@ -730,11 +910,11 @@ void osglk_set_text_color(os_color_t fg, os_color_t bg)
     }
 
     if (changedfg && changedbg) {
-        garglk_set_zcolors( (glui32)fg, (glui32)bg);
+        osglk_zcolors((glui32)fg, (glui32)bg);
     } else if (changedfg) {
-        garglk_set_zcolors( (glui32)fg, zcolor_Current);
+        osglk_zcolors((glui32)fg, zcolor_Current);
     } else if (changedbg) {
-        garglk_set_zcolors( zcolor_Current, (glui32)bg);
+        osglk_zcolors(zcolor_Current, (glui32)bg);
     }
 }
 
@@ -762,7 +942,7 @@ void os_set_screen_color(os_color_t color)
 
     main_bg = (glui32)color;
     if (mainwin)
-        win_setbgnd(mainwin->peer, main_bg);
+        osglk_set_window_bg(mainwin, main_bg);
     side_pictures_draw();
 }
 
@@ -802,7 +982,11 @@ void os_set_title(const char *title)
  */
 void os_more_prompt()
 {
+#ifdef SPATTERLIGHT
     oshtml_put_plain("\n\n\n", 3);
+#else
+    oshtml_put_plain("\n[more]\n", 8);
+#endif
     os_waitc();
 }
 
@@ -831,6 +1015,9 @@ void os_more_prompt()
 int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
                int prompt_type, os_filetype_t file_type)
 {
+#ifndef GLKUNIX_FILEREF_GET_FILENAME
+    return OS_AFE_FAILURE;
+#else
     frefid_t fileref;
     glui32 gprompt, gusage;
 
@@ -855,6 +1042,7 @@ int os_askfile(const char *prompt, char *fname_buf, int fname_buf_len,
     glk_fileref_destroy(fileref);
 
     return OS_AFE_SUCCESS;
+#endif
 }
 
 /* ------------------------------------------------------------------------ */

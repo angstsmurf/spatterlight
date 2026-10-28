@@ -92,12 +92,8 @@ char G_tads_oem_dbg_name[] = "tadsdbg";
  *   By default, we'll define this to "text-only", since most interpreters
  *   use the standard text output layer.  
  */
-#ifdef SPATTERLIGHT
 /* we interpret HTML mark-ups, show pictures and play sounds */
 char G_tads_oem_display_mode[] = "multimedia";
-#else
-char G_tads_oem_display_mode[] = "text-only";
-#endif /* SPATTERLIGHT */
 
 /*
  *   OEM Author Credit - This is a line of text that is displayed after
