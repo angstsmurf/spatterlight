@@ -52,6 +52,13 @@ static int curattr = 0;
 winid_t mainwin;
 winid_t statuswin;
 
+/*
+ *   whether we echo the lines the player enters, not the window: then a
+ *   click on a link while a line is read can cancel it without a newline
+ *   after the prompt, and show the link's command there instead
+ */
+static int self_echo;
+
 glui32 mainfg;
 glui32 mainbg;
 
@@ -213,6 +220,14 @@ int os_init(int *argc, char *argv[], const char *prompt,
         fprintf(stderr, "fatal: could not open window!\n");
         glk_exit();
     }
+
+#ifdef GLK_MODULE_LINE_ECHO
+    if (glk_gestalt(gestalt_LineInputEcho, 0))
+    {
+        glk_set_echo_line_event(mainwin, 0);
+        self_echo = 1;
+    }
+#endif
 
     measure_colors();
 
@@ -925,11 +940,20 @@ static void request_links(void)
         glk_request_hyperlink_event(mainwin);
 }
 
-#ifdef GLK_MODULE_LINE_ECHO
-#define LINK_ECHO(on) glk_set_echo_line_event(mainwin, (on))
-#else
-#define LINK_ECHO(on) ((void)0)
-#endif
+/*
+ *   a line the player entered, shown as the window would have shown it.
+ *   What the formatter holds goes out first, in its own style, and then
+ *   the line goes straight to the window, as the formatter would set its
+ *   style again.
+ */
+static void echo_line(const char *buf)
+{
+    oshtml_put_plain("", 0);
+    glk_set_style(style_Input);
+    os_put_buffer((unsigned char *)buf, strlen(buf));
+    glk_put_char('\n');
+    glk_set_style(style_Normal);
+}
 
 /*
  *   A link was clicked while a line was being read.  The href becomes the
@@ -938,8 +962,7 @@ static void request_links(void)
  *   "append", the line goes on, with the href added to the command line
  *   (returns 0), and so does a click we ignore.
  */
-static int line_link(const event_t *click, unsigned char *buf, size_t buflen,
-                     int echo_after)
+static int line_link(const event_t *click, unsigned char *buf, size_t buflen)
 {
     const link_t *l = link_get(click->val1);
     event_t typed;
@@ -948,15 +971,14 @@ static int line_link(const event_t *click, unsigned char *buf, size_t buflen,
     if (!l)
         return 0;
 
-    /* the typed text isn't echoed: it's either dropped or shown again */
-    LINK_ECHO(0);
+    /*
+     *   the typed text isn't echoed, as the window doesn't echo lines
+     *   (self_echo): it's either dropped or shown again
+     */
     typed.type = evtype_None;
     glk_cancel_line_event(mainwin, &typed);
     if (typed.type != evtype_LineInput)
-    {
-        LINK_ECHO(echo_after);
         return 0;
-    }
     os_fill_buffer(buf, typed.val1);
 
     if (l->flags & (OSLINK_NOENTER | OSLINK_APPEND))
@@ -965,17 +987,12 @@ static int line_link(const event_t *click, unsigned char *buf, size_t buflen,
         strncpy((char *)buf + len, l->href, buflen - 1 - len);
         buf[buflen - 1] = '\0';
         os_get_buffer(buf, buflen, strlen((char *)buf));
-        LINK_ECHO(echo_after);
         return 0;
     }
 
     strncpy((char *)buf, l->href, buflen - 1);
     buf[buflen - 1] = '\0';
-    glk_set_style(style_Input);
-    oshtml_put_plain((char *)buf, strlen((char *)buf));
-    oshtml_put_plain("\n", 1);
-    glk_set_style(style_Normal);
-    LINK_ECHO(echo_after);
+    echo_line((char *)buf);
     return 1;
 }
 
@@ -1107,7 +1124,7 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
             redraw_windows();
         else if (event.type == evtype_Hyperlink)
         {
-            if (line_link(&event, buf, buflen, 1))
+            if (line_link(&event, buf, buflen))
             {
                 linked = 1;
                 event.type = evtype_LineInput;
@@ -1118,8 +1135,14 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
     }
     while (event.type != evtype_LineInput);
 
+    if (!linked)
+    {
+        os_fill_buffer(buf, event.val1);
+        if (self_echo)
+            echo_line((char *)buf);
+    }
     oshtml_input_done();
-    return linked ? buf : os_fill_buffer(buf, event.val1);
+    return buf;
 }
 
 /*
@@ -1224,7 +1247,8 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     if (timer)
     {
         request_timer(timer);
-        glk_set_echo_line_event(mainwin, 0);
+        if (!self_echo)
+            glk_set_echo_line_event(mainwin, 0);
     }
 
     oshtml_input();
@@ -1243,7 +1267,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
         }
         else if (event.type == evtype_Hyperlink)
         {
-            if (line_link(&event, buf, bufl, timer ? 0 : 1))
+            if (line_link(&event, buf, bufl))
             {
                 linked = 1;
                 event.type = evtype_LineInput;
@@ -1260,11 +1284,12 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     if (timer)
     {
         request_timer(0);
-        glk_set_echo_line_event(mainwin, 1);
+        if (!self_echo)
+            glk_set_echo_line_event(mainwin, 1);
     }
 
     /* save or print buffer contents */
-    if (res && timer && !linked)
+    if (res && (timer || self_echo) && !linked)
     {
         if (timeout)
         {
@@ -1273,12 +1298,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
             memcpy(timebuf, buf, timelen);
         }
         else
-        {
-            glk_set_style(style_Input);
-            oshtml_put_plain((char *)buf, strlen((char *)buf));
-            oshtml_put_plain("\n", 1);
-            glk_set_style(style_Normal);
-        }
+            echo_line((char *)buf);
     }
 
     if (!timeout)
@@ -1315,10 +1335,7 @@ void os_gets_cancel(int reset)
 #if defined GLK_TIMERS && defined GLK_MODULE_LINE_ECHO
     if (timebuf)
     {
-        glk_set_style(style_Input);
-        oshtml_put_plain(timebuf, strlen(timebuf));
-        oshtml_put_plain("\n", 1);
-        glk_set_style(style_Normal);
+        echo_line(timebuf);
 
         if (reset)
         {
