@@ -223,6 +223,18 @@ struct oshtml_parser
     int margin_pic;             /* or in the margin, until the row ends */
 
     /*
+     *   A first cell's picture goes beside the page only if the row's last
+     *   cell is a picture too, as in 1893's border down both sides; else
+     *   it goes in the margin (According to Cain's vignette).  The rest of
+     *   the row, from the second cell's tag, waits here as the game wrote
+     *   it until its end tells which (cell_row_scan).
+     */
+    glui32 *rowcap;
+    size_t nrowcap, rowcapmax;
+    int capturing;
+    int row_side;               /* 1 beside, 2 margin: the row was read */
+
+    /*
      *   TADS 2: a <BANNER>, whose text waits for its </BANNER>, and whether
      *   we're inside the tag of the text (and inside quotes in it)
      */
@@ -457,6 +469,7 @@ static void expand_tab(parser *p, int allow_anon);
 static void line_break(parser *p);
 static void put_maprow(parser *p);
 static void release_cell_picture(parser *p);
+static void end_row_capture(parser *p, int side);
 
 /*
  *   The TADS 3 formatter brings the window up to date with the current
@@ -1856,15 +1869,124 @@ static void release_cell_picture(parser *p)
         put_space(p);
 }
 
-/* a tag after the held picture: is it beside the page? */
-static void cell_picture_tag(parser *p, const glui32 *name, size_t len,
-                             int end)
+static void row_capture_add(parser *p, glui32 c)
+{
+    if (p->nrowcap == p->rowcapmax)
+    {
+        size_t max = p->rowcapmax ? p->rowcapmax * 2 : 1024;
+        glui32 *buf = realloc(p->rowcap, max * sizeof(glui32));
+        if (!buf)
+        {
+            end_row_capture(p, 0);
+            return;
+        }
+        p->rowcap = buf;
+        p->rowcapmax = max;
+    }
+    p->rowcap[p->nrowcap++] = c;
+}
+
+/*
+ *   The rest of the row so far: 0 if it hasn't ended, else 1 if its last
+ *   cell is a picture alone, 2 if not.  Tables inside it don't count.
+ */
+static int cell_row_scan(const glui32 *s, size_t n)
+{
+    size_t i = 0, name, namelen;
+    int depth = 0, pics = 0, text = 0, end;
+    glui32 quote;
+
+    while (i < n)
+    {
+        if (s[i] != '<')
+        {
+            if (!is_space(s[i]))
+                text = 1;
+            ++i;
+            continue;
+        }
+        end = 0;
+        quote = 0;
+        for (++i ; i < n && is_space(s[i]) ; ++i)
+            ;
+        if (i < n && s[i] == '/')
+        {
+            end = 1;
+            ++i;
+        }
+        for (name = i ; i < n && !is_space(s[i]) && s[i] != '>' ; ++i)
+            ;
+        namelen = i - name;
+        for ( ; i < n && (quote || s[i] != '>') ; ++i)
+        {
+            if (quote && s[i] == quote)
+                quote = 0;
+            else if (!quote && (s[i] == '"' || s[i] == '\''))
+                quote = s[i];
+        }
+        if (i == n)
+            return 0;
+        ++i;
+
+        if (tag_is(s + name, namelen, "table"))
+            depth += end ? -1 : 1;
+        if (depth > 0)
+            continue;
+        if (depth < 0 || tag_is(s + name, namelen, "tr"))
+            return pics == 1 && !text ? 1 : 2;
+        if (!end && (tag_is(s + name, namelen, "td")
+                     || tag_is(s + name, namelen, "th")))
+            pics = text = 0;
+        else if (tag_is(s + name, namelen, "img"))
+            ++pics;
+    }
+    return 0;
+}
+
+/* the row was read, or must be shown now: put out what waited of it */
+static void end_row_capture(parser *p, int side)
+{
+    glui32 *buf = p->rowcap;
+    size_t i, n = p->nrowcap;
+
+    if (!p->capturing)
+        return;
+    p->capturing = 0;
+    p->row_side = side == 1 ? 1 : 2;
+    p->rowcap = 0;
+    p->nrowcap = p->rowcapmax = 0;
+    for (i = 0 ; i < n ; ++i)
+        feed(p, buf[i]);
+    free(buf);
+}
+
+/* the game's text while the row waits */
+static int row_capture_char(parser *p, glui32 c)
+{
+    int side;
+
+    if (!p->capturing || p->dst)
+        return 0;
+    row_capture_add(p, c);
+    if (c == '>' && p->capturing
+        && (side = cell_row_scan(p->rowcap, p->nrowcap)) != 0)
+        end_row_capture(p, side);
+    return 1;
+}
+
+/*
+ *   a tag after the held picture: is it beside the page?  True if the tag
+ *   waits for the rest of the row (t, len its text)
+ */
+static int cell_picture_tag(parser *p, const glui32 *name, size_t len,
+                            int end, const glui32 *t, size_t tlen)
 {
     int cell = tag_is(name, len, "td") || tag_is(name, len, "th");
-    int right;
+    int right, side;
+    size_t i;
 
     if (cell && end)
-        return;
+        return 0;
     if (cell)
         right = 0;
     else if (tag_is(name, len, "tr") || (end && tag_is(name, len, "table")))
@@ -1872,25 +1994,43 @@ static void cell_picture_tag(parser *p, const glui32 *name, size_t len,
     else
     {
         release_cell_picture(p);
-        return;
+        return 0;
     }
 
     if (p->cell_pic != (right ? 2 : 1))
     {
         release_cell_picture(p);
-        return;
+        return 0;
     }
-    if (!osglk_side_picture(right, &p->cell_img))
+
+    /* a first cell's picture: read the row, from this tag on */
+    side = right;
+    if (!right && !p->row_side)
+    {
+        p->capturing = 1;
+        row_capture_add(p, '<');
+        for (i = 0 ; i < tlen && p->capturing ; ++i)
+            row_capture_add(p, t[i]);
+        if (p->capturing)
+            row_capture_add(p, '>');
+        return p->capturing;
+    }
+    if (!right)
+        side = p->row_side == 1;
+    p->row_side = 0;
+
+    if (!side || !osglk_side_picture(right, &p->cell_img))
     {
         /*
-         *   in a window too narrow for that, a first cell's picture goes in
-         *   the margin, so that the next cell's text runs beside it, and
-         *   the next row starts below it (According to Cain's vignette)
+         *   in a window too narrow for that, or in a row with no picture
+         *   at its other end, a first cell's picture goes in the margin, so
+         *   that the next cell's text runs beside it, and the next row
+         *   starts below it (According to Cain's vignette)
          */
         if (right)
         {
             release_cell_picture(p);
-            return;
+            return 0;
         }
         p->cell_pic = 0;
         p->cell_img.align = imagealign_MarginLeft;
@@ -1905,6 +2045,7 @@ static void cell_picture_tag(parser *p, const glui32 *name, size_t len,
         p->side_left = 1;
         --p->ncell;
     }
+    return 0;
 }
 
 /* the row with a picture in the margin is over: what follows goes below */
@@ -2229,8 +2370,11 @@ static void do_tag(parser *p)
     namelen = i - name;
 
     p->cell_empty = 0;
-    if (p->cell_pic)
-        cell_picture_tag(p, t + name, namelen, end);
+    if (p->cell_pic && cell_picture_tag(p, t + name, namelen, end, t, len))
+    {
+        p->cell_empty = cell_empty;
+        return;
+    }
 
 #define TAG(s) tag_is(t + name, namelen, s)
 #define TAG_IN(l) name_in(t + name, namelen, l)
@@ -4040,6 +4184,8 @@ static void banner_char(parser *p, glui32 c)
 
 static void feed(parser *p, glui32 c)
 {
+    if (row_capture_char(p, c))
+        return;
     if (p->bancap)
     {
         banner_char(p, c);
@@ -4153,6 +4299,7 @@ oshtml_parser *oshtml_new(const oshtml_sink *sink, void *ctx)
 void oshtml_delete(oshtml_parser *p)
 {
     free(p->bantext);
+    free(p->rowcap);
     free(p);
 }
 
@@ -4188,10 +4335,12 @@ void oshtml_flush_parser(oshtml_parser *p)
  */
 static void close_all(parser *p)
 {
+    end_row_capture(p, 0);
     if (p->nelems)
         restore_elem(p, 0);
     p->nmaprow = 0;
     p->cell_pic = p->cell_empty = p->side_left = p->margin_pic = 0;
+    p->row_side = 0;
     p->cur.attr = 0;
     p->cur.fg = p->text;
     p->cur.bg = OS_COLOR_P_TRANSPARENT;
@@ -4199,6 +4348,7 @@ static void close_all(parser *p)
 
 void oshtml_clear(oshtml_parser *p)
 {
+    end_row_capture(p, 0);
     p->tab_align = TAB_NONE;
     p->center_hold = 0;
     p->nhold = 0;
@@ -4281,6 +4431,7 @@ static void drop_link(parser *p)
 
 void oshtml_put_plain(const char *str, size_t len)
 {
+    end_row_capture(&fmt, 0);
     show_held(&fmt);
     oshtml_flush();
     drop_link(&fmt);
@@ -4306,6 +4457,7 @@ void oshtml_flush(void)
 void oshtml_input(void)
 {
     /* the formatter shows the spaces at the end of the line before input */
+    end_row_capture(&fmt, 0);
     release_cell_picture(&fmt);
     show_held(&fmt);
     put_maprow(&fmt);
