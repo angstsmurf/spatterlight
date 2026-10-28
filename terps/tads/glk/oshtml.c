@@ -44,7 +44,8 @@
  *     its ALT text where it can't; the ALT text of <sound> is printed;
  *   - Glk can't make parts of a picture clickable, so the <area>s of an
  *     <img usemap> are a row of links under the pictures, named by their
- *     ALT text or else their hrefs (which are commands);
+ *     ALT text or else their hrefs (which are commands); at the end of a
+ *     banner, the picture goes in a graphics window, where they're clicked;
  *   - <title> sets the window title, and nothing inside <title> or
  *     <aboutbox> (or in TADS 3, <banner>) is shown;
  *   - in TADS 2, the text of a <banner> is kept until its </banner>, and
@@ -1987,6 +1988,11 @@ typedef struct imagemap
     size_t namelen;
     int nareas;
     maplink areas[AREAS_MAX];
+
+    /* where the areas are on the picture, unless one isn't a rectangle */
+    int nrects;
+    oshtml_tile rects[AREAS_MAX];
+    int unplaced;
 } imagemap;
 
 static imagemap maps[MAPS_MAX];
@@ -2048,6 +2054,41 @@ static void add_area(imagemap *m, glui32 link, const glui32 *label,
     memcpy(m->areas[i].label, label, len * sizeof(glui32));
     m->areas[i].len = len;
     ++m->nareas;
+}
+
+/* an <AREA>'s rectangle, "left,top,right,bottom" */
+static void add_area_rect(imagemap *m, glui32 link, int rect,
+                          const glui32 *v, size_t len)
+{
+    int n[4], i;
+    size_t k = 0;
+    oshtml_tile *r;
+
+    for (i = 0 ; i < 4 ; ++i)
+    {
+        while (k < len && (is_space(v[k]) || v[k] == ','))
+            ++k;
+        if (k == len || v[k] < '0' || v[k] > '9')
+            break;
+        n[i] = 0;
+        for ( ; k < len && v[k] >= '0' && v[k] <= '9' ; ++k)
+            n[i] = n[i] * 10 + (int)(v[k] - '0');
+    }
+    if (!rect || i < 4 || n[2] <= n[0] || n[3] <= n[1])
+    {
+        m->unplaced = 1;
+        return;
+    }
+    if (m->nrects == AREAS_MAX)
+        return;
+    r = &m->rects[m->nrects++];
+    memset(r, 0, sizeof(*r));
+    r->x = (glui32)n[0];
+    r->y = (glui32)n[1];
+    r->w = (glui32)(n[2] - n[0]);
+    r->h = (glui32)(n[3] - n[1]);
+    r->link = link;
+    r->area = 1;
 }
 
 /* the links of an <IMG USEMAP>, for the row under the pictures */
@@ -2123,7 +2164,8 @@ static void do_tag(parser *p)
     int have_href = 0, link_flags = 0;
     int map_ok = 0, area_ok = 0; /* <map>, <area> */
     size_t mapname = 0, mapnamelen = 0, usemap = 0, usemaplen = 0;
-    int nohref = 0;
+    size_t coords = 0, coordslen = 0;
+    int nohref = 0, area_rect = 1;
     int cell_ok = 0, cell = 0;  /* <table>, <tr>, <td>; 1 for a <td> */
     int cell_first = 0;         /* the row's first cell */
     int held_one = 0;           /* the first cell was one character */
@@ -2609,6 +2651,13 @@ static void do_tag(parser *p)
         }
         else if (area_ok && ATTR("nohref"))
             nohref = 1;
+        else if (area_ok && ATTR("shape"))
+            area_rect = tag_is(t + v, vlen, "rect");
+        else if (area_ok && ATTR("coords"))
+        {
+            coords = v;
+            coordslen = vlen;
+        }
         else if (img && ATTR("usemap"))
         {
             usemap = v;
@@ -2814,15 +2863,17 @@ static void do_tag(parser *p)
 
     /* <MAP NAME>, and its <AREA HREF>s */
     if (map_ok && (p->map = find_map(t + mapname, mapnamelen, 1)) != NULL)
-        p->map->nareas = 0;
+        p->map->nareas = p->map->nrects = p->map->unplaced = 0;
     if (area_ok && have_href && !nohref)
     {
+        glui32 link = href_link(t + href, hreflen, 0);
+
         if (altlen != 0)
-            add_area(p->map, href_link(t + href, hreflen, 0),
-                     t + alt, altlen);
+            add_area(p->map, link, t + alt, altlen);
         else
-            add_area(p->map, href_link(t + href, hreflen, 0),
-                     t + href, hreflen);
+            add_area(p->map, link, t + href, hreflen);
+        if (link)
+            add_area_rect(p->map, link, area_rect, t + coords, coordslen);
     }
 
     /* the banner is whitespace in the text around it */
@@ -3019,7 +3070,8 @@ static void tag_char(parser *p, glui32 c)
  *   between cells of buttons, under its title in a table of its own.  Such
  *   tables at the end of a tag banner are laid out in pixels instead, as
  *   HTML TADS lays them out, and go under the banner's text as one picture,
- *   its links clicked by where they are.
+ *   its links clicked by where they are.  So does a picture with an image
+ *   map at the end of a banner (Six's introduction): its areas are clicked.
  */
 
 #define PT_CELLS 24
@@ -3144,10 +3196,11 @@ static int raw_int(const glui32 *t, size_t s, size_t e, const char *attr,
 /*
  *   Is the last thing in t[0..len) a table, or tables with only line breaks
  *   between them, with only line breaks and the ends of elements after it?
- *   Their text is t[*s..*e).
+ *   Their text is t[*s..*e).  1 if so, 2 if it's an <IMG USEMAP> instead.
  */
 static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
 {
+    size_t v, vlen;
     size_t i = 0, ts, te, name, namelen;
     int depth = 0, end, found = 0;
 
@@ -3167,7 +3220,7 @@ static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
         namelen = raw_name(t, ts, te, &name, &end);
         if (tag_is(t + name, namelen, "table"))
         {
-            if (!end && depth++ == 0 && !found)
+            if (!end && depth++ == 0 && found != 1)
                 *s = start;
             else if (end && depth > 0 && --depth == 0)
             {
@@ -3175,10 +3228,17 @@ static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
                 found = 1;
             }
         }
+        else if (depth == 0 && !end && tag_is(t + name, namelen, "img")
+                 && raw_attr(t, ts, te, "usemap", &v, &vlen))
+        {
+            *s = start;
+            *e = i;
+            found = 2;
+        }
         else if (depth == 0 && !end && !tag_is(t + name, namelen, "br"))
             found = 0;
     }
-    return found && depth == 0;
+    return depth == 0 ? found : 0;
 }
 
 /*
@@ -3501,6 +3561,59 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
     return 1;
 }
 
+/*
+ *   Lay out the <IMG USEMAP> in t[0..len) as a picture whose areas are its
+ *   links: false if an area isn't a rectangle, or the picture floats
+ */
+static int build_mappic(parser *p, const glui32 *t, size_t len,
+                        oshtml_pictable *pt)
+{
+    size_t i = 0, ts, te, v, vlen;
+    img_size w = { 0, 0 }, h = { 0, 0 };
+    const imagemap *m;
+    oshtml_tile *tile = &pt->tiles[0];
+    int k;
+
+    if (p->dst || !raw_tag(t, len, &i, &ts, &te)
+        || !raw_attr(t, ts, te, "usemap", &v, &vlen)
+        || !(m = find_map(t + v, vlen, 0))
+        || m->unplaced || m->nrects == 0 || m->nrects >= OSHTML_TILES_MAX
+        || raw_attr(t, ts, te, "ismap", &v, &vlen)
+        || (raw_attr(t, ts, te, "align", &v, &vlen)
+            && (tag_is(t + v, vlen, "left") || tag_is(t + v, vlen, "right"))))
+        return 0;
+    if (raw_attr(t, ts, te, "width", &v, &vlen))
+        parse_img_size(t + v, vlen, &w);
+    if (raw_attr(t, ts, te, "height", &v, &vlen))
+        parse_img_size(t + v, vlen, &h);
+    memset(tile, 0, sizeof(*tile));
+    if (w.pct || h.pct || !raw_attr(t, ts, te, "src", &v, &vlen)
+        || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h, &tile->img)
+        || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+        || tile->w == 0 || tile->h == 0)
+        return 0;
+
+    /* the areas, as far as they're on it; the first one clicked wins */
+    pt->ntiles = 1;
+    for (k = 0 ; k < m->nrects ; ++k)
+    {
+        oshtml_tile *a = &pt->tiles[pt->ntiles];
+
+        *a = m->rects[k];
+        if (a->x >= tile->w || a->y >= tile->h)
+            continue;
+        if (a->w > tile->w - a->x)
+            a->w = tile->w - a->x;
+        if (a->h > tile->h - a->y)
+            a->h = tile->h - a->y;
+        ++pt->ntiles;
+    }
+    pt->width = tile->w;
+    pt->height = tile->h;
+    pt->center = (cur_color(p).attr & OSSTY_CENTER) != 0;
+    return pt->ntiles > 1;
+}
+
 /* ------------------------------------------------------------------------ */
 /*
  *   TADS 2's <BANNER>: its text, up to the </BANNER>, goes through a parser
@@ -3543,7 +3656,9 @@ static void end_banner(parser *p)
                     put_maprow(b);
                     expand_tab(b, 1);
                     flush_out(b);
-                    if (build_pictable(b, p->bantext + ts, te - ts, &pt)
+                    if ((table == 2
+                         ? build_mappic(b, p->bantext + ts, te - ts, &pt)
+                         : build_pictable(b, p->bantext + ts, te - ts, &pt))
                         && osglk_tag_banner_table(ctx, &pt))
                         stop = ts;
                     from = ts;

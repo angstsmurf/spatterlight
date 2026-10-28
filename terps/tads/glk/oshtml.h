@@ -108,7 +108,8 @@ void osglk_draw_side_picture(winid_t win, const oshtml_image *img,
 
 /*
  *   A table of nothing but pictures, laid out in pixels: each tile's place
- *   in it, and the link it is, or 0
+ *   in it, and the link it is, or 0.  An area of an image map is a tile
+ *   with no picture of its own, a link on the picture under it.
  */
 #define OSHTML_TILES_MAX 48
 
@@ -117,6 +118,7 @@ typedef struct oshtml_tile
     oshtml_image img;
     glui32 x, y, w, h;
     glui32 link;
+    int area;
 } oshtml_tile;
 
 typedef struct oshtml_pictable

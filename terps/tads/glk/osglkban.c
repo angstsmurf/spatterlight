@@ -1853,6 +1853,8 @@ static void tag_table_draw(tagban_t *tb)
     for (i = 0 ; i < t->ntiles ; ++i)
     {
         const oshtml_tile *tile = &t->tiles[i];
+        if (tile->area)
+            continue;
         glk_image_draw_scaled(tb->tblwin, tile->img.id,
                               (glsi32)(tb->tbl_x + tile->x),
                               (glsi32)(tb->tbl_y + tile->y),
