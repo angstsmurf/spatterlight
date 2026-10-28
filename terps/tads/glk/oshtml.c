@@ -691,11 +691,20 @@ static void expand_tab(parser *p, int allow_anon)
         break;
     }
 
+    lead = p->tab_lead < p->npending ? p->tab_lead : p->npending;
+    n = p->nhold;
+
+    /*
+     *   text too wide to fit after the text before the tab still gets a
+     *   space between them, as on a status line in a narrow window
+     */
+    if ((p->tab_align == TAB_RIGHT || p->tab_align == TAB_CENTER)
+        && spaces < 1 && n > 0 && lead == 0 && p->tab_start > 0)
+        spaces = 1;
+
     p->tab_align = TAB_NONE;
     p->center_hold = 0;
-    lead = p->tab_lead < p->npending ? p->tab_lead : p->npending;
     p->tab_lead = 0;
-    n = p->nhold;
     p->nhold = 0;
     if (n == 0 && spaces > 0)
     {
