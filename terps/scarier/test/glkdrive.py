@@ -145,7 +145,7 @@ class Driver:
         self.spans = []                 # [peer, style, text] runs
         self.zcolors = []               # (span index, peer, fg, bg) SETZCOLORs
         self.log = []
-        self.hints = {}                 # (wintype, style, hint) -> value
+        self.hint_values = {}           # (wintype, style, hint) -> value
         self.win_hints = {}             # peer -> its type's hints at NEWWIN
 
     def reply(self, cmd, a1=0, a2=0, a3=0, a4=0, a5=0, payload=b""):
@@ -194,16 +194,23 @@ class Driver:
                 self.spans.append([a1, a2, text])
             if self.open_link and self.open_link[0] == a1:
                 self.link_texts[-1][2] += text
-        elif cmd == STYLEHINT:
-            self.hints.append("HINT %s %s %s %d"
-                              % (name_of(WINTYPE_NAMES, a1),
-                                 name_of(STYLE_NAMES, a2),
-                                 name_of(HINT_NAMES, a3), a4))
-        elif cmd == CLEARHINT:
-            self.hints.append("CLEAR %s %s %s"
-                              % (name_of(WINTYPE_NAMES, a1),
-                                 name_of(STYLE_NAMES, a2),
-                                 name_of(HINT_NAMES, a3)))
+        elif cmd == STYLEHINT or cmd == CLEARHINT:
+            if cmd == STYLEHINT:
+                self.hints.append("HINT %s %s %s %d"
+                                  % (name_of(WINTYPE_NAMES, a1),
+                                     name_of(STYLE_NAMES, a2),
+                                     name_of(HINT_NAMES, a3), a4))
+            else:
+                self.hints.append("CLEAR %s %s %s"
+                                  % (name_of(WINTYPE_NAMES, a1),
+                                     name_of(STYLE_NAMES, a2),
+                                     name_of(HINT_NAMES, a3)))
+            # as the app does it: wintype_AllTypes (0) sets both kinds
+            for wt in ((3, 4) if a1 == 0 else (a1,)):
+                if cmd == STYLEHINT:
+                    self.hint_values[(wt, a2, a3)] = a4
+                else:
+                    self.hint_values.pop((wt, a2, a3), None)
         elif cmd == SETZCOLOR:
             # a1 = window, a2/a3 = fg/bg; the next text starts a new span.
             self.zcolors.append((len(self.spans), a1, a2, a3))
@@ -240,18 +247,11 @@ class Driver:
             # val=0 means the terp has taken over line-input echo; the
             # library must then keep its own copy out of the echo stream.
             self.log.append("SETECHO peer=%d val=%d" % (a1, a2))
-        elif cmd == STYLEHINT or cmd == CLEARHINT:
-            # as the app does it: wintype_AllTypes (0) sets both kinds
-            for wt in ((3, 4) if a1 == 0 else (a1,)):
-                if cmd == STYLEHINT:
-                    self.hints[(wt, a2, a3)] = a4
-                else:
-                    self.hints.pop((wt, a2, a3), None)
         elif cmd == NEWWIN:
             self.log.append("NEWWIN type=%d peer=%d" % (a1, a2))
             # a window takes the hints in effect when it opens
             self.win_hints[a2] = {(st, h): v for (wt, st, h), v
-                                  in self.hints.items() if wt == a1}
+                                  in self.hint_values.items() if wt == a1}
             self.reply(OKAY, a2)        # echo the expected peer
         elif cmd == DELWIN:
             self.log.append("DELWIN peer=%d" % a1)
