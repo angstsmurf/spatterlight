@@ -127,7 +127,17 @@ typedef struct oshtml_pictable
     oshtml_tile tiles[OSHTML_TILES_MAX];
     glui32 width, height;
     int center;                 /* centred across the window */
+
+    /*
+     *   The whole banner, its pictures on its <BODY BACKGROUND>, tiled
+     *   across the window, rather than a table under its text
+     */
+    int page;
+    oshtml_image bg;
 } oshtml_pictable;
+
+/* The pixels of a line of text in a banner */
+glui32 osglk_banner_line_pixels(void);
 
 /*
  *   Show the table at the end of a tag banner under its text, as a picture

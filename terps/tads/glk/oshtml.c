@@ -3393,6 +3393,7 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
             if (tile->h + 2 * vs[pt->ntiles] > *lh)
                 *lh = tile->h + 2 * vs[pt->ntiles];
             tile->link = link;
+            tile->area = 0;
             if (link)
                 ++links;
             ++pt->ntiles;
@@ -3504,6 +3505,7 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
         return 0;
     pt->ntiles = 0;
     pt->width = 0;
+    pt->page = 0;
     while (i < len)
     {
         size_t start = i, ts, te, name, namelen;
@@ -3611,7 +3613,216 @@ static int build_mappic(parser *p, const glui32 *t, size_t len,
     pt->width = tile->w;
     pt->height = tile->h;
     pt->center = (cur_color(p).attr & OSSTY_CENTER) != 0;
+    pt->page = 0;
     return pt->ntiles > 1;
+}
+
+/* the tags a page of pictures can have, and those that lay nothing out */
+static const char *const page_tags[] = {
+    "body", "font", "map", "area", "center", "p", "br", "img", "bq",
+    "blockquote", NULL
+};
+
+static int page_quiet_tag(const glui32 *t, size_t len)
+{
+    return tag_is(t, len, "body") || tag_is(t, len, "font")
+        || tag_is(t, len, "map") || tag_is(t, len, "area");
+}
+
+/*
+ *   Is t[0..len) only centred pictures and line breaks, on a <BODY
+ *   BACKGROUND>?  Its picture is t[*bg..*bg+*bglen).  Six's introduction.
+ */
+static int find_picpage(const glui32 *t, size_t len, size_t *bg,
+                        size_t *bglen)
+{
+    size_t i = 0, ts, te, name, namelen, v, vlen;
+    int end, found = 0, pics = 0;
+
+    while (i < len)
+    {
+        if (t[i] != '<')
+        {
+            if (!is_space(t[i]))
+                return 0;
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (!name_in(t + name, namelen, page_tags))
+            return 0;
+        if (!end && tag_is(t + name, namelen, "body"))
+        {
+            found = raw_attr(t, ts, te, "background", &v, &vlen) && vlen;
+            if (found)
+            {
+                *bg = v;
+                *bglen = vlen;
+            }
+        }
+        else if (!end && tag_is(t + name, namelen, "img"))
+            ++pics;
+    }
+    return found && pics;
+}
+
+/*
+ *   Lay out the page t[0..len) in pixels as the banner's text would flow:
+ *   each line of pictures centred, under the blank lines before it.  False
+ *   if a picture isn't centred, floats or can't be shown.
+ */
+static int build_picpage(parser *p, const glui32 *t, size_t len,
+                         size_t bg, size_t bglen, oshtml_pictable *pt)
+{
+    glui32 linew[OSHTML_TILES_MAX], liney[OSHTML_TILES_MAX];
+    glui32 lineh[OSHTML_TILES_MAX], vs[OSHTML_TILES_MAX];
+    int line[OSHTML_TILES_MAX], own[OSHTML_TILES_MAX];
+    glui32 blank = osglk_banner_line_pixels(), y = 0, lw = 0, lh = 0;
+    img_size none = { 0, 0 };
+    int nlines = 0, center = 0, j;
+    size_t i = 0;
+
+    if (p->dst || !find_image(p, t + bg, bglen, imagealign_InlineUp,
+                              none, none, &pt->bg))
+        return 0;
+    pt->ntiles = 0;
+    pt->width = 0;
+
+#define END_LINE() \
+    do { \
+        if (lw) { \
+            linew[nlines] = lw; \
+            liney[nlines] = y; \
+            lineh[nlines++] = lh; \
+            y += lh; \
+            lw = lh = 0; \
+        } \
+    } while (0)
+
+    while (i < len)
+    {
+        size_t ts, te, name, namelen, v, vlen;
+        int end;
+
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+
+#define RAW(s) tag_is(t + name, namelen, s)
+        if (page_quiet_tag(t + name, namelen))
+            ;
+        else if (RAW("br"))
+        {
+            int had = raw_attr(t, ts, te, "height", &v, &vlen);
+            int ht = had ? to_int(t + v, vlen) : 1;
+
+            if (lw)
+            {
+                END_LINE();
+                --ht;
+            }
+            if (ht > 0)
+                y += (glui32)ht * blank;
+        }
+        else if (RAW("p") || RAW("bq") || RAW("blockquote"))
+        {
+            END_LINE();
+            if ((!end || !RAW("p")) && y > 0)
+                y += blank;
+        }
+        else if (RAW("center"))
+        {
+            END_LINE();
+            center += end ? -1 : 1;
+        }
+        else if (RAW("img") && !end)
+        {
+            oshtml_tile *tile = &pt->tiles[pt->ntiles];
+            img_size w = { 0, 0 }, h = { 0, 0 };
+            const imagemap *m = NULL;
+            int pic = pt->ntiles, k;
+            glui32 hs;
+
+            if (center <= 0 || pt->ntiles == OSHTML_TILES_MAX
+                || nlines == OSHTML_TILES_MAX
+                || (raw_attr(t, ts, te, "align", &v, &vlen)
+                    && (tag_is(t + v, vlen, "left")
+                        || tag_is(t + v, vlen, "right")))
+                || raw_attr(t, ts, te, "ismap", &v, &vlen))
+                return 0;
+            if (raw_attr(t, ts, te, "usemap", &v, &vlen)
+                && (!(m = find_map(t + v, vlen, 0)) || m->unplaced))
+                return 0;
+            if (raw_attr(t, ts, te, "width", &v, &vlen))
+                parse_img_size(t + v, vlen, &w);
+            if (raw_attr(t, ts, te, "height", &v, &vlen))
+                parse_img_size(t + v, vlen, &h);
+            memset(tile, 0, sizeof(*tile));
+            if (w.pct || h.pct || !raw_attr(t, ts, te, "src", &v, &vlen)
+                || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h,
+                               &tile->img)
+                || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+                || tile->w == 0 || tile->h == 0)
+                return 0;
+            hs = (glui32)raw_int(t, ts, te, "hspace", 0);
+            vs[pic] = (glui32)raw_int(t, ts, te, "vspace", 0);
+            tile->x = lw + hs;
+            lw = tile->x + tile->w + hs;
+            if (tile->h + 2 * vs[pic] > lh)
+                lh = tile->h + 2 * vs[pic];
+            line[pic] = nlines;
+            own[pic] = -1;
+            ++pt->ntiles;
+
+            /* its areas, on it, placed with it below */
+            for (k = 0 ; m && k < m->nrects ; ++k)
+            {
+                oshtml_tile *a = &pt->tiles[pt->ntiles];
+
+                if (pt->ntiles == OSHTML_TILES_MAX)
+                    return 0;
+                *a = m->rects[k];
+                if (a->x >= tile->w || a->y >= tile->h)
+                    continue;
+                if (a->w > tile->w - a->x)
+                    a->w = tile->w - a->x;
+                if (a->h > tile->h - a->y)
+                    a->h = tile->h - a->y;
+                own[pt->ntiles++] = pic;
+            }
+        }
+#undef RAW
+    }
+    END_LINE();
+#undef END_LINE
+
+    for (j = 0 ; j < nlines ; ++j)
+        if (linew[j] > pt->width)
+            pt->width = linew[j];
+    for (j = 0 ; j < pt->ntiles ; ++j)
+    {
+        oshtml_tile *tile = &pt->tiles[j];
+
+        if (own[j] >= 0)
+        {
+            tile->x += pt->tiles[own[j]].x;
+            tile->y += pt->tiles[own[j]].y;
+            continue;
+        }
+        tile->x += (pt->width - linew[line[j]]) / 2;
+        tile->y = liney[line[j]] + lineh[line[j]] - tile->h - vs[j];
+    }
+    pt->height = y;
+    pt->center = 1;
+    pt->page = 1;
+    return pt->ntiles > 0;
 }
 
 /* ------------------------------------------------------------------------ */
@@ -3621,15 +3832,47 @@ static int build_mappic(parser *p, const glui32 *t, size_t len,
  *   HTML TADS, a banner with nothing but whitespace in it is left alone
  */
 
+/*
+ *   Give the banner's parser the tags of a page of pictures that lay
+ *   nothing out, and lay the page out: false if it can't be
+ */
+static int banner_picpage(parser *b, void *ctx, const glui32 *t, size_t len,
+                          size_t bg, size_t bglen, oshtml_pictable *pt)
+{
+    size_t i = 0, ts, te, name, namelen, k;
+    int end;
+
+    while (i < len)
+    {
+        size_t start = i;
+
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (page_quiet_tag(t + name, namelen))
+            for (k = start ; k < i ; ++k)
+                feed(b, t[k]);
+    }
+    flush_out(b);
+    return build_picpage(b, t, len, bg, bglen, pt)
+        && osglk_tag_banner_table(ctx, pt);
+}
+
 static void end_banner(parser *p)
 {
     static oshtml_pictable pt;
-    size_t i = 0, k, ts = 0, te = 0;
-    int table;
+    size_t i = 0, k, ts = 0, te = 0, bg = 0, bglen = 0;
+    int table, page;
 
     p->bancap = 0;
     while (i < p->banlen && is_space(p->bantext[i]))
         ++i;
+    page = find_picpage(p->bantext + i, p->banlen - i, &bg, &bglen);
     table = find_pictable(p->bantext + i, p->banlen - i, &ts, &te);
     ts += i;
     te += i;
@@ -3648,7 +3891,20 @@ static void end_banner(parser *p)
                 if (!b)
                     break;
                 b->in_banner = 1;
-                if (table)
+                if (page && banner_picpage(b, ctx, p->bantext + i,
+                                           p->banlen - i, bg, bglen, &pt))
+                    from = stop;
+                else if (page)
+                {
+                    /* the text after all, from the start */
+                    oshtml_delete(b);
+                    if (!(b = oshtml_new(sink, ctx)))
+                        break;
+                    b->in_banner = 1;
+                }
+                if (from == stop)
+                    ;
+                else if (table)
                 {
                     /* the text, then the table: the rest is only ends */
                     for (k = i ; k < ts ; ++k)

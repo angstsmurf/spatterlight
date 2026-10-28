@@ -1849,7 +1849,18 @@ static void tag_table_draw(tagban_t *tb)
     glk_window_get_size(tb->tblwin, &ww, &wh);
     tb->tbl_x = !t->center ? (glui32)gbuffermarginx
         : ww > t->width ? (ww - t->width) / 2 : 0;
-    tb->tbl_y = 0;
+    tb->tbl_y = t->page ? (glui32)gbuffermarginy : 0;
+
+    /* the background, tiled from the top left as in HTML TADS */
+    if (t->page && t->bg.id)
+    {
+        glui32 bw = 0, bh = 0, x, y;
+
+        if (glk_image_get_info(t->bg.id, &bw, &bh) && bw && bh)
+            for (y = 0 ; y < wh ; y += bh)
+                for (x = 0 ; x < ww ; x += bw)
+                    glk_image_draw(tb->tblwin, t->bg.id, (glsi32)x, (glsi32)y);
+    }
     for (i = 0 ; i < t->ntiles ; ++i)
     {
         const oshtml_tile *tile = &t->tiles[i];
@@ -1898,7 +1909,8 @@ static glui32 tag_pixel_height(winid_t win)
 
 /*
  *   the table window is as tall as the table, or what the text leaves of
- *   the banner, so the table sits under the text as in HTML TADS
+ *   the banner, so the table sits under the text as in HTML TADS; a page
+ *   of pictures is all of the banner
  */
 static void tag_table_place(tagban_t *tb)
 {
@@ -1908,13 +1920,24 @@ static void tag_table_place(tagban_t *tb)
     th = tag_pixel_height(tb->win);
     glk_window_get_size(tb->tblwin, NULL, &wh);
     total = th + wh;
-    if (total > tb->tbl_text && total - tb->tbl_text > h)
+    if (tb->tbl->page)
+        h = total;
+    else if (total > tb->tbl_text && total - tb->tbl_text > h)
         h = total - tb->tbl_text;
     if (pair)
         glk_window_set_arrangement(pair, winmethod_Below | winmethod_Fixed
                                    | winmethod_NoBorder, h, tb->tblwin);
 }
 #endif /* SPATTERLIGHT */
+
+glui32 osglk_banner_line_pixels(void)
+{
+#ifdef SPATTERLIGHT
+    return gbufcellh > 0 ? (glui32)ceilf(gbufcellh) : 0;
+#else
+    return 0;
+#endif /* SPATTERLIGHT */
+}
 
 int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t)
 {

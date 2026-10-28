@@ -679,6 +679,11 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   it. `window()` now puts out the held newlines first (`tag_window`).
 - [ ] `body background` (14 games): a tiled background image. Skip it, or
   later draw it as the window background through a small extension.
+  ✅ A banner holding only centred pictures and line breaks on a
+  `<BODY BACKGROUND>` (Six's title, choose screen and slides) is a graphics
+  window: `find_picpage`/`build_picpage` lay the pictures out in pixels as the
+  text would flow, and `tag_table_draw` tiles the background under them. A
+  background behind text is still skipped.
 - [x] **MNG → animated GIF, in the app.** Spatterlight already animates GIFs
   in buffer windows (`Images/ImageAnimation.m`). `Images/MNGConverter.m`
   turns MNG data into a GIF when `ImageResource` first decodes it, and the
