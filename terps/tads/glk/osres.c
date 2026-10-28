@@ -25,12 +25,23 @@
  * hands back the same number for the same chunk of the same file.
  */
 
+#ifndef _WIN32
 #include <dirent.h>
+#endif
 #include <stdlib.h>
 #include <string.h>
 #include <strings.h>
 #include <sys/stat.h>
 #include <limits.h>
+
+#ifdef _WIN32
+#ifndef PATH_MAX
+#define PATH_MAX _MAX_PATH
+#endif
+#ifndef S_ISREG
+#define S_ISREG(m) (((m) & S_IFMT) == S_IFREG)
+#endif
+#endif
 
 #include "os.h"
 #include "appctx.h"
@@ -276,6 +287,19 @@ static resentry *find_entry(const char *norm)
     return NULL;
 }
 
+/* the last folder separator in a path */
+static const char *last_slash(const char *path)
+{
+    const char *slash = strrchr(path, '/');
+#ifdef _WIN32
+    const char *back = strrchr(path, '\\');
+
+    if (back != NULL && (slash == NULL || back > slash))
+        slash = back;
+#endif
+    return slash;
+}
+
 /* the game's folder, from the game file's path, in 'out' */
 static int game_dir(char *out, size_t size)
 {
@@ -284,7 +308,7 @@ static int game_dir(char *out, size_t size)
 
     if (nfiles == 0 || files[0].path == NULL || files[0].path[0] == '\0')
         return 0;
-    slash = strrchr(files[0].path, '/');
+    slash = last_slash(files[0].path);
     if (slash == NULL)
     {
         if (size < 2)
@@ -323,9 +347,11 @@ static int find_loose(const char *norm, char *out, size_t size)
         const char *slash = strchr(p, '/');
         size_t len = slash ? (size_t)(slash - p) : strlen(p);
         size_t base = strlen(out);
+#ifndef _WIN32
         DIR *dir;
         struct dirent *entry;
         int found = 0;
+#endif
 
         if (len >= sizeof(part))
             return 0;
@@ -346,6 +372,10 @@ static int find_loose(const char *norm, char *out, size_t size)
         if (stat(out, &info) == 0)
             continue;
 
+#ifdef _WIN32
+        /* Windows file names are matched ignoring case already */
+        return 0;
+#else
         out[base] = '\0';
         dir = opendir(out);
         if (dir == NULL)
@@ -362,6 +392,7 @@ static int find_loose(const char *norm, char *out, size_t size)
         closedir(dir);
         if (!found)
             return 0;
+#endif
     }
     return stat(out, &info) == 0 && S_ISREG(info.st_mode);
 }
@@ -428,7 +459,7 @@ glui32 osres_find(const char *name, size_t len, glui32 usage)
     {
         /* only a file in the game's folder; the library looks there */
         char dir[PATH_MAX];
-        const char *slash = strrchr(path, '/');
+        const char *slash = last_slash(path);
         size_t dirlen = slash ? (size_t)(slash - path) : 0;
 
         struct stat st;
