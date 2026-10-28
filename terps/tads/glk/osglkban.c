@@ -1753,15 +1753,18 @@ static int tag_centers(void *ctx, int combo)
         && just == stylehint_just_Centered;
 }
 
-/*
- *   pictures go in a text-buffer banner, once it's writing for real, after
- *   the newlines that are waiting
- */
+/* pictures go in a text-buffer banner, once it's writing for real */
+static int tag_shows_pictures(const tagban_t *tb)
+{
+    return tb->type == wintype_TextBuffer && !tb->measure && tb->win;
+}
+
+/* the window pictures go in, after the newlines that are waiting */
 static winid_t tag_window(void *ctx)
 {
     tagban_t *tb = ctx;
 
-    if (tb->type != wintype_TextBuffer || tb->measure || !tb->win)
+    if (!tag_shows_pictures(tb))
         return NULL;
     tag_put_newlines(tb, glk_window_get_stream(tb->win));
     return tb->win;
@@ -1850,10 +1853,16 @@ static void tag_side_alone(tagban_t *tb, int alone)
 static int tag_image(void *ctx, const oshtml_image *img)
 {
     tagban_t *tb = ctx;
-    winid_t win = tag_window(tb);
+    winid_t win;
 
-    if (!win || !img)
-        return win != NULL;
+    /*
+     *   only asking whether it shows them: the newlines still wait, as the
+     *   pictures may go in a table under the text
+     */
+    if (!img)
+        return tag_shows_pictures(tb);
+    if (!(win = tag_window(tb)))
+        return 0;
     oshtml_draw_image(win, img);
 #ifdef OSGLK_PIXELS
     tag_widest_add(tb, img);
@@ -1868,7 +1877,12 @@ static void tag_set_link(void *ctx, glui32 link)
 {
     tagban_t *tb = ctx;
     if (tb->win && !tb->measure)
+    {
+        /* a link starts after the newlines that are waiting */
+        if (link)
+            tag_put_newlines(tb, glk_window_get_stream(tb->win));
         glk_set_hyperlink_stream(glk_window_get_stream(tb->win), link);
+    }
 }
 
 static const oshtml_sink tag_sink =
