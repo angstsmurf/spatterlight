@@ -1351,12 +1351,18 @@ static NSString *stringFromPayload(char *buf, size_t len) {
             break;
 
             // Used by Tads 3 to adapt the banner width and height.
+            // BANNERLINES with a2 == 1 asks for the text's height in pixels.
         case BANNERCOLS:
         case BANNERLINES:
             ans->cmd = OKAY;
             if ([reqWin isKindOfClass:[GlkTextBufferWindow class]]) {
                 GlkTextBufferWindow *banner = (GlkTextBufferWindow *)reqWin;
-                ans->a1 = (int)(req->cmd == BANNERCOLS ? banner.numberOfColumns : banner.numberOfLines);
+                if (req->cmd == BANNERCOLS)
+                    ans->a1 = (int)banner.numberOfColumns;
+                else if (req->a2 == 1)
+                    ans->a1 = (int)ceil(banner.textHeight);
+                else
+                    ans->a1 = (int)banner.numberOfLines;
             }
             break;
 

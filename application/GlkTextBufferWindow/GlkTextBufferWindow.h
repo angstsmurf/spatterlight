@@ -79,6 +79,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (NS_NONATOMIC_IOSONLY, readonly) NSRange editableRange;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfColumns;
 @property (NS_NONATOMIC_IOSONLY, readonly) NSUInteger numberOfLines;
+@property (NS_NONATOMIC_IOSONLY, readonly) CGFloat textHeight;
 
 #pragma mark Testing
 

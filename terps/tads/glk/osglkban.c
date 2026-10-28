@@ -1807,15 +1807,49 @@ static void tag_table_draw(tagban_t *tb)
 }
 
 /*
+ *   the pixels the text above the table takes up: as the app measures it,
+ *   or failing that, what the count of its lines and pictures comes to
+ */
+static void tag_table_text(tagban_t *tb, int estimate)
+{
+    int h = win_text_height(tb->win->peer);
+
+    if (h > 0)
+        tb->tbl_text = (glui32)h + 2 * (glui32)gbuffermarginy;
+    else if (estimate)
+        tb->tbl_text = (glui32)picture_fit_lines(&tb->pictures,
+                                                 win_lines(tb->win->peer))
+            * (glui32)gbufcellh + 2 * (glui32)gbuffermarginy;
+}
+
+/*
+ *   a text window's height in pixels: a text buffer gives its size in
+ *   lines, but a graphics window of no width beside it is as tall as it is
+ */
+static glui32 tag_pixel_height(winid_t win)
+{
+    winid_t probe = glk_window_open(win, winmethod_Left | winmethod_Fixed
+                                    | winmethod_NoBorder, 0,
+                                    wintype_Graphics, 0);
+    glui32 h = 0;
+
+    if (!probe)
+        return 0;
+    glk_window_get_size(probe, NULL, &h);
+    glk_window_close(probe, NULL);
+    return h;
+}
+
+/*
  *   the table window is as tall as the table, or what the text leaves of
  *   the banner, so the table sits under the text as in HTML TADS
  */
 static void tag_table_place(tagban_t *tb)
 {
-    glui32 h = tb->tbl->height, th = 0, wh = 0, total;
+    glui32 h = tb->tbl->height, th, wh = 0, total;
     winid_t pair = glk_window_get_parent(tb->tblwin);
 
-    glk_window_get_size(tb->win, NULL, &th);
+    th = tag_pixel_height(tb->win);
     glk_window_get_size(tb->tblwin, NULL, &wh);
     total = th + wh;
     if (total > tb->tbl_text && total - tb->tbl_text > h)
@@ -1888,6 +1922,7 @@ void osglk_tag_banner_redraw(void)
     for (tb = tagbans ; tb ; tb = tb->next)
         if (tb->tblwin && tb->tbl)
         {
+            tag_table_text(tb, 0);
             tag_table_place(tb);
             tag_table_draw(tb);
         }
@@ -1911,9 +1946,7 @@ int osglk_tag_banner_done(void *ctx)
     {
         if (tb->tbl_used)
         {
-            tb->tbl_text = (glui32)picture_fit_lines(&tb->pictures,
-                                                     win_lines(tb->win->peer))
-                * (glui32)gbufcellh + 2 * (glui32)gbuffermarginy;
+            tag_table_text(tb, 1);
             tag_table_place(tb);
             tag_table_draw(tb);
         }

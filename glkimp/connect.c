@@ -904,6 +904,15 @@ int win_lines(int name)
     return wmsg.a1;
 }
 
+/* the height in pixels of a text-buffer window's text, or 0 */
+int win_text_height(int name)
+{
+    win_flush();
+    sendmsg(BANNERLINES, name, 1, 0, 0, 0, 0, NULL);
+    readmsg(&wmsg, wbuf);
+    return wmsg.a1;
+}
+
 int win_cols(int name)
 {
     win_flush();

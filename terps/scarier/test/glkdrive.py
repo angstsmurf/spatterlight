@@ -276,7 +276,8 @@ class Driver:
         elif cmd == BANNERCOLS:
             self.reply(OKAY, 80)
         elif cmd == BANNERLINES:
-            self.reply(OKAY, 24)
+            # a2 == 1 asks for the text's height in pixels; 0 = can't say
+            self.reply(OKAY, 0 if a2 == 1 else 24)
         elif cmd == CANPRINT:
             self.reply(OKAY, 1)
         elif cmd in (PROMPTOPEN, PROMPTSAVE):

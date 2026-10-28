@@ -31,7 +31,7 @@
 
 // These readonly properties are computed by getters in the category files
 // (+Scrolling and +Input), so no ivars must be synthesized for them here.
-@dynamic scrolledToBottom, editableRange, numberOfColumns, numberOfLines;
+@dynamic scrolledToBottom, editableRange, numberOfColumns, numberOfLines, textHeight;
 
 + (BOOL) supportsSecureCoding {
     return YES;

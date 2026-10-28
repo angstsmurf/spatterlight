@@ -182,6 +182,7 @@ void win_showerror(const char *str);
 void win_reset(void);
 int win_cols(int name);
 int win_lines(int name);
+int win_text_height(int name);
 int win_canprint(glui32 val);
 void win_purgeimage(glui32 imageindex, const char *filename);
 

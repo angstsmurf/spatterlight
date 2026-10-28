@@ -527,4 +527,14 @@ replacementString:(id)repl {
     return numberOfLines;
 }
 
+// The height of the laid-out text, without the empty line after a final
+// newline. Used by the TADS interpreter to place a window under the text.
+- (CGFloat)textHeight {
+    [self flushDisplay];
+    [layoutmanager ensureLayoutForTextContainer:container];
+    CGFloat height = [layoutmanager usedRectForTextContainer:container].size.height;
+    height -= layoutmanager.extraLineFragmentUsedRect.size.height;
+    return height > 0 ? height : 0;
+}
+
 @end
