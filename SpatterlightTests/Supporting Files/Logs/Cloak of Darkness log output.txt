@@ -24,8 +24,14 @@ Interpreter: scarier
 [MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
-[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=1 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
 [MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
@@ -44,7 +50,7 @@ Interpreter: scarier
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=116
 [TEXT] Cloak of Darkness | Campbell Wild, original by Roger Firth
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=34
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=34
 [TEXT] Cloak of Darkness
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=480
 [TEXT] 

@@ -6608,7 +6608,7 @@ What next?
 [MSG] cmd=TIMER a1=50 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=492
 [TEXT] You are at the south of a magnificent throne-room.
-"Come in!", Sneers an evil voice, "I have watched your pitiful efforts against MY servants. Surely you did not expect to defeat ME!!". Dozens of orcs surround you and herd you north. 
+"Come in!", sneers an evil voice, "I have watched your pitiful efforts against MY servants. Surely you did not expect to defeat ME!!". Dozens of orcs surround you and herd you north. 
 What next? 
 [MSG] cmd=INITLINE a1=0 a2=499 a3=0 len=0
 [MSG] cmd=NEXTEVENT a1=1 a2=0 a3=0 len=0
@@ -6850,7 +6850,7 @@ What next?
 [MSG] cmd=TIMER a1=50 a2=0 a3=0 len=0
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=1950
 [TEXT] You are standing by the Bane-fire. But you can't get near enough to use the Amulet because of the evil radiance from the flames!.
-The Demon Lord freezes you with a look: "You will still fail!", He snarls, "No amulet can work so close to the centre of my power." But the PHOENIX dives at the fire, destroying it completely! The Demon Lord screams and implodes to nothing: your mission is successful!!
+The Demon Lord freezes you with a look: "You will still fail!", he snarls, "No amulet can work so close to the centre of my power." But the PHOENIX dives at the fire, destroying it completely! The Demon Lord screams and implodes to nothing: your mission is successful!!
  
 You scored 6189 out of about 6000.
 Well done! You have defeated the Demon Lord with considerable style, bringing the tower crashing about His ears long before the army of orcs could start their final attack. All Valaii hails you "Grandmaster Adventurer". The Wizards' Council even rescue you from the collapsed tower and pay half your hospital bill. To get enough for the other half, I'm afraid you will have to complete the final Jewel of Darkness, "Dungeon Adventure", but for now, congratulations on your great achievement! 

@@ -20,7 +20,7 @@ Interpreter: hugo
 [MSG] cmd=SETTITLE a1=0 a2=0 a3=0 len=15
 [MSG] cmd=SETBGND a1=-1 a2=0 a3=0 len=0
 [MSG] cmd=STOPSOUND a1=1 a2=0 a3=0 len=0
-[MSG] cmd=LOADIMAGE a1=9140 a2=641 a3=8499 len=204
+[MSG] cmd=LOADIMAGE a1=9140 a2=641 a3=8499 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=377 a2=56 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=0 a3=0 len=0
@@ -29,7 +29,7 @@ Interpreter: hugo
 [MSG] cmd=SETBGND a1=0 a2=0 a3=0 len=0
 [MSG] cmd=FILLRECT a1=0 a2=1 a3=0 len=12
 [MSG] cmd=DRAWIMAGE a1=0 a2=0 a3=0 len=28
-[MSG] cmd=LOADIMAGE a1=25402 a2=9140 a3=16262 len=204
+[MSG] cmd=LOADIMAGE a1=25402 a2=9140 a3=16262 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=224 a2=77 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=1 a3=0 len=0
@@ -38,7 +38,7 @@ Interpreter: hugo
 [MSG] cmd=SETBGND a1=1 a2=0 a3=0 len=0
 [MSG] cmd=FILLRECT a1=1 a2=1 a3=0 len=12
 [MSG] cmd=DRAWIMAGE a1=1 a2=0 a3=0 len=28
-[MSG] cmd=LOADIMAGE a1=38646 a2=25402 a3=13244 len=204
+[MSG] cmd=LOADIMAGE a1=38646 a2=25402 a3=13244 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=270 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -47,7 +47,7 @@ Interpreter: hugo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=1 a3=0 len=12
 [MSG] cmd=DRAWIMAGE a1=2 a2=0 a3=0 len=28
-[MSG] cmd=LOADIMAGE a1=56726 a2=38646 a3=18080 len=204
+[MSG] cmd=LOADIMAGE a1=56726 a2=38646 a3=18080 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=270 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=3 a3=0 len=0
@@ -56,7 +56,7 @@ Interpreter: hugo
 [MSG] cmd=SETBGND a1=3 a2=0 a3=0 len=0
 [MSG] cmd=FILLRECT a1=3 a2=1 a3=0 len=12
 [MSG] cmd=DRAWIMAGE a1=3 a2=0 a3=0 len=28
-[MSG] cmd=LOADIMAGE a1=77376 a2=66548 a3=10828 len=204
+[MSG] cmd=LOADIMAGE a1=77376 a2=66548 a3=10828 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=270 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=4 a3=0 len=0
@@ -65,7 +65,7 @@ Interpreter: hugo
 [MSG] cmd=SETBGND a1=4 a2=0 a3=0 len=0
 [MSG] cmd=FILLRECT a1=4 a2=1 a3=0 len=12
 [MSG] cmd=DRAWIMAGE a1=4 a2=0 a3=0 len=28
-[MSG] cmd=LOADIMAGE a1=66548 a2=56726 a3=9822 len=204
+[MSG] cmd=LOADIMAGE a1=66548 a2=56726 a3=9822 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=270 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=5 a3=0 len=0
@@ -143,7 +143,7 @@ Written using the Hugo Compiler v2.5
 [TEXT] 
 
 Your hotel room
-[MSG] cmd=LOADIMAGE a1=269700 a2=244968 a3=24732 len=204
+[MSG] cmd=LOADIMAGE a1=269700 a2=244968 a3=24732 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=420 a2=320 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -158,7 +158,6 @@ Your hotel room
 [MSG] cmd=SETBGND a1=0 a2=0 a3=0 len=0
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=SETBGND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=766
 [TEXT] 
   Morning sunlight filters through the gauzy drapes.  Old wooden night table, fan overhead, the usual trappings.  The door leads out into the hallway.  The neatly made bed looks exactly the same as it did when you saw it this morning--from where you woke up slumped in the chair in the corner.
@@ -191,7 +190,6 @@ Your hotel room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -249,7 +247,6 @@ Your hotel room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -285,7 +282,6 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -314,7 +310,7 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=286274 a2=269700 a3=16574 len=204
+[MSG] cmd=LOADIMAGE a1=286274 a2=269700 a3=16574 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=253 a2=315 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -354,7 +350,6 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -388,7 +383,6 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -422,7 +416,6 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -480,7 +473,6 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -514,7 +506,6 @@ Inside the envelope are a small note and a studio pass.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Pelican Hotel
@@ -529,7 +520,7 @@ Pelican Hotel
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=330272 a2=286274 a3=43998 len=204
+[MSG] cmd=LOADIMAGE a1=330272 a2=286274 a3=43998 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=279 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -573,7 +564,6 @@ Pelican Hotel
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -606,7 +596,6 @@ Pelican Hotel
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -670,7 +659,6 @@ Pelican Hotel
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -693,7 +681,7 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=204
+[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -737,7 +725,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -774,7 +761,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -838,7 +824,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -867,7 +852,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -882,7 +866,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -923,7 +907,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -955,7 +938,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -984,7 +966,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Main building
@@ -999,7 +980,7 @@ Main building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=451798 a2=425125 a3=26673 len=204
+[MSG] cmd=LOADIMAGE a1=451798 a2=425125 a3=26673 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1043,7 +1024,6 @@ Main building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -1076,7 +1056,6 @@ Main building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=712
 [TEXT] 
 Milt speaks in a fairly low voice, straight and to the point, looking around, careful not to be overheard.  "Maybe you already guessed this, but I asked you here to talk about Cindy Painter's death.  I don't know if there's anything that you can find out that the cops haven't or won't, but I'm willing to give you twelve hours to see what you can do."
@@ -1112,7 +1091,6 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=376
 [TEXT] 
 "Here," Milt says.  He hands you a report marked "LAPD Homicide Report".  "A contact of mine at the Police Department managed to procure this.  I don't know if it will be of any help."
@@ -1133,7 +1111,7 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=244968 a2=202306 a3=42662 len=204
+[MSG] cmd=LOADIMAGE a1=244968 a2=202306 a3=42662 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1173,7 +1151,6 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1192,7 +1169,7 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=94208 a2=77376 a3=16832 len=204
+[MSG] cmd=LOADIMAGE a1=94208 a2=77376 a3=16832 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=299 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1232,7 +1209,6 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=360
 [TEXT] 
 "You might want to go to her apartment--I don't know if the police are still there or not.  Maybe you can find something they're missing."  He hands you a single apartment key.
@@ -1268,7 +1244,6 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=364
 [TEXT] 
 "I'm going to be in and out today--I've still got a damned studio to run, even with all this mess going on.  I'll try to keep checking back out here for you after an hour or so."
@@ -1299,7 +1274,6 @@ Milt speaks in a fairly low voice, straight and to the point, looking around, ca
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -1314,7 +1288,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1378,7 +1352,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1407,7 +1380,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=24
 [TEXT] 
 Studio gate
@@ -1422,7 +1394,7 @@ Studio gate
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=204
+[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1466,7 +1438,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -1498,7 +1469,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1562,7 +1532,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1586,7 +1555,7 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=204
+[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=281 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1630,7 +1599,6 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -1662,7 +1630,6 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1726,7 +1693,6 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1755,7 +1721,6 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=70
 [TEXT] 
 Cindy Painter's apartment building
@@ -1770,7 +1735,7 @@ Cindy Painter's apartment building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=600022 a2=556831 a3=43191 len=204
+[MSG] cmd=LOADIMAGE a1=600022 a2=556831 a3=43191 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=437 a2=290 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1811,7 +1776,6 @@ Cindy Painter's apartment building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -1843,7 +1807,6 @@ Cindy Painter's apartment building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1872,7 +1835,6 @@ Cindy Painter's apartment building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=34
 [TEXT] 
 Apartment stairs
@@ -1887,7 +1849,7 @@ Apartment stairs
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=629102 a2=600022 a3=29080 len=204
+[MSG] cmd=LOADIMAGE a1=629102 a2=600022 a3=29080 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=425 a2=306 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -1928,7 +1890,6 @@ Apartment stairs
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -1960,7 +1921,6 @@ Apartment stairs
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -1996,7 +1956,6 @@ Apartment stairs
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=56
 [TEXT] 
 Cindy Painter's living room
@@ -2011,7 +1970,7 @@ Cindy Painter's living room
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=645531 a2=629102 a3=16429 len=204
+[MSG] cmd=LOADIMAGE a1=645531 a2=629102 a3=16429 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=272 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -2052,7 +2011,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -2084,7 +2042,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2145,7 +2102,6 @@ Cindy Painter's living room
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2206,7 +2162,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2240,7 +2195,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2269,7 +2223,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=16
 [TEXT] 
 Kitchen
@@ -2284,7 +2237,7 @@ Kitchen
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=659636 a2=645531 a3=14105 len=204
+[MSG] cmd=LOADIMAGE a1=659636 a2=645531 a3=14105 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=366 a2=264 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -2325,7 +2278,6 @@ Kitchen
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -2357,7 +2309,6 @@ Kitchen
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2391,7 +2342,6 @@ Kitchen
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2425,7 +2375,6 @@ Kitchen
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2462,7 +2411,6 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2496,7 +2444,6 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2530,7 +2477,6 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2564,7 +2510,6 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2593,7 +2538,6 @@ Various cleaning supplies--rags, cleansers, disinfectants, etc.--are tucked away
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=56
 [TEXT] 
 Cindy Painter's living room
@@ -2608,7 +2552,7 @@ Cindy Painter's living room
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=645531 a2=629102 a3=16429 len=204
+[MSG] cmd=LOADIMAGE a1=645531 a2=629102 a3=16429 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=272 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -2675,7 +2619,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2709,7 +2652,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=34
 [TEXT] 
 Apartment stairs
@@ -2724,7 +2666,7 @@ Apartment stairs
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=629102 a2=600022 a3=29080 len=204
+[MSG] cmd=LOADIMAGE a1=629102 a2=600022 a3=29080 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=425 a2=306 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -2791,7 +2733,6 @@ Apartment stairs
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2820,7 +2761,6 @@ Apartment stairs
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=70
 [TEXT] 
 Cindy Painter's apartment building
@@ -2835,7 +2775,7 @@ Cindy Painter's apartment building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=600022 a2=556831 a3=43191 len=204
+[MSG] cmd=LOADIMAGE a1=600022 a2=556831 a3=43191 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=437 a2=290 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -2902,7 +2842,6 @@ Cindy Painter's apartment building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -2931,7 +2870,6 @@ Cindy Painter's apartment building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=38
 [TEXT] 
 National Boulevard
@@ -2946,7 +2884,7 @@ National Boulevard
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=204
+[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=281 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -2990,7 +2928,6 @@ National Boulevard
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -3022,7 +2959,6 @@ National Boulevard
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3051,7 +2987,6 @@ National Boulevard
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=22
 [TEXT] 
 Back alley
@@ -3066,7 +3001,7 @@ Back alley
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=686636 a2=659636 a3=27000 len=204
+[MSG] cmd=LOADIMAGE a1=686636 a2=659636 a3=27000 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=312 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -3107,7 +3042,6 @@ Back alley
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -3139,7 +3073,6 @@ Back alley
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3173,7 +3106,6 @@ Back alley
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3207,7 +3139,6 @@ Back alley
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3241,7 +3172,6 @@ Back alley
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3277,7 +3207,6 @@ Inside the dull orange garbage bag are a birthday card and a torn business card.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3309,7 +3238,6 @@ Inside the dull orange garbage bag are a birthday card and a torn business card.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 torn business card:  Taken.
@@ -3363,7 +3291,6 @@ torn business card:  Taken.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3397,7 +3324,6 @@ torn business card:  Taken.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3437,7 +3363,6 @@ torn business card:  Taken.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3471,7 +3396,6 @@ torn business card:  Taken.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3500,7 +3424,6 @@ torn business card:  Taken.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=38
 [TEXT] 
 National Boulevard
@@ -3515,7 +3438,7 @@ National Boulevard
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=204
+[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=281 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -3559,7 +3482,6 @@ National Boulevard
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -3621,7 +3543,6 @@ National Boulevard
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3685,7 +3606,6 @@ National Boulevard
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3709,7 +3629,7 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=204
+[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -3779,7 +3699,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3843,7 +3762,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3872,7 +3790,6 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -3887,7 +3804,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -3954,7 +3871,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -3983,7 +3899,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Main building
@@ -3998,7 +3913,7 @@ Main building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=451798 a2=425125 a3=26673 len=204
+[MSG] cmd=LOADIMAGE a1=451798 a2=425125 a3=26673 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -4065,7 +3980,6 @@ Main building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5019,7 +4933,6 @@ Main building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=294
 [TEXT] 
 Milt Walker comes out of the Main Building.  He looks at his watch.  "I've only got a few minutes, then I'm going to have to go back in," he says.
@@ -5056,7 +4969,6 @@ Milt Walker comes out of the Main Building.  He looks at his watch.  "I've only 
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=88
 [TEXT] 
 (Milt has arrived.  It is now 9:59 a.m.)
@@ -5092,7 +5004,6 @@ Milt Walker comes out of the Main Building.  He looks at his watch.  "I've only 
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5132,7 +5043,6 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5170,7 +5080,6 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5208,7 +5117,6 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5237,7 +5145,6 @@ Milt sighs.  "All right.  I should have told you--I knew that Cindy was seeing t
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -5252,7 +5159,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -5296,7 +5203,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -5328,7 +5234,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5357,7 +5262,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=24
 [TEXT] 
 Studio gate
@@ -5372,7 +5276,7 @@ Studio gate
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=204
+[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -5416,7 +5320,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -5448,7 +5351,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5512,7 +5414,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5536,7 +5437,7 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=204
+[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=463 a2=300 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -5580,7 +5481,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -5612,7 +5512,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5676,7 +5575,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5705,7 +5603,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=44
 [TEXT] 
 Overlooking the beach
@@ -5720,7 +5617,7 @@ Overlooking the beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=204
+[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -5761,7 +5658,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -5793,7 +5689,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5827,7 +5722,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=12
 [TEXT] 
 Beach
@@ -5842,7 +5736,7 @@ Beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=204
+[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=299 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -5883,14 +5777,13 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=588
 [TEXT]   You're facing south on a walking/running/rollerblading/whatever path that parallels the beach north-south along the ocean.  Quite a few people are involved in beach-ish activities.  You could follow the coastline further to the south, or go back up to the higher ground overlooking the beach.
 [MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=LOADSOUND a1=0 a2=1099217 a3=73178 len=204
+[MSG] cmd=LOADSOUND a1=0 a2=1099217 a3=73178 len=203
 [MSG] cmd=FINDSOUND a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=-1 a3=0 len=0
@@ -5920,7 +5813,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -5949,7 +5841,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=46
 [TEXT] 
 Billy Van Earl's house
@@ -5964,7 +5855,7 @@ Billy Van Earl's house
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=794460 a2=761068 a3=33392 len=204
+[MSG] cmd=LOADIMAGE a1=794460 a2=761068 a3=33392 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=295 a2=398 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -6005,7 +5896,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -6038,7 +5928,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6072,7 +5961,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6106,7 +5994,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=282
 [TEXT] 
 After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.  "Hey," he says, squinting.  He obviously doesn't know you.
@@ -6143,7 +6030,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6177,7 +6063,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6211,7 +6096,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6245,7 +6129,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6279,7 +6162,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6313,7 +6195,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6342,7 +6223,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=12
 [TEXT] 
 Beach
@@ -6357,7 +6237,7 @@ Beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=204
+[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=299 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -6425,7 +6305,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6454,7 +6333,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=44
 [TEXT] 
 Overlooking the beach
@@ -6469,7 +6347,7 @@ Overlooking the beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=204
+[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -6534,7 +6412,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6563,7 +6440,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=26
 [TEXT] 
 Santa Monica
@@ -6578,7 +6454,7 @@ Santa Monica
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=204
+[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=463 a2=300 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -6622,7 +6498,6 @@ Santa Monica
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -6654,7 +6529,6 @@ Santa Monica
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6718,7 +6592,6 @@ Santa Monica
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6742,7 +6615,7 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=1018819 a2=974143 a3=44676 len=204
+[MSG] cmd=LOADIMAGE a1=1018819 a2=974143 a3=44676 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=301 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -6786,7 +6659,6 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -6818,7 +6690,6 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6882,7 +6753,6 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -6911,7 +6781,6 @@ Just off Wilshire Blvd., in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=60
 [TEXT] 
 Wilshire Blvd. building lobby
@@ -6926,7 +6795,7 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=204
+[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=323 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -6967,7 +6836,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -6999,7 +6867,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7033,7 +6900,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=42
 [TEXT] 
 Chuck Bixby's office
@@ -7048,7 +6914,7 @@ Chuck Bixby's office
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=1057559 a2=1037910 a3=19649 len=204
+[MSG] cmd=LOADIMAGE a1=1057559 a2=1037910 a3=19649 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=280 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -7092,7 +6958,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -7125,7 +6990,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7159,7 +7023,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7178,7 +7041,7 @@ Chuck Bixby's office
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=146256 a2=130823 a3=15433 len=204
+[MSG] cmd=LOADIMAGE a1=146256 a2=130823 a3=15433 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -7218,7 +7081,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7252,7 +7114,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7286,7 +7147,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7315,7 +7175,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=60
 [TEXT] 
 Wilshire Blvd. building lobby
@@ -7330,7 +7189,7 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=204
+[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=323 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -7394,7 +7253,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7423,7 +7281,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=38
 [TEXT] 
 Maintenance closet
@@ -7438,7 +7295,7 @@ Maintenance closet
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=1037910 a2=1018819 a3=19091 len=204
+[MSG] cmd=LOADIMAGE a1=1037910 a2=1018819 a3=19091 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=446 a2=298 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -7476,7 +7333,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=376
 [TEXT] 
   This is a dingy little room without a whole hell of a lot to offer the world except a mop, a bucket, and a door leading out.  There's a ventilation grill set low along the outside wall.
@@ -7506,7 +7362,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7570,7 +7425,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7634,7 +7488,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7698,7 +7551,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7762,7 +7614,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7826,7 +7677,6 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7890,7 +7740,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7954,7 +7803,6 @@ Maintenance closet
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -7983,7 +7831,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=60
 [TEXT] 
 Wilshire Blvd. building lobby
@@ -7998,7 +7845,7 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=204
+[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=323 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -8042,7 +7889,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -8104,7 +7950,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8138,7 +7983,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8167,7 +8011,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=38
 [TEXT] 
 Maintenance closet
@@ -8182,7 +8025,7 @@ Maintenance closet
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=1037910 a2=1018819 a3=19091 len=204
+[MSG] cmd=LOADIMAGE a1=1037910 a2=1018819 a3=19091 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=446 a2=298 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -8226,7 +8069,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -8259,7 +8101,6 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8294,12 +8135,11 @@ Maintenance closet
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=150
 [TEXT] 
 You can here voices of people in the lobby as the building is emptied out.
 [MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=LOADSOUND a1=1 a2=1172395 a3=97730 len=204
+[MSG] cmd=LOADSOUND a1=1 a2=1172395 a3=97730 len=203
 [MSG] cmd=FINDSOUND a1=1 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
@@ -8336,7 +8176,6 @@ You can here voices of people in the lobby as the building is emptied out.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8370,7 +8209,6 @@ You can here voices of people in the lobby as the building is emptied out.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=236
 [TEXT] 
 You can here voices of people in the lobby as the building is emptied out.
@@ -8401,7 +8239,6 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=236
 [TEXT] 
 You can here voices of people in the lobby as the building is emptied out.
@@ -8432,7 +8269,6 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=212
 [TEXT] 
 You can here voices of people in the lobby as the building is emptied out.
@@ -8472,7 +8308,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=60
 [TEXT] 
 Wilshire Blvd. building lobby
@@ -8487,7 +8322,7 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=204
+[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=323 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -8575,7 +8410,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8609,7 +8443,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=42
 [TEXT] 
 Chuck Bixby's office
@@ -8624,7 +8457,7 @@ Chuck Bixby's office
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=1057559 a2=1037910 a3=19649 len=204
+[MSG] cmd=LOADIMAGE a1=1057559 a2=1037910 a3=19649 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=280 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -8688,7 +8521,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8722,7 +8554,6 @@ Chuck Bixby's office
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=60
 [TEXT] 
 The fire alarm keeps ringing.
@@ -8789,7 +8620,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8827,7 +8657,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8883,7 +8712,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=60
 [TEXT] 
 The fire alarm keeps ringing.
@@ -8926,7 +8754,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -8984,7 +8811,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9022,7 +8848,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=60
 [TEXT] 
 The fire alarm keeps ringing.
@@ -9065,7 +8890,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9094,7 +8918,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=60
 [TEXT] 
 Wilshire Blvd. building lobby
@@ -9109,7 +8932,7 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=204
+[MSG] cmd=LOADIMAGE a1=974143 a2=941292 a3=32851 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=323 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -9197,7 +9020,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9226,7 +9048,6 @@ Wilshire Blvd. building lobby
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=48
 [TEXT] 
 Just off Wilshire Blvd.
@@ -9241,7 +9062,7 @@ Just off Wilshire Blvd.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=1018819 a2=974143 a3=44676 len=204
+[MSG] cmd=LOADIMAGE a1=1018819 a2=974143 a3=44676 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=301 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -9287,7 +9108,6 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -9321,7 +9141,6 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=60
 [TEXT] 
 The fire alarm keeps ringing.
@@ -9372,7 +9191,6 @@ The fire alarm keeps ringing.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9408,7 +9226,6 @@ Chuck produces a folded note and hands it to you.  "She said this came with the 
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9442,7 +9259,6 @@ Chuck produces a folded note and hands it to you.  "She said this came with the 
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=60
 [TEXT] 
 The fire alarm keeps ringing.
@@ -9517,7 +9333,6 @@ You're sitting in the Volvo.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9540,7 +9355,7 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=204
+[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=463 a2=300 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -9610,7 +9425,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9674,7 +9488,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9703,7 +9516,6 @@ Santa Monica, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=44
 [TEXT] 
 Overlooking the beach
@@ -9718,7 +9530,7 @@ Overlooking the beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=204
+[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -9785,7 +9597,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9819,7 +9630,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=12
 [TEXT] 
 Beach
@@ -9834,7 +9644,7 @@ Beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=204
+[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=299 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -9905,7 +9715,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -9934,7 +9743,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=46
 [TEXT] 
 Billy Van Earl's house
@@ -9949,7 +9757,7 @@ Billy Van Earl's house
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=794460 a2=761068 a3=33392 len=204
+[MSG] cmd=LOADIMAGE a1=794460 a2=761068 a3=33392 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=295 a2=398 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -10017,7 +9825,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10051,7 +9858,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10085,7 +9891,6 @@ Billy Van Earl's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=218
 [TEXT] 
 After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.  "Hey," he says, squinting.
@@ -10122,7 +9927,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
 [TEXT] 
 (Billy has arrived.  It is now 11:41 a.m.)
@@ -10160,7 +9964,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
 [MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10198,7 +10001,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10233,7 +10035,6 @@ After a minute or so, Billy Van Earl comes ambling down from somewhere upstairs.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=12
 [TEXT] 
 Beach
@@ -10248,7 +10049,7 @@ Beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=204
+[MSG] cmd=LOADIMAGE a1=761068 a2=731441 a3=29627 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=299 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -10316,7 +10117,6 @@ Beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=118
 [TEXT] 
 Billy follows you north up the beach, away from his house.
@@ -10353,7 +10153,6 @@ Billy follows you north up the beach, away from his house.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10382,7 +10181,6 @@ Billy follows you north up the beach, away from his house.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=44
 [TEXT] 
 Overlooking the beach
@@ -10397,7 +10195,7 @@ Overlooking the beach
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=204
+[MSG] cmd=LOADIMAGE a1=731441 a2=712056 a3=19385 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -10462,7 +10260,6 @@ Overlooking the beach
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=76
 [TEXT] 
 Billy climbs up the stairs after you.
@@ -10499,7 +10296,6 @@ Billy climbs up the stairs after you.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10528,7 +10324,6 @@ Billy climbs up the stairs after you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=26
 [TEXT] 
 Santa Monica
@@ -10543,7 +10338,7 @@ Santa Monica
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=204
+[MSG] cmd=LOADIMAGE a1=712056 a2=686636 a3=25420 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=463 a2=300 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -10587,7 +10382,6 @@ Santa Monica
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -10619,7 +10413,6 @@ Santa Monica
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=88
 [TEXT] 
 Billy follows you back to where you parked.
@@ -10658,7 +10451,6 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10724,7 +10516,6 @@ You're sitting in the Volvo.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=104
 [TEXT] 
 Billy gets into the passenger seat of the Volvo.
@@ -10753,7 +10544,7 @@ Malibu, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=813258 a2=794460 a3=18798 len=204
+[MSG] cmd=LOADIMAGE a1=813258 a2=794460 a3=18798 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=291 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -10797,7 +10588,6 @@ Malibu, in your cousin's Volvo
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -10861,7 +10651,6 @@ You're sitting in the Volvo.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -10927,7 +10716,6 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
 [TEXT] 
 Billy gets out of the Volvo, too.
@@ -10958,7 +10746,6 @@ Billy gets out of the Volvo, too.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=32
 [TEXT] 
 Below the house
@@ -10973,7 +10760,7 @@ Below the house
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=852575 a2=813258 a3=39317 len=204
+[MSG] cmd=LOADIMAGE a1=852575 a2=813258 a3=39317 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=291 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -11014,7 +10801,6 @@ Below the house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -11051,7 +10837,6 @@ Below the house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=222
 [TEXT] 
 "Oh, man..." Billy complains, "I don't know if I wanna go up there..."  But he reluctantly follows you anyway.
@@ -11088,7 +10873,6 @@ Below the house
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11118,7 +10902,6 @@ Below the house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=18
 [TEXT] 
 Driveway
@@ -11133,7 +10916,7 @@ Driveway
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=887455 a2=852575 a3=34880 len=204
+[MSG] cmd=LOADIMAGE a1=887455 a2=852575 a3=34880 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=295 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -11171,7 +10954,6 @@ Driveway
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=354
 [TEXT] 
   You're standing at the top of the driveway that leads east (that is, away from the ocean) in toward the house itself.  There's a small sign just to the right of the driveway.
@@ -11201,7 +10983,6 @@ Driveway
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 Billy follows you north.
@@ -11232,7 +11013,6 @@ Billy follows you north.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=42
 [TEXT] 
 Holly Golden's house
@@ -11247,7 +11027,7 @@ Holly Golden's house
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=941292 a2=921280 a3=20012 len=204
+[MSG] cmd=LOADIMAGE a1=941292 a2=921280 a3=20012 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=431 a2=275 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -11285,7 +11065,6 @@ Holly Golden's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=564
 [TEXT] 
   The bottom of the driveway is secluded and shaded by the thick greenery around it.  The garage is attached to the house, which stretches out along the hillside to the south.  An old, disused basketball hoop hangs over the garage.  You can walk back out to the street to the west.
@@ -11315,7 +11094,6 @@ Holly Golden's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=92
 [TEXT] 
 "Uh-oh," Billy mutters, taking a deep breath.
@@ -11352,7 +11130,6 @@ Holly Golden's house
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11416,7 +11193,6 @@ Holly Golden's house
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11480,7 +11256,6 @@ Holly Golden's house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11542,7 +11317,6 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11606,7 +11380,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11636,7 +11409,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11698,7 +11470,6 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11732,7 +11503,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=448
 [TEXT] 
 After a few minutes, Holly Golden appears around the corner, having come out of the house to see what's going on.  She frowns.  "Who are you, and what are you doing here?" she asks.  Then she turns to Billy:  "And what are 
@@ -11775,7 +11545,6 @@ There is a basketball here.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11794,7 +11563,7 @@ There is a basketball here.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=130823 a2=111761 a3=19062 len=204
+[MSG] cmd=LOADIMAGE a1=130823 a2=111761 a3=19062 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=305 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -11834,7 +11603,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11872,7 +11640,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11906,7 +11673,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11944,7 +11710,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -11978,7 +11743,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12012,7 +11776,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12078,7 +11841,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12112,7 +11874,6 @@ There is a basketball here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12178,7 +11939,6 @@ There are a basketball and a grimy length of string here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12207,7 +11967,6 @@ There are a basketball and a grimy length of string here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=18
 [TEXT] 
 Driveway
@@ -12222,7 +11981,7 @@ Driveway
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=887455 a2=852575 a3=34880 len=204
+[MSG] cmd=LOADIMAGE a1=887455 a2=852575 a3=34880 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=295 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -12286,7 +12045,6 @@ Driveway
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=54
 [TEXT] 
 Billy follows you west.
@@ -12317,7 +12075,6 @@ Billy follows you west.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=32
 [TEXT] 
 Below the house
@@ -12332,7 +12089,7 @@ Below the house
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=852575 a2=813258 a3=39317 len=204
+[MSG] cmd=LOADIMAGE a1=852575 a2=813258 a3=39317 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=291 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -12400,7 +12157,6 @@ Below the house
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=98
 [TEXT] 
 Billy follows you back down away from the house.
@@ -12437,7 +12193,6 @@ Billy follows you back down away from the house.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12466,7 +12221,6 @@ Billy follows you back down away from the house.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=14
 [TEXT] 
 Malibu
@@ -12481,7 +12235,7 @@ Malibu
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=813258 a2=794460 a3=18798 len=204
+[MSG] cmd=LOADIMAGE a1=813258 a2=794460 a3=18798 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=291 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -12525,7 +12279,6 @@ Malibu
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -12557,7 +12310,6 @@ Malibu
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 Billy follows you south.
@@ -12623,7 +12375,6 @@ Billy follows you south.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=104
 [TEXT] 
 Billy gets into the passenger seat of the Volvo.
@@ -12649,7 +12400,7 @@ Studio gate, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=204
+[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -12751,7 +12502,6 @@ You're sitting in the Volvo.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -12817,7 +12567,6 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
 [TEXT] 
 Billy gets out of the Volvo, too.
@@ -12848,7 +12597,6 @@ Billy gets out of the Volvo, too.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -12863,7 +12611,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -12930,7 +12678,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 Billy follows you north.
@@ -12961,7 +12708,6 @@ Billy follows you north.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Main building
@@ -12976,7 +12722,7 @@ Main building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=451798 a2=425125 a3=26673 len=204
+[MSG] cmd=LOADIMAGE a1=451798 a2=425125 a3=26673 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -13020,7 +12766,6 @@ Main building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -13052,7 +12797,6 @@ Main building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=256
 [TEXT] 
 Billy follows you north toward the main building.  He sees Milt and cringes.  Under his breath:  "Oh, man...this guy hates me."
@@ -13089,7 +12833,6 @@ Billy follows you north toward the main building.  He sees Milt and cringes.  Un
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13123,7 +12866,6 @@ Billy follows you north toward the main building.  He sees Milt and cringes.  Un
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=174
 [TEXT] 
 Milt looks at Billy like he's been painted blue.  "What the hell is he doing here?"
@@ -13154,7 +12896,6 @@ Milt looks at Billy like he's been painted blue.  "What the hell is he doing her
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -13169,7 +12910,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -13233,7 +12974,6 @@ Studio backlot
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 Billy follows you south.
@@ -13264,7 +13004,6 @@ Billy follows you south.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Side building
@@ -13279,7 +13018,7 @@ Side building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=486648 a2=451798 a3=34850 len=204
+[MSG] cmd=LOADIMAGE a1=486648 a2=451798 a3=34850 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -13317,7 +13056,6 @@ Side building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1004
 [TEXT] 
   The people who work in this building are the people who all hope that one day they'll end up working in the other building.  Not that this building is bad--not that it's a fire hazard or anything like that--although the budget allocated for repairs to the roof probably went into new oak paneling inside the main building.  And maybe this place someone like you could at least get into.  Probably just by leaving the shade of this tree and climbing up the set of three stairs that leads to the door.
@@ -13347,7 +13085,6 @@ Side building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=54
 [TEXT] 
 Billy follows you west.
@@ -13378,7 +13115,6 @@ Billy follows you west.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Reception area
@@ -13393,7 +13129,7 @@ Reception area
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=521644 a2=486648 a3=34996 len=204
+[MSG] cmd=LOADIMAGE a1=521644 a2=486648 a3=34996 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=446 a2=280 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -13431,7 +13167,6 @@ Reception area
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=750
 [TEXT] 
   You could plunk yourself down in one of the two comfy-looking high-backed chairs while waiting for someone.  The minty-blue hospital tint to the walls could take some getting used to, though.  A hallway of office doors extends to the west, or you can go back outside to the south.
@@ -13462,7 +13197,6 @@ Reception area
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=102
 [TEXT] 
 Billy hangs around the door to the reception area.
@@ -13499,7 +13233,6 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13518,7 +13251,7 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=187843 a2=171950 a3=15893 len=204
+[MSG] cmd=LOADIMAGE a1=187843 a2=171950 a3=15893 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=306 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -13558,7 +13291,6 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13593,11 +13325,10 @@ Billy hangs around the door to the reception area.
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=STOPSOUND a1=0 a2=0 a3=0 len=0
-[MSG] cmd=LOADSOUND a1=2 a2=1270125 a3=77306 len=204
+[MSG] cmd=LOADSOUND a1=2 a2=1270125 a3=77306 len=203
 [MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
 [TEXT] 
 The phone rings.  Anne answers it, listens briefly, then transfers the call.
@@ -13702,7 +13433,6 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=496
 [TEXT] 
 Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recognize you, but he manages to greet you with one of those practised smiles that suggests you're the best thing that's happened to him all day.  "Hi there.  Stuart Fina."
@@ -13739,7 +13469,6 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=94
 [TEXT] 
 (Stuart has arrived.  It is now 12:34 p.m.)
@@ -13766,7 +13495,7 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=160963 a2=146256 a3=14707 len=204
+[MSG] cmd=LOADIMAGE a1=160963 a2=146256 a3=14707 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=440 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -13806,7 +13535,6 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13840,7 +13568,6 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13879,7 +13606,6 @@ Stuart Fina appears from somewhere down the hallway.  He obviously doesn't recog
 [MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
 [TEXT] 
 The phone rings.  Anne answers it, listens briefly, then transfers the call.
@@ -13919,7 +13645,6 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13953,7 +13678,6 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -13996,7 +13720,6 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=160
 [TEXT] 
 The phone rings.  Anne answers it, listens briefly, then transfers the call.
@@ -14032,7 +13755,6 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -14071,7 +13793,6 @@ The phone rings.  Anne answers it, listens briefly, then transfers the call.
 [MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=240
 [TEXT] 
 The phone rings.  Anne answers it, listens briefly, then transfers the call.
@@ -14130,7 +13851,6 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=FINDSOUND a1=2 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
 [MSG] cmd=PLAYSOUND a1=0 a2=1 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=534
 [TEXT] 
 The phone rings.  Anne answers it, listens briefly, then transfers the call.
@@ -14169,7 +13889,6 @@ Stuart looks at his watch.  "Oh, you know what?  I'm forgetting a meeting.  Woul
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -14198,7 +13917,6 @@ Stuart looks at his watch.  "Oh, you know what?  I'm forgetting a meeting.  Woul
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Side building
@@ -14213,7 +13931,7 @@ Side building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=486648 a2=451798 a3=34850 len=204
+[MSG] cmd=LOADIMAGE a1=486648 a2=451798 a3=34850 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=303 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -14277,7 +13995,6 @@ Side building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 Billy follows you south.
@@ -14313,7 +14030,6 @@ Billy follows you south.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=32
 [TEXT] 
 Behind the tree
@@ -14341,7 +14057,6 @@ Behind the tree
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=240
 [TEXT] 
   You're crouching in the shadows of the big, green tree with a fairly clear view of the side building and parking lot.
@@ -14371,7 +14086,6 @@ Behind the tree
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] 
 Billy follows you.
@@ -14407,7 +14121,6 @@ Billy follows you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=446
 [TEXT] 
 From your vantage point behind the tree, you can see Stuart as he drives up to the side building in his sporty Mazda convertible.  He gets out and goes inside.
@@ -14440,7 +14153,6 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=38
 [TEXT] 
 Billy follows you.
@@ -14470,7 +14182,6 @@ Billy follows you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] 
 Billy follows you.
@@ -14506,7 +14217,6 @@ Billy follows you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=730
 [TEXT] 
 Peeking out from behind the tree, you can see Stuart as he comes out of the building and goes to his car.  He puts something in the trunk and closes it.  Then he suddenly looks like he's remembered something.  He looks around, doesn't see anybody--including you--and quickly decides to go back inside.
@@ -14549,7 +14259,6 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=28
 [TEXT] 
 Side building
@@ -14583,7 +14292,6 @@ Side building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=4
 [TEXT] 
 
@@ -14647,7 +14355,6 @@ Side building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] 
 Billy follows you.
@@ -14687,7 +14394,6 @@ Inside the trunk of the Mazda are a screening report and some negatives.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] 
 Billy follows you.
@@ -14754,7 +14460,6 @@ Billy follows you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] 
 Billy follows you.
@@ -14790,7 +14495,6 @@ Billy follows you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=44
 [TEXT] 
 Billy follows you.
@@ -14821,7 +14525,6 @@ Billy follows you.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Studio backlot
@@ -14836,7 +14539,7 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=204
+[MSG] cmd=LOADIMAGE a1=425125 a2=394268 a3=30857 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -14904,7 +14607,6 @@ Studio backlot
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
 [MSG] cmd=STOPSOUND a1=1 a2=0 a3=0 len=0
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=54
 [TEXT] 
 Billy follows you east.
@@ -14935,7 +14637,6 @@ Billy follows you east.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=24
 [TEXT] 
 Studio gate
@@ -14950,7 +14651,7 @@ Studio gate
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=204
+[MSG] cmd=LOADIMAGE a1=394268 a2=356315 a3=37953 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=443 a2=297 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -14994,7 +14695,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -15026,7 +14726,6 @@ Studio gate
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=56
 [TEXT] 
 Billy follows you south.
@@ -15092,7 +14791,6 @@ Billy follows you south.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=104
 [TEXT] 
 Billy gets into the passenger seat of the Volvo.
@@ -15117,7 +14815,7 @@ National Boulevard, in your cousin's Volvo
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=204
+[MSG] cmd=LOADIMAGE a1=556831 a2=521644 a3=35187 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=281 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -15219,7 +14917,6 @@ You're sitting in the Volvo.
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -15285,7 +14982,6 @@ Your cousin's Volvo is parked here.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=74
 [TEXT] 
 Billy gets out of the Volvo, too.
@@ -15316,7 +15012,6 @@ Billy gets out of the Volvo, too.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=70
 [TEXT] 
 Cindy Painter's apartment building
@@ -15331,7 +15026,7 @@ Cindy Painter's apartment building
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=600022 a2=556831 a3=43191 len=204
+[MSG] cmd=LOADIMAGE a1=600022 a2=556831 a3=43191 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=437 a2=290 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -15398,7 +15093,6 @@ Cindy Painter's apartment building
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=310
 [TEXT] 
 Billy follows you away from National, toward Cindy's apartment building.  "This place kinda makes me nervous," he says, stuffing his hands in his pockets.
@@ -15435,7 +15129,6 @@ Billy follows you away from National, toward Cindy's apartment building.  "This 
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -15464,7 +15157,6 @@ Billy follows you away from National, toward Cindy's apartment building.  "This 
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=34
 [TEXT] 
 Apartment stairs
@@ -15479,7 +15171,7 @@ Apartment stairs
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=629102 a2=600022 a3=29080 len=204
+[MSG] cmd=LOADIMAGE a1=629102 a2=600022 a3=29080 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=425 a2=306 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -15543,7 +15235,6 @@ Apartment stairs
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=50
 [TEXT] 
 Billy follows you up.
@@ -15579,7 +15270,6 @@ Billy follows you up.
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=56
 [TEXT] 
 Cindy Painter's living room
@@ -15594,7 +15284,7 @@ Cindy Painter's living room
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=645531 a2=629102 a3=16429 len=204
+[MSG] cmd=LOADIMAGE a1=645531 a2=629102 a3=16429 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=445 a2=272 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -15658,7 +15348,6 @@ Cindy Painter's living room
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=334
 [TEXT] 
 Billy chickens out.  "You know, I hope you'll understand if I don't want to, like, hang around in here.  I'll just be outside..."  And he slips out the door again.
@@ -15740,7 +15429,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -15820,7 +15508,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -15900,7 +15587,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -15980,7 +15666,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16060,7 +15745,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16140,7 +15824,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16220,7 +15903,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16300,7 +15982,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16380,7 +16061,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16460,7 +16140,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16540,7 +16219,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16620,7 +16298,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16700,7 +16377,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16780,7 +16456,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16860,7 +16535,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -16940,7 +16614,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -17020,7 +16693,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -17100,7 +16772,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=4
 [TEXT] 
 >
@@ -17157,7 +16828,6 @@ Billy chickens out.  "You know, I hope you'll understand if I don't want to, lik
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1274
 [TEXT] 
 The apartment door opens.  You turn to look, expecting to see Billy standing there--
@@ -17189,7 +16859,6 @@ The apartment door opens.  You turn to look, expecting to see Billy standing the
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=16
 [TEXT] 
 Kitchen
@@ -17204,7 +16873,7 @@ Kitchen
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=1 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=LOADIMAGE a1=659636 a2=645531 a3=14105 len=204
+[MSG] cmd=LOADIMAGE a1=659636 a2=645531 a3=14105 len=203
 [MSG] cmd=SIZEIMAGE a1=0 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=366 a2=264 a3=0 len=0
 [MSG] cmd=NEWWIN a1=5 a2=2 a3=0 len=0
@@ -17248,7 +16917,6 @@ Kitchen
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=0 a2=1 a3=0 len=2
 [TEXT] 
 
@@ -17291,7 +16959,6 @@ Do you want to keep waiting (YES or NO)?
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=322
 [TEXT] 
 Stuart wags the gun at you like he can't decide whether to shoot you with it, crack you on the skull with it, or just throw it down and walk away in disgust.  "
@@ -17339,7 +17006,6 @@ Stuart wags the gun at you like he can't decide whether to shoot you with it, cr
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=290
 [TEXT] 
 "Aw, screw it," Stuart says, raising the gun.  His finger tightens on the trigger.  Say goodnight, Gracie.  You close your eyes.  And then--
@@ -17377,7 +17043,6 @@ After you manage to pull yourself together and convince your legs to stop shakin
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=30
 [TEXT] 
 Police station
@@ -17405,7 +17070,6 @@ Police station
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=0 a3=0 len=1318
 [TEXT] 
   Welcome to the Los Angeles Police Department--you didn't catch which precinct.  The men and women in blue--actually in black, since that's the LAPD uniform--go about their business.
@@ -17440,7 +17104,6 @@ You leave the police station with a renewed sense of hope, that even just a litt
 [MSG] cmd=SETBGND a1=2 a2=0 a3=0 len=0
 [MSG] cmd=SIZWIN a1=2 a2=0 a3=0 len=24
 [MSG] cmd=SIZWIN a1=0 a2=0 a3=0 len=24
-[MSG] cmd=SETZCOLOR a1=1 a2=-2 a3=-2 len=0
 [MSG] cmd=PRINT a1=1 a2=4 a3=0 len=58
 [TEXT] 
 *** YOU'VE WON THE GAME! ***

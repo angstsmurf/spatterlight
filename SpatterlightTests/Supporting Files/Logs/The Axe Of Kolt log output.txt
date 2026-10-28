@@ -26,6 +26,20 @@ Interpreter: scarier
 [MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=1 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=1 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=0 a3=8 len=0
@@ -61,16 +75,16 @@ Interpreter: scarier
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=16711680 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=10 a3=0 len=68
+[MSG] cmd=PRINT a1=0 a2=5 a3=0 len=68
 [TEXT] The Adventures of Alaric Blackmoon
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=10 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=5 a3=0 len=4
 [TEXT] 
 
 
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=10 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=5 a3=0 len=20
 [TEXT] Episode 1:
 [MSG] cmd=PRINT a1=0 a2=9 a3=0 len=2
 [TEXT] 
@@ -213,8 +227,12 @@ Press B (enter) to Begin the Adventure from the First Location.
 
 
 [MSG] cmd=SETZCOLOR a1=0 a2=16777215 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=9 a3=0 len=246
-[TEXT] Press P (enter) to read the Prologue and Playing Instructions.
+[MSG] cmd=PRINT a1=0 a2=9 a3=0 len=82
+[TEXT] Press P (enter) to read the Prologue and 
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=40
+[TEXT] Playing Instructions
+[MSG] cmd=PRINT a1=0 a2=9 a3=0 len=124
+[TEXT] .
 (Recommended if starting this adventure for the first time)
 
 [MSG] cmd=SETZCOLOR a1=0 a2=131071 a3=0 len=0

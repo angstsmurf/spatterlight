@@ -24,8 +24,14 @@ Interpreter: scarier
 [MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
-[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=1 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
 [MSG] cmd=NEWWIN a1=3 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=0 a2=0 a3=0 len=0
@@ -44,7 +50,7 @@ Interpreter: scarier
 [MSG] cmd=PRINT a1=1 a2=9 a3=0 len=244
 [TEXT] Shadowpeak | Kevin Bailey; original concept by Kevin Bailey and Alan Sawdon. A big THX also to Abbi for the proof reading.
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 
@@ -8452,7 +8458,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=275 a3=0 len=3300
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 
@@ -9531,7 +9537,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=275 a3=0 len=3300
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 
@@ -10768,7 +10774,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=275 a3=0 len=3300
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 
@@ -12070,7 +12076,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=275 a3=0 len=3300
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 
@@ -13751,7 +13757,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=275 a3=0 len=3300
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 
@@ -15415,7 +15421,7 @@ Would you like to RESTART, UNDO a turn, or QUIT?
 [MSG] cmd=SETBGND a1=2 a2=16777215 a3=0 len=0
 [MSG] cmd=FILLRECT a1=2 a2=275 a3=0 len=3300
 [MSG] cmd=INITMOUSE a1=2 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=20
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=20
 [TEXT] Shadowpeak
 [MSG] cmd=PRINT a1=0 a2=0 a3=0 len=728
 [TEXT] 

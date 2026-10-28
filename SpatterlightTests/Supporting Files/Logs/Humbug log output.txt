@@ -23,9 +23,35 @@ Interpreter: scarier
 [MSG] cmd=STYLEHINT a1=3 a2=9 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=10 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=10 a3=4 len=0
-[MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
-[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=4 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=3 a3=1 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=5 a3=1 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=6 a3=1 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=4 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=5 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=6 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=2 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=3 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=0 len=0
+[MSG] cmd=STYLEHINT a1=3 a2=7 a3=1 len=0
 [MSG] cmd=STYLEHINT a1=4 a2=9 a3=9 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=0 a3=7 len=0
 [MSG] cmd=STYLEHINT a1=3 a2=0 a3=8 len=0
@@ -72,7 +98,7 @@ Interpreter: scarier
 [MSG] cmd=CLRWIN a1=0 a2=0 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=16724530 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=4 a3=0 len=12
+[MSG] cmd=PRINT a1=0 a2=3 a3=0 len=12
 [TEXT] Humbug
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
@@ -93,2281 +119,2281 @@ Interpreter: scarier
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT]  
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT]  
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT]  
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT]  
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT]  
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9604 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▄
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT]  
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=12
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=12
 [TEXT]       
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=12
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=12
 [TEXT]       
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT]    
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] █
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=4
 [TEXT]   
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=CANPRINT a1=9619 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▓
 [MSG] cmd=SETZCOLOR a1=0 a2=16776960 a3=0 len=0
 [MSG] cmd=CANPRINT a1=9608 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=6
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=6
 [TEXT] █
  
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=10
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=10
 [TEXT] ▀    
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=10
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=10
 [TEXT] ▀    
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=10
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=10
 [TEXT] ▀    
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=16
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=16
 [TEXT] ▀       
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=8
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=8
 [TEXT] ▀   
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=12
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=12
 [TEXT] ▀     
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=10
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=10
 [TEXT] ▀    
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=SETZCOLOR a1=0 a2=9474224 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=7 a3=0 len=2
 [TEXT] 
 
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
@@ -2419,40 +2445,40 @@ Conversion to
 
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=14
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=14
 [TEXT] HUMBUG
 
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=2
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=2
 [TEXT] ▀
 [MSG] cmd=CANPRINT a1=9600 a2=0 a3=0 len=0
 [REPLY] cmd=1 a1=1 a2=0 a3=0 len=0
-[MSG] cmd=PRINT a1=0 a2=2 a3=0 len=4
+[MSG] cmd=PRINT a1=0 a2=6 a3=0 len=4
 [TEXT] ▀
 
 [MSG] cmd=SETZCOLOR a1=0 a2=65280 a3=0 len=0
