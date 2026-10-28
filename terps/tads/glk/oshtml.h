@@ -206,6 +206,15 @@ glui32 osglk_tag_banner_click(winid_t win, glui32 x, glui32 y);
 /* Draw the tables again, as the windows changed */
 void osglk_tag_banner_redraw(void);
 
+/* Draw the pictures of the API side banners again, as the windows changed */
+void osglk_api_banner_redraw(void);
+
+/*
+ *   Draw again those of them the interpreter's own rearranging resized,
+ *   which no Redraw event tells of
+ */
+void osglk_api_banner_resized(void);
+
 /* The box-drawing characters of a rule in this style across the window */
 int osglk_rule_width(winid_t win, int combo);
 

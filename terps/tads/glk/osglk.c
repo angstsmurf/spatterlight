@@ -671,6 +671,7 @@ void osglk_set_text_height(winid_t win, int pixels)
 {
 #ifdef SPATTERLIGHT
     spatterlight_window_set_text_height(win, pixels > 0 ? (glui32)pixels : 0);
+    osglk_api_banner_resized();
 #else
     (void)win;
     (void)pixels;
@@ -1252,6 +1253,7 @@ static void select_event(event_t *event)
         {
             side_pictures_draw();
             osglk_tag_banner_redraw();
+            osglk_api_banner_redraw();
             continue;
         }
 

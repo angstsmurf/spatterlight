@@ -61,6 +61,9 @@ typedef struct os_banner_s
     glui32 status;                  /* glk status style */
     glui32 moremode;                /* stops at a [more] prompt when full */
     int textpx;                     /* fitted to its text's pixels, or 0 */
+    glui32 asked_method;            /* the method and size the game asked */
+    glui32 asked_size;              /* for, in its units (banner_gfx_size) */
+    glui32 drawn_w, drawn_h;        /* the graphics window size drawn at */
 
     glui32 cheight;                 /* glk char height */
     glui32 cwidth;                  /* glk char width */
@@ -189,6 +192,7 @@ static int picture_fit_lines(const picture_fit *fit, int lines)
 #endif /* OSGLK_PIXELS */
 
 void banner_contents_display(contentid_t contents);
+void os_banners_redraw(void);
 
 /* Implementation-specific functions for managing banner windows */
 /*
@@ -221,6 +225,10 @@ osbanid_t os_banner_init(void)
     instance->status = 0;
     instance->moremode = 0;
     instance->textpx = 0;
+    instance->asked_method = 0;
+    instance->asked_size = 0;
+    instance->drawn_w = 0;
+    instance->drawn_h = 0;
 
     instance->cheight = 0;
     instance->cwidth = 0;
@@ -322,6 +330,8 @@ osbanid_t os_banner_insert(osbanid_t parent, glui32 operation, osbanid_t other,
 
     baby->method = method;
     baby->size = size;
+    baby->asked_method = method;
+    baby->asked_size = size;
     baby->type = type;
     baby->status = status;
 
@@ -435,10 +445,152 @@ static void banner_default_zcolors(osbanid_t banner)
                               banner_zcolor(banner, OS_COLOR_P_TRANSPARENT, 1));
 }
 
+/*
+ *   A graphics banner has no text to reverse, so a status banner's paper is
+ *   the theme's, as the text banners beside it show, unless the game gave
+ *   it a colour
+ */
 static void banner_set_background(osbanid_t banner)
 {
-    osglk_set_window_bg(banner->win,
-                        banner_zcolor(banner, OS_COLOR_P_TRANSPARENT, 1));
+    glui32 bg = banner_zcolor(banner, OS_COLOR_P_TRANSPARENT, 1);
+
+    if (banner->type == wintype_Graphics && !banner->bgscreen)
+        bg = zcolor_Default;
+    osglk_set_window_bg(banner->win, bg);
+}
+
+/*
+ *   A text banner at the side is a graphics window, as wide as the picture
+ *   it shows, until it shows anything else: then it's a text window again,
+ *   as the game asked.  The game asks for a width in characters, and a
+ *   picture alone in that many of the buffer's cells, which are wider than
+ *   the game counted on, has only the banner's background beside it, as in
+ *   According to Cain.  A graphics window also keeps the top of a picture
+ *   taller than the banner in view, as HTML TADS does.
+ */
+static int banner_side_text(int wintype, int align)
+{
+#ifdef OSGLK_PIXELS
+    return wintype == OS_BANNER_TYPE_TEXT
+        && (align == OS_BANNER_ALIGN_LEFT || align == OS_BANNER_ALIGN_RIGHT)
+        && glk_gestalt(gestalt_DrawImage, wintype_Graphics);
+#else
+    (void)wintype;
+    (void)align;
+    return 0;
+#endif /* OSGLK_PIXELS */
+}
+
+/* the picture a graphics banner shows, if it has one */
+static const oshtml_image *banner_gfx_image(osbanid_t banner)
+{
+    for (contentid_t c = banner->contents; c; c = c->next)
+        if (c->has_image)
+            return &c->image;
+    return NULL;
+}
+
+/* a picture a graphics banner can show: one of a size of its own */
+static int banner_gfx_size_of(const oshtml_image *img, glui32 *w, glui32 *h)
+{
+    return !img->width_pct && !img->height_pct
+        && oshtml_image_size(img, 0, w, h) && *w && *h;
+}
+
+/*
+ *   The margin beside a graphics banner's cells: HTML TADS's banner margin,
+ *   as the game counted on, not the buffer's, which has no text to keep
+ *   from the edge here
+ */
+#define BANNER_GFX_MARGIN 8
+
+/*
+ *   A graphics banner's method and size: as wide as its picture, or as the
+ *   text window the game asked for would be in HTML TADS
+ */
+static glui32 banner_gfx_size(osbanid_t banner, glui32 *method)
+{
+    const oshtml_image *img = banner_gfx_image(banner);
+    glui32 dir = banner->asked_method & winmethod_DirMask, w, h;
+
+    /* a banner the game hides at no size stays hidden, picture or not */
+    if (img && banner->asked_size && banner_gfx_size_of(img, &w, &h))
+    {
+        *method = dir | winmethod_Fixed;
+        return w;
+    }
+    *method = banner->asked_method;
+    if ((banner->asked_method & winmethod_DivisionMask) != winmethod_Fixed)
+        return banner->asked_size;
+#ifdef OSGLK_PIXELS
+    if (banner->asked_size)
+        return (glui32)ceil(banner->asked_size * osglk_px_cellw())
+            + 2 * BANNER_GFX_MARGIN;
+#endif /* OSGLK_PIXELS */
+    return 0;
+}
+
+/* a graphics banner resized to its contents: true if it's redrawn so */
+static int banner_gfx_fit(osbanid_t banner)
+{
+    glui32 method, size = banner_gfx_size(banner, &method);
+
+    if (method == banner->method && size == banner->size)
+        return 0;
+    banner->method = method;
+    banner->size = size;
+    os_banners_redraw();
+    return 1;
+}
+
+/* the picture from the top, at its own size, on the banner's background */
+static void banner_gfx_draw(osbanid_t banner)
+{
+    const oshtml_image *img = banner_gfx_image(banner);
+    glui32 w, h;
+
+    glk_window_get_size(banner->win, &banner->drawn_w, &banner->drawn_h);
+    banner_set_background(banner);
+    glk_window_clear(banner->win);
+    if (img && banner_gfx_size_of(img, &w, &h))
+        glk_image_draw_scaled(banner->win, img->id, 0, 0, w, h);
+}
+
+/* the banner a text window again, with its contents */
+static void banner_to_text(osbanid_t banner)
+{
+    banner->type = wintype_TextBuffer;
+    banner->method = banner->asked_method;
+    banner->size = banner->asked_size;
+    os_banners_redraw();
+}
+
+/* text that a graphics banner needn't show: spaces and newlines */
+static int banner_blank(const char *txt, size_t len)
+{
+    for (size_t i = 0; i < len; ++i)
+        if (txt[i] != ' ' && txt[i] != '\n' && txt[i] != '\t')
+            return 0;
+    return 1;
+}
+
+/* a graphics banner's size in characters, counted as banner_gfx_size does */
+static void banner_gfx_cells(osbanid_t banner)
+{
+#ifdef OSGLK_PIXELS
+    double cellw = osglk_px_cellw(), cellh = osglk_px_cellh();
+    glui32 mx = BANNER_GFX_MARGIN, my = 0;
+
+    if (banner->type != wintype_Graphics || cellw <= 0 || cellh <= 0)
+        return;
+    osglk_px_margins(mainwin, NULL, &my);
+    banner->cwidth = banner->cwidth > 2 * mx
+        ? (glui32)((banner->cwidth - 2 * mx) / cellw) : 0;
+    banner->cheight = banner->cheight > 2 * my
+        ? (glui32)((banner->cheight - 2 * my) / cellh) : 0;
+#else
+    (void)banner;
+#endif /* OSGLK_PIXELS */
 }
 
 void os_banners_close(osbanid_t banner)
@@ -558,6 +710,14 @@ void banner_contents_display(contentid_t contents)
     if (!contents || !(contents->banner))
         return;
 
+    /* a graphics banner has only its picture to show */
+    if (contents->banner->type == wintype_Graphics)
+    {
+        if (contents->banner->win)
+            banner_gfx_draw(contents->banner);
+        return;
+    }
+
     winid_t win = contents->banner->win;
     glui32 len = contents->len;
 
@@ -667,7 +827,14 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
 
     gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus);
     if (gbanner)
+    {
         gbanner->moremode = (style & OS_BANNER_STYLE_MOREMODE) != 0;
+        if (banner_side_text(wintype, align))
+        {
+            gbanner->type = wintype_Graphics;
+            gbanner->size = banner_gfx_size(gbanner, &gbanner->method);
+        }
+    }
 
 
     os_banners_redraw();
@@ -687,7 +854,7 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units, int is_advi
      *   the game will fit a text banner to its contents after, which we
      *   can, so the size until then would only make it jump
      */
-    if (is_advisory && banner->type == wintype_TextBuffer)
+    if (is_advisory && banner->type != wintype_TextGrid)
         return;
 #endif /* OSGLK_PIXELS */
 
@@ -703,6 +870,14 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units, int is_advi
         case OS_BANNER_SIZE_PCT: gwinmeth |= winmethod_Proportional; break;
         case OS_BANNER_SIZE_ABS: gwinmeth |= winmethod_Fixed; break;
         default: gwinmeth |= winmethod_Fixed; break;
+    }
+
+    banner->asked_method = gwinmeth;
+    banner->asked_size = gwinsize;
+    if (banner->type == wintype_Graphics)
+    {
+        banner_gfx_fit(banner);
+        return;
     }
 
     /* a size the game gives is in lines */
@@ -729,6 +904,22 @@ void os_banner_size_to_contents(void *banner_handle)
 
     if (!banner || !banner->valid || !banner->win)
         return;
+
+    /* a graphics banner is as wide as its picture, and empty without one */
+    if (banner->type == wintype_Graphics)
+    {
+        if (!banner_gfx_image(banner))
+            os_banner_set_size(banner, 0, OS_BANNER_SIZE_ABS, 0);
+        else
+        {
+            /* any size but none: the picture's width is the one it gets */
+            banner->asked_method = (banner->asked_method & winmethod_DirMask)
+                                   | winmethod_Fixed;
+            banner->asked_size = 1;
+            banner_gfx_fit(banner);
+        }
+        return;
+    }
 #ifdef OSGLK_PIXELS
     if (banner->type == wintype_TextBuffer)
     {
@@ -874,6 +1065,7 @@ int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
         banner->cwidth = win_cols(banner->win->peer);
     }
 #endif /* SPATTERLIGHT */
+    banner_gfx_cells(banner);
 
     info->rows = banner->cheight;
     info->columns = banner->cwidth;
@@ -882,7 +1074,7 @@ int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
     info->pix_height = 0;
 
     /* in HTML mode, oshtml.c does the formatter's work: tags take no room */
-    info->os_line_wrap = (gwintype == wintype_TextBuffer);
+    info->os_line_wrap = (gwintype != wintype_TextGrid);
 
     return 1;
 }
@@ -901,6 +1093,7 @@ int os_banner_get_charwidth(void *banner_handle)
         banner->cwidth = win_cols(banner->win->peer);
     }
 #endif /* SPATTERLIGHT */
+    banner_gfx_cells(banner);
     
     return banner->cwidth;
 }
@@ -912,6 +1105,7 @@ int os_banner_get_charheight(void *banner_handle)
         return 0;
 
     glk_window_get_size(banner->win, &(banner->cwidth), &(banner->cheight));
+    banner_gfx_cells(banner);
 
     return banner->cheight;
 }
@@ -922,7 +1116,9 @@ void os_banner_clear(void *banner_handle)
     if (!banner || !banner->valid)
         return;
 
-    if (banner->win)
+    if (banner->win && banner->type == wintype_Graphics)
+        glk_window_clear(banner->win);
+    else if (banner->win)
     {
         /* a cleared window takes the colours of the text, as in Z-code */
         banner_default_zcolors(banner);
@@ -987,12 +1183,18 @@ static contentid_t banner_contents_add(osbanid_t banner)
 
 static void banner_disp(osbanid_t banner, const char *txt, size_t len)
 {
-    contentid_t update = banner_contents_add(banner);
+    contentid_t update;
+    int blank = banner->type == wintype_Graphics && banner_blank(txt, len);
+
+    if (banner->type == wintype_Graphics && !blank)
+        banner_to_text(banner);
+    update = banner_contents_add(banner);
     if (!update)
         return;
 
     banner_contents_insert(update, txt, len);
-    banner_contents_display(update);
+    if (!blank)
+        banner_contents_display(update);
 }
 
 void os_banner_goto(void *banner_handle, int row, int col)
@@ -1189,11 +1391,39 @@ static int html_image(void *ctx, const oshtml_image *img)
 {
     osbanid_t banner = ctx;
     contentid_t update;
+    glui32 w, h;
 
-    if (!banner->valid || !banner->win || banner->type != wintype_TextBuffer)
+    if (!banner->valid || !banner->win)
         return 0;
     if (!img)
-        return 1;
+        return banner->type != wintype_TextGrid;
+
+    /*
+     *   a graphics banner shows one picture of a size of its own, which no
+     *   link needs a click on, resized to it before it's drawn
+     */
+    if (banner->type == wintype_Graphics)
+    {
+        if (banner->link || banner_gfx_image(banner)
+            || !banner_gfx_size_of(img, &w, &h))
+            banner_to_text(banner);
+        else
+        {
+            update = banner_contents_add(banner);
+            if (!update)
+                return 0;
+            update->has_image = 1;
+            update->image = *img;
+            if (!banner_gfx_fit(banner))
+                banner_gfx_draw(banner);
+            return 1;
+        }
+        if (!banner->win)
+            return 0;
+    }
+
+    if (banner->type != wintype_TextBuffer)
+        return 0;
     update = banner_contents_add(banner);
     if (!update)
         return 0;
@@ -1216,7 +1446,7 @@ static void banners_request_links(osbanid_t banner)
     for ( ; banner ; banner = banner->next)
     {
         if (banner->valid && banner->html && banner->win
-            && banner->win != mainwin)
+            && banner->win != mainwin && banner->type != wintype_Graphics)
             glk_request_hyperlink_event(banner->win);
         banners_request_links(banner->children);
     }
@@ -1226,6 +1456,34 @@ void osglk_api_banner_request_links(void)
 {
     if (os_banners)
         banners_request_links(os_banners->children);
+}
+
+static void banners_gfx_redraw(osbanid_t banner, int resized)
+{
+    glui32 w, h;
+
+    for ( ; banner ; banner = banner->next)
+    {
+        if (banner->valid && banner->win && banner->type == wintype_Graphics)
+        {
+            glk_window_get_size(banner->win, &w, &h);
+            if (!resized || w != banner->drawn_w || h != banner->drawn_h)
+                banner_gfx_draw(banner);
+        }
+        banners_gfx_redraw(banner->children, resized);
+    }
+}
+
+void osglk_api_banner_redraw(void)
+{
+    if (os_banners)
+        banners_gfx_redraw(os_banners->children, 0);
+}
+
+void osglk_api_banner_resized(void)
+{
+    if (os_banners)
+        banners_gfx_redraw(os_banners->children, 1);
 }
 
 void os_banner_flush(void *banner_handle)
