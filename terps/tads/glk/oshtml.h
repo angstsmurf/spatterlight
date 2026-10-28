@@ -100,6 +100,13 @@ void osglk_api_banner_request_links(void);
 int osglk_side_picture(int right, const oshtml_image *img);
 
 /*
+ *   Draw such a picture in a graphics window: as wide as it is, centred,
+ *   and smaller if it's taller than the window
+ */
+void osglk_draw_side_picture(winid_t win, const oshtml_image *img,
+                             glui32 bg);
+
+/*
  *   A table of nothing but pictures, laid out in pixels: each tile's place
  *   in it, and the link it is, or 0
  */

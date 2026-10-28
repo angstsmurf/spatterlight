@@ -510,17 +510,15 @@ static struct
 /* the main window's background, which theirs matches */
 static glui32 main_bg = zcolor_Default;
 
-static void side_picture_draw(int right)
+void osglk_draw_side_picture(winid_t win, const oshtml_image *img,
+                             glui32 bg)
 {
-    winid_t win = side_pics[right].win;
     glui32 ww, wh, w, h;
 
-    if (!win)
-        return;
-    win_setbgnd(win->peer, main_bg);
+    win_setbgnd(win->peer, bg);
     glk_window_clear(win);
     glk_window_get_size(win, &ww, &wh);
-    if (!oshtml_image_size(&side_pics[right].img, ww, &w, &h) || !w || !h)
+    if (!oshtml_image_size(img, ww, &w, &h) || !w || !h)
         return;
 
     /* the whole of it, if it's taller than the window */
@@ -529,8 +527,15 @@ static void side_picture_draw(int right)
         w = w * wh / h;
         h = wh;
     }
-    glk_image_draw_scaled(win, side_pics[right].img.id,
+    glk_image_draw_scaled(win, img->id,
                           (glsi32)(ww > w ? (ww - w) / 2 : 0), 0, w, h);
+}
+
+static void side_picture_draw(int right)
+{
+    if (side_pics[right].win)
+        osglk_draw_side_picture(side_pics[right].win, &side_pics[right].img,
+                                main_bg);
 }
 
 static void side_pictures_draw(void)

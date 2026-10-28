@@ -1274,6 +1274,15 @@ typedef struct tagban_s
     int px_text;
 
     /*
+     *   If it's one picture, that is drawn in the graphics window, as the
+     *   pictures beside the page are (osglk.c), and the text window gets
+     *   none of it: the pictures, the widest, and whether it's drawn so
+     */
+    int px_pics;
+    oshtml_image px_img;
+    int px_alone;
+
+    /*
      *   A table of pictures at the end of the text, in a graphics window
      *   under it: the table, whether this showing had it, where it's drawn
      *   and the banner's background
@@ -1465,27 +1474,68 @@ static void tag_widest_add(tagban_t *tb, const oshtml_image *img)
         return;
     if (!img->width_pct && img->width && (int)img->width >= tb->px_asked)
         return;
+    ++tb->px_pics;
     if (!oshtml_image_size(img, 0, &w, &h))
         tb->px_text = 1;            /* we can't tell: leave it as it is */
     else if (w > tb->px_widest)
+    {
         tb->px_widest = w;
+        tb->px_img = *img;
+    }
 }
 
 /*
  *   the pixels a side banner gets: as it asked, unless that's more than a
  *   quarter of the game window and it shows only pictures
  */
-static glui32 tag_side_pixels(tagban_t *tb)
+static glui32 tag_side_pixels(tagban_t *tb, int *alone)
 {
     winid_t root = glk_window_get_root();
     glui32 asked = tb->px_asked > 0 ? (glui32)tb->px_asked : 0;
     glui32 rootw = root ? (glui32)(root->bbox.x1 - root->bbox.x0) : 0;
     glui32 w = tb->px_widest + 2 * gbuffermarginx;
 
+    *alone = 0;
     if (tb->px_text || !tb->px_widest || !rootw
         || asked * 4 <= rootw || w >= asked)
         return asked;
+    if (tb->px_pics == 1)
+    {
+        *alone = 1;
+        return tb->px_widest;
+    }
     return w;
+}
+
+/* the split of the text window from the graphics window it fills */
+static winid_t tag_inner_split(tagban_t *tb)
+{
+    winid_t pair;
+
+    for (pair = glk_window_get_parent(tb->win) ; pair ;
+         pair = glk_window_get_parent(pair))
+    {
+        winid_t k = NULL;
+        glk_window_get_arrangement(pair, NULL, NULL, &k);
+        if (k == tb->win)
+            break;
+    }
+    return pair;
+}
+
+/* the picture alone in the graphics window, or the text window over it */
+static void tag_side_alone(tagban_t *tb, int alone)
+{
+    winid_t pair = tag_inner_split(tb);
+
+    if (alone != tb->px_alone && pair)
+        glk_window_set_arrangement(pair, (tb->method & winmethod_DirMask)
+                                   | winmethod_Proportional
+                                   | winmethod_NoBorder,
+                                   alone ? 0 : 100, tb->win);
+    tb->px_alone = alone && pair;
+    if (tb->px_alone)
+        osglk_draw_side_picture(tb->gfx, &tb->px_img, tb->screen);
 }
 #endif /* SPATTERLIGHT */
 
@@ -1587,6 +1637,9 @@ static void tag_open_window(tagban_t *tb, int pixels)
     {
         tb->gfx = glk_window_open(mainwin, tb->method, tb->size,
                                   wintype_Graphics, 0);
+#ifdef SPATTERLIGHT
+        tb->px_alone = 0;
+#endif /* SPATTERLIGHT */
         if (tb->gfx)
             tb->win = glk_window_open(tb->gfx,
                                       (tb->method & winmethod_DirMask)
@@ -1775,6 +1828,7 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     picture_fit_init(&tb->pictures);
     tb->px_widest = 0;
     tb->px_text = 0;
+    tb->px_pics = 0;
     tb->tbl_used = 0;
     tb->screen = zcolor_Default;
 #endif /* SPATTERLIGHT */
@@ -1920,12 +1974,16 @@ void osglk_tag_banner_redraw(void)
     tagban_t *tb;
 
     for (tb = tagbans ; tb ; tb = tb->next)
+    {
+        if (tb->px_alone && tb->gfx)
+            osglk_draw_side_picture(tb->gfx, &tb->px_img, tb->screen);
         if (tb->tblwin && tb->tbl)
         {
             tag_table_text(tb, 0);
             tag_table_place(tb);
             tag_table_draw(tb);
         }
+    }
 #endif /* SPATTERLIGHT */
 }
 
@@ -1938,9 +1996,11 @@ int osglk_tag_banner_done(void *ctx)
 #ifdef SPATTERLIGHT
     else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
     {
-        glui32 size = tag_side_pixels(tb);
+        int alone;
+        glui32 size = tag_side_pixels(tb, &alone);
         tb->px_shrunk = size < (glui32)tb->px_asked ? size : 0;
         tag_resize(tb, size);
+        tag_side_alone(tb, alone);
     }
     if (tb->tblwin && !tb->measure)
     {
