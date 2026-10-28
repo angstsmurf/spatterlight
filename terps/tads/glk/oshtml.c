@@ -1699,10 +1699,18 @@ static int show_image(parser *p, const oshtml_image *img)
 
     if (inline_img)
     {
-        /* text held back for a <TAB> comes first */
+        /*
+         *   text held back for a <TAB> comes first, and the picture goes
+         *   on the line in its style, which centres it as <DIV ALIGN> says
+         *   though no text came after the tag yet (1893's title)
+         */
+        color c;
+
         expand_tab(p, 1);
         start_line(p);
         print_pending(p);
+        c = cur_color(p);
+        send_color(p, &c);
     }
     flush_out(p);
 
