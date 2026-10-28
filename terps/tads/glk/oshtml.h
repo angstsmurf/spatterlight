@@ -140,6 +140,13 @@ int osglk_px_text_height(winid_t win);
 void osglk_set_window_bg(winid_t win, glui32 color);
 
 /*
+ *   Whether a text buffer stops at a [more] prompt when it fills.  A banner
+ *   doesn't, unless the game asks for it: Gargoyle's prompt would take the
+ *   keys meant for the main window.
+ */
+void osglk_set_paging(winid_t win, int paging);
+
+/*
  *   Text colours, with garglk_set_zcolors.  In Gargoyle a background is
  *   the paper of every window, so there only the screen colour sets one.
  */

@@ -657,6 +657,16 @@ void osglk_set_window_bg(winid_t win, glui32 color)
 #endif /* SPATTERLIGHT */
 }
 
+void osglk_set_paging(winid_t win, int paging)
+{
+#ifdef GLK_MODULE_GARGLKPAGING
+    garglk_window_set_paging(win, (glui32)paging);
+#else
+    (void)win;
+    (void)paging;
+#endif
+}
+
 /* the main window's background, which the side pictures' match */
 static glui32 main_bg = zcolor_Default;
 

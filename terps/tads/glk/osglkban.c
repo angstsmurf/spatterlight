@@ -59,6 +59,7 @@ typedef struct os_banner_s
     glui32 size;                    /* glk window size */
     glui32 type;                    /* glk window type */
     glui32 status;                  /* glk status style */
+    glui32 moremode;                /* stops at a [more] prompt when full */
 
     glui32 cheight;                 /* glk char height */
     glui32 cwidth;                  /* glk char width */
@@ -217,6 +218,7 @@ osbanid_t os_banner_init(void)
     instance->size = 0;
     instance->type = 0;
     instance->status = 0;
+    instance->moremode = 0;
 
     instance->cheight = 0;
     instance->cwidth = 0;
@@ -478,6 +480,7 @@ void os_banners_open(osbanid_t banner)
                 fixed_hints_clear();
             if (banner->win)
             {
+                osglk_set_paging(banner->win, banner->moremode);
                 if (banner->status || banner->bgscreen)
                     banner_set_background(banner);
                 banner_contents_display(banner->contents);
@@ -660,6 +663,8 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
     }
 
     gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus);
+    if (gbanner)
+        gbanner->moremode = (style & OS_BANNER_STYLE_MOREMODE) != 0;
 
 
     os_banners_redraw();
@@ -1652,6 +1657,8 @@ static void tag_open_window(tagban_t *tb, int pixels)
     }
     else
         tb->win = glk_window_open(mainwin, tb->method, tb->size, tb->type, 0);
+    if (tb->win)
+        osglk_set_paging(tb->win, 0);
 
     if (tb->type == wintype_TextGrid)
         grid_hints_clear();
