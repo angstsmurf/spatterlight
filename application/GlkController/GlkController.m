@@ -1351,9 +1351,9 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
     NSSize size;
     Theme *theme = _theme;
     // Width = (cell width × columns) + margins on both sides (grid margin + border + 5px padding)
-    size.width = round(theme.cellWidth * theme.defaultCols + (theme.gridMarginX + theme.border + 5.0) * 2.0);
+    size.width = gli_cells_span((unsigned)theme.defaultCols, theme.cellWidth) + (theme.gridMarginX + theme.border + 5.0) * 2.0;
     // Height = (cell height × rows) + margins on both sides (grid margin + border)
-    size.height = round(theme.cellHeight * theme.defaultRows + (theme.gridMarginY + theme.border) * 2.0);
+    size.height = gli_cells_span((unsigned)theme.defaultRows, theme.cellHeight) + (theme.gridMarginY + theme.border) * 2.0;
     return size;
 }
 
@@ -1443,8 +1443,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (NSSize)charCellsToContentSize:(NSSize)cells {
     NSSize size;
     Theme *theme = _theme;
-    size.width = round(theme.cellWidth * cells.width + (theme.gridMarginX + 5.0) * 2.0);
-    size.height = round(theme.cellHeight * cells.height + (theme.gridMarginY) * 2.0);
+    size.width = gli_cells_span((unsigned)cells.width, theme.cellWidth) + (theme.gridMarginX + 5.0) * 2.0;
+    size.height = gli_cells_span((unsigned)cells.height, theme.cellHeight) + (theme.gridMarginY) * 2.0;
     // Defensive: the cell metrics come from the theme's font measurements,
     // and a non-finite height here would end up in the window frame.
     if (isnan(size.height) || isinf(size.height)) {
@@ -1475,8 +1475,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         gridMarginY = theme.gridMarginY;
     }
 
-    size.width = round((points.width - gridMarginX * 2) / cellWidth);
-    size.height = round((points.height - gridMarginY * 2) / cellHeight);
+    size.width = gli_cells_in(points.width - gridMarginX * 2, cellWidth);
+    size.height = gli_cells_in(points.height - gridMarginY * 2, cellHeight);
 
     return size;
 }

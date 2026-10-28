@@ -1,7 +1,28 @@
 #ifndef GLKIMP_PROTOCOL
 #define GLKIMP_PROTOCOL
 
+#include <math.h>
+
 #define GLKBUFSIZE (1024 * 64)
+
+/*
+ * Character cells in a window, as glk_window_get_size counts them and as the
+ * app's grid lays them out: the two have to agree, or a game's grid lines
+ * wrap or come up a cell short. A window has the cells that fit whole in its
+ * pixels, and a window split off to hold n cells gets the pixels rounded up,
+ * so that it counts n again. The tolerance takes up float error.
+ */
+static inline unsigned gli_cells_in(double pixels, double cell)
+{
+    if (cell <= 0 || pixels <= 0)
+        return 0;
+    return (unsigned)floor(pixels / cell + 0.001);
+}
+
+static inline int gli_cells_span(unsigned n, double cell)
+{
+    return (int)ceil(n * cell - 0.001);
+}
 
 struct message
 {

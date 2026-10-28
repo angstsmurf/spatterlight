@@ -1,7 +1,8 @@
 #!/bin/sh
 # Build stream_test.c against glkimp's stream.c and compare its output with
 # stream_test.expected. Pass --bless to rewrite the expected file.
-# Then build and run connect_utf16_test.c (UTF-16 on the app pipe).
+# Then build and run connect_utf16_test.c (UTF-16 on the app pipe) and
+# window_size_test.c (glk_window_get_size and fixed splits).
 set -e
 here=$(cd "$(dirname "$0")" && pwd)
 glkimp=$(dirname "$here")
@@ -17,6 +18,11 @@ cc -std=gnu11 -w -g -fsanitize=address,undefined -I"$glkimp" \
     "$here/connect_utf16_test.c" -o "$out/connect_utf16_test" \
     -Wl,-undefined,dynamic_lookup
 "$out/connect_utf16_test"
+
+cc -std=gnu11 -Wall -Wno-unused-function -g -O1 -fsanitize=address,undefined \
+    -I"$glkimp" "$here/window_size_test.c" "$glkimp/window.c" \
+    -o "$out/window_size_test"
+"$out/window_size_test"
 
 if [ "$1" = "--bless" ]; then
     cp "$out/actual.txt" "$here/stream_test.expected"

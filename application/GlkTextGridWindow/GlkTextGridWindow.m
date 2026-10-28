@@ -23,6 +23,9 @@
 
 #import "NSColor+integer.h"
 
+#include "glk.h"
+#include "protocol.h"
+
 // Large enough that the text container and view never wrap or clip a row.
 static const CGFloat kUnlimitedTextSize = 10000000;
 
@@ -381,15 +384,16 @@ static const CGFloat kUnlimitedTextSize = 10000000;
     CGFloat margins = (_textview.textContainerInset.width + container.lineFragmentPadding) * 2;
     if (margins > frame.size.width)
         margins = 0;
-    NSUInteger newcols = (NSUInteger)round((frame.size.width - margins) /
-                                           self.theme.cellWidth);
+    // The cells that fit whole, as glk_window_get_size counts them
+    NSUInteger newcols = gli_cells_in(frame.size.width - margins,
+                                      self.theme.cellWidth);
 
     CGFloat containerInsetHeight = _textview.textContainerInset.height * 2;
     if (containerInsetHeight > frame.size.height)
         containerInsetHeight = 0;
-    NSUInteger newrows = (NSUInteger)round((frame.size.height
-                                            - containerInsetHeight) /
-                                           self.theme.cellHeight);
+    NSUInteger newrows = gli_cells_in(frame.size.height
+                                      - containerInsetHeight,
+                                      self.theme.cellHeight);
 
     if (newrows == 0 && frame.size.height > 0)
         newrows = 1;

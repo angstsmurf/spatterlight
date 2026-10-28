@@ -25,6 +25,7 @@
 #import "GlkEvent.h"
 #import "Theme.h"
 #import "Game.h"
+#import "GlkStyle.h"
 #import "BuiltInThemes.h"
 #import "NSColor+integer.h"
 
@@ -164,6 +165,245 @@ static const unichar kNBSP = 0xa0;
     [grid flushDisplay];
     [self assertGrid:grid is:@[@"", @""] width:10];
     XCTAssertEqual(grid.indexOfPos, 0UL);
+}
+
+#pragma mark - Width in cells
+
+// Every built-in theme, with its cell sizes set, sorted by name.
+- (NSArray<Theme *> *)builtInThemes {
+    [BuiltInThemes createBuiltInThemesInContext:self.context forceRebuild:NO];
+    NSFetchRequest *request = [Theme fetchRequest];
+    request.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
+    NSError *error = nil;
+    NSArray<Theme *> *themes = [self.context executeFetchRequest:request error:&error];
+    XCTAssertNil(error);
+    XCTAssertGreaterThanOrEqual(themes.count, 10UL);
+    return themes;
+}
+
+- (GlkTextGridWindow *)gridInTheme:(Theme *)theme {
+    GlkController *ctl = [self makeControllerWithTheme:theme];
+    XCTAssertEqual([self send:NEWWIN to:ctl a1:wintype_TextGrid a2:kGrid a3:0], kGrid);
+    GlkTextGridWindow *grid = (GlkTextGridWindow *)ctl.gwindows[@(kGrid)];
+    XCTAssertTrue([grid isKindOfClass:[GlkTextGridWindow class]]);
+    return grid;
+}
+
+// What glkimp's glk_window_get_size answers for a grid this wide: its
+// ggridmarginx is the theme's grid margin plus the line fragment padding.
+- (NSUInteger)glkColumnsInWidth:(CGFloat)width theme:(Theme *)theme {
+    return gli_cells_in(width - 2 * (theme.gridMarginX + 5), theme.cellWidth);
+}
+
+// A game wraps and pads its grid lines at the width glk_window_get_size
+// gives it, so the app's grid must have exactly that many columns, in every
+// theme and at every width, including the fractional cell widths of real
+// fonts (Helvetica 13's "W" is 12.27).
+- (void)testGridColumnsAreTheColumnsGlkCounts {
+    for (Theme *theme in [self builtInThemes]) {
+        GlkTextGridWindow *grid = [self gridInTheme:theme];
+        XCTAssertGreaterThan(theme.cellWidth, 0, @"%@", theme.name);
+        XCTAssertGreaterThan(theme.cellHeight, 0, @"%@", theme.name);
+        CGFloat minimum = 2 * (theme.gridMarginX + 5) + theme.cellWidth;
+        CGFloat height = gli_cells_span(3, theme.cellHeight) + 2 * theme.gridMarginY;
+        for (CGFloat width = ceil(minimum); width <= 1200; width += 1) {
+            grid.frame = NSMakeRect(0, 0, width, height);
+            [grid flushDisplay];
+            NSUInteger expected = [self glkColumnsInWidth:width theme:theme];
+            XCTAssertEqual(grid.currentSizeInChars.width, (CGFloat)expected,
+                           @"%@ (cell %f, margin %ld) at width %f", theme.name,
+                           theme.cellWidth, (long)theme.gridMarginX, width);
+            XCTAssertEqual(grid.currentSizeInChars.height, 3.0, @"%@ at width %f", theme.name, width);
+            if (grid.currentSizeInChars.width != (CGFloat)expected)
+                break;
+        }
+    }
+}
+
+- (void)testGridRowsAreTheRowsGlkCounts {
+    for (Theme *theme in [self builtInThemes]) {
+        GlkTextGridWindow *grid = [self gridInTheme:theme];
+        CGFloat width = gli_cells_span(20, theme.cellWidth) + 2 * (theme.gridMarginX + 5);
+        CGFloat minimum = 2 * theme.gridMarginY + theme.cellHeight;
+        for (CGFloat height = ceil(minimum); height <= 600; height += 1) {
+            grid.frame = NSMakeRect(0, 0, width, height);
+            [grid flushDisplay];
+            NSUInteger expected = gli_cells_in(height - 2 * theme.gridMarginY, theme.cellHeight);
+            XCTAssertEqual(grid.currentSizeInChars.height, (CGFloat)expected,
+                           @"%@ (cell height %f) at height %f", theme.name, theme.cellHeight, height);
+            XCTAssertEqual(grid.currentSizeInChars.width, 20.0, @"%@ at height %f", theme.name, height);
+            if (grid.currentSizeInChars.height != (CGFloat)expected)
+                break;
+        }
+    }
+}
+
+// A window split off to hold n columns (glkimp's gli_cells_span plus the
+// margins) has n, and a full row of them is drawn inside the text view,
+// not clipped at the right edge.
+- (void)testAFullRowFitsInTheGrid {
+    for (Theme *theme in [self builtInThemes]) {
+        GlkTextGridWindow *grid = [self gridInTheme:theme];
+        CGFloat height = gli_cells_span(2, theme.cellHeight) + 2 * theme.gridMarginY;
+        for (NSUInteger n = 1; n <= 100; n++) {
+            CGFloat width = gli_cells_span((unsigned)n, theme.cellWidth) + 2 * (theme.gridMarginX + 5);
+            grid.frame = NSMakeRect(0, 0, width, height);
+            [grid flushDisplay];
+            XCTAssertEqual(grid.currentSizeInChars.width, (CGFloat)n, @"%@ at %lu columns", theme.name, n);
+            if (grid.currentSizeInChars.width != (CGFloat)n)
+                break;
+
+            [grid moveToColumn:0 row:0];
+            [grid putString:[@"" stringByPaddingToLength:n withString:@"W" startingAtIndex:0] style:style_Normal];
+            [grid flushDisplay];
+
+            NSTextView *textview = grid.textview;
+            NSLayoutManager *layout = textview.layoutManager;
+            NSTextContainer *container = textview.textContainer;
+            [layout ensureLayoutForTextContainer:container];
+            // The advances of the row and the line fragment padding on both
+            // sides (a glyph's ink, Monaco's "W" say, can hang over its cell)
+            NSRect used = [layout usedRectForTextContainer:container];
+            CGFloat right = NSMaxX(used) + textview.textContainerOrigin.x;
+            XCTAssertLessThanOrEqual(right, width - theme.gridMarginX + 0.01,
+                                     @"%@ at %lu columns", theme.name, n);
+            // Still on the first line: the row did not wrap
+            NSUInteger lastGlyph = [layout glyphIndexForCharacterAtIndex:n - 1];
+            NSRect line = [layout lineFragmentRectForGlyphAtIndex:lastGlyph effectiveRange:NULL];
+            XCTAssertEqual(NSMinY(line), 0.0, @"%@ at %lu columns", theme.name, n);
+        }
+    }
+}
+
+#pragma mark - Monaco
+
+// Monaco's metrics have tripped up the grid before (GlkStyle cellSize once
+// special-cased its height, or Hugo status bars stayed blank), and it is the
+// Spatterlight Classic grid font. These sizes include the fractional ones
+// that zooming gives.
+- (NSArray<NSNumber *> *)monacoSizes {
+    NSMutableArray<NSNumber *> *sizes = [NSMutableArray array];
+    for (CGFloat size = 8; size <= 24; size += 0.5)
+        [sizes addObject:@(size)];
+    [sizes addObjectsFromArray:@[ @(9.6), @(10.8), @(13.2), @(14.4), @(15.6) ]];
+    return sizes;
+}
+
+// self.theme with a Monaco grid font, the way the Classic theme sets it up:
+// zero baseline offset, and a maximum line height of the point size (as
+// Classic has) or none.
+- (Theme *)monacoThemeOfSize:(CGFloat)size cappedLineHeight:(BOOL)capped {
+    Theme *theme = self.theme;
+    NSFont *monaco = [NSFont fontWithName:@"Monaco" size:size];
+    XCTAssertNotNil(monaco);
+    theme.gridNormal.font = monaco;
+    [theme.gridNormal updateAttributes:^(NSMutableDictionary *attributes) {
+        attributes[NSBaselineOffsetAttributeName] = @(0);
+    }];
+    [theme.gridNormal updateParagraphStyle:^(NSMutableParagraphStyle *para) {
+        para.maximumLineHeight = capped ? size : 0;
+    }];
+    [theme populateStyles];
+    NSSize cell = theme.gridNormal.cellSize;
+    theme.cellWidth = cell.width;
+    theme.cellHeight = cell.height;
+    XCTAssertEqualObjects(theme.gridNormal.font.fontName, @"Monaco");
+    XCTAssertGreaterThan(theme.cellWidth, 0);
+    XCTAssertGreaterThan(theme.cellHeight, 0);
+    return theme;
+}
+
+- (void)testMonacoGridColumnsAndRowsAreTheOnesGlkCounts {
+    for (NSNumber *size in [self monacoSizes]) {
+        for (int capped = 0; capped <= 1; capped++) {
+            Theme *theme = [self monacoThemeOfSize:size.doubleValue cappedLineHeight:capped];
+            GlkTextGridWindow *grid = [self gridInTheme:theme];
+            NSString *what = [NSString stringWithFormat:@"Monaco %@%@ (cell %f x %f)", size,
+                              capped ? @" capped" : @"", theme.cellWidth, theme.cellHeight];
+
+            CGFloat height = gli_cells_span(3, theme.cellHeight) + 2 * theme.gridMarginY;
+            CGFloat minimum = 2 * (theme.gridMarginX + 5) + theme.cellWidth;
+            for (CGFloat width = ceil(minimum); width <= 700; width += 1) {
+                grid.frame = NSMakeRect(0, 0, width, height);
+                [grid flushDisplay];
+                NSUInteger expected = [self glkColumnsInWidth:width theme:theme];
+                XCTAssertEqual(grid.currentSizeInChars.width, (CGFloat)expected, @"%@ at width %f", what, width);
+                XCTAssertEqual(grid.currentSizeInChars.height, 3.0, @"%@ at width %f", what, width);
+                if (grid.currentSizeInChars.width != (CGFloat)expected)
+                    break;
+            }
+
+            CGFloat width = gli_cells_span(20, theme.cellWidth) + 2 * (theme.gridMarginX + 5);
+            minimum = 2 * theme.gridMarginY + theme.cellHeight;
+            for (CGFloat h = ceil(minimum); h <= 400; h += 1) {
+                grid.frame = NSMakeRect(0, 0, width, h);
+                [grid flushDisplay];
+                NSUInteger expected = gli_cells_in(h - 2 * theme.gridMarginY, theme.cellHeight);
+                XCTAssertEqual(grid.currentSizeInChars.height, (CGFloat)expected, @"%@ at height %f", what, h);
+                XCTAssertEqual(grid.currentSizeInChars.width, 20.0, @"%@ at height %f", what, h);
+                if (grid.currentSizeInChars.height != (CGFloat)expected)
+                    break;
+            }
+        }
+    }
+}
+
+// A grid split off for n columns and one row per Glk style, every row full
+// of "W" in its style: the rows lie a cell apart, none wraps, and the text
+// stays inside the margins. Bold or oblique Monaco is synthesized, so the
+// styles must keep the plain advance.
+- (void)testMonacoFullGridInEveryStyleFitsItsCells {
+    for (NSNumber *size in [self monacoSizes]) {
+        for (int capped = 0; capped <= 1; capped++) {
+            Theme *theme = [self monacoThemeOfSize:size.doubleValue cappedLineHeight:capped];
+            GlkTextGridWindow *grid = [self gridInTheme:theme];
+            NSString *what = [NSString stringWithFormat:@"Monaco %@%@ (cell %f x %f)", size,
+                              capped ? @" capped" : @"", theme.cellWidth, theme.cellHeight];
+            const NSUInteger rows = style_NUMSTYLES;
+
+            for (NSUInteger n = 1; n <= 81; n += 4) {
+                CGFloat width = gli_cells_span((unsigned)n, theme.cellWidth) + 2 * (theme.gridMarginX + 5);
+                CGFloat height = gli_cells_span((unsigned)rows, theme.cellHeight) + 2 * theme.gridMarginY;
+                grid.frame = NSMakeRect(0, 0, width, height);
+                [grid flushDisplay];
+                XCTAssertEqual(grid.currentSizeInChars.width, (CGFloat)n, @"%@ at %lu columns", what, n);
+                XCTAssertEqual(grid.currentSizeInChars.height, (CGFloat)rows, @"%@ at %lu columns", what, n);
+                if (grid.currentSizeInChars.width != (CGFloat)n || grid.currentSizeInChars.height != (CGFloat)rows)
+                    break;
+
+                NSString *row = [@"" stringByPaddingToLength:n withString:@"W" startingAtIndex:0];
+                for (NSUInteger r = 0; r < rows; r++) {
+                    [grid moveToColumn:0 row:r];
+                    [grid putString:row style:(NSUInteger)r];
+                }
+                [grid flushDisplay];
+
+                NSTextView *textview = grid.textview;
+                NSLayoutManager *layout = textview.layoutManager;
+                NSTextContainer *container = textview.textContainer;
+                [layout ensureLayoutForTextContainer:container];
+                NSPoint origin = textview.textContainerOrigin;
+                NSRect used = [layout usedRectForTextContainer:container];
+                XCTAssertLessThanOrEqual(NSMaxX(used) + origin.x, width - theme.gridMarginX + 0.01,
+                                         @"%@ at %lu columns", what, n);
+                XCTAssertLessThanOrEqual(NSMaxY(used) + origin.y, height - theme.gridMarginY + 0.01,
+                                         @"%@ at %lu columns", what, n);
+                for (NSUInteger r = 0; r < rows; r++) {
+                    NSUInteger first = [layout glyphIndexForCharacterAtIndex:r * (n + 1)];
+                    NSUInteger last = [layout glyphIndexForCharacterAtIndex:r * (n + 1) + n - 1];
+                    NSRect line = [layout lineFragmentRectForGlyphAtIndex:first effectiveRange:NULL];
+                    NSRect lastLine = [layout lineFragmentRectForGlyphAtIndex:last effectiveRange:NULL];
+                    XCTAssertEqualWithAccuracy(NSMinY(line), r * theme.cellHeight, 0.01,
+                                               @"%@ at %lu columns: row %lu (style %lu)", what, n, r, r);
+                    XCTAssertEqual(NSMinY(lastLine), NSMinY(line),
+                                   @"%@ at %lu columns: row %lu (style %lu) wrapped", what, n, r, r);
+                    NSRect rowUsed = [layout lineFragmentUsedRectForGlyphAtIndex:first effectiveRange:NULL];
+                    XCTAssertLessThanOrEqual(NSMaxX(rowUsed), gli_cells_span((unsigned)n, theme.cellWidth) + 10 + 0.01,
+                                             @"%@ at %lu columns: row %lu (style %lu) is wider than its cells", what, n, r, r);
+                }
+            }
+        }
+    }
 }
 
 #pragma mark - Printing

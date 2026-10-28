@@ -6,7 +6,7 @@ autosave (`autorestore/Temp*.m`, `autosavefiles.m`). Every terp links it, so
 run all of this before and after a change:
 
 ```
-glkimp/test/run_stream_test.sh               # stream.c and connect.c's UTF-16 under ASan+UBSan, a few seconds
+glkimp/test/run_stream_test.sh               # stream.c, connect.c's UTF-16 and window sizes under ASan+UBSan, a few seconds
 python3 glkimp/test/run_autosave_tests.py --build   # Bocfel + Glulxe autosave/autorestore
 (cd terps/question/test && python3 autosave/run_autosave_tests.py)
 (cd terps/scarier/test && python3 adrift4/harness/run_autosave_tests.py)
@@ -24,6 +24,13 @@ xcodebuild -project Spatterlight.xcodeproj -scheme Spatterlight -configuration D
   `connect_utf16_test.c`, which includes `connect.c` and plays the app on
   two pipes: print, unprint, line preload and the line input reply, with
   characters beyond the BMP, lone surrogates and out-of-range values.
+  Last, `window_size_test.c` builds `window.c` with the app stubbed and
+  sweeps cell sizes (5 to 20 in hundredths), margins and window sizes:
+  a window counts the cells that fit whole in its pixels (`gli_cells_in`
+  in `protocol.h`, which the app's grid uses too), and a fixed split of n
+  cells is given the pixels rounded up (`gli_cells_span`), so it counts n
+  again. Rounding to the nearest cell instead makes a grid a column wider
+  than the app lays out, and the game's lines wrap.
 - `run_autosave_tests.py`: `glulxe/undo-across-relaunch` is an expected
   XFAIL. `--build` builds the bocfel and glulxe targets into `build/`; if
   another build left `build/` with one architecture only, the x86_64 link

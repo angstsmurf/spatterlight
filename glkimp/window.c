@@ -1,5 +1,6 @@
 #include <math.h>
 #include "glkimp.h"
+#include "protocol.h"
 
 #define LINE_FRAGMENT_PADDING (0)
 
@@ -483,17 +484,17 @@ void glk_window_get_size(window_t *win, glui32 *width, glui32 *height)
             break;
         case wintype_TextGrid:
             if (win->bbox.x0 + ggridmarginx * 2 + LINE_FRAGMENT_PADDING <= win->bbox.x1)
-                wid = round(((win->bbox.x1 - win->bbox.x0) - ggridmarginx * 2 - LINE_FRAGMENT_PADDING) / gcellw);
+                wid = gli_cells_in((int)(win->bbox.x1 - win->bbox.x0) - ggridmarginx * 2 - LINE_FRAGMENT_PADDING, gcellw);
             if (win->bbox.y0 + ggridmarginy * 2 <= win->bbox.y1)
             {
-                hgt = round(((win->bbox.y1 - win->bbox.y0) - ggridmarginy * 2) / gcellh);
+                hgt = gli_cells_in((int)(win->bbox.y1 - win->bbox.y0) - ggridmarginy * 2, gcellh);
             }
             break;
         case wintype_TextBuffer:
             if (win->bbox.x0 + gbuffermarginx * 2 + LINE_FRAGMENT_PADDING <= win->bbox.x1)
-                wid = round(((win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2 - LINE_FRAGMENT_PADDING) / gbufcellw);
+                wid = gli_cells_in((int)(win->bbox.x1 - win->bbox.x0) - gbuffermarginx * 2 - LINE_FRAGMENT_PADDING, gbufcellw);
             if (win->bbox.y0 + gbuffermarginy * 2 <= win->bbox.y1)
-                hgt = round(((win->bbox.y1 - win->bbox.y0) - gbuffermarginy * 2) / gbufcellh);
+                hgt = gli_cells_in((int)(win->bbox.y1 - win->bbox.y0) - gbuffermarginy * 2, gbufcellh);
             break;
         case wintype_Graphics:
             wid = win->bbox.x1 - win->bbox.x0;
@@ -749,17 +750,17 @@ void gli_window_rearrange(window_t *win, grect_t *box)
                                 if (win->pair.size == 0)
                                     split = 0;
                                 else if (win->pair.vertical)
-                                    split = win->pair.size * gbufcellw + gbuffermarginx * 2 + LINE_FRAGMENT_PADDING;
+                                    split = gli_cells_span(win->pair.size, gbufcellw) + gbuffermarginx * 2 + LINE_FRAGMENT_PADDING;
                                 else
-                                    split = win->pair.size * gbufcellh + gbuffermarginy * 2;
+                                    split = gli_cells_span(win->pair.size, gbufcellh) + gbuffermarginy * 2;
                                 break;
                             case wintype_TextGrid:
                                 if (win->pair.size == 0) {
                                     split = 0;
                                 } else if (win->pair.vertical) {
-                                    split = win->pair.size * gcellw + ggridmarginx * 2 + LINE_FRAGMENT_PADDING;
+                                    split = gli_cells_span(win->pair.size, gcellw) + ggridmarginx * 2 + LINE_FRAGMENT_PADDING;
                                 } else {
-                                    split = win->pair.size * gcellh + ggridmarginy * 2;
+                                    split = gli_cells_span(win->pair.size, gcellh) + ggridmarginy * 2;
                                 }
                                 break;
                             case wintype_Graphics:
