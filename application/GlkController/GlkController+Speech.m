@@ -250,16 +250,12 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
         if ([mainWindow isKindOfClass:[GlkTextBufferWindow class]] && !self.currentMenu && !self.form)
             [(GlkTextBufferWindow *)mainWindow moveVoiceOverCursorToLastMove];
         if (self.theme.vODelayOn && !self.mustBeQuiet) {
-            for (GlkTextBufferWindow *win in self.bufferWindows)
-                [win resetLastSpokenString];
             // VoiceOver fetches the text of the game window shortly after
             // landing on it. That fetch is the cue to announce the last move
-            // (voiceOverFetchedBufferText); the timer below is the fallback
-            // for when no fetch comes.
-            self.voLandingState = VOLandingAwaitingFetch;
-            runOnMainAfterDelay(0.5, ^{
-                [self speakMostRecentAfterDelay];
-            });
+            // (voiceOverFetchedWindowText); speakMostRecentAfterDelay sets
+            // up the fallback for when no fetch comes.
+            self.announceOnVoiceOverLanding = YES;
+            [self speakMostRecentAfterDelay];
         }
     } else {
         VoiceOverHelperDetach(self.zmenu);
@@ -324,6 +320,7 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     runOnMainAfterDelay(lag + 2.0, ^{
         VOLandingState state = self.voLandingState;
         self.voLandingState = VOLandingIdle;
+        self.announceOnVoiceOverLanding = NO;
         if (state == VOLandingFetched) {
             SPVOTRACE("fallback skipped: announced on fetch");
             return;
@@ -341,15 +338,79 @@ static const NSTimeInterval kLayoutSettleInterval = 0.45;
     });
 }
 
-// VoiceOver has just fetched a buffer window's text: it has landed on the
-// window and is about to describe it, and some seconds later it would read
-// the whole text from the start. Announcing the last move now, after the
-// lag the user chose, interrupts that description and cancels the reading.
-// With a lag of 0 the announcement cuts the description short at once.
-- (void)voiceOverFetchedBufferText {
+#pragma mark VoiceOver landing
+
+// VoiceOver begins describing the window 0.02–0.25 s after the landing
+// fetch. Speech posted before that is lost under the description; speech
+// posted this long after the fetch cuts the description short instead.
+static const NSTimeInterval kVOLandingSpeechDelay = 1.1;
+
+// The window became key. When VoiceOver is on, it will land on the window
+// and fetch the text of a game window before describing it.
+- (void)voiceOverWindowBecameKey {
+    self.voLandingState = self.voiceOverActive ? VOLandingAwaitingFetch : VOLandingIdle;
+    self.announceOnVoiceOverLanding = NO;
+    [self.voLandingWaiters removeAllObjects];
+}
+
+// Runs block once VoiceOver has begun describing the window it just landed
+// on, so that the speech interrupts the description rather than being lost
+// under it. If no landing fetch comes within fallback seconds, or no landing
+// is in progress, block runs after fallback seconds instead. The block is
+// dropped if the window resigns key or becomes key again first.
+- (void)afterVoiceOverLanding:(dispatch_block_t)block fallback:(NSTimeInterval)fallback {
+    NSTimeInterval now = NSProcessInfo.processInfo.systemUptime;
+    if (self.voLandingState == VOLandingFetched) {
+        NSTimeInterval wait = self.voLandingFetchTime + kVOLandingSpeechDelay - now;
+        if (wait > 0) {
+            SPVOTRACE("speech %.2f after landing fetch", wait);
+            runOnMainAfterDelay(wait, block);
+            return;
+        }
+    }
+    if (self.voLandingState != VOLandingAwaitingFetch) {
+        runOnMainAfterDelay(fallback, block);
+        return;
+    }
+    if (!self.voLandingWaiters)
+        self.voLandingWaiters = [NSMutableArray new];
+    dispatch_block_t waiter = [block copy];
+    [self.voLandingWaiters addObject:waiter];
+    SPVOTRACE("speech waiting for landing fetch, fallback %.2f", fallback);
+    runOnMainAfterDelay(fallback, ^{
+        if ([self.voLandingWaiters containsObject:waiter]) {
+            SPVOTRACE("no landing fetch, speaking on fallback");
+            [self.voLandingWaiters removeObject:waiter];
+            waiter();
+        }
+    });
+}
+
+// VoiceOver has just fetched the text of a game window: it has landed on
+// the window and is about to describe it. Speech waiting for this is posted
+// after kVOLandingSpeechDelay. With Interrupt VoiceOver when appropriate,
+// the last move is announced after the lag the user chose: VoiceOver would
+// otherwise read the whole text from the start some seconds later, and the
+// announcement interrupts the description and cancels that reading. With a
+// lag of 0 the announcement cuts the description short at once.
+- (void)voiceOverFetchedWindowText {
     if (self.voLandingState != VOLandingAwaitingFetch)
         return;
     self.voLandingState = VOLandingFetched;
+    self.voLandingFetchTime = NSProcessInfo.processInfo.systemUptime;
+
+    NSArray<dispatch_block_t> *waiters = self.voLandingWaiters.copy;
+    [self.voLandingWaiters removeAllObjects];
+    if (waiters.count) {
+        SPVOTRACE("landing fetch, %lu waiting, speaking after %.2f", (unsigned long)waiters.count, kVOLandingSpeechDelay);
+        runOnMainAfterDelay(kVOLandingSpeechDelay, ^{
+            for (dispatch_block_t waiter in waiters)
+                waiter();
+        });
+    }
+
+    if (!self.announceOnVoiceOverLanding)
+        return;
     CGFloat lag = self.theme.vOHackDelay;
     SPVOTRACE("landing fetch, announcing after %.2f + 1.1", lag);
     runOnMainAfterDelay(lag, ^{

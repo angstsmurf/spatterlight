@@ -913,6 +913,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
             _mustBeQuiet = NO;
         }
 
+        [self voiceOverWindowBecameKey];
+
         if (_journeyMenuHandler && [_journeyMenuHandler updateOnBecameKey:!_shouldShowAutorestoreAlert || _turnsThisSession > 1]) {
             return;
         }
@@ -929,6 +931,8 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 - (void)windowDidResignKey:(NSNotification *)notification {
     _mustBeQuiet = YES;
     self.voLandingState = VOLandingIdle;
+    self.announceOnVoiceOverLanding = NO;
+    [self.voLandingWaiters removeAllObjects];
     // Park VoiceOver on the last move again, so the next activation lands
     // there, and start afresh on whether VoiceOver has read it (#80).
     GlkWindow *mainWindow = self.largestWithMoves;
@@ -1130,11 +1134,15 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         if (_voiceOverActive && !_mustBeQuiet) {
             [self checkZMenuAndSpeak:YES];
             if (!_zmenu && !_form) {
-                CGFloat delay = 0.2;
-                // We need a longer delay if we just closed a dialog
-                if (_journeyMenuHandler.dialogClosedRecently)
-                    delay = 1;
-                [self scheduleSpeakNewTextAfterDelay:delay];
+                if (_journeyMenuHandler.dialogClosedRecently) {
+                    // The window became key again when the dialog closed, and
+                    // VoiceOver is describing it. Speak once that has begun.
+                    [self afterVoiceOverLanding:^{
+                        [self scheduleSpeakNewTextAfterDelay:0.2];
+                    } fallback:1];
+                } else {
+                    [self scheduleSpeakNewTextAfterDelay:0.2];
+                }
             }
             _shouldSpeakNewText = NO;
         }

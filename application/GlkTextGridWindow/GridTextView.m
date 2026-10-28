@@ -139,6 +139,7 @@
 }
 
 - (id)accessibilityValue {
+    [self.gridWindow.glkctl voiceOverFetchedWindowText];
     if (self.gridWindow.quoteboxColumns.count)
         return nil;
     return super.accessibilityValue;

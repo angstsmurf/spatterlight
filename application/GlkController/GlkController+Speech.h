@@ -27,9 +27,17 @@
 // Speak previous moves
 - (IBAction)speakMostRecent:(id)sender;
 - (void)speakMostRecentAfterDelay;
-// A buffer window's text was fetched through accessibility, which is what
-// VoiceOver does right after landing on the window.
-- (void)voiceOverFetchedBufferText;
+
+// VoiceOver landing. When the game window becomes key, VoiceOver lands on
+// it, fetches the text of a game window and then describes the window.
+// Speech posted before the description begins is lost.
+- (void)voiceOverWindowBecameKey;
+// The text of a buffer or grid window was fetched through accessibility.
+- (void)voiceOverFetchedWindowText;
+// Runs block when VoiceOver has begun describing the window it just landed
+// on, or after fallback seconds if no landing is in progress or the fetch
+// never comes.
+- (void)afterVoiceOverLanding:(dispatch_block_t)block fallback:(NSTimeInterval)fallback;
 // The "Limit VoiceOver to Last Move" setting was toggled.
 - (void)voiceOverTailModeChanged;
 - (IBAction)speakPrevious:(id)sender;

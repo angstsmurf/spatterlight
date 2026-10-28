@@ -47,6 +47,9 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
 @property NSUInteger selectedLine;
 @property NSString *lastSpokenString;
 @property NSUInteger lastNumberOfItems;
+// Bumped by cancelPendingSpeech, so that a first speak waiting for
+// VoiceOver's landing is dropped too.
+@property NSUInteger speakGeneration;
 
 @end
 
@@ -98,12 +101,24 @@ static NSRegularExpression *BeyondZorkIndicatorRegex(void) {
 #pragma mark Speech
 
 - (void)cancelPendingSpeech {
+    _speakGeneration++;
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 }
 
 - (void)speakSelectedLine {
     if (!self.currentMenu.haveSpokenMenu) {
-        [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:kFirstSpeakDelay];
+        // A menu often appears as the window becomes key, when VoiceOver is
+        // about to describe the window. Describe the menu once that has
+        // begun, so that the description is what gets cut short; otherwise
+        // after kFirstSpeakDelay, which also lets the announcements made
+        // when a window is cleared pass.
+        ZMenu __weak *weakSelf = self;
+        NSUInteger generation = _speakGeneration;
+        [_glkctl afterVoiceOverLanding:^{
+            ZMenu *strongSelf = weakSelf;
+            if (strongSelf.glkctl && strongSelf.speakGeneration == generation)
+                [strongSelf performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0];
+        } fallback:kFirstSpeakDelay];
     } else {
         [self performSelector:@selector(deferredSpeakSelectedLine:) withObject:nil afterDelay:0];
     }
