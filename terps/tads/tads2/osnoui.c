@@ -985,6 +985,8 @@ int os_locate(const char *fname, int flen, const char *arg0,
     /* Check the current directory */
     if (osfacc(fname) == 0)
     {
+        if ((size_t)flen >= bufsiz)
+            return(0);
         memcpy(buf, fname, flen);
         buf[flen] = 0;
         return(1);
@@ -1003,6 +1005,9 @@ int os_locate(const char *fname, int flen, const char *arg0,
         {
             size_t  len = (size_t)(p - arg0);
             
+            /* don't overrun the buffer with a long program path */
+            if (len + flen >= bufsiz)
+                return(0);
             memcpy(buf, arg0, len);
             memcpy(buf+len, fname, flen);
             buf[len+flen] = 0;
