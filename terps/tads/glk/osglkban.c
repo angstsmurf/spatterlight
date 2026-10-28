@@ -59,7 +59,6 @@ typedef struct os_banner_s
     glui32 size;                    /* glk window size */
     glui32 type;                    /* glk window type */
     glui32 status;                  /* glk status style */
-    glui32 moremode;                /* stops at a [more] prompt when full */
     int textpx;                     /* fitted to its text's pixels, or 0 */
     glui32 asked_method;            /* the method and size the game asked */
     glui32 asked_size;              /* for, in its units (banner_gfx_size) */
@@ -120,8 +119,10 @@ extern glui32 statusbg;
 #ifdef OSGLK_PIXELS
 /*
  *   What the pictures in a text-buffer banner add to the size it fits its
- *   contents at.  The app counts a line with a picture in it as one line,
- *   however tall the picture, and a picture in the margin not at all.
+ *   contents at.  Spatterlight counts a line with a picture in it as one
+ *   line, however tall the picture, and a picture in the margin not at
+ *   all.  Gargoyle's count has the lines its pictures take up, as it puts
+ *   them on lines of their own, but not those beside a margin picture.
  */
 typedef struct picture_fit_s
 {
@@ -129,6 +130,8 @@ typedef struct picture_fit_s
     int row, row_extra;             /* the last picture's line, its extra */
     int bottom;                     /* the line under the margin pictures */
     int unknown;                    /* a picture whose size isn't known */
+    int last;                       /* nothing after the last picture */
+    int count;                      /* the pictures */
 }
 picture_fit;
 
@@ -139,6 +142,8 @@ static void picture_fit_init(picture_fit *fit)
     fit->row_extra = 0;
     fit->bottom = 0;
     fit->unknown = 0;
+    fit->last = 0;
+    fit->count = 0;
 }
 
 /*
@@ -152,6 +157,7 @@ static int picture_fit_add(picture_fit *fit, winid_t win,
     double cellw = osglk_px_cellw(), cellh = osglk_px_cellh();
     int lines;
 
+    ++fit->count;
     if (cellw <= 0 || cellh <= 0
         || !oshtml_image_size(img, width, &w, &h))
     {
@@ -168,6 +174,8 @@ static int picture_fit_add(picture_fit *fit, winid_t win,
     }
     else
     {
+        fit->last = 1;
+
         /* the tallest picture on a line sets its height */
         if (line != fit->row)
         {
@@ -186,7 +194,12 @@ static int picture_fit_add(picture_fit *fit, winid_t win,
 /* the lines a banner fits at, with the app's count of its text lines */
 static int picture_fit_lines(const picture_fit *fit, int lines)
 {
+#ifdef SPATTERLIGHT
     lines += fit->extra;
+#else
+    /* and the line under the last picture, where the next text would go */
+    lines += fit->last;
+#endif /* SPATTERLIGHT */
     return lines > fit->bottom ? lines : fit->bottom;
 }
 #endif /* OSGLK_PIXELS */
@@ -223,7 +236,6 @@ osbanid_t os_banner_init(void)
     instance->size = 0;
     instance->type = 0;
     instance->status = 0;
-    instance->moremode = 0;
     instance->textpx = 0;
     instance->asked_method = 0;
     instance->asked_size = 0;
@@ -634,7 +646,6 @@ void os_banners_open(osbanid_t banner)
                 fixed_hints_clear();
             if (banner->win)
             {
-                osglk_set_paging(banner->win, banner->moremode);
                 osglk_set_text_height(banner->win, banner->textpx);
                 if (banner->status || banner->bgscreen)
                     banner_set_background(banner);
@@ -828,7 +839,6 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
     gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus);
     if (gbanner)
     {
-        gbanner->moremode = (style & OS_BANNER_STYLE_MOREMODE) != 0;
         if (banner_side_text(wintype, align))
         {
             gbanner->type = wintype_Graphics;
@@ -947,6 +957,7 @@ void os_banner_size_to_contents(void *banner_handle)
                     col = nl = 0;
                 }
                 /* a character, but not the rest of one in UTF-8 */
+                fit.last = 0;
                 if ((ch & 0xC0) != 0x80 && ++col > maxcol)
                     maxcol = col;
             }
@@ -1562,6 +1573,12 @@ typedef struct tagban_s
     int px_text;
 
     /*
+     *   A banner across in pixels with only pictures in it grows to them,
+     *   if it's too short: what it grew to
+     */
+    glui32 px_grown;
+
+    /*
      *   If it's one picture, that is drawn in the graphics window, as the
      *   pictures beside the page are (osglk.c), and the text window gets
      *   none of it: the pictures, the widest, and whether it's drawn so
@@ -1682,6 +1699,7 @@ static void tag_put(void *ctx, const glui32 *buf, size_t len)
         if (str && !tb->measure)
             glk_put_char_stream_uni(str, c);
 #ifdef OSGLK_PIXELS
+        tb->pictures.last = 0;
         if (c != ' ' && c != 0xA0)
             tb->px_text = 1;
 #endif /* OSGLK_PIXELS */
@@ -1943,8 +1961,6 @@ static void tag_open_window(tagban_t *tb, int pixels)
     }
     else
         tb->win = glk_window_open(mainwin, tb->method, tb->size, tb->type, 0);
-    if (tb->win)
-        osglk_set_paging(tb->win, 0);
 
     if (tb->type == wintype_TextGrid)
         grid_hints_clear();
@@ -2035,10 +2051,11 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         size = num <= 0 ? 0 : (glui32)num;
         pixels = 1;
 #ifdef OSGLK_PIXELS
-        /* as it shrank the last time, so it needn't grow first */
-        if (vertical && !isnew && tb->px_asked == num && tb->px_shrunk)
-            size = tb->px_shrunk;
-        tb->px_asked = vertical ? num : 0;
+        /* as it shrank or grew the last time, so it needn't change first */
+        if (!isnew && tb->px_asked == num
+            && (vertical ? tb->px_shrunk : tb->px_grown))
+            size = vertical ? tb->px_shrunk : tb->px_grown;
+        tb->px_asked = num;
 #endif /* OSGLK_PIXELS */
     }
     else if (units == OSHTML_SIZE_PIX)
@@ -2164,22 +2181,48 @@ static void tag_table_draw(tagban_t *tb)
 }
 
 /*
- *   the pixels the text above the table takes up: as the app measures it,
- *   or failing that, what the count of its lines and pictures comes to
+ *   the pixels a banner's text takes up: as the app measures it, or
+ *   failing that, what the count of its lines and pictures comes to
  */
-static void tag_table_text(tagban_t *tb, int estimate)
+static int tag_text_pixels(tagban_t *tb, int estimate, glui32 *px)
 {
     int h = osglk_px_text_height(tb->win);
     glui32 my = 0;
 
     osglk_px_margins(tb->win, NULL, &my);
     if (h > 0)
-        tb->tbl_text = (glui32)h + 2 * my;
+        *px = (glui32)h + 2 * my;
     else if (estimate)
-        tb->tbl_text = (glui32)(picture_fit_lines(&tb->pictures,
-                                                  osglk_px_lines(tb->win))
-                                * osglk_px_cellh()) + 2 * my;
+        *px = (glui32)(picture_fit_lines(&tb->pictures,
+                                         osglk_px_lines(tb->win))
+                       * osglk_px_cellh()) + 2 * my;
+    else
+        return 0;
+    return 1;
 }
+
+static void tag_table_text(tagban_t *tb, int estimate)
+{
+    tag_text_pixels(tb, estimate, &tb->tbl_text);
+}
+
+#ifndef SPATTERLIGHT
+/*
+ *   A banner across with only pictures is at least as tall as they are:
+ *   the game sized it to them as HTML TADS packs them, closer than
+ *   Gargoyle's lines and margins do
+ */
+static void tag_fit_pictures(tagban_t *tb)
+{
+    glui32 asked = tb->px_asked > 0 ? (glui32)tb->px_asked : 0, h = 0;
+
+    if (!tb->gfx || tag_vertical(tb->method) || tb->tblwin || tb->px_text
+        || !tb->pictures.count || !tag_text_pixels(tb, 1, &h))
+        return;
+    tb->px_grown = h > asked ? h : 0;
+    tag_resize(tb, h > asked ? h : asked);
+}
+#endif /* SPATTERLIGHT */
 
 /*
  *   a text window's height in pixels: a text buffer gives its size in
@@ -2312,6 +2355,10 @@ int osglk_tag_banner_done(void *ctx)
     if (tb->fit)
         tag_resize(tb, tag_fitted(tb));
 #ifdef OSGLK_PIXELS
+#ifndef SPATTERLIGHT
+    if (!tb->measure)
+        tag_fit_pictures(tb);
+#endif /* SPATTERLIGHT */
     /* the text's own height, unless a picture in the margin is taller */
     if (tb->type == wintype_TextBuffer && tb->win && !tag_vertical(tb->method))
         osglk_set_text_height(tb->win,

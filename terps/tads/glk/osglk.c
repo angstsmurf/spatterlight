@@ -657,16 +657,6 @@ void osglk_set_window_bg(winid_t win, glui32 color)
 #endif /* SPATTERLIGHT */
 }
 
-void osglk_set_paging(winid_t win, int paging)
-{
-#ifdef GLK_MODULE_GARGLKPAGING
-    garglk_window_set_paging(win, (glui32)paging);
-#else
-    (void)win;
-    (void)paging;
-#endif
-}
-
 void osglk_set_text_height(winid_t win, int pixels)
 {
 #ifdef SPATTERLIGHT

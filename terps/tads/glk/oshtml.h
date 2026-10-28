@@ -140,13 +140,6 @@ int osglk_px_text_height(winid_t win);
 void osglk_set_window_bg(winid_t win, glui32 color);
 
 /*
- *   Whether a text buffer stops at a [more] prompt when it fills.  A banner
- *   doesn't, unless the game asks for it: Gargoyle's prompt would take the
- *   keys meant for the main window.
- */
-void osglk_set_paging(winid_t win, int paging);
-
-/*
  *   A text buffer banner at the top or bottom fitted to its text: as tall as
  *   the text's pixels, or 0 for the lines it was split off with.  A line in
  *   a font other than the buffer's may be taller than the buffer's lines, so
