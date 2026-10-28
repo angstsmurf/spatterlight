@@ -1525,6 +1525,14 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
         return;
     }
 
+    /*
+     *   Markup fills the buffer without taking up columns, so a line full
+     *   of tags runs out of buffer before it runs out of columns: flush it
+     *   first (the most a character adds below is two, for a double space)
+     */
+    if (stream->linepos + 2 >= MAXWIDTH)
+        outflushn_stream(stream, 0);
+
     /* add the character to out output buffer, flushing as needed */
     if (stream->linecol + 1 < G_os_linewidth)
     {
