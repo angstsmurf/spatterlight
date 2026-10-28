@@ -60,6 +60,7 @@ typedef struct os_banner_s
     glui32 type;                    /* glk window type */
     glui32 status;                  /* glk status style */
     glui32 moremode;                /* stops at a [more] prompt when full */
+    int textpx;                     /* fitted to its text's pixels, or 0 */
 
     glui32 cheight;                 /* glk char height */
     glui32 cwidth;                  /* glk char width */
@@ -219,6 +220,7 @@ osbanid_t os_banner_init(void)
     instance->type = 0;
     instance->status = 0;
     instance->moremode = 0;
+    instance->textpx = 0;
 
     instance->cheight = 0;
     instance->cwidth = 0;
@@ -481,6 +483,7 @@ void os_banners_open(osbanid_t banner)
             if (banner->win)
             {
                 osglk_set_paging(banner->win, banner->moremode);
+                osglk_set_text_height(banner->win, banner->textpx);
                 if (banner->status || banner->bgscreen)
                     banner_set_background(banner);
                 banner_contents_display(banner->contents);
@@ -679,6 +682,15 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units, int is_advi
     if (!banner || !banner->valid)
         return;
 
+#ifdef OSGLK_PIXELS
+    /*
+     *   the game will fit a text banner to its contents after, which we
+     *   can, so the size until then would only make it jump
+     */
+    if (is_advisory && banner->type == wintype_TextBuffer)
+        return;
+#endif /* OSGLK_PIXELS */
+
     glui32 gwinsize = siz;
     glui32 gwinmeth = 0;
 
@@ -691,6 +703,14 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units, int is_advi
         case OS_BANNER_SIZE_PCT: gwinmeth |= winmethod_Proportional; break;
         case OS_BANNER_SIZE_ABS: gwinmeth |= winmethod_Fixed; break;
         default: gwinmeth |= winmethod_Fixed; break;
+    }
+
+    /* a size the game gives is in lines */
+    if (banner->textpx)
+    {
+        banner->textpx = 0;
+        if (banner->win)
+            osglk_set_text_height(banner->win, 0);
     }
 
     /* fitting a banner to the same contents again changes nothing */
@@ -765,6 +785,14 @@ void os_banner_size_to_contents(void *banner_handle)
         else
             size = picture_fit_lines(&fit, osglk_px_lines(banner->win));
         os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
+
+        /* the text's own height, unless a picture in the margin is taller */
+        if (dir != winmethod_Left && dir != winmethod_Right && size > 0
+            && !fit.unknown && !fit.bottom && banner->win)
+        {
+            banner->textpx = osglk_px_text_height(banner->win);
+            osglk_set_text_height(banner->win, banner->textpx);
+        }
     }
 #endif /* OSGLK_PIXELS */
 }
@@ -2026,6 +2054,12 @@ int osglk_tag_banner_done(void *ctx)
     if (tb->fit)
         tag_resize(tb, tag_fitted(tb));
 #ifdef OSGLK_PIXELS
+    /* the text's own height, unless a picture in the margin is taller */
+    if (tb->type == wintype_TextBuffer && tb->win && !tag_vertical(tb->method))
+        osglk_set_text_height(tb->win,
+                              tb->fit && tb->size && !tb->pictures.unknown
+                              && !tb->pictures.bottom
+                              ? osglk_px_text_height(tb->win) : 0);
     else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
     {
         int alone;

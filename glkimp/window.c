@@ -457,6 +457,7 @@ void glk_window_set_arrangement(window_t *win, glui32 method, glui32 size, winid
     win->pair.division = method & winmethod_DivisionMask;
     win->pair.key = key;
     win->pair.size = size;
+    win->pair.textheight = 0;
 
     win->pair.vertical = (win->pair.dir == winmethod_Left || win->pair.dir == winmethod_Right);
     win->pair.backward = (win->pair.dir == winmethod_Left || win->pair.dir == winmethod_Above);
@@ -648,6 +649,37 @@ int garglk_tads_os_banner_size(window_t *win)
     return win_lines(win->peer);
 }
 
+/*
+ *   A text buffer split off at a fixed height, made as tall as its text in
+ *   pixels rather than in lines of the buffer font, which a line in another
+ *   font may be taller or shorter than.  0 goes back to the lines it was
+ *   split off with; glk_window_set_arrangement() does too.  The TADS
+ *   interpreter fits a banner to its text with it.
+ */
+void spatterlight_window_set_text_height(window_t *win, glui32 pixels)
+{
+    window_t *pair;
+
+    if (!win)
+    {
+        gli_strict_warning("window_set_text_height: invalid ref");
+        return;
+    }
+    if (win->type != wintype_TextBuffer)
+        return;
+
+    /* the split it is the key of */
+    for (pair = win->parent; pair; pair = pair->parent)
+        if (pair->pair.key == win)
+            break;
+    if (!pair || pair->pair.division != winmethod_Fixed
+        || pair->pair.vertical || pair->pair.textheight == pixels)
+        return;
+
+    pair->pair.textheight = pixels;
+    gli_windows_rearrange();
+}
+
 strid_t glk_window_get_stream(window_t *win)
 {
     if (!win)
@@ -767,6 +799,8 @@ void gli_window_rearrange(window_t *win, grect_t *box)
                                     split = 0;
                                 else if (win->pair.vertical)
                                     split = gli_cells_span(win->pair.size, gbufcellw) + gbuffermarginx * 2 + LINE_FRAGMENT_PADDING;
+                                else if (win->pair.textheight)
+                                    split = (int)win->pair.textheight + gbuffermarginy * 2;
                                 else
                                     split = gli_cells_span(win->pair.size, gbufcellh) + gbuffermarginy * 2;
                                 break;

@@ -511,6 +511,7 @@ extern void garglk_set_reversevideo(glui32 reverse);
 extern void garglk_set_reversevideo_stream(strid_t str, glui32 reverse);
 
 extern int garglk_tads_os_banner_size(winid_t win);
+extern void spatterlight_window_set_text_height(winid_t win, glui32 pixels);
 
 /* non standard keycodes */
 #define keycode_Erase               (0xffffef7f)

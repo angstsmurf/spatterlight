@@ -17,6 +17,7 @@
     glui32 division;        /* winmethod_Fixed or winmethod_Proportional */
     glui32 key;            /* NULL or a leaf-descendant (not a Pair) */
     glui32 size;            /* size value */
+    glui32 textheight;      /* a Fixed text buffer's text, in pixels */
 
     // For line input buffer struct:
     void *buf;
@@ -97,6 +98,7 @@
         if (win->pair.key)
             key = win->pair.key->tag;
         size = win->pair.size;
+        textheight = win->pair.textheight;
 
 		char_request = win->char_request;
 		line_request = win->line_request;
@@ -169,6 +171,7 @@
     backward = [decoder decodeInt32ForKey:@"backward"];
     division = [decoder decodeInt32ForKey:@"division"];
     size = [decoder decodeInt32ForKey:@"size"];
+    textheight = (glui32)[decoder decodeInt32ForKey:@"textheight"];
     key = [decoder decodeInt32ForKey:@"key"];
 
     style = [decoder decodeInt32ForKey:@"style"];
@@ -283,6 +286,7 @@
     [encoder encodeInt32:backward forKey:@"backward"];
     [encoder encodeInt32:division forKey:@"division"];
     [encoder encodeInt32:size forKey:@"size"];
+    [encoder encodeInt32:(int32_t)textheight forKey:@"textheight"];
     [encoder encodeInt32:key forKey:@"key"];
 
     [encoder encodeInt32:fgset forKey:@"fgset"];
@@ -324,6 +328,7 @@
     win->pair.backward = backward;
     win->pair.division = division;
     win->pair.size = size;
+    win->pair.textheight = textheight;
 
     win->line.len = len;
     win->line.cap = cap;

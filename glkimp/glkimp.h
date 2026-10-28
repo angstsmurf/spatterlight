@@ -315,6 +315,7 @@ struct glk_window_struct {
         glui32 division;		/* winmethod_Fixed or winmethod_Proportional */
         window_t *key;			/* NULL or a leaf-descendant (not a Pair) */
         glui32 size;			/* size value */
+        glui32 textheight;		/* a Fixed text buffer's text, in pixels, or 0 */
     } pair;
 
     struct

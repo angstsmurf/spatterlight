@@ -147,6 +147,14 @@ void osglk_set_window_bg(winid_t win, glui32 color);
 void osglk_set_paging(winid_t win, int paging);
 
 /*
+ *   A text buffer banner at the top or bottom fitted to its text: as tall as
+ *   the text's pixels, or 0 for the lines it was split off with.  A line in
+ *   a font other than the buffer's may be taller than the buffer's lines, so
+ *   counting lines would cut off the bottom.  Only Spatterlight can.
+ */
+void osglk_set_text_height(winid_t win, int pixels);
+
+/*
  *   Text colours, with garglk_set_zcolors.  In Gargoyle a background is
  *   the paper of every window, so there only the screen colour sets one.
  */

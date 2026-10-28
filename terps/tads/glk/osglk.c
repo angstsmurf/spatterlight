@@ -667,6 +667,16 @@ void osglk_set_paging(winid_t win, int paging)
 #endif
 }
 
+void osglk_set_text_height(winid_t win, int pixels)
+{
+#ifdef SPATTERLIGHT
+    spatterlight_window_set_text_height(win, pixels > 0 ? (glui32)pixels : 0);
+#else
+    (void)win;
+    (void)pixels;
+#endif /* SPATTERLIGHT */
+}
+
 /* the main window's background, which the side pictures' match */
 static glui32 main_bg = zcolor_Default;
 
