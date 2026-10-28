@@ -676,7 +676,7 @@
             NSError *error = nil;
             BOOL writeResult = NO;
             if (fileFormat == kPlainText) {
-                // If a text buffer window starts with a margin image before any text, we insert a soft hyphen (codepoint U+00AD) before the attachment character to avoid layout glitches. We strip that character from the plain text here.
+                // Text buffers saved before 2026-10 put a soft hyphen (U+00AD) in front of a margin image at the top of the window. Strip it from the plain text here, with the attachment characters.
                 // We also strip the unicode replacement character U+FFFC which both attachments and style changes seem to leave behind, and null characters, which might be hiding anywhere in an NSString.
                 NSCharacterSet *unwanted = [NSCharacterSet characterSetWithCharactersInString:@"\u00AD\0\uFFFC"];
                 NSString *string = [localTextStorage.string stringByTrimmingCharactersInSet:unwanted];

@@ -116,10 +116,11 @@ static const NSUInteger kMaxMarginImages = 200;
         image = [self scaleImage:image size:NSMakeSize((CGFloat)w, (CGFloat)h)];
     }
 
-    if (textstorage.length == 0 && isMargin) {
-        [textstorage appendAttributedString:[[NSAttributedString alloc] initWithString:@"\u00AD" attributes:styles[style]]];
+    // An empty window is at the start of a line. (A soft hyphen used to go
+    // in front of the image here, but that starts the first line before the
+    // image's anchor, and MarginContainer then lets that line run over it.)
+    if (textstorage.length == 0 && isMargin)
         _lastchar = '\n';
-    }
 
     NSTextAttachment *att = [self textAttachmentWithImage:image alignment:alignment index:index position:textstorage.length];
     MyAttachmentCell *cell = (MyAttachmentCell *)att.attachmentCell;

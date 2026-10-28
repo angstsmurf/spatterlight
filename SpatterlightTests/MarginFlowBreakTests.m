@@ -258,6 +258,21 @@
     XCTAssertLessThan(NSMinY([rig lineAt:after]), NSMaxY(image.bounds));
 }
 
+// An image at the top of an empty window is asked for its bounds before its
+// anchor character is there (According to Cain).
+- (void)testTextFlowsBesideAMarginImageAtTheTop {
+    FlowBreakRig *rig = [[FlowBreakRig alloc] initWithWidth:500];
+    MarginImage *image = [rig marginImageOfSize:NSMakeSize(100, 100) alignment:imagealign_MarginLeft];
+    NSUInteger first = rig.storage.length;
+    [rig print:@"A first line.\n"];
+    NSUInteger second = rig.storage.length;
+    [rig print:@"A second line.\n"];
+
+    XCTAssertEqual(image.bounds.size.width, 100);
+    XCTAssertEqualWithAccuracy(NSMinX([rig lineAt:first]), NSMaxX(image.bounds), 0.5);
+    XCTAssertEqualWithAccuracy(NSMinX([rig lineAt:second]), NSMaxX(image.bounds), 0.5);
+}
+
 - (void)testFlowBreakAtStartOfLineMovesItBelowTheImage {
     FlowBreakRig *rig = [[FlowBreakRig alloc] initWithWidth:500];
     [rig print:@"Intro.\n"];

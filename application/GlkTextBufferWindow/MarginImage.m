@@ -81,15 +81,17 @@
     NSSize size = _image.size;
 
     if (recalc) {
-        recalc = NO; /* don't infiniloop in here, settle for the first result */
-
         _bounds = NSZeroRect;
         NSTextView *textview = _container.textView;
 
-        if (_pos >= textview.textStorage.length) {
-            NSLog(@"MarginImage boundsWithLayout: _pos: %lu textStorage.length: %lu", (unsigned long)_pos, (unsigned long)textview.textStorage.length);
+        /* The image is added before its anchor character, so an image at the
+         * top of an empty window is asked for its bounds while there is no
+         * anchor yet. Ask again once there is one: settling for zero bounds
+         * here lets the text run over the image. */
+        if (_pos >= textview.textStorage.length)
             return NSZeroRect;
-        }
+
+        recalc = NO; /* don't infiniloop in here, settle for the first result */
 
         /* get position of anchor glyph. _pos is a character index, so it must
          * be converted to a glyph index first (mirroring FlowBreak): the two
