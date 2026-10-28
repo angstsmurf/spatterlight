@@ -740,15 +740,19 @@ public:
         /* 
          *   For UTF-8, we can infer the byte length of a character from the
          *   first byte of the sequence.  If the given length is at least the
-         *   inferred byte length, we have a complete character.  
+         *   inferred byte length, we have a complete character.  With no
+         *   bytes there's no first byte to read.
          */
-        return (len >= utf8_ptr::s_charsize(*p));
+        return (len != 0 && len >= utf8_ptr::s_charsize(*p));
     }
 
     /* map one character */
     virtual int mapchar(wchar_t &ch, const char *&p, size_t &len)
     {
-        /* make sure we have a complete character */
+        /* make sure we have a complete character (an empty buffer has no
+         * first byte to read, as when the last one fills it exactly) */
+        if (len == 0)
+            return FALSE;
         size_t clen = utf8_ptr::s_charsize(*p);
         if (len >= clen)
         {
@@ -1130,6 +1134,10 @@ public:
     /* map one character */
     virtual int mapchar(wchar_t &ch, const char *&p, size_t &len)
     {
+        /* an empty buffer has no first byte to read */
+        if (len == 0)
+            return FALSE;
+
         /* get the first byte's translation entry */
         cmap_mb_entry e = map_[(unsigned char)*p];
 
