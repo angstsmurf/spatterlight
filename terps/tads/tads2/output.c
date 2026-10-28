@@ -270,6 +270,14 @@ struct out_stream_info
     int linepos;
     uchar linecol;
 
+    /*
+     *   the last character of a part of the line flushed out without a
+     *   newline, for the space and punctuation checks that look back
+     *   past the start of linebuf (a mid-line flush empties it, but the
+     *   column stays where it was)
+     */
+    char flushed_char;
+
     /* number of lines on the screen (since last MORE prompt) */
     int linecnt;
 
@@ -461,6 +469,7 @@ static void out_state_init(out_stream_info *stream)
     stream->linepos = 0;
     stream->linecol = 0;
     stream->linebuf[0] = '\0';
+    stream->flushed_char = '\0';
 
     /* set normal text attributes */
     stream->cur_attr = 0;
@@ -1192,6 +1201,10 @@ static void outflushn_stream(out_stream_info *stream, int nl)
         {
             /* we're not displaying a newline, so flush what we have */
             os_flush();
+
+            /* the line goes on after what we flushed */
+            if (stream->linepos != 0)
+                stream->flushed_char = stream->linebuf[stream->linepos - 1];
         }
         else
         {
@@ -1529,7 +1542,10 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
             && stream->html_pre_level == 0)
         {
             int  pos1 = stream->linepos - 1;
-            char p = stream->linebuf[pos1];     /* check previous character */
+            char p;
+
+            /* check previous character */
+            p = (pos1 >= 0 ? stream->linebuf[pos1] : stream->flushed_char);
 
             /* ignore repeated spaces - collapse into a single space */
             if (outissp(p))
@@ -1552,7 +1568,7 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
             if (doublespace)
             {
                 /* find the previous relevant punctuation character */
-                while (pos1 &&
+                while (pos1 > 0 &&
                        (p == '"' || p == '\'' || p == ')' || p == ']'
                         || p == '}'))
                 {
@@ -1587,7 +1603,9 @@ static void outchar_noxlat_stream(out_stream_info *stream, char c)
     if (outissp(c) && c != '\t' && !qspace)
     {
         /* this is a space, so we're at a word break */
-        if (stream->linebuf[stream->linepos - 1] != ' ')
+        if ((stream->linepos != 0
+             ? stream->linebuf[stream->linepos - 1]
+             : stream->flushed_char) != ' ')
         {
             stream->attrbuf[stream->linepos] = stream->cur_attr;
             stream->linebuf[stream->linepos++] = ' ';
