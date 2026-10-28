@@ -28,7 +28,8 @@ baseline from the unchanged build, then compare.
                  CORPUS/goldens/<stem>_walkthrough.txt (the census path
                  with "/" as "__" and without .gam/.t3), type that
                  instead; the other games get the default script
-  --timeout S    seconds before a game is killed (default 60)
+  --timeout S    seconds before a game is killed (default 60), or more
+                 for a long script: PER_COMMAND seconds a command
   substring      only the games whose census path contains one of these
 
 Consecutive PRINTs to the same window in the same style are joined into one
@@ -67,6 +68,10 @@ CORPUS = os.path.join(HERE, "htmltads")
 # v6trace.Tracer.feed_key).
 SCRIPT = ["look", "inventory", "examine me", "about", "help", "wait",
           "score"]
+
+# seconds a command may take, so a long walkthrough isn't killed before it
+# ends: LydiasHeart's 976 commands take 79 s alone, more with 8 games going
+PER_COMMAND = 0.15
 
 
 # the list of games in each corpus, relative to the corpus folder
@@ -151,6 +156,7 @@ def run_one(terp, path, out, script, timeout):
     home = os.path.join(out, "home", trace_name(path)[:-len(".trace")])
     os.makedirs(home)
     started = time.time()
+    timeout = max(timeout, PER_COMMAND * len(script))
     trace, rc, err, left = v6trace.run(terp, story, home, list(script),
                                        timeout=timeout)
     lines = join_prints(trace)
