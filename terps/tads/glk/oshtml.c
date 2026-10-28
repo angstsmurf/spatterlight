@@ -220,6 +220,7 @@ struct oshtml_parser
     oshtml_image cell_img;
     int cell_pic_space;         /* a space came after it */
     int side_left;              /* the row's first cell went beside it */
+    int margin_pic;             /* or in the margin, until the row ends */
 
     /*
      *   TADS 2: a <BANNER>, whose text waits for its </BANNER>, and whether
@@ -1874,11 +1875,27 @@ static void cell_picture_tag(parser *p, const glui32 *name, size_t len,
         return;
     }
 
-    if (p->cell_pic != (right ? 2 : 1)
-        || !osglk_side_picture(right, &p->cell_img))
+    if (p->cell_pic != (right ? 2 : 1))
     {
         release_cell_picture(p);
         return;
+    }
+    if (!osglk_side_picture(right, &p->cell_img))
+    {
+        /*
+         *   in a window too narrow for that, a first cell's picture goes in
+         *   the margin, so that the next cell's text runs beside it, and
+         *   the next row starts below it (According to Cain's vignette)
+         */
+        if (right)
+        {
+            release_cell_picture(p);
+            return;
+        }
+        p->cell_pic = 0;
+        p->cell_img.align = imagealign_MarginLeft;
+        show_image(p, &p->cell_img);
+        p->margin_pic = 1;
     }
 
     /* the next cell is the row's first, as far as the text goes */
@@ -1888,6 +1905,15 @@ static void cell_picture_tag(parser *p, const glui32 *name, size_t len,
         p->side_left = 1;
         --p->ncell;
     }
+}
+
+/* the row with a picture in the margin is over: what follows goes below */
+static void end_margin_pic(parser *p)
+{
+    if (!p->margin_pic)
+        return;
+    p->margin_pic = 0;
+    flow_break(p);
 }
 
 /* an <IMG>, 'alone' if first in its cell: false if it can't be shown */
@@ -2359,6 +2385,7 @@ static void do_tag(parser *p)
                 p->cell_hold = 0;
                 pop_elem(p, t + name, namelen);
                 line_break(p);
+                end_margin_pic(p);
             }
         }
         else
@@ -2385,6 +2412,7 @@ static void do_tag(parser *p)
             close_cell(p);
             close_elem(p, "tr", tr_stops);
             line_break(p);
+            end_margin_pic(p);
             if (!end)
             {
                 push_elem(p, t + name, namelen);
@@ -4163,7 +4191,7 @@ static void close_all(parser *p)
     if (p->nelems)
         restore_elem(p, 0);
     p->nmaprow = 0;
-    p->cell_pic = p->cell_empty = p->side_left = 0;
+    p->cell_pic = p->cell_empty = p->side_left = p->margin_pic = 0;
     p->cur.attr = 0;
     p->cur.fg = p->text;
     p->cur.bg = OS_COLOR_P_TRANSPARENT;
