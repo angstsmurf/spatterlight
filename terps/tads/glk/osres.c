@@ -277,11 +277,16 @@ struct appctxdef *osres_t2_appctx(void)
  *   Lookup
  */
 
+/*
+ *   The last entry of that name, as in HTML TADS: a resource file can
+ *   replace a resource of the game file or of an earlier resource file
+ *   (Threnody's .gam has 2x2 placeholders for the pictures in its .rs1)
+ */
 static resentry *find_entry(const char *norm)
 {
     size_t i;
 
-    for (i = 0 ; i < nentries ; ++i)
+    for (i = nentries ; i-- > 0 ; )
         if (strcasecmp(entries[i].name, norm) == 0)
             return &entries[i];
     return NULL;
