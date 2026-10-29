@@ -71,9 +71,9 @@ e
 e
 e
 i
-save
 n
 x crackhead
+kill crackhead
 kill crackhead
 x switchblade
 w
@@ -110,18 +110,27 @@ enter door
 w
 x knife
 take it
-drop club
 x fridge
 open it
 x cheese
 x sausage
 put cheese in rucksack
 put sausage in rucksack
-wield knife
 e
 n
 x thug
 kill thug
+kill thug
+kill thug
+kill thug
+xyzzy
+kill thug
+kill thug
+kill thug
+kill thug
+xyzzy
+xyzzy
+xyzzy
 xyzzy
 look
 x duster
@@ -148,6 +157,8 @@ ask samson about document
 look
 x body
 x pistol
+take pistol
+wield pistol
 x toilet
 x sink
 w
@@ -161,14 +172,51 @@ sw
 w
 x Ramon
 x cocaine
-save
 ask Ramon about briefcase
 kill Ramon
-wield pipe
+kill Ramon
+kill Ramon
+xyzzy
+kill Ramon
+kill Ramon
+kill Ramon
+xyzzy
+kill Ramon
+kill Ramon
+kill Ramon
+xyzzy
+kill Ramon
+kill Ramon
+kill Ramon
+xyzzy
+kill Ramon
+xyzzy
+xyzzy
+xyzzy
 xyzzy
 kill Sal
+kill Sal
+kill Sal
+xyzzy
+kill Sal
+kill Sal
+kill Sal
+xyzzy
+kill Sal
+kill Sal
+kill Sal
+xyzzy
+xyzzy
+xyzzy
+xyzzy
+xyzzy
+xyzzy
 kill Ernesto
-drop duster
+kill Ernesto
+kill Ernesto
+kill Ernesto
+kill Ernesto
+xyzzy
 take briefcase
 x it
 e
@@ -176,13 +224,30 @@ ne
 s
 w
 s
+drop briefcase
+drop newspaper
 x sandwich
 put it in rucksack
-wield pipe
-save
 n
 n
 x thug
+kill thug
+kill thug
+kill thug
+kill thug
+xyzzy
+kill thug
+kill thug
+kill thug
+kill thug
+xyzzy
+kill thug
+kill thug
+kill thug
+kill thug
+xyzzy
+kill thug
+kill thug
 kill thug
 xyzzy
 look
@@ -226,10 +291,33 @@ n
 x diary
 read it
 wield chainsaw
-save
 n
 x killer
 kill killer
+kill killer
+kill killer
+kill killer
+xyzzy
+kill killer
+kill killer
+kill killer
+kill killer
+xyzzy
+kill killer
+kill killer
+kill killer
+kill killer
+xyzzy
+kill killer
+kill killer
+kill killer
+kill killer
+xyzzy
+kill killer
+kill killer
+kill killer
+kill killer
+xyzzy
 xyzzy
 x machete
 s
@@ -263,6 +351,18 @@ ask chief about andrew
 ask chief about ledger
 x chief
 kill chief
+kill chief
+kill chief
+kill chief
+xyzzy
+kill chief
+kill chief
+kill chief
+kill chief
+xyzzy
+kill chief
+kill chief
+kill chief
 xyzzy
 take paper
 read it
@@ -286,11 +386,20 @@ e
 ne
 nw
 n
-save
 w
 x DA
 ask DA about me
 ask DA about chief
 ask DA about note
 x big
+kill big
+kill big
+kill big
+kill big
+xyzzy
+kill big
+kill big
+kill big
+kill big
+xyzzy
 kill big

@@ -42,6 +42,7 @@ x bag
 take it
 look in bag
 x small key
+take small key
 x keyrack
 w
 x calendar
@@ -120,8 +121,6 @@ w
 x gates
 x marker
 read it
-w
-open gates
 w
 x mausoleum
 read it

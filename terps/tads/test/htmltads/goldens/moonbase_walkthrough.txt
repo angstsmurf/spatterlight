@@ -34,7 +34,7 @@ x desk
 open drawer
 x key
 take it
-x video case
+x case
 x trailer
 open case
 x video
@@ -81,11 +81,8 @@ x dial
 x controls
 read green button
 read red button
-# FIXME (placeholder)
-read slip
-# FIXME (placeholder)
-turn dial to NUMBER
-eat slip
+turn dial to 29617
+open locker door
 w
 x spacesuit
 x yellow tank
@@ -132,7 +129,6 @@ n
 n
 put battery in exo
 wear exo
-save
 n
 kill creature with suit
 look

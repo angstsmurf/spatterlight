@@ -28,13 +28,20 @@ talk to Silas
 1
 d
 1
-1
-1
-1
-2
-1
-x
 d
+1
+d
+1
+d
+1
+d
+2
+d
+1
+d
+x
+look
+i
 thumbwrestle Silas
 take shot glass
 w
@@ -61,7 +68,10 @@ crawl under table
 x gloves
 take gloves
 d
-save
+z
+z
+z
+z
 z
 take broom
 u
@@ -69,6 +79,7 @@ snag tube with broom
 g
 g
 g
+look
 d
 drop broom
 z
@@ -80,6 +91,7 @@ z
 take broom
 u
 snag tube with broom
+g
 g
 g
 d
@@ -128,8 +140,11 @@ x plants
 x pipe
 talk to herbalist
 2
+d
 2
+d
 2
+d
 x
 n
 w
@@ -162,8 +177,11 @@ x armor
 x sword
 talk to captain
 1
+d
 1
+d
 2
+d
 x
 d
 n
@@ -171,7 +189,9 @@ e
 s
 talk to herbalist
 2
+d
 2
+d
 x
 eat jerky
 e
@@ -199,6 +219,7 @@ x Gonddol's gloves
 x anvil
 talk to Gonddol
 1
+d
 n
 e
 n
@@ -267,11 +288,18 @@ s
 u
 talk to captain
 1
+d
 1
+d
 z
+z
+z
+z
+z
+look
 d
 n
-x crow
+look
 pour potion on crow
 take crow
 e
@@ -292,16 +320,18 @@ turn crank
 push button
 jump in well
 z
+d
 z
+d
 z
+d
 take cork tube
 climb rope
-push button
-x hands
-open cork
+look
+open tube
 take scroll
 read scroll
-drop cork
+drop tube
 w
 n
 n
@@ -326,36 +356,87 @@ x wagon
 x elm
 x stable
 x gate
+x
+z
+z
+z
+listen to obscenity
+z
+z
+z
+z
+z
+listen to sound
+z
+z
+listen to noise
+z
+z
+z
+z
+listen to racket
 talk to teamster
 1
+d
+1
+d
+1
+d
 x
-talk to teamster
-1
-1
-1
-x
+x workbench
+take hammer
+give hammer to teamster
+z
+z
+z
+take saw
+give saw to teamster
+z
+z
+z
+take wrench
+give wrench to teamster
+z
+z
+z
+take hammer
+give hammer to teamster
+z
+z
+z
+take wrench
+give wrench to teamster
+z
+z
+z
+take hammer
+give hammer to teamster
+z
+z
+z
+take wrench
+give wrench to teamster
+z
+z
+z
 take tin
 e
 e
-s
-search water
 e
-n
-talk to Silas
-2
-1
-x
-eat jerky
 s
 e
+e
 n
+take gloves
 n
+take shield
 put grease on axle
 put shield on axle
 enter cart
 push button
 pull lever
 push lever
+push button
 out
 take tube
 take list
@@ -364,36 +445,50 @@ open tube
 take scroll
 read scroll
 drop tube
+w
+l
+i
 n
 w
 s
-push button
+l
+s
+w
+n
+take shot glass
+s
+e
+n
 put shot glass on tray
+x spigot
+x handle
 turn handle
 take glass
 pour oil on thumb
-drop glass
+i
 s
 w
 n
 thumbwrestle Silas
 d
-push button
-look
-x stones
-x casks
-x rack
-x chest
+l
 open chest
 u
-push button
+take jerky
+eat jerky
 talk to Silas
+4
+d
+2
+d
 3
+d
 x
 w
 n
 w
 take spice
+i
 e
 s
 e
@@ -402,29 +497,28 @@ throw spice at Silas
 pin Silas
 talk to Silas
 2
+d
 x
-x key
-push button
 d
 unlock chest with key
 open chest
-take ivory tube
-x hands
+l
+take tube
 u
-push button
 s
 w
 wash hands
 open tube
 take scroll
 read scroll
-drop tube
 s
 sw
-x Berrost
 talk to Berrost
 1
+d
 1
+d
 1
+d
 1
-quit
+d

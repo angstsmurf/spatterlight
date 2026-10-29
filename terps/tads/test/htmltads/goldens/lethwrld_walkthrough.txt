@@ -1,4 +1,4 @@
-# Leatherworld -- from https://plover.net/~davidw/sol/l/leath01a.html (My walkthrough and map)
+# Leatherworld -- from https://plover.net/~davidw/sol/l/leath01a.html (My walkthrough and map); needs one more z to win
 u
 x can
 take it
@@ -26,4 +26,5 @@ spray can
 cut me with knife
 put blood in milk
 drink milk
+z
 z

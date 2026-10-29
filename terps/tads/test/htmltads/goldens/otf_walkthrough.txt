@@ -1,4 +1,4 @@
-# On the Farm -- from https://plover.net/~davidw/sol/o/onfar99.html (My walkthrough and map)
+# On the Farm -- from https://plover.net/~davidw/sol/o/onfar99.html, reordered/fixed by replay (wins: soup + Susans)
 yes
 x Grandpa
 x chair
@@ -70,17 +70,21 @@ pour water on fire
 x stove
 take log
 x log
-x grass
-x chrysanthemums
-x geraniums
 drop log
-n
+w
+s
 ask Grandpa about screen door
 ask Grandpa about spring
 open door
 take spring
 close door
 s
+x grass
+x chrysanthemums
+x geraniums
+n
+n
+e
 take log
 w
 x carrot
@@ -101,8 +105,6 @@ x shelf
 e
 x outhouse
 read board
-take outhouse
-undo
 n
 x bees
 x battery
@@ -225,13 +227,18 @@ yes
 ask Grandpa about mom
 ask Grandpa about dad
 ask Grandpa about river
+n
+u
+e
+w
+d
+e
+look
 give needle to Grandma
 ask Grandma about soup
 ask Grandma about garden
 ask Grandma about chime
 ask Grandma about teddy bear
 ask Grandma about rug
-n
-e
+x pot
 pour water into pot
-SPACE

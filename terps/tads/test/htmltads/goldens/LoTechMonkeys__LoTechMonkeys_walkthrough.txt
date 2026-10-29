@@ -1,13 +1,41 @@
-# Escape from a Planet Filled with Monkeys! -- from https://plover.net/~davidw/sol/LoTechMonkeys.html (My walkthrough)
-about
-credits
-help
-3 ; 3 ; 3 ; 3 ; 3 ; 3
+# Escape from a Planet Filled with Monkeys! -- from https://plover.net/~davidw/sol/LoTechMonkeys.html (Foretold One ending)
+1
+1
+1
 2
-1 ; 1 ; 3 ; 2 ; 1
-1 ; 1 ; 3 ; 1 ; 1
-1 ; 1 ; 3 ; 1 ; 2
-1 ; 2 ; 2 ; 1 ; 1
-1 ; 2 ; 2 ; 1 ; 1
-1 ; 2 ; 2 ; 2
-1 ; 1 ; 1 ; ; 2 ; 3
+6
+3
+2
+3
+3
+5
+4
+3
+1
+1
+1
+1
+2
+5
+1
+5
+7
+4
+5
+1
+1
+1
+1
+1
+1
+2
+3
+3
+1
+3
+3
+3
+1
+1
+2
+2

@@ -1,40 +1,32 @@
-# Antiquest -- from https://plover.net/~davidw/sol/a/antiq17.html (My walkthrough and map)
-help
-credits
-x bed
+# Antiquest -- from https://plover.net/~davidw/sol/a/antiq17.html (13 endings, then the orbit battle minigame)
 take bed
-x me
-i
-x gown
 u
 u
 u
-x robot
 hit robot
 clean room
 w
 s
+w
 x panel
 talk to panel
 w
 s
+w
 hit panel
 w
 s
+w
 search panel
 w
 s
-e
+w
+s
 w
 z
 e
 x cable
 yell
-w
-n
-x machine
-enter it
-close it
 w
 n
 x snail
@@ -46,10 +38,34 @@ x TV
 turn TV
 e
 e
+x machine
+enter it
+close it
+w
+s
+w
+n
+look
+move fighter to 1
+move flagship to 4
+move bomber to 8
+look
+hit 1
+hit 2
+hit 4
+hit 5
+hit 12
+hit 13
+hit 11
+e
+e
+e
+d
+e
+e
+e
+d
+e
+e
 x exoskeleton
 wear it
-take bed
-move fighter to 1
-# FIXME (placeholder)
-hit NUMBER
-restart

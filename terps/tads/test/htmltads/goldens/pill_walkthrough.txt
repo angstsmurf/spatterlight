@@ -1,4 +1,4 @@
-# A Sugared Pill -- from https://plover.net/~davidw/sol/sugarpill.html (My walkthrough and map)
+# A Sugared Pill -- from https://plover.net/~davidw/sol/sugarpill.html (menu clicks replaced by letter keys; hanger needs open wardrobe)
 i
 x bear
 x hitman
@@ -68,8 +68,7 @@ s
 w
 in
 drive
-click Dr
-Bamber's
+b
 out
 x drunk
 x bottle
@@ -113,10 +112,10 @@ take it
 x tv
 x cable
 x wardrobe
+open wardrobe
 x hangers
 take hanger
 x hanger
-drop remote
 drop cable
 n
 w
@@ -270,7 +269,7 @@ in
 drop swipe card
 drop hotel key
 drive
-click Little France
+l
 out
 x door
 e
@@ -353,3 +352,4 @@ read report
 g
 put petition in folder
 give folder to clerk
+

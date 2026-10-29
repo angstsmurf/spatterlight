@@ -1,4 +1,4 @@
-# Erehwon -- from https://plover.net/~davidw/sol/e/erehw99.html (My walkthrough and maps)
+# Erehwon -- from https://plover.net/~davidw/sol/e/erehw99.html (4501 is the ghost's "interesting" number in this deterministic run)
 commands
 note 1
 note 2
@@ -328,6 +328,11 @@ x water
 x gravel
 x rim
 sit on rim
+z
+z
+z
+z
+say "hello"
 say "hello"
 say "Cedric"
 ask Portnoy about password
@@ -463,10 +468,38 @@ x pond
 sit on bench
 fish
 z
+z
+z
+z
+z
+z
 x herring
 take it
+fish
+z
+z
+z
+x herring
+take it
+fish
+z
+z
+z
 x trout
 take it
+turn into drake
+turn into greyhound
+turn into saddle
+turn into cake
+turn into green covering
+put trout into lake
+fish
+z
+z
+z
+z
+z
+z
 x bass
 take it
 n
@@ -482,8 +515,7 @@ e
 nw
 put duality card in slot
 remember numbers
-# FIXME (placeholder)
-type interesting-number on keypad
+type 4501 on keypad
 put twelve die in receptacle
 push green button
 take all from receptacle

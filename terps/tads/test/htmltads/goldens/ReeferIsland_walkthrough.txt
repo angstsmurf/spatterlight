@@ -1,1 +1,206 @@
 # Reefer Island -- from https://plover.net/~davidw/sol/reeferisland.html (My partial map)
+# Reaches the ending (bong hit, 74/100). No published walkthrough exists; this route was derived from the decompiled game.
+# The ending needs weed + a smoking device + a lighter with fuel, all carried at once.
+# Route: red lighter (Treetop camp) -> Rasta (stage 1); pot bag for 2 shells (brown cowrie + purple cockle dug at the cove);
+# dynamite from the tugboat bench; push the slab at the end of the cave passage (so the skeleton chamber is not a trap);
+# the skeleton's butane lighter (cove, 'u') lights the dynamite (>7 fuel) under bird repellent; the temple bong completes the set.
+wait
+wait
+wait
+wait
+get out
+take bag
+s
+take shell
+n
+e
+e
+e
+e
+e
+e
+n
+e
+look under cots
+wear boots
+w
+s
+e
+n
+n
+n
+u
+take lighter
+take flashlight
+d
+s
+s
+s
+w
+w
+w
+s
+s
+s
+d
+n
+n
+give lighter to rasta
+s
+s
+sw
+n
+n
+n
+w
+w
+w
+w
+n
+n
+n
+ne
+sw
+s
+s
+s
+e
+e
+e
+e
+e
+enter door
+take cage
+out
+w
+n
+n
+put crow in cage
+take can
+s
+s
+w
+w
+w
+w
+n
+n
+n
+ne
+ne
+ne
+ne
+spray me with repellent
+ne
+ne
+take hammer
+sw
+e
+s
+take shovel
+n
+spray me with repellent
+nw
+sw
+sw
+w
+sw
+sw
+s
+s
+dig sand with shovel
+s
+dig sand with shovel
+take shell
+e
+e
+e
+e
+s
+s
+s
+d
+n
+give shell to rasta
+give shell to rasta
+look
+look
+s
+u
+n
+n
+n
+e
+e
+s
+e
+in
+look
+take dynamite
+i
+look on bench
+take dynamite from bench
+i
+open bench
+take dynamite
+i
+out
+w
+n
+w
+w
+w
+w
+w
+w
+n
+n
+n
+ne
+e
+e
+turn on flashlight
+e
+e
+push slab
+i
+w
+w
+w
+w
+sw
+s
+s
+s
+u
+look
+search shirt
+n
+w
+w
+w
+w
+i
+w
+ne
+ne
+spray me with repellent
+ne
+ne
+look
+sw
+e
+spray me with repellent
+w
+look
+put dynamite in rock
+spray me with repellent
+light dynamite with butane lighter
+look
+w
+spray me with repellent
+w
+look
+take bong
+look
+look

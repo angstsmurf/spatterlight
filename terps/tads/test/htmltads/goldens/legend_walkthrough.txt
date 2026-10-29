@@ -1,36 +1,25 @@
-# The Legend of Lady Magaidh -- from https://plover.net/~davidw/sol/swashcomp.html#legend (My walkthrough)
+# The Legend of Lady Magaidh -- from https://plover.net/~davidw/sol/swashcomp.html#legend (My walkthrough), verified in the interpreter
 info
 x pirate
 w
 talk to pirate
 x captain
 kiss captain
-x sea
-x ship
-x deck
-x flag
-x sail
-x rigging
-x pirates
 x door
 u
 x telescope
 talk to captain
 d
 e
-x maps
 x table
-x bed
 w
 w
 u
 take telescope
-look through it
+look through telescope
 d
-w
+z
 z
 z
 take pistol
-x pistol
-x officer
 shoot officer with pistol

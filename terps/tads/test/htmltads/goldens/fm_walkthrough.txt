@@ -1,1 +1,1878 @@
-# Finding Martin -- from https://plover.net/~davidw/sol/findingm.html (My partial walkthrough and map)
+# Finding Martin -- from the author's fm_walk.txt (web.archive.org 20080516 of qrivy.net/~gayla/fm_walk.txt)
+1
+3
+x streetlamp
+x spider web
+south
+x mailbox
+x windmill blades
+turn blades
+look in mailbox
+take all from mailbox
+open envelope
+take phone bill
+read bill
+east
+look through grass
+north
+x lawn ornaments
+look under Huey
+look under Dewey
+look under Louie
+look
+look under Huey
+west
+unlock door with key
+open door
+north
+x railroad track
+x sofa
+look under cushions
+x watch
+x stem
+push stem
+turn stem
+turn stem
+push stem
+turn stem
+x tanks
+x strands
+east
+push stem
+turn stem
+turn stem
+push stem
+turn stem
+turn stem
+x package
+open package
+x can
+drop can
+push stem
+turn stem
+turn stem
+push stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+turn stem
+push stem
+x package
+open package
+x can
+drop can
+turn stem
+turn stem
+turn stem
+turn stem
+push stem
+turn stem
+turn stem
+push stem
+turn stem
+push stem
+turn stem
+turn stem
+push stem
+push stem
+turn stem
+x video screen
+x package
+open package
+x can
+drop can
+put watch in pocket
+turn stem
+x fish
+x rug
+look under rug
+roll up rug
+read rug tag
+unroll rug
+north
+x bookcases
+take "The Bedtime Story Book"
+open book
+read book
+turn page
+read book
+turn page
+x package
+open package
+x can
+drop can
+read book
+turn page
+x sheet music
+put sheet music on music stand
+sit on piano bench
+play piano
+stand
+take "The Boy Who had No Words"
+open book
+read book
+turn page
+read book
+turn page
+read book
+turn page
+read book
+x package
+open package
+x can
+drop can
+turn page
+read book
+x computer
+turn on computer
+x computer
+sit on desk chair
+use computer
+turn on spam filter
+read e-mail
+stand
+open sliding door
+north
+east
+x dog
+read brass tag
+turn tag
+x patch of loose dirt
+west
+south
+south
+west
+x cuckoo clock
+start pendulum
+x clock
+west
+scratch nose
+x mirror
+take bath
+east
+south
+take feather
+x feather
+x closet
+x dart board
+x dresser
+x photographs
+throw ball
+open top drawer
+take security badge
+wear badge
+open bottom drawer
+take small phone book
+open small phone book
+read book
+turn page
+read book
+turn page
+read book
+north
+east
+east
+x fish
+read book
+open "The Boy Who Had No Words"
+read book
+east
+x table
+x chandelier
+ne
+x china cabinet
+x bluebirds
+open cabinet
+take all from cabinet
+se
+x side board
+open drawer
+take all from drawer
+west
+put plate on table
+look up
+put fork to left of plate
+put knife to right of plate
+put spoon to right of knife
+put glass above and to right of plate
+south
+put plate on table
+put fork to left of plate
+put knife to right of plate
+put spoon to right of knife
+put glass above and to right of plate
+look up
+west
+put plate on table
+put fork to left of plate
+put knife to right of plate
+put spoon to right of knife
+put glass above and to right of plate
+north
+put plate on table
+put fork to left of plate
+put knife to right of plate
+put spoon to right of knife
+put glass above and to right of plate
+north
+north
+x black box
+read report card
+x stone door
+south
+south
+show feather to dog
+west
+west
+west
+x clock
+south
+look up
+say "stay" to dog
+stand on bed
+take yellow dart
+jump
+jump
+undo
+get off bed
+look under bed
+say "sit" to dog
+show white sock to dog
+take blue sock
+show blue sock to dog
+take long black sock
+show long black sock to dog
+north
+east
+north
+look behind bookcases
+south
+east
+ne
+north
+x sink
+take sink stopper
+put stopper in left drain
+turn on faucet
+turn off faucet
+take stopper
+west
+x phone
+x device
+push lever up
+pick up receiver
+dial "*27398"
+press "1"
+x device
+press "2"
+press "3"
+press "4"
+east
+north
+open east door
+south
+west
+press "9"
+press "5"
+press "6"
+press "8"
+press "7"
+press "3"
+east
+north
+open door
+north
+say "Your fish looks sick" to receptionist
+give battery to receptionist
+north
+open door
+north
+north
+close door
+read memo
+take mug
+open door
+fill mug with coffee
+south
+open west door
+west
+take lab coat
+take goggles
+wear lab coat
+give screwdriver to ben
+give wrench to ben
+east
+open south door
+south
+south
+get on cart
+west
+press "9"
+east
+drop envelope, catalogs, phone bill
+drop key, bedtime book, boy book
+drop feather, phone book, blue sock
+drop black sock
+read note
+drop note
+south
+sw
+west
+north
+sit on desk chair
+type "3.1415926"
+turn off spam filter
+x package
+open package
+x can
+open lid
+take plastic
+x plastic
+put filter in goggles
+stand
+wear goggles
+south
+x rug
+sit on rug
+fly
+stand
+roll rug
+read rug tag
+west
+x clock
+south
+x watch
+turn stem
+push stem
+turn stem
+turn stem
+turn stem
+put watch in pocket
+wait
+turn stem
+push stem
+push stem
+push stem
+turn stem
+turn stem
+turn stem
+pull stem
+pull stem
+turn stem
+turn stem
+put watch in pocket
+pull stem
+pull stem
+pull stem
+turn stem
+stand on bed
+take red dart with pliers
+take green dart with pliers
+get off bed
+throw yellow dart
+throw red dart
+throw green dart
+look in closet
+x robe
+take robe
+take off lab coat
+wear robe
+x jacket
+look in jacket pockets
+take receipt
+take yellow dart
+look under bed
+north
+west
+x mirror
+look in cabinet
+take duckie
+take off goggles
+take duckie
+wear goggles
+east
+east
+east
+ne
+sing "zip-a-dee-doo-dah"
+sing "zip-a-dee-doo-dah"
+north
+take off robe
+drop robe
+x stone door
+say "mellon" to stone door
+east
+north
+x bush
+x trellis
+south
+west
+west
+press "4"
+east
+north
+knock on east door
+south
+west
+press "7"
+Press "1"
+east
+east
+sw
+x kafka
+ne
+south
+x olga
+x katrinka
+north
+se
+x captain hook
+x lever
+push lever up
+nw
+give fifty dollar bill to vendor
+ne
+x tiger
+sw
+se
+throw duckie
+nw
+south
+wait
+wait
+wait
+wait
+throw dart at balloons
+north
+west
+west
+press "9"
+press "7"
+press "4"
+east
+south
+take bottle
+look under nash rambler
+take kitten
+north
+x large book
+read book
+turn page
+read book
+turn page
+read book
+turn page
+read book
+turn page
+read book
+turn page
+take book
+close book
+take pebble
+put pebble in indentation
+east
+x cabinet
+open cabinet
+take bowl
+eat porridge
+x bowl
+wash bowl
+stand on turtle
+sit on turtle
+x green candle
+x ivory candle
+x red candle
+x warrior king
+x box of rice ash
+look in rice ash
+take arrow
+put arrow in quiver
+climb ladder
+read sign
+x painting
+clap
+north
+touch rectangle
+south
+x broccoli barrel
+x unmarked barrel
+open unmarked barrel
+get in barrel
+ne
+open door
+north
+take off shoes
+x cassettes
+play cassettes
+south
+sw
+south
+drop bowl
+south
+west
+press "9"
+press "4"
+east
+north
+x shelf
+open sack
+look in sack
+take pawn
+put pawn on shelf
+west
+take eye tile
+x eye tile
+down
+x shelf
+open dryer
+stand on dryer
+up
+put eye tile in sack .
+take ear tile .
+x ear tile
+west
+x mural
+x dresser
+x bedside table
+x shelf
+take sketchbook
+x sketchbook
+turn page
+x sketchbook
+turn page
+x sketchbook
+turn page
+put sketchbook on shelf
+put ear tile in sack
+east
+take ear tile
+east
+take pawn
+put pawn on shelf
+west
+take mouth
+x mouth tile
+north
+x shelf
+south
+put mouth in sack
+east
+take pawn
+south
+west
+Press "9"
+east
+south
+sw
+west
+north
+push beethoven's nose
+push beethoven's ear
+push beethoven's forehead
+push beethoven's chin
+west
+take slippers
+east
+south
+east
+ne
+north
+x sink
+look in sink cabinet
+west
+press "7"
+press "6"
+north
+west
+north
+east
+give twenty dollar to driver
+give pawn to old men
+take pawn
+whistle
+south
+press "9"
+east
+put ear tile in sack
+take off brown shoes
+take off brown sock
+take off black sock
+drop brown shoes, brown sock, black sock
+wear white sock
+wear white tap shoes
+drop slippers, fake can, pawn
+drop mug
+put receipt in pocket
+south
+sw
+west
+west
+x clock
+east
+east
+ne
+north
+swing watch
+say "6:12" to conductor
+put watch in pocket
+west
+press "7"
+press "3"
+east
+north
+open door
+north
+north
+close door
+read memo
+wait
+open door
+south
+open west door
+west
+take coat rack
+east
+open south door
+south
+south
+get on cart
+west
+press "9"
+east
+south
+sw
+west
+north
+west
+drop coat rack
+x indentations
+push indentations
+dance
+tap
+take coat rack
+dance with coat rack
+x stack
+open green latch
+smell green latch
+smell white latch
+smell red latch
+x white elephant
+x white trunk
+give bottle to white trunk
+east
+down
+flap
+shuffle
+hop
+down
+north
+open trap door
+up
+x basket
+x strap
+west
+x fountain
+east
+pick rose
+pick daisy
+pick tulip
+open trapdoor
+down
+south
+up
+east
+hop
+shuffle
+flap
+east
+south
+east
+ne
+north
+drop daisy
+drop tulip
+west
+press "7"
+press "4"
+east
+north
+up
+sit on turtle
+take green candle
+sit on turtle
+down
+south
+put ten dollar bill in mouth
+south
+west
+press "9"
+press "7"
+press "3"
+east
+north
+open door
+north
+north
+close door
+wait
+wait
+open door
+south
+open west door
+west
+wear lab coat
+turn on burner
+light candle
+east
+open south door
+south
+south
+get on cart
+west
+press "9"
+east
+south
+sw
+west
+north
+west
+dance with coat rack
+give candle to white trunk
+give rose to trunk
+open trunk
+take all from black trunk
+open fan
+x fan
+turn fan
+x fan
+turn fan
+wave fan
+close fan
+down
+east
+south
+west
+west
+wave fan
+wave fan
+take tools
+east
+east
+open front door
+south
+x web
+north
+north
+drop duckie
+take slinky
+south
+east
+ne
+north
+west
+press "7"
+press "5"
+east
+east
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+give Phillips screwdriver to mrs mcgillicuddy
+east
+west
+w .
+Press "9"
+press "3"
+east
+south
+sw
+west
+north
+take duckie
+drop slinky
+squeeze duckie
+take off shoes
+wear white sock
+wear shoes
+south
+east
+ne
+north
+put stopper in right drain
+push faucet right
+turn on faucet
+turn off faucet
+take stopper
+west
+open dryer
+take towel
+east
+put stopper in left drain
+push faucet left
+turn on faucet
+turn off faucet
+take stopper
+west
+press "7"
+press "2"
+west
+fly
+west
+west
+look
+fly
+swim
+take off costume
+take off shoes
+take off sock
+take off sock
+swim
+piss on it
+wear shoes
+east
+press "9"
+east
+drop sock
+drop sock
+south
+sw
+west
+north
+squeeze duckie
+take slinky
+south
+east
+ne
+north
+west
+press "7"
+press "4"
+east
+north
+clap
+north
+press rectangle
+south
+x broccoli barrel
+drop slinky
+north
+push wavy lines
+south
+take novel
+down
+put five dollar bill in mouth
+south
+west
+press "9"
+east
+drop slinky
+west
+press "4"
+press "4"
+break broccoli
+put sprig in drawer
+press "4"
+press "7"
+press "2"
+west
+fly
+west
+west
+throw tablet in volcano
+take flower
+east
+fly
+east
+press "9"
+east
+drop screwdriver, machine tools, copper key
+wear hat
+south
+sw
+west
+north
+take desk chair
+west
+flap
+shuffle
+hop
+down
+north
+open door
+up
+drop chair
+stand on chair
+take strap
+get off chair
+take pot
+drop pot
+open trapdoor
+down
+south
+up
+east
+south
+east
+ne
+north
+say "mellon" to stone door
+east
+north
+nw
+ne
+ne
+nw
+take stone
+nw
+x branch
+untie strap
+lower basket
+throw stone
+raise basket
+take tape recorder
+take cassette
+x cassette
+play cassette in headphones
+look
+sw
+south
+south
+se
+look through window
+se
+south
+west
+drop tape recorder, towel
+untie strap
+drop basket
+south
+sw
+west
+north
+west
+step
+flap
+step
+hop
+shuffle
+drop strap
+dance with coat rack
+take candle
+down
+put candle on platform
+swing watch
+say "9:00" to conductor
+put watch in pocket
+swing watch
+say "9:30" to conductor
+put watch in pocket
+swing watch
+say "9:50" to conductor
+put watch in pocket
+east
+south
+east
+ne
+north
+east
+north
+nw
+swing watch
+say "9:00" to conductor
+put watch in pocket
+wait
+wait
+swing watch
+say "9:40" to conductor
+put watch in pocket
+look through window
+se
+south
+west
+swing watch
+say "1:45" to conductor
+put watch in pocket
+swing watch
+say "1:09" to conductor
+put watch in pocket
+east
+north
+nw
+swing watch
+say "1:44" to conductor
+put watch in pocket
+snap
+wait
+wait
+wait
+se
+south
+west
+take mug
+taste coffee
+east
+north
+climb trellis
+sw
+down
+wave fan
+wave fan
+x machine
+open microwave door
+put mug in microwave
+close door
+push start button
+west
+west
+south
+west
+down
+north
+open door
+up
+east
+east
+east
+ne
+ne
+ne
+nw
+nw
+sw
+wait
+wait
+wait
+wait
+south
+south
+se
+sw
+west
+west
+west
+open door
+down
+south
+up
+take strap
+wear strap
+down
+north
+open door
+up
+wave fan
+wave fan
+east
+east
+east
+ne
+ne
+ne
+nw
+nw
+sw
+wait
+wait
+wait
+south
+south
+se
+sw
+west
+west
+west
+open door
+down
+south
+up
+east
+north
+east
+east
+swing watch
+say "1:43" to conductor
+put watch in pocket
+snap
+push stop button
+open microwave door
+take mug
+drop mug
+take cookies
+taste cookies
+put cookies in microwave box
+close microwave door
+push start button
+west
+west
+south
+west
+down
+north
+open door
+up
+east
+east
+south
+put yellow cassette in plastic box
+north
+wait
+wait
+wait
+wait
+drop purple flower
+wait
+wait
+wait
+east
+stand
+west
+west
+west
+open door
+down
+south
+up
+east
+south
+south
+x web
+north
+east
+ne
+north
+drop fan,duckie
+drop twenty dollar bill,stopper
+put nickel in pocket
+put broccoli in pocket
+west
+press "7"
+press "4"
+east
+look under little nash rambler
+take kitten
+west
+press "9" .
+east
+south
+sw
+west
+north
+drop kitten
+sing "little nash rambler"
+south
+east
+ne
+north
+west
+press "4"
+east
+north
+knock
+south
+west
+press "7"
+press "1"
+east
+east
+east
+wiggle ears
+west
+west
+west
+press "9"
+press "7"
+press "4"
+east
+north
+clap
+north
+press circle
+x painting
+wiggle ears
+north
+press square
+south
+south
+west
+press "9"
+east
+take tulip
+south
+sw
+west
+north
+west
+down
+north
+open door
+up
+pick tulip
+pick tulip
+pick tulip
+pick tulip
+pick tulip
+pick tulip
+open door
+down
+south
+up
+east
+south
+east
+ne
+north
+east
+north
+nw
+nw
+north
+west
+west
+east
+east
+south
+se
+se
+south
+west
+swing watch
+say "10:24"
+put watch in pocket
+take pawn
+west
+press "4"
+east
+north
+put pawn on shelf
+west
+take ear tile
+west
+x mural
+put tulip in vase
+wiggle ears
+put tulip in vase
+wiggle ears
+put tulip in vase
+wiggle ears
+put tulip in vase
+wiggle ears
+put tulip in vase
+wiggle ears
+put tulip in vase
+wiggle ears
+put tulip in vase
+wiggle ears
+x table
+touch "79"
+touch "47"
+touch "26"
+touch "80"
+touch "50"
+touch "29"
+touch "82"
+look in compartment
+take whistle
+blow whistle
+east
+put ear tile in sack
+east
+south
+west
+press "9"
+east
+blow whistle
+west
+press "7"
+press "4"
+east
+north
+blow whistle
+north
+press rectangle
+get in barrel
+blow whistle
+south
+clap
+north
+press circle
+south
+blow whistle
+blow whistle
+take all from safe
+x cassette
+play cassette in headphones
+look
+x box
+push w left
+push l left
+push l up
+push l right
+push l right
+push f down
+push white r left
+push white p left
+push p up
+push w down
+push r left
+push e left
+open box
+clap
+north
+press square
+south
+south
+west
+press "9"
+east
+take gloves
+drop box
+west
+drop gloves
+press "9"
+east
+wait
+wait
+wait
+wait
+wait
+open phone booth door
+drop all
+west
+touch gloves
+wear gloves
+east
+south
+sw
+west
+north
+north
+east
+east
+take off gloves
+take broccoli out of pocket
+break broccoli
+push stop button
+open microwave door
+take plate
+drop plate
+put sprig in box
+close door
+push start button
+wear gloves
+west
+west
+south
+west
+down
+north
+take off gloves
+open trap door
+up
+west
+take nickel out of pocket
+put nickel in fountain
+east
+down
+wear gloves
+up
+east
+east
+east
+ne
+se
+pick raspberries
+nw
+ne
+ne
+drop raspberries
+wait
+sw
+sw
+sw
+plant sycamore seed
+west
+west
+west
+down
+south
+up
+east
+north
+east
+east
+take off gloves
+swing watch
+say "1:40" to conductor
+put watch in pocket
+snap
+push stop button
+open microwave door
+wait
+take pretzels
+put pretzels in microwave
+close microwave door
+push start button
+west
+west
+south
+west
+down
+north
+up
+east
+take off hat
+east
+east
+put hat on snowman
+climb tree
+south
+east
+east
+down
+nw
+ne
+ne
+nw
+nw
+sw
+south
+south
+se
+se
+climb trellis
+sw
+west
+north
+climb down tree
+west
+west
+west
+down
+south
+up
+east
+north
+east
+east
+push stop
+open microwave box
+take lemonade
+put lemonade in box
+close microwave
+push start button
+west
+west
+south
+south
+east
+take glass
+sing "zip"
+ne
+north
+sing "zip"
+take silver key
+sing "zip"
+take copper key, machine tools, sack
+take fake can, screwdriver
+turn on faucet
+fill glass with water
+turn off faucet
+swing watch
+say "1:44" to conductor
+put watch in pocket
+snap
+take lemonade
+south
+sw
+west
+north
+take kitten
+take theme
+west
+down
+north
+up
+east
+east
+east
+drop copper key
+drop lemonade
+climb tree
+south
+east
+east
+climb down trellis
+nw
+nw
+north
+west
+x fairies
+follow fairies
+follow fairies
+follow fairies
+follow fairies
+follow fairies
+south
+drop silver key
+drop machine tools
+north
+north
+east
+east
+east
+east
+east
+east
+east
+south
+se
+ne
+ne
+nw
+nw
+sw
+drop kitten
+wait
+ne
+wait
+wait
+se
+se
+sw
+sw
+se
+south
+west
+west
+put can on washer
+put glass on shelf
+stand on dryer
+up
+take mouth tile
+east
+east
+x piles
+look under dresser
+put screwdriver on piles
+west
+west
+put mouth tile in sack
+take nose tile
+north
+down
+west
+west
+west
+take pot
+down
+south
+up
+east
+south
+east
+ne
+north
+take daisy
+west
+drop pot, daisy
+press "9"
+east
+west
+take fake can
+east
+open can
+take swiss army knife
+drop can
+x knife
+open knife
+swing watch
+say "10:18" to conductor
+put watch in pocket
+yodel
+take towel
+south
+sw
+west
+take rug
+east
+ne
+north
+open phone booth door
+west
+press "7"
+press "2"
+west
+fly
+drop rug
+take off costume
+give costume to clark kent
+take coconut
+sit on rug
+fly
+open bottle with corkscrew
+east
+press "9"
+east
+drop knife
+put nose tile in sack
+south
+sw
+west
+north
+west
+down
+north
+up
+east
+east
+east
+climb tree
+south
+put coconut on shelf
+south
+take eye tile
+take mouth tile
+east
+east
+wiggle ears
+wait
+west
+west
+put mouth tile in sack
+take ear tile
+west
+wait
+wait
+wait
+wait
+wait
+east
+take nose tile
+wait
+put ear in sack
+north
+down
+west
+west
+west
+down
+south
+up
+east
+north
+east
+east
+take off goggles
+wear gloves
+west
+west
+south
+west
+down
+north
+up
+east
+east
+east
+climb tree
+south
+south
+wait
+wait
+east
+east
+wait
+take lamp
+west
+west
+wait
+wait
+west
+rub lamp
+rub lamp
+rub lamp
+take sketchbook
+put lamp on shelf
+east
+wait
+down
+east
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+south
+sw
+west
+north
+wait
+east
+take key
+take lemonade
+unlock padlock with copper key
+take padlock
+take chain
+open door
+east
+open microwave door
+put lemonade in microwave
+close door
+push start button
+unlock window
+open window
+north
+nw
+north
+west
+follow fireflies
+follow fireflies
+follow fireflies
+follow fireflies
+follow fireflies
+south
+take key
+take tools
+unlock red door with silver key
+open door
+south
+south
+east
+east
+drop tools
+mqz7s!!
+north
+north
+close door
+lock door with silver key
+north
+north
+east
+east
+east
+east
+east
+east
+south
+se
+ne
+ne
+throw copper key in ravine
+throw silver key in ravine
+sw
+sw
+south
+close window
+lock window
+push stop button
+open microwave door
+take glass
+close microwave door
+west
+close doors
+put chain on doors
+put padlock on chain
+lock padlock
+drop glass
+west
+west
+west
+down
+south
+up
+east
+south
+take off gloves
+north
+north
+east
+east
+take sack, nose tile, eye tile
+put nose tile in sack
+put eye tile in sack
+west
+west
+south
+south
+east
+ne
+north
+take fan, yellow cassette
+west
+press "4"
+east
+north
+west
+take ear tile
+west
+put ear tile in sack
+take sketchbook
+turn page
+turn page
+x sketchbook
+turn page
+put sketchbook on shelf
+east
+take ear tile
+east
+south
+west
+press "9"
+east
+south
+sw
+west
+lie on sofa
+sleep
+drop fan
+drop tape
+wake
+stand
+put ear tile in sack
+put sack on platform
+wear gloves
+lie down
+sleep
+take fan
+wave fan
+take cassette
+give cassette to martin
+take off headphones
+give headphones to martin
+take martin's hand
+
+look
+look
+look

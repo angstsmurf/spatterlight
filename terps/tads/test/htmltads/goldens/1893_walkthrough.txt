@@ -1,15 +1,777 @@
 # 1893: A World's Fair Mystery -- from https://plover.net/~davidw/sol/1893.html (My solution and map)
+# Plays to the Spectatorium finale (bomb defused) and the Congratulations screen; the Delbras balloon is shot down with Krupp's cannon.
 east
 northeast
 tell Carl about Bob
 tell Carl about Delbras
+n
+take bill
+x desk
+open drawer
+take guide
+open safe
+s
+close safe
+s
+sw
+nw
 wait in line
-# FIXME (note: (repeat until you reach the teller))
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
 wait
 give bill to teller
+se
+n
+n
+n
+e
+s
+e
+push owl
+push vulture
+push mouth
+push marks
+push woman
+take diamond
+w
+n
+w
+w
+s
+e
+show diamond to Wentworth
+w
+n
+e
+s
+s
+s
+ne
+n
+open safe
+put diamond in safe
+close safe
+s
+sw
+n
+n
+n
+w
+w
+w
+w
+x model
+listen to model
+push church
+e
+s
+x parts
+take red wheel
+take blue wheel
+take pneumatic tire
+take pneumatic tire
+n
+w
+put red wheel on motorized peg
+put blue wheel on stationary peg
+put pneumatic tire on red wheel
+put pneumatic tire on blue wheel
+w
+w
+take parchment
+x parchment
+e
+e
+n
+n
+w
+n
+n
+ne
+e
+n
+n
+n
+e
+e
+push orpheus
+push orpheus
+take head
+show parchment to Hutchinson
+take head
+take head
+take head
+break head
+s
+e
+se
+sw
+sw
+w
+se
+sw
+s
+s
+s
+w
+s
+e
+show diamond to Wentworth
+w
+n
+e
+s
+s
+s
+ne
+n
+open safe
+put diamond in safe
+close safe
+s
+sw
+s
+s
+s
+w
+w
+w
+take hose
+e
+e
+e
+e
+s
+drop hose
+turn off pump
+put hose on pipe
+take nozzle
+n
+e
+put nozzle in canal
+w
+s
+turn on pump
+open dossier
+show crime scene note to Carl
+n
+w
+n
+e
+look
+take matches
+w
+n
+n
+n
+n
+n
+w
+w
+w
+n
+take lantern
+s
+e
+s
+eat at restaurant
+n
+n
+w
+w
+n
+n
+w
+w
+s
+n
+e
+e
+s
+s
+s
+e
+s
+s
+s
+e
+s
+e
+se
+wait
+wait
+wait
+wait
+ask clerk about telegram
+ask clerk about fishing
+take pole
+ask clerk about telegram
+ask clerk about fishing
+ask clerk about pole
+take pole
+nw
+n
+n
+n
+n
+n
+n
+ne
+nw
+ne
+ne
+e
+nw
+e
+take line
+w
+w
+sw
+s
+x glint
+take hook
+tie line to pole
+tie line to hook
+w
+fish in pond with pole
+fish in pond with pole
+inventory
+e
+e
+put fish in tank
+open chest
+take key
+inventory
+w
+n
+w
+w
+w
+s
+s
+s
+e
+enter gondola
+gondolier, take me to the Statue of the Republic
+get out of gondola
+unlock door with skeleton key
+open door
+enter door
+look
+u
+u
+u
+u
+look
+take diamond
+d
+d
+d
+d
+e
+close door
+lock door with skeleton key
+enter gondola
+gondolier, take me to horticulture
+time
+w
+s
+e
+s
+s
+s
+s
+s
+se
+ask clerk about telegram
+give pole to clerk
+time
+inventory
+ask clerk about telegram
+look
+nw
+n
+n
+n
+w
+s
+e
+show diamond to Wentworth
+w
+n
+e
+s
+s
+s
+ne
+n
+open safe
+put diamond in safe
+close safe
+time
+s
+sw
+s
+s
+look
+south
+south
+e
+s
+examine basin
+time
+n
+e
+s
+e
+e
+s
+look
+u
+in
+take cheese
+out
+d
+n
+e
+e
+s
+take swiss flag
+inventory
+n
+e
+n
+w
+w
+w
+w
+w
+n
+n
+w
+n
+n
+n
+n
+w
+n
+n
+n
+w
+n
+w
+look
+look
+drop cheese
+take coupon
+inventory
+e
+n
+w
+s
+s
+s
+e
+s
+s
+s
+e
+in
+give coupon to man
+inventory
+time
+n
+e
+n
+n
+n
+look
+n
+n
+ne
+look
+ask boy about hat
+give chocolate bar to boy
+take hat
+tell boy about Bob
+tell boy about Delbras
+tell boy about diamonds
+inventory
+nw
+look
+wait
+wait
+wait
+se
+look
+sw
+look
+wait
+wait
+wait
+wait
+wait
+wait
+s
+look
+wait
+look
+s
+look
+take hat
+tell boy about Bob
+tell boy about Delbras
+tell boy about diamonds
+inventory
+s
+s
+s
+s
+s
+e
+e
+s
+s
+s
+look
+give hat to farmer
+ask farmer about bull
+time
+look
+look
+south
+south
+south
+south
+west
+west
+west
+west
+east
+south
+south
+east
+east
+east
+east
+east
+east
+north
+open gate
+in
+close gate
+show swiss flag to bull
+show swiss flag to bull
+show swiss flag to bull
+show swiss flag to bull
+show swiss flag to bull
+show swiss flag to bull
+show swiss flag to bull
+show swiss flag to bull
+take diamond
+open gate
+out
+north
+time
+inventory
+north
+west
+north
+west
+north
+north
+west
+north
+north
+west
+south
+east
+show diamond to Wentworth
+west
+north
+east
+south
+south
+south
+ne
+north
+open safe
+put diamond in safe
+close safe
+time
+look
+inventory
+south
+sw
+north
+north
+north
+north
+north
+west
+north
+north
+west
+nw
+west
+time
+wait until 8:00
+look
+time
+wait
+wait
+south
+wait
+wait
+south
+wait
+wait
+wait
+south
+wait
+east
+north
+west
+west
+west
+east
+up
+up
+west
+shoot Bob with gun
+wait
+ask Bob about Delbras
+shoot Bob with gun
+west
+west
+west
+west
+look
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+out
+look
+east
+east
+east
+south
+south
+south
+east
+south
+south
+south
+east
+south
+time
+south
+east
+south
+south
+west
+west
+west
+look
+take hose
+x fire engine
+x hose
+x truck
+take firehose
+take fireman's hose
+east
+east
+east
+east
+south
+look
+north
+west
+west
+south
+x belt
+open case
+take belt
+inventory
+north
+east
+east
+south
+put belt in basin
+down
+x body
+close eyes
+take wet note
+read wet note
+take diamond
+up
+time
+north
+east
+north
+west
+north
+north
+west
+north
+north
+west
+south
+east
+show diamond to Wentworth
+west
+north
+east
+south
+south
+south
+ne
+north
+open safe
+put diamond in safe
+close safe
+time
+inventory
+x stipend
+ask clerk about telegram
+sit on cot
+sleep
+wait until 10:01
+look
+sleep
+look
+look
+time
+stand up
+take bill
+south
+southwest
+northwest
+wait in line
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+give bill to teller
+inventory
+read guidebook
+southeast
+northeast
 take doughnut
+look
 pour coffee
 drink cup
+show wet note to Carl
+ask Carl about Ida
+time
+drink coffee
+x coffee
+southwest
+south
+south
+east
+look
+take matches
+take box
+inventory
+take matches
+take matches
+take matches
+take matches
+inventory
+west
+south
+east
+east
+south
+east
+east
+east
+east
+north
+buy cigarettes
+inventory
+south
+east
+north
+west
+west
+west
+west
+west
+north
+north
+west
+north
+north
+north
+north
+west
+north
+north
+west
+north
+look
+take basket
+inventory
+south
+southwest
+east
+east
+open trapdoor
+light lantern with match
+down
+south
+examine waterfall
+look behind waterfall
+take rock
+north
+up
+extinguish lantern
+time
+west
+west
+south
+south
+east
+south
+east
+south
+east
+east
+open pack
+take cigarette
+light cigarette with match
+give cigarette to Zulu
+north
+look
+time
 examine funnel
 put clump in funnel
 put basket on hook
@@ -24,100 +786,947 @@ look in basket
 put chunks on tray
 step on foot pedal
 take diamond
-drop hose
-put hose on pipe
-take nozzle
-n
-e
-put nozzle in canal
-w
-s
-turn on pump
-show crime scene note to Carl
-n
-w
-w
-s
-x belt
-open case
-take belt
-n
-e
-e
-s
-put belt in basin
-d
-x body
-close eyes
-take wet note
-read it
-x diamond
-take it
-u
-open gate
-in
-close gate
-# FIXME (note: (continue to
-repeat showing the flag to the bull over and over and over again. Eventually,
-the bull becomes so exhausted, it rams into the pen's wall.))
-show flag to bull
-# FIXME (note: (continue to
-repeat showing the flag to the bull over and over and over again. Eventually,
-the bull becomes so exhausted, it rams into the pen's wall.))
-g
-take diamond
-open gate
+west
+west
+show diamond to Wentworth
+west
+north
+east
+south
+south
+south
+northeast
+north
+open safe
+put diamond in safe
+close safe
+time
+west
+show diamond to Wentworth
+look
+west
+north
+east
+east
+east
+east
+east
+north
+north
+north
+north
+look
+x pedestals
+x trunk
+time
+north
+north
+north
+west
+north
+west
+west
+south
+west
+up
+look
+ask librarian about women's books
+look under bookcase
+take card
+x card
+give claim check to librarian
+ask librarian about books
+look under bookcase
+take card
+x card
+give claim check to librarian
+down
+south
+west
+give claim check to matron
+east
+south
+west
+give claim check to matron
+east
+north
+north
+up
+give baby to librarian
+take rattle
+ask librarian about rattle
+down
+south
+south
+west
+give baby to matron
+south
+shake rattle
+take sixth baby
+take baby
+look
+inventory
 out
 north
-push owl
-push vulture
-push mouth
-push marks
-push woman
+east
+north
+north
+up
+look
+give baby to librarian
+look
+open case
 take diamond
-turn cup clockwise
-again
-again
-turn cup counterclockwise
-again
-turn cup clockwise
-again
-turn cup counterclockwise
+drop rattle
+look
+examine case
+examine Uncle Tom's Cabin
+take book
+look
+new edition
+look
+examine Uncle Tom's Cabin
+open Uncle Tom's Cabin
+take diamond
+look
+examine case
+take uncle tom's cabin
+inventory
+open uncle tom's cabin
+look
+take diamond
+inventory
+close case
+down
+west
+south
+south
+south
+east
+south
+east
+south
+east
+look
+show finished diamond to Wentworth
+inventory
+break finished diamond
+look
+inventory
+read note
+small
+time
+look
+west
+north
+east
+north
+north
+north
+northeast
+northwest
+look
+east
+ask woman about prince
+ask woman about master
+ask woman about illness
+ask woman about remedy
+ask woman about ginseng
+ask woman about lotus root
+ask woman about bear's paw
+look
+west
+southeast
+southwest
+south
+west
+north
+west
+northwest
+west
+look
+take paw
+look
+south
+south
+look
+take lotus
+look
+inventory
+east
+northeast
+east
+south
+east
+south
+south
+south
+south
+look
+east
+east
+east
+east
+east
+north
+east
+look
+take ginseng
+inventory
+time
+west
+south
+west
+west
+west
+west
+west
+north
+north
+north
+north
+north
+look
+northeast
+northwest
+east
+give ginseng to woman
+give lotus to woman
+give paw to woman
+look
+time
+west
+southeast
+southwest
+south
+south
+south
+south
+south
+south
+south
+east
+east
+south
+south
+south
+east
+southeast
+southeast
+look
+south
+examine totem
+read sign
+look
+east
+south
+examine model
+examine houses
+examine first house
+examine second house
+examine third house
+examine fourth house
+examine fifth house
+examine sixth house
+examine seventh house
+examine eighth house
+examine ninth house
+examine tenth house
+take raven totem
+take owl totem
+take earthquake totem
+take chief's totem
+north
+west
+look
 put earthquake totem in bear
 put chief's totem in dogfish
 put owl totem in man
 put raven totem in beaver
-shoot Bob with gun
+look
+take diamond
+break finished diamond
+time
+inventory
+north
+northwest
+northwest
+look
+eat at restaurant
+look
+time
+west
+north
+west
+north
+west
+north
+north
+west
+north
+north
+north
+north
+north
+northeast
+northwest
+east
+time
+west
+north
+look
+wait until 2:25
+time
+look
+time
+wait until 2:25
+no
+time
+time
+wait until 2:25
+no
+no
+no
+time
+wait until 2:25
+no
+no
+no
+no
+no
+no
+no
+no
+no
+no
+time
+time
+look
+time
+wait until 2:25
+no
+no
+no
+no
+no
+no
+no
+no
+no
+no
+look
+time
+wait until 2:28
+no
+no
+no
+no
+look
+time
+north
+look
+examine tea set
 wait
-ask Bob about Delbras
-shoot Bob with gun
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+south
+southeast
+southwest
+south
+south
+south
+south
+south
+east
+east
+east
+east
+east
+north
+west
+look
+look
+examine tea set
+turn cup clockwise
+again
+again
+turn cup counterclockwise
+again
+again
+again
+turn cup clockwise
+again
+again
+again
+again
+turn cup counterclockwise
+again
+again
+take diamond
+break finished diamond
+inventory
+time
+break cut and polished diamond
+inventory
+east
+south
+east
+east
+south
+south
+southwest
+in
+look
+unlock door with gold key
+open door
+in
+unlock drawer with silver key
+open drawer
+unlock box with bronze key
+open box
+take diamond
+look
+time
+time
+out
+west
+north
+west
+west
+west
+west
+west
+north
+north
+west
+north
+north
+west
+south
+east
+look
+show finished diamond to Wentworth
+show unfinished diamond to Wentworth
+time
+west
+north
+east
+south
+south
+south
+northeast
+north
+open safe
+put unfinished diamond in safe
+put finished diamond in safe
+close safe
+look
+time
+south
+southwest
+north
+north
+north
+east
+east
+east
+east
+north
+north
+north
+north
+look
+south
+ask floyd about keys
+look
+inventory
+north
+east
+look
+unlock case with ring of keys
+open case
+take pipe
+close case
+lock case with ring of keys
+west
+look
+put pipe on east pedestal
+look
+southeast
+look
+take star medal
+northwest
+put star medal on southeast pedestal
+southwest
+look
+buy medal
+northeast
+put Columbian medal on southwest pedestal
+west
+look
+examine stamp
+examine knife
+examine jar
+take knife
+put knife in jar
+take stamp
+east
+put stamp on west pedestal
+look
+north
+look
+examine lures
+take fly
+examine bazooka gun
+examine platform
+examine east wall
+examine trigger
+push wood
+rotate platform
+rotate platform
+look
+squeeze trigger
+south
+northeast
+look
+take wheat
+southwest
+put wheat on northeast pedestal
+put fly on north pedestal
+look
+northwest
+look
+examine globe
+examine crank
+examine shaft
+turn crank
+examine globe
+turn crank
+examine globe
+turn crank
+examine globe
+turn crank
+turn crank
+examine globe
+take crank
+up
+examine globe
+examine symbol
+open compartment
+take tower
+down
+put crank on shaft
+southeast
+put tower on northwest pedestal
+look
+give ring of keys to Floyd
+down
+look
+take diamond
+examine body
+take blueprints
+examine blueprints
+up
+inventory
+time
+inventory
+south
+south
+southwest
+south
+west
+west
+west
+west
+west
+south
+east
+look
+show diamond to Wentworth
+time
+west
+north
+east
+south
+south
+south
+northeast
+north
+open safe
+put unfinished diamond in safe
+close safe
+time
+south
+southwest
+north
+west
+west
+north
+look
+eat at restaurant
+time
+north
+east
+east
+east
+east
+east
+east
+north
+east
+south
+south
+west
+look
+look
+time
+east
+north
+north
+northeast
+northwest
+north
+west
+north
+west
+west
+west
+west
+west
+west
+west
+north
+north
+look
+east
+examine rugs
+examine east rug
+look behind east rug
+east
+look
+examine worn rug
+look behind worn rug
+east
+open drawer
+examine letter
+examine wig
+take letter
+take wig
+look
+examine rug
+look behind rug
+look
+east
+open drawer
+examine letter
+examine wig
+take letter
+take wig
+west
+west
+west
+look
+south
+south
+south
+south
+look
+west
+west
+west
+west
+look
+wait
+look
+wait
+e
+e
+e
+e
+e
+s
+s
+s
+e
+s
+s
+s
+e
+s
+s
+e
+e
+e
+s
+s
+s
+e
+se
+se
+ne
+e
+s
+look
+take horn
+take gunpowder
+look
+n
+e
+n
+n
+w
+n
 w
 w
 w
+n
+take mop
+look
+s
+e
+e
+e
+s
+e
+se
+look
+open horn
+put gunpowder in cannon
+close horn
+put mop in cannon
+take cannonball
+put cannonball in cannon
+strike match
+put match in firing hole
+look
+n
 w
+w
+w
+n
+w
+n
+w
+n
+n
+w
+n
+n
+n
+n
+w
+n
+n
+w
+nw
+w
+w
+s
+look
+look
+buy banana
+buy banana
+inventory
+examine stipend
+time
+score
+n
+e
+e
+s
+s
+s
+e
+s
+s
+s
+e
+s
+e
+ne
+n
+look
+sit on cot
+sleep
+wait until 10:01
+look
+sleep
+look
+look
+time
+stand up
+drop mop
+drop horn
+take bill
+inventory
+south
+southwest
+northwest
+wait in line
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+give bill to teller
+inventory
+open stipend
+look in stipend
+take money
+money
+se
+n
+n
+n
+n
+n
+w
+n
+n
+w
+nw
+w
+w
+s
+look
+buy banana
+buy banana
+inventory
+look
+buy yellow banana
+inventory
+look
+buy exotic fruit
+inventory
+north
+north
+look
+examine puppet
 give banana to ape
 take puppet
 take banana peel
 give banana to ape
 south
-push Harvey
+look
+e
+e
+ne
+e
+e
+look
+examine trunk
+look in trunk
+tell boy about diamonds
+east
+look
+examine trunk
+look in trunk
+west
+examine sculpture
+look behind sculpture
+examine stump
+look in stump
+light lantern with match
+open trapdoor
+down
+look
+boy, follow me
+north
+northeast
+east
+north
+look
+unlock door with puppet
+open door
+north
+look
+examine statue
+up
+look
+put ticket in ticket box
+north
+look
+examine audience
+sit in seat
+look
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+wait
+stand up
+up
+look
+examine devices
+push harvey
 push yellow button
 turn knob
 turn wind dial to 2
 push thin lever
 turn wind dial to 0
-turn neb dial to 1
+turn nebulator dial to 1
+look at stage
 pull stages lever
-again
-turn neb dial to 2
 pull stages lever
-again
-turn neb dial to 3
+turn nebulator dial to 2
+look at stage
+pull stages lever
+pull stages lever
+pull stages lever
+turn nebulator dial to 3
+look at stage
 flip red switch
-# FIXME (note: (Repeat waiting while the Boy investigates the statue.
-He will report that the fuse is inside the statue, and that there are three buttons: a circle, a square, and a triangle.
-He says that you'll have to tell him which buttons to push.))
 wait
-boy, push
-boy, push
-boy, push
+wait
+wait
+wait
+wait
+wait
+boy, push square
+boy, push triangle
+boy, push square
+look
+look

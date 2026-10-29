@@ -1,6 +1,5 @@
 # The Sleeping Princess -- from https://plover.net/~davidw/sol/s/sleep08a.html (My walkthrough and map)
-about
-ENTER
+
 i
 x bucket
 x mop
@@ -31,6 +30,7 @@ w
 x sign
 x man
 x treadmills
+z
 yes
 ask willy about himself
 ask willy about hobbies
@@ -78,4 +78,3 @@ u
 w
 n
 abracadabra kalamazoo
-credits

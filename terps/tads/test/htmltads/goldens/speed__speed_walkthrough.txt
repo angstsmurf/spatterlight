@@ -1,4 +1,4 @@
-# (untitled) -- from https://plover.net/~davidw/sol/u/untit99a.html (My walkthrough and map)
+# SpeedIF (Lenny Pitts) -- from https://plover.net/~davidw/sol/u/untit99a.html (My walkthrough)
 i
 x knife
 n

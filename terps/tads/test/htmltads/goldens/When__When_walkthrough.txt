@@ -1,9 +1,9 @@
-# When the Millennium Made Marvelous Moves -- from https://plover.net/~davidw/sol/w/whenm24.html (My walkthrough and maps)
-SPACE
-1 –to– 4
-1 –to– 4
-1 –to– 4
-SPACE
+# When the Millennium Made Marvelous Moves -- from https://plover.net/~davidw/sol/w/whenm24.html (Ending 1; single-space lines answer key prompts and menus are answered by 1)
+ 
+1
+1
+1
+ 
 x Jo
 x me
 i
@@ -47,6 +47,7 @@ turn off switch
 s
 w
 sleep
+ 
 e
 e
 x moon
@@ -117,14 +118,15 @@ x graffiti
 read it
 u
 w
-SPACE
-1 –to– 4
-SPACE
-SPACE
+ 
+1
+ 
+ 
 w
 w
 wind clock
 sleep
+ 
 time
 e
 e
@@ -166,10 +168,11 @@ take copy
 x it
 w
 w
-1 –to– 4
-1 –to– 4
-SPACE
-SPACE
+ 
+1
+1
+ 
+ 
 n
 n
 n
@@ -177,7 +180,7 @@ w
 w
 put tape in recorder
 watch tape
-SPACE
+ 
 take tape
 e
 e
@@ -185,7 +188,6 @@ e
 s
 e
 x checkstand
-2
 x shelves
 x drinks
 buy drinks
@@ -201,9 +203,9 @@ w
 z
 z
 z
+z
 1
 1
-SPACE
 look
 x table
 x file
@@ -218,6 +220,7 @@ ask if news
 ask what he will do
 ask about beard
 w
+ 
 s
 w
 take firecracker
@@ -230,12 +233,13 @@ s
 n
 z
 z
+ 
 w
 w
-SPACE
-1 –to– 4
-1 –to– 4
-SPACE
+ 
+1
+1
+ 
 n
 n
 n
@@ -285,6 +289,7 @@ w
 w
 x Vega
 z
+ 
 e
 e
 e
@@ -296,13 +301,13 @@ s
 n
 z
 z
+ 
 w
 w
-SPACE
-1 –to– 4
-1 –to– 4
-SPACE
-SPACE
+ 
+1
+1
+ 
 n
 n
 n
@@ -311,12 +316,12 @@ w
 put tape in recorder
 drink drink
 watch tape
-SPACE
+ 
 take tape
 e
 e
 e
-SPACE
+ 
 x boss
 x dress
 take key
@@ -339,42 +344,9 @@ e
 e
 s
 s
-save
 unlock gate with key
 se
 put firecracker in bin
 light firecracker
-SPACE
-x newspaper
-amusing
-unlock gate with key
-se
-nw
-w
-n
-n
-n
-w
-SPACE
-x newspaper
-amusing
-e
-spray detector
-SPACE
-x exams
-amusing
-unscrew wheels
-SPACE
-x exams
-amusing
-unlock gate with key
-se
-nw
-n
-n
-n
-d
-enter train
-SPACE
-x newspaper
-amusing
+ 
+x photo

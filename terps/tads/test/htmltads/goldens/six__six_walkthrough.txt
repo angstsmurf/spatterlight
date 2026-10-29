@@ -1,5 +1,4 @@
 # Six Stories -- from https://plover.net/~davidw/sol/s/sixst99.html (My walkthrough and map)
-Please choose an option: s
 i
 x shirt
 x sweater
@@ -98,6 +97,7 @@ put leaf on water
 rub needle on stone
 put needle on leaf
 stand
+n
 n
 n
 enter blue door
