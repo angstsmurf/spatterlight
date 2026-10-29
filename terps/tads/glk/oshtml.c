@@ -20,8 +20,10 @@
  *     it after . ? ! and : (looking back past quotes and closing brackets);
  *   - each open tag goes on a stack with the state from before it, so an
  *     end tag restores what its start tag changed, and an end tag closes
- *     the tags left open inside it; clearing the window closes them all,
- *     as HTML TADS's clear_page does;
+ *     the tags left open inside it; an end tag with no start tag open
+ *     closes the innermost one instead, as HTML TADS's end_normal_tag
+ *     does (Drool's "<b>pamphlets</A>"); clearing the window closes them
+ *     all, as HTML TADS's clear_page does;
  *   - text is bold, italic, fixed, Input and centred in any combination
  *     (OSSTY_*), and osstyles.c picks a Glk style for each one; <b>, <i>,
  *     <tt>, <font face>, <hN> and the formatter's own attributes set the
@@ -1454,7 +1456,12 @@ static void restore_elem(parser *p, int i)
     p->nelems = i;
 }
 
-/* an end tag closes its start tag, if it has one */
+/*
+ *   An end tag closes its start tag, and the tags left open inside it.
+ *   Without one open, it closes the innermost open tag: HTML TADS's
+ *   end_normal_tag goes on "as though it had matched" and pops the current
+ *   container, so Drool's "<b>pamphlets</A>" is bold only to the </A>.
+ */
 static int pop_elem(parser *p, const glui32 *name, size_t len)
 {
     int i;
@@ -1465,6 +1472,8 @@ static int pop_elem(parser *p, const glui32 *name, size_t len)
             restore_elem(p, i - 1);
             return 1;
         }
+    if (p->nelems > 0)
+        restore_elem(p, p->nelems - 1);
     return 0;
 }
 

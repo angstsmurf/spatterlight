@@ -80,6 +80,16 @@ follows the spec and has none of Spatterlight's extensions. In practice:
   - Both formatters now emit their own markup, so the parser must handle it:
     newlines become `<BR HEIGHT=0>`, `\ ` becomes `&nbsp;`, and TADS 2's
     `\(`/`\)` become `<B>`/`</B>`.
+  - `&nbsp;` is a character in its own right in both engines, as HTML TADS
+    draws it, so a line of nothing but `&nbsp;` and a break is a blank
+    line. TADS 2 used to treat it as a pending space, dropped at the
+    break, and the credits of *Tomorrow Never Comes*, which redraw a
+    banner every 700 ms with eleven lines padded out with such lines,
+    came out a different height each frame. Now each frame moves the text
+    up a row and the roll ends with THE END in the middle of the banner,
+    as in QTads. Elsewhere this shifts text by one space: the `&nbsp;`
+    columns of help menus, status lines ending in one, and a lone `\ `
+    line (*coast*), which is now blank.
 - [x] **A shared markup parser, `glk/oshtml.c`.** It takes the byte stream
   from `os_printz` and `os_banner_disp` and produces Glk calls.
   - Tokenise tags, attributes and entities, which can be split across print
@@ -109,7 +119,12 @@ follows the spec and has none of Spatterlight's extensions. In practice:
 - [x] **Entities as Unicode for both engines.** Route TADS 2 through the same
   entity table as TADS 3 and output with `glk_put_char_uni`. This fixes the
   ASCII-only entities in TADS 2 even in text mode.
-- [ ] **Answer `systemInfo` honestly.**
+- [x] **Answer `systemInfo` honestly.** Every answer in `os_get_sysinfo`
+  (`osglk.c`) now comes from a `glk_gestalt`, and in Spatterlight those
+  follow the theme: the app sends its Graphics and Sound settings in the
+  reply to `HELLO` and again in an `EVTPREFS` event whenever they change
+  (`glkimp/connect.c`), so a game that asks mid-play gets the current
+  setting.
   - [x] Set `SYSINFO_HTML=1` and `INTERP_CLASS=ICLASS_HTML`, for TADS 2
     (`osglk.c`, with Step 3), and later for TADS 3 too. adv3's
     `checkHtmlMode()` asks for the HTML class, and `aHrefAlt` writes a
@@ -122,12 +137,21 @@ follows the spec and has none of Spatterlight's extensions. In practice:
     its own corpus run.
     Turning this on changed *Arrival*, *bbn*, *Beet*, *Ground*, *landing*
     and *Six*, which take their picture paths.
-  - Report `WAV`, `MIDI`, `OGG`, `MPEG`, `MPEG1`-`3`, `WAV_MIDI_OVL`,
-    `WAV_OVL` and `AUDIO_FADE` from the matching `glk_gestalt` results.
-  - Report `PREF_SOUNDS`, `PREF_MUSIC` and `PREF_LINKS` from Spatterlight's
-    settings.
-  - Report `LINKS_*` once links work.
-  - Report `MNG*` as 1 (Step 5 converts MNG to GIF).
+  - [x] `WAV`, `MIDI`, `OGG`, `MPEG`, `MPEG1`-`3`, `WAV_MIDI_OVL`,
+    `WAV_OVL`, `AUDIO_FADE` and `AUDIO_CROSSFADE` follow `gestalt_Sound2`
+    (Step 6).
+  - [x] `PREF_IMAGES` follows `gestalt_Graphics`, and `PREF_SOUNDS` and
+    `PREF_MUSIC` both follow `gestalt_Sound2`, which is the theme's Sound
+    setting: Spatterlight has one switch for effects and music. With sound
+    off the game is told so, and *According to Cain* and *Edgar Allan Poe*
+    then don't ask "Do you want music?".
+  - [x] `PREF_LINKS` is 1 where `gestalt_Hyperlinks` is (Step 4). There is
+    no setting that hides links.
+  - [x] `LINKS_HTTP`, `LINKS_FTP`, `LINKS_NEWS`, `LINKS_MAILTO` and
+    `LINKS_TELNET` are 0, which is the truth: URL links are plain text (see
+    "Not worth doing").
+  - [x] `MNG`, `MNG_TRANS` and `MNG_ALPHA` are 1 in the Spatterlight build
+    only, where the app turns an MNG into an animated GIF (Step 5).
   - ⚠️ This changes library behaviour. adv.t switches its status line to a
     `<banner>`, and adv3 picks between the banner API, `<banner>` tags and
     plain text. Run the corpus before and after.
@@ -177,6 +201,10 @@ follows the spec and has none of Spatterlight's extensions. In practice:
     UTC and moves only when the game reads it (1 ms a read), sleeps, or
     waits on a timer. Two runs over the whole corpus and xtads give the
     same traces, so there is no list of noisy games to skip.
+    - A game's sleep (`os_sleep_ms`) is one of its delays, which the
+      player can turn off. With the Delays setting off, the sleep is
+      skipped and the virtual clock moved on by its length; with it on,
+      the sleep waits, in testing mode too.
   - The fake app answers every `BANNERLINES` with 24, so a banner sized to
     its contents comes out 24 lines tall in the traces (*1893*'s banners
     fill the window). The real app counts the lines.
@@ -494,6 +522,37 @@ Notes from the corpus traces:
   bg = grid fg), as the text-mode status line is; any other banner has the
   main window's colours. The harness answers every measure with 0, so its
   traces show colour 0. Check colours in the app.
+  - In a text banner, the `statustext` and `statusbg` parameter colours
+    are the status line's, not the window's own (`tag_color`). The menu
+    library's title and its hidden ">" are made of them: *Arrival*'s menu
+    gets its dark title, and the unselected ">" stays invisible.
+- [x] **A banner's text starts at the top**, whatever its `align`. A
+  Glk text buffer is top-aligned and scrolls to its end when the text
+  overflows, which is what an HTML TADS banner does (QTads's
+  `fBannerStyleAutoVScroll`). The bottom banner of *Tomorrow Never Comes*'s
+  credits was once anchored at the bottom of its window, which hid the real
+  fault (the `&nbsp;` lines, Step 0) and made the roll look as if it were
+  deleted from the top. Don't bring that back.
+- [x] **A banner fitted to its text grows with it.** The fit is measured
+  when the banner's text is done, but the windows around it can change
+  after that (the side banners shrink to their pictures) and rewrap its
+  text. `osglk_tag_banner_refit` (`fit_px`) makes such a banner as tall as
+  its text is now, when the page is done, so the upper picture banner of
+  *1893*'s About page no longer scrolls.
+- [x] **A status line of cells over pictures** (*Threnody*). A banner that
+  is one table whose first row is text cells and whose other rows are
+  pictures under all but the first column (`build_celltable`,
+  `osglk_tag_banner_cells`) is laid out as HTML TADS does: the first cell's
+  text, the title, goes in the banner's own text window, which takes the
+  room the other columns leave; each other cell's text (`OSHTML_CELLS_MAX`,
+  8) goes in a grid window as wide as its column, split off at the right
+  (`tag_open_cells`), in the cell's alignment and the style and colours
+  the cell before left; and the pictures are drawn in a graphics window
+  under them, as a picture table. The banner is as tall as the two
+  together. Any other table in a banner goes as a table always does
+  (Step 7). `osglk_px_grid_width` and `osglk_px_grid_line` (`osglk.c`)
+  give the grid's pixel sizes for this, in both the Spatterlight and the
+  Gargoyle builds.
 
 Notes from the corpus traces:
 
@@ -560,10 +619,11 @@ link in each content chunk, so a redraw restores it
   `os_get_event` returns `OS_EVT_HREF`, with the href cut to 255 bytes.
   Not tried on a game that runs its own event loop.
 - [x] Image-map links in Step 5 use the same table and event path.
-- [ ] **URL links** (52 games: `news:`, `mailto:`, `http:`, mostly in about
-  text). For now they are plain text (`is_url`). Open them through the app,
-  behind the user's link setting, and report `LINKS_HTTP`, `LINKS_MAILTO`
-  and `LINKS_NEWS` accordingly.
+- [x] **URL links** (52 games: `news:`, `mailto:`, `http:`, mostly in about
+  text) stay plain text (`is_url`), by decision: most of the pages they
+  name are gone, and a game that can open a URL in the user's browser or
+  mail client is an attack vector. `LINKS_HTTP`, `LINKS_MAILTO` and
+  `LINKS_NEWS` are 0 to match (see "Not worth doing").
 - [x] `plain` (26 games) is ignored, so the link is an ordinary one. In HTML
   TADS `plain` only drops the link's highlighting. Glk has no link without
   its look, so these links look like the others. They were once left out,
@@ -588,7 +648,28 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
     image's aspect.
   - An inline image starts a line like text does: a paragraph's pending
     newline comes before it, so *1893*'s title has one more blank line.
-  - Not checked yet: *Drool* (pictures in later rooms).
+  - *Drool*: the room pictures reachable from the start look as they do
+    in QTads. The default script never passes the game's first prompt (the
+    sex of the dog), so its corpus traces draw nothing; driven past it,
+    both builds load their pictures, the plain one from loose files in
+    `artwork/` and `added_images/`. The welcome dragon is `dragon.png` in
+    the game but `artwork/dragon.png` on disk and in the HTMLRES, so no
+    interpreter shows it, and it has no `alt`. Not seen yet: the Caltech
+    page of the airport ending (a margin picture and a `.PNG` name in
+    upper case), which the archive's own walkthrough doesn't reach. That
+    walkthrough (`Documentation/walkthru.txt` in the IF Archive's
+    `Drool.zip`) plays to The End with 1000 of 1041 points. Fenway Park's
+    description closes `<b>` with `</A>`. HTML TADS's `end_normal_tag`
+    treats an end tag with no start tag open as if it had matched, and
+    pops the innermost container, so only "pamphlets" is bold; our
+    `pop_elem` does the same now, where it used to drop the end tag and
+    leave the rest of the game bold. Three other traces change, each at
+    unbalanced HTML of the game's own: *Six Stories*' help closes
+    `<FONT><B>` as `</FONT></B>`, so the `</B>` ends its `<BQ>` and
+    "Okay. Enjoy your stay" loses the indent; *gold_parchment* closes a
+    `<BLOCKQUOTE>` with `</BQ>`, a different tag name in HTML TADS, which
+    now ends the quote instead of indenting the rest of the game; and
+    *unbalanced_tags_1*'s `<b>bold</i>` is bold only to the `</i>`.
   - TADS 3 is told about JPEG and PNG as well. Six games in the corpus
     now draw pictures: *Edge of Chaos* (its title and start screens),
     *According to Cain* (which now asks "Do you want graphics?"),
@@ -694,6 +775,20 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   Pill*'s bottom direction bar (a 2x10 grid, centred) is clickable that way.
   The tiles start 3 px above the window, so the bevel along the top of
   pill's `banner_bg.jpg` isn't seen, as in QTads.
+- A cell's picture inside `<CENTER>`, and an `&nbsp;` holding an empty cell
+  open, no longer keep a banner table from being a picture table, so the
+  circle of *Tomorrow Never Comes*'s intro slides as one. A one-cell table
+  of `HEIGHT='100%'` with a centred plain picture (`build_cellpic`), as that
+  game's location cards, is laid out as the picture over the rest of its
+  cell, with the caption centred under it.
+- A margin picture (`align=left`/`right`) that comes after text in a line
+  starts the next line, as HTML TADS floats it from the line after. The
+  title of *Tomorrow Never Comes* used to run under its picture.
+- A picture of at least 64×64 in the first cell of a table row floats in
+  the left margin, as *Threnody*'s cat does, with the row's text beside it.
+  A flow break now comes after the newline the text buffer holds back, so
+  the break marker no longer lands inside the last line's paragraph and
+  pushes that line below the picture.
 - A fix in the banners came with this: `tag_put` holds a banner's newlines
   back until more text comes, so its last line isn't blank, but a picture
   went past them. The rows of pictures in *1893*'s room banner came out on
@@ -706,6 +801,17 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   window: `find_picpage`/`build_picpage` lay the pictures out in pixels as the
   text would flow, and `tag_table_draw` tiles the background under them. A
   background behind text is still skipped.
+  ✅ The main window too: a page of pictures on a `<BODY BACKGROUND>`,
+  which is all the window was sent since it was cleared or last waited,
+  before a key wait (`oshtml_main_page`, *Macrocosm*'s intro), gets the
+  background tiled in a graphics window on each side of the text, as wide
+  as what the text leaves (`main_page_place`, `osglk.c`). The movie stays
+  in the text, where it animates; the tiles run on across the three
+  windows as one picture, until the key.
+  ✅ Text on a `<BODY BACKGROUND>` that doesn't show against the `BGCOLOR`
+  (*Macrocosm*'s starfield is `TEXT=WHITE` on `BGCOLOR=WHITE`, as the
+  picture is dark) gets the opposite background by brightness, black for
+  light text, since the picture isn't drawn behind it.
 - [x] **MNG → animated GIF, in the app.** Spatterlight already animates GIFs
   in buffer windows (`Images/ImageAnimation.m`). `Images/MNGConverter.m`
   turns MNG data into a GIF when `ImageResource` first decodes it, and the
@@ -746,8 +852,8 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
     have the PNG answer in the Spatterlight build (`#ifdef SPATTERLIGHT`).
     Glk has no gestalt for this, so it's a build-time answer. No corpus
     trace changes.
-  - **Not checked in the app window yet:** that *Macrocosm*'s and
-    *Antiquest*'s pictures play there.
+  - **Checked in the app:** *Macrocosm*'s animations and *Antiquest*'s
+    opening movie play in the window as they do in QTads.
 
 ## Step 6: Sound (`<sound>`, 53 games; WAV 26, MP3 22, MIDI 9, Ogg 4)
 
@@ -825,6 +931,11 @@ width=100%`, side-by-side image and text, menus, and score sheets.
     spaces for every line of the cell, through the parser's left indent.
     "Empty" means the row has shown nothing yet: no text, image or newline,
     so a cell after an `<hr>` cell is not indented (*Rematch*).
+  - **A marker cell.** A first cell of a few pixels' width (under 100), as
+    the pointer cell of *Threnody*'s menu, marks its row: its `align` stays
+    in the cell and doesn't centre the row, it doesn't indent the row, and
+    a picture in it takes the place of the gap before the next cell, so the
+    selected row lines up with the others.
   - **`align`.** On a row or on its first cell, `center` (and on the first
     cell, `right`) centres the line, and `left` stops the centring. The `align` of later cells is ignored,
     except that `right` is a right `<TAB>` to the end of the line where a
@@ -844,8 +955,10 @@ width=100%`, side-by-side image and text, menus, and score sheets.
     item, indented.
   - *Arrival*'s status line shows its compass rose as three lines.
   - Accepted: rows or cells that start with `<br>` or `\b` now give more
-    blank lines than before. *Threnody*'s status line is one line taller,
-    because its turn count and its "Turns" label are in different rows.
+    blank lines than before. *Threnody*'s status line was one line taller,
+    because its turn count and its "Turns" label are in different rows;
+    it is now laid out as cells over pictures (Step 3), where the label
+    is in its own grid.
   - In TADS 3, a row of only empty cells can print a blank line, because of
     the formatter's rule about the spaces of a tab.
 - [ ] **Possible later work: real tables.** AppKit has `NSTextTable` and
@@ -862,6 +975,10 @@ width=100%`, side-by-side image and text, menus, and score sheets.
 - `<body background>` tiling (until an extension
   exists), and image maps beyond the link-row fallback.
 - `<log>`/`<nolog>` (scripting already goes through Glk transcripts).
+- URL links (`http:`, `mailto:`, `news:`, `ftp:`, `telnet:`): most of the
+  pages are dead, and letting a game open a URL in the browser or mail
+  client is an attack vector, so they stay plain text and the `LINKS_*`
+  answers stay 0.
 - Font size, font face, superscript/subscript, underline, strikethrough,
   right indents, and indenting the wrapped lines of a paragraph, unless the
   text-attribute extension in Step 1 is built after all.
