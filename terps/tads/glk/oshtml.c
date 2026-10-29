@@ -1817,6 +1817,16 @@ static int show_image(parser *p, const oshtml_image *img)
         c = cur_color(p);
         send_color(p, &c);
     }
+    else if (p->col > 0 && !p->dst)
+    {
+        /*
+         *   A margin picture goes at the start of a line, and the window
+         *   puts it where the text has got to.  After text in the line (the
+         *   title of Tomorrow Never Comes) the first line ran under it, so
+         *   it starts the next one
+         */
+        line_break(p);
+    }
     flush_out(p);
 
     if (p->sink->image)
