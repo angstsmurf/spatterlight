@@ -86,6 +86,7 @@ void os_gen_charmap_filename(char *filename, char *internal_id, char *argv0)
 
 #include "randomness.h"
 extern glui32 gli_determinism;
+extern int gli_sa_delays;
 
 /*
  *   All randomness draws from the shared erkyrath_random()
@@ -248,9 +249,15 @@ void os_nonstop_mode(int flag)
 void os_sleep_ms(long delay_in_milliseconds)
 {
 #ifdef SPATTERLIGHT
-    if (osglk_vclock())
+    /*
+     *   Sleeps are the game's delays, which the player can turn off.  Under
+     *   the determinism testing theme the timer wait below moves the virtual
+     *   clock on, and so does skipping it here.
+     */
+    if (!gli_sa_delays)
     {
-        osglk_vclock_advance((unsigned long)delay_in_milliseconds);
+        if (osglk_vclock())
+            osglk_vclock_advance((unsigned long)delay_in_milliseconds);
         return;
     }
 #endif
