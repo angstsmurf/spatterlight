@@ -1884,9 +1884,10 @@ static int show_image(parser *p, const oshtml_image *img)
 /*
  *   A picture alone so far in a cell of a table in the main window, which
  *   may go beside the page, as the borders of 1893's pages do: a tall one
- *   (or a big one, as Threnody's cat is) in a row's first cell, or one in its last cell after text.  It waits
- *   for what follows: a tag that ends the cell goes on waiting, and the
- *   next cell, row or the end of the table decides (cell_picture_tag).
+ *   (or a big one, as Threnody's cat is) in a row's first cell, or one in
+ *   its last cell after text.  It waits for what follows: a tag that ends
+ *   the cell goes on waiting, and the next cell, row or the end of the
+ *   table decides (cell_picture_tag).
  *   Anything else puts it in the text after all (release_cell_picture).
  */
 static int hold_cell_picture(parser *p, const oshtml_image *img)

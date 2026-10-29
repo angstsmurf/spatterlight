@@ -72,7 +72,7 @@ typedef struct os_banner_s
 
     contentid_t contents;           /* window contents */
     glui32 style;                   /* active Glk style value */
-    os_color_t fg, bg;              /* active text colours, as the game set them */
+    os_color_t fg, bg;              /* active text colours, as set by game */
     glui32 link;                    /* active hyperlink (HTML mode) */
     glui32 newline;                 /* active newline */
     glui32 move, x, y;              /* active cursor position */
@@ -261,8 +261,8 @@ osbanid_t os_banner_init(void)
 }
 
 osbanid_t os_banner_insert(osbanid_t parent, glui32 operation, osbanid_t other,
-                           glui32 method, glui32 size, glui32 type, glui32 status,
-                           glui32 repad)
+                           glui32 method, glui32 size, glui32 type,
+                           glui32 status, glui32 repad)
 {
     if (!parent || !(parent->valid))
         return 0;
@@ -635,8 +635,9 @@ void os_banners_open(osbanid_t banner)
                 grid_hints_set();
             else if (banner->status)
                 fixed_hints_set();
-            banner->win = glk_window_open(banner->parent->win, banner->method,
-                                          banner->size, banner->type, banner->id);
+            banner->win = glk_window_open(banner->parent->win,
+                                          banner->method, banner->size,
+                                          banner->type, banner->id);
             if (banner->type == wintype_TextGrid)
                 grid_hints_clear();
             else if (banner->status)
@@ -1064,8 +1065,8 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
         default: gwinmeth |= winmethod_Fixed; break;
     }
 
-    gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize, gwintype, gstatus,
-                               grepad);
+    gbanner = os_banner_insert(gparent, where, other, gwinmeth, gwinsize,
+                               gwintype, gstatus, grepad);
 
     if (gbanner)
     {
@@ -1082,7 +1083,8 @@ void *os_banner_create(void *parent, int where, void *other, int wintype,
     return gbanner;
 }
 
-void os_banner_set_size(void *banner_handle, int siz, int siz_units, int is_advisory)
+void os_banner_set_size(void *banner_handle, int siz, int siz_units,
+                        int is_advisory)
 {
     osbanid_t banner = banner_handle;
 
@@ -1229,7 +1231,8 @@ void os_banner_size_to_contents(void *banner_handle)
     if (banner->repad)
     {
         glui32 rows = banner_contents_rows(banner->contents);
-        if (rows && !(rows == banner->size && (banner->method & winmethod_Fixed)))
+        if (rows && !(rows == banner->size
+                      && (banner->method & winmethod_Fixed)))
             os_banner_set_size(banner, rows, OS_BANNER_SIZE_ABS, 0);
     }
 }
@@ -1278,10 +1281,11 @@ int os_banner_getinfo(void *banner_handle, os_banner_info_t *info)
     // Return FALSE (not 1) when we have no window to measure yet: a
     // size-to-contents banner is created at size 0, so os_banners_open()
     // skips glk_window_open() and banner->win is still 0 when
-    // CVmConsoleBanner's constructor calls us. Reporting success here without
-    // populating *info left the caller reading an uninitialized info.os_line_wrap
-    // off the stack, which flipped the banner's line-wrap mode (and hence the
-    // per-character BANNERCOLS query storm) nondeterministically between runs.
+    // CVmConsoleBanner's constructor calls us. Reporting success here
+    // without populating *info left the caller reading an uninitialized
+    // info.os_line_wrap off the stack, which flipped the banner's line-wrap
+    // mode (and hence the per-character BANNERCOLS query storm)
+    // nondeterministically between runs.
     // Returning FALSE makes the caller fall back to its own os_line_wrap
     // (TRUE for a text banner: see CVmConsoleBanner in vmconsol.cpp).
     if (!banner || !banner->valid || !banner->win)
@@ -1483,8 +1487,9 @@ void os_banner_set_attr(void *banner_handle, int attr)
 
 static void banner_set_attr(osbanid_t banner, int attr)
 {
-    banner->style = osstyles_style(((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
-                                   | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0));
+    banner->style = osstyles_style(
+        ((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
+        | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0));
 }
 
 void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)

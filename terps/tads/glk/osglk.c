@@ -917,40 +917,39 @@ os_color_t osglk_body_color(os_color_t fg)
 /* os_set_text_color, once the HTML parser has caught up */
 void osglk_set_text_color(os_color_t fg, os_color_t bg)
 {
-//    fprintf(stderr, "os_set_text_color fg:%lu (%lx), bg:%lu (%lx)\n", fg, fg, bg, bg);
-
     int changedfg = 0;
     int changedbg = 0;
 
     // Fix for Hill Ridge Lost & Found
     if (fg == 0 && bg == OS_COLOR_P_TRANSPARENT) {
-//        fprintf(stderr, "Trying to set foreground color to hard black\n");
         fg = zcolor_Default;
         changedfg = 1;
     }
 
     switch (fg) {
         case OS_COLOR_P_TRANSPARENT:
-//            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_TRANSPARENT\n");
             fg = zcolor_Default;
             changedfg = 1;
             break;
         case OS_COLOR_P_TEXT:
-//            fprintf(stderr, "Trying to set foreground color to OS_COLOR_P_TEXT\n");
             fg = zcolor_Default;
             changedfg = 1;
             break;
         case OS_COLOR_P_TEXTBG:
-            fprintf(stderr, "Ignoring attempt to set foreground color to OS_COLOR_P_TEXTBG\n");
+            fprintf(stderr, "Ignoring attempt to set foreground color "
+                    "to OS_COLOR_P_TEXTBG\n");
             break;
         case OS_COLOR_P_STATUSLINE:
-            fprintf(stderr, "Ignoring attempt to set foreground color to OS_COLOR_P_STATUSLINE\n");
+            fprintf(stderr, "Ignoring attempt to set foreground color "
+                    "to OS_COLOR_P_STATUSLINE\n");
             break;
         case OS_COLOR_P_STATUSBG:
-            fprintf(stderr, "Ignoring attempt to set foreground color to OS_COLOR_P_STATUSBG\n");
+            fprintf(stderr, "Ignoring attempt to set foreground color "
+                    "to OS_COLOR_P_STATUSBG\n");
             break;
         case OS_COLOR_P_INPUT:
-            fprintf(stderr, "Ignoring attempt to set foreground color to OS_COLOR_P_INPUT\n");
+            fprintf(stderr, "Ignoring attempt to set foreground color "
+                    "to OS_COLOR_P_INPUT\n");
             break;
         default:
             changedfg = 1;
@@ -959,26 +958,30 @@ void osglk_set_text_color(os_color_t fg, os_color_t bg)
 
     switch (bg) {
         case OS_COLOR_P_TRANSPARENT:
-//            fprintf(stderr, "Trying to set background color to OS_COLOR_P_TRANSPARENT\n");
             bg = zcolor_Default;
             changedbg = 1;
             break;
         case OS_COLOR_P_TEXT:
-            fprintf(stderr, "Ignoring attempt to set background color to OS_COLOR_P_TEXT\n");
+            fprintf(stderr, "Ignoring attempt to set background color "
+                    "to OS_COLOR_P_TEXT\n");
             break;
         case OS_COLOR_P_TEXTBG:
-            fprintf(stderr, "Trying to set background color to OS_COLOR_P_TEXTBG\n");
+            fprintf(stderr, "Trying to set background color "
+                    "to OS_COLOR_P_TEXTBG\n");
             bg = zcolor_Default;
             changedbg = 1;
             break;
         case OS_COLOR_P_STATUSLINE:
-            fprintf(stderr, "Ignoring attempt to set background color to OS_COLOR_P_STATUSLINE\n");
+            fprintf(stderr, "Ignoring attempt to set background color "
+                    "to OS_COLOR_P_STATUSLINE\n");
             break;
         case OS_COLOR_P_STATUSBG:
-            fprintf(stderr, "Ignoring attempt to set background color to OS_COLOR_P_STATUSBG\n");
+            fprintf(stderr, "Ignoring attempt to set background color "
+                    "to OS_COLOR_P_STATUSBG\n");
             break;
         case OS_COLOR_P_INPUT:
-            fprintf(stderr, "Ignoring attempt to set background color to OS_COLOR_P_INPUT\n");
+            fprintf(stderr, "Ignoring attempt to set background color "
+                    "to OS_COLOR_P_INPUT\n");
             break;
         default:
             changedbg = 1;
