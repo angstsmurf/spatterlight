@@ -1857,6 +1857,13 @@ typedef struct tagban_s
     glui32 tbl_x, tbl_y;
     glui32 tbl_text;                /* the pixels of the text above it */
     glui32 screen;
+
+    /*
+     *   Under the text of a picture over it, the room the cell leaves: the
+     *   text window is as tall as its text, as Gargoyle keeps a text
+     *   buffer's lines at its bottom
+     */
+    winid_t padwin;
 #endif /* OSGLK_PIXELS */
 
     struct tagban_s *next;
@@ -2194,12 +2201,21 @@ static winid_t tag_split(tagban_t *tb)
     return pair;
 }
 
+#ifdef OSGLK_PIXELS
+static void tag_close_table(tagban_t *tb)
+{
+    if (tb->padwin)
+        glk_window_close(tb->padwin, NULL);
+    if (tb->tblwin)
+        glk_window_close(tb->tblwin, NULL);
+    tb->padwin = tb->tblwin = NULL;
+}
+#endif /* OSGLK_PIXELS */
+
 static void tag_close_window(tagban_t *tb)
 {
 #ifdef OSGLK_PIXELS
-    if (tb->tblwin)
-        glk_window_close(tb->tblwin, NULL);
-    tb->tblwin = NULL;
+    tag_close_table(tb);
 #endif /* OSGLK_PIXELS */
     if (tb->win)
         glk_window_close(tb->win, NULL);
@@ -2429,7 +2445,8 @@ static void tag_table_draw(tagban_t *tb)
     glk_window_get_size(tb->tblwin, &ww, &wh);
     tb->tbl_x = !t->center ? mx
         : ww > t->width ? (ww - t->width) / 2 : 0;
-    tb->tbl_y = t->page ? my : 0;
+    tb->tbl_y = t->page ? my
+        : t->above && wh > t->height ? wh - t->height : 0;
 
     /* the background, tiled from the top left as in HTML TADS */
     if (t->page && t->bg.id)
@@ -2518,23 +2535,55 @@ static glui32 tag_pixel_height(winid_t win)
 /*
  *   the table window is as tall as the table, or what the text leaves of
  *   the banner, so the table sits under the text as in HTML TADS; a page
- *   of pictures is all of the banner
+ *   of pictures is all of the banner.  A picture over the text is at the
+ *   bottom of its window, which is as tall as puts the two together where
+ *   their cell aligns them, and what's left goes under the text.
  */
 static void tag_table_place(tagban_t *tb)
 {
-    glui32 h = tb->tbl->height, th, wh = 0, total;
+    glui32 h = tb->tbl->height, th, wh = 0, ph = 0, total, room = 0, pad = 0;
     winid_t pair = glk_window_get_parent(tb->tblwin);
 
     th = tag_pixel_height(tb->win);
     glk_window_get_size(tb->tblwin, NULL, &wh);
-    total = th + wh;
+    if (tb->padwin)
+        glk_window_get_size(tb->padwin, NULL, &ph);
+    total = th + wh + ph;
+    if (total > tb->tbl_text && total - tb->tbl_text > h)
+        room = total - tb->tbl_text - h;
     if (tb->tbl->page)
         h = total;
-    else if (total > tb->tbl_text && total - tb->tbl_text > h)
-        h = total - tb->tbl_text;
+    else if (!tb->tbl->above || tb->tbl->valign == 2)
+        h += room;
+    else
+    {
+        pad = tb->tbl->valign == 1 ? room - room / 2 : room;
+        h += room - pad;
+    }
+
+    /* the room under the text */
+    if (pad && !tb->padwin)
+        tb->padwin = glk_window_open(tb->win, winmethod_Below
+                                     | winmethod_Fixed | winmethod_NoBorder,
+                                     pad, wintype_Graphics, 0);
+    else if (tb->padwin)
+    {
+        winid_t ppair = glk_window_get_parent(tb->padwin);
+        if (ppair)
+            glk_window_set_arrangement(ppair, winmethod_Below
+                                       | winmethod_Fixed | winmethod_NoBorder,
+                                       pad, tb->padwin);
+    }
+    if (tb->padwin)
+    {
+        osglk_set_window_bg(tb->padwin, tb->screen);
+        glk_window_clear(tb->padwin);
+    }
     if (pair)
-        glk_window_set_arrangement(pair, winmethod_Below | winmethod_Fixed
-                                   | winmethod_NoBorder, h, tb->tblwin);
+        glk_window_set_arrangement(pair, (tb->tbl->above ? winmethod_Above
+                                          : winmethod_Below)
+                                   | winmethod_Fixed | winmethod_NoBorder,
+                                   h, tb->tblwin);
 }
 #endif /* OSGLK_PIXELS */
 
@@ -2556,10 +2605,15 @@ int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t)
     if (tb->fit || tb->measure || tb->type != wintype_TextBuffer || !tb->win
         || !glk_gestalt(gestalt_DrawImage, wintype_Graphics))
         return 0;
-    if (!tb->tbl && !(tb->tbl = malloc(sizeof(*tb->tbl))))
+    if (!tb->tbl && !(tb->tbl = calloc(1, sizeof(*tb->tbl))))
         return 0;
+
+    /* a picture over the text goes on the other side of it */
+    if (tb->tblwin && tb->tbl->above != t->above)
+        tag_close_table(tb);
     if (!tb->tblwin)
-        tb->tblwin = glk_window_open(tb->win, winmethod_Below
+        tb->tblwin = glk_window_open(tb->win, (t->above ? winmethod_Above
+                                               : winmethod_Below)
                                      | winmethod_Fixed | winmethod_NoBorder,
                                      t->height, wintype_Graphics, 0);
     if (!tb->tblwin)
@@ -2655,10 +2709,7 @@ int osglk_tag_banner_done(void *ctx)
             tag_table_draw(tb);
         }
         else
-        {
-            glk_window_close(tb->tblwin, NULL);
-            tb->tblwin = NULL;
-        }
+            tag_close_table(tb);
     }
 #endif /* OSGLK_PIXELS */
     tb->lines = tb->col = tb->maxcol = tb->nl = 0;

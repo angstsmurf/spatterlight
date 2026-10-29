@@ -182,6 +182,15 @@ typedef struct oshtml_pictable
      */
     int page;
     oshtml_image bg;
+
+    /*
+     *   A table cell's picture over the rest of the cell's text, rather
+     *   than under the banner's: the cell's vertical alignment, 0 top, 1
+     *   middle, 2 bottom, in the whole banner.  Arrival's map beside the
+     *   page, over its "Remove Map".
+     */
+    int above;
+    int valign;
 } oshtml_pictable;
 
 /* The pixels of a line of text in a banner */

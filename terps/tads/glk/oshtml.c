@@ -3687,6 +3687,7 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
     pt->ntiles = 0;
     pt->width = 0;
     pt->page = 0;
+    pt->above = 0;
     while (i < len)
     {
         size_t start = i, ts, te, name, namelen;
@@ -3795,7 +3796,92 @@ static int build_mappic(parser *p, const glui32 *t, size_t len,
     pt->height = tile->h;
     pt->center = (cur_color(p).attr & OSSTY_CENTER) != 0;
     pt->page = 0;
+    pt->above = 0;
     return pt->ntiles > 1;
+}
+
+/*
+ *   Is the table in t[0..len) one cell that starts with an <IMG USEMAP>?
+ *   Lay that out as build_mappic does, to go over the rest of the cell,
+ *   which is t[*s..*e).  False if anything but spaces is outside the cell,
+ *   or the rest has a table or picture of its own.
+ */
+static int build_mapcell(parser *p, const glui32 *t, size_t len,
+                         oshtml_pictable *pt, size_t *s, size_t *e)
+{
+    static const char *const outer[] = { "table", "tr", "td", NULL };
+    size_t i = 0, ts, te, name, namelen, v, vlen, img;
+    int end, k, valign = 1;
+
+    /* <TABLE>, <TR>, <TD>, the picture */
+    for (k = 0 ; outer[k] ; ++k)
+    {
+        while (i < len && is_space(t[i]))
+            ++i;
+        if (i == len || t[i] != '<' || !raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (end || !tag_is(t + name, namelen, outer[k]))
+            return 0;
+        if (k > 0 && raw_attr(t, ts, te, "valign", &v, &vlen))
+            valign = tag_is(t + v, vlen, "top") ? 0
+                : tag_is(t + v, vlen, "bottom") ? 2 : 1;
+    }
+    while (i < len && is_space(t[i]))
+        ++i;
+    img = i;
+    if (i == len || t[i] != '<' || !raw_tag(t, len, &i, &ts, &te)
+        || !build_mappic(p, t + img, i - img, pt))
+        return 0;
+
+    /* the rest of the cell, up to its end, the row's or the table's */
+    *s = i;
+    for (;;)
+    {
+        size_t start = i;
+
+        if (i == len)
+            return 0;
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (tag_is(t + name, namelen, "td") || tag_is(t + name, namelen, "tr")
+            || tag_is(t + name, namelen, "table"))
+        {
+            if (!end)
+                return 0;
+            *e = start;
+            break;
+        }
+        if (tag_is(t + name, namelen, "img"))
+            return 0;
+    }
+
+    /* and nothing but those ends after it */
+    while (i < len)
+    {
+        if (t[i] != '<')
+        {
+            if (!is_space(t[i++]))
+                return 0;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (!end || !(tag_is(t + name, namelen, "td")
+                      || tag_is(t + name, namelen, "tr")
+                      || tag_is(t + name, namelen, "table")))
+            return 0;
+    }
+    pt->above = 1;
+    pt->valign = valign;
+    return 1;
 }
 
 /* the tags a page of pictures can have, and those that lay nothing out */
@@ -4003,6 +4089,7 @@ static int build_picpage(parser *p, const glui32 *t, size_t len,
     pt->height = y;
     pt->center = 1;
     pt->page = 1;
+    pt->above = 0;
     return pt->ntiles > 0;
 }
 
@@ -4087,18 +4174,30 @@ static void end_banner(parser *p)
                     ;
                 else if (table)
                 {
+                    size_t cs = 0, ce = 0;
+
                     /* the text, then the table: the rest is only ends */
                     for (k = i ; k < ts ; ++k)
                         feed(b, p->bantext[k]);
                     put_maprow(b);
                     expand_tab(b, 1);
                     flush_out(b);
+                    from = ts;
                     if ((table == 2
                          ? build_mappic(b, p->bantext + ts, te - ts, &pt)
                          : build_pictable(b, p->bantext + ts, te - ts, &pt))
                         && osglk_tag_banner_table(ctx, &pt))
                         stop = ts;
-                    from = ts;
+
+                    /* or a map over the rest of its cell, which is text */
+                    else if (table == 1
+                             && build_mapcell(b, p->bantext + ts, te - ts,
+                                              &pt, &cs, &ce)
+                             && osglk_tag_banner_table(ctx, &pt))
+                    {
+                        from = ts + cs;
+                        stop = ts + ce;
+                    }
                 }
                 for (k = from ; k < stop ; ++k)
                     feed(b, p->bantext[k]);
