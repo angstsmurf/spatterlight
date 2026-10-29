@@ -335,7 +335,7 @@ static void main_set_attr(void *ctx, int combo)
 static void main_set_color(void *ctx, os_color_t fg, os_color_t bg)
 {
     (void)ctx;
-    osglk_set_text_color(fg, bg);
+    osglk_set_text_color(osglk_body_color(fg), bg);
 }
 
 static void main_set_screen_color(void *ctx, os_color_t color)
@@ -1622,6 +1622,11 @@ static void set_body(parser *p, os_color_t bg)
 {
     contrast_text(p, bg);
     p->text = p->cur.fg;
+    if (p == &fmt)
+    {
+        flush_out(p);
+        osglk_set_body_text(p->text);
+    }
     if (bg != p->screen)
     {
         flush_out(p);

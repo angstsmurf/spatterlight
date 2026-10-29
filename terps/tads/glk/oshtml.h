@@ -298,6 +298,15 @@ int oshtml_is_html(void);
 void osglk_set_text_color(os_color_t fg, os_color_t bg);
 
 /*
+ *   The main window's <BODY TEXT>.  In HTML TADS it colours the whole page,
+ *   the text shown before it too, so in Spatterlight it's the window's own
+ *   text colour, which a refresh puts on what's there; the text in it then
+ *   goes out with no colour of its own (osglk_body_color).
+ */
+void osglk_set_body_text(os_color_t fg);
+os_color_t osglk_body_color(os_color_t fg);
+
+/*
  *   TADS 2's <BANNER> tags, which oshtml.c reads and osglkban.c shows.  A
  *   size is in pixels or per cent, or 'previous' (the banner's size so
  *   far), or not given (the size of its contents).

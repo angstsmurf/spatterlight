@@ -64,6 +64,9 @@ static int self_echo;
 glui32 mainfg;
 glui32 mainbg;
 
+/* the main window's <BODY TEXT>, while its style hints have it */
+static os_color_t body_text = OS_COLOR_P_TEXT;
+
 glui32 statusfg;
 glui32 statusbg;
 
@@ -177,7 +180,10 @@ static void measure_colors(void)
 {
     winid_t grid = statuswin;
 
-    if (!glk_style_measure(mainwin, style_Normal, stylehint_TextColor, &mainfg))
+    /* not the body's, which the main window's style hints have */
+    if (os_color_is_param(body_text)
+        && !glk_style_measure(mainwin, style_Normal, stylehint_TextColor,
+                              &mainfg))
         mainfg = 0;
 
     if (!glk_style_measure(mainwin, style_Normal, stylehint_BackColor, &mainbg))
@@ -846,6 +852,33 @@ void os_set_text_attr(int attr)
 void os_set_text_color(os_color_t fg, os_color_t bg)
 {
     oshtml_set_os_color(fg, bg);
+}
+
+void osglk_set_body_text(os_color_t fg)
+{
+#ifdef SPATTERLIGHT
+    int s;
+
+    if (fg == body_text || !mainwin)
+        return;
+    body_text = fg;
+    for (s = 0 ; s < style_NUMSTYLES ; ++s)
+    {
+        if (os_color_is_param(fg))
+            glk_stylehint_clear(wintype_TextBuffer, s, stylehint_TextColor);
+        else
+            glk_stylehint_set(wintype_TextBuffer, s, stylehint_TextColor,
+                              (glsi32)fg);
+    }
+    win_refresh(mainwin->peer, 0, 0);
+#else
+    (void)fg;
+#endif /* SPATTERLIGHT */
+}
+
+os_color_t osglk_body_color(os_color_t fg)
+{
+    return fg == body_text ? OS_COLOR_P_TEXT : fg;
 }
 
 /* os_set_text_color, once the HTML parser has caught up */
