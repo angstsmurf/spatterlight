@@ -4390,9 +4390,368 @@ static void pt_body_background(parser *p, const glui32 *t, size_t len,
     }
 }
 
+/* is t[s..e) only tags and whitespace? */
+static int only_tags(const glui32 *t, size_t s, size_t e)
+{
+    size_t ts, te;
+
+    while (s < e)
+    {
+        if (t[s] == '<')
+        {
+            if (!raw_tag(t, e, &s, &ts, &te))
+                return 0;
+        }
+        else if (!is_space(t[s++]))
+            return 0;
+    }
+    return 1;
+}
+
+/*
+ *   the characters a cell's text t[s..e) shows: its tags are none, an
+ *   entity one, and its runs of spaces and line breaks one between words
+ */
+static int cell_chars(const glui32 *t, size_t s, size_t e)
+{
+    size_t ts, te, name, namelen;
+    int n = 0, space = 0, end;
+
+    while (s < e)
+    {
+        if (t[s] == '<')
+        {
+            if (!raw_tag(t, e, &s, &ts, &te))
+                return -1;
+            namelen = raw_name(t, ts, te, &name, &end);
+            if (tag_is(t + name, namelen, "br"))
+                space = n > 0;
+            continue;
+        }
+        if (is_space(t[s]))
+        {
+            space = n > 0;
+            ++s;
+            continue;
+        }
+        n += space ? 2 : 1;
+        space = 0;
+        if (t[s] == '&')
+        {
+            size_t k;
+            for (k = s + 1 ; k < e && k < s + 10 && t[k] != ';' ; ++k)
+                ;
+            if (k < e && t[k] == ';')
+                s = k;
+        }
+        ++s;
+    }
+    return n;
+}
+
+/*
+ *   Lay out the table t[0..len) as a line of cells of text over a strip of
+ *   pictures, as Threnody's status line: its first row is text, its first
+ *   column the title, which takes the room the other columns leave, as the
+ *   table is the window's width; under the others, rows of pictures.  Each
+ *   text cell's text is t[s[n]..e[n]).  False if the table is anything
+ *   else, so that it goes as a table always does.
+ */
+static int build_celltable(parser *p, const glui32 *t, size_t len,
+                           oshtml_celltable *ct, size_t *s, size_t *e)
+{
+    oshtml_pictable *pt = &ct->pics;
+    glui32 colw[OSHTML_CELLS_MAX], colx[OSHTML_CELLS_MAX + 1];
+    glui32 rowh[OSHTML_CELLS_MAX], rowy[OSHTML_CELLS_MAX + 1];
+    int tilerow[OSHTML_TILES_MAX], tilecol[OSHTML_TILES_MAX];
+    int cellcol[OSHTML_CELLS_MAX], colalign[OSHTML_CELLS_MAX];
+    int until[OSHTML_CELLS_MAX];
+    int row = -1, col = 0, ncols = 0, nrows, depth = 0, intext = -1;
+    int incell = 0, k, j, n;
+    glui32 pad = 1, spacing = 2, border = 0, line;
+    size_t i = 0;
+
+    if (p->ban.align == OS_BANNER_ALIGN_LEFT
+        || p->ban.align == OS_BANNER_ALIGN_RIGHT)
+        return 0;
+    memset(ct, 0, sizeof(*ct));
+    memset(colw, 0, sizeof(colw));
+    memset(rowh, 0, sizeof(rowh));
+    memset(until, 0, sizeof(until));
+
+    while (i < len)
+    {
+        size_t start = i, ts, te, name, namelen, v, vlen;
+        int end;
+
+        if (t[i] != '<')
+        {
+            /* text is only in the first row's cells */
+            if (!is_space(t[i]) && (!incell || row != 0))
+                return 0;
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+
+#define RAW(s) tag_is(t + name, namelen, s)
+#define RAWV(s) tag_is(t + v, vlen, s)
+        /* a cell of text ends at the next cell, row or the table's end */
+        if (intext >= 0 && (RAW("td") || RAW("tr") || RAW("table")))
+        {
+            e[intext] = start;
+            intext = -1;
+        }
+        if (RAW("table"))
+        {
+            if (end)
+                --depth;
+            else if (depth++ != 0)
+                return 0;
+            else
+            {
+                if (!raw_attr(t, ts, te, "width", &v, &vlen)
+                    || !RAWV("100%"))
+                    return 0;
+                pad = (glui32)raw_int(t, ts, te, "cellpadding", 1);
+                spacing = (glui32)raw_int(t, ts, te, "cellspacing", 2);
+                border = (glui32)raw_int(t, ts, te, "border", 0);
+            }
+        }
+        else if (RAW("tr"))
+        {
+            incell = 0;
+            if (!end)
+            {
+                if (++row == OSHTML_CELLS_MAX)
+                    return 0;
+                col = 0;
+            }
+        }
+        else if (RAW("td"))
+        {
+            int rowspan, align = -1;
+            glui32 minw = 0, minh;
+
+            incell = 0;
+            if (end)
+                continue;
+            if (row < 0)
+                return 0;
+            while (col < OSHTML_CELLS_MAX && until[col] > row)
+                ++col;
+            if (col == OSHTML_CELLS_MAX
+                || raw_int(t, ts, te, "colspan", 1) > 1)
+                return 0;
+            rowspan = raw_int(t, ts, te, "rowspan", 1);
+            if (rowspan < 1)
+                rowspan = 1;
+
+            /* only the title goes down past its row */
+            if (rowspan > 1 && (row != 0 || col != 0))
+                return 0;
+            until[col] = row + rowspan;
+            if (raw_attr(t, ts, te, "width", &v, &vlen))
+            {
+                if (vlen && t[v + vlen - 1] == '%')
+                    return 0;
+                minw = (glui32)to_int(t + v, vlen);
+            }
+            if (raw_attr(t, ts, te, "align", &v, &vlen))
+                align = RAWV("center") ? 1 : RAWV("right") ? 2 : 0;
+            minh = (glui32)raw_int(t, ts, te, "height", 0);
+
+            if (minw > colw[col])
+                colw[col] = minw;
+            if (row == 0)
+            {
+                /* a cell of text, or an empty one: it is told below */
+                if (ct->ncells == OSHTML_CELLS_MAX)
+                    return 0;
+                if (col == 0 && minw)
+                    return 0;
+                cellcol[ct->ncells] = col;
+                ct->cells[ct->ncells].align = align < 0 ? 0 : align;
+                s[ct->ncells] = i;
+                intext = ct->ncells++;
+            }
+            else
+            {
+                /* a cell of pictures: the title is beside them */
+                if (col == 0)
+                    return 0;
+                colalign[col] = align < 0 ? 0 : align;
+                if (minh > rowh[row])
+                    rowh[row] = minh;
+            }
+            incell = 1;
+            ++col;
+            if (col > ncols)
+                ncols = col;
+        }
+        else if (RAW("img") && !end && incell && row > 0)
+        {
+            oshtml_tile *tile = &pt->tiles[pt->ntiles];
+            img_size w = { 0, 0 }, h = { 0, 0 };
+            size_t sv, svlen;
+            glui32 x = 0;
+
+            if (pt->ntiles == OSHTML_TILES_MAX
+                || raw_attr(t, ts, te, "usemap", &sv, &svlen)
+                || raw_attr(t, ts, te, "ismap", &sv, &svlen)
+                || !raw_attr(t, ts, te, "src", &v, &vlen))
+                return 0;
+            if (raw_attr(t, ts, te, "width", &sv, &svlen))
+                parse_img_size(t + sv, svlen, &w);
+            if (raw_attr(t, ts, te, "height", &sv, &svlen))
+                parse_img_size(t + sv, svlen, &h);
+            memset(tile, 0, sizeof(*tile));
+            if (w.pct || h.pct
+                || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h,
+                               &tile->img)
+                || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+                || tile->w == 0 || tile->h == 0)
+                return 0;
+
+            /* after the cell's pictures before it, on one line */
+            for (j = 0 ; j < pt->ntiles ; ++j)
+                if (tilerow[j] == row && tilecol[j] == col - 1
+                    && pt->tiles[j].x + pt->tiles[j].w > x)
+                    x = pt->tiles[j].x + pt->tiles[j].w;
+            tile->x = x;
+            tilerow[pt->ntiles] = row;
+            tilecol[pt->ntiles] = col - 1;
+            if (x + tile->w + 2 * pad > colw[col - 1])
+                colw[col - 1] = x + tile->w + 2 * pad;
+            if (tile->h + 2 * pad > rowh[row])
+                rowh[row] = tile->h + 2 * pad;
+            ++pt->ntiles;
+        }
+        else if (!(RAW("font") || RAW("b") || RAW("i") || RAW("br")))
+            return 0;
+#undef RAWV
+#undef RAW
+    }
+    if (intext >= 0)
+        e[intext] = len;
+    nrows = row + 1;
+    if (depth != 0 || nrows < 2 || pt->ntiles == 0)
+        return 0;
+
+    /* the cells with text in them; the title is the first */
+    line = osglk_px_grid_line();
+    for (n = 0, k = 0 ; n < ct->ncells ; ++n)
+    {
+        int chars = cell_chars(t, s[n], e[n]);
+        glui32 w;
+
+        if (chars < 0 || (cellcol[n] == 0) != (k == 0))
+            return 0;
+        if (chars == 0 && cellcol[n] != 0)
+            continue;
+        w = osglk_px_grid_width(chars) + 2 * pad;
+        if (w > colw[cellcol[n]] && cellcol[n] != 0)
+            colw[cellcol[n]] = w;
+        ct->cells[k] = ct->cells[n];
+        ct->cells[k].chars = chars;
+        cellcol[k] = cellcol[n];
+        s[k] = s[n];
+        e[k] = e[n];
+        ++k;
+    }
+    ct->ncells = k;
+    if (k < 2 || cellcol[0] != 0)
+        return 0;
+
+    /* the columns after the title from the left of the first, and the rows
+       of pictures from the top of the second */
+    colx[1] = 0;
+    for (k = 1 ; k < ncols ; ++k)
+    {
+        if (colw[k] < 2 * pad)
+            colw[k] = 2 * pad;
+        colx[k + 1] = colx[k] + colw[k] + spacing;
+    }
+    pt->width = colx[ncols] + border;
+    rowy[1] = 0;
+    for (k = 1 ; k < nrows ; ++k)
+        rowy[k + 1] = rowy[k] + rowh[k] + (k + 1 < nrows ? spacing : 0);
+    pt->height = rowy[nrows];
+
+    for (n = 0 ; n < ct->ncells ; ++n)
+    {
+        oshtml_textcell *c = &ct->cells[n];
+
+        if (n == 0)
+            continue;
+        c->w = colw[cellcol[n]];
+        c->right = pt->width - colx[cellcol[n]] - c->w;
+    }
+
+    /* each picture's line in its cell, as the cell aligns it, in the
+       middle of its row */
+    for (j = 0 ; j < pt->ntiles ; ++j)
+    {
+        oshtml_tile *tile = &pt->tiles[j];
+        glui32 lw = 0, cw;
+        int m;
+
+        k = tilecol[j];
+        for (m = 0 ; m < pt->ntiles ; ++m)
+            if (tilerow[m] == tilerow[j] && tilecol[m] == k
+                && pt->tiles[m].x + pt->tiles[m].w > lw)
+                lw = pt->tiles[m].x + pt->tiles[m].w;
+        cw = colw[k];
+        tile->x += colx[k] + (colalign[k] == 1 ? (cw - lw) / 2
+                              : colalign[k] == 2 ? cw - pad - lw : pad);
+        tile->y = rowy[tilerow[j]] + (rowh[tilerow[j]] - tile->h) / 2;
+    }
+    pt->center = 0;
+    pt->page = 0;
+    pt->above = 0;
+    pt->right = 1;
+    ct->height = line + pt->height;
+    return 1;
+}
+
+/*
+ *   Give the banner the text before the table, then each cell's in its
+ *   own grid: where the rest of the banner's text starts, at the table if
+ *   the window can't show it so
+ */
+static size_t banner_cells(parser *b, void *ctx, const glui32 *t,
+                           size_t from, size_t ts, size_t stop,
+                           const oshtml_celltable *ct, const size_t *s,
+                           const size_t *e)
+{
+    size_t k;
+    int c;
+
+    for (k = from ; k < ts ; ++k)
+        feed(b, t[k]);
+    flush_out(b);
+    if (!osglk_tag_banner_cells(ctx, ct))
+        return ts;
+    for (c = 0 ; c < ct->ncells ; ++c)
+    {
+        osglk_tag_banner_cell(ctx, c);
+        for (k = ts + s[c] ; k < ts + e[c] ; ++k)
+            feed(b, t[k]);
+        put_maprow(b);
+        expand_tab(b, 1);
+        flush_out(b);
+    }
+    osglk_tag_banner_cell(ctx, -1);
+    return stop;
+}
+
 static void end_banner(parser *p)
 {
     static oshtml_pictable pt;
+    static oshtml_celltable ct;
+    size_t cs_[OSHTML_CELLS_MAX], ce_[OSHTML_CELLS_MAX];
     size_t i = 0, k, ts = 0, te = 0, bg = 0, bglen = 0, ms = (size_t)-1;
     int table, page;
 
@@ -4405,6 +4764,24 @@ static void end_banner(parser *p)
     te += i;
     if (ms != (size_t)-1)
         ms += i;
+
+    /* a table of text over pictures, after only tags */
+    ct.ncells = 0;
+    if (table == 1 && ms == (size_t)-1 && !page
+        && only_tags(p->bantext, i, ts))
+    {
+        /* the pictures are looked up as the page's, even from the status
+           line's text */
+        glui32 *dst = p->dst;
+
+        p->dst = NULL;
+        if (build_celltable(p, p->bantext + ts, te - ts, &ct, cs_, ce_))
+            pt_body_background(p, p->bantext + i, ts - i, &ct.pics);
+        else
+            ct.ncells = 0;
+        p->dst = dst;
+    }
+    p->ban.cells = ct.ncells ? ct.height : 0;
     if (i < p->banlen)
     {
         const oshtml_sink *sink;
@@ -4433,6 +4810,9 @@ static void end_banner(parser *p)
                 }
                 if (from == stop)
                     ;
+                else if (ct.ncells)
+                    from = banner_cells(b, ctx, p->bantext, i, ts, stop,
+                                        &ct, cs_, ce_);
                 else if (table)
                 {
                     size_t cs = 0, ce = 0;

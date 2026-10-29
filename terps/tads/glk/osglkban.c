@@ -1865,6 +1865,24 @@ typedef struct tagban_s
      *   buffer's lines at its bottom
      */
     winid_t padwin;
+
+    /*
+     *   A line of cells of text over a strip of pictures, as Threnody's
+     *   status line is: the first cell is 'win', and each of the others a
+     *   grid as wide as its column, at the right, in a graphics window that
+     *   holds the room after it too.  The text goes to 'out', or 'win', a
+     *   line cut to fit, its spaces run together; the style and colours it
+     *   has carry over to the next cell.
+     */
+    int ncells;
+    oshtml_textcell cell[OSHTML_CELLS_MAX];
+    winid_t cellslot[OSHTML_CELLS_MAX], cellpad[OSHTML_CELLS_MAX];
+    winid_t cellgrid[OSHTML_CELLS_MAX];
+    winid_t out;
+    int cellmode;
+    int cell_text, cell_space;      /* text so far, and a space after it */
+    int last_combo;
+    glui32 last_fg, last_bg;
 #endif /* OSGLK_PIXELS */
 
     struct tagban_s *next;
@@ -1879,9 +1897,24 @@ static int tag_vertical(glui32 method)
     return dir == winmethod_Left || dir == winmethod_Right;
 }
 
-/* a grid has a column of margin on each side */
+/* the window the text goes to */
+static winid_t tag_out(const tagban_t *tb)
+{
+#ifdef OSGLK_PIXELS
+    if (tb->out)
+        return tb->out;
+#endif /* OSGLK_PIXELS */
+    return tb->win;
+}
+
+/* a grid has a column of margin on each side, but a cell starts where
+   its text is aligned */
 static int tag_margin(tagban_t *tb)
 {
+#ifdef OSGLK_PIXELS
+    if (tb->cellmode)
+        return 0;
+#endif /* OSGLK_PIXELS */
     return tb->type == wintype_TextGrid ? 1 : 0;
 }
 
@@ -1892,6 +1925,13 @@ static int tag_width(void *ctx)
 
     if (!tb->win)
         return 0;
+#ifdef OSGLK_PIXELS
+    if (tb->cellmode)
+    {
+        glk_window_get_size(tag_out(tb), &wid, NULL);
+        return (int)wid;
+    }
+#endif /* OSGLK_PIXELS */
 
     /* while we measure a banner at the side, its lines may be any length */
     if (tb->measure && tag_vertical(tb->method))
@@ -1934,13 +1974,55 @@ static void tag_put_newlines(tagban_t *tb, strid_t str)
     }
 }
 
+#ifdef OSGLK_PIXELS
+/* a cell's text: one line, as much as fits from where it starts */
+static void tag_put_cell(tagban_t *tb, strid_t str, const glui32 *buf,
+                         size_t len)
+{
+    int wid = tag_width(tb);
+    size_t i;
+
+    for (i = 0 ; i < len ; ++i)
+    {
+        glui32 c = buf[i];
+
+        if (c == '\n' || c == ' ')
+        {
+            tb->cell_space = tb->cell_text;
+            continue;
+        }
+        if (tb->cell_space && tb->col < wid)
+        {
+            glk_put_char_stream_uni(str, ' ');
+            ++tb->col;
+        }
+        tb->cell_space = 0;
+        tb->cell_text = 1;
+        if (tb->col >= wid)
+            continue;
+        glk_put_char_stream_uni(str, c);
+        ++tb->col;
+    }
+    if (tb->lines == 0)
+        tb->lines = 1;
+}
+#endif /* OSGLK_PIXELS */
+
 static void tag_put(void *ctx, const glui32 *buf, size_t len)
 {
     tagban_t *tb = ctx;
-    strid_t str = tb->win ? glk_window_get_stream(tb->win) : NULL;
+    strid_t str = tb->win ? glk_window_get_stream(tag_out(tb)) : NULL;
     int wid = tb->type == wintype_TextGrid ? tag_width(tb) : 0;
     size_t i;
 
+#ifdef OSGLK_PIXELS
+    if (tb->cellmode)
+    {
+        if (str)
+            tag_put_cell(tb, str, buf, len);
+        return;
+    }
+#endif /* OSGLK_PIXELS */
     for (i = 0 ; i < len ; ++i)
     {
         glui32 c = buf[i];
@@ -1978,8 +2060,11 @@ static void tag_put(void *ctx, const glui32 *buf, size_t len)
 static void tag_set_attr(void *ctx, int combo)
 {
     tagban_t *tb = ctx;
+#ifdef OSGLK_PIXELS
+    tb->last_combo = combo;
+#endif /* OSGLK_PIXELS */
     if (tb->win)
-        glk_set_style_stream(glk_window_get_stream(tb->win),
+        glk_set_style_stream(glk_window_get_stream(tag_out(tb)),
                              osstyles_style(combo));
 }
 
@@ -2003,8 +2088,12 @@ static glui32 tag_color(const tagban_t *tb, os_color_t color)
 static void tag_set_color(void *ctx, os_color_t fg, os_color_t bg)
 {
     tagban_t *tb = ctx;
+#ifdef OSGLK_PIXELS
+    tb->last_fg = tag_color(tb, fg);
+    tb->last_bg = tag_color(tb, bg);
+#endif /* OSGLK_PIXELS */
     if (tb->win)
-        osglk_zcolors_stream(glk_window_get_stream(tb->win),
+        osglk_zcolors_stream(glk_window_get_stream(tag_out(tb)),
                                   tag_color(tb, fg), tag_color(tb, bg));
 }
 
@@ -2026,7 +2115,7 @@ static int tag_centers(void *ctx, int combo)
     glui32 just;
 
     return tb->win
-        && glk_style_measure(tb->win, osstyles_style(combo),
+        && glk_style_measure(tag_out(tb), osstyles_style(combo),
                              stylehint_Justification, &just)
         && just == stylehint_just_Centered;
 }
@@ -2158,8 +2247,8 @@ static void tag_set_link(void *ctx, glui32 link)
     {
         /* a link starts after the newlines that are waiting */
         if (link)
-            tag_put_newlines(tb, glk_window_get_stream(tb->win));
-        glk_set_hyperlink_stream(glk_window_get_stream(tb->win), link);
+            tag_put_newlines(tb, glk_window_get_stream(tag_out(tb)));
+        glk_set_hyperlink_stream(glk_window_get_stream(tag_out(tb)), link);
     }
 }
 
@@ -2214,8 +2303,28 @@ static winid_t tag_split(tagban_t *tb)
 }
 
 #ifdef OSGLK_PIXELS
+static void tag_close_cells(tagban_t *tb)
+{
+    int i;
+
+    for (i = 0 ; i < OSHTML_CELLS_MAX ; ++i)
+    {
+        if (tb->cellgrid[i])
+            glk_window_close(tb->cellgrid[i], NULL);
+        if (tb->cellpad[i])
+            glk_window_close(tb->cellpad[i], NULL);
+        if (tb->cellslot[i])
+            glk_window_close(tb->cellslot[i], NULL);
+        tb->cellgrid[i] = tb->cellpad[i] = tb->cellslot[i] = NULL;
+    }
+    tb->ncells = 0;
+    tb->out = NULL;
+    tb->cellmode = 0;
+}
+
 static void tag_close_table(tagban_t *tb)
 {
+    tag_close_cells(tb);
     if (tb->padwin)
         glk_window_close(tb->padwin, NULL);
     if (tb->tblwin)
@@ -2334,6 +2443,19 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     tb->fit = 0;
     size = tb->size;
     pixels = 0;
+#ifdef OSGLK_PIXELS
+    if (!ban->cells && tb->ncells)
+        tag_close_cells(tb);
+    if (ban->cells && !vertical && type == wintype_TextGrid
+        && glk_gestalt(gestalt_Graphics, 0))
+    {
+        /* a line of cells over pictures, as tall as the two */
+        method |= winmethod_Fixed;
+        size = ban->cells;
+        pixels = 1;
+    }
+    else
+#endif /* OSGLK_PIXELS */
     if (units == OSHTML_SIZE_PREV && !isnew
         && tag_vertical(tb->method) == vertical)
     {
@@ -2439,6 +2561,10 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
     tb->px_pics = 0;
     tb->tbl_used = 0;
     tb->screen = zcolor_Default;
+    tb->out = NULL;
+    tb->cellmode = 0;
+    tb->last_combo = 0;
+    tb->last_fg = tb->last_bg = zcolor_Default;
 #endif /* OSGLK_PIXELS */
     return tb;
 }
@@ -2456,7 +2582,8 @@ static void tag_table_draw(tagban_t *tb)
     osglk_set_window_bg(tb->tblwin, tb->screen);
     glk_window_clear(tb->tblwin);
     glk_window_get_size(tb->tblwin, &ww, &wh);
-    tb->tbl_x = !t->center ? mx
+    tb->tbl_x = t->right ? (ww > t->width ? ww - t->width : 0)
+        : !t->center ? mx
         : ww > t->width ? (ww - t->width) / 2 : 0;
     tb->tbl_y = t->page ? my
         : t->above && wh > t->height ? wh - t->height : 0;
@@ -2645,6 +2772,161 @@ int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t)
 #endif /* OSGLK_PIXELS */
 }
 
+#ifdef OSGLK_PIXELS
+/* the cells' windows show the banner's background: the grids too, unless
+   it's only to draw them again */
+static void tag_cells_clear(tagban_t *tb, int grids)
+{
+    int i;
+
+    for (i = 1 ; i < tb->ncells ; ++i)
+    {
+        winid_t w[3];
+        int k;
+
+        w[0] = tb->cellslot[i];
+        w[1] = tb->cellpad[i];
+        w[2] = grids ? tb->cellgrid[i] : NULL;
+        for (k = 0 ; k < 3 ; ++k)
+            if (w[k])
+            {
+                osglk_set_window_bg(w[k], tb->screen);
+                glk_window_clear(w[k]);
+            }
+    }
+}
+
+/*
+ *   the windows of the cells after the first, from the right: each one's
+ *   graphics window holds its grid and the room to the next one's
+ */
+static int tag_open_cells(tagban_t *tb, const oshtml_celltable *ct)
+{
+    glui32 edge = 0;
+    int i;
+
+    for (i = ct->ncells - 1 ; i >= 1 ; --i)
+    {
+        const oshtml_textcell *c = &ct->cells[i];
+        glui32 gap = c->right > edge ? c->right - edge : 0;
+
+        tb->cellslot[i] = glk_window_open(tb->win, winmethod_Right
+                                          | winmethod_Fixed
+                                          | winmethod_NoBorder,
+                                          c->w + gap, wintype_Graphics, 0);
+        if (!tb->cellslot[i])
+            return 0;
+        if (gap)
+            tb->cellpad[i] = glk_window_open(tb->cellslot[i],
+                                             winmethod_Right
+                                             | winmethod_Fixed
+                                             | winmethod_NoBorder,
+                                             gap, wintype_Graphics, 0);
+        grid_hints_set();
+        tb->cellgrid[i] = glk_window_open(tb->cellslot[i], winmethod_Left
+                                          | winmethod_Proportional
+                                          | winmethod_NoBorder,
+                                          100, wintype_TextGrid, 0);
+        grid_hints_clear();
+        if (!tb->cellgrid[i])
+            return 0;
+        edge = c->right + c->w;
+    }
+    return 1;
+}
+#endif /* OSGLK_PIXELS */
+
+int osglk_tag_banner_cells(void *ctx, const oshtml_celltable *ct)
+{
+#ifdef OSGLK_PIXELS
+    tagban_t *tb = ctx;
+    int i, same;
+
+    if (tb->type != wintype_TextGrid || !tb->gfx || !tb->win || tb->measure
+        || ct->ncells < 2 || ct->ncells > OSHTML_CELLS_MAX
+        || !glk_gestalt(gestalt_DrawImage, wintype_Graphics))
+        return 0;
+    if (!tb->tbl && !(tb->tbl = calloc(1, sizeof(*tb->tbl))))
+        return 0;
+
+    /* the windows are kept while the columns are as they were */
+    same = tb->ncells == ct->ncells;
+    for (i = 1 ; same && i < ct->ncells ; ++i)
+        same = tb->cell[i].w == ct->cells[i].w
+            && tb->cell[i].right == ct->cells[i].right;
+    if (!same)
+        tag_close_cells(tb);
+    if (tb->tblwin && tb->tbl->above)
+        tag_close_table(tb);
+    if (!tb->tblwin)
+        tb->tblwin = glk_window_open(tb->win, winmethod_Below
+                                     | winmethod_Fixed | winmethod_NoBorder,
+                                     ct->pics.height, wintype_Graphics, 0);
+    else
+    {
+        winid_t pair = glk_window_get_parent(tb->tblwin);
+        if (pair)
+            glk_window_set_arrangement(pair, winmethod_Below
+                                       | winmethod_Fixed | winmethod_NoBorder,
+                                       ct->pics.height, tb->tblwin);
+    }
+    if (!tb->tblwin)
+        return 0;
+    if (!same && !tag_open_cells(tb, ct))
+    {
+        tag_close_table(tb);
+        return 0;
+    }
+    tb->ncells = ct->ncells;
+    memcpy(tb->cell, ct->cells, sizeof(tb->cell));
+    tag_cells_clear(tb, 1);
+    *tb->tbl = ct->pics;
+    tb->tbl_used = 1;
+    return 1;
+#else
+    (void)ctx;
+    (void)ct;
+    return 0;
+#endif /* OSGLK_PIXELS */
+}
+
+void osglk_tag_banner_cell(void *ctx, int n)
+{
+#ifdef OSGLK_PIXELS
+    tagban_t *tb = ctx;
+    winid_t win;
+    strid_t str;
+    glui32 cols = 0, start = 0, chars;
+
+    tb->out = n > 0 && n < tb->ncells ? tb->cellgrid[n] : NULL;
+    tb->cellmode = n >= 0 && n < tb->ncells;
+    tb->lines = tb->col = tb->nl = 0;
+    tb->cell_text = tb->cell_space = 0;
+    if (!tb->cellmode)
+        return;
+
+    /* where the text starts, as the cell aligns it */
+    win = tag_out(tb);
+    glk_window_get_size(win, &cols, NULL);
+    chars = tb->cell[n].chars > 0 ? (glui32)tb->cell[n].chars : 0;
+    if (n == 0 && tb->cell[n].align == 0)
+        start = 1;                  /* the status line's margin */
+    else if (chars < cols)
+        start = tb->cell[n].align == 1 ? (cols - chars) / 2
+            : tb->cell[n].align == 2 ? cols - chars : 0;
+    glk_window_move_cursor(win, start, 0);
+    tb->col = (int)start;
+
+    /* in the style and colours the last cell left */
+    str = glk_window_get_stream(win);
+    glk_set_style_stream(str, osstyles_style(tb->last_combo));
+    osglk_zcolors_stream(str, tb->last_fg, tb->last_bg);
+#else
+    (void)ctx;
+    (void)n;
+#endif /* OSGLK_PIXELS */
+}
+
 glui32 osglk_tag_banner_click(winid_t win, glui32 x, glui32 y)
 {
 #ifdef OSGLK_PIXELS
@@ -2684,8 +2966,12 @@ void osglk_tag_banner_redraw(void)
             osglk_draw_side_picture(tb->gfx, &tb->px_img, tb->screen);
         if (tb->tblwin && tb->tbl)
         {
-            tag_table_text(tb, 0);
-            tag_table_place(tb);
+            if (!tb->ncells)
+            {
+                tag_table_text(tb, 0);
+                tag_table_place(tb);
+            }
+            tag_cells_clear(tb, 0);
             tag_table_draw(tb);
         }
     }
@@ -2787,8 +3073,11 @@ int osglk_tag_banner_done(void *ctx)
     {
         if (tb->tbl_used)
         {
-            tag_table_text(tb, 1);
-            tag_table_place(tb);
+            if (!tb->ncells)
+            {
+                tag_table_text(tb, 1);
+                tag_table_place(tb);
+            }
             tag_table_draw(tb);
         }
         else

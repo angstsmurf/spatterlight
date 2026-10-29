@@ -24,6 +24,7 @@
 /* osglk.c -- glk os adapter */
 
 #include <assert.h>
+#include <math.h>
 
 #include "os.h"
 #include "glk.h"
@@ -561,6 +562,18 @@ int osglk_px_text_height(winid_t win)
 {
     return win_text_height(win->peer);
 }
+
+/* as glkimp sizes a grid: whole cells, inside the margins */
+glui32 osglk_px_grid_width(int chars)
+{
+    return (glui32)ceil((chars > 0 ? chars : 0) * gcellw - 0.001)
+        + 2 * (glui32)ggridmarginx;
+}
+
+glui32 osglk_px_grid_line(void)
+{
+    return (glui32)ceil(gcellh - 0.001) + 2 * (glui32)ggridmarginy;
+}
 #else /* the GARGLKWINSIZE and GARGLKOVERLAY modules */
 glui32 osglk_px_width(winid_t win)
 {
@@ -632,6 +645,16 @@ int osglk_px_text_height(winid_t win)
 {
     (void)win;
     return 0;
+}
+
+glui32 osglk_px_grid_width(int chars)
+{
+    return (glui32)ceil((chars > 0 ? chars : 0) * osglk_px_cellw());
+}
+
+glui32 osglk_px_grid_line(void)
+{
+    return (glui32)ceil(osglk_px_cellh());
 }
 #endif /* SPATTERLIGHT */
 

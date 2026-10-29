@@ -134,6 +134,10 @@ int osglk_px_lines(winid_t win);
 
 /* the pixels its text takes, or 0 if we can't tell */
 int osglk_px_text_height(winid_t win);
+
+/* a text grid as wide as this many characters, and as tall as a line */
+glui32 osglk_px_grid_width(int chars);
+glui32 osglk_px_grid_line(void);
 #endif
 
 /* a window's background, zcolor_Default for the theme's */
@@ -191,7 +195,36 @@ typedef struct oshtml_pictable
      */
     int above;
     int valign;
+
+    /* at the right of the window, rather than its left */
+    int right;
 } oshtml_pictable;
+
+/*
+ *   A banner that is one table of a row of text over rows of pictures, as
+ *   Threnody's status line: the first cell's text in the banner's grid,
+ *   which takes what the others leave, each other cell's in a grid of its
+ *   own as wide as its column, all at the right as the first stretches, and
+ *   the pictures in a graphics window under them.  A grid can't be drawn on,
+ *   so the cells' own pictures behind them are left out.
+ */
+#define OSHTML_CELLS_MAX 8
+
+typedef struct oshtml_textcell
+{
+    glui32 right;               /* the pixels from it to the right edge */
+    glui32 w;
+    int align;                  /* 0 left, 1 centred, 2 right */
+    int chars;                  /* the characters of its text */
+} oshtml_textcell;
+
+typedef struct oshtml_celltable
+{
+    int ncells;
+    oshtml_textcell cells[OSHTML_CELLS_MAX];
+    oshtml_pictable pics;       /* at the right */
+    glui32 height;              /* the line of text and the pictures */
+} oshtml_celltable;
 
 /*
  *   Is what the main window was sent since it was last cleared or waited on
@@ -208,6 +241,14 @@ glui32 osglk_banner_line_pixels(void);
  *   whose tiles can be clicked (osglkban.c): false if it can't be
  */
 int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t);
+
+/*
+ *   Lay out the windows of a banner's table of cells: false if it can't.
+ *   Then the text of cell n goes in its window after
+ *   osglk_tag_banner_cell(ctx, n), and the banner's own after n -1.
+ */
+int osglk_tag_banner_cells(void *ctx, const oshtml_celltable *t);
+void osglk_tag_banner_cell(void *ctx, int n);
 
 /* The link of a click in a window of such a table, or 0 */
 glui32 osglk_tag_banner_click(winid_t win, glui32 x, glui32 y);
@@ -332,6 +373,9 @@ typedef struct oshtml_banner
     int border;
     int height, height_units;
     int width, width_units;
+
+    /* the pixels of a table of cells it is (oshtml_celltable), or 0 */
+    glui32 cells;
 } oshtml_banner;
 
 /*
