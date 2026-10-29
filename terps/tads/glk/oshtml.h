@@ -212,6 +212,9 @@ int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t);
 /* The link of a click in a window of such a table, or 0 */
 glui32 osglk_tag_banner_click(winid_t win, glui32 x, glui32 y);
 
+/* Make the banners fitted to their text as tall as it is now */
+void osglk_tag_banner_refit(void);
+
 /* Draw the tables again, as the windows changed */
 void osglk_tag_banner_redraw(void);
 

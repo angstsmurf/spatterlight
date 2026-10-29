@@ -815,6 +815,7 @@ static void redraw_windows(void)
         main_page_draw();
     }
     osglk_tag_banner_redraw();
+    osglk_tag_banner_refit();
 }
 
 /*
@@ -1777,6 +1778,7 @@ static int getglkchar(void)
 
     oshtml_input();
     main_page_show();
+    osglk_tag_banner_refit();
     request_links();
     glk_request_char_event(mainwin);
 

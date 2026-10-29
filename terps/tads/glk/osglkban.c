@@ -1830,6 +1830,7 @@ typedef struct tagban_s
     glui32 px_shrunk;
     glui32 px_widest;
     int px_text;
+    int fit_px;                 /* the text height it was last fitted to */
 
     /*
      *   A banner across in pixels with only pictures in it grows to them,
@@ -2691,6 +2692,31 @@ void osglk_tag_banner_redraw(void)
 #endif /* OSGLK_PIXELS */
 }
 
+/*
+ *   A banner fitted to its text was measured when its text was done, but
+ *   the windows around it may have changed since (the side banners shrink to
+ *   their pictures), and the text with them, so it would scroll: grow it to
+ *   the text as it is now
+ */
+void osglk_tag_banner_refit(void)
+{
+    tagban_t *tb;
+
+    for (tb = tagbans ; tb ; tb = tb->next)
+    {
+        int h;
+
+        if (!tb->fit_px || !tb->win || tb->measure)
+            continue;
+        h = osglk_px_text_height(tb->win);
+        if (h > tb->fit_px)
+        {
+            osglk_set_text_height(tb->win, h);
+            tb->fit_px = h;
+        }
+    }
+}
+
 int osglk_tag_banner_done(void *ctx)
 {
     tagban_t *tb = ctx;
@@ -2741,6 +2767,7 @@ int osglk_tag_banner_done(void *ctx)
                 h = asked;
         }
         osglk_set_text_height(tb->win, h);
+        tb->fit_px = tb->fit ? h : 0;
     }
     else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
     {
