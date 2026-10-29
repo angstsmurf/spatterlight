@@ -2382,6 +2382,7 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
 
             /* no graphics window after all: the size in characters */
             tb->size = tag_pix_chars(num, vertical);
+            tb->px_asked = num;
             tag_open_window(tb, 0);
             if (!tb->win)
                 return NULL;
@@ -2688,10 +2689,44 @@ int osglk_tag_banner_done(void *ctx)
 #endif /* SPATTERLIGHT */
     /* the text's own height, unless a picture in the margin is taller */
     if (tb->type == wintype_TextBuffer && tb->win && !tag_vertical(tb->method))
-        osglk_set_text_height(tb->win,
-                              tb->fit && tb->size && !tb->pictures.unknown
-                              && !tb->pictures.bottom
-                              ? osglk_px_text_height(tb->win) : 0);
+    {
+        int h = 0;
+
+        if (!tb->measure && tb->gfx && !tb->tblwin && !tb->pictures.count)
+        {
+            /* a height in pixels is at least that of the text and margins */
+            glui32 my = 0, want;
+
+            osglk_px_margins(tb->win, NULL, &my);
+            h = osglk_px_text_height(tb->win);
+            want = (glui32)h + 2 * my;
+            if (h > 0 && tb->px_asked > 0)
+            {
+                tb->px_grown = want > (glui32)tb->px_asked ? want : 0;
+                tag_resize(tb, want > (glui32)tb->px_asked
+                           ? want : (glui32)tb->px_asked);
+            }
+            h = 0;
+        }
+        if (tb->fit && tb->size && !tb->pictures.unknown
+            && !tb->pictures.bottom)
+            h = osglk_px_text_height(tb->win);
+        else if (!tb->fit && !tb->gfx && tb->px_asked > 0
+                 && (tb->method & winmethod_DivisionMask) == winmethod_Fixed
+                 && !tb->pictures.count)
+        {
+            /* a height in pixels, in a window of lines: the text fits it */
+            glui32 my = 0;
+            int asked;
+
+            osglk_px_margins(tb->win, NULL, &my);
+            asked = tb->px_asked - 2 * (int)my;
+            h = osglk_px_text_height(tb->win);
+            if (h > 0 && h < asked)
+                h = asked;
+        }
+        osglk_set_text_height(tb->win, h);
+    }
     else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
     {
         int alone;

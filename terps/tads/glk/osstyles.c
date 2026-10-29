@@ -57,6 +57,7 @@ typedef struct scan
     size_t depth, max;
     unsigned long *counts;
     int escapes;
+    int tabc;               /* a <TAB ALIGN=center> centres the next text */
 } scan;
 
 static int is_alpha(int c)
@@ -117,6 +118,9 @@ static void count_text(scan *sc)
 
     if (sc->depth == 0)
         return;
+    if (sc->tabc)
+        combo |= OSSTY_CENTER;
+    sc->tabc = 0;
     for (i = 0 ; i < sc->depth ; ++i)
     {
         const entry *e = &sc->stack[i];
@@ -308,7 +312,12 @@ static void do_tag(scan *sc, int end, const char *name, size_t namelen,
             push(sc, n, 0, 0);
             return;
         }
-    if (strcmp(n, "U") == 0)
+    if (strcmp(n, "TAB") == 0)
+    {
+        if (value_is(align, alignlen, "center"))
+            sc->tabc = 1;
+    }
+    else if (strcmp(n, "U") == 0)
         push(sc, n, SET_U, 0);
     else if (strcmp(n, "FONT") == 0)
         push(sc, n, face ? SET_FAM : 0,

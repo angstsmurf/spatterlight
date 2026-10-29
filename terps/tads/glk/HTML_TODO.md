@@ -376,6 +376,16 @@ All of this is plain Glk, so it works the same on Gargoyle.
   isn't centred, the parser pads the line with spaces to the window width,
   the way `vmconhmp.cpp` (~line 705) pads `<tab align=center>` in text
   mode.
+  - A `<TAB ALIGN=center>` at the start of a banner line centres the line
+    the same way (`<CENTER>`'s style), where the window can; spaces counted
+    in characters are wrong in a proportional font. `osstyles.c` counts the
+    text after such a tab as centred, so a game that uses it gets a
+    centred style of that look (*Cruise*'s "Friday Morning" banner, bold
+    and centred). Without the style, `start_line` pads as before.
+  - A banner of a set height in pixels is at least as tall as its text and
+    its top and bottom margins (`osglk_tag_banner_done`): *Cruise*'s asks
+    for 22 pixels, but its 18-pixel line needs 15 above and below, and the
+    text scrolled off the top.
   - glkimp passes the measure to the app for buffer windows (grid
     windows are always LeftFlush), and the app reports the style's
     paragraph alignment (`handleStyleMeasureOnWin`, tested in

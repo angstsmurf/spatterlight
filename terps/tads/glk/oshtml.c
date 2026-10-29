@@ -266,6 +266,7 @@ struct oshtml_parser
     int nl_count;
     int line_open;
     int line_center;
+    int tab_centered;   /* the line is centred by a <TAB ALIGN=center> */
 
     /* whether the window centres each combination: 0 unknown, 1, -1 */
     signed char centers[OSSTY_COMBOS];
@@ -765,6 +766,11 @@ static void put_newline(parser *p)
     p->col = 0;
     p->lastchar = 0;
     p->line_open = 0;
+    if (p->tab_centered)
+    {
+        p->tab_centered = 0;
+        p->cur.attr &= ~OSSTY_CENTER;
+    }
     ++p->nl_count;
     p->row_shown = 1;
     sync_color(p);
@@ -3208,6 +3214,15 @@ static void do_tag(parser *p)
     /* TADS 3: what's left of the <TAB> */
     if (!tab)
         ;
+    else if (tab_align == TAB_CENTER && tab_to < 0 && p->in_banner
+             && !p->line_open && p->col == 0 && p->npending == 0
+             && !(p->cur.attr & OSSTY_CENTER))
+    {
+        /* a centred tab at the start of a line centres the line, as
+           <CENTER> does (start_line pads with spaces if the window can't) */
+        p->cur.attr |= OSSTY_CENTER;
+        p->tab_centered = 1;
+    }
     else if (tab_to < 0 && tab_align == TAB_NONE)
         put_tab(p, 0, 4);
     else if (tab_to < 0 && tab_align != TAB_RIGHT && tab_align != TAB_CENTER)
