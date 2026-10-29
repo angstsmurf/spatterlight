@@ -31,10 +31,8 @@
 #include "os.h"
 #include "glk.h"
 #include "oshtml.h"
+#include "osglk.h"
 #include "osstyles.h"
-
-extern glui32 os_prepare_chars(glui32 *buf, glui32 buflen,
-                               unsigned char *out, glui32 outlen);
 
 #include <math.h>
 #ifdef SPATTERLIGHT
@@ -111,15 +109,6 @@ banner_contents_t;
 
 static osbanid_t os_banners = NULL;
 static glui32 os_banner_count = 999;
-
-extern winid_t mainwin;
-extern winid_t statuswin;
-
-extern glui32 mainfg;
-extern glui32 mainbg;
-
-extern glui32 statusfg;
-extern glui32 statusbg;
 
 #ifdef OSGLK_PIXELS
 /*
@@ -210,11 +199,7 @@ static int picture_fit_lines(const picture_fit *fit, int lines)
 #endif /* OSGLK_PIXELS */
 
 void banner_contents_display(contentid_t contents);
-void os_banners_redraw(void);
 void banner_contents_repad(osbanid_t banner);
-
-extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
-                             glui32 *out, glui32 outlen);
 
 /* Implementation-specific functions for managing banner windows */
 /*

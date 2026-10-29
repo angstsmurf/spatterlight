@@ -24,8 +24,7 @@
 
 #include "os.h"
 #include "glk.h"
-
-extern winid_t mainwin;
+#include "osglk.h"
 
 #ifndef GLK_UNICODE
 
@@ -49,12 +48,6 @@ unsigned char *os_fill_buffer (unsigned char *buf, size_t len)
 
 static glui32 *input = 0;
 static glui32 max = 0;
-
-extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
-                             glui32 *out, glui32 outlen);
-
-extern glui32 os_prepare_chars (glui32 *buf, glui32 buflen,
-                                 char *out, glui32 outlen);
 
 void os_put_buffer (unsigned char *buf, size_t len)
 {
@@ -92,7 +85,7 @@ void os_get_buffer (unsigned char *buf, size_t len, size_t init)
 
 unsigned char *os_fill_buffer (unsigned char *buf, size_t len)
 {
-    glui32 res = os_prepare_chars(input, len, (char *)buf, max);
+    glui32 res = os_prepare_chars(input, len, buf, max);
     buf[res] = '\0';
 
     free(input);

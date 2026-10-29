@@ -3237,6 +3237,7 @@
 		C343E4891ECC674D000F15B6 /* osbuffer.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osbuffer.c; path = glk/osbuffer.c; sourceTree = "<group>"; };
 		7A51D0C12E0F4A1100C0FFEE /* oshtml.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = oshtml.c; path = glk/oshtml.c; sourceTree = "<group>"; };
 		7A51D0C22E0F4A1100C0FFEE /* oshtml.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = oshtml.h; path = glk/oshtml.h; sourceTree = "<group>"; };
+		7A51D0C92E0F4A1100C0FFEE /* osglk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osglk.h; path = glk/osglk.h; sourceTree = "<group>"; };
 		7A51D0C42E0F4A1100C0FFEE /* osstyles.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osstyles.c; path = glk/osstyles.c; sourceTree = "<group>"; };
 		7A51D0C52E0F4A1100C0FFEE /* osstyles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osstyles.h; path = glk/osstyles.h; sourceTree = "<group>"; };
 		7A51D0D12E0F4A1100C0FFEE /* osres.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osres.c; path = glk/osres.c; sourceTree = "<group>"; };
@@ -5063,6 +5064,7 @@
 				C343E4891ECC674D000F15B6 /* osbuffer.c */,
 				7A51D0C12E0F4A1100C0FFEE /* oshtml.c */,
 				7A51D0C22E0F4A1100C0FFEE /* oshtml.h */,
+				7A51D0C92E0F4A1100C0FFEE /* osglk.h */,
 				7A51D0D12E0F4A1100C0FFEE /* osres.c */,
 				7A51D0D22E0F4A1100C0FFEE /* osres.h */,
 				7A51D0D42E0F4A1100C0FFEE /* ossound.c */,

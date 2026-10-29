@@ -76,13 +76,11 @@
 #include "os.h"
 #include "glk.h"
 #include "oshtml.h"
+#include "osglk.h"
 #include "osstyles.h"
 #include "osres.h"
 #include "ossound.h"
 #include "gi_blorb.h"
-
-extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
-                             glui32 *out, glui32 outlen);
 
 /* the longest tag and entity name we keep; the rest is skipped */
 #define TAG_MAX     1024
@@ -314,8 +312,6 @@ struct oshtml_parser
 typedef struct oshtml_parser parser;
 
 static int tads3 = 0;
-
-extern winid_t mainwin;
 
 static int is_space(glui32 c);
 

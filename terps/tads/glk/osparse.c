@@ -27,15 +27,13 @@
 
 #include "os.h"
 #include "glk.h"
+#include "osglk.h"
 
 #ifdef GLK_UNICODE
 
 enum CHARMAPS { OS_UTF8, OS_CP1251, OS_CP1252, OS_MACROMAN, OS_UNKNOWN };
 
 static glui32 os_charmap = OS_UTF8;
-
-glui32 os_parse_chars (unsigned char *buf, glui32 buflen,
-                       glui32 *out, glui32 outlen);
 
 glui32 is_cyrillic(unsigned char ch)
 {

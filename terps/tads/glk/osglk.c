@@ -32,6 +32,7 @@
 #include "glkimp.h"
 #endif
 #include "oshtml.h"
+#include "osglk.h"
 #include "osstyles.h"
 #include "ossound.h"
 
@@ -39,12 +40,8 @@
 #include "trd.h"
 #include "vmvsn.h"
 
-extern glui32 os_parse_chars(unsigned char *buf, glui32 buflen,
-                             glui32 *out, glui32 outlen);
-
 static void redraw_windows(void);
 static void os_status_redraw(void);
-extern void os_banners_redraw(void);
 
 static glui32 lbuf[256];
 static size_t lbuflen = 0;
