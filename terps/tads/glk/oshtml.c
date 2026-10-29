@@ -944,11 +944,13 @@ static void put_html_text(parser *p, glui32 c)
         break;
 
     case 0xA0:
-        /* a non-breaking space, the formatter's quoted space */
-        if (tads3)
-            put_visible(p, ' ');
-        else
-            add_pending(p, ' ');
+        /*
+         *   a non-breaking space, the formatter's quoted space: a
+         *   character in its own right, so that a line of nothing but
+         *   "&nbsp;" and a break is a blank line, as it is in HTML TADS
+         *   (the credits of Tomorrow Never Comes are padded with them)
+         */
+        put_visible(p, ' ');
         break;
 
     default:
