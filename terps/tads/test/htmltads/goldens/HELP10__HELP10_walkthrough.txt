@@ -75,7 +75,8 @@ s
 x rail
 u
 n
-w s
+w
+s
 x clerk
 x phone
 e
@@ -89,7 +90,6 @@ ask clerk about telescope
 g
 g
 sw
-save
 put coin in slot
 look in telescope
 x foot
@@ -322,7 +322,6 @@ s
 x pond
 x photographer
 ask photographer about pond
-save
 put fish in pond
 show fish to photographer
 x photo
@@ -678,6 +677,10 @@ exits
 s
 w
 z
+z
+z
+z
+z
 d
 z
 z
@@ -696,6 +699,9 @@ ask Aquagirl about portal
 ask Aquagirl about platform
 x Aquagirl
 Aquagirl, follow me
+z
+z
+z
 z
 d
 s
