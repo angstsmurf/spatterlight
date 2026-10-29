@@ -3502,6 +3502,14 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
 
         if (t[i] != '<')
         {
+            /* a &nbsp; holds an empty cell open, and adds nothing */
+            if (t[i] == '&' && i + 6 <= len && t[i + 1] == 'n'
+                && t[i + 2] == 'b' && t[i + 3] == 's' && t[i + 4] == 'p'
+                && t[i + 5] == ';')
+            {
+                i += 6;
+                continue;
+            }
             if (!is_space(t[i]))
                 return 0;
             space = c != NULL;
@@ -3594,6 +3602,15 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
                 if (raw_attr(t, ts, te, "append", &fv, &fvlen))
                     flags |= OSLINK_APPEND;
                 link = href_link(t + v, vlen, flags);
+            }
+        }
+        else if (RAW("center"))
+        {
+            /* a cell's picture in <CENTER> is centred in it */
+            if (c && !end && !c->aligned)
+            {
+                c->align = 1;
+                c->aligned = 1;
             }
         }
         else if (RAW("br"))
@@ -3845,7 +3862,7 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
         ++ntables;
     }
     first[ntables] = pt->ntiles;
-    if (pt->ntiles < 2 || links == 0 || !wide)
+    if (pt->ntiles < 1 || (pt->ntiles < 2 && links) || !wide)
         return 0;
 
     /* each centred in the widest, if they're centred */
@@ -3921,17 +3938,56 @@ static int build_mappic(parser *p, const glui32 *t, size_t len,
 }
 
 /*
- *   Is the table in t[0..len) one cell that starts with an <IMG USEMAP>?
+ *   Lay out the <IMG> in t[0..len), with no map, as the table's only tile:
+ *   false if it has no known size or floats
+ */
+static int build_cellpic(parser *p, const glui32 *t, size_t len,
+                         oshtml_pictable *pt)
+{
+    size_t i = 0, ts, te, v, vlen;
+    img_size w = { 0, 0 }, h = { 0, 0 };
+    oshtml_tile *tile = &pt->tiles[0];
+
+    if (p->dst || !raw_tag(t, len, &i, &ts, &te)
+        || raw_attr(t, ts, te, "usemap", &v, &vlen)
+        || raw_attr(t, ts, te, "ismap", &v, &vlen)
+        || (raw_attr(t, ts, te, "align", &v, &vlen)
+            && (tag_is(t + v, vlen, "left") || tag_is(t + v, vlen, "right"))))
+        return 0;
+    if (raw_attr(t, ts, te, "width", &v, &vlen))
+        parse_img_size(t + v, vlen, &w);
+    if (raw_attr(t, ts, te, "height", &v, &vlen))
+        parse_img_size(t + v, vlen, &h);
+    memset(tile, 0, sizeof(*tile));
+    if (w.pct || h.pct || !raw_attr(t, ts, te, "src", &v, &vlen)
+        || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h, &tile->img)
+        || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+        || tile->w == 0 || tile->h == 0)
+        return 0;
+    pt->ntiles = 1;
+    pt->width = tile->w;
+    pt->height = tile->h;
+    pt->page = 0;
+    pt->above = 0;
+    return 1;
+}
+
+/*
+ *   Is the table in t[0..len) one cell that starts with an <IMG USEMAP>, or
+ *   a plain <IMG> in a centred cell of a full-height table (a location card)?
  *   Lay that out as build_mappic does, to go over the rest of the cell,
  *   which is t[*s..*e).  False if anything but spaces is outside the cell,
  *   or the rest has a table or picture of its own.
  */
 static int build_mapcell(parser *p, const glui32 *t, size_t len,
-                         oshtml_pictable *pt, size_t *s, size_t *e)
+                         oshtml_pictable *pt, size_t *s, size_t *e,
+                         int *centered)
 {
     static const char *const outer[] = { "table", "tr", "td", NULL };
     size_t i = 0, ts, te, name, namelen, v, vlen, img;
-    int end, k, valign = 1;
+    int end, k, valign = 1, full = 0;
+
+    *centered = 0;
 
     /* <TABLE>, <TR>, <TD>, the picture */
     for (k = 0 ; outer[k] ; ++k)
@@ -3943,16 +3999,24 @@ static int build_mapcell(parser *p, const glui32 *t, size_t len,
         namelen = raw_name(t, ts, te, &name, &end);
         if (end || !tag_is(t + name, namelen, outer[k]))
             return 0;
+        if (k == 0 && raw_attr(t, ts, te, "height", &v, &vlen))
+            full = tag_is(t + v, vlen, "100%");
         if (k > 0 && raw_attr(t, ts, te, "valign", &v, &vlen))
             valign = tag_is(t + v, vlen, "top") ? 0
                 : tag_is(t + v, vlen, "bottom") ? 2 : 1;
+        if (k == 2 && raw_attr(t, ts, te, "align", &v, &vlen))
+            *centered = tag_is(t + v, vlen, "center");
     }
     while (i < len && is_space(t[i]))
         ++i;
     img = i;
     if (i == len || t[i] != '<' || !raw_tag(t, len, &i, &ts, &te)
-        || !build_mappic(p, t + img, i - img, pt))
+        || !(raw_attr(t, ts, te, "usemap", &v, &vlen)
+             ? build_mappic(p, t + img, i - img, pt)
+             : full && *centered && build_cellpic(p, t + img, i - img, pt)))
         return 0;
+    if (*centered)
+        pt->center = 1;
 
     /* the rest of the cell, up to its end, the row's or the table's */
     *s = i;
@@ -4329,6 +4393,7 @@ static void end_banner(parser *p)
                 else if (table)
                 {
                     size_t cs = 0, ce = 0;
+                    int centered = 0;
 
                     /* the text, then the table: the rest is only ends */
                     for (k = i ; k < (table == 1 ? ms : ts) && k < ts ; ++k)
@@ -4365,11 +4430,31 @@ static void end_banner(parser *p)
                     /* or a map over the rest of its cell, which is text */
                     else if (table == 1
                              && build_mapcell(b, p->bantext + ts, te - ts,
-                                              &pt, &cs, &ce)
+                                              &pt, &cs, &ce, &centered)
                              && osglk_tag_banner_table(ctx, &pt))
                     {
+                        static const char cen[] = "<CENTER>";
+                        size_t bi, bs, be, bn, bl;
+                        int bend;
+
                         from = ts + cs;
                         stop = ts + ce;
+
+                        /* the <BR> under the picture only ends its line */
+                        for (bi = from ; bi < stop
+                             && is_space(p->bantext[bi]) ; ++bi)
+                            ;
+                        if (centered && bi < stop && p->bantext[bi] == '<'
+                            && raw_tag(p->bantext, stop, &bi, &bs, &be)
+                            && (bl = raw_name(p->bantext, bs, be, &bn, &bend),
+                                !bend && tag_is(p->bantext + bn, bl, "br")))
+                            from = bi;
+
+                        /* a centred cell centres its text, which starts
+                         * under the picture */
+                        if (centered)
+                            for (k = 0 ; cen[k] ; ++k)
+                                feed(b, (glui32)cen[k]);
                     }
                 }
                 for (k = from ; k < stop ; ++k)
