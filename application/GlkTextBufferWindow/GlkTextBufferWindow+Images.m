@@ -271,6 +271,15 @@ static const NSTimeInterval kImageAnimationMinInterval = 1.0 / 60;
 // forcing subsequent text to clear below them.
 - (void)flowBreak {
     [self flushDisplay];
+
+    // A newline held back at the end of the text belongs before the marker.
+    // Otherwise the marker lands inside the last line's paragraph, and that
+    // line, not the one after it, is moved below the margin images.
+    if (storedNewline) {
+        [textstorage appendAttributedString:storedNewline];
+        storedNewline = nil;
+        _lastchar = '\n';
+    }
     [_textview resetTextFinder];
 
     unichar uc = NSAttachmentCharacter;
