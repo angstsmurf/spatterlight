@@ -2450,14 +2450,18 @@ static void tag_table_draw(tagban_t *tb)
         : t->above && wh > t->height ? wh - t->height : 0;
 
     /* the background, tiled from the top left as in HTML TADS */
-    if (t->page && t->bg.id)
+    if (t->bg.id)
     {
         glui32 bw = 0, bh = 0, x, y;
+        /* a table's tiles start a little above it, so that the bevel along
+           the top of a bar's picture (pill) is out of sight, as in QTads */
+        glsi32 top = t->page ? 0 : -3;
 
         if (glk_image_get_info(t->bg.id, &bw, &bh) && bw && bh)
-            for (y = 0 ; y < wh ; y += bh)
+            for (y = 0 ; (glsi32)y + top < (glsi32)wh ; y += bh)
                 for (x = 0 ; x < ww ; x += bw)
-                    glk_image_draw(tb->tblwin, t->bg.id, (glsi32)x, (glsi32)y);
+                    glk_image_draw(tb->tblwin, t->bg.id, (glsi32)x,
+                                   (glsi32)y + top);
     }
     for (i = 0 ; i < t->ntiles ; ++i)
     {

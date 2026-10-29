@@ -688,6 +688,12 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
   as its first piece). *Helpfulman*'s `menu` side bar (the menu picture over
   the d/u buttons and the compass) is clickable that way. If the stack can't
   be laid out, it's the picture's link row as before.
+- Picture tables take `rowspan`, a `width` on a cell (a minimum column
+  width), `<IMG ALIGN=left|right>` in a cell (the side of the cell it goes
+  to), and the banner's `<BODY BACKGROUND>`, tiled behind them. *A Sugared
+  Pill*'s bottom direction bar (a 2x10 grid, centred) is clickable that way.
+  The tiles start 3 px above the window, so the bevel along the top of
+  pill's `banner_bg.jpg` isn't seen, as in QTads.
 - A fix in the banners came with this: `tag_put` holds a banner's newlines
   back until more text comes, so its last line isn't blank, but a picture
   went past them. The rows of pictures in *1893*'s room banner came out on

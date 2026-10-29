@@ -3282,7 +3282,9 @@ static void tag_char(parser *p, glui32 c)
 
 typedef struct pt_cell
 {
-    int row, col, colspan;
+    int row, col, colspan, rowspan;
+    glui32 minw;                /* its WIDTH, in pixels */
+    int aligned;                /* its ALIGN, or a picture's, was set */
     int align;                  /* 0 left, 1 centred, 2 right */
     int valign;                 /* 0 top, 1 middle, 2 bottom */
     glui32 minh;                /* its HEIGHT */
@@ -3463,12 +3465,14 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
     pt_cell cells[PT_CELLS], *c = NULL;
     glui32 hs[OSHTML_TILES_MAX], vs[OSHTML_TILES_MAX];
     glui32 colw[PT_CELLS], rowh[PT_CELLS], colx[PT_CELLS + 1];
+    int until[PT_CELLS];        /* the row a column is taken up to */
     glui32 rowy[PT_CELLS + 1];
     int ncells = 0, row = -1, col = 0, ncols = 0, nrows, links = 0;
     int space = 0, row_valign = 1, depth = 0, k, n;
     glui32 link = 0, pad = 1, spacing = 2, border = 0;
     size_t i = 0;
 
+    memset(until, 0, sizeof(until));
     while (i < len)
     {
         size_t ts, te, name, namelen, v, vlen;
@@ -3523,17 +3527,31 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
             c = &cells[ncells++];
             memset(c, 0, sizeof(*c));
             c->row = row;
+            /* columns an earlier row's cell takes up are skipped */
+            while (col < PT_CELLS && until[col] > row)
+                ++col;
             c->col = col;
             c->colspan = raw_int(t, ts, te, "colspan", 1);
             if (c->colspan < 1)
                 c->colspan = 1;
+            c->rowspan = raw_int(t, ts, te, "rowspan", 1);
+            if (c->rowspan < 1)
+                c->rowspan = 1;
             col += c->colspan;
             if (col > PT_CELLS)
                 return 0;
+            for (k = c->col ; k < col ; ++k)
+                until[k] = row + c->rowspan;
             if (col > ncols)
                 ncols = col;
+            if (raw_attr(t, ts, te, "width", &v, &vlen)
+                && !(vlen && t[v + vlen - 1] == '%'))
+                c->minw = (glui32)raw_int(t, ts, te, "width", 0);
             if (raw_attr(t, ts, te, "align", &v, &vlen))
+            {
                 c->align = RAWV("center") ? 1 : RAWV("right") ? 2 : 0;
+                c->aligned = 1;
+            }
             c->valign = row_valign;
             if (raw_attr(t, ts, te, "valign", &v, &vlen))
                 c->valign = RAWV("top") ? 0 : RAWV("bottom") ? 2 : 1;
@@ -3573,11 +3591,8 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
             size_t sv, svlen;
             glui32 *lw, *lh;
 
-            /* not a picture that floats beside the text, or a map */
+            /* not a map */
             if (!c || pt->ntiles == OSHTML_TILES_MAX
-                || (raw_attr(t, ts, te, "align", &sv, &svlen)
-                    && (tag_is(t + sv, svlen, "left")
-                        || tag_is(t + sv, svlen, "right")))
                 || raw_attr(t, ts, te, "usemap", &sv, &svlen)
                 || raw_attr(t, ts, te, "ismap", &sv, &svlen)
                 || !raw_attr(t, ts, te, "src", &v, &vlen))
@@ -3586,6 +3601,14 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
                 parse_img_size(t + sv, svlen, &w);
             if (raw_attr(t, ts, te, "height", &sv, &svlen))
                 parse_img_size(t + sv, svlen, &h);
+            if (!c->aligned && raw_attr(t, ts, te, "align", &sv, &svlen)
+                && (tag_is(t + sv, svlen, "left")
+                    || tag_is(t + sv, svlen, "right")))
+            {
+                /* in a cell, a picture goes to the side it names */
+                c->align = tag_is(t + sv, svlen, "right") ? 2 : 0;
+                c->aligned = 1;
+            }
             if (w.pct || h.pct
                 || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h,
                                &tile->img)
@@ -3632,12 +3655,37 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
                 c->w = c->linew[k];
             c->h += c->lineh[k];
         }
+        if (c->row + c->rowspan > nrows)
+            c->rowspan = nrows - c->row;
+        if (c->w < c->minw)
+            c->w = c->minw;
         if (c->colspan == 1 && c->w + 2 * pad > colw[c->col])
             colw[c->col] = c->w + 2 * pad;
+        if (c->rowspan > 1)
+            continue;
         if (c->h + 2 * pad > rowh[c->row])
             rowh[c->row] = c->h + 2 * pad;
         if (c->minh > rowh[c->row])
             rowh[c->row] = c->minh;
+    }
+    /* a cell over rows makes them taller, if they aren't enough */
+    for (n = 0 ; n < ncells ; ++n)
+    {
+        glui32 have = 0, need;
+
+        c = &cells[n];
+        if (c->rowspan == 1)
+            continue;
+        for (k = c->row ; k < c->row + c->rowspan ; ++k)
+            have += rowh[k];
+        have += spacing * (glui32)(c->rowspan - 1);
+        need = c->h + 2 * pad;
+        if (c->minh > need)
+            need = c->minh;
+        if (need > have)
+            for (k = c->row ; k < c->row + c->rowspan ; ++k)
+                rowh[k] += (need - have + (glui32)c->rowspan - 1)
+                    / (glui32)c->rowspan;
     }
     for (n = 0 ; n < ncells ; ++n)
     {
@@ -3672,7 +3720,7 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
         c = &cells[n];
         k = c->col + c->colspan;
         cw = colx[k] - spacing - colx[c->col];
-        ch = rowh[c->row];
+        ch = rowy[c->row + c->rowspan] - spacing - rowy[c->row];
         y = rowy[c->row] + (c->valign == 0 ? pad
                             : c->valign == 2 ? ch - pad - c->h
                             : (ch - c->h) / 2);
@@ -4181,6 +4229,38 @@ static int banner_picpage(parser *b, void *ctx, const glui32 *t, size_t len,
         && osglk_tag_banner_table(ctx, pt);
 }
 
+/*
+ *   Give the picture table the <BODY BACKGROUND> picture that t[0..len)
+ *   sets, to tile behind it
+ */
+static void pt_body_background(parser *p, const glui32 *t, size_t len,
+                               oshtml_pictable *pt)
+{
+    img_size none = { 0, 0 };
+    size_t i = 0, ts, te, name, namelen, v, vlen;
+    int end;
+
+    memset(&pt->bg, 0, sizeof(pt->bg));
+    while (i < len)
+    {
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (!end && tag_is(t + name, namelen, "body")
+            && raw_attr(t, ts, te, "background", &v, &vlen) && vlen)
+        {
+            find_image(p, t + v, vlen, imagealign_InlineUp, none, none,
+                       &pt->bg);
+            return;
+        }
+    }
+}
+
 static void end_banner(parser *p)
 {
     static oshtml_pictable pt;
@@ -4256,7 +4336,8 @@ static void end_banner(parser *p)
                     else if ((table == 2
                          ? build_mappic(b, p->bantext + ts, te - ts, &pt)
                          : build_pictable(b, p->bantext + ts, te - ts, &pt))
-                        && osglk_tag_banner_table(ctx, &pt))
+                        && (pt_body_background(b, p->bantext + i, ts - i, &pt),
+                            osglk_tag_banner_table(ctx, &pt)))
                         stop = ts;
 
                     /* or a map over the rest of its cell, which is text */
