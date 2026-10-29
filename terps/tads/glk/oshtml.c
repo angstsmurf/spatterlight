@@ -198,6 +198,7 @@ struct oshtml_parser
     int row_shown;              /* the row has put something out */
     int table_box;              /* the <TABLE> has a WIDTH and BGCOLOR */
     int row_align;              /* the <TR> has an ALIGN */
+    int narrow_first;           /* the last cell was a few pixels wide */
 
     /*
      *   A row's first cell holds back its first character (cell_hold 2)
@@ -2359,6 +2360,8 @@ static void do_tag(parser *p)
     int cell_align = -1;        /* ALIGN: 0 left, 1 centred, 2 right */
     int table_open = 0, row_open = 0;
     int cell_width = 0;         /* a WIDTH */
+    int cell_px = 0;            /* ... in pixels */
+    int after_marker = 0;       /* the cell before had one */
     int cell_bg_ok = 0;
     os_color_t cell_bg = OS_COLOR_P_TRANSPARENT;
     int tab_to = -1;
@@ -2989,7 +2992,13 @@ static void do_tag(parser *p)
                 : tag_is(t + v, vlen, "right") ? 2
                 : tag_is(t + v, vlen, "left") ? 0 : -1;
         else if (cell_ok && ATTR("width"))
+        {
             cell_width = 1;
+            /* under 100 pixels: a marker's cell, not a box */
+            cell_px = vlen && vlen <= 2
+                && t[v] >= '0' && t[v] <= '9'
+                && t[v + vlen - 1] != '%';
+        }
         else if (cell_ok && ATTR("bgcolor"))
             cell_bg_ok = parse_color(t + v, vlen, &cell_bg)
                 && !os_color_is_param(cell_bg);
@@ -3169,12 +3178,18 @@ static void do_tag(parser *p)
         else
             p->cur.attr &= ~OSSTY_CENTER;
     }
+    if (cell)
+    {
+        after_marker = p->narrow_first;
+        p->narrow_first = cell_px;
+    }
     if (cell && !cell_first && !p->row_shown
         && !(cur_color(p).attr & OSSTY_CENTER))
     {
         /* after empty cells, the gap indents each line of the cell */
         p->npending = 0;
-        if (p->line_open)
+        /* but a picture in a marker's cell fills the gap */
+        if (p->line_open && !(after_marker && p->col <= 1))
             put_fixed_tab(p, 2 * CELL_INDENT);
         p->indent += CELL_INDENT;
         p->cell_indent += CELL_INDENT;
@@ -3192,16 +3207,23 @@ static void do_tag(parser *p)
             release_held(p, 1);
             put_fixed_tab(p, CELL_GAP);
         }
-        else
-            put_tab(p, CELL_GAP, 0);
+        else if (!(after_marker && p->col <= 1))
+            put_tab(p, CELL_GAP, 0);    /* a picture fills a marker's cell */
     }
     else if (cell && !cell_first && cell_align == 2
              && !(p->cur.attr & OSSTY_CENTER) && (tads3 || p->in_banner))
         right_cell(p);
     else if (cell)
     {
-        /* a right-aligned first cell is as wide as its column */
-        if (cell_align == 1)
+        /*
+         *   a right-aligned first cell is as wide as its column.  A
+         *   centred one of a few pixels (Threnody's menu pointer) centres
+         *   its picture in the cell, not the row, and the rest of the row
+         *   starts at the left, where its cells' text is.
+         */
+        if (cell_first && cell_px)
+            p->cur.attr &= ~OSSTY_CENTER;
+        else if (cell_align == 1)
             p->cur.attr |= OSSTY_CENTER;
         else if (cell_align == 0)
             p->cur.attr &= ~OSSTY_CENTER;
