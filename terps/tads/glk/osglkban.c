@@ -2695,7 +2695,13 @@ int osglk_tag_banner_done(void *ctx)
     else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
     {
         int alone;
-        glui32 size = tag_side_pixels(tb, &alone);
+        glui32 size = tag_side_pixels(tb, &alone), mx = 0;
+
+        /* wide enough for its table of pictures, whatever it asked for:
+           the left margin it is drawn at, and its own width */
+        osglk_px_margins(tb->win, &mx, NULL);
+        if (tb->tbl_used && tb->tbl && size < tb->tbl->width + mx)
+            size = tb->tbl->width + mx;
         tb->px_shrunk = size < (glui32)tb->px_asked ? size : 0;
         tag_resize(tb, size);
         tag_side_alone(tb, alone);

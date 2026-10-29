@@ -672,6 +672,12 @@ pointer, which used to be `[X]`. The xtads traces are unchanged.
     gives "press power button · northwest · north · … · southeast".
     *Arrival*, *School* and *Helpfulman* build theirs only after particular
     commands, which haven't been tried.
+- A clickable `<IMG USEMAP>` right before top-level picture tables in a
+  banner is one graphics window with the tables, its areas the links
+  (`find_pictable` reports where the picture starts, `build_pictable` takes it
+  as its first piece). *Helpfulman*'s `menu` side bar (the menu picture over
+  the d/u buttons and the compass) is clickable that way. If the stack can't
+  be laid out, it's the picture's link row as before.
 - A fix in the banners came with this: `tag_put` holds a banner's newlines
   back until more text comes, so its last line isn't blank, but a picture
   went past them. The rows of pictures in *1893*'s room banner came out on

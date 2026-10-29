@@ -3383,12 +3383,17 @@ static int raw_int(const glui32 *t, size_t s, size_t e, const char *attr,
  *   Is the last thing in t[0..len) a table, or tables with only line breaks
  *   between them, with only line breaks and the ends of elements after it?
  *   Their text is t[*s..*e).  1 if so, 2 if it's an <IMG USEMAP> instead.
+ *   If an <IMG USEMAP> comes right before the tables, *m is where it starts,
+ *   otherwise (size_t)-1.
  */
-static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
+static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e,
+                         size_t *m)
 {
     size_t v, vlen;
-    size_t i = 0, ts, te, name, namelen;
+    size_t i = 0, ts, te, name, namelen, imgstart = (size_t)-1;
     int depth = 0, end, found = 0;
+
+    *m = (size_t)-1;
 
     while (i < len)
     {
@@ -3406,6 +3411,8 @@ static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
         namelen = raw_name(t, ts, te, &name, &end);
         if (tag_is(t + name, namelen, "table"))
         {
+            if (!end && depth == 0 && found != 1)
+                *m = found == 2 ? imgstart : (size_t)-1;
             if (!end && depth++ == 0 && found != 1)
                 *s = start;
             else if (end && depth > 0 && --depth == 0)
@@ -3419,6 +3426,7 @@ static int find_pictable(const glui32 *t, size_t len, size_t *s, size_t *e)
         {
             *s = start;
             *e = i;
+            imgstart = start;
             found = 2;
         }
         else if (depth == 0 && !end && !tag_is(t + name, namelen, "br"))
@@ -3674,6 +3682,9 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
     return 1;
 }
 
+static int build_mappic(parser *p, const glui32 *t, size_t len,
+                        oshtml_pictable *pt);
+
 /*
  *   Lay out the tables in t[0..len) in pixels, one under another, as one
  *   picture: 1893's title over its compass.  False if one can't be, or
@@ -3685,7 +3696,8 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
     int first[PT_TABLES + 1];
     glui32 tw[PT_TABLES], th[PT_TABLES], y = 0;
     int ntables = 0, links = 0, wide = 0, k, j;
-    size_t i = 0;
+    size_t i = 0, ts, te, name, namelen;
+    int end, depth;
 
     if (p->dst)
         return 0;
@@ -3693,10 +3705,28 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
     pt->width = 0;
     pt->page = 0;
     pt->above = 0;
+
+    /* a picture with areas, as the first of them: its areas are links */
+    while (i < len && is_space(t[i]))
+        ++i;
+    if (i < len && t[i] == '<' && raw_tag(t, len, &i, &ts, &te)
+        && (namelen = raw_name(t, ts, te, &name, &end),
+            !end && tag_is(t + name, namelen, "img")))
+    {
+        if (!build_mappic(p, t, i, pt))
+            return 0;
+        first[0] = 0;
+        tw[0] = pt->width;
+        th[0] = pt->height;
+        ntables = 1;
+        links = 1;
+        wide = 1;
+    }
+    else
+        i = 0;
     while (i < len)
     {
-        size_t start = i, ts, te, name, namelen;
-        int end, depth;
+        size_t start = i;
 
         /* only spaces and line breaks between them */
         if (t[i] != '<')
@@ -4139,16 +4169,18 @@ static int banner_picpage(parser *b, void *ctx, const glui32 *t, size_t len,
 static void end_banner(parser *p)
 {
     static oshtml_pictable pt;
-    size_t i = 0, k, ts = 0, te = 0, bg = 0, bglen = 0;
+    size_t i = 0, k, ts = 0, te = 0, bg = 0, bglen = 0, ms = (size_t)-1;
     int table, page;
 
     p->bancap = 0;
     while (i < p->banlen && is_space(p->bantext[i]))
         ++i;
     page = find_picpage(p->bantext + i, p->banlen - i, &bg, &bglen);
-    table = find_pictable(p->bantext + i, p->banlen - i, &ts, &te);
+    table = find_pictable(p->bantext + i, p->banlen - i, &ts, &te, &ms);
     ts += i;
     te += i;
+    if (ms != (size_t)-1)
+        ms += i;
     if (i < p->banlen)
     {
         const oshtml_sink *sink;
@@ -4182,13 +4214,31 @@ static void end_banner(parser *p)
                     size_t cs = 0, ce = 0;
 
                     /* the text, then the table: the rest is only ends */
-                    for (k = i ; k < ts ; ++k)
+                    for (k = i ; k < (table == 1 ? ms : ts) && k < ts ; ++k)
                         feed(b, p->bantext[k]);
                     put_maprow(b);
                     expand_tab(b, 1);
                     flush_out(b);
                     from = ts;
-                    if ((table == 2
+
+                    /* a picture with areas over the tables, one picture */
+                    if (table == 1 && ms != (size_t)-1)
+                    {
+                        if (build_pictable(b, p->bantext + ms, te - ms, &pt)
+                            && osglk_tag_banner_table(ctx, &pt))
+                            from = stop = ts;
+                        else
+                        {
+                            for (k = ms ; k < ts ; ++k)
+                                feed(b, p->bantext[k]);
+                            put_maprow(b);
+                            expand_tab(b, 1);
+                            flush_out(b);
+                        }
+                    }
+                    if (stop == ts)
+                        ;
+                    else if ((table == 2
                          ? build_mappic(b, p->bantext + ts, te - ts, &pt)
                          : build_pictable(b, p->bantext + ts, te - ts, &pt))
                         && osglk_tag_banner_table(ctx, &pt))
