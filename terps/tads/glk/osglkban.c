@@ -1982,9 +1982,20 @@ static void tag_set_attr(void *ctx, int combo)
                              osstyles_style(combo));
 }
 
-/* the parameter colours are the window's own, from the theme */
-static glui32 tag_color(os_color_t color)
+/*
+ *   The status colours are the status line's in a text buffer, which the menu
+ *   library's title and its hidden ">" are made of; the other parameter
+ *   colours are the window's own, from the theme
+ */
+static glui32 tag_color(const tagban_t *tb, os_color_t color)
 {
+    if (tb->type == wintype_TextBuffer)
+    {
+        if (color == OS_COLOR_P_STATUSBG)
+            return statusfg;
+        if (color == OS_COLOR_P_STATUSLINE)
+            return statusbg;
+    }
     return os_color_is_param(color) ? zcolor_Default : (glui32)color;
 }
 
@@ -1993,7 +2004,7 @@ static void tag_set_color(void *ctx, os_color_t fg, os_color_t bg)
     tagban_t *tb = ctx;
     if (tb->win)
         osglk_zcolors_stream(glk_window_get_stream(tb->win),
-                                  tag_color(fg), tag_color(bg));
+                                  tag_color(tb, fg), tag_color(tb, bg));
 }
 
 static void tag_set_screen_color(void *ctx, os_color_t color)
@@ -2001,9 +2012,9 @@ static void tag_set_screen_color(void *ctx, os_color_t color)
     tagban_t *tb = ctx;
     if (!tb->win || tb->measure)
         return;
-    osglk_set_window_bg(tb->win, tag_color(color));
+    osglk_set_window_bg(tb->win, tag_color(tb, color));
 #ifdef OSGLK_PIXELS
-    tb->screen = tag_color(color);
+    tb->screen = tag_color(tb, color);
 #endif /* OSGLK_PIXELS */
     tb->bg = !os_color_is_param(color);
 }

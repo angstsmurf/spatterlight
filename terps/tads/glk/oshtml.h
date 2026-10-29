@@ -193,6 +193,13 @@ typedef struct oshtml_pictable
     int valign;
 } oshtml_pictable;
 
+/*
+ *   Is what the main window was sent since it was last cleared or waited on
+ *   only a page of pictures on a <BODY BACKGROUND>?  If so, it is laid out
+ *   in 'pt' (and forgotten, as is anything else it held).
+ */
+int oshtml_main_page(oshtml_pictable *pt);
+
 /* The pixels of a line of text in a banner */
 glui32 osglk_banner_line_pixels(void);
 

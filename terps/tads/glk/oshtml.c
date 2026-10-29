@@ -1626,6 +1626,28 @@ static void contrast_text(parser *p, os_color_t bg)
     }
 }
 
+/*
+ *   A <BODY BACKGROUND> picture is not drawn behind the text, and the colour
+ *   the game gave to show if the picture is missing might hide its text:
+ *   Macrocosm's starfield has TEXT=WHITE on BGCOLOR=WHITE.  So text that
+ *   doesn't show on the colour gets the opposite one, black for light text,
+ *   as the starfield is dark.
+ */
+static os_color_t pic_page_color(os_color_t fg, os_color_t bg)
+{
+    unsigned long lf, lb;
+
+    if (os_color_is_param(fg) || os_color_is_param(bg))
+        return bg;
+    lf = 299 * ((fg >> 16) & 0xFF) + 587 * ((fg >> 8) & 0xFF)
+        + 114 * (fg & 0xFF);
+    lb = 299 * ((bg >> 16) & 0xFF) + 587 * ((bg >> 8) & 0xFF)
+        + 114 * (bg & 0xFF);
+    if ((lf > lb ? lf - lb : lb - lf) >= 64000)
+        return bg;
+    return lf >= 128000 ? os_rgb_color(0, 0, 0) : os_rgb_color(255, 255, 255);
+}
+
 /* <BODY>: the window background */
 static void set_body(parser *p, os_color_t bg)
 {
@@ -2352,6 +2374,7 @@ static void do_tag(parser *p)
     glui32 img_align = imagealign_InlineUp;
     img_size img_w = { 0, 0 }, img_h = { 0, 0 };
     int color_ok = 0, body = 0; /* <font>, <body> */
+    int body_pic = 0;           /* the <body> has a BACKGROUND picture */
     os_color_t body_bg = OS_COLOR_P_TEXTBG;
     int face_ok = 0, face = -1; /* <font FACE> */
     int align_ok = 0;           /* <p>, <div>, <hN>: 1 to open the tag */
@@ -3024,6 +3047,8 @@ static void do_tag(parser *p)
             parse_color(t + v, vlen, &p->cur.fg);
         else if (body && ATTR("bgcolor"))
             parse_color(t + v, vlen, &body_bg);
+        else if (body && ATTR("background"))
+            body_pic = vlen != 0;
         else if (tab && ATTR("id"))
         {
             int k = find_tab(p, t + v, vlen, 1);
@@ -3068,7 +3093,11 @@ static void do_tag(parser *p)
     }
 
     if (body)
+    {
+        if (body_pic)
+            body_bg = pic_page_color(p->cur.fg, body_bg);
         set_body(p, body_bg);
+    }
 
     /* <A HREF>: the command is the href; an <A NAME> is no link */
     if (link_ok && have_href && !p->dst)
@@ -4083,13 +4112,15 @@ static int build_mapcell(parser *p, const glui32 *t, size_t len,
 /* the tags a page of pictures can have, and those that lay nothing out */
 static const char *const page_tags[] = {
     "body", "font", "map", "area", "center", "p", "br", "img", "bq",
-    "blockquote", NULL
+    "blockquote", "sound", "div", "tab", NULL
 };
 
 static int page_quiet_tag(const glui32 *t, size_t len)
 {
     return tag_is(t, len, "body") || tag_is(t, len, "font")
-        || tag_is(t, len, "map") || tag_is(t, len, "area");
+        || tag_is(t, len, "map") || tag_is(t, len, "area")
+        || tag_is(t, len, "sound") || tag_is(t, len, "div")
+        || tag_is(t, len, "tab");
 }
 
 /*
@@ -4672,8 +4703,29 @@ void oshtml_delete(oshtml_parser *p)
     free(p);
 }
 
+/*
+ *   What the main window was sent since it was last cleared or waited on,
+ *   up to a size, to tell a page of pictures from the text of a game
+ */
+#define MAINPAGE_MAX 4096
+static glui32 mainpage[MAINPAGE_MAX];
+static size_t mainpage_len;
+static int mainpage_over;
+
 void oshtml_write(oshtml_parser *p, const char *str, size_t len)
 {
+    if (p == &fmt)
+    {
+        size_t k;
+
+        for (k = 0 ; k < len ; ++k)
+        {
+            if (mainpage_len < MAINPAGE_MAX)
+                mainpage[mainpage_len++] = (unsigned char)str[k];
+            else
+                mainpage_over = 1;
+        }
+    }
     feed_bytes(p, str, len);
     flush_out(p);
 }
@@ -4734,6 +4786,8 @@ void oshtml_clear(oshtml_parser *p)
 
 void oshtml_clear_main(void)
 {
+    mainpage_len = 0;
+    mainpage_over = 0;
     /* the TADS 3 formatter empties its buffers; TADS 2's goes on */
     if (tads3)
         oshtml_clear(&fmt);
@@ -4873,4 +4927,22 @@ void oshtml_set_os_color(os_color_t fg, os_color_t bg)
 void oshtml_arrange(void)
 {
     memset(fmt.centers, 0, sizeof(fmt.centers));
+}
+
+int oshtml_main_page(oshtml_pictable *pt)
+{
+    size_t i = 0, bg, bglen;
+    int ok = 0;
+
+    if (!mainpage_over)
+    {
+        while (i < mainpage_len && is_space(mainpage[i]))
+            ++i;
+        ok = find_picpage(mainpage + i, mainpage_len - i, &bg, &bglen)
+            && build_picpage(&fmt, mainpage + i, mainpage_len - i, bg, bglen,
+                             pt);
+    }
+    mainpage_len = 0;
+    mainpage_over = 0;
+    return ok;
 }

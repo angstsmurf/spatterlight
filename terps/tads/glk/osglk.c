@@ -795,6 +795,13 @@ static void side_pictures_remove(void)
     }
 }
 
+static winid_t page_win[2];
+static oshtml_pictable page_pt;
+static glui32 page_total, page_x;
+
+static void main_page_draw(void);
+static void main_page_place(void);
+
 static void redraw_windows(void)
 {
     measure_colors();
@@ -802,6 +809,11 @@ static void redraw_windows(void)
     os_status_redraw();
     os_banners_redraw();
     side_pictures_draw();
+    if (page_win[0])
+    {
+        main_page_place();
+        main_page_draw();
+    }
     osglk_tag_banner_redraw();
 }
 
@@ -1659,6 +1671,102 @@ static int want_href = 0;
 static int linkevt = 0;
 static char linkhref[256];
 
+/*
+ *   A page of pictures on a background picture, which is all the main
+ *   window was sent before it waits for a key (the introduction of
+ *   Macrocosm), fills the window as a graphics window until the key
+ */
+/*
+ *   The movie of the page is the picture in the main window's text, which
+ *   animates there and not in a graphics window: the starfield is in a
+ *   window on each side of it, as wide as what is left of the window
+ */
+static void main_page_draw(void)
+{
+    int i;
+
+    for (i = 0 ; i < 2 ; ++i)
+    {
+        glui32 ww = 0, wh = 0, bw = 0, bh = 0, x, y;
+        glui32 skip = i ? page_x : 0;
+
+        osglk_set_window_bg(page_win[i], main_bg);
+        glk_window_clear(page_win[i]);
+        glk_window_get_size(page_win[i], &ww, &wh);
+        if (!page_pt.bg.id || !glk_image_get_info(page_pt.bg.id, &bw, &bh)
+            || !bw || !bh)
+            continue;
+
+        /* the tiles run on across the windows, as one picture */
+        for (y = 0 ; y < wh ; y += bh)
+            for (x = 0 ; x < ww + bw ; x += bw)
+                glk_image_draw(page_win[i], page_pt.bg.id,
+                               (glsi32)(x - (i ? skip % bw : 0)),
+                               (glsi32)y);
+    }
+}
+
+static void main_page_place(void)
+{
+    glui32 w[3] = { 0, 0, 0 }, mx = 0, side;
+    int i;
+
+    glk_window_get_size(page_win[0], &w[0], NULL);
+    glk_window_get_size(page_win[1], &w[2], NULL);
+#ifdef OSGLK_PIXELS
+    osglk_px_margins(mainwin, &mx, NULL);
+    w[1] = osglk_px_width(mainwin) + 2 * mx;
+#endif
+    page_total = w[0] + w[1] + w[2];
+    side = page_total > page_pt.width + 2 * mx + 8
+        ? (page_total - page_pt.width - 2 * mx - 8) / 2 : 1;
+    for (i = 0 ; i < 2 ; ++i)
+        glk_window_set_arrangement(glk_window_get_parent(page_win[i]),
+                                   (i ? winmethod_Right : winmethod_Left)
+                                   | winmethod_Fixed | winmethod_NoBorder,
+                                   side, page_win[i]);
+    page_x = page_total - side;
+}
+
+static void main_page_remove(void)
+{
+    int i;
+
+    for (i = 0 ; i < 2 ; ++i)
+    {
+        if (page_win[i])
+            glk_window_close(page_win[i], NULL);
+        page_win[i] = NULL;
+    }
+}
+
+static void main_page_show(void)
+{
+    oshtml_pictable pt;
+    int i;
+
+    memset(&pt, 0, sizeof pt);
+    if (!oshtml_main_page(&pt) || page_win[0]
+#ifndef OSGLK_PIXELS
+        || 1
+#endif
+        || !glk_gestalt(gestalt_DrawImage, wintype_Graphics))
+        return;
+    page_pt = pt;
+    for (i = 0 ; i < 2 ; ++i)
+        page_win[i] = glk_window_open(mainwin,
+                                      (i ? winmethod_Right : winmethod_Left)
+                                      | winmethod_Fixed | winmethod_NoBorder,
+                                      1, wintype_Graphics, 0);
+    if (!page_win[0] || !page_win[1])
+    {
+        main_page_remove();
+        return;
+    }
+    main_page_place();
+    main_page_draw();
+}
+
 static int getglkchar(void)
 {
     event_t event;
@@ -1668,6 +1776,7 @@ static int getglkchar(void)
     linkevt = 0;
 
     oshtml_input();
+    main_page_show();
     request_links();
     glk_request_char_event(mainwin);
 
@@ -1703,6 +1812,8 @@ static int getglkchar(void)
            && !linkevt);
 
     glk_cancel_char_event(mainwin);
+    if (page_win[0])
+        main_page_remove();
 
     return timechar || linkevt ? 0 : event.val1;
 }
