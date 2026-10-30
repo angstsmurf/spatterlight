@@ -1309,8 +1309,6 @@ static void set_title(parser *p)
     os_set_title(buf);
 }
 
-/* the tag in p->tag, between '<' and '>' */
-
 /* the colour in a COLOR, BGCOLOR or TEXT attribute */
 static const struct { const char *name; os_color_t color; } colors[] =
 {
@@ -1378,13 +1376,6 @@ static int name_in(const glui32 *name, size_t len, const char *const *list)
     return 0;
 }
 
-static const char *const bold_tags[] = { "b", "strong", 0 };
-static const char *const italic_tags[] =
-    { "i", "em", "u", "cite", "var", "dfn", "address", 0 };
-static const char *const fixed_tags[] =
-    { "tt", "code", "kbd", "samp", "listing", "xmp", 0 };
-static const char *const heading_tags[] =
-    { "h1", "h2", "h3", "h4", "h5", "h6", 0 };
 
 /* the blocks that an open <p> or <dd> doesn't reach out of */
 static const char *const p_stops[] =
@@ -3335,12 +3326,252 @@ static void tag_tab(parser *p, const tag_info *tg)
     }
 }
 
+/* <B>, <I>, <TT> and their kin: a style, to their end tag */
+static void phrase(parser *p, const tag_info *tg, int bold, int italic)
+{
+    if (p->ignore)
+        return;
+    if (tg->end)
+    {
+        tag_pop(p, tg);
+        return;
+    }
+    tag_push(p, tg);
+    if (bold)
+        p->cur.attr |= OSSTY_BOLD;
+    else if (italic)
+        p->cur.attr |= OSSTY_ITALIC;
+    else
+        p->cur.attr = (p->cur.attr & ~OSSTY_INPUT) | OSSTY_FIXED;
+}
+
+static void tag_bold(parser *p, const tag_info *tg)
+{
+    phrase(p, tg, 1, 0);
+}
+
+static void tag_italic(parser *p, const tag_info *tg)
+{
+    phrase(p, tg, 0, 1);
+}
+
+static void tag_fixed(parser *p, const tag_info *tg)
+{
+    phrase(p, tg, 0, 0);
+}
+
+/* <CENTER>: a block, like <div> */
+static void tag_center(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    line_break(p);
+    if (tg->end)
+        tag_pop(p, tg);
+    else
+    {
+        tag_push(p, tg);
+        p->cur.attr |= OSSTY_CENTER;
+    }
+}
+
+/* <BLOCKQUOTE> and <BQ> */
+static void tag_blockquote(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    if (tg->end)
+        tag_pop(p, tg);
+    para_break(p);
+    if (!tg->end)
+    {
+        tag_push(p, tg);
+        ++p->indent;
+    }
+}
+
+/* <UL>, <OL> and <DL>: a list in a list goes on from the line of its item */
+static void tag_list(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    if (tg->end)
+        tag_pop(p, tg);
+    if (p->list != LIST_NONE)
+        line_break(p);
+    else
+        para_break(p);
+    if (tg->end)
+        return;
+    tag_push(p, tg);
+    if (!tag_named(tg, "dl"))
+    {
+        ++p->indent;
+        p->list = tag_named(tg, "ol") ? LIST_OL : LIST_UL;
+        p->nitem = 0;
+    }
+}
+
+static void tag_li(parser *p, const tag_info *tg)
+{
+    if (!p->ignore && !tg->end)
+        put_bullet(p);
+}
+
+/* <DT>, <DD> and <LH>: only a <DD> is indented, and closed */
+static void tag_dt(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    if (tg->end)
+    {
+        if (tag_named(tg, "dd"))
+            tag_pop(p, tg);
+        return;
+    }
+    close_elem(p, "dd", dd_stops);
+    line_break(p);
+    if (tag_named(tg, "dd"))
+    {
+        tag_push(p, tg);
+        ++p->indent;
+    }
+}
+
+static void tag_nobr(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    if (tg->end)
+        tag_pop(p, tg);
+    else
+    {
+        tag_push(p, tg);
+        p->nobr = 1;
+    }
+}
+
+/* <HR>: a line of box-drawing characters, as wide as the window */
+static void tag_hr(parser *p, const tag_info *tg)
+{
+    int n;
+
+    (void)tg;
+    if (p->ignore)
+        return;
+    para_break(p);
+    n = p->sink->rule_width(p->ctx, cur_color(p).attr) - 1 - 2 * p->indent;
+    for ( ; n > 0 ; --n)
+        put_visible(p, 0x2500);
+    para_break(p);
+}
+
+/* <Q>: double quotes, single ones in them */
+static void tag_q(parser *p, const tag_info *tg)
+{
+    int end = tg->end;
+
+    if (p->ignore)
+        return;
+    if (!end)
+        ++p->quote_level;
+    put_visible(p, (p->quote_level & 1)
+                ? (end ? 0x201D : 0x201C)
+                : (end ? 0x2019 : 0x2018));
+    if (end)
+        --p->quote_level;
+}
+
+/* <TITLE>: its text is the window's title, not shown */
+static void tag_title(parser *p, const tag_info *tg)
+{
+    if (tg->end)
+    {
+        if (p->title > 0)
+        {
+            --p->ignore;
+            if (--p->title == 0)
+                set_title(p);
+        }
+    }
+    else
+    {
+        if (!p->title)
+            p->titlelen = 0;
+        ++p->ignore;
+        ++p->title;
+    }
+}
+
+/* <PRE>: fixed-pitch, its spaces and newlines kept */
+static void tag_pre(parser *p, const tag_info *tg)
+{
+    if (!tg->end)
+        ++p->pre;
+    blank_line(p);
+    if (tg->end && p->pre > 0)
+        --p->pre;
+    if (p->ignore)
+        return;
+    if (tg->end)
+        tag_pop(p, tg);
+    else
+    {
+        tag_push(p, tg);
+        p->cur.attr = (p->cur.attr & ~OSSTY_INPUT) | OSSTY_FIXED;
+    }
+}
+
+/* the tags we show, by name; a tag that isn't here isn't shown */
+static const struct tag_handler
+{
+    const char *name;
+    void (*fn)(parser *p, const tag_info *tg);
+} tag_handlers[] =
+{
+    { "br", tag_br },
+    { "b", tag_bold }, { "strong", tag_bold },
+    { "i", tag_italic }, { "em", tag_italic }, { "u", tag_italic },
+    { "cite", tag_italic }, { "var", tag_italic }, { "dfn", tag_italic },
+    { "address", tag_italic },
+    { "tt", tag_fixed }, { "code", tag_fixed }, { "kbd", tag_fixed },
+    { "samp", tag_fixed }, { "listing", tag_fixed }, { "xmp", tag_fixed },
+    { "p", tag_p },
+    { "div", tag_div },
+    { "h1", tag_heading }, { "h2", tag_heading }, { "h3", tag_heading },
+    { "h4", tag_heading }, { "h5", tag_heading }, { "h6", tag_heading },
+    { "center", tag_center },
+    { "blockquote", tag_blockquote }, { "bq", tag_blockquote },
+    { "ul", tag_list }, { "ol", tag_list }, { "dl", tag_list },
+    { "li", tag_li },
+    { "dt", tag_dt }, { "dd", tag_dt }, { "lh", tag_dt },
+    { "table", tag_table },
+    { "tr", tag_tr },
+    { "td", tag_td }, { "th", tag_td },
+    { "nobr", tag_nobr },
+    { "tab", tag_tab },
+    { "a", tag_a },
+    { "img", tag_img },
+    { "map", tag_map },
+    { "area", tag_area },
+    { "sound", tag_sound },
+    { "font", tag_font },
+    { "body", tag_body },
+    { "hr", tag_hr },
+    { "q", tag_q },
+    { "title", tag_title },
+    { "aboutbox", tag_aboutbox },
+    { "banner", tag_banner },
+    { "pre", tag_pre },
+};
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
     const glui32 *t = p->tag;
     size_t len = p->taglen, i = 0, name, namelen;
     tag_info tg;
+    size_t k;
     int end = 0;
     int cell_empty = p->cell_empty; /* nothing yet in the cell */
 
@@ -3373,265 +3604,12 @@ static void do_tag(parser *p)
         return;
     }
 
-#define TAG(s) tag_is(t + name, namelen, s)
-#define TAG_IN(l) name_in(t + name, namelen, l)
-    if (TAG("br"))
-    {
-        tag_br(p, &tg);
-        return;
-    }
-    else if (TAG_IN(bold_tags) || TAG_IN(italic_tags) || TAG_IN(fixed_tags))
-    {
-        if (p->ignore)
-            ;
-        else if (end)
-            pop_elem(p, t + name, namelen);
-        else
+    for (k = 0 ; k < sizeof(tag_handlers) / sizeof(tag_handlers[0]) ; ++k)
+        if (tag_named(&tg, tag_handlers[k].name))
         {
-            push_elem(p, t + name, namelen);
-            if (TAG_IN(bold_tags))
-                p->cur.attr |= OSSTY_BOLD;
-            else if (TAG_IN(italic_tags))
-                p->cur.attr |= OSSTY_ITALIC;
-            else
-                p->cur.attr = (p->cur.attr & ~OSSTY_INPUT) | OSSTY_FIXED;
+            tag_handlers[k].fn(p, &tg);
+            return;
         }
-    }
-    else if (TAG("p"))
-    {
-        tag_p(p, &tg);
-        return;
-    }
-    else if (TAG("div"))
-    {
-        tag_div(p, &tg);
-        return;
-    }
-    else if (TAG_IN(heading_tags))
-    {
-        tag_heading(p, &tg);
-        return;
-    }
-    else if (TAG("center"))
-    {
-        /* a block, like <div> */
-        if (p->ignore)
-            ;
-        else if (end)
-        {
-            line_break(p);
-            pop_elem(p, t + name, namelen);
-        }
-        else
-        {
-            line_break(p);
-            push_elem(p, t + name, namelen);
-            p->cur.attr |= OSSTY_CENTER;
-        }
-    }
-    else if (TAG("blockquote") || TAG("bq"))
-    {
-        if (!p->ignore)
-        {
-            if (end)
-                pop_elem(p, t + name, namelen);
-            para_break(p);
-            if (!end)
-            {
-                push_elem(p, t + name, namelen);
-                ++p->indent;
-            }
-        }
-    }
-    else if (TAG("ul") || TAG("ol") || TAG("dl"))
-    {
-        /* a list in a list goes on from the line of its item */
-        if (p->ignore)
-            ;
-        else if (end)
-        {
-            pop_elem(p, t + name, namelen);
-            if (p->list != LIST_NONE)
-                line_break(p);
-            else
-                para_break(p);
-        }
-        else
-        {
-            if (p->list != LIST_NONE)
-                line_break(p);
-            else
-                para_break(p);
-            push_elem(p, t + name, namelen);
-            if (!TAG("dl"))
-            {
-                ++p->indent;
-                p->list = TAG("ol") ? LIST_OL : LIST_UL;
-                p->nitem = 0;
-            }
-        }
-    }
-    else if (TAG("li"))
-    {
-        if (!p->ignore && !end)
-            put_bullet(p);
-    }
-    else if (TAG("dt") || TAG("dd") || TAG("lh"))
-    {
-        if (!p->ignore && !end)
-        {
-            close_elem(p, "dd", dd_stops);
-            line_break(p);
-            if (TAG("dd"))
-            {
-                push_elem(p, t + name, namelen);
-                ++p->indent;
-            }
-        }
-        else if (!p->ignore && TAG("dd"))
-            pop_elem(p, t + name, namelen);
-    }
-    else if (TAG("table"))
-    {
-        tag_table(p, &tg);
-        return;
-    }
-    else if (TAG("tr"))
-    {
-        tag_tr(p, &tg);
-        return;
-    }
-    else if (TAG("td") || TAG("th"))
-    {
-        tag_td(p, &tg);
-        return;
-    }
-    else if (TAG("nobr"))
-    {
-        if (p->ignore)
-            ;
-        else if (end)
-            pop_elem(p, t + name, namelen);
-        else
-        {
-            push_elem(p, t + name, namelen);
-            p->nobr = 1;
-        }
-    }
-    else if (TAG("tab"))
-    {
-        tag_tab(p, &tg);
-        return;
-    }
-    else if (TAG("a"))
-    {
-        tag_a(p, &tg);
-        return;
-    }
-    else if (TAG("img"))
-    {
-        tag_img(p, &tg);
-        return;
-    }
-    else if (TAG("map"))
-    {
-        tag_map(p, &tg);
-        return;
-    }
-    else if (TAG("area"))
-    {
-        tag_area(p, &tg);
-        return;
-    }
-    else if (TAG("sound"))
-    {
-        tag_sound(p, &tg);
-        return;
-    }
-    else if (TAG("font"))
-    {
-        tag_font(p, &tg);
-        return;
-    }
-    else if (TAG("body"))
-    {
-        tag_body(p, &tg);
-        return;
-    }
-    else if (TAG("hr"))
-    {
-        if (!p->ignore)
-        {
-            int n;
-            para_break(p);
-            n = p->sink->rule_width(p->ctx, cur_color(p).attr)
-                - 1 - 2 * p->indent;
-            for ( ; n > 0 ; --n)
-                put_visible(p, 0x2500);
-            para_break(p);
-        }
-    }
-    else if (TAG("q"))
-    {
-        if (!p->ignore)
-        {
-            if (!end)
-                ++p->quote_level;
-            put_visible(p, (p->quote_level & 1)
-                        ? (end ? 0x201D : 0x201C)
-                        : (end ? 0x2019 : 0x2018));
-            if (end)
-                --p->quote_level;
-        }
-    }
-    else if (TAG("title"))
-    {
-        if (end)
-        {
-            if (p->title > 0)
-            {
-                --p->ignore;
-                if (--p->title == 0)
-                    set_title(p);
-            }
-        }
-        else
-        {
-            if (!p->title)
-                p->titlelen = 0;
-            ++p->ignore;
-            ++p->title;
-        }
-    }
-    else if (TAG("aboutbox"))
-    {
-        tag_aboutbox(p, &tg);
-        return;
-    }
-    else if (TAG("banner"))
-    {
-        tag_banner(p, &tg);
-        return;
-    }
-    else if (TAG("pre"))
-    {
-        if (!end)
-            ++p->pre;
-        blank_line(p);
-        if (end && p->pre > 0)
-            --p->pre;
-        if (p->ignore)
-            ;
-        else if (end)
-            pop_elem(p, t + name, namelen);
-        else
-        {
-            push_elem(p, t + name, namelen);
-            p->cur.attr = (p->cur.attr & ~OSSTY_INPUT) | OSSTY_FIXED;
-        }
-    }
-#undef TAG_IN
-#undef TAG
 }
 
 static void tag_char(parser *p, glui32 c)
