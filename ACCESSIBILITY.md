@@ -8,7 +8,7 @@
 <li><a href="#menu-detect">Menu detection</a></li>
 <li><a href="#vo-settings">Settings</a></li>
 <li><a href="#journey">Playing Journey</a></li>
-<li><a href="#arthur">Playing Arthur and Shogun</a></li>
+<li><a href="#arthur">Playing Arthur, Shogun and Zork Zero</a></li>
 <li><a href="#vo-utility">VoiceOver Utility settings</a></li>
 
 </ul>
@@ -140,16 +140,31 @@ As an added bonus I created [a blorb file][blorb] where the placeholder image de
 [blorb]: https://www.ifarchive.org/if-archive/infocom/media/blorb/Journey%20%28with%20descriptions%29.blb "Blorb file containing all the images for Journey with descriptions. Should be renamed to match the game file."
 
 <a id='arthur'></a>
-## Arthur and Shogun
+## Arthur, Shogun and Zork Zero
 
 Just like with *Journey*, most versions of [*Arthur: The Quest for Excalibur*][arthurocic] or [*Shogun*][shogunocic] found at [the Obsessively Complete Infocom Catalog][ocic] should run, but the later ones tend to have less problems. There are some devious game-breaking bugs in early versions of *Shogun*.
 
-In both of these games, the arrow up and arrow down keys may not work with command history unless "Settings > Format > Arrow key usage" is set to "Replaced by ⌘↑ and ⌘↓". This setting also applies to *Beyond Zork*.
+In both of these games, the arrow up and arrow down keys may not work with command history unless "Settings > Format > Arrow key usage" is set to "Replaced by ⌘↑ and ⌘↓". This setting also applies to *Beyond Zork* and *Zork Zero* (see below).
 
 When playing *Arthur*, the setting "Format > Redirect text to main window" should also be checked, in order to make sure that error messages are spoken properly.
 
 There is a graphical maze in *Shogun* that is difficult to navigate with a screen reader, but Spatterlight will offer to simplify it before you enter it for the first time.
 
+### Zork Zero
+
+Every release of [*Zork Zero*][zork0ocic] at the Obsessively Complete Infocom Catalog should work, including the pre-release and demo versions.
+
+The arrow key setting described above matters in *Zork Zero* too. Like *Beyond Zork*, the game lets you define function keys with the DEFINE command. By default the arrow keys type N, S, W and E at the prompt, so with "↑ and ↓ work as in original", the up and down arrows type a direction instead of stepping through the command history. Set "Settings > Format > Arrow key usage" to "Replaced by ⌘↑ and ⌘↓" to get the history back. ⌘↑ and ⌘↓ then do what the arrow keys did in the original. Avoid "↑↓ and ←→ work as in original", which also gives ← and → to the game, so you can no longer use them to move through the text you have typed.
+
+The keys 0–9 on the numeric keypad are shortcuts for the defined function keys: 1–9 are F1–F9 and 0 is F10. By default they type commands such as "take ", "look around" and "inventory", so use the number keys above the letters when you want to type a digit. The keypad does not affect the command history.
+
+*Zork Zero* has four graphical puzzles: Double Fanucci, Snarfem, Peggleboz and the Tower of Bozbar. When VoiceOver is on (or "Enable graphics" is off), Spatterlight asks "Would you like to auto-solve this visual puzzle?" at the start of each one. Type Y to have the puzzle solved for you, or N to play it yourself. For the Tower of Bozbar you will also be asked which peg (L, C or R) to move the weights to. If you choose to play the tower yourself, pressing D during play gives a description of how the weights are arranged.
+
+The title screen, the map and the rebus in the Great Hall are full-screen pictures that hide the text. With VoiceOver on, a short description of the picture is printed in their place. The first time you see a rebus, Spatterlight also reminds you that the built-in InvisiClues spell it out: type HINT and go to GREAT HALL AREA.
+
+The endgame of *Zork Zero* prints a lot of text. If the game becomes slow, try capping the scrollback length in the settings.
+
+[zork0ocic]: https://eblong.com/infocom/#zork0 "Zarf's the Obsessively Complete Infocom Catalog"
 [arthurocic]: https://eblong.com/infocom/#arthur "Zarf's the Obsessively Complete Infocom Catalog"
 [shogunocic]: https://eblong.com/infocom/#shogun "Zarf's the Obsessively Complete Infocom Catalog"
 [ocic]: https://eblong.com/infocom/ "Zarf's the Obsessively Complete Infocom Catalog"
