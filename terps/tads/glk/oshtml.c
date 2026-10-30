@@ -2130,7 +2130,7 @@ static int map_window(parser *p, const imagemap *m, const oshtml_image *img,
         return 0;
     if (p->nmaprow_maps != 0)
     {
-        if (p->map_win)
+        if (p->map_win == 1)
         {
             p->map_win = 0;
             osglk_map_remove();
@@ -2148,6 +2148,153 @@ static int map_window(parser *p, const imagemap *m, const oshtml_image *img,
         return 0;
     p->map_win = 1;
     p->map_img = *img;
+    return 1;
+}
+
+/*
+ *   A table at the top of the main window's text may be only pictures with
+ *   image maps, as Golden Skull's compass is: nine tiles, each with its own
+ *   buttons.  As lines of text its pictures have gaps between them and
+ *   can't be clicked, so it waits, from its <TABLE>, until its end or the
+ *   first thing in it that isn't a picture tells whether it can go in the
+ *   window above the page, laid out in pixels as HTML TADS lays it out
+ *   (layout_maptable).  If it can't, the parser reads it after all.
+ */
+#define MAPCAP_MAX 8192
+
+static int map_capture_add(parser *p, glui32 c)
+{
+    if (p->nmapcap == p->mapcapmax)
+    {
+        size_t max = p->mapcapmax ? p->mapcapmax * 2 : 1024;
+        glui32 *buf;
+
+        if (max > MAPCAP_MAX)
+            return 0;
+        buf = realloc(p->mapcaptext, max * sizeof(glui32));
+        if (!buf)
+            return 0;
+        p->mapcaptext = buf;
+        p->mapcapmax = max;
+    }
+    p->mapcaptext[p->nmapcap++] = c;
+    return 1;
+}
+
+/* the table's <TABLE> tag, t[0..len): does the table wait? */
+static int map_table_start(parser *p, const glui32 *t, size_t len)
+{
+    size_t i;
+
+    if (p != &fmt || p->dst || p->table || p->mapcap || p->capturing
+        || p->nmaprow_maps)
+        return 0;
+    p->mapcap = 1;
+    p->nmapcap = 0;
+    if (!map_capture_add(p, '<'))
+        return p->mapcap = 0;
+    for (i = 0 ; i < len ; ++i)
+        if (!map_capture_add(p, t[i]))
+            return p->mapcap = 0;
+    if (!map_capture_add(p, '>'))
+        return p->mapcap = 0;
+    return 1;
+}
+
+/* the table isn't one, or must be shown now: the parser reads it */
+static void end_map_capture(parser *p)
+{
+    glui32 *buf = p->mapcaptext;
+    size_t i, n = p->nmapcap;
+
+    if (p->mapcap != 1)
+        return;
+    p->mapcap = 2;
+    p->mapcaptext = NULL;
+    p->nmapcap = p->mapcapmax = 0;
+    for (i = 0 ; i < n ; ++i)
+        feed(p, buf[i]);
+    free(buf);
+    p->mapcap = 0;
+}
+
+/* the whole table is pictures: show it in the window, if it can be */
+static int map_table_show(parser *p)
+{
+    const glui32 *t = p->mapcaptext;
+    size_t len = p->nmapcap, i, ts, te, name, namelen, v, vlen, k;
+    oshtml_pictable pt;
+    const imagemap *m;
+    int end;
+
+    /* its maps first, as the parser would have read them */
+    p->mapcap = 2;
+    for (i = 0 ; i < len ; )
+    {
+        size_t start = i;
+
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            break;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (tag_is(t + name, namelen, "map")
+            || tag_is(t + name, namelen, "area"))
+            for (k = start ; k < i ; ++k)
+                feed(p, t[k]);
+    }
+    p->mapcap = 1;
+
+    if (!layout_maptable(p, t, len, &pt) || !osglk_map_show(&pt))
+        return 0;
+    p->map_win = 2;
+
+    /* and their links, in the row under it */
+    for (i = 0 ; i < len ; )
+    {
+        if (t[i] != '<')
+        {
+            ++i;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            break;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (!end && tag_is(t + name, namelen, "img")
+            && raw_attr(t, ts, te, "usemap", &v, &vlen)
+            && (m = find_map(t + v, vlen, 0)) != NULL)
+            add_map_links(p, m);
+    }
+    return 1;
+}
+
+/* the game's text while the table waits */
+static int map_capture_char(parser *p, glui32 c)
+{
+    int found;
+
+    if (p->mapcap != 1)
+        return 0;
+    if (!map_capture_add(p, c))
+    {
+        end_map_capture(p);
+        return 0;
+    }
+    if (c != '>')
+        return 1;
+    found = map_table_scan(p->mapcaptext, p->nmapcap);
+    if (found == 2 || (found == 1 && !map_table_show(p)))
+        end_map_capture(p);
+    else if (found == 1)
+    {
+        free(p->mapcaptext);
+        p->mapcaptext = NULL;
+        p->nmapcap = p->mapcapmax = 0;
+        p->mapcap = 0;
+    }
     return 1;
 }
 
@@ -2857,6 +3004,8 @@ static void tag_table(parser *p, const tag_info *tg)
         }
         return;
     }
+    if (map_table_start(p, tg->t, tg->len))
+        return;
     release_held(p, 0);
     p->cell_hold = 0;
     line_break(p);
@@ -3458,6 +3607,8 @@ static void banner_char(parser *p, glui32 c)
 
 void feed(parser *p, glui32 c)
 {
+    if (map_capture_char(p, c))
+        return;
     if (row_capture_char(p, c))
         return;
     if (p->bancap)
@@ -3574,6 +3725,7 @@ void oshtml_delete(oshtml_parser *p)
 {
     free(p->bantext);
     free(p->rowcap);
+    free(p->mapcaptext);
     free(p);
 }
 
@@ -3630,6 +3782,7 @@ void oshtml_flush_parser(oshtml_parser *p)
  */
 static void close_all(parser *p)
 {
+    end_map_capture(p);
     end_row_capture(p, 0);
     if (p->nelems)
         restore_elem(p, 0);
@@ -3688,6 +3841,7 @@ void oshtml_start(void)
 void oshtml_end(void)
 {
     /* the formatter flushed the line without ending it */
+    end_map_capture(&fmt);
     release_cell_picture(&fmt);
     show_held(&fmt);
     put_maprow(&fmt);
@@ -3754,6 +3908,7 @@ void oshtml_flush(void)
 void oshtml_input(void)
 {
     /* the formatter shows the spaces at the end of the line before input */
+    end_map_capture(&fmt);
     end_row_capture(&fmt, 0);
     release_cell_picture(&fmt);
     show_held(&fmt);

@@ -1309,7 +1309,7 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
     }
     while (event.type != evtype_LineInput);
 
-    osglk_map_line_read(linked ? event.val1 : 0);
+    osglk_map_remove();
     if (!linked)
     {
         os_fill_buffer(buf, event.val1);
@@ -1454,7 +1454,7 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     while (event.type != evtype_LineInput);
 
     if (!timeout)
-        osglk_map_line_read(linked ? event.val1 : 0);
+        osglk_map_remove();
     unsigned char *res = linked ? buf : os_fill_buffer(buf, event.val1);
 
     /* stop timer and turn on line echo */

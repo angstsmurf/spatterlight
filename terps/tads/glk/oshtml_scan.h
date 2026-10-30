@@ -68,5 +68,6 @@ int find_picpage(const glui32 *t, size_t len, size_t *bg, size_t *bglen);
 int only_tags(const glui32 *t, size_t s, size_t e);
 int cell_chars(const glui32 *t, size_t s, size_t e);
 int cell_row_scan(const glui32 *s, size_t n);
+int map_table_scan(const glui32 *t, size_t len);
 
 #endif /* OSHTML_SCAN_H */

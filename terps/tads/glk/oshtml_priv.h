@@ -191,8 +191,17 @@ struct oshtml_parser
     int nmaprow_maps;           /* the maps the row's links come from */
 
     /* the row's picture is in the window above the page, not the text */
-    int map_win;
+    int map_win;                /* 2: a table's, which stays there */
     oshtml_image map_img;
+
+    /*
+     *   a table in the main window that may be only pictures with image
+     *   maps (Golden Skull's compass), waiting as the game wrote it until
+     *   its end tells whether it goes in the window above the page
+     */
+    int mapcap;                 /* 1 reading it, 2 putting it out again */
+    glui32 *mapcaptext;
+    size_t nmapcap, mapcapmax;
 
     /*
      *   the line: newlines since the last visible character, whether
@@ -281,6 +290,8 @@ imagemap *find_map(const glui32 *v, size_t len, int create);
 
 /* oshtml_banner.c: a <BANNER>'s text laid out, and a page of pictures */
 void end_banner(parser *p);
+int layout_maptable(parser *p, const glui32 *t, size_t len,
+                    oshtml_pictable *pt);
 int layout_mappic(parser *p, const imagemap *m, const oshtml_image *img,
                   oshtml_pictable *pt);
 int build_picpage(parser *p, const glui32 *t, size_t len,

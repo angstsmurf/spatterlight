@@ -427,3 +427,54 @@ int cell_row_scan(const glui32 *s, size_t n)
     }
     return 0;
 }
+
+/* the tags a table of pictures with maps can have */
+static const char *const map_table_tags[] = {
+    "table", "tr", "td", "th", "img", "map", "area", "a", "center", "br",
+    NULL
+};
+
+/*
+ *   The main window's table so far, from its <TABLE>: 0 if it hasn't
+ *   ended, 1 if it has and is only pictures, one with a map at least, 2 if
+ *   it can't be only pictures.  A tag not yet ended is left for later.
+ */
+int map_table_scan(const glui32 *t, size_t len)
+{
+    size_t v, vlen;
+    size_t i = 0, ts, te, name, namelen;
+    int depth = 0, maps = 0, end;
+
+    while (i < len)
+    {
+        if (t[i] != '<')
+        {
+            /* a &nbsp; holds an empty cell open */
+            if (t[i] == '&' && i + 6 <= len && t[i + 1] == 'n'
+                && t[i + 2] == 'b' && t[i + 3] == 's' && t[i + 4] == 'p'
+                && t[i + 5] == ';')
+                i += 6;
+            else if (t[i] == '&' && len - i < 6)
+                return 0;
+            else if (!is_space(t[i++]))
+                return 2;
+            continue;
+        }
+        if (!raw_tag(t, len, &i, &ts, &te))
+            return 0;
+        namelen = raw_name(t, ts, te, &name, &end);
+        if (!name_in(t + name, namelen, map_table_tags))
+            return 2;
+        if (tag_is(t + name, namelen, "table"))
+        {
+            if (!end && depth++ > 0)
+                return 2;
+            if (end && --depth == 0)
+                return maps ? 1 : 2;
+        }
+        else if (!end && tag_is(t + name, namelen, "img")
+                 && raw_attr(t, ts, te, "usemap", &v, &vlen))
+            ++maps;
+    }
+    return 0;
+}

@@ -217,13 +217,15 @@ void osglk_page_redraw(void)
 /* ------------------------------------------------------------------------ */
 /*
  *   A picture with an image map in the page's text: School's map of the
- *   school, Arrival's of the ship.  In a text buffer the whole of a
- *   picture can be only one link, so it goes in a graphics window above
+ *   school, Arrival's of the ship, or a table of such pictures (Golden
+ *   Skull's compass).  In a text buffer the whole of a picture can be only
+ *   one link, so it goes in a graphics window above
  *   the main window, as wide as the window lets it be and not more than
  *   MAP_ROOM per cent of its height, and a click on one of its areas is
- *   a click on that link.  It stays while the commands come from its
- *   links, so the player can go from place to place on it, and goes with
- *   the first one typed, a new page, or the next map.
+ *   a click on that link.  It goes with the next command, typed or
+ *   clicked, as the picture scrolls away in HTML TADS: one left would show
+ *   what may have changed (Golden Skull's compass, switched on), or a new
+ *   page.
  */
 #define MAP_ROOM 60
 
@@ -275,10 +277,24 @@ static void map_place(void)
 
 static void map_draw(void)
 {
+    int i;
+
     osglk_set_window_bg(map_win, osglk_screen_bg());
     glk_window_clear(map_win);
-    glk_image_draw_scaled(map_win, map_pt.tiles[0].img.id, (glsi32)map_x, 0,
-                          map_w, map_h);
+
+    /* each picture of a table of them, at the scale of the whole */
+    for (i = 0 ; i < map_pt.ntiles ; ++i)
+    {
+        const oshtml_tile *t = &map_pt.tiles[i];
+        glui32 x0 = t->x * map_w / map_pt.width;
+        glui32 y0 = t->y * map_h / map_pt.height;
+        glui32 x1 = (t->x + t->w) * map_w / map_pt.width;
+        glui32 y1 = (t->y + t->h) * map_h / map_pt.height;
+
+        if (!t->area && x1 > x0 && y1 > y0)
+            glk_image_draw_scaled(map_win, t->img.id, (glsi32)(map_x + x0),
+                                  (glsi32)y0, x1 - x0, y1 - y0);
+    }
 }
 
 int osglk_map_show(const oshtml_pictable *pt)
@@ -325,7 +341,7 @@ glui32 osglk_map_click(winid_t win, glui32 x, glui32 y)
     /* where on the picture, at its own size */
     x = (x - map_x) * map_pt.width / map_w;
     y = y * map_pt.height / map_h;
-    for (i = 1 ; i < map_pt.ntiles ; ++i)
+    for (i = 0 ; i < map_pt.ntiles ; ++i)
     {
         const oshtml_tile *a = &map_pt.tiles[i];
         if (a->link && x >= a->x && x < a->x + a->w
@@ -339,14 +355,4 @@ void osglk_map_request_mouse(void)
 {
     if (map_win)
         glk_request_mouse_event(map_win);
-}
-
-void osglk_map_line_read(glui32 link)
-{
-    int i;
-
-    for (i = 1 ; link && i < map_pt.ntiles ; ++i)
-        if (map_pt.tiles[i].link == link)
-            return;
-    osglk_map_remove();
 }

@@ -49,14 +49,17 @@ typedef struct pt_cell
  *   Lay out the table in t[0..len) in pixels, adding its tiles to the
  *   picture's, and count its links, whether a row has more than one cell,
  *   and its size: false if it has anything but pictures, links and line
- *   breaks in its cells
+ *   breaks in its cells.  With 'maps', its pictures may have image maps,
+ *   whose areas come after its pictures as tiles of their own.
  */
 static int pt_table(parser *p, const glui32 *t, size_t len,
                     oshtml_pictable *pt, int *nlinks, int *wide,
-                    glui32 *width, glui32 *height)
+                    glui32 *width, glui32 *height, int maps)
 {
     pt_cell cells[PT_CELLS], *c = NULL;
     glui32 hs[OSHTML_TILES_MAX], vs[OSHTML_TILES_MAX];
+    const imagemap *tmaps[OSHTML_TILES_MAX];
+    int first_tile = pt->ntiles;
     glui32 colw[PT_CELLS], rowh[PT_CELLS], colx[PT_CELLS + 1];
     int until[PT_CELLS];        /* the row a column is taken up to */
     glui32 rowy[PT_CELLS + 1];
@@ -201,11 +204,17 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
             size_t sv, svlen;
             glui32 *lw, *lh;
 
-            /* not a map */
+            /* not a map, unless they may be */
             if (!c || pt->ntiles == OSHTML_TILES_MAX
-                || raw_attr(t, ts, te, "usemap", &sv, &svlen)
                 || raw_attr(t, ts, te, "ismap", &sv, &svlen)
                 || !raw_attr(t, ts, te, "src", &v, &vlen))
+                return 0;
+            tmaps[pt->ntiles] = NULL;
+            if (raw_attr(t, ts, te, "usemap", &sv, &svlen)
+                && (!maps
+                    || !(tmaps[pt->ntiles] = find_map(t + sv, svlen, 0))
+                    || tmaps[pt->ntiles]->unplaced
+                    || tmaps[pt->ntiles]->nrects == 0))
                 return 0;
             if (raw_attr(t, ts, te, "width", &sv, &svlen))
                 parse_img_size(t + sv, svlen, &w);
@@ -241,7 +250,7 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
             ++pt->ntiles;
             space = 0;
         }
-        else
+        else if (!(maps && (RAW("map") || RAW("area"))))
             return 0;
 #undef RAWV
 #undef RAW
@@ -348,6 +357,32 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
                 pt->tiles[j].y = y + c->lineh[k] - pt->tiles[j].h - vs[j];
             }
             y += c->lineh[k];
+        }
+    }
+
+    /* the pictures' areas, as far as they're on them */
+    for (n = first_tile, k = pt->ntiles ; maps && n < k ; ++n)
+    {
+        const oshtml_tile *tile = &pt->tiles[n];
+        int j;
+
+        for (j = 0 ; tmaps[n] && j < tmaps[n]->nrects ; ++j)
+        {
+            oshtml_tile *a = &pt->tiles[pt->ntiles];
+
+            if (pt->ntiles == OSHTML_TILES_MAX)
+                return 0;
+            *a = tmaps[n]->rects[j];
+            if (a->x >= tile->w || a->y >= tile->h)
+                continue;
+            if (a->w > tile->w - a->x)
+                a->w = tile->w - a->x;
+            if (a->h > tile->h - a->y)
+                a->h = tile->h - a->y;
+            a->x += tile->x;
+            a->y += tile->y;
+            ++pt->ntiles;
+            ++links;
         }
     }
     *nlinks += links;
@@ -494,7 +529,7 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
             return 0;
         first[ntables] = pt->ntiles;
         if (!pt_table(p, t + start, i - start, pt, &links, &wide,
-                      &tw[ntables], &th[ntables]))
+                      &tw[ntables], &th[ntables], 0))
             return 0;
         if (tw[ntables] > pt->width)
             pt->width = tw[ntables];
@@ -518,6 +553,26 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
         y += th[k];
     }
     pt->height = y;
+    return 1;
+}
+
+/*
+ *   Lay out the main window's table in t[0..len), of pictures with image
+ *   maps (Golden Skull's compass), as one picture whose areas are its
+ *   links: false if it can't be, or nothing in it is a link
+ */
+int layout_maptable(parser *p, const glui32 *t, size_t len,
+                    oshtml_pictable *pt)
+{
+    int links = 0, wide = 0;
+
+    if (p->dst)
+        return 0;
+    memset(pt, 0, sizeof(*pt));
+    if (!pt_table(p, t, len, pt, &links, &wide, &pt->width, &pt->height, 1)
+        || !links || pt->width == 0 || pt->height == 0)
+        return 0;
+    pt->center = 1;
     return 1;
 }
 

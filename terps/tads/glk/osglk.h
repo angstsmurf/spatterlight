@@ -36,13 +36,10 @@ void osglk_page_remove(void);
 
 /*
  *   The picture with an image map above the main window (osglkpage.c): drawn
- *   again, the link of a click on it or 0, its clicks asked for, and the
- *   line just read, which takes it away unless it came from one of its
- *   links ('link', or 0 for a line typed)
+ *   again, the link of a click on it or 0, and its clicks asked for
  */
 void osglk_map_redraw(void);
 glui32 osglk_map_click(winid_t win, glui32 x, glui32 y);
 void osglk_map_request_mouse(void);
-void osglk_map_line_read(glui32 link);
 
 #endif /* OSGLK_H */
