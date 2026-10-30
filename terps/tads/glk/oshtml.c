@@ -2366,11 +2366,124 @@ static void put_maprow(parser *p)
     line_break(p);
 }
 
+/* ------------------------------------------------------------------------ */
+/*
+ *   A tag's attributes, one at a time.  How an unquoted value is read
+ *   depends on the reader:
+ *
+ *   ATTR_TO_SPACE: up to a space, as HTML TADS reads it.  do_tag reads so
+ *   in TADS 3, in banners, and in the tags whose values may be file names
+ *   or commands (<IMG>, <SOUND>, <A>, <MAP>, <AREA>, TADS 2's <BANNER>).
+ *
+ *   ATTR_WORD: the first character, then letters and digits, as do_tag
+ *   reads the rest in TADS 2.
+ *
+ *   In both a name starts with a letter, a quoted string where a name
+ *   would be is skipped, and the '=' has no spaces around it.
+ *
+ *   ATTR_RAW: as the scanners of a whole banner read them (raw_attr): a
+ *   name may start with a digit, spaces may go around the '=', and an
+ *   unquoted value goes up to a space.  An attribute without a value has
+ *   it where one would start, of no length.
+ */
+enum attr_reading { ATTR_TO_SPACE, ATTR_WORD, ATTR_RAW };
+
+typedef struct attr_iter
+{
+    const glui32 *t;
+    size_t i, e;                /* the rest of the tag, t[i..e) */
+    enum attr_reading how;
+    size_t name, namelen;       /* the attribute found: its name */
+    size_t v, vlen;             /* and its value */
+} attr_iter;
+
+/* the attributes in t[s..e), s after the tag's name */
+static void attr_start(attr_iter *it, const glui32 *t, size_t s, size_t e,
+                       enum attr_reading how)
+{
+    it->t = t;
+    it->i = s;
+    it->e = e;
+    it->how = how;
+    it->name = it->namelen = it->v = it->vlen = 0;
+}
+
+/* the next attribute: false if there are no more */
+static int attr_next(attr_iter *it)
+{
+    const glui32 *t = it->t;
+    size_t i = it->i, e = it->e;
+    int raw = it->how == ATTR_RAW;
+
+    while (i < e)
+    {
+        glui32 c = t[i];
+
+        if (!raw && (c == '"' || c == '\''))
+        {
+            for (++i ; i < e && t[i] != c ; ++i)
+                ;
+            ++i;
+            continue;
+        }
+        if (raw ? !is_alnum(c)
+            : !((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))
+        {
+            ++i;
+            continue;
+        }
+        for (it->name = i ; i < e && is_alnum(t[i]) ; ++i)
+            ;
+        it->namelen = i - it->name;
+        if (raw)
+            while (i < e && is_space(t[i]))
+                ++i;
+        it->v = raw ? i : 0;
+        it->vlen = 0;
+        if (i < e && t[i] == '=')
+        {
+            ++i;
+            if (raw)
+                while (i < e && is_space(t[i]))
+                    ++i;
+            if (i < e && (t[i] == '"' || t[i] == '\''))
+            {
+                glui32 qu = t[i++];
+                for (it->v = i ; i < e && t[i] != qu ; ++i)
+                    ;
+                it->vlen = i - it->v;
+                if (i < e)
+                    ++i;
+            }
+            else if (it->how != ATTR_WORD)
+            {
+                for (it->v = i ; i < e && !is_space(t[i]) ; ++i)
+                    ;
+                it->vlen = i - it->v;
+            }
+            else
+            {
+                it->v = i;
+                if (i < e)
+                    ++i;
+                for ( ; i < e && is_alnum(t[i]) ; ++i)
+                    ;
+                it->vlen = i - it->v;
+            }
+        }
+        it->i = i;
+        return 1;
+    }
+    it->i = i;
+    return 0;
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
     const glui32 *t = p->tag;
     size_t len = p->taglen, i = 0, name, namelen;
+    attr_iter it;
     int end = 0;
     int br = 0;                 /* 1: line break, 2: blank line */
     int img = 0, clear = 0;     /* <img>, <br CLEAR> */
@@ -2806,59 +2919,14 @@ static void do_tag(parser *p)
      *   <font> and <body>, ALIGN of <p>, <div> and <hN>, in TADS 3 and in
      *   banners, those of <tab>, and those of TADS 2's <banner>
      */
-    while (i < len)
+    attr_start(&it, t, i, len,
+               tads3 || p->in_banner || ban || img || snd || link_ok
+               || map_ok || area_ok ? ATTR_TO_SPACE : ATTR_WORD);
+    while (attr_next(&it))
     {
-        size_t an, anlen, v = 0, vlen = 0;
-        glui32 c = t[i];
+        size_t v = it.v, vlen = it.vlen;
 
-        if (c == '"' || c == '\'')
-        {
-            for (++i ; i < len && t[i] != c ; ++i)
-                ;
-            ++i;
-            continue;
-        }
-        if (!((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z')))
-        {
-            ++i;
-            continue;
-        }
-        for (an = i ; i < len && is_alnum(t[i]) ; ++i)
-            ;
-        anlen = i - an;
-        if (i < len && t[i] == '=')
-        {
-            ++i;
-            if (i < len && (t[i] == '"' || t[i] == '\''))
-            {
-                glui32 qu = t[i++];
-                for (v = i ; i < len && t[i] != qu ; ++i)
-                    ;
-                vlen = i - v;
-                if (i < len)
-                    ++i;
-            }
-            else if (tads3 || p->in_banner || ban || img || snd || link_ok
-                     || map_ok || area_ok)
-            {
-                /* up to a space, as HTML TADS reads it */
-                for (v = i ; i < len && !is_space(t[i]) ; ++i)
-                    ;
-                vlen = i - v;
-            }
-            else
-            {
-                /* the first character, then letters and digits */
-                v = i;
-                if (i < len)
-                    ++i;
-                for ( ; i < len && is_alnum(t[i]) ; ++i)
-                    ;
-                vlen = i - v;
-            }
-        }
-
-#define ATTR(s) tag_is(t + an, anlen, s)
+#define ATTR(s) tag_is(t + it.name, it.namelen, s)
         if (link_ok && ATTR("href"))
         {
             href = v;
@@ -3404,55 +3472,24 @@ static size_t raw_name(const glui32 *t, size_t s, size_t e,
 }
 
 /*
- *   The value of an attribute of the tag in t[s..e), read as do_tag reads
- *   them in a banner: false if the tag hasn't got it
+ *   The value of an attribute of the tag in t[s..e), read as ATTR_RAW: false
+ *   if the tag hasn't got it.  *v and *vlen are left as the last
+ *   attribute's.
  */
 static int raw_attr(const glui32 *t, size_t s, size_t e, const char *attr,
                     size_t *v, size_t *vlen)
 {
+    attr_iter it;
     size_t name;
     int end;
 
     s = raw_name(t, s, e, &name, &end);
-    s += name;
-    while (s < e)
+    attr_start(&it, t, s + name, e, ATTR_RAW);
+    while (attr_next(&it))
     {
-        size_t an, anlen;
-        glui32 c = t[s];
-
-        if (!is_alnum(c))
-        {
-            ++s;
-            continue;
-        }
-        for (an = s ; s < e && is_alnum(t[s]) ; ++s)
-            ;
-        anlen = s - an;
-        while (s < e && is_space(t[s]))
-            ++s;
-        *v = s;
-        *vlen = 0;
-        if (s < e && t[s] == '=')
-        {
-            for (++s ; s < e && is_space(t[s]) ; ++s)
-                ;
-            if (s < e && (t[s] == '"' || t[s] == '\''))
-            {
-                glui32 qu = t[s++];
-                for (*v = s ; s < e && t[s] != qu ; ++s)
-                    ;
-                *vlen = s - *v;
-                if (s < e)
-                    ++s;
-            }
-            else
-            {
-                for (*v = s ; s < e && !is_space(t[s]) ; ++s)
-                    ;
-                *vlen = s - *v;
-            }
-        }
-        if (tag_is(t + an, anlen, attr))
+        *v = it.v;
+        *vlen = it.vlen;
+        if (tag_is(t + it.name, it.namelen, attr))
             return 1;
     }
     return 0;
