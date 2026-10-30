@@ -1470,9 +1470,6 @@ void os_banner_goto(void *banner_handle, int row, int col)
     }
 }
 
-static void banner_set_attr(osbanid_t banner, int attr);
-static void banner_set_color(osbanid_t banner, os_color_t fg, os_color_t bg);
-
 void os_banner_set_attr(void *banner_handle, int attr)
 {
     osbanid_t banner = banner_handle;
@@ -1482,14 +1479,16 @@ void os_banner_set_attr(void *banner_handle, int attr)
     if (banner->html)
         oshtml_set_attr(banner->html, attr);
     else
-        banner_set_attr(banner, attr);
+        banner->style = osstyles_style(
+            ((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
+            | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0));
 }
 
-static void banner_set_attr(osbanid_t banner, int attr)
+/* the text from now on; each piece of the contents keeps its own */
+static void banner_set_color(osbanid_t banner, os_color_t fg, os_color_t bg)
 {
-    banner->style = osstyles_style(
-        ((attr & OS_ATTR_BOLD) ? OSSTY_BOLD : 0)
-        | ((attr & OS_ATTR_ITALIC) ? OSSTY_ITALIC : 0));
+    banner->fg = fg;
+    banner->bg = bg;
 }
 
 void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
@@ -1502,13 +1501,6 @@ void os_banner_set_color(void *banner_handle, os_color_t fg, os_color_t bg)
         oshtml_set_color(banner->html, fg, bg);
     else
         banner_set_color(banner, fg, bg);
-}
-
-/* the text from now on; each piece of the contents keeps its own */
-static void banner_set_color(osbanid_t banner, os_color_t fg, os_color_t bg)
-{
-    banner->fg = fg;
-    banner->bg = bg;
 }
 
 void os_banner_set_screen_color(void *banner_handle, os_color_t color)
