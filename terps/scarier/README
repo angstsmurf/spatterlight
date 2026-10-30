@@ -59,7 +59,9 @@ and never into a shipping build.
 See notes/ADRIFT4_vs_ADRIFT5.md for a detailed comparison of the two code paths
 (formats, saves, restriction evaluation, division rounding, and RNG
 streams), and notes/ADRIFT-5-XML.md for a specification of the ADRIFT 5
-adventure and save formats.
+adventure and save formats.  The comments in core/, library/ and runner/
+cite addresses in the original Runners; notes/RUNNER_ADDRESSES.md says how
+to read them and where the decompiled listings live.
 
 
 Playing

@@ -930,15 +930,15 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
   } const suspend;
 
   /*
-   * match_kind, when asked for, is the pre-matcher's own return value:
-   * 1 for a hit whose matched direction has text to print, or a fallback
-   * hit (a failing restriction's message, a spent task's RepeatText --
-   * 453C34 stores 1 for both), and 2 for a first-pass hit on a task that
-   * would run silently (453BEC-453BFE).  Callers such as the take piece
-   * 46302C exit only on a 1; a 2 dispatches and carries on.  A hit on a
-   * failing restriction's message is reported as 3 (the Runner's 1 still):
-   * 45404C is called with arg_C=1 there and restores the message buffer, so
-   * nothing prints, which the per-piece take refusal needs to know.
+   * match_kind, when asked for, is the run400 pre-matcher's own return value:
+   * 1 for a hit whose matched direction has text to print, or a fallback hit
+   * (a failing restriction's message, a spent task's RepeatText -- 453C34
+   * stores 1 for both), and 2 for a first-pass hit on a task that would run
+   * silently (453BEC-453BFE).  Callers such as the take piece 46302C exit only
+   * on a 1; a 2 dispatches and carries on.  A hit on a failing restriction's
+   * message is reported as 3 (the Runner's 1 still): 45404C is called with
+   * arg_C=1 there and restores the message buffer, so nothing prints, which
+   * the per-piece take refusal needs to know.
    */
   if (match_kind)
     *match_kind = 0;
@@ -1134,7 +1134,7 @@ run_task_run_by_index (scr_gameref_t game, scr_int task)
         break;
     }
 
-  /* The dispatch filter's walk (45FA02) caches a failing result. */
+  /* The run400 dispatch filter's walk (45FA02) caches a failing result. */
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running)
     {

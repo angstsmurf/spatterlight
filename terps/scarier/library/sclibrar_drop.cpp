@@ -1897,8 +1897,9 @@ lib_wear_yields_to_put_390 (scr_gameref_t game)
   if (version >= TAF_VERSION_400)
     {
       /* The rows above have already cut the spelling down to `put on X`
-       * and `put X on`, which is wears()' own entry (463C30, c("put on")
-       * or a line ending " on"); put_drop_list enters on the bare word. */
+       * and `put X on`, which is wears()' own entry (run400 463C30,
+       * c("put on") or a line ending " on"); put_drop_list enters on the
+       * bare word. */
       if (!line || !lib_input_contains_word (line, "put"))
         return FALSE;
       return !lib_wear_would_act_390 (game);

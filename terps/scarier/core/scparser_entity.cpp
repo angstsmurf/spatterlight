@@ -737,8 +737,8 @@ uip_entity_admitted (scr_gameref_t game, scr_bool is_character, scr_int index,
     return FALSE;
 
   /*
-   * 458E6C's own argument: scope 0 is the present pass, scope 1 the absent
-   * one, and scope 1 runs only when scope 0 bound nothing.
+   * run400 458E6C's own argument: scope 0 is the present pass, scope 1 the
+   * absent one, and scope 1 runs only when scope 0 bound nothing.
    */
   if (strict_scoped)
     {

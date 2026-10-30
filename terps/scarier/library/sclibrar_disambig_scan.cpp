@@ -638,7 +638,7 @@ lib_namesake_crowded_pre380 (scr_gameref_t game, const scr_char *line,
   if (scr_strempty (shortname) || !line || !lib_co_contains (line, shortname)
       || lib_co_term_shadowed (game, line, object, shortname))
     return FALSE;
-  /* takes() acts on nothing on a "from" line (43648C), so its take-from
+  /* takes() acts on nothing on a "from" line (run370 43648C), so its take-from
      lines are no crowd. */
   if (!want_held && lib_co_contains (line, "from"))
     return FALSE;

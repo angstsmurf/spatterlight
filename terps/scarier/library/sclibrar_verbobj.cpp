@@ -170,8 +170,8 @@ lib_resolve_admit_take (scr_gameref_t game, scr_int object, scr_int pass)
 }
 
 /*
- * Mode 1 with a container named (463161-463224, arg <> &HFF): visible where
- * it is (44B578) and its parent the container.  Nothing else is tested.
+ * Mode 1 with a container named (run400 463161-463224, arg <> &HFF): visible
+ * where it is (44B578) and its parent the container.  Nothing else is tested.
  */
 scr_bool
 lib_resolve_admit_parent (scr_gameref_t game, scr_int object,
@@ -249,7 +249,8 @@ lib_verb_object_resolve_400_string (scr_gameref_t game, const scr_char *input,
                                            present_only ? 0 : 1);
 }
 
-/* Mode 1: two passes, the second only after no unique winner (46360D). */
+/* Mode 1: two passes, the second only after no unique winner
+   (run400 46360D). */
 scr_int
 lib_take_resolve_400_string (scr_gameref_t game, const scr_char *input,
                              std::vector<scr_int> *tied)

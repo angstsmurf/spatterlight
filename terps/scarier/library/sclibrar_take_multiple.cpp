@@ -903,7 +903,7 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
    */
   /*
    * takes() is entered on c("get") Or c("take") Or c("pick"), And Not
-   * c("from"), c("get on"), c("get down") (454476-4544DE), so `take off
+   * c("from"), c("get on"), c("get down") (run390 454476-4544DE), so `take off
    * bathrobe` reaches its loop too and the worn bathrobe writes " are already
    * wearing "; but the loop does not set the function's result (var_86 stays
    * 0 there; 455B28 is the taken exit), so generaltasks goes on to removes()

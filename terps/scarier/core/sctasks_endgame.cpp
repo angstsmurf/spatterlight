@@ -642,8 +642,8 @@ task_print_end_game_message (scr_gameref_t game)
       /*
        * "Just stop": the Runner prints nothing at all -- no message, no
        * summary, and not even the end-of-session prompt.  endmessage's var_88
-       * = 4 branch (45E11F) disables the Adventure menu and falls straight to
-       * the flush.
+       * = 4 branch (run400 45E11F) disables the Adventure menu and falls
+       * straight to the flush.
        */
       break;
 

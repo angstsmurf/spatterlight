@@ -728,8 +728,9 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
 {
   scr_bool status;
 
-  /* The take piece's look-ups run in the pre-matcher's mode 1 (@462B12,
-   * @462B84): only tasks carrying the take flag can answer. */
+  /* The take piece's look-ups run in the pre-matcher's mode 1
+   * (run400 @462B12, @462B84): only tasks carrying the take flag can
+   * answer. */
   run_set_task_class_filter (1);
   lib_rebuilt_raw_dispatch = TRUE;
   lib_rebuilt_silent_continues = TRUE;
@@ -918,8 +919,9 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
 
   assert (lib_is_version_400 (game));
 
-  /* The insides handler pre-matches its rebuilt line in mode 2 (@465D39):
-   * only tasks carrying the put/drop flag are consulted. */
+  /* The insides handler pre-matches its rebuilt line in mode 2
+   * (run400 @465D39): only tasks carrying the put/drop flag are
+   * consulted. */
   /* The take report ahead of it, if any, is a clause of its own:
      "Your hands are full.  You dump the wood ..." (House, patched). */
   const scr_bool joined = pf_buffer_tentative_join (gs_get_filter (game));

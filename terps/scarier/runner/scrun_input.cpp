@@ -406,7 +406,7 @@ run_cut_element (scr_gameref_t game)
 
   /*
    * The Runner strips one trailing space from the head it keeps (the
-   * splitter's loop at 4596E1), so `x coin , x hat` leaves "x coin",
+   * run400 splitter's loop at 4596E1), so `x coin , x hat` leaves "x coin",
    * not "x coin ".
    */
   if (length > 0 && run_line_element[length - 1] == ' ')

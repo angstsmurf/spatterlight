@@ -203,12 +203,12 @@ gs_carried_recompute (scr_gameref_t gs)
  * gs_runner_possessed()
  * gs_runner_worn()
  *
- * The Runner's two possession predicates, Proc_21_46 @44615C ("with the
- * player") and Proc_21_45 @444BD0 ("worn, or inside something worn").  Both
- * walk the bare [2E] container field -- our runner_parent shadow -- and
- * neither consults openness or container/surface flags, so an object sealed
- * inside a closed carried box still counts as carried.  32 bottoms out an
- * authored parent cycle that the Runner itself would hang on.
+ * run400's two possession predicates, Proc_21_46 @44615C ("with the player")
+ * and Proc_21_45 @444BD0 ("worn, or inside something worn").  Both walk the
+ * bare [2E] container field -- our runner_parent shadow -- and neither
+ * consults openness or container/surface flags, so an object sealed inside a
+ * closed carried box still counts as carried.  32 bottoms out an authored
+ * parent cycle that the Runner itself would hang on.
  */
 enum { GS_RUNNER_WALK_LIMIT = 32 };
 

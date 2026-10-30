@@ -121,7 +121,7 @@ static const scr_char *const HOIST_VERBS_400_REMOVE[] = {
   "remove", "take off", nullptr
 };
 
-/* openclose 476468, whereis 4684E4, gotoplace 464E90 and characters
+/* run400's openclose 476468, whereis 4684E4, gotoplace 464E90 and characters
    480674: handlers a two-verb line leaves to passes of their own
    (lib_openclose_anywhere(), lib_whereis_anywhere(), run_goto_line_class())
    or whose place in the order is not measured. */
@@ -819,7 +819,7 @@ run_hoist_verb_at (scr_gameref_t game, const scr_char *word)
   if (version < TAF_VERSION_400)
     {
       best = run_hoist_longest (HOIST_VERBS_PRE400, word);
-      /* takes() wants `pick` with no "from" in the line (43D788). */
+      /* takes() wants `pick` with no "from" in the line (run380 43D788). */
       if (best && strcmp (best, "pick") == 0
           && run_c_word_pre400 (version, run_hoist_line, "from") >= 0)
         best = nullptr;
