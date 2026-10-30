@@ -1,0 +1,133 @@
+# Drool -- reaches The End (1000 of 1041 points, 108 turns)
+m
+1
+
+x me
+get stick
+get stick
+
+e
+n
+n
+x light
+w
+n
+n
+x rubbish
+get stick
+get mad
+scratch flea
+score
+
+s
+in
+Park Street
+Govt Center
+Airport
+enter
+smell
+x person
+attack man
+attack man
+attack man
+
+get stick
+s
+
+score
+
+exit
+out
+e
+in
+Park Street
+Chinatown
+s
+w
+pick up soy sauce
+
+up
+score
+
+n
+d
+Quincy
+n
+x jugler
+attack juggler
+Be a ham
+bark
+bark
+bark
+score
+
+s
+d
+Chinatown
+s
+w
+pick up soy sauce
+u
+u
+u
+u
+u
+u
+u
+score
+
+n
+d
+Park Street
+South Station
+push 4
+push 8
+push 2
+push 1
+
+get stick
+down
+kendal
+w
+w
+w
+w
+w
+w
+w
+x light
+w
+s
+s
+w
+w
+leave
+score
+
+e
+n
+n
+x light
+w
+n
+in
+Park Street
+Fenway
+in
+wander
+get glove
+catch ball
+run
+x people
+get stick
+out
+park street
+central square
+x light
+s
+s
+s
+w
+w
+quit
+

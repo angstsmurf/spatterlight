@@ -36,7 +36,7 @@ takes over the old name, so a URL alone does not identify a build.
 
 ## Walkthroughs
 
-`htmltads/goldens/<stem>_walkthrough.txt` holds command scripts for 45 of
+`htmltads/goldens/<stem>_walkthrough.txt` holds command scripts for 47 of
 the corpus games, one command per line. `<stem>` is the census path with `/`
 as `__` and without `.gam`/`.t3`. They were derived from the solutions on
 David Welbourn's Key & Compass (`plover.net/~davidw/sol`); the first line of
