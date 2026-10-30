@@ -2248,7 +2248,7 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  * below wears() claims without moving something, and give, say and the
  * directions are all `If msg = ""` arms below the gate -- so `give coin to bob
  * wait`, `say hello wait`, `i wait`, `inventory wait` and `n wait` are "Time
- * passes..."  with nothing given, listed or walked (p37SITN..p4SITN,
+ * passes..." with nothing given, listed or walked (p37SITN..p4SITN,
  * harness/make_3738_sitnpcprobe.py: run370x runner_probes/sitn.run370.rtf,
  * run380x runner_probes/sitn.run380.rtf, run390x
  * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt).

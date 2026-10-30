@@ -1929,7 +1929,7 @@ lib_take_from_npc_backend (scr_gameref_t game, scr_int associate)
  * insides() when the line says get: with a gem in an open box on the floor,
  * `get gem` is "You are not holding a box." while `take gem` and `pick up gem`
  * are "Take what?", and a nut in a held bag is "You get a nut from the bag."
- * for `get nut` and "Take what?"  for `take nut` (p37TFSW, run370x
+ * for `get nut` and "Take what?" for `take nut` (p37TFSW, run370x
  * runner_probes/tfsw.run370.sweep3.rtf).
  *
  * Scarier gives 3.7 run380's gate instead, so `take gem from box`, `take

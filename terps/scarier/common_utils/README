@@ -36,5 +36,9 @@ a copy in here, or the copied folder will not build.
                  by every adrift5/ file that compares case-insensitively,
                  instead of <strings.h>.
 
+The verbatim copies keep their originals' style (randomness uses `//`
+comments, and none carries the engine's vi modeline); restyle the originals
+or nothing, or vendorcheck fails.
+
 Fixes made here in the Gargoyle tree belong upstream in the Spatterlight tree
 first; the copy only ever travels one way.

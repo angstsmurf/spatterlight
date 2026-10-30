@@ -901,11 +901,11 @@ lib_cmd_examine_all (scr_gameref_t game)
  * first named absent character wins: the rewrite destroys the message the
  * guard tests, so no later character in the loop can pass it.
  *
- * The guard is an EQUALITY against the engine's own default, so where the
- * game ALRs that default the answer depends on WHEN the Runner applies its
- * ALRs -- before characters() the equality would miss and the ALR'd tail
- * would stand.  Scarier applies them in the output filter, after this hook,
- * and that is now measured rather than assumed:
+ * The guard is an EQUALITY against the engine's own default, so where the game
+ * ALRs that default the answer depends on WHEN the Runner applies its ALRs --
+ * before characters() the equality would miss and the ALR'd tail would stand.
+ * Scarier applies them in the output filter, after this hook, as the Runner
+ * does:
  *
  *   run400, p4ALRNPC.taf (runner_probes/alrnpc.run400.txt), ALRs "You see no
  *     such thing." -> "... , or else it is unimportant." and "cannot see" ->

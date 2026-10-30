@@ -467,27 +467,24 @@ lib_put_where_question_400 (scr_gameref_t game, std::string *question)
  *
  * Measured on the hand-built p4PUT/p4PUT2 probes
  * (runner_probes/put.run400.txt, runner_probes/put2.run400.txt;
- * make_400_putprobe.py), 44 cells: `put coin in zzz`, `put
- * coin into zzz`, `drop coin in zzz`, `put zzz in yyy`, `put zzz in bob`
- * (an NPC is nothing here), `put all in zzz` all say "... put things
- * inside." with no tick; the "on"/"onto" spellings "... put things onto.";
- * `put zzz in desk` "You can't put anything inside the desk!" and ticks,
- * `put coin on box` "You can't put anything onto the box!" -- "onto", where
- * 3.7/3.8 store "on" as a literal and 3.9 is unmeasured, so the wording is
- * 4.0's alone.  A container the player has SEEN but left behind names
- * nothing: `put coin in bag` from the next room is "... put things inside."
- * even though `x bag` there says "You can't see the bag from here!"  (The
- * comment on lib_cmd_put_unclear() that the seen-but-absent clause speaks
- * first for a put line was never measured and is wrong for the container;
- * whether it holds for a seen-but-absent X is still unmeasured.)  Two
- * present containers sharing a Short raise the ordinary ambiguity prompt
- * (`put coin in jar` -> "Which jar.  The jar or the jar?"), so a tie is
- * left to the rows below.  A line with " and " at or beyond the split runs
- * put_drop_list's own clause loop (459C75), and its clauses reach this
- * handler one at a time; see lib_put_clauses_400().  (`put coin in zzz and
- * yyy` is not that loop at all -- the top-level splitter cuts it into two
- * commands, which is why "... put things inside." and the DontUnderstand
- * text are two turns; see run_find_split_400().)
+ * make_400_putprobe.py), 44 cells: `put coin in zzz`, `put coin into zzz`,
+ * `drop coin in zzz`, `put zzz in yyy`, `put zzz in bob` (an NPC is nothing
+ * here), `put all in zzz` all say "... put things inside." with no tick; the
+ * "on"/"onto" spellings "... put things onto."; `put zzz in desk` "You can't
+ * put anything inside the desk!" and ticks, `put coin on box` "You can't put
+ * anything onto the box!" -- "onto", where 3.7/3.8 store "on" as a literal and
+ * 3.9 is unmeasured, so the wording is 4.0's alone.  A container the player
+ * has SEEN but left behind names nothing: `put coin in bag` from the next room
+ * is "... put things inside." even though `x bag` there says "You can't see
+ * the bag from here!"  Whether a seen-but-absent X speaks first is unmeasured.
+ * Two present containers sharing a Short raise the ordinary ambiguity prompt
+ * (`put coin in jar` -> "Which jar.  The jar or the jar?"), so a tie is left
+ * to the rows below.  A line with " and " at or beyond the split runs
+ * put_drop_list's own clause loop (459C75), and its clauses reach this handler
+ * one at a time; see lib_put_clauses_400().  (`put coin in zzz and yyy` is not
+ * that loop at all -- the top-level splitter cuts it into two commands, which
+ * is why "... put things inside." and the DontUnderstand text are two turns;
+ * see run_find_split_400().)
  *
  * Pre-4.0 Runners have none of this; run390's put parser (461769) says
  * "<You> can't put anything <inside/on> that!" for an unknown container,

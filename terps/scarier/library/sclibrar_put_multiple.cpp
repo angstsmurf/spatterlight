@@ -1316,7 +1316,7 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
           /*
            * With no put/drop-class task pre-matching the typed line the Runner
            * speaks here and the line is done, a turn: p4PUT `put zzz in box`
-           * -> "It is not clear which object you are referring to."  and the
+           * -> "It is not clear which object you are referring to." and the
            * probe's ticker fires (runner_probes/put.run400.txt).  With one, it
            * stays silent and the tasks get the fragment.
            */

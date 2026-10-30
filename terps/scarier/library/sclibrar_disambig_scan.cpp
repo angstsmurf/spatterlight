@@ -74,12 +74,11 @@
  *
  * (@4432AA with the Short when the player typed it, @443303 with the Alias
  * otherwise).  Everything the turn DID still stands: mikes.taf cmd 27 `take
- * truck keys`, with the carried mustang keys and the truck keys both
- * aliased "keys", answers "Which keys.  The mustang keys or the truck
- * keys?" -- and the truck keys are taken, because `drive truck bob` works
- * 30 commands later (run380 under Wine, runner_probes/life_of_mike.run380.rtf
- * and the 2026-09-04 re-drive; an earlier note that the keys were NOT taken
- * was wrong).  The next command is not eaten as an answer -- `east` after the
+ * truck keys`, with the carried mustang keys and the truck keys both aliased
+ * "keys", answers "Which keys.  The mustang keys or the truck keys?" -- and
+ * the truck keys are taken, because `drive truck bob` works 30 commands later
+ * (run380 under Wine, runner_probes/life_of_mike.run380.rtf and the 2026-09-04
+ * re-drive).  The next command is not eaten as an answer -- `east` after the
  * prompt simply moves east.  4.0 narrows differently (the up-front word score
  * of Proc_21_58_463640, see lib_absent_seen_object()) and never raises this
  * prompt from the dispatcher, so the port stops at 3.9.
