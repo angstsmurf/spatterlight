@@ -1150,6 +1150,7 @@ static void push_elem(parser *p, const glui32 *name, size_t len)
     e->ncell = p->ncell;
     e->table_box = p->table_box;
     e->row_align = p->row_align;
+    e->in_box = p->in_box;
 }
 
 /* close the open tag at 'i', and those inside it */
@@ -1167,6 +1168,7 @@ static void restore_elem(parser *p, int i)
     p->ncell = e->ncell;
     p->table_box = e->table_box;
     p->row_align = e->row_align;
+    p->in_box = e->in_box;
     p->nelems = i;
 }
 
@@ -2866,7 +2868,7 @@ static void open_aligned(parser *p, const tag_info *tg, int heading)
     tag_push(p, tg);
     if (heading)
         p->cur.attr |= OSSTY_BOLD;
-    if (align == 1)
+    if (align == 1 && !p->in_box)
         p->cur.attr |= OSSTY_CENTER;
     else if (align == 0)
         p->cur.attr &= ~OSSTY_CENTER;
@@ -3079,9 +3081,11 @@ static void tag_td(parser *p, const tag_info *tg)
          *   nor in a coloured box of a set width: HTML TADS centres the box,
          *   and the text starts at its left.  Centred lines would show the
          *   box ragged.  Without a colour, centring the lines looks as the
-         *   centred box does.
+         *   centred box does.  A <CENTER> or ALIGN inside the cell
+         *   (Golden Skull's sign) would do the same, so it doesn't centre.
          */
         c.align = 0;
+        p->in_box = 1;
     }
     cell_background(p, &c);
     after_marker = p->narrow_first;
@@ -3276,7 +3280,8 @@ static void tag_center(parser *p, const tag_info *tg)
     else
     {
         tag_push(p, tg);
-        p->cur.attr |= OSSTY_CENTER;
+        if (!p->in_box)
+            p->cur.attr |= OSSTY_CENTER;
     }
 }
 

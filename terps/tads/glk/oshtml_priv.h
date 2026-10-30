@@ -69,6 +69,7 @@ typedef struct elem
     int ncell;
     int table_box;
     int row_align;
+    int in_box;
 } elem;
 
 struct oshtml_parser
@@ -127,6 +128,7 @@ struct oshtml_parser
     int row_shown;              /* the row has put something out */
     int table_box;              /* the <TABLE> has a WIDTH and BGCOLOR */
     int row_align;              /* the <TR> has an ALIGN */
+    int in_box;                 /* in a coloured box's cell: nothing centres */
     int narrow_first;           /* the last cell was a few pixels wide */
 
     /*
