@@ -656,46 +656,49 @@ static void tag_resize(tagban_t *tb, glui32 size)
                                tb->method, size, tag_key(tb));
 }
 
-void *osglk_tag_banner_open(const oshtml_banner *ban,
-                            const oshtml_sink **sink)
+/* the record of the banner with this id, made if it's new */
+static tagban_t *tag_register(const char *id)
 {
-    tagban_t *tb = tag_find(ban->id);
-    int isnew = tb == NULL || tb->win == NULL;
-    glui32 method, size, type;
-    int num, units, vertical, pixels;
-
-    *sink = &tag_sink;
-    if (!mainwin)
-        return NULL;
+    tagban_t *tb = tag_find(id);
 
     if (!tb)
     {
         tb = calloc(1, sizeof(tagban_t));
         if (!tb)
             return NULL;
-        snprintf(tb->id, sizeof(tb->id), "%s", ban->id);
+        snprintf(tb->id, sizeof(tb->id), "%s", id);
         tb->next = tagbans;
         tagbans = tb;
     }
+    return tb;
+}
 
-    type = strcasecmp(ban->id, "statusline") == 0
-        ? wintype_TextGrid : wintype_TextBuffer;
+/*
+ *   How the banner's window splits from the main window, *method and *size,
+ *   and its size in the banner's own units, *num: true if in pixels, in a
+ *   graphics window
+ */
+static int tag_choose_split(tagban_t *tb, const oshtml_banner *ban,
+                            int isnew, glui32 type,
+                            glui32 *method, glui32 *size, int *num)
+{
+    int units, vertical, pixels;
 
     switch (ban->align)
     {
-        case OS_BANNER_ALIGN_BOTTOM: method = winmethod_Below; break;
-        case OS_BANNER_ALIGN_LEFT:   method = winmethod_Left;  break;
-        case OS_BANNER_ALIGN_RIGHT:  method = winmethod_Right; break;
-        default:                     method = winmethod_Above; break;
+        case OS_BANNER_ALIGN_BOTTOM: *method = winmethod_Below; break;
+        case OS_BANNER_ALIGN_LEFT:   *method = winmethod_Left;  break;
+        case OS_BANNER_ALIGN_RIGHT:  *method = winmethod_Right; break;
+        default:                     *method = winmethod_Above; break;
     }
-    method |= ban->border ? winmethod_Border : winmethod_NoBorder;
-    vertical = tag_vertical(method);
-    num = vertical ? ban->width : ban->height;
+    *method |= ban->border ? winmethod_Border : winmethod_NoBorder;
+    vertical = tag_vertical(*method);
+    *num = vertical ? ban->width : ban->height;
     units = vertical ? ban->width_units : ban->height_units;
 
     /* the size; one we take from the text starts out as it was */
     tb->fit = 0;
-    size = tb->size;
+    *size = tb->size;
     pixels = 0;
 #ifdef OSGLK_PIXELS
     if (!ban->cells && tb->ncells)
@@ -704,49 +707,105 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         && glk_gestalt(gestalt_Graphics, 0))
     {
         /* a line of cells over pictures, as tall as the two */
-        method |= winmethod_Fixed;
-        size = ban->cells;
+        *method |= winmethod_Fixed;
+        *size = ban->cells;
         pixels = 1;
     }
     else
+#else
+    (void)type;
 #endif /* OSGLK_PIXELS */
     if (units == OSHTML_SIZE_PREV && !isnew
         && tag_vertical(tb->method) == vertical)
     {
-        method |= tb->method & winmethod_DivisionMask;
+        *method |= tb->method & winmethod_DivisionMask;
         pixels = tb->gfx != NULL;
     }
     else if (units == OSHTML_SIZE_PCT)
     {
-        method |= winmethod_Proportional;
-        size = num > 100 ? 100 : (glui32)num;
+        *method |= winmethod_Proportional;
+        *size = *num > 100 ? 100 : (glui32)*num;
     }
     else if (units == OSHTML_SIZE_PIX && glk_gestalt(gestalt_Graphics, 0))
     {
         /* exactly, in a graphics window */
-        method |= winmethod_Fixed;
-        size = num <= 0 ? 0 : (glui32)num;
+        *method |= winmethod_Fixed;
+        *size = *num <= 0 ? 0 : (glui32)*num;
         pixels = 1;
 #ifdef OSGLK_PIXELS
         /* as it shrank or grew the last time, so it needn't change first */
-        if (!isnew && tb->px_asked == num
+        if (!isnew && tb->px_asked == *num
             && (vertical ? tb->px_shrunk : tb->px_grown))
-            size = vertical ? tb->px_shrunk : tb->px_grown;
-        tb->px_asked = num;
+            *size = vertical ? tb->px_shrunk : tb->px_grown;
+        tb->px_asked = *num;
 #endif /* OSGLK_PIXELS */
     }
     else if (units == OSHTML_SIZE_PIX)
     {
-        method |= winmethod_Fixed;
-        size = tag_pix_chars(num, vertical);
+        *method |= winmethod_Fixed;
+        *size = tag_pix_chars(*num, vertical);
     }
     else
     {
-        method |= winmethod_Fixed;
+        *method |= winmethod_Fixed;
         if (isnew || (tb->method & winmethod_DivisionMask) != winmethod_Fixed)
-            size = 1;
+            *size = 1;
         tb->fit = 1;
     }
+    return pixels;
+}
+
+/* the window's default colours and style, and no text yet */
+static void tag_start_text(tagban_t *tb)
+{
+    /* the default colours, unless the text has a <BODY> */
+    if (tb->bg)
+    {
+        osglk_set_window_bg(tb->win, zcolor_Default);
+        tb->bg = 0;
+    }
+    osglk_zcolors_stream(glk_window_get_stream(tb->win),
+                              zcolor_Default, zcolor_Default);
+    glk_set_style_stream(glk_window_get_stream(tb->win), style_Normal);
+
+    /* a grid can't keep lines below its last, so it counts them first */
+    tb->measure = tb->fit && tb->type == wintype_TextGrid;
+    tb->lines = tb->col = tb->maxcol = tb->nl = 0;
+#ifdef OSGLK_PIXELS
+    picture_fit_init(&tb->pictures);
+    tb->px_widest = 0;
+    tb->px_text = 0;
+    tb->px_pics = 0;
+    tb->tbl_used = 0;
+    tb->screen = zcolor_Default;
+    tb->out = NULL;
+    tb->cellmode = 0;
+    tb->last_combo = 0;
+    tb->last_fg = tb->last_bg = zcolor_Default;
+#endif /* OSGLK_PIXELS */
+}
+
+void *osglk_tag_banner_open(const oshtml_banner *ban,
+                            const oshtml_sink **sink)
+{
+    tagban_t *tb;
+    int isnew;
+    glui32 method, size, type;
+    int num, vertical, pixels;
+
+    *sink = &tag_sink;
+    if (!mainwin)
+        return NULL;
+
+    tb = tag_register(ban->id);
+    if (!tb)
+        return NULL;
+    isnew = tb->win == NULL;
+
+    type = strcasecmp(ban->id, "statusline") == 0
+        ? wintype_TextGrid : wintype_TextBuffer;
+    pixels = tag_choose_split(tb, ban, isnew, type, &method, &size, &num);
+    vertical = tag_vertical(method);
 
     /*
      *   a window can't turn into another kind, or to the other axis, or
@@ -795,31 +854,7 @@ void *osglk_tag_banner_open(const oshtml_banner *ban,
         glk_window_clear(tb->win);
     }
 
-    /* the default colours, unless the text has a <BODY> */
-    if (tb->bg)
-    {
-        osglk_set_window_bg(tb->win, zcolor_Default);
-        tb->bg = 0;
-    }
-    osglk_zcolors_stream(glk_window_get_stream(tb->win),
-                              zcolor_Default, zcolor_Default);
-    glk_set_style_stream(glk_window_get_stream(tb->win), style_Normal);
-
-    /* a grid can't keep lines below its last, so it counts them first */
-    tb->measure = tb->fit && type == wintype_TextGrid;
-    tb->lines = tb->col = tb->maxcol = tb->nl = 0;
-#ifdef OSGLK_PIXELS
-    picture_fit_init(&tb->pictures);
-    tb->px_widest = 0;
-    tb->px_text = 0;
-    tb->px_pics = 0;
-    tb->tbl_used = 0;
-    tb->screen = zcolor_Default;
-    tb->out = NULL;
-    tb->cellmode = 0;
-    tb->last_combo = 0;
-    tb->last_fg = tb->last_bg = zcolor_Default;
-#endif /* OSGLK_PIXELS */
+    tag_start_text(tb);
     return tb;
 }
 
