@@ -757,6 +757,7 @@
 		C343E4921ECC6776000F15B6 /* osextra.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48B1ECC6776000F15B6 /* osextra.c */; };
 		C343E4931ECC6776000F15B6 /* osglk.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48C1ECC6776000F15B6 /* osglk.c */; };
 		C343E4941ECC6776000F15B6 /* osglkban.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48D1ECC6776000F15B6 /* osglkban.c */; };
+		7A51D0D62E0F4A1100C0FFEE /* osglktagban.c in Sources */ = {isa = PBXBuildFile; fileRef = 7A51D0D72E0F4A1100C0FFEE /* osglktagban.c */; };
 		C343E4951ECC6776000F15B6 /* osmisc.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48E1ECC6776000F15B6 /* osmisc.c */; };
 		C343E4961ECC6776000F15B6 /* osparse.c in Sources */ = {isa = PBXBuildFile; fileRef = C343E48F1ECC6776000F15B6 /* osparse.c */; };
 		C343E4991ECC678E000F15B6 /* t3indlg.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C343E4981ECC678E000F15B6 /* t3indlg.cpp */; };
@@ -3253,6 +3254,8 @@
 		C343E48B1ECC6776000F15B6 /* osextra.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osextra.c; path = glk/osextra.c; sourceTree = "<group>"; };
 		C343E48C1ECC6776000F15B6 /* osglk.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglk.c; path = glk/osglk.c; sourceTree = "<group>"; };
 		C343E48D1ECC6776000F15B6 /* osglkban.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglkban.c; path = glk/osglkban.c; sourceTree = "<group>"; };
+		7A51D0D72E0F4A1100C0FFEE /* osglktagban.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osglktagban.c; path = glk/osglktagban.c; sourceTree = "<group>"; };
+		7A51D0D82E0F4A1100C0FFEE /* osglkban.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = osglkban.h; path = glk/osglkban.h; sourceTree = "<group>"; };
 		C343E48E1ECC6776000F15B6 /* osmisc.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osmisc.c; path = glk/osmisc.c; sourceTree = "<group>"; };
 		C343E48F1ECC6776000F15B6 /* osparse.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; name = osparse.c; path = glk/osparse.c; sourceTree = "<group>"; };
 		C343E4981ECC678E000F15B6 /* t3indlg.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = t3indlg.cpp; path = glk/t3indlg.cpp; sourceTree = "<group>"; };
@@ -5084,6 +5087,8 @@
 				C343E48B1ECC6776000F15B6 /* osextra.c */,
 				C343E48C1ECC6776000F15B6 /* osglk.c */,
 				C343E48D1ECC6776000F15B6 /* osglkban.c */,
+				7A51D0D72E0F4A1100C0FFEE /* osglktagban.c */,
+				7A51D0D82E0F4A1100C0FFEE /* osglkban.h */,
 				C313318826FD493300593EF6 /* osfrobtads.h */,
 				C313318626FD48CD00593EF6 /* osspatter.h */,
 				C343E48E1ECC6776000F15B6 /* osmisc.c */,
@@ -8669,6 +8674,7 @@
 				C343E4921ECC6776000F15B6 /* osextra.c in Sources */,
 				C343E4931ECC6776000F15B6 /* osglk.c in Sources */,
 				C343E4941ECC6776000F15B6 /* osglkban.c in Sources */,
+				7A51D0D62E0F4A1100C0FFEE /* osglktagban.c in Sources */,
 				C343E4951ECC6776000F15B6 /* osmisc.c in Sources */,
 				C3FACE0300000000DEAD0019 /* randomness.c in Sources */,
 				C343E4961ECC6776000F15B6 /* osparse.c in Sources */,
