@@ -2478,20 +2478,431 @@ static int attr_next(attr_iter *it)
     return 0;
 }
 
+/* ------------------------------------------------------------------------ */
+/*
+ *   The tags.  do_tag reads the name, and the tag's handler does the rest,
+ *   reading what attributes it has.
+ */
+
+typedef struct tag_info
+{
+    const glui32 *t;            /* p->tag */
+    size_t len;
+    size_t name, namelen;       /* its name, t[name..name+namelen) */
+    int end;                    /* an end tag */
+    size_t attrs;               /* where its attributes start */
+    int cell_empty;             /* nothing was in the cell before it */
+} tag_info;
+
+static int tag_named(const tag_info *tg, const char *s)
+{
+    return tag_is(tg->t + tg->name, tg->namelen, s);
+}
+
+static int tag_named_in(const tag_info *tg, const char *const *list)
+{
+    return name_in(tg->t + tg->name, tg->namelen, list);
+}
+
+static void tag_push(parser *p, const tag_info *tg)
+{
+    push_elem(p, tg->t + tg->name, tg->namelen);
+}
+
+static void tag_pop(parser *p, const tag_info *tg)
+{
+    pop_elem(p, tg->t + tg->name, tg->namelen);
+}
+
+/*
+ *   Start on the attributes, read as ATTR_TO_SPACE if to_space, in TADS 3
+ *   or in a banner, otherwise as ATTR_WORD
+ */
+static void tag_attrs(parser *p, const tag_info *tg, attr_iter *it,
+                      int to_space)
+{
+    attr_start(it, tg->t, tg->attrs, tg->len,
+               tads3 || p->in_banner || to_space ? ATTR_TO_SPACE : ATTR_WORD);
+}
+
+static int attr_named(const attr_iter *it, const char *s)
+{
+    return tag_is(it->t + it->name, it->namelen, s);
+}
+
+/* its value is s */
+static int attr_value_is(const attr_iter *it, const char *s)
+{
+    return tag_is(it->t + it->v, it->vlen, s);
+}
+
+static int attr_int(const attr_iter *it)
+{
+    return to_int(it->t + it->v, it->vlen);
+}
+
+/* the text of t[s..s+n) */
+static void put_tag_text(parser *p, const glui32 *t, size_t s, size_t n)
+{
+    size_t k;
+    for (k = s ; k < s + n ; ++k)
+        put_html_text(p, t[k]);
+}
+
+/* <BR>, a line break, or a blank line if the line is empty */
+static void tag_br(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    int br, clear = 0;          /* 1: line break, 2: blank line */
+
+    if (p->ignore)
+        return;
+    br = (tads3 ? p->buffered : p->col != 0 || p->npending != 0) ? 1 : 2;
+    tag_attrs(p, tg, &it, 0);
+    while (attr_next(&it))
+    {
+        if (attr_named(&it, "height"))
+        {
+            int ht = attr_int(&it);
+            if (ht == 0)
+                br = 1;
+            else if (ht > 1)
+                for ( ; ht > 0 ; --ht)
+                    blank_line(p);
+        }
+        else if (attr_named(&it, "clear"))
+            clear = 1;
+    }
+    if (br == 1)
+        line_break(p);
+    else
+        blank_line(p);
+    if (clear)
+        flow_break(p);
+}
+
+/* <IMG>: the picture, or if it can't be shown, its ALT text */
+static void tag_img(parser *p, const tag_info *tg)
+{
+    const glui32 *t = tg->t;
+    attr_iter it;
+    size_t src = 0, srclen = 0, alt = 0, altlen = 0;
+    size_t usemap = 0, usemaplen = 0;
+    glui32 img_align = imagealign_InlineUp;
+    img_size img_w = { 0, 0 }, img_h = { 0, 0 };
+
+    if (p->ignore || tg->end)
+        return;
+    tag_attrs(p, tg, &it, 1);
+    while (attr_next(&it))
+    {
+        if (attr_named(&it, "usemap"))
+        {
+            usemap = it.v;
+            usemaplen = it.vlen;
+        }
+        else if (attr_named(&it, "src"))
+        {
+            src = it.v;
+            srclen = it.vlen;
+        }
+        else if (attr_named(&it, "alt"))
+        {
+            alt = it.v;
+            altlen = it.vlen;
+        }
+        else if (attr_named(&it, "align"))
+        {
+            if (attr_value_is(&it, "left"))
+                img_align = imagealign_MarginLeft;
+            else if (attr_value_is(&it, "right"))
+                img_align = imagealign_MarginRight;
+            else if (attr_value_is(&it, "top"))
+                img_align = imagealign_InlineDown;
+            else if (attr_value_is(&it, "middle"))
+                img_align = imagealign_InlineCenter;
+            else
+                img_align = imagealign_InlineUp;
+        }
+        else if (attr_named(&it, "width"))
+            parse_img_size(t + it.v, it.vlen, &img_w);
+        else if (attr_named(&it, "height"))
+            parse_img_size(t + it.v, it.vlen, &img_h);
+    }
+
+    if (!put_image(p, t + src, srclen, img_align, img_w, img_h,
+                   tg->cell_empty && usemaplen == 0))
+        put_tag_text(p, t, alt, altlen);
+    if (usemaplen != 0)
+    {
+        const imagemap *m = find_map(t + usemap, usemaplen, 0);
+        if (m)
+            add_map_links(p, m);
+    }
+}
+
+/* <SOUND>: the sound, or if it can't be played, its ALT text */
+static void tag_sound(parser *p, const tag_info *tg)
+{
+    const glui32 *t = tg->t;
+    attr_iter it;
+    ossound_tag sndtag;
+    size_t src = 0, srclen = 0, alt = 0, altlen = 0;
+
+    if (p->ignore || tg->end)
+        return;
+    ossound_tag_init(&sndtag);
+    tag_attrs(p, tg, &it, 1);
+    while (attr_next(&it))
+    {
+        const glui32 *v = t + it.v;
+        size_t vlen = it.vlen;
+
+        if (attr_named(&it, "src"))
+        {
+            src = it.v;
+            srclen = vlen;
+        }
+        else if (attr_named(&it, "alt"))
+        {
+            alt = it.v;
+            altlen = vlen;
+        }
+        else if (attr_named(&it, "layer"))
+            sndtag.layer = sound_layer(v, vlen);
+        else if (attr_named(&it, "cancel"))
+        {
+            sndtag.cancel = 1;
+            sndtag.layer = sound_layer(v, vlen);
+        }
+        else if (attr_named(&it, "interrupt"))
+            sndtag.interrupt = 1;
+        else if (attr_named(&it, "repeat"))
+        {
+            sndtag.has_repeat = 1;
+            sndtag.repeat = attr_value_is(&it, "loop") ? 0 : attr_int(&it);
+        }
+        else if (attr_named(&it, "random"))
+            sndtag.random = attr_int(&it);
+        else if (attr_named(&it, "volume"))
+            sndtag.volume = attr_int(&it) > 100 ? 100 : attr_int(&it);
+        else if (attr_named(&it, "fadein"))
+            sndtag.fadein = sound_fade(v, vlen, &sndtag.crossfade_in);
+        else if (attr_named(&it, "fadeout"))
+            sndtag.fadeout = sound_fade(v, vlen, &sndtag.crossfade_out);
+        else if (attr_named(&it, "sequence"))
+            sndtag.sequence = attr_value_is(&it, "replace")
+                ? OSSND_SEQ_REPLACE : attr_value_is(&it, "random")
+                ? OSSND_SEQ_RANDOM : attr_value_is(&it, "cycle")
+                ? OSSND_SEQ_CYCLE : OSSND_SEQ_NONE;
+    }
+
+    if (!put_sound(p, &sndtag, t + src, srclen))
+        put_tag_text(p, t, alt, altlen);
+}
+
+/* <A HREF>: the command is the href; an <A NAME> is no link */
+static void tag_a(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    size_t href = 0, hreflen = 0;
+    int have_href = 0, link_flags = 0;
+
+    if (p->ignore)
+        return;
+    if (tg->end)
+    {
+        tag_pop(p, tg);
+        return;
+    }
+    tag_push(p, tg);
+    tag_attrs(p, tg, &it, 1);
+    while (attr_next(&it))
+    {
+        if (attr_named(&it, "href"))
+        {
+            href = it.v;
+            hreflen = it.vlen;
+            have_href = 1;
+        }
+        else if (attr_named(&it, "noenter"))
+            link_flags |= OSLINK_NOENTER;
+        else if (attr_named(&it, "append"))
+            link_flags |= OSLINK_APPEND;
+    }
+    if (have_href && !p->dst)
+        p->cur.link = (int)href_link(tg->t + href, hreflen, link_flags);
+}
+
+/* <MAP NAME>: the <AREA>s that follow are its */
+static void tag_map(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    size_t mapname = 0, mapnamelen = 0;
+
+    p->map = NULL;
+    if (p->ignore || tg->end)
+        return;
+    tag_attrs(p, tg, &it, 1);
+    while (attr_next(&it))
+        if (attr_named(&it, "name"))
+        {
+            mapname = it.v;
+            mapnamelen = it.vlen;
+        }
+    if ((p->map = find_map(tg->t + mapname, mapnamelen, 1)) != NULL)
+        p->map->nareas = p->map->nrects = p->map->unplaced = 0;
+}
+
+/* <AREA HREF> of the <MAP> */
+static void tag_area(parser *p, const tag_info *tg)
+{
+    const glui32 *t = tg->t;
+    attr_iter it;
+    size_t href = 0, hreflen = 0, alt = 0, altlen = 0;
+    size_t coords = 0, coordslen = 0;
+    int have_href = 0, nohref = 0, area_rect = 1;
+
+    if (!p->map || tg->end)
+        return;
+    tag_attrs(p, tg, &it, 1);
+    while (attr_next(&it))
+    {
+        if (attr_named(&it, "href"))
+        {
+            href = it.v;
+            hreflen = it.vlen;
+            have_href = 1;
+        }
+        else if (attr_named(&it, "alt"))
+        {
+            alt = it.v;
+            altlen = it.vlen;
+        }
+        else if (attr_named(&it, "nohref"))
+            nohref = 1;
+        else if (attr_named(&it, "shape"))
+            area_rect = attr_value_is(&it, "rect");
+        else if (attr_named(&it, "coords"))
+        {
+            coords = it.v;
+            coordslen = it.vlen;
+        }
+    }
+    if (have_href && !nohref)
+    {
+        glui32 link = href_link(t + href, hreflen, 0);
+
+        if (altlen != 0)
+            add_area(p->map, link, t + alt, altlen);
+        else
+            add_area(p->map, link, t + href, hreflen);
+        if (link)
+            add_area_rect(p->map, link, area_rect, t + coords, coordslen);
+    }
+}
+
+/* <ABOUTBOX>: its text isn't shown */
+static void tag_aboutbox(parser *p, const tag_info *tg)
+{
+    if (tg->end)
+    {
+        if (p->ignore > p->title)
+            --p->ignore;
+    }
+    else
+        ++p->ignore;
+}
+
+/*
+ *   TADS 2's <BANNER>: the text waits for its </BANNER>, and a stray one is
+ *   dropped.  The banner is whitespace in the text around it.  TADS 3
+ *   doesn't show them, as HTML TADS doesn't.
+ */
+static void tag_banner(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    int ban_remove = 0;         /* 1: REMOVE, 2: REMOVEALL */
+
+    if (tads3)
+    {
+        tag_aboutbox(p, tg);
+        return;
+    }
+    if (p->ignore || tg->end || p->in_banner)
+        return;
+    memset(&p->ban, 0, sizeof(p->ban));
+    p->ban.align = OS_BANNER_ALIGN_TOP;
+
+    tag_attrs(p, tg, &it, 1);
+    while (attr_next(&it))
+    {
+        if (attr_named(&it, "id"))
+        {
+            size_t k;
+            for (k = 0 ; k < it.vlen && k < OSHTML_BANNER_ID - 1 ; ++k)
+                p->ban.id[k] = tg->t[it.v + k] < 0x80
+                    ? (char)tg->t[it.v + k] : '?';
+            p->ban.id[k] = '\0';
+        }
+        else if (attr_named(&it, "height") || attr_named(&it, "width"))
+        {
+            int height = attr_named(&it, "height");
+            int *num = height ? &p->ban.height : &p->ban.width;
+            int *units = height ? &p->ban.height_units : &p->ban.width_units;
+
+            /* a value HTML TADS can't read is 0 */
+            *num = 0;
+            *units = OSHTML_SIZE_PIX;
+            if (attr_value_is(&it, "previous"))
+                *units = OSHTML_SIZE_PREV;
+            else if (it.vlen != 0 && tg->t[it.v + it.vlen - 1] == '%')
+            {
+                *units = OSHTML_SIZE_PCT;
+                *num = to_int(tg->t + it.v, it.vlen - 1);
+            }
+            else
+                *num = attr_int(&it);
+        }
+        else if (attr_named(&it, "align"))
+        {
+            if (attr_value_is(&it, "top"))
+                p->ban.align = OS_BANNER_ALIGN_TOP;
+            else if (attr_value_is(&it, "bottom"))
+                p->ban.align = OS_BANNER_ALIGN_BOTTOM;
+            else if (attr_value_is(&it, "left"))
+                p->ban.align = OS_BANNER_ALIGN_LEFT;
+            else if (attr_value_is(&it, "right"))
+                p->ban.align = OS_BANNER_ALIGN_RIGHT;
+        }
+        else if (attr_named(&it, "border"))
+            p->ban.border = 1;
+        else if (attr_named(&it, "remove"))
+            ban_remove |= 1;
+        else if (attr_named(&it, "removeall"))
+            ban_remove |= 2;
+    }
+
+    put_html_text(p, ' ');
+    if (ban_remove)
+        osglk_tag_banner_remove((ban_remove & 2) ? 0 : p->ban.id);
+    else
+    {
+        p->bancap = 1;
+        p->banlen = 0;
+        p->bantag_open = 0;
+        p->banquote = 0;
+    }
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
     const glui32 *t = p->tag;
     size_t len = p->taglen, i = 0, name, namelen;
+    tag_info tg;
     attr_iter it;
     int end = 0;
-    int br = 0;                 /* 1: line break, 2: blank line */
-    int img = 0, clear = 0;     /* <img>, <br CLEAR> */
-    int snd = 0;                /* <sound> */
-    ossound_tag sndtag;
-    size_t src = 0, srclen = 0, alt = 0, altlen = 0;
-    glui32 img_align = imagealign_InlineUp;
-    img_size img_w = { 0, 0 }, img_h = { 0, 0 };
     int color_ok = 0, body = 0; /* <font>, <body> */
     int body_pic = 0;           /* the <body> has a BACKGROUND picture */
     os_color_t body_bg = OS_COLOR_P_TEXTBG;
@@ -2500,14 +2911,6 @@ static void do_tag(parser *p)
     int align = -1;             /* their ALIGN: 0 left, 1 centred */
     int heading = 0;
     int tab = 0;                /* TADS 3: <tab> */
-    int ban = 0, ban_remove = 0; /* TADS 2: <banner>, and REMOVE(ALL) */
-    int link_ok = 0;            /* <a> */
-    size_t href = 0, hreflen = 0;
-    int have_href = 0, link_flags = 0;
-    int map_ok = 0, area_ok = 0; /* <map>, <area> */
-    size_t mapname = 0, mapnamelen = 0, usemap = 0, usemaplen = 0;
-    size_t coords = 0, coordslen = 0;
-    int nohref = 0, area_rect = 1;
     int cell_ok = 0, cell = 0;  /* <table>, <tr>, <td>; 1 for a <td> */
     int cell_first = 0;         /* the row's first cell */
     int held_one = 0;           /* the first cell was one character */
@@ -2537,6 +2940,14 @@ static void do_tag(parser *p)
         ;
     namelen = i - name;
 
+    tg.t = t;
+    tg.len = len;
+    tg.name = name;
+    tg.namelen = namelen;
+    tg.end = end;
+    tg.attrs = i;
+    tg.cell_empty = cell_empty;
+
     p->cell_empty = 0;
     if (p->cell_pic && cell_picture_tag(p, t + name, namelen, end, t, len))
     {
@@ -2548,9 +2959,8 @@ static void do_tag(parser *p)
 #define TAG_IN(l) name_in(t + name, namelen, l)
     if (TAG("br"))
     {
-        if (!p->ignore)
-            br = (tads3 ? p->buffered
-                  : p->col != 0 || p->npending != 0) ? 1 : 2;
+        tag_br(p, &tg);
+        return;
     }
     else if (TAG_IN(bold_tags) || TAG_IN(italic_tags) || TAG_IN(fixed_tags))
     {
@@ -2783,29 +3193,28 @@ static void do_tag(parser *p)
     }
     else if (TAG("a"))
     {
-        if (p->ignore)
-            ;
-        else if (end)
-            pop_elem(p, t + name, namelen);
-        else
-        {
-            push_elem(p, t + name, namelen);
-            link_ok = 1;
-        }
+        tag_a(p, &tg);
+        return;
     }
     else if (TAG("img"))
-        img = !p->ignore && !end;
+    {
+        tag_img(p, &tg);
+        return;
+    }
     else if (TAG("map"))
     {
-        p->map = NULL;
-        map_ok = !p->ignore && !end;
+        tag_map(p, &tg);
+        return;
     }
     else if (TAG("area"))
-        area_ok = p->map && !end;
+    {
+        tag_area(p, &tg);
+        return;
+    }
     else if (TAG("sound"))
     {
-        snd = !p->ignore && !end;
-        ossound_tag_init(&sndtag);
+        tag_sound(p, &tg);
+        return;
     }
     else if (TAG("font"))
     {
@@ -2874,25 +3283,15 @@ static void do_tag(parser *p)
             ++p->title;
         }
     }
-    else if (TAG("aboutbox") || (tads3 && TAG("banner")))
+    else if (TAG("aboutbox"))
     {
-        if (end)
-        {
-            if (p->ignore > p->title)
-                --p->ignore;
-        }
-        else
-            ++p->ignore;
+        tag_aboutbox(p, &tg);
+        return;
     }
     else if (TAG("banner"))
     {
-        /* TADS 2: the text waits for its </BANNER>; a stray one is dropped */
-        if (!p->ignore && !end && !p->in_banner)
-        {
-            ban = 1;
-            memset(&p->ban, 0, sizeof(p->ban));
-            p->ban.align = OS_BANNER_ALIGN_TOP;
-        }
+        tag_banner(p, &tg);
+        return;
     }
     else if (TAG("pre"))
     {
@@ -2920,177 +3319,13 @@ static void do_tag(parser *p)
      *   banners, those of <tab>, and those of TADS 2's <banner>
      */
     attr_start(&it, t, i, len,
-               tads3 || p->in_banner || ban || img || snd || link_ok
-               || map_ok || area_ok ? ATTR_TO_SPACE : ATTR_WORD);
+               tads3 || p->in_banner ? ATTR_TO_SPACE : ATTR_WORD);
     while (attr_next(&it))
     {
         size_t v = it.v, vlen = it.vlen;
 
 #define ATTR(s) tag_is(t + it.name, it.namelen, s)
-        if (link_ok && ATTR("href"))
-        {
-            href = v;
-            hreflen = vlen;
-            have_href = 1;
-        }
-        else if (link_ok && ATTR("noenter"))
-            link_flags |= OSLINK_NOENTER;
-        else if (link_ok && ATTR("append"))
-            link_flags |= OSLINK_APPEND;
-        else if (map_ok && ATTR("name"))
-        {
-            mapname = v;
-            mapnamelen = vlen;
-        }
-        else if (area_ok && ATTR("href"))
-        {
-            href = v;
-            hreflen = vlen;
-            have_href = 1;
-        }
-        else if (area_ok && ATTR("alt"))
-        {
-            alt = v;
-            altlen = vlen;
-        }
-        else if (area_ok && ATTR("nohref"))
-            nohref = 1;
-        else if (area_ok && ATTR("shape"))
-            area_rect = tag_is(t + v, vlen, "rect");
-        else if (area_ok && ATTR("coords"))
-        {
-            coords = v;
-            coordslen = vlen;
-        }
-        else if (img && ATTR("usemap"))
-        {
-            usemap = v;
-            usemaplen = vlen;
-        }
-        else if (ban && ATTR("id"))
-        {
-            size_t k;
-            for (k = 0 ; k < vlen && k < OSHTML_BANNER_ID - 1 ; ++k)
-                p->ban.id[k] = t[v + k] < 0x80 ? (char)t[v + k] : '?';
-            p->ban.id[k] = '\0';
-        }
-        else if (ban && (ATTR("height") || ATTR("width")))
-        {
-            int *num = ATTR("height") ? &p->ban.height : &p->ban.width;
-            int *units = ATTR("height")
-                ? &p->ban.height_units : &p->ban.width_units;
-
-            /* a value HTML TADS can't read is 0 */
-            *num = 0;
-            *units = OSHTML_SIZE_PIX;
-            if (tag_is(t + v, vlen, "previous"))
-                *units = OSHTML_SIZE_PREV;
-            else if (vlen != 0 && t[v + vlen - 1] == '%')
-            {
-                *units = OSHTML_SIZE_PCT;
-                *num = to_int(t + v, vlen - 1);
-            }
-            else
-                *num = to_int(t + v, vlen);
-        }
-        else if (ban && ATTR("align"))
-        {
-            if (tag_is(t + v, vlen, "top"))
-                p->ban.align = OS_BANNER_ALIGN_TOP;
-            else if (tag_is(t + v, vlen, "bottom"))
-                p->ban.align = OS_BANNER_ALIGN_BOTTOM;
-            else if (tag_is(t + v, vlen, "left"))
-                p->ban.align = OS_BANNER_ALIGN_LEFT;
-            else if (tag_is(t + v, vlen, "right"))
-                p->ban.align = OS_BANNER_ALIGN_RIGHT;
-        }
-        else if (ban && ATTR("border"))
-            p->ban.border = 1;
-        else if (ban && ATTR("remove"))
-            ban_remove |= 1;
-        else if (ban && ATTR("removeall"))
-            ban_remove |= 2;
-        else if (br && ATTR("height"))
-        {
-            int ht = to_int(t + v, vlen);
-            if (ht == 0)
-                br = 1;
-            else if (ht > 1)
-                for ( ; ht > 0 ; --ht)
-                    blank_line(p);
-        }
-        else if (br && ATTR("clear"))
-            clear = 1;
-        else if (img && ATTR("src"))
-        {
-            src = v;
-            srclen = vlen;
-        }
-        else if (img && ATTR("alt"))
-        {
-            alt = v;
-            altlen = vlen;
-        }
-        else if (img && ATTR("align"))
-        {
-            if (tag_is(t + v, vlen, "left"))
-                img_align = imagealign_MarginLeft;
-            else if (tag_is(t + v, vlen, "right"))
-                img_align = imagealign_MarginRight;
-            else if (tag_is(t + v, vlen, "top"))
-                img_align = imagealign_InlineDown;
-            else if (tag_is(t + v, vlen, "middle"))
-                img_align = imagealign_InlineCenter;
-            else
-                img_align = imagealign_InlineUp;
-        }
-        else if (img && ATTR("width"))
-            parse_img_size(t + v, vlen, &img_w);
-        else if (img && ATTR("height"))
-            parse_img_size(t + v, vlen, &img_h);
-        else if (snd && (ATTR("src") || ATTR("alt")))
-        {
-            if (ATTR("src"))
-            {
-                src = v;
-                srclen = vlen;
-            }
-            else
-            {
-                alt = v;
-                altlen = vlen;
-            }
-        }
-        else if (snd && ATTR("layer"))
-            sndtag.layer = sound_layer(t + v, vlen);
-        else if (snd && ATTR("cancel"))
-        {
-            sndtag.cancel = 1;
-            sndtag.layer = sound_layer(t + v, vlen);
-        }
-        else if (snd && ATTR("interrupt"))
-            sndtag.interrupt = 1;
-        else if (snd && ATTR("repeat"))
-        {
-            sndtag.has_repeat = 1;
-            sndtag.repeat = tag_is(t + v, vlen, "loop")
-                ? 0 : to_int(t + v, vlen);
-        }
-        else if (snd && ATTR("random"))
-            sndtag.random = to_int(t + v, vlen);
-        else if (snd && ATTR("volume"))
-            sndtag.volume = to_int(t + v, vlen) > 100
-                ? 100 : to_int(t + v, vlen);
-        else if (snd && ATTR("fadein"))
-            sndtag.fadein = sound_fade(t + v, vlen, &sndtag.crossfade_in);
-        else if (snd && ATTR("fadeout"))
-            sndtag.fadeout = sound_fade(t + v, vlen, &sndtag.crossfade_out);
-        else if (snd && ATTR("sequence"))
-            sndtag.sequence = tag_is(t + v, vlen, "replace")
-                ? OSSND_SEQ_REPLACE : tag_is(t + v, vlen, "random")
-                ? OSSND_SEQ_RANDOM : tag_is(t + v, vlen, "cycle")
-                ? OSSND_SEQ_CYCLE : OSSND_SEQ_NONE;
-        else if (align_ok && ATTR("align"))
+        if (align_ok && ATTR("align"))
             align = tag_is(t + v, vlen, "center")
                 || tag_is(t + v, vlen, "right");
         else if (cell_ok && ATTR("align") && table_open)
@@ -3171,69 +3406,6 @@ static void do_tag(parser *p)
         if (body_pic)
             body_bg = pic_page_color(p->cur.fg, body_bg);
         set_body(p, body_bg);
-    }
-
-    /* <A HREF>: the command is the href; an <A NAME> is no link */
-    if (link_ok && have_href && !p->dst)
-        p->cur.link = (int)href_link(t + href, hreflen, link_flags);
-
-    /* <MAP NAME>, and its <AREA HREF>s */
-    if (map_ok && (p->map = find_map(t + mapname, mapnamelen, 1)) != NULL)
-        p->map->nareas = p->map->nrects = p->map->unplaced = 0;
-    if (area_ok && have_href && !nohref)
-    {
-        glui32 link = href_link(t + href, hreflen, 0);
-
-        if (altlen != 0)
-            add_area(p->map, link, t + alt, altlen);
-        else
-            add_area(p->map, link, t + href, hreflen);
-        if (link)
-            add_area_rect(p->map, link, area_rect, t + coords, coordslen);
-    }
-
-    /* the banner is whitespace in the text around it */
-    if (ban)
-    {
-        put_html_text(p, ' ');
-        if (ban_remove)
-            osglk_tag_banner_remove((ban_remove & 2) ? 0 : p->ban.id);
-        else
-        {
-            p->bancap = 1;
-            p->banlen = 0;
-            p->bantag_open = 0;
-            p->banquote = 0;
-        }
-    }
-
-    if (br == 1)
-        line_break(p);
-    else if (br == 2)
-        blank_line(p);
-    if (clear)
-        flow_break(p);
-
-    /* the picture, or if it can't be shown, its ALT text */
-    if (img && !put_image(p, t + src, srclen, img_align, img_w, img_h,
-                          cell_empty && usemaplen == 0))
-    {
-        size_t k;
-        for (k = alt ; k < alt + altlen ; ++k)
-            put_html_text(p, t[k]);
-    }
-    /* the sound, or if it can't be played, its ALT text */
-    if (snd && !put_sound(p, &sndtag, t + src, srclen))
-    {
-        size_t k;
-        for (k = alt ; k < alt + altlen ; ++k)
-            put_html_text(p, t[k]);
-    }
-    if (img && usemaplen != 0)
-    {
-        const imagemap *m = find_map(t + usemap, usemaplen, 0);
-        if (m)
-            add_map_links(p, m);
     }
 
     /*
