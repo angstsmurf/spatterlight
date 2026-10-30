@@ -1292,6 +1292,83 @@ void osglk_tag_banner_refit(void)
     }
 }
 
+#ifdef OSGLK_PIXELS
+/* a text banner across the window: the text's own height, unless a
+   picture in the margin is taller */
+static void tag_fit_height(tagban_t *tb)
+{
+    int h = 0;
+
+    if (!tb->measure && tb->gfx && !tb->tblwin && !tb->pictures.count)
+    {
+        /* a height in pixels is at least that of the text and margins */
+        glui32 my = 0, want;
+
+        osglk_px_margins(tb->win, NULL, &my);
+        h = osglk_px_text_height(tb->win);
+        want = (glui32)h + 2 * my;
+        if (h > 0 && tb->px_asked > 0)
+        {
+            tb->px_grown = want > (glui32)tb->px_asked ? want : 0;
+            tag_resize(tb, want > (glui32)tb->px_asked
+                       ? want : (glui32)tb->px_asked);
+        }
+        h = 0;
+    }
+    if (tb->fit && tb->size && !tb->pictures.unknown
+        && !tb->pictures.bottom)
+        h = osglk_px_text_height(tb->win);
+    else if (!tb->fit && !tb->gfx && tb->px_asked > 0
+             && (tb->method & winmethod_DivisionMask) == winmethod_Fixed
+             && !tb->pictures.count)
+    {
+        /* a height in pixels, in a window of lines: the text fits it */
+        glui32 my = 0;
+        int asked;
+
+        osglk_px_margins(tb->win, NULL, &my);
+        asked = tb->px_asked - 2 * (int)my;
+        h = osglk_px_text_height(tb->win);
+        if (h > 0 && h < asked)
+            h = asked;
+    }
+    osglk_set_text_height(tb->win, h);
+    tb->fit_px = tb->fit ? h : 0;
+}
+
+/* a graphics banner at the side: as wide as its pictures */
+static void tag_fit_side(tagban_t *tb)
+{
+    int alone;
+    glui32 size = tag_side_pixels(tb, &alone), mx = 0;
+
+    /* wide enough for its table of pictures, whatever it asked for:
+       the left margin it is drawn at, and its own width */
+    osglk_px_margins(tb->win, &mx, NULL);
+    if (tb->tbl_used && tb->tbl && size < tb->tbl->width + mx)
+        size = tb->tbl->width + mx;
+    tb->px_shrunk = size < (glui32)tb->px_asked ? size : 0;
+    tag_resize(tb, size);
+    tag_side_alone(tb, alone);
+}
+
+/* the banner's table of pictures, laid out and drawn, or closed */
+static void tag_finish_table(tagban_t *tb)
+{
+    if (tb->tbl_used)
+    {
+        if (!tb->ncells)
+        {
+            tag_table_text(tb, 1);
+            tag_table_place(tb);
+        }
+        tag_table_draw(tb);
+    }
+    else
+        tag_close_table(tb);
+}
+#endif /* OSGLK_PIXELS */
+
 int osglk_tag_banner_done(void *ctx)
 {
     tagban_t *tb = ctx;
@@ -1303,75 +1380,12 @@ int osglk_tag_banner_done(void *ctx)
     if (!tb->measure)
         tag_fit_pictures(tb);
 #endif /* SPATTERLIGHT */
-    /* the text's own height, unless a picture in the margin is taller */
     if (tb->type == wintype_TextBuffer && tb->win && !tag_vertical(tb->method))
-    {
-        int h = 0;
-
-        if (!tb->measure && tb->gfx && !tb->tblwin && !tb->pictures.count)
-        {
-            /* a height in pixels is at least that of the text and margins */
-            glui32 my = 0, want;
-
-            osglk_px_margins(tb->win, NULL, &my);
-            h = osglk_px_text_height(tb->win);
-            want = (glui32)h + 2 * my;
-            if (h > 0 && tb->px_asked > 0)
-            {
-                tb->px_grown = want > (glui32)tb->px_asked ? want : 0;
-                tag_resize(tb, want > (glui32)tb->px_asked
-                           ? want : (glui32)tb->px_asked);
-            }
-            h = 0;
-        }
-        if (tb->fit && tb->size && !tb->pictures.unknown
-            && !tb->pictures.bottom)
-            h = osglk_px_text_height(tb->win);
-        else if (!tb->fit && !tb->gfx && tb->px_asked > 0
-                 && (tb->method & winmethod_DivisionMask) == winmethod_Fixed
-                 && !tb->pictures.count)
-        {
-            /* a height in pixels, in a window of lines: the text fits it */
-            glui32 my = 0;
-            int asked;
-
-            osglk_px_margins(tb->win, NULL, &my);
-            asked = tb->px_asked - 2 * (int)my;
-            h = osglk_px_text_height(tb->win);
-            if (h > 0 && h < asked)
-                h = asked;
-        }
-        osglk_set_text_height(tb->win, h);
-        tb->fit_px = tb->fit ? h : 0;
-    }
+        tag_fit_height(tb);
     else if (tb->gfx && tag_vertical(tb->method) && !tb->measure)
-    {
-        int alone;
-        glui32 size = tag_side_pixels(tb, &alone), mx = 0;
-
-        /* wide enough for its table of pictures, whatever it asked for:
-           the left margin it is drawn at, and its own width */
-        osglk_px_margins(tb->win, &mx, NULL);
-        if (tb->tbl_used && tb->tbl && size < tb->tbl->width + mx)
-            size = tb->tbl->width + mx;
-        tb->px_shrunk = size < (glui32)tb->px_asked ? size : 0;
-        tag_resize(tb, size);
-        tag_side_alone(tb, alone);
-    }
+        tag_fit_side(tb);
     if (tb->tblwin && !tb->measure)
-    {
-        if (tb->tbl_used)
-        {
-            if (!tb->ncells)
-            {
-                tag_table_text(tb, 1);
-                tag_table_place(tb);
-            }
-            tag_table_draw(tb);
-        }
-        else
-            tag_close_table(tb);
-    }
+        tag_finish_table(tb);
 #endif /* OSGLK_PIXELS */
     tb->lines = tb->col = tb->maxcol = tb->nl = 0;
 #ifdef OSGLK_PIXELS
