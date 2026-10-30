@@ -22,13 +22,9 @@
  * os_glk.cpp: the Glk front end's module state, utilities, event and file
  * functions, startup and the ADRIFT <=4 main loop.
  * The rest of the front end is split by topic into the other os_glk*.cpp
- * files; os_glk_internal.h lists them.
- *
- * Module notes:
- *
- * o The Glk interface makes no effort to set text colours, background
- *   colours, and so forth, and minimal effort to set fonts and other style
- *   effects.
+ * files; os_glk_internal.h lists them.  Text colours ("glk colour") are in
+ * os_glk_output.cpp, and the styles derived from the game's own text in
+ * os_glk_styles.cpp.
  */
 
 #include "os_glk_internal.h"
@@ -1242,9 +1238,9 @@ gsc_start_adrift4 (strid_t game_stream, strid_t restore_stream,
   if (window)
     glk_window_close (window, nullptr);
 
-  /* Set title of game, and pass it to the host UI via wintitle().  gsc_game is
-     NULL when the load/restore above failed (gsc_game_message is set instead),
-     and scr_get_game_name would dereference it -- guard as the debugger/locale
+  /* Pass the game's title to the host UI.  gsc_game is NULL when the
+     load/restore above failed (gsc_game_message is set instead), and
+     scr_get_game_name would dereference it -- guard as the debugger/locale
      block above does. */
 #ifdef GARGLK
     if (gsc_game)

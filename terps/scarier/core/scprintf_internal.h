@@ -40,10 +40,9 @@
 /*
  * Module notes:
  *
- * o Is the whole interpolation and ALR passes thing right?  There's no
- *   documentation on it, and it's not intuitively implemented in Adrift.
- *
- * o Is dissecting HTML tags the right thing to do?
+ * o The order of the interpolation and ALR passes follows run400 as
+ *   measured by the alrsrc probes; the evidence is at the header of the
+ *   filter's ALR pass in scprintf_buffer.cpp.
  */
 
 #include <assert.h>

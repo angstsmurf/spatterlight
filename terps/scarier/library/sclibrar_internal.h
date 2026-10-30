@@ -31,11 +31,9 @@
  *
  * Module notes:
  *
- * o Ensure module messages precisely match the real Runner ones.  This
- *   matters for ALRs.
- *
- * o Capacity checks on the player and on containers are implemented, but
- *   may not be right.
+ * o Library messages are meant to match the Runner's byte for byte, since
+ *   ALRs match on them.  Each is checked against the Wine Runner
+ *   transcripts and probes; the handlers cite the ones they rest on.
  */
 
 #include "sclibrar.h"

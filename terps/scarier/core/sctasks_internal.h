@@ -36,8 +36,8 @@
 /*
  * Module notes:
  *
- * o Implements task return FALSE on no output, a slight extension of
- *   current jAsea behavior.
+ * o A task that runs but prints nothing returns FALSE from
+ *   task_run_task(), the same as one that did not run.
  */
 
 #include <assert.h>

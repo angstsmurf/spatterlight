@@ -87,10 +87,10 @@ typedef struct scr_objectstate_s
    * Runner writes &HFF, which we do not reproduce because it could falsely
    * match object 255 in a large game.
    *
-   * Since 2026-10-17 the weigh routine no longer reads this field (the
-   * phantom weight is a deliberate deviation, see obj_weigh()); it is kept
-   * for the possession predicates gs_runner_possessed() / gs_runner_worn(),
-   * which walk it through closed containers.
+   * Scarier does not reproduce that phantom weight (a deliberate deviation,
+   * see obj_weigh()), so obj_weigh() ignores this field.  It is read by the
+   * possession predicates gs_runner_possessed() / gs_runner_worn(), which
+   * walk it through closed containers.
    */
   scr_int runner_parent;
   scr_int openness;

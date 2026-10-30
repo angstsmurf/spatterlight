@@ -19,9 +19,9 @@
  */
 
 /*
- * Module notes:
- *
- * o Implement smarter selective module tracing.
+ * scutils.cpp: tracing, error and fatal reporting, memory and string
+ * helpers, and the random number generators (platform, congruential and
+ * the Runner's VB Rnd).
  */
 
 #include <assert.h>

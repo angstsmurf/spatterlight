@@ -19,9 +19,8 @@
  */
 
 /*
- * Module notes:
- *
- * o Event pause and resume tasks need more testing.
+ * scevents.cpp: timed events -- starting, pausing, resuming and finishing
+ * them, with their texts, object moves and affected tasks.
  */
 
 #include <assert.h>

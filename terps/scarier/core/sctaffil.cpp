@@ -19,9 +19,8 @@
  */
 
 /*
- * Module notes:
- *
- * o Put integer and boolean read functions in here?
+ * sctaffil.cpp: reading a .taf or .tas file -- deobfuscation,
+ * decompression and the line-by-line access the parser uses.
  */
 
 #include <assert.h>

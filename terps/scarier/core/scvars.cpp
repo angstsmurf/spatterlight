@@ -21,13 +21,8 @@
 /*
  * Module notes:
  *
- * o Gender enumerations are 0/1/2, but 1/2/3 in jAsea.  The 0/1/2 values
- *   seem to be right.  Is jAsea off by one?
- *
- * o jAsea tries to read Globals.CompileDate.  It's just CompileDate.
- *
- * o State_ and obstate are implemented, but not fully tested due to a lack
- *   of games that use them.
+ * o State_ and obstate are implemented, but few games use them, so they
+ *   are lightly tested.
  */
 
 #include <assert.h>

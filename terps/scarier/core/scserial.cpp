@@ -48,14 +48,13 @@ static const scr_char CARRIAGE_RETURN = '\r';
 
 
 /*
- * Legacy sentinel that introduced Scarier's old private Battle System block,
- * once written (for battle games only) as extra lines after the ADRIFT turns
- * count.  Current saves no longer emit it: the live battle state is interleaved
- * inline in the player and NPC records, matching the Runner's own layout (see
- * ser_save_battle_block and the version-header note below).  The marker is kept
- * only so ser_load_game can still read those older Scarier saves; it is
- * deliberately non-numeric so it can never be mistaken for a numeric ADRIFT
- * field.
+ * Sentinel that introduces the private Battle System block that older Scarier
+ * saves (battle games only) append after the ADRIFT turns count.  Saves are
+ * written without it: the live battle state is interleaved in the player and
+ * NPC records, matching the Runner's own layout (see ser_save_battle_block and
+ * the version-header note below).  ser_load_game reads it so those older saves
+ * still load; it is deliberately non-numeric so it can never be mistaken for a
+ * numeric ADRIFT field.
  *
  * The Runner's layout (reverse-engineered from run400.exe savegame @477318)
  * interleaves battle data -- a 15-field block right after the player fields,
@@ -590,9 +589,9 @@ ser_buffer_boolean (scr_bool boolean)
  * The Runner stores the four ranged battle attributes in the save in the
  * order Strength, Defence, Accuracy, Agility -- Scarier's scr_battle_t slots
  * 0, 2, 1, 3 (BATTLE_STRENGTH/ACCURACY/DEFENSE/AGILITY) -- and writes each as
- * max, hi, lo.  (Order derived from real run400.exe saves; the original
- * capture notes are no longer in the tree, so re-confirm against a Runner
- * save before changing it.)
+ * max, hi, lo.  (Order derived from real run400.exe saves; no capture of
+ * those saves is in the tree, so re-confirm against a Runner save before
+ * changing it.)
  */
 static const scr_int SER_BATTLE_SLOTS[BATTLE_ATTR_COUNT] = {
   BATTLE_STRENGTH, BATTLE_DEFENSE, BATTLE_ACCURACY, BATTLE_AGILITY
@@ -611,10 +610,10 @@ static const scr_int SER_BATTLE_SLOTS[BATTLE_ATTR_COUNT] = {
  * The Runner prints these with the raw VB Print numeric format, i.e.
  * space-padded; ser_buffer_int_special matches it byte for byte.
  *
- * NOTE: the byte-exact correspondence to real run400.exe saves was originally
- * validated against captured .tas fixtures; those notes are no longer checked
- * into the tree, so treat cross-Runner compatibility as unverified against this
- * repo alone until re-confirmed with a Runner-produced battle save.
+ * NOTE: the byte-exact correspondence to real run400.exe saves was validated
+ * against captured .tas fixtures that are not in the tree, so treat
+ * cross-Runner compatibility as unverified against this repo alone until
+ * re-confirmed with a Runner-produced battle save.
  */
 static void
 ser_save_battle_block (scr_gameref_t game, scr_int npc)
@@ -1198,10 +1197,9 @@ ser_save_game_body (scr_gameref_t game)
 
   /*
    * Note: the live Battle System state (stamina, attributes, attitudes, etc.)
-   * is now written inline, in the player and NPC blocks, matching the
-   * Runner's layout.  We no longer append the private trailing
-   * SER_BATTLE_MARKER block; older Scarier saves that carry one are still read
-   * (see ser_load_game).
+   * is written inline, in the player and NPC blocks, matching the Runner's
+   * layout.  Nothing follows the turns count; older Scarier saves that
+   * append a SER_BATTLE_MARKER block are still read (see ser_load_game).
    */
 }
 
@@ -1430,11 +1428,11 @@ ser_get_wield (scr_gameref_t game)
 /*
  * ser_restore_battle_attributes()
  *
- * Read back the version-2 mutable battle attributes of one character.  The
- * matching writer no longer exists: current saves interleave the battle block
- * (ser_restore_battle_block below), so this field order matches nothing we
- * write today and only runs against saves from the removed v2 writer.  Verify
- * against a real legacy v2 save before changing it.
+ * Read back the version-2 mutable battle attributes of one character, from
+ * saves made by older Scarier builds.  Scarier writes no v2 saves (the battle
+ * block is interleaved, see ser_restore_battle_block below), so this field
+ * order is checked by nothing in the tree.  Verify against a real legacy v2
+ * save before changing it.
  */
 static void
 ser_restore_battle_attributes (scr_battle_t *battle)

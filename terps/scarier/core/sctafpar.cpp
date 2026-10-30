@@ -21,15 +21,13 @@
 /*
  * Module notes:
  *
- * o Adds new "types" to jAsea's property descriptor: 'M' for multiline
+ * o The property descriptors extend jAsea's with 'M' for multiline
  *   strings, 'Z', 'F'/'T', and 'E' for defaulted integers, booleans, and
  *   strings, 'i', 'b', and 's' for ignored integers, booleans, and strings,
  *   and '{...}' and '|...|' for "special" descriptions and version fixups
- *   that can't be described as things stand.
+ *   that the plain types cannot describe.
  *
- * o Adds new 'G' expression test, to check Global boolean.
- *
- * o The stack "adjustment" stuff is a bit of a bother.
+ * o The 'G' expression test checks a Global boolean.
  *
  * o The '|...|' version fixup handlers live in sctafpar_fixups.cpp, and the
  *   targeted game patches in sctafpar_patches.cpp; sctafpar_internal.h
