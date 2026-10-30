@@ -89,6 +89,7 @@
 }
 
 - (void)windowWillEnterFullScreen:(NSNotification *)notification {
+    ignoreSystemDidExitFullScreen = NO;
     // Save the window frame in self.windowPreFullscreenFrame so that it can be restored when leaving fullscreen.
 
     // If we are starting up in "system" fullscreen,
@@ -395,6 +396,7 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     }
     [self storeScrollOffsets];
     self.ignoreResizes = YES;
+    ignoreSystemDidExitFullScreen = YES;
     self.windowPreFullscreenFrame = [self frameWithSanitycheckedSize:self.windowPreFullscreenFrame];
     NSRect oldFrame = self.windowPreFullscreenFrame;
 
@@ -441,6 +443,10 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
+    if (notification && ignoreSystemDidExitFullScreen) {
+        ignoreSystemDidExitFullScreen = NO;
+        return;
+    }
     self.ignoreResizes = NO;
     self.inFullscreen = NO;
     inFullScreenResize = NO;

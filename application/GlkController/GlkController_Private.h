@@ -54,6 +54,10 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     NSRect lastContentResize;
 
     BOOL inFullScreenResize;
+    // Our custom exit animation calls windowDidExitFullScreen: itself once
+    // the windowed frame is in place, so the system's notification, which
+    // can come before or after that, is to be ignored
+    BOOL ignoreSystemDidExitFullScreen;
 
     BOOL windowRestoredBySystem;
 
