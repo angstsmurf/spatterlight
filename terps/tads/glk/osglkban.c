@@ -1759,7 +1759,7 @@ void os_banner_flush(void *banner_handle)
 void os_banner_start_html(void *banner_handle)
 {
     osbanid_t banner = banner_handle;
-    if (!banner || !banner->valid || banner->html)
+    if (!banner || !banner->valid || banner->html || !osglk_html_target())
         return;
     banner->html = oshtml_new(&html_sink, banner);
 }

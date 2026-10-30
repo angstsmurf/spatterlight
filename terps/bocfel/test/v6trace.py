@@ -147,7 +147,8 @@ def keep_picture(directory, name, data):
 class Tracer(glkdrive.Driver):
     def __init__(self, terp, story, home, script, width=800, height=600,
                  graphics=6, interp=0, voiceover=0, graphics_on=1, env=None,
-                 patient=True, affirm=None, pictures=None, savepath=None):
+                 patient=True, affirm=None, pictures=None, savepath=None,
+                 terp_args=()):
         self.trace = []
         self.pictures = pictures
         self.affirm = affirm
@@ -173,7 +174,7 @@ class Tracer(glkdrive.Driver):
             os.environ["BOCFEL_INT_NUMBER"] = str(interp or 6)
             try:
                 super().__init__(terp, story, home, script,
-                                 savepath=savepath)
+                                 savepath=savepath, terp_args=terp_args)
             finally:
                 os.environ.clear()
                 os.environ.update(saved)

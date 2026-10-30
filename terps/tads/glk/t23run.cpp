@@ -56,12 +56,28 @@ char **tads_argv;
 
 glkunix_argumentlist_t glkunix_arguments[] =
 {
+    { (char *) "-nohtml", glkunix_arg_NoValue, (char *) "-nohtml: Text only: no HTML, pictures, sounds or links." },
     { (char *) "", glkunix_arg_ValueFollows, (char *) "filename: The game file to load." },
     { NULL, glkunix_arg_End, NULL }
 };
 
 extern "C" int glkunix_startup_code(glkunix_startup_t *data)
 {
+    int i, n;
+
+    /*
+     *   -nohtml is ours, not the engines': take it out, so that they never
+     *   see an option they don't know
+     */
+    for (i = n = 0 ; i < data->argc ; ++i)
+    {
+        if (i != 0 && strcmp(data->argv[i], "-nohtml") == 0)
+            osglk_set_html(0);
+        else
+            data->argv[n++] = data->argv[i];
+    }
+    data->argc = n;
+
     tads_argc = data->argc;
     tads_argv = data->argv;
     return TRUE;

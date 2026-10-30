@@ -38,6 +38,7 @@
 
 /* for version strings */
 #include "trd.h"
+#include "oem.h"
 #include "vmvsn.h"
 
 static void redraw_windows(void);
@@ -82,8 +83,13 @@ glui32 statusbg;
  */
 static int osglk_links_ok(void);
 
+static int os_get_sysinfo_text(int code, long *result);
+
 int os_get_sysinfo(int code, void *param, long *result)
 {
+    if (!osglk_html_target())
+        return os_get_sysinfo_text(code, result);
+
     switch (code)
     {
         case SYSINFO_TEXT_HILITE:
@@ -155,6 +161,61 @@ int os_get_sysinfo(int code, void *param, long *result)
                   | SYSINFO_AUDIOFADE_WAV | SYSINFO_AUDIOFADE_MIDI : 0;
             return TRUE;
 
+        case SYSINFO_LINKS_HTTP:
+        case SYSINFO_LINKS_FTP:
+        case SYSINFO_LINKS_NEWS:
+        case SYSINFO_LINKS_MAILTO:
+        case SYSINFO_LINKS_TELNET:
+            *result = 0;
+            return TRUE;
+
+        default:
+            return FALSE;
+    }
+}
+
+/*
+ *   -nohtml: the answers of a text-only interpreter, which shows no
+ *   pictures and plays no sounds (those come only in HTML)
+ */
+static int os_get_sysinfo_text(int code, long *result)
+{
+    switch (code)
+    {
+        case SYSINFO_TEXT_HILITE:
+        case SYSINFO_BANNERS:
+            *result = 1;
+            return TRUE;
+        case SYSINFO_TEXT_COLORS:
+            *result = SYSINFO_TXC_RGB;
+            return TRUE;
+        case SYSINFO_INTERP_CLASS:
+            *result = SYSINFO_ICLASS_TEXTGUI;
+            return TRUE;
+
+        case SYSINFO_HTML:
+        case SYSINFO_JPEG:
+        case SYSINFO_PNG:
+        case SYSINFO_PNG_TRANS:
+        case SYSINFO_PNG_ALPHA:
+        case SYSINFO_MNG:
+        case SYSINFO_MNG_TRANS:
+        case SYSINFO_MNG_ALPHA:
+        case SYSINFO_WAV:
+        case SYSINFO_MIDI:
+        case SYSINFO_WAV_MIDI_OVL:
+        case SYSINFO_WAV_OVL:
+        case SYSINFO_MPEG:
+        case SYSINFO_MPEG1:
+        case SYSINFO_MPEG2:
+        case SYSINFO_MPEG3:
+        case SYSINFO_OGG:
+        case SYSINFO_AUDIO_FADE:
+        case SYSINFO_AUDIO_CROSSFADE:
+        case SYSINFO_PREF_IMAGES:
+        case SYSINFO_PREF_SOUNDS:
+        case SYSINFO_PREF_MUSIC:
+        case SYSINFO_PREF_LINKS:
         case SYSINFO_LINKS_HTTP:
         case SYSINFO_LINKS_FTP:
         case SYSINFO_LINKS_NEWS:
@@ -506,15 +567,36 @@ static void os_status_redraw(void)
     glk_set_window(mainwin);
 }
 
+/*
+ *   HTML, unless the player asked for text only (-nohtml): then the
+ *   formatters keep the markup to themselves, and the game hears that this
+ *   is a text-only interpreter, as before HTML TADS
+ */
+static int html_on = 1;
+
+void osglk_set_html(int on)
+{
+    html_on = on;
+    if (!on)
+        strcpy(G_tads_oem_display_mode, "text-only");
+}
+
+int osglk_html_target(void)
+{
+    return html_on;
+}
+
 /* \H+ and \H- */
 void os_start_html(void)
 {
-    oshtml_start();
+    if (html_on)
+        oshtml_start();
 }
 
 void os_end_html(void)
 {
-    oshtml_end();
+    if (html_on)
+        oshtml_end();
 }
 
 /* ------------------------------------------------------------------------ */

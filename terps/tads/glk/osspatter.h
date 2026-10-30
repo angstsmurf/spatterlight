@@ -58,6 +58,15 @@ unsigned char *os_fill_buffer (unsigned char *buf, size_t len);
  */
 #define USE_HTML
 
+/*
+ *   ... unless the player asked for text only (-nohtml, t23run.cpp): then
+ *   the TADS 2 and T3 formatters handle the markup themselves, as in a
+ *   text-only build
+ */
+#define os_html_target() osglk_html_target()
+int osglk_html_target(void);
+void osglk_set_html(int on);
+
 #ifndef OS_MAXWIDTH
 #define OS_MAXWIDTH 2048
 #endif

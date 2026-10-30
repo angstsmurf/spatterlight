@@ -567,8 +567,13 @@ static void out_init_std(out_stream_info *stream)
      *   so that it knows it has an HTML target - this will ensure that
      *   HTML tags are passed through to the underlying stream, and that
      *   we generate HTML equivalents for our own control sequences 
+     *   (unless the OS layer can turn its HTML off at run time, and has)
      */
+# ifdef os_html_target
+    stream->html_target = os_html_target();
+# else
     stream->html_target = TRUE;
+# endif
 #endif
 }
 

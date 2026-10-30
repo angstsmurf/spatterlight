@@ -9,7 +9,7 @@ images, links, sounds -- to OUT/<game>.trace.  No goldens are stored: take a
 baseline from the unchanged build, then compare.
 
     run_traces.py --out DIR [--compare DIR] [--build DIR] [-j N]
-                  [--corpus NAME] [--script FILE] [--walk]
+                  [--corpus NAME] [--script FILE] [--walk] [--args ARGS]
                   [substring ...]
 
   --out DIR      where the traces go (created; must not exist yet)
@@ -28,6 +28,7 @@ baseline from the unchanged build, then compare.
                  CORPUS/goldens/<stem>_walkthrough.txt (the census path
                  with "/" as "__" and without .gam/.t3), type that
                  instead; the other games get the default script
+  --args ARGS    options for tadsr, split at spaces (such as -nohtml)
   --timeout S    seconds before a game is killed (default 60), or more
                  for a long script: PER_COMMAND seconds a command
   substring      only the games whose census path contains one of these
@@ -151,14 +152,14 @@ def script_for(path, walk, default):
     return default
 
 
-def run_one(terp, path, out, script, timeout):
+def run_one(terp, path, out, script, timeout, terp_args=()):
     story = os.path.join(CORPUS, "games", path)
     home = os.path.join(out, "home", trace_name(path)[:-len(".trace")])
     os.makedirs(home)
     started = time.time()
     timeout = max(timeout, PER_COMMAND * len(script))
     trace, rc, err, left = v6trace.run(terp, story, home, list(script),
-                                       timeout=timeout)
+                                       timeout=timeout, terp_args=terp_args)
     lines = join_prints(trace)
     lines.append("=== exit %s, script left: %s" % (rc, left))
     name = trace_name(path)
@@ -213,6 +214,7 @@ def main():
     build = os.path.join(REPO, "build", "Debug")
     jobs, timeout, script, walk = 8, 60.0, SCRIPT, False
     filters = []
+    terp_args = ()
     while argv:
         opt = argv.pop(0)
         if opt == "--out":
@@ -235,6 +237,8 @@ def main():
                 script = v6trace.load_script(f.read())
         elif opt == "--walk":
             walk = True
+        elif opt == "--args":
+            terp_args = tuple(argv.pop(0).split())
         elif opt.startswith("-"):
             sys.exit("unknown option " + opt)
         else:
@@ -253,7 +257,8 @@ def main():
     trouble = []
     with concurrent.futures.ThreadPoolExecutor(jobs) as pool:
         futures = [pool.submit(run_one, terp, p, out,
-                               script_for(p, walk, script), timeout)
+                               script_for(p, walk, script), timeout,
+                               terp_args)
                    for p in paths]
         for fut in concurrent.futures.as_completed(futures):
             path, rc, secs = fut.result()

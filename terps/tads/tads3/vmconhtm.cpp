@@ -53,7 +53,12 @@ int CVmFormatter::formatter_more_mode() const
  */
 int CVmFormatter::get_init_html_target() const
 {
+    /* unless the OS layer can turn its HTML off at run time, and has */
+#ifdef os_html_target
+    return os_html_target();
+#else
     return TRUE;
+#endif
 }
 
 /* ------------------------------------------------------------------------ */

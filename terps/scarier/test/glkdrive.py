@@ -120,12 +120,12 @@ SETTINGS = make_settings()
 
 class Driver:
     def __init__(self, terp, game, home, script, tag="", savepath=None,
-                 determinism=1, sa_delays=0):
+                 determinism=1, sa_delays=0, terp_args=()):
         env = dict(os.environ)
         env["HOME"] = home
         self.savepath = savepath
         self.settings = make_settings(determinism, sa_delays)
-        self.p = subprocess.Popen([terp, game], stdin=subprocess.PIPE,
+        self.p = subprocess.Popen([terp, *terp_args, game], stdin=subprocess.PIPE,
                                   stdout=subprocess.PIPE,
                                   stderr=subprocess.PIPE, env=env)
         self.script = list(script)

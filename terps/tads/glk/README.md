@@ -70,6 +70,28 @@ the spec and has none of Spatterlight's extensions.
     where text mode treated it as `INDENT`. Whether HTML TADS counts from
     column 0 instead is unchecked.
 
+### Text only (`-nohtml`)
+
+`tadsr -nohtml game` runs as a text-only interpreter, as before HTML TADS.
+`glkunix_startup_code` (`t23run.cpp`) takes the option out of argv before
+the engines see it, and `osglk_set_html(0)` turns HTML off:
+
+- `os_html_target()` (`osspatter.h`) is 0, so `output.c` and `vmconhtm.cpp`
+  start with `html_target` FALSE. The formatters handle the markup
+  themselves, as `vmconnom.cpp` and a build without `USE_HTML` do.
+- `os_start_html`, `os_end_html` and `os_banner_start_html` do nothing, so
+  `oshtml.c` never starts: no pictures, sounds, links, tables or tag
+  banners.
+- `os_get_sysinfo` gives a text interpreter's answers: class
+  `ICLASS_TEXTGUI`, `SYSINFO_HTML` 0, and no images, sounds or links.
+  Banners, highlighting and RGB colours stay.
+- The startup line reads "A text-only TADS ... Interpreter"
+  (`G_tads_oem_display_mode`).
+
+Games written for HTML show what they show in any text interpreter, such
+as *Tomorrow Never Comes*' `<b>` in a `setscore` status line, or the
+runtime error in *Home Opener*'s credits.
+
 ### systemInfo
 
 Every answer in `os_get_sysinfo` comes from a `glk_gestalt`. Spatterlight's
@@ -360,6 +382,7 @@ as pictures above.
   the DerivedData `Build/Products/Debug`, since the repo's `build/Debug` is
   stale.
   - `--walk` types the walkthroughs in `test/htmltads/goldens`.
+  - `--args -nohtml` runs the text-only mode.
   - `--corpus xtads` runs the 1343 xtads games (`infloop.t3` always times
     out).
   - Under load, `mazes.t3` and `pi.t3` can hit the 60 s timeout. Re-run one
