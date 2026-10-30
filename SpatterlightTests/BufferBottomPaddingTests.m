@@ -400,4 +400,47 @@ static const NSRect kStoryFrame = { { 0, 0 }, { 700, 500 } };
     XCTAssertEqualWithAccuracy(NSMinY(clipView.bounds), bottom, 0.5);
 }
 
+#pragma mark - A window above closes
+
+// A story window 300 points tall under a graphics window, with 40 lines
+// read to the bottom.
+- (GlkController *)startUnderGraphicsWindow {
+    GlkController *ctl = [self makeController];
+    XCTAssertEqual([self send:NEWWIN to:ctl a1:wintype_TextBuffer a2:kStory a3:0], kStory);
+    [self storyIn:ctl].frame = NSMakeRect(0, 200, 700, 300);
+    [self printLines:40 in:ctl];
+    [self settle:ctl];
+    [self scrollToBottomIn:ctl];
+    [ctl markLastSeen];
+    return ctl;
+}
+
+// A keystroke in a game with unattended output (a timer, or here a command
+// script) checks whether the user has scrolled up, at once and again 0.3 s
+// later. The command closes the graphics window (an HTML TADS map) and the
+// story window grows, which moves the clip origin up, and the reply is
+// printed. The second check comes before the scroll to the reply. The move
+// was not the user scrolling, so the reply must still scroll into view.
+- (void)testGrowingWindowIsNotTakenForTheUserScrollingUp {
+    GlkController *ctl = [self startUnderGraphicsWindow];
+    GlkTextBufferWindow *story = [self storyIn:ctl];
+    NSClipView *clipView = [self clipViewIn:ctl];
+    ctl.commandScriptRunning = YES;
+
+    CGFloat before = NSMinY(clipView.bounds);
+    [story.textview scrollRangeToVisible:NSMakeRange(story.textview.string.length, 0)];
+    // Hold the main thread past the second check, so that it is overdue
+    // and runs before the scroll that the flush below queues.
+    [NSThread sleepForTimeInterval:0.4];
+    story.frame = kStoryFrame;
+    [self printLines:10 in:ctl];
+    [ctl performScroll];
+    [story flushDisplay];
+    XCTAssertLessThan(NSMinY(clipView.bounds), before, @"growing must move the clip origin up");
+    XCTAssertFalse(story.scrolledToBottom, @"the reply must not be in view before the scroll");
+
+    [self runFor:0.5];
+    XCTAssertTrue(story.scrolledToBottom);
+}
+
 @end

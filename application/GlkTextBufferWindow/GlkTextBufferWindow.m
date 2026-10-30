@@ -455,11 +455,19 @@
 // The same, for an upward scroll that may be applied as a short animation (a
 // plain mouse wheel tick, a paging key): the view may not have moved yet, in
 // which case the test saw nothing, so look again once it has had time to land.
+// Skip the second look if the viewport changed height meanwhile: when the
+// window grows (an HTML TADS map window above it closing as a command is
+// entered — every keystroke comes through here via scrollRangeToVisible:),
+// the clip origin moves up so that the taller viewport still ends at the end
+// of the document. That is not the user scrolling, and pausing on it strands
+// the view above the reply.
 - (void)userDidScrollUpFromPosition:(CGFloat)oldPosition {
     [self userDidScrollFromPosition:oldPosition];
     if (!pauseScrolling) {
+        CGFloat oldHeight = NSHeight(scrollview.contentView.bounds);
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self userDidScrollFromPosition:oldPosition];
+            if (NSHeight(self->scrollview.contentView.bounds) == oldHeight)
+                [self userDidScrollFromPosition:oldPosition];
         });
     }
 }
