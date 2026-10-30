@@ -188,6 +188,11 @@ struct oshtml_parser
     struct imagemap *map;
     maplink maprow[AREAS_MAX];
     int nmaprow;
+    int nmaprow_maps;           /* the maps the row's links come from */
+
+    /* the row's picture is in the window above the page, not the text */
+    int map_win;
+    oshtml_image map_img;
 
     /*
      *   the line: newlines since the last visible character, whether
@@ -276,6 +281,8 @@ imagemap *find_map(const glui32 *v, size_t len, int create);
 
 /* oshtml_banner.c: a <BANNER>'s text laid out, and a page of pictures */
 void end_banner(parser *p);
+int layout_mappic(parser *p, const imagemap *m, const oshtml_image *img,
+                  oshtml_pictable *pt);
 int build_picpage(parser *p, const glui32 *t, size_t len,
                   size_t bg, size_t bglen, oshtml_pictable *pt);
 

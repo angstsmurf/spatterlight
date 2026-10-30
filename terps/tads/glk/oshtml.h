@@ -243,6 +243,14 @@ glui32 osglk_banner_line_pixels(void);
 int osglk_tag_banner_table(void *ctx, const oshtml_pictable *t);
 
 /*
+ *   Show a picture with an image map in the main window's text in a window
+ *   above it, where its areas are links to click (osglkpage.c): false if
+ *   it can't be.  It goes again with osglk_map_remove.
+ */
+int osglk_map_show(const oshtml_pictable *pt);
+void osglk_map_remove(void);
+
+/*
  *   Lay out the windows of a banner's table of cells: false if it can't.
  *   Then the text of cell n goes in its window after
  *   osglk_tag_banner_cell(ctx, n), and the banner's own after n -1.

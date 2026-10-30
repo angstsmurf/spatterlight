@@ -1852,8 +1852,19 @@ glui32 href_link(const glui32 *v, size_t len, int flags)
  *   A picture can be one tile of several (Golden Skull's compass is nine,
  *   in rows with <BR> between them), so the row waits until the pictures
  *   end: until the next text, paragraph or input, and leaves out the links
- *   it has already.
+ *   it has already, or a link named the same but for case and spaces
+ *   (School's "transport to Metalwork room" and "... Metalwork Room").
+ *
+ *   A long row is made easier to read.  The words every link starts with
+ *   are put once in front of it ("Transport to: Room 1 · Room 2"), and a
+ *   row from a single map with MAPROW_SORT links or more is sorted, so
+ *   School's 45 rooms come in order rather than in the order the areas
+ *   were drawn.  A shorter row, or one made of several maps' tiles, keeps
+ *   the author's order, which for a menu (HELP10) or a compass (Golden
+ *   Skull) means something.
  */
+#define MAPROW_SORT 10
+
 static imagemap maps[MAPS_MAX];
 static int nmaps, map_next;
 
@@ -1950,6 +1961,29 @@ static void add_area_rect(imagemap *m, glui32 link, int rect,
     r->area = 1;
 }
 
+static glui32 fold(glui32 c)
+{
+    return c >= 'A' && c <= 'Z' ? c + ('a' - 'A') : c;
+}
+
+/* whether two labels are the same but for case and spaces */
+static int same_label(const maplink *a, const maplink *b)
+{
+    size_t i = 0, j = 0;
+
+    for (;;)
+    {
+        while (i < a->len && is_space(a->label[i]))
+            ++i;
+        while (j < b->len && is_space(b->label[j]))
+            ++j;
+        if (i == a->len || j == b->len)
+            return i == a->len && j == b->len;
+        if (fold(a->label[i++]) != fold(b->label[j++]))
+            return 0;
+    }
+}
+
 /* the links of an <IMG USEMAP>, for the row under the pictures */
 static void add_map_links(parser *p, const imagemap *m)
 {
@@ -1957,14 +1991,164 @@ static void add_map_links(parser *p, const imagemap *m)
 
     if (p->dst)
         return;
+    ++p->nmaprow_maps;
     for (i = 0 ; i < m->nareas && p->nmaprow < AREAS_MAX ; ++i)
     {
         for (j = 0 ; j < p->nmaprow ; ++j)
-            if (p->maprow[j].link == m->areas[i].link)
+            if (p->maprow[j].link == m->areas[i].link
+                || same_label(&p->maprow[j], &m->areas[i]))
                 break;
         if (j == p->nmaprow)
             p->maprow[p->nmaprow++] = m->areas[i];
     }
+}
+
+/*
+ *   How much of each label is the words they all start with, ending in a
+ *   space, so that every link keeps a word of its own; 0 if they don't
+ *   share a word, or there are too few links to be worth it.
+ */
+static size_t maprow_prefix(const maplink *row, int n)
+{
+    size_t len = row[0].len, k, word = 0;
+    int i;
+
+    if (n < 3)
+        return 0;
+    for (i = 1 ; i < n ; ++i)
+    {
+        for (k = 0 ; k < len && k < row[i].len
+                     && fold(row[i].label[k]) == fold(row[0].label[k]) ; ++k)
+            ;
+        len = k;
+    }
+
+    /* back to the end of a word: a space every label has there */
+    for (k = 0 ; k < len ; ++k)
+        if (is_space(row[0].label[k]))
+            word = k + 1;
+    while (word != 0)
+    {
+        for (k = word ; k < len && is_space(row[0].label[k]) ; ++k)
+            ;
+        for (i = 0 ; i < n && k < row[i].len ; ++i)
+            ;
+        if (i == n)
+            return k;
+        while (--word != 0 && !is_space(row[0].label[word - 1]))
+            ;
+    }
+    return 0;
+}
+
+/* the start of a label for sorting: past 'skip' and a leading "the " */
+static size_t sort_start(const maplink *m, size_t skip)
+{
+    size_t k = skip;
+
+    if (k + 4 <= m->len && fold(m->label[k]) == 't'
+        && fold(m->label[k + 1]) == 'h' && fold(m->label[k + 2]) == 'e'
+        && is_space(m->label[k + 3]))
+    {
+        for (k += 4 ; k < m->len && is_space(m->label[k]) ; ++k)
+            ;
+        if (k == m->len)
+            k = skip;
+    }
+    return k;
+}
+
+/*
+ *   Compare two labels for the sorted row: case and spaces don't count, and
+ *   a run of digits counts as its number, so "Room 2" comes before "Room 10"
+ *   and "Room19" between "Room 18" and "Room 20"
+ */
+static int label_cmp(const maplink *a, const maplink *b, size_t skip)
+{
+    size_t i = sort_start(a, skip), j = sort_start(b, skip);
+
+    for (;;)
+    {
+        glui32 x, y;
+
+        while (i < a->len && is_space(a->label[i]))
+            ++i;
+        while (j < b->len && is_space(b->label[j]))
+            ++j;
+        if (i == a->len || j == b->len)
+            return (i < a->len) - (j < b->len);
+        x = a->label[i];
+        y = b->label[j];
+        if (x >= '0' && x <= '9' && y >= '0' && y <= '9')
+        {
+            size_t xs, ys, xn, yn, k;
+
+            while (i < a->len && a->label[i] == '0')
+                ++i;
+            while (j < b->len && b->label[j] == '0')
+                ++j;
+            for (xs = i ; i < a->len && a->label[i] >= '0'
+                          && a->label[i] <= '9' ; ++i)
+                ;
+            for (ys = j ; j < b->len && b->label[j] >= '0'
+                          && b->label[j] <= '9' ; ++j)
+                ;
+            xn = i - xs;
+            yn = j - ys;
+            if (xn != yn)
+                return xn < yn ? -1 : 1;
+            for (k = 0 ; k < xn ; ++k)
+                if (a->label[xs + k] != b->label[ys + k])
+                    return a->label[xs + k] < b->label[ys + k] ? -1 : 1;
+            continue;
+        }
+        x = fold(x);
+        y = fold(y);
+        if (x != y)
+            return x < y ? -1 : 1;
+        ++i;
+        ++j;
+    }
+}
+
+/*
+ *   A picture with a map in the page's text goes in a window above the
+ *   page, where its areas can be clicked (osglkpage.c), rather than in the
+ *   text, where it could be only one link.  Not one in a table, unless it
+ *   starts the table's first cell (School's map, in a table that centres
+ *   it), or that floats, or the tiles of a picture in several (Golden Skull's compass):
+ *   when a second tile comes, the first goes back in the text after all,
+ *   where it would have been.  The row of links is put out all the same,
+ *   for the keyboard and VoiceOver.
+ */
+static int map_window(parser *p, const imagemap *m, const oshtml_image *img,
+                      int cell_empty)
+{
+    oshtml_pictable pt;
+
+    if (p != &fmt || p->dst)
+        return 0;
+    if (p->nmaprow_maps != 0)
+    {
+        if (p->map_win)
+        {
+            p->map_win = 0;
+            osglk_map_remove();
+            show_image(p, &p->map_img);
+        }
+        return 0;
+    }
+    if ((p->table && (p->table > 1 || p->ncell != 1 || !cell_empty))
+        || img->align == imagealign_MarginLeft
+        || img->align == imagealign_MarginRight
+        || img->width_pct || img->height_pct)
+        return 0;
+    memset(&pt, 0, sizeof(pt));
+    if (!layout_mappic(p, m, img, &pt) || !osglk_map_show(&pt))
+        return 0;
+    p->map_win = 1;
+    p->map_img = *img;
+    return 1;
 }
 
 /* the row of links under the pictures, on a line of its own */
@@ -1972,14 +2156,50 @@ void put_maprow(parser *p)
 {
     int save = p->cur.link;
     int i, n = p->nmaprow;
-    size_t k;
+    size_t k, skip;
 
+    if (n == 0)
+        p->nmaprow_maps = p->map_win = 0;
     if (n == 0 || p->dst)
         return;
 
     /* the row's own text doesn't put it out again */
     p->nmaprow = 0;
+    skip = maprow_prefix(p->maprow, n);
+    if (n >= MAPROW_SORT && p->nmaprow_maps == 1)
+    {
+        /* an insertion sort, which keeps equal labels in order */
+        for (i = 1 ; i < n ; ++i)
+        {
+            maplink m = p->maprow[i];
+            int j;
+
+            for (j = i ; j > 0 && label_cmp(&p->maprow[j - 1], &m, skip) > 0
+                 ; --j)
+                p->maprow[j] = p->maprow[j - 1];
+            p->maprow[j] = m;
+        }
+    }
+    p->nmaprow_maps = p->map_win = 0;
+
     line_break(p);
+    if (skip != 0)
+    {
+        /* the shared words, capitalised, as the row's heading */
+        size_t end = skip;
+
+        while (end != 0 && is_space(p->maprow[0].label[end - 1]))
+            --end;
+        for (k = 0 ; k < end ; ++k)
+        {
+            glui32 c = p->maprow[0].label[k];
+
+            put_html_text(p, k == 0 && c >= 'a' && c <= 'z'
+                          ? c - ('a' - 'A') : c);
+        }
+        put_html_text(p, ':');
+        add_pending(p, ' ');
+    }
     for (i = 0 ; i < n ; ++i)
     {
         /* one space each side, even after a full stop in TADS 2 */
@@ -1990,7 +2210,7 @@ void put_maprow(parser *p)
             add_pending(p, ' ');
         }
         p->cur.link = (int)p->maprow[i].link;
-        for (k = 0 ; k < p->maprow[i].len ; ++k)
+        for (k = skip ; k < p->maprow[i].len ; ++k)
             put_html_text(p, p->maprow[i].label[k]);
         p->cur.link = save;
     }
@@ -2149,12 +2369,20 @@ static void tag_img(parser *p, const tag_info *tg)
             parse_img_size(t + it.v, it.vlen, &img_h);
     }
 
-    if (!put_image(p, t + src, srclen, img_align, img_w, img_h,
-                   tg->cell_empty && usemaplen == 0))
-        put_tag_text(p, t, alt, altlen);
-    if (usemaplen != 0)
+    if (usemaplen == 0)
+    {
+        if (!put_image(p, t + src, srclen, img_align, img_w, img_h,
+                       tg->cell_empty))
+            put_tag_text(p, t, alt, altlen);
+    }
+    else
     {
         const imagemap *m = find_map(t + usemap, usemaplen, 0);
+        oshtml_image img;
+
+        if (!find_image(p, t + src, srclen, img_align, img_w, img_h, &img)
+            || (!(m && map_window(p, m, &img, tg->cell_empty)) && !show_image(p, &img)))
+            put_tag_text(p, t, alt, altlen);
         if (m)
             add_map_links(p, m);
     }
@@ -3405,7 +3633,7 @@ static void close_all(parser *p)
     end_row_capture(p, 0);
     if (p->nelems)
         restore_elem(p, 0);
-    p->nmaprow = 0;
+    p->nmaprow = p->nmaprow_maps = p->map_win = 0;
     p->cell_pic = p->cell_empty = p->side_left = p->margin_pic = 0;
     p->row_side = 0;
     p->cur.attr = 0;

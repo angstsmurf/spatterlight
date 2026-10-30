@@ -734,6 +734,7 @@ static void redraw_windows(void)
     os_banners_redraw();
     osglk_side_pictures_draw();
     osglk_page_redraw();
+    osglk_map_redraw();
     osglk_tag_banner_redraw();
     osglk_tag_banner_refit();
 }
@@ -748,6 +749,7 @@ void oscls(void)
     oshtml_clear_main();
     osglk_tag_banner_remove(NULL);
     osglk_side_pictures_remove();
+    osglk_map_remove();
     glk_window_clear(mainwin);
 }
 
@@ -1103,6 +1105,7 @@ static void request_links(void)
         return;
     osglk_tag_banner_request_links();
     osglk_api_banner_request_links();
+    osglk_map_request_mouse();
     if (mainwin)
         glk_request_hyperlink_event(mainwin);
 }
@@ -1211,16 +1214,19 @@ static void select_event(event_t *event)
         if (event->type == evtype_Redraw)
         {
             osglk_side_pictures_draw();
+            osglk_map_redraw();
             osglk_tag_banner_redraw();
             osglk_api_banner_redraw();
             continue;
         }
 
-        /* a click on a table of pictures is a click on its link */
+        /* a click on a table of pictures or a map is a click on its link */
         if (event->type == evtype_MouseInput)
         {
             glui32 link = osglk_tag_banner_click(event->win, event->val1,
                                                  event->val2);
+            if (!link)
+                link = osglk_map_click(event->win, event->val1, event->val2);
             if (!link)
             {
                 glk_request_mouse_event(event->win);
@@ -1303,6 +1309,7 @@ unsigned char *os_gets(unsigned char *buf, size_t buflen)
     }
     while (event.type != evtype_LineInput);
 
+    osglk_map_line_read(linked ? event.val1 : 0);
     if (!linked)
     {
         os_fill_buffer(buf, event.val1);
@@ -1446,6 +1453,8 @@ int os_gets_timeout(unsigned char *buf, size_t bufl,
     }
     while (event.type != evtype_LineInput);
 
+    if (!timeout)
+        osglk_map_line_read(linked ? event.val1 : 0);
     unsigned char *res = linked ? buf : os_fill_buffer(buf, event.val1);
 
     /* stop timer and turn on line echo */

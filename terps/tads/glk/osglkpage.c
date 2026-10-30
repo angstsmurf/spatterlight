@@ -213,3 +213,140 @@ void osglk_page_redraw(void)
         main_page_draw();
     }
 }
+
+/* ------------------------------------------------------------------------ */
+/*
+ *   A picture with an image map in the page's text: School's map of the
+ *   school, Arrival's of the ship.  In a text buffer the whole of a
+ *   picture can be only one link, so it goes in a graphics window above
+ *   the main window, as wide as the window lets it be and not more than
+ *   MAP_ROOM per cent of its height, and a click on one of its areas is
+ *   a click on that link.  It stays while the commands come from its
+ *   links, so the player can go from place to place on it, and goes with
+ *   the first one typed, a new page, or the next map.
+ */
+#define MAP_ROOM 60
+
+static winid_t map_win;
+static oshtml_pictable map_pt;
+static glui32 map_x, map_w, map_h;     /* the picture as drawn, scaled */
+
+/* the main window's height in pixels, beside a graphics window of no width */
+static glui32 main_height(void)
+{
+    winid_t probe = glk_window_open(mainwin, winmethod_Left
+                                    | winmethod_Fixed | winmethod_NoBorder,
+                                    0, wintype_Graphics, 0);
+    glui32 h = 0;
+
+    if (!probe)
+        return 0;
+    glk_window_get_size(probe, NULL, &h);
+    glk_window_close(probe, NULL);
+    return h;
+}
+
+static void map_place(void)
+{
+    glui32 ww = 0, wh = 0, room, w = map_pt.width, h = map_pt.height;
+
+    glk_window_get_size(map_win, &ww, &wh);
+    room = (wh + main_height()) * MAP_ROOM / 100;
+    if (ww && w > ww)
+    {
+        h = h * ww / w;
+        w = ww;
+    }
+    if (room && h > room)
+    {
+        w = w * room / h;
+        h = room;
+    }
+    if (!w || !h)
+        w = h = 1;
+    if (h != wh)
+        glk_window_set_arrangement(glk_window_get_parent(map_win),
+                                   winmethod_Above | winmethod_Fixed
+                                   | winmethod_NoBorder, h, map_win);
+    map_x = ww > w ? (ww - w) / 2 : 0;
+    map_w = w;
+    map_h = h;
+}
+
+static void map_draw(void)
+{
+    osglk_set_window_bg(map_win, osglk_screen_bg());
+    glk_window_clear(map_win);
+    glk_image_draw_scaled(map_win, map_pt.tiles[0].img.id, (glsi32)map_x, 0,
+                          map_w, map_h);
+}
+
+int osglk_map_show(const oshtml_pictable *pt)
+{
+    if (!mainwin || !glk_gestalt(gestalt_DrawImage, wintype_Graphics)
+        || !glk_gestalt(gestalt_MouseInput, wintype_Graphics))
+        return 0;
+    if (!map_win)
+        map_win = glk_window_open(mainwin, winmethod_Above | winmethod_Fixed
+                                  | winmethod_NoBorder, pt->height,
+                                  wintype_Graphics, 0);
+    if (!map_win)
+        return 0;
+    map_pt = *pt;
+    map_place();
+    map_draw();
+    return 1;
+}
+
+void osglk_map_remove(void)
+{
+    if (map_win)
+        glk_window_close(map_win, NULL);
+    map_win = NULL;
+}
+
+void osglk_map_redraw(void)
+{
+    if (map_win)
+    {
+        map_place();
+        map_draw();
+    }
+}
+
+glui32 osglk_map_click(winid_t win, glui32 x, glui32 y)
+{
+    int i;
+
+    if (!win || win != map_win || x < map_x || x >= map_x + map_w
+        || y >= map_h)
+        return 0;
+
+    /* where on the picture, at its own size */
+    x = (x - map_x) * map_pt.width / map_w;
+    y = y * map_pt.height / map_h;
+    for (i = 1 ; i < map_pt.ntiles ; ++i)
+    {
+        const oshtml_tile *a = &map_pt.tiles[i];
+        if (a->link && x >= a->x && x < a->x + a->w
+            && y >= a->y && y < a->y + a->h)
+            return a->link;
+    }
+    return 0;
+}
+
+void osglk_map_request_mouse(void)
+{
+    if (map_win)
+        glk_request_mouse_event(map_win);
+}
+
+void osglk_map_line_read(glui32 link)
+{
+    int i;
+
+    for (i = 1 ; link && i < map_pt.ntiles ; ++i)
+        if (map_pt.tiles[i].link == link)
+            return;
+    osglk_map_remove();
+}

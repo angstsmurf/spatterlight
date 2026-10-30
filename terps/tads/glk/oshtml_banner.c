@@ -365,8 +365,7 @@ static int build_mappic(parser *p, const glui32 *t, size_t len,
     size_t i = 0, ts, te, v, vlen;
     img_size w = { 0, 0 }, h = { 0, 0 };
     const imagemap *m;
-    oshtml_tile *tile = &pt->tiles[0];
-    int k;
+    oshtml_image img;
 
     if (p->dst || !raw_tag(t, len, &i, &ts, &te)
         || !raw_attr(t, ts, te, "usemap", &v, &vlen)
@@ -380,10 +379,27 @@ static int build_mappic(parser *p, const glui32 *t, size_t len,
         parse_img_size(t + v, vlen, &w);
     if (raw_attr(t, ts, te, "height", &v, &vlen))
         parse_img_size(t + v, vlen, &h);
-    memset(tile, 0, sizeof(*tile));
     if (w.pct || h.pct || !raw_attr(t, ts, te, "src", &v, &vlen)
-        || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h, &tile->img)
-        || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+        || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h, &img))
+        return 0;
+    return layout_mappic(p, m, &img, pt);
+}
+
+/*
+ *   Lay out the picture 'img' with the areas of 'm' on it as its links:
+ *   false if an area isn't a rectangle, or the picture has no size
+ */
+int layout_mappic(parser *p, const imagemap *m, const oshtml_image *img,
+                  oshtml_pictable *pt)
+{
+    oshtml_tile *tile = &pt->tiles[0];
+    int k;
+
+    if (m->unplaced || m->nrects == 0 || m->nrects >= OSHTML_TILES_MAX)
+        return 0;
+    memset(tile, 0, sizeof(*tile));
+    tile->img = *img;
+    if (!oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
         || tile->w == 0 || tile->h == 0)
         return 0;
 
