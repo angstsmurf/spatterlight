@@ -1240,11 +1240,13 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
 // Create or update the Narcolepsy window mask. The game "Narcolepsy" uses a
 // custom image-based mask to create an irregularly shaped visible area,
 // producing a distinctive visual effect where parts of the window are transparent.
+// The mask follows the game view by autoresizing, but that scales the old
+// frame, so every call also sets it to the view's bounds outright.
 - (void)adjustMaskLayer:(id)sender {
-    CALayer *maskLayer = nil;
-    if (!_gameView.layer.mask) {
-        _gameView.layer.mask = [self createMaskLayer];
-        maskLayer = _gameView.layer.mask;
+    CALayer *maskLayer = _gameView.layer.mask;
+    if (!maskLayer) {
+        maskLayer = [self createMaskLayer];
+        _gameView.layer.mask = maskLayer;
         maskLayer.layoutManager = [CAConstraintLayoutManager layoutManager];
         maskLayer.autoresizingMask = kCALayerHeightSizable | kCALayerWidthSizable;
         // Make the window non-opaque so the masked-out areas show through
@@ -1252,8 +1254,11 @@ restorationHandler:(nullable void (^)(NSWindow *, NSError *))completionHandler {
         self.window.backgroundColor = [NSColor clearColor];
     }
 
-    if (maskLayer) {
+    if (maskLayer && !NSEqualRects(NSRectFromCGRect(maskLayer.frame), _gameView.bounds)) {
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
         maskLayer.frame = _gameView.bounds;
+        [CATransaction commit];
     }
 }
 

@@ -447,14 +447,6 @@ startCustomAnimationToEnterFullScreenWithDuration:(NSTimeInterval)duration {
     [self contentDidResize:self.gameView.frame];
     [self restoreScrollOffsets];
     if (self.gameID == kGameIsNarcolepsy && self.theme.doGraphics && self.theme.doStyles) {
-        // FIXME: Very ugly hack to fix the Narcolepsy mask layer
-        // It breaks when exiting fullscreen after the player
-        // manually has resized the window in windowed mode.
-        NSRect newFrame = self.window.frame;
-        newFrame.size.width += 1;
-        [self.window setFrame:newFrame display:YES];
-        newFrame.size.width -= 1;
-        [self.window setFrame:newFrame display:YES];
         [self adjustMaskLayer:nil];
     }
     self.gameView.autoresizingMask = kResizeFill;
