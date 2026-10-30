@@ -24,4 +24,14 @@ glui32 os_prepare_chars(glui32 *buf, glui32 buflen,
 /* draw the API banners again (osglkban.c) */
 void os_banners_redraw(void);
 
+/* the screen colour behind the main window's text (osglk.c) */
+glui32 osglk_screen_bg(void);
+
+/* the pictures beside the page, and a page of pictures (osglkpage.c) */
+void osglk_side_pictures_draw(void);
+void osglk_side_pictures_remove(void);
+void osglk_page_show(void);
+void osglk_page_redraw(void);
+void osglk_page_remove(void);
+
 #endif /* OSGLK_H */
