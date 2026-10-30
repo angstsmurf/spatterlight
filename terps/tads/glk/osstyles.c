@@ -6,7 +6,7 @@
  * strings straight from the game file, follow the tags in each one, and
  * count how often text shows in each combination of those five attributes.
  * The combinations used most get a style each, and the hints that make the
- * style look like its combination.  See HTML_TODO.md, Step 1.
+ * style look like its combination.  See README.md, "Styles".
  *
  * The count works as test/.work/bin/stylecount.py does, on the same blobs:
  * the data of each object and function, and the format strings, in a TADS 2

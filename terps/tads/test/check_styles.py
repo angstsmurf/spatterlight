@@ -3,7 +3,7 @@
 
 Builds test/stylescan.c with cc, runs it on every game in a corpus, and
 compares its counts with the ones counted here, which follow
-.work/bin/stylecount.py (the script that HTML_TODO.md's numbers come from)
+.work/bin/stylecount.py (the script behind glk/README.md's style counts)
 but keep only the five attributes osstyles.c keeps.  Then it says which
 games have combinations that get no style of their own.
 
