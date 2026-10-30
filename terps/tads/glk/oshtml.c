@@ -3017,28 +3017,331 @@ static void tag_heading(parser *p, const tag_info *tg)
     }
 }
 
+/*
+ *   <TABLE>, <TR> and <TD>: each row is a line, and a cell goes on it
+ *   after a gap, so empty cells before a cell leave the gap as an
+ *   indent.  Only the first cell's ALIGN centres the row.  Where a <TAB>
+ *   can align right, a right-aligned cell goes at the end of the line,
+ *   as on a status line.  Only a cell's own colour is a background: a
+ *   theme colour is what the window shows already.
+ */
+typedef struct cell_attrs
+{
+    int align;                  /* ALIGN: 0 left, 1 centred, 2 right */
+    int width;                  /* a WIDTH */
+    int px;                     /* ... in pixels */
+    int bg_ok;
+    os_color_t bg;
+} cell_attrs;
+
+static void read_cell_attrs(parser *p, const tag_info *tg, int table,
+                            cell_attrs *c)
+{
+    attr_iter it;
+
+    c->align = -1;
+    c->width = c->px = c->bg_ok = 0;
+    c->bg = OS_COLOR_P_TRANSPARENT;
+    tag_attrs(p, tg, &it, 0);
+    while (attr_next(&it))
+    {
+        const glui32 *v = tg->t + it.v;
+        size_t vlen = it.vlen;
+
+        if (attr_named(&it, "align") && table)
+            /* a centred table centres its rows; a left or right one floats */
+            c->align = attr_value_is(&it, "center") ? 1 : -1;
+        else if (attr_named(&it, "align"))
+            c->align = attr_value_is(&it, "center") ? 1
+                : attr_value_is(&it, "right") ? 2
+                : attr_value_is(&it, "left") ? 0 : -1;
+        else if (attr_named(&it, "width"))
+        {
+            c->width = 1;
+            /* under 100 pixels: a marker's cell, not a box */
+            c->px = vlen && vlen <= 2
+                && v[0] >= '0' && v[0] <= '9'
+                && v[vlen - 1] != '%';
+        }
+        else if (attr_named(&it, "bgcolor"))
+            c->bg_ok = parse_color(v, vlen, &c->bg)
+                && !os_color_is_param(c->bg);
+    }
+}
+
+static void cell_background(parser *p, const cell_attrs *c)
+{
+    if (c->bg_ok)
+    {
+        p->cur.bg = c->bg;
+        contrast_text(p, c->bg);
+    }
+}
+
+/* the colour of a <TABLE> or <TR>, whose ALIGN aligns its rows */
+static void row_style(parser *p, const cell_attrs *c)
+{
+    cell_background(p, c);
+    if (c->align >= 0)
+    {
+        if (c->align)
+            p->cur.attr |= OSSTY_CENTER;
+        else
+            p->cur.attr &= ~OSSTY_CENTER;
+    }
+}
+
+/* <TABLE>: a block, whose rows are lines */
+static void tag_table(parser *p, const tag_info *tg)
+{
+    cell_attrs c;
+
+    if (p->ignore)
+        return;
+    if (tg->end)
+    {
+        if (p->table)
+        {
+            release_held(p, 0);
+            p->cell_hold = 0;
+            tag_pop(p, tg);
+            line_break(p);
+            end_margin_pic(p);
+        }
+        return;
+    }
+    release_held(p, 0);
+    p->cell_hold = 0;
+    line_break(p);
+    tag_push(p, tg);
+    ++p->table;
+    p->ncell = 0;
+    p->row_shown = 0;
+    p->side_left = 0;
+    read_cell_attrs(p, tg, 1, &c);
+    p->table_box = c.width && c.bg_ok;
+    row_style(p, &c);
+}
+
+/* <TR>: a row ends the row before it, which may not have been closed */
+static void tag_tr(parser *p, const tag_info *tg)
+{
+    cell_attrs c;
+
+    if (p->ignore || !p->table)
+        return;
+    release_held(p, 0);
+    p->cell_hold = 0;
+    close_cell(p);
+    close_elem(p, "tr", tr_stops);
+    line_break(p);
+    end_margin_pic(p);
+    if (tg->end)
+        return;
+    tag_push(p, tg);
+    p->ncell = 0;
+    p->row_shown = 0;
+    p->side_left = 0;
+    read_cell_attrs(p, tg, 0, &c);
+    p->row_align = c.align >= 0;
+    row_style(p, &c);
+}
+
+/* <TD> and <TH>: so does a cell */
+static void tag_td(parser *p, const tag_info *tg)
+{
+    cell_attrs c;
+    int cell_first;             /* the row's first cell */
+    int held_one;               /* the first cell was one character */
+    int after_marker;           /* the cell before had one */
+
+    if (p->ignore || !p->table)
+        return;
+    close_cell(p);
+    if (tg->end)
+        return;
+    cell_first = p->ncell++ == 0;
+    if (cell_first)
+        release_held(p, 0);
+    held_one = !cell_first && p->cell_hold == 2;
+    p->cell_hold = cell_first ? 1 : held_one ? 2 : 0;
+    tag_push(p, tg);
+    if (tag_named(tg, "th"))
+        p->cur.attr |= OSSTY_BOLD;
+    p->cell_empty = 1;
+    read_cell_attrs(p, tg, 0, &c);
+
+    if (p->side_left && c.align < 0)
+    {
+        /* beside a picture, the text isn't centred as the table is */
+        c.align = 0;
+    }
+    else if (c.align < 0 && !p->row_align
+             && (p->table_box || (c.width && c.bg_ok)))
+    {
+        /*
+         *   nor in a coloured box of a set width: HTML TADS centres the box,
+         *   and the text starts at its left.  Centred lines would show the
+         *   box ragged.  Without a colour, centring the lines looks as the
+         *   centred box does.
+         */
+        c.align = 0;
+    }
+    cell_background(p, &c);
+    after_marker = p->narrow_first;
+    p->narrow_first = c.px;
+    if (!cell_first && !p->row_shown
+        && !(cur_color(p).attr & OSSTY_CENTER))
+    {
+        /* after empty cells, the gap indents each line of the cell */
+        p->npending = 0;
+        /* but a picture in a marker's cell fills the gap */
+        if (p->line_open && !(after_marker && p->col <= 1))
+            put_fixed_tab(p, 2 * CELL_INDENT);
+        p->indent += CELL_INDENT;
+        p->cell_indent += CELL_INDENT;
+    }
+    else if (!cell_first && p->line_open)
+    {
+        /* the gap takes the place of the spaces the cell before ends with */
+        p->npending = 0;
+        p->cur.attr = (p->cur.attr & ~OSSTY_CENTER) | p->line_center;
+        if (c.align == 2 && !p->line_center && (tads3 || p->in_banner))
+            right_cell(p);
+        else if (held_one && p->cell_hold == 2)
+        {
+            /* a first cell of one character, and its gap, are fixed-pitch */
+            release_held(p, 1);
+            put_fixed_tab(p, CELL_GAP);
+        }
+        else if (!(after_marker && p->col <= 1))
+            put_tab(p, CELL_GAP, 0);    /* a picture fills a marker's cell */
+    }
+    else if (!cell_first && c.align == 2
+             && !(p->cur.attr & OSSTY_CENTER) && (tads3 || p->in_banner))
+        right_cell(p);
+    else
+    {
+        /*
+         *   a right-aligned first cell is as wide as its column.  A
+         *   centred one of a few pixels (Threnody's menu pointer) centres
+         *   its picture in the cell, not the row, and the rest of the row
+         *   starts at the left, where its cells' text is.
+         */
+        if (cell_first && c.px)
+            p->cur.attr &= ~OSSTY_CENTER;
+        else if (c.align == 1)
+            p->cur.attr |= OSSTY_CENTER;
+        else if (c.align == 0)
+            p->cur.attr &= ~OSSTY_CENTER;
+        if (!cell_first)
+            put_tab(p, CELL_GAP, 0);
+    }
+    if (held_one)
+        release_held(p, 0);
+}
+
+/* <TAB>: in TADS 3 and in banners, ID, TO, INDENT, MULTIPLE and ALIGN */
+static void tag_tab(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    int tab_to = -1;
+    enum tab_align tab_align = TAB_NONE;
+    glui32 tab_dp = 0;
+
+    if (p->ignore)
+        return;
+    if (!tads3 && !p->in_banner)
+    {
+        put_tab(p, 0, 4);
+        return;
+    }
+    expand_tab(p, 1);
+    tag_attrs(p, tg, &it, 0);
+    while (attr_next(&it))
+    {
+        const glui32 *v = tg->t + it.v;
+        size_t vlen = it.vlen;
+
+        if (attr_named(&it, "id"))
+        {
+            int k = find_tab(p, v, vlen, 1);
+            if (k >= 0)
+                p->tabs[k].col = p->col + (int)p->npending;
+            return;
+        }
+        else if (attr_named(&it, "to"))
+        {
+            int k = find_tab(p, v, vlen, 0);
+            if (k < 0)
+                return;
+            tab_to = p->tabs[k].col;
+        }
+        else if (attr_named(&it, "indent"))
+        {
+            put_tab(p, to_int(v, vlen), 0);
+            return;
+        }
+        else if (attr_named(&it, "multiple"))
+        {
+            put_tab(p, 0, to_int(v, vlen));
+            return;
+        }
+        else if (attr_named(&it, "align"))
+        {
+            if (attr_value_is(&it, "left"))
+                tab_align = TAB_LEFT;
+            else if (attr_value_is(&it, "right"))
+                tab_align = TAB_RIGHT;
+            else if (attr_value_is(&it, "center"))
+                tab_align = TAB_CENTER;
+            else if (attr_value_is(&it, "decimal"))
+                tab_align = TAB_DECIMAL;
+            else
+                return;
+        }
+        else if (attr_named(&it, "dp"))
+            tab_dp = vlen ? v[0] : 0;
+    }
+
+    if (tab_align == TAB_CENTER && tab_to < 0 && p->in_banner
+        && !p->line_open && p->col == 0 && p->npending == 0
+        && !(p->cur.attr & OSSTY_CENTER))
+    {
+        /* a centred tab at the start of a line centres the line, as
+           <CENTER> does (start_line pads with spaces if the window can't) */
+        p->cur.attr |= OSSTY_CENTER;
+        p->tab_centered = 1;
+    }
+    else if (tab_to < 0 && tab_align == TAB_NONE)
+        put_tab(p, 0, 4);
+    else if (tab_to < 0 && tab_align != TAB_RIGHT && tab_align != TAB_CENTER)
+        ;
+    else if (tab_align == TAB_LEFT || tab_align == TAB_NONE)
+        put_tab(p, tab_to - (p->col + (int)p->npending), 0);
+    else
+    {
+        /*
+         *   the spaces go in when we know how much text follows, after
+         *   those before the <TAB>, which the formatter would trim if
+         *   nothing follows
+         */
+        p->tab_align = tab_align;
+        p->tab_lead = p->npending;
+        p->tab_start = p->col + (int)p->npending;
+        p->tab_to = tab_to;
+        p->tab_dp = (tab_align == TAB_DECIMAL && tab_dp == 0) ? '.' : tab_dp;
+        p->tab_color = cur_color(p);
+    }
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
     const glui32 *t = p->tag;
     size_t len = p->taglen, i = 0, name, namelen;
     tag_info tg;
-    attr_iter it;
     int end = 0;
-    int tab = 0;                /* TADS 3: <tab> */
-    int cell_ok = 0, cell = 0;  /* <table>, <tr>, <td>; 1 for a <td> */
-    int cell_first = 0;         /* the row's first cell */
-    int held_one = 0;           /* the first cell was one character */
-    int cell_align = -1;        /* ALIGN: 0 left, 1 centred, 2 right */
-    int table_open = 0, row_open = 0;
-    int cell_width = 0;         /* a WIDTH */
-    int cell_px = 0;            /* ... in pixels */
-    int after_marker = 0;       /* the cell before had one */
-    int cell_bg_ok = 0;
-    os_color_t cell_bg = OS_COLOR_P_TRANSPARENT;
-    int tab_to = -1;
-    enum tab_align tab_align = TAB_NONE;
-    glui32 tab_dp = 0;
     int cell_empty = p->cell_empty; /* nothing yet in the cell */
 
     /* the name: "<b>", "</b>", "< / b >" */
@@ -3190,76 +3493,18 @@ static void do_tag(parser *p)
     }
     else if (TAG("table"))
     {
-        /* a block, whose rows are lines */
-        if (p->ignore)
-            ;
-        else if (end)
-        {
-            if (p->table)
-            {
-                release_held(p, 0);
-                p->cell_hold = 0;
-                pop_elem(p, t + name, namelen);
-                line_break(p);
-                end_margin_pic(p);
-            }
-        }
-        else
-        {
-            release_held(p, 0);
-            p->cell_hold = 0;
-            line_break(p);
-            push_elem(p, t + name, namelen);
-            ++p->table;
-            table_open = 1;
-            p->ncell = 0;
-            p->row_shown = 0;
-            p->side_left = 0;
-            cell_ok = 1;
-        }
+        tag_table(p, &tg);
+        return;
     }
     else if (TAG("tr"))
     {
-        /* a row ends the row before it, which may not have been closed */
-        if (!p->ignore && p->table)
-        {
-            release_held(p, 0);
-            p->cell_hold = 0;
-            close_cell(p);
-            close_elem(p, "tr", tr_stops);
-            line_break(p);
-            end_margin_pic(p);
-            if (!end)
-            {
-                push_elem(p, t + name, namelen);
-                row_open = 1;
-                p->ncell = 0;
-                p->row_shown = 0;
-                p->side_left = 0;
-                cell_ok = 1;
-            }
-        }
+        tag_tr(p, &tg);
+        return;
     }
     else if (TAG("td") || TAG("th"))
     {
-        /* so does a cell */
-        if (!p->ignore && p->table)
-        {
-            close_cell(p);
-            if (!end)
-            {
-                cell_first = p->ncell++ == 0;
-                if (cell_first)
-                    release_held(p, 0);
-                held_one = !cell_first && p->cell_hold == 2;
-                p->cell_hold = cell_first ? 1 : held_one ? 2 : 0;
-                push_elem(p, t + name, namelen);
-                if (TAG("th"))
-                    p->cur.attr |= OSSTY_BOLD;
-                cell_ok = cell = 1;
-                p->cell_empty = 1;
-            }
-        }
+        tag_td(p, &tg);
+        return;
     }
     else if (TAG("nobr"))
     {
@@ -3275,15 +3520,8 @@ static void do_tag(parser *p)
     }
     else if (TAG("tab"))
     {
-        if (p->ignore)
-            ;
-        else if (tads3 || p->in_banner)
-        {
-            expand_tab(p, 1);
-            tab = 1;
-        }
-        else
-            put_tab(p, 0, 4);
+        tag_tab(p, &tg);
+        return;
     }
     else if (TAG("a"))
     {
@@ -3394,204 +3632,6 @@ static void do_tag(parser *p)
     }
 #undef TAG_IN
 #undef TAG
-
-    /* attributes: those of <table>, <tr> and <td>, and in TADS 3 and in
-       banners, those of <tab> */
-    attr_start(&it, t, i, len,
-               tads3 || p->in_banner ? ATTR_TO_SPACE : ATTR_WORD);
-    while (attr_next(&it))
-    {
-        size_t v = it.v, vlen = it.vlen;
-
-#define ATTR(s) tag_is(t + it.name, it.namelen, s)
-        if (cell_ok && ATTR("align") && table_open)
-            /* a centred table centres its rows; a left or right one floats */
-            cell_align = tag_is(t + v, vlen, "center") ? 1 : -1;
-        else if (cell_ok && ATTR("align"))
-            cell_align = tag_is(t + v, vlen, "center") ? 1
-                : tag_is(t + v, vlen, "right") ? 2
-                : tag_is(t + v, vlen, "left") ? 0 : -1;
-        else if (cell_ok && ATTR("width"))
-        {
-            cell_width = 1;
-            /* under 100 pixels: a marker's cell, not a box */
-            cell_px = vlen && vlen <= 2
-                && t[v] >= '0' && t[v] <= '9'
-                && t[v + vlen - 1] != '%';
-        }
-        else if (cell_ok && ATTR("bgcolor"))
-            cell_bg_ok = parse_color(t + v, vlen, &cell_bg)
-                && !os_color_is_param(cell_bg);
-        else if (tab && ATTR("id"))
-        {
-            int k = find_tab(p, t + v, vlen, 1);
-            if (k >= 0)
-                p->tabs[k].col = p->col + (int)p->npending;
-            tab = 0;
-        }
-        else if (tab && ATTR("to"))
-        {
-            int k = find_tab(p, t + v, vlen, 0);
-            if (k >= 0)
-                tab_to = p->tabs[k].col;
-            else
-                tab = 0;
-        }
-        else if (tab && ATTR("indent"))
-        {
-            put_tab(p, to_int(t + v, vlen), 0);
-            tab = 0;
-        }
-        else if (tab && ATTR("multiple"))
-        {
-            put_tab(p, 0, to_int(t + v, vlen));
-            tab = 0;
-        }
-        else if (tab && ATTR("align"))
-        {
-            if (tag_is(t + v, vlen, "left"))
-                tab_align = TAB_LEFT;
-            else if (tag_is(t + v, vlen, "right"))
-                tab_align = TAB_RIGHT;
-            else if (tag_is(t + v, vlen, "center"))
-                tab_align = TAB_CENTER;
-            else if (tag_is(t + v, vlen, "decimal"))
-                tab_align = TAB_DECIMAL;
-            else
-                tab = 0;
-        }
-        else if (tab && ATTR("dp"))
-            tab_dp = vlen ? t[v] : 0;
-#undef ATTR
-    }
-
-    /*
-     *   <TABLE>, <TR> and <TD>: each row is a line, and a cell goes on it
-     *   after a gap, so empty cells before a cell leave the gap as an
-     *   indent.  Only the first cell's ALIGN centres the row.  Where a <TAB>
-     *   can align right, a right-aligned cell goes at the end of the line,
-     *   as on a status line.  Only a cell's own colour is a background: a
-     *   theme colour is what the window shows already.
-     */
-    if (table_open)
-        p->table_box = cell_width && cell_bg_ok;
-    if (row_open)
-        p->row_align = cell_align >= 0;
-    if (cell && p->side_left && cell_align < 0)
-    {
-        /* beside a picture, the text isn't centred as the table is */
-        cell_align = 0;
-    }
-    else if (cell && cell_align < 0 && !p->row_align
-             && (p->table_box || (cell_width && cell_bg_ok)))
-    {
-        /*
-         *   nor in a coloured box of a set width: HTML TADS centres the box,
-         *   and the text starts at its left.  Centred lines would show the
-         *   box ragged.  Without a colour, centring the lines looks as the
-         *   centred box does.
-         */
-        cell_align = 0;
-    }
-    if (cell_bg_ok)
-    {
-        p->cur.bg = cell_bg;
-        contrast_text(p, cell_bg);
-    }
-    if (!cell && cell_align >= 0)
-    {
-        if (cell_align)
-            p->cur.attr |= OSSTY_CENTER;
-        else
-            p->cur.attr &= ~OSSTY_CENTER;
-    }
-    if (cell)
-    {
-        after_marker = p->narrow_first;
-        p->narrow_first = cell_px;
-    }
-    if (cell && !cell_first && !p->row_shown
-        && !(cur_color(p).attr & OSSTY_CENTER))
-    {
-        /* after empty cells, the gap indents each line of the cell */
-        p->npending = 0;
-        /* but a picture in a marker's cell fills the gap */
-        if (p->line_open && !(after_marker && p->col <= 1))
-            put_fixed_tab(p, 2 * CELL_INDENT);
-        p->indent += CELL_INDENT;
-        p->cell_indent += CELL_INDENT;
-    }
-    else if (cell && !cell_first && p->line_open)
-    {
-        /* the gap takes the place of the spaces the cell before ends with */
-        p->npending = 0;
-        p->cur.attr = (p->cur.attr & ~OSSTY_CENTER) | p->line_center;
-        if (cell_align == 2 && !p->line_center && (tads3 || p->in_banner))
-            right_cell(p);
-        else if (held_one && p->cell_hold == 2)
-        {
-            /* a first cell of one character, and its gap, are fixed-pitch */
-            release_held(p, 1);
-            put_fixed_tab(p, CELL_GAP);
-        }
-        else if (!(after_marker && p->col <= 1))
-            put_tab(p, CELL_GAP, 0);    /* a picture fills a marker's cell */
-    }
-    else if (cell && !cell_first && cell_align == 2
-             && !(p->cur.attr & OSSTY_CENTER) && (tads3 || p->in_banner))
-        right_cell(p);
-    else if (cell)
-    {
-        /*
-         *   a right-aligned first cell is as wide as its column.  A
-         *   centred one of a few pixels (Threnody's menu pointer) centres
-         *   its picture in the cell, not the row, and the rest of the row
-         *   starts at the left, where its cells' text is.
-         */
-        if (cell_first && cell_px)
-            p->cur.attr &= ~OSSTY_CENTER;
-        else if (cell_align == 1)
-            p->cur.attr |= OSSTY_CENTER;
-        else if (cell_align == 0)
-            p->cur.attr &= ~OSSTY_CENTER;
-        if (!cell_first)
-            put_tab(p, CELL_GAP, 0);
-    }
-    if (held_one)
-        release_held(p, 0);
-
-    /* TADS 3: what's left of the <TAB> */
-    if (!tab)
-        ;
-    else if (tab_align == TAB_CENTER && tab_to < 0 && p->in_banner
-             && !p->line_open && p->col == 0 && p->npending == 0
-             && !(p->cur.attr & OSSTY_CENTER))
-    {
-        /* a centred tab at the start of a line centres the line, as
-           <CENTER> does (start_line pads with spaces if the window can't) */
-        p->cur.attr |= OSSTY_CENTER;
-        p->tab_centered = 1;
-    }
-    else if (tab_to < 0 && tab_align == TAB_NONE)
-        put_tab(p, 0, 4);
-    else if (tab_to < 0 && tab_align != TAB_RIGHT && tab_align != TAB_CENTER)
-        ;
-    else if (tab_align == TAB_LEFT || tab_align == TAB_NONE)
-        put_tab(p, tab_to - (p->col + (int)p->npending), 0);
-    else
-    {
-        /*
-         *   the spaces go in when we know how much text follows, after
-         *   those before the <TAB>, which the formatter would trim if
-         *   nothing follows
-         */
-        p->tab_align = tab_align;
-        p->tab_lead = p->npending;
-        p->tab_start = p->col + (int)p->npending;
-        p->tab_to = tab_to;
-        p->tab_dp = (tab_align == TAB_DECIMAL && tab_dp == 0) ? '.' : tab_dp;
-        p->tab_color = cur_color(p);
-    }
 }
 
 static void tag_char(parser *p, glui32 c)
