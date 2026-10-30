@@ -213,8 +213,8 @@ uip_compare_reference (const scr_char *words)
   posn = uip_skip_article (uip.match.string, uip.match.posn);
 
   /*
-   * A name with nothing after its article matches nothing.  At the end of
-   * the input it used to compare one terminator with the other, find them
+   * A name with nothing after its article matches nothing.  At the end of the
+   * input it would otherwise compare one terminator with the other, find them
    * equal, and step past both.
    */
   if (words[wpos] == NUL)
@@ -1123,13 +1123,13 @@ uip_match_entity (scr_ptnoderef_t node, scr_bool is_character)
    *
    * 4.0 resolves a trailing %character% by containment as well: run400's
    * per-NPC check npc_in_command() (Proc_21_40_45E99C) LCase()s whichever of
-   * the Name or an Alias answers and returns InStr(Me(304), word) -- whole-
-   * word containment anywhere in the line, 45E740-45E75B -- and the Prefix
-   * contest (lib_npc_400_prefix_score()) then picks among the hits, not the
-   * word order.  p4PFX.taf has Ann "a red", Bob "a blue" and Cid "a red" all
-   * aliased "guard": run400 answers `x guard blue` with Bob's description
-   * (runner_probes/pfx.run400.txt), where a positional match sees
-   * no candidate at all and we used to say "You see no such thing."
+   * the Name or an Alias answers and returns InStr(Me(304), word) --
+   * whole-word containment anywhere in the line, 45E740-45E75B -- and the
+   * Prefix contest (lib_npc_400_prefix_score()) then picks among the hits, not
+   * the word order.  p4PFX.taf has Ann "a red", Bob "a blue" and Cid "a red"
+   * all aliased "guard": run400 answers `x guard blue` with Bob's description
+   * (runner_probes/pfx.run400.txt), where a positional match sees no candidate
+   * at all and says "You see no such thing."
    *
    * Pre-4.0 binds a trailing %character% by containment too -- run390's
    * characters() enters the per-NPC block on `c(Name) Or c(Alias(0))`

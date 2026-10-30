@@ -563,13 +563,12 @@ task_print_end_game_message (scr_gameref_t game)
              * authored spaces (the COMPLETE/WINTEXT dumps end "area." and
              * start "Rich").
              *
-             * 3.7 and 3.8 have no pspace sub at all and join inline, with
-             * ONE space: run380 tasks() builds the win branch as
-             * `out = out & " " & WinText` (44E33C).  The butt-join this
-             * comment used to claim is what a whitespace-normalised note of
-             * the microwaveman measurement looked like -- the .rtf itself
-             * has "You shoot Coffee Man with your gun.  You win the game.
-             * You have destroyed Coffee Man...", one space between the
+             * 3.7 and 3.8 have no pspace sub at all and join inline, with ONE
+             * space: run380 tasks() builds the win branch as `out = out & " "
+             * & WinText` (44E33C).  A whitespace-normalised note of the
+             * microwaveman measurement looks like a butt-join, but the .rtf
+             * itself has "You shoot Coffee Man with your gun.  You win the
+             * game.  You have destroyed Coffee Man...", one space between the
              * winning task's CompleteText and the WinText
              * (runner_transcripts/microwave_man.rtf).
              *

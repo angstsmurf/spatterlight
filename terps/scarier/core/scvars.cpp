@@ -647,16 +647,16 @@ var_select_list_plurality (scr_gameref_t game, scr_int associate,
  * See lib_list_in_object() in sclibrar_examine.cpp for the derivation and
  * for the live measurements behind it.
  *
- * The variables used to take the alternate format unconditionally.  Measured
- * live in run400 under Wine on WhereAreMyKeys.taf, whose fridge is
- * opened by a task whose CompleteText ends "%in_fridge%": with three objects
- * in it the Runner answers "You open the fridge and the light comes on.  Well
- * that's something. Inside the fridge is a tub of butter, a butter knife and
- * a bottle of milk." (runner_probes/where_are_my_keys.run400.txt), where we
- * printed "A tub of butter, a butter knife and a bottle of milk are inside the
- * fridge."  The same replay shows the two-object case keeping the alternate
- * format, from the library lister: `open unit` -> "A large knife and a jar of
- * coffee are inside the kitchen unit."
+ * The variables do not take the alternate format unconditionally.  Measured
+ * live in run400 under Wine on WhereAreMyKeys.taf, whose fridge is opened by a
+ * task whose CompleteText ends "%in_fridge%": with three objects in it the
+ * Runner answers "You open the fridge and the light comes on.  Well that's
+ * something. Inside the fridge is a tub of butter, a butter knife and a bottle
+ * of milk." (runner_probes/where_are_my_keys.run400.txt), not "A tub of
+ * butter, a butter knife and a bottle of milk are inside the fridge."  The
+ * same replay shows the two-object case keeping the alternate format, from the
+ * library lister: `open unit` -> "A large knife and a jar of coffee are inside
+ * the kitchen unit."
  */
 static scr_bool
 var_use_alternate_format (scr_gameref_t game, scr_int associate, size_t count)
@@ -1152,17 +1152,14 @@ var_system_character (scr_var_setref_t vars, const scr_char * /* name */,
   else
     {
       /*
-       * An unbound reference is printed RAW, in every Runner: the
-       * substitution simply does not happen, so the pattern itself
-       * reaches the player.  p*OBJREF's task 2 `zork` prints "ZORKED
-       * %object% and %character%." -- its command binds neither -- and
-       * all four Runners answer it literally, including the turn right
-       * after `nurb rock` has bound the red rock
-       * (runner_probes/objref.run370.rtf,
-       * runner_probes/objref.run380.rtf,
-       * runner_probes/objref.run390.txt,
-       * runner_probes/objref.run400.txt).  We used to
-       * print "[Character unknown]".
+       * An unbound reference is printed RAW, in every Runner: the substitution
+       * simply does not happen, so the pattern itself reaches the player.
+       * p*OBJREF's task 2 `zork` prints "ZORKED %object% and %character%." --
+       * its command binds neither -- and all four Runners answer it literally,
+       * including the turn right after `nurb rock` has bound the red rock
+       * (runner_probes/objref.run370.rtf, runner_probes/objref.run380.rtf,
+       * runner_probes/objref.run390.txt, runner_probes/objref.run400.txt), not
+       * "[Character unknown]".
        */
       return var_return_string ("%character%", type, vt_rvalue);
     }
@@ -1550,12 +1547,11 @@ var_system_t_number (scr_var_setref_t vars, const scr_char * /* name */,
                      scr_int *type, scr_vartype_t *vt_rvalue)
 {
   /*
-   * There is no such thing as "no referenced number yet": the Runner
-   * keeps one Long (run390 MemVar_4681AC, run400 MemVar_49420C) and it
-   * starts at 0, so the very first turn of p39NUMREF and p4NUMREF
-   * answers task 5's `zap` with "ZAP [0] [zero]." before any line has
-   * named a number (runner_probes/numref.run390.txt,
-   * runner_probes/numref.run400.txt).  We used to print
+   * There is no such thing as "no referenced number yet": the Runner keeps one
+   * Long (run390 MemVar_4681AC, run400 MemVar_49420C) and it starts at 0, so
+   * the very first turn of p39NUMREF and p4NUMREF answers task 5's `zap` with
+   * "ZAP [0] [zero]." before any line has named a number
+   * (runner_probes/numref.run390.txt, runner_probes/numref.run400.txt), not
    * "[Number unknown]".
    */
   return var_return_string (var_number_text (vars,

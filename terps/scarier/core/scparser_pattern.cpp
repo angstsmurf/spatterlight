@@ -781,10 +781,11 @@ uip_parse_list (scr_ptnoderef_t list)
                * "{move/run/walk/go/climb} {to/towards} {the} [d/out/in]{own}"
                * (d, down, out, in) and "[s]{outh}{ /-}[w]{est}", where the
                * explicit "{ /-}" for the space in "south west" is the proof
-               * that adjacency alone does not imply one.  This node used to be
-               * a plain NODE_WHITESPACE, which insisted on a space or a word
-               * boundary, so "north" never matched "[n]{orth}" and the game's
-               * own published walkthrough could not leave the first room.
+               * that adjacency alone does not imply one.  A plain
+               * NODE_WHITESPACE here would insist on a space or a word
+               * boundary, so "north" would never match "[n]{orth}" and the
+               * game's own published walkthrough could not leave the first
+               * room.
                */
               if ((child->type == NODE_OPTIONAL || child->type == NODE_CHOICE)
                   && (node->type == NODE_OPTIONAL || node->type == NODE_CHOICE))

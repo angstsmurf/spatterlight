@@ -852,21 +852,20 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
    * affected task fire EVERY turn, which is how TheADRIFTProject's "#Pill
    * Check" ran a turn early.
    *
-   * At 4.0 the length does not matter: EVERY restart-after-delay event with
-   * an immediate or task starter is a one-shot.  run400's finish block
-   * (4706BE) sets the state byte to 0 (waiting), draws Rnd once (4706CE) and
-   * stores Int(Rnd * (EndTime - StartTime)) + StartTime as the clock with no
-   * +1.  StartTime/EndTime are only read from the taf for a random-delay
-   * starter, so for these two they are 0 and the clock is 0; the waiting
-   * block (46FD26) decrements BEFORE it tests for zero, so the clock goes to
-   * -1 and the event never starts again.  Probed live in run400
-   * (probe EVRS, make_arena_probe.py, runner_probes/evrs.run400.txt): R2
-   * (RestartType 2, immediate starter, length 2) printed "R2 FINISH." on the
-   * first wait and nothing afterwards -- no StartText, no LookText in the
-   * final `look` -- where the control R1 (RestartType 1) printed "R1 FINISH.
-   * R1 START." every three turns.  Scarier used to re-arm R2 every two
-   * turns.  The Rnd is still consumed, so draw it here to keep the stream
-   * cadence.
+   * At 4.0 the length does not matter: EVERY restart-after-delay event with an
+   * immediate or task starter is a one-shot.  run400's finish block (4706BE)
+   * sets the state byte to 0 (waiting), draws Rnd once (4706CE) and stores
+   * Int(Rnd * (EndTime - StartTime)) + StartTime as the clock with no +1.
+   * StartTime/EndTime are only read from the taf for a random-delay starter,
+   * so for these two they are 0 and the clock is 0; the waiting block (46FD26)
+   * decrements BEFORE it tests for zero, so the clock goes to -1 and the event
+   * never starts again.  Probed live in run400 (probe EVRS,
+   * make_arena_probe.py, runner_probes/evrs.run400.txt): R2 (RestartType 2,
+   * immediate starter, length 2) printed "R2 FINISH." on the first wait and
+   * nothing afterwards -- no StartText, no LookText in the final `look` --
+   * where the control R1 (RestartType 1) printed "R1 FINISH.  R1 START." every
+   * three turns.  The Rnd is still consumed, so draw it here to keep the
+   * stream cadence.
    *
    * Pre-4.0 is the same: run390 448E23-448E7F and run370 43249F-4324F4 set
    * waiting on a StartTime/EndTime roll, and their waiting blocks decrement
@@ -1595,15 +1594,15 @@ evt_tick_event (scr_gameref_t game, scr_int event)
 
     case ES_FINISHED:
       /*
-       * Nothing to do.  The Runners' checkevent has no code at all for
-       * their finished state (3): only an event with no starter task, or
-       * an "after any task" (TaskNum 0) one, ever lands here, because a
-       * task-started event that finishes without restarting goes back to
-       * AWAITING instead (run380 43A868: `If TaskNum > 0 Then state = 2
-       * Else state = 3`), where the snapshot rule decides whether it runs
-       * again -- see evt_starter_task_may_start().  Scarier used to park
-       * every one-shot here and revive it on seeing the starter task
-       * incomplete, which missed an undo-and-redo within one turn.
+       * Nothing to do.  The Runners' checkevent has no code at all for their
+       * finished state (3): only an event with no starter task, or an "after
+       * any task" (TaskNum 0) one, ever lands here, because a task-started
+       * event that finishes without restarting goes back to AWAITING instead
+       * (run380 43A868: `If TaskNum > 0 Then state = 2 Else state = 3`), where
+       * the snapshot rule decides whether it runs again -- see
+       * evt_starter_task_may_start().  Parking every one-shot here and
+       * reviving it when its starter task is seen incomplete would miss an
+       * undo-and-redo within one turn.
        */
       if (evt_trace)
         scr_trace ("Event: ticking finished event %ld\n", event);

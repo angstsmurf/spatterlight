@@ -287,12 +287,12 @@ npc_walk_is_enabled (scr_gameref_t game, scr_int npc, scr_int walk)
  * Either way a completed StoppingTask takes the walk out of the running
  * (3.7/3.8 have no StoppingTask and so always suppress).
  *
- * This is what stops "The Fun House" (4.00) walking its Bouncer: NPC 5's
- * WALK 2 is an empty game-start walk, which silently pins WALK 1 shut for
- * the whole game, so the bouncer never approaches the player and his
- * meet-object task never fires.  Scarier used to test "is walk w+1 still
- * counting down" instead, which let the empty walk expire on turn one and
- * released the walk the Runner keeps closed.
+ * This is what stops "The Fun House" (4.00) walking its Bouncer: NPC 5's WALK
+ * 2 is an empty game-start walk, which silently pins WALK 1 shut for the whole
+ * game, so the bouncer never approaches the player and his meet-object task
+ * never fires.  Testing "is walk w+1 still counting down" instead would let
+ * the empty walk expire on turn one and release the walk the Runner keeps
+ * closed.
  */
 static scr_bool
 npc_walk_preempts (scr_gameref_t game, scr_int npc, scr_int walk)
@@ -371,15 +371,15 @@ npc_walk_is_preempted (scr_gameref_t game, scr_int npc, scr_int walk)
  *     CharTask never fires.  run400 walks the same NPC in on turn one.
  *
  *   - "Melbourne Beach" (3.90) under run390,
- *     runner_probes/melbourne_beach.run390.txt -- Judy's walk is
- *     a SIX-stop non-looping game-start walk (Kitchen 10, Eating area 10, Den
- *     5, Judy's bedroom 15, follow 5, Outside den 1).  Scarier used to walk
- *     her, which put her in her bedroom on turns 26-40; the Runner still has
- *     her in her start room (the Kitchen) on turn 18, and all twenty `give
- *     trumpet to judy` in the bedroom on turns 36-55 answer with task 17's
- *     third restriction, "You can't do that in your present company." -- the
- *     "player in the same room as Judy" test, failing.  No shift of the
- *     walk's start can fit both observations; the walk simply never runs.
+ *     runner_probes/melbourne_beach.run390.txt -- Judy's walk is a SIX-stop
+ *     non-looping game-start walk (Kitchen 10, Eating area 10, Den 5, Judy's
+ *     bedroom 15, follow 5, Outside den 1).  Walking her would put her in her
+ *     bedroom on turns 26-40; the Runner still has her in her start room (the
+ *     Kitchen) on turn 18, and all twenty `give trumpet to judy` in the
+ *     bedroom on turns 36-55 answer with task 17's third restriction, "You
+ *     can't do that in your present company." -- the "player in the same room
+ *     as Judy" test, failing.  No shift of the walk's start can fit both
+ *     observations; the walk simply never runs.
  *
  * So the rule is the wide one after all.  Only the game-start (StartTask 0)
  * case is covered: a walk a TASK starts is seeded by npc_start_npc_walk()
@@ -756,11 +756,11 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
  *    west.'  ->  'quiet.'
  *
  * and that is why eight of its first fifty turns say nothing about Grumble.
- * Buffered on a line of its own, as this used to be, no such ALR can ever
- * match.  Measured with harness/make_400_walkalrprobe.py under run400
- * (runner_probes/walkalr.run400.txt): its cross-the-join ALRs both fire,
- * and the single-space twin of one of them does not, so the separator
- * really is two spaces.
+ * Buffered on a line of its own, no such ALR could ever match.  Measured with
+ * harness/make_400_walkalrprobe.py under run400
+ * (runner_probes/walkalr.run400.txt): its cross-the-join ALRs both fire, and
+ * the single-space twin of one of them does not, so the separator really is
+ * two spaces.
  *
  * Whether the Name is capitalised is a version split of its own, and one the
  * join makes visible: 3.7, 3.8 and 3.9 concatenate the Name verbatim
@@ -772,8 +772,8 @@ npc_wherefrom (scr_gameref_t game, scr_int roomfrom, scr_int roomto)
  * lower-case, which is not a hypothetical: baroo.taf (4.00) names its walkers
  * "wizard" and "warlock" with Prefix "the", so 4.0 really does print "Wizard
  * strides off to the east." while a 3.9 game in the same shape would print
- * "wizard".  SCARE used to capitalise unconditionally, which was right for
- * 4.0 and wrong for everything older.
+ * "wizard".  SCARE capitalises unconditionally, which is right for 4.0 and
+ * wrong for everything older.
  *
  * The Runners split on the join: 3.9 and 4.0 go through pspace, which does
  * not add a separator to text that already ends in one, while 3.7 and 3.8
@@ -997,32 +997,30 @@ npc_walk_tick_t::step ()
     }
 
   /*
-   * A stop lasting several turns is only *arrived at* on the turn the
-   * counter hits that step's suffix-sum exactly; the turns after it are the
-   * NPC standing around.  The Runner runs the walk's CharTask/ObjectTask
-   * from its arrival handler, so a multi-turn stay at a fixed room fires
-   * them once, not once per turn (run400 walk probe H, live 2026-08-02:
-   * Times = 3 in the player's room, 2 away, `CHARTASK FIRED.` on the arrival
-   * turn only, and again five turns later when the loop brings Bob back).
-   * Scarier used to fire on every co-located tick.
+   * A stop lasting several turns is only *arrived at* on the turn the counter
+   * hits that step's suffix-sum exactly; the turns after it are the NPC
+   * standing around.  The Runner runs the walk's CharTask/ObjectTask from its
+   * arrival handler, so a multi-turn stay at a fixed room fires them once, not
+   * once per turn (run400 walk probe H, live: Times = 3 in the player's room,
+   * 2 away, `CHARTASK FIRED.` on the arrival turn only, and again five turns
+   * later when the loop brings Bob back).
    *
    * The gate covers fixed-room, follow-player AND roomgroup stops.  The
-   * roomgroup case used to be exempt on the strength of "Ticket to No
-   * Where"'s lost girl (a single Times=4 roomgroup stop) speaking on two
-   * consecutive turns in live run400 -- but those pairs are the 4.0
-   * player-side meet (npc_tick_npcs, the player walking in on her) landing
-   * next to a genuine arrival tick, not a per-tick re-run.  Read from the
-   * P-code, run400's walk step is one block gated at 468841
-   * on counter = suffix_sum for EVERY destination kind: the roomgroup pick
-   * (Proc_19_19_4568BC at 46888E) and the CharTask dispatch (468B76, gated
-   * only on the walker now standing in the player's room, 468A44) both sit
-   * inside it, and between exact ticks nothing at all runs.  Escape to New
-   * York measured it: Master-at-Arms King wanders roomgroup 10 on a Times=3
-   * stop with CharTask "- caught with the goods <1>", and under xoshiro draw
-   * parity (runner_probes/escape_to_new_york.run400.txt, seed 1234) run400
-   * prints its warning on the tick he arrives and on the player's entries
-   * only, where Scarier printed it on every co-located turn (turns 62/63/93
-   * extra, 69/92 twice).  Ticket's own xoshiro transcript
+   * roomgroup case is not exempt, although "Ticket to No Where"'s lost girl (a
+   * single Times=4 roomgroup stop) speaks on two consecutive turns in live
+   * run400: those pairs are the 4.0 player-side meet (npc_tick_npcs, the
+   * player walking in on her) landing next to a genuine arrival tick, not a
+   * per-tick re-run.  Read from the P-code, run400's walk step is one block
+   * gated at 468841 on counter = suffix_sum for EVERY destination kind: the
+   * roomgroup pick (Proc_19_19_4568BC at 46888E) and the CharTask dispatch
+   * (468B76, gated only on the walker now standing in the player's room,
+   * 468A44) both sit inside it, and between exact ticks nothing at all runs.
+   * Escape to New York measured it: Master-at-Arms King wanders roomgroup 10
+   * on a Times=3 stop with CharTask "- caught with the goods <1>", and under
+   * xoshiro draw parity (runner_probes/escape_to_new_york.run400.txt, seed
+   * 1234) run400 prints its warning on the tick he arrives and on the player's
+   * entries only, where firing on every co-located turn prints it on turns
+   * 62/63/93 as well and twice on 69/92.  Ticket's own xoshiro transcript
    * (runner_probes/ticket.run400.txt, seed 2) has the girl speak on the
    * player's entries plus turns 64/68/72/76/84/88 -- the 4-turn ticks.
    *
@@ -1083,10 +1081,10 @@ npc_walk_tick_t::destination ()
          and run400 loc_468841 gate the *entire* walk step, the move
          included, on counter == suffix_sum, so between arrivals the walker
          stands wherever it is -- even when a task has displaced it.  Live
-         run390, Merry_Murders 2026-08-31: task 9 starts Trey's walk to the
+         run390, Merry_Murders: task 9 starts Trey's walk to the
          Plaza (arrives next tick), then task 27 moves him into the Hallway,
-         and he stays there for the rest of the game; Scarier used to warp
-         him back every turn.  Same mechanism as provenance's butler. */
+         and he stays there for the rest of the game rather than being
+         warped back every turn.  Same mechanism as provenance's butler. */
       if (is_exact)
         dest = destnum - 2;
     }
@@ -1094,7 +1092,7 @@ npc_walk_tick_t::destination ()
     {
       /* A roomgroup stop is picked afresh on its exact tick and on no other
          (run400 loc_468841 gates the pick at 46888E like the rest of the
-         step); this used to test the counter against MoveTimes[0], which is
+         step).  Testing the counter against MoveTimes[0] instead would be
          the same thing for a walk's first stop and never true for a later
          one. */
       if (is_exact)
@@ -1192,26 +1190,25 @@ npc_walk_tick_t::move ()
 
 
 /*
- * Stamp the walk-hidden marker, and do it whether or not the step above
- * was a move.  The Runner writes its &HFF into the location field from the
- * Hidden branch itself (run400 loc_468D4A), with no "did it move" test in
- * front of it, so a walker that was ALREADY nowhere when the Hidden stop
- * came round still comes out of it carrying the marker -- and its next
- * arrival therefore passes the "old <> 0" half of the announcement gate
- * above.  Scarier used to stamp only inside the move branch, which left
- * such a walker on a genuine zero for ever and swallowed the arrival.
+ * Stamp the walk-hidden marker, and do it whether or not the step above was a
+ * move.  The Runner writes its &HFF into the location field from the Hidden
+ * branch itself (run400 loc_468D4A), with no "did it move" test in front of
+ * it, so a walker that was ALREADY nowhere when the Hidden stop came round
+ * still comes out of it carrying the marker -- and its next arrival therefore
+ * passes the "old <> 0" half of the announcement gate above.  Stamping only
+ * inside the move branch would leave such a walker on a genuine zero for ever
+ * and swallow the arrival.
  *
- * That is The Skydiver's Pelican exactly: StartRoom 0 and a walk whose
- * first stop is Hidden, arriving on turn 16 with run400 printing "Pelican
- * A pelican flocked toward me.." and Scarier printing nothing.  Measured
- * with harness/make_400_walkhiddenprobe.py under run400
- * (runner_probes/walkhidden.run400.txt): of three walkers all
+ * That is The Skydiver's Pelican exactly: StartRoom 0 and a walk whose first
+ * stop is Hidden, arriving on turn 16 with run400 printing "Pelican A pelican
+ * flocked toward me..".  Measured with harness/make_400_walkhiddenprobe.py
+ * under run400 (runner_probes/walkhidden.run400.txt): of three walkers all
  * arriving in the player's room, the one on the Skydiver's shape (nowhere
  * already, Hidden stop, then the room) announces "Hid wanders in." with no
- * direction, the one that arrives from a never-touched zero says nothing,
- * and the one leaving a real room announces with a direction.  The middle
- * cell is what keeps "old <> 0" in the gate; this stamp is what lets the
- * first past it.
+ * direction, the one that arrives from a never-touched zero says nothing, and
+ * the one leaving a real room announces with a direction.  The middle cell is
+ * what keeps "old <> 0" in the gate; this stamp is what lets the first past
+ * it.
  *
  * 3.9 answers the same three ways: make_39_walkhiddenprobe.py under
  * run390 (runner_probes/walkhidden.run390.txt) reproduces the
@@ -1411,12 +1408,12 @@ npc_tick_npcs (scr_gameref_t game)
    * (468573-4685A0, stamp at 46859A), and run390's characters(), which holds
    * the 3.9 ticker, the same loop at 4591AB (stamp 4591D3) ahead of the
    * per-NPC walk code at 45A4AE.  npc_turn_update() only sweeps after the
-   * tick, so an NPC the player walks in on and who walks off the same tick was
-   * never seen, and dobattle's "<Name> isn't here!" -- which needs the seen
-   * byte -- fell through to DontUnderstand.  Measured on Shadowpeak under
-   * run400x (runner_probes/shadowpeak.run400.b.txt turn 180): `u` into the oak
-   * tree lists Haraxis, who skitters off below; `attack haraxis` then answers
-   * "Haraxis isn't here!".
+   * tick, so without this an NPC the player walks in on and who walks off the
+   * same tick is never seen, and dobattle's "<Name> isn't here!" -- which
+   * needs the seen byte -- falls through to DontUnderstand.  Measured on
+   * Shadowpeak under run400x (runner_probes/shadowpeak.run400.b.txt turn 180):
+   * `u` into the oak tree lists Haraxis, who skitters off below; `attack
+   * haraxis` then answers "Haraxis isn't here!".
    */
   if (npc_version (game) >= TAF_VERSION_390)
     {
@@ -1450,8 +1447,7 @@ npc_tick_npcs (scr_gameref_t game)
    * reads MeetChar nowhere but the walk tick itself (468B6F/468B9D/468BC6), so
    * the meet rides on the move command, not on a later "player room changed"
    * check.  Shadowpeak's `examine web` (task 124, a player-move action onto
-   * Haraxis's web room) printed an extra "Seeker hums!" here until this was
-   * gated.
+   * Haraxis's web room) prints an extra "Seeker hums!" here without the gate.
    *
    * Running this before ticking the NPCs, rather than after, is what puts
    * the messages in the Runner's order; the probes above and the walkthrough
@@ -1480,13 +1476,13 @@ npc_tick_npcs (scr_gameref_t game)
 
               /*
                * A higher-numbered walk that preempts this one keeps its meet
-               * shut too: the move handler runs the walk tick's own
-               * precedence test before it looks at the CharTask (run400
-               * 4754A5-47557B).  greekschool (4.00, runner_transcripts/
-               * greekschool.txt T27/T41/T91/T100/T126/T156): Paul's WALK 1
-               * is an empty game-start walk, so walking in on him never runs
-               * his WALK 0 CharTask, task 22, whose restriction used to print
-               * "Paul gives you a look over, then resumes his searching."
+               * shut too: the move handler runs the walk tick's own precedence
+               * test before it looks at the CharTask (run400 4754A5-47557B).
+               * greekschool (4.00, runner_transcripts/greekschool.txt
+               * T27/T41/T91/T100/T126/T156): Paul's WALK 1 is an empty
+               * game-start walk, so walking in on him never runs his WALK 0
+               * CharTask, task 22, whose restriction would print "Paul gives
+               * you a look over, then resumes his searching."
                */
               if (npc_walk_is_preempted (game, npc, walk))
                 continue;

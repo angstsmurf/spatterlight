@@ -287,8 +287,8 @@ lib_cmd_restart (scr_gameref_t game)
  * Called on "undo".  Restores any undo game or memo to the main game.
  *
  * The wording is a three-way version split, and none of the three is what
- * SCARE used to say.  Measured from the four Runners' constant
- * pools and the handlers that print them:
+ * SCARE says.  Measured from the four Runners' constant pools and the handlers
+ * that print them:
  *
  *   3.70  has no `undo` at all -- the word does not occur in run370's pool,
  *         so the line falls through to the game's DontUnderstand.

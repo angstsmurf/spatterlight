@@ -724,7 +724,7 @@ scdump_objects_lockkeys (scr_gameref_t game)
       /*
        * Tolerant fetch: prop_get_integer() is FATAL on a missing property, and
        * "Openable" really can be absent -- Where Is Richard? (V390) has such
-       * an object and the whole dump used to die on it.  Skip instead.
+       * an object and the whole dump would die on it.  Skip instead.
        */
       if (!prop_get (bundle, "I<-sis", &kv, kk))
         continue;
@@ -1037,19 +1037,17 @@ scdump_task_t::hints ()
 /*
  * scdump_task_t::texts()
  *
- * The task's own text.  A wording measurement against a Runner
- * transcript stands or falls on knowing which words the author wrote:
- * the dump used to show only the command, so an engine-supplied phrase
- * and an authored one looked alike.  CompleteText is what the task
- * prints when it runs, AdditionalMessage what task_run_task_
- * unrestricted() appends after the actions, RepeatText what answers a
- * second typing (see run_task_refusal()), and ReverseMessage what an
- * "un-doing" of the task says.  humbug's task 80 "put * sweet on *
- * plinth" is the worked example: its CompleteText is a bare "I put the
- * sweet on the plinth.", so neither of the two "Okay."s the Runner
- * prefixes to it is authored -- both come from the game's own
- * self-containing ALR [I put ] -> [Okay.  I put ], one per filter pass
- * the turn runs (see pf_refilter()).
+ * The task's own text.  A wording measurement against a Runner transcript
+ * stands or falls on knowing which words the author wrote: if the dump showed
+ * only the command, an engine-supplied phrase and an authored one would look
+ * alike.  CompleteText is what the task prints when it runs, AdditionalMessage
+ * what task_run_task_unrestricted() appends after the actions, RepeatText what
+ * answers a second typing (see run_task_refusal()), and ReverseMessage what an
+ * "un-doing" of the task says.  humbug's task 80 "put * sweet on * plinth" is
+ * the worked example: its CompleteText is a bare "I put the sweet on the
+ * plinth.", so neither of the two "Okay."s the Runner prefixes to it is
+ * authored -- both come from the game's own self-containing ALR [I put ] ->
+ * [Okay.  I put ], one per filter pass the turn runs (see pf_refilter()).
  */
 void
 scdump_task_t::texts ()
@@ -1109,8 +1107,8 @@ scdump_task_t::alt_commands ()
  * lifesimulation's task 10 "turn on tv" is the worked example: its
  * ReverseCommand is the bare literal "turn off tv" with no ReverseMessage, and
  * only that exact string diverges, which is why five probe drives could not
- * find a pattern in it.  The dump used to show neither the flag nor the
- * reverse commands, so the task looked like an ordinary one-way task.
+ * find a pattern in it.  Without the flag and the reverse commands the task
+ * looks like an ordinary one-way task.
  */
 void
 scdump_task_t::reverse_commands ()

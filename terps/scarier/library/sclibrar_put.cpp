@@ -162,8 +162,8 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
    * Probe PSTAT (runner_probes/pstat.run400.txt,
    * runner_probes/pstat.run400.b.txt): `put anvil in box`, the anvil a static
    * lying in the room, answers "(Taking the anvil first)" / "You can't take
-   * the anvil!" where scarier used to fall through to the game's
-   * DontUnderstand.  Pre-4.0 handlers never see a static.
+   * the anvil!" rather than falling through to the game's DontUnderstand.
+   * Pre-4.0 handlers never see a static.
    */
   if (obj_is_static (game, object))
     return lib_is_version_400 (game)
@@ -1460,14 +1460,14 @@ lib_put_target_pre390 (scr_gameref_t game, const scr_char *prompt,
  *                       (runner_probes/surf5.run370.txt:12,
  *                       runner_probes/surf5.run380.txt:12)
  *
- * -- where run390 and run400 keep the two apart and refuse every one of
- * them, "You can't put anything onto the box." / "...inside the table."
+ * -- where run390 and run400 keep the two apart and refuse every one of them,
+ * "You can't put anything onto the box." / "...inside the table."
  * (runner_probes/surf5.run390.txt:4/7, runner_probes/surf5.run400.txt:4/7).
- * It also explains the third of the pre-3.9 answers that used to look like a
- * surface test and is not: `put coin on box` with the box standing on the cave
- * floor is "You are not holding a box." (runner_probes/surf1.run370.txt:16),
- * the container handler's own held refusal, reached because the line was
- * routed by the box's kind.
+ * It also explains the third of the pre-3.9 answers that looks like a surface
+ * test and is not: `put coin on box` with the box standing on the cave floor
+ * is "You are not holding a box." (runner_probes/surf1.run370.txt:16), the
+ * container handler's own held refusal, reached because the line was routed by
+ * the box's kind.
  *
  * A target that is both, or neither, has no kind to be routed by, so it
  * keeps the preposition the player typed -- which is what the neither case
@@ -1562,14 +1562,13 @@ lib_put_refusal_sweep_390 (scr_gameref_t game, size_t from)
  * insides() then refuses a static one that is not in the player's room with
  * "You can't see " & Prefix & " " & Short & "." -- the arm
  * lib_put_co_refusal_pre390() already gives for a line it could not parse.
- * p37PUT/p38PUT, standing in the cave with the open static cupboard in the
- * lit room: `put coin in cupboard` is "You can't see a cupboard." (run370x
+ * p37PUT/p38PUT, standing in the cave with the open static cupboard in the lit
+ * room: `put coin in cupboard` is "You can't see a cupboard." (run370x
  * runner_probes/put.run370.drop.rtf, run380x
- * runner_probes/put.run380.drop.rtf); Scarier had put the coin
- * into it.  The not-a-container refusal comes first: `put coin in statue`, the
- * plain static statue also left behind, is "You can't put anything inside the
- * statue." on the same turns.  The static surface is the same handler, and
- * unmeasured.
+ * runner_probes/put.run380.drop.rtf).  The not-a-container refusal comes
+ * first: `put coin in statue`, the plain static statue also left behind, is
+ * "You can't put anything inside the statue." on the same turns.  The static
+ * surface is the same handler, and unmeasured.
  */
 static scr_bool
 lib_put_static_absent_pre390 (scr_gameref_t game, scr_int target)
@@ -1844,12 +1843,11 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
       if (!is_first && run_priority_defer_if_active ())
         return FALSE;
       /*
-       * Three generations, three spellings, and Scarier had none of them: it
-       * said "on" with 4.0's exclamation mark.  3.7 and 3.8 carry the whole
+       * Three generations, three spellings.  3.7 and 3.8 carry the whole
        * literal " can't put anything on "; 3.9 composes " can't put anything "
        * with "onto" (the census finds bare "onto" in run390 and run400 only,
-       * and the run370/run380 pools hold nothing but "Mapontop"); and only
-       * 4.0 shouts.  `put coin on stone` on the surface probe:
+       * and the run370/run380 pools hold nothing but "Mapontop"); and only 4.0
+       * shouts.  `put coin on stone` on the surface probe:
        *
        *   run370  You can't put anything on the stone.
        *           runner_probes/surf1.run370.txt:14

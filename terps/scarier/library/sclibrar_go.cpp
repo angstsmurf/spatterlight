@@ -260,15 +260,16 @@ lib_go (scr_gameref_t game, scr_int direction)
  * with c(): run370 loc_434AEA / loc_434C02, run380 loc_43B44D / loc_43B556,
  * run390 loc_44FDF6 / loc_44FF01, run400 loc_474FEF / loc_4750A4.
  *
- * `exit` used to sit in the `exits`/`where`/`directions` row below, which is
- * only right for a room with no out exit.  A room that has one is left by
- * `exit`, and where it has none the wording still differs from a real exits
- * request: the Runner seeds the response of all twenty movement words with
- * the exits summary before the direction blocks get their chance to overwrite
- * it (run380 loc_43AA58), and the several-exits form of that seed is prefixed
- * " can't go in that direction, but" for every word except `exits`, `where`
- * and `directions` (loc_43AC7E).  That is exactly lib_go()'s own refusal, so
- * routing `exit` to lib_cmd_go_out() gets both cases right at once.
+ * `exit` does not sit in the `exits`/`where`/`directions` row below, which
+ * would only be right for a room with no out exit.  A room that has one is
+ * left by `exit`, and where it has none the wording still differs from a real
+ * exits request: the Runner seeds the response of all twenty movement words
+ * with the exits summary before the direction blocks get their chance to
+ * overwrite it (run380 loc_43AA58), and the several-exits form of that seed is
+ * prefixed " can't go in that direction, but" for every word except `exits`,
+ * `where` and `directions` (loc_43AC7E).  That is exactly lib_go()'s own
+ * refusal, so routing `exit` to lib_cmd_go_out() gets both cases right at
+ * once.
  *
  * `inside` and `outside` are absent from that twenty-word seed list, so in a
  * room without the matching exit the Runner has nothing to say and drops

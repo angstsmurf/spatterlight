@@ -598,12 +598,12 @@ run_prompt_player_name (scr_gameref_t game, scr_int resume)
  * fresh load re-asks -- exactly as the Runner behaves.
  *
  * The stored value is ADRIFT's own gender enumeration -- Male 0, Female 1,
- * Unknown/Neuter 2, the NPC_MALE/NPC_FEMALE/NPC_NEUTER of scprotos.h -- because
- * that is what a type-3 var2=7 restriction compares against (screstrs.cpp case
- * 7 does a bare `gender == var3`).  Recording male as 1 and female as 0, as
- * this used to, silently ran every gender-gated task on the opposite branch:
- * "Provenance" dressed a male player in a house dress, and "The Secret of the
- * Lost World" answered "female" but took the male path (ring to the princess).
+ * Unknown/Neuter 2, the NPC_MALE/NPC_FEMALE/NPC_NEUTER of scprotos.h --
+ * because that is what a type-3 var2=7 restriction compares against
+ * (screstrs.cpp case 7 does a bare `gender == var3`).  Recording male as 1 and
+ * female as 0 silently runs every gender-gated task on the opposite branch:
+ * "Provenance" dresses a male player in a house dress, and "The Secret of the
+ * Lost World" answers "female" but takes the male path (ring to the princess).
  */
 static void
 run_prompt_player_gender (scr_gameref_t game, scr_int resume)
@@ -826,8 +826,7 @@ run_main_startup (scr_gameref_t game)
    * reachable only from the typed-command evaluator (Sub_20_62, called solely
    * by Form1.evaluate), so walks never tick before the first command --
    * settled live in BOTH Runners (walk probe C: no CharTask fires before the
-   * first prompt; Scarier used to move walking NPCs, and fire their CharTask,
-   * during startup).
+   * first prompt).
    *
    * The zero-length half of the load start finishes here rather than
    * above: its FinishText, TaskAffected and any restart land BELOW the

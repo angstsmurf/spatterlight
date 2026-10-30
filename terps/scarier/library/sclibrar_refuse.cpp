@@ -1650,7 +1650,7 @@ lib_cmd_put_unclear (scr_gameref_t game)
    * T263): `put thyme in kettle` with task 368 `put thyme in kettle` failing
    * its not-holding restriction is "I don't understand what you want me to do
    * with the large cast iron kettle.", the same as T264 `put web in kettle`;
-   * "thyme" names an unseen object and used to reach the refusal here.
+   * "thyme" names an unseen object, which must not reach the refusal here.
    */
   if (run_priority_put_was_unnamed ())
     return FALSE;

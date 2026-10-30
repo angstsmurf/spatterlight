@@ -458,23 +458,22 @@ lib_openclose_with_half_raise_400 (scr_gameref_t game, const scr_char *line)
  * to fall through to the catch-all ("I don't understand what you want me
  * to do with the body.") or the game's DontUnderstand text.
  *
- * 3.9 does the same, and the clause used to be 4.0-only only because
- * nothing had measured it.  run390's dobattle is @44D25C, and the branch at
+ * 3.9 does the same.  run390's dobattle is @44D25C, and the branch at
  * 44D188..44D1BF is the same three tests in the same order -- seen
- * (var_158(26) = 1), no earlier-named NPC present (var_92 = 0), and an
- * inner loop over every NPC (44D10C..44D17A, testing the record's Name
- * *and* its first Alias) that clears var_8A when one the line refers to is
- * here -- ending in `Name & " isn't here!"` at 44D1B4.  The line's own
- * reference test is that same pair (lib_npc_named_in_line() above), which is
- * not the same thing as the Name alone: ALEXIS.TAF's `attack goblin` names
- * the "Forester Goblin" by its alias, and testing only the Name dropped the
- * answer through to the catch-all.  Measured against
- * the 2026-09-08 whole-corpus capture: ALEXIS.TAF driven with the cube
- * worn answers `attack wolf` with "Wolf isn't here!" from the rooms the
- * wolf has left, five turns of it (runner_probes/alexis_worn_cube.run390.txt
- * t17-19, t25-26), where Scarier said "Command not understood".  Before 3.9
- * there is no battle system at all -- neither run370.exe nor run380.exe
- * contains the string "doesn't seem to do any damage" -- so 3.90 is the floor.
+ * (var_158(26) = 1), no earlier-named NPC present (var_92 = 0), and an inner
+ * loop over every NPC (44D10C..44D17A, testing the record's Name *and* its
+ * first Alias) that clears var_8A when one the line refers to is here --
+ * ending in `Name & " isn't here!"` at 44D1B4.  The line's own reference test
+ * is that same pair (lib_npc_named_in_line() above), which is not the same
+ * thing as the Name alone: ALEXIS.TAF's `attack goblin` names the "Forester
+ * Goblin" by its alias, and testing only the Name dropped the answer through
+ * to the catch-all.  Measured against the 2026-09-08 whole-corpus capture:
+ * ALEXIS.TAF driven with the cube worn answers `attack wolf` with "Wolf isn't
+ * here!" from the rooms the wolf has left, five turns of it
+ * (runner_probes/alexis_worn_cube.run390.txt t17-19, t25-26), where Scarier
+ * said "Command not understood".  Before 3.9 there is no battle system at all
+ * -- neither run370.exe nor run380.exe contains the string "doesn't seem to do
+ * any damage" -- so 3.90 is the floor.
  *
  * Returns TRUE having printed for every such NPC.
  */
@@ -1688,16 +1687,16 @@ lib_battle_scan_with (scr_gameref_t game, scr_int npc, const scr_char *input,
  *
  * 4.0 asks about namesakes only AFTER dobattle has run, and the question
  * replaces everything the line printed; the blows themselves stand.  (In
- * Scarier the blows no longer happen on such a line -- lib_battle_attack_many()
+ * Scarier the blows do not happen on such a line -- lib_battle_attack_many()
  * asks first, a deliberate deviation -- so this tail serves the Who path
- * alone: a line naming namesakes by an alias at 4.0, below.)
- * Measured on p4BATTLEMULTI: `attack guard` against the two
- * stamina-500 Guards prints only "Which Guard.  A guard or a guard?" yet
- * draws for two blows (runner_probes/battlemulti.run400.which_a.txt), and
- * against a stamina-1 copy (p4BATTLEMULTI3) it prints both blows and both
- * deaths with no question at all, the Guards being gone by the time
- * generaltasks looks for them (runner_probes/battlemulti3.run400.which_k.txt).
- * `attack droid guard with blaster` then `look` leaves the room empty
+ * alone: a line naming namesakes by an alias at 4.0, below.)  Measured on
+ * p4BATTLEMULTI: `attack guard` against the two stamina-500 Guards prints only
+ * "Which Guard.  A guard or a guard?" yet draws for two blows
+ * (runner_probes/battlemulti.run400.which_a.txt), and against a stamina-1 copy
+ * (p4BATTLEMULTI3) it prints both blows and both deaths with no question at
+ * all, the Guards being gone by the time generaltasks looks for them
+ * (runner_probes/battlemulti3.run400.which_k.txt).  `attack droid guard with
+ * blaster` then `look` leaves the room empty
  * (runner_probes/battlemulti3.run400.which_l.txt).  Whether the question still
  * makes the line a turn is not measured; it is left admin, as the object
  * question is.

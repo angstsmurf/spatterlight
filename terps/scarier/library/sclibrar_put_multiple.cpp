@@ -1078,12 +1078,11 @@ lib_put_shut_in_container_400 (scr_gameref_t game, scr_int container)
  *   put coin in box  both coins held: a pass-0 tie, pending object kept
  *                    Which coin.  The gold coin or the silver coin?
  *
- * Scarier's matcher used to ask "Which key." for the first two and prompt
- * for the gems.  The all/and/except forms take name_object's own branches
- * (46E053, 46E0B7) and are left to the ordinary parse.  Returns TRUE when
- * the line is answered here (a prompt or the not-clear refusal); otherwise
- * a unique winner is left alone in the multiple references with
- * *REFERENCES 1, or *REFERENCES stays -1 for the ordinary parse.
+ * The all/and/except forms take name_object's own branches (46E053, 46E0B7)
+ * and are left to the ordinary parse.  Returns TRUE when the line is answered
+ * here (a prompt or the not-clear refusal); otherwise a unique winner is left
+ * alone in the multiple references with *REFERENCES 1, or *REFERENCES stays -1
+ * for the ordinary parse.
  */
 static scr_bool
 lib_put_named_400 (scr_gameref_t game, scr_int *references)
@@ -1344,10 +1343,10 @@ lib_put_in_multiple_common (scr_gameref_t game, scr_bool is_except)
  * lib_cmd_put_in_nowhere()
  * lib_cmd_put_on_nowhere()
  *
- * "put X in Y" -- or "put X on Y" -- where nothing present answers to Y.  The %object% rows above
- * cannot match such a line at all, so it used to fall all the way through to
- * the game's DontUnderstand; run390 answers it, and the answer depends on
- * whether X named anything:
+ * "put X in Y" -- or "put X on Y" -- where nothing present answers to Y.  The
+ * %object% rows above cannot match such a line at all, so without this it
+ * falls all the way through to the game's DontUnderstand; run390 answers it,
+ * and the answer depends on whether X named anything:
  *
  *   `put lamp in box`  (the box a room away)   Put the lamp inside what?
  *   `put coin in me`   ("me" is not an object) Put the coin inside what?
@@ -1619,16 +1618,15 @@ lib_cmd_put_on_nowhere (scr_gameref_t game)
  *
  * run390 insides() counts, over the whole object table, every object co()
  * finds named in the line (var_8A, 461000-461641), and separately notes the
- * one named after the preposition (var_8C).  With two or more named, no
- * "all", and none of them after the preposition, it writes "You can't put
- * anything inside that!" / "onto that!" (461769) before any task look-up,
- * and the post-put sweep follows (4624BF -> 462550): a claimant named in the
- * line runs the tasks QUIET, so a failing task leaves the refusal standing.
- * pPUTREF39.taf (make_39_putrefprobe.py), run390x: `put pebble
- * and stone in junk` / `on junk`, each with a matching task whose restriction
- * fails, answer "You can't put anything inside that!" / "onto that!"
- * (runner_probes/putref.run390.feed2.txt:8/12), where Scarier printed the
- * FailMessage.
+ * one named after the preposition (var_8C).  With two or more named, no "all",
+ * and none of them after the preposition, it writes "You can't put anything
+ * inside that!" / "onto that!" (461769) before any task look-up, and the
+ * post-put sweep follows (4624BF -> 462550): a claimant named in the line runs
+ * the tasks QUIET, so a failing task leaves the refusal standing.
+ * pPUTREF39.taf (make_39_putrefprobe.py), run390x: `put pebble and stone in
+ * junk` / `on junk`, each with a matching task whose restriction fails, answer
+ * "You can't put anything inside that!" / "onto that!"
+ * (runner_probes/putref.run390.feed2.txt:8/12), not the FailMessage.
  *
  * The target is insides()' own choice (461000-461641), 3.8's loop (see
  * lib_put_co_refusal_pre390()) with one more test: an object's Short or

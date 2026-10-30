@@ -172,7 +172,7 @@ gsc_unput_tail (const char *s)
  *
  * True when a turn text carries no visible output -- nothing but positional
  * A5_SOUND_MARK / A5_WAIT_MARK spans and whitespace (a sound-only commit's
- * spans keep the text non-empty where it used to render to "").  True for ""
+ * spans keep the text non-empty although it renders to "").  True for ""
  * itself, so a caller can use this as its whole output-less test.
  */
 static int

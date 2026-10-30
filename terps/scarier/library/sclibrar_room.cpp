@@ -248,7 +248,7 @@ lib_room_contents_npc_sentence (scr_gameref_t game, scr_int room)
    * second group.
    *
    * And the joined sentence comes *first*, ahead of the characters with their
-   * own text, which is the other half of what Scarier had backwards.
+   * own text.
    */
   GS_FOR_EACH_NPC (game, npc)
     {
@@ -1054,12 +1054,11 @@ lib_print_exits_list (scr_gameref_t game, scr_int room)
   if (!list.empty ())
     {
       /*
-       * Vary text for a lone exit.  SCARE used to print "There is an
-       * exit "/"There are exits " on turn 0, but no Runner version has
-       * that wording at all (run370-run400 binaries carry only " can
-       * only move " and " can move "), and the run400 Goldilocks
-       * transcript says "I can move ..." even in the game-start room
-       * display.
+       * Vary text for a lone exit.  SCARE prints "There is an exit "/"There
+       * are exits " on turn 0, but no Runner version has that wording at all
+       * (run370-run400 binaries carry only " can only move " and " can move
+       * "), and the run400 Goldilocks transcript says "I can move ..." even in
+       * the game-start room display.
        */
       if (list.size () == 1)
         {

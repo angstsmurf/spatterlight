@@ -441,12 +441,12 @@ uip_pronoun_t::resolve ()
    *   run370  loc_43B696   MemVar_4460AC = tense(Prefix) & " " & Short
    *   run400  loc_47F3B9   MemVar_494184 = var_140(0)         [Name]
    *
-   * Field 0 of a character really is the Name, not a prefix: run390's
-   * room lister builds "<(0)> is <(4)> <(8)>." at loc_459248 -- "Chloe is
-   * a girl." -- and matches the typed word against (0) and (8) at
-   * loc_4592B8.  We used to prepend the NPC's Prefix too, which turned
-   * "ask him about pens" into "ask the Harold about pens" (wrecked, 3.80)
-   * where the Runner writes "ask harold about pens".
+   * Field 0 of a character really is the Name, not a prefix: run390's room
+   * lister builds "<(0)> is <(4)> <(8)>." at loc_459248 -- "Chloe is a girl."
+   * -- and matches the typed word against (0) and (8) at loc_4592B8.
+   * Prepending the NPC's Prefix too would turn "ask him about pens" into "ask
+   * the Harold about pens" (wrecked, 3.80) where the Runner writes "ask harold
+   * about pens".
    */
   if (object > -1)
     object_phrase ();

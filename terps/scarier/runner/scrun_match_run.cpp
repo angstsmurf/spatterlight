@@ -325,17 +325,17 @@ run_task_is_silent_and_literal (scr_gameref_t game, scr_int task)
 /*
  * run_task_run_speaks()
  *
- * Run a matched task and say whether the line counts as answered.  3.9 and
- * 4.0 test the turn's message buffer, not the task's own text: run390 tasks()
+ * Run a matched task and say whether the line counts as answered.  3.9 and 4.0
+ * test the turn's message buffer, not the task's own text: run390 tasks()
  * saves msg on entry and reports handled when it has changed (42BDAD), and
  * run400's dispatcher reports handled when the buffer is non-empty (44CCC0).
- * So text printed by anything the task's actions set off counts -- an event
- * an execute-task action starts prints its StartText into the same buffer
- * (evt_check_events_started_by_task()).  baroo (4.00, runner_transcripts/
- * baroo.txt T107): `close machine` runs task 113, which has no CompleteText;
- * its execute-task action starts the convertor event, and the Runner prints
- * that StartText alone, where the library close used to follow it with "The
- * machine is now closed.".
+ * So text printed by anything the task's actions set off counts -- an event an
+ * execute-task action starts prints its StartText into the same buffer
+ * (evt_check_events_started_by_task()).  baroo (4.00,
+ * runner_transcripts/baroo.txt T107): `close machine` runs task 113, which has
+ * no CompleteText; its execute-task action starts the convertor event, and the
+ * Runner prints that StartText alone, without the library close's "The machine
+ * is now closed.".
  */
 static scr_bool
 run_task_run_speaks (scr_gameref_t game, scr_int task, scr_bool is_forwards)
@@ -404,16 +404,16 @@ run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
 /*
  * run_line_matches_task_strictly()
  *
- * Deliberate deviation, the gate for it.  TRUE if any task the
- * player could run here has a command that matches the line the Runner's
- * way.  When none does, run_all_commands() gives the whole line lenient
- * task matching: the tolerant %object% matcher Scarier had before the
- * Runner ports -- articles, Prefixes, aliases and case forgiven, no seen
- * gate, no pre-4.0 substitute-then-compare -- a forgiven trailing space in a
- * command (uip_set_lenient_tasks()), and, in the library's retries, the
- * canonical verb and the pre-4.0 Prefix form (lib_try_game_command_common()).
- * Every line the Runner matches keeps the Runner's answer; only lines it
- * would turn away from every task are looked at again.
+ * Deliberate deviation, the gate for it.  TRUE if any task the player could
+ * run here has a command that matches the line the Runner's way.  When none
+ * does, run_all_commands() gives the whole line lenient task matching: a
+ * tolerant %object% matcher -- articles, Prefixes, aliases and case forgiven,
+ * no seen gate, no pre-4.0 substitute-then-compare -- a forgiven trailing
+ * space in a command (uip_set_lenient_tasks()), and, in the library's retries,
+ * the canonical verb and the pre-4.0 Prefix form
+ * (lib_try_game_command_common()).  Every line the Runner matches keeps the
+ * Runner's answer; only lines it would turn away from every task are looked at
+ * again.
  *
  * The walk is a peek: the references it binds are put back, so the real
  * dispatch starts from the state it always did.
@@ -777,18 +777,18 @@ run_game_commands_common (scr_gameref_t game, const scr_char *string,
    * The Runner dispatches ONE task per typed line.  run400's dispatcher
    * Proc_19_24_44CCE0 asks the pre-matcher (Proc_19_66_454EF0) for a single
    * task, runs it, and returns "handled" only if the message buffer is
-   * non-empty (44CCC0); the restriction-failure pass (Proc_19_68_45404C)
-   * runs only when no task was found at all (44CCA5).  A silent task
-   * therefore lets the LIBRARY run, but never a second task.  run390's
-   * tasks() (42BDC4) is the same shape: checktask picks one task, execute_task
-   * runs it.  Scarier reaches the same line in several passes (peek, no
-   * restrictions, restrictions), and the later passes used to re-scan from
-   * task 0 with the first task now spent: House (4.00, 2026-09-06,
-   * runner_probes/house.run400.kiss.txt) `kiss cathy` as the first line naming
-   * Cathy runs the silent once-only task 200 `*cathy*`, and run400 then prints
-   * the library's "I'm not sure she would appreciate that!" -- the game's own
-   * kiss task 882 `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND
-   * kiss.  Scarier ran 200 and then 882 on the first line.  Library callbacks
+   * non-empty (44CCC0); the restriction-failure pass (Proc_19_68_45404C) runs
+   * only when no task was found at all (44CCA5).  A silent task therefore lets
+   * the LIBRARY run, but never a second task.  run390's tasks() (42BDC4) is
+   * the same shape: checktask picks one task, execute_task runs it.  Scarier
+   * reaches the same line in several passes (peek, no restrictions,
+   * restrictions), and the later passes must not re-scan from task 0 with the
+   * first task now spent: House (4.00, runner_probes/house.run400.kiss.txt)
+   * `kiss cathy` as the first line naming Cathy runs the silent once-only task
+   * 200 `*cathy*`, and run400 then prints the library's "I'm not sure she
+   * would appreciate that!" -- the game's own kiss task 882
+   * `[hug/kiss/touch/shake] [her/cathy]` only runs on the SECOND kiss, where a
+   * re-scan runs 200 and then 882 on the first line.  Library callbacks
    * (is_library) are left alone: those model the Runner's own pre-matcher
    * look-ups from inside the library handlers, which happen after the
    * dispatcher regardless.
@@ -889,10 +889,9 @@ run_game_commands_in_parser_context (scr_gameref_t game, const scr_char *string,
  * Measured live on House.taf (runner_probes/house.run400.wood.txt,
  * runner_probes/house.run400.t92.txt, runner_probes/house.run400.t93.txt): at
  * the fireplace, "put wood in fireplace" with the wood on the floor matches
- * task 60 "* %object%" (a take-flagged task restricted to the house
- * spinning, FailMessage empty), and run400 still prints "(Taking the wood
- * first)" -- the restriction-blind probe used to count that task as a hit
- * and skip the take.
+ * task 60 "* %object%" (a take-flagged task restricted to the house spinning,
+ * FailMessage empty), and run400 still prints "(Taking the wood first)" -- a
+ * restriction-blind probe would count that task as a hit and skip the take.
  */
 static scr_bool
 run_task_match_has_text (scr_gameref_t game, scr_int task,

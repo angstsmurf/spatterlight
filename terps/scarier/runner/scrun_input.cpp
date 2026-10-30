@@ -663,13 +663,13 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
    * MemVar_49420A at 48A004/48A009, run390 in MemVar_4681A8/4681AA at
    * 45EC66/45EC6B.  Only an %object% / %character% bind or a library handler
    * sets them again, so a state restriction on "the referenced object" in a
-   * task whose command names no %object% fails outright (run400 480F9E,
-   * run390 44ABF0) -- it never sees whatever the previous command referenced.
-   * Professor's task 7 (`take mailbox`, square) is the case: run400 never
-   * runs it (runner_probes/professor.run400.profmail.txt,
+   * task whose command names no %object% fails outright (run400 480F9E, run390
+   * 44ABF0) -- it never sees whatever the previous command referenced.
+   * Professor's task 7 (`take mailbox`, square) is the case: run400 never runs
+   * it (runner_probes/professor.run400.profmail.txt,
    * runner_probes/professor.run400.mail2.txt,
-   * runner_probes/professor.run400.profmail3.txt), Scarier used to pass it on
-   * the mailbox left over from `examine mailbox`.
+   * runner_probes/professor.run400.profmail3.txt), not even on the mailbox
+   * left over from `examine mailbox`.
    *
    * 3.7 and 3.8 forget too, which p*OBJREF's task 2 shows from the printing
    * side: `zork`, whose command binds nothing, prints its text's %object%

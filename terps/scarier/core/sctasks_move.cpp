@@ -302,9 +302,9 @@ task_move_object (scr_gameref_t game, scr_int object,
    * Ignore negative object indexes, as evt_move_object() does.  Var1 = 2 is
    * "the referenced object", and a task reached by redirection (or matched by
    * a pattern with no %object%) has none, so var_get_ref_object() hands back
-   * -1.  The Runner's Select Case simply moves nothing; SCARE used to walk
-   * into gs_object_*() and abort on its range assertion.  Mortality's task
-   * 314 [? the return] does exactly this.
+   * -1.  The Runner's Select Case simply moves nothing; SCARE walks into
+   * gs_object_*() and aborts on its range assertion.  Mortality's task 314 [?
+   * the return] does exactly this.
    */
   if (object < 0)
     {

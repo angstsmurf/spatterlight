@@ -1667,15 +1667,14 @@ gs_populate_objects (scr_gameref_t game, scr_prop_setref_t bundle)
        * #InitialPosition 0 (or, in a few hundred cases, the room they sit in,
        * 4 + room), so in practice **no static ever starts seen**.
        *
-       * This corrects the reading this port shipped with on 2026-08-24, which
-       * had the static branch's Where/Type reaching the dynamic mapping and so
-       * marked every ONE_ROOM static seen at load.  Measured live: `x cauldron`
+       * Letting the static branch's Where/Type reach the dynamic mapping would
+       * mark every ONE_ROOM static seen at load.  Measured live: `x cauldron`
        * on turn 2 of asdfa (runner_probes/asdfa.run400.txt), `x desk` in CBN
        * (runner_probes/cbn.run400.txt), `x dust` in The Cellar
        * (runner_probes/cellar.run400.txt) -- all three ONE_ROOM statics the
        * player has not been shown, all three answered "You see no such thing."
-       * by run400 where Scarier reached its second, seen-object pass and said
-       * "You can't see the <X> from here!".
+       * by run400, where marking them seen reaches the second, seen-object
+       * pass and says "You can't see the <X> from here!".
        */
       if (is_static)
         {
@@ -1872,18 +1871,17 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
     /*
      * ParentObject is not an object index.  It is the 1-based ordinal the
      * Generator's position combo holds -- the n-th standable object for a
-     * standing or sitting start, the n-th lieable object for a lying one,
-     * 0 for the floor -- exactly the encoding the "Move player to standing/
+     * standing or sitting start, the n-th lieable object for a lying one, 0
+     * for the floor -- exactly the encoding the "Move player to standing/
      * sitting/lying on" task action uses (sctasks_move.cpp
      * task_run_move_player_action), and the restriction "Player must be
-     * sitting on" tests.  We
-     * used to read it as a raw 1-based object index, so CIBASS.taf (lying,
-     * ParentObject 1) started the player on object 0, the window, and
-     * `stand` answered "I stand up from the window."  run400 answers "I
-     * stand up from the bed." (measured): the bed is the first
-     * lieable object.  Fugitive.taf (lying, 1) is the same shape and its
-     * golden used to read "You stand up from your watch."; 3monkeys.taf
-     * (sitting, 4) has "sheet" as object 3 but "bed" as the 4th standable.
+     * sitting on" tests.  Read as a raw 1-based object index, CIBASS.taf
+     * (lying, ParentObject 1) would start the player on object 0, the window,
+     * and `stand` would answer "I stand up from the window."  run400 answers
+     * "I stand up from the bed." (measured): the bed is the first lieable
+     * object.  Fugitive.taf (lying, 1) is the same shape (read as an index it
+     * gives "You stand up from your watch."); 3monkeys.taf (sitting, 4) has
+     * "sheet" as object 3 but "bed" as the 4th standable.
      */
     scr_int ordinal = prop_get_integer (bundle, "I<-ss", vt_key);
 
@@ -1946,16 +1944,15 @@ gs_populate_seen_sweep (scr_gameref_t game, scr_prop_setref_t bundle)
    * referenceable, which is the same rule lib_print_room_description() now
    * applies on every later look.
    *
-   * The reading this port shipped with on 2026-08-24 had a static whose
-   * Where/Type was ONE_ROOM starting seen, which is the same answer as this
-   * sweep for a static in the start room but a wrong one for a ONE_ROOM
-   * static anywhere else.  That is the asdfa/CBN/Cellar divergence:
+   * Starting a static whose Where/Type is ONE_ROOM seen would give the same
+   * answer as this sweep for a static in the start room but a wrong one for a
+   * ONE_ROOM static anywhere else.  That is the asdfa/CBN/Cellar divergence:
    * `x cauldron` (runner_probes/asdfa.run400.txt), `x desk`
    * (runner_probes/cbn.run400.txt) and `x dust`
-   * (runner_probes/cellar.run400.txt) are all ONE_ROOM statics of some
-   * *other* room, all answered "You see no such thing." by run400 where
-   * Scarier had reached its second, seen-object pass and said "You can't see
-   * the <X> from here!".
+   * (runner_probes/cellar.run400.txt) are all ONE_ROOM statics of some *other*
+   * room, all answered "You see no such thing." by run400, where starting them
+   * seen reaches the second, seen-object pass and says "You can't see the <X>
+   * from here!".
    */
   const scr_int taf_version = prop_get_taf_version (bundle);
   scr_int index_;

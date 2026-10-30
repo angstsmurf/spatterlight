@@ -296,11 +296,11 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   /*
    * The Runner's give is word-order free: the character handler tests
    * c("give"), a present NPC, and then every object whose name appears
-   * anywhere in the line (run400 48022F-480384, run390 45A0BA, run380
-   * 440E8C, run370 438F79), so `give cathy diary` and `give diary cathy`
-   * both offer the diary.  House (4.00) runner_probes/house.run400.b.txt
-   * 2026-09-06: `give cathy diary` gets the same reply as `give diary to
-   * cathy`.  Scarier used to fall to "Give the diary to who?".
+   * anywhere in the line (run400 48022F-480384, run390 45A0BA, run380 440E8C,
+   * run370 438F79), so `give cathy diary` and `give diary cathy` both offer
+   * the diary.  House (4.00) runner_probes/house.run400.b.txt: `give cathy
+   * diary` gets the same reply as `give diary to cathy`, not "Give the diary
+   * to who?".
    */
   {"give %character% %object%", lib_cmd_give_object_npc},
   {"give %object% %character%", lib_cmd_give_object_npc},
@@ -944,7 +944,7 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
  * that can actually complete beat a matched task whose restrictions fail ("put
  * pill in cup" answers the library's "You put the small pill inside the coffee
  * cup." while the task's fail message is suppressed), but when the put would
- * be REFUSED (target not a container/ surface) the failing task's message wins
+ * be REFUSED (target not a container/surface) the failing task's message wins
  * ("drop pill in slime" prints the fail message, not the refusal).  So in this
  * pass the validity check defers instead of refusing -- run_priority_defer()
  * -- and the scan stops so the plain-drop %text% rows cannot swallow the
@@ -1525,16 +1525,16 @@ run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
  * run_line_opens_with_scare_word()
  * run_game_owns_scare_word()
  *
- * Deliberate deviation's limit.  `verbose`, `brief`, `notify`,
- * `notification`, `hints`, `hist`, `redo`, `gpl`, `license`, `statusline` and
- * `stats` are SCARE's words; no Runner answers them (see the audit note in
+ * Deliberate deviation's limit.  `verbose`, `brief`, `notify`, `notification`,
+ * `hints`, `hist`, `redo`, `gpl`, `license`, `statusline` and `stats` are
+ * SCARE's words; no Runner answers them (see the audit note in
  * STANDARD_COMMANDS).  A task is matched before the library, so one that
- * speaks keeps its line -- but one that does not claim it (restrictions
- * that fail without a message, nothing to say, already done, another room)
- * used to lose it to our command, where the Runner says it does not
- * understand: `stats` in suburbanprodigy3 was that, and the census
- * (SCR_CENSUS_META, tools/scrun_census.cpp) finds 275 tasks in 28 games
- * that take `hints`, 12 games whose `statusline` we answered at the first
+ * speaks keeps its line -- but one that does not claim it (restrictions that
+ * fail without a message, nothing to say, already done, another room) would
+ * otherwise lose it to our command, where the Runner says it does not
+ * understand: `stats` in suburbanprodigy3 is that, and the census
+ * (SCR_CENSUS_META, tools/scrun_census.cpp) finds 275 tasks in 28 games that
+ * take `hints`, 12 games whose `statusline` we would answer at the first
  * prompt.
  *
  * So a word a game's tasks name is the game's: when any task has a command

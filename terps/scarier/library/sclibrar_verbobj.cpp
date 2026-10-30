@@ -50,14 +50,13 @@
  *
  * Measured on House (4.00) from the fireplace, run400
  * runner_probes/house.run400.cathy_l.txt and
- * runner_probes/house.run400.cathy_m.txt: `throw diary at cathy`,
- * `throw diary at zzz`, `wibble diary` and `wibble diary cathy` all answer "I
- * don't understand what you want me to do with the diary." (an NPC is not a
+ * runner_probes/house.run400.cathy_m.txt: `throw diary at cathy`, `throw diary
+ * at zzz`, `wibble diary` and `wibble diary cathy` all answer "I don't
+ * understand what you want me to do with the diary." (an NPC is not a
  * candidate), while `throw diary at fireplace`, `throw fireplace at diary`,
  * `throw diary at hook`, `throw fireplace diary` and `wibble diary fireplace`
  * all print "What?", House's [error=6] DontUnderstand -- with the fireplace
- * freshly examined or not.  Scarier used to speak for the first object its
- * `* %object% *` row bound.
+ * freshly examined or not.
  *
  * Returns the resolver's object, -1 for a tie, -2 when nothing scored.
  * 3.8 (run380 442F5D) instead walks the objects in index order and speaks
@@ -314,9 +313,9 @@ lib_verb_object_resolve_400 (scr_gameref_t game)
  * put the spyhole?" and no event fires
  * (runner_probes/thelasthour.run400.spyhole.txt); Shadowpeak `put sword near
  * cell door` answers "Where do you want to put the sword?" and Seeker stays
- * quiet (runner_probes/shadowpeak.run400.celldoor.txt).  Scarier's catch-all
- * used to answer "I don't understand what you want me to do with the bowl."
- * and tick.
+ * quiet (runner_probes/shadowpeak.run400.celldoor.txt).  Without this the
+ * catch-all answers "I don't understand what you want me to do with the bowl."
+ * and ticks.
  *
  * Only lines the can't-see clause above lets through get here, which is
  * the Runner's order too (therest 4887C1 runs before the put parser: see
@@ -552,8 +551,8 @@ lib_put_split_400 (scr_gameref_t game, const std::string &line,
            *
            * Only "nothing named" zeroes the split, not a tie.  Widening the
            * scorer past co() makes namesakes elsewhere in the game tie where
-           * the present one used to win alone, and a tie must not be allowed
-           * to undo a split the narrow scorer kept: provenance's two wooden
+           * the present one would win alone, and a tie must not be allowed to
+           * undo a split the narrow scorer kept: provenance's two wooden
            * canteens turn `put canteen on altar` into "Where do you want to
            * put that?" (against runner_probes/provenance.run400.txt, which
            * puts it on the altar), and Dragon Shrine's two bodies do the same
@@ -943,19 +942,19 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
  * Returns the present object the caller goes on to answer for, -2 once this
  * has printed its own answer, or -1 when there is nothing to say.
  *
- * The walk's membership is the Runner's, not our matcher's: run380 442F5D
- * asks co() about EVERY object, so every object whose Short or one of whose
- * Aliases is in the line is a candidate and index order alone decides which
- * of them speaks.  Our references bind one candidate off the line, which
- * puts the answer in line order instead: with a gem at index 0 aliased
- * "stone" and a rock at index 1, run370 and run380 answer both `zug rock
- * stone` and `zug stone rock` with "I don't understand what you want me to
- * do with the gem." (p37/p38TEXTSRC, runner_probes/textsrc.run370.rtf,
- * runner_probes/textsrc.run380.rtf), where we used to answer the
- * rock for the first line.  3.70 resolves the alias here although its takes()
- * test is a bare c(Short) -- `blip stone` against a game with no matching task
- * is the gem's catch-all in both older Runners -- so the scan below reads
- * the Aliases at both versions, unlike lib_co_pre400().
+ * The walk's membership is the Runner's, not our matcher's: run380 442F5D asks
+ * co() about EVERY object, so every object whose Short or one of whose Aliases
+ * is in the line is a candidate and index order alone decides which of them
+ * speaks.  Our references bind one candidate off the line, which puts the
+ * answer in line order instead: with a gem at index 0 aliased "stone" and a
+ * rock at index 1, run370 and run380 answer both `zug rock stone` and `zug
+ * stone rock` with "I don't understand what you want me to do with the gem."
+ * (p37/p38TEXTSRC, runner_probes/textsrc.run370.rtf,
+ * runner_probes/textsrc.run380.rtf), not with the rock for the first line.
+ * 3.70 resolves the alias here although its takes() test is a bare c(Short) --
+ * `blip stone` against a game with no matching task is the gem's catch-all in
+ * both older Runners -- so the scan below reads the Aliases at both versions,
+ * unlike lib_co_pre400().
  */
 scr_bool
 lib_catch_all_names_pre390 (scr_gameref_t game, scr_int object)
@@ -1438,11 +1437,11 @@ lib_verb_object_answer (scr_gameref_t game, scr_int object)
 
   /*
    * 4.0: this answer is not a turn.  The catch-all at run400 48B19A-48B30A
-   * stores 1 in MemVar_494281 (48B232), and the end-of-turn walk+event tick
-   * at 48B599 runs only while that flag is 0; the DontUnderstand path a tie
-   * takes (48B573) jumps past the tick too.  So neither answer moves an NPC
-   * or advances an event.  Shadowpeak's second `attack margo with sword`
-   * used to be followed by "Seeker hums!" here; run400 is silent.
+   * stores 1 in MemVar_494281 (48B232), and the end-of-turn walk+event tick at
+   * 48B599 runs only while that flag is 0; the DontUnderstand path a tie takes
+   * (48B573) jumps past the tick too.  So neither answer moves an NPC or
+   * advances an event.  Shadowpeak's second `attack margo with sword` is not
+   * followed by "Seeker hums!" here; run400 is silent.
    */
   if (lib_is_version_400 (game))
     game->is_admin = TRUE;
@@ -1632,8 +1631,8 @@ lib_cmd_verb_object (scr_gameref_t game)
  *
  * Measured on the 2026-09-08 whole-corpus capture: alexis_worn_cube (3.90)
  * answers `attack narfild`, `attack goblin` and `attack monster` from rooms
- * those NPCs have never been seen in with "Who?" -- 94 turns of it, and
- * eight more on `alexis` -- where Scarier printed the DontUnderstand text.
+ * those NPCs have never been seen in with "Who?" -- 94 turns of it, and eight
+ * more on `alexis` -- not with the DontUnderstand text.
  *
  * The Runner's tail consults no reference flags: it rescans the typed line
  * for every NPC in index order, so this does the same rather than reading
@@ -1738,16 +1737,15 @@ lib_cmd_verb_npc (scr_gameref_t game)
     count = 1;
   /*
    * 4.0: the Prefix contest settles the crowd before the question is even
-   * considered.  The tail calls npc_in_command(index, 0) per NPC (4805EB),
-   * and mode 0 with two or more present, seen namesakes falls to 45E892:
-   * `If Proc_21_49_450610(word) = index` -- the contest's winner returns
-   * the containment TRUE and every rival returns FALSE, so the catch-all
-   * names the winner.  Only a tie (450610 = &HFF) flags Me(424) and leaves
-   * the "Which <term>." question to generaltasks.  p4PFX `blue guard`, a
-   * line with no verb at all and three characters aliased "guard", is
-   * "I don't understand what you want to do with Bob."
-   * (runner_probes/pfx.run400.txt turn 5), where we printed the bare
-   * DontUnderstand.
+   * considered.  The tail calls npc_in_command(index, 0) per NPC (4805EB), and
+   * mode 0 with two or more present, seen namesakes falls to 45E892: `If
+   * Proc_21_49_450610(word) = index` -- the contest's winner returns the
+   * containment TRUE and every rival returns FALSE, so the catch-all names the
+   * winner.  Only a tie (450610 = &HFF) flags Me(424) and leaves the "Which
+   * <term>." question to generaltasks.  p4PFX `blue guard`, a line with no
+   * verb at all and three characters aliased "guard", is "I don't understand
+   * what you want to do with Bob."  (runner_probes/pfx.run400.txt turn 5), not
+   * the bare DontUnderstand.
    */
   if (count > 1 && lib_is_version_400 (game) && run_get_dispatch_input ())
     {

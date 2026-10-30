@@ -87,7 +87,7 @@ lib_examine_self_pre390 (scr_gameref_t game)
   /*
    * And that is the whole reply: neither run370's block (435A9B-435BEA) nor
    * run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8 `x me` never
-   * says "You are wearing ..." -- only `i` does.  run370x/ run380x
+   * says "You are wearing ..." -- only `i` does.  run370x/run380x
    * p37SITN/p38SITN `wear hat sit` then `x me` (runner_probes/sitn.run370.rtf,
    * runner_probes/sitn.run380.rtf): "...the circumstances.  You are sitting
    * down." while `i` lists the hat worn.
@@ -1487,12 +1487,12 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
       {
         /*
          * Openness state, indexed by openness from OBJ_OPEN.  Always " is ":
-         * no Runner inflects this one.  run370, run380, run390 and run400
-         * each carry only " is open." / " is closed." / " is locked."
-         * (run400 examine at 47395C and 4717F5/47183E/471887), with no
-         * " are " variant anywhere in their string pools, and man_overboard
-         * (4.00) measures `x drawers` as "The set of drawers is closed."
-         * where we used to select "are" from the "some"-ish prefix.
+         * no Runner inflects this one.  run370, run380, run390 and run400 each
+         * carry only " is open." / " is closed." / " is locked."  (run400
+         * examine at 47395C and 4717F5/47183E/471887), with no " are " variant
+         * anywhere in their string pools, and man_overboard (4.00) measures `x
+         * drawers` as "The set of drawers is closed."  although its prefix is
+         * "some"-ish.
          */
         static const scr_char *const states[] = {
           " is open.", " is closed.", " is locked."

@@ -1207,21 +1207,20 @@ lib_is_version_390 (scr_gameref_t game)
  *
  * Mark a built-in meta-command as an administrative turn -- but only for
  * 3.90/4.00 games.  Administrative turns exist only from 3.90: run390
- * generaltasks (460D6C) sets its flag 468219 for history/score/count/
- * information/end/turns, and its end-of-turn characters()+events() at
- * 460675/46067A is guarded by that flag.  run380 generaltasks (44349C) and
- * run370 (43B5xx) have no such flag: their tail (run380 443160-44317E,
- * run370 43C88D-43C8AB) ticks characters()+events() after EVERY command
- * that left output, unless the game has ended; only opensave() (save/
- * restore/restart, GoTo 443326) and quit (unloads the form) bypass it.
- * Measured in run380 haunt.taf: the `score` at turn 83 is followed
+ * generaltasks (460D6C) sets its flag 468219 for
+ * history/score/count/information/end/turns, and its end-of-turn
+ * characters()+events() at 460675/46067A is guarded by that flag.  run380
+ * generaltasks (44349C) and run370 (43B5xx) have no such flag: their tail
+ * (run380 443160-44317E, run370 43C88D-43C8AB) ticks characters()+events()
+ * after EVERY command that left output, unless the game has ended; only
+ * opensave() (save/restore/restart, GoTo 443326) and quit (unloads the form)
+ * bypass it.  Measured in run380 haunt.taf: the `score` at turn 83 is followed
  * by the Weather event's finish text and the grandfather-clock line, which
- * Scarier had suppressed as an administrative turn.  The 3.8 turn counter
+ * treating it as an administrative turn would suppress.  The 3.8 turn counter
  * (44F138, 441A21) likewise increments on every command, so the pre-3.90
- * non-admin path is right on both counts.  Callers are the meta-commands
- * 3.8 recognises and answers (score, turns, count, hint, help, about,
- * clear, history, where); verbs 3.8 does not know at all keep their 4.0
- * behaviour.
+ * non-admin path is right on both counts.  Callers are the meta-commands 3.8
+ * recognises and answers (score, turns, count, hint, help, about, clear,
+ * history, where); verbs 3.8 does not know at all keep their 4.0 behaviour.
  */
 void
 lib_set_admin (scr_gameref_t game)

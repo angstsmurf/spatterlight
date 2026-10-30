@@ -2085,11 +2085,11 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
  * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
  * reaches.
  *
- * 3.70 is not in this: its takes() calls no co() at all, and settles a
- * crowd of its own namesakes in lib_disambiguate_object_common().  A rock
- * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both and
- * the rock speaks (p37OPENA, runner_probes/opena.run370.rtf) --
- * and this gate used to turn that into "Take what?".
+ * 3.70 is not in this: its takes() calls no co() at all, and settles a crowd
+ * of its own namesakes in lib_disambiguate_object_common().  A rock ALIASED
+ * "gem" beside a gem is no crowd to it -- `take gem` takes both and the rock
+ * speaks (p37OPENA, runner_probes/opena.run370.rtf) -- and this gate must not
+ * turn that into "Take what?".
  *
  * TRUE when the row is to be declined.
  */

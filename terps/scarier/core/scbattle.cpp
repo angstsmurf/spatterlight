@@ -671,16 +671,15 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
     {
     case 0:                            /* Attitude (set, NPCs only). */
       /*
-       * The value is written to the NPC's attitude byte as it stands, in
-       * both Runners: run400 execute_action 48D747-48D78A and run390
-       * 456BB1-456BF4 store CByte(var3) into record 172 / 108, the same
-       * byte the loader fills from the .taf (0 = neutral, 1 = ally, 2 =
-       * enemy, the encoding charhitwho's "3 - attitude" test reads).  Scarier
-       * used to reorder it as if it were a Generator combo index (0 = ally,
-       * 1 = neutral), which kept deaths' Joshua an ally through the `kill
-       * ross` action that sets him to 0: the Runner then has one candidate
-       * for Ross's and the demon's blows, and it is always the player
-       * (runner_transcripts/deaths T42, T48, T49; 11 = 11 draws either way).
+       * The value is written to the NPC's attitude byte as it stands, in both
+       * Runners: run400 execute_action 48D747-48D78A and run390 456BB1-456BF4
+       * store CByte(var3) into record 172 / 108, the same byte the loader
+       * fills from the .taf (0 = neutral, 1 = ally, 2 = enemy, the encoding
+       * charhitwho's "3 - attitude" test reads).  It is not a Generator combo
+       * index (0 = ally, 1 = neutral): deaths' `kill ross` action sets Joshua
+       * to 0, and the Runner then has one candidate for Ross's and the demon's
+       * blows, and it is always the player (runner_transcripts/deaths T42,
+       * T48, T49; 11 = 11 draws either way).
        */
       battle->attitude = value;
       break;
@@ -730,17 +729,17 @@ battle_change_attribute (scr_gameref_t game, scr_int npc,
        * an uncapped 25..35 made it "doesn't seem to do any damage".
        *
        * run390 is the same rule: execute_action 4573DC writes strength =
-       * Proc_2_1_427948(max, cur + delta) at 456EFA (player) / 456F64
-       * (NPC), defence at 45714E / 4571B8, and Proc_2_1_427948 is min()
-       * too (Scarier used to floor at zero and not cap at 3.9).  solw's
-       * green potion (+20 strength, +20 defence, then +20 to both maxes)
-       * therefore leaves the player at 30/30: the ghost's 50 lands with
-       * damage ("A ghost hits you.", runner_transcripts/secret_of_lost_world
-       * T125-T126, Kronos T164), where the uncapped 50 defence printed
-       * ", but it doesn't seem to do any damage.".  spirits_flight's cake
-       * (+3 defence, max 5) changes nothing, so the witch's 6 lands at T17;
-       * Moyru's death lifts the max to 10 and the cheese's +3 then counts,
-       * so the sorceress's 6 does no damage at T27 -- both as the Runner.
+       * Proc_2_1_427948(max, cur + delta) at 456EFA (player) / 456F64 (NPC),
+       * defence at 45714E / 4571B8, and Proc_2_1_427948 is min() too, with no
+       * floor at zero.  solw's green potion (+20 strength, +20 defence, then
+       * +20 to both maxes) therefore leaves the player at 30/30: the ghost's
+       * 50 lands with damage ("A ghost hits you.",
+       * runner_transcripts/secret_of_lost_world T125-T126, Kronos T164), where
+       * the uncapped 50 defence printed ", but it doesn't seem to do any
+       * damage.".  spirits_flight's cake (+3 defence, max 5) changes nothing,
+       * so the witch's 6 lands at T17; Moyru's death lifts the max to 10 and
+       * the cheese's +3 then counts, so the sorceress's 6 does no damage at
+       * T27 -- both as the Runner.
        */
       battle->lo[slot] = battle_capped (battle->lo[slot] + value,
                                         battle->max[slot]);
@@ -1074,19 +1073,18 @@ static const scr_char *const BATTLE_METHOD_VERBS[6]
  * and carries no version gate.  run390's player blow is Sub dohit(char,
  * weapon) @438B50: entry 43881C reads the NPC record, and 43882A..43886F is
  * literally `if Alias(0) <> "" then (Prefix <> "" ? Prefix & " " & Alias :
- * Alias) else Name`, with no attitude test -- the same as Proc_11_1.  An
- * NPC's blow is Sub chardohit(char1, char2) @442C7C, which builds the
- * attacker's name at 4423B4 and the target's at 442483 through the identical
- * ladder plus `And record(108) = 2` -- the 3.9 record's attitude byte, where
- * 4.0's sits at +172 -- so an ally or a neutral keeps its Name, the same as
- * Proc_11_2.  Measured against the whole-corpus run390 capture:
- * ALEXIS.TAF's NPC 4 is Name "Wolf", Prefix "a grey", Alias "wolf", and its
- * transcript reads "You hit a grey wolf with the magic cube.  A grey wolf
- * hits you." where scarier printed "Wolf" both times.  The pre-4.0 gate this
- * comment used to claim came from misreading run390 @4595DB, which is not a
- * battle site at all; 3.7 and 3.8 have no battle system whatsoever (the
- * string "doesn't seem to do any damage" is absent from both binaries), so
- * battle_legacy only ever meant 3.9 here.
+ * Alias) else Name`, with no attitude test -- the same as Proc_11_1.  An NPC's
+ * blow is Sub chardohit(char1, char2) @442C7C, which builds the attacker's
+ * name at 4423B4 and the target's at 442483 through the identical ladder plus
+ * `And record(108) = 2` -- the 3.9 record's attitude byte, where 4.0's sits at
+ * +172 -- so an ally or a neutral keeps its Name, the same as Proc_11_2.
+ * Measured against the whole-corpus run390 capture: ALEXIS.TAF's NPC 4 is Name
+ * "Wolf", Prefix "a grey", Alias "wolf", and its transcript reads "You hit a
+ * grey wolf with the magic cube.  A grey wolf hits you." where scarier printed
+ * "Wolf" both times.  run390 @4595DB, which can be misread as a pre-4.0 gate,
+ * is not a battle site at all; 3.7 and 3.8 have no battle system whatsoever
+ * (the string "doesn't seem to do any damage" is absent from both binaries),
+ * so battle_legacy only ever meant 3.9 here.
  */
 static scr_bool
 battle_npc_name (scr_gameref_t game, scr_int npc, scr_int naming,
@@ -1769,20 +1767,20 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
  *
  * run400 Battles.bas Proc_11_14 (451DF0) tests NOTHING about a candidate's
  * stamina: the count loop (451CA6-451D31) takes every other NPC in the same
- * room whose attitude is 3 - own, the player is added (451D31-451D48) when
- * the attacker is an enemy standing in the player's room, one draw picks
- * (451D48) and the second loop (451D65-451DDC) re-walks the same order.  A
- * character at 0 stamina is therefore a legitimate target.  Killed NPCs are
- * out of every room (room -5 there, location 0 here), so this only reaches
- * characters that ROLLED 0 at load -- an NPC whose Stamina range starts at 0
- * (Shadowpeak's Holga, 0..50, before recovery brings her back), or the player
- * of a game whose player Stamina is 0..0.  The Runner then plays the blow
- * out: chardohit -> Proc_11_0, damage >= stamina -> death (Proc_21_62 for the
- * player, "falls down, dead." and the KilledTask for an NPC), so a 0-stamina
- * player dies to the first hostile in the room, and an ally rolled at 0 is
- * killed by the first enemy that picks it.  Scarier used to skip 0-stamina
- * candidates in both loops, which made those characters unhittable and
- * changed the draw cadence (no pick draw when they were the only candidate).
+ * room whose attitude is 3 - own, the player is added (451D31-451D48) when the
+ * attacker is an enemy standing in the player's room, one draw picks (451D48)
+ * and the second loop (451D65-451DDC) re-walks the same order.  A character at
+ * 0 stamina is therefore a legitimate target.  Killed NPCs are out of every
+ * room (room -5 there, location 0 here), so this only reaches characters that
+ * ROLLED 0 at load -- an NPC whose Stamina range starts at 0 (Shadowpeak's
+ * Holga, 0..50, before recovery brings her back), or the player of a game
+ * whose player Stamina is 0..0.  The Runner then plays the blow out: chardohit
+ * -> Proc_11_0, damage >= stamina -> death (Proc_21_62 for the player, "falls
+ * down, dead." and the KilledTask for an NPC), so a 0-stamina player dies to
+ * the first hostile in the room, and an ally rolled at 0 is killed by the
+ * first enemy that picks it.  Neither loop skips 0-stamina candidates:
+ * skipping them makes those characters unhittable and changes the draw cadence
+ * (no pick draw when they are the only candidate).
  */
 static scr_bool
 battle_is_foe (scr_gameref_t game, scr_int npc, scr_int other)

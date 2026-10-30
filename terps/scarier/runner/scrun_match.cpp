@@ -1466,18 +1466,17 @@ run_command_match_t::trace (void) const
                 task, pattern, string);
   {
     /* SCR_TRACE_SCOPE: flag a turn where scope decides which
-     * object a %object% task command binds.  What the audit was
-     * written for is now measured and ported -- 4.0 makes two
-     * passes, present-and-seen then absent-but-seen, and takes the
-     * FIRST in index order of whichever pass bound (p4OBJREF,
-     * runner_probes/objref.run400.txt; uip_match_entity()) -- so this
-     * is no longer a divergence report but a way of finding the corpus
-     * turns that exercise the rule, and of watching the older Runners,
-     * which have no scope test at all and let the LAST seen namesake
-     * win wherever it stands.  SCOPE-MISS = nothing that matched is
-     * present, so 4.0 bound on its second pass; SCOPE-BIND = the bound
-     * object is absent while a present one also matched, which below
-     * 4.0 is the Runner's answer and at 4.0 should no longer
+     * object a %object% task command binds.  The rule it watches is measured
+     * and ported -- 4.0 makes two passes, present-and-seen then
+     * absent-but-seen, and takes the FIRST in index order of whichever pass
+     * bound (p4OBJREF, runner_probes/objref.run400.txt; uip_match_entity()) --
+     * so this is not a divergence report but a way of finding the corpus turns
+     * that exercise the rule, and of watching the older Runners, which have no
+     * scope test at all and let the LAST seen namesake win wherever it stands.
+     * SCOPE-MISS = nothing that matched is present, so 4.0 bound on its second
+     * pass; SCOPE-BIND = the bound object is absent while a present one also
+     * matched, which below 4.0 is the Runner's answer and at 4.0 should no
+     * longer
      * happen. */
     if (SCR_TRACE_ON ("SCR_TRACE_SCOPE")
         && strstr (pattern, "%object%") != nullptr)

@@ -523,8 +523,8 @@ lib_try_game_command_common (scr_gameref_t game,
 
       /*
        * Try the command with prefixes on both the target object and the
-       * associate.  This used to also try the prefix-dropped combinations, but
-       * the real Runner does not: probed live (FM7 + a TheADRIFTProject .tas
+       * associate, but not the prefix-dropped combinations, because the real
+       * Runner does not try them: probed live (FM7 + a TheADRIFTProject .tas
        * transplant in run400), "put pill in cup" completes the library put
        * untouched by a matched-but-failing "put * pill in cup" task -- the
        * prefix-less retry is exactly the form that task would steal.  (The
@@ -1029,10 +1029,10 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
    * Task 72's own command is the literal, unrestricted, textless "drop cape to
    * the floor"; typing it live gets the library's ordinary "Player drop the
    * cape." with the score unchanged, runner_probes/et2.run400.txt,
-   * runner_probes/et4.run400.txt), where scarier's exact-match-only %object%
-   * previously failed to parse "cape to the floor" at all, so the library's
-   * drop never ran and the command fell through to "Drop what?" instead.  This
-   * fallback is tried last so it never preempts a real "X and Y" list.
+   * runner_probes/et4.run400.txt), where an exact-match-only %object% fails to
+   * parse "cape to the floor" at all, so the library's drop never runs and the
+   * command falls through to "Drop what?" instead.  This fallback is tried
+   * last so it never preempts a real "X and Y" list.
    */
   list = var_get_ref_text (vars);
   if (uip_match ("%object%", list, game))

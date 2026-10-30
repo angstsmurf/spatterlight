@@ -287,8 +287,8 @@ lib_drop_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * coin inside the held box answers `drop coin` with "You drop the coin."
  * (runner_probes/dark.run390.putin2.txt:61), and on p4TFROM under run400 the
  * same turn is "You drop the coin."
- * (runner_probes/tfrom.run400.putin2.txt:52).  Scarier used to answer "You
- * are not holding the coin." on both.  Measured 2026-09-12.
+ * (runner_probes/tfrom.run400.putin2.txt:52), not "You are not holding the
+ * coin."
  */
 static scr_bool
 lib_drop_named_filter (scr_gameref_t game, scr_int object, scr_int unused)
@@ -2522,11 +2522,10 @@ lib_cmd_remove_multiple (scr_gameref_t game)
  *
  * List objects carried and worn by the player.
  *
- * Listing reveals: every object this prints is marked seen, exactly as the
- * NPC lister marks an NPC's possessions (lib_list_npc_inventory).  That is
- * the ONLY thing that reveals a possession the player was never shown --
- * there is no standing "anything you hold is seen" rule, which is what this
- * port used to have.
+ * Listing reveals: every object this prints is marked seen, exactly as the NPC
+ * lister marks an NPC's possessions (lib_list_npc_inventory).  That is the
+ * ONLY thing that reveals a possession the player was never shown -- there is
+ * no standing "anything you hold is seen" rule.
  *
  * Probe SEEN, driven in run400 (runner_probes/seen.run400.txt), walks the four
  * ways into the player's possession with four hidden objects and asks `x

@@ -203,11 +203,11 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
  * lib_references_are_namesakes()
  *
  * TRUE when two or more objects are referenced and all share one Short.
- * Deliberate deviation (2026-09-30): the pre-4.0 loops that act on every
- * referenced object (open/close at 3.7-3.9, wear/remove at 3.7) are for a
- * line naming several things; a crowd of namesakes is asked about instead,
- * so `open door` with a red and a blue door no longer opens both, nor
- * `wear hat` put on both hats (83c4a19c0, 2e4d7ba0e).
+ * Deliberate deviation: the pre-4.0 loops that act on every referenced object
+ * (open/close at 3.7-3.9, wear/remove at 3.7) are for a line naming several
+ * things; a crowd of namesakes is asked about instead, so `open door` with a
+ * red and a blue door does not open both, nor `wear hat` put on both hats
+ * (83c4a19c0, 2e4d7ba0e).
  */
 scr_bool
 lib_references_are_namesakes (scr_gameref_t game)

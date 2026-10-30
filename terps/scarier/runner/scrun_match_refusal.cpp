@@ -300,7 +300,7 @@ run_spent_claim_390 (scr_gameref_t game, const scr_char *message)
  * run_task_refusal()
  *
  * The Runners have two answers of their own for a command that matches a task
- * the main dispatcher would not run, both of which Scarier used to leave to the
+ * the main dispatcher would not run, both of which would otherwise fall to the
  * standard library or to the game's DontUnderstand text:
  *
  *   - the player is in the wrong room for the task.  Pre-4.0 only: 3.7 and 3.8

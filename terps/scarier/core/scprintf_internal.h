@@ -150,10 +150,9 @@ typedef struct scr_filter_s
  *
  * Two immutable game tables drive the filters below as (original ->
  * replacement) string pairs: the ALRs (Automatic Language Replacements)
- * applied to output by pf_replace_alrs(), and the Synonyms applied to input
- * by pf_filter_input().
- * Both used to re-resolve every entry from the string-keyed property tree
- * ("<table>"/index/"Original"|"Replacement") on every call -- an O(count)
+ * applied to output by pf_replace_alrs(), and the Synonyms applied to input by
+ * pf_filter_input().  Re-resolving every entry from the string-keyed property
+ * tree ("<table>"/index/"Original"|"Replacement") on every call is an O(count)
  * prop_get() storm per call, dominated by the prop_find_child() strcmp scan
  * each lookup drives.  For the ALRs, which run on every output flush and every
  * filter pass, profiling text-heavy ADRIFT 4 games (humbug) put ~30% of engine

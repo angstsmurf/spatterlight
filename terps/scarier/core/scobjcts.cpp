@@ -429,13 +429,12 @@ obj_state_name (scr_gameref_t game, scr_int objnum)
  * an object count: 'tens' of Capacity multiplied by the scale factor raised to
  * the 'units'.
  *
- * The two scale factors are per-game, stored in the pair of globals that this
- * parser used to discard as iUnk1/iUnk2.  The ADRIFT editor always writes 3
- * for both, which is why a hardwired 3 went unnoticed for so long, but the
- * Runner really does read them: a game built with a size base of 2 and a
- * weight base of 5 and MaxSize = MaxWt = 102 reports its player limits as
- * 40 and 250 in the Runner's own debugger, not 90 and 90.  Files too old to
- * carry the fields (v3.8 and earlier) get the editor's 3.
+ * The two scale factors are per-game, stored in the pair of globals that
+ * SCARE's parser discards as iUnk1/iUnk2.  The ADRIFT editor always writes 3
+ * for both, but the Runner really does read them: a game built with a size
+ * base of 2 and a weight base of 5 and MaxSize = MaxWt = 102 reports its
+ * player limits as 40 and 250 in the Runner's own debugger, not 90 and 90.
+ * Files too old to carry the fields (v3.8 and earlier) get the editor's 3.
  */
 enum
 { OBJ_DIMENSION_DIVISOR = 10,
@@ -620,24 +619,22 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
   /*
    * Add the recursive weights of "child" objects: those in or on this one.
    *
-   * Deliberate deviation: run400's weigh routine (Sub_22_63
-   * @447600) matches children on the bare per-object container field
-   * ([2E]) with only an i <> self guard -- it checks neither the child's
-   * position nor whether the weighed object is a container or surface, so
-   * objects whose [2E] is stale (leftover raw Parent data that ordinary
-   * takes, drops, and task/event moves never touch, or the NPC index its
-   * loader leaves on an NPC-held or NPC-worn object) silently add phantom
-   * weight; see the runner_parent notes in scgamest.h.  From 2026-08-22 to
-   * 2026-10-17 a 4.0 game matched on the runner_parent shadow of that
-   * field, which made Welcome to Wonderland's only weapon untakeable (the
-   * Card Guard's rod, letter and key weigh into the knife, 94 > 90) and put
-   * 19 of goldilocks' worn watch and dress into the package.  That is a
-   * Runner bug no game needs, so every version now weighs the position-
-   * filtered membership, as 3.9 always did and as `glk capacity on`
-   * (game->capacity_recompute) already did at 4.0.  runner_parent itself
-   * stays: the possession predicates (gs_runner_possessed()) still read it.
-   * Logged under "Deliberate deviations" in
-   * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+   * Deliberate deviation: run400's weigh routine (Sub_22_63 @447600) matches
+   * children on the bare per-object container field ([2E]) with only an i <>
+   * self guard -- it checks neither the child's position nor whether the
+   * weighed object is a container or surface, so objects whose [2E] is stale
+   * (leftover raw Parent data that ordinary takes, drops, and task/event moves
+   * never touch, or the NPC index its loader leaves on an NPC-held or NPC-worn
+   * object) silently add phantom weight; see the runner_parent notes in
+   * scgamest.h.  Matching a 4.0 game on the runner_parent shadow of that field
+   * makes Welcome to Wonderland's only weapon untakeable (the Card Guard's
+   * rod, letter and key weigh into the knife, 94 > 90) and puts 19 of
+   * goldilocks' worn watch and dress into the package.  That is a Runner bug
+   * no game needs, so every version weighs the position-filtered membership,
+   * as 3.9 does and as `glk capacity on` (game->capacity_recompute) does at
+   * 4.0.  runner_parent itself stays: the possession predicates
+   * (gs_runner_possessed()) still read it.  Logged under "Deliberate
+   * deviations" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
    */
   GS_FOR_EACH_OBJECT (game, other)
     {
@@ -1417,15 +1414,14 @@ obj_initial_location_code (scr_gameref_t game, scr_int object)
  *      only while the object still sits where it started
  *
  * so mode 1 is "until the player first picks it up" -- a drop, a put, a task
- * moving the object, an NPC taking it all leave it showing -- and mode 0
- * with an EMPTY InRoomDesc means "print nothing AND stay out of the list",
- * which is how a 4.0 author silences an object the room's own long text
- * already mentions.  Measured under Wine: camelot15's four
- * bottles (mode 1, empty InRoomDesc) and takeone's jewel (mode 2, empty
- * InRoomDesc, still in its initial room) are both invisible to run400's
- * lister where Scarier used to list them, while zelda's shield (mode 1, a
- * description, dropped back on the ground) is listed rather than described,
- * because the take spent its byte.
+ * moving the object, an NPC taking it all leave it showing -- and mode 0 with
+ * an EMPTY InRoomDesc means "print nothing AND stay out of the list", which is
+ * how a 4.0 author silences an object the room's own long text already
+ * mentions.  Measured under Wine: camelot15's four bottles (mode 1, empty
+ * InRoomDesc) and takeone's jewel (mode 2, empty InRoomDesc, still in its
+ * initial room) are both invisible to run400's lister, while zelda's shield
+ * (mode 1, a description, dropped back on the ground) is listed rather than
+ * described, because the take spent its byte.
  *
  * Pre-4.0 games carry neither property, and their defaults -- empty
  * InRoomDesc, mode 0 -- land on "not shown, therefore listed", which is what
@@ -1492,8 +1488,8 @@ obj_shows_initial_description (scr_gameref_t game, scr_int object,
  * although the Small Pocket Knife (object 31, InitialPosition 11 = room 7) is
  * lying loose on the floor.  The very next command, `out`, moves normally, so
  * the player really is in the room; the knife simply does not exist to the
- * parser until something lists it.  Scarier used to mark it seen every turn
- * regardless and took it.
+ * parser until something lists it; marking it seen every turn regardless would
+ * take it.
  *
  * Both tests use the room being listed.  run400's viewroom reads the
  * static's presence array at its own room argument (@00472639), while

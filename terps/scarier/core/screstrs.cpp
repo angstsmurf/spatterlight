@@ -51,12 +51,13 @@ enum { MAX_NESTING_DEPTH = 32 };
  *
  * Restrictions are the most evaluated thing in the engine -- the dispatcher
  * walks every task's on each typed line, and the library's pre-matchers walk
- * them again -- and each evaluation used to fetch the restriction's Type and
- * its two or three Vars from the property tree, five keys deep.  They belong
- * to the bundle and never change in play, so decode a task's restrictions
- * the first time any is asked for.  Like the object attributes cache this is
- * keyed by bundle, which the undo and temporary game copies share, and the
- * runner calls restr_forget_bundle() before destroying a bundle.
+ * them again -- and each evaluation would otherwise fetch the restriction's
+ * Type and its two or three Vars from the property tree, five keys deep.  They
+ * belong to the bundle and never change in play, so decode a task's
+ * restrictions the first time any is asked for.  Like the object attributes
+ * cache this is keyed by bundle, which the undo and temporary game copies
+ * share, and the runner calls restr_forget_bundle() before destroying a
+ * bundle.
  *
  * A decoded restriction holds what the evaluation for its type reads: Var1
  * to Var3 for types 0, 3 and 4 (and Var4 for type 4), Var1 and Var2 for
@@ -323,9 +324,9 @@ restr_object_in_place (scr_gameref_t game,
     /*
      * "Inside" and "on top of" both index a sublist -- containers for one,
      * surfaces for the other -- with Var3 - 1, and there is NO "nothing"
-     * option.  SCARE used to read Var3 = 0 as "is not inside anything" and
-     * return the negation of the position test; the guess was flagged with a
-     * `/ * Nothing? * /` comment, and it was wrong.
+     * option.  SCARE reads Var3 = 0 as "is not inside anything" and returns
+     * the negation of the position test; the guess is flagged with a
+     * `/ * Nothing? * /` comment, and it is wrong.
      *
      * Probed against run400.exe, using a Topaz variant whose
      * `hedges` (an all-rooms static, so it is in the start room) was flipped to
@@ -486,10 +487,10 @@ restr_pass_task_object_location (scr_gameref_t game,
   /*
    * A static object can arrive here through the "referenced object" form, and
    * unlike the any/no quantifier above the runner does NOT filter it out: it
-   * evaluates the condition on whatever %object% matched.  SCARE used to
-   * reject statics unconditionally at this point, which made "the referenced
-   * object is visible to the player" -- by far the most common way this form
-   * is authored, 25 of the 30 occurrences in the v4 corpus -- impossible to
+   * evaluates the condition on whatever %object% matched.  SCARE rejects
+   * statics unconditionally at this point, which makes "the referenced object
+   * is visible to the player" -- by far the most common way this form is
+   * authored, 25 of the 30 occurrences in the v4 corpus -- impossible to
    * satisfy by naming any piece of scenery.
    *
    * Verified against run400.exe (Wine/Rosetta), with six
@@ -1472,11 +1473,11 @@ static void restr_bexpr (void);
  *
  * Expression parsers.  Here we go again...
  *
- * "A" and "O" have EQUAL precedence and associate to the LEFT, so "#O#A#"
- * is "(1 OR 2) AND 3" and never "1 OR (2 AND 3)".  SCARE used to parse the
- * mask with C precedence -- an or-expression over and-expressions -- which
- * agrees whenever every A precedes every O, and differs the moment an O
- * comes before an A at the same bracket level.
+ * "A" and "O" have EQUAL precedence and associate to the LEFT, so "#O#A#" is
+ * "(1 OR 2) AND 3" and never "1 OR (2 AND 3)".  SCARE parses the mask with C
+ * precedence -- an or-expression over and-expressions -- which agrees whenever
+ * every A precedes every O, and differs the moment an O comes before an A at
+ * the same bracket level.
  *
  * Ground truth is run400.exe's own P-code, mdlSpreadTheLoad.Sub_20_57
  * ("evaluaterestrictions", 00055CAC..00055EB9), which recurses from the RIGHT:

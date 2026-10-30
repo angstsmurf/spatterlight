@@ -369,10 +369,10 @@ lib_cmd_ask_other (scr_gameref_t game)
  * line nothing answers keeps it.  Scarier's grammar puts the character and
  * object rows ahead of this one, which is the same order.
  *
- * Measured on thelasthour (4.00, runner_probes/thelasthour.run400.txt
- * turn 80): `ask sly about him` -- "sly" is a task word, not a character, and
- * the game has no male to fill "him" in -- answers "(No male)" and then "I
- * can't talk to that." where Scarier used to print the format hint.
+ * Measured on thelasthour (4.00, runner_probes/thelasthour.run400.txt turn
+ * 80): `ask sly about him` -- "sly" is a task word, not a character, and the
+ * game has no male to fill "him" in -- answers "(No male)" and then "I can't
+ * talk to that.", not the format hint.
  *
  * Two answers outrank the seed.  4.0's up-front resolver (Proc_21_58_463640,
  * see lib_absent_seen_object()) has already put "<You> can't see <the

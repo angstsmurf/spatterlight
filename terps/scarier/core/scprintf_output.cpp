@@ -312,12 +312,11 @@ pf_output_untagged (const scr_char *string)
  * "Vous vous deplacez in.".
  *
  * A self-containing ALR is held to one expansion per walk not by a retirement
- * flag -- SCARE's, which this used to keep -- but by 4.0's whole-text equality
- * test: filtering [Okay.  I put ] for the ALR [I put ] -> [Okay.  I put ]
- * finds the original, sees the text IS the replacement and hands it back
- * untouched.  Every other ALR fires whenever its original is in front of the
- * cursor.  Measured, with [TOKEN] -> [tok] and [zebra] -> [TOKEN] over
- * "TOKEN zebra.":
+ * flag -- SCARE's -- but by 4.0's whole-text equality test: filtering [Okay.
+ * I put ] for the ALR [I put ] -> [Okay.  I put ] finds the original, sees the
+ * text IS the replacement and hands it back untouched.  Every other ALR fires
+ * whenever its original is in front of the cursor.  Measured, with [TOKEN] ->
+ * [tok] and [zebra] -> [TOKEN] over "TOKEN zebra.":
  *
  *                                                 run390     run400
  *    "TOKEN zebra."                               tok TOKEN. tok tok.

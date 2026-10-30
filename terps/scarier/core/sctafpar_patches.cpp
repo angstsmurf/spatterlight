@@ -772,7 +772,7 @@ static const scr_patch_edit_t PATCH_MELBOURNE_BEACH[] = {
  * `vzyat' stakan` now arrives as `get stakan` and finds the task written for
  * it.  Nothing else changes: the restrictions, actions and texts are the
  * author's, including the sever/yug tasks' gates (Rozhe's protest, the lab
- * guard's badge check) that the library walk used to skip.
+ * guard's badge check) that a library walk would skip.
  */
 static const scr_patch_edit_t PATCH_CRIME_SCENE_2[] = {
   PATCH_VERIFY ("Synonyms/5/Original", "\xfe\xe3"),
