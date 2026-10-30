@@ -1122,6 +1122,101 @@ void os_banner_set_size(void *banner_handle, int siz, int siz_units,
     os_banners_redraw();
 }
 
+/* a graphics banner is as wide as its picture, and empty without one */
+static void banner_gfx_size_to_contents(osbanid_t banner)
+{
+    if (!banner_gfx_image(banner))
+        os_banner_set_size(banner, 0, OS_BANNER_SIZE_ABS, 0);
+    else
+    {
+        /* any size but none: the picture's width is the one it gets */
+        banner->asked_method = (banner->asked_method & winmethod_DirMask)
+                               | winmethod_Fixed;
+        banner->asked_size = 1;
+        banner_gfx_fit(banner);
+    }
+}
+
+#ifdef OSGLK_PIXELS
+/*
+ *   the widest line of a banner's contents in characters, as
+ *   banner_contents_display writes them, with their pictures added to fit
+ */
+static int banner_contents_columns(osbanid_t banner, picture_fit *fit)
+{
+    int line = 0, col = 0, maxcol = 0, nl = 0;
+
+    picture_fit_init(fit);
+    for (contentid_t c = banner->contents; c; c = c->next)
+    {
+        for (glui32 i = 0; i < c->len; ++i)
+        {
+            unsigned char ch = (unsigned char)c->chars[i];
+
+            /* a newline waits for more, so the last one is never shown */
+            if (ch == '\n')
+            {
+                ++nl;
+                continue;
+            }
+            if (nl)
+            {
+                line += nl;
+                col = nl = 0;
+            }
+            /* a character, but not the rest of one in UTF-8 */
+            fit->last = 0;
+            if ((ch & 0xC0) != 0x80 && ++col > maxcol)
+                maxcol = col;
+        }
+        if (c->has_image)
+        {
+            if (nl)
+            {
+                line += nl;
+                col = nl = 0;
+            }
+            col += picture_fit_add(fit, banner->win, &c->image, line);
+            if (col > maxcol)
+                maxcol = col;
+        }
+    }
+    return maxcol;
+}
+
+/*
+ *   fit a text buffer banner to its contents; FALSE when it is at the side
+ *   and has a picture we can't measure, which leaves the width as it is
+ */
+static int banner_text_size_to_contents(osbanid_t banner)
+{
+    picture_fit fit;
+    glui32 dir = banner->method & winmethod_DirMask;
+    int side = (dir == winmethod_Left || dir == winmethod_Right);
+    int maxcol = banner_contents_columns(banner, &fit);
+    int size;
+
+    /* at the side, as wide as the widest line, as for a tag banner */
+    if (side)
+    {
+        if (fit.unknown)
+            return FALSE;
+        size = maxcol ? maxcol + 2 : 0;
+    }
+    else
+        size = picture_fit_lines(&fit, osglk_px_lines(banner->win));
+    os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
+
+    /* the text's own height, unless a picture in the margin is taller */
+    if (!side && size > 0 && !fit.unknown && !fit.bottom && banner->win)
+    {
+        banner->textpx = osglk_px_text_height(banner->win);
+        osglk_set_text_height(banner->win, banner->textpx);
+    }
+    return TRUE;
+}
+#endif /* OSGLK_PIXELS */
+
 void os_banner_size_to_contents(void *banner_handle)
 {
     osbanid_t banner = banner_handle;
@@ -1129,87 +1224,15 @@ void os_banner_size_to_contents(void *banner_handle)
     if (!banner || !banner->valid || !banner->win)
         return;
 
-    /* a graphics banner is as wide as its picture, and empty without one */
     if (banner->type == wintype_Graphics)
     {
-        if (!banner_gfx_image(banner))
-            os_banner_set_size(banner, 0, OS_BANNER_SIZE_ABS, 0);
-        else
-        {
-            /* any size but none: the picture's width is the one it gets */
-            banner->asked_method = (banner->asked_method & winmethod_DirMask)
-                                   | winmethod_Fixed;
-            banner->asked_size = 1;
-            banner_gfx_fit(banner);
-        }
+        banner_gfx_size_to_contents(banner);
         return;
     }
 #ifdef OSGLK_PIXELS
-    if (banner->type == wintype_TextBuffer)
-    {
-        picture_fit fit;
-        int line = 0, col = 0, maxcol = 0, nl = 0, size;
-        glui32 dir = banner->method & winmethod_DirMask;
-
-        /* the lines of the contents, as banner_contents_display writes them */
-        picture_fit_init(&fit);
-        for (contentid_t c = banner->contents; c; c = c->next)
-        {
-            for (glui32 i = 0; i < c->len; ++i)
-            {
-                unsigned char ch = (unsigned char)c->chars[i];
-
-                /* a newline waits for more, so the last one is never shown */
-                if (ch == '\n')
-                {
-                    ++nl;
-                    continue;
-                }
-                if (nl)
-                {
-                    line += nl;
-                    col = nl = 0;
-                }
-                /* a character, but not the rest of one in UTF-8 */
-                fit.last = 0;
-                if ((ch & 0xC0) != 0x80 && ++col > maxcol)
-                    maxcol = col;
-            }
-            if (c->has_image)
-            {
-                if (nl)
-                {
-                    line += nl;
-                    col = nl = 0;
-                }
-                col += picture_fit_add(&fit, banner->win, &c->image, line);
-                if (col > maxcol)
-                    maxcol = col;
-            }
-        }
-
-        /*
-         *   at the side, as wide as the widest line, as for a tag banner;
-         *   a picture we can't measure leaves the width as it is
-         */
-        if (dir == winmethod_Left || dir == winmethod_Right)
-        {
-            if (fit.unknown)
-                return;
-            size = maxcol ? maxcol + 2 : 0;
-        }
-        else
-            size = picture_fit_lines(&fit, osglk_px_lines(banner->win));
-        os_banner_set_size(banner, size, OS_BANNER_SIZE_ABS, 0);
-
-        /* the text's own height, unless a picture in the margin is taller */
-        if (dir != winmethod_Left && dir != winmethod_Right && size > 0
-            && !fit.unknown && !fit.bottom && banner->win)
-        {
-            banner->textpx = osglk_px_text_height(banner->win);
-            osglk_set_text_height(banner->win, banner->textpx);
-        }
-    }
+    if (banner->type == wintype_TextBuffer
+        && !banner_text_size_to_contents(banner))
+        return;
 #endif /* OSGLK_PIXELS */
     if (banner->repad)
     {
