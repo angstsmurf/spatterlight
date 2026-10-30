@@ -449,6 +449,26 @@ static NSDictionary *Highlight(void) {
                           [self fullLineOf:[self adv3MenuWithHeaderType:wintype_TextBuffer]]);
 }
 
+// The same menu in HTML mode, where the library puts it in a table whose
+// empty first cell indents each line with non-breaking spaces, which take
+// the hidden '>''s colour.
+- (void)testTads3HtmlMenuWithIndentedLines {
+    NSString *pad = [@"" stringByPaddingToLength:50 withString:@" " startingAtIndex:0];
+    NSString *header = [NSString stringWithFormat:@"Hints%@Q=Quit P=Previous Menu\n%@  U=Up D=Down ENTER=Select\n", pad, pad];
+    NSString *plain = @"    >What am I meant to be doing here?\n    >How do I get out?\n    >Who is the woman?\n";
+    NSMutableAttributedString *items = [[self text:plain] mutableCopy];
+    [items addAttributes:@{ NSBackgroundColorAttributeName : NSColor.whiteColor, NSForegroundColorAttributeName : NSColor.blackColor } range:NSMakeRange(0, items.length)];
+    for (NSString *hidden in @[@"    >What", @"    >Who"])
+        [items addAttribute:NSForegroundColorAttributeName value:NSColor.whiteColor range:[plain rangeOfString:hidden]];
+    NSArray *windows = @[[self window:wintype_TextBuffer text:[self text:header] frame:NSMakeRect(0, 0, 600, 40)],
+                         [self buffer:items]];
+    ZMenu *menu = [self detect:windows game:kGameIsGeneric format:@"tads3"];
+    XCTAssertNotNil(menu);
+    XCTAssertEqualObjects([self linesOf:menu], (@[@">What am I meant to be doing here?", @">How do I get out?", @">Who is the woman?"]));
+    XCTAssertEqual(menu.selectedLine, 1u);
+    XCTAssertEqualObjects([self fullLineOf:menu], @"We are in a menu.\nHow do I get out?\n.\nMenu item 2 of 3.\nQ: \"Quit\".\nP: \"Previous Menu\".\nU: \"Up\".\nD: \"Down\".\nEnter: \"Select\".\n");
+}
+
 // Bullets, no instructions, and three windows: a one-line title, the menu
 // and a hidden one.
 - (void)testThaumistry {

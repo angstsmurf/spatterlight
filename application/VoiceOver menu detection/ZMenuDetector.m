@@ -81,13 +81,18 @@ static NSUInteger UniqueColorIndex(NSArray *colors) {
 }
 
 // The first character of line index, with a non-breaking space read as a
-// space, or '\0' if there is no such line.
-static unichar FirstCharacter(NSString *string, NSArray<NSValue *> *lines, NSUInteger index) {
+// space, or '\0' if there is no such line. If skipSpaces, the first one
+// after any leading spaces.
+static unichar FirstCharacter(NSString *string, NSArray<NSValue *> *lines, NSUInteger index, BOOL skipSpaces) {
     if (index >= lines.count)
         return '\0';
     NSRange range = NSIntersectionRange(NSMakeRange(0, string.length), lines[index].rangeValue);
     if (range.length == 0)
         return '\0';
+    if (skipSpaces) {
+        NSUInteger spaces = (NSUInteger)LeadingSpaces(string, range, NO);
+        range = NSMakeRange(range.location + spaces, range.length - spaces);
+    }
     unichar first = [string characterAtIndex:range.location];
     if (first == 0xa0)
         first = ' ';
@@ -108,6 +113,8 @@ static unichar FirstCharacter(NSString *string, NSArray<NSValue *> *lines, NSUIn
 @property BOOL noMenus;
 // Menu lines start with this character, or are next to one that does.
 @property unichar initialChar;
+// ... perhaps after spaces.
+@property BOOL indented;
 // Instruction patterns, tried in order until one matches. A menu needs
 // instructions unless this is nil.
 @property (nullable) NSArray<NSString *> *patterns;
@@ -128,6 +135,8 @@ static unichar FirstCharacter(NSString *string, NSArray<NSValue *> *lines, NSUIn
 @property NSArray<NSString *> *keys;
 @property BOOL isTads3;
 @property BOOL isHugo;
+// Menu lines may start with spaces before their initial character.
+@property BOOL indented;
 @property BOOL isBeyondZork;
 @property NSUInteger selectedLine;
 // The texts of the windows that were searched, one per window.
@@ -161,6 +170,12 @@ static NSArray<ZMenuRule *> *Rules(void) {
         ZMenuRule *thaumistry = Rule(kGameIsThaumistry, @[@"tads3"], u'•', nil);
         thaumistry.extraCheck = ThaumistryWindowCheck;
 
+        // TADS 3: a cluster of lines that all start with a '>'. In HTML
+        // mode the library's menu is a table whose first cell is empty,
+        // which indents each line.
+        ZMenuRule *tads3 = Rule(kGameIsGeneric, @[@"tads3"], '>', @[kTads3Pattern]);
+        tads3.indented = YES;
+
         ZMenuRule *beyondZork = Rule(kGameIsBeyondZork, zcodeOrGlulx, ' ', @[kBeyondZorkPattern, kBeyondZorkDefinitionsPattern, kBeyondZorkDecSystemPattern]);
         beyondZork.afterMatch = BeyondZorkAfterMatch;
 
@@ -170,8 +185,7 @@ static NSArray<ZMenuRule *> *Rules(void) {
         rules = @[
             juniorArithmancer,
             thaumistry,
-            // TADS 3: a cluster of lines that all start with a '>'.
-            Rule(kGameIsGeneric, @[@"tads3"], '>', @[kTads3Pattern]),
+            tads3,
             beyondZork,
             Rule(kGameIsAnchorheadOriginal, zcodeOrGlulx, ' ', @[kAnchorheadPattern]),
             Rule(kGameIsVespers, zcodeOrGlulx, ' ', @[kEqualsPattern, kVespersPattern]),
@@ -290,9 +304,9 @@ static ZMenuRule * _Nullable RuleFor(NSString *format, kGameIdentity gameID) {
         return menulines;
     for (NSUInteger index = startPos; index < lines.count; index++) {
         // Check for leading char
-        if (FirstCharacter(string, lines, index) != character &&
-            FirstCharacter(string, lines, index - 1) != character &&
-            FirstCharacter(string, lines, index + 1) != character) {
+        if (FirstCharacter(string, lines, index, _indented) != character &&
+            FirstCharacter(string, lines, index - 1, _indented) != character &&
+            FirstCharacter(string, lines, index + 1, _indented) != character) {
             // Line does not begin with requested character. Skip ahead to the next blank line
             menulines = [[NSMutableArray alloc] init];
             do {
@@ -591,6 +605,7 @@ static void UnforgottenAfterMatch(ZMenuDetection *menu, NSUInteger patternIndex)
     ZMenuDetection *menu = [ZMenuDetection new];
     menu.isTads3 = [format isEqualToString:@"tads3"];
     menu.isHugo = [format isEqualToString:@"hugo"];
+    menu.indented = rule.indented;
     menu.isBeyondZork = (gameID == kGameIsBeyondZork);
     menu.commands = @{};
     menu.keys = @[];
