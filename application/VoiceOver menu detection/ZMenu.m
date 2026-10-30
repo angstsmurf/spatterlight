@@ -25,7 +25,7 @@ static NSRegularExpression *SelectionMarkerRegex(void) {
     static NSRegularExpression *regex;
     static dispatch_once_t once;
     dispatch_once(&once, ^{
-        regex = [NSRegularExpression regularExpressionWithPattern:@"^\\s*[>\\*•](?: |)" options:0 error:nil];
+        regex = [NSRegularExpression regularExpressionWithPattern:@"^\\s*[>\\*•] *" options:0 error:nil];
     });
     return regex;
 }

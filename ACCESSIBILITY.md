@@ -78,7 +78,7 @@ Custom VoiceOver rotors are activated by pressing VO + U, and then stepping thro
 
 Infocom's InvisiClues menus set a non-accessible standard for hint menus in parser interactive fiction. Spatterlight tries to detect this kind of menus and describe them using VoiceOver. If it thinks the game is showing a menu, it will speak the currently selected line. That is all it does. You still have to navigate and select items using the keyboard shortcuts of the original games, which tend to vary a lot.
 
-It supports the Infocom InvisiClues-style menus used by many older Infocom and Inform games, the hint menus commonly found in TADS 3 and Hugo games, the menus in *Beyond Zork*, and the *Bureaucracy* forms.
+It supports the Infocom InvisiClues-style menus used by many older Infocom and Inform games, the hint menus commonly found in TADS 3 and Hugo games, the menus of the TADS 2 menu library (used in, for example, *Arrival*, *Common Ground* and *To Hell in a Hamper*), the menus in *Beyond Zork*, and the *Bureaucracy* forms.
 
 The VoiceOver > "Speak menu lines" setting lets you set the level of verbosity when speaking the individual menu items. If the menu detection misbehaves, it can also be switched off entirely here, with the "Don't detect menus" setting.
 

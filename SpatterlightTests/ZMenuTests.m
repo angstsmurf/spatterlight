@@ -469,6 +469,66 @@ static NSDictionary *Highlight(void) {
     XCTAssertEqualObjects([self fullLineOf:menu], @"We are in a menu.\nHow do I get out?\n.\nMenu item 2 of 3.\nQ: \"Quit\".\nP: \"Previous Menu\".\nU: \"Up\".\nD: \"Down\".\nEnter: \"Select\".\n");
 }
 
+// The TADS 2 menu library (Arrival, Common Ground, To Hell in a Hamper,
+// Constraints, Ballymun Adventure) in HTML mode: a MenuTitle banner with
+// lower-case instructions over a MenuBody banner whose lines are indented
+// like adv3's, and the story window shrunk to nothing.
+- (NSArray *)tads2MenuWindows:(NSArray<NSString *> *)titles selected:(NSUInteger)selected {
+    NSString *indent = @"\u00a0\u00a0\u00a0\u00a0";
+    NSString *pad = [@"" stringByPaddingToLength:51 withString:@" " startingAtIndex:0];
+    NSString *header = [NSString stringWithFormat:@"Hints%@Q=quit P=previous menu\n%@    U=up D=down ENTER=select", pad, pad];
+    NSMutableString *plain = [NSMutableString new];
+    for (NSString *title in titles)
+        [plain appendFormat:@"%@%@>%@", plain.length ? @"\n" : @"", indent, title];
+    NSMutableAttributedString *items = [[self text:plain] mutableCopy];
+    [items addAttributes:@{ NSBackgroundColorAttributeName : NSColor.whiteColor, NSForegroundColorAttributeName : NSColor.blackColor } range:NSMakeRange(0, items.length)];
+    for (NSUInteger i = 0; i < titles.count; i++)
+        if (i != selected)
+            [items addAttribute:NSForegroundColorAttributeName value:NSColor.whiteColor range:[plain rangeOfString:[NSString stringWithFormat:@"%@>%@", indent, titles[i]]]];
+    return @[[self window:wintype_TextBuffer text:[self text:@"> hint\n"] frame:NSMakeRect(0, 500, 600, 0)],
+             [self window:wintype_TextBuffer text:[self text:header] frame:NSMakeRect(0, 0, 600, 40)],
+             [self window:wintype_TextBuffer text:items frame:NSMakeRect(0, 40, 600, 460)]];
+}
+
+- (void)testTads2MenuLibraryWithTwoItems {
+    NSArray *titles = @[@"How do I get into Hubert's overcoat?", @"I've opened Hubert's overcoat, but I need help getting rid of what I found there."];
+    ZMenu *menu = [self detect:[self tads2MenuWindows:titles selected:1] game:kGameIsGeneric format:@"tads2"];
+    XCTAssertNotNil(menu);
+    XCTAssertEqualObjects([self linesOf:menu], (@[@">How do I get into Hubert's overcoat?", @">I've opened Hubert's overcoat, but I need help getting rid of what I found there."]));
+    XCTAssertEqual(menu.selectedLine, 1u);
+    XCTAssertEqualObjects([self fullLineOf:menu], @"We are in a menu.\nI've opened Hubert's overcoat, but I need help getting rid of what I found there..\nMenu item 2 of 2.\nQ: \"quit\".\nP: \"previous menu\".\nU: \"up\".\nD: \"down\".\nEnter: \"select\".\n");
+}
+
+// Arrival's top menu as the app shows it: the text has no background colour
+// of its own, and the hidden ">" has the colour of the window's background.
+- (void)testTads2MenuLibraryHiddenInTheWindowBackground {
+    NSString *indent = @"\u00a0\u00a0\u00a0\u00a0";
+    NSString *pad = [@"" stringByPaddingToLength:45 withString:@" " startingAtIndex:0];
+    NSString *header = [NSString stringWithFormat:@"Arrival Menu%@Q=quit P=previous menu\n%@          U=up D=down ENTER=select", pad, pad];
+    NSString *plain = [NSString stringWithFormat:@"%@>Instructions and information\n%@>Hints for Arrival", indent, indent];
+    NSArray *windows = @[[self window:wintype_TextBuffer text:[self text:@"> hint\n"] frame:NSMakeRect(0, 500, 600, 0)],
+                         [self window:wintype_TextBuffer text:[self text:header] frame:NSMakeRect(0, 0, 600, 40)],
+                         [self window:wintype_TextBuffer text:[self text:plain] frame:NSMakeRect(0, 40, 600, 460)]];
+    GlkController *ctl = [self controllerForGame:kGameIsGeneric format:@"tads2" windows:windows];
+    NSTextView *textview = ((GlkTextBufferWindow *)ctl.gwindows[@2]).textview;
+    NSMutableAttributedString *items = [[NSMutableAttributedString alloc] initWithString:plain attributes:@{ NSForegroundColorAttributeName : NSColor.blackColor }];
+    [items addAttribute:NSForegroundColorAttributeName value:textview.backgroundColor range:[plain rangeOfString:[indent stringByAppendingString:@">"]]];
+    [textview.textStorage setAttributedString:items];
+    ZMenu *menu = [[ZMenu alloc] initWithGlkController:ctl];
+    ctl.zmenu = menu;
+    XCTAssertTrue([menu detectMenu]);
+    XCTAssertEqualObjects([self linesOf:menu], (@[@">Instructions and information", @">Hints for Arrival"]));
+    XCTAssertEqual(menu.selectedLine, 1u);
+}
+
+- (void)testTads2MenuLibraryWithThreeItems {
+    NSArray *titles = @[@"About the game", @"Credits", @"Hints"];
+    ZMenu *menu = [self detect:[self tads2MenuWindows:titles selected:2] game:kGameIsGeneric format:@"tads2"];
+    XCTAssertNotNil(menu);
+    XCTAssertEqualObjects([self linesOf:menu], (@[@">About the game", @">Credits", @">Hints"]));
+    XCTAssertEqual(menu.selectedLine, 2u);
+}
+
 // Bullets, no instructions, and three windows: a one-line title, the menu
 // and a hidden one.
 - (void)testThaumistry {
@@ -482,6 +542,32 @@ static NSDictionary *Highlight(void) {
     XCTAssertEqualObjects([self linesOf:menu], (@[@"• Introduction", @"• Credits", @"• Hints"]));
     XCTAssertEqual(menu.selectedLine, 1u);
     XCTAssertEqualObjects([self fullLineOf:menu], @"We are in a menu, \"Charm's Way.\"\nCredits\n.\nMenu item 2 of 3.\n");
+}
+
+// In HTML mode the menu is a table whose empty first cell indents each
+// line, the title has an Exit link on a second line, and both the story
+// window and the status line are hidden.
+- (void)testThaumistryHtmlHintMenu {
+    NSString *plain = @"\u00a0\u00a0\u00a0\u00a0•  IN THE LAB";
+    NSArray *windows = @[[self window:wintype_TextBuffer text:[self text:@"> hint\n"] frame:NSMakeRect(0, 500, 600, 0)],
+                         [self window:wintype_TextGrid text:[self text:@"Hints\nExit"] frame:NSMakeRect(0, 0, 600, 32)],
+                         [self window:wintype_TextGrid text:[self text:@"Lab      0/100\nExits: north east"] frame:NSMakeRect(0, 32, 600, 0)],
+                         [self window:wintype_TextBuffer text:[self text:plain] frame:NSMakeRect(0, 32, 600, 468)]];
+    ZMenu *menu = [self detect:windows game:kGameIsThaumistry format:@"tads3"];
+    XCTAssertNotNil(menu);
+    XCTAssertEqualObjects([self linesOf:menu], (@[@"•  IN THE LAB"]));
+    XCTAssertEqual(menu.selectedLine, 0u);
+    XCTAssertEqualObjects([self fullLineOf:menu], @"We are in a menu, \"Hints.\"\nIN THE LAB.\nMenu item 1 of 1.\n");
+}
+
+// A title window of more than two lines is not Charm's Way.
+- (void)testThaumistryTitleOfThreeLinesIsNotAMenu {
+    NSString *plain = @"• Introduction\n• Credits\n• Hints\n";
+    NSAttributedString *menuText = [self text:plain highlight:@[@"• Credits"]];
+    NSArray *windows = @[[self grid:[self text:@"Charm's Way\nExit\nMore"]],
+                         [self buffer:menuText],
+                         [self window:wintype_TextBuffer text:[self text:@"hidden\n"] frame:NSMakeRect(0, 500, 600, 0)]];
+    XCTAssertNil([self detect:windows game:kGameIsThaumistry format:@"tads3"]);
 }
 
 - (void)testThaumistryNeedsItsWindowLayout {

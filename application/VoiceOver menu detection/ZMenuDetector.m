@@ -28,7 +28,7 @@ static NSString * const kEqualsPattern = @"(\\w+) = (.+?(?=  |\\n| \\n|$))";
 // around the "=".
 static NSString * const kVespersPattern = @"(\\w+)=(.+?(?=  |\\n| \\n|$))";
 // As above, also ending before the next word + "=".
-static NSString * const kTads3Pattern = @"(\\w+)=(.+?(?=  |\\n| \\n| \\w+=|$))";
+static NSString * const kTadsPattern = @"(\\w+)=(.+?(?=  |\\n| \\n| \\w+=|$))";
 static NSString * const kHugoPattern = @"\\[((\\w+)].+?(?=  |\\n| \\n))";
 static NSString * const kAnchorheadPattern = @"\\[press (BACKSPACE) (to return to .+)\\]";
 static NSString * const kBeyondZorkPattern = @"(Use the (↑ and ↓) keys(?s).+?(?=>))";
@@ -133,7 +133,7 @@ static unichar FirstCharacter(NSString *string, NSArray<NSValue *> *lines, NSUIn
 @property NSMutableArray<NSValue *> *menuLines;
 @property NSDictionary<NSString *, NSString *> *commands;
 @property NSArray<NSString *> *keys;
-@property BOOL isTads3;
+@property BOOL isTads;
 @property BOOL isHugo;
 // Menu lines may start with spaces before their initial character.
 @property BOOL indented;
@@ -169,12 +169,13 @@ static NSArray<ZMenuRule *> *Rules(void) {
         // Thaumistry: Charm's Way has no instructions and uses bullets.
         ZMenuRule *thaumistry = Rule(kGameIsThaumistry, @[@"tads3"], u'•', nil);
         thaumistry.extraCheck = ThaumistryWindowCheck;
+        thaumistry.indented = YES;
 
-        // TADS 3: a cluster of lines that all start with a '>'. In HTML
-        // mode the library's menu is a table whose first cell is empty,
-        // which indents each line.
-        ZMenuRule *tads3 = Rule(kGameIsGeneric, @[@"tads3"], '>', @[kTads3Pattern]);
-        tads3.indented = YES;
+        // TADS: a cluster of lines that all start with a '>'. In HTML mode
+        // the adv3 menu, and the TADS 2 menu library's MenuBody banner, are
+        // tables whose empty first cell indents each line.
+        ZMenuRule *tads = Rule(kGameIsGeneric, @[@"tads2", @"tads3"], '>', @[kTadsPattern]);
+        tads.indented = YES;
 
         ZMenuRule *beyondZork = Rule(kGameIsBeyondZork, zcodeOrGlulx, ' ', @[kBeyondZorkPattern, kBeyondZorkDefinitionsPattern, kBeyondZorkDecSystemPattern]);
         beyondZork.afterMatch = BeyondZorkAfterMatch;
@@ -185,7 +186,7 @@ static NSArray<ZMenuRule *> *Rules(void) {
         rules = @[
             juniorArithmancer,
             thaumistry,
-            tads3,
+            tads,
             beyondZork,
             Rule(kGameIsAnchorheadOriginal, zcodeOrGlulx, ' ', @[kAnchorheadPattern]),
             Rule(kGameIsVespers, zcodeOrGlulx, ' ', @[kEqualsPattern, kVespersPattern]),
@@ -408,6 +409,8 @@ static ZMenuRule * _Nullable RuleFor(NSString *format, kGameIdentity gameID) {
     if (_menuLines.count == 1)
         return 0;
     NSUInteger guess = [self findLeadingSelectionCharacter];
+    if (guess == NSNotFound && _isTads)
+        guess = [self findVisibleTadsMarker];
     if (guess == NSNotFound) {
         guess = [self findTrailingSelectionCharacter];
         if (guess == NSNotFound) {
@@ -437,6 +440,29 @@ static ZMenuRule * _Nullable RuleFor(NSString *format, kGameIdentity gameID) {
 }
 
 // The only line that ends with '*'.
+// TADS menu lines begin with a ">" that the library makes invisible in the
+// lines that are not selected by giving it the background colour: that of
+// the text, or of the window when the text has none. The selected line is the
+// only one whose ">" can be seen.
+- (NSUInteger)findVisibleTadsMarker {
+    NSUInteger guess = NSNotFound;
+    for (NSUInteger i = 0; i < _menuLines.count; i++) {
+        NSRange range = NSIntersectionRange(NSMakeRange(0, _text.length), _menuLines[i].rangeValue);
+        NSUInteger spaces = (NSUInteger)LeadingSpaces(_text.string, range, NO);
+        if (range.length <= spaces)
+            continue;
+        NSDictionary *attrs = [_text attributesAtIndex:range.location + spaces effectiveRange:nil];
+        NSColor *foreground = attrs[NSForegroundColorAttributeName];
+        NSColor *background = attrs[NSBackgroundColorAttributeName] ?: _backgroundColor;
+        if (foreground && background && [foreground isEqualToColor:background])
+            continue;
+        if (guess != NSNotFound)
+            return NSNotFound;
+        guess = i;
+    }
+    return guess;
+}
+
 - (NSUInteger)findTrailingSelectionCharacter {
     NSUInteger guess = NSNotFound;
     for (NSUInteger i = 0; i < _menuLines.count; i++) {
@@ -492,14 +518,14 @@ static ZMenuRule * _Nullable RuleFor(NSString *format, kGameIdentity gameID) {
         }
     }];
 
-    // In Tads 3 menus, the above code always picks the wrong one if there are two items.
-    if (guess != NSNotFound && _isTads3 && _menuLines.count == 2) {
+    // In TADS menus, the above code always picks the wrong one if there are two items.
+    if (guess != NSNotFound && _isTads && _menuLines.count == 2) {
         guess = (guess == 0) ? 1 : 0;
     }
 
     // If no match, look for a unique foreground color
-    // Does not work with less than 3 items except in TADS 3
-    if (guess == NSNotFound && (_menuLines.count >= 3 || _isTads3)) {
+    // Does not work with less than 3 items except in TADS
+    if (guess == NSNotFound && (_menuLines.count >= 3 || _isTads)) {
         NSMutableArray *foregroundColors = [[NSMutableArray alloc] initWithCapacity:_menuLines.count];
         NSMutableArray *backgroundColors = [[NSMutableArray alloc] initWithCapacity:_menuLines.count];
 
@@ -521,11 +547,11 @@ static ZMenuRule * _Nullable RuleFor(NSString *format, kGameIdentity gameID) {
             NSColor *lineBackground = attrDict[NSBackgroundColorAttributeName];
             [backgroundColors addObject:lineBackground ?: [NSNull null]];
 
-            // TADS 3 menus lines usually begin with a ">" which is made invisible in non-selected lines
+            // TADS menu lines usually begin with a ">" which is made invisible in non-selected lines
             // by giving the text and background the same color.
-            // In a two-line TADS 3 menu, we assume that the line where foreground and background don't match
+            // In a two-line TADS menu, we assume that the line where foreground and background don't match
             // (and thus the ">" is visible) is the selected line.
-            if (_isTads3 && _menuLines.count == 2 && lineBackground != nil && ![lineBackground isEqual:lineForeground]) {
+            if (_isTads && _menuLines.count == 2 && lineBackground != nil && ![lineBackground isEqual:lineForeground]) {
                 return i;
             }
         }
@@ -544,10 +570,9 @@ static ZMenuRule * _Nullable RuleFor(NSString *format, kGameIdentity gameID) {
 
 #pragma mark - Per-game hooks
 
-// Two buffer windows, one with only one line, and a hidden one.
+// The menu window, a title window of one or two lines, and one or more
+// hidden ones.
 static BOOL ThaumistryWindowCheck(ZMenuDetection *menu, NSArray<ZMenuWindowText *> *windows) {
-    if (windows.count != 3)
-        return NO;
     ZMenuWindowText *hidden = nil;
     ZMenuWindowText *title = nil;
     ZMenuWindowText *menuWindow = nil;
@@ -559,11 +584,14 @@ static BOOL ThaumistryWindowCheck(ZMenuDetection *menu, NSArray<ZMenuWindowText 
         } else if (window.frame.size.height == 0) {
             hidden = window;
         } else {
+            // In HTML mode the title has a second line with an Exit link.
             NSString *string = window.text.string;
-            NSRange allText = NSMakeRange(0, string.length);
-            NSRange firstLine = [string lineRangeForRange:NSMakeRange(0, 0)];
-            if (NSEqualRanges(allText, firstLine))
-                title = window;
+            NSUInteger lines = 0;
+            for (NSUInteger pos = 0; pos < string.length; lines++)
+                pos = NSMaxRange([string lineRangeForRange:NSMakeRange(pos, 0)]);
+            if (title || lines > 2)
+                return NO;
+            title = window;
         }
     }
     return (title != nil && menuWindow != nil && hidden != nil);
@@ -603,7 +631,7 @@ static void UnforgottenAfterMatch(ZMenuDetection *menu, NSUInteger patternIndex)
         return nil;
 
     ZMenuDetection *menu = [ZMenuDetection new];
-    menu.isTads3 = [format isEqualToString:@"tads3"];
+    menu.isTads = [format isEqualToString:@"tads2"] || [format isEqualToString:@"tads3"];
     menu.isHugo = [format isEqualToString:@"hugo"];
     menu.indented = rule.indented;
     menu.isBeyondZork = (gameID == kGameIsBeyondZork);

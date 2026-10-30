@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 // The instructions: key → command, in the order they were found.
 @property (readonly) NSDictionary<NSString *, NSString *> *commands;
 @property (readonly) NSArray<NSString *> *keys;
-@property (readonly) BOOL isTads3;
+@property (readonly) BOOL isTads;
 @property (readonly) BOOL isBeyondZork;
 // The selected line when the menu was found.
 @property (readonly) NSUInteger selectedLine;
