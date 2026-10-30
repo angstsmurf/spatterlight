@@ -1609,6 +1609,16 @@ int osglk_rule_width(winid_t win, int combo)
     return (int)wid;
 }
 
+int osglk_centers(winid_t win, int combo)
+{
+    glui32 just;
+
+    return win
+        && glk_style_measure(win, osstyles_style(combo),
+                             stylehint_Justification, &just)
+        && just == stylehint_just_Centered;
+}
+
 static int html_rule_width(void *ctx, int combo)
 {
     osbanid_t banner = ctx;
@@ -1621,12 +1631,7 @@ static int html_rule_width(void *ctx, int combo)
 static int html_centers(void *ctx, int combo)
 {
     osbanid_t banner = ctx;
-    glui32 just;
-
-    return banner->win
-        && glk_style_measure(banner->win, osstyles_style(combo),
-                             stylehint_Justification, &just)
-        && just == stylehint_just_Centered;
+    return osglk_centers(banner->win, combo);
 }
 
 /* a link goes with the text, which keeps it when the banner is redrawn */
@@ -2102,12 +2107,7 @@ static void tag_set_screen_color(void *ctx, os_color_t color)
 static int tag_centers(void *ctx, int combo)
 {
     tagban_t *tb = ctx;
-    glui32 just;
-
-    return tb->win
-        && glk_style_measure(tag_out(tb), osstyles_style(combo),
-                             stylehint_Justification, &just)
-        && just == stylehint_just_Centered;
+    return tb->win && osglk_centers(tag_out(tb), combo);
 }
 
 /* pictures go in a text-buffer banner, once it's writing for real */

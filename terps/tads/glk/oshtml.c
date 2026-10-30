@@ -121,16 +121,10 @@ static int main_width(void *ctx)
     return G_os_linewidth;
 }
 
-/* the style's Justification hint, if the library tells us */
 static int main_centers(void *ctx, int combo)
 {
-    glui32 just;
-
     (void)ctx;
-    return mainwin
-        && glk_style_measure(mainwin, osstyles_style(combo),
-                             stylehint_Justification, &just)
-        && just == stylehint_just_Centered;
+    return osglk_centers(mainwin, combo);
 }
 
 static int main_rule_width(void *ctx, int combo)

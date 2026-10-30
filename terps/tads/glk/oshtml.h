@@ -271,6 +271,9 @@ void osglk_api_banner_resized(void);
 /* The box-drawing characters of a rule in this style across the window */
 int osglk_rule_width(winid_t win, int combo);
 
+/* Does the window show this style centred, if the library tells us? */
+int osglk_centers(winid_t win, int combo);
+
 typedef struct oshtml_parser oshtml_parser;
 
 /* TADS 3 rules (t23run.cpp), before os_init */
