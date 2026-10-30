@@ -276,11 +276,11 @@ lib_drop_filter (scr_gameref_t game, scr_int object, scr_int unused)
 /*
  * lib_drop_named_filter()
  *
- * Variant of the above for explicitly named objects.  The Runner also drops
- * a *worn* object named in a drop command, implicitly removing it first --
- * "drop cloak" while wearing it answers "You drop the cloak." -- while a bare
- * "drop all" leaves worn items alone.  Both verified live against run390;
- * see test/adrift4/notes/RUNNER_TESTS_TODO.md section 2.
+ * Variant of the above for explicitly named objects.  The Runner also drops a
+ * *worn* object named in a drop command, implicitly removing it first -- "drop
+ * cloak" while wearing it answers "You drop the cloak." -- while a bare "drop
+ * all" leaves worn items alone.  Both verified live against run390; see the
+ * wildcard turn-ordering entry in test/adrift4/notes/RUNNER_TESTS_TODO.md.
  *
  * It also drops an object out of a container the player is carrying, with no
  * announcement of the removal.  Both arms agree: on p39DARK under run390 the
@@ -1205,8 +1205,8 @@ lib_cmd_drop_multiple (scr_gameref_t game)
  * down` alone.  `drop X in Y` is not a put before 4.0 either -- run390
  * answers `drop lamp in box` with "You drop the lamp." (p39SURF,
  * runner_probes/surf.run390.leaveput.txt) where Scarier puts the lamp inside
- * the box -- but that is the put rows' own deviation, and it is written up in
- * WINE-TRANSCRIPTS-TODO rather than changed here.
+ * the box -- but that is the put rows' own deviation ("`drop X in Y` is not
+ * a put below 4.0" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md).
  */
 scr_bool
 lib_cmd_leave_all_pre400 (scr_gameref_t game)
@@ -1516,8 +1516,8 @@ lib_wear_backend (scr_gameref_t game)
    * run390 and run400 both say "You put on the w0, ..." for the very same
    * objects.  Measured on the pwear probe carried across all four Runners
    * (2026-08-23); the empty-prefix default is a bare "a" even before a vowel,
-   * measured separately on pwearv.  See
-   * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
+   * measured separately on pwearv.  See the standing divergence table in
+   * test/adrift4/notes/RUNNER_TESTS_TODO.md.
    *
    * Scarier deliberately uses the definite form in every version (deviation
    * policy): "You put on a underwear." is the substituted article at its

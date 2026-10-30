@@ -193,8 +193,8 @@ parse_fixup_v390_v380_task_alt (const scr_char *task_key,
  * alt that overrides everything.  This matches the alt array that the ADRIFT
  * Generator itself writes when it converts a 3.9 game to 4.0, and matches the
  * 3.9 Runner, which prints the AddDesc *instead of* the LastDesc rather than
- * as well as it (verified live -- see test/adrift4/notes/RUNNER_TESTS_TODO.md
- * section 3a).
+ * as well as it (verified live -- see "Scarier's own V390 parse fixups" in
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md).
  */
 static void
 parse_fixup_v390_v380_room_alts (void)
@@ -304,8 +304,8 @@ parse_write_restrmask (void)
  *
  * Note that gen400's own 3.9 -> 4.0 conversion agrees on 6->8 and 7->11 but
  * turns 5 into 11 as well -- a cascade of un-chained `If`s that rewrites 5 to
- * 7 and then that 7 to 11.  It is the Generator that is wrong; see
- * test/adrift4/notes/RUNNER_TESTS_TODO.md section 3(a).
+ * 7 and then that 7 to 11.  It is the Generator that is wrong; see "Scarier's
+ * own V390 parse fixups" in test/adrift4/notes/RUNNER_TESTS_TODO.md.
  */
 static void
 parse_fixup_v390_battle_attribute (void)

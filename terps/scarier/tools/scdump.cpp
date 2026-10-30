@@ -759,7 +759,8 @@ scdump_objects_lockkeys (scr_gameref_t game)
  * resolvable key, and pre-4.0 games never have one (parse_fixup_openable_key
  * always writes Key = -1), so this is the line that lets the gen400
  * conversion oracle check the V390/V380_OBJECT fixup that swaps Openable
- * 5 and 6.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section 3(a).
+ * 5 and 6.  See "Scarier's own V390 parse fixups" in
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md.
  */
 static void
 scdump_objects_openable (scr_gameref_t game)
@@ -851,9 +852,10 @@ scdump_rewrite_rules (scr_gameref_t game)
    * Worth dumping for a reason that has nothing to do with the game: an ALR's
    * *Original* string is the author's own transcription of a **Runner**
    * message, typed while looking at the real Runner's output.  That makes the
-   * corpus' ALR tables a free, offline oracle for library wording -- see the
-   * asteroid_after measurement in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md,
-   * where `Which valve.` and `Which satellite.   satellite,  satellite or
+   * corpus' ALR tables a free, offline oracle for library wording -- see
+   * "An empty character Prefix keeps its space in the Which list" in
+   * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md, where asteroid_after's
+   * `Which valve.` and `Which satellite.   satellite,  satellite or
    * satellite?` pin run400's ambiguity message and its
    * `tense(Prefix) & " " & Short` list construction without launching Wine.
    */
@@ -944,11 +946,11 @@ scdump_task_t::summary ()
     if (prop_get (bundle, "I<-sis", &vt, k))
       score = vt.integer;
     /*
-     * srd: the task's ShowRoomDesc, as the raw field -- 0 for none,
-     * otherwise room + 1.  See test/adrift4/notes/RUNNER_TESTS_TODO.md
-     * section 4, where run400 is measured printing that room's description
-     * with no room name heading, and task_run_task_unrestricted() prints
-     * both.
+     * srd: the task's ShowRoomDesc, as the raw field -- 0 for none, otherwise
+     * room + 1.  See the standing divergence table in
+     * test/adrift4/notes/RUNNER_TESTS_TODO.md, where run400 is measured
+     * printing that room's description with no room name heading, and
+     * task_run_task_unrestricted() prints both.
      */
     k[2].string = "ShowRoomDesc";
     if (prop_get (bundle, "I<-sis", &vt, k))
@@ -1452,12 +1454,11 @@ scdump_event (scr_gameref_t game, scr_int e)
   if (prop_get (bundle, "I<-sis", &evt, ek))
     o3d = evt.integer;
   /*
-   * Which of the three texts the event actually carries.  This is what
-   * decides exposure to the turn-0 ordering divergence (RUNNER_TESTS_TODO
-   * section 4): the real Runner starts an immediate event during load, so
-   * a StarterType=1 event's StartText is printed into the cleared
-   * pre-intro screen and its LookText joins the opening room
-   * description.
+   * Which of the three texts the event actually carries.  This is what decides
+   * exposure to the turn-0 ordering divergence (the standing divergence table
+   * in RUNNER_TESTS_TODO.md): the real Runner starts an immediate event during
+   * load, so a StarterType=1 event's StartText is printed into the cleared
+   * pre-intro screen and its LookText joins the opening room description.
    */
   {
     const scr_char *stx = nullptr, *ltx = nullptr, *ftx = nullptr;
@@ -1705,7 +1706,8 @@ scdump_npcs (scr_gameref_t game)
  * means every line before the score summary came from the winning task's
  * CompleteText.  (The engine adds nothing of its own there -- the
  * Runners' "Congratulations!" is a status bar caption, not game text.
- * See test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.)
+ * See the standing divergence table in
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md.)
  */
 static void
 scdump_win_text (scr_gameref_t game)
@@ -1838,8 +1840,8 @@ scdump_room_exits (scr_gameref_t game)
  * Room description alts.  In 4.0 these are an authored array; in 3.9/3.8
  * they are synthesised by parse_fixup_v390_v380_room_alts() from the
  * fixed AltDesc/Task1/Task2/LastDesc fields, so dumping them is how the
- * gen400 conversion oracle checks that fixup (see
- * test/adrift4/notes/RUNNER_TESTS_TODO.md §3a).
+ * gen400 conversion oracle checks that fixup (see "Scarier's own V390 parse
+ * fixups" in test/adrift4/notes/RUNNER_TESTS_TODO.md).
  */
 static void
 scdump_room_alts (scr_gameref_t game)

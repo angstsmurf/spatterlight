@@ -817,9 +817,8 @@ lib_print_not_holding (scr_gameref_t game, scr_int container,
  * constant pools and is ABSENT from run400's, so 4.0 dropped the rule
  * outright; the gate is < 4.00 rather than the usual 3.9 split.
  *
- * Two things here are inferred rather than measured, and are noted in
- * test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md: whether a game task for the
- * same command would run first (nothing in that game claims `take alarm
+ * Two things here are inferred rather than measured: whether a game task for
+ * the same command would run first (nothing in that game claims `take alarm
  * clock`), and how this orders against 3.7/3.8's own "not holding" gate, which
  * is why it sits after lib_take_container_unheld() rather than before it.
  */

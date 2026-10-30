@@ -975,7 +975,7 @@ battle_eff_strength (scr_gameref_t game, scr_int npc, scr_int weapon)
        * strength regardless of method: a Str-10 player with a HitValue-30
        * Method-3 blaster one-shots a 35-stamina enemy in run390, where
        * run400 needs two 30-damage hits
-       * (test/adrift4/notes/RUNNER_TESTS_TODO.md, 2026-08-01).
+       * ("Battle System" in test/adrift4/notes/RUNNER_TESTS_TODO.md).
        */
       if (!battle_legacy
           && battle_object_battle (game, weapon, "Method") == 3)

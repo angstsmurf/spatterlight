@@ -131,14 +131,15 @@ main (void)
   expect ("-2^-1", 0);
 
   /* Parenthesized group ahead of a division chain -- a DELIBERATE deviation
-     (see test/adrift4/notes/RUNNER_TESTS_TODO.md section 4, "ADRIFT 5 paren
-     group + division chain").  clsVariable's run-based reducer cannot collapse
-     a group whose contents need run 2 (+ - mod ^), so `*`/`/` pairs to its
-     RIGHT reduce first and the chain effectively right-associates: the real
-     runner gives (A+0)/B/C = A/(B/C) but (A)/B/C = (A/B)/C -- ralphmerridew's
-     report, verified by source reading in ADRIFT 5.0.36.5 and FrankenDrift
-     (both unfixed).  a5sexpr is uniformly LEFT-associative; corpus exposure is
-     zero (2026-08-22: 85,566 expressions across 174 games, no delayed group
+     (see "ADRIFT 5 paren group + division chain" in the standing divergence
+     table, test/adrift4/notes/RUNNER_TESTS_TODO.md).  clsVariable's run-based
+     reducer cannot collapse a group whose contents need run 2 (+ - mod ^), so
+     `*`/`/` pairs to its RIGHT reduce first and the chain effectively
+     right-associates: the real runner gives (A+0)/B/C = A/(B/C) but (A)/B/C =
+     (A/B)/C -- ralphmerridew's report, verified by source reading in ADRIFT
+     5.0.36.5 and FrankenDrift (both unfixed).  a5sexpr is uniformly
+     LEFT-associative; corpus exposure is zero (2026-08-22: 85,566 expressions
+     across 174 games, no delayed group
      followed by a 2-op mul/div chain).  Runner-divergent values noted. */
   expect ("(100)/10/5", 2);      /* both engines agree: (100/10)/5        */
   expect ("(100+0)/10/5", 2);    /* runner: 100/(10/5) = 50               */

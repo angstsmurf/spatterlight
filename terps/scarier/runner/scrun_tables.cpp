@@ -515,16 +515,16 @@ static scr_commands_t STANDARD_COMMANDS[] = {
 #endif
   {"endgame", lib_cmd_endgame},
   /*
-   * Audited 2026-09-07 against the four Runner constant pools and the 426-game
-   * v4 corpus (test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md, "Audited
-   * 2026-09-07"): besides the `stats` row below, `hints`, `q`, `brief`,
+   * Audited against the four Runner constant pools and the 426-game v4
+   * corpus ("Meta commands" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md):
+   * besides the `stats` row below, `hints`, `q`, `brief`,
    * `verbose`, `notify`, `notification`, `redo`, `hist`, `gpl`, `license` and
    * `statusline` are all SCARE inventions no Runner accepts (the Runner words
    * are `hint`, `quit`, `history`).  A game task is matched before
    * run_standard_commands(), so any task carrying COMPLETE text wins and the
    * invention never runs; a task that does not claim its line left the gap
    * that `stats` fell into, and run_game_owns_scare_word() closes it for the
-   * ten that are words (2026-10-11): a word some task of the game names is
+   * ten that are words: a word some task of the game names is
    * answered as the Runner would.  `q` and the shorthands are not covered.
    *
    * All eleven are compiled out by SCARIER_NO_ABBREVIATIONS, alongside the
@@ -570,10 +570,8 @@ static scr_commands_t STANDARD_COMMANDS[] = {
   {"[control panel/control-panel/control/panel]", lib_cmd_control_panel},
   /*
    * `stats` is a SCARE invention: the string does not occur in ANY of the
-   * four Runner binaries, and it stole `suburbanprodigy3` T31 from the game's
-   * own task.  Dropped 2026-09-07 for that (test/adrift4/notes/
-   * WINE-TRANSCRIPTS-TODO.md "Ported 2026-09-07: `stats` is not a Runner
-   * command") and back 2026-10-11 as a name for `statusline` above, now that
+   * four Runner binaries, and in suburbanprodigy3 it would steal T31 from the
+   * game's own task.  It is a name for `statusline` above because
    * run_game_owns_scare_word() hands the word to a game with a task for it.
    * `status` itself is 3.90/4.00 only and lives solely inside the
    * Battle System handler (run400 47DCA1, run390 44C510), which is why both

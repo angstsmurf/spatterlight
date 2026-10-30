@@ -549,9 +549,9 @@ enum { OBJ_WEIGH_DEPTH_LIMIT = 32 };
  * inventory (evt_move_object is the only mover that will), so both functions
  * have to answer for one.  Zero is right: run400 never counts an event-placed
  * object towards the player's limits at all, static or not -- measured live,
- * test/adrift4/notes/RUNNER_TESTS_TODO.md section 9 -- so a static, which can
- * arrive no other way, contributes nothing to the carried totals in either
- * engine.
+ * "Probe backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md -- so a static,
+ * which can arrive no other way, contributes nothing to the carried totals in
+ * either engine.
  */
 scr_int
 obj_get_size (scr_gameref_t game, scr_int object)

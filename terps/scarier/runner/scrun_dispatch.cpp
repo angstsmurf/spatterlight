@@ -1513,8 +1513,10 @@ run_line_t::settle ()
    * is Bob, index 2, and object 2 is the stone, so `attack guard with stone`
    * and `give stone to guard` are "Which stone.  A guard or a guard?" while
    * `x guard sword` (object 0) and `attack guard with club` (object 1) are
-   * "Which guard." -- a plain index collision, not a term choice.  Left
-   * unmodelled; see the lead in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md.
+   * "Which guard." -- a plain index collision, not a term choice.
+   * lib_npc_400_find_namesakes_in() reports the flagged index for it (see
+   * "...and its term is the OBJECT that shares the flagged character's
+   * index" in test/adrift4/notes/WINE-TRANSCRIPTS-TODO.md).
    */
   if (run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400
       && game->is_running

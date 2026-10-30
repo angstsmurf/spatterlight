@@ -718,8 +718,8 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * pick up some aluminum clothes.", run390 "You pick up the aluminum clothes.",
  * run400 "You take the aluminum clothes."  3.70 answers like 3.80: a copy of
  * arlo.taf with the bone's "a" prefix rewritten to "some" gives "You pick up
- * some bone." in run370.  See test/adrift4/notes/RUNNER_TESTS_TODO.md section
- * 4.
+ * some bone." in run370.  See the standing divergence table in
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md.
  */
 /*
  * lib_compare_article()
@@ -807,8 +807,7 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * i.e. "the " is right.  lib_print_object below defaults the same empty
    * prefix to "a ", and that is right too -- the same run prints "Encontre un
    * Fenix de laton dentro del cajon." on the container-reveal path.  See the
-   * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md, settled
-   * 2026-08-14.
+   * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
    */
   normalized = prefix;
 
@@ -1285,8 +1284,8 @@ lib_matcher_requires_seen (scr_gameref_t game)
  * 1 pre-4.0, which lib_get_perspective() already folds in.
  *
  * The status line stays "You are dead!" throughout -- that is a separate fixed
- * literal, present unchanged in all four Runners.  See
- * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
+ * literal, present unchanged in all four Runners.  See the standing
+ * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
  */
 const scr_char *
 lib_get_death_message (scr_gameref_t game)

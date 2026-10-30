@@ -47,15 +47,16 @@
  * exists.  Returns TRUE if function found and handled.
  *
  * The syntax and the selection are measured against the live 4.0 Runner (see
- * test/adrift4/notes/RUNNER_TESTS_TODO.md section 9, probes GDA..GDR of
- * test/adrift4/harness/make_arena_probe.py).  run400 squeezes every space out
- * of the command, requires what is left to open "#%object%=getdynfromroom("
- * and the *raw* command to end in ")" -- so "getdynfromroom(larder)x" is not
- * a function at all -- then compares the squeezed argument to room names
- * case-insensitively and takes the first non-static object standing directly
- * in the room it finds.  Object order decides between candidates (a room
- * holding "ring" then "gem" yields the ring), a room holding only statics
- * yields nothing, and the reference set here survives the rest of the turn.
+ * "Probe backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md, probes GDA..GDR
+ * of test/adrift4/harness/make_arena_probe.py).  run400 squeezes every space
+ * out of the command, requires what is left to open
+ * "#%object%=getdynfromroom(" and the *raw* command to end in ")" -- so
+ * "getdynfromroom(larder)x" is not a function at all -- then compares the
+ * squeezed argument to room names case-insensitively and takes the first
+ * non-static object standing directly in the room it finds.  Object order
+ * decides between candidates (a room holding "ring" then "gem" yields the
+ * ring), a room holding only statics yields nothing, and the reference set
+ * here survives the rest of the turn.
  *
  * Two run400 bugs are deliberately not reproduced, both of which can only
  * lose a match the author meant to make:
@@ -499,26 +500,20 @@ run_any_task_ran_this_command (void)
  * leaves "I don't understand." rather than the library answer.  4.0 dropped
  * this: run400 falls through to the library examine in both cells.
  *
- * The spent half is PORTED (2026-09-13): run_spent_task_390() in
+ * Both halves are ported for 3.9.  The spent half: run_spent_task_390() in
  * run_all_commands() makes the claim where run390's checktask makes it, ahead
  * of everything but the take/drop/inventory/put handlers and the NPC examine.
- * It costs the walkthroughs that used to win past a spent `*` task -- The
- * Long Journey Home stops at 5/90 in the Lair, exactly where run390 does --
- * and those goldens now hold the Runner's brick.
+ * A walkthrough that relies on winning past a spent `*` task bricks as it
+ * does in run390 -- The Long Journey Home stops at 5/90 in the Lair -- and
+ * its golden holds the Runner's brick.
  *
- * The silent half is PORTED too (2026-09-20, 3.9 only): its clock went first
- * (2026-09-19, the line is not a turn) and now the claim, silent_task_390 in
- * run_all_commands() skipping the whole library block so the DontUnderstand
- * text comes out.  test/adrift4/notes/RUNNER_TESTS_TODO.md section 4 priced
- * that at 15 goldens and four lost walkthroughs, but that was before the
- * spent-task port had taken most of those cells: re-measured it costs six
- * goldens and no win -- alexis, alexis_worn_cube, lifesimulation, life and
- * everything change one line of text, the_hangover two turns -- and all six
- * rows then match their Runner transcripts exactly (but for the "Done."
- * that replaced the DontUnderstand text on 2026-10-15, a deliberate
- * deviation; see run_line_t::settle()).  3.7/3.8 are left alone:
- * checktask is the same routine there, but no probe has been run and no corpus
- * row asks.
+ * The silent half: the line is not a turn, and silent_task_390 in
+ * run_all_commands() skips the whole library block.  Where run390 then
+ * prints the DontUnderstand text, Scarier prints "Done." (a deliberate
+ * deviation; see run_line_t::settle()).  The alexis, alexis_worn_cube,
+ * lifesimulation, life, everything and the_hangover goldens match their
+ * Runner transcripts but for that line.  3.7/3.8 are left alone: checktask is
+ * the same routine there, but no probe has been run and no corpus row asks.
  */
 
 /*

@@ -2062,7 +2062,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * the state to match here; the `notify` command stands in for the menu item.
    * Verified live in run400 and run390 (make_arena_probe.py config SC and
    * make_39_endprobe.py both score +3 on an ordinary turn, in silence).  See
-   * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
+   * the standing divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
    */
   game->notify_score_change = FALSE;
 

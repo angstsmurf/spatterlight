@@ -99,8 +99,8 @@ task_start_npc_walks (scr_gameref_t game, scr_int task)
  * so it is not length; spaces in the middle of the text print; leading spaces
  * on the AdditionalMessage itself change nothing; and turning on "show room
  * description" restores the message, because the room description lands in
- * between and the string no longer ends in spaces.  See
- * test/adrift4/notes/RUNNER_TESTS_TODO.md section 4.
+ * between and the string no longer ends in spaces.  See the standing
+ * divergence table in test/adrift4/notes/RUNNER_TESTS_TODO.md.
  */
 static scr_bool
 task_suppresses_additional_message (scr_gameref_t game)

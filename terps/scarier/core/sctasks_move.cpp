@@ -317,8 +317,8 @@ task_move_object (scr_gameref_t game, scr_int object,
    * Static objects do not move for a task action.  run400's object mover
    * (Sub_20_11 @0008C200) skips them at @0008C360 -- "If Objects(o).Static = 1
    * Then <next object>" -- before any destination case runs, so the refusal
-   * covers every destination, not just the room ones.  Measured live
-   * (test/adrift4/notes/RUNNER_TESTS_TODO.md section 9): a task whose action
+   * covers every destination, not just the room ones.  Measured live ("Probe
+   * backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md): a task whose action
    * moves the referenced object to "held by player" prints its completion text
    * for "grab plaque" and leaves the plaque exactly where it was, and a
    * move-to-hidden aimed at a static the player is already holding (an event

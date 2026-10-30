@@ -823,11 +823,10 @@ pf_filter_synonyms (const scr_char *string, scr_prop_setref_t bundle,
  * Replace's binary compare never sees a capital, so the line is already
  * lower-cased by here.
  *
- * Every cell above is Scarier's answer too, bar the `zog take` column:
- * where no rewrite makes the line a task, the Runner still answers "Take
- * what?" and Scarier says "I don't understand."  That is a different
- * rule -- the library verb is matched anywhere in the line -- and it is
- * an open lead in WINE-TRANSCRIPTS-TODO, not a fault of this table.
+ * Every cell above is Scarier's answer too.  The `zog take` column's "Take
+ * what?" where no rewrite makes the line a task comes from a different rule
+ * -- the library verb is matched anywhere in the line, which
+ * run_hoist_verb_line() ports -- not from this table.
  *
  * The 3.80-only take->get is the one that matters: it runs before ANY
  * task matching, so a 3.80 task whose command slots say only `take X` /

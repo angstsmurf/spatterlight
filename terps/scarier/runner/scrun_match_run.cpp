@@ -1099,7 +1099,8 @@ run_does_command_match (scr_gameref_t game, const scr_char *string,
  * command function, and a getdynfromroom() found there sets the Referenced
  * Object for the run.  The task's primary command is not in the array it
  * scans, so a task whose only command is the function never evaluates it.
- * Verified live in run400 (test/adrift4/notes/RUNNER_TESTS_TODO.md section 9):
+ * Verified live in run400 ("Probe backlog" in
+ * test/adrift4/notes/RUNNER_TESTS_TODO.md):
  * wrapping each probe in an "execute task" action is the only way to make its
  * function fire at all, and a probe carrying the function as its sole command
  * stays silent.
@@ -1207,8 +1208,9 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * happens even when the affected task itself could not run where the player
  * is standing.  Restricted matches are passed over silently.
  *
- * All of this is verified against the live 3.9 Runner (see
- * test/adrift4/notes/RUNNER_TESTS_TODO.md section 2): "thetest" depends on the
+ * All of this is verified against the live 3.9 Runner (see the wildcard
+ * turn-ordering entry in test/adrift4/notes/RUNNER_TESTS_TODO.md): "thetest"
+ * depends on the
  * stealing -- its "Nice try fish face!" `*` task fires on the same turn as the
  * library drop because an always-restarting one-turn event executes a task
  * every turn, and the author's ALRs splice the two messages -- while a probe

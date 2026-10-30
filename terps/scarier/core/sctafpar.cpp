@@ -374,7 +374,7 @@ static const scr_parse_schema_t V380_PARSE_SCHEMA[] = {
  *     held or worn -- see |V370_OBJECT:_InitialPositions_|.
  *
  * All four, and the burden model, were then confirmed against the genuine
- * 3.70 Runner (run370.exe under Wine); see
+ * 3.70 Runner (run370.exe under Wine); see "ADRIFT 3.70" in
  * test/adrift4/notes/RUNNER_TESTS_TODO.md.
  */
 static const scr_parse_schema_t V370_PARSE_SCHEMA[] = {
@@ -1470,7 +1470,7 @@ parse_clear_v400_resources_table (void)
  * rule reproduces all 535 negative records in the 427-game version 4.0
  * corpus exactly, and the "##" stripping is not cosmetic: To_Hell_And_Beyond
  * has 21 records that only line up once it is done
- * (test/adrift4/notes/RUNNER_TESTS_TODO.md section 9).
+ * ("Probe backlog" in test/adrift4/notes/RUNNER_TESTS_TODO.md).
  *
  * We resolve back-references by name rather than by index, which comes to
  * the same thing and needs no separate count.  The one case where the
