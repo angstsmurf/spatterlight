@@ -509,7 +509,20 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         return;
     }
     charbottom = charbottom + offset;
-    [self scrollToPosition:floor(charbottom - NSHeight(scrollview.frame)) animate:animate];
+    CGFloat position = floor(charbottom - NSHeight(scrollview.frame));
+    // scrollToPosition: never scrolls up, which suits auto-scrolling but not
+    // a restore: a taller viewport (entering fullscreen) must move up to keep
+    // the same line at the bottom, or the top stays put and the stored
+    // bottom character creeps down on every round trip.
+    NSClipView *clipView = scrollview.contentView;
+    if (!animate && position < NSMinY(clipView.bounds)) {
+        scrolling = NO;
+        NSRect newBounds = clipView.bounds;
+        newBounds.origin.y = MAX(position, 0);
+        clipView.bounds = newBounds;
+        return;
+    }
+    [self scrollToPosition:position animate:animate];
 }
 
 // Request a deferred scroll. The actual scrolling happens in
