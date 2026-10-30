@@ -198,16 +198,15 @@ lib_cmd_read_other (scr_gameref_t game)
     {
       /*
        * Sharing examines() means sharing its object as well: a `read` line
-       * that names more than one is settled exactly as an `x` line is --
-       * 3.90 by referencedob()'s last-word pass, 3.70 and 3.80 by the
-       * "Which <X> would you like to examine." question -- and only a line
-       * naming none reaches the flat tail.  Measured on p*OPENW.taf,
-       * 2026-09-20: `read rock gem` / `read gem rock` are "You can't read
-       * the gem!" / "You can't read the rock!" under run390 and "Which rock
-       * would you like to examine.  The gem or the rock?" under run370 and
-       * run380, and `read rock with slab` is "You can't read the slab!" /
-       * "Which slab would you like to examine.  The rock or the slab?"
-       * (runner_probes/openw.run3[789]0.ow.*,
+       * that names more than one is settled exactly as an `x` line is -- 3.90
+       * by referencedob()'s last-word pass, 3.70 and 3.80 by the "Which <X>
+       * would you like to examine." question -- and only a line naming none
+       * reaches the flat tail.  Measured on p*OPENW.taf: `read rock gem` /
+       * `read gem rock` are "You can't read the gem!" / "You can't read the
+       * rock!" under run390 and "Which rock would you like to examine.  The
+       * gem or the rock?" under run370 and run380, and `read rock with slab`
+       * is "You can't read the slab!" / "Which slab would you like to examine.
+       * The rock or the slab?"  (runner_probes/openw.run3[789]0.ow.*,
        * runner_probes/openw.run3[789]0.ox.*).
        */
       const scr_char *line = run_get_dispatch_input ();

@@ -327,7 +327,7 @@ restr_object_in_place (scr_gameref_t game,
      * return the negation of the position test; the guess was flagged with a
      * `/ * Nothing? * /` comment, and it was wrong.
      *
-     * Probed 2026-08-01 against run400.exe, using a Topaz variant whose
+     * Probed against run400.exe, using a Topaz variant whose
      * `hedges` (an all-rooms static, so it is in the start room) was flipped to
      * a container with the dynamic `ring` starting inside it -- the runner
      * loads it and agrees, answering `look in bushes` with "The silver ring is
@@ -431,7 +431,7 @@ restr_pass_task_object_location (scr_gameref_t game,
    * object" always FAILS and "no object" always PASSES, whatever Var3 and the
    * world state are.
    *
-   * Verified 2026-08-01 against run400.exe itself (Wine/Rosetta), with twelve
+   * Verified against run400.exe itself (Wine/Rosetta), with twelve
    * hand-built single-restriction Topaz variants: the six Var2 < 6 probes all
    * agree, and the six negated ones show the Runner returning that constant.
    * We keep the meaningful reading; nothing in the v4 corpus authors a negated
@@ -467,7 +467,7 @@ restr_pass_task_object_location (scr_gameref_t game,
     }
   else if (var1 >= 3)
     /*
-     * Confirmed against run400.exe 2026-08-01: Var1 - 3 indexes the DYNAMIC
+     * Confirmed against run400.exe: Var1 - 3 indexes the DYNAMIC
      * objects only, 0-based, not the full object list.  Four probes on Topaz
      * (dynamics are object 5 `Topaz`, in room 4, and object 8 `ring`, hidden)
      * pin both halves down -- addressing Var1 = 3 as "in room 4" passes, which
@@ -492,7 +492,7 @@ restr_pass_task_object_location (scr_gameref_t game,
    * is authored, 25 of the 30 occurrences in the v4 corpus -- impossible to
    * satisfy by naming any piece of scenery.
    *
-   * Verified 2026-08-01 against run400.exe (Wine/Rosetta), with six
+   * Verified against run400.exe (Wine/Rosetta), with six
    * single-restriction Topaz variants whose task command is `probe %object%`
    * and whose referenced object is the static `sky`:
    *
@@ -734,7 +734,7 @@ restr_pass_task_char (scr_gameref_t game,
       && prop_get_taf_version (bundle) >= TAF_VERSION_390)
     {
       /*
-       * Deliberate deviation (2026-09-30): 3.9 answers "must be in the same
+       * Deliberate deviation: 3.9 answers "must be in the same
        * room as the Player" the way 4.0 does, passing (a4c5edffa).  run390's
        * failure made any 3.9 task carrying the Generator's default row
        * unreachable -- Studio's 100th point among them -- with nothing

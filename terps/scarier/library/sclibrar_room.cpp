@@ -470,7 +470,7 @@ lib_room_desc_long (scr_gameref_t game, scr_int room, scr_int start,
            * 3.8 substitutes "There is nothing of interest here." into an
            * empty Long at LOAD time (run380 447FEE), so the sentence prints
            * wherever the Long would -- even when an alt goes on to describe
-           * the room.  Measured live 2026-08-31 on cave.taf (3.80): "By the
+           * the room.  Measured live on cave.taf (3.80): "By the
            * old shack" and "By the large tree" have empty Longs and a
            * LastDesc alt, and run380 prints "There is nothing of interest
            * here.  You are standing..." on every show.  3.9's render-time
@@ -600,7 +600,7 @@ lib_room_desc_nothing_390 (scr_gameref_t game, scr_int room,
    * 447ACF, each preceded by a `<alt string> <> vbNullString` branch that
    * jumps clean past it).  3.8 does it at LOAD time instead, substituting the
    * sentence into the empty Long itself (run380 447FEE) -- and cave.taf
-   * (measured live 2026-08-31) proves the routes DIVERGE when an alt
+   * (measured live) proves the routes DIVERGE when an alt
    * describes the room: 3.8 prints the substitute in the Long's place AND
    * the alt after it, where this render-time guard stayed silent.  The 3.80
    * case therefore now lives up at the Long print; only 3.90 keeps this
@@ -611,7 +611,7 @@ lib_room_desc_nothing_390 (scr_gameref_t game, scr_int room,
    * alone moves 16 of the 303 corpus goldens.  The guard needs BOTH halves:
    * the alt text empty AND the Long itself empty (`var_A4(4) = vbNullString`
    * at 4478C0, the room record's Long, not what got printed).  yeh.taf
-   * (3.90) measured on run390x 2026-09-12: "Outside", "Woods", "Spooky
+   * (3.90) measured on run390x: "Outside", "Woods", "Spooky
    * area." each have a Long and a start alt that suppresses it with empty
    * text, and the Runner prints the heading and the exits alone.
    *
@@ -650,10 +650,10 @@ lib_room_desc_event_looks (scr_gameref_t game, scr_int room,
 
   /*
    * Finally, print any relevant event look text.  The runner appends it dead
-   * last in the room block, after the object list and the character lines,
-   * run on with its two-space separator (probed live in both runners,
-   * 2026-08-02).  Join onto the description block only if this call printed
-   * one, so an event's text can't migrate up onto the room name line.
+   * last in the room block, after the object list and the character lines, run
+   * on with its two-space separator (probed live in both runners).  Join onto
+   * the description block only if this call printed one, so an event's text
+   * can't migrate up onto the room name line.
    *
    * The visibility test asks about `room`, the room being described, not
    * about the player -- run400's viewroom indexes the event's room list with
@@ -1178,11 +1178,11 @@ lib_print_room_exits (scr_gameref_t game, scr_int room)
  * their Options -> Appearance submenu offers colours and a font size only.  So
  * the pre-3.9 Runners print no heading at all in verbose mode, and in brief
  * mode print the room name *with a trailing period* as the whole of the
- * description.  Measured live under Wine 2026-08-24: arlo.taf (3.70) in
- * run370, twenty-odd room entries with Verbose on and not one heading, then
- * the same replay with Verbose off giving "Alice's Garden.  Horse walks
- * towards you from the north." for a revisit; and akron.taf (3.80) in run380,
- * 25 room entries, again no heading anywhere.
+ * description.  Measured live under Wine: arlo.taf (3.70) in run370,
+ * twenty-odd room entries with Verbose on and not one heading, then the same
+ * replay with Verbose off giving "Alice's Garden.  Horse walks towards you
+ * from the north." for a revisit; and akron.taf (3.80) in run380, 25 room
+ * entries, again no heading anywhere.
  */
 void
 lib_describe_player_room (scr_gameref_t game, scr_bool force_verbose)

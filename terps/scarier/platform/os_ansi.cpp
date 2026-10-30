@@ -552,7 +552,7 @@ os_read_line (scr_char *buffer, scr_int length)
    * Compare aid: with SCR_MARK_PROMPT set, a \x02 in front of the prompt
    * tells it apart from game text that begins a line with '>'.  3monkeys'
    * ending prints "> GIVE FINGER TO DR. WICKETT", which the Wine compare
-   * otherwise split off as a turn of its own (2026-09-19).
+   * otherwise split off as a turn of its own.
    *
    * A `go <place>` walk types its own steps; show each as typed.  A step is
    * part of the typed turn, the Runner echoing it as "> East" inside the
@@ -704,7 +704,7 @@ os_confirm (scr_int type)
        * pause.  The answer is read without a prompt, so a tool that numbers
        * input lines by prompt drifts one line per question -- mould's
        * `hint`/`y` pairs threw the Wine compare's pause bookkeeping off
-       * (test/adrift4/harness/compare_wine_transcript.py, 2026-09-21).
+       * (test/adrift4/harness/compare_wine_transcript.py).
        */
       if (getenv ("SCR_MARK_CONFIRM"))
         {

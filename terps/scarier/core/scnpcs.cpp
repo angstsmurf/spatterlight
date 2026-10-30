@@ -366,12 +366,12 @@ npc_walk_is_preempted (scr_gameref_t game, scr_int npc, scr_int walk)
  *
  * Measured twice, both live:
  *
- *   - walk probe C (2026-08-01, run390) -- a one-stop non-looping game-start
+ *   - walk probe C (run390) -- a one-stop non-looping game-start
  *     walk: Bob never arrives, "You cannot see Bob from here.", and the
  *     CharTask never fires.  run400 walks the same NPC in on turn one.
  *
  *   - "Melbourne Beach" (3.90) under run390,
- *     runner_probes/melbourne_beach.run390.txt (2026-08-25) -- Judy's walk is
+ *     runner_probes/melbourne_beach.run390.txt -- Judy's walk is
  *     a SIX-stop non-looping game-start walk (Kitchen 10, Eating area 10, Den
  *     5, Judy's bedroom 15, follow 5, Outside den 1).  Scarier used to walk
  *     her, which put her in her bedroom on turns 26-40; the Runner still has
@@ -1012,7 +1012,7 @@ npc_walk_tick_t::step ()
    * consecutive turns in live run400 -- but those pairs are the 4.0
    * player-side meet (npc_tick_npcs, the player walking in on her) landing
    * next to a genuine arrival tick, not a per-tick re-run.  Read from the
-   * P-code (2026-09-12), run400's walk step is one block gated at 468841
+   * P-code, run400's walk step is one block gated at 468841
    * on counter = suffix_sum for EVERY destination kind: the roomgroup pick
    * (Proc_19_19_4568BC at 46888E) and the CharTask dispatch (468B76, gated
    * only on the walker now standing in the player's room, 468A44) both sit
@@ -1205,7 +1205,7 @@ npc_walk_tick_t::move ()
  * first stop is Hidden, arriving on turn 16 with run400 printing "Pelican
  * A pelican flocked toward me.." and Scarier printing nothing.  Measured
  * with harness/make_400_walkhiddenprobe.py under run400
- * (runner_probes/walkhidden.run400.txt, 2026-09-07): of three walkers all
+ * (runner_probes/walkhidden.run400.txt): of three walkers all
  * arriving in the player's room, the one on the Skydiver's shape (nowhere
  * already, Hidden stop, then the room) announces "Hid wanders in." with no
  * direction, the one that arrives from a never-touched zero says nothing,
@@ -1214,7 +1214,7 @@ npc_walk_tick_t::move ()
  * first past it.
  *
  * 3.9 answers the same three ways: make_39_walkhiddenprobe.py under
- * run390 (runner_probes/walkhidden.run390.txt, 2026-09-07) reproduces the
+ * run390 (runner_probes/walkhidden.run390.txt) reproduces the
  * cells exactly, so the stamp is unconditional there too (run390
  * loc_45ABB8, gate loc_45A99B).  ALEXIS.TAF is the 3.90 corpus row that
  * moves with it -- seeded, hence unmeasurable itself, which is what the
@@ -1411,12 +1411,12 @@ npc_tick_npcs (scr_gameref_t game)
    * (468573-4685A0, stamp at 46859A), and run390's characters(), which holds
    * the 3.9 ticker, the same loop at 4591AB (stamp 4591D3) ahead of the
    * per-NPC walk code at 45A4AE.  npc_turn_update() only sweeps after the
-   * tick, so an NPC the player walks in on and who walks off the same tick
-   * was never seen, and dobattle's "<Name> isn't here!" -- which needs the
-   * seen byte -- fell through to DontUnderstand.  Measured 2026-09-13 on
-   * Shadowpeak under run400x (runner_probes/shadowpeak.run400.b.txt turn
-   * 180): `u` into the oak tree lists Haraxis, who skitters off below;
-   * `attack haraxis` then answers "Haraxis isn't here!".
+   * tick, so an NPC the player walks in on and who walks off the same tick was
+   * never seen, and dobattle's "<Name> isn't here!" -- which needs the seen
+   * byte -- fell through to DontUnderstand.  Measured on Shadowpeak under
+   * run400x (runner_probes/shadowpeak.run400.b.txt turn 180): `u` into the oak
+   * tree lists Haraxis, who skitters off below; `attack haraxis` then answers
+   * "Haraxis isn't here!".
    */
   if (npc_version (game) >= TAF_VERSION_390)
     {
@@ -1443,15 +1443,15 @@ npc_tick_npcs (scr_gameref_t game)
    * (or drops) the MeetObject beside a mid-stay walker, so this block
    * rightly never looks at ObjectTask.
    *
-   * Only the movement COMMAND counts.  Probe N (2026-09-13, run400
+   * Only the movement COMMAND counts.  Probe N (run400
    * runner_probes/wkn.run400.t.txt and runner_probes/wkn.run400.k.txt) walks
    * in on the same mid-stay walker with typed n/s, which fires the CharTask,
-   * and with tasks whose only action moves the player, which does not.
-   * run400 reads MeetChar nowhere but the walk tick itself
-   * (468B6F/468B9D/468BC6), so the meet rides on the move command, not on a
-   * later "player room changed" check.  Shadowpeak's `examine web` (task
-   * 124, a player-move action onto Haraxis's web room) printed an extra
-   * "Seeker hums!" here until this was gated.
+   * and with tasks whose only action moves the player, which does not.  run400
+   * reads MeetChar nowhere but the walk tick itself (468B6F/468B9D/468BC6), so
+   * the meet rides on the move command, not on a later "player room changed"
+   * check.  Shadowpeak's `examine web` (task 124, a player-move action onto
+   * Haraxis's web room) printed an extra "Seeker hums!" here until this was
+   * gated.
    *
    * Running this before ticking the NPCs, rather than after, is what puts
    * the messages in the Runner's order; the probes above and the walkthrough

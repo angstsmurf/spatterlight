@@ -173,7 +173,7 @@ lib_move_backend (scr_gameref_t game, const lib_move_verb_t *verb,
   /*
    * Pre-3.9: first leftover only, raw prefix, and only while nothing has
    * been said (see lacks_pre_390 above).  Measured on Crime_Adventure.taf
-   * (3.80) in run380, 2026-09-04: `remove shoes` with the golf shoes lying
+   * (3.80) in run380: `remove shoes` with the golf shoes lying
    * unworn in the shop is "You are not wearing a pair of golf shoes!", where
    * Scarier said "the pair of golf shoes"; `drop cash` naming a penny it
    * never held is "You don't have a penny!".
@@ -396,7 +396,7 @@ lib_cmd_drop_all (scr_gameref_t game)
  *
  * IS_TAKE swaps pass 0 for the take side, and p4TAKER measured that this one
  * model decides which of the two answers a crowded take reaches as well
- * (run400 runner_probes/taker.run400.txt, 2026-09-20).  Its world is five
+ * (run400 runner_probes/taker.run400.txt).  Its world is five
  * pairs of namesakes, every Prefix "a" so no Prefix word narrows anything,
  * and the ten lines fall out cell for cell:
  *
@@ -604,17 +604,16 @@ lib_print_not_clear_which_400 (scr_gameref_t game, const scr_char *term)
  * lib_co_400_raise_for_pending_tie()
  *
  * The unhandled-verb line's question, read off the pending object the way
- * generaltasks reads it.  The 463640 walk at the top of the line (48A3F5,
- * mode 0, and therest's own at 48862B) leaves Me(424) = MemVar_4941EC
- * behind, and 48B6B1 asks only when that is an object: the term is its
- * Short, replaced by the last of ITS aliases that is a whole word of the
- * line (48B73C-48B78C), and the list is the walk's marks.  So which object
- * the question is asked about is the tie arm's index+2 quirk (4633F0; see
+ * generaltasks reads it.  The 463640 walk at the top of the line (48A3F5, mode
+ * 0, and therest's own at 48862B) leaves Me(424) = MemVar_4941EC behind, and
+ * 48B6B1 asks only when that is an object: the term is its Short, replaced by
+ * the last of ITS aliases that is a whole word of the line (48B73C-48B78C),
+ * and the list is the walk's marks.  So which object the question is asked
+ * about is the tie arm's index+2 quirk (4633F0; see
  * lib_name_object_resolve_400()), and p4CO's six cells fall out of it (run400
- * runner_probes/co.run400.co12.txt and runner_probes/co.run400.co13.txt,
- * 2026-09-20) -- red tree 0, blue tree 1, rock 2, mustang key 3 and truck key
- * 4 (both aliased "keys"), hut 5 (aliased "shed"), shed 6, and a tree 7 in
- * the other room:
+ * runner_probes/co.run400.co12.txt and runner_probes/co.run400.co13.txt) --
+ * red tree 0, blue tree 1, rock 2, mustang key 3 and truck key 4 (both aliased
+ * "keys"), hut 5 (aliased "shed"), shed 6, and a tree 7 in the other room:
  *
  *     chop tree hut         tie at 1 matches Short(0): pending 1; the hut
  *                           is tested against Short(3)       Which tree.
@@ -831,7 +830,7 @@ lib_drop_named_400 (scr_gameref_t game, scr_int *references)
  * 445841-44586B, run380 4388E6) and does not name the objects, so the
  * one-object "don't have <X>!" refusal never speaks on this arm.  pPUTFULL39
  * `drop coin and stone on junk`, both on the floor, is "You are not carrying
- * anything." (run390x runner_probes/putfull.run390.txt, 2026-09-19).
+ * anything." (run390x runner_probes/putfull.run390.txt).
  */
 static scr_bool
 lib_drop_and_arm_pre400 (scr_gameref_t game)
@@ -870,7 +869,7 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
  *     whole library print loop -- so the buffer stays empty and 438FE6
  *     writes "Drop what?".
  *
- * Measured 2026-09-20 on run370 and run380, which answer identically.
+ * Measured on run370 and run380, which answer identically.
  * p3xDROPGATE (make_3738_dropgateprobe.py: loose coin and pebble, held bean
  * and cloak, tasks `drop a coin` `drop coin bean` `drop zzz` `drop a cloak`),
  * runner_probes/dropgate.run370.rtf / runner_probes/dropgate.run380.rtf:
@@ -910,7 +909,7 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
  * one-object arm is measured; the "all" and "and" arms rewrite the line per
  * object and are left alone.
   *
- * Deliberate deviation (2026-09-27): not ported.  It only ever takes an
+ * Deliberate deviation: not ported.  It only ever takes an
  * author's task away -- cave's `leave pool` and timmy's `leave the police
  * station` answer "Drop what?" while the player holds anything at all -- so
  * a drop line reaches the tasks in the ordinary passes whatever is in hand.
@@ -927,7 +926,7 @@ lib_drop_and_arm_pre400 (scr_gameref_t game)
  * empty buffer (438FE6 / 430DCF / 445F0B), the walk's handled flag claiming
  * the line.  The library print loop is gated shut by the match (4386F5), so
  * nothing is dropped.  run390's takes() answers the same way, "Take what?"
- * with nothing taken.  Measured 2026-09-26 on p3xBEYOND (make_beyondprobe.py;
+ * with nothing taken.  Measured on p3xBEYOND (make_beyondprobe.py;
  * runner_probes/beyond.run370.b.rtf, runner_probes/beyond.run380.b.rtf,
  * runner_probes/beyond.run390.b.txt): silent literal tasks "drop cape to the
  * floor" (+250) and "drop cape gently" (+100) with the cape held score and
@@ -1012,7 +1011,7 @@ lib_move_what_after_silent_task_pre400 (scr_gameref_t game)
  * and `drop coin and foo` is "You drop the coin." (run370x
  * runner_probes/put.run370.drop.rtf, run380x
  * runner_probes/put.run380.drop.rtf, run390x
- * runner_probes/put.run390.drop.txt, 2026-09-19), where Scarier said "Drop
+ * runner_probes/put.run390.drop.txt), where Scarier said "Drop
  * what?" and "I only understood you as far as wanting to drop the coin.".
  */
 static scr_int
@@ -1128,7 +1127,7 @@ lib_drop_multiple_common (scr_gameref_t game, scr_bool is_except)
  * carrying anything." (run380 4388E6), never a complaint about the exception:
  * p37PUT / p38PUT `drop all except coin` with nothing held (run370x
  * runner_probes/put.run370.feed2.rtf / run380x
- * runner_probes/put.run380.feed2.rtf, 2026-09-19).  Deliberate deviation: 3.7
+ * runner_probes/put.run380.feed2.rtf).  Deliberate deviation: 3.7
  * keeps the exception too, as 3.8 does.
  */
 scr_bool
@@ -1178,7 +1177,7 @@ lib_cmd_drop_multiple (scr_gameref_t game)
  * line to it: run400 answers every one of them from the catch-all, which is
  * what Scarier already does, so these rows decline there.
  *
- * Measured 2026-09-20 on p37/p38/p39/p4DROPGATE (loose coin and pebble, held
+ * Measured on p37/p38/p39/p4DROPGATE (loose coin and pebble, held
  * bean and cloak; make_3738_dropgateprobe.py, which now builds the 4.0 world
  * too), transcripts runner_probes/dropgate.run*.leavegate.* and
  * runner_probes/dropgate.run370.leaveall.rtf:
@@ -1279,7 +1278,7 @@ lib_give_not_interested_400 (scr_gameref_t game, scr_int npc, scr_int object)
  * completed `give hat` are all "You don't have the coin." at 3.7 and 3.8
  * (cells 4, 16 and 20 of runner_probes/ord.run370.give.rtf and
  * runner_probes/ord.run380.give.rtf, against
- * runner_probes/ord.run390.give.txt, 2026-09-21).
+ * runner_probes/ord.run390.give.txt).
  */
 static void
 lib_give_not_held_pre390 (scr_gameref_t game, scr_int object)
@@ -1333,7 +1332,7 @@ lib_cmd_give_object_npc (scr_gameref_t game)
        * A named-but-absent NPC gets the plain give's "to who?" answer, not
        * lib_disambiguate_npc()'s "Please be more clear" -- measured
        * escape_to_new_york turn 193 `give key to purser` (Ticket run400
-       * xoshiro trace 2026-09-12), the key held and the purser elsewhere.
+       * xoshiro trace), the key held and the purser elsewhere.
        * A genuinely ambiguous NPC reference (count > 1) is unaffected;
        * is_ambiguous mutes only the "none at all" branch.
        */
@@ -1514,9 +1513,9 @@ lib_wear_backend (scr_gameref_t game)
    * comes out verbatim either way, so the "a ..." and empty cases are what
    * separate the two printers.  3.9 normalized this along with the rest:
    * run390 and run400 both say "You put on the w0, ..." for the very same
-   * objects.  Measured on the pwear probe carried across all four Runners
-   * (2026-08-23); the empty-prefix default is a bare "a" even before a vowel,
-   * measured separately on pwearv.  See the standing divergence table in
+   * objects.  Measured on the pwear probe carried across all four Runners; the
+   * empty-prefix default is a bare "a" even before a vowel, measured
+   * separately on pwearv.  See the standing divergence table in
    * test/adrift4/notes/RUNNER_TESTS_TODO.md.
    *
    * Scarier deliberately uses the definite form in every version (deviation
@@ -1544,13 +1543,12 @@ lib_wear_backend (scr_gameref_t game)
    * definite printer instead (42B0E8 / 448710).
    *
    * p37TWO/p38TWO/p39TWO `wear hat` with the hat already worn (cells 9 and 22
-   * of runner_probes/two.run370.verb3.rtf /
-   * runner_probes/two.run380.verb3.rtf / runner_probes/two.run390.verb3.txt,
-   * 2026-09-21): "You are already wearing a hat" twice over at 3.7 and 3.8,
-   * "You are already wearing the hat" at 3.9, in every case with the sentence
-   * left open.  Scarier deliberately keeps the full stop there (deviation
-   * policy: the open sentence is a display accident, not text worth
-   * matching).
+   * of runner_probes/two.run370.verb3.rtf / runner_probes/two.run380.verb3.rtf
+   * / runner_probes/two.run390.verb3.txt): "You are already wearing a hat"
+   * twice over at 3.7 and 3.8, "You are already wearing the hat" at 3.9, in
+   * every case with the sentence left open.  Scarier deliberately keeps the
+   * full stop there (deviation policy: the open sentence is a display
+   * accident, not text worth matching).
    */
   has_printed |= lib_print_object_list (game, has_printed, list, " and ",
                                         lib_is_version_400 (game) ? '!' : '.',
@@ -1699,7 +1697,7 @@ lib_wear_multiple_common (scr_gameref_t game, scr_bool is_except)
    * something on (463AC0), so the turn tail's question (48B6B1) replaces
    * the refusal, no turn: p4WTIE `wear stone` with both stones on the floor
    * is "Which stone.  The red stone or the blue stone?" (run400
-   * runner_probes/wtie.run400.it1.txt, 2026-09-21).
+   * runner_probes/wtie.run400.it1.txt).
    *
    * Deliberate deviation: a tie with exactly one held wearable among the
    * tied objects wears that one, through the ordinary parse below, as it
@@ -1773,7 +1771,7 @@ lib_cmd_wear_except_multiple (scr_gameref_t game)
  * branch answers first and wears() never sees the line.  4.0 gave the wear
  * back: `put on X` is a wear there whenever the object is held or worn.
  *
- * p37TWO/p38TWO/p39TWO/p4TWO (runner_probes/two.run*.puton.*, 2026-09-21):
+ * p37TWO/p38TWO/p39TWO/p4TWO (runner_probes/two.run*.puton.*):
  * `put on hat` with the hat held, worn and on the floor is "You put on a
  * hat." / "You are already wearing a hat" / "You are not holding a hat." at
  * 3.70 -- wears()' own three answers, its entry taking c("put on") outright
@@ -1879,7 +1877,7 @@ lib_wear_would_act_390 (scr_gameref_t game)
  * put_drop_list's question never claims, and either spelling is a wear.
  *
  * p3xTWO/p4TWO (runner_probes/two.run*.puton.* and
- * runner_probes/two.run*.puton2.*), 2026-09-21.  With the hat held `put hat
+ * runner_probes/two.run*.puton2.*).  With the hat held `put hat
  * on` is "You put on the hat." at 3.70, 3.90 and 4.00 and "You can't do
  * that!" at 3.80; worn, it is "You are already wearing the hat" everywhere
  * but 3.80.  `put on hat` is that same wear at 3.70 and 4.00 and "You can't
@@ -1983,8 +1981,8 @@ lib_remove_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * runner_probes/rew.run370.verb2.rtf, runner_probes/rew.run380.verb2.rtf,
  * runner_probes/rew.run390.verb2.txt), and on the new wearable probe p3xTWO
  * (make_twoverbprobe.py; runner_probes/two.run370.verb3.rtf,
- * runner_probes/two.run380.verb3.rtf, runner_probes/two.run390.verb3.txt),
- * 2026-09-21.  The cells that carry the rule:
+ * runner_probes/two.run380.verb3.rtf, runner_probes/two.run390.verb3.txt).
+ * The cells that carry the rule:
  *
  *   coin loose   `x get coin`     "You pick up the coin."   takes acts
  *   coin held    `get x coin`     "A gold coin."            takes cannot,
@@ -2050,7 +2048,7 @@ static const scr_char *const LIB_PRE400_CANONICAL[LIB_PRE400_HANDLERS] = {
  * the Or, so `grab coin from box` never enters takes while `take coin from
  * box` does.  p37SLOT (harness/make_37_slotprobe.py), run370x
  * runner_probes/slot.run370.rtf and its scrollback dump
- * runner_probes/slot.run370.dump.txt, 2026-09-21.  The slot words, by
+ * runner_probes/slot.run370.dump.txt.  The slot words, by
  * handler, empty where the game kept the standard word (which the own
  * spellings already hold) or below 3.70's command block.
  */
@@ -2169,7 +2167,7 @@ lib_pre400_handler_words (scr_gameref_t game, const scr_char *line,
  * description at 3.7, 3.8 AND 3.9 -- where Scarier answered 3.9's own therest
  * examine arm, "Nothing special.".  p3xREW cells 31, 35 and 39
  * (runner_probes/rew.run370.verb.rtf, runner_probes/rew.run380.verb.rtf,
- * runner_probes/rew.run390.verb.txt, 2026-09-21).
+ * runner_probes/rew.run390.verb.txt).
  */
 scr_bool
 lib_earlier_handler_claims_pre400 (scr_gameref_t game, const scr_char *line)
@@ -2299,7 +2297,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
    * "You've already got a coin!", `put drop coin` "You drop the coin.".
    * Cells 56, 69 and 76 (run370x runner_probes/ord.run370.rest.rtf, run380x
    * runner_probes/ord.run380.rest.rtf, run390x
-   * runner_probes/ord.run390.rest.txt, 2026-09-21).
+   * runner_probes/ord.run390.rest.txt).
    */
   if (c_word ("put") && !c_word ("in") && !c_word ("into")
       && !c_word ("inside") && !c_word ("on") && !c_word ("onto")
@@ -2331,7 +2329,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
    * and the coin.", `x take coin and hat` with the hat held "You pick up the
    * coin.".  p37ORD..p39ORD (run370x runner_probes/ord.run370.rest.rtf,
    * run380x runner_probes/ord.run380.rest.rtf, run390x
-   * runner_probes/ord.run390.rest.txt, 2026-09-21).  A line with both a take
+   * runner_probes/ord.run390.rest.txt).  A line with both a take
    * and a drop word is not measured.
    */
   if (c_word ("all") || c_word ("and"))
@@ -2378,7 +2376,7 @@ lib_two_verb_line_pre400 (scr_gameref_t game, const scr_char *line,
    * runner_probes/surf.run380.stat2v.rtf, run390x
    * runner_probes/surf.run390.stat2v.txt) and p37SLOT2
    * (runner_probes/slot2.run370.b.rtf plus its scrollback dump
-   * runner_probes/slot2.run370.b_dump.txt), 2026-09-21.
+   * runner_probes/slot2.run370.b_dump.txt).
    */
   if (found != -1 && obj_is_static (game, found))
     {
@@ -2448,7 +2446,7 @@ lib_cmd_remove_all (scr_gameref_t game)
       /*
        * As above: " that can be removed." is SCARE's, and the Runners all
        * assemble Ary(0) & " " & Ary(4) & " not wearing anything.".
-       * Measured live 2026-09-05, run400 on ptbad.taf.
+       * Measured live in run400 on ptbad.taf.
        */
       pf_buffer_string (filter,
                         lib_select_response (game,
@@ -2530,9 +2528,9 @@ lib_cmd_remove_multiple (scr_gameref_t game)
  * there is no standing "anything you hold is seen" rule, which is what this
  * port used to have.
  *
- * Probe SEEN, driven in run400 2026-09-07 (runner_probes/seen.run400.txt),
- * walks the four ways into the player's possession with four hidden objects
- * and asks `x <name>` after each:
+ * Probe SEEN, driven in run400 (runner_probes/seen.run400.txt), walks the four
+ * ways into the player's possession with four hidden objects and asks `x
+ * <name>` after each:
  *
  *   zza  task action, move object -> held by player   x alpha  "A probe object."
  *   zzb  task action, move object -> worn by player   x bravo  "A probe object."
@@ -2622,7 +2620,7 @@ lib_cmd_inventory (scr_gameref_t game)
        * run380x -- and run380 skips a closed container where run370 lists
        * its contents too ("Inside the chest is a ring." with the chest
        * closed; p37TKB/p38TKB cells 2/157, runner_probes/tkb.run370.rtf and
-       * runner_probes/tkb.run380.rtf, 2026-09-20).
+       * runner_probes/tkb.run380.rtf).
        * Scarier deliberately keeps its own listing at every version instead
        * (deviation policy): a surface's contents are "on" it, and a closed
        * container shows nothing, as everywhere else in the game.  What the
@@ -2695,7 +2693,7 @@ lib_cmd_inventory (scr_gameref_t game)
  * an openable SURFACE lists this way too: Crime_Adventure.taf (3.80) keeps
  * a penny and a golf ball on a closed dresser (SurfaceContainer 2), and
  * run380 answers `open dresser` with "You open the dresser.  Inside the
- * dresser is a penny and a golf ball." (measured 2026-09-04) where the
+ * dresser is a penny and a golf ball." (measured) where the
  * container-only lister said nothing.  whatisin1, the held case, marks each
  * listed object seen; whatisin2, the static case, does not.  run370 is the
  * same pair (@42B78E).

@@ -34,7 +34,7 @@
  * lib_co_400_*()
  *
  * The 4.0 object-ambiguity prompt, its pending question, and the answer
- * slot the question opens.  Measured 2026-09-07 with harness/make_400_coprobe.py
+ * slot the question opens.  Measured with harness/make_400_coprobe.py
  * -> p4CO.taf, two rooms and eight static objects sharing one description so
  * that only the CHOICE shows: two trees whose Short is "tree", a rock (the
  * unique control), a mustang key and a truck key both aliased "keys", a hut
@@ -179,8 +179,8 @@
  *
  * Measured on p4CO with run400 (runner_probes/co.run400.co7.txt,
  * runner_probes/co.run400.co8.txt, runner_probes/co.run400.co9.txt,
- * runner_probes/co.run400.co10.txt, runner_probes/co.run400.co11.txt,
- * 2026-09-20), all administrative -- `turns` never moves:
+ * runner_probes/co.run400.co10.txt, runner_probes/co.run400.co11.txt), all
+ * administrative -- `turns` never moves:
  *
  *     x tree and x tree        ->  prompt / wasn't one of the options
  *     x tree then x tree       ->  the same, and so is `x tree. x tree`
@@ -237,7 +237,7 @@
  * (the Which arm at 464560), 48BB53 copies that into 4941F4, and 48B6FF
  * compares the two strings.  `x tree` then `x tree rock` is the cell --
  * same term, two objects then three, and run400 asks the whole question
- * again (runner_probes/co.run400.co14.txt, 2026-09-20); the term model
+ * again (runner_probes/co.run400.co14.txt); the term model
  * said "That is still ambiguous!".  We compare the candidate objects
  * rather than the rendered string, which differs only where two different
  * sets render alike.
@@ -352,7 +352,7 @@ lib_co_400_begin_line (scr_bool is_new_line)
  * scored by 463640 in mode 0, and a lone winner named in its definite form
  * -- `zzz red stone` "(the red stone)", `cut rope with blue stone ruby`
  * "(the blue stone)" (runner_probes/wtie.run400.it1.txt,
- * runner_probes/wtie3.run400.it2.txt, 2026-09-21).  This is also the "I
+ * runner_probes/wtie3.run400.it2.txt).  This is also the "I
  * don't understand what you want me to do with" reply's antecedent.
  */
 
@@ -453,7 +453,7 @@ lib_co_400_print_still_ambiguous (scr_gameref_t game)
  * The character question (lib_npc_400_raise_for_line()) records no
  * candidates, and its answer is not scored: run400 re-runs the original line
  * with the typed words in front of the term.  Measured on p4BATTLEMULTI
- * (runner_probes/battlemulti.run400.whichf.txt, 2026-09-13): a fresh `attack
+ * (runner_probes/battlemulti.run400.whichf.txt): a fresh `attack
  * guard and droid` prints "Which Guard.  A guard or a guard?" for its first
  * half, and its second half `droid`, which alone gets only the catch-all,
  * answers it -- "That is still ambiguous!" and twelve more draws, the three
@@ -512,7 +512,7 @@ lib_co_400_namesake_count (scr_gameref_t game,
  * a handler that RAN, and it prints in full whatever was open before: run400
  * answers p4TAKER's `drop cog` with "Which cog.  The cog or the cog?" and
  * the `drop pad` right after it with "Which pad.  The pad or the pad?"
- * (runner_probes/taker.run400.txt, 2026-09-20).
+ * (runner_probes/taker.run400.txt).
  */
 static void
 lib_co_400_raise_common (scr_gameref_t game, const scr_char *term,
@@ -597,12 +597,12 @@ lib_co_400_raise_named (scr_gameref_t game, const scr_char *term,
  * lib_with_split_crowd_400()
  *
  * The question a line holding " with " raises comes out of ONE half, not out
- * of the whole line.  therest splits before any verb test (4883C5) and
- * scores each half with 463640, so the marked candidates the prompt reads
- * back are the ones the last half scored.  p4WTIE (run400,
- * runner_probes/wtie.run400.1.txt and runner_probes/wtie.run400.w[6-9].txt,
- * 2026-09-20), with "stone" the Short of two objects and a knife, a box and
- * a rope beside them:
+ * of the whole line.  therest splits before any verb test (4883C5) and scores
+ * each half with 463640, so the marked candidates the prompt reads back are
+ * the ones the last half scored.  p4WTIE (run400,
+ * runner_probes/wtie.run400.1.txt and runner_probes/wtie.run400.w[6-9].txt),
+ * with "stone" the Short of two objects and a knife, a box and a rope beside
+ * them:
  *
  *   head ties       `cut stone with knife`, `cut stone with zzz`,
  *                   `chop stone with knife` -- "Which stone.  The red stone
@@ -689,7 +689,7 @@ lib_with_split_crowd_400 (scr_gameref_t game, scr_bool examine,
    * line holds -- `cut pebble with stone` is "Which pebble.", `cut flint
    * with stone` "Which stone." (the blue stone parks, "flint" is the red
    * one's), and `cut rope with stone flint pebble` ties 2-2 and asks
-   * "Which pebble." too (runner_probes/wtie2.run400.19.txt, 2026-09-21).
+   * "Which pebble." too (runner_probes/wtie2.run400.19.txt).
    * It asks whether or not the whole line named one object.
    */
   if (lib_name_object_resolve_400 (game, tail + 6, 0, &tied_pending,
@@ -748,7 +748,7 @@ lib_co_400_raise_for_with_tail (scr_gameref_t game, scr_int pending,
  * generaltasks then asks whenever Me(424) is an object (48B6B1), whatever
  * examines found: the term is Short(Me(424)) replaced by the last of its
  * aliases the line holds, the list is Me(428).  Measured on p4CO with
- * run400 (runner_probes/co.run400.co15.txt, 2026-09-21) -- red tree 0,
+ * run400 (runner_probes/co.run400.co15.txt) -- red tree 0,
  * blue tree 1, rock 2, mustang key 3 and truck key 4 (both aliased
  * "keys"), hut 5 (aliased "shed"), shed 6, and a tree 7 in the other
  * room:
@@ -979,7 +979,7 @@ lib_co_400_raise_for_references (scr_gameref_t game)
    * the antecedent setter (471749-471789), before generaltasks replaces the
    * description with the question: `x stone` asks, and `x it` then echoes
    * "(a blue stone)", pass A's last mark
-   * (runner_probes/wtie.run400.it1.txt, 2026-09-21).
+   * (runner_probes/wtie.run400.it1.txt).
    */
   object = lib_examine_referencedob_ex_400 (game, input, TRUE);
   if (object >= 0 && obj_indirectly_in_room (game, object, room))
@@ -1188,7 +1188,7 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
    * is the answer slot's "That is still ambiguous!" and not the scan's
    * "That wasn't one of the options!", which only an element that DID answer
    * -- an examine, whose reply is in the buffer -- can reach
-   * (runner_probes/co.run400.co11.txt, 2026-09-20).
+   * (runner_probes/co.run400.co11.txt).
    */
   if (lib_co_400_question_pending ())
     {
@@ -1197,14 +1197,13 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
     }
 
   /*
-   * The crowd's FIRST object decides: the walk keeps one best, and only a
-   * tie whose Short matches the best's parks the pending object the
-   * question is asked from.  So a namesake pair the line names after some
-   * other object of the same score never asks -- p4WTIE's `chop stone
-   * knife` is the game's DontUnderstand text, where `chop stone` and
-   * p4CO's `chop tree rock` (the pair first, the odd one after) both ask
-   * (runner_probes/wtie.run400.w6.txt, runner_probes/wtie.run400.w7.txt,
-   * 2026-09-20).
+   * The crowd's FIRST object decides: the walk keeps one best, and only a tie
+   * whose Short matches the best's parks the pending object the question is
+   * asked from.  So a namesake pair the line names after some other object of
+   * the same score never asks -- p4WTIE's `chop stone knife` is the game's
+   * DontUnderstand text, where `chop stone` and p4CO's `chop tree rock` (the
+   * pair first, the odd one after) both ask (runner_probes/wtie.run400.w6.txt,
+   * runner_probes/wtie.run400.w7.txt).
    */
   term = prop_get_indexed_string (bundle, "Objects", tied[0], "Short");
   if (scr_strempty (term) || !lib_input_contains_word (input, term))
@@ -1232,13 +1231,12 @@ lib_co_400_raise_for_short_tie (scr_gameref_t game,
  *
  * The character half of the same question.  generaltasks raises it at
  * 48B815-48B928 (48BA87-48BB53 on its second pass): the term var_A4 is the
- * flagged NPC's Name (field 0), replaced by every one of its aliases (field
- * 8, count field 12) that is a whole word of the line, and the prompt is
- * "Which " & term & ".  " & list & "?", with "That is still ambiguous!" in
- * its place while a question is already open.  Measured 2026-09-13 on
- * harness/make_400_battlemultiprobe.py
- * (runner_probes/battlemulti.run400.txt): two NPCs both Named "Guard",
- * Prefix "a", in the room --
+ * flagged NPC's Name (field 0), replaced by every one of its aliases (field 8,
+ * count field 12) that is a whole word of the line, and the prompt is "Which "
+ * & term & ".  " & list & "?", with "That is still ambiguous!" in its place
+ * while a question is already open.  Measured on
+ * harness/make_400_battlemultiprobe.py (runner_probes/battlemulti.run400.txt):
+ * two NPCs both Named "Guard", Prefix "a", in the room --
  *
  *     attack guard                     ->  Which Guard.  A guard or a guard?
  *     attack droid guard with blaster  ->  Which Guard.  A guard or a guard?
@@ -1296,7 +1294,7 @@ lib_prefix_words_in_input_400 (const scr_char *input, const scr_char *prefix)
  * maximum wins outright and nothing is asked; anything else -- a tie at
  * any height, zero included -- leaves the ambiguity standing.
  *
- * Measured 2026-09-20 on p4PFX2.taf (make_prefixprobe.py ... 2): Ann "a big
+ * Measured on p4PFX2.taf (make_prefixprobe.py ... 2): Ann "a big
  * red", Bob "a red" and Cid "the red", all three aliased "guard" and all in
  * the room, run400x runner_probes/pfx2.run400.txt.
  *
@@ -1524,13 +1522,13 @@ lib_npc_400_raise_for_line_in (scr_gameref_t game, const scr_char *input)
    * of it that is a whole word of the line, the last winning.
    *
    * It is a plain collision, not a term choice.  p4BATT (run400x
-   * runner_probes/batt.run400.txt and runner_probes/batt.run400.b.txt,
-   * 2026-09-20) has Dave 0, Ann 1, Bob 2, Cora 3 with Ann and Bob both "a
-   * guard", and objects sword 0, club 1, stone 2; the flagged index is
-   * Bob's 2, so `attack guard with stone`, `give stone to guard`, `x guard
-   * stone` and `x stone guard` all print "Which stone.  A guard or a
-   * guard?" while `x guard sword`, `attack guard with club`, `give club to
-   * guard` and `x guard dave` print "Which guard.".
+   * runner_probes/batt.run400.txt and runner_probes/batt.run400.b.txt) has
+   * Dave 0, Ann 1, Bob 2, Cora 3 with Ann and Bob both "a guard", and objects
+   * sword 0, club 1, stone 2; the flagged index is Bob's 2, so `attack guard
+   * with stone`, `give stone to guard`, `x guard stone` and `x stone guard`
+   * all print "Which stone.  A guard or a guard?" while `x guard sword`,
+   * `attack guard with club`, `give club to guard` and `x guard dave` print
+   * "Which guard.".
    */
   if (flagged >= 0 && flagged < gs_object_count (game)
       && gs_object_seen (game, flagged)
@@ -1632,7 +1630,7 @@ lib_npc_400_raise_for_line_string (scr_gameref_t game, const scr_char *line)
  * keys.  The red tree, the blue tree, the mustang key or the truck key?":
  * the rebuilt `chop chop keys tree` names the keys as well as the trees, and
  * a scorer confined to the prompt's own candidates can never see them
- * (runner_probes/co.run400.co11.txt turn 15, 2026-09-20).  "That is still
+ * (runner_probes/co.run400.co11.txt turn 15).  "That is still
  * ambiguous!" is then not this slot's answer but the re-run's own raise,
  * meeting the term the last prompt left behind.
  */

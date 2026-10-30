@@ -450,7 +450,7 @@ enum { V380_TASK_MOVEMENTS = 6 };
  *   2 very heavy -> 24
  *
  * That table is directionally right and wrong by one step, and the genuine
- * run380.exe says why (measured 2026-08-03 with patched probe files, in the
+ * run380.exe says why (measured with patched probe files, in the
  * Wine Runner harness).  Version 3.8 has no size axis and no weight axis:
  * it has ONE pooled burden, whose per-class costs are 1/3/7/3/7, and the
  * player's capacity is exactly #MaxCarried.  A 4.0 packed base^digit value
@@ -552,14 +552,13 @@ parse_fixup_v380_movement (scr_int mvar1, scr_int mvar2, scr_int mvar3,
   if (mvar1 == 1)
     {
       /*
-       * The 3.8 Runner's executor (run380 tasks() 44D1D4) loads movement
-       * Var2 minus one and moves the player only behind "If Var2 > 1" --
-       * meant to exclude the none/hidden entries, but it also excludes
-       * room 1, so a 3.8 task can never move the PLAYER to the game's
-       * first room; the object branch has no such guard.  Measured live
-       * 2026-08-31 on cave.taf run380: "climb down" at the halfway room
-       * (raw Var2 = 2) prints its CompleteText and leaves the player in
-       * place.  So raw 2 converts to no action at all.
+       * The 3.8 Runner's executor (run380 tasks() 44D1D4) loads movement Var2
+       * minus one and moves the player only behind "If Var2 > 1" -- meant to
+       * exclude the none/hidden entries, but it also excludes room 1, so a 3.8
+       * task can never move the PLAYER to the game's first room; the object
+       * branch has no such guard.  Measured live on cave.taf run380: "climb
+       * down" at the halfway room (raw Var2 = 2) prints its CompleteText and
+       * leaves the player in place.  So raw 2 converts to no action at all.
        *
        * Version 3.7 is NOT affected: its player-move encoding sits one
        * higher (the first room is raw Var2 = 3, which its identical

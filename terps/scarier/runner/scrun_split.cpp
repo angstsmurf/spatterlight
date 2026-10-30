@@ -82,7 +82,7 @@ run_counts_line_elements (scr_gameref_t game)
  * that starts the text or follows a space decides; it is a word if it runs
  * to the end or is followed by a space or "," -- or "." from 3.9.
  *
- * Measured 2026-09-19 on p38ASK / p39ASK (harness/make_38_askprobe.py,
+ * Measured on p38ASK / p39ASK (harness/make_38_askprobe.py,
  * make_39_askprobe.py; run380x runner_probes/ask.run380.split.rtf,
  * run390x runner_probes/ask.run390.split.txt).
  */
@@ -235,7 +235,7 @@ run_empty_then_head_390 (const scr_char *line)
  * probe's alias "Widget" does NOT suppress the typed "widget", even though
  * the object resolver matches it.
  *
- * Measured 2026-09-08 on the hand-built p4AND probe (make_400_andprobe.py;
+ * Measured on the hand-built p4AND probe (make_400_andprobe.py;
  * transcripts runner_probes/and.run400.txt and
  * runner_probes/and.run400.b.txt, 41 cells).  `x coin and hat and zzz` cuts
  * at the SECOND " and " (the first is suppressed by "hat"); `drop coin and

@@ -164,7 +164,7 @@ uip_next_token (void)
        * on the washing machine` for task 21 "Amber sit on {the}  {standard}
        * washing machine" and falls through to the library's "You sit down
        * on the standard washing machine." (runner_transcripts/
-       * christmaspresent.txt T53, 2026-09-26): {the} is included, and "the
+       * christmaspresent.txt T53): {the} is included, and "the
        * " with two spaces never matches "the w".  uip_parse_element() gives
        * such a run its own node, and uip_match_group_double_whitespace()
        * asks whether the group it follows matched empty.  A run between a
@@ -558,7 +558,7 @@ uip_parse_element (void)
          * Where" (4.00) has task 347 "ask  *girl* about *" -- the girl's
          * CharTask, meant to run from her walk -- and run400 answers `ask
          * young girl about grantby` from her conversation topic ("Wie
-         * bitte? Grantby?", runner_probes/ticket.run400.txt, 2026-09-12);
+         * bitte? Grantby?", runner_probes/ticket.run400.txt);
          * Scarier ran the task instead, and the extra random(0,12) draw put
          * the whole rest of the transcript out of step.  The multi-space flag
          * belongs to the lookahead token, so read it before advancing.
@@ -714,7 +714,7 @@ uip_parse_list (scr_ptnoderef_t list)
            * uip_match_whitespace().  So is one after a closing %object%:
            * p4BEYOND's `polish %object% ` matches nothing in run400, `polish
            * orb` being the object catch-all (make_beyondprobe.py,
-           * runner_probes/beyond.run400.txt, 2026-09-26), as in all three
+           * runner_probes/beyond.run400.txt), as in all three
            * older Runners.  Not after a group or a wildcard: House's task 190
            * `*get *cathy* ` answers `get cathy`
            * (runner_transcripts/house.txt:146).

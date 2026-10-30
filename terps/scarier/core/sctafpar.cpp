@@ -1975,7 +1975,7 @@ parse_class (const scr_char *class_)
  * becomes the literal "a", while an authored " " is not empty, escapes the
  * substitution, and is then trimmed to a genuinely empty prefix that no later
  * code puts an article back into.  Both halves are measured -- probe ISARE
- * (run400, runner_probes/isare.run400.txt, 2026-09-07) lists its no-prefix
+ * (run400, runner_probes/isare.run400.txt) lists its no-prefix
  * boots as "a boots" and its single-space rings as " rings", with the joining
  * space and no article, and answers `where rings` with " rings are test
  * arena."

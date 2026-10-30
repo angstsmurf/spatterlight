@@ -39,10 +39,10 @@ lib_take_from_filter (scr_gameref_t game, scr_int object, scr_int associate)
   /*
    * To be take-able, an object must be either inside or on the specified
    * object, and -- like every other object match in 3.9/4.0 games -- the
-   * player must have seen it.  "get all from" a container whose contents
-   * are still unrevealed takes nothing (run400, measured live in iachini
-   * 2026-08-22: the dining room table's card and towel need "x table"
-   * first); lib_take_from_unseen() supplies the refusal for that case.
+   * player must have seen it.  "get all from" a container whose contents are
+   * still unrevealed takes nothing (run400, measured live in iachini: the
+   * dining room table's card and towel need "x table" first);
+   * lib_take_from_unseen() supplies the refusal for that case.
    */
   return (gs_object_position (game, object) == OBJ_IN_OBJECT
           || gs_object_position (game, object) == OBJ_ON_OBJECT)
@@ -87,11 +87,10 @@ lib_take_from_unseen (scr_gameref_t game, scr_int associate)
  *
  * Response for "get all from" a container or supporter whose contents the
  * player hasn't seen yet.  4.0 refuses outright: run400 answers "You can't
- * take anything from the round glass table." (iachini, measured live
- * 2026-08-22).  Pre-4.0 runs its normal take loop over an empty match and
- * prints just the bare verb phrase: run390 on ALEXIS answers `get all from
- * table` with "You take " -- trailing space, no object list, no period
- * (measured live 2026-08-22).
+ * take anything from the round glass table." (iachini, measured live).
+ * Pre-4.0 runs its normal take loop over an empty match and prints just the
+ * bare verb phrase: run390 on ALEXIS answers `get all from table` with "You
+ * take " -- trailing space, no object list, no period (measured live).
  */
 static void
 lib_take_from_unseen_refusal (scr_gameref_t game, scr_int associate)
@@ -112,16 +111,15 @@ lib_take_from_unseen_refusal (scr_gameref_t game, scr_int associate)
 /*
  * lib_take_from_nothing_inside_pre390()
  *
- * 3.7/3.8's own "There is nothing inside a bag.": the object's raw Prefix
- * and Short (run380 446F60 and 44750A, run370 43AD4D and 43B109), where 3.9
- * names it definitely.  The all/and arm (446F60) says "inside" whatever the
- * object is, and run370 has no other literal, so a surface gets it too:
- * `get all from tray`, the tray an empty supporter, is "There is nothing
- * inside a tray." in run370x and run380x (p37TFSW/p38TFSW,
- * runner_probes/tfsw.run370.feed2.rtf, runner_probes/tfsw.run380.feed2.rtf,
- * 2026-09-19).  Scarier deliberately keeps
- * grammatical text instead (deviation policy): the object is named
- * definitely, and a plain surface has nothing "on" it, not "inside" it.
+ * 3.7/3.8's own "There is nothing inside a bag.": the object's raw Prefix and
+ * Short (run380 446F60 and 44750A, run370 43AD4D and 43B109), where 3.9 names
+ * it definitely.  The all/and arm (446F60) says "inside" whatever the object
+ * is, and run370 has no other literal, so a surface gets it too: `get all from
+ * tray`, the tray an empty supporter, is "There is nothing inside a tray." in
+ * run370x and run380x (p37TFSW/p38TFSW, runner_probes/tfsw.run370.feed2.rtf,
+ * runner_probes/tfsw.run380.feed2.rtf).  Scarier deliberately keeps
+ * grammatical text instead (deviation policy): the object is named definitely,
+ * and a plain surface has nothing "on" it, not "inside" it.
  */
 static void
 lib_take_from_nothing_inside_pre390 (scr_gameref_t game, scr_int associate)
@@ -141,16 +139,15 @@ lib_take_from_nothing_inside_pre390 (scr_gameref_t game, scr_int associate)
  * lib_take_from_nothing_taken_pre390()
  *
  * A pre-3.9 take-from that named objects, none of them in the container.
- * insides() sets its message to "<You> take " before the take loop and,
- * when nothing was added, compares it with "<You> get " (run380 4474C7).
- * run370 spells the take "You get ", so the test holds and the answer is
- * "There is nothing inside a bag."; run380 reworded the take and not the
- * test, so the bare "You take " goes out, trailing space and all.  `get
- * coin from bag` with the coin in hand: run370x "There is nothing inside a
- * bag.", run380x "You take " (p37TFSW/p38TFSW,
- * runner_probes/tfsw.run370.feed2.rtf, runner_probes/tfsw.run380.feed2.rtf,
- * 2026-09-19).  Scarier deliberately gives 3.8 the 3.7 sentence rather
- * than the half-sentence (deviation policy).
+ * insides() sets its message to "<You> take " before the take loop and, when
+ * nothing was added, compares it with "<You> get " (run380 4474C7).  run370
+ * spells the take "You get ", so the test holds and the answer is "There is
+ * nothing inside a bag."; run380 reworded the take and not the test, so the
+ * bare "You take " goes out, trailing space and all.  `get coin from bag` with
+ * the coin in hand: run370x "There is nothing inside a bag.", run380x "You
+ * take " (p37TFSW/p38TFSW, runner_probes/tfsw.run370.feed2.rtf,
+ * runner_probes/tfsw.run380.feed2.rtf).  Scarier deliberately gives 3.8 the
+ * 3.7 sentence rather than the half-sentence (deviation policy).
  */
 static void
 lib_take_from_nothing_taken_pre390 (scr_gameref_t game, scr_int associate)
@@ -266,16 +263,15 @@ lib_take_from_has_contents (scr_gameref_t game, scr_int associate)
  * TRUE where the line's verb is "empty" and the game is pre-4.0, in which
  * case the take-from family must decline the line altogether.
  *
- * "empty" is a 4.0 addition.  run390's insides() gate at loc_4627E2 is
- * `( c("from") Or (c("all") And container>0) ) And ( c("get") Or c("remove")
- * Or c("take") Or c("pick") )` -- no "empty" anywhere in it -- and measured
- * live that is exactly what run390 does: `empty box`, `empty torch` and
- * `empty stone` all answer the DontUnderstand catch-all, "I don't understand
- * what you want me to do with the box.", while `empty zzzz` is the bare "I
- * don't understand." (p39DARK, runner_probes/dark.run390.feed4.txt,
- * runner_probes/tfrom.run400.feed2.txt, runner_probes/dark.run390.feed5.txt,
- * 2026-09-10).  run400 on
- * the same feed takes the coin out of the box for `empty box`.
+ * "empty" is a 4.0 addition.  run390's insides() gate at loc_4627E2 is `(
+ * c("from") Or (c("all") And container>0) ) And ( c("get") Or c("remove") Or
+ * c("take") Or c("pick") )` -- no "empty" anywhere in it -- and measured live
+ * that is exactly what run390 does: `empty box`, `empty torch` and `empty
+ * stone` all answer the DontUnderstand catch-all, "I don't understand what you
+ * want me to do with the box.", while `empty zzzz` is the bare "I don't
+ * understand." (p39DARK, runner_probes/dark.run390.feed4.txt,
+ * runner_probes/tfrom.run400.feed2.txt, runner_probes/dark.run390.feed5.txt).
+ * run400 on the same feed takes the coin out of the box for `empty box`.
  */
 static scr_bool
 lib_take_from_empty_verb (scr_gameref_t game)
@@ -311,7 +307,7 @@ lib_take_from_empty_verb (scr_gameref_t game)
  * line, in index order, that is here.  `get coin from stone` is "I don't
  * understand what you want me to do with the coin." and `get all from
  * stone` "... with the stone." (p37TFSW, run370x
- * runner_probes/tfsw.run370.rtf, 2026-09-19), where run380 says "You can't
+ * runner_probes/tfsw.run370.rtf), where run380 says "You can't
  * take anything from the stone!".  A line without get or remove never reaches
  * insides() at all, so it gets the same catch-all whatever the source is -- a
  * gate Scarier deliberately does not apply (see the run370 insides() note in
@@ -341,7 +337,7 @@ lib_take_from_answer_370 (scr_gameref_t game, scr_int associate)
    * the nut in a box on the floor is "What gem?" (p37TKA cell 125), where
    * `get nut from statue` names the statue (cell 122) and, with the nut in
    * a held box, the nut (p37TKB cells 165, 167; run370x
-   * runner_probes/tka.run370.rtf / runner_probes/tkb.run370.rtf, 2026-09-20).
+   * runner_probes/tka.run370.rtf / runner_probes/tkb.run370.rtf).
    */
   gs_clear_multiple_references (game);
   for (object = 0; input && object < gs_object_count (game); object++)
@@ -394,7 +390,7 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
    * `get all from torch` is "You can't take anything from the torch!" in
    * run390 and "You can't take anything from the torch." in run400
    * (runner_probes/dark.run390.feed3.txt,
-   * runner_probes/tfrom.run400.feed2.txt, 2026-09-10).  run370 has no such
+   * runner_probes/tfrom.run400.feed2.txt).  run370 has no such
    * literal at all -- its tail at loc_43AF92 tests only c("in") and c("on") --
    * and 3.70 never gets here: its callers answer with the catch-all first
    * (lib_take_from_answer_370).
@@ -421,7 +417,7 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
        * loc_4632E3 and " as it is closed!" at loc_463302): `get all from box`
        * with the box closed is "You can't get anything from the box as it is
        * closed!" (p39DARK, runner_probes/dark.run390.feed4.txt,
-       * runner_probes/dark.run390.feed5.txt, 2026-09-10).  4.0 dropped that
+       * runner_probes/dark.run390.feed5.txt).  4.0 dropped that
        * literal -- it is in run370, run380 and run390 and in no run400 -- and
        * answers "The box is closed." for every form of the command.
        */
@@ -446,7 +442,7 @@ lib_take_from_is_valid (scr_gameref_t game, scr_int associate)
    * 446CFB).  The closed test at 446D19 runs after it and overwrites its
    * message, so a closed chest on the floor is "as it is closed!", not "not
    * holding" -- p37TFSW/p38TFSW `get stone from chest`, run370x/run380x
-   * runner_probes/tfsw.run370.rtf, runner_probes/tfsw.run380.rtf, 2026-09-19.
+   * runner_probes/tfsw.run370.rtf, runner_probes/tfsw.run380.rtf.
    */
   if (lib_take_container_unheld (game, associate))
     {
@@ -523,7 +519,7 @@ lib_cmd_take_all_from (scr_gameref_t game)
  * measured turn is `get coin from box` with the coin inside a CLOSED box, so
  * the coin is not reachable: run390 answers "You can't do that!" while `get
  * stone from box` on the very same turn gets the closed-container refusal
- * instead (p39DARK, runner_probes/dark.run390.feed5.txt, 2026-09-10).
+ * instead (p39DARK, runner_probes/dark.run390.feed5.txt).
  *
  * 4.0 dropped that arm along with the literal, which is in run370, run380 and
  * run390 and in no run400.  There the container has already answered by the
@@ -554,7 +550,7 @@ static const scr_char *const LIB_TAKE_FROM_NOWHERE_400 =
  * something, "Get <the X> from what?" also arms a pending slot, and a bare
  * line typed next reruns as "get <X> from <line>": `get nut from zzz`, then
  * `box`, is "You take a nut from the box." (p39TKB, run390x
- * runner_probes/tkb.run390.txt cells 139/140, 147/148, 158/159, 2026-09-20).
+ * runner_probes/tkb.run390.txt cells 139/140, 147/148, 158/159).
  */
 static scr_bool
 lib_take_from_nowhere_named_390 (scr_gameref_t game, const scr_char *named)
@@ -599,7 +595,7 @@ lib_take_from_nowhere_named_390 (scr_gameref_t game, const scr_char *named)
  * with the slot armed (p39TKB cell 158).  3.7/3.8 have their one "You can't
  * do that!" (p37TKB/p38TKB cell 158).  runner_probes/tkb.run370.rtf,
  * runner_probes/tkb.run380.rtf, runner_probes/tkb.run390.txt,
- * runner_probes/tkb.run400.txt, 2026-09-20.
+ * runner_probes/tkb.run400.txt.
  */
 scr_bool
 lib_take_from_trailing (scr_gameref_t game)
@@ -670,7 +666,7 @@ lib_take_from_and_line (scr_gameref_t game)
  * Measured on p37TKA/p38TKA (runner_probes/tka.run370.rtf,
  * runner_probes/tka.run380.rtf, cells 47-134, 122-130) and p37TKB/p38TKB
  * (runner_probes/tkb.run370.rtf, runner_probes/tkb.run380.rtf, cells 67-135,
- * 165-181), 2026-09-20.  3.7's catch-all answers first for a slot that is no
+ * 165-181).  3.7's catch-all answers first for a slot that is no
  * container (lib_take_from_answer_370).
  */
 static scr_bool
@@ -784,7 +780,7 @@ lib_take_from_slot_pre390 (scr_gameref_t game)
  * nothing: `get nut and bolt from box` is "You take the nut from the box."
  * alone, `get all from box and bag` "There is nothing inside the bag.".
  * Measured on p39TKA (runner_probes/tka.run390.txt, cells 47-134) and p39TKB
- * (runner_probes/tkb.run390.txt, cells 67-181), 2026-09-20.
+ * (runner_probes/tkb.run390.txt, cells 67-181).
  */
 static scr_bool
 lib_take_from_and_390 (scr_gameref_t game)
@@ -891,7 +887,7 @@ lib_take_from_and_390 (scr_gameref_t game)
  * takes the nut from the box, `get nut from bag and box` is "Take what?"),
  * an unresolvable one being the nowhere refusal.  Then the container's own
  * tests, and only the names it holds move.  p4TKA runner_probes/tka.run400.txt
- * cells 47-134, p4TKB runner_probes/tkb.run400.txt cells 67-181, 2026-09-20.
+ * cells 47-134, p4TKB runner_probes/tkb.run400.txt cells 67-181.
  */
 static scr_bool
 lib_take_from_and_400 (scr_gameref_t game)
@@ -1047,7 +1043,7 @@ lib_take_from_and (scr_gameref_t game)
  * then every seen one (the 46361D restart).  Only a unique winner reaches the
  * container tests of the tail (473795); a tie answers at 473336/4733BD and a
  * piece naming nothing at 47332B, both before them.  p4WTIE (run400,
- * runner_probes/wtie.run400.from.txt, 2026-09-21), two loose stones with the
+ * runner_probes/wtie.run400.from.txt), two loose stones with the
  * Short "stone", a ruby and an emerald aliased "gems", a static rope, a held
  * knife and a locked box:
  *
@@ -1156,7 +1152,7 @@ lib_take_from_resolved (scr_gameref_t game, scr_int associate,
        * key on the table is "You can't take anything from the table." (p4TKA
        * cell 119), `get nut from tray` the same (p4TKB cell 163), where a
        * container is "Take what?" (run400x runner_probes/tka.run400.txt /
-       * runner_probes/tkb.run400.txt, 2026-09-20).
+       * runner_probes/tkb.run400.txt).
        */
       if (obj_is_surface (game, associate) && !obj_is_container (game, associate))
         {
@@ -1229,8 +1225,8 @@ lib_take_from_multiple_common (scr_gameref_t game, scr_bool is_except)
    * 4.0 inspects the container before it ever looks at the names the line
    * gave, and the three answers it can give there outrank anything the names
    * could say.  Measured live on p4TFROM against run400
-   * (runner_probes/tfrom.run400.txt, runner_probes/tfrom.run400.feed2.txt,
-   * 2026-09-10), with the box the only container in the room:
+   * (runner_probes/tfrom.run400.txt, runner_probes/tfrom.run400.feed2.txt),
+   * with the box the only container in the room:
    *
    *   box closed, coin inside   `get coin from box`   The box is closed.
    *   box closed, stone outside `get stone from box`  The box is closed.
@@ -1324,12 +1320,12 @@ lib_cmd_take_from_multiple (scr_gameref_t game)
  * 4.0 has one answer for every form of the command, all-form and named-form
  * alike: "I don't understand where you want to get things from." (run400
  * mdlSpreadTheLoad loc_472F1F-472F35, printed once both resolver passes have
- * failed to find a container).  Measured on p4TFROM against run400,
- * `get all from zzzz`, `take all from zzzz`, `pick all from zzzz`, `get stone
- * from zzzz`, `get coin from zzzz`, `empty zzzz`, `remove coin from zzzz`,
- * `get all from me`, `get lamp from me` and `empty me` all answer it
- * (runner_probes/tfrom.run400.txt, runner_probes/tfrom.run400.feed2.txt,
- * 2026-09-10).  "me" is not a container to 4.0, so it lands here too.
+ * failed to find a container).  Measured on p4TFROM against run400, `get all
+ * from zzzz`, `take all from zzzz`, `pick all from zzzz`, `get stone from
+ * zzzz`, `get coin from zzzz`, `empty zzzz`, `remove coin from zzzz`, `get all
+ * from me`, `get lamp from me` and `empty me` all answer it
+ * (runner_probes/tfrom.run400.txt, runner_probes/tfrom.run400.feed2.txt).
+ * "me" is not a container to 4.0, so it lands here too.
  *
  * Pre-4.0 splits the two forms.  The all-form is the fall-through of run390's
  * `If var_8C >= 0` at loc_463176, "You can't get anything from that." at

@@ -49,7 +49,7 @@
  * With no object passing, the line gets "I don't understand what you are
  * wanting to wield!" -- an ordinary turn.
  *
- * Measured 2026-09-14 on Villains_And_Kings under run390
+ * Measured on Villains_And_Kings under run390
  * (runner_probes/villains_and_kings.run390.wield.txt): the sword is Prefix
  * "Kinda Sharp", Short "Sword", Alias "blade".  `wield Sword`, `wield kinda
  * sharp sword`, `wield zzz`, `wield rack` (Short "Rack", empty alias) and a
@@ -447,7 +447,7 @@ lib_cmd_buy_absent (scr_gameref_t game)
  * the plain "<You> might need the rock." (p*WITHPFX,
  * harness/make_withprefixprobe.py; runner_probes/withpfx.run370.pfx4.rtf /
  * runner_probes/withpfx.run380.ws.rtf / runner_probes/withpfx.run390.ws.txt /
- * runner_probes/withpfx.run400.ws.txt, 2026-09-20).  Below 3.90 the arm ends
+ * runner_probes/withpfx.run400.ws.txt).  Below 3.90 the arm ends
  * in an exclamation mark, with or without an instrument: run370/run380 answer
  * a bare `break rock` "You might need the rock!" where run390/run400 use a
  * full stop (harness/make_withprefixprobe.py;
@@ -658,7 +658,7 @@ lib_cmd_eat_object (scr_gameref_t game)
    * an edible one gets the held test, whose refusal ends in "!" (run400
    * 4888AF/488921/488993, run390 45D52E, run380 443D8B, run370 43D332).
    * p4WTIE `eat red stone`, the stone on the floor: "You can't eat the red
-   * stone." (run400 runner_probes/wtie.run400.it1.txt, 2026-09-21).
+   * stone." (run400 runner_probes/wtie.run400.it1.txt).
    */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;

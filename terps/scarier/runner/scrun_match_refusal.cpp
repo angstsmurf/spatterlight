@@ -171,9 +171,9 @@ run_spent_task_390 (scr_gameref_t game, const scr_char *string,
        * task writes its RepeatText into an EMPTY buffer (44B4B2), with no
        * room test: matt's `out` is "You have already done that." everywhere
        * until the boss room is entered (probe p39REV, run390x
-       * runner_probes/rev.run390.txt, 2026-09-24).
+       * runner_probes/rev.run390.txt).
        *
-       * Deliberate deviation (2026-09-30): not ported.  The claim names a
+       * Deliberate deviation: not ported.  The claim names a
        * task that was never done, in every room, so a room's own `out`
        * exit could not be taken and `leave box` was refused too
        * (32a3f3423).  The line goes on to the library.
@@ -422,7 +422,7 @@ run_refusal_scan (scr_gameref_t game, const scr_char *string,
        * A task the current command has just completed is not "already done"
        * for that command -- p39done.taf's silent `* x * scroll *` task runs,
        * prints nothing, and run390 then answers "I don't understand." rather
-       * than "You have already done that." (2026-08-23).
+       * than "You have already done that.".
        */
       /*
        * 4.0 also asks the restrictions.  A spent task whose restrictions now
@@ -700,15 +700,15 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
 
       /*
        * 4.0 has no default already-done message and none of those three
-       * conditions: measured 2026-09-08 (p4REPEAT/p4REPEAT2/p4REPEAT3 under
-       * run400, runner_probes/repeat.run400.txt, repeat2.run400.txt and
+       * conditions: measured (p4REPEAT/p4REPEAT2/p4REPEAT3 under run400,
+       * runner_probes/repeat.run400.txt, repeat2.run400.txt and
        * repeat3.run400.txt), an authored RepeatText is printed by the task
        * dispatcher itself, ahead of nearly the whole library, and takes the
-       * line away from a wildcard command and from movement just as readily
-       * as from a literal one.  What it does NOT take
-       * is listed in run_repeat_survivor_400(), which the caller tests -- the
-       * answer is needed before the priority commands run, so a probe pass
-       * reports it without printing anything.
+       * line away from a wildcard command and from movement just as readily as
+       * from a literal one.  What it does NOT take is listed in
+       * run_repeat_survivor_400(), which the caller tests -- the answer is
+       * needed before the priority commands run, so a probe pass reports it
+       * without printing anything.
        */
       if (version >= TAF_VERSION_400)
         {
@@ -736,7 +736,7 @@ run_task_refusal (scr_gameref_t game, const scr_char *string,
  * already-carrying refusal appends to the buffer as it stands (462D4E):
  * `put take coin` with the coin held is "Where do you want to put the
  * coin?You are already carrying the coin.".  p4ORD (make_orderprobe.py)
- * cells 62 and 69 (run400x runner_probes/ord.run400.rest.txt, 2026-09-21).  A
+ * cells 62 and 69 (run400x runner_probes/ord.run400.rest.txt).  A
  * put beside examine or drop already answers as the Runner does; any other
  * take outcome is not measured, and the line goes on as it did.
  */

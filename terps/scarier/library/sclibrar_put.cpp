@@ -104,7 +104,7 @@ scr_int lib_put_present_unseen = -1;
  *
  * lib_print_object_np(), except for the one object this command resolved
  * despite it being unseen: that one prints as "that", matching the Runner's
- * name composer.  Measured on hub (run400, 2026-09-17): the minestrone soup,
+ * name composer.  Measured on hub (run400): the minestrone soup,
  * revealed only by task 11 opening the tin can with no listing of its own,
  * answers `put soup in pan` with "I put that inside the saucepan." rather
  * than naming the soup.
@@ -141,7 +141,7 @@ lib_put_print_object_or_that (scr_gameref_t game, scr_int object)
  * set "put all in X" and "put all except Y on Z" range over there, and it is
  * what the "You are not holding ..." leftover report is phrased for.  run390
  * also takes what is lying loose in the room: on p39DARK
- * (runner_probes/dark.run390.putin3.txt:50, 2026-09-12), with the torch, lamp
+ * (runner_probes/dark.run390.putin3.txt:50), with the torch, lamp
  * and coin in hand and the stone and the pebble on the cave floor, `put all in
  * box` answers "You put the torch, the lamp, the stone, the pebble and the
  * coin inside the box."  It stops there -- once every object is inside the
@@ -176,7 +176,7 @@ lib_put_named_filter (scr_gameref_t game, scr_int object)
    * Pre-4.0 is wider than "held or worn" as well.  run390 takes an object
    * lying loose in the room -- there is no implicit take and no announcement,
    * the put simply runs -- and one sitting inside a container the player is
-   * carrying.  Measured on p39DARK against run390 (2026-09-12):
+   * carrying.  Measured on p39DARK against run390:
    *
    *   runner_probes/dark.run390.putin2.txt:55
    *                   pebble loose on the cave floor, box in hand, `put
@@ -306,7 +306,7 @@ lib_put_reject_reference (scr_gameref_t game, scr_int object)
  * The announcement is unconditional -- it is printed before the acquisition
  * is attempted, not after it succeeds -- and the acquisition itself is the
  * ordinary take, capacity limits and all.  Measured in run400 with a full
- * rucksack (Provenance, 2026-08-23):
+ * rucksack (Provenance):
  *
  *   > put raincoat in rucksack
  *   (Taking the raincoat first)
@@ -900,7 +900,7 @@ lib_put_in_t::report_full_390 (void)
  * the bag as it is full." at the first one left over and saying nothing
  * of the rest.  A count of nil is "Nothing will fit inside the bag."
  * (461E0B), with no object named.  pPUTREF39.taf / pPUTREF39E.taf
- * (--emptybag), run390x, 2026-09-19: `put stone and pebble in bag` with
+ * (--emptybag), run390x: `put stone and pebble in bag` with
  * the bag full is "Nothing will fit inside the bag.", as is `put all in
  * bag` (runner_probes/putref.run390.feed4.txt:5/11); with room for two, `put
  * stone and pebble and lamp in bag` is "You put the stone and the lamp
@@ -1013,7 +1013,7 @@ lib_put_in_t::put_remaining (void)
        * held, torch (Prefix "an") and lamp (Prefix "a") in hand: `put all
        * in box` -> "You put an torch and a lamp inside the box."
        * (runner_probes/dark.run380.putin4.txt:22,
-       * runner_probes/dark.run370.putin4.txt:22, 2026-09-12), against `put
+       * runner_probes/dark.run370.putin4.txt:22), against `put
        * torch in box` -> "You put an torch inside the box." and `put pebble in
        * box` -> "You put the pebble inside the box." on the same probes
        * (runner_probes/dark.run380.putin2.txt:60/57).  Only the list is raw --
@@ -1264,7 +1264,7 @@ lib_put_in_backend (scr_gameref_t game, scr_int container,
  * handler (Proc_19_43_46639C) exits every message path without setting its
  * return byte, so "The rock is too big to fit inside the slot." is printed
  * and a matching task then answers the same line, joined on with two spaces
- * (arena probe PUT7, runner_probes/put7.run400.b.txt, 2026-09-05; Zack
+ * (arena probe PUT7, runner_probes/put7.run400.b.txt; Zack
  * Smackfoot `put knife in slot`, runner_transcripts/zacksmackfoot.txt).
  * Signal that to run_priority_commands() and report the handler's return.
  * Pre-4.0 the refusal claims the line, as it always has.
@@ -1368,7 +1368,7 @@ lib_put_except_filter (scr_gameref_t game, scr_int object, scr_int target)
  * behind on the cave floor, `put lamp in box` and `put stone in box` both
  * answer "You are not holding a box."
  * (runner_probes/dark.run380.putin3.txt:25/31,
- * runner_probes/dark.run370.putin3.txt:25/31, 2026-09-12), and so does `put
+ * runner_probes/dark.run370.putin3.txt:25/31), and so does `put
  * all in box` (runner_probes/dark.run380.putin3.txt:50,
  * runner_probes/dark.run370.putin3.txt:50) -- the box is found, and then
  * refused for not being in the player's hands.  run390 never finds it and asks
@@ -1390,7 +1390,7 @@ lib_put_except_filter (scr_gameref_t game, scr_int object, scr_int target)
  * cave and the player standing in the lit room, `put lamp on table` and `put
  * stone on table` are both "You are not holding a table." on run370 and
  * run380 (p37SURF/p38SURF, runner_probes/surf3.run370.txt:5/7 and
- * runner_probes/surf3.run380.txt:5/7, 2026-09-12), where run390 never finds
+ * runner_probes/surf3.run380.txt:5/7), where run390 never finds
  * the table and asks "Put the lamp onto what?" instead.  That is only to be
  * expected once the two handlers turn out to be one; see
  * lib_put_target_takes_on().
@@ -1565,7 +1565,7 @@ lib_put_refusal_sweep_390 (scr_gameref_t game, size_t from)
  * p37PUT/p38PUT, standing in the cave with the open static cupboard in the
  * lit room: `put coin in cupboard` is "You can't see a cupboard." (run370x
  * runner_probes/put.run370.drop.rtf, run380x
- * runner_probes/put.run380.drop.rtf, 2026-09-19); Scarier had put the coin
+ * runner_probes/put.run380.drop.rtf); Scarier had put the coin
  * into it.  The not-a-container refusal comes first: `put coin in statue`, the
  * plain static statue also left behind, is "You can't put anything inside the
  * statue." on the same turns.  The static surface is the same handler, and
@@ -1601,7 +1601,7 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
       /*
        * In the tentative priority pass the refusal is deferred, so a matched
        * task's fail message can claim the input first; the STANDARD_COMMANDS
-       * duplicate prints it when no task does (run400-verified, 2026-08-02).
+       * duplicate prints it when no task does (run400-verified).
        */
       const scr_bool is_first = lib_put_refusal_first_390 (game);
       const size_t from = pf_buffer_length (filter);
@@ -1674,16 +1674,16 @@ lib_put_in_is_valid (scr_gameref_t game, scr_int container)
 
       /*
        * 4.0 reworded this one too, and pre-4.0 has no lock to report: the
-       * literal " as it is closed!" is in run370, run380 and run390 and in
-       * no run400, while " as it is locked!", " is locked!" and every other
+       * literal " as it is closed!" is in run370, run380 and run390 and in no
+       * run400, while " as it is locked!", " is locked!" and every other
        * spelling of "locked" are in run400 alone.  So a container the game
-       * calls locked draws the closed wording before 4.0.  The closed half
-       * is measured on both arms with the same probe turn, `put lamp in
-       * box` with the box shut: run390 "You can't put anything inside the
-       * box as it is closed!" (p39DARK,
-       * runner_probes/dark.run390.putin2.txt:28) against run400 "The box is
-       * closed!" (p4TFROM, runner_probes/tfrom.run400.putin2.txt:18),
-       * 2026-09-12.
+       * calls locked draws the closed wording before 4.0.  The closed half is
+       * measured on both arms with the same probe turn, `put lamp in box` with
+       * the box shut: run390 "You can't put anything inside the box as it is
+       * closed!" (p39DARK, runner_probes/dark.run390.putin2.txt:28) against
+       * run400 "The box is closed!" (p4TFROM,
+       * runner_probes/tfrom.run400.putin2.txt:18).
+       *
        */
       lib_print_response_object (game,
                                  "You can't put anything inside ",
@@ -1799,8 +1799,8 @@ lib_put_on_backend (scr_gameref_t game, scr_int supporter)
   /*
    * "onto" is 3.9's word.  run370 and run380 write " on ": `put stone on
    * table` with the table in hand is "You put the stone on the table."
-   * (runner_probes/surf1.run370.txt:15, runner_probes/surf1.run380.txt:15,
-   * 2026-09-12), against run390's "You put the stone onto the table."
+   * (runner_probes/surf1.run370.txt:15, runner_probes/surf1.run380.txt:15),
+   * against run390's "You put the stone onto the table."
    * (runner_probes/surf1.run390.txt:15).  The all form also prints its list
    * with the objects' own prefixes there, the same way the pre-3.9 "put all
    * in" does: `put all on table` is "You put an torch and a lamp on the
@@ -1849,7 +1849,7 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
        * literal " can't put anything on "; 3.9 composes " can't put anything "
        * with "onto" (the census finds bare "onto" in run390 and run400 only,
        * and the run370/run380 pools hold nothing but "Mapontop"); and only
-       * 4.0 shouts.  `put coin on stone` on the surface probe, 2026-09-12:
+       * 4.0 shouts.  `put coin on stone` on the surface probe:
        *
        *   run370  You can't put anything on the stone.
        *           runner_probes/surf1.run370.txt:14
@@ -1877,16 +1877,15 @@ lib_put_on_is_valid (scr_gameref_t game, scr_int supporter)
 
   /*
    * And below 3.9 a surface has to be in the player's hands, exactly as a
-   * container does -- one handler, one test.  With the table left standing
-   * in the cave, `put lamp on table`, `put stone on table` and `put all on
-   * table` all answer "You are not holding a table." on run370 and run380
+   * container does -- one handler, one test.  With the table left standing in
+   * the cave, `put lamp on table`, `put stone on table` and `put all on table`
+   * all answer "You are not holding a table." on run370 and run380
    * (runner_probes/surf3.run370.txt:5/7, runner_probes/surf3.run380.txt:5/7,
-   * runner_probes/surf6.run370.txt:3, runner_probes/surf6.run380.txt:3,
-   * 2026-09-12) -- the object's own prefix, not the "the" of most refusals.
-   * Statics are exempt, and have to be: `put stone on bench`, the bench a
-   * static surface on the cave floor, is "You put the stone on the bench." on
-   * both (runner_probes/surf2.run370.txt:12,
-   * runner_probes/surf2.run380.txt:12).
+   * runner_probes/surf6.run370.txt:3, runner_probes/surf6.run380.txt:3) -- the
+   * object's own prefix, not the "the" of most refusals.  Statics are exempt,
+   * and have to be: `put stone on bench`, the bench a static surface on the
+   * cave floor, is "You put the stone on the bench." on both
+   * (runner_probes/surf2.run370.txt:12, runner_probes/surf2.run380.txt:12).
    *
    * 3.9 and 4.0 have no such test.  The same `put all on table` with the
    * table on the floor is "You put the torch, the lamp, the stone, the

@@ -55,7 +55,7 @@
  * (`search`, `wave` and `throw` are "I don't understand." because no arm
  * holds those words outside dobattle; `give` is the shape that shows the two
  * halves are separate, printing the "(to Nobody)" echo and then "Give
- * what?".)  Measured 2026-09-20 on p4REW with make_rewriteprobe.py, run400x
+ * what?".)  Measured on p4REW with make_rewriteprobe.py, run400x
  * runner_probes/rew.run400.casc.txt.
  *
  * Scarier's table is anchored at the head, so the port is a rewrite rather
@@ -171,7 +171,7 @@ static const scr_char *const *const HOIST_TABLES_400[] = {
  * and one other verb, the other verb's handler answers first and gotoplace
  * then either stays out (the handler claimed), adds its message with no
  * break, or walks.  Measured on p37ORD..p4ORD with make_orderprobe.py
- * (run370x..run400x runner_probes/ord.run*.goto.*, 2026-09-21):
+ * (run370x..run400x runner_probes/ord.run*.goto.*):
  *   x/examine goto cave        "Nothing special." (4.0 "You see no such
  *                              thing."), no goto: examines claims
  *   take goto cave             "Take what?Unknown place." (3.7 walks)
@@ -396,9 +396,9 @@ run_goto_after (scr_gameref_t game, const scr_char *typed, scr_int goto_class,
  * claims nothing.  What decides a line holding one of its verbs AND another
  * handler's word is what it does to the message buffer: once var_90 -- the
  * first of attack, fight, kill, kick, chop, cut, hit, shoot, stab and throw
- * that the line holds as a whole word -- is set, it ASSIGNS "" to the
- * buffer (run390 44CBFD, run400 47EAEF) before its target loop.  Measured
- * 2026-09-21 on p39BORD/p4BORD (make_battleorderprobe.py), run390x
+ * that the line holds as a whole word -- is set, it ASSIGNS "" to the buffer
+ * (run390 44CBFD, run400 47EAEF) before its target loop.  Measured on
+ * p39BORD/p4BORD (make_battleorderprobe.py), run390x
  * runner_probes/bord.run390.batt.txt / runner_probes/bord.run390.batt2.txt and
  * run400x runner_probes/bord.run400.batt.txt /
  * runner_probes/bord.run400.batt2.txt:
@@ -884,7 +884,7 @@ run_hoist_any_verb_at (scr_gameref_t game, const scr_char *word)
  * coin, but nothing happens.", `kick hit coin` and `hit kick coin` both the
  * hit.
  *
- * Measured 2026-09-21 on p4REW (make_twoverbprobe.py, run400x
+ * Measured on p4REW (make_twoverbprobe.py, run400x
  * runner_probes/rew.run400.verb.txt) and on p4TWO
  * (runner_probes/two.run400.verb3.txt); the cells that carry the rule, coin
  * loose unless said otherwise:
@@ -1111,7 +1111,7 @@ run_two_verb_line_400 (scr_gameref_t game, const scr_char *line,
    * coin and the box.", `drop x all` "You drop the hat and the coin.", and
    * `x take coin and hat` with the hat held "You take the coin. You are
    * already carrying the hat.".  p4ORD make_orderprobe.py (run400x
-   * runner_probes/ord.run400.rest.txt, 2026-09-21).  A put, and a line holding
+   * runner_probes/ord.run400.rest.txt).  A put, and a line holding
    * both, are not measured.
    */
   if (list)
@@ -1228,7 +1228,7 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
     return FALSE;
 
   /*
-   * Deliberate deviation (2026-09-30): a verb word inside an object's or a
+   * Deliberate deviation: a verb word inside an object's or a
    * character's longer name is no verb.  Every rewrite below must stand on
    * the masked line too (lib_mask_long_names()), so `x ice pick`, `get
    * cough drop` and `open drop box` keep their one verb.
@@ -1304,7 +1304,7 @@ run_hoist_verb_line (scr_gameref_t game, const scr_char *string,
        * and `push examine coin` is the coin's description at 3.7, 3.8 and
        * 3.9 alike.  p3xREW make_twoverbprobe.py cells 31, 35 and 39
        * (runner_probes/rew.run370.verb.rtf, runner_probes/rew.run380.verb.rtf,
-       * runner_probes/rew.run390.verb.txt, 2026-09-21).
+       * runner_probes/rew.run390.verb.txt).
        */
       if (scan == string
           && !(run_get_version (gs_get_bundle (game)) < TAF_VERSION_400

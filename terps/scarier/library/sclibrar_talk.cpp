@@ -167,7 +167,7 @@ lib_cmd_talk_to_npc (scr_gameref_t game)
    * (run400 488DA2) rather than falling through to it.  Capture the named
    * NPC before lib_disambiguate_npc()'s own room/seen filter clears the
    * reference.  Measured escape_to_new_york turns 199-200 `talk to
-   * goodson` (Ticket run400 xoshiro trace 2026-09-12).  run390's hint
+   * goodson` (Ticket run400 xoshiro trace).  run390's hint
    * (45975C-4597C0) has no room gate either, and nothing after it in
    * characters() overwrites it for an absent NPC: the "isn't here!" arm
    * (459C2A) wants an empty or "can't talk to that." buffer.  Measured

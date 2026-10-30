@@ -123,7 +123,7 @@ pf_output_tag (const scr_char *contents, const scr_markup_sink_t *sink)
            * is a timed <wait> whose Val() of the remainder decides the
            * delay, so "<waitkey 4>" is a zero-second wait and NOT a
            * keypress pause.  Vardock Bates (4.00) writes one after the
-           * Jhave wall; run400 does not stop there (transcript 2026-08-29).
+           * Jhave wall; run400 does not stop there (transcript).
            */
           if (entry->tag == SCR_TAG_WAITKEY)
             {
@@ -285,7 +285,7 @@ pf_output_untagged (const scr_char *string)
  * How many times the Runner walks the ALR list is a version split, and both
  * halves are measured rather than argued (harness/make_400_alrprobe.py and
  * harness/make_39_alrprobe.py, one task per cell, run under run400.exe and
- * run390.exe in Wine on 2026-08-24):
+ * run390.exe in Wine on):
  *
  *                      ALRs                       run390     run400
  *    "AAA."      AAA -> qAAA                      qAAA.      qqAAA.

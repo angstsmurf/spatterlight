@@ -352,7 +352,7 @@ lib_cmd_locate_object (scr_gameref_t game)
    * know where that is!" at 4684DA) and the characters() where/find/locate
    * block 47FC8D-47FE19 never write the not-a-turn flag MemVar_494281, and
    * run390's whereis 43FF98 / characters() 45ACD8 never write 468219.
-   * Ticket (runner_probes/ticket.run400.txt, 2026-09-12): "where is young
+   * Ticket (runner_probes/ticket.run400.txt): "where is young
    * girl" ticks 59 draws.
    */
 
@@ -574,18 +574,17 @@ lib_cmd_score (scr_gameref_t game)
  * lib_print_battle_attribute()
  * lib_print_battle_status()
  *
- * Helpers for the Battle System "status" command, matching the Runner's
- * status table (settled live 2026-08-01, probes pWS/pWS2): a header row
- * "Range / Max / Current value (inc weapons/armour)", then one row per
- * attribute.  The stamina row is live / max / live (no lo-hi range); the
- * other rows are "lo-hi", the configured max, a fresh effective roll that
- * folds in the wielded weapon and worn armour, and -- for the three rows
- * equipment can affect -- the equipment share in parentheses (agility takes
- * none, so its row has no parenthesis).  The table has no leading "You
- * have:" line, and the trailing wielding line is indented to the first
- * column and names the weapon with its article prefix ("a sword"), or
- * "nothing".  Until a wield is set the player's values are bare -- no
- * would-be weapon is folded in.
+ * Helpers for the Battle System "status" command, matching the Runner's status
+ * table (settled live, probes pWS/pWS2): a header row "Range / Max / Current
+ * value (inc weapons/armour)", then one row per attribute.  The stamina row is
+ * live / max / live (no lo-hi range); the other rows are "lo-hi", the
+ * configured max, a fresh effective roll that folds in the wielded weapon and
+ * worn armour, and -- for the three rows equipment can affect -- the equipment
+ * share in parentheses (agility takes none, so its row has no parenthesis).
+ * The table has no leading "You have:" line, and the trailing wielding line is
+ * indented to the first column and names the weapon with its article prefix
+ * ("a sword"), or "nothing".  Until a wield is set the player's values are
+ * bare -- no would-be weapon is folded in.
  */
 enum
 { STATUS_COL_LABEL = 16,
@@ -697,7 +696,7 @@ lib_print_battle_status (scr_gameref_t game, scr_int npc)
  * worn protection), and the bracket is the attribute's maximum field.  No
  * header, no Accuracy or Agility row and no wielding line.  Measured on the
  * town of azra (3.90, run390x runner_transcripts/the_town_of_azra_v390.txt
- * T60, 2026-09-14).
+ * T60).
  */
 static void
 lib_print_battle_status_390 (scr_gameref_t game, scr_int npc)

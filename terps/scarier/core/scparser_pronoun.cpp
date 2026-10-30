@@ -95,7 +95,7 @@ uip_note_definite_reference (void)
  *
  * Measured on p4WTIE/p4WTIE3 (make_400_withtieprobe.py [--desc], run400
  * runner_probes/wtie.run400.it1.txt, runner_probes/wtie3.run400.it2.txt,
- * runner_probes/wtie.run400.it3.txt, 2026-09-21): `zzz red stone` and `cut
+ * runner_probes/wtie.run400.it3.txt): `zzz red stone` and `cut
  * stone red` "(the red stone)" (the scorer; "red" is a Prefix word), `cut rope
  * with blue stone ruby` "(the blue stone)", `cut red stone with stone` "(a red
  * stone)" (the -2 arm; the line asks), `cut rope with gems` "(emerald)", `x
@@ -304,7 +304,7 @@ uip_pronoun_t::object_phrase ()
    * composes in mode 1 (loc_471749-471789), take/drop/open/close and
    * the "I don't understand what you want me to do with" reply in
    * mode 0 -- see uip_definite_form().  Measured on humbug (4.00,
-   * runner_probes/humbug.run400.it.txt, 2026-08-29): `x plane` then
+   * runner_probes/humbug.run400.it.txt): `x plane` then
    * `x it` echoes "(a paper aeroplane)", `get plane` then `x it`
    * "(the paper aeroplane)", `open satchel` "(the satchel)", `throw
    * shovel` (no such verb) "(the shovel)"; "some gloves" and "an
@@ -316,7 +316,7 @@ uip_pronoun_t::object_phrase ()
    * named it becomes tense(Prefix) & " " & Short (run380 441EF1 and
    * 442038, run370 43B696 and 43B805), held or not, whatever the
    * verb.  Measured on wrecked (3.80, run380x
-   * runner_transcripts/wrecked.rtf, 2026-09-14): `get jacket` then `x
+   * runner_transcripts/wrecked.rtf): `get jacket` then `x
    * it` echoes "(the tweed jacket)", `get form` then `x it` "(an
    * application form)" (Prefix "an", which tense() leaves alone), and
    * `wave wand` on the held wand makes the later `drop it` the wand.
@@ -501,7 +501,7 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
    * 43D884 "one") and prints "(" & MemVar_46811C & ")" through
    * Proc_2_28_45CBD0; the menu item is read from ADRIFT\Runner
    * "showbrackets" at loc_44526F with default True (loc_44526B).
-   * Measured on Archie's Birthday (3.90, run390, 2026-09-05): `x
+   * Measured on Archie's Birthday (3.90, run390): `x
    * camcorder` then `take it` answers "(a camcorder)" then "You take
    * a camcorder from the desk."; and on veteran (3.90, run390, same
    * day) `x bag`, `take it`, `open it` echo "(a bag)" both times --
@@ -518,7 +518,7 @@ uip_pronoun_t::substitute (std::string &buffer, scr_int offset) const
    * -- with the same antecedents: the NPC's Name, or tense(Prefix) &
    * " " & Short for an object, which is what 'replacement' holds.
    * Measured on wrecked (3.80, run380x
-   * runner_transcripts/wrecked.rtf, 2026-09-14).
+   * runner_transcripts/wrecked.rtf).
    */
   pf_buffer_reference (gs_get_filter (game),
                        echo ? echo : replacement.c_str (),
@@ -601,7 +601,7 @@ uip_replace_pronouns (scr_gameref_t game, const scr_char *string)
    * by kind, not by where they stand on the line (run390 its(): "him"
    * 43D310, "he" 43D3EB, "her" 43D4CF, "she" 43D5AA, "it" 43D685, "them"
    * 43D782), and each prints its bracket echo as it goes.  Blue Sky (3.90,
-   * run390x, 2026-10-09): `give it to her` echoes "(Maria)" and then "(the
+   * run390x): `give it to her` echoes "(Maria)" and then "(the
    * burger)".
    */
   for (pass = 0; pass < 2; pass++)
@@ -844,14 +844,13 @@ uip_note_npc_pronoun (scr_gameref_t game, scr_int npc)
  * value (run_all_commands() keeps that by remembering the index it had
  * before this ran).
  *
- * The loop is unconditional, and characters() itself is reached at 48B56E
- * on EVERY line -- the task dispatch's early exits jump to 48B4E3, which is
- * still above it -- so a line a task answered names its characters too.
- * Measured 2026-09-05 (runner_probes/sommeril.run400.npcprobe.txt,
- * sommeril.taf): "ask about zzz" in the gargoyle's street echoes "(Nobody)"
- * even with GARGOYLE listed in the room description, then the task-answered
- * "give silver orb to gargoyle" makes the next "ask about zzz" echo
- * "(GARGOYLE)".
+ * The loop is unconditional, and characters() itself is reached at 48B56E on
+ * EVERY line -- the task dispatch's early exits jump to 48B4E3, which is still
+ * above it -- so a line a task answered names its characters too.  Measured
+ * (runner_probes/sommeril.run400.npcprobe.txt, sommeril.taf): "ask about zzz"
+ * in the gargoyle's street echoes "(Nobody)" even with GARGOYLE listed in the
+ * room description, then the task-answered "give silver orb to gargoyle" makes
+ * the next "ask about zzz" echo "(GARGOYLE)".
  */
 void
 uip_note_named_npcs (scr_gameref_t game, const scr_char *string)
@@ -997,7 +996,7 @@ uip_ask_echo_skip (const std::string &lowered)
  *
  * The echo comes out BEFORE task matching.  run400 prints it from inside the
  * parser proper, and a task that answers the line still prints after it --
- * measured 2026-09-05 on two opposite task shapes: `SPAM.taf` turn 11, whose
+ * measured on two opposite task shapes: `SPAM.taf` turn 11, whose
  * `* ingredients *` wildcard task answers `ask about ingredients` under a
  * bare "(Nobody)" (runner_probes/spam.run400.probe.txt), and `sommeril.taf`
  * turn 36, whose LITERAL task `ask about glass framed page` answers under
@@ -1153,7 +1152,7 @@ uip_rewrite_references (scr_gameref_t game, const scr_char *string,
  * A command that used the pronoun leaves the antecedent exactly as it was:
  * `drop it`, `x it`, `look at it`, `examine it` all echo the previous form
  * (runner_probes/humbug.run400.it.txt 321-349), so the caller skips assignment
- * altogether for those.  All measured on humbug, run400, 2026-08-29.
+ * altogether for those.  All measured on humbug, run400.
  */
 enum uip_form_t
 {

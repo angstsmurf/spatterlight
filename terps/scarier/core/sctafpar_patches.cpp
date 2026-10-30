@@ -476,7 +476,7 @@ static const scr_patch_edit_t PATCH_LIQID[] = {
  * author did not do was tick Repeatable, so the second east is claimed by
  * the pre-4.0 spent-task rule, prints the blank line, and the game walls at
  * 70 of 100 in the backyard with Jon awake and nowhere to take him
- * (RUNNER-MEASURED 2026-08-31, run390 runner_probes/vampire.run390.txt).
+ * (RUNNER-MEASURED in run390 runner_probes/vampire.run390.txt).
  * Ticking the box is what the CompleteText already claims: the RepeatText
  * is whitespace, so the task re-runs forwards and says its line again.
  */
@@ -500,7 +500,7 @@ static const scr_patch_edit_t PATCH_VAMPIRE[] = {
  * slot is `n` itself, so the unlock consumes the walk: the spent task then
  * claims every later `n` in the room ("I have already done that.") and the
  * Archives, the Hidden Room and the roof finale are unreachable at 120 of
- * 135 (RUNNER-MEASURED 2026-08-31, run390
+ * 135 (RUNNER-MEASURED in run390
  * runner_probes/merry_murders.run390.txt).  The slot is redundant -- the
  * same task is reached by `open door`, `unlock door` and four `use key`
  * spellings, all of them in the list already -- so it is renamed to a

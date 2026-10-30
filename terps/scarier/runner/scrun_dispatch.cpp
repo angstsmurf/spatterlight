@@ -159,7 +159,7 @@ run_get_dispatch_input (void)
  * examine then prints the book's -- now crumbled -- description.  run400
  * answers the first `examine good book` with that description and only a
  * second one with the restriction's "The book is nothing but dust now."
- * (measured live 2026-08-23).
+ * (measured live).
  */
 std::vector<scr_bool> run_tasks_ran_this_command;
 
@@ -432,24 +432,23 @@ void
 run_line_t::put_prepass ()
 {
   /*
-   * 4.0 puts are the exception to the peek: the library's put-in / put-on
-   * gets the line BEFORE any task does, and a task only ever answers a put
-   * the library could not complete.  Measured with the PUT4-PUT7 arena probes
-   * (runner_probes/put[4-7].run400*.txt, 2026-09-05), each pairing a passing
-   * put task with reporter tasks restricted on "object is inside container":
-   * run400 puts the pill in the cup and the task never runs, whatever its
-   * spelling -- wildcard, prefixed or literal -- while run390 on the 3.9 twin
-   * (put39.taf, runner_probes/put.run390.b.txt) hands the line to the task
-   * and moves nothing.  Read off run400's insides handler
-   * (Proc_19_43_46639C): a completed move returns 1 and the dispatcher stops
-   * there.  The peek pass would have handed the line to a non-silent matching
-   * task first, which is what cost "Sommeril" its `put fish in fountain`
-   * (task 18's text where the Runner puts the fish,
-   * runner_probes/sommeril.run400.probe.txt) and left `take wet page`
-   * answered on the next turn where run400 says "Take what?".  Pre-4.0 keeps
-   * the peek order: Scarier matches run390 on the put39 probe on all twelve
-   * lines (the last of them, the prefixed `put a bean in a jar` row, closed
-   * 2026-09-20 with the pre-4.0 canonical-retry suppression in
+   * 4.0 puts are the exception to the peek: the library's put-in / put-on gets
+   * the line BEFORE any task does, and a task only ever answers a put the
+   * library could not complete.  Measured with the PUT4-PUT7 arena probes
+   * (runner_probes/put[4-7].run400*.txt), each pairing a passing put task with
+   * reporter tasks restricted on "object is inside container": run400 puts the
+   * pill in the cup and the task never runs, whatever its spelling --
+   * wildcard, prefixed or literal -- while run390 on the 3.9 twin (put39.taf,
+   * runner_probes/put.run390.b.txt) hands the line to the task and moves
+   * nothing.  Read off run400's insides handler (Proc_19_43_46639C): a
+   * completed move returns 1 and the dispatcher stops there.  The peek pass
+   * would have handed the line to a non-silent matching task first, which is
+   * what cost "Sommeril" its `put fish in fountain` (task 18's text where the
+   * Runner puts the fish, runner_probes/sommeril.run400.probe.txt) and left
+   * `take wet page` answered on the next turn where run400 says "Take what?".
+   * Pre-4.0 keeps the peek order: Scarier matches run390 on the put39 probe on
+   * all twelve lines (the last of them, the prefixed `put a bean in a jar`
+   * row, closed with the pre-4.0 canonical-retry suppression in
    * sclibrar_dispatch.cpp).
    *
    * A put the 4.0 library REFUSES on size or capacity is different again:
@@ -601,7 +600,7 @@ run_line_t::put_pass ()
                * can't put anything inside the desk!" is what the Runner's
                * own scrollback holds, with no separator at all where the
                * next clause begins (p4AND, runner_probes/and.run400.c.txt
-               * + DUMP_SCROLLBACK, 2026-09-08).  Only the last clause
+               * + DUMP_SCROLLBACK).  Only the last clause
                * keeps the pending join, which is what a task answering the
                * same line wants.
                */
@@ -653,7 +652,7 @@ run_line_t::put_pass ()
 /*
  * run_get_motion_task_line()
  *
- * Deliberate deviation (2026-09-30).  run400's get_outer takes the object a
+ * Deliberate deviation.  run400's get_outer takes the object a
  * get line names before the task dispatcher runs, whatever words stand
  * between the verb and the name, so The X-Files' `get in the van` answers
  * "You take VW Van." and its task 26 `*Van*`, which gets the player in,
@@ -713,7 +712,7 @@ run_line_t::get_outer_400 ()
    * command line the tasks are dispatched against, and the Runner never puts
    * it back -- run_priority_unnamed_put_object() has the whole of it -- so
    * IceCream's own `put ice cream in cone` and advent350b's `drop bear` never
-   * reach the tasks written for them.  Deliberate deviation (2026-09-27): the
+   * reach the tasks written for them.  Deliberate deviation: the
    * task passes get the line as typed.
    */
   task_string = string;
@@ -840,7 +839,7 @@ run_line_t::get_outer_400 ()
                * "BOBTEXT.  BOBTEXT." with its counter up by two, `get eel`,
                * nothing printed by either run, "I don't understand.".
                *
-               * Deliberate deviation (2026-10-17): the task runs ONCE.  The
+               * Deliberate deviation: the task runs ONCE.  The
                * second run is a Runner accident that doubles the task's
                * text and its actions (a counter it bumps goes up by two),
                * which no game was written for.  The line is claimed as
@@ -947,7 +946,7 @@ run_line_t::task_peek ()
    * Below 4.0 a task the dispatcher ran that printed nothing, and that no
    * "Take what?" / "Drop what?" claimed, keeps the take and drop handlers
    * out as well: the line is the silent claim's below.  p3xBEYOND
-   * (make_beyondprobe.py, 2026-09-26): run370 `take orb` with the orb on the
+   * (make_beyondprobe.py): run370 `take orb` with the orb on the
    * floor runs silent task "take orb" twice and answers "I don't
    * understand.", the orb left there (runner_probes/beyond.run370.c.rtf);
    * run390 `drop cape to the floor` with the cape on the floor scores the
@@ -1082,21 +1081,20 @@ run_line_t::task_passes ()
    * tasks() returns it, generaltasks skips everything below the dispatcher,
    * and an empty buffer is printed as the game's DontUnderstand text -- and
    * the line is not a turn.  Both halves are ours now: the clock first
-   * (2026-09-19; ALEXIS.TAF T99 `open chest`, task 14 `open * chest` with no
-   * CompleteText, draws nothing in run390x per alexis_tr_trace.txt, and
-   * ticking there put every later battle roll a turn out of phase), then the
-   * claim (2026-09-20), which is the `!silent_task_390` guard on library():
-   * the Runner then prints DontUnderstand over the empty buffer, and
-   * Scarier prints "Done." instead (deliberate deviation, see settle()).
+   * (ALEXIS.TAF T99 `open chest`, task 14 `open * chest` with no CompleteText,
+   * draws nothing in run390x per alexis_tr_trace.txt, and ticking there put
+   * every later battle roll a turn out of phase), then the claim, which is the
+   * `!silent_task_390` guard on library(): the Runner then prints
+   * DontUnderstand over the empty buffer, and Scarier prints "Done." instead
+   * (deliberate deviation, see settle()).
    *
    * It is what run390 answers `read diary` in everything, `piss` in life,
    * `turn off tv` in lifesimulation and `open chest` in alexis with, and in
    * the_hangover it also keeps the filing cabinet shut: the task matched and
    * did nothing, so the library never opens it and the approval form stays
-   * inside.  See the note "Measured 2026-08-23 (make_39_doneprobe.py" in
-   * scrun_match.cpp.
+   * inside.  See the note "Measured (make_39_doneprobe.py" in scrun_match.cpp.
    *
-   * run370 and run380 claim the same way (p3xBEYOND, 2026-09-26: silent task
+   * run370 and run380 claim the same way (p3xBEYOND: silent task
    * "wave cape slowly" +1000 is "I don't understand." where the object
    * catch-all would say "... with the red cape.",
    * runner_probes/beyond.run370.c.rtf, runner_probes/beyond.run380.c.rtf),
@@ -1412,7 +1410,7 @@ run_line_t::settle ()
     }
 
   /*
-   * Deliberate deviation (2026-10-15): a silent task's line that nothing
+   * Deliberate deviation: a silent task's line that nothing
    * else answered says "Done." where every Runner before 4.0 prints the
    * game's DontUnderstand text over the empty buffer.  The task ran -- it
    * opened the chest (alexis), the tatami mat (namiki), scored the filing
@@ -1490,15 +1488,14 @@ run_line_t::settle ()
   /*
    * 4.0: and when no task ran, the same scan ASKS.  The question belongs to
    * generaltasks (48B6AE-48BB92), not to any verb: it comes after everything
-   * the line printed and replaces it, whatever answered.  Measured
-   * 2026-09-20 on p4BATT (Ann and Bob both "a guard", Dave and a third guard
-   * next door; run400x runner_probes/batt.run400.txt and
-   * runner_probes/batt.run400.b.txt) -- `x guard`, `attack guard`, `attack
-   * guard dave`, `status guard`, `talk to guard`, `where is guard`, `give
-   * stone to guard`, `give club to guard` and the bare noun `guard` all
-   * answer "Which guard.  A guard or a guard?", and the last two lose a real
-   * answer ("You don't have the stone!") to it.  `probe`, a task, keeps its
-   * own text (the 48B60C gate above).
+   * the line printed and replaces it, whatever answered.  Measured on p4BATT
+   * (Ann and Bob both "a guard", Dave and a third guard next door; run400x
+   * runner_probes/batt.run400.txt and runner_probes/batt.run400.b.txt) -- `x
+   * guard`, `attack guard`, `attack guard dave`, `status guard`, `talk to
+   * guard`, `where is guard`, `give stone to guard`, `give club to guard` and
+   * the bare noun `guard` all answer "Which guard.  A guard or a guard?", and
+   * the last two lose a real answer ("You don't have the stone!") to it.
+   * `probe`, a task, keeps its own text (the 48B60C gate above).
    *
    * Not over a battle line that settled on one target or asked which was
    * meant (lib_battle_400_line_claimed()), nor over that question's answer
@@ -1640,7 +1637,7 @@ run_all_commands (scr_gameref_t game, const scr_char *string)
    * cape to the floor" (+250 score, no message).  run400 answers the typed
    * command with the library's ordinary "Player drop the cape." and the
    * score UNCHANGED (runner_probes/et2.run400.txt,
-   * runner_probes/et4.run400.txt, 2026-08-23) -- the task never runs at all,
+   * runner_probes/et4.run400.txt) -- the task never runs at all,
    * even though its own literal pattern matches the raw input exactly.  A
    * same-shaped task using a bare object with no trailing words ("* drop *
    * rock *", i.e. equivalent to the library's own canonical "drop <object>"
@@ -1739,12 +1736,12 @@ run_game_task_commands (scr_gameref_t game, const scr_char *string)
    * Restrictions are honoured -- meaning a task whose restrictions fail with a
    * message gets run for the message, beating the library action -- from 4.0
    * on only.  Probe DONE, task `* get * gem *` restricted to "holding the
-   * stone", measured 2026-08-23: run400 answers `get gem` without the stone
-   * with "BLOCK-GEM.", while run390 on the 3.9 twin probe quietly takes the
-   * gem instead.  Pre-4.0 the library wins, so the loud pass is switched off
-   * here rather than being allowed to claim the command.  Tasks whose
-   * restrictions PASS still run in either version -- the first loop below does
-   * not consult this flag.
+   * stone", measured: run400 answers `get gem` without the stone with
+   * "BLOCK-GEM.", while run390 on the 3.9 twin probe quietly takes the gem
+   * instead.  Pre-4.0 the library wins, so the loud pass is switched off here
+   * rather than being allowed to claim the command.  Tasks whose restrictions
+   * PASS still run in either version -- the first loop below does not consult
+   * this flag.
    */
   const scr_bool include_restrictions =
       run_get_version (gs_get_bundle (game)) >= TAF_VERSION_400;

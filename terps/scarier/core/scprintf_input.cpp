@@ -351,7 +351,7 @@ pf_find_folded (const std::string &line, size_t from, const scr_char *word)
  * starts with the `в` of `войти`: that hit is followed by `о`, the gate
  * says FALSE, and the whole-word ` в ` later in the line is never looked
  * at, so the line reaches the tasks intact and task 126 ("Я вошел в дом.")
- * matches (run390 under Wine, runner_probes/dolg.run390.txt 2026-09-25).
+ * matches (run390 under Wine, runner_probes/dolg.run390.txt).
  * 4.00 (454C78: `var_98 = var_96 + 1`, then back to 454B51) carries on from
  * the next character, so any whole-word occurrence anywhere passes it.
  *
@@ -406,7 +406,7 @@ pf_runner_word_gate (const std::string &line, const scr_char *word,
  * capital letter in it passes the (LCase'd) gate and then replaces nothing.
  * CS2 (Место преступления 2, 3.90) writes its compass synonyms that way,
  * [СВ] -> [northeast] and friends, and run390 answers a typed "св" with
- * the game's own "Да?" (Wine, runner_transcripts/cs2.txt, 2026-09-25); the
+ * the game's own "Да?" (Wine, runner_transcripts/cs2.txt); the
  * port keeps the Runner's shape rather than guess a kinder one.
  */
 static scr_bool
@@ -626,17 +626,17 @@ pf_has_take_off (const scr_char *string)
  * pf_apply_synonyms_by_word()
  *
  * The game's synonyms applied as Scarier applied them before the Runner's
- * loops were ported (2026-09-25; see pf_apply_synonym()), kept as a
- * deliberate deviation for the lines the Runner's loops spoil.  The line is
- * walked a word at a time, and the Original is matched as whole words, in
- * any case.  At each word the first synonym that matches fires; a later
- * synonym fires on that text only when its Original is the whole of the
- * replacement, and the walk then resumes after the replacement.  So Lair of
- * the Vampire's harris->steve->harris still ends as "harris", while Vardock
- * Bates' `hablar con jason` becomes "talk con jason dhirco" (the Runner's
- * loops write "jason jason dhirco"), Dolg's `позвонить в звонок` keeps its
- * words whole ("позвонить in звонок", where run390 writes "позinонить in
- * зinонок"), and a synonym whose Original has a capital still fires.
+ * loops were ported (see pf_apply_synonym()), kept as a deliberate deviation
+ * for the lines the Runner's loops spoil.  The line is walked a word at a
+ * time, and the Original is matched as whole words, in any case.  At each word
+ * the first synonym that matches fires; a later synonym fires on that text
+ * only when its Original is the whole of the replacement, and the walk then
+ * resumes after the replacement.  So Lair of the Vampire's
+ * harris->steve->harris still ends as "harris", while Vardock Bates' `hablar
+ * con jason` becomes "talk con jason dhirco" (the Runner's loops write "jason
+ * jason dhirco"), Dolg's `позвонить в звонок` keeps its words whole
+ * ("позвонить in звонок", where run390 writes "позinонить in зinонок"), and a
+ * synonym whose Original has a capital still fires.
  */
 static std::string
 pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
@@ -691,7 +691,7 @@ pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
  * pf_apply_synonym() above for the loops and their gates.
  *
  * Vardock Bates pins the order (run400 under Wine,
- * runner_probes/vardock_bates.run400.txt 2026-08-29).  Its table has
+ * runner_probes/vardock_bates.run400.txt).  Its table has
  * hablar->talk [101], then jason->"jason dhirco" [160], then
  * dhirco->"jason dhirco" [161], and the task is
  * [talk]{con}[dhirco/jason/jason dhirco]:
@@ -706,7 +706,7 @@ pf_apply_synonyms_by_word (const scr_char *string, scr_int version)
  * tus delirios."  Lair of the Vampire (harris->steve then steve->harris:
  * "ask harris" ends as harris) fits too.
  *
- * The gate is what the whole-word-everywhere rule this replaced (2026-09-25)
+ * The gate is what the whole-word-everywhere rule this replaced
  * got wrong, both ways.  Dolg (3.90) maps в->in.  `войти в дом` must
  * reach the tasks untouched -- its first boundary-start `в` is the one
  * inside `войти`, the gate fails there and stops -- where the old rule
@@ -797,7 +797,7 @@ pf_filter_synonyms (const scr_char *string, scr_prop_setref_t bundle,
  *
  * 4.0's literals carry their own spaces, so its rewrites only fire in the
  * MIDDLE of a line and its exclusion word runs the other way, but->except
- * where 3.90 goes except->but.  Measured 2026-09-20 on p37REW/p38REW/
+ * where 3.90 goes except->but.  Measured on p37REW/p38REW/
  * p39REW/p4REW (make_rewriteprobe.py; runner_probes/rew.run370.b.rtf,
  * runner_probes/rew.run380.b.rtf, runner_probes/rew.run390.b.txt,
  * runner_probes/rew.run400.b.txt), tasks spelled with the POST-rewrite
@@ -828,17 +828,16 @@ pf_filter_synonyms (const scr_char *string, scr_prop_setref_t bundle,
  * -- the library verb is matched anywhere in the line, which
  * run_hoist_verb_line() ports -- not from this table.
  *
- * The 3.80-only take->get is the one that matters: it runs before ANY
- * task matching, so a 3.80 task whose command slots say only `take X` /
- * `pick up X` never sees a typed `take X` -- the library take handles it.
- * Measured live on great.taf (run380 under Wine, greatx1 probe,
- * 2026-09-04): task 2 is "take wallet"/"pick up wallet" (score 5, no
- * pickup), and `pick up wallet` ran it ("You have your wallet", +5) while
- * `take wallet` fell to the library ("You pick up the wallet.", score
- * unchanged, wallet then carried).  Every other measured pre-4.0 pair
- * fits: the great t-shirt/stun-gun/picasso tasks (take-only slots) go to
- * the library, the dictionary (`get dictionary` slot), crime's `get cash`
- * and tra's `get *...*` wildcards run as tasks.
+ * The 3.80-only take->get is the one that matters: it runs before ANY task
+ * matching, so a 3.80 task whose command slots say only `take X` / `pick up X`
+ * never sees a typed `take X` -- the library take handles it.  Measured live
+ * on great.taf (run380 under Wine, greatx1 probe): task 2 is "take
+ * wallet"/"pick up wallet" (score 5, no pickup), and `pick up wallet` ran it
+ * ("You have your wallet", +5) while `take wallet` fell to the library ("You
+ * pick up the wallet.", score unchanged, wallet then carried).  Every other
+ * measured pre-4.0 pair fits: the great t-shirt/stun-gun/picasso tasks
+ * (take-only slots) go to the library, the dictionary (`get dictionary` slot),
+ * crime's `get cash` and tra's `get *...*` wildcards run as tasks.
  */
 static void
 pf_filter_builtins (const scr_char *string, scr_int version,

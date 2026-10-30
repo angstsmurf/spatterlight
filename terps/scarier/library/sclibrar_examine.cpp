@@ -36,7 +36,7 @@
  * run380 43D43E): the fallback's own full stop comes only with the
  * sitting/lying clause, the standing-on clause follows with two spaces
  * and no full stop before it, the object is named by its raw Prefix,
- * and one "." closes the lot.  run370x p3738sit3 (2026-09-19): "...the
+ * and one "." closes the lot.  run370x p3738sit3: "...the
  * circumstances.  You are sitting down on a stool." and "...the
  * circumstances  You are standing on a stool.".
  */
@@ -85,13 +85,12 @@ lib_examine_self_pre390 (scr_gameref_t game)
     }
   pf_buffer_character (filter, '.');
   /*
-   * And that is the whole reply: neither run370's block (435A9B-435BEA)
-   * nor run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8
-   * `x me` never says "You are wearing ..." -- only `i` does.  run370x/
-   * run380x p37SITN/p38SITN `wear hat sit` then `x me`
-   * (runner_probes/sitn.run370.rtf, runner_probes/sitn.run380.rtf,
-   * 2026-09-20): "...the circumstances.  You are sitting down." while `i`
-   * lists the hat worn.
+   * And that is the whole reply: neither run370's block (435A9B-435BEA) nor
+   * run380's (43D3EC-43D53B) walks the worn objects, so a 3.7/3.8 `x me` never
+   * says "You are wearing ..." -- only `i` does.  run370x/ run380x
+   * p37SITN/p38SITN `wear hat sit` then `x me` (runner_probes/sitn.run370.rtf,
+   * runner_probes/sitn.run380.rtf): "...the circumstances.  You are sitting
+   * down." while `i` lists the hat worn.
    */
   pf_buffer_answer_break (filter);
 }
@@ -155,7 +154,7 @@ lib_examine_self_close (scr_gameref_t game, const scr_char *description)
        * loc_471C6D-471D40, also lets "!", ")", "%" and "?" stand.  (When
        * the position clause above is printed its own "." satisfies the same
        * test, so only the bare description needs it here.)  Measured on
-       * Archie's Birthday (3.90, run390, 2026-09-05): its PlayerDesc is the
+       * Archie's Birthday (3.90, run390): its PlayerDesc is the
        * ALR key "[player=%player val%]", so the Runner appends "." to the
        * key and the substituted paragraph ends "...self-delusions."; and on
        * yak_shaving (4.00, run400, same day): `x me` answers "You are
@@ -386,7 +385,7 @@ lib_cant_see_absent_object (scr_gameref_t game,
  * answers for the first match it cannot reach.  Measured on p38EXAM and
  * p37EXAM (make_3738_examprobe.py; run380 runner_probes/exam.run380.txt and
  * runner_probes/exam.run380.2.txt, run370 runner_probes/exam.run370.txt and
- * runner_probes/exam.run370.2.txt, 2026-09-14), with the statue seen in the
+ * runner_probes/exam.run370.2.txt), with the statue seen in the
  * North Room and a gem in a room the player never enters, both named from
  * elsewhere:
  *
@@ -550,11 +549,10 @@ lib_list_npc_inventory (scr_gameref_t game, scr_int npc, scr_bool is_described)
            * (run400 @45BA6B/45BA91/45BAA5, run390 @382E1/382FF/38311).
            *
            * 3.8 does repeat the subject: run380 @2CA67 appends ", and " and
-           * then falls through to its own name & " is", giving "... is
-           * wearing a hat, and Grandad is carrying a document."  (run370 has
-           * no NPC worn/carried listing at all.)  Measured on humbug.taf,
-           * 2026-08-24: run400 prints "Grandad is wearing a hat, and
-           * carrying a document."
+           * then falls through to its own name & " is", giving "... is wearing
+           * a hat, and Grandad is carrying a document."  (run370 has no NPC
+           * worn/carried listing at all.)  Measured on humbug.taf: run400
+           * prints "Grandad is wearing a hat, and carrying a document."
            */
           if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_390)
             {
@@ -639,7 +637,7 @@ lib_describe_npc (scr_gameref_t game, scr_int npc)
    * moves no walker and ticks no event after it, exactly as it treats its
    * own `turns` and `score`.  3.9 counts it like any other command.
    *
-   * Measured 2026-08-29 under Wine.  run400, arena probes EV14/EV15/EV16
+   * Measured under Wine.  run400, arena probes EV14/EV15/EV16
    * (harness/make_arena_probe.py; runner_probes/ev14.run400.txt,
    * runner_probes/ev15.run400.txt, runner_probes/ev16.run400.txt): a one-turn
    * event started by the previous command finishes on the `z` AFTER `x bob`,
@@ -724,7 +722,7 @@ lib_list_in_object_normal (scr_gameref_t game,
        * an is/are helper (run400 isare(), Proc_19_69_4507BC @4507BC) and uses
        * it for "Also here is/are", but this listing does not call it: the
        * string is a literal, at run400 46A7C7 and run390 43E245's sibling.
-       * Measured on humbug.taf, 2026-08-24: run400 prints "On the triangular
+       * Measured on humbug.taf: run400 prints "On the triangular
        * table is some swimming goggles, a watch, a musket and a china doll."
        * Scarier deliberately keeps number agreement instead ("... table are
        * some swimming goggles, ..."): the literal is a display accident, not
@@ -979,7 +977,7 @@ lib_list_on_object_alternate (scr_gameref_t game, scr_int supporter,
  * three or more the normal (prefixed) one -- see lib_list_in_object() for
  * the run400 derivation.  SCARE used the postfixed format unconditionally
  * for surfaces.  Both halves are visible in the Professor Von Witt
- * walkthrough transcript (Runner 4.00, 2026-08-18): "On the shelves is a
+ * walkthrough transcript (Runner 4.00): "On the shelves is a
  * leg to stand on, a handy dandy extra hand, the sloppy jalopy, a portable
  * doorknob and a pollen popper upper." (5 objects) against "A container of
  * Reggie's Remedy Rust Resolvent is on the shelves." (1 object).
@@ -1058,7 +1056,7 @@ lib_list_on_object (scr_gameref_t game, scr_int supporter,
  * that field is 1 and loc_43D0D0 prints "  On <obj>" when it is 2, never
  * both.  ", and inside is " is absent from run370.exe and run380.exe and
  * first appears in run390.exe (same boundary as " is inside " and " is on ",
- * counted in the binaries 2026-08-25), so pre-3.9 games keep the older
+ * counted in the binaries), so pre-3.9 games keep the older
  * container-then-surface pair of sentences here rather than take a wording
  * their Runner cannot produce.
  */
@@ -1429,7 +1427,7 @@ lib_examine_npc_overwrite_400 (scr_gameref_t game)
     return -1;
 
   /*
-   * Deliberate deviation (2026-09-30): a character's name inside a longer
+   * Deliberate deviation: a character's name inside a longer
    * object name on the line does not count (lib_mask_long_names()).  The
    * Runners' c() finds "dog" in `x dog collar`, so the collar's examine
    * printed the dog, and `take dog collar` took the collar while saying "I
@@ -1565,7 +1563,7 @@ lib_examine_tail (scr_gameref_t game, scr_int object, scr_bool is_described)
  * examines() prints "Please examine one object at a time." (44BFA9), the
  * line a bare `x all` gets.
  *
- * MEASURED p39PFX2 (run390x, runner_probes/pfx2.run390.txt, 2026-09-20): three
+ * MEASURED p39PFX2 (run390x, runner_probes/pfx2.run390.txt): three
  * trees, all Short "tree", Prefixed "a big red", "a red" and "the red".  `x
  * red tree`, `x a red tree`, `x the red tree` and `x big red tree` all type
  * the last Prefix word "red" that all three share, so pass one keeps

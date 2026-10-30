@@ -1102,16 +1102,15 @@ scdump_task_t::alt_commands ()
  * scdump_task_t::reverse_commands()
  *
  * The reverse half of a reversible task.  A reversible task matches its
- * ReverseCommand patterns as well as its Command ones, so those strings
- * are typeable too -- and when the ReverseMessage is empty the reverse
- * run prints nothing, which makes the whole turn silent and sends a
- * pre-4.0 Runner to the game's DontUnderstand string instead of the
- * library (see silent-task rule).  lifesimulation's task 10 "turn on tv"
- * is the worked example: its ReverseCommand is the bare literal "turn
- * off tv" with no ReverseMessage, and only that exact string diverges,
- * which is why five probe drives could not find a pattern in it
- * (2026-09-05).  The dump used to show neither the flag nor the reverse
- * commands, so the task looked like an ordinary one-way task.
+ * ReverseCommand patterns as well as its Command ones, so those strings are
+ * typeable too -- and when the ReverseMessage is empty the reverse run prints
+ * nothing, which makes the whole turn silent and sends a pre-4.0 Runner to the
+ * game's DontUnderstand string instead of the library (see silent-task rule).
+ * lifesimulation's task 10 "turn on tv" is the worked example: its
+ * ReverseCommand is the bare literal "turn off tv" with no ReverseMessage, and
+ * only that exact string diverges, which is why five probe drives could not
+ * find a pattern in it.  The dump used to show neither the flag nor the
+ * reverse commands, so the task looked like an ordinary one-way task.
  */
 void
 scdump_task_t::reverse_commands ()

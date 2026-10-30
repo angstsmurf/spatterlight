@@ -157,7 +157,7 @@ lib_co_term_shadowed (scr_gameref_t game, const scr_char *line,
        * so its longer name hides nobody's: Scene of the Crime (4.00) `drop
        * tiny card` with "a small card" in hand and "a tiny card" (alias
        * "tiny card") not yet in play drops the small card (run400x
-       * runner_probes/sotc.run400.drop.txt, 2026-10-09), where the shadow
+       * runner_probes/sotc.run400.drop.txt), where the shadow
        * left the line to "I am not holding the small card.".
        */
       if (!gs_object_seen (game, other)
@@ -319,7 +319,7 @@ lib_cache_long_names (scr_gameref_t game)
 /*
  * lib_mask_long_names()
  *
- * Deliberate deviation (2026-09-30).  A copy of LINE, the same length, with
+ * Deliberate deviation.  A copy of LINE, the same length, with
  * every whole-word occurrence of an object's Short or Alias, or a
  * character's Name or Alias, that runs to two words or more overwritten by
  * LIB_NAME_MASK.  The Runner ports that look for a verb anywhere on the line
@@ -383,7 +383,7 @@ lib_co_lastword (const scr_char *string)
  * all, and a "big red" tells nothing apart from a "small red".
  *
  * Measured on p*TAKEP and p*TAKEQ (runner_probes/takep.run*.* and
- * runner_probes/takeq.run*.*, 2026-09-20), everything loose in one lit
+ * runner_probes/takeq.run*.*), everything loose in one lit
  * room:
  *
  *                               3.70 / 3.80        3.90            4.00
@@ -619,7 +619,7 @@ lib_object_held_pre380 (scr_gameref_t game, scr_int object)
  * same-Short namesakes are only the commonest crowd.  3.7's handlers never
  * call co(), so what makes a 3.7 crowd is the SHORT alone: two objects
  * answering to one word through an Alias are not namesakes to it, and each
- * simply acts.  p37OPENA (runner_probes/opena.run370.rtf, 2026-09-20) is that
+ * simply acts.  p37OPENA (runner_probes/opena.run370.rtf) is that
  * side: a gem and a rock aliased "gem", both Prefixed "a", and `take gem` is
  * "You pick up the rock." with BOTH in the inventory afterwards -- while two
  * objects both Short "orb" and both Prefixed "a" are "Take what?" (p37TAKEP,
@@ -970,7 +970,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * `wear hat`, `drop hat`, `x hat` with two hats -- never asks; each of
    * them answers its own way (lib_disambiguate_object_common).  p37TASK,
    * runner_probes/task.run370.pname.rtf /
-   * runner_probes/task.run370.pname2.rtf, 2026-09-19.
+   * runner_probes/task.run370.pname2.rtf.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380
       && disambig.line.prompt_370_blocked)
@@ -980,11 +980,10 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
 
   /*
    * The whole turn's output goes; only the prompt is shown.  The bare-give
-   * completion's "(to Nobody)" is not part of it: the Runner prints that
-   * echo as it rewrites the line (run390 45FAB9 -> 47B568), so `give hat`
-   * with two hats is "(to Nobody)" and then "Which hat.  The red hat or
-   * the blue hat?" (p39TASK, run390x runner_probes/task.run390.pclear.txt,
-   * 2026-09-19).
+   * completion's "(to Nobody)" is not part of it: the Runner prints that echo
+   * as it rewrites the line (run390 45FAB9 -> 47B568), so `give hat` with two
+   * hats is "(to Nobody)" and then "Which hat.  The red hat or the blue hat?"
+   * (p39TASK, run390x runner_probes/task.run390.pclear.txt).
    */
   {
     const std::string echo (pf_leading_reference (filter));
@@ -1030,7 +1029,7 @@ lib_co_ambiguity_prompt (scr_gameref_t game, const scr_char *command)
    * per turn, the term is the last flagged).  A line something answers
    * drops the question (`close box` / `look`).  3.7/3.8 store nothing
    * (run380 4432AA, run370 43C997).  See lib_battle_who_continuation().
-   * p39TASK run390x runner_probes/task.run390.pfx.txt, 2026-09-19.
+   * p39TASK run390x runner_probes/task.run390.pfx.txt.
    */
   if (prop_get_taf_version (gs_get_bundle (game)) >= TAF_VERSION_390)
     lib_battle_who_store (std::string (prompt_term) + "|" + command);

@@ -648,7 +648,7 @@ var_select_list_plurality (scr_gameref_t game, scr_int associate,
  * for the live measurements behind it.
  *
  * The variables used to take the alternate format unconditionally.  Measured
- * live in run400 under Wine 2026-08-24 on WhereAreMyKeys.taf, whose fridge is
+ * live in run400 under Wine on WhereAreMyKeys.taf, whose fridge is
  * opened by a task whose CompleteText ends "%in_fridge%": with three objects
  * in it the Runner answers "You open the fridge and the light comes on.  Well
  * that's something. Inside the fridge is a tub of butter, a butter knife and
@@ -688,7 +688,7 @@ var_use_alternate_format (scr_gameref_t game, scr_int associate, size_t count)
  * through whatisinon (46A950), which writes the seen byte for each object it
  * names, in the on-half at 46A376 and the in-half at 46A81E.  Darkness and
  * Fire in the Blood describe a table with "%on_round table%" and then expect
- * a plain `get plate` to work (runner_transcripts darkness, 2026-10-09).
+ * a plain `get plate` to work (runner_transcripts darkness).
  */
 static var_list_t
 var_collect_at_object (scr_gameref_t game, scr_int associate, scr_int position)
@@ -822,7 +822,7 @@ var_list_onin_object (scr_gameref_t game, scr_int associate)
     {
       /*
        * With something on the surface as well, the contents run onto the
-       * same sentence.  MEASURED 2026-09-28, run400 on p4ONIN.taf
+       * same sentence.  MEASURED in run400 on p4ONIN.taf
        * (runner_probes/onin.run400.txt; make_400_oninprobe.py): "A plate and a
        * bowl are on the crate, and inside is a key and a ring." and "... on
        * the rack, and inside is a nail." -- whatisinon's literal ", and inside
@@ -977,7 +977,7 @@ var_find_object_by_short (scr_gameref_t game, const scr_char *name,
  * Find the object that a %status_<name>% marker names, and return its index,
  * or -1 for no match.
  *
- * MEASURED 2026-09-07, run400 on p4STATUS.taf
+ * MEASURED in run400 on p4STATUS.taf
  * (runner_probes/status.run400.txt, .b.txt and .c.txt, all eleven commands
  * echoed each time; make_400_statusprobe.py).  The probe holds two closed
  * doors, object 0 in Alpha and object 1 in Bravo, and opens and closes them
@@ -1040,7 +1040,7 @@ var_status_object (scr_gameref_t game, const scr_char *name)
  * anything else the parser alone can resolve).
  *
  * MEASURED escape_to_new_york turn 72 `open desk` (Ticket run400 xoshiro
- * trace 2026-09-12): the room's Long reads %in_desk% and two objects carry
+ * trace): the room's Long reads %in_desk% and two objects carry
  * a desk-shaped name, a low-indexed plain "desk" and a higher-indexed
  * "roll-top desk"; the Runner always lists the LOW one's contents, while
  * uip_match()'s last-match-wins walk had been picking the high one whenever
@@ -1068,7 +1068,7 @@ var_resolve_marker_object (scr_gameref_t game, const scr_char *name,
  * the referenced object as it was.  `marker` and `unavailable` are for the
  * error paths.
  *
- * MEASURED 2026-09-28, run400 on p4ONIN.taf (runner_probes/onin.run400.txt;
+ * MEASURED in run400 on p4ONIN.taf (runner_probes/onin.run400.txt;
  * make_400_oninprobe.py): two boxes, the low-indexed one in Alpha, and
  * from Bravo all three markers come back empty.  The low box wins, as the
  * name scan says, and whatisinon() (46A950) lists nothing for it because
@@ -1161,7 +1161,7 @@ var_system_character (scr_var_setref_t vars, const scr_char * /* name */,
        * (runner_probes/objref.run370.rtf,
        * runner_probes/objref.run380.rtf,
        * runner_probes/objref.run390.txt,
-       * runner_probes/objref.run400.txt, 2026-09-20).  We used to
+       * runner_probes/objref.run400.txt).  We used to
        * print "[Character unknown]".
        */
       return var_return_string ("%character%", type, vt_rvalue);
@@ -1382,14 +1382,13 @@ var_system_player (scr_var_setref_t vars, const scr_char * /* name */,
 
   /*
    * Return player's name from properties.  An empty authored name is
-   * "Anonymous" at 4.0: run400's openadv fills it at load (48F39F,
-   * `If field(4) = "" Then field(4) = "Anonymous"`), and that field is
-   * what %player% and the third-person pronoun array (48F6F2) read.
-   * Measured live 2026-09-19, probe ANON (make_arena_probe.py,
-   * runner_probes/anon.run400.txt, PromptName off, Perspective third):
-   * `i` answers "Anonymous is carrying nothing." and a task's "Name is
-   * [%player%]." prints "Name is [Anonymous]."  Scarier said "Player"
-   * for both.
+   * "Anonymous" at 4.0: run400's openadv fills it at load (48F39F, `If
+   * field(4) = "" Then field(4) = "Anonymous"`), and that field is what
+   * %player% and the third-person pronoun array (48F6F2) read.  Measured live,
+   * probe ANON (make_arena_probe.py, runner_probes/anon.run400.txt, PromptName
+   * off, Perspective third): `i` answers "Anonymous is carrying nothing." and
+   * a task's "Name is [%player%]." prints "Name is [Anonymous]."  Scarier said
+   * "Player" for both.
    *
    * run390 has no load-time default (its name prompt is the only
    * writer, 4416C8), so before 4.0 the empty name would stay empty;
@@ -1495,7 +1494,7 @@ var_system_state (scr_var_setref_t vars, const scr_char *name, scr_int *type,
     }
 
   /*
-   * MEASURED 2026-08-25, run400 on p4STATE.taf
+   * MEASURED in run400 on p4STATE.taf
    * (runner_probes/state.run400.txt, all 29 commands echoed):
    * %state_<obj>% comes back LOWER-CASED, over the whole string, wherever
    * it sits in the sentence --
@@ -1556,7 +1555,7 @@ var_system_t_number (scr_var_setref_t vars, const scr_char * /* name */,
    * starts at 0, so the very first turn of p39NUMREF and p4NUMREF
    * answers task 5's `zap` with "ZAP [0] [zero]." before any line has
    * named a number (runner_probes/numref.run390.txt,
-   * runner_probes/numref.run400.txt, 2026-09-20).  We used to print
+   * runner_probes/numref.run400.txt).  We used to print
    * "[Number unknown]".
    */
   return var_return_string (var_number_text (vars,
@@ -1882,7 +1881,7 @@ var_is_user_ordered (scr_var_setref_t vars, const scr_char *name)
  * task 5's `zap` answers "ZAP [%number%] [%t_number%]." at every turn of
  * the feed, including the turns right after a line naming a number, while
  * p39NUMREF and p4NUMREF answer "ZAP [5] [five]."
- * (runner_probes/numref.run*.*, 2026-09-20).  The matcher side is
+ * (runner_probes/numref.run*.*).  The matcher side is
  * run_match_task_commands().
  */
 scr_bool
@@ -1910,7 +1909,7 @@ var_is_unknown_reference (scr_var_setref_t vars, const scr_char *name)
  * 44AF07-44AFDA; run400 45F105-45F1B3 inside the shared substituter
  * Proc_19_36_45F268).  Three things follow, and p39VARREF/p4VARREF measure
  * all three (runner_probes/varref.run390.txt,
- * runner_probes/varref.run400.txt, 2026-09-20):
+ * runner_probes/varref.run400.txt):
  *
  *  - The value is the NUMERIC one, always.  `word` is the string "quux" at
  *    4.00, and run400 refuses `nurb quux` against task 4's "nurb %word%"
@@ -1958,7 +1957,7 @@ var_get_command_number (scr_var_setref_t vars, const scr_char *name,
 /*
  * var_get_command_text()
  *
- * Deliberate deviation (2026-09-30), for lenient task matching only: a
+ * Deliberate deviation, for lenient task matching only: a
  * task command's %name% as Scarier read it before the Runner port
  * (72ae49a1e).  The name is found in any case, and a string variable
  * spells its text, so Lair of the Vampire's `drop %item%` and a `call

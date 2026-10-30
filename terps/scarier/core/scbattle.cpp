@@ -1057,7 +1057,7 @@ static const scr_char *const BATTLE_METHOD_VERBS[6]
  * narrate the fight with "<Prefix> <Alias[0]>" instead -- Orient Express
  * calls its enemy "Igotta Bigbottom" in the room listing but "the large man"
  * in every blow, and "Ivill Getyou" is "BIG BOSS" (measured against run400's
- * own transcript, runner_probes/orient_express.run400.txt, 2026-08-25).
+ * own transcript, runner_probes/orient_express.run400.txt).
  *
  * The two procedures differ in when they take the alias.  Proc_11_1, the
  * player's blow (Battles.bas @45E1CE), takes it from any NPC with one.
@@ -1079,7 +1079,7 @@ static const scr_char *const BATTLE_METHOD_VERBS[6]
  * attacker's name at 4423B4 and the target's at 442483 through the identical
  * ladder plus `And record(108) = 2` -- the 3.9 record's attitude byte, where
  * 4.0's sits at +172 -- so an ally or a neutral keeps its Name, the same as
- * Proc_11_2.  Measured 2026-09-08 against the whole-corpus run390 capture:
+ * Proc_11_2.  Measured against the whole-corpus run390 capture:
  * ALEXIS.TAF's NPC 4 is Name "Wolf", Prefix "a grey", Alias "wolf", and its
  * transcript reads "You hit a grey wolf with the magic cube.  A grey wolf
  * hits you." where scarier printed "Wolf" both times.  The pre-4.0 gate this
@@ -1360,19 +1360,19 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
 
   /*
    * A set KilledTask replaces the default death message outright -- verified
-   * live in run400 2026-08-01 (probe pKT: "Player hit Robot.  KILLEDTASK
-   * FIRED.", no "falls down, dead."), and the 3.9 Runner dispatches it the
-   * same way (probe p39kt).  The default corpse line is 4.0-only: run390
-   * prints NOTHING when a task-less NPC dies (probed live, and the string
-   * " falls down, dead." does not exist anywhere in its binary).
+   * live in run400 (probe pKT: "Player hit Robot.  KILLEDTASK FIRED.", no
+   * "falls down, dead."), and the 3.9 Runner dispatches it the same way (probe
+   * p39kt).  The default corpse line is 4.0-only: run390 prints NOTHING when a
+   * task-less NPC dies (probed live, and the string " falls down, dead." does
+   * not exist anywhere in its binary).
    *
    * The dispatch goes through the Runner's general run-task routine
-   * (Battles.bas Sub_12_4 -> mdlSpreadTheLoad.Sub_20_22), which refuses a
-   * task the player is not currently eligible to run -- silently, with no
-   * corpse line either, since the KilledTask is still set.  Verified live in
-   * run400 2026-08-02 with Del Sol: killing the stamina-0 teacher Moreland in
-   * Chemistry prints only the hit line, and her chem-dream-only KilledTask
-   * (the game's win) never fires.  Same gate as the type-5 exec action.
+   * (Battles.bas Sub_12_4 -> mdlSpreadTheLoad.Sub_20_22), which refuses a task
+   * the player is not currently eligible to run -- silently, with no corpse
+   * line either, since the KilledTask is still set.  Verified live in run400
+   * with Del Sol: killing the stamina-0 teacher Moreland in Chemistry prints
+   * only the hit line, and her chem-dream-only KilledTask (the game's win)
+   * never fires.  Same gate as the type-5 exec action.
    */
   task = battle_npc_battle_task (game, npc, "KilledTask");
   if (task >= 0)
@@ -1402,7 +1402,7 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
   gs_set_npc_location (game, npc, 0);
 
   /*
-   * Deliberate deviation (2026-09-30): an NPC whose KilledTask ran and gave
+   * Deliberate deviation: an NPC whose KilledTask ran and gave
    * it stamina back is not dead for good, so its walk can bring it back as
    * the author meant.  The Town of Azra's KilledTasks (#banditkristdies,
    * #deerdies) hide the NPC and restore its stamina so that a walk
@@ -1411,7 +1411,7 @@ battle_kill (scr_gameref_t game, scr_int npc, scr_bool visible)
    * no stamina, stays dead.  The Runner side is measured, not inferred:
    * run390x through Azra's bandit kill and 70 waits brings no bandit back
    * and answers `where is the bandit` with "Bandit is dead!"
-   * (runner_probes/the_town_of_azra_v390.run390.revive.txt, 2026-10-17);
+   * (runner_probes/the_town_of_azra_v390.run390.revive.txt);
    * Scarier on the same feed has him back after eight waits.
    */
   if (!(task >= 0 && gs_npc_stamina (game, npc) > 0))
@@ -1453,11 +1453,11 @@ battle_apply_damage (scr_gameref_t game, scr_int npc, scr_int damage,
    * Run the NPC's low-stamina task when dropping below 10% of maximum.  The
    * Runner tests `stamina < max / 10` in floating point (Battles.bas
    * Proc_11_0, CDbl throughout) and re-runs the task on EVERY qualifying hit
-   * -- verified live in run400 2026-08-01 (probe pKT: STAMINATASK FIRED on
-   * both hits inside the window, default death line on the killing blow).
-   * `stamina * 10 < maximum` is the integer-exact form of the float test;
-   * plain integer `maximum / 10` truncates and misses the boundary when
-   * maximum is not a multiple of 10 (e.g. max 95, stamina 9).
+   * -- verified live in run400 (probe pKT: STAMINATASK FIRED on both hits
+   * inside the window, default death line on the killing blow).  `stamina * 10
+   * < maximum` is the integer-exact form of the float test; plain integer
+   * `maximum / 10` truncates and misses the boundary when maximum is not a
+   * multiple of 10 (e.g. max 95, stamina 9).
    */
   maximum = battle_attribute_max (game, npc, "Stamina");
   if (maximum > 0 && stamina * 10 < maximum)
@@ -1703,16 +1703,16 @@ battle_resolve (scr_gameref_t game, scr_int attacker, scr_int target,
     {
       /*
        * A landed player throw (method 5) leaves the weapon behind, in BOTH
-       * Runners (settled live 2026-08-01, probes pTD/p39td): it lands in the
-       * player's room and the wielded ref is cleared.  run400 clears the ref
-       * *before* the damage roll (Battles.bas loc_45E457), so a 4.0 throw
-       * deals base strength only -- the weapon's HitValue never contributes.
-       * run390 one-shots the same probe: 3.9 adds HitValue regardless of
-       * method (its usual rule), so only the 4.0 half excludes the weapon
-       * from the strength roll.  The weapon's Accuracy still applies to the
-       * hit test above, and a *missed* throw keeps the weapon (decompile:
-       * the move is inside the hit branch only).  NPC throws neither drop
-       * nor lose HitValue (Proc_11_2 has no equivalent of either).
+       * Runners (settled live, probes pTD/p39td): it lands in the player's
+       * room and the wielded ref is cleared.  run400 clears the ref *before*
+       * the damage roll (Battles.bas loc_45E457), so a 4.0 throw deals base
+       * strength only -- the weapon's HitValue never contributes.  run390
+       * one-shots the same probe: 3.9 adds HitValue regardless of method (its
+       * usual rule), so only the 4.0 half excludes the weapon from the
+       * strength roll.  The weapon's Accuracy still applies to the hit test
+       * above, and a *missed* throw keeps the weapon (decompile: the move is
+       * inside the hit branch only).  NPC throws neither drop nor lose
+       * HitValue (Proc_11_2 has no equivalent of either).
        */
       const scr_bool player_throw = (method == 5 && attacker < 0);
       const scr_int hit_weapon
@@ -1901,7 +1901,7 @@ battle_weapon_method (scr_gameref_t game, scr_int object)
  *
  * Return the weapon the player has wielded, or -1 for none.  The wield is a
  * persistent reference, not a per-attack default (Runner: Battles.bas
- * global_78, settled live 2026-08-01): "wield", "attack ... with" and every
+ * global_78, settled live): "wield", "attack ... with" and every
  * other armed blow set it, and it is cleared -- never replaced by another
  * carried weapon -- when the weapon leaves the player's hands.  The held and
  * is-a-weapon checks are belt-and-braces against a stale reference.

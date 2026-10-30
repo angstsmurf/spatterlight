@@ -729,7 +729,7 @@ lib_print_room_name (scr_gameref_t game, scr_int room)
  * Form1.tense() is VB6 string equality and Left$() comparison under the
  * default Option Compare Binary, so an author who capitalised the article
  * gets it back untouched -- exactly as an authored "The" already does, there
- * being no "the" test at all.  Measured 2026-09-07 on probe PFX (run400,
+ * being no "the" test at all.  Measured on probe PFX (run400,
  * runner_probes/pfx.run400.tense.txt), eleven objects one per spelling:
  *
  *     take alpha    (Prefix "a")      Player take the alpha.
@@ -818,7 +818,7 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * "an " has that much replaced by "the "; anything else -- a bare "an",
    * a "some" -- comes back untouched.  So run370 answers `take implement
    * of destruction` with "You pick up an implement of destruction." where
-   * 3.9 and 4.0 say "the".  Measured live under Wine 2026-08-24 on
+   * 3.9 and 4.0 say "the".  Measured live under Wine on
    * arlo.taf.
    *
    * tense() has no empty-prefix branch either, but pre-3.9 still comes
@@ -833,7 +833,7 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * the substitution is not a pre-3.9 quirk at all; it is only that the
    * defaults here make it invisible.
    *
-   * Measured live under Wine 2026-08-24 on mikes.taf (3.80) in run380,
+   * Measured live under Wine on mikes.taf (3.80) in run380,
    * whose dresser, toilet, poop and vans all carry an empty Prefix
    * (deobfuscated straight out of the .taf, so this is not inference):
    * `take vans` answers "You pick up the pair of vans.", `take poop`
@@ -871,7 +871,7 @@ lib_definite_prefix (const scr_char *prefix, scr_bool is_pre_390,
    * `take all from desk` with "... Your Badge and The Memo from Your Desk.",
    * `x desk` with "Your Coffee Mug and The Memo are on Your Desk" and `burn
    * memo` with "I don't understand what you want me to do with The Memo."
-   * (runner_probes/xfiles.run400.txt, 2026-08-25).  Falling through leaves the
+   * (runner_probes/xfiles.run400.txt).  Falling through leaves the
    * prefix in "normalized", which the tail below prints verbatim, so all this
    * branch ever did was lower-case the author's capital.
    *
@@ -1004,7 +1004,7 @@ lib_definite_object_name (scr_prop_setref_t bundle, scr_int object)
    * authored whitespace-only prefix, which the loader trims to nothing after
    * declining to substitute an "a" into it -- probe ISARE's single-space
    * rings answers `where rings` with " rings are test arena.", leading space
-   * and no article (run400, runner_probes/isare.run400.txt, 2026-09-07).
+   * and no article (run400, runner_probes/isare.run400.txt).
    * Scarier deliberately gives that empty prefix a "the" instead (deviation
    * policy).
    */
@@ -1042,7 +1042,7 @@ lib_print_object (scr_gameref_t game, scr_int object)
    * inflected to "an" before a vowel: run380 on the pwearv probe, four
    * wearables with empty prefixes and vowel-initial names, answers "You put
    * on a apple." and lists them back as "You are wearing a apple, a orange, a
-   * egg and a umbrella" (2026-08-23).
+   * egg and a umbrella".
    */
   vt_key[0].string = "Objects";
   vt_key[1].integer = object;
@@ -1061,17 +1061,17 @@ lib_print_object (scr_gameref_t game, scr_int object)
 /*
  * lib_print_object_raw()
  *
- * Print an object as the pre-3.9 "remove" handler does: the authored prefix,
- * a space, and the name, with no normalizing and no default for an empty
- * prefix.  run370 @42980D and run380 @42FF38 both build the message by plain
+ * Print an object as the pre-3.9 "remove" handler does: the authored prefix, a
+ * space, and the name, with no normalizing and no default for an empty prefix.
+ * run370 @42980D and run380 @42FF38 both build the message by plain
  * concatenation, `... & " remove " & ob(0) & " " & ob(4) & "."`, where every
  * other lister in those Runners passes the prefix through tense() first
  * (run370 drop @430A50, run380 drop @438C3B).  3.9 unified the two: run390
  * builds both its drop @00045B93 and its remove @00039E15 out of the same
  * General.Sub_3_45 helper, so from 3.9 on "remove" normalizes like the rest.
- * Measured live under Wine 2026-08-24, akron.taf (3.80) in run380: "You remove
- * a grubby sweatshirt." and "You remove a pair of ragged jeans." where the
- * same game in Scarier said "the".
+ * Measured live under Wine, akron.taf (3.80) in run380: "You remove a grubby
+ * sweatshirt." and "You remove a pair of ragged jeans." where the same game in
+ * Scarier said "the".
  *
  * Scarier deliberately keeps "the" in the success reports all the same
  * (deviation policy) -- an indefinite article on the object just removed,
@@ -1214,7 +1214,7 @@ lib_is_version_390 (scr_gameref_t game)
  * run370 43C88D-43C8AB) ticks characters()+events() after EVERY command
  * that left output, unless the game has ended; only opensave() (save/
  * restore/restart, GoTo 443326) and quit (unloads the form) bypass it.
- * Measured 2026-09-04, run380 haunt.taf: the `score` at turn 83 is followed
+ * Measured in run380 haunt.taf: the `score` at turn 83 is followed
  * by the Weather event's finish text and the grandfather-clock line, which
  * Scarier had suppressed as an administrative turn.  The 3.8 turn counter
  * (44F138, 441A21) likewise increments on every command, so the pre-3.90
@@ -1317,7 +1317,7 @@ lib_get_death_message (scr_gameref_t game)
  * little song.", and games work around it -- herrdoktor.taf ships the ALRs
  * "[The good doctor take] -> [The good doctor takes]" and "[doctor eat] ->
  * [doctor eats]", which turned SCARE's already-conjugated "takes" into
- * "takess" (2026-09-05).  Measured live against run400 on Main Course.taf
+ * "takess".  Measured live against run400 on Main Course.taf
  * (Perspective 2, no ALRs to confound it): listen, sing, dance, sit down,
  * stand up and lie down all come back bare.
  *
@@ -1970,10 +1970,9 @@ lib_npc_text_is_default (const scr_char *description)
  * topaz.taf is the corpus case.  Its sword, object 5, sits in the Darkness
  * where the room text already says "The sword lies on the floor, a soft amber
  * glow shining from the jewel in its hilt", and its InRoomDesc is " ".
- * scr_strempty() trims, so Scarier read that as no description and added
- * "Also here is a Topaz." to a room that had just described the sword
- * (measured in run400 under Wine 2026-09-05, runner_transcripts/topaz.txt
- * turn 11).
+ * scr_strempty() trims, so Scarier read that as no description and added "Also
+ * here is a Topaz." to a room that had just described the sword (measured in
+ * run400 under Wine, runner_transcripts/topaz.txt turn 11).
  */
 scr_bool
 lib_inroomdesc_is_absent (const scr_char *inroomdesc)

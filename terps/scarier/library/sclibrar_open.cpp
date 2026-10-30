@@ -39,7 +39,7 @@
  * var_9C = " with <the X>", which every refusal puts before its full stop:
  * "You can't cut the rope with the coin.", "You push the button with the
  * knife, but nothing happens.", "You can't turn the button on with the
- * knife.".  Measured 2026-09-14 on p4WITHQ.taf
+ * knife.".  Measured on p4WITHQ.taf
  * (runner_probes/withq.run400.txt, runner_probes/withq.run400.2.txt,
  * runner_probes/withq.run400.3.txt).
  *
@@ -47,7 +47,7 @@
  * object, so a half can name something the player saw and left.  An absent
  * instrument is "<You> don't have the gem." like any other not held, and
  * once both halves resolve 4887A0 answers an absent object "<You> can't see
- * the gem." (p4WITHQ2.taf, runner_probes/withq2.run400.txt, 2026-09-14).  The
+ * the gem." (p4WITHQ2.taf, runner_probes/withq2.run400.txt).  The
  * "With what?" arm at 488505 tests an instrument neither present nor seen,
  * which 463640 never returns: it is dead.  run390's twin answers differently,
  * and it serves 3.70 and 3.80 as well; see lib_with_clause_390().
@@ -68,13 +68,13 @@ lib_with_half_400 (scr_gameref_t game, const scr_char *half)
  * lib_with_clause_390()
  *
  * run390's whole-word twin (therest 45D123-45D264), measured on p39WITH.taf
- * (runner_probes/with.run390.txt, 2026-09-14), and run370's and run380's too:
+ * (runner_probes/with.run390.txt), and run370's and run380's too:
  * all three answer `cut/push/fix/lock/turn/clear <object> with <instrument>`
  * alike, "With what?" for an instrument that is not present, "<You> don't have
  * <X>." for a dynamic one not held, and the " with <the X>" suffix when it is
  * held (p*WITHPFX, runner_probes/withpfx.run370.pfx4.rtf /
  * runner_probes/withpfx.run380.ws.rtf / runner_probes/withpfx.run390.ws.txt,
- * make_withprefixprobe.py, 2026-09-20).  It runs when the line references two
+ * make_withprefixprobe.py).  It runs when the line references two
  * or more objects; the instrument is the last object named after the split
  * that is present (obhere), else the last one named anywhere (45D0D6).  Then:
  *
@@ -131,7 +131,7 @@ lib_with_clause_390 (scr_gameref_t game, const std::string &line,
    * half: `fff with gem rock`, a prefix continuation whose head names
    * nothing, is still the split's "You don't have the rock." at 3.90
    * (p39WITHPFX, runner_probes/withpfx.run390.pfx6.txt,
-   * make_withprefixprobe.py, 2026-09-20).  Only the suffix arm needs a head
+   * make_withprefixprobe.py).  Only the suffix arm needs a head
    * object, since it is the one that prints it.
    */
   if (referenced < 2 || *instrument < 0 || *object == *instrument)
@@ -210,8 +210,8 @@ lib_with_clause_400 (scr_gameref_t game, scr_int *object, scr_int *instrument)
  * anything.  run370's therest makes the split before the absent-object test
  * that opens it for every other line: `cut rock with pearl`, the pearl in
  * another room, is "With what?" and not "You can't see the pearl."
- * (p37WITHPFX, runner_probes/withpfx.run370.pfx4.rtf, make_withprefixprobe.py,
- * 2026-09-20).
+ * (p37WITHPFX, runner_probes/withpfx.run370.pfx4.rtf,
+ * make_withprefixprobe.py).
  */
 scr_bool
 lib_with_clause_claims (scr_gameref_t game)
@@ -387,7 +387,7 @@ lib_cant_do_with_400 (scr_gameref_t game, const scr_char *verb,
  * The split runs first, so its own answers ("With what?", "<You> don't have
  * <X>.") come out instead; see lib_with_clause_390().
  *
- * Measured on p*OPENW.taf, 2026-09-20: `close rock with gem` is "You can't
+ * Measured on p*OPENW.taf: `close rock with gem` is "You can't
  * close the rock with the gem." at 3.70, 3.80 and 3.90 alike, and `open rock
  * with slab` / `open slab with gem` are "You can't open the rock with the
  * slab." / "You can't open the slab with the gem." at 3.70
@@ -440,7 +440,7 @@ lib_cant_do_suffix_pre400 (scr_gameref_t game, const scr_char *verb,
  * over the WHOLE typed line, " with " tail and all (open 4756AB, close
  * 4759D5), and a unique present-and-seen winner is the object it acts on --
  * so the tail is not a barrier, it is more candidates.  p4LOCK / run400,
- * make_400_lockprobe.py (runner_probes/lock.run400.c.txt, 2026-09-20): in
+ * make_400_lockprobe.py (runner_probes/lock.run400.c.txt): in
  * Alpha, where the box and the coin both score, `open box with coin` ties and
  * falls to therest ("You can't open the box with the coin."), but `open box
  * with zzz` -- zzz naming nothing -- has the box alone and opens it, and from
@@ -485,8 +485,7 @@ lib_open_close_with_400 (scr_gameref_t game, const scr_char *verb,
  * that.", ALR-rewritten by the game), but a crowded line sometimes gets the
  * ambiguity question instead: `open rock gem chest` and `open chest gem` are
  * "Which chest.  The gem, the rock or the chest?" (p4OPENW / p4OPENA,
- * runner_probes/openw.run400.ox.txt, runner_probes/opena.run400.txt,
- * 2026-09-20).
+ * runner_probes/openw.run400.ox.txt, runner_probes/opena.run400.txt).
  *
  * Which one it is was a long open lead, because by the INDICES of the objects
  * the line names -- word order makes no difference -- the matrix reads
@@ -550,7 +549,7 @@ lib_open_close_tie_400 (scr_gameref_t game, const scr_char *verb,
  * Proc_21_46 (held-or-worn, recursive) passes, and otherwise answers "<I am>
  * not carrying <the object>!".  The 3.8 and 3.9 handlers have no such test.
  *
- * Deliberate deviation (2026-09-30): Scarier opens it where it stands, as at
+ * Deliberate deviation: Scarier opens it where it stands, as at
  * 3.8/3.9 and as it did before the port (e66709de2).  A chest too heavy to
  * lift was otherwise unopenable.  So this logs the deviation and returns
  * FALSE; the Runner's refusal is kept, switched off, for reference.
@@ -633,7 +632,7 @@ lib_cmd_open_object (scr_gameref_t game)
        * dynamic container held directly by the player, position 0 -- not
        * worn, not lying in the room, not nested) and whatisin2 (4297AC:
        * only a static one present in the room); anything else gets the
-       * bare "You open X."  Measured on jb2000.taf in run380, 2026-09-04:
+       * bare "You open X."  Measured on jb2000.taf in run380:
        * `open bag` on a suitcase lying in the room prints just "You open
        * the brown suitcase.", while the same command after `take bag` adds
        * "  Inside the brown suitcase is a 9mm hand gun, a lazer watch and
@@ -657,7 +656,7 @@ lib_cmd_open_object (scr_gameref_t game)
            * own reach and not a missing string.  Nor does it list the static
            * arm: p37PUT `open chest`, a static container in the room with a
            * gem inside, is the bare "You open the chest." (run370x
-           * runner_probes/put.run370.feed2.rtf, 2026-09-19), where run380 adds
+           * runner_probes/put.run370.feed2.rtf), where run380 adds
            * "  Inside the chest is a gem."
            * (runner_probes/put.run380.feed2.rtf).
            */
@@ -687,16 +686,15 @@ lib_cmd_open_object (scr_gameref_t game)
    * The object isn't openable.  3.7 has no refusal in openclose() (426770),
    * so the line reaches therest()'s can't-do tail, which ends in a period
    * (43D1E0): p37EXAM `open stone` is "You can't open the stone."
-   * (run370 runner_probes/exam.run370.txt, 2026-09-14); run380 (42F071) and
+   * (run370 runner_probes/exam.run370.txt); run380 (42F071) and
    * later end in "!".
    *
-   * Being therest's tail, 3.70's also carries the " with <the instrument>"
-   * of a two-object split, which openclose's own 3.80 refusal above it
-   * does not: `open rock with slab` is "You can't open the rock with the
-   * slab." at 3.70 and the bare "You can't open the rock!" at 3.80 and
-   * 3.90 (p*OPENW, runner_probes/openw.run370.ow.rtf /
-   * runner_probes/openw.run380.ow.rtf / runner_probes/openw.run390.ow.txt,
-   * 2026-09-20).
+   * Being therest's tail, 3.70's also carries the " with <the instrument>" of
+   * a two-object split, which openclose's own 3.80 refusal above it does not:
+   * `open rock with slab` is "You can't open the rock with the slab." at 3.70
+   * and the bare "You can't open the rock!" at 3.80 and 3.90 (p*OPENW,
+   * runner_probes/openw.run370.ow.rtf / runner_probes/openw.run380.ow.rtf /
+   * runner_probes/openw.run390.ow.txt).
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_380)
     return lib_cant_do_suffix_pre400 (game, "open", object);
@@ -785,12 +783,11 @@ lib_cmd_close_object (scr_gameref_t game)
    * and on p4EXAM.taf (4.00), runner_probes/exam.run400.txt, where both end in
    * "!".
    *
-   * Coming from therest, the pre-4.0 line carries the two-object split's
-   * " with <the instrument>" at every version: `close rock with gem` is
-   * "You can't close the rock with the gem." under run370, run380 and
-   * run390 alike (p*OPENW, runner_probes/openw.run370.ow.rtf /
-   * runner_probes/openw.run380.ow.rtf / runner_probes/openw.run390.ow.txt,
-   * 2026-09-20).
+   * Coming from therest, the pre-4.0 line carries the two-object split's "
+   * with <the instrument>" at every version: `close rock with gem` is "You
+   * can't close the rock with the gem." under run370, run380 and run390 alike
+   * (p*OPENW, runner_probes/openw.run370.ow.rtf /
+   * runner_probes/openw.run380.ow.rtf / runner_probes/openw.run390.ow.txt).
    */
   if (!lib_is_version_400 (game))
     return lib_cant_do_suffix_pre400 (game, "close", object);
@@ -992,8 +989,8 @@ lib_lock_therest_400 (scr_gameref_t game, const lib_lock_verb_t *verb,
  * run400 answers `lock box with coin` "You lock the box with the coin." and
  * then `unlock box` "You unlock the box with the coin.", and only the
  * openness refusals when the box is already in the state asked for
- * (make_400_lockprobe.py / runner_probes/lock.run400.b.txt, 2026-09-20).
- * Deliberate deviation (2026-10-17): the arm reaches only into the player's
+ * (make_400_lockprobe.py / runner_probes/lock.run400.b.txt).
+ * Deliberate deviation: the arm reaches only into the player's
  * room.  Locking or unlocking an object that is somewhere else is the same
  * Runner bug as the put fetch removed the same day, and no game needs it;
  * what the gate keeps is sswhore's drawer, seen and in the room but shut
@@ -1132,7 +1129,7 @@ lib_lock_with_key (scr_gameref_t game, const lib_lock_verb_t *verb,
        * Naming the key is what picks it up: the keyless branch takes
        * the object's Key straight out of the property and tests the
        * hands, while the named one runs the Runner's implicit get.
-       * p4WTIE (run400, runner_probes/wtie.run400.10.txt, 2026-09-20),
+       * p4WTIE (run400, runner_probes/wtie.run400.10.txt),
        * the coin dropped: `unlock box with coin` is "(Picking up the
        * coin first)" then "You unlock the box with the coin." and leaves
        * the coin carried, where bare `unlock box`, `unlock box with
@@ -1301,7 +1298,7 @@ lib_lock_backend (scr_gameref_t game, const lib_lock_verb_t *verb,
        * a half that names nothing AND a half that ties both leave var_88
        * at -1 and take the keyless branch, silently.  p4WTIE (run400,
        * runner_probes/wtie.run400.3.txt, runner_probes/wtie.run400.4.txt,
-       * runner_probes/wtie.run400.5.txt, 2026-09-20): with the coin as the
+       * runner_probes/wtie.run400.5.txt): with the coin as the
        * box's key, `unlock box with stone` and `unlock box with gems` -- two
        * "stone" Shorts, two "gems" aliases -- are "You unlock the box with the
        * coin." just like `unlock box with zzz`, and `lock box with stone` is

@@ -802,7 +802,7 @@ gsc_get_ending_option (void)
  * unwinnable, or have whole goal chains unreachable, in the faithful Runner
  * behaviour because of the exact authoring accidents the opt-in assists were
  * written for.  Each row below was measured on the headless harness against
- * the game's walkthrough, with and without the assist (2026-09-26):
+ * the game's walkthrough, with and without the assist:
  *
  *  - Combat assist.  Every character's Accuracy and Agility left at 0, so
  *    under the 4.0 accuracy>agility hit test no attack ever lands.

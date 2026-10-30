@@ -182,7 +182,7 @@ lib_npc_reply_to (scr_gameref_t game, scr_int npc, scr_int topic)
  * (run380x): `ask her about good time` gets Suzie's "me, myself" reply, since
  * "time" contains "me".
  *
- * Deliberate deviation (2026-09-30): 3.7/3.8 use the 3.9 whole-word test,
+ * Deliberate deviation: 3.7/3.8 use the 3.9 whole-word test,
  * case-free.  The 3.7/3.8 InStr answered `ask bob about good time` from a
  * "me" topic and `ask bob about paper` from an "ape" one, and since it
  * lower-cased only the text, a subject authored as "Key" never matched

@@ -33,7 +33,7 @@
  * divide and the multiply rounded to nearest-even.  IEEE doubles disagree:
  * 161 out of 161 is 100% on run390 (matt) where doubles give 99.99999999999999,
  * and 149/149 is 99% where doubles give exactly 100.  Measured with
- * make_39_endprobe.py --max/--score on run390x (2026-09-24): 97/97 99%,
+ * make_39_endprobe.py --max/--score on run390x: 97/97 99%,
  * 21/35 59%, 149/149 99% -- none of them what exact arithmetic says either.
  * AArch64 has no 80-bit long double, so the two roundings are done here in
  * integers.  max_score is positive.

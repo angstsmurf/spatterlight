@@ -620,7 +620,7 @@ obj_weigh (scr_gameref_t game, scr_int object, scr_int depth)
   /*
    * Add the recursive weights of "child" objects: those in or on this one.
    *
-   * Deliberate deviation (2026-10-17): run400's weigh routine (Sub_22_63
+   * Deliberate deviation: run400's weigh routine (Sub_22_63
    * @447600) matches children on the bare per-object container field
    * ([2E]) with only an i <> self guard -- it checks neither the child's
    * position nor whether the weighed object is a container or surface, so
@@ -729,17 +729,16 @@ obj_get_player_weight_limit (scr_gameref_t game)
  * The version 3.8 carrying model, which is not the version 4.0 one at all.
  *
  * A 3.8 object has a single "Size/weight" class, 0..4, and the player has a
- * single "MaxCarried".  Measured in the genuine run380.exe (2026-08-03, with
- * probe files patched through the plaintext of a 3.80 .taf, in the Wine Runner
- * harness), those are one *pooled burden*: each class costs 1, 3, 7, 3 or 7,
- * the costs of everything held are summed, and the sum may not exceed
- * MaxCarried.  Pinned at MaxCarried 1, 2, 3, 6, 7 and 8: at 2 a class-1 or
- * class-3 object is refused and a class-0 accepted, at 3 both go; at 6
- * Marooned's tires (class 4) are refused, at 7 they are accepted alone, at 8
- * tires + map fit and tires + flint + map do not.  Tires (7) and a class-2 gas
- * can (7) never coexist at any limit, which is what rules out a separate size
- * axis and weight axis: two axes would have let the two heavy objects sit one
- * on each.
+ * single "MaxCarried".  Measured in the genuine run380.exe (with probe files
+ * patched through the plaintext of a 3.80 .taf, in the Wine Runner harness),
+ * those are one *pooled burden*: each class costs 1, 3, 7, 3 or 7, the costs
+ * of everything held are summed, and the sum may not exceed MaxCarried.
+ * Pinned at MaxCarried 1, 2, 3, 6, 7 and 8: at 2 a class-1 or class-3 object
+ * is refused and a class-0 accepted, at 3 both go; at 6 Marooned's tires
+ * (class 4) are refused, at 7 they are accepted alone, at 8 tires + map fit
+ * and tires + flint + map do not.  Tires (7) and a class-2 gas can (7) never
+ * coexist at any limit, which is what rules out a separate size axis and
+ * weight axis: two axes would have let the two heavy objects sit one on each.
  *
  * The refusal is 3.8's only one -- there is no "too heavy" message.  Crime
  * Adventure's kettle (class 2 = 7 against MaxCarried 5) is refused with "Your
@@ -790,7 +789,7 @@ obj_uses_burden_model (scr_gameref_t game)
  * command handler in turn -- and its arithmetic comes out exact, so a 3.9
  * game is indistinguishable from recomputing the totals afresh.
  *
- * Measured on the p39leak probe, one Runner each, same commands (2026-08-23).
+ * Measured on the p39leak probe, one Runner each, same commands.
  * Size after take bag + take rock, put rock in bag, drop bag, take cape,
  * wear cape, drop cape:
  *
@@ -822,7 +821,7 @@ obj_uses_running_load (scr_gameref_t game)
  * the Runner allows.
  *
  * Measured in run390 on Lara Croft - The Sun Obelisk (croft_count, croft_wa,
- * croft_wd probes, 2026-10-09).  Lara starts with her Magnums (9) and a
+ * croft_wd probes).  Lara starts with her Magnums (9) and a
  * closed backpack (9) holding a journal (9): `count` says 18, not 27.
  * `drop backpack` takes it to 0 with the Magnums still in hand, `get
  * backpack` back to 18.  With an Aztec coin (3) the total is 21, and the belt
@@ -846,7 +845,7 @@ obj_uses_running_weight (scr_gameref_t game)
  *
  * Return what the given object costs against the player's 3.8 carry limit.
  * Unlike weight, a container is not charged for what it holds, measured in
- * run380 2026-08-03: against a MaxCarried of 1, a class-0 box (cost 1) holding
+ * run380: against a MaxCarried of 1, a class-0 box (cost 1) holding
  * a class-4 object (cost 7) is picked up without complaint, and only the next
  * cost-1 object is refused.  Charging the contents would have made the box
  * alone cost 8 and refused everything after it.
@@ -921,19 +920,18 @@ obj_get_player_burden_limit (scr_gameref_t game)
  * Version 3.8's Capacity is a plain object count instead, which is why the
  * V380 fixups normalise every object to a "size" of 22 and store Capacity as
  * count*10+2: one object then costs exactly one count.  Measured in run380
- * 2026-08-03 with a Capacity of 2, which swallows a class-4 object and then a
- * class-1 one, and is filled by two class-0 ones -- so the Size/weight class
- * is not charged against the container any more than against its carrier.  A
- * Capacity of 0 is full from the start rather than unlimited.  3.8 has only
- * the one refusal for all of this, "The box is full." (see
- * library/sclibrar_put.cpp).
+ * with a Capacity of 2, which swallows a class-4 object and then a class-1
+ * one, and is filled by two class-0 ones -- so the Size/weight class is not
+ * charged against the container any more than against its carrier.  A Capacity
+ * of 0 is full from the start rather than unlimited.  3.8 has only the one
+ * refusal for all of this, "The box is full." (see library/sclibrar_put.cpp).
  *
  * Version 3.9 reads only the FIRST digit of the count.  Its loader (run390
  * 46537C-46540C) takes Val(Left(Format(Capacity, "00"), 1)) times the scale
  * factor to the power of Val(Right(..., 1)), so a Capacity of 100 is one
  * object of size 1, not ten.  run400 fixed it: its loader takes
  * Left(s, Len(s) - 1) (4904D3-490574).  Measured on pPUTREF39.taf
- * (make_39_putrefprobe.py) under run390x, 2026-09-19: an empty bag of
+ * (make_39_putrefprobe.py) under run390x: an empty bag of
  * Capacity 100 takes the stone and then refuses four more size-1 objects
  * with "The lamp can't fit inside the bag at the moment."
  * (runner_probes/putref.run390.v4.txt).
@@ -1024,7 +1022,7 @@ obj_get_container_free_space (scr_gameref_t game, scr_int object)
  *    not a name ending in "s".
  *
  * Measured cell by cell on probe ISARE (run400,
- * runner_probes/isare.run400.txt, 2026-09-07), twelve objects one per
+ * runner_probes/isare.run400.txt), twelve objects one per
  * spelling, read back through `where <name>`:
  *
  *     where boots   (Prefix "")       The boots is test arena.
@@ -1422,7 +1420,7 @@ obj_initial_location_code (scr_gameref_t game, scr_int object)
  * moving the object, an NPC taking it all leave it showing -- and mode 0
  * with an EMPTY InRoomDesc means "print nothing AND stay out of the list",
  * which is how a 4.0 author silences an object the room's own long text
- * already mentions.  Measured 2026-09-06 under Wine: camelot15's four
+ * already mentions.  Measured under Wine: camelot15's four
  * bottles (mode 1, empty InRoomDesc) and takeone's jewel (mode 2, empty
  * InRoomDesc, still in its initial room) are both invisible to run400's
  * lister where Scarier used to list them, while zelda's shield (mode 1, a

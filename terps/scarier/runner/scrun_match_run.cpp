@@ -92,7 +92,7 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  * The case that needs excluding is "Space Boy's First Adventure" task 72,
  * "drop cape to the floor" (+250, no message) -- run400 lets the library's
  * ordinary drop win outright and the task never runs at all
- * (runner_probes/et2.run400.txt, runner_probes/et4.run400.txt, 2026-08-23).
+ * (runner_probes/et2.run400.txt, runner_probes/et4.run400.txt).
  * The case that must NOT be excluded is that same game's task 27,
  * "{take/get}{them/boots}" (CompleteText "Taken."), which must still win over
  * the library's own take (run_v4_walkthroughs.sh space_boy golden, "Taken."
@@ -143,7 +143,7 @@ run_task_restriction (scr_gameref_t game, scr_int task)
  * floor": the library's short forms are "drop the cape" and "drop cape", and
  * neither matches a pattern that insists on the trailing "to the floor", so
  * the Runner's library claims the command outright and the task never runs
- * (runner_probes/et2.run400.txt, runner_probes/et4.run400.txt, 2026-08-23).
+ * (runner_probes/et2.run400.txt, runner_probes/et4.run400.txt).
  * "Sommeril" task 35 is the bare
  * "take silver orb", which IS the library's own short form for that object,
  * so the Runner runs it (silently, +5) and the library's take then answers
@@ -404,7 +404,7 @@ run_restriction_cache_task_pick (scr_gameref_t game, const scr_char *string)
 /*
  * run_line_matches_task_strictly()
  *
- * Deliberate deviation, the gate for it (2026-09-27).  TRUE if any task the
+ * Deliberate deviation, the gate for it.  TRUE if any task the
  * player could run here has a command that matches the line the Runner's
  * way.  When none does, run_all_commands() gives the whole line lenient
  * task matching: the tolerant %object% matcher Scarier had before the
@@ -495,7 +495,7 @@ run_strict_tasks_requested (const scr_char *string)
 /*
  * run_line_yields_to_library()
  *
- * Deliberate deviation, narrowed (2026-09-30).  TRUE for a line no task
+ * Deliberate deviation, narrowed.  TRUE for a line no task
  * matches the Runner's way, that some task matches leniently, but only by a
  * command that starts with '*' -- one that does not name the verb.  Such a
  * command, read by the tolerant matcher, takes any line holding its words:
@@ -586,7 +586,7 @@ struct run_commands_t
  * restrictions fail with a message still prints that message (run400,
  * Provenance's squeeze-through-the-hole task: a second "s" at the hole
  * re-prints "The only way you are going to make it through that hole is if
- * you drop everything you are carrying.", 2026-08-22).  A spent task whose
+ * you drop everything you are carrying.").  A spent task whose
  * restrictions PASS instead falls through to run_task_refusal(), which
  * answers with RepeatText or "You have already done that.".
  *
@@ -601,7 +601,7 @@ struct run_commands_t
  * by test/adrift4/harness/make_39_doneprobe.py) says run390 orders the two
  * tests the other way about: a spent task answers "You have already done
  * that." whether its restrictions pass or fail, and never prints a fail
- * message (`alpha` and `x book` after dropping the stone, 2026-08-23).
+ * message (`alpha` and `x book` after dropping the stone).
  * Pre-4.0 therefore leaves spent tasks out of the loud restriction pass
  * entirely, and run_task_refusal() answers them.
  */
@@ -886,7 +886,7 @@ run_game_commands_in_parser_context (scr_gameref_t game, const scr_char *string,
  *      @453FE2-454028.  A failing restriction with an empty message drops
  *      the task and the walk moves on to the next one @453FC6->454034.
  *
- * Measured live 2026-09-06 on House.taf (runner_probes/house.run400.wood.txt,
+ * Measured live on House.taf (runner_probes/house.run400.wood.txt,
  * runner_probes/house.run400.t92.txt, runner_probes/house.run400.t93.txt): at
  * the fireplace, "put wood in fireplace" with the wood on the floor matches
  * task 60 "* %object%" (a take-flagged task restricted to the house
@@ -1238,7 +1238,7 @@ run_npc_walk_task (scr_gameref_t game, scr_int walktask)
  * examines()'s own "Nothing special." (referencedob -1, 44BF94; the game's
  * ALR makes it "I can tell you nothing about that").
  *
- * 3.80 has the same route and 3.70 has none (measured 2026-09-20).
+ * 3.80 has the same route and 3.70 has none (measured).
  * p3xEVQ2 from make_3738_eventflagprobe.py is two hats both Short "hat"
  * with the adjective as the Prefix's last word, plus an immediate event
  * that restarts every turn and runs a `zzev` task; each version is built
@@ -1372,7 +1372,7 @@ run_event_task (scr_gameref_t game, scr_int eventtask)
  * In version 3.8 (and so also 3.7) a task whose command matches but whose
  * restrictions fail does NOT get to swallow a direction the player can
  * actually walk in: the movement happens, and the task's fail message is
- * never printed.  Verified live in run380 with "The Twilight" (2026-08-04):
+ * never printed.  Verified live in run380 with "The Twilight":
  * its task 6 is "w" at the Cliff Top, restricted to Gale being present, and
  * before she joins you the Runner answers a bare "w" with "You move west."
  * and no message at all.  Under the version 4.0 ordering the message wins

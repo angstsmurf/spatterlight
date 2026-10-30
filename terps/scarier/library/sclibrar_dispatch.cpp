@@ -135,7 +135,7 @@ lib_object_short_name_is_ambiguous (scr_gameref_t game, scr_int object)
  * `get pens` ("You take a pen from the drawer.") and NOT for `take pens`,
  * which completes the library take of the pens object untouched (probes
  * runner_probes/tenebraesemper.run400.probe.txt,
- * runner_probes/tenebraesemper.run400.probe3.txt, 2026-08-30) -- so the game's
+ * runner_probes/tenebraesemper.run400.probe3.txt) -- so the game's
  * "have a pen" gate on leaving the dorm really does require typing `get`.
  * Retrying with a canonical "get" let Scarier's `take pens` fire that task and
  * walk past the gate.  The precedents the retry was tuned on all keep the
@@ -430,7 +430,7 @@ lib_try_game_command_common (scr_gameref_t game,
    * object.
    */
   /*
-   * Deliberate deviation (2026-09-27): on a line no task matches the
+   * Deliberate deviation: on a line no task matches the
    * Runner's way (run_lenient_task_matching()), the retry is made at every
    * version and with the canonical verb, so a task spelled `take a pebble`
    * answers `take pebble` below 4.0 too, and TenebraeSemper's `get * pen(s)`
@@ -523,15 +523,15 @@ lib_try_game_command_common (scr_gameref_t game,
 
       /*
        * Try the command with prefixes on both the target object and the
-       * associate.  This used to also try the prefix-dropped combinations,
-       * but the real Runner does not: probed live 2026-08-02 (FM7 + a
-       * TheADRIFTProject .tas transplant in run400), "put pill in cup"
-       * completes the library put untouched by a matched-but-failing
-       * "put * pill in cup" task -- the prefix-less retry is exactly the
-       * form that task would steal.  (The single-object retry below keeps
-       * its prefixed form too, which is what lets Wax Worx's "get * head"
-       * claim "get marie" via "get Marie Antoinette's head" -- the wildcard
-       * absorbs the prefix there, matching the Runner.)
+       * associate.  This used to also try the prefix-dropped combinations, but
+       * the real Runner does not: probed live (FM7 + a TheADRIFTProject .tas
+       * transplant in run400), "put pill in cup" completes the library put
+       * untouched by a matched-but-failing "put * pill in cup" task -- the
+       * prefix-less retry is exactly the form that task would steal.  (The
+       * single-object retry below keeps its prefixed form too, which is what
+       * lets Wax Worx's "get * head" claim "get marie" via "get Marie
+       * Antoinette's head" -- the wildcard absorbs the prefix there, matching
+       * the Runner.)
        *
        * Pre-4.0 there is no rebuilt line at all: the put handler moves the
        * bean and the task never sees a thing.
@@ -564,13 +564,12 @@ lib_try_game_command_common (scr_gameref_t game,
 
       /* Try the command with and without prefixes on the addressed object.
        * The prefix-less retry can re-hit a task that already matched and
-       * failed its restrictions this turn; that is what the Runner shows
-       * too (cobl: "take medicine" after "look in rubbish" prints the
-       * task's fail text, not the library take -- run400 probe
-       * 2026-08-30).  Pre-4.0 keeps only the prefix-less form: there the
-       * typed line has already been past the tasks, so the retry is a way
-       * for an ALIAS to reach one, not a second spelling of the noun the
-       * player used.
+       * failed its restrictions this turn; that is what the Runner shows too
+       * (cobl: "take medicine" after "look in rubbish" prints the task's fail
+       * text, not the library take -- run400 probe).  Pre-4.0 keeps only the
+       * prefix-less form: there the typed line has already been past the
+       * tasks, so the retry is a way for an ALIAS to reach one, not a second
+       * spelling of the noun the player used.
        */
       snprintf (command, command == buffer ? sizeof (buffer) : (size_t) required,
                 "%s %s %s", verb, prefix, name);
@@ -580,7 +579,7 @@ lib_try_game_command_common (scr_gameref_t game,
                   ? lib_run_rebuilt_line_400 (game, command)
                   : run_game_task_commands (game, command));
       /*
-       * Deliberate deviation (2026-09-30): on a line no task matches
+       * Deliberate deviation: on a line no task matches
        * strictly, the definite rebuild gets the prefix-less retry too.
        * run400's take piece offers the tasks only "get the X" (9298e56b0),
        * so `take mailbox` went past an author's literal `get mailbox` task
@@ -652,13 +651,13 @@ lib_try_game_command_short_canonical (scr_gameref_t game,
  * hat`, does not: run400 answers both `drop hat` turns out of the library,
  * "You drop the hat." and then "You are not holding the hat.", and neither the
  * CompleteText nor the RepeatText is ever printed
- * (runner_probes/repeat3.run400.txt, 2026-09-08).  "drop the hat" simply is
+ * (runner_probes/repeat3.run400.txt).  "drop the hat" simply is
  * not `drop hat`.
  *
  * Pre-4.0 has no authored-prefix form either -- run370/380/390 all answer
- * `drop coin` against a task `drop a coin` out of the library (p3xPRETRY,
- * 2026-09-20) -- and keeps only the bare-name retry, the typed line having
- * already been past the tasks before the library sees it.
+ * `drop coin` against a task `drop a coin` out of the library (p3xPRETRY) --
+ * and keeps only the bare-name retry, the typed line having already been past
+ * the tasks before the library sees it.
  */
 scr_bool
 lib_try_game_command_short_definite (scr_gameref_t game,
@@ -762,7 +761,7 @@ lib_try_game_command_take_definite (scr_gameref_t game, scr_int object)
  * take on a 2.  The and-loop does the same per object.
  *
  * Measured on p4AUTOFROM.taf (make_400_autofromprobe.py, run400,
- * runner_probes/autofrom.run400.txt, 2026-09-13):
+ * runner_probes/autofrom.run400.txt):
  *
  *   get treat     treat on the stove, `get *stove*`   -> "T2 BOLTED."
  *   Get token     `get * token from * table`,
@@ -819,7 +818,7 @@ lib_try_game_command_take_from_parent_400 (scr_gameref_t game, scr_int object,
   status = lib_try_game_command_short (game, "get", object);
 
   /*
-   * Deliberate deviation (2026-09-30): the "from" retry is skipped when
+   * Deliberate deviation: the "from" retry is skipped when
    * "get <parent>" alone already matches a task, which is then the
    * parent's task and not the object's.  run400 lets warlord's `get
    * *stove*` ("The stove is bolted to the floor.") answer `get treat` for
@@ -889,25 +888,24 @@ lib_try_game_command_with_object (scr_gameref_t game,
  * on to its own refusal or move.  Here the pre-match and the dispatch are the
  * one run_game_task_commands() call on the definite line.
  *
- * The definite form is what reconciles the measurements: `put * firewood in
- * * fireplace` wins `put firewood in fireplace` in run400
+ * The definite form is what reconciles the measurements: `put * firewood in *
+ * fireplace` wins `put firewood in fireplace` in run400
  * (runner_probes/goldilocks.run400.txt 383, prefixes "a pile of" / "the"), as
  * does `put * battery * flashlight` (runner_transcripts/Tear.txt), while the
  * PUT5 arena probe's `put a bean in a jar`, `put * pill in cup` and `put coin
- * in box` tasks (runner_probes/put5.run400.txt, 2026-09-05) and sommeril's
- * `put fish in fountain` (runner_probes/sommeril.run400.probe.txt, both
- * prefixes empty) all lose to the library: none of those patterns matches "put
- * the bean in the jar" / "put the FISH in the FOUNTAIN".  The typed spelling
- * never reaches the tasks through this handler at all -- The ADRIFT Project's
- * `put battery in charger` comes out of the synonym table as "put
- * nickel-cadmium nickel-cadmium accumulator in charger", which no pattern of
- * its `#Charge battery` task matches, and the author's own run400 transcript
- * still shows the task firing: it is the rebuild "put the small battery in the
- * battery charger" that `put * battery * charger *` claims.  Pre-4.0 offers
- * the tasks nothing at all here: the p3xPRETRY probes put the bean in the jar
- * on all three Runners with `put a bean in a jar` matched and passing
- * (2026-09-20), and there the typed line has already been through the tasks
- * before the library sees it.
+ * in box` tasks (runner_probes/put5.run400.txt) and sommeril's `put fish in
+ * fountain` (runner_probes/sommeril.run400.probe.txt, both prefixes empty) all
+ * lose to the library: none of those patterns matches "put the bean in the
+ * jar" / "put the FISH in the FOUNTAIN".  The typed spelling never reaches the
+ * tasks through this handler at all -- The ADRIFT Project's `put battery in
+ * charger` comes out of the synonym table as "put nickel-cadmium
+ * nickel-cadmium accumulator in charger", which no pattern of its `#Charge
+ * battery` task matches, and the author's own run400 transcript still shows
+ * the task firing: it is the rebuild "put the small battery in the battery
+ * charger" that `put * battery * charger *` claims.  Pre-4.0 offers the tasks
+ * nothing at all here: the p3xPRETRY probes put the bean in the jar on all
+ * three Runners with `put a bean in a jar` matched and passing, and there the
+ * typed line has already been through the tasks before the library sees it.
  */
 scr_bool
 lib_try_game_command_with_object_400 (scr_gameref_t game,
@@ -951,7 +949,7 @@ lib_try_game_command_with_object_400 (scr_gameref_t game,
  * fireplace` word for word but has no slot for the rebuild's first "the",
  * and the Runner answers "You are not holding the wood." with the fire left
  * unlaid; with the wood already in hand the library's own put claims it,
- * and the fire is just as dead.  Deliberate deviation (2026-09-27): the
+ * and the fire is just as dead.  Deliberate deviation: the
  * author's task wins -- but only a task that runs.  A task whose
  * restrictions fail leaves the put to the library, message or no message:
  * see run_passing_task_commands().  It also wins ahead of the size and
@@ -1026,16 +1024,15 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
    * Look for "object" or "object and ...", and set match and more flags.
    *
    * Fall back to "object <trailing text>" -- a single object followed by
-   * anything that isn't "and" -- if neither matches.  run400 tolerates
-   * filler after a single object reference (probe DONE 2026-08-23: Space
-   * Boy's First Adventure Task 72's own command is the literal, unrestricted,
-   * textless "drop cape to the floor"; typing it live gets the library's
-   * ordinary "Player drop the cape." with the score unchanged,
-   * runner_probes/et2.run400.txt, runner_probes/et4.run400.txt), where
-   * scarier's exact-match-only %object% previously failed to parse "cape to
-   * the floor" at all, so the library's drop never ran and the command fell
-   * through to "Drop what?" instead.  This fallback is tried last so it never
-   * preempts a real "X and Y" list.
+   * anything that isn't "and" -- if neither matches.  run400 tolerates filler
+   * after a single object reference (probe DONE: Space Boy's First Adventure
+   * Task 72's own command is the literal, unrestricted, textless "drop cape to
+   * the floor"; typing it live gets the library's ordinary "Player drop the
+   * cape." with the score unchanged, runner_probes/et2.run400.txt,
+   * runner_probes/et4.run400.txt), where scarier's exact-match-only %object%
+   * previously failed to parse "cape to the floor" at all, so the library's
+   * drop never ran and the command fell through to "Drop what?" instead.  This
+   * fallback is tried last so it never preempts a real "X and Y" list.
    */
   list = var_get_ref_text (vars);
   if (uip_match ("%object%", list, game))
@@ -1057,9 +1054,8 @@ lib_parse_next_object (scr_gameref_t game, const scr_char *verb,
        * it into a plain take -- "You take the stone." -- where run390 says
        * "You can't do that!" and run400 "I don't understand where you want to
        * get things from." (p39DARK/p4TFROM,
-       * runner_probes/dark.run390.feed3.txt, runner_probes/tfrom.run400.txt,
-       * 2026-09-10).  The take-from catch-alls carry both; see
-       * lib_cmd_take_from_nowhere().
+       * runner_probes/dark.run390.feed3.txt, runner_probes/tfrom.run400.txt).
+       * The take-from catch-alls carry both; see lib_cmd_take_from_nowhere().
        */
       *are_more_objects = FALSE;
       is_matched = TRUE;

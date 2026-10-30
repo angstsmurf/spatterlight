@@ -166,10 +166,10 @@ pf_print_so_far (scr_filterref_t filter,
  * still needing filtering, so that the flush at the end of the turn filters
  * it once more.
  *
- * This is what a completing version 4.0 task does to the turn's output, and
- * it is why some text comes out with its ALRs applied twice.  Measured under
- * run400.exe in Wine on 2026-08-24 with harness/make_400_alrsrcprobe.py,
- * whose ALRs include the self-containing "ball -> qball" (transcripts
+ * This is what a completing version 4.0 task does to the turn's output, and it
+ * is why some text comes out with its ALRs applied twice.  Measured under
+ * run400.exe in Wine with harness/make_400_alrsrcprobe.py, whose ALRs include
+ * the self-containing "ball -> qball" (transcripts
  * runner_probes/alrsrc.run400.b.txt, runner_probes/alrsrc.run400.c.txt and
  * runner_probes/alrsrc.run400.d.txt):
  *
@@ -713,7 +713,7 @@ pf_undo_auto_break (scr_filterref_t filter)
  * Runners store no break after a room description -- the next piece is glued
  * on by the two-space separator logic -- so the newline Scarier's room
  * printer adds there stands where the Runner's string simply stopped.
- * Measured live on superliam.taf in run380 (2026-08-31): tasks 23 ("press
+ * Measured live on superliam.taf in run380: tasks 23 ("press
  * button") and 24 ("up") show rooms whose Long ends in two spaces, and the
  * real Runner suppresses both AdditionalMessages ("a cat runs out of a
  * door...", "X1 raising his gunlike arms...") where Scarier printed them.
@@ -1116,7 +1116,7 @@ pf_buffer_join_line (scr_filterref_t filter, const scr_char *string)
  * prints "The rock is too big to fit inside the slot." and then lets a
  * matching task answer the same line, concatenated onto the refusal --
  * "The rock is too big to fit inside the slot.  PUTBIG." (arena probe PUT7,
- * runner_probes/put7.run400.b.txt, 2026-09-05; Zack Smackfoot's `put knife in
+ * runner_probes/put7.run400.b.txt; Zack Smackfoot's `put knife in
  * slot`, runner_transcripts/zacksmackfoot.txt).  If no task claims, the
  * refusal stands alone on its own line, exactly as buffered.
  */
@@ -1232,7 +1232,7 @@ pf_prepend_string (scr_filterref_t filter, const scr_char *string)
  * clause's answer.  The Runner's own scrollback for `put coin in box and hat
  * in desk and hat in box` opens with the take line and only then prints "The
  * coin is too big to fit inside the box." (p4AND,
- * runner_probes/and.run400.c.txt, 2026-09-08).
+ * runner_probes/and.run400.c.txt).
  *
  * The buffer only ever moves within itself, so offsets recorded past the
  * moved text still address the same characters; the trailing-newline note is

@@ -186,23 +186,23 @@ lib_go (scr_gameref_t game, scr_int direction)
    * run400 with brackets on answers "in" from the bed with "(Getting off
    * Sissy's four poster bed first)" on its own line before "I move in."
    * (and later "(Getting off the pink plastic chair first)"); with the box
-   * unticked (humbug command 254, 2026-08-24) it prints nothing.
+   * unticked (humbug command 254) it prints nothing.
    *
    * The parent-less half -- sitting or lying on the FLOOR, so "(Standing up
-   * first)" rather than "(Getting off X first)" -- was measured 2026-09-07 on
-   * Main Course.taf (4.00, runner_probes/maincourse.run400.txt), whose player
+   * first)" rather than "(Getting off X first)" -- was measured on Main
+   * Course.taf (4.00, runner_probes/maincourse.run400.txt), whose player
    * starts sitting with ParentObject 0, and on goldilocks
-   * (runner_transcripts/goldilocks.txt) turn 94, where a task
-   * action seats the player on an unset object.  Both print the line with the
-   * box ticked and nothing without it, and both had earlier brackets-OFF
-   * transcripts that read as an engine bug until they were re-driven.
+   * (runner_transcripts/goldilocks.txt) turn 94, where a task action seats the
+   * player on an unset object.  Both print the line with the box ticked and
+   * nothing without it, and both had earlier brackets-OFF transcripts that
+   * read as an engine bug until they were re-driven.
    *
    * From 3.9 the name goes through the object-name composer in mode 0
    * (run390 431943 -> compose_object_name 42B0E8, run400 450354 -> 448710),
    * which answers "that" for an object the player has not seen.  gateway
    * (3.90) seats the player on a chair only a task's text mentions, and
    * run390x answers `east` with "(Getting off that first)"
-   * (runner_transcripts/gateway.txt, 2026-09-14).  run370/380 concatenate the
+   * (runner_transcripts/gateway.txt).  run370/380 concatenate the
    * name directly, with no seen test.  Scarier deliberately names the object
    * in every version (deviation policy): the player is sitting on it, so
    * hiding its name behind "that" only loses information.
@@ -213,7 +213,7 @@ lib_go (scr_gameref_t game, scr_int direction)
    * it.  So `stand on crate`, `s`, `sit`, `stand` is "You move south.", ...,
    * "You stand up from the crate." (p37SIT/p38SIT, run370x
    * runner_probes/sit.run370.sit2.rtf, run380x
-   * runner_probes/sit.run380.sit2.rtf, 2026-09-19).  run380's take-from reach
+   * runner_probes/sit.run380.sit2.rtf).  run380's take-from reach
    * test reads the same stale parent (446BA5).
    */
   stale_parent = -1;

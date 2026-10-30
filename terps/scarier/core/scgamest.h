@@ -79,7 +79,7 @@ typedef struct scr_objectstate_s
    * Ordinary takes from a room, drops, and task moves of uncontained
    * objects leave it untouched, so a stale value silently adds the object's
    * weight to whichever container shares its Parent number for the whole
-   * game (measured live in run400 2026-08-22: goldilocks' package, object
+   * game (measured live in run400: goldilocks' package, object
    * 0, weighs 19 more than its contents because the worn-from-the-start
    * watch and dress and the never-placed broken bottle all carry Parent 0
    * -- and the bottle keeps doing so through a take and a drop, while

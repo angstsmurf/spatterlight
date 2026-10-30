@@ -518,7 +518,7 @@ run_prompt_restore (scr_gameref_t game, const scr_char *reply)
  * here, mirroring the Runner.  Like the gender choice, the answer is stored in
  * the session-persistent property bundle.
  *
- * The two Runners that have the prompt disagree (read 2026-09-13).  run400
+ * The two Runners that have the prompt disagree (read).  run400
  * (Form1 46EA89) asks whenever the option is set, seeds the box with the
  * current name, and turns an empty answer into "Anonymous" (46EAEF).  run390
  * (4416B8) asks only while the name is still EMPTY -- an authored name
@@ -822,12 +822,12 @@ run_main_startup (scr_gameref_t game)
   battle_start (game);
 
   /*
-   * Nudge events, but NOT NPC walks: the Runner's walk handler (Sub_20_2)
-   * is reachable only from the typed-command evaluator (Sub_20_62, called
-   * solely by Form1.evaluate), so walks never tick before the first
-   * command -- settled live 2026-08-01 in BOTH Runners (walk probe C: no
-   * CharTask fires before the first prompt; Scarier used to move walking
-   * NPCs, and fire their CharTask, during startup).
+   * Nudge events, but NOT NPC walks: the Runner's walk handler (Sub_20_2) is
+   * reachable only from the typed-command evaluator (Sub_20_62, called solely
+   * by Form1.evaluate), so walks never tick before the first command --
+   * settled live in BOTH Runners (walk probe C: no CharTask fires before the
+   * first prompt; Scarier used to move walking NPCs, and fire their CharTask,
+   * during startup).
    *
    * The zero-length half of the load start finishes here rather than
    * above: its FinishText, TaskAffected and any restart land BELOW the
@@ -843,7 +843,7 @@ run_main_startup (scr_gameref_t game)
    * no StartText, the same silent start as above -- and a StarterType=2
    * event into WAITING with its rolled delay, which the first command
    * then decrements: a delay of 1 starts the event on turn 1, not at
-   * load.  Measured 2026-09-04 in run380 with haunt.taf (transcript
+   * load.  Measured in run380 with haunt.taf (transcript
    * runner_probes/haunt.run380.rtf): its Weather event (delay 1..1, length
    * 4, restart after delay) prints "Thunder rumbles ominously." on the
    * first command turn and cycles from there, where the startup tick had

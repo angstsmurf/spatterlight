@@ -45,7 +45,7 @@
 /*
  * run_separator_task_line()
  *
- * Deliberate deviation (2026-09-30).  TRUE when a task command that itself
+ * Deliberate deviation.  TRUE when a task command that itself
  * holds one of the line separators the line holds (" and ", " then ", ",",
  * ". ") matches the whole line; the line is then not cut.  run400 cuts at
  * those words first (7d38fbf08), and from 3.9 the Runners cut at " then "
@@ -234,7 +234,7 @@ run_repeat_element (scr_gameref_t game)
    * past the "again"s, then at loc_48A095 tests MemVar_4942BA and prints
    * "(" & command & ")" & vbCrLf through Proc_21_19_47B568.  run390
    * echoes it the same way: p39WITH `probe`, `again` -> "(probe)" then
-   * "PROBE OK." (runner_probes/with.run390.txt, 2026-09-14).  3.8 and
+   * "PROBE OK." (runner_probes/with.run390.txt).  3.8 and
    * earlier are not measured.
    */
   if (prop_get_taf_version (bundle) >= TAF_VERSION_390)
@@ -487,7 +487,7 @@ run_element_filtered (scr_gameref_t game)
   size_t index_;
 
   /*
-   * Deliberate deviation (2026-09-30): a typed `l` or `look` that the
+   * Deliberate deviation: a typed `l` or `look` that the
    * game's synonyms turn into a bare `x`, `ex` or `examine` stays a look.
    * Lair of the Vampire rewrites `look` to `x`, and run400 answers the bare
    * examine word with "Try something different.", so the room was never
@@ -676,7 +676,7 @@ run_element_begin (scr_gameref_t game, const scr_char *command,
    * and %character% raw on the turn right after `nurb rock` bound the red
    * rock, in all four Runners (runner_probes/objref.run370.rtf,
    * runner_probes/objref.run380.rtf, runner_probes/objref.run390.txt,
-   * runner_probes/objref.run400.txt, 2026-09-20).  Below 3.90 the reference
+   * runner_probes/objref.run400.txt).  Below 3.90 the reference
    * looks to be local to checktask, which is the same thing seen from the
    * other end.  We kept the older Runners' references across the line and
    * printed "ZORKED a red rock."
@@ -713,7 +713,7 @@ run_element_questions (scr_gameref_t game, const scr_char *command,
        * task matcher; 3.9 runs it as joined, and its task matcher sees
        * every space: p39WITHQ's `saw rope` / `knife` fires the task wired
        * `saw rope with  knife` and not its one-space twin (run390x
-       * runner_probes/withq.run390.txt, 2026-09-25).
+       * runner_probes/withq.run390.txt).
        */
       if (is_400)
         while ((pair = collapsed.find ("  ")) != std::string::npos)
@@ -1161,7 +1161,7 @@ run_player_input (scr_gameref_t game)
    * run400 89FE2 and run390 45F094 sit above tasks(0) (45F48B), run380 441B79
    * and run370 43B3C9 likewise, but without `g`.  So a task that listens for
    * `g` can never see it typed from 3.90 on; shadowpeak's riddle (TASK 404,
-   * answer `g`) repeats the previous command in run400 (2026-09-14).  Below
+   * answer `g`) repeats the previous command in run400.  Below
    * 3.90 the `g` row in the standard table stays a Scarier abbreviation and
    * keeps its place after the tasks.
    */

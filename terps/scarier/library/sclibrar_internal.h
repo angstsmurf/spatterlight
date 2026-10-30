@@ -360,7 +360,7 @@ typedef struct
    * definite helper Proc_2_36_42B0E8 (445CD4-445D0F): p39EXAM `drop stone`
    * with the stone on the floor, and `drop coin` with the coin in the open
    * crate, are "You don't have the stone!" and "... the coin!" (run390
-   * runner_probes/exam.run390.b.txt, 2026-09-14).  Its remove handler is
+   * runner_probes/exam.run390.b.txt).  Its remove handler is
    * unmeasured.
    */
   scr_bool lacks_single_390;

@@ -626,7 +626,7 @@ static scr_commands_t STANDARD_COMMANDS[] = {
  * "Get the coin from what?" and run400's "I don't understand where you want
  * to get things from.", never scarier's "You are not wearing the coin!"
  * (p39DARK/p4TFROM, runner_probes/tfrom.run400.feed2.txt,
- * runner_probes/dark.run390.feed5.txt, 2026-09-10).  Both rows end in a
+ * runner_probes/dark.run390.feed5.txt).  Both rows end in a
  * wildcard because the container slot resolved nothing; the %object% rows for
  * the same shapes are up in PRIORITY_COMMANDS and have already declined by
  * here.  See lib_cmd_take_from_nowhere().
@@ -683,9 +683,9 @@ static scr_commands_t STANDARD_ABOVE_REFUSAL_COMMANDS[] = {
  * special." for a noun that names nothing (44BF94) -- so an examine line that
  * an out-of-room task also matches is "Nothing special.", not "You can't do
  * that here!".  Gamma Gals (3.90) `look under dresser` and `look under bed`
- * typed outside the tasks' rooms (run390x, Delron walkthrough replay
- * 2026-10-09).  3.9 only: 3.7/3.8 have no bare look in examines and are
- * unmeasured; 4.0's refusal is not here.
+ * typed outside the tasks' rooms (run390x, Delron walkthrough replay).  3.9
+ * only: 3.7/3.8 have no bare look in examines and are unmeasured; 4.0's
+ * refusal is not here.
  */
 scr_commands_t EXAMINE_ABOVE_REFUSAL_390_COMMANDS[] = {
   {"[x/ex/exam/examine/look {at}] %object%", lib_cmd_examine_absent},
@@ -939,18 +939,17 @@ static scr_commands_t STANDARD_FALLBACK_COMMANDS[] = {
  * For now, I can't find any better way to try to handle it than to make
  * object acquisition take precedence over game commands.
  *
- * The put-in/put-on family runs here TENTATIVELY: probed live against
- * run400 (2026-08-02, probe FM7 + a TheADRIFTProject .tas transplant), the
- * real Runner lets a put that can actually complete beat a matched task
- * whose restrictions fail ("put pill in cup" answers the library's "You put
- * the small pill inside the coffee cup." while the task's fail message is
- * suppressed), but when the put would be REFUSED (target not a container/
- * surface) the failing task's message wins ("drop pill in slime" prints the
- * fail message, not the refusal).  So in this pass the validity check
- * defers instead of refusing -- run_priority_defer() -- and the scan stops
- * so the plain-drop %text% rows cannot swallow the input; the loud-fail
- * task pass then gets its chance, and the duplicate rows in
- * STANDARD_COMMANDS print the refusal when no task claims it.
+ * The put-in/put-on family runs here TENTATIVELY: probed live against run400
+ * (probe FM7 + a TheADRIFTProject .tas transplant), the real Runner lets a put
+ * that can actually complete beat a matched task whose restrictions fail ("put
+ * pill in cup" answers the library's "You put the small pill inside the coffee
+ * cup." while the task's fail message is suppressed), but when the put would
+ * be REFUSED (target not a container/ surface) the failing task's message wins
+ * ("drop pill in slime" prints the fail message, not the refusal).  So in this
+ * pass the validity check defers instead of refusing -- run_priority_defer()
+ * -- and the scan stops so the plain-drop %text% rows cannot swallow the
+ * input; the loud-fail task pass then gets its chance, and the duplicate rows
+ * in STANDARD_COMMANDS print the refusal when no task claims it.
  */
 #ifdef SCARIER_DUMP_TOOLS
 /* SCR_TRACE_ADMIN: the last command dispatched, for the ADMIN trace line. */
@@ -1048,14 +1047,14 @@ run_priority_refuse (void)
  * catch-all -- whose noun was resolved up front from the original line --
  * answers instead: "I don't understand what you want to do with the cone."
  *
- * Measured on IceCream.taf in run400 (runner_probes/icecream.run400.put.txt,
- * 2026-09-07), whose three `put/place/set [the] ice cream in/on [the] cone`
- * tasks share one pattern: `put ice cream in cone` and `put the ice cream in
- * the cone` both come out as the catch-all, while `place ice cream in cone`
- * runs the task (place never enters put_drop_list) and `put ice cream on
- * cone` runs it too -- the "on" branch has an escape of its own at 459C39
- * that zeroes the split when the fragment resolves to nothing, so the line
- * reaches the tasks intact.  The clobber is the "in" form only.
+ * Measured on IceCream.taf in run400 (runner_probes/icecream.run400.put.txt),
+ * whose three `put/place/set [the] ice cream in/on [the] cone` tasks share one
+ * pattern: `put ice cream in cone` and `put the ice cream in the cone` both
+ * come out as the catch-all, while `place ice cream in cone` runs the task
+ * (place never enters put_drop_list) and `put ice cream on cone` runs it too
+ * -- the "on" branch has an escape of its own at 459C39 that zeroes the split
+ * when the fragment resolves to nothing, so the line reaches the tasks intact.
+ * The clobber is the "in" form only.
  *
  * The put-in handler signals the fragment with this, and the put refusals
  * read it back through run_priority_put_was_unnamed().  The task passes
@@ -1118,7 +1117,7 @@ run_priority_commands (scr_gameref_t game, const scr_char *string)
  *
  * Which side of the line a row falls on was measured on p4REPEAT2.taf and
  * p4REPEAT3.taf (run400 runner_probes/repeat2.run400.txt,
- * runner_probes/repeat3.run400.txt, 2026-09-08), where every one of the
+ * runner_probes/repeat3.run400.txt), where every one of the
  * probe's cells is a task whose command is the typed line, none of them
  * done, all with a RepeatText:
  *
@@ -1210,14 +1209,14 @@ run_is_put_command_400 (scr_gameref_t game, const scr_char *string,
  *
  * TRUE for the lines run400's inventory handler answers.  That handler,
  * Proc_19_70_45C304, is called at loc_48A457 -- above the task dispatcher at
- * 48A481 -- so its listing is in the message buffer before any task runs,
- * and a task that then matches the same line has its CompleteText APPENDED
- * to the listing rather than replacing it.  Measured on p4REPEAT2/3
- * (runner_probes/repeat2.run400.txt, runner_probes/repeat3.run400.txt,
- * 2026-09-08): the first `i` answers "You are carrying a coin and a hat.  C1
- * i.", and `inv` / `inventory` the same way.  (The listing is also why a
- * spent task's RepeatText never survives here -- the 44CC7D store is gated
- * on the buffer still being empty; that is the survivor table's first row.)
+ * 48A481 -- so its listing is in the message buffer before any task runs, and
+ * a task that then matches the same line has its CompleteText APPENDED to the
+ * listing rather than replacing it.  Measured on p4REPEAT2/3
+ * (runner_probes/repeat2.run400.txt, runner_probes/repeat3.run400.txt): the
+ * first `i` answers "You are carrying a coin and a hat.  C1 i.", and `inv` /
+ * `inventory` the same way.  (The listing is also why a spent task's
+ * RepeatText never survives here -- the 44CC7D store is gated on the buffer
+ * still being empty; that is the survivor table's first row.)
  */
 scr_bool
 run_is_inventory_command (scr_gameref_t game, const scr_char *string)
@@ -1243,7 +1242,7 @@ run_is_inventory_command (scr_gameref_t game, const scr_char *string)
  * run_repeat_survivor_400()
  *
  * TRUE if a 4.0 line is one that a spent task's RepeatText does NOT take
- * away from the standard library.  Measured 2026-09-08 with p4REPEAT.taf,
+ * away from the standard library.  Measured with p4REPEAT.taf,
  * p4REPEAT2.taf and p4REPEAT3.taf (make_400_repeatprobe.py and
  * make_400_repeatprobe2.py, 30-odd one-cell tasks all done, non-repeatable
  * and carrying a RepeatText, each typed twice) under run400, transcripts
@@ -1365,7 +1364,7 @@ std::string
 run_normalise_put_line (const scr_char *string)
 {
   /*
-   * Deliberate deviation (2026-09-30): the four rewrites are whole-word, and
+   * Deliberate deviation: the four rewrites are whole-word, and
    * "drop" only as the line's verb.  run400's substring Replace()s reach
    * into names, so `put coin in drop box` became "put coin in put box" and
    * was "I don't understand what you want to put things inside.", and a
@@ -1526,7 +1525,7 @@ run_is_with_deferred_handler (scr_bool (*handler) (scr_gameref_t))
  * run_line_opens_with_scare_word()
  * run_game_owns_scare_word()
  *
- * Deliberate deviation's limit (2026-10-11).  `verbose`, `brief`, `notify`,
+ * Deliberate deviation's limit.  `verbose`, `brief`, `notify`,
  * `notification`, `hints`, `hist`, `redo`, `gpl`, `license`, `statusline` and
  * `stats` are SCARE's words; no Runner answers them (see the audit note in
  * STANDARD_COMMANDS).  A task is matched before the library, so one that
@@ -1633,7 +1632,7 @@ run_try_command_table (scr_commandsref_t command,
        * run390 guards the same branches with MemVar_468198 (45939D,
        * 459658); run370 has no such flag (4386BC), and run380's rendering
        * of the test (44054B) is too ambiguous to lean on, so pre-3.9 keeps
-       * every row.  Measured live on House (4.00), 2026-09-06: the silent
+       * every row.  Measured live on House (4.00): the silent
        * task "# attention on cathy grave vision" (`*cathy*`, once only) runs
        * on the first `get cathy` and the library then says "Take what?"
        * (runner_probes/house.run400.t93.txt,
@@ -1860,13 +1859,13 @@ run_standard_fallback_commands (scr_gameref_t game, const scr_char *string)
 
   /*
    * The fallback verbs resolve their noun the Runner's way too: generaltasks
-   * (Proc_19_85_489F4C) runs co() once, up front, and every generic verb
-   * after it sees the object it found -- `pull de la palanca` (Vardock
-   * Bates, 4.00, a `tirar`->`pull` synonym leaving the "de" in place) is
-   * "You pull la palanca, but nothing happens." in run400 (transcript
-   * 2026-08-29), not the object-less "You pull, but nothing happens.".
-   * Containment stays a per-row fallback (positional first), so a row's
-   * "%object% *" form still wins over the "%text%" catch-all beneath it.
+   * (Proc_19_85_489F4C) runs co() once, up front, and every generic verb after
+   * it sees the object it found -- `pull de la palanca` (Vardock Bates, 4.00,
+   * a `tirar`->`pull` synonym leaving the "de" in place) is "You pull la
+   * palanca, but nothing happens." in run400 (transcript), not the object-less
+   * "You pull, but nothing happens.".  Containment stays a per-row fallback
+   * (positional first), so a row's "%object% *" form still wins over the
+   * "%text%" catch-all beneath it.
    */
   const scr_containment_guard containment (TRUE);
 
@@ -2194,7 +2193,7 @@ run_line_for_anywhere (scr_gameref_t game, const scr_char *line)
  * MemVar_468219 = 1, run400 48A6AE with MemVar_494281).  It sits above the
  * wait gate, so `score wait` is the score and no time passes; below takes,
  * drops, wears and removes, which claim or act first, and above the
- * swearing arm, which overwrites it.  Measured 2026-09-20 on p37SITN..p4SITN
+ * swearing arm, which overwrites it.  Measured on p37SITN..p4SITN
  * (harness/make_3738_sitnpcprobe.py: `score sit`, `score wait`; the sit case
  * is lib_sitstand_anywhere()'s).  A line holding one of those earlier or
  * later handlers' words is left to its rows: not measured.
@@ -2237,28 +2236,27 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  *
  * Every Runner answers a line holding the whole word `wait` ANYWHERE with
  * "Time passes..." and the wait turns, if no handler above has written a
- * message by then: `If c("wait") [Or line = "z"] And msg = ""` (run370
- * 43C1B3, run380 442A07, run390 45FCA2, run400 48ABB8 -- 4.0's c() too).
- * That gate sits after the tasks and the handlers that enter on words
- * anywhere in the line (takes, drops, wears, removes, sitstand, openclose,
- * examines, score, profanity), and before whereis, gotoplace and therest.
- * So `wait stone` with the stone elsewhere, `please wait`, `wait here`,
- * `push stone wait` and `turn wait` all pass time.  A line holding an
- * earlier handler's word is left to the rows that already answer it.
- * Give, say, inventory and a direction are NOT such words: inventory()
- * writes a message sitstand-fashion but nothing below wears() claims
- * without moving something, and give, say and the directions are all
- * `If msg = ""` arms below the gate -- so `give coin to bob wait`, `say
- * hello wait`, `i wait`, `inventory wait` and `n wait` are "Time passes..."
- * with nothing given, listed or walked (p37SITN..p4SITN,
+ * message by then: `If c("wait") [Or line = "z"] And msg = ""` (run370 43C1B3,
+ * run380 442A07, run390 45FCA2, run400 48ABB8 -- 4.0's c() too).  That gate
+ * sits after the tasks and the handlers that enter on words anywhere in the
+ * line (takes, drops, wears, removes, sitstand, openclose, examines, score,
+ * profanity), and before whereis, gotoplace and therest.  So `wait stone` with
+ * the stone elsewhere, `please wait`, `wait here`, `push stone wait` and `turn
+ * wait` all pass time.  A line holding an earlier handler's word is left to
+ * the rows that already answer it.  Give, say, inventory and a direction are
+ * NOT such words: inventory() writes a message sitstand-fashion but nothing
+ * below wears() claims without moving something, and give, say and the
+ * directions are all `If msg = ""` arms below the gate -- so `give coin to bob
+ * wait`, `say hello wait`, `i wait`, `inventory wait` and `n wait` are "Time
+ * passes..."  with nothing given, listed or walked (p37SITN..p4SITN,
  * harness/make_3738_sitnpcprobe.py: run370x runner_probes/sitn.run370.rtf,
  * run380x runner_probes/sitn.run380.rtf, run390x
- * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt,
- * 2026-09-20).  ask/talk stay with their rows: characters() overwrites the
- * wait text with the reply (`ask bob about hat wait` is "BOB HAT.").  `score
- * wait` is the score's (run_score_anywhere() runs first).  up/down/in/out with
- * wait: not measured.  run370's openclose writes nothing unless the line names
- * an openable object (4264E7), so there `open stone wait` passes time; 3.8 on
+ * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt).
+ * ask/talk stay with their rows: characters() overwrites the wait text with
+ * the reply (`ask bob about hat wait` is "BOB HAT.").  `score wait` is the
+ * score's (run_score_anywhere() runs first).  up/down/in/out with wait: not
+ * measured.  run370's openclose writes nothing unless the line names an
+ * openable object (4264E7), so there `open stone wait` passes time; 3.8 on
  * refuse the open.  `look wait` is examines' from 3.9 (bare `look`), time
  * passing at 3.7/3.8.
  *
@@ -2270,7 +2268,7 @@ run_score_anywhere (scr_gameref_t game, const scr_char *string)
  * stays set.  run370x reaches that with `wait goto hall`, the game's goto
  * word and "goto" each cut from the front.
  *
- * Measured 2026-09-19 on p37GOTO, p38GOTO, p39GOTO and p4EXAM
+ * Measured on p37GOTO, p38GOTO, p39GOTO and p4EXAM
  * (harness/make_37_gotoprobe.py, make_38_gotoprobe.py,
  * make_39_gotoprobe.py, make_400_examprobe.py): run370x
  * runner_probes/goto.run370.wait.rtf, run380x

@@ -52,7 +52,7 @@ lib_cmd_kill_other (scr_gameref_t game)
  * that." (run370 43E850, run380 44535C); 3.9 gives each verb its own.
  * p37/p38NPCAMB (harness/make_3738_npcambprobe.py), run370x
  * runner_probes/npcamb.run370.bareverb.rtf, run380x
- * runner_probes/npcamb.run380.bareverb.rtf, 2026-09-19.
+ * runner_probes/npcamb.run380.bareverb.rtf.
  *
  * Deliberate deviation: Scarier gives touch and shake their 3.9 arms at
  * every version, and rub its 4.0 one (see lib_cmd_rub_object()), so the
@@ -187,7 +187,7 @@ lib_nothing_happens_other (scr_gameref_t game,
  * 4383CD-438661), and why `attack dave` is DontUnderstand at 3.7/3.8
  * while `hit dave` is "Dave avoids your feeble attempts." (run370x
  * runner_probes/attackarm.run370.rtf, run380x
- * runner_probes/attackarm.run380.rtf, 2026-09-20).
+ * runner_probes/attackarm.run380.rtf).
  *
  * generaltasks' turn tail (run380 443160, run370 43C4xx) runs characters()
  * only when therest left a message, else prints DontUnderstand and ticks
@@ -585,7 +585,7 @@ lib_cmd_move_object (scr_gameref_t game)
  * the coin." and `rub,coin` (no whole word "coin") "I don't understand."
  * (p37TASK/p38TASK, runner_probes/task.run370.comma.rtf,
  * runner_probes/task.run380.comma.rtf; p39TASK
- * runner_probes/task.run390.comma.txt, 2026-09-19).  Deliberate deviation:
+ * runner_probes/task.run390.comma.txt).  Deliberate deviation:
  * Scarier has the rub arm at every version.
  */
 scr_bool
@@ -1125,19 +1125,19 @@ lib_what (scr_gameref_t game, const scr_char *verb)
    * lib_question_with_rule()).
    *
    * 3.9 is broader: EVERY "<Verb> what?" answer leaves the line in
-   * MemVar_4681D0, which generaltasks (4601A5) puts in front of the next
-   * line nothing else answers -- checkverb's arms (42A504: push, pull, kick,
-   * hit, turn, climb, break, lock, smash ...) and the handlers' own rows
-   * alike: `drop` / `coin` drops the coin, `take` / `coin` picks it up,
-   * `wear` / `red hat` puts it on, `remove` / `red hat` takes it off,
-   * `examine` or `x` / `stone` examines it, `give` / `coin` asks "Give the
-   * coin to who?".  The prefix lives one line: `push` / `look` / `stone` is
-   * the catch-all (4606A4 clears a prefix the answered line left alone).
-   * The splitter's next element is such a line too: `push, stone` is "Push
-   * what?" then "You push the stone.".  p39TASK, run390x
-   * runner_probes/task.run390.pfx.txt (harness/make_prefixprobe.py),
-   * runner_probes/task.run390.comma.txt (harness/make_3738_taskprobe.py),
-   * 2026-09-19.
+   * MemVar_4681D0, which generaltasks (4601A5) puts in front of the next line
+   * nothing else answers -- checkverb's arms (42A504: push, pull, kick, hit,
+   * turn, climb, break, lock, smash ...) and the handlers' own rows alike:
+   * `drop` / `coin` drops the coin, `take` / `coin` picks it up, `wear` / `red
+   * hat` puts it on, `remove` / `red hat` takes it off, `examine` or `x` /
+   * `stone` examines it, `give` / `coin` asks "Give the coin to who?".  The
+   * prefix lives one line: `push` / `look` / `stone` is the catch-all (4606A4
+   * clears a prefix the answered line left alone).  The splitter's next
+   * element is such a line too: `push, stone` is "Push what?" then "You push
+   * the stone.".  p39TASK, run390x runner_probes/task.run390.pfx.txt
+   * (harness/make_prefixprobe.py), runner_probes/task.run390.comma.txt
+   * (harness/make_3738_taskprobe.py).
+   *
    *
    * What checkverb compares is the line as typed, but what it stores is
    * the line as generaltasks holds it by then -- after the bare-give
@@ -1152,30 +1152,29 @@ lib_what (scr_gameref_t game, const scr_char *verb)
       const scr_char *typed = run_get_line_input ();
 
       /*
-       * The four 3.9 object handlers store the line AS TYPED, not only a
-       * line that is the bare verb: takes 455890/455897, drops 445F0B/
-       * 445F12, wears 43D27F/43D286 and removes 439FBF/439FC6 all end with
-       * `If msg = "" Then msg = "<Verb> what?" : MemVar_4681D0 = the line`.
-       * checkverb's own arms (42A4F4) keep the bare-verb test, which is why
-       * `push zzz` stores nothing while `wear zzz` does.  Measured p39WHAT
-       * (run390x runner_probes/what.run390.txt, harness/make_39_whatprobe.py,
-       * 2026-09-20): `wear zzz` / `hat` puts the hat on, `remove zzz` / `hat`
-       * takes it off, `drop zzz` / `hat` drops it, `take zzz` / `hat` picks it
-       * up, and `wear zzz` / `wield zzz` answers "Wear what?" a second time
-       * before `hat` wears it.  The prefix still lives exactly one line:
-       * `drop zzz` / `look` / `hat` is the catch-all.
+       * The four 3.9 object handlers store the line AS TYPED, not only a line
+       * that is the bare verb: takes 455890/455897, drops 445F0B/ 445F12,
+       * wears 43D27F/43D286 and removes 439FBF/439FC6 all end with `If msg =
+       * "" Then msg = "<Verb> what?" : MemVar_4681D0 = the line`.  checkverb's
+       * own arms (42A4F4) keep the bare-verb test, which is why `push zzz`
+       * stores nothing while `wear zzz` does.  Measured p39WHAT (run390x
+       * runner_probes/what.run390.txt, harness/make_39_whatprobe.py): `wear
+       * zzz` / `hat` puts the hat on, `remove zzz` / `hat` takes it off, `drop
+       * zzz` / `hat` drops it, `take zzz` / `hat` picks it up, and `wear zzz`
+       * / `wield zzz` answers "Wear what?" a second time before `hat` wears
+       * it.  The prefix still lives exactly one line: `drop zzz` / `look` /
+       * `hat` is the catch-all.
        *
-       * therest's give arm is a fifth: its "Give what?" at 45D70B is
-       * followed at 45D712 by the same unconditional `MemVar_4681D0 =
-       * MemVar_468118`, with no bare-verb test above it.  What it stores is
-       * the line the bare-give completion has already finished, so `blorp
-       * give` stores "blorp give to nobody" and the next line runs on from
-       * there: it has its "to", is not completed again, and prints no second
-       * "(to Nobody)".  That is the whole of run390's `blorp give` /
-       * `blorp put` pair -- "Give what?" twice, the second time with no
-       * echo -- and `put` names no route of its own
-       * (runner_probes/rew.run390.casc.txt, harness/make_rewriteprobe.py,
-       * 2026-09-20; the only "Give what?" in the run390
+       * therest's give arm is a fifth: its "Give what?" at 45D70B is followed
+       * at 45D712 by the same unconditional `MemVar_4681D0 = MemVar_468118`,
+       * with no bare-verb test above it.  What it stores is the line the
+       * bare-give completion has already finished, so `blorp give` stores
+       * "blorp give to nobody" and the next line runs on from there: it has
+       * its "to", is not completed again, and prints no second "(to Nobody)".
+       * That is the whole of run390's `blorp give` / `blorp put` pair -- "Give
+       * what?" twice, the second time with no echo -- and `put` names no route
+       * of its own (runner_probes/rew.run390.casc.txt,
+       * harness/make_rewriteprobe.py; the only "Give what?" in the run390
        * P-code is 45D70B).
        */
       if (strcmp (verb, "Take") == 0 || strcmp (verb, "Drop") == 0
@@ -1195,7 +1194,7 @@ lib_what (scr_gameref_t game, const scr_char *verb)
    * typed term keeps its Prefix word, and the answer stands: the Runner's
    * `take very gem` over gems Prefixed "a very red" and "a very blue" is
    * "Take what?", not co()'s question (p37TAKEQ,
-   * runner_probes/takeq.run370.rtf, 2026-09-20).  When the matcher never bound
+   * runner_probes/takeq.run370.rtf).  When the matcher never bound
    * %object% at all -- the adjective is not a Prefix word, so nothing matched
    * -- this is the only site that sees the line, so the end-of-turn co()
    * prompt is blocked from here as well as from
@@ -1287,7 +1286,7 @@ lib_cmd_drink_what (scr_gameref_t game)
    * & " can't drink " & name & "."` (run390 45D64F, run380 443EA9, run370
    * 43D398) with no checkverb, so a bare `drink` is "You can't drink that."
    * and leaves no prefix (`drink` / `stone` is the catch-all).  p39TASK
-   * run390x runner_probes/task.run390.pfx.txt, 2026-09-19.
+   * run390x runner_probes/task.run390.pfx.txt.
    */
   if (!lib_is_version_400 (game))
     return lib_cant_do_other (game, "drink");
@@ -1464,7 +1463,7 @@ lib_cmd_unclear_object (scr_gameref_t game)
  * table).  So `drop cash` with the penny (alias "cash") shut in a dresser
  * two rooms away answers "You don't have a penny!" rather than "Drop what?",
  * which run380 keeps (@438FE6) for a line naming nothing at all.  Measured
- * on Crime_Adventure.taf (3.80) in run380, 2026-09-04.  Returns the first
+ * on Crime_Adventure.taf (3.80) in run380.  Returns the first
  * object the line names below 3.9, else -1.
  */
 static scr_int

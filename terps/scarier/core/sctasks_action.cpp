@@ -267,13 +267,13 @@ task_run_change_variable_action (scr_gameref_t game,
    * was buffered.
    *
    * Version 4.0 does no such thing.  Its filter passes happen at the end of a
-   * completing task and at the flush -- both of them after this action has
-   * run -- so text buffered before the change comes out holding the value the
-   * change set, not the one it replaced.  Measured under run400.exe in Wine on
-   * 2026-08-24 with harness/make_400_alrsrcprobe.py, whose "victor" task has
-   * CompleteText "CT n=%n% TXT %w%." and one action setting n = 9 over an
-   * initial 5: the Runner answers "CT n=9 TXT qqball."  Pre-4.0 keeps the
-   * checkpoint, which is not measured either way.
+   * completing task and at the flush -- both of them after this action has run
+   * -- so text buffered before the change comes out holding the value the
+   * change set, not the one it replaced.  Measured under run400.exe in Wine
+   * with harness/make_400_alrsrcprobe.py, whose "victor" task has CompleteText
+   * "CT n=%n% TXT %w%." and one action setting n = 9 over an initial 5: the
+   * Runner answers "CT n=9 TXT qqball."  Pre-4.0 keeps the checkpoint, which
+   * is not measured either way.
    */
   if (prop_get_taf_version (bundle) < TAF_VERSION_400)
     pf_checkpoint (filter, vars, bundle);

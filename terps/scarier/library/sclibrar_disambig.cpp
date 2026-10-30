@@ -423,7 +423,7 @@ lib_co_note_line_top (scr_gameref_t game)
  * by the generic can't-do tail in therest(), and that names the FIRST of
  * them by WORD POSITION, not by object index.  Measured on p*OPENW.taf (one
  * lit room holding a gem, a rock, a static slab and a closed chest, the gem
- * held), 2026-09-20:
+ * held):
  *
  *     command             run370               run380/run390
  *     open rock gem       can't open the rock. can't open the gem!
@@ -594,14 +594,14 @@ lib_disambig_t::gather_candidates (void)
  * (runner_probes/task.run380.pname.rtf,
  * runner_probes/task.run380.pname2.rtf,
  * runner_probes/task.run390.pname.txt,
- * runner_probes/task.run390.pname2.txt, 2026-09-19).  Scarier narrows take
+ * runner_probes/task.run390.pname2.txt).  Scarier narrows take
  * and drop at 3.8 too, and wear and remove at both (deliberate deviation),
  * so that `wear hat` puts on the red hat.
  *
  * 3.9's examine narrows the same way -- referencedob() (42DF43) calls the
  * same co(obj, 0), so the last Prefix word settles a crowd for it too:
  * `x tree red` with trees Prefixed "a red" and "a blue" is "A red tree."
- * (p39PFX, run390x runner_probes/pfx.run390.txt turn 17, 2026-09-20).
+ * (p39PFX, run390x runner_probes/pfx.run390.txt turn 17).
  * What it does NOT do is answer when the word narrows nothing: there co()
  * is false for every candidate, referencedob() counts none, and
  * examines() keeps its own "Nothing special." below, under the
@@ -645,7 +645,7 @@ lib_disambig_t::narrow_named_pre400 (void)
            * 3.8 examines() "Nothing special.".  The end-of-turn prompt
            * wipes that unless a task ran this turn -- an event's does
            * (p38EVQ2/p39EVQ2, runner_probes/evq2.run380.rtf /
-           * runner_probes/evq2.run390.txt, 2026-09-20).
+           * runner_probes/evq2.run390.txt).
            */
           if (strcmp (verb, "take") == 0)
             lib_what (game, "Take");
@@ -684,7 +684,7 @@ lib_disambig_t::narrow_named_pre400 (void)
  * tie at the top it is THOSE the question offers, not the whole reference
  * set.
  *
- * Measured 2026-09-20 on p4PFX2.taf, three trees Prefixed "a big red",
+ * Measured on p4PFX2.taf, three trees Prefixed "a big red",
  * "a red" and "the red" beside a "a" rock (run400x
  * runner_probes/pfx2.run400.txt):
  *
@@ -783,7 +783,7 @@ lib_disambig_t::narrow_with_resolver (void)
 /*
  * 3.7 has no co() in its handlers, and each settles a namesake its own
  * way (p37TASK, runner_probes/task.run370.pname.rtf /
- * runner_probes/task.run370.pname2.rtf, 2026-09-19; two hats, red held
+ * runner_probes/task.run370.pname2.rtf; two hats, red held
  * and blue loose, two open boxes loose):
  *
  *   drops (430DDC) / takes (436280): every held (loose) namesake lacking
@@ -816,7 +816,7 @@ lib_disambig_t::narrow_with_resolver (void)
  * with slab` is "Which slab would you like to examine.  The rock or the
  * slab?" (p*OPENW, runner_probes/openw.run370.ow.rtf,
  * runner_probes/openw.run380.ow.rtf, runner_probes/openw.run370.ox.rtf,
- * runner_probes/openw.run380.ox.rtf, 2026-09-20) -- so the word order on
+ * runner_probes/openw.run380.ox.rtf) -- so the word order on
  * the line never picks here, only the index does.  3.90 replaced the
  * question with referencedob()'s last-word pass; see
  * lib_examine_crowded_390().
@@ -862,7 +862,7 @@ lib_disambig_t::ask_which_examine_pre390 (void)
  * Alias ever becomes a Short, and every other object must be named by
  * its Short: `don ball` holding a red and a blue ball, both aliased
  * "ball", is "Wear what?" (p37SLOT2, harness/make_37_slotprobe.py,
- * runner_probes/slot2.run370.b.rtf, 2026-09-21).  Deliberate deviation:
+ * runner_probes/slot2.run370.b.rtf).  Deliberate deviation:
  * Scarier lets every Alias name the object, as 3.8 does.
  */
 void
@@ -906,15 +906,14 @@ lib_disambig_t::pick_wear_remove_pre380 (void)
 }
 
 /*
- * takes() (run370 436280, run380, run390) and drops() (430DDC) walk a
- * crowded line the same way openclose() does: every survivor moves, and
- * the last by index overwrites the message.  Below 3.90 that is the whole
- * rule -- `take red pin` with pins Prefixed "old red" and "new red" is
- * "You pick up new red pin." at 3.70 AND 3.80, and `i` afterwards lists
- * both; `drop red pin` then drops both (p*TAKEP,
- * runner_probes/takep.run370.rtf / runner_probes/takep.run380.rtf,
- * 2026-09-20).  3.90 keeps only the FIRST by index: the same line is "You
- * pick up old red pin." and `i` lists it alone.
+ * takes() (run370 436280, run380, run390) and drops() (430DDC) walk a crowded
+ * line the same way openclose() does: every survivor moves, and the last by
+ * index overwrites the message.  Below 3.90 that is the whole rule -- `take
+ * red pin` with pins Prefixed "old red" and "new red" is "You pick up new red
+ * pin." at 3.70 AND 3.80, and `i` afterwards lists both; `drop red pin` then
+ * drops both (p*TAKEP, runner_probes/takep.run370.rtf /
+ * runner_probes/takep.run380.rtf).  3.90 keeps only the FIRST by index: the
+ * same line is "You pick up old red pin." and `i` lists it alone.
  *
  * What survives is the Prefix contest, and which crowd runs it is the
  * version split:
@@ -961,7 +960,7 @@ lib_disambig_t::pick_take_drop_pre400 (void)
            * red ball` over a red and a blue ball both aliased "ball" picks
            * up BOTH, "You pick up the blue ball." -- `drop red ball` drops
            * both the same way (p37SLOT2, harness/make_37_slotprobe.py,
-           * run370x runner_probes/slot2.run370.c.rtf, 2026-09-21).  The
+           * run370x runner_probes/slot2.run370.c.rtf).  The
            * loop's action is under `If Not c("from")` (43648C), so a
            * take-from line keeps the parser's references.
            */
@@ -1077,9 +1076,9 @@ lib_disambig_t::pick_take_drop_pre400 (void)
  * the last by index overwriting the message -- run370, run380 and run390
  * all answer `open rock gem chest` with "You open the chest." (p*OPENW,
  * runner_probes/openw.run370.ox.rtf, runner_probes/openw.run380.ox.rtf,
- * runner_probes/openw.run390.ox.txt, 2026-09-20), and with two closed
+ * runner_probes/openw.run390.ox.txt), and with two closed
  * containers on the line all three answer `open box gem chest` with "You
- * open the chest." and leave the box open as well (p*OPENT, 2026-09-20).
+ * open the chest." and leave the box open as well (p*OPENT).
  * So 3.7's every-namesake loop is not 3.7's alone: 3.80 and 3.90 run the
  * same one.
  *
@@ -1123,7 +1122,7 @@ lib_disambig_t::pick_open_close_pre400 (void)
               /*
                * The overwritten message was still built, contents list and
                * all, and in 3.9 listing is what makes an object seen.  The
-               * Gamma Gals (3.90, run390x, gamma_fridge probe 2026-10-09):
+               * Gamma Gals (3.90, run390x, gamma_fridge probe):
                * `open fridge and cupboards` answers for the cupboards
                * alone, and the `get all` after it takes the can of coke
                * from the refrigerator as well as the glass.  3.7 and 3.8
@@ -1312,7 +1311,7 @@ lib_disambig_t::raise_crowd_400 (void)
            * second noun of the same score joins it, and a crowd it leads
            * asks nothing.  p4WTIE `cut stone knife` is therest's "You
            * can't cut that." where `cut stone` asks
-           * (runner_probes/wtie.run400.w6.txt, 2026-09-20) -- the knife
+           * (runner_probes/wtie.run400.w6.txt) -- the knife
            * is the crowd's first object, so the stones never park a
            * pending object.
            */
@@ -1332,7 +1331,7 @@ lib_disambig_t::raise_crowd_400 (void)
            * its own %text% row, which is where "You can't cut that." and
            * "You can't open that." come from
            * (runner_probes/wtie.run400.w6.txt `cut stone knife`, `open
-           * box knife`, 2026-09-20).  The invented listing below is
+           * box knife`).  The invented listing below is
            * 3.9-and-below's alone.
            */
           if (is_ambiguous)

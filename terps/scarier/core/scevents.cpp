@@ -267,7 +267,7 @@ evt_any_task_in_state (scr_gameref_t game, scr_bool state)
  * found them.  Gating on gs_playerroom() there spliced the room the player
  * was *leaving* into the description of the room they were being shown.
  *
- * Measured 2026-08-25 on goldilocks.taf, run400,
+ * Measured on goldilocks.taf, run400,
  * runner_probes/goldilocks.run400.txt, turn 243: the escape from the flooding
  * cellar shows the hall, and the Runner prints no porridge line with it,
  * because event 4 [Cellar fills with porridge] lists rooms 11-13 (cellar,
@@ -321,7 +321,7 @@ evt_can_see_event (scr_gameref_t game, scr_int event)
  * o(28)(room) -- it clears the array for "hidden" and "held" alone.  So
  * finish moves pile up: 3monkeys' two anvil events each drop the anvils into
  * two corners and the Runner then lists "There are anvils all over the
- * place." in the Southeast Corner (T109, run400x, 2026-09-19), where Scarier
+ * place." in the Southeast Corner (T109, run400x), where Scarier
  * had kept only the last move, the Northeast.  The array starts as the
  * bundle's Where list (openadv 49031A), so that is kept too.
  */
@@ -843,14 +843,14 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
 
   /*
    * A ZERO-length event that restarts "after a delay" does not come back at
-   * all when its start is immediate or a task -- probed live 2026-08-02 in
-   * run400 (probe EV5 events H2 and H3, make_arena_probe.py) and in run390
+   * all when its start is immediate or a task -- probed live in run400 (probe
+   * EV5 events H2 and H3, make_arena_probe.py) and in run390
    * (make_39_fwprobe.py variant b): the affected task fires once and then
-   * nothing, no matter how often the starter task is re-run afterwards, and
-   * no LookText appears in the room description in between, so the event is
-   * not sitting in a running state either.  Re-arming it here instead made
-   * the affected task fire EVERY turn, which is how TheADRIFTProject's
-   * "#Pill Check" ran a turn early.
+   * nothing, no matter how often the starter task is re-run afterwards, and no
+   * LookText appears in the room description in between, so the event is not
+   * sitting in a running state either.  Re-arming it here instead made the
+   * affected task fire EVERY turn, which is how TheADRIFTProject's "#Pill
+   * Check" ran a turn early.
    *
    * At 4.0 the length does not matter: EVERY restart-after-delay event with
    * an immediate or task starter is a one-shot.  run400's finish block
@@ -859,7 +859,7 @@ evt_finish_restart (scr_gameref_t game, scr_int event)
    * +1.  StartTime/EndTime are only read from the taf for a random-delay
    * starter, so for these two they are 0 and the clock is 0; the waiting
    * block (46FD26) decrements BEFORE it tests for zero, so the clock goes to
-   * -1 and the event never starts again.  Probed live 2026-09-19 in run400
+   * -1 and the event never starts again.  Probed live in run400
    * (probe EVRS, make_arena_probe.py, runner_probes/evrs.run400.txt): R2
    * (RestartType 2, immediate starter, length 2) printed "R2 FINISH." on the
    * first wait and nothing afterwards -- no StartText, no LookText in the
@@ -1521,7 +1521,7 @@ evt_tick_awaiting (scr_gameref_t game, scr_int event)
        * the Runner only reaches after its start-turn decrement.
        *
        * Measured in run400 under Wine, Orient_Express.taf, transcript
-       * runner_probes/orient_express.run400.txt (2026-08-25).  Turn 43
+       * runner_probes/orient_express.run400.txt.  Turn 43
        * `use phone' starts event 2 [Phone rings] (Time1 = 1, Time2 = 8,
        * PrefTime1 = 2) and the Runner prints its StartText and its
        * PrefText1 on that one turn; the player leaves the event's
@@ -1756,8 +1756,8 @@ evt_check_events_started_by_task (scr_gameref_t game, scr_int task)
  * of the opening room description (runner/scrunner.cpp).
  *
  * Both Runners start a StarterType=1 event while the game is still loading,
- * BEFORE the first room description is printed -- probed live 2026-08-02 in
- * run400 (probe EV6 in test/adrift4/harness/make_arena_probe.py) and run390
+ * BEFORE the first room description is printed -- probed live in run400 (probe
+ * EV6 in test/adrift4/harness/make_arena_probe.py) and run390
  * (make_39_fwprobe.py variant "e"), a plain length-3 immediate event carrying
  * all three texts.  Two things follow, and both are visible:
  *

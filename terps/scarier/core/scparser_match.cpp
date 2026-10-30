@@ -425,7 +425,7 @@ uip_match_word (scr_ptnoderef_t node)
  * capitalised variable Name is unreachable, and "%t_<name>%" and a marker
  * naming nothing match nothing at all.  Measured on p39VARREF/p4VARREF
  * (make_varrefprobe.py, runner_probes/varref.run390.txt,
- * runner_probes/varref.run400.txt, 2026-09-20).
+ * runner_probes/varref.run400.txt).
  */
 static scr_bool
 uip_match_variable (scr_ptnoderef_t node)
@@ -511,11 +511,10 @@ uip_match_whitespace (scr_bool hard)
    * matches nothing at all.  "Sommeril" has a task whose commands are "get
    * placemat " (trailing space), "take placemat", "get placemat page" and
    * three more; run400 answers `take placemat` with the task and `get
-   * placemat` with the library's "Take what?", the placemat being unlisted
-   * and so unreferenceable (measured 2026-09-05,
-   * runner_probes/sommeril.run400.placemat.txt).  Without this the
-   * end-of-string rule below matched the stray space and the task claimed
-   * both.
+   * placemat` with the library's "Take what?", the placemat being unlisted and
+   * so unreferenceable (measured, runner_probes/sommeril.run400.placemat.txt).
+   * Without this the end-of-string rule below matched the stray space and the
+   * task claimed both.
    *
    * Only after a word: a trailing space after a [] or {} group is ignored,
    * and the corpus is emphatic about it -- "Woof"'s "[chase/hunt]
@@ -600,7 +599,7 @@ uip_match_group_double_whitespace (void)
     return uip_match_whitespace (FALSE);
 
   /*
-   * Deliberate deviation (2026-09-30): on a line no task matches the
+   * Deliberate deviation: on a line no task matches the
    * Runner's way (uip_set_lenient_tasks()), a doubled space after an
    * included {} option is an ordinary word boundary.  An author's
    * accidental `zap {the}  {standard} washing machine` otherwise answers

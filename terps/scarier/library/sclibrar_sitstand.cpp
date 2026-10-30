@@ -50,7 +50,7 @@ enum
  * position 0, so a bare `stand` there is "You are already standing!".
  * p37SIT/p38SIT (make_3738_sitprobe.py), run370x
  * runner_probes/sit.run370.sit2.rtf, run380x
- * runner_probes/sit.run380.sit2.rtf, 2026-09-19.
+ * runner_probes/sit.run380.sit2.rtf.
  */
 static scr_bool
 lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
@@ -131,7 +131,7 @@ lib_stand_sit_lie_floor_pre390 (scr_gameref_t game, scr_int movement)
  * any place but the floor, where it is "are already sitting on the floor!"
  * (or "ground!") with a literal "are".  p39SIT/p4SIT, run390x
  * runner_probes/sit.run390.sit2.txt, run400x
- * runner_probes/sit.run400.sit2.txt, 2026-09-19.
+ * runner_probes/sit.run400.sit2.txt.
  */
 static scr_bool
 lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
@@ -244,7 +244,7 @@ lib_stand_sit_lie_floor_390 (scr_gameref_t game, scr_int movement)
  * a whole word of the line and whose SitLie fits, held, contained or in
  * another room alike, and the last match wins.  p37SIT `sit on bed` from the
  * other room is "You sit down on a bed.", and a held stool is sat on (run370x
- * runner_probes/sit.run370.rtf, 2026-09-19).  Returns -1 for no match; the
+ * runner_probes/sit.run370.rtf).  Returns -1 for no match; the
  * line then falls to therest, whose answers Scarier already gives
  * ("You can't see the crate." for `lie on crate`, sit-only, elsewhere).
  */
@@ -411,7 +411,7 @@ lib_stand_sit_lie (scr_gameref_t game, scr_int movement)
    * (make_3738_sitprobe.py), run370x runner_probes/sit.run370.sit2.rtf,
    * run380x runner_probes/sit.run380.sit2.rtf, run390x
    * runner_probes/sit.run390.sit2.txt, run400x
-   * runner_probes/sit.run400.sit2.txt, 2026-09-19.
+   * runner_probes/sit.run400.sit2.txt.
    */
   switch (movement)
     {
@@ -503,7 +503,7 @@ lib_cmd_get_on_object (scr_gameref_t game)
  * runner_probes/sit.run370.sit3.rtf, run380x
  * runner_probes/sit.run380.sit3.rtf, run390x
  * runner_probes/sit.run390.sit3.txt, run400x
- * runner_probes/sit.run400.sit3.txt, 2026-09-19).
+ * runner_probes/sit.run400.sit3.txt).
  */
 /*
  * Deliberate deviation (2026-09-30): the floor rows answer every line they
@@ -569,7 +569,7 @@ lib_cmd_lie_on_floor (scr_gameref_t game)
  * run370's object loops (lib_sit_lie_scan_370) look at no scope, so an
  * object in another room is sat on even when no %object% row binds it:
  * p37SIT `sit on bed` from the Lit Room is "You sit down on a bed." (run370x
- * runner_probes/sit.run370.rtf, 2026-09-19).  3.7 only; declines when nothing
+ * runner_probes/sit.run370.rtf).  3.7 only; declines when nothing
  * matches, leaving the line to the therest refusals below.
  */
 static scr_bool
@@ -631,7 +631,7 @@ lib_cmd_lie_scan_370 (scr_gameref_t game)
  * run370x runner_probes/sit.run370.sit4.rtf, run380x
  * runner_probes/sit.run380.sit4.rtf, run390x
  * runner_probes/sit.run390.sit4.txt, run400x
- * runner_probes/sit.run400.sit4.txt, 2026-09-19).  Deliberate deviation:
+ * runner_probes/sit.run400.sit4.txt).  Deliberate deviation:
  * Scarier's [lie/lay] rows take it below 4.0 too.
  */
 
@@ -968,7 +968,7 @@ lib_sitstand_prerun (scr_gameref_t game, lib_line_runner_t run_line,
  * (run370x runner_probes/sit.run370.sit4.rtf, run380x
  * runner_probes/sit.run380.sit4.rtf, run390x
  * runner_probes/sit.run390.sit4.txt, run400x
- * runner_probes/sit.run400.sit4.txt, 2026-09-19), every Runner alike:
+ * runner_probes/sit.run400.sit4.txt), every Runner alike:
  *   sit lie, lie stand                  "You lie down on the ground."
  *   stand sit, sit stand                "You stand up."
  *   please sit, sit quietly, push stone sit, open stool sit, wear coin sit
@@ -986,8 +986,7 @@ lib_sitstand_prerun (scr_gameref_t game, lib_line_runner_t run_line,
  * world plus a worn hat and Bob with a "hat" topic) with
  * make_3738_sitnpcprobe.py's feed (run370x runner_probes/sitn.run370.rtf,
  * run380x runner_probes/sitn.run380.rtf, run390x
- * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt,
- * 2026-09-20):
+ * runner_probes/sitn.run390.txt, run400x runner_probes/sitn.run400.txt):
  *   - takes and drops claim the line (GoTo past sitstand): `take stool
  *     sit` takes, `drop stool sit` drops, no move.  A refused put claims
  *     at 3.8 and 3.9 ("You can't put anything on the stool.") but not at
@@ -1039,7 +1038,7 @@ lib_sitstand_anywhere (scr_gameref_t game, lib_line_runner_t run_line,
     return FALSE;
 
   /*
-   * Deliberate deviation (2026-09-30).  The Runners enter sitstand on the
+   * Deliberate deviation.  The Runners enter sitstand on the
    * word anywhere, so `open hat stand` was "You are already standing!",
    * `push lie detector` "You are already lying down.", and `ask bob about
    * stand` or `tell bob a lie` lost their topic.  A sit/stand/lie inside
@@ -1189,7 +1188,7 @@ lib_line_cut_word (const scr_char *line, const scr_char *at, size_t length)
  * runner_probes/ord.run370.ord2.rtf, run380x
  * runner_probes/ord.run380.ord2.rtf, run390x
  * runner_probes/ord.run390.ord2.txt, run400x
- * runner_probes/ord.run400.ord2.txt, 2026-09-21), the box shut before each
+ * runner_probes/ord.run400.ord2.txt), the box shut before each
  * cell:
  *   x open box, open examine box, open look at box   the description of an
  *   open read box, open x box (3.7-3.9)              OPEN box; it opened
@@ -1451,14 +1450,14 @@ lib_cmd_get_off_object (scr_gameref_t game)
   /*
    * Before 4.0 the line reaches takes() first: its entry test excludes only
    * c("get on") and c("get down") (run390 4544C6), and generaltasks leaves on
-   * a take that happened (45F439) before sitstand (45F50D) runs.  3.7/3.8
-   * have no get-off at all, so there `get off stool` IS a take, even when
-   * the player is on the stool: "You pick up the stool.", "You can't take a
-   * chair.", "You've already got a stool!" (run370x/run380x p3738sit3,
-   * 2026-09-19).  Deliberate deviation: they get the 3.9 behaviour, where a
-   * take that happened stands and any other take answer is overwritten by
-   * sitstand's below (see lib_cmd_get_off()).  And only where the line
-   * might name an "off ..." object; see lib_get_off_may_take().
+   * a take that happened (45F439) before sitstand (45F50D) runs.  3.7/3.8 have
+   * no get-off at all, so there `get off stool` IS a take, even when the
+   * player is on the stool: "You pick up the stool.", "You can't take a
+   * chair.", "You've already got a stool!" (run370x/run380x p3738sit3).
+   * Deliberate deviation: they get the 3.9 behaviour, where a take that
+   * happened stands and any other take answer is overwritten by sitstand's
+   * below (see lib_cmd_get_off()).  And only where the line might name an "off
+   * ..." object; see lib_get_off_may_take().
    */
   if (prop_get_taf_version (gs_get_bundle (game)) < TAF_VERSION_400
       && lib_player_parent_here (game) == -1
@@ -1492,7 +1491,7 @@ lib_cmd_get_off_object (scr_gameref_t game)
    * 3.9+ get-off asks about the parent before it looks at the name: `get off
    * chair` standing on nothing is "You are not standing on anything!"
    * (run400 46B702, run390 4443E1; run390x runner_probes/sit.run390.sit3.txt,
-   * run400x runner_probes/sit.run400.sit3.txt, 2026-09-19).
+   * run400x runner_probes/sit.run400.sit3.txt).
    */
   if (lib_player_parent_here (game) == -1)
     return lib_print_response_message (game,

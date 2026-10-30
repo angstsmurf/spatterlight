@@ -93,7 +93,7 @@ lib_take_filter (scr_gameref_t game, scr_int object, scr_int unused)
  * shopping and typing "get all" answers "You take the pamphlet." and leaves
  * the tights, pet food, deodorant and gloves in the bag, while "get paper"
  * still lifts the scrap of paper out of the carried wallet (verified live
- * against run400.exe, 2026-08-02).
+ * against run400.exe).
  *
  * The seen test does need porting: since obj_mark_room_objects_seen() moved
  * the room's marking into the room lister, a loose object in a room whose
@@ -128,7 +128,7 @@ lib_take_all_filter (scr_gameref_t game, scr_int object, scr_int unused)
  *
  * Measured on p39PUT (run390x runner_probes/put.run390.txt T23;
  * make_3738_putprobe.py, runner_probes/put.run390.takeall.txt /
- * runner_probes/put.run390.takeall2.txt, 2026-09-19): "You take the coin, ...
+ * runner_probes/put.run390.takeall2.txt): "You take the coin, ...
  * and the table from the cupboard." with nothing on the floor; "You pick up
  * the table.  You take the gem from the cupboard." with the open chest empty
  * after it; "You take the gem from the cupboard.  You take the coin from the
@@ -440,7 +440,7 @@ lib_cmd_take_absent (scr_gameref_t game)
    * 47302F) and lands in the SAME closed-container arm as an explicit one
    * ("<The X> is closed." 47395C).  Measured escape_to_new_york turn 152
    * `get parcel`, the parcel seen but absent, inside a closed parent
-   * (Ticket run400 xoshiro trace 2026-09-12).
+   * (Ticket run400 xoshiro trace).
    *
    * An OPEN parent gets past that arm, and the take-from then finds
    * nothing it can reach and ends at "Take what?" (47332B).  British Fox
@@ -448,7 +448,7 @@ lib_cmd_take_absent (scr_gameref_t game)
    * 46A950 stamps it seen), then an event put the bag back on the dungeon
    * table and the player in the corridor.  run400 answers "Take what?"
    * where the plain refusal was "There is nothing worth taking here."
-   * (runner_transcripts britishfox, 2026-09-24).
+   * (runner_transcripts britishfox).
    */
   if (gs_object_position (game, best_object) == OBJ_IN_OBJECT)
     {
@@ -521,7 +521,7 @@ lib_take_tie_400 (scr_gameref_t game, const scr_char *line, scr_int pending,
  * back decides the piece whatever else the line said.  A unique winner is the
  * only object marked (473022): p4WTIE (run400,
  * runner_probes/wtie.run400.12.txt, runner_probes/wtie.run400.16.txt and
- * runner_probes/wtie.run400.17.txt, 2026-09-20) has `take rope with ruby`
+ * runner_probes/wtie.run400.17.txt) has `take rope with ruby`
  * take the ruby and `take rope with knife` and `take zzz with knife` answer
  * "You are already carrying the knife." -- the static rope is never a
  * candidate, the held knife only on the second pass.  A tie with a pending
@@ -587,7 +587,7 @@ lib_take_whole_line_400 (scr_gameref_t game, scr_int *references,
  * parent it stores "get " & Short & " from " & parent's Short into the line
  * (ImpAdStStr @00047446, hidden by the decompiler) and, if checktask passes
  * on it, runs tasks(1) there.  The object just taken has its parent cleared
- * (4470EF) and so is skipped.  tra.taf, run380, 2026-09-14: task 11 `get
+ * (4470EF) and so is skipped.  tra.taf, run380: task 11 `get
  * *knives*` (knives in the silverware drawer) runs after `get meat from
  * refrigerator`, and after the bare `get moxie` / `get pop-tarts` that
  * takes() rewrites into a take-from (43E47B) -- "You take old meat from the
@@ -647,7 +647,7 @@ lib_take_from_task_sweep_380 (scr_gameref_t game)
  * object lying loose in the room is different: "<You> pick up X." overwrites
  * the buffer (run390 @455014), so only the not-in-the-room targets lose.
  *
- * Measured in run390 (runner_transcripts/stardust T38, 2026-09-19): `take
+ * Measured in run390 (runner_transcripts/stardust T38): `take
  * needle box` with the sharp needle (object 3) in hand and the needle box
  * (object 12) on the desk answers "You've already got the sharp needle!"
  * and leaves the box where it was -- T99 `put needle in box` is then "You
@@ -762,7 +762,7 @@ lib_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object,
    * floor recounts to one and drops the red hat, while red worn and blue held
    * recounts to two and drops nothing (p39TASK,
    * runner_probes/task.run390.pname.txt /
-   * runner_probes/task.run390.pname2.txt, 2026-09-19).
+   * runner_probes/task.run390.pname2.txt).
    *
    * Deliberate deviation: run380 has no modes, and no Runner narrows wear
    * or remove, so `wear hat` with the red hat held and the blue one on the
@@ -829,7 +829,7 @@ lib_take_co_pre400 (scr_gameref_t game, const scr_char *line, scr_int object)
  * and the answer is "It is not clear which <object> you are referring to."
  * for the highest-indexed object it names, which Scarier already gives.
  *
- * Measured 2026-09-21 on p37ORD/p38ORD/p39ORD/p4ORD
+ * Measured on p37ORD/p38ORD/p39ORD/p4ORD
  * (runner_probes/ord.run*.mult.*).
  *
  * Returns the object the loop is left free to take, or -1; sets *crowded
@@ -899,7 +899,7 @@ lib_take_held_namesake_preempt_pre400 (scr_gameref_t game,
    * passes still writes the buffer: secret_of_lost_world T53 `take blue gem`
    * with the blue gem unseen on the fresh skeleton and the green gem in hand
    * answers "You already have the green gem!" (run390, ALR-rewritten
-   * "'ve already got "; runner_transcripts/secret_of_lost_world, 2026-09-19).
+   * "'ve already got "; runner_transcripts/secret_of_lost_world).
    */
   /*
    * takes() is entered on c("get") Or c("take") Or c("pick"), And Not
@@ -1178,7 +1178,7 @@ lib_obhere_380 (scr_gameref_t game, scr_int object)
  * object in the room, or a dynamic one loose here, held, worn, or in or on
  * something the player carries.  Something in a box on the floor is not
  * present to it -- `get nut from statue` names the statue, not the nut
- * (p37TKA, run370x runner_probes/tka.run370.rtf cell 122, 2026-09-20).
+ * (p37TKA, run370x runner_probes/tka.run370.rtf cell 122).
  */
 scr_bool
 lib_present_370 (scr_gameref_t game, scr_int object)
@@ -1531,7 +1531,7 @@ lib_take_and_t::from_parent ()
  *             Alex, `get flask and gloves and mask` with all three on the
  *             lab counter, is "You take the flask, the pair of gloves and
  *             the mask from the counter." in run390 (Delron walkthrough
- *             replay, 2026-10-09).
+ *             replay).
  *
  * so a worn object named first and a loose one after it print as one string,
  * "You are already wearing a hat!the stone." (run380x) / "You are already
@@ -1549,7 +1549,7 @@ lib_take_and_t::from_parent ()
  * runner_probes/tka.run380.rtf, runner_probes/tka.run390.txt, cells 3, 6, 9,
  * 14, 17, 20, 23, 32, 40, 44, 168) and p37TKB/p38TKB/p39TKB
  * (runner_probes/tkb.run370.rtf, runner_probes/tkb.run380.rtf,
- * runner_probes/tkb.run390.txt, cells 3, 8, 31, 38, 44), 2026-09-20.  3.9's
+ * runner_probes/tkb.run390.txt, cells 3, 8, 31, 38, 44).  3.9's
  * own loop (454B08) prints the same strings with definite names.
  *
  * The loop's state is a lib_take_and_t: count() is the pre-pass, seed() the
@@ -1625,9 +1625,9 @@ lib_take_and_pre400 (scr_gameref_t game)
  *     nothing; a piece that names nothing at all keeps the parser's own
  *     answers, as does a tie.
  *
- * run400x runner_probes/tka.run400.txt / runner_probes/tkb.run400.txt,
- * 2026-09-20.  0 when this does not apply and the ordinary parse should run;
- * 1 when the pieces are in multiple_references and *references counts them.
+ * run400x runner_probes/tka.run400.txt / runner_probes/tkb.run400.txt.  0 when
+ * this does not apply and the ordinary parse should run; 1 when the pieces are
+ * in multiple_references and *references counts them.
  */
 static scr_int
 lib_take_and_400 (scr_gameref_t game, scr_int *references)
@@ -1752,7 +1752,7 @@ lib_take_and_400 (scr_gameref_t game, scr_int *references)
  * "You pick up the coin." and `blorp drop coin` "You drop the coin." in all
  * three older Runners (p37REW/p38REW/p39REW, make_rewriteprobe.py --
  * runner_probes/rew.run370.casc.rtf, runner_probes/rew.run380.casc.rtf,
- * runner_probes/rew.run390.casc.txt, 2026-09-20), and so are `take zzz hat`
+ * runner_probes/rew.run390.casc.txt), and so are `take zzz hat`
  * and `drop zzz hat` at 3.90 (p39WHAT, runner_probes/what.run390.what2.txt,
  * same day).  Scarier binds %text% positionally, so with the verb hoisted to
  * the front by run_hoist_verb_line() the rest of the line went to the noun
@@ -1821,7 +1821,7 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * being handled." at 3.7/3.9/4.0 and "Bob is not carrying the hat!" at 3.8
  * (cell 5 of runner_probes/ord.run370.give.rtf,
  * runner_probes/ord.run380.give.rtf, runner_probes/ord.run390.give.txt,
- * runner_probes/ord.run400.give.txt, 2026-09-21).
+ * runner_probes/ord.run400.give.txt).
  */
 
 /*
@@ -1841,7 +1841,7 @@ lib_move_named_whole_line_pre400 (scr_gameref_t game,
  * take refusal standing; the "Use the format" hint for a line with no
  * `about` (47FBB0) is not measured and not modelled.
  *
- * Measured on p4ORD (run400x runner_probes/ord.run400.chr.txt, 2026-09-21):
+ * Measured on p4ORD (run400x runner_probes/ord.run400.chr.txt):
  * `take ask bob about hat` is "Bob says, 'That is a fine hat.'" and the hat
  * is still taken; 3.7/3.8/3.9 keep their take-arm answers.
  *
@@ -1937,7 +1937,7 @@ lib_take_multi_get_off_line (void)
  * or "Take what?" (`get coin from zzz` with the coin in hand:
  * run370x/run380x "You can't do that!", run390x "The coin isn't in or on
  * anything!"; p3xTKB runner_probes/tkb.run370.rtf, tkb.run380.rtf,
- * tkb.run390.txt cell 144, 2026-09-20).
+ * tkb.run390.txt cell 144).
  */
 static lib_take_stage_t
 lib_take_multi_from_line (scr_gameref_t game)
@@ -2079,7 +2079,7 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
  * decayed scroll?" and leaves the decayed scroll where it was, so T74
  * `give princess decayed scroll` fails its held restriction ("You can't do
  * that right now.") and the lily, the red gem and the win never come
- * (run390, runner_transcripts/secret_of_lost_world, 2026-09-19).  Scarier
+ * (run390, runner_transcripts/secret_of_lost_world).  Scarier
  * printed the same prompt over a take that had quietly happened.  Decline
  * the row: the ambiguity prompt replaces the turn's output anyway, and a
  * plain miss falls to the catch-all "Take what?" the Runner's empty buffer
@@ -2088,7 +2088,7 @@ lib_take_multi_crowded_pre400 (scr_gameref_t game)
  * 3.70 is not in this: its takes() calls no co() at all, and settles a
  * crowd of its own namesakes in lib_disambiguate_object_common().  A rock
  * ALIASED "gem" beside a gem is no crowd to it -- `take gem` takes both and
- * the rock speaks (p37OPENA, runner_probes/opena.run370.rtf, 2026-09-20) --
+ * the rock speaks (p37OPENA, runner_probes/opena.run370.rtf) --
  * and this gate used to turn that into "Take what?".
  *
  * TRUE when the row is to be declined.

@@ -189,7 +189,7 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
    * run380's AdditionalMessage double-space test (see
    * task_suppresses_additional_message()) reads the description's own tail.
    * Note the terminator so pf_ends_with_double_space() can look through it.
-   * Measured live on superliam.taf (run380, 2026-08-31): tasks 23/24 show
+   * Measured live on superliam.taf (run380): tasks 23/24 show
    * rooms whose Long ends "  ", and the Runner drops both AdditionalMessages.
    */
   pf_note_trailing_auto_break (gs_get_filter (game));
@@ -204,7 +204,7 @@ task_show_room_desc (scr_gameref_t game, scr_int task)
  * rather than before them.
  *
  * Probe SRD4 (make_arena_probe.py, transcript runner_probes/srd4.run400.txt,
- * run400 2026-09-07) walks the five field differences between probe SRD3 --
+ * run400) walks the five field differences between probe SRD3 --
  * which showed that no SHAPE difference moves the block -- and lca.taf's
  * task 237.  Every cell has the same ShowRoomDesc = Back Room and the same
  * two actions, "Bob -> Store" then "player -> Back Room", so a cell that

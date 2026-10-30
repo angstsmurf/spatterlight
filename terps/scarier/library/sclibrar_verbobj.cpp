@@ -50,7 +50,7 @@
  *
  * Measured on House (4.00) from the fireplace, run400
  * runner_probes/house.run400.cathy_l.txt and
- * runner_probes/house.run400.cathy_m.txt, 2026-09-06: `throw diary at cathy`,
+ * runner_probes/house.run400.cathy_m.txt: `throw diary at cathy`,
  * `throw diary at zzz`, `wibble diary` and `wibble diary cathy` all answer "I
  * don't understand what you want me to do with the diary." (an NPC is not a
  * candidate), while `throw diary at fireplace`, `throw fireplace at diary`,
@@ -310,13 +310,13 @@ lib_verb_object_resolve_400 (scr_gameref_t game)
  * you want to put that?" (46DD19) for a tie or nothing scoring.  Both set
  * MemVar_494281 (46DD25), so like the catch-all the answer is not a turn.
  *
- * Measured 2026-09-06: thelasthour `put bowl near spyhole` answers "Where
- * do you want to put the spyhole?" and no event fires
+ * Measured: thelasthour `put bowl near spyhole` answers "Where do you want to
+ * put the spyhole?" and no event fires
  * (runner_probes/thelasthour.run400.spyhole.txt); Shadowpeak `put sword near
  * cell door` answers "Where do you want to put the sword?" and Seeker stays
  * quiet (runner_probes/shadowpeak.run400.celldoor.txt).  Scarier's catch-all
- * used to answer "I don't understand what you want me to do with the
- * bowl." and tick.
+ * used to answer "I don't understand what you want me to do with the bowl."
+ * and tick.
  *
  * Only lines the can't-see clause above lets through get here, which is
  * the Runner's order too (therest 4887C1 runs before the put parser: see
@@ -466,7 +466,7 @@ lib_put_where_question_400 (scr_gameref_t game, std::string *question)
  * -- whose jetpack sits unseen inside the worn lab coat, so the scorer
  * names nothing -- must reach it (runner_transcripts/herrdoktor.txt).
  *
- * Measured 2026-09-08 on the hand-built p4PUT/p4PUT2 probes
+ * Measured on the hand-built p4PUT/p4PUT2 probes
  * (runner_probes/put.run400.txt, runner_probes/put2.run400.txt;
  * make_400_putprobe.py), 44 cells: `put coin in zzz`, `put
  * coin into zzz`, `drop coin in zzz`, `put zzz in yyy`, `put zzz in bob`
@@ -539,7 +539,7 @@ lib_put_split_400 (scr_gameref_t game, const std::string &line,
           /*
            * And this one scorer runs UNGATED by co(): an object the player
            * has seen and walked away from still keeps the split.  p4SURF
-           * under run400, 2026-09-12: `put stone on lamp` from the lit room
+           * under run400: `put stone on lamp` from the lit room
            * with the stone left behind in the cave is "You can't put
            * anything onto the lamp!" (runner_probes/surf3.run400.txt:6) -- the
            * split held and the lamp was weighed as a supporter -- where the
@@ -951,7 +951,7 @@ lib_put_container_fits_400 (scr_gameref_t game, const scr_char *input)
  * "stone" and a rock at index 1, run370 and run380 answer both `zug rock
  * stone` and `zug stone rock` with "I don't understand what you want me to
  * do with the gem." (p37/p38TEXTSRC, runner_probes/textsrc.run370.rtf,
- * runner_probes/textsrc.run380.rtf, 2026-09-20), where we used to answer the
+ * runner_probes/textsrc.run380.rtf), where we used to answer the
  * rock for the first line.  3.70 resolves the alias here although its takes()
  * test is a bare c(Short) -- `blip stone` against a game with no matching task
  * is the gem's catch-all in both older Runners -- so the scan below reads
@@ -1017,7 +1017,7 @@ lib_verb_object_catch_all_pre390 (scr_gameref_t game)
        * word the line lacks, so `poke hat` beside a red and a blue hat
        * walks nothing: the buffer stays empty, no tick runs, and the
        * end-of-turn "Which hat." answers even when an event runs a task
-       * every turn (p38EVQ2, runner_probes/evq2.run380.rtf, 2026-09-20).
+       * every turn (p38EVQ2, runner_probes/evq2.run380.rtf).
        */
       if (run_get_dispatch_input ()
           && lib_catch_all_names_pre390 (game, object)
@@ -1229,7 +1229,7 @@ lib_verb_object_first_named_370 (scr_gameref_t game,
  * `box` alone names neither (the end-of-turn "Which box." asks instead).
  * Our matcher's references are the wrong instrument for that: `red box`
  * binds both boxes.  runner_probes/task.run390.pfx.txt T35-37 (`red box`,
- * `red hat`, `blue hat`), 2026-09-19.
+ * `red hat`, `blue hat`).
  */
 static void
 lib_verb_object_first_named_390 (scr_gameref_t game,
@@ -1315,7 +1315,7 @@ lib_verb_object_absent (scr_gameref_t game, scr_int *count, scr_int *object)
        * "attack card guard" resolves no object, and run400 answers
        * "You must be in the same room as the ethereal knife to be able
        * to do anything with it." with the Card Guard's blow appended
-       * (runner_transcripts/wonderland.txt, 2026-09-25).
+       * (runner_transcripts/wonderland.txt).
        */
       scr_int top;
 
@@ -1549,7 +1549,7 @@ lib_cmd_verb_object (scr_gameref_t game)
    * no character named, the game's DontUnderstand text (48B58F).
    *
    * Measured live on relojero.taf (4.00, run400
-   * runner_probes/relojero.run400.b.txt, 2026-09-07):
+   * runner_probes/relojero.run400.b.txt):
    * from the state the walkthrough reaches at `x trozo`, holding both the
    * Phoenix and the broken cord, `pulir fenix`, bare `fenix`, `pulir trozo`,
    * `tirar fenix`, `dar fenix` and `poner fenix` all get this catch-all
@@ -1698,7 +1698,7 @@ lib_cmd_verb_npc (scr_gameref_t game)
    * the jump at 48AC62.
    *
    * Measured live on easter.taf (run400
-   * runner_probes/easter.run400.txt:304-308, 2026-09-07): `show basket to
+   * runner_probes/easter.run400.txt:304-308): `show basket to
    * shopkeeper`, the winning move, prints the task's text and the WinText and
    * nothing in between -- no "I don't understand what you want to do with
    * shopkeeper.", and no DontUnderstand either, because the line names a
@@ -1810,11 +1810,10 @@ lib_cmd_verb_npc (scr_gameref_t game)
    * neighbouring branches does: `" is not here!"` at 480640 and `"Who?"` at
    * 480659 both fall straight through to 480660.
    *
-   * Measured on p4REPEAT3.taf (run400 runner_probes/repeat3.run400.txt,
-   * 2026-09-08): every line of that probe is followed by the every-turn
-   * event's "TICK." except the two `bob, hello` turns, which print "I don't
-   * understand what you want to do with Bob." and the game's DontUnderstand
-   * text and stop.
+   * Measured on p4REPEAT3.taf (run400 runner_probes/repeat3.run400.txt): every
+   * line of that probe is followed by the every-turn event's "TICK." except
+   * the two `bob, hello` turns, which print "I don't understand what you want
+   * to do with Bob." and the game's DontUnderstand text and stop.
    */
   if (lib_is_version_400 (game))
     game->is_admin = TRUE;

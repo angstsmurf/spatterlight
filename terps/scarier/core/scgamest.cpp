@@ -257,7 +257,7 @@ gs_runner_worn (scr_gameref_t gs, scr_int object)
  * command prints; the direct writes elsewhere in Proc_19_6/Proc_19_7 sit on
  * branches no player-facing command reaches.  Its rule, transcribed from
  * loc_4527DD-4528D2 and confirmed command by command against a purpose-built
- * probe adventure in run400 (2026-08-23):
+ * probe adventure in run400:
  *
  *   was possessed:
  *     no longer possessed          weight -= RECURSIVE weight (Proc_21_55)
@@ -304,7 +304,7 @@ gs_carried_track (scr_gameref_t gs, scr_int object, scr_int old_pos,
   /*
    * A wielded weapon that leaves the player's hands -- dropped, thrown, given
    * away, put down, worn -- is no longer wielded, and the wield never falls
-   * back to another carried weapon (Runner, settled live 2026-08-01).  Restore
+   * back to another carried weapon (Runner, settled live).  Restore
    * bypasses this by assigning positions directly, so a restored wield is
    * whatever the save says.
    */
@@ -511,7 +511,7 @@ gs_carried_size (scr_gameref_t gs)
   GS_CHECK (gs);
 
   /*
-   * Deliberate deviation (2026-09-30).  run400 takes only a container's OWN
+   * Deliberate deviation.  run400 takes only a container's OWN
    * size off the running total when it leaves the player, so whatever was
    * put inside it stays charged for good (e66709de2): `take bag`, `take
    * rock`, `put rock in bag`, `drop bag` leaves 3 on `count` with empty
@@ -878,12 +878,12 @@ gs_object_parent (scr_gameref_t gs, scr_int object)
  *     NPC-held/worn initial placements.
  *   - A TASK move (execute_action, Proc_19_10) writes the field in every
  *     arm: &HFF for a room, hidden, roomgroup, player-held, player-worn or
- *     same-room destination, the container or surface for into/onto, and
- *     the NPC index for NPC-held/worn.  Measured with p4WORNNPC probes
- *     (2026-09-25): a task sending a stale-linked cloak or feather to
- *     hidden or to a room takes it out of the coin's weight, and one
- *     handing the cloak to NPC 0 moves its phantom from object 1 to
- *     object 0.  task_move_object() applies this after each mover.
+ *     same-room destination, the container or surface for into/onto, and the
+ *     NPC index for NPC-held/worn.  Measured with p4WORNNPC probes: a task
+ *     sending a stale-linked cloak or feather to hidden or to a room takes it
+ *     out of the coin's weight, and one handing the cloak to NPC 0 moves its
+ *     phantom from object 1 to object 0.  task_move_object() applies this
+ *     after each mover.
  *   - Every other move leaves it untouched.  Measured: the broken bottle
  *     (stale raw Parent 0) keeps phantom-weighing the package through a
  *     player "take" from a room and a "drop".  Note that `count` never
@@ -1504,7 +1504,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
    * a container's object number, which is the phantom weight this
    * field exists to reproduce (goldilocks: the worn watch and dress
    * and the nowhere bottle, all Parent 0, phantom-weigh package
-   * object 0, measured live in run400 2026-08-22).
+   * object 0, measured live in run400).
    *
    * NPC-held/worn objects are the exception: their raw Parent is the
    * NPC selector (npc + 1), and the same live measurements show no
@@ -1533,7 +1533,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
        * position 0 with a raw Parent above 0, writes -200 and then
        * Parent - 1 (490760), and the weigh routine 447680 matches
        * that value against object numbers like any other.  Measured
-       * on wonderland (2026-09-25): the Card Guard's rod, letter and
+       * on wonderland: the Card Guard's rod, letter and
        * key (NPC 0) phantom-weigh the knife (object 0) and the Queen's
        * Staff of Hearts (81, NPC 3) phantom-weighs the rod (object 3),
        * so `get knife` in an empty-handed start is 94 > 90, "The
@@ -1543,7 +1543,7 @@ gs_populate_dynamic_object (scr_gameref_t game, scr_prop_setref_t bundle,
        *
        * NPC-WORN objects get the same seed: the worn branch has the
        * same Parent - 1 rewrite (490780/490797), and probes against
-       * run400 (p4WORNNPC*, 2026-09-25) refuse `take coin` whenever
+       * run400 (p4WORNNPC*) refuse `take coin` whenever
        * an NPC wears an 81-weight cloak with Parent 1 -- whether or
        * not the NPC is present, the cloak is wearable, or a built-in
        * give/wear has run in between.  goldilocks' crown (worn by
@@ -1880,7 +1880,7 @@ gs_populate_player (scr_gameref_t game, scr_prop_setref_t bundle)
      * used to read it as a raw 1-based object index, so CIBASS.taf (lying,
      * ParentObject 1) started the player on object 0, the window, and
      * `stand` answered "I stand up from the window."  run400 answers "I
-     * stand up from the bed." (measured 2026-08-29): the bed is the first
+     * stand up from the bed." (measured): the bed is the first
      * lieable object.  Fugitive.taf (lying, 1) is the same shape and its
      * golden used to read "You stand up from your watch."; 3monkeys.taf
      * (sitting, 4) has "sheet" as object 3 but "bed" as the 4th standable.
@@ -2124,7 +2124,7 @@ gs_populate (scr_gameref_t game, scr_var_setref_t vars,
    * but the adventure-file object loader (Proc_19_5, loc_490709-4907BB) then
    * adds base size and weight for each object the player starts out holding
    * and base weight only for each object worn, the same base-only seeding a
-   * restore performs -- measured live in run400 (goldilocks, 2026-08-22):
+   * restore performs -- measured live in run400 (goldilocks):
    * `count` on turn zero reports the worn wristwatch+dress weight (10) with
    * size 0.  gs_carried_recompute() implements exactly that rule, and also
    * arms gs_carried_track() for subsequent moves.

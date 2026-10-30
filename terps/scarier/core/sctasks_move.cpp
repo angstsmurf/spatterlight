@@ -382,7 +382,7 @@ task_move_object (scr_gameref_t game, scr_int object,
    * swaps the empty canteen inside the shut bucket for a full one.  With
    * the openness-aware predicate the empty canteen's 9/3 never came off,
    * and every `count` for the rest of the game read 9 size and 3 weight
-   * high (measured against run400, 2026-08-23).
+   * high (measured against run400).
    */
   {
     const scr_bool was_possessed = gs_runner_possessed (game, object);
@@ -426,21 +426,21 @@ task_move_object (scr_gameref_t game, scr_int object,
      * plate onto the dinner tray before the player has examined the table,
      * so the plate stays unseen and `take plate` answers "Take what?".
      *
-     * run390's execute_action (455C24-4573DA) stamps by destination the
-     * same way -- room only when the player's (455E16), into/onto only when
-     * the parent is seen (455F53, 455FCA), held or worn by the player always
+     * run390's execute_action (455C24-4573DA) stamps by destination the same
+     * way -- room only when the player's (455E16), into/onto only when the
+     * parent is seen (455F53, 455FCA), held or worn by the player always
      * (45602E, 45612E), same room as the player always (456232) and as a
-     * character when that character's room is the player's (456287, 4562EE),
-     * a roomgroup never -- except that an object handed to or worn by a
+     * character when that character's room is the player's (456287, 4562EE), a
+     * roomgroup never -- except that an object handed to or worn by a
      * character is never stamped (456099-4560DA, 45618B-4561DA), where 4.0
-     * stamps a held one it can see afterwards.  secret_of_lost_world T52
-     * `put tooth in skull` (run390, runner_transcripts/secret_of_lost_world,
-     * 2026-09-19) moves the blue gem onto the fresh skeleton before anything
-     * has listed the skeleton, so the gem stays unseen, and the next turn's
-     * `take blue gem` has one seen "gem" present -- the held green one --
-     * for takes()'s co() to name: "You already have the green gem!".  With
-     * the visibility stamp Scarier counted two and took the blue gem.
-     * Earlier versions keep the visibility stamp, unread.
+     * stamps a held one it can see afterwards.  secret_of_lost_world T52 `put
+     * tooth in skull` (run390, runner_transcripts/secret_of_lost_world) moves
+     * the blue gem onto the fresh skeleton before anything has listed the
+     * skeleton, so the gem stays unseen, and the next turn's `take blue gem`
+     * has one seen "gem" present -- the held green one -- for takes()'s co()
+     * to name: "You already have the green gem!".  With the visibility stamp
+     * Scarier counted two and took the blue gem.  Earlier versions keep the
+     * visibility stamp, unread.
      */
     if (taf_version >= TAF_VERSION_390
         ? stamp_seen
