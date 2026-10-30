@@ -2895,6 +2895,128 @@ static void tag_banner(parser *p, const tag_info *tg)
     }
 }
 
+/* <FONT FACE COLOR BGCOLOR> */
+static void tag_font(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    int face = -1;
+
+    if (p->ignore)
+        return;
+    if (tg->end)
+    {
+        tag_pop(p, tg);
+        return;
+    }
+    tag_push(p, tg);
+    tag_attrs(p, tg, &it, 0);
+    while (attr_next(&it))
+    {
+        const glui32 *v = tg->t + it.v;
+
+        if (attr_named(&it, "face"))
+            face = face_combo(v, it.vlen);
+        else if (attr_named(&it, "color"))
+            parse_color(v, it.vlen, &p->cur.fg);
+        else if (attr_named(&it, "bgcolor"))
+            parse_color(v, it.vlen, &p->cur.bg);
+    }
+    if (face >= 0)
+        p->cur.attr = (p->cur.attr & ~(OSSTY_FIXED | OSSTY_INPUT)) | face;
+}
+
+/* <BODY TEXT BGCOLOR BACKGROUND>: as in HTML TADS, what it leaves out is
+   the default */
+static void tag_body(parser *p, const tag_info *tg)
+{
+    attr_iter it;
+    int body_pic = 0;           /* it has a BACKGROUND picture */
+    os_color_t body_bg = OS_COLOR_P_TEXTBG;
+
+    if (p->ignore || tg->end)
+        return;
+    p->cur.fg = OS_COLOR_P_TEXT;
+    tag_attrs(p, tg, &it, 0);
+    while (attr_next(&it))
+    {
+        const glui32 *v = tg->t + it.v;
+
+        if (attr_named(&it, "text"))
+            parse_color(v, it.vlen, &p->cur.fg);
+        else if (attr_named(&it, "bgcolor"))
+            parse_color(v, it.vlen, &body_bg);
+        else if (attr_named(&it, "background"))
+            body_pic = it.vlen != 0;
+    }
+    if (body_pic)
+        body_bg = pic_page_color(p->cur.fg, body_bg);
+    set_body(p, body_bg);
+}
+
+/*
+ *   Open a <P>, <DIV> or <hN> with its ALIGN: 0 left, 1 centred.  A <p>
+ *   opens only with one, as a <p> is seldom closed.
+ */
+static void open_aligned(parser *p, const tag_info *tg, int heading)
+{
+    attr_iter it;
+    int align = -1;
+
+    tag_attrs(p, tg, &it, 0);
+    while (attr_next(&it))
+        if (attr_named(&it, "align"))
+            align = attr_value_is(&it, "center")
+                || attr_value_is(&it, "right");
+    if (align < 0 && tag_named(tg, "p"))
+        return;
+    tag_push(p, tg);
+    if (heading)
+        p->cur.attr |= OSSTY_BOLD;
+    if (align == 1)
+        p->cur.attr |= OSSTY_CENTER;
+    else if (align == 0)
+        p->cur.attr &= ~OSSTY_CENTER;
+}
+
+static void tag_p(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    close_elem(p, "p", p_stops);
+    /* HTML TADS keeps the larger spacing (add_line_spacing) */
+    para_break(p);
+    if (!tg->end)
+        open_aligned(p, tg, 0);
+}
+
+static void tag_div(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    line_break(p);
+    if (tg->end)
+        tag_pop(p, tg);
+    else
+        open_aligned(p, tg, 0);
+}
+
+/* <H1> to <H6> */
+static void tag_heading(parser *p, const tag_info *tg)
+{
+    if (p->ignore)
+        return;
+    if (tg->end)
+    {
+        tag_pop(p, tg);
+        para_break(p);
+    }
+    else
+    {
+        para_break(p);
+        open_aligned(p, tg, 1);
+    }
+}
+
 /* the tag in p->tag, between '<' and '>' */
 static void do_tag(parser *p)
 {
@@ -2903,13 +3025,6 @@ static void do_tag(parser *p)
     tag_info tg;
     attr_iter it;
     int end = 0;
-    int color_ok = 0, body = 0; /* <font>, <body> */
-    int body_pic = 0;           /* the <body> has a BACKGROUND picture */
-    os_color_t body_bg = OS_COLOR_P_TEXTBG;
-    int face_ok = 0, face = -1; /* <font FACE> */
-    int align_ok = 0;           /* <p>, <div>, <hN>: 1 to open the tag */
-    int align = -1;             /* their ALIGN: 0 left, 1 centred */
-    int heading = 0;
     int tab = 0;                /* TADS 3: <tab> */
     int cell_ok = 0, cell = 0;  /* <table>, <tr>, <td>; 1 for a <td> */
     int cell_first = 0;         /* the row's first cell */
@@ -2981,39 +3096,18 @@ static void do_tag(parser *p)
     }
     else if (TAG("p"))
     {
-        if (!p->ignore)
-        {
-            close_elem(p, "p", p_stops);
-            /* HTML TADS keeps the larger spacing (add_line_spacing) */
-            para_break(p);
-            align_ok = !end;
-        }
+        tag_p(p, &tg);
+        return;
     }
     else if (TAG("div"))
     {
-        if (!p->ignore)
-        {
-            line_break(p);
-            if (end)
-                pop_elem(p, t + name, namelen);
-            else
-                align_ok = 1;
-        }
+        tag_div(p, &tg);
+        return;
     }
     else if (TAG_IN(heading_tags))
     {
-        if (p->ignore)
-            ;
-        else if (end)
-        {
-            pop_elem(p, t + name, namelen);
-            para_break(p);
-        }
-        else
-        {
-            para_break(p);
-            align_ok = heading = 1;
-        }
+        tag_heading(p, &tg);
+        return;
     }
     else if (TAG("center"))
     {
@@ -3218,25 +3312,13 @@ static void do_tag(parser *p)
     }
     else if (TAG("font"))
     {
-        if (p->ignore)
-            ;
-        else if (!end)
-        {
-            color_ok = face_ok = 1;
-            push_elem(p, t + name, namelen);
-        }
-        else
-            pop_elem(p, t + name, namelen);
+        tag_font(p, &tg);
+        return;
     }
     else if (TAG("body"))
     {
-        /* as in HTML TADS, what a <BODY> leaves out is the default */
-        body = !p->ignore && !end;
-        if (body)
-        {
-            p->cur.fg = OS_COLOR_P_TEXT;
-            body_bg = OS_COLOR_P_TEXTBG;
-        }
+        tag_body(p, &tg);
+        return;
     }
     else if (TAG("hr"))
     {
@@ -3313,11 +3395,8 @@ static void do_tag(parser *p)
 #undef TAG_IN
 #undef TAG
 
-    /*
-     *   attributes: HEIGHT of <br>, those of <img> and <sound>, those of
-     *   <font> and <body>, ALIGN of <p>, <div> and <hN>, in TADS 3 and in
-     *   banners, those of <tab>, and those of TADS 2's <banner>
-     */
+    /* attributes: those of <table>, <tr> and <td>, and in TADS 3 and in
+       banners, those of <tab> */
     attr_start(&it, t, i, len,
                tads3 || p->in_banner ? ATTR_TO_SPACE : ATTR_WORD);
     while (attr_next(&it))
@@ -3325,10 +3404,7 @@ static void do_tag(parser *p)
         size_t v = it.v, vlen = it.vlen;
 
 #define ATTR(s) tag_is(t + it.name, it.namelen, s)
-        if (align_ok && ATTR("align"))
-            align = tag_is(t + v, vlen, "center")
-                || tag_is(t + v, vlen, "right");
-        else if (cell_ok && ATTR("align") && table_open)
+        if (cell_ok && ATTR("align") && table_open)
             /* a centred table centres its rows; a left or right one floats */
             cell_align = tag_is(t + v, vlen, "center") ? 1 : -1;
         else if (cell_ok && ATTR("align"))
@@ -3346,18 +3422,6 @@ static void do_tag(parser *p)
         else if (cell_ok && ATTR("bgcolor"))
             cell_bg_ok = parse_color(t + v, vlen, &cell_bg)
                 && !os_color_is_param(cell_bg);
-        else if (face_ok && ATTR("face"))
-            face = face_combo(t + v, vlen);
-        else if (color_ok && ATTR("color"))
-            parse_color(t + v, vlen, &p->cur.fg);
-        else if (color_ok && ATTR("bgcolor"))
-            parse_color(t + v, vlen, &p->cur.bg);
-        else if (body && ATTR("text"))
-            parse_color(t + v, vlen, &p->cur.fg);
-        else if (body && ATTR("bgcolor"))
-            parse_color(t + v, vlen, &body_bg);
-        else if (body && ATTR("background"))
-            body_pic = vlen != 0;
         else if (tab && ATTR("id"))
         {
             int k = find_tab(p, t + v, vlen, 1);
@@ -3399,30 +3463,6 @@ static void do_tag(parser *p)
         else if (tab && ATTR("dp"))
             tab_dp = vlen ? t[v] : 0;
 #undef ATTR
-    }
-
-    if (body)
-    {
-        if (body_pic)
-            body_bg = pic_page_color(p->cur.fg, body_bg);
-        set_body(p, body_bg);
-    }
-
-    /*
-     *   <font FACE>, and the tags that ALIGN opens: a <p> only with it, as
-     *   a <p> is seldom closed
-     */
-    if (face >= 0)
-        p->cur.attr = (p->cur.attr & ~(OSSTY_FIXED | OSSTY_INPUT)) | face;
-    if (align_ok && (align >= 0 || !tag_is(t + name, namelen, "p")))
-    {
-        push_elem(p, t + name, namelen);
-        if (heading)
-            p->cur.attr |= OSSTY_BOLD;
-        if (align == 1)
-            p->cur.attr |= OSSTY_CENTER;
-        else if (align == 0)
-            p->cur.attr &= ~OSSTY_CENTER;
     }
 
     /*
