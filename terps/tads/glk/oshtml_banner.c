@@ -355,8 +355,60 @@ static int pt_table(parser *p, const glui32 *t, size_t len,
     return 1;
 }
 
+/*
+ *   Lay out the <IMG USEMAP> in t[0..len) as a picture whose areas are its
+ *   links: false if an area isn't a rectangle, or the picture floats
+ */
 static int build_mappic(parser *p, const glui32 *t, size_t len,
-                        oshtml_pictable *pt);
+                        oshtml_pictable *pt)
+{
+    size_t i = 0, ts, te, v, vlen;
+    img_size w = { 0, 0 }, h = { 0, 0 };
+    const imagemap *m;
+    oshtml_tile *tile = &pt->tiles[0];
+    int k;
+
+    if (p->dst || !raw_tag(t, len, &i, &ts, &te)
+        || !raw_attr(t, ts, te, "usemap", &v, &vlen)
+        || !(m = find_map(t + v, vlen, 0))
+        || m->unplaced || m->nrects == 0 || m->nrects >= OSHTML_TILES_MAX
+        || raw_attr(t, ts, te, "ismap", &v, &vlen)
+        || (raw_attr(t, ts, te, "align", &v, &vlen)
+            && (tag_is(t + v, vlen, "left") || tag_is(t + v, vlen, "right"))))
+        return 0;
+    if (raw_attr(t, ts, te, "width", &v, &vlen))
+        parse_img_size(t + v, vlen, &w);
+    if (raw_attr(t, ts, te, "height", &v, &vlen))
+        parse_img_size(t + v, vlen, &h);
+    memset(tile, 0, sizeof(*tile));
+    if (w.pct || h.pct || !raw_attr(t, ts, te, "src", &v, &vlen)
+        || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h, &tile->img)
+        || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
+        || tile->w == 0 || tile->h == 0)
+        return 0;
+
+    /* the areas, as far as they're on it; the first one clicked wins */
+    pt->ntiles = 1;
+    for (k = 0 ; k < m->nrects ; ++k)
+    {
+        oshtml_tile *a = &pt->tiles[pt->ntiles];
+
+        *a = m->rects[k];
+        if (a->x >= tile->w || a->y >= tile->h)
+            continue;
+        if (a->w > tile->w - a->x)
+            a->w = tile->w - a->x;
+        if (a->h > tile->h - a->y)
+            a->h = tile->h - a->y;
+        ++pt->ntiles;
+    }
+    pt->width = tile->w;
+    pt->height = tile->h;
+    pt->center = (cur_color(p).attr & OSSTY_CENTER) != 0;
+    pt->page = 0;
+    pt->above = 0;
+    return pt->ntiles > 1;
+}
 
 /*
  *   Lay out the tables in t[0..len) in pixels, one under another, as one
@@ -451,61 +503,6 @@ static int build_pictable(parser *p, const glui32 *t, size_t len,
     }
     pt->height = y;
     return 1;
-}
-
-/*
- *   Lay out the <IMG USEMAP> in t[0..len) as a picture whose areas are its
- *   links: false if an area isn't a rectangle, or the picture floats
- */
-static int build_mappic(parser *p, const glui32 *t, size_t len,
-                        oshtml_pictable *pt)
-{
-    size_t i = 0, ts, te, v, vlen;
-    img_size w = { 0, 0 }, h = { 0, 0 };
-    const imagemap *m;
-    oshtml_tile *tile = &pt->tiles[0];
-    int k;
-
-    if (p->dst || !raw_tag(t, len, &i, &ts, &te)
-        || !raw_attr(t, ts, te, "usemap", &v, &vlen)
-        || !(m = find_map(t + v, vlen, 0))
-        || m->unplaced || m->nrects == 0 || m->nrects >= OSHTML_TILES_MAX
-        || raw_attr(t, ts, te, "ismap", &v, &vlen)
-        || (raw_attr(t, ts, te, "align", &v, &vlen)
-            && (tag_is(t + v, vlen, "left") || tag_is(t + v, vlen, "right"))))
-        return 0;
-    if (raw_attr(t, ts, te, "width", &v, &vlen))
-        parse_img_size(t + v, vlen, &w);
-    if (raw_attr(t, ts, te, "height", &v, &vlen))
-        parse_img_size(t + v, vlen, &h);
-    memset(tile, 0, sizeof(*tile));
-    if (w.pct || h.pct || !raw_attr(t, ts, te, "src", &v, &vlen)
-        || !find_image(p, t + v, vlen, imagealign_InlineUp, w, h, &tile->img)
-        || !oshtml_image_size(&tile->img, 0, &tile->w, &tile->h)
-        || tile->w == 0 || tile->h == 0)
-        return 0;
-
-    /* the areas, as far as they're on it; the first one clicked wins */
-    pt->ntiles = 1;
-    for (k = 0 ; k < m->nrects ; ++k)
-    {
-        oshtml_tile *a = &pt->tiles[pt->ntiles];
-
-        *a = m->rects[k];
-        if (a->x >= tile->w || a->y >= tile->h)
-            continue;
-        if (a->w > tile->w - a->x)
-            a->w = tile->w - a->x;
-        if (a->h > tile->h - a->y)
-            a->h = tile->h - a->y;
-        ++pt->ntiles;
-    }
-    pt->width = tile->w;
-    pt->height = tile->h;
-    pt->center = (cur_color(p).attr & OSSTY_CENTER) != 0;
-    pt->page = 0;
-    pt->above = 0;
-    return pt->ntiles > 1;
 }
 
 /*
@@ -1165,147 +1162,180 @@ static size_t banner_cells(parser *b, void *ctx, const glui32 *t,
     return stop;
 }
 
-void end_banner(parser *p)
+/* what a banner's text was found to be */
+typedef struct banner_scan
 {
-    static oshtml_pictable pt;
-    static oshtml_celltable ct;
-    size_t cs_[OSHTML_CELLS_MAX], ce_[OSHTML_CELLS_MAX];
-    size_t i = 0, k, ts = 0, te = 0, bg = 0, bglen = 0, ms = (size_t)-1;
-    int table, page;
+    size_t i;                   /* where its text starts, after spaces */
+    int page, table;            /* find_picpage's and find_pictable's */
+    size_t bg, bglen, ts, te, ms;
+    size_t cs[OSHTML_CELLS_MAX], ce[OSHTML_CELLS_MAX];
+} banner_scan;
 
-    p->bancap = 0;
+/* look the banner's text over, and lay out a table of text over pictures */
+static void scan_banner(parser *p, banner_scan *sc, oshtml_celltable *ct)
+{
+    size_t i = 0;
+
+    sc->bg = sc->bglen = sc->ts = sc->te = 0;
+    sc->ms = (size_t)-1;
     while (i < p->banlen && is_space(p->bantext[i]))
         ++i;
-    page = find_picpage(p->bantext + i, p->banlen - i, &bg, &bglen);
-    table = find_pictable(p->bantext + i, p->banlen - i, &ts, &te, &ms);
-    ts += i;
-    te += i;
-    if (ms != (size_t)-1)
-        ms += i;
+    sc->i = i;
+    sc->page = find_picpage(p->bantext + i, p->banlen - i,
+                            &sc->bg, &sc->bglen);
+    sc->table = find_pictable(p->bantext + i, p->banlen - i,
+                              &sc->ts, &sc->te, &sc->ms);
+    sc->ts += i;
+    sc->te += i;
+    if (sc->ms != (size_t)-1)
+        sc->ms += i;
 
     /* a table of text over pictures, after only tags */
-    ct.ncells = 0;
-    if (table == 1 && ms == (size_t)-1 && !page
-        && only_tags(p->bantext, i, ts))
+    ct->ncells = 0;
+    if (sc->table == 1 && sc->ms == (size_t)-1 && !sc->page
+        && only_tags(p->bantext, i, sc->ts))
     {
         /* the pictures are looked up as the page's, even from the status
            line's text */
         glui32 *dst = p->dst;
 
         p->dst = NULL;
-        if (build_celltable(p, p->bantext + ts, te - ts, &ct, cs_, ce_))
-            pt_body_background(p, p->bantext + i, ts - i, &ct.pics);
+        if (build_celltable(p, p->bantext + sc->ts, sc->te - sc->ts, ct,
+                            sc->cs, sc->ce))
+            pt_body_background(p, p->bantext + i, sc->ts - i, &ct->pics);
         else
-            ct.ncells = 0;
+            ct->ncells = 0;
         p->dst = dst;
     }
-    p->ban.cells = ct.ncells ? ct.height : 0;
-    if (i < p->banlen)
+}
+
+/* one pass of writing the banner's text to its window: false on failure */
+static int write_banner(parser *p, const oshtml_sink *sink, void *ctx,
+                        const banner_scan *sc, const oshtml_celltable *ct,
+                        oshtml_pictable *pt)
+{
+    size_t i = sc->i, ts = sc->ts, te = sc->te, ms = sc->ms;
+    size_t bg = sc->bg, bglen = sc->bglen, k;
+    int table = sc->table, page = sc->page;
+
+    parser *b = oshtml_new(sink, ctx);
+    size_t from = i, stop = p->banlen;
+
+    if (!b)
+        return 0;
+    b->in_banner = 1;
+    if (page && banner_picpage(b, ctx, p->bantext + i,
+                               p->banlen - i, bg, bglen, pt))
+        from = stop;
+    else if (page)
     {
-        const oshtml_sink *sink;
-        void *ctx = osglk_tag_banner_open(&p->ban, &sink);
+        /* the text after all, from the start */
+        oshtml_delete(b);
+        if (!(b = oshtml_new(sink, ctx)))
+            return 0;
+        b->in_banner = 1;
+    }
+    if (from == stop)
+        ;
+    else if (ct->ncells)
+        from = banner_cells(b, ctx, p->bantext, i, ts, stop,
+                            ct, sc->cs, sc->ce);
+    else if (table)
+    {
+        size_t cs = 0, ce = 0;
+        int centered = 0;
 
-        if (ctx)
+        /* the text, then the table: the rest is only ends */
+        for (k = i ; k < (table == 1 ? ms : ts) && k < ts ; ++k)
+            feed(b, p->bantext[k]);
+        put_maprow(b);
+        expand_tab(b, 1);
+        flush_out(b);
+        from = ts;
+
+        /* a picture with areas over the tables, one picture */
+        if (table == 1 && ms != (size_t)-1)
         {
-            do
+            if (build_pictable(b, p->bantext + ms, te - ms, pt)
+                && osglk_tag_banner_table(ctx, pt))
+                from = stop = ts;
+            else
             {
-                parser *b = oshtml_new(sink, ctx);
-                size_t from = i, stop = p->banlen;
-
-                if (!b)
-                    break;
-                b->in_banner = 1;
-                if (page && banner_picpage(b, ctx, p->bantext + i,
-                                           p->banlen - i, bg, bglen, &pt))
-                    from = stop;
-                else if (page)
-                {
-                    /* the text after all, from the start */
-                    oshtml_delete(b);
-                    if (!(b = oshtml_new(sink, ctx)))
-                        break;
-                    b->in_banner = 1;
-                }
-                if (from == stop)
-                    ;
-                else if (ct.ncells)
-                    from = banner_cells(b, ctx, p->bantext, i, ts, stop,
-                                        &ct, cs_, ce_);
-                else if (table)
-                {
-                    size_t cs = 0, ce = 0;
-                    int centered = 0;
-
-                    /* the text, then the table: the rest is only ends */
-                    for (k = i ; k < (table == 1 ? ms : ts) && k < ts ; ++k)
-                        feed(b, p->bantext[k]);
-                    put_maprow(b);
-                    expand_tab(b, 1);
-                    flush_out(b);
-                    from = ts;
-
-                    /* a picture with areas over the tables, one picture */
-                    if (table == 1 && ms != (size_t)-1)
-                    {
-                        if (build_pictable(b, p->bantext + ms, te - ms, &pt)
-                            && osglk_tag_banner_table(ctx, &pt))
-                            from = stop = ts;
-                        else
-                        {
-                            for (k = ms ; k < ts ; ++k)
-                                feed(b, p->bantext[k]);
-                            put_maprow(b);
-                            expand_tab(b, 1);
-                            flush_out(b);
-                        }
-                    }
-                    if (stop == ts)
-                        ;
-                    else if ((table == 2
-                         ? build_mappic(b, p->bantext + ts, te - ts, &pt)
-                         : build_pictable(b, p->bantext + ts, te - ts, &pt))
-                        && (pt_body_background(b, p->bantext + i, ts - i, &pt),
-                            osglk_tag_banner_table(ctx, &pt)))
-                        stop = ts;
-
-                    /* or a map over the rest of its cell, which is text */
-                    else if (table == 1
-                             && build_mapcell(b, p->bantext + ts, te - ts,
-                                              &pt, &cs, &ce, &centered)
-                             && osglk_tag_banner_table(ctx, &pt))
-                    {
-                        static const char cen[] = "<CENTER>";
-                        size_t bi, bs, be, bn, bl;
-                        int bend;
-
-                        from = ts + cs;
-                        stop = ts + ce;
-
-                        /* the <BR> under the picture only ends its line */
-                        for (bi = from ; bi < stop
-                             && is_space(p->bantext[bi]) ; ++bi)
-                            ;
-                        if (centered && bi < stop && p->bantext[bi] == '<'
-                            && raw_tag(p->bantext, stop, &bi, &bs, &be)
-                            && (bl = raw_name(p->bantext, bs, be, &bn, &bend),
-                                !bend && tag_is(p->bantext + bn, bl, "br")))
-                            from = bi;
-
-                        /* a centred cell centres its text, which starts
-                         * under the picture */
-                        if (centered)
-                            for (k = 0 ; cen[k] ; ++k)
-                                feed(b, (glui32)cen[k]);
-                    }
-                }
-                for (k = from ; k < stop ; ++k)
+                for (k = ms ; k < ts ; ++k)
                     feed(b, p->bantext[k]);
                 put_maprow(b);
                 expand_tab(b, 1);
                 flush_out(b);
-                oshtml_delete(b);
-            } while (osglk_tag_banner_done(ctx));
+            }
         }
+        if (stop == ts)
+            ;
+        else if ((table == 2
+             ? build_mappic(b, p->bantext + ts, te - ts, pt)
+             : build_pictable(b, p->bantext + ts, te - ts, pt))
+            && (pt_body_background(b, p->bantext + i, ts - i, pt),
+                osglk_tag_banner_table(ctx, pt)))
+            stop = ts;
+
+        /* or a map over the rest of its cell, which is text */
+        else if (table == 1
+                 && build_mapcell(b, p->bantext + ts, te - ts,
+                                  pt, &cs, &ce, &centered)
+                 && osglk_tag_banner_table(ctx, pt))
+        {
+            static const char cen[] = "<CENTER>";
+            size_t bi, bs, be, bn, bl;
+            int bend;
+
+            from = ts + cs;
+            stop = ts + ce;
+
+            /* the <BR> under the picture only ends its line */
+            for (bi = from ; bi < stop
+                 && is_space(p->bantext[bi]) ; ++bi)
+                ;
+            if (centered && bi < stop && p->bantext[bi] == '<'
+                && raw_tag(p->bantext, stop, &bi, &bs, &be)
+                && (bl = raw_name(p->bantext, bs, be, &bn, &bend),
+                    !bend && tag_is(p->bantext + bn, bl, "br")))
+                from = bi;
+
+            /* a centred cell centres its text, which starts
+             * under the picture */
+            if (centered)
+                for (k = 0 ; cen[k] ; ++k)
+                    feed(b, (glui32)cen[k]);
+        }
+    }
+    for (k = from ; k < stop ; ++k)
+        feed(b, p->bantext[k]);
+    put_maprow(b);
+    expand_tab(b, 1);
+    flush_out(b);
+    oshtml_delete(b);
+    return 1;
+}
+
+void end_banner(parser *p)
+{
+    static oshtml_pictable pt;
+    static oshtml_celltable ct;
+    banner_scan sc;
+
+    p->bancap = 0;
+    scan_banner(p, &sc, &ct);
+    p->ban.cells = ct.ncells ? ct.height : 0;
+    if (sc.i < p->banlen)
+    {
+        const oshtml_sink *sink;
+        void *ctx = osglk_tag_banner_open(&p->ban, &sink);
+
+        /* the first pass may only measure the text, for its window's size,
+           and then it is written again */
+        if (ctx)
+            while (write_banner(p, sink, ctx, &sc, &ct, &pt)
+                   && osglk_tag_banner_done(ctx))
+                ;
     }
     p->banlen = 0;
     put_html_text(p, ' ');
