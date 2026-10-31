@@ -249,10 +249,7 @@ void OpenGraphicsWindow(void)
         FitPictureToGraphicsWindow(&graphheight, &optimal_height);
 
         if (graphheight > optimal_height) {
-            winid_t parent = glk_window_get_parent(Graphics);
-            if (parent)
-                glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                    optimal_height, NULL);
+            SetFixedWindowHeight(Graphics, optimal_height);
         }
 
     /* Set the graphics window background to match
@@ -272,10 +269,7 @@ void OpenGraphicsWindow(void)
             Graphics = glk_window_open(Bottom, winmethod_Above | winmethod_Proportional, GRAPHICS_WIN_PERCENT,
                 wintype_Graphics, GLK_GRAPHICS_ROCK);
         FitPictureToGraphicsWindow(&graphheight, &optimal_height);
-        winid_t parent = glk_window_get_parent(Graphics);
-        if (parent)
-            glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                optimal_height, NULL);
+        SetFixedWindowHeight(Graphics, optimal_height);
     }
 }
 

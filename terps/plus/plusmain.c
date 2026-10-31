@@ -202,10 +202,7 @@ static void FitImageToGraphicsWindow(glui32 *graphheight, glui32 *optimal_height
 /* Make the graphics window exactly height pixels tall. */
 static void SetGraphicsWindowHeight(glui32 height)
 {
-    winid_t parent = glk_window_get_parent(Graphics);
-    if (parent)
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-            height, NULL);
+    SetFixedWindowHeight(Graphics, height);
 }
 
 static winid_t OpenGraphicsWindowAboveBottom(void)

@@ -28,7 +28,7 @@
 
 #include "debugprint.h"
 #include "memory_allocation.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "common_utils.h"
 #include "scott_defines.h"
 

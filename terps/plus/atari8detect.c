@@ -14,7 +14,7 @@
 #include "gameinfo.h"
 #include "graphics.h"
 #include "loaddatabase.h"
-#include "read_le16.h"
+#include "byteorder.h"
 
 #include "atari8detect.h"
 

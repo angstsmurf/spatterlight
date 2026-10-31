@@ -15,7 +15,7 @@
 #include "definitions.h"
 #include "glk.h"
 #include "graphics.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "stdraw.h"
 
 /* The most pixel runs we record for one cycling colour in one image */

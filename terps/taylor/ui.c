@@ -388,9 +388,7 @@ static void FitGraphicsWindow(int shrink_only)
     x_offset = ((int)graphwidth - (int)optimal_width) / 2;
 
     if (!shrink_only || graphheight > optimal_height) {
-        winid_t parent = glk_window_get_parent(Graphics);
-        glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-            optimal_height, NULL);
+        SetFixedWindowHeight(Graphics, optimal_height);
     }
 }
 

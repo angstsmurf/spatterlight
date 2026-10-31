@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "read_le16.h"
+#include "byteorder.h"
 #include "memory_allocation.h"
 
 #include "ti99_disk.h"

@@ -18,7 +18,7 @@
 extern "C" {
 #include "glkimp.h"
 #include "gi_blorb.h"
-#include "read_le16.h"
+#include "byteorder.h"
 }
 
 #include "types.h"

@@ -32,12 +32,7 @@ typedef uint32_t uint32;
 typedef unsigned int uint;
 typedef uint8_t  byte;
 
-#ifndef MIN
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
-#ifndef MAX
-#define MAX(a, b) (((a) > (b)) ? (a) : (b))
-#endif
+#include "minmax.h"
 #ifndef ABS
 #define ABS(x) (((x) < 0) ? -(x) : (x))
 #endif

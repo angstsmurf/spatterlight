@@ -10,7 +10,7 @@
 //  Original code at https://github.com/tautology0/textadventuregraphics
 
 #include "glk.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "c64a8draw.h"
 #include "sagadraw_host.h"
 

@@ -799,7 +799,7 @@
 		C36797DD2EF0516A008A6A0D /* libsagagraphics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C36797CA2EF040F7008A6A0D /* libsagagraphics.a */; };
 		C36797E22EF0B43A008A6A0D /* c64a8scott.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797E12EF0B43A008A6A0D /* c64a8scott.c */; };
 		C36797E62EF0B884008A6A0D /* sagadraw_glue.c in Sources */ = {isa = PBXBuildFile; fileRef = C36797E52EF0B884008A6A0D /* sagadraw_glue.c */; };
-		C36797E92EF0DA04008A6A0D /* read_le16.h in Headers */ = {isa = PBXBuildFile; fileRef = C36797E82EF0D9FD008A6A0D /* read_le16.h */; };
+		C36797E92EF0DA04008A6A0D /* byteorder.h in Headers */ = {isa = PBXBuildFile; fileRef = C36797E82EF0D9FD008A6A0D /* byteorder.h */; };
 		C36AD5672F89371F00E65111 /* glkautosave.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C36AD5662F89371F00E65111 /* glkautosave.cpp */; };
 		C36AD5692F89378C00E65111 /* arthur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B792CAEF0A800D58EFC /* arthur.cpp */; };
 		C36AD56A2F89378C00E65111 /* journey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED635F2C6E1293000F90A8 /* journey.cpp */; };
@@ -3312,7 +3312,9 @@
 		C36797E12EF0B43A008A6A0D /* c64a8scott.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = c64a8scott.c; sourceTree = "<group>"; };
 		C36797E42EF0B884008A6A0D /* sagadraw_glue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sagadraw_glue.h; sourceTree = "<group>"; };
 		C36797E52EF0B884008A6A0D /* sagadraw_glue.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sagadraw_glue.c; sourceTree = "<group>"; };
-		C36797E82EF0D9FD008A6A0D /* read_le16.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = read_le16.h; sourceTree = "<group>"; };
+		C36797E82EF0D9FD008A6A0D /* byteorder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = byteorder.h; sourceTree = "<group>"; };
+		C36797F02EF0DA10008A6A0D /* fatal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = fatal.h; sourceTree = "<group>"; };
+		C36797F12EF0DA10008A6A0D /* glk_rocks.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = glk_rocks.h; sourceTree = "<group>"; };
 		C36AD5662F89371F00E65111 /* glkautosave.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = glkautosave.cpp; sourceTree = "<group>"; };
 		C36B3890271F710200756D94 /* InfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoView.h; sourceTree = "<group>"; };
 		C36B3891271F710200756D94 /* InfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoView.m; sourceTree = "<group>"; };
@@ -6307,7 +6309,9 @@
 				C319199C2EF69BF70062991C /* memory_allocation.h */,
 				C319199D2EF69BF70062991C /* memory_allocation.c */,
 				C31919952EF69AD80062991C /* minmax.h */,
-				C36797E82EF0D9FD008A6A0D /* read_le16.h */,
+				C36797E82EF0D9FD008A6A0D /* byteorder.h */,
+				C36797F02EF0DA10008A6A0D /* fatal.h */,
+				C36797F12EF0DA10008A6A0D /* glk_rocks.h */,
 				C31919B12EF6B97E0062991C /* common_file_utils.h */,
 				C31919B22EF6B97E0062991C /* common_file_utils.c */,
 				C3C0A5E100000000000000A2 /* companion_search.h */,
@@ -6881,7 +6885,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C36797E92EF0DA04008A6A0D /* read_le16.h in Headers */,
+				C36797E92EF0DA04008A6A0D /* byteorder.h in Headers */,
 				C396E2882F812E3500B6308A /* messagenames.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

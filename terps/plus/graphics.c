@@ -20,7 +20,7 @@
 #include "common.h"
 #include "graphics.h"
 #include "loaddatabase.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "c64a8draw.h"
 #include "pcdraw.h"
 #include "sagadraw_glue.h"

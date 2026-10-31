@@ -18,7 +18,7 @@
 #include <zlib.h>
 
 #include "memory_allocation.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "unzip_in_mem.h"
 
 /* The record at the end of the archive that says where the directory is */

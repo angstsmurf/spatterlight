@@ -42,10 +42,7 @@ static void C64A8AdjustScott(struct c64a8_bounds *bounds) {
         glui32 optimal_height = ImageHeight * pixel_size;
 
         if (curheight != optimal_height) {
-            winid_t parent = glk_window_get_parent(Graphics);
-            if (parent)
-                glk_window_set_arrangement(parent, winmethod_Above | winmethod_Fixed,
-                                           optimal_height, NULL);
+            SetFixedWindowHeight(Graphics, optimal_height);
         }
     }
 }

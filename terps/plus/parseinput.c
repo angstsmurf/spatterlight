@@ -531,7 +531,6 @@ int IsNextParticiple(int partp, int noun2)
 }
 
 /* Debug display names for WordType enum values. */
-#ifdef DEBUG /* Only used by debug_print() */
 static const char * const WordTypeStrings[] = {
     "WORD_NOT_FOUND",
     "OTHER_TYPE",
@@ -540,7 +539,6 @@ static const char * const WordTypeStrings[] = {
     "ADVERB_TYPE",
     "PREPOSITION_TYPE"
 };
-#endif
 
 /* Map a token type to its corresponding dictionary array. */
 static DictWord *DictWordFromType(WordType type) {

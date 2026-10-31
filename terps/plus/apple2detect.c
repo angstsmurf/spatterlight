@@ -12,7 +12,7 @@
 #include "common.h"
 #include "companionfile.h"
 #include "definitions.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "graphics.h"
 
 #include "woz2nib.h"

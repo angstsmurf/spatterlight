@@ -44,9 +44,8 @@ typedef uint64_t uint64;
 typedef unsigned int uint;
 typedef uint8_t  byte;
 
-#ifndef MIN
-#define MIN(a, b) (((a) < (b)) ? (a) : (b))
-#endif
+#include "minmax.h"
+
 #ifndef CLIP
 #define CLIP(v, lo, hi) ((v) < (lo) ? (lo) : ((v) > (hi) ? (hi) : (v)))
 #endif

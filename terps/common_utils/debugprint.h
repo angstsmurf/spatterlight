@@ -1,33 +1,21 @@
-//
 //  debugprint.h
-//  Part of ScottFree, an interpreter for adventures in Scott Adams format
-//
-//  Created by Petter Sjölund on 2022-10-07.
-//
+//  debug_print(fmt, ...) prints to stderr if DEBUG_PRINT is non-zero. Define
+//  DEBUG_PRINT to 1 before including this, or with -D, to turn it on. When off,
+//  the call still compiles, so its format string and arguments cannot go stale,
+//  and the optimizer removes it.
 
 #ifndef DEBUG_PRINT
-
-/* Set this to 1 to enable debug print output */
 #define DEBUG_PRINT 0
-
-#endif /* DEBUG_PRINT */
+#endif
 
 #ifndef debug_print
 
-#ifdef DEBUG
-
 #include <stdio.h>
 
-#define debug_print(fmt, ...)                    \
-    do {                                         \
-        if (DEBUG_PRINT)                         \
-            fprintf(stderr, fmt, ##__VA_ARGS__); \
+#define debug_print(...)                     \
+    do {                                     \
+        if (DEBUG_PRINT)                     \
+            fprintf(stderr, __VA_ARGS__);    \
     } while (0)
-
-#else
-
-#define debug_print(fmt, ...)
-
-#endif /* DEBUG */
 
 #endif /* debug_print */

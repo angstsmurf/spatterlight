@@ -3,7 +3,7 @@
 //  Part of Plus, an interpreter for Scott Adams Graphic Adventures Plus
 //
 //  Debug dumps of a loaded database. Everything here prints through
-//  debug_print(), which compiles to nothing unless DEBUG is defined.
+//  debug_print(), which prints only if DEBUG_PRINT is set.
 //
 
 #include <stdint.h>
@@ -13,9 +13,7 @@
 #include "dumpactions.h"
 #include "opcodes.h"
 
-/* Names of the conditions for DumpActions(). debug_print() compiles to
-   nothing unless DEBUG is defined. */
-#ifdef DEBUG
+/* Names of the conditions for DumpActions() */
 static const char * const ConditionList[NUM_CONDITIONS] = {
     [COND_CARRIED] = "CARRIED",
     [COND_HERE] = "HERE",
@@ -48,7 +46,6 @@ static const char *ConditionName(int condition)
         return "UNKNOWN";
     return ConditionList[condition];
 }
-#endif
 
 /* Prints the first dictionary word whose group matches the given index.
    Falls back to printing the raw numeric index if no match is found. */

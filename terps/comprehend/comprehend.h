@@ -18,10 +18,7 @@ extern "C" {
 #include "randomness.h"
 }
 
-// Window rock IDs — match the values used by scott and taylormade.
-#define GLK_BUFFER_ROCK   1
-#define GLK_STATUS_ROCK   1010
-#define GLK_GRAPHICS_ROCK 1020
+#include "glk_rocks.h"
 
 namespace Glk {
 namespace Comprehend {

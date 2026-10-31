@@ -19,7 +19,7 @@
  */
 static uint8_t *PlusFallback(char *buffer, size_t bufsize, size_t namelen, int index, CompanionNameType type, CompanionReader read, void *user, size_t *size)
 {
-    if (type == TYPE_2) {
+    if (type == COMPANION_TYPE_2) {
         if (index > BUCKAROO_BANZAI_OFFSET && buffer[index - BUCKAROO_BANZAI_OFFSET] == 'a') {
             buffer[index - BUCKAROO_BANZAI_OFFSET] = 'b';
             debug_print("looking for companion file (Buckaroo hack): \"%s\"\n", buffer);

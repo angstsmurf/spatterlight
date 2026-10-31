@@ -14,7 +14,7 @@
 #include "common_utils.h"
 #include "gameinfo.h"
 #include "graphics.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "dumpactions.h"
 #include "loaddatabase.h"
 #include "opcodes.h"

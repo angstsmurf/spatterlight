@@ -25,7 +25,7 @@
 #include <string.h>
 
 #include "debugprint.h"
-#include "read_le16.h"
+#include "byteorder.h"
 
 #include "woz2nib.h"
 

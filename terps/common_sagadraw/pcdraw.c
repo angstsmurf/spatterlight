@@ -15,7 +15,7 @@
 #include <stddef.h>
 
 #include "glk.h"
-#include "read_le16.h"
+#include "byteorder.h"
 #include "sagadraw_host.h"
 
 // Image header: offsets of its fields, and its length

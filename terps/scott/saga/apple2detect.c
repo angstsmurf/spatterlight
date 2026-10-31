@@ -366,9 +366,9 @@ static uint8_t *A2CompanionFallback(char *buffer, size_t bufsize, size_t namelen
 {
     (void)index;
     int found = 0;
-    if (type == TYPE_A)
+    if (type == COMPANION_TYPE_A)
         found = CompanionStripEnclosed(buffer, namelen, '(', ')', 1);
-    else if (type == TYPE_B)
+    else if (type == COMPANION_TYPE_B)
         found = CompanionInsertBeforeExtension(buffer, bufsize, namelen, " (boot)");
     if (!found)
         return NULL;

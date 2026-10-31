@@ -1,12 +1,8 @@
-//
-//  read_le16.h
-//  Spatterlight
-//
-//  Created by Administrator on 2025-12-16.
-//
+//  byteorder.h
+//  Reading little- and big-endian integers from a byte buffer.
 
-#ifndef read_le16_h
-#define read_le16_h
+#ifndef byteorder_h
+#define byteorder_h
 
 #include <stdint.h>
 
@@ -30,15 +26,15 @@ static inline uint16_t READ_BE_UINT16(const void *ptr) {
 }
 
 static inline uint16_t READ_LE_UINT16_AND_ADVANCE(uint8_t **ptr) {
-    uint8_t *b = *ptr;
+    uint16_t value = READ_LE_UINT16(*ptr);
     (*ptr) += 2;
-    return (uint16_t)((b[1] << 8) | b[0]);
+    return value;
 }
 
 static inline uint16_t READ_BE_UINT16_AND_ADVANCE(uint8_t **ptr) {
-    uint8_t *b = *ptr;
+    uint16_t value = READ_BE_UINT16(*ptr);
     (*ptr) += 2;
-    return (uint16_t)(b[1] | (b[0] << 8));
+    return value;
 }
 
-#endif
+#endif /* byteorder_h */

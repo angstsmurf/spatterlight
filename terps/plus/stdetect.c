@@ -14,7 +14,7 @@
 #include "common.h"
 #include "definitions.h"
 #include "graphics.h"
-#include "read_le16.h"
+#include "byteorder.h"
 
 #include "stdetect.h"
 
