@@ -15,204 +15,11 @@
 #import "DebugLog.h"
 
 #import <QuartzCore/QuartzCore.h>
-#include <unistd.h> // TEMPORARY, for getpid in the diagnostics below
 
 // How long the last step of the enter-fullscreen animation takes.
 static const NSTimeInterval kExtendGameViewDuration = 0.25;
 
-#pragma mark - Temporary diagnostics for the exit-fullscreen glitch
-
-// TEMPORARY: a log of the custom exit-fullscreen animation, for the glitch
-// described in TODO_fullscreen_exit_glitch.md. Off unless the user default
-// FullscreenExitLog names a file to append to, for example
-//   defaults write net.ccxvii.spatterlight FullscreenExitLog /tmp/fsexit.log
-// or -FullscreenExitLog /tmp/fsexit.log among the arguments in Xcode's scheme.
-// Each exit logs its start, every animation step with the frame it set and
-// the frame the window server reports, the Core Animation commit for each
-// step, every other change to the window's or game view's frame with a call
-// stack, the system's fullscreen notifications, and the windows of this
-// process that are on screen. Remove along with the TODO.
-
-static FILE *fsExitLogFile;
-static CFTimeInterval fsExitLogStart;
-static NSUInteger fsExitLogTick;
-static BOOL fsExitLogInTick;
-static CFTimeInterval fsExitLogLastTick;
-static CFTimeInterval fsEnterFinishedTime;
-static NSMutableArray<id> *fsExitLogObservers;
-
-static BOOL fsExitLogEnabled(void) {
-    static NSString *path;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        path = [NSUserDefaults.standardUserDefaults stringForKey:@"FullscreenExitLog"];
-        if (path.length) {
-            fsExitLogFile = fopen(path.stringByExpandingTildeInPath.fileSystemRepresentation, "a");
-            if (!fsExitLogFile)
-                NSLog(@"FullscreenExitLog: could not open %@", path);
-        }
-    });
-    return fsExitLogFile != NULL;
-}
-
-static void fsExitLog(NSString *format, ...) NS_FORMAT_FUNCTION(1, 2);
-static void fsExitLog(NSString *format, ...) {
-    if (!fsExitLogFile)
-        return;
-    va_list args;
-    va_start(args, format);
-    NSString *message = [[NSString alloc] initWithFormat:format arguments:args];
-    va_end(args);
-    fprintf(fsExitLogFile, "%9.1f  %s\n", (CACurrentMediaTime() - fsExitLogStart) * 1000, message.UTF8String);
-}
-
-static NSString *fsRectString(NSRect r) {
-    return [NSString stringWithFormat:@"(%g %g %g %g)", r.origin.x, r.origin.y, r.size.width, r.size.height];
-}
-
-// The window's bounds as the window server has them, in screen points with
-// the origin at the top left, so that a late server-side move shows up.
-static NSString *fsServerBounds(NSWindow *window) {
-    NSArray *info = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionIncludingWindow, (CGWindowID)window.windowNumber));
-    NSDictionary *dict = info.firstObject;
-    CGRect bounds;
-    if (!dict || !CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dict[(id)kCGWindowBounds], &bounds))
-        return @"(none)";
-    return fsRectString(bounds);
-}
-
-static void fsLogOnScreenWindows(NSString *when) {
-    NSArray *info = CFBridgingRelease(CGWindowListCopyWindowInfo(kCGWindowListOptionAll, kCGNullWindowID));
-    for (NSDictionary *dict in info) {
-        if ([dict[(id)kCGWindowOwnerPID] intValue] != getpid())
-            continue;
-        CGRect bounds = CGRectZero;
-        CGRectMakeWithDictionaryRepresentation((__bridge CFDictionaryRef)dict[(id)kCGWindowBounds], &bounds);
-        NSWindow *window = [NSApp windowWithWindowNumber:[dict[(id)kCGWindowNumber] integerValue]];
-        fsExitLog(@"%@ window #%@ \"%@\" %@ layer %@ alpha %@ onscreen %@ class %@ visible %d contentHidden %d",
-                  when, dict[(id)kCGWindowNumber], dict[(id)kCGWindowName] ?: @"", fsRectString(bounds),
-                  dict[(id)kCGWindowLayer], dict[(id)kCGWindowAlpha], dict[(id)kCGWindowIsOnscreen] ?: @0,
-                  window.className ?: @"(not ours)", window.visible, window.contentView.hidden);
-    }
-}
-
-static NSString *fsCallStack(void) {
-    NSArray *symbols = NSThread.callStackSymbols;
-    NSRange range = NSMakeRange(2, MIN(14, (NSInteger)symbols.count - 2));
-    NSMutableArray *lines = [NSMutableArray new];
-    for (NSString *symbol in [symbols subarrayWithRange:range]) {
-        // Keep the library and the symbol, drop the addresses
-        NSArray *parts = [symbol componentsSeparatedByCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-        NSMutableArray *kept = [NSMutableArray new];
-        for (NSString *part in parts) {
-            if (part.length && ![part hasPrefix:@"0x"] && ![part isEqualToString:@"+"] && !part.integerValue && ![part hasSuffix:@"."])
-                [kept addObject:part];
-        }
-        [lines addObject:[kept componentsJoinedByString:@" "]];
-    }
-    return [lines componentsJoinedByString:@"\n             "];
-}
-
-static void fsExitLogObserve(NSNotificationCenter *center, NSNotificationName name, id object, void (^block)(NSNotification *)) {
-    [fsExitLogObservers addObject:[center addObserverForName:name object:object queue:nil usingBlock:block]];
-}
-
-static void fsExitLogEnd(void) {
-    for (id observer in fsExitLogObservers)
-        [NSNotificationCenter.defaultCenter removeObserver:observer];
-    for (id observer in fsExitLogObservers)
-        [NSWorkspace.sharedWorkspace.notificationCenter removeObserver:observer];
-    fsExitLogObservers = nil;
-    fsExitLog(@"log end");
-    fflush(fsExitLogFile);
-}
-
-#pragma mark -
-
 @implementation GlkController (FullScreen)
-
-// TEMPORARY: see the diagnostics above.
-- (void)fsExitLogStartWithDuration:(NSTimeInterval)duration target:(NSRect)target {
-    if (!fsExitLogEnabled())
-        return;
-    if (fsExitLogObservers)
-        fsExitLogEnd();
-    fsExitLogStart = CACurrentMediaTime();
-    fsExitLogTick = 0;
-    fsExitLogLastTick = fsExitLogStart;
-    fsExitLogObservers = [NSMutableArray new];
-    NSWindow *window = self.window;
-    NSView *gameView = self.gameView;
-    fsExitLog(@"==== exit start %@ duration %g, %.0f ms after the enter animation finished", NSDate.date, duration,
-              fsEnterFinishedTime ? (fsExitLogStart - fsEnterFinishedTime) * 1000 : -1);
-    fsExitLog(@"window %@ server %@ target %@ screen %@ styleMask %lx", fsRectString(window.frame), fsServerBounds(window),
-              fsRectString(target), fsRectString(window.screen.frame), (unsigned long)window.styleMask);
-    fsExitLog(@"gameView %@ borderView %@ mouse %@ key %d main %d", fsRectString(gameView.frame),
-              fsRectString(self.borderView.frame), NSStringFromPoint(NSEvent.mouseLocation), window.keyWindow, window.mainWindow);
-    fsExitLog(@"snapshot window %@ visible %d contentHidden %d", snapshotController.window ? @(snapshotController.window.windowNumber) : @"none",
-              snapshotController.window.visible, snapshotController.window.contentView.hidden);
-    fsLogOnScreenWindows(@"at start");
-
-    NSNotificationCenter *center = NSNotificationCenter.defaultCenter;
-    BOOL posts = gameView.postsFrameChangedNotifications;
-    gameView.postsFrameChangedNotifications = YES;
-    [fsExitLogObservers addObject:[center addObserverForName:NSWindowDidExitFullScreenNotification object:window queue:nil usingBlock:^(NSNotification *note) {
-        gameView.postsFrameChangedNotifications = posts;
-    }]];
-    GlkController * __weak weakSelf = self;
-    void (^logFrame)(NSString *) = ^(NSString *what) {
-        GlkController *strongSelf = weakSelf;
-        if (fsExitLogInTick) {
-            fsExitLog(@"  %@ in step: window %@ gameView %@", what, fsRectString(strongSelf.window.frame), fsRectString(strongSelf.gameView.frame));
-        } else {
-            fsExitLog(@"!! %@ OUTSIDE a step: window %@ server %@ gameView %@\n             %@", what,
-                      fsRectString(strongSelf.window.frame), fsServerBounds(strongSelf.window), fsRectString(strongSelf.gameView.frame), fsCallStack());
-        }
-    };
-    fsExitLogObserve(center, NSWindowDidResizeNotification, window, ^(NSNotification *note) { logFrame(@"window resized"); });
-    fsExitLogObserve(center, NSWindowDidMoveNotification, window, ^(NSNotification *note) { logFrame(@"window moved"); });
-    fsExitLogObserve(center, NSViewFrameDidChangeNotification, gameView, ^(NSNotification *note) { logFrame(@"gameView frame changed"); });
-    for (NSNotificationName name in @[ NSWindowWillExitFullScreenNotification, NSWindowDidExitFullScreenNotification,
-                                       NSWindowDidChangeScreenNotification, NSWindowDidChangeOcclusionStateNotification,
-                                       NSWindowDidBecomeKeyNotification, NSWindowDidResignKeyNotification,
-                                       NSWindowWillStartLiveResizeNotification ]) {
-        fsExitLogObserve(center, name, window, ^(NSNotification *note) {
-            fsExitLog(@"notification %@ server %@", name, fsServerBounds(window));
-        });
-    }
-    fsExitLogObserve(NSWorkspace.sharedWorkspace.notificationCenter, NSWorkspaceActiveSpaceDidChangeNotification, nil, ^(NSNotification *note) {
-        fsExitLog(@"notification %@", NSWorkspaceActiveSpaceDidChangeNotification);
-    });
-    fsExitLogObserve(center, NSApplicationDidChangeScreenParametersNotification, nil, ^(NSNotification *note) {
-        fsExitLog(@"notification %@", NSApplicationDidChangeScreenParametersNotification);
-    });
-    fflush(fsExitLogFile);
-}
-
-// TEMPORARY: see the diagnostics above.
-- (void)fsExitLogStepEased:(CGFloat)eased frame:(NSRect)frame startedAt:(CFTimeInterval)stepStart {
-    if (!fsExitLogFile || !fsExitLogObservers)
-        return;
-    CFTimeInterval now = CACurrentMediaTime();
-    NSUInteger tick = ++fsExitLogTick;
-    CGFloat gap = (stepStart - fsExitLogLastTick) * 1000;
-    fsExitLogLastTick = stepStart;
-    NSWindow *window = self.window;
-    fsExitLog(@"step %2lu %@ gap %5.1f ms eased %.3f set %@ -> window %@ server %@ gameView %@ step took %.1f ms mouse %@",
-              (unsigned long)tick, gap > 25 ? @"LATE" : @"    ", gap, eased, fsRectString(frame), fsRectString(window.frame),
-              fsServerBounds(window), fsRectString(self.gameView.frame), (now - stepStart) * 1000, NSStringFromPoint(NSEvent.mouseLocation));
-    [CATransaction setCompletionBlock:^{
-        fsExitLog(@"  commit after step %lu done, server %@", (unsigned long)tick, fsServerBounds(window));
-    }];
-}
-
-// TEMPORARY: see the diagnostics above.
-- (void)fsExitLogMessage:(NSString *)message {
-    if (!fsExitLogFile || !fsExitLogObservers)
-        return;
-    fsExitLog(@"%@: window %@ server %@ gameView %@", message, fsRectString(self.window.frame), fsServerBounds(self.window), fsRectString(self.gameView.frame));
-    fflush(fsExitLogFile);
-}
 
 - (NSSize)window:(NSWindow *)window willUseFullScreenContentSize:(NSSize)proposedSize {
     if (window != self.window)
@@ -707,13 +514,9 @@ static const NSTimeInterval kExitFullScreenMargin = 0.08;
     // Each step sets the game view frame itself
     self.gameView.autoresizingMask = NSViewNotSizable;
 
-    [self fsExitLogStartWithDuration:duration target:oldFrame]; // TEMPORARY
-
     // Make sure the window style mask does not
     // include full screen bit
     window.styleMask = window.styleMask & ~(NSUInteger)NSWindowStyleMaskFullScreen;
-
-    [self fsExitLogMessage:@"after style mask change"]; // TEMPORARY
 
     NSRect startFrame = window.frame;
     GlkController * __weak weakSelf = self;
@@ -721,8 +524,6 @@ static const NSTimeInterval kExitFullScreenMargin = 0.08;
     [self stepFullScreenAnimationWithDuration:MAX(duration - kExitFullScreenMargin, duration / 2)
                                          from:startDate
                                          step:^(CGFloat eased) {
-        CFTimeInterval stepStart = CACurrentMediaTime(); // TEMPORARY
-        fsExitLogInTick = YES;
         NSRect frame = NSMakeRect(round(NSMinX(startFrame) + eased * (NSMinX(oldFrame) - NSMinX(startFrame))),
                                   round(NSMinY(startFrame) + eased * (NSMinY(oldFrame) - NSMinY(startFrame))),
                                   round(NSWidth(startFrame) + eased * (NSWidth(oldFrame) - NSWidth(startFrame))),
@@ -742,12 +543,9 @@ static const NSTimeInterval kExitFullScreenMargin = 0.08;
                                                gameWidth, round(borderHeight - border * 2));
         [strongSelf fitBufferWindowsToGameViewKeepingBottom];
         [stepWindow setFrame:frame display:YES];
-        [strongSelf fsExitLogStepEased:eased frame:frame startedAt:stepStart]; // TEMPORARY
-        fsExitLogInTick = NO;
     }
                                    completion:^{
         GlkController *strongSelf = weakSelf;
-        [strongSelf fsExitLogMessage:@"completion"]; // TEMPORARY
         [strongSelf enableArrangementEvents];
         strongSelf.borderView.frame = ((NSView *)strongSelf.window.contentView).frame;
         strongSelf.gameView.frame = [strongSelf contentFrameForWindowed];
@@ -759,7 +557,6 @@ static const NSTimeInterval kExitFullScreenMargin = 0.08;
 - (void)windowDidEnterFullScreen:(NSNotification *)notification {
     if (enteringFullScreenAnimated)
         return;
-    fsEnterFinishedTime = CACurrentMediaTime(); // TEMPORARY
     self.ignoreResizes = NO;
     inFullScreenResize = NO;
     self.inFullscreen = YES;
@@ -772,15 +569,6 @@ static const NSTimeInterval kExitFullScreenMargin = 0.08;
 }
 
 - (void)windowDidExitFullScreen:(NSNotification *)notification {
-    // TEMPORARY diagnostics
-    [self fsExitLogMessage:notification ? (ignoreSystemDidExitFullScreen ? @"windowDidExitFullScreen from the system, ignored" : @"windowDidExitFullScreen from the system")
-                                        : @"windowDidExitFullScreen from the completion"];
-    if (!notification && fsExitLogObservers) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            if (fsExitLogObservers)
-                fsExitLogEnd();
-        });
-    }
     if (notification && ignoreSystemDidExitFullScreen) {
         ignoreSystemDidExitFullScreen = NO;
         return;
