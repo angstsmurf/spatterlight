@@ -7,8 +7,9 @@ Quest 6 / QuestJS is out of scope for both.
 
 "QuestViva" means `textadventures/quest` at the revision the oracle is pinned
 to: `290a87df`, v6.0.0 plus 69 commits (2026-10-14), with the local
-oracle patches described below. The corpus figures were last checked on
-2026-10-17, after the move to that revision; the timings are from 2026-10-12.
+oracle patches described below. The Quest 5 replay figures were last checked on
+2026-10-31, the other corpus figures on 2026-10-17, after the move to that
+revision; the timings are from 2026-10-12.
 
 This is not a comparison of equals. QuestViva *is* Quest's own engine going
 forward, and Question is a from-scratch C++ engine for playing Quest games in
@@ -23,7 +24,7 @@ below say how closely Question matches that key, not whether the key is right.
 | Quest 2–4 (`.asl`, `.cas`) | `V4Game.cs`, a line-by-line C# translation of the VB6 Quest 4 | Own engine, checked against `V4Game.cs` |
 | Quest 5 (`.quest`, `.aslx`) | The reference | Own engine plus QuestViva's Core libraries (from the pinned revision), checked against it |
 | Quest 4 corpus rows identical to the other (of 150) | – | 139 (11 differ, all catalogued) |
-| Quest 5 corpus rows identical to the oracle (of 354) | – | 348 (6 differ, all documented) |
+| Quest 5 corpus rows identical to the oracle (of 374) | – | 367 (7 differ, all documented) |
 | Editor, game publishing | Yes | No |
 | Where it runs | Windows, macOS, Linux (Electron), browser (WebAssembly and server) | macOS, inside Spatterlight |
 | Interface languages | 18 language libraries, plus editor translations | Bundles QuestViva's 15 Languages files; no editor |
@@ -118,7 +119,7 @@ below say how closely Question matches that key, not whether the key is right.
   `V4Game` (`test/quest4/harness/oracle/compare.sh`) and through Question's
   committed golden. Both are normalised (runs of spaces, blank lines, the
   title banner), then diffed.
-- **Quest 5 (354 rows).** The goldens in `test/quest5/goldens` are QuestViva's
+- **Quest 5 (374 rows).** The goldens in `test/quest5/goldens` are QuestViva's
   own transcripts of the command scripts (`check_golden.sh`). Question replays
   the same scripts natively (`run_replays.sh`) and the result is diffed. A pass
   means the C++ engine printed what QuestViva printed.
@@ -142,14 +143,15 @@ room name from a fencepost, throwing away an answer the author wrote) Question
 keeps the right behaviour and carries the diff. `FINDINGS.md` has findings numbered to about 82
 behind this table.
 
-### Quest 5: 348 of 354 identical
+### Quest 5: 367 of 374 identical
 
-All six failures are understood and none is a regression:
+All seven failures are understood and none is a regression:
 
 | Game | Diff lines | Why |
 |---|---:|---|
 | The Acreage (6.29 revision) | 5 | QuestViva issue #2189: an uncharted room makes the CoreGrid code raise errors in the oracle; Question charts the room (`chart_uncharted_room`), deliberately |
 | Woo Rebooted 3.7 | 7 | Same |
+| Thyme (ASL 600 build) | 5 | Same (the arrest teleport at the end) |
 | GiantKiller Too 2.15 | 45 | Same |
 | Rogues Adventure | 54 | A malformed message in the void room: the oracle reports one script error (`Invalid token in expression`), Question prints the dump as text |
 | Heliacal Hostility | 3 | An attribute named `in jungle`: QuestViva says "Invalid attribute name", Question accepts it. Unresolved; desktop Quest untested |
@@ -157,7 +159,7 @@ All six failures are understood and none is a regression:
 
 ### What the numbers do and do not show
 
-- **Question's Quest 5 "correct" is QuestViva's output.** 348/354 says
+- **Question's Quest 5 "correct" is QuestViva's output.** 367/374 says
   Question is faithful; it says nothing about whether QuestViva is right, and
   a bug QuestViva has appears as a bug Question reproduced on purpose. The
   #2189 rows are the exception: there the oracle is wrong and Question

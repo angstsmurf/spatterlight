@@ -511,7 +511,8 @@ One native/oracle disagreement is permanent:
   verbatim output again, so the five error lines are IN the golden, this check
   is clean, and the native sweep shows them as its expected five-line diff on
   the Acreage row instead. The same deviation accounts for the *Woo Rebooted
-  3.7* row (seven lines) and for the 45 `Grid_GetGridCoordinateForPlayer` /
+  3.7* row (seven lines), the *Thyme (ASL 600 build)* row (five lines) and
+  the 45 `Grid_GetGridCoordinateForPlayer` /
   `DictionaryItem … key 'x'` error lines in *GiantKiller Too 2.15* (five
   uncharted-room arrivals): those are the only diffs `../run_replays.sh` is
   expected to show. (Sburb's `wake up` is the same class, not covered by a row: its

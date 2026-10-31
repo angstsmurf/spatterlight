@@ -164,7 +164,7 @@ replayed nothing at all exits non-zero rather than reading green. `GAMES=`,
 `JOBS=` and `DIFF_LINES=` override the corpus directory, the fan-out and the
 diff excerpt.
 
-**The expected result is 364 passed, 7 failed** (2026-10-17). The seven are
+**The expected result is 367 passed, 7 failed** (2026-10-31). The seven are
 documented deviations, each with its diff size, and any *other* line in their
 diffs is a regression:
 
