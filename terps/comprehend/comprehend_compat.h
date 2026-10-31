@@ -7,7 +7,6 @@
  *  - Common::Rect / Common::Point
  *  - Common::U32String (Unicode strings)
  *  - Common::Serializer (save/load sync)
- *  - Common::Archive (stubbed — we render+blit instead)
  *  - Common::StringArray = Common::Array<Common::String>
  *
  * The drawing pipeline follows scott's apple2_vector_draw approach:
@@ -130,8 +129,6 @@ public:
 	static String format(const char *fmt, ...) GCC_PRINTF(1, 2);
 	static String vformat(const char *fmt, va_list args);
 
-	bool hasPrefixIgnoreCase(const char *pre) const;
-	bool hasSuffixIgnoreCase(const char *suf) const;
 
 	bool contains(const char *s) const { return find(s) != std::string::npos; }
 	bool contains(const String &s) const { return find(s) != std::string::npos; }
@@ -155,7 +152,6 @@ public:
 	void wordWrap(size_t maxLineWidth);
 };
 
-inline bool isDigit(char c) { return std::isdigit((unsigned char)c) != 0; }
 inline bool isSpace(char c) { return std::isspace((unsigned char)c) != 0; }
 
 // ScummVM's strcpy_s deduces destination size from the array; we mirror it.
@@ -326,8 +322,8 @@ namespace DiskImageFS {
 	void clear();
 }
 
-// Used by charset.cpp for picking the right font baseline. ScummVM's md5.h
-// hashes a stream; we hash whatever bytes we can read up to `length`.
+// Used by the game code to fingerprint novel.exe. ScummVM's md5.h hashes a
+// stream; we hash whatever bytes we can read up to `length`.
 String computeStreamMD5AsString(ReadStream *stream, uint32 length);
 String computeStreamMD5AsString(ReadStream &stream, uint32 length);
 
@@ -339,14 +335,12 @@ public:
 	Path(const String &s) : _s(s) {}
 	Path(const char *s) : _s(s ? s : "") {}
 	const String &toString() const { return _s; }
-	String baseName() const;
 	operator const String&() const { return _s; }
 private:
 	String _s;
 };
 
-// In-memory R/W stream used by pics.cpp (kept for compile-compat; we no
-// longer actually drive Glk image registration through it).
+// In-memory R/W stream, holding the game-state snapshots in comprehend_state.cpp.
 enum DisposeAfterUse {
 	NO = 0,
 	YES = 1
@@ -441,43 +435,6 @@ private:
 	WriteStream *_out;
 };
 
-// Archive stub. Comprehend's Pics inherits this so the engine can stick
-// it into SearchMan and have ScummVM's glk image loader pull pixel data
-// through createReadStreamForMember(). On Spatterlight we render+blit
-// directly, so the interface only needs to compile.
-class Path;
-class ArchiveMember {
-public:
-	virtual ~ArchiveMember() {}
-	virtual String getName() const = 0;
-};
-typedef std::shared_ptr<ArchiveMember> ArchiveMemberPtr;
-typedef std::vector<ArchiveMemberPtr> ArchiveMemberList;
-
-class Archive {
-public:
-	virtual ~Archive() {}
-	virtual bool hasFile(const Path &path) const = 0;
-	virtual int listMembers(ArchiveMemberList &list) const = 0;
-	virtual const ArchiveMemberPtr getMember(const Path &path) const = 0;
-	virtual SeekableReadStream *createReadStreamForMember(const Path &path) const = 0;
-};
-
-class GenericArchiveMember : public ArchiveMember {
-public:
-	GenericArchiveMember(const Path &p, const Archive &) : _name(p.toString()) {}
-	String getName() const override { return _name; }
-private:
-	String _name;
-};
-
-class SearchManager {
-public:
-	void add(const String &, Archive *, int = 0, bool autoFree = true) { (void)autoFree; }
-	void remove(const String &) {}
-};
-extern SearchManager SearchMan;
-
 class ConfigManager {
 public:
 };
@@ -493,7 +450,6 @@ extern DebugManager DebugMan;
 
 using Common::DebugMan;
 using Common::ConfMan;
-using Common::SearchMan;
 
 // --- Graphics:: namespace ---
 

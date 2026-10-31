@@ -4,9 +4,9 @@
  * nibble of each command byte is the opcode (graphics_magician.h `Opcode`), the
  * low nibble is `param`, and bit 0 of `param` is the high bit (+256) of the x
  * operand for coordinate opcodes.  The loop, the operand decode and the order of
- * the DRAW_BOX lines used to be written out once per renderer; they live here
- * once, in gmRunStream().  What genuinely differs between renderers is the leaf
- * behaviour of each opcode, which the renderer supplies as a small object `R`
+ * the DRAW_BOX lines live here, in gmRunStream().  What genuinely differs between
+ * renderers is the leaf behaviour of each opcode, which the renderer supplies as
+ * a small object `R`
  * (held by reference, so it can wrap the renderer's file statics or its context
  * struct; no virtuals, the template inlines it).
  *
@@ -40,8 +40,7 @@
  *                                  return true to end the image
  *
  * Truncated streams: an opcode whose operands run past `end` ends the image
- * without being executed (the loop used to read the bytes beyond the buffer).
- * The dispatcher checks the operand count of the opcodes it decodes itself
+ * without being executed, so nothing reads beyond the buffer.  The dispatcher checks the operand count of the opcodes it decodes itself
  * (gmOperandBytes); op7() and opReset() own theirs and must return true when
  * fewer than they need remain (gmHave).
  *

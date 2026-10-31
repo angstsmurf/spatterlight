@@ -1,6 +1,5 @@
-/* trace_crypt.cpp -- single-picture trace driver for the crypt RA3 flood-fill
- * residual (TODO_v1_cga_graphics.md residual #1).  Renders ONLY crypt.img so the
- * renderer's per-fill counter `n` is local to this picture; GMCGA_TRACE_FILL=<n>
+/* trace_crypt.cpp -- single-picture trace driver for the flood fills in the
+ * crypt picture (RA pic 3).  Renders ONLY crypt.img so the renderer's per-fill counter `n` is local to this picture; GMCGA_TRACE_FILL=<n>
  * then logs the Nth op14's pushes + per-word paints (WORD seq=... lines).
  *
  * Build: c++ -std=c++14 -O0 -g -Wall -DGM_TRACE -I../.. -o trace_crypt trace_crypt.cpp ../../graphics_magician_cga.cpp

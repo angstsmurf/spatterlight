@@ -225,7 +225,7 @@ typedef struct {
 	uint8_t text_y;
 } a2_ctx;
 
-// set_color / set_draw_position / draw_brush now live in
+// set_color / set_draw_position / draw_brush live in
 // common_sagadraw/gm_vector.c.
 
 // ---- Flood fill ---------------------------------------------------------------
@@ -470,7 +470,7 @@ struct AppleRenderer {
 
 // ---- Apple hi-res -> RGB --------------------------------------------------
 // The NTSC artifact-colour kernel (rotl4b / artifact_color_lut / apple2_palette
-// / Double7Bits / per-row word + colour expansion) now lives in
+// / Double7Bits / per-row word + colour expansion) lives in
 // common_sagadraw/gm_artifact.c, shared with apple2draw.c.
 
 // Convert a hi-res page -> RGBA into out[w*h] (0xRRGGBBAA). Renders Apple rows

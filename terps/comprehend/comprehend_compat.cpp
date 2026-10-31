@@ -46,7 +46,6 @@ namespace Common {
 
 ConfigManager ConfMan;
 DebugManager DebugMan;
-SearchManager SearchMan;
 
 String String::vformat(const char *fmt, va_list args) {
 	va_list copy;
@@ -73,25 +72,6 @@ void String::toLowercase() {
 		(*this)[i] = (char)std::tolower((unsigned char)(*this)[i]);
 }
 
-
-bool String::hasPrefixIgnoreCase(const char *pre) const {
-	size_t n = std::strlen(pre);
-	if (size() < n) return false;
-	for (size_t i = 0; i < n; ++i)
-		if (std::tolower((unsigned char)(*this)[i]) != std::tolower((unsigned char)pre[i]))
-			return false;
-	return true;
-}
-
-bool String::hasSuffixIgnoreCase(const char *suf) const {
-	size_t n = std::strlen(suf);
-	if (size() < n) return false;
-	size_t off = size() - n;
-	for (size_t i = 0; i < n; ++i)
-		if (std::tolower((unsigned char)(*this)[off + i]) != std::tolower((unsigned char)suf[i]))
-			return false;
-	return true;
-}
 
 // Greedy word wrap that breaks on spaces. ScummVM's wordWrap inserts hard
 // newlines without trailing whitespace; we do the same.
@@ -356,10 +336,10 @@ bool FileStream::exists(const String &path) {
 }
 
 // Real RFC 1321 MD5 over the first `length` bytes of the stream. The game code
-// (game_oo.cpp, game_tm.cpp) fingerprints novel.exe against actual
-// MD5 hashes inherited from ScummVM, so a stable-but-arbitrary hash is not
-// enough -- it must be the genuine MD5 or none of those constants ever match
-// (which left OO-Topos with an empty second string table, e.g. "GET ALL"
+// (game_oo.cpp, game_tr2.cpp, game_tm_load.cpp) fingerprints novel.exe against
+// actual MD5 hashes inherited from ScummVM, so a stable-but-arbitrary hash is
+// not enough -- it must be the genuine MD5 or none of those constants ever match
+// (which leaves OO-Topos with an empty second string table, e.g. "GET ALL"
 // printing BAD_STRING).
 String computeStreamMD5AsString(ReadStream *stream, uint32 length) {
 	static const uint32 S[64] = {
@@ -444,13 +424,6 @@ String computeStreamMD5AsString(ReadStream *stream, uint32 length) {
 
 String computeStreamMD5AsString(ReadStream &stream, uint32 length) {
 	return computeStreamMD5AsString(&stream, length);
-}
-
-String Path::baseName() const {
-	size_t p = _s.find_last_of('/');
-	if (p == std::string::npos) p = _s.find_last_of('\\');
-	if (p == std::string::npos) return _s;
-	return String(_s.c_str() + p + 1);
 }
 
 } // namespace Common

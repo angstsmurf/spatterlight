@@ -763,12 +763,10 @@ void GameData::load_extra_string_files() {
 		for (uint i = 0; i < g_comprehend->traits().appleStringLead; i++)
 			_strings2.push_back("");
 
-	// The Coveted Mirror used to load two entries early, which we compensated
-	// for with two leading placeholders. That was masking the real cause: its
-	// MA-ML banks have no 4-byte header, so the old seek(4) dropped the first
-	// two index entries of every bank. load_extra_string_file now reads the CM
-	// index from byte 0, so no placeholder shift is needed (and the per-bank
-	// leading strings, e.g. the fish line MJ[1], now resolve correctly).
+	// The Coveted Mirror needs no placeholders. Its MA-ML banks have no 4-byte
+	// header, so load_extra_string_file reads the CM index from byte 0. A
+	// seek(4) would drop the first two index entries of every bank, losing the
+	// leading strings (e.g. the fish line MJ[1]) and shifting the rest early.
 
 	for (uint i = 0; i < _stringFiles.size(); i++) {
 		// OO-Topos pads two banks so its string indices line up; other v2

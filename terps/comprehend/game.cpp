@@ -1160,10 +1160,10 @@ void ComprehendGame::doBeforeTurn() {
 // Crown's DOS NOVEL.EXE (main loop FUN_1000_0455, dispatch FUN_1000_0e73, whose
 // evaluator FUN_1000_0eb4 has no other caller), which Transylvania v1 shares.
 //
-// This function used to call eval_function(0) as well, so the daemon ran twice
-// a turn. That doubled every per-turn effect: The Coveted Mirror's hourglass
-// drained two grains a turn, and Oo-Topos printed the guard's capture message
-// twice and drew the cell a turn late. (git 845e9d5d, 2da5bb81, dad6272a.)
+// Don't call eval_function(0) here as well: the daemon would run twice a turn,
+// doubling every per-turn effect. The Coveted Mirror's hourglass would drain
+// two grains a turn, and Oo-Topos would print the guard's capture message twice
+// and draw the cell a turn late.
 //
 // A game overrides this only for its own native per-turn routine.
 void ComprehendGame::beforeTurn() {
@@ -1400,13 +1400,6 @@ turn:
 
 		_inputLineIndex = 0;
 		if (strlen(_inputLine) == 0) {
-//			// Empty line, so toggle picture window visibility
-//			g_comprehend->toggleGraphics();
-//			updateRoomDesc();
-//			g_comprehend->print(_("Picture window toggled\n"));
-//
-//			_updateFlags |= UPDATE_GRAPHICS;
-//			update_graphics();
 			continue;
 		}
 

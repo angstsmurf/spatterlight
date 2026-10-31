@@ -450,9 +450,9 @@ static void fill_rect() {
 // the 6502 <D> routine ($0a7b) splits each source byte through the nibble-
 // doubling table (DHGR_DOUBLE_BITS) into a main + aux byte and stores both at the same
 // page offset (logical DHGR columns 2*col / 2*col+1) -- the same expansion the
-// brush blitter above performs. Without this, op15/0 used to fall through doing
-// nothing AND consuming no operand bytes, so the bounds+RLE stream was misparsed
-// as opcodes and the picture collapsed to the white reset page.
+// brush blitter above performs. Without this, op15/0 would fall through doing
+// nothing AND consuming no operand bytes, so the bounds+RLE stream would be
+// misparsed as opcodes and the picture would collapse to the white reset page.
 static void rle_bitmap_dhgr(const uint8_t **pp, const uint8_t *end) {
 	const uint8_t *p = *pp;
 	// The real CM op15/0 reads its four bounds bytes through gm_op15_read_bounds

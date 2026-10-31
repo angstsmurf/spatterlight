@@ -64,24 +64,22 @@ int main() {
 		return 1;
 	}
 
-	// `ceil` is the maximum tolerated mismatch -- now 0 for every fixture.  The
-	// crypt (RA pic 3) is the only fixture with two-colour dithers, so it guards
-	// the v1 period-4 fill fix (per-column indexing balloons it to 2827) AND the
-	// brush blitter's painted-byte dither-phase walk: its former 3 residual px at
-	// x=188 were an op12 BRUSH spill byte whose dither phase the native advances
-	// per painted byte (spill helper 0x94c skips inc DI on a blank byte), not per
-	// column -- so the off-grid spill lands on phase 3 (magenta), not phase 0
-	// (cyan).  blit_col now replicates that walk.  See TODO_v1_cga_graphics.
+	// `ceil` is the maximum tolerated mismatch -- 0 for every fixture.  The crypt
+	// (RA pic 3) is the only fixture with two-colour dithers, so it guards the v1
+	// period-4 fill (per-column indexing balloons it to 2827) AND the brush
+	// blitter's painted-byte dither-phase walk: at x=188 an op12 BRUSH spill byte
+	// has a dither phase the native advances per painted byte (spill helper 0x94c
+	// skips inc DI on a blank byte), not per column -- so the off-grid spill lands
+	// on phase 3 (magenta), not phase 0 (cyan).  blit_col replicates that walk.
 	static const struct { const char *name, *img, *fb, *base; int ceil; } kCases[] = {
 		{ "lakeshore", "test/gmcgav1/fixtures/lakeshore.img", "test/gmcgav1/fixtures/lakeshore.fb", nullptr, 0 },
 		{ "woods",     "test/gmcgav1/fixtures/woods.img",     "test/gmcgav1/fixtures/woods.fb",     nullptr, 0 },
 		{ "cave",      "test/gmcgav1/fixtures/cave.img",      "test/gmcgav1/fixtures/cave.fb",      nullptr, 0 },
 		{ "crypt",     "test/gmcgav1/fixtures/crypt.img",     "test/gmcgav1/fixtures/crypt.fb",     nullptr, 0 },
 		// RB pic 3: an op12 brush stamps the [40 80 40 80] dither over a flood
-		// fill.  Guards the brush/text/rect fill-pattern PHASE fix -- the per-
-		// pixel blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3,
-		// not entry[0]; collapsing to entry[0] left 51 px wrong here.  Pixel-
-		// exact after the fix (see TODO_v1_cga_graphics "MOSTLY FIXED").
+		// fill.  Guards the brush/text/rect fill-pattern PHASE -- the per-pixel
+		// blitters index the pattern by the GLOBAL CGA byte ((x+20)>>2)&3, not
+		// entry[0]; collapsing to entry[0] leaves 51 px wrong here.
 		{ "rb_03",     "test/gmcgav1/fixtures/rb_03.img",     "test/gmcgav1/fixtures/rb_03.fb",     nullptr, 0 },
 		// Transylvania v1 start room (RA pic 0).  Its fill/subindex/brush tables
 		// are byte-identical to Crimson Crown's, so the same installed tables

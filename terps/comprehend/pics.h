@@ -50,13 +50,7 @@ enum {
 	TITLE_IMAGE = 9999
 };
 
-// Original ScummVM port made this a Common::Archive so Glk's image loader
-// could pull rendered pixels through createReadStreamForMember(). On
-// Spatterlight we render straight into Comprehend::_drawSurface and blit
-// to the graphics window in Comprehend::drawPicture, so the Archive
-// machinery isn't needed — but inheritance is preserved (with stubs) to
-// keep diffs from the ScummVM source small.
-class Pics : public Common::Archive {
+class Pics {
 public:
 	// Called by Comprehend::drawPicture: renders the picture's bytecode
 	// into the global DrawSurface, ready to be blitted.
@@ -87,11 +81,6 @@ private:
 
 private:
 	/**
-	 * Returns the image number if the passed filename is a picture
-	 */
-	int getPictureNumber(const Common::String &filename) const;
-
-	/**
 	 * Draw the specified picture
 	 */
 	void drawPicture(int pictureNum) const;
@@ -106,33 +95,6 @@ public:
 	void load(const Common::StringArray &roomFiles,
 			  const Common::StringArray &itemFiles,
 			  const Common::String &titleFile);
-
-	/**
-	 * Check if a member with the given name is present in the Archive.
-	 * Patterns are not allowed, as this is meant to be a quick File::exists()
-	 * replacement.
-	 */
-	bool hasFile(const Common::Path &path) const override;
-
-	/**
-	 * Add all members of the Archive to list.
-	 * Must only append to list, and not remove elements from it.
-	 *
-	 * @return the number of names added to list
-	 */
-	int listMembers(Common::ArchiveMemberList &list) const override;
-
-	/**
-	 * Returns a ArchiveMember representation of the given file.
-	 */
-	const Common::ArchiveMemberPtr getMember(const Common::Path &path) const override;
-
-	/**
-	 * Create a stream bound to a member with the specified name in the
-	 * archive. If no member with this name exists, 0 is returned.
-	 * @return the newly created input stream
-	 */
-	Common::SeekableReadStream *createReadStreamForMember(const Common::Path &path) const override;
 };
 
 } // namespace Comprehend
