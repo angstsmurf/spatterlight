@@ -721,7 +721,7 @@ static const NSUInteger kScrollbackTrimMinimumSlack = 4000;
         CGFloat viewportHeight = NSHeight(blockscrollview.contentView.bounds);
         CGFloat currentPosition = blockscrollview.contentView.bounds.origin.y;
         CGFloat bottom = NSMaxY(blockTextView.frame) - viewportHeight + blockTextView.textContainerInset.height;
-
+    
         if (respectCaps) {
             // The 100ms delay above means `bottom` is read after later PRINTs
             // may have grown the document. If this callback fires after a

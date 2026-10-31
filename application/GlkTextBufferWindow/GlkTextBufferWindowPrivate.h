@@ -50,6 +50,9 @@ NS_ASSUME_NONNULL_BEGIN
     CGFloat lastScrollOffset;           // Sub-line scroll offset (fraction of cell height)
     BOOL lastAtBottom;                  // Was scrolled to bottom before resize
     BOOL lastAtTop;                     // Was scrolled to top before resize
+    CGFloat storedClipBottom;           // The bottom of the viewport before the system fullscreen
+                                        // resize, see storeClipBottom
+
     NSUInteger rewrapLastseenChar;      // Character under the _lastseen y-coordinate when a frame
                                         // width change invalidated the layout; restoreScroll uses it
                                         // to recompute _lastseen in the new layout. NSNotFound when

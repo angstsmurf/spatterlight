@@ -32,6 +32,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)storeScrollOffset;
 - (void)restoreScrollBarStyle;
 - (void)restoreScroll:(nullable id)sender;
+- (void)storeClipBottom;
+- (void)setScrollerHiddenDuringAnimation:(BOOL)hidden;
+- (void)applyPendingFrameKeepingBottom;
 - (void)forceLayout;
 
 // The scrollback character limit for this window, taken from the current

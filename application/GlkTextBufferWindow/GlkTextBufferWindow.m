@@ -334,6 +334,41 @@
     }
 }
 
+// Remembers the bottom edge of the viewport for applyPendingFrameKeepingBottom.
+// Unlike the character anchor of storeScrollOffset this is an exact position.
+// An animated scroll to the bottom may have stopped a few points past the end
+// of the text, which would not survive the next resize, so settle that first.
+- (void)storeClipBottom {
+    NSClipView *clipView = scrollview.contentView;
+    CGFloat end = MAX(0, NSHeight(_textview.frame) - NSHeight(clipView.bounds));
+    if (NSMinY(clipView.bounds) > end) {
+        [clipView scrollToPoint:NSMakePoint(NSMinX(clipView.bounds), end)];
+        [scrollview reflectScrolledClipView:clipView];
+    }
+    storedClipBottom = NSMaxY(clipView.bounds);
+}
+
+// Applies a frame deferred by setFrame: at once, for a window growing upward
+// on screen (the end of the fullscreen animation). The text at the stored
+// bottom of the view stays where it is and more of the text above is uncovered.
+// When there is no more text above, the clip origin stays at 0 and the text
+// moves up along with the top of the window.
+- (void)setScrollerHiddenDuringAnimation:(BOOL)hidden {
+    scrollview.verticalScroller.alphaValue = hidden ? 0 : 1;
+}
+
+- (void)applyPendingFrameKeepingBottom {
+    if (self.framePending) {
+        self.framePending = NO;
+        super.frame = self.pendingFrame;
+    }
+    NSClipView *clipView = scrollview.contentView;
+    // Text shorter than the viewport stays at the top
+    CGFloat bottom = MIN(storedClipBottom, NSHeight(_textview.frame));
+    [clipView scrollToPoint:NSMakePoint(NSMinX(clipView.bounds),
+                                        MAX(0, bottom - NSHeight(clipView.bounds)))];
+}
+
 // Runs the auto-scroll requested by this flush's output, unless the user
 // has paused it by scrolling up during a command script.
 - (void)resumeAutoScrollWasAtBottom:(BOOL)wasAtBottom {

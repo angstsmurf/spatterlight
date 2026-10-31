@@ -23,6 +23,8 @@ static const NSAutoresizingMaskOptions kResizeFill = NSViewWidthSizable | NSView
 static const NSAutoresizingMaskOptions kResizeCenteredFullHeight = NSViewHeightSizable | NSViewMinXMargin | NSViewMaxXMargin;
 // Fixed size, centered horizontally, attached at the top:
 static const NSAutoresizingMaskOptions kResizeCenteredAtTop = NSViewMinXMargin | NSViewMaxXMargin | NSViewMinYMargin;
+// Fixed size, centered horizontally, attached at the bottom:
+static const NSAutoresizingMaskOptions kResizeCenteredAtBottom = NSViewMinXMargin | NSViewMaxXMargin | NSViewMaxYMargin;
 
 // Wait up to milliseconds (0 = just poll) for fd to become readable.
 static inline BOOL waitForData(int fd, int milliseconds) {
@@ -58,6 +60,11 @@ static inline void runOnMainAfterDelay(NSTimeInterval seconds, dispatch_block_t 
     // the windowed frame is in place, so the system's notification, which
     // can come before or after that, is to be ignored
     BOOL ignoreSystemDidExitFullScreen;
+    // Our custom enter animation outlasts the duration the system gives it,
+    // so the system's windowDidEnterFullScreen: can arrive while it is still
+    // running, and is then left to the end of the animation
+    BOOL enteringFullScreenAnimated;
+    NSTimer *fullScreenStepTimer;
 
     BOOL windowRestoredBySystem;
 
