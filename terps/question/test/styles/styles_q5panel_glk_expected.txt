@@ -65,7 +65,7 @@ SPAN 0 Normal 'A pale hall.'
 ZCOLOR 0 #000000 #000080
 SPAN 0 Normal '\n'
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #000000 #000080
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
@@ -79,6 +79,6 @@ SPAN 0 Normal 'A pale hall.'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n'
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n> '

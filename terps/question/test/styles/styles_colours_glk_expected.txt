@@ -36,10 +36,10 @@ SPAN 0 Normal 'Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '.\nA dark room, described in white.\n'
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   '
+SPAN 1 Normal '                                                                                                  '
 ZCOLOR 0 #ffffff #000000
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
@@ -49,10 +49,10 @@ SPAN 0 Normal 'Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '.\nA dark room, described in white.\n'
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'colours off'
@@ -60,27 +60,27 @@ SPAN 0 Normal '\n'
 ZCOLOR 0 Default Default
 ZCOLOR 0 Default Default
 ZCOLOR 1 Default Default
-SPAN 1 User1 '                                                                                                   Room'
+SPAN 1 User1 '                                                                                                  Room'
 SPAN 0 Normal "\nThe game's own colours are off: text follows the interpreter's theme.  COLOURS ON draws it in the colours the game asks for.\n"
-SPAN 1 User1 '                                                                                                   Room                                                                                                   Room'
+SPAN 1 User1 '                                                                                                  Room                                                                                                  Room'
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
 SPAN 0 Normal '\nYou are in Room.\nA dark room, described in white.\n'
-SPAN 1 User1 '                                                                                                   Room                                                                                                   Room'
+SPAN 1 User1 '                                                                                                  Room                                                                                                  Room'
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'colours on'
 SPAN 0 Normal '\n'
 ZCOLOR 0 #ffffff #000000
 ZCOLOR 0 #ffffff #000000
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal "\nThe game's own colours are on: text is drawn in the colours it was written for.  COLOURS OFF hands it back to the interpreter's theme.\n"
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
@@ -90,9 +90,9 @@ SPAN 0 Normal 'Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '.\nA dark room, described in white.\n'
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 ZCOLOR 1 #000000 #ffffff
-SPAN 1 Normal '                                                                                                   Room'
+SPAN 1 Normal '                                                                                                  Room'
 ZCOLOR 0 #ffffff #000000
 SPAN 0 Normal '\n> '

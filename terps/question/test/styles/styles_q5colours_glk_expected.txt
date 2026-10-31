@@ -69,7 +69,7 @@ SPAN 0 Normal 'A dark hall.'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n'
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
@@ -83,7 +83,7 @@ SPAN 0 Normal 'A dark hall.'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n'
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'colours off'
@@ -91,24 +91,24 @@ SPAN 0 Normal '\n'
 ZCOLOR 0 Default Default
 ZCOLOR 0 Default Default
 ZCOLOR 1 Default Default
-SPAN 1 User1 '                                                                                                   A Hall'
+SPAN 1 User1 '                                                                                                  A Hall'
 SPAN 0 Normal "\nThe game's own colours are off: text follows the interpreter's theme.  COLOURS ON draws it in the colours the game asks for.\n"
-SPAN 1 User1 '                                                                                                   A Hall'
+SPAN 1 User1 '                                                                                                  A Hall'
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
 SPAN 0 Normal '\nYou are in a Hall.\nA dark hall.\n'
-SPAN 1 User1 '                                                                                                   A Hall'
+SPAN 1 User1 '                                                                                                  A Hall'
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'colours on'
 SPAN 0 Normal '\n'
 ZCOLOR 0 #ffffff #000080
 ZCOLOR 0 #ffffff #000080
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal "\nThe game's own colours are on: text is drawn in the colours it was written for.  COLOURS OFF hands it back to the interpreter's theme.\n"
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n> '
 SPAN 0 Input 'look'
@@ -122,6 +122,6 @@ SPAN 0 Normal 'A dark hall.'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n'
 ZCOLOR 1 #000080 #ffffff
-SPAN 1 Normal '                                                                                                   A Hall'
+SPAN 1 Normal '                                                                                                  A Hall'
 ZCOLOR 0 #ffffff #000080
 SPAN 0 Normal '\n> '
