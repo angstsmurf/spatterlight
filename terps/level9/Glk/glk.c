@@ -7145,6 +7145,45 @@ gln_bump_marker (char *name, const char *word)
   return 0;
 }
 
+/*
+ * gln_unbump_marker()
+ *
+ * The reverse of gln_bump_marker(): step the digit or letter after the last
+ * occurrence of `word` back by one, refusing to go below 0 / A.
+ */
+static int
+gln_unbump_marker (char *name, const char *word)
+{
+  char *basename, *marker = NULL, *p;
+  size_t wl = strlen (word);
+
+  basename = strrchr (name, GLN_FILE_DELIM);
+  basename = basename ? basename + 1 : name;
+
+  for (p = basename; *p; p++)
+    {
+      size_t i;
+      for (i = 0; i < wl; i++)
+        if (tolower ((unsigned char)p[i]) != tolower ((unsigned char)word[i]))
+          break;
+      if (i == wl)
+        marker = p;
+    }
+  if (!marker)
+    return 0;
+
+  p = marker + wl;
+  while (*p == ' ')
+    p++;
+  if ((isdigit ((unsigned char)*p) && *p > '0')
+      || (isalpha ((unsigned char)*p) && tolower ((unsigned char)*p) > 'a'))
+    {
+      (*p)--;
+      return 1;
+    }
+  return 0;
+}
+
 /* True if `path` names an existing, readable file. */
 static int
 gln_file_exists (const char *path)
@@ -7196,6 +7235,46 @@ gln_advance_tape_file (char *name, int size)
       strncpy (name, attempt, size - 1);
       name[size - 1] = '\0';
       return 1;
+    }
+
+  return 0;
+}
+
+/*
+ * gln_previous_tape_file()
+ *
+ * Step a bare tape path back to the file that gln_advance_tape_file() would
+ * advance to it from.  Requiring that round trip keeps the editions of Ingrid's
+ * Back apart: "Tape 1 - Side 2" holds the 128K edition, and its first part is
+ * not a continuation of "Tape 1 - Side 1", which advances to "Tape 2 - Side 1".
+ * Returns 1 and updates `name` in place on success.
+ */
+static int
+gln_previous_tape_file (char *name, int size)
+{
+  static const char *const words[] = { "tape", "side" };
+  char attempt[MAX_PATH], forward[MAX_PATH];
+  int i;
+
+  if (strlen (name) + 1 > sizeof attempt)
+    return 0;
+
+  for (i = 0; i < 2; i++)
+    {
+      strncpy (attempt, name, sizeof attempt - 1);
+      attempt[sizeof attempt - 1] = '\0';
+      if (!gln_unbump_marker (attempt, words[i]) || !gln_file_exists (attempt))
+        continue;
+
+      strncpy (forward, attempt, sizeof forward - 1);
+      forward[sizeof forward - 1] = '\0';
+      if (gln_advance_tape_file (forward, sizeof forward)
+          && strcmp (forward, name) == 0)
+        {
+          strncpy (name, attempt, size - 1);
+          name[size - 1] = '\0';
+          return 1;
+        }
     }
 
   return 0;
@@ -7402,10 +7481,14 @@ os_set_filenumber (char *newname, int size, int file_number)
       int room, parts;
       if (hash) *hash = '\0';
 
-      /* Continue onto the next physical tape/side when the requested part
-       * lies beyond those on this one (see os_get_game_file). */
-      parts = CountTapeParts (newname);
-      if (parts > 0 && part > parts && gln_advance_tape_file (newname, size))
+      /* The game asks for a part of the whole game, counted from 1, and the
+       * tape in use may be any of the set.  Go back to the first tape, then
+       * forward to the one holding that part, keeping the count relative to
+       * it (see os_get_game_file). */
+      while (gln_previous_tape_file (newname, size))
+        ;
+      while ((parts = CountTapeParts (newname)) > 0 && part > parts
+             && gln_advance_tape_file (newname, size))
         part -= parts;
 
       write_at = newname + strlen (newname);
