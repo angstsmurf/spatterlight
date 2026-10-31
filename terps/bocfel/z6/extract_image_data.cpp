@@ -4,10 +4,10 @@
 //
 //  Created by Administrator on 2023-07-17.
 //
-//  Extracts image data from Infocom-format graphics files (used by V6 Z-machine
-//  games like Zork Zero, Arthur, Shogun, and Journey) and from Blorb resource
-//  archives. The Infocom format stores images as compressed pixel data with
-//  per-image or shared Huffman trees and color palettes.
+//  Extracts image data from Infocom-format graphics files (used by V6
+//  Z-machine games like Zork Zero, Arthur, Shogun, and Journey) and from Blorb
+//  resource archives. The Infocom format stores images as compressed pixel
+//  data with per-image or shared Huffman trees and color palettes.
 //
 //  Parts are inspired by Mark Howell's pix2gif utility
 
@@ -43,7 +43,8 @@ static const size_t kFileHeaderSize = 16;
 // Header flags value indicating monochrome Mac graphics
 static const uint8_t kMacBWFlags = 0x0e;
 
-// Header flag: the header has the offset of a Huffman tree shared by all images
+// Header flag: the header has the offset of a Huffman tree shared by all
+// images
 static const uint8_t kGlobalHuffmanFlag = 0x04;
 
 // Huffman decoding tree: 256 entries, one per possible byte value
@@ -82,10 +83,10 @@ static const glui32 kAPalImageIdOffset = 2;
 // Minimum meaningful Blorb resource size (must contain at least a header)
 static const glui32 kMinBlorbResourceSize = 8;
 
-// Header structure at the start of an Infocom graphics file.
-// Multi-disk games split images across several files, each identified by disk_part.
-// The fields are as Infocom's own YZIP interpreters describe them (struct
-// PF_HEADER in the IBM sources, struct gHeader in the Amiga ones).
+// Header structure at the start of an Infocom graphics file. Multi-disk games
+// split images across several files, each identified by disk_part. The fields
+// are as Infocom's own YZIP interpreters describe them (struct PF_HEADER in
+// the IBM sources, struct gHeader in the Amiga ones).
 //
 // Header flags, from the same sources:
 //   0x01  the file has a global directory
@@ -166,8 +167,8 @@ static uint32_t read_24_big_endian_bits(uint8_t **ptr)
     return (uint32_t)(upper_byte << 16 | middle_byte << 8 | lower_byte);
 }
 
-// Shared Huffman decoding tree used by images that don't specify their own tree.
-// Populated from the data immediately following the image directory.
+// Shared Huffman decoding tree used by images that don't specify their own
+// tree. Populated from the data immediately following the image directory.
 uint8_t default_huffman_tree[kHuffmanTreeSize];
 
 // Read the header at `ptr`, which the caller has checked holds at least
@@ -298,7 +299,8 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
 
     uint32_t pixel_data_length = entry.next_entry_data_offset - entry.pixel_data_offset;
 
-    // Validate that pixel data lies within the file bounds (use size_t to avoid 32-bit overflow)
+    // Validate that pixel data lies within the file bounds (use size_t to
+    // avoid 32-bit overflow)
     if ((size_t)entry.pixel_data_offset + (size_t)pixel_data_length > datasize)
         return;
 
@@ -308,9 +310,10 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
     image->data = (uint8_t *)MemAlloc(pixel_data_length);
     memcpy(image->data, data + entry.pixel_data_offset, pixel_data_length);
 
-    // Bit 0 of the flags indicates the image has a transparent color.
-    // The transparent color index is stored in the upper bits of the flags field,
-    // shifted by 4 bits in compact (8-byte) entries or 12 bits in larger entries.
+    // Bit 0 of the flags indicates the image has a transparent color. The
+    // transparent color index is stored in the upper bits of the flags field,
+    // shifted by 4 bits in compact (8-byte) entries or 12 bits in larger
+    // entries.
     if (entry.flags & kTransparencyFlag) {
         image->transparency = 1;
         if (entry_size == kCompactEntrySize) {
@@ -330,7 +333,8 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
         image->huffman_tree = default_huffman_tree;
     }
 
-    // Copy the per-image color palette if present (512 bytes = 256 color entries x 2 bytes each)
+    // Copy the per-image color palette if present (512 bytes = 256 color
+    // entries x 2 bytes each)
     if (entry.color_map_offset != 0 &&
         (size_t)entry.color_map_offset + kColorPaletteSize <= datasize) {
         image->palette = (uint8_t *)MemAlloc(kColorPaletteSize);
@@ -338,18 +342,22 @@ static void load_image(ImageStruct *image, const ImageDirectoryEntry &entry, int
     }
 }
 
-// Parse an Infocom-format graphics file and extract all images into an ImageStruct array.
+// Parse an Infocom-format graphics file and extract all images into an
+// ImageStruct array.
 //
 // Parameters:
 //   data       - pointer to the entire graphics file loaded into memory
 //   datasize   - total byte length of the graphics file
-//   disk       - expected disk part number (files for the wrong disk are skipped)
+//   disk       - expected disk part number (files for the wrong disk are
+//                skipped)
 //   offset     - byte offset within data where the header begins
 //   image_list - receives the allocated array of ImageStruct results
 //   version    - receives the graphics format version from the file header
-//   type       - in/out graphics type; may be reclassified (e.g. Amiga -> Mac BW) based on header flags
+//   type       - in/out graphics type; may be reclassified (e.g. Amiga ->
+//                Mac BW) based on header flags
 //
-// Returns the number of images extracted, or 0 if the file is for the wrong disk.
+// Returns the number of images extracted, or 0 if the file is for the wrong
+// disk.
 int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, ImageStruct **image_list, int *version, GraphicsType *type)
 {
     *image_list = nullptr;
@@ -369,9 +377,10 @@ int extract_images(uint8_t *data, size_t datasize, int disk, off_t offset, Image
         return 0;
     }
 
-    // A file named "pic.data" may contain colour Amiga graphics or monochrome Mac graphics,
-    // but the flags always seem to equal 0xe (14) if the graphics are monochrome.
-    // (Amiga graphics data and Mac colour graphics data are identical.)
+    // A file named "pic.data" may contain colour Amiga graphics or monochrome
+    // Mac graphics, but the flags always seem to equal 0xe (14) if the
+    // graphics are monochrome. (Amiga graphics data and Mac colour graphics
+    // data are identical.)
     if (file_header.flags == kMacBWFlags) {
         if (*type == kGraphicsTypeAmiga)
             *type = kGraphicsTypeMacBW;
@@ -459,7 +468,8 @@ static bool blorb_picture_size(const giblorb_result_t *resource, glui32 *width, 
     return true;
 }
 
-// Extract all picture resources from a Blorb archive into an ImageStruct array.
+// Extract all picture resources from a Blorb archive into an ImageStruct
+// array.
 //
 // Parameters:
 //   image_list - receives the allocated array of ImageStruct results
@@ -485,8 +495,8 @@ int extract_images_from_blorb(ImageStruct **image_list)
     int output_index = 0;
 
     // Iterate over all possible resource IDs in the range and load each image.
-    // Not every ID in the range necessarily exists, so we only populate entries
-    // for resources that load successfully.
+    // Not every ID in the range necessarily exists, so we only populate
+    // entries for resources that load successfully.
     for (glui32 resource_id = first_resource_id; ; resource_id++) {
         if (output_index >= (int)total_image_count)
             break;
@@ -518,8 +528,8 @@ int extract_images_from_blorb(ImageStruct **image_list)
     }
 
     // Check for an "APal" (Adaptive Palette) chunk. This optional Blorb chunk
-    // lists images that should adapt their palette to the current display rather
-    // than using a fixed palette. For each listed image, we discard any
+    // lists images that should adapt their palette to the current display
+    // rather than using a fixed palette. For each listed image, we discard any
     // extracted palette so the renderer knows to use adaptive coloring.
     if (giblorb_load_chunk_by_type(resource_map,
                                    giblorb_method_Memory, &blorb_result, giblorb_make_id('A', 'P', 'a', 'l'),

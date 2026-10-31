@@ -455,8 +455,8 @@ void FANUCCI(void) {
 // encyclopedia, map, Double Fanucci -- and separates them with @erase_window
 // -1, ending with one more before it hands off to the interactive section.
 // Unlike normal play it only *sets up* the mini-games (e.g. SETUP-FANUCCI,
-// never the FANUCCI play loop above that tears its windows down at the end), so
-// the Glk windows they create are never destroyed and linger on top of the
+// never the FANUCCI play loop above that tears its windows down at the end),
+// so the Glk windows they create are never destroyed and linger on top of the
 // following sample -- and into the interactive part. Mirror
 // arthur_erase_window() and tear those leftovers down on the fullscreen clear.
 //
@@ -479,7 +479,8 @@ void z0_erase_window(int16_t index) {
             z0_close_encyclopedia_window();
         }
         // Hide the fullscreen foreground graphics window the sample took over
-        // and switch drawing back to the background window (cf. DISPLAY_BORDER).
+        // and switch drawing back to the background window (cf.
+        // DISPLAY_BORDER).
         if (current_graphics_buf_win == graphics_fg_glk) {
             win_sizewin(graphics_fg_glk->peer, 0, 0, 0, 0);
             glk_cancel_char_event(graphics_fg_glk);
@@ -739,9 +740,9 @@ void DRAW_FLOWERS(void) {
         left = L_FLOWERS_0;
         right = R_FLOWERS_0;
     } else {
-        // Find a pile that can be reduced to make the Nim-sum zero.
-        // The target value for that pile is pile[i] ^ nim_sum;
-        // this is smaller than pile[i] when pile[i] has a leading bit of nim_sum set.
+        // Find a pile that can be reduced to make the Nim-sum zero. The target
+        // value for that pile is pile[i] ^ nim_sum; this is smaller than
+        // pile[i] when pile[i] has a leading bit of nim_sum set.
         int pile = 0;
         for (int i = 0; i < 4; i++) {
             if ((pile_table[i] ^ nim_sum) < pile_table[i]) {
@@ -1070,9 +1071,10 @@ void PBOZ_WIN_CHECK(void) {
         }
         store_word(zt.PEG_TABLE + 7 * 2, 1);
     } else if (zo.NOT_HERE_OBJECT != 0) {
-        // Each of the first 21 attributes of NOT-HERE-OBJECT represents a peg on the board.
-        // A set attribute means the peg is out-of-play. We simulate a winning state by
-        // setting all of them and then clearing one (number 7.)
+        // Each of the first 21 attributes of NOT-HERE-OBJECT represents a peg
+        // on the board. A set attribute means the peg is out-of-play. We
+        // simulate a winning state by setting all of them and then clearing
+        // one (number 7.)
         for (int i = 1; i < 22; i++) {
             internal_set_attr(zo.NOT_HERE_OBJECT, i);
         }
@@ -1233,7 +1235,8 @@ static void draw_peg(uint16_t table, int offset) {
     }
 }
 
-// Whether the last move was an undo (controls whether the Undo button is dimmed)
+// Whether the last move was an undo (controls whether the Undo button is
+// dimmed)
 static bool undoing = true;
 
 // Redraws the entire Tower of Bozbar display: border, all weights on all
@@ -1379,8 +1382,9 @@ bool redraw_minigame_on_resize(uint16_t current_split) {
             uint16_t CX = user_word(zt.BOARD_TABLE + (selected_peg_pos + 1) * 2);
             update_blink_coordinates(CX, CY);
             // Without a BLINK-TBL (before r366) the highlight is blinked by a
-            // timed INPUT in BLINK. Re-arm the timer that z0_update_on_resize()
-            // cancelled, or the peg stops blinking (as for the map marker there).
+            // timed INPUT in BLINK. Re-arm the timer that
+            // z0_update_on_resize() cancelled, or the peg stops blinking (as
+            // for the map marker there).
             if (zg.BLINK_TBL == 0)
                 glk_request_timer_events(1);
         } else {

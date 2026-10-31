@@ -71,10 +71,11 @@ struct AppleDiskSet {
 static AppleDiskSet disks;
 
 // Reads an Apple II disk image file and extracts the Infocom V6 data from it.
-// Handles the full pipeline: if the file is in WOZ format, it is first converted
-// to nibble format, then the CiderPress routines extract the Infocom file data.
-// On success, returns a malloc'd buffer with the extracted data and sets *game
-// (game identifier), *index (disk side number, 1-based), and *file_length.
+// Handles the full pipeline: if the file is in WOZ format, it is first
+// converted to nibble format, then the CiderPress routines extract the Infocom
+// file data. On success, returns a malloc'd buffer with the extracted data and
+// sets *game (game identifier), *index (disk side number, 1-based), and
+// *file_length.
 static uint8_t *read_infocom_data_from_disk(const char *filename, int *game, int *index, size_t *file_length) {
     struct stat st;
     if (stat(filename, &st) != 0 || st.st_size <= 0) {
@@ -282,10 +283,10 @@ static off_t find_graphics_data_offset(int disk) {
 }
 
 // Extracts graphics images from all disk sides and merges them into a single
-// flat array. Each disk may contain its own set of images at a different offset.
-// The per-disk ImageStruct arrays are freed after their contents are copied out.
-// *version is the release number of the first side that has one: sides 3-5
-// of Journey have 0 there, where side 2 has the real number.
+// flat array. Each disk may contain its own set of images at a different
+// offset. The per-disk ImageStruct arrays are freed after their contents are
+// copied out. *version is the release number of the first side that has one:
+// sides 3-5 of Journey have 0 there, where side 2 has the real number.
 static int collect_images_from_disks(ImageStruct **output_images, int *version, int numdisks) {
     ImageStruct *per_disk_images[kMaxDiskSides];
 

@@ -17,7 +17,8 @@
 //   clickable weights and pegs, and an undo button.
 // - Encyclopedia Frobozzica: Fullscreen encyclopedia entries with images
 //   and a text overlay window.
-// - Rebus: A number of fullscreen images depicting a rebus decreasingly covered
+// - Rebus: A number of fullscreen images depicting a rebus decreasingly
+//   covered
 //   by animal-shaped jigsaw pieces.
 // - Map: A fullscreen map with a blinking player-location indicator.
 //
@@ -70,8 +71,8 @@ static bool should_show_rebus_hint_message = false;
 static bool should_show_map_note = false;
 
 // Image scale (x and y) in effect when the map was last composited. The
-// pre-release revisions (r242/r296/r66, r366 demo) don't recomposite the map on
-// resize, so the live-redrawn
+// pre-release revisions (r242/r296/r66, r366 demo) don't recomposite the map
+// on resize, so the live-redrawn
 // you-are-here marker is drawn at this scale to stay aligned with the rest of
 // the (GUI-rescaled) map. 0 means "no map drawn yet".
 static float map_entry_imagescalex = 0;
@@ -191,7 +192,8 @@ void after_SPLIT_BY_PICTURE(void) {
     }
 }
 
-// Z-machine entry point: toggles between graphics and no-graphics display modes.
+// Z-machine entry point: toggles between graphics and no-graphics display
+// modes.
 void V_MODE(void) {
     if (screenmode != MODE_NO_GRAPHICS) {
         screenmode = MODE_NO_GRAPHICS;
@@ -488,9 +490,9 @@ void DISPLAY_BORDER(BorderType border) {
 // window whose curwin moved underneath it (the blink-timeout routine flips
 // SET_WINDOW), so it is never cancelled by the read's own cleanup. glkimp then
 // routes the next keypress to that still-armed char window instead of the
-// prompt's line field, which arrives as a spurious evtype_CharInput and -- once
-// that request is also gone -- leaves the line read with no window holding
-// input focus, so the prompt accepts nothing from the keyboard.
+// prompt's line field, which arrives as a spurious evtype_CharInput and --
+// once that request is also gone -- leaves the line read with no window
+// holding input focus, so the prompt accepts nothing from the keyboard.
 //
 // Clear any lingering char-input request on every window the map could have
 // armed before the line read is established, so the line field is the only
@@ -584,10 +586,10 @@ static bool z0_init_status_line(bool DONT_CLEAR) {
         } else if (zr.SET_BORDER != 0) {
             DISPLAY_BORDER((BorderType)call_routine(zr.SET_BORDER));
         }
-        // If neither the CURRENT-BORDER global nor a detected SET-BORDER routine
-        // is available (the release-tuned patterns don't match the pre-release
-        // r296/r66 layouts), skip the border draw rather than calling
-        // pack_routine(0) into a garbage routine.
+        // If neither the CURRENT-BORDER global nor a detected SET-BORDER
+        // routine is available (the release-tuned patterns don't match the
+        // pre-release r296/r66 layouts), skip the border draw rather than
+        // calling pack_routine(0) into a garbage routine.
         // The game records which compass directions are currently drawn as
         // flags on ROOMS, flag 64 - <direction property>. Forget them all,
         // so that the whole rose is drawn again on the new border. (The
@@ -621,8 +623,9 @@ void INIT_STATUS_LINE(void) {
 }
 
 // Prints the current room name in the left status window. Handles special
-// cases: narrow displays (Apple IIe/DOS) use abbreviated property descriptions,
-// and "Great Underground" rooms use a shortened prefix to save space.
+// cases: narrow displays (Apple IIe/DOS) use abbreviated property
+// descriptions, and "Great Underground" rooms use a shortened prefix to save
+// space.
 static void draw_new_here(void) {
     V6_STATUS_WINDOW.x = 1;
     V6_STATUS_WINDOW.y = 1;
@@ -889,13 +892,12 @@ void z0_UPDATE_STATUS_LINE(void) {
 void z0_update_colors(void) {
     // Every system has its own default colors:
     // Amiga: black text on grey
-    // IBM: EGA & VGA: black text on white. CGA: white text on black (on a real CGA monitor, "white" may be green or orange)
-    // Macintosh: Black text on white
+    // IBM: EGA & VGA: black text on white. CGA: white text on black (on a real
+    // CGA monitor, "white" may be green or orange) Macintosh: Black text on
+    // white
     // Apple 2: White text on black
 
-    // Count invocations so the first-call default-colour reset below fires
-    // exactly once. (This increment used to be a side effect of a debug
-    // fprintf that was removed; the == 1 branch is dead without it.)
+    // Count calls so the first-call default-colour reset below fires once.
     number_of_update_color_calls++;
 
     uint16_t default_fg = get_global(zg.DEFAULT_FG);
@@ -903,7 +905,6 @@ void z0_update_colors(void) {
 
     uint16_t current_fg = get_global(fg_global_idx);
     uint16_t current_bg = get_global(bg_global_idx);
-
 
     switch (options.int_number) {
         case INTERP_AMIGA:
@@ -956,8 +957,8 @@ void z0_update_colors(void) {
     // so the screen still gets the right defaults.
     //
     // DEFAULT-FG/DEFAULT-BG (and their DEFAULT-COLORS routine) do not exist in
-    // early revisions such as r343; their finder leaves the indices at 0. Guard
-    // the writes so we don't clobber global 0 every time colours update.
+    // early revisions such as r343; their finder leaves the indices at 0.
+    // Guard the writes so we don't clobber global 0 every time colours update.
     if (zg.DEFAULT_FG != 0)
         set_global(zg.DEFAULT_FG, DEFAULT_COLOUR);
     if (zg.DEFAULT_BG != 0)
@@ -986,7 +987,8 @@ void z0_update_colors(void) {
     bool colorized_bw = (gli_z6_colorize &&
                          (gli_z6_graphics == kGraphicsTypeCGA || gli_z6_graphics == kGraphicsTypeMacBW));
 
-    // When gli_enable_styles is true, all Spatterlight color settings (gfgcol, gbgcol) are ignored
+    // When gli_enable_styles is true, all Spatterlight color settings (gfgcol,
+    // gbgcol) are ignored
 
     if (gli_enable_styles && !colorized_bw) {
         update_user_defined_colours();
@@ -1036,8 +1038,8 @@ static glsi32 encyclopedia_background_color(void) {
 // Only the monochrome (CGA/MacBW) fallback pairs with the monochrome_white
 // background, so it uses monochrome_black -- the matching dark colour, which
 // (like monochrome_white) shifts when the "colorize 1-bit graphics" setting is
-// on. Don't use monochrome_white/black for the fixed-palette modes above: those
-// globals are only meaningfully white/black when colorize is off.
+// on. Don't use monochrome_white/black for the fixed-palette modes above:
+// those globals are only meaningfully white/black when colorize is off.
 static glsi32 encyclopedia_foreground_color(void) {
     switch (graphics_type) {
         case kGraphicsTypeApple2:
@@ -1069,17 +1071,17 @@ static void adjust_encyclopedia_text_window(void) {
     // Drive the encyclopedia text entirely from the style_Normal hints rather
     // than per-glyph Glk zcolors. Whenever text is printed, set_window_style()
     // pushes the window's fg_color/bg_color as the active zcolor, and
-    // Spatterlight's coloredAttributes then overrides each glyph cell's colours
-    // with those concrete values -- which would repaint the background instead
-    // of the parchment and, in Apple 2 mode, leave black text on the black
-    // background. The game keeps re-setting windows[3]'s colours up to the moment
-    // it prints, so resetting them here doesn't stick; instead set_window_style()
-    // is taught to push zcolor_Default for this window (see screen.cpp), which
-    // leaves the hints below in charge. Because the colours come from the hints,
-    // not a baked-in per-run zcolor, win_refresh re-applies them to the
-    // already-printed text too -- so a graphics-type change on the fly
-    // (e.g. Apple 2 -> EGA) recolours the existing text. V_REFRESH restores the
-    // normal hints when the screen is dismissed.
+    // Spatterlight's coloredAttributes then overrides each glyph cell's
+    // colours with those concrete values -- which would repaint the background
+    // instead of the parchment and, in Apple 2 mode, leave black text on the
+    // black background. The game keeps re-setting windows[3]'s colours up to
+    // the moment it prints, so resetting them here doesn't stick; instead
+    // set_window_style() is taught to push zcolor_Default for this window (see
+    // screen.cpp), which leaves the hints below in charge. Because the colours
+    // come from the hints, not a baked-in per-run zcolor, win_refresh
+    // re-applies them to the already-printed text too -- so a graphics-type
+    // change on the fly (e.g. Apple 2 -> EGA) recolours the existing text.
+    // V_REFRESH restores the normal hints when the screen is dismissed.
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_TextColor, encycl_fgnd);
     glk_stylehint_set(wintype_TextBuffer, style_Normal, stylehint_BackColor, encycl_bgnd);
     v6_define_window(&Z0_ENCYCLOPEDIA_WINDOW, x * imagescalex, y * imagescaley, width * imagescalex,
@@ -1116,18 +1118,18 @@ void SLIDE_SHOW_END(void) {
 // and the local variables used by the BLINK routine. Also flushes the
 // image buffer and restarts the timer to trigger the next blink cycle.
 void update_blink_coordinates(uint16_t x, uint16_t y) {
-    // The release blink mechanism -- a timer-driven BLINK routine that reads the
-    // marker coordinates from BLINK-TBL -- is absent in the pre-release
+    // The release blink mechanism -- a timer-driven BLINK routine that reads
+    // the marker coordinates from BLINK-TBL -- is absent in the pre-release
     // revisions (r242/r296/r66, r366 demo).
     // They blink the marker via an INPUT timeout + TYPED? flag and have no
     // BLINK-TBL, so zg.BLINK_TBL is 0. Writing to get_global(0) + offset there
-    // scribbles over arbitrary memory, which knocks the map loop out of its read
-    // and drops back to normal play -- both on a live resize and on autorestore
-    // (screenmode == MODE_MAP is restored, so both reach here via the MODE_MAP
-    // path). The betas also drive their own input timer, so we must not
-    // commandeer it. Only touch BLINK-TBL and the timer when the release
-    // mechanism is actually present; the store_variable() updates below target
-    // the BLINK frame's Y/X locals and are correct either way.
+    // scribbles over arbitrary memory, which knocks the map loop out of its
+    // read and drops back to normal play -- both on a live resize and on
+    // autorestore (screenmode == MODE_MAP is restored, so both reach here via
+    // the MODE_MAP path). The betas also drive their own input timer, so we
+    // must not commandeer it. Only touch BLINK-TBL and the timer when the
+    // release mechanism is actually present; the store_variable() updates
+    // below target the BLINK frame's Y/X locals and are correct either way.
     if (zg.BLINK_TBL != 0) {
         store_word(get_global(zg.BLINK_TBL) + 3 * 2, y);
         store_word(get_global(zg.BLINK_TBL) + 4 * 2, x);
@@ -1220,11 +1222,12 @@ static void z0_refresh_sl_loc_tbl(void) {
     // refreshed. It is not a scalable dimension: the compass hit-test reads
     // word[10] as a *flag* (routine 0x14318) to choose between the angle-based
     // classifier 0x1c17c (when 0) and the Macintosh fixed-rectangle classifier
-    // 0x1bfec (when non-zero). 0x1c17c adapts to the picture size and scale and
-    // is the one that matches our scaled graphics; 0x1bfec's hard-coded native
-    // pixel rects do not, so they misfire at scale > 1 (north read as east,
-    // etc.). ICON's image size is (0,0), so the old generic dim*scale+1 rewrite
-    // turned the flag into 1 and forced the broken path. Leave it untouched.
+    // 0x1bfec (when non-zero). 0x1c17c adapts to the picture size and scale
+    // and is the one that matches our scaled graphics; 0x1bfec's hard-coded
+    // native pixel rects do not, so they misfire at scale > 1 (north read as
+    // east, etc.). ICON's image size is (0,0), so the old generic dim*scale+1
+    // rewrite turned the flag into 1 and forced the broken path. Leave it
+    // untouched.
     static const struct { int picnum; int byte_offset; } entries[] = {
         { HERE_LOC,        0  },
         { REGION_LOC,      4  },
@@ -1247,14 +1250,15 @@ static void z0_refresh_sl_loc_tbl(void) {
 // V-$REFRESH. We re-invoke the game's own V-MAP routine with its trailing
 // BLINK-WHILE-AWAITING-INPUT call temporarily patched to rtrue, so it redraws
 // the whole map (border, room icons, connections, compass) at the *current*
-// image scale and then returns -- instead of entering the blink/input loop (and
-// its exit-to-normal V-$REFRESH). The still-suspended blink loop keeps drawing
-// the marker, now onto a freshly composited map, so resize rescales correctly
-// and autorestore repopulates the empty pixmap rather than erasing the map.
+// image scale and then returns -- instead of entering the blink/input loop
+// (and its exit-to-normal V-$REFRESH). The still-suspended blink loop keeps
+// drawing the marker, now onto a freshly composited map, so resize rescales
+// correctly and autorestore repopulates the empty pixmap rather than erasing
+// the map.
 //
-// No-op (caller falls back to leaving the GUI-rescaled image in place) when the
-// routine wasn't located. On a redraw the map's "ready? (y/n)" / jester prompts
-// are already past, so V-MAP runs straight through to the drawing.
+// No-op (caller falls back to leaving the GUI-rescaled image in place) when
+// the routine wasn't located. On a redraw the map's "ready? (y/n)" / jester
+// prompts are already past, so V-MAP runs straight through to the drawing.
 static void z0_redraw_map(void) {
     if (zr.V_MAP == 0 || zr.V_MAP_BLINK_CALL == 0)
         return;
@@ -1266,8 +1270,9 @@ static void z0_redraw_map(void) {
 
     flush_image_buffer();
 
-    // The map is now composited at the live scale, so the marker (drawn live by
-    // the blink loop) lands correctly without the map_entry_imagescale override.
+    // The map is now composited at the live scale, so the marker (drawn live
+    // by the blink loop) lands correctly without the map_entry_imagescale
+    // override.
     map_entry_imagescalex = imagescalex;
     map_entry_imagescaley = imagescaley;
 }
@@ -1454,7 +1459,8 @@ void z0_update_after_restore(void) {
 //    normal-mode room graphic restored from the autosave, which shows around
 //    and below the foreground encyclopedia window. The live entry path blanks
 //    it in z0_display_picture, but autorestore doesn't go through there, so
-//    blank it here. A restored caption window (Z0_ENCYCLOPEDIA_WINDOW) in slideshow mode
+//    blank it here. A restored caption window (Z0_ENCYCLOPEDIA_WINDOW) in
+//      slideshow mode
 //    uniquely identifies the encyclopedia (title/rebus never create it).
 //
 // 2. Peggleboz: if we were in Peggleboz with a peg selected, the C++ static
@@ -1708,9 +1714,10 @@ bool z0_display_picture(int x, int y, Window *win) {
     // recomposited on resize -- the GUI
     // rescales the already-rendered map image -- but the game redraws the
     // blinking you-are-here marker live, and draw_to_buffer would place it at
-    // the current (resized) scale, off its room icon. Composite it at the scale
-    // the map was drawn with so it stays put. At map entry the two scales are
-    // equal, so this only differs once the window has actually been resized.
+    // the current (resized) scale, off its room icon. Composite it at the
+    // scale the map was drawn with so it stays put. At map entry the two
+    // scales are equal, so this only differs once the window has actually been
+    // resized.
     if (screenmode == MODE_MAP && zg.BLINK_TBL == 0 && map_entry_imagescalex != 0 &&
         (imagescalex != map_entry_imagescalex || imagescaley != map_entry_imagescaley)) {
         float saved_x = imagescalex, saved_y = imagescaley;

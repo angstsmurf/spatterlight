@@ -54,8 +54,8 @@ enum StampBits {
 #define JOURNEY_BG_GRID windows[1]       // Full-screen grid window (borders, command area)
 #define JOURNEY_GRAPHICS_WIN windows[3]  // Graphics window (location artwork, left side)
 
-// Font 3 character codes used for drawing box-drawing borders in the grid window.
-// These are specific to the Infocom font 3 character set.
+// Font 3 character codes used for drawing box-drawing borders in the grid
+// window. These are specific to the Infocom font 3 character set.
 constexpr int THICK_V_LINE = 57; // Thick vertical line (column separator between Name and Commands)
 constexpr int THIN_V_LINE = 41; // Thin vertical line (column separators elsewhere)
 constexpr int H_LINE = 39; // Horizontal line (divider between text area and command area)
@@ -120,9 +120,10 @@ static float journey_image_scale = 1.0;
 
 static glui32 screen_width_in_chars, screen_height_in_chars;
 
-// Platform-dependent display flags derived from the interpreter number setting.
-// border_flag: Whether to draw a decorative border around the entire screen (Amiga only).
-// font_3_flag: Whether Font 3 (box-drawing) characters are available (Amiga and Mac).
+// Platform-dependent display flags derived from the interpreter number
+// setting. border_flag: Whether to draw a decorative border around the entire
+// screen (Amiga only). font_3_flag: Whether Font 3 (box-drawing) characters
+// are available (Amiga and Mac).
 static bool global_border_flag, global_font_3_flag;
 
 // State for in-progress keyboard input (name entry or Elvish typing).
@@ -133,12 +134,13 @@ static uint16_t input_line = 0;                // Current cursor row (1-based)
 static uint16_t input_table = 0;               // Z-machine address of input buffer
 static int serial_as_int = 0;                  // Game serial number as integer, for version checks
 
-// Describes a single "VoiceOver" menu entry. These are standard macOS UI menus or dialogs that reflect
-// the in-game command area menu text, in order to make the game playable for visually
-// impaired people. When the built-in macOS text-to-speech system VoiceOver is off,
-// these menus are not shown.
+// Describes a single "VoiceOver" menu entry. These are standard macOS UI menus
+// or dialogs that reflect the in-game command area menu text, in order to make
+// the game playable for visually impaired people. When the built-in macOS
+// text-to-speech system VoiceOver is off, these menus are not shown.
 
-// VoiceOver menus are built transiently on each redraw and sent to the front-end via win_menuitem().
+// VoiceOver menus are built transiently on each redraw and sent to the
+// front-end via win_menuitem().
 struct JourneyVOMenu {
     char name[STRING_BUFFER_SIZE];     // Display text of the menu item
     std::vector<JourneyVOMenu> submenu; // Sub-items (character verbs)
@@ -311,8 +313,8 @@ int journey_draw_picture(int pic, winid_t journey_window) {
 }
 
 // Draws a full-width horizontal line at the given row using Font 3 characters.
-// 'character' fills the middle, 'left' and 'right' are the corner/junction pieces.
-// Used for the top border, horizontal divider, and bottom border.
+// 'character' fills the middle, 'left' and 'right' are the corner/junction
+// pieces. Used for the top border, horizontal divider, and bottom border.
 static void journey_font3_line(int line, int character, int left, int right) {
     glk_set_style(style_BlockQuote);
     glk_window_move_cursor(curwin->id, 0, line - 1);
@@ -426,21 +428,25 @@ static void update_internal_globals(void) {
         // Whether there is a border around the screen, true on Amiga only
         set_global(jg.BORDER_FLAG, global_border_flag ? 1 : 0);
 
-        // Whether to use Font 3. True for Amiga and Mac, false for MS DOS and Apple II
+        // Whether to use Font 3. True for Amiga and Mac, false for MS DOS and
+        // Apple II
         set_global(jg.FONT3_FLAG, global_font_3_flag ? 1 : 0);
 
-        // FWC-FLAG (fixed-width commands) tells whether to switch font when printing in command window,
-        // i.e. whether there is a separate proportional font used elsewhere.
-        // Always the same as FONT3-FLAG, and used interchangably in the original ZIL code.
+        // FWC-FLAG (fixed-width commands) tells whether to switch font when
+        // printing in command window, i.e. whether there is a separate
+        // proportional font used elsewhere. Always the same as FONT3-FLAG, and
+        // used interchangably in the original ZIL code.
         set_global(jg.FWC_FLAG, global_font_3_flag ? 1 : 0);
 
-        // Whether to have a border around the image. BLACK_PICTURE_BORDER is only false on IBM PC
+        // Whether to have a border around the image. BLACK_PICTURE_BORDER is
+        // only false on IBM PC
         set_global(jg.BLACK_PICTURE_BORDER, black_picture_border);
     }
 
     update_screen_size();
 
-    //  COMMAND_START_LINE is first line below divider: SCREEN_HEIGHT_in_chars - 4 on non-Amiga, SCREEN_HEIGHT_in_chars - 5 on Amiga
+    //  COMMAND_START_LINE is first line below divider: SCREEN_HEIGHT_in_chars
+    //  - 4 on non-Amiga, SCREEN_HEIGHT_in_chars - 5 on Amiga
 
     int top_screen_line, command_start_line;
 
@@ -504,7 +510,8 @@ static int party_pcm(int chr) {
 }
 
 // Validates a typed character for name or Elvish input. In name mode only
-// letters are allowed; in Elvish mode spaces and some punctuation are also valid.
+// letters are allowed; in Elvish mode spaces and some punctuation are also
+// valid.
 static bool bad_character(uint8_t c, bool elvish) {
     if (c >= 'A' && c <= 'Z')
         return false;
@@ -590,8 +597,8 @@ static int print_tag_route_to_str(char *str, size_t capacity) {
     MenuString route(str, capacity);
 
     // The name is whatever the player typed, so cap it to leave room for the
-    // suffix: a long name should lose its tail, not the " route" that says what
-    // the menu item does.
+    // suffix: a long name should lose its tail, not the " route" that says
+    // what the menu item does.
     int name_length = get_global(jg.TAG_NAME_LENGTH);
     int max_name_length = route.remaining() - ((int)sizeof(route_suffix) - 1);
     if (name_length > max_name_length) {
@@ -604,9 +611,10 @@ static int print_tag_route_to_str(char *str, size_t capacity) {
     return route.length();
 }
 
-// Builds the party-wide "Journey Party" command menu (leftmost column in command
-// area) and sends each item to the front-end via win_menuitem(). These are commands
-// like "Proceed", "Look", "Tag route", etc. that apply to the whole party.
+// Builds the party-wide "Journey Party" command menu (leftmost column in
+// command area) and sends each item to the front-end via win_menuitem(). These
+// are commands like "Proceed", "Look", "Tag route", etc. that apply to the
+// whole party.
 static void create_journey_party_vo_menu(void) {
     int object;
 
@@ -717,7 +725,8 @@ static void journey_create_vo_menu(JourneyMenuType type, bool is_second_noun) {
                     m->column = 2;
                     // Hack to add "shadow" menus to the previous submenu
                     // instead of creating a new one.
-                    // This assumes that the shadow menu is always the last one.
+                    // This assumes that the shadow menu is always the last
+                    // one.
                     if (internal_test_attr(object, ja.SHADOW) && menu_counter > 0) {
                         menu_counter--;
                         menu[menu_counter].line++;
@@ -991,8 +1000,9 @@ constexpr int SHORT_ARROW_WIDTH = 2;
 constexpr int NO_ARROW_WIDTH = 1;
 
 static void journey_print_character_commands(bool clear) {
-    // Prints the character names and arrows, and their commands in the three rightmost columns.
-    // If clear is true, the three columns to the right of the character names will be cleared.
+    // Prints the character names and arrows, and their commands in the three
+    // rightmost columns. If clear is true, the three columns to the right of
+    // the character names will be cleared.
 
     if (clear)
         number_of_printed_journey_words = 0;
@@ -1049,14 +1059,16 @@ static void journey_print_character_commands(bool clear) {
         if (journey_current_input == INPUT_PARTY) {
             position = get_global(jg.CHR_COMMAND_COLUMN);
 
-            // CHARACTER-INPUT-TBL contains pointers to tables of up to three verbs
+            // CHARACTER-INPUT-TBL contains pointers to tables of up to three
+            // verbs
             uint16_t verbs_table = word(get_global(jg.CHARACTER_INPUT_TBL) + i * 2);
 
             bool subgroup_mode = (get_global(jg.SUBGROUP_MODE) == 1);
             bool subgroup_attribute = internal_test_attr(character, ja.SUBGROUP); // attribute 0x2a is SUBGROUP flag
-            // if the SHADOW_BIT attribute of a character is set, the character name is hidden
-            // and its commands "belong" to the visible character above.
-            // This is used to give Praxix more than three commands in the mines.
+            // if the SHADOW_BIT attribute of a character is set, the character
+            // name is hidden and its commands "belong" to the visible
+            // character above. This is used to give Praxix more than three
+            // commands in the mines.
             bool shadow_attribute = internal_test_attr(character, ja.SHADOW); // attribute 0x17 is SHADOW flag
 
             bool should_print_command = true;
@@ -1070,7 +1082,8 @@ static void journey_print_character_commands(bool clear) {
                 should_print_command = true;
             }
 
-            // Print up to three verbs for each character to the right, or just erase the fields
+            // Print up to three verbs for each character to the right, or just
+            // erase the fields
             for (int j = 0; j <= 2; j++) {
                 journey_erase_command_chars(line, position, commandwidth - 1);
 
@@ -1088,8 +1101,8 @@ static void journey_print_character_commands(bool clear) {
         call_routine(jr.SMART_DEFAULT); //    SMART_DEFAULT();
     }
 
-    // Delete the Individual Commands menu when the columns to the right are empty
-    // (and also update party menu)
+    // Delete the Individual Commands menu when the columns to the right are
+    // empty (and also update party menu)
     if (number_of_printed_party_members == 0 && number_of_printed_verbs_and_objects == 0) {
         win_menuitem(kJMenuTypeDeleteMembers, 0, 0, false, nullptr, STRING_BUFFER_SIZE);
         create_journey_party_vo_menu();
@@ -1267,7 +1280,8 @@ static void journey_init_screen(void) {
     journey_move_cursor(x, line);
     glk_put_string(const_cast<char*>("The Party"));
 
-    // Print "Individual Commands" centered in the empty space to the right of "The Party" text
+    // Print "Individual Commands" centered in the empty space to the right of
+    // "The Party" text
     width = 19; // WIDTH = TEXT_WIDTH("Individual Commands");
 
     int character_command_column = get_global(jg.CHR_COMMAND_COLUMN);
@@ -1569,14 +1583,14 @@ static void journey_adjust_windows(bool restoring) {
     //(Window 2: Used in place of window 0 in earlier versions)
     // Window 3: Graphics window
 
-    // First (leftmost) column (x:1 or x:2) PARTY-COMMAND-COLUMN: party commands such as Proceed
-    // Second column: NAME-COLUMN: names of present party members and arrows
-    // Third column: CHR-COMMAND-COLUMN: first column of individual commands
-    // Fourth column: COMMAND-OBJECT-COLUMN: second column of individual commands,
-    // or first list of objects
+    // First (leftmost) column (x:1 or x:2) PARTY-COMMAND-COLUMN: party
+    // commands such as Proceed Second column: NAME-COLUMN: names of present
+    // party members and arrows Third column: CHR-COMMAND-COLUMN: first column
+    // of individual commands Fourth column: COMMAND-OBJECT-COLUMN: second
+    // column of individual commands, or first list of objects
     // Fifth (rightmost) column has no corresponding global,
-    // but is just referred to as COMMAND-OBJECT-COLUMN + COMMAND-WIDTH.
-    // It will contain a second list of objects (such as targets in CAST GLOW ON)
+    // but is just referred to as COMMAND-OBJECT-COLUMN + COMMAND-WIDTH. It
+    // will contain a second list of objects (such as targets in CAST GLOW ON)
     // or a third column of individual commands
 
     v6_define_window(&JOURNEY_BG_GRID, 1, 1, gscreenw, gscreenh);
@@ -1592,11 +1606,13 @@ static void journey_adjust_windows(bool restoring) {
     if (screenmode == MODE_NORMAL) {
         set_global(jg.SMART_DEFAULT_FLAG, 0); // SMART-DEFAULT-FLAG
 
-        // Print party (the leftmost) column (call print columns with PARTY flag set
+        // Print party (the leftmost) column (call print columns with PARTY
+        // flag set
         journey_print_columns(true, false);
 
         if (journey_current_input != INPUT_PARTY) {
-            // If the player is currently entering text, redraw typed text at new position
+            // If the player is currently entering text, redraw typed text at
+            // new position
             if (journey_current_input == INPUT_NAME ) {
                 journey_reprint_partial_input(get_global(jg.NAME_COLUMN), get_global(jg.COMMAND_START_LINE) + from_command_start_line, journey_input_length, max_length, input_table);
             } else if (journey_current_input == INPUT_ELVISH ) {
@@ -1609,7 +1625,8 @@ static void journey_adjust_windows(bool restoring) {
         }
 
         if (journey_current_input != INPUT_NAME) {
-            // Print character names and arrows, and corresponding verbs in the three rightmost columns
+            // Print character names and arrows, and corresponding verbs in the
+            // three rightmost columns
             journey_print_character_commands(false);
         }
 
@@ -1622,7 +1639,8 @@ static void journey_adjust_windows(bool restoring) {
             } else if (journey_current_input == INPUT_PARTY) { // call BOLD-CURSOR
                 call_routine(jr.BOLD_CURSOR, {(uint16_t)selected_journey_line, (uint16_t)selected_journey_column});
             } else if (journey_current_input != INPUT_ELVISH) { // call BOLD-OBJECT-CURSOR
-                // Calling BOLD_CURSOR will change selection, so we must stash it here
+                // Calling BOLD_CURSOR will change selection, so we must stash
+                // it here
                 int16_t stashed_selected_journey_column = selected_journey_column;
                 int16_t stashed_selected_journey_line = selected_journey_line;
                 
@@ -1714,7 +1732,8 @@ void after_INTRO(void) {
 }
 
 // Z-machine entry point for drawing stamp images. Variable 1 is the picture
-// number, optional variable 2 is the placement (see StampBits / reference image).
+// number, optional variable 2 is the placement (see StampBits / reference
+// image).
 void GRAPHIC_STAMP(void) {
     int16_t picnum, where = 0;
     if (znargs > 0 && JOURNEY_GRAPHICS_WIN.id != nullptr) {

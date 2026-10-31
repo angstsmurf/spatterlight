@@ -252,7 +252,8 @@ void setup_opcodes()
     setup_single_opcode(4, 6, Opcount::Var, 0x0f, zset_cursor);
     setup_single_opcode(4, 6, Opcount::Var, 0x10, zget_cursor);
     setup_single_opcode(4, 6, Opcount::Var, 0x11, zset_text_style);
-    setup_single_opcode(4, 6, Opcount::Var, 0x12, znop); // XXX buffer_mode
+    // Glk does its own text buffering.
+    setup_single_opcode(4, 6, Opcount::Var, 0x12, znop); // buffer_mode
     setup_single_opcode(3, 6, Opcount::Var, 0x13, zoutput_stream);
     setup_single_opcode(3, 6, Opcount::Var, 0x14, zinput_stream);
     setup_single_opcode(3, 6, Opcount::Var, 0x15, zsound_effect);
@@ -275,19 +276,22 @@ void setup_opcodes()
 #ifndef ZTERP_NO_V6
     setup_single_opcode(6, 6, Opcount::Ext, 0x05, zdraw_picture);
 #if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
-    // picture_data is officially V6-only, but the pre-release V5 builds of Zork
-    // Zero (e.g. r74-s880114, r96-s880224) already emit it — and crucially with
-    // a *branch*. Unregistered EXT opcodes default to znop (see setup_opcodes),
-    // and znop does not consume the branch byte, so the decoder desyncs and dies
-    // on the next "instruction" (the dropped branch byte). Registering the real
-    // branching handler for V5 too lets those builds run. Standard V5 games never
-    // emit EXT:6, so this is inert for them.
+    // picture_data is officially V6-only, but the pre-release V5 builds of
+    // Zork Zero (e.g. r74-s880114, r96-s880224) already emit it — and
+    // crucially with a *branch*. Unregistered EXT opcodes default to znop (see
+    // setup_opcodes), and znop does not consume the branch byte, so the
+    // decoder desyncs and dies on the next "instruction" (the dropped branch
+    // byte). Registering the real branching handler for V5 too lets those
+    // builds run. Standard V5 games never emit EXT:6, so this is inert for
+    // them.
     setup_single_opcode(5, 6, Opcount::Ext, 0x06, zpicture_data);
 #else
     setup_single_opcode(6, 6, Opcount::Ext, 0x06, zpicture_data);
 #endif
-    setup_single_opcode(6, 6, Opcount::Ext, 0x07, znop); // XXX erase_picture
-    setup_single_opcode(6, 6, Opcount::Ext, 0x08, znop); // XXX set_margins
+    // The znop opcodes in V6 below are not implemented, on purpose. The z6/
+    // hooks stand in for them in Infocom's games; other games lose the effect.
+    setup_single_opcode(6, 6, Opcount::Ext, 0x07, znop); // erase_picture
+    setup_single_opcode(6, 6, Opcount::Ext, 0x08, znop); // set_margins
 #endif
     setup_single_opcode(5, 6, Opcount::Ext, 0x09, zsave_undo);
     setup_single_opcode(5, 6, Opcount::Ext, 0x0a, zrestore_undo);
@@ -299,15 +303,15 @@ void setup_opcodes()
     setup_single_opcode(6, 6, Opcount::Ext, 0x11, zwindow_size);
     setup_single_opcode(6, 6, Opcount::Ext, 0x12, zwindow_style);
     setup_single_opcode(6, 6, Opcount::Ext, 0x13, zget_wind_prop);
-    setup_single_opcode(6, 6, Opcount::Ext, 0x14, znop); // XXX scroll_window
+    setup_single_opcode(6, 6, Opcount::Ext, 0x14, znop); // scroll_window
     setup_single_opcode(6, 6, Opcount::Ext, 0x15, zpop_stack);
-    setup_single_opcode(6, 6, Opcount::Ext, 0x16, znop); // XXX read_mouse
-    setup_single_opcode(6, 6, Opcount::Ext, 0x17, znop); // XXX mouse_window
+    setup_single_opcode(6, 6, Opcount::Ext, 0x16, znop); // read_mouse
+    setup_single_opcode(6, 6, Opcount::Ext, 0x17, znop); // mouse_window
     setup_single_opcode(6, 6, Opcount::Ext, 0x18, zpush_stack);
-    setup_single_opcode(6, 6, Opcount::Ext, 0x19, znop); // XXX put_wind_prop
+    setup_single_opcode(6, 6, Opcount::Ext, 0x19, znop); // put_wind_prop
     setup_single_opcode(6, 6, Opcount::Ext, 0x1a, zprint_form);
     setup_single_opcode(6, 6, Opcount::Ext, 0x1b, zmake_menu);
-    setup_single_opcode(6, 6, Opcount::Ext, 0x1c, znop); // XXX picture_table
+    setup_single_opcode(6, 6, Opcount::Ext, 0x1c, znop); // picture_table
     setup_single_opcode(6, 6, Opcount::Ext, 0x1d, zbuffer_screen);
 #endif
 
@@ -364,7 +368,6 @@ void process_instructions()
 
         current_instruction = pc;
 #if defined(SPATTERLIGHT) || defined(HEADLESS_V6)
-//        fprintf(stderr, "pc == 0x%04lx\n", pc);
         if (is_spatterlight_v6) {
             check_entrypoints(pc);
         }

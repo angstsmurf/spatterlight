@@ -715,11 +715,13 @@ void find_shogun_globals(void) {
                 store_byte(start, kOpRtrue);
             found_border_values = true;
         } else if (entrypoint.fn == V_BOW && entrypoint.found_at_address != 0) {
-            // Versions 283 through 295 (a total of 9 versions) assign values to the variable that
-            // is referenced by variable 1, rather than to variable directly, as later versions do.
-            // This causes a crash when variable 1 is 0, which is usually (always?) the case.
-            // We fix this by replacing the dereference with a direct assignment, as per the
-            // later versions. This seems to have no ill side-effects.
+            // Versions 283 through 295 (a total of 9 versions) assign values
+            // to the variable that is referenced by variable 1, rather than to
+            // variable directly, as later versions do. This causes a crash
+            // when variable 1 is 0, which is usually (always?) the case. We
+            // fix this by replacing the dereference with a direct assignment,
+            // as per the later versions. This seems to have no ill
+            // side-effects.
 
             start = find_pattern_in_mem({ 0x6d, 0x01, WILDCARD, 0x8c, 0x00 }, entrypoint.found_at_address, 100);
             if (start != -1 && memory[start] == 0x6d) {

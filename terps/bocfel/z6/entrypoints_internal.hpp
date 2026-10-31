@@ -33,9 +33,11 @@
 //   global_search:     when true, search the whole story (from static_start)
 //                      instead of continuing from the previous match. Use only
 //                      for entries whose pattern is globally unique but whose
-//                      position relative to neighbouring routines varies across
+//                      position relative to neighbouring routines varies
+//                        across
 //                      revisions, so the normal forward-only search would skip
-//                      it (e.g. Zork Zero V-REFRESH, which precedes V-DEFINE in
+//                      it (e.g. Zork Zero V-REFRESH, which precedes V-DEFINE
+//                        in
 //                      r366 but follows it in r393).
 struct EntryPoint {
     Game game;

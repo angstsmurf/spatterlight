@@ -324,14 +324,16 @@ void find_journey_globals(void) {
         if (entrypoint.fn == BOLD_PARTY_CURSOR && entrypoint.found_at_address != 0) {
             // Later versions of Journey change font by calling a routine named
             // CHANGE-FONT. (Earlier versions call the FONT/set_font opcode
-            // directly.) This routine returns false unless the argument is 3 or 4,
-            // meaning that it will never set the font back to the standard font 1
-            // (unless font 3 or 4 are unavailable - then it will fall back to 1.)
+            // directly.) This routine returns false unless the argument is 3
+            // or 4, meaning that it will never set the font back to the
+            // standard font 1 (unless font 3 or 4 are unavailable - then it
+            // will fall back to 1.)
 
-            // This is likely unintentional, and we want it to be able to set the font
-            // in the main buffer text window back to 1, otherwise it will always use
-            // fixed-width font 4. We patch this by replacing the RFALSE label
-            // with a jump to the <FONT 1> instruction at the end of the routine.
+            // This is likely unintentional, and we want it to be able to set
+            // the font in the main buffer text window back to 1, otherwise it
+            // will always use fixed-width font 4. We patch this by replacing
+            // the RFALSE label with a jump to the <FONT 1> instruction at the
+            // end of the routine.
             uint32_t offset = find_pattern_in_mem({ 0x41, 0x01, 0x04, 0x40, 0xa0 }, header.static_start, 3000);
 
             if (offset != -1) {
@@ -435,7 +437,8 @@ void find_journey_globals(void) {
             // Change start of READ-ELVISH
             // to return local variable 1 (named OFF)
             // (0xab 0x01 means RET L00)
-            // Guard the miss case: -1 as a uint32_t offset would clobber the header.
+            // Guard the miss case: -1 as a uint32_t offset would clobber the
+            // header.
             if (offset != -1) {
                 patch_ret_local(offset + 3, 1);
             }
@@ -512,7 +515,8 @@ void find_journey_globals(void) {
             jr.COMPLETE_DIAL_GRAPHICS = entrypoint.found_at_address - 1;
         } else if (entrypoint.fn == REFRESH_CHARACTER_COMMAND_AREA && entrypoint.found_at_address != 0) {
             patch_ret_local(entrypoint.found_at_address, 1);
-            // Patch out repeated words when listing essences and reagents in later version when screen is narrow
+            // Patch out repeated words when listing essences and reagents in
+            // later version when screen is narrow
         }  else if (entrypoint.fn == TELL_AMOUNTS && entrypoint.found_at_address != 0 && header.release >= 51) {
             uint32_t offset = entrypoint.found_at_address;
             store_byte(offset + 4, kOpNop);

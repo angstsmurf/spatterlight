@@ -37,7 +37,8 @@ void v6_close_and_reopen_front_graphics_window(void);
 void v6_stash_graphics_windows(library_state_data *dat);
 void v6_recover_graphics_windows(library_state_data *dat);
 void v6_set_window_colors_from_globals(void);
-// Style hints: text grids opened from now on get the user's colours in this style.
+// Style hints: text grids opened from now on get the user's colours in this
+// style.
 void v6_set_grid_colors(glui32 style);
 float v6_inline_image_scale(void);
 void v6_refresh_text_buffer_images(void);
@@ -82,16 +83,18 @@ void after_V_CREDITS(void);
 int print_zstr_to_cstr(uint16_t addr, char *str);
 int print_long_zstr_to_cstr(uint16_t addr, char *str, int maxlen);
 
-// Bounded builder for the fixed-size C strings that the VoiceOver menus hand to
-// win_menuitem(). Everything appended is game-supplied — a decoded Z-string, or
-// a run of ZSCII bytes whose length is a byte or a global in the story file — so
-// each append truncates at the buffer's capacity instead of running past it, and
-// the buffer is left NUL-terminated. Build over the caller's buffer:
+// Bounded builder for the fixed-size C strings that the VoiceOver menus hand
+// to win_menuitem(). Everything appended is game-supplied — a decoded
+// Z-string, or a run of ZSCII bytes whose length is a byte or a global in the
+// story file — so each append truncates at the buffer's capacity instead of
+// running past it, and the buffer is left NUL-terminated. Build over the
+// caller's buffer:
 //
 //     char str[60];
 //     MenuString menu_string(str, sizeof(str));
 //     menu_string.append_zstr(user_word(fdef));
-//     win_menuitem(kV6MenuTypeDefine, index, 18, 0, str, menu_string.length());
+//     win_menuitem(kV6MenuTypeDefine, index, 18, 0, str,
+//       menu_string.length());
 class MenuString {
 public:
     MenuString(char *buffer, size_t capacity) : m_buffer(buffer), m_capacity(capacity) {
@@ -100,7 +103,8 @@ public:
     }
 
     // Characters written so far, not counting the terminating NUL. This is the
-    // length to pass to win_menuitem(): it always matches what is in the buffer.
+    // length to pass to win_menuitem(): it always matches what is in the
+    // buffer.
     int length() const { return m_length; }
 
     // Characters that can still be appended before truncation kicks in.

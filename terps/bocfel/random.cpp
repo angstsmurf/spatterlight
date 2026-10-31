@@ -103,12 +103,12 @@ static uint32_t zterp_rand()
     return xorshift32.rand();
 }
 
-// Called with 0, set the PRNG to random mode. Then seed it with either
+// If the seed is 0, set the PRNG to random mode. Then seed it with either
 // a) a user-provided seed (via -z) if available, or
 // b) a seed derived from a hash of the constituent bytes of the value
 //    returned by time(nullptr)
 //
-// Otherwise, set the PRNG to predictable mode and seed with the
+// Otherwise, set the PRNG to predictable mode and seed it with the
 // provided value.
 static void seed_random(uint32_t seed)
 {

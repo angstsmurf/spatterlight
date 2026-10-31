@@ -533,7 +533,8 @@ static void process_story(IO &io, long offset)
 
         uint8_t *newmemory;
 
-        // Don't extract pictures if we have set another preferred graphics format
+        // Don't extract pictures if we have set another preferred graphics
+        // format
         if (graphics_type == gli_z6_graphics && graphics_type != kGraphicsTypeApple2) {
             newmemory = extract_apple2_story((const char *)game_file.c_str(), &file_length, nullptr, nullptr, nullptr);
         } else {

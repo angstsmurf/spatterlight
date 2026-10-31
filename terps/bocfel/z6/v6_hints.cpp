@@ -243,10 +243,12 @@ static void measure_hint_windows(bool is_macintosh, int &width, int &height, int
             }
         }
     } else if (is_spatterlight_zork0 && graphics_type == kGraphicsTypeApple2) {
-        // Just for the lulz we try to use the Apple II hint screen header in Zork 0
-        // that the actual game did not use (presumably because it was impossible to
-        // fit the text in its low resolution.) We cut off 23 "pixels" on each side of
-        //  the status text view to make it fit between the question marks in the image.
+        // Just for the lulz we try to use the Apple II hint screen header in
+        // Zork 0 that the actual game did not use (presumably because it was
+        // impossible to fit the text in its low resolution.) We cut off 23
+        // "pixels" on each side of
+        //  the status text view to make it fit between the question marks in
+        //  the image.
         status_x = 23 * imagescalex;
     }
 }
@@ -439,7 +441,8 @@ static bool arthur_is_topic_in_context(uint16_t topic) {
 }
 
 // Returns the Z-string address of a topic's display name.
-// For Arthur, returns 0 if no questions in the topic are contextually relevant.
+// For Arthur, returns 0 if no questions in the topic are contextually
+// relevant.
 static uint16_t hint_topic_name(uint16_t chapter) {
     uint16_t topic = user_word(hints_table_addr + chapter * 2);
 
@@ -947,8 +950,8 @@ void DO_HINTS(void) {
     while (outer_loop) {
         glk_window_clear(V6_TEXT_BUFFER_WINDOW.id);
 
-        // Unless we are autorestoring (and this is the first iteration of the loop),
-        // hints_depth will be kV6MenuTypeTopic
+        // Unless we are autorestoring (and this is the first iteration of the
+        // loop), hints_depth will be kV6MenuTypeTopic
         switch (hints_depth) {
             case kV6MenuTypeQuestion:
                 display_questions();

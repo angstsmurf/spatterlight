@@ -338,7 +338,8 @@ void after_V_COLOR(void) {
     update_user_defined_colours();
 
     for (auto &window : windows) {
-        // These will already be correctly set unless we are called from the after restore routine
+        // These will already be correctly set unless we are called from the
+        // after restore routine
         window.fg_color = Color(Color::Mode::ANSI, fg);
         if (&window == &V6_STATUS_WINDOW) {
             window.bg_color = Color();
@@ -357,7 +358,8 @@ void after_V_COLOR(void) {
 
                 glk_set_window(glkwin);
 
-                // Colours may be set to default (1) if this is called from the after restore routine
+                // Colours may be set to default (1) if this is called from the
+                // after restore routine
                 glsi32 zcolfg, zcolbg;
                 if (fg == DEFAULT_COLOUR)
                     zcolfg = zcolor_Default;
@@ -449,11 +451,11 @@ void v6_skip_next_keypress(void) {
 
 #pragma mark - Skip Puzzles Prompt
 
-// Prompts the user to skip a visual puzzle for accessibility. Only shows
-// the prompt when VoiceOver is active, graphics are off, or when autorestoring to a point
-// where the prompt was previously shown. Returns true if the user
-// accepts (types 'Y'), false if they decline ('N') or if the prompt
-// was not shown.
+// Prompts the user to skip a visual puzzle for accessibility. Only shows the
+// prompt when VoiceOver is active, graphics are off, or when autorestoring to
+// a point where the prompt was previously shown. Returns true if the user
+// accepts (types 'Y'), false if they decline ('N') or if the prompt was not
+// shown.
 bool skip_puzzle_prompt(const char *str) {
     if (v6_pictures_unseen() || dont_repeat_question_on_autorestore) {
         set_current_window(&V6_TEXT_BUFFER_WINDOW);

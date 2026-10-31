@@ -134,14 +134,16 @@ bool spatterlight_restore_autosave(enum SaveOpcode *saveopcode)
 
             if (active_blorb_file_stream != nullptr && blorb_stream_was_active &&
                 strncmp(active_blorb_file_stream->filename, old_blorb_file_name, 2048) != 0) {
-                // If the autorestored stream file name doesn't match the one we opened before
-                // the autorestore, we need to close it (and reopen the old one below.)
+                // If the autorestored stream file name doesn't match the one
+                // we opened before the autorestore, we need to close it (and
+                // reopen the old one below.)
                 glk_stream_close(active_blorb_file_stream, 0);
                 active_blorb_file_stream = nullptr;
             }
 
-            // If there was a working, active blorb file, but there isn't anymore
-            // we just reopen the blorb file we used before the autorestore
+            // If there was a working, active blorb file, but there isn't
+            // anymore we just reopen the blorb file we used before the
+            // autorestore
             if (active_blorb_file_stream == nullptr && blorb_stream_was_active) {
                 active_blorb_file_stream = glkunix_stream_open_pathname(old_blorb_file_name, 0, 0);
             }

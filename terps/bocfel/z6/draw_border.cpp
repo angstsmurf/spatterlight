@@ -126,13 +126,13 @@ static void clip_pixmap_to_height(int desired_height) {
 // downward, stamping it every `pillar_height - overlap` rows starting at
 // `start_y` until `desired_height` is reached. Split out from
 // tile_strip_down() so callers that must snapshot the source rows *before*
-// erasing them (see extend_pillars) can copy first, then erase, then tile.
-// If `flip` is true, alternates the vertical flip of each tile starting from
+// erasing them (see extend_pillars) can copy first, then erase, then tile. If
+// `flip` is true, alternates the vertical flip of each tile starting from
 // `initial_parity`; otherwise every tile is drawn with `initial_parity`.
-// Returns the y-position immediately past the last tile drawn (i.e. where
-// the next tile would have started), which the caller can use to anchor
-// follow-up work below the tiled region. An empty `section_to_repeat` (a failed
-// copy) draws nothing.
+// Returns the y-position immediately past the last tile drawn (i.e. where the
+// next tile would have started), which the caller can use to anchor follow-up
+// work below the tiled region. An empty `section_to_repeat` (a failed copy)
+// draws nothing.
 static int tile_section_down(const Strip &section_to_repeat,
                              int pillar_height, int overlap,
                              int start_y, int desired_height,
@@ -159,10 +159,10 @@ static int tile_strip_down(int top_cut, int pillar_height, int overlap,
                              start_y, desired_height, initial_parity, flip);
 }
 
-// Draws the foot (shadow) section of the Mac B/W Shogun/Zork Zero hint borders onto
-// the pixmap with transparency: white pixels (monochrome_white with full
-// alpha) are treated as transparent and skipped, so the tiled pillar
-// pattern shows through.
+// Draws the foot (shadow) section of the Mac B/W Shogun/Zork Zero hint borders
+// onto the pixmap with transparency: white pixels (monochrome_white with full
+// alpha) are treated as transparent and skipped, so the tiled pillar pattern
+// shows through.
 //
 // This makes the bottom of the pillars look better on light backgrounds.
 static void draw_hint_menu_feet_mac(const Strip &foot, int y) {
@@ -290,7 +290,8 @@ static constexpr int kAmigaHintCornerHeight = 8;
 //
 // bw_hint_foot: true = foot is drawn with transparency at the bottom of the
 //                       tiled area, and leftover lines below are erased.
-//                       Only true for Macintosh black-and-white hint screen pillars.
+//                       Only true for Macintosh black-and-white hint screen
+//                         pillars.
 //              false = foot is drawn opaquely at the bottom of the screen.
 // flip:        alternates vertical flip on each tile.
 void extend_pillars(int top_cut, int foot_height, int total_height,
@@ -393,7 +394,8 @@ void extend_underground_pillars(int top_cut, int foot_height, int total_height,
         parity = !parity;
     }
 
-    //  Erase a single "stone" at the bottom to reduce the off-screen part of the foot
+    //  Erase a single "stone" at the bottom to reduce the off-screen part of
+    //  the foot
     if (ypos + foot_height > desired_height && ypos - stone_height + foot_height > desired_height) {
         erase_lines_in_bitmap(ypos - stone_height, stone_height);
         ypos -= stone_height;
@@ -595,15 +597,17 @@ static void draw_covering_rectangle(BorderKind kind, int left_margin) {
                 case kGraphicsTypeAmiga:
                     // The Amiga/Mac colour border is rounded at the top two
                     // corners. A full-height bar would square them off, so
-                    // start kAmigaHintCornerHeight lines down and drop the same
-                    // number of lines from the bar: the curve stays visible and
-                    // the header text below it still gets a solid background.
+                    // start kAmigaHintCornerHeight lines down and drop the
+                    // same number of lines from the bar: the curve stays
+                    // visible and the header text below it still gets a solid
+                    // background.
                     left_margin = 0;
                     rect_top = kAmigaHintCornerHeight;
                     should_draw_covering_rectangle = true;
                     if (options.int_number == INTERP_MACINTOSH) {
-                        // The Macintosh interpreter draws this art with its own
-                        // palette, for which the art's own colour is wrong.
+                        // The Macintosh interpreter draws this art with its
+                        // own palette, for which the art's own colour is
+                        // wrong.
                         rectangle_color = ROSE_TAUPE;
                     } else if (!sample_pixmap_pixel(hw_screenwidth / 2, rect_top, &rectangle_color)) {
                         should_draw_covering_rectangle = false;
@@ -616,15 +620,16 @@ static void draw_covering_rectangle(BorderKind kind, int left_margin) {
                         // two-colour dither, so no single pixel of the artwork
                         // is the colour the eye actually sees: sampling gives
                         // the bright magenta while the field reads as a muted
-                        // mauve. HINT_MAUVE is the flat stand-in the rest of the EGA
-                        // code already uses for it (it is what v6_set_colours
-                        // gives the status window).
+                        // mauve. HINT_MAUVE is the flat stand-in the rest of
+                        // the EGA code already uses for it (it is what
+                        // v6_set_colours gives the status window).
                         rectangle_color = HINT_MAUVE;
                         should_draw_covering_rectangle = true;
                     } else if (sample_pixmap_pixel(hw_screenwidth / 2, 0, &rectangle_color)) {
                         // Shogun, the other hint-border caller, uses a flat
-                        // field instead (EGA brown, 0xaa5500), which is nothing
-                        // like Zork Zero's mauve -- so read it off the artwork.
+                        // field instead (EGA brown, 0xaa5500), which is
+                        // nothing like Zork Zero's mauve -- so read it off the
+                        // artwork.
                         should_draw_covering_rectangle = true;
                     }
                     break;
@@ -664,12 +669,14 @@ static void draw_covering_rectangle(BorderKind kind, int left_margin) {
 //   border          – main border image number
 //   BL, BR          – left/right pillar image numbers (-1 if none)
 //   border_height   – height of the main border image (from get_image_size)
-//   border_top      – y-offset where pillars begin (non-Amiga/Mac: border_height, else 0)
+//   border_top      – y-offset where pillars begin (non-Amiga/Mac:
+//                     border_height, else 0)
 //   pillar_top      – y-offset to start copying from when extending
 //   left_margin     – left margin for covering rectangle (0 for hint borders)
 //   bottom_offset   – adjustment subtracted from lowest_drawn_line
 //                     (to make repeated pattern seamless)
-//   kind            – which variant we're drawing (hint / Shogun game / Shogun start menu)
+//   kind            – which variant we're drawing (hint / Shogun game /
+//                     Shogun start menu)
 void draw_border_common(int border, int BL, int BR,
                         int border_height, int border_top, int pillar_top,
                         int left_margin, int bottom_offset,
@@ -721,7 +728,8 @@ void draw_border_common(int border, int BL, int BR,
     }
 
     // Step 3: Fill any remaining vertical gap by tiling a strip of the
-    // already-drawn pixmap downward (from pillar_top to lowest_drawn_line - bottom_offset).
+    // already-drawn pixmap downward (from pillar_top to lowest_drawn_line -
+    // bottom_offset).
     if (must_extend) {
         common_extend_border(desired_height, lowest_drawn_line - bottom_offset, pillar_top);
     }

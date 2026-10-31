@@ -8,12 +8,14 @@
 //  Excalibur" (1989), a Z-machine version 6 interactive fiction game
 //  set in Arthurian legend.
 //
-//  Arthur features multiple switchable display modes, cycled via function keys:
+//  Arthur features multiple switchable display modes, cycled via function
+//  keys:
 //    F1 - Picture mode: room illustration above the text area
 //    F2 - Map mode: clickable overhead map with location markers
 //    F3 - Inventory mode: item list shown in a grid window
 //    F4 - Status mode: detailed character status in a grid window
-//    F5 - Room description: verbose room text at the top. We use a Glk buffer window for this.
+//    F5 - Room description: verbose room text at the top. We use a Glk buffer
+//         window for this.
 //    F6 - No graphics: text-only with no upper window
 //
 //  The screen layout consists of:
@@ -26,10 +28,10 @@
 //      errors and parser "out-of-world" messages.
 //
 //  Some room images are drawn with "stamp" overlays (small images positioned
-//  relative to a reference offset image) for details like the sword in the stone.
-//  Full-screen images are shown during the title sequence, endgame, and
-//  special story events. I have provided VoiceOver descriptions of them
-//  for accessibility.
+//  relative to a reference offset image) for details like the sword in the
+//  stone. Full-screen images are shown during the title sequence, endgame, and
+//  special story events. I have provided VoiceOver descriptions of them for
+//  accessibility.
 //
 
 #include "draw_image.hpp"
@@ -214,14 +216,16 @@ void arthur_draw_room_image(int picnum) {
 
     if (is_arthur_stamp_image(picnum)) {
         // All pictures have an offset (dummy) image. It usually is the one
-        // before the actual picture, i.e. picture index - 1, except for the one of
-        // the island door (K-PIC-ISLAND-DOOR is 158 and K-PIC-ISLAND-DOOR-OFF is 159.)
+        // before the actual picture, i.e. picture index - 1, except for the
+        // one of the island door (K-PIC-ISLAND-DOOR is 158 and
+        // K-PIC-ISLAND-DOOR-OFF is 159.)
         if (picnum == K_PIC_ISLAND_DOOR)
             get_image_size(K_PIC_ISLAND_DOOR_OFF, &width, &height);
         else
             get_image_size(picnum - 1, &width, &height);
 
-        // The Amiga version of the stone image seems to have an incorrect offset
+        // The Amiga version of the stone image seems to have an incorrect
+        // offset
         if (picnum == K_PIC_STONE_2 && graphics_type == kGraphicsTypeAmiga)
             width -= 4;
 
@@ -444,10 +448,13 @@ static void arthur_resize_slideshow(void) {
 //   Window 0 (S-TEXT): Main text buffer (V6_TEXT_BUFFER_WINDOW)
 //   Window 1 (S-WINDOW): One-line status bar (V6_STATUS_WINDOW)
 //   Window 2: Mode-dependent upper area — room image, inventory grid,
-//             status grid, or room description buffer (ARTHUR_ROOM_GRAPHIC_WIN)
-//   Window 3: Inverted error/author message bar at bottom (ARTHUR_ERROR_WINDOW)
+//             status grid, or room description buffer
+//               (ARTHUR_ROOM_GRAPHIC_WIN)
+//   Window 3: Inverted error/author message bar at bottom
+//             (ARTHUR_ERROR_WINDOW)
 //   Windows 5, 6: Left/right banner erase regions (banners drawn to window 7)
-//   Window 7 (S-FULL): Full-screen background for border/room graphics (V6_GRAPHICS_BG)
+//   Window 7 (S-FULL): Full-screen background for border/room graphics
+//                      (V6_GRAPHICS_BG)
 void arthur_update_on_resize(void) {
     arthur_apply_graphics_setting();
     image_needs_redraw = true;

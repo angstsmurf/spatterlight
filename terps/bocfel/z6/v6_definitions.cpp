@@ -44,9 +44,10 @@ static void print_reverse_video_space(void) {
     garglk_set_reversevideo(0);
 }
 
-// Address of the function key definitions table in Z-machine memory.
-// Each entry is 4 bytes: 2-byte key code + 2-byte pointer to definition data.
-// Default values are for Zork Zero; updated by entrypoints.cpp for other games.
+// Address of the function key definitions table in Z-machine memory. Each
+// entry is 4 bytes: 2-byte key code + 2-byte pointer to definition data.
+// Default values are for Zork Zero; updated by entrypoints.cpp for other
+// games.
 uint16_t fkeys_table_addr = 0xce2a;
 // Address of the function key names table (maps key codes to display names).
 uint16_t fnames_table_addr = 0x4b57;
@@ -118,8 +119,8 @@ static void print_center_table(int y, uint16_t string) {
     print_handler(unpack_string(string), nullptr);
 }
 
-// Scans a Z-machine table for a value. Searches `length` entries starting
-// at `address`, comparing either bytes (bytewise=true) or words (bytewise=false).
+// Scans a Z-machine table for a value. Searches `length` entries starting at
+// `address`, comparing either bytes (bytewise=true) or words (bytewise=false).
 // Returns the address of the match, or 0 if not found.
 static uint16_t scan_table(uint16_t value, uint16_t address, uint16_t length, bool bytewise) {
     for (uint16_t i = 0; i < length; i++) {
@@ -152,8 +153,9 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
     int fdef, y;
     char str[60];
     // Every piece of this line comes from the story file (the key name, the
-    // user's definition and its game-supplied length byte), so build it through
-    // MenuString: appends truncate at str's capacity rather than past it.
+    // user's definition and its game-supplied length byte), so build it
+    // through MenuString: appends truncate at str's capacity rather than past
+    // it.
     MenuString menu_string(str, sizeof(str));
     fdef = user_word(function_key + 2);
     y = index + 1;
@@ -199,9 +201,10 @@ static void display_soft(int function_key, int index, bool inverse, bool send_me
         }
 
         // For VoiceOver. Pass the builder's length -- the number of bytes
-        // actually written into str above -- not user_byte(fdef + 1) + 5, which
-        // is a screen column (0..260) unrelated to the fill and would make the
-        // front-end read uninitialized or past-buffer bytes of str[60].
+        // actually written into str above -- not user_byte(fdef + 1) + 5,
+        // which is a screen column (0..260) unrelated to the fill and would
+        // make the front-end read uninitialized or past-buffer bytes of
+        // str[60].
         if (send_menu)
             win_menuitem(kV6MenuTypeDefine, define_menu_item_index(index), kDefineMenuItemCount, 0, str, menu_string.length());
 
@@ -289,8 +292,8 @@ void adjust_definitions_window(void) {
     glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
 }
 
-// Z-machine entry point: main loop for the DEFINE command (function key editor).
-// Shared between Zork Zero and Shogun. Handles:
+// Z-machine entry point: main loop for the DEFINE command (function key
+// editor). Shared between Zork Zero and Shogun. Handles:
 // - Arrow key / mouse navigation between lines
 // - Enter on hard-coded commands (Save/Restore/Exit)
 // - Text editing (typing characters, backspace) for editable definitions
@@ -375,8 +378,9 @@ void V_DEFINE(void) {
                         // Exit menu if the call returns true
                         finished = true;
                     } else {
-                        // Otherwise select EXIT (bottom line).
-                        // (We send a kV6MenuExited here to make sure that the VoiceOver menu is up-to-date)
+                        // Otherwise select EXIT (bottom line). (We send a
+                        // kV6MenuExited here to make sure that the VoiceOver
+                        // menu is up-to-date)
                         win_menuitem(kV6MenuExited, 0, 0, 0, nullptr, 0);
                         display_softs();
                         new_line = linmax - 1;
@@ -415,7 +419,8 @@ void V_DEFINE(void) {
                 break;
 
             default:
-                // If the user pressed a function key, move to the corresponding line
+                // If the user pressed a function key, move to the
+                // corresponding line
                 pressed_fkey = scan_table(chr, fkeys_table_addr + 2, user_word(fkeys_table_addr), false);
                 if (pressed_fkey) {
                     new_line = (pressed_fkey - fkeys_table_addr) / 4;
@@ -442,7 +447,8 @@ void V_DEFINE(void) {
                         length = user_byte(fdef + 1);
                         if (length + 1 >= user_byte(fdef)) {
                             win_beep(1);
-                            // If the command has ZSCII_NEWLINE at the end, allow no more characters
+                            // If the command has ZSCII_NEWLINE at the end,
+                            // allow no more characters
                         } else if (scan_table(ZSCII_NEWLINE, fdef + 2, user_byte(fdef + 1), true) != 0) {
                             win_beep(1);
                         } else {
@@ -456,7 +462,8 @@ void V_DEFINE(void) {
                             if (chr >= 'A' && chr <= 'Z')
                                 chr += 32;
 
-                            // add the typed character to the end of the definition string
+                            // add the typed character to the end of the
+                            // definition string
                             store_byte(fdef + length + 2, chr);
                             // and print it
                             if (chr == ZSCII_NEWLINE) {
@@ -464,7 +471,8 @@ void V_DEFINE(void) {
                             }
                             glk_put_char(chr);
                             send_edited_menu_line(chr);
-                            // print cursor at the new position if we are not at max
+                            // print cursor at the new position if we are not
+                            // at max
                             if (length + 2 < user_byte(fdef)) {
                                 print_reverse_video_space();
                                 glk_window_move_cursor(gwin, length + 5, global_define_line + 1);

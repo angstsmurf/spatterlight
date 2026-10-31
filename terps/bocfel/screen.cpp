@@ -214,7 +214,7 @@ enum class WindowRock : glui32 {
     // windows[2-7] are going to be copies of mainwin if they are used at all
     StatusWin = 3,
     ErrorWin = 4,
-    // graphics windows are not currently managed by this scheme
+    // graphics windows are not managed by this scheme
 };
 
 void screen_recover_glk_windows()
@@ -301,9 +301,15 @@ static void find_window_size(winid_t split)
 // Glk’s window/graphics model is not suitable for V6’s graphics.
 // However, since Infocom produced only 4 V6 games, it’s possible to
 // special-case their graphics calls to at least approximate a proper
-// apperance, which Bocfel does. In addition to Infocom games, Colin
+// appearance, which Bocfel does. In addition to Infocom games, Colin
 // Davies’ ports of Brian Howarth’s Mysterious Adventure games are
 // supported as well.
+//
+// The Spatterlight build draws Infocom's games with the code in z6/, which
+// sees every @draw_picture first (v6_game().display_picture). What follows
+// applies to whatever z6/ declines, and to builds without z6/. V6 games
+// other than these get no special case: Spatterlight lays out their windows
+// from the geometry they ask for (z6/v6_panels.cpp).
 //
 // For most games, graphics tend to be drawn in a window on top, and
 // text below it, which is implemented here by opening a graphics window
@@ -341,8 +347,8 @@ static void find_window_size(winid_t split)
 // Zork Zero, are hard coded to be drawn in the margins via Glk calls.
 // The Shogun maze does use the upper graphics window, and again as with
 // Zork Zero, it generally works using invisible pictures, resulting in
-// proper calculations. There is one small hack needed to get an offset
-// right, but otherwise the game’s coordinates are used.
+// proper calculations. One offset is corrected by hand (see draw_shogun()),
+// but otherwise the game’s coordinates are used.
 //
 // Journey: This makes a lot more use of the actual screen size to draw.
 // The problem there is that the Glk screen size will likely be some
@@ -361,23 +367,19 @@ static void find_window_size(winid_t split)
 // coordinates, and draws it centered in this left-hand window. When
 // Journey draws a stamp, Bocfel also ignores the coordinates. Instead,
 // it has a table of where all the stamps are supposed to be drawn,
-// since they are always in a fixed location. Journey should be able to
-// calculate stamp locations, but since Bocfel doesn’t properly track
-// windows (yet), it gets the values wrong. As with Shogun, if window
-// tracking is eventually properly supported, this table of stamp sizes
-// may become obsolete, but for now it works fine.
+// since they are always in a fixed location. Journey calculates stamp
+// locations from its window sizes, but the Glk windows here are not the
+// ones it asked for, so it would get the values wrong.
 //
 // Arthur: Arthur has two main graphics modes: either showing a picture
 // of the current location, or a map. Arthur uses invisible images for
 // the map, and draws it correctly with no aid needed (apart from a
 // fixed offset as with Shogun’s maze). However, the location pictures
-// make a lot of use of the actual window size, which doesn’t currently
-// work. Since these images are always drawn in the same place, it’s
-// trivial to plot them directly. Arthur also uses stamps like Journey,
-// and like in Journey, these stamps’ locations are looked up in a
-// table. Ultimately, as with all other games, it’d be nice to remove
-// the hard coding and allow the game to calculate everything, but for
-// now, this works.
+// make a lot of use of the actual window size, which doesn’t match the
+// Glk windows here. Since these images are always drawn in the same
+// place, it’s trivial to plot them directly. Arthur also uses stamps like
+// Journey, and like in Journey, these stamps’ locations are looked up in a
+// table.
 //
 // Mysterious Adventures games are generally straightforward in that
 // each room has a static image which is displayed in the top window.
@@ -686,8 +688,8 @@ static glui32 zcolor_map[] = {
     0x8c8c8c,	// Medium grey
     0x5a5a5a,	// Dark grey
 #ifdef SPATTERLIGHT
-    0x000000,   // HACK! System foreground
-    0xffffff,   // HACK! System background
+    0x000000,   // SPATTERLIGHT_CURRENT_FOREGROUND, set at runtime
+    0xffffff,   // SPATTERLIGHT_CURRENT_BACKGROUND, set at runtime
 #endif
 };
 
@@ -695,9 +697,9 @@ static glui32 zcolor_map[] = {
 glui32 user_selected_foreground = 0, user_selected_background = 0xffffff;
 
 // Whether user_selected_foreground/background, and the
-// SPATTERLIGHT_CURRENT_FOREGROUND palette slot, are Spatterlight's theme colors
-// (gfgcol/gbgcol) rather than colors the player picked in the game. Theme
-// colors change with the light/dark side, so they are re-read from
+// SPATTERLIGHT_CURRENT_FOREGROUND palette slot, are Spatterlight's theme
+// colors (gfgcol/gbgcol) rather than colors the player picked in the game.
+// Theme colors change with the light/dark side, so they are re-read from
 // gfgcol/gbgcol, which every arrange event updates, instead of being compared
 // against them: after a switch the stored values no longer match, and
 // init_screen() used to take that to mean the player had chosen them.
@@ -878,8 +880,8 @@ static void set_window_style(const Window *win)
         // assigns -- the game sets those to values that clash with the
         // parchment/black encyclopedia background (notably black text on the
         // black Apple 2 background). Push zcolor_Default so coloredAttributes
-        // leaves the style hints alone; this also lets win_refresh recolour the
-        // text when the graphics type changes on the fly. See
+        // leaves the style hints alone; this also lets win_refresh recolour
+        // the text when the graphics type changes on the fly. See
         // adjust_encyclopedia_text_window / V_REFRESH in zorkzero.cpp.
         if (is_spatterlight_zork0 && screenmode == MODE_SLIDESHOW && win == &windows[3]) {
             fg = zcolor_Default;
@@ -1249,8 +1251,9 @@ static void put_char_base(uint16_t c, bool unicode)
             // translation in that case.
             if (curwin->font == Window::Font::Character && !options.disable_graphics_font && c != UNICODE_LINEFEED) {
 #ifdef SPATTERLIGHT
-                // Spatterlight uses a real Font 3 and does not need any conversion.
-                // We use the BlockQuote style to mark Font 3 because it has no other special use.
+                // Spatterlight uses a real Font 3 and does not need any
+                // conversion. We use the BlockQuote style to mark Font 3
+                // because it has no other special use.
                 glk_set_style(style_BlockQuote);
 #else
                 zscii = unicode_to_zscii[c];
@@ -1589,7 +1592,6 @@ static bool output_stream(int16_t number, uint16_t table, bool formatted)
             }
         }
     }
-    // XXX V6 has even more handling
 
     return number < 0 || streams.test(number);
 }
@@ -1880,12 +1882,13 @@ std::pair<unsigned int, unsigned int> get_screen_size()
         height = 24;
     }
 
-    // Terrible hack: Because V6 is not properly supported, the window to
-    // which Journey writes its story is completely covered up by window
-    // 1. For the same reason, only the bottom 6 lines of window 1 are
-    // actually useful, even though the game expands it to cover the whole
-    // screen. By pretending that the screen height is only 6, the main
-    // window, where text is actually sent, becomes visible.
+    // In the upstream screen model, the window to which Journey writes its
+    // story is completely covered up by window 1, and only the bottom 6
+    // lines of window 1 are actually useful, even though the game expands
+    // it to cover the whole screen. By pretending that the screen height
+    // is only 6, the main window, where text is actually sent, becomes
+    // visible. Spatterlight draws Journey with z6/journey.cpp, which needs
+    // the real size in grid cells.
 #ifdef SPATTERLIGHT
     if (is_spatterlight_journey) {
         width = (gscreenw - 2 * ggridmarginx) / gcellw;
@@ -2487,12 +2490,10 @@ static bool draw_shogun(glui32 pic, glui32 w, glui32 h, glui32 x, glui32 y)
 
         // The maze itself is offset one block from the background (so
         // it’s centered), but to calculate this, it uses the maze
-        // window size, which isn’t currently tracked by Bocfel, so its
-        // calculating is incorrect. However, since we know the
+        // window size, which doesn’t match the Glk window here, so its
+        // calculation is incorrect. However, since we know the
         // invisible picture size (7x7), it’s simple enough to manually
-        // add this to the offsets for the maze pieces. Eventually, if
-        // window sizes are properly tracked, this should not be
-        // necessary.
+        // add this to the offsets for the maze pieces.
         x--;
         y--;
         if (pic != 44) {
@@ -2772,7 +2773,8 @@ void zerase_window()
 void zerase_line()
 {
 #ifdef ZTERP_GLK
-    // XXX V6 does pixel handling here.
+    // In V6 any other value is a number of pixels to erase. That isn't
+    // implemented: such calls do nothing.
     if (zargs[0] != 1 || curwin != upperwin || upperwin->id == nullptr) {
         return;
     }
@@ -2785,16 +2787,13 @@ void zerase_line()
 #endif
 }
 
-// XXX This is more complex in V6 and needs to be updated when V6 windowing is implemented.
 void set_cursor(uint16_t y, uint16_t x)
 {
 #ifdef ZTERP_GLK
-    // All the windows in V6 can have their cursor positioned; if full
-    // V6 ever comes about this should be fixed. For now just hardcode
-    // some Arthur handling: with Arthur, the cursor can be set in
-    // either the upper window (as normal) or window 2; window 2 is the
-    // window used for text/graphics above the game, e.g. room images,
-    // map, inventory, etc.
+    // All the windows in V6 can have their cursor positioned, but this
+    // only handles the upper window and Arthur's window 2, the window used
+    // for text/graphics above the game, e.g. room images, map, inventory,
+    // etc. zset_cursor() deals with the others that Spatterlight can show.
 #ifdef ZTERP_GLK_GRAPHICS
     if ((hack == Hack::Arthur && curwin != upperwin && curwin != arthurwin) ||
         (hack != Hack::Arthur && curwin != upperwin))
@@ -2949,7 +2948,8 @@ void zset_colour()
     Window *win;
 
     if (prepare_color_opcode(fg, bg, win)) {
-        // XXX -1 is a valid color in V6.
+        // In V6, -1 means the colour under the cursor. That isn't
+        // implemented: the colour stays as it is.
         if (fg >= 1 && fg <= 12) {
             win->fg_color = Color(Color::Mode::ANSI, fg);
         }
@@ -3123,7 +3123,6 @@ void zprint_paddr()
     print_handler(unpack_string(zargs[0]), nullptr);
 }
 
-// XXX This is more complex in V6 and needs to be updated when V6 windowing is implemented.
 void zsplit_window()
 {
     // The upper window takes up the top of the screen, and the lower
@@ -3284,7 +3283,8 @@ void window_change()
     
             if (last_z6_preferred_graphics != gli_z6_graphics) {
                 last_z6_preferred_graphics = gli_z6_graphics;
-                // We may have switched preferred graphics to the one we already fell back on
+                // We may have switched preferred graphics to the one we
+                // already fell back on
                 graphics_type_changed = (graphics_type != gli_z6_graphics);
 
                 if (graphics_type_changed) {
@@ -3296,7 +3296,8 @@ void window_change()
                         find_and_load_z6_graphics();
                     }
 
-                    // If we were using Apple 2 graphics and found no other kind, fall back to Apple 2 graphics again
+                    // If we were using Apple 2 graphics and found no other
+                    // kind, fall back to Apple 2 graphics again
                     if (graphics_type == kGraphicsTypeNoGraphics && was_apple) {
                         load_apple2_graphics();
                     }
@@ -3316,7 +3317,8 @@ void window_change()
                 image_needs_redraw = true;
             }
 
-            // if this is Zork Zero, the below is already done in update_z0_colors()
+            // if this is Zork Zero, the below is already done in
+            // update_z0_colors()
             update_user_defined_colours();
             update_monochrome_colours();
 
@@ -3459,8 +3461,8 @@ static void request_mouse_events()
     if (graphics_window.id() != nullptr) {
         glk_request_mouse_event(graphics_window.id());
     }
-    // FIXME Find a cleaner way to do this.
-    // This requests a new mouse event after clicking in the map.
+    // Glk mouse requests are one-shot, and the Zork Zero map takes its
+    // clicks in a window of its own, so ask for the next click here.
     if (is_spatterlight_zork0 && screenmode == MODE_MAP) {
         glk_request_mouse_event(graphics_fg_glk);
     }
@@ -3790,12 +3792,13 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
         break;
     case Input::Type::Line:
 #ifdef SPATTERLIGHT
-        // The Zork Zero on-screen map is a full-screen modal driven entirely by
-        // @read_char. After an autorestore onto the map, leaving it can strand a
-        // char-input request on a now-inactive window, which then steals this
-        // line read's keystrokes and leaves the prompt unable to accept input.
-        // Clear any such stale request (and tear the map view down) before the
-        // line read is established so the prompt's line field gets the input.
+        // The Zork Zero on-screen map is a full-screen modal driven entirely
+        // by @read_char. After an autorestore onto the map, leaving it can
+        // strand a char-input request on a now-inactive window, which then
+        // steals this line read's keystrokes and leaves the prompt unable to
+        // accept input. Clear any such stale request (and tear the map view
+        // down) before the line read is established so the prompt's line field
+        // gets the input.
         if (is_spatterlight_zork0) {
             z0_leave_stale_map_for_line_input();
         }
@@ -3885,30 +3888,8 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 break;
             }
 
-                /*if (ev.win != curwin->id) {
-                    bool found = false;
-                    for (auto &window : windows) {
-                        if (window.id == ev.win) {
-                            fprintf(stderr, "Expected char input from window %d, got it from %d\n", window.index, curwin->index);
-                            found = true;
-                        }
-                    }
-                    if (!found) {
-                        fprintf(stderr, "Expected char input from window %d\n", curwin->index);
-                        if (ev.win == graphics_bg_glk) {
-                            fprintf(stderr, "Got it from graphics_bg_glk\n");
-                        } else if (ev.win == graphics_fg_glk) {
-                            fprintf(stderr, "Got it from graphics_fg_glk\n");
-                        } else {
-                            fprintf(stderr, "Got it from an unattached window with peer %d\n", ev.win->peer);
-                        }
-                    }
-
-                    fprintf(stderr, "Here\n");
-
-                }*/
-
-//            ZASSERT(ev.win == curwin->id, "got evtype_CharInput on unexpected window");
+            // The key need not come from curwin: the V6 hint menus, for one,
+            // read it from the main window whichever window is current.
 
             status = InputStatus::Received;
 
@@ -5181,12 +5162,10 @@ static bool draw_arthur(glui32 pic, glui32 w, glui32 h, glui32 x, glui32 y)
     }
 
     // Arthur does a lot of checking of window sizes to determine where
-    // to draw things. At the moment, window sizes are not tracked at
-    // all, so they can’t accurately be reported, causing graphics to be
-    // drawn in the wrong places. Instead of relying on the game, a
-    // table of locations is used, given that these graphics never
-    // change place. Ultimately it’d be nicer to track sizes so the game
-    // can provide locations, but this is fine for now.
+    // to draw things. The sizes of the Glk windows here aren't what it
+    // expects, which would put graphics in the wrong places. Instead of
+    // relying on the game, a table of locations is used, given that these
+    // graphics never change place.
     auto geom = arthur_geom(pic);
     if (geom != nullptr) {
         graphics_window.draw(pic, *geom, w, h);
@@ -5628,8 +5607,8 @@ void zget_wind_prop()
         if (is_spatterlight_arthur && win->id && win->id->type == wintype_TextGrid) {
             glui32 w;
             glk_window_get_size(win->id, &w, NULL);
-            // We have to subtract one, or the rightmost character of the status bar
-            // gets cut off during live resize. No idea why.
+            // We have to subtract one, or the rightmost character of the
+            // status bar gets cut off during live resize. No idea why.
             val = w - 1;
         } else if (is_spatterlight_arthur || is_spatterlight_shogun || is_spatterlight_zork0) {
             val = win->x_size;
@@ -5719,9 +5698,8 @@ void zget_wind_prop()
     store(val);
 }
 
-// Output should be to the currently-selected window, but since V6 is
-// only marginally supported, other windows are not active. Send to the
-// main window for the time being.
+// Output should be to the currently-selected window, but only Spatterlight's
+// Arthur can show it there. Everything else goes to the main window.
 void zprint_form()
 {
     Window *saved = curwin;
@@ -6003,7 +5981,7 @@ bool have_statuswin()
 void create_upperwin()
 {
 #ifdef ZTERP_GLK
-    // The upper window appeared in V3. */
+    // The upper window appeared in V3.
     if (zversion >= 3) {
         auto location = is_game(Game::Journey) ?
             winmethod_Below :
@@ -6681,10 +6659,8 @@ void init_screen(bool first_run)
         window.font = Window::Font::Normal;
 
 #ifdef SPATTERLIGHT
-        // Only the main window should really have this bit set
-        // but we don't check the other windows anyway,
-        // or the other window attributes,
-        // so let's simplify things a bit for now.
+        // Only the main window should really have this bit set, but the
+        // interpreter doesn't test it on any other window, so set it on all.
         window.attribute = WINATTR_TRANSCRIPTING_BIT;
 
         if (is_spatterlight_v6) {
@@ -6738,7 +6714,7 @@ void init_screen(bool first_run)
     v6_geometry.fill(V6Geometry());
 
 #ifdef ZTERP_GLK
-    // For now, unless the user disables it, point windows 2–7 (from
+    // Unless the user disables it, point windows 2–7 (from
     // version 6) to the main window, allowing all output (text and
     // graphics) to be seen. Things could get pretty jumbled but it’s
     // not inherently worse than a chunk of output missing.

@@ -185,9 +185,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int)
 
 #ifdef SPATTERLIGHT
 
-// If we find a valid blorb file (which may be external  or the game file itself)
-// we keep track of it using this global. (The blorb file stream stays open during tha game,
-// but is closed and reopened during autorestore.)
+// If we find a valid blorb file (which may be external  or the game file
+// itself) we keep track of it using this global. (The blorb file stream stays
+// open during tha game, but is closed and reopened during autorestore.)
 strid_t active_blorb_file_stream = nullptr;
 #endif
 

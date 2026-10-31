@@ -41,8 +41,8 @@ static const uint8_t apple2_palette[16][3] =
 // This is the same decoding as ZDISPL in Infocom's Apple II interpreter
 // sources (pic.asm) does.
 // The format is: a 3-byte length of the data that follows, then color
-// bytes (0x0-0xF), each optionally followed by a repeat count. If the next byte is
-// <= 0x0F or we're at the end of data, the repeat count defaults to 1
+// bytes (0x0-0xF), each optionally followed by a repeat count. If the next
+// byte is <= 0x0F or we're at the end of data, the repeat count defaults to 1
 // (0x0F - 0x0E). Otherwise, the repeat count is (byte - 0x0E).
 // After decoding each pixel, a vertical XOR pass is applied inline:
 // each pixel is XOR'd with the one directly above it (one scanline

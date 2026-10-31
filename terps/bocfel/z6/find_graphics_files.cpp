@@ -215,8 +215,10 @@ static void append_eg2_images(const std::string &eg1_path) {
 
 // Opens a graphics file and extracts images from it into the global raw_images
 // array. Handles three extraction paths:
-//   - Apple II: delegates to extract_apple2_disk_images (reads from disk image)
-//   - Blorb: delegates to extract_images_from_blorb (uses the Glk resource map)
+//   - Apple II: delegates to extract_apple2_disk_images (reads from disk
+//     image)
+//   - Blorb: delegates to extract_images_from_blorb (uses the Glk resource
+//     map)
 //   - Raw formats (VGA/EGA/CGA/Amiga/Mac): reads file into memory and parses
 // For EGA, also loads supplementary images from a companion .EG2 file.
 // Sets the screen geometry for the detected graphics type.
@@ -328,9 +330,9 @@ static void load_best_graphics(void) {
 }
 
 // Main entry point for Z6 graphics loading. First searches for graphics files
-// named according the game file (e.g. journey-r83-s890706.blb if the game file is
-// journey-r83-s890706.z6), then looks for a "base" file name (journey.blb for
-// journey-r83-s890706.z6), and finally loads the best available format.
+// named according the game file (e.g. journey-r83-s890706.blb if the game file
+// is journey-r83-s890706.z6), then looks for a "base" file name (journey.blb
+// for journey-r83-s890706.z6), and finally loads the best available format.
 // See load_best_graphics() above.
 void find_and_load_z6_graphics(void) {
     find_graphics_files(game_file);
@@ -338,8 +340,9 @@ void find_and_load_z6_graphics(void) {
     size_t delimiterpos = file_name.rfind('/');
     size_t dotpos = file_name.rfind('.');
 
-    // Look for a "base" file name which doesn't exactly correspond to the game file name.
-    // arthur-r74-s890714.z6 -> arthur.MG1, arthur.EG1, arthur side 1.woz, arthur.blb and so on.
+    // Look for a "base" file name which doesn't exactly correspond to the game
+    // file name. arthur-r74-s890714.z6 -> arthur.MG1, arthur.EG1, arthur side
+    // 1.woz, arthur.blb and so on.
     const char *base_name = is_spatterlight_journey ? "/journey" :
                             is_spatterlight_arthur  ? "/arthur" :
                             is_spatterlight_shogun  ? "/shogun" :

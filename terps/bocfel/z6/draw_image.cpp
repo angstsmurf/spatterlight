@@ -212,7 +212,8 @@ static constexpr int kBytesPerColor = 3;
 // through extract_palette_from_png_data(), which always calloc()s the full
 // kMaxPaletteEntries*kBytesPerColor (48, zero-padded) no matter how few PLTE
 // entries the file has, and the legacy per-image path allocates
-// kColorPaletteSize (512). Keep that invariant if a new palette source is added.
+// kColorPaletteSize (512). Keep that invariant if a new palette source is
+// added.
 void extract_palette(ImageStruct *image) {
     if (image && image->palette) {
         memcpy(global_palette, image->palette, kPaletteSize * kBytesPerColor);
@@ -553,7 +554,8 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
 
     size_t packed_size = (size_t)padded_width * image->height;
 
-    // Temporarily widen image->width so decompress_vga allocates for the padded stride
+    // Temporarily widen image->width so decompress_vga allocates for the
+    // padded stride
     int original_width = image->width;
     image->width = padded_width;
     ImageBuf decompressed(decompress_vga(image));
@@ -568,7 +570,8 @@ static uint8_t *draw_opaque_cga(ImageStruct *image) {
         return nullptr;
 
     // Opaque CGA images store 8 pixels per byte
-    // (unlike monochrome Mac images which use the same wasteful format as transparent ones)
+    // (unlike monochrome Mac images which use the same wasteful format as
+    // transparent ones)
     for (size_t byte_index = 0; byte_index < packed_size; byte_index++) {
         uint8_t packed_byte = decompressed[byte_index];
         for (int bit = 0; bit < kBitsPerByte; bit++) {

@@ -96,9 +96,9 @@ static int find_root(const LzwEntry *table, uint16_t code) {
     return -1;
 }
 
-// Decompresses LZW-encoded pixel data from an ImageStruct.
-// Returns a freshly allocated buffer of width * height bytes containing palette
-// indices, or nullptr on bad dimensions, allocation failure, or corrupt data.
+// Decompresses LZW-encoded pixel data from an ImageStruct. Returns a freshly
+// allocated buffer of width * height bytes containing palette indices, or
+// nullptr on bad dimensions, allocation failure, or corrupt data.
 uint8_t *decompress_vga(const ImageStruct *image) {
     size_t output_size = 0;
     ImageBuf output(image_alloc(image->width, image->height, 1, &output_size));
@@ -149,7 +149,8 @@ uint8_t *decompress_vga(const ImageStruct *image) {
             if (root_code < 0)
                 return nullptr;
 
-            // Add a new entry: previous code's string + this string's root pixel.
+            // Add a new entry: previous code's string + this string's root
+            // pixel.
             if (state.next_table_code < kLzwTableSize) {
                 lzw_table[state.next_table_code].prefix = previous_code;
                 lzw_table[state.next_table_code].pixel = lzw_table[root_code].pixel;

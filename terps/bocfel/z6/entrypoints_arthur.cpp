@@ -290,13 +290,15 @@ void find_arthur_globals(void) {
         } else if (entrypoint.fn == RT_UPDATE_INVT_WINDOW && entrypoint.found_at_address != 0) {
             ar.RT_UPDATE_INVT_WINDOW = entrypoint.found_at_address - 1;
 
-            // Patch to to fix second vertical bar not being drawn at certain sizes.
-            // The purpose of the original code seems to be to avoid drawing at third bar at the right edge
-            // but instead it skips the second bar if the window width in characters is evenly divisible by 3.
-            // Not sure if it is broken in the original as well or if it is due to us measuring window width
-            // differently.
+            // Fix the second vertical bar not being drawn at certain sizes.
+            // The original code seems meant to avoid drawing a third bar at
+            // the right edge, but it skips the second bar if the window width
+            // in characters is evenly divisible by 3. Whether the original
+            // interpreters show this too, or it comes from how window width
+            // is measured here, has not been checked.
 
-            // We just patch the line that adds 1 to the width to subtract 1 instead.
+            // We just patch the line that adds 1 to the width to subtract 1
+            // instead.
 
             // ADD (SP)+,#01 -> -(SP) becomes
             // SUB (SP)+,#01 -> -(SP)

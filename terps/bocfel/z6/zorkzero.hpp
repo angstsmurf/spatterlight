@@ -222,9 +222,10 @@ struct ZorkRoutines {
     uint8_t MAP_CY_VAR;
     // The r242/r296 betas have no map-aware refresh, so to redraw the map on
     // resize/autorestore we re-invoke the game's own V-MAP routine with its
-    // BLINK-WHILE-AWAITING-INPUT call patched to rtrue (so it draws the map and
-    // returns instead of looping/exiting). V_MAP is the routine's byte address;
-    // V_MAP_BLINK_CALL is the byte address of that call to patch. 0 = not found.
+    // BLINK-WHILE-AWAITING-INPUT call patched to rtrue (so it draws the map
+    // and returns instead of looping/exiting). V_MAP is the routine's byte
+    // address; V_MAP_BLINK_CALL is the byte address of that call to patch. 0 =
+    // not found.
     uint32_t V_MAP;
     uint32_t V_MAP_BLINK_CALL;
     uint32_t J_PLAY;
@@ -238,7 +239,8 @@ struct ZorkRoutines {
     uint32_t B_MOUSE_PEG_PICK;
     uint32_t SET_B_PIC;
     uint32_t TOWER_WIN_CHECK;
-    // Address of the branch in SNARFEM taken when the player wins. 0 = not found.
+    // Address of the branch in SNARFEM taken when the player wins. 0 = not
+    // found.
     uint32_t SNARFEM_WIN;
     // Address of the code in PEG-GAME that follows a legal move and calls
     // PBOZ-WIN-CHECK. 0 = not found.

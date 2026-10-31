@@ -4,8 +4,10 @@
 //
 //  Created by Administrator on 2023-07-21.
 //
-//  Implements the custom UI for Infocom's "Shogun" (1989), a Z-machine
-//  version 6 adaptation of James Clavell's novel. Shogun is largely a standard text adventure, apart from some custom menu functionality, graphical borders, inline illustrations, and a maze mini-game.
+//  Implements the custom UI for Infocom's "Shogun" (1989), a Z-machine version
+//  6 adaptation of James Clavell's novel. Shogun is largely a standard text
+//  adventure, apart from some custom menu functionality, graphical borders,
+//  inline illustrations, and a maze mini-game.
 //
 //  Key UI elements:
 //    - Decorative border graphics framing the text area (crests, waves,
@@ -71,7 +73,8 @@ ShogunObjects so;
 #define SHOGUN_A2_BORDER_WIN windows[6] // Apple II horizontal border banner
 
 // Picture numbers for the right-side border pillar graphics.
-// The left pillar is part of the main border image; right pillars are separate.
+// The left pillar is part of the main border image; right pillars are
+// separate.
 constexpr int P_BORDER_R = 59; // Right pillar for the standard crest border
 constexpr int P_BORDER2_R = 60; // Right pillar for the wave border
 
@@ -284,7 +287,8 @@ void INTERLUDE_STATUS_LINE(void) {
 
 #pragma mark - Menu System
 
-// Z-machine address of the current menu prompt string (e.g. "You may choose to:").
+// Z-machine address of the current menu prompt string (e.g. "You may choose
+// to:").
 static uint16_t current_menu_message;
 
 // Writes the selected menu choice to the transcript stream. Called after
@@ -618,7 +622,9 @@ void GET_FROM_MENU(void) {
     uint16_t result = get_from_menu(variable(1), variable(2), current_menu_selection);
 
     // When we return to our hacked Zcode,
-    // L02 (var 3) must contain the address to the menu function,  L08 (var 9) must contain the index of selected line, L01 (var 2) must contain address of the menu.
+    // L02 (var 3) must contain the address to the menu function,  L08 (var 9)
+    // must contain the index of selected line, L01 (var 2) must contain
+    // address of the menu.
     store_variable(9, result);
     current_menu_selection = 0;
     v6_delete_win(&SHOGUN_MENU_BG_WIN);

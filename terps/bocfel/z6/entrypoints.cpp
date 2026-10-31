@@ -330,10 +330,11 @@ static void dump_entrypoint_state(void) {
 }
 #endif
 
-// One-time entrypoint discovery, called shortly after the story file
-// has been loaded into memory. Walks the game's table in order, locates each row's pattern in dynamic memory, stubs the
-// originals where requested, then runs the per-game globals finder and
-// finally populates the lookup map consulted on every instruction.
+// One-time entrypoint discovery, called shortly after the story file has been
+// loaded into memory. Walks the game's table in order, locates each row's
+// pattern in dynamic memory, stubs the originals where requested, then runs
+// the per-game globals finder and finally populates the lookup map consulted
+// on every instruction.
 void find_entrypoints(void) {
 
     int start = header.static_start;
@@ -364,18 +365,19 @@ void find_entrypoints(void) {
                 // cursor, so the surrounding forward search is unaffected.
                 int search_start = entrypoint.global_search ? header.static_start : start;
                 int32_t offset = find_pattern_in_mem(entrypoint.pattern, search_start, end - search_start);
-                // The 3-locals UPDATE-STATUS-LINE pattern (03 eb 7f 01 .. 04 7f
-                // 04 00 = [3 locals] SET_WINDOW #1; SET_FONT #4) can false-match
-                // the same SCREEN/FONT sequence buried inside INIT-STATUS-LINE in
-                // the pre-release revisions, where the real UPDATE-STATUS-LINE is
-                // a *2-locals* routine matched by the "alt" pattern instead (r296:
-                // false hit at 0x1cd06, mid INIT-STATUS-LINE 0x1cca0; the real
-                // routine is 0x1cdc4). A genuine routine head continues with
-                // LOADB/JZ (10/a0); the interior copy continues with a CALL_2N to
-                // PICINF-PLUS-ONE (da .. .. 01 7e). Skip such matches so the
-                // routine stays unclaimed and the 2-locals alt can claim the real
-                // one. (In the releases/r343/r366/r66 the real 3-locals routine
-                // matches first, so this never rejects a wanted match.)
+                // The 3-locals UPDATE-STATUS-LINE pattern (03 eb 7f 01 .. 04
+                // 7f 04 00 = [3 locals] SET_WINDOW #1; SET_FONT #4) can
+                // false-match the same SCREEN/FONT sequence buried inside
+                // INIT-STATUS-LINE in the pre-release revisions, where the
+                // real UPDATE-STATUS-LINE is a *2-locals* routine matched by
+                // the "alt" pattern instead (r296: false hit at 0x1cd06, mid
+                // INIT-STATUS-LINE 0x1cca0; the real routine is 0x1cdc4). A
+                // genuine routine head continues with LOADB/JZ (10/a0); the
+                // interior copy continues with a CALL_2N to PICINF-PLUS-ONE
+                // (da .. .. 01 7e). Skip such matches so the routine stays
+                // unclaimed and the 2-locals alt can claim the real one. (In
+                // the releases/r343/r366/r66 the real 3-locals routine matches
+                // first, so this never rejects a wanted match.)
                 while (offset != -1 && entrypoint.fn == z0_UPDATE_STATUS_LINE &&
                        entrypoint.pattern.size() >= 9 && entrypoint.pattern[0] == 0x03 &&
                        (uint32_t)(offset + 9) < memory_size && memory[offset + 9] == 0xda) {
