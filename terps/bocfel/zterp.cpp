@@ -47,6 +47,7 @@
 #ifdef SPATTERLIGHT
 #include "extract_apple_2.h"
 #include "find_graphics_files.hpp"
+#include "v6_windows.hpp"
 #endif
 
 #ifdef ZTERP_GLK
@@ -393,10 +394,7 @@ void write_header()
 
     if (zversion >= 4) {
 #ifdef SPATTERLIGHT
-        options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_v6) {
-            v6_switch_to_allowed_interpreter_number();
-        }
+        v6_apply_interpreter_number();
 #endif
         store_byte(0x1e, options.int_number);
         store_byte(0x1f, options.int_version);

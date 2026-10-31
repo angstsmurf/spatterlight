@@ -483,11 +483,55 @@ bool skip_puzzle_prompt(const char *str) {
 
 #pragma mark - Per-game Hooks
 
+double perceived_brightness(glui32 col) {
+    double red = (col >> 16) / 255.0;
+    double green = ((col >> 8) & 0xff)  / 255.0;
+    double blue = (col & 0xff) / 255.0;
+
+    double r = (red <= 0.04045) ? red / 12.92 : pow((red + 0.055) / 1.055, 2.4);
+    double g = (green <= 0.04045) ? green / 12.92 : pow((green + 0.055) / 1.055, 2.4);
+    double b = (blue <= 0.04045) ? blue / 12.92 : pow((blue + 0.055) / 1.055, 2.4);
+
+    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+
+glui32 brightest(glui32 col1, glui32 col2) {
+    if (perceived_brightness(col1) < perceived_brightness(col2))
+        return col2;
+    else
+        return col1;
+}
+
 static void no_op(void) {}
 static void no_op_state(library_state_data *) {}
+static bool no_picture(glui32, glsi32, glsi32) { return false; }
+
+static bool journey_display_picture(glui32 pic, glsi32, glsi32) {
+    current_picture = journey_draw_picture(pic, journey_window);
+    return true;
+}
+
+static bool shogun_display_picture(glui32, glsi32, glsi32) {
+    if (current_picture == kShogunTitleImage) {
+        if (v6_graphics_off())
+            v6_skip_next_keypress();
+        shogun_draw_title_image();
+        return true;
+    }
+    if (curwin->index == 0) {
+        // This should never happen
+        shogun_display_inline_image(imagealign_MarginRight);
+        return true;
+    }
+    return false;
+}
+
+static bool z0_display_picture_in_current_window(glui32, glsi32 x, glsi32 y) {
+    return z0_display_picture(x, y, curwin);
+}
 
 static const V6GameHooks no_game_hooks = {
-    no_op_state, no_op_state, no_op, no_op, no_op, no_op, no_op
+    no_op_state, no_op_state, no_op, no_op, no_op, no_op, no_op, no_picture
 };
 
 static const V6GameHooks arthur_hooks = {
@@ -498,6 +542,7 @@ static const V6GameHooks arthur_hooks = {
     arthur_update_after_restart,
     arthur_update_on_resize,
     no_op,
+    arthur_display_picture,
 };
 
 static const V6GameHooks journey_hooks = {
@@ -508,6 +553,7 @@ static const V6GameHooks journey_hooks = {
     no_op,
     journey_update_on_resize,
     journey_autorestore_internal_read_char_hacks,
+    journey_display_picture,
 };
 
 static const V6GameHooks shogun_hooks = {
@@ -518,6 +564,7 @@ static const V6GameHooks shogun_hooks = {
     shogun_update_after_restart,
     shogun_update_on_resize,
     shogun_autorestore_internal_read_char_hacks,
+    shogun_display_picture,
 };
 
 static const V6GameHooks z0_hooks = {
@@ -528,6 +575,7 @@ static const V6GameHooks z0_hooks = {
     z0_update_colors, // after a restart
     z0_update_on_resize,
     no_op,
+    z0_display_picture_in_current_window,
 };
 
 const V6GameHooks &v6_game(void) {

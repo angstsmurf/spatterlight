@@ -20,6 +20,7 @@ extern "C" {
 #include <vector>
 
 #include "screen.h"
+#include "v6_windows.hpp"
 
 void adjust_definitions_window(void);
 void redraw_hint_screen_on_resize(void);
@@ -135,10 +136,15 @@ struct V6GameHooks {
     // An autorestore came back inside a read_char call made by the
     // interpreter itself (a menu, hints, definitions, a prompt).
     void (*autorestore_internal_read_char_hacks)(void);
+    // @draw_picture. Returns true if the picture needs nothing more done.
+    bool (*display_picture)(glui32 pic, glsi32 x, glsi32 y);
 };
 
 // The hooks of the current game, all no-ops if it is not one of the four.
 const V6GameHooks &v6_game(void);
+
+double perceived_brightness(glui32 col);
+glui32 brightest(glui32 col1, glui32 col2);
 
 extern uint8_t fg_global_idx, bg_global_idx;
 

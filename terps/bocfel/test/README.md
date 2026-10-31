@@ -41,6 +41,13 @@ and `mkdemo.py` (the story-to-demo converter, in this folder). Those were
 checked with standalone builds, old output
 against new, on the files at hand.
 
+`run_v6_traces.py` also runs seven non-Infocom V6 stories from
+`~/Downloads/NonInfocomV6` (`advent`, `mystad01`, `mystad05`, `mysterious01`,
+`moments`, `sunburst`, `wyrmward`), each as `name`, `name-autorestore` and
+`name-small`. These are the only cases that exercise `v6_panels.cpp` and
+`mysterious_canvas.cpp`. The folder is local-only, and the cases are skipped
+when it is missing.
+
 ## Bugs the suites caught
 
 Found during the refactor passes of October 2026, listed so that the kind of
@@ -127,6 +134,22 @@ thing the traces show is on record:
   instead of an `is_spatterlight_*` chain. The chains left in
   `v6_redraw_game_screen()` and `after_V_COLOR()` deliberately leave
   Journey out.
+- `v6_windows.cpp` has the V6 window primitives (`v6_sizewin`,
+  `v6_define_window`, `v6_remap_win`, `v6_apply_interpreter_number`).
+  `v6_panels.cpp` has the band layout of the non-Infocom V6 games, and
+  `v6_is_generic()` is the one test for those games. `mysterious_canvas.cpp`
+  holds the 2011 Mysterious Adventures picture runs. Its painter
+  (`mysterious_paint`, `redraw_mysterious`) stays in `screen.cpp` because it
+  needs `GraphicsWindow`, as do `v6_grid_panel_put_char` and `v6_clear_panel`
+  (static output helpers) and the held-newline code in `put_char_base`.
+- `V6GameHooks::display_picture` is the Spatterlight half of `@draw_picture`.
+  A `false` return falls through to the upstream code in `zdraw_picture`.
+- The upstream `hack == Hack::*` paths in `screen.cpp` (`draw_arthur`,
+  `draw_journey`, `GraphicsWindow`, ...) look dead but are not:
+  `create_graphicswin()` sets `hack` for the Infocom games and `zdraw_picture`
+  falls through to them. `journey_window` is live too; `init_screen` and
+  autorestore assign it. Only regions the preprocessor proves absent from
+  both the app and the headless build were deleted.
 - Any `winid_t` kept outside `windows[]` is lost at autorestore and has to
   be found again: by tag through the autosave (`stored_bufferwin`,
   `z0_right_status_window`) or by rock (`v6_grid_window_with_rock()`, for
@@ -151,4 +174,14 @@ shared autorestore recolouring helper (Zork Zero has to reset globals
 between the two calls); turning `get_global`/`set_global` into inline
 functions (`GLOBAL()` now parenthesises its argument); moving `ImageStruct`,
 the decompressors and the allocators to containers (touches every decoder,
-including the untested Apple II extractor).
+including the untested Apple II extractor); moving stash/recover to its own
+file (it needs `screen.cpp` statics) or a key table for it (no tests against
+old autosaves); hooks for `zget_wind_prop` (two Arthur lines),
+`flush_image_buffer` and the mouse branch; a keypad table
+(the rows sit among upstream's identical function-key rows); a
+`zterp_os_autosave_name(bool tmp)` parameter (the call runs through upstream's
+save code); a single ID list in `zterp.cpp` (the app and headless builds
+already share one arm); moving the Woz hack, `pixversion`, `pack_routine` or
+`active_blorb_file_stream`; an `objects_internal.h`; a real `zwindow_style` in
+the headless build (it calls the app-only `v6_mark_layout_dirty()`); a name for
+the Arthur `-4` in `print_handler` (no reason is recorded).

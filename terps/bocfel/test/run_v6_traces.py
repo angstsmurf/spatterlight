@@ -107,6 +107,34 @@ GAMES = {
                "Shogun - Side %d.woz": "shogun - Side %d.woz"}),
 }
 
+# The V6 games that aren't Infocom's: the panel layout and the Mysterious
+# Adventures canvas of screen.cpp, which none of the cases above reach.  Files
+# in OTHERS, from the IF Archive (games/zcode) unless noted: advent.z6 (the
+# V6Lib port, with the four STYLE layouts), mystad01/05.z6
+# (mysterious_z6_noblorb.zip, the 2011 releases that draw their pictures with
+# window 5), mysterious01.z6 + Mysterious01.blb (mysterious_z6_blorb.zip),
+# moments.z6, sunburst.z6, wyrmward.z6.
+OTHERS = os.path.join(DOWNLOADS, "NonInfocomV6")
+SCOTT = ["look", "north", "south", "east", "west", "up", "down", "inventory",
+         "arrange:1000x700", "look", "arrange:500x400", "north", "south",
+         "arrange:800x600", "east", "west", "undo", "look"]
+PANELS = (["look", "style", "look", "inventory", "style", "look", "east",
+           "arrange:1000x700", "style", "look", "west", "arrange:500x400",
+           "style", "look", "arrange:800x600", "style", "look", "south",
+           "style", "north", "undo", "look"])
+TEXT = ["look", "key:-6", "help", "key:-6", "key:-5", "key:-6", "key:q",
+        "look", "arrange:1000x700", "inventory", "arrange:500x400", "north",
+        "south", "arrange:800x600", "east", "west", "look"]
+OTHER_STORIES = {
+    "advent": ("advent.z6", PANELS),
+    "mystad01": ("mystad01.z6", SCOTT),
+    "mystad05": ("mystad05.z6", SCOTT),
+    "mysterious01": ("mysterious01.z6", SCOTT),
+    "moments": ("moments.z6", TEXT),
+    "sunburst": ("sunburst.z6", TEXT),
+    "wyrmward": ("wyrmward.z6", TEXT),
+}
+
 # Hand-written scripts for the screens the walkthroughs never open.  Keys
 # are Glk key codes: -6 Return, -4 up, -5 down, -2 left, -3 right, -8 Escape.
 UI = (["hint", "key:y"] + ["key:-5", "key:-5", "key:-6", "key:-6", "key:-6",
@@ -404,6 +432,19 @@ def cases():
                                      dict(graphics=BLORB))])
             add(label + "-switch", [(interleave(script, 9, switches * 2),
                                      dict(graphics=BLORB))])
+    # The other V6 games: a session, a session with an autorestore in it, a
+    # session in a small window.
+    for name, (filename, script) in OTHER_STORIES.items():
+        story = os.path.join(OTHERS, filename)
+        if os.path.exists(story):
+            cut = len(script) // 2
+            out.append((name, None, story, [(script, dict(graphics=BLORB))]))
+            out.append((name + "-autorestore", None, story,
+                        [(script[:cut], dict(graphics=BLORB)),
+                         (script[cut:], dict(graphics=BLORB))]))
+            out.append((name + "-small", None, story,
+                        [(script, dict(graphics=BLORB, width=480,
+                                       height=320))]))
     # The Zork Zero minigames by mouse, from saved games.
     game = GAMES["zork0"]
     if game["main"] in game["revisions"]:
@@ -429,7 +470,7 @@ def run_case(terp, work, pictures, case):
     os.makedirs(home, exist_ok=True)
     trace, errors = [], []
     env = {"SPATTERLIGHT_AUTOSAVE_SIGNATURE": signature,
-           "BOCFEL_RANDOM_SEED": str(GAMES[game]["seed"]),
+           "BOCFEL_RANDOM_SEED": str(GAMES[game]["seed"] if game else 1234),
            "TMPDIR": home + "/"}
     for index, (script, options) in enumerate(sessions):
         if index:

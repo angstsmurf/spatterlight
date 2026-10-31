@@ -33,6 +33,8 @@
 #ifndef SPATTERLIGHT_AUTOSAVE_H
 #define SPATTERLIGHT_AUTOSAVE_H
 
+#include <vector>
+
 #include "stack.h"
 #include "v6_specific.h"
 
@@ -118,9 +120,7 @@ typedef struct library_state_data_struct {
 
     // The picture and the rule of the Mysterious Adventures which
     // draw them themselves, as pairs of a colour and a pixel count.
-    // The memory belongs to whoever filled in the struct.
-    int mysterious_canvas_length;
-    const uint32_t *mysterious_canvas;
+    std::vector<uint32_t> mysterious_canvas;
 
 } library_state_data;
 

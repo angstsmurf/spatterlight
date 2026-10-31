@@ -30,6 +30,12 @@
 #include <utility>
 #include <vector>
 
+bool is_spatterlight_arthur = false;
+bool is_spatterlight_journey = false;
+bool is_spatterlight_shogun = false;
+bool is_spatterlight_zork0 = false;
+bool is_spatterlight_v6 = false;
+
 #ifdef ZTERP_GLK
 extern "C" {
 #include <glk.h>
@@ -50,6 +56,8 @@ extern "C" {
 #include "random.h"
 #include "v6_specific.h"
 #include "v6_shared.hpp"
+#include "mysterious_canvas.hpp"
+#include "v6_panels.hpp"
 
 static bool internal_read_char_hack = false;
 #endif
@@ -133,11 +141,6 @@ int lastx0 = 0, lasty0 = 0, lastx1 = 0, lasty1 = 0, lastpeer = -1;
 int lastwidth = 0, lastheight = 0, lastbg = -1;
 float lastcellw = 0, lastcellh = 0;
 glui32 current_picture = 0;
-bool is_spatterlight_arthur = false;
-bool is_spatterlight_journey = false;
-bool is_spatterlight_shogun = false;
-bool is_spatterlight_zork0 = false;
-bool is_spatterlight_v6 = false;
 
     
 bool flowbreak_after_next_newline = false;
@@ -198,9 +201,9 @@ struct Line {
     glui32 len;
 };
 
-static Window *upperwin = &windows[1];
+Window *upperwin = &windows[1];
 static Window statuswin;
-static uint16_t upper_window_height = 0;
+uint16_t upper_window_height = 0;
 static uint16_t upper_window_width = 0;
 static winid_t errorwin;
 
@@ -468,7 +471,7 @@ static GraphicsWindow graphics_window;
 // graphics on top and text on the bottom. Journey has a different
 // enough layout that it’s not worth trying to shoehorn it into the
 // GraphicsWindow class.
-static winid_t journey_window;
+winid_t journey_window;
 static glui32 journey_screen_width;
 
 // Mysterious Adventures have an image separating the “upper window”
@@ -491,26 +494,10 @@ static glui32 mysterious_max_image;
 
 #ifdef SPATTERLIGHT
 // The 2011 releases of the Mysterious Adventures come without a Blorb
-// file. Their pictures are stored in the story file as runs of pixels,
-// and each run is drawn by moving window 5 over it and erasing the
-// window to the colour of the run. The rule below the status lines is
-// drawn in the same way. These rectangles are collected in a canvas of
-// the size of the picture plus the rule, and painted in the graphics
-// window and in the separator window.
+// file, and draw their pictures a rectangle at a time. See MysteriousCanvas.
 static bool mysterious_inline;
-static constexpr int mysterious_canvas_width = 512;
-static constexpr int mysterious_picture_height = 192;
-static constexpr int mysterious_rule_height = 8;
-static constexpr int mysterious_canvas_height = mysterious_picture_height + mysterious_rule_height;
-static std::vector<glui32> mysterious_canvas;
+static MysteriousCanvas mysterious_canvas;
 static uint16_t mysterious_status_lines = 3;
-
-// Rectangles which have been added to the canvas, but not painted yet.
-struct MysteriousRect {
-    glui32 color;
-    int x, y, width, height;
-};
-static std::vector<MysteriousRect> mysterious_pending;
 #endif
 
 static constexpr glui32 SHOGUN_MAZE_BLOCK_WIDTH = 7;
@@ -877,7 +864,9 @@ static void set_window_style(const Window *win)
     garglk_set_reversevideo(style.test(STYLE_REVERSE));
 
 #ifdef SPATTERLIGHT
-    if (!is_spatterlight_journey) {
+    if (is_spatterlight_journey) {
+        return;
+    }
 #endif
     // Colors are per-window in V6, but global in V5.
     if (zversion == 6) {
@@ -904,9 +893,6 @@ static void set_window_style(const Window *win)
             garglk_set_zcolors_stream(glk_window_get_stream(upperwin->id), gargoyle_color(win->fg_color), gargoyle_color(win->bg_color));
         }
     }
-#ifdef SPATTERLIGHT
-    }
-#endif
 #else
     // Yes, there are three ways to indicate that a fixed-width font should be used.
     bool use_fixed_font = style.test(STYLE_FIXED) || curwin->font == Window::Font::Fixed || header_fixed_font;
@@ -951,7 +937,7 @@ bool screen_toggle_force_fixed()
     return set_force_fixed;
 }
 
-static void set_current_style()
+void set_current_style()
 {
     set_window_style(style_window());
 }
@@ -1112,11 +1098,6 @@ static bool flushing_held_newlines = false;
 
 static void put_char_base(uint16_t c, bool unicode);
 
-static bool holds_newlines()
-{
-    return zversion == 6 && !is_spatterlight_v6;
-}
-
 static void flush_held_newlines()
 {
     if (held_newlines == 0) {
@@ -1143,29 +1124,13 @@ static bool drop_held_newlines(unsigned long height)
 }
 #endif
 
-// The geometry V6 games have given their windows with @split_window,
-// @window_size and @move_window, in units (which are characters, as
-// the font size is reported as 1×1). Apart from the upper window, the
-// windows aren’t generally placed accordingly, but @get_wind_prop
-// reports these values, because games calculate the positions and
-// sizes of their windows from those of other windows.
-struct V6Geometry {
-    uint16_t y = 1, x = 1, height = 0, width = 0;
-    bool sized = false, moved = false;
-    // A window placed later lies on top of one placed earlier.
-    unsigned long stamp = 0;
-};
-
-static std::array<V6Geometry, 8> v6_geometry;
-static unsigned long v6_geometry_stamp;
-#ifdef SPATTERLIGHT
-static bool v6_layout_dirty;
-#endif
+std::array<V6Geometry, 8> v6_geometry;
+unsigned long v6_geometry_stamp;
 
 static bool v6_tracks_geometry()
 {
 #ifdef SPATTERLIGHT
-    return zversion == 6 && !is_spatterlight_v6;
+    return v6_is_generic();
 #else
     return zversion == 6;
 #endif
@@ -1180,7 +1145,7 @@ static void v6_set_window_size(int window, uint16_t height, uint16_t width)
     geometry.sized = true;
     geometry.stamp = ++v6_geometry_stamp;
 #ifdef SPATTERLIGHT
-    v6_layout_dirty = true;
+    v6_mark_layout_dirty();
 #endif
 }
 
@@ -1193,333 +1158,11 @@ static void v6_set_window_origin(int window, uint16_t y, uint16_t x)
     geometry.moved = true;
     geometry.stamp = ++v6_geometry_stamp;
 #ifdef SPATTERLIGHT
-    v6_layout_dirty = true;
+    v6_mark_layout_dirty();
 #endif
 }
 
 #ifdef SPATTERLIGHT
-// Windows 2–7 are normally redirected to the main window, but that
-// jumbles the output of games which really lay out their windows:
-// Moments Out of Time keeps a menu bar in a one-line window at the
-// bottom of the screen, and the V6Lib port of Adventure can show the
-// room description and the inventory in windows above the story text.
-// So a window which the game has both sized and moved, and which is
-// neither the window commands are read in nor covered by a window
-// placed later, becomes a panel: a Glk window of its own above or below
-// the main window. As Glk windows can’t overlap, the panels are laid
-// out in horizontal bands, with panels that are side by side sharing
-// a band.
-static int v6_story_window = -1;
-static std::vector<int> v6_layout_signature;
-
-static bool is_v6_panel(const Window *win)
-{
-    return zversion == 6 && !is_spatterlight_v6 &&
-        win >= &windows[2] && win <= &windows[7] &&
-        win->id != nullptr && win->id != mainwin->id;
-}
-
-static bool is_v6_grid_panel(const Window *win)
-{
-    return is_v6_panel(win) && win->id->type == wintype_TextGrid;
-}
-
-struct V6Rect {
-    int y0, x0, y1, x1;
-};
-
-static bool v6_window_rect(int window, V6Rect &rect)
-{
-    const auto &geometry = v6_geometry[window];
-
-    if (!geometry.sized || !geometry.moved || as_signed(geometry.height) < 1 || as_signed(geometry.width) < 1) {
-        return false;
-    }
-
-    rect.y0 = std::max<int>(as_signed(geometry.y), 1);
-    rect.x0 = std::max<int>(as_signed(geometry.x), 1);
-    rect.y1 = rect.y0 + geometry.height - 1;
-    rect.x1 = rect.x0 + geometry.width - 1;
-
-    return true;
-}
-
-// The story window is the one the game reads commands in. Until it has
-// done so, take a window more than a few lines high which reaches the
-// bottom of the screen for one.
-static bool v6_is_story_window(int window)
-{
-    V6Rect rect;
-
-    if (v6_story_window >= 0) {
-        return window == v6_story_window;
-    }
-
-    return v6_geometry[window].height > 3 && v6_window_rect(window, rect) && rect.y1 >= word(0x24);
-}
-
-static bool v6_window_covered(int window)
-{
-    V6Rect rect, other;
-
-    if (!v6_window_rect(window, rect)) {
-        return false;
-    }
-
-    for (int i = 0; i < 8; i++) {
-        if (i != window && v6_geometry[i].stamp > v6_geometry[window].stamp && v6_window_rect(i, other) &&
-            other.y0 <= rect.y1 && other.y1 >= rect.y0 && other.x0 <= rect.x1 && other.x1 >= rect.x0) {
-
-            return true;
-        }
-    }
-
-    return false;
-}
-
-static bool v6_wants_panel(int window)
-{
-    V6Rect rect;
-
-    return window >= 2 && v6_window_rect(window, rect) && !v6_is_story_window(window) && !v6_window_covered(window);
-}
-
-struct V6Band {
-    enum class Position { Top, Middle, Bottom } position;
-    int y0, y1;
-    std::vector<int> panels;
-};
-
-static std::vector<V6Band> v6_layout_bands()
-{
-    std::vector<int> panels;
-    std::vector<V6Band> bands;
-    V6Rect rect;
-
-    for (int i = 2; i < 8; i++) {
-        if (v6_wants_panel(i)) {
-            panels.push_back(i);
-        }
-    }
-
-    auto origin = [](int window) {
-        V6Rect r;
-        v6_window_rect(window, r);
-        return std::make_pair(r.y0, r.x0);
-    };
-
-    std::sort(panels.begin(), panels.end(), [&origin](int a, int b) {
-        return origin(a) < origin(b);
-    });
-
-    for (int panel : panels) {
-        v6_window_rect(panel, rect);
-        if (!bands.empty() && rect.y0 <= bands.back().y1) {
-            bands.back().y1 = std::max(bands.back().y1, rect.y1);
-            bands.back().panels.push_back(panel);
-        } else {
-            bands.push_back({V6Band::Position::Middle, rect.y0, rect.y1, {panel}});
-        }
-    }
-
-    // A band above the upper window goes at the top of the screen, a
-    // band in the lower half of the story window (or of the screen, if
-    // there is no story window) goes below the main window, and all
-    // others go between the upper window and the main window.
-    V6Rect upper;
-    bool have_upper = upperwin->id != nullptr && upper_window_height > 0 && v6_window_rect(1, upper);
-    int centre = 1 + word(0x24);
-
-    for (int i = 0; i < 8; i++) {
-        if (v6_is_story_window(i) && v6_window_rect(i, rect)) {
-            centre = rect.y0 + rect.y1;
-            break;
-        }
-    }
-
-    for (auto &band : bands) {
-        std::sort(band.panels.begin(), band.panels.end(), [&origin](int a, int b) {
-            return origin(a).second < origin(b).second;
-        });
-
-        if (have_upper && band.y1 < upper.y0) {
-            band.position = V6Band::Position::Top;
-        } else if (band.y0 + band.y1 > centre) {
-            band.position = V6Band::Position::Bottom;
-        }
-    }
-
-    return bands;
-}
-
-// A panel at most three lines high is a bar, which is always a grid.
-// A larger one is a text buffer if the game has turned wrapping on.
-static glui32 v6_panel_type(const V6Band &band, int window)
-{
-    return band.y1 - band.y0 + 1 > 3 && (windows[window].attribute & 1) ? wintype_TextBuffer : wintype_TextGrid;
-}
-
-static void v6_open_band(const V6Band &band)
-{
-    winid_t split = mainwin->id;
-    glui32 method = winmethod_Above;
-    winid_t previous = nullptr;
-    int remaining = 0;
-
-    if (band.position == V6Band::Position::Top) {
-        split = glk_window_get_parent(upperwin->id);
-    } else if (band.position == V6Band::Position::Bottom) {
-        method = winmethod_Below;
-    }
-
-    for (int panel : band.panels) {
-        remaining += v6_geometry[panel].width;
-    }
-
-    for (int panel : band.panels) {
-        glui32 type = v6_panel_type(band, panel);
-        int width = v6_geometry[panel].width;
-        winid_t id;
-
-        if (previous == nullptr) {
-            if (split == nullptr) {
-                return;
-            }
-            id = glk_window_open(split, method | winmethod_Fixed, band.y1 - band.y0 + 1, type, 0);
-        } else {
-            id = glk_window_open(previous, winmethod_Right | winmethod_Proportional, 100 * remaining / (remaining + width), type, 0);
-        }
-
-        if (id == nullptr) {
-            return;
-        }
-
-        windows[panel].id = id;
-        windows[panel].x = windows[panel].y = 0;
-        previous = id;
-        remaining -= width;
-    }
-}
-
-static void v6_close_panels()
-{
-    for (int i = 2; i < 8; i++) {
-        if (is_v6_panel(&windows[i])) {
-            glk_window_close(windows[i].id, nullptr);
-            windows[i].id = mainwin->id;
-            windows[i].x = windows[i].y = 0;
-        }
-    }
-}
-
-// Describe a layout, to tell whether it differs from the one on screen.
-static std::vector<int> v6_signature(const std::vector<V6Band> &bands, std::array<bool, 8> &wanted)
-{
-    std::vector<int> signature;
-
-    for (const auto &band : bands) {
-        signature.push_back(-1);
-        signature.push_back(static_cast<int>(band.position));
-        signature.push_back(band.y1 - band.y0 + 1);
-        for (int panel : band.panels) {
-            signature.push_back(panel);
-            signature.push_back(v6_panel_type(band, panel));
-            signature.push_back(v6_geometry[panel].width);
-            wanted[panel] = true;
-        }
-    }
-
-    return signature;
-}
-
-static void v6_apply_layout()
-{
-    v6_layout_dirty = false;
-
-    if (zversion != 6 || is_spatterlight_v6 || !options.redirect_v6_windows || mainwin->id == nullptr) {
-        return;
-    }
-
-    auto bands = v6_layout_bands();
-    std::array<bool, 8> wanted{};
-    auto signature = v6_signature(bands, wanted);
-
-    bool same = signature == v6_layout_signature;
-    for (int i = 2; i < 8 && same; i++) {
-        same = is_v6_panel(&windows[i]) == wanted[i];
-    }
-
-    if (same) {
-        return;
-    }
-
-    // Glk can’t move windows around, so close all panels and open them
-    // again in their new places.
-    v6_close_panels();
-
-    // Every new band is opened next to the upper window or the main
-    // window, pushing the earlier ones outwards.
-    for (const auto &band : bands) {
-        if (band.position != V6Band::Position::Bottom) {
-            v6_open_band(band);
-        }
-    }
-
-    for (auto band = bands.rbegin(); band != bands.rend(); ++band) {
-        if (band->position == V6Band::Position::Bottom) {
-            v6_open_band(*band);
-        }
-    }
-
-    v6_layout_signature = signature;
-
-    glk_set_window(curwin->id);
-    set_current_style();
-}
-
-// The layout is not updated as soon as the game moves or resizes a
-// window, because games do that one window at a time, and the stages
-// in between make no sense. It is updated when the game is about to
-// read input, and when it draws in a window which might be a panel.
-static void v6_touch_window(Window *win)
-{
-    int window = win - &windows[0];
-
-    if (zversion != 6 || is_spatterlight_v6 || window < 2 || window > 7 || v6_is_story_window(window)) {
-        return;
-    }
-
-    // Drawing in a window which is covered by a later one brings it
-    // back. Moments Out of Time doesn’t move its menu bar into place
-    // again after undoing the command which turned it off.
-    if (!is_v6_panel(win) && v6_window_covered(window)) {
-        v6_geometry[window].stamp = ++v6_geometry_stamp;
-        v6_layout_dirty = true;
-    }
-
-    if (v6_layout_dirty) {
-        v6_apply_layout();
-    }
-}
-
-static void v6_layout_before_input(bool line_input)
-{
-    if (zversion != 6 || is_spatterlight_v6) {
-        return;
-    }
-
-    int window = curwin - &windows[0];
-
-    if (line_input && window != v6_story_window && !is_v6_panel(curwin)) {
-        v6_story_window = window;
-        v6_layout_dirty = true;
-    }
-
-    if (v6_layout_dirty) {
-        v6_apply_layout();
-    }
-}
-
 // Like the upper window, a grid panel doesn’t wrap or scroll.
 static void v6_grid_panel_put_char(uint16_t c)
 {
@@ -1558,7 +1201,7 @@ static void put_char_base(uint16_t c, bool unicode)
         v6_touch_window(curwin);
     }
 
-    if (holds_newlines() && !flushing_held_newlines && curwin == mainwin && !streams.test(OSTREAM_MEMORY)) {
+    if (v6_is_generic() && !flushing_held_newlines && curwin == mainwin && !streams.test(OSTREAM_MEMORY)) {
         if (c == (unicode ? UNICODE_LINEFEED : ZSCII_NEWLINE)) {
             held_newlines++;
             return;
@@ -1671,24 +1314,6 @@ static void put_char_base(uint16_t c, bool unicode)
                         flowbreak_after_next_newline = false;
 #endif
                     }
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-                } else if (hack == Hack::Arthur && curwin == arthurwin && arthurwin->id != nullptr) {
-                    // In “room description” mode, this should perform
-                    // line breaking, but it currently does not.
-                    glui32 w;
-                    glk_window_get_size(arthurwin->id, &w, nullptr);
-                    if (c == UNICODE_LINEFEED || curwin->x == w) {
-                        curwin->x = 0;
-                        curwin->y++;
-                    } else {
-                        curwin->x++;
-                    }
-                    xglk_put_char(c);
-#endif
-                } else {
-                    xglk_put_char(c);
-#endif
                 }
             }
 #else
@@ -2261,7 +1886,7 @@ std::pair<unsigned int, unsigned int> get_screen_size()
     // actually useful, even though the game expands it to cover the whole
     // screen. By pretending that the screen height is only 6, the main
     // window, where text is actually sent, becomes visible.
-#if SPATTERLIGHT
+#ifdef SPATTERLIGHT
     if (is_spatterlight_journey) {
         width = (gscreenw - 2 * ggridmarginx) / gcellw;
         height =(gscreenh - 2 * ggridmarginy) / gcellh;
@@ -2627,17 +2252,6 @@ void GraphicsWindow::destroy()
         glk_window_clear(m_id);
         glk_window_set_arrangement(glk_window_get_parent(m_id), winmethod_Above | winmethod_Fixed, 0, m_id);
     }
-#ifndef SPATTERLIGHT
-    if (m_left_border != nullptr) {
-        glk_window_close(m_left_border, nullptr);
-        m_left_border = nullptr;
-    }
-
-    if (m_right_border != nullptr) {
-        glk_window_close(m_right_border, nullptr);
-        m_right_border = nullptr;
-    }
-#endif
 }
 
 void GraphicsWindow::clear()
@@ -2936,8 +2550,8 @@ static void mysterious_paint(glui32 color, int x, int y, int w, int h)
 {
     bool is_default = color == zcolor_Default || color == zcolor_Current;
 
-    if (y < mysterious_picture_height && graphics_window.resize(GraphicsWindow::Type::Mysterious)) {
-        int bottom = std::min(y + h, mysterious_picture_height);
+    if (y < MysteriousCanvas::picture_height && graphics_window.resize(GraphicsWindow::Type::Mysterious)) {
+        int bottom = std::min(y + h, MysteriousCanvas::picture_height);
 
         graphics_window.fill(is_default ? gsbgcol : color, x, y, w, bottom - y);
     }
@@ -2945,12 +2559,12 @@ static void mysterious_paint(glui32 color, int x, int y, int w, int h)
     // As with the separator image of the Blorb releases, the creation
     // of the separator window is delayed till here, to ensure the
     // upper window is created first, so this comes below it.
-    if (y + h > mysterious_picture_height &&
+    if (y + h > MysteriousCanvas::picture_height &&
         mysterious_separator.create() &&
         mysterious_separator.resize(GraphicsWindow::Type::MysteriousRule))
     {
-        int top = std::max(y, mysterious_picture_height) - mysterious_picture_height;
-        int bottom = y + h - mysterious_picture_height;
+        int top = std::max(y, MysteriousCanvas::picture_height) - MysteriousCanvas::picture_height;
+        int bottom = y + h - MysteriousCanvas::picture_height;
 
         // The rule is a white line on the default background, right
         // below the status lines. Give it the colours of the status
@@ -2974,90 +2588,24 @@ static void mysterious_fill()
     int y = geometry.y - 1;
     int right = x + geometry.width;
     int bottom;
-    int limit = mysterious_picture_height;
+    int limit = MysteriousCanvas::picture_height;
 
     // The rule is drawn below the status lines, which in turn are
     // below the picture.
-    if (y >= mysterious_picture_height) {
+    if (y >= MysteriousCanvas::picture_height) {
         y -= mysterious_status_lines;
-        limit = mysterious_canvas_height;
+        limit = MysteriousCanvas::height;
     }
 
-    bottom = y + geometry.height;
+    bottom = std::min(y + static_cast<int>(geometry.height), limit);
 
-    x = std::max(x, 0);
-    y = std::max(y, 0);
-    right = std::min(right, mysterious_canvas_width);
-    bottom = std::min(bottom, limit);
-
-    if (x >= right || y >= bottom) {
-        return;
-    }
-
-    if (mysterious_canvas.empty()) {
-        mysterious_canvas.assign(mysterious_canvas_width * mysterious_canvas_height, zcolor_Default);
-    }
-
-    for (int row = y; row < bottom; row++) {
-        auto start = mysterious_canvas.begin() + row * mysterious_canvas_width;
-        std::fill(start + x, start + right, color);
-    }
-
-    mysterious_pending.push_back({color, x, y, right - x, bottom - y});
-}
-
-// The game selects the main window after each rectangle, which sends
-// what has been drawn so far to the screen. A picture consists of
-// thousands of rectangles, and sending them one at a time is slow, so
-// they are held back until the game asks for input.
-static void mysterious_flush()
-{
-    for (const auto &rect : mysterious_pending) {
-        mysterious_paint(rect.color, rect.x, rect.y, rect.width, rect.height);
-    }
-
-    mysterious_pending.clear();
-}
-
-// Paint the entire canvas, as runs of pixels of the same colour. Rows
-// which are the same are painted in one go.
-static void mysterious_replay()
-{
-    mysterious_pending.clear();
-
-    if (mysterious_canvas.empty()) {
-        return;
-    }
-
-    for (int y = 0; y < mysterious_canvas_height; ) {
-        auto row = mysterious_canvas.begin() + y * mysterious_canvas_width;
-        int limit = y < mysterious_picture_height ? mysterious_picture_height : mysterious_canvas_height;
-        int rows = 1;
-
-        while (y + rows < limit && std::equal(row, row + mysterious_canvas_width, row + rows * mysterious_canvas_width)) {
-            rows++;
-        }
-
-        for (int x = 0; x < mysterious_canvas_width; ) {
-            int run = 1;
-
-            while (x + run < mysterious_canvas_width && row[x + run] == row[x]) {
-                run++;
-            }
-
-            mysterious_paint(row[x], x, y, run, rows);
-            x += run;
-        }
-
-        y += rows;
-    }
+    mysterious_canvas.fill(color, x, y, right, bottom);
 }
 
 // The screen is being cleared: the picture and the rule go as well.
 static void mysterious_reset()
 {
     mysterious_canvas.clear();
-    mysterious_pending.clear();
     graphics_window.destroy();
     mysterious_separator.destroy();
 }
@@ -3068,7 +2616,7 @@ static void mysterious_reset()
 static void redraw_mysterious()
 {
     if (mysterious_inline) {
-        mysterious_replay();
+        mysterious_canvas.replay(mysterious_paint);
         return;
     }
 
@@ -3179,19 +2727,6 @@ void zerase_window()
         clear_window(upperwin);
         break;
     case 2:
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-        // In Arthur, the banner/map window is 2, which is represented
-        // by the graphics window.
-        if (hack == Hack::Arthur) {
-            graphics_window.clear();
-            if (arthurwin->id != nullptr) {
-                glk_window_clear(arthurwin->id);
-            }
-        }
-        break;
-#endif
-#endif
     default:
 #ifdef SPATTERLIGHT
         if (is_spatterlight_v6) {
@@ -3237,32 +2772,6 @@ void zerase_window()
 void zerase_line()
 {
 #ifdef ZTERP_GLK
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-    // Selectively handle @erase_line for version 6 games.
-    if (hack == Hack::Journey && curwin == upperwin && upperwin->id != nullptr && zargs[0] > 1) {
-        for (glui32 i = upperwin->x; i < std::min<glui32>(upper_window_width, curwin->x + (zargs[0] - 1)); i++) {
-            xglk_put_char(UNICODE_SPACE);
-        }
-
-        glk_window_move_cursor(curwin->id, curwin->x, curwin->y);
-
-        return;
-    } else if (hack == Hack::Arthur && curwin == arthurwin && arthurwin->id != nullptr && zargs[0] > 0) {
-        glui32 window_width;
-        glk_window_get_size(arthurwin->id, &window_width, nullptr);
-        auto erase_end = zargs[0] == 1 ? window_width : curwin->x + (zargs[0] - 1);
-        auto *stream = glk_window_get_stream(arthurwin->id);
-        for (glui32 i = curwin->x; i < std::min<glui32>(window_width, erase_end); i++) {
-            glk_put_char_stream(stream, ' ');
-        }
-
-        glk_window_move_cursor(curwin->id, curwin->x, curwin->y);
-
-        return;
-    }
-#endif
-#endif
     // XXX V6 does pixel handling here.
     if (zargs[0] != 1 || curwin != upperwin || upperwin->id == nullptr) {
         return;
@@ -3277,7 +2786,7 @@ void zerase_line()
 }
 
 // XXX This is more complex in V6 and needs to be updated when V6 windowing is implemented.
-static void set_cursor(uint16_t y, uint16_t x)
+void set_cursor(uint16_t y, uint16_t x)
 {
 #ifdef ZTERP_GLK
     // All the windows in V6 can have their cursor positioned; if full
@@ -3344,7 +2853,7 @@ void zset_cursor()
         // The status lines of the releases without a Blorb file are
         // right below the picture.
         if (mysterious_inline) {
-            zargs[0] = zargs[0] > mysterious_picture_height ? zargs[0] - mysterious_picture_height : 1;
+            zargs[0] = zargs[0] > MysteriousCanvas::picture_height ? zargs[0] - MysteriousCanvas::picture_height : 1;
         } else
 #endif
         zargs[0] -= 180;
@@ -3365,7 +2874,7 @@ void zset_cursor()
             win->y = zargs[0];
             return;
         }
-    } else if (zversion == 6 && !is_spatterlight_v6) {
+    } else if (v6_is_generic()) {
         int16_t w = znargs < 3 ? -3 : as_signed(zargs[2]);
         Window *win = w == -3 ? curwin : (w >= 0 && w < 8) ? &windows[w] : nullptr;
         if (win != nullptr) {
@@ -3387,71 +2896,6 @@ void zset_cursor()
 }
 
 #ifdef SPATTERLIGHT
-void v6_sizewin(Window *win) {
-    if (win->id == nullptr)
-        return;
-
-    int x0 = (int16_t)win->x_origin <= 1 ? 0 : (int)win->x_origin - 1;
-    int y0 = (int16_t)win->y_origin <= 1 ? 0 : (int)win->y_origin - 1;
-
-    int x1 = x0 + win->x_size;
-    if (x1 + gcellw > gscreenw)
-        x1 = gscreenw;
-    int y1 = y0 + win->y_size;
-    if (y1 + gcellh > gscreenh && win->y_size > gcellh)
-        y1 = gscreenh;
-
-//    lastpeer = win->id->peer;
-//    lastx0 = x0;
-//    lastx1 = x1;
-//    lasty0 = y0;
-//    lasty1 = y1;
-
-    win_sizewin(win->id->peer, x0, y0, x1, y1);
-    win->id->bbox.x0 = x0;
-    win->id->bbox.y0 = y0;
-    win->id->bbox.x1 = x1;
-    win->id->bbox.y1 = y1;
-
-    if (win->id->type == wintype_TextGrid) {
-        Window *stashedwin = curwin;
-        curwin = win;
-        set_cursor(win->y + 1, win->x + 1);
-        curwin = stashedwin;
-    }
-}
-
-void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height) {
-    win->x_origin = x;
-    win->y_origin = y;
-    win->x_size = width;
-    win->y_size = height;
-    v6_sizewin(win);
-}
-
-bool v6_switch_to_allowed_interpreter_number(void) {
-    switch(options.int_number) {
-        case INTERP_CBM_64:
-        case INTERP_DEC_20:
-        case INTERP_CBM_128:
-        case INTERP_TANDY:
-            options.int_number = INTERP_MSDOS;
-            return false;
-        case INTERP_DEFAULT:
-        case INTERP_ATARI_ST:
-            options.int_number = INTERP_AMIGA;
-            return false;
-        case INTERP_APPLE_IIC:
-        case INTERP_APPLE_IIGS:
-            options.int_number = INTERP_APPLE_IIE;
-            return false;
-        default:
-            // Keeping the interpeter version selection
-            break;
-    }
-    return true;
-}
-
 static bool v6_autorestore_hacks_needed = false;
 
 void v6_restore_hacks(void) {
@@ -3466,87 +2910,6 @@ void v6_restore_hacks(void) {
     } else {
         v6_game().update_after_restore();
     }
-}
-
-void v6_delete_glk_win(winid_t glkwin) {
-    if (glkwin == nullptr)
-        return;
-
-    if (graphics_bg_glk == glkwin) {
-        graphics_bg_glk = nullptr;
-    }
-
-    if (current_graphics_buf_win == glkwin) {
-        current_graphics_buf_win = nullptr;
-    }
-
-    for (auto &window : windows) {
-        if (window.id == glkwin) {
-            window.id = nullptr;
-        }
-    }
-
-    gli_delete_window(glkwin);
-}
-
-void v6_delete_win(Window *win) {
-    if (win == nullptr || win->id == nullptr)
-        return;
-    v6_delete_glk_win(win->id);
-    win->id = nullptr;
-}
-
-
-void v6_remap_win(Window *win, int type, winid_t *stored_win) {
-    if (win->id) {
-        if (stored_win != nullptr) {
-            *stored_win = win->id;
-            win_sizewin(win->id->peer, 0, 0, 0, 0);
-        } else {
-            fprintf(stderr, "v6_remap_win call will cause leak!\n");
-        }
-    }
-
-    win->id = gli_new_window(type, 0);
-
-    if (win == curwin) {
-        glk_set_window(win->id);
-        set_current_style();
-    }
-
-    if (type == wintype_TextGrid) {
-        if (is_spatterlight_arthur && win == upperwin) {
-            win->style.set(STYLE_REVERSE);
-        }
-    } else if (type == wintype_TextBuffer) {
-        glk_set_echo_line_event(win->id, 0);
-    }
-    v6_sizewin(win);
-}
-
-
-void v6_remap_win_to_grid(Window *win) {
-    if (win->id) {
-        if (win->id->type == wintype_TextGrid) {
-            return;
-        } else {
-            gli_delete_window(win->id);
-            win->id = nullptr;
-        }
-    }
-    v6_remap_win(win, wintype_TextGrid, nullptr);
-}
-
-void v6_remap_win_to_buffer(Window *win) {
-    if (win->id) {
-        if (win->id->type == wintype_TextBuffer) {
-            return;
-        } else {
-            gli_delete_window(win->id);
-            win->id = nullptr;
-        }
-    }
-    v6_remap_win(win, wintype_TextBuffer, nullptr);
 }
 
 #endif
@@ -3735,13 +3098,9 @@ void zprint_addr()
 }
 
 #ifdef SPATTERLIGHT
-void debug_print_str(uint8_t c) {
-    fprintf(stderr, "%c", c);
-}
-
 static int string_length_counter = 0;
 
-void count_print_str(uint8_t c) {
+static void count_print_str(uint8_t c) {
     string_length_counter++;
 }
 
@@ -3757,6 +3116,7 @@ int count_characters_in_object(uint16_t obj) {
     return string_length_counter;
 }
 #endif
+
 
 void zprint_paddr()
 {
@@ -3784,7 +3144,7 @@ void zsplit_window()
         // status lines. Their upper window also covers the picture and
         // the rule, which have windows of their own here.
         if (mysterious_inline) {
-            zargs[0] = zargs[0] > mysterious_canvas_height ? zargs[0] - mysterious_canvas_height : 0;
+            zargs[0] = zargs[0] > MysteriousCanvas::height ? zargs[0] - MysteriousCanvas::height : 0;
             if (zargs[0] != 0) {
                 mysterious_status_lines = zargs[0];
             }
@@ -3813,25 +3173,6 @@ void zset_window()
 void adjust_image_scale(void) {
     imagescalex = (float)gscreenw / hw_screenwidth;
     imagescaley = imagescalex / pixelwidth;
-}
-
-double perceived_brightness(glui32 col) {
-    double red = (col >> 16) / 255.0;
-    double green = ((col >> 8) & 0xff)  / 255.0;
-    double blue = (col & 0xff) / 255.0;
-
-    double r = (red <= 0.04045) ? red / 12.92 : pow((red + 0.055) / 1.055, 2.4);
-    double g = (green <= 0.04045) ? green / 12.92 : pow((green + 0.055) / 1.055, 2.4);
-    double b = (blue <= 0.04045) ? blue / 12.92 : pow((blue + 0.055) / 1.055, 2.4);
-
-    return 0.2126 * r + 0.7152 * g + 0.0722 * b;
-}
-
-glui32 brightest(glui32 col1, glui32 col2) {
-    if (perceived_brightness(col1) < perceived_brightness(col2))
-        return col2;
-    else
-        return col1;
 }
 
 void update_monochrome_colours(void) {
@@ -3865,35 +3206,11 @@ void window_change()
     if (!(is_spatterlight_v6 && !is_spatterlight_journey))
 #endif
         graphics_window.destroy();
-#ifndef SPATTERLIGHT
-    auto current_type = graphics_window.type();
-    close_journey_window();
-#endif
     mysterious_separator.destroy();
 #ifdef SPATTERLIGHT
     redraw_mysterious();
 #endif
 
-#ifndef SPATTERLIGHT
-    // This calls V-$REFRESH, i.e. the “refresh” or “$refresh” verb.
-    auto zorkzero_refresh = [](){
-        static const std::map<std::string, uint32_t> refresh_addrs = {
-            {"296-881019", 0x150b8},
-            {"366-890323", 0x133fc},
-            {"383-890602", 0x134d8},
-            {"393-890714", 0x13614},
-        };
-
-        auto addr = refresh_addrs.find(get_story_id());
-        if (addr != refresh_addrs.end()) {
-            // The “1” argument means “don't clear”. Whether clearing
-            // would be good or not is immaterial: Glk doesn’t allow
-            // windows to be erased when there's line input pending, and
-            // most of the time, that will be the case.
-            internal_call((addr->second - header.routines_offset) / 4, {1});
-        }
-    };
-#endif
 #endif
 
     // When a textgrid (the upper window) in Gargoyle is rearranged, it
@@ -3907,28 +3224,6 @@ void window_change()
     find_window_size(mainwin->id);
 #endif
 
-#ifndef SPATTERLIGHT
-    // Shogun won’t redraw its borders on resize, so do it here. Ideally
-    // this would occur above instead of closing the borders, but the
-    // call to find_window_size(mainwin->id) needs to find the size of
-    // the main window _without_ borders, so it’s sandwiched between the
-    // “destroy” and “draw” calls.
-#ifdef ZTERP_GLK_GRAPHICS
-    if (hack == Hack::Shogun) {
-        graphics_window.resize(current_type);
-        graphics_window.draw_shogun_borders();
-    }
-
-    // As with Shogun, borders aren’t redrawn on resize in Zork Zero.
-    // But Zork Zero’s graphics are much more complicated: there are
-    // borders, a compass, games, the rebus, encyclopedia, etc. And
-    // unlike Arthur, Zork Zero doesn’t redraw on room change. To get it
-    // to redraw, call V-$REFRESH.
-    if (hack == Hack::ZorkZero) {
-        zorkzero_refresh();
-    }
-#endif
-#endif
 
     // Track the new size of the upper window. This has to come after
     // the Shogun/Zork Zero redraws above to ensure the window size is
@@ -3943,47 +3238,6 @@ void window_change()
         resize_upper_window(h, false);
     }
 
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-    if (hack == Hack::ZorkZero) {
-        // Zork Zero calls “@picture_data 383” to figure out how wide
-        // the status bar is. Bocfel hijacks this call to return the
-        // upper window width, which is where the status will actually
-        // be drawn. But starting in release 383 (coincidentally), Zork
-        // Zero caches this value so as not to keep calling
-        // @picture_data as earlier versions did. That means the width
-        // is wrong after a resize. Zork Zero stores cached values in a
-        // table called SL-LOC-TBL, and the 3rd word in that table is
-        // the width of the window, i.e. the cached value we care about.
-        // If necessary, find the address of SL-LOC-TBL and update the
-        // relevant cached entry.
-        static const std::unordered_map<std::string, uint16_t> sl_loc_tbl = {
-            {"383-890602", 0x70a3},
-            {"393-890714", 0x70a5},
-        };
-
-        auto addr = sl_loc_tbl.find(get_story_id());
-        if (addr != sl_loc_tbl.end()) {
-            store_word(addr->second + 6, upper_window_width);
-        }
-
-        // If the window is widened, there will be artifacts from the
-        // previous status bar, so clear them. Then force another
-        // refresh. Refresh must be called twice:
-        //
-        // The first refresh causes the border to be redrawn, which
-        // resizes the upper window. The upper window width is then
-        // calculated and stored in SL-LOC-TBL. With the actual value
-        // now available, the second refresh causes the status bar to
-        // properly be drawn.
-        //
-        // In short, the first refresh is for the border, the second is
-        // for the status bar.
-        clear_window(upperwin);
-        zorkzero_refresh();
-    }
-#endif
-#endif
 
     // Set the “request redraw” flag for AMFV. It may seem like
     // this is a no-brainer to set for all V4+ games, but that’s not so:
@@ -4019,10 +3273,7 @@ void window_change()
             store_word(0x24, height > UINT16_MAX ? UINT16_MAX : height);
         }
 #ifdef SPATTERLIGHT
-        options.int_number = gli_zmachine_terp;
-        if (is_spatterlight_v6) {
-            v6_switch_to_allowed_interpreter_number();
-        }
+        v6_apply_interpreter_number();
         store_byte(0x1e, options.int_number);
 
         if (is_spatterlight_v6) {
@@ -4435,6 +3686,38 @@ void flush_image_buffer(void) {
 //
 // The function returns true if input was stored, false if there was a
 // cancellation as described above.
+#ifdef SPATTERLIGHT
+// A double-click is two clicks at the same spot *in quick succession*.
+// Without the time gate, last_click_x/y would simply remember the previous
+// click forever, so repeatedly clicking the same target (e.g. a Zork Zero
+// compass arrow) reported every click after the first as a double-click,
+// which the game ignores -- making the compass appear to stop working. Only
+// the menu mini-games (Fanucci/Peggleboz) actually want double-click, and
+// those clicks are genuinely rapid.
+static uint8_t classify_click(Window *win, glui32 x, glui32 y)
+{
+    constexpr auto double_click_interval = std::chrono::milliseconds(500);
+    auto now = std::chrono::steady_clock::now();
+    uint8_t clicktype;
+
+    if (win->last_click_x == x && win->last_click_y == y &&
+        now - win->last_click_time < double_click_interval) {
+        clicktype = ZSCII_CLICK_DOUBLE;
+        // Reset so a third rapid click doesn't chain into yet
+        // another double-click.
+        win->last_click_x = UINT16_MAX;
+        win->last_click_y = UINT16_MAX;
+    } else {
+        clicktype = ZSCII_CLICK_SINGLE;
+        win->last_click_x = x;
+        win->last_click_y = y;
+    }
+    win->last_click_time = now;
+
+    return clicktype;
+}
+#endif
+
 static bool get_input(uint16_t timer, uint16_t routine, Input &input)
 {
     // If either of these is zero, no timeout should happen.
@@ -4450,7 +3733,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
     IO::standard_out().flush();
 #endif
 #if defined(SPATTERLIGHT) && defined(ZTERP_GLK_GRAPHICS)
-    mysterious_flush();
+    mysterious_canvas.flush(mysterious_paint);
 #endif
     if (scriptio != nullptr) {
         scriptio->flush();
@@ -4672,11 +3955,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             // Standard.
             if (zversion == 4) {
                 switch (ev.val1) {
-#ifdef SPATTERLIGHT
-                case keycode_Delete: input.key = ZSCII_BACKSPACE; break;
-#else
                 case keycode_Delete: input.key = ZSCII_DELETE; break;
-#endif
                 case keycode_Return: input.key = ZSCII_NEWLINE; break;
 
                 default:
@@ -4696,11 +3975,7 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 }
             } else {
                 switch (ev.val1) {
-#ifdef SPATTERLIGHT
-                case keycode_Delete: input.key = ZSCII_BACKSPACE; break;
-#else
                 case keycode_Delete: input.key = ZSCII_DELETE; break;
-#endif
                 case keycode_Return: input.key = ZSCII_NEWLINE; break;
                 case keycode_Escape: input.key = ZSCII_ESCAPE; break;
                 case keycode_Up:     input.key = ZSCII_UP; break;
@@ -4761,17 +4036,6 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
             break;
         case evtype_MouseInput:
             if (ev.win == upperwin->id) {
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-                if (hack == Hack::ZorkZero) {
-                    // In Fanucci, mouse clicks are off by one, probably
-                    // due to the faking of the size of rectangle 384; a
-                    // better fix is surely possible, but this works for now.
-                    ev.val1++;
-                    ev.val2++;
-                }
-#endif
-#endif
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
 #ifdef SPATTERLIGHT
             } else if (screenmode == MODE_HINTS && ev.win == windows[0].id) {
@@ -4783,7 +4047,6 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                     zterp_mouse_click(ev.val1, ev.val2);
                 } else {
                     adjust_image_scale();
-                    fprintf(stderr, "mouse click: x:%d y:%d imagescalex:%f imagescaley:%f\n", ev.val1, ev.val2, imagescalex, imagescaley);
                     int16_t y = round((ev.val2) / imagescaley) - 1;
                     if (y < 3)
                         y = 3;
@@ -4795,18 +4058,6 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 glui32 x = std::round(ev.val1 / graphics_window.ratio());
                 glui32 y = std::round(ev.val2 / graphics_window.ratio());
 
-#ifndef SPATTERLIGHT
-                // Compensate for the maze being offset one block.
-                if (hack == Hack::Shogun) {
-                    if (x >= SHOGUN_MAZE_BLOCK_WIDTH) {
-                        x -= SHOGUN_MAZE_BLOCK_WIDTH;
-                    }
-
-                    if (y >= SHOGUN_MAZE_BLOCK_HEIGHT) {
-                        y -= SHOGUN_MAZE_BLOCK_HEIGHT;
-                    }
-                }
-#endif
 
                 zterp_mouse_click(x, y);
 #endif
@@ -4816,36 +4067,10 @@ static bool get_input(uint16_t timer, uint16_t routine, Input &input)
                 zterp_mouse_click(ev.val1 + 1, ev.val2 + 1);
             }
 
+                // Not an initializer: it would trip the switch's
+                // jump-crosses-initialization rule.
                 uint8_t clicktype;
-
-                // A double-click is two clicks at the same spot *in quick
-                // succession*. Without the time gate, last_click_x/y would
-                // simply remember the previous click forever, so repeatedly
-                // clicking the same target (e.g. a Zork Zero compass arrow)
-                // reported every click after the first as a double-click,
-                // which the game ignores -- making the compass appear to
-                // stop working. Only the menu mini-games (Fanucci/Peggleboz)
-                // actually want double-click, and those clicks are genuinely
-                // rapid. (Scoped in a block so the locals don't trip the
-                // switch's jump-crosses-initialization rule.)
-                {
-                    constexpr auto double_click_interval = std::chrono::milliseconds(500);
-                    auto now = std::chrono::steady_clock::now();
-
-                    if (curwin->last_click_x == ev.val1 && curwin->last_click_y == ev.val2 &&
-                        now - curwin->last_click_time < double_click_interval) {
-                        clicktype = ZSCII_CLICK_DOUBLE;
-                        // Reset so a third rapid click doesn't chain into yet
-                        // another double-click.
-                        curwin->last_click_x = UINT16_MAX;
-                        curwin->last_click_y = UINT16_MAX;
-                    } else {
-                        clicktype = ZSCII_CLICK_SINGLE;
-                        curwin->last_click_x = ev.val1;
-                        curwin->last_click_y = ev.val2;
-                    }
-                    curwin->last_click_time = now;
-                }
+                clicktype = classify_click(curwin, ev.val1, ev.val2);
 #endif
             status = InputStatus::Received;
 
@@ -6098,27 +5323,8 @@ void zdraw_picture()
     image_needs_redraw = true;
     if (is_spatterlight_v6)
         current_picture = pic;
-    if (is_spatterlight_journey) {
-        current_picture = journey_draw_picture(pic, journey_window);
+    if (v6_game().display_picture(pic, x, y)) {
         return;
-    } else if (is_spatterlight_arthur) {
-        if (arthur_display_picture(pic, x, y)) {
-            return;
-        }
-    } else if (is_spatterlight_shogun) {
-        if (current_picture == kShogunTitleImage) {
-            if (v6_graphics_off())
-                v6_skip_next_keypress();
-            shogun_draw_title_image();
-            return;
-        }
-        if (curwin->index == 0) {
-            // This should never happen
-            shogun_display_inline_image(imagealign_MarginRight);
-            return;
-        }
-            } else if (is_spatterlight_zork0 && z0_display_picture(x, y, curwin)) {
-                return;
     }
 #endif
 
@@ -6167,7 +5373,7 @@ void zdraw_picture()
     }
 
 #ifdef SPATTERLIGHT
-    bool made_room = curwin == mainwin && holds_newlines() && drop_held_newlines(h);
+    bool made_room = curwin == mainwin && v6_is_generic() && drop_held_newlines(h);
 #endif
 
     if (curwin->id != nullptr) {
@@ -6377,10 +5583,12 @@ void zwindow_style(void) {
         case 3:
             win->attribute ^= flags;
             break;
+        default:
+            break;
     }
 
     // Whether a panel is a text buffer depends on the wrapping bit.
-    v6_layout_dirty = true;
+    v6_mark_layout_dirty();
 }
 #endif
 
@@ -6389,34 +5597,6 @@ void zget_wind_prop()
     uint8_t font_width = 1, font_height = 1;
     uint16_t val;
 
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-    if (hack == Hack::Shogun && zargs[0] == 0 && zargs[1] == 4) {
-        // Check if this is the start of LEAVE-MAZE. This maybe should
-        // occur instead during SETUP-TEXT-AND-STATUS but that would
-        // have to deal with WINDEF which doesn’t currently get called
-        // with good information (likely because there’s some
-        // discrepancy in what Bocfel reports to the game regarding font
-        // size, display size, etc). For now, it’s enough to “know” that
-        // this instruction is part of a routine that handles leaving
-        // the maze, and erase the maze screen.
-        static const std::set<std::pair<std::string, unsigned long>> leave_maze = {
-            {"292-890314", 0x3d4a9},
-            {"295-890321", 0x3d691},
-            {"311-890510", 0x3d63d},
-            {"322-890706", 0x3d8a5},
-        };
-
-        if (leave_maze.find({get_story_id(), current_instruction}) != leave_maze.end()) {
-            graphics_window.destroy();
-            // Force a redraw of the borders.
-            if (graphics_window.resize(GraphicsWindow::Type::ShogunNormal)) {
-                graphics_window.draw_shogun_borders();
-            }
-        }
-    }
-#endif
-#endif
 
     Window *win = find_window(zargs[0]);
     const auto &geometry = v6_geometry[win - &windows[0]];
@@ -6846,22 +6026,6 @@ void create_upperwin()
         }
     }
 
-#ifndef SPATTERLIGHT
-#ifdef ZTERP_GLK_GRAPHICS
-    // For the “bordered” graphics games (Arthur, Zork Zero, and
-    // Shogun), resize the graphics window before starting: the games
-    // request the upper window size early on and store it, meaning the
-    // border windows must already exist or else the upper window size
-    // will be reported as larger than it will become.
-    if (hack == Hack::ZorkZero) {
-        graphics_window.resize(GraphicsWindow::Type::ZorkZeroBorder);
-    } else if (hack == Hack::Shogun) {
-        graphics_window.resize(GraphicsWindow::Type::ShogunNormal);
-    } else if (hack == Hack::Arthur) {
-        graphics_window.resize(GraphicsWindow::Type::ArthurBanner);
-    }
-#endif
-#endif
 
 #endif
 }
@@ -7399,9 +6563,6 @@ void create_graphicswin()
         {
             if (is_game(Game::Arthur)) {
                 hack = Hack::Arthur;
-#ifndef SPATTERLIGHT
-                arthurwin->id = glk_window_open(mainwin->id, winmethod_Fixed | winmethod_Above, 0, wintype_TextGrid, 0);
-#endif
             } else if (is_game(Game::ZorkZero)) {
                 hack = Hack::ZorkZero;
             } else if (is_game(Game::Shogun)) {
@@ -7447,6 +6608,27 @@ void v6_get_and_sync_upperwin_size(void) {
 #endif
 
 #pragma mark init_screen
+
+#ifdef SPATTERLIGHT
+// The window tree of Arthur, Shogun and Zork Zero: a full-screen graphics
+// window at the back, with the main window and the upper window in front.
+static void v6_open_graphics_backed_windows(bool transparent_upper)
+{
+    graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
+    graphics_window.set_id(graphics_bg_glk);
+    mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
+    glk_set_echo_line_event(mainwin->id, 0);
+    upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 2);
+
+    if (transparent_upper) {
+        win_maketransparent(upperwin->id->peer);
+    }
+
+    win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
+    current_graphics_buf_win = nullptr;
+    windows[7].id = graphics_bg_glk;
+}
+#endif
 
 void init_screen(bool first_run)
 {
@@ -7574,9 +6756,7 @@ void init_screen(bool first_run)
             windows[i].id = windows[0].id;
         }
 #ifdef SPATTERLIGHT
-        v6_story_window = -1;
-        v6_layout_signature.clear();
-        v6_layout_dirty = false;
+        v6_forget_layout();
     } else {
         update_monochrome_colours();
 #endif
@@ -7647,36 +6827,18 @@ void init_screen(bool first_run)
 
                 v6_sizewin(upperwin);
             } else if (is_spatterlight_arthur) {
-                graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
-                graphics_window.set_id(graphics_bg_glk);
-                mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
-                glk_set_echo_line_event(mainwin->id, 0);
-                upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 2);
-                win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
-                current_graphics_buf_win = nullptr;
-                windows[7].id = graphics_bg_glk;
+                v6_open_graphics_backed_windows(false);
 
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_BackColor, user_selected_background);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
             } else if (is_spatterlight_shogun || is_spatterlight_zork0) {
-                graphics_bg_glk = glk_window_open(nullptr, 0, 10, wintype_Graphics, 3);
-                graphics_window.set_id(graphics_bg_glk);
-                mainwin->id = glk_window_open(graphics_window.id(), winmethod_Right | winmethod_Fixed, gscreenw / 2, wintype_TextBuffer, 1);
-                glk_set_echo_line_event(mainwin->id, 0);
-                upperwin->id = glk_window_open(mainwin->id, winmethod_Above | winmethod_Fixed, 0, wintype_TextGrid, 2);
-
-                win_maketransparent(upperwin->id->peer);
-
-                win_sizewin(graphics_bg_glk->peer, 0, 0, gscreenw, gscreenh);
-                current_graphics_buf_win = nullptr;
-                windows[7].id = graphics_bg_glk;
+                v6_open_graphics_backed_windows(true);
 
                 glk_stylehint_set(wintype_TextGrid, style_Normal, stylehint_TextColor, user_selected_foreground);
                 glk_stylehint_clear(wintype_TextGrid, style_Normal, stylehint_BackColor);
                 glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_TextColor, user_selected_foreground);
-//                glk_stylehint_set(wintype_TextGrid, style_Subheader, stylehint_BackColor, user_selected_background);
                 if (is_spatterlight_zork0) {
                     z0_right_status_window = gli_new_window(wintype_TextGrid, 0);
                     win_maketransparent(z0_right_status_window->peer);
@@ -7750,83 +6912,6 @@ void init_screen(bool first_run)
 
 #ifdef SPATTERLIGHT
 
-#pragma mark V6 window layout
-
-// The panels of the non-Infocom V6 games are autosaved along with the
-// other Glk windows, but they only make sense together with the window
-// geometry they were laid out from. Without it the panels would be
-// closed at the first input after an autorestore. Windows which are
-// redirected to the main window share its Glk window, so the tags
-// can’t tell which of them is the current or the main one either.
-static void v6_stash_layout(library_state_data *dat)
-{
-    dat->v6_layout_valid = zversion == 6 && !is_spatterlight_v6;
-    if (!dat->v6_layout_valid) {
-        return;
-    }
-
-    int *value = dat->v6_layout;
-
-    *value++ = v6_story_window;
-    *value++ = curwin - &windows[0];
-    *value++ = mainwin - &windows[0];
-    *value++ = upperwin - &windows[0];
-
-    for (const auto &geometry : v6_geometry) {
-        *value++ = geometry.y;
-        *value++ = geometry.x;
-        *value++ = geometry.height;
-        *value++ = geometry.width;
-        *value++ = (geometry.sized ? 1 : 0) | (geometry.moved ? 2 : 0);
-        *value++ = static_cast<int>(geometry.stamp);
-    }
-}
-
-static void v6_recover_layout(const library_state_data *dat)
-{
-    if (zversion != 6 || is_spatterlight_v6 || !dat->v6_layout_valid) {
-        return;
-    }
-
-    const int *value = dat->v6_layout;
-
-    auto window_at = [](int index, Window *fallback) {
-        return index >= 0 && index < 8 && windows[index].id != nullptr ? &windows[index] : fallback;
-    };
-
-    int story = *value++;
-    v6_story_window = story >= 0 && story < 8 ? story : -1;
-    curwin = window_at(*value++, curwin);
-    mainwin = window_at(*value++, mainwin);
-    mainwin->has_echo = true;
-    upperwin = window_at(*value++, upperwin);
-
-    v6_geometry_stamp = 0;
-    for (auto &geometry : v6_geometry) {
-        geometry.y = *value++;
-        geometry.x = *value++;
-        geometry.height = *value++;
-        geometry.width = *value++;
-        int flags = *value++;
-        geometry.sized = (flags & 1) != 0;
-        geometry.moved = (flags & 2) != 0;
-        geometry.stamp = *value++;
-        v6_geometry_stamp = std::max(v6_geometry_stamp, geometry.stamp);
-    }
-
-    // The panels on screen are those of this layout, unless something
-    // is amiss, in which case they are laid out again.
-    std::array<bool, 8> wanted{};
-    v6_layout_signature = v6_signature(v6_layout_bands(), wanted);
-    v6_layout_dirty = false;
-    for (int i = 2; i < 8; i++) {
-        if (is_v6_panel(&windows[i]) != wanted[i]) {
-            v6_layout_signature.clear();
-            v6_layout_dirty = true;
-        }
-    }
-}
-
 #pragma mark stash_library_state
 
 // This is called during an autosave. It saves the relations
@@ -7875,21 +6960,7 @@ void stash_library_state(library_state_data *dat)
         v6_stash_layout(dat);
 
 #ifdef ZTERP_GLK_GRAPHICS
-        // The canvas of the Mysterious Adventures without a Blorb file,
-        // as pairs of a colour and the number of pixels having it.
-        static std::vector<uint32_t> canvas_runs;
-        canvas_runs.clear();
-        for (size_t i = 0; i < mysterious_canvas.size(); ) {
-            size_t run = 1;
-            while (i + run < mysterious_canvas.size() && mysterious_canvas[i + run] == mysterious_canvas[i]) {
-                run++;
-            }
-            canvas_runs.push_back(mysterious_canvas[i]);
-            canvas_runs.push_back(run);
-            i += run;
-        }
-        dat->mysterious_canvas = canvas_runs.data();
-        dat->mysterious_canvas_length = static_cast<int>(canvas_runs.size());
+        dat->mysterious_canvas = mysterious_canvas.runs();
 #endif
 
         v6_game().stash_state(dat);
@@ -7972,21 +7043,10 @@ void recover_library_state(library_state_data *dat)
         v6_recover_layout(dat);
 
 #ifdef ZTERP_GLK_GRAPHICS
-        mysterious_canvas.clear();
-        mysterious_pending.clear();
-        if (mysterious_inline && dat->mysterious_canvas != nullptr) {
-            const size_t size = mysterious_canvas_width * mysterious_canvas_height;
-            for (int i = 0; i + 1 < dat->mysterious_canvas_length; i += 2) {
-                size_t run = dat->mysterious_canvas[i + 1];
-                if (run > size - mysterious_canvas.size()) {
-                    mysterious_canvas.clear();
-                    break;
-                }
-                mysterious_canvas.insert(mysterious_canvas.end(), run, dat->mysterious_canvas[i]);
-            }
-            if (mysterious_canvas.size() != size) {
-                mysterious_canvas.clear();
-            }
+        if (mysterious_inline) {
+            mysterious_canvas.set_runs(dat->mysterious_canvas);
+        } else {
+            mysterious_canvas.clear();
         }
 #endif
 

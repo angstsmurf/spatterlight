@@ -3,6 +3,7 @@
 #ifndef ZTERP_SCREEN_H
 #define ZTERP_SCREEN_H
 
+#include <array>
 #include <bitset>
 #include <chrono>
 #include <string>
@@ -168,6 +169,22 @@ void zprint_form();
 void zmake_menu();
 void zbuffer_screen();
 
+// The geometry V6 games have given their windows with @split_window,
+// @window_size and @move_window, in units (which are characters, as
+// the font size is reported as 1×1). Apart from the upper window, the
+// windows aren’t generally placed accordingly, but @get_wind_prop
+// reports these values, because games calculate the positions and
+// sizes of their windows from those of other windows.
+struct V6Geometry {
+    uint16_t y = 1, x = 1, height = 0, width = 0;
+    bool sized = false, moved = false;
+    // A window placed later lies on top of one placed earlier.
+    unsigned long stamp = 0;
+};
+
+extern std::array<V6Geometry, 8> v6_geometry;
+extern unsigned long v6_geometry_stamp;
+
 #ifdef SPATTERLIGHT
 
 // Window attributes.
@@ -184,6 +201,7 @@ extern GraphicsType graphics_type;
 extern winid_t current_graphics_buf_win;
 extern winid_t graphics_bg_glk;
 extern winid_t graphics_fg_glk;
+extern winid_t journey_window;
 
 struct Window {
     Style style;
@@ -206,7 +224,8 @@ struct Window {
 };
 
 extern std::array<Window, 8> windows;
-extern Window *mainwin, *curwin;
+extern Window *mainwin, *curwin, *upperwin;
+extern uint16_t upper_window_height;
 extern bool pending_flowbreak;
 
 extern glui32 current_picture;
@@ -216,16 +235,9 @@ extern bool graphics_type_changed;
 extern bool graphics_setting_changed;
 
 uint8_t internal_read_char(void);
-int count_characters_in_zstring(uint16_t str);
-void v6_sizewin(Window *win);
-void v6_define_window(Window *win, uint16_t x, uint16_t y, uint16_t width, uint16_t height);
 void v6_restore_hacks(void);
-bool v6_switch_to_allowed_interpreter_number(void);
-void v6_delete_win(Window *win);
-void v6_delete_glk_win(winid_t win);
-void v6_remap_win(Window *win, int type, winid_t *stored_win);
-void v6_remap_win_to_grid(Window *win);
-void v6_remap_win_to_buffer(Window *win);
+void set_cursor(uint16_t y, uint16_t x);
+void set_current_style();
 void update_user_defined_colours(void);
 void flush_image_buffer(void);
 
@@ -236,10 +248,9 @@ void update_v6_colours(void);
 void window_change(void);
 void set_current_window(Window *window);
 void transcribe(uint32_t c);
+int count_characters_in_zstring(uint16_t str);
 int count_characters_in_object(uint16_t obj);
 void update_monochrome_colours(void);
-double perceived_brightness(glui32 col);
-glui32 brightest(glui32 col1, glui32 col2);
 
 #endif
 

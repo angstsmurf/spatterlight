@@ -1303,7 +1303,7 @@ static std::vector<Patch> v6_patches = {
     // (Amiga) is rejected. From release 343 onwards the game accepts
     // Macintosh, Amiga, MS-DOS and Apple natively, and Spatterlight
     // always clamps the V6 interpreter number into that set via
-    // v6_switch_to_allowed_interpreter_number() (see zterp.cpp), so the
+    // v6_apply_interpreter_number() (see zterp.cpp), so the
     // compass works without any patch. The compass replacements for
     // 366/383/393 were therefore no-ops and have been dropped; only the
     // Fanucci replacement remains for those. If that clamping is ever

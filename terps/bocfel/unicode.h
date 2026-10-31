@@ -7,11 +7,8 @@
 
 #include "types.h"
 
-#ifdef SPATTERLIGHT
-constexpr uint16_t UNICODE_BACKSPACE       = 8;
-#else
 constexpr uint16_t UNICODE_DELETE          = 8;
-#endif
+constexpr uint16_t UNICODE_BACKSPACE       = UNICODE_DELETE;
 constexpr uint16_t UNICODE_LINEFEED        = 10;
 constexpr uint16_t UNICODE_CARRIAGE_RETURN = 13;
 constexpr uint16_t UNICODE_ESCAPE          = 27;
@@ -22,11 +19,8 @@ constexpr uint8_t LATIN1_LINEFEED     = 10;
 constexpr uint8_t LATIN1_QUESTIONMARK = 63;
 constexpr uint8_t LATIN1_PIPE         = 124;
 
-#ifdef SPATTERLIGHT
-constexpr uint8_t ZSCII_BACKSPACE    = 8;
-#else
 constexpr uint8_t ZSCII_DELETE       = 8;
-#endif
+constexpr uint8_t ZSCII_BACKSPACE    = ZSCII_DELETE;
 constexpr uint8_t ZSCII_NEWLINE      = 13;
 constexpr uint8_t ZSCII_ESCAPE       = 27;
 constexpr uint8_t ZSCII_SPACE        = 32;

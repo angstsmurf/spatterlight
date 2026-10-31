@@ -1010,16 +1010,6 @@ void zterp_os_set_style(const Style &style, const Color &fg, const Color &bg)
 // ╚══════════════════════════════════════════════════════════════════════════════╝
 #ifdef SPATTERLIGHT
 
-std::string convertToString(char* a)
-{
-    int i;
-    std::string s = "";
-    for (i = 0; a[i] != '\0'; i++) {
-        s = s + a[i];
-    }
-    return s;
-}
-
 bool zterp_os_autosave_to_tmp = false;
 
 std::optional<std::string> zterp_os_autosave_name()
@@ -1027,7 +1017,7 @@ std::optional<std::string> zterp_os_autosave_name()
     getautosavedir((char *)game_file.c_str());
     if (autosavedir == nullptr)
         return std::nullopt;
-    std::string s = convertToString(autosavedir);
+    std::string s(autosavedir);
     if (s.size() == 0)
         return std::nullopt;
     return s + (zterp_os_autosave_to_tmp ? "/autosave-tmp.glksave" : "/autosave.glksave");

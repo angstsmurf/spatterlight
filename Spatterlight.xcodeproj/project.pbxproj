@@ -807,6 +807,9 @@
 		C36AD56D2F89378C00E65111 /* v6_shared.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */; };
 		C3EB200B2F9A100000E65111 /* v6_definitions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB200A2F9A100000E65111 /* v6_definitions.cpp */; };
 		C3EB201B2F9A100000E65111 /* v6_hints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB201A2F9A100000E65111 /* v6_hints.cpp */; };
+		C3EB4DF28E01EEE339843B4A /* v6_panels.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */; };
+		C3EB48E706410F814F2BD206 /* mysterious_canvas.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB38E706410F814F2BD206 /* mysterious_canvas.cpp */; };
+		C3EB49DA23C581D4B1E260D9 /* v6_windows.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB39DA23C581D4B1E260D9 /* v6_windows.cpp */; };
 		C36AD56E2F89378C00E65111 /* entrypoints.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3ED63552C6E1192000F90A8 /* entrypoints.cpp */; };
 		C3EB0B012F9A100000E65111 /* entrypoints_arthur.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB0A012F9A100000E65111 /* entrypoints_arthur.cpp */; };
 		C3EB0B022F9A100000E65111 /* entrypoints_journey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C3EB0A022F9A100000E65111 /* entrypoints_journey.cpp */; };
@@ -3352,6 +3355,12 @@
 		C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_shared.cpp; sourceTree = "<group>"; };
 		C3EB200A2F9A100000E65111 /* v6_definitions.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_definitions.cpp; sourceTree = "<group>"; };
 		C3EB201A2F9A100000E65111 /* v6_hints.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_hints.cpp; sourceTree = "<group>"; };
+		C3EB379CF4481478EEC4014A /* v6_panels.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_panels.hpp; sourceTree = "<group>"; };
+		C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_panels.cpp; sourceTree = "<group>"; };
+		C3EB3DDC541C5A074606F5EF /* mysterious_canvas.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = mysterious_canvas.hpp; sourceTree = "<group>"; };
+		C3EB38E706410F814F2BD206 /* mysterious_canvas.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = mysterious_canvas.cpp; sourceTree = "<group>"; };
+		C3EB3AF72BF6469B595D6858 /* v6_windows.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = v6_windows.hpp; sourceTree = "<group>"; };
+		C3EB39DA23C581D4B1E260D9 /* v6_windows.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = v6_windows.cpp; sourceTree = "<group>"; };
 		C3836ED42789B553004B5061 /* seas_of_blood.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = seas_of_blood.h; sourceTree = "<group>"; usesTabs = 0; };
 		C3836ED52789B553004B5061 /* seas_of_blood.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = seas_of_blood.c; sourceTree = "<group>"; usesTabs = 0; };
 		C384A67A2C6EAF770081FC50 /* decompress_amiga.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = decompress_amiga.hpp; sourceTree = "<group>"; };
@@ -6640,6 +6649,12 @@
 				C3824B7D2CAEF0F200D58EFC /* v6_shared.cpp */,
 				C3EB200A2F9A100000E65111 /* v6_definitions.cpp */,
 				C3EB201A2F9A100000E65111 /* v6_hints.cpp */,
+				C3EB379CF4481478EEC4014A /* v6_panels.hpp */,
+				C3EB3DF28E01EEE339843B4A /* v6_panels.cpp */,
+				C3EB3DDC541C5A074606F5EF /* mysterious_canvas.hpp */,
+				C3EB38E706410F814F2BD206 /* mysterious_canvas.cpp */,
+				C3EB3AF72BF6469B595D6858 /* v6_windows.hpp */,
+				C3EB39DA23C581D4B1E260D9 /* v6_windows.cpp */,
 				C3ED63542C6E1192000F90A8 /* entrypoints.hpp */,
 				C3ED63552C6E1192000F90A8 /* entrypoints.cpp */,
 				C3EB0A052F9A100000E65111 /* entrypoints_internal.hpp */,
@@ -8184,6 +8199,9 @@
 				C36AD56D2F89378C00E65111 /* v6_shared.cpp in Sources */,
 				C3EB200B2F9A100000E65111 /* v6_definitions.cpp in Sources */,
 				C3EB201B2F9A100000E65111 /* v6_hints.cpp in Sources */,
+				C3EB4DF28E01EEE339843B4A /* v6_panels.cpp in Sources */,
+				C3EB48E706410F814F2BD206 /* mysterious_canvas.cpp in Sources */,
+				C3EB49DA23C581D4B1E260D9 /* v6_windows.cpp in Sources */,
 				C36AD56E2F89378C00E65111 /* entrypoints.cpp in Sources */,
 				C3EB0B012F9A100000E65111 /* entrypoints_arthur.cpp in Sources */,
 				C3EB0B022F9A100000E65111 /* entrypoints_journey.cpp in Sources */,

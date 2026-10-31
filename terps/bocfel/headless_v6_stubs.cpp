@@ -44,13 +44,6 @@
 #include "zorkzero.hpp"
 #include "v6_shared.hpp"
 
-// --- V6 game-selection flags (normally screen.cpp, #ifdef SPATTERLIGHT) ------
-bool is_spatterlight_arthur = false;
-bool is_spatterlight_journey = false;
-bool is_spatterlight_shogun = false;
-bool is_spatterlight_zork0 = false;
-bool is_spatterlight_v6 = false;
-
 // --- Per-game global aggregates (normally arthur/journey/shogun/zorkzero.cpp).
 // find_arthur_globals()/find_journey_globals()/find_shogun_globals()/
 // find_zork0_globals() in entrypoints.cpp write anchor addresses into these.
