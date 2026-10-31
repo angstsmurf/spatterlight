@@ -1,4 +1,4 @@
-# DONE (2026-09-25): port the Runner's synonym gate (unblocked Dolg, re-checked 4 held games)
+# The Runner's synonym gate, ported 2026-09-25 (unblocked Dolg, re-checked 4 held games)
 
 Background: see `Dolg_walkthrough.md`, "Why it was blocked, and what was ported". It was measured live in Wine run390 on 2026-09-25.
 

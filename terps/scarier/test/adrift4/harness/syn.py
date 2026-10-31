@@ -20,7 +20,7 @@ Old Scarier model (before 2026-09-25): every whole-word hit is replaced, any cas
 
 Measured lines: Dolg `войти в дом` and `позвонить в звонок` (Adrift_dolg.txt),
 CS2 `св` -> "Да?", shablon `выбросить пачку в урну` (runner_transcripts/*.txt).
-See notes/Dolg_walkthrough.md and notes/SYNONYM_GATE_TODO.md.
+See notes/Dolg_walkthrough.md and notes/SYNONYM_GATE.md.
 """
 import os
 os.chdir(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))

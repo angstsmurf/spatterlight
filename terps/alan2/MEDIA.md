@@ -1,4 +1,4 @@
-# DONE: Alan 2 `SYSTEM` media calls are mapped to Glk images and sound channels
+# Alan 2 `SYSTEM` media calls mapped to Glk images and sound channels
 
 Some Alan 2 games drive graphics and sound by shelling out to DOS helper
 programs through the A-machine's `SYSTEM` instruction. `sys()` in `exe.c` used

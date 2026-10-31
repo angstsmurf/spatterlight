@@ -2,7 +2,7 @@
 
 Four Michael Zerbo games, all shareware/demo builds, all of them media games that
 drive `VIEWER.EXE` and `SBPLAY.EXE` through the A-machine's `SYSTEM` instruction
-(see `../../TODO_media.md`). They are the regression corpus for that work: every
+(see `../../MEDIA.md`). They are the regression corpus for that work: every
 one of them draws pictures, and three of them print a room description, show a
 picture, and then print the description again — the case the duplicate filter in
 `glkmedia.c` exists for.
